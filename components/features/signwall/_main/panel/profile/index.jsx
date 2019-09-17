@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import GetProfile from '../../../utils/get-profile'
+import GetProfile from '../../utils/get-profile'
 import UpdateProfile from './update-profile'
 import UpdatePass from './update-pass'
 

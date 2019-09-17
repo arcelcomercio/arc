@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import Modal from '../../../common/modal'
-import Loading from '../../../common/loading'
-import { Close } from '../../../common/iconos'
-import Domains from '../../../utils/domains'
-import addScriptAsync from '../../../utils/script-async'
-import ResumeSubs from '../home/subs'
+import Modal from '../../common/modal'
+import Loading from '../../common/loading'
+import { Close } from '../../common/iconos'
+import Domains from '../../utils/domains'
+import addScriptAsync from '../../utils/script-async'
+import ResumeSubs from '../resume-profile/subs'
 
 @Consumer
 class MySubs extends Component {
@@ -122,7 +122,7 @@ class MySubs extends Component {
       featuresDescription,
       loading,
       isSubs,
-      showModalConfirm,
+      // showModalConfirm,
     } = this.state
 
     const { arcSite } = this.props

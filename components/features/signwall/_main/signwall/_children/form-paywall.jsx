@@ -52,7 +52,6 @@ class SignWallPaywall extends Component {
   handleSuscription = e => {
     const { removeBefore } = this.props
     e.preventDefault()
-    Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall()
@@ -126,6 +125,7 @@ class SignWallPaywall extends Component {
                           `Web_${typePopUp}_Hard`,
                           `web_${typePopUp}_boton_iniciar_sesion`
                         )
+                        window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
                         value.changeTemplate('login')
                       }}
                       className="btn btn--blue btn-bg"

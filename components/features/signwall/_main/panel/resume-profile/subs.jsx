@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import Modal from '../../../common/modal'
-import { Close } from '../../../common/iconos'
-import Loading from '../../../common/loading'
-import Domains from '../../../utils/domains'
-import addScriptAsync from '../../../utils/script-async'
+import Modal from '../../common/modal'
+import { Close } from '../../common/iconos'
+import Loading from '../../common/loading'
+import Domains from '../../utils/domains'
+import addScriptAsync from '../../utils/script-async'
 // import { ModalConsumer } from '../../../signwall/context'
 
 @Consumer

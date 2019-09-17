@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import GetProfile from '../../../utils/get-profile'
-import Services from '../../../utils/services'
+import GetProfile from '../../utils/get-profile'
+import Services from '../../utils/services'
 // import { ModalConsumer } from '../../../signwall/context'
 
 const services = new Services()

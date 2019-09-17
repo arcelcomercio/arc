@@ -257,7 +257,6 @@ class FormRegister extends Component {
   handleSuscription = e => {
     const { removeBefore } = this.props
     e.preventDefault()
-    Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall()

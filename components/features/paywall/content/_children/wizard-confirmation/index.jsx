@@ -52,6 +52,7 @@ const WizardConfirmation = props => {
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: ref,
+      referer: localStorage.getItem('paywall_last_url'),
     })
     document.getElementsByClassName('foot')[0].style.position = "relative";
   }, [])
