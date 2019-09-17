@@ -1,4 +1,4 @@
-.header-somos {
+.header-section {
   @media (--desktop) {
     border-top: none;
   }
@@ -22,7 +22,7 @@
   }
 }
 
-.somos-menu {
+.section-menu {
   z-index: 1;
 
   @media (--desktop) {
@@ -59,21 +59,22 @@
     @media (--desktop) {
       color: $color-base-300;
     }
+    &--v {
+      &:before {
+        display: none;
 
-    &:before {
-      display: none;
-
-      @media (--desktop) {
-        content: '';
-        display: block;
-        width: 5px;
-        height: 5px;
-        border-radius: 50px;
-        background-color: #585858;
-        position: absolute;
-        right: -10px;
-        top: 50%;
-        transform: translateY(-50%);
+        @media (--desktop) {
+          content: '';
+          display: block;
+          width: 5px;
+          height: 5px;
+          border-radius: 50px;
+          background-color: #585858;
+          position: absolute;
+          right: -10px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
       }
     }
   }
@@ -86,7 +87,7 @@
     position: fixed;
     z-index: 20;
 
-    .somos-menu__content {
+    .section-menu__content {
       transform: translate3d(0%, 0, 0);
       transition: all 250ms;
     }
