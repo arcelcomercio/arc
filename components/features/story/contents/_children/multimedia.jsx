@@ -4,7 +4,7 @@ import Imagen from './image'
 import Html from './html'
 import VideoNativo from './video-nativo'
 
-const StoryContentChildMultimedia = ({ data } = []) => {
+const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
   const {
     basic_video: {
       embed_html: embedHtml = '',
@@ -25,7 +25,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
   return (
     <>
       {!youtubeId && !typeInfo && !typeEmbed && typeImage ? (
-        <Imagen data={basic} />
+        <Imagen data={basic} showCaption={showCaption} />
       ) : (
         <Html data={embedHtmlPromoItems} caption={caption} />
       )}

@@ -508,9 +508,10 @@ De todas las clases disponibles sólo algunas tienen la opción de cambiar segú
 3. Las clases de `object-fit` y `object-position`.
 4. Las clases de `display`.
 5. Las clases de orientación para position-absolute `top-0, right-0, bottom-0, left-0`.
-6. Las clases de `text-align` y `font-weight`.
-7. Las clases de `border-radius`.
-8. Todas las clases de `margin` y `padding`.
+6. Las clases de posición `position-relative` y `position-absolute`.
+7. Las clases de `text-align` y `font-weight`.
+8. Las clases de `border-radius`.
+9. Todas las clases de `margin` y `padding`.
 
 Las clases responsive deben ser incluidas junto a las clases comunes, estas clases responsive sobreescribirán las clases de tamaño inferior en tiempo de ejecución.
 
