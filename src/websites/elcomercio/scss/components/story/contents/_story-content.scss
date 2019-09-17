@@ -1,8 +1,46 @@
 .story {
-  .nav.active {
-    .nav__story-social-network .story-header__icon {
-      background-color: transparent;
-      color: $color-gray-200;
+  .nav {
+    height: 46px;
+    &.active {
+      .nav__story-social-network {
+        right: 0;
+        position: relative;
+        @media (--desktop) {
+          position: absolute;
+        }
+        .story-header__icon {
+          background-color: transparent;
+          color: $color-gray-300;
+        }
+      }
+      .nav__btn--section {
+        span {
+          color: $color-gray-300;
+        }
+      }
+      .btn {
+        @media (--desktop) {
+          color: $color-gray-300;
+        }
+      }
+      .nav__icon-menu,
+      .nav__icon-search,
+      .story-header__share-icon {
+        color: $color-gray-300;
+      }
+      .nav__wrapper {
+        justify-content: flex-start;
+      }
+      .nav__container-menu {
+        border-color: $color-gray-300;
+      }
+      .nav__search-box {
+        display: none;
+      }
+      .nav__logo {
+        height: 50px;
+        padding: 10px 0;
+      }
     }
   }
   &.opinion {
@@ -62,9 +100,7 @@
       border-bottom: 1px dashed $color-gray-200;
       margin-bottom: 20px;
     }
-    .story-content__font--secondary {
-      font-family: $primary-font;
-    }
+
     .story-content__icon {
       background-color: $color-white;
       color: $color-gray-200;
@@ -77,6 +113,7 @@
       background-color: $color-white;
     }
   }
+  &.special,
   &.special_basic {
     .story-special-title_note {
       border-top: 1px solid #cbcbcb;
@@ -90,6 +127,9 @@
       font-weight: 700;
       text-align: center;
       margin-bottom: 0;
+      @media (--desktop) {
+        font-size: 40px;
+      }
     }
     .story-header__share {
       border: 0;
@@ -98,6 +138,23 @@
       background-color: $color-gray-200;
       color: $color-white;
       border-radius: 50%;
+    }
+  }
+  &-content__icon {
+    color: $color-gray-200;
+  }
+  &-content__font--secondary {
+    font-family: $primary-font;
+  }
+  &-content__caption {
+    color: $color-gray-200;
+    border-bottom: 1px dashed $color-gray-200;
+    padding-bottom: 10px;
+    font-size: 13px;
+  }
+  &-content {
+    li {
+      font-family: $primary-font;
     }
   }
 }

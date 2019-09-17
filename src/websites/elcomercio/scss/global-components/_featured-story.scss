@@ -41,4 +41,20 @@
       padding: 10px 0;
     }
   }
+  &--live {
+    .featured-story__headband-link {
+      background-color: $color-primary;
+      max-width: 160px;
+      width: 100%;
+      &:after {
+        content: '';
+        position: absolute;
+        border-top: 13px solid transparent;
+        border-left: 14px solid $color-primary;
+        border-bottom: 15px solid transparent;
+        top: 0;
+        left: 100%;
+      }
+    }
+  }
 }

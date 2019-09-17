@@ -7,6 +7,7 @@
 @import './global-components/pagination-date';
 @import './global-components/pagination';
 @import './global-components/search-input';
+@import './global-components/stick';
 @import './global-components/story-item';
 @import './global-components/story-table';
 @import './global-components/video-modal';
@@ -26,10 +27,12 @@
 @import './features/breaking-news/breaking-news';
 @import './features/cards/cinema-billboard/cinema-card';
 @import './features/cards/columnist-premium/columnist-premium';
-@import './features/cards/facebook-live/facebook-live';
+@import './features/cards/doblete/doblete';
 @import './features/cards/featured-opening/featured-opening';
+@import './features/cards/featured-premium/featured-premium';
 @import './features/cards/featured-story-author/featured-author';
 @import './features/cards/featured-story-full-img/feature-fullimage';
+@import './features/cards/featured-story-manual-live/featured-story-manual-live';
 @import './features/cards/featured-story-multimedia/featured-multimedia';
 @import './features/cards/featured-story-special/featured-special';
 @import './features/cards/most-read/most-read-item';
@@ -51,7 +54,6 @@
 @import './features/cinema-billboard/movies-slider';
 @import './features/custom-title/custom-title';
 @import './features/extraordinary-story/grid/extraordinary-story-grid';
-@import './features/featured-premium/featured-premium';
 @import './features/layout/footer/footer-secondary';
 @import './features/layout/footer/footer-story';
 @import './features/layout/footer/footer';
@@ -109,6 +111,7 @@
 @import './features/story/header/story-gallery';
 @import './features/story/header/story-header';
 @import './features/story/separator/story-separator';
+@import './features/story/special-header/special-header';
 @import './features/tv-highlight/tv-highlight';
 @import './features/tv/featured/tv-featured';
 @import './features/tv/header/tv-header';

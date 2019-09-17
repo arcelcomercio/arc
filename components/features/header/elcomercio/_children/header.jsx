@@ -4,7 +4,7 @@ import { useFusionContext } from 'fusion:context'
 
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 import Button from '../../../../global-components/button'
-import Menu from './menu'
+import Menu from '../../../../global-components/menu'
 
 const CLUB_URL = 'https://clubelcomercio.pe/?ref=home&ft=menu'
 const CLUB_TEXT = 'Club'

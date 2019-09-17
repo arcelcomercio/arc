@@ -1,0 +1,9 @@
+.story-tags {
+  &__link {
+    background-color: transparent;
+    color: $color-gray-300;
+    text-decoration: underline;
+    padding-left: 0;
+    font-style: italic;
+  }
+}

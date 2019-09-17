@@ -365,7 +365,7 @@ Básicamente se generan bordes de dos grosores, 0 y 1, para cinco escenarios:
 4. borde inferior (bottom): `.border-b-[grosor]`
 5. borde izquierdo (left): `.border-l-[grosor]`
 
-Además, se ha generado una clase `.border-solid`.
+Además, se han generado las clases `.border-solid` y `border-dashed`.
 
 Las clases disponibles son:
 
@@ -380,6 +380,7 @@ Las clases disponibles son:
 - `border-b-1`
 - `border-l-1`
 - `border-solid`
+- `border-dashed`
 
 ```
 .border-1 {

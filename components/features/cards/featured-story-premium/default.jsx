@@ -9,7 +9,18 @@ import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const FeaturedStoryPremium = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    isAdmin,
+    siteProperties,
+  } = useFusionContext()
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = siteProperties || {}
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -63,6 +74,7 @@ const FeaturedStoryPremium = props => {
     primarySectionLink,
     primarySection,
     isAdmin,
+    logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
   }
   return <FeaturedStoryPremiumChild {...params} />
 }

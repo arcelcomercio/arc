@@ -66,7 +66,7 @@ export default ({
     isAmp: false,
   }
 
-  const storyTitleRe = (StoryMetaTitle && StoryMetaTitle) || storyTitle
+  const storyTitleRe = StoryMetaTitle || storyTitle
 
   const seoTitle =
     metaValue('title') &&

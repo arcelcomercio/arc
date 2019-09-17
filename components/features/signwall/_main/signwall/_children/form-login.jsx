@@ -35,6 +35,7 @@ class FormLogin extends Component {
       },
       messageError: false,
       sending: true,
+      showCheckPremium: false,
     }
 
     const { arcSite } = this.props
@@ -154,21 +155,24 @@ class FormLogin extends Component {
   }
 
   handleGetProfile = () => {
-    const { closePopup, arcSite } = this.props
+    const { typePopUp, closePopup, arcSite } = this.props
     window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resProfile => {
-      closePopup()
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
 
       // set token cookie
-      const cookieName = 'ArcId.USER_INFO'
-      const cookieValue = window.Identity.userIdentity || '{}'
-      const myDate = new Date()
-      myDate.setDate(myDate.getDate() + 1)
-      document.cookie = `${cookieName}=${JSON.stringify(
-        cookieValue
-      )};expires=${myDate};domain=.${arcSite}.pe;path=/`
+      const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+      Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+
+      closePopup()
+      // if (typePopUp === 'premium') {
+      //   this.setState({
+      //     showCheckPremium: true,
+      //   })
+      // } else {
+      //   closePopup()
+      // }
     })
   }
 
@@ -295,247 +299,252 @@ class FormLogin extends Component {
       hiddenPass,
       sending,
       hiddenbutton,
+      showCheckPremium,
     } = this.state
     const { closePopup, typePopUp, typeForm, arcSite } = this.props
     return (
       <ModalConsumer>
         {value => (
           <div className="modal-body__wrapper">
-            <form
-              className="form-grid"
-              noValidate
-              onSubmit={e => this.handleFormSubmit(e)}>
-              <div
-                className="form-grid__group"
-                hidden={!showSocialButtons || !hiddenListBenefits}>
-                <div className="form-grid__back">
-                  <button
-                    type="button"
-                    onClick={e => this.handleLoginBackSocial(e)}
-                    className="link-back">
-                    <Icon.Back />
-                    <span>Volver</span>
-                  </button>
+            {!showCheckPremium ? (
+              <form
+                className="form-grid"
+                noValidate
+                onSubmit={e => this.handleFormSubmit(e)}>
+                <div
+                  className="form-grid__group"
+                  hidden={!showSocialButtons || !hiddenListBenefits}>
+                  <div className="form-grid__back">
+                    <button
+                      type="button"
+                      onClick={e => this.handleLoginBackSocial(e)}
+                      className="link-back">
+                      <Icon.Back />
+                      <span>Volver</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              <div className="form-grid__group" hidden={hiddenListBenefits}>
-                <div className="form-grid__back">
-                  <button
-                    type="button"
-                    onClick={e => this.hanbleShowListBenefits(e)}
-                    className="link-back">
-                    <Icon.Back />
-                    <span>Volver</span>
-                  </button>
+                <div className="form-grid__group" hidden={hiddenListBenefits}>
+                  <div className="form-grid__back">
+                    <button
+                      type="button"
+                      onClick={e => this.hanbleShowListBenefits(e)}
+                      className="link-back">
+                      <Icon.Back />
+                      <span>Volver</span>
+                    </button>
+                  </div>
+                  <ListBenefits />
                 </div>
-                <ListBenefits />
-              </div>
 
-              <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                {arcSite !== 'peru21' ? (
-                  <h1
-                    className="form-grid__title-big text-center lg:hidden"
-                    hidden={hiddenEnterUser}>
-                    Regístrate y mantente siempre informado con las noticias más
-                    relevantes del Perú y el mundo
-                  </h1>
-                ) : null}
+                <div className="form-grid__group" hidden={!hiddenListBenefits}>
+                  {arcSite !== 'peru21' ? (
+                    <h1
+                      className="form-grid__title-big text-center lg:hidden"
+                      hidden={hiddenEnterUser}>
+                      Regístrate y mantente siempre informado con las noticias
+                      más relevantes del Perú y el mundo
+                    </h1>
+                  ) : null}
 
-                {!showSocialButtons && (
-                  <>
-                    <div className="row-grid form-group col-center">
-                      <p className="text-center mt-20 mb-20">
-                        Ingresa con tus redes sociales
+                  {!showSocialButtons && (
+                    <>
+                      <div className="row-grid form-group col-center">
+                        <p className="text-center mt-20 mb-20">
+                          Ingresa con tus redes sociales
+                        </p>
+                      </div>
+
+                      <div className="form-grid__group">
+                        <div className="form-group form-group--unique">
+                          <AuthFacebook
+                            closePopup={closePopup}
+                            id="facebook-sign-in-button"
+                            typePopUp={typePopUp}
+                            typeForm={typeForm}
+                          />
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {hiddenEnterUser && (
+                    <div className="form-grid__group mt-30">
+                      <p className="text-center mb-20 col-center">
+                        O ingresa con tu usuario
                       </p>
-                    </div>
 
-                    <div className="form-grid__group">
-                      <div className="form-group form-group--unique">
-                        <AuthFacebook
-                          closePopup={closePopup}
-                          id="facebook-sign-in-button"
-                          typePopUp={typePopUp}
-                          typeForm={typeForm}
+                      <div
+                        className={`form-grid--error ${messageError &&
+                          'active'}`}>
+                        {messageError}
+                      </div>
+
+                      <div className="form-group">
+                        <input
+                          type="email"
+                          name="email"
+                          className={
+                            formErrors.email.length > 0
+                              ? 'form-group__input form-group__input--error'
+                              : 'form-group__input'
+                          }
+                          placeholder="Correo Electrónico"
+                          noValidate
+                          onChange={this.handleChangeValidation}
+                        />
+                        <label htmlFor="email" className="form-group__label">
+                          Correo Electrónico
+                        </label>
+
+                        {formErrors.email.length > 0 && (
+                          <span className="message__error">
+                            {formErrors.email}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="form-group row-pass">
+                        <input
+                          type={hiddenPass ? 'password' : 'text'}
+                          name="password"
+                          id="password"
+                          className={
+                            formErrors.password.length > 0
+                              ? 'form-group__input form-group__input--error'
+                              : 'form-group__input'
+                          }
+                          placeholder="Contraseña"
+                          noValidate
+                          onChange={this.handleChangeValidation}
+                        />
+                        <input
+                          type="button"
+                          onClick={e => this.toggleShowHidePass(e)}
+                          className={
+                            hiddenPass
+                              ? 'row-pass__btn row-pass--hide'
+                              : 'row-pass__btn row-pass--show'
+                          }
+                        />
+                        <label htmlFor="password" className="form-group__label">
+                          Contraseña
+                        </label>
+
+                        {formErrors.password.length > 0 && (
+                          <span className="message__error">
+                            {formErrors.password}
+                          </span>
+                        )}
+
+                        <p className="form-grid__pass">
+                          <button
+                            id="link-recuperar-pass"
+                            onClick={() => {
+                              Taggeo(
+                                `Web_Sign_Wall_${typePopUp}`,
+                                `web_sw${typePopUp[0]}_contrasena_link_olvide`
+                              )
+                              value.changeTemplate('forgot')
+                            }}
+                            type="button"
+                            className={
+                              arcSite !== 'peru21'
+                                ? 'link-gray'
+                                : 'link-blue link-color text-sm'
+                            }>
+                            Olvidé mi contraseña
+                          </button>
+                        </p>
+                      </div>
+
+                      <div className="form-group">
+                        <input
+                          type="submit"
+                          name="ingresar"
+                          id="login_boton_ingresar"
+                          className={
+                            arcSite !== 'peru21'
+                              ? 'btn input-button'
+                              : 'btn btn--blue btn-bg'
+                          }
+                          value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
+                          onClick={() =>
+                            Taggeo(
+                              `Web_Sign_Wall_${typePopUp}`,
+                              `web_sw${typePopUp[0]}_login_boton_ingresar`
+                            )
+                          }
+                          disabled={!sending}
                         />
                       </div>
                     </div>
-                  </>
-                )}
+                  )}
 
-                {hiddenEnterUser && (
-                  <div className="form-grid__group mt-30">
-                    <p className="text-center mb-20 col-center">
-                      O ingresa con tu usuario
-                    </p>
-
-                    <div
-                      className={`form-grid--error ${messageError &&
-                        'active'}`}>
-                      {messageError}
-                    </div>
-
-                    <div className="form-group">
-                      <input
-                        type="email"
-                        name="email"
-                        className={
-                          formErrors.email.length > 0
-                            ? 'form-group__input form-group__input--error'
-                            : 'form-group__input'
-                        }
-                        placeholder="Correo Electrónico"
-                        noValidate
-                        onChange={this.handleChangeValidation}
-                      />
-                      <label htmlFor="email" className="form-group__label">
-                        Correo Electrónico
-                      </label>
-
-                      {formErrors.email.length > 0 && (
-                        <span className="message__error">
-                          {formErrors.email}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="form-group row-pass">
-                      <input
-                        type={hiddenPass ? 'password' : 'text'}
-                        name="password"
-                        id="password"
-                        className={
-                          formErrors.password.length > 0
-                            ? 'form-group__input form-group__input--error'
-                            : 'form-group__input'
-                        }
-                        placeholder="Contraseña"
-                        noValidate
-                        onChange={this.handleChangeValidation}
-                      />
-                      <input
-                        type="button"
-                        onClick={e => this.toggleShowHidePass(e)}
-                        className={
-                          hiddenPass
-                            ? 'row-pass__btn row-pass--hide'
-                            : 'row-pass__btn row-pass--show'
-                        }
-                      />
-                      <label htmlFor="password" className="form-group__label">
-                        Contraseña
-                      </label>
-
-                      {formErrors.password.length > 0 && (
-                        <span className="message__error">
-                          {formErrors.password}
-                        </span>
-                      )}
-
-                      <p className="form-grid__pass">
-                        <button
-                          id="link-recuperar-pass"
-                          onClick={() => {
-                            Taggeo(
-                              `Web_Sign_Wall_${typePopUp}`,
-                              `web_sw${typePopUp[0]}_contrasena_link_olvide`
-                            )
-                            value.changeTemplate('forgot')
-                          }}
-                          type="button"
-                          className={
-                            arcSite !== 'peru21'
-                              ? 'link-gray'
-                              : 'link-blue link-color text-sm'
-                          }>
-                          Olvidé mi contraseña
-                        </button>
-                      </p>
-                    </div>
-
-                    <div className="form-group">
-                      <input
-                        type="submit"
-                        name="ingresar"
-                        id="login_boton_ingresar"
-                        className={
-                          arcSite !== 'peru21'
-                            ? 'btn input-button'
-                            : 'btn btn--blue btn-bg'
-                        }
-                        value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
-                        onClick={() =>
+                  {hiddenbutton && (
+                    <div className="form-grid__group">
+                      <button
+                        onClick={e => {
+                          this.handleLoginClick(e)
                           Taggeo(
                             `Web_Sign_Wall_${typePopUp}`,
-                            `web_sw${typePopUp[0]}_login_boton_ingresar`
+                            `web_sw${typePopUp[0]}_open_login_boton_ingresar`
                           )
-                        }
-                        disabled={!sending}
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {hiddenbutton && (
-                  <div className="form-grid__group">
-                    <button
-                      onClick={e => {
-                        this.handleLoginClick(e)
-                        Taggeo(
-                          `Web_Sign_Wall_${typePopUp}`,
-                          `web_sw${typePopUp[0]}_open_login_boton_ingresar`
-                        )
-                      }}
-                      type="button"
-                      name="enterUserName"
-                      id="open_login_boton_ingresar"
-                      className="btn btn-email">
-                      <Icon.Mail />
-                      <span className="btn-text">Ingresa con tu usuario</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              <div className="form-grid__group">
-                <p className="form-grid__link text-center text-sm pt-20 pb-20">
-                  ¿Aún no tienes una cuenta?
-                  <button
-                    type="button"
-                    id="login_boton_registrate"
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typePopUp}`,
-                        `web_sw${typePopUp[0]}_login_boton_registrate`
-                      )
-                      value.changeTemplate('register')
-                    }}
-                    className="link-blue link-color text-sm">
-                    Regístrate
-                  </button>
-                </p>
-                <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10">
-                  Con tus datos, mejoraremos tu experiencia de <br /> navegación
-                  y nunca publicaremos en sin tu permiso
-                </p>
-              </div>
-              {arcSite !== 'peru21' && (
-                <div
-                  className="form-grid__group lg:hidden"
-                  hidden={!hiddenListBenefits}>
-                  {typePopUp !== 'paywall' && (
-                    <p className="form-grid__subtitle text-center form-group--center">
-                      <button
+                        }}
                         type="button"
-                        onClick={e => this.hanbleShowListBenefits(e)}
-                        className="link-blue link-color">
-                        Conoce aquí los beneficios de registrarte
+                        name="enterUserName"
+                        id="open_login_boton_ingresar"
+                        className="btn btn-email">
+                        <Icon.Mail />
+                        <span className="btn-text">Ingresa con tu usuario</span>
                       </button>
-                    </p>
+                    </div>
                   )}
                 </div>
-              )}
-            </form>
+
+                <div className="form-grid__group">
+                  <p className="form-grid__link text-center text-sm pt-20 pb-20">
+                    ¿Aún no tienes una cuenta?
+                    <button
+                      type="button"
+                      id="login_boton_registrate"
+                      onClick={() => {
+                        Taggeo(
+                          `Web_Sign_Wall_${typePopUp}`,
+                          `web_sw${typePopUp[0]}_login_boton_registrate`
+                        )
+                        value.changeTemplate('register')
+                      }}
+                      className="link-blue link-color text-sm">
+                      Regístrate
+                    </button>
+                  </p>
+                  <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10">
+                    Con tus datos, mejoraremos tu experiencia de <br />{' '}
+                    navegación y nunca publicaremos en sin tu permiso
+                  </p>
+                </div>
+                {arcSite !== 'peru21' && (
+                  <div
+                    className="form-grid__group lg:hidden"
+                    hidden={!hiddenListBenefits}>
+                    {typePopUp !== 'paywall' && (
+                      <p className="form-grid__subtitle text-center form-group--center">
+                        <button
+                          type="button"
+                          onClick={e => this.hanbleShowListBenefits(e)}
+                          className="link-blue link-color">
+                          Conoce aquí los beneficios de registrarte
+                        </button>
+                      </p>
+                    )}
+                  </div>
+                )}
+              </form>
+            ) : (
+              <h1>Bienvenido Usuario ahora puedes continuar con tu compra</h1>
+            )}
           </div>
         )}
       </ModalConsumer>

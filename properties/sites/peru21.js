@@ -171,4 +171,7 @@ export default {
     logoUrl: '/peru21tv/',
     logoAlt: 'Perú21Tv',
   },
+  stick: {
+    logo: 'logo-p21.png'
+  }
 }
