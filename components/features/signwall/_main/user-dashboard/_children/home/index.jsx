@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ModalConsumer } from '../../../signwall/context'
 import Profile from './profile'
 import Subscripcions from './subs'
+import { News } from './news'
 
 class Home extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Home extends Component {
       <>
         <Profile />
         <Subscripcions />
+        <News/>
       </>
       //     )}
       //   </ModalConsumer>

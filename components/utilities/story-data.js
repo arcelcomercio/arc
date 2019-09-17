@@ -283,8 +283,13 @@ class StoryData {
     result = auxSections.filter(x => x !== null || x !== undefined || x !== '')
     return result
   }
-  // TODO: Validar que link regrese la url correcta de la nota
 
+  get type() {
+    const { type = '' } = this._data || {}
+    return type
+  }
+
+  // TODO: Validar que link regrese la url correcta de la nota
   get link() {
     const { website_url: url = '' } = this._data || {}
     return addSlashToEnd(url)
@@ -400,9 +405,11 @@ class StoryData {
 
   get isPremium() {
     return (
-      this.__data &&
-      this.__data.content_restrictions &&
-      this.__data.content_restrictions.content_code === 'premium'
+      (this.__data &&
+        this.__data.content_restrictions &&
+        this.__data.content_restrictions.content_code === 'premium' &&
+        true) ||
+      false
     )
   }
 

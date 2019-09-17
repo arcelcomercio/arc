@@ -12,11 +12,11 @@ import getDomain from '../../../_dependencies/domains'
 
 function WizardPlan(props) {
   const {
+    memo: { printedSubscriber },
     assets,
     summary,
     plans,
     message,
-    printed,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
@@ -51,7 +51,7 @@ function WizardPlan(props) {
       setLoading(false)
       onBeforeNextStep(
         {
-          plan: { printed, ...plan, title },
+          plan: { ...plan, title },
           referer: qs.ref || 'organico',
         },
         props
@@ -62,7 +62,7 @@ function WizardPlan(props) {
   return (
     <S.WizardPlan>
       {message && <S.Error>{message}</S.Error>}
-      {printed && (
+      {printedSubscriber && (
         <S.WelcomeSuscriptor>
           ACCEDE A ESTOS <strong>PRECIOS ESPECIALES</strong> POR SER SUSCRIPTOR
           IMPRESO
@@ -94,11 +94,19 @@ function WizardPlan(props) {
       </S.Wrap>
       <CheckSuscription
         open={openModal}
+        onSubmit={({ documentType, documentNumber, attemptToken }) => {
+          window.location.href = getDomain(
+            'VALIDATE_SUSCRIPTOR',
+            documentType,
+            documentNumber,
+            attemptToken
+          )
+        }}
         onClose={() => {
           setOpenModal(false)
         }}
       />
-      {!printed && (
+      {!printedSubscriber && (
         <S.ContentBanner>
           <BannerPromoSuscriptor
             onClick={() => {

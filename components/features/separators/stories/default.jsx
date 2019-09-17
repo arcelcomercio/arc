@@ -25,7 +25,7 @@ const SeparatorStories = props => {
     useContent({
       source: contentService,
       query: contentConfigValues,
-      filter: schemaFilter,
+      filter: schemaFilter(arcSite),
     }) || {}
 
   const storyData = new StoryData({
@@ -39,7 +39,7 @@ const SeparatorStories = props => {
     storyData._data = story
     const {
       title,
-      link,
+      websiteLink,
       multimediaLazyDefault,
       multimediaPortraitMD,
       multimediaLandscapeL,
@@ -50,7 +50,7 @@ const SeparatorStories = props => {
     } = storyData
     return {
       title,
-      link,
+      websiteLink,
       multimediaLazyDefault,
       imageUrl:
         arcSite === 'peru21' ? multimediaPortraitMD : multimediaLandscapeS,

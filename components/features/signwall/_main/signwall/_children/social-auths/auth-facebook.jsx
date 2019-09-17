@@ -234,7 +234,7 @@ class AuthFacebook extends React.Component {
   }
 
   enterProfilePanel = () => {
-    const { closePopup, arcSite } = this.props
+    const { checkPremium, typePopUp, closePopup, arcSite } = this.props
     Cookies.deleteCookie('mpp_sess') // borra session MPP
     this.taggeoSuccess() // -- test de tageo sucess
 
@@ -244,6 +244,8 @@ class AuthFacebook extends React.Component {
 
     if (window.location.pathname.indexOf('suscripciones') >= 0) {
       window.location.reload()
+    } else if (typePopUp === 'premium') {
+      checkPremium()
     } else {
       closePopup()
     }

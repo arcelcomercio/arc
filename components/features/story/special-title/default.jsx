@@ -2,9 +2,9 @@ import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
 
+import rawHtml from 'react-render-html'
 import StoryTitleChildHeading from '../title/_children/heading'
 import StoryData from '../../../utilities/story-data'
-import rawHtml from 'react-render-html'
 
 const classes = {
   story: 'story-special-title w-full justify-center ',

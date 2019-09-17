@@ -69,7 +69,7 @@ class LoginPaywall extends Component {
                   id="arc-popup-paywall">
                   <div className="modal-body">
                     <div
-                      className="modal-body__middle bg-paywall"
+                      className="modal-body__middle bg-paywall hidden-mobile"
                       style={{
                         backgroundImage: `url(${ImageBg})`,
                         backgroundRepeat: 'no-repeat',

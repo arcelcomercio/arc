@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const classes = {
   layout: 'flex justify-center',
   contentContainer:
-    'flex flex-col content-layout-container w-full bg-container',
+    'flex flex-col content-layout-container w-full position-relative bg-container',
   separator: 'w-full mb-20',
   heading: 'w-full',
   content: 'content-sidebar flex mt-20 mb-20 ',
