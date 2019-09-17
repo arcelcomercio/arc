@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { WrapperBlock } from './styles'
-import Services from '../../../utils/services'
-import Loading from '../../../common/loading'
+import Services from '../../utils/services'
+import Loading from '../../common/loading'
 
 const services = new Services()
 
