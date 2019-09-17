@@ -22,13 +22,19 @@ const customFields = PropTypes.shape({
   // }),
   customLogo: PropTypes.string.tag({
     name: 'Url de la imagen',
-    group: 'Editar logo',
+    group: 'Custom',
   }),
   customLogoLink: PropTypes.string.tag({
     name: 'Path de redireccionamiento',
     description:
       'Por defecto la url del logo es "/". Ejemplo de path: "/somos"',
-    group: 'Editar logo',
+    group: 'Custom',
+  }),
+  linkIconHome: PropTypes.string.tag({
+    name: 'Path de redireccionamiento del Icono',
+    description:
+      'Por defecto la url del logo es "/". Ejemplo de path: "/somos"',
+    group: 'Custom',
   }),
   showIconHome: PropTypes.bool.tag({
     name: 'Mostrar Icono Home',

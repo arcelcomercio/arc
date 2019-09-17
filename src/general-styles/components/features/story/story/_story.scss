@@ -1,0 +1,29 @@
+.story {
+  &.special,
+  &.special_basic {
+    .story-special-title_note {
+      border-top: 1px solid #cbcbcb;
+      border-bottom: 1px dashed #cbcbcb;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .story-header__news-title {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0;
+      @media (--desktop) {
+        font-size: 40px;
+      }
+    }
+    .story-header__share {
+      border: 0;
+    }
+    .story-header__icon {
+      background-color: $color-gray-200;
+      color: $color-white;
+      border-radius: 50%;
+    }
+  }
+}
