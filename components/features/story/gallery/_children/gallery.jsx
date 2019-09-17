@@ -9,7 +9,7 @@ const classes = {
   image: 'story-gallery__img w-full h-full mb-10',
   caption: 'story-gallery__caption flex items-center text-sm',
   figure: 'story-gallery__figure',
-  captionImage: 'story-gallery__caption-image ml-10 text-300',
+  captionImage: 'story-gallery__caption-image ml-10 text-gray-300 text-md',
 }
 
 const StoryHeaderChildGallery = props => {
