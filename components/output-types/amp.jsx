@@ -6,7 +6,6 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
 import AmpTagManager from './_children/amp-tag-manager'
-import AmpPixel from './_children/amp-pixel'
 import { createMarkup, addSlashToEnd } from '../utilities/helpers'
 import StoryData from '../utilities/story-data'
 
@@ -111,7 +110,6 @@ const AmpOutputType = ({
     videoSeo,
     promoItems: { basic_html: { content = '' } = {} } = {},
     contentElementsHtml: dataElement,
-    isPremium,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -161,13 +159,7 @@ const AmpOutputType = ({
             ) : null
           }}
         </Resource>
-        {isPremium && (
-          <script
-            async
-            custom-element="amp-subscriptions"
-            src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"
-          />
-        )}
+
         <script
           async
           custom-element="amp-analytics"
@@ -248,7 +240,6 @@ const AmpOutputType = ({
       <body className="">
         <AmpTagManager {...parametros} />
         {children}
-        <AmpPixel {...parametros} />
       </body>
     </Html>
   )
