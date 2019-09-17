@@ -127,8 +127,19 @@ export default ({
     }
   }`
 
+  const urlStory = `${siteProperties.siteUrl}${requestUri}`
+  const urlPixel = `https://www.google-analytics.com/r/collect?v=1&_v=a1&ds=AMP&sr=SCREEN_WIDTHxSCREEN_HEIGHT&sd=SCREEN_COLOR_DEPTH&ul=BROWSER_LANGUAGE&de=DOCUMENT_CHARSET&dr=DOCUMENT_REFERRER&t=pageview&tid=${
+    siteProperties.ampGoogleTagManagerId
+  }&cid=CLIENT_ID(_ga)&dl=${urlStory}&dt=${title}&cd4=noticias&cd5=&cd6=AMP&cd7=${getMultimedia(
+    multimediaType,
+    true
+  )}&cd8=${id}&cd11=nologin-v&cd15=${author}&cd16=${nucleoOrigen} `
+
   return (
     <>
+      {arcSite === ConfigParams.SITE_OJO && (
+        <amp-pixel src={urlPixel} layout="nodisplay" />
+      )}
       <amp-analytics
         type="googleanalytics"
         id={`analytics-${siteProperties.ampGoogleTagManagerName}`}>
