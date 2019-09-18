@@ -16,6 +16,7 @@ const PaywallContactUs = props => {
   const [loading, setLoading] = React.useState(false)
 
   const {
+    arcSite,
     siteProperties: { assets = {}, siteUrl = '' },
     deployment,
     contextPath,
@@ -38,6 +39,8 @@ const PaywallContactUs = props => {
       body: JSON.stringify(values),
       headers: new Headers({
         'Content-Type': 'application/json',
+        'user-token': window.Identity.userIdentity.accessToken,
+        site: arcSite,
       }),
     })
       .then((res = {}) => {

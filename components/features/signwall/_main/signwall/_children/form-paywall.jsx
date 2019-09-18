@@ -50,11 +50,11 @@ class SignWallPaywall extends Component {
   }
 
   handleSuscription = e => {
-    const { removeBefore } = this.props
+    const { removeBefore, typePopUp } = this.props
     e.preventDefault()
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
     removeBefore() // dismount before
-    window.location.href = Domains.getUrlPaywall()
+    window.location.href = Domains.getUrlPaywall(typePopUp)
   }
 
   render() {
@@ -125,7 +125,10 @@ class SignWallPaywall extends Component {
                           `Web_${typePopUp}_Hard`,
                           `web_${typePopUp}_boton_iniciar_sesion`
                         )
-                        window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
+                        window.sessionStorage.setItem(
+                          'paywall_last_url',
+                          window.document.referrer
+                        )
                         value.changeTemplate('login')
                       }}
                       className="btn btn--blue btn-bg"

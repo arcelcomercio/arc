@@ -103,7 +103,8 @@ export const WrapperMenu = styled.div`
 export const WrapperAvatar = styled.div`
   border-radius: 50%;
   position: relative;
-  border: 5px solid #f4e0d2;
+  border: 5px solid
+    ${props => (props.arcSite === 'gestion' ? '#f4e0d2' : '#efdb96')};
   z-index: 1;
   max-width: 90px;
   min-height: 90px;
@@ -114,13 +115,12 @@ export const WrapperAvatar = styled.div`
   @media ${device.tablet} {
     max-width: 120px;
     min-height: 120px;
-    border: 10px solid #f4e0d2;
+    border: 10px solid ${props => (props.arcSite === 'gestion' ? '#f4e0d2' : '#efdb96')};
     margin: 0 auto;
   }
   @media ${device.desktop} {
     max-width: 160px;
     min-height: 160px;
-    border: 10px solid #f4e0d2;
     margin: 0 auto;
   }
   & > img {
