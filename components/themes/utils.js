@@ -10,14 +10,17 @@ import { useFusionContext } from 'fusion:context'
  * @param {*} themes Temas de la aplicación
  */
 export const withTheme = themes => Comp => {
-  const fusionContext = useFusionContext()
-  const { arcSite: themeName, contextPath, deployment } = fusionContext
-  const getImageDeployment = imageFileName =>
-    deployment(
-      `${contextPath}/resources/dist/${themeName}/images/${imageFileName}`
-    )
-  const themeArgs = { fusionContext, getImageDeployment }
-  const theme = themes[themeName](themeArgs)
-  const ThemedComp = props => React.createElement(Comp, { ...props, theme })
+  const ThemedComp = props => {
+    const fusionContext = useFusionContext()
+    const { arcSite: themeName, contextPath, deployment } = fusionContext
+    const getImageDeployment = React.useRef(imageFileName =>
+      deployment(
+        `${contextPath}/resources/dist/${themeName}/images/${imageFileName}`
+      )
+    ).current
+    const themeArgs = { fusionContext, getImageDeployment }
+    const theme = themes[themeName](themeArgs)
+    return React.createElement(Comp, { ...props, theme })
+  }
   return ThemedComp
 }
