@@ -3,10 +3,10 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import React, { Component } from 'react'
-import Modal from '../../../common/modal'
-import FormValid from '../../../utils/form-valid'
-import { Close } from '../../../common/iconos'
-import { strongRegularExp, mediumRegularExp } from '../../../utils/regex'
+import Modal from '../../common/modal'
+import FormValid from '../../utils/form-valid'
+import { Close } from '../../common/iconos'
+import { strongRegularExp, mediumRegularExp } from '../../utils/regex'
 
 class updatePassword extends Component {
   constructor(props) {

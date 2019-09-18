@@ -1,62 +1,62 @@
 import styled from 'styled-components'
+import { device } from '../../../_styles/breakpoints'
 
-export const Wrapper = styled.div`
-  position: relative;
-  width: 100%;
-  background: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 0 0.3rem #dadada;
-  margin-left: 20px;
-  padding: 25px 40px;
-  & > .space {
-    height: 50px;
-  }
-`
-
+// eslint-disable-next-line import/prefer-default-export
 export const WrapperBlock = styled.div`
   position: relative;
   width: 100%;
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
   & .left {
-    width: 25%;
-    display: inline-block;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     vertical-align: top;
-    @media (max-width: 768px) {
-      width: 100%;
+    margin-bottom: 10px;
+    @media ${device.desktop} {
+      display: inline-block;
+      width: 20%;
     }
     & > h3 {
-      font-size: 20px;
+      font-size: 18px;
       line-height: 28px;
       color: black;
       font-weight: bold;
-      @media (max-width: 768px) {
-        margin-bottom: 20px;
+      @media ${device.tablet} {
+        font-size: 20px;
       }
     }
     & > button {
       color: #0179af;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: bold;
       text-decoration: underline;
       cursor: pointer;
       padding: 0px;
+      @media ${device.tablet} {
+        font-size: 10px;
+      }
     }
   }
   & .right {
-    width: 75%;
+    width: 100%;
     display: inline-block;
     vertical-align: top;
     background: ${props => (props.nobackground ? 'none' : ' #f4f4f4')};
-    column-count: ${props => (props.nocolumn ? '0' : props.column)};
+    column-count: 1;
     line-height: 30px;
     font-size: 14px;
     padding: ${props => (props.nopadding ? '0px' : '10px 20px')};
     border-radius: 4px;
-    @media (max-width: 768px) {
-      width: 100%;
+    @media ${device.desktop} {
+      width: 80%;
+      column-count: ${props => (props.nocolumn ? '0' : props.column)};
     }
     & .pass {
       font-size: 30px;
-      vertical-align: middle;
+      vertical-align: sub;
       letter-spacing: 4px;
       line-height: 0px;
     }
@@ -68,39 +68,47 @@ export const WrapperBlock = styled.div`
     & .details-left {
       background: #444444;
       color: white;
-      padding: 45px 20px;
-      width: 40%;
-      border-radius: 4px 0px 0px 4px;
+      padding: 20px 20px;
+      width: 100%;
+      border-radius: 4px 4px 0px 0px;
+      @media ${device.desktop} {
+        border-radius: 4px 0px 0px 4px;
+        padding: 45px 20px;
+        width: 40%;
+      }
     }
     & .details-right {
-      padding: 30px 20px;
-      width: 60%;
+      padding: 20px 20px;
+      width: 100%;
       color: #444444;
+      @media ${device.desktop} {
+        width: 60%;
+        padding: 30px 20px;
+      }
     }
     & .small {
       font-size: 10px;
     }
 
     & .container-grid {
-      display: inline-block;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
     }
 
     & .item,
     & .add-item {
-      width: 188px;
-      height: 106px;
+      width: 158px;
+      height: 90px;
+      margin: 0 0 15px 0;
       position: relative;
-      display: inline-block;
-      vertical-align: top;
-      margin: 0px 10px 20px 0px;
-      outline: none;
-      @media (max-width: 768px) {
-        width: 47%;
+      @media ${device.desktop} {
+        width: 180px;
+        height: 101px;
       }
     }
 
     & .item {
-      background: #d64445;
       & img {
         width: 100%;
       }
@@ -119,6 +127,7 @@ export const WrapperBlock = styled.div`
         line-height: 18px;
       }
     }
+
     & .add-item {
       text-align: center;
       border: 2px #818181 dashed;
@@ -126,8 +135,6 @@ export const WrapperBlock = styled.div`
       font-size: 14px;
       line-height: 18px;
       font-weight: bold;
-      padding: 5px 20px;
-      background: white;
       cursor: pointer;
       & .icon-plus {
         display: block;

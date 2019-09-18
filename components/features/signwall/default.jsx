@@ -4,7 +4,7 @@ import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
 import LoginRegister from './_main/signwall/index'
 import LoginPaywall from './_main/signwall/login-paywall'
-import Panel from './_main/user-dashboard/index'
+import { Panel } from './_main/panel/index'
 import Cookie from './_main/utils/cookie'
 import Domains from './_main/utils/domains'
 
@@ -112,7 +112,7 @@ class Signwall extends Component {
             />
           )}
 
-          {showPanel && <Panel closePopup={() => this.togglePopupPanel()} />}
+          {showPanel && <Panel arcSite={arcSite} closePopup={() => this.togglePopupPanel()} />}
         </div>
       </div>
     )

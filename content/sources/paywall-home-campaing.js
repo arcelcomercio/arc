@@ -94,7 +94,7 @@ export default {
       { feature: [] }
     )
     const {title, feature: features} = summary;
-    const url = `${getDomain('URL_DIGITAL')}`;
+    const url = `${getDomain('URL_DIGITAL_HOME')}`;
 
     return [Object.assign({ name, url, title, features, price, detail }), ...HARD_CAMPAIGNS]
   },

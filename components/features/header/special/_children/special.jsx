@@ -79,7 +79,7 @@ const HeaderSpecialChildSpecial = ({
     // const header = Array.from(document.getElementsByTagName('header'))
     // const headerTop = (header[0] && header[0].offsetTop) || 0
     if (!scrolled && scroll > headerTop) setScrolled(true)
-    else if (scrolled && scroll <= headerTop) setScrolled(false)
+    else if (!scrolled && scroll <= headerTop) setScrolled(false)
   }
 
   /** ------ SEARCH ----- */

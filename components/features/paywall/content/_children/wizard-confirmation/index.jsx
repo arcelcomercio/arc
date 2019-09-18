@@ -52,6 +52,8 @@ const WizardConfirmation = props => {
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: ref,
+      referer: sessionStorage.getItem('paywall_last_url'),
+      pwa: PWA.isPWA() ? 'si' : 'no',
     })
     document.getElementsByClassName('foot')[0].style.position = "relative";
   }, [])

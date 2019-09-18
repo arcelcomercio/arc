@@ -9,6 +9,7 @@ import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { addSales } from '../../../_dependencies/sales'
 import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
+import PWA from '../../_dependencies/seed-pwa'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 
@@ -47,8 +48,10 @@ function WizardUserProfile(props) {
     sendAction(PixelActions.PAYMENT_PROFILE, {
       sku: `${sku}${priceCode}`,
       periodo: billingFrequency,
+      referer: sessionStorage.getItem('paywall_last_url'),
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
     })
   }, [])
 
