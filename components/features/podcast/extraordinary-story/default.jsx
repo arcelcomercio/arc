@@ -31,15 +31,23 @@ const PodcastExtraordinazryStory = props => {
 
   return (
     <div className="podcast-extraordinary flex">
-      <div className="podcast-extraordinary__content flex flex-col justify-center">
-        <div className="podcast-extraordinary__section-container">
-          <h3 className="podcast-extraordinary__section">
-            <a href="/">El Comercio Hoy</a>
+      <div className="podcast-extraordinary__content flex flex-col justify-center pl-20">
+        <div className="podcast-extraordinary__section-container flex mb-10">
+          <h3 className="podcast-extraordinary__section mr-10">
+            <a
+              href="/"
+              className="podcast-extraordinary__section-link text-lg text-gray-200 font-bold">
+              El Comercio Hoy
+            </a>
           </h3>
-          <span className="podcast-extraordinary__tag">Nuevo</span>
+          <span className="podcast-extraordinary__tag text-md font-bold">
+            Nuevo
+          </span>
         </div>
-        <h2 lassName="podcast-extraordinary__title">
-          <a href="/">Las noticias de hoy, Lunes 07 de Junio</a>
+        <h2 className="podcast-extraordinary__title mb-15">
+          <a href="/" className="podcast-extraordinary__title-link">
+            Las noticias de hoy, Lunes 07 de Junio
+          </a>
         </h2>
         <p>
           <a href="/">
