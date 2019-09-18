@@ -47,3 +47,15 @@ export const SchemaMultiStory = arcSite => {
     }
   }`
 }
+
+export const SchemaHierarchy = () => {
+  return `{ 
+		children {
+			name
+			_id
+			display_name
+			url
+			node_type
+		}
+	}`
+}
