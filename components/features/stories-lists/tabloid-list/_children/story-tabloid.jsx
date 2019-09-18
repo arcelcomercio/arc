@@ -2,9 +2,14 @@ import React from 'react'
 
 import StoryData from '../../../../utilities/story-data'
 
-export default props => {
-  const { data, section, arcSite, contextPath, deployment } = props
-
+export default ({
+  data,
+  seeMoreLink,
+  arcSite,
+  contextPath,
+  deployment,
+  columns,
+}) => {
   const Story = new StoryData({
     data: {},
     arcSite,
@@ -16,8 +21,6 @@ export default props => {
   const classes = {
     listadoSeeMore: 'flex justify-center mt-20 uppercase',
   }
-
-  const seeMorePath = `/archivo/${section.split('/')[1]}/`
 
   const formaZeroDate = (numb = 0) => {
     return numb < 10 ? `0${numb}` : numb
@@ -42,13 +45,13 @@ export default props => {
             Story.__data = el
             return (() => {
               return (
-                <div className="stories-l-tabloid__item">
+                <div className={`stories-l-tabloid__item ${columns}`}>
                   <a
                     className="stories-l-tabloid__image-link"
                     href={Story.websiteLink}>
                     <img
                       className="stories-l-tabloid__image"
-                      src={Story.multimediaLandscapeMD}
+                      src={Story.multimediaPortraitL}
                       alt={Story.primarySection}
                       title={Story.title}
                     />
@@ -68,7 +71,7 @@ export default props => {
       </div>
       <div className={classes.listadoSeeMore}>
         <a
-          href={seeMorePath}
+          href={seeMoreLink}
           tabIndex="0"
           /** TODO:
            * Si no me equivoco, los <a> por defecto tienen tabIndex 0,

@@ -7,7 +7,8 @@
     width: 115px;
 
     @media (--desktop) {
-      width: 180px;
+      width: auto;
+      max-height: 150px;
     }
   }
 
@@ -57,7 +58,7 @@
   &__link {
     position: relative;
     @media (--desktop) {
-      color: $color-base-300;
+      color: $color-gray-300;
     }
     &--v {
       &:before {
