@@ -1,8 +1,26 @@
 .story-gallery {
   &__number {
-    width: 50px;
-    height: 50px;
-    top: -25px;
-    left: 25px;
+    width: 45px;
+    height: 45px;
+    background: $color-gray-300;
+    color: $color-white;
+    font-size: 16px;
+    letter-spacing: 0px;
+    line-height: 44px;
+    font-family: $tertiary-font;
+  }
+  &__caption-image {
+    width: calc(100% - 45px - 70px);
+  }
+  &-social__list {
+    border-left: 1px solid #d6d6d6;
+    padding-left: 8px;
+    width: 75px;
+  }
+  &-social__link {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #999999;
   }
 }

@@ -162,7 +162,7 @@ export default ({
           "width":${seo.width}
        }
     },    
-    ${(isPremium && storyPremium) || ''}
+    ${(isPremium && storyPremium) || ''} 
     "keywords":[${
       seoKeyWordsStructurada[0]
         ? seoKeyWordsStructurada.map(item => item)

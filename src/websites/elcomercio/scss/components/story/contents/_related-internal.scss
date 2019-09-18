@@ -1,0 +1,51 @@
+.related-internal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  @media (--tablet) {
+    background-color: transparent;
+    width: 100%;
+    float: none;
+    padding: 0;
+  }
+  &__title {
+    width: 100%;
+  }
+
+  &__information {
+    background-color: $color-gray-100;
+    width: calc(100% - 180px);
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @media (--only-mobile) {
+      padding: 10px;
+    }
+  }
+  &__figure {
+    width: 180px;
+    height: 110px;
+    img {
+      height: 100%;
+    }
+  }
+  &__multimedia-icon {
+    top: 50%;
+    margin-top: -15px;
+    left: 50%;
+    margin-left: -15px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  &__title-link {
+    font-size: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  &__link-author {
+    color: $color-gray-200;
+    display: block;
+  }
+}

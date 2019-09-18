@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ArcStoryContent, {
   Oembed,
-  RawHtml,
+  /* RawHtml, */
   Text,
 } from '@arc-core-components/feature_article-body'
 import {
@@ -11,7 +11,7 @@ import {
   createLink,
   createScript,
   replaceTags,
-  replaceHtmlMigracion,
+  /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
 import StoryContentsChildVideo from './_children/video'
@@ -89,6 +89,7 @@ class StoryContents extends PureComponent {
       authorEmail,
       primarySectionLink,
       subtype,
+      isPremium,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -122,7 +123,9 @@ class StoryContents extends PureComponent {
         <StoryContentsChildAuthor {...params} />
 
         <div id="ads_m_movil2" />
-        <div className={classes.content} id="contenedor">
+        <div
+          className={`${classes.content} ${isPremium && 'paywall'} `}
+          id="contenedor">
           {/* TODO: se retira para el sitio de gestion por la salida del 30 de julio */}
           {arcSite !== ConfigParams.SITE_GESTION && <StoryContentsChildIcon />}{' '}
           <div id="ads_d_inline" />
@@ -228,7 +231,7 @@ class StoryContents extends PureComponent {
                     if (arcSite === ConfigParams.ARC_SITE_PERU21) {
                       contentVideo = content.replace(
                         /peru21.pe\/upload/gi,
-                        'g21.peru21.pe/upload'
+                        'img.peru21.pe/upload'
                       )
                     }
                     htmlReturn = (

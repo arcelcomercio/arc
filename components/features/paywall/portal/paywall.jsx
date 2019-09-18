@@ -33,6 +33,8 @@ class Portal extends React.PureComponent {
       name: 'sdkSalesARC',
       url: getDomain('ORIGIN_SALES_SDK'),
     })
+
+    document.getElementsByClassName('foot')[0].style.position = "relative";
   }
 
   backgroundMediaQuery = (mqt, mqm) => {

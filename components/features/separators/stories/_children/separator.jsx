@@ -37,11 +37,13 @@ const SeparatorsBasicChildSeparator = ({
           dangerouslySetInnerHTML={createMarkup(htmlCode)}
         />
       ) : (
-        <h2 className={classes.title}>
-          <a href={titleLink} className={classes.titleLink}>
-            {titleSeparator}
-          </a>
-        </h2>
+        titleSeparator && (
+          <h2 className={classes.title}>
+            <a href={titleLink} className={classes.titleLink}>
+              {titleSeparator}
+            </a>
+          </h2>
+        )
       )}
       <div role="list" className={classes.body}>
         {stories.map(

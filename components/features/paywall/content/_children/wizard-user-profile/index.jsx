@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect } from 'react'
 import * as Sentry from '@sentry/browser'
 import { ENVIRONMENT } from 'fusion:environment'
@@ -6,9 +7,9 @@ import Summary from '../summary'
 import * as S from './styled'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { addSales } from '../../../_dependencies/sales'
-import { parseQueryString } from '../../../../../utilities/helpers'
 import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
+import PWA from '../../_dependencies/seed-pwa'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 
@@ -21,6 +22,11 @@ function WizardUserProfile(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
+
+  const {
+    printedSubscriber,
+    plan: { sku, priceCode, amount, description, billingFrequency },
+  } = memo
 
   const sanitizeValues = (value, key) => {
     if (key === 'documentType') {
@@ -38,16 +44,14 @@ function WizardUserProfile(props) {
   }
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
-  const {
-    plan: { sku, printed, priceCode, amount, description, billingFrequency },
-  } = memo
-
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_PROFILE, {
       sku: `${sku}${priceCode}`,
       periodo: billingFrequency,
+      referer: sessionStorage.getItem('paywall_last_url'),
       priceCode,
-      suscriptorImpreso: printed ? 'si' : 'no',
+      suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
     })
   }, [])
 
@@ -126,6 +130,7 @@ function WizardUserProfile(props) {
       <S.PanelUserProfile type="content" valing="jc-center">
         <UserProfile
           name={formName}
+          printedSubscriber={printedSubscriber}
           initialValues={sanitizedProfile}
           onSubmit={onSubmitHandler}
           title="Ingrese sus datos"

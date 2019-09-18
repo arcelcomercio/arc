@@ -5,14 +5,18 @@ import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
-import { removeLastSlash } from '../../../utilities/helpers'
+import { removeLastSlash, formatSections } from '../../../utilities/helpers'
 import ChildrenSectionVideo from './_children/section-video'
+import customFields from './_dependencies/custom-fields'
+
 import {
   SchemaMultiStory,
   SchemaSingleStory,
+  SchemaHierarchy,
 } from './_dependencies/schema-filter'
 
-const SectionVideo = () => {
+const SectionVideo = props => {
+  const DEFAULT_HIERARCHY = 'header-default'
   const {
     globalContent,
     arcSite,
@@ -22,6 +26,31 @@ const SectionVideo = () => {
   } = useFusionContext()
   const dataVideo = {}
   let section = null
+
+  const { customFields: { hierarchyConfig } = {} } = props
+
+  const { contentService = '', contentConfigValues = {} } =
+    hierarchyConfig || {}
+
+  const isHierarchyReady = !!contentConfigValues.hierarchy
+  const sourceHierarchy = isHierarchyReady
+    ? contentService
+    : 'navigation-by-hierarchy'
+  const paramsFetch = isHierarchyReady
+    ? contentConfigValues
+    : {
+        website: arcSite,
+        hierarchy: DEFAULT_HIERARCHY,
+      }
+
+  const dataHierarchy =
+    useContent({
+      source: sourceHierarchy,
+      query: paramsFetch,
+      filter: SchemaHierarchy,
+    }) || {}
+
+  const arrSections = formatSections(dataHierarchy)
 
   const principalVideo = data => {
     const Story = new StoryData({
@@ -100,9 +129,14 @@ const SectionVideo = () => {
     contextPath,
     deployment,
     isAdmin,
+    arrSections,
   }
 
   return <ChildrenSectionVideo {...params} />
+}
+
+SectionVideo.propTypes = {
+  customFields,
 }
 
 export default SectionVideo

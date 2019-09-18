@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect } from 'react'
 import * as Sentry from '@sentry/browser'
 
@@ -9,14 +10,15 @@ import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { parseQueryString } from '../../../../../utilities/helpers'
 import getDomain from '../../../_dependencies/domains'
+import PWA from '../../_dependencies/seed-pwa'
 
 function WizardPlan(props) {
   const {
+    memo: { printedSubscriber },
     assets,
     summary,
     plans,
     message,
-    printed,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
@@ -25,7 +27,12 @@ function WizardPlan(props) {
   const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {
-    sendAction(PixelActions.PAYMENT_PLAN)
+    sendAction(PixelActions.PAYMENT_PLAN, {
+      referer: sessionStorage.getItem('paywall_last_url'),
+      suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
+    })
+    document.getElementsByClassName('foot')[0].style.position = "relative";
   }, [])
 
   function subscribePlanHandler(e, plan) {
@@ -51,7 +58,7 @@ function WizardPlan(props) {
       setLoading(false)
       onBeforeNextStep(
         {
-          plan: { printed, ...plan, title },
+          plan: { ...plan, title },
           referer: qs.ref || 'organico',
         },
         props
@@ -62,7 +69,7 @@ function WizardPlan(props) {
   return (
     <S.WizardPlan>
       {message && <S.Error>{message}</S.Error>}
-      {printed && (
+      {printedSubscriber && (
         <S.WelcomeSuscriptor>
           ACCEDE A ESTOS <strong>PRECIOS ESPECIALES</strong> POR SER SUSCRIPTOR
           IMPRESO
@@ -94,11 +101,19 @@ function WizardPlan(props) {
       </S.Wrap>
       <CheckSuscription
         open={openModal}
+        onSubmit={({ documentType, documentNumber, attemptToken }) => {
+          window.location.href = getDomain(
+            'VALIDATE_SUSCRIPTOR',
+            documentType,
+            documentNumber,
+            attemptToken
+          )
+        }}
         onClose={() => {
           setOpenModal(false)
         }}
       />
-      {!printed && (
+      {!printedSubscriber && (
         <S.ContentBanner>
           <BannerPromoSuscriptor
             onClick={() => {

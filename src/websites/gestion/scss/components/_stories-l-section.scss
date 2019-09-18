@@ -1,0 +1,13 @@
+.stories-l-section {
+  &__header-font-color {
+    color: $color-white;
+  }
+  &__header-font-position{
+    justify-content: center;
+  }
+  .stories-l-header {
+    &.bg-info {
+      background-color: $color-gray-200;
+    }
+  }
+}

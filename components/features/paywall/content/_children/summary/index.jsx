@@ -1,5 +1,4 @@
 import React from 'react'
-import Markdown from 'react-markdown'
 import Panel from '../../../_children/panel'
 import Bullet from '../../../_children/bullet-point'
 import Icon from '../../../_children/icon'

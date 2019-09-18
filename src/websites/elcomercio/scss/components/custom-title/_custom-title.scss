@@ -5,6 +5,8 @@
   padding-bottom: 10px;
   @media (--only-mobile) {
     font-size: 20px;
+    padding-left: 0;
+    text-align: left;
   }
   &.custom-border {
     &::after {
@@ -21,6 +23,7 @@
   }
   &.dark-bg {
     color: $color-white;
+    padding: 10px;
     &::after {
       content: '';
       position: absolute;
@@ -30,7 +33,6 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      border: solid 10px $color-base-100;
     }
   }
 }

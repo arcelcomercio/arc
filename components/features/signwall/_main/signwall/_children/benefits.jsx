@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { BeneOne, BeneThree, BeneFive } from '../../common/iconos'
+import { BeneOne, BeneThree, BeneFive, BeneFour } from '../../common/iconos'
 
 const Title = props => {
   const { content, subTitle, subTitleExtra, subTitleMore } = props
@@ -129,6 +129,22 @@ const Benefits = props => {
           <p className="benefits__item-text">en la App</p>
         </div>
       </div>
+
+      {brandCurrent === 'gestion' &&
+      window.document.cookie.indexOf('isECO=true') >= 0 ? (
+        <div className="benefits__item">
+          <div className="benefits__icon">
+            <BeneFour />
+          </div>
+
+          <div>
+            <h3 className="benefits__item-title">Personalizar</h3>
+            <p className="benefits__item-text">
+              tus Newsletters
+            </p>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

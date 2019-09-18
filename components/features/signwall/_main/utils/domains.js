@@ -14,10 +14,10 @@ class Domains {
     }
   }
 
-  getUrlPaywall = () => {
+  getUrlPaywall = (origin) => {
     return ENV.ENVIRONMENT === 'elcomercio'
-      ? '/suscripcionesdigitales/'
-      : '/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1'
+      ? `/suscripcionesdigitales/?ref=${origin}`
+      : `/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1&ref=${origin}`
   }
 
   getUrlECOID = () => {
@@ -50,6 +50,12 @@ class Domains {
   getScriptSales = () => {
     const _env_ = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-sales.min.js`
+  }
+
+  getUrlNewsLetters = () => {
+    return ENV.ENVIRONMENT === 'elcomercio'
+      ? 'https://afv5trdj4i.execute-api.us-east-1.amazonaws.com/prod/userprofile/public/v1'
+      : 'https://vq01ksb95d.execute-api.us-east-1.amazonaws.com/dev/userprofile/public/v1'
   }
 }
 

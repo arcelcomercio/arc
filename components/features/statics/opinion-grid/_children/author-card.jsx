@@ -14,14 +14,21 @@ const classes = {
   title: `author-card__title block secondary-font text-lg text-gray-300 line-h-sm font-bold md:font-normal`,
 }
 
-const OpinionGridAuthorCard = ({ isMobile, data: story }) => {
+const OpinionGridAuthorCard = ({ isMobile, data: story, deployment,
+  contextPath,
+  arcSite }) => {
+  const opinionImageDefault =  deployment(
+    `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
+  )
+
+  const opinionImage = story.authorImage.includes('author.png') ? opinionImageDefault : story.authorImage
   return (
     <article role="listitem" className={classes.card}>
       <div className={classes.wrapper}>
         <figure className={classes.imageBox}>
           <img
             className={classes.image}
-            src={story.authorImage}
+            src={opinionImage}
             alt={story.author}
             
           />

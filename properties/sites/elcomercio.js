@@ -1,7 +1,8 @@
 export default {
   siteName: 'El Comercio',
 
-  googleFonts: 'Noto+Serif:400,700|Open+Sans:400,600,700',
+  googleFonts:
+    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700',
 
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
@@ -76,17 +77,17 @@ export default {
     {
       name: 'Trabaja para Grupo El Comercio',
       url: 'https://elcomercio.aptitus.com/',
-      type: 'external',
+      external: true,
     },
     {
       name: 'Libro de Reclamaciones',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
-      type: 'external',
+      external: true,
     },
     {
       name: 'Oficinas Concesionarias',
       url: '/oficinas-concesionarias',
-      type: 'external',
+      external: true,
     },
     {
       name: 'Principios Rectores',
