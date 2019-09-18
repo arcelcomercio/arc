@@ -1,4 +1,4 @@
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import { devices } from '../_dependencies/devices'
 
 const Head = styled.div`
@@ -72,14 +72,4 @@ export const WrapIcon = styled.span`
   align-items: center;
 `
 
-export {
-  ThemeProvider,
-  Head,
-  Content,
-  WrapLogin,
-  Username,
-  Background,
-  Left,
-  Right,
-  Img,
-}
+export { Head, Content, WrapLogin, Username, Background, Left, Right, Img }
