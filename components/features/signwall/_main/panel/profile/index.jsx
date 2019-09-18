@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 
 import GetProfile from '../../utils/get-profile'
 import UpdateProfile from './update-profile'
 import UpdatePass from './update-pass'
+import { Wrapper } from '../../../_styles/common'
+import Loading from '../../common/loading'
 
+@Consumer
 class MiPerfil extends Component {
   constructor(props) {
     super(props)
@@ -13,19 +17,36 @@ class MiPerfil extends Component {
 
     this.state = {
       disabledSocial: identitie.type !== 'Password',
+      loading: true,
     }
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        loading: false,
+      })
+    }, 1000)
+  }
+
   render() {
-    const { disabledSocial } = this.state
+    const { disabledSocial, loading } = this.state
+    const { arcSite } = this.props
+
     return (
-      <>
-        <UpdateProfile handlerUpdateName={this.handlerUpdateName} />
-        <hr hidden={disabledSocial} />
-        <div hidden={disabledSocial}>
-          <UpdatePass />
-        </div>
-      </>
+      <Wrapper>
+        {!loading ? (
+          <>
+            <UpdateProfile handlerUpdateName={this.handlerUpdateName} />
+            <div className="space-40" />
+            <div hidden={disabledSocial}>
+              <UpdatePass />
+            </div>
+          </>
+        ) : (
+          <Loading site={arcSite} />
+        )}
+      </Wrapper>
     )
   }
 }
