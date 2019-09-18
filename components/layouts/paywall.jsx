@@ -10,7 +10,7 @@ const Layout = styled.div`
   display: flex;
   justify-content: 'center';
 `
-const contentContainer = styled.div`
+const ContentContainer = styled.div`
   display: flex;
   position: relative;
   width: 100%;
@@ -23,11 +23,11 @@ const DefaultLayout = ({ children = [], theme }) => {
     <StyledThemeProvider theme={theme}>
       <MuiThemeProvider theme={theme}>
         <Layout>
-          <contentContainer>
+          <ContentContainer>
             {children[0] /* Cabecera de página */}
             <div role="main">{children[1] /* Contenido */}</div>
             {children[2] /* Pie de página */}
-          </contentContainer>
+          </ContentContainer>
         </Layout>
       </MuiThemeProvider>
     </StyledThemeProvider>
