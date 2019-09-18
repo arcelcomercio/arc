@@ -10,6 +10,7 @@ export default ({
   contextPath,
   deployment,
   isAdmin,
+  arrSections,
 }) => {
   useEffect(() => {
     if (window.powaBoot) {
@@ -165,7 +166,7 @@ export default ({
         </div>
         <PlayList {...playListParams} />
       </div>
-      <VideoBar />
+      <VideoBar sections={arrSections} />
     </div>
   )
 }

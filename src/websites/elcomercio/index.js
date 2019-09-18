@@ -17,5 +17,6 @@ import './images/default-md.png'
 import './images/default-lg.png'
 import './images/premium-logo.png'
 import './images/author.png'
+import './images/authorOpinion.png'
 
 import '../../../components/utilities/lazyload'

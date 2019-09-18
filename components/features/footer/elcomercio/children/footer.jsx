@@ -129,15 +129,21 @@ const FooterChildElComercio = ({
                       {link && (
                         <>
                           <br />
-                          <a
-                            href={
-                              link.url && link.url.includes('@')
-                                ? `mailto:${link.url}`
-                                : link.url
-                            }
-                            className={classes.contactLink}>
-                            {link.name}
-                          </a>
+                          {link.url && link.url.includes('@') ? (
+                            <a
+                              href={`mailto:${link.url}`}
+                              className={classes.contactLink}>
+                              {link.name}
+                            </a>
+                          ) : (
+                            <a
+                              href={link.url}
+                              className={classes.contactLink}
+                              target="_blank"
+                              rel="noopener noreferrer">
+                              {link.name}
+                            </a>
+                          )}
                         </>
                       )}
                     </li>
