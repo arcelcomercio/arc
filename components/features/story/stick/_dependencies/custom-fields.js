@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
+  Ambiente: PropTypes.oneOf(['prod', 'dev']).tag({
+    name: 'Ambiente :',
+    labels: {
+      prod: 'Producción',
+      dev: 'Desarrollo',
+    },
+    defaultValue: 'prod',
+  }),
   urlpwd: PropTypes.string.tag({
     name: 'Url de produccion',
     description: 'Url de pwd  Ejemplo: https://pwaperu21.page.link',
