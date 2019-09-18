@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import { withTheme } from 'styled-components'
 
 import './paywall.css'
 import Icon from '../_children/icon'
@@ -7,9 +8,9 @@ import SupportDialog from '../_children/support-dialog'
 import Link from '../_children/link'
 import getDomain from '../_dependencies/domains'
 
-const Foot = () => {
-  const { siteProperties, contextPath, deployment } = useFusionContext()
-  const { assets, social, apps } = siteProperties
+const Foot = ({ theme }) => {
+  const { siteProperties } = useFusionContext()
+  const { social, apps } = siteProperties
   const [supportOpen, setSupportOpen] = React.useState(false)
 
   return (
@@ -22,11 +23,7 @@ const Foot = () => {
       <div className="footer-content">
         <div>
           <div>
-            <img
-              src={deployment(`${contextPath}${assets.pwAssets()}`)}
-              alt="Gestión"
-              className="img logo"
-            />
+            <Icon className="img logo" alt="Gestión" type={theme.icon.logo} />
           </div>
           <p className="text">
             Contáctanos al <a href="tel:+5113115100">01 311-5100</a> o{' '}
@@ -151,4 +148,4 @@ const Foot = () => {
   )
 }
 
-export default Foot
+export default withTheme(Foot)

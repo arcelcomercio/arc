@@ -1,3 +1,5 @@
+/* eslint-disable import/order */
+/* eslint-disable camelcase */
 import check from './check'
 import devices from './devices'
 import loading from './loading'
@@ -18,6 +20,10 @@ import close from './close'
 import linkedin from './linkedin'
 import support from './support'
 import phone from './phone'
+import eco_180a from './eco_180a'
+import eco_logo_full from './eco_logo_full'
+import eco_logo from './eco_logo'
+import ges_logo from './ges_logo'
 
 export {
   check,
@@ -40,4 +46,8 @@ export {
   linkedin,
   support,
   phone,
+  eco_180a,
+  eco_logo_full,
+  eco_logo,
+  ges_logo,
 }
