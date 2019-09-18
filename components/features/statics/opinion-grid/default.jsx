@@ -49,8 +49,13 @@ class StaticOpinionGrid extends PureComponent {
               />
             ) : (
               <AuthorCard
-                key={`Author-card-${story._id}`}
-                data={data.attributesRaw}
+                {...{
+                  key: `Author-card-${story._id}`,
+                  data: data.attributesRaw,
+                  deployment,
+                  contextPath,
+                  arcSite,
+                }}
               />
             )
           })}
@@ -63,8 +68,14 @@ class StaticOpinionGrid extends PureComponent {
             data.__data = story
             return (
               <ListItem
-                key={`List-item-${story._id}`}
-                data={data.attributesRaw}
+                {...{
+                  key: `List-item-${story._id}`,
+                  data: data.attributesRaw,
+                  deployment,
+                  contextPath,
+                  arcSite,
+                }}
+               
               />
             )
           })}
