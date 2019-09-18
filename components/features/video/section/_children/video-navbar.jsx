@@ -1,24 +1,20 @@
 import React from 'react'
 
-export default () => {
+export default props => {
+  const { sections = [] } = props
   return (
     <div className="video-navbar">
       <ul className="video-navbar__list">
-        <li className="video-navbar__item">
-          <a href="/" className="video-navbar__link">
-            Deportes
-          </a>
-        </li>
-        <li className="video-navbar__item">
-          <a href="/" className="video-navbar__link">
-            Mundo
-          </a>
-        </li>
-        <li className="video-navbar__item">
-          <a href="/" className="video-navbar__link">
-            Internacional
-          </a>
-        </li>
+        {sections &&
+          sections.map(section => {
+            return (
+              <li className="video-navbar__item">
+                <a href={section.url} className="video-navbar__link">
+                  {section.name}
+                </a>
+              </li>
+            )
+          })}
       </ul>
     </div>
   )

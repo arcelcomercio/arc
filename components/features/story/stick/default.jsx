@@ -101,6 +101,7 @@ class Stick extends PureComponent {
     const link = `${currentLink}?appData=${appData}&apn=${apn}&amv=${amv}&ibi=${ibi}&ipfl=${currentLink}&ipbi=${ipbi}&isi=${isi}&imv=${imv}&efr=1${urlSource}`
     const url = `${removeLastSlash(urlApp)}/?link=${link}`
     return url
+    
   }
 
   render() {
@@ -135,14 +136,14 @@ class Stick extends PureComponent {
           <div className={classes.description}>
             Sigue actualizado en nuestra APP
           </div>
-          <a
+          <div
             href=""
             className={classes.buttonApp}
             id="button-app"
             data-url-pwd={urlPwd}
             data-page-id={link}>
             Abrir en App
-          </a>
+          </div>
         </div>
       </div>
     )
