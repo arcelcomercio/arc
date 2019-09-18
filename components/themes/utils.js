@@ -26,3 +26,8 @@ export const withTheme = themes => Comp => {
   hoistNonReactStatics(ThemedComp, Comp)
   return ThemedComp
 }
+
+export const OnlySite = ({ site, children }) => {
+  const { arcSite } = useFusionContext()
+  return site === arcSite ? children : null
+}
