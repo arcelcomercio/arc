@@ -33,7 +33,7 @@ function WizardPayment(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
-  const { plan, order, profile, printedSubscriber } = memo
+  const { plan, order, profile, printedSubscriber, referer, origin } = memo
   const { firstName, lastName, secondLastName, documentNumber } = profile
   const { orderNumber } = order
   const { sku, priceCode, amount, billingFrequency, description } = plan
@@ -42,7 +42,8 @@ function WizardPayment(props) {
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_CARD_INFO, {
       sku: `${sku}${priceCode}`,
-      referer: sessionStorage.getItem('paywall_last_url'),
+      referer,
+      medioCompra: origin,
       periodo: billingFrequency,
       priceCode,
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',

@@ -1,5 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import * as Sentry from '@sentry/browser'
 
 import CardPrice from './_children/card-price'
@@ -25,10 +25,15 @@ function WizardPlan(props) {
 
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
+  const origin = useRef('organico')
+  const referer = useRef('')
 
   useEffect(() => {
+    origin.current = sessionStorage.getItem('paywall_type_modal') || 'organico'
+    referer.current = sessionStorage.getItem('paywall_last_url')
     sendAction(PixelActions.PAYMENT_PLAN, {
-      referer: sessionStorage.getItem('paywall_last_url'),
+      referer: referer.current,
+      medioCompra: origin.current,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
@@ -49,17 +54,13 @@ function WizardPlan(props) {
       level: Sentry.Severity.Info,
     })
 
-    const {
-      location: { search },
-    } = window
-    const qs = parseQueryString(search)
     const { title } = summary
     setTimeout(() => {
       setLoading(false)
       onBeforeNextStep(
         {
           plan: { ...plan, title },
-          referer: qs.ref || 'organico',
+          origin: origin.current,
         },
         props
       )
