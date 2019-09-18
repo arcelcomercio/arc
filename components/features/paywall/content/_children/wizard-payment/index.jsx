@@ -16,6 +16,7 @@ import { addPayU } from '../../../_dependencies/payu'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
+import PWA from '../../_dependencies/seed-pwa'
 
 import Errors from '../../../_dependencies/errors'
 
@@ -41,10 +42,11 @@ function WizardPayment(props) {
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_CARD_INFO, {
       sku: `${sku}${priceCode}`,
-      referer: localStorage.getItem('paywall_last_url'),
+      referer: sessionStorage.getItem('paywall_last_url'),
       periodo: billingFrequency,
       priceCode,
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
     })
   }, [])
 
