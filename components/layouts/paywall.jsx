@@ -8,13 +8,13 @@ import paywallThemes from '../themes/paywall'
 
 const Layout = styled.div`
   display: flex;
-  justify-content: 'center';
+  justify-content: center;
 `
 const ContentContainer = styled.div`
   display: flex;
   position: relative;
   width: 100%;
-  flex-direction: 'column';
+  flex-direction: column;
   background: ${props => props.theme.palette.background.default};
 `
 
