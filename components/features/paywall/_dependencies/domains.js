@@ -50,6 +50,16 @@ const domains = {
     const _env_ = ENV === 'elcomercio' ? '' : 'dev'
     return `https://${_env_}paywall.comerciosuscripciones.pe`
   },
+  ORIGIN_SUBS_IMPRESO: ENV => {
+    return ENV === 'elcomercio'
+      ? 'https://suscripciones.gestion.pe/payment/7/96/'
+      : 'http://pre.suscripciones.gestion.pe/payment/7/96/'
+  },
+  ORIGIN_SUBS_DIGITAL_IMPRESO: ENV => {
+    return ENV === 'elcomercio'
+      ? 'https://suscripciones.gestion.pe/payment/8/98/'
+      : 'http://pre.suscripciones.gestion.pe/payment/8/97/'
+  },
 
   get: function getService(...params) {
     const [service, ...rest] = params
