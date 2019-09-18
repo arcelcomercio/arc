@@ -21,7 +21,6 @@ const TabloidList = props => {
       query: contentConfigValues,
       filter: schemaFilter(arcSite),
     }) || {}
-
   const params = {
     data: data.content_elements,
     seeMoreLink,

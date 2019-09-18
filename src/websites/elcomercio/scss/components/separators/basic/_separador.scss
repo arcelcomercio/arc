@@ -18,11 +18,19 @@
     display: block;
     height: auto;
     background-color: $color-base-300;
+    @media (--only-mobile) {
+      border-bottom: 1px solid $color-gray-100;
+      margin-bottom: 20px;
+    }
     @media (--tablet) {
       flex-basis: 24.5%;
     }
     &:before {
       display: none;
+    }
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
     }
   }
   &__detail {
