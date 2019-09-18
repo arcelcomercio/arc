@@ -1,9 +1,11 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 
-export default ({ getImageDeployment }) => {
+export default ({ fusionContext, getImageDeployment }) => {
+  const { arcSite } = fusionContext
   createMuiTheme({
-    themeName: 'gestion',
+    name: arcSite,
     palette: {
+      background: { default: '#eeeeee' },
       primary: {
         main: '#fecd26',
         dark: '#5b5400',

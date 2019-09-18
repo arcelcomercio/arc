@@ -1,12 +1,15 @@
+/* eslint-disable no-extra-boolean-cast */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withTheme } from 'styled-components'
 import Consumer from 'fusion:consumer'
+
 import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
-import './paywall.css'
 import Signwall from '../../signwall/default'
 import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
 import GetProfile from '../../signwall/_main/utils/get-profile'
+import * as S from './styled'
 
 @Consumer
 class Head extends React.PureComponent {
@@ -77,19 +80,16 @@ class Head extends React.PureComponent {
   }
 
   render() {
-    const {
-      siteProperties,
-      contextPath,
-      deployment,
-      arcSite,
-      customFields,
-    } = this.props
-    const { assets } = siteProperties
-    const { firstName, showSignwall, userName, isActive, stepForm } = this.state
-    const checkForceLogin = customFields.forceLogin
+    const { theme, arcSite, customFields } = this.props
+    const { showSignwall, userName, isActive, stepForm } = this.state
+    const { forceLogin: checkForceLogin } = customFields
+    const leftColor =
+      arcSite === 'elcomercio'
+        ? theme.palette.secondary.main
+        : theme.palette.primary.main
 
     return (
-      <div className="head">
+      <S.Head>
         {showSignwall && checkForceLogin ? (
           <SignwallPaywall
             brandModal={arcSite}
@@ -97,47 +97,42 @@ class Head extends React.PureComponent {
             reloadLogin
           />
         ) : null}
-        <div className="head__background">
-          <div className="background_left" />
-          <div className="background_right" />
-        </div>
-        <div className="head__content">
-          <img
-            className="content__img"
-            src={deployment(`${contextPath}${assets.pwAssets()}`)}
-            alt="Logo el comercio"
-          />
-          <div className="head__login">
-            <span className="login__username">
+        <S.Background>
+          <S.Left backgroundColor={leftColor} />
+          <S.Right />
+        </S.Background>
+        <S.Content backgroundColor={leftColor}>
+          <S.Img src={theme.images.logo} alt="Logo el comercio" />
+          <S.WrapLogin>
+            <S.Username>
               {stepForm !== 1 ? (
                 <span>
                   {this.checkSession() ? `${userName}` : 'Hola Invitado'}
                 </span>
               ) : (
-                <button
+                <S.LoginButton
                   type="button"
-                  className="head__btn-login"
                   onClick={() => this.setState({ isActive: true })}>
                   <span>
                     {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
                   </span>
-                </button>
+                </S.LoginButton>
               )}
-
-              {/* <span>
-                {this.checkSession() ? `Hola ${userName}` : 'Iniciar Sesión'}
-              </span> */}
-              {/* <span>Hola {firstName || 'Lector'}</span> */}
-              <span className="login_icon">
-                <Icon type="profile" fill="#FFF" width="30" height="30" />
-              </span>
-            </span>
-          </div>
-        </div>
+              <S.WrapIcon>
+                <Icon
+                  type="profile"
+                  fill={theme.palette.secondary.contrastText}
+                  width="30"
+                  height="30"
+                />
+              </S.WrapIcon>
+            </S.Username>
+          </S.WrapLogin>
+        </S.Content>
         {isActive && (
           <Signwall singleSign closeSignwall={() => this.closeSignwall()} />
         )}
-      </div>
+      </S.Head>
     )
   }
 }
@@ -152,4 +147,4 @@ Head.propTypes = {
   }),
 }
 
-export default Head
+export default withTheme(Head)
