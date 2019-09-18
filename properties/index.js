@@ -107,19 +107,9 @@ export default {
       url: 'http://ecomedia.pe/',
     },
     {
-      name: 'aptitus.com',
-      arcSite: '',
-      url: 'https://aptitus.com/',
-    },
-    {
       name: 'neoauto.com',
       arcSite: '',
       url: 'https://neoauto.com/',
-    },
-    {
-      name: 'urbania.pe',
-      arcSite: '',
-      url: 'https://urbania.pe/',
     },
     {
       name: 'perured.pe',
@@ -140,11 +130,6 @@ export default {
       name: 'pagoefectivo.pe',
       arcSite: '',
       url: 'https://pagoefectivo.pe/',
-    },
-    {
-      name: 'maseducacion.com',
-      arcSite: '',
-      url: 'https://maseducacion.aptitus.com/',
     },
     {
       name: 'lumingo',
