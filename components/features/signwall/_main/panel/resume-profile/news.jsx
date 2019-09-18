@@ -72,44 +72,41 @@ class News extends Component {
     })
   }
 
-  showNewsletters = () => {
-    const btnNews = document.getElementById('btn-menu-newsleters')
-    if (btnNews) btnNews.click()
-  }
-
   render() {
     const { newsletters, checksNews, loading } = this.state
+    const { news } = this.props
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <WrapperBlock nopadding nobackground nocolumn>
-        <div className="left">
-          <h3>Newsletters</h3>
-        </div>
-        <div className="right">
-          {!loading ? (
-            <div className="container-grid">
-              {newsletters.map(
-                itemNews =>
-                  checksNews[itemNews.code] && (
-                    <div className="item item1" key={itemNews.code}>
-                      <img src={itemNews.image} alt="demo" />
-                      <div className="title">{itemNews.name}</div>
-                    </div>
-                  )
-              )}
-
-              <button
-                type="button"
-                className="add-item"
-                onClick={() => this.showNewsletters()}>
-                <span className="icon-plus">&#43;</span>
-                Personaliza tus newsletters
-              </button>
+        {!loading ? (
+          <>
+            <div className="left">
+              <h3>Newsletters</h3>
             </div>
-          ) : (
-            <Loading site="gestion" />
-          )}
-        </div>
+            <div className="right">
+              <div className="container-grid">
+                {newsletters.map(
+                  itemNews =>
+                    checksNews[itemNews.code] && (
+                      <div className="item item1" key={itemNews.code}>
+                        <img src={itemNews.image} alt="demo" />
+                        <div className="title">{itemNews.name}</div>
+                      </div>
+                    )
+                )}
+                <button
+                  type="button"
+                  className="add-item"
+                  onClick={() => news()}>
+                  <span className="icon-plus">&#43;</span>
+                  Personaliza tus newsletters
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <Loading site="gestion" />
+        )}
       </WrapperBlock>
     )
   }
