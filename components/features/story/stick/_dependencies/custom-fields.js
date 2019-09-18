@@ -9,14 +9,10 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'prod',
   }),
-  urlpwd: PropTypes.string.tag({
-    name: 'Url de produccion',
-    description: 'Url de pwd  Ejemplo: https://pwaperu21.page.link',
-  }),
 
-  urlDev: PropTypes.string.tag({
-    name: 'Url de desarrollo ',
-    description: 'Url sandbox Ejemplo: https://pwadevperu21.page.link',
+  urlpwdDev: PropTypes.string.tag({
+    name: 'Url de produccion o Desarrollo',
+    description: 'Ejm: https://pwaperu21.page.link ó https://pwadevperu21.page.link',
   }),
 
   apn: PropTypes.string.tag({
