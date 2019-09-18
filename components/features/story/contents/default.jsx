@@ -231,7 +231,7 @@ class StoryContents extends PureComponent {
                     if (arcSite === ConfigParams.ARC_SITE_PERU21) {
                       contentVideo = content.replace(
                         /peru21.pe\/upload/gi,
-                        'g21.peru21.pe/upload'
+                        'img.peru21.pe/upload'
                       )
                     }
                     htmlReturn = (

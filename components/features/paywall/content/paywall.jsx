@@ -76,7 +76,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
     })
 
     const search = history.location.search
-    history.push(`${basePath}/${stepSlugs[0]}/${search}`, currMemo)
+    history.replace(`${basePath}/${stepSlugs[0]}/${search}`, currMemo)
     return history.listen((location, action) => {
       const { goToStep } = wizardRef.current
       const doStep = step => {

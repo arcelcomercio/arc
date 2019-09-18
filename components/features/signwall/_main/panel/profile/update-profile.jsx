@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react'
-import Services from '../../../utils/services'
+import Services from '../../utils/services'
 import {
   namesRegex,
   numberRegex,
   docRegex,
   emailRegex,
   phoneRegex,
-} from '../../../utils/regex'
-import { clean } from '../../../utils/object'
-import GetProfile from '../../../utils/get-profile'
+} from '../../utils/regex'
+import { clean } from '../../utils/object'
+import GetProfile from '../../utils/get-profile'
 
 const services = new Services()
 

@@ -41,6 +41,7 @@ function WizardPayment(props) {
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_CARD_INFO, {
       sku: `${sku}${priceCode}`,
+      referer: localStorage.getItem('paywall_last_url'),
       periodo: billingFrequency,
       priceCode,
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Wrapper, Button } from './styles'
 import Checkbox from './Checkbox'
-import Loading from '../../../common/loading'
-import Services from '../../../utils/services'
+import Loading from '../../common/loading'
+import Services from '../../utils/services'
 
 const services = new Services()
 

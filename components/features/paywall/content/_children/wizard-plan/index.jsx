@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect } from 'react'
 import * as Sentry from '@sentry/browser'
 
@@ -25,7 +26,10 @@ function WizardPlan(props) {
   const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {
-    sendAction(PixelActions.PAYMENT_PLAN)
+    sendAction(PixelActions.PAYMENT_PLAN, {
+      referer: localStorage.getItem('paywall_last_url'),
+      suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
+    })
   }, [])
 
   function subscribePlanHandler(e, plan) {
