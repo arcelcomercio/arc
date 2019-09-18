@@ -14,10 +14,10 @@ class Domains {
     }
   }
 
-  getUrlPaywall = () => {
+  getUrlPaywall = (origin) => {
     return ENV.ENVIRONMENT === 'elcomercio'
-      ? '/suscripcionesdigitales/'
-      : '/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1'
+      ? `/suscripcionesdigitales/?ref=${origin}`
+      : `/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1&ref=${origin}`
   }
 
   getUrlECOID = () => {

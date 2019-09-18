@@ -32,6 +32,7 @@ function WizardPlan(props) {
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+    document.getElementsByClassName('foot')[0].style.position = "relative";
   }, [])
 
   function subscribePlanHandler(e, plan) {

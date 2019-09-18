@@ -21,6 +21,10 @@ export const Wrapper = styled.div`
     width: calc(100% - 20px);
     padding: 30px 30px;
   }
+  & .space-40 {
+    height: 40px;
+    display: block;
+  }
   & > .space {
     height: 50px;
   }
