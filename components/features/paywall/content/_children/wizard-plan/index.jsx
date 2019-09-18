@@ -10,6 +10,7 @@ import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { parseQueryString } from '../../../../../utilities/helpers'
 import getDomain from '../../../_dependencies/domains'
+import PWA from '../../_dependencies/seed-pwa'
 
 function WizardPlan(props) {
   const {
@@ -27,9 +28,11 @@ function WizardPlan(props) {
 
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_PLAN, {
-      referer: localStorage.getItem('paywall_last_url'),
+      referer: sessionStorage.getItem('paywall_last_url'),
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
     })
+    document.getElementsByClassName('foot')[0].style.position = "relative";
   }, [])
 
   function subscribePlanHandler(e, plan) {

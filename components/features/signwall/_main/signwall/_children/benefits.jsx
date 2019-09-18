@@ -140,7 +140,7 @@ const Benefits = props => {
           <div>
             <h3 className="benefits__item-title">Personalizar</h3>
             <p className="benefits__item-text">
-              tus Notificaciones y Newsletters
+              tus Newsletters
             </p>
           </div>
         </div>

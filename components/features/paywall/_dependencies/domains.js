@@ -9,6 +9,7 @@ const domains = {
     `${context}/suscripcionesdigitales/empresa/${queryString}`,
   URL_FAQ: () => `${context}/suscripcionesdigitales/faq/${queryString}`,
   URL_DIGITAL: () => `${context}/suscripcionesdigitales`,
+  URL_DIGITAL_HOME: () => `${context}/suscripcionesdigitales/${queryString}`,
   VALIDATE_SUSCRIPTOR: (ENV, documentType, documentNumber, attemptToken) => {
     return `${context}/suscripcionesdigitales/${documentType}/${documentNumber}/${attemptToken}/${queryString}`
   },
@@ -49,6 +50,16 @@ const domains = {
   ORIGIN_SUSCRIPCIONES: (ENV, opts) => {
     const _env_ = ENV === 'elcomercio' ? '' : 'dev'
     return `https://${_env_}paywall.comerciosuscripciones.pe`
+  },
+  ORIGIN_SUBS_IMPRESO: ENV => {
+    return ENV === 'elcomercio'
+      ? 'https://suscripciones.gestion.pe/payment/7/96/'
+      : 'http://pre.suscripciones.gestion.pe/payment/7/96/'
+  },
+  ORIGIN_SUBS_DIGITAL_IMPRESO: ENV => {
+    return ENV === 'elcomercio'
+      ? 'https://suscripciones.gestion.pe/payment/8/98/'
+      : 'http://pre.suscripciones.gestion.pe/payment/8/97/'
   },
 
   get: function getService(...params) {

@@ -10,7 +10,7 @@ const resolve = () => {
 
 const HARD_CAMPAIGNS = [{
   title: 'Digital + Impreso',
-  url : 'http://pre.suscripciones.gestion.pe/payment/8/97/',
+  url : `${getDomain('ORIGIN_SUBS_DIGITAL_IMPRESO')}`,
   recommended: true,
   price: { amount: 49, currency: 'S/' },
   detail: {
@@ -29,7 +29,7 @@ const HARD_CAMPAIGNS = [{
 },
 {
   title: 'Impreso',
-  url : 'http://pre.suscripciones.gestion.pe/payment/7/96/',
+  url : `${getDomain('ORIGIN_SUBS_IMPRESO')}`,
   price: { amount: 49, currency: 'S/' },
   detail: {
     frequency: 'MES',
@@ -94,7 +94,7 @@ export default {
       { feature: [] }
     )
     const {title, feature: features} = summary;
-    const url = `${getDomain('URL_DIGITAL')}`;
+    const url = `${getDomain('URL_DIGITAL_HOME')}`;
 
     return [Object.assign({ name, url, title, features, price, detail }), ...HARD_CAMPAIGNS]
   },

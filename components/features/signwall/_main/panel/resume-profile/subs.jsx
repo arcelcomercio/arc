@@ -5,6 +5,7 @@ import { Close } from '../../common/iconos'
 import Loading from '../../common/loading'
 import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
+import { WrapperBlock } from './styles'
 // import { ModalConsumer } from '../../../signwall/context'
 
 @Consumer
@@ -20,6 +21,7 @@ class Subs extends Component {
       isLoad: true,
       idSubsDelete: null,
       userSubs: {},
+      userSubsDetail: [],
     }
 
     const { arcSite } = this.props
@@ -48,11 +50,21 @@ class Subs extends Component {
         .then(res => {
           let count = 0
           for (let i = 0; i < res.length; i++) {
-            const current = res[i]
-            if (current.paymentMethod) count += 1
+            if (res[i].paymentMethod) count += 1
+
+            if (res[i].paymentMethod && res[i].subscriptionID) {
+              // window.console.log(res[i])
+              window.Sales.getSubscriptionDetails(res[i].subscriptionID)
+                .then(resDetail => {
+                  // window.console.log(resDetail)
+                  this.setState({
+                    userSubsDetail: resDetail,
+                  })
+                })
+                .catch(window.console.error)
+            }
           }
 
-          // if (res.length > 0 && count >= 1) {
           if (count >= 1) {
             this.setState({
               userSubs: res,
@@ -86,7 +98,7 @@ class Subs extends Component {
 
   handlePageChange = e => {
     e.preventDefault()
-    window.location.href = Domains.getUrlPaywall()
+    window.location.href = Domains.getUrlPaywall('organico')
   }
 
   notIsSub = () => {
@@ -152,9 +164,11 @@ class Subs extends Component {
       paywallPrice,
       showModalConfirm,
       paywallDescripcion,
+      userSubsDetail,
       idSubsDelete,
     } = this.state
     const { arcSite } = this.props
+    window.console.log(userSubsDetail)
     return (
       // <ModalConsumer>
       //   {val => (
@@ -168,25 +182,16 @@ class Subs extends Component {
                 {userSubs.map(reSubs => {
                   if (reSubs.paymentMethod) {
                     return (
-                      <div
-                        className="resume__dates"
+                      <WrapperBlock
+                        nopadding
+                        nocolumn
                         key={reSubs.subscriptionID}
                         id={reSubs.subscriptionID}>
-                        <div className="title-dates">
-                          <h2 className="title">Mi suscripción</h2>
-                          {/* <button
-                            type="button"
-                            className="link"
-                            id={reSubs.subscriptionID}
-                            onClick={() => {
-                              document.getElementById('btn-menu-subscrip').click()
-                            }}>
-                            EDITAR MÉTODO DE PAGO
-                          </button> */}
+                        <div className="left">
+                          <h3>Mi suscripción</h3>
                           <button
                             type="button"
                             className="link"
-                            // id={reSubs.subscriptionID}
                             onClick={() =>
                               this.openModalConfirm(reSubs.subscriptionID)
                             }>
@@ -194,19 +199,20 @@ class Subs extends Component {
                           </button>
                         </div>
 
-                        <div className="cont-subs">
-                          <div className="first-subs">
-                            <p>DETALLE DE LA SUSCRIPCIÓN</p>
-                            <h3>{reSubs.productName}</h3>
+                        <div className="right">
+                          <div className="details-left">
+                            <p className="small">DETALLE DE LA SUSCRIPCIÓN</p>
+                            <h2>{reSubs.productName}</h2>
                           </div>
-                          <div className="last-subs">
+                          <div className="details-right">
                             <p>Plan de pago: - </p>
                             <p>Precio: - </p>
-                            {/* <p>Precio: S/ {paywallPrice}*</p>
-                            <p className="mini">*{paywallDescripcion}</p> */}
+                            <p className="small">
+                              *POR 6 MESES LUEGO S/ 20 CADA MES
+                            </p>
                           </div>
                         </div>
-                      </div>
+                      </WrapperBlock>
                     )
                   }
                   return null
