@@ -10,4 +10,9 @@
   &__date {
     font-family: $secondary-font;
   }
+  &__featured {
+    @media (--only-mobile) {
+      justify-content: flex-start;
+    }
+  }
 }
