@@ -21,6 +21,7 @@ class Subs extends Component {
       isLoad: true,
       idSubsDelete: null,
       userSubs: {},
+      userSubsDetail: [],
     }
 
     const { arcSite } = this.props
@@ -49,11 +50,21 @@ class Subs extends Component {
         .then(res => {
           let count = 0
           for (let i = 0; i < res.length; i++) {
-            const current = res[i]
-            if (current.paymentMethod) count += 1
+            if (res[i].paymentMethod) count += 1
+
+            if (res[i].paymentMethod && res[i].subscriptionID) {
+              // window.console.log(res[i])
+              window.Sales.getSubscriptionDetails(res[i].subscriptionID)
+                .then(resDetail => {
+                  // window.console.log(resDetail)
+                  this.setState({
+                    userSubsDetail: resDetail,
+                  })
+                })
+                .catch(window.console.error)
+            }
           }
 
-          // if (res.length > 0 && count >= 1) {
           if (count >= 1) {
             this.setState({
               userSubs: res,
@@ -153,9 +164,11 @@ class Subs extends Component {
       paywallPrice,
       showModalConfirm,
       paywallDescripcion,
+      userSubsDetail,
       idSubsDelete,
     } = this.state
     const { arcSite } = this.props
+    window.console.log(userSubsDetail)
     return (
       // <ModalConsumer>
       //   {val => (
