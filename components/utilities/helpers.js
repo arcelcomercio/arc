@@ -867,3 +867,14 @@ export const nbspToSpace = text => {
 export const countWords = (text, delimitter = ' ') => {
   return !isEmpty(text) ? text.split(delimitter).length : 0
 }
+
+export const formatSections = (data = {}) => {
+  const link = 'link'
+  const { children = [] } = data
+  return children.map(el => {
+    return {
+      name: el.node_type === link ? el.display_name : el.name,
+      url: el.node_type === link ? el.url : el._id,
+    }
+  })
+}
