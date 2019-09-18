@@ -506,7 +506,7 @@ export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
   htmlDataTwitter = htmlDataTwitter.replace(
     /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-    'https://g21.peru21.pe$1'
+    'https://img.peru21.pe$1'
   )
 
   const rplTwitter =

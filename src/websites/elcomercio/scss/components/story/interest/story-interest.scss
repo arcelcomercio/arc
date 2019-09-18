@@ -32,4 +32,12 @@
       text-align: left;
     }
   }
+  &__title {
+    @media (--desktop) {
+      text-align: left;
+    }
+  }
+  &__title-link {
+    color: $color-gray-300;
+  }
 }

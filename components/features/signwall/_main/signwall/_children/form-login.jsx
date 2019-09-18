@@ -274,7 +274,6 @@ class FormLogin extends Component {
   handleSuscription = e => {
     const { removeBefore } = this.props
     e.preventDefault()
-    Cookies.setCookie('paywall_last_url', window.document.referrer, 1)
     window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall()
@@ -614,7 +613,22 @@ class FormLogin extends Component {
                         type="button"
                         className="btn btn--blue btn-md btn-bg"
                         value="SIGUE NAVEGANDO"
-                        onClick={() => closePopup()}
+                        onClick={() => {
+                          if (
+                            window.sessionStorage.hasOwnProperty(
+                              'paywall_last_url'
+                            ) &&
+                            window.sessionStorage.getItem(
+                              'paywall_last_url'
+                            ) !== ''
+                          ) {
+                            window.location.href = window.sessionStorage.getItem(
+                              'paywall_last_url'
+                            )
+                          } else {
+                            closePopup()
+                          }
+                        }}
                       />
                     ) : (
                       <input
