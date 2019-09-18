@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react'
+import hoistNonReactStatics from 'hoist-non-react-statics'
 import { useFusionContext } from 'fusion:context'
 
 /**
@@ -22,5 +23,6 @@ export const withTheme = themes => Comp => {
     const theme = themes[themeName](themeArgs)
     return React.createElement(Comp, { ...props, theme })
   }
+  hoistNonReactStatics(ThemedComp, Comp)
   return ThemedComp
 }

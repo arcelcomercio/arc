@@ -34,11 +34,9 @@ const DefaultLayout = ({ children = [], theme }) => {
   )
 }
 
-const ThemedLayout = withTheme(paywallThemes)(DefaultLayout)
-
-ThemedLayout.sections = ['Cabecera de página', 'Contenido', 'Pie de página']
-ThemedLayout.propTypes = {
+DefaultLayout.sections = ['Cabecera de página', 'Contenido', 'Pie de página']
+DefaultLayout.propTypes = {
   children: PropTypes.node,
 }
 
-export default ThemedLayout
+export default withTheme(paywallThemes)(DefaultLayout)
