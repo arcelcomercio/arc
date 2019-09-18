@@ -46,6 +46,9 @@
       background-color: $color-primary;
       max-width: 160px;
       width: 100%;
+      @media (max-width: 345px) {
+        font-size: 10px;
+      }
       &:after {
         content: '';
         position: absolute;

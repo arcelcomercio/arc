@@ -76,20 +76,6 @@ const HeaderChildElComercio = ({
   // let listContainer = null
   // let layerBackground = null
 
-  const _handleScroll = () => {
-    // ------ Logic to set state to hidden or show logo in navbar
-    const { body = {}, documentElement = {} } = document
-    const { scrollTop: scrollBody = 0 } = body
-    const { scrollTop: scrollElement = 0 } = documentElement
-    const scroll = scrollBody || scrollElement
-
-    const headerTop = 0
-    // const header = Array.from(document.getElementsByTagName('header'))
-    // const headerTop = (header[0] && header[0].offsetTop) || 0
-    if (!scrolled && scroll > headerTop) setScrolled(true)
-    else if (!scrolled && scroll <= headerTop) setScrolled(false)
-  }
-
   /** ------ SEARCH ----- */
   const _handleSearch = () => {
     const { value } = inputSearch.current
@@ -230,9 +216,28 @@ const HeaderChildElComercio = ({
     else popUpWindow(item.link, '', 600, 400)
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const _handleScroll = () => {
+    // ------ Logic to set state to hidden or show logo in navbar
+    const { body = {}, documentElement = {} } = document
+    const { scrollTop: scrollBody = 0 } = body
+    const { scrollTop: scrollElement = 0 } = documentElement
+    const scroll = scrollBody || scrollElement
+
+    const headerTop = 10
+    if (!scrolled && scroll > headerTop) setScrolled(true)
+    else if (scrolled && scroll <= headerTop) setScrolled(false)
+  }
+
   useEffect(() => {
     window.addEventListener('scroll', _handleScroll)
-    /* listContainer = document.querySelector('.nav-sidebar')
+    return () => {
+      window.removeEventListener('scroll', _handleScroll)
+    }
+  }, [_handleScroll])
+
+  /*   useEffect(() => {
+    listContainer = document.querySelector('.nav-sidebar')
     layerBackground = document.querySelector('.layer')
 
     if (listContainer !== null && listContainer !== 'undefined') {
@@ -252,8 +257,8 @@ const HeaderChildElComercio = ({
         toggleBodyOverflow()
         _closeMenu()
       }) 
-    } */
-  }, [])
+    }
+  }, []) */
 
   return (
     <>
