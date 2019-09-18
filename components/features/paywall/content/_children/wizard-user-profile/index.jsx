@@ -26,6 +26,8 @@ function WizardUserProfile(props) {
   const {
     printedSubscriber,
     plan: { sku, priceCode, amount, description, billingFrequency },
+    referer,
+    origin,
   } = memo
 
   const sanitizeValues = (value, key) => {
@@ -48,7 +50,8 @@ function WizardUserProfile(props) {
     sendAction(PixelActions.PAYMENT_PROFILE, {
       sku: `${sku}${priceCode}`,
       periodo: billingFrequency,
-      referer: sessionStorage.getItem('paywall_last_url'),
+      referer,
+      medioCompra: origin,
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
