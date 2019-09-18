@@ -1,0 +1,11 @@
+.custom-title {
+  &.dark-bg {
+    padding: 10px 0;
+    color: $color-white;
+    background-color: $color-gray-200;
+  }
+  &.custom-border {
+    padding: 10px 0;
+    border-top: 1px dashed $color-gray-200;
+  }
+}
