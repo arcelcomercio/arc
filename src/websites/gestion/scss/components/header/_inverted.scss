@@ -2,10 +2,17 @@
 
 .header-inverted {
   height: $nav-height;
-  background-color: $color-base-400;
+  &.header {
+    background-color: $color-base-400;
+  }
 
   .header__logo {
     height: 32px;
+  }
+
+  .header-inverted__btn-subs,
+  .header-inverted__btn-club {
+    background-color: $color-white;
   }
 
   &.active {
