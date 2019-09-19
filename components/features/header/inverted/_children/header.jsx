@@ -28,17 +28,18 @@ const classes = {
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
   form: 'position-relative items-center hidden lg:flex',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
-  btnSearch: `header-inverted__btn-search flex items-center nav__btn--search lg:pr-20 lg:pl-20 border-r-1 border-solid`,
+  btnSearch: `header-inverted__btn-search flex items-center nav__btn--search text-white lg:pr-20 lg:pl-20 border-r-1 border-solid`,
   iconSearch: 'icon-search text-lg',
-  btnSection:
-    'header-inverted__btn-menu flex items-center p-5 md:pr-20 lg:pl-20',
+  btnMenu:
+    'header-inverted__btn-menu flex items-center text-white p-5 md:pr-20 lg:pl-20',
   iconMenu: 'icon-hamburguer title-sm pr-10',
   btnProfile:
-    'items-center btn bg-base-100 text-white text-sm hidden p-5 md:flex lg:pr-10 lg:pl-10',
+    'items-center btn bg-base-100 text-sm hidden p-5 md:flex lg:pr-10 lg:pl-10',
   btnClub: 'header-inverted__btn-club',
   btnSubs: 'header-inverted__btn-subs',
   /** ------------ */
-  navStoryTitle: 'nav__story-title position-absolute overflow-hidden',
+  navStoryTitle:
+    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
 
@@ -305,7 +306,7 @@ const HeaderChildInverted = ({
           </form>
           <Button
             iconClass={classes.iconMenu}
-            btnClass={`${classes.btnSection} ${
+            btnClass={`${classes.btnMenu} ${
               scrolled && isStory ? 'border-r-1 border-solid' : ''
             }`}
             btnText="Menú"
@@ -313,7 +314,12 @@ const HeaderChildInverted = ({
           />
         </div>
         {/** ************* // LEFT *************** */}
-        <a href={logo.link} className={classes.logoContainer}>
+        <a
+          href={logo.link}
+          className={`${classes.logoContainer} ${isStory &&
+            scrolled &&
+            statusSearch &&
+            'opacity-0'}`}>
           <img
             src={scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src}
             alt={logo.alt}

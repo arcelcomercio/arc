@@ -131,7 +131,7 @@ const HeaderInverted = props => {
   return <HeaderChildInverted {...formatter.getParams()} {...params} />
 }
 
-HeaderInverted.label = 'Cabecera - El Comercio'
+HeaderInverted.label = 'Cabecera - Banda superior'
 
 HeaderInverted.propTypes = {
   customFields,

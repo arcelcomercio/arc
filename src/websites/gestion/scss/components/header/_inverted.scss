@@ -1,40 +1,20 @@
-$nav-height-active: 46px;
+// $nav-height: 46px;
 
 .header-inverted {
   height: $nav-height;
-  background-color: $color-gray-300;
+  background-color: $color-base-400;
 
   .header__logo {
-    height: 36px;
-  }
-
-  .nav__mobile-logo {
-    top: initial;
-    left: initial;
-    transform: translateX(0);
-  }
-
-  &__btn-search {
-    &.active {
-      color: $color-base-100;
-    }
+    height: 32px;
   }
 
   &.active {
-    background-color: $color-base-100;
-    height: $nav-height-active;
-
     &.nav__loader {
       top: 0;
     }
 
     .header__logo {
-      height: 44px;
-    }
-
-    .header-inverted__btn-menu,
-    .header-inverted__btn-search {
-      color: $color-white;
+      height: 32px;
     }
 
     .header-inverted__btn-subs {
@@ -51,8 +31,8 @@ $nav-height-active: 46px;
     }
 
     .nav-sidebar {
-      top: $nav-height-active;
-      height: calc(100vh - #{$nav-height-active});
+      top: $nav-height;
+      height: calc(100vh - #{$nav-height});
     }
   }
 }
@@ -60,79 +40,26 @@ $nav-height-active: 46px;
 .story {
   .header-inverted.active {
     .nav__mobile-logo {
-      @media (--tablet) {
-        left: 19%;
-        // padding-right: 20px;
-      }
-
       @media (--desktop) {
-        left: 20%;
+        left: 19%;
       }
     }
 
     .header__logo {
       @media (--tablet) {
-        height: 32px;
+        height: 24px;
       }
     }
 
     .nav__story-title {
-      // padding: 0 15px;
-      width: 66%;
-
-      @media (--tablet) {
-        left: 41%;
-        width: 240px;
-        margin: 0;
-      }
-
       @media (--desktop) {
-        left: 35%;
-        width: 460px;
+        left: 33%;
       }
     }
 
-    /* .nav__story-social-network {
-      display: block;
-
-      .story-header__list {
-        @media (--only-mobile) {
-          background-color: $color-white;
-          width: auto;
-          padding: 10px;
-          flex-direction: column;
-          top: 30px;
-          position: absolute;
-          right: -10px;
-          z-index: 1;
-          box-shadow: -1px 7px 11px rgba(0, 0, 0, 0.3);
-        }
-
-        width: 110px;
-      }
-      .story-header__item {
-        @media (--only-mobile) {
-          margin-bottom: 10px;
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-      }
-      .story-header__icon,
-      .story-header__share-icon {
-        font-size: 23px;
-      }
-      .story-header__icon {
-        @media (--only-mobile) {
-          color: $color-gray-300;
-        }
-      }
-      .story-header__share-icon {
-        @media (--tablet) {
-          display: none;
-        }
-      }
-    } */
+    .story-header__icon {
+      background-color: initial;
+    }
   }
 }
 
