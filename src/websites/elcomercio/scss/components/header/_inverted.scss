@@ -1,12 +1,7 @@
 $nav-height-active: 46px;
 
-.header-ec {
-  height: $header-ec-height;
-  z-index: 20;
-
-  @media print {
-    display: none;
-  }
+.header-inverted {
+  height: $header-inverted-height;
 
   .header__logo {
     height: 36px;
@@ -18,39 +13,23 @@ $nav-height-active: 46px;
     transform: translateX(0);
   }
 
-  &__btn-search,
-  &__btn-menu {
-    &:hover {
-      text-decoration: none;
-    }
+  .header-inverted__btn-menu,
+  .header-inverted__btn-search {
+    color: $color-base-100;
   }
 
-  &__btn-search {
-    &.active {
-      color: $color-base-100;
-      border: none;
-    }
+  .header-inverted__btn-club,
+  .header-inverted__btn-subs {
+    color: $color-white;
   }
 
-  &__btn-menu {
-    span {
-      display: none;
-
-      @media (--tablet) {
-        display: inline-block;
-      }
-    }
+  .nav-sidebar {
+    top: $header-inverted-height;
   }
 
   &.active {
-    position: fixed; // No borrar, si no reconce sticky deja fixed
-    position: sticky;
     background-color: $color-base-100;
     height: $nav-height-active;
-
-    @supports (position: sticky) {
-      width: 100%;
-    }
 
     &.nav__loader {
       top: 0;
@@ -60,12 +39,12 @@ $nav-height-active: 46px;
       height: 44px;
     }
 
-    .header-ec__btn-menu,
-    .header-ec__btn-search {
+    .header-inverted__btn-menu,
+    .header-inverted__btn-search {
       color: $color-white;
     }
 
-    .header-ec__btn-subs {
+    .header-inverted__btn-subs {
       display: flex;
     }
 
@@ -85,7 +64,17 @@ $nav-height-active: 46px;
   }
 }
 
-.nav__btn--section {
+.story {
+  .header-inverted.active {
+    .header__logo {
+      @media (--tablet) {
+        height: 32px;
+      }
+    }
+  }
+}
+
+/* .nav__btn--section {
   & span {
     @media (--tablet) {
       display: inline;
@@ -93,3 +82,4 @@ $nav-height-active: 46px;
     }
   }
 }
+ */

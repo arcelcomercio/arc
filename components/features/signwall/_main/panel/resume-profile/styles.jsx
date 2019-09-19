@@ -93,18 +93,19 @@ export const WrapperBlock = styled.div`
     & .container-grid {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: flex-start;
     }
 
     & .item,
     & .add-item {
       width: 158px;
       height: 90px;
-      margin: 0 0 15px 0;
+      margin: 0 5px 15px 0;
       position: relative;
       @media ${device.desktop} {
         width: 180px;
         height: 101px;
+        margin: 0 15px 15px 0;
       }
     }
 

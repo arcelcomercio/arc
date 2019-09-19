@@ -41,8 +41,9 @@ class StoryContinue extends PureComponent {
     const linker = storyLoader.querySelector(`.story-continue__story-load-link`)
     const html = document.documentElement
     const concurrentProgress = parseInt(progress.getAttribute('size'), 10)
+    const { innerHeight, scrollY } = window
 
-    if (window.innerHeight + window.scrollY >= html.scrollHeight) {
+    if (innerHeight + scrollY >= html.scrollHeight) {
       const totalProgress = (MAX_PROGRESS - concurrentProgress) / 10
       for (let i = 0; i < totalProgress; i++) {
         let newerProgress = concurrentProgress + 10 * i + 10
@@ -80,10 +81,9 @@ class StoryContinue extends PureComponent {
     const scrolled = Math.max(bodyScrollTop, scrollTop)
 
     if (height > 0 && progressBar) {
-      const scale = scrolled / (height - h)
-      const round = Math.round(scale)
+      const scale = Math.round((scrolled / (height - h)) * 100) / 100
       progressBar.style.transform = `scaleX(${scale})`
-      if (loader) loader.style.opacity = round > 2 ? '1' : '0'
+      if (loader) loader.style.display = scale > 0.02 ? 'block' : 'none'
     }
   }
 
@@ -164,11 +164,13 @@ class StoryContinue extends PureComponent {
     const navLogo = document.querySelector('.nav__logo')
     if (window.screen.width > 1023 && navLogo) {
       const { arcSite, contextPath, deployment } = this.props || {}
-      navLogo.src = deployment(
-        arcSite === 'publimetro'
-          ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-          : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
-      )
+      if (arcSite !== 'gestion') {
+        navLogo.src = deployment(
+          arcSite === 'publimetro'
+            ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
+            : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+        )
+      }
     }
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
@@ -202,7 +204,10 @@ class StoryContinue extends PureComponent {
     for (let i = 0; i < recentStoryContinue.length; i++) {
       title = recentStoryContinue[i].basic || ''
       websiteUrl = recentStoryContinue[i].websiteUrl || ''
-      if (recentStoryContinue.length - 1 === i) {
+      if (
+        recentStoryContinue.length - 1 === i &&
+        typeof window !== 'undefined'
+      ) {
         window.sessionStorage.removeItem(URLS_STORAGE)
       }
       if (this.saveUrlSessionStorage(`${siteUrl}${websiteUrl}`)) {

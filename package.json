@@ -50,7 +50,7 @@
   "devDependencies": {
     "@arc-core-components/content-source_story-feed_author-v4": "^1.0.4-beta.0",
     "@arc-core-components/content-source_story-feed_tag-v4": "^1.0.4-beta.0",
-    "@arc-fusion/cli": "^1.0.4",
+    "@arc-fusion/cli": "^1.0.5",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-decorators": "^7.4.4",
