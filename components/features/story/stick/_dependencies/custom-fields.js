@@ -1,18 +1,15 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-  Ambiente: PropTypes.oneOf(['prod', 'dev']).tag({
-    name: 'Ambiente :',
-    labels: {
-      prod: 'Producción',
-      dev: 'Desarrollo',
-    },
-    defaultValue: 'prod',
+
+  urlpwd: PropTypes.string.tag({
+    name: 'Url de produccion',
+    description: 'Url de pwd  Ejemplo: https://pwaperu21.page.link',
   }),
 
-  urlpwdDev: PropTypes.string.tag({
-    name: 'Url de produccion o Desarrollo',
-    description: 'Ejm: https://pwaperu21.page.link ó https://pwadevperu21.page.link',
+  urlDev: PropTypes.string.tag({
+    name: 'Url de desarrollo ',
+    description: 'Url sandbox Ejemplo: https://pwadevperu21.page.link',
   }),
 
   apn: PropTypes.string.tag({
@@ -44,6 +41,7 @@ const customFields = PropTypes.shape({
     name: 'imv',
     description: 'imv',
   }),
+  
 })
 
 export default customFields

@@ -59,7 +59,7 @@ class Stick extends PureComponent {
         window.location.href
       }${href}`
       */
-      // por que el comercio ? 
+      
       const urlApp = ENV.ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev
       const urlSource =
         ENV.ENVIRONMENT === 'elcomercio'
@@ -103,8 +103,6 @@ class Stick extends PureComponent {
     return url
     
   }
-
-
 
   render() {
     const {
