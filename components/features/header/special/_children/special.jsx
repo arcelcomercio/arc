@@ -14,7 +14,7 @@ const DRAG_SCREEN_LIMIT = 90
 const LIST_WIDTH = 330
 
 const classes = {
-  header: `header header-ec w-full position-relative top-0 secondary-font pr-15 text-sm text-white font-bold flex items-center justify-center pt-0 pb-0 pl-15 md:position-absolute`,
+  header: `header header-inverted w-full position-relative top-0 secondary-font pr-15 text-sm text-white font-bold flex items-center justify-center pt-0 pb-0 pl-15 md:position-absolute`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
   navBtnContainer: `flex items-center justify-start nav__container-menu position-absolute`,
@@ -22,15 +22,15 @@ const classes = {
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
   form: 'position-relative items-center hidden lg:flex',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
-  btnSearch: `header-ec__btn-search nav__btn--search flex items-center text-white lg:pr-20 lg:pl-20 border-r-1 border-solid border-white`,
+  btnSearch: `header-inverted__btn-search nav__btn--search flex items-center text-white lg:pr-20 lg:pl-20 border-r-1 border-solid border-white`,
   iconSearch: 'icon-search text-lg',
   btnSection:
-    'header-ec__btn-menu flex items-center text-white p-5 md:pr-20 lg:pl-20',
+    'header-inverted__btn-menu flex items-center text-white p-5 md:pr-20 lg:pl-20',
   iconMenu: 'icon-hamburguer title-sm pr-10',
   btnProfile:
     'items-center btn bg-white text-gray-300 text-sm hidden p-5 md:flex lg:pr-10 lg:pl-10',
-  btnClub: 'header-ec__btn-club',
-  btnSubs: 'header-ec__btn-subs',
+  btnClub: 'header-inverted__btn-club',
+  btnSubs: 'header-inverted__btn-subs',
   /** ------------ */
   navStoryTitle: 'nav__story-title position-absolute overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',

@@ -229,10 +229,6 @@
         width: 100%;
         position: relative;
         color: black;
-        margin-bottom: 50px;
-        @media (--tablet) {
-          margin-bottom: 30px;
-        }
         .cont-dates,
         .cont-subs {
           display: inline-block;
@@ -253,13 +249,14 @@
         .title-dates {
           width: 100%;
           @media (--desktop) {
-            width: 25%;
+            width: 20%;
           }
 
           .title {
             font-weight: bold;
             line-height: 26px;
             font-size: 20px;
+            margin-bottom: 20px;
           }
         }
 
@@ -340,7 +337,7 @@
           font-size: 14px;
           line-height: 30px;
           @media (--desktop) {
-            width: 75%;
+            width: 80%;
           }
           .pass {
             font-size: 30px;
@@ -391,8 +388,9 @@
             font-size: 12px;
             line-height: 20px;
             min-height: auto;
-            border-radius: 8px 0px 0px 8px;
+            border-radius: 8px 8px 0px 0px;
             @media (--desktop) {
+              border-radius: 8px 0px 0px 8px;
               min-height: 150px;
               width: 40%;
             }

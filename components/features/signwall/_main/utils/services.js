@@ -105,7 +105,7 @@ export default class Services {
           }),
           headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            Authorization: `Bearer ${token} ${site}`,
           },
         }
       ).then(res => resolve(res.json()))

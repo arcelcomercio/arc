@@ -41,8 +41,9 @@ class StoryContinue extends PureComponent {
     const linker = storyLoader.querySelector(`.story-continue__story-load-link`)
     const html = document.documentElement
     const concurrentProgress = parseInt(progress.getAttribute('size'), 10)
+    const { innerHeight, scrollY } = window
 
-    if (window.innerHeight + window.scrollY >= html.scrollHeight) {
+    if (innerHeight + scrollY >= html.scrollHeight) {
       const totalProgress = (MAX_PROGRESS - concurrentProgress) / 10
       for (let i = 0; i < totalProgress; i++) {
         let newerProgress = concurrentProgress + 10 * i + 10
@@ -80,10 +81,9 @@ class StoryContinue extends PureComponent {
     const scrolled = Math.max(bodyScrollTop, scrollTop)
 
     if (height > 0 && progressBar) {
-      const scale = scrolled / (height - h)
-      const round = Math.round(scale)
+      const scale = Math.round((scrolled / (height - h)) * 100) / 100
       progressBar.style.transform = `scaleX(${scale})`
-      if (loader) loader.style.opacity = round > 2 ? '1' : '0'
+      if (loader) loader.style.display = scale > 0.02 ? 'block' : 'none'
     }
   }
 
@@ -132,21 +132,7 @@ class StoryContinue extends PureComponent {
 
     if (screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
-      const navSidebar = document.querySelector('.nav-sidebar')
       if (storyHeader) storyHeader.classList.add('hidden')
-      const nav = document.querySelector('.nav')
-      const navWrapper = document.querySelector('.nav__wrapper')
-
-      if (scrollY < this.preview) {
-        if (nav) nav.classList.remove('active')
-        if (navWrapper) navWrapper.classList.add('somos-menu--active')
-        if (navSidebar) navSidebar.classList.add('somos-menu--active')
-      } else {
-        if (scrollY < 50 && nav) nav.classList.remove('active')
-        else if (nav) nav.classList.add('active')
-
-        if (navWrapper) navWrapper.classList.remove('somos-menu--active')
-      }
 
       this.preview = scrollY
     }
@@ -164,11 +150,13 @@ class StoryContinue extends PureComponent {
     const navLogo = document.querySelector('.nav__logo')
     if (window.screen.width > 1023 && navLogo) {
       const { arcSite, contextPath, deployment } = this.props || {}
-      navLogo.src = deployment(
-        arcSite === 'publimetro'
-          ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-          : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
-      )
+      if (arcSite !== 'gestion') {
+        navLogo.src = deployment(
+          arcSite === 'publimetro'
+            ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
+            : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+        )
+      }
     }
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
@@ -202,7 +190,10 @@ class StoryContinue extends PureComponent {
     for (let i = 0; i < recentStoryContinue.length; i++) {
       title = recentStoryContinue[i].basic || ''
       websiteUrl = recentStoryContinue[i].websiteUrl || ''
-      if (recentStoryContinue.length - 1 === i) {
+      if (
+        recentStoryContinue.length - 1 === i &&
+        typeof window !== 'undefined'
+      ) {
         window.sessionStorage.removeItem(URLS_STORAGE)
       }
       if (this.saveUrlSessionStorage(`${siteUrl}${websiteUrl}`)) {
