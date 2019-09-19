@@ -9,7 +9,7 @@ const classes = {
   date: 'author-item__date text-xs hidden md:block',
   content: 'author-item__content flex w-full items-start',
   imageBox:
-    'author-item__box-image flex flex-grow-0 flex-shrink-0 bg-error rounded md:rounded-none',
+    'author-item__box-image flex flex-grow-0 flex-shrink-0 bg-base-300 rounded md:rounded-none',
   image:
     'author-item__image object-cover rounded md:rounded-none md:w-full md:h-full',
   descBox: 'ml-20',
@@ -18,7 +18,20 @@ const classes = {
   subtitle: 'author-item__subtitle block secondary-font text-xs text-gray-300',
 }
 
-const OpinionGridListItem = ({ data: story }) => {
+const OpinionGridListItem = ({
+  data: story,
+  deployment,
+  contextPath,
+  arcSite,
+}) => {
+  const opinionImageDefault = deployment(
+    `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
+  )
+
+  const opinionImage = story.authorImage.includes('author.png')
+    ? opinionImageDefault
+    : story.authorImage
+
   return (
     <div role="listitem" className={classes.authorItem}>
       <div className={classes.wrapper}>
@@ -31,10 +44,9 @@ const OpinionGridListItem = ({ data: story }) => {
           <figure className={classes.imageBox}>
             <a href={story.link}>
               <img
-                src={story.authorImage}
+                src={opinionImage}
                 className={classes.image}
                 alt={story.author}
-                
               />
             </a>
           </figure>

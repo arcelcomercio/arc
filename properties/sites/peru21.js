@@ -172,6 +172,6 @@ export default {
     logoAlt: 'Perú21Tv',
   },
   stick: {
-    logo: 'logo-p21.png'
+    logo: 'logo-peru21-stick.png'
   }
 }

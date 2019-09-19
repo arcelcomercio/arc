@@ -13,10 +13,10 @@
 
   &__link {
     font-size: 1rem;
-    color: $color-white;
+    color: $color-gray-300;
     text-transform: capitalize;
     &:hover {
-      color: $color-white;
+      color: $color-gray-300;
       text-decoration: underline;
     }
   }

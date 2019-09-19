@@ -48,7 +48,7 @@ function WizardUserProfile(props) {
 
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_PROFILE, {
-      sku: `${sku}${priceCode}`,
+      sku: `${sku}`,
       periodo: billingFrequency,
       referer,
       medioCompra: origin,
