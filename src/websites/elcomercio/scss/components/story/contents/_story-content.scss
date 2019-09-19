@@ -17,6 +17,11 @@
     padding-bottom: 10px;
     font-size: 13px;
   }
+  &__taboola {
+    .thumbnails-a {
+      width: 100% !important;
+    }
+  }
 }
 
 .opinion .content-sidebar {
