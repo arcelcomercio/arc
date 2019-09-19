@@ -1,7 +1,7 @@
 $nav-height-active: 46px;
 
-.header-ec {
-  height: $header-ec-height;
+.header-inverted {
+  height: $header-inverted-height;
   z-index: 20;
 
   @media print {
@@ -60,12 +60,12 @@ $nav-height-active: 46px;
       height: 44px;
     }
 
-    .header-ec__btn-menu,
-    .header-ec__btn-search {
+    .header-inverted__btn-menu,
+    .header-inverted__btn-search {
       color: $color-white;
     }
 
-    .header-ec__btn-subs {
+    .header-inverted__btn-subs {
       display: flex;
     }
 

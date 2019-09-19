@@ -14,7 +14,7 @@ const DRAG_SCREEN_LIMIT = 90
 const LIST_WIDTH = 330
 
 const classes = {
-  header: `header header-ec bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
+  header: `header header-inverted bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
   featured: 'header__featured flex w-full font-normal overflow-hidden mr-20',
@@ -28,14 +28,15 @@ const classes = {
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
   form: 'position-relative items-center hidden lg:flex',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
-  btnSearch: `header-ec__btn-search flex items-center nav__btn--search lg:pr-20 lg:pl-20 border-r-1 border-solid`,
+  btnSearch: `header-inverted__btn-search flex items-center nav__btn--search lg:pr-20 lg:pl-20 border-r-1 border-solid`,
   iconSearch: 'icon-search text-lg',
-  btnSection: 'header-ec__btn-menu flex items-center p-5 md:pr-20 lg:pl-20',
+  btnSection:
+    'header-inverted__btn-menu flex items-center p-5 md:pr-20 lg:pl-20',
   iconMenu: 'icon-hamburguer title-sm pr-10',
   btnProfile:
     'items-center btn bg-base-100 text-white text-sm hidden p-5 md:flex lg:pr-10 lg:pl-10',
-  btnClub: 'header-ec__btn-club',
-  btnSubs: 'header-ec__btn-subs',
+  btnClub: 'header-inverted__btn-club',
+  btnSubs: 'header-inverted__btn-subs',
   /** ------------ */
   navStoryTitle: 'nav__story-title position-absolute overflow-hidden',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
@@ -50,7 +51,7 @@ const classes = {
 }
 
 // TODO: Agregar el click afuera del menu
-const HeaderChildElComercio = ({
+const HeaderChildInverted = ({
   logo,
   auxLogo,
   bandLinks,
@@ -314,7 +315,7 @@ const HeaderChildElComercio = ({
         {/** ************* // LEFT *************** */}
         <a href={logo.link} className={classes.logoContainer}>
           <img
-            src={scrolled ? auxLogo.src : logo.src}
+            src={scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src}
             alt={logo.alt}
             className={classes.logo}
           />
@@ -383,7 +384,7 @@ const HeaderChildElComercio = ({
   )
 }
 
-HeaderChildElComercio.propTypes = {
+HeaderChildInverted.propTypes = {
   logo: PropTypes.shape({
     src: PropTypes.string,
     link: PropTypes.string,
@@ -397,4 +398,4 @@ HeaderChildElComercio.propTypes = {
   ),
 }
 
-export default HeaderChildElComercio
+export default HeaderChildInverted

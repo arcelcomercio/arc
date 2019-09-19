@@ -9,13 +9,13 @@ import ConfigParams from '../../../utilities/config-params'
 import Formatter from './_dependencies/formatter'
 import { bandFilter, menuFilter } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import HeaderChildElComercio from './_children/header'
+import HeaderChildInverted from './_children/header'
 
 const BAND_HIERARCHY = 'header-default'
 const MENU_HIERARCHY = 'navbar-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
-const HeaderElComercio = props => {
+const HeaderInverted = props => {
   const {
     customFields: {
       hierarchyConfig,
@@ -128,13 +128,13 @@ const HeaderElComercio = props => {
     shareButtons,
   }
 
-  return <HeaderChildElComercio {...formatter.getParams()} {...params} />
+  return <HeaderChildInverted {...formatter.getParams()} {...params} />
 }
 
-HeaderElComercio.label = 'Cabecera - El Comercio'
+HeaderInverted.label = 'Cabecera - El Comercio'
 
-HeaderElComercio.propTypes = {
+HeaderInverted.propTypes = {
   customFields,
 }
 
-export default HeaderElComercio
+export default HeaderInverted

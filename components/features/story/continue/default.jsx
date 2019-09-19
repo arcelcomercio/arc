@@ -202,7 +202,10 @@ class StoryContinue extends PureComponent {
     for (let i = 0; i < recentStoryContinue.length; i++) {
       title = recentStoryContinue[i].basic || ''
       websiteUrl = recentStoryContinue[i].websiteUrl || ''
-      if (recentStoryContinue.length - 1 === i) {
+      if (
+        recentStoryContinue.length - 1 === i &&
+        typeof window !== 'undefined'
+      ) {
         window.sessionStorage.removeItem(URLS_STORAGE)
       }
       if (this.saveUrlSessionStorage(`${siteUrl}${websiteUrl}`)) {
