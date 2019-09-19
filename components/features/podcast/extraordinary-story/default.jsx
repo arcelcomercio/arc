@@ -30,9 +30,9 @@ const PodcastExtraordinazryStory = props => {
   })
 
   return (
-    <div className="podcast-extraordinary flex">
-      <div className="podcast-extraordinary__content flex flex-col justify-center pr-20">
-        <div className="podcast-extraordinary__section-container flex mb-10">
+    <div className="podcast-extraordinary flex flex-wrap flex-col-reverse md:flex-row p-20 md:pl-0 md:pr-0 md:pt-20 md:pb-20">
+      <div className="podcast-extraordinary__content flex flex-col justify-center pr-20 w-full">
+        <div className="podcast-extraordinary__section-container flex items-center md:mb-10 md:mt-10 mb-15 mt-15">
           <h3 className="podcast-extraordinary__section mr-10">
             <a
               href="/"
@@ -40,14 +40,14 @@ const PodcastExtraordinazryStory = props => {
               El Comercio Hoy
             </a>
           </h3>
-          <span className="podcast-extraordinary__tag text-sm font-bold text-white rounded-lg pt-5 pb-5 pl-10 pr-10">
+          <span className="podcast-extraordinary__tag text-sm font-bold text-white rounded-lg pt-5 pb-5 pl-10 pr-10 secondary-font">
             Nuevo
           </span>
         </div>
         <h2 className="podcast-extraordinary__title mb-15">
           <a
             href="/"
-            className="podcast-extraordinary__title-link text-black font-bold line-h-xs">
+            className="podcast-extraordinary__title-link text-black font-bold secondary-font line-h-xs">
             Las noticias de hoy, Lunes 07 de Junio
           </a>
         </h2>
@@ -62,7 +62,7 @@ const PodcastExtraordinazryStory = props => {
           </a>
         </p>
       </div>
-      <a href="/" className="podcast-extraordinary__img-link">
+      <a href="/" className="podcast-extraordinary__img-link w-full">
         <picture className="podcast-extraordinary__picture">
           <img
             src={multimediaLandscapeL}
