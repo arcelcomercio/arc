@@ -30,6 +30,7 @@ import './images/signwall/bg_login.png'
 import './images/author.png'
 
 import './images/paywall/img_corporativo.webp'
+import './images/paywall/img_corporativo.png'
 import './images/paywall/check2.png'
 import './images/paywall/img_login.webp'
 import './images/paywall/img_soporte.webp'
