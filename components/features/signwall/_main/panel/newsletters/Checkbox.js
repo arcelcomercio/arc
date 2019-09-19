@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { device } from '../../../_styles/breakpoints'
 
-
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;

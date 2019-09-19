@@ -7,6 +7,7 @@ import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
 import ResumeSubs from '../resume-profile/subs'
 import { Wrapper } from '../../../_styles/common'
+import Taggeo from '../../utils/taggeo'
 
 @Consumer
 class Subscription extends Component {
@@ -75,7 +76,8 @@ class Subscription extends Component {
 
   handleSuscription = e => {
     e.preventDefault()
-    window.location.href = Domains.getUrlPaywall('organico')
+    window.location.href = Domains.getUrlPaywall()
+    window.sessionStorage.setItem('paywall_type_modal', 'organico')
   }
 
   openModalConfirm = () => {
@@ -205,6 +207,10 @@ class Subscription extends Component {
                           value="VER PLANES"
                           onClick={e => {
                             this.handleSuscription(e)
+                            Taggeo(
+                              `Web_Paywall_Perfil`,
+                              `web_paywall_boton_suscribirme`
+                            )
                           }}></input>
                       </div>
 
