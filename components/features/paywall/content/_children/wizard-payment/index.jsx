@@ -41,7 +41,7 @@ function WizardPayment(props) {
 
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_CARD_INFO, {
-      sku: `${sku}${priceCode}`,
+      sku: `${sku}`,
       referer,
       medioCompra: origin,
       periodo: billingFrequency,

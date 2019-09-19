@@ -14,9 +14,9 @@ const HARD_CAMPAIGNS = [{
   recommended: true,
   price: { amount: 49, currency: 'S/' },
   detail: {
-    frequency: 'MES',
-    duration: 'POR 6 MESES',
-    aditional: 'LUEGO S/ 20 CADA MES',
+    frequency: 'AL MES',
+    duration: 'POR LOS PRIMEROS 3 MESES',
+    aditional: 'LUEGO S/ 68 CADA MES',
   },
   aditional: '',
   features: [

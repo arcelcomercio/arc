@@ -128,30 +128,10 @@ class NewsLetter extends Component {
     const EMAIL = window.Identity.userProfile.email
     const TOKEN_USER = window.Identity.userIdentity.accessToken
 
-    const options = {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${TOKEN_USER} ${arcSite}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        type: 'newsletter',
-        eventName: 'build_preference',
-        uuid: UUID,
-        email: EMAIL,
-        attributes: {
-          preferences: [...selectCategories],
-          first_name: '',
-          last_name: '',
-        },
-        brand: arcSite,
-      }),
-    }
-    fetch(
-      'https://vq01ksb95d.execute-api.us-east-1.amazonaws.com/dev/userprofile/public/v1/newsletter/events',
-      options
-    )
-      .then(res => res.json())
+    services
+      .sendNewsLettersUser(UUID, EMAIL, arcSite, TOKEN_USER, [
+        ...selectCategories,
+      ])
       .then(() => {
         if (this.newSetCategories) {
           this.newSetCategories = null
@@ -162,12 +142,20 @@ class NewsLetter extends Component {
         //   'preferencesNews',
         //   JSON.stringify(response.data.preferences)
         // )
-      })
-      .catch(window.console.error)
-      .finally(() => {
         setTimeout(() => {
           this.setState({ showsuccess: false })
         }, 3000)
+      })
+      .catch(err => {
+        // if (
+        //   err.status === false &&
+        //   err.status_code === 401 &&
+        //   err.message === 'Unauthorized'
+        // ) {
+        //   window.console.log('refresh')
+        //   window.Identity.extendSession()
+        //   this.setPreference()
+        // }
       })
   }
 
