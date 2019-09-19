@@ -2,7 +2,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 
 export default ({ fusionContext, getImageDeployment }) => {
   const { arcSite } = fusionContext
-  createMuiTheme({
+  return createMuiTheme({
     name: arcSite,
     palette: {
       background: { default: '#eeeeee' },
