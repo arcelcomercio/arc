@@ -78,7 +78,7 @@ export default {
     }
 
     const detail = {
-      frequency: DURATION[_duration].singular,
+      frequency: `AL ${DURATION[_duration].singular}`,
       duration: `POR ${durationCount} ${DURATION[_duration].plural}`,
       aditional: `LUEGO S/ ${parseInt(amountAf, 10)} CADA ${
         DURATION[_billingFrequencyAf].singular

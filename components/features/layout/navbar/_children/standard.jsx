@@ -249,23 +249,23 @@ class NavBarDefault extends PureComponent {
     } else if (window.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          if (ENV.ENVIRONMENT === 'elcomercio') {
-            if (
-              campaignURL.indexOf('signwallPaywall') >= 0 &&
-              W.location.pathname.indexOf('podcast') >= 0
-            ) {
-              window.console.log('signwallPaywall')
-              this.checkIsEco().then(res => {
-                if (res === true) W.location.href = campaignURL
-              })
-            } else if (campaignURL.indexOf('signwallHard') >= 0) {
-              window.console.log('signwallHard')
-              W.location.href = campaignURL
-            }
-          } else {
-            window.console.log('signwallHard & signwallPaywall')
-            W.location.href = campaignURL
-          }
+          // if (ENV.ENVIRONMENT === 'elcomercio') {
+          //   if (
+          //     campaignURL.indexOf('signwallPaywall') >= 0 &&
+          //     W.location.pathname.indexOf('podcast') >= 0
+          //   ) {
+          //     window.console.log('signwallPaywall')
+          //     this.checkIsEco().then(res => {
+          //       if (res === true) W.location.href = campaignURL
+          //     })
+          //   } else if (campaignURL.indexOf('signwallHard') >= 0) {
+          //     window.console.log('signwallHard')
+          //     W.location.href = campaignURL
+          //   }
+          // } else {
+          //  window.console.log('signwallHard & signwallPaywall')
+          W.location.href = campaignURL
+          // }
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
