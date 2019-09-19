@@ -19,6 +19,7 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
       type: typeEmbed = '',
       content: embedHtmlPromoItems = '',
     } = {},
+    path_mp3: { content: mp3 = '' } = {},
   } = data
   const { type: typeImage, caption = '' } = basic || {}
 
@@ -45,6 +46,13 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
         <Video data={embedHtml} description={descriptionVideo} />
       ) : (
         <>{streams && <VideoNativo streams={streams} />}</>
+      )}
+      {mp3 && (
+        <>
+          <video width="100%" controls>
+            <source src={mp3} type="audio/mpeg" />
+          </video>
+        </>
       )}
     </>
   )
