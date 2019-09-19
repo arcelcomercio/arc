@@ -132,21 +132,7 @@ class StoryContinue extends PureComponent {
 
     if (screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
-      const navSidebar = document.querySelector('.nav-sidebar')
       if (storyHeader) storyHeader.classList.add('hidden')
-      const nav = document.querySelector('.nav')
-      const navWrapper = document.querySelector('.nav__wrapper')
-
-      if (scrollY < this.preview) {
-        if (nav) nav.classList.remove('active')
-        if (navWrapper) navWrapper.classList.add('somos-menu--active')
-        if (navSidebar) navSidebar.classList.add('somos-menu--active')
-      } else {
-        if (scrollY < 50 && nav) nav.classList.remove('active')
-        else if (nav) nav.classList.add('active')
-
-        if (navWrapper) navWrapper.classList.remove('somos-menu--active')
-      }
 
       this.preview = scrollY
     }
