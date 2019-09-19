@@ -24,6 +24,14 @@
     }
   }
 
+  &__btn {
+    &.active {
+      &__icon-search {
+        color: $color-base-400;
+      }
+    }
+  }
+
   &__logo {
     padding: 10px 0;
   }
@@ -43,7 +51,7 @@
 
     &.active {
       background-color: $color-white;
-      color: $color-base-100;
+      color: $color-base-400;
       border-color: $color-white;
     }
   }

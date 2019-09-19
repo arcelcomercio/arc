@@ -64,14 +64,13 @@ export const MenuProfile = props => {
               </a>
             </li>
 
-            {window.document.cookie.indexOf('isECO=true') >= 0 &&
-              arcSite === 'gestion' && (
-                <li>
-                  <a href="#" onClick={() => props.subs()}>
-                    Mi Suscripción
-                  </a>
-                </li>
-              )}
+            {arcSite === 'gestion' && (
+              <li>
+                <a href="#" onClick={() => props.subs()}>
+                  Mi Suscripción
+                </a>
+              </li>
+            )}
 
             {arcSite === 'gestion' && (
               <li>

@@ -41,12 +41,14 @@ class Subs extends Component {
               this.setState({
                 userSubsDetail: p,
                 isSubs: true,
+                isLoad: false,
+              })
+            } else {
+              this.setState({
+                isSubs: false,
+                isLoad: false,
               })
             }
-            this.setState({
-              isSubs: false,
-              isLoad: false,
-            })
           }, 2000)
         })
         this.getCampain()
@@ -58,12 +60,14 @@ class Subs extends Component {
             this.setState({
               userSubsDetail: p,
               isSubs: true,
+              isLoad: false,
+            })
+          } else {
+            this.setState({
+              isSubs: false,
+              isLoad: false,
             })
           }
-          this.setState({
-            isSubs: false,
-            isLoad: false,
-          })
         }, 2000)
       })
       this.getCampain()
@@ -286,45 +290,42 @@ class Subs extends Component {
               </>
             ) : (
               <>
-                {window.document.cookie.indexOf('isECO=true') >= 0 &&
-                  arcSite === 'gestion' && (
-                    <div className="resume__dates">
-                      <div className="title-dates">
-                        <h2 className="title">Mi suscripción</h2>
+                {arcSite === 'gestion' && (
+                  <div className="resume__dates">
+                    <div className="title-dates">
+                      <h2 className="title">Mi suscripción</h2>
+                    </div>
+                    <div className="cont-subs">
+                      <div className="first-subs">
+                        <p>Accede a nuestro contenido exclusivo, adquiere tu</p>
+                        <h3>{paywallName}</h3>
                       </div>
-                      <div className="cont-subs">
-                        <div className="first-subs">
-                          <p>
-                            Accede a nuestro contenido exclusivo, adquiere tu
-                          </p>
-                          <h3>{paywallName}</h3>
-                        </div>
-                        <div className="last-subs">
-                          <button
-                            className="btn-subs"
-                            type="button"
-                            onClick={e => {
-                              Taggeo(
-                                `Web_Paywall_Perfil`,
-                                `web_paywall_boton_suscribirme`
-                              )
-                              this.handlePageChange(e)
-                            }}>
-                            <h3>SUSCRÍBETE</h3>
-                            <span>DESDE S/ {paywallPrice} MENSUALES</span>
-                            {/* <span>{paywallDescripcion}</span> */}
-                          </button>
-                        </div>
-                      </div>
-                      <div className="title-dates"></div>
-                      <div className="cont-note">
-                        <p className="note-subs">
-                          *si cuentas con alguna suscripción adquirida por otro
-                          canal, por el momento, no podrás visualizarla aquí.
-                        </p>
+                      <div className="last-subs">
+                        <button
+                          className="btn-subs"
+                          type="button"
+                          onClick={e => {
+                            Taggeo(
+                              `Web_Paywall_Perfil`,
+                              `web_paywall_boton_suscribirme`
+                            )
+                            this.handlePageChange(e)
+                          }}>
+                          <h3>SUSCRÍBETE</h3>
+                          <span>DESDE S/ {paywallPrice} MENSUALES</span>
+                          {/* <span>{paywallDescripcion}</span> */}
+                        </button>
                       </div>
                     </div>
-                  )}
+                    <div className="title-dates"></div>
+                    <div className="cont-note">
+                      <p className="note-subs">
+                        *si cuentas con alguna suscripción adquirida por otro
+                        canal, por el momento, no podrás visualizarla aquí.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </>
             )}
 
