@@ -6,7 +6,7 @@ import Html from './html'
 import VideoNativo from './video-nativo'
 
 const classes = {
-  mp3: 'pt-10',
+  audio: 'pt-10 w-full',
 }
 
 const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
@@ -53,11 +53,11 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
         <>{streams && <VideoNativo streams={streams} />}</>
       )}
       {mp3 && (
-        <div className={classes.mp3}>
-          <audio controls>
+        <>
+          <audio className={classes.audio} controls>
             <source src={mp3} type="audio/mpeg" />
           </audio>
-        </div>
+        </>
       )}
     </>
   )
