@@ -2,4 +2,9 @@
   &__story-load-image {
     background-image: url(/pf/resources/dist/gestion/images/web_img_ges_badge2.png);
   }
+  &__counter {
+    &:after {
+      background-color: $color-base-100;
+    }
+  }
 }
