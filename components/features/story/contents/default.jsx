@@ -116,7 +116,8 @@ class StoryContents extends PureComponent {
           ? promoItems && <StoryContentsChildImpresa data={promoItems} />
           : promoItems &&
             subtype !== ConfigParams.BIG_IMAGE &&
-            subtype !== ConfigParams.SPECIAL_BASIC && (
+            subtype !== ConfigParams.SPECIAL_BASIC &&
+            subtype !== ConfigParams.SPECIAL && (
               <StoryContentsChildMultimedia data={params} />
             )}
 
