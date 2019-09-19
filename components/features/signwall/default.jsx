@@ -112,7 +112,12 @@ class Signwall extends Component {
             />
           )}
 
-          {showPanel && <Panel arcSite={arcSite} closePopup={() => this.togglePopupPanel()} />}
+          {showPanel && (
+            <Panel
+              arcSite={arcSite}
+              closePopup={() => this.togglePopupPanel()}
+            />
+          )}
         </div>
       </div>
     )

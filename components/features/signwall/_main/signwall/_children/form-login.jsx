@@ -274,9 +274,13 @@ class FormLogin extends Component {
   handleSuscription = e => {
     const { removeBefore, typePopUp } = this.props
     e.preventDefault()
-    window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
+    window.sessionStorage.setItem(
+      'paywall_last_url',
+      window.document.referrer.split(window.location.origin)[1]
+    )
     removeBefore() // dismount before
-    window.location.href = Domains.getUrlPaywall(typePopUp)
+    window.location.href = Domains.getUrlPaywall()
+    window.sessionStorage.setItem('paywall_type_modal', typePopUp)
   }
 
   taggeoSuccess() {
