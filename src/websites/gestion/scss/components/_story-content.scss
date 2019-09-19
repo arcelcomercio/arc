@@ -30,6 +30,9 @@
   &__icon {
     color: $color-gray-200;
   }
+  &__list-more {
+    padding-left: 0;
+  }
   &__font--secondary {
     a {
       color: #0e6dc1;
@@ -48,4 +51,7 @@
 }
 ul.story-content__list {
   list-style-type: none;
+}
+ul.story-content__list-more {
+  padding-left: 10px;
 }
