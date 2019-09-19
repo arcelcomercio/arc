@@ -22,11 +22,7 @@ const StorySocial = () => {
   return (
     <>
       <div className={classes.story}>
-        {arcSite !== ConfigParams.SITE_GESTION ? ( // TODO Salida de gestion 30 de julio
-          <StorySocialChildSocial url={link} />
-        ) : (
-          <StorySocialChildSocialGestion url={link} />
-        )}
+        <StorySocialChildSocial url={link} />
       </div>
     </>
   )

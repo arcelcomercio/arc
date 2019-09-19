@@ -66,8 +66,13 @@ export const Panel = props => {
                   />
                 </div>
                 <div className="panel-right">
-                  {window.document.cookie.indexOf('isECO=true') >= 0 &&
+                  {/* {window.document.cookie.indexOf('isECO=true') >= 0 &&
                   arcSite === 'gestion' ? (
+                    <>{renderTemplate(value.selectedTemplate)}</>
+                  ) : (
+                    <MiPerfil />
+                  )} */}
+                  {arcSite === 'gestion' ? (
                     <>{renderTemplate(value.selectedTemplate)}</>
                   ) : (
                     <MiPerfil />

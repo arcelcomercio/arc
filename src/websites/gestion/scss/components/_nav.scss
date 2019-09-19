@@ -68,14 +68,20 @@
       background-color: $color-base-400;
     }
     @media (--tablet) {
-      background-color: #8f7a7c;
-      color: $color-white;
+      background-color: transparent;
+      color: $color-gray-300;
       padding: 0 20px;
     }
   }
 
   /*   Estilos para nav loader en notas */
+  &__loader {
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: $color-gray-300;
+  }
   &__loader-bar {
-    background-color: #ea1f38;
+    background-color: #9f2321;
   }
 }

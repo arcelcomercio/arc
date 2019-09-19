@@ -69,12 +69,9 @@ const PaywallContactUs = props => {
       })
   })
 
-  const ContactUsImage = React.useMemo(
-    () =>
-      assets.fullAssets.call(assets, contextPath, deployment)('corporativo'),
-    []
-  )
-
+  const basePath = `${contextPath}${assets.path}/images`
+  const webpImgPath = deployment(`${basePath}/img_corporativo.webp`)
+  const pngImgPath = deployment(`${basePath}/img_corporativo.png`)
   return (
     <ClientOnly>
       <Loading fullscreen spinning={loading} />
@@ -84,7 +81,9 @@ const PaywallContactUs = props => {
             media="(max-width: 1024px)"
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
-          <img src={ContactUsImage} alt="contact_us" />
+          <source type="image/webp" srcSet={webpImgPath} />
+          <source type="image/png" srcSet={pngImgPath} />
+          <img src={webpImgPath} alt="contact_us" />
         </S.Picture>
         {showThanks ? (
           <Thanks siteUrl={siteUrl} />

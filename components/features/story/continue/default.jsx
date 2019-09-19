@@ -164,11 +164,13 @@ class StoryContinue extends PureComponent {
     const navLogo = document.querySelector('.nav__logo')
     if (window.screen.width > 1023 && navLogo) {
       const { arcSite, contextPath, deployment } = this.props || {}
-      navLogo.src = deployment(
-        arcSite === 'publimetro'
-          ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-          : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
-      )
+      if (arcSite !== 'gestion') {
+        navLogo.src = deployment(
+          arcSite === 'publimetro'
+            ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
+            : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+        )
+      }
     }
     // TODO: finnnn
     this.setAttributeProgress(progress, MIN_PROGRESS)
