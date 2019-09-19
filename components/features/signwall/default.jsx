@@ -61,7 +61,7 @@ class Signwall extends Component {
     }
     if (ENV.ENVIRONMENT !== 'elcomercio') {
       // add cookie isECO only SANDBOX
-      Cookies.setCookie('isECO', true, 1)
+      // Cookies.setCookie('isECO', true, 1)
     }
   }
 
