@@ -87,24 +87,4 @@
       }
     }
   }
-
-  .header-inverted {
-    &.active {
-      .nav__story-title {
-        color: $color-white;
-      }
-      .story-header__icon {
-        background-color: $color-white;
-        color: $color-gray-200;
-      }
-    }
-    .header-inverted__btn-search,
-    .header-inverted__btn-menu {
-      color: $color-white;
-    }
-    .header-inverted__btn-club,
-    .header-inverted__btn-subs {
-      color: $color-gray-300;
-    }
-  }
 }
