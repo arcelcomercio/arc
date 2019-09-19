@@ -31,7 +31,7 @@ const PodcastExtraordinazryStory = props => {
 
   return (
     <div className="podcast-extraordinary flex">
-      <div className="podcast-extraordinary__content flex flex-col justify-center pl-20">
+      <div className="podcast-extraordinary__content flex flex-col justify-center pr-20">
         <div className="podcast-extraordinary__section-container flex mb-10">
           <h3 className="podcast-extraordinary__section mr-10">
             <a
@@ -40,17 +40,21 @@ const PodcastExtraordinazryStory = props => {
               El Comercio Hoy
             </a>
           </h3>
-          <span className="podcast-extraordinary__tag text-md font-bold">
+          <span className="podcast-extraordinary__tag text-sm font-bold text-white rounded-lg pt-5 pb-5 pl-10 pr-10">
             Nuevo
           </span>
         </div>
         <h2 className="podcast-extraordinary__title mb-15">
-          <a href="/" className="podcast-extraordinary__title-link">
+          <a
+            href="/"
+            className="podcast-extraordinary__title-link text-black font-bold line-h-xs">
             Las noticias de hoy, Lunes 07 de Junio
           </a>
         </h2>
-        <p>
-          <a href="/">
+        <p className="podcast-extraordinary__subtitle">
+          <a
+            href="/"
+            className="podcast-extraordinary__subtitle-link text-md line-h-sm text-gray-300 secondary-font overflow-hidden">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit.
             Dignissimos nobis ad at. Nemo nisi modi sequi quae qui odio impedit.
             Obcaecati ipsum aperiam itaque, nemo quaerat ullam porro minus!
@@ -58,9 +62,15 @@ const PodcastExtraordinazryStory = props => {
           </a>
         </p>
       </div>
-      <picture className="podcast-extraordinary__picture">
-        <img src={multimediaLandscapeL} alt="" />
-      </picture>
+      <a href="/" className="podcast-extraordinary__img-link">
+        <picture className="podcast-extraordinary__picture">
+          <img
+            src={multimediaLandscapeL}
+            alt=""
+            className="podcast-extraordinary__img w-full"
+          />
+        </picture>
+      </a>
     </div>
   )
 }
