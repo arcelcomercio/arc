@@ -2,12 +2,31 @@
   &__header-font-color {
     color: $color-white;
   }
-  &__header-font-position{
+  &__header-font-position {
     justify-content: center;
   }
   .stories-l-header {
     &.bg-info {
       background-color: $color-gray-200;
+    }
+  }
+}
+.stories-l-item {
+  &__link {
+    height: 56px;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+
+  &:first-child {
+    .stories-l-item__link {
+      height: 63px;
+    }
+  }
+  &:last-child {
+    .stories-l-item__link-box {
+      border-bottom: 0;
     }
   }
 }

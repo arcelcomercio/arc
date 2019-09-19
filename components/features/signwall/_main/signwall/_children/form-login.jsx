@@ -565,7 +565,7 @@ class FormLogin extends Component {
                   </p>
                   <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10">
                     Con tus datos, mejoraremos tu experiencia de <br />{' '}
-                    navegación y nunca publicaremos en sin tu permiso
+                    navegación y nunca publicaremos sin tu permiso
                   </p>
                 </div>
                 {arcSite !== 'peru21' && (
