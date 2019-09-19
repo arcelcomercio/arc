@@ -1,7 +1,22 @@
 import React from 'react'
 
 const PodcastTitle = () => {
-  return <h1>PodcastTitle</h1>
+  return (
+    <div>
+      <h1>Podcasts</h1>
+      <div>
+        <a href="/">
+          <i className="icon-facebook-circle title-xl"></i>
+        </a>
+        <a href="/">
+          <i className="icon-facebook-circle title-xl"></i>
+        </a>
+        <a href="/">
+          <i className="icon-facebook-circle title-xl"></i>
+        </a>
+      </div>
+    </div>
+  )
 }
 
 PodcastTitle.label = 'Podcast - Título'
