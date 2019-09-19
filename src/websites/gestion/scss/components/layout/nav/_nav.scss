@@ -26,7 +26,7 @@
 
   &__btn {
     &.active {
-      &__icon-search {
+      & .nav__icon-search {
         color: $color-base-400;
       }
     }
@@ -58,6 +58,7 @@
 
   &__container-menu,
   &__search-box {
+    z-index: 1;
     @media (--desktop) {
       border-right-color: $color-white;
     }
