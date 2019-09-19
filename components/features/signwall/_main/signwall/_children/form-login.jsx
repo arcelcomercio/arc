@@ -618,6 +618,10 @@ class FormLogin extends Component {
                         className="btn btn--blue btn-md btn-bg"
                         value="SIGUE NAVEGANDO"
                         onClick={() => {
+                          Taggeo(
+                            `Web_${typePopUp}_Hard`,
+                            `web_${typePopUp}_boton_sigue_navegando`
+                          )
                           if (
                             window.sessionStorage.hasOwnProperty(
                               'paywall_last_url'

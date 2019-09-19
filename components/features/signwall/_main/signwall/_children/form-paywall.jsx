@@ -117,7 +117,7 @@ class SignWallPaywall extends Component {
                       onClick={e => {
                         Taggeo(
                           `Web_${typePopUp}_Hard`,
-                          `web_${typePopUp}_boton_suscribirme`
+                          `web_${typePopUp}_boton_ver_planes`
                         )
                         this.handleSuscription(e)
                       }}></input>
@@ -127,12 +127,16 @@ class SignWallPaywall extends Component {
                       onClick={() => {
                         Taggeo(
                           `Web_${typePopUp}_Hard`,
-                          `web_${typePopUp}_boton_iniciar_sesion`
+                          `web_${typePopUp}_boton_iniciar_continuar`
                         )
+
                         window.sessionStorage.setItem(
                           'paywall_last_url',
-                          window.document.referrer
+                          window.document.referrer.split(
+                            window.location.origin
+                          )[1]
                         )
+
                         value.changeTemplate('login')
                       }}
                       className="btn btn--blue btn-bg"
