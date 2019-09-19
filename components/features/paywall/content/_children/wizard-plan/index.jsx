@@ -8,7 +8,6 @@ import * as S from './styled'
 import BannerPromoSuscriptor from './_children/banner-promo-suscriptor'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import { parseQueryString } from '../../../../../utilities/helpers'
 import getDomain from '../../../_dependencies/domains'
 import PWA from '../../_dependencies/seed-pwa'
 
@@ -37,7 +36,7 @@ function WizardPlan(props) {
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    document.getElementsByClassName('foot')[0].style.position = "relative";
+    document.getElementsByClassName('foot')[0].style.position = 'relative'
   }, [])
 
   function subscribePlanHandler(e, plan) {
