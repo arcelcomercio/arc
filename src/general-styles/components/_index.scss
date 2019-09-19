@@ -1,5 +1,4 @@
 /******* Globals *******/
-@import './global-components/chain-gallery';
 @import './global-components/extraordinary-story';
 @import './global-components/featured-story';
 @import './global-components/icons';
@@ -65,6 +64,9 @@
 @import './features/layout/navbar/nav-story';
 @import './features/layout/navbar/nav';
 @import './features/layout/navbar/navbar-somos';
+@import './features/photogallery/photogallery-image';
+@import './features/photogallery/photogallery-title';
+@import './features/photogallery/photogallery';
 @import './features/podcast/extraordinary-story/podcast-extraordinary';
 @import './features/search-filter/search-filter';
 @import './features/separators/basic/separador';
