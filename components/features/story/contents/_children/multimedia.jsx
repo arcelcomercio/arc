@@ -1,8 +1,13 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react'
 import Video from './video'
 import Imagen from './image'
 import Html from './html'
 import VideoNativo from './video-nativo'
+
+const classes = {
+  mp3: 'pt-10',
+}
 
 const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
   const {
@@ -48,11 +53,11 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
         <>{streams && <VideoNativo streams={streams} />}</>
       )}
       {mp3 && (
-        <>
-          <video width="100%" controls>
+        <div className={classes.mp3}>
+          <audio controls>
             <source src={mp3} type="audio/mpeg" />
-          </video>
-        </>
+          </audio>
+        </div>
       )}
     </>
   )
