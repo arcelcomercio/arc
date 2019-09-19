@@ -24,6 +24,14 @@
     }
   }
 
+  &__btn {
+    &.active {
+      & .nav__icon-search {
+        color: $color-base-400;
+      }
+    }
+  }
+
   &__logo {
     padding: 10px 0;
   }
@@ -43,13 +51,14 @@
 
     &.active {
       background-color: $color-white;
-      color: $color-base-100;
+      color: $color-base-400;
       border-color: $color-white;
     }
   }
 
   &__container-menu,
   &__search-box {
+    z-index: 1;
     @media (--desktop) {
       border-right-color: $color-white;
     }

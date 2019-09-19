@@ -35,7 +35,6 @@ const closeSession = props => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const MenuProfile = props => {
-  window.console.log(props)
   const { userName, typeLogin, arcSite, emailUser, userNameFB } = props
   return (
     // eslint-disable-next-line react/jsx-filename-extension
@@ -65,14 +64,13 @@ export const MenuProfile = props => {
               </a>
             </li>
 
-            {window.document.cookie.indexOf('isECO=true') >= 0 &&
-              arcSite === 'gestion' && (
-                <li>
-                  <a href="#" onClick={() => props.subs()}>
-                    Mi Suscripción
-                  </a>
-                </li>
-              )}
+            {arcSite === 'gestion' && (
+              <li>
+                <a href="#" onClick={() => props.subs()}>
+                  Mi Suscripción
+                </a>
+              </li>
+            )}
 
             {arcSite === 'gestion' && (
               <li>

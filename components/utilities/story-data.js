@@ -652,6 +652,36 @@ class StoryData {
     )
   }
 
+  get formatOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.formato &&
+        this._data.label.formato.url) ||
+      ''
+    )
+  }
+
+  get contentOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.contenido &&
+        this._data.label.contenido.url) ||
+      ''
+    )
+  }
+
+  get genderOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.genero &&
+        this._data.label.genero.url) ||
+      ''
+    )
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
