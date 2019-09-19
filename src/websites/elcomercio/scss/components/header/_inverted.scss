@@ -26,7 +26,9 @@ $nav-height-active: 46px;
   .nav-sidebar {
     top: $header-inverted-height;
   }
-
+  .header-inverted__btn-search.active {
+    color: $color-gray-200;
+  }
   &.active {
     background-color: $color-base-100;
     height: $nav-height-active;
@@ -60,6 +62,9 @@ $nav-height-active: 46px;
     .nav-sidebar {
       top: $nav-height-active;
       height: calc(100vh - #{$nav-height-active});
+    }
+    .header-inverted__btn-search.active {
+      color: $color-gray-200;
     }
   }
 }
