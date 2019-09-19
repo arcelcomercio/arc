@@ -156,6 +156,11 @@
     display: none;
   }
 
+  .nav__list,
+  .nav__container-right {
+    z-index: 1;
+  }
+
   &.active {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;
