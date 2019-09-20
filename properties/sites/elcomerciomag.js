@@ -1,10 +1,8 @@
 export default {
-  siteName: 'El Comercio',
+  siteName: 'Mag.',
+  googleFonts: 'Fira+Sans:400,600,700|Noto+Serif:400,700',
 
-  googleFonts:
-    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700',
-
-  colorPrimary: '#f7c600',
+  colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://elcomercio.pe',
   resizerUrl:
@@ -45,7 +43,7 @@ export default {
   },
 
   assets: {
-    path: `/resources/dist/elcomercio/`,
+    path: `/resources/dist/elcomerciomag/`,
     paywall() {
       return `${this.path}${this.aniversario}`
     },

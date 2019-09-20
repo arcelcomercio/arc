@@ -8,9 +8,12 @@ const classes = {
   boxImg: 'photogallery-image__box-image block h-full w-full position-absolute',
   img: 'photogallery-image__image h-full w-full object-cover object-center',
   boxDetail: 'photogallery-image__box-detail w-full p-20',
-  section: 'photogallery-image__section block text-white text-md',
+  section: 'photogallery-image__section text-white block title-md line-h-sm',
   title:
     'photogallery-image__title overflow-hidden text-white block title-md line-h-sm',
+  lenghtBox: 'photogallery-image__lenghtBox',
+  lenghtText:
+    'photogallery-image__lenghText text-sm text-white pt-5 block uppercase',
   boxIcon:
     'photogallery-image__box-icon position-absolute flex justify-center items-center',
   icon: 'photogallery-image__icon text-white',
@@ -22,6 +25,7 @@ const FullImage = ({
   primarySectionLink,
   title,
   websiteLink,
+  quantityGalleryItem,
   multimediaLandscapeL,
   multimediaSquareXL,
   multimediaLazyDefault,
@@ -59,6 +63,11 @@ const FullImage = ({
             {title}
           </a>
         </h2>
+        {quantityGalleryItem && (
+          <div className={classes.lenghtBox}>
+            <p className={classes.lenghtText}>{quantityGalleryItem} Fotos</p>
+          </div>
+        )}
       </div>
       <div className={classes.boxIcon}>
         <Icon type={multimediaType} iconClass={classes.icon} />

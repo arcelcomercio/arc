@@ -5,12 +5,12 @@
   &__social-title,
   &__list-title,
   &__social-icon {
-    color: $color-base-500;
+    color: $color-base-400;
   }
   &__legal-links {
-    color: $color-base-500;
+    color: $color-base-400;
     &::after {
-      background-color: $color-base-500;
+      background-color: $color-base-400;
     }
   }
   &__legal-item,
@@ -21,7 +21,7 @@
   &__sites,
   &__sites-link {
     font-family: $primary-font;
-    color: $color-base-500;
+    color: $color-base-400;
   }
   &__sites-link,
   &__legal-item,
@@ -41,7 +41,7 @@
   &__sections {
     &::after {
       @media (--tablet) {
-        background-color: $color-base-500;
+        background-color: $color-base-400;
       }
     }
   }
@@ -68,11 +68,11 @@
     }
   }
   &__sites-link {
-    color: $color-base-500;
+    color: $color-base-400;
   }
   &__sites-item {
     &:after {
-      background-color: $color-base-500;
+      background-color: $color-base-400;
     }
   }
   &__legal-item {
