@@ -1,0 +1,14 @@
+body {
+  overflow-x: hidden;
+}
+
+.story {
+  background: $color-white;
+  .bg-container {
+    background: $color-white;
+  }
+}
+body,
+.bg-container {
+  background: $color-white;
+}
