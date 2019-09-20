@@ -24,8 +24,8 @@ export default {
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
-    termsAndConditions: '',
-    guidingPrinciples: 'EBRJ4RIQHRAODCY4G5ML4IZNUU',
+    termsAndConditions: 'FXTBX3HGGNBQXES37OMYK4WRIE',
+    guidingPrinciples: 'F6HHZ5WAAZC3BMG6DTBJO2BBKQ',
     privacyPolicies: '',
     integratedManagementPolicy: 'SWL33JT6F5CDFD6457MFG76J3I',
     arcoProcedure: 'ZJVJVIL7MJGJBCZMD3YELB7PWA',
@@ -34,9 +34,9 @@ export default {
     frequentQuestions: '',
   },
   infoPagesProd: {
-    termsAndConditions: '',
-    guidingPrinciples: '',
-    privacyPolicies: '',
+    termsAndConditions: 'SYLZ4HYTXRHATFNSHG2ZJQTNQI',
+    guidingPrinciples: 'L5AULXOGCRECFAMNYVWLGTV4MI',
+    privacyPolicies: 'OLR5KJAABVCV5G3ZQTGXKETJNU',
     integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: '',
@@ -56,6 +56,7 @@ export default {
     header: {
       logo: 'logo.png',
       inverted: 'logo.png',
+      special: 'white-logo.svg',
     },
     footer: {
       logo: 'logo.png',

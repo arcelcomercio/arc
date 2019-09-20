@@ -1,0 +1,9 @@
+.photogallery-title {
+  height: 60px;
+  &__btn {
+    background-color: #fbf0e0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

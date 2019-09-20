@@ -2,7 +2,11 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
-import { countWords, nbspToSpace, isEmpty } from '../../../utilities/helpers'
+import {
+  countWords as countWordsHelper,
+  nbspToSpace,
+  isEmpty,
+} from '../../../utilities/helpers'
 
 const NUMBER_WORD_MULTIMEDIA = 70
 
@@ -10,34 +14,37 @@ const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
+const clearBrTag = paragraph => {
+  return nbspToSpace(paragraph.trim().replace(/<\/?br[^<>]+>/, ''))
+}
+
 const clearHtml = paragraph => {
   return nbspToSpace(
-    paragraph
-      .trim()
-      .replace(/<\/?br[^<>]+>/, '')
-      .replace(/(<([^>]+)>)/gi, '')
-      .replace('   ', ' ')
-      .replace('  ', ' ')
+    clearBrTag(
+      paragraph
+        .trim()
+        .replace(/(<([^>]+)>)/gi, '')
+        .replace('   ', ' ')
+        .replace('  ', ' ')
+    )
   )
 }
 
 const buildHeaderParagraph = (paragraph, level = '2') => {
   const result = { numberWords: 0, processedParagraph: '' }
-  const text = clearHtml(paragraph)
-  result.numberWords = countWords(text)
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
 
   result.processedParagraph =
-    result.numberWords > 0 ? `<h${level}>${text}</h${level}>` : ''
+    result.numberWords > 0 ? `<h${level}>${clearBrTag(paragraph)}</h${level}>` : ''
 
   return result
 }
 
 const buildTexParagraph = paragraph => {
   const result = { numberWords: 0, processedParagraph: '' }
-  const text = clearHtml(paragraph)
-  result.numberWords = countWords(text)
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
 
-  result.processedParagraph = result.numberWords > 0 ? `<p>${text}</p>` : ''
+  result.processedParagraph = result.numberWords > 0 ? `<p>${clearBrTag(paragraph)}</p>` : ''
 
   return result
 }

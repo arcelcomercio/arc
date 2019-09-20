@@ -10,6 +10,8 @@ class ConfigParams {
 
   static SPECIAL_BASIC = 'special_basic'
 
+  static SPECIAL = 'special'
+
   static HTML = 'basic_html'
 
   static IMAGE = 'basic'
