@@ -1,0 +1,45 @@
+/******* Brand colors *******/
+$color-primary: #0c70bf;
+$color-secondary: #388aca;
+$color-tertiary: #ebc12f;
+/*-----------------------*/
+
+$color-base-800: #0e6dc1;
+$color-base-700: aliceblue;
+$color-base-600: #555;
+$color-base-500: #7f7f7f;
+$color-base-400: #c5e2f7;
+$color-base-300: #ed1c24;
+$color-base-200: #26567f;
+$color-base-100: #e8f2f9;
+/*-----------------------*/
+
+/******* Other colors *******/
+$color-link: #524cff;
+
+/*-----------------------*/
+
+/** ----------------------------*
+*        GENERAL CONFIG         *
+*-------------------------------*/
+/******** border colors *********/
+$border-color-base: $color-base-200;
+
+/******* Header colors *******/
+$header-bg-color: $color-primary;
+$header-text-color: $color-gray-300;
+
+/*-----------------------*/
+
+/******* Nav colors *******/
+$nav-color: $color-gray-300;
+/*-----------------------*/
+/*-------------CALENDAR----------------*/
+$calendar-background: $color-base-400 !default;
+$calendar-title: #19191d !default;
+$calendar-bg-icon: #ffffff !default;
+$calendar-icon: #ffffff !default;
+$calendar-line: #cac4c4 !default;
+$calendar-month: #8c8c8c !default;
+$calendar-day: #8c8c8c !default;
+/*-------------CALENDAR----------------*/
