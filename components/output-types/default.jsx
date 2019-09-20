@@ -7,6 +7,7 @@ import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import ChartbeatBody from './_children/chartbeat-body'
+import { skipAdvertising } from '../utilities/helpers'
 
 export default ({
   children,
@@ -44,7 +45,10 @@ export default ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    taxonomy: { primary_section: { path: nameSeccion = '' } = {} } = {},
+    taxonomy: {
+      primary_section: { path: nameSeccion = '' } = {},
+      tags = [],
+    } = {},
     subtype = '',
   } = globalContent || {}
 
@@ -131,7 +135,7 @@ export default ({
   }(document, 'script', 'facebook-jssdk'));`
 
   const { googleFonts = '' } = siteProperties || {}
-
+  const nodas = skipAdvertising(tags)
   return (
     <html lang="es">
       <head>
@@ -158,31 +162,36 @@ export default ({
         {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-
-        <AppNexus
-          arcSite={arcSite}
-          requestUri={requestUri}
-          port={metaValue('port')}
-          isStory={isStory}
-          globalContent={globalContent}
-        />
-        {/* Script de data Ads AppNexus */}
-        <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-
+        {!nodas && (
+          <>
+            <AppNexus
+              arcSite={arcSite}
+              requestUri={requestUri}
+              port={metaValue('port')}
+              isStory={isStory}
+              globalContent={globalContent}
+            />
+            <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+          </>
+        )}
         {/* Scripts de APPNEXUS */}
         <script
           src="https://d34fzxxwb5p53o.cloudfront.net/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js?v2"
           async
         />
-        <script
-          src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
-          async
-        />
-        <script
-          type="text/javascript"
-          src="//acdn.adnxs.com/ast/ast.js"
-          async
-        />
+        {!nodas && (
+          <>
+            <script
+              src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+              async
+            />
+            <script
+              type="text/javascript"
+              src="//acdn.adnxs.com/ast/ast.js"
+              async
+            />
+          </>
+        )}
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
@@ -241,12 +250,14 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        <script
-          defer
-          src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
-          )}
-        />
+        {!nodas && (
+          <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
+            )}
+          />
+        )}
         <script
           defer
           src={deployment(
