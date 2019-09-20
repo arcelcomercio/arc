@@ -10,6 +10,16 @@
     border-bottom: 1px dashed $color-white;
   }
 
+  &__btn-menu {
+    span {
+      display: none;
+
+      @media (--tablet) {
+        display: inline-block;
+      }
+    }
+  }
+
   .story-header__news-title {
     color: $color-white;
   }
@@ -17,5 +27,11 @@
     @media (--desktop) {
       width: 170px;
     }
+  }
+}
+
+.header {
+  @media (--only-mobile) {
+    background-color: $color-gray-300;
   }
 }
