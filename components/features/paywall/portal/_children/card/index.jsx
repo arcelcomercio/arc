@@ -55,7 +55,13 @@ function Card({ item }) {
         </div>
       </div>
       <div className="card__footer">
-        <a href={url} className="link link--suscribe">
+        <a
+          href={url}
+          className="link link--suscribe"
+          onClick={() => {
+            window.sessionStorage.setItem('paywall_last_url', '/suscripciones/')
+            window.sessionStorage.setItem('paywall_type_modal', 'landing')
+          }}>
           SUSCRIBIRME
         </a>
       </div>
