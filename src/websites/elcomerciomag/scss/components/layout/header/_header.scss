@@ -14,13 +14,13 @@
     display: flex;
     align-items: center;
     &:hover {
-      color: $color-base-600;
+      color: $color-base-400;
     }
   }
   &__tags,
   &__link,
   &__date {
-    color: $color-base-600;
+    color: $color-base-400;
   }
   &__item {
     &::after {
