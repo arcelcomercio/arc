@@ -244,7 +244,6 @@ class CardFeaturedStoryManualLive extends PureComponent {
       platformLive,
       urlVideo,
     }
-    console.log('!!!!!!!!!!!!!!!', platformLive, urlVideo)
 
     return (
       <>
