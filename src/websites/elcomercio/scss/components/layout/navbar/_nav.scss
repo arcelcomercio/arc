@@ -19,6 +19,7 @@
 
   &__icon-search {
     color: $color-white;
+    font-size: 18px;
   }
   &__container-menu,
   &__search-box {
@@ -54,6 +55,8 @@
   }
   &__icon-menu {
     margin-right: 5px;
+    font-size: 18px;
+    font-weight: 700;
     @media (--desktop) {
       margin-right: 0;
     }
@@ -65,6 +68,9 @@
   }
   &__btn--section span {
     display: block;
+    font-family: $tertiary-font;
+    text-transform: uppercase;
+    font-size: 9px;
   }
   &__mobile-container {
     display: none;
@@ -85,20 +91,19 @@
     .btn {
       padding: 6px;
       font-family: $tertiary-font;
+      font-size: 11px;
+      letter-spacing: 0px;
+      line-height: 14px;
     }
   }
 
   &.active {
     .nav__mobile-logo {
-      @media (--only-mobile) {
-        top: auto;
-      }
+      top: auto;
     }
     .nav__logo {
       display: block;
-      @media (--only-mobile) {
-        height: 32px;
-      }
+      height: 32px;
     }
     .btn {
       color: $color-base-100;

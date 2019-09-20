@@ -1,5 +1,5 @@
 .nav-sidebar {
-  background-color: $color-base-700;
+  background-color: $color-base-400;
   &__body {
     padding-top: 0;
     padding-left: 0;
@@ -17,7 +17,7 @@
   &__link,
   &__text {
     font-family: $secondary-font;
-    color: $color-base-600;
+    color: $color-base-400;
   }
   &__item,
   &__link {
@@ -26,7 +26,7 @@
     }
   }
   &__parent-item {
-    color: $color-base-600;
+    color: $color-base-400;
   }
   &__footer {
     padding-top: 0;

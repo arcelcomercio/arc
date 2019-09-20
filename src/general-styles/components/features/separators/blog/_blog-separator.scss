@@ -30,8 +30,10 @@
     font-weight: 700;
   }
   &__title {
-    font-size: 20px;
+    font-size: 17px;
     @media (--desktop) {
+      font-size: 16px;
+      line-height: 20px;
       height: 94px;
     }
   }
@@ -73,7 +75,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    height: 43px;
+    height: 36px;
     @media (--desktop) {
       -webkit-line-clamp: 4;
       height: 82px;
