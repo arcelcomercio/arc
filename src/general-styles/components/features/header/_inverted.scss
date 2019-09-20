@@ -68,6 +68,11 @@ $nav-height-active: 46px;
       height: calc(100vh - #{$nav-height-active});
     }
   }
+  .nav__btn--search {
+    &.active {
+      color: $color-gray-200;
+    }
+  }
 }
 
 .story {
