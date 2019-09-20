@@ -79,6 +79,9 @@
       .story-header__icon,
       .story-header__share-icon {
         font-size: 23px;
+        background-color: $color-white;
+        color: $color-gray-300;
+        border-radius: 50%;
       }
       .story-header__share-icon {
         @media (--tablet) {

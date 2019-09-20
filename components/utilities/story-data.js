@@ -642,6 +642,12 @@ class StoryData {
     return StoryData.getIdYoutube(this._data)
   }
 
+  get mp3Path() {
+    const { promo_items: { path_mp3: { content = '' } = {} } = {} } =
+      this._data || {}
+    return content
+  }
+
   get nucleoOrigen() {
     return (
       (this._data &&
