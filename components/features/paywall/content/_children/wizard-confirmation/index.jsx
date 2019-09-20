@@ -25,7 +25,8 @@ const WizardConfirmation = props => {
       order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
       plan: { title: plan, sku, priceCode, amount, billingFrequency, description },
-      referer: ref,
+      origin,
+      referer,
       payment: { total: paidTotal, subscriptionIDs },
       printedSubscriber,
     },
@@ -51,8 +52,9 @@ const WizardConfirmation = props => {
       periodo: billingFrequency,
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
-      medioCompra: ref,
-      referer: localStorage.getItem('paywall_last_url'),
+      medioCompra: origin,
+      referer,
+      pwa: PWA.isPWA() ? 'si' : 'no',
     })
     document.getElementsByClassName('foot')[0].style.position = "relative";
   }, [])

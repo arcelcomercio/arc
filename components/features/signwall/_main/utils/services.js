@@ -92,7 +92,7 @@ export default class Services {
           method: 'POST',
           cache: 'no-cache',
           body: JSON.stringify({
-            type: 'NLT',
+            type: 'newsletter',
             eventName: 'build_preference',
             uuid,
             email,
@@ -105,7 +105,7 @@ export default class Services {
           }),
           headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            Authorization: `Bearer ${token} ${site}`,
           },
         }
       ).then(res => resolve(res.json()))
@@ -116,7 +116,7 @@ export default class Services {
   getNewsLettersUser(uuid, site) {
     const response = new Promise(resolve => {
       fetch(
-        `${Domains.getUrlNewsLetters()}/newsletter/?brand=${site}&type=NLT&uuid=${uuid}&v=${new Date().getTime()}`,
+        `${Domains.getUrlNewsLetters()}/newsletter/?brand=${site}&type=newsletter&uuid=${uuid}&v=${new Date().getTime()}`,
         {
           cache: 'no-cache',
         }

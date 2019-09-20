@@ -5,6 +5,8 @@ import { Close } from '../../common/iconos'
 import Loading from '../../common/loading'
 import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
+import Taggeo from '../../utils/taggeo'
+import { WrapperBlock } from './styles'
 // import { ModalConsumer } from '../../../signwall/context'
 
 @Consumer
@@ -20,6 +22,7 @@ class Subs extends Component {
       isLoad: true,
       idSubsDelete: null,
       userSubs: {},
+      userSubsDetail: [],
     }
 
     const { arcSite } = this.props
@@ -32,45 +35,96 @@ class Subs extends Component {
         name: 'sdkSalesARC',
         url: Domains.getScriptSales(),
       }).then(() => {
-        this.getListSubs()
+        this.getListSubs().then(p => {
+          setTimeout(() => {
+            if (p.length) {
+              this.setState({
+                userSubsDetail: p,
+                isSubs: true,
+                isLoad: false,
+              })
+            } else {
+              this.setState({
+                isSubs: false,
+                isLoad: false,
+              })
+            }
+          }, 2000)
+        })
         this.getCampain()
       })
     } else {
-      this.getListSubs()
+      this.getListSubs().then(p => {
+        setTimeout(() => {
+          if (p.length) {
+            this.setState({
+              userSubsDetail: p,
+              isSubs: true,
+              isLoad: false,
+            })
+          } else {
+            this.setState({
+              isSubs: false,
+              isLoad: false,
+            })
+          }
+        }, 2000)
+      })
       this.getCampain()
     }
   }
 
-  getListSubs() {
-    if (window.Sales) {
-      window.Sales.apiOrigin = this.origin_api
-      window.Sales.getAllActiveSubscriptions()
-        .then(res => {
-          let count = 0
-          for (let i = 0; i < res.length; i++) {
-            const current = res[i]
-            if (current.paymentMethod) count += 1
-          }
+  getDetail(id) {
+    window.Sales.apiOrigin = this.origin_api
+    return window.Sales.getSubscriptionDetails(id).then(resDetail => {
+      return resDetail.salesOrders[0].total || '-'
+    })
+  }
 
-          // if (res.length > 0 && count >= 1) {
-          if (count >= 1) {
-            this.setState({
-              userSubs: res,
-              isSubs: true,
-            })
-          } else {
-            this.setState({
-              userSubs: res,
-              isSubs: false,
+  getListSubs = () => {
+    window.Sales.apiOrigin = this.origin_api
+
+    return window.Sales.getAllActiveSubscriptions()
+      .then(res => {
+        let count = 0
+        const newaray = []
+        let p = Promise.resolve()
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].paymentMethod && res[i].subscriptionID) {
+            count += 1
+            p = p.then(() => {
+              window.Sales.getSubscriptionDetails(res[i].subscriptionID)
+                .then(resDetail => {
+                  newaray.push(resDetail)
+                })
+                .catch(window.console.error)
             })
           }
+        }
 
+        if (count === 0) {
           this.setState({
-            isLoad: false,
+            isSubs: false,
           })
-        })
-        .catch(err => window.console.error(err))
-    }
+        }
+
+        return p.then(() => newaray)
+
+        // if (count >= 1) {
+        //   this.setState({
+        //     userSubs: res,
+        //     isSubs: true,
+        //     userSubsDetail: newaray,
+        //   })
+        // }
+
+        // this.setState({
+        //   isLoad: false,
+        //   userSubs: res,
+        //   isSubs: false,
+        // })
+      })
+      .catch(err => window.console.error(err))
   }
 
   getCampain() {
@@ -87,12 +141,7 @@ class Subs extends Component {
   handlePageChange = e => {
     e.preventDefault()
     window.location.href = Domains.getUrlPaywall()
-  }
-
-  notIsSub = () => {
-    this.setState({
-      isSubs: false,
-    })
+    window.sessionStorage.setItem('paywall_type_modal', 'organico')
   }
 
   openModalConfirm = idSubs => {
@@ -132,13 +181,21 @@ class Subs extends Component {
     const { idSubsDelete } = this.state
     window.Sales.apiOrigin = this.origin_api
     window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
-      res => {
-        window.console.log(res)
-        this.getListSubs()
+      () => {
+        this.setState({
+          isLoad: true,
+        })
+        // this.getListSubs()
+        this.getListSubs().then(p => {
+          setTimeout(() => {
+            this.setState({
+              userSubsDetail: p,
+              isSubs: true,
+              isLoad: false,
+            })
+          }, 2000)
+        })
         this.closeModalConfirm()
-        // window.location.reload()
-        // const htmlCurrent = document.getElementById(idSubsDelete)
-        // if (htmlCurrent) htmlCurrent.remove()
       }
     )
   }
@@ -152,12 +209,11 @@ class Subs extends Component {
       paywallPrice,
       showModalConfirm,
       paywallDescripcion,
+      userSubsDetail,
       idSubsDelete,
     } = this.state
     const { arcSite } = this.props
     return (
-      // <ModalConsumer>
-      //   {val => (
       <>
         {isLoad ? (
           <Loading site={arcSite} />
@@ -165,82 +221,112 @@ class Subs extends Component {
           <>
             {isSubs ? (
               <>
-                {userSubs.map(reSubs => {
-                  if (reSubs.paymentMethod) {
-                    return (
-                      <div
-                        className="resume__dates"
-                        key={reSubs.subscriptionID}
-                        id={reSubs.subscriptionID}>
-                        <div className="title-dates">
-                          <h2 className="title">Mi suscripción</h2>
-                          {/* <button
-                            type="button"
-                            className="link"
-                            id={reSubs.subscriptionID}
-                            onClick={() => {
-                              document.getElementById('btn-menu-subscrip').click()
-                            }}>
-                            EDITAR MÉTODO DE PAGO
-                          </button> */}
+                {userSubsDetail.map(reSubs => {
+                  // if (reSubs.paymentMethod) {
+                  return (
+                    <WrapperBlock
+                      nopadding
+                      nocolumn
+                      key={reSubs.subscriptionID}
+                      id={reSubs.subscriptionID}>
+                      <div className="left">
+                        <h3>Mi suscripción</h3>
+                        {reSubs.currentPaymentMethod.paymentPartner !==
+                        'Linked' ? (
                           <button
                             type="button"
                             className="link"
-                            // id={reSubs.subscriptionID}
                             onClick={() =>
                               this.openModalConfirm(reSubs.subscriptionID)
                             }>
                             ANULAR MI SUSCRIPCIÓN
                           </button>
-                        </div>
+                        ) : (
+                          ''
+                        )}
+                      </div>
 
-                        <div className="cont-subs">
-                          <div className="first-subs">
-                            <p>DETALLE DE LA SUSCRIPCIÓN</p>
-                            <h3>{reSubs.productName}</h3>
-                          </div>
-                          <div className="last-subs">
-                            <p>Plan de pago: - </p>
-                            <p>Precio: - </p>
-                            {/* <p>Precio: S/ {paywallPrice}*</p>
-                            <p className="mini">*{paywallDescripcion}</p> */}
-                          </div>
+                      <div className="right">
+                        <div className="details-left">
+                          <p className="small">DETALLE DE LA SUSCRIPCIÓN</p>
+                          <h2>{reSubs.productName}</h2>
+                        </div>
+                        <div className="details-right">
+                          <p>
+                            <strong>Plan de pago: </strong>{' '}
+                            {reSubs.paymentHistory[0] && (
+                              <span>
+                                {(new Date(reSubs.paymentHistory[0].periodTo) -
+                                  new Date(
+                                    reSubs.paymentHistory[0].periodFrom
+                                  )) /
+                                  (1000 * 60 * 60 * 24) ===
+                                30
+                                  ? 'MENSUAL'
+                                  : 'ANUAL'}
+                              </span>
+                            )}
+                          </p>
+                          <p>
+                            <strong>Precio: </strong>{' '}
+                            {reSubs.salesOrders[0] && (
+                              <span>
+                                {reSubs.salesOrders[0].total !== 0
+                                  ? ` S/ ${reSubs.salesOrders[0].total}`
+                                  : 'GRATIS'}
+                              </span>
+                            )}
+                          </p>
+                          {/* <p className="small">
+                              *POR 6 MESES LUEGO S/ 20 CADA MES
+                            </p> */}
                         </div>
                       </div>
-                    )
-                  }
-                  return null
+                    </WrapperBlock>
+                  )
+                  // }
+                  // return null
                 })}
               </>
             ) : (
-              <div className="resume__dates">
-                <div className="title-dates">
-                  <h2 className="title">Mi suscripción</h2>
-                </div>
-                <div className="cont-subs">
-                  <div className="first-subs">
-                    <p>Accede a nuestro contenido exclusivo, adquiere tu</p>
-                    <h3>{paywallName}</h3>
+              <>
+                {arcSite === 'gestion' && (
+                  <div className="resume__dates">
+                    <div className="title-dates">
+                      <h2 className="title">Mi suscripción</h2>
+                    </div>
+                    <div className="cont-subs">
+                      <div className="first-subs">
+                        <p>Accede a nuestro contenido exclusivo, adquiere tu</p>
+                        <h3>{paywallName}</h3>
+                      </div>
+                      <div className="last-subs">
+                        <button
+                          className="btn-subs"
+                          type="button"
+                          onClick={e => {
+                            Taggeo(
+                              `Web_Paywall_Perfil`,
+                              `web_paywall_boton_suscribirme`
+                            )
+                            this.handlePageChange(e)
+                          }}>
+                          <h3>SUSCRÍBETE</h3>
+                          <span>DESDE S/ {paywallPrice} MENSUALES</span>
+                          {/* <span>{paywallDescripcion}</span> */}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="title-dates"></div>
+                    <div className="cont-note">
+                      <p className="note-subs">
+                        *si cuentas con alguna suscripción adquirida por otro
+                        canal, por el momento, no podrás visualizarla aquí.
+                      </p>
+                    </div>
                   </div>
-                  <div className="last-subs">
-                    <button
-                      className="btn-subs"
-                      type="button"
-                      onClick={e => this.handlePageChange(e)}>
-                      <h3>SUSCRÍBETE</h3>
-                      <span>DESDE S/ {paywallPrice} MENSUALES</span>
-                      {/* <span>{paywallDescripcion}</span> */}
-                    </button>
-                  </div>
-                </div>
-                <div className="title-dates"></div>
-                <div className="cont-note">
-                  <p className="note-subs">
-                    *si cuentas con alguna suscripción adquirida por otro canal,
-                    por el momento, no podrás visualizarla aquí.
-                  </p>
-                </div>
-              </div>
+                )}
+              </>
             )}
 
             {showModalConfirm && (
@@ -296,8 +382,6 @@ class Subs extends Component {
           </>
         )}
       </>
-      //   )}
-      // </ModalConsumer>
     )
   }
 }

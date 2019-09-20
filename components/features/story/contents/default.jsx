@@ -116,7 +116,8 @@ class StoryContents extends PureComponent {
           ? promoItems && <StoryContentsChildImpresa data={promoItems} />
           : promoItems &&
             subtype !== ConfigParams.BIG_IMAGE &&
-            subtype !== ConfigParams.SPECIAL_BASIC && (
+            subtype !== ConfigParams.SPECIAL_BASIC &&
+            subtype !== ConfigParams.SPECIAL && (
               <StoryContentsChildMultimedia data={params} />
             )}
 
@@ -126,8 +127,7 @@ class StoryContents extends PureComponent {
         <div
           className={`${classes.content} ${isPremium && 'paywall'} `}
           id="contenedor">
-          {/* TODO: se retira para el sitio de gestion por la salida del 30 de julio */}
-          {arcSite !== ConfigParams.SITE_GESTION && <StoryContentsChildIcon />}{' '}
+          <StoryContentsChildIcon />
           <div id="ads_d_inline" />
           <div id="ads_m_movil_video" />
           <div id="ads_m_movil3" />
@@ -203,9 +203,7 @@ class StoryContents extends PureComponent {
 
                 if (type === ConfigParams.ELEMENT_TEXT) {
                   const alignmentClass = alignment
-                    ? `${classes.textClasses} ${
-                        classes.alignmentClasses
-                      }-${alignment}`
+                    ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                     : classes.textClasses
                   return (
                     <Text

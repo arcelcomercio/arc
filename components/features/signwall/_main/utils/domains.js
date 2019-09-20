@@ -16,8 +16,8 @@ class Domains {
 
   getUrlPaywall = () => {
     return ENV.ENVIRONMENT === 'elcomercio'
-      ? '/suscripcionesdigitales/'
-      : '/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1'
+      ? `/suscripcionesdigitales/`
+      : `/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1`
   }
 
   getUrlECOID = () => {

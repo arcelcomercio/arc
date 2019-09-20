@@ -243,28 +243,29 @@ class NavBarDefault extends PureComponent {
 
     // if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
 
-    if (dataContentPremium && W.document.cookie.indexOf('isECO=true') >= 0) {
+    // if (dataContentPremium && W.document.cookie.indexOf('isECO=true') >= 0) {
+    if (dataContentPremium) {
       this.getPremium() // Only sandbox ;)
     } else if (window.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          if (ENV.ENVIRONMENT === 'elcomercio') {
-            if (
-              campaignURL.indexOf('signwallPaywall') >= 0 &&
-              W.location.pathname.indexOf('podcast') >= 0
-            ) {
-              window.console.log('signwallPaywall')
-              this.checkIsEco().then(res => {
-                if (res === true) W.location.href = campaignURL
-              })
-            } else if (campaignURL.indexOf('signwallHard') >= 0) {
-              window.console.log('signwallHard')
-              W.location.href = campaignURL
-            }
-          } else {
-            window.console.log('signwallHard & signwallPaywall')
-            W.location.href = campaignURL
-          }
+          // if (ENV.ENVIRONMENT === 'elcomercio') {
+          //   if (
+          //     campaignURL.indexOf('signwallPaywall') >= 0 &&
+          //     W.location.pathname.indexOf('podcast') >= 0
+          //   ) {
+          //     window.console.log('signwallPaywall')
+          //     this.checkIsEco().then(res => {
+          //       if (res === true) W.location.href = campaignURL
+          //     })
+          //   } else if (campaignURL.indexOf('signwallHard') >= 0) {
+          //     window.console.log('signwallHard')
+          //     W.location.href = campaignURL
+          //   }
+          // } else {
+          //  window.console.log('signwallHard & signwallPaywall')
+          W.location.href = campaignURL
+          // }
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
@@ -815,9 +816,7 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${
-                        classes.btnLogin
-                      } btn--outline` /* classes.btnSignwall */
+                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     <span>
@@ -835,9 +834,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -853,9 +850,7 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${
-                            classes.iconSignwallMobile
-                          }  title-sm`
+                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
                     }>
                     {initialUser}
                   </i>

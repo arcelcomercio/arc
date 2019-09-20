@@ -130,21 +130,16 @@ const Benefits = props => {
         </div>
       </div>
 
-      {brandCurrent === 'gestion' &&
-      window.document.cookie.indexOf('isECO=true') >= 0 ? (
-        <div className="benefits__item">
-          <div className="benefits__icon">
-            <BeneFour />
-          </div>
-
-          <div>
-            <h3 className="benefits__item-title">Personalizar</h3>
-            <p className="benefits__item-text">
-              tus Notificaciones y Newsletters
-            </p>
-          </div>
+      <div className="benefits__item">
+        <div className="benefits__icon">
+          <BeneFour />
         </div>
-      ) : null}
+
+        <div>
+          <h3 className="benefits__item-title">Personalizar</h3>
+          <p className="benefits__item-text">tus Newsletters</p>
+        </div>
+      </div>
     </div>
   )
 }

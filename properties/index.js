@@ -8,6 +8,7 @@ export default {
     },
     header: {
       logo: 'logo.png',
+      inverted: 'white-logo.png',
       auxLogo: 'white-logo.png',
     },
     footer: {

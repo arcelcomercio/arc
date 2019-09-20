@@ -1,0 +1,8 @@
+.podcast-title {
+  &__social-media {
+    @media (--tablet) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}

@@ -9,6 +9,7 @@ import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { addSales } from '../../../_dependencies/sales'
 import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
+import PWA from '../../_dependencies/seed-pwa'
 
 const isProd = ENVIRONMENT === 'elcomercio'
 
@@ -25,6 +26,8 @@ function WizardUserProfile(props) {
   const {
     printedSubscriber,
     plan: { sku, priceCode, amount, description, billingFrequency },
+    referer,
+    origin,
   } = memo
 
   const sanitizeValues = (value, key) => {
@@ -45,11 +48,13 @@ function WizardUserProfile(props) {
 
   useEffect(() => {
     sendAction(PixelActions.PAYMENT_PROFILE, {
-      sku: `${sku}${priceCode}`,
+      sku: `${sku}`,
       periodo: billingFrequency,
-      referer: localStorage.getItem('paywall_last_url'),
+      referer,
+      medioCompra: origin,
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
     })
   }, [])
 

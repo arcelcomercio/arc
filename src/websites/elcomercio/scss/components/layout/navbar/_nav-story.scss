@@ -2,6 +2,11 @@
   .nav__story-social-network {
     display: none;
   }
+  .story-special-h {
+    .story-header__news-title {
+      margin-bottom: 20px;
+    }
+  }
   .nav.active {
     .header__btn-container {
       display: none;
@@ -74,93 +79,9 @@
       .story-header__icon,
       .story-header__share-icon {
         font-size: 23px;
-      }
-      .story-header__share-icon {
-        @media (--tablet) {
-          display: none;
-        }
-      }
-    }
-  }
-
-  .header-ec.active {
-    .nav__mobile-logo {
-      display: none;
-
-      @media (--tablet) {
-        display: block;
-        left: 19%;
-        padding-right: 20px;
-        border-right: 1px solid $color-white;
-      }
-
-      @media (--desktop) {
-        left: 20%;
-      }
-    }
-
-    .header__logo {
-      @media (--tablet) {
-        height: 32px;
-      }
-    }
-
-    .nav__story-title {
-      display: -webkit-box;
-      padding: 0 15px;
-      width: 66%;
-      color: $color-white;
-
-      @media (--tablet) {
-        left: 41%;
-        width: 240px;
-        margin: 0;
-      }
-
-      @media (--desktop) {
-        left: 35%;
-        width: 460px;
-      }
-    }
-
-    .nav__container-menu {
-      border-right-color: $color-primary;
-    }
-
-    .nav__story-social-network {
-      display: block;
-
-      .story-header__list {
-        @media (--only-mobile) {
-          background-color: $color-white;
-          width: auto;
-          padding: 10px;
-          flex-direction: column;
-          top: 30px;
-          position: absolute;
-          right: -10px;
-          z-index: 1;
-          box-shadow: -1px 7px 11px rgba(0, 0, 0, 0.3);
-        }
-
-        width: 110px;
-      }
-      .story-header__item {
-        @media (--only-mobile) {
-          margin-bottom: 10px;
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-      }
-      .story-header__icon,
-      .story-header__share-icon {
-        font-size: 23px;
-      }
-      .story-header__icon {
-        @media (--only-mobile) {
-          color: $color-gray-300;
-        }
+        background-color: $color-white;
+        color: $color-gray-300;
+        border-radius: 50%;
       }
       .story-header__share-icon {
         @media (--tablet) {

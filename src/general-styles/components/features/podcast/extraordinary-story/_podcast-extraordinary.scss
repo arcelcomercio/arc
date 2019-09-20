@@ -1,0 +1,21 @@
+.podcast-extraordinary {
+  &__tag {
+    background-color: #5acf68;
+  }
+  &__subtitle-link {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    max-height: calc(0.9rem * 1.3333 * 4);
+  }
+  &__content {
+    @media (--tablet) {
+      width: 35%;
+    }
+  }
+  &__img-link {
+    @media (--tablet) {
+      width: 65%;
+    }
+  }
+}

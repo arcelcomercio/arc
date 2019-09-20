@@ -62,7 +62,7 @@ export default class StandardHeader {
       name: ARCHIVE_TEXT,
       url: ARCHIVE_LINK,
     }
-    const { logo, auxLogo } = this.headerProperties
+    const { inverted: logo, auxLogo } = this.headerProperties
 
     return {
       logo: {

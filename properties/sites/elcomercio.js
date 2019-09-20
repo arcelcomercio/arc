@@ -24,7 +24,7 @@ export default {
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'FXTBX3HGGNBQXES37OMYK4WRIE',
     guidingPrinciples: 'EBRJ4RIQHRAODCY4G5ML4IZNUU',
     privacyPolicies: '',
     integratedManagementPolicy: 'SWL33JT6F5CDFD6457MFG76J3I',
@@ -34,7 +34,7 @@ export default {
     frequentQuestions: '',
   },
   infoPagesProd: {
-    termsAndConditions: '',
+    termsAndConditions: 'SYLZ4HYTXRHATFNSHG2ZJQTNQI',
     guidingPrinciples: '',
     privacyPolicies: '',
     integratedManagementPolicy: '',
@@ -55,6 +55,8 @@ export default {
     },
     header: {
       logo: 'logo.png',
+      inverted: 'logo.png',
+      special: 'white-logo.svg',
     },
     footer: {
       logo: 'logo.png',
@@ -77,17 +79,17 @@ export default {
     {
       name: 'Trabaja para Grupo El Comercio',
       url: 'https://elcomercio.aptitus.com/',
-      type: 'external',
+      external: true,
     },
     {
       name: 'Libro de Reclamaciones',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
-      type: 'external',
+      external: true,
     },
     {
       name: 'Oficinas Concesionarias',
       url: '/oficinas-concesionarias',
-      type: 'external',
+      external: true,
     },
     {
       name: 'Principios Rectores',

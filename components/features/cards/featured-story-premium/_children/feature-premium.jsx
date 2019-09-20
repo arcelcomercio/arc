@@ -86,7 +86,7 @@ const FeaturedStoryPremiumChild = ({
       </div>
       <div className={classes.right}>
         <Icon type={multimediaType} iconClass={classes.icon} />
-        <a href="/">
+        <a href={websiteLink}>
           <picture>
             <source
               className={isAdmin ? '' : 'lazy'}

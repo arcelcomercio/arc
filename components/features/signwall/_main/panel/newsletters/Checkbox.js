@@ -1,14 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
+import { device } from '../../../_styles/breakpoints'
 
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
-  width: 245px;
+  width: 150px;
   height: 138px;
   position: relative;
   cursor: pointer;
   user-select: none;
+  @media ${device.tablet} {
+    width: 220px;
+    height: 138px;
+  }
 `
 
 const Icon = styled.svg`

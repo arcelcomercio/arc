@@ -1,5 +1,7 @@
 .story {
-  .header {
-    background-color: $color-base-100;
+  .story-header__icon {
+    background-color: $color-gray-200;
+    color: $color-white;
+    border-radius: 50%;
   }
 }

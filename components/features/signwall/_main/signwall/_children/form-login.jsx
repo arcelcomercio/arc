@@ -272,11 +272,15 @@ class FormLogin extends Component {
   }
 
   handleSuscription = e => {
-    const { removeBefore } = this.props
+    const { removeBefore, typePopUp } = this.props
     e.preventDefault()
-    window.sessionStorage.setItem('paywall_last_url', window.document.referrer)
+    window.sessionStorage.setItem(
+      'paywall_last_url',
+      window.document.referrer.split(window.location.origin)[1]
+    )
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall()
+    window.sessionStorage.setItem('paywall_type_modal', typePopUp)
   }
 
   taggeoSuccess() {
@@ -561,7 +565,7 @@ class FormLogin extends Component {
                   </p>
                   <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10">
                     Con tus datos, mejoraremos tu experiencia de <br />{' '}
-                    navegación y nunca publicaremos en sin tu permiso
+                    navegación y nunca publicaremos sin tu permiso
                   </p>
                 </div>
                 {arcSite !== 'peru21' && (
@@ -614,6 +618,10 @@ class FormLogin extends Component {
                         className="btn btn--blue btn-md btn-bg"
                         value="SIGUE NAVEGANDO"
                         onClick={() => {
+                          Taggeo(
+                            `Web_${typePopUp}_Hard`,
+                            `web_${typePopUp}_boton_sigue_navegando`
+                          )
                           if (
                             window.sessionStorage.hasOwnProperty(
                               'paywall_last_url'

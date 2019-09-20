@@ -1,0 +1,43 @@
+.story {
+  .header {
+    background-color: $color-base-100;
+  }
+  .header__wrapper--dashed {
+    background-color: $color-base-100;
+  }
+  .nav {
+    &.active {
+      .btn,
+      .nav__story-title,
+      .story-header__link {
+        color: $color-white;
+      }
+      .nav__container-menu {
+        border-right-color: $color-white;
+      }
+      .story-header__list {
+        position: relative;
+        z-index: 1;
+      }
+      .nav__story-social-network {
+        z-index: 1;
+        .story-header__icon,
+        .story-header__share-icon {
+          background-color: $color-white;
+          border-radius: 50%;
+          color: $color-gray-300;
+          width: 27px;
+          height: 27px;
+          font-size: 28px;
+        }
+      }
+      .nav__mobile-container {
+        position: relative;
+        z-index: 1;
+      }
+      .nav__wrapper {
+        background-color: $color-gray-300;
+      }
+    }
+  }
+}
