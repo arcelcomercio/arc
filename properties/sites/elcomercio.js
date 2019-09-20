@@ -56,6 +56,7 @@ export default {
     header: {
       logo: 'logo.png',
       inverted: 'logo.png',
+      special: 'white-logo.svg',
     },
     footer: {
       logo: 'logo.png',

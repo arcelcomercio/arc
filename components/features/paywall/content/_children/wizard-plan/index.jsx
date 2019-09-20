@@ -61,6 +61,7 @@ function WizardPlan(props) {
         {
           plan: { ...plan, title },
           origin: origin.current,
+          referer: referer.current
         },
         props
       )

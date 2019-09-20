@@ -8,17 +8,14 @@ $nav-height-active: 46px;
     display: none;
   }
 
+  a:hover {
+    text-decoration: none;
+  }
+
   .nav__mobile-logo {
     top: initial;
     left: initial;
     transform: translateX(0);
-  }
-
-  &__btn-search,
-  &__btn-menu {
-    &:hover {
-      text-decoration: none;
-    }
   }
 
   &__btn-search.active {
@@ -92,7 +89,7 @@ $nav-height-active: 46px;
 
     .header__logo {
       @media (--tablet) {
-        height: 32px;
+        height: 20px;
       }
     }
 

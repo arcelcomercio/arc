@@ -2,6 +2,11 @@
   .nav__story-social-network {
     display: none;
   }
+  .story-special-h {
+    .story-header__news-title {
+      margin-bottom: 20px;
+    }
+  }
   .nav.active {
     .header__btn-container {
       display: none;
