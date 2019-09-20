@@ -25,7 +25,7 @@ export default {
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: 'FXTBX3HGGNBQXES37OMYK4WRIE',
-    guidingPrinciples: 'EBRJ4RIQHRAODCY4G5ML4IZNUU',
+    guidingPrinciples: 'F6HHZ5WAAZC3BMG6DTBJO2BBKQ',
     privacyPolicies: '',
     integratedManagementPolicy: 'SWL33JT6F5CDFD6457MFG76J3I',
     arcoProcedure: 'ZJVJVIL7MJGJBCZMD3YELB7PWA',
@@ -35,8 +35,8 @@ export default {
   },
   infoPagesProd: {
     termsAndConditions: 'SYLZ4HYTXRHATFNSHG2ZJQTNQI',
-    guidingPrinciples: '',
-    privacyPolicies: '',
+    guidingPrinciples: 'L5AULXOGCRECFAMNYVWLGTV4MI',
+    privacyPolicies: 'OLR5KJAABVCV5G3ZQTGXKETJNU',
     integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: '',
