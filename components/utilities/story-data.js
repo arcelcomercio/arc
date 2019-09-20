@@ -239,6 +239,10 @@ class StoryData {
     return this.getPromoItemsType() || ''
   }
 
+  get quantityGalleryItem() {
+    return StoryData.lengthImageGallery(this._data)
+  }
+
   get section() {
     // FIXME: deprecated
     return StoryData.getDataSection(this._data, this._website).name
@@ -1067,6 +1071,15 @@ class StoryData {
       thumb = StoryData.getImageBySize(data, size)
     }
     return thumb
+  }
+
+  static lengthImageGallery(data = {}) {
+    const {
+      promo_items: {
+        basic_gallery: { content_elements: content_elements = [] } = {},
+      } = {},
+    } = data
+    return content_elements.length || 0
   }
 
   static recentList(recentElements, id, numero = 2) {
