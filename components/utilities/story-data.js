@@ -646,6 +646,12 @@ class StoryData {
     return StoryData.getIdYoutube(this._data)
   }
 
+  get mp3Path() {
+    const { promo_items: { path_mp3: { content = '' } = {} } = {} } =
+      this._data || {}
+    return content
+  }
+
   get nucleoOrigen() {
     return (
       (this._data &&
@@ -683,6 +689,16 @@ class StoryData {
         this._data.label.genero &&
         this._data.label.genero.url) ||
       ''
+    )
+  }
+
+  get fiaOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.facebook_ia &&
+        this._data.label.facebook_ia.url) ||
+      true
     )
   }
 

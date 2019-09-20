@@ -1,0 +1,8 @@
+.story {
+  .nav__story-title {
+    max-height: 15px;
+    @media (--desktop) {
+      max-height: none;
+    }
+  }
+}

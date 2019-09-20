@@ -1,11 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
-import { socialMediaUrlShareList } from '../../../utilities/helpers'
+import {
+  socialMediaUrlShareList,
+  popUpWindow,
+} from '../../../utilities/helpers'
 
 const classes = {}
 
-const PodcastTitle = () => {
+const PodcastTitle = props => {
+  const { customFields: { titleField = '', socialUrl = '' } = {} } = props
+
   const { siteProperties } = useFusionContext()
 
   const {
@@ -16,8 +22,8 @@ const PodcastTitle = () => {
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
-    'postPermaLink',
-    'postTitle',
+    socialUrl,
+    titleField,
     siteNameRedSocial
   )
 
@@ -48,12 +54,18 @@ const PodcastTitle = () => {
   return (
     <div className="podcast-title p-20 md:p-0 position-relative">
       <ul className="podcast-title__social-media flex md:position-absolute md:right-0">
-        {shareButtons.map((item, i) => (
+        {shareButtons.map(({ icon, link }, i) => (
           <li
             className={`mr-10 md:mr-0 ml-0 md:ml-10${
               i === 3 ? ' md:hidden' : ''
             }`}>
-            <a className="block" href={item.link}>
+            <a
+              className="block"
+              href={link}
+              onClick={event => {
+                event.preventDefault()
+                popUpWindow(link, '', 600, 400)
+              }}>
               <svg
                 width="32"
                 height="32"
@@ -64,7 +76,7 @@ const PodcastTitle = () => {
                   r="15"
                   fill="#eeeeee"
                 />
-                <path className={classes.share} d={item.icon} />
+                <path className={classes.share} d={icon} />
               </svg>
             </a>
           </li>
@@ -72,12 +84,26 @@ const PodcastTitle = () => {
       </ul>
 
       <h1 className="podcast-title__text font-bold text-black title-lg pt-20 pb-20 mt-10 md:mt-30 border-t-1 border-b-1 border-solid border-gray">
-        Podcasts
+        {titleField || 'Podcast'}
       </h1>
     </div>
   )
 }
 
 PodcastTitle.label = 'Podcast - Título'
+// PodcastTitle.static = true
+
+PodcastTitle.propTypes = {
+  customFields: PropTypes.shape({
+    titleField: PropTypes.string.tag({
+      name: 'Título',
+      description: 'El valor por defecto del campo "Título" es "Podcast"',
+    }),
+    socialUrl: PropTypes.string.tag({
+      name: 'Url para redes sociales',
+      description: 'El valor por defecto del campo "Título" es "Podcast"',
+    }),
+  }),
+}
 
 export default PodcastTitle
