@@ -688,6 +688,16 @@ class StoryData {
     )
   }
 
+  get fiaOrigen() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.facebook_ia &&
+        this._data.label.facebook_ia.url) ||
+      true
+    )
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
