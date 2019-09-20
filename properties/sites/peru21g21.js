@@ -67,15 +67,15 @@ export default {
   legalLinks: [
     {
       name: 'Términos y condiciones',
-      url: '/terminos-y-condiciones/',
+      url: 'https://peru21.pe/terminos-y-condiciones/',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-de-privacidad/',
+      url: 'https://peru21.pe/politicas-de-privacidad/',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-de-cookies/',
+      url: 'https://peru21.pe/politicas-de-cookies/',
     },
   ],
 

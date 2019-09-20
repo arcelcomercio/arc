@@ -41,16 +41,17 @@ const OpinionGridAuthorCard = ({ isMobile, data: story, deployment,
                   {story.author}
                 </a>
               </h3>
-              <p className={classes.group}>{story.section}</p>
+              <p className={classes.group}>{story.authorOccupation}</p>
             </>
           ) : (
             <>
-              <p className={classes.group}>{story.section}</p>
+              
               <h3>
                 <a className={classes.name} href={story.authorLink}>
                   {story.author}
                 </a>
               </h3>
+              <p className={classes.group}>{story.authorOccupation}</p>
             </>
           )}
           <h2>

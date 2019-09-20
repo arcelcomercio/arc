@@ -1,0 +1,38 @@
+.nav-sidebar {
+  background-color: $color-base-400;
+  &__body {
+    padding-top: 0;
+    padding-left: 0;
+  }
+  &__item {
+    padding-left: 20px;
+    transition: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__link {
+    padding-left: 11px;
+  }
+  &__link,
+  &__text {
+    font-family: $secondary-font;
+    color: $color-base-400;
+  }
+  &__item,
+  &__link {
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  &__parent-item {
+    color: $color-base-400;
+  }
+  &__footer {
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+  &__search {
+    padding-bottom: 0;
+  }
+}

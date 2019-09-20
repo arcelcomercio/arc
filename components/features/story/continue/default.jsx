@@ -134,6 +134,21 @@ class StoryContinue extends PureComponent {
       const storyHeader = document.querySelector('.story-header__list')
       if (storyHeader) storyHeader.classList.add('hidden')
 
+      const navSidebar = document.querySelector('.nav-sidebar')
+      const nav = document.querySelector('.nav')
+      const navWrapper = document.querySelector('.nav__wrapper')
+
+      if (window.scrollY < this.preview) {
+        nav.classList.remove('active')
+        navWrapper.classList.add('section-menu--active')
+        navSidebar.classList.add('section-menu--active')
+      } else {
+        if (window.scrollY < 50) nav.classList.remove('active')
+        else nav.classList.add('active')
+
+        navWrapper.classList.remove('section-menu--active')
+      }
+
       this.preview = scrollY
     }
   }

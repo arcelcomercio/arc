@@ -231,8 +231,8 @@ class Subs extends Component {
                       id={reSubs.subscriptionID}>
                       <div className="left">
                         <h3>Mi suscripción</h3>
-                        {reSubs.currentPaymentMethod.paymentPartner !==
-                        'Linked' ? (
+                        {reSubs.currentPaymentMethod.paymentPartner ===
+                        'PayULATAM' ? (
                           <button
                             type="button"
                             className="link"
@@ -347,7 +347,7 @@ class Subs extends Component {
 
                 <div className="modal-body__wrapper">
                   <form
-                    className="form-grid"
+                    className="form-grid form-group-confirm"
                     onSubmit={e => this.submitConfirmPassword(e)}>
                     <div className="row-grid">
                       <h2 className="form-grid__label--title text-center">

@@ -10,11 +10,11 @@ const CLUB_URL = 'https://clubelcomercio.pe/?ref=home&ft=menu'
 const CLUB_TEXT = 'Club'
 const SUBSCRIBE_URL = 'https://suscripciones.elcomercio.pe/?ref=ec_home&ft=menu'
 const SUBSCRIBE_TEXT = 'Suscríbete'
-const DRAG_SCREEN_LIMIT = 90
-const LIST_WIDTH = 330
+/* const DRAG_SCREEN_LIMIT = 90
+const LIST_WIDTH = 330 */
 
 const classes = {
-  header: `header header-inverted w-full position-relative top-0 secondary-font pr-15 text-sm text-white font-bold flex items-center justify-center pt-0 pb-0 pl-15 md:position-absolute`,
+  header: `header header-inverted w-full position-relative top-0 secondary-font pr-15 text-sm font-bold flex items-center justify-center pt-0 pb-0 pl-15 md:position-absolute`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
   navBtnContainer: `flex items-center justify-start nav__container-menu position-absolute`,
@@ -22,17 +22,18 @@ const classes = {
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
   form: 'position-relative items-center hidden lg:flex',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
-  btnSearch: `header-inverted__btn-search nav__btn--search flex items-center text-white lg:pr-20 lg:pl-20 border-r-1 border-solid border-white`,
+  btnSearch: `nav__btn--search flex items-center text-white lg:pr-20 lg:pl-20 border-r-1 border-white`,
   iconSearch: 'icon-search text-lg',
-  btnSection:
-    'header-inverted__btn-menu flex items-center text-white p-5 md:pr-20 lg:pl-20',
+  btnMenu:
+    'story-special-h__btn-menu flex items-center text-white p-5 md:pr-20 lg:pl-20',
   iconMenu: 'icon-hamburguer title-sm pr-10',
   btnProfile:
     'items-center btn bg-white text-gray-300 text-sm hidden p-5 md:flex lg:pr-10 lg:pl-10',
-  btnClub: 'header-inverted__btn-club',
-  btnSubs: 'header-inverted__btn-subs',
+  btnClub: '',
+  btnSubs: '',
   /** ------------ */
-  navStoryTitle: 'nav__story-title position-absolute overflow-hidden',
+  navStoryTitle:
+    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
 
@@ -47,7 +48,6 @@ const classes = {
 // TODO: Agregar el click afuera del menu
 const HeaderSpecialChildSpecial = ({
   logo,
-  auxLogo,
   menuSections,
   search,
   isStory,
@@ -61,9 +61,9 @@ const HeaderSpecialChildSpecial = ({
 
   const inputSearch = useRef()
 
-  let dragFlag = false
+  /* let dragFlag = false
   let initPointDrag = 0
-  let distDrag = 0
+  let distDrag = 0 */
 
   // let listContainer = null
   // let layerBackground = null
@@ -88,8 +88,8 @@ const HeaderSpecialChildSpecial = ({
   }
 
   // Add - Remove Class active input and button search
-  const activeSearch = () => {
-    return statusSearch ? 'active' : ''
+  const activeSearch = ({ on = '', off = '' } = {}) => {
+    return statusSearch ? `active ${on}` : `${off}`
   }
 
   // If input search is empty, buton close search else buton find search
@@ -134,7 +134,7 @@ const HeaderSpecialChildSpecial = ({
     else _openMenu()
   }
 
-  const _initDrag = evt => {
+  /* const _initDrag = evt => {
     initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
     if (statusSidebar) {
       if (initPointDrag < LIST_WIDTH) {
@@ -187,7 +187,7 @@ const HeaderSpecialChildSpecial = ({
       const posX = offsetX || changedTouches[0].clientX
       _drag(dir, posX)
     }
-  }
+  } */
 
   /** ------ // SIDEBAR ----- */
 
@@ -275,13 +275,15 @@ const HeaderSpecialChildSpecial = ({
             />
             <Button
               iconClass={classes.iconSearch}
-              btnClass={`${classes.btnSearch} ${activeSearch()}`}
+              btnClass={`${classes.btnSearch} ${activeSearch({
+                off: 'border-solid',
+              })}`}
               onClick={optionButtonClick}
             />
           </form>
           <Button
             iconClass={classes.iconMenu}
-            btnClass={`${classes.btnSection} ${
+            btnClass={`${classes.btnMenu} ${
               scrolled && isStory ? 'border-r-1 border-solid' : ''
             }`}
             btnText="Menú"
@@ -289,12 +291,13 @@ const HeaderSpecialChildSpecial = ({
           />
         </div>
         {/** ************* // LEFT *************** */}
-        <a href={logo.link} className={classes.logoContainer}>
-          <img
-            src={scrolled ? auxLogo.src : logo.src}
-            alt={logo.alt}
-            className={classes.logo}
-          />
+        <a
+          href={logo.link}
+          className={`${classes.logoContainer} ${isStory &&
+            scrolled &&
+            statusSearch &&
+            'opacity-0'}`}>
+          <img src={logo.src} alt={logo.alt} className={classes.logo} />
         </a>
         <div className={classes.navStoryTitle} />
         {/** ************* RIGHT *************** */}

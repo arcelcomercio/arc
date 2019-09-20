@@ -28,7 +28,7 @@ const PaywallContactUs = props => {
     apellido: '',
     organizacion: '',
     tipo_consulta: 0,
-    asunto: '',
+    telefono: '',
     descripcion: '',
   }
 

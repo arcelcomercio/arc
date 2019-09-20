@@ -7,6 +7,8 @@ import Error from '../../../_children/error'
 import * as S from './styled'
 import { FormSchema, Masks } from './schema'
 
+const { trim } = Masks.Pipes
+
 export default props => {
   const { initialValues, onSubmit, error } = props
 
@@ -77,10 +79,11 @@ export default props => {
               </S.WrapField>
               <S.WrapField>
                 <Field
-                  transform="capitalize"
-                  name="asunto"
-                  mask={new Array(100).fill(/./)}
-                  label="Asunto"
+                  name="telefono"
+                  inputMode="numeric"
+                  pipe={trim()}
+                  mask={Masks.PHONE}
+                  label="Número de Celular"
                   component={InputFormik}
                 />
               </S.WrapField>
