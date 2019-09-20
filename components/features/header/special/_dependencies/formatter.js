@@ -36,7 +36,7 @@ export default class SpecialHeader {
 
   getParams() {
     const menuSections = this.formatData(this.data)
-    const { logo, auxLogo } = this.headerProperties
+    const { special: logo } = this.headerProperties
 
     return {
       logo: {
@@ -47,15 +47,6 @@ export default class SpecialHeader {
           ),
         link: this.customLogoLink,
         alt: this.siteDomain,
-      },
-      auxLogo: {
-        src:
-          this.customLogo ||
-          this.deployment(
-            `${this.contextPath}/resources/dist/${
-              this.arcSite
-            }/images/${auxLogo}`
-          ),
       },
       menuSections: [...menuSections],
     }
