@@ -79,32 +79,15 @@
       .story-header__icon,
       .story-header__share-icon {
         font-size: 23px;
+        background-color: $color-white;
+        color: $color-gray-300;
+        border-radius: 50%;
       }
       .story-header__share-icon {
         @media (--tablet) {
           display: none;
         }
       }
-    }
-  }
-
-  .header-inverted {
-    &.active {
-      .nav__story-title {
-        color: $color-white;
-      }
-      .story-header__icon {
-        background-color: $color-white;
-        color: $color-gray-200;
-      }
-    }
-    .header-inverted__btn-search,
-    .header-inverted__btn-menu {
-      color: $color-white;
-    }
-    .header-inverted__btn-club,
-    .header-inverted__btn-subs {
-      color: $color-gray-300;
     }
   }
 }
