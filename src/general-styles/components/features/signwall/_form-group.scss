@@ -135,11 +135,17 @@
         align-items: center;
       }
     }
+    .form-group-confirm{
+      padding: 80px 0px !important;
+      @media (--tablet) {
+        padding: 20px !important
+      }
+    }
     .form-froup-confirm{
       text-align: center;
       input{
         width: 120px;
-        margin: 0 20px;
+        margin: 0 10px;
       }
     }
   }

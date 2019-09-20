@@ -9,7 +9,7 @@ export const MESSAGE = {
   MAX: 'Longitud inválida, Máximo ${max} caracteres.',
   REQUIRED: 'Este campo es requerido',
   EMAIL: 'Correo inválido',
-  SUBJECT: 'Ingrese el Asunto',
+  SUBJECT: 'Ingrese Teléfono',
   API_ERROR: 'Ha ocurrido un error. Inténtelo más tarde',
 }
 

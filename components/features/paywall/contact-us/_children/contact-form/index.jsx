@@ -80,7 +80,7 @@ export default props => {
                   transform="capitalize"
                   name="asunto"
                   mask={new Array(100).fill(/./)}
-                  label="Asunto"
+                  label="Teléfono"
                   component={InputFormik}
                 />
               </S.WrapField>
