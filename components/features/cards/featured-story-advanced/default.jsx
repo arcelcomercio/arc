@@ -31,6 +31,12 @@ class CardFeaturedStoryAdvanced extends PureComponent {
         filter: schema,
       },
     })
+    this.fetchContent({
+      adsSpaces: {
+        source: 'get-ads-spaces',
+        query: {},
+      },
+    })
   }
 
   render() {
@@ -53,7 +59,8 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       } = {},
       siteProperties: { siteName = '' } = {},
     } = this.props
-    const { data = {} } = this.state || {}
+    const { data = {}, adsSpaces = {} } = this.state || {}
+    console.log('adsSpaces->', adsSpaces)
     const formattedData = this.storyFormatter.formatStory(data, imgField)
     const {
       category,
