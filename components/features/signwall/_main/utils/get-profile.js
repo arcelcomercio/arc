@@ -12,8 +12,11 @@ const fieldsWhite = [
 
 class GetProfile {
   constructor() {
-    const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
-    this.profile = JSON.parse(localProfile)
+    this.profile = null
+    if (typeof window !== 'undefined') {
+      const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
+      this.profile = JSON.parse(localProfile)
+    }
     this.publicProfile = this._getComplete()
     this.username = this._getUserName().userName
     this.initname = this._getUserName().inituser
