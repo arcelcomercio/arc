@@ -49,15 +49,14 @@ export default {
     },
     aniversario: `images/aniversario.svg`,
     nav: {
-      logo: 'white-logo.png',
+      logo: 'logo.png',
     },
     header: {
       logo: 'logo.png',
       inverted: 'logo.png',
-      special: 'white-logo.svg',
     },
     footer: {
-      logo: 'logo.png',
+      logo: 'logo-square.png',
     },
     seo: {
       logoAmp: 'logo-elcomercio-316x60.png',
