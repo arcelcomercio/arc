@@ -130,16 +130,18 @@ const Benefits = props => {
         </div>
       </div>
 
-      <div className="benefits__item">
-        <div className="benefits__icon">
-          <BeneFour />
-        </div>
+      {brandCurrent === 'gestion' && (
+        <div className="benefits__item">
+          <div className="benefits__icon">
+            <BeneFour />
+          </div>
 
-        <div>
-          <h3 className="benefits__item-title">Personalizar</h3>
-          <p className="benefits__item-text">tus Newsletters</p>
+          <div>
+            <h3 className="benefits__item-title">Personalizar</h3>
+            <p className="benefits__item-text">tus Newsletters</p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

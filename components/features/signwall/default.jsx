@@ -116,6 +116,7 @@ class Signwall extends Component {
             <Panel
               arcSite={arcSite}
               closePopup={() => this.togglePopupPanel()}
+              closeDispatchEvent={() => this.dispatchEvent('logout')}
             />
           )}
         </div>
