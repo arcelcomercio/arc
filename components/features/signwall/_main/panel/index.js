@@ -22,7 +22,7 @@ const renderTemplate = template => {
 }
 // eslint-disable-next-line import/prefer-default-export
 export const Panel = props => {
-  const { closePopup, arcSite } = props
+  const { closePopup, closeDispatchEvent,  arcSite } = props
 
   // React.useEffect(() => {
   const { publicProfile } = new GetProfile()
@@ -59,6 +59,7 @@ export const Panel = props => {
                     userName={userName}
                     typeLogin={typeLogin}
                     closePopup={closePopup}
+                    closeDispatchEvent={closeDispatchEvent}
                     home={() => value.changeTemplate('home')}
                     news={() => value.changeTemplate('news')}
                     subs={() => value.changeTemplate('subs')}

@@ -9,7 +9,7 @@ export const MESSAGE = {
   MAX: 'Longitud inválida, Máximo ${max} caracteres.',
   REQUIRED: 'Este campo es requerido',
   EMAIL: 'Correo inválido',
-  SUBJECT: 'Ingrese el Asunto',
+  PHONE: 'Longitud inválida, entre 9 y 12 caracteres',
   API_ERROR: 'Ha ocurrido un error. Inténtelo más tarde',
 }
 
@@ -35,10 +35,10 @@ export const FormSchema = schema({
     value.min(1, MESSAGE.MIN)
     value.max(50, MESSAGE.MAX)
   },
-  asunto: value => {
-    value.required(MESSAGE.SUBJECT)
-    value.min(3, MESSAGE.MIN)
-    value.max(100, MESSAGE.MAX)
+  telefono: value => {
+    value.required(MESSAGE.PHONE)
+    value.min(9, MESSAGE.MIN)
+    value.max(12, MESSAGE.MAX)
   },
   tipo_consulta: value => {
     value.required('Debe seleccionar un tipo')
