@@ -50,7 +50,7 @@ class CardFeaturedStoryAdvanced extends PureComponent {
     const toDate = dateStr => {
       const [date, time] = dateStr.split(' ')
       const [day, month, year] = date.split('/')
-      return new Date(`${year}/${month - 1}/${day} ${time} GMT-0500`)
+      return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
     }
 
     if (adsSpaces[arcSite]) {
@@ -59,7 +59,12 @@ class CardFeaturedStoryAdvanced extends PureComponent {
         auxAdsSpaces.filter(el => Object.keys(el).includes(adsSpace))[0] || {}
 
       if (auxAdsSpace[adsSpace]) {
-        return auxAdsSpace[adsSpace][0]
+        const currentSpace = auxAdsSpace[adsSpace][0]
+        const {fec_inicio: fecInicio, fec_fin: fecFin, des_html: desHtml} = currentSpace
+        const currentDate = new Date()
+        const initDate = toDate(fecInicio)
+        const endDate = toDate(fecFin)
+        return currentDate > initDate && endDate > currentDate ? desHtml : false
       }
       return false
     }
