@@ -16,8 +16,10 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       arcSite,
       customFields: {
         storyConfig: { contentService = '', contentConfigValues = {} } = {},
+        adsSpace,
       } = {},
     } = props
+
     this.storyFormatter = new StoryFormatter({
       deployment,
       contextPath,
@@ -31,12 +33,38 @@ class CardFeaturedStoryAdvanced extends PureComponent {
         filter: schema,
       },
     })
-    this.fetchContent({
-      adsSpaces: {
-        source: 'get-ads-spaces',
-        query: {},
-      },
-    })
+    if (adsSpace && adsSpace !== 'none') {
+      this.fetchContent({
+        adsSpaces: {
+          source: 'get-ads-spaces',
+          query: {},
+        },
+      })
+    }
+  }
+
+  getAdsSpace() {
+    const { adsSpaces = {} } = this.state || {}
+    const { arcSite, customFields: { adsSpace } = {} } = this.props
+
+    const toDate = dateStr => {
+      const [date, time] = dateStr.split(' ')
+      const [day, month, year] = date.split('/')
+      return new Date(`${year}/${month - 1}/${day} ${time} GMT-0500`)
+    }
+
+    if (adsSpaces[arcSite]) {
+      const auxAdsSpaces = adsSpaces[arcSite] || []
+      const auxAdsSpace =
+        auxAdsSpaces.filter(el => Object.keys(el).includes(adsSpace))[0] || {}
+
+      if (auxAdsSpace[adsSpace]) {
+        return auxAdsSpace[adsSpace][0]
+      }
+      return false
+    }
+
+    return false
   }
 
   render() {
@@ -59,8 +87,10 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       } = {},
       siteProperties: { siteName = '' } = {},
     } = this.props
-    const { data = {}, adsSpaces = {} } = this.state || {}
-    console.log('adsSpaces->', adsSpaces)
+    const { data = {} } = this.state || {}
+
+    console.log('isAdsSpaceActive', this.getAdsSpace())
+
     const formattedData = this.storyFormatter.formatStory(data, imgField)
     const {
       category,

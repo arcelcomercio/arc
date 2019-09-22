@@ -64,7 +64,7 @@ const customFields = PropTypes.shape({
     description:
       'Url del video en vivo que facebook ofrece desde la plataforma',
   }),
-  isAdsOn: PropTypes.oneOf([
+  adsSpace: PropTypes.oneOf([
     'none',
     'publirreportaje',
     'auspiciotop1',
@@ -87,6 +87,7 @@ const customFields = PropTypes.shape({
     'caja1',
     'caja2',
     'caja3',
+    'zocalo1',
   ]).tag({
     name: 'Espacio',
     group: 'Publicidad',
