@@ -87,7 +87,6 @@ const customFields = PropTypes.shape({
     'caja1',
     'caja2',
     'caja3',
-    'zocalo1',
   ]).tag({
     name: 'Espacio',
     group: 'Publicidad',
