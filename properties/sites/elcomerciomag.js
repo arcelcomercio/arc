@@ -1,10 +1,8 @@
 export default {
-  siteName: 'El Comercio',
+  siteName: 'Mag.',
+  googleFonts: 'Fira+Sans:400,600,700|Noto+Serif:400,700',
 
-  googleFonts:
-    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700',
-
-  colorPrimary: '#f7c600',
+  colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://elcomercio.pe',
   resizerUrl:
@@ -45,21 +43,20 @@ export default {
   },
 
   assets: {
-    path: `/resources/dist/elcomercio/`,
+    path: `/resources/dist/elcomerciomag/`,
     paywall() {
       return `${this.path}${this.aniversario}`
     },
     aniversario: `images/aniversario.svg`,
     nav: {
-      logo: 'white-logo.png',
+      logo: 'logo.png',
     },
     header: {
       logo: 'logo.png',
       inverted: 'logo.png',
-      special: 'white-logo.svg',
     },
     footer: {
-      logo: 'logo.png',
+      logo: 'logo-square.png',
     },
     seo: {
       logoAmp: 'logo-elcomercio-316x60.png',

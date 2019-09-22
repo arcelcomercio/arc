@@ -1,23 +1,24 @@
 /******* Brand colors *******/
-$color-primary: #0c70bf;
-$color-secondary: #388aca;
+$color-primary: #262627;
+$color-secondary: #ffffff;
 $color-tertiary: #ebc12f;
 /*-----------------------*/
 
-$color-base-800: #0e6dc1;
-$color-base-700: aliceblue;
-$color-base-600: #555;
-$color-base-500: #7f7f7f;
-$color-base-400: #c5e2f7;
+/* $color-base-400: #c5e2f7;
 $color-base-300: #ed1c24;
 $color-base-200: #26567f;
-$color-base-100: #e8f2f9;
+$color-base-100: #e8f2f9; */
 /*-----------------------*/
 
-/******* Other colors *******/
-$color-link: #524cff;
-
-/*-----------------------*/
+/** ----------------------------*
+*           GRAYSCALE           *
+*-------------------------------*/
+$color-black: #000000;
+$color-gray-300: $color-primary;
+$color-gray-200: #333333;
+$color-gray-100: #e8e8e8;
+$color-white: #ffffff;
+/*------------------------------*/
 
 /** ----------------------------*
 *        GENERAL CONFIG         *
