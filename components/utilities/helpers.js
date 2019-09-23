@@ -555,6 +555,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<font (.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/<mxm-(.*) (.*)><\/mxm>/g, '') // pendiente de validacion enventos 485178
+    .replace(/<script>(.*\n)+.*<\/script>/g, '')
 }
 
 export const facebookHtml = html => {

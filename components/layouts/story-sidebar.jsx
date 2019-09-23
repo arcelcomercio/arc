@@ -5,7 +5,7 @@ const classes = {
   layout: 'flex justify-center',
   contentContainer:
     'flex flex-col content-layout-container w-full position-relative bg-container',
-  separator: 'w-full mb-20',
+  separator: 'w-full ',
   heading: 'w-full',
   content: 'content-sidebar flex mt-20 mb-20 ',
   zocalo: 'ads__zocalo',
