@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-destructuring */
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import { useFusionContext } from 'fusion:context'
 import Wizard from 'react-step-wizard'
@@ -15,6 +16,7 @@ import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
 import ClickToCall from '../_children/click-to-call'
+import FillHeight from '../_children/fill-height'
 import ErrorBoundary from '../_children/error-boundary'
 import PWA from './_dependencies/seed-pwa'
 import getDomain from '../_dependencies/domains'
@@ -32,8 +34,8 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
   const {
     contextPath,
     deployment,
+    customFields: { substractFeaturesHeights = '' },
     siteProperties: {
-      assets,
       paywall: { clickToCall },
     },
     globalContent: {
@@ -127,60 +129,65 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
 
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
   const [loading, setLoading] = useState(false)
+  const substractFeaturesIds = substractFeaturesHeights
+    .split(',')
+    .map(id => id.trim())
   return (
-  <ErrorBoundary>
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <S.Content>
-        <Loading fullscreen spinning={loading} />
-        <Wizard
-          transitions={{
-            enterRight: 'enterRight',
-            enterLeft: 'enterLeft',
-            exitRight: 'exitRight',
-            exitLeft: 'exitLeft',
-          }}
-          ref={wizardRef}
-          isLazyMount
-          nav={
-            <Nav
-              stepsNames={stepNames}
-              right={<ClickToCall href={clickToCall} />}
-            />
-          }>
-          <WizardPlan
-            message={message}
-            printedSubscriber={printedSubscriber}
-            memo={currMemo}
-            plans={plans}
-            summary={summary}
-            onBeforeNextStep={onBeforeNextStepHandler}
-            assets={fullAssets}
-            setLoading={setLoading}
-          />
-          <WizardUserProfile
-            memo={currMemo}
-            profile={profile}
-            formName={PROFILE_FORM_NAME}
-            summary={summary}
-            onBeforeNextStep={onBeforeNextStepHandler}
-            setLoading={setLoading}
-          />
-          <WizardPayment
-            memo={currMemo}
-            summary={summary}
-            formName={PAYMENT_FORM_NAME}
-            onBeforeNextStep={onBeforeNextStepHandler}
-            setLoading={setLoading}
-          />
-          <WizardConfirmation
-            memo={currMemo}
-            assets={fullAssets}
-            onBeforeNextStep={onBeforeNextStepHandler}
-          />
-        </Wizard>
-      </S.Content>
-    </div>
-  </ErrorBoundary>
+  <FillHeight substractElements={substractFeaturesIds}>
+	<ErrorBoundary>
+	  <div style={{ display: 'flex', justifyContent: 'center' }}>
+	    <S.Content>
+	      <Loading fullscreen spinning={loading} />
+	      <Wizard
+	        transitions={{
+	          enterRight: 'enterRight',
+	          enterLeft: 'enterLeft',
+	          exitRight: 'exitRight',
+	          exitLeft: 'exitLeft',
+	        }}
+	        ref={wizardRef}
+	        isLazyMount
+	        nav={
+	          <Nav
+	            stepsNames={stepNames}
+	            right={<ClickToCall href={clickToCall} />}
+	          />
+	        }>
+	        <WizardPlan
+	          message={message}
+	          printedSubscriber={printedSubscriber}
+	          memo={currMemo}
+              plans={plans}
+	          summary={summary}
+	          onBeforeNextStep={onBeforeNextStepHandler}
+	          assets={fullAssets}
+	          setLoading={setLoading}
+	        />
+	        <WizardUserProfile
+	          memo={currMemo}
+	          profile={profile}
+	          formName={PROFILE_FORM_NAME}
+	          summary={summary}
+	          onBeforeNextStep={onBeforeNextStepHandler}
+	          setLoading={setLoading}
+	        />
+	        <WizardPayment
+	          memo={currMemo}
+	          summary={summary}
+	          formName={PAYMENT_FORM_NAME}
+	          onBeforeNextStep={onBeforeNextStepHandler}
+	          setLoading={setLoading}
+	        />
+	        <WizardConfirmation
+	          memo={currMemo}
+	          assets={fullAssets}
+	          onBeforeNextStep={onBeforeNextStepHandler}
+	        />
+	      </Wizard>
+	    </S.Content>
+	  </div>
+	</ErrorBoundary>
+  </FillHeight>
   )
 }
 
@@ -194,6 +201,13 @@ class PaywallWrapper extends React.Component {
       />
     )
   }
+}
+
+PaywallWrapper.propTypes = {
+  customFields: PropTypes.shape({
+    id: PropTypes.string,
+    substractFeaturesHeights: PropTypes.arrayOf(PropTypes.string),
+  }),
 }
 
 export default PaywallWrapper

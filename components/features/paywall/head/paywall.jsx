@@ -89,7 +89,7 @@ class Head extends React.PureComponent {
         : theme.palette.primary.main
 
     return (
-      <S.Head>
+      <S.Head id={id}>
         {showSignwall && checkForceLogin ? (
           <SignwallPaywall
             brandModal={arcSite}
@@ -137,8 +137,11 @@ class Head extends React.PureComponent {
   }
 }
 
-Head.propTypes = {
+const ThemedHead = withTheme(Head)
+
+ThemedHead.propTypes = {
   customFields: PropTypes.shape({
+    id: PropTypes.string,
     forceLogin: PropTypes.bool.tag({
       name: 'Forzar login:',
       defaultValue: true,
@@ -147,4 +150,4 @@ Head.propTypes = {
   }),
 }
 
-export default withTheme(Head)
+export default ThemedHead

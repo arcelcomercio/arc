@@ -1,11 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 import addScriptAsync from '../../../utilities/script-async'
 import { devices } from '../_dependencies/devices'
 import getDomain from '../_dependencies/domains'
 import Card from './_children/card'
-import './paywall.css'
 import ClickToCall from '../_children/click-to-call'
+import FillHeight from '../_children/fill-height'
+import './paywall.css'
 
 @Consumer
 class Portal extends React.PureComponent {
@@ -49,28 +51,42 @@ class Portal extends React.PureComponent {
         paywall: { clickToCall },
       },
     } = this.props
+
+    const substractFeaturesIds = substractFeaturesHeights
+      .split(',')
+      .map(id => id.trim())
+    
     return (
-      <div className="portal" style={{ background }}>
-        <div className="portal__content">
-          {serviceData.map(item => (
-            <Card item={item} key={item.title} />
-          ))}
-        </div>
-        <div className="portal__footer">
-          <div className="footer__content">
-            <a
-              href={getDomain('URL_CORPORATE')}
-              className="link link--corporate">
-              SUSCRIPCIONES CORPORATIVAS
-            </a>
-            <div className="wrap__click-to-call">
-              <ClickToCall href={clickToCall} />
+      <FillHeight substractElements={substractFeaturesIds}>
+        <div className="portal" style={{ background }}>
+          <div className="portal__content">
+            {serviceData.map(item => (
+              <Card item={item} key={item.title} />
+            ))}
+          </div>
+          <div className="portal__footer">
+            <div className="footer__content">
+              <a
+                href={getDomain('URL_CORPORATE')}
+                className="link link--corporate">
+                SUSCRIPCIONES CORPORATIVAS
+              </a>
+              <div className="wrap__click-to-call">
+                <ClickToCall href={clickToCall} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </FillHeight>
     )
   }
+}
+
+Portal.propTypes = {
+  customFields: PropTypes.shape({
+    id: PropTypes.string,
+    substractFeaturesHeights: PropTypes.arrayOf(PropTypes.string),
+  }),
 }
 
 export default Portal

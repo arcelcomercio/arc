@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import { withTheme } from 'styled-components'
 
@@ -9,12 +10,15 @@ import Link from '../_children/link'
 import getDomain from '../_dependencies/domains'
 
 const Foot = ({ theme }) => {
-  const { siteProperties } = useFusionContext()
+  const {
+    siteProperties,
+    customFields: { id },
+  } = useFusionContext()
   const { social, apps } = siteProperties
   const [supportOpen, setSupportOpen] = React.useState(false)
 
   return (
-    <div className="foot">
+    <div id={id} className="foot">
       <SupportDialog
         showClose
         open={supportOpen}
@@ -148,4 +152,10 @@ const Foot = ({ theme }) => {
   )
 }
 
-export default withTheme(Foot)
+Foot.propTypes = {
+  customFields: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+}
+
+export default Foot
