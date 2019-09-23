@@ -27,7 +27,7 @@ const Header = props => {
           className="modal-header__back"
           onClick={closePopup}>
           <Back color={arcSite === 'elcomercio' ? 'black' : 'white'} />
-          <span className="modal-header__text">Volver a la Portada</span>
+          <span className="modal-header__text">Volver</span>
         </button>
       ) : (
         <button
