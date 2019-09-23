@@ -26,10 +26,10 @@ export default {
   infoPagesDev: {
     termsAndConditions: 'FXTBX3HGGNBQXES37OMYK4WRIE',
     guidingPrinciples: 'F6HHZ5WAAZC3BMG6DTBJO2BBKQ',
-    privacyPolicies: '',
+    privacyPolicies: '5UF5KAARPRBMFNQP6VRVBRYYZ4',
     integratedManagementPolicy: 'N4VEGF2LFBBVHCLSAYRBUDGAR4',
-    arcoProcedure: 'ZJVJVIL7MJGJBCZMD3YELB7PWA',
-    cookiesPolicy: '',
+    arcoProcedure: 'UC67Q5OE7VHQTEGKQYFE5SNVOQ',
+    cookiesPolicy: 'SB5QBFQPGBBDZBRR27WHIGKQOQ',
     aboutUs: '',
     frequentQuestions: '',
   },
@@ -38,8 +38,8 @@ export default {
     guidingPrinciples: 'L5AULXOGCRECFAMNYVWLGTV4MI',
     privacyPolicies: 'OLR5KJAABVCV5G3ZQTGXKETJNU',
     integratedManagementPolicy: 'OFZJ4STKNRDHLPEIQJ5X24L6UE',
-    arcoProcedure: '',
-    cookiesPolicy: '',
+    arcoProcedure: 'L64SNU32AFD6LMRCKJTNY3M3KY',
+    cookiesPolicy: 'IBXQQAQRGVAURMCAIB7MRN34WE',
     aboutUs: '',
     frequentQuestions: '',
   },
@@ -213,7 +213,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@elcomercio_peru',
+      user: 'elcomercio_peru',
       url: 'https://twitter.com/elcomercio_peru',
     },
     youtube: {

@@ -43,8 +43,11 @@
       }
     }
     .featured-story__title-link {
-      font-size: 26px;
-      @media (--tablet) {
+      font-size: 13px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      @media (--desktop) {
+        font-size: 26px;
         line-height: 30px;
       }
     }
