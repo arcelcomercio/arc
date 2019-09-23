@@ -1,0 +1,22 @@
+.story-continue {
+  &__story-load-image {
+    background-image: url(/pf/resources/dist/elcomerciomag/images/logo.png);
+    width: 53px;
+    height: 37px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__counter {
+    &::after {
+      background: $color-white;
+    }
+  }
+  &__progress {
+    background: linear-gradient(to bottom, $color-primary 0, $color-white 100%);
+  }
+  &__story-load-image {
+    top: 33px;
+    left: 26px;
+  }
+}

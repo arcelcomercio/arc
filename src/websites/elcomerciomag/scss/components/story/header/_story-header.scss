@@ -1,0 +1,27 @@
+.story-header {
+  &__share {
+    border-top: 0;
+    border-color: $color-base-400;
+  }
+  &__news-title {
+    color: $color-black;
+    font-weight: 900;
+    font-size: 24px;
+    @media (--tablet) {
+      font-size: 44px;
+    }
+    @media (--desktop) {
+      font-size: 47px;
+    }
+  }
+  &__news-summary {
+    font-family: $primary-font;
+    font-weight: 300;
+    font-size: 22px;
+  }
+  &__title-section {
+    color: $color-gray-300;
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+}

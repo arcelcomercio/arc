@@ -1,12 +1,4 @@
 .podcast-separator {
-  &__body {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(2, 1fr);
-    @media (--tablet) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
   &__item-s-link {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -23,12 +15,14 @@
     color: #0f86f9;
   }
   &__item {
+    width: calc((100% / 2) - 8px);
     @media (--only-mobile) {
       &:nth-child(n + 3) {
         display: none;
       }
     }
     @media (--tablet) {
+      width: calc((100% / 3) - 13px);
       &:nth-child(n + 4) {
         display: none;
       }
