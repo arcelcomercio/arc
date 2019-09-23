@@ -15,6 +15,8 @@
       @media (--only-mobile) {
         margin-bottom: 0;
       }
+      width: 80px;
+      height: 80px;
     }
     &--item {
       @media (--only-mobile) {
@@ -23,17 +25,18 @@
       }
     }
     &-description {
+      font-family: $fourth-font;
       @media (--only-mobile) {
         position: relative;
-        left: 76px;
+        left: 90px;
         top: -18px;
-        width: calc(100% - 76px);
+        width: calc(100% - 80px);
       }
     }
     &-name {
+      font-family: $fourth-font;
       margin-bottom: 0;
       padding-left: 10px;
-      width: calc(100% - 70px);
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -42,6 +45,9 @@
       height: 59px;
       margin-bottom: 20px;
       line-height: 24px;
+      @media (--only-mobile) {
+        width: calc(100% - 80px);
+      }
       @media (--tablet) {
         height: 64px;
       }

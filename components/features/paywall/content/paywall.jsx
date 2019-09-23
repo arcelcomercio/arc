@@ -15,6 +15,7 @@ import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
 import ClickToCall from '../_children/click-to-call'
+import ErrorBoundary from '../_children/error-boundary'
 import PWA from './_dependencies/seed-pwa'
 import getDomain from '../_dependencies/domains'
 import '../_dependencies/sentry'
@@ -127,6 +128,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
   const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
   const [loading, setLoading] = useState(false)
   return (
+  <ErrorBoundary>
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Content>
         <Loading fullscreen spinning={loading} />
@@ -178,6 +180,7 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
         </Wizard>
       </S.Content>
     </div>
+  </ErrorBoundary>
   )
 }
 

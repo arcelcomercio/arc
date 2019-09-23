@@ -1,0 +1,9 @@
+.featured-author {
+  &__section-link,
+  &__title-link {
+    font-family: $fourth-font;
+  }
+  &__title-link {
+    font-weight: 700;
+  }
+}
