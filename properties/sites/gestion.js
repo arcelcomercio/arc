@@ -121,9 +121,8 @@ export default {
 
   footer: {
     siteLegal: [
-      // TODO: DESCOMENTAR ESTO PARA LA SEGUNDA SALIDA DE GESTIÓN
-      /* 'Director periodístico',
-      'JULIO LIRA SEGURA', */
+      'Director periodístico',
+      'JULIO LIRA SEGURA',
       '© Empresa Editora El Comercio S.A.',
       'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
       'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
@@ -151,10 +150,10 @@ export default {
         name: 'facebook',
         url: 'https://www.facebook.com/Gestionpe',
       },
-      /* {
+      {
         name: 'twitter',
         url: 'https://twitter.com/gestionpe',
-      }, */
+      },
     ],
 
     contacts: [

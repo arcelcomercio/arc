@@ -39,7 +39,8 @@ const classes = {
   btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
   iconSearch: 'nav__icon-search text-primary-color icon-search text-lg',
   iconMenu: 'nav__icon-menu icon-hamburguer title-sm',
-  list: `items-center nav__list h-inherit overflow-hidden hidden lg:flex pl-15`,
+  listContainer: 'nav__list-container',
+  list: `items-center nav__list h-inherit hidden lg:flex pl-15`,
   listItem: 'nav__list-item text-center pr-15 h-full',
   mobileLogo: 'nav__mobile-logo position-absolute',
   listLink: `nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm`,
@@ -116,13 +117,11 @@ class NavBarDefault extends PureComponent {
         },
         siteUrl,
       },
-      globalContent
+      globalContent,
     } = props
 
-    const {
-      website_url: postPermaLink,
-      headlines: { basic: postTitle } = {},
-    } = globalContent || {}
+    const { website_url: postPermaLink, headlines: { basic: postTitle } = {} } =
+      globalContent || {}
 
     const urlsShareList = socialMediaUrlShareList(
       siteUrl,
@@ -715,32 +714,33 @@ class NavBarDefault extends PureComponent {
             </div>
 
             {/** ************* MIDDLE *************** */}
-
-            <ul className={classes.list}>
-              {sections &&
-                sections
-                  .slice(0, 4)
-                  .map(
-                    ({
-                      _id: id,
-                      url,
-                      name = '',
-                      display_name: displayName = '',
-                    }) => {
-                      return (
-                        <li
-                          key={`navbar-${url || id}`}
-                          className={classes.listItem}>
-                          <a
-                            href={url || id || '/'}
-                            className={classes.listLink}>
-                            {name || displayName}
-                          </a>
-                        </li>
-                      )
-                    }
-                  )}
-            </ul>
+            <div className={classes.listContainer}>
+              <ul className={classes.list}>
+                {sections &&
+                  sections
+                    .slice(0, 7)
+                    .map(
+                      ({
+                        _id: id,
+                        url,
+                        name = '',
+                        display_name: displayName = '',
+                      }) => {
+                        return (
+                          <li
+                            key={`navbar-${url || id}`}
+                            className={classes.listItem}>
+                            <a
+                              href={url || id || '/'}
+                              className={classes.listLink}>
+                              {name || displayName}
+                            </a>
+                          </li>
+                        )
+                      }
+                    )}
+              </ul>
+            </div>
             <a href="/" className={classes.mobileLogo}>
               <img
                 src={logo}
@@ -818,7 +818,9 @@ class NavBarDefault extends PureComponent {
                         : 'web_link_ingresacuenta'
                     }
                     className={
-                      `${classes.btnLogin} btn--outline` /* classes.btnSignwall */
+                      `${
+                        classes.btnLogin
+                      } btn--outline` /* classes.btnSignwall */
                     }
                     onClick={() => this.setState({ isActive: true })}>
                     <span>
@@ -836,7 +838,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <button
                   type="button"
                   id={
@@ -852,7 +856,9 @@ class NavBarDefault extends PureComponent {
                     className={
                       initialUser
                         ? `${classes.iconSignwallMobile} font-bold`
-                        : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
+                        : `${classes.iconLogin} ${
+                            classes.iconSignwallMobile
+                          }  title-sm`
                     }>
                     {initialUser}
                   </i>
