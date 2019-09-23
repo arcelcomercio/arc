@@ -49,6 +49,7 @@
     font-size: 15px;
     -webkit-line-clamp: 3;
     max-height: calc(15px * 1.3333 * 3);
+    font-family: $fourth-font;
     @media (--desktop) {
       -webkit-line-clamp: 4;
       max-height: calc(15px * 1.3333 * 4);

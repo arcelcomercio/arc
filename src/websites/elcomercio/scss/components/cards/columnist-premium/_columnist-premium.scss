@@ -1,0 +1,10 @@
+.columnist-premium {
+  &__name,
+  &__section {
+    font-family: $fourth-font;
+    text-transform: uppercase;
+  }
+  &__description {
+    font-family: 'Georgia';
+  }
+}

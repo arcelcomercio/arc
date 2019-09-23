@@ -35,11 +35,13 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     height: 60px;
+    font-family: $fourth-font;
   }
   .stories-l-item__autor {
     font-size: 11px;
     line-height: 15px;
     color: #888888;
+    font-family: $fourth-font;
   }
   .stories-l-item__link-box {
     border-color: #c1c1c1;
