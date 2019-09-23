@@ -3,12 +3,13 @@ import BillboardFormat from '../../../utilities/billboard-format'
 import { defaultImage } from '../../../utilities/helpers'
 
 const classes = {
-  container: 'movie-details flex flex-col pr-20 pl-20',
+  container: 'movie-details flex flex-col pr-20 pl-20 bg-gray-300',
   imgBox: 'movie-details__box-img position-relative w-full m-0 mx-auto',
   img: 'movie-details__img w-full h-full object-cover',
   iconBox:
     'movie-details__box-icon position-absolute flex items-center justify-center rounded',
-  icon: 'movie-details__icon title-sm text-gray-300',
+  icon:
+    'position-absolute text-center multimedia__icon mx-auto  text-black-100 icon-video',
   details:
     'movie-details__detail w-full flex flex-col mt-40 mb-40 mx-auto pt-0 pr-20 pb-20 pl-20',
   leftSide: 'movie-details__left w-full md:flex-shrink-0',
@@ -32,6 +33,7 @@ const MOVIES_BASE = '/peliculas'
 const MOVIE_IMG_SIZE_SM = '367x176'
 const MOVIE_IMG_SIZE_MD = '620x387'
 
+const styleIcon = { fontSize: 40 }
 class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
   constructor(props) {
     super(props)
@@ -101,12 +103,11 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
                   src={sizes[MOVIE_IMG_SIZE_MD] || this.setDefault('lg')}
                   alt={title}
                   className={classes.img}
-                  
                 />
               </picture>
             </a>
             <div className={classes.iconBox}>
-              <span className={classes.icon}>V</span>
+              <span className={classes.icon} style={styleIcon}></span>
             </div>
           </figure>
           <div className={classes.details}>
