@@ -1,0 +1,16 @@
+.podcast-list {
+  &__tag {
+    background-color: #5acf68;
+  }
+  &__img-link {
+    @media (--tablet) {
+      width: 35%;
+      align-self: center;
+    }
+  }
+  &__item-body {
+    @media (--tablet) {
+      width: 65%;
+    }
+  }
+}

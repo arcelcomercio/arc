@@ -1,0 +1,34 @@
+.story-item {
+  &__date {
+    margin-left: 20px;
+    font-weight: 700;
+    @media (--tablet) {
+      margin-left: 0;
+    }
+  }
+
+  &__title {
+    color: $color-gray-300;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  &__subtitle {
+    color: $color-gray-300;
+    font-family: $secondary-font;
+  }
+  &__section {
+    color: $color-primary;
+    font-weight: 700;
+    padding-left: 0;
+  }
+  &__top {
+    justify-content: space-between;
+    @media (--tablet) {
+      flex-direction: row;
+    }
+  }
+  &__left {
+    justify-content: flex-start;
+  }
+}

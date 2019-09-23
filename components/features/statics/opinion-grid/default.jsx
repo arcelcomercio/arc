@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent,Component } from 'react'
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 
@@ -19,7 +19,7 @@ const classes = {
   more: 'opinion-grid__more uppercase text-center text-md text-gray-300',
 }
 @Consumer
-class StaticOpinionGrid extends PureComponent {
+class StaticOpinionGrid extends Component {
   render() {
     const { globalContent, deployment, contextPath, arcSite } = this.props
     const { content_elements: contentElements } = globalContent || {}

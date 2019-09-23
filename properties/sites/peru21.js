@@ -20,7 +20,7 @@ export default {
   nameStoryRelated: 'VEA TAMBIÉN',
   siteDescription:
     'Noticias de Perú y el mundo en Peru21.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  googleNewsImage: 'https://peru21.pe/f/i/pub_40.png',
   assets: {
     nav: {
       logo: 'white-logo.png',
@@ -172,6 +172,6 @@ export default {
     logoAlt: 'Perú21Tv',
   },
   stick: {
-    logo: 'logo-peru21-stick.png'
-  }
+    logo: 'logo-peru21-stick.png',
+  },
 }

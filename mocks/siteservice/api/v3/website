@@ -53,5 +53,10 @@
     "_id": "peru21g21",
     "display_name": "Peru21 G21",
     "is_default_website": false
+  },
+  {
+    "_id": "elcomerciomag",
+    "display_name": "El Comercio Mag",
+    "is_default_website": false
   }
 ]
