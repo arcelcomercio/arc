@@ -116,11 +116,13 @@ class NavBarDefault extends PureComponent {
         },
         siteUrl,
       },
-      globalContent: {
-        website_url: postPermaLink,
-        headlines: { basic: postTitle } = {},
-      },
+      globalContent
     } = props
+
+    const {
+      website_url: postPermaLink,
+      headlines: { basic: postTitle } = {},
+    } = globalContent || {}
 
     const urlsShareList = socialMediaUrlShareList(
       siteUrl,
@@ -642,7 +644,7 @@ class NavBarDefault extends PureComponent {
       contextPath,
       deviceList,
       globalContentConfig: { query = {} } = {},
-      globalContent: { type = {} },
+      globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
     } = this.props
 

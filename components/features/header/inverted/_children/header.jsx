@@ -10,8 +10,8 @@ const CLUB_URL = 'https://clubelcomercio.pe/?ref=home&ft=menu'
 const CLUB_TEXT = 'Club'
 const SUBSCRIBE_URL = 'https://suscripciones.elcomercio.pe/?ref=ec_home&ft=menu'
 const SUBSCRIBE_TEXT = 'Suscríbete'
-const DRAG_SCREEN_LIMIT = 90
-const LIST_WIDTH = 330
+/* const DRAG_SCREEN_LIMIT = 90
+const LIST_WIDTH = 330 */
 
 const classes = {
   header: `header header-inverted bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
@@ -71,9 +71,9 @@ const HeaderChildInverted = ({
 
   const inputSearch = useRef()
 
-  let dragFlag = false
+  /* let dragFlag = false
   let initPointDrag = 0
-  let distDrag = 0
+  let distDrag = 0 */
 
   // let listContainer = null
   // let layerBackground = null
@@ -144,7 +144,7 @@ const HeaderChildInverted = ({
     else _openMenu()
   }
 
-  const _initDrag = evt => {
+  /* const _initDrag = evt => {
     initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
     if (statusSidebar) {
       if (initPointDrag < LIST_WIDTH) {
@@ -197,7 +197,7 @@ const HeaderChildInverted = ({
       const posX = offsetX || changedTouches[0].clientX
       _drag(dir, posX)
     }
-  }
+  } */
 
   /** ------ // SIDEBAR ----- */
 

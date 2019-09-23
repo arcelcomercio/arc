@@ -4,18 +4,24 @@
   &__item {
     border-color: $color-gray-100;
   }
+
   &__title-link {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 17px;
+    line-height: 20px;
+    @media (--desktop) {
+      font-size: 16px;
+    }
   }
   &__information {
     width: 100%;
   }
 
   &--threeline {
-    -webkit-line-clamp: 4;
-    max-height: 70px;
+    -webkit-line-clamp: 3;
+    max-height: 62px;
     @media (--desktop) {
+      -webkit-line-clamp: 4;
       max-height: 82px;
     }
   }

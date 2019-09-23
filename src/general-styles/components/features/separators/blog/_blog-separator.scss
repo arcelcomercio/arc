@@ -30,8 +30,10 @@
     font-weight: 700;
   }
   &__title {
-    font-size: 20px;
+    font-size: 17px;
     @media (--desktop) {
+      font-size: 16px;
+      line-height: 20px;
       height: 94px;
     }
   }
@@ -45,8 +47,10 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    height: 61px;
+    line-height: 26px;
     @media (--desktop) {
-      height: 76px;
+      height: 89px;
       -webkit-line-clamp: 3;
     }
     &:before {
@@ -55,7 +59,7 @@
       height: 1px;
       width: 25px;
       background-color: $color-gray-300;
-      margin-bottom: 5px;
+      margin-bottom: 3px;
     }
 
     &:after {
@@ -64,7 +68,7 @@
       height: 1px;
       width: 25px;
       background-color: $color-gray-300;
-      margin-top: 8px;
+      margin-top: 3px;
     }
   }
   &__link {
@@ -73,11 +77,9 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    height: 43px;
-    @media (--desktop) {
-      -webkit-line-clamp: 4;
-      height: 82px;
-    }
+    font-size: 17px;
+    height: 52px;
+    line-height: 24px;
   }
   &__img {
     width: 80px;
