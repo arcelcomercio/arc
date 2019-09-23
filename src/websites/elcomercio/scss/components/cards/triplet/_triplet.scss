@@ -9,6 +9,7 @@
     font-weight: 700;
     font-size: 17px;
     line-height: 20px;
+    font-family: $fourth-font;
     @media (--desktop) {
       font-size: 16px;
     }
@@ -24,5 +25,8 @@
       -webkit-line-clamp: 4;
       max-height: 82px;
     }
+  }
+  &__link {
+    font-family: $fourth-font;
   }
 }

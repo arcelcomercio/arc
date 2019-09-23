@@ -2,7 +2,7 @@ export default {
   siteName: 'El Comercio',
 
   googleFonts:
-    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700',
+    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+KR:500',
 
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
