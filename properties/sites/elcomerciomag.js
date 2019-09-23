@@ -49,10 +49,10 @@ export default {
     },
     aniversario: `images/aniversario.svg`,
     nav: {
-      logo: 'logo.png',
+      logo: 'white-logo.png',
     },
     header: {
-      logo: 'logo.png',
+      logo: 'white-logo.png',
       inverted: 'logo.png',
     },
     footer: {
