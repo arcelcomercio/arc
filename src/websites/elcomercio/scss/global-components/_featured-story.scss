@@ -13,6 +13,11 @@
   }
 
   &__category-link,
+  &__title-link,
+  &__author-link {
+    font-family: $fourth-font;
+  }
+  &__category-link,
   &__title-link {
     font-weight: 700;
   }
@@ -47,8 +52,7 @@
       display: -webkit-box;
       -webkit-box-orient: vertical;
       @media (--desktop) {
-        font-size: 26px;
-        line-height: 30px;
+        font-size: 20px;
       }
     }
   }

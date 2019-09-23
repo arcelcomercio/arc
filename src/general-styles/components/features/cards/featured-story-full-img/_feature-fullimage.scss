@@ -68,8 +68,10 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    max-height: calc(26px * 1.333 * 3);
-    font-size: 26px;
+    @media (--desktop) {
+      max-height: calc(26px * 1.333 * 3);
+      font-size: 26px;
+    }
   }
   &__author {
     font-size: 11px;
