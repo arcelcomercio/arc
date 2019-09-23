@@ -4,7 +4,7 @@ import { defaultImage } from '../../../utilities/helpers'
 const classes = {
   moviesSlider: 'movies-slider',
   body: 'position-relative overflow-hidden',
-  content: 'movies-slider__content flex',
+  content: 'movies-slider__content flex bg-gray-300',
   movie: '',
   imageBox: '',
   imageLink: '',

@@ -5,6 +5,7 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 import FacebookLive from './_children/facebook-live'
+import { createMarkup } from '../../../utilities/helpers'
 
 @Consumer
 class CardFeaturedStoryAdvanced extends PureComponent {
@@ -16,8 +17,10 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       arcSite,
       customFields: {
         storyConfig: { contentService = '', contentConfigValues = {} } = {},
+        adsSpace,
       } = {},
     } = props
+
     this.storyFormatter = new StoryFormatter({
       deployment,
       contextPath,
@@ -31,6 +34,48 @@ class CardFeaturedStoryAdvanced extends PureComponent {
         filter: schema,
       },
     })
+    if (adsSpace && adsSpace !== 'none') {
+      this.fetchContent({
+        adsSpaces: {
+          source: 'get-ads-spaces',
+          query: {},
+        },
+      })
+    }
+  }
+
+  getAdsSpace() {
+    const { adsSpaces = {} } = this.state || {}
+    const { arcSite, customFields: { adsSpace } = {} } = this.props
+
+    const toDate = dateStr => {
+      const [date, time] = dateStr.split(' ')
+      const [day, month, year] = date.split('/')
+      return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
+    }
+
+    if (adsSpaces[arcSite]) {
+      const auxAdsSpaces = adsSpaces[arcSite] || []
+      const auxAdsSpace =
+        auxAdsSpaces.filter(el => Object.keys(el).includes(adsSpace))[0] || {}
+
+      if (auxAdsSpace[adsSpace]) {
+        const currentSpace = auxAdsSpace[adsSpace][0]
+        const {
+          fec_inicio: fecInicio,
+          fec_fin: fecFin,
+          des_html: desHtml,
+        } = currentSpace
+        const currentDate = new Date()
+        const initDate = toDate(fecInicio)
+        const endDate = toDate(fecFin)
+
+        return currentDate > initDate && endDate > currentDate ? desHtml : false
+      }
+      return false
+    }
+
+    return false
   }
 
   render() {
@@ -54,6 +99,7 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       siteProperties: { siteName = '' } = {},
     } = this.props
     const { data = {} } = this.state || {}
+
     const formattedData = this.storyFormatter.formatStory(data, imgField)
     const {
       category,
@@ -98,8 +144,17 @@ class CardFeaturedStoryAdvanced extends PureComponent {
 
     return (
       <>
-        {!flagLive && <FeaturedStory {...paramsFeaturedStory} />}
-        {flagLive && <FacebookLive {...paramsFacebook} />}
+        {(() => {
+          if (this.getAdsSpace())
+            return (
+              <div
+                className={size === 'twoCol' ? 'col-2 row-1' : 'col-1 row-1'}
+                dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())}
+              />
+            )
+          if (flagLive) return <FacebookLive {...paramsFacebook} />
+          return <FeaturedStory {...paramsFeaturedStory} />
+        })()}
       </>
     )
   }

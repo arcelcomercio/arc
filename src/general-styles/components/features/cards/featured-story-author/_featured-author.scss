@@ -13,14 +13,15 @@
     top: 0;
   }
   &__author-img {
-    width: 42px;
-    height: 42px;
+    width: 47px;
+    height: 47px;
   }
   &__title-link {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    max-height: calc(1.7rem * 1.16667 * 3);
+    max-height: calc(24px * 1.16667 * 3);
+    font-size: 24px;
   }
   &__subtitle-link {
     display: -webkit-box;
@@ -28,7 +29,9 @@
     -webkit-line-clamp: 3;
     max-height: calc(0.9rem * 1.3333 * 3);
   }
-
+  &__section-link {
+    font-size: 24px;
+  }
   &.second {
     .featured-author {
       &__img-link {
