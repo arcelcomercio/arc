@@ -25,6 +25,7 @@
       }
     }
     &-description {
+      font-family: $fourth-font;
       @media (--only-mobile) {
         position: relative;
         left: 90px;
@@ -33,6 +34,7 @@
       }
     }
     &-name {
+      font-family: $fourth-font;
       margin-bottom: 0;
       padding-left: 10px;
       overflow: hidden;
