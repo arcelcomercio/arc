@@ -20,7 +20,7 @@ const classes = {
   author: 'feature-fullimage__author font-thin text-xs uppercase text-white',
   section: 'feature-fullimage__section text-white text-md',
   title:
-    'feature-fullimage__title overflow-hidden text-white block mt-10 mb-10 title-xs line-h-sm',
+    'feature-fullimage__title overflow-hidden text-white block mt-10 mb-10 title-xs line-h-sm font-bold',
   boxIcon:
     'feature-fullimage__box-icon position-absolute flex justify-center items-center',
   icon: 'feature-fullimage__icon text-white',
