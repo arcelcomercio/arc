@@ -56,7 +56,7 @@ export default {
       inverted: 'logo.png',
     },
     footer: {
-      logo: 'logo-square.png',
+      logo: 'logo.png',
     },
     seo: {
       logoAmp: 'logo-elcomercio-316x60.png',
@@ -71,42 +71,15 @@ export default {
   legalLinks: [
     {
       name: 'Términos y condiciones de uso',
-      url: '/terminos-y-condiciones',
-    },
-    {
-      name: 'Trabaja para Grupo El Comercio',
-      url: 'https://elcomercio.aptitus.com/',
-      external: true,
-    },
-    {
-      name: 'Libro de Reclamaciones',
-      url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
-      external: true,
-    },
-    {
-      name: 'Oficinas Concesionarias',
-      url: '/oficinas-concesionarias',
-      external: true,
-    },
-    {
-      name: 'Principios Rectores',
-      url: '/principios-rectores',
+      url: 'https://elcomercio.pe/terminos-y-condiciones/',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
-    },
-    {
-      name: 'Política integrada de gestión',
-      url: '/politica-integrada-de-gestion',
-    },
-    {
-      name: 'Derechos Arco',
-      url: '/procedimiento-arco',
+      url: 'https://elcomercio.pe/politicas-privacidad/',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politica-de-cookies',
+      url: 'https://elcomercio.pe/politica-de-cookies/',
     },
   ],
 
