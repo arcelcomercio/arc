@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
+import Icon from '../../../global-components/multimedia-icon'
 import StoryData from '../../../utilities/story-data'
 import { formatDayMonthYear } from '../../../utilities/helpers'
 
@@ -107,6 +108,7 @@ const PodcastSeparator = props => {
       primarySection,
       primarySectionLink,
       mp3Path,
+      multimediaType,
     } = storyData
     return {
       multimediaLandscapeL,
@@ -117,6 +119,7 @@ const PodcastSeparator = props => {
       primarySection,
       primarySectionLink,
       mp3Path,
+      multimediaType,
     }
   })
 
@@ -139,7 +142,7 @@ const PodcastSeparator = props => {
           <i className="icon-back podcast-separator__title-icon ml-5 text-sm font-bold"></i>
         </a>
       </div>
-      <div className="podcast-separator__body">
+      <div className="podcast-separator__body flex justify-between">
         {stories.map(
           ({
             multimediaLandscapeL,
@@ -148,14 +151,21 @@ const PodcastSeparator = props => {
             title,
             subTitle,
             mp3Path,
+            multimediaType,
           }) => (
             <div className="podcast-separator__item" key={websiteLink}>
-              <a href={websiteLink} className="podcast-separator__img-link">
+              <a
+                href={websiteLink}
+                className="podcast-separator__img-link block position-relative">
                 <picture className="podcast-separator__picture">
                   <img
                     src={multimediaLandscapeL}
                     alt={title}
                     className="podcast-separator__img w-full"
+                  />
+                  <Icon
+                    type={multimediaType}
+                    iconClass="podcast-separator__icon"
                   />
                 </picture>
               </a>

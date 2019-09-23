@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
+import Icon from '../../../global-components/multimedia-icon'
 import StoryData from '../../../utilities/story-data'
 
 const PodcastExtraordinazryStory = props => {
@@ -92,6 +93,7 @@ const PodcastExtraordinazryStory = props => {
     title,
     subTitle,
     mp3Path,
+    multimediaType,
   } = new StoryData({
     data,
     arcSite,
@@ -134,13 +136,16 @@ const PodcastExtraordinazryStory = props => {
           <source src={mp3Path} type="audio/mpeg" />
         </audio>
       </div>
-      <a href={websiteLink} className="podcast-extraordinary__img-link w-full">
+      <a
+        href={websiteLink}
+        className="podcast-extraordinary__img-link w-full position-relative">
         <picture className="podcast-extraordinary__picture">
           <img
             src={multimediaLandscapeL}
             alt={title}
-            className="podcast-extraordinary__img w-full"
+            className="podcast-extraordinary__img w-full object-cover"
           />
+          <Icon type={multimediaType} iconClass="podcast-extraordinary__icon" />
         </picture>
       </a>
     </div>
