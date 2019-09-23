@@ -46,8 +46,14 @@
     color: $color-gray-300;
     font-weight: 700;
     margin-top: 5px;
-    max-height: calc(0.9rem * 1.3333 * 4);
-    -webkit-line-clamp: 4;
+    font-size: 15px;
+    -webkit-line-clamp: 3;
+    max-height: calc(15px * 1.3333 * 3);
+    font-family: $fourth-font;
+    @media (--desktop) {
+      -webkit-line-clamp: 4;
+      max-height: calc(15px * 1.3333 * 4);
+    }
   }
   &__img {
     max-height: none;

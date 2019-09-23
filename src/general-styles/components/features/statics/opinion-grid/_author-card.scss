@@ -1,11 +1,10 @@
 .author-card {
-
   // border-bottom: solid 1px #333;
   // &:nth-child(even){
   // 	border-right: solid 1px #333;
   // }
   &__wrapper {
-    background-color: gold;
+    background-color: $color-base-200;
 
     @media (--tablet) {
       height: 340px;

@@ -13,6 +13,11 @@
   }
 
   &__category-link,
+  &__title-link,
+  &__author-link {
+    font-family: $fourth-font;
+  }
+  &__category-link,
   &__title-link {
     font-weight: 700;
   }
@@ -43,9 +48,11 @@
       }
     }
     .featured-story__title-link {
-      font-size: 26px;
-      @media (--tablet) {
-        line-height: 30px;
+      font-size: 13px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      @media (--desktop) {
+        font-size: 20px;
       }
     }
   }

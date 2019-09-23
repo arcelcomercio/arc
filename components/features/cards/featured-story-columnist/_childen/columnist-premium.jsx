@@ -43,9 +43,9 @@ const ColumnistPremium = ({
       <a href={primarySectionLink} className={classes.section}>
         {primarySection}
       </a>
-
       <p className={classes.description}>
         {subTitle}
+
         <a className={classes.link} href={websiteLink}>
           Leer
         </a>
