@@ -1,4 +1,16 @@
 .story {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $fifth-font;
+  }
+  .related-content__title,
+  .related-internal__title-link {
+    font-family: $fourth-font;
+  }
   .nav {
     height: 46px;
     &.active {
