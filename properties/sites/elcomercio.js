@@ -213,7 +213,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@elcomercio_peru',
+      user: 'elcomercio_peru',
       url: 'https://twitter.com/elcomercio_peru',
     },
     youtube: {
