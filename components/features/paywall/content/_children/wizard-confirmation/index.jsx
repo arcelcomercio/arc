@@ -79,7 +79,10 @@ const WizardConfirmation = props => {
   // }
 
   const handleClick = () => {
-    if (PWA.isPWA()) return
+    if (PWA.isPWA()) {
+      PWA.pwaCloseWebView()
+      return
+    }
     const { sessionStorage, location } = window
     // eslint-disable-next-line no-prototype-builtins
     location.href =
