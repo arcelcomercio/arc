@@ -51,9 +51,12 @@
       }
     }
     .featured-story__title-link {
-      font-size: 13px;
+      font-size: 15px;
       display: -webkit-box;
       -webkit-box-orient: vertical;
+      @media (--only-mobile) {
+        max-height: calc(15px * 1.333 * 4);
+      }
       @media (--desktop) {
         font-size: 20px;
       }
@@ -95,6 +98,14 @@
         border-bottom: 15px solid transparent;
         top: 0;
         left: 100%;
+      }
+    }
+  }
+  &--no-expanded {
+    .featured-story__title-link {
+      @media (--only-mobile) {
+        font-size: 15px;
+        max-height: calc(15px * 1.333 * 4);
       }
     }
   }
