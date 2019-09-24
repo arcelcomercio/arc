@@ -1,92 +1,65 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Consumer from 'fusion:consumer'
+import { withTheme } from 'styled-components'
+import { useFusionContext } from 'fusion:context'
+
+import * as S from './styled'
 import addScriptAsync from '../../../utilities/script-async'
-import { devices } from '../_dependencies/devices'
 import getDomain from '../_dependencies/domains'
 import Card from './_children/card'
 import ClickToCall from '../_children/click-to-call'
 import FillHeight from '../_children/fill-height'
-import './paywall.css'
 
-@Consumer
-class Portal extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    const { contextPath, deployment, siteProperties } = props
-    const { assets } = siteProperties
-    const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
-    this.BACKGROUND = `url(${fullAssets('backgroundx1')})`
-    this.fetchContent({
-      serviceData: {
-        source: 'paywall-home-campaing',
-      },
-    })
-  }
-
-  componentDidMount() {
-    const mqt = window.matchMedia(`${devices.tablet}`)
-    const mqm = window.matchMedia(`(${devices.mobile})`)
-    mqt.addListener(() => this.backgroundMediaQuery(mqt, mqm))
-    mqm.addListener(() => this.backgroundMediaQuery(mqt, mqm))
-    this.backgroundMediaQuery(mqt, mqm)
-
+const Portal = () => {
+  const context = useFusionContext()
+  const {
+    globalContent: items,
+    customFields: { substractFeaturesHeights = '' },
+    siteProperties: {
+      paywall: { clickToCall },
+    },
+  } = context
+  React.useEffect(() => {
     addScriptAsync({
       name: 'sdkSalesARC',
       url: getDomain('ORIGIN_SALES_SDK'),
     })
+    document.getElementsByClassName('foot')[0].style.position = 'relative'
+  }, [])
 
-    document.getElementsByClassName('foot')[0].style.position = "relative";
-  }
+  const substractFeaturesIds = substractFeaturesHeights
+    .split(',')
+    .map(id => id.trim())
 
-  backgroundMediaQuery = (mqt, mqm) => {
-    const background = mqt.matches || mqm.matches ? '#e4dccf' : this.BACKGROUND
-    this.setState({ background })
-  }
-
-  render() {
-    const { background, serviceData = [] } = this.state
-    const {
-      siteProperties: {
-        paywall: { clickToCall },
-      },
-    } = this.props
-
-    const substractFeaturesIds = substractFeaturesHeights
-      .split(',')
-      .map(id => id.trim())
-    
-    return (
-      <FillHeight substractElements={substractFeaturesIds}>
-        <div className="portal" style={{ background }}>
-          <div className="portal__content">
-            {serviceData.map(item => (
-              <Card item={item} key={item.title} />
-            ))}
-          </div>
-          <div className="portal__footer">
-            <div className="footer__content">
-              <a
-                href={getDomain('URL_CORPORATE')}
-                className="link link--corporate">
-                SUSCRIPCIONES CORPORATIVAS
-              </a>
-              <div className="wrap__click-to-call">
-                <ClickToCall href={clickToCall} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </FillHeight>
-    )
-  }
+  return (
+    <FillHeight substractElements={substractFeaturesIds}>
+      <S.Portal>
+        <S.PortalContent>
+          {items.map(item => (
+            <Card item={item} key={item.title} />
+          ))}
+        </S.PortalContent>
+        <S.Footer>
+          <S.FooterContent>
+            <S.LinkCorporate href={getDomain('URL_CORPORATE')}>
+              SUSCRIPCIONES CORPORATIVAS
+            </S.LinkCorporate>
+            <S.ClickToCallWrapper>
+              <ClickToCall href={clickToCall} />
+            </S.ClickToCallWrapper>
+          </S.FooterContent>
+        </S.Footer>
+      </S.Portal>
+    </FillHeight>
+  )
 }
 
-Portal.propTypes = {
+const ThemedPortal = withTheme(Portal)
+ThemedPortal.propTypes = {
   customFields: PropTypes.shape({
     id: PropTypes.string,
-    substractFeaturesHeights: PropTypes.arrayOf(PropTypes.string),
+    substractFeaturesHeights: PropTypes.string,
   }),
 }
 
-export default Portal
+export default ThemedPortal
