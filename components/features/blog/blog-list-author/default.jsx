@@ -90,7 +90,7 @@ const BlogListAuthor = props => {
     // globalContentConfig = {},
     customFields: { initialPositionItem = 0, isListByAuthor },
   } = props
-  console.log('props', props)
+  // console.log('props', props)
 
   // const { totalPosts = {} } = this.state
   const { total: totalItems = null } = totalItemBlogData
@@ -103,7 +103,7 @@ const BlogListAuthor = props => {
   if (isListByAuthor && globalContent.length === 3)
     globalContentBlog = globalContent[2] */
 
-  console.log('============ globalContent', globalContent)
+  // console.log('============ globalContent', globalContent)
 
   let blogs = globalContent
 
@@ -193,8 +193,8 @@ const BlogListAuthor = props => {
 
   dataBlogs = dataBlogs.slice(initialPositionItem)
 
-  console.log('============ blogs ======', blogs, totalItems)
-  console.dir(dataBlogs)
+  /* console.log('============ blogs ======', blogs, totalItems)
+  console.dir(dataBlogs) */
 
   const seeMoreLink = `/archivo/`
 

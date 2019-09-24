@@ -59,15 +59,12 @@
   }
   &__icono{
     background-color: $color-base-200;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
     bottom: 0px;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    padding: 6px 6px 6px 7px;
     
   }
-  &__icon-img{
-    width: 30px;
-    height: 30px;
-    padding: 2px 2px 2px 5px;
-  }
+  
 }
