@@ -1,0 +1,12 @@
+.author-title {
+  &__url {
+    color: $color-gray-300;
+    font-size: 20px;
+  }
+
+  &__box-title {
+    p {
+      color: $color-gray-200;
+    }
+  }
+}

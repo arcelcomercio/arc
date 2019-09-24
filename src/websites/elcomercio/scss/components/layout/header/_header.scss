@@ -1,14 +1,21 @@
 .header {
+  height: 60px;
   display: flex;
   @media (--only-mobile) {
     background-color: $color-primary;
   }
+  @media (--desktop) {
+    height: 90px;
+  }
   &__link {
     color: $color-gray-300;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     text-transform: capitalize;
     font-family: $fourth-font;
+    @media (--tablet) {
+      font-size: 15px;
+    }
   }
   &__wrapper--dashed {
     border-bottom: 1px dashed $color-gray-200;
@@ -20,6 +27,7 @@
     list-style-type: disc;
     @media (--only-mobile) {
       justify-content: flex-start;
+      padding-left: 10px;
     }
   }
   &__tags {
@@ -34,6 +42,22 @@
       height: 3px;
       background-color: $color-gray-300;
       border-radius: 50px;
+    }
+  }
+  &__logo {
+    width: 201px;
+    height: 32px;
+    @media (--desktop) {
+      width: 346px;
+      height: 55px;
+    }
+  }
+  &.header-inverted {
+    @media (--desktop) {
+      height: $header-inverted-height;
+    }
+    &.active {
+      height: 45px;
     }
   }
 }

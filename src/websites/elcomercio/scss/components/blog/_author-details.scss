@@ -1,0 +1,15 @@
+.author-details {
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  &__blog-title {
+    color: $color-gray-300;
+  }
+  &__description {
+    color: $color-gray-300;
+    font-family: Georgia;
+  }
+}

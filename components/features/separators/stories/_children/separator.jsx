@@ -14,7 +14,7 @@ const classes = {
   item: 'separator__item hidden w-full h-full p-0 position-relative',
   detail: 'separator__detail position-absolute bottom-0 pr-15 pl-15 pb-15',
   text: 'separator__title overflow-hidden text-white text-md line-h-sm',
-  imgBox: 'p-0 m-0 w-full h-full overflow-hidden',
+  imgBox: 'p-0 m-0 w-full h-full overflow-hidden block',
   img: 'separator__img w-full h-full object-cover object-center',
   icon: `separator__icon`,
   article: `separator__article h-full`,
@@ -30,11 +30,13 @@ const SeparatorsBasicChildSeparator = ({
   isAdmin,
   design,
   isSeeMoreVisible,
-  seeMoreButtonLink,
+  responsive,
 }) => {
   return (
     <div
-      className={`${classes.separator}${isThreeCol ? ' col-3' : ''} ${design}`}>
+      className={`${classes.separator}${
+        isThreeCol ? ' col-3' : ''
+      } ${design} ${responsive}`}>
       {htmlCode ? (
         <div
           className={classes.title}
@@ -51,7 +53,7 @@ const SeparatorsBasicChildSeparator = ({
       )}
       {isSeeMoreVisible && (
         <a
-          href={seeMoreButtonLink}
+          href={titleLink}
           className="separator__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200">
           VER MÁS
         </a>
@@ -72,7 +74,10 @@ const SeparatorsBasicChildSeparator = ({
               <article role="listitem" className={classes.article}>
                 <Icon type={multimediaType} iconClass={classes.icon} />
                 <div className={classes.detail}>
-                  <a href={websiteLink} title={title}>
+                  <a
+                    className="separator__title-link"
+                    href={websiteLink}
+                    title={title}>
                     <h3 className={classes.text}>{title}</h3>
                   </a>
                   {isAuthorVisible && (
@@ -85,7 +90,7 @@ const SeparatorsBasicChildSeparator = ({
                     </h2>
                   )}
                 </div>
-                <a href={websiteLink}>
+                <a className="separator__img-link block" href={websiteLink}>
                   <picture className={classes.imgBox}>
                     <source
                       className={isAdmin ? '' : 'lazy'}
