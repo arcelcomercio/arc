@@ -46,10 +46,6 @@ $nav-height-active: 46px;
       top: 0;
     }
 
-    .header__logo {
-      height: 44px;
-    }
-
     .header-inverted__btn-subs {
       display: flex;
     }
@@ -95,6 +91,7 @@ $nav-height-active: 46px;
     .header__logo {
       @media (--tablet) {
         height: 20px;
+        width: auto;
       }
     }
 
