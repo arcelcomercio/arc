@@ -73,42 +73,42 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones de uso',
+      name: 'TÉRMINOS Y CONDICIONES DE USO',
       url: '/terminos-y-condiciones',
     },
     {
-      name: 'Trabaja para Grupo El Comercio',
+      name: 'TRABAJABA PARA EL GRUPO EL COMERCIO',
       url: 'https://elcomercio.aptitus.com/',
       external: true,
     },
     {
-      name: 'Libro de Reclamaciones',
+      name: 'LIBRO DE RECLAMACIONES',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
       external: true,
     },
     {
-      name: 'Oficinas Concesionarias',
+      name: 'OFICINAS CONCESIONARIAS',
       url: '/oficinas-concesionarias',
       external: true,
     },
     {
-      name: 'Principios Rectores',
+      name: 'PRINCIPIOS RECTORES',
       url: '/principios-rectores',
     },
     {
-      name: 'Políticas de Privacidad',
+      name: 'POLÍTICAS DE PRIVACIDAD',
       url: '/politicas-privacidad',
     },
     {
-      name: 'Política integrada de gestión',
+      name: 'POLÍTICA INTEGRADA DE GESTIÓN',
       url: '/politica-integrada-de-gestion',
     },
     {
-      name: 'Derechos Arco',
+      name: 'DERECHOS ARCO',
       url: '/procedimiento-arco',
     },
     {
-      name: 'Politicas de Cookies',
+      name: 'POLÍTICA DE COOKIES',
       url: '/politica-de-cookies',
     },
   ],
