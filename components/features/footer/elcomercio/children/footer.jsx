@@ -163,11 +163,11 @@ const FooterChildElComercio = ({
                           className={classes.linksLink}
                           target="_blank"
                           rel="noopener noreferrer">
-                          - {name}
+                          {name}
                         </a>
                       ) : (
                         <a href={url} className={classes.linksLink}>
-                          - {name}
+                          {name}
                         </a>
                       )}
                     </li>
