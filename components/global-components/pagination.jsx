@@ -88,7 +88,7 @@ const Pagination = props => {
   const pages = createPaginator(currentPage || 1, totalPages)
   currentPage = parseInt(currentPage || 1, 10)
 
-  let pathOrigin = requestUri.replace(/\/[0-9]*?\/?$/, '')
+  let pathOrigin = requestUri.replace(/\/[0-9]+\/?/, '')// .replace(/\/[0-9]*?\/?$/, '')
   pathOrigin = testSearchPath(pathOrigin)
 
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
