@@ -17,6 +17,7 @@
     font-family: $tertiary-font;
   }
   &__featured {
+    list-style-type: disc;
     @media (--only-mobile) {
       justify-content: flex-start;
     }
@@ -24,5 +25,15 @@
   &__tags {
     font-family: $tertiary-font;
     text-transform: uppercase;
+  }
+  &__item {
+    &:before {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 3px;
+      background-color: $color-gray-300;
+      border-radius: 50px;
+    }
   }
 }
