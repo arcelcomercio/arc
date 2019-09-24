@@ -34,7 +34,9 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-
+    order: 1;
+    font-size: 11px;
+    margin-top: 20px;
     @media (--desktop) {
       text-align: left;
     }
@@ -53,8 +55,11 @@
   &__title-link {
     font-family: $fourth-font;
     color: $color-gray-300;
-    @media (--only-mobile) {
-      font-size: 13px;
-    }
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  &__detail {
+    display: flex;
+    flex-direction: column;
   }
 }
