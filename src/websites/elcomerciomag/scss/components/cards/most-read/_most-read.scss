@@ -2,7 +2,6 @@
   background-color: transparent;
 
   &__title {
-    color: $color-white;
     background-color: $color-base-400;
 
     &:after {
@@ -10,6 +9,11 @@
       display: block;
     }
   }
+
+  &__link {
+    color: $color-white;
+  }
+
   &__icon {
     display: none;
   }
