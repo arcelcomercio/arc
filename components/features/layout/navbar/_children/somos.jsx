@@ -55,6 +55,7 @@ class HeaderChildSomos extends PureComponent {
           Ingresa a tu cuenta
         </button>
         <button
+          className="hidden md:block"
           type="button"
           onClick={() => {
             this.toggleSearchInputs()
