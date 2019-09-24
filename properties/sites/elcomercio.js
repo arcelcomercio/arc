@@ -1,8 +1,10 @@
 export default {
   siteName: 'El Comercio',
-
+  api: {
+    blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php'
+  },
   googleFonts:
-    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700',
+    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+KR:500,700,900',
 
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
@@ -13,7 +15,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KKXTKGP_',
+  googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
   ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,
@@ -24,22 +26,22 @@ export default {
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
   infoPagesDev: {
-    termsAndConditions: '',
-    guidingPrinciples: 'EBRJ4RIQHRAODCY4G5ML4IZNUU',
-    privacyPolicies: '',
-    integratedManagementPolicy: 'SWL33JT6F5CDFD6457MFG76J3I',
-    arcoProcedure: 'ZJVJVIL7MJGJBCZMD3YELB7PWA',
-    cookiesPolicy: '',
+    termsAndConditions: 'FXTBX3HGGNBQXES37OMYK4WRIE',
+    guidingPrinciples: 'F6HHZ5WAAZC3BMG6DTBJO2BBKQ',
+    privacyPolicies: '5UF5KAARPRBMFNQP6VRVBRYYZ4',
+    integratedManagementPolicy: 'N4VEGF2LFBBVHCLSAYRBUDGAR4',
+    arcoProcedure: 'UC67Q5OE7VHQTEGKQYFE5SNVOQ',
+    cookiesPolicy: 'SB5QBFQPGBBDZBRR27WHIGKQOQ',
     aboutUs: '',
     frequentQuestions: '',
   },
   infoPagesProd: {
-    termsAndConditions: '',
-    guidingPrinciples: '',
-    privacyPolicies: '',
-    integratedManagementPolicy: '',
-    arcoProcedure: '',
-    cookiesPolicy: '',
+    termsAndConditions: 'SYLZ4HYTXRHATFNSHG2ZJQTNQI',
+    guidingPrinciples: 'L5AULXOGCRECFAMNYVWLGTV4MI',
+    privacyPolicies: 'OLR5KJAABVCV5G3ZQTGXKETJNU',
+    integratedManagementPolicy: 'OFZJ4STKNRDHLPEIQJ5X24L6UE',
+    arcoProcedure: 'L64SNU32AFD6LMRCKJTNY3M3KY',
+    cookiesPolicy: 'IBXQQAQRGVAURMCAIB7MRN34WE',
     aboutUs: '',
     frequentQuestions: '',
   },
@@ -52,6 +54,8 @@ export default {
     },
     header: {
       logo: 'logo.png',
+      inverted: 'logo.png',
+      special: 'white-logo.svg',
     },
     footer: {
       logo: 'logo.png',
@@ -105,42 +109,42 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones de uso',
+      name: 'TÉRMINOS Y CONDICIONES DE USO',
       url: '/terminos-y-condiciones',
     },
     {
-      name: 'Trabaja para Grupo El Comercio',
+      name: 'TRABAJABA PARA EL GRUPO EL COMERCIO',
       url: 'https://elcomercio.aptitus.com/',
       external: true,
     },
     {
-      name: 'Libro de Reclamaciones',
+      name: 'LIBRO DE RECLAMACIONES',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
       external: true,
     },
     {
-      name: 'Oficinas Concesionarias',
+      name: 'OFICINAS CONCESIONARIAS',
       url: '/oficinas-concesionarias',
       external: true,
     },
     {
-      name: 'Principios Rectores',
+      name: 'PRINCIPIOS RECTORES',
       url: '/principios-rectores',
     },
     {
-      name: 'Políticas de Privacidad',
+      name: 'POLÍTICAS DE PRIVACIDAD',
       url: '/politicas-privacidad',
     },
     {
-      name: 'Política integrada de gestión',
+      name: 'POLÍTICA INTEGRADA DE GESTIÓN',
       url: '/politica-integrada-de-gestion',
     },
     {
-      name: 'Derechos Arco',
+      name: 'DERECHOS ARCO',
       url: '/procedimiento-arco',
     },
     {
-      name: 'Politicas de Cookies',
+      name: 'POLÍTICA DE COOKIES',
       url: '/politica-de-cookies',
     },
   ],
@@ -245,7 +249,7 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@elcomercio_peru',
+      user: 'elcomercio_peru',
       url: 'https://twitter.com/elcomercio_peru',
     },
     youtube: {
@@ -266,11 +270,11 @@ export default {
     movil5: 15011680,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-22.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-23.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna1-300x250-div-gpt-ad-8599377-16.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna2-300x250-div-gpt-ad-8599377-17.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna3-300x250-div-gpt-ad-8599377-18.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna4-300x250-div-gpt-ad-8599377-19.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna5-300x250-div-gpt-ad-8599377-20.html',
   ],
   activeSignwall: true,
   activePaywall: true,

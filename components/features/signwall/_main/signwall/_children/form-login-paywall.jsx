@@ -182,7 +182,7 @@ class FormLoginPaywall extends Component {
               onSubmit={e => this.handleFormSubmit(e)}>
               <div className="form-grid__group" hidden={!hiddenListBenefits}>
                 <div className="row-grid form-group col-center">
-                  <p className="text-center mt-20 mb-20">
+                  <p className="form-grid__link text-center mt-20 mb-20">
                     Ingresa con tus redes sociales
                   </p>
                 </div>

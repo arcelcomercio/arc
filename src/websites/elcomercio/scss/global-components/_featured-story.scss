@@ -7,6 +7,16 @@
       padding: 10px 0;
     }
   }
+  &__category-link {
+    font-size: 16px;
+    text-transform: capitalize;
+  }
+
+  &__category-link,
+  &__title-link,
+  &__author-link {
+    font-family: $fourth-font;
+  }
   &__category-link,
   &__title-link {
     font-weight: 700;
@@ -22,6 +32,12 @@
     width: 25px;
     top: -2px;
   }
+  &__author-link {
+    font-size: 11px;
+  }
+  &__icon {
+    background-color: transparent;
+  }
   &.img-complete {
     .featured-story__category {
       &::before {
@@ -32,6 +48,14 @@
       @media (--tablet) {
         left: auto;
         right: 20px;
+      }
+    }
+    .featured-story__title-link {
+      font-size: 13px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      @media (--desktop) {
+        font-size: 20px;
       }
     }
   }

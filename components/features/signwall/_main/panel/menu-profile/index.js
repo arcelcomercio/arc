@@ -8,7 +8,7 @@ import Domains from '../../utils/domains'
 const Cookies = new Cookie()
 
 const closeSession = props => {
-  const { closePopup, arcSite } = props
+  const { closePopup, closeDispatchEvent, arcSite } = props
 
   Cookies.deleteCookie('arc_e_id')
   Cookies.deleteCookie('mpp_sess')
@@ -22,7 +22,7 @@ const closeSession = props => {
         window.location.pathname.indexOf('suscripciones') >= 0 ||
         arcSite === 'gestion'
       ) {
-        // this.dispatchEvent('logout')
+        closeDispatchEvent()
         window.location.reload()
       } else {
         closePopup()
@@ -64,14 +64,13 @@ export const MenuProfile = props => {
               </a>
             </li>
 
-            {window.document.cookie.indexOf('isECO=true') >= 0 &&
-              arcSite === 'gestion' && (
-                <li>
-                  <a href="#" onClick={() => props.subs()}>
-                    Mi Suscripción
-                  </a>
-                </li>
-              )}
+            {arcSite === 'gestion' && (
+              <li>
+                <a href="#" onClick={() => props.subs()}>
+                  Mi Suscripción
+                </a>
+              </li>
+            )}
 
             {arcSite === 'gestion' && (
               <li>

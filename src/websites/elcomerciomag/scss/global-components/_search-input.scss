@@ -1,0 +1,10 @@
+.search-input {
+  color: $color-gray-300;
+  font-family: $primary-font;
+  @media (--desktop) {
+    font-weight: 700;
+  }
+  &__btn {
+    color: $color-primary;
+  }
+}

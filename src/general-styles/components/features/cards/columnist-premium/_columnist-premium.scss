@@ -3,12 +3,14 @@
     height: auto;
   }
   &__profile {
-    width: 90px;
+    width: 100px;
   }
   &__name {
     width: 60%;
+    font-size: 20px;
   }
   &__section {
+    font-size: 11px;
     &::before {
       content: '';
       position: absolute;
@@ -24,7 +26,8 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;
-    max-height: calc(1rem * 1.33333 * 5);
+    max-height: calc(16px * 1.33333 * 5);
+    font-size: 16px;
   }
   &__logo {
     max-width: 70px;

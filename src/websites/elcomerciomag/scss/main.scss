@@ -1,0 +1,24 @@
+/******* Framework Variables*******/
+@import './partials/import-icons';
+@import '../../../general-styles/framework/variables/index';
+/*---------------------*/
+
+/******* Site Variables *******/
+@import './variables/index';
+@import '../../../general-styles/framework/core/index';
+@import './partials/import-fonts';
+@import '../../../general-styles/framework/generators/index';
+/*---------------------*/
+
+/******* Partials *******/
+@import './partials/base';
+/*---------------------*/
+
+/******* Components *******/
+@import '../../../general-styles/components/index';
+/*---------------------*/
+
+/******* Modificadores *******/
+@import './global-components/_';
+@import './components/_';
+/*---------------------*/

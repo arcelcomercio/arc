@@ -85,14 +85,16 @@ CardMostRead.propTypes = {
     storiesQty: PropTypes.number.tag({
       name: 'Número de Noticias',
       min: 1,
-      max: 6,
+      max: 22,
       step: 1,
       defaultValue: 5,
     }),
   }),
 }
 // TODO: Cambiar nombre a Noticias mas leidas
-CardMostRead.label = 'Últimas Noticias'
+// CardMostRead.label = 'Últimas Noticias'
+// 
+CardMostRead.label = 'Noticias mas Leidas'
 CardMostRead.static = true
 
 export default CardMostRead

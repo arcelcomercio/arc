@@ -19,6 +19,8 @@
 @import './features/blog/author-details/author-details';
 @import './features/blog/author-list/post-item';
 @import './features/blog/author-title/author-title';
+@import './features/blog/blog-list-author/blog-post-item';
+@import './features/blog/blog-list-grid/blog-list-grid';
 @import './features/blog/blog-list/blog-item';
 @import './features/blog/blog-list/blog-list';
 @import './features/blog/post-content/post-content';
@@ -54,6 +56,7 @@
 @import './features/cinema-billboard/movies-slider';
 @import './features/custom-title/custom-title';
 @import './features/extraordinary-story/grid/extraordinary-story-grid';
+@import './features/header/inverted';
 @import './features/layout/footer/footer-secondary';
 @import './features/layout/footer/footer-story';
 @import './features/layout/footer/footer';
@@ -63,7 +66,13 @@
 @import './features/layout/navbar/nav-story';
 @import './features/layout/navbar/nav';
 @import './features/layout/navbar/navbar-somos';
+@import './features/photogallery/photogallery-image';
+@import './features/photogallery/photogallery-title';
+@import './features/photogallery/photogallery';
 @import './features/podcast/extraordinary-story/podcast-extraordinary';
+@import './features/podcast/list/podcast-list';
+@import './features/podcast/separator/podcast-separator';
+@import './features/podcast/title/podcast-title';
 @import './features/search-filter/search-filter';
 @import './features/separators/basic/separador';
 @import './features/separators/blog/blog-separator';
@@ -97,6 +106,7 @@
 @import './features/statics/opinion-grid/editorial-card';
 @import './features/statics/opinion-grid/opinion-grid';
 @import './features/stories-lists/card/stories-list-card';
+@import './features/stories-lists/card/stories-list-footer';
 @import './features/stories-lists/card/stories-list-header';
 @import './features/stories-lists/card/stories-list-item';
 @import './features/stories-lists/card/stories-list-tabloid';

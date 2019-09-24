@@ -1,0 +1,54 @@
+.search-filter {
+  background-color: $color-base-400;
+  &__item {
+    font-family: $secondary-font;
+    @media (--desktop) {
+      font-family: $primary-font;
+    }
+    &.selected {
+      .search-filter__link {
+        background-color: $color-primary;
+        color: $color-white;
+      }
+      &:before {
+        @media (--desktop) {
+          border-color: $color-primary transparent transparent;
+        }
+      }
+    }
+
+    &.active {
+      .search-filter__link {
+        color: $color-white;
+
+        @media (--desktop) {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  &__link {
+    @media (--desktop) {
+      background-color: $color-white;
+    }
+  }
+  &__select {
+    background-color: $color-white;
+  }
+  &__select-name {
+    font-family: $secondary-font;
+  }
+  &__sublink {
+    font-family: $secondary-font;
+    font-size: $font-sm;
+    color: $color-primary;
+  }
+  &__subitem:before {
+    @media (--desktop) {
+      color: $color-primary;
+    }
+  }
+  &__link {
+    font-family: $primary-font;
+  }
+}

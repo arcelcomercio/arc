@@ -1,0 +1,64 @@
+.nav {
+  &__btn {
+    &--section {
+      padding-left: 0;
+      span {
+        font-family: $primary-font;
+      }
+    }
+  }
+  &__logo {
+    padding: 10px 0;
+  }
+  &__wrapper {
+    padding: 0 15px;
+
+    &:first-child {
+      @media (--desktop) {
+        background-color: transparent;
+      }
+    }
+  }
+  &__container-menu,
+  &__search-box {
+    @media (--desktop) {
+      border-right-color: $color-primary;
+    }
+  }
+  &__list-link {
+    color: $color-primary;
+    font-family: $primary-font;
+  }
+  &__input-search {
+    font-family: $primary-font;
+  }
+  /*   Estilos para nav loader en notas */
+  &__loader-bar {
+    background-color: $color-primary;
+  }
+  .header__logo-secondary {
+    height: auto;
+    img {
+      @media (--only-mobile) {
+        height: 47px;
+      }
+    }
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &.active {
+    .header__logo-secondary {
+      display: block;
+    }
+  }
+
+  &__mobile-logo {
+    @media (--tablet) {
+      left: 136px;
+    }
+    @media (--desktop) {
+      left: 168px;
+    }
+  }
+}

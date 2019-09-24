@@ -1,0 +1,10 @@
+.cinema-card {
+  &__link,
+  &__premiere,
+  &__p-link,
+  &__title,
+  &__select,
+  &__button {
+    font-family: $fourth-font;
+  }
+}

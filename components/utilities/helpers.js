@@ -62,7 +62,7 @@ export const getActualDate = () => {
   return getYYYYMMDDfromISO(today)
 }
 
-export const formatDateLocalTimeZone = publishDateString => {
+export const formatDateLocalTimeZone = (publishDateString, delimiter = '-') => {
   const publishDate = new Date(publishDateString)
   publishDate.setHours(publishDate.getHours() - 5)
 
@@ -73,8 +73,11 @@ export const formatDateLocalTimeZone = publishDateString => {
 
   if (getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today))
     formattedDate = formattedTime(publishDate)
-  // eslint-disable-next-line prefer-destructuring
-  else formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+  else {
+    // eslint-disable-next-line prefer-destructuring
+    formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+    formattedDate = formattedDate.replace(/-/g, delimiter)
+  }
   return formattedDate
 }
 
@@ -475,6 +478,12 @@ export const imageHtml = html => {
     /<div class="nota-media"><img src="(.*?)" border="0" width="(.+)"(.*)><\/div>/g,
     rplImageCde1
   )
+  resHtml = resHtml.replace(
+    /<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g,
+    rplImageCde
+  )
+  resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
+  resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
   return resHtml
@@ -534,12 +543,22 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe src="(.*)" width="(.*?)" (.*)><\/iframe>/g, rplIframe1)
     .replace('src="//', 'src="https://')
     .replace(/<iframe (.*) src='(.*)' (.*)><\/iframe>/g, rplIframe2)
+    .replace(/<iframe (.*) src="(.*)" type=(.*)><\/iframe>/g, rplIframe2)
     .replace(/<iframe (.*) src="(.*)" (.*)><\/iframe>/g, rplIframe2)
+    .replace(/<iframe src='(.*)' width='(.+)' (.*)><\/iframe>/g, rplIframe1)
     .replace(/<(-?\/)?html_free>/g, '')
     .replace(/<(-?\/)?object(-?.+)?>/g, '')
     .replace(/<embed(.*)><\/embed>/g, '')
     .replace('target="blank"', 'target="_blank"')
     .replace(/<(-?\/)?blockquote(-?.+)?>/g, '')
+    .replace(/onclick="(.*)"/g, '')
+    .replace(/<mxm-partido (.+)<\/mxm-partido>/g, '')
+    .replace(/<span (.*)>/g, '<span>')
+    .replace(/<(.+):p>/g, '<span>')
+    .replace(/<font (.*)>(.+)<\/font>/g, '$2')
+    .replace(/<hl2>(.+)<\/hl2>/g, '$1')
+    .replace(/<mxm-(.*) (.*)><\/mxm>/g, '') // pendiente de validacion enventos 485178
+    .replace(/<script>(.*\n)+.*<\/script>/g, '')
 }
 
 export const facebookHtml = html => {
@@ -595,6 +614,7 @@ export const youtubeHtml = html => {
       /<iframe (.*) src="(.+)?youtube.com\/embed\/(.*?)" (.*)><\/iframe>/g,
       rplYoutube1
     )
+    .replace(/videoid="(.+?)\?list=(.+) layout/g, 'videoid="$1" layout')
 }
 
 export const replaceHtmlMigracion = html => {
@@ -877,4 +897,12 @@ export const formatSections = (data = {}) => {
       url: el.node_type === link ? el.url : el._id,
     }
   })
+}
+
+export const skipAdvertising = (data = []) => {
+  return data
+    .map(({ slug }) => {
+      return slug === 'noads' ? true : ''
+    })
+    .filter(String)[0]
 }

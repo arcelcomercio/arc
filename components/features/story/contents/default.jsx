@@ -44,24 +44,40 @@ const classes = {
 
 @Consumer
 class StoryContents extends PureComponent {
+  componentDidMount() {
+    const { arcSite } = this.props
+    if (arcSite === ConfigParams.SITE_ELCOMERCIO) {
+      appendToBody(
+        createScript({
+          src:
+            'https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7',
+          defer: true,
+        })
+      )
+    }
+  }
+
   handleOptaWidget = ({ id, css, js, defer }) => {
-    appendToBody(
-      createScript({
-        textContent: `
+    // eslint-disable-next-line camelcase
+    if (typeof opta_settings === 'undefined') {
+      appendToBody(
+        createScript({
+          textContent: `
         var opta_settings={
             subscription_id: '${id}',
             language: 'es_CO',
             timezone: 'America/Lima'
         };`,
-      })
-    )
-    appendToBody(
-      createScript({
-        src: js,
-        defer,
-      })
-    )
-    appendToBody(createLink(css))
+        })
+      )
+      appendToBody(
+        createScript({
+          src: js,
+          defer,
+        })
+      )
+      appendToBody(createLink(css))
+    }
   }
 
   render() {
@@ -116,7 +132,8 @@ class StoryContents extends PureComponent {
           ? promoItems && <StoryContentsChildImpresa data={promoItems} />
           : promoItems &&
             subtype !== ConfigParams.BIG_IMAGE &&
-            subtype !== ConfigParams.SPECIAL_BASIC && (
+            subtype !== ConfigParams.SPECIAL_BASIC &&
+            subtype !== ConfigParams.SPECIAL && (
               <StoryContentsChildMultimedia data={params} />
             )}
 
@@ -202,7 +219,9 @@ class StoryContents extends PureComponent {
 
                 if (type === ConfigParams.ELEMENT_TEXT) {
                   const alignmentClass = alignment
-                    ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
+                    ? `${classes.textClasses} ${
+                        classes.alignmentClasses
+                      }-${alignment}`
                     : classes.textClasses
                   return (
                     <Text

@@ -129,25 +129,27 @@ class StoryContinue extends PureComponent {
       }
       this.setAttributeProgress(progress, newerProgress)
     }
+    const { arcSite } = this.props || {}
 
     if (screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
-      const navSidebar = document.querySelector('.nav-sidebar')
       if (storyHeader) storyHeader.classList.add('hidden')
-      const nav = document.querySelector('.nav')
-      const navWrapper = document.querySelector('.nav__wrapper')
+      if (arcSite !== 'elcomercio') {
+        const navSidebar = document.querySelector('.nav-sidebar')
+        const nav = document.querySelector('.nav')
+        const navWrapper = document.querySelector('.nav__wrapper')
 
-      if (scrollY < this.preview) {
-        if (nav) nav.classList.remove('active')
-        if (navWrapper) navWrapper.classList.add('somos-menu--active')
-        if (navSidebar) navSidebar.classList.add('somos-menu--active')
-      } else {
-        if (scrollY < 50 && nav) nav.classList.remove('active')
-        else if (nav) nav.classList.add('active')
+        if (window.scrollY < this.preview) {
+          nav.classList.remove('active')
+          navWrapper.classList.add('section-menu--active')
+          navSidebar.classList.add('section-menu--active')
+        } else {
+          if (window.scrollY < 50) nav.classList.remove('active')
+          else nav.classList.add('active')
 
-        if (navWrapper) navWrapper.classList.remove('somos-menu--active')
+          navWrapper.classList.remove('section-menu--active')
+        }
       }
-
       this.preview = scrollY
     }
   }
@@ -204,7 +206,10 @@ class StoryContinue extends PureComponent {
     for (let i = 0; i < recentStoryContinue.length; i++) {
       title = recentStoryContinue[i].basic || ''
       websiteUrl = recentStoryContinue[i].websiteUrl || ''
-      if (recentStoryContinue.length - 1 === i) {
+      if (
+        recentStoryContinue.length - 1 === i &&
+        typeof window !== 'undefined'
+      ) {
         window.sessionStorage.removeItem(URLS_STORAGE)
       }
       if (this.saveUrlSessionStorage(`${siteUrl}${websiteUrl}`)) {

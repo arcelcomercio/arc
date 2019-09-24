@@ -21,11 +21,12 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     super(props)
     const {
       contentElementGallery: { content_elements: contentElements = [] },
+      globalContentConfig,
     } = props || {}
 
     const totalSlides = contentElements.length
 
-    this.currentSlider = getUrlParameter()
+    this.currentSlider = 1 /* getUrlParameter() */
     this.dragFlag = false
     this.initPointDrag = 0
     this.initPositionList = 0

@@ -9,9 +9,16 @@
     max-height: calc(0.9rem * 1.3333 * 4);
   }
   &__content {
-    width: 35%;
+    @media (--tablet) {
+      width: 35%;
+    }
   }
   &__img-link {
-    width: 65%;
+    @media (--tablet) {
+      width: 65%;
+    }
+  }
+  &__img {
+    max-height: 370px;
   }
 }

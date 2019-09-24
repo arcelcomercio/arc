@@ -47,7 +47,14 @@ function Card({ item }) {
         </S.Feature>
       </S.CardContent>
       <S.CardFooter>
-        <T.LinkSubscribe href={url}>SUSCRIBIRME</T.LinkSubscribe>
+        <T.LinkSubscribe
+          href={url}
+          onClick={() => {
+            window.sessionStorage.setItem('paywall_last_url', '/suscripciones/')
+            window.sessionStorage.setItem('paywall_type_modal', 'landing')
+          }}>
+          SUSCRIBIRME
+        </T.LinkSubscribe>
       </S.CardFooter>
     </S.Card>
   )

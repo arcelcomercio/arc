@@ -4,7 +4,9 @@
     min-width: 10%;
     max-width: 60%;
   }
-
+  &__icon {
+    display: none;
+  }
   &__see-more {
     height: 22px;
   }

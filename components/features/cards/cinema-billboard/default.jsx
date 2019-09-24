@@ -1,6 +1,15 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import { defaultImage } from '../../../utilities/helpers'
+// import { defaultImage } from '../../../utilities/helpers'
+
+// Se evita usar funciones de helpers debido a que este feature no usa static true
+// TODO: Refactorizar para poder usar static true
+const defaultImage = ({ deployment, contextPath, arcSite, size = 'lg' }) => {
+  if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+  return deployment(
+    `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+  )
+}
 
 const classes = {
   cinemaCard: 'cinema-card bg-white',

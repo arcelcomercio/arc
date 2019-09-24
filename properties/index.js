@@ -1,6 +1,9 @@
 export default {
   linkTabloide: 'https://peruquiosco.pe/',
   newsletterBrand: '',
+  api: {
+    blog: ''
+  },
   assets: {
     nav: {
       logo: 'logo.png',
@@ -8,6 +11,7 @@ export default {
     },
     header: {
       logo: 'logo.png',
+      inverted: 'white-logo.png',
       auxLogo: 'white-logo.png',
     },
     footer: {

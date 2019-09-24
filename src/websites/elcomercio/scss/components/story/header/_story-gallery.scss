@@ -1,2 +1,7 @@
-/* .story {
-} */
+.story-gallery {
+  &__img-box {
+    @media (--only-mobile) {
+      padding: 0;
+    }
+  }
+}

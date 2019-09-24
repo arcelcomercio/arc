@@ -1,0 +1,16 @@
+.most-read {
+  background-color: transparent;
+
+  &__title {
+    color: $color-white;
+    background-color: $color-base-400;
+
+    &:after {
+      content: '';
+      display: block;
+    }
+  }
+  &__icon {
+    display: none;
+  }
+}

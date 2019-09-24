@@ -2,6 +2,8 @@
   border-top: 1px solid $color-gray-200;
   border-bottom: 0;
   padding-top: 20px;
+  max-width: 800px;
+  margin: auto;
 
   @media (--only-mobile) {
     width: calc(100% - 40px);
@@ -22,16 +24,25 @@
       content: '';
       display: block;
       background-color: $color-white;
-      width: 88px;
+      width: 96px;
       position: absolute;
       height: 2px;
       top: -22px;
+      @media (--tablet) {
+        width: 112px;
+      }
     }
   }
   &__section {
     display: none;
-    color: $color-gray-200;
+    color: #777777;
     padding-left: 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    @media (--tablet) {
+      font-size: 11px;
+      margin-bottom: 0;
+    }
     &.story-item__section--desktop {
       display: block;
     }
@@ -42,16 +53,34 @@
     padding-top: 32px;
     position: absolute;
     top: -26px;
-    width: 71px;
-    font-size: 13px;
+    width: 88px;
+    font-size: 17px;
     @media (--only-mobile) {
       margin-top: 5px;
+      width: 74px;
+      font-size: 14px;
+    }
+  }
+  &__subtitle {
+    font-size: 16px;
+    color: #666666;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    max-height: calc(16px * 22px * 2);
+    font-family: $fifth-font;
+    @media (--tablet) {
+      display: -webkit-box;
     }
   }
   &__content-title,
   &__subtitle,
   &__section--desktop {
-    padding-left: 87px;
+    padding-left: 111px;
+    @media (--only-mobile) {
+      padding-left: 96px;
+    }
   }
   &__bottom {
     margin: 0 auto;
@@ -63,6 +92,46 @@
     @media (--tablet) {
       font-size: 50px;
       height: 50px;
+    }
+  }
+  &__title {
+    @media (--desktop) {
+      line-height: 28px;
+      font-size: 24px;
+      max-height: calc(24px * 27px * 2);
+    }
+    font-family: $fourth-font;
+    line-height: 22px;
+    letter-spacing: 0px;
+    color: $color-gray-300;
+    font-weight: 700;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    max-height: calc(14px * 22px * 2);
+  }
+  &__right {
+    @media (--tablet) {
+      width: 225px;
+      height: 128px;
+    }
+  }
+  &--row {
+    .story-item__bottom {
+      @media (--tablet) {
+        flex-direction: row;
+        max-width: 100%;
+      }
+    }
+    .story-item__top {
+      &::before {
+        left: 0;
+      }
+    }
+    .story-item__left {
+      padding-left: 0;
     }
   }
 }

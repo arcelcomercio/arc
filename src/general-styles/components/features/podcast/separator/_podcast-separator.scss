@@ -1,0 +1,31 @@
+.podcast-separator {
+  &__item-s-link {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    max-height: calc(0.9rem * 1.3333 * 4);
+  }
+  &__title-button {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &__title-icon {
+    transform: rotate(180deg);
+    color: #0f86f9;
+  }
+  &__item {
+    width: calc((100% / 2) - 8px);
+    @media (--only-mobile) {
+      &:nth-child(n + 3) {
+        display: none;
+      }
+    }
+    @media (--tablet) {
+      width: calc((100% / 3) - 13px);
+      &:nth-child(n + 4) {
+        display: none;
+      }
+    }
+  }
+}

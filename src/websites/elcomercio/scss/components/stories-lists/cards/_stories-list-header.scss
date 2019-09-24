@@ -5,10 +5,17 @@
   &__see-more {
     color: $color-gray-300;
     font-weight: 700;
+    font-family: $tertiary-font;
+    display: none;
+  }
+  &__icon {
+    display: initial;
+    font-size: 18px;
   }
   &__title {
     h4 {
       font-weight: 700;
+      font-family: $fourth-font;
     }
   }
 }

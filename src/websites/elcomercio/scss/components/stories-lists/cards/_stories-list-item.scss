@@ -1,0 +1,16 @@
+.stories-l-item {
+  border-style: dashed;
+  border-color: $color-gray-200;
+  &__time {
+    font-weight: 600;
+  }
+  &__link {
+    font-size: 15px;
+    max-height: calc(15px * 1.33 * 3);
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

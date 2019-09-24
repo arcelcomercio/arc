@@ -1,18 +1,39 @@
 .header {
   display: flex;
+  @media (--only-mobile) {
+    background-color: $color-primary;
+  }
   &__link {
     color: $color-gray-300;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: capitalize;
+    font-family: $fourth-font;
   }
   &__wrapper--dashed {
     border-bottom: 1px dashed $color-gray-200;
   }
   &__date {
-    font-family: $secondary-font;
+    font-family: $tertiary-font;
   }
   &__featured {
+    list-style-type: disc;
     @media (--only-mobile) {
       justify-content: flex-start;
+    }
+  }
+  &__tags {
+    font-family: $tertiary-font;
+    text-transform: uppercase;
+  }
+  &__item {
+    &:before {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 3px;
+      background-color: $color-gray-300;
+      border-radius: 50px;
     }
   }
 }

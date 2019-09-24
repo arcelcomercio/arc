@@ -18,6 +18,7 @@
 
       @media (--tablet) {
         padding: 12px 5px;
+        font-size: 14px;
       }
 
       &:hover {
@@ -61,7 +62,7 @@
         text-transform: inherit;
         border-radius: 0.2rem;
         font-weight: inherit;
-        font-size: 17px;
+        font-size: 17px !important;
       }
 
       &-facebook {
