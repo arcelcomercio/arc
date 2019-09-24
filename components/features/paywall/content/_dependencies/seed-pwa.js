@@ -28,7 +28,10 @@ export default {
     },
     finalize(){
         if( !this.isPWA() ) return;
-        window.nativeConnection.postMessage('successful_purchase');
+        window.nativeConnection.postMessage('successful_purchase')
+  },
+  pwaCloseWebView() {
+    if (!this.isPWA()) return
         window.nativeConnection.pwaCloseWebView();
     }
 }
