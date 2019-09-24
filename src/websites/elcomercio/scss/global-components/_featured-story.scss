@@ -35,6 +35,9 @@
   &__author-link {
     font-size: 11px;
   }
+  &__icon {
+    background-color: transparent;
+  }
   &.img-complete {
     .featured-story__category {
       &::before {
