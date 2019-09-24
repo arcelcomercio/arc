@@ -9,6 +9,7 @@
   }
   &__category-link {
     font-size: 16px;
+    text-transform: none;
   }
 
   &__category-link,
@@ -80,7 +81,7 @@
   }
   &--live {
     .featured-story__headband-link {
-      background-color: $color-primary;
+      background-color: #f15a24;
       max-width: 160px;
       width: 100%;
       @media (max-width: 345px) {
@@ -90,7 +91,7 @@
         content: '';
         position: absolute;
         border-top: 13px solid transparent;
-        border-left: 14px solid $color-primary;
+        border-left: 14px solid #f15a24;
         border-bottom: 15px solid transparent;
         top: 0;
         left: 100%;
