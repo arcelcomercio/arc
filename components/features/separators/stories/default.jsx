@@ -16,6 +16,9 @@ const SeparatorStories = props => {
       htmlCode,
       isThreeCol,
       isAuthorVisible,
+      design = 'standart',
+      isSeeMoreVisible,
+      seeMoreButtonLink,
     } = {},
   } = props
 
@@ -72,6 +75,9 @@ const SeparatorStories = props => {
         stories,
         isAuthorVisible,
         isAdmin,
+        design,
+        isSeeMoreVisible,
+        seeMoreButtonLink,
       }}
     />
   )

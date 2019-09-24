@@ -10,9 +10,14 @@ const CheckboxContainer = styled.div`
   position: relative;
   cursor: pointer;
   user-select: none;
+  @media screen and (max-width: 320px) {
+    width: 140px;
+  }
   @media ${device.tablet} {
+    width: 180px;
+  }
+  @media ${device.desktop} {
     width: 220px;
-    height: 138px;
   }
 `
 
@@ -53,16 +58,22 @@ const Image = styled.div`
 
 const Name = styled.div`
   background: ${props => (props.checked ? '#d64445' : 'transparent')};
-  width: 150px;
   color: white;
-  padding: 10px 0px;
+  width: 120px;
+  padding: 10px 10px;
   text-align: center;
-  position: relative;
+  position: absolute;
   font-weight: bold;
   z-index: 2;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
-  margin: -90px auto 0 auto;
+  top:0px;
+  @media ${device.tablet} {
+    margin: -100px auto 0 auto;
+    width: 150px;
+    position: relative;
+    font-size: 18px;
+  }
 `
 
 const StyledCheckbox = styled.div`
