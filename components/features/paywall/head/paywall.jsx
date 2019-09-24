@@ -82,11 +82,19 @@ class Head extends React.PureComponent {
   render() {
     const { theme, arcSite, customFields } = this.props
     const { showSignwall, userName, isActive, stepForm } = this.state
-    const { forceLogin: checkForceLogin } = customFields
-    const leftColor =
-      arcSite === 'elcomercio'
-        ? theme.palette.secondary.main
-        : theme.palette.primary.main
+    const { id, forceLogin: checkForceLogin } = customFields
+
+    let leftColor
+    let themedLogo
+    switch (arcSite) {
+      case 'elcomercio':
+        leftColor = theme.palette.secondary.main
+        themedLogo = theme.icon.logo_full
+        break
+      default:
+        leftColor = theme.palette.primary.main
+        themedLogo = theme.icon.logo
+    }
 
     return (
       <S.Head id={id}>
@@ -102,7 +110,12 @@ class Head extends React.PureComponent {
           <S.Right />
         </S.Background>
         <S.Content backgroundColor={leftColor}>
-          <S.Img src={theme.images.logo} alt="Logo el comercio" />
+          <Icon
+            type={themedLogo}
+            fill={theme.palette.secondary.contrastText}
+            width="30"
+            height="30"
+          />
           <S.WrapLogin>
             <S.Username>
               {stepForm !== 1 ? (

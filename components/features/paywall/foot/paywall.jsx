@@ -152,10 +152,12 @@ const Foot = ({ theme }) => {
   )
 }
 
-Foot.propTypes = {
+const ThemedFoot = withTheme(Foot)
+
+ThemedFoot.propTypes = {
   customFields: PropTypes.shape({
     id: PropTypes.string,
   }),
 }
 
-export default Foot
+export default ThemedFoot

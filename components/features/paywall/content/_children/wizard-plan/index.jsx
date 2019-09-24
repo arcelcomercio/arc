@@ -14,7 +14,6 @@ import PWA from '../../_dependencies/seed-pwa'
 function WizardPlan(props) {
   const {
     memo: { printedSubscriber },
-    assets,
     summary,
     plans,
     message,
@@ -60,6 +59,7 @@ function WizardPlan(props) {
         {
           plan: { ...plan, title },
           origin: origin.current,
+          referer: referer.current,
         },
         props
       )
@@ -119,7 +119,6 @@ function WizardPlan(props) {
             onClick={() => {
               setOpenModal(true)
             }}
-            assets={assets}
             type="left"
           />
 
@@ -127,7 +126,6 @@ function WizardPlan(props) {
             onClick={() => {
               window.location.href = getDomain('URL_CORPORATE')
             }}
-            assets={assets}
             type="right"
           />
         </S.ContentBanner>

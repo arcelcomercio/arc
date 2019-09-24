@@ -1,14 +1,15 @@
 /* eslint-disable no-extra-boolean-cast */
 import React, { useEffect } from 'react'
+import { withTheme } from 'styled-components'
 import * as S from './styled'
 import Button from '../../../_children/button'
-import { devices } from '../../../_dependencies/devices'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import PWA from '../../_dependencies/seed-pwa'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
-const PIXEL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+const PIXEL =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
 
 const Item = ({ label, children }) => {
   return (
@@ -20,11 +21,18 @@ const Item = ({ label, children }) => {
 
 const WizardConfirmation = props => {
   const {
-    assets,
+    theme,
     memo: {
       order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
-      plan: { title: plan, sku, priceCode, amount, billingFrequency, description },
+      plan: {
+        title: plan,
+        sku,
+        priceCode,
+        amount,
+        billingFrequency,
+        description,
+      },
       origin,
       referer,
       payment: { total: paidTotal, subscriptionIDs },
@@ -56,7 +64,7 @@ const WizardConfirmation = props => {
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    document.getElementsByClassName('foot')[0].style.position = "relative";
+    document.getElementsByClassName('foot')[0].style.position = 'relative'
   }, [])
 
   const handlePWA = () => {
@@ -86,18 +94,18 @@ const WizardConfirmation = props => {
   }
 
   const Frecuency = {
-    "Month" : "Mensual",
-    "Year" : "Anual"
+    Month: 'Mensual',
+    Year: 'Anual',
   }
-  
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
         <S.Picture>
-          <source media={`(${devices.mobile})`} srcSet={PIXEL} />
-          <source media={`${devices.tablet}`} srcSet={PIXEL} />
-          <source srcSet={assets('confirmation_webp')} type="image/webp" />
-          <S.Image src={assets('confirmation')} alt="confirmación" />
+          <source media={theme.breakpoints.down('xs', false)} srcSet={PIXEL} />
+          <source media={theme.breakpoints.only('sm', false)} srcSet={PIXEL} />
+          <source srcSet={theme.images.confirmation_webp} type="image/webp" />
+          <S.Image src={theme.images.confirmation} alt="confirmación" />
         </S.Picture>
 
         <S.Content>
@@ -111,11 +119,12 @@ const WizardConfirmation = props => {
           </S.Subtitle> */}
 
           <S.Subtitle large>Tu suscripción ha sido exitosa.</S.Subtitle>
-          
+
           <S.CardSummary>
             <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
             <Item label="PAQUETE: ">
-              {(plan || '').toUpperCase()} - { Frecuency[billingFrequency].toUpperCase() }
+              {(plan || '').toUpperCase()} -{' '}
+              {Frecuency[billingFrequency].toUpperCase()}
             </Item>
             <Item label="NOMBRE: ">
               <S.Names>
@@ -123,8 +132,10 @@ const WizardConfirmation = props => {
               </S.Names>
             </Item>
             <Item label="PRECIO: ">
-               {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
-               { paidTotal !== 0 ?  `S/ ${paidTotal}` : `GRATIS ${description.title} ${description.description}` }
+              {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
+              {paidTotal !== 0
+                ? `S/ ${paidTotal}`
+                : `GRATIS ${description.title} ${description.description}`}
             </Item>
             <S.Small>
               El precio de la suscripción se cargará automáticamente en tu
@@ -146,4 +157,6 @@ const WizardConfirmation = props => {
   )
 }
 
-export default WizardConfirmation
+const ThemedWizardConfirmation = withTheme(WizardConfirmation)
+
+export default ThemedWizardConfirmation

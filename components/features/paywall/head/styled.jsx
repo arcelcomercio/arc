@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import { devices } from '../_dependencies/devices'
+import styled, { css } from 'styled-components'
 
 const Head = styled.div`
   height: 50px;
@@ -10,30 +9,32 @@ const Head = styled.div`
 `
 
 const Content = styled.div`
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1;
-  max-width: 1120px;
-  height: 100%;
-  background-color: ${({ backgroundColor, theme }) =>
-    backgroundColor || theme.palette.primary.main};
+  ${({ backgroundColor, theme }) => css`
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    max-width: 1120px;
+    height: 100%;
+    background-color: ${backgroundColor || theme.palette.primary.main};
+  `}
 `
 
 const WrapLogin = styled.div`
-  background-color: ${({ backgroundColor, theme }) =>
-    backgroundColor || theme.palette.secondary.main};
-  height: 100%;
-  color: #fff;
-  align-items: center;
-  display: flex;
-  max-width: 300px;
-  width: 100%;
-  justify-content: center;
-  @media (${devices.mobile}) {
-    max-width: 150px;
-  }
+  ${({ backgroundColor, theme }) => css`
+    background-color: ${backgroundColor || theme.palette.secondary.main};
+    height: 100%;
+    color: #fff;
+    align-items: center;
+    display: flex;
+    max-width: 300px;
+    width: 100%;
+    justify-content: center;
+    ${theme.breakpoints.down('xs')} {
+      max-width: 150px;
+    }
+  `}
 `
 
 const LoginButton = styled.button`
@@ -74,22 +75,26 @@ const Background = styled.div`
 `
 
 const Left = styled.div`
-  flex: 1;
-  background-color: ${({ backgroundColor, theme }) =>
-    backgroundColor || theme.palette.primary.main};
+  ${({ backgroundColor, theme }) => css`
+    flex: 1;
+    background-color: ${backgroundColor || theme.palette.primary.main};
+  `}
 `
 
 const Right = styled.div`
-  flex: 1;
-  background-color: ${({ backgroundColor, theme }) =>
-    backgroundColor || theme.palette.secondary.main};
+  ${({ backgroundColor, theme }) => css`
+    flex: 1;
+    background-color: ${backgroundColor || theme.palette.secondary.main};
+  `}
 `
 const Img = styled.img`
-  max-height: 30px;
-  margin: 0 20px;
-  @media (${devices.mobile}) {
-    max-height: 26px;
-  }
+  ${({ theme }) => css`
+    max-height: 30px;
+    margin: 0 20px;
+    ${theme.breakpoints.down('xs')} {
+      max-height: 26px;
+    }
+  `}
 `
 
 const WrapIcon = styled.span`

@@ -1,6 +1,4 @@
-import React from 'react'
-import styled from 'styled-components'
-import { devices } from '../../_dependencies/devices'
+import styled, { css } from 'styled-components'
 
 export const Colors = {
   BLACK: '#444444',
@@ -62,7 +60,9 @@ export const Paragraph = styled.div`
 `
 
 export const LongMail = styled.span`
-  @media (${devices.mobile}) {
-    font-size: 12px;
-  }
+  ${({ theme }) => css`
+    ${theme.breakpoints.down('xs')} {
+      font-size: 12px;
+    }
+  `}
 `
