@@ -6,6 +6,7 @@
     justify-content: space-between;
   }
   .stories-l-header {
+    margin-bottom: 5px;
     &.bg-info {
       background-color: $color-base-200;
     }
@@ -14,6 +15,8 @@
     &:first-child {
       .stories-l-item__link {
         font-size: 20px;
+        height: 66px;
+        line-height: 21px;
       }
     }
     &:last-child {
@@ -46,6 +49,7 @@
     line-height: 15px;
     color: #888888;
     font-family: $fourth-font;
+    text-transform: uppercase;
   }
   .stories-l-item__link-box {
     border-color: #c1c1c1;
