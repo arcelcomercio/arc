@@ -41,6 +41,7 @@ const WizardConfirmation = props => {
   } = props
 
   useEffect(() => {
+    PWA.finalize()
     sendAction(PixelActions.PAYMENT_CONFIRMATION, {
       transactionId: orderNumber,
       transactionAffiliation: 'Suscripciones Gestión',
@@ -67,11 +68,6 @@ const WizardConfirmation = props => {
     document.getElementsByClassName('foot')[0].style.position = 'relative'
   }, [])
 
-  const handlePWA = () => {
-    PWA.finalize()
-    return PWA.isPWA()
-  }
-
   // const handleClick = () => {
   //   return
   //   if (handlePWA()) return
@@ -83,7 +79,7 @@ const WizardConfirmation = props => {
   // }
 
   const handleClick = () => {
-    if (handlePWA()) return
+    if (PWA.isPWA()) return
     const { sessionStorage, location } = window
     // eslint-disable-next-line no-prototype-builtins
     location.href =

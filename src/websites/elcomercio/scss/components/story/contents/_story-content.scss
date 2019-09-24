@@ -11,8 +11,17 @@
   &__font--secondary {
     font-family: $fifth-font;
     font-size: 20px;
+    @media (--only-mobile) {
+      font-size: 21px;
+    }
     a {
-      color: $color-link;
+      color: #4a88b1;
+    }
+    b {
+      font-family: $tertiary-font;
+      @media (--only-mobile) {
+        font-size: 18px;
+      }
     }
   }
   &__caption {

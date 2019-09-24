@@ -104,18 +104,25 @@
   }
 
   &.active {
+    height: 45px;
     .nav__mobile-logo {
       top: auto;
     }
     .nav__logo {
       display: block;
-      height: 32px;
+      width: 154px;
+      height: 24px;
+      @media (max-width: 360px) {
+        width: 120px;
+        height: 20px;
+      }
+      @media (--tablet) {
+        width: 191px;
+        height: 30px;
+      }
     }
     .btn {
       color: $color-base-100;
-      @media (--only-mobile) {
-        padding: 4px;
-      }
     }
 
     .nav__container-menu {
