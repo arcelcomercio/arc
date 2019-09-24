@@ -44,6 +44,19 @@ const classes = {
 
 @Consumer
 class StoryContents extends PureComponent {
+  componentDidMount() {
+    const { arcSite } = this.props
+    if (arcSite === ConfigParams.SITE_ELCOMERCIO) {
+      appendToBody(
+        createScript({
+          src:
+            'https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7',
+          defer: true,
+        })
+      )
+    }
+  }
+
   handleOptaWidget = ({ id, css, js, defer }) => {
     // eslint-disable-next-line camelcase
     if (typeof opta_settings === 'undefined') {
