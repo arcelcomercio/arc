@@ -11,6 +11,9 @@
   &__font--secondary {
     font-family: $fifth-font;
     font-size: 20px;
+    a {
+      color: $color-link;
+    }
   }
   &__caption {
     color: $color-gray-200;
@@ -33,6 +36,9 @@
   &__author-link {
     font-family: $fourth-font;
     font-size: 18px;
+  }
+  &__author-email {
+    font-family: $fourth-font;
   }
 }
 

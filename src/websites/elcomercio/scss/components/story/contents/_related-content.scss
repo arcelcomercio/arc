@@ -11,6 +11,9 @@ $border-gray: #c1c1c1;
     overflow: hidden;
     -webkit-line-clamp: 2;
     display: -webkit-box;
+    @media (--only-mobile) {
+      font-size: 13px;
+    }
     @media (--tablet) {
       max-height: calc(20px * 22px * 2);
       font-size: 20px;

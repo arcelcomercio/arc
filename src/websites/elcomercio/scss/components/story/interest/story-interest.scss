@@ -1,6 +1,7 @@
 .story-interest {
   &__titleList {
     border-top: 1px solid $border-gray;
+    text-align: left;
   }
   &__list {
     flex-wrap: wrap;
@@ -28,8 +29,15 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+
     @media (--desktop) {
       text-align: left;
+    }
+  }
+  &__category-link {
+    font-family: $fourth-font;
+    @media (--only-mobile) {
+      font-size: 13px;
     }
   }
   &__title {
@@ -38,6 +46,10 @@
     }
   }
   &__title-link {
+    font-family: $fourth-font;
     color: $color-gray-300;
+    @media (--only-mobile) {
+      font-size: 13px;
+    }
   }
 }
