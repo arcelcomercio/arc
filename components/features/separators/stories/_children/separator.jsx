@@ -30,11 +30,13 @@ const SeparatorsBasicChildSeparator = ({
   isAdmin,
   design,
   isSeeMoreVisible,
-  seeMoreButtonLink,
+  responsive,
 }) => {
   return (
     <div
-      className={`${classes.separator}${isThreeCol ? ' col-3' : ''} ${design}`}>
+      className={`${classes.separator}${
+        isThreeCol ? ' col-3' : ''
+      } ${design} ${responsive}`}>
       {htmlCode ? (
         <div
           className={classes.title}
@@ -51,7 +53,7 @@ const SeparatorsBasicChildSeparator = ({
       )}
       {isSeeMoreVisible && (
         <a
-          href={seeMoreButtonLink}
+          href={titleLink}
           className="separator__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200">
           VER MÁS
         </a>
@@ -72,7 +74,10 @@ const SeparatorsBasicChildSeparator = ({
               <article role="listitem" className={classes.article}>
                 <Icon type={multimediaType} iconClass={classes.icon} />
                 <div className={classes.detail}>
-                  <a href={websiteLink} title={title}>
+                  <a
+                    className="separator__title-link"
+                    href={websiteLink}
+                    title={title}>
                     <h3 className={classes.text}>{title}</h3>
                   </a>
                   {isAuthorVisible && (
