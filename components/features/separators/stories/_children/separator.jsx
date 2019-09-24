@@ -14,7 +14,7 @@ const classes = {
   item: 'separator__item hidden w-full h-full p-0 position-relative',
   detail: 'separator__detail position-absolute bottom-0 pr-15 pl-15 pb-15',
   text: 'separator__title overflow-hidden text-white text-md line-h-sm',
-  imgBox: 'p-0 m-0 w-full h-full overflow-hidden',
+  imgBox: 'p-0 m-0 w-full h-full overflow-hidden block',
   img: 'separator__img w-full h-full object-cover object-center',
   icon: `separator__icon`,
   article: `separator__article h-full`,
@@ -90,7 +90,7 @@ const SeparatorsBasicChildSeparator = ({
                     </h2>
                   )}
                 </div>
-                <a href={websiteLink}>
+                <a className="separator__img-link block" href={websiteLink}>
                   <picture className={classes.imgBox}>
                     <source
                       className={isAdmin ? '' : 'lazy'}
