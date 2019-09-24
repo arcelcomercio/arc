@@ -46,7 +46,7 @@ class SignwallComponent extends PureComponent {
 
     // ---------- Start Premium & Paywall ----------- //
 
-    if (arcSite === 'gestion') {
+    if (arcSite === 'gestion' || arcSite === 'elcomercio') {
       this.getPaywall()
     }
 
@@ -104,7 +104,7 @@ class SignwallComponent extends PureComponent {
     // if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
 
     // if (dataContentPremium && W.document.cookie.indexOf('isECO=true') >= 0) {
-    if (dataContentPremium) {
+    if (dataContentPremium && arcSite === 'gestion') {
       this.getPremium() // Only sandbox ;)
     } else if (window.ArcP) {
       W.ArcP.run({
@@ -338,7 +338,13 @@ class SignwallComponent extends PureComponent {
               {initialUser}
             </i>
           ) : (
-            <span>{this.checkSession() ? userName : 'Iniciar Sesión'}</span>
+            <span>
+              {this.checkSession()
+                ? userName
+                : arcSite === 'elcomercio'
+                ? 'Iniciar'
+                : 'Iniciar Sesión'}
+            </span>
           )}
         </button>
 

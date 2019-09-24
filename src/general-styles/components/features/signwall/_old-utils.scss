@@ -20,7 +20,7 @@
 
     .input-button {
       border: 1px solid $signwall-color-link;
-      color: $signwall-color-link;
+      color: $signwall-color-link !important;
       font-family: $secondary-font;
 
       &:hover {
