@@ -108,5 +108,10 @@
         max-height: calc(15px * 1.333 * 4);
       }
     }
+    .featured-story__img-link {
+      @media (--only-mobile) {
+        min-width: auto;
+      }
+    }
   }
 }
