@@ -137,6 +137,12 @@ class NewsLetter extends Component {
           this.newSetCategories = null
           this.setPreference()
         }
+        setTimeout(() => {
+          const modalConfirmPass = document.querySelector(
+            '#arc-popup-profile',
+          );
+          modalConfirmPass.scrollIntoView();
+        }, 500);
         this.setState({ showsuccess: true })
         // window.sessionStorage.setItem(
         //   'preferencesNews',
@@ -198,15 +204,16 @@ class NewsLetter extends Component {
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <Wrapper>
-        {showsuccess && (
-          <div className="msg-success">
-            <span>&#10003;</span>OPCIONES ACTUALIZADAS
-          </div>
-        )}
-
         {!loading ? (
           <>
             <h4>Personaliza los correos que deseas recibir:</h4>
+
+            {showsuccess && (
+              <div className="msg-success">
+                <span>&#10003;</span>OPCIONES ACTUALIZADAS
+              </div>
+            )}
+
             <div className="news-list">
               {newsletters.map(item => (
                 <label className="item" key={item.code}>

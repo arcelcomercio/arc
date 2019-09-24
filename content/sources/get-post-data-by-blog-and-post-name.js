@@ -1,4 +1,5 @@
 import { BLOG_TOKEN, BLOG_URL_API } from 'fusion:environment'
+import getProperties from 'fusion:properties'
 
 const resolve = (key = {}) => {
   const hasBlogPath = Object.prototype.hasOwnProperty.call(key, 'blog_path')
@@ -21,7 +22,11 @@ const resolve = (key = {}) => {
   } = key
   const json = 'get_post_data_by_blog_and_post_name'
   const token = BLOG_TOKEN
-  const urlApiblog = BLOG_URL_API
+  const website = key['arc-site']
+  const {
+    api: { blog: urlApiblog = '' },
+  } = getProperties(website)
+  // const urlApiblog = BLOG_URL_API
   const url = `${urlApiblog}?json=${json}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${token}`
   return url
 }

@@ -5,6 +5,7 @@ import { useFusionContext } from 'fusion:context'
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
+import SignwallComponent from '../../../signwall/standard'
 
 const CLUB_URL = 'https://clubelcomercio.pe/?ref=home&ft=menu'
 const CLUB_TEXT = 'Club'
@@ -49,6 +50,11 @@ const classes = {
   shareLink: 'story-header__link flex items-center justify-center text-white',
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
+  navContainerRight:
+    'flex items-center hidden justify-end header__btn-container md:block',
+  btnSubscribe:
+    'flex items-center btn capitalize text-md font-bold btn--outline',
+  navContainerRightMovil: 'block md:hidden',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -237,7 +243,6 @@ const HeaderChildInverted = ({
       window.removeEventListener('scroll', _handleScroll)
     }
   }, [_handleScroll])
-
   /*   useEffect(() => {
     listContainer = document.querySelector('.nav-sidebar')
     layerBackground = document.querySelector('.layer')
@@ -362,18 +367,20 @@ const HeaderChildInverted = ({
             </>
           ) : (
             <>
-              <Button
-                btnClass={`${classes.btnProfile} ${classes.btnClub}`}
-                btnText={CLUB_TEXT}
-                onClick={_handleToggleSectionElements}
-                btnLink={CLUB_URL}
-              />
-              <Button
-                btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
-                btnText={SUBSCRIBE_TEXT}
-                onClick={_handleToggleSectionElements}
-                btnLink={SUBSCRIBE_URL}
-              />
+              <div className={`${classes.navContainerRight} `}>
+                {siteProperties.activeSignwall && (
+                  <>
+                    <SignwallComponent />
+                  </>
+                )}
+              </div>
+              <div className={`${classes.navContainerRightMovil} `}>
+                {siteProperties.activeSignwall && (
+                  <>
+                    <SignwallComponent typeMobile />
+                  </>
+                )}
+              </div>
             </>
           )}
         </div>
