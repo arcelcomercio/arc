@@ -18,7 +18,10 @@ const LayoutInvertedAmpHeader = ({
   contextPath,
   arcSite,
   deployment,
-  siteProperties: { siteUrl = '' } = {},
+  siteProperties: {
+    siteUrl = '',
+    assets: { seo: { widthAmp = '', heightAmp = '' } = {} } = {},
+  } = {},
 }) => {
   const imgLogo =
     deployment(
@@ -33,8 +36,8 @@ const LayoutInvertedAmpHeader = ({
               <amp-img
                 src={imgLogo}
                 alt={arcSite}
-                width="73"
-                height="51"
+                width={widthAmp}
+                height={heightAmp}
                 tabindex="0"
               />
             </a>

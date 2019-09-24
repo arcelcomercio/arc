@@ -67,6 +67,8 @@ export default {
       logoAmp: 'logo-elcomercio-316x60.png',
       width: 316,
       height: 60,
+      widthAmp: 156,
+      heightAmp: 25,
     },
     premium: {
       logo: 'premium-logo.png',

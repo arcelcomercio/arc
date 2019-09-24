@@ -10,9 +10,12 @@
   &__link {
     color: $color-gray-300;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     text-transform: capitalize;
     font-family: $fourth-font;
+    @media (--tablet) {
+      font-size: 15px;
+    }
   }
   &__wrapper--dashed {
     border-bottom: 1px dashed $color-gray-200;
@@ -47,6 +50,14 @@
     @media (--desktop) {
       width: 346px;
       height: 55px;
+    }
+  }
+  &.header-inverted {
+    @media (--desktop) {
+      height: $header-inverted-height;
+    }
+    &.active {
+      height: 45px;
     }
   }
 }
