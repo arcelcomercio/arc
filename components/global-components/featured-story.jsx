@@ -17,7 +17,7 @@ const classes = {
 
   category:
     'featured-story__category pb-15 hidden md:inline-block position-relative',
-  categoryLink: 'featured-story__category-link text-md capitalize',
+  categoryLink: 'featured-story__category-link text-md',
 
   title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
   titleLink: 'featured-story__title-link title-xs line-h-sm ',
