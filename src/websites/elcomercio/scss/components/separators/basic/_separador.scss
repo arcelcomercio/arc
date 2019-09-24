@@ -2,10 +2,7 @@
   border: 0;
   padding: 0;
   margin: 0;
-
   &__item {
-    @media (--only-mobile) {
-    }
     @media (--tablet) {
       &:nth-child(n + 5) {
         display: none;
@@ -13,10 +10,48 @@
     }
   }
 
+  // Modificadores de responsive: complete, partial, mobileHidden
+
+  &.complete {
+    .separator {
+      &__body {
+        @media (--only-mobile) {
+          flex-direction: column;
+        }
+      }
+      &__item {
+        @media (--only-mobile) {
+          display: block;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  &.partial {
+    .separator {
+      &__item {
+        @media (--only-mobile) {
+          &:nth-child(n + 2) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &.mobileHidden {
+    @media (--only-mobile) {
+      display: none;
+    }
+  }
+
+  // Modificadores de diseño: custom, standart
+
   &.custom {
     .separator {
       &__title {
         font-weight: 700;
+        font-size: 15px;
         font-family: $fourth-font;
       }
       &__header-title {
@@ -30,6 +65,9 @@
 
       &__button {
         top: 10px;
+      }
+      &__title-link {
+        color: $color-white;
       }
       &__item {
         &::before {
