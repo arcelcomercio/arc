@@ -25,6 +25,7 @@ const BlogListAuthor = props => {
     isAdmin,
     globalContent = {},
     globalContentConfig = {},
+    requestUri,
   } = useFusionContext()
 
   const totalItemBlogData =
@@ -74,7 +75,7 @@ const BlogListAuthor = props => {
       lazyImage,
       imagePost,
       authorImg,
-      date: postDate, // this.transformDate(postDate),
+      date: postDate, 
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
@@ -85,32 +86,12 @@ const BlogListAuthor = props => {
   }
 
   const {
-    requestUri,
-    // globalContent = {},
-    // globalContentConfig = {},
     customFields: { initialPositionItem = 0, isListByAuthor },
   } = props
-  // console.log('props', props)
 
-  // const { totalPosts = {} } = this.state
   const { total: totalItems = null } = totalItemBlogData
-
-  /* let globalContentBlog = []
-
-  console.log('==========isListByAuthor', isListByAuthor)
-  console.log('============ globalContent', globalContent)
-
-  if (isListByAuthor && globalContent.length === 3)
-    globalContentBlog = globalContent[2] */
-
-  // console.log('============ globalContent', globalContent)
-
   let blogs = globalContent
-
-  // TODO: Cambiar el foreach por map en el render.
-
   let dataBlogs = []
-
   let pagLimit = 0
   let pagOffset = 0
   let totalRows = 0
@@ -193,9 +174,6 @@ const BlogListAuthor = props => {
 
   dataBlogs = dataBlogs.slice(initialPositionItem)
 
-  /* console.log('============ blogs ======', blogs, totalItems)
-  console.dir(dataBlogs) */
-
   const seeMoreLink = `/archivo/`
 
   return (
@@ -211,7 +189,8 @@ const BlogListAuthor = props => {
             </Fragment>
           )
         })}
-        {/* <div className={classes.listadoSeeMore}>
+        {
+          /* <div className={classes.listadoSeeMore}>
           <a
             href={seeMoreLink}
             className={classes.buttonLink}
@@ -219,14 +198,14 @@ const BlogListAuthor = props => {
             role="button">
             Ver más
           </a>
-      </div> 
-        <Pagination
-          totalElements={totalRows}
-          storiesQty={pagLimit}
-          currentPage={pagOffset || 1}
-          requestUri={requestUri}
-        />
-        */}
+      </div> */
+          <Pagination
+            totalElements={totalRows}
+            storiesQty={pagLimit}
+            currentPage={pagOffset || 1}
+            requestUri={requestUri}
+          />
+        }
       </div>
     </>
   )
@@ -237,6 +216,6 @@ BlogListAuthor.propTypes = {
 }
 
 BlogListAuthor.label = 'Listado de post de blog con autores'
-// StoriesListArchive.static = true
+BlogListAuthor.static = true
 
 export default BlogListAuthor
