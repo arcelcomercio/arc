@@ -7,6 +7,7 @@ const classes = {
     'author-card__wrapper flex flex-col items-center lg:pt-25 md:pt-25 xs:pt-25 pt-25 pb-60 md:pb-25 lg:pb-25',
   imageBox: 'flex flex-col items-center ',
   image: 'author-card__image bg-white',
+  defaultImage:'author-card__image-default icon-marca',
   detailsBox: 'author-card__detail flex flex-col items-center',
   group: 'author-card__group uppercase font-thin mb-5 text-xs',
   name:
@@ -15,7 +16,6 @@ const classes = {
     'block secondary-font text-lg text-gray-300 line-h-sm font-bold md:font-normal',
   icono: 'author-card__icono icon-marca position-absolute mb-20',
   iconImg: 'author-card__icon-img',
-
 }
 
 const OpinionGridAuthorCard = ({
@@ -29,18 +29,26 @@ const OpinionGridAuthorCard = ({
     `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
   )
 
+
+  const existImageAuthor = story.authorImage.includes('author.png')
   const opinionImage = story.authorImage.includes('author.png')
     ? opinionImageDefault
     : story.authorImage
+  
+
   return (
     <article role="listitem" className={classes.card}>
       <div className={classes.wrapper}>
         <figure className={classes.imageBox}>
-          <img
-            className={classes.image}
-            src={opinionImage}
-            alt={story.author}
-          />
+          {existImageAuthor ? (
+            <i className={classes.defaultImage}></i>
+          ) : (
+            <img
+              className={classes.image}
+              src={opinionImage}
+              alt={story.author}
+            />
+          )}
         </figure>
         <div className={classes.detailsBox}>
           {isMobile ? (
