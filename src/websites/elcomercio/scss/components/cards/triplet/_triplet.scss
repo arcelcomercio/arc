@@ -32,4 +32,9 @@
   &__icon {
     background-color: transparent;
   }
+  &__author {
+    @media (--only-mobile) {
+      font-size: 11px;
+    }
+  }
 }
