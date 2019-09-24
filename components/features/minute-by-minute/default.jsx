@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
-import { useFusionContext } from 'fusion:context'
+import Consumer from 'fusion:consumer'
+import React, { Component } from 'react'
 
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 import { appendToBody } from '../../utilities/helpers'
 import minuteScript from './_dependencies/minute-by-minute-script'
 
@@ -28,11 +30,14 @@ const createScript = ({ src, async, defer, textContent = '', jquery }) => {
   return node
 }
 
-const MinuteByMinute = () => {
-  const { contextPath, deployment } = useFusionContext()
+@Consumer
+class MinuteByMinute extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-  useEffect(() => {
-    console.log('asdfasdfasdfasdf')
+  componentDidMount() {
     appendToBody(
       createScript({
         src:
@@ -54,108 +59,145 @@ const MinuteByMinute = () => {
         defer: true,
       })
     )
-  })
+    this.fetchData()
+  }
 
-  return (
-    <div className="col-3 flex by-minute">
-      <div className="by-minute__left">
-        <h2>
-          <a href="/">
-            ALEMANIA VS. IRLANDA DEL NORTE EN VIVO: HOY POR LAS ELIMINATORIAS
-            EUROCOPA 2020
-          </a>
-        </h2>
+  fetchData() {
+    const {
+      customFields: {
+        storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      } = {},
+      arcSite,
+    } = this.props
 
-        <div className="live-mxm">asdasd</div>
+    const { fetched } = this.getContent({
+      source: contentService,
+      query: contentConfigValues,
+      filter: schemaFilter(arcSite),
+    })
 
-        <div className="w-game-info">
-          <ul className="game-info flex justify-end">
-            <li className="game-live">
-              <img
-                src={deployment(
-                  `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
-                )}
-                alt=""
-              />
-              En vivo
-            </li>
-            <li className="game-group"></li>
-            <li className="playing-time">FINAL</li>
-          </ul>
+    fetched.then(response => {
+      const {
+        headlines: { basic = '' } = {},
+        websites: { [arcSite]: { website_url: websiteUrl = '' } = {} },
+      } = response
+      this.setState({ title: basic, url: websiteUrl })
+    })
+  }
+
+  render() {
+    const { title, url } = this.state
+    const { deployment, contextPath } = this.props
+    const {
+      customFields: { typeComponent = '', codeComponent = '' } = {},
+    } = this.props
+
+    return (
+      <div className="col-3 flex by-minute live-mxm">
+        <div className="by-minute__left p-20">
+          <h2 className="text-center text-xl line-h-sm font-bold mb-20">
+            <a href={url} className="text-white tertiary-font">
+              {title}
+            </a>
+          </h2>
+          {typeComponent === 'play' && (
+            <>
+              <div className="w-game-info">
+                <ul className="game-info flex justify-end">
+                  <li className="game-live secondary-font mr-10 text-md flex items-center text-white">
+                    <img
+                      src={deployment(
+                        `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                      )}
+                      alt=""
+                      className="mr-5"
+                    />
+                    En vivo
+                  </li>
+                  <li className="game-group" />
+                  <li className="playing-time secondary-font text-md text-white" />
+                </ul>
+              </div>
+              <div className="box-game rounded-sm bg-white p-5 mt-10">
+                <a
+                  className="page-link by-minute__bar flex justify-between"
+                  href="/play/reportajes/alemania-vs-irlanda-norte-vivo-hoy-eliminatorias-eurocopa-2020-noticia-6098">
+                  <div className="game-team team1 flex items-center">
+                    <span className="team-shield">
+                      <img className="by-minute__team-shield" src="" alt="" />
+                    </span>
+                    <span className="team-name pl-10 tertiary-font" />
+                  </div>
+                  <div className="game-score flex items-center">
+                    <span className="team-goals team-goals1 pr-10">
+                      <div className="goals">-</div>
+                    </span>
+                    <span className="game-status position-relative">
+                      <svg
+                        id="timer-progress"
+                        className="timer-progress by-minute__time-progress"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0"
+                        y="0">
+                        <circle
+                          id="timer-progress-base"
+                          className="timer-progress-base"
+                          r="22"
+                          cx="24"
+                          cy="24"
+                          fill="#ffffff"
+                          strokeDasharray="137.339"
+                          strokeDashoffset="0"
+                        />
+                        <circle
+                          id="timer-progress-fill"
+                          className="timer-progress-fill"
+                          r="22"
+                          cx="24"
+                          cy="24"
+                          fill="transparent"
+                          strokeDasharray="137.339"
+                          strokeDashoffset="0"
+                          style={{ 'stroke-dashoffset': '138.23px' }}
+                        />
+                      </svg>
+                      <span
+                        className="game-status-time by-minute__separator"
+                        id="game-status-time">
+                        -
+                      </span>
+                    </span>
+                    <span className="team-goals team-goals2 pl-10">
+                      <div className="goals">-</div>
+                    </span>
+                  </div>
+                  <div className="game-team team2 flex items-center">
+                    <span className="team-name pr-10 tertiary-font" />
+                    <span className="team-shield">
+                      <img className="by-minute__team-shield" src="" alt="" />
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </>
+          )}
         </div>
-
-        <div className="box-game">
-          <a
-            className="page-link flex"
-            href="/play/reportajes/alemania-vs-irlanda-norte-vivo-hoy-eliminatorias-eurocopa-2020-noticia-6098">
-            <div className="game-team team1">
-              <span className="team-shield">
-                <img
-                  src="https://cde.3.elcomercio.pe/img/0/1/6/9/4/1694568.png"
-                  alt=""
-                />
-              </span>
-              <span className="team-name">PER</span>
-            </div>
-            <div className="game-score">
-              <span className="team-goals team-goals1">
-                <div className="goals">0</div>
-              </span>
-              <span className="game-status">
-                <svg
-                  id="timer-progress"
-                  className="timer-progress"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0"
-                  y="0">
-                  <circle
-                    id="timer-progress-base"
-                    className="timer-progress-base"
-                    r="22"
-                    cx="24"
-                    cy="24"
-                    fill="#ffffff"
-                    strokeDasharray="137.339"
-                    strokeDashoffset="0"></circle>
-                  <circle
-                    id="timer-progress-fill"
-                    className="timer-progress-fill"
-                    r="22"
-                    cx="24"
-                    cy="24"
-                    fill="transparent"
-                    strokeDasharray="137.339"
-                    strokeDashoffset="0"
-                    style={{ 'stroke-dashoffset': '138.23px' }}></circle>
-                </svg>
-                <span className="game-status-time" id="game-status-time">
-                  -
-                </span>
-              </span>
-              <span className="team-goals team-goals2">
-                <div className="goals">1</div>
-              </span>
-            </div>
-            <div className="game-team team2">
-              <span className="team-name">ECU</span>
-              <span className="team-shield">
-                <img
-                  src="https://cde.3.elcomercio.pe/img/0/1/4/1/2/1412585.png"
-                  alt=""
-                />
-              </span>
-            </div>
-          </a>
+        <div className="by-minute__right">
+          {typeComponent === 'play' ? (
+            <mxm-partido code={codeComponent} noframe h="235px" />
+          ) : (
+            <mxm-evento code={codeComponent} noframe h="748px" />
+          )}
         </div>
       </div>
-      <div className="by-minute__right">
-        <mxm-partido code="2184" h="235px"></mxm-partido>
-      </div>
-    </div>
-  )
+    )
+  }
+}
+
+MinuteByMinute.propTypes = {
+  customFields,
 }
 
 MinuteByMinute.label = 'Minuto a minuto'
-
 export default MinuteByMinute

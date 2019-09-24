@@ -141,7 +141,6 @@ function runScorer() {
                   $liveScorerCont.find(".game-info .game-group").text(data.inf);
 
 
-                  $liveScorerCont.find(".scorer-sponsor a").attr("href", publicidad.url_publicidad);
                   $liveScorerCont.find(".scorer-sponsor img").attr("src", publicidad.img_publ_675x97);
 
                   $liveScorerCont.find(".scorer-sponsor picture source.srcset_320").attr("srcset", publicidad.img_publ_320x52);
@@ -199,7 +198,6 @@ function runScorer() {
               $liveScorerCont.find(".desc a").attr("href", data.url);
               if (i <= 0) {
 
-                  $liveScorerCont.find(".scorer-sponsor a").attr("href", publicidad.url_publicidad);
                   $liveScorerCont.find(".scorer-sponsor img").attr("src", publicidad.img_publ_675x97);
 
                   $liveScorerCont.find(".scorer-sponsor picture source.srcset_320").attr("srcset", publicidad.img_publ_320x52);
@@ -253,14 +251,13 @@ window.on_mxm_loaded = function (instances) {
 
 function waitjQueryAndMxm() {
   if (window.jQuery) {
-    console.log('ERTT->', document.querySelector('.live-mxm'), document.querySelector('.mxm-input'))
-      if (!document.querySelector('.live-mxm')) return;
-      if (document.querySelector('.mxm-input')) {
-          setTimeout(runScorer(), 25)
-          return
+      if(document.querySelector('.mxm-input')){
+          runScorer()
+          return true
       }
+    setTimeout(waitjQueryAndMxm, 1000)
   }
-  setTimeout(waitjQueryAndMxm, 25)
+  setTimeout(waitjQueryAndMxm, 100)
 }
 
 waitjQueryAndMxm();

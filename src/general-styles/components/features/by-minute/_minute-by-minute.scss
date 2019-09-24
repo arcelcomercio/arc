@@ -1,8 +1,29 @@
 .by-minute {
   &__left {
-    width: 55%;
+    width: calc(55% - 10px);
+    margin-right: 10px;
+    background-color: #313131;
   }
   &__right {
     width: 45%;
+  }
+  &__time-progress {
+    width: 40px;
+    height: 40px;
+    transform: rotate(-90deg);
+  }
+  &__separator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__team-shield {
+    width: 40px;
+  }
+  &__bar {
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
