@@ -112,6 +112,10 @@
       display: block;
       width: 154px;
       height: 24px;
+      @media (max-width: 360px) {
+        width: 120px;
+        height: 20px;
+      }
       @media (--tablet) {
         width: 191px;
         height: 30px;
