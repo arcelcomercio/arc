@@ -71,7 +71,7 @@ export default ({
           <div className="section-video__top">
             <div className="section-video__left">
               {principalVideo.video &&
-              principalVideo.video === ConfigParams.VIDEO ? (
+              principalVideo.promoItemsType === ConfigParams.VIDEO ? (
                 <div
                   className="section-video__frame"
                   dangerouslySetInnerHTML={{ __html: principalVideo.video }}
