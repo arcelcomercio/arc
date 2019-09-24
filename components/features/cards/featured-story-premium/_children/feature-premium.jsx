@@ -123,7 +123,7 @@ const FeaturedStoryPremiumChild = ({
               className={isAdmin ? '' : 'lazy'}
               srcSet={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
               data-srcset={multimediaLandscapeMD}
-              media="(max-width: 367px)"
+              media="(max-width: 480px)" // 367px
             />
             <source
               className={isAdmin ? '' : 'lazy'}

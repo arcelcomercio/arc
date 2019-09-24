@@ -1,6 +1,6 @@
 .editorial-card {
   &__wrapper {
-    background-color: gold;
+    background-color: $color-base-300;
 
     @media (--tablet) {
       height: 340px;

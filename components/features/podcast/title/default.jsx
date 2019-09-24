@@ -57,7 +57,7 @@ const PodcastTitle = props => {
         {shareButtons.map(({ icon, link }, i) => (
           <li
             className={`mr-10 md:mr-0 ml-0 md:ml-10${
-              i === 3 ? ' md:hidden' : ''
+              i === 3 || i === 1 ? ' md:hidden' : ''
             }`}>
             <a
               className="block"

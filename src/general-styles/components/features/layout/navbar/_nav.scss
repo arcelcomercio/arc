@@ -161,6 +161,17 @@
     z-index: 1;
   }
 
+  @media (--desktop) {
+    .nav__list {
+      width: 1000px;
+    }
+    .nav__list-container {
+      max-width: 560px;
+      overflow: hidden;
+      height: 40px;
+    }
+  }
+
   &.active {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;
@@ -186,6 +197,7 @@
       }
 
       .nav__list,
+      .nav__list-container,
       .nav__container-right {
         display: none;
       }

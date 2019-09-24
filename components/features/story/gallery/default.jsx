@@ -11,7 +11,7 @@ import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 
 const classes = {
   gallery: 'w-full',
-  image: 'w-full pl-20 pr-20',
+  image: 'story-gallery__img-box w-full pl-20 pr-20',
 }
 
 const StoryGallery = () => {

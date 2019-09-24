@@ -2,7 +2,7 @@ export default {
   siteName: 'El Comercio',
 
   googleFonts:
-    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700',
+    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+KR:500',
 
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
@@ -13,7 +13,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KKXTKGP_',
+  googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
   ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,
