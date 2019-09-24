@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
+
   urlpwd: PropTypes.string.tag({
     name: 'Url de produccion',
     description: 'Url de pwd  Ejemplo: https://pwaperu21.page.link',
@@ -40,6 +41,7 @@ const customFields = PropTypes.shape({
     name: 'imv',
     description: 'imv',
   }),
+  
 })
 
 export default customFields
