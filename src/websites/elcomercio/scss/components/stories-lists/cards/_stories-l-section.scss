@@ -21,6 +21,9 @@
         border-bottom: 0;
       }
     }
+    .multimedia__icon {
+      background-color: transparent;
+    }
   }
   .stories-l-item__link {
     @media (--only-mobile) {
@@ -34,7 +37,8 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    height: 60px;
+    height: 61px;
+    max-height: none;
     font-family: $fourth-font;
   }
   .stories-l-item__autor {

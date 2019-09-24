@@ -8,6 +8,7 @@ import schemaFilter from './_dependencies/schema-filter'
 
 import Header from './_children/header'
 import List from './_children/list'
+import Footer from './_children/footer'
 
 const classes = {
   lista:
@@ -64,6 +65,7 @@ const StoriesListCard = props => {
     <div className={classes.lista}>
       <Header {...paramsHeader} />
       <List {...paramsList} />
+      <Footer {...{ seeMore, seeMoreurl }} />
     </div>
   )
 }
