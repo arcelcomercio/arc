@@ -7,7 +7,7 @@ export const customFieldsAdsList = {
   }),
   isListByAuthor: PropTypes.bool.tag({
     name: '¿Es Listado por autor?',
-    defaultValue: true,
+    defaultValue: false,
   }),
 }
 
