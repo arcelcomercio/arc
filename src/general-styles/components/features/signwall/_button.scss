@@ -19,6 +19,8 @@
       @media (--tablet) {
         padding: 12px 5px;
         font-size: 14px;
+        width: 100%;
+        min-height: 50px;
       }
 
       &:hover {
