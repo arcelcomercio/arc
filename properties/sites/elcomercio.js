@@ -252,6 +252,10 @@ export default {
       name: 'youtube',
       url: 'https://plus.google.com/u/0/+elcomerciope',
     },
+    linkedin: {
+      name: 'linkedin',
+      url: 'https://www.linkedin.com/company/diario-gestión/',
+    },
   },
   adsAmp: {
     dataSlot: 28253241,

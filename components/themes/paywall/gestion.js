@@ -1,11 +1,15 @@
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
-
-export default ({ fusionContext, getImageDeployment }) => {
+export default ({
+  colors: { grey, orange },
+  createTheme,
+  fusionContext,
+  getImageDeployment,
+}) => {
   const { arcSite } = fusionContext
-  return createMuiTheme({
+  return createTheme({
     name: arcSite,
     palette: {
-      background: { default: '#eeeeee' },
+      background: { default: grey[200] },
+      divider: grey[600],
       primary: {
         main: '#8f071f',
         light: '#f4e0d2',
@@ -13,12 +17,12 @@ export default ({ fusionContext, getImageDeployment }) => {
         contrastText: '#f4f4f4',
       },
       secondary: {
-        main: '#000000',
-        light: '#444444',
-        contrastText: '#f4f4f4',
+        main: '#000',
+        light: grey[800],
+        contrastText: grey[100],
       },
       terciary: {
-        main: '#e05e2f',
+        main: orange[800],
       },
       common: { black: '#000', white: '#fff' },
       success: {
@@ -31,46 +35,41 @@ export default ({ fusionContext, getImageDeployment }) => {
         dark: '#d32f2f',
         contrastText: '#fff',
       },
-      grey: {
-        50: '#fafafa',
-        100: '#f5f5f5',
-        200: '#eeeeee',
-        300: '#e0e0e0',
-        400: '#bdbdbd',
-        500: '#9e9e9e',
-        600: '#757575',
-        700: '#616161',
-        800: '#424242',
-        900: '#212121',
-        A700: '#616161',
-        A100: '#d5d5d5',
-        A400: '#303030',
-        A200: '#aaaaaa',
+      action: {
+        disabledBackground: grey[100],
       },
+    },
+    breakpoints: {
+      values: { xs: 0, sm: 640, md: 1024, lg: 1280, xl: 1920 },
+    },
+    typography: {
+      fontWeightHeavy: 700,
     },
     // prettier-ignore
     images: {
-      icon:           getImageDeployment('favicon.png'),
-      apple_icon:     getImageDeployment('apple-touch-icon.png'),
-      apple_icon_76:  getImageDeployment('apple-touch-icon-76x76.png'),
-      apple_icon_120: getImageDeployment('apple-touch-icon-120x120.png'),
-      apple_icon_144: getImageDeployment('apple-touch-icon-144x144.png'),
-      apple_icon_152: getImageDeployment('apple-touch-icon-152x152.png'),
-      apple_icon_180: getImageDeployment('apple-touch-icon-180x180.png'),
-      logo:           getImageDeployment('logo.svg'),
-      lector:         getImageDeployment('img_lector.png'),
-      corporativo:    getImageDeployment('img_corporativo.webp'),
-      confirmation:   getImageDeployment('img_confirmation.jpg'),
+      pixel:          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+      icon:              getImageDeployment('favicon.png'),
+      apple_icon:        getImageDeployment('apple-touch-icon.png'),
+      apple_icon_76:     getImageDeployment('apple-touch-icon-76x76.png'),
+      apple_icon_120:    getImageDeployment('apple-touch-icon-120x120.png'),
+      apple_icon_144:    getImageDeployment('apple-touch-icon-144x144.png'),
+      apple_icon_152:    getImageDeployment('apple-touch-icon-152x152.png'),
+      apple_icon_180:    getImageDeployment('apple-touch-icon-180x180.png'),
+      lector:            getImageDeployment('img_lector.png'),
+      corporativo_webp:  getImageDeployment('img_corporativo.webp'),
+      corporativo_png:   getImageDeployment('img_corporativo.png'),
+      confirmation_jpg:  getImageDeployment('img_confirmation.jpg'),
       confirmation_webp: getImageDeployment('img_confirmation_1.webp'),
-      support:        getImageDeployment('img_soporte.png'),
+      support:           getImageDeployment('img_soporte.png'),
       contact_form_left: getImageDeployment('img_soporte.png'),
-      support_webp:   getImageDeployment('img_soporte.webp'),
-      backgroundx1:   getImageDeployment('bg_planes_10.jpg'),
-      check:          getImageDeployment('check2.png'),
+      support_webp:      getImageDeployment('img_soporte.webp'),
+      backgroundx1:      getImageDeployment('bg_planes_10.jpg'),
+      check:             getImageDeployment('check2.png'),
     },
     icon: {
       logo: 'ges_logo',
       logo_full: 'ges_logo_full',
+      loading: 'ges_loading',
     },
   })
 }

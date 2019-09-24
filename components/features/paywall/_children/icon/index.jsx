@@ -3,14 +3,7 @@ import { withTheme } from 'styled-components'
 
 import * as icons from './svg/index'
 
-function Icon({
-  type,
-  width = '16',
-  height = '16',
-  fill = '#444',
-  theme,
-  ...restProps
-}) {
+function Icon({ type, width, height, fill, theme, ...restProps }) {
   const IconCustom = icons[type]
 
   // Si no se consigue el icono renderiza nulo

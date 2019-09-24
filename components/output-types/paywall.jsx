@@ -15,7 +15,6 @@ const Paywall = props => {
   } = props
 
   const {
-    theme: { color },
     siteName,
     assets,
     paywall: { title, description, canonical, image },
@@ -49,13 +48,12 @@ const Paywall = props => {
         <meta property="og:description" content={description} />
         <meta property="og:image" content={image} />
         <meta property="og:url" content={canonical} />
-        <meta property="og:site_name" content="Gestión" />
+        <meta property="og:site_name" content={siteName} />
         <meta property="og:type" content="website" />
         {/* METAS SUGERIDOS */}
 
         <props.Libs />
         <props.CssLinks />
-        <Meta.Theme color={color} {...siteName} />
         <Meta.Icon assets={fullAssets} />
         <link
           rel="stylesheet"
@@ -76,9 +74,7 @@ const Paywall = props => {
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
