@@ -45,23 +45,26 @@ const classes = {
 @Consumer
 class StoryContents extends PureComponent {
   handleOptaWidget = ({ id, css, js, defer }) => {
-    appendToBody(
-      createScript({
-        textContent: `
+    // eslint-disable-next-line camelcase
+    if (typeof opta_settings === 'undefined') {
+      appendToBody(
+        createScript({
+          textContent: `
         var opta_settings={
             subscription_id: '${id}',
             language: 'es_CO',
             timezone: 'America/Lima'
         };`,
-      })
-    )
-    appendToBody(
-      createScript({
-        src: js,
-        defer,
-      })
-    )
-    appendToBody(createLink(css))
+        })
+      )
+      appendToBody(
+        createScript({
+          src: js,
+          defer,
+        })
+      )
+      appendToBody(createLink(css))
+    }
   }
 
   render() {
@@ -203,7 +206,9 @@ class StoryContents extends PureComponent {
 
                 if (type === ConfigParams.ELEMENT_TEXT) {
                   const alignmentClass = alignment
-                    ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
+                    ? `${classes.textClasses} ${
+                        classes.alignmentClasses
+                      }-${alignment}`
                     : classes.textClasses
                   return (
                     <Text
