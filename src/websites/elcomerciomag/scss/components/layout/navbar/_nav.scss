@@ -54,9 +54,11 @@
   }
 
   &__mobile-logo {
-    left: 116px;
+    @media (--tablet) {
+      left: 136px;
+    }
     @media (--desktop) {
-      left: 183px;
+      left: 168px;
     }
   }
 }

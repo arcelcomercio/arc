@@ -1,9 +1,16 @@
 .story-tags {
+  &__title {
+    font-family: $fifth-font;
+  }
   &__link {
     background-color: transparent;
-    color: $color-gray-300;
+    color: #343434;
     text-decoration: underline;
     padding-left: 0;
     font-style: italic;
+    font-family: $fifth-font;
+    @media (--tablet) {
+      font-size: 20px;
+    }
   }
 }

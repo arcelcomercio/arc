@@ -1,4 +1,16 @@
 .story {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $fifth-font;
+  }
+  .related-content__title,
+  .related-internal__title-link {
+    font-family: $fourth-font;
+  }
   .nav {
     height: 46px;
     &.active {
@@ -67,8 +79,8 @@
         height: 70px;
         border-radius: 50px;
         @media (--desktop) {
-          width: 100px;
-          height: 100px;
+          width: 86px;
+          height: 86px;
         }
       }
     }
@@ -150,6 +162,20 @@
           font-size: 103px;
           line-height: 0.9;
         }
+      }
+    }
+  }
+  &.special_basic {
+    .story-special-title_note {
+      font-family: $fourth-font;
+      @media (--only-mobile) {
+        font-size: 16px;
+      }
+    }
+    .story-header__news-title {
+      font-family: $fourth-font;
+      @media (--desktop) {
+        font-size: 45px;
       }
     }
   }
