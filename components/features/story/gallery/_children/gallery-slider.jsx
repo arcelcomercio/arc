@@ -24,8 +24,6 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       globalContentConfig,
     } = props || {}
 
-    console.log(globalContentConfig, 'aaaa')
-
     const totalSlides = contentElements.length
 
     this.currentSlider = 1 /* getUrlParameter() */
