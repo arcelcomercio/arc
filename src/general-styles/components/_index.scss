@@ -19,6 +19,8 @@
 @import './features/blog/author-details/author-details';
 @import './features/blog/author-list/post-item';
 @import './features/blog/author-title/author-title';
+@import './features/blog/blog-list-author/blog-post-item';
+@import './features/blog/blog-list-grid/blog-list-grid';
 @import './features/blog/blog-list/blog-item';
 @import './features/blog/blog-list/blog-list';
 @import './features/blog/post-content/post-content';
@@ -104,6 +106,7 @@
 @import './features/statics/opinion-grid/editorial-card';
 @import './features/statics/opinion-grid/opinion-grid';
 @import './features/stories-lists/card/stories-list-card';
+@import './features/stories-lists/card/stories-list-footer';
 @import './features/stories-lists/card/stories-list-header';
 @import './features/stories-lists/card/stories-list-item';
 @import './features/stories-lists/card/stories-list-tabloid';

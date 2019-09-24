@@ -179,4 +179,8 @@
       }
     }
   }
+  .header-inverted.active .nav__story-social-network .story-header__icon,
+  .header-inverted.active .nav__story-social-network .story-header__share-icon {
+    color: $color-white;
+  }
 }

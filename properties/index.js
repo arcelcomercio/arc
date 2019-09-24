@@ -1,6 +1,9 @@
 export default {
   linkTabloide: 'https://peruquiosco.pe/',
   newsletterBrand: '',
+  api: {
+    blog: ''
+  },
   assets: {
     nav: {
       logo: 'logo.png',
