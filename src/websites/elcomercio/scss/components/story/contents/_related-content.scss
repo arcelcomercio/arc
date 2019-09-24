@@ -37,4 +37,10 @@ $border-gray: #c1c1c1;
       height: 90px;
     }
   }
+  &__icon {
+    transform: translate(50%, 50%);
+    left: 0;
+    top: 0;
+    margin: 0;
+  }
 }
