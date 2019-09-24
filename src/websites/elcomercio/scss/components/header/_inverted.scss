@@ -1,10 +1,18 @@
-$nav-height-active: 46px;
+$nav-height-active: 45px;
 
 .header-inverted {
-  height: $header-inverted-height;
+  /*   height: $header-inverted-height; */
+  @media (--only-mobile) {
+    height: 60px;
+  }
 
   .header__logo {
-    height: 36px;
+    @media (--only-mobile) {
+      width: 201px;
+      height: 32px;
+    }
+    width: 191px;
+    height: 30px;
   }
 
   .nav__mobile-logo {
@@ -35,10 +43,6 @@ $nav-height-active: 46px;
 
     &.nav__loader {
       top: 0;
-    }
-
-    .header__logo {
-      height: 44px;
     }
 
     .header-inverted__btn-menu,

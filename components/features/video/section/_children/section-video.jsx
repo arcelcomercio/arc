@@ -2,6 +2,11 @@ import React, { useEffect } from 'react'
 import ConfigParams from '../../../../utilities/config-params'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
+import {
+  socialMediaUrlShareListBlog,
+  addSlashToEnd,
+  popUpWindow,
+} from '../../../../utilities/helpers'
 
 export default ({
   principalVideo,
@@ -11,6 +16,7 @@ export default ({
   deployment,
   isAdmin,
   arrSections,
+  siteProperties,
 }) => {
   useEffect(() => {
     if (window.powaBoot) {
@@ -21,6 +27,8 @@ export default ({
       const sectionVideo = document.querySelector('.section-video__wrapper')
       const videoNavBar = document.querySelector('.video-navbar')
       const videoList = document.querySelector('.video-list')
+      const videoFrame = document.querySelector('.section-video__frame')
+      const leftFix = videoFrame.getBoundingClientRect().left
       const playOff = playList.offsetTop
       if (window.innerWidth >= 1024) {
         window.addEventListener('scroll', () => {
@@ -29,6 +37,8 @@ export default ({
             sectionVideo.classList.add('fixed')
             videoNavBar.classList.add('fixed')
             videoList.classList.add('fixed')
+            videoFrame.style.left = `${leftFix + 50}px`
+
             // videoList.style.marginTop = '570px'
           }
           if (scrollHeight < playOff) {
@@ -53,6 +63,17 @@ export default ({
       fecha: `${day}.${month + 1}.${year}`,
       hora: `${hora}:${minutes}`,
     }
+  }
+  const { siteUrl = '' } = siteProperties
+
+  const urlsShareList = socialMediaUrlShareListBlog(
+    addSlashToEnd(siteUrl),
+    principalVideo.websiteLink,
+    principalVideo.title
+  )
+
+  const shareNew = origin => {
+    popUpWindow(urlsShareList[origin], '', 600, 400)
   }
 
   const { fecha } = formateDay()
@@ -80,9 +101,10 @@ export default ({
                 <iframe
                   className="section-video__frame"
                   src={`https://www.youtube.com/embed/${principalVideo.video}`}
-                  frameborder="0"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  allowFullscreen
+                  title="Video"
                 />
               )}
 
@@ -129,18 +151,27 @@ export default ({
                 {principalVideo.title}
               </h2>
               <div className="section-video__share">
-                <button type="button" className="section-video__btn">
+                <button
+                  onClick={() => shareNew('facebook')}
+                  type="button"
+                  className="section-video__btn">
                   <span className="icon-facebook" />
                 </button>
-                <button type="button" className="section-video__btn">
+                <button
+                  onClick={() => shareNew('twitter')}
+                  type="button"
+                  className="section-video__btn">
                   <span className="icon-twitter" />
                 </button>
-                <button type="button" className="section-video__btn">
+                <button
+                  onClick={() => shareNew('linkedin')}
+                  type="button"
+                  className="section-video__btn">
                   <span className="icon-linkedin" />
                 </button>
-                <button type="button" className="section-video__btn">
+                {/* <button type="button" className="section-video__btn">
                   <span className="icon-share" />
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -149,18 +180,27 @@ export default ({
           </div>
           <div className="section-video__bottom">
             <div className="section-video__share">
-              <button type="button" className="section-video__btn">
+              <button
+                onClick={() => shareNew('facebook')}
+                type="button"
+                className="section-video__btn">
                 <span className="icon-facebook" />
               </button>
-              <button type="button" className="section-video__btn">
+              <button
+                onClick={() => shareNew('twitter')}
+                type="button"
+                className="section-video__btn">
                 <span className="icon-twitter" />
               </button>
-              <button type="button" className="section-video__btn">
+              <button
+                onClick={() => shareNew('linkedin')}
+                type="button"
+                className="section-video__btn">
                 <span className="icon-linkedin" />
               </button>
-              <button type="button" className="section-video__btn">
+              {/* <button type="button" className="section-video__btn">
                 <span className="icon-share" />
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

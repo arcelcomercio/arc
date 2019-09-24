@@ -8,7 +8,8 @@
     font-family: $fifth-font;
   }
   .related-content__title,
-  .related-internal__title-link {
+  .related-internal__title-link,
+  .story-header__news-title {
     font-family: $fourth-font;
   }
   .nav {
@@ -183,4 +184,8 @@
   .header-inverted.active .nav__story-social-network .story-header__share-icon {
     color: $color-white;
   }
+  /*   .header.header-inverted {
+
+    height: 45px;
+  } */
 }

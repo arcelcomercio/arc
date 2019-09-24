@@ -97,7 +97,7 @@ const BlogPostListGrid = props => {
 }
 
 BlogPostListGrid.label = 'Blog - Listado en grilla'
-// BlogPostListGrid.static = true
+BlogPostListGrid.static = true
 
 BlogPostListGrid.propTypes = {
   customFields,

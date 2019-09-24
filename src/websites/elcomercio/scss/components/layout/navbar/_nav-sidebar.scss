@@ -1,4 +1,6 @@
 .nav-sidebar {
+  top: 45px;
+  height: calc(100vh - 45px);
   &__link {
     padding-left: 30px;
   }
