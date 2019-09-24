@@ -44,7 +44,7 @@ const classes = {
 
 @Consumer
 class StoryContents extends PureComponent {
-  componentDidMount() {
+  /* componentDidMount() {
     appendToBody(
       createScript({
         src:
@@ -52,7 +52,7 @@ class StoryContents extends PureComponent {
         defer: true,
       })
     )
-  }
+  } */
 
   handleOptaWidget = ({ id, css, js, defer }) => {
     // eslint-disable-next-line camelcase
