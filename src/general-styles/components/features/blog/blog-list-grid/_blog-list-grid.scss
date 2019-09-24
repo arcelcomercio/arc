@@ -1,0 +1,28 @@
+.blog-list-grid {
+  &__item {
+    background-color: #e8f2f7;
+    min-height: 310px;
+  }
+
+  &__image {
+    height: 150px;
+  }
+
+  &__line {
+    &:after {
+      content: "";
+      border-bottom: 1px solid #000000;
+      width: 20px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__icon {
+    bottom: 0px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
