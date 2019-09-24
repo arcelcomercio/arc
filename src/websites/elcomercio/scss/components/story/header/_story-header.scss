@@ -1,0 +1,17 @@
+.story-header {
+  &__title-section {
+    font-family: $fourth-font;
+    font-size: 18px;
+    @media (--desktop) {
+      font-size: 20px;
+    }
+  }
+  &__news-title {
+    font-family: $fourth-font;
+    font-weight: 700;
+    font-size: 25px;
+    @media (--desktop) {
+      font-size: 40px;
+    }
+  }
+}
