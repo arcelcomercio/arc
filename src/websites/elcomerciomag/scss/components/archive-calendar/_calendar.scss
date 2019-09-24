@@ -3,8 +3,7 @@
     background-color: $color-base-400;
   }
   &__title {
-    color: $color-primary;
-    font-size: 15px;
+    color: $color-white;
     &:after {
       content: '';
       display: block;
@@ -13,7 +12,7 @@
       top: -2px;
       width: 20px;
       height: 20px;
-      background-image: url(/pf/resources/dist/peru21/images/logo-sm.png?d=380);
+      // background-image: url(/pf/resources/dist/peru21/images/logo-sm.png?d=380);
       background-size: cover;
     }
   }
@@ -21,6 +20,7 @@
     display: none;
   }
   &__tile--active {
-    background-color: $color-base-400;
+    color: $color-white;
+    background-color: $color-base-300;
   }
 }
