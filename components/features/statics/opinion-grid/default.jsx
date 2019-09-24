@@ -45,7 +45,7 @@ class StaticOpinionGrid extends PureComponent {
             const section = name ? name.toUpperCase() : ''
             let result = null
             countAdd += 1
-            if (section && section === 'EDITORIAL') {
+            if (section && section === 'EDITORIALp') {
               if (countAdd === 4) {
                 countAddPrint += 1
                 result = (
