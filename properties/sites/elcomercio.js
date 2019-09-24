@@ -1,8 +1,10 @@
 export default {
   siteName: 'El Comercio',
-
+  api: {
+    blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php'
+  },
   googleFonts:
-    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+KR:500',
+    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+KR:500,700,900',
 
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
@@ -73,42 +75,42 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones de uso',
+      name: 'TÉRMINOS Y CONDICIONES DE USO',
       url: '/terminos-y-condiciones',
     },
     {
-      name: 'Trabaja para Grupo El Comercio',
+      name: 'TRABAJABA PARA EL GRUPO EL COMERCIO',
       url: 'https://elcomercio.aptitus.com/',
       external: true,
     },
     {
-      name: 'Libro de Reclamaciones',
+      name: 'LIBRO DE RECLAMACIONES',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
       external: true,
     },
     {
-      name: 'Oficinas Concesionarias',
+      name: 'OFICINAS CONCESIONARIAS',
       url: '/oficinas-concesionarias',
       external: true,
     },
     {
-      name: 'Principios Rectores',
+      name: 'PRINCIPIOS RECTORES',
       url: '/principios-rectores',
     },
     {
-      name: 'Políticas de Privacidad',
+      name: 'POLÍTICAS DE PRIVACIDAD',
       url: '/politicas-privacidad',
     },
     {
-      name: 'Política integrada de gestión',
+      name: 'POLÍTICA INTEGRADA DE GESTIÓN',
       url: '/politica-integrada-de-gestion',
     },
     {
-      name: 'Derechos Arco',
+      name: 'DERECHOS ARCO',
       url: '/procedimiento-arco',
     },
     {
-      name: 'Politicas de Cookies',
+      name: 'POLÍTICA DE COOKIES',
       url: '/politica-de-cookies',
     },
   ],
@@ -230,11 +232,11 @@ export default {
     movil5: 15011680,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-22.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-23.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna1-300x250-div-gpt-ad-8599377-16.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna2-300x250-div-gpt-ad-8599377-17.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna3-300x250-div-gpt-ad-8599377-18.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna4-300x250-div-gpt-ad-8599377-19.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna5-300x250-div-gpt-ad-8599377-20.html',
   ],
   activeSignwall: true,
   activePaywall: true,
