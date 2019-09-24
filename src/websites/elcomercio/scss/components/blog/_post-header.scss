@@ -1,0 +1,11 @@
+.post-header {
+
+  &__title {
+    line-height: 1.1666666667;
+    font-family: Georgia;
+    font-weight: 700;
+    @media (--desktop) {
+      font-size: 40px;
+    }
+  }
+}
