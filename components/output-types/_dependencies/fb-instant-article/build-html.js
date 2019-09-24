@@ -185,10 +185,9 @@ const ParagraphshWithAdds = ({
         level,
       })
 
-      if (countWords <= firstAdd) {
-        countWords += numberWords
-      }
-
+      
+      countWords += numberWords
+      
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
           countWords = 0
@@ -203,10 +202,12 @@ const ParagraphshWithAdds = ({
           paragraphwithAdd = `${processedParagraph}`
         }
       } else {
+        
         // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
+          
           countWords = 0
           paragraphwithAdd = `${processedParagraph} ${
             arrayadvertising[IndexAdd]
