@@ -1,7 +1,7 @@
 export default {
   siteName: 'El Comercio',
   api: {
-    blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php'
+    blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php',
   },
   googleFonts:
     'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+SC:500,700,900',
