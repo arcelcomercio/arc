@@ -58,6 +58,20 @@
         font-size: 20px;
       }
     }
+    &.expand {
+      .featured-story__title-link {
+        max-height: calc(25px * 1.333 * 4);
+        font-size: 25px;
+        @media (--desktop) {
+          max-height: calc(26px * 1.333 * 4);
+          font-size: 26px;
+        }
+      }
+
+      .featured-story__detail {
+        height: auto;
+      }
+    }
   }
   &.expand {
     padding: 10px;
