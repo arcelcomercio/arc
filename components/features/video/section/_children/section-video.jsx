@@ -21,6 +21,8 @@ export default ({
       const sectionVideo = document.querySelector('.section-video__wrapper')
       const videoNavBar = document.querySelector('.video-navbar')
       const videoList = document.querySelector('.video-list')
+      const videoFrame = document.querySelector('.section-video__frame')
+      const leftFix = videoFrame.getBoundingClientRect().left
       const playOff = playList.offsetTop
       if (window.innerWidth >= 1024) {
         window.addEventListener('scroll', () => {
@@ -29,6 +31,8 @@ export default ({
             sectionVideo.classList.add('fixed')
             videoNavBar.classList.add('fixed')
             videoList.classList.add('fixed')
+            videoFrame.style.left = `${leftFix + 50}px`
+
             // videoList.style.marginTop = '570px'
           }
           if (scrollHeight < playOff) {
