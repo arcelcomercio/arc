@@ -20,5 +20,6 @@ import './images/premium-logo.png'
 import './images/author.png'
 import './images/authorOpinion.png'
 import './images/logo-amp.png'
+import './images/logo-elcomercio-316x60.png'
 
 import '../../../components/utilities/lazyload'
