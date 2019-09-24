@@ -1,4 +1,9 @@
 .feature-fullimage {
+  &__title {
+    @media (--only-mobile) {
+      font-size: 25px;
+    }
+  }
   &__title,
   &__section,
   &__author {
