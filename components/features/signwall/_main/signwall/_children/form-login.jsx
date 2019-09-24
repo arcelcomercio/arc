@@ -570,7 +570,7 @@ class FormLogin extends Component {
                 </div>
                 {arcSite !== 'peru21' && (
                   <div
-                    className="form-grid__group lg:hidden"
+                    className="form-grid__group lg:hidden mt-20"
                     hidden={!hiddenListBenefits}>
                     {typePopUp !== 'paywall' && (
                       <p className="form-grid__subtitle text-center form-group--center">
