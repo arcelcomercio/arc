@@ -90,7 +90,7 @@ const SeparatorsBasicChildSeparator = ({
                     </h2>
                   )}
                 </div>
-                <a href={websiteLink}>
+                <a className="separator__img-link" href={websiteLink}>
                   <picture className={classes.imgBox}>
                     <source
                       className={isAdmin ? '' : 'lazy'}
