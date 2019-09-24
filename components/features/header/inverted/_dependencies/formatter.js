@@ -3,8 +3,6 @@ import { formatDayMonthYear } from '../../../../utilities/helpers'
 const LINK = 'link'
 const BAND = 'band'
 const MENU = 'menu'
-const ARCHIVE_TEXT = 'Lo último'
-const ARCHIVE_LINK = '/archivo'
 
 export default class StandardHeader {
   constructor(
@@ -58,10 +56,7 @@ export default class StandardHeader {
   getParams() {
     const bandLinks = this.formatData(this.bandData, BAND)
     const menuSections = this.formatData(this.menuData, MENU)
-    const archive = {
-      name: ARCHIVE_TEXT,
-      url: ARCHIVE_LINK,
-    }
+
     const { inverted: logo, auxLogo } = this.headerProperties
 
     return {
@@ -78,12 +73,10 @@ export default class StandardHeader {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${
-              this.arcSite
-            }/images/${auxLogo}`
+            `${this.contextPath}/resources/dist/${this.arcSite}/images/${auxLogo}`
           ),
       },
-      bandLinks: [archive, ...bandLinks],
+      bandLinks,
       menuSections: [...menuSections],
       date: {
         active: this.showDate,
