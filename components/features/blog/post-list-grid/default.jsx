@@ -1,13 +1,9 @@
 import React from 'react'
-import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import { customFields } from './_dependencies/custom-fields'
 import BlogPostListGridChildGrid from './_children/grid'
 import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
-import BlogPostListGridChildList from './_children/list'
-
-const CONTENT_SOURCE = 'get-count-all-blogs'
 
 const BlogPostListGrid = props => {
   const {
@@ -16,16 +12,8 @@ const BlogPostListGrid = props => {
     deployment,
     isAdmin,
     globalContent = {},
-    globalContentConfig = {},
+    siteProperties,
   } = useFusionContext()
-
-  const totalItemBlogData =
-    useContent({
-      source: CONTENT_SOURCE,
-      query: {
-        website: arcSite,
-      },
-    }) || {}
 
   const buildParams = blog => {
     const {
@@ -66,7 +54,7 @@ const BlogPostListGrid = props => {
       lazyImage,
       imagePost,
       authorImg,
-      date: postDate, // this.transformDate(postDate),
+      date: postDate,
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
@@ -77,34 +65,33 @@ const BlogPostListGrid = props => {
   }
 
   const {
-    requestUri,
-    // globalContent = {},
-    // globalContentConfig = {},
     customFields: { initialPositionItem = 0, numShowItems = 9 },
   } = props
-  console.log('props', props)
-  const {
-    query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
-  } = globalContentConfig
-  // const { totalPosts = {} } = this.state
-  const { total: totalItems = null } = totalItemBlogData
   const blogs = Object.values(globalContent).filter(
     item => typeof item === 'object'
   )
 
   // TODO: Cambiar el foreach por map en el render.
-
-  const dataBlogs = []
+  let dataBlogs = []
   blogs.forEach(ele => {
     dataBlogs.push(buildParams(ele))
   })
-  console.log('============ blogs ======', blogs, totalItems)
-  console.dir(dataBlogs)
+  dataBlogs = dataBlogs.slice(
+    initialPositionItem,
+    initialPositionItem + numShowItems
+  )
+  const urlLogoBrand = deployment(
+    `${contextPath}/resources/dist/${arcSite}/images/author.png`
+  )
+  const { siteName = '' } = siteProperties
 
   return (
     <>
-      <BlogPostListGridChildGrid data={dataBlogs} />
-      <BlogPostListGridChildList data={dataBlogs} />
+      <BlogPostListGridChildGrid
+        data={dataBlogs}
+        urlLogoBrand={urlLogoBrand}
+        siteName={siteName}
+      />
     </>
   )
 }
