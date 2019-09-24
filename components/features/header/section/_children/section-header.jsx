@@ -29,7 +29,7 @@ const classes = {
   menuLoginLink: 'flex justify-center',
   menuLoginIcon: 'icon-user section-menu__login-icon mr-10 text-primary-color',
   menuLoginLabel: `section-menu__login-text uppercase font-bold text-md text-white`,
-  menuList: `section-menu__list m-0 block pt-5 pb-5 pr-15 pl-15 lg:flex lg:flex lg:justify-evenly`,
+  menuList: `section-menu__list m-0 block pt-5 pb-5 pr-15 pl-15 lg:flex lg:flex lg:justify-around`,
   menuItemLink: 'section-menu__item-link hidden lg:flex lg:items-center',
   menuLinkIcon: 'section-menu__link-icon hidden text-gray-300 lg:block',
   iconHome: 'icon-home',

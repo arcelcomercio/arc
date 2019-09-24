@@ -31,6 +31,10 @@
   }
   &__icon {
     background-color: transparent;
+    top: 6px;
+    right: 6px;
+    left: auto;
+    transform: none;
   }
   &__author {
     @media (--only-mobile) {
