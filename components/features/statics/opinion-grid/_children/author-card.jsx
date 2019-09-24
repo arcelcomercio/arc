@@ -77,13 +77,8 @@ const OpinionGridAuthorCard = ({
             </a>
           </h2>
         </div>
-        <figure className={classes.icono}>
-          <img
-            src={opinionImageDefault}
-            className={classes.iconImg}
-            alt="icon"
-          />
-        </figure>
+        {/* maria */}
+        <i></i>
       </div>
     </article>
   )
