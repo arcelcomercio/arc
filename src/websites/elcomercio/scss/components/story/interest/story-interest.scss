@@ -35,7 +35,6 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     order: 1;
-    font-size: 11px;
     margin-top: 20px;
     @media (--desktop) {
       text-align: left;
@@ -43,9 +42,8 @@
   }
   &__category-link {
     font-family: $fourth-font;
-    @media (--only-mobile) {
-      font-size: 13px;
-    }
+    font-size: 11px;
+    font-weight: 500;
   }
   &__title {
     @media (--desktop) {
