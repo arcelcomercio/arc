@@ -1,7 +1,32 @@
 import React, { useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 
-import { createScript, appendToBody } from '../../utilities/helpers'
+import { appendToBody } from '../../utilities/helpers'
+import minuteScript from './_dependencies/minute-by-minute-script'
+
+const createScript = ({ src, async, defer, textContent = '', jquery }) => {
+  const node = document.createElement('script')
+  if (src) {
+    node.type = 'text/javascript'
+
+    node.src = src
+  }
+  if (async) {
+    node.async = true
+  }
+  if (defer) {
+    node.defer = true
+  }
+  if (jquery) {
+    node.setAttribute(
+      'integrity',
+      'sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44='
+    )
+    node.setAttribute('crossorigin', 'anonymous')
+  }
+  node.textContent = textContent
+  return node
+}
 
 const MinuteByMinute = () => {
   const { contextPath, deployment } = useFusionContext()
@@ -13,6 +38,20 @@ const MinuteByMinute = () => {
         src:
           'https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7',
         async: true,
+      })
+    )
+    appendToBody(
+      createScript({
+        src: 'https://code.jquery.com/jquery-2.2.4.min.js',
+        async: true,
+        jquery: true,
+      })
+    )
+    appendToBody(
+      createScript({
+        textContent: minuteScript,
+        async: true,
+        defer: true,
       })
     )
   })
@@ -27,8 +66,10 @@ const MinuteByMinute = () => {
           </a>
         </h2>
 
+        <div className="live-mxm">asdasd</div>
+
         <div className="w-game-info">
-          <ul className="game-info">
+          <ul className="game-info flex justify-end">
             <li className="game-live">
               <img
                 src={deployment(
@@ -45,7 +86,7 @@ const MinuteByMinute = () => {
 
         <div className="box-game">
           <a
-            className="page-link"
+            className="page-link flex"
             href="/play/reportajes/alemania-vs-irlanda-norte-vivo-hoy-eliminatorias-eurocopa-2020-noticia-6098">
             <div className="game-team team1">
               <span className="team-shield">
@@ -109,7 +150,7 @@ const MinuteByMinute = () => {
         </div>
       </div>
       <div className="by-minute__right">
-        <mxm-evento code="10603" h="235px"></mxm-evento>
+        <mxm-partido code="2184" h="235px"></mxm-partido>
       </div>
     </div>
   )
