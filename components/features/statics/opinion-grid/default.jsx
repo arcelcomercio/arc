@@ -1,4 +1,4 @@
-import React, { PureComponent,Component } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 
@@ -6,7 +6,7 @@ import AuthorCard from './_children/author-card'
 import EditorialCard from './_children/editorial-card'
 import ListItem from './_children/list-item'
 import CustomTitle from '../../custom-title/default'
-
+import Ads from '../../../global-components/ads'
 // TODO: author-card y editorial-card pueden evitar código duplicado con un contenedor
 const classes = {
   container: 'opinion-grid grid w-full m-0 mx-auto',
@@ -19,7 +19,7 @@ const classes = {
   more: 'opinion-grid__more uppercase text-center text-md text-gray-300',
 }
 @Consumer
-class StaticOpinionGrid extends Component {
+class StaticOpinionGrid extends PureComponent {
   render() {
     const { globalContent, deployment, contextPath, arcSite } = this.props
     const { content_elements: contentElements } = globalContent || {}
@@ -30,7 +30,8 @@ class StaticOpinionGrid extends Component {
       arcSite,
       defaultImgSize: 'sm',
     })
-
+    let countAdd = 0
+    let countAddPrint = 0
     return (
       <div>
         <div className={classes.title}>
@@ -42,31 +43,95 @@ class StaticOpinionGrid extends Component {
             const { taxonomy: { primary_section: { name } = '' } = {} } =
               story || {}
             const section = name ? name.toUpperCase() : ''
-            return section && section === 'EDITORIAL' ? (
-              <EditorialCard
-                key={`Editorial-card-${story._id}`}
-                data={data.attributesRaw}
-              />
-            ) : (
-              <AuthorCard
-                {...{
-                  key: `Author-card-${story._id}`,
-                  data: data.attributesRaw,
-                  deployment,
-                  contextPath,
-                  arcSite,
-                }}
-              />
-            )
+            let result = null
+            countAdd += 1
+            if (section && section === 'EDITORIAL') {
+              if (countAdd === 4) {
+                countAddPrint += 1
+                result = (
+                  <Fragment>
+                    <EditorialCard
+                      key={`Editorial-card-${story._id}`}
+                      data={data.attributesRaw}
+                    />
+                    <Ads
+                      adElement={`movil${countAddPrint}`}
+                      isDesktop={false}
+                      isMobile={true}
+                      columns=""
+                      rows=""
+                      freeHtml=""
+                    />
+                  </Fragment>
+                )
+                countAdd = 0
+              } else {
+                result = (
+                  <EditorialCard
+                    key={`Editorial-card-${story._id}`}
+                    data={data.attributesRaw}
+                  />
+                )
+              }
+            } else {
+              // eslint-disable-next-line no-lonely-if
+              if (countAdd === 4) {
+                countAddPrint += 1
+                result = (
+                  <Fragment>
+                    <AuthorCard
+                      {...{
+                        key: `Author-card-${story._id}`,
+                        data: data.attributesRaw,
+                        deployment,
+                        contextPath,
+                        arcSite,
+                      }}
+                    />
+                    <Ads
+                      adElement={`movil${countAddPrint}`}
+                      isDesktop={false}
+                      isMobile={true}
+                      columns=""
+                      rows=""
+                      freeHtml=""
+                    />
+                  </Fragment>
+                )
+                countAdd = 0
+              } else {
+                result = (
+                  <AuthorCard
+                    {...{
+                      key: `Author-card-${story._id}`,
+                      data: data.attributesRaw,
+                      deployment,
+                      contextPath,
+                      arcSite,
+                    }}
+                  />
+                )
+              }
+            }
+            return result
           })}
         </div>
+        <Ads
+          adElement="middle1"
+          isDesktop={true}
+          isMobile={false}
+          columns=""
+          rows=""
+          freeHtml=""
+        />
+
         <div role="list" className={classes.list}>
           <div className={classes.titleBox}>
             <p className={classes.title}>ÚLTIMAS NOTICIAS</p>
           </div>
-          {stories.slice(12).map(story => {
+          {stories.slice(12).map((story, index) => {
             data.__data = story
-            return (
+            return index !== 3 ? (
               <ListItem
                 {...{
                   key: `List-item-${story._id}`,
@@ -75,8 +140,27 @@ class StaticOpinionGrid extends Component {
                   contextPath,
                   arcSite,
                 }}
-               
               />
+            ) : (
+              <Fragment>
+                <ListItem
+                  {...{
+                    key: `List-item-${story._id}`,
+                    data: data.attributesRaw,
+                    deployment,
+                    contextPath,
+                    arcSite,
+                  }}
+                />
+                <Ads
+                  adElement="movil5"
+                  isDesktop={false}
+                  isMobile={true}
+                  columns=""
+                  rows=""
+                  freeHtml=""
+                />
+              </Fragment>
             )
           })}
           <div className={classes.moreBox}>
