@@ -13,14 +13,16 @@ const parse = string => {
 // gprint-july-19
 
 export default {
-  resolve({ doctype = 'DNI', docnumber, token }) {
+  resolve(key = {}) {
+    const { doctype = 'DNI', docnumber, token } = key
+    const website = key['arc-site']
     this.document = {
       documentType: doctype,
       documentNumber: docnumber,
     }
     const PATH = `${getDomain(
       'ORIGIN_SUSCRIPCIONES'
-    )}/api/subscriber/validation/gestion/`
+    )}/api/subscriber/validation/${website}/`
     return docnumber
       ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}&token=${token}`
       : PATH
