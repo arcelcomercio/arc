@@ -1,11 +1,11 @@
 .header {
-  height: $header-mobile-height;
   display: flex;
+  height: 70px;
   @media (--only-mobile) {
     background-color: $color-primary;
   }
   @media (--desktop) {
-    height: $header-inverted-height;
+    height: 90px;
   }
   &__link {
     color: $color-gray-300;
@@ -50,6 +50,15 @@
     @media (--desktop) {
       width: 346px;
       height: 55px;
+    }
+  }
+  &.header-inverted {
+    height: $header-mobile-height;
+    @media (--desktop) {
+      height: $header-inverted-height;
+    }
+    &.active {
+      height: 45px;
     }
   }
 }

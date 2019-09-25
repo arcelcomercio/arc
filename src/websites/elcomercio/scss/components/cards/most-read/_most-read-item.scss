@@ -1,12 +1,15 @@
 .most-read-item {
   border-color: $color-gray-100;
+
   &__detail {
     font-size: 15px;
     font-family: $primary-font;
     font-weight: 500;
-    &.four-lines {
-      max-height: calc(15px * 1.33 * 3);
-      -webkit-line-clamp: 3;
+    &.three-lines {
+      max-height: 57px;
     }
+  }
+  &__article {
+    padding: 10px 0;
   }
 }

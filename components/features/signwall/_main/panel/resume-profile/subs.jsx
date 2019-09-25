@@ -7,7 +7,6 @@ import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
 import Taggeo from '../../utils/taggeo'
 import { WrapperBlock } from './styles'
-// import { ModalConsumer } from '../../../signwall/context'
 
 @Consumer
 class Subs extends Component {
@@ -16,12 +15,12 @@ class Subs extends Component {
     this.state = {
       paywallName: '-',
       paywallPrice: '-',
-      paywallDescripcion: '-',
+      // paywallDescripcion: '-',
       showModalConfirm: false,
       isSubs: false,
       isLoad: true,
       idSubsDelete: null,
-      userSubs: {},
+      // userSubs: {},
       userSubsDetail: [],
     }
 
@@ -109,20 +108,6 @@ class Subs extends Component {
         }
 
         return p.then(() => newaray)
-
-        // if (count >= 1) {
-        //   this.setState({
-        //     userSubs: res,
-        //     isSubs: true,
-        //     userSubsDetail: newaray,
-        //   })
-        // }
-
-        // this.setState({
-        //   isLoad: false,
-        //   userSubs: res,
-        //   isSubs: false,
-        // })
       })
       .catch(err => window.console.error(err))
   }
@@ -133,7 +118,7 @@ class Subs extends Component {
       this.setState({
         paywallName: resCam.name || 'Plan',
         paywallPrice: resCam.plans[0].amount || '-',
-        paywallDescripcion: resCam.plans[0].description.description || '-',
+        // paywallDescripcion: resCam.plans[0].description.description || '-',
       })
     })
   }
@@ -185,14 +170,20 @@ class Subs extends Component {
         this.setState({
           isLoad: true,
         })
-        // this.getListSubs()
         this.getListSubs().then(p => {
           setTimeout(() => {
-            this.setState({
-              userSubsDetail: p,
-              isSubs: true,
-              isLoad: false,
-            })
+            if (p.length) {
+              this.setState({
+                userSubsDetail: p,
+                isSubs: true,
+                isLoad: false,
+              })
+            } else {
+              this.setState({
+                isSubs: false,
+                isLoad: false,
+              })
+            }
           }, 2000)
         })
         this.closeModalConfirm()
@@ -202,13 +193,13 @@ class Subs extends Component {
 
   render() {
     const {
-      userSubs,
+      // userSubs,
       isSubs,
       isLoad,
       paywallName,
       paywallPrice,
       showModalConfirm,
-      paywallDescripcion,
+      // paywallDescripcion,
       userSubsDetail,
       idSubsDelete,
     } = this.state
@@ -222,7 +213,6 @@ class Subs extends Component {
             {isSubs ? (
               <>
                 {userSubsDetail.map(reSubs => {
-                  // if (reSubs.paymentMethod) {
                   return (
                     <WrapperBlock
                       nopadding
@@ -284,8 +274,6 @@ class Subs extends Component {
                       </div>
                     </WrapperBlock>
                   )
-                  // }
-                  // return null
                 })}
               </>
             ) : (

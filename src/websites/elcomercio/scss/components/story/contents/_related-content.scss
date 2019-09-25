@@ -11,23 +11,31 @@ $border-gray: #c1c1c1;
     overflow: hidden;
     -webkit-line-clamp: 2;
     display: -webkit-box;
-    @media (--only-mobile) {
-      font-size: 13px;
-    }
+    font-size: 20px;
+    line-height: 1.33;
     @media (--tablet) {
       max-height: calc(20px * 22px * 2);
-      font-size: 20px;
     }
   }
   &__item {
     border-bottom: 1px dashed $border-gray;
     border-top: 0;
+    @media (--only-mobile) {
+      display: flex;
+      flex-direction: column;
+    }
     @media (--tablet) {
       justify-content: flex-end;
       flex-direction: row-reverse;
     }
     &:last-child {
       border-bottom: 0;
+    }
+  }
+  &__information {
+    @media (--only-mobile) {
+      order: 1;
+      padding: 10px 10px 0 10px;
     }
   }
   &__multimedia {

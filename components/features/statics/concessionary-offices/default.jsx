@@ -8,16 +8,18 @@ const classes = {
   arrow: 'concessionaires__arrow w-0 h-0 position-absolute border-solid',
   container: 'concessionaires__container w-full m-0 mx-auto pr-20 pl-20',
   title: 'concessionaires__title text-center font-bold title-lg text-gray-300',
-  info: `concessionaires__info text-gray-300 text-center mt-10 mb-40 mx-auto text-sm line-h-md`,
+  info: `concessionaires__info text-gray-300 text-center mt-10 mb-10 lg:mb-40 mx-auto text-sm line-h-md`,
   locations: `concessionaires__locations border-gray pt-25 border-t-1 border-solid lg:pt-0`,
   search: 'concessionaires__search flex mb-20 flex-col lg:flex-row',
-  searchTitle: `concessionaires__search-title text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm md:mb-20 lg:mb-0 lg:text-left`,
+  searchTitle: `concessionaires__search-title text-gray-300 uppercase font-bold text-center pt-15 pr-20 pl-20 text-sm mb-20 lg:mb-0 lg:text-left line-h-xs`,
   form: 'flex',
-  zona: 'concessionaires__controls flex mr-15 flex-col lg:w-full',
-  label: 'concessionaires__label block text-center text-sm line-h-double',
+  zona: 'concessionaires__controls flex flex-col md:flex-row mr-15 lg:w-full',
+  label:
+    'concessionaires__label text-md flex items-center justify-center mb-10 md:mb-0',
   select: 'concessionaires__select pl-15 bg-white md:w-full',
-  district: 'concessionaires__controls flex md:flex-row lg:w-full',
-  districtLabel: 'concessionaires__label',
+  district: 'concessionaires__controls flex flex-col md:flex-row lg:w-full',
+  districtLabel:
+    'concessionaires__label text-md flex items-center justify-center mb-10 md:mb-0',
   mapTitle: `concessionaires__map-title text-gray-300 font-thin mt-10 mb-10 title-sm`,
 }
 
@@ -276,7 +278,7 @@ class StaticConcessionaryOffices extends PureComponent {
               </h3>
               <form className={classes.form} action="">
                 <div className={classes.zona}>
-                  <span className={classes.label}>Provincia</span>
+                  <span className={`${classes.label} mr-10`}>Provincia</span>
                   <select
                     value={currentProvince.value}
                     className={classes.select}
@@ -294,9 +296,10 @@ class StaticConcessionaryOffices extends PureComponent {
               </form>
             </div>
             {currentProvince.name && (
-              <h2 className={classes.mapTitle}>{`Provincia - ${
-                currentProvince.name
-              }`}</h2>
+              <h2
+                className={
+                  classes.mapTitle
+                }>{`Provincia - ${currentProvince.name}`}</h2>
             )}
             <div
               id="concessionaries-map2"
