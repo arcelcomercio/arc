@@ -68,6 +68,25 @@ const customFields = PropTypes.shape({
     group: 'Programar Notas',
     defaultValue: defaultProgramDate,
   }),
+  flagLive: PropTypes.bool.tag({
+    name: 'Activar en vivo',
+    group: 'Video en vivo',
+  }),
+  platformLive: PropTypes.oneOf(['facebook', 'youtube']).tag({
+    name: 'Plataforma de video',
+    group: 'Video en vivo',
+    labels: {
+      facebook: 'Facebook Live',
+      youtube: 'YouTube Live',
+    },
+    defaultValue: 'facebook',
+  }),
+  urlVideo: PropTypes.string.tag({
+    name: 'URL de Video en Facebook / ID de Youtube',
+    group: 'Video en vivo',
+    description:
+      'Url del video en vivo que ofrece facebook o el id del video de youtube.',
+  }),
 })
 
 export default customFields
