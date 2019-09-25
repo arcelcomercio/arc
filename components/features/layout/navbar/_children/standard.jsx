@@ -403,7 +403,8 @@ class NavBarDefault extends PureComponent {
   }
 
   _openMenu = () => {
-    this._setPosition(1)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) this._setPosition(1)
     this.layerBackground.style.display = 'block'
     this.setState({
       statusSidebar: true,
@@ -411,7 +412,8 @@ class NavBarDefault extends PureComponent {
   }
 
   _closeMenu = () => {
-    this._setPosition(0)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) this._setPosition(0)
     this.layerBackground.style.display = 'none'
     this.setState({
       statusSidebar: false,
