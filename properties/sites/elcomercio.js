@@ -67,6 +67,8 @@ export default {
       logoAmp: 'logo-elcomercio-316x60.png',
       width: 316,
       height: 60,
+      widthAmp: 156,
+      heightAmp: 25,
     },
     premium: {
       logo: 'premium-logo.png',
@@ -77,11 +79,6 @@ export default {
     {
       name: 'TÉRMINOS Y CONDICIONES DE USO',
       url: '/terminos-y-condiciones',
-    },
-    {
-      name: 'TRABAJABA PARA EL GRUPO EL COMERCIO',
-      url: 'https://elcomercio.aptitus.com/',
-      external: true,
     },
     {
       name: 'LIBRO DE RECLAMACIONES',

@@ -3,7 +3,7 @@
   // &:nth-child(even){
   // 	border-right: solid 1px #333;
   // }
-  &__detail{
+  &__detail {
     width: 70%;
     @media (--tablet) {
       width: 70%;
@@ -33,23 +33,27 @@
       position: absolute;
     }
   }
+  &__image-default {
+    padding: 14px;
+    font-size: 80px;
+    border-radius: 50%;
+    background-color: $color-base-200;
+    
+  }
 
   &__image {
     width: 100px;
     height: 110px;
     border-radius: 50%;
-
+    background-color: $color-base-200;
     @media (--tablet) {
       border-radius: 50%;
       background-color: transparent;
       object-fit: contain;
       object-position: bottom;
+      background-color: $color-base-200;
     }
-    @media (--desktop) {
-      width: 100px;
-      height: 110px;
-      border-radius: 50%;
-    }
+    
   }
 
   &__name {
@@ -57,14 +61,12 @@
       max-height: inherit;
     }
   }
-  &__icono{
+  &__icono {
     background-color: $color-base-200;
     bottom: 0px;
     border-radius: 50%;
     height: 30px;
     width: 30px;
     padding: 6px 6px 6px 7px;
-    
   }
-  
 }
