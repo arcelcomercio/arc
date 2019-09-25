@@ -9,16 +9,26 @@ const classes = {
 
 @Consumer
 class StoryContentChildVideo extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.videoData = ''
+    const {
+      globalContent: { promo_items: { basic_video: video } = {} } = {},
+    } = this.props
+    this.videoData = video
+  }
+
   componentDidMount() {
     if (window.powaBoot) {
       window.powaBoot()
     }
 
-    if (window.PoWaSettings && window.PoWaSettings.advertising) {
+    if (window.PoWaSettings) {
       window.PoWaSettings.advertising = {
         adBar: false,
-        adTag: ({ videoData }) => {
-          return videoData.additional_properties.advertising.playAds === true
+        adTag: () => {
+          return this.videoData.additional_properties.advertising.playAds ===
+            true
             ? this.getParametroPublicidad()
             : ''
         },
@@ -52,7 +62,7 @@ class StoryContentChildVideo extends PureComponent {
   }
 
   render() {
-    const { data = {}, description = '', globalContent } = this.props
+    const { data = {}, description = '' } = this.props
 
     return (
       <>
