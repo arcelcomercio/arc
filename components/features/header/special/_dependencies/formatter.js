@@ -1,5 +1,3 @@
-const LINK = 'link'
-
 export default class SpecialHeader {
   constructor(
     deployment,
@@ -25,17 +23,8 @@ export default class SpecialHeader {
     this.data = data
   }
 
-  formatData = (data = {}) => {
-    const { children = [] } = data || {}
-    return children.map(child => ({
-      name: child.node_type === LINK ? child.display_name : child.name,
-      url: child.node_type === LINK ? child.url : child._id,
-      children: child.children ? this.formatData(child) : [],
-    }))
-  }
-
   getParams() {
-    const menuSections = this.formatData(this.data)
+    const { children: menuSections = [] } = this.data || {}
     const { special: logo } = this.headerProperties
 
     return {
@@ -48,7 +37,7 @@ export default class SpecialHeader {
         link: this.customLogoLink,
         alt: this.siteDomain,
       },
-      menuSections: [...menuSections],
+      menuSections,
     }
   }
 }

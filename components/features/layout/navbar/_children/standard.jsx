@@ -166,7 +166,11 @@ class NavBarDefault extends PureComponent {
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
 
-    if (this.listContainer !== null && this.listContainer !== 'undefined') {
+    if (
+      this.listContainer !== null &&
+      this.listContainer !== 'undefined' &&
+      !/iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    ) {
       document.body.addEventListener('touchstart', this._initDrag, {
         passive: true,
       })
