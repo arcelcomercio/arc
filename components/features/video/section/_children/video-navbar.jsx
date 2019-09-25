@@ -3,7 +3,7 @@ import React from 'react'
 export default props => {
   const { sections = [] } = props
   return (
-    <div className="video-navbar">
+    <div className="video-navbar hidden md:block">
       <ul className="video-navbar__list">
         {sections &&
           sections.map(section => {
