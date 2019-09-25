@@ -804,16 +804,15 @@ class NavBarDefault extends PureComponent {
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               {siteProperties.activeSignwall && (
                 <div className={`${classes.btnContainer}`}>
-
-                  {siteProperties.activePaywall && arcSite !== 'elcomercio' ? (
+                  {siteProperties.activePaywall && arcSite === 'gestion' ? (
                     <Button
                       btnText="Suscríbete"
                       btnClass={`${classes.btnSubscribe} btn--outline`}
                       btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
                     />
-                  ): null}
+                  ) : null}
 
-                  <SignwallComponent/>
+                  <SignwallComponent />
 
                   {/* <button
                     type="button"
@@ -843,7 +842,7 @@ class NavBarDefault extends PureComponent {
             {siteProperties.activeSignwall && (
               <div
                 className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
-                <SignwallComponent typeMobile/>
+                <SignwallComponent typeMobile />
                 {/* <button
                   type="button"
                   id={

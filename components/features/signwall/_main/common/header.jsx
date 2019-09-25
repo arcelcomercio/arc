@@ -9,6 +9,9 @@ const Header = props => {
     <>
       {{
         elcomercio: <Comercio color="black" width="159" height="24" size="1" />,
+        elcomerciomag: (
+          <Comercio color="black" width="159" height="24" size="1" />
+        ),
         gestion: <Gestion color="white" width="138" height="30" size="1" />,
       }[arcSite] || (
         <img
@@ -26,7 +29,7 @@ const Header = props => {
           id="close-modal-link"
           className="modal-header__back"
           onClick={closePopup}>
-          <Back color={arcSite === 'elcomercio' ? 'black' : 'white'} />
+          <Back color={arcSite === 'elcomercio' || arcSite === 'elcomerciomag' ? 'black' : 'white'} />
           <span className="modal-header__text">Volver</span>
         </button>
       ) : (
@@ -35,10 +38,13 @@ const Header = props => {
           id="close-modal"
           className="modal-header__close"
           onClick={() => {
-            Taggeo(`Web_Sign_Wall_${typePopUp}`, `web_sw${typePopUp[0]}_boton_cerrar`)
+            Taggeo(
+              `Web_Sign_Wall_${typePopUp}`,
+              `web_sw${typePopUp[0]}_boton_cerrar`
+            )
             closePopup()
           }}>
-          <Close color={arcSite === 'elcomercio' ? 'black' : 'white'} />
+          <Close color={arcSite === 'elcomercio' || arcSite === 'elcomerciomag' ? 'black' : 'white'} />
         </button>
       )}
     </>
@@ -47,7 +53,9 @@ const Header = props => {
   return (
     <Context>
       {({ siteProperties, contextPath, deployment, arcSite }) => (
-        <div className="modal-header">
+        <div
+          className="modal-header"
+          style={{ background: arcSite === 'elcomerciomag' ? '#f7c600' : '' }}>
           {typeHeader(siteProperties, contextPath, deployment, arcSite)}
         </div>
       )}

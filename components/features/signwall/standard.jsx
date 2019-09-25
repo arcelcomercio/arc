@@ -42,11 +42,13 @@ class SignwallComponent extends PureComponent {
   }
 
   componentDidMount() {
-    const { arcSite } = this.props
+    const { arcSite, typeMobile } = this.props
 
     // ---------- Start Premium & Paywall ----------- //
     if (arcSite === 'gestion' || arcSite === 'elcomercio') {
-      this.getPaywall()
+      if (!typeMobile) {
+        this.getPaywall()
+      }
     }
     // ---------- End Premium & Paywall ------------ //
   }
@@ -132,18 +134,27 @@ class SignwallComponent extends PureComponent {
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
           // estado de suscripcion
-          return this.getListSubs().then(p => {
-            const isLoggedInSubs = !!(
-              W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-              W.localStorage.getItem('ArcId.USER_PROFILE')
-            )
-            return {
-              s: isLoggedInSubs,
-              p: p || null,
-              timeTaken: 100,
-              updated: Date.now(),
-            }
-          })
+          if (arcSite === 'gestion') {
+            // check subscriptiones
+            return this.getListSubs().then(p => {
+              const isLoggedInSubs = !!(
+                W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+                W.localStorage.getItem('ArcId.USER_PROFILE')
+              )
+              return {
+                s: isLoggedInSubs,
+                p: p || null,
+                timeTaken: 100,
+                updated: Date.now(),
+              }
+            })
+          }
+          return {
+            s: false,
+            p: null,
+            timeTaken: 100,
+            updated: Date.now(),
+          }
         },
         customRegCheck: () => {
           // estado de registro
@@ -323,6 +334,11 @@ class SignwallComponent extends PureComponent {
                 }`
               : `${classes.btnLogin} btn--outline`
           }
+          style={{
+            paddingLeft: !typeMobile ? '10px' : '',
+            paddingRight: !typeMobile ? '10px' : '',
+            width: !typeMobile ? 'auto' : '',
+          }}
           onClick={() => this.setState({ isActive: true })}>
           {typeMobile ? (
             <i
