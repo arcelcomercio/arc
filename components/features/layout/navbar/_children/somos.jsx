@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { searchQuery } from '../../../../utilities/helpers'
+import SignwallComponent from '../../../signwall/standard'
 
 const classes = {
   navbarSomos:
@@ -50,11 +51,13 @@ class HeaderChildSomos extends PureComponent {
     const { back: { logo, link, alt } = {}, device, deviceList } = this.props
     const initInputs = (
       <>
-        <button type="button" className={classes.loginButton}>
+        {/* <button type="button" className={classes.loginButton}>
           <i className={classes.iconUser} />
           Ingresa a tu cuenta
-        </button>
+        </button> */}
+        <SignwallComponent/>
         <button
+          className="hidden md:block"
           type="button"
           onClick={() => {
             this.toggleSearchInputs()

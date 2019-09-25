@@ -81,11 +81,6 @@ export default {
       url: '/terminos-y-condiciones',
     },
     {
-      name: 'TRABAJABA PARA EL GRUPO EL COMERCIO',
-      url: 'https://elcomercio.aptitus.com/',
-      external: true,
-    },
-    {
       name: 'LIBRO DE RECLAMACIONES',
       url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
       external: true,

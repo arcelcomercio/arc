@@ -7,15 +7,11 @@ import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/standard'
 
-const CLUB_URL = 'https://clubelcomercio.pe/?ref=home&ft=menu'
-const CLUB_TEXT = 'Club'
-const SUBSCRIBE_URL = 'https://suscripciones.elcomercio.pe/?ref=ec_home&ft=menu'
-const SUBSCRIBE_TEXT = 'Suscríbete'
 /* const DRAG_SCREEN_LIMIT = 90
 const LIST_WIDTH = 330 */
 
 const classes = {
-  header: `header header-inverted bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
+  header: `header header-inverted bg-primary secondary-font w-full font-normal flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
   featured: 'header__featured flex w-full font-normal overflow-hidden mr-20',
@@ -32,7 +28,7 @@ const classes = {
   btnSearch: `header-inverted__btn-search flex items-center nav__btn--search text-white lg:pr-20 lg:pl-20 border-r-1 border-solid`,
   iconSearch: 'icon-search text-lg',
   btnMenu:
-    'header-inverted__btn-menu flex items-center text-white p-5 md:pr-20 lg:pl-20',
+    'header-inverted__btn-menu flex items-center font-bold text-white p-5 md:pr-20 lg:pl-20',
   iconMenu: 'icon-hamburguer title-sm pr-10',
   btnProfile:
     'items-center btn bg-base-100 text-sm hidden p-5 md:flex lg:pr-10 lg:pl-10',

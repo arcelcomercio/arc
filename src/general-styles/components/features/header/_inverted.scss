@@ -33,6 +33,11 @@ $nav-height-active: 46px;
     }
   }
 
+  .nav-sidebar {
+    top: $header-inverted-height;
+    height: calc(100vh - #{$header-inverted-height});
+  }
+
   &.active {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;
@@ -69,6 +74,9 @@ $nav-height-active: 46px;
       color: $color-gray-200;
     }
   }
+  .nav-sidebar__parent-item {
+    color: $color-white;
+  }
 }
 
 .story {
@@ -100,7 +108,7 @@ $nav-height-active: 46px;
       width: 66%;
 
       @media (--tablet) {
-        left: 41%;
+        left: 43%;
         width: 240px;
         margin: 0;
       }
