@@ -8,6 +8,7 @@ const classes = {
   social: 'author-item__social hidden md:flex md:pt-10',
   date: 'author-item__date text-xs hidden md:block',
   content: 'author-item__content flex w-full items-start',
+  defaultImage:'author-item__box-image-default icon-marca',
   imageBox:
     'author-item__box-image flex flex-grow-0 flex-shrink-0 bg-base-300 rounded md:rounded-none',
   image:
@@ -28,6 +29,8 @@ const OpinionGridListItem = ({
     `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
   )
 
+  const existImageAuthor = story.authorImage.includes('author.png')
+
   const opinionImage = story.authorImage.includes('author.png')
     ? opinionImageDefault
     : story.authorImage
@@ -41,15 +44,20 @@ const OpinionGridListItem = ({
           </time>
         </div>
         <div className={classes.content}>
-          <figure className={classes.imageBox}>
-            <a href={story.link}>
-              <img
-                src={opinionImage}
-                className={classes.image}
-                alt={story.author}
-              />
-            </a>
-          </figure>
+          {existImageAuthor ? (
+            <i className={classes.defaultImage}></i>
+          ) : (
+            <figure className={classes.imageBox}>
+              <a href={story.link}>
+                <img
+                  src={opinionImage}
+                  className={classes.image}
+                  alt={story.author}
+                />
+              </a>
+            </figure>
+          )}
+
           <div className={classes.descBox}>
             <time className={classes.date} dateTime={story.date}>
               {formatDateLocalTimeZone(story.date)}
