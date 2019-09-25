@@ -15,6 +15,7 @@ class CardFeaturedStoryManual extends PureComponent {
       deployment,
       contextPath,
       customFields: {
+        imgField,
         note1,
         date1,
         note2,
@@ -136,6 +137,22 @@ class CardFeaturedStoryManual extends PureComponent {
       this.errorList = validateScheduledNotes()
     }
 
+    if (imgField) {
+      const customPhotoUrl = imgField.match(/\/([\w\d]{26}).[\w]{3}$/)
+      const [, photoId] = customPhotoUrl || []
+      if (photoId) {
+        this.fetchContent({
+          customPhoto: {
+            source: 'photo-by-id',
+            query: {
+              _id: photoId,
+            },
+            // filter: schema,
+          },
+        })
+      }
+    }
+
     this.fetchContent({
       data: {
         source,
@@ -182,14 +199,15 @@ class CardFeaturedStoryManual extends PureComponent {
       siteProperties: { siteName = '' } = {},
     } = this.props
 
-    const { data = {}, defaultData = {} } = this.state || {}
+    const { customPhoto = {}, data = {}, defaultData = {} } = this.state || {}
 
     // Si la data no existe usar el estado defaultData
     const existingData = data._id ? data : defaultData
     // //////////////////////////////////////////////
     const formattedData = this.storyFormatter.formatStory(
       existingData,
-      imgField
+      imgField,
+      customPhoto
     )
     const {
       category,
@@ -202,6 +220,8 @@ class CardFeaturedStoryManual extends PureComponent {
       multimediaLazyDefault,
       multimediaType,
     } = formattedData
+
+    console.log('-----> FF ', formattedData)
 
     if (this.isExternalLink) {
       title.url = path
