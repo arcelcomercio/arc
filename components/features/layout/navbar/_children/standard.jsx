@@ -41,7 +41,7 @@ const classes = {
   btnSubscribe: `flex items-center btn hidden capitalize text-md font-bold md:inline-block`,
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
-  navStoryTitle: 'nav__story-title position-relative overflow-hidden',
+  navStoryTitle: 'nav__story-title position-relative overflow-hidden line-h-sm',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
   listIcon: 'story-header__list flex justify-between ',
   moreLink: 'story-content__more-link',
@@ -135,11 +135,12 @@ class NavBarDefault extends PureComponent {
     window.addEventListener('scroll', this._handleScroll)
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
 
     if (
       this.listContainer !== null &&
       this.listContainer !== 'undefined' &&
-      !/iPad|iPhone|iPod/.test(window.navigator.userAgent)
+      !isIOS
     ) {
       document.body.addEventListener('touchstart', this._initDrag, {
         passive: true,
@@ -203,21 +204,24 @@ class NavBarDefault extends PureComponent {
   }
 
   _drag = (direction, posX) => {
-    const { statusSidebar } = this.state
-    if (direction === 'right') {
-      this.distDrag = !statusSidebar ? posX - this.initPointDrag : 0
-    } else {
-      this.distDrag = statusSidebar ? -(this.initPointDrag - posX) : 0
-    }
-    if (direction === 'right' || direction === 'left') {
-      const listPos = statusSidebar ? 1 : 0
-      this._setPosition(listPos + this.distDrag / this.listWidth)
-    }
-    if (Math.abs(this.distDrag) > this.limitScreenDrag) {
-      this.toggleBodyOverflow()
-      if (statusSidebar) this._closeMenu()
-      else this._openMenu()
-      this._endDrag()
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) {
+      const { statusSidebar } = this.state
+      if (direction === 'right') {
+        this.distDrag = !statusSidebar ? posX - this.initPointDrag : 0
+      } else {
+        this.distDrag = statusSidebar ? -(this.initPointDrag - posX) : 0
+      }
+      if (direction === 'right' || direction === 'left') {
+        const listPos = statusSidebar ? 1 : 0
+        this._setPosition(listPos + this.distDrag / this.listWidth)
+      }
+      if (Math.abs(this.distDrag) > this.limitScreenDrag) {
+        this.toggleBodyOverflow()
+        if (statusSidebar) this._closeMenu()
+        else this._openMenu()
+        this._endDrag()
+      }
     }
   }
 
@@ -226,7 +230,8 @@ class NavBarDefault extends PureComponent {
   }
 
   _openMenu = () => {
-    this._setPosition(1)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) this._setPosition(1)
     this.layerBackground.style.display = 'block'
     this.setState({
       statusSidebar: true,
@@ -234,7 +239,8 @@ class NavBarDefault extends PureComponent {
   }
 
   _closeMenu = () => {
-    this._setPosition(0)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) this._setPosition(0)
     this.layerBackground.style.display = 'none'
     this.setState({
       statusSidebar: false,

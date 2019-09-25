@@ -11,6 +11,7 @@ import {
   createLink,
   createScript,
   replaceTags,
+  storyTagsBbc,
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -94,6 +95,7 @@ class StoryContents extends PureComponent {
       deployment,
       siteProperties: {
         ids: { opta },
+        siteUrl,
       },
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
@@ -112,6 +114,7 @@ class StoryContents extends PureComponent {
       primarySectionLink,
       subtype,
       isPremium,
+      tags,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -131,7 +134,11 @@ class StoryContents extends PureComponent {
       subtype,
       ...promoItems,
     }
-
+    const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
+    const imgBbc =
+      deployment(
+        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+      ) || ''
     return (
       <div className={classes.news}>
         {primarySection === 'Impresa'
@@ -282,6 +289,16 @@ class StoryContents extends PureComponent {
             />
           )}
         </div>
+        {storyTagsBbc(tags) && (
+          <div className={classes.bbcHead}>
+            <a
+              href={URL_BBC}
+              rel="nofollow noopener noreferrer"
+              target="_blank">
+              <img alt="BBC" src={imgBbc} data-src={imgBbc} />
+            </a>
+          </div>
+        )}
       </div>
     )
   }
