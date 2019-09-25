@@ -377,7 +377,7 @@ class FormLogin extends Component {
                       <span>Volver</span>
                     </button>
                   </div>
-                  <ListBenefits />
+                  <ListBenefits brandCurrent={arcSite} />
                 </div>
 
                 <div className="form-grid__group" hidden={!hiddenListBenefits}>
