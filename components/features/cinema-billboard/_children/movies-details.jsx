@@ -33,7 +33,7 @@ const MOVIES_BASE = '/peliculas'
 const MOVIE_IMG_SIZE_SM = '367x176'
 const MOVIE_IMG_SIZE_MD = '620x387'
 
-const styleIcon = { fontSize: 40 }
+const styleIcon = { fontSize: 70 }
 class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
   constructor(props) {
     super(props)
