@@ -57,5 +57,8 @@
     @media (--desktop) {
       height: $header-inverted-height;
     }
+    &.active {
+      height: 45px;
+    }
   }
 }
