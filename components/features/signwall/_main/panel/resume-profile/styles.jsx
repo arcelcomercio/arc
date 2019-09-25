@@ -50,6 +50,7 @@ export const WrapperBlock = styled.div`
     font-size: 14px;
     padding: ${props => (props.nopadding ? '0px' : '10px 20px')};
     border-radius: 4px;
+    color: black;
     @media ${device.desktop} {
       width: 80%;
       column-count: ${props => (props.nocolumn ? '0' : props.column)};

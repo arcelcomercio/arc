@@ -804,13 +804,14 @@ class NavBarDefault extends PureComponent {
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               {siteProperties.activeSignwall && (
                 <div className={`${classes.btnContainer}`}>
-                  {siteProperties.activePaywall && (
+
+                  {siteProperties.activePaywall && arcSite !== 'elcomercio' ? (
                     <Button
                       btnText="Suscríbete"
                       btnClass={`${classes.btnSubscribe} btn--outline`}
                       btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
                     />
-                  )}
+                  ): null}
 
                   <SignwallComponent/>
 
