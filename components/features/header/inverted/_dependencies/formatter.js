@@ -1,8 +1,6 @@
 import { formatDayMonthYear } from '../../../../utilities/helpers'
 
 const LINK = 'link'
-const BAND = 'band'
-const MENU = 'menu'
 
 export default class StandardHeader {
   constructor(
@@ -39,13 +37,11 @@ export default class StandardHeader {
     this.menuData = menuData
   }
 
-  formatData = (data = {}, type = BAND) => {
+  formatData = (data = {}) => {
     const { children = [] } = data || {}
     return children.map(child => ({
       name: child.node_type === LINK ? child.display_name : child.name,
       url: child.node_type === LINK ? child.url : child._id,
-      children:
-        type === MENU && child.children ? this.formatData(child, MENU) : [],
     }))
   }
 
@@ -54,8 +50,8 @@ export default class StandardHeader {
   }
 
   getParams() {
-    const bandLinks = this.formatData(this.bandData, BAND)
-    const menuSections = this.formatData(this.menuData, MENU)
+    const bandLinks = this.formatData(this.bandData)
+    const { children: menuSections = [] } = this.menuData || {}
 
     const { inverted: logo, auxLogo } = this.headerProperties
 
@@ -73,11 +69,13 @@ export default class StandardHeader {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${this.arcSite}/images/${auxLogo}`
+            `${this.contextPath}/resources/dist/${
+              this.arcSite
+            }/images/${auxLogo}`
           ),
       },
       bandLinks,
-      menuSections: [...menuSections],
+      menuSections,
       date: {
         active: this.showDate,
         value: `LIMA - ${this.getDate()}`,
