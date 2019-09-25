@@ -29,8 +29,20 @@ const Header = props => {
           id="close-modal-link"
           className="modal-header__back"
           onClick={closePopup}>
-          <Back color={arcSite === 'elcomercio' || arcSite === 'elcomerciomag' ? 'black' : 'white'} />
-          <span className="modal-header__text">Volver</span>
+          <Back
+            color={
+              arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+                ? 'black'
+                : 'white'
+            }
+          />
+          <span
+            className="modal-header__text"
+            style={{
+              color: arcSite === 'elcomerciomag' ? 'black' : '',
+            }}>
+            Volver
+          </span>
         </button>
       ) : (
         <button
@@ -44,7 +56,13 @@ const Header = props => {
             )
             closePopup()
           }}>
-          <Close color={arcSite === 'elcomercio' || arcSite === 'elcomerciomag' ? 'black' : 'white'} />
+          <Close
+            color={
+              arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+                ? 'black'
+                : 'white'
+            }
+          />
         </button>
       )}
     </>
