@@ -135,12 +135,12 @@ class StoryHeaderChildSocial extends PureComponent {
 
     const imgBbcSource =
       deployment(
-        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+        `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
 
     const imgBbc =
       deployment(
-        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/bbc_head_fg.jpg`
+        `${contextPath}/resources/dist/${arcSite}/images/bbc_head_fg.jpg`
       ) || ''
 
     return (
