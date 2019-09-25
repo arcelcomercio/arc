@@ -25,15 +25,13 @@ const OpinionGridAuthorCard = ({
   contextPath,
   arcSite,
 }) => {
-  const opinionImageDefault = deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
-  )
+  // const opinionImageDefault = deployment(
+  //   `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
+  // )
 
 
   const existImageAuthor = story.authorImage.includes('author.png')
-  const opinionImage = story.authorImage.includes('author.png')
-    ? opinionImageDefault
-    : story.authorImage
+  const opinionImage = story.authorImage
   
 
   return (
