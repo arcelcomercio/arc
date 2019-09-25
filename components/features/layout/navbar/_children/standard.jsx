@@ -78,6 +78,7 @@ const classes = {
   iconMore: 'story-header__share-icon icon-share text-gray-200',
 }
 
+const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
 @Consumer
 class NavBarDefault extends PureComponent {
   constructor(props) {
@@ -169,7 +170,7 @@ class NavBarDefault extends PureComponent {
     if (
       this.listContainer !== null &&
       this.listContainer !== 'undefined' &&
-      !/iPad|iPhone|iPod/.test(window.navigator.userAgent)
+      !isIOS
     ) {
       document.body.addEventListener('touchstart', this._initDrag, {
         passive: true,
@@ -376,21 +377,23 @@ class NavBarDefault extends PureComponent {
   }
 
   _drag = (direction, posX) => {
-    const { statusSidebar } = this.state
-    if (direction === 'right') {
-      this.distDrag = !statusSidebar ? posX - this.initPointDrag : 0
-    } else {
-      this.distDrag = statusSidebar ? -(this.initPointDrag - posX) : 0
-    }
-    if (direction === 'right' || direction === 'left') {
-      const listPos = statusSidebar ? 1 : 0
-      this._setPosition(listPos + this.distDrag / this.listWidth)
-    }
-    if (Math.abs(this.distDrag) > this.limitScreenDrag) {
-      this.toggleBodyOverflow()
-      if (statusSidebar) this._closeMenu()
-      else this._openMenu()
-      this._endDrag()
+    if (!isIOS) {
+      const { statusSidebar } = this.state
+      if (direction === 'right') {
+        this.distDrag = !statusSidebar ? posX - this.initPointDrag : 0
+      } else {
+        this.distDrag = statusSidebar ? -(this.initPointDrag - posX) : 0
+      }
+      if (direction === 'right' || direction === 'left') {
+        const listPos = statusSidebar ? 1 : 0
+        this._setPosition(listPos + this.distDrag / this.listWidth)
+      }
+      if (Math.abs(this.distDrag) > this.limitScreenDrag) {
+        this.toggleBodyOverflow()
+        if (statusSidebar) this._closeMenu()
+        else this._openMenu()
+        this._endDrag()
+      }
     }
   }
 
