@@ -26,6 +26,21 @@
         }
       }
     }
+    &--image-content-default {
+      background-color: $color-base-200;
+      border-radius: 50%;
+      height: 80px;
+      padding: 15px;
+      width: 75px;
+      margin-bottom: 0px;
+
+      @media (--desktop) {
+        margin-bottom: 20px;
+      }
+    }
+    &--image-default {
+      font-size: 46px;
+    }
 
     &--item {
       &:nth-child(1) {

@@ -1,0 +1,7 @@
+.blog-list-author {
+  &__container {
+    & .pagination {
+      margin-top: 10px;
+    }
+  }
+}

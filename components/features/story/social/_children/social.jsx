@@ -26,7 +26,9 @@ const classes = {
   iconRibbon: 'icon-ribbon',
   iconTwitter: 'icon-twitter-circle',
   iconWhatsapp: 'icon-whatsapp',
+  bbcHead: 'bbc-head',
 }
+
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
   constructor(props) {
@@ -43,7 +45,7 @@ class StoryHeaderChildSocial extends PureComponent {
         },
         siteUrl,
       },
-      arcSite,
+
       globalContent: {
         website_url: postPermaLink,
         headlines: { basic: postTitle } = {},
@@ -105,6 +107,7 @@ class StoryHeaderChildSocial extends PureComponent {
       primarySection,
       primarySectionLink,
       subtype,
+      tags,
     } = new StoryData({
       data: globalContent,
       contextPath,
