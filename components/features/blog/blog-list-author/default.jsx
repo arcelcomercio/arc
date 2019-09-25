@@ -12,6 +12,7 @@ import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 const CONTENT_SOURCE = 'get-count-all-blogs'
 
 const classes = {
+  container: 'blog-list-author__container',
   listadoSeeMore: 'flex justify-center mt-20 uppercase pb-25 position-relative',
   buttonLink:
     'blog-post-item__button-see-more position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200',
@@ -75,7 +76,7 @@ const BlogListAuthor = props => {
       lazyImage,
       imagePost,
       authorImg,
-      date: postDate, 
+      date: postDate,
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
@@ -178,14 +179,11 @@ const BlogListAuthor = props => {
 
   return (
     <>
-      <div>
+      <div className={classes.container}>
         {dataBlogs.map((story, index) => {
           return (
             <Fragment key={`Blog-author-${index}`}>
-              <StoryItem
-                data={story}
-                {...{ deployment, contextPath, arcSite, isAdmin }}
-              />
+              <StoryItem data={story} {...{ isAdmin }} />
             </Fragment>
           )
         })}
