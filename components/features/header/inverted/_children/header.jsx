@@ -36,11 +36,11 @@ const classes = {
   btnSubs: 'header-inverted__btn-subs',
   /** ------------ */
   navStoryTitle:
-    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15',
+    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15 line-h-sm',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
 
-  listIcon: 'story-header__list flex justify-between rounded-sm',
+  listIcon: 'story-header__list hidden md:flex justify-between rounded-sm',
   moreLink: 'story-content__more-link',
   shareItem: 'story-header__item',
   shareLink: 'story-header__link flex items-center justify-center text-white',

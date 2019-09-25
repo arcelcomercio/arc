@@ -45,20 +45,24 @@ class BlogPostHeader extends PureComponent {
         {
           icon: 'icon-linkedin',
           link: urlsShareList.linkedin,
+          title: 'LinkedIn',
         },
         {
           icon: 'icon-facebook',
           link: urlsShareList.facebook,
+          title: 'Facebook',
         },
         {
           icon: 'icon-twitter',
           link: urlsShareList.twitter,
           mobileClass: 'no-mobile',
+          title: 'Twitter',
         },
         {
           icon: 'icon-whatsapp',
           link: urlsShareList.whatsapp,
           mobileClass: 'no-desktop',
+          title: 'Whatsapp',
         },
       ],
       [this.secondList]: [
@@ -66,10 +70,12 @@ class BlogPostHeader extends PureComponent {
           icon: 'icon-twitter',
           link: urlsShareList.twitter,
           mobileClass: 'no-desktop',
+          title: 'Twitter',
         },
         {
           icon: 'icon-print',
           link: '',
+          title: 'Imprimir',
         },
       ],
     }
@@ -107,9 +113,12 @@ class BlogPostHeader extends PureComponent {
                 }}>
                 <i className={item.icon} />
                 <span className={classes.share}>
-                  {i === 1 && currentList === this.secondList
+                  {
+                    /* i === 1 && currentList === this.secondList
                     ? 'Imprimir'
-                    : 'Compartir'}
+                  : 'Compartir' */
+                    item.title
+                  }
                 </span>
               </a>
             </li>
