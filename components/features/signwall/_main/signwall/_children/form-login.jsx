@@ -593,6 +593,7 @@ class FormLogin extends Component {
                     bgcolor={
                       {
                         elcomercio: '#fecd26',
+                        elcomerciomag: '#fecd26',
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
                       }[arcSite]
