@@ -58,7 +58,7 @@ const classes = {
   // btnSignwall: 'nav__btn--login', No contemplado en diseño
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
-  navStoryTitle: 'nav__story-title position-relative overflow-hidden',
+  navStoryTitle: 'nav__story-title position-relative overflow-hidden line-h-sm',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
   // iconSignwallMobile: 'uppercase ',
   // btnSignwallMobile:
@@ -845,9 +845,7 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${
-                  classes.navMobileContainer
-                } ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
                 <SignwallComponent typeMobile />
                 {/* <button
                   type="button"
