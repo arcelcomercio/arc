@@ -10,6 +10,8 @@ const classes = {
   opinionItemNameLink: 'title-xs mb-25 text-gray-300 font-bold line-h-sm',
   opinionItemTitle: 'text-md text-gray-300',
   opinionItemImage: 'separator__opinion--item-image mb-20',
+  opinionContentImageDefault: 'separator__opinion--image-content-default',
+  opinionDefaulImage: 'separator__opinion--image-default icon-marca',
   opinionItemImageImg: 'object-cover w-full h-full rounded',
   opiniononeline: 'separator__opinion--item-oneline',
   opiniontwoline: 'separator__opinion--item-twoline',
@@ -43,19 +45,28 @@ const SeparatorsChildAuthorCard = props => {
       numline = classes.opiniontwoline
       break
   }
+
+  debugger
+  const existImageAuthor = imageUrl.includes('author.png')
+
   return (
     <article className={classes.opinionItem}>
       <div className={classes.opinionItemDetails}>
-        <figure className={classes.opinionItemImage}>
-          <a href={authorUrl}>
-            <img
-              className={classes.opinionItemImageImg}
-              src={imageUrl}
-              alt={author || ''}
-            />
-          </a>
-        </figure>
-        
+        {existImageAuthor ? (
+          <div className={classes.opinionContentImageDefault}>
+            <i className={classes.opinionDefaulImage}></i>
+          </div>
+        ) : (
+          <figure className={classes.opinionItemImage}>
+            <a href={authorUrl}>
+              <img
+                className={classes.opinionItemImageImg}
+                src={imageUrl}
+                alt={author || ''}
+              />
+            </a>
+          </figure>
+        )}
         <h5 className={classes.opinionItemName}>
           <a href={authorUrl} className={classes.opinionItemNameLink}>
             {author}
