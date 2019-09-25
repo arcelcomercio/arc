@@ -408,6 +408,10 @@ export const appendToBody = node => {
   document.body.append(node)
 }
 
+export const appendToId = (id, node) => {
+  id.append(node)
+}
+
 export const breadcrumbList = (url, siteUrl) => {
   const arrayData = []
   if (url) {
@@ -905,4 +909,20 @@ export const skipAdvertising = (data = []) => {
       return slug === 'noads' ? true : ''
     })
     .filter(String)[0]
+}
+
+export const storyTagsBbc = (data = []) => {
+  return data
+    .map(({ slug }) => {
+      return slug === 'bbc' ? true : ''
+    })
+    .filter(String)[0]
+}
+
+export const storyVideoPlayer = (content = '') => {
+  return (
+    content.match(
+      /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    ) || []
+  )
 }

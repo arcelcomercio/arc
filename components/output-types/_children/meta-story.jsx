@@ -42,9 +42,9 @@ export default ({
     ({ url, caption, urlImage, date } = {}) => {
       return `{ 
       "@type":"VideoObject",
-        "name":"${caption}",
+        "name":"${formatHtmlToText(caption)}",
         "thumbnailUrl": "${urlImage}",
-        "description":"${caption}",
+        "description":"${formatHtmlToText(caption)}",
         "contentUrl": "${url}",
         "uploadDate": "${date}"
      }
@@ -124,7 +124,7 @@ export default ({
       "url": "${siteUrl}${deployment(
         `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
       )}",
-      "description": "${siteName}",
+      "description": "${formatHtmlToText(siteName)}",
       "height": 418,
       "width": 696
     },`
@@ -213,7 +213,7 @@ export default ({
 
   return (
     <>
-      {!isAmp && (
+      {!isAmp && !isPremium && (
         <link rel="amphtml" href={`${siteUrl}${link}?outputType=amp`} />
       )}
       <meta name="data-article-id" content={id} />
