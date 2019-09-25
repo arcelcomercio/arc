@@ -2,8 +2,14 @@ $nav-height-active: 45px;
 
 .header-inverted {
   /*   height: $header-inverted-height; */
-  @media (--only-mobile) {
-    height: 60px;
+  .nav-sidebar {
+    top: $header-mobile-height;
+    height: calc(100vh - #{$header-mobile-height});
+
+    @media (--desktop) {
+      top: $header-inverted-height;
+      height: calc(100vh - #{$header-inverted-height});
+    }
   }
 
   .header__logo {
@@ -31,12 +37,13 @@ $nav-height-active: 45px;
     color: $color-white;
   }
 
-  .nav-sidebar {
-    top: $header-inverted-height;
-  }
   .header-inverted__btn-search.active {
     color: $color-gray-200;
   }
+  .nav__btn {
+    font-family: 'Open sans', serif;
+  }
+
   &.active {
     background-color: $color-base-100;
     height: $nav-height-active;

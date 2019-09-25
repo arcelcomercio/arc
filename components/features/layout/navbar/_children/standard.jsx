@@ -166,7 +166,11 @@ class NavBarDefault extends PureComponent {
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
 
-    if (this.listContainer !== null && this.listContainer !== 'undefined') {
+    if (
+      this.listContainer !== null &&
+      this.listContainer !== 'undefined' &&
+      !/iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    ) {
       document.body.addEventListener('touchstart', this._initDrag, {
         passive: true,
       })
@@ -804,16 +808,15 @@ class NavBarDefault extends PureComponent {
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               {siteProperties.activeSignwall && (
                 <div className={`${classes.btnContainer}`}>
-
                   {siteProperties.activePaywall && arcSite !== 'elcomercio' ? (
                     <Button
                       btnText="Suscríbete"
                       btnClass={`${classes.btnSubscribe} btn--outline`}
                       btnLink={`https://suscripciones.${arcSite}.pe/?ref=${arcSite}`}
                     />
-                  ): null}
+                  ) : null}
 
-                  <SignwallComponent/>
+                  <SignwallComponent />
 
                   {/* <button
                     type="button"
@@ -842,8 +845,10 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
-                <SignwallComponent typeMobile/>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
+                <SignwallComponent typeMobile />
                 {/* <button
                   type="button"
                   id={
