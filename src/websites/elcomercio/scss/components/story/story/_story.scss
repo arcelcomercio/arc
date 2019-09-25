@@ -184,8 +184,14 @@
   .header-inverted.active .nav__story-social-network .story-header__share-icon {
     color: $color-white;
   }
-  /*   .header.header-inverted {
-
-    height: 45px;
+  /*  .header {
+    @media (--desktop) {
+      height: 70px;
+    }
+  }
+  .header-inverted .nav-sidebar {
+    @media (--desktop) {
+      top: 70px;
+    }
   } */
 }

@@ -129,7 +129,7 @@ export default {
         name: 'Jr. Santa Rosa #300 Lima 1 Perú',
       },
       {
-        position: 'Copyright © ojo.pe',
+        position: 'Copyright © elcomercio.pe',
         name:
           '© Empresa Editora El Comercio - Copyright © Elcomercio.pe - Grupo El Comercio - Todos los derechos reservados.',
       },
