@@ -1,17 +1,17 @@
 /******* Brand colors *******/
-$color-primary: #f7c83c;
+$color-primary: #f7c600;
 /*-----------------------*/
-
+// TODO: no debe pasar de base-400
 $color-base-500: #addef7;
 $color-base-400: #d2eaf7;
 $color-base-300: #e8f2f7;
 $color-base-200: #cddde5;
-$color-base-100: #444444;
+$color-base-100: #444444; // TODO: deberia ser parte de grayscale
 /*-----------------------*/
 
 /******* Other colors *******/
 $color-link: #469bc6;
-$color-yellow: #e67335;
+$color-yellow: #e67335; // TODO: Debe tener nombre generico
 /*-----------------------*/
 
 /** ----------------------------*

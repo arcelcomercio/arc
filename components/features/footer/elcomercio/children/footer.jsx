@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  footer: 'secondary-font',
+  footer: '',
   container: 'flex flex-col p-30 bg-primary md:flex-row',
   /** ---------------------- */
   info: 'flex-1 pr-20 pl-20 position-relative text-center md:text-left',
@@ -163,11 +163,11 @@ const FooterChildElComercio = ({
                           className={classes.linksLink}
                           target="_blank"
                           rel="noopener noreferrer">
-                          - {name}
+                          {name}
                         </a>
                       ) : (
                         <a href={url} className={classes.linksLink}>
-                          - {name}
+                          {name}
                         </a>
                       )}
                     </li>

@@ -1,6 +1,12 @@
 .story-interest {
   &__titleList {
     border-top: 1px solid $border-gray;
+    text-align: left;
+    font-family: $fourth-font;
+    @media (--only-mobile) {
+      padding-left: 0;
+      font-size: 16px;
+    }
   }
   &__list {
     flex-wrap: wrap;
@@ -28,9 +34,16 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    order: 1;
+    margin-top: 20px;
     @media (--desktop) {
       text-align: left;
     }
+  }
+  &__category-link {
+    font-family: $fourth-font;
+    font-size: 11px;
+    font-weight: 500;
   }
   &__title {
     @media (--desktop) {
@@ -38,6 +51,13 @@
     }
   }
   &__title-link {
+    font-family: $fourth-font;
     color: $color-gray-300;
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  &__detail {
+    display: flex;
+    flex-direction: column;
   }
 }

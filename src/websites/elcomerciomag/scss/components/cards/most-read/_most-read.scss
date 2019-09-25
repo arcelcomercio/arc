@@ -2,20 +2,18 @@
   background-color: transparent;
 
   &__title {
-    color: $color-primary;
     background-color: $color-base-400;
 
     &:after {
       content: '';
       display: block;
-      position: absolute;
-      right: 20px;
-      width: 20px;
-      height: 20px;
-      background-image: url(/pf/resources/dist/peru21/images/logo-sm.png);
-      background-size: cover;
     }
   }
+
+  &__link {
+    color: $color-white;
+  }
+
   &__icon {
     display: none;
   }

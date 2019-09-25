@@ -4,7 +4,7 @@
     display: flex;
     justify-content: flex-start;
     &:first-child {
-      background-color: $color-base-100;
+      background-color: #555555;
     }
   }
 
@@ -89,27 +89,40 @@
   &__container-right {
     display: block;
     .btn {
-      padding: 6px;
+      padding: 0px;
       font-family: $tertiary-font;
       font-size: 11px;
       letter-spacing: 0px;
       line-height: 14px;
+      width: 80px;
+      height: 25px;
+      border-radius: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
   &.active {
+    height: 45px;
     .nav__mobile-logo {
       top: auto;
     }
     .nav__logo {
       display: block;
-      height: 32px;
+      width: 154px;
+      height: 24px;
+      @media (max-width: 360px) {
+        width: 120px;
+        height: 20px;
+      }
+      @media (--tablet) {
+        width: 191px;
+        height: 30px;
+      }
     }
     .btn {
       color: $color-base-100;
-      @media (--only-mobile) {
-        padding: 4px;
-      }
     }
 
     .nav__container-menu {

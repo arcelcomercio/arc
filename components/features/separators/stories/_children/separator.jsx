@@ -3,7 +3,7 @@ import { createMarkup } from '../../../../utilities/helpers'
 import Icon from '../../../../global-components/multimedia-icon'
 
 const classes = {
-  separator: `separator bg-white mt-20 w-full pt-0 pr-20 pb-15 pl-20 border-t-1 border-solid`,
+  separator: `separator bg-white mt-20 w-full pt-0 pr-20 pb-15 pl-20 border-t-1 border-solid position-relative`,
   title: 'separator__header-title capitalize pb-20 pt-20 text-left text-lg',
   titleLink: 'separator__header-link font-bold',
   oneline: 'separator__oneline',
@@ -14,7 +14,7 @@ const classes = {
   item: 'separator__item hidden w-full h-full p-0 position-relative',
   detail: 'separator__detail position-absolute bottom-0 pr-15 pl-15 pb-15',
   text: 'separator__title overflow-hidden text-white text-md line-h-sm',
-  imgBox: 'p-0 m-0 w-full h-full overflow-hidden',
+  imgBox: 'p-0 m-0 w-full h-full overflow-hidden block',
   img: 'separator__img w-full h-full object-cover object-center',
   icon: `separator__icon`,
   article: `separator__article h-full`,
@@ -28,9 +28,15 @@ const SeparatorsBasicChildSeparator = ({
   stories,
   isAuthorVisible,
   isAdmin,
+  design,
+  isSeeMoreVisible,
+  responsive,
 }) => {
   return (
-    <div className={`${classes.separator}${isThreeCol ? ' col-3' : ''}`}>
+    <div
+      className={`${classes.separator}${
+        isThreeCol ? ' col-3' : ''
+      } ${design} ${responsive}`}>
       {htmlCode ? (
         <div
           className={classes.title}
@@ -44,6 +50,13 @@ const SeparatorsBasicChildSeparator = ({
             </a>
           </h2>
         )
+      )}
+      {isSeeMoreVisible && (
+        <a
+          href={titleLink}
+          className="separator__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200">
+          VER MÁS
+        </a>
       )}
       <div role="list" className={classes.body}>
         {stories.map(
@@ -61,7 +74,10 @@ const SeparatorsBasicChildSeparator = ({
               <article role="listitem" className={classes.article}>
                 <Icon type={multimediaType} iconClass={classes.icon} />
                 <div className={classes.detail}>
-                  <a href={websiteLink} title={title}>
+                  <a
+                    className="separator__title-link"
+                    href={websiteLink}
+                    title={title}>
                     <h3 className={classes.text}>{title}</h3>
                   </a>
                   {isAuthorVisible && (
@@ -74,7 +90,7 @@ const SeparatorsBasicChildSeparator = ({
                     </h2>
                   )}
                 </div>
-                <a href={websiteLink}>
+                <a className="separator__img-link block" href={websiteLink}>
                   <picture className={classes.imgBox}>
                     <source
                       className={isAdmin ? '' : 'lazy'}

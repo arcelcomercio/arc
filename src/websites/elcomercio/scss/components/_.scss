@@ -27,10 +27,17 @@
 @import './story/continue/story-continue';
 @import './story/header/story-gallery';
 @import './story/header/story-gallery-slider';
+@import './story/header/story-header';
 @import './story/story/story';
 @import './stories-lists/cards/stories-list-card';
 @import './stories-lists/cards/stories-list-header';
+@import './stories-lists/cards/stories-l-footer';
 @import './stories-lists/cards/stories-l-section';
 @import './stories-lists/cards/stories-list-item';
 @import './columnist-premium.scss/columnist-premium';
 @import './archive-calendar/calendar';
+@import './blog/blog-list-author/blog-post-item';
+@import './blog/author-details';
+@import './blog/post-content';
+@import './blog/post-header';
+@import './blog/author-title';

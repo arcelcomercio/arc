@@ -393,7 +393,7 @@ class FormLogin extends Component {
                   {!showSocialButtons && (
                     <>
                       <div className="row-grid form-group col-center">
-                        <p className="text-center mt-20 mb-20">
+                        <p className="form-grid__link text-center mt-20 mb-20">
                           Ingresa con tus redes sociales
                         </p>
                       </div>
@@ -414,7 +414,7 @@ class FormLogin extends Component {
 
                   {hiddenEnterUser && (
                     <div className="form-grid__group mt-30">
-                      <p className="text-center mb-20 col-center">
+                      <p className="form-grid__link text-center mb-20 col-center">
                         O ingresa con tu usuario
                       </p>
 
@@ -570,7 +570,7 @@ class FormLogin extends Component {
                 </div>
                 {arcSite !== 'peru21' && (
                   <div
-                    className="form-grid__group lg:hidden"
+                    className="form-grid__group lg:hidden mt-20"
                     hidden={!hiddenListBenefits}>
                     {typePopUp !== 'paywall' && (
                       <p className="form-grid__subtitle text-center form-group--center">

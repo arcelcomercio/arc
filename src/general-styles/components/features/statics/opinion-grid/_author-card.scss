@@ -3,8 +3,18 @@
   // &:nth-child(even){
   // 	border-right: solid 1px #333;
   // }
+  &__detail {
+    width: 70%;
+    @media (--tablet) {
+      width: 70%;
+    }
+    @media (--desktop) {
+      width: 70%;
+    }
+  }
   &__wrapper {
-    background-color: $color-base-200;
+    // background-color: gold;
+    background-color: $color-base-300;
 
     @media (--tablet) {
       height: 340px;
@@ -23,17 +33,27 @@
       position: absolute;
     }
   }
+  &__image-default {
+    padding: 14px;
+    font-size: 80px;
+    border-radius: 50%;
+    background-color: $color-base-200;
+    
+  }
 
   &__image {
-    width: 60px;
-    height: 60px;
-
+    width: 100px;
+    height: 110px;
+    border-radius: 50%;
+    background-color: $color-base-200;
     @media (--tablet) {
-      border-radius: 0;
+      border-radius: 50%;
       background-color: transparent;
       object-fit: contain;
       object-position: bottom;
+      background-color: $color-base-200;
     }
+    
   }
 
   &__name {
@@ -41,12 +61,12 @@
       max-height: inherit;
     }
   }
-
-  &__title {
-    width: 90%;
-
-    @media (--tablet) {
-      width: 70%;
-    }
+  &__icono {
+    background-color: $color-base-200;
+    bottom: 0px;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    padding: 6px 6px 6px 7px;
   }
 }

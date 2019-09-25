@@ -10,6 +10,9 @@ export default PropTypes.shape({
   isAuthorVisible: PropTypes.bool.tag({
     name: 'Mostrar autor',
   }),
+  isSeeMoreVisible: PropTypes.bool.tag({
+    name: 'Mostrar botón "Ver más"',
+  }),
   titleSeparator: PropTypes.string.tag({
     name: 'Titulo del separador',
     group: 'Configuración del título',
@@ -21,5 +24,24 @@ export default PropTypes.shape({
   htmlCode: PropTypes.richtext.tag({
     name: 'Insertar título con código HTML',
     group: 'Configuración del título',
+  }),
+  design: PropTypes.oneOf(['standart', 'custom']).tag({
+    name: 'Diseño',
+    labels: {
+      standart: 'Imagen parcial',
+      custom: 'Imagen completa',
+    },
+    defaultValue: 'standart',
+    group: 'Configuración de diseño',
+  }),
+  responsive: PropTypes.oneOf(['complete', 'partial', 'mobileHidden']).tag({
+    name: 'Vista móvil',
+    labels: {
+      complete: 'Mostrar todas las noticias',
+      partial: 'Mostrar solo 1 noticia',
+      mobileHidden: 'Ocultar el separador',
+    },
+    defaultValue: 'complete',
+    group: 'Configuración del responsive',
   }),
 })

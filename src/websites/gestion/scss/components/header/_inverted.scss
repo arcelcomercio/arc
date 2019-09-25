@@ -59,6 +59,9 @@
     }
 
     .nav__story-title {
+      @media (--tablet) {
+        left: 41%;
+      }
       @media (--desktop) {
         left: 33%;
       }

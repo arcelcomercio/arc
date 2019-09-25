@@ -2,9 +2,11 @@
   min-height: 35px;
   &__title {
     min-width: 10%;
-    max-width: 60%;
+    max-width: 70%;
   }
-
+  &__icon {
+    display: none;
+  }
   &__see-more {
     height: 22px;
   }

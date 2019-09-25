@@ -11,7 +11,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KKXTKGP_',
+  googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
   ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,
@@ -49,18 +49,18 @@ export default {
     },
     aniversario: `images/aniversario.svg`,
     nav: {
-      logo: 'logo.png',
+      logo: 'white-logo.png',
     },
     header: {
-      logo: 'logo.png',
+      logo: 'white-logo.png',
       inverted: 'logo.png',
     },
     footer: {
-      logo: 'logo-square.png',
+      logo: 'logo.png',
     },
     seo: {
-      logoAmp: 'logo-elcomercio-316x60.png',
-      width: 316,
+      logoAmp: 'logo-143x60.png',
+      width: 143,
       height: 60,
     },
     premium: {
@@ -71,42 +71,15 @@ export default {
   legalLinks: [
     {
       name: 'Términos y condiciones de uso',
-      url: '/terminos-y-condiciones',
-    },
-    {
-      name: 'Trabaja para Grupo El Comercio',
-      url: 'https://elcomercio.aptitus.com/',
-      external: true,
-    },
-    {
-      name: 'Libro de Reclamaciones',
-      url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
-      external: true,
-    },
-    {
-      name: 'Oficinas Concesionarias',
-      url: '/oficinas-concesionarias',
-      external: true,
-    },
-    {
-      name: 'Principios Rectores',
-      url: '/principios-rectores',
+      url: 'https://elcomercio.pe/terminos-y-condiciones/',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
-    },
-    {
-      name: 'Política integrada de gestión',
-      url: '/politica-integrada-de-gestion',
-    },
-    {
-      name: 'Derechos Arco',
-      url: '/procedimiento-arco',
+      url: 'https://elcomercio.pe/politicas-privacidad/',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politica-de-cookies',
+      url: 'https://elcomercio.pe/politica-de-cookies/',
     },
   ],
 

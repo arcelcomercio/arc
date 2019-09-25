@@ -44,24 +44,46 @@ const classes = {
 
 @Consumer
 class StoryContents extends PureComponent {
+  componentDidMount() {
+    const { arcSite } = this.props
+    if (arcSite === ConfigParams.SITE_ELCOMERCIO) {
+      appendToBody(
+        createScript({
+          src:
+            'https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7',
+          defer: true,
+        })
+      )
+    }
+  }
+
   handleOptaWidget = ({ id, css, js, defer }) => {
-    appendToBody(
-      createScript({
-        textContent: `
+    // eslint-disable-next-line camelcase
+    if (typeof opta_settings === 'undefined') {
+      appendToBody(
+        createScript({
+          textContent: `
         var opta_settings={
             subscription_id: '${id}',
             language: 'es_CO',
             timezone: 'America/Lima'
         };`,
-      })
-    )
-    appendToBody(
-      createScript({
-        src: js,
-        defer,
-      })
-    )
-    appendToBody(createLink(css))
+        })
+      )
+      appendToBody(
+        createScript({
+          src: js,
+          defer,
+        })
+      )
+      appendToBody(createLink(css))
+      appendToBody(
+        createScript({
+          src:
+            'https://d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio',
+        })
+      )
+    }
   }
 
   render() {
@@ -203,7 +225,9 @@ class StoryContents extends PureComponent {
 
                 if (type === ConfigParams.ELEMENT_TEXT) {
                   const alignmentClass = alignment
-                    ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
+                    ? `${classes.textClasses} ${
+                        classes.alignmentClasses
+                      }-${alignment}`
                     : classes.textClasses
                   return (
                     <Text

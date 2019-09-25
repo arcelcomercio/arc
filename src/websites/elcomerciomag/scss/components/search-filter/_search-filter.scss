@@ -1,5 +1,4 @@
 .search-filter {
-  background-color: $color-base-400;
   &__item {
     font-family: $secondary-font;
     @media (--desktop) {
@@ -28,6 +27,9 @@
     }
   }
   &__link {
+    &:hover {
+      background-color: $color-gray-200;
+    }
     @media (--desktop) {
       background-color: $color-white;
     }

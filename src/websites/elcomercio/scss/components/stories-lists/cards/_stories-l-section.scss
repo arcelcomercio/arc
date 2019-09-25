@@ -6,6 +6,7 @@
     justify-content: space-between;
   }
   .stories-l-header {
+    margin-bottom: 5px;
     &.bg-info {
       background-color: $color-base-200;
     }
@@ -14,12 +15,17 @@
     &:first-child {
       .stories-l-item__link {
         font-size: 20px;
+        height: 68px;
+        line-height: 22px;
       }
     }
     &:last-child {
       .stories-l-item__link-box {
         border-bottom: 0;
       }
+    }
+    .multimedia__icon {
+      background-color: transparent;
     }
   }
   .stories-l-item__link {
@@ -34,7 +40,8 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    height: 60px;
+    height: 61px;
+    max-height: none;
     font-family: $fourth-font;
   }
   .stories-l-item__autor {
@@ -42,6 +49,7 @@
     line-height: 15px;
     color: #888888;
     font-family: $fourth-font;
+    text-transform: uppercase;
   }
   .stories-l-item__link-box {
     border-color: #c1c1c1;

@@ -1,0 +1,44 @@
+.post-header {
+  &__title {
+    line-height: 1.1666666667;
+    font-family: Georgia;
+    font-weight: 700;
+    @media (--desktop) {
+      font-size: 40px;
+    }
+  }
+
+  &__list {
+    border-bottom: 1px dashed $color-gray-200;
+    border-top: 1px dashed $color-gray-200;
+  }
+
+  &__item {
+    background-color: $color-white;
+    & .icon-linkedin {
+      font-size: 2.2rem;
+      &::before {
+        content: '\e90b';
+      }
+    }
+    & .icon-facebook {
+      font-size: 2.2rem;
+      &::before {
+        content: '\e915';
+      }
+    }
+    & .icon-twitter {
+      font-size: 2.2rem;
+      &::before {
+        content: '\e914';
+      }
+    }
+    & .icon-print {
+      font-size: 2.2rem;
+    }
+  }
+
+  /* &__link:hover {
+    text-decoration: none;
+  } */
+}

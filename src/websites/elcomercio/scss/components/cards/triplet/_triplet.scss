@@ -29,4 +29,16 @@
   &__link {
     font-family: $fourth-font;
   }
+  &__icon {
+    background-color: transparent;
+    top: 6px;
+    right: 6px;
+    left: auto;
+    transform: none;
+  }
+  &__author {
+    @media (--only-mobile) {
+      font-size: 11px;
+    }
+  }
 }
