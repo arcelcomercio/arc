@@ -8,8 +8,6 @@ import PWA from '../../_dependencies/seed-pwa'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
-const PIXEL =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
 
 const Item = ({ label, children }) => {
   return (
@@ -101,10 +99,13 @@ const WizardConfirmation = props => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
         <S.Picture>
-          <source media={theme.breakpoints.down('xs', false)} srcSet={PIXEL} />
-          <source media={theme.breakpoints.only('sm', false)} srcSet={PIXEL} />
+          <source
+            media={theme.breakpoints.down('sm', false)}
+            srcSet={theme.images.pixel}
+          />
+          <source srcSet={theme.images.confirmation_jpg} type="image/jpg" />
           <source srcSet={theme.images.confirmation_webp} type="image/webp" />
-          <S.Image src={theme.images.confirmation} alt="confirmación" />
+          <S.Image src={theme.images.confirmation_webp} alt="confirmación" />
         </S.Picture>
 
         <S.Content>
