@@ -1,10 +1,13 @@
 .triplet {
   border: 0;
-  padding: 10px;
+  padding: 0 10px;
   &__item {
     border-color: $color-gray-100;
   }
 
+  &__title {
+    margin-bottom: 5px;
+  }
   &__title-link {
     font-weight: 700;
     font-size: 17px;
@@ -24,6 +27,7 @@
     @media (--desktop) {
       -webkit-line-clamp: 4;
       max-height: 82px;
+      line-height: 20px;
     }
   }
   &__link {
@@ -40,5 +44,9 @@
     @media (--only-mobile) {
       font-size: 11px;
     }
+  }
+  &__multimedia {
+    width: 80px;
+    height: 95px;
   }
 }
