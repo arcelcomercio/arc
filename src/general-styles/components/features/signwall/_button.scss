@@ -6,14 +6,14 @@
       border-radius: 0.4rem;
       padding: 12px 20px;
       margin: 0px;
-      width: 100%;
+      width: 100% !important;
       background-color: $color-white;
       text-transform: uppercase;
       font-weight: bold;
       box-sizing: border-box;
       outline: none;
       cursor: pointer;
-      height: 50px;
+      height: 50px !important;
       -webkit-appearance: none;
 
       @media (--tablet) {
@@ -22,7 +22,7 @@
       }
 
       &:hover {
-        color: white;
+        color: white !important;
         transition: all 0.5s ease-in-out;
       }
 
@@ -35,7 +35,7 @@
       }
 
       &--blue {
-        color: white;
+        color: white !important;
 
         &:hover {
           box-shadow: 0rem 0rem 0.5rem #0f8bf7;
@@ -58,7 +58,7 @@
       &-facebook,
       &-google {
         position: relative;
-        color: white;
+        color: white !important;
         text-transform: inherit;
         border-radius: 0.2rem;
         font-weight: inherit;
