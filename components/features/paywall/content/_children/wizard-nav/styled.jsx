@@ -37,9 +37,6 @@ const Content = styled.div`
       &:after {
         margin-right: -90px;
       }
-      ${StepName} {
-        display: none;
-      }
     }
     ${active
       ? css`
@@ -50,13 +47,14 @@ const Content = styled.div`
           ${StepNumber} {
             color: ${theme.palette.primary.contrastText};
           }
+        `
+      : css`
           ${theme.breakpoints.down('xs')} {
-            ${StepCircle} {
-              display: block;
+            ${StepName} {
+              display: none;
             }
           }
-        `
-      : css``}
+        `}
   `}
   &:after {
     display: inline-block;

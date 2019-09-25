@@ -1,5 +1,5 @@
 export default ({
-  colors: { grey, amber, orange, pink, red },
+  colors: { grey, amber, lightBlue, pink, red },
   createTheme,
   fusionContext,
   getImageDeployment,
@@ -20,7 +20,7 @@ export default ({
         contrastText: grey[100],
       },
       terciary: {
-        main: orange[800],
+        main: lightBlue[800],
       },
       common: { black: '#000', white: '#fff' },
       success: {
