@@ -7,7 +7,7 @@ $nav-height-active: 45px;
   } */
   .nav-sidebar {
     top: $header-mobile-height;
-    height: calc(100vh - $header-mobile-height);
+    height: calc(100vh - #{$header-mobile-height});
 
     @media (--desktop) {
       top: $header-inverted-height;
