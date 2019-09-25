@@ -71,8 +71,8 @@ class SignWallRelogin extends Component {
     const { nameMPP } = this.state
     const { closePopup, brandModal } = this.props
     return (
-      <div className="signwall">
-        <div className="link-identity__content">
+      // <div className="signwall">
+      //   <div className="link-identity__content">
           <ModalProvider>
             <ModalConsumer>
               {value => (
@@ -98,8 +98,8 @@ class SignWallRelogin extends Component {
               )}
             </ModalConsumer>
           </ModalProvider>
-        </div>
-      </div>
+      //   </div>
+      // </div>
     )
   }
 }
