@@ -33,6 +33,11 @@ $nav-height-active: 46px;
     }
   }
 
+  .nav-sidebar {
+    top: $header-inverted-height;
+    height: calc(100vh - #{$header-inverted-height});
+  }
+
   &.active {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;

@@ -29,6 +29,19 @@
       }
     }
   } */
+  &__box-image-default {
+    height: 50px;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 50%;
+    background-color: $color-base-300;
+
+    @media (--desktop) {
+      height: 75px;
+      padding: 16px;
+      font-size: 40px;
+    }
+  }
 
   &__box-image {
     flex-basis: 50px;
