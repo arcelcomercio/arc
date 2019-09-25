@@ -133,61 +133,61 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     .map(id => id.trim())
   return (
     <ErrorBoundary>
-      <FillHeight substractElements={substractFeaturesIds}>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <S.Content>
-            <Loading
-              loadingIcon={<Icon type={theme.icon.loading} />}
-              fullscreen
-              spinning={loading}
+      {/* <FillHeight substractElements={substractFeaturesIds}> */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <S.Content>
+          <Loading
+            loadingIcon={<Icon type={theme.icon.loading} />}
+            fullscreen
+            spinning={loading}
+          />
+          <Wizard
+            transitions={{
+              enterRight: 'enterRight',
+              enterLeft: 'enterLeft',
+              exitRight: 'exitRight',
+              exitLeft: 'exitLeft',
+            }}
+            ref={wizardRef}
+            isLazyMount
+            nav={
+              <Nav
+                stepsNames={stepNames}
+                right={<ClickToCall href={clickToCall} />}
+              />
+            }>
+            <WizardPlan
+              message={message}
+              printedSubscriber={printedSubscriber}
+              memo={currMemo}
+              plans={plans}
+              summary={summary}
+              onBeforeNextStep={onBeforeNextStepHandler}
+              setLoading={setLoading}
             />
-            <Wizard
-              transitions={{
-                enterRight: 'enterRight',
-                enterLeft: 'enterLeft',
-                exitRight: 'exitRight',
-                exitLeft: 'exitLeft',
-              }}
-              ref={wizardRef}
-              isLazyMount
-              nav={
-                <Nav
-                  stepsNames={stepNames}
-                  right={<ClickToCall href={clickToCall} />}
-                />
-              }>
-              <WizardPlan
-                message={message}
-                printedSubscriber={printedSubscriber}
-                memo={currMemo}
-                plans={plans}
-                summary={summary}
-                onBeforeNextStep={onBeforeNextStepHandler}
-                setLoading={setLoading}
-              />
-              <WizardUserProfile
-                memo={currMemo}
-                profile={profile}
-                formName={PROFILE_FORM_NAME}
-                summary={summary}
-                onBeforeNextStep={onBeforeNextStepHandler}
-                setLoading={setLoading}
-              />
-              <WizardPayment
-                memo={currMemo}
-                summary={summary}
-                formName={PAYMENT_FORM_NAME}
-                onBeforeNextStep={onBeforeNextStepHandler}
-                setLoading={setLoading}
-              />
-              <WizardConfirmation
-                memo={currMemo}
-                onBeforeNextStep={onBeforeNextStepHandler}
-              />
-            </Wizard>
-          </S.Content>
-        </div>
-      </FillHeight>
+            <WizardUserProfile
+              memo={currMemo}
+              profile={profile}
+              formName={PROFILE_FORM_NAME}
+              summary={summary}
+              onBeforeNextStep={onBeforeNextStepHandler}
+              setLoading={setLoading}
+            />
+            <WizardPayment
+              memo={currMemo}
+              summary={summary}
+              formName={PAYMENT_FORM_NAME}
+              onBeforeNextStep={onBeforeNextStepHandler}
+              setLoading={setLoading}
+            />
+            <WizardConfirmation
+              memo={currMemo}
+              onBeforeNextStep={onBeforeNextStepHandler}
+            />
+          </Wizard>
+        </S.Content>
+      </div>
+      {/* </FillHeight> */}
     </ErrorBoundary>
   )
 }
