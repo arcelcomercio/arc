@@ -52,12 +52,4 @@
       height: 55px;
     }
   }
-  &.header-inverted {
-    @media (--desktop) {
-      height: $header-inverted-height;
-    }
-    &.active {
-      height: 45px;
-    }
-  }
 }

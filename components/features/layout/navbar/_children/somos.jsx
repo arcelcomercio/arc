@@ -16,7 +16,7 @@ const classes = {
   searchInput:
     'navbar-somos__search-input primary-font font-bold text-md pt-0 pb-0 pr-10 pl-10 border-0',
   searchButton: 'navbar-somos__search-button bg-white border-0',
-  closeButton: 'navbar-somos__close-button',
+  closeButton: 'navbar-somos__close-button hidden md:block',
   closeIcon: 'icon-close navbar-somos__icon font-bold text-white',
   searchInputIcon: 'icon-search',
 }
@@ -57,6 +57,7 @@ class HeaderChildSomos extends PureComponent {
         </button> */}
         <SignwallComponent/>
         <button
+          className="hidden md:block"
           type="button"
           onClick={() => {
             this.toggleSearchInputs()
@@ -68,7 +69,7 @@ class HeaderChildSomos extends PureComponent {
     )
     const searchInputs = (
       <>
-        <form onSubmit={e => this.handleSubmit(e)}>
+        <form className="hidden md:block" onSubmit={e => this.handleSubmit(e)}>
           <input
             type="search"
             placeholder="¿QUÉ BUSCAS?"
