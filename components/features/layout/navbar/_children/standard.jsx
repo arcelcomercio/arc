@@ -78,7 +78,6 @@ const classes = {
   iconMore: 'story-header__share-icon icon-share text-gray-200',
 }
 
-const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
 @Consumer
 class NavBarDefault extends PureComponent {
   constructor(props) {
@@ -166,6 +165,7 @@ class NavBarDefault extends PureComponent {
     window.addEventListener('scroll', this._handleScroll)
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
 
     if (
       this.listContainer !== null &&
@@ -377,6 +377,7 @@ class NavBarDefault extends PureComponent {
   }
 
   _drag = (direction, posX) => {
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
     if (!isIOS) {
       const { statusSidebar } = this.state
       if (direction === 'right') {
@@ -848,7 +849,9 @@ class NavBarDefault extends PureComponent {
 
             {siteProperties.activeSignwall && (
               <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
+                className={`${classes.btnContainer} ${
+                  classes.navMobileContainer
+                } ${responsiveClass}`}>
                 <SignwallComponent typeMobile />
                 {/* <button
                   type="button"
