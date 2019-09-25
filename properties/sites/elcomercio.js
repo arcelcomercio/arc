@@ -1,3 +1,5 @@
+import { ENVIRONMENT, CONTEXT_PATH } from 'fusion:environment'
+
 export default {
   siteName: 'El Comercio',
   api: {

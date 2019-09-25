@@ -1,3 +1,5 @@
+import { ENVIRONMENT, CONTEXT_PATH } from 'fusion:environment'
+
 export default {
   siteName: 'Gestión',
   newsletterBrand: 'gestion',
@@ -58,6 +60,34 @@ export default {
     clickToCall: 'https://c2c.kontactame.com/call/?id=162',
     corporate: '/suscripcionesdigitales/empresa/',
     faq: '/suscripcionesdigitales/faq/',
+    // prettier-ignore
+    urls: (({ isProd, queryString, context }) => ({
+      canonical:                         `https://gestion.pe/suscripcionesdigitales/`,
+      image:                             `https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158`,
+      clickToCall:                       `https://c2c.kontactame.com/call/?id=162`,
+      urlCorporate:                      `${context}/suscripcionesdigitales/empresa/${queryString}`,
+      faqs:                              `${context}/suscripcionesdigitales/faq/${queryString}`,
+      suscripcionesDigitales:            `${context}/suscripcionesdigitales`,
+      suscripcionesDigitalesHome:        `${context}/suscripcionesdigitales/${queryString}`,
+      validateSubscriptor:               `${context}/suscripcionesdigitales/{{documentType}}/{{documentNumber}}/{{attemptToken}}/${queryString}`,
+      pwaDomain:                         `https://pwa${isProd ? '' : '.dev'}.gestion.pe`,
+      originApi:                         `https://api${isProd ? '' : '-sandbox'}.gestion.pe`,
+      originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/${isProd ? 'prod' : 'sandbox'}/sdk-identity.min.js`,
+      originSalesSdk:                    `https://arc-subs-sdk.s3.amazonaws.com/${isProd ? 'prod' : 'sandbox'}/sdk-sales.min.js`,
+      originPayuSdk:                     `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`,
+      originPayuTags:                    `https://maf.pagosonline.net/ws/fp/tags.js?id={{deviceSessionId}}80200`,
+      originSubscriptionCorpApi:         `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
+      originSubscriptionOnlineToken:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
+      originSubscriptions:               `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe`,
+      originSubsImpreso:        isProd ? `https://suscripciones.gestion.pe/payment/7/96/`
+                                       : `http://pre.suscripciones.gestion.pe/payment/7/96/`,
+      originSubsDigitalImpreso: isProd ? 'https://suscripciones.gestion.pe/payment/8/98/'
+                                       : 'http://pre.suscripciones.gestion.pe/payment/8/97/'
+    }))({ 
+      isProd: ENVIRONMENT === 'elcomercio',
+      queryString: ENVIRONMENT === 'elcomercio' ? '' : '?_website=gestion&outputType=paywall',
+      context: ENVIRONMENT === 'elcomercio' ? '' : CONTEXT_PATH 
+    })
   },
   assets: {
     nav: {
