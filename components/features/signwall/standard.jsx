@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 
-import Button from '../../global-components/button'
+// import Button from '../../global-components/button'
 
 import Signwall from './default'
 import SignWallHard from './_main/signwall/hard'
@@ -16,7 +16,7 @@ import GetProfile from './_main/utils/get-profile'
 const services = new Services()
 
 const classes = {
-  btnLogin: 'nav__btn flex items-center btn capitalize text-md font-bold', // Tiene lógica abajo
+  btnLogin: 'nav__btn flex items-center btn capitalize text-sm font-bold', // Tiene lógica abajo
   iconSignwallMobile: 'uppercase ',
   iconLogin: 'nav__icon icon-user',
   btnSignwallMobile:
@@ -333,7 +333,9 @@ class SignwallComponent extends PureComponent {
               className={
                 initialUser
                   ? `${classes.iconSignwallMobile} font-bold`
-                  : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
+                  : `${classes.iconLogin} ${
+                      classes.iconSignwallMobile
+                    }  title-sm`
               }>
               {initialUser}
             </i>

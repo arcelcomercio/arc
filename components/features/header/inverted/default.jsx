@@ -34,7 +34,7 @@ const HeaderInverted = props => {
       type,
       website_url: postPermaLink,
       headlines: { basic: postTitle } = {},
-    },
+    } = {},
     globalContentConfig: { query = {} } = {},
   } = useFusionContext()
 

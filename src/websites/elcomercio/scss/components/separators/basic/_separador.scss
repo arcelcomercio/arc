@@ -2,10 +2,7 @@
   border: 0;
   padding: 0;
   margin: 0;
-
   &__item {
-    @media (--only-mobile) {
-    }
     @media (--tablet) {
       &:nth-child(n + 5) {
         display: none;
@@ -13,14 +10,76 @@
     }
   }
 
-  &.custom {
+  // Modificadores de responsive: complete, partial, mobileHidden
+
+  &.complete {
     .separator {
+      &__body {
+        @media (--only-mobile) {
+          flex-direction: column;
+        }
+      }
+      &__item {
+        @media (--only-mobile) {
+          display: block;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  &.partial {
+    .separator {
+      &__item {
+        @media (--only-mobile) {
+          &:nth-child(n + 2) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &.mobileHidden {
+    @media (--only-mobile) {
+      display: none;
+    }
+  }
+
+  // Modificadores de diseño: custom, standart
+
+  &.custom {
+    padding-bottom: 10px;
+    .separator {
+      &__body {
+        @media (--tablet) {
+          height: 161px;
+        }
+      }
+      &__img-link {
+        @media (--tablet) {
+          height: 161px;
+        }
+        &::before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          bottom: 0;
+          left: 0;
+          background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
+        }
+      }
+      &__detail {
+        z-index: 1;
+      }
       &__title {
         font-weight: 700;
+        font-size: 18px;
         font-family: $fourth-font;
+        max-height: 74px;
       }
       &__header-title {
-        font-size: 1.1rem;
+        font-size: 18px;
         font-family: $fourth-font;
         padding-bottom: 30px;
       }
@@ -31,15 +90,12 @@
       &__button {
         top: 10px;
       }
+      &__title-link {
+        color: $color-white;
+      }
       &__item {
         &::before {
-          content: '';
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          bottom: 0;
-          left: 0;
-          background: linear-gradient(to bottom, rgba(68, 68, 68, 0) 20%, #444);
+          content: none;
         }
       }
     }

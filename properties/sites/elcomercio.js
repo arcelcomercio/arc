@@ -1,10 +1,10 @@
 export default {
   siteName: 'El Comercio',
   api: {
-    blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php'
+    blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php',
   },
   googleFonts:
-    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+KR:500,700,900',
+    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+SC:500,700,900',
 
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
@@ -67,6 +67,8 @@ export default {
       logoAmp: 'logo-elcomercio-316x60.png',
       width: 316,
       height: 60,
+      widthAmp: 156,
+      heightAmp: 25,
     },
     premium: {
       logo: 'premium-logo.png',
@@ -77,11 +79,6 @@ export default {
     {
       name: 'TÉRMINOS Y CONDICIONES DE USO',
       url: '/terminos-y-condiciones',
-    },
-    {
-      name: 'TRABAJABA PARA EL GRUPO EL COMERCIO',
-      url: 'https://elcomercio.aptitus.com/',
-      external: true,
     },
     {
       name: 'LIBRO DE RECLAMACIONES',
