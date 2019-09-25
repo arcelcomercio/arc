@@ -18,7 +18,6 @@ class StoryContentChildVideo extends PureComponent {
       window.PoWaSettings.advertising = {
         adBar: false,
         adTag: ({ videoData }) => {
-          console.log('videoData=>>>>>>>>>>>',videoData)
           return videoData.additional_properties.advertising.playAds === true
             ? this.getParametroPublicidad()
             : ''
@@ -37,7 +36,6 @@ class StoryContentChildVideo extends PureComponent {
       globalContent,
     } = this.props
 
-    
     const {
       taxonomy: {
         primary_section: {
@@ -47,7 +45,6 @@ class StoryContentChildVideo extends PureComponent {
         } = {},
       },
     } = globalContent || {}
-    console.log('aliasId=>>>>>>>>', aliasId)
     if (aliasId && aliasId[0]) {
       return aliasId[0]
     }
@@ -56,7 +53,6 @@ class StoryContentChildVideo extends PureComponent {
 
   render() {
     const { data = {}, description = '', globalContent } = this.props
-    console.log('globalContent=>>>>>>>>>',globalContent);
 
     return (
       <>
