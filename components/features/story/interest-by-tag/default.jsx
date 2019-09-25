@@ -35,7 +35,7 @@ const InterestByTag = props => {
     contextPath,
   })
 
-  const urlTag = section ? section : `/${slug}/`
+  const urlTag = section || `/${slug}/`
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
@@ -83,7 +83,7 @@ const InterestByTag = props => {
                   sectionLink: instance.primarySectionLink,
                   lazyImage: instance.multimediaLazyDefault,
                   multimediaLandscapeS: instance.multimediaLandscapeS,
-                  multimediaLandscapeXS: instance.multimediaLandscapeXS,
+                  multimediaLandscapeL: instance.multimediaLandscapeL,
                   multimediaType: instance.multimediaType,
                   isAdmin,
                 }
