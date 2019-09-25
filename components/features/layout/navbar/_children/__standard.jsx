@@ -55,7 +55,7 @@ const classes = {
   // btnSignwall: 'nav__btn--login', No contemplado en diseño
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
-  navStoryTitle: 'nav__story-title position-relative overflow-hidden',
+  navStoryTitle: 'nav__story-title position-relative overflow-hidden line-h-sm',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
   iconSignwallMobile: 'uppercase ',
   btnSignwallMobile:
@@ -116,13 +116,11 @@ class NavBarDefault extends PureComponent {
         },
         siteUrl,
       },
-      globalContent
+      globalContent,
     } = props
 
-    const {
-      website_url: postPermaLink,
-      headlines: { basic: postTitle } = {},
-    } = globalContent || {}
+    const { website_url: postPermaLink, headlines: { basic: postTitle } = {} } =
+      globalContent || {}
 
     const urlsShareList = socialMediaUrlShareList(
       siteUrl,

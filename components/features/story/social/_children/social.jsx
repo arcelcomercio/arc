@@ -5,6 +5,7 @@ import rawHtml from 'react-render-html'
 import {
   popUpWindow,
   socialMediaUrlShareList,
+  storyTagsBbc,
 } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryData from '../../../../utilities/story-data'
@@ -26,7 +27,11 @@ const classes = {
   iconRibbon: 'icon-ribbon',
   iconTwitter: 'icon-twitter-circle',
   iconWhatsapp: 'icon-whatsapp',
+  bbcHead: 'bbc-head',
 }
+
+const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
+
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
   constructor(props) {
@@ -92,7 +97,13 @@ class StoryHeaderChildSocial extends PureComponent {
 
   render() {
     const { currentList } = this.state
-    const { globalContent = {}, contextPath } = this.props
+    const {
+      globalContent = {},
+      contextPath,
+      arcSite,
+      deployment,
+      siteProperties: { siteUrl },
+    } = this.props
 
     const {
       publishDate: date,
@@ -105,6 +116,7 @@ class StoryHeaderChildSocial extends PureComponent {
       primarySection,
       primarySectionLink,
       subtype,
+      tags,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -121,8 +133,32 @@ class StoryHeaderChildSocial extends PureComponent {
       authorEmail,
     }
 
+    const imgBbcSource =
+      deployment(
+        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+      ) || ''
+
+    const imgBbc =
+      deployment(
+        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/bbc_head_fg.jpg`
+      ) || ''
+
     return (
       <>
+        {storyTagsBbc(tags) && (
+          <figure className={classes.bbcHead}>
+            <a
+              href={URL_BBC}
+              rel="nofollow noopener noreferrer"
+              target="_blank">
+              <picture>
+                <source media="(max-width: 639px)" data-srcset={imgBbcSource} />
+                <img alt="BBC" src={imgBbc} data-src={imgBbc} />
+              </picture>
+            </a>
+          </figure>
+        )}
+
         <div
           className={`${classes.news} ${
             subtype === ConfigParams.SPECIAL_BASIC ||

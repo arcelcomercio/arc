@@ -35,9 +35,6 @@ const getVars = (
   let subsection = ''
   let dataStory = ''
   let dataNucleoOrigen = ''
-  let dataContentOrigen = ''
-  let dataFormatOrigen = ''
-  let dataGenerOrigen = ''
 
   if (requestUri) {
     if (path === '/homepage') {
@@ -74,18 +71,11 @@ const getVars = (
       var tipo_nota = '${getMultimedia(multimediaType, true)}'
       var id_nota = '${id}' 
       var content_paywall = ${contentRestrictions}`
-
-        dataNucleoOrigen =
-          nucleoOrigen && `var nucleo_origen = '${nucleoOrigen}'`
-
-        dataFormatOrigen =
-          formatOrigen && `var format_origen = '${formatOrigen}'`
-
-        dataContentOrigen =
-          contentOrigen && `var content_origen = '${contentOrigen}'`
-
-        dataGenerOrigen =
-          genderOrigen && `var gender_origen = '${genderOrigen}'`
+        dataNucleoOrigen = `
+      var nucleo_origen = '${nucleoOrigen}' 
+      var format_origen = '${formatOrigen}' 
+      var content_origen = '${contentOrigen}' 
+      var gender_origen = '${genderOrigen}'`
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
       }
@@ -105,9 +95,6 @@ const getVars = (
       var path_name = '${path}'
       ${dataStory} 
       ${dataNucleoOrigen}
-      ${dataContentOrigen}
-      ${dataFormatOrigen}
-      ${dataGenerOrigen}
 `
 }
 const AppNexus = props => {

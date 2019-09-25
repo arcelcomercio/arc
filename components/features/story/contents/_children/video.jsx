@@ -35,6 +35,7 @@ class StoryContentChildVideo extends PureComponent {
       siteProperties: { urlPreroll },
       globalContent,
     } = this.props
+
     const {
       taxonomy: {
         primary_section: {
@@ -44,7 +45,6 @@ class StoryContentChildVideo extends PureComponent {
         } = {},
       },
     } = globalContent || {}
-
     if (aliasId && aliasId[0]) {
       return aliasId[0]
     }
@@ -52,7 +52,8 @@ class StoryContentChildVideo extends PureComponent {
   }
 
   render() {
-    const { data = {}, description = '' } = this.props
+    const { data = {}, description = '', globalContent } = this.props
+
     return (
       <>
         {data && renderHTML(data.replace('[goldfish_publicidad]', ''))}

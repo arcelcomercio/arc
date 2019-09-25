@@ -38,40 +38,12 @@ class StoriesList extends PureComponent {
   render() {
     const {
       data,
-      deployment,
-      contextPath,
-      arcSite,
-      formato,
       isAdmin,
     } = this.props
-    /* const element = new StoryData({
-      data,
-      deployment,
-      contextPath,
-      arcSite,
-      defaultImgSize: 'sm',
-    }) */
-
-      /*
-    {
-    isAdmin,
-    lazyImage,
-    imagePost,
-    authorImg,
-    date = '',
-    blogTitle = '',
-    author = '',
-    postTitle = '',
-    urlPost = '',
-    urlBlog = '',
-    }
-    */
-
+   
     return (
       <div
-        className={`${classes.storyItem} ${
-          formato && formato === 'row' ? 'blog-post-item--row' : ''
-        }`}>
+        className={`${classes.storyItem}`}>
         <div className={classes.bottom}>
           <div className={classes.left}>
             <div className={classes.top}>

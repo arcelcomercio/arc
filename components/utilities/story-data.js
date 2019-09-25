@@ -658,7 +658,7 @@ class StoryData {
         this._data.label &&
         this._data.label.nucleo &&
         this._data.label.nucleo.url) ||
-      ''
+      'redaccion'
     )
   }
 
@@ -668,7 +668,7 @@ class StoryData {
         this._data.label &&
         this._data.label.formato &&
         this._data.label.formato.url) ||
-      ''
+      'tfg'
     )
   }
 
@@ -678,7 +678,7 @@ class StoryData {
         this._data.label &&
         this._data.label.contenido &&
         this._data.label.contenido.url) ||
-      ''
+      'tcs'
     )
   }
 
@@ -688,7 +688,7 @@ class StoryData {
         this._data.label &&
         this._data.label.genero &&
         this._data.label.genero.url) ||
-      ''
+      'info'
     )
   }
 
