@@ -41,6 +41,7 @@ const classes = {
   section: 'w-full',
   listClasses: 'story-content__paragraph-list',
   alignmentClasses: 'story-content__alignment',
+  bbcHead: 'bbc-head p-10',
 }
 
 @Consumer
