@@ -77,6 +77,12 @@ class StoryContents extends PureComponent {
         })
       )
       appendToBody(createLink(css))
+      appendToBody(
+        createScript({
+          src:
+            'https://d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio',
+        })
+      )
     }
   }
 

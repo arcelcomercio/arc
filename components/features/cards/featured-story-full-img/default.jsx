@@ -54,9 +54,9 @@ const FeatureStoryFullImage = props => {
     authorLink,
     primarySectionLink,
     title,
-    multimediaLandscapeL,
-    multimediaPortraitMD,
-    multimediaSquareXL,
+    multimediaLandscapeL, //
+    multimediaPortraitMD, //
+    multimediaSquareXL, //
     multimediaLazyDefault,
     multimediaType,
     websiteLink,

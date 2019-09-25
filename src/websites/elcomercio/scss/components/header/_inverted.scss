@@ -1,10 +1,24 @@
-$nav-height-active: 46px;
+$nav-height-active: 45px;
 
 .header-inverted {
-  height: $header-inverted-height;
+  /*   height: $header-inverted-height; */
+  .nav-sidebar {
+    top: $header-mobile-height;
+    height: calc(100vh - #{$header-mobile-height});
+
+    @media (--desktop) {
+      top: $header-inverted-height;
+      height: calc(100vh - #{$header-inverted-height});
+    }
+  }
 
   .header__logo {
-    height: 36px;
+    @media (--only-mobile) {
+      width: 201px;
+      height: 32px;
+    }
+    width: 191px;
+    height: 30px;
   }
 
   .nav__mobile-logo {
@@ -23,22 +37,19 @@ $nav-height-active: 46px;
     color: $color-white;
   }
 
-  .nav-sidebar {
-    top: $header-inverted-height;
-  }
   .header-inverted__btn-search.active {
     color: $color-gray-200;
   }
+  .nav__btn {
+    font-family: 'Open sans', serif;
+  }
+
   &.active {
     background-color: $color-base-100;
     height: $nav-height-active;
 
     &.nav__loader {
       top: 0;
-    }
-
-    .header__logo {
-      height: 44px;
     }
 
     .header-inverted__btn-menu,

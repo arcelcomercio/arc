@@ -40,5 +40,6 @@ import './images/paywall/img_confirmation_1.webp'
 import './images/paywall/img_confirmation_2.webp'
 import './images/authorOpinion.png'
 import './images/logo-amp.png'
+import './images/logo-elcomercio-316x60.png'
 
 import '../../../components/utilities/lazyload'

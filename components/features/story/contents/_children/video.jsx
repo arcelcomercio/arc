@@ -10,15 +10,19 @@ const classes = {
 @Consumer
 class StoryContentChildVideo extends PureComponent {
   componentDidMount() {
-    window.powaBoot()
+    if (window.powaBoot) {
+      window.powaBoot()
+    }
 
-    window.PoWaSettings.advertising = {
-      adBar: false,
-      adTag: ({ videoData }) => {
-        return videoData.additional_properties.advertising.playAds === true
-          ? this.getParametroPublicidad()
-          : ''
-      },
+    if (window.PoWaSettings && window.PoWaSettings.advertising) {
+      window.PoWaSettings.advertising = {
+        adBar: false,
+        adTag: ({ videoData }) => {
+          return videoData.additional_properties.advertising.playAds === true
+            ? this.getParametroPublicidad()
+            : ''
+        },
+      }
     }
 
     window.addEventListener('powaReady', ({ detail: { element } }) => {

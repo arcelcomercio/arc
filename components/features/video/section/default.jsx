@@ -23,6 +23,7 @@ const SectionVideo = props => {
     contextPath,
     deployment,
     isAdmin,
+    siteProperties,
   } = useFusionContext()
   const dataVideo = {}
   let section = null
@@ -62,6 +63,7 @@ const SectionVideo = props => {
     })
     const {
       title,
+      websiteLink,
       subTitle,
       displayDate,
       primarySection,
@@ -72,6 +74,7 @@ const SectionVideo = props => {
       primarySection,
       primarySectionLink,
       title,
+      websiteLink,
       subTitle,
       displayDate,
       promoItemsType,
@@ -129,6 +132,7 @@ const SectionVideo = props => {
     contextPath,
     deployment,
     isAdmin,
+    siteProperties,
     arrSections,
   }
 

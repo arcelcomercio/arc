@@ -1,10 +1,6 @@
 import { formatDayMonthYear } from '../../../../utilities/helpers'
 
 const LINK = 'link'
-const BAND = 'band'
-const MENU = 'menu'
-const ARCHIVE_TEXT = 'Lo último'
-const ARCHIVE_LINK = '/archivo'
 
 export default class StandardHeader {
   constructor(
@@ -41,13 +37,11 @@ export default class StandardHeader {
     this.menuData = menuData
   }
 
-  formatData = (data = {}, type = BAND) => {
+  formatData = (data = {}) => {
     const { children = [] } = data || {}
     return children.map(child => ({
       name: child.node_type === LINK ? child.display_name : child.name,
       url: child.node_type === LINK ? child.url : child._id,
-      children:
-        type === MENU && child.children ? this.formatData(child, MENU) : [],
     }))
   }
 
@@ -56,12 +50,9 @@ export default class StandardHeader {
   }
 
   getParams() {
-    const bandLinks = this.formatData(this.bandData, BAND)
-    const menuSections = this.formatData(this.menuData, MENU)
-    const archive = {
-      name: ARCHIVE_TEXT,
-      url: ARCHIVE_LINK,
-    }
+    const bandLinks = this.formatData(this.bandData)
+    const { children: menuSections = [] } = this.menuData || {}
+
     const { inverted: logo, auxLogo } = this.headerProperties
 
     return {
@@ -83,8 +74,8 @@ export default class StandardHeader {
             }/images/${auxLogo}`
           ),
       },
-      bandLinks: [archive, ...bandLinks],
-      menuSections: [...menuSections],
+      bandLinks,
+      menuSections,
       date: {
         active: this.showDate,
         value: `LIMA - ${this.getDate()}`,
