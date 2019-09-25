@@ -8,5 +8,8 @@
       max-height: calc(15px * 1.33 * 3);
       -webkit-line-clamp: 3;
     }
+    &.three-lines {
+      max-height: calc(15px * 1.33 * 3);
+    }
   }
 }
