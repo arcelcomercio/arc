@@ -276,7 +276,9 @@ class FormLogin extends Component {
     e.preventDefault()
     window.sessionStorage.setItem(
       'paywall_last_url',
-      window.document.referrer.split(window.location.origin)[1]
+      window.document.referrer
+        ? window.document.referrer.split(window.location.origin)[1]
+        : ''
     )
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall()
