@@ -21,19 +21,13 @@ const classes = {
 const OpinionGridAuthorCard = ({
   isMobile,
   data: story,
-  deployment,
-  contextPath,
-  arcSite,
 }) => {
   // const opinionImageDefault = deployment(
   //   `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
   // )
 
-
   const existImageAuthor = story.authorImage.includes('author.png')
-  const opinionImage = story.authorImage
   
-
   return (
     <article role="listitem" className={classes.card}>
       <div className={classes.wrapper}>
@@ -43,7 +37,7 @@ const OpinionGridAuthorCard = ({
           ) : (
             <img
               className={classes.image}
-              src={opinionImage}
+              src={story.authorImage}
               alt={story.author}
             />
           )}

@@ -9,16 +9,26 @@ const classes = {
 
 @Consumer
 class StoryContentChildVideo extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.videoData = ''
+    const {
+      globalContent: { promo_items: { basic_video: video } = {} } = {},
+    } = this.props
+    this.videoData = video
+  }
+
   componentDidMount() {
     if (window.powaBoot) {
       window.powaBoot()
     }
 
-    if (window.PoWaSettings && window.PoWaSettings.advertising) {
+    if (window.PoWaSettings) {
       window.PoWaSettings.advertising = {
         adBar: false,
-        adTag: ({ videoData }) => {
-          return videoData.additional_properties.advertising.playAds === true
+        adTag: () => {
+          return this.videoData.additional_properties.advertising.playAds ===
+            true
             ? this.getParametroPublicidad()
             : ''
         },
@@ -35,6 +45,7 @@ class StoryContentChildVideo extends PureComponent {
       siteProperties: { urlPreroll },
       globalContent,
     } = this.props
+
     const {
       taxonomy: {
         primary_section: {
@@ -44,7 +55,6 @@ class StoryContentChildVideo extends PureComponent {
         } = {},
       },
     } = globalContent || {}
-
     if (aliasId && aliasId[0]) {
       return aliasId[0]
     }
@@ -53,6 +63,7 @@ class StoryContentChildVideo extends PureComponent {
 
   render() {
     const { data = {}, description = '' } = this.props
+
     return (
       <>
         {data && renderHTML(data.replace('[goldfish_publicidad]', ''))}
