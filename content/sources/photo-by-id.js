@@ -3,8 +3,6 @@ import { createUrlResizer } from '@arc-core-components/content-source_content-ap
 import getProperties from 'fusion:properties'
 import { sizeImg } from '../../components/utilities/config-params'
 
-let website = ''
-
 const schemaName = 'photo'
 
 const params = [
@@ -15,19 +13,16 @@ const params = [
   },
 ]
 
-const resolve = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
-
-  const hasPhotoId = Object.prototype.hasOwnProperty.call(key, '_id')
-  if (!hasPhotoId) throw new Error('Esta fuente de contenido requiere un id')
-
-  const { _id: id } = key
-
+const resolve = ({ _id: id }) => {
+  if (!id) throw new Error('Esta fuente de contenido requiere un id')
   const requestUri = `/photo/api/v2/photos/${id}`
   return requestUri
 }
 
-const transform = data => {
+const transform = (data, key) => {
+  const website = key['arc-site']
+  if (!website) return data
+
   let photoData = {}
 
   if (data) {
