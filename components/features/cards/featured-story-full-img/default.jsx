@@ -16,7 +16,9 @@ const FeatureStoryFullImage = props => {
       crossY,
       crossX,
       model,
-      sectionCustom,
+      categoryField,
+      titleField,
+      imgField,
     } = {},
   } = props
 
@@ -32,7 +34,7 @@ const FeatureStoryFullImage = props => {
     authorLink,
     primarySection,
     primarySectionLink,
-    title,
+    title: titleStory,
     multimediaLandscapeL,
     multimediaSquareXL,
     multimediaPortraitMD,
@@ -47,17 +49,18 @@ const FeatureStoryFullImage = props => {
     defaultImgSize: 'sm',
   })
 
-  const section = sectionCustom || primarySection
+  const section = categoryField || primarySection
+  const title = titleField || titleStory
 
   const params = {
     author,
     authorLink,
     primarySectionLink,
     title,
-    multimediaLandscapeL, //
-    multimediaPortraitMD, //
-    multimediaSquareXL, //
-    multimediaLazyDefault,
+    multimediaLandscapeL: imgField || multimediaLandscapeL, //
+    multimediaPortraitMD: imgField || multimediaPortraitMD, //
+    multimediaSquareXL: imgField || multimediaSquareXL, //
+    multimediaLazyDefault: imgField || multimediaLazyDefault,
     multimediaType,
     websiteLink,
     crossY,
