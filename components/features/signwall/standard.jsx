@@ -273,11 +273,11 @@ class SignwallComponent extends PureComponent {
                 }`
               : `${classes.btnLogin} btn--outline`
           }
-          // style={{
-          //   paddingLeft: !typeMobile ? '10px' : '',
-          //   paddingRight: !typeMobile ? '10px' : '',
-          //   width: !typeMobile ? 'auto' : '',
-          // }}
+          style={{
+            paddingLeft: !typeMobile ? '10px' : '',
+            paddingRight: !typeMobile ? '10px' : '',
+            width: !typeMobile ? 'auto' : '',
+          }}
           onClick={() => this.setState({ isActive: true })}>
           {typeMobile ? (
             <i

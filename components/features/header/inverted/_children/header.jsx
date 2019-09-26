@@ -47,10 +47,10 @@ const classes = {
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight:
-    'flex items-center hidden justify-end header__btn-container md:block',
+    'lg:flex items-center hidden justify-end header__btn-container',
   btnSubscribe:
     'flex items-center btn capitalize text-md font-bold btn--outline',
-  navContainerRightMovil: 'block md:hidden',
+  navContainerRightMovil: 'block lg:hidden',
 }
 
 // TODO: Agregar el click afuera del menu
