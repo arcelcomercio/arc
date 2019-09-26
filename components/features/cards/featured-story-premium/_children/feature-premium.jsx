@@ -14,9 +14,9 @@ const classes = {
   author: 'featured-premium__author',
   boxIcon: 'featured-premium__box-icon',
   sectionSmall: 'featured-premium__section-small',
-  iconImage: 'featured-premium__icon-image',
+  iconImagePremium: 'featured-premium__icon-image',
   right: 'featured-premium__right',
-  icon: 'featured-premium__icon icon-video',
+  icon: 'featured-premium__icon',
   image: 'featured-premium__image',
 }
 
@@ -110,7 +110,7 @@ const FeaturedStoryPremiumChild = ({
               </a>
             </p>
             {isPremium && (
-              <img className={classes.iconImage} src={logo} alt="" />
+              <img className={classes.iconImagePremium} src={logo} alt="" />
             )}
           </div>
         </div>
