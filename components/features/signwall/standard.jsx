@@ -42,14 +42,14 @@ class SignwallComponent extends PureComponent {
   }
 
   componentDidMount() {
-    const { arcSite } = this.props
+    const { arcSite, typeMobile } = this.props
 
     // ---------- Start Premium & Paywall ----------- //
-
     if (arcSite === 'gestion' || arcSite === 'elcomercio') {
-      this.getPaywall()
+      if (!typeMobile) {
+        this.getPaywall()
+      }
     }
-
     // ---------- End Premium & Paywall ------------ //
   }
 
@@ -134,18 +134,27 @@ class SignwallComponent extends PureComponent {
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
           // estado de suscripcion
-          return this.getListSubs().then(p => {
-            const isLoggedInSubs = !!(
-              W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-              W.localStorage.getItem('ArcId.USER_PROFILE')
-            )
-            return {
-              s: isLoggedInSubs,
-              p: p || null,
-              timeTaken: 100,
-              updated: Date.now(),
-            }
-          })
+          if (arcSite === 'gestion') {
+            // check subscriptiones
+            return this.getListSubs().then(p => {
+              const isLoggedInSubs = !!(
+                W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
+                W.localStorage.getItem('ArcId.USER_PROFILE')
+              )
+              return {
+                s: isLoggedInSubs,
+                p: p || null,
+                timeTaken: 100,
+                updated: Date.now(),
+              }
+            })
+          }
+          return {
+            s: false,
+            p: null,
+            timeTaken: 100,
+            updated: Date.now(),
+          }
         },
         customRegCheck: () => {
           // estado de registro
@@ -160,9 +169,11 @@ class SignwallComponent extends PureComponent {
             updated: Date.now(),
           })
         },
-      }).then(() => {
-        this.initCounters()
       })
+      // .then(() => {
+      //   this.initCounters()
+      // })
+
       // .then(() => {
       // W.console.log('Results from running paywall script: ', results)
       // })
@@ -323,25 +334,25 @@ class SignwallComponent extends PureComponent {
                 }`
               : `${classes.btnLogin} btn--outline`
           }
-          //   className={`${classes.btnSignwallMobile} ${
-          //             arcSite === 'peru21' ? 'bg-white' : null
-          //           }`}
-
+          // style={{
+          //   paddingLeft: !typeMobile ? '10px' : '',
+          //   paddingRight: !typeMobile ? '10px' : '',
+          //   width: !typeMobile ? 'auto' : '',
+          // }}
           onClick={() => this.setState({ isActive: true })}>
           {typeMobile ? (
             <i
               className={
                 initialUser
                   ? `${classes.iconSignwallMobile} font-bold`
-                  : `${classes.iconLogin} ${
-                      classes.iconSignwallMobile
-                    }  title-sm`
+                  : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
               }>
               {initialUser}
             </i>
           ) : (
             <span>
-              {this.checkSession()
+              {// eslint-disable-next-line no-nested-ternary
+              this.checkSession()
                 ? userName
                 : arcSite === 'elcomercio'
                 ? 'Iniciar'
@@ -352,58 +363,62 @@ class SignwallComponent extends PureComponent {
 
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
-        {this.getUrlParam('signwallHard') &&
-        !this.checkSession() &&
-        showHard &&
-        siteProperties.activeSignwall ? (
-          <SignWallHard
-            closePopup={() => this.closePopUp('signwallHard')}
-            brandModal={arcSite}
-          />
-        ) : null}
+        {!typeMobile && (
+          <>
+            {this.getUrlParam('signwallHard') &&
+            !this.checkSession() &&
+            showHard &&
+            siteProperties.activeSignwall ? (
+              <SignWallHard
+                closePopup={() => this.closePopUp('signwallHard')}
+                brandModal={arcSite}
+              />
+            ) : null}
 
-        {this.getUrlParam('tokenVerify') &&
-        showVerify &&
-        siteProperties.activeSignwall ? (
-          <SignWallVerify
-            closePopup={() => this.closePopUp('tokenVerify')}
-            brandModal={arcSite}
-            tokenVerify={this.getUrlParam('tokenVerify')}
-          />
-        ) : null}
+            {this.getUrlParam('tokenVerify') &&
+            showVerify &&
+            siteProperties.activeSignwall ? (
+              <SignWallVerify
+                closePopup={() => this.closePopUp('tokenVerify')}
+                brandModal={arcSite}
+                tokenVerify={this.getUrlParam('tokenVerify')}
+              />
+            ) : null}
 
-        {this.getUrlParam('tokenReset') &&
-        showReset &&
-        siteProperties.activeSignwall ? (
-          <SignWallReset
-            closePopup={() => this.closePopUp('tokenReset')}
-            brandModal={arcSite}
-            tokenReset={this.getUrlParam('tokenReset')}
-          />
-        ) : null}
+            {this.getUrlParam('tokenReset') &&
+            showReset &&
+            siteProperties.activeSignwall ? (
+              <SignWallReset
+                closePopup={() => this.closePopUp('tokenReset')}
+                brandModal={arcSite}
+                tokenReset={this.getUrlParam('tokenReset')}
+              />
+            ) : null}
 
-        {this.getUrlParam('reloginEmail') &&
-        !this.checkSession() &&
-        showRelogin &&
-        siteProperties.activeSignwall ? (
-          <SignWallRelogin
-            closePopup={() => this.closePopUp('reloginEmail')}
-            brandModal={arcSite}
-          />
-        ) : null}
+            {this.getUrlParam('reloginEmail') &&
+            !this.checkSession() &&
+            showRelogin &&
+            siteProperties.activeSignwall ? (
+              <SignWallRelogin
+                closePopup={() => this.closePopUp('reloginEmail')}
+                brandModal={arcSite}
+              />
+            ) : null}
 
-        {(this.getUrlParam('signwallPaywall') ||
-          this.getUrlParam('signwallPremium')) &&
-        showPaywall &&
-        siteProperties.activePaywall ? (
-          <SignWallPayPre
-            closePopup={() => this.closePopUp('signwallPaywall')}
-            brandModal={arcSite}
-            typeModal={
-              this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
-            }
-          />
-        ) : null}
+            {(this.getUrlParam('signwallPaywall') ||
+              this.getUrlParam('signwallPremium')) &&
+            showPaywall &&
+            siteProperties.activePaywall ? (
+              <SignWallPayPre
+                closePopup={() => this.closePopUp('signwallPaywall')}
+                brandModal={arcSite}
+                typeModal={
+                  this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
+                }
+              />
+            ) : null}
+          </>
+        )}
       </>
     )
   }
