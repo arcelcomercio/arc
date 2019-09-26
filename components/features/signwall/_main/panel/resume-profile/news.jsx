@@ -21,28 +21,30 @@ class News extends Component {
   componentDidMount() {
     this._isMounted = true
 
-    if (this._isMounted) {
-      const UUID = window.Identity.userIdentity.uuid
-      const SITE = 'gestion'
-      const localNews = JSON.parse(
-        window.sessionStorage.getItem('preferencesNews')
-      )
+    const UUID = window.Identity.userIdentity.uuid
+    const SITE = 'gestion'
+    const localNews = JSON.parse(
+      window.sessionStorage.getItem('preferencesNews')
+    )
 
-      const listAllNews = { ...[] }
+    const listAllNews = { ...[] }
 
-      services.getNewsLetters().then(resNews => {
-        resNews[SITE].map(item => {
-          listAllNews[item.code] = false
-          return null
-        })
+    services.getNewsLetters().then(resNews => {
+      resNews[SITE].map(item => {
+        listAllNews[item.code] = false
+        return null
+      })
 
+      if (this._isMounted) {
         this.setState({
           newsletters: resNews[SITE] || [],
           checksNews: listAllNews,
         })
+      }
 
-        if (localNews && localNews.length >= 1) {
-          localNews.map(item => {
+      if (localNews && localNews.length >= 1) {
+        localNews.map(item => {
+          if (this._isMounted) {
             this.setState(prevState => ({
               checksNews: {
                 ...prevState.checksNews,
@@ -50,13 +52,15 @@ class News extends Component {
               },
               loading: false,
             }))
+          }
 
-            return null
-          })
-        } else {
-          services.getNewsLettersUser(UUID, SITE).then(res => {
-            if (res.data.length >= 1) {
-              res.data.map(item => {
+          return null
+        })
+      } else {
+        services.getNewsLettersUser(UUID, SITE).then(res => {
+          if (res.data.length >= 1) {
+            res.data.map(item => {
+              if (this._isMounted) {
                 this.setState(prevState => ({
                   checksNews: {
                     ...prevState.checksNews,
@@ -64,17 +68,20 @@ class News extends Component {
                   },
                   loading: false,
                 }))
+              }
 
-                return null
-              })
-            }
+              return null
+            })
+          }
+
+          if (this._isMounted) {
             this.setState({
               loading: false,
             })
-          })
-        }
-      })
-    }
+          }
+        })
+      }
+    })
   }
 
   componentWillUnmount() {

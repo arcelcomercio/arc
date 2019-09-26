@@ -40,14 +40,11 @@ class SignwallComponent extends PureComponent {
   }
 
   componentDidMount() {
-    this._isMounted = true
     const { arcSite, typeMobile } = this.props
 
-    if (this._isMounted) {
-      if (arcSite === 'gestion' || arcSite === 'elcomercio') {
-        if (!typeMobile) {
-          this.getPaywall()
-        }
+    if (arcSite === 'gestion' || arcSite === 'elcomercio') {
+      if (!typeMobile) {
+        this.getPaywall()
       }
     }
   }
@@ -55,20 +52,18 @@ class SignwallComponent extends PureComponent {
   componentDidUpdate() {
     this._isMounted = true
 
-    if (this._isMounted) {
-      if (this.checkSession()) {
-        // eslint-disable-next-line react/no-did-update-set-state
-        this.setState({
-          userName: new GetProfile().username,
-          initialUser: new GetProfile().initname,
-        })
-      } else {
-        // eslint-disable-next-line react/no-did-update-set-state
-        this.setState({
-          userName: 'Iniciar Sesión',
-          initialUser: false,
-        })
-      }
+    if (this.checkSession() && this._isMounted) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        userName: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
+    } else if (this._isMounted) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        userName: 'Iniciar Sesión',
+        initialUser: false,
+      })
     }
   }
 

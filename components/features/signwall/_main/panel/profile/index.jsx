@@ -26,13 +26,13 @@ class MiPerfil extends Component {
   componentDidMount() {
     this._isMounted = true
 
-    if (this._isMounted) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this._isMounted) {
         this.setState({
           loading: false,
         })
-      }, 1000)
-    }
+      }
+    }, 1000)
   }
 
   componentWillUnmount() {

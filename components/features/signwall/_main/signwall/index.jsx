@@ -12,24 +12,17 @@ import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
 class LoginRegister extends Component {
-  _isMounted = false
-
   constructor(props) {
     super(props)
     this.state = {}
   }
 
   componentDidMount() {
-    this._isMounted = true
-
-    if (this._isMounted) {
-      Taggeo('Web_Sign_Wall_Organico', 'web_swo_open')
-      window.addEventListener('beforeunload', this.handleLeavePage)
-    }
+    Taggeo('Web_Sign_Wall_Organico', 'web_swo_open')
+    window.addEventListener('beforeunload', this.handleLeavePage)
   }
 
   componentWillUnmount() {
-    this._isMounted = false
     window.removeEventListener('beforeunload', this.handleLeavePage)
   }
 

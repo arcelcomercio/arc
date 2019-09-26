@@ -11,7 +11,7 @@ import Header from '../common/header'
 import GetProfile from '../utils/get-profile'
 
 const getNameProfile = (name) => {
-    return name
+    console.log(name)
 }
 
 const renderTemplate = template => {

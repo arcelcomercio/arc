@@ -37,20 +37,18 @@ class Signwall extends PureComponent {
     this._isMounted = true
     const { sessUser } = this.state
 
-    if (this._isMounted) {
-      if (this.checkSession() && !sessUser) {
-        // eslint-disable-next-line react/no-did-update-set-state
-        this.setState({
-          sessUser: true,
-        })
-        this.togglePopupPanel()
-      } else if (this.checkSession() === false && sessUser) {
-        // eslint-disable-next-line react/no-did-update-set-state
-        this.setState({
-          sessUser: false,
-        })
-        this.togglePopupLogin()
-      }
+    if (this.checkSession() && !sessUser && this._isMounted) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        sessUser: true,
+      })
+      this.togglePopupPanel()
+    } else if (this.checkSession() === false && sessUser && this._isMounted) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        sessUser: false,
+      })
+      this.togglePopupLogin()
     }
   }
 
@@ -58,15 +56,13 @@ class Signwall extends PureComponent {
     this._isMounted = true
     const { sessUser } = this.state
 
-    if (this._isMounted) {
-      if (this.checkSession() && !sessUser) {
-        this.setState({
-          sessUser: true,
-        })
-        this.togglePopupPanel()
-      } else {
-        this.togglePopupLogin()
-      }
+    if (this.checkSession() && !sessUser && this._isMounted) {
+      this.setState({
+        sessUser: true,
+      })
+      this.togglePopupPanel()
+    } else {
+      this.togglePopupLogin()
     }
   }
 

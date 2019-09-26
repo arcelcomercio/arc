@@ -33,40 +33,20 @@ class Subs extends Component {
   componentDidMount() {
     this._isMounted = true
 
-    if (this._isMounted) {
-      if (!window.Sales) {
-        addScriptAsync({
-          name: 'sdkSalesARC',
-          url: Domains.getScriptSales(),
-        }).then(() => {
-          this.getListSubs().then(p => {
-            setTimeout(() => {
-              if (p.length) {
-                this.setState({
-                  userSubsDetail: p,
-                  isSubs: true,
-                  isLoad: false,
-                })
-              } else {
-                this.setState({
-                  isSubs: false,
-                  isLoad: false,
-                })
-              }
-            }, 2000)
-          })
-          this.getCampain()
-        })
-      } else {
+    if (!window.Sales) {
+      addScriptAsync({
+        name: 'sdkSalesARC',
+        url: Domains.getScriptSales(),
+      }).then(() => {
         this.getListSubs().then(p => {
           setTimeout(() => {
-            if (p.length) {
+            if (p.length && this._isMounted) {
               this.setState({
                 userSubsDetail: p,
                 isSubs: true,
                 isLoad: false,
               })
-            } else {
+            } else if (this._isMounted) {
               this.setState({
                 isSubs: false,
                 isLoad: false,
@@ -75,7 +55,25 @@ class Subs extends Component {
           }, 2000)
         })
         this.getCampain()
-      }
+      })
+    } else {
+      this.getListSubs().then(p => {
+        setTimeout(() => {
+          if (p.length && this._isMounted) {
+            this.setState({
+              userSubsDetail: p,
+              isSubs: true,
+              isLoad: false,
+            })
+          } else if (this._isMounted) {
+            this.setState({
+              isSubs: false,
+              isLoad: false,
+            })
+          }
+        }, 2000)
+      })
+      this.getCampain()
     }
   }
 
@@ -91,6 +89,7 @@ class Subs extends Component {
   }
 
   getListSubs = () => {
+    this._isMounted = true
     window.Sales.apiOrigin = this.origin_api
 
     return window.Sales.getAllActiveSubscriptions()
@@ -111,7 +110,7 @@ class Subs extends Component {
           }
         }
 
-        if (count === 0) {
+        if (count === 0 && this._isMounted) {
           this.setState({
             isSubs: false,
           })
@@ -123,13 +122,17 @@ class Subs extends Component {
   }
 
   getCampain() {
+    this._isMounted = true
     const { fetched } = this.getContent('paywall-campaing')
+
     fetched.then(resCam => {
-      this.setState({
-        paywallName: resCam.name || 'Plan',
-        paywallPrice: resCam.plans[0].amount || '-',
-        // paywallDescripcion: resCam.plans[0].description.description || '-',
-      })
+      if (this._isMounted) {
+        this.setState({
+          paywallName: resCam.name || 'Plan',
+          paywallPrice: resCam.plans[0].amount || '-',
+          // paywallDescripcion: resCam.plans[0].description.description || '-',
+        })
+      }
     })
   }
 

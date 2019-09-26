@@ -28,22 +28,18 @@ class Prof extends Component {
   }
 
   componentDidMount = () => {
-    this._isMounted = true
+    const { country, department, province } = this.state
 
-    if (this._isMounted) {
-      const { country, department, province } = this.state
+    if (country) {
+      this._getUbigeo(country, 'department')
+    }
 
-      if (country) {
-        this._getUbigeo(country, 'department')
-      }
+    if (department) {
+      this._getUbigeo(department, 'province')
+    }
 
-      if (department) {
-        this._getUbigeo(department, 'province')
-      }
-
-      if (province) {
-        this._getUbigeo(province, 'district')
-      }
+    if (province) {
+      this._getUbigeo(province, 'district')
     }
   }
 
@@ -76,6 +72,8 @@ class Prof extends Component {
   }
 
   _getUbigeo = (input, geo) => {
+    this._isMounted = true
+
     const state = {}
     let value = input
     const hasTarget = Object.prototype.hasOwnProperty.call(input, 'target')
@@ -103,7 +101,9 @@ class Prof extends Component {
         Object.assign(state, {
           [`data${GeoUpper}s`]: geoData,
         })
-        this.setState(state)
+        if (this._isMounted) {
+          this.setState(state)
+        }
       })
       .catch(() => {
         window.console.error()
