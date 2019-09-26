@@ -130,7 +130,7 @@ export default {
       {
         position: 'Copyright © elcomercio.pe',
         name:
-          '© Empresa Editora El Comercio - Copyright © Elcomercio.pe - Grupo El Comercio - Todos los derechos reservados.',
+          '© Empresa Editora El Comercio - Grupo El Comercio - Todos los derechos reservados.',
       },
     ],
     socialNetworks: [
