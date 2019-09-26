@@ -11,6 +11,9 @@ export const SchemaSingleStory = arcSite => {
       basic { url type resized_urls { landscape_md lazy_default  } }
       basic_video {
         _id
+        additional_properties { 
+          advertising { playAds playVideoAds }
+        }
         embed_html
         promo_items {
           basic { url type resized_urls { landscape_md lazy_default  } }
@@ -36,6 +39,9 @@ export const SchemaMultiStory = arcSite => {
         basic_video {
           _id
           embed_html
+          additional_properties { 
+            advertising { playAds playVideoAds }
+          }
           promo_items {
             basic { url type resized_urls { landscape_md lazy_default  } }
           }

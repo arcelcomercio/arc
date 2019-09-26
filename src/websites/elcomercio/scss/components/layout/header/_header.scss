@@ -1,6 +1,6 @@
 .header {
   display: flex;
-  height: 70px;
+  height: 60px;
   @media (--only-mobile) {
     background-color: $color-primary;
   }
@@ -56,6 +56,9 @@
     height: $header-mobile-height;
     @media (--desktop) {
       height: $header-inverted-height;
+    }
+    &.active {
+      height: 45px;
     }
   }
 }

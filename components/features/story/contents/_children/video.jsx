@@ -13,7 +13,11 @@ class StoryContentChildVideo extends PureComponent {
     super(props)
     this.videoData = ''
     const {
-      globalContent: { promo_items: { basic_video: video } = {} } = {},
+      globalContent: {
+        promo_items: {
+          basic_video: { additional_properties: video = {} } = {},
+        } = {},
+      } = {},
     } = this.props
     this.videoData = video
   }
@@ -24,11 +28,12 @@ class StoryContentChildVideo extends PureComponent {
     }
 
     if (window.PoWaSettings) {
+      window.preroll = this.getParametroPublicidad()
       window.PoWaSettings.advertising = {
         adBar: false,
         adTag: () => {
-          return this.videoData.additional_properties.advertising.playAds ===
-            true
+          return this.videoData.advertising &&
+            this.videoData.advertising.playAds === true
             ? this.getParametroPublicidad()
             : ''
         },

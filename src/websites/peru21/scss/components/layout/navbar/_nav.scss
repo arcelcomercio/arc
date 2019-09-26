@@ -55,6 +55,9 @@
 
   &__mobile-logo {
     left: 116px;
+    @media (--tablet) {
+      left: 153px;
+    }
     @media (--desktop) {
       left: 183px;
     }

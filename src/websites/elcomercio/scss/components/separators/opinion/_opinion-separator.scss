@@ -1,5 +1,8 @@
 .separator {
   &__opinion {
+    @media (--only-mobile) {
+      padding: 0;
+    }
     &--body {
       @media (--only-mobile) {
         flex-direction: column;

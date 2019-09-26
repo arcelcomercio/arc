@@ -3,7 +3,7 @@ export default {
 
   googleFonts: 'Alfa+Slab+One|Titillium+Web:400,700',
 
-  //colorPrimary: '#007d33',
+  // colorPrimary: '#007d33',
   colorPrimary: '#5fbb46',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',
@@ -123,6 +123,7 @@ export default {
       },
     ],
   },
+
   social: {
     facebook: {
       name: 'facebook',
@@ -156,4 +157,8 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  taboola: {
+    dataModeAmp: 'thumbnails-e',
+    mode: 'thumbnails-a',
+  },
 }
