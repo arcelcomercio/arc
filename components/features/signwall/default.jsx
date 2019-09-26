@@ -96,31 +96,33 @@ class Signwall extends Component {
     const { showLogin, showPanel } = this.state
     const { arcSite, singleSign } = this.props
     return (
-      <div className="signwall">
-        <div className="link-identity__content">
-          {showLogin && !singleSign && (
-            <LoginRegister
-              closePopup={() => this.togglePopupLogin()}
-              brandModal={arcSite}
-            />
-          )}
+      // <div className="signwall">
+      //   <div className="link-identity__content">
+      <>
+        {showLogin && !singleSign && (
+          <LoginRegister
+            closePopup={() => this.togglePopupLogin()}
+            brandModal={arcSite}
+          />
+        )}
 
-          {showLogin && singleSign && (
-            <LoginPaywall
-              closePopup={() => this.togglePopupLogin()}
-              brandModal={arcSite}
-            />
-          )}
+        {showLogin && singleSign && (
+          <LoginPaywall
+            closePopup={() => this.togglePopupLogin()}
+            brandModal={arcSite}
+          />
+        )}
 
-          {showPanel && (
-            <Panel
-              arcSite={arcSite}
-              closePopup={() => this.togglePopupPanel()}
-              closeDispatchEvent={() => this.dispatchEvent('logout')}
-            />
-          )}
-        </div>
-      </div>
+        {showPanel && (
+          <Panel
+            arcSite={arcSite}
+            closePopup={() => this.togglePopupPanel()}
+            closeDispatchEvent={() => this.dispatchEvent('logout')}
+          />
+        )}
+      </>
+      //   </div>
+      // </div>
     )
   }
 }

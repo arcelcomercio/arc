@@ -55,7 +55,7 @@ class HeaderChildSomos extends PureComponent {
           <i className={classes.iconUser} />
           Ingresa a tu cuenta
         </button> */}
-        <SignwallComponent/>
+        <SignwallComponent />
         <button
           className="hidden md:block"
           type="button"
@@ -69,7 +69,7 @@ class HeaderChildSomos extends PureComponent {
     )
     const searchInputs = (
       <>
-        <form className="hidden md:block" onSubmit={e => this.handleSubmit(e)}>
+        <form className="hidden md:flex" onSubmit={e => this.handleSubmit(e)}>
           <input
             type="search"
             placeholder="¿QUÉ BUSCAS?"

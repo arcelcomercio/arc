@@ -31,7 +31,9 @@ class StoryTitleAmp extends PureComponent {
         website_url: websiteUrl,
       } = {},
     } = this.props
-    const dataSlot = `/${adsAmp.dataSlot}/${arcSite}-amp-320x50-top-movil1`
+    const dataSlot = `/${adsAmp.dataSlot}/${
+      arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
+    }-amp-320x50-top-movil1`
     const placementId = adsAmp.movil1
     const width = '320'
     const height = '50'
