@@ -6,6 +6,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import { appendToBody } from '../../utilities/helpers'
 import minuteScript from './_dependencies/minute-by-minute-script'
+import { classExpression } from '@babel/types'
 
 const createScript = ({ src, async, defer, textContent = '', jquery }) => {
   const node = document.createElement('script')
@@ -54,54 +55,6 @@ class MinuteByMinute extends Component {
       })
     )
 
-    function updateTime(time, min) {
-      const timerProgressFill = document.getElementById('timer-progress-fill')
-
-      let minute = 0
-      const minInt = parseInt(min)
-
-      const updateCircle = r => {
-        const length = 2 * Math.PI * r
-        const nowSec = 3600 - minute * 60
-
-        const percentage = (nowSec * 100) / 3600
-        const strokeDashoffset = (length * percentage) / 100
-        timerProgressFill.style.strokeDashoffset = `${strokeDashoffset}px`
-      }
-
-      switch (time) {
-        case 'ST':
-          minute = minInt - 45
-          break
-        case 'PTS':
-          minute = minInt - 90
-          break
-        case 'STS':
-          minute = minInt - 105
-          break
-        case 'Final':
-          if (minInt >= 90 && minInt < 105) minute = minInt - 45
-          else if (minInt >= 105 && minInt < 120) minute = minInt - 90
-          else if (minInt >= 120) minute = minInt - 105
-          break
-        case 'PENALES':
-          if (minInt >= 90 && minInt < 105) minute = minInt - 45
-          else if (minInt >= 105 && minInt < 120) minute = minInt - 90
-          else if (minInt >= 120) minute = minInt - 105
-          break
-        default:
-          minute = minInt
-          break
-      }
-
-      if (window.innerWidth <= 640) updateCircle(13.5)
-      else updateCircle(22)
-      window.addEventListener('resize', () => {
-        if (window.innerWidth <= 640) updateCircle(13.5)
-        else updateCircle(22)
-      })
-    }
-
     const self = this
     function runScorer() {
       const instances = getMxmInstances()
@@ -109,7 +62,6 @@ class MinuteByMinute extends Component {
 
       instances[key].pubsub.on('data', function(data) {
         self.setState({ inner: data })
-        updateTime(data.tiempo, data.time)
       })
     }
     window.on_mxm_loaded = function(instances) {
@@ -140,26 +92,18 @@ class MinuteByMinute extends Component {
     return '-'
   }
 
-  gameStatus = (status = '') => {
-    switch (status) {
-      case 'PT':
-        return '1ER TIEMPO'
-      case 'ST':
-        return '2DO TIEMPO'
-      case 'PTS':
-        return '1ER TIEMPO SUPL.'
-      case 'STS':
-        return '2DO TIEMPO SUPL.'
-      case 'Final':
-        break
-      case 'PENALES':
-        return 'PENALES'
-      case 'ENTRETIEMPO':
-        return 'ENTRETIEMPO'
-      default:
-        break
+  gameStatus = (status = '-') => {
+    const cases = {
+      PT: '1ER TIEMPO',
+      ST: '2DO TIEMPO',
+      PTS: '1ER TIEMPO SUPL.',
+      STS: '2DO TIEMPO SUPL.',
+      Final: '',
+      PENALES: 'PENALES',
+      ENTRETIEMPO: 'ENTRETIEMPO',
+      default: '',
     }
-    return status.toUpperCase()
+    return cases[status] || cases.default
   }
 
   toggleProgress = (tiempo, equipos) => {
@@ -186,15 +130,16 @@ class MinuteByMinute extends Component {
 
     fetched.then(response => {
       const {
-        headlines: { basic = '' } = {},
+        headlines: { basic: title = '' } = {},
+        subheadlines: { basic: subTitle = '' } = {},
         websites: { [arcSite]: { website_url: websiteUrl = '' } = {} },
       } = response
-      this.setState({ title: basic, url: websiteUrl })
+      this.setState({ title, subTitle, url: websiteUrl })
     })
   }
 
   render() {
-    const { title, url } = this.state
+    const { title, url, subTitle } = this.state
     const { deployment, contextPath } = this.props
     const {
       customFields: { typeComponent = '', codeComponent = '' } = {},
@@ -203,8 +148,9 @@ class MinuteByMinute extends Component {
     const { inner } = this.state
     const defaultValue = '-'
 
-    const equipos = (inner && inner.match[0]) || {}
+    const equipos = (inner && inner.match && inner.match[0]) || {}
     const { time, tiempo, info, publicidad = {} } = inner || {}
+    console.log(this.state, 'ETTADOO')
     console.log(inner, 'DATAAAAAAAAAAA')
     return (
       <div
@@ -212,13 +158,13 @@ class MinuteByMinute extends Component {
           typeComponent === 'partido' ? 'mxm-partido' : 'mxm-eventos'
         }`}>
         <div className="by-minute__left p-20">
-          <h2 className="text-center text-xl line-h-sm font-bold mb-20">
-            <a href={url} className="text-white tertiary-font">
-              {title}
-            </a>
-          </h2>
-          {typeComponent === 'partido' && (
+          {typeComponent === 'partido' ? (
             <>
+              <h2 className="text-center text-xl line-h-sm font-bold mb-20">
+                <a href={url} className="text-white tertiary-font">
+                  {title}
+                </a>
+              </h2>
               <div className="w-game-info">
                 <ul className="game-info flex justify-end">
                   <li className="game-live secondary-font mr-10 text-md flex items-center text-white">
@@ -239,7 +185,7 @@ class MinuteByMinute extends Component {
               </div>
               <div className="box-game rounded-sm bg-white p-5 mt-10">
                 <a
-                  className="page-link by-minute__bar flex justify-between"
+                  className="page-link by-minute__bar flex justify-between position-relative"
                   href={url}>
                   <div className="game-team team1 flex items-center">
                     <span className="team-shield">
@@ -253,45 +199,13 @@ class MinuteByMinute extends Component {
                       {equipos.local || defaultValue}
                     </span>
                   </div>
-                  <div className="game-score flex items-center">
+                  <div className="game-score flex items-center  by-minute__middle ">
                     <span className="team-goals team-goals1 pr-10">
                       <div className="goals">
                         {equipos.goles_local || defaultValue}
                       </div>
                     </span>
-                    <span className="game-status position-relative">
-                      <svg
-                        id="timer-progress"
-                        className={`timer-progress by-minute__time-progress ${this.toggleProgress(
-                          tiempo,
-                          equipos
-                        )}`}
-                        version="1.1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        x="0"
-                        y="0">
-                        <circle
-                          id="timer-progress-base"
-                          className="timer-progress-base"
-                          r="22"
-                          cx="24"
-                          cy="24"
-                          fill="#ffffff"
-                          strokeDasharray="137.339"
-                          strokeDashoffset="0"
-                        />
-                        <circle
-                          id="timer-progress-fill"
-                          className="timer-progress-fill"
-                          r="22"
-                          cx="24"
-                          cy="24"
-                          fill="transparent"
-                          strokeDasharray="137.339"
-                          strokeDashoffset="0"
-                          style={{ 'stroke-dashoffset': '138.23px' }}
-                        />
-                      </svg>
+                    <span className="game-status position-relative  by-minute__box-separator  rounded border-1 border-solid border-gray">
                       <span
                         className="game-status-time by-minute__separator"
                         id="game-status-time">
@@ -318,6 +232,31 @@ class MinuteByMinute extends Component {
                   </div>
                 </a>
               </div>
+            </>
+          ) : (
+            <>
+              <div className="w-game-info flex justify-center">
+                <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
+                  <img
+                    src={deployment(
+                      `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                    )}
+                    alt=""
+                    className="mr-5"
+                  />
+                  En vivo
+                </div>
+              </div>
+              <h2 className="text-center text-xl line-h-sm font-bold mt-20">
+                <a href={url} className="text-white tertiary-font">
+                  {title}
+                </a>
+              </h2>
+              <p className="text-center mt-15">
+                <a className="text-white" href={url}>
+                  {subTitle}
+                </a>
+              </p>
             </>
           )}
 
@@ -354,7 +293,7 @@ class MinuteByMinute extends Component {
           {typeComponent === 'partido' ? (
             <mxm-partido code={codeComponent} noframe h="235px" />
           ) : (
-            <mxm-evento code={codeComponent} noframe h="748px" />
+            <mxm-evento code={codeComponent} noframe h="258px" />
           )}
         </div>
       </div>

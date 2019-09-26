@@ -1,11 +1,22 @@
 .by-minute {
+  display: flex;
+  flex-direction: column;
+  @media (--tablet) {
+    flex-direction: row;
+  }
   &__left {
-    width: calc(55% - 10px);
-    margin-right: 10px;
-    background-color: #313131;
+    width: 100%;
+    @media (--tablet) {
+      width: calc(55% - 10px);
+      margin-right: 10px;
+      background-color: #313131;
+    }
   }
   &__right {
-    width: 45%;
+    width: 100%;
+    @media (--tablet) {
+      width: 45%;
+    }
   }
   &__time-progress {
     width: 40px;
@@ -17,6 +28,16 @@
     &.show {
       display: block;
     }
+  }
+  &__middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__box-separator {
+    width: 40px;
+    height: 40px;
   }
   &__separator {
     position: absolute;
