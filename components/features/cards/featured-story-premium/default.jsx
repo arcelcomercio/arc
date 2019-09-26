@@ -7,6 +7,7 @@ import FeaturedStoryPremiumChild from './_children/feature-premium'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
+import LiveStreaming from './_children/streaming-live'
 
 const FeaturedStoryPremium = props => {
   const {
@@ -32,6 +33,9 @@ const FeaturedStoryPremium = props => {
       date2,
       note3,
       date3,
+      flagLive,
+      platformLive,
+      urlVideo,
     } = {},
   } = props
 
@@ -198,7 +202,21 @@ const FeaturedStoryPremium = props => {
     errorList,
     logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
   }
-  return <FeaturedStoryPremiumChild {...params} />
+
+  const paramsLive = {
+    arcSite,
+    contextPath,
+    deployment,
+    platformLive,
+    urlVideo,
+  }
+
+  return (
+    <>
+      {!flagLive && <FeaturedStoryPremiumChild {...params} />}
+      {flagLive && <LiveStreaming {...paramsLive} />}
+    </>
+  )
 }
 
 FeaturedStoryPremium.propTypes = {
