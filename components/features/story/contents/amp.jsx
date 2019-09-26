@@ -54,26 +54,36 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       siteUrl,
     })
-    const dataSlot = `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-boton-movil2`
+    const namePublicidad = arcSite !== 'elcomercio' ? arcSite : 'eco'
+
+    const dataSlot = `/${
+      adsAmp.dataSlot
+    }/${namePublicidad}-amp-300x250-boton-movil2`
     const imgTag = 'amp-img'
     const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
     const parameters = { dataSlot, placementId, width, height }
     const parametersMovil4 = {
-      dataSlot: `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-middle-movil4`,
+      dataSlot: `/${
+        adsAmp.dataSlot
+      }/${namePublicidad}-amp-300x250-middle-movil4`,
       placementId: adsAmp.movil4,
       width,
       height,
     }
     const parametersMovil5 = {
-      dataSlot: `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-inferior-movil5`,
+      dataSlot: `/${
+        adsAmp.dataSlot
+      }/${namePublicidad}-amp-300x250-inferior-movil5`,
       placementId: adsAmp.movil5,
       width,
       height,
     }
     const parametersMovil3 = {
-      dataSlot: `/${adsAmp.dataSlot}/${arcSite}-amp-300x250-inline-movil3`,
+      dataSlot: `/${
+        adsAmp.dataSlot
+      }/${namePublicidad}-amp-300x250-inline-movil3`,
       placementId: adsAmp.movil3,
       width,
       height,
