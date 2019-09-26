@@ -620,10 +620,10 @@ if (adUnits.length > 0) {
     pbjs.requestBids({
       bidsBackHandler: () => {
         initAdserver()
-        if (!document.location.href.includes('/mag.')) {
-          const tag_inline = getTagInline()
-          inline(tag_inline)
-        }
+        // if (!document.location.href.includes('/mag.')) {
+        const tag_inline = getTagInline()
+        inline(tag_inline)
+        // }
         peruRedShowTag()
       },
       timeout: PREBID_TIMEOUT,
@@ -692,10 +692,10 @@ const initWithoutHB = () => {
         apntag.showTag(el.targetId)
       })
     )
-    if (!document.location.href.includes('/mag.')) {
-      const tag_inline = getTagInline()
-      inline(tag_inline)
-    }
+    // if (!document.location.href.includes('/mag.')) {
+    const tag_inline = getTagInline()
+    inline(tag_inline)
+    // }
     peruRedShowTag()
   })
 }
