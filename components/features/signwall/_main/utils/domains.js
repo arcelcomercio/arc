@@ -7,10 +7,14 @@ class Domains {
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
           : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+      case 'peru21g21':
+        return ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.peru21.pe`
+          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
       case 'elcomerciomag':
         return ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.elcomercio.pe`
-        : `https://api-sandbox.elcomercio.pe`
+          ? `https://api.elcomercio.pe`
+          : `https://api-sandbox.elcomercio.pe`
       default:
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
@@ -32,9 +36,11 @@ class Domains {
 
   getPoliticsTerms = (type, site) => {
     const hashSite = {
+      elcomerciomag: 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
       elcomercio: 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
       gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
       peru21: 'f7bd562ca9912019255511635185bf2b',
+      peru21g21: 'f7bd562ca9912019255511635185bf2b',
     }
 
     switch (type) {
@@ -60,6 +66,10 @@ class Domains {
     return ENV.ENVIRONMENT === 'elcomercio'
       ? 'https://afv5trdj4i.execute-api.us-east-1.amazonaws.com/prod/userprofile/public/v1'
       : 'https://vq01ksb95d.execute-api.us-east-1.amazonaws.com/dev/userprofile/public/v1'
+  }
+
+  getListBundle = () => {
+    return ['UJWWFG', '7NK9SV'] // price code bundle sandbox & prod
   }
 }
 

@@ -86,7 +86,7 @@ class PayWallPremium extends Component {
       closePopup,
       typeModal,
       contextPath,
-      siteProperties,
+      // siteProperties,
       arcSite,
       deployment,
     } = this.props
@@ -97,75 +97,68 @@ class PayWallPremium extends Component {
       ) || ''
 
     return (
-      // <div className="signwall">
-      //   <div className="link-identity__content">
-          <ModalProvider>
-            <ModalConsumer>
-              {value => (
-                <Modal
-                  size="medium"
-                  position="middle"
-                  name={`arc-popup-${typeModal}`}
-                  id={`arc-popup-${typeModal}`}>
-                  <div className="modal-body">
-                    <div
-                      className="modal-body__middle bg-paywall"
-                      style={{
-                        backgroundImage: `url(${ImageBg})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                      }}>
-                      <p className="text-xl secondary-font">
-                        {typeModal === 'paywall'
-                          ? 'Has alcanzado el límite de noticias.'
-                          : 'Para acceder a este contenido'}
-                        <br />
-                        {typeModal === 'paywall'
-                          ? 'Para continuar leyendo, adquiere el'
-                          : 'exclusivo, adquiere tu'}
-                      </p>
-                      <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
-                      <center>
-                        {/* <img
+      <ModalProvider>
+        <ModalConsumer>
+          {value => (
+            <Modal
+              size="medium"
+              position="middle"
+              name={`arc-popup-${typeModal}`}
+              id={`arc-popup-${typeModal}`}>
+              <div className="modal-body">
+                <div
+                  className="modal-body__middle bg-paywall"
+                  style={{
+                    backgroundImage: `url(${ImageBg})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}>
+                  <p className="text-xl secondary-font">
+                    {typeModal === 'paywall'
+                      ? 'Has alcanzado el límite de noticias.'
+                      : 'Para acceder a este contenido'}
+                    <br />
+                    {typeModal === 'paywall'
+                      ? 'Para continuar leyendo, adquiere el'
+                      : 'exclusivo, adquiere tu'}
+                  </p>
+                  <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
+                  <center>
+                    {/* <img
                           className="mt-40"
                           alt=""
                           src={deployment(
                             `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.nav.logo}`
                           )}
                         /> */}
-                        <img
-                          style={{ maxWidth: '320px', height: 'auto' }}
-                          className="mt-40"
-                          alt=""
-                          src={deployment(
-                            `${contextPath}/resources/dist/${arcSite}/images/logo_ges.png`
-                          )}
-                        />
-                      </center>
-                    </div>
-                    <div className="modal-body__middle intro-paywall">
-                      <button
-                        type="button"
-                        className="btn-close"
-                        onClick={() => {
-                          Taggeo(
-                            `Web_${typeModal}_Hard`,
-                            `web_${typeModal}_cerrar`
-                          )
-                          closePopup()
-                        }}>
-                        <i className="icon-close"></i>
-                      </button>
-                      {this.renderTemplate(value.selectedTemplate)}
-                    </div>
-                  </div>
-                </Modal>
-              )}
-            </ModalConsumer>
-          </ModalProvider>
-      //   </div>
-      // </div>
+                    <img
+                      style={{ maxWidth: '320px', height: 'auto' }}
+                      className="mt-40"
+                      alt=""
+                      src={deployment(
+                        `${contextPath}/resources/dist/${arcSite}/images/logo_ges.png`
+                      )}
+                    />
+                  </center>
+                </div>
+                <div className="modal-body__middle intro-paywall">
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => {
+                      Taggeo(`Web_${typeModal}_Hard`, `web_${typeModal}_cerrar`)
+                      closePopup()
+                    }}>
+                    <i className="icon-close"></i>
+                  </button>
+                  {this.renderTemplate(value.selectedTemplate)}
+                </div>
+              </div>
+            </Modal>
+          )}
+        </ModalConsumer>
+      </ModalProvider>
     )
   }
 }
