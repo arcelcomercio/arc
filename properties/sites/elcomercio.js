@@ -237,5 +237,6 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
+  urlSubsOnline: 'https://suscripciones.elcomercio.pe/?ref=elcomercio',
   gda: true, // Grupo Diarios de America
 }

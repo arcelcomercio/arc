@@ -73,7 +73,12 @@
     font-size: 9px;
   }
   &__mobile-container {
-    display: none;
+    display: block;
+    right: 15px;
+    position: absolute;
+    @media (--desktop) {
+      display: none;
+    }
   }
   &__container-menu {
     @media (--only-mobile) {
@@ -87,7 +92,10 @@
     }
   }
   &__container-right {
-    display: block;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
     .btn {
       padding: 0px;
       font-family: $tertiary-font;

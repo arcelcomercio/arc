@@ -363,9 +363,30 @@ const HeaderChildInverted = ({
             </>
           ) : (
             <>
+              {/* <Button
+                btnClass={`${classes.btnProfile} ${classes.btnClub}`}
+                btnText={CLUB_TEXT}
+                onClick={_handleToggleSectionElements}
+                btnLink={CLUB_URL}
+              />
+              <Button
+                btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
+                btnText={SUBSCRIBE_TEXT}
+                onClick={_handleToggleSectionElements}
+                btnLink={SUBSCRIBE_URL}
+              /> */}
+
               <div className={`${classes.navContainerRight} `}>
                 {siteProperties.activeSignwall && (
                   <>
+                    {siteProperties.activePaywall &&
+                    siteProperties.urlSubsOnline ? (
+                      <Button
+                        btnText="Suscríbete"
+                        btnClass={`${classes.btnSubscribe} btn--outline`}
+                        btnLink={siteProperties.urlSubsOnline}
+                      />
+                    ) : null}
                     <SignwallComponent />
                   </>
                 )}
