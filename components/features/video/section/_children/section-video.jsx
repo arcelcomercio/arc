@@ -22,6 +22,17 @@ export default ({
     if (window.powaBoot) {
       window.powaBoot()
     }
+
+    if (window.PoWaSettings) {
+      const { urlPreroll } = siteProperties
+      window.PoWaSettings.advertising = {
+        adBar: false,
+        adTag: () => {
+          return principalVideo.hasAdsVideo ? urlPreroll : ''
+        },
+      }
+    }
+
     if (!isAdmin) {
       const playList = document.querySelector('.play-list')
       const sectionVideo = document.querySelector('.section-video__wrapper')

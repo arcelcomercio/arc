@@ -1,6 +1,9 @@
 .triplet {
   border: 0;
   padding: 0 10px;
+  @media (--only-mobile) {
+    padding: 0;
+  }
   &__item {
     border-color: $color-gray-100;
   }
