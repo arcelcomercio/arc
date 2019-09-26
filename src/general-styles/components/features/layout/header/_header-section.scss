@@ -26,6 +26,8 @@
 
 .section-menu {
   z-index: 1;
+  position: fixed;
+  left: 0;
 
   @media (--desktop) {
     position: relative;
@@ -34,6 +36,7 @@
   }
 
   &__content {
+    overflow: auto;
     width: 255px;
     transition: all 2ms;
     transform: translate3d(-100%, 0, 0);
