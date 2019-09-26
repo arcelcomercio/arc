@@ -42,13 +42,13 @@ class Signwall extends PureComponent {
       this.setState({
         sessUser: true,
       })
-      this.togglePopupPanel()
+      // this.togglePopupPanel()
     } else if (this.checkSession() === false && sessUser && this._isMounted) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: false,
       })
-      this.togglePopupLogin()
+      // this.togglePopupLogin()
     }
   }
 
