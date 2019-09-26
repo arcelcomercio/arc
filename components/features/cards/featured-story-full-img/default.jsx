@@ -49,14 +49,11 @@ const FeatureStoryFullImage = props => {
     defaultImgSize: 'sm',
   })
 
-  const section = categoryField || primarySection
-  const title = titleField || titleStory
-
   const params = {
     author,
     authorLink,
     primarySectionLink,
-    title,
+    title: titleField || titleStory,
     multimediaLandscapeL: imgField || multimediaLandscapeL, //
     multimediaPortraitMD: imgField || multimediaPortraitMD, //
     multimediaSquareXL: imgField || multimediaSquareXL, //
@@ -66,7 +63,7 @@ const FeatureStoryFullImage = props => {
     crossY,
     crossX,
     model,
-    section,
+    section: categoryField || primarySection,
     isAdmin,
   }
 
