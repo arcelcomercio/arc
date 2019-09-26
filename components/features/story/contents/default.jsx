@@ -41,6 +41,7 @@ const classes = {
   section: 'w-full',
   listClasses: 'story-content__paragraph-list',
   alignmentClasses: 'story-content__alignment',
+  bbcHead: 'bbc-head p-10',
 }
 
 @Consumer
@@ -137,7 +138,7 @@ class StoryContents extends PureComponent {
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
       deployment(
-        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+        `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
     return (
       <div className={classes.news}>
