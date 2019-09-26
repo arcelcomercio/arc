@@ -24,6 +24,7 @@ class Subs extends Component {
       idSubsDelete: null,
       // userSubs: {},
       userSubsDetail: [],
+      listBundle: Domains.getListBundle() || [],
     }
 
     const { arcSite } = this.props
@@ -215,6 +216,7 @@ class Subs extends Component {
       // paywallDescripcion,
       userSubsDetail,
       idSubsDelete,
+      listBundle,
     } = this.state
     const { arcSite } = this.props
     return (
@@ -255,31 +257,50 @@ class Subs extends Component {
                           <h2>{reSubs.productName}</h2>
                         </div>
                         <div className="details-right">
-                          <p>
-                            <strong>Plan de pago: </strong>{' '}
-                            {reSubs.paymentHistory[0] && (
-                              <span>
-                                {(new Date(reSubs.paymentHistory[0].periodTo) -
-                                  new Date(
-                                    reSubs.paymentHistory[0].periodFrom
-                                  )) /
-                                  (1000 * 60 * 60 * 24) ===
-                                30
-                                  ? 'MENSUAL'
-                                  : 'ANUAL'}
-                              </span>
-                            )}
-                          </p>
-                          <p>
-                            <strong>Precio: </strong>{' '}
-                            {reSubs.salesOrders[0] && (
-                              <span>
-                                {reSubs.salesOrders[0].total !== 0
-                                  ? ` S/ ${reSubs.salesOrders[0].total}`
-                                  : 'GRATIS'}
-                              </span>
-                            )}
-                          </p>
+                          {listBundle.includes(reSubs.priceCode) ? (
+                            <p>
+                              ¡Hola! Encuentra todos los detalles de tu
+                              suscripción DIGITAL + IMPRESA en{' '}
+                              <a
+                                className="link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://suscripciones.gestion.pe/suscripciones/">
+                                Suscripciones Online
+                              </a>
+                            </p>
+                          ) : (
+                            <>
+                              <p>
+                                <strong>Plan de pago: </strong>{' '}
+                                {reSubs.paymentHistory[0] && (
+                                  <span>
+                                    {(new Date(
+                                      reSubs.paymentHistory[0].periodTo
+                                    ) -
+                                      new Date(
+                                        reSubs.paymentHistory[0].periodFrom
+                                      )) /
+                                      (1000 * 60 * 60 * 24) ===
+                                    30
+                                      ? 'MENSUAL'
+                                      : 'ANUAL'}
+                                  </span>
+                                )}
+                              </p>
+                              <p>
+                                <strong>Precio: </strong>{' '}
+                                {reSubs.salesOrders[0] && (
+                                  <span>
+                                    {reSubs.salesOrders[0].total !== 0
+                                      ? ` S/ ${reSubs.salesOrders[0].total}`
+                                      : 'GRATIS'}
+                                  </span>
+                                )}
+                              </p>
+                            </>
+                          )}
+
                           {/* <p className="small">
                               *POR 6 MESES LUEGO S/ 20 CADA MES
                             </p> */}

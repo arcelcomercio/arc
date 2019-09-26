@@ -269,7 +269,7 @@ class SignwallComponent extends PureComponent {
           className={
             typeMobile
               ? `${classes.btnSignwallMobile} ${
-                  arcSite === 'peru21' ? 'bg-white' : null
+                  arcSite === 'peru21' || arcSite === 'peru21g21' ? 'bg-white' : null
                 }`
               : `${classes.btnLogin} btn--outline`
           }

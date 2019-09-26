@@ -292,7 +292,6 @@ class FormLogin extends Component {
       `Web_Sign_Wall_${typePopUp}`,
       `web_sw${typePopUp[0]}_login_success_ingresar`
     )
-   
   }
 
   taggeoError() {
@@ -355,14 +354,14 @@ class FormLogin extends Component {
                 </div>
 
                 <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                  {arcSite !== 'peru21' ? (
+                  {arcSite === 'peru21' || arcSite === 'peru21g21' ? null : (
                     <h1
                       className="form-grid__title-big text-center lg:hidden"
                       hidden={hiddenEnterUser}>
                       Regístrate y mantente siempre informado con las noticias
                       más relevantes del Perú y el mundo
                     </h1>
-                  ) : null}
+                  )}
 
                   {!showSocialButtons && (
                     <>
@@ -542,7 +541,7 @@ class FormLogin extends Component {
                     navegación y nunca publicaremos sin tu permiso
                   </p>
                 </div>
-                {arcSite !== 'peru21' && (
+                {arcSite === 'peru21' || arcSite === 'peru21g21' ? null : (
                   <div
                     className="form-grid__group lg:hidden mt-20"
                     hidden={!hiddenListBenefits}>
@@ -570,7 +569,7 @@ class FormLogin extends Component {
                         elcomerciomag: '#fecd26',
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
-                        peru21g21:'#d5ecff',
+                        peru21g21: '#d5ecff',
                       }[arcSite]
                     }
                   />
