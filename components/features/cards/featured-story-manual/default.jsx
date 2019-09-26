@@ -2,8 +2,22 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
 import FeaturedStory from '../../../global-components/featured-story'
-import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
+import StoryFormatter from '../../../utilities/featured-story-formatter'
+import { getPhotoId } from '../../../utilities/helpers'
+
+const source = 'story-by-url'
+const PHOTO_SOURCE = 'photo-by-id'
+
+const PHOTO_SCHEMA = `{
+  resized_urls { 
+    landscape_l 
+    landscape_md
+    portrait_md 
+    square_s 
+    lazy_default  
+  }
+}`
 
 @Consumer
 class CardFeaturedStoryManual extends PureComponent {
@@ -37,8 +51,6 @@ class CardFeaturedStoryManual extends PureComponent {
 
     const { schema } = this.storyFormatter
 
-    const source = 'story-by-url'
-
     const actualDate = new Date().getTime()
 
     const scheduledNotes = [
@@ -64,7 +76,7 @@ class CardFeaturedStoryManual extends PureComponent {
 
     const validateScheduledNotes = () => {
       const filter = '{ publish_date }'
-      if (note1 !== '') {
+      if (note1 !== 'undefined' && note1 !== '') {
         this.fetchContent({
           auxNote1: {
             source,
@@ -77,7 +89,7 @@ class CardFeaturedStoryManual extends PureComponent {
         })
       }
 
-      if (note2 !== '') {
+      if (note2 !== 'undefined' && note2 !== '') {
         this.fetchContent({
           auxNote2: {
             source,
@@ -90,7 +102,7 @@ class CardFeaturedStoryManual extends PureComponent {
         })
       }
 
-      if (note3 !== '') {
+      if (note3 !== 'undefined' && note3 !== '') {
         this.fetchContent({
           auxNote3: {
             source,
@@ -138,16 +150,15 @@ class CardFeaturedStoryManual extends PureComponent {
     }
 
     if (imgField) {
-      const customPhotoUrl = imgField.match(/\/([\w\d]{26}).[\w]{3}$/)
-      const [, photoId] = customPhotoUrl || []
+      const photoId = getPhotoId(imgField)
       if (photoId) {
         this.fetchContent({
           customPhoto: {
-            source: 'photo-by-id',
+            source: PHOTO_SOURCE,
             query: {
               _id: photoId,
             },
-            // filter: schema,
+            filter: PHOTO_SCHEMA,
           },
         })
       }
@@ -220,8 +231,6 @@ class CardFeaturedStoryManual extends PureComponent {
       multimediaLazyDefault,
       multimediaType,
     } = formattedData
-
-    console.log('-----> FF ', formattedData)
 
     if (this.isExternalLink) {
       title.url = path
