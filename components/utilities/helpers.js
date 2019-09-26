@@ -723,6 +723,18 @@ export const formatDateStory = date => {
   )}`
 }
 
+export const formatDateStoryAmp = date => {
+  const fecha = new Date(date)
+  fecha.setHours(fecha.getHours() - 5)
+  const day = fecha.getDate()
+  const month = fecha.getMonth() + 1
+  const formatDay = day < 10 ? `0${day}` : day
+  const formatMonth = month < 10 ? `0${month}` : month
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
+    fecha
+  )}`
+}
+
 /**
  * TODO: Necesita CODE REVIEW
  */

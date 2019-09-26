@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import { formatDayMonthYear, publicidadAmp } from '../../../utilities/helpers'
+import { publicidadAmp, formatDateStoryAmp } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 
@@ -25,6 +25,7 @@ class StoryTitleAmp extends PureComponent {
         subheadlines: { basic: subtitle = '' } = {},
         headlines: { basic: titleElements = '' } = {},
         publish_date: date,
+        display_date: updatedDate,
         promo_items: {
           basic_gallery: { content_elements: galleryItems } = {},
         } = {},
@@ -38,15 +39,16 @@ class StoryTitleAmp extends PureComponent {
     const width = '320'
     const height = '50'
     const parameters = { dataSlot, placementId, width, height }
+
     return (
       <>
         <div className={galleryItems ? classes.gallery : classes.stories}>
           <header>
             {titleElements && (
-              <h1 className={classes.titleAmp}> {titleElements}</h1>
+              <h1 className={classes.titleAmp}>{titleElements}</h1>
             )}
             <time dateTime={date} className={classes.datetime}>
-              {formatDayMonthYear(date)}
+              {formatDateStoryAmp(updatedDate)}
             </time>
           </header>
           <div
