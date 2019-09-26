@@ -28,6 +28,7 @@ class StoryContentChildVideo extends PureComponent {
     }
 
     if (window.PoWaSettings) {
+      window.preroll = this.getParametroPublicidad()
       window.PoWaSettings.advertising = {
         adBar: false,
         adTag: () => {
