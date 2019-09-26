@@ -54,7 +54,8 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       siteUrl,
     })
-    const namePublicidad = arcSite !== 'elcomercio' ? arcSite : 'eco'
+    const namePublicidad =
+      arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
 
     const dataSlot = `/${
       adsAmp.dataSlot

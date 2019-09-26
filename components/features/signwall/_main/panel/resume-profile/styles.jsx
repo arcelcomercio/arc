@@ -28,7 +28,7 @@ export const WrapperBlock = styled.div`
         font-size: 20px;
       }
     }
-    & > button {
+    & > button{
       color: #0179af;
       font-size: 12px;
       font-weight: bold;
@@ -87,6 +87,16 @@ export const WrapperBlock = styled.div`
         padding: 30px 20px;
       }
     }
+
+    & .link{
+      color: #0179af;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0px;
+    }
+
     & .small {
       font-size: 10px;
     }

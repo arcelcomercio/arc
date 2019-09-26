@@ -47,10 +47,10 @@ const classes = {
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight:
-    'flex items-center hidden justify-end header__btn-container md:block',
+    'lg:flex items-center hidden justify-end header__btn-container',
   btnSubscribe:
     'flex items-center btn capitalize text-md font-bold btn--outline',
-  navContainerRightMovil: 'block md:hidden',
+  navContainerRightMovil: 'block lg:hidden',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -129,13 +129,15 @@ const HeaderChildInverted = ({
   }
 
   const _openMenu = () => {
-    _setPosition(1)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) _setPosition(1)
     document.querySelector('.layer').style.display = 'block'
     setStatusSidebar(true)
   }
 
   const _closeMenu = () => {
-    _setPosition(0)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) _setPosition(0)
     document.querySelector('.layer').style.display = 'none'
     setStatusSidebar(false)
   }
@@ -363,9 +365,30 @@ const HeaderChildInverted = ({
             </>
           ) : (
             <>
+              {/* <Button
+                btnClass={`${classes.btnProfile} ${classes.btnClub}`}
+                btnText={CLUB_TEXT}
+                onClick={_handleToggleSectionElements}
+                btnLink={CLUB_URL}
+              />
+              <Button
+                btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
+                btnText={SUBSCRIBE_TEXT}
+                onClick={_handleToggleSectionElements}
+                btnLink={SUBSCRIBE_URL}
+              /> */}
+
               <div className={`${classes.navContainerRight} `}>
                 {siteProperties.activeSignwall && (
                   <>
+                    {siteProperties.activePaywall &&
+                    siteProperties.urlSubsOnline ? (
+                      <Button
+                        btnText="Suscríbete"
+                        btnClass={`${classes.btnSubscribe} btn--outline`}
+                        btnLink={siteProperties.urlSubsOnline}
+                      />
+                    ) : null}
                     <SignwallComponent />
                   </>
                 )}

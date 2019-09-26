@@ -130,7 +130,7 @@ export default {
       {
         position: 'Copyright © elcomercio.pe',
         name:
-          '© Empresa Editora El Comercio - Copyright © Elcomercio.pe - Grupo El Comercio - Todos los derechos reservados.',
+          '© Empresa Editora El Comercio - Grupo El Comercio - Todos los derechos reservados.',
       },
     ],
     socialNetworks: [
@@ -236,5 +236,10 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
+  urlSubsOnline: 'https://suscripciones.elcomercio.pe/?ref=elcomercio',
   gda: true, // Grupo Diarios de America
+  taboola: {
+    dataModeAmp: 'thumbnails-a-amp',
+    mode: 'thumbnails-c',
+  },
 }
