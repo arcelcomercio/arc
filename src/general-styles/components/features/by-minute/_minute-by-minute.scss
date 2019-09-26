@@ -49,6 +49,7 @@
     width: 40px;
   }
   &__bar {
+    min-height: 50px;
     &:hover {
       text-decoration: none;
     }

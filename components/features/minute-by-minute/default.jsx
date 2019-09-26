@@ -181,9 +181,9 @@ class MinuteByMinute extends Component {
                   </li>
                 </ul>
               </div>
-              <div className="box-game rounded-sm bg-white p-5 mt-10">
+              <div className="box-game  rounded-sm bg-white p-5 mt-10">
                 <a
-                  className="page-link by-minute__bar flex justify-between position-relative"
+                  className="page-link by-minute__bar flex justify-between items-center position-relative"
                   href={url}>
                   <div className="game-team team1 flex items-center">
                     <span className="team-shield">
