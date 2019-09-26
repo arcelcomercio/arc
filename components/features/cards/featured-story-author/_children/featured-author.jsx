@@ -92,7 +92,7 @@ export default ({
       'featured-author__title-link text-center line-h-xs overflow-hidden title-lg'
     classes.subtitleLink =
       'featured-author__subtitle-link block text-center text-lg line-h-sm overflow-hidden'
-
+    classes.authorContainer = 'flex justify-center md:mt-60 lg:mt-60'
     storyImages.desktop = multimediaLandscapeL
     storyImages.mobile = multimediaLandscapeL
   }
