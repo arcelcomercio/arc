@@ -5,8 +5,6 @@ import React, { Component } from 'react'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import { appendToBody } from '../../utilities/helpers'
-import minuteScript from './_dependencies/minute-by-minute-script'
-import { classExpression } from '@babel/types'
 
 const createScript = ({ src, async, defer, textContent = '', jquery }) => {
   const node = document.createElement('script')
@@ -57,6 +55,7 @@ class MinuteByMinute extends Component {
 
     const self = this
     function runScorer() {
+      // eslint-disable-next-line no-undef
       const instances = getMxmInstances()
       const key = Object.keys(instances)[0]
 
@@ -150,8 +149,7 @@ class MinuteByMinute extends Component {
 
     const equipos = (inner && inner.match && inner.match[0]) || {}
     const { time, tiempo, info, publicidad = {} } = inner || {}
-    console.log(this.state, 'ETTADOO')
-    console.log(inner, 'DATAAAAAAAAAAA')
+
     return (
       <div
         className={`col-3 flex by-minute live-mxm ${
