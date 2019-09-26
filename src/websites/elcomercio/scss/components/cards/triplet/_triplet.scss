@@ -3,6 +3,7 @@
   padding: 0 10px;
   @media (--only-mobile) {
     padding: 0;
+    height: auto;
   }
   &__item {
     border-color: $color-gray-100;
@@ -49,7 +50,12 @@
     }
   }
   &__multimedia {
+    @media (--only-mobile) {
+      width: 95px;
+      height: 115px;
+    }
     width: 80px;
     height: 95px;
+    min-width: 95px;
   }
 }

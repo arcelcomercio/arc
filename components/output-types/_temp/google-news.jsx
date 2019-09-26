@@ -1,4 +1,4 @@
-import React from 'react'
+/* import React from 'react'
 import NewElement from '../global-components/new-element'
 import Channel from './_dependencies/google-news/channel'
 import ItemImage from './_dependencies/google-news/item-image'
@@ -67,3 +67,4 @@ const GoogleNews = ({
 GoogleNews.contentType = 'text/xml'
 
 export default GoogleNews
+ */

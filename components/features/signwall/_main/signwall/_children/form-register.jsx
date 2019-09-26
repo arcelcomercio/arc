@@ -494,6 +494,7 @@ class FormRegister extends Component {
                         elcomerciomag: '#fecd26',
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
+                        peru21g21:'#d5ecff',
                       }[brandCurrent]
                     }
                   />

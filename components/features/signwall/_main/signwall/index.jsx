@@ -68,26 +68,31 @@ class LoginRegister extends Component {
         <ModalConsumer>
           {value => (
             <Modal
-              size={brandModal !== 'peru21' ? 'large' : 'small'}
+              size={
+                brandModal === 'peru21' || brandModal === 'peru21g21'
+                  ? 'small'
+                  : 'large'
+              }
               position="middle"
               name="arc-popup-signwall"
               id="arc-popup-signwall">
               <Header closePopup={closePopup} typePopUp="organico" />
               <div className="modal-body">
-                {brandModal !== 'peru21' ? (
+                {brandModal === 'peru21' ||
+                brandModal === 'peru21g21' ? null : (
                   <div className="modal-body__left">
                     <ListBenefits
                       typeMessage="organic"
                       brandCurrent={brandModal}
                     />
                   </div>
-                ) : null}
+                )}
 
                 <div
                   className={
-                    brandModal !== 'peru21'
-                      ? 'modal-body__right'
-                      : 'modal-body__full'
+                    brandModal === 'peru21' || brandModal === 'peru21g21'
+                      ? 'modal-body__full'
+                      : 'modal-body__right'
                   }>
                   {this.renderTemplate(value.selectedTemplate)}
                 </div>

@@ -118,7 +118,9 @@
     }
     .featured-story__img-link {
       @media (--only-mobile) {
-        min-width: auto;
+        min-width: 95px;
+        width: 95px;
+        height: 115px;
       }
     }
     .featured-story__detail {
