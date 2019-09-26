@@ -44,7 +44,7 @@ class StoryTitleAmp extends PureComponent {
         <div className={galleryItems ? classes.gallery : classes.stories}>
           <header>
             {titleElements && (
-              <h1 className={classes.titleAmp}> {titleElements} vvvvv</h1>
+              <h1 className={classes.titleAmp}> {titleElements} </h1>
             )}
             <time dateTime={date} className={classes.datetime}>
               {formatDateStoryAmp(updatedDate)}
