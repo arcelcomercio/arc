@@ -237,4 +237,8 @@ export default {
   activeSignwall: true,
   activePaywall: true,
   gda: true, // Grupo Diarios de America
+  taboola: {
+    dataModeAmp: 'thumbnails-a-amp',
+    mode: 'thumbnails-c',
+  },
 }

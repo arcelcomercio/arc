@@ -2,7 +2,7 @@ export default {
   linkTabloide: 'https://peruquiosco.pe/',
   newsletterBrand: '',
   api: {
-    blog: ''
+    blog: '',
   },
   assets: {
     nav: {
@@ -149,4 +149,8 @@ export default {
   activeSignwall: false,
   activePaywall: false,
   gda: false, // Grupo Diarios de America
+  taboola: {
+    dataModeAmp: 'thumbnails-a-amp',
+    mode: 'thumbnails-a',
+  },
 }

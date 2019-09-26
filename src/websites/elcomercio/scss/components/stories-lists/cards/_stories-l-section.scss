@@ -26,6 +26,10 @@
     }
     .multimedia__icon {
       background-color: transparent;
+      transform: none;
+      top: 10px;
+      right: 10px;
+      left: auto;
     }
   }
   .stories-l-item__link {
