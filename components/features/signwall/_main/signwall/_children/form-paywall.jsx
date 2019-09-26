@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import { ModalConsumer } from '../context'
-import Cookie from '../../utils/cookie'
 import Loading from '../../common/loading'
 import Taggeo from '../../utils/taggeo'
 import Domains from '../../utils/domains'
 
-const Cookies = new Cookie()
 @Consumer
 class SignWallPaywall extends Component {
   constructor(props) {

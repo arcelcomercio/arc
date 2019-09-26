@@ -1,0 +1,57 @@
+.by-minute {
+  display: flex;
+  flex-direction: column;
+  @media (--tablet) {
+    flex-direction: row;
+  }
+  &__left {
+    width: 100%;
+    @media (--tablet) {
+      width: calc(55% - 10px);
+      margin-right: 10px;
+      background-color: #313131;
+    }
+  }
+  &__right {
+    width: 100%;
+    @media (--tablet) {
+      width: 45%;
+    }
+  }
+  &__time-progress {
+    width: 40px;
+    height: 40px;
+    transform: rotate(-90deg);
+    &.hiden {
+      display: none;
+    }
+    &.show {
+      display: block;
+    }
+  }
+  &__middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__box-separator {
+    width: 40px;
+    height: 40px;
+  }
+  &__separator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__team-shield {
+    width: 40px;
+  }
+  &__bar {
+    min-height: 50px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
