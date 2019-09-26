@@ -71,35 +71,31 @@ class SignWallRelogin extends Component {
     const { nameMPP } = this.state
     const { closePopup, brandModal } = this.props
     return (
-      <div className="signwall">
-        <div className="link-identity__content">
-          <ModalProvider>
-            <ModalConsumer>
-              {value => (
-                <Modal
-                  size="large"
-                  position="middle"
-                  name="arc-popup-relogin-email"
-                  id="arc-popup-relogin-email">
-                  <Header closePopup={closePopup} typePopUp="relogemail" />
-                  <div className="modal-body">
-                    <div className="modal-body__left">
-                      <ListBenefits
-                        typeMessage="relogin"
-                        brandCurrent={brandModal}
-                        nameMPP={nameMPP || 'lector'}
-                      />
-                    </div>
-                    <div className="modal-body__right">
-                      {this.renderTemplate(value.selectedTemplate)}
-                    </div>
-                  </div>
-                </Modal>
-              )}
-            </ModalConsumer>
-          </ModalProvider>
-        </div>
-      </div>
+      <ModalProvider>
+        <ModalConsumer>
+          {value => (
+            <Modal
+              size="large"
+              position="middle"
+              name="arc-popup-relogin-email"
+              id="arc-popup-relogin-email">
+              <Header closePopup={closePopup} typePopUp="relogemail" />
+              <div className="modal-body">
+                <div className="modal-body__left">
+                  <ListBenefits
+                    typeMessage="relogin"
+                    brandCurrent={brandModal}
+                    nameMPP={nameMPP || 'lector'}
+                  />
+                </div>
+                <div className="modal-body__right">
+                  {this.renderTemplate(value.selectedTemplate)}
+                </div>
+              </div>
+            </Modal>
+          )}
+        </ModalConsumer>
+      </ModalProvider>
     )
   }
 }

@@ -7,22 +7,24 @@ import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
 import Taggeo from '../../utils/taggeo'
 import { WrapperBlock } from './styles'
-// import { ModalConsumer } from '../../../signwall/context'
 
 @Consumer
 class Subs extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.state = {
       paywallName: '-',
       paywallPrice: '-',
-      paywallDescripcion: '-',
+      // paywallDescripcion: '-',
       showModalConfirm: false,
       isSubs: false,
       isLoad: true,
       idSubsDelete: null,
-      userSubs: {},
+      // userSubs: {},
       userSubsDetail: [],
+      listBundle: Domains.getListBundle() || [],
     }
 
     const { arcSite } = this.props
@@ -30,6 +32,8 @@ class Subs extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true
+
     if (!window.Sales) {
       addScriptAsync({
         name: 'sdkSalesARC',
@@ -37,13 +41,13 @@ class Subs extends Component {
       }).then(() => {
         this.getListSubs().then(p => {
           setTimeout(() => {
-            if (p.length) {
+            if (p.length && this._isMounted) {
               this.setState({
                 userSubsDetail: p,
                 isSubs: true,
                 isLoad: false,
               })
-            } else {
+            } else if (this._isMounted) {
               this.setState({
                 isSubs: false,
                 isLoad: false,
@@ -56,13 +60,13 @@ class Subs extends Component {
     } else {
       this.getListSubs().then(p => {
         setTimeout(() => {
-          if (p.length) {
+          if (p.length && this._isMounted) {
             this.setState({
               userSubsDetail: p,
               isSubs: true,
               isLoad: false,
             })
-          } else {
+          } else if (this._isMounted) {
             this.setState({
               isSubs: false,
               isLoad: false,
@@ -74,6 +78,10 @@ class Subs extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
   getDetail(id) {
     window.Sales.apiOrigin = this.origin_api
     return window.Sales.getSubscriptionDetails(id).then(resDetail => {
@@ -82,6 +90,7 @@ class Subs extends Component {
   }
 
   getListSubs = () => {
+    this._isMounted = true
     window.Sales.apiOrigin = this.origin_api
 
     return window.Sales.getAllActiveSubscriptions()
@@ -102,39 +111,29 @@ class Subs extends Component {
           }
         }
 
-        if (count === 0) {
+        if (count === 0 && this._isMounted) {
           this.setState({
             isSubs: false,
           })
         }
 
         return p.then(() => newaray)
-
-        // if (count >= 1) {
-        //   this.setState({
-        //     userSubs: res,
-        //     isSubs: true,
-        //     userSubsDetail: newaray,
-        //   })
-        // }
-
-        // this.setState({
-        //   isLoad: false,
-        //   userSubs: res,
-        //   isSubs: false,
-        // })
       })
       .catch(err => window.console.error(err))
   }
 
   getCampain() {
+    this._isMounted = true
     const { fetched } = this.getContent('paywall-campaing')
+
     fetched.then(resCam => {
-      this.setState({
-        paywallName: resCam.name || 'Plan',
-        paywallPrice: resCam.plans[0].amount || '-',
-        paywallDescripcion: resCam.plans[0].description.description || '-',
-      })
+      if (this._isMounted) {
+        this.setState({
+          paywallName: resCam.name || 'Plan',
+          paywallPrice: resCam.plans[0].amount || '-',
+          // paywallDescripcion: resCam.plans[0].description.description || '-',
+        })
+      }
     })
   }
 
@@ -185,14 +184,20 @@ class Subs extends Component {
         this.setState({
           isLoad: true,
         })
-        // this.getListSubs()
         this.getListSubs().then(p => {
           setTimeout(() => {
-            this.setState({
-              userSubsDetail: p,
-              isSubs: true,
-              isLoad: false,
-            })
+            if (p.length) {
+              this.setState({
+                userSubsDetail: p,
+                isSubs: true,
+                isLoad: false,
+              })
+            } else {
+              this.setState({
+                isSubs: false,
+                isLoad: false,
+              })
+            }
           }, 2000)
         })
         this.closeModalConfirm()
@@ -202,15 +207,16 @@ class Subs extends Component {
 
   render() {
     const {
-      userSubs,
+      // userSubs,
       isSubs,
       isLoad,
       paywallName,
       paywallPrice,
       showModalConfirm,
-      paywallDescripcion,
+      // paywallDescripcion,
       userSubsDetail,
       idSubsDelete,
+      listBundle,
     } = this.state
     const { arcSite } = this.props
     return (
@@ -222,7 +228,6 @@ class Subs extends Component {
             {isSubs ? (
               <>
                 {userSubsDetail.map(reSubs => {
-                  // if (reSubs.paymentMethod) {
                   return (
                     <WrapperBlock
                       nopadding
@@ -252,31 +257,50 @@ class Subs extends Component {
                           <h2>{reSubs.productName}</h2>
                         </div>
                         <div className="details-right">
-                          <p>
-                            <strong>Plan de pago: </strong>{' '}
-                            {reSubs.paymentHistory[0] && (
-                              <span>
-                                {(new Date(reSubs.paymentHistory[0].periodTo) -
-                                  new Date(
-                                    reSubs.paymentHistory[0].periodFrom
-                                  )) /
-                                  (1000 * 60 * 60 * 24) ===
-                                30
-                                  ? 'MENSUAL'
-                                  : 'ANUAL'}
-                              </span>
-                            )}
-                          </p>
-                          <p>
-                            <strong>Precio: </strong>{' '}
-                            {reSubs.salesOrders[0] && (
-                              <span>
-                                {reSubs.salesOrders[0].total !== 0
-                                  ? ` S/ ${reSubs.salesOrders[0].total}`
-                                  : 'GRATIS'}
-                              </span>
-                            )}
-                          </p>
+                          {listBundle.includes(reSubs.priceCode) ? (
+                            <p>
+                              ¡Hola! Encuentra todos los detalles de tu
+                              suscripción DIGITAL + IMPRESA en{' '}
+                              <a
+                                className="link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://suscripciones.gestion.pe/suscripciones/">
+                                Suscripciones Online
+                              </a>
+                            </p>
+                          ) : (
+                            <>
+                              <p>
+                                <strong>Plan de pago: </strong>{' '}
+                                {reSubs.paymentHistory[0] && (
+                                  <span>
+                                    {(new Date(
+                                      reSubs.paymentHistory[0].periodTo
+                                    ) -
+                                      new Date(
+                                        reSubs.paymentHistory[0].periodFrom
+                                      )) /
+                                      (1000 * 60 * 60 * 24) ===
+                                    30
+                                      ? 'MENSUAL'
+                                      : 'ANUAL'}
+                                  </span>
+                                )}
+                              </p>
+                              <p>
+                                <strong>Precio: </strong>{' '}
+                                {reSubs.salesOrders[0] && (
+                                  <span>
+                                    {reSubs.salesOrders[0].total !== 0
+                                      ? ` S/ ${reSubs.salesOrders[0].total}`
+                                      : 'GRATIS'}
+                                  </span>
+                                )}
+                              </p>
+                            </>
+                          )}
+
                           {/* <p className="small">
                               *POR 6 MESES LUEGO S/ 20 CADA MES
                             </p> */}
@@ -284,8 +308,6 @@ class Subs extends Component {
                       </div>
                     </WrapperBlock>
                   )
-                  // }
-                  // return null
                 })}
               </>
             ) : (

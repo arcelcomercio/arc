@@ -7,6 +7,8 @@ import { WrapperBlock } from './styles'
 const services = new Services()
 
 class Prof extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     const { publicProfile } = new GetProfile()
@@ -23,6 +25,26 @@ class Prof extends Component {
       publicProfile,
       _attrib
     )
+  }
+
+  componentDidMount = () => {
+    const { country, department, province } = this.state
+
+    if (country) {
+      this._getUbigeo(country, 'department')
+    }
+
+    if (department) {
+      this._getUbigeo(department, 'province')
+    }
+
+    if (province) {
+      this._getUbigeo(province, 'district')
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   attributeToObject = (attributes = []) => {
@@ -49,23 +71,9 @@ class Prof extends Component {
     }, {})
   }
 
-  componentDidMount = () => {
-    const { country, department, province } = this.state
-
-    if (country) {
-      this._getUbigeo(country, 'department')
-    }
-
-    if (department) {
-      this._getUbigeo(department, 'province')
-    }
-
-    if (province) {
-      this._getUbigeo(province, 'district')
-    }
-  }
-
   _getUbigeo = (input, geo) => {
+    this._isMounted = true
+
     const state = {}
     let value = input
     const hasTarget = Object.prototype.hasOwnProperty.call(input, 'target')
@@ -93,7 +101,9 @@ class Prof extends Component {
         Object.assign(state, {
           [`data${GeoUpper}s`]: geoData,
         })
-        this.setState(state)
+        if (this._isMounted) {
+          this.setState(state)
+        }
       })
       .catch(() => {
         window.console.error()

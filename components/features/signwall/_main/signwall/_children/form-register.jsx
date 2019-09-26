@@ -259,7 +259,9 @@ class FormRegister extends Component {
     e.preventDefault()
     window.sessionStorage.setItem(
       'paywall_last_url',
-      window.document.referrer.split(window.location.origin)[1]
+      window.document.referrer
+        ? window.document.referrer.split(window.location.origin)[1]
+        : ''
     )
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall()
@@ -489,8 +491,10 @@ class FormRegister extends Component {
                     bgcolor={
                       {
                         elcomercio: '#fecd26',
+                        elcomerciomag: '#fecd26',
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
+                        peru21g21:'#d5ecff',
                       }[brandCurrent]
                     }
                   />

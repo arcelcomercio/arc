@@ -7,7 +7,7 @@ import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import ChartbeatBody from './_children/chartbeat-body'
-import { skipAdvertising } from '../utilities/helpers'
+import { skipAdvertising, storyTagsBbc } from '../utilities/helpers'
 
 export default ({
   children,
@@ -136,6 +136,14 @@ export default ({
 
   const { googleFonts = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
+
+  const structuredBBC = `
+  !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
+  (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
+  s_bbcws('partner', 'elcomercio.pe');
+          s_bbcws('language', 'mundo');
+  s_bbcws('track', 'pageView');`
+
   return (
     <html lang="es">
       <head>
@@ -162,18 +170,16 @@ export default ({
         {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-        {!nodas && (
-          <>
-            <AppNexus
-              arcSite={arcSite}
-              requestUri={requestUri}
-              port={metaValue('port')}
-              isStory={isStory}
-              globalContent={globalContent}
-            />
-            <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-          </>
-        )}
+
+        <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isStory}
+          globalContent={globalContent}
+        />
+        {!nodas && <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />}
+
         {/* Scripts de APPNEXUS */}
         <script
           src="https://d34fzxxwb5p53o.cloudfront.net/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js?v2"
@@ -271,6 +277,24 @@ export default ({
             defer
             dangerouslySetInnerHTML={{ __html: structuredTaboola }}
           />
+        )}
+        {isStory && storyTagsBbc(tags) && (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: structuredBBC }}
+            />
+            <noscript>
+              <img
+                src="//a1.api.bbc.co.uk/hit.xiti?&x8=[synd_v5.7.0_nojs]&s=598346"
+                height="1"
+                width="1"
+                border="0"
+                alt=""
+              />
+            </noscript>
+          </>
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
       </body>

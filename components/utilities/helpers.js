@@ -408,6 +408,10 @@ export const appendToBody = node => {
   document.body.append(node)
 }
 
+export const appendToId = (id, node) => {
+  id.append(node)
+}
+
 export const breadcrumbList = (url, siteUrl) => {
   const arrayData = []
   if (url) {
@@ -719,6 +723,18 @@ export const formatDateStory = date => {
   )}`
 }
 
+export const formatDateStoryAmp = date => {
+  const fecha = new Date(date)
+  fecha.setHours(fecha.getHours() - 5)
+  const day = fecha.getDate()
+  const month = fecha.getMonth() + 1
+  const formatDay = day < 10 ? `0${day}` : day
+  const formatMonth = month < 10 ? `0${month}` : month
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
+    fecha
+  )}`
+}
+
 /**
  * TODO: Necesita CODE REVIEW
  */
@@ -905,4 +921,26 @@ export const skipAdvertising = (data = []) => {
       return slug === 'noads' ? true : ''
     })
     .filter(String)[0]
+}
+
+export const storyTagsBbc = (data = []) => {
+  return data
+    .map(({ slug }) => {
+      return slug === 'bbc' ? true : ''
+    })
+    .filter(String)[0]
+}
+
+export const storyVideoPlayer = (content = '') => {
+  return (
+    content.match(
+      /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    ) || []
+  )
+}
+
+export const getPhotoId = photoUrl => {
+  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26}).[\w]{3}$/)
+  const [, photoId] = customPhotoUrl || []
+  return photoId
 }

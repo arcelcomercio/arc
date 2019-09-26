@@ -59,34 +59,27 @@ class SignWallHard extends Component {
   render() {
     const { closePopup, brandModal } = this.props
     return (
-      <div className="signwall">
-        <div className="link-identity__content">
-          <ModalProvider>
-            <ModalConsumer>
-              {value => (
-                <Modal
-                  size="large"
-                  position="middle"
-                  name="arc-popup-signwallhard"
-                  id="arc-popup-signwallhard">
-                  <Header closePopup={closePopup} typePopUp="hard" />
-                  <div className="modal-body">
-                    <div className="modal-body__left">
-                      <ListBenefits
-                        typeMessage="hard"
-                        brandCurrent={brandModal}
-                      />
-                    </div>
-                    <div className="modal-body__right">
-                      {this.renderTemplate(value.selectedTemplate)}
-                    </div>
-                  </div>
-                </Modal>
-              )}
-            </ModalConsumer>
-          </ModalProvider>
-        </div>
-      </div>
+      <ModalProvider>
+        <ModalConsumer>
+          {value => (
+            <Modal
+              size="large"
+              position="middle"
+              name="arc-popup-signwallhard"
+              id="arc-popup-signwallhard">
+              <Header closePopup={closePopup} typePopUp="hard" />
+              <div className="modal-body">
+                <div className="modal-body__left">
+                  <ListBenefits typeMessage="hard" brandCurrent={brandModal} />
+                </div>
+                <div className="modal-body__right">
+                  {this.renderTemplate(value.selectedTemplate)}
+                </div>
+              </div>
+            </Modal>
+          )}
+        </ModalConsumer>
+      </ModalProvider>
     )
   }
 }

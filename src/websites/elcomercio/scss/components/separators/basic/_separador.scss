@@ -77,6 +77,9 @@
         font-size: 18px;
         font-family: $fourth-font;
         max-height: 74px;
+        @media (--desktop) {
+          font-size: 14px;
+        }
       }
       &__header-title {
         font-size: 18px;

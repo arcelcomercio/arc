@@ -207,3 +207,9 @@ h5,
 h6 {
   font-weight: normal;
 }
+
+@media screen and (max-width: 1024px) {
+  div[role='main'] {
+    pointer-events: auto;
+  }
+}

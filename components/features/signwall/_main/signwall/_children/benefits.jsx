@@ -41,6 +41,7 @@ const getTitle = (typeMessage, nameMPP, brandCurrent) => {
   } else if (typeMessage === 'organic') {
     switch (brandCurrent) {
       case 'elcomercio':
+      case 'elcomerciomag':
         title = (
           <Title
             content="Regístrate gratis para continuar leyendo y estar siempre informado con las noticias más relevantes."
@@ -104,7 +105,7 @@ const Benefits = props => {
         </div>
       </div>
 
-      {brandCurrent === 'elcomercio' && (
+      {brandCurrent === 'elcomercio' || brandCurrent === 'elcomerciomag' ? (
         <div className="benefits__item">
           <div className="benefits__icon">
             <BeneFive />
@@ -117,7 +118,7 @@ const Benefits = props => {
             <p className="benefits__item-text">desde la App</p>
           </div>
         </div>
-      )}
+      ): null }
 
       <div className="benefits__item">
         <div className="benefits__icon">

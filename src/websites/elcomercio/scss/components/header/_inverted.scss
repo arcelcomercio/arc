@@ -1,10 +1,13 @@
 $nav-height-active: 45px;
 
 .header-inverted {
-  /*   height: $header-inverted-height; */
+  /*   height: $header-mobile-height;
+  @media (--desktop) {
+    height: $header-inverted-height;
+  } */
   .nav-sidebar {
     top: $header-mobile-height;
-    height: calc(100vh - $header-mobile-height);
+    height: calc(100vh - #{$header-mobile-height});
 
     @media (--desktop) {
       top: $header-inverted-height;
@@ -78,6 +81,13 @@ $nav-height-active: 45px;
       color: $color-gray-200;
     }
   }
+}
+// estilos para publicidad para
+#ads_m_movil1 {
+  z-index: 9;
+}
+div#content_ads_m_movil0 {
+  z-index: 9;
 }
 
 /* .story {

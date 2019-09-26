@@ -4,9 +4,8 @@ export default {
 
   colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
-  siteUrl: 'https://elcomercio.pe',
-  resizerUrl:
-    'https://elcomercio-elcomercio-prod.cdn.arcpublishing.com/resizer',
+  siteUrl: 'https://mag.elcomercio.pe',
+  resizerUrl: 'https://elcomercio.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
@@ -207,6 +206,10 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
   ],
   activeSignwall: true,
-  activePaywall: true,
+  activePaywall: false,
   gda: true, // Grupo Diarios de America
+  taboola: {
+    dataModeAmp: 'thumbnails-a-amp',
+    mode: 'thumbnails-c',
+  },
 }

@@ -7,6 +7,8 @@ const services = new Services()
 
 // eslint-disable-next-line import/prefer-default-export
 class News extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.state = {
@@ -17,7 +19,8 @@ class News extends Component {
   }
 
   componentDidMount() {
-    // const UUID = 'f058d956-b390-43f2-88fa-e1694212c697' // JORGE
+    this._isMounted = true
+
     const UUID = window.Identity.userIdentity.uuid
     const SITE = 'gestion'
     const localNews = JSON.parse(
@@ -32,20 +35,24 @@ class News extends Component {
         return null
       })
 
-      this.setState({
-        newsletters: resNews[SITE] || [],
-        checksNews: listAllNews,
-      })
+      if (this._isMounted) {
+        this.setState({
+          newsletters: resNews[SITE] || [],
+          checksNews: listAllNews,
+        })
+      }
 
       if (localNews && localNews.length >= 1) {
         localNews.map(item => {
-          this.setState(prevState => ({
-            checksNews: {
-              ...prevState.checksNews,
-              [item]: true,
-            },
-            loading: false,
-          }))
+          if (this._isMounted) {
+            this.setState(prevState => ({
+              checksNews: {
+                ...prevState.checksNews,
+                [item]: true,
+              },
+              loading: false,
+            }))
+          }
 
           return null
         })
@@ -53,23 +60,32 @@ class News extends Component {
         services.getNewsLettersUser(UUID, SITE).then(res => {
           if (res.data.length >= 1) {
             res.data.map(item => {
-              this.setState(prevState => ({
-                checksNews: {
-                  ...prevState.checksNews,
-                  [item]: true,
-                },
-                loading: false,
-              }))
+              if (this._isMounted) {
+                this.setState(prevState => ({
+                  checksNews: {
+                    ...prevState.checksNews,
+                    [item]: true,
+                  },
+                  loading: false,
+                }))
+              }
 
               return null
             })
           }
-          this.setState({
-            loading: false,
-          })
+
+          if (this._isMounted) {
+            this.setState({
+              loading: false,
+            })
+          }
         })
       }
     })
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   render() {
@@ -112,4 +128,5 @@ class News extends Component {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { News }
