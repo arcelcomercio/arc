@@ -104,7 +104,7 @@ const Benefits = props => {
         </div>
       </div>
 
-      {brandCurrent === 'elcomercio' && (
+      {brandCurrent === 'elcomercio' || brandCurrent === 'elcomerciomag' && (
         <div className="benefits__item">
           <div className="benefits__icon">
             <BeneFive />

@@ -13,7 +13,7 @@
     transform: translateX(0);
   }
 
-  @media (--table) {
+  @media (--tablet) {
     transform: scaleX(0);
     &.active {
       transform: scaleX(1);

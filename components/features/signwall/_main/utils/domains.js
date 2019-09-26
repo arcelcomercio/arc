@@ -7,6 +7,10 @@ class Domains {
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
           : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+      case 'elcomerciomag':
+        return ENV.ENVIRONMENT === 'elcomercio'
+        ? `https://api.elcomercio.pe`
+        : `https://api-sandbox.elcomercio.pe`
       default:
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
