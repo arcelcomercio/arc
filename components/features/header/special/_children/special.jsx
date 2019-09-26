@@ -117,13 +117,15 @@ const HeaderSpecialChildSpecial = ({
   }
 
   const _openMenu = () => {
-    _setPosition(1)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) _setPosition(1)
     document.querySelector('.layer').style.display = 'block'
     setStatusSidebar(true)
   }
 
   const _closeMenu = () => {
-    _setPosition(0)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) _setPosition(0)
     document.querySelector('.layer').style.display = 'none'
     setStatusSidebar(false)
   }

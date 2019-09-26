@@ -5,7 +5,6 @@ import rawHtml from 'react-render-html'
 import {
   popUpWindow,
   socialMediaUrlShareList,
-  storyTagsBbc,
 } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryData from '../../../../utilities/story-data'
@@ -30,8 +29,6 @@ const classes = {
   bbcHead: 'bbc-head',
 }
 
-const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
-
 @Consumer
 class StoryHeaderChildSocial extends PureComponent {
   constructor(props) {
@@ -48,7 +45,7 @@ class StoryHeaderChildSocial extends PureComponent {
         },
         siteUrl,
       },
-      arcSite,
+
       globalContent: {
         website_url: postPermaLink,
         headlines: { basic: postTitle } = {},
@@ -97,13 +94,7 @@ class StoryHeaderChildSocial extends PureComponent {
 
   render() {
     const { currentList } = this.state
-    const {
-      globalContent = {},
-      contextPath,
-      arcSite,
-      deployment,
-      siteProperties: { siteUrl },
-    } = this.props
+    const { globalContent = {}, contextPath } = this.props
 
     const {
       publishDate: date,
@@ -133,32 +124,8 @@ class StoryHeaderChildSocial extends PureComponent {
       authorEmail,
     }
 
-    const imgBbcSource =
-      deployment(
-        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
-
-    const imgBbc =
-      deployment(
-        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/bbc_head_fg.jpg`
-      ) || ''
-
     return (
       <>
-        {storyTagsBbc(tags) && (
-          <figure className={classes.bbcHead}>
-            <a
-              href={URL_BBC}
-              rel="nofollow noopener noreferrer"
-              target="_blank">
-              <picture>
-                <source media="(max-width: 639px)" data-srcset={imgBbcSource} />
-                <img alt="BBC" src={imgBbc} data-src={imgBbc} />
-              </picture>
-            </a>
-          </figure>
-        )}
-
         <div
           className={`${classes.news} ${
             subtype === ConfigParams.SPECIAL_BASIC ||

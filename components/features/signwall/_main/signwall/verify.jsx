@@ -68,8 +68,8 @@ class SignWallVerify extends Component {
     return (
       <>
         {showVerify ? (
-          <div className="signwall">
-            <div className="link-identity__content">
+          // <div className="signwall">
+          //   <div className="link-identity__content">
               <ModalProvider>
                 <ModalConsumer>
                   {value => (
@@ -101,8 +101,8 @@ class SignWallVerify extends Component {
                   )}
                 </ModalConsumer>
               </ModalProvider>
-            </div>
-          </div>
+          //   </div>
+          // </div>
         ) : null}
       </>
     )

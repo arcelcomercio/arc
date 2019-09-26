@@ -702,6 +702,10 @@ class StoryData {
     )
   }
 
+  get hasAdsVideo() {
+    return StoryData.findHasAdsVideo(this._data)
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -859,6 +863,17 @@ class StoryData {
         )
         .filter(String) || []
     )
+  }
+
+  static findHasAdsVideo(data) {
+    const {
+      promo_items: {
+        basic_video: {
+          additional_properties: { advertising: { playAds = null } = {} } = {},
+        } = {},
+      } = {},
+    } = data || {}
+    return playAds
   }
 
   static getPrimarySection(data) {

@@ -1,20 +1,21 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   taboola: 'story-content__taboola pt-20  pr-20 pl-20',
 }
 
 const StoryTaboola = () => {
-  const { arcSite } = useFusionContext()
+  const {
+    siteProperties: {
+      taboola: { mode },
+    },
+  } = useFusionContext()
 
   const structuredTaboola = `
       window._taboola = window._taboola || [];
       _taboola.push({
-      mode: 'thumbnails-${
-        arcSite === ConfigParams.SITE_ELCOMERCIO ? 'c' : 'a'
-      }',
+      mode: '${mode}',
       container: 'taboola-below-content-thumbnails',
       placement: 'Below Content Thumbnails',
       target_type: 'mix'
