@@ -7,6 +7,8 @@ import { WrapperBlock } from './styles'
 const services = new Services()
 
 class Prof extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     const { publicProfile } = new GetProfile()
@@ -23,6 +25,30 @@ class Prof extends Component {
       publicProfile,
       _attrib
     )
+  }
+
+  componentDidMount = () => {
+    this._isMounted = true
+
+    if (this._isMounted) {
+      const { country, department, province } = this.state
+
+      if (country) {
+        this._getUbigeo(country, 'department')
+      }
+
+      if (department) {
+        this._getUbigeo(department, 'province')
+      }
+
+      if (province) {
+        this._getUbigeo(province, 'district')
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   attributeToObject = (attributes = []) => {
@@ -47,22 +73,6 @@ class Prof extends Component {
       }
       return prev
     }, {})
-  }
-
-  componentDidMount = () => {
-    const { country, department, province } = this.state
-
-    if (country) {
-      this._getUbigeo(country, 'department')
-    }
-
-    if (department) {
-      this._getUbigeo(department, 'province')
-    }
-
-    if (province) {
-      this._getUbigeo(province, 'district')
-    }
   }
 
   _getUbigeo = (input, geo) => {

@@ -9,6 +9,8 @@ import Loading from '../../common/loading'
 
 @Consumer
 class MiPerfil extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     const { publicProfile } = new GetProfile()
@@ -22,11 +24,24 @@ class MiPerfil extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        loading: false,
-      })
-    }, 1000)
+    this._isMounted = true
+
+    if (this._isMounted) {
+      setTimeout(() => {
+        this.setState({
+          loading: false,
+        })
+      }, 1000)
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
+  handlerUpdateName = name => {
+    const { getNameProfile } = this.props
+    getNameProfile(name)
   }
 
   render() {

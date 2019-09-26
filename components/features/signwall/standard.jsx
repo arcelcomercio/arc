@@ -1,8 +1,5 @@
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
-
-// import Button from '../../global-components/button'
 
 import Signwall from './default'
 import SignWallHard from './_main/signwall/hard'
@@ -12,6 +9,7 @@ import SignWallRelogin from './_main/signwall/relogin'
 import SignWallPayPre from './_main/signwall/paywall-premium'
 import Services from './_main/utils/services'
 import GetProfile from './_main/utils/get-profile'
+import Domains from './_main/utils/domains'
 
 const services = new Services()
 
@@ -25,6 +23,8 @@ const classes = {
 
 @Consumer
 class SignwallComponent extends PureComponent {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.state = {
@@ -36,37 +36,44 @@ class SignwallComponent extends PureComponent {
       showPaywall: false,
       userName: new GetProfile().username,
       initialUser: new GetProfile().initname,
-      // countAnonymous: 0,
-      // countRegister: 0,
     }
   }
 
   componentDidMount() {
+    this._isMounted = true
     const { arcSite, typeMobile } = this.props
 
-    // ---------- Start Premium & Paywall ----------- //
-    if (arcSite === 'gestion' || arcSite === 'elcomercio') {
-      if (!typeMobile) {
-        this.getPaywall()
+    if (this._isMounted) {
+      if (arcSite === 'gestion' || arcSite === 'elcomercio') {
+        if (!typeMobile) {
+          this.getPaywall()
+        }
       }
     }
-    // ---------- End Premium & Paywall ------------ //
   }
 
   componentDidUpdate() {
-    if (this.checkSession()) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        userName: new GetProfile().username,
-        initialUser: new GetProfile().initname,
-      })
-    } else {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        userName: 'Iniciar Sesión',
-        initialUser: false,
-      })
+    this._isMounted = true
+
+    if (this._isMounted) {
+      if (this.checkSession()) {
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({
+          userName: new GetProfile().username,
+          initialUser: new GetProfile().initname,
+        })
+      } else {
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({
+          userName: 'Iniciar Sesión',
+          initialUser: false,
+        })
+      }
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   getPremium() {
@@ -91,41 +98,14 @@ class SignwallComponent extends PureComponent {
     const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
     const dataContentPremium = W.content_paywall || false
+    const URL_ORIGIN = Domains.getOriginAPI(arcSite)
 
-    const URL_ORIGIN =
-      ENV.ENVIRONMENT === 'elcomercio'
-        ? `https://api.${arcSite}.pe`
-        : `https://api-sandbox.${arcSite}.pe`
-
-    // this.checkIsEco().then(res => {
-    //   window.console.log(res)
-    // })
-
-    // if (dataContentPremium && ENV.ENVIRONMENT !== 'elcomercio') {
-
-    // if (dataContentPremium && W.document.cookie.indexOf('isECO=true') >= 0) {
     if (dataContentPremium && arcSite === 'gestion') {
-      this.getPremium() // Only sandbox ;)
+      this.getPremium()
     } else if (window.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          // if (ENV.ENVIRONMENT === 'elcomercio') {
-          //   if (
-          //     campaignURL.indexOf('signwallPaywall') >= 0 &&
-          //     W.location.pathname.indexOf('podcast') >= 0
-          //   ) {
-          //     window.console.log('signwallPaywall')
-          //     this.checkIsEco().then(res => {
-          //       if (res === true) W.location.href = campaignURL
-          //     })
-          //   } else if (campaignURL.indexOf('signwallHard') >= 0) {
-          //     window.console.log('signwallHard')
-          //     W.location.href = campaignURL
-          //   }
-          // } else {
-          //  window.console.log('signwallHard & signwallPaywall')
           W.location.href = campaignURL
-          // }
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
@@ -133,9 +113,8 @@ class SignwallComponent extends PureComponent {
         jwt: W.Identity.userIdentity.accessToken || null,
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
-          // estado de suscripcion
-          if (arcSite === 'gestion') {
-            // check subscriptiones
+          // user subscription state
+          if (arcSite === 'gestion' && W.Identity.userIdentity.accessToken) {
             return this.getListSubs().then(p => {
               const isLoggedInSubs = !!(
                 W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
@@ -157,7 +136,7 @@ class SignwallComponent extends PureComponent {
           }
         },
         customRegCheck: () => {
-          // estado de registro
+          // user register state
           const start = Date.now()
           const isLoggedIn = !!(
             W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
@@ -170,14 +149,6 @@ class SignwallComponent extends PureComponent {
           })
         },
       })
-      // .then(() => {
-      //   this.initCounters()
-      // })
-
-      // .then(() => {
-      // W.console.log('Results from running paywall script: ', results)
-      // })
-      // .catch(() => W.console.error())
     }
   }
 
@@ -199,7 +170,6 @@ class SignwallComponent extends PureComponent {
       .catch(err => W.console.error(err))
   }
 
-  // Saber si hay sesion inicada
   checkSession = () => {
     const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
     const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
@@ -209,29 +179,6 @@ class SignwallComponent extends PureComponent {
     return false
   }
 
-  // initCounters = () => {
-  //   const userId = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO'))
-  //   const UUID = userId ? userId.uuid : window.Identity.userIdentity.uuid
-  //   const localCounter = JSON.parse(window.localStorage.getItem('ArcP'))
-
-  //   if (localCounter) {
-  //     if (localCounter.anonymous) {
-  //       const cAnon = localCounter.anonymous.v.ci.length || 0
-  //       this.setState({
-  //         countAnonymous: cAnon,
-  //       })
-  //     }
-
-  //     if (UUID && localCounter[UUID]) {
-  //       const cReg = localCounter[UUID].v.ci.length || 0
-  //       this.setState({
-  //         countRegister: cReg,
-  //       })
-  //     }
-  //   }
-  // }
-
-  // check Url string popup
   getUrlParam = name => {
     const vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
@@ -257,7 +204,6 @@ class SignwallComponent extends PureComponent {
             this.setState({ showPaywall: true })
             break
           default:
-          // return false
         }
       }, 500)
     }
@@ -313,8 +259,6 @@ class SignwallComponent extends PureComponent {
       showReset,
       showRelogin,
       showPaywall,
-      // countAnonymous,
-      // countRegister,
     } = this.state
     const { arcSite, siteProperties, typeMobile } = this.props
 

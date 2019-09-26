@@ -12,17 +12,24 @@ import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
 class LoginRegister extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.state = {}
   }
 
   componentDidMount() {
-    Taggeo('Web_Sign_Wall_Organico', 'web_swo_open')
-    window.addEventListener('beforeunload', this.handleLeavePage)
+    this._isMounted = true
+
+    if (this._isMounted) {
+      Taggeo('Web_Sign_Wall_Organico', 'web_swo_open')
+      window.addEventListener('beforeunload', this.handleLeavePage)
+    }
   }
 
   componentWillUnmount() {
+    this._isMounted = false
     window.removeEventListener('beforeunload', this.handleLeavePage)
   }
 
@@ -68,26 +75,31 @@ class LoginRegister extends Component {
         <ModalConsumer>
           {value => (
             <Modal
-              size={brandModal !== 'peru21' ? 'large' : 'small'}
+              size={
+                brandModal === 'peru21' || brandModal === 'peru21g21'
+                  ? 'small'
+                  : 'large'
+              }
               position="middle"
               name="arc-popup-signwall"
               id="arc-popup-signwall">
               <Header closePopup={closePopup} typePopUp="organico" />
               <div className="modal-body">
-                {brandModal !== 'peru21' ? (
+                {brandModal === 'peru21' ||
+                brandModal === 'peru21g21' ? null : (
                   <div className="modal-body__left">
                     <ListBenefits
                       typeMessage="organic"
                       brandCurrent={brandModal}
                     />
                   </div>
-                ) : null}
+                )}
 
                 <div
                   className={
-                    brandModal !== 'peru21'
-                      ? 'modal-body__right'
-                      : 'modal-body__full'
+                    brandModal === 'peru21' || brandModal === 'peru21g21'
+                      ? 'modal-body__full'
+                      : 'modal-body__right'
                   }>
                   {this.renderTemplate(value.selectedTemplate)}
                 </div>

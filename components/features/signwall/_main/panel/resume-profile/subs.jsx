@@ -10,6 +10,8 @@ import { WrapperBlock } from './styles'
 
 @Consumer
 class Subs extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.state = {
@@ -29,11 +31,33 @@ class Subs extends Component {
   }
 
   componentDidMount() {
-    if (!window.Sales) {
-      addScriptAsync({
-        name: 'sdkSalesARC',
-        url: Domains.getScriptSales(),
-      }).then(() => {
+    this._isMounted = true
+
+    if (this._isMounted) {
+      if (!window.Sales) {
+        addScriptAsync({
+          name: 'sdkSalesARC',
+          url: Domains.getScriptSales(),
+        }).then(() => {
+          this.getListSubs().then(p => {
+            setTimeout(() => {
+              if (p.length) {
+                this.setState({
+                  userSubsDetail: p,
+                  isSubs: true,
+                  isLoad: false,
+                })
+              } else {
+                this.setState({
+                  isSubs: false,
+                  isLoad: false,
+                })
+              }
+            }, 2000)
+          })
+          this.getCampain()
+        })
+      } else {
         this.getListSubs().then(p => {
           setTimeout(() => {
             if (p.length) {
@@ -51,26 +75,12 @@ class Subs extends Component {
           }, 2000)
         })
         this.getCampain()
-      })
-    } else {
-      this.getListSubs().then(p => {
-        setTimeout(() => {
-          if (p.length) {
-            this.setState({
-              userSubsDetail: p,
-              isSubs: true,
-              isLoad: false,
-            })
-          } else {
-            this.setState({
-              isSubs: false,
-              isLoad: false,
-            })
-          }
-        }, 2000)
-      })
-      this.getCampain()
+      }
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   getDetail(id) {

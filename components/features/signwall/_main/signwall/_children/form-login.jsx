@@ -288,43 +288,15 @@ class FormLogin extends Component {
   taggeoSuccess() {
     const { typePopUp } = this.props
 
-    // if (typePopUp === 'relogin') {
-    //   window.dataLayer.push({
-    //     event: `${typePopUp}_relogin_success`,
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_relogin_success_ingresar`,
-    //   })
-    // } else {
-    //   window.dataLayer.push({
-    //     event: 'login_success',
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_login_success_ingresar`,
-    //   })
-    // }
-
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
       `web_sw${typePopUp[0]}_login_success_ingresar`
     )
-    // esta pendiente el taggeo de relogin
+   
   }
 
   taggeoError() {
     const { typePopUp } = this.props
-
-    // if (typePopUp === 'relogin') {
-    //   window.dataLayer.push({
-    //     event: `${typePopUp}_relogin_error`,
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_relogin_error_ingresar`,
-    //   })
-    // } else {
-    //   window.dataLayer.push({
-    //     event: 'login_error',
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_login_error_ingresar`,
-    //   })
-    // }
 
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
@@ -598,6 +570,7 @@ class FormLogin extends Component {
                         elcomerciomag: '#fecd26',
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
+                        peru21g21:'#d5ecff',
                       }[arcSite]
                     }
                   />

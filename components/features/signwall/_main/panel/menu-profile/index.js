@@ -35,7 +35,8 @@ const closeSession = props => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const MenuProfile = props => {
-  const { userName, typeLogin, arcSite, emailUser, userNameFB } = props
+  const { userName, typeLogin, arcSite, emailUser, userNameFB, userNameRefresh } = props
+  console.log(userNameRefresh)
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <>

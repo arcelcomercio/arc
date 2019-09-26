@@ -7,6 +7,8 @@ const services = new Services()
 
 // eslint-disable-next-line import/prefer-default-export
 class News extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.state = {
@@ -17,59 +19,66 @@ class News extends Component {
   }
 
   componentDidMount() {
-    // const UUID = 'f058d956-b390-43f2-88fa-e1694212c697' // JORGE
-    const UUID = window.Identity.userIdentity.uuid
-    const SITE = 'gestion'
-    const localNews = JSON.parse(
-      window.sessionStorage.getItem('preferencesNews')
-    )
+    this._isMounted = true
 
-    const listAllNews = { ...[] }
+    if (this._isMounted) {
+      const UUID = window.Identity.userIdentity.uuid
+      const SITE = 'gestion'
+      const localNews = JSON.parse(
+        window.sessionStorage.getItem('preferencesNews')
+      )
 
-    services.getNewsLetters().then(resNews => {
-      resNews[SITE].map(item => {
-        listAllNews[item.code] = false
-        return null
-      })
+      const listAllNews = { ...[] }
 
-      this.setState({
-        newsletters: resNews[SITE] || [],
-        checksNews: listAllNews,
-      })
-
-      if (localNews && localNews.length >= 1) {
-        localNews.map(item => {
-          this.setState(prevState => ({
-            checksNews: {
-              ...prevState.checksNews,
-              [item]: true,
-            },
-            loading: false,
-          }))
-
+      services.getNewsLetters().then(resNews => {
+        resNews[SITE].map(item => {
+          listAllNews[item.code] = false
           return null
         })
-      } else {
-        services.getNewsLettersUser(UUID, SITE).then(res => {
-          if (res.data.length >= 1) {
-            res.data.map(item => {
-              this.setState(prevState => ({
-                checksNews: {
-                  ...prevState.checksNews,
-                  [item]: true,
-                },
-                loading: false,
-              }))
 
-              return null
-            })
-          }
-          this.setState({
-            loading: false,
-          })
+        this.setState({
+          newsletters: resNews[SITE] || [],
+          checksNews: listAllNews,
         })
-      }
-    })
+
+        if (localNews && localNews.length >= 1) {
+          localNews.map(item => {
+            this.setState(prevState => ({
+              checksNews: {
+                ...prevState.checksNews,
+                [item]: true,
+              },
+              loading: false,
+            }))
+
+            return null
+          })
+        } else {
+          services.getNewsLettersUser(UUID, SITE).then(res => {
+            if (res.data.length >= 1) {
+              res.data.map(item => {
+                this.setState(prevState => ({
+                  checksNews: {
+                    ...prevState.checksNews,
+                    [item]: true,
+                  },
+                  loading: false,
+                }))
+
+                return null
+              })
+            }
+            this.setState({
+              loading: false,
+            })
+          })
+        }
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   render() {
@@ -112,4 +121,5 @@ class News extends Component {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { News }
