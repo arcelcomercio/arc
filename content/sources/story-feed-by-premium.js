@@ -21,16 +21,14 @@ const params = [
 const pattern = (key = {}) => {
   const website = key['arc-site']
 
-  const { from = 1, size: rawSize = 10 } = key
+  const { from: rawFrom = 1, size: rawSize = 10 } = key
 
-  console.log('KEYY->', key)
-
-  const page = from === undefined || from === null ? '1' : from
+  const from = rawFrom === undefined || rawFrom === null ? '1' : rawFrom
   const size = rawSize === undefined || rawSize === null ? '10' : rawSize
 
   const getPagination = () => {
-    if (page !== '1') {
-      return (page - 1) * size
+    if (parseInt(from, 10) > 1) {
+      return (from - 1) * size
     }
     return '0'
   }
