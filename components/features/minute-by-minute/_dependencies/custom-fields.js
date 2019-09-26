@@ -4,13 +4,13 @@ const customFields = PropTypes.shape({
   storyConfig: PropTypes.contentConfig('story').isRequired.tag({
     name: 'Configuración del contenido',
   }),
-  typeComponent: PropTypes.oneOf(['event', 'play']).tag({
+  typeComponent: PropTypes.oneOf(['evento', 'partido']).tag({
     name: 'Tipo de Componente',
     labels: {
-      event: 'Evento',
-      play: 'Partido',
+      evento: 'Evento',
+      partido: 'Partido',
     },
-    defaultValue: 'play',
+    defaultValue: 'partido',
   }),
   codeComponent: PropTypes.string.tag({
     name: 'Codigo',

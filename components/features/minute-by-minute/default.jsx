@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
@@ -52,14 +53,121 @@ class MinuteByMinute extends Component {
         jquery: true,
       })
     )
-    appendToBody(
-      createScript({
-        textContent: minuteScript,
-        async: true,
-        defer: true,
+
+    function updateTime(time, min) {
+      const timerProgressFill = document.getElementById('timer-progress-fill')
+
+      let minute = 0
+      const minInt = parseInt(min)
+
+      const updateCircle = r => {
+        const length = 2 * Math.PI * r
+        const nowSec = 3600 - minute * 60
+
+        const percentage = (nowSec * 100) / 3600
+        const strokeDashoffset = (length * percentage) / 100
+        timerProgressFill.style.strokeDashoffset = `${strokeDashoffset}px`
+      }
+
+      switch (time) {
+        case 'ST':
+          minute = minInt - 45
+          break
+        case 'PTS':
+          minute = minInt - 90
+          break
+        case 'STS':
+          minute = minInt - 105
+          break
+        case 'Final':
+          if (minInt >= 90 && minInt < 105) minute = minInt - 45
+          else if (minInt >= 105 && minInt < 120) minute = minInt - 90
+          else if (minInt >= 120) minute = minInt - 105
+          break
+        case 'PENALES':
+          if (minInt >= 90 && minInt < 105) minute = minInt - 45
+          else if (minInt >= 105 && minInt < 120) minute = minInt - 90
+          else if (minInt >= 120) minute = minInt - 105
+          break
+        default:
+          minute = minInt
+          break
+      }
+
+      if (window.innerWidth <= 640) updateCircle(13.5)
+      else updateCircle(22)
+      window.addEventListener('resize', () => {
+        if (window.innerWidth <= 640) updateCircle(13.5)
+        else updateCircle(22)
       })
-    )
+    }
+
+    const self = this
+    function runScorer() {
+      const instances = getMxmInstances()
+      const key = Object.keys(instances)[0]
+
+      instances[key].pubsub.on('data', function(data) {
+        self.setState({ inner: data })
+        updateTime(data.tiempo, data.time)
+      })
+    }
+    window.on_mxm_loaded = function(instances) {
+      window.getMxmInstances = () => {
+        return instances
+      }
+    }
+
+    const waitjQueryAndMxm = () => {
+      if (window.jQuery) {
+        if (document.querySelector('.mxm-input')) {
+          runScorer()
+          return true
+        }
+        setTimeout(waitjQueryAndMxm, 1000)
+      }
+      setTimeout(waitjQueryAndMxm, 100)
+    }
+
+    waitjQueryAndMxm()
+
     this.fetchData()
+  }
+
+  getTimeRender = (time = '') => {
+    if (time !== '' && time !== 'PENALES' && time !== 'ENTRETIEMPO') return time
+    if (time === 'ENTRETIEMPO') return 'ET'
+    return '-'
+  }
+
+  gameStatus = (status = '') => {
+    switch (status) {
+      case 'PT':
+        return '1ER TIEMPO'
+      case 'ST':
+        return '2DO TIEMPO'
+      case 'PTS':
+        return '1ER TIEMPO SUPL.'
+      case 'STS':
+        return '2DO TIEMPO SUPL.'
+      case 'Final':
+        break
+      case 'PENALES':
+        return 'PENALES'
+      case 'ENTRETIEMPO':
+        return 'ENTRETIEMPO'
+      default:
+        break
+    }
+    return status.toUpperCase()
+  }
+
+  toggleProgress = (tiempo, equipos) => {
+    return tiempo === 'PENALES' ||
+      (tiempo === 'FINAL' &&
+        (equipos.goles_penal_local > 0 || equipos.goles_penal_visitante > 0))
+      ? 'hiden'
+      : 'show'
   }
 
   fetchData() {
@@ -92,15 +200,24 @@ class MinuteByMinute extends Component {
       customFields: { typeComponent = '', codeComponent = '' } = {},
     } = this.props
 
+    const { inner } = this.state
+    const defaultValue = '-'
+
+    const equipos = (inner && inner.match[0]) || {}
+    const { time, tiempo, info, publicidad = {} } = inner || {}
+    console.log(inner, 'DATAAAAAAAAAAA')
     return (
-      <div className="col-3 flex by-minute live-mxm">
+      <div
+        className={`col-3 flex by-minute live-mxm ${
+          typeComponent === 'partido' ? 'mxm-partido' : 'mxm-eventos'
+        }`}>
         <div className="by-minute__left p-20">
           <h2 className="text-center text-xl line-h-sm font-bold mb-20">
             <a href={url} className="text-white tertiary-font">
               {title}
             </a>
           </h2>
-          {typeComponent === 'play' && (
+          {typeComponent === 'partido' && (
             <>
               <div className="w-game-info">
                 <ul className="game-info flex justify-end">
@@ -114,28 +231,41 @@ class MinuteByMinute extends Component {
                     />
                     En vivo
                   </li>
-                  <li className="game-group" />
-                  <li className="playing-time secondary-font text-md text-white" />
+                  <li className="game-group">{info}</li>
+                  <li className="playing-time secondary-font text-md text-white">
+                    {this.gameStatus(tiempo)}
+                  </li>
                 </ul>
               </div>
               <div className="box-game rounded-sm bg-white p-5 mt-10">
                 <a
                   className="page-link by-minute__bar flex justify-between"
-                  href="/play/reportajes/alemania-vs-irlanda-norte-vivo-hoy-eliminatorias-eurocopa-2020-noticia-6098">
+                  href={url}>
                   <div className="game-team team1 flex items-center">
                     <span className="team-shield">
-                      <img className="by-minute__team-shield" src="" alt="" />
+                      <img
+                        className="by-minute__team-shield"
+                        src={equipos.bandera_local}
+                        alt=""
+                      />
                     </span>
-                    <span className="team-name pl-10 tertiary-font" />
+                    <span className="team-name pl-10 tertiary-font">
+                      {equipos.local || defaultValue}
+                    </span>
                   </div>
                   <div className="game-score flex items-center">
                     <span className="team-goals team-goals1 pr-10">
-                      <div className="goals">-</div>
+                      <div className="goals">
+                        {equipos.goles_local || defaultValue}
+                      </div>
                     </span>
                     <span className="game-status position-relative">
                       <svg
                         id="timer-progress"
-                        className="timer-progress by-minute__time-progress"
+                        className={`timer-progress by-minute__time-progress ${this.toggleProgress(
+                          tiempo,
+                          equipos
+                        )}`}
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
                         x="0"
@@ -165,26 +295,63 @@ class MinuteByMinute extends Component {
                       <span
                         className="game-status-time by-minute__separator"
                         id="game-status-time">
-                        -
+                        {this.getTimeRender(time)}
                       </span>
                     </span>
                     <span className="team-goals team-goals2 pl-10">
-                      <div className="goals">-</div>
+                      <div className="goals">
+                        {equipos.goles_visitante || defaultValue}
+                      </div>
                     </span>
                   </div>
                   <div className="game-team team2 flex items-center">
-                    <span className="team-name pr-10 tertiary-font" />
+                    <span className="team-name pr-10 tertiary-font">
+                      {equipos.visitante || defaultValue}
+                    </span>
                     <span className="team-shield">
-                      <img className="by-minute__team-shield" src="" alt="" />
+                      <img
+                        className="by-minute__team-shield"
+                        src={equipos.bandera_visitante}
+                        alt=""
+                      />
                     </span>
                   </div>
                 </a>
               </div>
             </>
           )}
+
+          <div className="scorer-sponsor">
+            <div id="eplAd_REEMPLAZAR_POR_EPLANNING1">
+              <a href="/" target="_blank">
+                <picture>
+                  <source
+                    className="srcset_320"
+                    srcSet={publicidad.img_publ_320x52}
+                    media="(max-width: 640px)"
+                  />
+                  <source
+                    className="srcset_637"
+                    srcSet={publicidad.img_publ_637x70}
+                    media="(max-width: 1023px)"
+                  />
+                  <source
+                    className="srcset_493"
+                    srcSet={publicidad.img_publ_493x97}
+                    media="(max-width: 1359px)"
+                  />
+                  <source
+                    className="srcset_675"
+                    srcSet={publicidad.img_publ_675x97}
+                  />
+                  <img src={publicidad.img_publ_675x97} alt="" />
+                </picture>
+              </a>
+            </div>
+          </div>
         </div>
         <div className="by-minute__right">
-          {typeComponent === 'play' ? (
+          {typeComponent === 'partido' ? (
             <mxm-partido code={codeComponent} noframe h="235px" />
           ) : (
             <mxm-evento code={codeComponent} noframe h="748px" />

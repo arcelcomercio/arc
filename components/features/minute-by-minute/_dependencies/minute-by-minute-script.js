@@ -98,6 +98,7 @@ function runScorer() {
 
       instances[key].pubsub.on("data", function (data) {
         console.log('DATAAAA->',data)
+        console.log('dentroo')
           var item = $liveScorer,
               equipos,
               publicidad,
