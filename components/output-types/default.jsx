@@ -170,18 +170,16 @@ export default ({
         {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-        {!nodas && (
-          <>
-            <AppNexus
-              arcSite={arcSite}
-              requestUri={requestUri}
-              port={metaValue('port')}
-              isStory={isStory}
-              globalContent={globalContent}
-            />
-            <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-          </>
-        )}
+
+        <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isStory}
+          globalContent={globalContent}
+        />
+        {!nodas && <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />}
+
         {/* Scripts de APPNEXUS */}
         <script
           src="https://d34fzxxwb5p53o.cloudfront.net/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js?v2"
