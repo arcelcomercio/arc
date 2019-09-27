@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Check({ width, height, fill = '#444' }) {
+function Check({ width = '16', height = '16', fill = '#444' }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
       <path
