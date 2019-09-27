@@ -6,10 +6,10 @@
   }
   &__left {
     width: 100%;
+    background-color: #313131;
     @media (--tablet) {
       width: calc(55% - 10px);
       margin-right: 10px;
-      background-color: #313131;
     }
   }
   &__right {
