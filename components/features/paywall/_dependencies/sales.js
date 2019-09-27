@@ -1,22 +1,16 @@
-import getProperties from 'fusion:properties'
-import { interpolateUrl } from './domains'
+import getDomain from './domains'
 import addScriptAsync from '../../../utilities/script-async'
 
-const addSales = arcSite => {
-  const {
-    paywall: { urls },
-  } = getProperties(arcSite)
-  const originSalesSdk = interpolateUrl(urls.originSalesSdk)
-  const originApi = interpolateUrl(urls.originApi)
+const addSales = () => {
   return addScriptAsync({
     name: 'sdkSalesARC',
-    url: originSalesSdk,
+    url: getDomain('ORIGIN_SALES_SDK'),
   }).then(added => {
     if (added) {
-      window.Sales.apiOrigin = originApi
+      window.Sales.apiOrigin = getDomain('ORIGIN_API')
     }
     return window.Sales
   })
 }
 
-export default addSales
+export { addSales }

@@ -1,23 +1,22 @@
 import React from 'react'
-import { withTheme } from 'styled-components'
-
 import * as S from './styled'
+import { devices } from '../../../../../_dependencies/devices'
 import Icon from '../../../../../_children/icon'
 
-const BannerPromoSuscriptor = props => {
-  const { theme, onClick, type } = props
+export default function BannerPromoSuscriptor(props) {
+  const { assets, onClick, type } = props
   return (
     <>
       {type === 'left' ? (
         <S.Subscribed left onClick={onClick} as="a">
           {/* <div>
             <S.Picture>
-              <source srcSet={theme.images.lector} />
+              <source srcSet={assets('lector')} />
               <source
-                media={theme.breakpoints.down('xs', false)}
+                media={`(${devices.mobile})`}
                 srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
               />
-              <S.Img src={theme.images.lector} alt="lector" />
+              <S.Img src={assets('lector')} alt="lector" />
             </S.Picture>
           </div> */}
           <S.SubscribedContent red>
@@ -48,6 +47,3 @@ const BannerPromoSuscriptor = props => {
     </>
   )
 }
-
-const ThemedBannerPromoSuscriptor = withTheme(BannerPromoSuscriptor)
-export default ThemedBannerPromoSuscriptor

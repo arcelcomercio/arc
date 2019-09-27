@@ -1,15 +1,14 @@
 import styled, { css } from 'styled-components'
 import TextMask from 'react-text-mask'
+import { devices } from '../../_dependencies/devices'
 
 const FormGroup = styled.div`
-  ${({ theme }) => css`
-    position: relative;
-    margin-bottom: 35px;
+  position: relative;
+  margin-bottom: 35px;
+  width: 100%;
+  @media (${devices.mobile}) {
     width: 100%;
-    ${theme.breakpoints.down('xs')} {
-      width: 100%;
-    }
-  `}
+  }
 `
 
 export const InputMask = styled(TextMask)`
@@ -59,25 +58,23 @@ export const TextArea = styled.textarea`
 `
 
 export const Wrap = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-    padding: 13px;
-    border-radius: 4px;
-    border: 1px solid #aaaaaa;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 13px;
+  border-radius: 4px;
+  border: 1px solid #aaaaaa;
+  flex: 1;
+  width: 100%;
+  /* width: ${({ width }) => width || '250px'}; */
+  box-sizing: border-box;
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      border-color: #db0000;
+    `}
+  @media (${devices.mobile}) {
     width: 100%;
-    /* width: ${({ width }) => width || '250px'}; */
-    box-sizing: border-box;
-    ${({ hasError }) =>
-      hasError &&
-      css`
-        border-color: #db0000;
-      `}
-    ${theme.breakpoints.down('xs')} {
-      width: 100%;
-    }
-  `}
+  }
 `
 
 const Label = styled.label`

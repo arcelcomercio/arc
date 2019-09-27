@@ -1,0 +1,99 @@
+.head{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* box-shadow: 0 5px 5px -5px #333; */
+}
+
+.head__background{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    z-index: -1;
+}
+
+.background_left{
+    flex: 1;
+  background-color: var(--color-primary);
+}
+
+.background_right{
+    flex: 1;
+    background-color: #000;
+}
+
+.head__content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    max-width: 1120px;
+    height: 100%;
+    background-color: var(--color-primary);
+}
+
+.content__img{
+    max-height: 30px;
+    margin: 0 20px;
+}
+
+.head__login{
+    background-color: #000;
+    height: 100%;
+    color: #fff;
+    align-items: center;
+    display: flex;
+    max-width: 300px;
+    width: 100%;
+    justify-content: center;
+}
+
+.login__username{
+    flex: 1;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 10px;
+    text-transform: capitalize;
+}
+
+.login__username span{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.login_icon{
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 639px){
+    .head__login{
+        max-width: 150px;
+    }
+    .content__img{
+        max-height: 26px;
+    }
+}
+
+.head__btn-login {
+    background: none;
+    color: white;
+    border: 0px;
+    padding: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+    outline: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

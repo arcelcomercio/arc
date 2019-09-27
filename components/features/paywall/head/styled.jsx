@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
+import { devices } from '../_dependencies/devices'
 
 const Head = styled.div`
   height: 50px;
@@ -9,62 +10,35 @@ const Head = styled.div`
 `
 
 const Content = styled.div`
-  ${({ backgroundColor, theme }) => css`
-    display: flex;
-    position: relative;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
-    max-width: 1120px;
-    height: 100%;
-    background-color: ${backgroundColor || theme.palette.primary.main};
-  `}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  max-width: 1120px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colorPrimary};
 `
 
 const WrapLogin = styled.div`
-  ${({ backgroundColor, theme }) => css`
-    background-color: ${backgroundColor || theme.palette.secondary.main};
-    height: 100%;
-    color: #fff;
-    align-items: center;
-    display: flex;
-    max-width: 300px;
-    width: 100%;
-    justify-content: center;
-    ${theme.breakpoints.down('xs')} {
-      max-width: 150px;
-    }
-  `}
-`
-
-const LoginButton = styled.button`
-  background: none;
-  color: white;
-  border: 0px;
-  padding: 10px;
-  text-decoration: underline;
-  cursor: pointer;
-  outline: none;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  background-color: #000;
+  height: 100%;
+  color: #fff;
+  align-items: center;
+  display: flex;
+  max-width: 300px;
+  width: 100%;
+  justify-content: center;
+  @media (${devices.mobile}) {
+    max-width: 40%;
+  }
 `
 
 const Username = styled.span`
-  flex: 1;
-  overflow: hidden;
-  box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 0 10px;
   text-transform: capitalize;
-  & span {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-weight: bold;
-  }
 `
 
 const Background = styled.div`
@@ -72,32 +46,26 @@ const Background = styled.div`
   position: absolute;
   height: 100%;
   display: flex;
+  z-index: -1;
 `
 
 const Left = styled.div`
-  ${({ backgroundColor, theme }) => css`
-    flex: 1;
-    background-color: ${backgroundColor || theme.palette.primary.main};
-  `}
+  flex: 1;
+  background-color: ${({ theme }) => theme.colorPrimary};
 `
 
 const Right = styled.div`
-  ${({ backgroundColor, theme }) => css`
-    flex: 1;
-    background-color: ${backgroundColor || theme.palette.secondary.main};
-  `}
+  flex: 1;
+  background-color: #000;
 `
 const Img = styled.img`
-  ${({ theme }) => css`
-    max-height: 30px;
-    margin: 0 20px;
-    ${theme.breakpoints.down('xs')} {
-      max-height: 26px;
-    }
-  `}
+  max-height: 30px;
+  @media (${devices.mobile}) {
+    max-height: 26px;
+  }
 `
 
-const WrapIcon = styled.span`
+export const WrapIcon = styled.span`
   margin: 5px;
   display: flex;
   justify-content: center;
@@ -105,11 +73,10 @@ const WrapIcon = styled.span`
 `
 
 export {
+  ThemeProvider,
   Head,
   Content,
   WrapLogin,
-  WrapIcon,
-  LoginButton,
   Username,
   Background,
   Left,
