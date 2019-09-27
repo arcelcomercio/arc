@@ -1,5 +1,6 @@
 /* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect, useRef } from 'react'
+import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
 
 import CardPrice from './_children/card-price'
@@ -8,7 +9,7 @@ import * as S from './styled'
 import BannerPromoSuscriptor from './_children/banner-promo-suscriptor'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import getDomain from '../../../_dependencies/domains'
+import { interpolateUrl } from '../../../_dependencies/domains'
 import PWA from '../../_dependencies/seed-pwa'
 
 function WizardPlan(props) {
@@ -20,6 +21,12 @@ function WizardPlan(props) {
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
+
+  const {
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
 
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
@@ -102,8 +109,8 @@ function WizardPlan(props) {
       <CheckSuscription
         open={openModal}
         onSubmit={({ documentType, documentNumber, attemptToken }) => {
-          window.location.href = getDomain(
-            'VALIDATE_SUSCRIPTOR',
+          window.location.href = interpolateUrl(
+            urls.validateSubscriptor,
             documentType,
             documentNumber,
             attemptToken
@@ -124,7 +131,7 @@ function WizardPlan(props) {
 
           <BannerPromoSuscriptor
             onClick={() => {
-              window.location.href = getDomain('URL_CORPORATE')
+              window.location.href = interpolateUrl(urls.corporateSuscription)
             }}
             type="right"
           />

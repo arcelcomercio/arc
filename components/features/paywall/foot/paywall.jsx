@@ -7,14 +7,18 @@ import './paywall.css'
 import Icon from '../_children/icon'
 import SupportDialog from '../_children/support-dialog'
 import Link from '../_children/link'
-import getDomain from '../_dependencies/domains'
+import { interpolateUrl } from '../_dependencies/domains'
 
 const Foot = ({ theme }) => {
   const {
     siteProperties,
     customFields: { id },
   } = useFusionContext()
-  const { social, apps } = siteProperties
+  const {
+    social,
+    apps,
+    paywall: { urls },
+  } = siteProperties
   const [supportOpen, setSupportOpen] = React.useState(false)
 
   return (
@@ -62,7 +66,7 @@ const Foot = ({ theme }) => {
             </li>
             <li>
               <a
-                href={getDomain('URL_FAQ')}
+                href={interpolateUrl(urls.faqs)}
                 rel="noopener noreferrer"
                 target="_blank"
                 className="list_link">

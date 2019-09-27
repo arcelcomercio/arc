@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import Consumer from 'fusion:consumer'
 
-import { AddIdentity, userProfile } from '../_dependencies/Identity'
+import { addIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
 import Signwall from '../../signwall/default'
 import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
@@ -45,7 +45,7 @@ class Head extends React.PureComponent {
 
   getFirstName = () => {
     window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
-    AddIdentity().then(() => {
+    addIdentity(this.props.arcSite).then(() => {
       userProfile()
         .then(({ firstName }) => {
           this.setState({ firstName })

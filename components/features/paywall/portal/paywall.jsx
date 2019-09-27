@@ -5,24 +5,28 @@ import { useFusionContext } from 'fusion:context'
 
 import * as S from './styled'
 import addScriptAsync from '../../../utilities/script-async'
-import getDomain from '../_dependencies/domains'
+import { interpolateUrl } from '../_dependencies/domains'
 import Card from './_children/card'
 import ClickToCall from '../_children/click-to-call'
 import FillHeight from '../_children/fill-height'
 
 const Portal = () => {
-  const context = useFusionContext()
   const {
     globalContent: items,
     customFields: { substractFeaturesHeights = '' },
     siteProperties: {
-      paywall: { clickToCall },
+      paywall: { urls },
     },
-  } = context
+  } = useFusionContext()
+
+  const clickToCallUrl = interpolateUrl(urls.clickToCall)
+  const corporateUrl = interpolateUrl(urls.corporateSuscription)
+  const originSalesSdkUrl = interpolateUrl(urls.originSalesSdk)
+
   React.useEffect(() => {
     addScriptAsync({
       name: 'sdkSalesARC',
-      url: getDomain('ORIGIN_SALES_SDK'),
+      url: originSalesSdkUrl,
     })
     document.getElementsByClassName('foot')[0].style.position = 'relative'
   }, [])
@@ -41,11 +45,11 @@ const Portal = () => {
         </S.PortalContent>
         <S.Footer>
           <S.FooterContent>
-            <S.LinkCorporate href={getDomain('URL_CORPORATE')}>
+            <S.LinkCorporate href={corporateUrl}>
               SUSCRIPCIONES CORPORATIVAS
             </S.LinkCorporate>
             <S.ClickToCallWrapper>
-              <ClickToCall href={clickToCall} />
+              <ClickToCall href={clickToCallUrl} />
             </S.ClickToCallWrapper>
           </S.FooterContent>
         </S.Footer>

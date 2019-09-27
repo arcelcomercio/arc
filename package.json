@@ -45,6 +45,7 @@
     "react-text-mask": "^5.4.3",
     "remove-accents": "^0.4.2",
     "styled-components": "^4.3.2",
+    "templayed": "^0.2.3",
     "thumbor": "^0.1.5"
   },
   "peerDependencies": {

@@ -12,7 +12,7 @@ import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import * as S from './styled'
-import { AddIdentity, userProfile, isLogged } from '../_dependencies/Identity'
+import { addIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
@@ -21,7 +21,7 @@ import ClickToCall from '../_children/click-to-call'
 import FillHeight from '../_children/fill-height'
 import ErrorBoundary from '../_children/error-boundary'
 import PWA from './_dependencies/seed-pwa'
-import getDomain from '../_dependencies/domains'
+import { interpolateUrl } from '../_dependencies/domains'
 import '../_dependencies/sentry'
 
 const stepNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
@@ -34,9 +34,10 @@ let finalized = false
 
 const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   const {
+    arcSite,
     customFields: { substractFeaturesHeights = '' },
     siteProperties: {
-      paywall: { clickToCall },
+      paywall: { urls },
     },
     globalContent: {
       summary = [],
@@ -54,11 +55,12 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   addEventListener('logout', clearPaywallStorage)
 
   const wizardRef = useRef(null)
-  const basePath = getDomain('URL_DIGITAL')
+  const basePath = interpolateUrl(urls.digitalSubscriptions)
+  const clickToCallUrl = interpolateUrl(urls.clickToCall)
 
   const [profile, setProfile] = useState('')
   useEffect(() => {
-    AddIdentity().then(() => {
+    addIdentity(arcSite).then(() => {
       if (isLogged()) {
         userProfile(['documentNumber', 'phone', 'documentType']).then(
           setProfile
@@ -153,7 +155,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
             nav={
               <Nav
                 stepsNames={stepNames}
-                right={<ClickToCall href={clickToCall} />}
+                right={<ClickToCall href={clickToCallUrl} />}
               />
             }>
             <WizardPlan
