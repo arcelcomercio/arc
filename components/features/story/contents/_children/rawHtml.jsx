@@ -3,8 +3,9 @@ import {
   createScript,
   appendToBody,
   appendToId,
-  storyVideoPlayerId,
+  storyVideoPlayer,
 } from '../../../../utilities/helpers'
+import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
   newsEmbed: 'story-content__embed',
@@ -28,11 +29,9 @@ class rawHTML extends PureComponent {
       const [URI] = rgexpURL.exec(scriptResult) || []
       this.URL = URI
     } else if (content.includes('player.daznservices.com/player.js')) {
-      const idVideos = storyVideoPlayerId(content)
+      const idVideos = storyVideoPlayer(content)
 
-      this.URL_VIDEO = `${idVideos[1].replace('src="//', 'https://')}id=${
-        idVideos[2]
-      }`
+      this.URL_VIDEO = `${ConfigParams.VIDEO_JS_LINK}${idVideos[2]}`
 
       this.ID_VIDEO = `${idVideos[2]}`
     } else {
@@ -59,7 +58,7 @@ class rawHTML extends PureComponent {
 
   render() {
     const { content } = this.props
-    const idVideo = storyVideoPlayerId(content)
+    const idVideo = storyVideoPlayer(content)
 
     const idVideoEmbed =
       content.includes('player.daznservices.com/player.js') && idVideo[2]

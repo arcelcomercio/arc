@@ -563,7 +563,6 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/<mxm-(.*) (.*)><\/mxm>/g, '') // pendiente de validacion enventos 485178
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
-    .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 }
 
 export const facebookHtml = html => {
@@ -614,10 +613,6 @@ export const youtubeHtml = html => {
     .replace(
       /<iframe width="(.*?)" height="(.*?)" src="\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
       rplYoutube
-    )
-    .replace(
-      /<iframe (.*) src="(.+)?youtube.com\/embed\/([A-Za-z0-9 _]*[A-Za-z0-9])(.*)" (.*)><\/iframe>/g,
-      rplYoutube1
     )
     .replace(
       /<iframe (.*) src="(.+)?youtube.com\/embed\/(.*?)" (.*)><\/iframe>/g,
@@ -936,16 +931,10 @@ export const storyTagsBbc = (data = []) => {
     .filter(String)[0]
 }
 
-export const storyVideoPlayerId = (content = '') => {
+export const storyVideoPlayer = (content = '') => {
   return (
     content.match(
       /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
     ) || []
   )
-}
-
-export const getPhotoId = photoUrl => {
-  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26}).[\w]{3}$/)
-  const [, photoId] = customPhotoUrl || []
-  return photoId
 }

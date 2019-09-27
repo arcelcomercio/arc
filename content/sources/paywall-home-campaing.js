@@ -1,73 +1,69 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import request from 'request-promise-native'
-import getProperties from 'fusion:properties'
-import { interpolateUrl } from '../../components/features/paywall/_dependencies/domains'
+import getDomain from '../../components/features/paywall/_dependencies/domains'
 
-const fetch = (key = {}) => {
-  const site = key['arc-site']
-  const {
-    paywall: { urls },
-  } = getProperties(site)
+const resolve = () => {
+  return `${getDomain(
+    'ORIGIN_SUSCRIPCIONES'
+  )}/api/subscriber/validation/gestion/`
+}
 
-  const originSubscriptions = interpolateUrl(urls.originSubscriptions)
-  const originSubsDigitalPrinted = interpolateUrl(urls.originSubsDigitalPrinted)
-  const digitalSubscriptionsHome = interpolateUrl(urls.digitalSubscriptionsHome)
-  const originSubsPrinted = interpolateUrl(urls.originSubsPrinted)
+// https://api-sandbox.gestion.pe
+// paywall-gestion-sandbox
+// gprint-july-19
 
-  const HARD_CAMPAIGNS = [
-    {
-      title: 'Digital + Impreso',
-      url: originSubsDigitalPrinted,
-      recommended: true,
-      price: { amount: 49, currency: 'S/' },
-      detail: {
-        frequency: 'AL MES',
-        duration: 'POR 3 MESES',
-        aditional: 'LUEGO S/ 68 CADA MES',
-      },
+const HARD_CAMPAIGNS = [
+  {
+    title: 'Digital + Impreso',
+    url: `${getDomain('ORIGIN_SUBS_DIGITAL_IMPRESO')}`,
+    recommended: true,
+    price: { amount: 49, currency: 'S/' },
+    detail: {
+      frequency: 'AL MES',
+      duration: 'POR 3 MESES',
+      aditional: 'LUEGO S/ 68 CADA MES',
+    },
+    aditional: '',
+    features: [
+      'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
+      'Diario impreso de Lunes a Viernes',
+      'Acceso a la versión impresa en formato digital: PDF',
+      'Descuentos ilimitados del club de beneficios',
+      'Revista G',
+    ],
+  },
+  {
+    title: 'Impreso',
+    url: `${getDomain('ORIGIN_SUBS_IMPRESO')}`,
+    price: { amount: 49, currency: 'S/' },
+    detail: {
+      frequency: 'AL MES',
+      duration: '',
       aditional: '',
-      features: [
-        'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
-        'Diario impreso de Lunes a Viernes',
-        'Acceso a la versión impresa en formato digital: PDF',
-        'Descuentos ilimitados del club de beneficios',
-        'Revista G',
-      ],
     },
-    {
-      title: 'Impreso',
-      url: originSubsPrinted,
-      price: { amount: 49, currency: 'S/' },
-      detail: {
-        frequency: 'AL MES',
-        duration: '',
-        aditional: '',
-      },
-      features: [
-        'Diario impreso de Lunes a Viernes',
-        'Acceso a la versión impresa en formato digital: PDF',
-        'Descuentos ilimitados del club de beneficios',
-        'Revista G',
-      ],
-    },
-  ]
+    features: [
+      'Diario impreso de Lunes a Viernes',
+      'Acceso a la versión impresa en formato digital: PDF',
+      'Descuentos ilimitados del club de beneficios',
+      'Revista G',
+    ],
+  },
+]
 
-  const DURATION = {
-    month: {
-      singular: 'MES',
-      plural: 'MESES',
-    },
-    year: {
-      singular: 'AÑO',
-      plural: 'AÑOS',
-    },
-  }
+const DURATION = {
+  month: {
+    singular: 'MES',
+    plural: 'MESES',
+  },
+  year: {
+    singular: 'AÑO',
+    plural: 'AÑOS',
+  },
+}
 
-  return request({
-    uri: originSubscriptions,
-    json: true,
-  }).then(data => {
+export default {
+  resolve,
+  transform(data) {
     const { name, attributes, pricingStrategies } = data.products[0]
+
     const [planMonth] = pricingStrategies
     const { rates } = planMonth
     const [NOW, AFTER] = rates
@@ -103,19 +99,11 @@ const fetch = (key = {}) => {
       { feature: [] }
     )
     const { title, feature: features } = summary
+    const url = `${getDomain('URL_DIGITAL_HOME')}`
 
     return [
-      {
-        name,
-        url: digitalSubscriptionsHome,
-        title,
-        features,
-        price,
-        detail,
-      },
+      Object.assign({ name, url, title, features, price, detail }),
       ...HARD_CAMPAIGNS,
     ]
-  })
+  },
 }
-
-export default { fetch }

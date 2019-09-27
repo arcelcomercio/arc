@@ -4,19 +4,6 @@ import Consumer from 'fusion:consumer'
 import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
-import { getPhotoId } from '../../../utilities/helpers'
-
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_s 
-    lazy_default  
-  }
-}`
 
 @Consumer
 class CardFeaturedStoryAuto extends PureComponent {
@@ -26,7 +13,7 @@ class CardFeaturedStoryAuto extends PureComponent {
       arcSite,
       deployment,
       contextPath,
-      customFields: { imgField, section, storyNumber } = {},
+      customFields: { section, storyNumber } = {},
     } = this.props
     this.storyFormatter = new StoryFormatter({
       deployment,
@@ -51,20 +38,6 @@ class CardFeaturedStoryAuto extends PureComponent {
         filter: storiesSchema,
       },
     })
-    if (imgField) {
-      const photoId = getPhotoId(imgField)
-      if (photoId) {
-        this.fetchContent({
-          customPhoto: {
-            source: PHOTO_SOURCE,
-            query: {
-              _id: photoId,
-            },
-            filter: PHOTO_SCHEMA,
-          },
-        })
-      }
-    }
   }
 
   render() {
@@ -84,15 +57,12 @@ class CardFeaturedStoryAuto extends PureComponent {
       siteProperties: { siteName = '' } = {},
     } = this.props
 
-    const {
-      customPhoto = {},
-      data: { content_elements: contentElements = [] } = {},
-    } = this.state || {}
+    const { data: { content_elements: contentElements = [] } = {} } =
+      this.state || {}
 
     const formattedData = this.storyFormatter.formatStory(
       contentElements[0],
-      imgField,
-      customPhoto
+      imgField
     )
     const {
       category,

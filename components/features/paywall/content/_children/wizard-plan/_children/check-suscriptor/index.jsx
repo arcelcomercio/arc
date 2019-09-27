@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useFusionContext } from 'fusion:context'
 import { Formik, Form, Field } from 'formik'
 import * as Sentry from '@sentry/browser'
 
@@ -8,19 +7,14 @@ import { FormSchema, Masks } from './schema'
 import InputFormik from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import Modal from '../../../../../_children/modal'
-import { interpolateUrl } from '../../../../../_dependencies/domains'
+import getDomain from '../../../../../_dependencies/domains'
 
 const Content = ({ onSubmit }) => {
   const [attemptToken, setAttemptToken] = useState()
-  const {
-    siteProperties: {
-      paywall: { urls },
-    },
-  } = useFusionContext()
   let resetForm = React.useRef()
 
   useEffect(() => {
-    const url = interpolateUrl(urls.originSubscriptionOnlineToken)
+    const url = getDomain('ORIGIN_SUBSCRIPTION_ONLINE_TOKEN')
     fetch(url, {
       method: 'POST',
       headers: new Headers({
@@ -34,7 +28,7 @@ const Content = ({ onSubmit }) => {
             setAttemptToken(token)
           })
         } else {
-          const msg = `Status de la peticion a "${url}" no es 200 sino ${res.status}`
+          const msg = `Estado de peticion a ${url} no es 200 sino ${res.status}`
           const err = new Error(msg)
           Sentry.captureException(err)
         }

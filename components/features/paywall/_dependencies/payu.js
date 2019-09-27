@@ -1,24 +1,15 @@
-import getProperties from 'fusion:properties'
-
+import getDomain from './domains'
 import addScriptAsync from '../../../utilities/script-async'
-import { interpolateUrl } from './domains'
 
-const addPayU = (site, deviceSessionId) => {
-  const {
-    paywall: { urls },
-  } = getProperties(site)
-  const originPayuSdk = interpolateUrl(urls.originPayuSdk)
-  const originPayuTags = interpolateUrl(urls.originPayuTags, {
-    deviceSessionId,
-  })
+const addPayU = deviceSessionId => {
   return Promise.all([
     addScriptAsync({
       name: 'sdkPayU',
-      url: originPayuSdk,
+      url: getDomain('ORIGIN_PAYU_SDK'),
     }),
     addScriptAsync({
       name: 'payuTags',
-      url: originPayuTags,
+      url: getDomain('ORIGIN_PAYU_TAGS', { deviceSessionId }),
       includeNoScript: true,
     }),
   ]).then(() => {
@@ -26,4 +17,4 @@ const addPayU = (site, deviceSessionId) => {
   })
 }
 
-export default addPayU
+export { addPayU }

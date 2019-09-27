@@ -1,21 +1,28 @@
 import React from 'react'
-import { withTheme } from 'styled-components'
+import { useFusionContext } from 'fusion:context'
 
+import { devices } from '../../_dependencies/devices'
 import Modal from '../modal'
 import * as S from './styled'
 
 const SupportDialog = props => {
-  const { theme } = props
+  const { contextPath, deployment, siteProperties } = useFusionContext()
+  const { assets } = siteProperties
+  const supportImageUrl = deployment(
+    `${contextPath}${assets.path}${assets.paywall.support}`
+  )
+  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
+
   return (
     <Modal scrollable {...props}>
       <S.DialogContent>
         <picture>
           <source
-            media={theme.breakpoints.down('xs')}
+            media={`(${devices.mobile})`}
             srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
           />
-          <source srcSet={theme.images.support_webp} type="image/webp" />
-          <img src={theme.images.support} alt="support" />
+          <source srcSet={fullAssets('support_webp')} type="image/webp" />
+          <img src={fullAssets('support')} alt="support" />
         </picture>
         <S.ContentWrapper>
           <S.Title>Soporte</S.Title>
@@ -54,5 +61,4 @@ const SupportDialog = props => {
   )
 }
 
-const ThemedSupportDialog = withTheme(SupportDialog)
-export default ThemedSupportDialog
+export default SupportDialog

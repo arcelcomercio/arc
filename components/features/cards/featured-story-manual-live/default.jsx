@@ -5,19 +5,7 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 import LiveStreaming from './_children/streaming-live'
-import { getPhotoId } from '../../../utilities/helpers'
 
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_s 
-    lazy_default  
-  }
-}`
 @Consumer
 class CardFeaturedStoryManualLive extends PureComponent {
   constructor(props) {
@@ -28,7 +16,6 @@ class CardFeaturedStoryManualLive extends PureComponent {
       deployment,
       contextPath,
       customFields: {
-        imgField,
         note1,
         date1,
         note2,
@@ -150,21 +137,6 @@ class CardFeaturedStoryManualLive extends PureComponent {
       this.errorList = validateScheduledNotes()
     }
 
-    if (imgField) {
-      const photoId = getPhotoId(imgField)
-      if (photoId) {
-        this.fetchContent({
-          customPhoto: {
-            source: PHOTO_SOURCE,
-            query: {
-              _id: photoId,
-            },
-            filter: PHOTO_SCHEMA,
-          },
-        })
-      }
-    }
-
     this.fetchContent({
       data: {
         source,
@@ -216,15 +188,14 @@ class CardFeaturedStoryManualLive extends PureComponent {
       siteProperties: { siteName = '' } = {},
     } = this.props
 
-    const { customPhoto = {}, data = {}, defaultData = {} } = this.state || {}
+    const { data = {}, defaultData = {} } = this.state || {}
 
     // Si la data no existe usar el estado defaultData
     const existingData = data._id ? data : defaultData
     // //////////////////////////////////////////////
     const formattedData = this.storyFormatter.formatStory(
       existingData,
-      imgField,
-      customPhoto
+      imgField
     )
     const {
       category,
