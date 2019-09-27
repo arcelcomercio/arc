@@ -1,28 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
-import { withTheme } from 'styled-components'
 
 import './paywall.css'
 import Icon from '../_children/icon'
 import SupportDialog from '../_children/support-dialog'
 import Link from '../_children/link'
-import { interpolateUrl } from '../_dependencies/domains'
+import getDomain from '../_dependencies/domains'
 
-const Foot = ({ theme }) => {
-  const {
-    siteProperties,
-    customFields: { id },
-  } = useFusionContext()
-  const {
-    social,
-    apps,
-    paywall: { urls },
-  } = siteProperties
+const Foot = () => {
+  const { siteProperties, contextPath, deployment } = useFusionContext()
+  const { assets, social, apps } = siteProperties
   const [supportOpen, setSupportOpen] = React.useState(false)
 
   return (
-    <div id={id} className="foot">
+    <div className="foot">
       <SupportDialog
         showClose
         open={supportOpen}
@@ -31,7 +22,11 @@ const Foot = ({ theme }) => {
       <div className="footer-content">
         <div>
           <div>
-            <Icon className="img logo" alt="Gestión" type={theme.icon.logo} />
+            <img
+              src={deployment(`${contextPath}${assets.pwAssets()}`)}
+              alt="Gestión"
+              className="img logo"
+            />
           </div>
           <p className="text">
             Contáctanos al <a href="tel:+5113115100">01 311-5100</a> o{' '}
@@ -66,7 +61,7 @@ const Foot = ({ theme }) => {
             </li>
             <li>
               <a
-                href={interpolateUrl(urls.faqs)}
+                href={getDomain('URL_FAQ')}
                 rel="noopener noreferrer"
                 target="_blank"
                 className="list_link">
@@ -156,12 +151,4 @@ const Foot = ({ theme }) => {
   )
 }
 
-const ThemedFoot = withTheme(Foot)
-
-ThemedFoot.propTypes = {
-  customFields: PropTypes.shape({
-    id: PropTypes.string,
-  }),
-}
-
-export default ThemedFoot
+export default Foot

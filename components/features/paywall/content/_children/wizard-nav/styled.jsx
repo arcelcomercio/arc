@@ -1,5 +1,5 @@
-/* eslint-disable no-use-before-define */
-import styled, { css } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
+import { devices } from '../../../_dependencies/devices'
 
 const WizardNav = styled.div`
   display: flex;
@@ -14,11 +14,9 @@ const Wrap = styled.div`
   justify-content: space-around;
   flex: 1;
   max-width: 470px;
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      max-width: 100vw;
-    }
-  `}
+  @media (${devices.mobile}) {
+    max-width: 100vw;
+  }
 `
 
 const Right = styled.div`
@@ -27,46 +25,28 @@ const Right = styled.div`
 `
 
 const Content = styled.div`
-  ${({ active, theme }) => css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    min-height: 60px;
-    ${theme.breakpoints.down('xs')} {
-      &:after {
-        margin-right: -90px;
-      }
-    }
-    ${active
-      ? css`
-          font-weight: ${theme.typography.fontWeightHeavy};
-          ${StepCircle} {
-            background-color: ${theme.palette.primary.main};
-          }
-          ${StepNumber} {
-            color: ${theme.palette.primary.contrastText};
-          }
-        `
-      : css`
-          ${theme.breakpoints.down('xs')} {
-            ${StepName} {
-              display: none;
-            }
-          }
-        `}
-  `}
-  &:after {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-height: 60px;
+  &:after{
     display: inline-block;
-    content: '';
-    border-top: 1px solid ${props => props.theme.palette.divider};
+    content: "";
+    border-top: 1px solid #818181;
     width: 20px;
     transform: translateY(-1rem);
     margin-right: -120px;
   }
-  &:last-child:after {
-    border-top: 0px solid ${props => props.theme.palette.divider};
-    content: '';
+  &:last-child:after{
+    color: red;
+    border-top: 0px solid #818181;
+    content: "";
+  }
+  @media (${devices.mobile}) {
+    &:after{
+      margin-right: -90px;
+    }
   }
 `
 
@@ -83,13 +63,28 @@ const StepCircle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.theme.palette.action.disabledBackground};
-  color: ${props => props.theme.palette.action.disabled};
+  background-color: #f4f4f4;
+  color: #bbb;
 `
 
 const StepNumber = styled.span`
+  color: #bbbbbb;
   font-size: 16px;
-  font-weight: ${props => props.theme.typography.fontWeightHeavy};
+  font-weight: 700;
 `
 
-export { WizardNav, Wrap, Right, Content, StepName, StepCircle, StepNumber }
+const GlobalStyle = createGlobalStyle`
+  .nav-step-active{
+    font-weight: 700;
+  }
+`
+export {
+  WizardNav,
+  Wrap,
+  Right,
+  Content,
+  StepName,
+  StepCircle,
+  StepNumber,
+  GlobalStyle,
+}

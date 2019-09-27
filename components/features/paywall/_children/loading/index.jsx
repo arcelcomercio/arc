@@ -1,28 +1,17 @@
 import React from 'react'
-
+import Icon from '../icon'
 import Portal from '../portal'
 import * as S from './styled'
 
-function Loading({ children, loadingIcon, spinning, fullscreen }) {
+function Loading({ children, spinning, fullscreen }) {
   return (
     <Portal id="loading">
       <S.Loading spinning={spinning} fullscreen={fullscreen}>
         <S.Background>
           <S.WrapIcon>
-            {[
-              React.cloneElement(loadingIcon, {
-                key: 'loadingIcon_1',
-                ...loadingIcon.props,
-              }),
-              React.cloneElement(loadingIcon, {
-                key: 'loadingIcon_2',
-                ...loadingIcon.props,
-              }),
-              React.cloneElement(loadingIcon, {
-                key: 'loadingIcon_3',
-                ...loadingIcon.props,
-              }),
-            ]}
+            <Icon type="gloading" />
+            <Icon type="gloading" />
+            <Icon type="gloading" />
           </S.WrapIcon>
         </S.Background>
         {fullscreen ? false : children}

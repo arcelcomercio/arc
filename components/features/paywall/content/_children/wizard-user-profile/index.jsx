@@ -1,15 +1,17 @@
 /* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect } from 'react'
-import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
+import { ENVIRONMENT } from 'fusion:environment'
 import UserProfile from './_children/user-profile'
 import Summary from '../summary'
 import * as S from './styled'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import addSales from '../../../_dependencies/sales'
+import { addSales } from '../../../_dependencies/sales'
 import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
 import PWA from '../../_dependencies/seed-pwa'
+
+const isProd = ENVIRONMENT === 'elcomercio'
 
 function WizardUserProfile(props) {
   const {
@@ -57,9 +59,7 @@ function WizardUserProfile(props) {
   }, [])
 
   const [error, setError] = useState()
-
-  const { arcSite } = useFusionContext()
-  const Sales = addSales(arcSite)
+  const Sales = addSales()
 
   function onSubmitHandler(values, { setSubmitting }) {
     const {

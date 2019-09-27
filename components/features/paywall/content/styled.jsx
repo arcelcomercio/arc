@@ -1,12 +1,12 @@
-import styled, { css } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
+import { devices } from '../_dependencies/devices'
+
 
 const Content = styled.div`
-  ${({ theme }) => css`
-    width: 1120px;
-    ${theme.breakpoints.down('xs')} {
-      width: 100%;
-    }
-  `}
+  width: 1120px;
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `
 
-export { Content }
+export { Content, ThemeProvider }

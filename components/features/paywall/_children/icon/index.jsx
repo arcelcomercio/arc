@@ -1,21 +1,16 @@
 import React from 'react'
-import { withTheme } from 'styled-components'
-
 import * as icons from './svg/index'
 
-function Icon({ type, width, height, fill, theme, ...restProps }) {
+function Icon({
+  type,
+  width = '16',
+  height = '16',
+  fill = '#444',
+  ...restProps
+}) {
   const IconCustom = icons[type]
 
-  // Si no se consigue el icono renderiza nulo
-  return IconCustom ? (
-    <IconCustom
-      width={width}
-      height={height}
-      fill={fill}
-      theme={theme}
-      {...restProps}
-    />
-  ) : null
+  return <IconCustom width={width} height={height} fill={fill} {...restProps} />
 }
 
-export default withTheme(Icon)
+export default Icon

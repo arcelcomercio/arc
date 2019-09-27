@@ -1,9 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-destructuring */
 import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
-import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 import Wizard from 'react-step-wizard'
 import { createBrowserHistory } from 'history'
@@ -12,16 +10,14 @@ import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import * as S from './styled'
-import { addIdentity, userProfile, isLogged } from '../_dependencies/Identity'
+import { AddIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
-import Icon from '../_children/icon'
 import ClickToCall from '../_children/click-to-call'
-import FillHeight from '../_children/fill-height'
 import ErrorBoundary from '../_children/error-boundary'
 import PWA from './_dependencies/seed-pwa'
-import { interpolateUrl } from '../_dependencies/domains'
+import getDomain from '../_dependencies/domains'
 import '../_dependencies/sentry'
 
 const stepNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
@@ -32,12 +28,13 @@ const PAYMENT_FORM_NAME = 'paywall-payment-form'
 let history
 let finalized = false
 
-const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
+const Paywall = ({ dispatchEvent, addEventListener }) => {
   const {
-    arcSite,
-    customFields: { substractFeaturesHeights = '' },
+    contextPath,
+    deployment,
     siteProperties: {
-      paywall: { urls },
+      assets,
+      paywall: { clickToCall },
     },
     globalContent: {
       summary = [],
@@ -55,12 +52,11 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   addEventListener('logout', clearPaywallStorage)
 
   const wizardRef = useRef(null)
-  const basePath = interpolateUrl(urls.digitalSubscriptions)
-  const clickToCallUrl = interpolateUrl(urls.clickToCall)
+  const basePath = getDomain('URL_DIGITAL')
 
   const [profile, setProfile] = useState('')
   useEffect(() => {
-    addIdentity(arcSite).then(() => {
+    AddIdentity().then(() => {
       if (isLogged()) {
         userProfile(['documentNumber', 'phone', 'documentType']).then(
           setProfile
@@ -129,68 +125,62 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     window.scrollTo(0, 0)
   }).current
 
+  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
   const [loading, setLoading] = useState(false)
-  const substractFeaturesIds = substractFeaturesHeights
-    .split(',')
-    .map(id => id.trim())
   return (
-    <ErrorBoundary>
-      {/* <FillHeight substractElements={substractFeaturesIds}> */}
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <S.Content>
-          <Loading
-            loadingIcon={<Icon type={theme.icon.loading} />}
-            fullscreen
-            spinning={loading}
+  <ErrorBoundary>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <S.Content>
+        <Loading fullscreen spinning={loading} />
+        <Wizard
+          transitions={{
+            enterRight: 'enterRight',
+            enterLeft: 'enterLeft',
+            exitRight: 'exitRight',
+            exitLeft: 'exitLeft',
+          }}
+          ref={wizardRef}
+          isLazyMount
+          nav={
+            <Nav
+              stepsNames={stepNames}
+              right={<ClickToCall href={clickToCall} />}
+            />
+          }>
+          <WizardPlan
+            message={message}
+            printedSubscriber={printedSubscriber}
+            memo={currMemo}
+            plans={plans}
+            summary={summary}
+            onBeforeNextStep={onBeforeNextStepHandler}
+            assets={fullAssets}
+            setLoading={setLoading}
           />
-          <Wizard
-            transitions={{
-              enterRight: 'enterRight',
-              enterLeft: 'enterLeft',
-              exitRight: 'exitRight',
-              exitLeft: 'exitLeft',
-            }}
-            ref={wizardRef}
-            isLazyMount
-            nav={
-              <Nav
-                stepsNames={stepNames}
-                right={<ClickToCall href={clickToCallUrl} />}
-              />
-            }>
-            <WizardPlan
-              message={message}
-              printedSubscriber={printedSubscriber}
-              memo={currMemo}
-              plans={plans}
-              summary={summary}
-              onBeforeNextStep={onBeforeNextStepHandler}
-              setLoading={setLoading}
-            />
-            <WizardUserProfile
-              memo={currMemo}
-              profile={profile}
-              formName={PROFILE_FORM_NAME}
-              summary={summary}
-              onBeforeNextStep={onBeforeNextStepHandler}
-              setLoading={setLoading}
-            />
-            <WizardPayment
-              memo={currMemo}
-              summary={summary}
-              formName={PAYMENT_FORM_NAME}
-              onBeforeNextStep={onBeforeNextStepHandler}
-              setLoading={setLoading}
-            />
-            <WizardConfirmation
-              memo={currMemo}
-              onBeforeNextStep={onBeforeNextStepHandler}
-            />
-          </Wizard>
-        </S.Content>
-      </div>
-      {/* </FillHeight> */}
-    </ErrorBoundary>
+          <WizardUserProfile
+            memo={currMemo}
+            profile={profile}
+            formName={PROFILE_FORM_NAME}
+            summary={summary}
+            onBeforeNextStep={onBeforeNextStepHandler}
+            setLoading={setLoading}
+          />
+          <WizardPayment
+            memo={currMemo}
+            summary={summary}
+            formName={PAYMENT_FORM_NAME}
+            onBeforeNextStep={onBeforeNextStepHandler}
+            setLoading={setLoading}
+          />
+          <WizardConfirmation
+            memo={currMemo}
+            assets={fullAssets}
+            onBeforeNextStep={onBeforeNextStepHandler}
+          />
+        </Wizard>
+      </S.Content>
+    </div>
+  </ErrorBoundary>
   )
 }
 
@@ -199,7 +189,6 @@ class PaywallWrapper extends React.Component {
   render() {
     return (
       <Paywall
-        {...this.props}
         dispatchEvent={this.dispatchEvent.bind(this)}
         addEventListener={this.addEventListener.bind(this)}
       />
@@ -207,13 +196,4 @@ class PaywallWrapper extends React.Component {
   }
 }
 
-const ThemedPaywallWrapper = withTheme(PaywallWrapper)
-
-ThemedPaywallWrapper.propTypes = {
-  customFields: PropTypes.shape({
-    id: PropTypes.string,
-    substractFeaturesHeights: PropTypes.string,
-  }),
-}
-
-export default ThemedPaywallWrapper
+export default PaywallWrapper

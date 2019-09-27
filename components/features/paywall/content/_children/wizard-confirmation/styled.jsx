@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import { devices } from '../../../_dependencies/devices'
 import ProgressComponent from '../../../_children/progress'
 import { Panel as PanelComponent } from '../../../_children/panel/styled'
 
@@ -18,22 +19,18 @@ export const Subtitle = styled.span`
   line-height: ${props => (props.large ? '24px' : '1.71')};
   font-size: ${props => (props.large ? '20px' : '14px')};
   color: #444;
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      padding: 0;
-    }
-  `}
+  @media (${devices.mobile}) {
+    padding: 0;
+  }
 `
 
 export const Image = styled.img`
   width: 360px;
   object-fit: cover;
   height: 100%;
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      display: none;
-    }
-  `}
+  @media (${devices.mobile}) {
+    display: none;
+  }
 `
 
 export const Content = styled.div`
@@ -43,19 +40,17 @@ export const Content = styled.div`
   padding: 40px 100px;
   align-items: center;
   flex: 1;
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      padding: 30px;
-    }
-    ${theme.breakpoints.only('sm')} {
-      min-height: 500px;
-    }
-  `}
+  @media ${devices.tablet} {
+    min-height: 500px;
+  }
+  @media (${devices.mobile}) {
+    padding: 30px;
+  }
 `
 
 export const CardSummary = styled.div`
   border-radius: 4px;
-  background-color: ${props => props.theme.palette.background.default};
+  background-color: #f4f4f4;
   padding: 30px;
   box-sizing: border-box;
   width: 100%;
@@ -84,7 +79,7 @@ export const WrapIcon = styled.div`
   width: 86px;
   height: 46px;
   border-radius: 4px;
-  background-color: ${props => props.theme.palette.secondary.main};
+  background-color: #000000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,12 +87,10 @@ export const WrapIcon = styled.div`
 export const ContentBenefice = styled.div`
   display: flex;
   margin: 10px 0;
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      flex-direction: column;
-      align-items: center;
-    }
-  `}
+  @media (${devices.mobile}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const WrapText = styled.div`
@@ -107,11 +100,9 @@ export const WrapText = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: flex-start;
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      margin: 25px 20px;
-    }
-  `}
+  @media (${devices.mobile}) {
+    margin: 25px 20px;
+  }
 `
 
 export const Detail = styled.div`
@@ -124,20 +115,16 @@ export const Span = styled.span`
   font-size: 14px;
   text-align: center;
   line-height: 24px;
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      text-align: center;
-    }
-  `}
+  @media (${devices.mobile}) {
+    text-align: center;
+  }
 `
 
 export const Picture = styled.picture`
   height: 100%;
-  ${({ theme }) => css`
-    ${theme.breakpoints.only('sm')} {
-      display: none;
-    }
-  `}
+  @media ${devices.tablet} {
+    display: none;
+  }
 `
 
 export const DetailTitle = styled.div`
@@ -154,10 +141,8 @@ export const Progress = styled(ProgressComponent)`
   bottom: -7px;
 `
 export const Panel = styled(PanelComponent)`
-  ${({ theme }) => css`
-    ${theme.breakpoints.only('sm')} {
-      flex-direction: column-reverse;
-      align-items: center;
-    }
-  `}
+  @media ${devices.tablet} {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `
