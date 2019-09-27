@@ -52,12 +52,53 @@ export default {
     title: 'Suscripciones Digitales | Gestión',
     description:
       'Suscríbete al Plan Digital y accede a contenido exclusivo ilimitadamente desde todos tus dispositivos.Gestión El diario de Economía y Negocios.',
-    canonical: 'https://gestion.pe/suscripcionesdigitales/',
-    image:
-      'https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158',
-    clickToCall: 'https://c2c.kontactame.com/call/?id=162',
-    corporate: '/suscripcionesdigitales/empresa/',
-    faq: '/suscripcionesdigitales/faq/',
+
+    // prettier-ignore
+    urls: {
+      // PATHS
+      corporateSuscription:              `{{contextPath}}/suscripcionesdigitales/empresa/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
+      faqs:                              `{{contextPath}}/suscripcionesdigitales/faqs/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
+      digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales`,
+      digitalSubscriptionsHome:          `{{contextPath}}/suscripcionesdigitales/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
+      validateSubscriptor:               `{{contextPath}}/suscripcionesdigitales/{{documentType}}/{{documentNumber}}/{{attemptToken}}/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
+
+      // URLS
+      canonical:                         `https://gestion.pe/suscripcionesdigitales/`,
+      image:                             `https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158`,
+      clickToCall:                       `https://c2c.kontactame.com/call/?id=162`,
+      pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.gestion.pe`,
+      originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.gestion.pe`,
+      originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js`,
+      originSalesSdk:                    `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-sales.min.js`,
+      originPayuSdk:                     `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`,
+      originPayuTags:                    `https://maf.pagosonline.net/ws/fp/tags.js?id={{deviceSessionId}}80200`,
+      originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
+      originSubscriptionOnlineToken:     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
+      originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/{{#docnumber}}?doctype={{doctype}}&docnumber={{docnumber}}&token={{token}}{{/docnumber}}`,
+      originSubsPrinted:                 `{{#isProd}}https://suscripciones.gestion.pe/payment/7/96/{{/isProd}}
+                                          {{^isProd}}http://pre.suscripciones.gestion.pe/payment/7/96/{{/isProd}}`,
+      originSubsDigitalPrinted:          `{{#isProd}}https://suscripciones.gestion.pe/payment/8/98/{{/isProd}}
+                                          {{^isProd}}http://pre.suscripciones.gestion.pe/payment/8/97/{{/isProd}}`,
+
+      // IMAGES
+      icon:                              `{{contextPath}}/resources/dist/gestion/images/favicon.png`,
+      apple_icon:                        '{{contextPath}}/resources/dist/gestion/images/apple-touch-icon.png',
+      apple_icon_76:                     '{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-76x76.png',
+      apple_icon_120:                    '{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-120x120.png',
+      apple_icon_144:                    '{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-144x144.png',
+      apple_icon_152:                    '{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-152x152.png',
+      apple_icon_180:                    '{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-180x180.png',
+      logo:                              `{{contextPath}}/resources/dist/gestion/images/logo.svg`,
+      lector:                            `{{contextPath}}/resources/dist/gestion/images/img_lector.png`,
+      corporativo:                       `{{contextPath}}/resources/dist/gestion/images/img_corporativo.webp`,
+      confirmation:                      `{{contextPath}}/resources/dist/gestion/images/img_confirmation.jpg`,
+      confirmation_webp:                 `{{contextPath}}/resources/dist/gestion/images/img_confirmation_1.webp`,
+      support:                           `{{contextPath}}/resources/dist/gestion/images/img_soporte.png`,
+      contact_form_left:                 '{{contextPath}}/resources/dist/gestion/images/img_soporte.png',
+      support_webp:                      `{{contextPath}}/resources/dist/gestion/images/img_soporte.webp`,
+      backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`,
+      check:                             `{{contextPath}}/resources/dist/gestion/images/check2.png`,
+    }
   },
   assets: {
     nav: {

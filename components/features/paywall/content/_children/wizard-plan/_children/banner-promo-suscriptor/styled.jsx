@@ -1,24 +1,25 @@
-import styled from 'styled-components'
-import { devices } from '../../../../../_dependencies/devices'
+import styled, { css } from 'styled-components'
 
 export const Subscribed = styled.div`
-  display: flex;
-  width: ${ props => props.left ? "60%" : "40%"};
-  margin-left: ${ props => props.right ? "20px" : "0px"};
-  max-width: 930px;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 30px;
-  align-items: flex-end;
-  position: relative;
-  @media ${devices.tablet} {
-    width: 50%;
-  }
-  @media (${devices.mobile}) {
-    width: calc(100% - 40px);
-    margin-top: 40px;
-    margin-left: 0px;
-  }
+  ${({ theme }) => css`
+    display: flex;
+    width: ${props => (props.left ? '60%' : '40%')};
+    margin-left: ${props => (props.right ? '20px' : '0px')};
+    max-width: 930px;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 30px;
+    align-items: flex-end;
+    position: relative;
+    ${theme.breakpoints.only('sm')} {
+      width: 50%;
+    }
+    ${theme.breakpoints.down('xs')} {
+      width: calc(100% - 40px);
+      margin-top: 40px;
+      margin-left: 0px;
+    }
+  `}
 `
 
 export const SubscribedText = styled.div`
@@ -30,41 +31,47 @@ export const SubscribedText = styled.div`
 `
 
 export const SubscribedContent = styled.div`
-  padding: 25px;
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  max-height: 50px;
-  background: ${ props => props.red ? "#d64445" : "#444444"};
-  font-size: 16px;
-  @media ${devices.tablet} {
-    padding: 40px 25px;
-  }
-  @media (${devices.mobile}) {
-    padding: 18px 20px;
-    max-height: 100px;
-    box-sizing: content-box;
-    border-radius: 4px;
+  ${({ theme }) => css`
+    padding: 25px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    max-height: 50px;
+    background: ${props => (props.red ? '#d64445' : '#444444')};
     font-size: 16px;
-  }
+    ${theme.breakpoints.only('sm')} {
+      padding: 40px 25px;
+    }
+    ${theme.breakpoints.down('xs')} {
+      padding: 18px 20px;
+      max-height: 100px;
+      box-sizing: content-box;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+  `}
 `
 export const Small = styled.span`
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.86;
-  @media (${devices.mobile}) {
-    font-size: 12px;
-  }
+  ${({ theme }) => css`
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.86;
+    ${theme.breakpoints.down('xs')} {
+      font-size: 12px;
+    }
+  `}
 `
 export const Picture = styled.picture`
   display: flex;
 `
 
 export const Img = styled.img`
-  @media (${devices.mobile}) {
-    display: none;
-  }
+  ${({ theme }) => css`
+    ${theme.breakpoints.down('xs')} {
+      display: none;
+    }
+  `}
 `
 
 export const Shadow = styled.div`

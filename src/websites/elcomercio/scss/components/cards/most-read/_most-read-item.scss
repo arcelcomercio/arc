@@ -1,5 +1,8 @@
 .most-read-item {
   border-color: $color-gray-100;
+  @media (--only-mobile) {
+    margin: 0;
+  }
 
   &__detail {
     font-size: 15px;
