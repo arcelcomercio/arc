@@ -121,7 +121,7 @@ class FeaturedStoryFormatter {
       return resizedImageUrl
     } */
 
-  formatStory(story = '', imgField = '') {
+  formatStory(story = '', imgField = '', customPhoto = {}) {
     this.storyDataInstace.__data = story
 
     const newState = {
@@ -136,16 +136,27 @@ class FeaturedStoryFormatter {
 
     newState.author.name = this.storyDataInstace.author
     newState.author.url = this.storyDataInstace.authorLink
+
+    const {
+      resized_urls: {
+        landscape_l: landscapeL,
+        landscape_md: landscapeMD,
+        portrait_md: portraitMD,
+        square_s: squareS,
+        lazy_default: lazyDefault,
+      } = {},
+    } = customPhoto
+
     newState.multimediaLandscapeL =
-      imgField || this.storyDataInstace.multimediaLandscapeL
+      landscapeL || imgField || this.storyDataInstace.multimediaLandscapeL
     newState.multimediaLandscapeMD =
-      imgField || this.storyDataInstace.multimediaLandscapeMD
+      landscapeMD || imgField || this.storyDataInstace.multimediaLandscapeMD
     newState.multimediaPortraitMD =
-      imgField || this.storyDataInstace.multimediaPortraitMD
+      portraitMD || imgField || this.storyDataInstace.multimediaPortraitMD
     newState.multimediaSquareS =
-      imgField || this.storyDataInstace.multimediaSquareS
+      squareS || imgField || this.storyDataInstace.multimediaSquareS
     newState.multimediaLazyDefault =
-      imgField || this.storyDataInstace.multimediaLazyDefault
+      lazyDefault || imgField || this.storyDataInstace.multimediaLazyDefault
     newState.multimediaType = this.storyDataInstace.multimediaType
 
     return newState
