@@ -1,5 +1,8 @@
 .most-read-item {
   border-color: $color-gray-100;
+  @media (--only-mobile) {
+    margin: 0;
+  }
 
   &__detail {
     font-size: 15px;
@@ -7,6 +10,9 @@
     font-weight: 500;
     &.three-lines {
       max-height: 57px;
+    }
+    &.four-lines {
+      max-height: 75px;
     }
   }
   &__article {

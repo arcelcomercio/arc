@@ -10,19 +10,24 @@ import Modal from '../common/modal'
 import Header from '../common/header'
 import GetProfile from '../utils/get-profile'
 
+const getNameProfile = (name) => {
+    console.log(name)
+}
+
 const renderTemplate = template => {
   const templates = {
     // eslint-disable-next-line react/jsx-filename-extension
     home: <ResumeProfile />,
     news: <NewsLetter />,
     subs: <Subscription />,
-    prof: <MiPerfil />,
+    prof: <MiPerfil getNameProfile={getNameProfile} />,
   }
   return templates[template] || templates.home
 }
+
 // eslint-disable-next-line import/prefer-default-export
 export const Panel = props => {
-  const { closePopup, closeDispatchEvent,  arcSite } = props
+  const { closePopup, closeDispatchEvent, arcSite } = props
 
   // React.useEffect(() => {
   const { publicProfile } = new GetProfile()
@@ -59,6 +64,7 @@ export const Panel = props => {
                     userName={userName}
                     typeLogin={typeLogin}
                     closePopup={closePopup}
+                    userNameRefresh = {getNameProfile}
                     closeDispatchEvent={closeDispatchEvent}
                     home={() => value.changeTemplate('home')}
                     news={() => value.changeTemplate('news')}
@@ -67,12 +73,6 @@ export const Panel = props => {
                   />
                 </div>
                 <div className="panel-right">
-                  {/* {window.document.cookie.indexOf('isECO=true') >= 0 &&
-                  arcSite === 'gestion' ? (
-                    <>{renderTemplate(value.selectedTemplate)}</>
-                  ) : (
-                    <MiPerfil />
-                  )} */}
                   {arcSite === 'gestion' ? (
                     <>{renderTemplate(value.selectedTemplate)}</>
                   ) : (

@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import ENV from 'fusion:environment'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
 import LoginRegister from './_main/signwall/index'
@@ -11,7 +10,9 @@ import Domains from './_main/utils/domains'
 const Cookies = new Cookie()
 
 @Consumer
-class Signwall extends Component {
+class Signwall extends PureComponent {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.state = {
@@ -33,25 +34,29 @@ class Signwall extends Component {
   }
 
   componentDidUpdate = () => {
+    this._isMounted = true
     const { sessUser } = this.state
-    if (this.checkSession() && !sessUser) {
+
+    if (this.checkSession() && !sessUser && this._isMounted) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: true,
       })
-      this.togglePopupPanel()
-    } else if (this.checkSession() === false && sessUser) {
+      // this.togglePopupPanel()
+    } else if (this.checkSession() === false && sessUser && this._isMounted) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         sessUser: false,
       })
-      this.togglePopupLogin()
+      // this.togglePopupLogin()
     }
   }
 
   componentDidMount = () => {
+    this._isMounted = true
     const { sessUser } = this.state
-    if (this.checkSession() && !sessUser) {
+
+    if (this.checkSession() && !sessUser && this._isMounted) {
       this.setState({
         sessUser: true,
       })
@@ -59,10 +64,10 @@ class Signwall extends Component {
     } else {
       this.togglePopupLogin()
     }
-    if (ENV.ENVIRONMENT !== 'elcomercio') {
-      // add cookie isECO only SANDBOX
-      // Cookies.setCookie('isECO', true, 1)
-    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   checkSession = () => {
@@ -96,8 +101,6 @@ class Signwall extends Component {
     const { showLogin, showPanel } = this.state
     const { arcSite, singleSign } = this.props
     return (
-      // <div className="signwall">
-      //   <div className="link-identity__content">
       <>
         {showLogin && !singleSign && (
           <LoginRegister
@@ -121,8 +124,6 @@ class Signwall extends Component {
           />
         )}
       </>
-      //   </div>
-      // </div>
     )
   }
 }

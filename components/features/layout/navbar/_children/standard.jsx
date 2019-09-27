@@ -527,7 +527,8 @@ class NavBarDefault extends PureComponent {
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               {siteProperties.activeSignwall && (
                 <div className={`${classes.btnContainer}`}>
-                  {siteProperties.activePaywall && arcSite === 'gestion' ? (
+                  
+                  {siteProperties.activePaywall ? (
                     <Button
                       btnText="Suscríbete"
                       btnClass={`${classes.btnSubscribe} btn--outline`}
