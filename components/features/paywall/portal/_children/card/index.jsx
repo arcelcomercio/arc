@@ -1,22 +1,8 @@
 import React from 'react'
+
+import * as S from './styled'
+import * as T from '../../styled'
 import Icon from '../../../_children/icon'
-
-function Bullet({ icon, children }) {
-  return (
-    <div className="bullet">
-      <div className="bullet__icon">{icon}</div>
-      <div className="bullet__text">{children}</div>
-    </div>
-  )
-}
-
-function Promotion() {
-  return (
-    <div className="card__head__promotion">
-      <span>¡RECOMENDADO!</span>
-    </div>
-  )
-}
 
 function Card({ item }) {
   const {
@@ -28,44 +14,49 @@ function Card({ item }) {
     detail: { frequency, duration, aditional },
   } = item
   return (
-    <div className="card">
-      <div
-        className={`card__head${recommended ? ' card__head--promotion' : ''}`}>
-        {recommended && <Promotion />}
-        <span className="head">{title}</span>
-      </div>
-      <div className="card__content">
-        <div className="content-price">
-          <div className="content-price__price">
-            <span className="content-price__currency">{currency}</span>
-            <span className="content-price__amount">{amount}</span>
-          </div>
-          <div className="content-price__detail">
+    <S.Card>
+      <S.CardHead recommended>
+        {recommended && (
+          <S.CardHeadPromotion>
+            <span>¡RECOMENDADO!</span>
+          </S.CardHeadPromotion>
+        )}
+        <S.Head>{title}</S.Head>
+      </S.CardHead>
+      <S.CardContent>
+        <S.ContentPrice>
+          <S.Price>
+            <S.Currency>{currency}</S.Currency>
+            <S.Amount>{amount}</S.Amount>
+          </S.Price>
+          <S.Detail>
             <span>{frequency}</span>
-            <span className="content-price__duration">{duration}</span>
+            <S.Duration>{duration}</S.Duration>
             <span>{aditional}</span>
-          </div>
-        </div>
-        <div className="content-feature">
+          </S.Detail>
+        </S.ContentPrice>
+        <S.Feature>
           {features.map(text => (
-            <Bullet key={text} icon={<Icon type="check" />}>
-              {text}
-            </Bullet>
+            <S.Bullet key={text}>
+              <S.BulletIcon>
+                <Icon type="check" />
+              </S.BulletIcon>
+              <S.BulletText>{text}</S.BulletText>
+            </S.Bullet>
           ))}
-        </div>
-      </div>
-      <div className="card__footer">
-        <a
+        </S.Feature>
+      </S.CardContent>
+      <S.CardFooter>
+        <T.LinkSubscribe
           href={url}
-          className="link link--suscribe"
           onClick={() => {
             window.sessionStorage.setItem('paywall_last_url', '/suscripciones/')
             window.sessionStorage.setItem('paywall_type_modal', 'landing')
           }}>
           SUSCRIBIRME
-        </a>
-      </div>
-    </div>
+        </T.LinkSubscribe>
+      </S.CardFooter>
+    </S.Card>
   )
 }
 

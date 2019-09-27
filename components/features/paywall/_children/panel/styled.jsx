@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { devices } from '../../_dependencies/devices'
 
 const Panel = styled.div`
   background-color: #fff;
@@ -25,7 +24,7 @@ const Panel = styled.div`
     css`
       justify-content: center;
     `};
-  ${({ type }) => {
+  ${({ theme, type }) => {
     switch (type) {
       case 'content':
         return css`
@@ -36,7 +35,7 @@ const Panel = styled.div`
         return css`
           max-width: 360px;
           align-items: flex-start;
-          @media (${devices.mobile}) {
+          ${theme.breakpoints.down('xs')} {
             max-width: calc(100% - 40px);
             align-items: center;
           }
@@ -44,7 +43,7 @@ const Panel = styled.div`
       case 'card-price':
         return css`
           max-width: 265px;
-          @media (${devices.mobile}) {
+          ${theme.breakpoints.down('xs')} {
             max-width: calc(100% - 10px);
             height: 100%;
             margin-bottom: 40px;
