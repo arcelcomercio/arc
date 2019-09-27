@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import withSizes from 'react-sizes'
-// TODO:CARLOS: eliminar 'temporalmente' el uso de la lib withSizes
 import PropTypes from 'prop-types'
 import BlogRelatedPostsGridChildCard from './_children/card'
 import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
@@ -15,7 +13,6 @@ const classes = {
 
 const BLOG_URL = `/blog/`
 
-@withSizes(({ width }) => ({ isDesktop: width >= 1024 }))
 @Consumer
 class BlogRelatedPostsGrid extends PureComponent {
   buildParams = (relatedPostItem, blog, contextPath, arcSite, deployment) => {
@@ -44,7 +41,6 @@ class BlogRelatedPostsGrid extends PureComponent {
 
   render() {
     const {
-      isDesktop,
       contextPath,
       arcSite,
       deployment,
@@ -53,7 +49,7 @@ class BlogRelatedPostsGrid extends PureComponent {
       globalContent: { related_posts: relatedPosts, blog } = {},
     } = this.props || {}
     return (
-      /* isDesktop && */ <div role="region" className={classes.bmInterestYou}>
+      <div role="region" className={classes.bmInterestYou}>
         <h4
           className={classes.generalTitle}
           {...editableField('featureTitle')}

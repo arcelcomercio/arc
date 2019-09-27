@@ -70,9 +70,6 @@ class ConfigParams {
   static OPTA_JS_LINK =
     'https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js'
 
-  static VIDEO_JS_LINK =
-    'https://player.daznservices.com/player.js#da2e2f66a6ec11067e28aab239.1ch0fefkg2s4u1frfo5j7o5rh4$videoid='
-
   // Image Size
   static IMAGE_ORIGINAL = 'original'
 
