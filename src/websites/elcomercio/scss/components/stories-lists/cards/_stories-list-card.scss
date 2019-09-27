@@ -1,3 +1,8 @@
 .stories-l-card {
   border: 0;
+  &__list {
+    @media (--only-mobile) {
+      padding: 0;
+    }
+  }
 }
