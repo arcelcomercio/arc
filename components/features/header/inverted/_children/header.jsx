@@ -36,21 +36,21 @@ const classes = {
   btnSubs: 'header-inverted__btn-subs',
   /** ------------ */
   navStoryTitle:
-    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15',
+    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15 line-h-sm',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
 
-  listIcon: 'story-header__list flex justify-between rounded-sm',
+  listIcon: 'story-header__list hidden md:flex justify-between rounded-sm',
   moreLink: 'story-content__more-link',
   shareItem: 'story-header__item',
   shareLink: 'story-header__link flex items-center justify-center text-white',
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight:
-    'flex items-center hidden justify-end header__btn-container md:block',
+    'lg:flex items-center hidden justify-end header__btn-container',
   btnSubscribe:
     'flex items-center btn capitalize text-md font-bold btn--outline',
-  navContainerRightMovil: 'block md:hidden',
+  navContainerRightMovil: 'block lg:hidden',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -129,13 +129,15 @@ const HeaderChildInverted = ({
   }
 
   const _openMenu = () => {
-    _setPosition(1)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) _setPosition(1)
     document.querySelector('.layer').style.display = 'block'
     setStatusSidebar(true)
   }
 
   const _closeMenu = () => {
-    _setPosition(0)
+    const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    if (!isIOS) _setPosition(0)
     document.querySelector('.layer').style.display = 'none'
     setStatusSidebar(false)
   }
@@ -363,9 +365,30 @@ const HeaderChildInverted = ({
             </>
           ) : (
             <>
+              {/* <Button
+                btnClass={`${classes.btnProfile} ${classes.btnClub}`}
+                btnText={CLUB_TEXT}
+                onClick={_handleToggleSectionElements}
+                btnLink={CLUB_URL}
+              />
+              <Button
+                btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
+                btnText={SUBSCRIBE_TEXT}
+                onClick={_handleToggleSectionElements}
+                btnLink={SUBSCRIBE_URL}
+              /> */}
+
               <div className={`${classes.navContainerRight} `}>
                 {siteProperties.activeSignwall && (
                   <>
+                    {siteProperties.activePaywall &&
+                    siteProperties.urlSubsOnline ? (
+                      <Button
+                        btnText="Suscríbete"
+                        btnClass={`${classes.btnSubscribe} btn--outline`}
+                        btnLink={siteProperties.urlSubsOnline}
+                      />
+                    ) : null}
                     <SignwallComponent />
                   </>
                 )}

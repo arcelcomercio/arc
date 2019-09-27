@@ -276,7 +276,9 @@ class FormLogin extends Component {
     e.preventDefault()
     window.sessionStorage.setItem(
       'paywall_last_url',
-      window.document.referrer.split(window.location.origin)[1]
+      window.document.referrer
+        ? window.document.referrer.split(window.location.origin)[1]
+        : ''
     )
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall()
@@ -286,43 +288,14 @@ class FormLogin extends Component {
   taggeoSuccess() {
     const { typePopUp } = this.props
 
-    // if (typePopUp === 'relogin') {
-    //   window.dataLayer.push({
-    //     event: `${typePopUp}_relogin_success`,
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_relogin_success_ingresar`,
-    //   })
-    // } else {
-    //   window.dataLayer.push({
-    //     event: 'login_success',
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_login_success_ingresar`,
-    //   })
-    // }
-
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
       `web_sw${typePopUp[0]}_login_success_ingresar`
     )
-    // esta pendiente el taggeo de relogin
   }
 
   taggeoError() {
     const { typePopUp } = this.props
-
-    // if (typePopUp === 'relogin') {
-    //   window.dataLayer.push({
-    //     event: `${typePopUp}_relogin_error`,
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_relogin_error_ingresar`,
-    //   })
-    // } else {
-    //   window.dataLayer.push({
-    //     event: 'login_error',
-    //     eventCategory: `Web_Sign_Wall_${typePopUp}`,
-    //     eventAction: `web_sw${typePopUp[0]}_login_error_ingresar`,
-    //   })
-    // }
 
     Taggeo(
       `Web_Sign_Wall_${typePopUp}`,
@@ -377,18 +350,18 @@ class FormLogin extends Component {
                       <span>Volver</span>
                     </button>
                   </div>
-                  <ListBenefits />
+                  <ListBenefits brandCurrent={arcSite} />
                 </div>
 
                 <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                  {arcSite !== 'peru21' ? (
+                  {arcSite === 'peru21' || arcSite === 'peru21g21' ? null : (
                     <h1
                       className="form-grid__title-big text-center lg:hidden"
                       hidden={hiddenEnterUser}>
                       Regístrate y mantente siempre informado con las noticias
                       más relevantes del Perú y el mundo
                     </h1>
-                  ) : null}
+                  )}
 
                   {!showSocialButtons && (
                     <>
@@ -568,7 +541,7 @@ class FormLogin extends Component {
                     navegación y nunca publicaremos sin tu permiso
                   </p>
                 </div>
-                {arcSite !== 'peru21' && (
+                {arcSite === 'peru21' || arcSite === 'peru21g21' ? null : (
                   <div
                     className="form-grid__group lg:hidden mt-20"
                     hidden={!hiddenListBenefits}>
@@ -593,8 +566,10 @@ class FormLogin extends Component {
                     bgcolor={
                       {
                         elcomercio: '#fecd26',
+                        elcomerciomag: '#fecd26',
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
+                        peru21g21: '#d5ecff',
                       }[arcSite]
                     }
                   />

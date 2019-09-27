@@ -57,43 +57,39 @@ class LoginPaywall extends Component {
         `${contextPath}/resources/dist/${arcSite}/images/bg_login.png`
       ) || ''
     return (
-      <div className="signwall">
-        <div className="link-identity__content">
-          <ModalProvider>
-            <ModalConsumer>
-              {value => (
-                <Modal
-                  size="medium"
-                  position="middle"
-                  name="arc-popup-paywall"
-                  id="arc-popup-paywall">
-                  <div className="modal-body">
-                    <div
-                      className="modal-body__middle bg-paywall hidden-mobile"
-                      style={{
-                        backgroundImage: `url(${ImageBg})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                      }}></div>
-                    <div className="modal-body__middle intro-paywall">
-                      <button
-                        type="button"
-                        className="btn-close"
-                        onClick={() => {
-                          closePopup()
-                        }}>
-                        <Close color="#333333" />
-                      </button>
-                      {this.renderTemplate(value.selectedTemplate)}
-                    </div>
-                  </div>
-                </Modal>
-              )}
-            </ModalConsumer>
-          </ModalProvider>
-        </div>
-      </div>
+      <ModalProvider>
+        <ModalConsumer>
+          {value => (
+            <Modal
+              size="medium"
+              position="middle"
+              name="arc-popup-paywall"
+              id="arc-popup-paywall">
+              <div className="modal-body">
+                <div
+                  className="modal-body__middle bg-paywall hidden-mobile"
+                  style={{
+                    backgroundImage: `url(${ImageBg})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}></div>
+                <div className="modal-body__middle intro-paywall">
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => {
+                      closePopup()
+                    }}>
+                    <Close color="#333333" />
+                  </button>
+                  {this.renderTemplate(value.selectedTemplate)}
+                </div>
+              </div>
+            </Modal>
+          )}
+        </ModalConsumer>
+      </ModalProvider>
     )
   }
 }

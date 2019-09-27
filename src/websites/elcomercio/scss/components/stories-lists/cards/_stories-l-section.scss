@@ -26,6 +26,10 @@
     }
     .multimedia__icon {
       background-color: transparent;
+      transform: none;
+      top: 10px;
+      right: 10px;
+      left: auto;
     }
   }
   .stories-l-item__link {
@@ -53,5 +57,6 @@
   }
   .stories-l-item__link-box {
     border-color: #c1c1c1;
+    height: 111px;
   }
 }

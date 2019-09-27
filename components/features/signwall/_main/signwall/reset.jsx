@@ -47,41 +47,37 @@ class SignWallReset extends Component {
   render() {
     const { closePopup, brandModal } = this.props
     return (
-      <div className="signwall">
-        <div className="link-identity__content">
-          <ModalProvider>
-            <ModalConsumer>
-              {value => (
-                <Modal
-                  size={brandModal !== 'peru21' ? 'large' : 'small'}
-                  position="middle"
-                  name="arc-popup-resetpass"
-                  id="arc-popup-resetpass">
-                  <Header closePopup={closePopup} typePopUp="resetpass" />
-                  <div className="modal-body">
-                    {brandModal !== 'peru21' ? (
-                      <div className="modal-body__left">
-                        <ListBenefits
-                          typeMessage="organic"
-                          brandCurrent={brandModal}
-                        />
-                      </div>
-                    ) : null}
-                    <div
-                      className={
-                        brandModal !== 'peru21'
-                          ? 'modal-body__right'
-                          : 'modal-body__full'
-                      }>
-                      {this.renderTemplate(value.selectedTemplate)}
-                    </div>
+      <ModalProvider>
+        <ModalConsumer>
+          {value => (
+            <Modal
+              size={brandModal !== 'peru21' ? 'large' : 'small'}
+              position="middle"
+              name="arc-popup-resetpass"
+              id="arc-popup-resetpass">
+              <Header closePopup={closePopup} typePopUp="resetpass" />
+              <div className="modal-body">
+                {brandModal !== 'peru21' ? (
+                  <div className="modal-body__left">
+                    <ListBenefits
+                      typeMessage="organic"
+                      brandCurrent={brandModal}
+                    />
                   </div>
-                </Modal>
-              )}
-            </ModalConsumer>
-          </ModalProvider>
-        </div>
-      </div>
+                ) : null}
+                <div
+                  className={
+                    brandModal !== 'peru21'
+                      ? 'modal-body__right'
+                      : 'modal-body__full'
+                  }>
+                  {this.renderTemplate(value.selectedTemplate)}
+                </div>
+              </div>
+            </Modal>
+          )}
+        </ModalConsumer>
+      </ModalProvider>
     )
   }
 }

@@ -9,8 +9,7 @@ export default {
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://elcomercio.pe',
-  resizerUrl:
-    'https://elcomercio-elcomercio-prod.cdn.arcpublishing.com/resizer',
+  resizerUrl: 'https://elcomercio.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
@@ -178,9 +177,9 @@ export default {
         name: 'Jr. Santa Rosa #300 Lima 1 Perú',
       },
       {
-        position: 'Copyright © ojo.pe',
+        position: 'Copyright © elcomercio.pe',
         name:
-          '© Empresa Editora El Comercio - Copyright © Elcomercio.pe - Grupo El Comercio - Todos los derechos reservados.',
+          '© Empresa Editora El Comercio - Grupo El Comercio - Todos los derechos reservados.',
       },
     ],
     socialNetworks: [
@@ -290,5 +289,10 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
+  urlSubsOnline: 'https://suscripciones.elcomercio.pe/?ref=elcomercio',
   gda: true, // Grupo Diarios de America
+  taboola: {
+    dataModeAmp: 'thumbnails-a-amp',
+    mode: 'thumbnails-c',
+  },
 }

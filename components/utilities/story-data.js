@@ -658,7 +658,7 @@ class StoryData {
         this._data.label &&
         this._data.label.nucleo &&
         this._data.label.nucleo.url) ||
-      ''
+      'redaccion'
     )
   }
 
@@ -668,7 +668,7 @@ class StoryData {
         this._data.label &&
         this._data.label.formato &&
         this._data.label.formato.url) ||
-      ''
+      'tfg'
     )
   }
 
@@ -678,7 +678,7 @@ class StoryData {
         this._data.label &&
         this._data.label.contenido &&
         this._data.label.contenido.url) ||
-      ''
+      'tcs'
     )
   }
 
@@ -688,7 +688,7 @@ class StoryData {
         this._data.label &&
         this._data.label.genero &&
         this._data.label.genero.url) ||
-      ''
+      'info'
     )
   }
 
@@ -700,6 +700,10 @@ class StoryData {
         this._data.label.facebook_ia.url) ||
       true
     )
+  }
+
+  get hasAdsVideo() {
+    return StoryData.findHasAdsVideo(this._data)
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
@@ -859,6 +863,17 @@ class StoryData {
         )
         .filter(String) || []
     )
+  }
+
+  static findHasAdsVideo(data) {
+    const {
+      promo_items: {
+        basic_video: {
+          additional_properties: { advertising: { playAds = null } = {} } = {},
+        } = {},
+      } = {},
+    } = data || {}
+    return playAds
   }
 
   static getPrimarySection(data) {

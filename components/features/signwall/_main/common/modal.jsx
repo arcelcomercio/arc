@@ -1,4 +1,26 @@
 import React from 'react'
+import { createPortal } from 'react-dom'
+
+class BodyEnd extends React.Component {
+  constructor(props) {
+    super(props)
+    this.el = document.createElement('div')
+    this.el.id = 'main-content-arc'
+  }
+
+  componentDidMount() {
+    document.body.appendChild(this.el)
+  }
+
+  componentWillUnmount() {
+    document.body.removeChild(this.el)
+  }
+
+  render() {
+    const { children } = this.props
+    return createPortal(children, this.el)
+  }
+}
 
 class Modal extends React.Component {
   constructor(props) {
@@ -37,17 +59,23 @@ class Modal extends React.Component {
   render() {
     const { bg, position, size, name, color, id, children } = this.props
     return (
-      <v-modal class={`modal ${bg === 'white' ? 'modal--white' : ''}`}>
-        <v-dialog
-          class={`modal__wrapper modal__position-${position} modal__size-${size}`}
-          heading={name}
-          size={size}
-          style={{ backgroundColor: color }}
-          id={id}
-          name={name}>
-          {children}
-        </v-dialog>
-      </v-modal>
+      <BodyEnd>
+        <div className="signwall">
+          <div className="link-identity__content">
+            <v-modal class={`modal ${bg === 'white' ? 'modal--white' : ''}`}>
+              <v-dialog
+                class={`modal__wrapper modal__position-${position} modal__size-${size}`}
+                heading={name}
+                size={size}
+                style={{ backgroundColor: color }}
+                id={id}
+                name={name}>
+                {children}
+              </v-dialog>
+            </v-modal>
+          </div>
+        </div>
+      </BodyEnd>
     )
   }
 }
