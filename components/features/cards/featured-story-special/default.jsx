@@ -20,7 +20,7 @@ const CardsFeaturedStorySpecial = props => {
     } = {},
   } = props
 
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useFusionContext()
 
   const data = useContent({
     source: contentService,
@@ -34,7 +34,6 @@ const CardsFeaturedStorySpecial = props => {
           resized_urls { 
             landscape_xl
             landscape_l
-            lazy_default
           } 
         }
         basic_video {
@@ -45,7 +44,6 @@ const CardsFeaturedStorySpecial = props => {
               resized_urls { 
                 landscape_xl
                 landscape_l
-                lazy_default
               } 
             }
           }
@@ -58,7 +56,6 @@ const CardsFeaturedStorySpecial = props => {
               resized_urls { 
                 landscape_xl
                 landscape_l
-                lazy_default
               } 
             }
           }
@@ -90,7 +87,6 @@ const CardsFeaturedStorySpecial = props => {
     websiteLink, // { websites { ${arcsite} { website_url } } }
     multimediaLandscapeXL,
     multimediaLandscapeL,
-    multimediaLazyDefault,
     title, // { headlines { basic } }
     // multimediaType, // { promo_items }
     primarySectionLink, // { taxonomy { primary_section { path } } }
@@ -108,18 +104,13 @@ const CardsFeaturedStorySpecial = props => {
       <a href="/asd" className="featured-special__img-link block">
         <picture className="featured-special__picture block">
           <source
-            className={isAdmin ? '' : 'lazy'}
             media="(max-width: 1023px)"
             type="image/jpeg"
-            srcSet={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
-            data-srcset={multimediaLandscapeL}
+            srcSet={multimediaLandscapeL}
           />
           <img
-            className={`${
-              isAdmin ? '' : 'lazy'
-            } featured-special__img w-full object-cover`}
-            src={isAdmin ? multimediaLandscapeXL : multimediaLazyDefault}
-            data-src={multimediaLandscapeXL}
+            className="featured-special__img w-full object-cover"
+            src={multimediaLandscapeXL}
             alt={title}
           />
         </picture>

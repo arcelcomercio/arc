@@ -13,9 +13,4 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  &__information {
-    @media (--only-mobile) {
-      padding: 0;
-    }
-  }
 }

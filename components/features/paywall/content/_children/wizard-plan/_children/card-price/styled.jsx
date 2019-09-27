@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { devices } from '../../../../../_dependencies/devices'
 import Btn from '../../../../../_children/button'
 
 const CardPrice = styled.div`
@@ -22,17 +23,15 @@ const Frecuency = styled.div`
 `
 
 export const Amount = styled.div`
-  ${({ theme }) => css`
-    font-size: 60px;
-    justify-content: center;
-    display: flex;
-    align-items: flex-end;
-    line-height: 50px;
-    padding: 10px 0;
-    ${theme.breakpoints.down('xs')} {
-      font-size: 40px;
-    }
-  `}
+  font-size: 60px;
+  justify-content: center;
+  display: flex;
+  align-items: flex-end;
+  line-height: 50px;
+  padding: 10px 0;
+  @media (${devices.mobile}) {
+    font-size: 40px;
+  }
 `
 
 const Currency = styled.span`
@@ -46,20 +45,18 @@ const Period = styled.span`
 `
 
 const Description = styled.div`
-  ${({ theme }) => css`
-    font-size: 16px;
-    justify-content: center;
-    display: flex;
-    font-weight: ${props => (props.bold ? 'bold' : '300')};
-    padding: 5px 60px;
-    text-align: center;
-    &:last-child {
-      padding: 0px 40px 20px 40px;
-    }
-    ${theme.breakpoints.down('xs')} {
-      padding: 8px 15px;
-    }
-  `}
+  font-size: 16px;
+  justify-content: center;
+  display: flex;
+  font-weight: ${props => (props.bold ? 'bold' : '300')};
+  padding: 5px 60px;
+  text-align: center;
+  &:last-child {
+    padding: 0px 40px 20px 40px;
+  }
+  @media (${devices.mobile}) {
+    padding: 8px 15px;
+  }
 `
 
 const Content = styled.div`

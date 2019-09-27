@@ -1,15 +1,12 @@
-/* eslint-disable no-extra-boolean-cast */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withTheme } from 'styled-components'
 import Consumer from 'fusion:consumer'
-
-import { addIdentity, userProfile } from '../_dependencies/Identity'
+import { AddIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
+import './paywall.css'
 import Signwall from '../../signwall/default'
 import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
 import GetProfile from '../../signwall/_main/utils/get-profile'
-import * as S from './styled'
 
 @Consumer
 class Head extends React.PureComponent {
@@ -45,7 +42,7 @@ class Head extends React.PureComponent {
 
   getFirstName = () => {
     window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
-    addIdentity(this.props.arcSite).then(() => {
+    AddIdentity().then(() => {
       userProfile()
         .then(({ firstName }) => {
           this.setState({ firstName })
@@ -80,24 +77,19 @@ class Head extends React.PureComponent {
   }
 
   render() {
-    const { theme, arcSite, customFields } = this.props
-    const { showSignwall, userName, isActive, stepForm } = this.state
-    const { id, forceLogin: checkForceLogin } = customFields
-
-    let leftColor
-    let themedLogo
-    switch (arcSite) {
-      case 'elcomercio':
-        leftColor = theme.palette.secondary.main
-        themedLogo = theme.icon.logo_full
-        break
-      default:
-        leftColor = theme.palette.primary.main
-        themedLogo = theme.icon.logo
-    }
+    const {
+      siteProperties,
+      contextPath,
+      deployment,
+      arcSite,
+      customFields,
+    } = this.props
+    const { assets } = siteProperties
+    const { firstName, showSignwall, userName, isActive, stepForm } = this.state
+    const checkForceLogin = customFields.forceLogin
 
     return (
-      <S.Head id={id}>
+      <div className="head">
         {showSignwall && checkForceLogin ? (
           <SignwallPaywall
             brandModal={arcSite}
@@ -105,56 +97,53 @@ class Head extends React.PureComponent {
             reloadLogin
           />
         ) : null}
-        <S.Background>
-          <S.Left backgroundColor={leftColor} />
-          <S.Right />
-        </S.Background>
-        <S.Content backgroundColor={leftColor}>
-          <Icon
-            type={themedLogo}
-            fill={theme.palette.secondary.contrastText}
-            width="30"
-            height="30"
+        <div className="head__background">
+          <div className="background_left" />
+          <div className="background_right" />
+        </div>
+        <div className="head__content">
+          <img
+            className="content__img"
+            src={deployment(`${contextPath}${assets.pwAssets()}`)}
+            alt="Logo el comercio"
           />
-          <S.WrapLogin>
-            <S.Username>
+          <div className="head__login">
+            <span className="login__username">
               {stepForm !== 1 ? (
                 <span>
                   {this.checkSession() ? `${userName}` : 'Hola Invitado'}
                 </span>
               ) : (
-                <S.LoginButton
+                <button
                   type="button"
+                  className="head__btn-login"
                   onClick={() => this.setState({ isActive: true })}>
                   <span>
                     {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
                   </span>
-                </S.LoginButton>
+                </button>
               )}
-              <S.WrapIcon>
-                <Icon
-                  type="profile"
-                  fill={theme.palette.secondary.contrastText}
-                  width="30"
-                  height="30"
-                />
-              </S.WrapIcon>
-            </S.Username>
-          </S.WrapLogin>
-        </S.Content>
+
+              {/* <span>
+                {this.checkSession() ? `Hola ${userName}` : 'Iniciar Sesión'}
+              </span> */}
+              {/* <span>Hola {firstName || 'Lector'}</span> */}
+              <span className="login_icon">
+                <Icon type="profile" fill="#FFF" width="30" height="30" />
+              </span>
+            </span>
+          </div>
+        </div>
         {isActive && (
           <Signwall singleSign closeSignwall={() => this.closeSignwall()} />
         )}
-      </S.Head>
+      </div>
     )
   }
 }
 
-const ThemedHead = withTheme(Head)
-
-ThemedHead.propTypes = {
+Head.propTypes = {
   customFields: PropTypes.shape({
-    id: PropTypes.string,
     forceLogin: PropTypes.bool.tag({
       name: 'Forzar login:',
       defaultValue: true,
@@ -163,4 +152,4 @@ ThemedHead.propTypes = {
   }),
 }
 
-export default ThemedHead
+export default Head

@@ -7,19 +7,6 @@ import FeatureFullImageChild from './_children/feature-full-image'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
-import { getPhotoId } from '../../../utilities/helpers'
-
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_s 
-    lazy_default  
-  }
-}`
 
 const FeatureStoryFullImage = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -29,9 +16,7 @@ const FeatureStoryFullImage = props => {
       crossY,
       crossX,
       model,
-      categoryField,
-      titleField,
-      imgField,
+      sectionCustom,
     } = {},
   } = props
 
@@ -42,21 +27,12 @@ const FeatureStoryFullImage = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  const photoId = imgField ? getPhotoId(imgField) : ''
-  const customPhoto = useContent({
-    source: photoId ? PHOTO_SOURCE : '',
-    query: {
-      _id: photoId,
-    },
-    filter: PHOTO_SCHEMA,
-  })
-
   const {
     author,
     authorLink,
     primarySection,
     primarySectionLink,
-    title: titleStory,
+    title,
     multimediaLandscapeL,
     multimediaSquareXL,
     multimediaPortraitMD,
@@ -71,30 +47,23 @@ const FeatureStoryFullImage = props => {
     defaultImgSize: 'sm',
   })
 
-  const {
-    resized_urls: {
-      landscape_l: landscapeLCustom,
-      lazy_default: lazyDefaultCustom,
-      portrait_md: portraitMDCustom,
-      square_s: squareXLCustom,
-    },
-  } = customPhoto || {}
+  const section = sectionCustom || primarySection
 
   const params = {
     author,
     authorLink,
     primarySectionLink,
-    title: titleField || titleStory,
-    multimediaLandscapeL: landscapeLCustom || multimediaLandscapeL, //
-    multimediaPortraitMD: portraitMDCustom || multimediaPortraitMD, //
-    multimediaSquareXL: squareXLCustom || multimediaSquareXL, //
-    multimediaLazyDefault: lazyDefaultCustom || multimediaLazyDefault,
+    title,
+    multimediaLandscapeL, //
+    multimediaPortraitMD, //
+    multimediaSquareXL, //
+    multimediaLazyDefault,
     multimediaType,
     websiteLink,
     crossY,
     crossX,
     model,
-    section: categoryField || primarySection,
+    section,
     isAdmin,
   }
 

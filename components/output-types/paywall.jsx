@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as Meta from './_children/meta'
 import TagManager from './_children/tag-manager'
-import { interpolateUrl } from '../features/paywall/_dependencies/domains'
 import './paywall.css'
 
 const Paywall = props => {
@@ -16,12 +15,13 @@ const Paywall = props => {
   } = props
 
   const {
+    theme: { color },
     siteName,
-    paywall: { urls, title, description },
+    assets,
+    paywall: { title, description, canonical, image },
   } = siteProperties
 
-  const canonicalUrl = deployment(interpolateUrl(urls.canonical))
-  const imageUrl = deployment(interpolateUrl(urls.image))
+  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
 
   return (
     <html lang="es" className={arcSite}>
@@ -37,25 +37,26 @@ const Paywall = props => {
 
         {/* METAS SUGERIDOS */}
         <meta name="description" content={description} />
-        <link rel="canonical" href={canonicalUrl} />
+        <link rel="canonical" href={canonical} />
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@Gestionpe" />
         <meta name="twitter:title" content="Suscripciones Digitales" />
-        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:image" content={image} />
         <meta name="twitter:description" content={description} />
         <meta property="og:title" content="Suscripciones Digitales" />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={imageUrl} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:site_name" content={siteName} />
+        <meta property="og:image" content={image} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:site_name" content="Gestión" />
         <meta property="og:type" content="website" />
         {/* METAS SUGERIDOS */}
 
         <props.Libs />
         <props.CssLinks />
-        <Meta.Icon {...props} />
+        <Meta.Theme color={color} {...siteName} />
+        <Meta.Icon assets={fullAssets} />
         <link
           rel="stylesheet"
           href={deployment(
@@ -75,7 +76,9 @@ const Paywall = props => {
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

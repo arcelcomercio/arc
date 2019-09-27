@@ -5,19 +5,7 @@ import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 import FacebookLive from './_children/facebook-live'
-import { createMarkup, getPhotoId } from '../../../utilities/helpers'
-
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_s 
-    lazy_default  
-  }
-}`
+import { createMarkup } from '../../../utilities/helpers'
 
 @Consumer
 class CardFeaturedStoryAdvanced extends PureComponent {
@@ -28,9 +16,8 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       contextPath,
       arcSite,
       customFields: {
-        imgField,
-        adsSpace,
         storyConfig: { contentService = '', contentConfigValues = {} } = {},
+        adsSpace,
       } = {},
     } = props
 
@@ -54,20 +41,6 @@ class CardFeaturedStoryAdvanced extends PureComponent {
           query: {},
         },
       })
-    }
-    if (imgField) {
-      const photoId = getPhotoId(imgField)
-      if (photoId) {
-        this.fetchContent({
-          customPhoto: {
-            source: PHOTO_SOURCE,
-            query: {
-              _id: photoId,
-            },
-            filter: PHOTO_SCHEMA,
-          },
-        })
-      }
     }
   }
 
@@ -125,13 +98,9 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       } = {},
       siteProperties: { siteName = '' } = {},
     } = this.props
-    const { customPhoto = {}, data = {} } = this.state || {}
+    const { data = {} } = this.state || {}
 
-    const formattedData = this.storyFormatter.formatStory(
-      data,
-      imgField,
-      customPhoto
-    )
+    const formattedData = this.storyFormatter.formatStory(data, imgField)
     const {
       category,
       title,

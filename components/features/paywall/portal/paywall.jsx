@@ -1,69 +1,76 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { withTheme } from 'styled-components'
-import { useFusionContext } from 'fusion:context'
-
-import * as S from './styled'
+import Consumer from 'fusion:consumer'
 import addScriptAsync from '../../../utilities/script-async'
-import { interpolateUrl } from '../_dependencies/domains'
+import { devices } from '../_dependencies/devices'
+import getDomain from '../_dependencies/domains'
 import Card from './_children/card'
+import './paywall.css'
 import ClickToCall from '../_children/click-to-call'
-import FillHeight from '../_children/fill-height'
 
-const Portal = () => {
-  const {
-    globalContent: items,
-    customFields: { substractFeaturesHeights = '' },
-    siteProperties: {
-      paywall: { urls },
-    },
-  } = useFusionContext()
+@Consumer
+class Portal extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    const { contextPath, deployment, siteProperties } = props
+    const { assets } = siteProperties
+    const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
+    this.BACKGROUND = `url(${fullAssets('backgroundx1')})`
+    this.fetchContent({
+      serviceData: {
+        source: 'paywall-home-campaing',
+      },
+    })
+  }
 
-  const clickToCallUrl = interpolateUrl(urls.clickToCall)
-  const corporateUrl = interpolateUrl(urls.corporateSuscription)
-  const originSalesSdkUrl = interpolateUrl(urls.originSalesSdk)
+  componentDidMount() {
+    const mqt = window.matchMedia(`${devices.tablet}`)
+    const mqm = window.matchMedia(`(${devices.mobile})`)
+    mqt.addListener(() => this.backgroundMediaQuery(mqt, mqm))
+    mqm.addListener(() => this.backgroundMediaQuery(mqt, mqm))
+    this.backgroundMediaQuery(mqt, mqm)
 
-  React.useEffect(() => {
     addScriptAsync({
       name: 'sdkSalesARC',
-      url: originSalesSdkUrl,
+      url: getDomain('ORIGIN_SALES_SDK'),
     })
-    document.getElementsByClassName('foot')[0].style.position = 'relative'
-  }, [])
 
-  const substractFeaturesIds = substractFeaturesHeights
-    .split(',')
-    .map(id => id.trim())
+    document.getElementsByClassName('foot')[0].style.position = "relative";
+  }
 
-  return (
-    <FillHeight substractElements={substractFeaturesIds}>
-      <S.Portal>
-        <S.PortalContent>
-          {items.map(item => (
+  backgroundMediaQuery = (mqt, mqm) => {
+    const background = mqt.matches || mqm.matches ? '#e4dccf' : this.BACKGROUND
+    this.setState({ background })
+  }
+
+  render() {
+    const { background, serviceData = [] } = this.state
+    const {
+      siteProperties: {
+        paywall: { clickToCall },
+      },
+    } = this.props
+    return (
+      <div className="portal" style={{ background }}>
+        <div className="portal__content">
+          {serviceData.map(item => (
             <Card item={item} key={item.title} />
           ))}
-        </S.PortalContent>
-        <S.Footer>
-          <S.FooterContent>
-            <S.LinkCorporate href={corporateUrl}>
+        </div>
+        <div className="portal__footer">
+          <div className="footer__content">
+            <a
+              href={getDomain('URL_CORPORATE')}
+              className="link link--corporate">
               SUSCRIPCIONES CORPORATIVAS
-            </S.LinkCorporate>
-            <S.ClickToCallWrapper>
-              <ClickToCall href={clickToCallUrl} />
-            </S.ClickToCallWrapper>
-          </S.FooterContent>
-        </S.Footer>
-      </S.Portal>
-    </FillHeight>
-  )
+            </a>
+            <div className="wrap__click-to-call">
+              <ClickToCall href={clickToCall} />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
-const ThemedPortal = withTheme(Portal)
-ThemedPortal.propTypes = {
-  customFields: PropTypes.shape({
-    id: PropTypes.string,
-    substractFeaturesHeights: PropTypes.string,
-  }),
-}
-
-export default ThemedPortal
+export default Portal

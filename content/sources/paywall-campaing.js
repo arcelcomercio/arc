@@ -1,5 +1,4 @@
-import getProperties from 'fusion:properties'
-import { interpolateUrl } from '../../components/features/paywall/_dependencies/domains'
+import getDomain from '../../components/features/paywall/_dependencies/domains'
 
 const parse = string => {
   try {
@@ -14,21 +13,17 @@ const parse = string => {
 // gprint-july-19
 
 export default {
-  resolve(key = {}) {
-    const { doctype = 'DNI', docnumber, token } = key
-    const website = key['arc-site']
+  resolve({ doctype = 'DNI', docnumber, token }) {
     this.document = {
-      doctype,
-      docnumber,
+      documentType: doctype,
+      documentNumber: docnumber,
     }
-    const {
-      paywall: { urls },
-    } = getProperties(website)
-    return interpolateUrl(urls.originSubscriptions, {
-      doctype,
-      docnumber,
-      token,
-    })
+    const PATH = `${getDomain(
+      'ORIGIN_SUSCRIPCIONES'
+    )}/api/subscriber/validation/gestion/`
+    return docnumber
+      ? `${PATH}?doctype=${doctype}&docnumber=${docnumber}&token=${token}`
+      : PATH
   },
   params: {
     docnumber: 'text',
@@ -46,7 +41,7 @@ export default {
     const { printed = undefined } = subscriber;
 
     const plans = pricingStrategies.map(
-      ({ pricingStrategyId, priceCode, description = '', rates }) => {
+      ({ pricingStrategyId, priceCode, description, rates }) => {
         const [price] = rates
         const { amount, billingFrequency } = price
         const _description = description.replace(/<p>|<\/p>/g, '')
@@ -64,7 +59,7 @@ export default {
     )
 
     const summary = attributes.reduce(
-      (prev, { name: _name, value = '' }) => {
+      (prev, { name: _name, value }) => {
         const prez = prev
         const _value = value.replace(/<p>|<\/p>/g, '')
         switch(_name){

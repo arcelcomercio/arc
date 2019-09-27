@@ -3,7 +3,6 @@
   padding: 0 10px;
   @media (--only-mobile) {
     padding: 0;
-    height: auto;
   }
   &__item {
     border-color: $color-gray-100;
@@ -26,10 +25,11 @@
   }
 
   &--threeline {
-    -webkit-line-clamp: 4;
-    max-height: 82px;
-
+    -webkit-line-clamp: 3;
+    max-height: 62px;
     @media (--desktop) {
+      -webkit-line-clamp: 4;
+      max-height: 82px;
       line-height: 20px;
     }
   }
@@ -49,11 +49,6 @@
     }
   }
   &__multimedia {
-    @media (--only-mobile) {
-      min-width: 110px;
-      width: 110px;
-      height: 115px;
-    }
     width: 80px;
     height: 95px;
   }

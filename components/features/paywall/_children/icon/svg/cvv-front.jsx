@@ -15,7 +15,7 @@ function CustomIcon({ width, height, fill = '#444' }) {
             transform="translate(0 8)"
             fill="#fff"
             stroke="#707070"
-            strokeWidth="1">
+            stroke-width="1">
             <rect width="34" height="22" rx="2" stroke="none" />
             <rect x="0.5" y="0.5" width="33" height="21" rx="1.5" fill="none" />
           </g>
