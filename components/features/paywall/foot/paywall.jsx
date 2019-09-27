@@ -1,19 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
+import { withTheme } from 'styled-components'
 
 import './paywall.css'
 import Icon from '../_children/icon'
 import SupportDialog from '../_children/support-dialog'
 import Link from '../_children/link'
-import getDomain from '../_dependencies/domains'
+import { interpolateUrl } from '../_dependencies/domains'
 
-const Foot = () => {
-  const { siteProperties, contextPath, deployment } = useFusionContext()
-  const { assets, social, apps } = siteProperties
+const Foot = ({ theme }) => {
+  const {
+    siteProperties,
+    customFields: { id },
+  } = useFusionContext()
+  const {
+    social,
+    apps,
+    paywall: { urls },
+  } = siteProperties
   const [supportOpen, setSupportOpen] = React.useState(false)
 
   return (
-    <div className="foot">
+    <div id={id} className="foot">
       <SupportDialog
         showClose
         open={supportOpen}
@@ -22,11 +31,7 @@ const Foot = () => {
       <div className="footer-content">
         <div>
           <div>
-            <img
-              src={deployment(`${contextPath}${assets.pwAssets()}`)}
-              alt="Gestión"
-              className="img logo"
-            />
+            <Icon className="img logo" alt="Gestión" type={theme.icon.logo} />
           </div>
           <p className="text">
             Contáctanos al <a href="tel:+5113115100">01 311-5100</a> o{' '}
@@ -61,7 +66,7 @@ const Foot = () => {
             </li>
             <li>
               <a
-                href={getDomain('URL_FAQ')}
+                href={interpolateUrl(urls.faqs)}
                 rel="noopener noreferrer"
                 target="_blank"
                 className="list_link">
@@ -151,4 +156,12 @@ const Foot = () => {
   )
 }
 
-export default Foot
+const ThemedFoot = withTheme(Foot)
+
+ThemedFoot.propTypes = {
+  customFields: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+}
+
+export default ThemedFoot

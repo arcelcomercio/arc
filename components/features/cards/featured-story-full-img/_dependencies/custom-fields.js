@@ -4,10 +4,6 @@ const customFields = PropTypes.shape({
   storyConfig: PropTypes.contentConfig('story').isRequired.tag({
     name: 'Configuración del contenido',
   }),
-  sectionCustom: PropTypes.string.tag({
-    name: 'Renombrar Sección',
-    description: 'Nombre que reemplazara a la seccion de la noticia.',
-  }),
   model: PropTypes.oneOf(['basic', 'twoCol', 'full']).tag({
     name: 'Modelo del Destaque',
     labels: {
@@ -33,6 +29,21 @@ const customFields = PropTypes.shape({
       end: 'Fin',
     },
     defaultValue: 'start',
+  }),
+  categoryField: PropTypes.string.tag({
+    name: 'Sección',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
+  titleField: PropTypes.string.tag({
+    name: 'Título',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
+  imgField: PropTypes.string.tag({
+    name: 'Imagen',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
 })
 

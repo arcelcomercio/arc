@@ -3,7 +3,7 @@ import Multimedia from './multimedia'
 
 const classes = {
   story: `stories-l-item flex flex-col w-auto pt-10 pb-10`,
-  wrapper: `pr-20 pl-20`,
+  wrapper: `stories-l-item__information pr-20 pl-20`,
   time: 'stories-l-item__time text-md line-h-sm mr-5',
   linkBox:
     'stories-l-item__link-box flex flex-col text-gray-300 border-b-1 border-dashed border-gray pb-10 ',
