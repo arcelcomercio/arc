@@ -23,6 +23,9 @@ export default ({
     link,
     videoSeo,
     nucleoOrigen,
+    formatOrigen,
+    contentOrigen,
+    genderOrigen,
     title,
   } = new StoryData({
     data: globalContent,
@@ -90,7 +93,10 @@ export default ({
       "cd7": "${getMultimedia(multimediaType, true)}",
       "cd8": "${id}",
       "cd15": "${author}",
-      "cd16": "${nucleoOrigen}"
+      "cd16": "${nucleoOrigen}",
+      "cd19": "${formatOrigen}",
+      "cd20": "${contentOrigen}",
+      "cd21": "${genderOrigen}"
     },        
     "triggers": {
         "trackPageview": {

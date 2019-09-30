@@ -53,8 +53,11 @@ export default ({
   )
 
   const imagesSeoItems = imagesSeo.map((image, i) => {
-    const { subtitle = false, url = '', resized_urls: { large } = {} } =
-      image || {}
+    const {
+      subtitle = false,
+      url = '',
+      resized_urls: { amp_new: large = '' } = {},
+    } = image || {}
     const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
@@ -64,8 +67,8 @@ export default ({
          "@type":"ImageObject",
          "url": "${large || url}",
          ${description}
-         "height":418,
-         "width":696
+         "height":800,
+         "width":1200
       }
       `
   })
@@ -125,8 +128,8 @@ export default ({
         `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
       )}",
       "description": "${formatHtmlToText(siteName)}",
-      "height": 418,
-      "width": 696
+      "height": 800,
+      "width": 1200
     },`
 
   const dataVideo =

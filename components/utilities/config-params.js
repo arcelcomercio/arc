@@ -206,8 +206,8 @@ export const sizeImg = () => {
       height: 375,
     },
     amp_new: {
-      width: 1000,
-      height: 500,
+      width: 1200,
+      height: 800,
     },
     impresa: {
       width: 617,
