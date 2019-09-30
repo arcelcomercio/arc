@@ -10,6 +10,9 @@ export const AnalyticsScript = ({
   newsType = '',
   newsTitle = '',
   nucleoOrigen = '',
+  formatOrigen = '',
+  contentOrigen = '',
+  genderOrigen = '',
 }) => `(function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
@@ -44,6 +47,9 @@ export const AnalyticsScript = ({
         ga('send', 'pageview', '${pageview}');
         ga('send', 'pageview', {title: '${newsTitle}'});
         ga('set', 'dimension16', '${nucleoOrigen}');
+        ga('set', 'dimension19', '${formatOrigen}');
+        ga('set', 'dimension20', '${contentOrigen}');
+        ga('set', 'dimension21', '${genderOrigen}');
         `
 
 export const ScriptElement = () =>
