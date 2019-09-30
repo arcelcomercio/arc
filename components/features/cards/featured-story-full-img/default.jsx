@@ -77,7 +77,7 @@ const FeatureStoryFullImage = props => {
       lazy_default: lazyDefaultCustom,
       portrait_md: portraitMDCustom,
       square_s: squareXLCustom,
-    },
+    } = {},
   } = customPhoto || {}
 
   const params = {

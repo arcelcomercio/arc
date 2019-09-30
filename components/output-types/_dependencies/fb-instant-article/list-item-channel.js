@@ -50,6 +50,9 @@ const ListItemNews = (contentElements, buildProps) => {
           pageview,
           newsTitle: nbspToSpace(storydata.title),
           nucleoOrigen: storydata.nucleoOrigen,
+          formatOrigen: storydata.formatOrigen,
+          contentOrigen: storydata.contentOrigen,
+          genderOrigen: storydata.genderOrigen,
         }
 
         const BuildHtmlProps = {
