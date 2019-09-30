@@ -16,7 +16,7 @@ const PHOTO_SCHEMA = `{
     landscape_l 
     landscape_md
     portrait_md 
-    square_s 
+    square_xl 
     lazy_default  
   }
 }`
@@ -76,7 +76,7 @@ const FeatureStoryFullImage = props => {
       landscape_l: landscapeLCustom,
       lazy_default: lazyDefaultCustom,
       portrait_md: portraitMDCustom,
-      square_s: squareXLCustom,
+      square_xl: squareXLCustom,
     } = {},
   } = customPhoto || {}
 
