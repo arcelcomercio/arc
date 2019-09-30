@@ -945,7 +945,7 @@ export const storyVideoPlayerId = (content = '') => {
 }
 
 export const getPhotoId = photoUrl => {
-  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26}).[\w]{3}$/)
+  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26}).[\w]+$/)
   const [, photoId] = customPhotoUrl || []
   return photoId
 }
