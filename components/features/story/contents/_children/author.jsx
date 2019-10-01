@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDateStoryAmp, getDateSeo } from '../../../../utilities/helpers'
+import { formatDateStory, getDateSeo } from '../../../../utilities/helpers'
 
 const classes = {
   author:
@@ -16,7 +16,6 @@ const StoryContentChildAuthor = ({
   author,
   authorLink,
   updatedDate,
-  date,
   authorEmail,
   primarySection = '',
 }) => {
@@ -37,8 +36,8 @@ const StoryContentChildAuthor = ({
           </div>
         )}
         <div className={classes.authorDate}>
-          <time dateTime={getDateSeo(date)}>
-            {updatedDate && formatDateStoryAmp(updatedDate)}
+          <time dateTime={updatedDate}>
+            {updatedDate && formatDateStory(updatedDate)}
           </time>
         </div>
       </div>

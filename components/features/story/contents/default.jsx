@@ -12,6 +12,7 @@ import {
   createScript,
   replaceTags,
   storyTagsBbc,
+  getDateSeo,
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -105,7 +106,7 @@ class StoryContents extends PureComponent {
     const {
       publishDate: date,
       promoItems,
-      displayDate: updatedDate,
+      displayDate: updatedDatea,
       contentElements,
       authorImage,
       authorLink,
@@ -127,7 +128,7 @@ class StoryContents extends PureComponent {
       authorImage,
       author,
       authorLink,
-      updatedDate,
+      updatedDate: getDateSeo(updatedDatea),
       date,
       primarySectionLink,
       authorEmail,

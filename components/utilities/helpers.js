@@ -719,13 +719,18 @@ export const replaceTags = text => {
 
 export const formatDateStory = date => {
   const fecha = new Date(date)
-  const day = fecha.getDate()
-  const month = fecha.getMonth() + 1
+  const day = fecha.getUTCDate()
+  const month = fecha.getUTCMonth() + 1
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
-  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
-    fecha
-  )}`
+
+  const hours = fecha.getUTCHours() - 5
+  const minutes = fecha.getUTCMinutes()
+
+  const formatHours = hours < 10 ? `0${hours}` : hours
+  const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
+
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getUTCFullYear()} a las ${formatHours}:${formatMinutes} `
 }
 
 export const formatDateStoryAmp = date => {
@@ -951,6 +956,25 @@ export const getPhotoId = photoUrl => {
 }
 
 export const getDateSeo = data => {
-  const [date] = data.split('.')
-  return `${date}-05:00`
+  const fecha = new Date(data)
+  const day = fecha.getUTCDate()
+  const month = fecha.getUTCMonth()
+  const year = fecha.getUTCFullYear()
+  const hours = fecha.getUTCHours() - 5
+  const minutes = fecha.getUTCMinutes()
+  const seconds = fecha.getUTCSeconds()
+
+  const formatDay = day < 10 ? `0${day}` : day
+  const formatMonth = month < 10 ? `0${month}` : month
+  const formatHours = hours < 10 ? `0${hours}` : hours
+  const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
+  const formatSeconds = minutes < 10 ? `0${seconds}` : seconds
+
+  const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
+
+  fecha.getUTCHours()
+  fecha.getUTCMinutes()
+  fecha.getUTCSeconds()
+
+  return fechaGenerada
 }
