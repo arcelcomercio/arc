@@ -2,6 +2,7 @@ import Consumer from 'fusion:consumer'
 import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 import StoryData from '../../../utilities/story-data'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
@@ -58,16 +59,21 @@ class LayoutAmpFooter extends PureComponent {
 
     return (
       <>
-        <div className={classes.nextPageSeparator} separator>
-          <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
-        </div>
-        <amp-next-page>
-          <script
-            type="application/json"
-            dangerouslySetInnerHTML={{ __html: structuredRecent }}
-          />
-        </amp-next-page>
-
+        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
+          <>
+            <div className={classes.nextPageSeparator} separator>
+              <p className={classes.nextPageSeparatorText}>
+                SIGUIENTE ARTÍCULO
+              </p>
+            </div>
+            <amp-next-page>
+              <script
+                type="application/json"
+                dangerouslySetInnerHTML={{ __html: structuredRecent }}
+              />
+            </amp-next-page>
+          </>
+        )}
         <footer className={classes.footer}>
           <div className={classes.footerInfo}>
             <a
