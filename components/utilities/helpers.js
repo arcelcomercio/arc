@@ -958,7 +958,7 @@ export const getPhotoId = photoUrl => {
 export const getDateSeo = data => {
   const fecha = new Date(data)
   const day = fecha.getUTCDate()
-  const month = fecha.getUTCMonth()
+  const month = fecha.getUTCMonth() + 1
   const year = fecha.getUTCFullYear()
   const hours = fecha.getUTCHours() - 5
   const minutes = fecha.getUTCMinutes()
@@ -968,13 +968,9 @@ export const getDateSeo = data => {
   const formatMonth = month < 10 ? `0${month}` : month
   const formatHours = hours < 10 ? `0${hours}` : hours
   const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
-  const formatSeconds = minutes < 10 ? `0${seconds}` : seconds
+  const formatSeconds = seconds < 10 ? `0${seconds}` : seconds
 
   const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
-
-  fecha.getUTCHours()
-  fecha.getUTCMinutes()
-  fecha.getUTCSeconds()
 
   return fechaGenerada
 }
