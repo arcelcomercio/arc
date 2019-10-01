@@ -949,3 +949,8 @@ export const getPhotoId = photoUrl => {
   const [, photoId] = customPhotoUrl || []
   return photoId
 }
+
+export const getDateSeo = data => {
+  const [date] = data.split('.')
+  return `${date}-05:00`
+}
