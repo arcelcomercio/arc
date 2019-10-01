@@ -46,7 +46,6 @@ const SeparatorsChildAuthorCard = props => {
       break
   }
 
-  debugger
   const existImageAuthor = imageUrl.includes('author.png')
 
   return (
