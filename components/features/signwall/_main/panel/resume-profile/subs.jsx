@@ -260,12 +260,12 @@ class Subs extends Component {
                           {listBundle.includes(reSubs.priceCode) ? (
                             <p>
                               ¡Hola! Encuentra todos los detalles de tu
-                              suscripción DIGITAL + IMPRESA en{' '}
+                              suscripción DIGITAL + IMPRESA en: {' '}
                               <a
                                 className="link"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://suscripciones.gestion.pe/suscripciones/">
+                                href="https://suscripciones.gestion.pe/suscripciones/?ref=SignWallProfile">
                                 Suscripciones Online
                               </a>
                             </p>
