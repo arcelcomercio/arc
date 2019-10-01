@@ -67,7 +67,7 @@
     }
     .bg-paywall {
       padding: 20px;
-      background-color: #8f071f;
+      background-color: gray;
       background-image: none;
       background-size: 100%;
       min-height: 150px !important;
@@ -104,7 +104,7 @@
         margin-top: 10px;
         @media (--desktop) {
           margin-top: 30px;
-          font-size: 60px;
+          font-size: 58px;
         }
       }
     }
@@ -155,7 +155,7 @@
         &:before {
           content: '';
           display: block;
-          border-top: solid 1px #a98e7c;
+          border-top: solid 1px gray;
           width: 100%;
           height: 2px;
           position: absolute;
@@ -167,6 +167,16 @@
           padding: 0 10px;
           position: relative;
           z-index: 1;
+        }
+      }
+      .line-gestion {
+        &:before {
+          border-top: solid 1px #a98e7c !important;
+        }
+      }
+      .line-elcomercio {
+        &:before {
+          border-top: solid 1px #c6b065 !important;
         }
       }
       .list-benefits {

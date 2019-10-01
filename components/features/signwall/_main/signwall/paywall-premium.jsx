@@ -137,7 +137,7 @@ class PayWallPremium extends Component {
                       className="mt-40"
                       alt=""
                       src={deployment(
-                        `${contextPath}/resources/dist/${arcSite}/images/logo_ges.png`
+                        `${contextPath}/resources/dist/${arcSite}/images/logo_${arcSite}.png`
                       )}
                     />
                   </center>

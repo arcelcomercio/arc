@@ -24,4 +24,8 @@ import './images/logo-elcomercio-316x60.png'
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'
 
+import './images/signwall/bg_paywall.png'
+import './images/signwall/logo_elcomercio.png'
+import './images/signwall/bg_login.png'
+
 import '../../../components/utilities/lazyload'
