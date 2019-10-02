@@ -255,7 +255,7 @@ class FormRegister extends Component {
   }
 
   handleSuscription = e => {
-    const { removeBefore, typePopUp } = this.props
+    const { removeBefore, typePopUp, arcSite } = this.props
     e.preventDefault()
     window.sessionStorage.setItem(
       'paywall_last_url',
@@ -264,7 +264,7 @@ class FormRegister extends Component {
         : ''
     )
     removeBefore() // dismount before
-    window.location.href = Domains.getUrlPaywall()
+    window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typePopUp)
   }
 
@@ -494,7 +494,7 @@ class FormRegister extends Component {
                         elcomerciomag: '#fecd26',
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
-                        peru21g21:'#d5ecff',
+                        peru21g21: '#d5ecff',
                       }[brandCurrent]
                     }
                   />
