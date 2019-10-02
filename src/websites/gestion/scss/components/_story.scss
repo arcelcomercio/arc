@@ -1,7 +1,34 @@
 .story {
+  .story-header__title-section {
+    @media (--desktop) {
+      font-size: 24px;
+      letter-spacing: 0px;
+      line-height: 24px;
+    }
+  }
   .story-header__icon {
     background-color: $color-gray-200;
     color: $color-white;
     border-radius: 50%;
+  }
+  .header-inverted {
+    .header__logo {
+      width: auto;
+    }
+  }
+  .independent-title__link {
+    @media (--desktop) {
+      font-size: 40px;
+      letter-spacing: -1px;
+      line-height: 17px;
+      color: #9e0620;
+    }
+  }
+  .story-header__news-title {
+    @media (--desktop) {
+      font-size: 42px;
+      letter-spacing: -1px;
+      line-height: 42px;
+    }
   }
 }

@@ -42,9 +42,14 @@
   }
   &__list-more {
     padding-left: 0;
+    width: 110px;
   }
   &__font--secondary {
     font-family: $fourth-font;
+    font-size: 21px;
+    @media (--tablet) {
+      font-size: 20px;
+    }
     a {
       color: #0e6dc1;
     }
