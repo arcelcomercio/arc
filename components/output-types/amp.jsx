@@ -137,7 +137,6 @@ const AmpOutputType = ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
         <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
