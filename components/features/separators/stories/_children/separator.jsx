@@ -3,7 +3,7 @@ import { createMarkup } from '../../../../utilities/helpers'
 import Icon from '../../../../global-components/multimedia-icon'
 
 const classes = {
-  separator: `separator bg-white mt-20 w-full pt-0 pr-20 pb-15 pl-20 border-t-1 border-solid position-relative`,
+  separator: `separator bg-white mt-20 w-full pt-0 pr-20 pb-15 pl-20 border-t-1 border-solid position-relative col-3 `,
   title: 'separator__header-title capitalize pb-20 pt-20 text-left text-lg',
   titleLink: 'separator__header-link font-bold',
   oneline: 'separator__oneline',
@@ -21,7 +21,6 @@ const classes = {
 }
 
 const SeparatorsBasicChildSeparator = ({
-  isThreeCol,
   htmlCode,
   titleLink,
   titleSeparator,
@@ -33,10 +32,7 @@ const SeparatorsBasicChildSeparator = ({
   responsive,
 }) => {
   return (
-    <div
-      className={`${classes.separator}${
-        isThreeCol ? ' col-3' : ''
-      } ${design} ${responsive}`}>
+    <div className={`${classes.separator} ${design} ${responsive}`}>
       {htmlCode ? (
         <div
           className={classes.title}
