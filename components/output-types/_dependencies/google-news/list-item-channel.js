@@ -13,7 +13,7 @@ const Item = ({
           <![CDATA[ ${title} ]]>
         </title>
         <link>
-          <![CDATA[ ${link} ]]>
+          <![CDATA[ ${link}?outputType=amp ]]>
         </link>
         <description>
           <![CDATA[ ${description} ]]>
