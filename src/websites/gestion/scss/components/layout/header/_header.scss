@@ -42,9 +42,19 @@
       background-color: $color-white;
       border: 0;
       color: $color-gray-300;
+      height: 34px;
       &:hover {
         text-decoration: underline;
       }
+    }
+  }
+  &.header-inverted {
+    height: $header-mobile-height;
+    @media (--desktop) {
+      height: $header-inverted-height;
+    }
+    &.active {
+      height: 45px;
     }
   }
 }
