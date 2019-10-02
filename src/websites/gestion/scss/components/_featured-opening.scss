@@ -15,7 +15,7 @@
   &__subtitle {
     font-size: 20px;
     line-height: 24px;
-    font-family: 'Georgia';
+    font-family: $fourth-font;
     @media (--only-mobile) {
       font-size: 16px;
       line-height: 20px;
