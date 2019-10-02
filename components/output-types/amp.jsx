@@ -129,7 +129,6 @@ const AmpOutputType = ({
             canonicalUrl
           )}`}
         />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>
         <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
