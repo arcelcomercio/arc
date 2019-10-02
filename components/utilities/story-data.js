@@ -376,8 +376,9 @@ class StoryData {
         StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
       []
 
-    const promoItemsImagex = [promoItemsImage]
-
+    const promoItemsImagex = !Array.isArray(promoItemsImage)
+      ? [promoItemsImage]
+      : promoItemsImage
     return promoItemsImagex
       .concat(galleryContent)
       .concat(imagesContent)
