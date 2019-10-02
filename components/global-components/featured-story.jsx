@@ -104,7 +104,10 @@ export default class FeaturedStory extends PureComponent {
 
     const getMobileImage = () => {
       if (hightlightOnMobile) {
-        if (imageSize === IMAGE_COMPLETE) return multimediaPortraitMD
+        if (imageSize === IMAGE_COMPLETE) {
+          if (size === SIZE_ONE_COL) return multimediaPortraitMD
+          if (size === SIZE_TWO_COL) return multimediaLandscapeL
+        }
         return multimediaLandscapeMD
       }
       return multimediaSquareS
