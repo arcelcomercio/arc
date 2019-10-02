@@ -62,4 +62,25 @@
       height: 168px;
     }
   }
+  &--video {
+    border-top: 0;
+    background-color: $color-base-200;
+    @media (--tablet) {
+      padding: 0 20px;
+    }
+    & * .separator__btn {
+      background-color: $color-base-100;
+    }
+    & * .separator__item {
+      margin-right: 15px;
+      &:nth-last-child(1) {
+        margin-right: 0;
+      }
+    }
+    @media (--tablet) {
+      & * .separator__detail {
+        padding-top: 5px;
+      }
+    }
+  }
 }

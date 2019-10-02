@@ -1,4 +1,4 @@
-/* import React from 'react'
+import React from 'react'
 import NewElement from '../global-components/new-element'
 import { ListNewsSiteMaps }  from './_dependencies/sitemaps/list-sitemaps'
 
@@ -26,4 +26,3 @@ const SiteMaps = props => {
 SiteMaps.contentType = 'text/xml'
 
 export default SiteMaps
- */

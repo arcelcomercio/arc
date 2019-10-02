@@ -2,7 +2,7 @@ export default {
   siteName: 'Gestión',
   newsletterBrand: 'gestion',
   api: {
-    blog: 'https://svc-blogs.gestion.pe/apiblogs.php'
+    blog: 'https://svc-blogs.gestion.pe/apiblogs.php',
   },
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',

@@ -14,7 +14,6 @@ const SeparatorStories = props => {
       titleSeparator,
       titleLink,
       htmlCode,
-      isThreeCol,
       isAuthorVisible,
       design = 'standart',
       isSeeMoreVisible,
@@ -68,7 +67,6 @@ const SeparatorStories = props => {
   return (
     <Separator
       {...{
-        isThreeCol,
         htmlCode,
         titleLink,
         titleSeparator,
