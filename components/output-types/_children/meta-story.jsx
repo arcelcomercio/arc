@@ -17,7 +17,7 @@ export default ({
 }) => {
   const {
     id,
-    seoTitle: title,
+    title,
     tags,
     link,
     displayDate: publishDate,
