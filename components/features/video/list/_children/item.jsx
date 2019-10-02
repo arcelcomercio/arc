@@ -19,7 +19,7 @@ export default ({
         </a>
       </picture>
       <div className="flex">
-        <span className="text-gray-200 text-md pr-5">01:20</span>
+        <span className="text-gray-200 text-md pr-5 hidden">01:20</span>
         <a className="text-gray-200 text-md" href={primarySectionLink}>
           {primarySection}
         </a>
