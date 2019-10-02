@@ -1,0 +1,18 @@
+.independent-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (--desktop) {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  &__link {
+    font-size: 31px;
+    color: #9e0620;
+    @media (--desktop) {
+      letter-spacing: -1px;
+      line-height: 17px;
+      font-size: 40px;
+    }
+  }
+}

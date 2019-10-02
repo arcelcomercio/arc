@@ -13,6 +13,9 @@
     line-height: 20px;
     font-family: $fourth-font;
   }
+  &__icon {
+    font-size: 50px;
+  }
   &--card {
     .featured-premium__section-small {
       text-transform: uppercase;
