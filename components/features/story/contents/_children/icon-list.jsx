@@ -24,6 +24,7 @@ const classes = {
   iconLink: 'icon-link story-content__icon title-xl',
   iconTwitter: 'icon-twitter-circle',
   iconFacebook: 'icon-facebook-circle',
+  iconLinkedin: 'icon-linkedin-circle',
 }
 @Consumer
 class StoryContentChildIcon extends PureComponent {
@@ -83,6 +84,11 @@ class StoryContentChildIcon extends PureComponent {
             {
               icon: classes.iconTwitter,
               link: urlsShareList.twitter,
+              mobileClass: classes.mobileClass,
+            },
+            {
+              icon: classes.iconLinkedin,
+              link: urlsShareList.linkedin,
               mobileClass: classes.mobileClass,
             },
           ],
