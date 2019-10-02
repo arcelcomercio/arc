@@ -46,7 +46,6 @@ const SeparatorsChildAuthorCard = props => {
       break
   }
 
-  debugger
   const existImageAuthor = imageUrl.includes('author.png')
 
   return (
@@ -54,7 +53,7 @@ const SeparatorsChildAuthorCard = props => {
       <div className={classes.opinionItemDetails}>
         {existImageAuthor ? (
           <div className={classes.opinionContentImageDefault}>
-            <i className={classes.opinionDefaulImage}></i>
+            <i className={classes.opinionDefaulImage} />
           </div>
         ) : (
           <figure className={classes.opinionItemImage}>
