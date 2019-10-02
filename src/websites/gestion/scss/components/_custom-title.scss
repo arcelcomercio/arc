@@ -1,8 +1,13 @@
 .custom-title {
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 2px;
+  line-height: 26px;
+
   &.dark-bg {
     padding: 10px 0;
-    color: $color-white;
-    background-color: $color-gray-200;
+    color: $color-base-100;
+    background-color: #888888;
   }
   &.custom-border {
     padding: 10px 0;

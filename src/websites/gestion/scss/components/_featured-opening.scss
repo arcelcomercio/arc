@@ -1,0 +1,29 @@
+.featured-opening {
+  &__section-edit {
+    color: #ad8d76;
+  }
+  &__section-edit,
+  &__title {
+    font-size: 40px;
+    letter-spacing: 0px;
+    line-height: 38px;
+    @media (--only-mobile) {
+      font-size: 30px;
+      line-height: 28px;
+    }
+  }
+  &__subtitle {
+    font-size: 20px;
+    line-height: 24px;
+    font-family: $fourth-font;
+    @media (--only-mobile) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+  &__link {
+    font-size: 14px;
+    line-height: 17px;
+    font-family: 'Libre Franklin';
+  }
+}

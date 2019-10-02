@@ -1,0 +1,9 @@
+.photogallery-title {
+  &__btn {
+    @media (--only-mobile) {
+      position: relative;
+      width: 90px;
+      top: 25%;
+    }
+  }
+}

@@ -8,11 +8,26 @@
     font-family: $tertiary-font;
   }
   &__legal-item {
+    font-size: 11px;
+    line-height: 15px;
     &:nth-child(2) {
       font-weight: 700;
     }
   }
   &__sites {
     background-color: $color-white;
+  }
+  &__title {
+    color: #ad8d76;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  &__sections-item,
+  &__contact-item {
+    padding-bottom: 0;
+  }
+  &__list-link {
+    font-size: 14px;
+    line-height: 30px;
   }
 }

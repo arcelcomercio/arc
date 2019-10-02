@@ -1,0 +1,37 @@
+.featured-premium {
+  &__title,
+  &__section {
+    font-size: 30px;
+    letter-spacing: 0px;
+    line-height: 29px;
+  }
+  &__section {
+    color: #888888;
+  }
+  &__detail {
+    font-size: 16px;
+    line-height: 20px;
+    font-family: $fourth-font;
+  }
+  &__icon {
+    font-size: 50px;
+  }
+  &--card {
+    .featured-premium__section-small {
+      text-transform: uppercase;
+    }
+    .featured-premium__title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      font-size: 25px;
+      letter-spacing: 0px;
+      line-height: 24px;
+      @media (--only-mobile) {
+        font-size: 24px;
+      }
+    }
+  }
+}

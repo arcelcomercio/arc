@@ -4,9 +4,6 @@ export default PropTypes.shape({
   storyConfig: PropTypes.contentConfig('stories').isRequired.tag({
     name: 'Configuración del contenido',
   }),
-  isThreeCol: PropTypes.bool.tag({
-    name: 'Ancho de 3 columnas',
-  }),
   isAuthorVisible: PropTypes.bool.tag({
     name: 'Mostrar autor',
   }),
