@@ -10,8 +10,6 @@ const classes = {
   opinionItemNameLink: 'title-xs mb-25 text-gray-300 font-bold line-h-sm',
   opinionItemTitle: 'text-md text-gray-300',
   opinionItemImage: 'separator__opinion--item-image mb-20',
-  opinionContentImageDefault: 'separator__opinion--image-content-default',
-  opinionDefaulImage: 'separator__opinion--image-default icon-marca',
   opinionItemImageImg: 'object-cover w-full h-full rounded',
   opiniononeline: 'separator__opinion--item-oneline',
   opiniontwoline: 'separator__opinion--item-twoline',

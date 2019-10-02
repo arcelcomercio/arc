@@ -39,6 +39,20 @@
       font-size: 13px;
       color: #888888;
     }
+
+    &:last-child {
+      .stories-l-item__link-box {
+        border-bottom: 0;
+      }
+    }
+    &____autor {
+      font-size: 13px;
+      color: #888888;
+    }
+  }
+  .stories-l-card,
+  .stories-l-card__list {
+    background-color: $color-white;
   }
   .stories-l-card,
   .stories-l-card__list {
