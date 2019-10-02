@@ -12,17 +12,14 @@ const getModel = model => {
 }
 
 const classes = {
-  fullImg:
-    'feature-fullimage position-relative flex justify-start items-end w-full',
+  fullImg: `feature-fullimage position-relative flex justify-start items-end w-full`,
   boxImg: 'feature-fullimage__box-image block h-full w-full position-absolute',
   img: 'feature-fullimage__image h-full w-full object-cover object-center',
   boxDetail: 'feature-fullimage__box-detail w-full p-20',
   author: 'feature-fullimage__author font-thin text-xs uppercase text-white',
   section: 'feature-fullimage__section text-white text-md',
-  title:
-    'feature-fullimage__title overflow-hidden text-white block mt-10 mb-10 title-xs line-h-sm font-bold',
-  boxIcon:
-    'feature-fullimage__box-icon position-absolute flex justify-center items-center',
+  title: `feature-fullimage__title overflow-hidden text-white block mt-10 mb-10 title-xs line-h-sm font-bold`,
+  boxIcon: `feature-fullimage__box-icon position-absolute flex justify-center items-center`,
   icon: 'feature-fullimage__icon text-white',
 }
 
@@ -42,7 +39,11 @@ export default ({
   model,
   section,
   isAdmin,
+  editableField,
 }) => {
+  const getEditableField = element =>
+    editableField ? editableField(element) : null
+
   return (
     <div
       className={`${classes.fullImg} ${crossY} ${crossX} ${getModel(model)}`}>
@@ -74,12 +75,21 @@ export default ({
       </a>
       <div className={classes.boxDetail}>
         <h3>
-          <a className={classes.section} href={primarySectionLink}>
+          <a
+            className={classes.section}
+            href={primarySectionLink}
+            {...getEditableField('categoryField')}
+            suppressContentEditableWarning>
             {section}
           </a>
         </h3>
         <h2>
-          <a className={classes.title} href={websiteLink} title={title}>
+          <a
+            className={classes.title}
+            href={websiteLink}
+            title={title}
+            {...getEditableField('titleField')}
+            suppressContentEditableWarning>
             {title}
           </a>
         </h2>
