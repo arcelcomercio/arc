@@ -1,6 +1,10 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import { formatDateStoryAmp, publicidadAmp } from '../../../utilities/helpers'
+import {
+  formatDateStoryAmp,
+  publicidadAmp,
+  getDateSeo,
+} from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 
@@ -46,7 +50,9 @@ class StoryTitleAmp extends PureComponent {
             {titleElements && (
               <h1 className={classes.titleAmp}> {titleElements} </h1>
             )}
-            <time dateTime={date} className={classes.datetime}>
+            <time
+              dateTime={getDateSeo(updatedDate)}
+              className={classes.datetime}>
               {formatDateStoryAmp(updatedDate)}
             </time>
           </header>
