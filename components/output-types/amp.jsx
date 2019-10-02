@@ -122,7 +122,7 @@ const AmpOutputType = ({
       : false
 
   return (
-    <Html>
+    <Html lang="es">
       <head>
         <BaseMarkup
           canonicalUrl={`${siteProperties.siteUrl}${addSlashToEnd(
