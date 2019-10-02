@@ -12,6 +12,11 @@
     font-size: 16px;
     line-height: 20px;
     font-family: $fourth-font;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
   &__icon {
     font-size: 50px;
