@@ -1,5 +1,6 @@
 export default {
   siteName: 'El Comercio',
+  newsletterBrand: 'comercio',
   api: {
     blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php',
   },
