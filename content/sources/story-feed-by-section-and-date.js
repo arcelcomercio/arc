@@ -5,6 +5,7 @@ import {
   addResizedUrlsToStory,
   getYYYYMMDDfromISO,
   getActualDate,
+  formatSlugToText,
 } from '../../components/utilities/helpers'
 
 let globalParams = {}
@@ -57,6 +58,7 @@ const pattern = (key = {}) => {
 
   /** Para enviar params a transform luego */
   globalParams = {
+    section_name: formatSlugToText(section || 'todas'),
     section: section || 'todas',
     date: date || getActualDate(),
   }
@@ -113,10 +115,10 @@ const pattern = (key = {}) => {
     })
   }
 
-  // TODO: Por defecto, los API's están limitados a 100 notas como máximo (no va a llegar a 500)
+  // Por defecto, los API's están limitados a 100 notas como máximo (no va a llegar a 500)
   const requestUri = `/content/v4/search/published?sort=display_date:desc&website=${website}&body=${JSON.stringify(
     body
-  )}&from=0&size=500`
+  )}&from=0&size=100`
 
   return requestUri
 }
