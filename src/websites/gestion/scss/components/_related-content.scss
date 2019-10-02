@@ -11,8 +11,11 @@
     }
   }
   &__information {
-    margin-left: 30px;
-    width: calc(100% - 105px);
+    margin-left: 15px;
+    width: calc(100% - 95px);
+    @media (--tablet) {
+      max-width: none;
+    }
   }
   &__title {
     color: #9e0620;
@@ -25,8 +28,11 @@
   }
   &__multimedia {
     order: -1;
-    width: 75px;
-    height: 90px;
+    width: 80px;
+    @media (--tablet) {
+      width: 80px;
+      height: 95px;
+    }
   }
   &__item-title {
     letter-spacing: 0px;
