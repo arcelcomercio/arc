@@ -147,8 +147,7 @@ const pattern = (key = {}) => {
         dataStory.content_elements,
         resizerUrl,
         resizerSecret,
-        addResizedUrls,
-        'newsletter'
+        addResizedUrls
       )
       dataStory.siteName = siteName
 

@@ -7,7 +7,7 @@ import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let website = ''
 
-const schemaName = 'stories'
+const schemaName = 'story-dev'
 
 const params = [
   {

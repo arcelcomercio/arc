@@ -4,6 +4,7 @@ import Consumer from 'fusion:consumer'
 
 import { getActualDate } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
+import schemaFilter from './_dependencies/schema-filter'
 
 import RenderPagination from '../../../global-components/pagination-by-date'
 import Ads from '../../../global-components/ads'
@@ -28,13 +29,14 @@ class StoriesListInfiniteScroll extends PureComponent {
       customFields: {
         storyConfig: { contentService = '', contentConfigValues = {} } = {},
       } = {},
+      arcSite,
     } = this.props
 
     this.fetchContent({
       data: {
         source: contentService,
         query: contentConfigValues,
-        // filter: '',
+        filter: schemaFilter(arcSite),
       },
     })
   }
@@ -67,13 +69,14 @@ class StoriesListInfiniteScroll extends PureComponent {
       customFields: {
         storyConfig: { contentService = '', contentConfigValues = {} } = {},
       } = {},
+      arcSite,
     } = this.props
 
     this.fetchContent({
       data: {
         source: contentService,
         query: Object.assign(contentConfigValues, { from: next }),
-        // filter: '',
+        filter: schemaFilter(arcSite),
         transform: res => {
           this.setState({ isLoading: false })
           const { content_elements: stories = [] } = res || {}
@@ -114,7 +117,7 @@ class StoriesListInfiniteScroll extends PureComponent {
         primarySectionLink,
         primarySection,
         date,
-        link,
+        websiteLink,
         title,
         subTitle,
         authorLink,
@@ -127,7 +130,7 @@ class StoriesListInfiniteScroll extends PureComponent {
         primarySectionLink,
         primarySection,
         date,
-        link,
+        link: websiteLink,
         title,
         subTitle,
         authorLink,

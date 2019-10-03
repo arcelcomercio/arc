@@ -10,7 +10,7 @@ import {
 
 let globalParams = {}
 
-const schemaName = 'stories'
+const schemaName = 'stories-dev'
 let website = ''
 
 const params = [
