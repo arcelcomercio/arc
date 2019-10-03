@@ -1,4 +1,8 @@
-import { removeLastSlash } from '../../components/utilities/helpers'
+import {
+  removeLastSlash,
+  arrayDays,
+  arrayMonths,
+} from '../../components/utilities/helpers'
 
 const schemaName = 'section'
 
@@ -33,7 +37,21 @@ const transform = (data, key) => {
   const { date: auxDate = '' } = key
   const date = auxDate === null ? '' : auxDate
 
-  return { ...data, ...{ params: { date } } }
+  const formatDate = date ? new Date(date) : ''
+
+  return {
+    ...data,
+    params: { date },
+    archiveParams: {
+      date: date
+        ? `ARCHIVO, ${arrayDays[
+            formatDate.getUTCDay()
+          ].toUpperCase()} ${formatDate.getUTCDate()} DE ${arrayMonths[
+            formatDate.getUTCMonth()
+          ].toUpperCase()} DEL ${formatDate.getUTCFullYear()}`
+        : 'ÚLTIMO MINUTO',
+    },
+  }
 }
 
 export default {
