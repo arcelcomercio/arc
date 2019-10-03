@@ -4,9 +4,9 @@ import Icon from '../../../../global-components/multimedia-icon'
 
 const getModel = model => {
   const type = {
-    basic: 'row-1',
-    twoCol: 'col-2 row-1',
-    full: 'col-2 row-2',
+    basic: 'basic row-1',
+    twoCol: 'twocol col-2 row-1',
+    full: 'full col-2 row-2',
   }
   return type[model] || type.basic
 }

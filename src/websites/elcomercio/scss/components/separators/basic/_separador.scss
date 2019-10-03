@@ -25,6 +25,11 @@
           margin-bottom: 20px;
         }
       }
+      &__button {
+        top: 10px;
+        font-weight: 700;
+        font-family: $tertiary-font;
+      }
     }
   }
 
