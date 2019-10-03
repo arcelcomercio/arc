@@ -14,7 +14,12 @@ const classes = {
 const StorySpecialTitle = () => {
   const { contextPath, globalContent: data } = useFusionContext()
 
-  const { title, editorNote } = new StoryData({
+  const {
+    title,
+    editorNote,
+    primarySectionLink,
+    primarySection,
+  } = new StoryData({
     data,
     contextPath,
   })
@@ -24,7 +29,13 @@ const StorySpecialTitle = () => {
   return (
     <>
       <div className={classes.story}>
-        <div className={classes.note}>{editorNote && rawHtml(editorNote)}</div>
+        <div className={classes.note}>
+          {editorNote ? (
+            rawHtml(editorNote)
+          ) : (
+            <a href={primarySectionLink}>{primarySection}</a>
+          )}
+        </div>
         <StoryTitleChildHeading {...parameters} />
       </div>
     </>
