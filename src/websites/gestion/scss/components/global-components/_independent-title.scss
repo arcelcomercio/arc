@@ -1,18 +1,9 @@
 .independent-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  @media (--desktop) {
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
+  height: auto;
+  border-bottom: solid 1px $color-gray-300;
+  padding: 5px 0;
+  margin-bottom: 15px;
   &__link {
-    font-size: 31px;
-    color: #9e0620;
-    @media (--desktop) {
-      letter-spacing: -1px;
-      line-height: 17px;
-      font-size: 40px;
-    }
+    font-size: 2.5rem;
   }
 }

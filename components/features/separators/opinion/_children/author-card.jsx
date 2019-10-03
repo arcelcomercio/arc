@@ -43,19 +43,27 @@ const SeparatorsChildAuthorCard = props => {
       numline = classes.opiniontwoline
       break
   }
+
+  const existImageAuthor = imageUrl.includes('author.png')
+
   return (
     <article className={classes.opinionItem}>
       <div className={classes.opinionItemDetails}>
-        <figure className={classes.opinionItemImage}>
-          <a href={authorUrl}>
-            <img
-              className={classes.opinionItemImageImg}
-              src={imageUrl}
-              alt={author || ''}
-            />
-          </a>
-        </figure>
-        
+        {existImageAuthor ? (
+          <div className={classes.opinionContentImageDefault}>
+            <i className={classes.opinionDefaulImage} />
+          </div>
+        ) : (
+          <figure className={classes.opinionItemImage}>
+            <a href={authorUrl}>
+              <img
+                className={classes.opinionItemImageImg}
+                src={imageUrl}
+                alt={author || ''}
+              />
+            </a>
+          </figure>
+        )}
         <h5 className={classes.opinionItemName}>
           <a href={authorUrl} className={classes.opinionItemNameLink}>
             {author}

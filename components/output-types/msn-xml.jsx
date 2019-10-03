@@ -1,5 +1,22 @@
 import React from 'react'
 
+const MsnXmlOutputType = () => {
+  // Debe redireccionar a la home del 
+  const script =`document.location.href="/";`
+  return (
+    <html lang="es">
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: script }} />
+      </body>
+    </html>
+  )
+}
+
+// MsnXmlOutputType.contentType = 'text/html; charset=utf-8'
+export default MsnXmlOutputType
+
+/* import React from 'react'
+
 import Channel from './_dependencies/msn-xml/channel'
 import ListItemNews from './_dependencies/msn-xml/list-item-channel'
 import NewElement from '../global-components/new-element'
@@ -67,3 +84,4 @@ const MsnXmlOutputType = ({
 MsnXmlOutputType.contentType = 'text/xml'
 
 export default MsnXmlOutputType
+*/
