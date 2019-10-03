@@ -3,6 +3,7 @@ export default arcSite => {
   { 
     next
     content_elements {
+      _id
       headlines { basic }
       subheadlines { basic }
       display_date

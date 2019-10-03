@@ -91,6 +91,11 @@ class StoriesListInfiniteScroll extends PureComponent {
 
   hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
 
+  removeDuplicates = (array, key) => {
+    const lookup = new Set()
+    return array.filter(obj => !lookup.has(obj[key]) && lookup.add(obj[key]))
+  }
+
   render() {
     const { data: { content_elements: contentElements = [], next = 0 } = {} } =
       this.state || {}
@@ -111,35 +116,40 @@ class StoriesListInfiniteScroll extends PureComponent {
       defaultImgSize: 'sm',
     })
 
-    const stories = contentElements.map(story => {
-      storyData._data = story
-      const {
-        primarySectionLink,
-        primarySection,
-        date,
-        websiteLink,
-        title,
-        subTitle,
-        authorLink,
-        author,
-        multimediaType,
-        multimediaLandscapeXS,
-        multimediaLandscapeS,
-      } = storyData
-      return {
-        primarySectionLink,
-        primarySection,
-        date,
-        link: websiteLink,
-        title,
-        subTitle,
-        authorLink,
-        author,
-        multimediaType,
-        multimediaLandscapeXS,
-        multimediaLandscapeS,
-      }
-    })
+    const stories = this.removeDuplicates(
+      contentElements.map(story => {
+        storyData._data = story
+        const {
+          primarySectionLink,
+          primarySection,
+          date,
+          websiteLink,
+          title,
+          subTitle,
+          authorLink,
+          author,
+          multimediaType,
+          multimediaLandscapeXS,
+          multimediaLandscapeS,
+          id,
+        } = storyData
+        return {
+          primarySectionLink,
+          primarySection,
+          date,
+          link: websiteLink,
+          title,
+          subTitle,
+          authorLink,
+          author,
+          multimediaType,
+          multimediaLandscapeXS,
+          multimediaLandscapeS,
+          id,
+        }
+      }),
+      'id'
+    )
 
     const activeAds = Object.keys(customFieldsProps)
       .filter(prop => prop.match(/adsMobile(\d)/))
