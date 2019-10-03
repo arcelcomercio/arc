@@ -3,7 +3,7 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
-const schemaName = 'stories'
+const schemaName = 'stories-dev'
 
 let website = '' // Variable se usa en método fuera del fetch
 let queryValue = ''

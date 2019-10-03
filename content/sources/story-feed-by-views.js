@@ -11,7 +11,7 @@ import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let website = ''
-const schemaName = 'stories'
+const schemaName = 'stories-dev'
 
 const params = [
   {
