@@ -6,7 +6,7 @@ import { getActualDate } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
 
-import RenderPagination from '../../../global-components/pagination-by-date'
+import RenderPagination from './_children/pagination-by-date'
 import Ads from '../../../global-components/ads'
 import ListItem from './_children/list-item'
 import Spinner from './_children/spinner'
