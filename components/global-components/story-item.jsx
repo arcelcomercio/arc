@@ -20,7 +20,7 @@ const classes = {
   contentTitle: 'story-item__content-title overflow-hidden',
   title: `story-item__title block overflow-hidden primary-font line-h-xs mt-10`,
   subtitle: `story-item__subtitle overflow-hidden hidden mt-10 mb-10 text-md text-gray-200 line-h-xs`,
-  contenetAuthor: 'hidden',
+  contenetAuthor: 'story-item__author-wrapper hidden',
   author: `story-item__author block uppercase mt-10 font-thin text-xs text-gray-200`,
   right: 'story-item__right position-relative overflow-hidden',
   rightLink: 'story-item__link  h-full',
