@@ -90,7 +90,7 @@ class Stick extends PureComponent {
     }
  */
     // eslint-disable-next-line no-undef
-    /* apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
+    apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
       const tickerContainer = document.querySelector('#content_ads_m_ticker')
       this.closeStick()
       tickerContainer.addEventListener('click', evt => {
@@ -98,7 +98,7 @@ class Stick extends PureComponent {
           this.openStick()
         }
       })
-    }) */
+    })
   }
 
   /* hasTickerLoad = time => {
