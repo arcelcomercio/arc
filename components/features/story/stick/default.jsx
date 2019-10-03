@@ -85,19 +85,32 @@ class Stick extends PureComponent {
       })
     })
 
-    if (this.hasTickerLoad(1)) {
+    /* const resp = this.hasTickerLoad(1)
+
+    if ((resp && !resp.hasTicker) || (resp && resp.excedTime)) {
       this.openStick()
     }
+ */
+    // eslint-disable-next-line no-undef
+    apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
+      const tickerContainer = document.querySelector('#content_ads_m_ticker')
+      this.closeStick()
+      tickerContainer.addEventListener('click', evt => {
+        if (evt.target.classList.contains('zocalo-button-close')) {
+          this.openStick()
+        }
+      })
+    })
   }
 
-  hasTickerLoad = time => {
+  /* hasTickerLoad = time => {
     const ticker = document.querySelector('#content_ads_m_ticker')
     const loadTicker = ticker ? ticker.childNodes.length : 0
-    console.log(time >= TIMERLOADWAIT, loadTicker > 0)
+
     return time >= TIMERLOADWAIT || loadTicker > 0
-      ? false
+      ? { hasTicker: loadTicker > 0, excedTime: time >= TIMERLOADWAIT }
       : this.hasTickerLoad(time + 1)
-  }
+  } */
 
   closeStick = () => {
     this.setState({
@@ -152,7 +165,8 @@ class Stick extends PureComponent {
     )
 
     return (
-      <div className={`${classes.stickWrapper} ${active ? 'block' : 'hidden'}`}>
+      <div
+        className={`${classes.stickWrapper} ${!active ? 'block' : 'hidden'}`}>
         <div className={classes.stick}>
           <i
             role="button"
