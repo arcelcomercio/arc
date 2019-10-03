@@ -13,7 +13,7 @@ const options = {
   json: true,
 }
 
-const schemaName = 'stories'
+const schemaName = 'story-dev'
 
 const params = [
   {
