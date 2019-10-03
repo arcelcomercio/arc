@@ -6,21 +6,54 @@ const customFields = PropTypes.shape({
   }),
   title1: PropTypes.string.tag({
     name: 'Título nota 1',
-    description: 'Dejar vacío para tomar el título original de la nota.',
+    description: 'Dejar vacío para mostrar el título original de la nota.',
+    group: 'Datos nota 1',
+  }),
+  authorOrSection1: PropTypes.string.tag({
+    name: 'Autor o sección de la nota 1',
+    description: 'Dejar vacío para mostrar el autor o sección original.',
+    group: 'Datos nota 1',
+  }),
+  image1: PropTypes.string.tag({
+    name: 'Url de imagen para la nota 1',
+    description: 'Dejar vacío para mostrar la imagen original.',
+    group: 'Datos nota 1',
   }),
   data2: PropTypes.string.tag({
     name: 'URL de nota 2',
   }),
   title2: PropTypes.string.tag({
     name: 'Título nota 2',
-    description: 'Dejar vacío para tomar el título original de la nota.',
+    description: 'Dejar vacío para mostrar el título original de la nota.',
+    group: 'Datos nota 2',
+  }),
+  authorOrSection2: PropTypes.string.tag({
+    name: 'Autor o sección de la nota 2',
+    description: 'Dejar vacío para mostrar el autor o sección original.',
+    group: 'Datos nota 2',
+  }),
+  image2: PropTypes.string.tag({
+    name: 'Url de imagen para la nota 2',
+    description: 'Dejar vacío para mostrar la imagen original.',
+    group: 'Datos nota 2',
   }),
   data3: PropTypes.string.tag({
     name: 'URL de nota 3',
   }),
   title3: PropTypes.string.tag({
     name: 'Título nota 3',
-    description: 'Dejar vacío para tomar el título original de la nota.',
+    description: 'Dejar vacío para mostrar el título original de la nota.',
+    group: 'Datos nota 3',
+  }),
+  authorOrSection3: PropTypes.string.tag({
+    name: 'Autor o sección de la nota 3',
+    description: 'Dejar vacío para mostrar el autor o sección original.',
+    group: 'Datos nota 3',
+  }),
+  image3: PropTypes.string.tag({
+    name: 'Url de imagen para la nota 3',
+    description: 'Dejar vacío para mostrar la imagen original.',
+    group: 'Datos nota 3',
   }),
   webskedId: PropTypes.string.tag({
     name: 'ID',
