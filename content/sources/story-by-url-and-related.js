@@ -92,12 +92,14 @@ const transformImg = data => {
 }
 
 const resolve = (key = {}) => {
+  const excludedFieldsStory = '&_sourceExclude=owner,address,websites,language'
+
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
   website = key['arc-site'] || 'Arc Site no está definido'
   const { website_url: websiteUrl } = key
-  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}`
+  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}${excludedFieldsStory}`
   return requestUri
 }
 
@@ -109,7 +111,7 @@ const transform = storyData => {
   } = storyData
 
   const excludedFields =
-    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website,subheadlines,description,related_content,credits,websites,content_restrictions'
 
   const encodedBody = queryStoryRecent(section, website)
   return request({
@@ -118,7 +120,9 @@ const transform = storyData => {
   }).then(recientesResp => {
     storyData.recent_stories = recientesResp
     return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${storyData._id}&website=${website}&published=true`,
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
+        storyData._id
+      }&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
       storyData.related_content = idsResp
