@@ -53,9 +53,11 @@
     .featured-story__img-box {
       &::before {
         @media (--tablet) {
-          background: linear-gradient(to bottom,
-              rgba(68, 68, 68, 0) 9%,
-              rgb(68, 68, 68));
+          background: linear-gradient(
+            to bottom,
+            rgba(68, 68, 68, 0) 9%,
+            rgb(68, 68, 68)
+          );
         }
       }
     }
@@ -101,6 +103,17 @@
         height: 40px;
       }
     }
+    &.featured-story--no-expanded {
+      .featured-story__title-link {
+        @media (--only-mobile) {
+          -webkit-line-clamp: 4;
+          max-height: 72px;
+        }
+      }
+      @media (--only-mobile) {
+        height: 137px;
+      }
+    }
 
     &.img-complete {
       .featured-story__headband-link {
@@ -132,7 +145,6 @@
   }
 
   &--no-expanded {
-
     @media (--only-mobile) {
       .featured-story__title-link {
         font-size: 14.2px;

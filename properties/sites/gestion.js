@@ -2,7 +2,7 @@ export default {
   siteName: 'Gestión',
   newsletterBrand: 'gestion',
   api: {
-    blog: 'https://svc-blogs.gestion.pe/apiblogs.php'
+    blog: 'https://svc-blogs.gestion.pe/apiblogs.php',
   },
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
@@ -211,6 +211,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
+  urlSubsOnline: 'https://suscripciones.gestion.pe/?ref=home-header',
   stick: {
     logo: 'logo-gestion-stick.png',
   },

@@ -46,6 +46,12 @@ export default `
         headlines{
           basic
         }
+        taxonomy {
+          primary_section {
+              name
+              path
+          }
+        } 
       } 
       section_name
     }

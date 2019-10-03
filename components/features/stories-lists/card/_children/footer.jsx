@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  footer: 'stories-l-footer flex justify-center items-center pt-10',
+  footer: 'stories-l-footer flex justify-center items-center pt-15',
   seeMore:
     'stories-l-footer__link flex items-center uppercase text-gray-200 text-xs',
 }

@@ -10,23 +10,52 @@
       background-color: $color-gray-200;
     }
   }
-}
-.stories-l-item {
-  &__link {
-    height: 56px;
-    -webkit-line-clamp: 3;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-  }
+  .stories-l-item {
+    &__link {
+      height: 55px;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      font-size: 19px;
+      letter-spacing: 0px;
+      line-height: 18px;
+    }
 
-  &:first-child {
-    .stories-l-item__link {
-      height: 63px;
+    &:first-child {
+      .stories-l-item__link {
+        height: 98px;
+        letter-spacing: 0px;
+        line-height: 24px;
+        font-size: 25px;
+        -webkit-line-clamp: 4;
+      }
+    }
+    &:last-child {
+      .stories-l-item__link-box {
+        border-bottom: 0;
+      }
+    }
+    &____autor {
+      font-size: 13px;
+      color: #888888;
+    }
+
+    &:last-child {
+      .stories-l-item__link-box {
+        border-bottom: 0;
+      }
+    }
+    &____autor {
+      font-size: 13px;
+      color: #888888;
     }
   }
-  &:last-child {
-    .stories-l-item__link-box {
-      border-bottom: 0;
-    }
+  .stories-l-card,
+  .stories-l-card__list {
+    background-color: $color-white;
+  }
+  .stories-l-card,
+  .stories-l-card__list {
+    background-color: $color-white;
   }
 }
