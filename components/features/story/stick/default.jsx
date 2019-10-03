@@ -83,12 +83,6 @@ class Stick extends PureComponent {
       })
     })
 
-    /* const resp = this.hasTickerLoad(1)
-
-    if ((resp && !resp.hasTicker) || (resp && resp.excedTime)) {
-      this.openStick()
-    }
- */
     // eslint-disable-next-line no-undef
     apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
       const tickerContainer = document.querySelector('#content_ads_m_ticker')
@@ -100,15 +94,6 @@ class Stick extends PureComponent {
       })
     })
   }
-
-  /* hasTickerLoad = time => {
-    const ticker = document.querySelector('#content_ads_m_ticker')
-    const loadTicker = ticker ? ticker.childNodes.length : 0
-
-    return time >= TIMERLOADWAIT || loadTicker > 0
-      ? { hasTicker: loadTicker > 0, excedTime: time >= TIMERLOADWAIT }
-      : this.hasTickerLoad(time + 1)
-  } */
 
   closeStick = () => {
     this.setState({
