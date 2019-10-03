@@ -88,15 +88,12 @@ class Stick extends PureComponent {
     if (this.hasTickerLoad(1)) {
       this.openStick()
     }
-    /* setTimeout(() => {
-      this.setState({ active: true })
-    }, 5000) */
   }
 
   hasTickerLoad = time => {
     const ticker = document.querySelector('#content_ads_m_ticker')
     const loadTicker = ticker ? ticker.childNodes.length : 0
-    console.log(ticker)
+    console.log(time >= TIMERLOADWAIT, loadTicker > 0)
     return time >= TIMERLOADWAIT || loadTicker > 0
       ? false
       : this.hasTickerLoad(time + 1)
