@@ -26,14 +26,30 @@
       font-size: 11px;
     }
   }
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background-color: $color-white;
+    border-radius: 50%;
+  }
 
   &__icon {
     color: $color-gray-200;
+    font-size: 18px;
   }
   &__list-more {
     padding-left: 0;
+    width: 110px;
   }
   &__font--secondary {
+    font-family: $fourth-font;
+    font-size: 21px;
+    @media (--tablet) {
+      font-size: 20px;
+    }
     a {
       color: #0e6dc1;
     }
