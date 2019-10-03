@@ -1,16 +1,12 @@
-// TODO: ACTUALIZAR NOMBRE Y HOMOLOGAR, AGREGAR CASOS DE ERRORES
-// TODO: HOMOLOGAR ESQUEMA LIST CON STORIES
-/**
- *  Este archivo será modificado en el futuro para que su funcionalidad sea
- *  la que pregona su nombre "story-feed-by-views". La funcionalidad actual
- *  es temporal.
- */
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import {
+  addResizedUrlsToStory,
+  getYYYYMMDDfromISO,
+  getActualDate,
+} from '../../components/utilities/helpers'
 
-let website = ''
 const schemaName = 'stories-dev'
 
 const params = [
@@ -20,15 +16,52 @@ const params = [
     type: 'text',
   },
   {
+    name: 'date',
+    displayName: 'Fecha',
+    type: 'text',
+  },
+  {
+    name: 'from',
+    displayName: 'Noticia inicial',
+    type: 'number',
+  },
+  {
     name: 'size',
     displayName: 'Cantidad de historias',
     type: 'number',
   },
 ]
 
-const pattern = key => {
-  website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, size } = key
+const getNextDate = date => {
+  const requestedDate = new Date(date)
+  requestedDate.setDate(requestedDate.getDate() + 1)
+  return getYYYYMMDDfromISO(requestedDate)
+}
+
+const transform = (data, key) => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const dataStories = data
+  const { resizerUrl } = getProperties(website)
+  dataStories.content_elements = addResizedUrlsToStory(
+    dataStories.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
+  return dataStories
+}
+
+const pattern = (key = {}) => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const {
+    section: auxSection = '/',
+    date: auxDate = getActualDate(),
+    from = 0,
+    size = 10,
+  } = key
+
+  const section = auxSection === null ? '/' : auxSection
+  const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate
 
   const body = {
     query: {
@@ -37,6 +70,14 @@ const pattern = key => {
           {
             term: {
               type: 'story',
+            },
+          },
+          {
+            range: {
+              display_date: {
+                gte: `${date}T05:00:00`,
+                lte: `${getNextDate(date)}T04:59:59`,
+              },
             },
           },
           {
@@ -49,7 +90,7 @@ const pattern = key => {
     },
   }
 
-  if (section) {
+  if (section !== '/') {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
@@ -58,7 +99,7 @@ const pattern = key => {
             must: [
               {
                 terms: {
-                  'taxonomy.sections._id': [`${section}`],
+                  'taxonomy.sections._id': [section],
                 },
               },
               {
@@ -72,39 +113,23 @@ const pattern = key => {
       },
     })
   }
-
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
   const requestUri = `/content/v4/search/published?sort=display_date:desc&website=${website}&body=${JSON.stringify(
     body
-  )}&from=0&size=${size || 5}${excludedFields}`
+  )}&from=${from}&size=${size}${excludedFields}`
 
   return requestUri
 }
 
 const resolve = key => pattern(key)
 
-const transform = data => {
-  const dataStories = data
-  const { resizerUrl, siteName } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret,
-    addResizedUrls
-  )
-  dataStories.siteName = siteName
-  return {
-    ...dataStories,
-  }
-}
 const source = {
   resolve,
-  transform,
   schemaName,
+  transform,
   params,
-  // cache: false,
   ttl: 120,
 }
 
