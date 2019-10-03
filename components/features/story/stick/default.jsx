@@ -15,14 +15,12 @@ const classes = {
   buttonApp: 'stick__button p-10 text-center',
 }
 
-const TIMERLOADWAIT = 5000
 @Consumer
 class Stick extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      hasTicker: false,
-      active: false,
+      active: true,
     }
   }
 
@@ -154,7 +152,7 @@ class Stick extends PureComponent {
       },
     } = this.props
 
-    const { hasTicker, active } = this.state
+    const { active } = this.state
 
     const { link } = new StoryData({
       data: globalContent,
@@ -165,8 +163,7 @@ class Stick extends PureComponent {
     )
 
     return (
-      <div
-        className={`${classes.stickWrapper} ${!active ? 'block' : 'hidden'}`}>
+      <div className={`${classes.stickWrapper} ${active ? 'block' : 'hidden'}`}>
         <div className={classes.stick}>
           <i
             role="button"
