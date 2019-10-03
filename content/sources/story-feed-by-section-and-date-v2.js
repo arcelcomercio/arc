@@ -55,12 +55,13 @@ const pattern = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const {
     section: auxSection = '/',
-    date = getActualDate(),
+    date: auxDate = getActualDate(),
     from = 0,
     size = 10,
   } = key
 
   const section = auxSection === null ? '/' : auxSection
+  const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate
 
   const body = {
     query: {
