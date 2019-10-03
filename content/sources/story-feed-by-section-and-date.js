@@ -115,10 +115,13 @@ const pattern = (key = {}) => {
     })
   }
 
+  const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+
   // Por defecto, los API's están limitados a 100 notas como máximo (no va a llegar a 500)
   const requestUri = `/content/v4/search/published?sort=display_date:desc&website=${website}&body=${JSON.stringify(
     body
-  )}&from=0&size=100`
+  )}&from=0&size=100${excludedFields}`
 
   return requestUri
 }

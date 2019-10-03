@@ -108,16 +108,17 @@ const transform = storyData => {
     taxonomy: { primary_section: { path: section } = {} } = {},
   } = storyData
 
+  const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+
   const encodedBody = queryStoryRecent(section, website)
   return request({
-    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=6&from=0&sort=display_date:desc`,
+    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=6&from=0&sort=display_date:desc${excludedFields}`,
     ...options,
   }).then(recientesResp => {
     storyData.recent_stories = recientesResp
     return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
-        storyData._id
-      }&website=${website}&published=true`,
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${storyData._id}&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
       storyData.related_content = idsResp

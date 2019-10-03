@@ -133,8 +133,11 @@ const pattern = key => {
     })
   }
 
+  const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+
   encodedBody = encodeURIComponent(JSON.stringify(body))
-  const requestUri = `/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}`
+  const requestUri = `/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}${excludedFields}`
 
   return requestUri
 }
