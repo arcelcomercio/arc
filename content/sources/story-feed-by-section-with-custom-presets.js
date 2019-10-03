@@ -211,6 +211,9 @@ const pattern = (key = {}) => {
 
   const encodedBody = encodeURI(JSON.stringify(body))
 
+  const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+
   return request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${newSection}`,
     ...options,
@@ -219,7 +222,7 @@ const pattern = (key = {}) => {
       throw new Error('Sección no encontrada')
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
-        10}&from=${feedOffset || 0}&sort=display_date:desc`,
+        10}&from=${feedOffset || 0}&sort=display_date:desc${excludedFields}`,
       ...options,
     }).then(data => {
       const dataStory = data

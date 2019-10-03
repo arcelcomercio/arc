@@ -1,8 +1,20 @@
 import React from 'react'
-// import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
-import Icon from './multimedia-icon'
 
-import { formatDateLocalTimeZone } from '../utilities/helpers'
+import ConfigParams from '../../../../utilities/config-params'
+
+import { reduceWord, formattedTime } from '../../../../utilities/helpers'
+
+const formatDateLocalTimeZone = rawDate => {
+  const auxDate = new Date(rawDate)
+  const today = new Date()
+  const format = date =>
+    `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+
+  if (format(auxDate) === format(today)) {
+    return formattedTime(auxDate)
+  }
+  return format(auxDate)
+}
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
@@ -16,36 +28,38 @@ const classes = {
   contentTitle: 'story-item__content-title overflow-hidden',
   title: `story-item__title block overflow-hidden primary-font line-h-xs mt-10`,
   subtitle: `story-item__subtitle overflow-hidden hidden mt-10 mb-10 text-md text-gray-200 line-h-xs`,
-  contenetAuthor: 'story-item__author-wrapper  hidden',
+  contenetAuthor: 'hidden',
   author: `story-item__author block uppercase mt-10 font-thin text-xs text-gray-200`,
   right: 'story-item__right position-relative overflow-hidden',
   rightLink: 'story-item__link  h-full',
-  icon: `story-item__icon position-absolute flex items-center justify-center text-white w-full h-full`,
+  iconGallery: `story-item__icon icon-img position-absolute flex items-center justify-center text-white w-full h-full`,
+  iconVideo: `story-item__icon icon-video position-absolute flex items-center justify-center text-white w-full h-full`,
   img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
-  wrapperTitle: 'w-full',
+  wrapperTitle: 'story-item__information-box w-full',
 }
 
 export default ({
-  isAdmin,
-  primarySectionLink,
-  primarySection,
-  date,
-  websiteLink,
-  title,
-  subTitle,
-  authorLink,
-  author,
-  multimediaType,
-  multimediaLandscapeXS,
-  multimediaLazyDefault,
-  multimediaLandscapeS,
-  formato,
+  story: {
+    primarySectionLink,
+    primarySection,
+    date,
+    link,
+    title,
+    subTitle,
+    authorLink,
+    author,
+    multimediaType,
+    multimediaLandscapeXS,
+    multimediaLandscapeS,
+  } = {},
+  format,
+  isRender,
 }) => {
   return (
     <div
       className={`${classes.storyItem} ${
-        formato && formato === 'row' ? 'story-item--row' : ''
+        format && format === 'row' ? 'story-item--row' : ''
       }`}>
       <div className={classes.bottom}>
         <div className={classes.left}>
@@ -53,15 +67,17 @@ export default ({
             <a href={primarySectionLink} className={classes.section}>
               {primarySection}
             </a>
-            <p className={classes.date}>{formatDateLocalTimeZone(date)}</p>
+            <p className={classes.date}>
+              {date && isRender ? formatDateLocalTimeZone(date) : ''}
+            </p>
           </div>
           <div className={classes.wrapperTitle}>
             <h2 className={classes.contentTitle}>
-              <a className={classes.title} href={websiteLink} title={title}>
-                {title}
+              <a className={classes.title} href={link} title={title}>
+                {reduceWord(title)}
               </a>
             </h2>
-            <p className={classes.subtitle}>{subTitle}</p>
+            <p className={classes.subtitle}>{reduceWord(subTitle)}</p>
             <a href={primarySectionLink} className={classes.sectionHidden}>
               {primarySection}
             </a>
@@ -73,20 +89,25 @@ export default ({
           </div>
         </div>
         <figure className={classes.right}>
-          <a href={websiteLink} className={classes.rightLink}>
-            <Icon type={multimediaType} iconClass={classes.icon} />
+          {/* TODO: Actualizar iconos con multimediaIcon */}
+          <a href={link} className={classes.rightLink}>
+            {multimediaType !== null &&
+              multimediaType === ConfigParams.GALLERY && (
+                <span className={classes.iconGallery} />
+              )}
+            {multimediaType !== null &&
+              multimediaType === ConfigParams.VIDEO && (
+                <span className={classes.iconVideo} />
+              )}
             <picture>
               <source
-                className={isAdmin ? '' : 'lazy'}
                 media="(max-width: 639px)"
-                srcSet={isAdmin ? multimediaLandscapeXS : multimediaLazyDefault}
-                data-srcset={multimediaLandscapeXS}
+                srcSet={multimediaLandscapeXS}
               />
               <img
                 alt={title}
-                className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-                data-src={multimediaLandscapeS}
+                className={classes.img}
+                src={multimediaLandscapeS}
               />
             </picture>
           </a>

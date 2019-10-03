@@ -18,7 +18,7 @@ import {
 //     : section
 // }
 
-const SCHEMA_NAME = 'stories'
+const SCHEMA_NAME = 'stories-dev'
 let website = ''
 const params = [
   {
