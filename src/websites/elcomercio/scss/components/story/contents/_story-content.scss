@@ -52,6 +52,14 @@
   &__author-email {
     font-family: $fourth-font;
   }
+  &__more-link {
+    .icon-linkedin-circle {
+      color: #0e76a8;
+    }
+  }
+  &__list-more {
+    width: 110px;
+  }
 }
 
 .opinion .content-sidebar {
