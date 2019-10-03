@@ -12,9 +12,13 @@ import xmlbuilder from 'xmlbuilder'
 const Xml = ({ children }) => {
   // Only return the data from the first child.
   return xmlbuilder
-    .create(children[0] || '', {
-      separateArrayItems: true,
-    })
+    .create(
+      children[0] || 'root',
+      { version: '1.0', encoding: 'UTF-8' },
+      {
+        separateArrayItems: true,
+      }
+    )
     .end({
       pretty: true,
     })
