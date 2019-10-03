@@ -48,15 +48,21 @@ class Data extends StoryData {
   }
 
   get authorOrSection() {
-    return this.showAuthorOrSection === Data.AUTHOR
-      ? super.author
-      : super.section
+    const authorOrSection =
+      this.showAuthorOrSection === Data.AUTHOR ? super.author : super.section
+    return this._customFields[`authorOrSection${this.index}`] || authorOrSection
   }
 
   get authorOrSectionLink() {
     return this.showAuthorOrSection === Data.AUTHOR
       ? super.authorLink
       : super.sectionLink
+  }
+
+  get multimediaPortraitXS() {
+    return (
+      this._customFields[`image${this.index}`] || super.multimediaPortraitXS
+    )
   }
 
   get iconClass() {
