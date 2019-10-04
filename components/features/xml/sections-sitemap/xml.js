@@ -2,6 +2,8 @@ import Consumer from 'fusion:consumer'
 
 const SOURCE = 'navigation-by-hierarchy'
 const HIERARCHY = 'sitemap-default'
+const OUTPUTTYPE = '?outputType=xml'
+const SITEMAP = '/sitemap'
 
 /**
  * @todo TODO: Revisar el tiempo de cache de la content source, debe ser
@@ -36,6 +38,13 @@ class XmlSections {
     })
   }
 
+  localISODate = date => {
+    let localDate = date ? new Date(date) : new Date()
+    localDate.setHours(localDate.getHours() - 5)
+    localDate = `${localDate.toISOString().split('.')[0]}-05:00`
+    return localDate
+  }
+
   render() {
     const { sectionsId } = this.state || {}
 
@@ -48,12 +57,16 @@ class XmlSections {
     const sitemaps = {
       sitemapindex: sectionsId.map(id => ({
         sitemap: {
-          loc: `${siteUrl}${id}/`,
+          loc: `${siteUrl}${SITEMAP}${id}/${OUTPUTTYPE}`,
+          lastmod: this.localISODate(),
         },
       })),
     }
-    sitemaps.sitemapindex['@xmlns'] =
-      'http://www.sitemaps.org/schemas/sitemap/0.9'
+
+    // Attr
+    sitemaps.sitemapindex.push({
+      '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
+    })
 
     return sitemaps
   }
