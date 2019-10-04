@@ -72,6 +72,7 @@ class CustomTitle extends PureComponent {
         seeMoreButtonLink = '',
         TextType = 'h1',
         textAlign = 'left',
+        size = 'large',
       } = {},
     } = this.props
     const {
@@ -91,7 +92,7 @@ class CustomTitle extends PureComponent {
           isCustomBorder ? 'custom-border' : ''
         } ${seeMoreButton ? 'position-relative ' : ''} ${
           isDarkBg ? 'dark-bg text-white bg-base-100' : ''
-        }`}>
+        } ${size}`}>
         {customText ||
           sectionName ||
           tagName ||
@@ -121,6 +122,14 @@ CustomTitle.propTypes = {
         h2: 'Subtítulo',
       },
       defaultValue: 'h1',
+    }),
+    size: PropTypes.oneOf(['large', 'medium']).tag({
+      name: 'Tamaño del texto',
+      labels: {
+        large: 'Grande',
+        medium: 'Mediano',
+      },
+      defaultValue: 'large',
     }),
     textAlign: PropTypes.oneOf(['left', 'center', 'right']).tag({
       name: 'Alineación del texto',

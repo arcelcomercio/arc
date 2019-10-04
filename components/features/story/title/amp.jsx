@@ -4,6 +4,7 @@ import {
   publicidadAmp,
   formatDateStoryAmp,
   getDateSeo,
+  storyTagsBbc,
 } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
@@ -18,6 +19,7 @@ const classes = {
     'amp-story-header__description mt-0 text-md text-gray-300 secondary-font',
   gallery: 'amp-story-header bg-white w-full pr-20 pl-20 m-5 mx-auto',
   adsAmp: 'text-center ad-amp-movil',
+  bbcHead: 'bbc-head',
 }
 @Consumer
 class StoryTitleAmp extends PureComponent {
@@ -25,11 +27,13 @@ class StoryTitleAmp extends PureComponent {
     const {
       arcSite,
       siteProperties: { adsAmp },
+      contextPath,
+      deployment,
       globalContent: {
         subheadlines: { basic: subtitle = '' } = {},
         headlines: { basic: titleElements = '' } = {},
-        publish_date: date,
         display_date: updatedDate,
+        taxonomy: { tags = {} } = {},
         promo_items: {
           basic_gallery: { content_elements: galleryItems } = {},
         } = {},
@@ -44,10 +48,27 @@ class StoryTitleAmp extends PureComponent {
     const height = '50'
     const parameters = { dataSlot, placementId, width, height }
 
+    const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
+    const imgBbc =
+      deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+      ) || ''
+
     return (
       <>
         <div className={galleryItems ? classes.gallery : classes.stories}>
           <header>
+            {storyTagsBbc(tags) && (
+              <div className={classes.bbcHead}>
+                <a
+                  href={URL_BBC}
+                  rel="nofollow noopener noreferrer"
+                  target="_blank">
+                  <img alt="BBC" src={imgBbc} data-src={imgBbc} />
+                </a>
+              </div>
+            )}
+
             {titleElements && (
               <h1 className={classes.titleAmp}>{titleElements}</h1>
             )}

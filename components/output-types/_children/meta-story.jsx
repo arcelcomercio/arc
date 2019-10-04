@@ -78,10 +78,10 @@ export default ({
   })
 
   const listItemsTagsKeywords = tags.map(({ description }) => {
-    return `"${description}"`
+    return `"${formatHtmlToText(description)}"`
   })
   const seoKeyWordsStructurada = seoKeywords.map(item => {
-    return `"${item}"`
+    return `"${formatHtmlToText(item)}"`
   })
 
   const seoKeywordsItems = seoKeywords.map(item => {

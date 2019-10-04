@@ -8,7 +8,7 @@ const classes = {
     'story-content__caption pt-10 secondary-font text-md pb-10 pr-20 pl-20',
 }
 
-const StoryContentChildImage = ({ data, caption, header = false }) => {
+const StoryContentChildHtml = ({ data, caption, header = false }) => {
   return (
     <>
       {data.includes('id="powa-') && !header ? (
@@ -26,4 +26,4 @@ const StoryContentChildImage = ({ data, caption, header = false }) => {
   )
 }
 
-export default StoryContentChildImage
+export default StoryContentChildHtml

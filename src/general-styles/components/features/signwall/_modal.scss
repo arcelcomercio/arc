@@ -16,6 +16,7 @@
       font-size: 16px;
       will-change: transform;
       animation: vDialog-enter 0.5s;
+      -webkit-text-size-adjust: 100%;
 
       &--open {
         overflow: hidden;

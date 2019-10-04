@@ -3,16 +3,14 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 import StorySocialChildSocial from './_children/social'
-import StorySocialChildSocialGestion from './_children/social-gestion' // TODO Salida de gestion
 import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   story: 'w-full text-white',
 }
 
 const StorySocial = () => {
-  const { contextPath, globalContent: data, arcSite } = useFusionContext()
+  const { contextPath, globalContent: data } = useFusionContext()
 
   const { link } = new StoryData({
     data,

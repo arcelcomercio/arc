@@ -138,11 +138,9 @@ class NewsLetter extends Component {
           this.setPreference()
         }
         setTimeout(() => {
-          const modalConfirmPass = document.querySelector(
-            '#arc-popup-profile',
-          );
-          modalConfirmPass.scrollIntoView();
-        }, 500);
+          const modalConfirmPass = document.querySelector('#arc-popup-profile')
+          modalConfirmPass.scrollIntoView()
+        }, 500)
         this.setState({ showsuccess: true })
         // window.sessionStorage.setItem(
         //   'preferencesNews',

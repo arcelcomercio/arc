@@ -75,8 +75,9 @@ class Subscription extends Component {
   }
 
   handleSuscription = e => {
+    const { arcSite } = this.props
     e.preventDefault()
-    window.location.href = Domains.getUrlPaywall()
+    window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', 'organico')
   }
 
