@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   titulo:
-    'independent-title line-h-none w-full text-white text-center pt-10 pb-10',
+    'independent-title line-h-none w-full text-white text-center flex justify-center items-center',
   link: 'independent-title__link primary-font title-xs font-bold uppercase',
 }
 
