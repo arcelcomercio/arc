@@ -123,18 +123,19 @@ class StoryHeaderChildSocial extends PureComponent {
       primarySectionLink,
       authorEmail,
     }
-
     return (
       <>
         <div
           className={`${classes.news} ${
             subtype === ConfigParams.SPECIAL_BASIC ||
-            subtype === ConfigParams.SPECIAL
+            subtype === ConfigParams.SPECIAL ||
+            primarySectionLink === '/archivo-elcomercio/'
               ? 'justify-center'
               : 'justify-between'
           }`}>
           {subtype !== ConfigParams.SPECIAL_BASIC &&
-            subtype !== ConfigParams.SPECIAL && (
+            subtype !== ConfigParams.SPECIAL &&
+            primarySectionLink !== '/archivo-elcomercio/' && (
               <div className={classes.category}>
                 {(editorNote && rawHtml(editorNote)) || primarySection}
                 <StorySocialChildAuthor {...params} />

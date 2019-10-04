@@ -10,15 +10,12 @@ import SignWallPayPre from './_main/signwall/paywall-premium'
 import Services from './_main/utils/services'
 import GetProfile from './_main/utils/get-profile'
 import Domains from './_main/utils/domains'
+import { ButtonSignwall } from './styles'
 
 const services = new Services()
 
 const classes = {
-  btnLogin: 'nav__btn flex items-center btn capitalize text-sm font-bold', // Tiene lógica abajo
-  iconSignwallMobile: 'uppercase ',
-  iconLogin: 'nav__icon icon-user',
-  btnSignwallMobile:
-    'nav__btn--login-m bg-secondary text-primary-color rounded',
+  iconLogin: 'nav__icon icon-user  title-sm text-primary-color',
 }
 
 @Consumer
@@ -34,37 +31,27 @@ class SignwallComponent extends PureComponent {
       showReset: false,
       showRelogin: false,
       showPaywall: false,
-      userName: new GetProfile().username,
-      initialUser: new GetProfile().initname,
+      userName: false,
+      initialUser: false,
     }
   }
 
   componentDidMount() {
-    const { arcSite, typeMobile } = this.props
+    const { siteProperties } = this.props
 
-    if (arcSite === 'gestion' || arcSite === 'elcomercio') {
-      if (!typeMobile) {
-        this.getPaywall()
-      }
+    this.checkUserName()
+
+    if (siteProperties.activePaywall) {
+      this.getPaywall()
     }
+
+    // if (arcSite === 'gestion' || arcSite === 'elcomercio') {
+    //   this.getPaywall()
+    // }
   }
 
   componentDidUpdate() {
-    this._isMounted = true
-
-    if (this.checkSession() && this._isMounted) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        userName: new GetProfile().username,
-        initialUser: new GetProfile().initname,
-      })
-    } else if (this._isMounted) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        userName: 'Iniciar Sesión',
-        initialUser: false,
-      })
-    }
+    this.checkUserName()
   }
 
   componentWillUnmount() {
@@ -216,6 +203,25 @@ class SignwallComponent extends PureComponent {
     return response
   }
 
+  checkUserName() {
+    this._isMounted = true
+    const { arcSite } = this.props
+
+    if (this.checkSession() && this._isMounted) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        userName: new GetProfile().username,
+        initialUser: new GetProfile().initname,
+      })
+    } else if (this._isMounted) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        userName: arcSite === 'elcomercio' ? 'Iniciar' : 'Iniciar Sesión',
+        initialUser: false,
+      })
+    }
+  }
+
   closeSignwall() {
     this.setState({ isActive: false })
   }
@@ -255,109 +261,79 @@ class SignwallComponent extends PureComponent {
       showRelogin,
       showPaywall,
     } = this.state
-    const { arcSite, siteProperties, typeMobile } = this.props
+    const { arcSite, siteProperties } = this.props
 
     return (
       <>
-        <button
+        <ButtonSignwall
+          site={arcSite}
           type="button"
           id={
             this.checkSession()
               ? 'web_link_ingresaperfil'
               : 'web_link_ingresacuenta'
           }
-          className={
-            typeMobile
-              ? `${classes.btnSignwallMobile} ${
-                  arcSite === 'peru21' || arcSite === 'peru21g21' ? 'bg-white' : null
-                }`
-              : `${classes.btnLogin} btn--outline`
-          }
-          style={{
-            paddingLeft: !typeMobile ? '10px' : '',
-            paddingRight: !typeMobile ? '10px' : '',
-            width: !typeMobile ? 'auto' : '',
-          }}
           onClick={() => this.setState({ isActive: true })}>
-          {typeMobile ? (
-            <i
-              className={
-                initialUser
-                  ? `${classes.iconSignwallMobile} font-bold`
-                  : `${classes.iconLogin} ${classes.iconSignwallMobile}  title-sm`
-              }>
-              {initialUser}
-            </i>
-          ) : (
-            <span>
-              {// eslint-disable-next-line no-nested-ternary
-              this.checkSession()
-                ? userName
-                : arcSite === 'elcomercio'
-                ? 'Iniciar'
-                : 'Iniciar Sesión'}
-            </span>
-          )}
-        </button>
+          <i className={!initialUser ? `${classes.iconLogin}` : ``}>
+            {initialUser}
+          </i>
+          <span>{userName}</span>
+        </ButtonSignwall>
 
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
-        {!typeMobile && (
-          <>
-            {this.getUrlParam('signwallHard') &&
-            !this.checkSession() &&
-            showHard &&
-            siteProperties.activeSignwall ? (
-              <SignWallHard
-                closePopup={() => this.closePopUp('signwallHard')}
-                brandModal={arcSite}
-              />
-            ) : null}
+        {this.getUrlParam('signwallHard') &&
+        !this.checkSession() &&
+        showHard &&
+        siteProperties.activeSignwall ? (
+          <SignWallHard
+            closePopup={() => this.closePopUp('signwallHard')}
+            brandModal={arcSite}
+          />
+        ) : null}
 
-            {this.getUrlParam('tokenVerify') &&
-            showVerify &&
-            siteProperties.activeSignwall ? (
-              <SignWallVerify
-                closePopup={() => this.closePopUp('tokenVerify')}
-                brandModal={arcSite}
-                tokenVerify={this.getUrlParam('tokenVerify')}
-              />
-            ) : null}
+        {this.getUrlParam('tokenVerify') &&
+        showVerify &&
+        siteProperties.activeSignwall ? (
+          <SignWallVerify
+            closePopup={() => this.closePopUp('tokenVerify')}
+            brandModal={arcSite}
+            tokenVerify={this.getUrlParam('tokenVerify')}
+          />
+        ) : null}
 
-            {this.getUrlParam('tokenReset') &&
-            showReset &&
-            siteProperties.activeSignwall ? (
-              <SignWallReset
-                closePopup={() => this.closePopUp('tokenReset')}
-                brandModal={arcSite}
-                tokenReset={this.getUrlParam('tokenReset')}
-              />
-            ) : null}
+        {this.getUrlParam('tokenReset') &&
+        showReset &&
+        siteProperties.activeSignwall ? (
+          <SignWallReset
+            closePopup={() => this.closePopUp('tokenReset')}
+            brandModal={arcSite}
+            tokenReset={this.getUrlParam('tokenReset')}
+          />
+        ) : null}
 
-            {this.getUrlParam('reloginEmail') &&
-            !this.checkSession() &&
-            showRelogin &&
-            siteProperties.activeSignwall ? (
-              <SignWallRelogin
-                closePopup={() => this.closePopUp('reloginEmail')}
-                brandModal={arcSite}
-              />
-            ) : null}
+        {this.getUrlParam('reloginEmail') &&
+        !this.checkSession() &&
+        showRelogin &&
+        siteProperties.activeSignwall ? (
+          <SignWallRelogin
+            closePopup={() => this.closePopUp('reloginEmail')}
+            brandModal={arcSite}
+          />
+        ) : null}
 
-            {(this.getUrlParam('signwallPaywall') ||
-              this.getUrlParam('signwallPremium')) &&
-            showPaywall &&
-            siteProperties.activePaywall ? (
-              <SignWallPayPre
-                closePopup={() => this.closePopUp('signwallPaywall')}
-                brandModal={arcSite}
-                typeModal={
-                  this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
-                }
-              />
-            ) : null}
-          </>
-        )}
+        {(this.getUrlParam('signwallPaywall') ||
+          this.getUrlParam('signwallPremium')) &&
+        showPaywall &&
+        siteProperties.activePaywall ? (
+          <SignWallPayPre
+            closePopup={() => this.closePopUp('signwallPaywall')}
+            brandModal={arcSite}
+            typeModal={
+              this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
+            }
+          />
+        ) : null}
       </>
     )
   }

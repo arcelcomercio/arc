@@ -166,7 +166,8 @@
       }
     }
   }
-  &.special_basic {
+  &.special_basic,
+  &.archivo-elcomercio {
     .story-special-title_note {
       font-family: $fourth-font;
       @media (--only-mobile) {
@@ -185,6 +186,10 @@
     color: $color-white;
   }
   &.special
+    .header-inverted.active
+    .nav__story-social-network
+    .story-header__icon,
+  &.archivo-elcomercio
     .header-inverted.active
     .nav__story-social-network
     .story-header__icon {

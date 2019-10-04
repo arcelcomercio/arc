@@ -16,6 +16,9 @@
     }
     a {
       color: #4a88b1;
+      b {
+        font-family: $fifth-font;
+      }
     }
     b {
       font-family: $tertiary-font;
@@ -48,6 +51,14 @@
   }
   &__author-email {
     font-family: $fourth-font;
+  }
+  &__more-link {
+    .icon-linkedin-circle {
+      color: #0e76a8;
+    }
+  }
+  &__list-more {
+    width: 110px;
   }
 }
 

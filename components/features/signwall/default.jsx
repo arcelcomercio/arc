@@ -18,7 +18,6 @@ class Signwall extends PureComponent {
     this.state = {
       showLogin: false,
       showPanel: false,
-      sessUser: false,
     }
 
     const { arcSite } = this.props
@@ -33,33 +32,8 @@ class Signwall extends PureComponent {
     window.Identity.apiOrigin = this.origin_api
   }
 
-  componentDidUpdate = () => {
-    this._isMounted = true
-    const { sessUser } = this.state
-
-    if (this.checkSession() && !sessUser && this._isMounted) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        sessUser: true,
-      })
-      // this.togglePopupPanel()
-    } else if (this.checkSession() === false && sessUser && this._isMounted) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        sessUser: false,
-      })
-      // this.togglePopupLogin()
-    }
-  }
-
   componentDidMount = () => {
-    this._isMounted = true
-    const { sessUser } = this.state
-
-    if (this.checkSession() && !sessUser && this._isMounted) {
-      this.setState({
-        sessUser: true,
-      })
+    if (this.checkSession()) {
       this.togglePopupPanel()
     } else {
       this.togglePopupLogin()
@@ -80,20 +54,29 @@ class Signwall extends PureComponent {
   }
 
   togglePopupLogin() {
+    this._isMounted = true
     const { showLogin } = this.state
     const { closeSignwall } = this.props
-    this.setState({
-      showLogin: !showLogin,
-    })
+
+    if (this._isMounted) {
+      this.setState({
+        showLogin: !showLogin,
+      })
+    }
+
     if (showLogin) closeSignwall()
   }
 
   togglePopupPanel() {
+    this._isMounted = true
     const { showPanel } = this.state
     const { closeSignwall } = this.props
-    this.setState({
-      showPanel: !showPanel,
-    })
+    if (this._isMounted) {
+      this.setState({
+        showPanel: !showPanel,
+      })
+    }
+
     if (showPanel) closeSignwall()
   }
 

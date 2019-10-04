@@ -48,7 +48,7 @@ class SignWallPaywall extends Component {
   }
 
   handleSuscription = e => {
-    const { removeBefore, typePopUp } = this.props
+    const { removeBefore, typePopUp, arcSite } = this.props
     e.preventDefault()
     window.sessionStorage.setItem(
       'paywall_last_url',
@@ -57,7 +57,7 @@ class SignWallPaywall extends Component {
         : ''
     )
     removeBefore() // dismount before
-    window.location.href = Domains.getUrlPaywall()
+    window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typePopUp)
   }
 
@@ -100,7 +100,7 @@ class SignWallPaywall extends Component {
                     <p>{paywallDescripcion}</p>
                   </div>
                 </div>
-                <h3 className="title-line uppercase text-center mt-30 mb-20">
+                <h3 className={`title-line line-${arcSite} uppercase text-center mt-30 mb-20`}>
                   <span>Beneficios</span>
                 </h3>
                 <ul className="list-benefits mb-20">
