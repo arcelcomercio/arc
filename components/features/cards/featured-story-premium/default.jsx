@@ -121,6 +121,7 @@ const FeaturedStoryPremium = props => {
 
     const arrError = []
     if (note1 !== '' && !isPublished1 && date1 < dateNote1) {
+      console.log(auxNote1)
       arrError.push({
         note: 'Nota 1',
         publish_date: dateNote1,

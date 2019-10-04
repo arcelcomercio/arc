@@ -15,12 +15,14 @@ const classes = {
   buttonApp: 'stick__button p-10 text-center',
 }
 
+const TIMERLOADWAIT = 5000
 @Consumer
 class Stick extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      active: true,
+      hasTicker: false,
+      active: false,
     }
   }
 
@@ -83,20 +85,32 @@ class Stick extends PureComponent {
       })
     })
 
-    // eslint-disable-next-line no-undef
-    if (apntag && Object.keys(apntag).length > 1) {
-      // eslint-disable-next-line no-undef
-      apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
-        const tickerContainer = document.querySelector('#content_ads_m_ticker')
-        this.closeStick()
-        tickerContainer.addEventListener('click', evt => {
-          if (evt.target.classList.contains('zocalo-button-close')) {
-            this.openStick()
-          }
-        })
-      })
+    /* const resp = this.hasTickerLoad(1)
+
+    if ((resp && !resp.hasTicker) || (resp && resp.excedTime)) {
+      this.openStick()
     }
+ */
+    // eslint-disable-next-line no-undef
+    /* apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
+      const tickerContainer = document.querySelector('#content_ads_m_ticker')
+      this.closeStick()
+      tickerContainer.addEventListener('click', evt => {
+        if (evt.target.classList.contains('zocalo-button-close')) {
+          this.openStick()
+        }
+      })
+    }) */
   }
+
+  /* hasTickerLoad = time => {
+    const ticker = document.querySelector('#content_ads_m_ticker')
+    const loadTicker = ticker ? ticker.childNodes.length : 0
+
+    return time >= TIMERLOADWAIT || loadTicker > 0
+      ? { hasTicker: loadTicker > 0, excedTime: time >= TIMERLOADWAIT }
+      : this.hasTickerLoad(time + 1)
+  } */
 
   closeStick = () => {
     this.setState({
@@ -140,7 +154,7 @@ class Stick extends PureComponent {
       },
     } = this.props
 
-    const { active } = this.state
+    const { hasTicker, active } = this.state
 
     const { link } = new StoryData({
       data: globalContent,
@@ -151,7 +165,8 @@ class Stick extends PureComponent {
     )
 
     return (
-      <div className={`${classes.stickWrapper} ${active ? 'block' : 'hidden'}`}>
+      <div
+        className={`${classes.stickWrapper} ${!active ? 'block' : 'hidden'}`}>
         <div className={classes.stick}>
           <i
             role="button"
