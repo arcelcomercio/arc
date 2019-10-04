@@ -1,6 +1,5 @@
 export default {
   siteName: 'Mag.',
-  sitemapNewsName: 'El Comercio Mag',
   googleFonts: 'Fira+Sans:400,600,700|Noto+Serif:400,700',
 
   colorPrimary: '#262627',

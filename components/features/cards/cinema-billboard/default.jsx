@@ -43,52 +43,54 @@ class CardCinemaBillboard extends PureComponent {
     this.state = {
       movieSelected: '',
       cinemaSelected: '',
+      premiereData: {
+        title: '',
+        img: '',
+        url: '',
+        alt: '',
+      },
+      billboardData: {
+        moviesList: [],
+        cinemasList: [],
+      },
     }
+  }
 
+  componentDidMount() {
+    this.getBillboard()
+  }
+
+  getBillboard() {
+    const { fetched } = this.getContent('cinema-billboard', { website: '' })
     const { arcSite, deployment, contextPath } = this.props
 
-    this.fetchContent({
-      data: {
-        source: 'cinema-billboard',
-        query: { website: '' },
-        // filter: schema,
-        transform: response => {
-          const { peliculas, cines, estrenos = [] } = response
+    fetched.then(response => {
+      const { peliculas, cines, estrenos = [] } = response
 
-          const moviesList = Object.values(peliculas)
-          const cinemasList = cines
+      const moviesList = Object.values(peliculas)
+      const cinemasList = cines
 
-          const {
-            poster: {
-              sizes: { poster = '' } = {},
-              resized_urls: { portrait_lg: portraitLg } = {},
-            } = {},
-            name,
-            url,
-            body,
-          } = estrenos[0] || {}
+      const { poster: { sizes: { poster = '' } = {} } = {}, name, url, body } =
+        estrenos[0] || {}
 
-          const premiereData = {
-            title: name,
-            img:
-              portraitLg ||
-              poster ||
-              defaultImage({
-                deployment,
-                contextPath,
-                arcSite,
-                size: 'sm',
-              }),
-            url,
-            alt: body,
-          }
+      const premiereData = {
+        title: name,
+        img:
+          poster ||
+          defaultImage({
+            deployment,
+            contextPath,
+            arcSite,
+            size: 'sm',
+          }),
+        url,
+        alt: body,
+      }
 
-          return {
-            premiereData,
-            billboardData: { moviesList, cinemasList },
-          }
-        },
-      },
+      this.setState({
+        premiereData,
+        billboardData: { moviesList, cinemasList },
+      })
     })
   }
 
@@ -117,7 +119,8 @@ class CardCinemaBillboard extends PureComponent {
     const {
       movieSelected,
       cinemaSelected,
-      data: { billboardData, premiereData: { alt, img, title, url } } = {},
+      billboardData,
+      premiereData: { alt, img, title, url },
     } = this.state
 
     return (
