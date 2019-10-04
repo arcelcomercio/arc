@@ -214,7 +214,14 @@ class StoryContentAmp extends PureComponent {
                 href={URL_BBC}
                 rel="nofollow noopener noreferrer"
                 target="_blank">
-                <img alt="BBC" src={imgBbc} data-src={imgBbc} />
+                <amp-img
+                  alt="BBC"
+                  layout="responsive"
+                  width="500"
+                  height="30"
+                  src={imgBbc}
+                  data-src={imgBbc}
+                />
               </a>
             </div>
           )}
