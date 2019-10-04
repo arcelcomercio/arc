@@ -69,7 +69,7 @@ module.exports = (mode, type = 'index') => {
   }
 
   const fonts = {
-    test: /\.(ttf|eot|woff|woff2)$/,
+    test: /\.(ttf|eot|woff|woff2|svg)$/,
     use: {
       loader: 'file-loader',
       options: {
