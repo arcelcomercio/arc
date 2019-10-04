@@ -182,6 +182,7 @@ class StoryContents extends PureComponent {
                       data={element}
                       className={classes.newsImage}
                       resizer="true"
+                      resizerContent="content"
                     />
                   )
                 }

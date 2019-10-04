@@ -86,7 +86,8 @@ const transformImg = data => {
       [storyData],
       resizerUrl,
       resizerSecret,
-      addResizedUrls
+      addResizedUrls,
+      'story'
     )[0] || null
   )
 }
