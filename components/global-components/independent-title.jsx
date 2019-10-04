@@ -1,7 +1,8 @@
 import React from 'react'
 
 const classes = {
-  titulo: 'independent-title w-full text-white text-center pt-10 pb-10',
+  titulo:
+    'independent-title line-h-none w-full text-white text-center pt-10 pb-10',
   link: 'independent-title__link primary-font title-xs font-bold uppercase',
 }
 
@@ -13,7 +14,7 @@ const classes = {
  * @param bgColor
  * @param fontColor
  * @param TextType String: Es el tipo de nodo a construir para el título.
- * Se espera que sea 'h1', 'h2' o 'h3'.
+ * Se espera que sea 'h1', 'h2', 'h3' o 'div.
  */
 
 const IndependentTitle = ({
@@ -21,7 +22,7 @@ const IndependentTitle = ({
   link,
   bgColor,
   fontColor,
-  TextType = 'h3',
+  TextType = 'h1',
 }) => (
   <TextType className={`${classes.titulo} ${bgColor}`}>
     <a href={link} className={`${classes.link} ${fontColor}`}>
