@@ -12,10 +12,13 @@ const SITEMAP = '/sitemap'
  * cache, tendra que ser en una content source distinta pues la actual
  * "navigation-by-hierarchy" es utilizada por menues y footer,
  * incluso deberian tener un ttl aun mayor.
+ *
+ * @returns {Object} Objeto con estructura manipulable por
+ * xmlBuilder, para construir sitemaps.
  */
 
 @Consumer
-class XmlSections {
+class XmlSectionsSitemap {
   constructor(props) {
     this.props = props
     this.fetchContent({
@@ -72,4 +75,4 @@ class XmlSections {
   }
 }
 
-export default XmlSections
+export default XmlSectionsSitemap
