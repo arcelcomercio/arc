@@ -28,8 +28,11 @@ const pattern = (key = {}) => {
 
   const q = `canonical_website:${website}+${slugSearch}AND+type:story+AND+revision.published:true`
 
+  const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+
   const requestUri = `/content/v4/search/published?q=${q}&size=1&from=${feedOffset ||
-    0}&sort=display_date:desc&website=${website}&single=true`
+    0}&sort=display_date:desc&website=${website}&single=true${excludedFields}`
 
   return requestUri
 }
