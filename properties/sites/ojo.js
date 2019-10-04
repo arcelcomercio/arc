@@ -1,5 +1,6 @@
 export default {
   siteName: 'Ojo',
+  sitemapNewsName: 'Diario Ojo',
 
   googleFonts: 'Alfa+Slab+One|Titillium+Web:400,700',
 
