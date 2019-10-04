@@ -25,6 +25,9 @@ export const WrapperBlock = styled.div`
       color: black;
       font-weight: bold;
       @media ${device.tablet} {
+        font-size: 18px;
+      }
+      @media ${device.desktop} {
         font-size: 20px;
       }
     }

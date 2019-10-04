@@ -1,6 +1,5 @@
 .signwall {
   * {
-    
     .link-color {
       color: $signwall-color-link;
     }
@@ -32,53 +31,53 @@
       }
     }
 
-    .link-identity {
-      &__content {
-        padding: 0;
-        padding-top: 5px;
+    // .link-identity {
+    //   &__content {
+    //     padding: 0;
+    //     padding-top: 5px;
 
-        @media (--tablet) {
-          padding: 5px;
-          // border-right: 1px solid #ebebeb;
-        }
-      }
+    //     @media (--tablet) {
+    //       padding: 5px;
+    //       // border-right: 1px solid #ebebeb;
+    //     }
+    //   }
 
-      &__link {
-        text-decoration: none;
-        font-family: $secondary-font;
-        font-weight: bold;
-        color: gray;
-        font-size: 12px;
-        text-transform: uppercase;
-        display: block;
-        text-align: center;
-      }
+    //   &__link {
+    //     text-decoration: none;
+    //     font-family: $secondary-font;
+    //     font-weight: bold;
+    //     color: gray;
+    //     font-size: 12px;
+    //     text-transform: uppercase;
+    //     display: block;
+    //     text-align: center;
+    //   }
 
-      &__text {
-        vertical-align: middle;
-        display: inline-block;
-        margin-left: 5px;
-        color: $signwall-home-link-color;
-      }
+    //   &__text {
+    //     vertical-align: middle;
+    //     display: inline-block;
+    //     margin-left: 5px;
+    //     color: $signwall-home-link-color;
+    //   }
 
-      &__icon {
-        vertical-align: middle;
-        display: inline-block;
-        padding: 5px 0px;
-        border-radius: 50%;
-        margin: 0px 0px 0px 5px;
-        min-height: 25px;
-        min-width: 25px;
+    //   &__icon {
+    //     vertical-align: middle;
+    //     display: inline-block;
+    //     padding: 5px 0px;
+    //     border-radius: 50%;
+    //     margin: 0px 0px 0px 5px;
+    //     min-height: 25px;
+    //     min-width: 25px;
 
-        &--user {
-          font-style: normal;
-          font-family: $secondary-font !important;
-          font-weight: bold;
-          text-transform: uppercase;
-          line-height: 16px;
-        }
-      }
-    }
+    //     &--user {
+    //       font-style: normal;
+    //       font-family: $secondary-font !important;
+    //       font-weight: bold;
+    //       text-transform: uppercase;
+    //       line-height: 16px;
+    //     }
+    //   }
+    // }
 
     .hidden-tablet {
       display: block;

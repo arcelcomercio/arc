@@ -20,7 +20,7 @@ const classes = {
   wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
-  navContainerRight: `nav__container-right position-absolute hidden lg:inline-block`,
+  navContainerRight: `nav__container-right position-absolute lg:inline-block`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
   searchContainer:
     'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
@@ -38,7 +38,7 @@ const classes = {
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
   btnContainer: 'flex items-center justify-end header__btn-container',
-  btnSubscribe: `flex items-center btn hidden capitalize text-md font-bold md:inline-block`,
+  btnSubscribe: `flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block`,
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden line-h-sm',
@@ -525,29 +525,18 @@ class NavBarDefault extends PureComponent {
             {/** ************* RIGHT *************** */}
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
-              {siteProperties.activeSignwall && (
-                <div className={`${classes.btnContainer}`}>
-                  
-                  {siteProperties.activePaywall ? (
-                    <Button
-                      btnText="Suscríbete"
-                      btnClass={`${classes.btnSubscribe} btn--outline`}
-                      btnLink={`https://suscripciones.${arcSite}.pe/?ref=home-header`}
-                    />
-                  ) : null}
+              <div className={`${classes.btnContainer}`}>
+                {siteProperties.activePaywall && (
+                  <Button
+                    btnText="Suscríbete"
+                    btnClass={`${classes.btnSubscribe}`}
+                    btnLink={siteProperties.urlSubsOnline}
+                  />
+                )}
 
-                  <SignwallComponent />
-
-                </div>
-              )}
-            </div>
-
-            {siteProperties.activeSignwall && (
-              <div
-                className={`${classes.btnContainer} ${classes.navMobileContainer} ${responsiveClass}`}>
-                <SignwallComponent typeMobile />
+                {siteProperties.activeSignwall && <SignwallComponent />}
               </div>
-            )}
+            </div>
 
             {this.isStory && (
               <div className={classes.navLoaderWrapper}>

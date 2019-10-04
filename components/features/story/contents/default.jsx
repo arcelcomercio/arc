@@ -106,7 +106,8 @@ class StoryContents extends PureComponent {
     const {
       publishDate: date,
       promoItems,
-      displayDate: updatedDatea,
+      displayDate: updatedDate,
+      createdDate,
       contentElements,
       authorImage,
       authorLink,
@@ -128,7 +129,7 @@ class StoryContents extends PureComponent {
       authorImage,
       author,
       authorLink,
-      updatedDate: getDateSeo(updatedDatea),
+      updatedDate: getDateSeo(updatedDate || createdDate),
       date,
       primarySectionLink,
       authorEmail,
