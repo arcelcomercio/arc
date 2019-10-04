@@ -38,7 +38,6 @@ class XmlStoriesSitemap {
     } = this.props
     const { content_elements: stories } = globalContent || {}
 
-    console.log('----=-=-=-=-=-=>', stories)
     if (!stories) {
       return null
     }
