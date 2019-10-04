@@ -13,6 +13,7 @@ const HeaderSectionTitle = ({
     sectionUrl = '',
     bgColor = '',
     fontColor = '',
+    TextType = 'h1',
   } = {},
 }) => {
   const { contextPath, globalContent: data } = useFusionContext()
@@ -30,6 +31,7 @@ const HeaderSectionTitle = ({
     link,
     bgColor,
     fontColor,
+    TextType,
   }
 
   return <SectionTitle {...params} />
