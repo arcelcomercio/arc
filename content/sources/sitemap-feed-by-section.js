@@ -5,7 +5,7 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import {
   addResizedUrlsToStory,
-  removeLastSlash,
+  // removeLastSlash,
 } from '../../components/utilities/helpers'
 
 const SCHEMA_NAME = 'stories'
@@ -30,11 +30,8 @@ const options = {
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
   const { section, stories_qty: storiesQty } = key
-  let clearSection = removeLastSlash(section)
-  clearSection =
-    clearSection === '' || clearSection === undefined || clearSection === null
-      ? '/'
-      : clearSection
+  const clearSection =
+    section === '' || section === undefined || section === null ? '/' : section
 
   const body = {
     query: {
@@ -85,9 +82,8 @@ const pattern = (key = {}) => {
   return request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSection}`,
     ...options,
-  }).then(resp => {
-    if (Object.prototype.hasOwnProperty.call(resp, 'status'))
-      throw new Error('Sección no encontrada')
+  }).then(({ status }) => {
+    if (status) throw new Error('Sección no encontrada')
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
         50}&from=0&sort=display_date:desc${sourceExclude}`,
@@ -105,7 +101,7 @@ const pattern = (key = {}) => {
 
       return {
         ...dataStory,
-        // section_name: resp.name || 'Sección',
+        // section_name: name || 'Sección',
       }
     })
   })
