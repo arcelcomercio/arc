@@ -24,8 +24,14 @@ class XmlStoriesSitemap {
 
   promoItemHeadlines = ({ promo_items: promoItems }) => {
     if (!promoItems) return ''
-    const item = Object.values(promoItems)[0]
-    return item.caption || (item.headlines && item.headlines.basic)
+    const {
+      subtitle,
+      caption,
+      headlines: { basic: headlinesBasic } = {},
+      description: { basic: descriptionBasic } = {},
+    } = Object.values(promoItems)[0] || {}
+
+    return subtitle || caption || headlinesBasic || descriptionBasic || ''
   }
 
   render() {
@@ -54,24 +60,27 @@ class XmlStoriesSitemap {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${storyData.link}`,
-            lastmod: this.localISODate(storyData.publishDate),
+            loc: `${siteUrl}${storyData.link || ''}`,
+            lastmod: this.localISODate(storyData.publishDate || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,
                 'news:language': 'es',
               },
-              'news:publication_date': this.localISODate(storyData.date),
+              'news:publication_date': this.localISODate(storyData.date || ''),
               'news:title': storyData.title,
               'news:keywords': {
                 '#cdata':
                   storyData.seoKeywords.toString() ||
-                  storyData.tags.toString() ||
+                  storyData.tags
+                    .map(tag => tag && tag.description)
+                    .toString() ||
                   arcSite,
               },
             },
             'image:image': {
-              'image:loc': storyData.multimediaLandscapeL,
+              'image:loc':
+                storyData.multimediaLandscapeL || storyData.multimedia || '',
               'image:title': {
                 '#cdata': this.promoItemHeadlines(story),
               },
