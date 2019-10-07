@@ -4,7 +4,7 @@ $duration: 1.4s;
 .spinner {
   &__svg {
     animation: spinner__rotator $duration linear infinite;
-    stroke: $color-base-100;
+    stroke: $color-gray-300;
   }
 
   &__circle {

@@ -139,7 +139,9 @@ export default ({
     "@context":"http://schema.org",
     "@type":"NewsArticle",
     "datePublished":"${publishDate}",
-    "dateModified":"${lastPublishDate}",
+    "dateModified":"${
+      arcSite === ConfigParams.SITE_ELCOMERCIO ? publishDate : lastPublishDate
+    }",
     "headline":"${formatHtmlToText(title)}",
     "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
@@ -249,7 +251,14 @@ export default ({
         }
       />
       <meta property="article:published_time" content={publishDate} />
-      <meta property="article:modified_time" content={lastPublishDate} />
+      <meta
+        property="article:modified_time"
+        content={`${
+          arcSite === ConfigParams.SITE_ELCOMERCIO
+            ? publishDate
+            : lastPublishDate
+        }`}
+      />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
 
