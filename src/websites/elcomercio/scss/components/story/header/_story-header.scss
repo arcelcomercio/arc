@@ -20,4 +20,9 @@
   &__news-summary {
     font-size: 18px;
   }
+  &__list {
+    @media (--only-mobile) {
+      display: flex;
+    }
+  }
 }

@@ -44,6 +44,16 @@
     color: #888888;
     font-size: 10px;
     font-family: $tertiary-font;
+    @media (--only-mobile) {
+      text-align: right;
+      width: 134px;
+      order: 1;
+    }
+  }
+  &__author {
+    @media (--only-mobile) {
+      flex-direction: row;
+    }
   }
   &__author-link {
     font-family: $fourth-font;
