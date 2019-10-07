@@ -38,5 +38,14 @@
         font-size: 24px;
       }
     }
+    .featured-premium__box-icon {
+      border-top-color: $color-base-100;
+      &::before {
+        background-color: $color-base-100;
+      }
+      &::after {
+        background-color: $color-base-100;
+      }
+    }
   }
 }
