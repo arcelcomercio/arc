@@ -1,0 +1,17 @@
+.most-read-premium-item {
+  & .multimedia__icon {
+    font-size: 50px;
+    top: calc(50% - 25px);
+    right: calc(50% - 25px);
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    // background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__link-box {
+    margin: 2px 0px;
+  }
+
+  // &__time {}
+  // &__link {}
+}
