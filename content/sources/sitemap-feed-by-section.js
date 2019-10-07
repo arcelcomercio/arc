@@ -77,7 +77,7 @@ const pattern = (key = {}) => {
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
-  const sourceExclude = `&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website,related_content,version`
+  const sourceExclude = `&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,related_content`
 
   return request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSection}`,
