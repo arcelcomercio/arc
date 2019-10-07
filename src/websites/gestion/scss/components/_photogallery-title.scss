@@ -1,5 +1,7 @@
 .photogallery-title {
   &__btn {
+    text-transform: initial;
+    font-weight: bold;
     @media (--only-mobile) {
       position: relative;
       width: 90px;
