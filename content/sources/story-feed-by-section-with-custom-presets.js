@@ -228,7 +228,11 @@ const pattern = (key = {}) => {
       const dataStory = data
       const { resizerUrl, siteName } = getProperties(website)
       dataStory.content_elements = addResizedUrlsToStory(
-        dataStory.content_elements,
+        dataStory.content_elements.map(el => {
+          const aux = el
+          aux.content_elements = []
+          return el
+        }),
         resizerUrl,
         { preset1, preset2, preset3 }
       )
