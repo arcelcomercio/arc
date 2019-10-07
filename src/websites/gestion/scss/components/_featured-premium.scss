@@ -1,4 +1,7 @@
 .featured-premium {
+  &--gray {
+    background-color: #f1f1f1;
+  }
   &__title,
   &__section {
     font-size: 30px;
