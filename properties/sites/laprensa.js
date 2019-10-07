@@ -1,5 +1,6 @@
 export default {
   siteName: 'La Prensa',
+  sitemapNewsName: 'Diario La Prensa',
 
   googleFonts: 'Lato:400,700|Exo:500',
 
