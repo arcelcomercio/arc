@@ -55,6 +55,7 @@ export default ({
   const isStory =
     requestUri.match(`^(/(.*)/.*-noticia)`) ||
     requestUri.match(`^/preview/([A-Z0-9]{26})/?`)
+
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory ? `story ${nameSeccion.split('/')[1]} ${subtype}` : ''
@@ -89,9 +90,7 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -167,6 +166,9 @@ export default ({
         />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
+        {arcSite === 'elcomerciomag' && (
+          <meta property="fb:pages" content="530810044019640" />
+        )}
         {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
@@ -239,9 +241,7 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
