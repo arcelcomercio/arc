@@ -97,7 +97,6 @@ class StoryContents extends PureComponent {
       deployment,
       siteProperties: {
         ids: { opta },
-        siteUrl,
       },
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
