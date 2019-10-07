@@ -11,6 +11,8 @@ import StorySocialChildAmpSocial from '../../story/social/_children/amp-social'
 import ElePrincipal from '../../story/contents/_children/amp-ele-principal'
 import StoryData from '../../../utilities/story-data'
 import StoryContentChildTags from '../../story/contents/_children/tags'
+import StoryContentChildRelated from '../../story/contents/_children/related'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -42,20 +44,25 @@ const VideoSectionAmp = () => {
     tags,
     promoItems,
     authorLink,
+    relatedContent,
     author,
   } = new StoryData({
     data,
     contextPath,
   })
 
-  const dataSlot1 = `/${adsAmp.dataSlot}/${
+  const dataSlotNa = `/${adsAmp.dataSlot}/${
     arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
   }-amp-320x50-top-movil1`
-
-  const placementId1 = adsAmp.movil1
+  const placementIdNa = adsAmp.movil1
   const width = '320'
   const height = '50'
-  const parameters1 = { dataSlot1, placementId1, width, height }
+  const parametersNa = {
+    dataSlot: dataSlotNa,
+    placementId: placementIdNa,
+    width,
+    height,
+  }
 
   const namePublicidad =
     arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
@@ -94,7 +101,7 @@ const VideoSectionAmp = () => {
         <header>
           <div
             className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parameters)}
+            dangerouslySetInnerHTML={publicidadAmp(parametersNa)}
           />
 
           {storyTagsBbc(tags) && (
@@ -133,6 +140,7 @@ const VideoSectionAmp = () => {
         <p className={classes.author}>
           <a href={authorLink}>{author}</a>
         </p>
+
         <div
           className={classes.adsAmp}
           dangerouslySetInnerHTML={publicidadAmp(parametersMovil4)}
@@ -142,6 +150,27 @@ const VideoSectionAmp = () => {
           dangerouslySetInnerHTML={publicidadAmp(parametersMovil5)}
         />
         <StoryContentChildTags data={tags} {...isAmp} />
+        {relatedContent.length > 0 && (
+          <div className={classes.related}>
+            <div className={classes.relatedTitle}>Relacionadas </div>
+            {relatedContent.map((item, i) => {
+              const { type } = item
+              const key = `related-${i}`
+              return type !== ConfigParams.ELEMENT_STORY ? (
+                ''
+              ) : (
+                <StoryContentChildRelated
+                  key={key}
+                  {...item}
+                  contextPath={contextPath}
+                  arcSite={arcSite}
+                  deployment={deployment}
+                  isAmp="true"
+                />
+              )
+            })}
+          </div>
+        )}
       </div>
     </>
   )
