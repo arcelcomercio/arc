@@ -55,6 +55,7 @@ export default ({
   const isStory =
     requestUri.match(`^(/(.*)/.*-noticia)`) ||
     requestUri.match(`^/preview/([A-Z0-9]{26})/?`)
+
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory ? `story ${nameSeccion.split('/')[1]} ${subtype}` : ''

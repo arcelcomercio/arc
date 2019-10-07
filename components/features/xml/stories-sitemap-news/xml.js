@@ -2,25 +2,27 @@ import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 
 /**
- * @description Este feature obtiene los datos que necesita desde "globalContent" y
+ * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
  * funciona mejor con la content-source "sitemap-feed-by-section"
  *
  * @returns {Object} Objeto con estructura manipulable por
- * xmlBuilder, para construir sitemaps.
+ * xmlBuilder, para construir sitemaps para Google news.
  */
 
 @Consumer
-class XmlStoriesSitemap {
+class XmlStoriesSitemapNews {
   constructor(props) {
     this.props = props
   }
 
   localISODate = date => {
     let localDate = date ? new Date(date) : new Date()
-    localDate.setHours(localDate.getHours() - 5)
-    localDate = `${localDate.toISOString().split('.')[0]}-05:00`
+    /* localDate.setHours(localDate.getHours() - 5)
+    localDate = `${localDate.toISOString().split('.')[0]}-05:00` */
+    localDate = localDate.toISOString()
     return localDate
   }
+
 
   promoItemHeadlines = ({ promo_items: promoItems }) => {
     if (!promoItems) return ''
@@ -61,7 +63,7 @@ class XmlStoriesSitemap {
         return {
           url: {
             loc: `${siteUrl}${storyData.link || ''}`,
-            lastmod: this.localISODate(storyData.publishDate || ''),
+            lastmod: this.localISODate(storyData.date || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,
@@ -103,4 +105,4 @@ class XmlStoriesSitemap {
   }
 }
 
-export default XmlStoriesSitemap
+export default XmlStoriesSitemapNews

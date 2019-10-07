@@ -43,8 +43,9 @@ class XmlSectionsSitemap {
 
   localISODate = date => {
     let localDate = date ? new Date(date) : new Date()
-    localDate.setHours(localDate.getHours() - 5)
-    localDate = `${localDate.toISOString().split('.')[0]}-05:00`
+    /* localDate.setHours(localDate.getHours() - 5)
+    localDate = `${localDate.toISOString().split('.')[0]}-05:00` */
+    localDate = localDate.toISOString()
     return localDate
   }
 
