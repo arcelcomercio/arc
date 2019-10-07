@@ -5,7 +5,7 @@ const classes = {
     'photogallery-title position-relative flex justify-center items-center',
   showTitle: 'title-md w-full text-black font-bold uppercase',
   showMore:
-    'photogallery-title__btn position-absolute block text-black text-sm pt-10 pb-10 pr-15 pl-15 rounded-sm',
+    'photogallery-title__btn position-absolute block text-black text-sm pt-10 pb-10 pr-15 pl-15 rounded-sm capitalize',
 }
 
 export default ({ titleCustom, textAlign, seeMoreShow, seeMoreLink }) => {
@@ -16,7 +16,7 @@ export default ({ titleCustom, textAlign, seeMoreShow, seeMoreLink }) => {
       </h2>
       {seeMoreShow && (
         <a href={seeMoreLink} className={classes.showMore}>
-          Ver Mas
+          Ver más
         </a>
       )}
     </div>

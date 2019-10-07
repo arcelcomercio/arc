@@ -1,11 +1,11 @@
 export default {
   siteName: 'El Comercio',
-  sitemapNewsName: 'El Comercio',
   newsletterBrand: 'comercio',
   api: {
     blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php',
   },
-  googleFonts: '',
+  googleFonts:
+    'Noto+Serif:400,700|Open+Sans:400,600,700|Libre+Franklin:500,700|Noto+Serif+SC:500,700,900',
 
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
@@ -150,10 +150,6 @@ export default {
     ],
 
     directors: [
-      {
-        position: 'Director General',
-        names: ['FRANCISCO MIRÓ QUESADA CANTUARIAS'],
-      },
       {
         position: 'Director Periodístico',
         names: ['JUAN JOSÉ GARRIDO KOECHLIN'],
