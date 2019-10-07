@@ -70,9 +70,7 @@ class XmlStoriesSitemapNews {
                 'news:language': 'es',
               },
               'news:publication_date': this.localISODate(storyData.date || ''),
-              'news:title': {
-                '#cdata': storyData.title,
-              },
+              'news:title': storyData.title,
               'news:keywords': {
                 '#cdata':
                   storyData.seoKeywords.toString() ||
