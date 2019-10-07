@@ -6,7 +6,7 @@ import StoryData from '../../../utilities/story-data'
  * funciona mejor con la content-source "sitemap-feed-by-section"
  *
  * @returns {Object} Objeto con estructura manipulable por
- * xmlBuilder, para construir sitemaps.
+ * xmlBuilder, para construir sitemaps para Google news.
  */
 
 @Consumer
@@ -63,7 +63,7 @@ class XmlStoriesSitemapNews {
         return {
           url: {
             loc: `${siteUrl}${storyData.link || ''}`,
-            lastmod: this.localISODate(storyData.publishDate || ''),
+            lastmod: this.localISODate(storyData.date || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,

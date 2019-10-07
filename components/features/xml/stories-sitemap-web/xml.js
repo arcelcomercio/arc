@@ -6,7 +6,7 @@ import StoryData from '../../../utilities/story-data'
  * funciona mejor con la content-source "sitemap-feed-by-section"
  *
  * @returns {Object} Objeto con estructura manipulable por
- * xmlBuilder, para construir sitemaps.
+ * xmlBuilder, para construir sitemaps estándar para la web.
  */
 
 @Consumer
