@@ -51,7 +51,7 @@ class StoriesListInfiniteScroll extends PureComponent {
         const { isLoading } = this.state
         if (
           window.innerHeight + document.documentElement.scrollTop >=
-            document.documentElement.offsetHeight - 1000 &&
+            document.documentElement.offsetHeight - 1400 &&
           !isLoading &&
           next > 0
         ) {
@@ -171,7 +171,7 @@ class StoriesListInfiniteScroll extends PureComponent {
           {stories.map((story, index) => {
             const ads = this.hasAds(index + 1, activeAdsArray)
             return (
-              <Fragment key={`Archivo-${story.link}`}>
+              <Fragment key={`Archivo-${story.id}`}>
                 <ListItem
                   {...{
                     story,
