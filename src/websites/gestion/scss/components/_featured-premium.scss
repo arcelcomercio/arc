@@ -1,4 +1,7 @@
 .featured-premium {
+  &--gray {
+    background-color: #f1f1f1;
+  }
   &__title,
   &__section {
     font-size: 30px;
@@ -36,6 +39,15 @@
       line-height: 24px;
       @media (--only-mobile) {
         font-size: 24px;
+      }
+    }
+    .featured-premium__box-icon {
+      border-top-color: $color-base-100;
+      &::before {
+        background-color: $color-base-100;
+      }
+      &::after {
+        background-color: $color-base-100;
       }
     }
   }

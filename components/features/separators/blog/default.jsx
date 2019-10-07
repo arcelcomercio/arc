@@ -12,7 +12,7 @@ const classes = {
   titleSeparator:
     'blog-separator__blog uppercase title-lg text-gray-300 blog-separator__title-header flex flex-row justify-left items-center',
   seeMoreText:
-    'blog-separator__see-more rounded-sm bg-white text-md text-center text-gray-300 capitalize p-10 right-0',
+    'blog-separator__see-more rounded-sm bg-white text-sm text-center text-gray-300 capitalize p-10 right-0',
   seeMoreWrapper:
     'blog-separator__btn-wrapper flex items-center justify-center pt-10',
 }
@@ -61,7 +61,7 @@ class SeparatorBlog extends PureComponent {
           <a
             href={seeMoreUrl}
             className={`${classes.seeMoreText} non-mobile non-tablet`}>
-            ver más
+            Ver más
           </a>
         </div>
         <div className={classes.itemsWrapper}>
@@ -106,7 +106,7 @@ class SeparatorBlog extends PureComponent {
         </div>
         <div className={`${classes.seeMoreWrapper} non-desktop`}>
           <a href={seeMoreUrl} className={classes.seeMoreText}>
-            ver más
+            Ver más
           </a>
         </div>
       </div>
