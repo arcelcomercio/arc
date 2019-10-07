@@ -151,10 +151,6 @@ export default {
 
     directors: [
       {
-        position: 'Director General',
-        names: ['FRANCISCO MIRÓ QUESADA CANTUARIAS'],
-      },
-      {
         position: 'Director Periodístico',
         names: ['JUAN JOSÉ GARRIDO KOECHLIN'],
       },
