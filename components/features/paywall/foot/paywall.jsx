@@ -18,8 +18,6 @@ const Foot = ({ theme }) => {
   } = useFusionContext()
   const {
     siteName,
-    social,
-    apps,
     paywall: { urls },
   } = siteProperties
   const [supportOpen, setSupportOpen] = React.useState(false)
