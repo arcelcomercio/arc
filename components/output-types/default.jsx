@@ -153,10 +153,12 @@ export default ({
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link
-          href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
-          rel="stylesheet"
-        />
+        {googleFonts && (
+          <link
+            href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
+            rel="stylesheet"
+          />
+        )}
         {renderMetaPage(metaValue('id'), metaPageData)}
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
