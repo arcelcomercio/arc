@@ -1,0 +1,10 @@
+.most-read-premium-card {
+  height: $row-height;
+  max-height: $row-height;
+  background-color: $color-base-200;
+  // &__list {}
+  &__image {
+    max-height: 157px;
+    // Esta altura está relacionada a la altura de "landscape_md"
+  }
+}
