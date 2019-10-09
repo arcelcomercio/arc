@@ -1,12 +1,18 @@
 import React from 'react'
-import Multimedia from './multimedia'
+import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 const classes = {
-  story: `stories-l-item flex flex-col w-auto pt-10 pb-10 border-b-1 border-solid border-gray`,
-  time: 'stories-l-item__time text-md line-h-sm mr-10',
-  linkBox: 'stories-l-item__link-box flex flex-col text-gray-300',
-  link: 'stories-l-item__link bold m-0 text-md text-gray-300 line-h-sm',
+  story: `most-read-premium-item flex flex-col w-auto pt-10 pb-10 border-b-1 border-solid border-gray`,
+  time: 'most-read-premium-item__time text-md line-h-sm mr-10',
+  linkBox: 'most-read-premium-item__link-box flex flex-row text-gray-300',
+  link:
+    'most-read-premium-item__link flex bold m-0 text-md text-gray-300 line-h-sm',
   boxNew: 'flex flex-row',
+  figure:
+    'most-read-premium-item__image mr-10 position-relative overflow-hidden',
+  icon:
+    'position-absolute text-center most-read-premium-item__icon mx-auto rounded text-gray-100',
+  image: 'w-full h-full object-center object-cover',
 }
 
 export default ({
@@ -23,26 +29,35 @@ export default ({
   return (
     <article role="listitem" className={classes.story}>
       <div className={classes.linkBox}>
+        {storyNumber && <span className={classes.time}>-{storyIndex}-</span>}
         <a href={urlNews} title={title}>
-          <h3 className={classes.link}>
-            {storyNumber && (
-              <span className={classes.time}>-{storyIndex}-</span>
+          <div className={classes.boxNew}>
+            {seeImageNews && (
+              <figure className={classes.figure}>
+                {getMultimediaIcon(multimediaType) && (
+                  <i
+                    className={`${getMultimediaIcon(multimediaType)} ${
+                      classes.icon
+                    }`}
+                  />
+                )}
+
+                {multimedia && (
+                  <a href={urlNews}>
+                    <picture>
+                      <img
+                        className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+                        src={isAdmin ? multimedia : lazyImage}
+                        data-src={multimedia}
+                        alt=""
+                      />
+                    </picture>
+                  </a>
+                )}
+              </figure>
             )}
-            <div className={classes.boxNew}>
-              {seeImageNews && (
-                <Multimedia
-                  {...{
-                    urlNews,
-                    multimedia,
-                    lazyImage,
-                    multimediaType,
-                    isAdmin,
-                  }}
-                />
-              )}
-              {title}
-            </div>
-          </h3>
+            <h3 className={classes.link}>{title}</h3>
+          </div>
         </a>
       </div>
     </article>

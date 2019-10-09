@@ -11,7 +11,7 @@ import Footer from './_children/footer'
 
 const classes = {
   lista:
-    'stories-l-card bg-white flex flex-col overflow-hidden border-1 border-solid border-base',
+    'stories-l-card bg-white flex flex-col justify-between overflow-hidden border-1 border-solid border-base',
 }
 
 const MostReadPremium = props => {
@@ -52,9 +52,11 @@ const MostReadPremium = props => {
 
   return (
     <div className={classes.lista}>
-      <Header {...paramsHeader} />
-      <List {...paramsList} />
-      <Footer {...{ seeMore, seeMoreurl }} />
+      <div>
+        <Header {...paramsHeader} />
+        <List {...paramsList} />
+      </div>
+      {seeMore && <Footer {...{ seeMore, seeMoreurl }} />}
     </div>
   )
 }
