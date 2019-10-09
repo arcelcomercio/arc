@@ -1142,7 +1142,7 @@ class StoryData {
         .map(data => {
           const {
             headlines: { basic } = {},
-            website_url: websiteUrl,
+            canonical_url: websiteUrl,
             _id: storyId,
           } = data
           if (storyId !== id && i < numero) {
