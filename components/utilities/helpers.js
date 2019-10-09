@@ -682,14 +682,23 @@ export const ampHtml = (html = '', arcSite = '') => {
   return resultData
 }
 
-export const publicidadAmp = ({ dataSlot, placementId, width, height }) => {
-  const resultData = createMarkup(`
+export const publicidadAmp = ({
+  dataSlot,
+  placementId,
+  width,
+  height,
+  primarySectionLink = '/peru',
+}) => {
+  const secctionPrimary = primarySectionLink.split('/')
+  let resultData = ''
+  if (secctionPrimary[1] !== 'respuestas') {
+    resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
   data-slot="${dataSlot}"
   rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}'></amp-ad>`)
-
-  return resultData
+  "timeoutMillis": 1000}'></amp-ad>`
+  }
+  return createMarkup(resultData)
 }
 
 export const getResponsiveClasses = ({

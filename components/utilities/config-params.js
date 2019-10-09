@@ -59,6 +59,8 @@ class ConfigParams {
 
   static SITE_ELCOMERCIO = 'elcomercio'
 
+  static SITE_ELCOMERCIOMAG = 'elcomerciomag'
+
   static SITE_PERU21 = 'peru21'
 
   static SITE_OJO = 'ojo'
