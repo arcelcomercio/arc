@@ -217,8 +217,13 @@ class Subscription extends Component {
 
                       <p className="text-center mt-20 text-sm message-paywall">
                         ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
-                        Disfruta <strong>3 meses GRATIS</strong> y luego S/19 al
-                        mes.
+                        Disfruta
+                        <strong>
+                          {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses
+                          GRATIS
+                        </strong>
+                        y luego S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '}
+                        al mes.
                       </p>
                     </div>
                   </div>
