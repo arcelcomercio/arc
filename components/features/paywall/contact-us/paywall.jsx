@@ -19,6 +19,7 @@ const PaywallContactUs = props => {
   const [loading, setLoading] = React.useState(false)
 
   const {
+    arcSite,
     siteProperties: {
       siteUrl = '',
       paywall: { urls },
