@@ -33,7 +33,10 @@ class StoryTitleAmp extends PureComponent {
         subheadlines: { basic: subtitle = '' } = {},
         headlines: { basic: titleElements = '' } = {},
         display_date: updatedDate,
-        taxonomy: { tags = {} } = {},
+        taxonomy: {
+          tags = {},
+          primary_section: { path: primarySectionLink = '' } = {},
+        } = {},
         promo_items: {
           basic_gallery: { content_elements: galleryItems } = {},
         } = {},
@@ -46,7 +49,13 @@ class StoryTitleAmp extends PureComponent {
     const placementId = adsAmp.movil1
     const width = '320'
     const height = '50'
-    const parameters = { dataSlot, placementId, width, height }
+    const parameters = {
+      dataSlot,
+      placementId,
+      width,
+      height,
+      primarySectionLink,
+    }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =

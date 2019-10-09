@@ -75,6 +75,11 @@ class NavbarChildMenu extends PureComponent {
       data: { children: sections = [] } = {},
       siteUrl = '',
       socialNetworks = {},
+      globalContent: {
+        taxonomy: {
+          primary_section: { path: primarySectionLink = '/' } = {},
+        } = {},
+      },
     } = this.props
 
     const icon = {
@@ -90,21 +95,27 @@ class NavbarChildMenu extends PureComponent {
     const logoAmp = deployment(
       `${siteUrl}${contextPath}/resources/assets/amp/icon-cross.png`
     )
+    const secctionPrimary = primarySectionLink.split('/')
+    let resultData = true
+    if (secctionPrimary[1] === 'respuestas') {
+      resultData = false
+    }
 
     return (
       <>
-        <amp-sticky-ad layout="nodisplay">
-          <amp-ad
-            width="320"
-            height="50"
-            type="doubleclick"
-            data-slot={dataSlot}
-            class={classes.mvil0}
-            data-multi-size="320x50,300x100,300x50"
-            data-multi-size-validation="false"
-          />
-        </amp-sticky-ad>
-
+        {resultData && (
+          <amp-sticky-ad layout="nodisplay">
+            <amp-ad
+              width="320"
+              height="50"
+              type="doubleclick"
+              data-slot={dataSlot}
+              class={classes.mvil0}
+              data-multi-size="320x50,300x100,300x50"
+              data-multi-size-validation="false"
+            />
+          </amp-sticky-ad>
+        )}
         <amp-sidebar
           class={classes.sidebar}
           id="sidebar"

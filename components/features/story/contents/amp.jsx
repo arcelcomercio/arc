@@ -53,6 +53,7 @@ class StoryContentAmp extends PureComponent {
       promoItems,
       tags,
       authorLink,
+      primarySectionLink,
       author,
     } = new StoryData({
       data,
@@ -70,7 +71,7 @@ class StoryContentAmp extends PureComponent {
     const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
-    const parameters = { dataSlot, placementId, width, height }
+    const parameters = { dataSlot, placementId, width, height, primarySectionLink }
     const parametersMovil4 = {
       dataSlot: `/${
         adsAmp.dataSlot
@@ -78,6 +79,7 @@ class StoryContentAmp extends PureComponent {
       placementId: adsAmp.movil4,
       width,
       height,
+      primarySectionLink,
     }
     const parametersMovil5 = {
       dataSlot: `/${
@@ -86,6 +88,7 @@ class StoryContentAmp extends PureComponent {
       placementId: adsAmp.movil5,
       width,
       height,
+      primarySectionLink,
     }
     const parametersMovil3 = {
       dataSlot: `/${
@@ -94,6 +97,7 @@ class StoryContentAmp extends PureComponent {
       placementId: adsAmp.movil3,
       width,
       height,
+      primarySectionLink,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =

@@ -140,7 +140,10 @@ export default ({
     "@type":"NewsArticle",
     "datePublished":"${publishDate}",
     "dateModified":"${
-      arcSite === ConfigParams.SITE_ELCOMERCIO ? publishDate : lastPublishDate
+      arcSite === ConfigParams.SITE_ELCOMERCIO ||
+      arcSite === ConfigParams.SITE_ELCOMERCIOMAG
+        ? publishDate
+        : lastPublishDate
     }",
     "headline":"${formatHtmlToText(title)}",
     "description":"${formatHtmlToText(subTitle)}",
@@ -254,7 +257,8 @@ export default ({
       <meta
         property="article:modified_time"
         content={`${
-          arcSite === ConfigParams.SITE_ELCOMERCIO
+          arcSite === ConfigParams.SITE_ELCOMERCIO ||
+          arcSite === ConfigParams.SITE_ELCOMERCIOMAG
             ? publishDate
             : lastPublishDate
         }`}
