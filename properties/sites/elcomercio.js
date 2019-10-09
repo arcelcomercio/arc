@@ -1,5 +1,6 @@
 export default {
   siteName: 'El Comercio',
+  sitemapNewsName: 'El Comercio',
   newsletterBrand: 'comercio',
   api: {
     blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php',
@@ -149,10 +150,6 @@ export default {
     ],
 
     directors: [
-      {
-        position: 'Director General',
-        names: ['FRANCISCO MIRÓ QUESADA CANTUARIAS'],
-      },
       {
         position: 'Director Periodístico',
         names: ['JUAN JOSÉ GARRIDO KOECHLIN'],

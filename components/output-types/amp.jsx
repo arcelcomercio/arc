@@ -137,7 +137,9 @@ const AmpOutputType = ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <meta name="amp-experiments-opt-in" content="amp-next-page" />
+        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
+          <meta name="amp-experiments-opt-in" content="amp-next-page" />
+        )}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}

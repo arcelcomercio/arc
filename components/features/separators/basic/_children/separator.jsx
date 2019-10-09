@@ -12,7 +12,7 @@ const classes = {
   threeline: 'separator__threeline',
   body: 'separator__body mt-0 mb-0 flex justify-between',
   showMore:
-    'separator__btn position-absolute font-bold block text-black text-sm pt-10 pb-10 pr-15 pl-15 rounded-sm',
+    'separator__btn position-absolute font-bold block text-black text-sm pt-10 pb-10 pr-15 pl-15 rounded-sm capitalize',
 }
 
 const SeparatorsBasicChildSeparator = props => {
@@ -75,7 +75,7 @@ const SeparatorsBasicChildSeparator = props => {
           </h2>
           {seeMore && (
             <a href={seeMoreLink} className={classes.showMore}>
-              Ver Mas
+              Ver más
             </a>
           )}
         </div>
