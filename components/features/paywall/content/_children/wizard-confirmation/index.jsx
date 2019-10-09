@@ -1,14 +1,14 @@
 /* eslint-disable no-extra-boolean-cast */
 import React, { useEffect } from 'react'
+import { withTheme } from 'styled-components'
 import * as S from './styled'
 import Button from '../../../_children/button'
-import { devices } from '../../../_dependencies/devices'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
-const PIXEL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
 
 const Item = ({ label, children }) => {
   return (
@@ -19,12 +19,20 @@ const Item = ({ label, children }) => {
 }
 
 const WizardConfirmation = props => {
+  const msgs = useStrings()
   const {
-    assets,
+    theme,
     memo: {
       order: { orderNumber },
       profile: { firstName, lastName, secondLastName, email },
-      plan: { title: plan, sku, priceCode, amount, billingFrequency, description },
+      plan: {
+        title: plan,
+        sku,
+        priceCode,
+        amount,
+        billingFrequency,
+        description,
+      },
       origin,
       referer,
       payment: { total: paidTotal, subscriptionIDs },
@@ -57,7 +65,7 @@ const WizardConfirmation = props => {
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    document.getElementsByClassName('foot')[0].style.position = "relative";
+    document.getElementById('footer').style.position = 'relative'
   }, [])
 
   // const handleClick = () => {
@@ -85,22 +93,27 @@ const WizardConfirmation = props => {
   }
 
   const Frecuency = {
-    "Month" : "Mensual",
-    "Year" : "Anual"
+    Month: 'Mensual',
+    Year: 'Anual',
   }
-  
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
         <S.Picture>
-          <source media={`(${devices.mobile})`} srcSet={PIXEL} />
-          <source media={`${devices.tablet}`} srcSet={PIXEL} />
-          <source srcSet={assets('confirmation_webp')} type="image/webp" />
-          <S.Image src={assets('confirmation')} alt="confirmación" />
+          <source
+            media={theme.breakpoints.down('sm', false)}
+            srcSet={theme.images.pixel}
+          />
+          <source srcSet={theme.images.confirmation_jpg} type="image/jpg" />
+          <source srcSet={theme.images.confirmation_webp} type="image/webp" />
+          <S.Image src={theme.images.confirmation_webp} alt="confirmación" />
         </S.Picture>
 
         <S.Content>
-          <S.Title>¡Bienvenido(a) {firstName}!</S.Title>
+          <S.Title>
+            {msgs.interpolate(msgs.welcomeNewSubscriptor, { firstName })}
+          </S.Title>
 
           {/* <S.Subtitle>
             <strong>POR SER UN SUSCRIPTOR PREMIUM</strong>
@@ -109,34 +122,34 @@ const WizardConfirmation = props => {
             mundo totalmente gratis.
           </S.Subtitle> */}
 
-          <S.Subtitle large>Tu suscripción ha sido exitosa.</S.Subtitle>
-          
+          <S.Subtitle large>{msgs.successfulSubscription}</S.Subtitle>
+
           <S.CardSummary>
-            <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
-            <Item label="PAQUETE: ">
-              {(plan || '').toUpperCase()} - { Frecuency[billingFrequency].toUpperCase() }
+            <S.DetailTitle>{msgs.purchaseDetails.toUpperCase()}</S.DetailTitle>
+            <Item label={`${msgs.planLabel.toUpperCase()}: `}>
+              {(plan || '').toUpperCase()} -{' '}
+              {Frecuency[billingFrequency].toUpperCase()}
             </Item>
-            <Item label="NOMBRE: ">
+            <Item label={`${msgs.nameLabel.toUpperCase()}: `}>
               <S.Names>
                 {firstName} {lastName} {secondLastName}
               </S.Names>
             </Item>
-            <Item label="PRECIO: ">
-               {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
-               { paidTotal !== 0 ?  `S/ ${paidTotal}` : `GRATIS ${description.title} ${description.description}` }
+            <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
+              {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
+              {paidTotal !== 0
+                ? `${msgs.currencySymbol.toUpperCase()} ${paidTotal}`
+                : `${msgs.freeAmount.toUpperCase()} ${description.title} ${
+                    description.description
+                  }`}
             </Item>
-            <S.Small>
-              El precio de la suscripción se cargará automáticamente en tu
-              tarjeta cada mes o año, según el período elegido.
-            </S.Small>
+            <S.Small>{msgs.paymentNotice}</S.Small>
           </S.CardSummary>
-          <S.Span>
-            Enviaremos la boleta de compra de la
-            <br /> suscripción al correo:
-            <strong> {email}</strong>
-          </S.Span>
+          <S.Notice
+            source={msgs.interpolate(msgs.subscriptionNotice, { email })}
+          />
           <S.WrapButton>
-            <Button onClick={handleClick}>SIGUE NAVEGANDO</Button>
+            <Button onClick={handleClick}>{msgs.nextButton}</Button>
             {/* <S.Progress time="17s" onFinish={handleClick} /> */}
           </S.WrapButton>
         </S.Content>
@@ -145,4 +158,6 @@ const WizardConfirmation = props => {
   )
 }
 
-export default WizardConfirmation
+const ThemedWizardConfirmation = withTheme(WizardConfirmation)
+
+export default ThemedWizardConfirmation

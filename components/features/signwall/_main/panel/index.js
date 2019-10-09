@@ -73,7 +73,7 @@ export const Panel = props => {
                   />
                 </div>
                 <div className="panel-right">
-                  {arcSite === 'gestion' ? (
+                  {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
                     <>{renderTemplate(value.selectedTemplate)}</>
                   ) : (
                     <MiPerfil />

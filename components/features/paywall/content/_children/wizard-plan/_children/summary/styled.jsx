@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Head = styled.div`
   display: flex;
@@ -13,9 +13,12 @@ const Wrap = styled.div`
 `
 
 const Separate = styled.div`
-  background-color: #ffebdd;
-  height: 4px;
-  margin: 20px 0;
+  ${({ backgroundColor, theme }) => css`
+    background-color: ${backgroundColor || theme.palette.primary.light};
+    height: 4px;
+    margin: 20px 0;
+    opacity: 0.2;
+  `}
 `
 
 const WrapFeature = styled.div`

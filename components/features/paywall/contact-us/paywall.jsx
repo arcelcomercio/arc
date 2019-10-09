@@ -1,25 +1,28 @@
 import React, { useState, useCallback } from 'react'
+import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
+
 import FormData from './_children/contact-form'
 import Thanks from './_children/thanks'
 import ClientOnly from '../_children/client-only'
 import Loading from '../_children/loading'
-import getDomain from '../_dependencies/domains'
+import Icon from '../_children/icon'
 import * as S from './styled'
-import { MESSAGE } from './_children/contact-form/schema'
-
-const url = getDomain('ORIGIN_SUBSCRIPTION_CORP_API')
+import { useStrings } from '../_children/contexts'
+import { interpolateUrl } from '../_dependencies/domains'
 
 const PaywallContactUs = props => {
+  const msgs = useStrings()
+  const { theme } = props
   const [showThanks, setShowThanks] = useState(false)
   const [error, setError] = React.useState('')
   const [loading, setLoading] = React.useState(false)
 
   const {
-    arcSite,
-    siteProperties: { assets = {}, siteUrl = '' },
-    deployment,
-    contextPath,
+    siteProperties: {
+      siteUrl = '',
+      paywall: { urls },
+    },
   } = useFusionContext()
 
   const initialValuesForm = {
@@ -31,6 +34,8 @@ const PaywallContactUs = props => {
     telefono: '',
     descripcion: '',
   }
+
+  const url = interpolateUrl(urls.originSubscriptionCorpApi)
 
   const onSubmitHandler = useCallback((values, { setSubmitting }) => {
     setLoading(true)
@@ -56,34 +61,34 @@ const PaywallContactUs = props => {
           setSubmitting(false)
           setLoading(false)
         } else if (res.status >= 500) {
-          setError(MESSAGE.API_ERROR)
+          setError(msgs.tryLater)
           setSubmitting(false)
           setLoading(false)
         }
       })
       .catch(err => {
         console.error(err)
-        setError(MESSAGE.API_ERROR)
+        setError(msgs.tryLater)
         setSubmitting(false)
         setLoading(false)
       })
   })
-
-  const basePath = `${contextPath}${assets.path}/images`
-  const webpImgPath = deployment(`${basePath}/img_corporativo.webp`)
-  const pngImgPath = deployment(`${basePath}/img_corporativo.png`)
   return (
     <ClientOnly>
-      <Loading fullscreen spinning={loading} />
+      <Loading
+        loadingIcon={<Icon type={theme.icon.loading} />}
+        fullscreen
+        spinning={loading}
+      />
       <S.WrapContent>
         <S.Picture>
           <source
-            media="(max-width: 1024px)"
-            srcSet="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+            media={theme.breakpoints.down('sm', false)}
+            srcSet={theme.images.pixel}
           />
-          <source type="image/webp" srcSet={webpImgPath} />
-          <source type="image/png" srcSet={pngImgPath} />
-          <img src={webpImgPath} alt="contact_us" />
+          <source type="image/webp" srcSet={theme.images.corporativo_webp} />
+          <source type="image/png" srcSet={theme.images.corporativo_png} />
+          <img src={theme.images.corporativo_webp} alt="contact_us" />
         </S.Picture>
         {showThanks ? (
           <Thanks siteUrl={siteUrl} />
@@ -99,4 +104,6 @@ const PaywallContactUs = props => {
   )
 }
 
-export default PaywallContactUs
+const ThemedPaywallContactUs = withTheme(PaywallContactUs)
+
+export default ThemedPaywallContactUs

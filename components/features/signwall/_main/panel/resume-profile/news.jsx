@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 import { WrapperBlock } from './styles'
 import Services from '../../utils/services'
 import Loading from '../../common/loading'
 
 const services = new Services()
 
-// eslint-disable-next-line import/prefer-default-export
+@Consumer
 class News extends Component {
   _isMounted = false
 
@@ -20,9 +21,10 @@ class News extends Component {
 
   componentDidMount() {
     this._isMounted = true
+    const { arcSite } = this.props
 
     const UUID = window.Identity.userIdentity.uuid
-    const SITE = 'gestion'
+    const SITE = arcSite
     const localNews = JSON.parse(
       window.sessionStorage.getItem('preferencesNews')
     )
@@ -90,7 +92,7 @@ class News extends Component {
 
   render() {
     const { newsletters, checksNews, loading } = this.state
-    const { news } = this.props
+    const { news, arcSite } = this.props
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <WrapperBlock nopadding nobackground nocolumn>
@@ -121,12 +123,11 @@ class News extends Component {
             </div>
           </>
         ) : (
-          <Loading site="gestion" />
+          <Loading site={arcSite} />
         )}
       </WrapperBlock>
     )
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export { News }

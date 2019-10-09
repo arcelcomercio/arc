@@ -74,7 +74,7 @@ class LoginPaywall extends Component {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }}></div>
-                <div className="modal-body__middle intro-paywall">
+                <div className={`modal-body__middle intro-paywall intro-${arcSite}`}>
                   <button
                     type="button"
                     className="btn-close"

@@ -22,19 +22,16 @@ class NewsLetter extends Component {
   }
 
   newSetCategories
-
+  
   timeout
 
   componentDidMount() {
     const { selectCategories } = this.state
+    const { arcSite } = this.props
 
     const UUID = window.Identity.userIdentity.uuid
-    const SITE = 'gestion'
+    const SITE = arcSite
     const localNews = false
-
-    // const localNews = JSON.parse(
-    //   window.sessionStorage.getItem('preferencesNews')
-    // )
 
     const listAllNews = { ...[] }
 
@@ -150,17 +147,6 @@ class NewsLetter extends Component {
           this.setState({ showsuccess: false })
         }, 3000)
       })
-      .catch(err => {
-        // if (
-        //   err.status === false &&
-        //   err.status_code === 401 &&
-        //   err.message === 'Unauthorized'
-        // ) {
-        //   window.console.log('refresh')
-        //   window.Identity.extendSession()
-        //   this.setPreference()
-        // }
-      })
   }
 
   debounce = () => {
@@ -199,6 +185,9 @@ class NewsLetter extends Component {
       showsuccess,
       // textSave,
     } = this.state
+
+    const { arcSite } = this.props
+
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <Wrapper>
@@ -235,7 +224,7 @@ class NewsLetter extends Component {
             </div>
           </>
         ) : (
-          <Loading site="gestion" />
+          <Loading site={arcSite} />
         )}
       </Wrapper>
     )

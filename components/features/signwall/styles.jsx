@@ -45,7 +45,7 @@ export const ButtonSignwall = styled.button`
   color: ${props => handleTextColor(props.site)};
   cursor: pointer;
   border-radius: 50%;
-  border: 1px solid ${props => handleBackColor(props.site)};
+  /* border: 1px solid ${props => handleBackColor(props.site)}; */
   width: 34px;
   height: 34px;
   padding: 6px;

@@ -276,14 +276,15 @@ class Subs extends Component {
                                 <strong>Plan de pago: </strong>{' '}
                                 {reSubs.paymentHistory[0] && (
                                   <span>
-                                    {(new Date(
+                                    {// eslint-disable-next-line no-constant-condition
+                                    (new Date(
                                       reSubs.paymentHistory[0].periodTo
                                     ) -
                                       new Date(
                                         reSubs.paymentHistory[0].periodFrom
                                       )) /
                                       (1000 * 60 * 60 * 24) ===
-                                    30
+                                      30 || 31
                                       ? 'MENSUAL'
                                       : 'ANUAL'}
                                   </span>
@@ -313,7 +314,7 @@ class Subs extends Component {
               </>
             ) : (
               <>
-                {arcSite === 'gestion' && (
+                {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
                   <div className="resume__dates">
                     <div className="title-dates">
                       <h2 className="title">Mi suscripción</h2>
@@ -348,7 +349,7 @@ class Subs extends Component {
                       </p>
                     </div>
                   </div>
-                )}
+                ) : null}
               </>
             )}
 
@@ -374,8 +375,8 @@ class Subs extends Component {
                     onSubmit={e => this.submitConfirmPassword(e)}>
                     <div className="row-grid">
                       <h2 className="form-grid__label--title text-center">
-                        ¿Estás seguro que deseas anular tu suscripción a
-                        www.gestion.pe?
+                        {`¿Estás seguro que deseas anular tu suscripción a
+                        www.${arcSite}.pe?`}
                       </h2>
                       <p className="form-grid__label form-grid__label--information text-center">
                         Ten en cuenta que tu suscripción se desactivará al

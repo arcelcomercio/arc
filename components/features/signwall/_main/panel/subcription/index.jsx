@@ -245,8 +245,8 @@ class Subscription extends Component {
                   onSubmit={e => this.submitConfirmPassword(e)}>
                   <div className="row-grid">
                     <h2 className="form-grid__label--title text-center">
-                      ¿Estás seguro que deseas anular tu suscripción a
-                      www.gestion.pe?
+                      {`¿Estás seguro que deseas anular tu suscripción a
+                      www.${arcSite}.pe?`}
                     </h2>
                     <p className="form-grid__label form-grid__label--information text-center">
                       Ten en cuenta que tu suscripción se desactivará al finalizar

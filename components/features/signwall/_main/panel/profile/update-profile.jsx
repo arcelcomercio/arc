@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 import Services from '../../utils/services'
 import {
   namesRegex,
@@ -25,6 +26,7 @@ const SET_ATTRIBUTES_PROFILE = [
 ]
 const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
 
+@Consumer
 class UpdateProfile extends Component {
   constructor(props) {
     super(props)
@@ -208,6 +210,7 @@ class UpdateProfile extends Component {
           this.setState({
             showMsgSuccess: false,
           })
+          this.dispatchEvent('profile-update')
         }, 5000)
 
         const modalConfirmPass = document.querySelector('#arc-popup-profile')
