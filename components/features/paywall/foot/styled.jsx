@@ -26,11 +26,14 @@ export const Content = styled.div`
     grid-row-gap: 20px;
     max-width: 1120px;
     margin: 0 auto;
-    ${theme.breakpoints.down('xs')} {
-      grid-template-columns: 1fr;
+    ${theme.breakpoints.down('md')} {
+      grid-template-columns: 2fr 2fr;
     }
     ${theme.breakpoints.only('sm')} {
       grid-template-columns: 2fr 2fr;
+    }
+    ${theme.breakpoints.down('xs')} {
+      grid-template-columns: 1fr;
     }
   `}
 `
@@ -75,7 +78,7 @@ export const ImageLink = styled.a`
     display: inline-block;
     margin: 10px 0;
     padding: 0;
-    ${theme.breakpoints.down('sm')} {
+    ${theme.breakpoints.down('md')} {
       margin: 0 15px;
     }
   `}
@@ -124,7 +127,7 @@ export const CenterContent = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    ${theme.breakpoints.down('sm')} {
+    ${theme.breakpoints.down('md')} {
       flex-direction: row;
     }
   `}

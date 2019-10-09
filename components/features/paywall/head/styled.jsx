@@ -107,6 +107,9 @@ const WrapIcon = styled.span`
 const WrapLogo = styled.span`
   ${({ theme }) => css`
     display: inline-grid;
+    ${theme.breakpoints.down('md')} {
+      margin-left: 15px;
+    }
     ${theme.breakpoints.down('xs')} {
       margin-left: 20px;
       width: 150px;

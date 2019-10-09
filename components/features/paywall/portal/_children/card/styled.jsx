@@ -26,12 +26,15 @@ export const Card = styled.div`
   box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
   ${({ theme }) => css`
     ${theme.breakpoints.down('md')} {
-      min-height: 400px;
+      /* min-height: 400px;
       margin-bottom: 40px;
-      width: calc(100% - 20px);
+      width: calc(100% - 20px); */
+      width: 320px;
+      margin: 0 10px;
     }
     ${theme.breakpoints.down('sm')} {
       max-width: 450px;
+      margin-bottom: 40px;
     }
   `}
 `

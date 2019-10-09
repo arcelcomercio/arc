@@ -103,6 +103,7 @@ class Head extends React.PureComponent {
             brandModal={arcSite}
             closePopup={() => this.closeShowSignwall()}
             reloadLogin
+            noBtnClose
           />
         ) : null}
         <S.Background>
