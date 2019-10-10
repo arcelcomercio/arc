@@ -4,6 +4,7 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import SeparatorBlogChildItem from './_children/item'
+import { schemaBlog, schemaEditorial } from './_dependencies/schema-filter'
 import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 
 const classes = {
@@ -33,6 +34,7 @@ const SeparatorEditorialWithBlog = () => {
       query: {
         website_url: BLOG_BASE,
         blog_limit: 5,
+        filter: schemaBlog,
       },
     }) || {}
 
@@ -45,20 +47,44 @@ const SeparatorEditorialWithBlog = () => {
         feedOffset: 0,
         stories_qty: 2,
       },
-      filter: `{ 
-        content_elements {
-          credits {
-            by { name url }
-          }
-        }
-      }`,
+      filter: schemaEditorial,
     }) || {}
 
   let listPost = Object.values(dataBlog)
   listPost = listPost.slice(0, 4)
   const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
 
-  console.log(dataEditorial)
+  const {
+    credits: { by: dataAuthor = [] } = {},
+    headlines: { basic: postTitleEditorial = '' } = {},
+    website_url: postLinkEditorial = '',
+  } = dataEditorial.content_elements[0]
+
+  const {
+    name: editorialAuthor = '',
+    url: linkAuthor = '',
+    image: {
+      resized_urls: {
+        lazy_default: lazyImageAuthor,
+        square_s: authorImage = defaultImage({
+          deployment,
+          contextPath,
+          arcSite,
+          size: 'sm',
+        }),
+      } = {},
+    } = {},
+  } = dataAuthor[0] || {}
+
+  const paramsEditorial = {
+    authorName: editorialAuthor,
+    lazyImage: lazyImageAuthor,
+    authorImg: authorImage,
+    blogUrl: linkAuthor,
+    postLink: postLinkEditorial,
+    postTitle: postTitleEditorial,
+    isAdmin,
+  }
 
   return (
     <div className={classes.separator}>
@@ -73,6 +99,7 @@ const SeparatorEditorialWithBlog = () => {
         </a>
       </div>
       <div className={classes.itemsWrapper}>
+        <SeparatorBlogChildItem {...paramsEditorial} />
         {listPost &&
           listPost.map(post => {
             const {
@@ -120,100 +147,6 @@ const SeparatorEditorialWithBlog = () => {
     </div>
   )
 }
-
-/* class SeparatorEditorialWithBlog extends PureComponent {
-  constructor(props) {
-    super(props)
-    const { arcSite } = this.props
-    this.fetchDataApi(arcSite, 4)
-  }
-
-  fetchDataApi = (arcSite, storiesQty) => {
-    this.fetchContent({
-      dataApi: {
-        source: CONTENT_SOURCE_BLOG,
-        query: {
-          website: arcSite,
-          blog_limit: storiesQty,
-        },
-      },
-    })
-  }
-
-  render() {
-    const { dataApi = {} } = this.state
-    const {
-      arcSite,
-      contextPath,
-      deployment,
-      isAdmin,
-      siteProperties: { siteUrl } = {},
-    } = this.props
-    let listPost = Object.values(dataApi)
-    listPost = listPost.slice(0, 4)
-    const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
-
-    return (
-      <div className={classes.separator}>
-        <div className={classes.header}>
-          <a className={classes.titleSeparator} href={BLOG_BASE}>
-            FIRMAS
-          </a>
-          <a
-            href={seeMoreUrl}
-            className={`${classes.seeMoreText} non-mobile non-tablet`}>
-            Ver más
-          </a>
-        </div>
-        <div className={classes.itemsWrapper}>
-          {listPost &&
-            listPost.map(post => {
-              const {
-                user: {
-                  first_name: authorName = '',
-                  user_avatarb: {
-                    resized_urls: {
-                      lazy_default: lazyImage,
-                      author_sm: authorImg = defaultImage({
-                        deployment,
-                        contextPath,
-                        arcSite,
-                        size: 'sm',
-                      }),
-                    } = {},
-                  } = {},
-                } = {},
-                blog: { path: blogUrl = '', blogname: blogName = '' } = {},
-                posts: [
-                  {
-                    post_permalink: postLink = '',
-                    post_title: postTitle = '',
-                  } = {},
-                ] = [],
-              } = post
-
-              const data = {
-                authorName,
-                lazyImage,
-                authorImg,
-                blogUrl: addSlashToEnd(`${BLOG_BASE}${blogUrl}`),
-                blogName,
-                postLink: `${BLOG_BASE}${postLink}`,
-                postTitle,
-                isAdmin,
-              }
-              return <SeparatorBlogChildItem key={blogUrl} {...data} />
-            })}
-        </div>
-        <div className={`${classes.seeMoreWrapper} non-desktop`}>
-          <a href={seeMoreUrl} className={classes.seeMoreText}>
-            Ver más
-          </a>
-        </div>
-      </div>
-    )
-  }
-} */
 
 SeparatorEditorialWithBlog.label = 'Separador de Editorial con Blog'
 SeparatorEditorialWithBlog.static = true
