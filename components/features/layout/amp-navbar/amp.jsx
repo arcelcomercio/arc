@@ -38,7 +38,7 @@ class LayoutNavbar extends PureComponent {
       data: {},
     }
     if (this.formater.main.fetch !== false) {
-      const { params, source } = this.formater.main.fetch.config
+      const { params = {} , source = '' } = this.formater.main.fetch.config || {}
       /** Solicita la data a la API y setea los resultados en "state.data" */
       this.fetchContent({
         data: {

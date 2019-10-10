@@ -16,19 +16,21 @@ class ExtraordinaryStoryBySection extends PureComponent {
 
     const {
       arcSite,
-      customFields: { sectionName, positionData },
+      customFields: { sectionName, positionData, showExtraordinaryStory },
     } = this.props
-    this.fetchContent({
-      data: {
-        source: API_URL,
-        query: {
-          section: sectionName,
-          feedOffset: positionData || 0,
-          stories_qty: API_SIZE_DATA,
+    if (showExtraordinaryStory) {
+      this.fetchContent({
+        data: {
+          source: API_URL,
+          query: {
+            section: sectionName,
+            feedOffset: positionData || 0,
+            stories_qty: API_SIZE_DATA,
+          },
+          filter: schemaFilter(arcSite),
         },
-        filter: schemaFilter(arcSite),
-      },
-    })
+      })
+    }
   }
 
   componentDidMount() {
@@ -39,7 +41,11 @@ class ExtraordinaryStoryBySection extends PureComponent {
 
   render() {
     const { deployment, contextPath, arcSite, customFields } = this.props
-    const { data: { content_elements: contentElements = [] } = {} } = this.state || {}
+    const {
+      customFields: { showExtraordinaryStory },
+    } = this.props
+    const { data: { content_elements: contentElements = [] } = {} } =
+      this.state || {}
     const data =
       contentElements && contentElements.length > 0 ? contentElements[0] : {}
     const formattedData = new Data({
@@ -59,6 +65,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
       deployment,
       contextPath,
       arcSite,
+      showExtraordinaryStory,
     }
     return <ExtraordinaryStory {...params} />
   }

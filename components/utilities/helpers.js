@@ -688,13 +688,20 @@ export const publicidadAmp = ({
   width,
   height,
   primarySectionLink = '/peru',
+  movil1 = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
+  const nuevoScript =
+    (movil1 &&
+      `data-multi-size="320x100,320x50"
+  data-multi-size-validation="false"`) ||
+    ''
+
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}"
+  data-slot="${dataSlot}" ${nuevoScript}
   rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
   "timeoutMillis": 1000}'></amp-ad>`
   }
@@ -985,4 +992,12 @@ export const getDateSeo = data => {
   const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
 
   return fechaGenerada
+}
+
+export const localISODate = date => {
+  let localDate = date ? new Date(date) : new Date()
+  localDate.setHours(localDate.getHours() - 5)
+  localDate = `${localDate.toISOString().split('.')[0]}-05:00`
+  localDate = localDate.toISOString()
+  return localDate
 }

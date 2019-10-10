@@ -11,6 +11,7 @@ class Data extends StoryData {
     defaultImgSize,
     customFields,
     index = 0,
+    customImage = {},
   }) {
     super({
       data,
@@ -21,6 +22,7 @@ class Data extends StoryData {
     })
     this._customFields = customFields
     this._index = index
+    this._customImage = customImage
   }
 
   get index() {
@@ -32,6 +34,14 @@ class Data extends StoryData {
    */
   set __index(val) {
     this._index = val
+  }
+
+  get customImage() {
+    return this._customImage
+  }
+
+  set __customImage(val) {
+    this._customImage = val
   }
 
   get showAuthorOrSection() {
@@ -60,8 +70,11 @@ class Data extends StoryData {
   }
 
   get multimediaPortraitXS() {
+    const { resized_urls: { portrait_xs: portraitXs } = {} } = this.customImage
     return (
-      this._customFields[`image${this.index}`] || super.multimediaPortraitXS
+      portraitXs ||
+      this._customFields[`image${this.index}`] ||
+      super.multimediaPortraitXS
     )
   }
 
