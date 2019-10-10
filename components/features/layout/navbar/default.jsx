@@ -57,7 +57,7 @@ class LayoutNavbar extends PureComponent {
       this.fetchContent({
         menuData: {
           source: 'navigation-by-hierarchy',
-          query: { hierarchy: 'menu-default' },
+          query: { hierarchy: 'navbar-top-default' },
           filter: this.formatter.getSchema(),
         },
       })
