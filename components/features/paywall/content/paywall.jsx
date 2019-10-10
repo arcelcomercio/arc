@@ -96,7 +96,6 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
         }
         if (action !== 'REPLACE') {
           goToStep(step)
-          dispatchEvent('currentStep', step)
         }
       }
       // prettier-ignore
