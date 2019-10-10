@@ -28,8 +28,8 @@ export default class NavbarFormater {
 
   get main() {
     return {
-      initParams: this[this.selectDesing].initParams(),
-      fetch: this[this.selectDesing].fetch()
+      initParams: this[this.selectDesing] && this[this.selectDesing].initParams(),
+      fetch: this[this.selectDesing] && this[this.selectDesing].fetch()
         ? this[this.selectDesing].fetch()
         : false,
     }
@@ -43,7 +43,7 @@ export default class NavbarFormater {
           back: {
             logo: this.deployment(
               `${this.contextPath}/resources/dist/${
-                this.arcSite
+              this.arcSite
               }/images/${logoSomos}`
             ),
             link: '/',
@@ -68,7 +68,7 @@ export default class NavbarFormater {
           logoLeft: {
             src: this.deployment(
               `${this.contextPath}/resources/dist/${
-                this.arcSite
+              this.arcSite
               }/images/otorongo.png`
             ),
             alt: this.arcSite,
