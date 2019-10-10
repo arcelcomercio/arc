@@ -30,12 +30,13 @@ const WizardConfirmation = props => {
       referer,
       payment = {},
       printedSubscriber,
-      accessFree = {},
+      accessFree,
     },
   } = props
 
   const { orderNumber } = order
-  const { firstName, lastName, secondLastName, email } = accessFree || profile
+  const { firstName, lastName, secondLastName, email } =
+    accessFree || profile || {}
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
     title: planTitle,
