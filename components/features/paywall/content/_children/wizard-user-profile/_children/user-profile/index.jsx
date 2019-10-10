@@ -106,7 +106,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  label={msgs.documentNumber}
+                  label={msgs.documentNumberLabel}
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
                   disabled={!!printedSubscriber}
