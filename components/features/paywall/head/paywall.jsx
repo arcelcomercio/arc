@@ -41,7 +41,8 @@ class Head extends React.PureComponent {
   }
 
   getFirstName = () => {
-    window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
+    if (typeof window !== "undefined")
+      window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
     AddIdentity().then(() => {
       userProfile()
         .then(({ firstName }) => {
@@ -54,10 +55,12 @@ class Head extends React.PureComponent {
   }
 
   checkSession = () => {
-    const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
-    const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-    if (profileStorage) {
-      return !(profileStorage === 'null' || sesionStorage === '{}') || false
+    if (typeof window !== "undefined") {
+      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
+      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+      if (profileStorage) {
+        return !(profileStorage === 'null' || sesionStorage === '{}') || false
+      }
     }
     return false
   }
@@ -114,15 +117,15 @@ class Head extends React.PureComponent {
                   {this.checkSession() ? `${userName}` : 'Hola Invitado'}
                 </span>
               ) : (
-                <button
-                  type="button"
-                  className="head__btn-login"
-                  onClick={() => this.setState({ isActive: true })}>
-                  <span>
-                    {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
-                  </span>
-                </button>
-              )}
+                  <button
+                    type="button"
+                    className="head__btn-login"
+                    onClick={() => this.setState({ isActive: true })}>
+                    <span>
+                      {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
+                    </span>
+                  </button>
+                )}
 
               {/* <span>
                 {this.checkSession() ? `Hola ${userName}` : 'Iniciar Sesión'}
