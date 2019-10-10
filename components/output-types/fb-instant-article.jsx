@@ -6,22 +6,30 @@ import NewElement from '../global-components/new-element'
 
 @Consumer
 class FbInstantOutputType extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.getMagContentElement()
+  }
 
-  getMagContentElement =()=>{
-    const {
-      arcSite,
-      deployment,
-      contextPath,
-    } = this.props
+  getMagContentElement = () => {
+    // const {
+    //   arcSite,
+    //   deployment,
+    //   contextPath,
+    // } = this.props
 
     this.fetchContent({
-      dataApi:{
+      dataApi: {
         source: 'story-feed-by-section-mag',
-      }
+      },
     })
   }
 
   render() {
+    const { dataApi = {} } = this.state
+
+    let { content_elements: contentElementMag } = dataApi
+
     const {
       deployment = {},
       contextPath = '',
@@ -30,7 +38,7 @@ class FbInstantOutputType extends PureComponent {
       siteProperties = {},
     } = this.props
 
-    const { content_elements: contentElements } = globalContent || []
+    let { content_elements: contentElements } = globalContent || []
     const {
       siteName = '',
       siteUrl = '',
@@ -39,6 +47,12 @@ class FbInstantOutputType extends PureComponent {
       fbArticleStyle = '',
       listUrlAdvertisings = [],
     } = siteProperties
+
+    console.log('AQUI MAG!!!!!!!!!')
+    console.log(JSON.stringify(contentElementMag))
+
+    console.log('AQUI elcomercio!!!!!!!!!')
+    // console.log(JSON.stringify(contentElements))
 
     const stories = contentElements
 
