@@ -58,7 +58,7 @@ class StoryTitleAmp extends PureComponent {
       dataSlot,
       placementId,
       width,
-      height: '100',
+      height: '50',
       movil: true,
       primarySectionLink,
     }

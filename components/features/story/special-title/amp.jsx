@@ -52,7 +52,7 @@ class StoryTitleAmp extends PureComponent {
     }-amp-320x50-top-movil1`
     const placementId = adsAmp.movil1
     const width = '320'
-    const height = '100'
+    const height = '50'
     const parameters = { dataSlot, placementId, width, height, movil1: true }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
