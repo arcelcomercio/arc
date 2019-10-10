@@ -59,16 +59,18 @@ class SignwallComponent extends PureComponent {
   }
 
   getPremium() {
-    const W = window
-    if (!this.checkSession()) {
-      W.location.href = '/?signwallPremium=1'
-    } else {
-      return this.getListSubs().then(p => {
-        if (p && p.length === 0) {
-          W.location.href = '/?signwallPremium=1'
-        }
-        return false // tengo subs :D
-      })
+    if (typeof window !== "undefined") {
+      const W = window
+      if (!this.checkSession()) {
+        W.location.href = '/?signwallPremium=1'
+      } else {
+        return this.getListSubs().then(p => {
+          if (p && p.length === 0) {
+            W.location.href = '/?signwallPremium=1'
+          }
+          return false // tengo subs :D
+        })
+      }
     }
     return false
   }
@@ -153,19 +155,22 @@ class SignwallComponent extends PureComponent {
   }
 
   checkSession = () => {
-    const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
-    const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-    if (profileStorage) {
-      return !(profileStorage === 'null' || sesionStorage === '{}') || false
+    if (typeof window !== "undefined") {
+      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
+      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+      if (profileStorage) {
+        return !(profileStorage === 'null' || sesionStorage === '{}') || false
+      }
     }
     return false
   }
 
   getUrlParam = name => {
     const vars = {}
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-      vars[key] = value
-    })
+    if (typeof window !== "undefined")
+      window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+        vars[key] = value
+      })
     if (vars[name]) {
       setTimeout(() => {
         switch (name) {
@@ -246,7 +251,8 @@ class SignwallComponent extends PureComponent {
       default:
         return null
     }
-    window.history.pushState({}, document.title, '/')
+    if (typeof window !== "undefined")
+      window.history.pushState({}, document.title, '/')
     return null
   }
 
@@ -283,57 +289,57 @@ class SignwallComponent extends PureComponent {
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
         {this.getUrlParam('signwallHard') &&
-        !this.checkSession() &&
-        showHard &&
-        siteProperties.activeSignwall ? (
-          <SignWallHard
-            closePopup={() => this.closePopUp('signwallHard')}
-            brandModal={arcSite}
-          />
-        ) : null}
+          !this.checkSession() &&
+          showHard &&
+          siteProperties.activeSignwall ? (
+            <SignWallHard
+              closePopup={() => this.closePopUp('signwallHard')}
+              brandModal={arcSite}
+            />
+          ) : null}
 
         {this.getUrlParam('tokenVerify') &&
-        showVerify &&
-        siteProperties.activeSignwall ? (
-          <SignWallVerify
-            closePopup={() => this.closePopUp('tokenVerify')}
-            brandModal={arcSite}
-            tokenVerify={this.getUrlParam('tokenVerify')}
-          />
-        ) : null}
+          showVerify &&
+          siteProperties.activeSignwall ? (
+            <SignWallVerify
+              closePopup={() => this.closePopUp('tokenVerify')}
+              brandModal={arcSite}
+              tokenVerify={this.getUrlParam('tokenVerify')}
+            />
+          ) : null}
 
         {this.getUrlParam('tokenReset') &&
-        showReset &&
-        siteProperties.activeSignwall ? (
-          <SignWallReset
-            closePopup={() => this.closePopUp('tokenReset')}
-            brandModal={arcSite}
-            tokenReset={this.getUrlParam('tokenReset')}
-          />
-        ) : null}
+          showReset &&
+          siteProperties.activeSignwall ? (
+            <SignWallReset
+              closePopup={() => this.closePopUp('tokenReset')}
+              brandModal={arcSite}
+              tokenReset={this.getUrlParam('tokenReset')}
+            />
+          ) : null}
 
         {this.getUrlParam('reloginEmail') &&
-        !this.checkSession() &&
-        showRelogin &&
-        siteProperties.activeSignwall ? (
-          <SignWallRelogin
-            closePopup={() => this.closePopUp('reloginEmail')}
-            brandModal={arcSite}
-          />
-        ) : null}
+          !this.checkSession() &&
+          showRelogin &&
+          siteProperties.activeSignwall ? (
+            <SignWallRelogin
+              closePopup={() => this.closePopUp('reloginEmail')}
+              brandModal={arcSite}
+            />
+          ) : null}
 
         {(this.getUrlParam('signwallPaywall') ||
           this.getUrlParam('signwallPremium')) &&
-        showPaywall &&
-        siteProperties.activePaywall ? (
-          <SignWallPayPre
-            closePopup={() => this.closePopUp('signwallPaywall')}
-            brandModal={arcSite}
-            typeModal={
-              this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
-            }
-          />
-        ) : null}
+          showPaywall &&
+          siteProperties.activePaywall ? (
+            <SignWallPayPre
+              closePopup={() => this.closePopUp('signwallPaywall')}
+              brandModal={arcSite}
+              typeModal={
+                this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
+              }
+            />
+          ) : null}
       </>
     )
   }

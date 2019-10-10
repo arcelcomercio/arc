@@ -132,7 +132,7 @@ class FeaturedStoryFormatter {
     newState.category.url = this.storyDataInstace.primarySectionLink
 
     newState.title.name = this.storyDataInstace.title
-    newState.title.url = this.storyDataInstace.link
+    newState.title.url = this.storyDataInstace.websiteLink
 
     newState.author.name = this.storyDataInstace.author
     newState.author.url = this.storyDataInstace.authorLink
