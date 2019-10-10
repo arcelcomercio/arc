@@ -57,10 +57,12 @@ class Head extends React.PureComponent {
   }
 
   checkSession = () => {
-    const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
-    const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-    if (profileStorage) {
-      return !(profileStorage === 'null' || sesionStorage === '{}') || false
+    if (typeof window !== 'undefined') {
+      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
+      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+      if (profileStorage) {
+        return !(profileStorage === 'null' || sesionStorage === '{}') || false
+      }
     }
     return false
   }
@@ -158,8 +160,8 @@ const ThemedHead = withTheme(Head)
 ThemedHead.propTypes = {
   customFields: PropTypes.shape({
     id: PropTypes.string.isRequired.tag({
-      name:'ID',
-      description:'ID único del componente (Ej. head_[nombre])'
+      name: 'ID',
+      description: 'ID único del componente (Ej. head_[nombre])',
     }),
     forceLogin: PropTypes.bool.tag({
       name: 'Forzar login:',
