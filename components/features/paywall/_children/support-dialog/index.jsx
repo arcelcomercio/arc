@@ -19,14 +19,16 @@ const SupportDialog = props => {
             : lighten(theme.palette.primary.main, 0.9)
         }
         titleColor={site !== 'elcomercio' && theme.palette.primary.main}>
-        <picture>
-          <source
-            media={theme.breakpoints.down('xs')}
-            srcSet={theme.images.pixel}
-          />
-          <source srcSet={theme.images.support_webp} type="image/webp" />
-          <img src={theme.images.support} alt="support" />
-        </picture>
+        <S.ImageWrapper>
+          <picture>
+            <source
+              media={theme.breakpoints.down('xs')}
+              srcSet={theme.images.pixel}
+            />
+            <source srcSet={theme.images.support_webp} type="image/webp" />
+            <img src={theme.images.support} alt="support" />
+          </picture>
+        </S.ImageWrapper>
         <S.ContentWrapper>
           <S.Title>{msgs.supportTitle}</S.Title>
           <br />

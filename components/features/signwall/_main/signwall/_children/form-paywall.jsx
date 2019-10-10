@@ -151,7 +151,7 @@ class SignWallPaywall extends Component {
                   ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
                   Disfruta
                   <strong>
-                    {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS
+                    {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS {' '}
                   </strong>
                   y luego S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '} al mes.
                 </p>

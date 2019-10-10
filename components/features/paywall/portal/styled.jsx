@@ -1,12 +1,16 @@
 import styled, { css } from 'styled-components'
 
 export const Portal = styled.div`
-  ${({ theme }) => css`
+  ${({ theme, backgroundColor }) => css`
     display: flex;
     justify-content: center;
     flex-direction: column;
     ${theme.breakpoints.up('md')} {
       background: url(${theme.images.backgroundx1});
+    }
+
+    ${theme.breakpoints.down('sm')} {
+      background: ${backgroundColor ? theme.palette.lighten(theme.palette.secondary.main, 0.8) : theme.palette.lighten(theme.palette.primary.main, 0.9) };
     }
   `}
 `

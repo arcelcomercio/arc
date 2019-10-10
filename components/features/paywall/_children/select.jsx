@@ -11,6 +11,7 @@ const Select = styled.select`
   background-color: #fff;
   font-family: Open Sans;
   font-size: 12px;
+  user-select: none;
   ${props =>
     props.value
       ? css`

@@ -220,7 +220,7 @@ class Subscription extends Component {
                         Disfruta
                         <strong>
                           {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses
-                          GRATIS
+                          GRATIS {' '}
                         </strong>
                         y luego S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '}
                         al mes.

@@ -8,10 +8,11 @@ import addScriptAsync from '../../../utilities/script-async'
 import { interpolateUrl } from '../_dependencies/domains'
 import Card from './_children/card'
 import ClickToCall from '../_children/click-to-call'
-//import FillHeight from '../_children/fill-height'
+// import FillHeight from '../_children/fill-height'
 
 const Portal = () => {
   const {
+    arcSite,
     globalContent: items,
     customFields: { substractFeaturesHeights = '' },
     siteProperties: {
@@ -36,8 +37,8 @@ const Portal = () => {
     .map(id => id.trim())
 
   return (
-    //<FillHeight substractElements={substractFeaturesIds}>
-    <S.Portal>
+    // <FillHeight substractElements={substractFeaturesIds}>
+    <S.Portal backgroundColor={arcSite === 'elcomercio'}>
       <S.PortalContent>
         {items.map(item => (
           <Card item={item} key={item.title} />
@@ -54,7 +55,7 @@ const Portal = () => {
         </S.FooterContent>
       </S.Footer>
     </S.Portal>
-    //</FillHeight>
+    // </FillHeight>
   )
 }
 

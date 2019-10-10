@@ -22,6 +22,8 @@ function WizardPlan(props) {
     setLoading,
   } = props
 
+  const { lighten } = theme.palette
+
   const {
     arcSite,
     siteProperties: {
@@ -84,7 +86,15 @@ function WizardPlan(props) {
         <S.Markdown>{msgs.welcomePrintedSubscriptor}</S.Markdown>
       )}
       <S.Wrap>
-        <Summary elevation={1} {...summary} />
+        <Summary
+          backgroundColor={
+            arcSite === 'elcomercio'
+              ? theme.palette.primary.main
+              : lighten(theme.palette.primary.main, 0.8)
+          }
+          elevation={1}
+          {...summary}
+        />
         <S.WrapPlan>
           {arcSite === 'elcomercio' && (
             <S.Cintillo>{msgs.offerHeadBand}</S.Cintillo>

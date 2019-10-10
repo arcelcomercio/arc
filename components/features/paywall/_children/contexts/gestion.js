@@ -73,6 +73,7 @@ export default {
     subscriptionNotice: 
      `Enviaremos la boleta de compra de la  
       suscripción al correo: **{{email}}**`,
+    continueButton: `SIGUE NAVEGANDO`,
 
     // Support
     supportTitle: `Soporte`,

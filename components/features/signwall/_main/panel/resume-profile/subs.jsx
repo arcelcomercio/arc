@@ -276,15 +276,14 @@ class Subs extends Component {
                                 <strong>Plan de pago: </strong>{' '}
                                 {reSubs.paymentHistory[0] && (
                                   <span>
-                                    {// eslint-disable-next-line no-constant-condition
-                                    (new Date(
+                                    {(new Date(
                                       reSubs.paymentHistory[0].periodTo
                                     ) -
                                       new Date(
                                         reSubs.paymentHistory[0].periodFrom
                                       )) /
-                                      (1000 * 60 * 60 * 24) ===
-                                      30 || 31
+                                      (1000 * 60 * 60 * 24) <=
+                                    31
                                       ? 'MENSUAL'
                                       : 'ANUAL'}
                                   </span>

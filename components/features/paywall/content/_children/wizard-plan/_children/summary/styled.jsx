@@ -13,11 +13,10 @@ const Wrap = styled.div`
 `
 
 const Separate = styled.div`
-  ${({ backgroundColor, theme }) => css`
-    background-color: ${backgroundColor || theme.palette.primary.light};
-    height: 4px;
+  ${({ backgroundColor }) => css`
+    background-color: ${backgroundColor};
+    height: 2px;
     margin: 20px 0;
-    opacity: 0.2;
   `}
 `
 

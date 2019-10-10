@@ -26,6 +26,8 @@ const PaywallContactUs = props => {
     },
   } = useFusionContext()
 
+  window.document.getElementById('footer').style.position = 'relative'
+
   const initialValuesForm = {
     correo: '',
     nombre: '',

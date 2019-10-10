@@ -149,7 +149,7 @@ const WizardConfirmation = props => {
             source={msgs.interpolate(msgs.subscriptionNotice, { email })}
           />
           <S.WrapButton>
-            <Button onClick={handleClick}>{msgs.nextButton}</Button>
+            <Button onClick={handleClick}>{msgs.continueButton}</Button>
             {/* <S.Progress time="17s" onFinish={handleClick} /> */}
           </S.WrapButton>
         </S.Content>
