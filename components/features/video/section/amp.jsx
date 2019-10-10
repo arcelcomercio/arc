@@ -61,7 +61,8 @@ const VideoSectionAmp = () => {
     dataSlot: dataSlotNa,
     placementId: placementIdNa,
     width,
-    height,
+    height: '100',
+    movil1: true,
   }
 
   const namePublicidad =

@@ -688,13 +688,20 @@ export const publicidadAmp = ({
   width,
   height,
   primarySectionLink = '/peru',
+  movil1 = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
+  const nuevoScript =
+    (movil1 &&
+      `data-multi-size="320x100"
+  data-multi-size-validation="false"`) ||
+    ''
+
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}"
+  data-slot="${dataSlot}" ${nuevoScript}
   rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
   "timeoutMillis": 1000}'></amp-ad>`
   }
