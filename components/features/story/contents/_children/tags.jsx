@@ -25,7 +25,7 @@ const StoryContentChildTags = props => {
               <h2 key={UtilListKey(idx)} className={classes.tag}>
                 <a
                   className={isAmp ? `amp-${classes.link}` : classes.link}
-                  href={slug && `/noticias/${slug}`}>
+                  href={slug && `/noticias/${slug}/`}>
                   {text}
                 </a>
               </h2>

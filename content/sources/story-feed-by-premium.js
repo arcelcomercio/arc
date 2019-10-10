@@ -33,7 +33,10 @@ const pattern = (key = {}) => {
     return '0'
   }
 
-  return `/content/v4/search/published?website=${website}&q=type:story+AND+content_restrictions.content_code:premium&sort=display_date:desc&size=${size}&from=${getPagination()}`
+  const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+
+  return `/content/v4/search/published?website=${website}&q=type:story+AND+content_restrictions.content_code:premium&sort=display_date:desc&size=${size}&from=${getPagination()}${excludedFields}`
 }
 
 const transform = (data, key) => {

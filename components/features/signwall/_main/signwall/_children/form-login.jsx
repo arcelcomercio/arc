@@ -272,7 +272,7 @@ class FormLogin extends Component {
   }
 
   handleSuscription = e => {
-    const { removeBefore, typePopUp } = this.props
+    const { removeBefore, typePopUp, arcSite } = this.props
     e.preventDefault()
     window.sessionStorage.setItem(
       'paywall_last_url',
@@ -281,7 +281,7 @@ class FormLogin extends Component {
         : ''
     )
     removeBefore() // dismount before
-    window.location.href = Domains.getUrlPaywall()
+    window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typePopUp)
   }
 

@@ -11,7 +11,7 @@ import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let website = ''
-const schemaName = 'stories'
+const schemaName = 'stories-dev'
 
 const params = [
   {
@@ -73,9 +73,12 @@ const pattern = key => {
     })
   }
 
+  const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+
   const requestUri = `/content/v4/search/published?sort=display_date:desc&website=${website}&body=${JSON.stringify(
     body
-  )}&from=0&size=${size || 5}`
+  )}&from=0&size=${size || 5}${excludedFields}`
 
   return requestUri
 }

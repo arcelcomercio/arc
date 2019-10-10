@@ -46,11 +46,8 @@ const classes = {
   shareLink: 'story-header__link flex items-center justify-center text-white',
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
-  navContainerRight:
-    'lg:flex items-center hidden justify-end header__btn-container',
-  btnSubscribe:
-    'flex items-center btn capitalize text-md font-bold btn--outline',
-  navContainerRightMovil: 'block lg:hidden',
+  navContainerRight: 'lg:flex items-center justify-end header__btn-container',
+  btnSubscribe: 'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -364,43 +361,17 @@ const HeaderChildInverted = ({
               </div>
             </>
           ) : (
-            <>
-              {/* <Button
-                btnClass={`${classes.btnProfile} ${classes.btnClub}`}
-                btnText={CLUB_TEXT}
-                onClick={_handleToggleSectionElements}
-                btnLink={CLUB_URL}
-              />
-              <Button
-                btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
-                btnText={SUBSCRIBE_TEXT}
-                onClick={_handleToggleSectionElements}
-                btnLink={SUBSCRIBE_URL}
-              /> */}
+            <div className={`${classes.navContainerRight} `}>
+              {siteProperties.activePaywall && (
+                <Button
+                  btnText="Suscríbete"
+                  btnClass={`${classes.btnSubscribe}`}
+                  btnLink={siteProperties.urlSubsOnline}
+                />
+              )}
 
-              <div className={`${classes.navContainerRight} `}>
-                {siteProperties.activeSignwall && (
-                  <>
-                    {siteProperties.activePaywall &&
-                    siteProperties.urlSubsOnline ? (
-                      <Button
-                        btnText="Suscríbete"
-                        btnClass={`${classes.btnSubscribe} btn--outline`}
-                        btnLink={siteProperties.urlSubsOnline}
-                      />
-                    ) : null}
-                    <SignwallComponent />
-                  </>
-                )}
-              </div>
-              <div className={`${classes.navContainerRightMovil} `}>
-                {siteProperties.activeSignwall && (
-                  <>
-                    <SignwallComponent typeMobile />
-                  </>
-                )}
-              </div>
-            </>
+              {siteProperties.activeSignwall && <SignwallComponent />}
+            </div>
           )}
         </div>
         {/** ************* // RIGHT *************** */}

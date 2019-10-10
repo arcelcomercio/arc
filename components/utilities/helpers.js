@@ -682,14 +682,23 @@ export const ampHtml = (html = '', arcSite = '') => {
   return resultData
 }
 
-export const publicidadAmp = ({ dataSlot, placementId, width, height }) => {
-  const resultData = createMarkup(`
+export const publicidadAmp = ({
+  dataSlot,
+  placementId,
+  width,
+  height,
+  primarySectionLink = '/peru',
+}) => {
+  const secctionPrimary = primarySectionLink.split('/')
+  let resultData = ''
+  if (secctionPrimary[1] !== 'respuestas') {
+    resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
   data-slot="${dataSlot}"
   rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}'></amp-ad>`)
-
-  return resultData
+  "timeoutMillis": 1000}'></amp-ad>`
+  }
+  return createMarkup(resultData)
 }
 
 export const getResponsiveClasses = ({
@@ -718,19 +727,20 @@ export const replaceTags = text => {
 }
 
 export const formatDateStory = date => {
-  const fecha = new Date(date)
-  const day = fecha.getUTCDate()
-  const month = fecha.getUTCMonth() + 1
+  const fechaZone = date.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+  const fecha = new Date(fechaZone)
+  const day = fecha.getDate()
+  const month = fecha.getMonth() + 1
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
 
-  const hours = fecha.getUTCHours() - 5
-  const minutes = fecha.getUTCMinutes()
+  const minutes = fecha.getMinutes()
+  const hours = fecha.getHours()
 
   const formatHours = hours < 10 ? `0${hours}` : hours
   const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
 
-  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getUTCFullYear()} a las ${formatHours}:${formatMinutes} `
+  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatHours}:${formatMinutes} `
 }
 
 export const formatDateStoryAmp = date => {
@@ -956,13 +966,15 @@ export const getPhotoId = photoUrl => {
 }
 
 export const getDateSeo = data => {
-  const fecha = new Date(data)
-  const day = fecha.getUTCDate()
-  const month = fecha.getUTCMonth() + 1
-  const year = fecha.getUTCFullYear()
-  const hours = fecha.getUTCHours() - 5
-  const minutes = fecha.getUTCMinutes()
-  const seconds = fecha.getUTCSeconds()
+  const fechaZone = data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+  const fecha = new Date(fechaZone)
+  fecha.setHours(fecha.getHours() - 5)
+  const day = fecha.getDate()
+  const month = fecha.getMonth() + 1
+  const year = fecha.getFullYear()
+  const hours = fecha.getHours()
+  const minutes = fecha.getMinutes()
+  const seconds = fecha.getSeconds()
 
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month

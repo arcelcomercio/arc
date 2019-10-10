@@ -11,6 +11,9 @@
 
   &__title {
     margin-bottom: 5px;
+    @media (--tablet) {
+      margin-bottom: 10px;
+    }
   }
   &__title-link {
     font-weight: 700;
@@ -27,9 +30,12 @@
 
   &--threeline {
     -webkit-line-clamp: 4;
-    max-height: 82px;
-
+    max-height: 85px;
+    @media (--tablet) {
+      max-height: 90px;
+    }
     @media (--desktop) {
+      max-height: 85px;
       line-height: 20px;
     }
   }

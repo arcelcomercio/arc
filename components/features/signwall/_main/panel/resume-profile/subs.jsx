@@ -138,8 +138,9 @@ class Subs extends Component {
   }
 
   handlePageChange = e => {
+    const { arcSite } = this.props
     e.preventDefault()
-    window.location.href = Domains.getUrlPaywall()
+    window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', 'organico')
   }
 
@@ -260,12 +261,12 @@ class Subs extends Component {
                           {listBundle.includes(reSubs.priceCode) ? (
                             <p>
                               ¡Hola! Encuentra todos los detalles de tu
-                              suscripción DIGITAL + IMPRESA en{' '}
+                              suscripción DIGITAL + IMPRESA en:{' '}
                               <a
                                 className="link"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://suscripciones.gestion.pe/suscripciones/">
+                                href="https://suscripciones.gestion.pe/suscripciones/?ref=SignWallProfile">
                                 Suscripciones Online
                               </a>
                             </p>

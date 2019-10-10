@@ -22,9 +22,12 @@ class Domains {
     }
   }
 
-  getUrlPaywall = () => {
+  getUrlPaywall = site => {
+    // eslint-disable-next-line no-nested-ternary
     return ENV.ENVIRONMENT === 'elcomercio'
       ? `/suscripcionesdigitales/`
+      : site === 'elcomercio'
+      ? `/suscripcionesdigitales/?_website=elcomercio&outputType=paywall#step1`
       : `/suscripcionesdigitales/?_website=gestion&outputType=paywall#step1`
   }
 

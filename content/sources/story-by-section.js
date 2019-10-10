@@ -125,6 +125,9 @@ const fetch = (key = {}) => {
 
   const encodedBody = encodeURI(JSON.stringify(body))
 
+  const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+
   return request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSection}`,
     ...options,
@@ -133,7 +136,7 @@ const fetch = (key = {}) => {
       throw new Error('Sección no encontrada')
     return request({
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=1&from=${feedOffset ||
-        0}&sort=display_date:desc&single=true`,
+        0}&sort=display_date:desc&single=true${excludedFields}`,
       ...options,
     }).then(storyData => {
       const { resizerUrl } = getProperties(website)

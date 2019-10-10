@@ -122,14 +122,13 @@ const AmpOutputType = ({
       : false
 
   return (
-    <Html>
+    <Html lang="es">
       <head>
         <BaseMarkup
           canonicalUrl={`${siteProperties.siteUrl}${addSlashToEnd(
             canonicalUrl
           )}`}
         />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{title}</title>
         <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -138,8 +137,9 @@ const AmpOutputType = ({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
-        <meta name="amp-experiments-opt-in" content="amp-next-page" />
+        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
+          <meta name="amp-experiments-opt-in" content="amp-next-page" />
+        )}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}

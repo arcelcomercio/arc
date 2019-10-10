@@ -376,9 +376,12 @@ class StoryData {
         StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
       []
 
-    return imagesContent
+    const promoItemsImagex = !Array.isArray(promoItemsImage)
+      ? [promoItemsImage]
+      : promoItemsImage
+    return promoItemsImagex
       .concat(galleryContent)
-      .concat(promoItemsImage)
+      .concat(imagesContent)
       .filter(String)
   }
 
@@ -758,22 +761,32 @@ class StoryData {
         _id: idVideo = '',
         streams = [],
         publish_date: date = '',
-        promo_image: { url: urlImage = '' } = {},
+        promo_image: {
+          url: urlImage = '',
+          resized_urls: resizedUrls = '',
+        } = {},
         headlines: { basic: caption = '' } = {},
       } = basicVideo
       if (type === 'video') {
         const dataVideo = streams
-          .map(({ url, stream_type: streamType }) => {
-            return streamType === 'mp4'
-              ? {
-                  idVideo,
-                  url,
-                  caption,
-                  urlImage,
-                  date,
-                }
-              : []
-          })
+          .map(
+            ({
+              url,
+              stream_type: streamType,
+              resized_urls: resizedUrlsV = '',
+            }) => {
+              return streamType === 'mp4'
+                ? {
+                    idVideo,
+                    url,
+                    resized_urls: resizedUrlsV,
+                    caption,
+                    urlImage,
+                    date,
+                  }
+                : []
+            }
+          )
           .filter(String)
         const cantidadVideo = dataVideo.length
         return [dataVideo[cantidadVideo - 1]]
@@ -781,6 +794,7 @@ class StoryData {
 
       return {
         url: urlImage,
+        resized_urls: resizedUrls,
         subtitle: caption,
       }
     }
@@ -791,12 +805,20 @@ class StoryData {
     }
     if (basicImage.url && type === 'image') {
       const {
-        content_element: { basic: { url: urlImage1, caption = '' } = {} } = {},
+        content_element: {
+          basic: {
+            url: urlImage1,
+            caption = '',
+            resized_urls: resizedUrlsc = '',
+          } = {},
+        } = {},
         url: urlImage,
+        resized_urls: resizedUrls1 = '',
         subtitle,
       } = basicImage
       return {
         url: urlImage1 || urlImage,
+        resized_urls: resizedUrlsc || resizedUrls1,
         subtitle: caption || subtitle,
       }
     }
@@ -1120,7 +1142,7 @@ class StoryData {
         .map(data => {
           const {
             headlines: { basic } = {},
-            website_url: websiteUrl,
+            canonical_url: websiteUrl,
             _id: storyId,
           } = data
           if (storyId !== id && i < numero) {

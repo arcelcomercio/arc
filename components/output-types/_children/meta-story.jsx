@@ -78,10 +78,10 @@ export default ({
   })
 
   const listItemsTagsKeywords = tags.map(({ description }) => {
-    return `"${description}"`
+    return `"${formatHtmlToText(description)}"`
   })
   const seoKeyWordsStructurada = seoKeywords.map(item => {
-    return `"${item}"`
+    return `"${formatHtmlToText(item)}"`
   })
 
   const seoKeywordsItems = seoKeywords.map(item => {
@@ -139,7 +139,12 @@ export default ({
     "@context":"http://schema.org",
     "@type":"NewsArticle",
     "datePublished":"${publishDate}",
-    "dateModified":"${lastPublishDate}",
+    "dateModified":"${
+      arcSite === ConfigParams.SITE_ELCOMERCIO ||
+      arcSite === ConfigParams.SITE_ELCOMERCIOMAG
+        ? publishDate
+        : lastPublishDate
+    }",
     "headline":"${formatHtmlToText(title)}",
     "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
@@ -249,7 +254,15 @@ export default ({
         }
       />
       <meta property="article:published_time" content={publishDate} />
-      <meta property="article:modified_time" content={lastPublishDate} />
+      <meta
+        property="article:modified_time"
+        content={`${
+          arcSite === ConfigParams.SITE_ELCOMERCIO ||
+          arcSite === ConfigParams.SITE_ELCOMERCIOMAG
+            ? publishDate
+            : lastPublishDate
+        }`}
+      />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
 

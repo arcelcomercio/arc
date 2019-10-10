@@ -1,2 +1,7 @@
-/* .blog-separator {
-} */
+.blog-separator {
+  &__see-more {
+    text-transform: initial;
+    font-weight: 700;
+    font-family: $secondary-font;
+  }
+}

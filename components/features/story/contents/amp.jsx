@@ -14,7 +14,12 @@ import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTags from './_children/tags'
 import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
-import { ampHtml, publicidadAmp, replaceTags } from '../../../utilities/helpers'
+import {
+  ampHtml,
+  publicidadAmp,
+  replaceTags,
+  storyTagsBbc,
+} from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
 
@@ -28,6 +33,7 @@ const classes = {
   relatedTitle:
     'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
   adsAmp: 'text-center ad-amp-movil',
+  bbcHead: 'bbc-head',
 }
 
 @Consumer
@@ -47,6 +53,7 @@ class StoryContentAmp extends PureComponent {
       promoItems,
       tags,
       authorLink,
+      primarySectionLink,
       author,
     } = new StoryData({
       data,
@@ -64,7 +71,7 @@ class StoryContentAmp extends PureComponent {
     const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
-    const parameters = { dataSlot, placementId, width, height }
+    const parameters = { dataSlot, placementId, width, height, primarySectionLink }
     const parametersMovil4 = {
       dataSlot: `/${
         adsAmp.dataSlot
@@ -72,6 +79,7 @@ class StoryContentAmp extends PureComponent {
       placementId: adsAmp.movil4,
       width,
       height,
+      primarySectionLink,
     }
     const parametersMovil5 = {
       dataSlot: `/${
@@ -80,6 +88,7 @@ class StoryContentAmp extends PureComponent {
       placementId: adsAmp.movil5,
       width,
       height,
+      primarySectionLink,
     }
     const parametersMovil3 = {
       dataSlot: `/${
@@ -88,7 +97,13 @@ class StoryContentAmp extends PureComponent {
       placementId: adsAmp.movil3,
       width,
       height,
+      primarySectionLink,
     }
+    const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
+    const imgBbc =
+      deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+      ) || ''
 
     return (
       <>
@@ -161,6 +176,7 @@ class StoryContentAmp extends PureComponent {
                       imgClassName={classes.image}
                       layout="responsive"
                       resizer="true"
+                      sizePreset="content"
                     />
                   )
                 }
@@ -194,8 +210,25 @@ class StoryContentAmp extends PureComponent {
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmp(parametersMovil4)}
           />
-          <StoryContentChildTags data={tags} {...isAmp} />
 
+          <StoryContentChildTags data={tags} {...isAmp} />
+          {storyTagsBbc(tags) && (
+            <div className={classes.bbcHead}>
+              <a
+                href={URL_BBC}
+                rel="nofollow noopener noreferrer"
+                target="_blank">
+                <amp-img
+                  alt="BBC"
+                  layout="responsive"
+                  width="500"
+                  height="30"
+                  src={imgBbc}
+                  data-src={imgBbc}
+                />
+              </a>
+            </div>
+          )}
           {relatedContent.length > 0 && (
             <div className={classes.related}>
               <div className={classes.relatedTitle}>Relacionadas </div>

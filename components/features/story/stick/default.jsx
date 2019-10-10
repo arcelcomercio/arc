@@ -6,18 +6,24 @@ import StoryData from '../../../utilities/story-data'
 import { removeLastSlash } from '../../../utilities/helpers'
 
 const classes = {
-  stickWrapper: 'stick hidden w-full pl-20 pr-20',
-  stick:
-    'stick__content position-relative flex items-center justify-between p-10',
-  closeApp:
-    'stick__close-app position-absolute icon-close text-white flex items-center justify-center',
+  stickWrapper: 'stick w-full pl-20 pr-20',
+  stick: `stick__content position-relative flex items-center justify-between p-10`,
+  closeApp: `stick__close-app position-absolute icon-close text-white flex items-center justify-center`,
   logo: 'stick__logo',
   description: 'stick__description text-center pl-10 pr-10',
   logoLink: 'button-app',
   buttonApp: 'stick__button p-10 text-center',
 }
+
 @Consumer
 class Stick extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      active: true,
+    }
+  }
+
   componentDidMount() {
     const {
       customFields: {
@@ -42,7 +48,6 @@ class Stick extends PureComponent {
         contextPath,
       }) || {}
 
-    const aOpenAppClose = document.getElementById('close-app')
     const aOpenApp = document.getElementById('button-app')
     // const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
 
@@ -59,7 +64,7 @@ class Stick extends PureComponent {
         window.location.href
       }${href}`
       */
-      
+
       const urlApp = ENV.ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev
       const urlSource =
         ENV.ENVIRONMENT === 'elcomercio'
@@ -78,10 +83,30 @@ class Stick extends PureComponent {
       })
     })
 
-    aOpenAppClose.addEventListener('click', function(e) {
-      e.preventDefault()
-      const stick = document.querySelector('.stick')
-      stick.setAttribute('style', 'display: none')
+    // eslint-disable-next-line no-undef
+    if (apntag && Object.keys(apntag).length > 1) {
+      // eslint-disable-next-line no-undef
+      apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
+        const tickerContainer = document.querySelector('#content_ads_m_ticker')
+        this.closeStick()
+        tickerContainer.addEventListener('click', evt => {
+          if (evt.target.classList.contains('zocalo-button-close')) {
+            this.openStick()
+          }
+        })
+      })
+    }
+  }
+
+  closeStick = () => {
+    this.setState({
+      active: false,
+    })
+  }
+
+  openStick = () => {
+    this.setState({
+      active: true,
     })
   }
 
@@ -101,7 +126,6 @@ class Stick extends PureComponent {
     const link = `${currentLink}?appData=${appData}&apn=${apn}&amv=${amv}&ibi=${ibi}&ipfl=${currentLink}&ipbi=${ipbi}&isi=${isi}&imv=${imv}&efr=1${urlSource}`
     const url = `${removeLastSlash(urlApp)}/?link=${link}`
     return url
-    
   }
 
   render() {
@@ -116,6 +140,8 @@ class Stick extends PureComponent {
       },
     } = this.props
 
+    const { active } = this.state
+
     const { link } = new StoryData({
       data: globalContent,
       contextPath,
@@ -125,19 +151,22 @@ class Stick extends PureComponent {
     )
 
     return (
-      <div className={classes.stickWrapper}>
+      <div className={`${classes.stickWrapper} ${active ? 'block' : 'hidden'}`}>
         <div className={classes.stick}>
-          <a href="#" id="close-app" className={classes.closeApp} />
+          <i
+            role="button"
+            tabIndex={0}
+            className={classes.closeApp}
+            onClick={this.closeStick}
+            onKeyUp={this.closeStick}
+          />
           <div className={classes.logo}>
-            <a className={classes.logoLink}>
-              <img src={imgLogo} />
-            </a>
+            <img src={imgLogo} alt="" />
           </div>
           <div className={classes.description}>
             Sigue actualizado en nuestra APP
           </div>
           <div
-            href=""
             className={classes.buttonApp}
             id="button-app"
             data-url-pwd={urlPwd}

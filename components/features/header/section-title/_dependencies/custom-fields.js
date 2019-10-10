@@ -10,7 +10,17 @@ const customFields = PropTypes.shape({
     name: 'URL de la sección',
     description: 'Url de la sección. Ejemplo: /politica',
   }),
-
+  TextType: PropTypes.oneOf(['h1', 'h2', 'h3', 'div']).tag({
+    name: 'Tipo de texto',
+    group: 'Configuración',
+    labels: {
+      h1: 'Título',
+      h2: 'Subtítulo',
+      h3: 'Encabezado H3',
+      div: 'Bloque',
+    },
+    defaultValue: 'h1',
+  }),
   bgColor: PropTypes.oneOf(['bg-primary', 'bg-secondary', 'transparent']).tag({
     name: 'Color de fondo',
     group: 'Configuración',

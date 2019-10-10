@@ -70,6 +70,7 @@
     }
     & * .separator__btn {
       background-color: $color-base-100;
+      text-transform: initial;
     }
     & * .separator__item {
       margin-right: 15px;

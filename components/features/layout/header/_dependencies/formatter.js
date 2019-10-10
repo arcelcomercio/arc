@@ -43,10 +43,7 @@ export default class StandardHeader {
 
   standard() {
     const sections = this.formatSections()
-    const newest = {
-      name: 'Lo último',
-      url: '/archivo',
-    }
+
     const { logo } = this.headerProperties
     return {
       logo: {
@@ -58,7 +55,7 @@ export default class StandardHeader {
         link: this.customLogoLink,
         alt: this.siteDomain,
       },
-      sections: [newest, ...sections],
+      sections,
       date: {
         active: this.showDate,
         value: this.getDate(),

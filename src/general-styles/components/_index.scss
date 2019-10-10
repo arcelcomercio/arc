@@ -7,6 +7,7 @@
 @import './global-components/pagination-date';
 @import './global-components/pagination';
 @import './global-components/search-input';
+@import './global-components/spinner';
 @import './global-components/stick';
 @import './global-components/story-item';
 @import './global-components/story-table';
@@ -113,7 +114,12 @@
 @import './features/stories-lists/card/stories-list-header';
 @import './features/stories-lists/card/stories-list-item';
 @import './features/stories-lists/card/stories-list-tabloid';
+@import './features/stories-lists/most-read-premium/most-read-premium-card';
+@import './features/stories-lists/most-read-premium/most-read-premium-footer';
+@import './features/stories-lists/most-read-premium/most-read-premium-header';
+@import './features/stories-lists/most-read-premium/most-read-premium-item';
 @import './features/stories-lists/section-column/stories-l-section';
+@import './features/stories-lists/stories-author/stories-author';
 @import './features/story/related-internal';
 @import './features/story/story-header-amp';
 @import './features/story/content/related-content';

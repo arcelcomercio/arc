@@ -59,6 +59,8 @@ class ConfigParams {
 
   static SITE_ELCOMERCIO = 'elcomercio'
 
+  static SITE_ELCOMERCIOMAG = 'elcomerciomag'
+
   static SITE_PERU21 = 'peru21'
 
   static SITE_OJO = 'ojo'
@@ -201,9 +203,8 @@ export const sizeImg = () => {
       width: 940,
       height: 569,
     },
-    amp: {
-      width: 600,
-      height: 375,
+    content: {
+      width: 980,
     },
     amp_new: {
       width: 1200,

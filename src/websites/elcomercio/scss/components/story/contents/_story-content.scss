@@ -16,6 +16,9 @@
     }
     a {
       color: #4a88b1;
+      b {
+        font-family: $fifth-font;
+      }
     }
     b {
       font-family: $tertiary-font;
@@ -41,6 +44,16 @@
     color: #888888;
     font-size: 10px;
     font-family: $tertiary-font;
+    @media (--only-mobile) {
+      text-align: right;
+      width: 134px;
+      order: 1;
+    }
+  }
+  &__author {
+    @media (--only-mobile) {
+      flex-direction: row;
+    }
   }
   &__author-link {
     font-family: $fourth-font;
@@ -48,6 +61,14 @@
   }
   &__author-email {
     font-family: $fourth-font;
+  }
+  &__more-link {
+    .icon-linkedin-circle {
+      color: #0e76a8;
+    }
+  }
+  &__list-more {
+    width: 110px;
   }
 }
 

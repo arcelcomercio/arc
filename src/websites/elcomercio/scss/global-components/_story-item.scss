@@ -19,6 +19,8 @@
     position: relative;
     flex-direction: column;
     display: block;
+    flex-wrap: wrap;
+
     @media (--desktop) {
       display: flex;
       flex-direction: row;
@@ -45,7 +47,7 @@
     }
   }
   &__section {
-    display: block;
+    display: none;
     color: #777777;
     padding-left: 0;
     font-size: 11px;
@@ -56,14 +58,10 @@
       margin-bottom: 0;
     }
     @media (--desktop) {
-      display: none;
       font-weight: normal;
     }
     &.story-item__section--desktop {
       display: none;
-      @media (--desktop) {
-        display: block;
-      }
     }
   }
   &__date {
@@ -94,7 +92,8 @@
   }
   &__content-title,
   &__subtitle,
-  &__section--desktop {
+  &__section--desktop,
+  &__author-wrapper {
     padding-left: 0;
     @media (--desktop) {
       padding-left: 111px;
@@ -154,5 +153,9 @@
     .story-item__left {
       padding-left: 0;
     }
+  }
+  &__author-wrapper {
+    display: block;
+    width: 100%;
   }
 }
