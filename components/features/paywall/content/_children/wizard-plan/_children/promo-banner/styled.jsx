@@ -9,6 +9,7 @@ export const Subscribed = styled.a`
     max-width: 930px;
     cursor: pointer;
     margin-top: 30px;
+    margin-bottom: 30px;
     align-items: flex-end;
     position: relative;
     ${spacing}
@@ -25,11 +26,11 @@ export const Subscribed = styled.a`
         }
       `}
     ${theme.breakpoints.only('sm')} {
-      width: 50%;
+      width: 50%;;
     }
     ${theme.breakpoints.down('xs')} {
       width: calc(100% - 40px);
-      margin-top: 40px;
+      /* margin-top: 40px; */
       margin-left: 0px;
     }
   `}
@@ -44,7 +45,7 @@ export const SubscribedText = styled.div`
 `
 
 export const SubscribedContent = styled.div`
-  ${({ theme, backgroundColor, color }) => css`
+  ${({ theme, backgroundColor, color, minPadding }) => css`
     padding: 20px;
     display: flex;
     flex: 1;
@@ -54,6 +55,9 @@ export const SubscribedContent = styled.div`
     font-size: 16px;
     color: ${color};
     background-color: ${backgroundColor};
+    ${theme.breakpoints.down('sm')} {
+      padding: ${minPadding ? '20px' : '40px 20px'};
+    }
     ${theme.breakpoints.down('xs')} {
       padding: 18px 20px;
       max-height: 100px;

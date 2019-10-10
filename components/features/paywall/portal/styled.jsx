@@ -32,13 +32,19 @@ export const PortalContent = styled.div`
 `
 
 export const Footer = styled.div`
-  height: 90px;
-  opacity: 0.8;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 35px;
+  ${({ theme }) => css`
+    padding: 12px;
+    opacity: 0.8;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 35px;
+    ${theme.breakpoints.down('sm')} {
+      margin-top: 0px;
+      padding: 20px 10px;
+    }
+  `}
 `
 
 export const FooterContent = styled.div`
@@ -53,7 +59,7 @@ export const FooterContent = styled.div`
 
 export const ClickToCallWrapper = styled.div`
   position: absolute;
-  top: -25%;
+  top: -35%;
   right: 0;
 `
 
@@ -68,7 +74,7 @@ const LinkBase = styled.a`
 `
 
 export const LinkCorporate = styled(LinkBase)`
-  ${({ theme }) => css`
+  ${({ theme, linkStyle }) => css`
     background: #444444;
     color: #fff;
     min-width: 360px;
@@ -77,7 +83,38 @@ export const LinkCorporate = styled(LinkBase)`
     ${theme.breakpoints.down('sm')} {
       min-width: calc(100% - 40px);
     }
+    ${linkStyle &&
+      css`
+        font-size: 16px;
+        padding: 20px 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        ${theme.breakpoints.down('sm')} {
+          padding: 40px 10px;
+        }
+      `}
   `}
+`
+
+export const SubscribedText = styled.div`
+  padding: 20px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  max-height: 50px;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  & div{
+    flex-direction: column;
+    display: flex;
+    & span:first-child {
+      font-weight: 300;
+      font-size: 12px;
+    }
+  }
 `
 
 export const LinkSubscribe = styled(LinkBase)`

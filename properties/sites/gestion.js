@@ -92,6 +92,7 @@ export default {
       privacyPolicy:                     `https://gestion.pe/politica-de-privacidad`,
       disclaimer:                        `http://ecomedia.pe/libro/registrar/elcomercio/`,
       terms:                             `https://suscripciones.gestion.pe/terminos/`,
+      originSubsOnline:                  `https://suscripciones.gestion.pe/`,
       contactEmailRef:                   `mailto:suscriptores@diariogestion.com.pe`,
       contactPhoneRef:                   `tel:+5113115100`,
       androidAppDownload:                `https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer`,

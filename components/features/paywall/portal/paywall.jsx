@@ -8,9 +8,10 @@ import addScriptAsync from '../../../utilities/script-async'
 import { interpolateUrl } from '../_dependencies/domains'
 import Card from './_children/card'
 import ClickToCall from '../_children/click-to-call'
+import Icon from '../_children/icon'
 // import FillHeight from '../_children/fill-height'
 
-const Portal = () => {
+const Portal = ({ theme }) => {
   const {
     arcSite,
     globalContent: items,
@@ -23,6 +24,7 @@ const Portal = () => {
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
   const corporateUrl = interpolateUrl(urls.corporateSuscription)
   const originSalesSdkUrl = interpolateUrl(urls.originSalesSdk)
+  const originSubsOnline = interpolateUrl(urls.originSubsOnline)
 
   React.useEffect(() => {
     addScriptAsync({
@@ -46,9 +48,33 @@ const Portal = () => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
-          <S.LinkCorporate href={corporateUrl}>
-            SUSCRIPCIONES CORPORATIVAS
+          <S.LinkCorporate
+            linkStyle
+            href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
+            <S.SubscribedText>
+              <div>
+                {arcSite === 'elcomercio' ? (
+                  <>
+                    <span>¿BUSCAS SOLO SUSCRIPCIÓN IMPRESA?</span>
+                    <span>CONSULTA AQUÍ</span>
+                  </>
+                ) : (
+                  <>
+                    <span>¿ERES EMPRESA? CONSULTA NUESTRAS</span>
+                    <span>SUSCRIPCIONES CORPORATIVAS</span>
+                  </>
+                )}
+              </div>
+              <div>
+                <Icon type={theme.icon.arrowRight} />
+              </div>
+            </S.SubscribedText>
           </S.LinkCorporate>
+          
+          {/* <S.LinkCorporate href={corporateUrl}>
+            SUSCRIPCIONES CORPORATIVAS
+          </S.LinkCorporate> */}
+
           <S.ClickToCallWrapper>
             <ClickToCall href={clickToCallUrl} />
           </S.ClickToCallWrapper>

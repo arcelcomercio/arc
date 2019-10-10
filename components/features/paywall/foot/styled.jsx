@@ -6,7 +6,6 @@ export const Foot = styled.div`
     background-color: ${theme.palette.terciary.main};
     color: ${theme.palette.terciary.contrastText};
     padding: 30px;
-    margin-top: 30px;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -52,6 +51,9 @@ export const List = styled.div`
     flex-wrap: wrap;
     & li {
       width: 50%;
+      ${theme.breakpoints.down('xs')} {
+        width: 100%;
+      }
     }
     ${theme.breakpoints.down('xs')} {
       width: 100%;

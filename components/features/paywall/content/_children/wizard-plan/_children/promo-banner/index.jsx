@@ -37,7 +37,8 @@ const PromoBanner = props => {
       )}
       <S.SubscribedContent
         backgroundColor={backgroundColor}
-        color={theme.palette.getContrastText(backgroundColor)}>
+        color={theme.palette.getContrastText(backgroundColor)}
+        minPadding={image}>
         <S.SubscribedText>
           {invertTextSizes ? (
             <>
