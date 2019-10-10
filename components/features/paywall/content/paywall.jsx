@@ -121,7 +121,9 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     const stepSlug = accessFree ? stepSlugs[3] : stepSlugs[0]
     const path = `${basePath}/${stepSlug}/${search}`
     if (accessFree) {
-      Object.assign(currMemo, { plan: plans[0] })
+      // Acceso gratuito salta directo a landing de confirmacion
+      // con el primer plan seleccionado
+      currMemo.plan = plans[0]
       history.push(path, currMemo)
     } else {
       history.replace(path, currMemo)
