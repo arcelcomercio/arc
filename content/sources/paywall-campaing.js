@@ -23,7 +23,13 @@ const fetch = (key = {}) => {
       error,
       products: [{ sku, attributes, pricingStrategies }],
     } = data
-    const { printed } = subscriber
+    const {
+      printed,
+      accessFree,
+      firstName = 'Nombre',
+      lastName = 'APaterno',
+      secondLastName = 'AMaterno',
+    } = subscriber
     const plans = pricingStrategies.map(
       ({ pricingStrategyId, priceCode, description = '', rates }) => {
         const [price] = rates
@@ -69,14 +75,14 @@ const fetch = (key = {}) => {
 
     const { title: name = 'Plan Digital' } = summary
 
+    // prettier-ignore
     return Object.assign(
       {
         name,
         summary,
         plans,
-        printedSubscriber: printed
-          ? { documentType, documentNumber }
-          : undefined,
+        accessFree: accessFree ? { firstName, lastName, secondLastName } : undefined,
+        printedSubscriber: printed ? { documentType, documentNumber } : undefined,
       },
       error ? { error } : {}
     )

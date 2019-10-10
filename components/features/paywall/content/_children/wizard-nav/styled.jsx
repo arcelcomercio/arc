@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import styled, { css } from 'styled-components'
+import sizing from '@material-ui/system/sizing'
 
 const WizardNav = styled.div`
   display: flex;
@@ -10,15 +11,10 @@ const WizardNav = styled.div`
 `
 
 const Wrap = styled.div`
+  ${sizing}
   display: flex;
   justify-content: space-around;
   flex: 1;
-  max-width: 470px;
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      max-width: 100vw;
-    }
-  `}
 `
 
 const Right = styled.div`

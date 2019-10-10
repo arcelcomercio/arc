@@ -23,22 +23,28 @@ const WizardConfirmation = props => {
   const {
     theme,
     memo: {
-      order: { orderNumber },
-      profile: { firstName, lastName, secondLastName, email },
-      plan: {
-        title: plan,
-        sku,
-        priceCode,
-        amount,
-        billingFrequency,
-        description,
-      },
+      order = {},
+      profile = {},
+      plan = {},
       origin,
       referer,
-      payment: { total: paidTotal, subscriptionIDs },
+      payment = {},
       printedSubscriber,
+      accessFree = {},
     },
   } = props
+
+  const { orderNumber } = order
+  const { firstName, lastName, secondLastName, email } = accessFree || profile
+  const { total: paidTotal, subscriptionIDs = [] } = payment
+  const {
+    title: planTitle,
+    sku,
+    priceCode,
+    amount,
+    billingFrequency,
+    description,
+  } = plan
 
   useEffect(() => {
     PWA.finalize()
@@ -62,6 +68,7 @@ const WizardConfirmation = props => {
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: origin,
+      accesoGratis: accessFree,
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
@@ -115,19 +122,18 @@ const WizardConfirmation = props => {
             {msgs.interpolate(msgs.welcomeNewSubscriptor, { firstName })}
           </S.Title>
 
-          {/* <S.Subtitle>
-            <strong>POR SER UN SUSCRIPTOR PREMIUM</strong>
-            <br />
-            tienes acceso ilimitado a las noticias más relevantes del Perú y el
-            mundo totalmente gratis.
-          </S.Subtitle> */}
-
-          <S.Subtitle large>{msgs.successfulSubscription}</S.Subtitle>
+          <S.Subtitle large={!accessFree}>
+            {accessFree ? msgs.successfulSubscription : msgs.successfulPurchase}
+          </S.Subtitle>
 
           <S.CardSummary>
-            <S.DetailTitle>{msgs.purchaseDetails.toUpperCase()}</S.DetailTitle>
+            <S.DetailTitle>
+              {accessFree
+                ? msgs.subscriptionDetails.toUpperCase()
+                : msgs.purchaseDetails.toUpperCase()}
+            </S.DetailTitle>
             <Item label={`${msgs.planLabel.toUpperCase()}: `}>
-              {(plan || '').toUpperCase()} -{' '}
+              {(planTitle || '').toUpperCase()} -{' '}
               {Frecuency[billingFrequency].toUpperCase()}
             </Item>
             <Item label={`${msgs.nameLabel.toUpperCase()}: `}>
@@ -135,22 +141,26 @@ const WizardConfirmation = props => {
                 {firstName} {lastName} {secondLastName}
               </S.Names>
             </Item>
-            <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
-              {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
-              {paidTotal !== 0
-                ? `${msgs.currencySymbol.toUpperCase()} ${paidTotal}`
-                : `${msgs.freeAmount.toUpperCase()} ${description.title} ${
-                    description.description
-                  }`}
-            </Item>
-            <S.Small>{msgs.paymentNotice}</S.Small>
+            {!accessFree && (
+              <>
+                <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
+                  {paidTotal !== 0
+                    ? `${msgs.currencySymbol.toUpperCase()} ${paidTotal}`
+                    : `${msgs.freeAmount.toUpperCase()} ${description.title} ${
+                        description.description
+                      }`}
+                </Item>
+                <S.Small>{msgs.paymentNotice}</S.Small>
+              </>
+            )}
           </S.CardSummary>
-          <S.Notice
-            source={msgs.interpolate(msgs.subscriptionNotice, { email })}
-          />
+          {!accessFree && (
+            <S.Notice
+              source={msgs.interpolate(msgs.subscriptionNotice, { email })}
+            />
+          )}
           <S.WrapButton>
             <Button onClick={handleClick}>{msgs.continueButton}</Button>
-            {/* <S.Progress time="17s" onFinish={handleClick} /> */}
           </S.WrapButton>
         </S.Content>
       </S.Panel>

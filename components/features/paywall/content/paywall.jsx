@@ -39,7 +39,13 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     siteProperties: {
       paywall: { urls },
     },
-    globalContent: { summary = [], plans = [], printedSubscriber, error },
+    globalContent: {
+      summary = [],
+      plans = [],
+      printedSubscriber,
+      accessFree,
+      error,
+    },
   } = useFusionContext()
 
   const clearPaywallStorage = useRef(() => {
@@ -68,7 +74,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   }, [])
 
   // const [memo, setMemo] = useState({})
-  const memo = useRef({ plans, summary, printedSubscriber, error })
+  const memo = useRef({ plans, summary, printedSubscriber, accessFree, error })
   const currMemo = memo.current
   useEffect(() => {
     history = createBrowserHistory({
@@ -77,8 +83,8 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     })
 
     const search = history.location.search
-    history.replace(`${basePath}/${stepSlugs[0]}/${search}`, currMemo)
-    return history.listen((location, action) => {
+    // Si tiene acceso gratis mostrar directo paso de confirmacion
+    const unlisten = history.listen((location, action) => {
       const { goToStep } = wizardRef.current
       const doStep = step => {
         // Retornar a planes si retrocede luego de finalizar la compra
@@ -112,6 +118,15 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
           break;
       }
     })
+    const stepSlug = accessFree ? stepSlugs[3] : stepSlugs[0]
+    const path = `${basePath}/${stepSlug}/${search}`
+    if (accessFree) {
+      Object.assign(currMemo, { plan: plans[0] })
+      history.push(path, currMemo)
+    } else {
+      history.replace(path, currMemo)
+    }
+    return unlisten
   }, [])
 
   const onBeforeNextStepHandler = useRef(result => {
@@ -150,6 +165,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
             isLazyMount
             nav={
               <Nav
+                excludeSteps={accessFree && [2, 3]}
                 stepsNames={stepNames}
                 right={<ClickToCall href={clickToCallUrl} />}
               />

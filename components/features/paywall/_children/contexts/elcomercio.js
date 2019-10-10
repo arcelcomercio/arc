@@ -68,8 +68,12 @@ export default {
 
     // Confirmation
     welcomeNewSubscriptor: `¡Bienvenido(a) {{firstName}}!`,
-    successfulSubscription: `Tu suscripción ha sido exitosa.` ,
+    successfulPurchase: `Tu suscripción ha sido exitosa.` ,
+    successfulSubscription: 
+      `POR SER UN SUSCRIPTOR PREMIUM  
+      tienes acceso ilimitado a las noticias más relevantes del Perú y el mundo **totalmente gratis**.`, 
     purchaseDetails: `DETALLE DE COMPRA`,
+    subscriptionDetails: `DETALLE DE LA SUSCRIPCIÓN`,
     subscriptionNotice: 
      `Enviaremos la boleta de compra de la  
       suscripción al correo: **{{email}}**`,
