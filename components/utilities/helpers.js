@@ -694,7 +694,7 @@ export const publicidadAmp = ({
   let resultData = ''
   const nuevoScript =
     (movil1 &&
-      `data-multi-size="320x100"
+      `data-multi-size="320x100,320x50"
   data-multi-size-validation="false"`) ||
     ''
 
