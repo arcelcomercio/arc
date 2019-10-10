@@ -1,7 +1,10 @@
 .video-list {
   margin-top: 50px;
   @media (--desktop) {
-    &.fixed {
+    &.fixedAds {
+      margin-top: 250px;
+    }
+    &.fixedNoAds {
       margin-top: 570px;
     }
   }

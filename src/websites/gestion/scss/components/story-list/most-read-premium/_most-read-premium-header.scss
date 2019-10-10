@@ -1,0 +1,29 @@
+.most-read-premium-header {
+  justify-content: center;
+  background-color: #888;
+  height: 40px;
+  &__title {
+    color: $color-base-100;
+    font-size: 17px;
+    line-height: 26px;
+    letter-spacing: 1px;
+    h4 {
+      font-weight: 700;
+    }
+  }
+  &__see-more {
+    background-color: $color-base-100;
+    color: $color-gray-300;
+    border-radius: 4px;
+    font-family: $tertiary-font;
+    font-weight: 700;
+    display: none;
+  }
+
+  &.bg-info {
+    background-color: $color-gray-200;
+  }
+  &.bg-white {
+    background-color: $color-gray-100;
+  }
+}

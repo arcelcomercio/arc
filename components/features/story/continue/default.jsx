@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   storyContinue:
@@ -94,6 +95,8 @@ class StoryContinue extends PureComponent {
   }
 
   setTimeoutLoadPage = (linker, html = '') => {
+    const { arcSite } = this.props || {}
+    const timeLoad = ConfigParams.SITE_OJO === arcSite ? 5000 : 2000
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (
@@ -102,7 +105,7 @@ class StoryContinue extends PureComponent {
       ) {
         window.location = link
       }
-    }, 5000)
+    }, timeLoad)
   }
 
   setUpdateLoaderPage = (progress, concurrentProgress) => {

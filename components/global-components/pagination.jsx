@@ -88,7 +88,7 @@ const Pagination = props => {
   const pages = createPaginator(currentPage || 1, totalPages)
   currentPage = parseInt(currentPage || 1, 10)
 
-  let pathOrigin = requestUri.replace(/\/[0-9]+\/?/, '')// .replace(/\/[0-9]*?\/?$/, '')
+  let pathOrigin = requestUri.replace(/\/[0-9]+\/?/, '') // .replace(/\/[0-9]*?\/?$/, '')
   pathOrigin = testSearchPath(pathOrigin)
 
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
@@ -119,18 +119,21 @@ const Pagination = props => {
 
         if (page !== '...') {
           const urlPage = addParamToEndPath(pathOrigin, page) // `${pathOrigin}/${page}/`
-          tag = (
-            <a
-              key={key}
-              className={`${classes.page} ${
-                currentPage === page || (currentPage === 0 && page === 1)
-                  ? 'pagination__page--current'
-                  : ''
-              }`}
-              href={urlPage}>
-              {page}
-            </a>
-          )
+          if (currentPage === page || (currentPage === 0 && page === 1)) {
+            tag = (
+              <span
+                key={key}
+                className={`${classes.page} ${'pagination__page--current'}`}>
+                {page}
+              </span>
+            )
+          } else {
+            tag = (
+              <a key={key} className={classes.page} href={urlPage}>
+                {page}
+              </a>
+            )
+          }
         } else {
           tag = (
             <span key={key} className={classes.page}>

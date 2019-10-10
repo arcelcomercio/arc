@@ -136,6 +136,8 @@ export default ({
   const { googleFonts = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
+  const isLivePage = arcSite === 'elcomercio' && requestUri.match(`^/en-vivo/`)
+
   const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
   (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
@@ -153,10 +155,12 @@ export default ({
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link
-          href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
-          rel="stylesheet"
-        />
+        {googleFonts && (
+          <link
+            href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
+            rel="stylesheet"
+          />
+        )}
         {renderMetaPage(metaValue('id'), metaPageData)}
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -180,7 +184,9 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {!nodas && <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />}
+        {!nodas && !isLivePage && (
+          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+        )}
 
         {/* Scripts de APPNEXUS */}
         <script
