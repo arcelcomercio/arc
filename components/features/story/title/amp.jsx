@@ -53,12 +53,13 @@ class StoryTitleAmp extends PureComponent {
     }-amp-320x50-top-movil1`
     const placementId = adsAmp.movil1
     const width = '320'
-    const height = '50'
+
     const parameters = {
       dataSlot,
       placementId,
       width,
-      height,
+      height: '50',
+      movil: true,
       primarySectionLink,
     }
 
