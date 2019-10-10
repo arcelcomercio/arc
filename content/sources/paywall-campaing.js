@@ -26,9 +26,9 @@ const fetch = (key = {}) => {
     const {
       printed,
       accessFree,
-      firstName = 'Nombre',
-      lastName = 'APaterno',
-      secondLastName = 'AMaterno',
+      firstName = '',
+      lastName = '',
+      secondLastName = '',
     } = subscriber
     const plans = pricingStrategies.map(
       ({ pricingStrategyId, priceCode, description = '', rates }) => {
