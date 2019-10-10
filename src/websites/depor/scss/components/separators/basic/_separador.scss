@@ -1,0 +1,10 @@
+.separator {
+  &__detail {
+    position: relative;
+  }
+  &__item {
+    &:before {
+      display: none;
+    }
+  }
+}
