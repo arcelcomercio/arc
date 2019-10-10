@@ -59,7 +59,7 @@ class StoryTitleAmp extends PureComponent {
       placementId,
       width,
       height: '50',
-      movil: true,
+      movil1: true,
       primarySectionLink,
     }
 
