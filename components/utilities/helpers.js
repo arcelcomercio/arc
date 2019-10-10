@@ -385,7 +385,7 @@ export const defaultImage = ({
   }
 
   return deployment(
-    `${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
