@@ -32,6 +32,7 @@ const ExtraordinaryStory = props => {
     multimediaOrientation = 'bottom',
     contentOrientation = 'left',
     isSection = false,
+    showExtraordinaryStory,
   } = props
 
   // TODO: Mejorar el uso de clases por orientación
@@ -60,54 +61,60 @@ const ExtraordinaryStory = props => {
       break
   }
   return (
-    <article
-      className={`${
-        classes.extraordinaryStory
-      } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
-      <div className={classes.groupContent}>
-        {!isSection && (
-          <p className={classes.section}>
-            <a href={data.primarySectionLink} className={classes.sectionLink}>
-              {data.primarySection}
-            </a>
-          </p>
-        )}
-        <div className={classes.content}>
-          <h2 className={`${classes.title} ${numline}`}>
-            <a
-              href={data.link}
-              className={classes.titleLink}
-              title={data.title}>
-              {data.title}
-            </a>
-          </h2>
-          <p className={classes.extraordinaryStorySubtitle}>
-            <a href={data.link} className={classes.link}>
-              {data.subTitle}
-            </a>
-          </p>
-          <address className={classes.extraordinaryStoryAuthor}>
-            <a href={data.authorLink} className={classes.authorLink}>
-              {data.author}
-            </a>
-          </address>
-        </div>
-      </div>
-      <div className={classes.multimedia}>
-        <EmbedMultimedia
-          type={data.typeMultimediaGeneral}
-          title={data.title}
-          source={data.sourceMultimedia}
-          deployment={deployment}
-          contextPath={contextPath}
-          website={arcSite}
-          linkStory={data.link}
-        />
-        {multimediaType === ConfigParams.GALLERY && (
-          <Icon type={multimediaType} />
-        )}
-      </div>
-    </article>
+    <>
+      {showExtraordinaryStory && (
+        <article
+          className={`${
+            classes.extraordinaryStory
+          } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
+          <div className={classes.groupContent}>
+            {!isSection && (
+              <p className={classes.section}>
+                <a
+                  href={data.primarySectionLink}
+                  className={classes.sectionLink}>
+                  {data.primarySection}
+                </a>
+              </p>
+            )}
+            <div className={classes.content}>
+              <h2 className={`${classes.title} ${numline}`}>
+                <a
+                  href={data.link}
+                  className={classes.titleLink}
+                  title={data.title}>
+                  {data.title}
+                </a>
+              </h2>
+              <p className={classes.extraordinaryStorySubtitle}>
+                <a href={data.link} className={classes.link}>
+                  {data.subTitle}
+                </a>
+              </p>
+              <address className={classes.extraordinaryStoryAuthor}>
+                <a href={data.authorLink} className={classes.authorLink}>
+                  {data.author}
+                </a>
+              </address>
+            </div>
+          </div>
+          <div className={classes.multimedia}>
+            <EmbedMultimedia
+              type={data.typeMultimediaGeneral}
+              title={data.title}
+              source={data.sourceMultimedia}
+              deployment={deployment}
+              contextPath={contextPath}
+              website={arcSite}
+              linkStory={data.link}
+            />
+            {multimediaType === ConfigParams.GALLERY && (
+              <Icon type={multimediaType} />
+            )}
+          </div>
+        </article>
+      )}
+    </>
   )
 }
 
