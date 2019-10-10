@@ -23,6 +23,9 @@
     display: flex;
     justify-content: center;
   }
+  &__list-none{
+    border-top: none;    
+  }
   &__item {
   }
   &__link {
