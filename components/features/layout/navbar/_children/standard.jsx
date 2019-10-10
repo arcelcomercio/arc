@@ -356,10 +356,7 @@ class NavBarDefault extends PureComponent {
   }
 
   render() {
-    const {
-      statusSidebar,
-      scrolled,
-    } = this.state
+    const { statusSidebar, scrolled } = this.state
     const {
       logo,
       logoLeft,
@@ -370,6 +367,7 @@ class NavBarDefault extends PureComponent {
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
+      menuData: { children: menuSections = [] } = {},
     } = this.props
 
     const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
@@ -441,29 +439,27 @@ class NavBarDefault extends PureComponent {
             {/** ************* MIDDLE *************** */}
             <div className={classes.listContainer}>
               <ul className={classes.list}>
-                {sections &&
-                  sections
-                    .slice(0, 7)
-                    .map(
-                      ({
-                        _id: id,
-                        url,
-                        name = '',
-                        display_name: displayName = '',
-                      }) => {
-                        return (
-                          <li
-                            key={`navbar-${url || id}`}
-                            className={classes.listItem}>
-                            <a
-                              href={url || id || '/'}
-                              className={classes.listLink}>
-                              {name || displayName}
-                            </a>
-                          </li>
-                        )
-                      }
-                    )}
+                {menuSections &&
+                  menuSections.map(
+                    ({
+                      _id: id,
+                      url,
+                      name = '',
+                      display_name: displayName = '',
+                    }) => {
+                      return (
+                        <li
+                          key={`navbar-${url || id}`}
+                          className={classes.listItem}>
+                          <a
+                            href={url || id || '/'}
+                            className={classes.listLink}>
+                            {name || displayName}
+                          </a>
+                        </li>
+                      )
+                    }
+                  )}
               </ul>
             </div>
             <a href="/" className={classes.mobileLogo}>
