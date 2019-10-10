@@ -1,7 +1,11 @@
 import React from 'react'
 import ENV from 'fusion:environment'
 import StoryData from '../../utilities/story-data'
-import { formatHtmlToText, getMultimedia } from '../../utilities/helpers'
+import {
+  formatHtmlToText,
+  getMultimedia,
+  getDateSeo,
+} from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 
 export default ({
@@ -135,14 +139,21 @@ export default ({
   const dataVideo =
     `  "video":[ ${videoSeoItems}
   ],` || ''
+
+  const publishDateZone =
+    arcSite === ConfigParams.SITE_ELCOMERCIO ||
+    arcSite === ConfigParams.SITE_ELCOMERCIOMAG
+      ? getDateSeo(publishDate)
+      : publishDate
+
   const structuredData = `{  
     "@context":"http://schema.org",
     "@type":"NewsArticle",
-    "datePublished":"${publishDate}",
+    "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === ConfigParams.SITE_ELCOMERCIO ||
       arcSite === ConfigParams.SITE_ELCOMERCIOMAG
-        ? publishDate
+        ? publishDateZone
         : lastPublishDate
     }",
     "headline":"${formatHtmlToText(title)}",
@@ -230,7 +241,7 @@ export default ({
       <meta name="data-article-id" content={id} />
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
-      <meta name="bi3dPubDate" content={publishDate} />
+      <meta name="bi3dPubDate" content={publishDateZone} />
       {sourceId && (
         <meta
           name="cms_old_id"
@@ -253,13 +264,13 @@ export default ({
             : (listItems[0] && listItems.map(item => item)) || arcSite
         }
       />
-      <meta property="article:published_time" content={publishDate} />
+      <meta property="article:published_time" content={publishDateZone} />
       <meta
         property="article:modified_time"
         content={`${
           arcSite === ConfigParams.SITE_ELCOMERCIO ||
           arcSite === ConfigParams.SITE_ELCOMERCIOMAG
-            ? publishDate
+            ? publishDateZone
             : lastPublishDate
         }`}
       />
