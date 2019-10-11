@@ -18,7 +18,6 @@ class Head extends React.PureComponent {
     isActive: false,
     showSignwall: false,
     userName: new GetProfile().username,
-    stepForm: 1,
   }
 
   componentDidMount() {
