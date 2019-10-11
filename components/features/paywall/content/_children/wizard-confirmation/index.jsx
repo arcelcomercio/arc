@@ -30,13 +30,13 @@ const WizardConfirmation = props => {
       referer,
       payment = {},
       printedSubscriber,
-      accessFree,
+      freeAccess,
     },
   } = props
 
   const { orderNumber } = order
   const { firstName, lastName, secondLastName, email } =
-    accessFree || profile || {}
+    freeAccess || profile || {}
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
     title: planTitle,
@@ -69,7 +69,7 @@ const WizardConfirmation = props => {
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: origin,
-      accesoGratis: accessFree,
+      accesoGratis: freeAccess,
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
@@ -123,13 +123,13 @@ const WizardConfirmation = props => {
             {msgs.interpolate(msgs.welcomeNewSubscriptor, { firstName })}
           </S.Title>
 
-          <S.Subtitle large={!accessFree}>
-            {accessFree ? msgs.successfulSubscription : msgs.successfulPurchase}
+          <S.Subtitle large={!freeAccess}>
+            {freeAccess ? msgs.successfulSubscription : msgs.successfulPurchase}
           </S.Subtitle>
 
           <S.CardSummary>
             <S.DetailTitle>
-              {accessFree
+              {freeAccess
                 ? msgs.subscriptionDetails.toUpperCase()
                 : msgs.purchaseDetails.toUpperCase()}
             </S.DetailTitle>
@@ -142,7 +142,7 @@ const WizardConfirmation = props => {
                 {firstName} {lastName} {secondLastName}
               </S.Names>
             </Item>
-            {!accessFree && (
+            {!freeAccess && (
               <>
                 <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
                   {paidTotal !== 0
@@ -155,7 +155,7 @@ const WizardConfirmation = props => {
               </>
             )}
           </S.CardSummary>
-          {!accessFree && (
+          {!freeAccess && (
             <S.Notice
               source={msgs.interpolate(msgs.subscriptionNotice, { email })}
             />

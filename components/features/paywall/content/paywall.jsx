@@ -43,7 +43,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
       summary = [],
       plans = [],
       printedSubscriber,
-      accessFree,
+      freeAccess,
       error,
     },
   } = useFusionContext()
@@ -74,7 +74,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   }, [])
 
   // const [memo, setMemo] = useState({})
-  const memo = useRef({ plans, summary, printedSubscriber, accessFree, error })
+  const memo = useRef({ plans, summary, printedSubscriber, freeAccess, error })
   const currMemo = memo.current
   useEffect(() => {
     history = createBrowserHistory({
@@ -117,9 +117,9 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
           break;
       }
     })
-    const stepSlug = accessFree ? stepSlugs[3] : stepSlugs[0]
+    const stepSlug = freeAccess ? stepSlugs[3] : stepSlugs[0]
     const path = `${basePath}/${stepSlug}/${search}`
-    if (accessFree) {
+    if (freeAccess) {
       // Acceso gratuito salta directo a landing de confirmacion
       // con el primer plan seleccionado
       currMemo.plan = plans[0]
@@ -166,7 +166,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
             isLazyMount
             nav={
               <Nav
-                excludeSteps={accessFree && [2, 3]}
+                excludeSteps={freeAccess && [2, 3]}
                 stepsNames={stepNames}
                 right={<ClickToCall href={clickToCallUrl} />}
               />

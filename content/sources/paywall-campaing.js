@@ -25,7 +25,7 @@ const fetch = (key = {}) => {
     } = data
     const {
       printed,
-      accessFree,
+      freeAccess,
       firstName = '',
       lastName = '',
       secondLastName = '',
@@ -81,7 +81,7 @@ const fetch = (key = {}) => {
         name,
         summary,
         plans,
-        accessFree: accessFree ? { firstName, lastName, secondLastName } : undefined,
+        freeAccess: freeAccess ? { firstName, lastName, secondLastName } : undefined,
         printedSubscriber: printed ? { documentType, documentNumber } : undefined,
       },
       error ? { error } : {}
