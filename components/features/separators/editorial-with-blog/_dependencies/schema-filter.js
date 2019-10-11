@@ -13,14 +13,12 @@ export const schemaEditorial = `{
   content_elements {
     website_url
     headlines { basic }
-    credits {
-      by { 
-        name 
-        url 
-        image {
-          resized_urls { lazy_default square_s }
-        }
-      }
-    }
+  }
+}`
+
+export const schemaPhoto = `{
+  resized_urls { 
+    square_s
+    lazy_default
   }
 }`
