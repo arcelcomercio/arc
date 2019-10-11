@@ -62,6 +62,7 @@ const VideoSectionAmp = () => {
     placementId: placementIdNa,
     width,
     height,
+    movil1: true,
   }
 
   const namePublicidad =

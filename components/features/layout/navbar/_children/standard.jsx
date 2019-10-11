@@ -356,10 +356,7 @@ class NavBarDefault extends PureComponent {
   }
 
   render() {
-    const {
-      statusSidebar,
-      scrolled,
-    } = this.state
+    const { statusSidebar, scrolled } = this.state
     const {
       logo,
       logoLeft,
@@ -370,6 +367,7 @@ class NavBarDefault extends PureComponent {
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
+      navbarData: { children: navbarSections = [] } = {},
     } = this.props
 
     const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
@@ -441,8 +439,8 @@ class NavBarDefault extends PureComponent {
             {/** ************* MIDDLE *************** */}
             <div className={classes.listContainer}>
               <ul className={classes.list}>
-                {sections &&
-                  sections
+                {navbarSections &&
+                  navbarSections
                     .slice(0, 7)
                     .map(
                       ({

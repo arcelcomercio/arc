@@ -27,10 +27,14 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
     isAdmin,
   } = props
   storyData.multimediaOrientation = 'grid'
-  const youtubeClass = storyData.typeMultimediaGeneral === ConfigParams.ELEMENT_YOUTUBE_ID ? 'youtube-box':''
+  const youtubeClass =
+    storyData.typeMultimediaGeneral === ConfigParams.ELEMENT_YOUTUBE_ID
+      ? 'youtube-box'
+      : ''
 
   return (
-    <div className={`${classes.extraordinayStoryGridContainer} ${youtubeClass}`}>
+    <div
+      className={`${classes.extraordinayStoryGridContainer} ${youtubeClass}`}>
       <div className={classes.videoBox}>
         <EmbedMultimedia
           type={storyData.typeMultimediaGeneral}
@@ -40,7 +44,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           contextPath={contextPath}
           website={arcSite}
           linkStory={storyData.link}
-          width='578px'
+          width="578px"
         />
       </div>
       <div className={classes.gridContainer}>
@@ -58,10 +62,18 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           <h2 className={classes.gridListTitle}>Programas del día</h2>
         </a>
         <div role="list" className={classes.gridListItems}>
-          {section1.id !== '' && <SectionItem data={section1} isAdmin={isAdmin} />}
-          {section2.id !== '' && <SectionItem data={section2} isAdmin={isAdmin} />}
-          {section3.id !== '' && <SectionItem data={section3} isAdmin={isAdmin} />}
-          {section4.id !== '' && <SectionItem data={section4} isAdmin={isAdmin} />}
+          {section1.id !== '' && (
+            <SectionItem data={section1} isAdmin={isAdmin} />
+          )}
+          {section2.id !== '' && (
+            <SectionItem data={section2} isAdmin={isAdmin} />
+          )}
+          {section3.id !== '' && (
+            <SectionItem data={section3} isAdmin={isAdmin} />
+          )}
+          {section4.id !== '' && (
+            <SectionItem data={section4} isAdmin={isAdmin} />
+          )}
         </div>
       </div>
     </div>

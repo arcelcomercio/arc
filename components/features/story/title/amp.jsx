@@ -8,6 +8,7 @@ import {
 } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
@@ -29,31 +30,36 @@ class StoryTitleAmp extends PureComponent {
       siteProperties: { adsAmp },
       contextPath,
       deployment,
-      globalContent: {
-        subheadlines: { basic: subtitle = '' } = {},
-        headlines: { basic: titleElements = '' } = {},
-        display_date: updatedDate,
-        taxonomy: {
-          tags = {},
-          primary_section: { path: primarySectionLink = '' } = {},
-        } = {},
-        promo_items: {
-          basic_gallery: { content_elements: galleryItems } = {},
-        } = {},
-        website_url: websiteUrl,
-      } = {},
+      globalContent: data,
     } = this.props
+
+    const {
+      title,
+      subTitle,
+      displayDate: updatedDate,
+      tags,
+      primarySectionLink,
+      website_url: websiteUrl,
+      promoItems: {
+        basic_gallery: { content_elements: galleryItems } = {},
+      } = {},
+    } = new StoryData({
+      data,
+      contextPath,
+    })
+
     const dataSlot = `/${adsAmp.dataSlot}/${
       arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
     }-amp-320x50-top-movil1`
     const placementId = adsAmp.movil1
     const width = '320'
-    const height = '50'
+
     const parameters = {
       dataSlot,
       placementId,
       width,
-      height,
+      height: '50',
+      movil1: true,
       primarySectionLink,
     }
 
@@ -85,9 +91,7 @@ class StoryTitleAmp extends PureComponent {
               </div>
             )}
 
-            {titleElements && (
-              <h1 className={classes.titleAmp}>{titleElements}</h1>
-            )}
+            {title && <h1 className={classes.titleAmp}>{title}</h1>}
             <time
               dateTime={getDateSeo(updatedDate)}
               className={classes.datetime}>
@@ -99,7 +103,7 @@ class StoryTitleAmp extends PureComponent {
             dangerouslySetInnerHTML={publicidadAmp(parameters)}
           />
 
-          {subtitle && <div className={classes.description}> {subtitle}</div>}
+          {subTitle && <div className={classes.description}> {subTitle}</div>}
           <StorySocialChildAmpSocial />
 
           {galleryItems && (
