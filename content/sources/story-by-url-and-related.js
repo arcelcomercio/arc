@@ -6,8 +6,6 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
-let website = ''
-
 const schemaName = 'story-dev'
 
 const params = [
@@ -21,6 +19,14 @@ const params = [
 const options = {
   gzip: true,
   json: true,
+}
+
+class RedirectError extends Error {
+  constructor (location, statusCode) {
+    super()
+    this.location = location
+    this.statusCode = statusCode || 302
+  }
 }
 
 const queryStoryRecent = (section, site) => {
@@ -92,19 +98,7 @@ const transformImg = data => {
   )
 }
 
-const resolve = (key = {}) => {
-  const excludedFieldsStory = '&_sourceExclude=owner,address,websites,language'
-
-  const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
-  if (!hasWebsiteUrl)
-    throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
-  website = key['arc-site'] || 'Arc Site no está definido'
-  const { website_url: websiteUrl } = key
-  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}${excludedFieldsStory}`
-  return requestUri
-}
-
-const transform = storyData => {
+const getAdditionalData = (storyData, website) => {
   if (storyData.type === 'redirect') return storyData
 
   const {
@@ -133,9 +127,33 @@ const transform = storyData => {
   })
 }
 
+const excludedFieldsStory = '&_sourceExclude=owner,address,websites,language'
+const fetch = ({
+  website_url: websiteUrl,
+  'arc-site': website,
+} = {}) => {
+  if (!websiteUrl) {
+    throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
+  }
+  if (!website) {
+    throw new Error('Arc Site no está definido')
+  }
+
+  return request({
+    uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${websiteUrl}&website=${website}${excludedFieldsStory}`,
+    ...options,
+  }).then((storyResp) => {
+    if (storyResp.type === 'redirect' && storyResp.redirect_url) {
+      // Redirect with 301 code
+      throw new RedirectError(storyResp.redirect_url, 301)
+    }
+    // Fetch additional data
+    return getAdditionalData(storyResp, website)
+  })
+}
+
 export default {
-  resolve,
+  fetch,
   schemaName,
-  transform,
   params,
 }
