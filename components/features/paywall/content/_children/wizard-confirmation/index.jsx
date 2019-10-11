@@ -144,13 +144,29 @@ const WizardConfirmation = props => {
             </Item>
             {!freeAccess && (
               <>
-                <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
+                {/* <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
                   {paidTotal !== 0
                     ? `${msgs.currencySymbol.toUpperCase()} ${paidTotal}`
                     : `${msgs.freeAmount.toUpperCase()} ${description.title} ${
                         description.description
                       }`}
-                </Item>
+                </Item> */}
+
+                <S.Item>
+                  {`${msgs.priceLabel.toUpperCase()}: `}
+
+                  <strong>
+                    {`${
+                      paidTotal !== 0
+                        ? msgs.currencySymbol.toUpperCase()
+                        : msgs.freeAmount.toUpperCase()
+                    } `}
+                  </strong>
+                  <strong>{`${paidTotal !== 0 ? paidTotal : ''} `}</strong>
+
+                  {`${description.title} ${description.description}`}
+                </S.Item>
+
                 <S.Small>{msgs.paymentNotice}</S.Small>
               </>
             )}

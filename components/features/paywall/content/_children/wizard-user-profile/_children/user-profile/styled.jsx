@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 const Wrap = styled.div`
   ${({ theme }) => css`
     flex-wrap: wrap;
-    width: 530px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     ${theme.breakpoints.down('xs')} {
@@ -41,8 +41,16 @@ const Form = Component => {
 
 export const WrapField = styled.div`
   ${({ theme }) => css`
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 300px;
+    max-width: 300px;
+    ${theme.breakpoints.down('md')} {
+      min-width: 280px;
+      max-width: 280px;
+    }
+    ${theme.breakpoints.down('sm')} {
+      min-width: 300px;
+      max-width: 300px;
+    }
     ${theme.breakpoints.down('xs')} {
       width: 100%;
       max-width: 100%;

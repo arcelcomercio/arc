@@ -14,9 +14,12 @@ export const WizardPayment = styled.div`
 `
 
 export const PanelPayment = styled(Panel)`
-  padding: 30px;
+  padding: 40px 50px;
   box-sizing: border-box;
   ${({ theme }) => css`
+    ${theme.breakpoints.down('md')} {
+      padding: 40px 30px;
+    }
     ${theme.breakpoints.down('xs')} {
       max-width: 100vw;
     }
