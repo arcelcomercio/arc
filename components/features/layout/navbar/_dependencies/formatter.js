@@ -1,7 +1,7 @@
 import schemaFilter from './schema-filter'
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
-const DEFAULT_HIERARCHY = 'navbar-default'
+const DEFAULT_HIERARCHY = 'menu-default'
 
 export default class NavbarFormater {
   constructor(props, customFields) {
@@ -28,10 +28,12 @@ export default class NavbarFormater {
 
   get main() {
     return {
-      initParams: this[this.selectDesing] && this[this.selectDesing].initParams(),
-      fetch: this[this.selectDesing] && this[this.selectDesing].fetch()
-        ? this[this.selectDesing].fetch()
-        : false,
+      initParams:
+        this[this.selectDesing] && this[this.selectDesing].initParams(),
+      fetch:
+        this[this.selectDesing] && this[this.selectDesing].fetch()
+          ? this[this.selectDesing].fetch()
+          : false,
     }
   }
 
@@ -42,9 +44,7 @@ export default class NavbarFormater {
         return {
           back: {
             logo: this.deployment(
-              `${this.contextPath}/resources/dist/${
-              this.arcSite
-              }/images/${logoSomos}`
+              `${this.contextPath}/resources/dist/${this.arcSite}/images/${logoSomos}`
             ),
             link: '/',
             alt: this.siteDomain,
@@ -67,9 +67,7 @@ export default class NavbarFormater {
           ),
           logoLeft: {
             src: this.deployment(
-              `${this.contextPath}/resources/dist/${
-              this.arcSite
-              }/images/otorongo.png`
+              `${this.contextPath}/resources/dist/${this.arcSite}/images/otorongo.png`
             ),
             alt: this.arcSite,
           },

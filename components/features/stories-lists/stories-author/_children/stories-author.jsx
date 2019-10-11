@@ -18,11 +18,11 @@ const classes = {
   titleMain:
     'stories-author__title stories-author__title--main text-center pt-10',
 }
-const StoriesAuthor = ({ data, dataList, isAdmin, section }) => {
+const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
   return (
     <div className={classes.container}>
       <div className={classes.section}>
-        <a className={classes.sectionText} href={data.primarySectionLink}>
+        <a className={classes.sectionText} href={sectionLink || data.primarySectionLink}>
           {section || data.primarySection}
         </a>
       </div>

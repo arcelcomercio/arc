@@ -6,6 +6,10 @@ export default PropTypes.shape({
   }),
   section: PropTypes.string.tag({
     name: 'Nombre de la sección',
-    description: 'Dejar vacío para mostrar la sección original de la nota.',
+    description: 'Dejar vacío para mostrar la sección original de la 1ra nota.',
+  }),
+  sectionLink: PropTypes.string.tag({
+    name: 'Link de la sección',
+    description: 'Dejar vacío para mostrar el link de la sección original de la 1ra nota.',
   }),
 })
