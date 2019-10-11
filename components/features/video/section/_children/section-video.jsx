@@ -121,6 +121,11 @@ export default ({
                   title="Video"
                 />
               )}
+              {principalVideo.captionVideo && (
+                <span className="text-sm text-gray-200 ml-5 mt-5 block">
+                  {principalVideo.captionVideo}
+                </span>
+              )}
 
               {/* <iframe
                 title="video"

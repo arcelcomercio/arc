@@ -709,6 +709,10 @@ class StoryData {
     return StoryData.findHasAdsVideo(this._data)
   }
 
+  get captionVideo() {
+    return StoryData.getCaptionVideo(this.__data)
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -1004,6 +1008,17 @@ class StoryData {
     }
 
     return typeMultimedia
+  }
+
+  static getCaptionVideo = data => {
+    const {
+      promo_items: {
+        basic_video: {
+          promo_items: { basic: { caption = '' } = {} } = {},
+        } = {},
+      } = {},
+    } = data
+    return caption
   }
 
   static getMultimediaIconType = data => {
