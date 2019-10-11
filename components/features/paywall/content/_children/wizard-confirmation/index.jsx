@@ -5,6 +5,7 @@ import * as S from './styled'
 import Button from '../../../_children/button'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
+import { getBrowser } from '../../../_dependencies/browsers'
 import PWA from '../../_dependencies/seed-pwa'
 
 const HOME = '/'
@@ -115,7 +116,11 @@ const WizardConfirmation = props => {
           />
           <source srcSet={theme.images.confirmation_jpg} type="image/jpg" />
           <source srcSet={theme.images.confirmation_webp} type="image/webp" />
-          <S.Image src={theme.images.confirmation_webp} alt="confirmación" />
+          {getBrowser().isSafari ? (
+            <S.Image src={theme.images.confirmation_jpg} alt="confirmación" />
+          ) : (
+            <S.Image src={theme.images.confirmation_webp} alt="confirmación" />
+          )}
         </S.Picture>
 
         <S.Content>
