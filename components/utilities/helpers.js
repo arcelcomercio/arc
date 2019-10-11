@@ -117,7 +117,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-  } del ${date.getFullYear()}`
+    } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -215,8 +215,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
-        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-      }`
+    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+    }`
 }
 
 export const getMetaPagesPagination = (
@@ -315,10 +315,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-        .charAt(0)
-        .toUpperCase()
-        .concat(lastSection.slice(1))
-        .replace(/-/, ' ')
+      .charAt(0)
+      .toUpperCase()
+      .concat(lastSection.slice(1))
+      .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -376,8 +376,16 @@ export const defaultImage = ({
   size = 'lg',
 }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  const site = () => {
+    let domain = `${arcSite}.pe`
+    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    return domain
+  }
+
   return deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
@@ -462,7 +470,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+    }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -694,7 +702,7 @@ export const publicidadAmp = ({
   let resultData = ''
   const nuevoScript =
     (movil1 &&
-      `data-multi-size="320x100"
+      `data-multi-size="320x100,320x50"
   data-multi-size-validation="false"`) ||
     ''
 
@@ -998,6 +1006,5 @@ export const localISODate = date => {
   let localDate = date ? new Date(date) : new Date()
   localDate.setHours(localDate.getHours() - 5)
   localDate = `${localDate.toISOString().split('.')[0]}-05:00`
-  localDate = localDate.toISOString()
   return localDate
 }
