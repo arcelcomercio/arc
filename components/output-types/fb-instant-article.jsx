@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useContent } from 'fusion:content'
 import Channel from './_dependencies/fb-instant-article/channel'
 import ListItemNews from './_dependencies/fb-instant-article/list-item-channel'
 import NewElement from '../global-components/new-element'
@@ -11,7 +11,10 @@ const FbInstantOutputType = ({
   globalContent = [],
   siteProperties = {},
 }) => {
-  const { content_elements: contentElements } = globalContent || []
+  const {
+    content_elements: contentElements,
+    
+  } = globalContent || []
   const {
     siteName = '',
     siteUrl = '',
@@ -21,7 +24,26 @@ const FbInstantOutputType = ({
     listUrlAdvertisings = [],
   } = siteProperties
 
-  const stories = contentElements
+  let stories = []
+
+  if (siteDomain === 'elcomercio.pe') {
+    const data =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useContent({
+        source: 'story-feed-by-section-mag',
+        // query: {
+        //   website_url: url,
+        // },
+        // filter: schemaNote(arcSite),
+      }) || {}
+    const {
+      content_elements: contentElementsMag,
+      
+    } = data
+    stories = contentElements.concat(contentElementsMag)
+  } else {
+    stories = contentElements
+  }
 
   const propsXml = {
     version: '2.0',
@@ -61,7 +83,6 @@ const FbInstantOutputType = ({
       </NewElement>
     )
   } catch (ex) {
-    
     console.log(ex)
     result = null
   }

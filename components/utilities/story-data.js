@@ -519,6 +519,12 @@ class StoryData {
     return sourceUrl
   }
 
+  get canonicalWebsite() {
+    // obtiene el canonical website, se usa para FIA
+    const { canonical_website: canonicalWebsite = '' } = this._data || {}
+    return canonicalWebsite
+  }
+
   // TODO: Improve raw attribute function (should only be getter's attribute)
   get attributesRaw() {
     const attributesObject = {}
