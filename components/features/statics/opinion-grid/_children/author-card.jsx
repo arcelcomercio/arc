@@ -6,14 +6,16 @@ const classes = {
     'author-card__wrapper flex flex-col items-center lg:pt-25 md:pt-25 xs:pt-25 pt-25 pb-60 md:pb-25 lg:pb-25',
   imageBox: 'flex flex-col items-center ',
   image: 'author-card__image bg-white',
-  defaultImage: 'author-card__image-default icon-marca',
-  detailsBox: 'author-card__detail flex flex-col items-center',
-  group: 'author-card__group uppercase font-thin mb-5 text-xs',
+  defaultImage:
+    'author-card__image-default icon-marca flex items-center justify-center',
+  detailsBox: 'author-card__detail flex flex-col items-center pt-10',
+  group: 'author-card__group uppercase font-thin mb-10 text-xs',
   name:
-    'author-card__name block mb-15 secondary-font font-bold title-sm text-gray-300 line-h-xs',
+    'author-card__name block mb-10 secondary-font font-bold title-sm text-gray-300 line-h-xs text-center',
   title:
-    'block secondary-font text-lg text-gray-300 line-h-sm font-bold md:font-normal',
-  icono: 'author-card__icono icon-marca position-absolute mb-20',
+    'author-card__title block secondary-font text-lg text-gray-300 line-h-sm font-bold text-center overflow-hidden',
+  icono:
+    'author-card__icono icon-marca position-absolute mb-20 flex items-center justify-center',
   iconImg: 'author-card__icon-img',
 }
 

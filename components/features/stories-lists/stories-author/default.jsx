@@ -14,6 +14,7 @@ const StoriesListAuthor = props => {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
       section = '',
+      sectionLink = '',
     } = {},
   } = props
 
@@ -59,6 +60,7 @@ const StoriesListAuthor = props => {
       dataList={storyList}
       isAdmin={isAdmin}
       section={section}
+      sectionLink={sectionLink}
     />
   )
 }
