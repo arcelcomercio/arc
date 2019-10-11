@@ -11,13 +11,13 @@ export const createSchema = (values, msgs) =>
     nombre: value => {
       value
         .required(msgs.requiredField)
-        .min(3, msgs.minLength)
+        .min(2, msgs.minLength)
         .max(50, msgs.maxLength)
     },
     apellido: value => {
       value
         .required(msgs.requiredField)
-        .min(3, msgs.minLength)
+        .min(2, msgs.minLength)
         .max(50, msgs.maxLength)
     },
     organizacion: value => {

@@ -316,8 +316,8 @@ class UpdateProfile extends Component {
 
     switch (name) {
       case 'firstName':
-        if (value.length < 3) {
-          formErrors.firstName = 'Longitud inválida, mínimo 3 caracteres'
+        if (value.length < 2) {
+          formErrors.firstName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
           (value !== 'null' && value !== 'undefined')
@@ -328,8 +328,8 @@ class UpdateProfile extends Component {
         }
         break
       case 'lastName':
-        if (value.length < 3) {
-          formErrors.lastName = 'Longitud inválida, mínimo 3 caracteres'
+        if (value.length < 2) {
+          formErrors.lastName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
           (value !== 'null' && value !== 'undefined')
@@ -340,8 +340,8 @@ class UpdateProfile extends Component {
         }
         break
       case 'secondLastName':
-        if (value.length < 3) {
-          formErrors.secondLastName = 'Longitud inválida, mínimo 3 caracteres'
+        if (value.length < 2) {
+          formErrors.secondLastName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
           (value !== 'null' && value !== 'undefined')
