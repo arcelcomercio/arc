@@ -31,15 +31,9 @@ export const Subtitle = styled(_Markdown)`
 `
 
 export const Image = styled.img`
-  ${({ theme }) => css`
-    width: 360px;
-    object-fit: cover;
-    height: 100%;
-
-    ${theme.breakpoints.down('xs')} {
-      display: none;
-    }
-  `}
+  width: 360px;
+  object-fit: cover;
+  height: 100%;
 `
 
 export const Content = styled.div`
@@ -140,15 +134,6 @@ export const Notice = styled(_Markdown)`
     line-height: 24px;
     ${theme.breakpoints.down('xs')} {
       text-align: center;
-    }
-  `}
-`
-
-export const Picture = styled.picture`
-  ${({ theme }) => css`
-    height: 100%;
-    ${theme.breakpoints.only('sm')} {
-      display: none;
     }
   `}
 `

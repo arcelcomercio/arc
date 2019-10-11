@@ -1,7 +1,8 @@
 import React from 'react'
 import { withTheme } from 'styled-components'
-import Markdown from '../markdown'
 
+import Markdown from '../markdown'
+import Picture from '../picture'
 import Modal from '../modal'
 import * as S from './styled'
 import { useStrings } from '../contexts'
@@ -19,16 +20,13 @@ const SupportDialog = props => {
             : lighten(theme.palette.primary.main, 0.9)
         }
         titleColor={site !== 'elcomercio' && theme.palette.primary.main}>
-        <S.ImageWrapper>
-          <picture>
-            <source
-              media={theme.breakpoints.down('xs')}
-              srcSet={theme.images.pixel}
-            />
-            <source srcSet={theme.images.support_webp} type="image/webp" />
-            <img src={theme.images.support} alt="support" />
-          </picture>
-        </S.ImageWrapper>
+        <Picture 
+          display="block"
+          hideOnScreenSize="xs" 
+          src={theme.images.support_webp} 
+          types={['webp', 'png']} 
+          alt="support" 
+        />
         <S.ContentWrapper>
           <S.Title>{msgs.supportTitle}</S.Title>
           <br />

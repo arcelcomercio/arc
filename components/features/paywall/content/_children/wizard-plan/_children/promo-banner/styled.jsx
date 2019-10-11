@@ -77,17 +77,6 @@ export const Small = styled.span`
     }
   `}
 `
-export const Picture = styled.picture`
-  display: flex;
-`
-
-export const Img = styled.img`
-  ${({ theme }) => css`
-    ${theme.breakpoints.down('xs')} {
-      display: none;
-    }
-  `}
-`
 
 export const Shadow = styled.div`
   width: 100%;

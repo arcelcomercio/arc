@@ -24,15 +24,6 @@ export const ContentWrapper = styled.div`
   padding: 40px;
 `
 
-export const ImageWrapper = styled.div`
-  ${({ theme }) => css`
-    display: block;
-    ${theme.breakpoints.down('sm')} {
-      display:none;
-    }
-  `}
-`
-
 export const Title = styled.div`
   ${({ theme }) => css`
     font-family: Open Sans;

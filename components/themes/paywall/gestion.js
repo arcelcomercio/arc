@@ -46,7 +46,7 @@ export default ({
     },
     // prettier-ignore
     images: {
-      pixel:          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+      pixel:            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
       icon:              getImageDeployment('favicon.png'),
       apple_icon:        getImageDeployment('apple-touch-icon.png'),
       apple_icon_76:     getImageDeployment('apple-touch-icon-76x76.png'),
@@ -58,9 +58,8 @@ export default ({
       corporativo_webp:  getImageDeployment('img_corporativo.webp'),
       corporativo_png:   getImageDeployment('img_corporativo.png'),
       confirmation_jpg:  getImageDeployment('img_confirmation.jpg'),
-      confirmation_webp: getImageDeployment('img_confirmation_1.webp'),
-      support:           getImageDeployment('img_soporte.png'),
-      contact_form_left: getImageDeployment('img_soporte.png'),
+      confirmation_webp: getImageDeployment('img_confirmation.webp'),
+      support_png:       getImageDeployment('img_soporte.png'),
       support_webp:      getImageDeployment('img_soporte.webp'),
       backgroundx1:      getImageDeployment('bg_planes_10.jpg'),
       check:             getImageDeployment('check2.png'),

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
 import * as S from './styled'
 import Button from '../../../_children/button'
+import Picture from '../../../_children/picture'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
@@ -108,16 +109,12 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
-        <S.Picture>
-          <source
-            media={theme.breakpoints.down('sm', false)}
-            srcSet={theme.images.pixel}
-          />
-          <source srcSet={theme.images.confirmation_jpg} type="image/jpg" />
-          <source srcSet={theme.images.confirmation_webp} type="image/webp" />
-          <S.Image src={theme.images.confirmation_webp} alt="confirmación" />
-        </S.Picture>
-
+        <Picture 
+          height="100%" 
+          hideOnScreenSize="sm" 
+          src={theme.images.confirmation_webp} 
+          types={['webp', 'jpg']}
+        />
         <S.Content>
           <S.Title>
             {msgs.interpolate(msgs.welcomeNewSubscriptor, { firstName })}

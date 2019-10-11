@@ -59,7 +59,6 @@ export default ({
       confirmation_webp: getImageDeployment('img_confirmation.webp'),
       support_png:       getImageDeployment('img_soporte.png'),
       support_webp:      getImageDeployment('img_soporte.webp'),
-      contact_form_left: getImageDeployment('img_soporte.png'),
       backgroundx1:      getImageDeployment('bg_planes_10.jpg'),
       check:             getImageDeployment('check2.png'),
     },
