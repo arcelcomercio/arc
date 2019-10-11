@@ -2,11 +2,13 @@
   &__wrapper {
     max-width: 100%;
     border-bottom: 0;
-    padding: 20px 0;
+    padding: 20px 0 0;
   }
   &__content {
     border-top: 1px solid #a1a1a1;
     padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     @media (--tablet) {
       width: calc(100% - 120px);
     }
