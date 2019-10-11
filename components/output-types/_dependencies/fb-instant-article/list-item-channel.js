@@ -26,13 +26,13 @@ const ListItemNews = (contentElements, buildProps) => {
     .map(story => {
       storydata.__data = story
 
-      let pagePath=''
+      let pagePath = ''
       if (storydata.fiaOrigen === true) {
+        
         if (storydata.canonicalWebsite === 'elcomerciomag') {
-          
           pagePath = `${siteUrl}/mag${storydata.link}`
         } else {
-          pagePath=`${siteUrl}${storydata.link}`
+          pagePath = `${siteUrl}${storydata.link}`
         }
         // const pagePath = `${siteUrl}${storydata.link}`
         const pageview = `${storydata.link}?outputType=fia`
