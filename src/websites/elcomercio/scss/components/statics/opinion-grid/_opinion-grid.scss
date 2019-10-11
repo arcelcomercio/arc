@@ -1,0 +1,12 @@
+.opinion-grid {
+  &__box-title {
+    border-bottom: 0;
+  }
+  &__title {
+    font-size: 20px;
+    letter-spacing: 0px;
+    line-height: 26px;
+    font-family: $fourth-font;
+    font-weight: 700;
+  }
+}
