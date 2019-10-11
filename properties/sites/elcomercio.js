@@ -109,6 +109,7 @@ export default {
       originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
       originSubscriptionOnlineToken:     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
       originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/elcomercio/{{#hasParams}}?doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/hasParams}}`,
+      originBundles:                     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/elcomercio/bundle/`,
       originSubsPrinted:                 `{{#isProd}}https://suscripciones.elcomercio.pe/payment/7/96/{{/isProd}}
                                           {{^isProd}}http://pre.suscripciones.elcomercio.pe/payment/7/96/{{/isProd}}`,
       originSubsDigitalPrinted:          `{{#isProd}}https://suscripciones.elcomercio.pe/payment/8/98/{{/isProd}}
