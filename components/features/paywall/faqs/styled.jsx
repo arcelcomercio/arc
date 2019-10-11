@@ -8,6 +8,7 @@ import _Markdown from 'react-markdown/with-html'
 export const Container = styled.div`
   ${({ theme }) => css`
     background-color: ${theme.palette.background.default};
+    margin-bottom: 30px;
   `}
 `
 

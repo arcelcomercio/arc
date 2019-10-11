@@ -25,33 +25,11 @@ const fetch = (key = {}) => {
     } = data
     const {
       printed,
-      accessFree,
+      freeAccess,
       firstName = '',
       lastName = '',
       secondLastName = '',
     } = subscriber
-    const plans = pricingStrategies.map(
-      ({ pricingStrategyId, priceCode, description = '', rates }) => {
-        const [price] = rates
-        const { amount, billingFrequency } = price
-        let parsedDescription = description.replace(/<p>|<\/p>/g, '')
-        try {
-          parsedDescription = JSON.parse(parsedDescription)
-        } catch (err) {
-          parsedDescription = { err: 'is not a object' }
-        }
-        return {
-          sku,
-          name,
-          priceCode,
-          pricingStrategyId,
-          campaignCode,
-          description: parsedDescription,
-          amount: parseInt(amount, 10),
-          billingFrequency,
-        }
-      }
-    )
 
     const summary = attributes.reduce(
       (prev, { name: _name, value = '' }) => {
@@ -75,13 +53,36 @@ const fetch = (key = {}) => {
 
     const { title: name = 'Plan Digital' } = summary
 
+    const plans = pricingStrategies.map(
+      ({ pricingStrategyId, priceCode, description = '', rates }) => {
+        const [price] = rates
+        const { amount, billingFrequency } = price
+        let parsedDescription = description.replace(/<p>|<\/p>/g, '')
+        try {
+          parsedDescription = JSON.parse(parsedDescription)
+        } catch (err) {
+          parsedDescription = { err: 'is not a object' }
+        }
+        return {
+          sku,
+          name,
+          priceCode,
+          pricingStrategyId,
+          campaignCode,
+          description: parsedDescription,
+          amount: parseInt(amount, 10),
+          billingFrequency,
+        }
+      }
+    )
+
     // prettier-ignore
     return Object.assign(
       {
         name,
         summary,
         plans,
-        accessFree: accessFree ? { firstName, lastName, secondLastName } : undefined,
+        freeAccess: freeAccess ? { firstName, lastName, secondLastName } : undefined,
         printedSubscriber: printed ? { documentType, documentNumber } : undefined,
       },
       error ? { error } : {}

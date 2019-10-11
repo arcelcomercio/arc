@@ -5,6 +5,7 @@ import * as S from './styled'
 import Button from '../../../_children/button'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
+import { getBrowser } from '../../../_dependencies/browsers'
 import PWA from '../../_dependencies/seed-pwa'
 
 const HOME = '/'
@@ -30,12 +31,13 @@ const WizardConfirmation = props => {
       referer,
       payment = {},
       printedSubscriber,
-      accessFree = {},
+      freeAccess,
     },
   } = props
 
   const { orderNumber } = order
-  const { firstName, lastName, secondLastName, email } = accessFree || profile
+  const { firstName, lastName, secondLastName, email } =
+    freeAccess || profile || {}
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
     title: planTitle,
@@ -68,7 +70,7 @@ const WizardConfirmation = props => {
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: origin,
-      accesoGratis: accessFree,
+      accesoGratis: freeAccess,
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
@@ -114,7 +116,11 @@ const WizardConfirmation = props => {
           />
           <source srcSet={theme.images.confirmation_jpg} type="image/jpg" />
           <source srcSet={theme.images.confirmation_webp} type="image/webp" />
-          <S.Image src={theme.images.confirmation_webp} alt="confirmación" />
+          {getBrowser().isSafari ? (
+            <S.Image src={theme.images.confirmation_jpg} alt="confirmación" />
+          ) : (
+            <S.Image src={theme.images.confirmation_webp} alt="confirmación" />
+          )}
         </S.Picture>
 
         <S.Content>
@@ -122,13 +128,13 @@ const WizardConfirmation = props => {
             {msgs.interpolate(msgs.welcomeNewSubscriptor, { firstName })}
           </S.Title>
 
-          <S.Subtitle large={!accessFree}>
-            {accessFree ? msgs.successfulSubscription : msgs.successfulPurchase}
+          <S.Subtitle large={!freeAccess}>
+            {freeAccess ? msgs.successfulSubscription : msgs.successfulPurchase}
           </S.Subtitle>
 
           <S.CardSummary>
             <S.DetailTitle>
-              {accessFree
+              {freeAccess
                 ? msgs.subscriptionDetails.toUpperCase()
                 : msgs.purchaseDetails.toUpperCase()}
             </S.DetailTitle>
@@ -141,20 +147,36 @@ const WizardConfirmation = props => {
                 {firstName} {lastName} {secondLastName}
               </S.Names>
             </Item>
-            {!accessFree && (
+            {!freeAccess && (
               <>
-                <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
+                {/* <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
                   {paidTotal !== 0
                     ? `${msgs.currencySymbol.toUpperCase()} ${paidTotal}`
                     : `${msgs.freeAmount.toUpperCase()} ${description.title} ${
                         description.description
                       }`}
-                </Item>
+                </Item> */}
+
+                <S.Item>
+                  {`${msgs.priceLabel.toUpperCase()}: `}
+
+                  <strong>
+                    {`${
+                      paidTotal !== 0
+                        ? msgs.currencySymbol.toUpperCase()
+                        : msgs.freeAmount.toUpperCase()
+                    } `}
+                  </strong>
+                  <strong>{`${paidTotal !== 0 ? paidTotal : ''} `}</strong>
+
+                  {`${description.title} ${description.description}`}
+                </S.Item>
+
                 <S.Small>{msgs.paymentNotice}</S.Small>
               </>
             )}
           </S.CardSummary>
-          {!accessFree && (
+          {!freeAccess && (
             <S.Notice
               source={msgs.interpolate(msgs.subscriptionNotice, { email })}
             />

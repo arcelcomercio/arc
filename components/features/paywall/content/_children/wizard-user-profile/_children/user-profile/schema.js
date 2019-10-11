@@ -8,20 +8,20 @@ export const createSchema = (values, msgs) =>
       value
         .dedup(' ')
         .required(msgs.requiredField)
-        .min(3, msgs.minLength)
+        .min(2, msgs.minLength)
         .max(50, msgs.maxLength)
     },
     lastName: value => {
       value
         .dedup(' ')
         .required(msgs.requiredField)
-        .min(3, msgs.minLength)
+        .min(2, msgs.minLength)
         .max(50, msgs.maxLength)
     },
     secondLastName: value => {
       value
         .dedup(' ')
-        .min(3, msgs.minLength)
+        .min(2, msgs.minLength)
         .max(50, msgs.maxLength)
     },
     documentNumber: (value, { documentType }) => {

@@ -36,11 +36,17 @@ const Panel = styled.div`
           return css`
             padding: 30px 0;
             max-width: 740px;
+            ${theme.breakpoints.down('md')} {
+              max-width: 700px;
+            }
           `
         case 'summary':
           return css`
             max-width: 360px;
             align-items: flex-start;
+            ${theme.breakpoints.down('md')} {
+              max-width: 300px;
+            }
             ${theme.breakpoints.down('xs')} {
               max-width: calc(100% - 40px);
               align-items: center;

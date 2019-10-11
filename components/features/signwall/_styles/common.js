@@ -61,6 +61,7 @@ export const Wrapper = styled.div`
     ${fadeIn({ time: '1s' })}
     /* box-shadow: 0 10px 14px rgba(0, 0, 0, 0.2); */
     position: relative;
+    display: block;
     font-size: 12px;
     font-weight: bold;
     width: 100%;
