@@ -55,9 +55,9 @@ class LayoutNavbar extends PureComponent {
     const { selectDesing } = customFields || {}
     if (selectDesing === 'standard') {
       this.fetchContent({
-        menuData: {
+        navbarData: {
           source: 'navigation-by-hierarchy',
-          query: { hierarchy: 'menu-default' },
+          query: { hierarchy: 'navbar-default' },
           filter: this.formatter.getSchema(),
         },
       })
@@ -73,13 +73,13 @@ class LayoutNavbar extends PureComponent {
         showInMobile = true,
       } = {},
     } = this.props
-    const { data, menuData } = this.state || {}
+    const { data, navbarData } = this.state || {}
     const NavBarType = {
       standard: (
         <NavBarComercio
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
           data={data}
-          menuData={menuData}
+          navbarData={navbarData}
           {...this.formatter.main.initParams}
         />
       ),
