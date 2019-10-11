@@ -367,7 +367,7 @@ class NavBarDefault extends PureComponent {
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
-      menuData: { children: menuSections = [] } = {},
+      navbarData: { children: navbarSections = [] } = {},
     } = this.props
 
     const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
@@ -439,8 +439,8 @@ class NavBarDefault extends PureComponent {
             {/** ************* MIDDLE *************** */}
             <div className={classes.listContainer}>
               <ul className={classes.list}>
-                {menuSections &&
-                  menuSections.map(
+                {navbarSections &&
+                  navbarSections.map(
                     ({
                       _id: id,
                       url,
