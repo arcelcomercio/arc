@@ -440,28 +440,26 @@ class NavBarDefault extends PureComponent {
             <div className={classes.listContainer}>
               <ul className={classes.list}>
                 {navbarSections &&
-                  navbarSections
-                    .slice(0, 7)
-                    .map(
-                      ({
-                        _id: id,
-                        url,
-                        name = '',
-                        display_name: displayName = '',
-                      }) => {
-                        return (
-                          <li
-                            key={`navbar-${url || id}`}
-                            className={classes.listItem}>
-                            <a
-                              href={url || id || '/'}
-                              className={classes.listLink}>
-                              {name || displayName}
-                            </a>
-                          </li>
-                        )
-                      }
-                    )}
+                  navbarSections.map(
+                    ({
+                      _id: id,
+                      url,
+                      name = '',
+                      display_name: displayName = '',
+                    }) => {
+                      return (
+                        <li
+                          key={`navbar-${url || id}`}
+                          className={classes.listItem}>
+                          <a
+                            href={url || id || '/'}
+                            className={classes.listLink}>
+                            {name || displayName}
+                          </a>
+                        </li>
+                      )
+                    }
+                  )}
               </ul>
             </div>
             <a href="/" className={classes.mobileLogo}>

@@ -4,8 +4,17 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import SeparatorBlogChildItem from './_children/item'
-import { schemaBlog, schemaEditorial } from './_dependencies/schema-filter'
-import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
+import {
+  schemaBlog,
+  schemaEditorial,
+  schemaPhoto,
+} from './_dependencies/schema-filter'
+import customFields from './_dependencies/custom-fields'
+import {
+  defaultImage,
+  addSlashToEnd,
+  getPhotoId,
+} from '../../../utilities/helpers'
 
 const classes = {
   separator: 'blog-separator mb-20',
@@ -16,8 +25,12 @@ const classes = {
   seeMoreWrapper: `blog-separator__btn-wrapper flex items-center justify-center pt-10`,
 }
 const BLOG_BASE = '/blog/'
-const CONTENT_SOURCE_SECTION = 'story-feed-by-section'
+const CONTENT_SOURCE_SECTION = 'story-feed-by-tag'
 const CONTENT_SOURCE_BLOG = 'get-user-blog-and-posts'
+const CONTENT_SOURCE_PHOTO = 'photo-by-id'
+
+const urlLogoGestion =
+  'https://arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/U4XN23KAQRDAHCTARRCGIKVJOE.png'
 
 const SeparatorEditorialWithBlog = () => {
   const {
@@ -25,6 +38,7 @@ const SeparatorEditorialWithBlog = () => {
     contextPath,
     deployment,
     isAdmin,
+    customFields: { titleEditorial, imageEditorial },
     siteProperties: { siteUrl } = {},
   } = useFusionContext()
 
@@ -42,12 +56,18 @@ const SeparatorEditorialWithBlog = () => {
     useContent({
       source: CONTENT_SOURCE_SECTION,
       query: {
-        website: arcSite,
-        section: '/opinion/editorial',
-        feedOffset: 0,
-        stories_qty: 2,
+        name: 'editorial-de-gestion',
+        from: 1,
+        size: 1,
       },
       filter: schemaEditorial,
+    }) || {}
+
+  const fetchImage =
+    useContent({
+      source: CONTENT_SOURCE_PHOTO,
+      query: { _id: getPhotoId(imageEditorial || urlLogoGestion) },
+      filter: schemaPhoto,
     }) || {}
 
   let listPost = Object.values(dataBlog)
@@ -55,32 +75,27 @@ const SeparatorEditorialWithBlog = () => {
   const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
 
   const {
-    credits: { by: dataAuthor = [] } = {},
     headlines: { basic: postTitleEditorial = '' } = {},
     website_url: postLinkEditorial = '',
   } = dataEditorial.content_elements[0]
 
   const {
-    name: editorialAuthor = '',
-    url: linkAuthor = '',
-    image: {
-      resized_urls: {
-        lazy_default: lazyImageAuthor,
-        square_s: authorImage = defaultImage({
-          deployment,
-          contextPath,
-          arcSite,
-          size: 'sm',
-        }),
-      } = {},
+    resized_urls: {
+      lazy_default: lazyImageEditorial = '',
+      square_s: authorImgEditorial = defaultImage({
+        deployment,
+        contextPath,
+        arcSite,
+        size: 'sm',
+      }),
     } = {},
-  } = dataAuthor[0] || {}
+  } = fetchImage || {}
 
   const paramsEditorial = {
-    authorName: editorialAuthor,
-    lazyImage: lazyImageAuthor,
-    authorImg: authorImage,
-    blogUrl: linkAuthor,
+    authorName: titleEditorial || 'Editorial',
+    lazyImage: lazyImageEditorial || urlLogoGestion,
+    authorImg: authorImgEditorial || urlLogoGestion,
+    blogUrl: '/noticias/editorial-de-gestion/',
     postLink: postLinkEditorial,
     postTitle: postTitleEditorial,
     isAdmin,
@@ -149,6 +164,9 @@ const SeparatorEditorialWithBlog = () => {
 }
 
 SeparatorEditorialWithBlog.label = 'Separador de Editorial con Blog'
+SeparatorEditorialWithBlog.propTypes = {
+  customFields,
+}
 SeparatorEditorialWithBlog.static = true
 
 export default SeparatorEditorialWithBlog
