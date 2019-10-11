@@ -70,7 +70,7 @@ export default {
     welcomeNewSubscriptor: `¡Bienvenido(a) {{firstName}}!`,
     successfulPurchase: `Tu suscripción ha sido exitosa.` ,
     successfulSubscription: 
-      `POR SER UN SUSCRIPTOR PREMIUM  
+      `**POR SER UN SUSCRIPTOR PREMIUM**  
       tienes acceso ilimitado a las noticias más relevantes del Perú y el mundo **totalmente gratis**.`, 
     purchaseDetails: `DETALLE DE COMPRA`,
     subscriptionDetails: `DETALLE DE LA SUSCRIPCIÓN`,
