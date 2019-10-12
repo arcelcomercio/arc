@@ -53,24 +53,23 @@ const Portal = ({ theme }) => {
             href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
             <S.SubscribedText>
               <div>
-                {arcSite === 'elcomercio' ? (
-                  <>
-                    <span>¿BUSCAS SOLO SUSCRIPCIÓN IMPRESA?</span>
-                    <span>CONSULTA AQUÍ</span>
-                  </>
-                ) : (
-                  <>
-                    <span>¿ERES EMPRESA? CONSULTA NUESTRAS</span>
-                    <span>SUSCRIPCIONES CORPORATIVAS</span>
-                  </>
-                )}
+                <span>
+                  {arcSite === 'elcomercio'
+                    ? 'BUSCAS SOLO SUSCRIPCIÓN IMPRESA?'
+                    : '¿ERES EMPRESA? CONSULTA NUESTRAS'}
+                </span>
+                <span>
+                  {arcSite === 'elcomercio'
+                    ? 'CONSULTA AQUÍ'
+                    : 'SUSCRIPCIONES CORPORATIVAS'}
+                </span>
               </div>
               <div>
                 <Icon type={theme.icon.arrowRight} />
               </div>
             </S.SubscribedText>
           </S.LinkCorporate>
-          
+
           {/* <S.LinkCorporate href={corporateUrl}>
             SUSCRIPCIONES CORPORATIVAS
           </S.LinkCorporate> */}

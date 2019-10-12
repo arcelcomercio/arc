@@ -40,7 +40,7 @@ const WizardConfirmation = props => {
     freeAccess || profile || {}
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
-    title: planTitle,
+    name: planName,
     sku,
     priceCode,
     amount,
@@ -131,7 +131,7 @@ const WizardConfirmation = props => {
                 : msgs.purchaseDetails.toUpperCase()}
             </S.DetailTitle>
             <Item label={`${msgs.planLabel.toUpperCase()}: `}>
-              {(planTitle || '').toUpperCase()} -{' '}
+              {(planName || '').toUpperCase()} -{' '}
               {Frecuency[billingFrequency].toUpperCase()}
             </Item>
             <Item label={`${msgs.nameLabel.toUpperCase()}: `}>

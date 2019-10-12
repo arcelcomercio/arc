@@ -31,6 +31,7 @@ export const Wrapper = styled.div`
   & h4 {
     margin-bottom: 20px;
     font-weight: bold;
+    line-height: 26px;
   }
 
   & .news-list {
