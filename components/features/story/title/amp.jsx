@@ -92,11 +92,6 @@ class StoryTitleAmp extends PureComponent {
             )}
 
             {title && <h1 className={classes.titleAmp}>{title}</h1>}
-            <time
-              dateTime={getDateSeo(updatedDate)}
-              className={classes.datetime}>
-              {formatDateStoryAmp(updatedDate)}
-            </time>
           </header>
           <div
             className={classes.adsAmp}

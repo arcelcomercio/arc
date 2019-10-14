@@ -376,8 +376,16 @@ export const defaultImage = ({
   size = 'lg',
 }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  const site = () => {
+    let domain = `${arcSite}.pe`
+    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    return domain
+  }
+
   return deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
@@ -537,7 +545,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
     .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
 
-  return htmlDataTwitter
+  htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
     .replace(/<html_free><blockquote (.*)">/g, '')
     .replace(/<\/blockquote><\/html_free>/g, '')
@@ -562,8 +570,12 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<font (.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/<mxm-(.*) (.*)><\/mxm>/g, '') // pendiente de validacion enventos 485178
+    .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
+    .replace(/<script>(.*\n)*.*<\/script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
+
+  return htmlDataTwitter
 }
 
 export const facebookHtml = html => {
