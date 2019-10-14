@@ -76,9 +76,11 @@
       }
     }
     .featured-story__icon {
-      top: 10px;
-      left: auto;
-      right: 10px;
+      @media (--tablet) {
+        top: 10px;
+        left: auto;
+        right: 10px;
+      }
     }
     &.featured-story--live {
       .featured-story__headband {

@@ -62,7 +62,7 @@ export default {
     },
     seo: {
       logoAmp: 'logo-elcomercio-388x60.png',
-      width: 380,
+      width: 388,
       height: 60,
       widthAmp: 156,
       heightAmp: 25,
