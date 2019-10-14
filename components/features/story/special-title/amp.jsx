@@ -38,7 +38,7 @@ class StoryTitleAmp extends PureComponent {
       subTitle,
       displayDate: updatedDate,
       tags,
-      website_url: websiteUrl,
+      link,
       promoItems: {
         basic_gallery: { content_elements: galleryItems } = {},
       } = {},
@@ -95,7 +95,7 @@ class StoryTitleAmp extends PureComponent {
           {galleryItems && (
             <StoryHeaderChildAmpGallery
               data={galleryItems}
-              websiteUrl={websiteUrl}
+              websiteUrl={link}
               width="500"
               height="300"
             />
