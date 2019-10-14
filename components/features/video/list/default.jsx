@@ -32,7 +32,8 @@ class VideoList extends PureComponent {
   componentDidMount() {
     window.addEventListener('scroll', () => {
       const { isAdmin } = this.props
-      const { dataList: { next = 0 } = {} } = this.state
+      const { dataList } = this.state
+      const { content_elements: contentElements, next = 0 } = dataList
 
       if (!isAdmin) {
         const { isLoading } = this.state
@@ -41,6 +42,7 @@ class VideoList extends PureComponent {
             document.documentElement.offsetHeight - 1200 &&
           !isLoading &&
           next > 0 &&
+          contentElements.length <= 160 &&
           window.innerHeight + document.documentElement.scrollTop !==
             document.documentElement.offsetHeight
         ) {
@@ -132,7 +134,7 @@ class VideoList extends PureComponent {
               return <VideoListItem {...params} />
             })}
         </div>
-        {next > 0 && <Spinner />}
+        {next > 0 && contentElements.length <= 160 && <Spinner />}
       </>
     )
   }
