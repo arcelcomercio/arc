@@ -17,6 +17,8 @@ const classes = {
   name:
     'author-item__name block secondary-font font-bold pt-5 mb-10 title-sm text-gray-300',
   subtitle: 'author-item__subtitle block secondary-font text-xs text-gray-300',
+  pictureNota: 'author-item__picture-nota',
+  pictureWrapper: 'author-item__picture-wrapper',
 }
 
 const OpinionGridListItem = ({ data: story }) => {
@@ -64,17 +66,17 @@ const OpinionGridListItem = ({ data: story }) => {
               </a>
             </p>
           </div>
-          <figure>
+          <figure className={classes.pictureWrapper}>
             <a href={story.link}>
               <picture>
-              <source
-                
-                srcSet={story.multimediaLandscapeXS}
-              />
-              <img src={story.multimediaLandscapeXS} alt={story.title}/>
+                <source srcSet={story.multimediaLandscapeXS} />
+                <img
+                  className={classes.pictureNota}
+                  src={story.multimediaLandscapeXS}
+                  alt={story.title}
+                />
               </picture>
             </a>
-            
           </figure>
         </div>
       </div>
