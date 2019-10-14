@@ -1,11 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import {
-  publicidadAmp,
-  formatDateStoryAmp,
-  getDateSeo,
-  storyTagsBbc,
-} from '../../../utilities/helpers'
+import { publicidadAmp, storyTagsBbc } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 import StoryData from '../../../utilities/story-data'
@@ -36,10 +31,9 @@ class StoryTitleAmp extends PureComponent {
     const {
       title,
       subTitle,
-      displayDate: updatedDate,
       tags,
       primarySectionLink,
-      website_url: websiteUrl,
+      link,
       promoItems: {
         basic_gallery: { content_elements: galleryItems } = {},
       } = {},
@@ -104,7 +98,7 @@ class StoryTitleAmp extends PureComponent {
           {galleryItems && (
             <StoryHeaderChildAmpGallery
               data={galleryItems}
-              websiteUrl={websiteUrl}
+              websiteUrl={link}
               width="500"
               height="300"
             />
