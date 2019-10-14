@@ -11,8 +11,8 @@ const classes = {
 }
 
 const StoryHeaderChildAmpGallery = props => {
-  const { data, websiteUrl } = props
-
+  const { data, link } = props
+console.log('props=>>>>>>>>>>',props)
   const slider = '[slide]="selectedSlide"'
   const imgTag = 'amp-img'
   const sizerImg = 'amp'
@@ -25,7 +25,7 @@ const StoryHeaderChildAmpGallery = props => {
           layout="responsive"
           type="slides"
           {...slider}
-          on={`slideChange:AMP.setState({selectedSlide: event.index}),AMP.navigateTo(url='${websiteUrl}?foto=2&source=amp')`}
+          on={`slideChange:AMP.setState({selectedSlide: event.index}),AMP.navigateTo(url='${link}?foto=2&source=amp')`}
           class="media gallery">
           {data.map(item => (
             <>
