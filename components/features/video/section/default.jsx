@@ -70,6 +70,7 @@ const SectionVideo = props => {
       primarySectionLink,
       promoItemsType,
       hasAdsVideo,
+      captionVideo,
     } = Story
     dataVideo.principalVideo = {
       primarySection,
@@ -80,6 +81,7 @@ const SectionVideo = props => {
       displayDate,
       promoItemsType,
       hasAdsVideo,
+      captionVideo,
     }
     if (promoItemsType === ConfigParams.VIDEO) {
       const { video } = Story
