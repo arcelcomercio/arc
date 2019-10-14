@@ -3,100 +3,108 @@ import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 
 /**
- * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
- * funciona mejor con la content-source "sitemap-feed-by-section"
+ * @todo TODO: Verificar si la forma de pasar la version 2.0 es la correcta
+ * 
+ * @description Feed para Newsletter.
  *
  * @returns {Object} Objeto con estructura manipulable por
- * xmlBuilder, para construir sitemaps para Google news.
+ * xmlBuilder, para construir Feed de noticias para Newsletter.
  */
 
 @Consumer
-class XmlStoriesSitemapNews {
-    constructor(props) {
-        this.props = props
+class XmlNewsletterFeed {
+  constructor(props) {
+    this.props = props
+  }
+
+  render() {
+    const {
+      globalContent,
+      deployment,
+      contextPath,
+      arcSite,
+      siteProperties: {
+        siteUrl = '',
+      } = {},
+    } = this.props
+    const { content_elements: stories } = globalContent || {}
+
+    if (!stories) {
+      return null
     }
 
-    promoItemHeadlines = ({ promo_items: promoItems }) => {
-        if (!promoItems) return ''
+    const storyData = new StoryData({
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize: 'sm',
+    })
+
+    const newsletterFeed = {
+      rss: stories.map(story => {
+
         const {
-            subtitle,
-            caption,
-            headlines: { basic: headlinesBasic } = {},
-            description: { basic: descriptionBasic } = {},
-        } = Object.values(promoItems)[0] || {}
+          tbmax = '',
+          tbmin = '',
+          tb250x366 = '',
+          tb148x83 = '',
+          tb210x118 = '',
+          tb403x227 = '',
+          tb241x136 = '',
+          tbgrande = '',
+          tbflujo = '',
+        } =
+          story &&
+            story.promo_items &&
+            story.promo_items.basic &&
+            story.promo_items.basic.resized_urls
+            ? story.promo_items.basic.resized_urls
+            : {}
 
-        return subtitle || caption || headlinesBasic || descriptionBasic || ''
-    }
+        storyData.__data = story
 
-    render() {
-        const {
-            globalContent,
-            deployment,
-            contextPath,
-            arcSite,
-            siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
-        } = this.props
-        const { content_elements: stories } = globalContent || {}
-
-        if (!stories) {
-            return null
+        return {
+          article: {
+            title: storyData.title,
+            url: `${siteUrl}${storyData.websiteLink || ''}`,
+            id: storyData.id,
+            publishedAt: localISODate(storyData.date || ''),
+            imagen: {
+              thumbnail_max: tbmax,
+              thumbnail_min: tbmin,
+              thumbnail_250x366: tb250x366,
+              thumbnail_148x83: tb148x83,
+              thumbnail_210x118: tb210x118,
+              thumbnail_403x227: tb403x227,
+              thumbnail_241x136: tb241x136,
+              thumbnail_grande: tbgrande,
+              thumbnail_flujo: tbflujo
+            },
+            volada: '',
+            epigraph: storyData.subTitle,
+            seccion: storyData.primarySection,
+            url_seccion: storyData.primarySectionLink,
+            autor: {
+              nombre: storyData.author,
+              url: `${siteUrl}${storyData.authorLink}`,
+              cargo: storyData.authorOccupation,
+              columna: '',
+              twitter: storyData.authorTwitterLink,
+              imagen: `${siteUrl}${storyData.authorImage}`,
+              thumb: storyData.authorSlug
+            }
+          }
         }
-
-        const storyData = new StoryData({
-            deployment,
-            contextPath,
-            arcSite,
-            defaultImgSize: 'sm',
-        })
-
-        /*     const sitemap = {
-              urlset: stories.map(story => {
-                storyData.__data = story
-                return {
-                  url: {
-                    loc: `${siteUrl}${storyData.link || ''}`,
-                    lastmod: localISODate(storyData.date || ''),
-                    'news:news': {
-                      'news:publication': {
-                        'news:name': sitemapNewsName,
-                        'news:language': 'es',
-                      },
-                      'news:publication_date': localISODate(storyData.date || ''),
-                      'news:title': {
-                        '#cdata': storyData.title,
-                      },
-                      'news:keywords': {
-                        '#cdata':
-                          storyData.seoKeywords.toString() ||
-                          storyData.tags
-                            .map(tag => tag && tag.description)
-                            .toString() ||
-                          arcSite,
-                      },
-                    },
-                    'image:image': {
-                      'image:loc':
-                        storyData.multimediaLandscapeL || storyData.multimedia || '',
-                      'image:title': {
-                        '#cdata': this.promoItemHeadlines(story),
-                      },
-                    },
-                    changefreq: 'hourly',
-                    priority: '0.5',
-                  },
-                }
-              }),
-            } */
-
-        // Attr
-        sitemap.urlset.push({
-            '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
-            '@xmlns:news': 'http://www.google.com/schemas/sitemap-news/0.9',
-            '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
-        })
-
-        return sitemap
+      })
     }
+
+    // Attr
+    newsletterFeed.rss.push({
+      '@version': '2.0'
+    })
+
+    return newsletterFeed
+  }
 }
 
-export default XmlStoriesSitemapNews
+export default XmlNewsletterFeed
