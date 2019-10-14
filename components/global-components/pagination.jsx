@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react'
 import { addParamToEndPath } from '../utilities/helpers'
 
@@ -106,6 +107,11 @@ const Pagination = props => {
           <span className="non-tablet non-desktop">&#60;</span>
           <span className="non-mobile">anterior</span>
         </p>
+      ) : currentPage === 2 ? (
+        <a className={classes.page} href={pathOrigin}>
+          <span className="non-tablet non-desktop">&#60;</span>
+          <span className="non-mobile">anterior</span>
+        </a>
       ) : (
         <a className={classes.page} href={urlPrevPage}>
           <span className="non-tablet non-desktop">&#60;</span>
@@ -126,6 +132,12 @@ const Pagination = props => {
                 className={`${classes.page} ${'pagination__page--current'}`}>
                 {page}
               </span>
+            )
+          } else if (page === 1) {
+            tag = (
+              <a key={key} className={classes.page} href={pathOrigin}>
+                {page}
+              </a>
             )
           } else {
             tag = (
