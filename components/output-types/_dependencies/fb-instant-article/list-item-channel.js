@@ -26,8 +26,17 @@ const ListItemNews = (contentElements, buildProps) => {
     .map(story => {
       storydata.__data = story
 
+      let pagePath = ''
+      let fiaContent = ''
       if (storydata.fiaOrigen === true) {
-        const pagePath = `${siteUrl}${storydata.link}`
+        if (storydata.canonicalWebsite === 'elcomerciomag') {
+          fiaContent = 'MAG'
+          pagePath = `${siteUrl}/mag${storydata.link}`
+        } else {
+          pagePath = `${siteUrl}${storydata.link}`
+          fiaContent = fbArticleStyle
+        }
+        // const pagePath = `${siteUrl}${storydata.link}`
         const pageview = `${storydata.link}?outputType=fia`
         const propsScriptHeader = {
           siteDomain,
@@ -63,7 +72,7 @@ const ListItemNews = (contentElements, buildProps) => {
           multimedia: storydata.multimediaNews,
           author: nbspToSpace(storydata.author),
           paragraphsNews: storydata.paragraphsNews,
-          fbArticleStyle,
+          fbArticleStyle: fiaContent,
           listUrlAdvertisings,
         }
 

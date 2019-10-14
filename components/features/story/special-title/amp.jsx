@@ -38,7 +38,7 @@ class StoryTitleAmp extends PureComponent {
       subTitle,
       displayDate: updatedDate,
       tags,
-      website_url: websiteUrl,
+      link,
       promoItems: {
         basic_gallery: { content_elements: galleryItems } = {},
       } = {},
@@ -53,7 +53,7 @@ class StoryTitleAmp extends PureComponent {
     const placementId = adsAmp.movil1
     const width = '320'
     const height = '50'
-    const parameters = { dataSlot, placementId, width, height }
+    const parameters = { dataSlot, placementId, width, height, movil1: true }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -83,11 +83,6 @@ class StoryTitleAmp extends PureComponent {
               </div>
             )}
             {title && <h1 className={classes.titleAmp}> {title} </h1>}
-            <time
-              dateTime={getDateSeo(updatedDate)}
-              className={classes.datetime}>
-              {formatDateStoryAmp(updatedDate)}
-            </time>
           </header>
           <div
             className={classes.adsAmp}
@@ -100,7 +95,7 @@ class StoryTitleAmp extends PureComponent {
           {galleryItems && (
             <StoryHeaderChildAmpGallery
               data={galleryItems}
-              websiteUrl={websiteUrl}
+              link={link}
               width="500"
               height="300"
             />

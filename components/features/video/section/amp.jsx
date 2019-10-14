@@ -62,6 +62,7 @@ const VideoSectionAmp = () => {
     placementId: placementIdNa,
     width,
     height,
+    movil1: true,
   }
 
   const namePublicidad =
@@ -122,9 +123,6 @@ const VideoSectionAmp = () => {
             </div>
           )}
           <h1 className={classes.titleAmp}>{title}</h1>
-          <time dateTime={getDateSeo(displayDate)} className={classes.datetime}>
-            {formatDateStoryAmp(displayDate)}
-          </time>
         </header>
         <div
           className={classes.adsAmp}
