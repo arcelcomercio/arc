@@ -376,8 +376,16 @@ export const defaultImage = ({
   size = 'lg',
 }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  const site = () => {
+    let domain = `${arcSite}.pe`
+    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    return domain
+  }
+
   return deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
