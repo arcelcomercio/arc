@@ -57,7 +57,6 @@ class StaticOpinionGrid extends PureComponent {
                     <Ads
                       adElement={`movil${countAddPrint}`}
                       isDesktop={false}
-                      isMobile={true}
                       columns=""
                       rows=""
                       freeHtml=""
@@ -91,7 +90,6 @@ class StaticOpinionGrid extends PureComponent {
                     <Ads
                       adElement={`movil${countAddPrint}`}
                       isDesktop={false}
-                      isMobile={true}
                       columns=""
                       rows=""
                       freeHtml=""
@@ -118,7 +116,6 @@ class StaticOpinionGrid extends PureComponent {
         </div>
         <Ads
           adElement="middle1"
-          isDesktop={true}
           isMobile={false}
           columns=""
           rows=""
@@ -155,7 +152,6 @@ class StaticOpinionGrid extends PureComponent {
                 <Ads
                   adElement="movil5"
                   isDesktop={false}
-                  isMobile={true}
                   columns=""
                   rows=""
                   freeHtml=""
