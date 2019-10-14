@@ -81,8 +81,9 @@ class XmlGoogleNews {
         }
 
         // Attr
-        googleNewsFeed.urlset.push({
+        googleNewsFeed.rss.push({
             '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+            '@version': '2.0'
         })
 
         return googleNewsFeed
