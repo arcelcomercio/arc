@@ -71,8 +71,8 @@ const FaqList = withTheme(({ theme, site, faqs = [], ...props }) => {
           const answer = Array.isArray(faq.a) ? faq.a.join(' \n') : faq.a
           return (
             <div id={`${faqGroup.group}---${idx2}`}>
-              <S.FaqMarkdown question source={question} />
-              <S.FaqMarkdown source={answer} />
+              <S.FaqMarkdown linkTarget="_blank" question source={question} />
+              <S.FaqMarkdown linkTarget="_blank" source={answer} />
               {faqGroup.faqs.length > idx2 + 1 && <S.Separator />}
             </div>
           )
