@@ -38,7 +38,7 @@ class StoryTitleAmp extends PureComponent {
       subTitle,
       displayDate: updatedDate,
       tags,
-      website_url: websiteUrl,
+      websiteUrl,
       promoItems: {
         basic_gallery: { content_elements: galleryItems } = {},
       } = {},
