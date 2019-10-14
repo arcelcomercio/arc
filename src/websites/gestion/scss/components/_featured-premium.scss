@@ -23,6 +23,10 @@
   }
   &__icon {
     font-size: 50px;
+    left: auto;
+    right: 10px;
+    top: 10px;
+    transform: none;
   }
   &--card {
     .featured-premium__section-small {

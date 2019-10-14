@@ -16,7 +16,8 @@ export default () => {
           strokeLinecap="round"
           cx="33"
           cy="33"
-          r="30"></circle>
+          r="30"
+        />
       </svg>
     </div>
   )
