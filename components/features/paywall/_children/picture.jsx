@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled, { withTheme, css } from 'styled-components'
 import {
   spacing,
   flexbox,
@@ -12,6 +12,13 @@ import URL from 'url-parse'
 
 const NoLineHeightPicture = styled.picture`
   line-height: 0px;
+`
+
+const Img = styled.img`
+  ${props => props.objectFit && (
+    css`
+      object-fit: ${props.objectFit};
+  `)}
 `
 
 const Picture = props => {
@@ -31,11 +38,12 @@ const Picture = props => {
       )}
       {types.map(type => (
         <source
+          key={`source_${type}`}
           srcSet={pathname.replace(/\.[\w-]+$/, `.${type}`) + (query || '')}
           type={`image/${type}`}
         />
       ))}
-      <img src={src} {...restProps} />
+      <Img src={src} {...restProps} />
     </NoLineHeightPicture>
   )
 }

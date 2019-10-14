@@ -110,10 +110,10 @@ const WizardConfirmation = props => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
         <Picture 
-          height="100%" 
+          width={{ xs: "0px", md: "360px" }}
           hideOnScreenSize="sm" 
           src={theme.images.confirmation_webp} 
-          types={['webp', 'jpg']}
+          types={['webp', 'png']}
         />
         <S.Content>
           <S.Title>
@@ -141,17 +141,8 @@ const WizardConfirmation = props => {
             </Item>
             {!freeAccess && (
               <>
-                {/* <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
-                  {paidTotal !== 0
-                    ? `${msgs.currencySymbol.toUpperCase()} ${paidTotal}`
-                    : `${msgs.freeAmount.toUpperCase()} ${description.title} ${
-                        description.description
-                      }`}
-                </Item> */}
-
                 <S.Item>
                   {`${msgs.priceLabel.toUpperCase()}: `}
-
                   <strong>
                     {`${
                       paidTotal !== 0

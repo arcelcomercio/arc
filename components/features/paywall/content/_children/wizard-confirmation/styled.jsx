@@ -30,12 +30,6 @@ export const Subtitle = styled(_Markdown)`
   `}
 `
 
-export const Image = styled.img`
-  width: 360px;
-  object-fit: cover;
-  height: 100%;
-`
-
 export const Content = styled.div`
   ${({ theme }) => css`
     display: flex;
