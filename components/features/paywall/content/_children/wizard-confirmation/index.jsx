@@ -3,9 +3,9 @@ import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
 import * as S from './styled'
 import Button from '../../../_children/button'
+import Picture from '../../../_children/picture'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
-import { getBrowser } from '../../../_dependencies/browsers'
 import PWA from '../../_dependencies/seed-pwa'
 
 const HOME = '/'
@@ -40,7 +40,7 @@ const WizardConfirmation = props => {
     freeAccess || profile || {}
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
-    title: planTitle,
+    name: planName,
     sku,
     priceCode,
     amount,
@@ -109,20 +109,12 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
-        <S.Picture>
-          <source
-            media={theme.breakpoints.down('sm', false)}
-            srcSet={theme.images.pixel}
-          />
-          <source srcSet={theme.images.confirmation_jpg} type="image/jpg" />
-          <source srcSet={theme.images.confirmation_webp} type="image/webp" />
-          {getBrowser().isSafari ? (
-            <S.Image src={theme.images.confirmation_jpg} alt="confirmación" />
-          ) : (
-            <S.Image src={theme.images.confirmation_webp} alt="confirmación" />
-          )}
-        </S.Picture>
-
+        <Picture 
+          width={{ xs: "0px", md: "360px" }}
+          hideOnScreenSize="sm" 
+          src={theme.images.confirmation_webp} 
+          types={['webp', 'png']}
+        />
         <S.Content>
           <S.Title>
             {msgs.interpolate(msgs.welcomeNewSubscriptor, { firstName })}
@@ -139,7 +131,7 @@ const WizardConfirmation = props => {
                 : msgs.purchaseDetails.toUpperCase()}
             </S.DetailTitle>
             <Item label={`${msgs.planLabel.toUpperCase()}: `}>
-              {(planTitle || '').toUpperCase()} -{' '}
+              {(planName || '').toUpperCase()} -{' '}
               {Frecuency[billingFrequency].toUpperCase()}
             </Item>
             <Item label={`${msgs.nameLabel.toUpperCase()}: `}>
@@ -149,17 +141,8 @@ const WizardConfirmation = props => {
             </Item>
             {!freeAccess && (
               <>
-                {/* <Item label={`${msgs.priceLabel.toUpperCase()}: `}>
-                  {paidTotal !== 0
-                    ? `${msgs.currencySymbol.toUpperCase()} ${paidTotal}`
-                    : `${msgs.freeAmount.toUpperCase()} ${description.title} ${
-                        description.description
-                      }`}
-                </Item> */}
-
                 <S.Item>
                   {`${msgs.priceLabel.toUpperCase()}: `}
-
                   <strong>
                     {`${
                       paidTotal !== 0

@@ -65,12 +65,11 @@ function WizardPlan(props) {
       level: Sentry.Severity.Info,
     })
 
-    const { title } = summary
     setTimeout(() => {
       setLoading(false)
       onBeforeNextStep(
         {
-          plan: { ...plan, title },
+          plan,
           origin: origin.current,
           referer: referer.current,
         },

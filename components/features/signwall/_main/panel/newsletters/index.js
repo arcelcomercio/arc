@@ -22,7 +22,7 @@ class NewsLetter extends Component {
   }
 
   newSetCategories
-  
+
   timeout
 
   componentDidMount() {
@@ -135,8 +135,9 @@ class NewsLetter extends Component {
           this.setPreference()
         }
         setTimeout(() => {
-          const modalConfirmPass = document.querySelector('#arc-popup-profile')
-          modalConfirmPass.scrollIntoView()
+          const modalConfirmPass = document.getElementById('arc-popup-profile')
+          // modalConfirmPass.scrollIntoView()
+          modalConfirmPass.parentNode.scrollTop = modalConfirmPass.offsetTop;
         }, 500)
         this.setState({ showsuccess: true })
         // window.sessionStorage.setItem(
@@ -146,6 +147,9 @@ class NewsLetter extends Component {
         setTimeout(() => {
           this.setState({ showsuccess: false })
         }, 3000)
+      })
+      .catch(e => {
+        window.console.error(e)
       })
   }
 
@@ -193,7 +197,7 @@ class NewsLetter extends Component {
       <Wrapper>
         {!loading ? (
           <>
-            <h4>Personaliza los correos que deseas recibir:</h4>
+            <h4>Selecciona los tipos de Newsletters que más te interesen para que los recibas en tu correo electrónico:</h4>
 
             {showsuccess && (
               <div className="msg-success">

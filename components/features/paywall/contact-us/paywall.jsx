@@ -8,6 +8,7 @@ import ClientOnly from '../_children/client-only'
 import Loading from '../_children/loading'
 import Icon from '../_children/icon'
 import * as S from './styled'
+import Picture from '../_children/picture'
 import { useStrings } from '../_children/contexts'
 import { interpolateUrl } from '../_dependencies/domains'
 
@@ -26,9 +27,9 @@ const PaywallContactUs = props => {
     },
   } = useFusionContext()
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     window.document.getElementById('footer').style.position = 'relative'
-  },[])
+  }, [])
 
   const initialValuesForm = {
     correo: '',
@@ -86,15 +87,12 @@ const PaywallContactUs = props => {
         spinning={loading}
       />
       <S.WrapContent>
-        <S.Picture>
-          <source
-            media={theme.breakpoints.down('sm', false)}
-            srcSet={theme.images.pixel}
-          />
-          <source type="image/webp" srcSet={theme.images.corporativo_webp} />
-          <source type="image/png" srcSet={theme.images.corporativo_png} />
-          <img src={theme.images.corporativo_webp} alt="contact_us" />
-        </S.Picture>
+        <Picture
+          hideOnScreenSize="sm"
+          src={theme.images.corporativo_webp}
+          types={['webp', 'png']}
+          alt="contact_us"
+        />
         {showThanks ? (
           <Thanks siteUrl={siteUrl} />
         ) : (

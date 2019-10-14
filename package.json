@@ -44,9 +44,10 @@
     "react-text-mask": "^5.4.3",
     "remove-accents": "^0.4.2",
     "styled-components": "^4.3.2",
-    "thumbor": "^0.1.5",
     "templayed": "^0.2.3",
+    "thumbor": "^0.1.5",
     "tinycolor2": "^1.4.1",
+    "url-parse": "^1.4.7",
     "xmlbuilder": "^13.0.2"
   },
   "peerDependencies": {

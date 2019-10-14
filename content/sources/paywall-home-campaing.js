@@ -14,43 +14,91 @@ const fetch = (key = {}) => {
   const digitalSubscriptionsHome = interpolateUrl(urls.digitalSubscriptionsHome)
   const originSubsPrinted = interpolateUrl(urls.originSubsPrinted)
 
-  const HARD_CAMPAIGNS = [
-    {
-      title: 'Digital + Impreso',
-      url: originSubsDigitalPrinted,
-      recommended: true,
-      price: { amount: 49, currency: 'S/' },
-      detail: {
-        frequency: 'AL MES',
-        duration: 'POR 3 MESES',
-        aditional: 'LUEGO S/ 68 CADA MES',
-      },
-      aditional: '',
-      features: [
-        'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
-        'Diario impreso de Lunes a Viernes',
-        'Acceso a la versión impresa en formato digital: PDF',
-        'Descuentos ilimitados del club de beneficios',
-        'Revista G',
-      ],
-    },
-    {
-      title: 'Impreso',
-      url: originSubsPrinted,
-      price: { amount: 49, currency: 'S/' },
-      detail: {
-        frequency: 'AL MES',
-        duration: '',
-        aditional: '',
-      },
-      features: [
-        'Diario impreso de Lunes a Viernes',
-        'Acceso a la versión impresa en formato digital: PDF',
-        'Descuentos ilimitados del club de beneficios',
-        'Revista G',
-      ],
-    },
-  ]
+  let HARD_CAMPAIGNS = []
+
+  switch (site) {
+    case 'elcomercio':
+      HARD_CAMPAIGNS = [
+        {
+          title: 'Digital + Impreso (3 días)',
+          url: originSubsDigitalPrinted,
+          recommended: true,
+          price: { amount: 35, currency: 'S/' },
+          detail: {
+            frequency: 'AL MES',
+            duration: 'POR 3 MESES',
+            aditional: 'LUEGO S/ 45 CADA MES',
+          },
+          aditional: '',
+          features: [
+            'Acceso ilimitado a elcomercio.pe desde todos tus dispositivos',
+            'Contenido desarrollado especialmente para la web.',
+            'Diario impreso 3 días/semana (Vie, Sab y Dom) ',
+            'Descuentos ilimitados en establecimientos afiliados al Club El Comercio.',
+            'Versión impresa en formato PDF',
+          ],
+        },
+        {
+          title: 'Digital Impreso (7 días)',
+          url: originSubsPrinted,
+          price: { amount: 65, currency: 'S/' },
+          detail: {
+            frequency: 'AL MES',
+            duration: '',
+            aditional: '',
+          },
+          features: [
+            'Acceso ilimitado a elcomercio.pe desde todos tus dispositivos',
+            'Contenido desarrollado especialmente para la web.',
+            'Diario impreso TODOS LOS DÍAS',
+            'Descuentos ilimitados en establecimientos afiliados al Club El Comercio.',
+            'Versión impresa en formato PDF',
+          ],
+        },
+      ]
+      break
+    case 'gestion':
+      HARD_CAMPAIGNS = [
+        {
+          title: 'Digital + Impreso',
+          url: originSubsDigitalPrinted,
+          recommended: true,
+          price: { amount: 49, currency: 'S/' },
+          detail: {
+            frequency: 'AL MES',
+            duration: 'POR 3 MESES',
+            aditional: 'LUEGO S/ 68 CADA MES',
+          },
+          aditional: '',
+          features: [
+            'Acceso a contenido exclusivo en gestion.pe y navegación ilimitada desde todos tus dispositivos',
+            'Diario impreso de Lunes a Viernes',
+            'Acceso a la versión impresa en formato digital: PDF',
+            'Descuentos ilimitados del club de beneficios',
+            'Revista G',
+          ],
+        },
+        {
+          title: 'Impreso',
+          url: originSubsPrinted,
+          price: { amount: 49, currency: 'S/' },
+          detail: {
+            frequency: 'AL MES',
+            duration: '',
+            aditional: '',
+          },
+          features: [
+            'Diario impreso de Lunes a Viernes',
+            'Acceso a la versión impresa en formato digital: PDF',
+            'Descuentos ilimitados del club de beneficios',
+            'Revista G',
+          ],
+        },
+      ]
+      break
+    default:
+      HARD_CAMPAIGNS = []
+  } 
 
   const DURATION = {
     month: {

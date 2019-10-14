@@ -3,6 +3,7 @@ import { withTheme } from 'styled-components'
 
 import * as S from './styled'
 import Icon from '../../../../../_children/icon'
+import Picture from '../../../../../_children/picture'
 
 const PromoBanner = props => {
   const {
@@ -25,14 +26,13 @@ const PromoBanner = props => {
       {...restProps}>
       {image && (
         <div>
-          <S.Picture>
-            <source srcSet={image} />
-            <source
-              media={theme.breakpoints.down('830px', false)}
-              srcSet={theme.images.pixel}
-            />
-            <S.Img src={image} alt="lector" />
-          </S.Picture>
+          <Picture
+            hideOnScreenSize="xs"
+            display="flex"
+            types={['webp', 'png']}
+            src={image}
+            alt="lector"
+          />
         </div>
       )}
       <S.SubscribedContent

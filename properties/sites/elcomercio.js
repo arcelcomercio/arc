@@ -109,10 +109,11 @@ export default {
       originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
       originSubscriptionOnlineToken:     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
       originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/elcomercio/{{#hasParams}}?doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/hasParams}}`,
-      originSubsPrinted:                 `{{#isProd}}https://suscripciones.elcomercio.pe/payment/7/96/{{/isProd}}
-                                          {{^isProd}}http://pre.suscripciones.elcomercio.pe/payment/7/96/{{/isProd}}`,
-      originSubsDigitalPrinted:          `{{#isProd}}https://suscripciones.elcomercio.pe/payment/8/98/{{/isProd}}
-                                          {{^isProd}}http://pre.suscripciones.elcomercio.pe/payment/8/97/{{/isProd}}`,
+      originBundles:                     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/elcomercio/bundle/`,
+      originSubsPrinted:                 `{{#isProd}}https://suscripciones.elcomercio.pe/payment/9/101/{{/isProd}}
+                                          {{^isProd}}http://pre.suscripciones.elcomercio.pe/payment/9/101/{{/isProd}}`,
+      originSubsDigitalPrinted:          `{{#isProd}}https://suscripciones.elcomercio.pe/payment/10/103/{{/isProd}}
+                                          {{^isProd}}http://pre.suscripciones.elcomercio.pe/payment/10/103/{{/isProd}}`,
       privacyPolicy:                     `https://elcomercio.pe/politicas-privacidad/`,
       disclaimer:                        `http://ecomedia.pe/libro/registrar/elcomercio/`,
       terms:                             `https://suscripciones.elcomercio.pe/terminos/`,
@@ -308,7 +309,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  urlSubsOnline: 'https://suscripciones.elcomercio.pe/?ref=home-header',
+  urlSubsOnline: 'https://suscripciones.elcomercio.pe',
   gda: true, // Grupo Diarios de America
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
