@@ -9,8 +9,12 @@
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
+    flex-wrap: wrap;
     @media (--tablet) {
       width: calc(100% - 120px);
+    }
+    @media (--desktop) {
+      flex-wrap: inherit;
     }
     .author-item__date {
       display: none;
@@ -31,9 +35,9 @@
     font-family: $fourth-font;
   }
   &__information {
-    width: calc(100% - 50px);
+    width: calc(100% - 70px);
     @media (--tablet) {
-      width: calc(100% - 70px);
+      width: calc(100% - 90px);
     }
   }
   &__image,
@@ -82,5 +86,21 @@
     font-size: 16px;
     line-height: 20px;
     color: #666666;
+  }
+  &__picture-wrapper {
+    width: 100%;
+    padding-left: 70px;
+    padding-top: 10px;
+    @media (--tablet) {
+      padding-left: 90px;
+    }
+    @media (--desktop) {
+      padding: 0;
+      width: auto;
+    }
+  }
+  &__picture-nota {
+    width: 225px;
+    height: 128px;
   }
 }
