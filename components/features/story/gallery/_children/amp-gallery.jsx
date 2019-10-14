@@ -12,7 +12,6 @@ const classes = {
 
 const StoryHeaderChildAmpGallery = props => {
   const { data, link } = props
-console.log('props=>>>>>>>>>>',props)
   const slider = '[slide]="selectedSlide"'
   const imgTag = 'amp-img'
   const sizerImg = 'amp'
