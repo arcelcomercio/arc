@@ -12,7 +12,7 @@ import customFields from './_dependencies/custom-fields'
 import HeaderChildInverted from './_children/header'
 
 const BAND_HIERARCHY = 'header-default'
-const MENU_HIERARCHY = 'navbar-default'
+const MENU_HIERARCHY = 'menu-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const HeaderInverted = props => {

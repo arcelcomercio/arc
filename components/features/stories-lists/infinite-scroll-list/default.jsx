@@ -9,7 +9,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import RenderPagination from './_children/pagination-by-date'
 import Ads from '../../../global-components/ads'
 import ListItem from './_children/list-item'
-import Spinner from './_children/spinner'
+import Spinner from '../../../global-components/spinner'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
