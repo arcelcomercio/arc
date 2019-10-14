@@ -210,6 +210,10 @@ export const sizeImg = () => {
       width: 1200,
       height: 800,
     },
+    amp: {
+      width: 900,
+      height: 600,
+    },
     impresa: {
       width: 617,
       height: 637,
