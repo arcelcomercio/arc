@@ -537,7 +537,6 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
     .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
 
-
   htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
     .replace(/<html_free><blockquote (.*)">/g, '')
@@ -564,7 +563,8 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/<mxm-(.*) (.*)><\/mxm>/g, '') // pendiente de validacion enventos 485178
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
-    .replace(/<script>(.*\n)*.*<\/script>/g, '______________')
+    .replace(/<script>(.*\n)+.*<\/script>/g, '')
+    .replace(/<script>(.*\n)*.*<\/script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 
   return htmlDataTwitter
