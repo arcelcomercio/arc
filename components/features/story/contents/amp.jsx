@@ -19,6 +19,8 @@ import {
   publicidadAmp,
   replaceTags,
   storyTagsBbc,
+  formatDateStoryAmp,
+  getDateSeo,
 } from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
@@ -53,6 +55,7 @@ class StoryContentAmp extends PureComponent {
       promoItems,
       tags,
       authorLink,
+      displayDate: updatedDate,
       primarySectionLink,
       author,
     } = new StoryData({
@@ -71,7 +74,13 @@ class StoryContentAmp extends PureComponent {
     const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
-    const parameters = { dataSlot, placementId, width, height, primarySectionLink }
+    const parameters = {
+      dataSlot,
+      placementId,
+      width,
+      height,
+      primarySectionLink,
+    }
     const parametersMovil4 = {
       dataSlot: `/${
         adsAmp.dataSlot
@@ -116,6 +125,9 @@ class StoryContentAmp extends PureComponent {
           <p className={classes.author}>
             <a href={authorLink}>{author}</a>
           </p>
+          <time dateTime={getDateSeo(updatedDate)} className={classes.datetime}>
+            {formatDateStoryAmp(updatedDate)}
+          </time>
           {contentPosicionPublicidadAmp && (
             <StoryContent
               data={contentPosicionPublicidadAmp}
