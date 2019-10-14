@@ -68,7 +68,7 @@ const OpinionGridListItem = ({ data: story }) => {
             <a href={story.link}>
               <picture>
               <source
-                // media="(max-width: 639px)"
+                
                 srcSet={story.multimediaLandscapeXS}
               />
               <img src={story.multimediaLandscapeXS} alt={story.title}/>
