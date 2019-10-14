@@ -525,10 +525,17 @@ export const twitterHtml = html => {
 
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
-  htmlDataTwitter = htmlDataTwitter.replace(
-    /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-    'https://img.peru21.pe$1'
-  )
+
+  if (arcSite === ConfigParams.SITE_ELCOMERCIO)
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://img.elcomercio.pe$1'
+    )
+  else
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://img.peru21.pe$1'
+    )
 
   const rplTwitter =
     '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
@@ -573,7 +580,16 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
     .replace(/<script>(.*\n)*.*<\/script>/g, '')
+    .replace(/<(-?\/)?script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
+
+    .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
+    .replace('if (d.getElementById(id)) return;', '')
+    .replace('js = d.createElement(s); js.id = id;', '')
+    .replace('(function(d, s, id) {', '')
+    .replace('fjs.parentNode.insertBefore(js, fjs);', '')
+    .replace("}(document, 'script', 'facebook-jssdk'));", '')
+    .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
 
   return htmlDataTwitter
 }
