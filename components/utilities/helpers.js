@@ -583,7 +583,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace("}(document, 'script', 'facebook-jssdk'));", '')
     .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
 
-  return htmlDataTwitter.replace(/<div_>(.*\n+)+.*<\/div_>/g, '')
+  return htmlDataTwitter
 }
 
 export const facebookHtml = html => {
