@@ -16,29 +16,19 @@ import './images/default-blog.jpg'
 import './images/default-sm.png'
 import './images/default-md.png'
 import './images/default-lg.png'
-import './images/paywall/img_confirmation.png'
-import './images/paywall/img_confirmation.webp'
-import './images/paywall/img_lector.png'
-import './images/paywall/img_lector.webp'
-import './images/paywall/bg_planes_10.jpg'
 import './images/premium-logo.png'
 import './images/author.png'
-
-import './images/paywall/img_corporativo.webp'
-import './images/paywall/img_corporativo.png'
-import './images/paywall/check2.png'
-import './images/paywall/img_soporte.webp'
-import './images/paywall/img_soporte.png'
 import './images/authorOpinion.png'
 import './images/logo-amp.png'
 import './images/logo-elcomercio-388x60.png'
-
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'
 import './images/logo-elcomercio.jpg'
-
 import './images/signwall/bg_paywall.png'
 import './images/signwall/logo_elcomercio.png'
 import './images/signwall/bg_login.png'
 
 import '../../../components/utilities/lazyload'
+
+// Imagenes paywall
+require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)
