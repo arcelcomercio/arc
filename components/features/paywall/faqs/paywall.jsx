@@ -8,7 +8,6 @@ import Markdown from 'react-markdown/with-html'
 import ClientOnly from '../_children/client-only'
 import { useStrings } from '../_children/contexts'
 import * as S from './styled'
-import {FaqGES, FaqECO } from './data'
 
 const Faqs = () => {
   const msgs = useStrings()
@@ -16,7 +15,7 @@ const Faqs = () => {
   const { arcSite } = useFusionContext()
 
   const loadFakeQuestions = React.useCallback(
-    () => Promise.resolve( arcSite ==='elcomercio' ? FaqECO : FaqGES ).then(setData),
+    () => Promise.resolve(msgs.faqs).then(setData),
     []
   )
 
@@ -72,8 +71,8 @@ const FaqList = withTheme(({ theme, site, faqs = [], ...props }) => {
           const answer = Array.isArray(faq.a) ? faq.a.join(' \n') : faq.a
           return (
             <div id={`${faqGroup.group}---${idx2}`}>
-              <S.FaqMarkdown question source={question} />
-              <S.FaqMarkdown source={answer} />
+              <S.FaqMarkdown linkTarget="_blank" question source={question} />
+              <S.FaqMarkdown linkTarget="_blank" source={answer} />
               {faqGroup.faqs.length > idx2 + 1 && <S.Separator />}
             </div>
           )

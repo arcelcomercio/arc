@@ -7,6 +7,7 @@ import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
 import Taggeo from '../../utils/taggeo'
 import { WrapperBlock } from './styles'
+import SubDetail from '../subcription/detail'
 
 @Consumer
 class Subs extends Component {
@@ -17,14 +18,14 @@ class Subs extends Component {
     this.state = {
       paywallName: '-',
       paywallPrice: '-',
-      // paywallDescripcion: '-',
       showModalConfirm: false,
       isSubs: false,
       isLoad: true,
       idSubsDelete: null,
-      // userSubs: {},
       userSubsDetail: [],
       listBundle: Domains.getListBundle() || [],
+      showDetails: false,
+      idSubsDetail: '',
     }
 
     const { arcSite } = this.props
@@ -177,6 +178,14 @@ class Subs extends Component {
     }
   }
 
+  showPayment(idSubcription) {
+    const { showDetails, idSubsDetail } = this.state
+    this.setState({
+      showDetails: !showDetails,
+      idSubsDetail: idSubcription,
+    })
+  }
+
   deleteSub() {
     const { idSubsDelete } = this.state
     window.Sales.apiOrigin = this.origin_api
@@ -208,18 +217,18 @@ class Subs extends Component {
 
   render() {
     const {
-      // userSubs,
       isSubs,
       isLoad,
       paywallName,
       paywallPrice,
       showModalConfirm,
-      // paywallDescripcion,
       userSubsDetail,
       idSubsDelete,
       listBundle,
+      showDetails,
+      idSubsDetail,
     } = this.state
-    const { arcSite } = this.props
+    const { arcSite, subs } = this.props
     return (
       <>
         {isLoad ? (
@@ -239,13 +248,22 @@ class Subs extends Component {
                         <h3>Mi suscripción</h3>
                         {reSubs.currentPaymentMethod.paymentPartner ===
                         'PayULATAM' ? (
+                          // <button
+                          //   type="button"
+                          //   className="link"
+                          //   onClick={() =>
+                          //     this.openModalConfirm(reSubs.subscriptionID)
+                          //   }>
+                          //   ANULAR MI SUSCRIPCIÓN
+                          // </button>
                           <button
                             type="button"
                             className="link"
-                            onClick={() =>
-                              this.openModalConfirm(reSubs.subscriptionID)
+                            onClick={() => 
+                              // this.showPayment(reSubs.subscriptionID)
+                              subs()
                             }>
-                            ANULAR MI SUSCRIPCIÓN
+                            EDITAR MÉTODO DE PAGO
                           </button>
                         ) : (
                           ''
@@ -351,6 +369,8 @@ class Subs extends Component {
                 ) : null}
               </>
             )}
+
+            {showDetails && <SubDetail idSubs={idSubsDetail} />}
 
             {showModalConfirm && (
               <Modal

@@ -39,7 +39,7 @@ const fetch = (key = {}) => {
           ],
         },
         {
-          title: 'Digital Impreso (7 días)',
+          title: 'Digital + Impreso (7 días)',
           url: originSubsPrinted,
           price: { amount: 65, currency: 'S/' },
           detail: {

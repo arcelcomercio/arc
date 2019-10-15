@@ -88,8 +88,8 @@ class SignwallComponent extends PureComponent {
       this.getPremium()
     } else if (window.ArcP) {
       W.ArcP.run({
-        paywallFunction: campaignURL => {
-          W.location.href = campaignURL
+        paywallFunction: campaignURL => { 
+          W.location.href = `${campaignURL}&ref=${document.location.pathname}`
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
