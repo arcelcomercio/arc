@@ -24,6 +24,7 @@ const WizardConfirmation = props => {
   const {
     theme,
     memo: {
+      arcSite,
       order = {},
       profile = {},
       plan = {},
@@ -52,7 +53,7 @@ const WizardConfirmation = props => {
     PWA.finalize()
     sendAction(PixelActions.PAYMENT_CONFIRMATION, {
       transactionId: orderNumber,
-      transactionAffiliation: 'Suscripciones Gestión',
+      transactionAffiliation: arcSite,
       transactionTotal: paidTotal,
       transactionTax: 0,
       transactionShipping: 0,
@@ -109,10 +110,10 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
-        <Picture 
-          width={{ xs: "0px", md: "360px" }}
-          hideOnScreenSize="sm" 
-          src={theme.images.confirmation_webp} 
+        <Picture
+          width={{ xs: '0px', md: '360px' }}
+          hideOnScreenSize="sm"
+          src={theme.images.confirmation}
           types={['webp', 'png']}
         />
         <S.Content>
