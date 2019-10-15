@@ -78,16 +78,6 @@ const WizardConfirmation = props => {
     document.getElementById('footer').style.position = 'relative'
   }, [])
 
-  // const handleClick = () => {
-  //   return
-  //   if (handlePWA()) return
-  //   const { sessionStorage, location } = window
-  //   // eslint-disable-next-line no-prototype-builtins
-  //   location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT) && sessionStorage.getItem(NAME_REDIRECT) !== ''
-  //     ? sessionStorage.getItem(NAME_REDIRECT)
-  //     : HOME
-  // }
-
   const handleClick = () => {
     if (PWA.isPWA()) {
       PWA.pwaCloseWebView()
@@ -97,9 +87,10 @@ const WizardConfirmation = props => {
     // eslint-disable-next-line no-prototype-builtins
     location.href =
       sessionStorage.hasOwnProperty(NAME_REDIRECT) &&
-      sessionStorage.getItem(NAME_REDIRECT) !== ''
-        ? sessionStorage.getItem(NAME_REDIRECT)
-        : HOME
+      (sessionStorage.getItem(NAME_REDIRECT) === '' ||
+        sessionStorage.getItem(NAME_REDIRECT) === '/suscripciones/')
+        ? HOME
+        : sessionStorage.getItem(NAME_REDIRECT)
   }
 
   const Frecuency = {
