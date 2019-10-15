@@ -3,7 +3,7 @@ import { deleteQueryString, addSlashToEnd } from '../../utilities/helpers'
 
 export default ({
   deployment,
-  isStory,
+  // isStory,
   isAmp,
   siteName = '',
   siteUrl = '',
@@ -43,8 +43,6 @@ export default ({
   const newURLCanonical = urlCanonical.startsWith('/noticias')
     ? urlCanonical.match(regxTag)[1]
     : urlCanonical
-  console.log(newURLCanonical, 'Canonicaaaaaaaaaaaal')
-
   return (
     <>
       {isAmp === false && (
