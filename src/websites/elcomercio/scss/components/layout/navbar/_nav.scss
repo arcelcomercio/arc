@@ -121,6 +121,9 @@
   &.active {
     height: 45px;
     max-width: 100%;
+    @media (--desktop) {
+      background-color: #555555;
+    }
     .nav__mobile-logo {
       top: auto;
     }
