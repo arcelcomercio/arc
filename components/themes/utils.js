@@ -73,12 +73,7 @@ export const createTheme = options => {
 export const withTheme = themes => Comp => {
   const ThemedComp = props => {
     const fusionContext = useFusionContext()
-    const { arcSite: themeName, contextPath, deployment } = fusionContext
-    const getImageDeployment = React.useRef(imageFileName =>
-      deployment(
-        `${contextPath}/resources/dist/${themeName}/images/${imageFileName}`
-      )
-    ).current
+    const { arcSite: themeName } = fusionContext
     const themeArgs = {
       colors,
       lighten,
@@ -89,7 +84,6 @@ export const withTheme = themes => Comp => {
       rgbToHex,
       createTheme,
       fusionContext,
-      getImageDeployment,
     }
     const theme = themes[themeName](themeArgs)
     return React.createElement(Comp, { ...props, theme })
