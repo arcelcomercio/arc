@@ -55,26 +55,12 @@ const Portal = ({ theme }) => {
             href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
             <S.SubscribedText>
               <div>
-                <span>
-                  {arcSite === 'elcomercio'
-                    ? `${msgs.businessSubscriptionsBanner1}`
-                    : `${msgs.businessSubscriptionsBanner1}`}
-                </span>
-                <span>
-                  {arcSite === 'elcomercio'
-                    ? `${msgs.businessSubscriptionsBanner2}`
-                    : `${msgs.businessSubscriptionsBanner2}`}
-                </span>
+                <span>{`${msgs.businessSubscriptionsBanner1}`}</span>
+                <strong>{`${msgs.businessSubscriptionsBanner2}`}</strong>
               </div>
-              <div>
                 <Icon type={theme.icon.arrowRight} />
-              </div>
             </S.SubscribedText>
           </S.LinkCorporate>
-
-          {/* <S.LinkCorporate href={corporateUrl}>
-            SUSCRIPCIONES CORPORATIVAS
-          </S.LinkCorporate> */}
 
           <S.ClickToCallWrapper>
             <ClickToCall href={clickToCallUrl} />
