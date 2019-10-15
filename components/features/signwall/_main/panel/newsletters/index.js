@@ -27,14 +27,11 @@ class NewsLetter extends Component {
 
   componentDidMount() {
     const { selectCategories } = this.state
+    const { arcSite } = this.props
 
     const UUID = window.Identity.userIdentity.uuid
-    const SITE = 'gestion'
+    const SITE = arcSite
     const localNews = false
-
-    // const localNews = JSON.parse(
-    //   window.sessionStorage.getItem('preferencesNews')
-    // )
 
     const listAllNews = { ...[] }
 
@@ -138,8 +135,9 @@ class NewsLetter extends Component {
           this.setPreference()
         }
         setTimeout(() => {
-          const modalConfirmPass = document.querySelector('#arc-popup-profile')
-          modalConfirmPass.scrollIntoView()
+          const modalConfirmPass = document.getElementById('arc-popup-profile')
+          // modalConfirmPass.scrollIntoView()
+          modalConfirmPass.parentNode.scrollTop = modalConfirmPass.offsetTop;
         }, 500)
         this.setState({ showsuccess: true })
         // window.sessionStorage.setItem(
@@ -150,16 +148,8 @@ class NewsLetter extends Component {
           this.setState({ showsuccess: false })
         }, 3000)
       })
-      .catch(err => {
-        // if (
-        //   err.status === false &&
-        //   err.status_code === 401 &&
-        //   err.message === 'Unauthorized'
-        // ) {
-        //   window.console.log('refresh')
-        //   window.Identity.extendSession()
-        //   this.setPreference()
-        // }
+      .catch(e => {
+        window.console.error(e)
       })
   }
 
@@ -199,12 +189,15 @@ class NewsLetter extends Component {
       showsuccess,
       // textSave,
     } = this.state
+
+    const { arcSite } = this.props
+
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <Wrapper>
         {!loading ? (
           <>
-            <h4>Personaliza los correos que deseas recibir:</h4>
+            <h4>Selecciona los tipos de Newsletters que más te interesen para que los recibas en tu correo electrónico:</h4>
 
             {showsuccess && (
               <div className="msg-success">
@@ -235,7 +228,7 @@ class NewsLetter extends Component {
             </div>
           </>
         ) : (
-          <Loading site="gestion" />
+          <Loading site={arcSite} />
         )}
       </Wrapper>
     )

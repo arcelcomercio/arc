@@ -13,7 +13,7 @@ export const ResumeProfile = () => {
         <Wrapper>
           <Prof prof={() => value.changeTemplate('prof')}  />
           <div className="space-40" />
-          <Subs />
+          <Subs subs={() => value.changeTemplate('detail')}/>
           <div className="space-40" />
           <News news={() => value.changeTemplate('news')} />
         </Wrapper>

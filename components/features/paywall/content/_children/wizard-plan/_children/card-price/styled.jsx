@@ -1,17 +1,19 @@
 import styled, { css } from 'styled-components'
-import { devices } from '../../../../../_dependencies/devices'
 import Btn from '../../../../../_children/button'
 
 const CardPrice = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  flex: 1 1;
-  justify-content: space-between;
-  width: 100%;
-  color: #444444;
-  font-weight: 700;
-  position: relative;
+  ${({ theme, elevation }) => css`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1 1;
+    justify-content: space-between;
+    width: 100%;
+    box-shadow: ${theme.shadows[elevation]}
+    color: ${theme.palette.common.blackboard};
+    font-weight: ${theme.typography.fontWeightHeavy};
+    position: relative;
+  `}
 `
 
 const Frecuency = styled.div`
@@ -23,15 +25,20 @@ const Frecuency = styled.div`
 `
 
 export const Amount = styled.div`
-  font-size: 60px;
-  justify-content: center;
-  display: flex;
-  align-items: flex-end;
-  line-height: 50px;
-  padding: 10px 0;
-  @media (${devices.mobile}) {
-    font-size: 40px;
-  }
+  ${({ theme }) => css`
+    font-size: 60px;
+    color: ${theme.palette.common.blackboard};
+    justify-content: center;
+    display: flex;
+    align-items: flex-end;
+    line-height: 50px;
+    padding: 10px 0;
+    font-weight: 700;
+    color: rgb(68, 68, 68);
+    ${theme.breakpoints.down('xs')} {
+      font-size: 40px;
+    }
+  `}
 `
 
 const Currency = styled.span`
@@ -45,18 +52,21 @@ const Period = styled.span`
 `
 
 const Description = styled.div`
-  font-size: 16px;
-  justify-content: center;
-  display: flex;
-  font-weight: ${props => (props.bold ? 'bold' : '300')};
-  padding: 5px 60px;
-  text-align: center;
-  &:last-child {
-    padding: 0px 40px 20px 40px;
-  }
-  @media (${devices.mobile}) {
-    padding: 8px 15px;
-  }
+  ${({ theme }) => css`
+    font-size: 16px;
+    justify-content: center;
+    display: flex;
+    font-weight: ${props => (props.bold ? 'bold' : '300')};
+    padding: 5px 60px;
+    text-align: center;
+    color: rgb(68, 68, 68);
+    &:last-child {
+      padding: 0px 40px 20px 40px;
+    }
+    ${theme.breakpoints.down('xs')} {
+      padding: 8px 15px;
+    }
+  `}
 `
 
 const Content = styled.div`
@@ -66,48 +76,45 @@ const Content = styled.div`
 export const Footer = styled.div``
 
 export const Button = styled(Btn)`
-  color: #444;
-  background-color: #e8e8e8;
-  font-size: 16px;
-  height: 70px;
-  border-radius: 0 0 5px 5px;
-  font-weight: 300;
-  transition: color 300ms, background-color 300ms, font-weight 300ms;
-  ${({ active }) =>
-    active &&
-    css`
-      background-color: #0179af;
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer;
-    `};
+  ${({ theme, active }) => css`
+    background-color: ${theme.palette.fade(
+      theme.palette.action.disabled,
+      theme.palette.tonalOffset / 2
+    )};
+    color: ${theme.palette.action.disabled};
+    font-size: 16px;
+    height: 70px;
+    border-radius: 0 0 5px 5px;
+    font-weight: 300;
+    transition: color 300ms, background-color 300ms, font-weight 300ms;
+    ${active &&
+      css`
+        background-color: ${theme.palette.secondary.main};
+        color: ${theme.palette.secondary.contrastText};
+        font-weight: 700;
+        cursor: pointer;
+      `}
+  `}
 `
 
 const Header = styled.div`
-  background: #e05e2f;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  width: 80%;
-  margin-left: 10%;
-  text-align: center;
-  box-sizing: border-box;
-  margin-top: -15px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
-  position: absolute;
+  ${({ theme }) => {
+    const { invert } = theme.palette
+    return css`
+      background: ${invert(theme.palette.secondary.main)};
+      color: ${theme.palette.secondary.contrastText};
+      padding: 10px;
+      border-radius: 5px;
+      width: 80%;
+      margin-left: 10%;
+      text-align: center;
+      box-sizing: border-box;
+      margin-top: -15px;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+      position: absolute;
+      font-weight: bold;
+    `
+  }}
 `
 
 export { CardPrice, Frecuency, Currency, Period, Description, Content, Header }
-
-// .card-price--active{
-// color: #444444;
-// transition: color 300ms;
-// }
-
-// .card-price--active .card-price__buy{
-//     background-color: #0179af;
-//     color: #FFF;
-//     font-weight: 700;
-//     cursor: pointer;
-
-// }

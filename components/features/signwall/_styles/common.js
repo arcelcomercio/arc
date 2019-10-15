@@ -31,6 +31,7 @@ export const Wrapper = styled.div`
   & h4 {
     margin-bottom: 20px;
     font-weight: bold;
+    line-height: 26px;
   }
 
   & .news-list {
@@ -61,6 +62,7 @@ export const Wrapper = styled.div`
     ${fadeIn({ time: '1s' })}
     /* box-shadow: 0 10px 14px rgba(0, 0, 0, 0.2); */
     position: relative;
+    display: block;
     font-size: 12px;
     font-weight: bold;
     width: 100%;
@@ -111,10 +113,11 @@ export const Button = styled.button`
 `
 
 export const Table = styled.table`
-  width: 100%;
+  width: 98%;
   line-height: 24px;
   font-size: 14px;
   border-collapse: collapse;
+  margin: 0 auto;
   & thead {
     background: #f4f4f4;
     color: #000000;

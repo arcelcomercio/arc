@@ -26,6 +26,8 @@ const closeSession = props => {
         window.location.reload()
       } else {
         closePopup()
+        window.sessionStorage.removeItem("paywall-profile-form")
+        window.sessionStorage.removeItem("paywall-payment-form")
       }
     })
     .catch(() => {
@@ -50,13 +52,13 @@ export const MenuProfile = props => {
         <p className="welcome">Bienvenido a tu Perfil</p>
         <div className="cont-menu">
           <ul>
-            {arcSite === 'gestion' && (
+            {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
                 <a href="#" onClick={() => props.home()}>
                   Inicio
                 </a>
               </li>
-            )}
+            ): null}
 
             <li>
               <a href="#" onClick={() => props.prof()}>
@@ -64,21 +66,21 @@ export const MenuProfile = props => {
               </a>
             </li>
 
-            {arcSite === 'gestion' && (
+            {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
                 <a href="#" onClick={() => props.subs()}>
                   Mi Suscripción
                 </a>
               </li>
-            )}
+            ): null}
 
-            {arcSite === 'gestion' && (
+            {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
                 <a href="#" onClick={() => props.news()}>
                   Newsletters
                 </a>
               </li>
-            )}
+            ): null}
 
             {/* <li>
               <a href="#">Contáctanos</a>

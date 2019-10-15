@@ -831,8 +831,7 @@ const Comercio = props => {
   )
 }
 
-const LoadingGes = props => {
-  const { color, width, height, size } = props
+const LoadingGes = () => {
   return (
     <svg width="42.427" height="42.426" viewBox="0 0 42.427 42.426">
       <g transform="translate(-603 -356)">
@@ -853,7 +852,7 @@ const LoadingGes = props => {
   )
 }
 
-const LoadingEco = props => {
+const LoadingEco = () => {
   return (
     <svg width="44" height="44">
       <g transform="translate(-111 -281)">
@@ -870,7 +869,7 @@ const LoadingEco = props => {
   )
 }
 
-const LoadingP21 = props => {
+const LoadingP21 = () => {
   return (
     <svg width="44" height="44">
       <g>
@@ -892,6 +891,53 @@ const LoadingP21 = props => {
             fill="#ebc12f"
           />
         </g>
+      </g>
+    </svg>
+  )
+}
+
+const Notice = () => {
+  return (
+    <svg width="42" height="42">
+      <path d="M21 0a21 21 0 1021 21A21.024 21.024 0 0021 0zm0 38.182A17.182 17.182 0 1138.182 21 17.2 17.2 0 0121 38.182z" />
+      <path d="M21 8.909a2.545 2.545 0 102.545 2.547A2.549 2.549 0 0021 8.909z" />
+      <path d="M21 17.818a1.909 1.909 0 00-1.909 1.909v11.455a1.909 1.909 0 003.818 0V19.727A1.909 1.909 0 0021 17.818z" />
+    </svg>
+  )
+}
+
+const Cvv = () => {
+  return (
+    <svg width="42" height="22">
+      <g transform="translate(-189 -1377.49)">
+        <g transform="translate(189 1377.49)" fill="#fff" stroke="#707070">
+          <rect width="34" height="22" rx="2" stroke="none" />
+          <rect x=".5" y=".5" width="33" height="21" rx="1.5" fill="none" />
+        </g>
+        <path
+          transform="translate(189.768 1381.605)"
+          fill="#707070"
+          d="M0 0h33.005v4.605H0z"
+        />
+        <g
+          transform="translate(213 1379.49)"
+          fill="#fff"
+          stroke="#ff006c"
+          strokeWidth="2">
+          <circle cx="9" cy="9" r="9" stroke="none" />
+          <circle cx="9" cy="9" r="8" fill="none" />
+        </g>
+        <text
+          transform="translate(217 1390.49)"
+          fill="#ff006c"
+          fontSize="5"
+          fontFamily="OpenSans-Bold, Open Sans"
+          fontWeight="700"
+          letterSpacing=".04em">
+          <tspan x="0" y="0">
+            XXX
+          </tspan>
+        </text>
       </g>
     </svg>
   )
@@ -921,5 +967,7 @@ export {
   Comercio,
   LoadingGes,
   LoadingEco,
-  LoadingP21
+  LoadingP21,
+  Notice,
+  Cvv,
 }

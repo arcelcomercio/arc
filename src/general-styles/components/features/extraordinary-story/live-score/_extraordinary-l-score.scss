@@ -1,0 +1,15 @@
+.extraordinary-l-score {
+  &__img-link {
+    @media (--desktop) {
+      width: 60%;
+    }
+  }
+  &__content {
+    @media (--desktop) {
+      width: 40%;
+    }
+  }
+  &__team {
+    background-color: #28b1e2;
+  }
+}

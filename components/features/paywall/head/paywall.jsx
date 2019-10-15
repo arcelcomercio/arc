@@ -1,12 +1,15 @@
+/* eslint-disable no-extra-boolean-cast */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withTheme } from 'styled-components'
 import Consumer from 'fusion:consumer'
-import { AddIdentity, userProfile } from '../_dependencies/Identity'
+
+import { addIdentity, userProfile } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
-import './paywall.css'
 import Signwall from '../../signwall/default'
 import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
 import GetProfile from '../../signwall/_main/utils/get-profile'
+import * as S from './styled'
 
 @Consumer
 class Head extends React.PureComponent {
@@ -15,11 +18,9 @@ class Head extends React.PureComponent {
     isActive: false,
     showSignwall: false,
     userName: new GetProfile().username,
-    stepForm: 1,
   }
 
   componentDidMount() {
-    this.addEventListener('currentStep', this.currentStepHandler)
     this.getFirstName()
   }
 
@@ -36,14 +37,9 @@ class Head extends React.PureComponent {
     this.removeEventListener(this.currentStepHandler)
   }
 
-  currentStepHandler = currentStep => {
-    this.setState({ stepForm: currentStep })
-  }
-
   getFirstName = () => {
-    if (typeof window !== "undefined")
-      window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
-    AddIdentity().then(() => {
+    window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
+    addIdentity(this.props.arcSite).then(() => {
       userProfile()
         .then(({ firstName }) => {
           this.setState({ firstName })
@@ -55,7 +51,7 @@ class Head extends React.PureComponent {
   }
 
   checkSession = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
       const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
       if (profileStorage) {
@@ -80,73 +76,81 @@ class Head extends React.PureComponent {
   }
 
   render() {
-    const {
-      siteProperties,
-      contextPath,
-      deployment,
-      arcSite,
-      customFields,
-    } = this.props
-    const { assets } = siteProperties
-    const { firstName, showSignwall, userName, isActive, stepForm } = this.state
-    const checkForceLogin = customFields.forceLogin
+    const { theme, arcSite, customFields } = this.props
+    const { showSignwall, userName, isActive } = this.state
+    const { id, forceLogin: checkForceLogin } = customFields
+
+    let leftColor
+    let themedLogo
+    switch (arcSite) {
+      case 'elcomercio':
+        leftColor = theme.palette.terciary.main
+        themedLogo = theme.icon.logo_full
+        break
+      default:
+        leftColor = theme.palette.primary.main
+        themedLogo = theme.icon.logo
+    }
 
     return (
-      <div className="head">
+      <S.Head id={id}>
         {showSignwall && checkForceLogin ? (
           <SignwallPaywall
             brandModal={arcSite}
             closePopup={() => this.closeShowSignwall()}
             reloadLogin
+            noBtnClose
           />
         ) : null}
-        <div className="head__background">
-          <div className="background_left" />
-          <div className="background_right" />
-        </div>
-        <div className="head__content">
-          <img
-            className="content__img"
-            src={deployment(`${contextPath}${assets.pwAssets()}`)}
-            alt="Logo el comercio"
-          />
-          <div className="head__login">
-            <span className="login__username">
-              {stepForm !== 1 ? (
+        <S.Background>
+          <S.Left backgroundColor={leftColor} />
+          <S.Right />
+        </S.Background>
+        <S.Content backgroundColor={leftColor}>
+          <S.WrapLogo>
+            <Icon
+              type={themedLogo}
+              fill={theme.palette.secondary.contrastText}
+              width="30"
+              height="30"
+            />
+          </S.WrapLogo>
+          <S.WrapLogin>
+            <S.Username>
+              <S.LoginButton
+                type="button"
+                onClick={() => this.setState({ isActive: true })}>
                 <span>
-                  {this.checkSession() ? `${userName}` : 'Hola Invitado'}
+                  {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
                 </span>
-              ) : (
-                  <button
-                    type="button"
-                    className="head__btn-login"
-                    onClick={() => this.setState({ isActive: true })}>
-                    <span>
-                      {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
-                    </span>
-                  </button>
-                )}
-
-              {/* <span>
-                {this.checkSession() ? `Hola ${userName}` : 'Iniciar Sesión'}
-              </span> */}
-              {/* <span>Hola {firstName || 'Lector'}</span> */}
-              <span className="login_icon">
-                <Icon type="profile" fill="#FFF" width="30" height="30" />
-              </span>
-            </span>
-          </div>
-        </div>
+              </S.LoginButton>
+              <S.WrapIcon>
+                <Icon
+                  type="profile"
+                  fill={theme.palette.secondary.contrastText}
+                  width="30"
+                  height="30"
+                />
+              </S.WrapIcon>
+            </S.Username>
+          </S.WrapLogin>
+        </S.Content>
         {isActive && (
           <Signwall singleSign closeSignwall={() => this.closeSignwall()} />
         )}
-      </div>
+      </S.Head>
     )
   }
 }
 
-Head.propTypes = {
+const ThemedHead = withTheme(Head)
+
+ThemedHead.propTypes = {
   customFields: PropTypes.shape({
+    id: PropTypes.string.isRequired.tag({
+      name: 'ID',
+      description: 'ID único del componente (Ej. head_[nombre])',
+    }),
     forceLogin: PropTypes.bool.tag({
       name: 'Forzar login:',
       defaultValue: true,
@@ -155,4 +159,4 @@ Head.propTypes = {
   }),
 }
 
-export default Head
+export default ThemedHead

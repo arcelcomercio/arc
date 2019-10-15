@@ -1,15 +1,15 @@
 import styled, { css } from 'styled-components'
 import { Form } from 'formik'
 
-import { devices } from '../../../_dependencies/devices'
-
 const WrapField = styled.div`
-  min-width: 250px;
-  // max-width: 250px;
-  @media (${devices.mobile}) {
-    width: 100%;
-    max-width: 100%;
-  }
+  ${({ theme }) => css`
+    min-width: 250px;
+    // max-width: 250px;
+    ${theme.breakpoints.down('xs')} {
+      width: 100%;
+      max-width: 100%;
+    }
+  `}
 `
 
 const Description = styled.div`
@@ -25,14 +25,16 @@ const Description = styled.div`
 `
 
 const StyledForm = styled(Form)`
-  display: flex;
-  width: 100%;
-  padding: 2em 2em;
-  flex-direction: column;
-  align-self: center;
-  @media ${devices.tablet} {
-    padding: 2em 7em;
-  }
+  ${({ theme }) => css`
+    display: flex;
+    width: 100%;
+    padding: 2em 2em;
+    flex-direction: column;
+    align-self: center;
+    ${theme.breakpoints.only('sm')} {
+      padding: 2em 7em;
+    }
+  `}
 `
 
 const Message = styled.div`
@@ -41,21 +43,25 @@ const Message = styled.div`
 `
 
 const Content = styled.div`
-  display: flex;
-  flex-direction: row;
-  @media (max-width: 639px) {
-    flex-direction: column;
-  }
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: row;
+    ${theme.breakpoints.down('xs')} {
+      flex-direction: column;
+    }
+  `}
 `
 
 const ContentRow = styled.div`
-  width: 50%;
-  height: auto;
-  padding: 0px 10px;
-  box-sizing: border-box;
-  @media (max-width: 639px) {
-    width: 100%;
-  }
+  ${({ theme }) => css`
+    width: 50%;
+    height: auto;
+    padding: 0px 10px;
+    box-sizing: border-box;
+    ${theme.breakpoints.down('xs')} {
+      width: 100%;
+    }
+  `}
 `
 
 export { StyledForm, WrapField, Description, Message, Content, ContentRow }
