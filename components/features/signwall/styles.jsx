@@ -45,7 +45,7 @@ export const ButtonSignwall = styled.button`
   color: ${props => handleTextColor(props.site)};
   cursor: pointer;
   border-radius: 50%;
-  /* border: 1px solid ${props => handleBackColor(props.site)}; */
+  border: 0px;
   width: 34px;
   height: 34px;
   padding: 6px;
@@ -72,7 +72,9 @@ export const ButtonSignwall = styled.button`
     font-family: sans-serif;
     display: inline-block;
     font-weight: 400;
-    line-height: 0.8;
+    line-height: 0.75;
+    margin: 0 auto;
+    width: auto;
     @media ${device.desktop} {
       display: none;
     }

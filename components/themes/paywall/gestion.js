@@ -2,7 +2,6 @@ export default ({
   colors: { red, grey, lightBlue },
   createTheme,
   fusionContext,
-  getImageDeployment,
 }) => {
   const { arcSite } = fusionContext
   return createTheme({
@@ -43,26 +42,6 @@ export default ({
     },
     typography: {
       fontWeightHeavy: 700,
-    },
-    // prettier-ignore
-    images: {
-      pixel:            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-      icon:              getImageDeployment('favicon.png'),
-      apple_icon:        getImageDeployment('apple-touch-icon.png'),
-      apple_icon_76:     getImageDeployment('apple-touch-icon-76x76.png'),
-      apple_icon_120:    getImageDeployment('apple-touch-icon-120x120.png'),
-      apple_icon_144:    getImageDeployment('apple-touch-icon-144x144.png'),
-      apple_icon_152:    getImageDeployment('apple-touch-icon-152x152.png'),
-      apple_icon_180:    getImageDeployment('apple-touch-icon-180x180.png'),
-      lector_png:        getImageDeployment('img_lector.png'),
-      corporativo_webp:  getImageDeployment('img_corporativo.webp'),
-      corporativo_png:   getImageDeployment('img_corporativo.png'),
-      confirmation_jpg:  getImageDeployment('img_confirmation.jpg'),
-      confirmation_webp: getImageDeployment('img_confirmation.webp'),
-      support_png:       getImageDeployment('img_soporte.png'),
-      support_webp:      getImageDeployment('img_soporte.webp'),
-      backgroundx1:      getImageDeployment('bg_planes_10.jpg'),
-      check:             getImageDeployment('check2.png'),
     },
     icon: {
       logo: 'ges_logo',

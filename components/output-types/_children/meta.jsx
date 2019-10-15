@@ -1,23 +1,24 @@
 /* eslint-disable camelcase */
 import React from 'react'
 import PropTypes from 'prop-types'
+import templayed from 'templayed'
 
-import { interpolateUrl } from '../../features/paywall/_dependencies/domains'
-
+// prettier-ignore
 function Icon(props) {
-  const { deployment, siteProperties } = props
+  const { deployment, siteProperties, contextPath } = props
 
   const {
-    paywall: { urls },
+    paywall: { images },
   } = siteProperties
 
-  const icon = deployment(interpolateUrl(urls.icon))
-  const apple_icon = deployment(interpolateUrl(urls.apple_icon))
-  const apple_icon_76 = deployment(interpolateUrl(urls.apple_icon_76))
-  const apple_icon_120 = deployment(interpolateUrl(urls.apple_icon_120))
-  const apple_icon_144 = deployment(interpolateUrl(urls.apple_icon_144))
-  const apple_icon_152 = deployment(interpolateUrl(urls.apple_icon_152))
-  const apple_icon_180 = deployment(interpolateUrl(urls.apple_icon_180))
+  const templateContext = {contextPath, ext: 'png'}
+  const icon = deployment(templayed(images.icon)(templateContext))
+  const apple_icon = deployment(templayed(images.apple_icon)(templateContext))
+  const apple_icon_76 = deployment(templayed(images.apple_icon_76)(templateContext))
+  const apple_icon_120 = deployment(templayed(images.apple_icon_120)(templateContext))
+  const apple_icon_144 = deployment(templayed(images.apple_icon_144)(templateContext))
+  const apple_icon_152 = deployment(templayed(images.apple_icon_152)(templateContext))
+  const apple_icon_180 = deployment(templayed(images.apple_icon_180)(templateContext))
 
   return (
     <>

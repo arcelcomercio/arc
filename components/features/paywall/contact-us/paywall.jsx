@@ -89,7 +89,7 @@ const PaywallContactUs = props => {
       <S.WrapContent>
         <Picture
           hideOnScreenSize="sm"
-          src={theme.images.corporativo_webp}
+          src={theme.images.corporativo}
           types={['webp', 'png']}
           alt="contact_us"
         />

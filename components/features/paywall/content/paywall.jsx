@@ -74,7 +74,14 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   }, [])
 
   // const [memo, setMemo] = useState({})
-  const memo = useRef({ plans, summary, printedSubscriber, freeAccess, error })
+  const memo = useRef({
+    arcSite,
+    plans,
+    summary,
+    printedSubscriber,
+    freeAccess,
+    error,
+  })
   const currMemo = memo.current
   useEffect(() => {
     history = createBrowserHistory({
