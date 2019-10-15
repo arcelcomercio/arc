@@ -14,13 +14,6 @@ const NoLineHeightPicture = styled.picture`
   line-height: 0px;
 `
 
-const Img = styled.img`
-  ${props => props.objectFit && (
-    css`
-      object-fit: ${props.objectFit};
-  `)}
-`
-
 const Picture = props => {
   const { theme, hideOnScreenSize = 'xs', src, types, ...restProps } = props
   const { pathname, query } = new URL(src)
@@ -43,7 +36,7 @@ const Picture = props => {
           type={`image/${type}`}
         />
       ))}
-      <Img src={src} {...restProps} />
+      <img src={imgSrc} {...restProps} />
     </NoLineHeightPicture>
   )
 }
