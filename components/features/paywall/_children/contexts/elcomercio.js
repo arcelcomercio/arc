@@ -28,7 +28,7 @@ export default {
 
     // Plans
     subscribe: `SUSCRIBIRME`,
-    offerHeadBand: `¡APROVECHA NUESTAS PROMOCIONES DE LANZAMIENTO!`,
+    offerHeadBand: `¡APROVECHA NUESTRAS PROMOCIONES DE LANZAMIENTO!`,
     freeAmount: `Gratis`,
     initialOffer: `durante 6 meses`,
     regularOffer: `Luego, S/ 10 cada mes.`,
@@ -46,8 +46,8 @@ export default {
     featureDescription1: 
      `Beneficio especial para  
       suscriptores del diario impreso`,
-    businessSubscriptionsBanner1: `¿ERES EMPRESA? CONSULTA NUESTRAS`,
-    businessSubscriptionsBanner2: `SUSCRIPCIONES CORPORATIVAS`,
+    businessSubscriptionsBanner1: `¿Buscas opciones de suscripción impresa?`,
+    businessSubscriptionsBanner2: `CONSULTA AQUÍ`,
     printedSubscriptorBanner1: `¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?`,
     printedSubscriptorBanner2: `ADQUIERE EL PLAN DIGITAL GRATIS POR 6 MESES.`,
     
@@ -87,8 +87,8 @@ export default {
     (+51) 311 5100  
     <br/>
     **Horario de atención:**  
-    De lunes a viernes: 7 am - 2 pm  
-    Sábados, domingos y feriados: de 7am - 1pm  
+    De lunes a viernes: 7 am - 9 pm  
+    Sábados, domingos y feriados: de 7 am - 1 pm  
     <br/>
     **Correos:** 
     -Servicio al cliente y Ventas:  

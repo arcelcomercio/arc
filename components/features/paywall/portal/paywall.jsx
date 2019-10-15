@@ -10,8 +10,10 @@ import Card from './_children/card'
 import ClickToCall from '../_children/click-to-call'
 import Icon from '../_children/icon'
 // import FillHeight from '../_children/fill-height'
+import { useStrings } from '../_children/contexts'
 
 const Portal = ({ theme }) => {
+  const msgs = useStrings()
   const {
     arcSite,
     globalContent: items,
@@ -55,13 +57,13 @@ const Portal = ({ theme }) => {
               <div>
                 <span>
                   {arcSite === 'elcomercio'
-                    ? 'BUSCAS SOLO SUSCRIPCIÓN IMPRESA?'
-                    : '¿ERES EMPRESA? CONSULTA NUESTRAS'}
+                    ? `${msgs.businessSubscriptionsBanner1}`
+                    : `${msgs.businessSubscriptionsBanner1}`}
                 </span>
                 <span>
                   {arcSite === 'elcomercio'
-                    ? 'CONSULTA AQUÍ'
-                    : 'SUSCRIPCIONES CORPORATIVAS'}
+                    ? `${msgs.businessSubscriptionsBanner2}`
+                    : `${msgs.businessSubscriptionsBanner2}`}
                 </span>
               </div>
               <div>

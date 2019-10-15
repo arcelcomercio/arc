@@ -105,6 +105,7 @@ const WrapIcon = styled.span`
 `
 
 const WrapLogo = styled.span`
+  cursor: pointer;
   ${({ theme }) => css`
     display: inline-grid;
     ${theme.breakpoints.down('md')} {
