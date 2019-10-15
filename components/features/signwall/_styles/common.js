@@ -113,10 +113,11 @@ export const Button = styled.button`
 `
 
 export const Table = styled.table`
-  width: 100%;
+  width: 98%;
   line-height: 24px;
   font-size: 14px;
   border-collapse: collapse;
+  margin: 0 auto;
   & thead {
     background: #f4f4f4;
     color: #000000;
