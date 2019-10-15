@@ -139,7 +139,7 @@ function WizardPlan(props) {
             fullWidth={arcSite === 'elcomercio'}
             text1={msgs.printedSubscriptorBanner1}
             text2={msgs.printedSubscriptorBanner2}
-            image={arcSite === 'elcomercio' && theme.images.lector_png}
+            image={arcSite === 'elcomercio' && theme.images.lector}
             backgroundColor={
               arcSite === 'elcomercio'
                 ? theme.palette.secondary.main

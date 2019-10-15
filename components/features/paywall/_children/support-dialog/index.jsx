@@ -20,12 +20,12 @@ const SupportDialog = props => {
             : lighten(theme.palette.primary.main, 0.9)
         }
         titleColor={site !== 'elcomercio' && theme.palette.primary.main}>
-        <Picture 
+        <Picture
           display="block"
-          hideOnScreenSize="xs" 
-          src={theme.images.support_webp} 
-          types={['webp', 'png']} 
-          alt="support" 
+          hideOnScreenSize="xs"
+          src={theme.images.support}
+          types={['webp', 'png']}
+          alt="support"
         />
         <S.ContentWrapper>
           <S.Title>{msgs.supportTitle}</S.Title>
