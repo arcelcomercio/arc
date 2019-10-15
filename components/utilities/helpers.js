@@ -117,7 +117,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-  } del ${date.getFullYear()}`
+    } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -215,8 +215,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
-        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-      }`
+    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+    }`
 }
 
 export const getMetaPagesPagination = (
@@ -315,10 +315,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-        .charAt(0)
-        .toUpperCase()
-        .concat(lastSection.slice(1))
-        .replace(/-/, ' ')
+      .charAt(0)
+      .toUpperCase()
+      .concat(lastSection.slice(1))
+      .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -376,8 +376,16 @@ export const defaultImage = ({
   size = 'lg',
 }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  const site = () => {
+    let domain = `${arcSite}.pe`
+    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    return domain
+  }
+
   return deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
@@ -462,7 +470,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+    }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -517,10 +525,17 @@ export const twitterHtml = html => {
 
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
-  htmlDataTwitter = htmlDataTwitter.replace(
-    /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-    'https://img.peru21.pe$1'
-  )
+
+  if (arcSite === ConfigParams.SITE_ELCOMERCIO)
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://img.elcomercio.pe$1'
+    )
+  else
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://img.peru21.pe$1'
+    )
 
   const rplTwitter =
     '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
@@ -537,7 +552,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
     .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
 
-  return htmlDataTwitter
+  htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
     .replace(/<html_free><blockquote (.*)">/g, '')
     .replace(/<\/blockquote><\/html_free>/g, '')
@@ -562,8 +577,21 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<font (.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/<mxm-(.*) (.*)><\/mxm>/g, '') // pendiente de validacion enventos 485178
+    .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
+    .replace(/<script>(.*\n)*.*<\/script>/g, '')
+    .replace(/<(-?\/)?script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
+
+    .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
+    .replace('if (d.getElementById(id)) return;', '')
+    .replace('js = d.createElement(s); js.id = id;', '')
+    .replace('(function(d, s, id) {', '')
+    .replace('fjs.parentNode.insertBefore(js, fjs);', '')
+    .replace("}(document, 'script', 'facebook-jssdk'));", '')
+    .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
+
+  return htmlDataTwitter
 }
 
 export const facebookHtml = html => {
@@ -688,13 +716,20 @@ export const publicidadAmp = ({
   width,
   height,
   primarySectionLink = '/peru',
+  movil1 = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
+  const nuevoScript =
+    (movil1 &&
+      `data-multi-size="320x100,320x50"
+  data-multi-size-validation="false"`) ||
+    ''
+
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}"
+  data-slot="${dataSlot}" ${nuevoScript}
   rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
   "timeoutMillis": 1000}'></amp-ad>`
   }
@@ -985,4 +1020,11 @@ export const getDateSeo = data => {
   const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
 
   return fechaGenerada
+}
+
+export const localISODate = date => {
+  let localDate = date ? new Date(date) : new Date()
+  localDate.setHours(localDate.getHours() - 5)
+  localDate = `${localDate.toISOString().split('.')[0]}-05:00`
+  return localDate
 }

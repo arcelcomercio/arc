@@ -13,16 +13,18 @@ class ExtraordinaryStoryByUrl extends PureComponent {
     // this.isVideo = ''
 
     const {
-      customFields: { link = '' },
+      customFields: { link = '', showExtraordinaryStory },
       arcSite,
     } = this.props
-    this.fetchContent({
-      data: {
-        source: API_URL,
-        query: { website_url: link },
-        filter: schemaFilter(arcSite),
-      },
-    })
+    if (showExtraordinaryStory) {
+      this.fetchContent({
+        data: {
+          source: API_URL,
+          query: { website_url: link },
+          filter: schemaFilter(arcSite),
+        },
+      })
+    }
   }
 
   componentDidMount() {
@@ -33,6 +35,9 @@ class ExtraordinaryStoryByUrl extends PureComponent {
 
   render() {
     const { deployment, contextPath, arcSite, customFields } = this.props
+    const {
+      customFields: { showExtraordinaryStory },
+    } = this.props
     const { data = {} } = this.state || {}
     const formattedData = new Data({
       data,
@@ -52,6 +57,7 @@ class ExtraordinaryStoryByUrl extends PureComponent {
       deployment,
       contextPath,
       arcSite,
+      showExtraordinaryStory,
     }
     return <ExtraordinaryStory {...params} />
   }

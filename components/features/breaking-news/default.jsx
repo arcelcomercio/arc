@@ -21,11 +21,11 @@ class BreakingNews extends Component {
       isVisible: false,
     }
     const {
-      customFields: { storyLink = '' },
+      customFields: { storyLink = '', showBreakingNews },
     } = this.props
     const regex = /^http/g
     this.isExternalLink = regex.test(storyLink)
-    if (!this.isExternalLink && storyLink) this.fetch()
+    if (!this.isExternalLink || (showBreakingNews && storyLink)) this.fetch()
   }
 
   componentWillMount() {
@@ -81,6 +81,7 @@ class BreakingNews extends Component {
         title,
         subTitle,
         storyLink,
+        showBreakingNews,
         tags = 'Lo último',
         backgroundColor = 'breaking-news--bgcolor-1',
       },
@@ -94,38 +95,42 @@ class BreakingNews extends Component {
       link: storyLink,
     }
     return (
-      <div
-        className={`${isVisible ? '' : 'hidden'}
+      <>
+        {showBreakingNews && (
+          <div
+            className={`${isVisible ? '' : 'hidden'}
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-        <h2 className={classes.text}>
-          <span
-            className={classes.tag}
-            {...editableField('tags')}
-            suppressContentEditableWarning>
-            {tags}
-          </span>
-          <span>
-            <a
-              className={classes.link}
-              href={objContent.link}
-              rel="noopener noreferrer"
-              {...editableField('title')}
-              suppressContentEditableWarning>
-              {objContent.title}
-            </a>
-          </span>
-        </h2>
-        <button
-          type="button"
-          className={classes.close}
-          onClick={this.handleOnclickClose}
-          onKeyPress={this.handleOnclickClose}
-          tabIndex={0}>
-          <i className={classes.icon} />
-        </button>
-      </div>
+            <h2 className={classes.text}>
+              <span
+                className={classes.tag}
+                {...editableField('tags')}
+                suppressContentEditableWarning>
+                {tags}
+              </span>
+              <span>
+                <a
+                  className={classes.link}
+                  href={objContent.link}
+                  rel="noopener noreferrer"
+                  {...editableField('title')}
+                  suppressContentEditableWarning>
+                  {objContent.title}
+                </a>
+              </span>
+            </h2>
+            <button
+              type="button"
+              className={classes.close}
+              onClick={this.handleOnclickClose}
+              onKeyPress={this.handleOnclickClose}
+              tabIndex={0}>
+              <i className={classes.icon} />
+            </button>
+          </div>
+        )}
+      </>
     )
   }
 }

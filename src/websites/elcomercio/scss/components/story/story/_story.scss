@@ -195,4 +195,14 @@
     .story-header__icon {
     color: $color-base-100;
   }
+  .story-header__list {
+    @media (--only-mobile) {
+      display: none;
+    }
+    &.block {
+      @media (--only-mobile) {
+        display: block;
+      }
+    }
+  }
 }

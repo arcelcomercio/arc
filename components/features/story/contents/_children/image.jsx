@@ -14,6 +14,7 @@ const StoryContentChildImage = ({
   resizerContent = 'large',
 }) => {
   const ampClass = imgTag === 'amp-img' ? 'amp-' : ''
+
   return (
     <>
       <Image

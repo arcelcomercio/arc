@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+import { localISODate } from '../../../utilities/helpers'
 
 const SITEMAP = '/sitemap'
 const SITEMAP_OPTIONS = ['web', 'news']
@@ -20,14 +21,6 @@ class XmlOptionsSitemap {
         this.props = props
     }
 
-    localISODate = date => {
-        let localDate = date ? new Date(date) : new Date()
-        /* localDate.setHours(localDate.getHours() - 5)
-        localDate = `${localDate.toISOString().split('.')[0]}-05:00` */
-        localDate = localDate.toISOString()
-        return localDate
-    }
-
     render() {
         const { globalContent, siteProperties: { siteUrl = '' } = {} } = this.props
         const { _id: section } = globalContent || {}
@@ -40,7 +33,7 @@ class XmlOptionsSitemap {
             sitemapindex: SITEMAP_OPTIONS.map(option => ({
                 sitemap: {
                     loc: `${siteUrl}${SITEMAP}/${option}${section}/${OUTPUTTYPE}`,
-                    lastmod: this.localISODate(),
+                    lastmod: localISODate(),
                 },
             })),
         }
