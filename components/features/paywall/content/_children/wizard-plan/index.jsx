@@ -100,13 +100,19 @@ function WizardPlan(props) {
           )}
           <S.Plans>
             {plans.map((plan, idx) => {
-              const { priceCode } = plan
-
+              const { priceCode, billingFrequency, amount } = plan
+              const marginTop = arcSite === 'elcomercio' ? '20px' : '40px'
+              const hasOffer =
+                arcSite !== 'elcomercio' &&
+                billingFrequency === 'Month' &&
+                amount !== 0
               return (
                 <CardPrice
                   active={
                     activePlan === priceCode || (!activePlan && idx === 0)
                   }
+                  marginTop={marginTop}
+                  offer={hasOffer && msgs.offerHeadBand}
                   key={priceCode}
                   plan={plan}
                   onMouseOver={() => setActivePlan(priceCode)}
@@ -136,6 +142,7 @@ function WizardPlan(props) {
         <S.ContentBanner>
           <PromoBanner
             width="60%"
+            marginTop={arcSite === 'elcomercio' ? '14px' : '30px'}
             fullWidth={arcSite === 'elcomercio'}
             text1={msgs.printedSubscriptorBanner1}
             text2={msgs.printedSubscriptorBanner2}

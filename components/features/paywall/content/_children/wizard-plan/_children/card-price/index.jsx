@@ -33,7 +33,9 @@ function CardPrice(props) {
     onMouseOver,
     onFocus,
     active,
-    arcSite,
+    mt,
+    marginTop,
+    offer,
   } = props
 
   const frequency = {
@@ -42,37 +44,32 @@ function CardPrice(props) {
   }
 
   return (
-	  <Panel type="card-price">
-	    <S.CardPrice onFocus={onFocus} onMouseOver={onMouseOver}>
-	      {billingFrequency === 'Month' &&
-	      amount !== 0 &&
-	      arcSite === 'gestion' ? (
-	        <S.Header>{msgs.offerHeadBand}</S.Header>
-	      ) : null}
+    <Panel type="card-price">
+      <S.CardPrice onFocus={onFocus} onMouseOver={onMouseOver}>
+        {offer ? <S.Header>{offer}</S.Header> : null}
 
-	      <S.Content>
-	        <S.Frecuency>
-	          {frequency[billingFrequency.toLowerCase()]}
-	        </S.Frecuency>
-	        <S.Amount>
-	          <Price amount={amount} frequency={billingFrequency} />
-	        </S.Amount>
-	        <S.Description bold>
-	          <strong>{description.title}</strong>
-	        </S.Description>
-	        <S.Description>{description.description}</S.Description>
-	      </S.Content>
-	      <S.Footer>
-	        <S.Button
-	          className="button-buy"
-	          active={active}
-	          onClick={e => onClick(e, props.plan)}
-	          type="button">
-	          {msgs.subscribe}
-	        </S.Button>
-	      </S.Footer>
-	    </S.CardPrice>
-	  </Panel>
+        <S.Content>
+          <S.Frecuency mt={marginTop || mt || '20px'} marginBottom="8px">
+            {frequency[billingFrequency.toLowerCase()]}
+          </S.Frecuency>
+          <S.Amount>
+            <Price amount={amount} frequency={billingFrequency} />
+          </S.Amount>
+          <S.Description bold>
+            <strong>{description.title}</strong>
+          </S.Description>
+          <S.Description>{description.description}</S.Description>
+        </S.Content>
+        <S.Footer>
+          <S.Button
+            active={active}
+            onClick={e => onClick(e, props.plan)}
+            type="button">
+            {msgs.subscribe}
+          </S.Button>
+        </S.Footer>
+      </S.CardPrice>
+    </Panel>
   )
 }
 

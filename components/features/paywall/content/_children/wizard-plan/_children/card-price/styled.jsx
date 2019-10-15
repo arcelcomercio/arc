@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { spacing } from '@material-ui/system'
 import Btn from '../../../../../_children/button'
 
 const CardPrice = styled.div`
@@ -17,11 +18,10 @@ const CardPrice = styled.div`
 `
 
 const Frecuency = styled.div`
+  display: flex;
   font-size: 16px;
   justify-content: center;
-  display: flex;
-  margin: 40px 0 8px 0;
-  font-weight: normal;
+  ${spacing}
 `
 
 export const Amount = styled.div`
@@ -34,7 +34,6 @@ export const Amount = styled.div`
     line-height: 50px;
     padding: 10px 0;
     font-weight: 700;
-    color: rgb(68, 68, 68);
     ${theme.breakpoints.down('xs')} {
       font-size: 40px;
     }
