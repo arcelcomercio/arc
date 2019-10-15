@@ -568,7 +568,6 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<(.+):p>/g, '<span>')
     .replace(/<font (.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
-    .replace(/<mxm-(.*) (.*)><\/mxm>/g, '') // pendiente de validacion enventos 485178
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
     .replace(/<script>(.*\n)*.*<\/script>/g, '')
@@ -667,6 +666,31 @@ export const freeHtml = html => {
     .replace(/="&quot;http?(.*?)"/g, '="http$1"')
 }
 
+export const iframeMxm = (html, arcSite) => {
+  let resHtml = html
+  const strWidgetVivo =
+    '/<script src="http://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
+  const rplWidgetVivo = ''
+  const strWidgetVivo2 = `<script>var f = new ECO.Widget\({width: 625,height: 900}\).draw\("depor\/wg-${arcSite}\/(.*?)"\);<\/script>/g`
+
+  const rplWidgetVivo3 =
+    '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivo/$1/$2"></amp-iframe>'
+  const rplWidgetVivo4 =
+    '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivogeneral/$1/$2"></amp-iframe>'
+
+  resHtml = resHtml
+    .replace(strWidgetVivo, rplWidgetVivo)
+    .replace(strWidgetVivo2, rplWidgetVivo3)
+    .replace(
+      /<mxm-partido code="(.*)" h="(.*)px"><\/mxm-partido>/g,
+      rplWidgetVivo3
+    )
+    .replace(/<mxm-evento code="(.*)" h="(.*)px"><\/mxm>/g, rplWidgetVivo4)
+
+  // pendiente de validacion enventos 485178
+  return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')
+}
+
 export const ampHtml = (html = '', arcSite = '') => {
   let resultData = html
   // Opta Widget
@@ -698,6 +722,10 @@ export const ampHtml = (html = '', arcSite = '') => {
 
   // HTML Iframe
   resultData = iframeHtml(resultData, arcSite)
+
+  // Mxm Iframe
+
+  resultData = iframeMxm(resultData, arcSite)
 
   return resultData
 }
