@@ -27,7 +27,7 @@ class XmlGoogleNews {
             siteProperties: {
                 sitemapNewsName = '',
                 siteUrl = '',
-                siteDecription = '',
+                siteDescription = '',
                 siteDomain = '',
                 googleNewsImage = ''
             } = {},
@@ -47,41 +47,45 @@ class XmlGoogleNews {
 
         const googleNewsFeed = {
             rss: {
-                link: siteUrl,
-                description: siteDecription,
-                title: sitemapNewsName,
-                image: {
-                    url: googleNewsImage,
-                    title: siteDomain,
-                    link: siteUrl
-                },
-                ...stories.map(story => {
-                    storyData.__data = story
-                    return {
-                        item: {
-                            title: {
-                                '#cdata': storyData.title,
-                            },
-                            link: {
-                                '#cdata': `${siteUrl}${storyData.link}?outputType=amp`,
-                            },
-                            description: {
-                                '#cdata': storyData.subTitle,
-                            },
-                            pubDate: {
-                                '#cdata': localISODate(storyData.date || ''),
-                            },
-                            'dc:creator': {
-                                '#cdata': storyData.author,
+                channel: [
+                    { link: siteUrl },
+                    { description: siteDescription },
+                    { title: sitemapNewsName },
+                    {
+                        image: {
+                            url: googleNewsImage,
+                            title: siteDomain,
+                            link: siteUrl
+                        }
+                    },
+                    ...stories.map(story => {
+                        storyData.__data = story
+                        return {
+                            item: {
+                                title: {
+                                    '#cdata': storyData.title,
+                                },
+                                link: {
+                                    '#cdata': `${siteUrl}${storyData.link}?outputType=amp`,
+                                },
+                                description: {
+                                    '#cdata': storyData.subTitle,
+                                },
+                                pubDate: {
+                                    '#cdata': localISODate(storyData.date || ''),
+                                },
+                                'dc:creator': {
+                                    '#cdata': storyData.author,
+                                }
                             }
                         }
-                    }
-                })
+                    })
+                ]
             }
         }
 
         // Attr
-        googleNewsFeed.rss.push({
+        Object.assign(googleNewsFeed.rss, {
             '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
             '@version': '2.0'
         })
