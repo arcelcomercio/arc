@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import schemaFilter from './_dependencies/schema-filter'
@@ -18,39 +19,15 @@ class BreakingNews extends Component {
     super(props)
     this.state = {
       article: {},
-      isVisible: false,
+      isVisible: true,
     }
-    const {
-      customFields: { storyLink = '', showBreakingNews },
-    } = this.props
-    const regex = /^http/g
-    this.isExternalLink = regex.test(storyLink)
-    if (!this.isExternalLink || (showBreakingNews && storyLink)) this.fetch()
-  }
-
-  componentWillMount() {
-    const status = window.localStorage.link
-    const {
-      customFields: { storyLink },
-    } = this.props
-    if (status && status === storyLink) {
-      this.setState({ isVisible: false })
-    } else this.setState({ isVisible: true })
-  }
-
-  shouldComponentUpdate(nextState) {
-    const { isVisible, article } = this.state
-    return isVisible !== nextState.isVisible || article !== nextState.article
+    this.fetch()
   }
 
   handleOnclickClose = () => {
     this.setState({
       isVisible: false,
     })
-    const {
-      customFields: { storyLink },
-    } = this.props
-    window.localStorage.setItem('link', storyLink)
   }
 
   fetch() {

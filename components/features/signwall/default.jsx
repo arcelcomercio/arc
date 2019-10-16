@@ -29,8 +29,9 @@ class Signwall extends PureComponent {
   }
 
   componentWillMount() {
-    if (typeof window !== "undefined")
-      window.Identity.apiOrigin = this.origin_api
+    if (typeof window !== 'undefined')
+      // window.Identity.apiOrigin = this.origin_api
+      window.Identity.options({ apiOrigin: this.origin_api })
   }
 
   componentDidMount = () => {
@@ -46,7 +47,7 @@ class Signwall extends PureComponent {
   }
 
   checkSession = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
       const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
       if (profileStorage) {
