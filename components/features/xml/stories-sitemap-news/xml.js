@@ -55,7 +55,7 @@ class XmlStoriesSitemapNews {
         return {
           url: {
             loc: `${siteUrl}${storyData.link || ''}`,
-            lastmod: localISODate(storyData.date || ''),
+            // lastmod: localISODate(storyData.date || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,
@@ -82,7 +82,7 @@ class XmlStoriesSitemapNews {
               },
             },
             changefreq: 'hourly',
-            priority: '0.5',
+            priority: '1',
           },
         }
       }),
