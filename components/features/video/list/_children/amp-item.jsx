@@ -1,12 +1,11 @@
 import React from 'react'
 
 const classes = {
-  videoList: 'video-list__item',
-  link: 'video-list__link',
+  videoList: 'amp-video-list__item flex mb-40',
+  link: 'amp-video-list__image position-relative mr-20',
   picture: 'block mb-10',
-  image: 'video-list__image object-cover w-full',
-  duration: 'text-gray-200 text-md pr-5 ',
-  title: 'line-h-xs text-xl font-bold video-list__new ',
+  duration: 'amp-video-list__time position-absolute flex items-center spr-5 ',
+  title: 'line-h-xs text-xl font-bold amp-video-list__title overflow-hidden',
 }
 
 export default ({ websiteLink, title, multimediaSquareMD, videoDuration }) => {
@@ -20,10 +19,8 @@ export default ({ websiteLink, title, multimediaSquareMD, videoDuration }) => {
           height="200"
           alt={title}
         />
+        <span className={classes.duration}>{videoDuration}</span>
       </a>
-
-      <span className={classes.duration}>{videoDuration}</span>
-
       <a href={websiteLink}>
         <h3 className={classes.title}>{title}</h3>
       </a>
