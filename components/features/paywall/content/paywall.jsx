@@ -77,6 +77,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   const memo = useRef({
     arcSite,
     plans,
+    plan: plans[0],
     summary,
     printedSubscriber,
     freeAccess,
@@ -126,14 +127,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     })
     const stepSlug = freeAccess ? stepSlugs[3] : stepSlugs[0]
     const path = `${basePath}/${stepSlug}/${search}`
-    if (freeAccess) {
-      // Acceso gratuito salta directo a landing de confirmacion
-      // con el primer plan seleccionado
-      currMemo.plan = plans[0]
-      history.push(path, currMemo)
-    } else {
-      history.replace(path, currMemo)
-    }
+    history.replace(path, currMemo)
     return unlisten
   }, [])
 
@@ -163,6 +157,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
             spinning={loading}
           />
           <Wizard
+            initialStep={freeAccess ? 4 : 1}
             transitions={{
               enterRight: 'enterRight',
               enterLeft: 'enterLeft',

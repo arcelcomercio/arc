@@ -81,6 +81,9 @@ export const LinkCorporate = styled(LinkBase)`
     height: 50px;
     border-radius: 4px;
     ${theme.breakpoints.down('sm')} {
+      min-width: calc(50% - 40px);
+    }
+    ${theme.breakpoints.down('xs')} {
       min-width: calc(100% - 40px);
     }
     ${linkStyle &&
@@ -89,9 +92,6 @@ export const LinkCorporate = styled(LinkBase)`
         padding: 20px 10px;
         flex-direction: column;
         align-items: flex-start;
-        ${theme.breakpoints.down('sm')} {
-          padding: 40px 10px;
-        }
       `}
   `}
 `
@@ -112,7 +112,6 @@ export const SubscribedText = styled.div`
     display: flex;
     & span:first-child {
       font-weight: 300;
-      font-size: 12px;
     }
   }
 `

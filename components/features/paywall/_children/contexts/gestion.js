@@ -87,8 +87,8 @@ export default {
       (+51) 311 5100  
       <br/>
       **Horario de atención:**  
-      De lunes a viernes: 7 am - 2 pm  
-      Sábados, domingos y feriados: de 7am - 1pm  
+      De lunes a viernes: 7 am - 9 pm  
+      Sábados, domingos y feriados: de 7 am - 1 pm  
       <br/>
       **Correos:** 
       -Servicio al cliente y Ventas:  
@@ -387,7 +387,7 @@ export default {
               '   1. Escríbenos a [suscriptores@diariogestion.com.pe]',
               '   2. Llámanos al (01) 311-5100',
               'Horario de atención al Cliente es el siguiente:',
-              'De Lunes a Viernes: 7:00 a.m. a 2:00 p.m.',
+              'De Lunes a Viernes: 7:00 a.m. a 9:00 p.m.',
               'Sábados, Domingos y Feriados: 7:00 a.m. a 1:00 p.m.',
             ],
           },
