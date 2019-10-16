@@ -1,0 +1,20 @@
+.featured-separator {
+  background-color: $color-base-300;
+  &__title {
+    font-size: 16px;
+    font-family: $fourth-font;
+  }
+  &__subtitle {
+    font-size: 11px;
+  }
+  &__story-section {
+    font-size: 16px;
+  }
+  &__story-title {
+    font-size: 13px;
+  }
+  &__img {
+    width: 68px;
+    height: 82px;
+  }
+}
