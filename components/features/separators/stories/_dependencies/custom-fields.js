@@ -22,13 +22,24 @@ export default PropTypes.shape({
     name: 'Insertar título con código HTML',
     group: 'Configuración del título',
   }),
-  design: PropTypes.oneOf(['standart', 'custom']).tag({
+  design: PropTypes.oneOf(['standart', 'invested', 'custom']).tag({
     name: 'Diseño',
     labels: {
       standart: 'Imagen parcial',
+      invested: 'Invertido',
       custom: 'Imagen completa',
     },
     defaultValue: 'standart',
+    group: 'Configuración de diseño',
+  }),
+  bgColor: PropTypes.oneOf(['default', 'primary', 'secundary']).tag({
+    name: 'Diseño',
+    labels: {
+      default: '',
+      primary: 'Principal',
+      secundary: 'Secundario',
+    },
+    defaultValue: 'default',
     group: 'Configuración de diseño',
   }),
   responsive: PropTypes.oneOf(['complete', 'partial', 'mobileHidden']).tag({
