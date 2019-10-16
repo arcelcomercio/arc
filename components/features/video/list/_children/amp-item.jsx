@@ -22,9 +22,8 @@ export default ({ websiteLink, title, multimediaSquareMD, videoDuration }) => {
         />
       </a>
 
-      <div className="flex">
-        <span className={classes.duration}>{videoDuration}</span>
-      </div>
+      <span className={classes.duration}>{videoDuration}</span>
+
       <a href={websiteLink}>
         <h3 className={classes.title}>{title}</h3>
       </a>
