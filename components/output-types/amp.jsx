@@ -241,6 +241,11 @@ const AmpOutputType = ({
             />
           </>
         )}
+        <script
+          async
+          custom-element="amp-fit-text"
+          src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
+        />
       </head>
       <body className="">
         <AmpTagManager {...parametros} />

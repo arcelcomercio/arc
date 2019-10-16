@@ -6,6 +6,15 @@ const customFields = PropTypes.shape({
     description:
       'Si no se coloca la URL de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
   }),
+  storyAmp: PropTypes.oneOf(['normal', 'slider']).tag({
+    name: 'Slider Amp',
+    group: 'Configuración',
+    labels: {
+      normal: 'Normal',
+      live: 'Slider Amp',
+    },
+    defaultValue: 'normal',
+  }),
 })
 
 export default customFields

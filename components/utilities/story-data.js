@@ -5,6 +5,7 @@ import {
   formatHtmlToText,
   breadcrumbList,
   addSlashToEnd,
+  msToTime,
 } from './helpers'
 
 class StoryData {
@@ -422,6 +423,16 @@ class StoryData {
 
   get videoId() {
     return StoryData.getIdGoldfish(this.__data)
+  }
+
+  get videoDuration() {
+    return msToTime(
+      (this.__data &&
+        this.__data.promo_items &&
+        this.__data.promo_items[ConfigParams.VIDEO] &&
+        this.__data.promo_items[ConfigParams.VIDEO].duration) ||
+        ''
+    )
   }
 
   get video() {
