@@ -63,8 +63,28 @@
     }
   }
   &.invested {
-    * &.separator__header-link {
+    border-top: none;
+    * .separator__header-link {
       font-family: $fifth-font;
+      font-size: 45px;
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+      }
+      @media (--tablet) {
+        font-size: 60px;
+      }
+    }
+    * .separator__icon {
+      width: 35px;
+      height: 35px;
+      font-size: 20px;
+      &::before {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
     }
   }
   &.primary {
