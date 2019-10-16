@@ -5,7 +5,6 @@ const StorySeparatorChildItemSliderAmp = ({ data }) => {
 
   return (
     <>
-      xxx
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
@@ -27,7 +26,6 @@ const StorySeparatorChildItemSliderAmp = ({ data }) => {
           </amp-img>
         </a>
       )}
-      xx
     </>
   )
 }
