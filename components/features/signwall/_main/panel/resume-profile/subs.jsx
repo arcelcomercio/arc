@@ -7,6 +7,7 @@ import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
 import Taggeo from '../../utils/taggeo'
 import { WrapperBlock } from './styles'
+import SubDetail from '../subcription/detail'
 
 @Consumer
 class Subs extends Component {
@@ -17,14 +18,14 @@ class Subs extends Component {
     this.state = {
       paywallName: '-',
       paywallPrice: '-',
-      // paywallDescripcion: '-',
       showModalConfirm: false,
       isSubs: false,
       isLoad: true,
       idSubsDelete: null,
-      // userSubs: {},
       userSubsDetail: [],
       listBundle: Domains.getListBundle() || [],
+      showDetails: false,
+      idSubsDetail: '',
     }
 
     const { arcSite } = this.props
@@ -177,6 +178,14 @@ class Subs extends Component {
     }
   }
 
+  showPayment(idSubcription) {
+    const { showDetails, idSubsDetail } = this.state
+    this.setState({
+      showDetails: !showDetails,
+      idSubsDetail: idSubcription,
+    })
+  }
+
   deleteSub() {
     const { idSubsDelete } = this.state
     window.Sales.apiOrigin = this.origin_api
@@ -208,18 +217,18 @@ class Subs extends Component {
 
   render() {
     const {
-      // userSubs,
       isSubs,
       isLoad,
       paywallName,
       paywallPrice,
       showModalConfirm,
-      // paywallDescripcion,
       userSubsDetail,
       idSubsDelete,
       listBundle,
+      showDetails,
+      idSubsDetail,
     } = this.state
-    const { arcSite } = this.props
+    const { arcSite, subs } = this.props
     return (
       <>
         {isLoad ? (
@@ -239,13 +248,22 @@ class Subs extends Component {
                         <h3>Mi suscripción</h3>
                         {reSubs.currentPaymentMethod.paymentPartner ===
                         'PayULATAM' ? (
+                          // <button
+                          //   type="button"
+                          //   className="link"
+                          //   onClick={() =>
+                          //     this.openModalConfirm(reSubs.subscriptionID)
+                          //   }>
+                          //   ANULAR MI SUSCRIPCIÓN
+                          // </button>
                           <button
                             type="button"
                             className="link"
-                            onClick={() =>
-                              this.openModalConfirm(reSubs.subscriptionID)
+                            onClick={() => 
+                              // this.showPayment(reSubs.subscriptionID)
+                              subs()
                             }>
-                            ANULAR MI SUSCRIPCIÓN
+                            EDITAR MÉTODO DE PAGO
                           </button>
                         ) : (
                           ''
@@ -266,7 +284,7 @@ class Subs extends Component {
                                 className="link"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://suscripciones.gestion.pe/suscripciones/?ref=SignWallProfile">
+                                href={`https://suscripciones.${arcSite}.pe/suscripciones/?ref=SignWallProfile`}>
                                 Suscripciones Online
                               </a>
                             </p>
@@ -282,8 +300,8 @@ class Subs extends Component {
                                       new Date(
                                         reSubs.paymentHistory[0].periodFrom
                                       )) /
-                                      (1000 * 60 * 60 * 24) ===
-                                    30
+                                      (1000 * 60 * 60 * 24) <=
+                                    31
                                       ? 'MENSUAL'
                                       : 'ANUAL'}
                                   </span>
@@ -313,7 +331,7 @@ class Subs extends Component {
               </>
             ) : (
               <>
-                {arcSite === 'gestion' && (
+                {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
                   <div className="resume__dates">
                     <div className="title-dates">
                       <h2 className="title">Mi suscripción</h2>
@@ -348,9 +366,11 @@ class Subs extends Component {
                       </p>
                     </div>
                   </div>
-                )}
+                ) : null}
               </>
             )}
+
+            {showDetails && <SubDetail idSubs={idSubsDetail} />}
 
             {showModalConfirm && (
               <Modal
@@ -374,8 +394,8 @@ class Subs extends Component {
                     onSubmit={e => this.submitConfirmPassword(e)}>
                     <div className="row-grid">
                       <h2 className="form-grid__label--title text-center">
-                        ¿Estás seguro que deseas anular tu suscripción a
-                        www.gestion.pe?
+                        {`¿Estás seguro que deseas anular tu suscripción a
+                        www.${arcSite}.pe?`}
                       </h2>
                       <p className="form-grid__label form-grid__label--information text-center">
                         Ten en cuenta que tu suscripción se desactivará al

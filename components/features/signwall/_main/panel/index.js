@@ -9,6 +9,7 @@ import { ModalProvider, ModalConsumer } from '../signwall/context'
 import Modal from '../common/modal'
 import Header from '../common/header'
 import GetProfile from '../utils/get-profile'
+import SubDetail from './subcription/detail'
 
 const getNameProfile = (name) => {
     console.log(name)
@@ -21,6 +22,7 @@ const renderTemplate = template => {
     news: <NewsLetter />,
     subs: <Subscription />,
     prof: <MiPerfil getNameProfile={getNameProfile} />,
+    detail: <SubDetail />
   }
   return templates[template] || templates.home
 }
@@ -73,7 +75,7 @@ export const Panel = props => {
                   />
                 </div>
                 <div className="panel-right">
-                  {arcSite === 'gestion' ? (
+                  {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
                     <>{renderTemplate(value.selectedTemplate)}</>
                   ) : (
                     <MiPerfil />

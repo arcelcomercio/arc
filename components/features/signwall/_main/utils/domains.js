@@ -72,7 +72,7 @@ class Domains {
   }
 
   getListBundle = () => {
-    return ['UJWWFG', '7NK9SV'] // price code bundle sandbox & prod
+    return ['UJWWFG', '7NK9SV', 'DQZ00K'] // price code bundle sandbox & prod
   }
 }
 

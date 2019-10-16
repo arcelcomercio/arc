@@ -91,7 +91,7 @@ class SignwallComponent extends PureComponent {
       this.getPremium()
     } else if (window.ArcP) {
       W.ArcP.run({
-        paywallFunction: campaignURL => {
+        paywallFunction: campaignURL => { 
           W.location.href = `${campaignURL}&ref=${W.location.pathname}`
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
@@ -100,8 +100,11 @@ class SignwallComponent extends PureComponent {
         jwt: W.Identity.userIdentity.accessToken || null,
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
-          // user subscription state
-          if (arcSite === 'gestion' && W.Identity.userIdentity.accessToken) {
+          // user subscription state GESTION & EL COMERCIO
+          if (
+            (arcSite === 'gestion' || arcSite === 'elcomercio') &&
+            W.Identity.userIdentity.accessToken
+          ) {
             return this.getListSubs().then(p => {
               const isLoggedInSubs = !!(
                 W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&

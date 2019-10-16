@@ -11,8 +11,8 @@ import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import { addSales } from '../../../_dependencies/sales'
-import { addPayU } from '../../../_dependencies/payu'
+import addSales from '../../../_dependencies/sales'
+import addPayU from '../../../_dependencies/payu'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
 import { parseQueryString } from '../../../../../utilities/helpers'
@@ -28,12 +28,19 @@ const MESSAGE = {
 function WizardPayment(props) {
   const {
     memo,
-    summary,
     formName,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
-  const { plan, order, profile, printedSubscriber, referer, origin } = memo
+  const {
+    summary,
+    plan,
+    order,
+    profile,
+    printedSubscriber,
+    referer,
+    origin,
+  } = memo
   const { firstName, lastName, secondLastName, documentNumber } = profile
   const { orderNumber } = order
   const { sku, priceCode, amount, billingFrequency, description } = plan
@@ -54,8 +61,8 @@ function WizardPayment(props) {
   const [error, setError] = useState('')
 
   const fusionContext = useFusionContext()
-  const { siteProperties } = fusionContext
-  const Sales = addSales(siteProperties)
+  const { arcSite } = fusionContext
+  const Sales = addSales(arcSite)
 
   const onSubmitHandler = (values, { setSubmitting }) => {
     setLoading(true)
@@ -122,7 +129,7 @@ function WizardPayment(props) {
             level: Sentry.Severity.Info,
           })
 
-          return addPayU(deviceSessionId)
+          return addPayU(arcSite, deviceSessionId)
             .then(payU => {
               payU.setURL(payuBaseUrl)
               payU.setPublicKey(publicKey)

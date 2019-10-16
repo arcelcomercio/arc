@@ -178,7 +178,7 @@ class FormForgotPass extends Component {
           />
 
           <h1 className="form-grid__info">Olvidé mi contraseña</h1>
-          <p className="form-grid__info-sub text-center">
+          <p className="form-grid__info-sub text-center mb-20">
             Ingresa tu correo electrónico para cambiar tu contraseña
           </p>
 

@@ -31,7 +31,7 @@ export const WrapperBlock = styled.div`
         font-size: 20px;
       }
     }
-    & > button{
+    & > button {
       color: #0179af;
       font-size: 12px;
       font-weight: bold;
@@ -43,12 +43,20 @@ export const WrapperBlock = styled.div`
       }
     }
   }
+  
+  & .column{
+    width: 100%;
+    column-count: 1;
+    @media ${device.desktop} {
+      column-count: ${props => (props.nocolumn ? '0' : props.column)};
+    }
+  }
+
   & .right {
     width: 100%;
     display: inline-block;
     vertical-align: top;
     background: ${props => (props.nobackground ? 'none' : ' #f4f4f4')};
-    column-count: 1;
     line-height: 30px;
     font-size: 14px;
     padding: ${props => (props.nopadding ? '0px' : '10px 20px')};
@@ -56,8 +64,8 @@ export const WrapperBlock = styled.div`
     color: black;
     @media ${device.desktop} {
       width: 80%;
-      column-count: ${props => (props.nocolumn ? '0' : props.column)};
     }
+    
     & .pass {
       font-size: 30px;
       vertical-align: sub;

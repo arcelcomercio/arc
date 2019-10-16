@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react'
+import { useFusionContext } from 'fusion:context'
 import { Formik, Form, Field } from 'formik'
 import * as Sentry from '@sentry/browser'
+import Markdown from '../../../../../_children/markdown'
 
 import * as S from './styled'
-import { FormSchema, Masks } from './schema'
+import { createSchema, Masks } from './schema'
 import InputFormik from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
 import Modal from '../../../../../_children/modal'
-import getDomain from '../../../../../_dependencies/domains'
+import { interpolateUrl } from '../../../../../_dependencies/domains'
+import { useStrings } from '../../../../../_children/contexts'
 
 const Content = ({ onSubmit }) => {
+  const msgs = useStrings()
   const [attemptToken, setAttemptToken] = useState()
+  const {
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
   let resetForm = React.useRef()
 
   useEffect(() => {
-    const url = getDomain('ORIGIN_SUBSCRIPTION_ONLINE_TOKEN')
+    const url = interpolateUrl(urls.originSubscriptionOnlineToken)
     fetch(url, {
       method: 'POST',
       headers: new Headers({
@@ -28,7 +37,7 @@ const Content = ({ onSubmit }) => {
             setAttemptToken(token)
           })
         } else {
-          const msg = `Estado de peticion a ${url} no es 200 sino ${res.status}`
+          const msg = `Status de la peticion a "${url}" no es 200 sino ${res.status}`
           const err = new Error(msg)
           Sentry.captureException(err)
         }
@@ -43,24 +52,18 @@ const Content = ({ onSubmit }) => {
     <S.Panel>
       <S.Content>
         <S.Title>
-          Valida tu N° de documento y<br />{' '}
-          <strong>aprovecha la promoción</strong> que tenemos para ti:
+          <Markdown source={msgs.idCheckingDescription} />
         </S.Title>
         <S.Wrapbenefit>
           <S.SpanIcon>
-            <Icon type="check" /> Beneficio especial para
-            <br /> suscriptores del diario impreso
+            <Icon type="check" /> <Markdown source={msgs.featureDescription1} />
           </S.SpanIcon>
-          <S.Free>Gratis</S.Free>
+          <S.Free>{msgs.freeAmount}</S.Free>
         </S.Wrapbenefit>
         <S.Foot>
           <S.FootContent>
-            <S.SpanFoot title>
-              durante 3 meses 
-            </S.SpanFoot>
-            <S.SpanFoot>
-              Luego, S/ 19 cada mes.
-            </S.SpanFoot>
+            <S.SpanFoot title>{msgs.initialOffer}</S.SpanFoot>
+            <S.SpanFoot>{msgs.regularOffer}</S.SpanFoot>
           </S.FootContent>
           {/* <S.FootContent>
             <S.SpanFoot>Precio Regular: S/ 29 al mes</S.SpanFoot>
@@ -69,9 +72,9 @@ const Content = ({ onSubmit }) => {
       </S.Content>
       <S.Divider />
       <S.WrapDocument>
-        <strong>Ingresa tu Documento</strong>
+        <strong>{msgs.insertDocument}</strong>
         <Formik
-          validate={values => new FormSchema(values)}
+          validate={values => createSchema(values, msgs)}
           initialValues={{ documentType: 'DNI', documentNumber: null }}
           onSubmit={({ documentType, documentNumber }, ...args) => {
             onSubmit({ documentType, documentNumber, attemptToken }, ...args)
@@ -87,7 +90,7 @@ const Content = ({ onSubmit }) => {
               <Form>
                 <Field
                   name="documentNumber"
-                  label="Número de documento"
+                  label={msgs.documentNumberLabel}
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
                   prefix={
