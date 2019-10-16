@@ -1,0 +1,109 @@
+.author-item {
+  &__wrapper {
+    max-width: 100%;
+    border-bottom: 0;
+    padding: 20px 0 0;
+  }
+  &__content {
+    border-top: 1px solid #a1a1a1;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-wrap: wrap;
+    @media (--tablet) {
+      width: calc(100% - 120px);
+    }
+    @media (--desktop) {
+      flex-wrap: inherit;
+    }
+    .author-item__date {
+      display: none;
+    }
+  }
+  &__social {
+    padding-top: 20px;
+    border-top: 1px dashed #9dbdcc;
+    margin-right: 20px;
+    width: 100px;
+  }
+  &__date {
+    color: #9dbdcc;
+    font-size: 17px;
+    letter-spacing: 0px;
+    line-height: 24px;
+    font-weight: 700;
+    font-family: $fourth-font;
+  }
+  &__information {
+    width: calc(100% - 70px);
+    @media (--tablet) {
+      width: calc(100% - 90px);
+    }
+    @media (--desktop) {
+      padding-right: 20px;
+    }
+  }
+  &__image,
+  &__box-image,
+  &__box-image-default {
+    height: 50px;
+    width: 50px;
+    @media (--tablet) {
+      width: 70px;
+      height: 70px;
+    }
+  }
+  &__image,
+  &__box-image {
+    @media (--tablet) {
+      border-radius: 50%;
+    }
+  }
+  &__box-image-default {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__name {
+    font-size: 20px;
+    letter-spacing: 0px;
+    line-height: 24px;
+    font-family: $fourth-font;
+    &::before,
+    &:after {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background-color: $color-gray-300;
+    }
+    &::before {
+      margin-bottom: 6px;
+    }
+    &:after {
+      margin-top: 6px;
+    }
+  }
+  &__subtitle {
+    font-family: 'Georgia';
+    font-size: 16px;
+    line-height: 20px;
+    color: #666666;
+  }
+  &__picture-wrapper {
+    width: 100%;
+    padding-left: 70px;
+    padding-top: 10px;
+    @media (--tablet) {
+      padding-left: 90px;
+    }
+    @media (--desktop) {
+      padding: 0;
+      width: auto;
+    }
+  }
+  &__picture-nota {
+    width: 225px;
+    height: 128px;
+  }
+}

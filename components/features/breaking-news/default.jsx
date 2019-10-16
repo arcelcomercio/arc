@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import schemaFilter from './_dependencies/schema-filter'
@@ -18,39 +19,15 @@ class BreakingNews extends Component {
     super(props)
     this.state = {
       article: {},
-      isVisible: false,
+      isVisible: true,
     }
-    const {
-      customFields: { storyLink = '' },
-    } = this.props
-    const regex = /^http/g
-    this.isExternalLink = regex.test(storyLink)
-    if (!this.isExternalLink && storyLink) this.fetch()
-  }
-
-  componentWillMount() {
-    const status = window.localStorage.link
-    const {
-      customFields: { storyLink },
-    } = this.props
-    if (status && status === storyLink) {
-      this.setState({ isVisible: false })
-    } else this.setState({ isVisible: true })
-  }
-
-  shouldComponentUpdate(nextState) {
-    const { isVisible, article } = this.state
-    return isVisible !== nextState.isVisible || article !== nextState.article
+    this.fetch()
   }
 
   handleOnclickClose = () => {
     this.setState({
       isVisible: false,
     })
-    const {
-      customFields: { storyLink },
-    } = this.props
-    window.localStorage.setItem('link', storyLink)
   }
 
   fetch() {
@@ -81,6 +58,7 @@ class BreakingNews extends Component {
         title,
         subTitle,
         storyLink,
+        showBreakingNews,
         tags = 'Lo último',
         backgroundColor = 'breaking-news--bgcolor-1',
       },
@@ -94,38 +72,42 @@ class BreakingNews extends Component {
       link: storyLink,
     }
     return (
-      <div
-        className={`${isVisible ? '' : 'hidden'}
+      <>
+        {showBreakingNews && (
+          <div
+            className={`${isVisible ? '' : 'hidden'}
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-        <h2 className={classes.text}>
-          <span
-            className={classes.tag}
-            {...editableField('tags')}
-            suppressContentEditableWarning>
-            {tags}
-          </span>
-          <span>
-            <a
-              className={classes.link}
-              href={objContent.link}
-              rel="noopener noreferrer"
-              {...editableField('title')}
-              suppressContentEditableWarning>
-              {objContent.title}
-            </a>
-          </span>
-        </h2>
-        <button
-          type="button"
-          className={classes.close}
-          onClick={this.handleOnclickClose}
-          onKeyPress={this.handleOnclickClose}
-          tabIndex={0}>
-          <i className={classes.icon} />
-        </button>
-      </div>
+            <h2 className={classes.text}>
+              <span
+                className={classes.tag}
+                {...editableField('tags')}
+                suppressContentEditableWarning>
+                {tags}
+              </span>
+              <span>
+                <a
+                  className={classes.link}
+                  href={objContent.link}
+                  rel="noopener noreferrer"
+                  {...editableField('title')}
+                  suppressContentEditableWarning>
+                  {objContent.title}
+                </a>
+              </span>
+            </h2>
+            <button
+              type="button"
+              className={classes.close}
+              onClick={this.handleOnclickClose}
+              onKeyPress={this.handleOnclickClose}
+              tabIndex={0}>
+              <i className={classes.icon} />
+            </button>
+          </div>
+        )}
+      </>
     )
   }
 }

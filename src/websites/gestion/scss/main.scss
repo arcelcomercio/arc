@@ -28,6 +28,7 @@
 @import './components/layout/nav/nav';
 @import './components/global-components/featured-story';
 @import './components/global-components/independent-title';
+@import './components/global-components/multimedia-icon';
 @import './components/stories-list-header';
 @import './components/stories-list-card';
 @import './components/stories-list-item';
@@ -64,4 +65,6 @@
 @import './components/featured-premium';
 @import './components/doblete';
 @import './components/photogallery-title';
-
+@import './components/story-list/most-read-premium/most-read-premium-footer';
+@import './components/story-list/most-read-premium/most-read-premium-header';
+@import './components/story-list/most-read-premium/most-read-premium-item';

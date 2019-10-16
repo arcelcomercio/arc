@@ -8,7 +8,7 @@ export const SchemaSingleStory = arcSite => {
       primary_section { name path }
     }
     promo_items {
-      basic { url type resized_urls { landscape_md lazy_default  } }
+      basic { url type caption resized_urls { landscape_md lazy_default  } }
       basic_video {
         _id
         additional_properties { 
@@ -16,7 +16,7 @@ export const SchemaSingleStory = arcSite => {
         }
         embed_html
         promo_items {
-          basic { url type resized_urls { landscape_md lazy_default  } }
+          basic { url type caption resized_urls { landscape_md lazy_default  } }
         }
       }
       youtube_id {

@@ -48,7 +48,8 @@ const customFieldsSection = {
   }),
   sectionLink: PropTypes.string.tag({
     name: 'Url de la sección',
-    description: 'Colocar una url de sección para el logo. Ejm: /deportes. Por defecto imprime las sección principal de la nota.',
+    description:
+      'Colocar una url de sección para el logo. Ejm: /deportes. Por defecto imprime las sección principal de la nota.',
   }),
 }
 

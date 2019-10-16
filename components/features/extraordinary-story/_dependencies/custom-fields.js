@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types'
 
 const customFields = {
+  showExtraordinaryStory: PropTypes.bool.tag({
+    name: 'Visualizar Apertura',
+    description: 'Por Defecto es Verdadero, falso para mantenerlo oculto',
+    defaultValue: true,
+  }),
   section: PropTypes.string.tag({
     name: 'Sección',
     description: 'Campo vació tomará el valor por defecto de la historia',
