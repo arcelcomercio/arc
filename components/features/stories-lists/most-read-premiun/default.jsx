@@ -47,7 +47,7 @@ const MostReadPremium = props => {
     arcSite,
     contextPath,
     isAdmin,
-    listNews: resp.data || [],
+    listNews: resp || [],
   }
 
   return (

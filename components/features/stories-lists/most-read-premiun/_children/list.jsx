@@ -21,27 +21,29 @@ export default ({
     deployment,
     defaultImgSize: 'sm',
   })
+
   return (
     <div role="list" className={classes.list}>
-      {listNews.map((el, index) => {
-        Story.__data = el
-        // const data = Story.attributesRaw
+      {listNews &&
+        listNews.map((el, index) => {
+          Story.__data = el
+          // const data = Story.attributesRaw
 
-        const params = {
-          key: Story.websiteLink,
-          storyNumber,
-          storyIndex: Number(index + 1),
-          seeImageNews,
-          title: Story.title,
-          urlNews: Story.websiteLink,
-          multimedia: Story.multimediaLandscapeMD,
-          lazyImage: Story.multimediaLazyDefault,
-          multimediaType: Story.multimediaType,
-          isAdmin,
-        }
+          const params = {
+            key: Story.websiteLink,
+            storyNumber,
+            storyIndex: Number(index + 1),
+            seeImageNews,
+            title: Story.title,
+            urlNews: Story.websiteLink,
+            multimedia: Story.multimediaLandscapeMD,
+            lazyImage: Story.multimediaLazyDefault,
+            multimediaType: Story.multimediaType,
+            isAdmin,
+          }
 
-        return <StoriesListCardChildItem {...params} />
-      })}
+          return <StoriesListCardChildItem {...params} />
+        })}
     </div>
   )
 }
