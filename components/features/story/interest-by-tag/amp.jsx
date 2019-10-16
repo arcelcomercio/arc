@@ -77,42 +77,46 @@ const InterestByTag = props => {
       {dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
           <div className={classes.title}>Te puede interesar:</div>
-          {renderHTML(ampCarousel)}
-          {dataInterest.map((story, i) => {
-            if (key === 4) return false
-            instance.__data = story
-            key += 1
+          <amp-carousel
+            layout="fixed-height"
+            height="160"
+            type="carousel"
+            id="rel-noticias">
+            {dataInterest.map((story, i) => {
+              if (key === 4) return false
+              instance.__data = story
+              key += 1
 
-            const data = {
-              title: instance.title,
-              link: instance.link,
-              section: instance.primarySection,
-              sectionLink: instance.primarySectionLink,
-              lazyImage: instance.multimediaLazyDefault,
-              multimediaLandscapeS: instance.multimediaLandscapeS,
-              multimediaLandscapeL: instance.multimediaLandscapeL,
-              multimediaType: instance.multimediaType,
-              isAdmin,
-            }
-            return (
-              <>
-                {storyAmp !== 'normal' ? (
-                  <StorySeparatorChildItemSliderAmp
-                    data={data}
-                    key={UtilListKey(i)}
-                    arcSite={arcSite}
-                  />
-                ) : (
-                  <StorySeparatorChildItemAmp
-                    data={data}
-                    key={UtilListKey(i)}
-                    arcSite={arcSite}
-                  />
-                )}
-              </>
-            )
-          })}
-          {renderHTML(ampCarouselEnd)}
+              const data = {
+                title: instance.title,
+                link: instance.link,
+                section: instance.primarySection,
+                sectionLink: instance.primarySectionLink,
+                lazyImage: instance.multimediaLazyDefault,
+                multimediaLandscapeS: instance.multimediaLandscapeS,
+                multimediaLandscapeL: instance.multimediaLandscapeL,
+                multimediaType: instance.multimediaType,
+                isAdmin,
+              }
+              return (
+                <>
+                  {storyAmp !== 'normal' ? (
+                    <StorySeparatorChildItemSliderAmp
+                      data={data}
+                      key={UtilListKey(i)}
+                      arcSite={arcSite}
+                    />
+                  ) : (
+                    <StorySeparatorChildItemAmp
+                      data={data}
+                      key={UtilListKey(i)}
+                      arcSite={arcSite}
+                    />
+                  )}
+                </>
+              )
+            })}
+          </amp-carousel>
         </div>
       )}
     </>

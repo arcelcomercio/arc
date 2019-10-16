@@ -1045,7 +1045,6 @@ export const getDateSeo = data => {
 }
 
 export const msToTime = duration => {
-  console.log('duration', duration)
   if (duration) {
     let seconds = parseInt((duration / 1000) % 60, 0)
     let minutes = parseInt((duration / (1000 * 60)) % 60, 0)

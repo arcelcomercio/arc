@@ -2,7 +2,6 @@ import React from 'react'
 
 const StorySeparatorChildItemSliderAmp = ({ data }) => {
   const { title, link, multimediaLandscapeL, multimediaType } = data
-
   return (
     <>
       {multimediaType === 'video' && <span>&#8227;</span>}
@@ -11,7 +10,6 @@ const StorySeparatorChildItemSliderAmp = ({ data }) => {
         <a href={link} title={title}>
           <amp-img
             src={multimediaLandscapeL}
-            layout="responsive"
             width="240"
             height="160"
             alt={title}>
