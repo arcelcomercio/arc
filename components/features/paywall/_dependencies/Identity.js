@@ -14,7 +14,8 @@ export const addIdentity = arcSite => {
     url: originIdentitySdk,
   }).then(added => {
     if (added) {
-      window.Identity.apiOrigin = originApi
+      // window.Identity.apiOrigin = getDomain('ORIGIN_API')
+      window.Identity.options({apiOrigin: getDomain('ORIGIN_API')})
     }
     return window.Identity
   })

@@ -264,6 +264,7 @@ export default ({
             : (listItems[0] && listItems.map(item => item)) || arcSite
         }
       />
+      {isPremium && <meta name="cXenseParse:per-tiponota" content="premium" />}
       <meta property="article:published_time" content={publishDateZone} />
       <meta
         property="article:modified_time"
