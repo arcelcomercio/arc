@@ -163,7 +163,7 @@ const FormPay = ({ theme, name, error, onSubmit, initialValues }) => {
                 {msgs.payButton.toUpperCase()}
               </Button>
             </S.WrapSubmit>
-            <Persist name={name} isSessionStorage />
+            <Persist name={name} isSessionStorage ignoreErrors />
           </Form>
         )
       }}
