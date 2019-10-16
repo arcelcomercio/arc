@@ -32,12 +32,12 @@ export default PropTypes.shape({
     defaultValue: 'standart',
     group: 'Configuración de diseño',
   }),
-  bgColor: PropTypes.oneOf(['default', 'primary', 'secundary']).tag({
-    name: 'Diseño',
+  bgColor: PropTypes.oneOf(['default', 'primary', 'secondary']).tag({
+    name: 'Color de fondo',
     labels: {
-      default: '',
-      primary: 'Principal',
-      secundary: 'Secundario',
+      default: 'Sin color',
+      primary: 'Primario',
+      secondary: 'Secundario',
     },
     defaultValue: 'default',
     group: 'Configuración de diseño',
