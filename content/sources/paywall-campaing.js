@@ -32,9 +32,9 @@ const fetch = (key = {}) => {
     } = subscriber
 
     const summary = attributes.reduce(
-      (prev, { name: _name, value = '' }) => {
+      (prev, { name: _name, value }) => {
         const prez = prev
-        const _value = value.replace(/<p>|<\/p>/g, '')
+        const _value = (value || '').replace(/<p>|<\/p>/g, '')
         switch (_name) {
           case 'feature':
             prez[_name].push(_value)
@@ -54,10 +54,10 @@ const fetch = (key = {}) => {
     const { title: name = 'Plan Digital' } = summary
 
     const plans = pricingStrategies.map(
-      ({ pricingStrategyId, priceCode, description = '', rates }) => {
+      ({ pricingStrategyId, priceCode, description, rates }) => {
         const [price] = rates
         const { amount, billingFrequency } = price
-        let parsedDescription = description.replace(/<p>|<\/p>/g, '')
+        let parsedDescription = (description || '').replace(/<p>|<\/p>/g, '')
         try {
           parsedDescription = JSON.parse(parsedDescription)
         } catch (err) {
