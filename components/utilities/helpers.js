@@ -376,8 +376,16 @@ export const defaultImage = ({
   size = 'lg',
 }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  const site = () => {
+    let domain = `${arcSite}.pe`
+    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    return domain
+  }
+
   return deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
@@ -669,7 +677,7 @@ export const freeHtml = html => {
 export const iframeMxm = (html, arcSite) => {
   let resHtml = html
   const strWidgetVivo =
-    '/<script src="http://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
+    '/<script src="https://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
   const rplWidgetVivo = ''
   const strWidgetVivo2 = `<script>var f = new ECO.Widget\({width: 625,height: 900}\).draw\("depor\/wg-${arcSite}\/(.*?)"\);<\/script>/g`
 
@@ -1056,4 +1064,10 @@ export const msToTime = duration => {
     return `${hours}:${minutes}:${seconds}`
   }
   return ''
+}
+export const localISODate = date => {
+  let localDate = date ? new Date(date) : new Date()
+  localDate.setHours(localDate.getHours() - 5)
+  localDate = `${localDate.toISOString().split('.')[0]}-05:00`
+  return localDate
 }

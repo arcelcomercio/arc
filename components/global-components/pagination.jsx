@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react'
 import { addParamToEndPath } from '../utilities/helpers'
 
@@ -88,7 +89,7 @@ const Pagination = props => {
   const pages = createPaginator(currentPage || 1, totalPages)
   currentPage = parseInt(currentPage || 1, 10)
 
-  let pathOrigin = requestUri.replace(/\/[0-9]+\/?/, '')// .replace(/\/[0-9]*?\/?$/, '')
+  let pathOrigin = requestUri.replace(/\/[0-9]+\/?/, '') // .replace(/\/[0-9]*?\/?$/, '')
   pathOrigin = testSearchPath(pathOrigin)
 
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
@@ -106,6 +107,11 @@ const Pagination = props => {
           <span className="non-tablet non-desktop">&#60;</span>
           <span className="non-mobile">anterior</span>
         </p>
+      ) : currentPage === 2 ? (
+        <a className={classes.page} href={pathOrigin}>
+          <span className="non-tablet non-desktop">&#60;</span>
+          <span className="non-mobile">anterior</span>
+        </a>
       ) : (
         <a className={classes.page} href={urlPrevPage}>
           <span className="non-tablet non-desktop">&#60;</span>
@@ -119,18 +125,27 @@ const Pagination = props => {
 
         if (page !== '...') {
           const urlPage = addParamToEndPath(pathOrigin, page) // `${pathOrigin}/${page}/`
-          tag = (
-            <a
-              key={key}
-              className={`${classes.page} ${
-                currentPage === page || (currentPage === 0 && page === 1)
-                  ? 'pagination__page--current'
-                  : ''
-              }`}
-              href={urlPage}>
-              {page}
-            </a>
-          )
+          if (currentPage === page || (currentPage === 0 && page === 1)) {
+            tag = (
+              <span
+                key={key}
+                className={`${classes.page} ${'pagination__page--current'}`}>
+                {page}
+              </span>
+            )
+          } else if (page === 1) {
+            tag = (
+              <a key={key} className={classes.page} href={pathOrigin}>
+                {page}
+              </a>
+            )
+          } else {
+            tag = (
+              <a key={key} className={classes.page} href={urlPage}>
+                {page}
+              </a>
+            )
+          }
         } else {
           tag = (
             <span key={key} className={classes.page}>

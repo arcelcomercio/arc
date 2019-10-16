@@ -33,7 +33,7 @@ const classes = {
 }
 
 const BASE_PATH = '/cartelera'
-const MOVIES_BASE_PATH = '/peliculas'
+// const MOVIES_BASE_PATH = '/peliculas'
 const FORM_ACTION = `${BASE_PATH}/search`
 
 @Consumer
@@ -130,16 +130,14 @@ class CardCinemaBillboard extends PureComponent {
             </a>
           </h3>
           <figure className={classes.figure}>
-            <a href={`${BASE_PATH}${MOVIES_BASE_PATH}/${url}`}>
+            <a href={`${BASE_PATH}/${url}`}>
               <img src={img} alt={alt} className={classes.image} />
             </a>
           </figure>
           <div className={classes.detail}>
             <p className={classes.premiere}>Estreno</p>
             <h2 className={classes.movieTitle}>
-              <a
-                className={classes.movieLink}
-                href={`${BASE_PATH}${MOVIES_BASE_PATH}/${url}`}>
+              <a className={classes.movieLink} href={`${BASE_PATH}/${url}`}>
                 {title}
               </a>
             </h2>

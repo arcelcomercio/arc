@@ -5,6 +5,11 @@ const customFields = PropTypes.shape({
       name: '¿Nota externa?',
       defaultValue: false,
     }), */
+  showBreakingNews: PropTypes.bool.tag({
+    name: 'Visualizar Cintillo',
+    description: 'Por Defecto es Verdadero, falso para mantenerlo oculto',
+    defaultValue: true,
+  }),
   storyLink: PropTypes.string.isRequired.tag({
     name: 'URL',
     description: `Puedes ingresar cualquier URL externa, incluyendo el dominio (ejemplo: https://dominio.pe/url-externa), o la URL de una nota interna, sin el dominio (ejemplo: /url-interna-de-noticia).`,

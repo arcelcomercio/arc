@@ -27,6 +27,7 @@ const classes = {
   iconTwitter: 'icon-twitter-circle',
   iconWhatsapp: 'icon-whatsapp',
   bbcHead: 'bbc-head',
+  premium: 'story-header__premium',
 }
 
 @Consumer
@@ -108,6 +109,7 @@ class StoryHeaderChildSocial extends PureComponent {
       primarySectionLink,
       subtype,
       tags,
+      isPremium,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -136,7 +138,10 @@ class StoryHeaderChildSocial extends PureComponent {
           {subtype !== ConfigParams.SPECIAL_BASIC &&
             subtype !== ConfigParams.SPECIAL &&
             primarySectionLink !== '/archivo-elcomercio/' && (
-              <div className={classes.category}>
+              <div
+                className={`${classes.category} ${(isPremium &&
+                  classes.premium) ||
+                  ''}`}>
                 {(editorNote && rawHtml(editorNote)) || primarySection}
                 <StorySocialChildAuthor {...params} />
               </div>

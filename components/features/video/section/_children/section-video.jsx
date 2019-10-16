@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ConfigParams from '../../../../utilities/config-params'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
@@ -18,6 +18,7 @@ export default ({
   arrSections,
   siteProperties,
 }) => {
+  const [hasFixedSection, changeFixedSection] = useState(false)
   useEffect(() => {
     if (window.powaBoot) {
       window.powaBoot()
@@ -40,28 +41,34 @@ export default ({
       const videoList = document.querySelector('.video-list')
       const videoFrame = document.querySelector('.section-video__frame')
       const leftFix = videoFrame.getBoundingClientRect().left
+      const hasAdsMiddle = document.getElementById('ads_d_middle1') || {}
+      const renderClassFix =
+        hasAdsMiddle.childElementCount > 0 ? 'fixedAds' : 'fixedNoAds'
       const playOff = playList.offsetTop
       if (window.innerWidth >= 1024) {
         window.addEventListener('scroll', () => {
           const scrollHeight = window.scrollY
           if (scrollHeight >= playOff) {
             sectionVideo.classList.add('fixed')
+            changeFixedSection(true)
             videoNavBar.classList.add('fixed')
-            videoList.classList.add('fixed')
+            videoList.classList.add(`${renderClassFix}`)
             videoFrame.style.left = `${leftFix + 50}px`
 
             // videoList.style.marginTop = '570px'
           }
           if (scrollHeight < playOff) {
             sectionVideo.classList.remove('fixed')
+            changeFixedSection(false)
             videoNavBar.classList.remove('fixed')
-            videoList.classList.remove('fixed')
+            videoList.classList.remove(`${renderClassFix}`)
+            videoFrame.removeAttribute('style')
             // videoList.style.marginTop = '50px'
           }
         })
       }
     }
-  })
+  }, [isAdmin, principalVideo.hasAdsVideo, siteProperties])
 
   const formateDay = () => {
     const _date = new Date(principalVideo.displayDate)
@@ -104,19 +111,40 @@ export default ({
             <div className="section-video__left">
               {principalVideo.video &&
               principalVideo.promoItemsType === ConfigParams.VIDEO ? (
-                <div
-                  className="section-video__frame"
-                  dangerouslySetInnerHTML={{ __html: principalVideo.video }}
-                />
+                <div className="section-video__frame">
+                  <div
+                    className="w-full h-full"
+                    dangerouslySetInnerHTML={{ __html: principalVideo.video }}
+                  />
+                  {principalVideo.captionVideo && hasFixedSection && (
+                    <span className="text-sm text-gray-200 ml-5 mt-5 mr-5 block">
+                      {principalVideo.captionVideo}
+                    </span>
+                  )}
+                </div>
               ) : (
-                <iframe
-                  className="section-video__frame"
-                  src={`https://www.youtube.com/embed/${principalVideo.video}`}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullscreen
-                  title="Video"
-                />
+                <div className="section-video__frame">
+                  <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${
+                      principalVideo.video
+                    }`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullscreen
+                    title="Video"
+                  />
+                  {principalVideo.captionVideo && hasFixedSection && (
+                    <span className="text-sm text-gray-200 ml-5 mt-5 mr-5 block">
+                      {principalVideo.captionVideo}
+                    </span>
+                  )}
+                </div>
+              )}
+              {principalVideo.captionVideo && (
+                <span className="text-sm text-gray-200 ml-5 mt-5 block">
+                  {principalVideo.captionVideo}
+                </span>
               )}
 
               {/* <iframe

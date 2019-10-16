@@ -1,0 +1,8 @@
+.most-read-premium-footer {
+  display: none;
+  height: 60px;
+  &__link {
+    padding: 8px 20px;
+    border: solid 1px $color-gray-100;
+  }
+}
