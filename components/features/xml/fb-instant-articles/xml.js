@@ -12,7 +12,7 @@ import buildHtml from './_dependencies/build-html'
  */
 
 const DESCRIPTION = 'Todas las Noticias'
-const SOURCE = 'story-feed-by-section-mag'
+const SOURCE = 'story-feed-by-section'
 
 @Consumer
 class XmlFacebookInstantArticles {
@@ -26,6 +26,11 @@ class XmlFacebookInstantArticles {
             this.fetchContent({
                 magStories: {
                     source: SOURCE,
+                    transform: data => {
+                        if (!data) return []
+                        const { content_elements: magStories } = data
+                        return magStories
+                    }
                 },
             })
         }
@@ -33,7 +38,8 @@ class XmlFacebookInstantArticles {
 
     render() {
         const { magStories } = this.state
-        this.stories = [...this.stories, ...magStories || {}]
+        if (magStories)
+            this.stories = [...this.stories, ...magStories]
 
         const {
             // globalContent,
@@ -49,7 +55,6 @@ class XmlFacebookInstantArticles {
                 listUrlAdvertisings = []
             } = {},
         } = this.props
-        // const { content_elements: stories } = globalContent || {}
 
         if (!this.stories) {
             return null
@@ -140,9 +145,10 @@ class XmlFacebookInstantArticles {
                                     'content:encoded': {
                                         '#cdata': buildHtml(buildHtmlProps),
                                     },
+                                    'slash:comments': '0'
                                 }
                             }
-                        } return {}
+                        } return { '#text': '' }
                     })
                 ]
             }
