@@ -35,7 +35,7 @@ const SeparatorFeatured = props => {
       websiteLink,
       primarySection,
       primarySectionLink,
-      multimediaPortraitXS,
+      multimediaPortraitS,
       multimediaType,
     } = storyData
     return {
@@ -43,12 +43,18 @@ const SeparatorFeatured = props => {
       websiteLink,
       primarySection,
       primarySectionLink,
-      multimediaPortraitXS,
+      multimediaPortraitS,
       multimediaType,
     }
   })
 
-  console.log('contentElements->', contentElements, 'stories->', stories)
+  console.log(
+    contentConfigValues,
+    'contentElements->',
+    contentElements,
+    'stories->',
+    stories
+  )
 
   const aux = [1, 2, 3, 4]
   return (
