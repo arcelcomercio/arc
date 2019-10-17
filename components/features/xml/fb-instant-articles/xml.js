@@ -12,7 +12,7 @@ import buildHtml from './_dependencies/build-html'
  */
 
 const DESCRIPTION = 'Todas las Noticias'
-const SOURCE = 'story-feed-by-section'
+const SOURCE = 'story-feed-by-section-mag'
 
 @Consumer
 class XmlFacebookInstantArticles {
@@ -42,7 +42,6 @@ class XmlFacebookInstantArticles {
             this.stories = [...this.stories, ...magStories]
 
         const {
-            // globalContent,
             deployment,
             contextPath,
             arcSite,
@@ -77,7 +76,7 @@ class XmlFacebookInstantArticles {
                     { language: 'es' },
                     { title: sitemapNewsName },
                     { description: DESCRIPTION },
-                    { lasBuildDate: localISODate() },
+                    { lastBuildDate: localISODate() },
                     { link: siteUrl },
                     ...this.stories.map(story => {
                         storyData.__data = story
