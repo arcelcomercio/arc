@@ -15,6 +15,8 @@ const classes = {
     'story-interest w-full h-auto pr-20 pl-20 mx-auto amp-story-header',
   title:
     'story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-20 text-center md:text-left',
+  container: 'story-interest__container block w-full h-auto ',
+  list: 'story-interest__list flex pl-20 pr-20',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
@@ -83,12 +85,13 @@ const InterestByTag = props => {
         lazyImage: instance.multimediaLazyDefault,
         multimediaLandscapeS: instance.multimediaLandscapeS,
         multimediaLandscapeL: instance.multimediaLandscapeL,
+        multimediaLandscapeMD: instance.multimediaLandscapeMD,
         multimediaType: instance.multimediaType,
         isAdmin,
       }
       return (
         <>
-          {storyAmp !== 'normal' ? (
+          {storyAmp === 'slider' ? (
             <StorySeparatorChildItemSliderAmp
               data={data}
               key={UtilListKey(i)}
@@ -111,18 +114,22 @@ const InterestByTag = props => {
     <>
       {dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
-          <div className={classes.title}>{title}</div>
-          {storyAmp === 'slider' ? (
-            <amp-carousel
-              layout="fixed-height"
-              height="160"
-              type="carousel"
-              id="rel-noticias">
-              {getSize(5)}
-            </amp-carousel>
-          ) : (
-            getSize(4)
-          )}
+          <div className={classes.container}>
+            <div className={classes.title}>{title}</div>
+            {storyAmp === 'slider' ? (
+              <amp-carousel
+                layout="fixed-height"
+                height="160"
+                type="carousel"
+                id="rel-noticias">
+                {getSize(5)}
+              </amp-carousel>
+            ) : (
+              <>
+                <ul className={classes.list}>{getSize(4)}</ul>
+              </>
+            )}
+          </div>
         </div>
       )}
     </>
