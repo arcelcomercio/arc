@@ -12,6 +12,7 @@ import Footer from './_children/footer'
 const classes = {
   lista:
     'stories-l-card bg-white flex flex-col justify-between overflow-hidden border-1 border-solid border-base',
+  containerList: 'most-read-premium-card__container-list',
 }
 
 const MostReadPremium = props => {
@@ -30,7 +31,7 @@ const MostReadPremium = props => {
   const resp =
     useContent({
       source: 'get-most-related-premiun',
-    }) || {}
+    }) || []
 
   const paramsHeader = {
     titleList,
@@ -47,12 +48,12 @@ const MostReadPremium = props => {
     arcSite,
     contextPath,
     isAdmin,
-    listNews: resp.data || [],
+    listNews: resp || [],
   }
 
   return (
     <div className={classes.lista}>
-      <div>
+      <div className={seeMore ? classes.containerList : 'h-full pb-15'}>
         <Header {...paramsHeader} />
         <List {...paramsList} />
       </div>
@@ -66,6 +67,6 @@ MostReadPremium.propTypes = {
 }
 
 MostReadPremium.label = 'Mas Leidas Premium'
-// MostReadPremium.static = true
+MostReadPremium.static = true
 
 export default MostReadPremium
