@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import StandardFooter from './_children/standard'
 import SecondaryFooter from './_children/secondary'
 import StoryFooter from './_children/story'
-import SectionsFooter from './_children/sections'
 
 /**
  * TODO: Este feature que controla distintos componentes debe ser
@@ -107,7 +106,6 @@ class LayoutFooter extends PureComponent {
       standard: <StandardFooter {...params} />,
       secondary: <SecondaryFooter {...params} />,
       story: <StoryFooter {...params} />,
-      sectionsFooter:<SectionsFooter {...params} />,
     }
     return footers[footerType] || footers.standard
   }
@@ -122,13 +120,12 @@ LayoutFooter.static = true
 
 LayoutFooter.propTypes = {
   customFields: PropTypes.shape({
-    footerType: PropTypes.oneOf(['standard', 'secondary', 'story','sectionsFooter']).tag({
+    footerType: PropTypes.oneOf(['standard', 'secondary', 'story']).tag({
       name: 'Diseño del Pie de página',
       labels: {
         standard: 'Footer estándar',
         secondary: 'Footer 2',
         story: 'Footer - Notas',
-        sectionsFooter:'Footer por secciones'
       },
       defaultValue: 'standard',
     }),
