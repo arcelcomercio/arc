@@ -112,7 +112,7 @@ const InterestByTag = props => {
       {dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
           <div className={classes.title}>{title}</div>
-          {storyAmp !== 'normal' ? (
+          {storyAmp === 'slider' ? (
             <amp-carousel
               layout="fixed-height"
               height="160"
