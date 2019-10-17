@@ -13,10 +13,8 @@ const addSales = arcSite => {
     url: originSalesSdk,
   }).then(added => {
     if (added) {
-      // window.Identity.apiOrigin = getDomain('ORIGIN_API')
-      // window.Sales.apiOrigin = getDomain('ORIGIN_API')
-      window.Identity.options({apiOrigin: getDomain('ORIGIN_API')})
-      window.Sales.options({apiOrigin: getDomain('ORIGIN_API')})
+      window.Identity.options({ apiOrigin: originApi })
+      window.Sales.options({ apiOrigin: originApi })
     }
     return window.Sales
   })
