@@ -20,7 +20,8 @@ class XmlMagStoriesSitemapWeb {
       stories: {
         source: SOURCE,
         query: {
-          website: 'elcomerciomag'
+          website: 'elcomerciomag',
+          stories_qty: 100
         },
         transform: data => {
           if (!data) return []
