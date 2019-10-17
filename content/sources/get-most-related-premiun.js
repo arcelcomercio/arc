@@ -35,7 +35,7 @@ const fetch = (key = {}) => {
     uri: URI_POST,
     ...options,
   }).then(resp => {
-    const arrURL = resp.slice(0, 6)
+    const arrURL = resp.slice(0, 10)
     const URLs = clearURL(arrURL, website)
 
     const promiseArray = URLs.map(url =>
