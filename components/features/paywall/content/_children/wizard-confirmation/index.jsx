@@ -7,6 +7,7 @@ import Picture from '../../../_children/picture'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
+import { pushCxense } from '../../../_dependencies/cxense'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -76,6 +77,7 @@ const WizardConfirmation = props => {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
     document.getElementById('footer').style.position = 'relative'
+    pushCxense(sku)
   }, [])
 
   const handleClick = () => {
