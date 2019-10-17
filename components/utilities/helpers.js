@@ -822,7 +822,7 @@ export const formatDateStoryAmp = date => {
  * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
-  data,
+  data = [],
   resizerUrl,
   resizerSecret,
   addResizedUrls,
@@ -1029,7 +1029,9 @@ export const getPhotoId = photoUrl => {
 }
 
 export const getDateSeo = data => {
-  const fechaZone = data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+  const fechaZone = data
+    ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+    : new Date()
   const fecha = new Date(fechaZone)
   fecha.setHours(fecha.getHours() - 5)
   const day = fecha.getDate()
@@ -1048,6 +1050,20 @@ export const getDateSeo = data => {
   const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
 
   return fechaGenerada
+}
+
+export const msToTime = duration => {
+  if (duration) {
+    let seconds = parseInt((duration / 1000) % 60, 0)
+    let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
+    let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
+    hours = hours < 10 && hours < 10 ? `0${hours}:` : hours
+    minutes = minutes < 10 ? `0${minutes}` : minutes
+    seconds = seconds < 10 ? `0${seconds}` : seconds
+
+    return `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
+  }
+  return ''
 }
 
 export const localISODate = date => {
