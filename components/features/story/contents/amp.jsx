@@ -80,6 +80,7 @@ class StoryContentAmp extends PureComponent {
       width,
       height,
       primarySectionLink,
+      arcSite,
     }
     const parametersMovil4 = {
       dataSlot: `/${
@@ -89,6 +90,7 @@ class StoryContentAmp extends PureComponent {
       width,
       height,
       primarySectionLink,
+      arcSite,
     }
     const parametersMovil5 = {
       dataSlot: `/${
@@ -98,6 +100,7 @@ class StoryContentAmp extends PureComponent {
       width,
       height,
       primarySectionLink,
+      arcSite,
     }
     const parametersMovil3 = {
       dataSlot: `/${
@@ -107,6 +110,7 @@ class StoryContentAmp extends PureComponent {
       width,
       height,
       primarySectionLink,
+      arcSite,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
