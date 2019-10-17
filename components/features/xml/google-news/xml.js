@@ -3,9 +3,6 @@ import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 
 /**
- * @todo TODO: Es necesario pasar al outputType que la version que queremos
- * de XML es la 2.0
- * 
  * @description Feed para Google News.
  *
  * @returns {Object} Objeto con estructura manipulable por
