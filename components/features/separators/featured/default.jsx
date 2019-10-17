@@ -1,24 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useContent } from 'fusion:content'
+import { useContent, useEditableContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
+import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
 const SeparatorFeatured = props => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      titleField,
+      subtitleField,
+      titleLinkField,
     } = {},
   } = props
 
   const { arcSite, contextPath, deployment } = useFusionContext()
+  const { editableField } = useEditableContent()
 
   const { content_elements: contentElements = [] } =
     useContent({
       source: contentService,
       query: Object.assign(contentConfigValues, { size: 4, stories_qty: 4 }),
-      // filter: schemaFilter(arcSite),
+      filter: schemaFilter(arcSite),
     }) || {}
 
   const storyData = new StoryData({
@@ -48,24 +53,25 @@ const SeparatorFeatured = props => {
     }
   })
 
-  console.log(
-    contentConfigValues,
-    'contentElements->',
-    contentElements,
-    'stories->',
-    stories
-  )
-
   return (
     <div className="featured-separator col-3 flex p-10">
       <div className="featured-separator__title-container pr-10">
         <h2 className="featured-separator__title text-lg line-h-xs mb-10 font-bold">
-          <a className="featured-separator__title-link" href="/">
-            COPA AMERICA
+          <a
+            className="featured-separator__title-link"
+            href={titleLinkField}
+            {...editableField('titleField')}
+            suppressContentEditableWarning>
+            {titleField || 'Lo último'}
           </a>
-          <span className="featured-separator__subtitle text-sm block">
-            2019
-          </span>
+          {subtitleField && (
+            <span
+              className="featured-separator__subtitle text-sm block"
+              {...editableField('subtitleField')}
+              suppressContentEditableWarning>
+              {subtitleField}
+            </span>
+          )}
         </h2>
         <i className="featured-separator__icon icon-marca bg-white p-5 rounded" />
       </div>
@@ -123,6 +129,15 @@ SeparatorFeatured.propTypes = {
       name: 'Configuración del contenido',
       description:
         'Este feature siempre mostrará 4 noticias, no se toma en cuenta el campo "cantidad a mostrar"',
+    }),
+    titleField: PropTypes.string.tag({
+      name: 'Título',
+    }),
+    subtitleField: PropTypes.string.tag({
+      name: 'Subtítulo',
+    }),
+    titleLinkField: PropTypes.string.tag({
+      name: 'URL del título',
     }),
   }),
 }
