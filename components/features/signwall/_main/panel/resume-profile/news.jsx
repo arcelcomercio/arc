@@ -108,7 +108,9 @@ class News extends Component {
                     checksNews[itemNews.code] && (
                       <div className="item item1" key={itemNews.code}>
                         <img src={itemNews.image} alt="demo" />
-                        <div className="title">{itemNews.name}</div>
+                        <div className={`title title-${arcSite}`}>
+                          {itemNews.name}
+                        </div>
                       </div>
                     )
                 )}
