@@ -30,7 +30,7 @@ const MostReadPremium = props => {
   const resp =
     useContent({
       source: 'get-most-related-premiun',
-    }) || {}
+    }) || []
 
   const paramsHeader = {
     titleList,
