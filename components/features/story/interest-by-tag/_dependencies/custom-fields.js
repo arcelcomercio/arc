@@ -6,6 +6,10 @@ const customFields = PropTypes.shape({
     description:
       'Si no se coloca la URL de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
   }),
+  title: PropTypes.string.tag({
+    name: 'Titulo',
+    description: 'Colocar el Nombre ',
+  }),
   storyAmp: PropTypes.oneOf(['normal', 'slider']).tag({
     name: 'Slider Amp',
     group: 'Configuración',

@@ -20,7 +20,13 @@ const classes = {
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
 const InterestByTag = props => {
-  const { customFields: { section = '', storyAmp = '' } = {} } = props
+  const {
+    customFields: {
+      section = '',
+      storyAmp = '',
+      title = 'Te puede interesar:',
+    } = {},
+  } = props
   const {
     arcSite,
     globalContent: dataContent,
@@ -41,7 +47,7 @@ const InterestByTag = props => {
       query: {
         website: arcSite,
         name: urlTag,
-        size: 5,
+        size: 6,
       },
       filter: schemaFilter,
     }) || ''
@@ -63,60 +69,60 @@ const InterestByTag = props => {
     })
     .filter(String)
 
-  const ampCarousel =
-    storyAmp !== 'normal'
-      ? ` <amp-carousel
-        layout="fixed-height"
-        height="160"
-        type="carousel"
-        id="rel-noticias">`
-      : ''
-  const ampCarouselEnd = storyAmp !== 'normal' ? ` </amp-carousel>` : ''
+  const getSize = cant => {
+    const dataStorys = dataInterest.map((story, i) => {
+      if (key === cant) return false
+      instance.__data = story
+      key += 1
+
+      const data = {
+        title: instance.title,
+        link: instance.link,
+        section: instance.primarySection,
+        sectionLink: instance.primarySectionLink,
+        lazyImage: instance.multimediaLazyDefault,
+        multimediaLandscapeS: instance.multimediaLandscapeS,
+        multimediaLandscapeL: instance.multimediaLandscapeL,
+        multimediaType: instance.multimediaType,
+        isAdmin,
+      }
+      return (
+        <>
+          {storyAmp !== 'normal' ? (
+            <StorySeparatorChildItemSliderAmp
+              data={data}
+              key={UtilListKey(i)}
+              arcSite={arcSite}
+            />
+          ) : (
+            <StorySeparatorChildItemAmp
+              data={data}
+              key={UtilListKey(i)}
+              arcSite={arcSite}
+            />
+          )}
+        </>
+      )
+    })
+    return dataStorys
+  }
+
   return (
     <>
       {dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
-          <div className={classes.title}>Te puede interesar:</div>
-          <amp-carousel
-            layout="fixed-height"
-            height="160"
-            type="carousel"
-            id="rel-noticias">
-            {dataInterest.map((story, i) => {
-              if (key === 4) return false
-              instance.__data = story
-              key += 1
-
-              const data = {
-                title: instance.title,
-                link: instance.link,
-                section: instance.primarySection,
-                sectionLink: instance.primarySectionLink,
-                lazyImage: instance.multimediaLazyDefault,
-                multimediaLandscapeS: instance.multimediaLandscapeS,
-                multimediaLandscapeL: instance.multimediaLandscapeL,
-                multimediaType: instance.multimediaType,
-                isAdmin,
-              }
-              return (
-                <>
-                  {storyAmp !== 'normal' ? (
-                    <StorySeparatorChildItemSliderAmp
-                      data={data}
-                      key={UtilListKey(i)}
-                      arcSite={arcSite}
-                    />
-                  ) : (
-                    <StorySeparatorChildItemAmp
-                      data={data}
-                      key={UtilListKey(i)}
-                      arcSite={arcSite}
-                    />
-                  )}
-                </>
-              )
-            })}
-          </amp-carousel>
+          <div className={classes.title}>{title}</div>
+          {storyAmp !== 'normal' ? (
+            <amp-carousel
+              layout="fixed-height"
+              height="160"
+              type="carousel"
+              id="rel-noticias">
+              {getSize(5)}
+            </amp-carousel>
+          ) : (
+            getSize(4)
+          )}
         </div>
       )}
     </>
