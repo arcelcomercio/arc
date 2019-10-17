@@ -51,7 +51,13 @@ class LoginPaywall extends Component {
   }
 
   render() {
-    const { contextPath, arcSite, deployment, closePopup } = this.props
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      closePopup,
+      noBtnClose,
+    } = this.props
     const ImageBg =
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bg_login.png`
@@ -74,15 +80,18 @@ class LoginPaywall extends Component {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }}></div>
-                <div className="modal-body__middle intro-paywall">
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={() => {
-                      closePopup()
-                    }}>
-                    <Close color="#333333" />
-                  </button>
+                <div
+                  className={`modal-body__middle intro-paywall intro-${arcSite}`}>
+                  {!noBtnClose && (
+                    <button
+                      type="button"
+                      className="btn-close"
+                      onClick={() => {
+                        closePopup()
+                      }}>
+                      <Close color="#333333" />
+                    </button>
+                  )}
                   {this.renderTemplate(value.selectedTemplate)}
                 </div>
               </div>

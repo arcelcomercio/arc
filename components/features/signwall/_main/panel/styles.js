@@ -32,7 +32,6 @@ export const PanelWrapper = styled.div`
   }
 
   button {
-    background: transparent;
     border: 0;
     outline: 0;
   }

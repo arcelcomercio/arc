@@ -1,22 +1,21 @@
 /* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect } from 'react'
+import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
-import { ENVIRONMENT } from 'fusion:environment'
 import UserProfile from './_children/user-profile'
 import Summary from '../summary'
 import * as S from './styled'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import { addSales } from '../../../_dependencies/sales'
+import addSales from '../../../_dependencies/sales'
 import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
 import PWA from '../../_dependencies/seed-pwa'
-
-const isProd = ENVIRONMENT === 'elcomercio'
+import { useStrings } from '../../../_children/contexts'
 
 function WizardUserProfile(props) {
+  const msgs = useStrings()
   const {
     memo,
-    summary,
     profile,
     formName,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
@@ -24,6 +23,7 @@ function WizardUserProfile(props) {
   } = props
 
   const {
+    summary,
     printedSubscriber,
     plan: { sku, priceCode, amount, description, billingFrequency },
     referer,
@@ -59,7 +59,9 @@ function WizardUserProfile(props) {
   }, [])
 
   const [error, setError] = useState()
-  const Sales = addSales()
+
+  const { arcSite } = useFusionContext()
+  const Sales = addSales(arcSite)
 
   function onSubmitHandler(values, { setSubmitting }) {
     const {
@@ -136,7 +138,7 @@ function WizardUserProfile(props) {
           printedSubscriber={printedSubscriber}
           initialValues={sanitizedProfile}
           onSubmit={onSubmitHandler}
-          title="Ingrese sus datos"
+          title={msgs.insertPersonalInfo}
           error={error}
         />
       </S.PanelUserProfile>
