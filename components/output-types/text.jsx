@@ -1,7 +1,7 @@
 import AdsContent from './_dependencies/ads/ads-content'
 
-const text = () => {
-  const content = AdsContent()
+const text = ({ globalContent = {} }) => {
+  const content = AdsContent(globalContent)
   return content
 }
 

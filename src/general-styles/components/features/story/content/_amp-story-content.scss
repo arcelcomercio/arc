@@ -83,3 +83,22 @@
     width: 100%;
   }
 }
+
+#rel-noticias {
+  margin: 10px 0;
+}
+#rel-noticias .caption {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px;
+  background: rgba(23, 23, 23, 0.8);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 300;
+  white-space: normal;
+  z-index: 1;
+  height: 60px;
+}

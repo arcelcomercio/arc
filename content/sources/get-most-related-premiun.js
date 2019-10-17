@@ -55,6 +55,6 @@ const fetch = (key = {}) => {
 
 export default {
   fetch,
-  schemaName: 'story',
+  schemaName: 'story-dev',
   // params,
 }

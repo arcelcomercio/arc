@@ -5,6 +5,7 @@ import {
   formatHtmlToText,
   breadcrumbList,
   addSlashToEnd,
+  msToTime,
 } from './helpers'
 
 class StoryData {
@@ -425,6 +426,16 @@ class StoryData {
     return StoryData.getIdGoldfish(this.__data)
   }
 
+  get videoDuration() {
+    return msToTime(
+      (this.__data &&
+        this.__data.promo_items &&
+        this.__data.promo_items[ConfigParams.VIDEO] &&
+        this.__data.promo_items[ConfigParams.VIDEO].duration) ||
+        ''
+    )
+  }
+
   get video() {
     return (
       (this._data &&
@@ -714,6 +725,10 @@ class StoryData {
 
   get hasAdsVideo() {
     return StoryData.findHasAdsVideo(this._data)
+  }
+
+  get captionVideo() {
+    return StoryData.getCaptionVideo(this.__data)
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
@@ -1011,6 +1026,17 @@ class StoryData {
     }
 
     return typeMultimedia
+  }
+
+  static getCaptionVideo = data => {
+    const {
+      promo_items: {
+        basic_video: {
+          promo_items: { basic: { caption = '' } = {} } = {},
+        } = {},
+      } = {},
+    } = data
+    return caption
   }
 
   static getMultimediaIconType = data => {

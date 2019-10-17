@@ -34,20 +34,23 @@ class SignwallComponent extends PureComponent {
       userName: false,
       initialUser: false,
     }
+    const { arcSite } = this.props
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentDidMount() {
     const { siteProperties } = this.props
+
+    if (typeof window !== 'undefined') {
+      window.Identity.options({ apiOrigin: this.origin_api })
+      window.Sales.options({ apiOrigin: this.origin_api })
+    }
 
     this.checkUserName()
 
     if (siteProperties.activePaywall) {
       this.getPaywall()
     }
-
-    // if (arcSite === 'gestion' || arcSite === 'elcomercio') {
-    //   this.getPaywall()
-    // }
   }
 
   componentDidUpdate() {
@@ -62,11 +65,11 @@ class SignwallComponent extends PureComponent {
     if (typeof window !== "undefined") {
       const W = window
       if (!this.checkSession()) {
-        W.location.href = '/?signwallPremium=1'
+        W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
       } else {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
-            W.location.href = '/?signwallPremium=1'
+            W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
           }
           return false // tengo subs :D
         })
@@ -89,7 +92,7 @@ class SignwallComponent extends PureComponent {
     } else if (window.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          W.location.href = campaignURL
+          W.location.href = `${campaignURL}&ref=${W.location.pathname}`
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
