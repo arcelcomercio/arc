@@ -78,6 +78,9 @@
         margin-right: 0;
       }
     }
+    & * .separator__section {
+      border-top-color: #ad8d76;
+    }
     @media (--tablet) {
       & * .separator__detail {
         padding-top: 5px;

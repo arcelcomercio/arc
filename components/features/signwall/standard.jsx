@@ -34,20 +34,25 @@ class SignwallComponent extends PureComponent {
       userName: false,
       initialUser: false,
     }
+    const { arcSite } = this.props
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentDidMount() {
     const { siteProperties } = this.props
+
+    if (typeof window !== 'undefined') {
+      window.Identity.options({ apiOrigin: this.origin_api })
+      if (window.Sales !== undefined) {
+        window.Sales.options({ apiOrigin: this.origin_api })
+      }
+    }
 
     this.checkUserName()
 
     if (siteProperties.activePaywall) {
       this.getPaywall()
     }
-
-    // if (arcSite === 'gestion' || arcSite === 'elcomercio') {
-    //   this.getPaywall()
-    // }
   }
 
   componentDidUpdate() {
