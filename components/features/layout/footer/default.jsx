@@ -107,7 +107,7 @@ class LayoutFooter extends PureComponent {
       standard: <StandardFooter {...params} />,
       secondary: <SecondaryFooter {...params} />,
       story: <StoryFooter {...params} />,
-      sections:<StoryFooter {...params} />,
+      sectionsFooter:<SectionsFooter {...params} />,
     }
     return footers[footerType] || footers.standard
   }
@@ -122,13 +122,13 @@ LayoutFooter.static = true
 
 LayoutFooter.propTypes = {
   customFields: PropTypes.shape({
-    footerType: PropTypes.oneOf(['standard', 'secondary', 'story']).tag({
+    footerType: PropTypes.oneOf(['standard', 'secondary', 'story','sectionsFooter']).tag({
       name: 'Diseño del Pie de página',
       labels: {
         standard: 'Footer estándar',
         secondary: 'Footer 2',
         story: 'Footer - Notas',
-        sections:'Footer por secciones'
+        sectionsFooter:'Footer por secciones'
       },
       defaultValue: 'standard',
     }),
