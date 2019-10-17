@@ -4,17 +4,15 @@ const StoryContentChildVideo = ({ data }) => {
   const {
     _id: id = '',
     streams = [],
+    promo_image: { url: urlImage = '' } = {},
     publish_date: date = '',
     headlines: { basic: caption = '' } = {},
   } = data
-
   const dataVideo = streams
-    .map(({ url, urlImage, stream_type: streamType }) => {
+    .map(({ url, stream_type: streamType }) => {
       if (streamType === 'mp4') {
         return {
           url,
-          caption,
-          urlImage,
           date,
         }
       }
@@ -22,7 +20,7 @@ const StoryContentChildVideo = ({ data }) => {
     })
     .filter(String)
 
-  const [{ url, urlImage } = {}] = dataVideo
+  const [{ url } = {}] = dataVideo
   const videoMatch = !url && data.match(/(https:\/\/peru21.pe(.*).mp4)/g)
   const urlVideo = videoMatch
     ? videoMatch[0].replace('peru21.pe', 'g21.peru21.pe')

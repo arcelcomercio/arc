@@ -8,8 +8,8 @@
   }
   &__share {
     border-bottom-style: dashed;
-    border-bottom-color: $color-gray-200;
-    border-top-color: $color-base-200;
+    border-bottom-color: #c1c1c1;
+    border-top-color: #c1c1c1;
   }
   &__title-section {
     font-weight: 700;
@@ -17,7 +17,7 @@
   &__premium {
     padding-left: 65px;
     position: relative;
-    
+
     &::before {
       content: '.';
       top: -3px;
