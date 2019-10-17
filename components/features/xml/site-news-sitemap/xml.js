@@ -16,7 +16,7 @@ const OUTPUTTYPE = '?outputType=amp'
 const IMAGE_SIZE = 'amp_new'
 
 @Consumer
-class XmlStoriesSitemapWeb {
+class XmlSiteNewsSitemap {
     constructor(props) {
         this.props = props
         this.fetchContent({
@@ -109,4 +109,4 @@ class XmlStoriesSitemapWeb {
     }
 }
 
-export default XmlStoriesSitemapWeb
+export default XmlSiteNewsSitemap

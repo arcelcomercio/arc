@@ -62,11 +62,11 @@ class SignwallComponent extends PureComponent {
     if (typeof window !== "undefined") {
       const W = window
       if (!this.checkSession()) {
-        W.location.href = '/?signwallPremium=1'
+        W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
       } else {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
-            W.location.href = '/?signwallPremium=1'
+            W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
           }
           return false // tengo subs :D
         })
@@ -89,7 +89,7 @@ class SignwallComponent extends PureComponent {
     } else if (window.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          W.location.href = campaignURL
+          W.location.href = `${campaignURL}&ref=${W.location.pathname}`
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
