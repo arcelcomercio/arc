@@ -55,6 +55,7 @@ class StoryTitleAmp extends PureComponent {
       height: '50',
       movil1: true,
       primarySectionLink,
+      arcSite,
     }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
