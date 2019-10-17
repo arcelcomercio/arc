@@ -8,32 +8,26 @@ const classes = {
   item: 'footer-secction__item',
 }
 
-const SectionColumn = () => {
+const SectionColumn = ({
+  section: { name: title = '', children: listSubSections = [] } = {},
+}) => {
+  console.log(listSubSections)
   return (
     <ul className={classes.sectionColumn}>
       <li className={classes.item}>
         <a href="/" style={ItemTop}>
-          seccion
+          {title}
         </a>
       </li>
-      <li className={classes.item}>
-        <a href="/">sub seccion</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">sub seccion</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">sub seccion</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">sub seccion</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">sub seccion</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">sub seccion</a>
-      </li>
+      {listSubSections.map(
+        ({ display_name: subsectionName = '', url = '' }) => {
+          return (
+            <li className={classes.item}>
+              <a href={url}>{subsectionName}</a>
+            </li>
+          )
+        }
+      )}
     </ul>
   )
 }

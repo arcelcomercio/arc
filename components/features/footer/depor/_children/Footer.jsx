@@ -6,14 +6,17 @@ import SectionColumn from './SectionColumn'
 const classes = {
   footer: 'footer-secction flex flex-row bg-white',
 }
-const DeporFooter = () => {
+const DeporFooter = ({sections=[]}) => {
+  
   return (
     <footer className={classes.footer}>
-      <SectionColumn />
-      <SectionColumn />
-      <SectionColumn />
-      <SectionColumn />
-      <SectionColumn />
+      {
+        sections.map((section)=>{
+          const sectionProps ={section}
+          return <SectionColumn {...sectionProps} />
+        })
+      }
+
       <SocialColumnSection />
     </footer>
   )

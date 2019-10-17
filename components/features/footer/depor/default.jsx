@@ -37,9 +37,11 @@ class FooterDepor extends PureComponent {
   }
 
   render() {
-    const { sections = {} } = this.state
-    console.log(sections)
-    return <FooterDeporContent />
+    const { sections: { children = [] } = {} } = this.state
+    const footerProps = {
+      sections: children,
+    }
+    return <FooterDeporContent {...footerProps} />
   }
 }
 
