@@ -43,7 +43,9 @@ class SignwallComponent extends PureComponent {
 
     if (typeof window !== 'undefined') {
       window.Identity.options({ apiOrigin: this.origin_api })
-      window.Sales.options({ apiOrigin: this.origin_api })
+      if (window.Sales !== undefined) {
+        window.Sales.options({ apiOrigin: this.origin_api })
+      }
     }
 
     this.checkUserName()
