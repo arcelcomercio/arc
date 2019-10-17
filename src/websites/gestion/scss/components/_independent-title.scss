@@ -1,5 +1,6 @@
 .independent-title {
   &.bg-secondary {
-    background-color: $color-base-100;
+    background-color: transparent;
+    border-bottom: dashed 1px #888;
   }
 }
