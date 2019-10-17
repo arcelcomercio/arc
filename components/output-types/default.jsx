@@ -30,6 +30,11 @@ export default ({
       ? `https://d1r08wok4169a5.cloudfront.net/ads-${arcSite}`
       : 'https://jab.pe/f/arc'
 
+  const BASE_URL_ADS_ESPACIOS =
+      CURRENT_ENVIRONMENT === 'prod'
+        ? `https://d2dvq461rdwooi.cloudfront.net/ads-${arcSite}`
+        : `https://d37z8six7qdyn4.cloudfront.net/ads-${arcSite}`
+
   const metaPageData = {
     globalContent,
     requestUri,
@@ -185,7 +190,10 @@ export default ({
           globalContent={globalContent}
         />
         {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+          <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
+        )}
+        {!nodas && !isLivePage && (
+          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />          
         )}
 
         {/* Scripts de APPNEXUS */}
