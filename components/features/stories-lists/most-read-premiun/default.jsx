@@ -21,6 +21,7 @@ const MostReadPremium = props => {
     customFields: {
       titleList,
       urlTitle,
+      amountStories,
       background,
       seeMore,
       seeMoreurl,
@@ -28,9 +29,12 @@ const MostReadPremium = props => {
       seeImageNews,
     },
   } = props
-  const resp =
+  const { content_elements: contentElements } =
     useContent({
       source: 'get-most-related-premiun',
+      query: {
+        amountStories,
+      },
     }) || []
 
   const paramsHeader = {
@@ -48,7 +52,7 @@ const MostReadPremium = props => {
     arcSite,
     contextPath,
     isAdmin,
-    listNews: resp || [],
+    listNews: contentElements || [],
   }
 
   return (

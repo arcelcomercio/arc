@@ -7,6 +7,12 @@ const customFields = PropTypes.shape({
   urlTitle: PropTypes.string.tag({
     name: 'Url del título ',
   }),
+  amountStories: PropTypes.number.tag({
+    name: 'Nro. de Notas',
+    max: 20,
+    defaultValue: 1,
+    min: 1,
+  }),
   background: PropTypes.oneOf(['bg-info', 'bg-white']).tag({
     name: 'Color de fondo cabecera',
     labels: {

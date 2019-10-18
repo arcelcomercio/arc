@@ -2,14 +2,6 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE } from 'fusion:environment'
 
-// const params = [
-//   {
-//     name: 'quantity',
-//     displayName: 'Cantidad de noticias',
-//     type: 'number',
-//   },
-// ]
-
 const options = {
   gzip: true,
   json: true,
@@ -29,13 +21,13 @@ taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_da
 
 const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-  // const { quantity = 3 } = key
+  const { amountStories } = key
   const URI_POST = 'http://d3lvnkg4ntwke5.cloudfront.net/toppages-gestion.json'
   return request({
     uri: URI_POST,
     ...options,
   }).then(resp => {
-    const arrURL = resp.slice(0, 10)
+    const arrURL = resp.slice(0, amountStories)
     const URLs = clearURL(arrURL, website)
 
     const promiseArray = URLs.map(url =>
@@ -45,16 +37,13 @@ const fetch = (key = {}) => {
       })
     )
 
-    return Promise.all(promiseArray).then(res => res)
+    return Promise.all(promiseArray).then(res => {
+      return { content_elements: res }
+    })
   })
 }
 
-// const transform = data => {
-// 	return data
-// }
-
 export default {
   fetch,
-  schemaName: 'story-dev',
-  // params,
+  schemaName: 'stories-dev',
 }
