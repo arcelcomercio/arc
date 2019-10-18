@@ -80,15 +80,15 @@ class XmlNewsletterFeed {
                 thumbnail_grande: tbgrande,
                 thumbnail_flujo: tbflujo
               },
-              volada: '',
+              volada: 'null',
               epigraph: storyData.subTitle,
               seccion: storyData.primarySection,
-              url_seccion: storyData.primarySectionLink,
+              url_seccion: `${siteUrl}${storyData.primarySectionLink}`,
               autor: {
                 nombre: storyData.author,
                 url: `${siteUrl}${storyData.authorLink}`,
-                cargo: storyData.authorOccupation,
-                columna: '',
+                cargo: 'null', // storyData.authorOccupation,
+                columna: 'null',
                 twitter: storyData.authorTwitterLink,
                 imagen: `${siteUrl}${storyData.authorImage}`,
                 thumb: storyData.authorSlug

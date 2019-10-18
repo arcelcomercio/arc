@@ -3,28 +3,44 @@ import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 
 /**
- * @description Sitemap estándar para la web. Este feature obtiene los datos que necesita desde "globalContent" y
- * funciona mejor con la content-source "sitemap-feed-by-section"
+ * @description Sitemap estándar para la web de Mag.
  *
  * @returns {Object} Objeto con estructura manipulable por
- * xmlBuilder, para construir sitemaps estándar para la web.
+ * xmlBuilder, para construir sitemaps estándar para la web de Mag.
  */
 
+const SOURCE = 'story-feed-by-website'
+const MAG_PATH = '/mag'
+
 @Consumer
-class XmlStoriesSitemapWeb {
+class XmlMagStoriesSitemapWeb {
   constructor(props) {
     this.props = props
+    this.fetchContent({
+      stories: {
+        source: SOURCE,
+        query: {
+          website: 'elcomerciomag',
+          stories_qty: 100
+        },
+        transform: data => {
+          if (!data) return []
+          const { content_elements: stories } = data
+          return stories
+        }
+      },
+    })
   }
 
   render() {
     const {
-      globalContent,
       deployment,
       contextPath,
       arcSite,
       siteProperties: { siteUrl = '' } = {},
     } = this.props
-    const { content_elements: stories } = globalContent || {}
+
+    const { stories } = this.state || {}
 
     if (!stories) {
       return null
@@ -42,7 +58,7 @@ class XmlStoriesSitemapWeb {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${storyData.link || ''}`,
+            loc: `${siteUrl}${MAG_PATH}${storyData.link || ''}`,
             lastmod: localISODate(storyData.date || ''),
             changefreq: 'always',
             priority: '1',
@@ -60,4 +76,4 @@ class XmlStoriesSitemapWeb {
   }
 }
 
-export default XmlStoriesSitemapWeb
+export default XmlMagStoriesSitemapWeb

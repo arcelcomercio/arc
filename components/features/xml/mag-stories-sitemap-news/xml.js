@@ -3,17 +3,33 @@ import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 
 /**
- * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
- * funciona mejor con la content-source "sitemap-feed-by-section"
+ * @description Sitemap para Google News de Mag.
  *
  * @returns {Object} Objeto con estructura manipulable por
- * xmlBuilder, para construir sitemaps para Google news.
+ * xmlBuilder, para construir sitemaps para Google news de Mag.
  */
 
+const SOURCE = 'story-feed-by-website'
+const MAG_PATH = '/mag'
+
 @Consumer
-class XmlStoriesSitemapNews {
+class XmlMagStoriesSitemapNews {
   constructor(props) {
     this.props = props
+    this.fetchContent({
+      stories: {
+        source: SOURCE,
+        query: {
+          website: 'elcomerciomag',
+          stories_qty: 100
+        },
+        transform: data => {
+          if (!data) return []
+          const { content_elements: stories } = data
+          return stories
+        }
+      },
+    })
   }
 
   promoItemHeadlines = ({ promo_items: promoItems }) => {
@@ -30,13 +46,13 @@ class XmlStoriesSitemapNews {
 
   render() {
     const {
-      globalContent,
       deployment,
       contextPath,
       arcSite,
       siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
     } = this.props
-    const { content_elements: stories } = globalContent || {}
+
+    const { stories } = this.state || {}
 
     if (!stories) {
       return null
@@ -54,7 +70,7 @@ class XmlStoriesSitemapNews {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${storyData.link || ''}`,
+            loc: `${siteUrl}${MAG_PATH}${storyData.link || ''}`,
             // lastmod: localISODate(storyData.date || ''),
             'news:news': {
               'news:publication': {
@@ -99,4 +115,4 @@ class XmlStoriesSitemapNews {
   }
 }
 
-export default XmlStoriesSitemapNews
+export default XmlMagStoriesSitemapNews

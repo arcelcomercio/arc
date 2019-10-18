@@ -117,7 +117,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-    } del ${date.getFullYear()}`
+  } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -215,8 +215,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
-    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-    }`
+        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+      }`
 }
 
 export const getMetaPagesPagination = (
@@ -315,10 +315,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-      .charAt(0)
-      .toUpperCase()
-      .concat(lastSection.slice(1))
-      .replace(/-/, ' ')
+        .charAt(0)
+        .toUpperCase()
+        .concat(lastSection.slice(1))
+        .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -470,7 +470,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-    }/optawidget?${matchesResult} ></amp-iframe>`
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -677,7 +677,7 @@ export const freeHtml = html => {
 export const iframeMxm = (html, arcSite) => {
   let resHtml = html
   const strWidgetVivo =
-    '/<script src="http://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
+    '/<script src="https://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
   const rplWidgetVivo = ''
   const strWidgetVivo2 = `<script>var f = new ECO.Widget\({width: 625,height: 900}\).draw\("depor\/wg-${arcSite}\/(.*?)"\);<\/script>/g`
 
@@ -738,6 +738,24 @@ export const ampHtml = (html = '', arcSite = '') => {
   return resultData
 }
 
+export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
+  let resultData = ''
+  const json =
+    (ConfigParams.SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
+  resultData = `<amp-ad
+    width="320"
+    height="50"
+    type="doubleclick"
+    data-slot=${dataSlot}
+    data-multi-size="320x50,300x100,300x50,320x100"
+    data-multi-size-validation="false"
+    ${json}
+  />`
+  return createMarkup(resultData)
+}
+
 export const publicidadAmp = ({
   dataSlot,
   placementId,
@@ -745,9 +763,14 @@ export const publicidadAmp = ({
   height,
   primarySectionLink = '/peru',
   movil1 = '',
+  arcSite = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
+  const json =
+    (ConfigParams.SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
   const nuevoScript =
     (movil1 &&
       `data-multi-size="320x100,320x50"
@@ -757,9 +780,9 @@ export const publicidadAmp = ({
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript}
+  data-slot="${dataSlot}" ${nuevoScript} 
   rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}'></amp-ad>`
+  "timeoutMillis": 1000}' ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -787,6 +810,7 @@ export const replaceTags = text => {
     .replace(/(\s\w)=.(.*?)/g, '$2')
     .replace('http://http://', 'https://')
     .replace(/href=&quot;(.+)&quot;>/g, 'href="$1">')
+    .replace(/http:\/\/gestion2.e3.pe\//g, 'https://cde.gestion2.e3.pe/')
 }
 
 export const formatDateStory = date => {
@@ -822,7 +846,7 @@ export const formatDateStoryAmp = date => {
  * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
-  data,
+  data = [],
   resizerUrl,
   resizerSecret,
   addResizedUrls,
@@ -1029,7 +1053,9 @@ export const getPhotoId = photoUrl => {
 }
 
 export const getDateSeo = data => {
-  const fechaZone = data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+  const fechaZone = data
+    ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+    : new Date()
   const fecha = new Date(fechaZone)
   fecha.setHours(fecha.getHours() - 5)
   const day = fecha.getDate()
@@ -1048,6 +1074,20 @@ export const getDateSeo = data => {
   const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
 
   return fechaGenerada
+}
+
+export const msToTime = duration => {
+  if (duration) {
+    let seconds = parseInt((duration / 1000) % 60, 0)
+    let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
+    let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
+    hours = hours < 10 && hours < 10 ? `0${hours}:` : hours
+    minutes = minutes < 10 ? `0${minutes}` : minutes
+    seconds = seconds < 10 ? `0${seconds}` : seconds
+
+    return `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
+  }
+  return ''
 }
 
 export const localISODate = date => {
