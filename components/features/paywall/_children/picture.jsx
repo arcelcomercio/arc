@@ -97,7 +97,7 @@ StyledPicture.propTypes = {
    * Ancho de la imagen. Esta propiedad es responsiva y soporta los
    * breakpoints (xs, sm, md, lg, xl)
    */
-  width: PropTypes.width,
+  width: PropTypes.string,
 
   /**
    * Texto alternativo de la imagen
