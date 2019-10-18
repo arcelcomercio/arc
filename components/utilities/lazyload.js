@@ -1,8 +1,18 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-;
-(() => {
+
+import LazyLoad from 'vanilla-lazyload'
+
+const lazyLoadInstance = new LazyLoad({
+  elements_selector: '.lazy',
+})
+
+if (lazyLoadInstance) {
+  lazyLoadInstance.update()
+}
+
+/* (() => {
   if (typeof window !== 'undefined') {
     document.addEventListener('DOMContentLoaded', () => {
       const lazyImages = [].slice.call(document.getElementsByClassName('lazy'))
@@ -39,4 +49,4 @@
       }
     })
   }
-})()
+})() */

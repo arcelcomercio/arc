@@ -56,27 +56,12 @@ class ExtraordinaryStoryLifeScore extends Component {
     const { count } = this.state
     const { customFields: { codeField = '' } = {} } = this.props
 
-    // Fetch cors
-    fetch(
-      `https://w.ecodigital.pe/data/depor/${codeField}_xalok.js?_=${count}`,
-      {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    ).then(res => {
-      this.setState({ results: res, count: count + 1 })
-    })
-
-    /* const { fetched } = this.getContent('get-live-score', {
-      id: codeField,
-      count,
-    })
-    fetched.then(res => {
-      this.setState({ results: res, count: count + 1 })
-    }) */
+    fetch(`https://w.ecodigital.pe/data/depor/${codeField}_xalok.js?_=${count}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ results: res, count: count + 1 })
+      })
+      .catch(err => console.error(err))
   }
 
   render() {
@@ -127,7 +112,7 @@ class ExtraordinaryStoryLifeScore extends Component {
   }
 }
 
-ExtraordinaryStoryLifeScore.label = 'Apertura extraordinaria - Score en vivo'
+ExtraordinaryStoryLifeScore.label = 'Apertura extraordinaria - En vivo'
 
 ExtraordinaryStoryLifeScore.propTypes = {
   customFields: PropTypes.shape({

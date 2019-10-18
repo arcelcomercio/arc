@@ -2,14 +2,6 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE } from 'fusion:environment'
 
-// const params = [
-//   {
-//     name: 'quantity',
-//     displayName: 'Cantidad de noticias',
-//     type: 'number',
-//   },
-// ]
-
 const options = {
   gzip: true,
   json: true,
@@ -29,46 +21,29 @@ taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_da
 
 const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-  // const { quantity = 3 } = key
+  const { amountStories } = key
   const URI_POST = 'http://d3lvnkg4ntwke5.cloudfront.net/toppages-gestion.json'
-  const data = []
   return request({
     uri: URI_POST,
     ...options,
   }).then(resp => {
-    const arrURL = resp.slice(0, 3)
+    const arrURL = resp.slice(0, amountStories)
     const URLs = clearURL(arrURL, website)
-    return request({
-      uri: uriAPI(URLs[0], website),
-      ...options,
-    }).then(story1 => {
-      data.push(story1)
-      return request({
-        uri: uriAPI(URLs[1], website),
+
+    const promiseArray = URLs.map(url =>
+      request({
+        uri: uriAPI(url, website),
         ...options,
-      }).then(story2 => {
-        data.push(story2)
-        return request({
-          uri: uriAPI(URLs[2], website),
-          ...options,
-        }).then(story3 => {
-          data.push(story3)
-          return {
-            data,
-            size: 3,
-          }
-        })
       })
+    )
+
+    return Promise.all(promiseArray).then(res => {
+      return { content_elements: res }
     })
   })
 }
 
-// const transform = data => {
-// 	return data
-// }
-
 export default {
   fetch,
-  schemaName: 'story-dev',
-  // params,
+  schemaName: 'stories-dev',
 }
