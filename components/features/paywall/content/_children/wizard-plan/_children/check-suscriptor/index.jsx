@@ -24,27 +24,36 @@ const Content = ({ onSubmit }) => {
 
   useEffect(() => {
     const url = interpolateUrl(urls.originSubscriptionOnlineToken)
-    fetch(url, {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'user-token': window.Identity.userIdentity.accessToken,
-      }),
-    })
-      .then(res => {
-        if (res.ok) {
-          res.json().then(({ token }) => {
-            setAttemptToken(token)
+    window.Identity.extendSession()
+      .then(resExt => {
+        const CheckDNI = fetch(url, {
+          method: 'POST',
+          headers: new Headers({
+            'Content-Type': 'application/json',
+            'user-token': resExt.accessToken,
+          }),
+        })
+          .then(res => {
+            if (res.ok) {
+              res.json().then(({ token }) => {
+                setAttemptToken(token)
+              })
+            } else {
+              const msg = `Status de la peticion a "${url}" no es 200 sino ${res.status}`
+              const err = new Error(msg)
+              Sentry.captureException(err)
+            }
           })
-        } else {
-          const msg = `Status de la peticion a "${url}" no es 200 sino ${res.status}`
-          const err = new Error(msg)
-          Sentry.captureException(err)
-        }
+          .catch(err => {
+            Sentry.captureException(err)
+          })
+
+        return CheckDNI
       })
-      .catch(err => {
-        Sentry.captureException(err)
+      .catch(errExt => {
+        Sentry.captureException(errExt)
       })
+
     return () => resetForm && resetForm()
   }, [])
 
