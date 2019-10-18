@@ -13,6 +13,10 @@ const SeparatorFeatured = props => {
       titleField,
       subtitleField,
       titleLinkField,
+      sectionField1,
+      sectionField2,
+      sectionField3,
+      sectionField4,
     } = {},
   } = props
 
@@ -53,6 +57,13 @@ const SeparatorFeatured = props => {
     }
   })
 
+  const sectionFields = [
+    sectionField1,
+    sectionField2,
+    sectionField3,
+    sectionField4,
+  ]
+
   return (
     <div className="featured-separator col-3 flex p-10">
       <div className="featured-separator__title-container pr-10">
@@ -76,24 +87,29 @@ const SeparatorFeatured = props => {
         <i className="featured-separator__icon icon-marca bg-white p-5 rounded" />
       </div>
       {stories.map(
-        ({
-          title,
-          websiteLink,
-          primarySection,
-          primarySectionLink,
-          multimediaPortraitS,
-          // multimediaType,
-        }) => {
+        (
+          {
+            title,
+            websiteLink,
+            primarySection,
+            primarySectionLink,
+            multimediaPortraitS,
+            // multimediaType,
+          },
+          i
+        ) => {
           return (
             <div className="featured-separator__story flex flex-1 border-l-1 border-dashed pl-10 pr-10">
               <div className="featured-separator__story-content pr-5">
                 <h3
                   className="featured-separator__story-section font-bold text-lg mb-5 line-h-xs tertiary-font overflow-hidden"
-                  title={primarySection}>
+                  title={sectionFields[i] || primarySection}>
                   <a
                     className="featured-separator__section-link"
-                    href={primarySectionLink}>
-                    {primarySection}
+                    href={primarySectionLink}
+                    {...editableField(`sectionField${i + 1}`)}
+                    suppressContentEditableWarning>
+                    {sectionFields[i] || primarySection}
                   </a>
                 </h3>
                 <h2
@@ -140,6 +156,22 @@ SeparatorFeatured.propTypes = {
     }),
     titleLinkField: PropTypes.string.tag({
       name: 'URL del título',
+    }),
+    sectionField1: PropTypes.string.tag({
+      name: 'Configurar sección de la noticia 1',
+      group: 'Configurar noticias',
+    }),
+    sectionField2: PropTypes.string.tag({
+      name: 'Configurar sección de la noticia 2',
+      group: 'Configurar noticias',
+    }),
+    sectionField3: PropTypes.string.tag({
+      name: 'Configurar sección de la noticia 3',
+      group: 'Configurar noticias',
+    }),
+    sectionField4: PropTypes.string.tag({
+      name: 'Configurar sección de la noticia 4',
+      group: 'Configurar noticias',
     }),
   }),
 }
