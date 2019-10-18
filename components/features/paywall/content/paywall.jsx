@@ -84,6 +84,10 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     error,
   })
   const currMemo = memo.current
+  const { pathname: basePath, query } = React.useRef(
+    new URL(interpolateUrl(urls.digitalSubscriptions))
+  ).current
+
   useEffect(() => {
     history = createBrowserHistory({
       basename: '',
@@ -97,9 +101,9 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
       const doStep = step => {
         // Retornar a planes si retrocede luego de finalizar la compra
         if (finalized) {
-          window.location.href = `${basePath}/${stepSlugs[0]}/${
-            location.search
-          }`
+          // prettier-ignore
+          window.location.href = 
+          `${basePath}${stepSlugs[0]}/${query}`
           return
         }
         if (action !== 'REPLACE') {
@@ -109,16 +113,16 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
       // prettier-ignore
       switch(location.pathname) {
         default: 
-        case `${basePath}/${stepSlugs[0]}/`: 
+        case `${basePath}${stepSlugs[0]}/`: 
           doStep(1)
           break;
-        case `${basePath}/${stepSlugs[1]}/`: 
+        case `${basePath}${stepSlugs[1]}/`: 
           doStep(2)
           break;
-        case `${basePath}/${stepSlugs[2]}/`: 
+        case `${basePath}${stepSlugs[2]}/`: 
           doStep(3)
           break;
-        case `${basePath}/${stepSlugs[3]}/`: 
+        case `${basePath}${stepSlugs[3]}/`: 
           doStep(4)
           finalized = true
           clearPaywallStorage()
@@ -126,7 +130,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
       }
     })
     const stepSlug = freeAccess ? stepSlugs[3] : stepSlugs[0]
-    const path = `${basePath}/${stepSlug}/${search}`
+    const path = `${basePath}${stepSlug}/${search}`
     history.replace(path, currMemo)
     return unlisten
   }, [])
@@ -138,7 +142,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     const stepSlug = stepSlugs[currentStep]
     const currpath = `${pathname}${search}`
     history.replace(currpath, currMemo)
-    history.push(`${basePath}/${stepSlug}/${search}`, currMemo)
+    history.push(`${basePath}${stepSlug}/${search}`, currMemo)
     window.scrollTo(0, 0)
   }).current
 
