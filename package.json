@@ -48,10 +48,7 @@
     "thumbor": "^0.1.5",
     "tinycolor2": "^1.4.1",
     "url-parse": "^1.4.7",
-<<<<<<< HEAD
-=======
     "vanilla-lazyload": "^12.1.0",
->>>>>>> 0b1b68b0041f4a08e185fd6560d3bf4c68c86603
     "xmlbuilder": "^13.0.2"
   },
   "peerDependencies": {
