@@ -42,7 +42,7 @@ class ExtraordinaryStoryBySection extends PureComponent {
   render() {
     const { deployment, contextPath, arcSite, customFields } = this.props
     const {
-      customFields: { showExtraordinaryStory },
+      customFields: { showExtraordinaryStory, urlImage, urlNew },
     } = this.props
     const { data: { content_elements: contentElements = [] } = {} } =
       this.state || {}
