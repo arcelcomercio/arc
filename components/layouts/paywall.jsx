@@ -63,15 +63,20 @@ const addImageUrls = fusionContext => theme => {
       paywall: { images },
     },
   } = fusionContext
-  const resolvedImages = Object.keys(images).reduce(
-    (prev, key) => ({
+  const resolvedImages = Object.keys(images).reduce((prev, key) => {
+    const interpolatedUrl = templayed(images[key])({
+      contextPath,
+      ext: '{{ext}}',
+    })
+    // No resolver data urls para no modificarlas de ninguna manera
+    const resolvedUrl = interpolatedUrl.startsWith('data:')
+      ? interpolatedUrl
+      : deployment(interpolatedUrl)
+    return {
       ...prev,
-      [key]: deployment(
-        templayed(images[key])({ contextPath, ext: '{{ext}}' })
-      ),
-    }),
-    {}
-  )
+      [key]: resolvedUrl,
+    }
+  }, {})
   return { ...theme, images: resolvedImages }
 }
 
