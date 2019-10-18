@@ -15,7 +15,7 @@ const DeporFooter = ({ sections = [], socialNetworks }) => {
         return <SectionColumn key={`id${i}`} {...sectionProps} />
       })}
 
-      <SocialColumnSection socialNetworks={socialNetworks} />
+      <SocialColumnSection key={0} socialNetworks={socialNetworks} />
     </div>
   )
 }

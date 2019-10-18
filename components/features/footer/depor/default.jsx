@@ -64,6 +64,7 @@ class FooterDepor extends PureComponent {
       socialNetworks,
     }
     const footerInfoProp = {
+      
       siteUrl,
       imageDefault,
       gecSites,
@@ -76,8 +77,8 @@ class FooterDepor extends PureComponent {
     }
     return (
       <footer>
-        <FooterDeporColumnSection {...footerProps} />
-        <FooterInfo {...footerInfoProp} />
+        <FooterDeporColumnSection key={'key0'} {...footerProps} />
+        <FooterInfo key={0} {...footerInfoProp} />
       </footer>
     )
   }
