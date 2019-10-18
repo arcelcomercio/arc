@@ -9,13 +9,16 @@ const classes = {
 }
 
 const SectionColumn = ({
-  section: { name: title = '', children: listSubSections = [] } = {},
+  section: {
+    name: title = '',
+    _id: urlSec = '',
+    children: listSubSections = [],
+  } = {},
 }) => {
-  console.log(listSubSections)
   return (
     <ul className={classes.sectionColumn}>
       <li className={classes.item}>
-        <a href="/" style={ItemTop}>
+        <a href={urlSec} style={ItemTop}>
           {title}
         </a>
       </li>

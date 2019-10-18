@@ -6,31 +6,20 @@ const classes = {
   item: 'footer-secction__item',
 }
 
-const SocialColumnSection = () => {
+const SocialColumnSection = ({ socialNetworks }) => {
   return (
     <ul className={classes.socialColumn}>
+      <li className={classes.item} style={ItemTop}>Síguenos</li>
+      {socialNetworks &&
+        socialNetworks.map(({ name, url }) => {
+          return (
+            <li>
+              <a href={url}>{name}</a>
+            </li>
+          )
+        })}
       <li className={classes.item}>
-        <a href="/" style={ItemTop}>
-          Twitter
-        </a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">Twitter</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">Facebook</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">Google+</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">Pinterest</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/">RSSs</a>
-      </li>
-      <li className={classes.item}>
-        <a href="/" style={ItemTop}>
+        <a href="/mapa-web" style={ItemTop}>
           Mapa del Sitio
         </a>
       </li>

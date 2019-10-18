@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import FooterDeporContent from './_children/Footer'
+import FooterDeporColumnSection from './_children/FooterSection'
+import FooterInfo from './_children/FooterInfo'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 
@@ -38,10 +39,47 @@ class FooterDepor extends PureComponent {
 
   render() {
     const { sections: { children = [] } = {} } = this.state
+    const {
+      siteProperties: {
+        gecSites,
+        siteUrl = '',
+        legalLinks=[],
+        footer: {
+          
+          socialNetworks = [],
+          contacts = [],
+          corporateInfo = {},
+          draftingContact = [],
+          copyrightText = '',
+        } = {},
+      } = {},
+      contextPath,
+      arcSite,
+    } = this.props
+
+    const imageDefault = `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+
     const footerProps = {
       sections: children,
+      socialNetworks,
     }
-    return <FooterDeporContent {...footerProps} />
+    const footerInfoProp = {
+      siteUrl,
+      imageDefault,
+      gecSites,
+      legalLinks,
+      socialNetworks,
+      contacts,
+      corporateInfo,
+      draftingContact,
+      copyrightText,
+    }
+    return (
+      <footer>
+        <FooterDeporColumnSection {...footerProps} />
+        <FooterInfo {...footerInfoProp} />
+      </footer>
+    )
   }
 }
 
