@@ -21,6 +21,9 @@ export default {
     checkRequired: `Debe seleccionar el check`,
     tryLater: `Ha ocurrido un error. Inténtelo más tarde`,
 
+    // Home
+    recommended: `¡RECOMENDADO!`,
+
     // Summary
     planPrice: `Precio del plan`,
     subscriptorDiscount: `Descuento de suscriptor`,
