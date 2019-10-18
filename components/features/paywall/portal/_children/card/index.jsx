@@ -3,12 +3,15 @@ import React from 'react'
 import * as S from './styled'
 import * as T from '../../styled'
 import Icon from '../../../_children/icon'
+import { useStrings } from '../../../_children/contexts'
 
 function Card({ item }) {
+  const msgs = useStrings()
   const {
     title,
     url,
     recommended = false,
+    onSubscribe = i => i,
     features,
     price: { amount, currency },
     detail: { frequency, duration, aditional },
@@ -47,13 +50,8 @@ function Card({ item }) {
         </S.Feature>
       </S.CardContent>
       <S.CardFooter>
-        <T.LinkSubscribe
-          href={url}
-          onClick={() => {
-            window.sessionStorage.setItem('paywall_last_url', '/suscripciones/')
-            window.sessionStorage.setItem('paywall_type_modal', 'landing')
-          }}>
-          SUSCRIBIRME
+        <T.LinkSubscribe href={url} onClick={() => onSubscribe(item)}>
+          {msgs.subscribe}
         </T.LinkSubscribe>
       </S.CardFooter>
     </S.Card>

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
@@ -24,6 +25,7 @@ const Portal = ({ theme }) => {
   } = useFusionContext()
 
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
+  const digitalSubscriptionsHome = interpolateUrl(urls.digitalSubscriptionsHome)
   const corporateUrl = interpolateUrl(urls.corporateSuscription)
   const originSalesSdkUrl = interpolateUrl(urls.originSalesSdk)
   const originSubsOnline = interpolateUrl(urls.originSubsOnline)
@@ -36,6 +38,12 @@ const Portal = ({ theme }) => {
     document.getElementById('footer').style.position = 'relative'
   }, [])
 
+  const onSubscribeHandler = React.useRef(item => {
+    const { pathname } = new URL(digitalSubscriptionsHome)
+    window.sessionStorage.setItem('paywall_last_url', pathname)
+    window.sessionStorage.setItem('paywall_type_modal', 'landing')
+  }).current
+
   const substractFeaturesIds = substractFeaturesHeights
     .split(',')
     .map(id => id.trim())
@@ -45,7 +53,7 @@ const Portal = ({ theme }) => {
     <S.Portal backgroundColor={arcSite === 'elcomercio'}>
       <S.PortalContent>
         {items.map(item => (
-          <Card item={item} key={item.title} />
+          <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />
         ))}
       </S.PortalContent>
       <S.Footer>
@@ -58,7 +66,7 @@ const Portal = ({ theme }) => {
                 <span>{`${msgs.businessSubscriptionsBanner1}`}</span>
                 <strong>{`${msgs.businessSubscriptionsBanner2}`}</strong>
               </div>
-                <Icon type={theme.icon.arrowRight} />
+              <Icon type={theme.icon.arrowRight} />
             </S.SubscribedText>
           </S.LinkCorporate>
 
