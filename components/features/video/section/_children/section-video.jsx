@@ -48,7 +48,7 @@ export default ({
       if (window.innerWidth >= 1024) {
         window.addEventListener('scroll', () => {
           const scrollHeight = window.scrollY
-          if (scrollHeight >= playOff) {
+          if (scrollHeight >= playOff && arcSite !== 'gestion') {
             sectionVideo.classList.add('fixed')
             changeFixedSection(true)
             videoNavBar.classList.add('fixed')
@@ -68,7 +68,7 @@ export default ({
         })
       }
     }
-  }, [isAdmin, principalVideo.hasAdsVideo, siteProperties])
+  }, [arcSite, isAdmin, principalVideo.hasAdsVideo, siteProperties])
 
   const formateDay = () => {
     const _date = new Date(principalVideo.displayDate)
@@ -188,7 +188,7 @@ export default ({
               </div>
             </div>
           </div>
-          <div className="section-video__fixed">
+          <div className={ playListParams.arcSite === 'gestion' ? 'section-video__fixed--none':'section-video__fixed'}>
             <div className="section-video__min">
               <div className="section-video__desc">
                 {/* <span>0:30 </span> */}

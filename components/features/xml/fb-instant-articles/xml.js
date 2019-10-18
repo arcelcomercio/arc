@@ -12,16 +12,36 @@ import buildHtml from './_dependencies/build-html'
  */
 
 const DESCRIPTION = 'Todas las Noticias'
+const SOURCE = 'story-feed-by-section-mag'
 
 @Consumer
 class XmlFacebookInstantArticles {
     constructor(props) {
         this.props = props
+        const { globalContent, siteProperties: { siteDomain = '' } } = props
+        const { content_elements: stories = [] } = globalContent || {}
+        this.stories = stories
+
+        if (siteDomain === 'elcomercio.pe') {
+            this.fetchContent({
+                magStories: {
+                    source: SOURCE,
+                    transform: data => {
+                        if (!data) return []
+                        const { content_elements: magStories } = data
+                        return magStories
+                    }
+                },
+            })
+        }
     }
 
     render() {
+        const { magStories } = this.state
+        if (magStories)
+            this.stories = [...this.stories, ...magStories]
+
         const {
-            globalContent,
             deployment,
             contextPath,
             arcSite,
@@ -34,9 +54,8 @@ class XmlFacebookInstantArticles {
                 listUrlAdvertisings = []
             } = {},
         } = this.props
-        const { content_elements: stories } = globalContent || {}
 
-        if (!stories) {
+        if (!this.stories) {
             return null
         }
 
@@ -57,9 +76,9 @@ class XmlFacebookInstantArticles {
                     { language: 'es' },
                     { title: sitemapNewsName },
                     { description: DESCRIPTION },
-                    { lasBuildDate: localISODate() },
+                    { lastBuildDate: localISODate() },
                     { link: siteUrl },
-                    ...stories.map(story => {
+                    ...this.stories.map(story => {
                         storyData.__data = story
 
                         let storyLink = ''
@@ -125,9 +144,10 @@ class XmlFacebookInstantArticles {
                                     'content:encoded': {
                                         '#cdata': buildHtml(buildHtmlProps),
                                     },
+                                    'slash:comments': '0'
                                 }
                             }
-                        } return {}
+                        } return { '#text': '' }
                     })
                 ]
             }
