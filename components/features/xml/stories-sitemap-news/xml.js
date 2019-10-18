@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
+import { localISODate } from '../../../utilities/helpers'
 
 /**
  * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
@@ -14,15 +15,6 @@ class XmlStoriesSitemapNews {
   constructor(props) {
     this.props = props
   }
-
-  localISODate = date => {
-    let localDate = date ? new Date(date) : new Date()
-    /* localDate.setHours(localDate.getHours() - 5)
-    localDate = `${localDate.toISOString().split('.')[0]}-05:00` */
-    localDate = localDate.toISOString()
-    return localDate
-  }
-
 
   promoItemHeadlines = ({ promo_items: promoItems }) => {
     if (!promoItems) return ''
@@ -63,13 +55,13 @@ class XmlStoriesSitemapNews {
         return {
           url: {
             loc: `${siteUrl}${storyData.link || ''}`,
-            lastmod: this.localISODate(storyData.date || ''),
+            // lastmod: localISODate(storyData.date || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,
                 'news:language': 'es',
               },
-              'news:publication_date': this.localISODate(storyData.date || ''),
+              'news:publication_date': localISODate(storyData.date || ''),
               'news:title': {
                 '#cdata': storyData.title,
               },
@@ -90,7 +82,7 @@ class XmlStoriesSitemapNews {
               },
             },
             changefreq: 'hourly',
-            priority: '0.5',
+            priority: '1',
           },
         }
       }),

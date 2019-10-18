@@ -10,7 +10,8 @@ import SectionData from '../../../utilities/section-data'
 class ExtraordinaryStoryGrid extends PureComponent {
   constructor(props) {
     super(props)
-    // this.isVideo = false
+    // this.isVideo = false}
+
     this.initFetch()
   }
 

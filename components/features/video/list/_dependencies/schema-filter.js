@@ -14,11 +14,13 @@ export default arcSite => {
           promo_items {
             basic { url type resized_urls { landscape_md lazy_default  } }
           }
+          duration
         }
         youtube_id {
           content
         }
       }
     }
+    next
   }`
 }

@@ -33,7 +33,7 @@ const MOVIES_BASE = '/peliculas'
 const MOVIE_IMG_SIZE_SM = '367x176'
 const MOVIE_IMG_SIZE_MD = '620x387'
 
-const styleIcon = { fontSize: 70 }
+const styleIcon = { fontSize: 70, top: 0, left: 0 }
 class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
   constructor(props) {
     super(props)
@@ -107,7 +107,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
               </picture>
             </a>
             <div className={classes.iconBox}>
-              <span className={classes.icon} style={styleIcon}></span>
+              <span className={classes.icon} style={styleIcon} />
             </div>
           </figure>
           <div className={classes.details}>

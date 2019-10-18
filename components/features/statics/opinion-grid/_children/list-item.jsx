@@ -8,21 +8,20 @@ const classes = {
   social: 'author-item__social hidden md:flex md:pt-10',
   date: 'author-item__date text-xs hidden md:block',
   content: 'author-item__content flex w-full items-start',
-  defaultImage:'author-item__box-image-default icon-marca',
+  defaultImage: 'author-item__box-image-default icon-marca',
   imageBox:
     'author-item__box-image flex flex-grow-0 flex-shrink-0 bg-base-300 rounded md:rounded-none',
   image:
     'author-item__image object-cover rounded md:rounded-none md:w-full md:h-full',
-  descBox: 'ml-20',
+  descBox: 'author-item__information ml-20',
   name:
     'author-item__name block secondary-font font-bold pt-5 mb-10 title-sm text-gray-300',
   subtitle: 'author-item__subtitle block secondary-font text-xs text-gray-300',
+  pictureNota: 'author-item__picture-nota',
+  pictureWrapper: 'author-item__picture-wrapper',
 }
 
-const OpinionGridListItem = ({
-  data: story,
-
-}) => {
+const OpinionGridListItem = ({ data: story }) => {
   // const opinionImageDefault = deployment(
   //   `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
   // )
@@ -39,7 +38,7 @@ const OpinionGridListItem = ({
         </div>
         <div className={classes.content}>
           {existImageAuthor ? (
-            <i className={classes.defaultImage}></i>
+            <i className={classes.defaultImage} />
           ) : (
             <figure className={classes.imageBox}>
               <a href={story.link}>
@@ -67,6 +66,18 @@ const OpinionGridListItem = ({
               </a>
             </p>
           </div>
+          <figure className={classes.pictureWrapper}>
+            <a href={story.link}>
+              <picture>
+                <source srcSet={story.multimediaLandscapeXS} />
+                <img
+                  className={classes.pictureNota}
+                  src={story.multimediaLandscapeXS}
+                  alt={story.title}
+                />
+              </picture>
+            </a>
+          </figure>
         </div>
       </div>
     </div>

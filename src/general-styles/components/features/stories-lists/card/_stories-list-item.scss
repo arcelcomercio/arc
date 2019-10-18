@@ -1,9 +1,9 @@
 .stories-l-item {
   & .multimedia__icon {
-    font-size: 50px;
+    font-size: 48px;
     top: calc(50% - 25px);
-    right: calc(50% - 25px);
-    background-color: rgba(0, 0, 0, 0.3);
+    left: 20px;
+    background-color: transparent;
     z-index: 2;
     // background-color: rgba(255, 255, 255, 0.5);
   }

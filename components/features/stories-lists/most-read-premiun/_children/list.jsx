@@ -3,7 +3,8 @@ import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
 
 const classes = {
-  list: 'stories-l-card__list bg-white overflow-y-auto pr-20 pl-20',
+  list:
+    'most-read-premium-card__list stories-l-card__list bg-white overflow-y-auto pr-20 pl-20',
 }
 
 export default ({
@@ -23,25 +24,26 @@ export default ({
   })
   return (
     <div role="list" className={classes.list}>
-      {listNews.map((el, index) => {
-        Story.__data = el
-        // const data = Story.attributesRaw
+      {listNews &&
+        listNews.map((el, index) => {
+          Story.__data = el
+          // const data = Story.attributesRaw
 
-        const params = {
-          key: Story.websiteLink,
-          storyNumber,
-          storyIndex: Number(index + 1),
-          seeImageNews,
-          title: Story.title,
-          urlNews: Story.websiteLink,
-          multimedia: Story.multimediaLandscapeMD,
-          lazyImage: Story.multimediaLazyDefault,
-          multimediaType: Story.multimediaType,
-          isAdmin,
-        }
+          const params = {
+            key: Story.websiteLink,
+            storyNumber,
+            storyIndex: Number(index + 1),
+            seeImageNews,
+            title: Story.title,
+            urlNews: Story.websiteLink,
+            multimedia: Story.multimediaLandscapeMD,
+            lazyImage: Story.multimediaLazyDefault,
+            multimediaType: Story.multimediaType,
+            isAdmin,
+          }
 
-        return <StoriesListCardChildItem {...params} />
-      })}
+          return <StoriesListCardChildItem {...params} />
+        })}
     </div>
   )
 }

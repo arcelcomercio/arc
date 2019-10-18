@@ -10,18 +10,33 @@ const schemaName = 'stories'
 const params = [
   {
     name: 'id',
-    displayName: 'Slug de la etiqueta',
+    displayName: 'ID de la colección',
     type: 'text',
+  },
+  {
+    name: 'from',
+    displayName: 'Noticia inicial',
+    type: 'number',
+  },
+  {
+    name: 'size',
+    displayName: 'Cantidad a mostrar',
+    type: 'number',
   },
 ]
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
 
+  const { from: rawFrom = 0, size: rawSize = 20 } = key
+
+  const from = rawFrom === undefined || rawFrom === null ? '0' : rawFrom
+  const size = rawSize === undefined || rawSize === null ? '20' : rawSize
+
   if (!key.id) {
     throw new Error('Esta fuente de contenido necesita el ID de la collección')
   }
-  const requestUri = `/content/v4/collections?website=${website}&_id=${key.id}`
+  const requestUri = `/content/v4/collections?website=${website}&_id=${key.id}&size=${size}&from=${from}`
 
   return requestUri
 }
