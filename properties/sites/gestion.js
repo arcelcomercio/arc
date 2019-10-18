@@ -68,8 +68,8 @@ export default {
       // PATHS
       corporateSuscription:              `{{contextPath}}/suscripcionesdigitales/empresa/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
       faqs:                              `{{contextPath}}/suscripcionesdigitales/faqs/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
-      digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales`,
-      digitalSubscriptionsHome:          `{{contextPath}}/suscripcionesdigitales/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
+      digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
+      digitalSubscriptionsHome:          `{{contextPath}}/suscripciones/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
       validateSubscriptor:               `{{contextPath}}/suscripcionesdigitales/{{documentType}}/{{documentNumber}}/{{attemptToken}}/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
 
       // URLS
@@ -85,6 +85,7 @@ export default {
       originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
       originSubscriptionOnlineToken:     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
       originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/{{#hasParams}}?doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/hasParams}}`,
+      originSubscriptionsBundles:        `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/bundle/`,
       originSubsPrinted:                 `{{#isProd}}https://suscripciones.gestion.pe/payment/7/96/{{/isProd}}
                                           {{^isProd}}http://pre.suscripciones.gestion.pe/payment/7/96/{{/isProd}}`,
       originSubsDigitalPrinted:          `{{#isProd}}https://suscripciones.gestion.pe/payment/8/98/{{/isProd}}
