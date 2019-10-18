@@ -87,7 +87,9 @@ const SeparatorFeatured = props => {
           return (
             <div className="featured-separator__story flex flex-1 border-l-1 border-dashed pl-10 pr-10">
               <div className="featured-separator__story-content pr-5">
-                <h3 className="featured-separator__story-section font-bold text-lg mb-5 line-h-xs tertiary-font">
+                <h3
+                  className="featured-separator__story-section font-bold text-lg mb-5 line-h-xs tertiary-font overflow-hidden"
+                  title={primarySection}>
                   <a
                     className="featured-separator__section-link"
                     href={primarySectionLink}>
