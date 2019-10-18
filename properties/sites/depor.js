@@ -10,11 +10,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
-<<<<<<< HEAD
   googleTagManagerId: 'GTM-KKXTKGPss',
-=======
-  googleTagManagerId: 'GTM-KKXTKGPd',
->>>>>>> 03f6e5610fedadf592ef17d007aae003eedc588b
   ampGoogleTagManagerId: 'UA-3055636-8',
   ampGoogleTagManagerName: 'depor',
   charbeatAccountNumber: 99999,
