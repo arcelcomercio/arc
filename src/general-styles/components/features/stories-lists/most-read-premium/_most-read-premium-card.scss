@@ -7,4 +7,14 @@
     max-height: 157px;
     // Esta altura está relacionada a la altura de "landscape_md"
   }
+
+  &__list {
+    height: calc(100% - 40px);
+    max-height: calc(100% - 40px);
+  }
+
+  &__container-list {
+    height: calc(100% - 60px);
+    max-height: calc(100% - 60px);
+  }
 }
