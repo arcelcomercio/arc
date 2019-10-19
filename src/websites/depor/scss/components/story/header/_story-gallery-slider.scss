@@ -1,0 +1,33 @@
+.story-gallery-slider {
+  background-color: #2b2b2b;
+  &__quantity {
+    background-color: $color-gray-300;
+    color: $color-white;
+  }
+  &__caption-image {
+    color: $color-gray-300;
+    font-family: $fourth-font;
+    font-size: 13px;
+    font-family: $fourth-font;
+  }
+  &__arrows {
+    width: auto;
+    &:before {
+      color: $color-white;
+      font-size: 18px;
+      font-weight: 700;
+      @media (--tablet) {
+        font-size: 20px;
+      }
+      @media (--desktop) {
+        font-size: 24px;
+      }
+    }
+    &--left {
+      left: 20px;
+    }
+    &--right {
+      right: 20px;
+    }
+  }
+}
