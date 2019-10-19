@@ -21,7 +21,7 @@ function Card({ item }) {
       <S.CardHead recommended>
         {recommended && (
           <S.CardHeadPromotion>
-            <span>¡RECOMENDADO!</span>
+            <span>{msgs.recommended}</span>
           </S.CardHeadPromotion>
         )}
         <S.Head>{title}</S.Head>

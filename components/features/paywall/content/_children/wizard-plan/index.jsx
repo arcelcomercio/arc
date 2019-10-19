@@ -166,7 +166,7 @@ function WizardPlan(props) {
               text2={msgs.businessSubscriptionsBanner2}
               invertTextSizes
               onClick={() => {
-                window.location.href = interpolateUrl(urls.corporateSuscription)
+                window.open(interpolateUrl(urls.corporateSuscription), '_blank')
               }}
             />
           )}
