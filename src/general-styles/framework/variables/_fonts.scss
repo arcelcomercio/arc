@@ -1,15 +1,11 @@
 /** ----------------------------*
 *         FONT FAMILIES         *
 *-------------------------------*/
-$primary-font: 'Noto Serif',
-system-ui,
-sans-serif !default;
-$secondary-font: 'Exo',
-system-ui,
-serif !default;
-$tertiary-font: 'Exo',
-system-ui,
-serif !default;
+$primary-font: 'Noto Serif', system-ui, sans-serif !default;
+$secondary-font: 'Exo', system-ui, serif !default;
+$tertiary-font: 'Exo', system-ui, serif !default;
+$fourth-font: 'Noto Serif', system-ui, sans-serif !default;
+$fifth-font: 'Noto Serif', system-ui, sans-serif !default;
 
 /******* Signwall fonts *******/
 $signwall-header-title: $font-base * 1.5;
