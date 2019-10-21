@@ -11,7 +11,7 @@ const classes = {
   opinionBody: 'separator__opinion--body mt-0 mb-0 ',
   opinionTitle:
     'separator__opinion-title uppercase title-md pt-15 pb-25 pr-20 pl-20 text-black',
-  colorText:'text-white',
+  colorText: 'text-white',
 }
 
 const HeaderHTML = ({ htmlCode }) => {
@@ -72,6 +72,9 @@ class SeparatorOpinion extends PureComponent {
     const newData = []
     const dataTemp = {}
     for (let i = 0; i < dataElements.length; i++) {
+      const { credits: { by = [] } = {} } = dataElements[i] || {}
+      const { image: { resized_urls: { square_s: squareS = '' } = {} } = {} } =
+        by[0] || {}
       dataFormat.__data = dataElements[i]
       dataTemp.id = dataFormat.id
       dataTemp.author = dataFormat.author
@@ -80,7 +83,7 @@ class SeparatorOpinion extends PureComponent {
       dataTemp.section = dataFormat.primarySection
       dataTemp.sectionUrl = dataFormat.primarySectionLink
       dataTemp.websiteUrl = dataFormat.link
-      dataTemp.imageUrl = dataFormat.authorImage
+      dataTemp.imageUrl = squareS || dataFormat.authorImage
       newData.push({ ...dataTemp })
     }
     return newData
@@ -97,7 +100,9 @@ class SeparatorOpinion extends PureComponent {
       <div className={classes.separator}>
         {titleSection ? (
           <div className={classes.opinionTitle}>
-            <a href={section} className={classes.colorText}>{titleSection}</a>
+            <a href={section} className={classes.colorText}>
+              {titleSection}
+            </a>
           </div>
         ) : (
           <HeaderHTML htmlCode={htmlCode} />
