@@ -2,29 +2,28 @@
 *      BACKGROUND COLORS        *
 *-------------------------------*/
 
-$map-bg-color: (bg-primary: $color-primary,
-    bg-secondary: $color-secondary,
-    bg-tertiary: $color-tertiary,
-    bg-base-400: $color-base-400,
-    bg-base-300: $color-base-300,
-    bg-base-200: $color-base-200,
-    bg-base-100: $color-base-100,
-    bg-attention: $color-attention,
-    bg-link: $color-link,
-    bg-error: $color-error,
-    bg-info: $color-info,
-    bg-success: $color-success,
-    bg-white: $color-white,
-    bg-black: $color-black,
-    bg-gray-300: $color-gray-300,
-    bg-gray-200: $color-gray-200,
-    bg-gray-100: $color-gray-100,
+$map-bg-color: (
+  bg-primary: $color-primary,
+  bg-secondary: $color-secondary,
+  bg-tertiary: $color-tertiary,
+  bg-base-400: $color-base-400,
+  bg-base-300: $color-base-300,
+  bg-base-200: $color-base-200,
+  bg-base-100: $color-base-100,
+  bg-attention: $color-attention,
+  bg-link: $color-link,
+  bg-error: $color-error,
+  bg-info: $color-info,
+  bg-success: $color-success,
+  bg-white: $color-white,
+  bg-black: $color-black,
+  bg-gray-300: $color-gray-300,
+  bg-gray-200: $color-gray-200,
+  bg-gray-100: $color-gray-100,
 ) !default;
 
-
-@each $bg-class,
-$bg-value in $map-bg-color {
-    .#{$bg-class} {
-        background-color: $bg-value
-    }
+@each $bg-class, $bg-value in $map-bg-color {
+  .#{$bg-class} {
+    background-color: $bg-value;
+  }
 }
