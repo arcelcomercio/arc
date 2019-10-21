@@ -57,7 +57,6 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   addEventListener('profile-update', clearPaywallStorage)
 
   const wizardRef = useRef(null)
-  const basePath = interpolateUrl(urls.digitalSubscriptions)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
 
   const [profile, setProfile] = useState('')
