@@ -3,13 +3,17 @@ import React from 'react'
 const classes = {
   info: 'footer-secction__info',
   logo: 'footer-secction__image-logo',
+  paragraph: 'mt-10 mb-10',
+  footerLink: 'footer-secction__link-footer',
+  titleList: 'footer-secction__list-title',
+  listItem: 'footer-secction__site-item',
 }
 
 const SITE_TITLE = 'Visite también: '
 
 const ItemSite = ({ url, name }) => (
-  <li>
-    <a href={url}>{name}</a>
+  <li className={classes.listItem}>
+    <a href={url}> {name}</a>
   </li>
 )
 
@@ -28,7 +32,7 @@ const FooterInfo = ({
       <a href={siteUrl}>
         <img src={imageDefault} className={classes.logo} alt="depor.com" />
       </a>
-      <p>
+      <p className={classes.paragraph}>
         {contacts &&
           `${contacts[0].position}: ${contacts[0].name} ${
             contacts[1].position
@@ -42,11 +46,17 @@ const FooterInfo = ({
         <br />
         {copyrightText}
       </p>
-      <a href={legalLinks[0].url}>{legalLinks[0].name} |</a>
-      <a href={legalLinks[1].url}>{legalLinks[1].name} |</a>
-      <a href={legalLinks[2].url}>{legalLinks[2].name} </a>
+      <a href={legalLinks[0].url} className={classes.footerLink}>
+        {legalLinks[0].name} |
+      </a>
+      <a href={legalLinks[1].url} className={classes.footerLink}>
+        {legalLinks[1].name} |
+      </a>
+      <a href={legalLinks[2].url} className={classes.footerLink}>
+        {legalLinks[2].name}{' '}
+      </a>
       <ul>
-        <li>{SITE_TITLE}</li>
+        <li className={classes.titleList}>{SITE_TITLE}</li>
         {gecSites &&
           gecSites.map(({ url = '', name = '' }, index) => {
             const KeyString = `key${index}`

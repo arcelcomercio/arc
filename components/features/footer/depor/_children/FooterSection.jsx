@@ -4,15 +4,15 @@ import SocialColumnSection from './SocialColumn'
 import SectionColumn from './SectionColumn'
 
 const classes = {
-  footer: 'footer-secction flex flex-row bg-white',
+  footer: 'footer-secction flex flex-row bg-white mb-25',
 }
 const DeporFooter = ({ sections = [], socialNetworks }) => {
   return (
     <div className={classes.footer}>
       {sections.map((section, i) => {
         const keyString = `id${i}`
-        const sectionProps = { section }
-        return <SectionColumn key={keyString} {...sectionProps} />
+        const sectionProps = { section ,keyString}
+        return <SectionColumn {...sectionProps} />
       })}
 
       <SocialColumnSection key={0} socialNetworks={socialNetworks} />
