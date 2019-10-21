@@ -7,6 +7,7 @@ import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 import Wizard from 'react-step-wizard'
 import { createBrowserHistory } from 'history'
+import URL from 'url-parse'
 
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
