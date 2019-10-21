@@ -5,10 +5,10 @@
     color: $color-white;
   }
   &__caption-image {
-    color: $color-gray-300;
+    color: $color-white;
     font-family: $fourth-font;
     font-size: 13px;
-    font-family: $fourth-font;
+    font-weight: 700;
   }
   &__arrows {
     width: auto;
@@ -16,11 +16,23 @@
       color: $color-white;
       font-size: 18px;
       font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media (--only-mobile) {
+        border-radius: 0 26px 26px 0;
+        width: 28px;
+        height: 52px;
+        background-color: #000;
+      }
       @media (--tablet) {
         font-size: 20px;
       }
       @media (--desktop) {
         font-size: 24px;
+        width: 100px;
+        height: 120px;
+        background-color: rgba(0, 0, 0, 0.5);
       }
     }
     &--left {
@@ -30,4 +42,10 @@
       right: 20px;
     }
   }
+  /*   &__figure {
+    &:before,
+    &:after {
+      display: none;
+    }
+  } */
 }
