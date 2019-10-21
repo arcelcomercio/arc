@@ -3,6 +3,7 @@
   &__quantity {
     background-color: $color-gray-300;
     color: $color-white;
+    display: none;
   }
   &__caption-image {
     color: $color-white;
@@ -20,32 +21,38 @@
       align-items: center;
       justify-content: center;
       @media (--only-mobile) {
-        border-radius: 0 26px 26px 0;
         width: 28px;
         height: 52px;
         background-color: #000;
       }
       @media (--tablet) {
-        font-size: 20px;
-      }
-      @media (--desktop) {
-        font-size: 24px;
+        font-size: 36px;
         width: 100px;
         height: 120px;
         background-color: rgba(0, 0, 0, 0.5);
       }
     }
     &--left {
-      left: 20px;
+      left: 0;
+      &:before {
+        @media (--only-mobile) {
+          border-radius: 0 26px 26px 0;
+        }
+      }
     }
     &--right {
-      right: 20px;
+      right: 0;
+      &:before {
+        @media (--only-mobile) {
+          border-radius: 26px 0 0 26px;
+        }
+      }
     }
   }
-  /*   &__figure {
+  &__figure {
     &:before,
     &:after {
       display: none;
     }
-  } */
+  }
 }
