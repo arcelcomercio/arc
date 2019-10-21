@@ -3,15 +3,14 @@
     color: $color-white;
   }
   &__see-more {
-    background-color: $color-base-100;
+    background-color: $color-white;
     color: $color-gray-300;
     border-radius: 4px;
-    font-family: $tertiary-font;
     font-weight: 700;
   }
 
   &.bg-info {
-    background-color: $color-gray-200;
+    background-color: $color-gray-300;
   }
   &.bg-white {
     background-color: $color-gray-100;
