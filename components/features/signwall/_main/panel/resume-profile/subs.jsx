@@ -34,7 +34,8 @@ class Subs extends Component {
 
   componentDidMount() {
     this._isMounted = true
-
+    window.Identity.apiOrigin = this.origin_api
+    
     if (!window.Sales) {
       addScriptAsync({
         name: 'sdkSalesARC',
@@ -92,8 +93,8 @@ class Subs extends Component {
 
   getListSubs = () => {
     this._isMounted = true
-    window.Sales.apiOrigin = this.origin_api
 
+    window.Sales.apiOrigin = this.origin_api
     return window.Sales.getAllActiveSubscriptions()
       .then(res => {
         let count = 0
