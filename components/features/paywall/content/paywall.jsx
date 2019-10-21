@@ -49,14 +49,6 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     },
   } = useFusionContext()
 
-  const clearPaywallStorage = useRef(() => {
-    sessionStorage.removeItem(PROFILE_FORM_NAME)
-    sessionStorage.removeItem(PAYMENT_FORM_NAME)
-  }).current
-
-  addEventListener('logout', clearPaywallStorage)
-  addEventListener('profile-update', clearPaywallStorage)
-
   const wizardRef = useRef(null)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
 
@@ -73,11 +65,26 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     PWA.mount(() => window.location.reload())
   }, [])
 
+  const clearPaywallStorage = useRef(() => {
+    sessionStorage.removeItem(PROFILE_FORM_NAME)
+    sessionStorage.removeItem(PAYMENT_FORM_NAME)
+  }).current
+
+  addEventListener('logout', clearPaywallStorage)
+  addEventListener('profile-update', clearPaywallStorage)
+  addEventListener('profile-update', () => {
+    try {
+      setProfile(JSON.parse(localStorage['ArcId.USER_PROFILE']))
+    } catch (e) {
+      console.error(e)
+    }
+  })
+
   // const [memo, setMemo] = useState({})
   const memo = useRef({
     arcSite,
     plans,
-    plan: plans[0],
+    plan: plans[0], // Por defecto asumir seleccionado el primer plan
     summary,
     printedSubscriber,
     freeAccess,
