@@ -4,7 +4,7 @@ import SocialColumnSection from './SocialColumn'
 import SectionColumn from './SectionColumn'
 
 const classes = {
-  footer: 'footer-secction flex flex-row bg-white mb-25',
+  footer: 'footer-secction flex-row mb-25',
 }
 const DeporFooter = ({ sections = [], socialNetworks }) => {
   return (

@@ -1,15 +1,21 @@
 .footer-secction {
+  display: none;
+
+  @media (--tablet) {
+    display: none;
+  }
+
+  @media (--desktop) {
+    display: flex;
+  }
+
   &__item {
     font-size: 15px;
     margin-bottom: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    
   }
-  // &__item-border {
-  //   border-right: 1px solid #ccc;
-  // }
 
   &__content-column {
     @media (--desktop) {
@@ -18,7 +24,7 @@
       padding: 25px 0 40px;
       min-height: 150px;
       border-right: 1px solid #ccc;
-      &:last-child{
+      &:last-child {
         border-right: 0;
       }
     }
