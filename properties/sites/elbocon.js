@@ -57,6 +57,8 @@ export default {
       logoAmp: 'logo-amp.png',
       width: 246,
       height: 60,
+      widthAmp: 178,
+      heightAmp: 47,
     },
     path: `/resources/dist/elbocon/`,
     paywall: {

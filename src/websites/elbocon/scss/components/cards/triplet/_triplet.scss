@@ -1,0 +1,13 @@
+.triplet {
+  border-width: 0;
+  border-top-width: 1px;
+  border-top-color: $color-gray-300;
+
+  &__title-link {
+    color: $color-gray-300;
+  }
+
+  &__link {
+    font-family: $primary-font;
+  }
+}

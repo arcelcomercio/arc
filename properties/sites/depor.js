@@ -41,6 +41,19 @@ export default {
     frequentQuestions: '',
   },
 
+  assets: {
+    seo: {
+      logoAmp: 'logo-amp.png',
+      width: 230,
+      height: 60,
+      widthAmp: 178,
+      heightAmp: 47,
+    },
+    premium: {
+      logo: 'favicon.png',
+    },
+  },
+
   messages: {
     errorTitle: '¡Oops! la pagina no fue encontrada en Depor',
     errorDescription:
