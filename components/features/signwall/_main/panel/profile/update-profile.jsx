@@ -12,6 +12,7 @@ import {
 } from '../../utils/regex'
 import { clean } from '../../utils/object'
 import GetProfile from '../../utils/get-profile'
+import Domains from '../../utils/domains'
 
 const services = new Services()
 
@@ -72,6 +73,8 @@ class UpdateProfile extends Component {
       publicProfile,
       _attrib
     )
+    const { arcSite } = this.props
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   attributeToObject = (attributes = []) => {
@@ -197,6 +200,7 @@ class UpdateProfile extends Component {
 
     this.setState({ loading: true, textSubmit: 'Guardando...' })
 
+    window.Identity.apiOrigin = this.origin_api
     window.Identity.updateUserProfile(profile)
       .then(() => {
         this.setState({
@@ -206,19 +210,21 @@ class UpdateProfile extends Component {
           textSubmit: 'Guardar cambios',
         })
 
-        setTimeout(() => {
-          this.setState({
-            showMsgSuccess: false,
-          })
-          this.dispatchEvent('profile-update')
-        }, 5000)
+        handlerUpdateName(profile.firstName)
+
+        this.dispatchEvent('profile-update')
 
         const modalConfirmPass = document.querySelector('#arc-popup-profile')
         if (modalConfirmPass) {
           modalConfirmPass.scrollIntoView()
         }
 
-        handlerUpdateName(profile.firstName)
+        setTimeout(() => {
+          this.setState({
+            showMsgSuccess: false,
+          })
+        }, 5000)
+
       })
       .catch(() => {
         this.setState({

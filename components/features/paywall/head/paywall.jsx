@@ -9,6 +9,7 @@ import Icon from '../_children/icon'
 import Signwall from '../../signwall/default'
 import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
 import GetProfile from '../../signwall/_main/utils/get-profile'
+import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
 
 @Consumer
@@ -128,7 +129,17 @@ class Head extends React.PureComponent {
             <S.Username>
               <S.LoginButton
                 type="button"
-                onClick={() => this.setState({ isActive: true })}>
+                onClick={() => 
+                  {
+                    Taggeo(
+                      `Web_Sign_Wall_Suscripciones`,
+                      `web_link_ingresar_${
+                        this.checkSession() ? 'perfil' : 'cuenta'
+                      }`
+                    )
+                    this.setState({ isActive: true })
+                  }
+                }>
                 <span>
                   {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
                 </span>

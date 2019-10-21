@@ -7,8 +7,8 @@ import { Close } from '../common/iconos'
 import FormLoginPaywall from './_children/form-login-paywall'
 import FormRegister from './_children/form-register'
 import FormForgotPass from './_children/form-forgot-pass'
-
 import { ModalProvider, ModalConsumer } from './context'
+import Taggeo from '../utils/taggeo'
 
 @Consumer
 class LoginPaywall extends Component {
@@ -17,13 +17,27 @@ class LoginPaywall extends Component {
     this.state = {}
   }
 
+  componentDidMount() {
+    Taggeo('Web_Sign_Wall_Suscripciones', 'web_sws_open')
+    window.addEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  handleLeavePage = e => {
+    e.preventDefault()
+    Taggeo('Web_Sign_Wall_Suscripciones', 'web_sws_leave')
+  }
+
   renderTemplate(template) {
     const { closePopup, brandModal } = this.props
     const templates = {
       login: (
         <FormLoginPaywall
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp="suscripciones"
           typeForm="login"
           reloadLogin
         />
@@ -31,7 +45,7 @@ class LoginPaywall extends Component {
       register: (
         <FormRegister
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp="suscripciones"
           typeForm="registro"
           brandCurrent={brandModal}
           reloadRegister
@@ -40,7 +54,7 @@ class LoginPaywall extends Component {
       forgot: (
         <FormForgotPass
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp="suscripciones"
           typeForm="login"
           brandCurrent={brandModal}
           reloadForgot
@@ -87,6 +101,7 @@ class LoginPaywall extends Component {
                       type="button"
                       className="btn-close"
                       onClick={() => {
+                        Taggeo(`Web_Sign_Wall_Suscripciones`, `web_sws_cerrar`)
                         closePopup()
                       }}>
                       <Close color="#333333" />
