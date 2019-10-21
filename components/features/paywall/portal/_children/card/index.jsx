@@ -4,6 +4,7 @@ import * as S from './styled'
 import * as T from '../../styled'
 import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
+import Taggeo from '../../../_dependencies/taggeo'
 
 function Card({ item }) {
   const msgs = useStrings()
@@ -13,6 +14,7 @@ function Card({ item }) {
     recommended = false,
     onSubscribe = i => i,
     features,
+    sku,
     price: { amount, currency },
     detail: { frequency, duration, aditional },
   } = item
@@ -50,7 +52,12 @@ function Card({ item }) {
         </S.Feature>
       </S.CardContent>
       <S.CardFooter>
-        <T.LinkSubscribe href={url} onClick={() => onSubscribe(item)}>
+        <T.LinkSubscribe
+          href={url}
+          onClick={() => {
+            Taggeo('Web_Paywall_Home', `web_paywall_home_button_${sku}`)
+            onSubscribe(item)
+          }}>
           {msgs.subscribe}
         </T.LinkSubscribe>
       </S.CardFooter>

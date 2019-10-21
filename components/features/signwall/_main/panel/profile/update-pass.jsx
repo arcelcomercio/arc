@@ -3,11 +3,14 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 import Modal from '../../common/modal'
 import FormValid from '../../utils/form-valid'
 import { Close } from '../../common/iconos'
 import { strongRegularExp, mediumRegularExp } from '../../utils/regex'
+import Domains from '../../utils/domains'
 
+@Consumer
 class updatePassword extends Component {
   constructor(props) {
     super(props)
@@ -29,6 +32,8 @@ class updatePassword extends Component {
       },
       sending: true,
     }
+    const { arcSite } = this.props
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   handleChangePassword = e => {
@@ -75,6 +80,7 @@ class updatePassword extends Component {
     if (formErrorsConfirm.oldPassword === '') {
       this.setState({ sending: false })
 
+      window.Identity.apiOrigin = this.origin_api
       window.Identity.updatePassword(oldPassword, newPassword)
         .then(() => {
           this.setState({

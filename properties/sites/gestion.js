@@ -66,7 +66,7 @@ export default {
     // prettier-ignore
     urls: {
       // PATHS
-      corporateSuscription:              `{{contextPath}}/suscripcionesdigitales/empresa/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
+      corporateSuscription:              `{{contextPath}}/suscripcionesdigitales/empresa/?ref=HomeSuscripciones{{^isProd}}&_website=gestion&outputType=paywall{{/isProd}}`,
       faqs:                              `{{contextPath}}/suscripcionesdigitales/faqs/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
       digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
       digitalSubscriptionsHome:          `{{contextPath}}/suscripciones/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
