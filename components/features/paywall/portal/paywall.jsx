@@ -7,6 +7,7 @@ import { useFusionContext } from 'fusion:context'
 import * as S from './styled'
 import addScriptAsync from '../../../utilities/script-async'
 import { interpolateUrl } from '../_dependencies/domains'
+import { sendAction, PixelActions } from '../_dependencies/analitycs'
 import Card from './_children/card'
 import ClickToCall from '../_children/click-to-call'
 import Icon from '../_children/icon'
@@ -31,6 +32,19 @@ const Portal = ({ theme }) => {
   const originSubsOnline = interpolateUrl(urls.originSubsOnline)
 
   React.useEffect(() => {
+    // Accion de datalayer "productImpressions"
+    sendAction(PixelActions.PRODUCT_IMPRESSION, {
+      ecommerce: {
+        currencyCode: items[0].price.currencyCode,
+        impressions: items.map(item => ({
+          name: item.title,
+          id: item.sku,
+          price: item.price.amount,
+          brand: arcSite,
+          category: 'Suscripcion',
+        })),
+      },
+    })
     addScriptAsync({
       name: 'sdkSalesARC',
       url: originSalesSdkUrl,
@@ -42,6 +56,23 @@ const Portal = ({ theme }) => {
     const { pathname } = new URL(digitalSubscriptionsHome)
     window.sessionStorage.setItem('paywall_last_url', pathname)
     window.sessionStorage.setItem('paywall_type_modal', 'landing')
+
+    sendAction(PixelActions.PRODUCT_CLICK, {
+      ecommerce: {
+        currencyCode: item.price.currencyCode,
+        click: {
+          products: [
+            {
+              name: item.title,
+              id: item.sku,
+              price: item.price.amount,
+              brand: arcSite,
+              category: 'Suscripcion',
+            },
+          ],
+        },
+      },
+    })
   }).current
 
   const substractFeaturesIds = substractFeaturesHeights
