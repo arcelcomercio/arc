@@ -43,9 +43,8 @@ class FooterDepor extends PureComponent {
       siteProperties: {
         gecSites,
         siteUrl = '',
-        legalLinks=[],
+        legalLinks = [],
         footer: {
-          
           socialNetworks = [],
           contacts = [],
           corporateInfo = {},
@@ -54,17 +53,15 @@ class FooterDepor extends PureComponent {
         } = {},
       } = {},
       contextPath,
-      arcSite,
     } = this.props
 
-    const imageDefault = `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+    const imageDefault = `${contextPath}/resources/dist/depor/images/logo.png`
 
     const footerProps = {
       sections: children,
       socialNetworks,
     }
     const footerInfoProp = {
-      
       siteUrl,
       imageDefault,
       gecSites,
