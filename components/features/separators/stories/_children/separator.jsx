@@ -28,11 +28,12 @@ const SeparatorsBasicChildSeparator = ({
   isAuthorVisible,
   isAdmin,
   design,
+  bgColor,
   isSeeMoreVisible,
   responsive,
 }) => {
   return (
-    <div className={`${classes.separator} ${design} ${responsive}`}>
+    <div className={`${classes.separator} ${design} ${bgColor} ${responsive}`}>
       {htmlCode ? (
         <div
           className={classes.title}
@@ -86,7 +87,9 @@ const SeparatorsBasicChildSeparator = ({
                     </h2>
                   )}
                 </div>
-                <a className="separator__img-link block" href={websiteLink}>
+                <a
+                  className="separator__img-link block h-full"
+                  href={websiteLink}>
                   <picture className={classes.imgBox}>
                     <source
                       className={isAdmin ? '' : 'lazy'}
