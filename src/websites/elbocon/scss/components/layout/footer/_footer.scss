@@ -1,4 +1,10 @@
 .footer {
+  &__info,
+  &__sections,
+  &__contact {
+    background-color: $color-gray-300;
+  }
+
   &__legal-item,
   &__list-title,
   &__list-link,

@@ -1,0 +1,32 @@
+.separator {
+  border-top-color: $color-gray-300;
+  background-color: $color-gray-300;
+  &__title {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  &__item {
+    @media (--tablet) {
+      flex-basis: 24.5%;
+    }
+    &::before {
+      background: linear-gradient(
+        180deg,
+        rgba(14, 33, 13, 0.1) 30%,
+        rgba(14, 33, 13, 0.8) 80%,
+        #0e210d
+      );
+    }
+  }
+
+  &__header-link {
+    color: $color-white;
+    font-weight: 400;
+  }
+  &__threeline {
+    -webkit-line-clamp: 4;
+    @media (--desktop) {
+      max-height: 67px;
+    }
+  }
+}
