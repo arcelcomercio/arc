@@ -7,6 +7,12 @@ const classes = {
 
 const SITE_TITLE = 'Visite también: '
 
+const ItemSite = ({ url, name }) => (
+  <li>
+    <a href={url}>{name}</a>
+  </li>
+)
+
 const FooterInfo = ({
   siteUrl,
   imageDefault,
@@ -42,12 +48,11 @@ const FooterInfo = ({
       <ul>
         <li>{SITE_TITLE}</li>
         {gecSites &&
-          gecSites.map(({ url = '', name = '' }) => {
+          gecSites.map(({ url = '', name = '' }, index) => {
+            const KeyString = `key${index}`
             const result =
               name !== 'depor.com' ? (
-                <li>
-                  <a href={url}>{name}</a>
-                </li>
+                <ItemSite key={KeyString} url={url} name={name} />
               ) : null
             return result
           })}

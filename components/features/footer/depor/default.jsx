@@ -72,9 +72,10 @@ class FooterDepor extends PureComponent {
       draftingContact,
       copyrightText,
     }
+    const keyString = 'key0'
     return (
       <footer>
-        <FooterDeporColumnSection key={'key0'} {...footerProps} />
+        <FooterDeporColumnSection key={keyString} {...footerProps} />
         <FooterInfo key={0} {...footerInfoProp} />
       </footer>
     )
