@@ -1,0 +1,12 @@
+.navbar-nm {
+  &__box-search {
+    background-color: $color-secondary;
+  }
+  &__input-search {
+  }
+  &__btn-search {
+    background-color: $color-secondary;
+    color: #000;
+    border: solid 1px #fff;
+  }
+}

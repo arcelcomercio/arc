@@ -22,13 +22,19 @@
   }
 
   &__item {
+    margin-right: 5px;
+    &:nth-last-child(1) {
+      margin-right: 0;
+    }
     &:first-child {
       display: block;
     }
 
     @media (--tablet) {
       display: block;
-      flex-basis: 24.8%;
+      flex-basis: 0;
+      flex-grow: 1;
+      flex-shrink: 0;
     }
 
     &::before {
@@ -129,6 +135,18 @@
       font-size: 35px;
       width: 35px;
       height: 35px;
+    }
+  }
+  &.invested {
+    & * .separator__item {
+      margin-right: 20px;
+      &:nth-last-child(1) {
+        margin-right: 0;
+      }
+    }
+    & * .separator__article {
+      display: flex;
+      flex-direction: column-reverse;
     }
   }
 }
