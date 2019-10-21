@@ -7,7 +7,7 @@ export default {
   googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'elbocon.pe',
   siteUrl: 'https://elbocon.pe',
-  resizerUrl: 'https://elbocon.pe/resizer',
+  resizerUrl: 'https://elcomercio-elbocon-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/GESTION_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
