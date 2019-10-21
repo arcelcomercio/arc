@@ -16,6 +16,9 @@ const schemaFilter = () => `
         url
         image{
           url
+          resized_urls {
+            square_s
+          }
         }
       }
     }
