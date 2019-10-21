@@ -32,7 +32,7 @@ const handleBorderColor = color => {
     case 'elcomerciomag':
       return '#000000'
     case 'peru21':
-    case 'peru21g21': 
+    case 'peru21g21':
       return '#0c70bf'
     default:
       return 'transparent'

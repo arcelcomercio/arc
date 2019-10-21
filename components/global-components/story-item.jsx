@@ -86,6 +86,7 @@ class StoriesList extends PureComponent {
               </a>
             </div>
           </div>
+
           <figure className={classes.right}>
             {/* TODO: Actualizar iconos con multimediaIcon */}
             <a href={element.link} className={classes.rightLink}>

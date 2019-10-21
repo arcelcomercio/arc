@@ -39,7 +39,9 @@ const Content = ({ onSubmit }) => {
                 setAttemptToken(token)
               })
             } else {
-              const msg = `Status de la peticion a "${url}" no es 200 sino ${res.status}`
+              const msg = `Status de la peticion a "${url}" no es 200 sino ${
+                res.status
+              }`
               const err = new Error(msg)
               Sentry.captureException(err)
             }
