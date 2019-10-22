@@ -64,6 +64,9 @@
       font-weight: 700;
     }
   }
+  .powa-shot-play-icon:before {
+    content: '\e905';
+  }
 }
 ul.story-content__list {
   list-style-type: none;

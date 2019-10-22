@@ -68,9 +68,10 @@ class Data extends StoryData {
   }
 
   get link() {
+    const { urlNew: externalLink } = this.customFields
     const { websites = {} } = this._data || {}
     const { website_url: url = '' } = websites[`${this.arcSite}`] || {}
-    return url
+    return externalLink || url
   }
 
   get primarySectionLink() {

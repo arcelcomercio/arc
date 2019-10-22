@@ -3,8 +3,10 @@
     @media (--tablet) {
       display: flex;
     }
-    padding: 5px;
     background-color: $color-secondary;
+    padding: 0 10px;
+    height: 21px;
+    align-items: center;
     &:after {
       display: none;
     }
@@ -13,6 +15,7 @@
     font-size: 11px;
     text-transform: uppercase;
     font-family: 'Arial';
+    color: $color-white;
   }
   &__title-link {
     display: -webkit-box;
@@ -27,6 +30,7 @@
   &.img-complete {
     .featured-story__title-link {
       font-size: 34px;
+      font-weight: 700;
       line-height: 38px;
       -webkit-line-clamp: 2;
       max-height: 100px;
@@ -43,6 +47,7 @@
       }
       .featured-story__category {
         margin-bottom: 10px;
+        display: flex;
       }
     }
   }
@@ -51,7 +56,6 @@
       flex-direction: row-reverse;
     }
     .featured-story__img-box {
-      background: red;
       @media (--tablet) {
         height: 166.4px;
       }

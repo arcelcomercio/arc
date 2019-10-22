@@ -1,7 +1,7 @@
 export default {
   siteName: 'Depor',
   sitemapNewsName: 'Diario Depor',
-  googleFonts: 'Noticia+Text:400,700|Roboto+Condensed:400,700|Roboto:400,700',
+  /*   googleFonts: 'Noticia+Text:400,700|Roboto+Condensed:400,700|Roboto:400,700', */
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
   siteUrl: 'https://depor.com',
@@ -10,7 +10,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
-  googleTagManagerId: 'GTM-KKXTKGP',
+  googleTagManagerId: 'GTM-KKXTKGPss',
   ampGoogleTagManagerId: 'UA-3055636-8',
   ampGoogleTagManagerName: 'depor',
   charbeatAccountNumber: 99999,
@@ -39,6 +39,19 @@ export default {
     cookiesPolicy: '',
     aboutUs: '',
     frequentQuestions: '',
+  },
+
+  assets: {
+    seo: {
+      logoAmp: 'logo-amp.png',
+      width: 230,
+      height: 60,
+      widthAmp: 178,
+      heightAmp: 47,
+    },
+    premium: {
+      logo: 'favicon.png',
+    },
   },
 
   messages: {
@@ -72,33 +85,54 @@ export default {
 
     socialNetworks: [
       {
-        name: 'facebook',
-        url: 'https://www.facebook.com/depor.pe',
-      },
-      {
-        name: 'twitter',
+        name: 'Twitter',
         url: 'https://twitter.com/depor_peru',
       },
       {
-        name: 'google+',
+        name: 'Facebook',
+        url: 'https://www.facebook.com/depor.pe',
+      },
+
+      {
+        name: 'Google+',
         url: 'https://plus.google.com/u/0/+deporpe',
+      },
+      {
+        name: 'Pinterest',
+        url: 'https://www.pinterest.com/deporpe',
+      },
+      {
+        name: 'RSS ',
+        url: 'https://depor.com/arcio/rss',
       },
     ],
 
     contacts: [
       {
+        position: 'Director Periodístico General de Deporte',
+        name: 'Guillermo Denegri',
+      },
+      {
         position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
-      },
-      {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
-      },
-      {
-        position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
+        name: 'Walter Corzo.',
       },
     ],
+    corporateInfo: {
+      name: 'Grupo El Comercio',
+      direction: 'Jr. Santa Rosa #300 Lima 1, Perú',
+    },
+    draftingContact: [
+      {
+        name: 'Redacción',
+        value: '311-6500(2858) depor@depor.pe',
+      },
+      {
+        name: 'Publicidad Web',
+        value: 'Fonoavisos@comercio.com.pe',
+      },
+    ],
+    copyrightText:
+      'Copyright© Depor.pe - Grupo El Comercio - Todos los derechos reservados.',
   },
   social: {
     facebook: {

@@ -7,6 +7,7 @@ import './images/apple-touch-icon-144x144.png'
 import './images/apple-touch-icon-152x152.png'
 import './images/apple-touch-icon-180x180.png'
 import './images/logo.png'
+import './images/logo-amp.png'
 import './images/logo_fb.jpg'
 import './images/logo_twitter.jpg'
 import './images/default-blog.jpg'
@@ -17,4 +18,4 @@ import './images/author.png'
 import './images/alternate-logo.png'
 import './images/alternate-logo-w.png'
 
-import '../../../components/utilities/lazyload'
+/* import '../../../components/utilities/lazyload' */

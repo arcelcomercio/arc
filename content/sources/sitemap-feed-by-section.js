@@ -5,10 +5,10 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import {
   addResizedUrlsToStory,
-  // removeLastSlash,
+  removeLastSlash,
 } from '../../components/utilities/helpers'
 
-const SCHEMA_NAME = 'stories'
+const SCHEMA_NAME = 'stories-dev'
 let website = ''
 const params = [
   {
@@ -31,7 +31,9 @@ const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
   const { section, stories_qty: storiesQty } = key
   const clearSection =
-    section === '' || section === undefined || section === null ? '/' : section
+    section === '' || section === undefined || section === null
+      ? '/'
+      : removeLastSlash(section)
 
   const body = {
     query: {

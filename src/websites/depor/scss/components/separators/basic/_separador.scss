@@ -16,10 +16,7 @@
     position: relative;
     padding-top: 15px;
     padding-bottom: 15px;
-    height: 80px;
-    @media (--tablet) {
-      height: auto;
-    }
+    height: auto;
     @media (--desktop) {
       height: 127px;
     }
@@ -30,8 +27,9 @@
     font-size: 13px;
     -webkit-line-clamp: 3;
     line-clamp: 3;
-    height: 69px;
+    height: 53px;
     @media (--desktop) {
+      height: 69px;
       font-size: 18px;
       max-height: none;
     }
@@ -59,11 +57,15 @@
       height: 110px;
     }
     @media (--desktop) {
-      height: 168px;
+      height: 166px;
     }
   }
   &.invested {
     border-top: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     * .separator__header-link {
       font-family: $fifth-font;
       font-size: 45px;
@@ -72,7 +74,7 @@
         text-decoration: none;
       }
       @media (--tablet) {
-        font-size: 60px;
+        font-size: 70px;
       }
     }
     * .separator__icon {
@@ -85,6 +87,9 @@
         top: 50%;
         transform: translate(-50%, -50%);
       }
+    }
+    .separator__button {
+      position: relative;
     }
   }
   &.primary {

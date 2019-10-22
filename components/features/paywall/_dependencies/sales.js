@@ -7,7 +7,8 @@ const addSales = () => {
     url: getDomain('ORIGIN_SALES_SDK'),
   }).then(added => {
     if (added) {
-      window.Sales.apiOrigin = getDomain('ORIGIN_API')
+      window.Identity.options({apiOrigin: getDomain('ORIGIN_API')})
+      window.Sales.options({apiOrigin: getDomain('ORIGIN_API')})
     }
     return window.Sales
   })
