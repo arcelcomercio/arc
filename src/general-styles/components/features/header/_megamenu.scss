@@ -1,0 +1,25 @@
+.megamenu {
+  display: none;
+  @media (--desktop) {
+    &.active {
+      display: block;
+    }
+  }
+  &__container {
+    max-width: 940px;
+    margin: 0 auto;
+    min-height: 250px;
+  }
+  &__row {
+    width: calc(100% / 4);
+    &:nth-last-child(1) {
+      margin-right: 0;
+    }
+  }
+  &__title {
+    border-bottom: solid 2px $color-primary;
+  }
+  &__item {
+    border-bottom: solid 1px $color-primary;
+  }
+}
