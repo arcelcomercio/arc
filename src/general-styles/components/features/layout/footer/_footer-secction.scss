@@ -59,15 +59,17 @@
     padding-right: 8px;
     line-height: 1;
 
-    &:last-child {
-      border-right: 0;
-      margin-right: 0;
-      padding-right: 0;
-    }
-    &:nth-last-child(8) {
-      border-right: 0;
-      margin-right: 0;
-      padding-right: 0;
+    @media (--desktop) {
+      &:last-child {
+        border-right: 0;
+        margin-right: 0;
+        padding-right: 0;
+      }
+      &:nth-last-child(8) {
+        border-right: 0;
+        margin-right: 0;
+        padding-right: 0;
+      }
     }
   }
 }
