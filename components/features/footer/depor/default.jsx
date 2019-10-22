@@ -3,7 +3,6 @@ import Consumer from 'fusion:consumer'
 import FooterDeporColumnSection from './_children/FooterSection'
 import FooterInfo from './_children/FooterInfo'
 
-
 const DEFAULT_HIERARCHY = 'footer-default'
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -23,7 +22,8 @@ const SCHEMA = `{
 }`
 
 const classes = {
-  footer:'bg-white'
+  footer: 'bg-white',
+  content: 'footer-secction__content-footer ',
 }
 
 @Consumer
@@ -61,7 +61,11 @@ class FooterDepor extends PureComponent {
       contextPath,
     } = this.props
 
-    const imageDefault = `${contextPath}/resources/dist/depor/images/logo.png`
+    // const imageDefault =  `${contextPath}/resources/dist/depor/images/logo.png`
+    const { deployment } = this.props
+    const imageDefault = deployment(
+      `${contextPath}/resources/dist/depor/images/logo.png`
+    )
 
     const footerProps = {
       sections: children,
@@ -81,8 +85,10 @@ class FooterDepor extends PureComponent {
     const keyString = 'key0'
     return (
       <footer className={classes.footer}>
-        <FooterDeporColumnSection key={keyString} {...footerProps} />
-        <FooterInfo key={0} {...footerInfoProp} />
+        <div className={classes.content}>
+          <FooterDeporColumnSection key={keyString} {...footerProps} />
+          <FooterInfo key={0} {...footerInfoProp} />
+        </div>
       </footer>
     )
   }
