@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { searchQuery } from '../../../../utilities/helpers'
 
 const classes = {
   bar: 'navbar-nm w-full pr-5 pl-5 bg-black h-full',
@@ -10,7 +11,7 @@ const classes = {
   right: 'navbar-nm__right flex items-center h-full',
   btns: 'navbar-nm__btns flex items-center',
   btn:
-    'navbar-nm__btn flex items-center text-gray-100 pt-5 pb-5 pr-10 pl-10 mr-5 secondary-font text-md rounded-sm border-solid border-1 border-white lg:inline-block ',
+    'navbar-nm__btn flex items-center text-gray-100 pt-5 pb-5 pr-10 pl-10 mr-5 secondary-font text-md rounded-sm border-solid border-1 border-white',
   search: 'navbar-nm__search cursor-pointer h-full position-relative pr-5 pl-5',
   iconSearch:
     'navbar-nm__icon-search icon-search text-gray-100 flex items-center h-full',
@@ -21,8 +22,23 @@ const classes = {
 }
 
 export default props => {
+  const inputSearch = useRef(null)
   const [toggleSearch, changeSearch] = useState(false)
   const { list } = props
+
+  const _handleSearch = e => {
+    e.preventDefault()
+    const { value } = inputSearch.current
+    if (value !== '') searchQuery(value)
+  }
+
+  const _handleKeyDown = e => {
+    e.preventDefault()
+    const { value } = e.target
+    if (value !== '' && e.which === 13) {
+      _handleSearch(e)
+    }
+  }
 
   const { children: dataList = [] } = list
   return (
@@ -63,10 +79,15 @@ export default props => {
               <form className={classes.formSearch} action="">
                 <input
                   type="search"
+                  onKeyUp={e => _handleKeyDown(e)}
                   className={classes.inputSearch}
                   placeholder="Buscar"
+                  ref={inputSearch}
                 />
-                <button className={classes.btnSearch} type="submit">
+                <button
+                  onClick={e => _handleSearch(e)}
+                  className={classes.btnSearch}
+                  type="button">
                   OK
                 </button>
               </form>
