@@ -74,6 +74,14 @@ class Domains {
   getListBundle = () => {
     return ['UJWWFG', '7NK9SV', 'DQZ00K'] // price code bundle sandbox & prod
   }
+
+  getPayuSDK = () =>{
+    return 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
+  }
+
+  getPayuTags = () =>{
+    return 'https://maf.pagosonline.net/ws/fp/tags.js?id='
+  }
 }
 
 export default new Domains()

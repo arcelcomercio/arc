@@ -26,8 +26,8 @@ const closeSession = props => {
         window.location.reload()
       } else {
         closePopup()
-        window.sessionStorage.removeItem("paywall-profile-form")
-        window.sessionStorage.removeItem("paywall-payment-form")
+        window.sessionStorage.removeItem('paywall-profile-form')
+        window.sessionStorage.removeItem('paywall-payment-form')
       }
     })
     .catch(() => {
@@ -58,7 +58,7 @@ export const MenuProfile = props => {
                   Inicio
                 </a>
               </li>
-            ): null}
+            ) : null}
 
             <li>
               <a href="#" onClick={() => props.prof()}>
@@ -68,11 +68,14 @@ export const MenuProfile = props => {
 
             {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
-                <a href="#" onClick={() => props.subs()}>
+                <a
+                  id="btn-mis-suscripciones"
+                  href="#"
+                  onClick={() => props.subs()}>
                   Mi Suscripción
                 </a>
               </li>
-            ): null}
+            ) : null}
 
             {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
@@ -80,11 +83,8 @@ export const MenuProfile = props => {
                   Newsletters
                 </a>
               </li>
-            ): null}
+            ) : null}
 
-            {/* <li>
-              <a href="#">Contáctanos</a>
-            </li> */}
             <li>
               <a
                 className="close-sesion"
