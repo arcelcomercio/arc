@@ -1,0 +1,50 @@
+.nav {
+  background-color: $color-gray-300;
+  &__btn {
+    &--section {
+      padding-left: 0;
+    }
+  }
+  &__logo {
+    padding: 0;
+  }
+  &__icon-search,
+  &__icon-menu,
+  &__btn span {
+    color: $color-white;
+  }
+  &__container-menu,
+  &__search-box {
+    @media (--desktop) {
+      border-right-color: $color-white;
+    }
+  }
+  /*   Estilos para nav loader en notas */
+  &__loader-bar {
+    background-color: $color-primary;
+  }
+  &__wrapper {
+    &:first-child {
+      background-color: $color-gray-300;
+    }
+    @media (--desktop) {
+      background-color: transparent;
+    }
+  }
+  &__list-link {
+    color: $color-white;
+    font-family: $secondary-font;
+    font-weight: 700;
+    &:hover {
+      color: $color-white;
+    }
+  }
+  &.active {
+    @media (--desktop) {
+      background-color: $color-gray-300;
+    }
+    .nav__logo {
+      padding: 0;
+    }
+  }
+}

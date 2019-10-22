@@ -1,0 +1,27 @@
+.story {
+  .nav {
+    &.active {
+      .nav__wrapper {
+        background-color: $color-gray-300;
+      }
+      .nav__container-menu {
+        border-right-color: $color-white;
+      }
+      .nav__story-title {
+        max-height: 15px;
+        color: $color-white;
+        @media (--desktop) {
+          max-height: none;
+        }
+      }
+      .story-header__icon {
+        @media (--tablet) {
+          color: $color-white;
+        }
+      }
+      .story-header__share-icon {
+        color: $color-white;
+      }
+    }
+  }
+}

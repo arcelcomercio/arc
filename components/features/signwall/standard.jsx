@@ -34,20 +34,25 @@ class SignwallComponent extends PureComponent {
       userName: false,
       initialUser: false,
     }
+    const { arcSite } = this.props
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   componentDidMount() {
     const { siteProperties } = this.props
+
+    if (typeof window !== 'undefined') {
+      window.Identity.options({ apiOrigin: this.origin_api })
+      if (window.Sales !== undefined) {
+        window.Sales.options({ apiOrigin: this.origin_api })
+      }
+    }
 
     this.checkUserName()
 
     if (siteProperties.activePaywall) {
       this.getPaywall()
     }
-
-    // if (arcSite === 'gestion' || arcSite === 'elcomercio') {
-    //   this.getPaywall()
-    // }
   }
 
   componentDidUpdate() {
@@ -59,14 +64,14 @@ class SignwallComponent extends PureComponent {
   }
 
   getPremium() {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const W = window
       if (!this.checkSession()) {
-        W.location.href = '/?signwallPremium=1'
+        W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
       } else {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
-            W.location.href = '/?signwallPremium=1'
+            W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
           }
           return false // tengo subs :D
         })
@@ -89,7 +94,7 @@ class SignwallComponent extends PureComponent {
     } else if (window.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          W.location.href = campaignURL
+          W.location.href = `${campaignURL}&ref=${W.location.pathname}`
         },
         contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
         section: dataContSec ? dataContSec.getAttribute('content') : 'none',
@@ -139,23 +144,27 @@ class SignwallComponent extends PureComponent {
   getListSubs() {
     const { arcSite } = this.props
     const W = window
-    return services
-      .getEntitlement(W.Identity.userIdentity.accessToken, arcSite)
-      .then(res => {
-        if (res.skus) {
-          const result = Object.keys(res.skus).map(key => {
-            return res.skus[key].sku
-          })
-          this.listSubs = result
-          return result
-        }
-        return []
-      })
-      .catch(err => W.console.error(err))
+    return W.Identity.extendSession().then(resExt => {
+      const checkEntitlement = services
+        .getEntitlement(resExt.accessToken, arcSite)
+        .then(res => {
+          if (res.skus) {
+            const result = Object.keys(res.skus).map(key => {
+              return res.skus[key].sku
+            })
+            this.listSubs = result
+            return result
+          }
+          return []
+        })
+        .catch(err => W.console.error(err))
+
+      return checkEntitlement
+    })
   }
 
   checkSession = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
       const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
       if (profileStorage) {
@@ -167,10 +176,13 @@ class SignwallComponent extends PureComponent {
 
   getUrlParam = name => {
     const vars = {}
-    if (typeof window !== "undefined")
-      window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-        vars[key] = value
-      })
+    if (typeof window !== 'undefined')
+      window.location.href.replace(
+        /[?&]+([^=&]+)=([^&]*)/gi,
+        (m, key, value) => {
+          vars[key] = value
+        }
+      )
     if (vars[name]) {
       setTimeout(() => {
         switch (name) {
@@ -251,7 +263,7 @@ class SignwallComponent extends PureComponent {
       default:
         return null
     }
-    if (typeof window !== "undefined")
+    if (typeof window !== 'undefined')
       window.history.pushState({}, document.title, '/')
     return null
   }
@@ -289,57 +301,57 @@ class SignwallComponent extends PureComponent {
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
         {this.getUrlParam('signwallHard') &&
-          !this.checkSession() &&
-          showHard &&
-          siteProperties.activeSignwall ? (
-            <SignWallHard
-              closePopup={() => this.closePopUp('signwallHard')}
-              brandModal={arcSite}
-            />
-          ) : null}
+        !this.checkSession() &&
+        showHard &&
+        siteProperties.activeSignwall ? (
+          <SignWallHard
+            closePopup={() => this.closePopUp('signwallHard')}
+            brandModal={arcSite}
+          />
+        ) : null}
 
         {this.getUrlParam('tokenVerify') &&
-          showVerify &&
-          siteProperties.activeSignwall ? (
-            <SignWallVerify
-              closePopup={() => this.closePopUp('tokenVerify')}
-              brandModal={arcSite}
-              tokenVerify={this.getUrlParam('tokenVerify')}
-            />
-          ) : null}
+        showVerify &&
+        siteProperties.activeSignwall ? (
+          <SignWallVerify
+            closePopup={() => this.closePopUp('tokenVerify')}
+            brandModal={arcSite}
+            tokenVerify={this.getUrlParam('tokenVerify')}
+          />
+        ) : null}
 
         {this.getUrlParam('tokenReset') &&
-          showReset &&
-          siteProperties.activeSignwall ? (
-            <SignWallReset
-              closePopup={() => this.closePopUp('tokenReset')}
-              brandModal={arcSite}
-              tokenReset={this.getUrlParam('tokenReset')}
-            />
-          ) : null}
+        showReset &&
+        siteProperties.activeSignwall ? (
+          <SignWallReset
+            closePopup={() => this.closePopUp('tokenReset')}
+            brandModal={arcSite}
+            tokenReset={this.getUrlParam('tokenReset')}
+          />
+        ) : null}
 
         {this.getUrlParam('reloginEmail') &&
-          !this.checkSession() &&
-          showRelogin &&
-          siteProperties.activeSignwall ? (
-            <SignWallRelogin
-              closePopup={() => this.closePopUp('reloginEmail')}
-              brandModal={arcSite}
-            />
-          ) : null}
+        !this.checkSession() &&
+        showRelogin &&
+        siteProperties.activeSignwall ? (
+          <SignWallRelogin
+            closePopup={() => this.closePopUp('reloginEmail')}
+            brandModal={arcSite}
+          />
+        ) : null}
 
         {(this.getUrlParam('signwallPaywall') ||
           this.getUrlParam('signwallPremium')) &&
-          showPaywall &&
-          siteProperties.activePaywall ? (
-            <SignWallPayPre
-              closePopup={() => this.closePopUp('signwallPaywall')}
-              brandModal={arcSite}
-              typeModal={
-                this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
-              }
-            />
-          ) : null}
+        showPaywall &&
+        siteProperties.activePaywall ? (
+          <SignWallPayPre
+            closePopup={() => this.closePopUp('signwallPaywall')}
+            brandModal={arcSite}
+            typeModal={
+              this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
+            }
+          />
+        ) : null}
       </>
     )
   }

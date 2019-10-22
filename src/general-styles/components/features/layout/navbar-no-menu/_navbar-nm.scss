@@ -1,0 +1,29 @@
+.navbar-nm {
+  height: 45px;
+  display: none;
+  @media (--desktop) {
+    display: block;
+  }
+  &__container {
+    max-width: 1366px;
+    margin: 0 auto;
+  }
+  &__btn {
+    color: $color-gray-100;
+    border: solid 1px $color-gray-100;
+  }
+  &__box-search {
+    background-color: $color-gray-200;
+    right: 0;
+    z-index: 100;
+  }
+  &__input-search {
+    width: 220px;
+    height: 30px;
+  }
+  &__btn-search {
+    height: 30px;
+    background-color: $color-gray-300;
+    color: white;
+  }
+}

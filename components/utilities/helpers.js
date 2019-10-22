@@ -738,6 +738,24 @@ export const ampHtml = (html = '', arcSite = '') => {
   return resultData
 }
 
+export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
+  let resultData = ''
+  const json =
+    (ConfigParams.SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
+  resultData = `<amp-ad
+    width="320"
+    height="50"
+    type="doubleclick"
+    data-slot=${dataSlot}
+    data-multi-size="320x50,300x100,300x50,320x100"
+    data-multi-size-validation="false"
+    ${json}
+  />`
+  return createMarkup(resultData)
+}
+
 export const publicidadAmp = ({
   dataSlot,
   placementId,
@@ -745,9 +763,14 @@ export const publicidadAmp = ({
   height,
   primarySectionLink = '/peru',
   movil1 = '',
+  arcSite = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
+  const json =
+    (ConfigParams.SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
   const nuevoScript =
     (movil1 &&
       `data-multi-size="320x100,320x50"
@@ -757,9 +780,9 @@ export const publicidadAmp = ({
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript}
+  data-slot="${dataSlot}" ${nuevoScript} 
   rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}'></amp-ad>`
+  "timeoutMillis": 1000}' ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -787,6 +810,7 @@ export const replaceTags = text => {
     .replace(/(\s\w)=.(.*?)/g, '$2')
     .replace('http://http://', 'https://')
     .replace(/href=&quot;(.+)&quot;>/g, 'href="$1">')
+    .replace(/http:\/\/gestion2.e3.pe\//g, 'https://cde.gestion2.e3.pe/')
 }
 
 export const formatDateStory = date => {
@@ -822,7 +846,7 @@ export const formatDateStoryAmp = date => {
  * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
-  data,
+  data = [],
   resizerUrl,
   resizerSecret,
   addResizedUrls,
@@ -1029,7 +1053,9 @@ export const getPhotoId = photoUrl => {
 }
 
 export const getDateSeo = data => {
-  const fechaZone = data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+  const fechaZone = data
+    ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+    : new Date()
   const fecha = new Date(fechaZone)
   fecha.setHours(fecha.getHours() - 5)
   const day = fecha.getDate()
@@ -1048,6 +1074,20 @@ export const getDateSeo = data => {
   const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
 
   return fechaGenerada
+}
+
+export const msToTime = duration => {
+  if (duration) {
+    let seconds = parseInt((duration / 1000) % 60, 0)
+    let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
+    let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
+    hours = hours < 10 && hours < 10 ? `0${hours}:` : hours
+    minutes = minutes < 10 ? `0${minutes}` : minutes
+    seconds = seconds < 10 ? `0${seconds}` : seconds
+
+    return `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
+  }
+  return ''
 }
 
 export const localISODate = date => {

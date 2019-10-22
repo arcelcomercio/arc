@@ -11,7 +11,7 @@ export default ({
   titleList,
   background,
   seeMore,
-  urlTitle = '/',
+  urlTitle,
   seeMoreurl = '/',
 }) => {
   return (

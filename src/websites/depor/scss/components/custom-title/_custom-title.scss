@@ -1,0 +1,9 @@
+.custom-title {
+  font-family: $primary-font;
+  &.large {
+    font-size: 30px;
+    @media (--tablet) {
+      font-size: 46px;
+    }
+  }
+}

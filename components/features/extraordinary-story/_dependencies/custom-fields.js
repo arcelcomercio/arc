@@ -18,6 +18,10 @@ const customFields = {
     name: 'Bajada',
     description: 'Campo vació tomará el valor por defecto de la historia',
   }),
+  urlNew: PropTypes.string.tag({
+    name: 'URL de nota extrerna',
+    description: 'Puede usar una url externa',
+  }),
   multimediaOrientation: PropTypes.oneOf([
     'top',
     'bottom',

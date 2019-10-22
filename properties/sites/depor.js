@@ -1,7 +1,7 @@
 export default {
   siteName: 'Depor',
   sitemapNewsName: 'Diario Depor',
-  googleFonts: 'Noticia+Text|Roboto', // open_sansregular
+  /*   googleFonts: 'Noticia+Text:400,700|Roboto+Condensed:400,700|Roboto:400,700', */
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
   siteUrl: 'https://depor.com',
@@ -10,7 +10,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
-  googleTagManagerId: 'GTM-KKXTKGP',
+  googleTagManagerId: 'GTM-KKXTKGPss',
   ampGoogleTagManagerId: 'UA-3055636-8',
   ampGoogleTagManagerName: 'depor',
   charbeatAccountNumber: 99999,
@@ -39,6 +39,19 @@ export default {
     cookiesPolicy: '',
     aboutUs: '',
     frequentQuestions: '',
+  },
+
+  assets: {
+    seo: {
+      logoAmp: 'logo-amp.png',
+      width: 230,
+      height: 60,
+      widthAmp: 178,
+      heightAmp: 47,
+    },
+    premium: {
+      logo: 'favicon.png',
+    },
   },
 
   messages: {

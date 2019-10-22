@@ -8,7 +8,7 @@ const NO_DESKTOP = 'no-desktop'
 const NO_MOBILE = 'no-mobile'
 
 const classes = {
-  adsBox: 'flex items-center justify-center flex-col',
+  adsBox: 'flex items-center flex-col',
 }
 @Consumer
 class Ads extends PureComponent {
@@ -69,8 +69,8 @@ class Ads extends PureComponent {
         {outputType !== 'amp' && !neverShow() && (
           <>
             <div
-              className={`${
-                classes.adsBox
+              className={`${classes.adsBox} ${
+                adElement === 'boton1' ? 'justify-start' : 'justify-center'
               } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
               <AdsChild {...params} />
               {freeHtml && (

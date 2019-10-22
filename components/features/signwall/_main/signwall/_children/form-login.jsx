@@ -50,19 +50,23 @@ class FormLogin extends Component {
   getListSubs() {
     const { arcSite } = this.props
     const W = window
-    return services
-      .getEntitlement(W.Identity.userIdentity.accessToken, arcSite)
-      .then(res => {
-        if (res.skus) {
-          const result = Object.keys(res.skus).map(key => {
-            return res.skus[key].sku
-          })
-          this.listSubs = result
-          return result
-        }
-        return []
-      })
-      .catch(err => W.console.error(err))
+    return W.Identity.extendSession().then(resExt => {
+      const checkEntitlement = services
+        .getEntitlement(resExt.accessToken, arcSite)
+        .then(res => {
+          if (res.skus) {
+            const result = Object.keys(res.skus).map(key => {
+              return res.skus[key].sku
+            })
+            this.listSubs = result
+            return result
+          }
+          return []
+        })
+        .catch(err => W.console.error(err))
+
+      return checkEntitlement
+    })
   }
 
   handleFormSubmit = e => {
