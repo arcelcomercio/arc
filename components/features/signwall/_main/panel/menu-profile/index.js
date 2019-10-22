@@ -89,6 +89,7 @@ export const MenuProfile = props => {
               <a
                 className="close-sesion"
                 href="#"
+                id="web_link_cerrarsesion"
                 onClick={() => closeSession(props)}>
                 Cerrar sesión
               </a>

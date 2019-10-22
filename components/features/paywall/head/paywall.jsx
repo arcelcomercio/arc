@@ -19,9 +19,11 @@ class Head extends React.PureComponent {
     isActive: false,
     showSignwall: false,
     userName: new GetProfile().username,
+    stepForm: 1,
   }
 
   componentDidMount() {
+    this.addEventListener('currentStep', this.currentStepHandler)
     this.getFirstName()
   }
 
@@ -36,6 +38,10 @@ class Head extends React.PureComponent {
 
   componentWillUnmount() {
     this.removeEventListener(this.currentStepHandler)
+  }
+
+  currentStepHandler = currentStep => {
+    this.setState({ stepForm: currentStep })
   }
 
   getFirstName = () => {
@@ -84,7 +90,7 @@ class Head extends React.PureComponent {
 
   render() {
     const { theme, arcSite, customFields } = this.props
-    const { showSignwall, userName, isActive } = this.state
+    const { showSignwall, userName, isActive, stepForm } = this.state
     const { id, forceLogin: checkForceLogin } = customFields
 
     let leftColor
@@ -127,10 +133,14 @@ class Head extends React.PureComponent {
           </S.WrapLogo>
           <S.WrapLogin>
             <S.Username>
-              <S.LoginButton
-                type="button"
-                onClick={() => 
-                  {
+              {stepForm !== 1 ? (
+                <span>
+                  {this.checkSession() ? `${userName}` : 'Hola Invitado'}
+                </span>
+              ) : (
+                <S.LoginButton
+                  type="button"
+                  onClick={() => {
                     Taggeo(
                       `Web_Sign_Wall_Suscripciones`,
                       `web_link_ingresar_${
@@ -138,12 +148,12 @@ class Head extends React.PureComponent {
                       }`
                     )
                     this.setState({ isActive: true })
-                  }
-                }>
-                <span>
-                  {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
-                </span>
-              </S.LoginButton>
+                  }}>
+                  <span>
+                    {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
+                  </span>
+                </S.LoginButton>
+              )}
               <S.WrapIcon>
                 <Icon
                   type="profile"
