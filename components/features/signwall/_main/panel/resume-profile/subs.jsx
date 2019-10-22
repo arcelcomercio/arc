@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import Modal from '../../common/modal'
-import { Close } from '../../common/iconos'
 import Loading from '../../common/loading'
 import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
 import Taggeo from '../../utils/taggeo'
 import { WrapperBlock } from './styles'
-import SubDetail from '../subcription/detail'
 
 @Consumer
 class Subs extends Component {
@@ -18,14 +15,10 @@ class Subs extends Component {
     this.state = {
       paywallName: '-',
       paywallPrice: '-',
-      showModalConfirm: false,
       isSubs: false,
       isLoad: true,
-      idSubsDelete: null,
       userSubsDetail: [],
       listBundle: Domains.getListBundle() || [],
-      showDetails: false,
-      idSubsDetail: '',
     }
 
     const { arcSite } = this.props
@@ -35,7 +28,7 @@ class Subs extends Component {
   componentDidMount() {
     this._isMounted = true
     window.Identity.apiOrigin = this.origin_api
-    
+
     if (!window.Sales) {
       addScriptAsync({
         name: 'sdkSalesARC',
@@ -84,13 +77,6 @@ class Subs extends Component {
     this._isMounted = false
   }
 
-  getDetail(id) {
-    window.Sales.apiOrigin = this.origin_api
-    return window.Sales.getSubscriptionDetails(id).then(resDetail => {
-      return resDetail.salesOrders[0].total || '-'
-    })
-  }
-
   getListSubs = () => {
     this._isMounted = true
 
@@ -129,7 +115,7 @@ class Subs extends Component {
     const { fetched } = this.getContent('paywall-campaing')
 
     fetched.then(resCam => {
-      if (this._isMounted) {
+      if (this._isMounted && resCam.name) {
         this.setState({
           paywallName: resCam.name || 'Plan',
           paywallPrice: resCam.plans[0].amount || '-',
@@ -146,90 +132,16 @@ class Subs extends Component {
     window.sessionStorage.setItem('paywall_type_modal', 'organico')
   }
 
-  openModalConfirm = idSubs => {
-    this.setState({
-      showModalConfirm: true,
-      idSubsDelete: idSubs,
-    })
-    const ModalProfile =
-      document.querySelector('#arc-popup-profile').parentNode ||
-      document.querySelector('#arc-popup-profile').parentElement
-    ModalProfile.style.overflow = 'hidden'
-
-    setTimeout(() => {
-      const modalConfirmPass = document.querySelector('#arc-popup-profile')
-      modalConfirmPass.scrollIntoView()
-    }, 500)
-  }
-
-  closeModalConfirm() {
-    const { showModalConfirm } = this.state
-    this.setState({
-      showModalConfirm: !showModalConfirm,
-      idSubsDelete: null,
-    })
-
-    const ModalProfile =
-      document.querySelector('#arc-popup-profile').parentNode ||
-      document.querySelector('#arc-popup-profile').parentElement
-    if (showModalConfirm) {
-      ModalProfile.style.overflow = 'auto'
-    } else {
-      ModalProfile.style.overflow = 'hidden'
-    }
-  }
-
-  showPayment(idSubcription) {
-    const { showDetails, idSubsDetail } = this.state
-    this.setState({
-      showDetails: !showDetails,
-      idSubsDetail: idSubcription,
-    })
-  }
-
-  deleteSub() {
-    const { idSubsDelete } = this.state
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
-      () => {
-        this.setState({
-          isLoad: true,
-        })
-        this.getListSubs().then(p => {
-          setTimeout(() => {
-            if (p.length) {
-              this.setState({
-                userSubsDetail: p,
-                isSubs: true,
-                isLoad: false,
-              })
-            } else {
-              this.setState({
-                isSubs: false,
-                isLoad: false,
-              })
-            }
-          }, 2000)
-        })
-        this.closeModalConfirm()
-      }
-    )
-  }
-
   render() {
     const {
       isSubs,
       isLoad,
       paywallName,
       paywallPrice,
-      showModalConfirm,
       userSubsDetail,
-      idSubsDelete,
       listBundle,
-      showDetails,
-      idSubsDetail,
     } = this.state
-    const { arcSite, subs } = this.props
+    const { arcSite, detail } = this.props
     return (
       <>
         {isLoad ? (
@@ -249,26 +161,15 @@ class Subs extends Component {
                         <h3>Mi suscripción</h3>
                         {reSubs.currentPaymentMethod.paymentPartner ===
                         'PayULATAM' ? (
-                          // <button
-                          //   type="button"
-                          //   className="link"
-                          //   onClick={() =>
-                          //     this.openModalConfirm(reSubs.subscriptionID)
-                          //   }>
-                          //   ANULAR MI SUSCRIPCIÓN
-                          // </button>
                           <button
                             type="button"
                             className="link"
-                            onClick={() => 
-                              // this.showPayment(reSubs.subscriptionID)
-                              subs()
-                            }>
+                            onClick={() => {
+                              detail(reSubs.subscriptionID)
+                            }}>
                             EDITAR MÉTODO DE PAGO
                           </button>
-                        ) : (
-                          ''
-                        )}
+                        ) : null}
                       </div>
 
                       <div className="right">
@@ -320,7 +221,6 @@ class Subs extends Component {
                               </p>
                             </>
                           )}
-
                           {/* <p className="small">
                               *POR 6 MESES LUEGO S/ 20 CADA MES
                             </p> */}
@@ -369,59 +269,6 @@ class Subs extends Component {
                   </div>
                 ) : null}
               </>
-            )}
-
-            {showDetails && <SubDetail idSubs={idSubsDetail} />}
-
-            {showModalConfirm && (
-              <Modal
-                size="small"
-                position="middle"
-                bg="white"
-                name="modal-div-confirmpass"
-                id="modal-div-confirmpass">
-                <div className="text-right">
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={e => this.closeModalConfirm(e)}>
-                    <Close />
-                  </button>
-                </div>
-
-                <div className="modal-body__wrapper">
-                  <form
-                    className="form-grid form-group-confirm"
-                    onSubmit={e => this.submitConfirmPassword(e)}>
-                    <div className="row-grid">
-                      <h2 className="form-grid__label--title text-center">
-                        {`¿Estás seguro que deseas anular tu suscripción a
-                        www.${arcSite}.pe?`}
-                      </h2>
-                      <p className="form-grid__label form-grid__label--information text-center">
-                        Ten en cuenta que tu suscripción se desactivará al
-                        finalizar tu periodo de facturación.
-                      </p>
-                    </div>
-                    <div className="row-grid">
-                      <div className="form-group form-froup-confirm">
-                        <input
-                          type="button"
-                          className="btn btn--blue btn-bg"
-                          onClick={e => this.closeModalConfirm(e)}
-                          value="NO"
-                        />
-                        <input
-                          type="button"
-                          className="btn input-button"
-                          onClick={() => this.deleteSub(idSubsDelete)}
-                          value="SI"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </Modal>
             )}
           </>
         )}

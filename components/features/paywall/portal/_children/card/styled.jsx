@@ -46,7 +46,7 @@ export const Head = styled.div`
     font-weight: 700;
     padding: 40px 0;
     text-align: center;
-    ${theme.breakpoints.down('xs')} {
+    ${theme.breakpoints.down('md')} {
       font-size: 26px;
     }
   `}
