@@ -10,6 +10,7 @@ export default ({
   author,
   authorLink,
   authorImage,
+  authorImageSquareXS,
   multimediaLandscapeMD,
   multimediaPortraitMD,
   multimediaLandscapeL,
@@ -142,7 +143,7 @@ export default ({
             <picture>
               <img
                 className={classes.authorImg}
-                src={authorImage}
+                src={authorImageSquareXS || authorImage}
                 alt={author}
               />
             </picture>
