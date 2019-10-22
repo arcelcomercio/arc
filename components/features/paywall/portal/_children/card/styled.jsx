@@ -40,11 +40,16 @@ export const Card = styled.div`
 `
 
 export const Head = styled.div`
-  font-family: Judson;
-  font-size: 28px;
-  font-weight: 700;
-  padding: 40px 0;
-  text-align: center;
+  ${({ theme }) => css`
+    font-family: Judson;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 40px 0;
+    text-align: center;
+    ${theme.breakpoints.down('xs')} {
+      font-size: 26px;
+    }
+  `}
 `
 
 export const CardHead = styled.div`
