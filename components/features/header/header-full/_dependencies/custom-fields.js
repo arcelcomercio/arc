@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-  hierarchyConfig: PropTypes.contentConfig('navigation').tag({
+  hierarchyHeader: PropTypes.contentConfig('navigation').tag({
     name: 'Editar navegación',
-    group: 'Configuración del contenido',
+    group: 'Configuración del Header',
+  }),
+  hierarchyMenu: PropTypes.contentConfig('navigation').tag({
+    name: 'Editar navegación',
+    group: 'Configuración del Menu',
   }),
 })
 

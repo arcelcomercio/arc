@@ -4,7 +4,7 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
+import { filterHeader, filterMenu } from './_dependencies/schema-filter'
 
 import HeaderFullView from './_children/header-full'
 
@@ -18,21 +18,51 @@ const HeaderFull = props => {
 
   const { footer: { socialNetworks = [] } = {} } = siteProperties
 
-  const { customFields: { hierarchyConfig } = {} } = props
+  const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
 
-  const { contentService = '', contentConfigValues = {} } =
-    hierarchyConfig || {}
+  const {
+    contentService: serviceHeader = '',
+    contentConfigValues: valuesHeader = {},
+  } = hierarchyHeader || {}
+  const isReadyHeader = !!valuesHeader.hierarchy
+  const sourceHeader = isReadyHeader ? serviceHeader : 'navigation-by-hierarchy'
+  const queryHeader = isReadyHeader
+    ? valuesHeader
+    : {
+        hierarchy: 'header-default',
+      }
 
-  const data =
+  const dataHeader =
     useContent({
-      source: contentService,
-      query: contentConfigValues,
-      filter: schemaFilter,
+      source: sourceHeader,
+      query: queryHeader,
+      filter: filterHeader,
     }) || {}
 
-  const { children: dataList = [] } = data
+  const {
+    contentService: serviceMenu = '',
+    contentConfigValues: valuesMenu = {},
+  } = hierarchyMenu || {}
+  const isReadyMenu = !!valuesHeader.hierarchy
+  const sourceMenu = isReadyMenu ? serviceMenu : 'navigation-by-hierarchy'
+  const queryMenu = isReadyMenu
+    ? valuesMenu
+    : {
+        hierarchy: 'menu-default',
+      }
+
+  const dataMenu =
+    useContent({
+      source: sourceMenu,
+      query: queryMenu,
+      filter: filterMenu,
+    }) || {}
+
+  const { children: headerList = [] } = dataHeader
+  const { children: menuList = [] } = dataMenu
   const params = {
-    dataList,
+    headerList,
+    menuList,
     socialNetworks,
     logo: deployment(
       `${contextPath}/resources/dist/${arcSite}/images/alternate-logo.png`
@@ -46,5 +76,5 @@ const HeaderFull = props => {
 HeaderFull.propTypes = {
   customFields,
 }
-HeaderFull.label = 'Cabezera Full'
+HeaderFull.label = 'Cabecera Full'
 export default HeaderFull
