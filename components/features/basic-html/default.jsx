@@ -15,7 +15,16 @@ const classes = {
 @Consumer
 class BasicHtml extends PureComponent {
   componentDidMount() {
-    const { customFields: { freeHtml = '' } = {} } = this.props
+    const { customFields: { freeHtml = '', adsSpace } = {} } = this.props
+
+    if (adsSpace && adsSpace !== 'none') {
+      this.fetchContent({
+        adsSpaces: {
+          source: 'get-ads-spaces',
+          query: {},
+        },
+      })
+    }
 
     // TODO: separar en funciones puras
     if (freeHtml) {
@@ -32,6 +41,40 @@ class BasicHtml extends PureComponent {
     }
   }
 
+  getAdsSpace() {
+    const { adsSpaces = {} } = this.state || {}
+    const { arcSite, customFields: { adsSpace } = {} } = this.props
+
+    const toDate = dateStr => {
+      const [date, time] = dateStr.split(' ')
+      const [day, month, year] = date.split('/')
+      return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
+    }
+
+    if (adsSpaces[arcSite]) {
+      const auxAdsSpaces = adsSpaces[arcSite] || []
+      const auxAdsSpace =
+        auxAdsSpaces.filter(el => Object.keys(el).includes(adsSpace))[0] || {}
+
+      if (auxAdsSpace[adsSpace]) {
+        const currentSpace = auxAdsSpace[adsSpace][0]
+        const {
+          fec_inicio: fecInicio,
+          fec_fin: fecFin,
+          des_html: desHtml,
+        } = currentSpace
+        const currentDate = new Date()
+        const initDate = toDate(fecInicio)
+        const endDate = toDate(fecFin)
+
+        return currentDate > initDate && endDate > currentDate ? desHtml : false
+      }
+      return false
+    }
+
+    return false
+  }
+
   render() {
     const {
       outputType,
@@ -41,18 +84,23 @@ class BasicHtml extends PureComponent {
 
     const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
 
+    if (this.getAdsSpace()){ 
+      return (
+        <div dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())} />
+      )
+    }
     return (
-      <div className={classes.htmlContainer}>
-        {freeHtml && outputType !== 'amp' && (
-          <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
-        )}
-        {!freeHtml && isAdmin && (
-          <div
-            dangerouslySetInnerHTML={createMarkup(freeHtml)}
-            className={addEmptyBackground()}
-          />
-        )}
-      </div>
+        <div className={classes.htmlContainer}>
+          {freeHtml && outputType !== 'amp' && (
+            <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+          )}
+          {!freeHtml && isAdmin && (
+            <div
+              dangerouslySetInnerHTML={createMarkup(freeHtml)}
+              className={addEmptyBackground()}
+            />
+          )}
+        </div>
     )
   }
 }
