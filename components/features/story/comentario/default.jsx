@@ -96,8 +96,10 @@ class StoryComentario extends PureComponent {
                   className={classes.spotim}
                 />
                 <div className={classes.spotimScript} />
-                {commentsDisplay && <div className={classes.commentsDisplay} />}
-                {commentsAllow && <div className={classes.commentsAllow} />}
+                {commentsDisplay ||
+                  (sourceId && <div className={classes.commentsDisplay} />)}
+                {commentsAllow ||
+                  (sourceId && <div className={classes.commentsAllow} />)}
               </>
             )}
         </div>
