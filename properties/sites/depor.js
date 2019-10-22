@@ -1,6 +1,7 @@
 export default {
   siteName: 'Depor',
   sitemapNewsName: 'Diario Depor',
+  newsletterBrand: 'depor',
   /*   googleFonts: 'Noticia+Text:400,700|Roboto+Condensed:400,700|Roboto:400,700', */
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
