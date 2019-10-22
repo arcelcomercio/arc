@@ -4,9 +4,14 @@ import ItemTop from './ComponentStyles'
 const classes = {
   sectionColumn:
     'footer-secction__content-column footer-secction__item-border flex flex-col',
-
   item: 'footer-secction__item',
 }
+
+const ItemLinkSubSection = ({ url, subsectionName }) => (
+  <li className={classes.item}>
+    <a href={url}>{subsectionName}</a>
+  </li>
+)
 
 const SectionColumn = ({
   section: {
@@ -23,11 +28,14 @@ const SectionColumn = ({
         </a>
       </li>
       {listSubSections.map(
-        ({ display_name: subsectionName = '', url = '' }) => {
+        ({ display_name: subsectionName = '', url = '' }, index) => {
+          const keyString = `id${index}`
           return (
-            <li className={classes.item}>
-              <a href={url}>{subsectionName}</a>
-            </li>
+            <ItemLinkSubSection
+              key={keyString}
+              subsectionName={subsectionName}
+              url={url}
+            />
           )
         }
       )}
