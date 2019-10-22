@@ -20,7 +20,8 @@ const SocialColumnSection = ({ socialNetworks }) => {
       </li>
       {socialNetworks &&
         socialNetworks.map(({ name, url }, index) => {
-          return <ItemLink key={`id${index}`} name={name} url={url} />
+          const keyString = `id${index}`
+          return <ItemLink key={keyString} name={name} url={url} />
         })}
       <li className={classes.item}>
         <a href="/mapa-web" style={ItemTop}>
