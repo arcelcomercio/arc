@@ -1,7 +1,7 @@
 .navbar-nm {
   height: 45px;
   display: none;
-  @media (--tablet) {
+  @media (--desktop) {
     display: block;
   }
   &__container {
