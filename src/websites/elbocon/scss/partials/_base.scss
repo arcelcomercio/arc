@@ -1,4 +1,7 @@
 body {
-  background: $color-base-100;
   overflow-x: hidden;
+}
+body,
+.bg-container {
+  background: $color-white;
 }

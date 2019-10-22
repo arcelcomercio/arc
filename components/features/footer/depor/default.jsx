@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import FooterDeporColumnSection from './_children/FooterSection'
 import FooterInfo from './_children/FooterInfo'
 
+
 const DEFAULT_HIERARCHY = 'footer-default'
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -20,6 +21,11 @@ const SCHEMA = `{
     }
   }
 }`
+
+const classes = {
+  footer:'bg-white'
+}
+
 @Consumer
 class FooterDepor extends PureComponent {
   constructor(props) {
@@ -43,9 +49,8 @@ class FooterDepor extends PureComponent {
       siteProperties: {
         gecSites,
         siteUrl = '',
-        legalLinks=[],
+        legalLinks = [],
         footer: {
-          
           socialNetworks = [],
           contacts = [],
           corporateInfo = {},
@@ -54,17 +59,15 @@ class FooterDepor extends PureComponent {
         } = {},
       } = {},
       contextPath,
-      arcSite,
     } = this.props
 
-    const imageDefault = `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+    const imageDefault = `${contextPath}/resources/dist/depor/images/logo.png`
 
     const footerProps = {
       sections: children,
       socialNetworks,
     }
     const footerInfoProp = {
-      
       siteUrl,
       imageDefault,
       gecSites,
@@ -75,9 +78,10 @@ class FooterDepor extends PureComponent {
       draftingContact,
       copyrightText,
     }
+    const keyString = 'key0'
     return (
-      <footer>
-        <FooterDeporColumnSection key={'key0'} {...footerProps} />
+      <footer className={classes.footer}>
+        <FooterDeporColumnSection key={keyString} {...footerProps} />
         <FooterInfo key={0} {...footerInfoProp} />
       </footer>
     )
