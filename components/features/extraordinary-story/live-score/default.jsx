@@ -101,7 +101,7 @@ class ExtraordinaryStoryLifeScore extends Component {
               <div className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex justify-end items-center">
                 {firstTeam.nombre || ''}
               </div>
-              <div className="p-10 title-xs font-bold bg-black">{`${firstTeam.score ||
+              <div className="extraordinary-l-score__score p-10 title-xs font-bold bg-black flex items-center">{`${firstTeam.score ||
                 ''} - ${secondTeam.score || ''}`}</div>
               <div className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex items-center">
                 {secondTeam.nombre || ''}
@@ -128,7 +128,7 @@ ExtraordinaryStoryLifeScore.label = 'Apertura extraordinaria - En vivo'
 
 ExtraordinaryStoryLifeScore.propTypes = {
   customFields: PropTypes.shape({
-    codeField: PropTypes.string.isRequired.tag({
+    codeField: PropTypes.string.tag({
       name: 'Código del partido',
     }),
     storyConfig: PropTypes.contentConfig('story').isRequired.tag({
