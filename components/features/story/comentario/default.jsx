@@ -68,6 +68,7 @@ class StoryComentario extends PureComponent {
       primarySection,
       commentsDisplay,
       commentsAllow,
+      sourceId,
     } = new StoryData({
       data,
       contextPath,
@@ -86,7 +87,7 @@ class StoryComentario extends PureComponent {
           )}
 
           {comment === 'spotim' &&
-            (commentsDisplay || commentsAllow) &&
+            (commentsDisplay || commentsAllow || sourceId) &&
             excluirComment === -1 && (
               <>
                 <div
