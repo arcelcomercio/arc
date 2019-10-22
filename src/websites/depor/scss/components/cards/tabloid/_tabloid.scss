@@ -5,6 +5,9 @@
     height: auto;
     background-color: transparent;
   }
+  &__body {
+    padding-top: 0;
+  }
   &__header,
   &__body {
     background-color: $color-secondary;
