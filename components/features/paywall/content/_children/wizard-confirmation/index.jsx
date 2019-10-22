@@ -100,6 +100,11 @@ const WizardConfirmation = props => {
     Year: 'Anual',
   }
 
+  const Period = {
+    Month: msgs.monthlyPeriod,
+    Year: msgs.yearlyPeriod,
+  }
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
@@ -146,7 +151,7 @@ const WizardConfirmation = props => {
                   </strong>
                   <strong>{`${paidTotal !== 0 ? paidTotal : ''} `}</strong>
 
-                  {`${description.title}. ${description.description}`}
+                  {`${Period[billingFrequency]} ${description.title}. ${description.description}`}
                 </S.Item>
 
                 <S.Small>{msgs.paymentNotice}</S.Small>
