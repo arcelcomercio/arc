@@ -15,5 +15,7 @@ import './images/default-sm.png'
 import './images/default-md.png'
 import './images/default-lg.png'
 import './images/author.png'
+import './images/alternate-logo.png'
+import './images/alternate-logo-w.png'
 
 /* import '../../../components/utilities/lazyload' */

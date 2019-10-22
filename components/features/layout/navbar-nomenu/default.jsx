@@ -20,8 +20,6 @@ const navBarNoMenu = props => {
       filter: schemaFilter,
     }) || {}
 
-  console.log(data, 'dataaaaa')
-
   return <NavBarChild list={data} />
 }
 
