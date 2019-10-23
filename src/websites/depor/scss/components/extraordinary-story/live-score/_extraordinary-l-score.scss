@@ -1,6 +1,16 @@
 .extraordinary-l-score {
+  background-color: #3f3f3f;
+  &__title {
+    max-height: calc(20px * 1.166 * 4);
+    @media (--tablet) {
+      max-height: calc(32px * 1.166 * 4);
+    }
+  }
   &__title-link {
     font-size: 20px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
     @media (--tablet) {
       font-size: 32px;
     }

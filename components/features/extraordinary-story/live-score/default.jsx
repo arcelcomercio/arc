@@ -6,18 +6,29 @@ import PropTypes from 'prop-types'
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
 
+import { getPhotoId } from '../../../utilities/helpers'
+
+const PHOTO_SOURCE = 'photo-by-id'
+
+const PHOTO_SCHEMA = `{
+  resized_urls { 
+    landscape_l   
+  }
+}`
+
 @Consumer
 class ExtraordinaryStoryLifeScore extends Component {
   constructor(props) {
     super(props)
     this.state = {
       results: {},
-      count: 1,
+      count: 0,
     }
 
     const {
       customFields: {
         storyConfig: { contentService = '', contentConfigValues = {} } = {},
+        imgField,
       } = {},
       arcSite,
       contextPath,
@@ -35,37 +46,63 @@ class ExtraordinaryStoryLifeScore extends Component {
             subTitle,
             multimediaLandscapeL,
             websiteLink,
+            multimediaLazyDefault,
           } = new StoryData({
             data,
             arcSite,
             contextPath,
             deployment,
-            defaultImgSize: 'sm',
+            defaultImgSize: 'md',
           })
-          return { title, subTitle, multimediaLandscapeL, websiteLink }
+          return {
+            title,
+            subTitle,
+            multimediaLandscapeL,
+            websiteLink,
+            multimediaLazyDefault,
+          }
         },
       },
     })
+    if (imgField) {
+      const photoId = getPhotoId(imgField)
+      if (photoId) {
+        this.fetchContent({
+          customPhoto: {
+            source: PHOTO_SOURCE,
+            query: {
+              _id: photoId,
+            },
+            filter: PHOTO_SCHEMA,
+          },
+        })
+      }
+    }
   }
 
   componentDidMount() {
+    this.setState({ count: Date.now() })
     const { customFields: { codeField } = {} } = this.props
     if (codeField) {
-      this.fetch()
+      this.fetch(Date.now())
       setInterval(() => {
         this.fetch()
       }, 5000)
     }
   }
 
-  fetch() {
+  fetch(first) {
     const { count } = this.state
     const { customFields: { codeField = '' } = {} } = this.props
 
-    fetch(`https://w.ecodigital.pe/data/depor/${codeField}_xalok.js?_=${count}`)
+    const actualCount = first || count
+
+    fetch(
+      `https://w.ecodigital.pe/data/depor/${codeField}_xalok.js?_=${actualCount}`
+    )
       .then(res => res.json())
       .then(res => {
-        this.setState({ results: res, count: count + 1 })
+        this.setState({ results: res, count: actualCount + 1 })
       })
       .catch(err => console.error(err))
   }
@@ -73,12 +110,30 @@ class ExtraordinaryStoryLifeScore extends Component {
   render() {
     const {
       results: { data: { equipos: teams = [] } = {} } = {},
-      story: { title, subTitle, multimediaLandscapeL, websiteLink } = {},
+      story: {
+        title,
+        subTitle,
+        multimediaLandscapeL,
+        websiteLink,
+        multimediaLazyDefault,
+      } = {},
+      customPhoto: { resized_urls: { landscape_l: landscapeL } = {} } = {},
     } = this.state || {}
-
-    const { customFields: { codeField = '' } = {} } = this.props
+    const {
+      customFields: {
+        codeField = '',
+        titleField = '',
+        subTitleField = '',
+        isLive,
+        imgField,
+      } = {},
+      editableField,
+      isAdmin,
+    } = this.props
 
     const [firstTeam = {}, secondTeam = {}] = teams
+
+    const imgUrl = landscapeL || imgField || multimediaLandscapeL
 
     return (
       <div className="extraordinary-l-score bg-gray-300 lg:flex flex-row-reverse">
@@ -87,8 +142,11 @@ class ExtraordinaryStoryLifeScore extends Component {
           href={websiteLink}>
           <picture className="extraordinary-l-score__picture">
             <img
-              className="extraordinary-l-score__img w-full object-cover"
-              src={multimediaLandscapeL}
+              className={`${
+                isAdmin ? '' : 'lazy'
+              } extraordinary-l-score__img w-full object-cover`}
+              src={isAdmin ? imgUrl : multimediaLazyDefault}
+              data-src={imgUrl}
               alt={title}
             />
           </picture>
@@ -108,15 +166,26 @@ class ExtraordinaryStoryLifeScore extends Component {
               </div>
             </a>
           )}
-          <h1 className="extraordinary-l-score__title mb-15">
+          <h1 className="extraordinary-l-score__title mb-15 overflow-hidden">
+            {isLive && (
+              <div className="extraordinary-l-score__live text-white inline-block mr-10">
+                <span className="extraordinary-l-score__live-icon inline-block rounded mr-5" />
+                EN VIVO
+              </div>
+            )}
             <a
               href={websiteLink}
-              className="extraordinary-l-score__title-link text-white title-md font-bold line-h-xs">
-              {title}
+              className="extraordinary-l-score__title-link text-white title-md font-bold line-h-xs"
+              {...editableField('titleField')}
+              suppressContentEditableWarning>
+              {titleField || title}
             </a>
           </h1>
-          <p className="extraordinary-l-score__subtitle text-white hidden md:block text-lg line-h-sm mb-20">
-            {subTitle}
+          <p
+            className="extraordinary-l-score__subtitle text-white hidden md:block text-lg line-h-sm mb-20"
+            {...editableField('subTitleField')}
+            suppressContentEditableWarning>
+            {subTitleField || subTitle}
           </p>
         </div>
       </div>
@@ -133,6 +202,24 @@ ExtraordinaryStoryLifeScore.propTypes = {
     }),
     storyConfig: PropTypes.contentConfig('story').isRequired.tag({
       name: 'Configuración del contenido',
+    }),
+    isLive: PropTypes.bool.tag({
+      name: 'En vivo',
+    }),
+    titleField: PropTypes.string.tag({
+      name: 'Título',
+      group: 'Editar campos',
+      description: 'Dejar vacío para tomar el valor original de la historia.',
+    }),
+    subTitleField: PropTypes.string.tag({
+      name: 'Bajada',
+      group: 'Editar campos',
+      description: 'Dejar vacío para tomar el valor original de la historia.',
+    }),
+    imgField: PropTypes.string.tag({
+      name: 'Imagen',
+      group: 'Editar campos',
+      description: 'Dejar vacío para tomar el valor original de la historia.',
     }),
   }),
 }
