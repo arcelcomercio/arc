@@ -147,7 +147,7 @@ class ExtraordinaryStoryLifeScore extends Component {
               </div>
             </a>
           )}
-          <h1 className="extraordinary-l-score__title mb-15">
+          <h1 className="extraordinary-l-score__title mb-15 overflow-hidden">
             {isLive && (
               <div className="extraordinary-l-score__live text-white inline-block mr-10">
                 <span className="extraordinary-l-score__live-icon inline-block rounded mr-5" />
