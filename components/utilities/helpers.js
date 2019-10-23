@@ -369,12 +369,24 @@ export const addParamToEndPath = (path, param) => {
   return addParam(path, param)
 }
 
+/**
+ * @param {object} objeto Propiedades necesarias para armar la URL de la imagen por defecto.
+ * @param {function} objeto.deployment Agrega un parámetro al final de la cadena 
+ * con la versión de deployment. Viene desde Fusion.
+ * @param {string} objeto.contextPath Normalmente /pf/. Viene desde fusion.
+ * @param {string} objeto.arcSite Identificador del sitio actual. Viene desde fusion.
+ * @param {string} [objeto.size=lg] Tamaño de la imagen por defecto. Hay tres opciones 
+ * 'sm', 'md' y 'lg'. Definido manualmente.
+ * 
+ * @returns {string} URL de la imagen por defecto desde /resources/dist/...
+ */
 export const defaultImage = ({
   deployment,
   contextPath,
   arcSite,
   size = 'lg',
 }) => {
+
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
   const site = () => {
@@ -384,18 +396,15 @@ export const defaultImage = ({
     return domain
   }
 
-  const getOrigin = () => {
-    let origin = `https://${site()}`
-
-    if (typeof window !== 'undefined') {
-      // eslint-disable-next-line prefer-destructuring
-      origin = window.location.origin
-    }
-    
-    return origin
+  if (arcSite === 'depor' || arcSite === 'elbocon') {
+    return deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    )
   }
 
-  return deployment(`${getOrigin()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`)
+  return deployment(
+    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+  )
 }
 
 export const createScript = ({ src, async, defer, textContent = '' }) => {
@@ -477,9 +486,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-    }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
