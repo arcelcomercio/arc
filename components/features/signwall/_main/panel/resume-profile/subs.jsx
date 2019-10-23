@@ -239,7 +239,7 @@ class Subs extends Component {
                     </div>
                     <div className="cont-subs">
                       <div className="first-subs">
-                        <p>Accede a nuestro contenido exclusivo, adquiere tu</p>
+                        <p>Accede ilimitadamente a nuestro contenido, adquiere el:</p>
                         <h3>{paywallName}</h3>
                       </div>
                       <div className="last-subs">

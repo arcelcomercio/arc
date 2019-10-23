@@ -20,7 +20,8 @@ const closeSession = props => {
     .then(() => {
       if (
         window.location.pathname.indexOf('suscripciones') >= 0 ||
-        arcSite === 'gestion'
+        arcSite === 'gestion' ||
+        arcSite === 'elcomercio'
       ) {
         closeDispatchEvent()
         window.location.reload()
@@ -29,6 +30,7 @@ const closeSession = props => {
         window.sessionStorage.removeItem('paywall-profile-form')
         window.sessionStorage.removeItem('paywall-payment-form')
       }
+      window.sessionStorage.removeItem('paywall_last_url')
     })
     .catch(() => {
       window.location.reload()

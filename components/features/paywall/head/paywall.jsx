@@ -74,11 +74,11 @@ class Head extends React.PureComponent {
     this.getFirstName()
   }
 
-  redirectLogo = () => {
-    if (window.location.pathname.includes('suscripciones/')) {
-      window.location.href = '/'
-    }
-  }
+  // redirectLogo = () => {
+  //   if (window.location.pathname.includes('suscripciones/')) {
+  //     window.location.href = '/'
+  //   }
+  // }
 
   userName = name => {
     return name.length > 6 ? `${name.substring(0, 6)}..` : name
@@ -120,10 +120,7 @@ class Head extends React.PureComponent {
           <S.Right />
         </S.Background>
         <S.Content backgroundColor={leftColor}>
-          <S.WrapLogo
-            onClick={() => {
-              this.redirectLogo()
-            }}>
+          <S.WrapLogo as="a" href="/" target="_blank">
             <Icon
               type={themedLogo}
               fill={theme.palette.secondary.contrastText}

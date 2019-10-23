@@ -153,7 +153,7 @@ const WizardConfirmation = props => {
 
                   {`${paidTotal !== 0 ? Period[billingFrequency] : ''} ${
                     description.title
-                  }. ${description.description}`}
+                  } ${description.description}`}
                 </S.Item>
 
                 <S.Small>{msgs.paymentNotice}</S.Small>

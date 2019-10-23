@@ -109,7 +109,7 @@ class Subscription extends Component {
                   <div className="resume__dates">
                     <div className="cont-plan">
                       <div className="first-plan">
-                        <p>Accede a nuestro contenido exclusivo, adquiere tu</p>
+                        <p>Accede ilimitadamente a nuestro contenido, adquiere el:</p>
                         <h3>Plan Digital</h3>
                       </div>
 
