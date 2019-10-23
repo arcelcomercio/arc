@@ -4,7 +4,7 @@ const classes = {
   header: 'amp-header w-full position-absolute mx-auto',
   wrap:
     'amp-header__wrap bg-primary mx-auto flex items-center justify-between pl-20 pr-20',
-  logo: 'amp-header__logo',
+  logo: 'amp-header__logo pt-5',
   linkContainer:
     'amp-header__link-container border-1 border-solid border-white text-sm rounded-sm line-h-xs flex items-center justify-center p-10',
   link: 'amp-header__link i-survey-share secondary-font',
@@ -35,9 +35,9 @@ const LayoutInvertedAmpHeader = ({
             <a href="/">
               <amp-img
                 src={imgLogo}
-                alt={arcSite}
                 width={widthAmp}
                 height={heightAmp}
+                alt={arcSite}
                 tabindex="0"
               />
             </a>

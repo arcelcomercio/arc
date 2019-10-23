@@ -153,4 +153,23 @@ $max-width: 1366px;
     z-index: 10;
     box-shadow: 0px 4px 7px -5px #888888;
   }
+  &.active {
+    background-color: white;
+    .header-full__box-logo {
+      background-color: white;
+    }
+    .header-full__icon-menu {
+      color: black;
+    }
+
+    .nav__story-title {
+    }
+
+    .nav__loader-bar {
+      left: 0;
+      top: 46px;
+      height: 5px;
+      background-color: $color-primary;
+    }
+  }
 }
