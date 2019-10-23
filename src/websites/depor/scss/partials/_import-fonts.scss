@@ -42,6 +42,17 @@
   font-display: swap;
 }
 
+/* Roboto Black */
+@font-face {
+  font-family: 'Roboto';
+  src: url('../../fonts/Roboto-Black.woff2') format('woff2'),
+  url('../../fonts/Roboto-Black.woff') format('woff'),
+  url('../../fonts/Roboto-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* RobotoCondensed Regular */
 @font-face {
   font-family: 'Roboto Condensed';
