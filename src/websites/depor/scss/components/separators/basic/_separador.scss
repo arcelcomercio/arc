@@ -80,7 +80,7 @@
     * .separator__icon {
       background-color: $color-white;
       border-radius: 50%;
-      bottom: 10px;
+      top: calc(100% - 133px);
       color: $color-fourth;
       display: block;
       left: 10px;
@@ -95,6 +95,10 @@
         height: 72px;
         font-size: 74px;
         line-height: 75px;
+        top: 33px;
+      }
+      @media (--desktop) {
+        top: 83px;
       }
       &::before {
         position: absolute;
