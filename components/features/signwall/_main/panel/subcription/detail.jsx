@@ -93,15 +93,16 @@ class SubDetail extends Component {
   }
 
   submitUpdateCard() {
+    const { arcSite } = this.props
+
     window.Sales.apiOrigin = this.origin_api
     window.Sales.getPaymentOptions().then(res => {
       window.console.log(res)
-
       services
         .initPaymentUpdate(
           '2801',
           '1246',
-          'gestion',
+          arcSite,
           window.Identity.userIdentity.accessToken
         )
         .then(resUpdate => {
@@ -114,7 +115,7 @@ class SubDetail extends Component {
             parameter4: deviceSessionId,
           } = resUpdate
 
-          return addPayU('gestion', deviceSessionId)
+          return addPayU(arcSite, deviceSessionId)
             .then(payU => {
               payU.setURL(payuBaseUrl)
               payU.setPublicKey(publicKey)
@@ -144,12 +145,17 @@ class SubDetail extends Component {
             })
             .then(token => {
               window.console.log(token)
-              return token
-            })
-            .then(token => {
-              // const { paymentMethodID, paymentMethodType } = payUPaymentMethod
-              // const sandboxToken = `${token}~${deviceSessionId}~${cvv}`
-              window.console.log(token)
+              services
+                .finalizePaymentUpdate(
+                  '2801',
+                  '1246',
+                  arcSite,
+                  window.Identity.userIdentity.accessToken,
+                  token
+                )
+                .then(resFin => {
+                  window.console.log(resFin)
+                })
             })
         })
     })
@@ -224,16 +230,22 @@ class SubDetail extends Component {
               <S.Fieldset>
                 <legend>Datos de la tarjeta</legend>
                 <S.Group>
-                  <S.Input type="text" placeholder="Número de tarjeta" />
-                  <S.Input type="text" placeholder="F. de Vencimiento" />
-                  <S.Input type="text" placeholder="CVV" />
+                  <S.Input
+                    type="text"
+                    placeholder="Número de tarjeta"
+                  />
+                  <S.Input
+                    type="text"
+                    placeholder="F. de Vencimiento"
+                  />
+                  <S.Input type="text" placeholder="CVV"/>
                   <S.Msgcvv>
                     <Cvv />
                     <small>Se encuentra en el reverso de su tarjeta*</small>
                   </S.Msgcvv>
                 </S.Group>
                 <S.Block ar pt="10">
-                  <Button type="button" onClick={this.submitUpdateCard()}>
+                  <Button type="button" onClick={() => this.submitUpdateCard()}>
                     ACTUALIZAR
                   </Button>
                 </S.Block>
