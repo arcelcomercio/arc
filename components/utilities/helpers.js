@@ -396,6 +396,12 @@ export const defaultImage = ({
     return domain
   }
 
+  if (arcSite === 'depor' || arcSite === 'elbocon') {
+    return deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    )
+  }
+
   return deployment(
     `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
@@ -480,9 +486,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-    }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
