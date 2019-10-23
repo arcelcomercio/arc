@@ -14,7 +14,7 @@ import { useStrings } from '../../../../../_children/contexts'
 const FormStyled = S.Form(Form)
 const { trim } = Masks.Pipes
 
-const _initValue = {
+const defaultValues = {
   firstName: null,
   lastName: null,
   secondLastName: null,
@@ -26,21 +26,22 @@ const _initValue = {
 const UserProfile = ({
   name,
   title = '',
-  initialValues = {},
+  initialValues: _initialValues = {},
   error,
   printedSubscriber,
   onSubmit,
   onReset,
 }) => {
   const msgs = useStrings()
+  const initialValues = Object.assign(
+    {},
+    defaultValues,
+    pick(_initialValues, Object.keys(defaultValues)),
+    printedSubscriber
+  )
   return (
     <Formik
-      initialValues={Object.assign(
-        {},
-        _initValue,
-        pick(initialValues, Object.keys(_initValue)),
-        printedSubscriber
-      )}
+      initialValues={initialValues}
       validate={values => createSchema(values, msgs)}
       onSubmit={(values, actions) => {
         const {

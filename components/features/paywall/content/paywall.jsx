@@ -51,9 +51,8 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
 
   const wizardRef = useRef(null)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
-
   const [profile, setProfile] = useState('')
-  useEffect(() => {
+  const getProfile = React.useRef(() =>
     addIdentity(arcSite).then(() => {
       if (isLogged()) {
         userProfile(['documentNumber', 'phone', 'documentType']).then(
@@ -61,6 +60,10 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
         )
       }
     })
+  ).current
+
+  useEffect(() => {
+    getProfile()
     document.querySelector('html').classList.add('ios')
     PWA.mount(() => window.location.reload())
   }, [])
@@ -71,10 +74,10 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   }).current
 
   addEventListener('logout', clearPaywallStorage)
-  addEventListener('profile-update', clearPaywallStorage)
   addEventListener('profile-update', () => {
     try {
-      setProfile(JSON.parse(localStorage['ArcId.USER_PROFILE']))
+      getProfile()
+      sessionStorage.removeItem(PROFILE_FORM_NAME)
     } catch (e) {
       console.error(e)
     }
