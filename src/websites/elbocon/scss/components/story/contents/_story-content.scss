@@ -21,4 +21,12 @@
   li {
     font-family: $primary-font;
   }
+  &__icon {
+    color: $color-gray-200;
+  }
+  &__list-more {
+    .story-content__item:last-child {
+      display: none;
+    }
+  }
 }

@@ -1,0 +1,16 @@
+.react-calendar {
+  &__header {
+    background-color: $color-primary;
+  }
+  &__title {
+    color: $color-white;
+  }
+  &__icon {
+    background-image: url('/pf/resources/dist/depor/images/d.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    &:before {
+      display: none;
+    }
+  }
+}

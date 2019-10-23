@@ -62,7 +62,7 @@ const classes = {
     'megamenu__link font-thin block secondary-font pt-10 pb-5 text-md',
 }
 
-export default ({ socialNetworks, logo, whiteLogo, dataList }) => {
+export default ({ socialNetworks, logo, whiteLogo, headerList, menuList }) => {
   const inputSearch = useRef(null)
   const [showMenu, toggleMenu] = useState(false)
   const toggleSubItems = e => {
@@ -136,7 +136,7 @@ export default ({ socialNetworks, logo, whiteLogo, dataList }) => {
               </form>
             </div>
             <ul className={classes.headerList}>
-              {dataList.map(item => {
+              {menuList.map(item => {
                 const hasChildren = item.children.length > 0
                 return (
                   <>
@@ -199,7 +199,7 @@ export default ({ socialNetworks, logo, whiteLogo, dataList }) => {
           </div>
           <div className={classes.boxList}>
             <ul className={classes.listNav}>
-              {dataList.map(item => {
+              {headerList.map(item => {
                 return (
                   <li className={classes.itemNav}>
                     <a href={item._id} className={classes.linkNav}>
@@ -213,7 +213,7 @@ export default ({ socialNetworks, logo, whiteLogo, dataList }) => {
           <div className={`${classes.megaMenu} ${showMenu ? 'active' : ''}`}>
             <div className={classes.megaMenuContainer}>
               <div className={classes.megaMenuBox}>
-                {dataList.map(item => {
+                {menuList.map(item => {
                   return (
                     <div className={classes.megaMenuRow}>
                       <h3>
@@ -245,9 +245,11 @@ export default ({ socialNetworks, logo, whiteLogo, dataList }) => {
         </div>
         <div className={classes.right}>
           <div className={classes.btnContainer}>
-            <button type="button" className={classes.btnResult}>
+            <a
+              href="/resultados/futbol/resultados/"
+              className={classes.btnResult}>
               Resultados
-            </button>
+            </a>
           </div>
         </div>
       </div>

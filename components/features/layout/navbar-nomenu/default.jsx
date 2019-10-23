@@ -13,10 +13,18 @@ const navBarNoMenu = props => {
   const { contentService = '', contentConfigValues = {} } =
     hierarchyConfig || {}
 
+  const isReadyNav = !!contentConfigValues.hierarchy
+  const sourceValue = isReadyNav ? contentService : 'navigation-by-hierarchy'
+  const queryValue = isReadyNav
+    ? contentConfigValues
+    : {
+        hierarchy: 'navbar-default',
+      }
+
   const data =
     useContent({
-      source: contentService,
-      query: contentConfigValues,
+      source: sourceValue,
+      query: queryValue,
       filter: schemaFilter,
     }) || {}
 

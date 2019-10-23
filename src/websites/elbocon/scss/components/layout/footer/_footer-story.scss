@@ -1,12 +1,12 @@
 .footer-story.footer-secondary {
   border-top: 0;
-  background-color: $color-primary;
+  background-color: transparent;
 
   .footer-secondary__legal-item {
-    color: $color-white;
+    color: #767676;
     &::after {
       @media (--desktop) {
-        background-color: $color-white;
+        background-color: #767676;
       }
     }
   }
