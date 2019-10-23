@@ -2,6 +2,7 @@ const fs = require('fs')
 const gulp = require('gulp')
 const multiDest = require('gulp-multi-dest')
 const babel = require('gulp-babel')
+const minify = require('gulp-minify')
 
 const buildSites = fs
   .readdirSync(__dirname + '/src/websites')
@@ -17,5 +18,6 @@ gulp.task('default', () =>
         presets: ['@babel/env'],
       })
     )
+    .pipe(minify())
     .pipe(multiDest(outputBrands))
 )
