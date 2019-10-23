@@ -12,7 +12,7 @@ import Ads from '../../../global-components/ads'
 
 const classes = {
   listado: 'w-full',
-  listadoSeeMore: 'flex justify-center mt-20 uppercase',
+  listadoSeeMore: 'story-item__btn flex justify-center mt-20 uppercase',
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
