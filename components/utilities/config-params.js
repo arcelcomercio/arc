@@ -265,4 +265,57 @@ export const sizeImgNewsLetter = () => {
   }
 }
 
+export const spacesAdsId = () => {
+  return [
+    'none',
+    'publirreportaje',
+    'auspiciotop1',
+    'auspiciotop2',
+    'auspiciotop3',
+    'daily1',
+    'daily2',
+    'catalogo1',
+    'catalogo2',
+    'zonaauspiciada0',
+    'zonaauspiciada1',
+    'zonaauspiciada2',
+    'zonaauspiciada3',
+    'zonaauspiciada4',
+    'zonaauspiciada5',
+    'zonaauspiciada6',
+    'suplementos',
+    'middle1',
+    'middle2',
+    'caja1',
+    'caja2',
+    'caja3',
+  ]
+}
+
+export const spacesAdsName = () => {
+  return {
+    none: 'Ninguno',
+    publirreportaje: 'publirreportaje',
+    auspiciotop1: 'auspiciotop1',
+    auspiciotop2: 'auspiciotop2',
+    auspiciotop3: 'auspiciotop3',
+    daily1: 'daily1',
+    daily2: 'daily2',
+    catalogo1: 'catalogo1',
+    catalogo2: 'catalogo2',
+    zonaauspiciada0: 'zonaauspiciada0',
+    zonaauspiciada1: 'zonaauspiciada1',
+    zonaauspiciada2: 'zonaauspiciada2',
+    zonaauspiciada3: 'zonaauspiciada3',
+    zonaauspiciada4: 'zonaauspiciada4',
+    zonaauspiciada5: 'zonaauspiciada5',
+    zonaauspiciada6: 'zonaauspiciada6',
+    suplementos: 'suplementos',
+    middle1: 'middle1',
+    middle2: 'middle2',
+    caja1: 'caja1',
+    caja2: 'caja2',
+    caja3: 'caja3',
+  }
+}
 export default ConfigParams

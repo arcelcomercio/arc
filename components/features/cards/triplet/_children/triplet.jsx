@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from '../../../../global-components/multimedia-icon'
+import { createMarkup } from '../../../../utilities/helpers'
 
 const TripletChildTriplet = props => {
   const {
@@ -9,6 +10,9 @@ const TripletChildTriplet = props => {
     isAdmin,
     data = [],
     multimediaOrientation = 'right',
+    getSpace = "",
+    getSpace2 = "",
+    getSpace3 = "",
   } = props
   const classes = {
     triplet: 'triplet bg-white border-solid border-1 border-gray p-20 row-1',
@@ -43,7 +47,25 @@ const TripletChildTriplet = props => {
 
   return (
     <div role="list" className={classes.triplet}>
-      {data.map((story, index) => (
+      {data.map((story, index) => {
+        console.log("indice =>" + index)
+        if (index === 0) {
+          if (getSpace)
+          return (
+            <div dangerouslySetInnerHTML={createMarkup(getSpace)} />
+          )
+        }else if (index === 1) {
+          if (getSpace2)
+          return (
+            <div dangerouslySetInnerHTML={createMarkup(getSpace2)} />
+          )
+        }else if (index === 2) {
+          if (getSpace3)
+          return (
+            <div dangerouslySetInnerHTML={createMarkup(getSpace3)} />
+          )
+        }
+       return (
         <article
           className={classes.item}
           role="listitem"
@@ -82,7 +104,8 @@ const TripletChildTriplet = props => {
             </a>
           </figure>
         </article>
-      ))}
+       )
+      })}
     </div>
   )
 }
