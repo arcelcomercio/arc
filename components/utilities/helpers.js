@@ -117,7 +117,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-  } del ${date.getFullYear()}`
+    } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -215,8 +215,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
-        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-      }`
+    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+    }`
 }
 
 export const getMetaPagesPagination = (
@@ -315,10 +315,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-        .charAt(0)
-        .toUpperCase()
-        .concat(lastSection.slice(1))
-        .replace(/-/, ' ')
+      .charAt(0)
+      .toUpperCase()
+      .concat(lastSection.slice(1))
+      .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -369,12 +369,24 @@ export const addParamToEndPath = (path, param) => {
   return addParam(path, param)
 }
 
+/**
+ * @param {object} objeto Propiedades necesarias para armar la URL de la imagen por defecto.
+ * @param {function} objeto.deployment Agrega un parámetro al final de la cadena 
+ * con la versión de deployment. Viene desde Fusion.
+ * @param {string} objeto.contextPath Normalmente /pf/. Viene desde fusion.
+ * @param {string} objeto.arcSite Identificador del sitio actual. Viene desde fusion.
+ * @param {string} [objeto.size=lg] Tamaño de la imagen por defecto. Hay tres opciones 
+ * 'sm', 'md' y 'lg'. Definido manualmente.
+ * 
+ * @returns {string} URL de la imagen por defecto desde /resources/dist/...
+ */
 export const defaultImage = ({
   deployment,
   contextPath,
   arcSite,
   size = 'lg',
 }) => {
+
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
   const site = () => {
