@@ -49,6 +49,19 @@
   font-weight: 700;
   font-style: normal;
 }
+/* Roboto Black */
+@font-face {
+  font-family: 'Roboto';
+  src: url('../../fonts/Roboto-Black.eot');
+  src: url('../../fonts/Roboto-Black.eot?#iefix') format('embedded-opentype'),
+    url('../../fonts/Roboto-Black.svg#Roboto-Black') format('svg'),
+    url('../../fonts/Roboto-Black.ttf') format('truetype'),
+    url('../../fonts/Roboto-Black.woff') format('woff'),
+    url('../../fonts/Roboto-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
 /* RobotoCondensed Regular */
 @font-face {
   font-family: 'Roboto Condensed';

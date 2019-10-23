@@ -1,16 +1,41 @@
 .react-calendar {
+  &__box {
+    background-color: $color-white;
+  }
   &__header {
-    background-color: $color-primary;
+    background-color: transparent;
   }
   &__title {
-    color: $color-white;
+    color: $color-fourth;
+    font-size: 16px;
+    font-weight: 900;
+    font-family: $secondary-font;
+    text-align: center;
   }
-  &__icon {
-    background-image: url('/pf/resources/dist/depor/images/d.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    &:before {
-      display: none;
+  &__brand {
+    display: none;
+  }
+  &__tile--active {
+    background-color: transparent;
+  }
+  &__month-view__weekdays,
+  &__month-view__days__day {
+    border: 0;
+  }
+  &__month-view__days__day {
+    &:disabled {
+      abbr {
+        color: #bbbbbb;
+      }
     }
+  }
+  &__month-view__weekdays__weekday abbr {
+    color: #bbbbbb;
+    font-weight: 900;
+    font-family: $secondary-font;
+    font-size: 13px;
+  }
+  &__tile--active {
+    background-color: #f2f2f2;
   }
 }
