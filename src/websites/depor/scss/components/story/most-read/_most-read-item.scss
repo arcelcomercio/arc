@@ -20,6 +20,10 @@
       font-family: $primary-font;
       font-size: 22px;
       font-weight: 400;
+      max-height: 132px;
+    }
+    &__icon {
+      display: none;
     }
   }
 }
