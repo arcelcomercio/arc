@@ -5,6 +5,9 @@
     height: auto;
     background-color: transparent;
   }
+  &__body {
+    padding-top: 0;
+  }
   &__header,
   &__body {
     background-color: $color-secondary;
@@ -20,6 +23,8 @@
   &__face {
     height: 250px;
     width: 220px;
-    background-color: red;
+    display: block;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    transform: rotate(-4deg);
   }
 }
