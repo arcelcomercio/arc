@@ -21,4 +21,4 @@ import './images/bg-link.png'
 import './images/arrow-left-circle.png'
 import './images/d.png'
 
-/* import '../../../components/utilities/lazyload' */
+import '../../../components/utilities/lazyload'
