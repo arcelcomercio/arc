@@ -24,15 +24,15 @@ const WideNavGridLayout = ({ children = [] }) => {
   const [gridClass, setGridClass] = useState('grid')
   useEffect(() => {
     if (isIE()) setGridClass('ie-flex')
-  })
+  }, [])
   return (
     <div className={classes.container}>
-      {children[0] /* Publicidad Top */}
-      {children[1] /* Barra de navegación */}
-      {children[2] /* Cabecera de página */}
+      {children[1] /* Publicidad Top */}
+      {children[2] /* Barra de navegación */}
+      {children[3] /* Cabecera de página */}
       <div className={classes.layout}>
         <div className={classes.zocalo}>
-          {children[3] /* Zocalo izquierda */}
+          {children[0] /* Zocalo izquierda */}
         </div>
         <div className={classes.contentContainer}>
           {children[4] /* Encabezado */}
@@ -43,9 +43,9 @@ const WideNavGridLayout = ({ children = [] }) => {
             <section className={classes.aditional}>{children[6]}</section>
           ) /* Contenido adicional */}
         </div>
-        <div className={classes.zocalo}>{children[7] /* Zocalo derecha */}</div>
+        <div className={classes.zocalo}>{children[8] /* Zocalo derecha */}</div>
       </div>
-      {children[8] /* Pie de página */}
+      {children[7] /* Pie de página */}
     </div>
   )
 }
@@ -55,15 +55,15 @@ WideNavGridLayout.propTypes = {
 }
 
 WideNavGridLayout.sections = [
+  'Zocalo izquierda',
   'Publicidad Top',
   'Barra de navegación',
   'Cabecera de página',
-  'Zocalo izquierda',
   'Encabezado',
   'Contenido',
   'Contenido adicional',
-  'Zocalo derecha',
   'Pie de página',
+  'Zocalo derecha',
 ]
 
 export default WideNavGridLayout
