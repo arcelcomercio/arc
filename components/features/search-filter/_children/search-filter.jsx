@@ -11,7 +11,7 @@ import schemaFilter from '../_dependencies/schema-filter'
 
 const classes = {
   searchFilter: `search-filter flex flex-col-reverse bg-base-100 w-full mt-20 p-15 lg:flex-row`,
-  containerList: 'position-relative',
+  containerList: 'search-filter__box position-relative',
   select: `search-filter__select position-relative w-full flex items-center pt-0 pb-0 pl-15 pr-15 lg:h-auto p-0`,
   selectName: `search-filter__select-name flex w-full justify-between text-sm lg:hidden`,
   iconButton: 'icon-angle-down',
