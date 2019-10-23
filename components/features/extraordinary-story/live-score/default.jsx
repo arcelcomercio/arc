@@ -46,14 +46,21 @@ class ExtraordinaryStoryLifeScore extends Component {
             subTitle,
             multimediaLandscapeL,
             websiteLink,
+            multimediaLazyDefault,
           } = new StoryData({
             data,
             arcSite,
             contextPath,
             deployment,
-            defaultImgSize: 'sm',
+            defaultImgSize: 'md',
           })
-          return { title, subTitle, multimediaLandscapeL, websiteLink }
+          return {
+            title,
+            subTitle,
+            multimediaLandscapeL,
+            websiteLink,
+            multimediaLazyDefault,
+          }
         },
       },
     })
@@ -103,7 +110,13 @@ class ExtraordinaryStoryLifeScore extends Component {
   render() {
     const {
       results: { data: { equipos: teams = [] } = {} } = {},
-      story: { title, subTitle, multimediaLandscapeL, websiteLink } = {},
+      story: {
+        title,
+        subTitle,
+        multimediaLandscapeL,
+        websiteLink,
+        multimediaLazyDefault,
+      } = {},
       customPhoto: { resized_urls: { landscape_l: landscapeL } = {} } = {},
     } = this.state || {}
     const {
@@ -115,9 +128,12 @@ class ExtraordinaryStoryLifeScore extends Component {
         imgField,
       } = {},
       editableField,
+      isAdmin,
     } = this.props
 
     const [firstTeam = {}, secondTeam = {}] = teams
+
+    const imgUrl = landscapeL || imgField || multimediaLandscapeL
 
     return (
       <div className="extraordinary-l-score bg-gray-300 lg:flex flex-row-reverse">
@@ -126,8 +142,11 @@ class ExtraordinaryStoryLifeScore extends Component {
           href={websiteLink}>
           <picture className="extraordinary-l-score__picture">
             <img
-              className="extraordinary-l-score__img w-full object-cover"
-              src={landscapeL || imgField || multimediaLandscapeL}
+              className={`${
+                isAdmin ? '' : 'lazy'
+              } extraordinary-l-score__img w-full object-cover`}
+              src={isAdmin ? imgUrl : multimediaLazyDefault}
+              data-src={imgUrl}
               alt={title}
             />
           </picture>
