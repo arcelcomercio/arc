@@ -78,9 +78,28 @@
       }
     }
     * .separator__icon {
+      background-color: $color-white;
+      border-radius: 50%;
+      top: calc(100% - 133px);
+      color: $color-fourth;
+      display: block;
+      left: 10px;
+      pointer-events: none;
       width: 35px;
       height: 35px;
-      font-size: 20px;
+      line-height: 35px;
+      font-size: 36px;
+      position: absolute;
+      @media (--tablet) {
+        width: 72px;
+        height: 72px;
+        font-size: 74px;
+        line-height: 75px;
+        top: 33px;
+      }
+      @media (--desktop) {
+        top: 83px;
+      }
       &::before {
         position: absolute;
         left: 50%;

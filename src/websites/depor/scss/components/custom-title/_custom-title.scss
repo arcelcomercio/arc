@@ -1,8 +1,13 @@
 .custom-title {
   font-family: $primary-font;
+  color: $color-primary;
+  font-weight: 700;
   &.large {
-    font-size: 30px;
+    font-size: 24px;
     @media (--tablet) {
+      font-size: 30px;
+    }
+    @media (--desktop) {
       font-size: 46px;
     }
   }

@@ -5,7 +5,8 @@
     color: rgb(170, 170, 170);
   }
   &__box-search {
-    background-color: $color-secondary;
+    background-color: #ced11f;
+    right: -5px;
   }
   &__btn {
     border: 1px solid #7f7f7f;
@@ -16,10 +17,14 @@
     font-size: 11px;
   }
   &__input-search {
+    padding: 0 8px;
   }
   &__btn-search {
-    background-color: $color-secondary;
-    color: #000;
-    border: solid 1px #fff;
+    background-color: #ced11f;
+    color: #006132;
+    border: solid 1px $color-white;
+    font-weight: 700;
+    font-family: $fourth-font;
+    font-size: 14px;
   }
 }
