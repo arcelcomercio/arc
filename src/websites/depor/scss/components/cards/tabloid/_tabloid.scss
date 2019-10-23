@@ -23,6 +23,8 @@
   &__face {
     height: 250px;
     width: 220px;
-    background-color: red;
+    display: block;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    transform: rotate(-4deg);
   }
 }
