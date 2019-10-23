@@ -20,7 +20,7 @@ const SeparatorFeatured = props => {
     } = {},
   } = props
 
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const { editableField } = useEditableContent()
 
   const { content_elements: contentElements = [] } =
@@ -46,6 +46,7 @@ const SeparatorFeatured = props => {
       primarySectionLink,
       multimediaPortraitS,
       multimediaType,
+      multimediaLazyDefault,
     } = storyData
     return {
       title,
@@ -54,6 +55,7 @@ const SeparatorFeatured = props => {
       primarySectionLink,
       multimediaPortraitS,
       multimediaType,
+      multimediaLazyDefault,
     }
   })
 
@@ -94,6 +96,7 @@ const SeparatorFeatured = props => {
             primarySection,
             primarySectionLink,
             multimediaPortraitS,
+            multimediaLazyDefault,
             // multimediaType,
           },
           i
@@ -126,9 +129,12 @@ const SeparatorFeatured = props => {
                 className="featured-separator__img-link block"
                 href={websiteLink}>
                 <img
-                  src={multimediaPortraitS}
+                  src={isAdmin ? multimediaPortraitS : multimediaLazyDefault}
+                  data-src={multimediaPortraitS}
                   alt={title}
-                  className="featured-separator__img w-full object-cover"
+                  className={`${
+                    isAdmin ? '' : 'lazy'
+                  } featured-separator__img w-full object-cover`}
                 />
               </a>
             </div>
