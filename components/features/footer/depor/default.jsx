@@ -95,6 +95,6 @@ class FooterDepor extends PureComponent {
 }
 
 FooterDepor.label = 'Pié de página - Depor'
-// FooterDepor.static = true
+FooterDepor.static = true
 
 export default FooterDepor

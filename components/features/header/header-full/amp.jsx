@@ -74,7 +74,10 @@ class LayoutNavbar extends PureComponent {
       contextPath,
       arcSite,
       deployment,
-      siteProperties: { siteUrl },
+      siteProperties: {
+        siteUrl,
+        assets: { seo: { widthAmp = '', heightAmp = '' } = {} } = {},
+      },
     } = this.props
     const imgLogo =
       deployment(
@@ -89,8 +92,8 @@ class LayoutNavbar extends PureComponent {
                 <amp-img
                   src={imgLogo}
                   alt={arcSite}
-                  width="73"
-                  height="51"
+                  width={widthAmp}
+                  height={heightAmp}
                   tabindex="0"
                 />
               </a>

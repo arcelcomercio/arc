@@ -1,4 +1,9 @@
 .header-full {
+  &.active {
+    .nav__loader-bar {
+      background-color: #42c64c;
+    }
+  }
   &__link-nav {
     font-family: $tertiary-font;
   }
