@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
+import { spacesAdsId, spacesAdsName } from '../../../utilities/config-params'
 
 const customFields = PropTypes.shape({
   adElement: PropTypes.string.isRequired.tag({
     name: 'Nombre',
-    description: 'El nombre definido en este campo formará parte del "id" (Ej. ads_d_[nombre]).'
+    description:
+      'El nombre definido en este campo formará parte del "id" (Ej. ads_d_[nombre]).',
   }),
   isDesktop: PropTypes.bool.tag({
     name: 'Mostrar en "desktop" y "tablet"',
@@ -14,7 +16,8 @@ const customFields = PropTypes.shape({
   freeHtml: PropTypes.richtext.tag({
     name: 'Código HTML Adicional',
     group: 'Agregar bloque de HTML',
-    description: 'HTML a renderizar en el espacio disponible junto al módulo de publicidad. El HTML siempre se mostrará en "desktop", "tablet" y "mobile".',
+    description:
+      'HTML a renderizar en el espacio disponible junto al módulo de publicidad. El HTML siempre se mostrará en "desktop", "tablet" y "mobile".',
   }),
   columns: PropTypes.oneOf(['w-full', 'col-1', 'col-2', 'col-3']).tag({
     name: 'Ancho de la publicidad',
@@ -36,6 +39,13 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'empty',
     group: 'Tamaño de la publicidad',
+  }),
+
+  adsSpace: PropTypes.oneOf(spacesAdsId()).tag({
+    name: 'Espacio',
+    group: 'Publicidad',
+    labels: spacesAdsName(),
+    defaultValue: 'none',
   }),
 })
 
