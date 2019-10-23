@@ -17,5 +17,8 @@ import './images/default-lg.png'
 import './images/author.png'
 import './images/alternate-logo.png'
 import './images/alternate-logo-w.png'
+import './images/bg-link.png'
+import './images/arrow-left-circle.png'
+import './images/d.png'
 
 /* import '../../../components/utilities/lazyload' */

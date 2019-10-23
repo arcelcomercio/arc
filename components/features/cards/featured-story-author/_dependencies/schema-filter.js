@@ -6,7 +6,10 @@ export default arcSite => {
     credits {
       by { 
         name url type 
-        image { url }
+        image { 
+          url 
+          resized_urls { square_xs }
+        }
         additional_properties { original { role education { name } } } 
       }
     }
