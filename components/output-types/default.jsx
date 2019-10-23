@@ -31,9 +31,9 @@ export default ({
       : 'https://jab.pe/f/arc'
 
   const BASE_URL_ADS_ESPACIOS =
-      CURRENT_ENVIRONMENT === 'prod'
-        ? `https://d2dvq461rdwooi.cloudfront.net/ads-${arcSite}`
-        : `https://d37z8six7qdyn4.cloudfront.net/ads-${arcSite}`
+    CURRENT_ENVIRONMENT === 'prod'
+      ? `https://d2dvq461rdwooi.cloudfront.net/ads-${arcSite}`
+      : `https://d37z8six7qdyn4.cloudfront.net/ads-${arcSite}`
 
   const metaPageData = {
     globalContent,
@@ -95,7 +95,9 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -193,7 +195,7 @@ export default ({
           <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
         )}
         {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />          
+          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
         )}
 
         {/* Scripts de APPNEXUS */}
@@ -255,7 +257,9 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -274,7 +278,7 @@ export default ({
           <script
             defer
             src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
+              `${contextPath}/resources/dist/${arcSite}/js/appnexus-min.js`
             )}
           />
         )}
