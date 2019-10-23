@@ -150,7 +150,10 @@ export default ({
 
   return (
     <>
-      <div className={`${classes.headerFull} ${scrolled ? 'active' : ''}`}>
+      <div
+        className={`${classes.headerFull} ${
+          scrolled && isStory ? 'active' : ''
+        }`}>
         <div className={classes.container}>
           <div className={classes.left}>
             <div
