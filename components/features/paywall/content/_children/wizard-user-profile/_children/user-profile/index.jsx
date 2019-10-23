@@ -156,7 +156,7 @@ const UserProfile = ({
             </Button>
             <Persist
               name={name}
-              ignoreErrors
+              // ignoreErrors
               ignoreFields={
                 printedSubscriber ? ['documentType', 'documentNumber'] : []
               }
