@@ -48,7 +48,7 @@ export default {
       width: 230,
       height: 60,
       widthAmp: 178,
-      heightAmp: 47,
+      heightAmp: 44,
     },
     premium: {
       logo: 'favicon.png',

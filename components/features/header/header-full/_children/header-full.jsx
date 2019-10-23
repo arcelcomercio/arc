@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
-import { searchQuery } from '../../../../utilities/helpers'
+import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 
 const classes = {
   headerFull: 'header-full bg-primary w-full position-relative',
@@ -60,11 +60,34 @@ const classes = {
   megaMenuItem: 'megamenu__item',
   megaMenuLink:
     'megamenu__link font-thin block secondary-font pt-10 pb-5 text-md',
+  navStoryTitle:
+    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15 line-h-sm',
+  navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
+
+  listIcon: 'story-header__list hidden md:flex justify-between rounded-sm',
+  moreLink: 'story-content__more-link',
+  shareItem: 'story-header__item',
+  shareLink: 'story-header__link flex items-center justify-center text-white',
+  shareIcon: 'story-header__icon',
+  iconMore: 'story-header__share-icon icon-share text-white',
+  navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
 }
 
-export default ({ socialNetworks, logo, whiteLogo, headerList, menuList }) => {
+export default ({
+  socialNetworks,
+  logo,
+  whiteLogo,
+  headerList,
+  menuList,
+  isStory,
+  shareButtons,
+  postTitle,
+}) => {
   const inputSearch = useRef(null)
   const [showMenu, toggleMenu] = useState(false)
+
+  const [scrolled, setScrolled] = useState(false)
+
   const toggleSubItems = e => {
     const item = e.target.parentElement
     const list = item.querySelector('.header-full__submenu-list')
@@ -87,81 +110,193 @@ export default ({ socialNetworks, logo, whiteLogo, headerList, menuList }) => {
       _handleSearch(e)
     }
   }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const _handleScroll = () => {
+    // ------ Logic to set state to hidden or show logo in navbar
+    const { body = {}, documentElement = {} } = document
+    const { scrollTop: scrollBody = 0 } = body
+    const { scrollTop: scrollElement = 0 } = documentElement
+    const scroll = scrollBody || scrollElement
+
+    const headerTop = 10
+    if (!scrolled && scroll > headerTop) setScrolled(true)
+    else if (scrolled && scroll <= headerTop) setScrolled(false)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', _handleScroll)
+    return () => {
+      window.removeEventListener('scroll', _handleScroll)
+    }
+  }, [_handleScroll])
+
+  const moreList = () => {
+    const el = document.querySelector('.story-header__list')
+    if (el.classList.contains('block')) {
+      el.classList.remove('block')
+      el.classList.add('hidden')
+    } else {
+      el.classList.remove('hidden')
+      el.classList.add('block')
+    }
+  }
+
+  const openLink = (event, item) => {
+    event.preventDefault()
+    if (item === 3) moreList()
+    else popUpWindow(item.link, '', 600, 400)
+  }
+
   return (
-    <div className={classes.headerFull}>
-      <div className={classes.container}>
-        <div className={classes.left}>
-          <div
-            className={`${classes.boxBtnMenu} ${showMenu ? 'bg-white' : ''} `}>
-            <button
-              type="button"
-              onClick={() => toggleMenu(!showMenu)}
-              className={classes.btnMenu}>
-              <i
-                className={`${classes.iconMenu} ${
-                  showMenu ? 'icon-close active' : 'icon-hamburguer'
-                } `}
-              />
-            </button>
-          </div>
-          <div className={`${classes.wrapperMenu} ${showMenu ? 'active' : ''}`}>
-            <div className={classes.topMenu}>
-              <div className={classes.topLeft}>
-                <button
-                  type="button"
-                  onClick={() => toggleMenu(!showMenu)}
-                  className={classes.btnClose}>
-                  <i className={classes.iconClose} />
-                </button>
-              </div>
-              <div className={classes.topRight}>
-                <img className={classes.imgMenu} alt="" src={whiteLogo} />
-              </div>
-            </div>
-            <div className={classes.boxSearch}>
-              <form className={classes.formSearch}>
-                <input
-                  type="search"
-                  placeholder="Buscar"
-                  onKeyUp={e => _handleKeyDown(e)}
-                  ref={inputSearch}
-                  className={classes.inputSearch}
+    <>
+      <div className={`${classes.headerFull} ${scrolled ? 'active' : ''}`}>
+        <div className={classes.container}>
+          <div className={classes.left}>
+            <div
+              className={`${classes.boxBtnMenu} ${
+                showMenu ? 'bg-white' : ''
+              } `}>
+              <button
+                type="button"
+                onClick={() => toggleMenu(!showMenu)}
+                className={classes.btnMenu}>
+                <i
+                  className={`${classes.iconMenu} ${
+                    showMenu ? 'icon-close active' : 'icon-hamburguer'
+                  } `}
                 />
-                <button
-                  type="button"
-                  onClick={e => _handleSearch(e)}
-                  className={classes.btnSearch}>
-                  <i className={classes.iconSearch} />
-                </button>
-              </form>
+              </button>
             </div>
-            <ul className={classes.headerList}>
-              {menuList.map(item => {
-                const hasChildren = item.children.length > 0
-                return (
-                  <>
-                    <li className={classes.headerItem}>
-                      <a
-                        href={item._id}
-                        className={`${classes.headerLink} pt-15 pb-15`}>
+            <div
+              className={`${classes.wrapperMenu} ${showMenu ? 'active' : ''}`}>
+              <div className={classes.topMenu}>
+                <div className={classes.topLeft}>
+                  <button
+                    type="button"
+                    onClick={() => toggleMenu(!showMenu)}
+                    className={classes.btnClose}>
+                    <i className={classes.iconClose} />
+                  </button>
+                </div>
+                <div className={classes.topRight}>
+                  <img className={classes.imgMenu} alt="" src={whiteLogo} />
+                </div>
+              </div>
+              <div className={classes.boxSearch}>
+                <form className={classes.formSearch}>
+                  <input
+                    type="search"
+                    placeholder="Buscar"
+                    onKeyUp={e => _handleKeyDown(e)}
+                    ref={inputSearch}
+                    className={classes.inputSearch}
+                  />
+                  <button
+                    type="button"
+                    onClick={e => _handleSearch(e)}
+                    className={classes.btnSearch}>
+                    <i className={classes.iconSearch} />
+                  </button>
+                </form>
+              </div>
+              <ul className={classes.headerList}>
+                {menuList.map(item => {
+                  const hasChildren = item.children.length > 0
+                  return (
+                    <>
+                      <li className={classes.headerItem}>
+                        <a
+                          href={item._id}
+                          className={`${classes.headerLink} pt-15 pb-15`}>
+                          {item.name}
+                        </a>
+                        {hasChildren && (
+                          <button
+                            type="button"
+                            onClick={e => toggleSubItems(e)}
+                            className={classes.angleRight}
+                          />
+                        )}
+                        {hasChildren && (
+                          <ul className={classes.subMenuList}>
+                            {item.children.map(subItem => {
+                              return (() => {
+                                return (
+                                  <li className={classes.subMenuItem}>
+                                    <a
+                                      href={subItem._id}
+                                      className={`${classes.headerLink}`}>
+                                      {subItem.name}
+                                    </a>
+                                  </li>
+                                )
+                              })()
+                            })}
+                          </ul>
+                        )}
+                      </li>
+                    </>
+                  )
+                })}
+              </ul>
+              <div className={classes.footerMenu}>
+                <p className={classes.follow}>Siguenos en Depor</p>
+                <ul className={classes.mediaList}>
+                  {socialNetworks.map(item => {
+                    return (
+                      <li className={classes.mediaItem}>
+                        <a className={classes.mediaLink} href={item.url}>
+                          <i
+                            className={`${classes.mediaIcon} icon-${item.name}`}
+                          />
+                        </a>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            </div>
+            <div className={classes.boxLogo}>
+              <a className={classes.linkLogo} href="/">
+                <img src={logo} className={classes.logo} alt="" />
+              </a>
+            </div>
+            {isStory && (
+              <div className={classes.navStoryTitle}>{postTitle}</div>
+            )}
+            <div className={classes.boxList}>
+              <ul className={classes.listNav}>
+                {headerList.map(item => {
+                  return (
+                    <li className={classes.itemNav}>
+                      <a href={item._id} className={classes.linkNav}>
                         {item.name}
                       </a>
-                      {hasChildren && (
-                        <button
-                          type="button"
-                          onClick={e => toggleSubItems(e)}
-                          className={classes.angleRight}
-                        />
-                      )}
-                      {hasChildren && (
-                        <ul className={classes.subMenuList}>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            <div className={`${classes.megaMenu} ${showMenu ? 'active' : ''}`}>
+              <div className={classes.megaMenuContainer}>
+                <div className={classes.megaMenuBox}>
+                  {menuList.map(item => {
+                    return (
+                      <div className={classes.megaMenuRow}>
+                        <h3>
+                          <a href={item._id} className={classes.megaMenuTitle}>
+                            {item.name}
+                          </a>
+                        </h3>
+                        <ul className={classes.megaMenuList}>
                           {item.children.map(subItem => {
                             return (() => {
                               return (
-                                <li className={classes.subMenuItem}>
+                                <li className={classes.megaMenuItem}>
                                   <a
                                     href={subItem._id}
-                                    className={`${classes.headerLink}`}>
+                                    className={classes.megaMenuLink}>
                                     {subItem.name}
                                   </a>
                                 </li>
@@ -169,90 +304,58 @@ export default ({ socialNetworks, logo, whiteLogo, headerList, menuList }) => {
                             })()
                           })}
                         </ul>
-                      )}
-                    </li>
-                  </>
-                )
-              })}
-            </ul>
-            <div className={classes.footerMenu}>
-              <p className={classes.follow}>Siguenos en Depor</p>
-              <ul className={classes.mediaList}>
-                {socialNetworks.map(item => {
-                  return (
-                    <li className={classes.mediaItem}>
-                      <a className={classes.mediaLink} href={item.url}>
-                        <i
-                          className={`${classes.mediaIcon} icon-${item.name}`}
-                        />
-                      </a>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </div>
-          <div className={classes.boxLogo}>
-            <a className={classes.linkLogo} href="/">
-              <img src={logo} className={classes.logo} alt="" />
-            </a>
-          </div>
-          <div className={classes.boxList}>
-            <ul className={classes.listNav}>
-              {headerList.map(item => {
-                return (
-                  <li className={classes.itemNav}>
-                    <a href={item._id} className={classes.linkNav}>
-                      {item.name}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-          <div className={`${classes.megaMenu} ${showMenu ? 'active' : ''}`}>
-            <div className={classes.megaMenuContainer}>
-              <div className={classes.megaMenuBox}>
-                {menuList.map(item => {
-                  return (
-                    <div className={classes.megaMenuRow}>
-                      <h3>
-                        <a href={item._id} className={classes.megaMenuTitle}>
-                          {item.name}
-                        </a>
-                      </h3>
-                      <ul className={classes.megaMenuList}>
-                        {item.children.map(subItem => {
-                          return (() => {
-                            return (
-                              <li className={classes.megaMenuItem}>
-                                <a
-                                  href={subItem._id}
-                                  className={classes.megaMenuLink}>
-                                  {subItem.name}
-                                </a>
-                              </li>
-                            )
-                          })()
-                        })}
-                      </ul>
-                    </div>
-                  )
-                })}
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={classes.right}>
-          <div className={classes.btnContainer}>
-            <a
-              href="/resultados/futbol/resultados/"
-              className={classes.btnResult}>
-              Resultados
-            </a>
+
+          <div className={`${classes.right} ${classes.rightBtnContainer}`}>
+            {isStory && scrolled ? (
+              <>
+                <div className={classes.navStorySocialNetwork}>
+                  <div>
+                    <a
+                      className={classes.moreLink}
+                      href={classes.moreLink}
+                      onClick={event => {
+                        openLink(event, 3)
+                      }}>
+                      <i className={`${classes.iconMore}`} />
+                    </a>
+                  </div>
+
+                  <ul className={classes.listIcon}>
+                    {shareButtons.firstList.map((item, i) => (
+                      <li key={item.icon} className={classes.shareItem}>
+                        <a
+                          className={classes.shareLink}
+                          href={item.link}
+                          onClick={event => {
+                            openLink(event, item)
+                          }}>
+                          <i className={`${item.icon} ${classes.shareIcon}`} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <div className={classes.btnContainer}>
+                <a
+                  href="/resultados/futbol/resultados/"
+                  className={classes.btnResult}>
+                  Resultados
+                </a>
+              </div>
+            )}
           </div>
+          {isStory && <div className={classes.navLoader} />}
         </div>
       </div>
-    </div>
+    </>
   )
 }
