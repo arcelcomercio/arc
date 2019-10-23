@@ -119,7 +119,7 @@
   // }
 
   &.active {
-    height: 45px;
+    height: $nav-height;
     max-width: 100%;
     @media (--desktop) {
       background-color: #555555;

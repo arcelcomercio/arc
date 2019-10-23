@@ -5,8 +5,9 @@ const classes = {
     container: 'flex flex-col w-full',
     layout: 'flex justify-center',
     contentContainer: 'flex flex-col content-layout-container w-full position-relative',
+    content: 'mt-20 mb-20',
     aditional: 'mb-20',
-    zocalo: 'ads__zocalo',
+    zocalo: 'ads__zocalo--wide-nav',
 }
 
 /**---------------------------------------------------------------------
@@ -28,7 +29,7 @@ const WideNavGridDefault = ({ children = [] }) => {
                 </div>
                 <div className={classes.contentContainer}>
                     {children[4] /* Encabezado */}
-                    <div role="main">
+                    <div role="main" className={classes.content}>
                         {children[5] /* Contenido */}
                     </div>
                     {children[6] && (
