@@ -21,6 +21,7 @@ import './images/author.png'
 import './images/authorOpinion.png'
 import './images/logo-amp.png'
 import './images/logo-elcomercio-388x60.png'
+import './images/arrow-right-2.png'
 
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'

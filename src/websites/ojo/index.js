@@ -18,5 +18,6 @@ import './images/default-lg.png'
 import './images/loader.png'
 import './images/logo-amp.png'
 import './images/author.png'
+import './images/arrow-right-2.png'
 
 import '../../../components/utilities/lazyload'
