@@ -121,7 +121,7 @@ class StoryContentAmp extends PureComponent {
     return (
       <>
         <div className={classes.content}>
-          {promoItems && <ElePrincipal data={promoItems} />}
+          {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
           <div
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmp(parameters)}
