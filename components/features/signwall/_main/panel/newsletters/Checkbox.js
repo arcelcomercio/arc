@@ -57,8 +57,26 @@ const Image = styled.div`
 `
 
 const Name = styled.div`
-  background: ${props => (props.checked ? '#d64445' : 'transparent')};
-  color: white;
+  background: ${props =>
+    // eslint-disable-next-line no-nested-ternary
+    props.site === 'elcomercio'
+      ? props.checked
+        ? '#fecd26'
+        : 'transparent'
+      : props.checked
+      ? '#d64445'
+      : 'transparent'};
+  color: ${props =>
+    // eslint-disable-next-line no-nested-ternary
+    props.site === 'elcomercio'
+      ? props.checked
+        ? 'black'
+        : 'white'
+      : props.checked
+      ? 'white'
+      : 'white'};
+  /* color: ${props => (props.site === 'elcomercio' ? 'black' : 'white')}; */
+  /* color: white; */
   width: 120px;
   padding: 10px 10px;
   text-align: center;
@@ -67,7 +85,7 @@ const Name = styled.div`
   z-index: 2;
   font-size: 16px;
   line-height: 20px;
-  top:0px;
+  top: 0px;
   @media ${device.tablet} {
     margin: -100px auto 0 auto;
     width: 150px;
@@ -98,12 +116,14 @@ const StyledCheckbox = styled.div`
   }
 `
 
-const Checkbox = ({ className, checked, disabled, name, ...props }) => (
+const Checkbox = ({ className, checked, disabled, name, site, ...props }) => (
   // eslint-disable-next-line react/jsx-filename-extension
   <CheckboxContainer checked={checked} className={className}>
     <Image {...props} />
     <Cover checked={checked} />
-    <Name checked={checked}>{name}</Name>
+    <Name checked={checked} site={site}>
+      {name}
+    </Name>
     <HiddenCheckbox checked={checked} disabled={disabled} {...props} />
     <StyledCheckbox checked={checked}>
       <Icon viewBox="0 0 24 24">

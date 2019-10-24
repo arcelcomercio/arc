@@ -111,8 +111,7 @@
 
     .intro-paywall {
       font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-      background: #fff6f0;
-      color: #444444;
+      background: #ffffff;
       padding: 20px 20px;
       line-height: 20px;
       position: relative;
@@ -163,7 +162,7 @@
           z-index: 0;
         }
         span {
-          background: #fff6f0;
+          // background: #fff6f0;
           padding: 0 10px;
           position: relative;
           z-index: 1;
@@ -192,6 +191,18 @@
       }
       .message-paywall {
         line-height: 30px;
+      }
+    }
+    .intro-gestion{
+      background: #fff6f0;
+      .title-line span {
+        background: #fff6f0;
+      }
+    }
+    .intro-elcomercio{
+      background: #ffffff;
+      .title-line span {
+        background: #ffffff;
       }
     }
     .bg-white {

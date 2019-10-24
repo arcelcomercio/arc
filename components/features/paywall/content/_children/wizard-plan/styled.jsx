@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { devices } from '../../../_dependencies/devices'
+import styled, { css } from 'styled-components'
+import _Markdown from '../../../_children/markdown'
 import ErrorComponent from '../../../_children/error'
 
 export const WizardPlan = styled.div`
@@ -9,102 +9,124 @@ export const WizardPlan = styled.div`
 `
 
 export const Wrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex: 1;
-  max-width: 930px;
-  width: 100%;
-  height: 360px;
-  @media (${devices.mobile}) {
-    flex-direction: column;
-    height: auto;
-    align-items: center;
-  }
-  @media ${devices.tablet} {
-    flex-direction: column;
-    height: auto;
-    align-items: center;
-    max-width: 639px;
-  }
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    max-width: 930px;
+    width: 100%;
+    height: 360px;
+    ${theme.breakpoints.down('sm')} {
+      flex-direction: column;
+      height: auto;
+      align-items: center;
+    }
+    ${theme.breakpoints.only('sm')} {
+      max-width: 639px;
+    }
+  `}
 `
 
 export const WrapPlan = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-left: 20px;
-  margin-top: 30px;
-  @media (${devices.mobile}) {
-    margin: 50px 0 0 0;
-    max-width: calc(100% - 40px);
-    width: 100%;
-  }
-  @media ${devices.tablet} {
-    margin: 50px 0 0 0;
-    max-width: calc(100% - 40px);
-    width: 100%;
-  }
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 20px;
+    margin-top: 30px;
+    position: relative;
+    ${theme.breakpoints.down('sm')} {
+      margin: 50px 0 0 0;
+      max-width: calc(100% - 40px);
+      width: 100%;
+    }
+  `}
 `
 
 export const Plans = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  @media (${devices.mobile}) {
-    display: contents;
-  }
-`
-
-export const PlanTitle = styled.div`
-  font-size: 16px;
-  margin: 12px 0;
-  font-weight: 700;
+  ${({ theme }) => css`
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    ${theme.breakpoints.down('xs')} {
+      display: contents;
+    }
+  `}
 `
 
 export const Error = styled(ErrorComponent)`
-  max-width: 930px;
-  margin-bottom: 30px;
-  box-sizing: border-box;
-  text-transform: uppercase;
-  font-size: 18px;
-  line-height: 26px;
-  @media (${devices.mobile}) {
-    font-size: 14px;
-    padding: 12px 30px;
-    width: 90%;
-  }
+  ${({ theme }) => css`
+    max-width: 930px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 26px;
+    ${theme.breakpoints.down('xs')} {
+      font-size: 14px;
+      padding: 12px 30px;
+      width: 90%;
+    }
+  `}
 `
 
-export const WelcomeSuscriptor = styled.div`
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 50px;
-  background: #dbe9d8;
-  color: #22810b;
-  padding: 12px 0px;
-  border-radius: 4px;
-  max-width: 930px;
-  width: 100%;
-  line-height: 26px;
-  box-sizing: border-box;
-  text-transform: uppercase;
-  @media (${devices.mobile}) {
-    font-size: 14px;
-    padding: 12px 30px;
-    width: 90%;
-  }
+export const Markdown = styled(_Markdown)`
+  ${({ theme }) => css`
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 50px;
+    background: ${theme.palette.success.light};
+    color: ${theme.palette.success.main};
+    padding: 12px 0px;
+    border-radius: 4px;
+    max-width: 930px;
+    width: 100%;
+    line-height: 26px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    ${theme.breakpoints.down('xs')} {
+      font-size: 14px;
+      padding: 12px 30px;
+      width: 90%;
+    }
+  `}
 `
 
 export const ContentBanner = styled.div`
-  display: flex;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  max-width: 930px;
-  width: 100%;
-  @media (${devices.mobile}) {
-    display: contents;
-  }
-  @media ${devices.tablet} {
-    width: 95%;
-  }
+  ${({ theme }) => css`
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    max-width: 930px;
+    width: 100%;
+    ${theme.breakpoints.down('xs')} {
+      display: contents;
+    }
+    ${theme.breakpoints.only('sm')} {
+      width: 95%;
+    }
+  `}
+`
+
+export const Cintillo = styled.div`
+  ${({ theme }) => css`
+    background: #e05e2f;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: -28px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+    position: relative;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 30px;
+    ${theme.breakpoints.only('xs')} {
+      font-size: 16px;
+      padding: 10px 40px;
+    }
+  `}
 `

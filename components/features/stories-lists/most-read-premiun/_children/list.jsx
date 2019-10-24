@@ -22,6 +22,7 @@ export default ({
     deployment,
     defaultImgSize: 'sm',
   })
+
   return (
     <div role="list" className={classes.list}>
       {listNews &&

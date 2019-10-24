@@ -10,6 +10,7 @@ import { emailRegex } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
 import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
+import Taggeo from '../../utils/taggeo'
 
 const Cookies = new Cookie()
 
@@ -272,7 +273,14 @@ class FormLoginPaywall extends Component {
                     <p className="form-grid__pass">
                       <button
                         id="link-recuperar-pass"
-                        onClick={() => value.changeTemplate('forgot')}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typePopUp}`,
+                            `web_sw${typePopUp[0]}_contrasena_link_olvide`
+                          )
+                          value.changeTemplate('forgot')
+                          }
+                        }
                         type="button"
                         className="link-gray">
                         Olvidé mi contraseña
@@ -288,6 +296,12 @@ class FormLoginPaywall extends Component {
                       className="btn btn--blue btn-bg"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
+                      onClick={() =>
+                        Taggeo(
+                          `Web_Sign_Wall_${typePopUp}`,
+                          `web_sw${typePopUp[0]}_login_boton_ingresar`
+                        )
+                      }
                       // eslint-disable-next-line jsx-a11y/tabindex-no-positive
                       tabIndex="3"
                     />
@@ -301,6 +315,10 @@ class FormLoginPaywall extends Component {
                   <button
                     type="button"
                     onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typePopUp}`,
+                        `web_sw${typePopUp[0]}_login_boton_registrate`
+                      )
                       value.changeTemplate('register')
                     }}
                     id="login_boton_registrate"

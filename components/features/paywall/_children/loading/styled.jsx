@@ -41,7 +41,6 @@ export const WrapIcon = styled.div`
   }
   svg:nth-child(3) {
     animation: ${loadingCircle} 700ms infinite linear;
-    animation-delay: calc(350ms * 2);
   }
 `
 
