@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import TextMask from 'react-text-mask'
-import {device} from '../../../_styles/breakpoints'
+import { device } from '../../../_styles/breakpoints'
 
 export const WrapperBlock = styled.div`
   position: relative;
@@ -188,6 +188,11 @@ export const Group = styled.div`
       height: 20px;
     }
   }
+  @media ${device.desktop} {
+    & label {
+      margin: 0 10px;
+    }
+  }
 `
 export const FormGroup = styled.div`
   position: relative;
@@ -214,13 +219,13 @@ export const FormGroup = styled.div`
     display: block;
     position: absolute;
     left: 14px;
-    top: 14px;
+    top: 14px !important;
     color: #cccccc;
     background: white;
-    font-size: 16px;
+    font-size: 16px !important;
     padding: 0px 7px;
     opacity: 0;
-    height: 10px;
+    height: 10px !important;
     border-radius: 20px;
     transform: translate3d(0, 50%, 0) scale(1);
     transform-origin: 0 0;
@@ -305,4 +310,19 @@ export const Msgcvv = styled.div`
       width: 130px;
     }
   }
+`
+
+export const Message = styled.div`
+  width: 100%;
+  padding: 10px 25px;
+  text-align: center;
+  background: ${props =>
+    props.success ? 'rgba(36, 145, 9, 0.1)' : 'rgba(219, 0, 0, 0.1)'};
+  color: ${props => (props.success ? 'rgb(36, 145, 9)' : 'rgb(219, 0, 0)')};
+  border-radius: 4px;
+  font-size: 14px;
+  display: block;
+  line-height: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
 `

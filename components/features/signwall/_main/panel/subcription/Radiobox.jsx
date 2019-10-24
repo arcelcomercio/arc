@@ -68,9 +68,9 @@ const StyledCheckbox = styled.div`
     left: 0px;
   }
 
-  ${HiddenCheckbox}:focus + & {
+  /* ${HiddenCheckbox}:focus + & {
     box-shadow: 0 0 0.3rem black;
-  }
+  } */
 
   ${Icon} {
     visibility: ${props => (props.checked ? 'visible' : 'hidden')};
