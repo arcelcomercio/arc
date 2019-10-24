@@ -8,6 +8,10 @@ const customFields = PropTypes.shape({
   urlTitle: PropTypes.string.tag({
     name: 'URL del titulo',
   }),
+  storiesQty: PropTypes.number.tag({
+    name: 'Numero de Historias',
+    description: 'Candiad de historias a mostrar, por defecto 3',
+  }),
   showViews: PropTypes.bool.tag({
     name: 'Mostrar Views',
     defaultValue: true,
