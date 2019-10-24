@@ -24,7 +24,6 @@ const Newsletter = ({
     contentElements,
     siteUrl,
   }
-  
   const listNewsLetter = NewsLetterContent(propsNewsLetterContent)
   
   return (
