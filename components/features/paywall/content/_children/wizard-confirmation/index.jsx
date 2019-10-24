@@ -86,13 +86,15 @@ const WizardConfirmation = props => {
       return
     }
     const { sessionStorage, location } = window
-    // eslint-disable-next-line no-prototype-builtins
+
     location.href =
+      // eslint-disable-next-line no-nested-ternary
       sessionStorage.hasOwnProperty(NAME_REDIRECT) &&
-      (sessionStorage.getItem(NAME_REDIRECT) === '' ||
-        sessionStorage.getItem(NAME_REDIRECT) === '/suscripciones/')
-        ? HOME
-        : sessionStorage.getItem(NAME_REDIRECT)
+      sessionStorage.getItem(NAME_REDIRECT) !== ''
+        ? sessionStorage.getItem(NAME_REDIRECT) === '/suscripciones/'
+          ? HOME
+          : sessionStorage.getItem(NAME_REDIRECT)
+        : HOME
   }
 
   const Frecuency = {

@@ -118,6 +118,9 @@ export const Table = styled.table`
   font-size: 14px;
   border-collapse: collapse;
   margin: 0 auto;
+  @media ${device.mobile} {
+    width: 500px;
+  }
   & thead {
     background: #f4f4f4;
     color: #000000;
