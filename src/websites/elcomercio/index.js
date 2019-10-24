@@ -21,11 +21,8 @@ import './images/author.png'
 import './images/authorOpinion.png'
 import './images/logo-amp.png'
 import './images/logo-elcomercio-388x60.png'
-<<<<<<< HEAD
 import './images/arrow-right-2.png'
 
-=======
->>>>>>> master
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'
 import './images/logo-elcomercio.jpg'
