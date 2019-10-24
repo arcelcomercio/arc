@@ -100,11 +100,13 @@ const WizardConfirmation = props => {
   const Frecuency = {
     Month: 'Mensual',
     Year: 'Anual',
+    OneTime: 'Mensual',
   }
 
   const Period = {
     Month: msgs.monthlyPeriod,
     Year: msgs.yearlyPeriod,
+    OneTime: '',
   }
 
   return (

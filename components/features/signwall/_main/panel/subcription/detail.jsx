@@ -257,11 +257,13 @@ class SubDetail extends Component {
                     this.setState({
                       showMessageFailed: true,
                       disabledButton: false,
+                      statusButton: 'ACTUALIZAR'
                     })
                   } else {
                     this.setState({
                       showMessageSuccess: true,
                       disabledButton: false,
+                      statusButton: 'ACTUALIZAR'
                     })
                   }
                 })
@@ -269,6 +271,7 @@ class SubDetail extends Component {
                   this.setState({
                     showMessageFailed: true,
                     disabledButton: false,
+                    statusButton: 'ACTUALIZAR'
                   })
                 })
             })
