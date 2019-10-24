@@ -1,19 +1,27 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
+import { withTheme } from 'styled-components'
 
 import { Persist } from '../../../../../_children/formik-persist'
 import * as S from './styled'
 import Button from '../../../../../_children/button'
 import Input from '../../../../../_children/input'
 import Icon from '../../../../../_children/icon'
-import { FormSchema, Masks } from './schema'
+import { createSchema, Masks } from './schema'
+import { useStrings, useFusionContext } from '../../../../../_children/contexts'
 
 const { trim } = Masks.Pipes
 
-const FormPay = ({ name, error, onSubmit, initialValues }) => {
+const FormPay = ({ theme, name, error, onSubmit, initialValues }) => {
+  const msgs = useStrings()
+  const {
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
   return (
     <Formik
-      validate={values => new FormSchema(values)}
+      validate={values => createSchema(values, msgs)}
       initialValues={initialValues}
       onSubmit={(values, actions) => {
         onSubmit(
@@ -44,14 +52,17 @@ const FormPay = ({ name, error, onSubmit, initialValues }) => {
         return (
           <Form>
             <S.Security>
-              <Icon type="lock" width="20" height="25" fill="#249109" />
-              <S.TextSecurity>
-                Compra seguro. Esta web está protegida
-              </S.TextSecurity>
+              <Icon
+                type="lock"
+                width="20"
+                height="25"
+                fill={theme.palette.success.main}
+              />
+              <S.TextSecurity>{msgs.securityText}</S.TextSecurity>
             </S.Security>
             {error && <S.Error mb="20px" message={error} />}
             <S.WrapCards>
-              <S.TextCard>Selecciona un tipo de tarjeta</S.TextCard>
+              <S.TextCard>{msgs.chooseCreditCard}</S.TextCard>
               <S.Cards className="cards">
                 <Field
                   component={S.RadioCondition}
@@ -93,7 +104,7 @@ const FormPay = ({ name, error, onSubmit, initialValues }) => {
                   component={Input}
                   name="cardNumber"
                   inputMode="numeric"
-                  label="Número de tarjeta"
+                  label={msgs.cardNumberlabel}
                   pipe={trim()}
                   mask={Masks.CREDIT_CARD_NUMBER}
                   placeholder="0000 - 0000 - 0000 - 0000"
@@ -136,37 +147,27 @@ const FormPay = ({ name, error, onSubmit, initialValues }) => {
               checked={agreed}
               value={agreed}
               label={
-                <span>
-                  Acepto las{' '}
-                  <S.Link
-                    href="https://suscripciones.gestion.pe/terminos/"
-                    rel="noopener noreferrer"
-                    target="_blank">
-                    condiciones de servicio
-                  </S.Link>
-                  ,{' '}
-                  <S.Link
-                    href="https://gestion.pe/politica-de-privacidad"
-                    rel="noopener noreferrer"
-                    target="_blank">
-                    política de privacidad
-                  </S.Link>{' '}
-                  , y estoy de acuerdo con la información.
-                </span>
+                <S.Agreement
+                  source={msgs.interpolate(msgs.acceptAgreement, {
+                    terms_url: urls.terms,
+                    privacy_url: urls.privacyPolicy,
+                  })}
+                />
               }
             />
 
-            <S.Span>
-              El precio de la suscripción se cargará automáticamente en tu
-              tarjeta cada mes o año, según el período elegido.
-            </S.Span>
+            <S.Span>{msgs.paymentNotice}</S.Span>
 
             <S.WrapSubmit>
               <Button disabled={isSubmitting} type="submit" maxWidth="300px">
-                PAGAR
+                {msgs.payButton.toUpperCase()}
               </Button>
             </S.WrapSubmit>
-            <Persist name={name} isSessionStorage />
+            <Persist
+              name={name}
+              isSessionStorage
+              // ignoreErrors
+            />
           </Form>
         )
       }}
@@ -174,4 +175,4 @@ const FormPay = ({ name, error, onSubmit, initialValues }) => {
   )
 }
 
-export default FormPay
+export default withTheme(FormPay)

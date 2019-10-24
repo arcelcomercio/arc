@@ -1,23 +1,28 @@
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-destructuring */
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
+import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 import Wizard from 'react-step-wizard'
 import { createBrowserHistory } from 'history'
+import URL from 'url-parse'
 
 import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import * as S from './styled'
-import { AddIdentity, userProfile, isLogged } from '../_dependencies/Identity'
+import { addIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
+import Icon from '../_children/icon'
 import ClickToCall from '../_children/click-to-call'
+import FillHeight from '../_children/fill-height'
 import ErrorBoundary from '../_children/error-boundary'
 import PWA from './_dependencies/seed-pwa'
-import getDomain from '../_dependencies/domains'
+import { interpolateUrl } from '../_dependencies/domains'
 import '../_dependencies/sentry'
 
 const stepNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
@@ -28,21 +33,40 @@ const PAYMENT_FORM_NAME = 'paywall-payment-form'
 let history
 let finalized = false
 
-const Paywall = ({ dispatchEvent, addEventListener }) => {
+const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   const {
-    contextPath,
-    deployment,
+    arcSite,
+    customFields: { substractFeaturesHeights = '' },
     siteProperties: {
-      assets,
-      paywall: { clickToCall },
+      paywall: { urls },
     },
     globalContent: {
       summary = [],
       plans = [],
       printedSubscriber,
-      error: message,
+      freeAccess,
+      error,
     },
   } = useFusionContext()
+
+  const wizardRef = useRef(null)
+  const clickToCallUrl = interpolateUrl(urls.clickToCall)
+  const [profile, setProfile] = useState('')
+  const getProfile = React.useRef(() =>
+    addIdentity(arcSite).then(() => {
+      if (isLogged()) {
+        userProfile(['documentNumber', 'phone', 'documentType']).then(
+          setProfile
+        )
+      }
+    })
+  ).current
+
+  useEffect(() => {
+    getProfile()
+    document.querySelector('html').classList.add('ios')
+    PWA.mount(() => window.location.reload())
+  }, [])
 
   const clearPaywallStorage = useRef(() => {
     sessionStorage.removeItem(PROFILE_FORM_NAME)
@@ -50,26 +74,30 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
   }).current
 
   addEventListener('logout', clearPaywallStorage)
-
-  const wizardRef = useRef(null)
-  const basePath = getDomain('URL_DIGITAL')
-
-  const [profile, setProfile] = useState('')
-  useEffect(() => {
-    AddIdentity().then(() => {
-      if (isLogged()) {
-        userProfile(['documentNumber', 'phone', 'documentType']).then(
-          setProfile
-        )
-      }
-    })
-    document.querySelector('html').classList.add('ios')
-    PWA.mount(() => window.location.reload())
-  }, [])
+  addEventListener('profile-update', () => {
+    try {
+      getProfile()
+      sessionStorage.removeItem(PROFILE_FORM_NAME)
+    } catch (e) {
+      console.error(e)
+    }
+  })
 
   // const [memo, setMemo] = useState({})
-  const memo = useRef({ printedSubscriber })
+  const memo = useRef({
+    arcSite,
+    plans,
+    plan: plans[0], // Por defecto asumir seleccionado el primer plan
+    summary,
+    printedSubscriber,
+    freeAccess,
+    error,
+  })
   const currMemo = memo.current
+  const { pathname: basePath, query } = React.useRef(
+    new URL(interpolateUrl(urls.digitalSubscriptions))
+  ).current
+
   useEffect(() => {
     history = createBrowserHistory({
       basename: '',
@@ -77,15 +105,15 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
     })
 
     const search = history.location.search
-    history.replace(`${basePath}/${stepSlugs[0]}/${search}`, currMemo)
-    return history.listen((location, action) => {
+    // Si tiene acceso gratis mostrar directo paso de confirmacion
+    const unlisten = history.listen((location, action) => {
       const { goToStep } = wizardRef.current
       const doStep = step => {
         // Retornar a planes si retrocede luego de finalizar la compra
         if (finalized) {
-          window.location.href = `${basePath}/${stepSlugs[0]}/${
-            location.search
-          }`
+          // prettier-ignore
+          window.location.href = 
+          `${basePath}${stepSlugs[0]}/${query}`
           return
         }
         if (action !== 'REPLACE') {
@@ -96,22 +124,26 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
       // prettier-ignore
       switch(location.pathname) {
         default: 
-        case `${basePath}/${stepSlugs[0]}/`: 
+        case `${basePath}${stepSlugs[0]}/`: 
           doStep(1)
           break;
-        case `${basePath}/${stepSlugs[1]}/`: 
+        case `${basePath}${stepSlugs[1]}/`: 
           doStep(2)
           break;
-        case `${basePath}/${stepSlugs[2]}/`: 
+        case `${basePath}${stepSlugs[2]}/`: 
           doStep(3)
           break;
-        case `${basePath}/${stepSlugs[3]}/`: 
+        case `${basePath}${stepSlugs[3]}/`: 
           doStep(4)
           finalized = true
           clearPaywallStorage()
           break;
       }
     })
+    const stepSlug = freeAccess ? stepSlugs[3] : stepSlugs[0]
+    const path = `${basePath}${stepSlug}/${search}`
+    history.replace(path, currMemo)
+    return unlisten
   }, [])
 
   const onBeforeNextStepHandler = useRef(result => {
@@ -121,66 +153,68 @@ const Paywall = ({ dispatchEvent, addEventListener }) => {
     const stepSlug = stepSlugs[currentStep]
     const currpath = `${pathname}${search}`
     history.replace(currpath, currMemo)
-    history.push(`${basePath}/${stepSlug}/${search}`, currMemo)
+    history.push(`${basePath}${stepSlug}/${search}`, currMemo)
     window.scrollTo(0, 0)
   }).current
 
-  const fullAssets = assets.fullAssets.call(assets, contextPath, deployment)
   const [loading, setLoading] = useState(false)
+  const substractFeaturesIds = substractFeaturesHeights
+    .split(',')
+    .map(id => id.trim())
   return (
-  <ErrorBoundary>
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <S.Content>
-        <Loading fullscreen spinning={loading} />
-        <Wizard
-          transitions={{
-            enterRight: 'enterRight',
-            enterLeft: 'enterLeft',
-            exitRight: 'exitRight',
-            exitLeft: 'exitLeft',
-          }}
-          ref={wizardRef}
-          isLazyMount
-          nav={
-            <Nav
-              stepsNames={stepNames}
-              right={<ClickToCall href={clickToCall} />}
+    <ErrorBoundary>
+      {/* <FillHeight substractElements={substractFeaturesIds}> */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <S.Content>
+          <Loading
+            loadingIcon={<Icon type={theme.icon.loading} />}
+            fullscreen
+            spinning={loading}
+          />
+          <Wizard
+            initialStep={freeAccess ? 4 : 1}
+            transitions={{
+              enterRight: 'enterRight',
+              enterLeft: 'enterLeft',
+              exitRight: 'exitRight',
+              exitLeft: 'exitLeft',
+            }}
+            ref={wizardRef}
+            isLazyMount
+            nav={
+              <Nav
+                excludeSteps={freeAccess && [2, 3]}
+                stepsNames={stepNames}
+                right={<ClickToCall href={clickToCallUrl} />}
+              />
+            }>
+            <WizardPlan
+              memo={currMemo}
+              onBeforeNextStep={onBeforeNextStepHandler}
+              setLoading={setLoading}
             />
-          }>
-          <WizardPlan
-            message={message}
-            printedSubscriber={printedSubscriber}
-            memo={currMemo}
-            plans={plans}
-            summary={summary}
-            onBeforeNextStep={onBeforeNextStepHandler}
-            assets={fullAssets}
-            setLoading={setLoading}
-          />
-          <WizardUserProfile
-            memo={currMemo}
-            profile={profile}
-            formName={PROFILE_FORM_NAME}
-            summary={summary}
-            onBeforeNextStep={onBeforeNextStepHandler}
-            setLoading={setLoading}
-          />
-          <WizardPayment
-            memo={currMemo}
-            summary={summary}
-            formName={PAYMENT_FORM_NAME}
-            onBeforeNextStep={onBeforeNextStepHandler}
-            setLoading={setLoading}
-          />
-          <WizardConfirmation
-            memo={currMemo}
-            assets={fullAssets}
-            onBeforeNextStep={onBeforeNextStepHandler}
-          />
-        </Wizard>
-      </S.Content>
-    </div>
-  </ErrorBoundary>
+            <WizardUserProfile
+              memo={currMemo}
+              profile={profile}
+              formName={PROFILE_FORM_NAME}
+              onBeforeNextStep={onBeforeNextStepHandler}
+              setLoading={setLoading}
+            />
+            <WizardPayment
+              memo={currMemo}
+              formName={PAYMENT_FORM_NAME}
+              onBeforeNextStep={onBeforeNextStepHandler}
+              setLoading={setLoading}
+            />
+            <WizardConfirmation
+              memo={currMemo}
+              onBeforeNextStep={onBeforeNextStepHandler}
+            />
+          </Wizard>
+        </S.Content>
+      </div>
+      {/* </FillHeight> */}
+    </ErrorBoundary>
   )
 }
 
@@ -189,6 +223,7 @@ class PaywallWrapper extends React.Component {
   render() {
     return (
       <Paywall
+        {...this.props}
         dispatchEvent={this.dispatchEvent.bind(this)}
         addEventListener={this.addEventListener.bind(this)}
       />
@@ -196,4 +231,13 @@ class PaywallWrapper extends React.Component {
   }
 }
 
-export default PaywallWrapper
+const ThemedPaywallWrapper = withTheme(PaywallWrapper)
+
+ThemedPaywallWrapper.propTypes = {
+  customFields: PropTypes.shape({
+    id: PropTypes.string,
+    substractFeaturesHeights: PropTypes.string,
+  }),
+}
+
+export default ThemedPaywallWrapper

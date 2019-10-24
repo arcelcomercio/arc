@@ -1,27 +1,30 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Panel from '../../../_children/panel'
-import { devices } from '../../../_dependencies/devices'
 
 const WizardUserProfile = styled.div`
   display: flex;
   justify-content: space-between;
-  @media (${devices.mobile}) {
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-  @media ${devices.tablet} {
-    flex-direction: column-reverse;
-    align-items: center;
-  }
+  ${({ theme }) => css`
+    ${theme.breakpoints.down('sm')} {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+  `}
 `
 
 const PanelUserProfile = styled(Panel)`
-  @media (${devices.mobile}) {
-    margin-top: 30px;
-  }
-  @media ${devices.tablet} {
-    margin-top: 30px;
-    padding: 30px;
-  }
+  ${({ theme }) => css`
+    padding: 40px 50px;
+    box-sizing: border-box;
+    ${theme.breakpoints.down('md')} {
+      padding: 40px 30px;
+    }
+    ${theme.breakpoints.down('sm')} {
+      margin-top: 30px;
+    }
+    ${theme.breakpoints.only('xs')} {
+      padding: 0px;
+    }
+  `}
 `
 export { WizardUserProfile, PanelUserProfile }

@@ -1,0 +1,96 @@
+@import '../../../../general-styles/components/features/signwall/button';
+@import '../../../../general-styles/components/features/signwall/check-container';
+@import '../../../../general-styles/components/features/signwall/header';
+@import '../../../../general-styles/components/features/signwall/form-grid';
+@import '../../../../general-styles/components/features/signwall/form-group';
+@import '../../../../general-styles/components/features/signwall/message';
+@import '../../../../general-styles/components/features/signwall/modal-body';
+@import '../../../../general-styles/components/features/signwall/modal';
+@import '../../../../general-styles/components/features/signwall/old-utils';
+@import '../../../../general-styles/components/features/signwall/password-security';
+@import '../../../../general-styles/components/features/signwall/row-pass';
+@import '../../../../general-styles/components/features/signwall/profile-account';
+@import '../../../../general-styles/components/features/signwall/benefits';
+
+.signwall {
+  .text-center {
+    text-align: center;
+  }
+  .link-back,
+  .link-gray,
+  .link-blue,
+  .link-close {
+    background: none;
+    border: 0px;
+  }
+  .link-blue {
+    padding-left: 10px;
+  }
+  .profile__menu-link,
+  .modal-header__back {
+    background: none;
+    border: 0px;
+  }
+  .profile__menu {
+    list-style: none;
+    padding: 0px;
+  }
+  // .profile__right {
+  //   padding: 0px !important;
+  // }
+  .form-grid {
+    padding: 20px !important;
+  }
+  .profile__title {
+    margin-top: 20px;
+  }
+  .form-grid__info {
+    font-size: 24px;
+  }
+  .cont-subs {
+    h3 {
+      margin: 5px 0px;
+    }
+  }
+  .note-subs {
+    margin: 0px;
+  }
+  .intro-paywall {
+    padding: 0px;
+    p {
+      margin: 0px;
+    }
+    ul {
+      list-style: none;
+      padding: 0px;
+    }
+    .message-paywall {
+      font-size: 13px;
+    }
+    .price i {
+      font-style: normal;
+      font-size: 34px;
+      font-weight: bold;
+    }
+  }
+  .mt-10 {
+    margin-top: 10px !important;
+  }
+  .mt-20 {
+    margin-top: 20px !important;
+  }
+  .mb-10 {
+    margin-bottom: 10px !important;
+  }
+  .mb-20 {
+    margin-bottom: 20px !important;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .signwall {
+    .profile__left {
+      height: 320px !important;
+    }
+  }
+}
