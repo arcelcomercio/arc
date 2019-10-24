@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 
+import URL from 'url-parse'
 import * as S from './styled'
 import addScriptAsync from '../../../utilities/script-async'
 import { interpolateUrl } from '../_dependencies/domains'

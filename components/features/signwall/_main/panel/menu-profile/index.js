@@ -54,7 +54,7 @@ export const MenuProfile = props => {
         <p className="welcome">Bienvenido a tu Perfil</p>
         <div className="cont-menu">
           <ul>
-            {arcSite === 'gestion'  ? (
+            {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
                 <a href="#" onClick={() => props.home()}>
                   Inicio
@@ -68,7 +68,7 @@ export const MenuProfile = props => {
               </a>
             </li>
 
-            {arcSite === 'gestion'  ? (
+            {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
                 <a
                   id="btn-mis-suscripciones"
@@ -79,7 +79,7 @@ export const MenuProfile = props => {
               </li>
             ) : null}
 
-            {arcSite === 'gestion'  ? (
+            {arcSite === 'gestion' ? (
               <li>
                 <a href="#" onClick={() => props.news()}>
                   Newsletters

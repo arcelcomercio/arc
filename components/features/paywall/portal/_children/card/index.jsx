@@ -6,13 +6,12 @@ import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import Taggeo from '../../../_dependencies/taggeo'
 
-function Card({ item }) {
+function Card({ item, onSubscribe = i => i }) {
   const msgs = useStrings()
   const {
     title,
     url,
     recommended = false,
-    onSubscribe = i => i,
     features,
     sku,
     price: { amount, currency },
