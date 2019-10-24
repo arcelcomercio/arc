@@ -42,7 +42,7 @@ class PersistImpl extends React.Component {
   }
 
   componentDidMount() {
-    const { ignoreFields } = this.props
+    const { ignoreFields, ignoreErrors } = this.props
     const maybeState = this.props.isSessionStorage
       ? window.sessionStorage.getItem(this.props.name)
       : window.localStorage.getItem(this.props.name)
@@ -56,7 +56,9 @@ class PersistImpl extends React.Component {
         ...filteredState,
         values: Object.assign({}, formik.values, filteredState.values),
         touched: Object.assign({}, formik.touched, filteredState.touched),
-        errors: Object.assign({}, formik.errors, filteredState.errors),
+        errors: ignoreErrors
+          ? {}
+          : Object.assign({}, formik.errors, filteredState.errors),
       }
       this.props.formik.setFormikState(data)
     }

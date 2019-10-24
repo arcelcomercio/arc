@@ -1,5 +1,6 @@
-import styled, { createGlobalStyle } from 'styled-components'
-import { devices } from '../../../_dependencies/devices'
+/* eslint-disable no-use-before-define */
+import styled, { css } from 'styled-components'
+import sizing from '@material-ui/system/sizing'
 
 const WizardNav = styled.div`
   display: flex;
@@ -10,13 +11,10 @@ const WizardNav = styled.div`
 `
 
 const Wrap = styled.div`
+  ${sizing}
   display: flex;
   justify-content: space-around;
   flex: 1;
-  max-width: 470px;
-  @media (${devices.mobile}) {
-    max-width: 100vw;
-  }
 `
 
 const Right = styled.div`
@@ -25,28 +23,46 @@ const Right = styled.div`
 `
 
 const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  min-height: 60px;
-  &:after{
+  ${({ active, theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    min-height: 60px;
+    ${theme.breakpoints.down('xs')} {
+      &:after {
+        margin-right: -90px;
+      }
+    }
+    ${active
+      ? css`
+          font-weight: ${theme.typography.fontWeightHeavy};
+          ${StepCircle} {
+            background-color: ${theme.palette.primary.main};
+          }
+          ${StepNumber} {
+            color: ${theme.palette.primary.contrastText};
+          }
+        `
+      : css`
+          ${theme.breakpoints.down('xs')} {
+            ${StepName} {
+              display: none;
+            }
+          }
+        `}
+  `}
+  &:after {
     display: inline-block;
-    content: "";
-    border-top: 1px solid #818181;
+    content: '';
+    border-top: 1px solid ${props => props.theme.palette.divider};
     width: 20px;
     transform: translateY(-1rem);
     margin-right: -120px;
   }
-  &:last-child:after{
-    color: red;
-    border-top: 0px solid #818181;
-    content: "";
-  }
-  @media (${devices.mobile}) {
-    &:after{
-      margin-right: -90px;
-    }
+  &:last-child:after {
+    border-top: 0px solid ${props => props.theme.palette.divider};
+    content: '';
   }
 `
 
@@ -63,28 +79,13 @@ const StepCircle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
-  color: #bbb;
+  background-color: ${props => props.theme.palette.action.disabledBackground};
+  color: ${props => props.theme.palette.action.disabled};
 `
 
 const StepNumber = styled.span`
-  color: #bbbbbb;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: ${props => props.theme.typography.fontWeightHeavy};
 `
 
-const GlobalStyle = createGlobalStyle`
-  .nav-step-active{
-    font-weight: 700;
-  }
-`
-export {
-  WizardNav,
-  Wrap,
-  Right,
-  Content,
-  StepName,
-  StepCircle,
-  StepNumber,
-  GlobalStyle,
-}
+export { WizardNav, Wrap, Right, Content, StepName, StepCircle, StepNumber }

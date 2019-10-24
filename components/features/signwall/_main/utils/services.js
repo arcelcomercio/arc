@@ -136,4 +136,41 @@ export default class Services {
     })
     return response
   }
+
+  initPaymentUpdate(id, pid, site, jwt) {
+    const response = new Promise(resolve => {
+      fetch(
+        `${Domains.getOriginAPI(
+          site
+        )}/sales/public/v1/paymentmethod/${id}/provider/${pid}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: jwt,
+          },
+        }
+      ).then(res => resolve(res.json()))
+    })
+    return response
+  }
+
+  finalizePaymentUpdate(id, pid, site, jwt, token) {
+    const response = new Promise(resolve => {
+      fetch(
+        `${Domains.getOriginAPI(
+          site
+        )}/sales/public/v1/paymentmethod/${id}/provider/${pid}/finalize`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            token
+          }),
+          headers: {
+            Authorization: jwt,
+          },
+        }
+      ).then(res => resolve(res.json()))
+    })
+    return response
+  }
 }

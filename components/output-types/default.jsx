@@ -281,7 +281,7 @@ export default ({
           <script
             defer
             src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
+              `${contextPath}/resources/dist/${arcSite}/js/appnexus-min.js`
             )}
           />
         )}
