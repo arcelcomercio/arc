@@ -27,6 +27,13 @@
     overflow: hidden;
     font-family: $primary-font;
   }
+  &__icon {
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    background-color: #fff;
+    color: $color-fourth;
+  }
   &.img-complete {
     &:hover {
       .featured-story__img-box {
@@ -78,7 +85,7 @@
       flex-direction: row-reverse;
     }
     .featured-story__img-box {
-      @media (--tablet) {
+      @media (--only-mobile) {
         height: 166.4px;
       }
     }
@@ -98,6 +105,18 @@
       @media (--only-mobile) {
         display: none;
       }
+    }
+  }
+  &--reverse {
+    & * .featured-story__icon {
+      font-size: 60px;
+      width: 60px;
+      height: 60px;
+      left: 45px;
+      bottom: -20px;
+      top: inherit;
+      background-color: #fff;
+      color: $color-fourth;
     }
   }
 }

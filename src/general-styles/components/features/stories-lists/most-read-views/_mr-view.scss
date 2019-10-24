@@ -1,0 +1,31 @@
+.mr-view {
+  &__left {
+    flex-basis: 40px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+  &__body {
+    overflow-y: auto;
+    max-height: 100%;
+  }
+  &__item {
+    border-bottom: solid 1px $color-gray-200;
+  }
+  &__btn {
+    padding: 8px 15px;
+    background-color: $color-primary;
+    color: white;
+    font-weight: bold;
+  }
+  &__wrapper {
+    &.hashtml {
+      height: auto;
+      & * .mr-view__body {
+        max-height: 180px;
+      }
+    }
+  }
+  &__html {
+    height: auto;
+  }
+}
