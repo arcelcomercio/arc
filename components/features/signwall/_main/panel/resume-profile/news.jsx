@@ -93,41 +93,46 @@ class News extends Component {
   render() {
     const { newsletters, checksNews, loading } = this.state
     const { news, arcSite } = this.props
+
     return (
       // eslint-disable-next-line react/jsx-filename-extension
-      <WrapperBlock nopadding nobackground nocolumn>
-        {!loading ? (
-          <>
-            <div className="left">
-              <h3>Newsletters</h3>
-            </div>
-            <div className="right">
-              <div className="container-grid">
-                {newsletters.map(
-                  itemNews =>
-                    checksNews[itemNews.code] && (
-                      <div className="item item1" key={itemNews.code}>
-                        <img src={itemNews.image} alt="demo" />
-                        <div className={`title title-${arcSite}`}>
-                          {itemNews.name}
-                        </div>
-                      </div>
-                    )
-                )}
-                <button
-                  type="button"
-                  className="add-item"
-                  onClick={() => news()}>
-                  <span className="icon-plus">&#43;</span>
-                  Personaliza tus newsletters
-                </button>
-              </div>
-            </div>
-          </>
-        ) : (
-          <Loading site={arcSite} />
+      <>
+        {arcSite === 'gestion' && (
+          <WrapperBlock nopadding nobackground nocolumn>
+            {!loading ? (
+              <>
+                <div className="left">
+                  <h3>Newsletters</h3>
+                </div>
+                <div className="right">
+                  <div className="container-grid">
+                    {newsletters.map(
+                      itemNews =>
+                        checksNews[itemNews.code] && (
+                          <div className="item item1" key={itemNews.code}>
+                            <img src={itemNews.image} alt="demo" />
+                            <div className={`title title-${arcSite}`}>
+                              {itemNews.name}
+                            </div>
+                          </div>
+                        )
+                    )}
+                    <button
+                      type="button"
+                      className="add-item"
+                      onClick={() => news()}>
+                      <span className="icon-plus">&#43;</span>
+                      Personaliza tus newsletters
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Loading site={arcSite} />
+            )}
+          </WrapperBlock>
         )}
-      </WrapperBlock>
+      </>
     )
   }
 }
