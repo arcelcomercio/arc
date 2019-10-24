@@ -10,7 +10,7 @@ const classes = {
   main: 'content-sidebar__left',
   sidebar: 'content-sidebar__right',
   aditional: 'mb-20',
-  zocalo: 'ads__zocalo',
+  zocalo: 'ads__zocalo--wide-nav',
 }
 
 /**---------------------------------------------------------------------
