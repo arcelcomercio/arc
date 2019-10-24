@@ -368,9 +368,9 @@ class SubDetail extends Component {
                 <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
               </div>
               <div className="right">
-                <Button type="button" onClick={() => this.showUpdatePayment()}>
+                {/* <Button type="button" onClick={() => this.showUpdatePayment()}>
                   {ShowUpdateCard ? 'CERRAR' : 'EDITAR'}
-                </Button>
+                </Button> */}
               </div>
             </S.Fieldset>
 
