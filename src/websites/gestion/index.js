@@ -28,6 +28,7 @@ import './images/signwall/bg_paywall.png'
 import './images/signwall/logo_gestion.png'
 import './images/signwall/bg_login.png'
 import './images/author.png'
+import './images/arrow-right-2.png'
 
 import './images/paywall/img_corporativo.webp'
 import './images/paywall/img_corporativo.png'

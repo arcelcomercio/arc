@@ -20,5 +20,6 @@ import './images/logo-story-default.jpg'
 import './images/loader.png'
 import './images/green-logo.png'
 import './images/author.png'
+import './images/arrow-right-2.png'
 
 import '../../../components/utilities/lazyload'

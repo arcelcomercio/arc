@@ -69,7 +69,7 @@ module.exports = (mode, type = 'index') => {
   }
 
   const fonts = {
-    test: /\.(ttf|eot|woff|woff2)$/,
+    test: /\.(ttf|woff|woff2)$/, // No .eot https://caniuse.com/#search=eot
     use: {
       loader: 'file-loader',
       options: {
