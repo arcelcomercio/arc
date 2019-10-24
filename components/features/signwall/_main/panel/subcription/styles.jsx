@@ -40,7 +40,7 @@ export const Subsdetail = styled.div`
     }
   }
   & .details-right {
-    padding: 30px 20px;
+    padding: 25px 20px;
     width: 60%;
     color: #444444;
     @media ${device.mobile} {
@@ -176,7 +176,7 @@ export const Group = styled.div`
   display: block;
   @media ${device.desktop} {
     display: flex;
-    align-items: center;
+    align-items:${props => (props.ac ? 'center' : 'flex-start')};
     box-sizing: border-box;
     justify-content: space-between;
   }
@@ -298,7 +298,6 @@ export const Block = styled.div`
 
 export const Msgcvv = styled.div`
   display: inline-flex;
-  margin-top: -10px;
   & svg {
     width: 50px;
   }

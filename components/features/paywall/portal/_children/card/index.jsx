@@ -6,7 +6,7 @@ import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import Taggeo from '../../../_dependencies/taggeo'
 
-function Card({ item }) {
+function Card({ item, onSetCookie }) {
   const msgs = useStrings()
   const {
     title,
@@ -56,6 +56,7 @@ function Card({ item }) {
           href={url}
           onClick={() => {
             Taggeo('Web_Paywall_Home', `web_paywall_home_button_${sku}`)
+            onSetCookie()
             onSubscribe(item)
           }}>
           {msgs.subscribe}

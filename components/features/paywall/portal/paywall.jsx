@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 
+import URL from 'url-parse'
 import * as S from './styled'
 import addScriptAsync from '../../../utilities/script-async'
 import { interpolateUrl } from '../_dependencies/domains'
@@ -53,10 +54,6 @@ const Portal = ({ theme }) => {
   }, [])
 
   const onSubscribeHandler = React.useRef(item => {
-    const { pathname } = new URL(digitalSubscriptionsHome)
-    window.sessionStorage.setItem('paywall_last_url', pathname)
-    window.sessionStorage.setItem('paywall_type_modal', 'landing')
-
     sendAction(PixelActions.PRODUCT_CLICK, {
       ecommerce: {
         currencyCode: item.price.currencyCode,
@@ -75,6 +72,12 @@ const Portal = ({ theme }) => {
     })
   }).current
 
+  const onHandlerCookie = React.useRef(()=>{
+    const { pathname } = new URL(digitalSubscriptionsHome)
+    window.sessionStorage.setItem('paywall_last_url', pathname)
+    window.sessionStorage.setItem('paywall_type_modal', 'landing')
+  }).current
+
   const substractFeaturesIds = substractFeaturesHeights
     .split(',')
     .map(id => id.trim())
@@ -84,14 +87,14 @@ const Portal = ({ theme }) => {
     <S.Portal backgroundColor={arcSite === 'elcomercio'}>
       <S.PortalContent>
         {items.map(item => (
-          <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />
+          <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} onSetCookie={onHandlerCookie}/>
         ))}
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
           <S.LinkCorporate
             linkStyle
-            href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
+            href={arcSite === 'elcomercio' ? `${originSubsOnline}?ref=Boton_suscrip_imp` : corporateUrl}>
             <S.SubscribedText>
               <div>
                 <span>{`${msgs.businessSubscriptionsBanner1}`}</span>
