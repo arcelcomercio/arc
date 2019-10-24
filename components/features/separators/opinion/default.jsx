@@ -31,10 +31,16 @@ class SeparatorOpinion extends PureComponent {
   }
 
   listAuthorCard = (data, arcSite) => {
+    const { isAdmin } = this.props
     return (
       data &&
       data.map(info => (
-        <AuthorCard key={info.id} data={info} arcSite={arcSite} />
+        <AuthorCard
+          key={info.id}
+          data={info}
+          arcSite={arcSite}
+          isAdmin={isAdmin}
+        />
       ))
     )
   }
@@ -68,6 +74,7 @@ class SeparatorOpinion extends PureComponent {
       deployment,
       contextPath,
       arcSite,
+      defaultImgSize: 'sm',
     })
     const newData = []
     const dataTemp = {}
@@ -84,6 +91,7 @@ class SeparatorOpinion extends PureComponent {
       dataTemp.sectionUrl = dataFormat.primarySectionLink
       dataTemp.websiteUrl = dataFormat.link
       dataTemp.imageUrl = squareS || dataFormat.authorImage
+      dataTemp.multimediaLazyDefault = dataFormat.multimediaLazyDefault
       newData.push({ ...dataTemp })
     }
     return newData

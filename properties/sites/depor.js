@@ -1,6 +1,7 @@
 export default {
   siteName: 'Depor',
   sitemapNewsName: 'Diario Depor',
+  newsletterBrand: 'depor',
   /*   googleFonts: 'Noticia+Text:400,700|Roboto+Condensed:400,700|Roboto:400,700', */
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
@@ -47,7 +48,7 @@ export default {
       width: 230,
       height: 60,
       widthAmp: 178,
-      heightAmp: 47,
+      heightAmp: 44,
     },
     premium: {
       logo: 'favicon.png',
@@ -159,11 +160,11 @@ export default {
     movil5: 15011771,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-22.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-23.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-24.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-25.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna1-300x250-div-gpt-ad-8599377-11.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna2-300x250-div-gpt-ad-8599377-12.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna3-300x250-div-gpt-ad-8599377-13.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna4-300x250-div-gpt-ad-8599377-14.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna5-300x250-div-gpt-ad-8599377-15.html',
   ],
   activeSignwall: false,
   activePaywall: false,

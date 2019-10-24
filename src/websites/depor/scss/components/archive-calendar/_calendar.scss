@@ -1,0 +1,41 @@
+.react-calendar {
+  &__box {
+    background-color: $color-white;
+  }
+  &__header {
+    background-color: transparent;
+  }
+  &__title {
+    color: $color-fourth;
+    font-size: 16px;
+    font-weight: 900;
+    font-family: $secondary-font;
+    text-align: center;
+  }
+  &__brand {
+    display: none;
+  }
+  &__tile--active {
+    background-color: transparent;
+  }
+  &__month-view__weekdays,
+  &__month-view__days__day {
+    border: 0;
+  }
+  &__month-view__days__day {
+    &:disabled {
+      abbr {
+        color: #bbbbbb;
+      }
+    }
+  }
+  &__month-view__weekdays__weekday abbr {
+    color: #bbbbbb;
+    font-weight: 900;
+    font-family: $secondary-font;
+    font-size: 13px;
+  }
+  &__tile--active {
+    background-color: #f2f2f2;
+  }
+}

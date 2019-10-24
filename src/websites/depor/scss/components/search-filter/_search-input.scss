@@ -1,0 +1,32 @@
+.search-input {
+  color: #7f7f7f;
+  width: 100%;
+  font-family: $secondary-font;
+  font-size: 18px;
+  &::placeholder {
+    color: transparent;
+  }
+  @media (--desktop) {
+    font-weight: 400;
+    height: 40px;
+  }
+  &:active,
+  &:focus {
+    outline: none;
+  }
+  &__container {
+    order: -1;
+  }
+  &__btn {
+    font-size: 18px;
+    color: #7f7f7f;
+    &:active {
+      color: #7f7f7f;
+      background-color: transparent;
+    }
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+}
