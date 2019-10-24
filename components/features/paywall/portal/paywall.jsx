@@ -54,6 +54,10 @@ const Portal = ({ theme }) => {
   }, [])
 
   const onSubscribeHandler = React.useRef(item => {
+    const { pathname } = new URL(digitalSubscriptionsHome)
+    window.sessionStorage.setItem('paywall_last_url', pathname)
+    window.sessionStorage.setItem('paywall_type_modal', 'landing')
+
     sendAction(PixelActions.PRODUCT_CLICK, {
       ecommerce: {
         currencyCode: item.price.currencyCode,
@@ -72,12 +76,6 @@ const Portal = ({ theme }) => {
     })
   }).current
 
-  const onHandlerCookie = React.useRef(()=>{
-    const { pathname } = new URL(digitalSubscriptionsHome)
-    window.sessionStorage.setItem('paywall_last_url', pathname)
-    window.sessionStorage.setItem('paywall_type_modal', 'landing')
-  }).current
-
   const substractFeaturesIds = substractFeaturesHeights
     .split(',')
     .map(id => id.trim())
@@ -87,14 +85,14 @@ const Portal = ({ theme }) => {
     <S.Portal backgroundColor={arcSite === 'elcomercio'}>
       <S.PortalContent>
         {items.map(item => (
-          <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} onSetCookie={onHandlerCookie}/>
+          <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />
         ))}
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
           <S.LinkCorporate
             linkStyle
-            href={arcSite === 'elcomercio' ? `${originSubsOnline}?ref=Boton_suscrip_imp` : corporateUrl}>
+            href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
             <S.SubscribedText>
               <div>
                 <span>{`${msgs.businessSubscriptionsBanner1}`}</span>

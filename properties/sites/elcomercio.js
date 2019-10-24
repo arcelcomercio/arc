@@ -117,7 +117,7 @@ export default {
       privacyPolicy:                     `https://elcomercio.pe/politicas-privacidad/`,
       disclaimer:                        `http://ecomedia.pe/libro/registrar/elcomercio/`,
       terms:                             `https://suscripciones.elcomercio.pe/terminos/`,
-      originSubsOnline:                  `https://suscripciones.elcomercio.pe/`,
+      originSubsOnline:                  `https://suscripciones.elcomercio.pe/?ref=Boton_suscrip_imp`,
       contactEmailRef:                   `mailto:suscripciones@comercio.com.pe`,
       contactPhoneRef:                   `tel:+5113115100`,
       androidAppDownload:                `https://play.google.com/store/apps/details?id=com.gec.elcomercio&referrer=email_footer`,
