@@ -1,3 +1,5 @@
+import templayed from 'templayed'
+
 const cardPatterns = {
   VISA: /^(4)(\d{12}|\d{15})$|^(606374\d{10}$)/,
   MASTERCARD: /^(5[1-5]\d{14}$)|^(2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$)/,
@@ -123,33 +125,42 @@ function shape(value) {
     // Validations
     email(message) {
       if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.value)) {
-        throw message
+        throw templayed(message)({ value: this.value })
       }
       return this
     },
     filled(message) {
-      if (/\s/g.test(this.value)) throw message
+      if (/\s/g.test(this.value))
+        throw templayed(message)({ value: this.value })
       return this
     },
     length(limit, message) {
-      if (!this.value || this.value.length !== limit) throw message
+      if (!this.value || this.value.length !== limit)
+        throw templayed(message)({ value: this.value, len: limit })
       return this
     },
     max(limit, message) {
       if (!this.isRequired && !this.hasValue) return this
       if (!this.value || this.value.length > limit)
-        throw message.replace(/\${max}/g, limit)
+        throw templayed(message)({ value: this.value, max: limit })
       return this
     },
     min(limit, message) {
       if (!this.isRequired && !this.hasValue) return this
       if (!this.value || this.value.length < limit)
-        throw message.replace(/\${min}/g, limit)
+        throw templayed(message)({ value: this.value, min: limit })
       return this
+    },
+    between(min, max, message) {
+      try {
+        this.min(min, '').max(max, '')
+      } catch (e) {
+        throw templayed(message)({ value: this.value, min, max })
+      }
     },
     required(message) {
       this.isRequired = true
-      if (!this.value) throw message
+      if (!this.value) throw templayed(message)({ value: this.value })
       return this
     },
     creditCardNumber(cardType, message) {
@@ -157,7 +168,7 @@ function shape(value) {
         const v = this.value.replace(/\D/g, '')
         const match = cardPatterns[cardType.toUpperCase()].test(v)
         if (!match) {
-          throw message
+          throw templayed(message)({ value: this.value })
         }
       }
       return this
@@ -166,26 +177,50 @@ function shape(value) {
       if (cardType) {
         const match = cvvPatterns[cardType.toUpperCase()].test(this.value)
         if (!match) {
-          throw message
+          throw templayed(message)({ value: this.value })
         }
       }
       return this
     },
+    expiryDate(date, message) {
+      const msg = templayed(message)({ value: this.value })
+      const match = (date.value || '').match(/^(\d\d)\/(\d\d(\d\d)?)$/)
+      if (!match) throw msg
+      let _m = match[1]
+      let _y = match[2]
+      if (!(_m >= 0 && _m < 13)) {
+        throw msg
+      }
+      if (_y.length === 2) {
+        _y = '20' + _y
+      }
+
+      if (_m.length === 1) {
+        _m = '0' + _m
+      }
+
+      const formDate = new Date(_y, _m - 1)
+      if (formDate < Date.now()) {
+        throw msg
+      }
+      return this
+    },
     custom(regx, message) {
-      if (!regx.test(this.value)) throw message
+      if (!regx.test(this.value))
+        throw templayed(message)({ value: this.value })
       return this
     },
   }
 }
 
-function struct(schema) {
-  const build = data => {
+function struct(values, validations) {
+  const Schema = () => {
     const errors = {}
-    Object.keys(schema).forEach(name => {
+    Object.keys(validations).forEach(name => {
       try {
-        const s = schema[name]
-        const restValues = Object.assign({}, data)
-        const value = data[name]
+        const s = validations[name]
+        const restValues = Object.assign({}, values)
+        const value = values[name]
         delete restValues[name]
         s(shape(value), restValues)
       } catch (err) {
@@ -203,8 +238,8 @@ function struct(schema) {
     })
     return errors
   }
-  build.schema = schema
-  return build
+  Schema.schema = validations
+  return new Schema()
 }
 
 export const clearNull = values => {

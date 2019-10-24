@@ -17,7 +17,3 @@ export const WrapContent = styled.div`
     box-shadow: none;
   }
 `
-
-export const Picture = styled.picture`
-  line-height: 0px;
-`

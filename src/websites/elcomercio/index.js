@@ -21,14 +21,19 @@ import './images/author.png'
 import './images/authorOpinion.png'
 import './images/logo-amp.png'
 import './images/logo-elcomercio-388x60.png'
+<<<<<<< HEAD
 import './images/arrow-right-2.png'
 
+=======
+>>>>>>> master
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'
 import './images/logo-elcomercio.jpg'
-
 import './images/signwall/bg_paywall.png'
 import './images/signwall/logo_elcomercio.png'
 import './images/signwall/bg_login.png'
 
 import '../../../components/utilities/lazyload'
+
+// Imagenes paywall
+require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)

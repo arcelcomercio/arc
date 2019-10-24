@@ -94,7 +94,7 @@ export const WrapperMenu = styled.div`
     }
     & .close-sesion {
       color: #bbbbbb;
-      font-weight: normal;
+      font-weight: bold;
       font-size: 12px;
     }
   }

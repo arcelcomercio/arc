@@ -1,17 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withTheme } from 'styled-components'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import Markdown from 'react-markdown'
+import { useFusionContext } from 'fusion:context'
+import Markdown from 'react-markdown/with-html'
 
 import ClientOnly from '../_children/client-only'
+import { useStrings } from '../_children/contexts'
 import * as S from './styled'
-import faqsData from './data'
 
 const Faqs = () => {
+  const msgs = useStrings()
   const [data, setData] = React.useState([])
+  const { arcSite } = useFusionContext()
 
   const loadFakeQuestions = React.useCallback(
-    () => Promise.resolve(faqsData).then(setData),
+    () => Promise.resolve(msgs.faqs).then(setData),
     []
   )
 
@@ -25,7 +29,7 @@ const Faqs = () => {
         <S.TitleContainer>
           <S.Title>Preguntas Frecuentes</S.Title>
         </S.TitleContainer>
-        <FaqList faqs={data} />
+        <FaqList site={arcSite} faqs={data} />
       </S.Container>
     </ClientOnly>
   )
@@ -36,8 +40,9 @@ Faqs.propTypes = {
   perPage: PropTypes.number.isRequired,
 }
 
-const FaqList = ({ faqs = [], ...props }) => {
+const FaqList = withTheme(({ theme, site, faqs = [], ...props }) => {
   const [expanded, setExpanded] = React.useState()
+  const { lighten } = theme.palette
 
   const handleChange = panel => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
@@ -46,12 +51,18 @@ const FaqList = ({ faqs = [], ...props }) => {
   return faqs.map((faqGroup, idx1) => (
     <S.ExpansionPanel
       id={`panel${idx1}`}
+      collapsedColor={
+        site === 'elcomercio'
+          ? lighten(theme.palette.secondary.main, 0.9)
+          : lighten(theme.palette.primary.main, 0.9)
+      }
+      expandedColor={theme.palette.background.paper}
       expanded={expanded === `panel${idx1}`}
       onChange={handleChange(`panel${idx1}`)}
       {...props}>
       <S.ExpansionPanelSummary expandIcon={<ExpandMoreIcon fontSize="large" />}>
         <S.Title>
-          <Markdown>{faqGroup.group}</Markdown>
+          <Markdown source={faqGroup.group} />
         </S.Title>
       </S.ExpansionPanelSummary>
       <S.ExpansionPanelDetails>
@@ -60,8 +71,8 @@ const FaqList = ({ faqs = [], ...props }) => {
           const answer = Array.isArray(faq.a) ? faq.a.join(' \n') : faq.a
           return (
             <div id={`${faqGroup.group}---${idx2}`}>
-              <S.FaqMarkdown question>{question}</S.FaqMarkdown>
-              <S.FaqMarkdown>{answer}</S.FaqMarkdown>
+              <S.FaqMarkdown linkTarget="_blank" question source={question} />
+              <S.FaqMarkdown linkTarget="_blank" source={answer} />
               {faqGroup.faqs.length > idx2 + 1 && <S.Separator />}
             </div>
           )
@@ -69,10 +80,11 @@ const FaqList = ({ faqs = [], ...props }) => {
       </S.ExpansionPanelDetails>
     </S.ExpansionPanel>
   ))
-}
+})
 FaqList.propTypes = PropTypes.arrayOf(
   PropTypes.shape({
     group: PropTypes.string.isRequired,
+    site: PropTypes.string.isRequired,
     faqs: PropTypes.arrayOf(
       PropTypes.shape({
         q: PropTypes.string.isRequired,
@@ -82,4 +94,4 @@ FaqList.propTypes = PropTypes.arrayOf(
   })
 )
 
-export default Faqs
+export default withTheme(Faqs)

@@ -1,17 +1,19 @@
 import React from 'react'
+import { useStrings } from '../../../../../_children/contexts'
 import Panel from '../../../../../_children/panel'
 import * as S from './styled'
 
 function Price({ amount, frequency }) {
+  const msgs = useStrings()
   const period = {
-    month: ' al mes',
-    year: ' al año',
+    month: ` ${msgs.monthlyPeriod}`,
+    year: ` ${msgs.yearlyPeriod}`,
   }
 
   return (
     <>
       {amount === 0 ? (
-        'Gratis'
+        msgs.freeAmount
       ) : (
         <div>
           <S.Currency>S/</S.Currency>
@@ -24,27 +26,32 @@ function Price({ amount, frequency }) {
 }
 
 function CardPrice(props) {
+  const msgs = useStrings()
   const {
     plan: { amount, billingFrequency, description },
     onClick = i => i,
     onMouseOver,
     onFocus,
     active,
+    mt,
+    marginTop,
+    offer,
   } = props
 
   const frequency = {
-    month: 'Suscripción Mensual',
-    year: 'Suscripción Anual',
+    month: msgs.monthlyFrequency,
+    year: msgs.yearlyFrequency,
   }
 
   return (
     <Panel type="card-price">
       <S.CardPrice onFocus={onFocus} onMouseOver={onMouseOver}>
-        {billingFrequency === 'Month' && amount !== 0 ? (
-          <S.Header>PROMOCIÓN DE LANZAMIENTO</S.Header>
-        ) : null}
+        {offer ? <S.Header>{offer}</S.Header> : null}
+
         <S.Content>
-          <S.Frecuency>{frequency[billingFrequency.toLowerCase()]}</S.Frecuency>
+          <S.Frecuency mt={marginTop || mt || '20px'} marginBottom="8px">
+            {frequency[billingFrequency.toLowerCase()]}
+          </S.Frecuency>
           <S.Amount>
             <Price amount={amount} frequency={billingFrequency} />
           </S.Amount>
@@ -55,11 +62,10 @@ function CardPrice(props) {
         </S.Content>
         <S.Footer>
           <S.Button
-            className="button-buy"
             active={active}
             onClick={e => onClick(e, props.plan)}
             type="button">
-            SUSCRIBIRME
+            {msgs.subscribe}
           </S.Button>
         </S.Footer>
       </S.CardPrice>

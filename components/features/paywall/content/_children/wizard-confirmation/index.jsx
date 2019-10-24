@@ -1,14 +1,16 @@
 /* eslint-disable no-extra-boolean-cast */
 import React, { useEffect } from 'react'
+import { withTheme } from 'styled-components'
 import * as S from './styled'
 import Button from '../../../_children/button'
-import { devices } from '../../../_dependencies/devices'
+import Picture from '../../../_children/picture'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
+import { pushCxense } from '../../../_dependencies/cxense'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
-const PIXEL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
 
 const Item = ({ label, children }) => {
   return (
@@ -19,24 +21,40 @@ const Item = ({ label, children }) => {
 }
 
 const WizardConfirmation = props => {
+  const msgs = useStrings()
   const {
-    assets,
+    theme,
     memo: {
-      order: { orderNumber },
-      profile: { firstName, lastName, secondLastName, email },
-      plan: { title: plan, sku, priceCode, amount, billingFrequency, description },
+      arcSite,
+      order = {},
+      profile = {},
+      plan = {},
       origin,
       referer,
-      payment: { total: paidTotal, subscriptionIDs },
+      payment = {},
       printedSubscriber,
+      freeAccess,
     },
   } = props
+
+  const { orderNumber } = order
+  const { firstName, lastName, secondLastName, email } =
+    freeAccess || profile || {}
+  const { total: paidTotal, subscriptionIDs = [] } = payment
+  const {
+    name: planName,
+    sku,
+    priceCode,
+    amount,
+    billingFrequency,
+    description,
+  } = plan
 
   useEffect(() => {
     PWA.finalize()
     sendAction(PixelActions.PAYMENT_CONFIRMATION, {
       transactionId: orderNumber,
-      transactionAffiliation: 'Suscripciones Gestión',
+      transactionAffiliation: arcSite,
       transactionTotal: paidTotal,
       transactionTax: 0,
       transactionShipping: 0,
@@ -54,21 +72,13 @@ const WizardConfirmation = props => {
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: origin,
+      accesoGratis: freeAccess,
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    document.getElementsByClassName('foot')[0].style.position = "relative";
+    document.getElementById('footer').style.position = 'relative'
+    pushCxense(sku)
   }, [])
-
-  // const handleClick = () => {
-  //   return
-  //   if (handlePWA()) return
-  //   const { sessionStorage, location } = window
-  //   // eslint-disable-next-line no-prototype-builtins
-  //   location.href = sessionStorage.hasOwnProperty(NAME_REDIRECT) && sessionStorage.getItem(NAME_REDIRECT) !== ''
-  //     ? sessionStorage.getItem(NAME_REDIRECT)
-  //     : HOME
-  // }
 
   const handleClick = () => {
     if (PWA.isPWA()) {
@@ -76,68 +86,91 @@ const WizardConfirmation = props => {
       return
     }
     const { sessionStorage, location } = window
-    // eslint-disable-next-line no-prototype-builtins
+
     location.href =
+      // eslint-disable-next-line no-nested-ternary
       sessionStorage.hasOwnProperty(NAME_REDIRECT) &&
       sessionStorage.getItem(NAME_REDIRECT) !== ''
-        ? sessionStorage.getItem(NAME_REDIRECT)
+        ? sessionStorage.getItem(NAME_REDIRECT) === '/suscripciones/'
+          ? HOME
+          : sessionStorage.getItem(NAME_REDIRECT)
         : HOME
   }
 
   const Frecuency = {
-    "Month" : "Mensual",
-    "Year" : "Anual"
+    Month: 'Mensual',
+    Year: 'Anual',
+    OneTime: 'Mensual',
   }
-  
+
+  const Period = {
+    Month: msgs.monthlyPeriod,
+    Year: msgs.yearlyPeriod,
+    OneTime: '',
+  }
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
-        <S.Picture>
-          <source media={`(${devices.mobile})`} srcSet={PIXEL} />
-          <source media={`${devices.tablet}`} srcSet={PIXEL} />
-          <source srcSet={assets('confirmation_webp')} type="image/webp" />
-          <S.Image src={assets('confirmation')} alt="confirmación" />
-        </S.Picture>
-
+        <Picture
+          width={{ xs: '0px', md: '360px' }}
+          hideOnScreenSize="sm"
+          src={theme.images.confirmation}
+          types={['webp', 'png']}
+        />
         <S.Content>
-          <S.Title>¡Bienvenido(a) {firstName}!</S.Title>
+          <S.Title>
+            {msgs.interpolate(msgs.welcomeNewSubscriptor, { firstName })}
+          </S.Title>
 
-          {/* <S.Subtitle>
-            <strong>POR SER UN SUSCRIPTOR PREMIUM</strong>
-            <br />
-            tienes acceso ilimitado a las noticias más relevantes del Perú y el
-            mundo totalmente gratis.
-          </S.Subtitle> */}
+          <S.Subtitle large={!freeAccess}>
+            {freeAccess ? msgs.successfulSubscription : msgs.successfulPurchase}
+          </S.Subtitle>
 
-          <S.Subtitle large>Tu suscripción ha sido exitosa.</S.Subtitle>
-          
           <S.CardSummary>
-            <S.DetailTitle>DETALLE DE COMPRA</S.DetailTitle>
-            <Item label="PAQUETE: ">
-              {(plan || '').toUpperCase()} - { Frecuency[billingFrequency].toUpperCase() }
+            <S.DetailTitle>
+              {freeAccess
+                ? msgs.subscriptionDetails.toUpperCase()
+                : msgs.purchaseDetails.toUpperCase()}
+            </S.DetailTitle>
+            <Item label={`${msgs.planLabel.toUpperCase()}: `}>
+              {(planName || '').toUpperCase()} -{' '}
+              {Frecuency[billingFrequency].toUpperCase()}
             </Item>
-            <Item label="NOMBRE: ">
+            <Item label={`${msgs.nameLabel.toUpperCase()}: `}>
               <S.Names>
                 {firstName} {lastName} {secondLastName}
               </S.Names>
             </Item>
-            <Item label="PRECIO: ">
-               {/* { paidTotal !== 0 ?  `S/ ${paidTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'GRATIS' } */}
-               { paidTotal !== 0 ?  `S/ ${paidTotal}` : `GRATIS ${description.title} ${description.description}` }
-            </Item>
-            <S.Small>
-              El precio de la suscripción se cargará automáticamente en tu
-              tarjeta cada mes o año, según el período elegido.
-            </S.Small>
+            {!freeAccess && (
+              <>
+                <S.Item>
+                  {`${msgs.priceLabel.toUpperCase()}: `}
+                  <strong>
+                    {`${
+                      paidTotal !== 0
+                        ? msgs.currencySymbol.toUpperCase()
+                        : msgs.freeAmount.toUpperCase()
+                    } `}
+                  </strong>
+                  <strong>{`${paidTotal !== 0 ? paidTotal : ''} `}</strong>
+
+                  {`${paidTotal !== 0 ? Period[billingFrequency] : ''} ${
+                    description.title
+                  } ${description.description}`}
+                </S.Item>
+
+                <S.Small>{msgs.paymentNotice}</S.Small>
+              </>
+            )}
           </S.CardSummary>
-          <S.Span>
-            Enviaremos la boleta de compra de la
-            <br /> suscripción al correo:
-            <strong> {email}</strong>
-          </S.Span>
+          {!freeAccess && (
+            <S.Notice
+              source={msgs.interpolate(msgs.subscriptionNotice, { email })}
+            />
+          )}
           <S.WrapButton>
-            <Button onClick={handleClick}>SIGUE NAVEGANDO</Button>
-            {/* <S.Progress time="17s" onFinish={handleClick} /> */}
+            <Button onClick={handleClick}>{msgs.continueButton}</Button>
           </S.WrapButton>
         </S.Content>
       </S.Panel>
@@ -145,4 +178,6 @@ const WizardConfirmation = props => {
   )
 }
 
-export default WizardConfirmation
+const ThemedWizardConfirmation = withTheme(WizardConfirmation)
+
+export default ThemedWizardConfirmation
