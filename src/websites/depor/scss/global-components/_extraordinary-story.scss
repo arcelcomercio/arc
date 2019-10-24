@@ -30,8 +30,11 @@
   &__title {
     font-weight: 700;
     font-size: 22px;
+    -webkit-line-clamp: 3;
+    max-height: calc(22px * 3 * 1.333);
     @media (--tablet) {
       font-size: 28px;
+      max-height: calc(28px * 3 * 1.333);
     }
   }
   &__title-link {
@@ -45,5 +48,16 @@
   }
   &__link {
     color: $color-black;
+  }
+  &__icon {
+    display: none;
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    left: 45px;
+    bottom: -20px;
+    top: inherit;
+    background-color: #fff;
+    color: #f15a24;
   }
 }
