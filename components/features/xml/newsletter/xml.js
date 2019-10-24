@@ -21,9 +21,7 @@ class XmlNewsletterFeed {
       deployment,
       contextPath,
       arcSite,
-      siteProperties: {
-        siteUrl = '',
-      } = {},
+      siteProperties: { siteUrl = '' } = {},
     } = this.props
     const { content_elements: stories } = globalContent || {}
 
@@ -42,7 +40,6 @@ class XmlNewsletterFeed {
       rss: {
         '@version': '2.0',
         channel: stories.map(story => {
-
           const {
             promo_items: {
               basic: {
@@ -56,9 +53,9 @@ class XmlNewsletterFeed {
                   tb241x136 = '',
                   tbgrande = '',
                   tbflujo = '',
-                } = {}
-              } = {}
-            } = {}
+                } = {},
+              } = {},
+            } = {},
           } = story || {}
 
           storyData.__data = story
@@ -78,7 +75,7 @@ class XmlNewsletterFeed {
                 thumbnail_403x227: tb403x227,
                 thumbnail_241x136: tb241x136,
                 thumbnail_grande: tbgrande,
-                thumbnail_flujo: tbflujo
+                thumbnail_flujo: tbflujo,
               },
               volada: 'null',
               epigraph: storyData.subTitle,
@@ -87,16 +84,20 @@ class XmlNewsletterFeed {
               autor: {
                 nombre: storyData.author,
                 url: `${siteUrl}${storyData.authorLink}`,
-                cargo: 'null', // storyData.authorOccupation,
-                columna: 'null',
+                cargo: storyData.authorRoleByNewsLetter
+                  ? storyData.authorRoleByNewsLetter
+                  : 'null',
+                columna: storyData.authorBiography
+                  ? storyData.authorBiography
+                  : 'null',
                 twitter: storyData.authorTwitterLink,
                 imagen: `${siteUrl}${storyData.authorImage}`,
-                thumb: storyData.authorSlug
-              }
-            }
+                thumb: storyData.authorSlug,
+              },
+            },
           }
-        })
-      }
+        }),
+      },
     }
 
     return newsletterFeed
