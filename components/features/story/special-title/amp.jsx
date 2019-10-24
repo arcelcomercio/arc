@@ -101,7 +101,7 @@ class StoryTitleAmp extends PureComponent {
           {galleryItems && (
             <StoryHeaderChildAmpGallery
               data={galleryItems}
-              {...siteUrl}
+              siteUrl={siteUrl}
               link={link}
               width="500"
               height="300"
