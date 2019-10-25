@@ -210,9 +210,9 @@ export default ({
                     <>
                       <li className={classes.headerItem}>
                         <a
-                          href={item._id}
+                          href={item.url || item._id || '/'}
                           className={`${classes.headerLink} pt-15 pb-15`}>
-                          {item.name}
+                          {item.name || item.display_name}
                         </a>
                         {hasChildren && (
                           <button
@@ -228,9 +228,9 @@ export default ({
                                 return (
                                   <li className={classes.subMenuItem}>
                                     <a
-                                      href={subItem._id}
+                                      href={subItem.url || subItem._id || '/'}
                                       className={`${classes.headerLink}`}>
-                                      {subItem.name}
+                                      {subItem.name || subItem.display_name}
                                     </a>
                                   </li>
                                 )
@@ -273,8 +273,10 @@ export default ({
                 {headerList.map(item => {
                   return (
                     <li className={classes.itemNav}>
-                      <a href={item._id} className={classes.linkNav}>
-                        {item.name}
+                      <a
+                        href={item.url || item._id || '/'}
+                        className={classes.linkNav}>
+                        {item.name || item.display_name}
                       </a>
                     </li>
                   )
@@ -288,8 +290,10 @@ export default ({
                     return (
                       <div className={classes.megaMenuRow}>
                         <h3>
-                          <a href={item._id} className={classes.megaMenuTitle}>
-                            {item.name}
+                          <a
+                            href={item.url || item._id || '/'}
+                            className={classes.megaMenuTitle}>
+                            {item.name || item.display_name}
                           </a>
                         </h3>
                         <ul className={classes.megaMenuList}>
@@ -298,9 +302,9 @@ export default ({
                               return (
                                 <li className={classes.megaMenuItem}>
                                   <a
-                                    href={subItem._id}
+                                    href={subItem.url || subItem._id || '/'}
                                     className={classes.megaMenuLink}>
-                                    {subItem.name}
+                                    {subItem.name || subItem.display_name}
                                   </a>
                                 </li>
                               )

@@ -2,42 +2,32 @@
 *       MARGINS & PADDINGS      *
 *-------------------------------*/
 
-$space-limit: 15;
-$space-interval: 5;
-
-$map-space-pos: '',
-'top',
-'right',
-'bottom',
-'left';
+$map-space-pos: '', 'top', 'right', 'bottom', 'left';
 
 @for $i from 0 through $space-limit {
   @each $space-pos in $map-space-pos {
     $space-size: $i * $space-interval;
     $space-value: unquote($space-size + 'px');
 
-    @if $space-pos=='' {
+    @if $space-pos== '' {
+      @include build-class(m-#{$space-size}, margin, $space-value);
 
-      @include build-class(m-#{$space-size},
-        margin,
-        $space-value);
-
-      @include build-class(p-#{$space-size},
-        padding,
-        $space-value);
-    }
-
-    @else {
+      @include build-class(p-#{$space-size}, padding, $space-value);
+    } @else {
       $space-pos-char: str-slice($space-pos, 0, 1);
 
       // hacer que space-pos sea top, right, bottom, left en margin-[aqui]
-      @include build-class(m#{$space-pos-char}-#{$space-size},
+      @include build-class(
+        m#{$space-pos-char}-#{$space-size},
         margin-#{$space-pos},
-        $space-value);
+        $space-value
+      );
 
-      @include build-class(p#{$space-pos-char}-#{$space-size},
+      @include build-class(
+        p#{$space-pos-char}-#{$space-size},
         padding-#{$space-pos},
-        $space-value);
+        $space-value
+      );
     }
   }
 }

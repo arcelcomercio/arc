@@ -114,22 +114,18 @@ const InterestByTag = props => {
     <>
       {dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
-          <div className={classes.container}>
-            <div className={classes.title}>{title}</div>
-            {storyAmp === 'slider' ? (
-              <amp-carousel
-                layout="fixed-height"
-                height="160"
-                type="carousel"
-                id="rel-noticias">
-                {getSize(5)}
-              </amp-carousel>
-            ) : (
-              <>
-                <ul className={classes.list}>{getSize(4)}</ul>
-              </>
-            )}
-          </div>
+          <div className={classes.title}>{title}</div>
+          {storyAmp === 'slider' ? (
+            <amp-carousel
+              layout="fixed-height"
+              height="160"
+              type="carousel"
+              id="rel-noticias">
+              {getSize(5)}
+            </amp-carousel>
+          ) : (
+            <>{getSize(4)}</>
+          )}
         </div>
       )}
     </>
