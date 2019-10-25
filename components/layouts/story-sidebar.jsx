@@ -36,9 +36,11 @@ const StorySidebarLayout = ({ children = [] }) => {
             <div role="main" className={classes.main}>
               {children[7] /* Contenido */}
             </div>
-            <aside className={classes.sidebar}>
-              {children[8] /* Barra lateral */}
-            </aside>
+            {children[8] && (
+              <aside className={classes.sidebar}>
+                {children[8] /* Barra lateral */}
+              </aside>
+            )}
             {children[9] /* Contenido adicional */}
           </section>
           {children[10] /* Pie de página */}
