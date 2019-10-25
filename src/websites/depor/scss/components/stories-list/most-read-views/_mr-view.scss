@@ -1,0 +1,19 @@
+.mr-view {
+  &__header {
+    background-color: #eee;
+  }
+  &__item {
+    border-bottom: solid 1px #ccc;
+  }
+  &__num {
+    color: $color-fourth;
+  }
+  &__btn {
+    width: 140px;
+    height: 25px;
+    padding: 0;
+    background-color: $color-fourth;
+    color: white;
+    font-weight: 300;
+  }
+}

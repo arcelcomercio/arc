@@ -20,13 +20,17 @@ const closeSession = props => {
     .then(() => {
       if (
         window.location.pathname.indexOf('suscripciones') >= 0 ||
-        arcSite === 'gestion'
+        arcSite === 'gestion' ||
+        arcSite === 'elcomercio'
       ) {
         closeDispatchEvent()
         window.location.reload()
       } else {
         closePopup()
+        window.sessionStorage.removeItem('paywall-profile-form')
+        window.sessionStorage.removeItem('paywall-payment-form')
       }
+      window.sessionStorage.removeItem('paywall_last_url')
     })
     .catch(() => {
       window.location.reload()
@@ -50,13 +54,13 @@ export const MenuProfile = props => {
         <p className="welcome">Bienvenido a tu Perfil</p>
         <div className="cont-menu">
           <ul>
-            {arcSite === 'gestion' && (
+            {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
                 <a href="#" onClick={() => props.home()}>
                   Inicio
                 </a>
               </li>
-            )}
+            ) : null}
 
             <li>
               <a href="#" onClick={() => props.prof()}>
@@ -64,29 +68,30 @@ export const MenuProfile = props => {
               </a>
             </li>
 
-            {arcSite === 'gestion' && (
+            {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
               <li>
-                <a href="#" onClick={() => props.subs()}>
+                <a
+                  id="btn-mis-suscripciones"
+                  href="#"
+                  onClick={() => props.subs()}>
                   Mi Suscripción
                 </a>
               </li>
-            )}
+            ) : null}
 
-            {arcSite === 'gestion' && (
+            {arcSite === 'gestion' ? (
               <li>
                 <a href="#" onClick={() => props.news()}>
                   Newsletters
                 </a>
               </li>
-            )}
+            ) : null}
 
-            {/* <li>
-              <a href="#">Contáctanos</a>
-            </li> */}
             <li>
               <a
                 className="close-sesion"
                 href="#"
+                id="web_link_cerrarsesion"
                 onClick={() => closeSession(props)}>
                 Cerrar sesión
               </a>

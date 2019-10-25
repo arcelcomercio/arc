@@ -14,7 +14,7 @@ const classes = {
   iconFacebook: 'icon-facebook-circle',
   iconLinkedin: 'icon-linkedin-circle',
   iconTwitter: 'icon-twitter-circle',
-  iconWhatsapp: 'icon-whatsapp',
+  iconWhatsapp: 'icon-whatsapp block md:hidden',
 }
 
 const SpecialHeaderChildSocial = ({

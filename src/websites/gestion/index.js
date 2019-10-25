@@ -20,21 +20,14 @@ import './images/default-md.png'
 import './images/default-lg.png'
 import './images/web_img_ges_badge2.png'
 import './images/plusg.png'
-import './images/paywall/img_confirmation.jpg'
-import './images/paywall/img_lector.png'
-import './images/paywall/bg_planes_10.jpg'
 import './images/img_soporte.png'
 import './images/signwall/bg_paywall.png'
 import './images/signwall/logo_gestion.png'
 import './images/signwall/bg_login.png'
 import './images/author.png'
-
-import './images/paywall/img_corporativo.webp'
-import './images/paywall/img_corporativo.png'
-import './images/paywall/check2.png'
-import './images/paywall/img_login.webp'
-import './images/paywall/img_soporte.webp'
-import './images/paywall/img_confirmation_1.webp'
-import './images/paywall/img_confirmation_2.webp'
+import './images/arrow-right-2.png'
 
 import '../../../components/utilities/lazyload'
+
+// Imagenes paywall
+require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)

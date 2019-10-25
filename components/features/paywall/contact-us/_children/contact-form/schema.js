@@ -1,49 +1,40 @@
-import schema, { Masks as M } from '../../../_dependencies/schema'
+import _createSchema, { Masks as M } from '../../../_dependencies/schema'
 
 export const Masks = M
 
-export const MESSAGE = {
-  // eslint-disable-next-line no-template-curly-in-string
-  MIN: 'Longitud inválida, mínimo ${min} caracteres.',
-  // eslint-disable-next-line no-template-curly-in-string
-  MAX: 'Longitud inválida, Máximo ${max} caracteres.',
-  REQUIRED: 'Este campo es requerido',
-  EMAIL: 'Correo inválido',
-  PHONE: 'Longitud inválida, entre 9 y 12 caracteres',
-  API_ERROR: 'Ha ocurrido un error. Inténtelo más tarde',
-}
-
-export const FormSchema = schema({
-  correo: value => {
-    value.required(MESSAGE.REQUIRED)
-    value.email(MESSAGE.EMAIL)
-  },
-  nombre: value => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .min(3, MESSAGE.MIN)
-      .max(50, MESSAGE.MAX)
-  },
-  apellido: value => {
-    value
-      .required(MESSAGE.REQUIRED)
-      .min(3, MESSAGE.MIN)
-      .max(50, MESSAGE.MAX)
-  },
-  organizacion: value => {
-    value.required(MESSAGE.REQUIRED)
-    value.min(1, MESSAGE.MIN)
-    value.max(50, MESSAGE.MAX)
-  },
-  telefono: value => {
-    value.required(MESSAGE.PHONE)
-    value.min(9, MESSAGE.MIN)
-    value.max(12, MESSAGE.MAX)
-  },
-  tipo_consulta: value => {
-    value.required('Debe seleccionar un tipo')
-  },
-  descripcion: value => {
-    value.max(500, MESSAGE.MAX)
-  },
-})
+export const createSchema = (values, msgs) =>
+  _createSchema(values, {
+    correo: value => {
+      value.required(msgs.requiredField)
+      value.email(msgs.wrongEmails)
+    },
+    nombre: value => {
+      value
+        .required(msgs.requiredField)
+        .min(2, msgs.minLength)
+        .max(50, msgs.maxLength)
+    },
+    apellido: value => {
+      value
+        .required(msgs.requiredField)
+        .min(2, msgs.minLength)
+        .max(50, msgs.maxLength)
+    },
+    organizacion: value => {
+      value.required(msgs.requiredField)
+      value.min(1, msgs.minLength)
+      value.max(50, msgs.maxLength)
+    },
+    telefono: value => {
+      value
+        .ignoreChars(' ')
+        .required(msgs.requiredField)
+        .between(9, 12, msgs.lengthNotBetween)
+    },
+    tipo_consulta: value => {
+      value.required('Debe seleccionar un tipo')
+    },
+    descripcion: value => {
+      value.max(500, msgs.maxLength)
+    },
+  })

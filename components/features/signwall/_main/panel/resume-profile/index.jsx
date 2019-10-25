@@ -11,9 +11,13 @@ export const ResumeProfile = () => {
     <ModalConsumer>
       {value => (
         <Wrapper>
-          <Prof prof={() => value.changeTemplate('prof')}  />
+          <Prof prof={() => value.changeTemplate('prof')} />
           <div className="space-40" />
-          <Subs />
+          <Subs
+            detail={id => {
+              value.changeTemplate('detail', id)
+            }}
+          />
           <div className="space-40" />
           <News news={() => value.changeTemplate('news')} />
         </Wrapper>

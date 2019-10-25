@@ -25,11 +25,7 @@ const SocialColumnSection = ({ socialNetworks }) => {
           const keyString = `id${index}`
           return <ItemLink key={keyString} name={name} url={url} />
         })}
-      <li className={classes.item}>
-        <a href="/mapa-web" style={ItemTop}>
-          Mapa del Sitio
-        </a>
-      </li>
+     
     </ul>
   )
 }

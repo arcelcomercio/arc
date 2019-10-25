@@ -32,8 +32,8 @@
       background: url('../images/openquote.svg') top left no-repeat;
     } */
     &__pull {
-      background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg')
-        top left no-repeat;
+      // background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg')
+      //   top left no-repeat;
     }
 
     &__text {
@@ -101,4 +101,32 @@
   white-space: normal;
   z-index: 1;
   height: 60px;
+}
+
+.story-gallery {
+  &__control-right {
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    z-index: 11;
+    border-radius: 50%;
+    &:before {
+      content: '';
+      width: 15px;
+      height: 18px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      background: url(/pf/resources/dist/elcomercio/images/arrow-right-2.png);
+    }
+  }
+}
+
+.amp-carousel-button {
+  display: none;
 }

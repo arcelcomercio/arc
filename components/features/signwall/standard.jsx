@@ -102,8 +102,11 @@ class SignwallComponent extends PureComponent {
         jwt: W.Identity.userIdentity.accessToken || null,
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
-          // user subscription state
-          if (arcSite === 'gestion' && W.Identity.userIdentity.accessToken) {
+          // user subscription state GESTION & EL COMERCIO
+          if (
+            (arcSite === 'gestion' || arcSite === 'elcomercio') &&
+            W.Identity.userIdentity.accessToken
+          ) {
             return this.getListSubs().then(p => {
               const isLoggedInSubs = !!(
                 W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&

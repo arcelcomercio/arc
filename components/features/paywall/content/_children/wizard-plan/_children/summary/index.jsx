@@ -4,7 +4,7 @@ import Icon from '../../../../../_children/icon'
 import Panel from '../../../../../_children/panel'
 import Bullet from '../../../../../_children/bullet-point'
 
-function Summary({ title, feature = [] }) {
+function Summary({ title, backgroundColor, feature = [] }) {
   return (
     <Panel type="summary">
       <S.Wrap>
@@ -15,7 +15,7 @@ function Summary({ title, feature = [] }) {
           <Icon type="devices" width="66" height="54" />
         </S.Head>
 
-        <S.Separate />
+        <S.Separate style={{ backgroundColor }}/>
 
         <S.WrapFeature>
           {feature.map((text, index) => {

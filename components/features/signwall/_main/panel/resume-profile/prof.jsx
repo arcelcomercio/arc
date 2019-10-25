@@ -142,7 +142,7 @@ class Prof extends Component {
           </button>
         </div>
 
-        <div className="right">
+        <div className="right column">
           <p>
             <strong>Nombre: </strong>{' '}
             {!firstName && !lastName && !secondLastName ? '-' : null}

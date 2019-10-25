@@ -50,6 +50,7 @@ export default ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+    promo_items: { basic_gallery: basicGallery = 0 } = {},
     taxonomy: {
       primary_section: { path: nameSeccion = '' } = {},
       tags = [],
@@ -65,7 +66,9 @@ export default ({
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory
-    ? `story ${arcSite} ${nameSeccion.split('/')[1]} ${subtype} `
+    ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
+        nameSeccion.split('/')[1]
+      } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -281,7 +284,7 @@ export default ({
           <script
             defer
             src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/js/appnexus.js`
+              `${contextPath}/resources/dist/${arcSite}/js/appnexus-min.js`
             )}
           />
         )}

@@ -22,7 +22,7 @@ class StoryTitleAmp extends PureComponent {
   render() {
     const {
       arcSite,
-      siteProperties: { adsAmp },
+      siteProperties: { adsAmp, siteUrl },
       contextPath,
       deployment,
       globalContent: data,
@@ -100,6 +100,7 @@ class StoryTitleAmp extends PureComponent {
             <StoryHeaderChildAmpGallery
               data={galleryItems}
               link={link}
+              siteUrl={siteUrl}
               width="500"
               height="300"
             />

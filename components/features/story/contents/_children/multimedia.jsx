@@ -30,7 +30,11 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
 
   return (
     <>
-      {!youtubeId && !typeInfo && !typeEmbed && typeImage ? (
+      {typoVideo !== 'video' &&
+      !youtubeId &&
+      !typeInfo &&
+      !typeEmbed &&
+      typeImage ? (
         <Imagen data={basic} showCaption={showCaption} />
       ) : (
         <Html data={embedHtmlPromoItems} caption={caption} />
@@ -46,7 +50,6 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
           allowFullScreen
         />
       )}
-
       {typoVideo === 'video' && embedHtml ? (
         <Video data={embedHtml} description={descriptionVideo} />
       ) : (

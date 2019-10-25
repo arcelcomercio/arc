@@ -117,6 +117,14 @@ class StoryData {
     return StoryData.getDataAuthor(this._data).slugAuthor
   }
 
+  get authorRoleByNewsLetter() {
+    return StoryData.getDataAuthor(this._data).role
+  }
+
+  get authorBiography() {
+    return StoryData.getDataAuthor(this._data).sortBiography
+  }
+
   get authorTwitterLink() {
     const twitter = StoryData.getDataAuthor(this._data).socialLinks.filter(
       x => x.site === ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER
@@ -986,6 +994,8 @@ class StoryData {
     let slugAuthor = ''
     let mailAuthor = ''
     let socialLinks = []
+    let role = ''
+    let sortBiography = ''
 
     let imageAuthor = authorImageDefault
     for (let i = 0; i < authorData.length; i++) {
@@ -1004,6 +1014,17 @@ class StoryData {
             iterator.additional_properties.original &&
             iterator.additional_properties.original.email) ||
           ''
+
+        role =
+          (iterator.additional_properties &&
+            iterator.additional_properties.original &&
+            iterator.additional_properties.original.role) ||
+          null
+        sortBiography =
+          (iterator.additional_properties &&
+            iterator.additional_properties.original &&
+            iterator.additional_properties.original.bio) ||
+          null
         break
       }
     }
@@ -1015,6 +1036,8 @@ class StoryData {
       imageAuthor,
       socialLinks,
       mailAuthor,
+      role,
+      sortBiography,
     }
   }
 
@@ -1051,20 +1074,22 @@ class StoryData {
   }
 
   static getMultimediaIconType = data => {
-    let typeMultimedia = null
+    let typeMultimedia = ConfigParams.IMAGE
     const { promo_items: promoItems = {} } = data || {}
     const items = Object.keys(promoItems)
-
     if (items.length > 0) {
       if (items.includes(ConfigParams.VIDEO)) {
         typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.HTML)) {
+        const { content } = promoItems.basic_html
+        if (content.includes('id="powa-')) {
+          typeMultimedia = ConfigParams.VIDEO
+        }
       } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
         // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
         typeMultimedia = ConfigParams.VIDEO
       } else if (items.includes(ConfigParams.GALLERY)) {
         typeMultimedia = ConfigParams.GALLERY
-      } else if (items.includes(ConfigParams.IMAGE)) {
-        typeMultimedia = ConfigParams.IMAGE
       }
     }
     return typeMultimedia
