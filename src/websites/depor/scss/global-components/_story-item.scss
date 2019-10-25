@@ -68,7 +68,9 @@
     bottom: 10px;
     color: $color-fourth;
     display: block;
-    left: 10px;
+    left: 25px;
+    top: inherit;
+    bottom: -10px;
     pointer-events: none;
     width: 35px;
     height: 35px;
@@ -80,7 +82,6 @@
       font-size: 60px;
       line-height: 60px;
       left: 40px;
-      top: inherit;
       bottom: -25px;
     }
     &::before {
