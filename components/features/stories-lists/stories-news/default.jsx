@@ -57,12 +57,12 @@ const StoriesListNew = props => {
     arcSite,
     defaultImgSize: 'sm',
   })
-
   return (
     <div className={classes.listado}>
       <div>
         {stories &&
           stories.map((story, index) => {
+            console.log(story, 'HISTORIAAAAAAAAAAAAAAAA')
             const ads = hasAds(index + 1, activeAdsArray)
             Story.__data = story
             const {
@@ -122,6 +122,6 @@ StoriesListNew.propTypes = {
 }
 
 StoriesListNew.label = 'Listado de Noticia'
-StoriesListNew.static = true
+// StoriesListNew.static = true
 
 export default StoriesListNew
