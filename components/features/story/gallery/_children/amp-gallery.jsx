@@ -21,7 +21,7 @@ const StoryHeaderChildAmpGallery = props => {
       <div className={classes.gallery}>
         <amp-carousel
           width="600"
-          height="375"
+          height="400"
           layout="responsive"
           type="slides"
           {...slider}
@@ -29,22 +29,26 @@ const StoryHeaderChildAmpGallery = props => {
           class="media gallery">
           {data.map(({ resized_urls: resizedUrls, url, caption }) => (
             <>
-              <figure>
-                <amp-img
-                  src={(resizedUrls && resizedUrls.amp) || url}
-                  alt={caption}
-                  class={classes.image}
-                  height="468"
-                  width="815"
-                  layout="responsive"
-                />
-                <a
-                  href={`${siteUrl}${link}?foto=2`}
-                  className={classes.controlRight}>
-                  {``}
-                </a>
-                <figcaption>{caption}</figcaption>
-              </figure>
+              <div className="slide">
+                <div className="inner">
+                  <amp-img
+                    src={(resizedUrls && resizedUrls.amp) || url}
+                    alt={caption}
+                    class={classes.image}
+                    height="468"
+                    width="815"
+                    layout="responsive"
+                  />
+                  <a
+                    href={`${siteUrl}${link}?foto=2`}
+                    className={classes.controlRight}>
+                    {``}
+                  </a>
+                </div>
+                <div className="legend">
+                  <div className="caption">{caption}</div>
+                </div>
+              </div>
             </>
           ))}
         </amp-carousel>

@@ -36,6 +36,7 @@ export const WrapperBlock = styled.div`
       font-size: 12px;
       font-weight: bold;
       text-decoration: underline;
+      background: none;
       cursor: pointer;
       padding: 0px;
       @media ${device.tablet} {

@@ -40,7 +40,7 @@ const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { amountStories } = key
   const URI_POST =
-    'https://d3ocw6unvuy6ob.cloudfront.net/gestion/9043312/top_premium.json'
+    'https://do5ggs99ulqpl.cloudfront.net/gestion/9043312/top_premium.json'
   return request({
     uri: URI_POST,
     ...options,
