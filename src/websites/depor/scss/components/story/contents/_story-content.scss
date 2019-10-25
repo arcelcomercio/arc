@@ -93,3 +93,24 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
+@media (--only-mobile) {
+  .basic_gallery {
+    .story-header__header-title {
+      background-color: #2b2b2b;
+
+      .story-header__news-title {
+        color: $color-white;
+      }
+      .story-header__news-summary {
+        color: $color-white;
+      }
+    }
+    .story-header__header-social {
+      background-color: #2b2b2b;
+      .story-header__title-section {
+        display: none;
+      }
+    }
+  }
+}
