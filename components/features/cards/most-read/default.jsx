@@ -94,7 +94,7 @@ CardMostRead.propTypes = {
 // TODO: Cambiar nombre a Noticias mas leidas
 // CardMostRead.label = 'Últimas Noticias'
 // 
-CardMostRead.label = 'Noticias mas Leidas'
+CardMostRead.label = 'Noticias más Leidas'
 CardMostRead.static = true
 
 export default CardMostRead
