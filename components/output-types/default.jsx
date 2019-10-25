@@ -50,7 +50,7 @@ export default ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    promo_items: { basic_gallery: basicGallery = {} } = {},
+    promo_items: { basic_gallery: basicGallery = 0 } = {},
     taxonomy: {
       primary_section: { path: nameSeccion = '' } = {},
       tags = [],
