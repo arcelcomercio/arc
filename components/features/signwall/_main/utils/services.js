@@ -154,7 +154,7 @@ export default class Services {
     return response
   }
 
-  finalizePaymentUpdate(id, pid, site, jwt, token) {
+  finalizePaymentUpdate(id, pid, site, jwt, token, email, phone) {
     const response = new Promise(resolve => {
       fetch(
         `${Domains.getOriginAPI(
@@ -163,9 +163,20 @@ export default class Services {
         {
           method: 'PUT',
           body: JSON.stringify({
-            token
+            token,
+            email,
+            address: {
+              line1: '123 Main St.',
+              line2: 'Apt 123',
+              locality: 'Springfield',
+              region: 'CA',
+              country: 'US',
+              postal: '12345',
+            },
+            phone,
           }),
           headers: {
+            'Content-Type': 'application/json',
             Authorization: jwt,
           },
         }

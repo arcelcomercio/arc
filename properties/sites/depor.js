@@ -166,6 +166,6 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna4-300x250-div-gpt-ad-8599377-14.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna5-300x250-div-gpt-ad-8599377-15.html',
   ],
-  activeSignwall: false,
+  activeSignwall: true,
   activePaywall: false,
 }

@@ -35,6 +35,7 @@ const WizardConfirmation = props => {
       printedSubscriber,
       freeAccess,
     },
+    getCodeCxense,
   } = props
 
   const { orderNumber } = order
@@ -52,6 +53,7 @@ const WizardConfirmation = props => {
 
   useEffect(() => {
     PWA.finalize()
+    pushCxense(getCodeCxense) // dispara script de Cxense
     sendAction(PixelActions.PAYMENT_CONFIRMATION, {
       transactionId: orderNumber,
       transactionAffiliation: arcSite,
@@ -76,8 +78,9 @@ const WizardConfirmation = props => {
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    document.getElementById('footer').style.position = 'relative'
-    pushCxense(sku)
+    // eslint-disable-next-line no-unused-expressions
+    document.getElementById('footer') &&
+      (document.getElementById('footer').style.position = 'relative')
   }, [])
 
   const handleClick = () => {

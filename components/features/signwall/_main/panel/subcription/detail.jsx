@@ -98,8 +98,6 @@ class SubDetail extends Component {
   }
 
   handleChangeValidation = e => {
-    window.console.log('validation', e)
-
     const { name, value } = e.target
     const { formErrors } = this.state
 
@@ -174,22 +172,27 @@ class SubDetail extends Component {
     }
   }
 
-  submitUpdateCard(userDNI, subsID) {
+  submitUpdateCard = (userDNI, subsID) => {
     const {
       numcard,
       dateexpire,
       codecvv,
       selectedOption,
       fullName,
+      formErrors,
     } = this.state
 
-    if (FormValid(this.state)) {
+    const { arcSite } = this.props
+
+    if (
+      formErrors.numcard === '' &&
+      formErrors.dateexpire === '' &&
+      formErrors.codecvv === ''
+    ) {
       this.setState({
         disabledButton: true,
         statusButton: 'ACTUALIZANDO...',
       })
-
-      const { arcSite } = this.props
 
       window.Sales.apiOrigin = this.origin_api
       window.Sales.getPaymentOptions().then(res => {
@@ -249,7 +252,9 @@ class SubDetail extends Component {
                     providerID,
                     arcSite,
                     window.Identity.userIdentity.accessToken,
-                    `${token}~${deviceSessionId}~${codecvv}`
+                    `${token}~${deviceSessionId}~${codecvv}`,
+                    `${fullName.email || ''}`,
+                    `${'5555555555'}`
                   )
                   .then(resFin => {
                     if (resFin.code === '300123,300124') {
@@ -368,9 +373,9 @@ class SubDetail extends Component {
                 <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
               </div>
               <div className="right">
-                {/* <Button type="button" onClick={() => this.showUpdatePayment()}>
+                <Button type="button" onClick={() => this.showUpdatePayment()}>
                   {ShowUpdateCard ? 'CERRAR' : 'EDITAR'}
-                </Button> */}
+                </Button>
               </div>
             </S.Fieldset>
 

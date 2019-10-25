@@ -125,6 +125,8 @@ export default {
       facebook:                          `https://www.facebook.com/elcomercio.pe`,
       twitter:                           `https://twitter.com/elcomercio_peru`,
       instagram:                         `https://www.instagram.com/elcomercio/?hl=es`,
+      codeCxense:                        `{{#isProd}}8msiqbaswc5u{{/isProd}}
+                                          {{^isProd}}8n3ltuopvlh1{{/isProd}}`,
     },
     // prettier-ignore
     images: {
