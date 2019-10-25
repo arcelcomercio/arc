@@ -366,7 +366,7 @@ const HeaderChildInverted = ({
                 <Button
                   btnText="Suscríbete"
                   btnClass={`${classes.btnSubscribe}`}
-                  btnLink={`${siteProperties.urlSubsOnline}/?ref=btn-suscribete-${arcSite}&loc=${window.section || ''}`}
+                  btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${window.section || ''}`}
                 />
               )}
 

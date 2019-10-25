@@ -306,7 +306,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  urlSubsOnline: 'https://suscripciones.elcomercio.pe',
+  urlSubsOnline: 'https://elcomercio.pe/suscripciones/',
   gda: true, // Grupo Diarios de America
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
