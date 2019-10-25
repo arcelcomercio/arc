@@ -1,10 +1,10 @@
 /******* Framework Variables*******/
-@import '../../general-styles/framework/variables/index';
+@import '../../general-styles/framework/variables/amp-index';
 /*---------------------*/
 
 /******* Site Variables *******/
-@import './scss/variables/index';
-@import '../../general-styles/framework/generators/index';
+@import './scss/variables/amp-index';
+@import '../../general-styles/framework/generators/amp-index';
 
 /******* Framework Core *******/
 @import '../../general-styles/framework/core/flex';

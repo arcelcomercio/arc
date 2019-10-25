@@ -26,9 +26,10 @@ export const createSchema = (values, msgs) =>
       value.max(50, msgs.maxLength)
     },
     telefono: value => {
-      value.required(msgs.requiredField)
-      value.min(9, msgs.minLength)
-      value.max(12, msgs.maxLength)
+      value
+        .ignoreChars(' ')
+        .required(msgs.requiredField)
+        .between(9, 12, msgs.lengthNotBetween)
     },
     tipo_consulta: value => {
       value.required('Debe seleccionar un tipo')

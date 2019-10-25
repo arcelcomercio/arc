@@ -250,7 +250,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  urlSubsOnline: 'https://suscripciones.gestion.pe',
+  urlSubsOnline: 'https://gestion.pe/suscripciones/',
   stick: {
     logo: 'logo-gestion-stick.png',
   },
