@@ -13,6 +13,7 @@ class Subscription extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      paywallName: '-',
       paywallPrice: '-',
       paywallFrecuency: '-',
       paywallTitle: '-',
@@ -63,6 +64,7 @@ class Subscription extends Component {
     const { fetched } = this.getContent('paywall-campaing')
     fetched.then(resCam => {
       this.setState({
+        paywallName: resCam.name || '-',
         paywallPrice: resCam.plans[0].amount || '-',
         paywallFrecuency: resCam.plans[0].billingFrequency || '-',
         paywallTitle: resCam.plans[0].description.title || '-',
@@ -87,6 +89,7 @@ class Subscription extends Component {
     }
 
     const {
+      paywallName,
       paywallPrice,
       paywallFrecuency,
       paywallTitle,
@@ -110,8 +113,11 @@ class Subscription extends Component {
                   <div className="resume__dates">
                     <div className="cont-plan">
                       <div className="first-plan">
-                        <p>Accede ilimitadamente a nuestro contenido, adquiere el:</p>
-                        <h3>Plan Digital</h3>
+                        <p>
+                          Accede ilimitadamente a nuestro contenido, adquiere
+                          el:
+                        </p>
+                        <h3>{paywallName}</h3>
                       </div>
 
                       <div className="last-plan">
