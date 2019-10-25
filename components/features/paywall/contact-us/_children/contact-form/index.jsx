@@ -5,33 +5,31 @@ import InputFormik from '../../../_children/input'
 import Button from '../../../_children/button'
 import Error from '../../../_children/error'
 import * as S from './styled'
-import { FormSchema, Masks } from './schema'
+import { createSchema, Masks } from './schema'
+import { useStrings } from '../../../_children/contexts'
 
 const { trim } = Masks.Pipes
 
 export default props => {
   const { initialValues, onSubmit, error } = props
-
+  const msgs = useStrings()
   return (
     <Formik
       initialValues={initialValues}
-      validate={values => new FormSchema(values)}
+      validate={values => createSchema(values, msgs)}
       onSubmit={onSubmit}>
       {({ isSubmitting, values }) => (
         <S.StyledForm>
           <S.Message>
             {error && <Error mb="20px" message={error} />}
-            <S.Description>
-              Por favor envíanos tus datos para brindarte información sobre
-              nuestras suscripciones corporativas.
-            </S.Description>
+            <S.Description>{msgs.corporateSubscriptionsTitle}</S.Description>
           </S.Message>
           <S.Content>
             <S.ContentRow>
               <S.WrapField>
                 <Field
                   name="correo"
-                  label="Correo Electrónico"
+                  label={msgs.emailLabel}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -39,7 +37,7 @@ export default props => {
                 <Field
                   transform="capitalize"
                   name="nombre"
-                  label="Nombres"
+                  label={msgs.namesLabel}
                   {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -48,7 +46,7 @@ export default props => {
                 <Field
                   transform="capitalize"
                   name="apellido"
-                  label="Apellidos"
+                  label={msgs.lastNameLabel}
                   {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -57,7 +55,7 @@ export default props => {
                 <Field
                   transform="capitalize"
                   name="organizacion"
-                  label="Organización"
+                  label={msgs.orgLabel}
                   {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -69,12 +67,12 @@ export default props => {
                 <Field
                   component={SelectFormik}
                   name="tipo_consulta"
-                  label="Tipo de subscripción"
+                  label={msgs.subscriptionTypeLabel}
                   touched={values.type_subscription}>
                   <option value="">Tipo de consulta de suscripción</option>
-                  <option value="1">Quiero una suscripción</option>
-                  <option value="2">Tengo una suscripción</option>
-                  <option value="3">Otros</option>
+                  <option value="1">{msgs.subscriptionType1}</option>
+                  <option value="2">{msgs.subscriptionType2}</option>
+                  <option value="3">{msgs.subscriptionType3}</option>
                 </Field>
               </S.WrapField>
               <S.WrapField>
@@ -83,7 +81,7 @@ export default props => {
                   inputMode="numeric"
                   pipe={trim()}
                   mask={Masks.PHONE}
-                  label="Número de Celular"
+                  label={msgs.cellPhoneLabel}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -91,13 +89,13 @@ export default props => {
                 <Field
                   multiline
                   name="descripcion"
-                  label="Descripción"
+                  label={msgs.descriptionLabel}
                   mask={new Array(500).fill(/./)}
                   component={InputFormik}
                 />
               </S.WrapField>
               <Button type="submit" disabled={isSubmitting}>
-                Enviar
+                {msgs.sendButton}
               </Button>
             </S.ContentRow>
           </S.Content>

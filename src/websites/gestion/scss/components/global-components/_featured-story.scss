@@ -75,7 +75,13 @@
         border-top: 0;
       }
     }
-
+    .featured-story__icon {
+      @media (--tablet) {
+        top: 10px;
+        left: auto;
+        right: 10px;
+      }
+    }
     &.featured-story--live {
       .featured-story__headband {
         position: relative;

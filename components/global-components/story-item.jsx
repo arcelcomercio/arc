@@ -3,7 +3,7 @@
 // y esto se eliminará junto con su feature
 import React, { PureComponent } from 'react'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
-import ConfigParams from '../utilities/config-params'
+import Icon from './multimedia-icon'
 import StoryData from '../utilities/story-data'
 
 import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
@@ -24,8 +24,8 @@ const classes = {
   author: `story-item__author block uppercase mt-10 font-thin text-xs text-gray-200`,
   right: 'story-item__right position-relative overflow-hidden',
   rightLink: 'story-item__link  h-full',
-  iconGallery: `story-item__icon icon-img position-absolute flex items-center justify-center text-white w-full h-full`,
-  iconVideo: `story-item__icon icon-video position-absolute flex items-center justify-center text-white w-full h-full`,
+  icon: `story-item__icon position-absolute flex items-center justify-center text-white w-full h-full`,
+  // iconVideo: `story-item__icon icon-video position-absolute flex items-center justify-center text-white w-full h-full`,
   img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
   wrapperTitle: 'story-item__information-box w-full',
@@ -86,17 +86,11 @@ class StoriesList extends PureComponent {
               </a>
             </div>
           </div>
+
           <figure className={classes.right}>
             {/* TODO: Actualizar iconos con multimediaIcon */}
             <a href={element.link} className={classes.rightLink}>
-              {element.multimediaType !== null &&
-                element.multimediaType === ConfigParams.GALLERY && (
-                  <span className={classes.iconGallery} />
-                )}
-              {element.multimediaType !== null &&
-                element.multimediaType === ConfigParams.VIDEO && (
-                  <span className={classes.iconVideo} />
-                )}
+              <Icon type={element.multimediaType} iconClass={classes.icon} />
               <picture>
                 <source
                   className={isAdmin ? '' : 'lazy'}

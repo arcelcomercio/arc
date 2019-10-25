@@ -100,7 +100,8 @@ class SignWallPaywall extends Component {
                     <p>{paywallDescripcion}</p>
                   </div>
                 </div>
-                <h3 className={`title-line line-${arcSite} uppercase text-center mt-30 mb-20`}>
+                <h3
+                  className={`title-line line-${arcSite} uppercase text-center mt-30 mb-20`}>
                   <span>Beneficios</span>
                 </h3>
                 <ul className="list-benefits mb-20">
@@ -148,7 +149,11 @@ class SignWallPaywall extends Component {
 
                 <p className="text-center mt-20 text-md message-paywall">
                   ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
-                  Disfruta <strong>3 meses GRATIS</strong> y luego S/19 al mes.
+                  Disfruta
+                  <strong>
+                    {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS {' '}
+                  </strong>
+                  y luego S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '} al mes.
                 </p>
               </>
             )}

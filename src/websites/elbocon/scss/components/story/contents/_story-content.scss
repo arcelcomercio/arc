@@ -1,0 +1,32 @@
+.story-content {
+  &__font--secondary {
+    font-family: $primary-font;
+    font-size: 16px;
+    @media (--desktop) {
+      font-size: 18px;
+    }
+    a {
+      color: $color-black;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+  &__caption {
+    color: $color-primary;
+  }
+
+  &__author {
+    font-family: $primary-font;
+  }
+  li {
+    font-family: $primary-font;
+  }
+  &__icon {
+    color: $color-gray-200;
+  }
+  &__list-more {
+    .story-content__item:last-child {
+      display: none;
+    }
+  }
+}

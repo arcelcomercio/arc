@@ -14,10 +14,138 @@ const API_FEED_BY_COLLECTION = 'story-feed-by-collection'
 class CardTriplet extends PureComponent {
   constructor(props) {
     super(props)
-    const { customFields: { webskedId } = {} } = props || {}
+    const { customFields: { webskedId, adsSpace, adsSpace2, adsSpace3 } = {} } = props || {}
+
+    if (adsSpace && adsSpace !== 'none') {
+      this.fetchContent({
+        adsSpaces: {
+          source: 'get-ads-spaces',
+          query: {},
+        },
+      })
+    }
+    if (adsSpace2 && adsSpace2 !== 'none') {
+      this.fetchContent({
+        adsSpaces2: {
+          source: 'get-ads-spaces',
+          query: {},
+        },
+      })
+    }
+    if (adsSpace3 && adsSpace3 !== 'none') {
+      this.fetchContent({
+        adsSpaces3: {
+          source: 'get-ads-spaces',
+          query: {},
+        },
+      })
+    }
+
     this.initDataInstance()
     if (webskedId) this.getWebskedStories()
     else this.getFieldsStories()
+  }
+
+  getAdsSpace() {
+    const { adsSpaces = {} } = this.state || {}
+    const { arcSite, customFields: { adsSpace } = {} } = this.props
+
+    const toDate = dateStr => {
+      const [date, time] = dateStr.split(' ')
+      const [day, month, year] = date.split('/')
+      return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
+    }
+
+    if (adsSpaces[arcSite]) {
+      const auxAdsSpaces = adsSpaces[arcSite] || []
+      const auxAdsSpace =
+        auxAdsSpaces.filter(el => Object.keys(el).includes(adsSpace))[0] || {}
+
+      if (auxAdsSpace[adsSpace]) {
+        const currentSpace = auxAdsSpace[adsSpace][0]
+        const {
+          fec_inicio: fecInicio,
+          fec_fin: fecFin,
+          des_html: desHtml,
+        } = currentSpace
+        const currentDate = new Date()
+        const initDate = toDate(fecInicio)
+        const endDate = toDate(fecFin)
+
+        return currentDate > initDate && endDate > currentDate ? desHtml : false
+      }
+      return false
+    }
+
+    return false
+  }
+
+  getAdsSpace2() {
+    const { adsSpaces2 = {} } = this.state || {}
+    const { arcSite, customFields: { adsSpace2 } = {} } = this.props
+
+    const toDate = dateStr => {
+      const [date, time] = dateStr.split(' ')
+      const [day, month, year] = date.split('/')
+      return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
+    }
+
+    if (adsSpaces2[arcSite]) {
+      const auxAdsSpaces2 = adsSpaces2[arcSite] || []
+      const auxAdsSpace2 =
+        auxAdsSpaces2.filter(el => Object.keys(el).includes(adsSpace2))[0] || {}
+
+      if (auxAdsSpace2[adsSpace2]) {
+        const currentSpace2 = auxAdsSpace2[adsSpace2][0]
+        const {
+          fec_inicio: fecInicio,
+          fec_fin: fecFin,
+          des_html: desHtml,
+        } = currentSpace2
+        const currentDate = new Date()
+        const initDate = toDate(fecInicio)
+        const endDate = toDate(fecFin)
+
+        return currentDate > initDate && endDate > currentDate ? desHtml : false
+      }
+      return false
+    }
+
+    return false
+  }
+
+  getAdsSpace3() {
+    const { adsSpaces3 = {} } = this.state || {}
+    const { arcSite, customFields: { adsSpace3 } = {} } = this.props
+
+    const toDate = dateStr => {
+      const [date, time] = dateStr.split(' ')
+      const [day, month, year] = date.split('/')
+      return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
+    }
+
+    if (adsSpaces3[arcSite]) {
+      const auxAdsSpaces3 = adsSpaces3[arcSite] || []
+      const auxAdsSpace3 =
+        auxAdsSpaces3.filter(el => Object.keys(el).includes(adsSpace3))[0] || {}
+
+      if (auxAdsSpace3[adsSpace3]) {
+        const currentSpace3 = auxAdsSpace3[adsSpace3][0]
+        const {
+          fec_inicio: fecInicio,
+          fec_fin: fecFin,
+          des_html: desHtml,
+        } = currentSpace3
+        const currentDate = new Date()
+        const initDate = toDate(fecInicio)
+        const endDate = toDate(fecFin)
+
+        return currentDate > initDate && endDate > currentDate ? desHtml : false
+      }
+      return false
+    }
+
+    return false
   }
 
   getFieldsStories() {
@@ -122,6 +250,9 @@ class CardTriplet extends PureComponent {
       editableField,
       isAdmin,
       customFields: { webskedId, multimediaOrientation } = {},
+      getSpace = this.getAdsSpace(),
+      getSpace2 = this.getAdsSpace2(),
+      getSpace3 = this.getAdsSpace3()
     } = this.props
 
     const dataFormatted = webskedId
@@ -133,6 +264,9 @@ class CardTriplet extends PureComponent {
       isAdmin,
       data: dataFormatted,
       multimediaOrientation,
+      getSpace,
+      getSpace2,
+      getSpace3,
     }
     return <TripletChildTriplet {...params} />
   }

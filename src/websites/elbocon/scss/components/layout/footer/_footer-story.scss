@@ -1,6 +1,13 @@
 .footer-story.footer-secondary {
-  border-top: 1px solid $color-primary;
-  .footer-secondary__logo-wrapper {
-    background-color: transparent;
+  border-top: 0;
+  background-color: transparent;
+
+  .footer-secondary__legal-item {
+    color: #767676;
+    &::after {
+      @media (--desktop) {
+        background-color: #767676;
+      }
+    }
   }
 }

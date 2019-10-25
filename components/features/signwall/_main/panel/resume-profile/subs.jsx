@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import Modal from '../../common/modal'
-import { Close } from '../../common/iconos'
 import Loading from '../../common/loading'
 import Domains from '../../utils/domains'
 import addScriptAsync from '../../utils/script-async'
@@ -17,12 +15,8 @@ class Subs extends Component {
     this.state = {
       paywallName: '-',
       paywallPrice: '-',
-      // paywallDescripcion: '-',
-      showModalConfirm: false,
       isSubs: false,
       isLoad: true,
-      idSubsDelete: null,
-      // userSubs: {},
       userSubsDetail: [],
       listBundle: Domains.getListBundle() || [],
     }
@@ -33,6 +27,7 @@ class Subs extends Component {
 
   componentDidMount() {
     this._isMounted = true
+    window.Identity.apiOrigin = this.origin_api
 
     if (!window.Sales) {
       addScriptAsync({
@@ -82,17 +77,10 @@ class Subs extends Component {
     this._isMounted = false
   }
 
-  getDetail(id) {
-    window.Sales.apiOrigin = this.origin_api
-    return window.Sales.getSubscriptionDetails(id).then(resDetail => {
-      return resDetail.salesOrders[0].total || '-'
-    })
-  }
-
   getListSubs = () => {
     this._isMounted = true
-    window.Sales.apiOrigin = this.origin_api
 
+    window.Sales.apiOrigin = this.origin_api
     return window.Sales.getAllActiveSubscriptions()
       .then(res => {
         let count = 0
@@ -127,7 +115,7 @@ class Subs extends Component {
     const { fetched } = this.getContent('paywall-campaing')
 
     fetched.then(resCam => {
-      if (this._isMounted) {
+      if (this._isMounted && resCam.name) {
         this.setState({
           paywallName: resCam.name || 'Plan',
           paywallPrice: resCam.plans[0].amount || '-',
@@ -142,84 +130,19 @@ class Subs extends Component {
     e.preventDefault()
     window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', 'organico')
-  }
-
-  openModalConfirm = idSubs => {
-    this.setState({
-      showModalConfirm: true,
-      idSubsDelete: idSubs,
-    })
-    const ModalProfile =
-      document.querySelector('#arc-popup-profile').parentNode ||
-      document.querySelector('#arc-popup-profile').parentElement
-    ModalProfile.style.overflow = 'hidden'
-
-    setTimeout(() => {
-      const modalConfirmPass = document.querySelector('#arc-popup-profile')
-      modalConfirmPass.scrollIntoView()
-    }, 500)
-  }
-
-  closeModalConfirm() {
-    const { showModalConfirm } = this.state
-    this.setState({
-      showModalConfirm: !showModalConfirm,
-      idSubsDelete: null,
-    })
-
-    const ModalProfile =
-      document.querySelector('#arc-popup-profile').parentNode ||
-      document.querySelector('#arc-popup-profile').parentElement
-    if (showModalConfirm) {
-      ModalProfile.style.overflow = 'auto'
-    } else {
-      ModalProfile.style.overflow = 'hidden'
-    }
-  }
-
-  deleteSub() {
-    const { idSubsDelete } = this.state
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
-      () => {
-        this.setState({
-          isLoad: true,
-        })
-        this.getListSubs().then(p => {
-          setTimeout(() => {
-            if (p.length) {
-              this.setState({
-                userSubsDetail: p,
-                isSubs: true,
-                isLoad: false,
-              })
-            } else {
-              this.setState({
-                isSubs: false,
-                isLoad: false,
-              })
-            }
-          }, 2000)
-        })
-        this.closeModalConfirm()
-      }
-    )
+    window.sessionStorage.setItem('paywall_last_url', '/')
   }
 
   render() {
     const {
-      // userSubs,
       isSubs,
       isLoad,
       paywallName,
       paywallPrice,
-      showModalConfirm,
-      // paywallDescripcion,
       userSubsDetail,
-      idSubsDelete,
       listBundle,
     } = this.state
-    const { arcSite } = this.props
+    const { arcSite, detail } = this.props
     return (
       <>
         {isLoad ? (
@@ -242,14 +165,12 @@ class Subs extends Component {
                           <button
                             type="button"
                             className="link"
-                            onClick={() =>
-                              this.openModalConfirm(reSubs.subscriptionID)
-                            }>
-                            ANULAR MI SUSCRIPCIÓN
+                            onClick={() => {
+                              detail(reSubs.subscriptionID)
+                            }}>
+                            EDITAR MÉTODO DE PAGO
                           </button>
-                        ) : (
-                          ''
-                        )}
+                        ) : null}
                       </div>
 
                       <div className="right">
@@ -266,7 +187,7 @@ class Subs extends Component {
                                 className="link"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://suscripciones.gestion.pe/suscripciones/?ref=SignWallProfile">
+                                href={`https://suscripciones.${arcSite}.pe/suscripciones/?ref=SignWallProfile`}>
                                 Suscripciones Online
                               </a>
                             </p>
@@ -282,8 +203,8 @@ class Subs extends Component {
                                       new Date(
                                         reSubs.paymentHistory[0].periodFrom
                                       )) /
-                                      (1000 * 60 * 60 * 24) ===
-                                    30
+                                      (1000 * 60 * 60 * 24) <=
+                                    31
                                       ? 'MENSUAL'
                                       : 'ANUAL'}
                                   </span>
@@ -301,7 +222,6 @@ class Subs extends Component {
                               </p>
                             </>
                           )}
-
                           {/* <p className="small">
                               *POR 6 MESES LUEGO S/ 20 CADA MES
                             </p> */}
@@ -313,14 +233,14 @@ class Subs extends Component {
               </>
             ) : (
               <>
-                {arcSite === 'gestion' && (
+                {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
                   <div className="resume__dates">
                     <div className="title-dates">
                       <h2 className="title">Mi suscripción</h2>
                     </div>
                     <div className="cont-subs">
                       <div className="first-subs">
-                        <p>Accede a nuestro contenido exclusivo, adquiere tu</p>
+                        <p>Accede ilimitadamente a nuestro contenido, adquiere el:</p>
                         <h3>{paywallName}</h3>
                       </div>
                       <div className="last-subs">
@@ -348,59 +268,8 @@ class Subs extends Component {
                       </p>
                     </div>
                   </div>
-                )}
+                ) : null}
               </>
-            )}
-
-            {showModalConfirm && (
-              <Modal
-                size="small"
-                position="middle"
-                bg="white"
-                name="modal-div-confirmpass"
-                id="modal-div-confirmpass">
-                <div className="text-right">
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={e => this.closeModalConfirm(e)}>
-                    <Close />
-                  </button>
-                </div>
-
-                <div className="modal-body__wrapper">
-                  <form
-                    className="form-grid form-group-confirm"
-                    onSubmit={e => this.submitConfirmPassword(e)}>
-                    <div className="row-grid">
-                      <h2 className="form-grid__label--title text-center">
-                        ¿Estás seguro que deseas anular tu suscripción a
-                        www.gestion.pe?
-                      </h2>
-                      <p className="form-grid__label form-grid__label--information text-center">
-                        Ten en cuenta que tu suscripción se desactivará al
-                        finalizar tu periodo de facturación.
-                      </p>
-                    </div>
-                    <div className="row-grid">
-                      <div className="form-group form-froup-confirm">
-                        <input
-                          type="button"
-                          className="btn btn--blue btn-bg"
-                          onClick={e => this.closeModalConfirm(e)}
-                          value="NO"
-                        />
-                        <input
-                          type="button"
-                          className="btn input-button"
-                          onClick={() => this.deleteSub(idSubsDelete)}
-                          value="SI"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </Modal>
             )}
           </>
         )}

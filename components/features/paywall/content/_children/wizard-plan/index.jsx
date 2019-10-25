@@ -1,27 +1,37 @@
 /* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect, useRef } from 'react'
+import { withTheme } from 'styled-components'
+import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
 
+import { useStrings } from '../../../_children/contexts'
 import CardPrice from './_children/card-price'
 import Summary from './_children/summary'
 import * as S from './styled'
-import BannerPromoSuscriptor from './_children/banner-promo-suscriptor'
+import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import { parseQueryString } from '../../../../../utilities/helpers'
-import getDomain from '../../../_dependencies/domains'
+import { interpolateUrl } from '../../../_dependencies/domains'
 import PWA from '../../_dependencies/seed-pwa'
 
 function WizardPlan(props) {
   const {
-    memo: { printedSubscriber },
-    assets,
-    summary,
-    plans,
-    message,
+    theme,
+    memo: { plans, summary, printedSubscriber, error },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
+
+  const { lighten } = theme.palette
+
+  const {
+    arcSite,
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
+
+  const msgs = useStrings()
 
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
@@ -29,15 +39,16 @@ function WizardPlan(props) {
   const referer = useRef('')
 
   useEffect(() => {
-    origin.current = sessionStorage.getItem('paywall_type_modal') || 'organico'
-    referer.current = sessionStorage.getItem('paywall_last_url')
+    origin.current =
+      window.sessionStorage.getItem('paywall_type_modal') || 'organico'
+    referer.current = window.sessionStorage.getItem('paywall_last_url')
     sendAction(PixelActions.PAYMENT_PLAN, {
       referer: referer.current,
       medioCompra: origin.current,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    document.getElementsByClassName('foot')[0].style.position = "relative";
+    document.getElementById('footer').style.position = 'relative'
   }, [])
 
   function subscribePlanHandler(e, plan) {
@@ -54,14 +65,13 @@ function WizardPlan(props) {
       level: Sentry.Severity.Info,
     })
 
-    const { title } = summary
     setTimeout(() => {
       setLoading(false)
       onBeforeNextStep(
         {
-          plan: { ...plan, title },
+          plan,
           origin: origin.current,
-          referer: referer.current
+          referer: referer.current,
         },
         props
       )
@@ -70,31 +80,45 @@ function WizardPlan(props) {
 
   return (
     <S.WizardPlan>
-      {message && <S.Error>{message}</S.Error>}
+      {error && <S.Error>{error}</S.Error>}
       {printedSubscriber && (
-        <S.WelcomeSuscriptor>
-          ACCEDE A ESTOS <strong>PRECIOS ESPECIALES</strong> POR SER SUSCRIPTOR
-          IMPRESO
-        </S.WelcomeSuscriptor>
+        <S.Markdown>{msgs.welcomePrintedSubscriptor}</S.Markdown>
       )}
       <S.Wrap>
-        <Summary {...summary} />
+        <Summary
+          backgroundColor={
+            arcSite === 'elcomercio'
+              ? theme.palette.primary.main
+              : lighten(theme.palette.primary.main, 0.8)
+          }
+          elevation={1}
+          {...summary}
+        />
         <S.WrapPlan>
-          {/* <S.PlanTitle>Selecciona el período de pago:</S.PlanTitle> */}
+          {arcSite === 'elcomercio' && (
+            <S.Cintillo>{msgs.offerHeadBand}</S.Cintillo>
+          )}
           <S.Plans>
             {plans.map((plan, idx) => {
-              const { priceCode } = plan
-
+              const { priceCode, billingFrequency, amount } = plan
+              const marginTop = arcSite === 'elcomercio' ? '20px' : '40px'
+              const hasOffer =
+                arcSite !== 'elcomercio' &&
+                billingFrequency === 'Month' &&
+                amount !== 0
               return (
                 <CardPrice
                   active={
                     activePlan === priceCode || (!activePlan && idx === 0)
                   }
+                  marginTop={marginTop}
+                  offer={hasOffer && msgs.offerHeadBand}
                   key={priceCode}
                   plan={plan}
                   onMouseOver={() => setActivePlan(priceCode)}
                   onFocus={() => setActivePlan(priceCode)}
                   onClick={subscribePlanHandler}
+                  arcSite={arcSite}
                 />
               )
             })}
@@ -104,12 +128,11 @@ function WizardPlan(props) {
       <CheckSuscription
         open={openModal}
         onSubmit={({ documentType, documentNumber, attemptToken }) => {
-          window.location.href = getDomain(
-            'VALIDATE_SUSCRIPTOR',
+          window.location.href = interpolateUrl(urls.validateSubscriptor, {
             documentType,
             documentNumber,
-            attemptToken
-          )
+            attemptToken,
+          })
         }}
         onClose={() => {
           setOpenModal(false)
@@ -117,25 +140,40 @@ function WizardPlan(props) {
       />
       {!printedSubscriber && (
         <S.ContentBanner>
-          <BannerPromoSuscriptor
+          <PromoBanner
+            width="60%"
+            marginTop={arcSite === 'elcomercio' ? '14px' : '30px'}
+            fullWidth={arcSite === 'elcomercio'}
+            text1={msgs.printedSubscriptorBanner1}
+            text2={msgs.printedSubscriptorBanner2}
+            image={arcSite === 'elcomercio' && theme.images.lector}
+            backgroundColor={
+              arcSite === 'elcomercio'
+                ? theme.palette.secondary.main
+                : theme.palette.primary.light
+            }
+            showImage={arcSite === 'elcomercio'}
             onClick={() => {
               setOpenModal(true)
             }}
-            assets={assets}
-            type="left"
           />
-
-          <BannerPromoSuscriptor
-            onClick={() => {
-              window.location.href = getDomain('URL_CORPORATE')
-            }}
-            assets={assets}
-            type="right"
-          />
+          {arcSite !== 'elcomercio' && (
+            <PromoBanner
+              width="40%"
+              ml="20px"
+              backgroundColor={theme.palette.terciary.light}
+              text1={msgs.businessSubscriptionsBanner1}
+              text2={msgs.businessSubscriptionsBanner2}
+              invertTextSizes
+              onClick={() => {
+                window.open(interpolateUrl(urls.corporateSuscription), '_blank')
+              }}
+            />
+          )}
         </S.ContentBanner>
       )}
     </S.WizardPlan>
   )
 }
 
-export default WizardPlan
+export default withTheme(WizardPlan)

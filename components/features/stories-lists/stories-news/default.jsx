@@ -12,7 +12,7 @@ import Ads from '../../../global-components/ads'
 
 const classes = {
   listado: 'w-full',
-  listadoSeeMore: 'flex justify-center mt-20 uppercase',
+  listadoSeeMore: 'story-item__btn flex justify-center mt-20 uppercase',
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
@@ -57,12 +57,12 @@ const StoriesListNew = props => {
     arcSite,
     defaultImgSize: 'sm',
   })
-
   return (
     <div className={classes.listado}>
       <div>
         {stories &&
           stories.map((story, index) => {
+            console.log(story, 'HISTORIAAAAAAAAAAAAAAAA')
             const ads = hasAds(index + 1, activeAdsArray)
             Story.__data = story
             const {
@@ -122,6 +122,6 @@ StoriesListNew.propTypes = {
 }
 
 StoriesListNew.label = 'Listado de Noticia'
-StoriesListNew.static = true
+// StoriesListNew.static = true
 
 export default StoriesListNew

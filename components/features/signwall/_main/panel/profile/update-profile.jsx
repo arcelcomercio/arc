@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 import Services from '../../utils/services'
 import {
   namesRegex,
@@ -11,6 +12,7 @@ import {
 } from '../../utils/regex'
 import { clean } from '../../utils/object'
 import GetProfile from '../../utils/get-profile'
+import Domains from '../../utils/domains'
 
 const services = new Services()
 
@@ -25,6 +27,7 @@ const SET_ATTRIBUTES_PROFILE = [
 ]
 const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
 
+@Consumer
 class UpdateProfile extends Component {
   constructor(props) {
     super(props)
@@ -70,6 +73,8 @@ class UpdateProfile extends Component {
       publicProfile,
       _attrib
     )
+    const { arcSite } = this.props
+    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   attributeToObject = (attributes = []) => {
@@ -195,6 +200,7 @@ class UpdateProfile extends Component {
 
     this.setState({ loading: true, textSubmit: 'Guardando...' })
 
+    window.Identity.apiOrigin = this.origin_api
     window.Identity.updateUserProfile(profile)
       .then(() => {
         this.setState({
@@ -204,18 +210,21 @@ class UpdateProfile extends Component {
           textSubmit: 'Guardar cambios',
         })
 
-        setTimeout(() => {
-          this.setState({
-            showMsgSuccess: false,
-          })
-        }, 5000)
+        handlerUpdateName(profile.firstName)
+
+        this.dispatchEvent('profile-update')
 
         const modalConfirmPass = document.querySelector('#arc-popup-profile')
         if (modalConfirmPass) {
           modalConfirmPass.scrollIntoView()
         }
 
-        handlerUpdateName(profile.firstName)
+        setTimeout(() => {
+          this.setState({
+            showMsgSuccess: false,
+          })
+        }, 5000)
+
       })
       .catch(() => {
         this.setState({
@@ -313,8 +322,8 @@ class UpdateProfile extends Component {
 
     switch (name) {
       case 'firstName':
-        if (value.length < 3) {
-          formErrors.firstName = 'Longitud inválida, mínimo 3 caracteres'
+        if (value.length < 2) {
+          formErrors.firstName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
           (value !== 'null' && value !== 'undefined')
@@ -325,8 +334,8 @@ class UpdateProfile extends Component {
         }
         break
       case 'lastName':
-        if (value.length < 3) {
-          formErrors.lastName = 'Longitud inválida, mínimo 3 caracteres'
+        if (value.length < 2) {
+          formErrors.lastName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
           (value !== 'null' && value !== 'undefined')
@@ -337,8 +346,8 @@ class UpdateProfile extends Component {
         }
         break
       case 'secondLastName':
-        if (value.length < 3) {
-          formErrors.secondLastName = 'Longitud inválida, mínimo 3 caracteres'
+        if (value.length < 2) {
+          formErrors.secondLastName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
           (value !== 'null' && value !== 'undefined')

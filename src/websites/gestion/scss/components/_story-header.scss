@@ -8,10 +8,28 @@
   }
   &__share {
     border-bottom-style: dashed;
-    border-bottom-color: $color-gray-200;
-    border-top-color: $color-base-200;
+    border-bottom-color: #c1c1c1;
+    border-top-color: #c1c1c1;
   }
   &__title-section {
     font-weight: 700;
+  }
+  &__premium {
+    padding-left: 65px;
+    position: relative;
+
+    &::before {
+      content: '.';
+      top: -3px;
+      color: transparent;
+      position: absolute;
+      height: 25px;
+      width: 40px;
+      left: 0px;
+      border-right: 1px solid $color-primary;
+      padding-right: 15px;
+      background: url(/pf/resources/dist/gestion/images/plusg.png?d=285)
+        no-repeat left center;
+    }
   }
 }

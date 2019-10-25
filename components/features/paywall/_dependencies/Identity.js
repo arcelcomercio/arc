@@ -1,36 +1,32 @@
+import getProperties from 'fusion:properties'
 import addScriptAsync from '../../../utilities/script-async'
-import getDomain from './domains'
+import { interpolateUrl } from './domains'
 
-
-
-export const attrToObject = (attributes = [], getAttributes = []) => {
-  return getAttributes.reduce((prev, name) => {
-    const attrs = (attributes || []).find(attr => attr.name === name)
-
-    if (attrs) {
-      prev[name] = attrs.value
-    }
-    return prev
-  }, {})
-}
-
-export const AddIdentity = () => {
+export const addIdentity = arcSite => {
+  const siteProperties = getProperties(arcSite)
+  const {
+    paywall: { urls },
+  } = siteProperties
+  const originIdentitySdk = interpolateUrl(urls.originIdentitySdk)
+  const originApi = interpolateUrl(urls.originApi)
   return addScriptAsync({
     name: 'sdkIndetityARC',
-    url: getDomain('ORIGIN_IDENTITY_SDK'),
+    url: originIdentitySdk,
   }).then(added => {
     if (added) {
-      window.Identity.apiOrigin = getDomain('ORIGIN_API')
+      window.Identity.options({ apiOrigin: originApi })
     }
     return window.Identity
   })
 }
 
 export const isLogged = () => {
-  const { localStorage } = window;
-      // eslint-disable-next-line no-prototype-builtins
-      return localStorage.hasOwnProperty('ArcId.USER_INFO') 
-      && localStorage.getItem('ArcId.USER_INFO') !== '{}'
+  const { localStorage } = window
+  // eslint-disable-next-line no-prototype-builtins
+  return (
+    localStorage.hasOwnProperty('ArcId.USER_INFO') &&
+    localStorage.getItem('ArcId.USER_INFO') !== '{}'
+  )
 }
 
 export const userProfile = (getAttr = []) => {
@@ -58,4 +54,13 @@ export const userProfile = (getAttr = []) => {
   })
 }
 
+const attrToObject = (attributes = [], getAttributes = []) => {
+  return getAttributes.reduce((prev, name) => {
+    const attrs = (attributes || []).find(attr => attr.name === name)
 
+    if (attrs) {
+      prev[name] = attrs.value
+    }
+    return prev
+  }, {})
+}

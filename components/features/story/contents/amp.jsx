@@ -19,6 +19,8 @@ import {
   publicidadAmp,
   replaceTags,
   storyTagsBbc,
+  formatDateStoryAmp,
+  getDateSeo,
 } from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
@@ -53,6 +55,7 @@ class StoryContentAmp extends PureComponent {
       promoItems,
       tags,
       authorLink,
+      displayDate: updatedDate,
       primarySectionLink,
       author,
     } = new StoryData({
@@ -71,7 +74,14 @@ class StoryContentAmp extends PureComponent {
     const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
-    const parameters = { dataSlot, placementId, width, height, primarySectionLink }
+    const parameters = {
+      dataSlot,
+      placementId,
+      width,
+      height,
+      primarySectionLink,
+      arcSite,
+    }
     const parametersMovil4 = {
       dataSlot: `/${
         adsAmp.dataSlot
@@ -80,6 +90,7 @@ class StoryContentAmp extends PureComponent {
       width,
       height,
       primarySectionLink,
+      arcSite,
     }
     const parametersMovil5 = {
       dataSlot: `/${
@@ -89,6 +100,7 @@ class StoryContentAmp extends PureComponent {
       width,
       height,
       primarySectionLink,
+      arcSite,
     }
     const parametersMovil3 = {
       dataSlot: `/${
@@ -98,6 +110,7 @@ class StoryContentAmp extends PureComponent {
       width,
       height,
       primarySectionLink,
+      arcSite,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -108,7 +121,7 @@ class StoryContentAmp extends PureComponent {
     return (
       <>
         <div className={classes.content}>
-          {promoItems && <ElePrincipal data={promoItems} />}
+          {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
           <div
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmp(parameters)}
@@ -116,6 +129,9 @@ class StoryContentAmp extends PureComponent {
           <p className={classes.author}>
             <a href={authorLink}>{author}</a>
           </p>
+          <time dateTime={getDateSeo(updatedDate)} className={classes.datetime}>
+            {formatDateStoryAmp(updatedDate)}
+          </time>
           {contentPosicionPublicidadAmp && (
             <StoryContent
               data={contentPosicionPublicidadAmp}

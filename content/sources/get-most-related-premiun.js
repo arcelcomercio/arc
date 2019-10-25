@@ -2,14 +2,6 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE } from 'fusion:environment'
 
-// const params = [
-//   {
-//     name: 'quantity',
-//     displayName: 'Cantidad de noticias',
-//     type: 'number',
-//   },
-// ]
-
 const options = {
   gzip: true,
   json: true,
@@ -21,6 +13,23 @@ const clearURL = (arr = [], site = 'gestion') => {
   })
 }
 
+const setPageViewsUrls = (arrUrl, arrUrlRes) => {
+  return arrUrlRes.map(row => {
+    const item = arrUrl.find(el => {
+      return el.pagePath === row.website_url
+    })
+    return { ...row, page_views: item.pageviews || 0 }
+  })
+}
+
+const params = [
+  {
+    name: 'amountStories',
+    displayName: 'Número de historias',
+    type: 'number',
+  },
+]
+
 const uriAPI = (url, site) => {
   const filter = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,
 taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
@@ -29,46 +38,34 @@ taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_da
 
 const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-  // const { quantity = 3 } = key
-  const URI_POST = 'http://d3lvnkg4ntwke5.cloudfront.net/toppages-gestion.json'
-  const data = []
+  const { amountStories } = key
+  const URI_POST =
+    'https://do5ggs99ulqpl.cloudfront.net/gestion/9043312/top_premium.json'
   return request({
     uri: URI_POST,
     ...options,
   }).then(resp => {
-    const arrURL = resp.slice(0, 3)
-    const URLs = clearURL(arrURL, website)
-    return request({
-      uri: uriAPI(URLs[0], website),
-      ...options,
-    }).then(story1 => {
-      data.push(story1)
-      return request({
-        uri: uriAPI(URLs[1], website),
+    const arrURL = resp.slice(0, amountStories)
+
+    const promiseArray = arrURL.map(url =>
+      request({
+        uri: uriAPI(url.pagePath, website),
         ...options,
-      }).then(story2 => {
-        data.push(story2)
-        return request({
-          uri: uriAPI(URLs[2], website),
-          ...options,
-        }).then(story3 => {
-          data.push(story3)
-          return {
-            data,
-            size: 3,
-          }
-        })
       })
+    )
+
+    return Promise.all(promiseArray).then(res => {
+      const newRes = setPageViewsUrls(arrURL, res) || res
+      newRes.sort((a, b) => {
+        return b.page_views - a.page_views
+      })
+      return { content_elements: newRes }
     })
   })
 }
 
-// const transform = data => {
-// 	return data
-// }
-
 export default {
   fetch,
-  schemaName: 'story',
-  // params,
+  schemaName: 'stories-dev',
+  params,
 }

@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 
+import { publicidadAmpMovil0 } from '../../../../utilities/helpers'
+
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
   item:
@@ -90,20 +92,17 @@ class NavbarChildMenu extends PureComponent {
     const logoAmp = deployment(
       `${siteUrl}${contextPath}/resources/assets/amp/icon-cross.png`
     )
-
+    const parameters = {
+      arcSite,
+      dataSlot,
+    }
     return (
       <>
-        <amp-sticky-ad layout="nodisplay">
-          <amp-ad
-            width="320"
-            height="50"
-            type="doubleclick"
-            data-slot={dataSlot}
-            class={classes.mvil0}
-            data-multi-size="320x50,300x100,300x50,320x100"
-            data-multi-size-validation="false"
-          />
-        </amp-sticky-ad>
+        <amp-sticky-ad
+          layout="nodisplay"
+          class={classes.mvil0}
+          dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
+        />
 
         <amp-sidebar
           class={classes.sidebar}

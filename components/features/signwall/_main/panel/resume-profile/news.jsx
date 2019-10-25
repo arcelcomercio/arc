@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import Consumer from 'fusion:consumer'
 import { WrapperBlock } from './styles'
 import Services from '../../utils/services'
 import Loading from '../../common/loading'
 
 const services = new Services()
 
-// eslint-disable-next-line import/prefer-default-export
+@Consumer
 class News extends Component {
   _isMounted = false
 
@@ -20,9 +21,10 @@ class News extends Component {
 
   componentDidMount() {
     this._isMounted = true
+    const { arcSite } = this.props
 
     const UUID = window.Identity.userIdentity.uuid
-    const SITE = 'gestion'
+    const SITE = arcSite
     const localNews = JSON.parse(
       window.sessionStorage.getItem('preferencesNews')
     )
@@ -90,43 +92,49 @@ class News extends Component {
 
   render() {
     const { newsletters, checksNews, loading } = this.state
-    const { news } = this.props
+    const { news, arcSite } = this.props
+
     return (
       // eslint-disable-next-line react/jsx-filename-extension
-      <WrapperBlock nopadding nobackground nocolumn>
-        {!loading ? (
-          <>
-            <div className="left">
-              <h3>Newsletters</h3>
-            </div>
-            <div className="right">
-              <div className="container-grid">
-                {newsletters.map(
-                  itemNews =>
-                    checksNews[itemNews.code] && (
-                      <div className="item item1" key={itemNews.code}>
-                        <img src={itemNews.image} alt="demo" />
-                        <div className="title">{itemNews.name}</div>
-                      </div>
-                    )
-                )}
-                <button
-                  type="button"
-                  className="add-item"
-                  onClick={() => news()}>
-                  <span className="icon-plus">&#43;</span>
-                  Personaliza tus newsletters
-                </button>
-              </div>
-            </div>
-          </>
-        ) : (
-          <Loading site="gestion" />
+      <>
+        {arcSite === 'gestion' && (
+          <WrapperBlock nopadding nobackground nocolumn>
+            {!loading ? (
+              <>
+                <div className="left">
+                  <h3>Newsletters</h3>
+                </div>
+                <div className="right">
+                  <div className="container-grid">
+                    {newsletters.map(
+                      itemNews =>
+                        checksNews[itemNews.code] && (
+                          <div className="item item1" key={itemNews.code}>
+                            <img src={itemNews.image} alt="demo" />
+                            <div className={`title title-${arcSite}`}>
+                              {itemNews.name}
+                            </div>
+                          </div>
+                        )
+                    )}
+                    <button
+                      type="button"
+                      className="add-item"
+                      onClick={() => news()}>
+                      <span className="icon-plus">&#43;</span>
+                      Personaliza tus newsletters
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Loading site={arcSite} />
+            )}
+          </WrapperBlock>
         )}
-      </WrapperBlock>
+      </>
     )
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export { News }

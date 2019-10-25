@@ -5,6 +5,7 @@ import {
   formatHtmlToText,
   breadcrumbList,
   addSlashToEnd,
+  msToTime,
 } from './helpers'
 
 class StoryData {
@@ -116,6 +117,14 @@ class StoryData {
     return StoryData.getDataAuthor(this._data).slugAuthor
   }
 
+  get authorRoleByNewsLetter() {
+    return StoryData.getDataAuthor(this._data).role
+  }
+
+  get authorBiography() {
+    return StoryData.getDataAuthor(this._data).sortBiography
+  }
+
   get authorTwitterLink() {
     const twitter = StoryData.getDataAuthor(this._data).socialLinks.filter(
       x => x.site === ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER
@@ -150,6 +159,10 @@ class StoryData {
       arcSite: this._website,
       size: this._defaultImgSize,
     })
+  }
+
+  get authorImageSquareXS() {
+    return StoryData.getAuthorImageSquareXS(this.__data)
   }
 
   get authorImage() {
@@ -227,7 +240,8 @@ class StoryData {
   }
 
   get multimediaLazyDefault() {
-    return this.getMultimediaBySize(ConfigParams.LAZY_DEFAULT)
+    // return this.getMultimediaBySize(ConfigParams.LAZY_DEFAULT)
+    return this.defaultImg
   }
 
   get multimediaType() {
@@ -422,6 +436,16 @@ class StoryData {
 
   get videoId() {
     return StoryData.getIdGoldfish(this.__data)
+  }
+
+  get videoDuration() {
+    return msToTime(
+      (this.__data &&
+        this.__data.promo_items &&
+        this.__data.promo_items[ConfigParams.VIDEO] &&
+        this.__data.promo_items[ConfigParams.VIDEO].duration) ||
+        ''
+    )
   }
 
   get video() {
@@ -715,6 +739,10 @@ class StoryData {
     return StoryData.findHasAdsVideo(this._data)
   }
 
+  get captionVideo() {
+    return StoryData.getCaptionVideo(this.__data)
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -945,6 +973,13 @@ class StoryData {
     }
   }
 
+  static getAuthorImageSquareXS(data) {
+    const { credits: { by = [] } = {} } = data || {}
+    const { image: { resized_urls: { square_xs: squareXS = '' } = {} } = {} } =
+      by[0] || {}
+    return squareXS
+  }
+
   static getDataAuthor(
     data,
     { contextPath = '', deployment = () => {}, website = '' } = {}
@@ -959,6 +994,8 @@ class StoryData {
     let slugAuthor = ''
     let mailAuthor = ''
     let socialLinks = []
+    let role = ''
+    let sortBiography = ''
 
     let imageAuthor = authorImageDefault
     for (let i = 0; i < authorData.length; i++) {
@@ -977,6 +1014,17 @@ class StoryData {
             iterator.additional_properties.original &&
             iterator.additional_properties.original.email) ||
           ''
+
+        role =
+          (iterator.additional_properties &&
+            iterator.additional_properties.original &&
+            iterator.additional_properties.original.role) ||
+          null
+        sortBiography =
+          (iterator.additional_properties &&
+            iterator.additional_properties.original &&
+            iterator.additional_properties.original.bio) ||
+          null
         break
       }
     }
@@ -988,6 +1036,8 @@ class StoryData {
       imageAuthor,
       socialLinks,
       mailAuthor,
+      role,
+      sortBiography,
     }
   }
 
@@ -1012,21 +1062,34 @@ class StoryData {
     return typeMultimedia
   }
 
+  static getCaptionVideo = data => {
+    const {
+      promo_items: {
+        basic_video: {
+          promo_items: { basic: { caption = '' } = {} } = {},
+        } = {},
+      } = {},
+    } = data
+    return caption
+  }
+
   static getMultimediaIconType = data => {
-    let typeMultimedia = null
+    let typeMultimedia = ConfigParams.IMAGE
     const { promo_items: promoItems = {} } = data || {}
     const items = Object.keys(promoItems)
-
     if (items.length > 0) {
       if (items.includes(ConfigParams.VIDEO)) {
         typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.HTML)) {
+        const { content } = promoItems.basic_html
+        if (content.includes('id="powa-')) {
+          typeMultimedia = ConfigParams.VIDEO
+        }
       } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
         // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
         typeMultimedia = ConfigParams.VIDEO
       } else if (items.includes(ConfigParams.GALLERY)) {
         typeMultimedia = ConfigParams.GALLERY
-      } else if (items.includes(ConfigParams.IMAGE)) {
-        typeMultimedia = ConfigParams.IMAGE
       }
     }
     return typeMultimedia

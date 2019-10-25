@@ -1,0 +1,125 @@
+.story-content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li {
+    font-family: 'Time News Roman';
+  }
+  .pquote__text {
+    color: $color-link;
+  }
+  &__icon {
+    color: $color-gray-200;
+  }
+  &__font--secondary {
+    font-size: 20px;
+    font-family: 'Time News Roman';
+    @media (--only-mobile) {
+      font-size: 16px;
+    }
+    a {
+      color: #0072d8;
+    }
+  }
+  &__caption {
+    color: #323232;
+    padding: 0 20px;
+    font-size: 16px;
+    font-family: $fourth-font;
+    background-color: $color-secondary;
+    margin-top: -2px;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    line-height: 20px;
+    @media (--tablet) {
+      font-size: 13px;
+    }
+  }
+  &__taboola {
+    .thumbnails-a {
+      width: 100% !important;
+    }
+  }
+  &__date {
+    color: $color-black;
+    font-family: $fourth-font;
+    font-size: 14px;
+  }
+  &__author {
+    @media (--tablet) {
+      flex-direction: column;
+    }
+  }
+  &__author-link {
+    font-family: $fourth-font;
+    font-size: 15px;
+    color: $color-black;
+    text-transform: uppercase;
+  }
+  &__author-email {
+    font-family: $fourth-font;
+    display: none;
+  }
+  &__more-link {
+    .icon-linkedin-circle {
+      color: #0e76a8;
+    }
+  }
+  &__list-more {
+    width: 110px;
+  }
+  .powa-shot-play-icon,
+  .powa-shot-loading-icon {
+    background-color: $color-white;
+    color: $color-fourth;
+    &:hover {
+      color: $color-fourth;
+    }
+  }
+  .powa-shot-play-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+  }
+}
+
+.opinion .content-sidebar {
+  background-color: $color-tertiary;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media (--only-mobile) {
+  .basic_gallery {
+    .story-header__header-title {
+      background-color: #2b2b2b;
+
+      .story-header__news-title {
+        color: $color-white;
+      }
+      .story-header__news-summary {
+        color: $color-white;
+      }
+    }
+    .story-header__header-social {
+      background-color: #2b2b2b;
+      .story-header__title-section {
+        display: none;
+      }
+      .story-header__icon {
+        color: $color-white;
+      }
+      .story-header__share {
+        justify-content: center;
+      }
+      .story-header__list {
+        display: flex;
+      }
+    }
+  }
+}

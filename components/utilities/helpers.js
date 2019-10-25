@@ -369,15 +369,41 @@ export const addParamToEndPath = (path, param) => {
   return addParam(path, param)
 }
 
+/**
+ * @param {object} objeto Propiedades necesarias para armar la URL de la imagen por defecto.
+ * @param {function} objeto.deployment Agrega un parámetro al final de la cadena 
+ * con la versión de deployment. Viene desde Fusion.
+ * @param {string} objeto.contextPath Normalmente /pf/. Viene desde fusion.
+ * @param {string} objeto.arcSite Identificador del sitio actual. Viene desde fusion.
+ * @param {string} [objeto.size=lg] Tamaño de la imagen por defecto. Hay tres opciones 
+ * 'sm', 'md' y 'lg'. Definido manualmente.
+ * 
+ * @returns {string} URL de la imagen por defecto desde /resources/dist/...
+ */
 export const defaultImage = ({
   deployment,
   contextPath,
   arcSite,
   size = 'lg',
 }) => {
+
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  const site = () => {
+    let domain = `${arcSite}.pe`
+    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    return domain
+  }
+
+  if (arcSite === 'depor' || arcSite === 'elbocon') {
+    return deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    )
+  }
+
   return deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
@@ -460,9 +486,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-    }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -517,10 +541,17 @@ export const twitterHtml = html => {
 
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
-  htmlDataTwitter = htmlDataTwitter.replace(
-    /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-    'https://img.peru21.pe$1'
-  )
+
+  if (arcSite === ConfigParams.SITE_ELCOMERCIO)
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://img.elcomercio.pe$1'
+    )
+  else
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://img.peru21.pe$1'
+    )
 
   const rplTwitter =
     '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
@@ -537,7 +568,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
     .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
 
-  return htmlDataTwitter
+  htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
     .replace(/<html_free><blockquote (.*)">/g, '')
     .replace(/<\/blockquote><\/html_free>/g, '')
@@ -561,9 +592,21 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<(.+):p>/g, '<span>')
     .replace(/<font (.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
-    .replace(/<mxm-(.*) (.*)><\/mxm>/g, '') // pendiente de validacion enventos 485178
+    .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
+    .replace(/<script>(.*\n)*.*<\/script>/g, '')
+    .replace(/<(-?\/)?script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
+
+    .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
+    .replace('if (d.getElementById(id)) return;', '')
+    .replace('js = d.createElement(s); js.id = id;', '')
+    .replace('(function(d, s, id) {', '')
+    .replace('fjs.parentNode.insertBefore(js, fjs);', '')
+    .replace("}(document, 'script', 'facebook-jssdk'));", '')
+    .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
+
+  return htmlDataTwitter
 }
 
 export const facebookHtml = html => {
@@ -647,6 +690,31 @@ export const freeHtml = html => {
     .replace(/="&quot;http?(.*?)"/g, '="http$1"')
 }
 
+export const iframeMxm = (html, arcSite) => {
+  let resHtml = html
+  const strWidgetVivo =
+    '/<script src="https://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
+  const rplWidgetVivo = ''
+  const strWidgetVivo2 = `<script>var f = new ECO.Widget\({width: 625,height: 900}\).draw\("depor\/wg-${arcSite}\/(.*?)"\);<\/script>/g`
+
+  const rplWidgetVivo3 =
+    '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivo/$1/$2"></amp-iframe>'
+  const rplWidgetVivo4 =
+    '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivogeneral/$1/$2"></amp-iframe>'
+
+  resHtml = resHtml
+    .replace(strWidgetVivo, rplWidgetVivo)
+    .replace(strWidgetVivo2, rplWidgetVivo3)
+    .replace(
+      /<mxm-partido code="(.*)" h="(.*)px"><\/mxm-partido>/g,
+      rplWidgetVivo3
+    )
+    .replace(/<mxm-evento code="(.*)" h="(.*)px"><\/mxm>/g, rplWidgetVivo4)
+
+  // pendiente de validacion enventos 485178
+  return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')
+}
+
 export const ampHtml = (html = '', arcSite = '') => {
   let resultData = html
   // Opta Widget
@@ -679,7 +747,29 @@ export const ampHtml = (html = '', arcSite = '') => {
   // HTML Iframe
   resultData = iframeHtml(resultData, arcSite)
 
+  // Mxm Iframe
+
+  resultData = iframeMxm(resultData, arcSite)
+
   return resultData
+}
+
+export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
+  let resultData = ''
+  const json =
+    (ConfigParams.SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
+  resultData = `<amp-ad
+    width="320"
+    height="50"
+    type="doubleclick"
+    data-slot=${dataSlot}
+    data-multi-size="320x50,300x100,300x50,320x100"
+    data-multi-size-validation="false"
+    ${json}
+  />`
+  return createMarkup(resultData)
 }
 
 export const publicidadAmp = ({
@@ -689,9 +779,14 @@ export const publicidadAmp = ({
   height,
   primarySectionLink = '/peru',
   movil1 = '',
+  arcSite = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
+  const json =
+    (ConfigParams.SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
   const nuevoScript =
     (movil1 &&
       `data-multi-size="320x100,320x50"
@@ -701,9 +796,9 @@ export const publicidadAmp = ({
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript}
+  data-slot="${dataSlot}" ${nuevoScript} 
   rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}'></amp-ad>`
+  "timeoutMillis": 1000}' ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -731,6 +826,7 @@ export const replaceTags = text => {
     .replace(/(\s\w)=.(.*?)/g, '$2')
     .replace('http://http://', 'https://')
     .replace(/href=&quot;(.+)&quot;>/g, 'href="$1">')
+    .replace(/http:\/\/gestion2.e3.pe\//g, 'https://cde.gestion2.e3.pe/')
 }
 
 export const formatDateStory = date => {
@@ -766,7 +862,7 @@ export const formatDateStoryAmp = date => {
  * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
-  data,
+  data = [],
   resizerUrl,
   resizerSecret,
   addResizedUrls,
@@ -973,7 +1069,9 @@ export const getPhotoId = photoUrl => {
 }
 
 export const getDateSeo = data => {
-  const fechaZone = data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+  const fechaZone = data
+    ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
+    : new Date()
   const fecha = new Date(fechaZone)
   fecha.setHours(fecha.getHours() - 5)
   const day = fecha.getDate()
@@ -992,6 +1090,20 @@ export const getDateSeo = data => {
   const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
 
   return fechaGenerada
+}
+
+export const msToTime = duration => {
+  if (duration) {
+    let seconds = parseInt((duration / 1000) % 60, 0)
+    let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
+    let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
+    hours = hours < 10 && hours < 10 ? `0${hours}:` : hours
+    minutes = minutes < 10 ? `0${minutes}` : minutes
+    seconds = seconds < 10 ? `0${seconds}` : seconds
+
+    return `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
+  }
+  return ''
 }
 
 export const localISODate = date => {

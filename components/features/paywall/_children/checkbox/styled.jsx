@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components'
-import { devices } from '../../_dependencies/devices'
 
 export const Label = styled.label`
-  display: flex;
-  align-items: center;
-  @media (${devices.mobile}) {
-    flex-direction: column-reverse;
-  }
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    ${theme.breakpoints.down('xs')} {
+      flex-direction: column-reverse;
+    }
+  `}
 `
 
 export const StyledCheckbox = styled.div`

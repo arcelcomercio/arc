@@ -8,12 +8,13 @@ import * as S from './styled'
 import InputFormik from '../../../../../_children/input'
 import Button from '../../../../../_children/button'
 import Error from '../../../../../_children/error'
-import { FormSchema, Masks } from './schema'
+import { createSchema, Masks } from './schema'
+import { useStrings } from '../../../../../_children/contexts'
 
 const FormStyled = S.Form(Form)
 const { trim } = Masks.Pipes
 
-const _initValue = {
+const defaultValues = {
   firstName: null,
   lastName: null,
   secondLastName: null,
@@ -25,21 +26,23 @@ const _initValue = {
 const UserProfile = ({
   name,
   title = '',
-  initialValues = {},
+  initialValues: _initialValues = {},
   error,
   printedSubscriber,
   onSubmit,
   onReset,
 }) => {
+  const msgs = useStrings()
+  const initialValues = Object.assign(
+    {},
+    defaultValues,
+    pick(_initialValues, Object.keys(defaultValues)),
+    printedSubscriber
+  )
   return (
     <Formik
-      initialValues={Object.assign(
-        {},
-        _initValue,
-        pick(initialValues, Object.keys(_initValue)),
-        printedSubscriber
-      )}
-      validate={values => new FormSchema(values)}
+      initialValues={initialValues}
+      validate={values => createSchema(values, msgs)}
       onSubmit={(values, actions) => {
         const {
           email,
@@ -77,7 +80,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="firstName"
-                  label="Nombres"
+                  label={msgs.namesLabel}
                   {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -85,7 +88,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="lastName"
-                  label="Apellido Paterno"
+                  label={msgs.lastNameLabel}
                   {...Masks.Piped.PERSON_NAME}
                   component={InputFormik}
                 />
@@ -94,7 +97,7 @@ const UserProfile = ({
                 <Field name="secondLastName">
                   {props => (
                     <InputFormik
-                      label="Apellido Materno"
+                      label={msgs.secondLastNameLabel}
                       {...Masks.Piped.PERSON_NAME}
                       {...props}
                     />
@@ -104,7 +107,7 @@ const UserProfile = ({
               <S.WrapField>
                 <Field
                   name="documentNumber"
-                  label="Número de documento"
+                  label={msgs.documentNumberLabel}
                   mask={Masks[documentType.toUpperCase()]}
                   type="text"
                   disabled={!!printedSubscriber}
@@ -135,7 +138,7 @@ const UserProfile = ({
                   inputMode="numeric"
                   pipe={trim()}
                   mask={Masks.PHONE}
-                  label="Número de Celular"
+                  label={msgs.cellPhoneLabel}
                   component={InputFormik}
                 />
               </S.WrapField>
@@ -143,17 +146,18 @@ const UserProfile = ({
                 <Field
                   name="email"
                   inputMode="email"
-                  label="Correo Electrónico"
+                  label={msgs.emailLabel}
                   component={InputFormik}
                 />
               </S.WrapField>
             </S.Wrap>
             {error && <Error mb="20px" message={error} />}
             <Button disabled={isSubmitting} maxWidth="300px" type="submit">
-              CONTINUAR
+              {msgs.nextButton.toUpperCase()}
             </Button>
             <Persist
               name={name}
+              // ignoreErrors
               ignoreFields={
                 printedSubscriber ? ['documentType', 'documentNumber'] : []
               }

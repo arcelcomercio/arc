@@ -20,6 +20,7 @@ const classes = {
 const SeparatorsChildAuthorCard = props => {
   const {
     arcSite,
+    isAdmin,
     data: {
       author,
       authorUrl,
@@ -28,6 +29,7 @@ const SeparatorsChildAuthorCard = props => {
       // sectionUrl,
       websiteUrl,
       imageUrl,
+      multimediaLazyDefault,
     } = {},
   } = props
 
@@ -57,8 +59,11 @@ const SeparatorsChildAuthorCard = props => {
           <figure className={classes.opinionItemImage}>
             <a href={authorUrl}>
               <img
-                className={classes.opinionItemImageImg}
-                src={imageUrl}
+                className={`${isAdmin ? '' : 'lazy'} ${
+                  classes.opinionItemImageImg
+                }`}
+                src={isAdmin ? imageUrl : multimediaLazyDefault}
+                data-src={imageUrl}
                 alt={author || ''}
               />
             </a>
