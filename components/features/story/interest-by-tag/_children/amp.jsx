@@ -24,7 +24,7 @@ const StorySeparatorChildItemAmp = ({ data }) => {
   } = data
 
   return (
-    <li className={classes.item}>
+    <div className={classes.item}>
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
@@ -51,7 +51,7 @@ const StorySeparatorChildItemAmp = ({ data }) => {
           </a>
         </h3>
       </div>
-    </li>
+    </div>
   )
 }
 
