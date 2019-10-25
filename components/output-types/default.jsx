@@ -50,6 +50,7 @@ export default ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+    promo_items: { basic_gallery: basicGallery = {} } = {},
     taxonomy: {
       primary_section: { path: nameSeccion = '' } = {},
       tags = [],
@@ -65,7 +66,9 @@ export default ({
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory
-    ? `story ${arcSite} ${nameSeccion.split('/')[1]} ${subtype} `
+    ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
+        nameSeccion.split('/')[1]
+      } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
