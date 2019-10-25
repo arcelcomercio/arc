@@ -44,9 +44,11 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
             {filterData.nameTitle}
           </a>
         </h2>
-        <a href={filterData.nameAuthorLink} className={classes.author}>
-          {filterData.nameAuthor}
-        </a>
+        {filterData.nameAuthor && (
+          <a href={filterData.nameAuthorLink} className={classes.author}>
+            {filterData.nameAuthor}
+          </a>
+        )}
       </div>
       <figure className={classes.multimedia}>
         <a href={filterData.urlTitle} className={classes.link}>
@@ -64,7 +66,6 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
               src={filterData.multimediaImg}
               alt={filterData.nameTitle}
               className={classes.image}
-              
             />
           )}
 
