@@ -33,7 +33,7 @@ export default {
     subscribe: `SUSCRIBIRME`,
     offerHeadBand: `PROMOCIÓN DE LANZAMIENTO`,
     freeAmount: `Gratis`,
-    initialOffer: `durante 6 meses`,
+    initialOffer: `durante 3 meses`,
     regularOffer: `Luego, S/ 39 cada mes.`,
     monthlyFrequency: `Suscripción Mensual`,
     yearlyFrequency: `Suscripción Anual`,
@@ -51,8 +51,8 @@ export default {
       suscriptores del diario impreso`,
     businessSubscriptionsBanner1: `¿ERES EMPRESA? CONSULTA NUESTRAS`,
     businessSubscriptionsBanner2: `SUSCRIPCIONES CORPORATIVAS`,
-    printedSubscriptorBanner1: `¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?`,
-    printedSubscriptorBanner2: `ADQUIERE EL PLAN DIGITAL GRATIS POR 6 MESES.`,
+    printedSubscriptorBanner1: '¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?',
+    printedSubscriptorBanner2: 'ADQUIERE EL PLAN DIGITAL GRATIS POR 3 MESES.',
     
     // Profile
     insertPersonalInfo: `Ingrese sus datos`,

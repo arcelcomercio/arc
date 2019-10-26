@@ -31,6 +31,9 @@ export default arcSite => {
             basic { url type resized_urls { landscape_xs landscape_md landscape_s lazy_default } }
           }
         }
+        basic_html {
+          content 
+        }
       }
     }    
   }`

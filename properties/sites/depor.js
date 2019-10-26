@@ -53,6 +53,9 @@ export default {
     premium: {
       logo: 'favicon.png',
     },
+    nav: {
+      logoSomos: 'logo.png',
+    },
   },
 
   messages: {
