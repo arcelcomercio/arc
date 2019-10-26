@@ -34,7 +34,7 @@ export default {
     offerHeadBand: `PROMOCIÓN DE LANZAMIENTO`,
     freeAmount: `Gratis`,
     initialOffer: `durante 3 meses`,
-    regularOffer: `Luego, S/ 39 cada mes.`,
+    regularOffer: `Luego, S/ 19 cada mes.`,
     monthlyFrequency: `Suscripción Mensual`,
     yearlyFrequency: `Suscripción Anual`,
     monthlyPeriod: `al mes`,
