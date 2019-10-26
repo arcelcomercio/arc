@@ -33,7 +33,7 @@ export default {
     subscribe: `SUSCRIBIRME`,
     offerHeadBand: `PROMOCIÓN DE LANZAMIENTO`,
     freeAmount: `Gratis`,
-    initialOffer: `durante 6 meses`,
+    initialOffer: `durante 3 meses`,
     regularOffer: `Luego, S/ 39 cada mes.`,
     monthlyFrequency: `Suscripción Mensual`,
     yearlyFrequency: `Suscripción Anual`,
