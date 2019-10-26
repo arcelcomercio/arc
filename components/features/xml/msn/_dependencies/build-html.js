@@ -4,7 +4,7 @@ import ConfigParams from '../../../../utilities/config-params'
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 } */
 
-const buildParagraph = (paragraph, type = '') => {
+const buildParagraph = (paragraph, type = '', imageCaption = '') => {
   let result = ''
 
   if (type === ConfigParams.ELEMENT_TEXT) {
@@ -17,7 +17,7 @@ const buildParagraph = (paragraph, type = '') => {
   }
 
   if (type === ConfigParams.ELEMENT_IMAGE) {
-    result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" /><figcaption>Inspectores de la Municipalidad de La Molina</figcaption></figure>`
+    result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" alt="${imageCaption}" title="${imageCaption}" /><figcaption>${imageCaption}</figcaption></figure>`
   }
 
   if (type === ConfigParams.ELEMENT_RAW_HTML) {
@@ -78,7 +78,7 @@ const ParagraphshWithAdds = ({
   const newsWithAdd = []
   let resultParagraph = ''
 
-  paragraphsNews.forEach(({ payload: paragraphItem, type }) => {
+  paragraphsNews.forEach(({ payload: paragraphItem, type, caption: imageCaption }) => {
     let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
     // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
@@ -86,7 +86,7 @@ const ParagraphshWithAdds = ({
     const originalParagraph = paragraph
     paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
 
-    paragraphwithAdd = `${buildParagraph(originalParagraph, type)}`
+    paragraphwithAdd = `${buildParagraph(originalParagraph, type, imageCaption)}`
     newsWithAdd.push(`${paragraphwithAdd}`)
 
   })
