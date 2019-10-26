@@ -1094,20 +1094,22 @@ class StoryData {
   }
 
   static getMultimediaIconType = data => {
-    let typeMultimedia = null
+    let typeMultimedia = ConfigParams.IMAGE
     const { promo_items: promoItems = {} } = data || {}
     const items = Object.keys(promoItems)
-
     if (items.length > 0) {
       if (items.includes(ConfigParams.VIDEO)) {
         typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.HTML)) {
+        const { content } = promoItems.basic_html
+        if (content.includes('id="powa-')) {
+          typeMultimedia = ConfigParams.VIDEO
+        }
       } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
         // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
         typeMultimedia = ConfigParams.VIDEO
       } else if (items.includes(ConfigParams.GALLERY)) {
         typeMultimedia = ConfigParams.GALLERY
-      } else if (items.includes(ConfigParams.IMAGE)) {
-        typeMultimedia = ConfigParams.IMAGE
       }
     }
     return typeMultimedia

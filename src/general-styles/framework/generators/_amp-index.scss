@@ -1,13 +1,10 @@
-/** ----------------------------*
-*           GENERATORS          *
-*-------------------------------*/
-$space-limit: 15;
+/** ---GENERATORS----*/
+$space-limit: 5;
 $space-interval: 5;
 @import './generate-spaces';
 @import './generate-font-sizes';
 @import './generate-line-heights';
-@import './generate-icons';
 @import './generate-borders';
 @import './generate-bg-colors';
 @import './generate-text-colors';
-/*------------------------------*/
+/*----------*/

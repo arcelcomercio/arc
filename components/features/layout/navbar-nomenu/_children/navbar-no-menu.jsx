@@ -46,15 +46,17 @@ export default props => {
       <div className={classes.container}>
         <div className={classes.left}>
           <ul className={classes.list}>
-            {dataList.map(item => {
-              return (
-                <li className={classes.item}>
-                  <a className={classes.link} href={item._id}>
-                    {item.name}
-                  </a>
-                </li>
-              )
-            })}
+            {dataList.map(
+              ({ _id: id, url, name = '', display_name: displayName = '' }) => {
+                return (
+                  <li className={classes.item}>
+                    <a className={classes.link} href={url || id || '/'}>
+                      {name || displayName}
+                    </a>
+                  </li>
+                )
+              }
+            )}
           </ul>
         </div>
         <div className={classes.right}>

@@ -64,9 +64,7 @@ const ExtraordinaryStory = props => {
     <>
       {showExtraordinaryStory && (
         <article
-          className={`${
-            classes.extraordinaryStory
-          } extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
+          className={`${classes.extraordinaryStory} extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
           <div className={classes.groupContent}>
             {!isSection && (
               <p className={classes.section}>
@@ -109,7 +107,10 @@ const ExtraordinaryStory = props => {
               linkStory={data.link}
             />
             {multimediaType === ConfigParams.GALLERY && (
-              <Icon type={multimediaType} />
+              <Icon
+                type={multimediaType}
+                iconClass="extraordinary-story__icon"
+              />
             )}
           </div>
         </article>
