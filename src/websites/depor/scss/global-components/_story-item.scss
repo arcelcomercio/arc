@@ -95,10 +95,8 @@
     overflow: hidden;
     font-family: $primary-font;
     color: $color-black;
-    max-height: 33.6px;
     font-size: 14px;
     line-height: 1.2;
-    -webkit-line-clamp: 2;
     @media (--tablet) {
       max-height: 115.2px;
       line-height: 1.2;
