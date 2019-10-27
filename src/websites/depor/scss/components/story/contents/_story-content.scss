@@ -27,7 +27,6 @@
   &__caption {
     color: #323232;
     padding: 0 20px;
-    font-size: 16px;
     font-family: $fourth-font;
     background-color: $color-secondary;
     margin-top: -2px;
@@ -36,9 +35,7 @@
     align-items: center;
     font-weight: 700;
     line-height: 20px;
-    @media (--tablet) {
-      font-size: 13px;
-    }
+    font-size: 13px;
   }
   &__taboola {
     .thumbnails-a {
