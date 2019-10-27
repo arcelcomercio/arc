@@ -2,6 +2,7 @@
   border-top: 1px solid #ccc;
   padding-top: 20px;
   padding-bottom: 0;
+  border-bottom: 0;
   @media (--desktop) {
     padding-top: 20px;
   }
@@ -140,5 +141,10 @@
   }
   &__content-title {
     margin-top: 5px;
+  }
+  &--row {
+    .story-item__left {
+      padding-left: 0;
+    }
   }
 }
