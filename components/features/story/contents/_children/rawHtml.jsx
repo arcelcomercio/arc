@@ -27,14 +27,17 @@ class rawHTML extends PureComponent {
       const rgexpURL = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/
       const [URI] = rgexpURL.exec(scriptResult) || []
       this.URL = URI
-    } else if (content.includes('player.daznservices.com/player.js')) {
+    } else if (content.includes('player.daznservices.com/')) {
       const idVideos = storyVideoPlayerId(content)
 
-      this.URL_VIDEO = `${idVideos[1].replace('src="//', 'https://')}id=${
-        idVideos[2]
-      }`
+      this.URL_VIDEO =
+        idVideos.length > 0
+          ? `${idVideos[1].replace('src="//', 'https://')}id=${idVideos[2]}`
+          : `${content
+              .match(/<script (src=(.*))(.*)><\/script>/)[1]
+              .replace('src="//', 'https://')}`
 
-      this.ID_VIDEO = `${idVideos[2]}`
+      this.ID_VIDEO = idVideos.length > 0 && `${idVideos[2]}`
     } else {
       this.newContent = content
     }
@@ -46,7 +49,13 @@ class rawHTML extends PureComponent {
     }
 
     if (this.URL_VIDEO) {
-      const myList = document.getElementById(`id_video_embed_${this.ID_VIDEO}`)
+      const { content } = this.props
+      const idVideo = storyVideoPlayerId(content)
+      const idElement =
+        content.includes('player.daznservices.com/') && idVideo[2]
+          ? `id_video_embed_${this.ID_VIDEO}`
+          : '_'
+      const myList = document.getElementById(idElement)
       appendToId(
         myList,
         createScript({
@@ -62,7 +71,7 @@ class rawHTML extends PureComponent {
     const idVideo = storyVideoPlayerId(content)
 
     const idVideoEmbed =
-      content.includes('player.daznservices.com/player.js') && idVideo[2]
+      content.includes('player.daznservices.com/') && idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
         : '_'
     return (
