@@ -1,7 +1,7 @@
 .footer-secction {
   display: none;
 
-  @media (--tablet) {
+  @media (--desktop) {
     display: flex;
   }
   &__content-footer {
@@ -37,8 +37,9 @@
     text-align: center;
     color: #727272;
     padding-bottom: 20px;
-    @media (--only-mobile) {
-      padding-top: 20px;
+    padding-top: 20px;
+    @media (--desktop) {
+      padding-top: 0;
     }
   }
   &__image-logo {
