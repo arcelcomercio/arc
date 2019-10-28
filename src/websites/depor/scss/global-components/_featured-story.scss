@@ -61,11 +61,13 @@
       }
     }
     .featured-story__title-link {
-      font-size: 22px;
-      font-weight: 700;
-      -webkit-line-clamp: 4;
-      max-height: 115px;
-      line-height: 26px;
+      @media (--tablet) {
+        font-size: 22px;
+        font-weight: 700;
+        -webkit-line-clamp: 4;
+        max-height: 115px;
+        line-height: 26px;
+      }
     }
     .featured-story__title {
       max-width: 100%;
