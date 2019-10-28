@@ -57,6 +57,8 @@ class ConfigParams {
 
   static SITE_DEPOR = 'depor'
 
+  static SITE_ELBOCON = 'elbocon'
+
   static SITE_ELCOMERCIO = 'elcomercio'
 
   static SITE_ELCOMERCIOMAG = 'elcomerciomag'

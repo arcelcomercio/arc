@@ -56,7 +56,12 @@ class Data extends StoryData {
   }
 
   get multimedia() {
-    return this.customFields.image || super.multimedia
+    const multimedia =
+      this.multimediaOrientation === 'left' ||
+      this.multimediaOrientation === 'right'
+        ? super.multimediaSquareL
+        : super.multimediaLandscapeXL
+    return this.customFields.image || multimedia
   }
 
   get multimediaService() {
