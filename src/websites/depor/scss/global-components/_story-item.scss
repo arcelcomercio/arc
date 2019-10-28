@@ -2,6 +2,7 @@
   border-top: 1px solid #ccc;
   padding-top: 20px;
   padding-bottom: 0;
+  border-bottom: 0;
   @media (--desktop) {
     padding-top: 20px;
   }
@@ -94,10 +95,8 @@
     overflow: hidden;
     font-family: $primary-font;
     color: $color-black;
-    max-height: 33.6px;
     font-size: 14px;
     line-height: 1.2;
-    -webkit-line-clamp: 2;
     @media (--tablet) {
       max-height: 115.2px;
       line-height: 1.2;
@@ -140,5 +139,10 @@
   }
   &__content-title {
     margin-top: 5px;
+  }
+  &--row {
+    .story-item__left {
+      padding-left: 0;
+    }
   }
 }

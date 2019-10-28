@@ -1,0 +1,20 @@
+//$color-page: #777;
+
+.pagination {
+  &__page {
+    padding: 0 12px;
+    background-color: #ccc;
+    margin: 4px 2px;
+    color: $color-black;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-family: $fourth-font;
+
+    &--current,
+    &--disabled {
+      color: #999;
+    }
+  }
+}

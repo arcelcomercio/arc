@@ -1,4 +1,10 @@
 .story-continue {
+  @media (--only-mobile) {
+    height: 220px;
+    margin-bottom: 15px;
+    border-top: 1px solid #cbcbcb;
+    border-bottom: 1px solid #cbcbcb;
+  }
   &__circle {
     @media (--only-mobile) {
       margin-bottom: 30px;

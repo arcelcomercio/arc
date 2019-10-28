@@ -1,7 +1,11 @@
 .featured-story {
+  border-top: 2px solid $color-gray-300;
   &__category {
     padding: 0;
+    padding-bottom: 10px;
+    border-bottom: dotted 1px #999;
     @media (--tablet) {
+      width: 100%;
       color: $color-primary;
       font-weight: 700;
     }
@@ -31,6 +35,10 @@
   }
 
   &.img-complete {
+    border-top: 0;
+    .featured-story__category {
+      border-bottom: 0;
+    }
     .featured-story__category-link {
       @media (--tablet) {
         color: $color-primary;
@@ -52,6 +60,11 @@
   }
 
   &.expand {
+    .featured-story__category {
+      @media (--tablet) {
+        width: 100%;
+      }
+    }
     .featured-story__category-link {
       color: $color-primary;
     }
@@ -61,6 +74,9 @@
     }
 
     &.img-complete {
+      .featured-story__category {
+        border-bottom: 0;
+      }
       .featured-story__category-link {
         color: $color-primary;
       }

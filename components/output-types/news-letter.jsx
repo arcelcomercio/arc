@@ -17,7 +17,7 @@ const Newsletter = ({
   const { siteUrl = '', } = siteProperties
   const { content_elements: contentElements } = globalContent || []
 
-  const propsNewsLetterContent={
+  const propsNewsLetterContent = {
     deployment,
     contextPath,
     arcSite,
@@ -25,11 +25,11 @@ const Newsletter = ({
     siteUrl,
   }
   const listNewsLetter = NewsLetterContent(propsNewsLetterContent)
-  
+
   return (
     <NewElement nameElement="rss" propsNewElement={propsXml}>
       <channel>
-       {listNewsLetter}
+        {listNewsLetter}
       </channel>
     </NewElement>
   )

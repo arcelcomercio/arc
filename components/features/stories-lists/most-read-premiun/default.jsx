@@ -70,7 +70,7 @@ MostReadPremium.propTypes = {
   customFields,
 }
 
-MostReadPremium.label = 'Mas Leidas Premium'
+MostReadPremium.label = 'Más Leidas Premium'
 MostReadPremium.static = true
 
 export default MostReadPremium
