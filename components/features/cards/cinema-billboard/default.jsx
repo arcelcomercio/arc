@@ -6,8 +6,22 @@ import Consumer from 'fusion:consumer'
 // TODO: Refactorizar para poder usar static true
 const defaultImage = ({ deployment, contextPath, arcSite, size = 'lg' }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  const site = () => {
+    let domain = `${arcSite}.pe`
+    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    return domain
+  }
+
+  if (arcSite === 'depor' || arcSite === 'elbocon') {
+    return deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    )
+  }
+
   return deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
@@ -120,6 +134,15 @@ class CardCinemaBillboard extends PureComponent {
       data: { billboardData, premiereData: { alt, img, title, url } } = {},
     } = this.state
 
+    const { arcSite, deployment, contextPath, isAdmin } = this.props
+
+    const lazyDefault = defaultImage({
+      deployment,
+      contextPath,
+      arcSite,
+      size: 'sm',
+    })
+
     return (
       <div className={classes.cinemaCard}>
         <article className={classes.container}>
@@ -131,7 +154,12 @@ class CardCinemaBillboard extends PureComponent {
           </h3>
           <figure className={classes.figure}>
             <a href={`${BASE_PATH}/${url}`}>
-              <img src={img} alt={alt} className={classes.image} />
+              <img
+                src={isAdmin ? img : lazyDefault}
+                data-src={img}
+                alt={alt}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+              />
             </a>
           </figure>
           <div className={classes.detail}>

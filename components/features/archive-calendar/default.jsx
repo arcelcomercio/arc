@@ -10,8 +10,6 @@ const ArchiveCalendar = ({ customFields: { sectionField } = {} }) => {
   } = useFusionContext()
   const { date: urlDate } = query || {}
 
-  console.log('query->', query, sectionField)
-
   const getCalendarDate = (date = new Date()) => {
     if (date instanceof Date) return date
     const [year, month, day] = date.split('-')
