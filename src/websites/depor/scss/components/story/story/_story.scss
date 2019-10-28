@@ -1,2 +1,25 @@
-/* .story {
-} */
+.story {
+  &.depor-play {
+    .story-header__news-title {
+      color: $color-text-depor;
+    }
+    .story-header__news-title,
+    .story-content__font--secondary {
+      font-family: $sixth-font;
+    }
+
+    .story-content__caption {
+      background-color: #252256;
+      color: $color-white;
+    }
+    .related-content__information {
+      background-color: #1c1c1c;
+    }
+    .related-content__link {
+      color: $color-white;
+      font-family: $sixth-font;
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+}

@@ -35,7 +35,7 @@ const MsnXmlOutputType = ({
     siteDomain = '',
     idGoogleAnalitics = '',
     fbArticleStyle = '',
-    listUrlAdvertisings=[]
+    listUrlAdvertisings = []
   } = siteProperties
 
   const stories = contentElements
@@ -45,10 +45,10 @@ const MsnXmlOutputType = ({
     'xmlns:atom': 'http://www.w3.org/2005/Atom',
     'xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
     'xmlns:slash': 'http://purl.org/rss/1.0/modules/slash/',
-    'xmlns:mi' : 'http://schemas.ingestion.microsoft.com/common/',
-    'xmlns:dcterms' : 'http://purl.org/dc/terms/',
-    'xmlns:media' : 'http://search.yahoo.com/mrss/',
-    'xmlns:dc' : 'http://purl.org/dc/elements/1.1/'
+    'xmlns:mi': 'http://schemas.ingestion.microsoft.com/common/',
+    'xmlns:dcterms': 'http://purl.org/dc/terms/',
+    'xmlns:media': 'http://search.yahoo.com/mrss/',
+    'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
   }
 
   const chanelProps = {
@@ -69,14 +69,14 @@ const MsnXmlOutputType = ({
     listUrlAdvertisings,
   }
 
-  let chanelSctring = Channel(chanelProps)
+  let channelString = Channel(chanelProps)
   const itemsString = ListItemNews(stories, buildProps)
 
-  chanelSctring = chanelSctring.replace('@ListItems', itemsString)
+  channelString = channelString.replace('@ListItems', itemsString)
 
   return (
     <NewElement nameElement="rss" propsNewElement={propsXml}>
-      <channel dangerouslySetInnerHTML={{ __html: chanelSctring }} />
+      <channel dangerouslySetInnerHTML={{ __html: channelString }} />
     </NewElement>
   )
 }
