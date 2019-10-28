@@ -32,12 +32,12 @@ export default {
     frequentQuestions: '',
   },
   infoPagesProd: {
-    termsAndConditions: '',
+    termsAndConditions: 'GKC4YH3FBZGGJNFEPGO7KMPN7U',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'NJZXERE3WVG5DB65JP7PGTLCV4',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: '5ORUCK2RHBCH5CUYD4XIAVLQ2E',
     aboutUs: '',
     frequentQuestions: '',
   },
@@ -90,7 +90,7 @@ export default {
     socialNetworks: [
       {
         name: 'Twitter',
-        url: 'https://twitter.com/depor_peru',
+        url: 'https://twitter.com/tuitdepor',
       },
       {
         name: 'Facebook',
@@ -146,8 +146,8 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@depor_peru',
-      url: 'https://twitter.com/depor_peru',
+      user: 'tuitdepor',
+      url: 'https://twitter.com/tuitdepor',
     },
     youtube: {
       name: 'youtube',
