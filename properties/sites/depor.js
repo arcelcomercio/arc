@@ -17,7 +17,7 @@ export default {
   charbeatAccountNumber: 99999,
   idGoogleAnalitics: 'UA-3055636-8',
   fbArticleStyle: 'LogoDepor',
-  nameStoryRelated: 'VEA TAMBIÉN',
+  nameStoryRelated: 'RELACIONADAS',
   siteDescription:
     'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
