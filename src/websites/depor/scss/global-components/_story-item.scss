@@ -77,12 +77,13 @@
     height: 35px;
     line-height: 35px;
     font-size: 36px;
+    transform: translate(-50%, -50%);
     @media (--tablet) {
-      width: 60px;
-      height: 60px;
-      font-size: 60px;
-      line-height: 60px;
-      left: 40px;
+      width: 72px;
+      height: 72px;
+      font-size: 73px;
+      line-height: 73px;
+      left: 45px;
       bottom: -25px;
     }
     &::before {
