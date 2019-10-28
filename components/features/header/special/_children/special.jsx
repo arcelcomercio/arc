@@ -15,6 +15,10 @@ const LIST_WIDTH = 330 */
 
 const classes = {
   header: `header header-inverted w-full position-relative top-0 secondary-font pr-15 text-sm font-bold flex items-center justify-center pt-0 pb-0 pl-15 md:position-absolute`,
+  /**
+   *  Activar si se quiere el max-width de 1366px
+   *  wrapper: 'w-full flex items-center justify-center position-relative wrapper',
+   */
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
   navBtnContainer: `flex items-center justify-start nav__container-menu position-absolute`,
@@ -262,6 +266,7 @@ const HeaderSpecialChildSpecial = ({
     <>
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
         <div className={classes.navLoader} />
+        {/* Activar si se quiere el max-width de 1366px <div className={classes.wrapper}> */}
         {/** ************* LEFT *************** */}
         <div
           className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
@@ -287,7 +292,7 @@ const HeaderSpecialChildSpecial = ({
             iconClass={classes.iconMenu}
             btnClass={`${classes.btnMenu} ${
               scrolled && isStory ? 'border-r-1 border-solid' : ''
-            }`}
+              }`}
             btnText="Menú"
             onClick={_handleToggleSectionElements}
           />
@@ -336,23 +341,24 @@ const HeaderSpecialChildSpecial = ({
               </div>
             </>
           ) : (
-            <>
-              <Button
-                btnClass={`${classes.btnProfile} ${classes.btnClub}`}
-                btnText={CLUB_TEXT}
-                onClick={_handleToggleSectionElements}
-                btnLink={CLUB_URL}
-              />
-              <Button
-                btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
-                btnText={SUBSCRIBE_TEXT}
-                onClick={_handleToggleSectionElements}
-                btnLink={SUBSCRIBE_URL}
-              />
-            </>
-          )}
+              <>
+                <Button
+                  btnClass={`${classes.btnProfile} ${classes.btnClub}`}
+                  btnText={CLUB_TEXT}
+                  onClick={_handleToggleSectionElements}
+                  btnLink={CLUB_URL}
+                />
+                <Button
+                  btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
+                  btnText={SUBSCRIBE_TEXT}
+                  onClick={_handleToggleSectionElements}
+                  btnLink={SUBSCRIBE_URL}
+                />
+              </>
+            )}
         </div>
         {/** ************* // RIGHT *************** */}
+        {/* Activar si se quiere el max-width de 1366px </div> */}
         <Menu
           sections={menuSections}
           showSidebar={statusSidebar}
