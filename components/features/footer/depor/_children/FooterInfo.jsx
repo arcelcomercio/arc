@@ -13,7 +13,7 @@ const SITE_TITLE = 'Visite también: '
 
 const ItemSite = ({ url, name }) => (
   <li className={classes.listItem}>
-    <a href={url}> {name}</a>
+    <a href={url} rel="noopener noreferrer" target="_blank"> {name}</a>
   </li>
 )
 
