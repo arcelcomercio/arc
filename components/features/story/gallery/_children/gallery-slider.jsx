@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { getUrlParameter } from '../../../../utilities/helpers'
+import ConfigParams from '../../../../utilities/config-params'
 import AdsFotogaleria from '../../../../global-components/ads'
 
 const classes = {
@@ -20,8 +20,8 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   constructor(props) {
     super(props)
     const {
+      arcSite,
       contentElementGallery: { content_elements: contentElements = [] },
-      globalContentConfig,
     } = props || {}
 
     const totalSlides = contentElements.length
@@ -36,6 +36,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     this.state = {
       sliders: contentElements,
       totalSlides,
+      arcSite,
       sliderWidth: totalSlides * 100,
       slideWidth: 100 / totalSlides,
       positionSlide: 0,
@@ -132,13 +133,16 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   }
 
   _handleNextSlider = () => {
-    const { totalSlides } = this.state
+    const { totalSlides, arcSite } = this.state
     const nextSlide = this.currentSlider + 1
     if (nextSlide <= totalSlides) {
       this.currentSlider = nextSlide
       window.history.pushState(null, '', this._getUrlGalleryImage(nextSlide))
       this._moveSlide()
-    } else window.location.href = '/'
+    } else {
+      const urlGalery = arcSite === ConfigParams.SITE_DEPOR ? '/muchafoto' : '/'
+      window.location.href = urlGalery
+    }
   }
 
   _drag(direction, posX) {
