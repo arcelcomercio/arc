@@ -15,7 +15,12 @@ const classes = {
 }
 
 const StoryGallery = () => {
-  const { contextPath, globalContent: data, isAdmin } = useFusionContext()
+  const {
+    contextPath,
+    globalContent: data,
+    isAdmin,
+    siteProperties: { siteUrl },
+  } = useFusionContext()
 
   const {
     contentElementGallery,
@@ -29,7 +34,14 @@ const StoryGallery = () => {
     contextPath,
   })
 
-  const parameters = { contentElementGallery, title, subTitle, link, isAdmin }
+  const parameters = {
+    contentElementGallery,
+    title,
+    subTitle,
+    link,
+    isAdmin,
+    siteUrl,
+  }
 
   const {
     basic: { caption = '' } = {},

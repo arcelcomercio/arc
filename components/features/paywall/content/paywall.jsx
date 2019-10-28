@@ -51,6 +51,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
 
   const wizardRef = useRef(null)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
+  const getCodeCxense = interpolateUrl(urls.codeCxense)
   const [profile, setProfile] = useState('')
   const getProfile = React.useRef(() =>
     addIdentity(arcSite).then(() => {
@@ -209,6 +210,7 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
             <WizardConfirmation
               memo={currMemo}
               onBeforeNextStep={onBeforeNextStepHandler}
+              getCodeCxense={getCodeCxense}
             />
           </Wizard>
         </S.Content>

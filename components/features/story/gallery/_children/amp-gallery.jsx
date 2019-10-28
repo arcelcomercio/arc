@@ -8,10 +8,11 @@ const classes = {
     'story-gallery__number bg-white flex items-center justify-center position-absolute rounded-lg',
   image: 'story-gallery__img w-full h-full mb-10',
   caption: 'story-gallery__caption text-gray-200 text-sm',
+  controlRight: 'story-gallery__control-right',
 }
 
 const StoryHeaderChildAmpGallery = props => {
-  const { data, link } = props
+  const { data, link, siteUrl } = props
   const slider = '[slide]="selectedSlide"'
   const imgTag = 'amp-img'
   const sizerImg = 'amp'
@@ -20,26 +21,38 @@ const StoryHeaderChildAmpGallery = props => {
       <div className={classes.gallery}>
         <amp-carousel
           width="600"
-          height="375"
+          height="480"
           layout="responsive"
           type="slides"
           {...slider}
           on={`slideChange:AMP.setState({selectedSlide: event.index}),AMP.navigateTo(url='${link}?foto=2&source=amp')`}
           class="media gallery">
-          {data.map(item => (
+          {data.map(({ resized_urls: resizedUrls, url, caption }) => (
             <>
-              <AmpImage
-                {...item}
-                ImgTag={imgTag}
-                imgClassName={classes.image}
-                layout="responsive"
-                sizePreset={sizerImg}
-              />
+              <div className="slide">
+                <div className="inner">
+                  <amp-img
+                    src={(resizedUrls && resizedUrls.amp) || url}
+                    alt={caption}
+                    class={classes.image}
+                    height="360"
+                    width="600"
+                    layout="responsive"
+                  />
+                  <a
+                    href={`${siteUrl}${link}?foto=2`}
+                    className={classes.controlRight}>
+                    {``}
+                  </a>
+                </div>
+                <div className="legend">
+                  <div className="caption">{caption}</div>
+                </div>
+              </div>
             </>
           ))}
         </amp-carousel>
-
-        <amp-carousel width="600" height="375" layout="nodisplay" type="slides">
+        <amp-carousel width="600" height="480" layout="nodisplay" type="slides">
           {data.map(item => (
             <div className="slide">
               <AmpImage

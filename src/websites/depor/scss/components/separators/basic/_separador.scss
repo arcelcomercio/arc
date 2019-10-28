@@ -66,6 +66,9 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    @media (--only-mobile) {
+      background-color: $color-white;
+    }
     * .separator__header-link {
       font-family: $fifth-font;
       font-size: 45px;
@@ -80,7 +83,7 @@
     * .separator__icon {
       background-color: $color-white;
       border-radius: 50%;
-      top: calc(100% - 133px);
+      top: calc(100% - 141px);
       color: $color-fourth;
       display: block;
       left: 10px;
@@ -91,6 +94,7 @@
       font-size: 36px;
       position: absolute;
       @media (--tablet) {
+        top: calc(100% - 133px);
         width: 72px;
         height: 72px;
         font-size: 74px;
@@ -109,6 +113,23 @@
     }
     .separator__button {
       position: relative;
+    }
+    .separator__title {
+      @media (--only-mobile) {
+        font-size: 16px;
+        height: 66px;
+        max-height: 66px;
+      }
+    }
+    .separator__article {
+      @media (--only-mobile) {
+        background-color: $color-white;
+      }
+    }
+    .separator__title {
+      @media (--only-mobile) {
+        text-align: center;
+      }
     }
   }
   &.primary {

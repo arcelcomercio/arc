@@ -205,4 +205,21 @@
       }
     }
   }
+
+  &.special_basic nav {
+    display: block;
+
+    display: flex;
+    .header__tags {
+      display: block;
+    }
+  }
+
+  &.special_basic .content-sidebar .story-header__share {
+    margin-bottom: 0px;
+    .story-header__list {
+      display: block;
+      display: flex;
+    }
+  }
 }

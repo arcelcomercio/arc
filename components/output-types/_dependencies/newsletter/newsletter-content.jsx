@@ -17,7 +17,8 @@ const StoryItem = props => {
     volada,
     authorImage,
     authorSlug,
-    authorCargo,
+    authorCargo = 'null',
+    authorColumn = 'null',
   } = props
 
   const {
@@ -56,8 +57,8 @@ const StoryItem = props => {
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
-        <cargo>{authorCargo === undefined ? authorCargo : 'null'}</cargo>
-        <columna>null</columna>
+        <cargo>{authorCargo}</cargo>
+        <columna>{authorColumn}</columna>
         <twitter>{authorTwitterUrl}</twitter>
         <imagen>{authorImage}</imagen>
         <thumb>{authorSlug}</thumb>
@@ -108,7 +109,8 @@ const NewsLetterContent = ({
       authorTwitterUrl: storydata.authorTwitterLink,
       authorImage: `${siteUrl}${storydata.authorImage}`,
       authorSlug: storydata.authorSlug,
-      authorCargo: 'null',
+      authorCargo: storydata.authorRoleByNewsLetter ?storydata.authorRoleByNewsLetter : 'null',
+      authorColumn: storydata.authorBiography ? storydata.authorBiography: 'null',
     }
 
     return <StoryItem {...params} />

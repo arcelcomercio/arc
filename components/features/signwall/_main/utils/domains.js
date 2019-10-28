@@ -4,9 +4,11 @@ class Domains {
   getOriginAPI = site => {
     switch (site) {
       case 'peru21':
+      case 'depor':
+      case 'elbocon':
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+          : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
       case 'peru21g21':
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.peru21.pe`
@@ -75,11 +77,11 @@ class Domains {
     return ['UJWWFG', '7NK9SV', 'DQZ00K'] // price code bundle sandbox & prod
   }
 
-  getPayuSDK = () =>{
+  getPayuSDK = () => {
     return 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
   }
 
-  getPayuTags = () =>{
+  getPayuTags = () => {
     return 'https://maf.pagosonline.net/ws/fp/tags.js?id='
   }
 }

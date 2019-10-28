@@ -7,7 +7,7 @@ import StoryTitleChildShareSubheading from './_children/subheading'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  story: 'w-full text-white ',
+  story: 'story-header__header-title w-full text-white ',
 }
 
 const StoryTitle = () => {

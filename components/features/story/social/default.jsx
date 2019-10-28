@@ -6,7 +6,7 @@ import StorySocialChildSocial from './_children/social'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  story: 'w-full text-white',
+  story: 'story-header__header-social w-full text-white',
 }
 
 const StorySocial = () => {

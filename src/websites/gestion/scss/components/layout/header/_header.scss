@@ -57,7 +57,7 @@
       height: $header-inverted-height;
     }
     &.active {
-      height: 45px;
+      height: $nav-height;
     }
   }
 }

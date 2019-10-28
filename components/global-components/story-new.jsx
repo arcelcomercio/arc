@@ -23,7 +23,7 @@ const classes = {
   icon: `story-item__icon position-absolute flex items-center justify-center text-white w-full h-full`,
   img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
-  wrapperTitle: 'w-full',
+  wrapperTitle: 'story-item__wrapper-item w-full',
 }
 
 export default ({

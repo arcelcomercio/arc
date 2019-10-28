@@ -117,7 +117,7 @@ export default {
       privacyPolicy:                     `https://elcomercio.pe/politicas-privacidad/`,
       disclaimer:                        `http://ecomedia.pe/libro/registrar/elcomercio/`,
       terms:                             `https://suscripciones.elcomercio.pe/terminos/`,
-      originSubsOnline:                  `https://suscripciones.elcomercio.pe/`,
+      originSubsOnline:                  `https://suscripciones.elcomercio.pe/?ref=Boton_suscrip_imp`,
       contactEmailRef:                   `mailto:suscripciones@comercio.com.pe`,
       contactPhoneRef:                   `tel:+5113115100`,
       androidAppDownload:                `https://play.google.com/store/apps/details?id=com.gec.elcomercio&referrer=email_footer`,
@@ -125,6 +125,8 @@ export default {
       facebook:                          `https://www.facebook.com/elcomercio.pe`,
       twitter:                           `https://twitter.com/elcomercio_peru`,
       instagram:                         `https://www.instagram.com/elcomercio/?hl=es`,
+      codeCxense:                        `{{#isProd}}8msiqbaswc5u{{/isProd}}
+                                          {{^isProd}}8n3ltuopvlh1{{/isProd}}`,
     },
     // prettier-ignore
     images: {
@@ -306,7 +308,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  urlSubsOnline: 'https://suscripciones.elcomercio.pe',
+  urlSubsOnline: 'https://elcomercio.pe/suscripciones/',
   gda: true, // Grupo Diarios de America
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',

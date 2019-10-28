@@ -1,6 +1,8 @@
 /** ----------------------------*
 *           GENERATORS          *
 *-------------------------------*/
+$space-limit: 15;
+$space-interval: 5;
 @import './generate-spaces';
 @import './generate-font-sizes';
 @import './generate-line-heights';

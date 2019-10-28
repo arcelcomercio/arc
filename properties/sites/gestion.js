@@ -101,6 +101,8 @@ export default {
       facebook:                          `https://www.facebook.com/Gestionpe`,
       twitter:                           `https://twitter.com/gestionpe`,
       instagram:                         `https://www.instagram.com/diariogestion/?hl=es`,
+      codeCxense:                        `{{#isProd}}8n3linhnzos6{{/isProd}}
+                                          {{^isProd}}8msif5r9dikx{{/isProd}}`,
     },
     // prettier-ignore
     images: {
@@ -250,7 +252,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  urlSubsOnline: 'https://suscripciones.gestion.pe',
+  urlSubsOnline: 'https://gestion.pe/suscripciones/',
   stick: {
     logo: 'logo-gestion-stick.png',
   },
