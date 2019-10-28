@@ -46,7 +46,10 @@ const fetch = (key = {}) => {
     ...options,
   }).then(resp => {
     const arrURL = resp.slice(0, amountStories)
-
+    arrURL.forEach(el => {
+      // eslint-disable-next-line no-param-reassign
+      el.pagePath = el.pagePath.match(/((.*)-noticia(.*)\/)(.*)/)[1] || ''
+    })
     const promiseArray = arrURL.map(url =>
       request({
         uri: uriAPI(url.pagePath, website),
