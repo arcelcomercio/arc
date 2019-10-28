@@ -1,14 +1,7 @@
 import StoryData from '../../../../utilities/story-data'
-import {
-  removeLastSlash
-} from '../../../../utilities/helpers'
+import { removeLastSlash } from '../../../../utilities/helpers'
 
-const formatStories = ({
-  data,
-  deployment,
-  contextPath,
-  arcSite
-}) => {
+const formatStories = ({ data, deployment, contextPath, arcSite }) => {
   const aux = []
 
   const element = new StoryData({
@@ -20,9 +13,15 @@ const formatStories = ({
 
   data.forEach(el => {
     element.__data = el
+
+    const img =
+      arcSite === 'depor'
+        ? element.multimediaLandscapeMD
+        : element.multimediaLandscapeXS
+
     aux.push({
       websiteUrl: element.link,
-      imageUrl: element.multimediaLandscapeXS,
+      imageUrl: img,
       lazyImage: element.multimediaLazyDefault,
       storyType: element.multimediaType,
       title: element.title,
@@ -37,19 +36,9 @@ export const getQuery = ({
   globalContent,
   storiesQty,
 }) => {
-  const {
-    query: {
-      section = ''
-    } = {}
-  } = globalContentConfig || {}
-  const {
-    taxonomy: {
-      primary_section: {
-        _id = ''
-      } = {}
-    } = {}
-  } =
-  globalContent || {}
+  const { query: { section = '' } = {} } = globalContentConfig || {}
+  const { taxonomy: { primary_section: { _id = '' } = {} } = {} } =
+    globalContent || {}
 
   let sec = _id || section
 
@@ -64,12 +53,7 @@ export const getQuery = ({
   }
 }
 
-export const getStories = ({
-  data,
-  deployment,
-  contextPath,
-  arcSite
-}) => {
+export const getStories = ({ data, deployment, contextPath, arcSite }) => {
   let stories = []
 
   if (data.length > 0) {

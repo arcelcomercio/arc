@@ -3,6 +3,9 @@
   color: $color-primary;
   font-weight: 700;
   margin-bottom: 20px;
+  @media (--tablet) {
+    padding-left: 20px;
+  }
   &.medium {
     font-size: 24px;
     @media (--tablet) {
