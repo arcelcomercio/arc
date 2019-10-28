@@ -122,4 +122,18 @@
       }
     }
   }
+
+  .depor-play {
+    .story-header__header-social {
+      .story-header__title-section {
+        display: none;
+      }
+      .story-header__share {
+        justify-content: center;
+      }
+      .story-header__list {
+        display: flex;
+      }
+    }
+  }
 }

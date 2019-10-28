@@ -14,6 +14,7 @@ import buildHtml from './_dependencies/build-html'
 const IMAGE_SIZE = 'amp_new'
 const IMAGE_HEIGHT = sizeImg()[IMAGE_SIZE].height.toString()
 const IMAGE_WIDTH = sizeImg()[IMAGE_SIZE].width.toString()
+const OUTPUTTYPE_BASE = '?outputType='
 
 @Consumer
 class XmlGoogleKiosko {
@@ -39,6 +40,8 @@ class XmlGoogleKiosko {
             deployment,
             contextPath,
             arcSite,
+            requestUri,
+            outputType,
             siteProperties: {
                 sitemapNewsName = '',
                 siteUrl = '',
@@ -57,6 +60,8 @@ class XmlGoogleKiosko {
             defaultImgSize: 'md',
         })
 
+        const selfHref = `${siteUrl}${requestUri.split('?')[0]}${OUTPUTTYPE_BASE}${outputType}`
+
         const googleKioskoFeed = {
             rss: {
                 '@version': '2.0',
@@ -70,7 +75,7 @@ class XmlGoogleKiosko {
                     { link: siteUrl },
                     {
                         'atom:link': {
-                            '@href': '',
+                            '@href': selfHref,
                             '@rel': 'self',
                             '@type': 'application/rss+xml'
                         }
