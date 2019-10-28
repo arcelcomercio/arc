@@ -30,35 +30,36 @@ export default ({
     <article role="listitem" className={classes.story}>
       <div className={classes.linkBox}>
         {storyNumber && <span className={classes.time}>-{storyIndex}-</span>}
-        <a href={urlNews} title={title}>
-          <div className={classes.boxNew}>
-            {seeImageNews && (
-              <figure className={classes.figure}>
-                {getMultimediaIcon(multimediaType) && (
-                  <i
-                    className={`${getMultimediaIcon(multimediaType)} ${
-                      classes.icon
-                    }`}
-                  />
-                )}
 
-                {multimedia && (
-                  <a href={urlNews}>
-                    <picture>
-                      <img
-                        className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                        src={isAdmin ? multimedia : lazyImage}
-                        data-src={multimedia}
-                        alt=""
-                      />
-                    </picture>
-                  </a>
-                )}
-              </figure>
-            )}
+        <div className={classes.boxNew}>
+          {seeImageNews && (
+            <figure className={classes.figure}>
+              {getMultimediaIcon(multimediaType) && (
+                <i
+                  className={`${getMultimediaIcon(multimediaType)} ${
+                    classes.icon
+                  }`}
+                />
+              )}
+
+              {multimedia && (
+                <a href={urlNews}>
+                  <picture>
+                    <img
+                      className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+                      src={isAdmin ? multimedia : lazyImage}
+                      data-src={multimedia}
+                      alt=""
+                    />
+                  </picture>
+                </a>
+              )}
+            </figure>
+          )}
+          <a href={urlNews} title={title}>
             <h3 className={classes.link}>{title}</h3>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
     </article>
   )

@@ -57,7 +57,6 @@ const StoriesListNew = props => {
     arcSite,
     defaultImgSize: 'sm',
   })
-
   return (
     <div className={classes.listado}>
       <div>

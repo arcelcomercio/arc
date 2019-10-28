@@ -22,7 +22,7 @@ class StoryData {
 
   constructor({
     data = {},
-    deployment = () => {},
+    deployment = () => { },
     contextPath = '',
     arcSite = '',
     defaultImgSize = 'md',
@@ -104,8 +104,8 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data).nameAuthor ||
       defaultAuthor +
-        this._website.charAt(0).toUpperCase() +
-        this._website.slice(1)
+      this._website.charAt(0).toUpperCase() +
+      this._website.slice(1)
     )
   }
 
@@ -444,7 +444,7 @@ class StoryData {
         this.__data.promo_items &&
         this.__data.promo_items[ConfigParams.VIDEO] &&
         this.__data.promo_items[ConfigParams.VIDEO].duration) ||
-        ''
+      ''
     )
   }
 
@@ -564,7 +564,18 @@ class StoryData {
       (this._data &&
         StoryData.getContentElementsHtml(
           this._data.content_elements,
-          'raw_html'
+          ConfigParams.ELEMENT_RAW_HTML
+        )) ||
+      ''
+    )
+  }
+
+  get contentElementsImage() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsImage(
+          this._data.content_elements,
+          ConfigParams.ELEMENT_IMAGE
         )) ||
       ''
     )
@@ -575,7 +586,7 @@ class StoryData {
       (this._data &&
         StoryData.getContentElementsText(
           this._data.content_elements,
-          'text'
+          ConfigParams.ELEMENT_TEXT
         )) ||
       ''
     )
@@ -811,13 +822,13 @@ class StoryData {
             }) => {
               return streamType === 'mp4'
                 ? {
-                    idVideo,
-                    url,
-                    resized_urls: resizedUrlsV,
-                    caption,
-                    urlImage,
-                    date,
-                  }
+                  idVideo,
+                  url,
+                  resized_urls: resizedUrlsV,
+                  caption,
+                  urlImage,
+                  date,
+                }
                 : []
             }
           )
@@ -878,6 +889,15 @@ class StoryData {
     ).join(' ')
   }
 
+  static getContentElementsImage(data = [], typeElement = '') {
+    return (
+      data &&
+      data.filter((img = {}) => {
+        return img.type === typeElement
+      })
+    )
+  }
+
   static getContentElements(data = [], typeElement = '') {
     return (
       data.map(item => {
@@ -904,12 +924,12 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
-                      idVideo,
-                      url,
-                      caption,
-                      urlImage,
-                      date,
-                    }
+                    idVideo,
+                    url,
+                    caption,
+                    urlImage,
+                    date,
+                  }
                   : []
               })
               .filter(String)
@@ -982,7 +1002,7 @@ class StoryData {
 
   static getDataAuthor(
     data,
-    { contextPath = '', deployment = () => {}, website = '' } = {}
+    { contextPath = '', deployment = () => { }, website = '' } = {}
   ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
@@ -1074,20 +1094,22 @@ class StoryData {
   }
 
   static getMultimediaIconType = data => {
-    let typeMultimedia = null
+    let typeMultimedia = ConfigParams.IMAGE
     const { promo_items: promoItems = {} } = data || {}
     const items = Object.keys(promoItems)
-
     if (items.length > 0) {
       if (items.includes(ConfigParams.VIDEO)) {
         typeMultimedia = ConfigParams.VIDEO
+      } else if (items.includes(ConfigParams.HTML)) {
+        const { content } = promoItems.basic_html
+        if (content.includes('id="powa-')) {
+          typeMultimedia = ConfigParams.VIDEO
+        }
       } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
         // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
         typeMultimedia = ConfigParams.VIDEO
       } else if (items.includes(ConfigParams.GALLERY)) {
         typeMultimedia = ConfigParams.GALLERY
-      } else if (items.includes(ConfigParams.IMAGE)) {
-        typeMultimedia = ConfigParams.IMAGE
       }
     }
     return typeMultimedia
@@ -1136,7 +1158,7 @@ class StoryData {
         data.promo_items[ConfigParams.GALLERY] &&
         data.promo_items[ConfigParams.GALLERY].promo_items &&
         data.promo_items[ConfigParams.GALLERY].promo_items[
-          ConfigParams.IMAGE
+        ConfigParams.IMAGE
         ] &&
         ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
           .resized_urls &&
@@ -1235,6 +1257,8 @@ class StoryData {
         type = '',
         _id = '',
         url = '',
+        subtitle = '',
+        caption = '',
         items = [],
         level = null,
       }) => {
@@ -1253,6 +1277,7 @@ class StoryData {
             break
           case ConfigParams.ELEMENT_IMAGE:
             result.payload = url
+            result.caption = subtitle || caption
             // && url
             break
           case ConfigParams.ELEMENT_VIDEO:

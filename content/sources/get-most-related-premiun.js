@@ -13,6 +13,23 @@ const clearURL = (arr = [], site = 'gestion') => {
   })
 }
 
+const setPageViewsUrls = (arrUrl, arrUrlRes) => {
+  return arrUrlRes.map(row => {
+    const item = arrUrl.find(el => {
+      return el.pagePath === row.website_url
+    })
+    return { ...row, page_views: item.pageviews || 0 }
+  })
+}
+
+const params = [
+  {
+    name: 'amountStories',
+    displayName: 'Número de historias',
+    type: 'number',
+  },
+]
+
 const uriAPI = (url, site) => {
   const filter = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,
 taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
@@ -22,23 +39,27 @@ taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_da
 const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { amountStories } = key
-  const URI_POST = 'http://d3lvnkg4ntwke5.cloudfront.net/toppages-gestion.json'
+  const URI_POST =
+    'https://do5ggs99ulqpl.cloudfront.net/gestion/9043312/top_premium.json'
   return request({
     uri: URI_POST,
     ...options,
   }).then(resp => {
     const arrURL = resp.slice(0, amountStories)
-    const URLs = clearURL(arrURL, website)
 
-    const promiseArray = URLs.map(url =>
+    const promiseArray = arrURL.map(url =>
       request({
-        uri: uriAPI(url, website),
+        uri: uriAPI(url.pagePath, website),
         ...options,
       })
     )
 
     return Promise.all(promiseArray).then(res => {
-      return { content_elements: res }
+      const newRes = setPageViewsUrls(arrURL, res) || res
+      newRes.sort((a, b) => {
+        return b.page_views - a.page_views
+      })
+      return { content_elements: newRes }
     })
   })
 }
@@ -46,4 +67,5 @@ const fetch = (key = {}) => {
 export default {
   fetch,
   schemaName: 'stories-dev',
+  params,
 }

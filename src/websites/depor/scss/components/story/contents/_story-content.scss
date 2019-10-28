@@ -26,8 +26,7 @@
   }
   &__caption {
     color: #323232;
-    padding: 0 20px;
-    font-size: 16px;
+    padding: 10px 20px;
     font-family: $fourth-font;
     background-color: $color-secondary;
     margin-top: -2px;
@@ -36,8 +35,9 @@
     align-items: center;
     font-weight: 700;
     line-height: 20px;
+    font-size: 13px;
     @media (--tablet) {
-      font-size: 13px;
+      padding: 0 20px;
     }
   }
   &__taboola {
@@ -92,4 +92,34 @@
   background-color: $color-tertiary;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+@media (--only-mobile) {
+  .basic_gallery {
+    .story-header__header-title {
+      background-color: #2b2b2b;
+
+      .story-header__news-title {
+        color: $color-white;
+      }
+      .story-header__news-summary {
+        color: $color-white;
+      }
+    }
+    .story-header__header-social {
+      background-color: #2b2b2b;
+      .story-header__title-section {
+        display: none;
+      }
+      .story-header__icon {
+        color: $color-white;
+      }
+      .story-header__share {
+        justify-content: center;
+      }
+      .story-header__list {
+        display: flex;
+      }
+    }
+  }
 }

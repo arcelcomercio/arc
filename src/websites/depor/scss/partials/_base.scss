@@ -4,5 +4,7 @@ body {
 }
 
 .story {
-  background: $color-white;
+  .content-layout-container {
+    background: $color-white;
+  }
 }

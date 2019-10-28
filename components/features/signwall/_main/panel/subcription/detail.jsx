@@ -13,6 +13,7 @@ import addPayU from '../../utils/payu'
 import { PayuError } from '../../utils/payu-error'
 import Services from '../../utils/services'
 import Radiobox from './Radiobox'
+import FormValid from '../../utils/form-valid'
 
 const services = new Services()
 
@@ -38,12 +39,12 @@ const Cards = [
       'data:image/png;base64,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',
   },
 ]
+
 @Consumer
 class SubDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      checksNews: {},
       resDetail: {},
       isLoading: true,
       showModalConfirm: false,
@@ -97,36 +98,37 @@ class SubDetail extends Component {
   }
 
   handleChangeValidation = e => {
-    // window.console.log('validation', e)
+    window.console.log('validation', e)
+
     const { name, value } = e.target
     const { formErrors } = this.state
 
     switch (name) {
       case 'numcard':
         if (value.length === 0) {
-          formErrors.usernamereg = 'Este campo es requerido'
+          formErrors.numcard = 'Este campo es requerido'
         } else if (value.length < 19) {
-          formErrors.passwordreg = 'Mínimo 16 caracteres'
+          formErrors.numcard = 'Mínimo 16 caracteres'
         } else {
-          formErrors.usernamereg = ''
+          formErrors.numcard = ''
         }
         break
       case 'dateexpire':
         if (value.length === 0) {
-          formErrors.passwordreg = 'Este campo es requerido'
+          formErrors.dateexpire = 'Este campo es requerido'
         } else if (value.length < 7) {
-          formErrors.passwordreg = 'Fecha inválida'
+          formErrors.dateexpire = 'Fecha inválida'
         } else {
-          formErrors.passwordreg = ''
+          formErrors.dateexpire = ''
         }
         break
       case 'codecvv':
         if (value.length === 0) {
-          formErrors.passwordreg = 'Este campo es requerido'
-        } else if (value.length < 4) {
-          formErrors.passwordreg = 'Cvv Inválido'
+          formErrors.codecvv = 'Este campo es requerido'
+        } else if (value.length < 3) {
+          formErrors.codecvv = 'Cvv Inválido'
         } else {
-          formErrors.passwordreg = ''
+          formErrors.codecvv = ''
         }
         break
       default:
@@ -136,10 +138,6 @@ class SubDetail extends Component {
   }
 
   handleCheckbox(e, name) {
-    // window.console.log(e, name)
-    // const newState = { ...this.state }
-    // newState.checksNews[name] = e.target.checked
-    // this.setState(newState)
     this.setState({
       selectedOption: name,
     })
@@ -185,98 +183,114 @@ class SubDetail extends Component {
       fullName,
     } = this.state
 
-    this.setState({
-      disabledButton: true,
-      statusButton: 'ACTUALIZANDO...',
-    })
+    if (FormValid(this.state)) {
+      this.setState({
+        disabledButton: true,
+        statusButton: 'ACTUALIZANDO...',
+      })
 
-    const { arcSite } = this.props
+      const { arcSite } = this.props
 
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.getPaymentOptions().then(res => {
-      const providerID = res[0].paymentMethodID // 1246
+      window.Sales.apiOrigin = this.origin_api
+      window.Sales.getPaymentOptions().then(res => {
+        const providerID = res[0].paymentMethodID // 1246
 
-      services
-        .initPaymentUpdate(
-          subsID,
-          providerID,
-          arcSite,
-          window.Identity.userIdentity.accessToken
-        )
-        .then(resUpdate => {
-          const {
-            parameter1: publicKey,
-            parameter2: accountId,
-            parameter3: payuBaseUrl,
-            parameter4: deviceSessionId,
-          } = resUpdate
+        services
+          .initPaymentUpdate(
+            subsID,
+            providerID,
+            arcSite,
+            window.Identity.userIdentity.accessToken
+          )
+          .then(resUpdate => {
+            const {
+              parameter1: publicKey,
+              parameter2: accountId,
+              parameter3: payuBaseUrl,
+              parameter4: deviceSessionId,
+            } = resUpdate
 
-          return addPayU(arcSite, deviceSessionId)
-            .then(payU => {
-              payU.setURL(payuBaseUrl)
-              payU.setPublicKey(publicKey)
-              payU.setAccountID(accountId)
-              payU.setListBoxID('mylistID')
-              payU.getPaymentMethods()
-              payU.setLanguage('es')
-              payU.setCardDetails({
-                number: numcard.replace(/\s/g, ''),
-                name_card:
-                  ENV.ENVIRONMENT === 'elcomercio'
-                    ? `${fullName.firstName || 'Usuario'} ${fullName.lastName ||
-                        'Usuario'}`
-                    : 'APPROVED',
-                payer_id: userDNI.split('_')[1],
-                exp_month: dateexpire.split('/')[0],
-                exp_year: dateexpire.split('/')[1],
-                method: selectedOption,
-                document: userDNI.split('_')[1],
-                cvv: codecvv,
-              })
-              return new Promise((resolve, reject) => {
-                payU.createToken(response => {
-                  if (response.error) {
-                    reject(new PayuError(response.error))
-                  } else {
-                    resolve(response.token)
-                  }
+            return addPayU(arcSite, deviceSessionId)
+              .then(payU => {
+                payU.setURL(payuBaseUrl)
+                payU.setPublicKey(publicKey)
+                payU.setAccountID(accountId)
+                payU.setListBoxID('mylistID')
+                payU.getPaymentMethods()
+                payU.setLanguage('es')
+                payU.setCardDetails({
+                  number: numcard.replace(/\s/g, ''),
+                  name_card:
+                    ENV.ENVIRONMENT === 'elcomercio'
+                      ? `${fullName.firstName ||
+                          'Usuario'} ${fullName.lastName || 'Usuario'}`
+                      : 'APPROVED',
+                  payer_id: userDNI.split('_')[1],
+                  exp_month: dateexpire.split('/')[0],
+                  exp_year: dateexpire.split('/')[1],
+                  method: selectedOption,
+                  document: userDNI.split('_')[1],
+                  cvv: codecvv,
+                })
+                return new Promise((resolve, reject) => {
+                  payU.createToken(response => {
+                    if (response.error) {
+                      reject(new PayuError(response.error))
+                    } else {
+                      resolve(response.token)
+                    }
+                  })
                 })
               })
-            })
-            .then(token => {
-              services
-                .finalizePaymentUpdate(
-                  subsID,
-                  providerID,
-                  arcSite,
-                  window.Identity.userIdentity.accessToken,
-                  `${token}~${deviceSessionId}~${codecvv}`
-                )
-                .then(resFin => {
-                  if (resFin.code === '300123,300124') {
+              .then(token => {
+                services
+                  .finalizePaymentUpdate(
+                    subsID,
+                    providerID,
+                    arcSite,
+                    window.Identity.userIdentity.accessToken,
+                    `${token}~${deviceSessionId}~${codecvv}`
+                  )
+                  .then(resFin => {
+                    if (resFin.code === '300123,300124') {
+                      this.setState({
+                        showMessageFailed: true,
+                        disabledButton: false,
+                        statusButton: 'ACTUALIZAR',
+                      })
+                    } else {
+                      this.setState({
+                        showMessageSuccess: true,
+                        disabledButton: false,
+                        statusButton: 'ACTUALIZAR',
+                      })
+                    }
+                  })
+                  .catch(() => {
                     this.setState({
                       showMessageFailed: true,
                       disabledButton: false,
-                      statusButton: 'ACTUALIZAR'
+                      statusButton: 'ACTUALIZAR',
                     })
-                  } else {
-                    this.setState({
-                      showMessageSuccess: true,
-                      disabledButton: false,
-                      statusButton: 'ACTUALIZAR'
-                    })
-                  }
-                })
-                .catch(() => {
-                  this.setState({
-                    showMessageFailed: true,
-                    disabledButton: false,
-                    statusButton: 'ACTUALIZAR'
                   })
-                })
-            })
-        })
-    })
+              })
+          })
+      })
+    } else {
+      const { formErrors } = this.state
+      if (numcard === null) {
+        formErrors.numcard = 'Este campo es requerido'
+        this.setState({ formErrors, numcard: '' })
+      }
+      if (dateexpire === null) {
+        formErrors.dateexpire = 'Este campo es requerido'
+        this.setState({ formErrors, dateexpire: '' })
+      }
+      if (codecvv === null) {
+        formErrors.codecvv = 'Este campo es requerido'
+        this.setState({ formErrors, codecvv: '' })
+      }
+    }
   }
 
   showUpdatePayment() {
@@ -298,7 +312,6 @@ class SubDetail extends Component {
       selectedOption,
       showMessageSuccess,
       showMessageFailed,
-      checksNews,
       statusButton,
       disabledButton,
     } = this.state
@@ -355,9 +368,9 @@ class SubDetail extends Component {
                 <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
               </div>
               <div className="right">
-                <Button type="button" onClick={() => this.showUpdatePayment()}>
+                {/* <Button type="button" onClick={() => this.showUpdatePayment()}>
                   {ShowUpdateCard ? 'CERRAR' : 'EDITAR'}
-                </Button>
+                </Button> */}
               </div>
             </S.Fieldset>
 
@@ -426,6 +439,10 @@ class SubDetail extends Component {
                       placeholder="Número de tarjeta"
                       maxLength="19" // eslint-disable-next-line jsx-a11y/tabindex-no-positive
                       tabIndex="1"
+                      className={
+                        formErrors.numcard.length > 0 &&
+                        'form-group__input--error'
+                      }
                       onChange={e => {
                         this.handleChangeValidation(e)
                       }}
@@ -451,6 +468,10 @@ class SubDetail extends Component {
                       placeholder="F. de Vencimiento"
                       maxLength="7" // eslint-disable-next-line jsx-a11y/tabindex-no-positive
                       tabIndex="2"
+                      className={
+                        formErrors.dateexpire.length > 0 &&
+                        'form-group__input--error'
+                      }
                       onChange={e => {
                         this.handleChangeValidation(e)
                       }}
@@ -474,6 +495,10 @@ class SubDetail extends Component {
                       placeholder="CVV"
                       maxLength="4" // eslint-disable-next-line jsx-a11y/tabindex-no-positive
                       tabIndex="3"
+                      className={
+                        formErrors.codecvv.length > 0 &&
+                        'form-group__input--error'
+                      }
                       onChange={e => {
                         this.handleChangeValidation(e)
                       }}

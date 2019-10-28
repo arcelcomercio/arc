@@ -61,4 +61,10 @@
       height: $nav-height;
     }
   }
+
+  &__custom-item {
+    &::before {
+      content: none;
+    }
+  }
 }

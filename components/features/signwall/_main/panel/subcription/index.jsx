@@ -77,6 +77,7 @@ class Subscription extends Component {
     e.preventDefault()
     window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', 'organico')
+    window.sessionStorage.setItem('paywall_last_url', '/')
   }
 
   render() {

@@ -17,9 +17,11 @@ const HeaderFull = props => {
     contextPath,
     deployment,
     siteProperties,
-    globalContent: { type = '' },
-    website_url: postPermaLink,
-    headlines: { basic: postTitle } = {},
+    globalContent: {
+      type = '',
+      website_url: postPermaLink,
+      headlines: { basic: postTitle } = {},
+    },
   } = useFusionContext()
 
   const { footer: { socialNetworks = [] } = {} } = siteProperties
@@ -65,8 +67,6 @@ const HeaderFull = props => {
     }) || {}
 
   const {
-    siteDomain,
-    assets: { header: headerProperties },
     social: {
       twitter: { user: siteNameRedSocial },
     },
