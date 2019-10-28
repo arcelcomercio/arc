@@ -12,6 +12,7 @@ const StoryContentChildHtml = ({
   const urlMp4 = content
     .replace('data-mp4="', 'data-stream="')
     .replace(/(.*)data-stream="(.*?)"(.*)/, '$2')
+    .replace('http://', 'https://')
 
   return (
     <>
