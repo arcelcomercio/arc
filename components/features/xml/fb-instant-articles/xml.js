@@ -89,7 +89,7 @@ class XmlFacebookInstantArticles {
 
             let storyLink = ''
             let fiaContent = ''
-            if (!storydata.isPremium) {
+            if (!storyData.isPremium) {
               if (storyData.fiaOrigen === true) {
                 if (storyData.canonicalWebsite === 'elcomerciomag') {
                   fiaContent = 'MAG'
