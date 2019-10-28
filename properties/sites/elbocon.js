@@ -10,7 +10,7 @@ export default {
   resizerUrl: 'https://elcomercio-elbocon-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/GESTION_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ELBOCON_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KFQK83S',
   ampGoogleTagManagerId: 'UA-3055636-3',
@@ -134,11 +134,11 @@ export default {
     socialNetworks: [
       {
         name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-gestión/',
+        url: 'https://www.linkedin.com/company/diario-el-bocon/',
       },
       {
         name: 'facebook',
-        url: 'https://www.facebook.com/Gestionpe',
+        url: 'https://www.facebook.com/DiarioElBocon',
       },
       {
         name: 'twitter',
@@ -164,13 +164,13 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@Gestionpe',
-      url: 'https://www.facebook.com/Gestionpe',
+      user: '@DiarioElBocon',
+      url: 'https://www.facebook.com/DiarioElBocon',
     },
     twitter: {
       name: 'twitter',
-      user: 'Gestionpe',
-      url: 'https://twitter.com/gestionpe',
+      user: 'elbocononline',
+      url: 'https://twitter.com/elbocononline',
     },
     youtube: {
       name: 'youtube',
@@ -178,7 +178,7 @@ export default {
     },
     linkedin: {
       name: 'linkedin',
-      url: 'https://www.linkedin.com/company/diario-gestión/',
+      url: 'https://www.linkedin.com/company/diario-el-bocon/',
     },
   },
   adsAmp: {

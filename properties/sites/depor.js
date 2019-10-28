@@ -90,7 +90,7 @@ export default {
     socialNetworks: [
       {
         name: 'Twitter',
-        url: 'https://twitter.com/depor_peru',
+        url: 'https://twitter.com/tuitdepor',
       },
       {
         name: 'Facebook',
@@ -146,8 +146,8 @@ export default {
     },
     twitter: {
       name: 'twitter',
-      user: '@depor_peru',
-      url: 'https://twitter.com/depor_peru',
+      user: 'tuitdepor',
+      url: 'https://twitter.com/tuitdepor',
     },
     youtube: {
       name: 'youtube',
