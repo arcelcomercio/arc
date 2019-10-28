@@ -87,10 +87,6 @@ export default {
   },
   legalLinks: [
     {
-      name: '¿Quiénes somos?',
-      url: '/quienes-somos/',
-    },
-    {
       name: 'Términos y Condiciones',
       url: '/terminos-y-condiciones/',
     },
@@ -102,10 +98,6 @@ export default {
       name: 'Politica de Cookies',
       url: '/politica-de-cookies/',
     },
-    {
-      name: 'Preguntas Frecuentes',
-      url: '/preguntas-frecuentes/',
-    },
   ],
 
   footer: {
@@ -114,8 +106,9 @@ export default {
       /* 'Director periodístico',
       'DIRECTOR DE EL BOCÓN', */
       '© Empresa Editora El Comercio S.A.',
-      'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
-      'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
+      'Jirón Jorge Salazar Araoz 171',
+      'Lima 13 - Perú',
+      'Copyright© | elbocon.pe | Todos los derechos reservados',
     ],
     story: [
       {
@@ -142,22 +135,26 @@ export default {
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/elboconpe',
+        url: 'https://twitter.com/elbocononline',
       },
     ],
 
     contacts: [
       {
-        position: 'Director Periodístico',
-        name: 'DIRECTOR DE EL BOCÓN',
+        position: 'Contacto Administrativo',
+        name: 'contacto@prensmart.pe',
       },
-      // {
-      //   position: 'Editor Web',
-      //   name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
-      // },
       {
-        position: '',
-        name: '',
+        position: 'Publicidad Online',
+        name: 'fonoavisos@comercio.com.pe',
+      },
+      {
+        position: 'Call Center',
+        name: '+51 1708 9999',
+      },
+      {
+        position: 'Temas periodísticos',
+        name: '+51 1 631 1111',
       },
     ],
   },

@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
 
 import ArchiveCalendarChild from './_children/calendar'
 
-const ArchiveCalendar = () => {
+const ArchiveCalendar = ({ customFields: { sectionField } = {} }) => {
   const {
     globalContentConfig: { query },
   } = useFusionContext()
-  const { date: urlDate } = query
+  const { date: urlDate } = query || {}
+
+  console.log('query->', query, sectionField)
 
   const getCalendarDate = (date = new Date()) => {
     if (date instanceof Date) return date
@@ -17,7 +20,7 @@ const ArchiveCalendar = () => {
   }
 
   const renderNewURL = date => {
-    const { section } = query
+    const { section } = query || {}
     const _date = new Date(date)
     const year = _date.getFullYear()
     const month = Number(_date.getMonth() + 1)
@@ -27,7 +30,9 @@ const ArchiveCalendar = () => {
     const newDateFormat = `${year}-${monthFormat}-${dayFormat}`
     const url = section
       ? `/archivo/${section}/${newDateFormat}/`
-      : `/archivo/todas/${newDateFormat}/`
+      : `/archivo${
+          sectionField === '/' || !sectionField ? '/todas' : sectionField
+        }/${newDateFormat}/`
     return url
   }
 
@@ -49,5 +54,16 @@ const ArchiveCalendar = () => {
 }
 
 ArchiveCalendar.label = 'Calendario Archivo'
+
+ArchiveCalendar.propTypes = {
+  customFields: PropTypes.shape({
+    sectionField: PropTypes.string.tag({
+      name: 'Sección',
+    }),
+    /* dateField: PropTypes.string.tag({
+      name: 'Fecha',
+    }), */
+  }),
+}
 
 export default ArchiveCalendar
