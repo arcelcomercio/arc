@@ -135,43 +135,6 @@ class SubDetail extends Component {
     this.setState({ formErrors, [name]: value })
   }
 
-  handleCheckbox(e, name) {
-    this.setState({
-      selectedOption: name,
-    })
-  }
-
-  deleteSub() {
-    const { idSubsDelete } = this.state
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
-      () => {
-        this.setState({
-          isLoading: true,
-        })
-        this.closeModalConfirm()
-        window.document.getElementById('btn-mis-suscripciones').click()
-      }
-    )
-  }
-
-  closeModalConfirm() {
-    const { showModalConfirm } = this.state
-    this.setState({
-      showModalConfirm: !showModalConfirm,
-      idSubsDelete: null,
-    })
-
-    const ModalProfile =
-      document.querySelector('#arc-popup-profile').parentNode ||
-      document.querySelector('#arc-popup-profile').parentElement
-    if (showModalConfirm) {
-      ModalProfile.style.overflow = 'auto'
-    } else {
-      ModalProfile.style.overflow = 'hidden'
-    }
-  }
-
   submitUpdateCard = (userDNI, subsID) => {
     const {
       numcard,
@@ -298,6 +261,43 @@ class SubDetail extends Component {
     }
   }
 
+  deleteSub() {
+    const { idSubsDelete } = this.state
+    window.Sales.apiOrigin = this.origin_api
+    window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
+      () => {
+        this.setState({
+          isLoading: true,
+        })
+        this.closeModalConfirm()
+        window.document.getElementById('btn-mis-suscripciones').click()
+      }
+    )
+  }
+
+  closeModalConfirm() {
+    const { showModalConfirm } = this.state
+    this.setState({
+      showModalConfirm: !showModalConfirm,
+      idSubsDelete: null,
+    })
+
+    const ModalProfile =
+      document.querySelector('#arc-popup-profile').parentNode ||
+      document.querySelector('#arc-popup-profile').parentElement
+    if (showModalConfirm) {
+      ModalProfile.style.overflow = 'auto'
+    } else {
+      ModalProfile.style.overflow = 'hidden'
+    }
+  }
+
+  handleCheckbox(e, name) {
+    this.setState({
+      selectedOption: name,
+    })
+  }
+
   showUpdatePayment() {
     const { ShowUpdateCard } = this.state
     this.setState({
@@ -373,9 +373,13 @@ class SubDetail extends Component {
                 <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
               </div>
               <div className="right">
-                <Button type="button" onClick={() => this.showUpdatePayment()}>
-                  {ShowUpdateCard ? 'CERRAR' : 'EDITAR'}
-                </Button>
+                {ENV.ENVIRONMENT === 'elcomercio' ? null : (
+                  <Button
+                    type="button"
+                    onClick={() => this.showUpdatePayment()}>
+                    {ShowUpdateCard ? 'CERRAR' : 'EDITAR'}
+                  </Button>
+                )}
               </div>
             </S.Fieldset>
 
