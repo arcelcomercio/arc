@@ -46,8 +46,8 @@
 @font-face {
   font-family: 'Roboto';
   src: url('../../fonts/Roboto-Black.woff2') format('woff2'),
-  url('../../fonts/Roboto-Black.woff') format('woff'),
-  url('../../fonts/Roboto-Black.ttf') format('truetype');
+    url('../../fonts/Roboto-Black.woff') format('woff'),
+    url('../../fonts/Roboto-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -84,4 +84,24 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+}
+
+/* Saira Regular */
+@font-face {
+  font-family: 'Saira';
+  src: url('../../fonts/Saira-Regular.woff2') format('woff2'),
+    url('../../fonts/Saira-Regular.woff') format('woff'),
+    url('../../fonts/Saira-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Saira Bold */
+@font-face {
+  font-family: 'Saira';
+  src: url('../../fonts/Saira-Bold.woff2') format('woff2'),
+    url('../../fonts/Saira-Bold.woff') format('woff'),
+    url('../../fonts/Saira-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }

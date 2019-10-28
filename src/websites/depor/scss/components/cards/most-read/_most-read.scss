@@ -3,4 +3,10 @@
   @media (--desktop) {
     display: block;
   }
+  &__title {
+    background-color: #3f3f3f;
+  }
+  &__link {
+    color: $color-white;
+  }
 }

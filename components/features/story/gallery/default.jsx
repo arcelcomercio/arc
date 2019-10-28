@@ -16,6 +16,7 @@ const classes = {
 
 const StoryGallery = () => {
   const {
+    arcSite,
     contextPath,
     globalContent: data,
     isAdmin,
@@ -41,6 +42,7 @@ const StoryGallery = () => {
     link,
     isAdmin,
     siteUrl,
+    arcSite,
   }
 
   const {
