@@ -31,7 +31,7 @@
     font-size: 60px;
     width: 60px;
     height: 60px;
-    background-color: #fff;
+    background-color: $color-white;
     color: $color-fourth;
   }
   &.img-complete {
@@ -46,13 +46,9 @@
     .featured-story__title-link {
       font-size: 22px;
       font-weight: 700;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 4;
       max-height: 115px;
       line-height: 26px;
-      @media (--tablet) {
-        line-height: 38px;
-        font-size: 34px;
-      }
     }
     .featured-story__title {
       max-width: 100%;
@@ -87,11 +83,6 @@
   &--no-expanded {
     @media (--only-mobile) {
       flex-direction: row-reverse;
-    }
-    .featured-story__img-box {
-      @media (--only-mobile) {
-        height: 166.4px;
-      }
     }
     .featured-story__img-link {
       @media (--only-mobile) {
