@@ -32,9 +32,21 @@ const HeaderChildStandard = props => {
         {tags !== '' && <div className={classes.tags}>{tags}</div>}
         {sections[0] && (
           <ul className={classes.featured}>
-            {sections.map(({ url, name }) => (
-              <li className={`${classes.item}`} key={url}>
-                <a className={classes.link} href={url}>
+            {sections.map(({ url, name, styles = [] }) => (
+              <li
+                className={`${classes.item}${
+                  styles ? ' header__custom-item' : ''
+                }`}
+                key={url}>
+                <a
+                  className={classes.link}
+                  href={url}
+                  {...(styles && {
+                    style: {
+                      backgroundColor: styles[0],
+                      color: styles[1] || '#ffffff',
+                    },
+                  })}>
                   {name}
                 </a>
               </li>
