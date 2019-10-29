@@ -1,7 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory, getContentCurrentPage } from '../../components/utilities/helpers'
 
 let auxKey
 
@@ -82,12 +82,15 @@ const transform = data => {
   const realTag = tags.find(
     tag => decodeURIComponent(name).toLowerCase() === tag.slug
   )
-  const tagName = {
+  const { next, previous, count, content_elements: { length = 0 } = [] } = dataStories
+
+  const additionalData = {
     tag_name: (realTag && realTag.text) || 'Tag',
+    page_number: getContentCurrentPage({ next, previous, count, length })
   }
   return {
     ...dataStories,
-    ...tagName,
+    ...additionalData,
   }
 }
 
