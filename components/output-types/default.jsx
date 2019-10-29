@@ -56,6 +56,7 @@ export default ({
       tags = [],
     } = {},
     subtype = '',
+    page_number: pageNumber = 1
   } = globalContent || {}
 
   const isStory =
@@ -67,10 +68,14 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-        nameSeccion.split('/')[1]
-      } ${subtype} `
+    nameSeccion.split('/')[1]
+    } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
+
+  if (arcSite === 'depor' && requestUri.match('^/depor-play')) {
+    classBody = `${classBody} depor-play`
+  }
 
   const metaSiteData = {
     ...siteProperties,
@@ -89,21 +94,37 @@ export default ({
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
-  const title = isStory
-    ? `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
-    : `${seoTitle} | ${siteProperties.siteName}`
+  const getTitle = () => {
+    let title = `${seoTitle} | ${siteProperties.siteName}`
+    if (isStory) {
+      title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
+    }
+    else if (pageNumber > 1 && (metaValue('id') === "meta_tag"/*  || metaValue('id') === "meta_search" || metaValue('id') === "meta_author" */)) {
+      title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteName}`
+    }
+    return title
+  }
 
-  const description =
-    metaValue('description') && !metaValue('description').match(/content/)
-      ? `${metaValue('description')}`
-      : 'Últimas noticias en Perú y el mundo'
+  const title = getTitle()
+
+  const getDescription = () => {
+    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
+    if (metaValue('description') && !metaValue('description').match(/content/)) {
+      if (pageNumber > 1 && (metaValue('id') === "meta_tag"/*  || metaValue('id') === "meta_search" || metaValue('id') === "meta_author" */)) {
+        description = `${metaValue('description')} Página ${pageNumber}.`
+      } else {
+        description = `${metaValue('description')}`
+      }
+    }
+    return description
+  }
+
+  const description = getDescription()
 
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -263,9 +284,7 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

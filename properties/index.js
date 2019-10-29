@@ -145,6 +145,17 @@ export default {
       arcSite: '',
       url: 'https://comercioxpress.com/',
     },
+    {
+      name: 'aptitus',
+      arcSite: '',
+      url: 'https://aptitus.com/?ref=ecf',
+    },
+    {
+      name: 'urbania',
+      arcSite: '',
+      url: 'https://urbania.pe/?ref=ecf',
+    },
+
   ],
   activeSignwall: false,
   activePaywall: false,

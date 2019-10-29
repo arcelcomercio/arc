@@ -57,7 +57,7 @@ class NavbarChildMenu extends PureComponent {
                 href={url || id || '/'}
                 className={`${classes.link}${
                   deep > 0 ? ` pl-${25 + deep * 15}` : ''
-                }`}>
+                  }`}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -76,7 +76,7 @@ class NavbarChildMenu extends PureComponent {
                   <ul
                     className={`${
                       classes.containerSubMenu
-                    } deep-${deep} ${idElem}`}>
+                      } deep-${deep} ${idElem}`}>
                     {this.renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
@@ -95,16 +95,19 @@ class NavbarChildMenu extends PureComponent {
       sections = [],
     } = this.props
 
-    const IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-      window.navigator.userAgent
-    )
+    let IS_MOBILE = true
+
+    if (typeof window !== 'undefined')
+      IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+        window.navigator.userAgent
+      )
 
     return (
       <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
         <div
           className={`${classes.content} ${
             IS_MOBILE ? 'w-full' : 'w-desktop'
-          } ${showSidebar ? 'active' : ''}`}>
+            } ${showSidebar ? 'active' : ''}`}>
           <div className={classes.top}>
             <div className={classes.header}>
               <div className={classes.btnBox}>
