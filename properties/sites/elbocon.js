@@ -4,13 +4,13 @@ export default {
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
+  googleFonts: 'Titillium+Web:400,700,900|Roboto+Slab:400,700',
   siteDomain: 'elbocon.pe',
   siteUrl: 'https://elbocon.pe',
   resizerUrl: 'https://elcomercio-elbocon-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/GESTION_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ELBOCON_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KFQK83S',
   ampGoogleTagManagerId: 'UA-3055636-3',
@@ -37,14 +37,14 @@ export default {
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
   },
   infoPagesProd: {
-    termsAndConditions: 'VD45IRL65ZGCDBGLHL4O6WVCJE',
+    termsAndConditions: 'HZEXCT3K3RFM5EJXLMK3TBD3YU',
     guidingPrinciples: '',
-    privacyPolicies: 'YK7SFEAX3VD4HOYGEPH3Y6ZYNQ',
+    privacyPolicies: 'DUHIZXS5GJHDNBVRMBLFLKLB6E',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
-    aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
-    frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
+    cookiesPolicy: '4V3RWECMVVAY7AIQQZCBXFSCUM',
+    aboutUs: '',
+    frequentQuestions: '',
   },
   paywall: {
     title: 'El Bocón | Suscripciones Digitales',
@@ -87,10 +87,6 @@ export default {
   },
   legalLinks: [
     {
-      name: '¿Quiénes somos?',
-      url: '/quienes-somos/',
-    },
-    {
       name: 'Términos y Condiciones',
       url: '/terminos-y-condiciones/',
     },
@@ -102,10 +98,6 @@ export default {
       name: 'Politica de Cookies',
       url: '/politica-de-cookies/',
     },
-    {
-      name: 'Preguntas Frecuentes',
-      url: '/preguntas-frecuentes/',
-    },
   ],
 
   footer: {
@@ -114,8 +106,9 @@ export default {
       /* 'Director periodístico',
       'DIRECTOR DE EL BOCÓN', */
       '© Empresa Editora El Comercio S.A.',
-      'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
-      'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
+      'Jirón Jorge Salazar Araoz 171',
+      'Lima 13 - Perú',
+      'Copyright© | elbocon.pe | Todos los derechos reservados',
     ],
     story: [
       {
@@ -134,43 +127,47 @@ export default {
     socialNetworks: [
       {
         name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-gestión/',
+        url: 'https://www.linkedin.com/company/diario-el-bocon/',
       },
       {
         name: 'facebook',
-        url: 'https://www.facebook.com/Gestionpe',
+        url: 'https://www.facebook.com/DiarioElBocon',
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/elboconpe',
+        url: 'https://twitter.com/elbocononline',
       },
     ],
 
     contacts: [
       {
-        position: 'Director Periodístico',
-        name: 'DIRECTOR DE EL BOCÓN',
+        position: 'Contacto Administrativo',
+        name: 'contacto@prensmart.pe',
       },
-      // {
-      //   position: 'Editor Web',
-      //   name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
-      // },
       {
-        position: '',
-        name: '',
+        position: 'Publicidad Online',
+        name: 'fonoavisos@comercio.com.pe',
+      },
+      {
+        position: 'Call Center',
+        name: '+51 1708 9999',
+      },
+      {
+        position: 'Temas periodísticos',
+        name: '+51 1 631 1111',
       },
     ],
   },
   social: {
     facebook: {
       name: 'facebook',
-      user: '@Gestionpe',
-      url: 'https://www.facebook.com/Gestionpe',
+      user: '@DiarioElBocon',
+      url: 'https://www.facebook.com/DiarioElBocon',
     },
     twitter: {
       name: 'twitter',
-      user: 'Gestionpe',
-      url: 'https://twitter.com/gestionpe',
+      user: 'elbocononline',
+      url: 'https://twitter.com/elbocononline',
     },
     youtube: {
       name: 'youtube',
@@ -178,7 +175,7 @@ export default {
     },
     linkedin: {
       name: 'linkedin',
-      url: 'https://www.linkedin.com/company/diario-gestión/',
+      url: 'https://www.linkedin.com/company/diario-el-bocon/',
     },
   },
   adsAmp: {

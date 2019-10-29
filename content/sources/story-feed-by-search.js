@@ -1,7 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory, getContentCurrentPage } from '../../components/utilities/helpers'
 
 const schemaName = 'stories-dev'
 
@@ -154,10 +154,13 @@ const transform = data => {
     addResizedUrls
   )
   dataStories.siteName = siteName
+  const { next, previous, count, content_elements: { length = 0 } = [] } = dataStories
+
   return {
     ...dataStories,
     query: queryValue,
     decoded_query: decodeURIComponent(queryValue).replace(/\+/g, ' '),
+    page_number: getContentCurrentPage({ next, previous, count, length })
   }
 }
 

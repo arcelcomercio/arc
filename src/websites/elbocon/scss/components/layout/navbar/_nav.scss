@@ -47,4 +47,12 @@
       padding: 0;
     }
   }
+  &__input-search {
+    color: $color-white;
+    font-family: $primary-font;
+    font-size: 12px;
+    &.active {
+      border-color: $color-white;
+    }
+  }
 }

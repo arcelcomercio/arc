@@ -97,10 +97,16 @@ export default class StandardHeader {
     const { children = [] } = this.data || {}
     return children.map(el => {
       let name = el.node_type === link ? el.display_name : el.name
-      const rawMatch = /(?<=\[)(#.*?)(?=\])/g.exec(name)
-      const match = rawMatch === null ? '' : rawMatch[0].split(',')
+      const rawMatch = name.match(/\[#.*\]/g)
+      const match =
+        rawMatch === null
+          ? ''
+          : rawMatch[0]
+              .replace('[', '')
+              .replace(']', '')
+              .split(',')
       if (match) {
-        name = name.replace(/\[(?<=\[)(.*?)(?=\])\]/g, '')
+        name = name.replace(/\[#.*\]/g, '')
       }
       return {
         name,
