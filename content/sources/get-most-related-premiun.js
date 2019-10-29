@@ -2,8 +2,17 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE } from 'fusion:environment'
 
-const URI_POST =
-  'https://d3ocw6unvuy6ob.cloudfront.net/gestion/9043312/top_premium.json'
+const flagDev = false
+
+const uriPostProd = site =>
+  site === 'gestion'
+    ? 'https://do5ggs99ulqpl.cloudfront.net/gestion/9043312/top_premium.json'
+    : 'https://do5ggs99ulqpl.cloudfront.net/elcomercio/21928896/top_premium.json'
+
+const uriPostDev = site =>
+  site === 'gestion'
+    ? 'https://d3ocw6unvuy6ob.cloudfront.net/gestion/9043312/top_premium.json'
+    : 'https://d3ocw6unvuy6ob.cloudfront.net/elcomercio/21928896/top_premium.json'
 
 const options = {
   gzip: true,
@@ -44,7 +53,7 @@ const fetch = (key = {}) => {
   const { amountStories } = key
 
   return request({
-    uri: URI_POST,
+    uri: flagDev ? uriPostDev(website) : uriPostProd(website),
     ...options,
   }).then(resp => {
     const arrURL = resp.slice(0, amountStories)
