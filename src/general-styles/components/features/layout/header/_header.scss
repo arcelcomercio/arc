@@ -39,14 +39,8 @@
 
   &__custom-item {
     padding: 0 5px;
-    @media (--tablet) {
-      padding: 0;
-    }
     .header__link {
       padding: 5px;
-      @media (--tablet) {
-        padding: 5px 10px;
-      }
     }
     &::before {
       content: none;
