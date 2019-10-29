@@ -7,7 +7,7 @@ const classes = {
     contentContainer: 'flex flex-col content-layout-container w-full position-relative',
     content: 'mt-20 mb-20',
     aditional: 'mb-20',
-    zocalo: 'ads__zocalo--wide-nav',
+    zocalo: 'ads__zocalo ads__zocalo--wide-nav',
 }
 
 /**---------------------------------------------------------------------
