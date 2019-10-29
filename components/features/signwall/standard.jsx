@@ -82,7 +82,7 @@ class SignwallComponent extends PureComponent {
 
   getPaywall() {
     const { arcSite } = this.props
-    const W = window
+    const W = window || {}
 
     const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
@@ -304,57 +304,57 @@ class SignwallComponent extends PureComponent {
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
         {this.getUrlParam('signwallHard') &&
-        !this.checkSession() &&
-        showHard &&
-        siteProperties.activeSignwall ? (
-          <SignWallHard
-            closePopup={() => this.closePopUp('signwallHard')}
-            brandModal={arcSite}
-          />
-        ) : null}
+          !this.checkSession() &&
+          showHard &&
+          siteProperties.activeSignwall ? (
+            <SignWallHard
+              closePopup={() => this.closePopUp('signwallHard')}
+              brandModal={arcSite}
+            />
+          ) : null}
 
         {this.getUrlParam('tokenVerify') &&
-        showVerify &&
-        siteProperties.activeSignwall ? (
-          <SignWallVerify
-            closePopup={() => this.closePopUp('tokenVerify')}
-            brandModal={arcSite}
-            tokenVerify={this.getUrlParam('tokenVerify')}
-          />
-        ) : null}
+          showVerify &&
+          siteProperties.activeSignwall ? (
+            <SignWallVerify
+              closePopup={() => this.closePopUp('tokenVerify')}
+              brandModal={arcSite}
+              tokenVerify={this.getUrlParam('tokenVerify')}
+            />
+          ) : null}
 
         {this.getUrlParam('tokenReset') &&
-        showReset &&
-        siteProperties.activeSignwall ? (
-          <SignWallReset
-            closePopup={() => this.closePopUp('tokenReset')}
-            brandModal={arcSite}
-            tokenReset={this.getUrlParam('tokenReset')}
-          />
-        ) : null}
+          showReset &&
+          siteProperties.activeSignwall ? (
+            <SignWallReset
+              closePopup={() => this.closePopUp('tokenReset')}
+              brandModal={arcSite}
+              tokenReset={this.getUrlParam('tokenReset')}
+            />
+          ) : null}
 
         {this.getUrlParam('reloginEmail') &&
-        !this.checkSession() &&
-        showRelogin &&
-        siteProperties.activeSignwall ? (
-          <SignWallRelogin
-            closePopup={() => this.closePopUp('reloginEmail')}
-            brandModal={arcSite}
-          />
-        ) : null}
+          !this.checkSession() &&
+          showRelogin &&
+          siteProperties.activeSignwall ? (
+            <SignWallRelogin
+              closePopup={() => this.closePopUp('reloginEmail')}
+              brandModal={arcSite}
+            />
+          ) : null}
 
         {(this.getUrlParam('signwallPaywall') ||
           this.getUrlParam('signwallPremium')) &&
-        showPaywall &&
-        siteProperties.activePaywall ? (
-          <SignWallPayPre
-            closePopup={() => this.closePopUp('signwallPaywall')}
-            brandModal={arcSite}
-            typeModal={
-              this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
-            }
-          />
-        ) : null}
+          showPaywall &&
+          siteProperties.activePaywall ? (
+            <SignWallPayPre
+              closePopup={() => this.closePopUp('signwallPaywall')}
+              brandModal={arcSite}
+              typeModal={
+                this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
+              }
+            />
+          ) : null}
       </>
     )
   }
