@@ -51,6 +51,7 @@
     color: $color-white;
     font-family: $primary-font;
     font-size: 12px;
+    text-transform: uppercase;
     &.active {
       border-color: $color-white;
     }
