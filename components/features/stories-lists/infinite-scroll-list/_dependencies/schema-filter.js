@@ -16,6 +16,9 @@ export default arcSite => {
         youtube_id {
           content
         }
+        basic_html {
+          content
+        }
         basic { 
           url 
           type 
