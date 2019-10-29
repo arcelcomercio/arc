@@ -1113,6 +1113,10 @@ export const localISODate = date => {
   return localDate
 }
 
+/*
+Hasta ahora este metodo es innecesario, comento en caso de que
+la forma que se usa como reemplazo de algun error
+
 export const getContentCurrentPage = ({ next, previous, count, length }) => {
   let page = 1
   if (previous >= 0 && next >= 0)
@@ -1121,4 +1125,4 @@ export const getContentCurrentPage = ({ next, previous, count, length }) => {
     page = (previous / ((count - length) - previous) + 2)
   }
   return page
-}
+} */
