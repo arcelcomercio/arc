@@ -394,7 +394,7 @@ class NavBarDefault extends PureComponent {
         <nav
           className={`${classes.nav} ${
             scrolled ? 'active' : ''
-          } ${responsiveClass}`}>
+            } ${responsiveClass}`}>
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
@@ -526,7 +526,7 @@ class NavBarDefault extends PureComponent {
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe}`}
-                    btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${window.section || ''}`}
+                    btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${typeof window !== 'undefined' && window.section || ''}`}
                   />
                 )}
 

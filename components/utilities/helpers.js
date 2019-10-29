@@ -371,13 +371,13 @@ export const addParamToEndPath = (path, param) => {
 
 /**
  * @param {object} objeto Propiedades necesarias para armar la URL de la imagen por defecto.
- * @param {function} objeto.deployment Agrega un parámetro al final de la cadena 
+ * @param {function} objeto.deployment Agrega un parámetro al final de la cadena
  * con la versión de deployment. Viene desde Fusion.
  * @param {string} objeto.contextPath Normalmente /pf/. Viene desde fusion.
  * @param {string} objeto.arcSite Identificador del sitio actual. Viene desde fusion.
- * @param {string} [objeto.size=lg] Tamaño de la imagen por defecto. Hay tres opciones 
+ * @param {string} [objeto.size=lg] Tamaño de la imagen por defecto. Hay tres opciones
  * 'sm', 'md' y 'lg'. Definido manualmente.
- * 
+ *
  * @returns {string} URL de la imagen por defecto desde /resources/dist/...
  */
 export const defaultImage = ({
@@ -386,7 +386,6 @@ export const defaultImage = ({
   arcSite,
   size = 'lg',
 }) => {
-
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
   const site = () => {
@@ -486,7 +485,9 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+    }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -957,12 +958,11 @@ export const addSlashToDateEnd = url => {
 }
 
 export const searchQuery = (query, sort) => {
+  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
   if (query !== '')
     // eslint-disable-next-line no-restricted-globals
-    location.href = `/buscar/${encodeURIComponent(query).replace(
-      /%20/g,
-      '+'
-    )}/todas/${sort || 'descendiente'}/`
+    location.href = `/buscar/${newQuery}/todas/${sort ||
+      'descendiente'}/?query=${newQuery}`
 }
 
 export function parseQueryString(str) {
@@ -1111,4 +1111,14 @@ export const localISODate = date => {
   localDate.setHours(localDate.getHours() - 5)
   localDate = `${localDate.toISOString().split('.')[0]}-05:00`
   return localDate
+}
+
+export const getContentCurrentPage = ({ next, previous, count, length }) => {
+  let page = 1
+  if (previous >= 0 && next >= 0)
+    page = (previous / ((next - previous) / 2) + 2)
+  else if (previous >= 0 && !next) {
+    page = (previous / ((count - length) - previous) + 2)
+  }
+  return page
 }
