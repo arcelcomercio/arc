@@ -6,6 +6,9 @@
   @media (--tablet) {
     padding-left: 20px;
   }
+  @media (--desktop) {
+    padding-left: 20px;
+  }
   &.medium {
     font-size: 24px;
     @media (--tablet) {

@@ -1,7 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory, getContentCurrentPage } from '../../components/utilities/helpers'
 
 let auxKey
 let website = ''
@@ -80,12 +80,15 @@ const transform = data => {
   if (by.length === 0) return dataStories
 
   const realAuthor = by.find(author => `/autor/${name}` === author.url)
-  const authorName = {
+  const { next, previous, count, content_elements: { length = 0 } = [] } = dataStories
+
+  const additionalData = {
     author_name: (realAuthor && realAuthor.name) || 'Autor',
+    page_number: getContentCurrentPage({ next, previous, count, length })
   }
   return {
     ...dataStories,
-    ...authorName,
+    ...additionalData,
   }
 }
 
