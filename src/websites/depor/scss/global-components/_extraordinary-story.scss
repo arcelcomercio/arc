@@ -1,9 +1,15 @@
 .extraordinary-story {
   &.extraordinary-story--top {
     .extraordinary-story__section {
-      transform: translateY(-100%);
-      z-index: 1;
-      position: absolute;
+      @media (--only-mobile) {
+        margin: 10px 10px 0 0;
+        display: inline-block;
+      }
+      @media (--tablet) {
+        transform: translateY(-100%);
+        z-index: 1;
+        position: absolute;
+      }
     }
     .extraordinary-story__title {
       margin-top: 10px;
