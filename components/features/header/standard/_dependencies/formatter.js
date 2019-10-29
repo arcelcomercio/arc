@@ -40,9 +40,22 @@ export default class StandardHeader {
     const link = 'link'
     const { children = [] } = this.data || {}
     return children.map(el => {
+      let name = el.node_type === link ? el.display_name : el.name
+      const rawMatch = name.match(/\[#.*\]/g)
+      const match =
+        rawMatch === null
+          ? ''
+          : rawMatch[0]
+              .replace('[', '')
+              .replace(']', '')
+              .split(',')
+      if (match) {
+        name = name.replace(/\[#.*\]/g, '')
+      }
       return {
-        name: el.node_type === link ? el.display_name : el.name,
+        name,
         url: el.node_type === link ? el.url : el._id,
+        styles: match,
       }
     })
   }
