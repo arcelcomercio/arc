@@ -48,9 +48,9 @@
     font-size: 11px;
     line-height: 25px;
   }
-  &.hashtml {
+  &__wrapper.hashtml {
     *.mr-view__body {
-      height: auto;
+      max-height: none;
     }
   }
 }
