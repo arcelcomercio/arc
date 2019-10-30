@@ -2,6 +2,18 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE } from 'fusion:environment'
 
+const flagDev = false
+
+const uriPostProd = site =>
+  site === 'gestion'
+    ? 'https://do5ggs99ulqpl.cloudfront.net/gestion/9043312/top_premium.json'
+    : 'https://do5ggs99ulqpl.cloudfront.net/elcomercio/21928896/top_premium.json'
+
+const uriPostDev = site =>
+  site === 'gestion'
+    ? 'https://d3ocw6unvuy6ob.cloudfront.net/gestion/9043312/top_premium.json'
+    : 'https://d3ocw6unvuy6ob.cloudfront.net/elcomercio/21928896/top_premium.json'
+
 const options = {
   gzip: true,
   json: true,
@@ -16,7 +28,7 @@ const clearURL = (arr = [], site = 'gestion') => {
 const setPageViewsUrls = (arrUrl, arrUrlRes) => {
   return arrUrlRes.map(row => {
     const item = arrUrl.find(el => {
-      return el.pagePath === row.website_url
+      return el.path === row.website_url
     })
     return { ...row, page_views: item.pageviews || 0 }
   })
@@ -39,20 +51,19 @@ taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_da
 const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { amountStories } = key
-  const URI_POST =
-    'https://do5ggs99ulqpl.cloudfront.net/gestion/9043312/top_premium.json'
+
   return request({
-    uri: URI_POST,
+    uri: flagDev ? uriPostDev(website) : uriPostProd(website),
     ...options,
   }).then(resp => {
     const arrURL = resp.slice(0, amountStories)
     arrURL.forEach(el => {
       // eslint-disable-next-line no-param-reassign
-      el.pagePath = el.pagePath.match(/((.*)-noticia(.*)\/)(.*)/)[1] || ''
+      el.path = el.path.match(/((.*)-noticia(.*)\/)(.*)/)[1] || ''
     })
     const promiseArray = arrURL.map(url =>
       request({
-        uri: uriAPI(url.pagePath, website),
+        uri: uriAPI(url.path, website),
         ...options,
       })
     )

@@ -844,7 +844,7 @@ export const formatDateStory = date => {
   const formatHours = hours < 10 ? `0${hours}` : hours
   const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
 
-  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatHours}:${formatMinutes} `
+  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatHours}:${formatMinutes} `
 }
 
 export const formatDateStoryAmp = date => {
@@ -854,7 +854,7 @@ export const formatDateStoryAmp = date => {
   const month = fecha.getMonth() + 1
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
-  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
+  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
     fecha
   )}`
 }
@@ -1113,6 +1113,10 @@ export const localISODate = date => {
   return localDate
 }
 
+/*
+Hasta ahora este metodo es innecesario, comento en caso de que
+la forma que se usa como reemplazo de algun error
+
 export const getContentCurrentPage = ({ next, previous, count, length }) => {
   let page = 1
   if (previous >= 0 && next >= 0)
@@ -1121,4 +1125,4 @@ export const getContentCurrentPage = ({ next, previous, count, length }) => {
     page = (previous / ((count - length) - previous) + 2)
   }
   return page
-}
+} */
