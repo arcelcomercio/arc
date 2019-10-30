@@ -183,7 +183,7 @@ class FormLogin extends Component {
     window.Identity.getUserProfile().then(resProfile => {
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-      window.localStorage.setItem('ArcId._ID', resProfile.uuid)
+      // window.localStorage.setItem('ArcId._ID', resProfile.uuid)
       
       // set token cookie
       const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})

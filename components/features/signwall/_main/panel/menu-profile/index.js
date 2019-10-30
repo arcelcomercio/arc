@@ -14,7 +14,7 @@ const closeSession = props => {
   Cookies.deleteCookie('mpp_sess')
   Cookies.deleteCookie('ArcId.USER_INFO')
   window.sessionStorage.setItem('preferencesNews', '[]')
-  window.localStorage.removeItem('ArcId._ID')
+  // window.localStorage.removeItem('ArcId._ID')
 
   window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
   window.Identity.logout()
