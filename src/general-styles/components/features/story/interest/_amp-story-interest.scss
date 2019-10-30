@@ -1,5 +1,25 @@
-.story-interest {
+.amp-story-interest {
+  &__titleList {
+    font-family: 'Lato', sans-serif;
+    background-color: #ddd;
+  }
   &__list {
     flex-wrap: wrap;
+  }
+  &__img {
+    max-height: 72px;
+    max-width: 118px;
+  }
+  &__link {
+    width: 152px;
+  }
+  &__title-link {
+    color: #36b;
+  }
+  & .caption {
+    & div {
+      overflow: hidden;
+      height: 53px;
+    }
   }
 }

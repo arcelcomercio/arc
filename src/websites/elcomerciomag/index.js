@@ -22,5 +22,6 @@ import './images/premium-logo.png'
 import './images/author.png'
 import './images/authorOpinion.png'
 import './images/arrow-right-2.png'
+import './images/logo-amp.png'
 
 import '../../../components/utilities/lazyload'

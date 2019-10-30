@@ -256,6 +256,8 @@ const BuildHtml = ({
   propsScriptHeader,
   title,
   subTitle,
+  canonical,
+  oppublished,
   multimedia,
   paragraphsNews = [],
   author = '',
@@ -279,6 +281,7 @@ const BuildHtml = ({
       <meta charset="utf-8" />
       <meta property="op:markup_version" content="v1.0" />
       <meta property="fb:article_style" content="${fbArticleStyle}" />
+      <link rel="canonical" href="${canonical}"/>
   </head>
   <body>
     <article>
@@ -296,6 +299,7 @@ const BuildHtml = ({
       <header>
         <h1>${title}</h1>
         ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
+        <time class="op-published" datetime="${oppublished}"> ${oppublished}</time>
       </header>
       ${multimediaHeader(multimedia, title)}
       

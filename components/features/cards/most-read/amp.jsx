@@ -1,13 +1,9 @@
 import React from 'react'
 
-import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-import schemaFilter from './_dependencies/schema-filter'
-import StorySeparatorChildItemAmp from './_children/amp'
-import StorySeparatorChildItemSliderAmp from './_children/amp-item-slider'
+import StorySeparatorChildItemAmp from '../../story/interest-by-tag/_children/amp'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
-import customFields from './_dependencies/custom-fields'
 
 const classes = {
   storyInterest:
@@ -18,41 +14,23 @@ const classes = {
   list: 'amp-story-interest__list flex pl-20 pr-20',
 }
 
-const CONTENT_SOURCE = 'story-feed-by-tag'
-
 const InterestByTag = props => {
   const {
-    customFields: {
-      section = '',
-      storyAmp = '',
-      titleAmp = 'Te puede interesar:',
-      storiesQty = 4,
-    } = {},
-  } = props
-  const {
     arcSite,
-    globalContent: dataContent,
+    globalContent: {
+      recent_stories: { content_elements: storyData },
+      _id: excluir,
+    },
+    globalContent: storyDataPrimary,
     contextPath,
     deployment,
     isAdmin,
   } = useFusionContext()
 
-  const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
-    data: dataContent,
+  const { primarySection } = new StoryData({
+    data: storyDataPrimary,
     contextPath,
   })
-
-  const urlTag = section || `/${slug}/`
-  const { content_elements: storyData = [] } =
-    useContent({
-      source: CONTENT_SOURCE,
-      query: {
-        website: arcSite,
-        name: urlTag,
-        size: storiesQty,
-      },
-      filter: schemaFilter,
-    }) || ''
 
   const instance =
     storyData &&
@@ -79,7 +57,7 @@ const InterestByTag = props => {
 
       const data = {
         title: instance.title,
-        link: `${instance.link}?ref=amp&source=tepuedeinteresar`,
+        link: `${instance.canonicalUrl}?ref=amp&source=mas-en-seccion`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
@@ -89,21 +67,14 @@ const InterestByTag = props => {
         multimediaType: instance.multimediaType,
         isAdmin,
       }
+
       return (
         <>
-          {storyAmp === 'slider' ? (
-            <StorySeparatorChildItemSliderAmp
-              data={data}
-              key={UtilListKey(i)}
-              arcSite={arcSite}
-            />
-          ) : (
-            <StorySeparatorChildItemAmp
-              data={data}
-              key={UtilListKey(i)}
-              arcSite={arcSite}
-            />
-          )}
+          <StorySeparatorChildItemAmp
+            data={data}
+            key={UtilListKey(i)}
+            arcSite={arcSite}
+          />
         </>
       )
     })
@@ -114,26 +85,12 @@ const InterestByTag = props => {
     <>
       {dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
-          <div className={classes.title}>{titleAmp}</div>
-          {storyAmp === 'slider' ? (
-            <amp-carousel
-              layout="fixed-height"
-              height="160"
-              type="carousel"
-              id="rel-noticias">
-              {getSize(storiesQty)}
-            </amp-carousel>
-          ) : (
-            <>{getSize(storiesQty)}</>
-          )}
+          <div className={classes.title}>Más en {primarySection} </div>
+          {getSize(4)}
         </div>
       )}
     </>
   )
-}
-
-InterestByTag.propTypes = {
-  customFields,
 }
 
 InterestByTag.label = 'Artículo - Te puede interesar'
