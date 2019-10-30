@@ -2,6 +2,17 @@
   background-color: #666;
   .featured-story {
     background-color: transparent;
+    &.expand {
+      .featured-story__category {
+        background-image: url(/pf/resources/dist/elbocon/images/bullet.jpg);
+        background-color: $color-gray-300;
+        border-bottom: 1px solid $color-black;
+        display: flex;
+        align-items: center;
+        height: 22px;
+        padding-bottom: 0;
+      }
+    }
   }
   .featured-story__title-link {
     color: $color-white;
