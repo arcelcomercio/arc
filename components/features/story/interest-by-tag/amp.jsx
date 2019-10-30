@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-import renderHTML from 'react-render-html'
 import schemaFilter from './_dependencies/schema-filter'
 import StorySeparatorChildItemAmp from './_children/amp'
 import StorySeparatorChildItemSliderAmp from './_children/amp-item-slider'
@@ -12,11 +11,11 @@ import customFields from './_dependencies/custom-fields'
 
 const classes = {
   storyInterest:
-    'story-interest w-full h-auto pr-20 pl-20 mx-auto amp-story-header',
+    'amp-story-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-story-header',
   title:
-    'story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-20 text-center md:text-left',
-  container: 'story-interest__container block w-full h-auto ',
-  list: 'story-interest__list flex pl-20 pr-20',
+    'amp-story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
+  container: 'amp-story-interest__container block w-full h-auto ',
+  list: 'amp-story-interest__list flex pl-20 pr-20',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
@@ -26,7 +25,8 @@ const InterestByTag = props => {
     customFields: {
       section = '',
       storyAmp = '',
-      title = 'Te puede interesar:',
+      titleAmp = 'Te puede interesar:',
+      storiesQty = 4,
     } = {},
   } = props
   const {
@@ -49,7 +49,7 @@ const InterestByTag = props => {
       query: {
         website: arcSite,
         name: urlTag,
-        size: 6,
+        size: storiesQty,
       },
       filter: schemaFilter,
     }) || ''
@@ -79,7 +79,7 @@ const InterestByTag = props => {
 
       const data = {
         title: instance.title,
-        link: instance.link,
+        link: `${instance.link}?ref=amp&source=tepuedeinteresar`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
@@ -114,17 +114,17 @@ const InterestByTag = props => {
     <>
       {dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
-          <div className={classes.title}>{title}</div>
+          <div className={classes.title}>{titleAmp}</div>
           {storyAmp === 'slider' ? (
             <amp-carousel
               layout="fixed-height"
               height="160"
               type="carousel"
               id="rel-noticias">
-              {getSize(5)}
+              {getSize(storiesQty)}
             </amp-carousel>
           ) : (
-            <>{getSize(4)}</>
+            <>{getSize(storiesQty)}</>
           )}
         </div>
       )}
