@@ -22,6 +22,7 @@
       {
         "ignore": [
           "react",
+          "prop-types",
           "fusion:consumer",
           "fusion:environment",
           "fusion:properties",

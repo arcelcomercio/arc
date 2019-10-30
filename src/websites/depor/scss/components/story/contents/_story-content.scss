@@ -86,6 +86,30 @@
     bottom: 30px;
     left: 30px;
   }
+  &__embed {
+    table {
+      margin-bottom: 25px;
+      width: 100%;
+      height: auto;
+      border: 1px solid #e0efa5;
+      font-size: 16px;
+      @media (--only-mobile) {
+        font-size: 11px;
+      }
+      tr {
+        &:nth-child(2n) {
+          td {
+            background-color: #e0efa5;
+          }
+        }
+      }
+      td {
+        font-family: $primary-font;
+        padding: 5px;
+        border-right: 1px solid #e0efa5;
+      }
+    }
+  }
 }
 
 .opinion .content-sidebar {
@@ -123,17 +147,15 @@
     }
   }
 
-  .depor-play {
-    .story-header__header-social {
-      .story-header__title-section {
-        display: none;
-      }
-      .story-header__share {
-        justify-content: center;
-      }
-      .story-header__list {
-        display: flex;
-      }
+  .story-header__header-social {
+    .story-header__title-section {
+      display: none;
+    }
+    .story-header__share {
+      justify-content: center;
+    }
+    .story-header__list {
+      display: flex;
     }
   }
 }
