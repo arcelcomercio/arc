@@ -13,4 +13,7 @@
       height: 58px;
     }
   }
+  &__wrapper--dashed {
+    border-bottom: 1px dashed $color-gray-200;
+  }
 }
