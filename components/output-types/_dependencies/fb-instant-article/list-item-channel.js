@@ -1,7 +1,7 @@
 import md5 from 'md5'
 import BuildHtml from './build-html'
 import StoryData from '../../../utilities/story-data'
-import { getMultimedia, nbspToSpace } from '../../../utilities/helpers'
+import { getMultimedia, nbspToSpace , getDateSeo} from '../../../utilities/helpers'
 
 const ListItemNews = (contentElements, buildProps) => {
   const {
@@ -69,6 +69,8 @@ const ListItemNews = (contentElements, buildProps) => {
           const BuildHtmlProps = {
             scriptAnaliticaProps,
             propsScriptHeader,
+            canonical:pagePath,
+            oppublished: getDateSeo(storydata.date),
             title: nbspToSpace(storydata.title),
             subTitle: nbspToSpace(storydata.subTitle),
             multimedia: storydata.multimediaNews,
