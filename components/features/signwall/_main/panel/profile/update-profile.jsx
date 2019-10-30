@@ -821,7 +821,7 @@ class UpdateProfile extends Component {
           <div className="form-group">
             <input
               type="submit"
-              className="btn btn--blue btn-bg"
+              className="btn btn-bg"
               value={textSubmit}
               disabled={!hasChange || loading || hasError}
               // eslint-disable-next-line jsx-a11y/tabindex-no-positive

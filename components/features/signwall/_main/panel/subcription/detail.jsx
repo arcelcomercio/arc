@@ -661,7 +661,7 @@ class SubDetail extends Component {
                   <div className="form-group form-froup-confirm">
                     <input
                       type="button"
-                      className="btn btn--blue btn-bg"
+                      className="btn btn-bg"
                       onClick={e => this.closeModalConfirm(e)}
                       value="NO"
                     />

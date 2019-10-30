@@ -23,6 +23,8 @@ class FormVerify extends Component {
                   gestion: '#F4E0D2',
                   peru21: '#d5ecff',
                   peru21g21:'#d5ecff',
+                  elbocon: '#fdabab',
+                  depor: '#fecd26',
                 }[brandCurrent]
               }
             />
@@ -43,7 +45,7 @@ class FormVerify extends Component {
               <input
                 id="verificar_continuar_navegando"
                 type="button"
-                className="btn btn--blue btn-bg"
+                className="btn btn-bg"
                 value="Continuar Navegando"
                 onClick={() => {
                   Taggeo('Web_Sign_Wall_Verify', 'web_swv_continuar_boton')

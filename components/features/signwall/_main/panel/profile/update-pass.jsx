@@ -291,7 +291,7 @@ class updatePassword extends Component {
             <div className="form-group">
               <input
                 type="submit"
-                className="btn btn--blue btn-bg"
+                className="btn btn-bg"
                 value="Guardar Cambios"
               />
             </div>
@@ -354,7 +354,7 @@ class updatePassword extends Component {
                   <div className="form-group">
                     <input
                       type="submit"
-                      className="btn btn--blue btn-bg"
+                      className="btn btn-bg"
                       value={!sending ? 'Confirmando...' : 'Confirmar'}
                       disabled={!sending}
                     />
