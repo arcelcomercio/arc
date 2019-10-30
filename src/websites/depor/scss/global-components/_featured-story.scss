@@ -165,6 +165,13 @@
         display: none;
       }
     }
+    &.featured-story--live {
+      .featured-story__detail {
+        @media (--only-mobile) {
+          height: auto;
+        }
+      }
+    }
   }
   /*   &--reverse {
     & * .featured-story__icon {
