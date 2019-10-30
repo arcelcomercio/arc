@@ -264,7 +264,7 @@ export default ({
         {/* <!-- Identity & Sales & Paywall --> */}
         {siteProperties.activeSignwall && (
           <script
-            src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js`}
+            src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=1`}
           />
         )}
         {siteProperties.activePaywall && (

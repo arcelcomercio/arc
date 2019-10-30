@@ -70,7 +70,8 @@
       }
     }
     .featured-story__title {
-      max-width: 100%;
+      max-width: none;
+      width: 100%;
     }
     &.expand {
       .featured-story__author {
