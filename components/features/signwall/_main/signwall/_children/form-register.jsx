@@ -122,6 +122,7 @@ class FormRegister extends Component {
           })
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
+          window.localStorage.setItem('ArcId._ID', window.Identity.userIdentity.uuid)
 
           this.taggeoSuccess() // -- test de tageo success
 

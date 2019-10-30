@@ -106,6 +106,8 @@ class FormLoginPaywall extends Component {
     window.Identity.getUserProfile().then(resGetProfile => {
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
+      window.localStorage.setItem('ArcId._ID', resGetProfile.uuid)
+
       if (reloadLogin) {
         window.location.reload()
       } else {

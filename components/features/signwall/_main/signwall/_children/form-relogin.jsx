@@ -172,6 +172,7 @@ class FormReLogin extends Component {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
+      window.localStorage.setItem('ArcId._ID', resGetProfile.uuid)
     })
   }
 
