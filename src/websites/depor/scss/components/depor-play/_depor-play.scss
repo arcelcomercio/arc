@@ -1,7 +1,55 @@
 .depor-play {
-  /* Destaque*/
-  .feature-fullimage__title {
+  /* Destaque fullimage*/
+  .feature-fullimage.full * .feature-fullimage__title {
     font-family: $sixth-font;
+    font-weight: 400;
+    font-size: 21px;
+    @media (--tablet) {
+      font-size: 42px;
+      line-height: 44px;
+      max-height: 178px;
+    }
+  }
+  .feature-fullimage[class*=' col-2'] .feature-fullimage__box-detail {
+    width: 100%;
+  }
+  /* Destaque */
+  .featured-story__title-link {
+    font-family: $sixth-font;
+    font-size: 19px;
   }
   /*  Separadores */
+  .separator.invested {
+    .separator__header-link {
+      text-transform: uppercase;
+      @media (--only-mobile) {
+        font-size: 16px;
+      }
+    }
+    &.primary {
+      @media (--only-mobile) {
+        background-color: $color-secondary;
+      }
+      .separator__article {
+        @media (--only-mobile) {
+          background-color: $color-secondary;
+        }
+      }
+    }
+    &.secondary {
+      .separator__article {
+        @media (--only-mobile) {
+          background-color: #cc6615;
+        }
+      }
+    }
+    .separator__title {
+      font-family: $sixth-font;
+      font-size: 16px;
+      font-weight: 400;
+      @media (--tablet) {
+        font-size: 19px;
+      }
+    }
+  }
 }
