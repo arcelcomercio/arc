@@ -1,14 +1,7 @@
 .header {
-  background-color: transparent;
-  &:after {
-    content: '';
-    display: block;
-    background-image: url(/pf/resources/dist/elbocon/images/bc-tramado-nav.png);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: $color-gray-300;
-  }
+  background-image: url(/pf/resources/dist/elbocon/images/bc-tramado-nav.png);
+  background-color: $color-gray-300;
+
   &__link {
     text-transform: capitalize;
     color: $color-gray-300;
@@ -19,5 +12,8 @@
     @media (--desktop) {
       height: 58px;
     }
+  }
+  &__wrapper--dashed {
+    border-bottom: 1px dashed $color-gray-200;
   }
 }

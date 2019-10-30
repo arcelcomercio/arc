@@ -8,6 +8,11 @@ const customFields = PropTypes.shape({
   }),
   title: PropTypes.string.tag({
     name: 'Titulo',
+    description: 'Colocar el Titulo ',
+  }),
+  titleAmp: PropTypes.string.tag({
+    name: 'Titulo Amp',
+    group: 'Configuración',
     description: 'Colocar el Nombre ',
   }),
   storyAmp: PropTypes.oneOf(['normal', 'slider']).tag({
@@ -18,6 +23,14 @@ const customFields = PropTypes.shape({
       live: 'Slider Amp',
     },
     defaultValue: 'normal',
+  }),
+  storiesQty: PropTypes.number.tag({
+    name: 'Número de Noticias Amp',
+    group: 'Configuración',
+    min: 4,
+    max: 8,
+    step: 1,
+    defaultValue: 4,
   }),
 })
 
