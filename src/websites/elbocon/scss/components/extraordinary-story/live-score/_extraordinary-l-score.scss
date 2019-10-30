@@ -1,4 +1,12 @@
 .extraordinary-l-score {
+  &:first-child {
+    .extraordinary-l-score__subtitle {
+      @media (--only-mobile) {
+        display: block;
+        color: $color-primary;
+      }
+    }
+  }
   &__title-link {
     font-weight: 900;
     font-size: 29px;
