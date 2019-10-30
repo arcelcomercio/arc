@@ -5,6 +5,7 @@ import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 let auxKey
 let website = ''
+let pageNumber = 1
 
 const schemaName = 'stories'
 
@@ -30,6 +31,7 @@ const pattern = (key = {}) => {
   const { name } = key
   auxKey = key
   website = key['arc-site'] || 'Arc Site no está definido'
+  pageNumber = (!key.from || key.from === 0) ? 1 : key.from
   const size = key.size || 50
 
   if (!name) {
@@ -80,12 +82,14 @@ const transform = data => {
   if (by.length === 0) return dataStories
 
   const realAuthor = by.find(author => `/autor/${name}` === author.url)
-  const authorName = {
+
+  const additionalData = {
     author_name: (realAuthor && realAuthor.name) || 'Autor',
+    page_number: pageNumber
   }
   return {
     ...dataStories,
-    ...authorName,
+    ...additionalData,
   }
 }
 

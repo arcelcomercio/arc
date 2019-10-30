@@ -39,10 +39,25 @@ export default class StandardHeader {
 
   formatData = (data = {}) => {
     const { children = [] } = data || {}
-    return children.map(child => ({
-      name: child.node_type === LINK ? child.display_name : child.name,
-      url: child.node_type === LINK ? child.url : child._id,
-    }))
+    return children.map(child => {
+      let name = child.node_type === LINK ? child.display_name : child.name
+      const rawMatch = name.match(/\[#.*\]/g)
+      const match =
+        rawMatch === null
+          ? ''
+          : rawMatch[0]
+              .replace('[', '')
+              .replace(']', '')
+              .split(',')
+      if (match) {
+        name = name.replace(/\[#.*\]/g, '')
+      }
+      return {
+        name,
+        url: child.node_type === LINK ? child.url : child._id,
+        styles: match,
+      }
+    })
   }
 
   getDate = () => {
@@ -69,9 +84,7 @@ export default class StandardHeader {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${
-              this.arcSite
-            }/images/${auxLogo}`
+            `${this.contextPath}/resources/dist/${this.arcSite}/images/${auxLogo}`
           ),
       },
       bandLinks,

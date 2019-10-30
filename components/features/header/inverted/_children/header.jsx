@@ -7,17 +7,21 @@ import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/standard'
 
-/* const DRAG_SCREEN_LIMIT = 90
-const LIST_WIDTH = 330 */
+/* 
+const DRAG_SCREEN_LIMIT = 90
+const LIST_WIDTH = 330 
+*/
 
 const classes = {
   header: `header header-inverted bg-primary secondary-font w-full font-normal flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
+  wrapper: `w-full flex items-center justify-center position-relative wrapper`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
   featured: 'header__featured flex w-full font-normal overflow-hidden mr-20',
   item: 'header__item flex items-center justify-center h-inherit',
   link: 'header__link uppercase text-sm p-10',
-  band: 'hidden justify-between md:flex',
+  band: 'hidden md:block',
+  bandWrapper: 'justify-between w-full wrapper mx-auto md:flex',
   tags: 'header__tags justify-center ml-20 mr-10 hidden md:flex',
   date: 'header__date justify-center uppercase mr-20 hidden lg:flex',
   navBtnContainer: `flex items-center justify-start nav__container-menu position-absolute`,
@@ -47,7 +51,8 @@ const classes = {
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight: 'lg:flex items-center justify-end header__btn-container',
-  btnSubscribe: 'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
+  btnSubscribe:
+    'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -265,116 +270,138 @@ const HeaderChildInverted = ({
   return (
     <>
       <nav className={classes.band}>
-        {tags && <div className={classes.tags}>{tags}</div>}
-        {bandLinks && bandLinks[0] && (
-          <ul className={classes.featured}>
-            {bandLinks.map(section => (
-              <li className={classes.item} key={`band-${section.url}`}>
-                <a className={classes.link} href={section.url}>
-                  {section.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-        {date.active && (
-          <time className={classes.date} dateTime={date.raw}>
-            {date.value}
-          </time>
-        )}
+        <div className={classes.bandWrapper}>
+          {tags && <div className={classes.tags}>{tags}</div>}
+          {bandLinks && bandLinks[0] && (
+            <ul className={classes.featured}>
+              {bandLinks.map(({ url, name, styles = [] }) => (
+                <li
+                  className={`${classes.item}${
+                    styles ? ' header__custom-item' : ''
+                  }`}
+                  key={`band-${url}`}>
+                  <a
+                    className={classes.link}
+                    href={url}
+                    {...(styles && {
+                      style: {
+                        backgroundColor: styles[0],
+                        color: styles[1] || '#ffffff',
+                      },
+                    })}>
+                    {name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+          {date.active && (
+            <time className={classes.date} dateTime={date.raw}>
+              {date.value}
+            </time>
+          )}
+        </div>
       </nav>
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
         <div className={classes.navLoader} />
-        {/** ************* LEFT *************** */}
-        <div
-          className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
-          <form className={classes.form} onSubmit={e => e.preventDefault()}>
-            <input
-              ref={inputSearch}
-              type="search"
-              defaultValue={search}
-              /* onBlur={this._handleCloseSectionsSearch} */
-              onKeyUp={_handleKeyDown}
-              placeholder="¿Qué Buscas?"
-              className={`${classes.search} ${activeSearch()}`}
-            />
+        <div className={classes.wrapper}>
+          {/** ************* LEFT *************** */}
+          <div
+            className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
+            <form className={classes.form} onSubmit={e => e.preventDefault()}>
+              <input
+                ref={inputSearch}
+                type="search"
+                defaultValue={search}
+                /* onBlur={this._handleCloseSectionsSearch} */
+                onKeyUp={_handleKeyDown}
+                placeholder="¿Qué Buscas?"
+                className={`${classes.search} ${activeSearch()}`}
+              />
+              <Button
+                iconClass={classes.iconSearch}
+                btnClass={`${classes.btnSearch} ${activeSearch()}`}
+                onClick={optionButtonClick}
+              />
+            </form>
             <Button
-              iconClass={classes.iconSearch}
-              btnClass={`${classes.btnSearch} ${activeSearch()}`}
-              onClick={optionButtonClick}
+              iconClass={classes.iconMenu}
+              btnClass={`${classes.btnMenu} ${
+                scrolled && isStory ? 'border-r-1 border-solid' : ''
+              }`}
+              btnText="Menú"
+              onClick={_handleToggleSectionElements}
             />
-          </form>
-          <Button
-            iconClass={classes.iconMenu}
-            btnClass={`${classes.btnMenu} ${
-              scrolled && isStory ? 'border-r-1 border-solid' : ''
-            }`}
-            btnText="Menú"
-            onClick={_handleToggleSectionElements}
-          />
-        </div>
-        {/** ************* // LEFT *************** */}
-        <a
-          href={logo.link}
-          className={`${classes.logoContainer} ${isStory &&
-            scrolled &&
-            statusSearch &&
-            'opacity-0'}`}>
-          <img
-            src={scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src}
-            alt={logo.alt}
-            className={classes.logo}
-          />
-        </a>
-        <div className={classes.navStoryTitle} />
-        {/** ************* RIGHT *************** */}
-        <div
-          className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
-          {isStory && scrolled ? (
-            <>
-              <div className={classes.navStorySocialNetwork}>
-                <div>
-                  <a
-                    className={classes.moreLink}
-                    href={classes.moreLink}
-                    onClick={event => {
-                      openLink(event, 3)
-                    }}>
-                    <i className={`${classes.iconMore}`} />
-                  </a>
+          </div>
+          {/** ************* // LEFT *************** */}
+          <a
+            href={logo.link}
+            className={`${classes.logoContainer} ${isStory &&
+              scrolled &&
+              statusSearch &&
+              'opacity-0'}`}>
+            <img
+              src={
+                scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
+              }
+              alt={logo.alt}
+              className={classes.logo}
+            />
+          </a>
+          <div className={classes.navStoryTitle} />
+          {/** ************* RIGHT *************** */}
+          <div
+            className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
+            {isStory && scrolled ? (
+              <>
+                <div className={classes.navStorySocialNetwork}>
+                  <div>
+                    <a
+                      className={classes.moreLink}
+                      href={classes.moreLink}
+                      onClick={event => {
+                        openLink(event, 3)
+                      }}>
+                      <i className={`${classes.iconMore}`} />
+                    </a>
+                  </div>
+
+                  <ul className={classes.listIcon}>
+                    {shareButtons.firstList.map((item, i) => (
+                      <li key={item.icon} className={classes.shareItem}>
+                        <a
+                          className={classes.shareLink}
+                          href={item.link}
+                          onClick={event => {
+                            openLink(event, item)
+                          }}>
+                          <i className={`${item.icon} ${classes.shareIcon}`} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                <ul className={classes.listIcon}>
-                  {shareButtons.firstList.map((item, i) => (
-                    <li key={item.icon} className={classes.shareItem}>
-                      <a
-                        className={classes.shareLink}
-                        href={item.link}
-                        onClick={event => {
-                          openLink(event, item)
-                        }}>
-                        <i className={`${item.icon} ${classes.shareIcon}`} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+              </>
+            ) : (
+              <div className={`${classes.navContainerRight} `}>
+                {siteProperties.activePaywall && (
+                  <Button
+                    btnText="Suscríbete"
+                    btnClass={`${classes.btnSubscribe}`}
+                    btnLink={`${
+                      siteProperties.urlSubsOnline
+                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                      'undefined' &&
+                      window.section) ||
+                      ''}`}
+                  />
+                )}
+                {siteProperties.activeSignwall && <SignwallComponent />}
               </div>
-            </>
-          ) : (
-            <div className={`${classes.navContainerRight} `}>
-              {siteProperties.activePaywall && (
-                <Button
-                  btnText="Suscríbete"
-                  btnClass={`${classes.btnSubscribe}`}
-                  btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${window.section || ''}`}
-                />
-              )}
-
-              {siteProperties.activeSignwall && <SignwallComponent />}
-            </div>
-          )}
+            )}
+          </div>
+          {/** ************* // RIGHT *************** */}
         </div>
-        {/** ************* // RIGHT *************** */}
         <Menu
           sections={menuSections}
           showSidebar={statusSidebar}

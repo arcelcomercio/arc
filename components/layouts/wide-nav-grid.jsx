@@ -10,7 +10,7 @@ const classes = {
   content:
     'grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
   aditional: 'mb-20',
-  zocalo: 'ads__zocalo--wide-nav',
+  zocalo: 'ads__zocalo ads__zocalo--wide-nav',
 }
 
 /**---------------------------------------------------------------------

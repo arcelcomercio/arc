@@ -100,4 +100,8 @@
       color: $color-primary;
     }
   }
+  &--reverse {
+    border-top: 0;
+    border-bottom: 2px solid $color-gray-300;
+  }
 }

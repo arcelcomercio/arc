@@ -1,0 +1,16 @@
+.custom-title {
+  font-family: $secondary-font;
+  color: $color-white;
+  background-image: url(/pf/resources/dist/elbocon/images/seccion.jpg);
+  background-color: $color-gray-300;
+  padding: 20px 15px;
+  display: block;
+  @media (--tablet) {
+    padding-left: 20px;
+  }
+  @media (--desktop) {
+    font-size: 42px;
+    line-height: 50px;
+    padding-left: 20px;
+  }
+}

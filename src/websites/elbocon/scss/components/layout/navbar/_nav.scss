@@ -1,5 +1,10 @@
 .nav {
   background-color: $color-gray-300;
+  background-image: url(/pf/resources/dist/elbocon/images/bc-tramado-nav.png);
+
+  @media (--desktop) {
+    background-image: none;
+  }
   &__btn {
     &--section {
       padding-left: 0;
@@ -25,7 +30,10 @@
   }
   &__wrapper {
     &:first-child {
-      background-color: $color-gray-300;
+      background-color: transparent;
+      @media (--desktop) {
+        background-color: $color-gray-300;
+      }
     }
     @media (--desktop) {
       background-color: transparent;
@@ -45,6 +53,15 @@
     }
     .nav__logo {
       padding: 0;
+    }
+  }
+  &__input-search {
+    color: $color-white;
+    font-family: $primary-font;
+    font-size: 12px;
+    text-transform: uppercase;
+    &.active {
+      border-color: $color-white;
     }
   }
 }
