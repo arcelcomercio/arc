@@ -1,5 +1,5 @@
 export default {
-  siteName: 'El Comercio',
+  siteName: 'El Comercio Perú',
   sitemapNewsName: 'El Comercio',
   newsletterBrand: 'comercio',
   api: {
