@@ -20,5 +20,6 @@ import './images/author.png'
 import './images/bc-tramado-nav.png'
 import './images/loader.png'
 import './images/arrow-right-2.png'
+import './images/seccion.jpg'
 
 import '../../../components/utilities/lazyload'
