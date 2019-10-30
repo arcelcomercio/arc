@@ -1,38 +1,38 @@
 import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
-import PropTypes from 'prop-types'
+import Consumer from 'fusion:consumer';
+import customFields from './_dependencies/custom-fields'
 
 @Consumer
 class CustomImage extends PureComponent {
  
   render() {
     const {
-      globalContent,
-      globalContentConfig,
       customFields: {
         imgUrlDesktop = '',
         imgUrlMobile = '',
+        imgTitle = '',
+        imgAlt,
         imgLink = '',
-        imgWidth = 0,
-        imgHeight = 0
+        imgWidth = 0
       } = {},
     } = this.props
 
-    if(imgUrlDesktop == '') 
+    if(imgUrlDesktop === '') 
       return <div>Modulo imagen, clic en editar para configurar.</div> 
-    let picture = (
+    const picture = (
       <picture>
-        { imgUrlMobile != '' && <source media="(max-width: 650px)" srcset={imgUrlMobile} /> }
+        { imgUrlMobile !== '' && <source media="(max-width: 650px)" srcSet={imgUrlMobile} className="lazy" /> }
         <img 
           src={imgUrlDesktop} 
-          alt="" 
+          alt={imgAlt}
+          {...imgTitle !== '' ? {title:imgTitle} : {}}
           {...imgWidth > 0 ? {width:imgWidth} : {}}
-          {...imgHeight > 0 ? {height:imgHeight} : {}}
+          className="lazy"
         />
       </picture>
     );
     
-    if(imgLink != ''){
+    if(imgLink !== ''){
       return (<div><a href={imgLink}>{ picture }</a></div>);
     }
 
@@ -41,26 +41,8 @@ class CustomImage extends PureComponent {
 }
 
 CustomImage.propTypes = {
-  customFields: PropTypes.shape({
-    imgUrlDesktop: PropTypes.string.tag({
-      name: 'Url imagen desktop',
-    }),
-    imgUrlMobile: PropTypes.string.tag({
-      name: 'Url imagen mobile',
-    }),
-    imgLink: PropTypes.string.tag({
-      name: 'Link imagen',
-    }),
-    imgWidth: PropTypes.string.tag({
-      name: 'Ancho',
-    }),
-    imgHeight: PropTypes.string.tag({
-      name: 'Alto',
-    })
-  }),
-  editableField: PropTypes.func,
+  customFields,
 }
-
 CustomImage.label = 'Imagen con enlace'
 CustomImage.static = true
 
