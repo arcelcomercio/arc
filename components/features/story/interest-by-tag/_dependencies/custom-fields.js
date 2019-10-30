@@ -28,7 +28,7 @@ const customFields = PropTypes.shape({
     name: 'Número de Noticias Amp',
     group: 'Configuración',
     min: 4,
-    max: 8,
+    max: 10,
     step: 1,
     defaultValue: 4,
   }),
