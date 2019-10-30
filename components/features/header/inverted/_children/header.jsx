@@ -51,7 +51,8 @@ const classes = {
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight: 'lg:flex items-center justify-end header__btn-container',
-  btnSubscribe: 'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
+  btnSubscribe:
+    'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -273,10 +274,22 @@ const HeaderChildInverted = ({
           {tags && <div className={classes.tags}>{tags}</div>}
           {bandLinks && bandLinks[0] && (
             <ul className={classes.featured}>
-              {bandLinks.map(section => (
-                <li className={classes.item} key={`band-${section.url}`}>
-                  <a className={classes.link} href={section.url}>
-                    {section.name}
+              {bandLinks.map(({ url, name, styles = [] }) => (
+                <li
+                  className={`${classes.item}${
+                    styles ? ' header__custom-item' : ''
+                  }`}
+                  key={`band-${url}`}>
+                  <a
+                    className={classes.link}
+                    href={url}
+                    {...(styles && {
+                      style: {
+                        backgroundColor: styles[0],
+                        color: styles[1] || '#ffffff',
+                      },
+                    })}>
+                    {name}
                   </a>
                 </li>
               ))}
@@ -315,7 +328,7 @@ const HeaderChildInverted = ({
               iconClass={classes.iconMenu}
               btnClass={`${classes.btnMenu} ${
                 scrolled && isStory ? 'border-r-1 border-solid' : ''
-                }`}
+              }`}
               btnText="Menú"
               onClick={_handleToggleSectionElements}
             />
@@ -328,7 +341,9 @@ const HeaderChildInverted = ({
               statusSearch &&
               'opacity-0'}`}>
             <img
-              src={scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src}
+              src={
+                scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
+              }
               alt={logo.alt}
               className={classes.logo}
             />
@@ -368,17 +383,22 @@ const HeaderChildInverted = ({
                 </div>
               </>
             ) : (
-                <div className={`${classes.navContainerRight} `}>
-                  {siteProperties.activePaywall && (
-                    <Button
-                      btnText="Suscríbete"
-                      btnClass={`${classes.btnSubscribe}`}
-                      btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${typeof window !== 'undefined' && window.section || ''}`}
-                    />
-                  )}
-                  {siteProperties.activeSignwall && <SignwallComponent />}
-                </div>
-              )}
+              <div className={`${classes.navContainerRight} `}>
+                {siteProperties.activePaywall && (
+                  <Button
+                    btnText="Suscríbete"
+                    btnClass={`${classes.btnSubscribe}`}
+                    btnLink={`${
+                      siteProperties.urlSubsOnline
+                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                      'undefined' &&
+                      window.section) ||
+                      ''}`}
+                  />
+                )}
+                {siteProperties.activeSignwall && <SignwallComponent />}
+              </div>
+            )}
           </div>
           {/** ************* // RIGHT *************** */}
         </div>
