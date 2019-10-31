@@ -46,4 +46,26 @@
       content: none;
     }
   }
+
+  &__featured.slider {
+    justify-content: space-between;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  &__button-right {
+    transform: rotate(180deg);
+  }
+  &__icon-back {
+    background-color: #555555;
+    font-size: 11px;
+    &.disabled {
+      background-color: $color-gray-200;
+    }
+  }
 }

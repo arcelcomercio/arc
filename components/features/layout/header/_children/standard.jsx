@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { getResponsiveClasses } from '../../../../utilities/helpers'
+import {
+  sideScroll,
+  handleNavScroll,
+  checkDisabledIcons,
+  getResponsiveClasses,
+} from '../../../../utilities/slidernav-helpers'
 
 const classes = {
   header: `header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex position-relative`,
@@ -18,6 +23,13 @@ const classes = {
 // TODO: Agregar el click afuera del menu
 const HeaderChildStandard = props => {
   const { logo, sections, deviceList, tags, date } = props
+
+  const isSlider = true
+
+  useEffect(() => {
+    checkDisabledIcons()
+  }, [])
+
   return (
     <>
       <header
@@ -30,8 +42,21 @@ const HeaderChildStandard = props => {
         className={`${deviceList.showInDesktop &&
           classes.navWrapper} ${getResponsiveClasses(deviceList)}`}>
         {tags !== '' && <div className={classes.tags}>{tags}</div>}
+        {isSlider && (
+          <button
+            type="button"
+            onClick={() => {
+              sideScroll('left', 15, 100, 5)
+            }}>
+            <i className="header__icon-back left disabled icon-back text-white rounded font-bold p-5"></i>
+          </button>
+        )}
         {sections[0] && (
-          <ul className={classes.featured}>
+          <ul
+            className={`${classes.featured}${isSlider ? ' slider' : ''}`}
+            onScroll={e => {
+              handleNavScroll(e)
+            }}>
             {sections.map(({ url, name, styles = [] }) => (
               <li
                 className={`${classes.item}${
@@ -52,6 +77,16 @@ const HeaderChildStandard = props => {
               </li>
             ))}
           </ul>
+        )}
+        {isSlider && (
+          <button
+            type="button"
+            onClick={() => {
+              sideScroll('right', 15, 100, 5)
+            }}
+            className="header__button-right">
+            <i className="header__icon-back right disabled icon-back text-white rounded font-bold p-5"></i>
+          </button>
         )}
         {date.active && <div className={classes.date}>{date.value}</div>}
       </nav>
