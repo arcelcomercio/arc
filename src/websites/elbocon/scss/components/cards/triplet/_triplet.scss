@@ -28,7 +28,7 @@
     }
   }
   &__title {
-    color: #fff;
+    color: $color-white;
     @media (--only-mobile) {
       height: 60px;
       max-height: none;
