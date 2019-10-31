@@ -1,34 +1,28 @@
 import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
-import StorySeparatorChildItemAmp from '../../story/interest-by-tag/_children/amp'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
+import StorySeparatorChildItemAmp from '../interest-by-tag/_children/amp'
 
 const classes = {
   storyInterest:
     'amp-story-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-story-header',
   title:
     'amp-story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
-  container: 'amp-story-interest__container block w-full h-auto ',
-  list: 'amp-story-interest__list flex pl-20 pr-20',
 }
 
-const InterestByTag = props => {
+const StoryRelatedAmp = () => {
   const {
     arcSite,
-    globalContent: {
-      recent_stories: { content_elements: storyData },
-      _id: excluir,
-    },
-    globalContent: storyDataPrimary,
+    globalContent: dataContent,
     contextPath,
     deployment,
     isAdmin,
   } = useFusionContext()
 
-  const { primarySection } = new StoryData({
-    data: storyDataPrimary,
+  const { relatedContent: storyData } = new StoryData({
+    data: dataContent,
     contextPath,
   })
 
@@ -41,23 +35,14 @@ const InterestByTag = props => {
       defaultImgSize: 'sm',
     })
 
-  let key = 0
+  const getSize = () => {
+    const dataStorys = storyData.map((story, i) => {
+      if ( story.type !== 'story') return false
 
-  const dataInterest = storyData
-    .map(story => {
-      return story && story._id !== excluir ? story : ''
-    })
-    .filter(String)
-
-  const getSize = cant => {
-    const dataStorys = dataInterest.map((story, i) => {
-      if (key === cant) return false
       instance.__data = story
-      key += 1
-
       const data = {
         title: instance.title,
-        link: `${instance.canonicalUrl}?ref=amp&source=mas-en-seccion`,
+        link: `${instance.link}?ref=amp&source=relacionadas`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
@@ -67,7 +52,6 @@ const InterestByTag = props => {
         multimediaType: instance.multimediaType,
         isAdmin,
       }
-
       return (
         <>
           <StorySeparatorChildItemAmp
@@ -83,17 +67,17 @@ const InterestByTag = props => {
 
   return (
     <>
-      {dataInterest && dataInterest[0] && (
+      {storyData.length > 0 && (
         <div className={classes.storyInterest}>
-          <div className={classes.title}>Más en {primarySection} </div>
-          {getSize(6)}
+          <div className={classes.title}>Relacionadas </div>
+          {getSize()}
         </div>
       )}
     </>
   )
 }
 
-InterestByTag.label = 'Artículo - Te puede interesar'
-InterestByTag.static = true
+StoryRelatedAmp.label = 'Artículo - Te puede interesar'
+StoryRelatedAmp.static = true
 
-export default InterestByTag
+export default StoryRelatedAmp
