@@ -7,20 +7,23 @@
   }
   .featured-story {
     background-color: transparent;
-    .featured-story__category {
-      background-image: url(/pf/resources/dist/elbocon/images/bullet.jpg);
-      border-bottom: 1px solid $color-black;
-      display: flex;
-      align-items: center;
-      height: 22px;
-      padding-bottom: 0;
-      padding-left: 9px;
-      position: absolute;
-      width: 100%;
-      left: 0;
-      top: 0;
-      @media (--only-mobile) {
-        display: none;
+    &.expand,
+    &.featured-story--no-expanded {
+      .featured-story__category {
+        background-image: url(/pf/resources/dist/elbocon/images/bullet.jpg);
+        border-bottom: 1px solid $color-black;
+        display: flex;
+        align-items: center;
+        height: 22px;
+        padding-bottom: 0;
+        padding-left: 9px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        @media (--only-mobile) {
+          display: none;
+        }
       }
     }
     &.img-complete {
