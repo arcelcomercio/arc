@@ -211,6 +211,9 @@ export default ({
       "itemListElement":[${breadcrumbResult}]  
       }`
 
+  const taboolaScript =
+    arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
+
   const scriptTaboola = `
   window._taboola = window._taboola || [];
     _taboola.push({
@@ -226,7 +229,9 @@ export default ({
     }(document.createElement('script'),
         document.getElementsByTagName('script')[0],
         '//cdn.taboola.com/libtrc/grupoelcomercio-${
-          arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : arcSite
+          arcSite === ConfigParams.SITE_PUBLIMETRO
+            ? 'publimetrope'
+            : taboolaScript
         }/loader.js',
         'tb_loader_script');
     if (window.performance && typeof window.performance.mark == 'function') {
