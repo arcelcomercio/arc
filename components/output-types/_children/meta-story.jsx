@@ -34,6 +34,7 @@ export default ({
     videoSeo,
     contentElementsText: dataElement,
     relatedContent,
+    relatedStories,
     seoKeywords,
     breadcrumbList,
     multimediaType,
@@ -41,6 +42,8 @@ export default ({
     isPremium,
     sourceUrlOld,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
+
+  const resultRelated = relatedContent[0] ? relatedContent : relatedStories
 
   const videoSeoItems = videoSeo.map(
     ({ url, caption, urlImage, date } = {}) => {
@@ -92,7 +95,7 @@ export default ({
     return `${item}`
   })
 
-  const relatedContentItem = relatedContent.map((content, i) => {
+  const relatedContentItem = resultRelated.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
     const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ''
     return `{  
