@@ -86,7 +86,7 @@ const InterestByTag = props => {
       {dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
           <div className={classes.title}>Más en {primarySection} </div>
-          {getSize(4)}
+          {getSize(6)}
         </div>
       )}
     </>

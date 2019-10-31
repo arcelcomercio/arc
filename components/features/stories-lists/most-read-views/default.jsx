@@ -31,7 +31,6 @@ const MostReadView = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  console.log(data, 'DATAAAAAAAAAAAA')
   const params = {
     data,
     title,
