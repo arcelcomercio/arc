@@ -21,13 +21,14 @@ const classes = {
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
 const InterestByTag = props => {
-  const { customFields: { section = '' } = {} } = props
+  const { customFields: { section = '', isWeb = '' } = {} } = props
   const {
     arcSite,
     globalContent: dataContent,
     contextPath,
     deployment,
     isAdmin,
+    outputType: isAmp,
   } = useFusionContext()
 
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
@@ -66,7 +67,7 @@ const InterestByTag = props => {
 
   return (
     <>
-      {dataInterest && dataInterest[0] && (
+      {isAmp !== 'amp' && isWeb && dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
           <div className={classes.container}>
             <div className={classes.title}>Te puede interesar:</div>
