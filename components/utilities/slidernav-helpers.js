@@ -33,26 +33,30 @@ export const sideScroll = direction => {
 }
 
 export const handleNavScroll = e => {
-  const icons = document.getElementsByClassName('header__icon-back')
-  if (e.target.scrollLeft === 0) {
-    icons[0].classList.add('disabled')
-  } else {
-    icons[0].classList.remove('disabled')
-  }
+  if (window) {
+    const icons = document.getElementsByClassName('header__icon-back')
+    if (e.target.scrollLeft === 0) {
+      icons[0].classList.add('disabled')
+    } else {
+      icons[0].classList.remove('disabled')
+    }
 
-  if (e.target.scrollWidth - e.target.offsetWidth <= e.target.scrollLeft) {
-    icons[1].classList.add('disabled')
-  } else {
-    icons[1].classList.remove('disabled')
+    if (e.target.scrollWidth - e.target.offsetWidth <= e.target.scrollLeft) {
+      icons[1].classList.add('disabled')
+    } else {
+      icons[1].classList.remove('disabled')
+    }
   }
 }
 
 export const checkDisabledIcons = () => {
-  const icons = document.getElementsByClassName('header__icon-back')
-  const container = document.getElementsByClassName('header__featured')[0]
-  if (container && icons) {
-    if (container.scrollWidth > container.clientWidth) {
-      icons[1].classList.remove('disabled')
+  if (window) {
+    const icons = document.getElementsByClassName('header__icon-back')
+    const container = document.getElementsByClassName('header__featured')[0]
+    if (container && icons) {
+      if (container.scrollWidth > container.clientWidth) {
+        icons[1].classList.remove('disabled')
+      }
     }
   }
 }
@@ -70,3 +74,54 @@ export const getResponsiveClasses = ({
   if (!showInMobile) responsiveClasses.push('non-mobile')
   return responsiveClasses.join(' ')
 }
+
+/* export const arrayMonths = [
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre',
+]
+
+export const arrayDays = [
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado',
+]
+
+export const formattedTime = date => {
+  const hours =
+    date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
+
+  const minutes =
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+
+  return `${hours}:${minutes}`
+}
+
+export const formatDayMonthYear = (
+  currentDate,
+  showTime = true,
+  isStatic = false
+) => {
+  const date = new Date(currentDate)
+
+  if (isStatic) date.setHours(date.getHours() - 5)
+
+  const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
+    arrayMonths[date.getMonth()]
+    } del ${date.getFullYear()}`
+  return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
+}
+ */

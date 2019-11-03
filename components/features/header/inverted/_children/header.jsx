@@ -3,6 +3,11 @@ import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
+import {
+  sideScroll,
+  handleNavScroll,
+  checkDisabledIcons,
+} from '../../../../utilities/slidernav-helpers'
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/standard'
@@ -66,6 +71,7 @@ const HeaderChildInverted = ({
   search,
   isStory,
   shareButtons,
+  isSlider,
 }) => {
   const [scrolled, setScrolled] = useState(false)
   const [statusSidebar, setStatusSidebar] = useState(false)
@@ -239,10 +245,11 @@ const HeaderChildInverted = ({
 
   useEffect(() => {
     window.addEventListener('scroll', _handleScroll)
+    if (isSlider) checkDisabledIcons()
     return () => {
       window.removeEventListener('scroll', _handleScroll)
     }
-  }, [_handleScroll])
+  }, [_handleScroll, isSlider])
   /*   useEffect(() => {
     listContainer = document.querySelector('.nav-sidebar')
     layerBackground = document.querySelector('.layer')
@@ -272,8 +279,21 @@ const HeaderChildInverted = ({
       <nav className={classes.band}>
         <div className={classes.bandWrapper}>
           {tags && <div className={classes.tags}>{tags}</div>}
+          {isSlider && (
+            <button
+              type="button"
+              onClick={() => {
+                sideScroll('left', 15, 100, 5)
+              }}>
+              <i className="header__icon-back left disabled icon-back text-white rounded font-bold p-5"></i>
+            </button>
+          )}
           {bandLinks && bandLinks[0] && (
-            <ul className={classes.featured}>
+            <ul
+              className={`${classes.featured}${isSlider ? ' slider' : ''}`}
+              onScroll={e => {
+                if (isSlider) handleNavScroll(e)
+              }}>
               {bandLinks.map(({ url, name, styles = [] }) => (
                 <li
                   className={`${classes.item}${
@@ -294,6 +314,16 @@ const HeaderChildInverted = ({
                 </li>
               ))}
             </ul>
+          )}
+          {isSlider && (
+            <button
+              type="button"
+              onClick={() => {
+                sideScroll('right', 15, 100, 5)
+              }}
+              className="header__button-right">
+              <i className="header__icon-back right disabled icon-back text-white rounded font-bold p-5"></i>
+            </button>
           )}
           {date.active && (
             <time className={classes.date} dateTime={date.raw}>

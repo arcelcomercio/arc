@@ -22,13 +22,11 @@ const classes = {
 }
 // TODO: Agregar el click afuera del menu
 const HeaderChildStandard = props => {
-  const { logo, sections, deviceList, tags, date } = props
-
-  const isSlider = true
+  const { logo, sections, deviceList, tags, date, isSlider } = props
 
   useEffect(() => {
-    checkDisabledIcons()
-  }, [])
+    if (isSlider) checkDisabledIcons()
+  }, [isSlider])
 
   return (
     <>
@@ -55,7 +53,7 @@ const HeaderChildStandard = props => {
           <ul
             className={`${classes.featured}${isSlider ? ' slider' : ''}`}
             onScroll={e => {
-              handleNavScroll(e)
+              if (isSlider) handleNavScroll(e)
             }}>
             {sections.map(({ url, name, styles = [] }) => (
               <li
