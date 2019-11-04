@@ -22,7 +22,7 @@ export default {
     tryLater: `Ha ocurrido un error. Inténtelo más tarde`,
 
     // Home
-    recommended: `¡RECOMENDADO!`,
+    recommended: `CYBERDAYS 4,5 Y 6 DE NOV`,
 
     // Summary
     planPrice: `Precio del plan`,
