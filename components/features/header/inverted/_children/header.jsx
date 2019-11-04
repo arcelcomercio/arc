@@ -284,8 +284,9 @@ const HeaderChildInverted = ({
               type="button"
               onClick={() => {
                 sideScroll('left', 15, 100, 5)
-              }}>
-              <i className="header__icon-back left disabled icon-back text-white rounded font-bold p-5"></i>
+              }}
+              className="header__button left disabled position-relative">
+              <i className="header__icon-back left icon-back text-white rounded font-bold p-5"></i>
             </button>
           )}
           {bandLinks && bandLinks[0] && (
@@ -321,8 +322,8 @@ const HeaderChildInverted = ({
               onClick={() => {
                 sideScroll('right', 15, 100, 5)
               }}
-              className="header__button-right">
-              <i className="header__icon-back right disabled icon-back text-white rounded font-bold p-5"></i>
+              className="header__button right disabled position-relative">
+              <i className="header__icon-back right icon-back text-white rounded font-bold p-5"></i>
             </button>
           )}
           {date.active && (

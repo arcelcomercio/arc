@@ -34,28 +34,28 @@ export const sideScroll = direction => {
 
 export const handleNavScroll = e => {
   if (window) {
-    const icons = document.getElementsByClassName('header__icon-back')
+    const buttons = document.getElementsByClassName('header__button')
     if (e.target.scrollLeft === 0) {
-      icons[0].classList.add('disabled')
+      buttons[0].classList.add('disabled')
     } else {
-      icons[0].classList.remove('disabled')
+      buttons[0].classList.remove('disabled')
     }
 
     if (e.target.scrollWidth - e.target.offsetWidth <= e.target.scrollLeft) {
-      icons[1].classList.add('disabled')
+      buttons[1].classList.add('disabled')
     } else {
-      icons[1].classList.remove('disabled')
+      buttons[1].classList.remove('disabled')
     }
   }
 }
 
 export const checkDisabledIcons = () => {
   if (window) {
-    const icons = document.getElementsByClassName('header__icon-back')
+    const buttons = document.getElementsByClassName('header__button')
     const container = document.getElementsByClassName('header__featured')[0]
-    if (container && icons) {
+    if (container && buttons) {
       if (container.scrollWidth > container.clientWidth) {
-        icons[1].classList.remove('disabled')
+        buttons[1].classList.remove('disabled')
       }
     }
   }
