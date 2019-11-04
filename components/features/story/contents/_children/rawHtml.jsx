@@ -30,14 +30,11 @@ class rawHTML extends PureComponent {
     } else if (content.includes('player.daznservices.com/')) {
       const idVideos = storyVideoPlayerId(content)
 
-      this.URL_VIDEO =
-        idVideos.length > 0
-          ? `${idVideos[1].replace('src="//', 'https://')}id=${idVideos[2]}`
-          : `${content
-              .match(/<script (src=(.*))(.*)><\/script>/)[1]
-              .replace('src="//', 'https://')}`
+      this.URL_VIDEO = content.includes('id')
+        ? `${idVideos[1].replace('src="//', 'https://')}id=${idVideos[2]}`
+        : `${idVideos[1].replace('src="//', 'https://')}`
 
-      this.ID_VIDEO = idVideos.length > 0 && `${idVideos[2]}`
+      this.ID_VIDEO = content.includes('id') && `${idVideos[2]}`
     } else {
       this.newContent = content
     }
@@ -52,14 +49,21 @@ class rawHTML extends PureComponent {
       const { content } = this.props
       const idVideo = storyVideoPlayerId(content)
       const idElement =
-        content.includes('player.daznservices.com/') && idVideo[2]
+        content.includes('player.daznservices.com/') &&
+        content.includes('id') &&
+        idVideo[2]
           ? `id_video_embed_${this.ID_VIDEO}`
           : '_'
       const myList = document.getElementById(idElement)
       appendToId(
         myList,
         createScript({
-          src: this.URL_VIDEO,
+          src: content.includes('id')
+            ? this.URL_VIDEO
+            : idVideo[2]
+                .trim()
+                .replace('"', '')
+                .replace('"', ''),
           async: true,
         })
       )
@@ -71,9 +75,12 @@ class rawHTML extends PureComponent {
     const idVideo = storyVideoPlayerId(content)
 
     const idVideoEmbed =
-      content.includes('player.daznservices.com/') && idVideo[2]
+      content.includes('player.daznservices.com/') &&
+      content.includes('id') &&
+      idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
         : '_'
+
     return (
       <>
         <div
