@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer';
 import customFields from './_dependencies/custom-fields'
 
+const classes = { lazy: "lazy" };
+
 @Consumer
 class CustomImage extends PureComponent {
  
@@ -21,13 +23,13 @@ class CustomImage extends PureComponent {
       return <div>Modulo imagen, clic en editar para configurar.</div> 
     const picture = (
       <picture>
-        { imgUrlMobile !== '' && <source media="(max-width: 650px)" srcSet={imgUrlMobile} className="lazy" /> }
+        { imgUrlMobile !== '' && <source media="(max-width: 650px)" srcSet={imgUrlMobile} className={classes.lazy} /> }
         <img 
           src={imgUrlDesktop} 
           alt={imgAlt}
           {...imgTitle !== '' ? {title:imgTitle} : {}}
           {...imgWidth > 0 ? {width:imgWidth} : {}}
-          className="lazy"
+          className={classes.lazy}
         />
       </picture>
     );
