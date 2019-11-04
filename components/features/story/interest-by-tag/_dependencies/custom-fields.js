@@ -10,6 +10,16 @@ const customFields = PropTypes.shape({
     name: 'Titulo',
     description: 'Colocar el Titulo ',
   }),
+
+  isWeb: PropTypes.bool.tag({
+    name: 'Mostrar en "desktop" , "tablet" y "movile"',
+    defaultValue: true,
+  }),
+  isWebAmp: PropTypes.bool.tag({
+    name: 'Mostrar en "Amp"',
+    defaultValue: true,
+  }),
+
   titleAmp: PropTypes.string.tag({
     name: 'Titulo Amp',
     group: 'Configuración',

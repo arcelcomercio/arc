@@ -4,7 +4,7 @@ export default {
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Titillium+Web:400,700,900|Roboto+Slab:400,700',
+  googleFonts: 'Titillium+Web:400,600,700,900|Roboto+Slab:400,700',
   siteDomain: 'elbocon.pe',
   siteUrl: 'https://elbocon.pe',
   resizerUrl: 'https://elcomercio-elbocon-prod.cdn.arcpublishing.com/resizer',

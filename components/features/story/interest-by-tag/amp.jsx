@@ -14,16 +14,15 @@ const classes = {
     'amp-story-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-story-header',
   title:
     'amp-story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
-  container: 'amp-story-interest__container block w-full h-auto ',
-  list: 'amp-story-interest__list flex pl-20 pr-20',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
-const InterestByTag = props => {
+const InterestByTagAmp = props => {
   const {
     customFields: {
       section = '',
+      isWebAmp = '',
       storyAmp = '',
       titleAmp = 'Te puede interesar:',
       storiesQty = 4,
@@ -35,6 +34,7 @@ const InterestByTag = props => {
     contextPath,
     deployment,
     isAdmin,
+    outputType: isAmp,
   } = useFusionContext()
 
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
@@ -112,7 +112,7 @@ const InterestByTag = props => {
 
   return (
     <>
-      {dataInterest && dataInterest[0] && (
+      {isAmp === 'amp' && isWebAmp && dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
           <div className={classes.title}>{titleAmp}</div>
           {storyAmp === 'slider' ? (
@@ -132,11 +132,11 @@ const InterestByTag = props => {
   )
 }
 
-InterestByTag.propTypes = {
+InterestByTagAmp.propTypes = {
   customFields,
 }
 
-InterestByTag.label = 'Artículo - Te puede interesar'
-InterestByTag.static = true
+InterestByTagAmp.label = 'Artículo - Te puede interesar'
+InterestByTagAmp.static = true
 
-export default InterestByTag
+export default InterestByTagAmp
