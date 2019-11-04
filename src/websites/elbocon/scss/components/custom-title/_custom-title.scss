@@ -12,6 +12,7 @@
   @media (--desktop) {
     padding-left: 20px;
   }
+  &.medium,
   &.large {
     font-size: 28px;
     @media (--desktop) {
