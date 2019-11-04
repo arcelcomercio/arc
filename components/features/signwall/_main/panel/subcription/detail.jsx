@@ -5,7 +5,7 @@ import Consumer from 'fusion:consumer'
 import ENV from 'fusion:environment'
 import * as S from './styles'
 import { Button, Table, Wrapper } from '../../../_styles/common'
-import { Notice, Cvv, Close } from '../../common/iconos'
+import { Notice, Cvv, CvvFront, Close } from '../../common/iconos'
 import Domains from '../../utils/domains'
 import Loading from '../../common/loading'
 import Modal from '../../common/modal'
@@ -13,7 +13,7 @@ import addPayU from '../../utils/payu'
 import { PayuError } from '../../utils/payu-error'
 import Services from '../../utils/services'
 import Radiobox from './Radiobox'
-import FormValid from '../../utils/form-valid'
+// import FormValid from '../../utils/form-valid'
 
 const services = new Services()
 
@@ -29,16 +29,31 @@ const Cards = [
       'data:image/png;base64,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',
   },
   {
-    name: 'DINERS',
+    name: 'AMEX',
     image:
       'data:image/png;base64,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',
   },
   {
-    name: 'AMEX',
+    name: 'DINERS',
     image:
       'data:image/png;base64,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',
   },
 ]
+
+const cardPatterns = {
+  VISA: /^(4)(\d{12}|\d{15})$|^(606374\d{10}$)/,
+  MASTERCARD: /^(5[1-5]\d{14}$)|^(2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$)/,
+  AMEX: /^3[47][0-9]{13}$/,
+  DINERS: /(^[35](?:0[0-5]|[268][0-9])[0-9]{11}$)|(^30[0-5]{11}$)|(^3095(\d{10})$)|(^36{12}$)|(^3[89](\d{12})$)/,
+  NARANJA: /^(589562)\d{10}$/,
+  SHOPPING: /(^603488(\d{10})$)|(^2799(\d{9})$)/,
+  CABAL: /(^604(([23][0-9][0-9])|(400))(\d{10})$)|(^589657(\d{10})$)/,
+  ARGENCARD: /^(501105|532362)(\d{10}$)/,
+  CENCOSUD: /^603493(\d{10})$/,
+  HIPERCARD: /^(384100|384140|384160|606282)(\d{10}|\d{13})$/,
+  CODENSA: /^590712(\d{10})$/,
+  ELO: /(^(636368|438935|504175|451416|636297|650901|650485|650541|650700|650720|650720|650720|655021|650405)\d{10})$|(^(5090|5067|4576|4011)\d{12})$|(^(50904|50905|50906)\d{11})$/,
+}
 
 @Consumer
 class SubDetail extends Component {
@@ -62,8 +77,8 @@ class SubDetail extends Component {
       selectedOption: 'VISA',
       showMessageSuccess: false,
       showMessageFailed: false,
-      statusButton: 'ACTUALIZAR',
       disabledButton: false,
+      typeAmex: false,
     }
 
     const { arcSite } = this.props
@@ -77,6 +92,7 @@ class SubDetail extends Component {
       this.setState({
         resDetail,
         isLoading: false,
+        selectedOption: resDetail.currentPaymentMethod.creditCardType.toUpperCase(),
       })
     })
   }
@@ -100,13 +116,19 @@ class SubDetail extends Component {
   handleChangeValidation = e => {
     const { name, value } = e.target
     const { formErrors } = this.state
+    const { selectedOption } = this.state
 
     switch (name) {
       case 'numcard':
         if (value.length === 0) {
           formErrors.numcard = 'Este campo es requerido'
-        } else if (value.length < 19) {
-          formErrors.numcard = 'Mínimo 16 caracteres'
+        } else if (value.length < 17) {
+          formErrors.numcard = 'Formato inválido.'
+          // } else if (cardPatterns[selectedOption].test(value)) {
+          //   formErrors.numcard = ''
+          // } else {
+          //   formErrors.numcard = 'Formato inválido.'
+          // }
         } else {
           formErrors.numcard = ''
         }
@@ -115,6 +137,16 @@ class SubDetail extends Component {
         if (value.length === 0) {
           formErrors.dateexpire = 'Este campo es requerido'
         } else if (value.length < 7) {
+          formErrors.dateexpire = 'Fecha inválida'
+        } else if (
+          value.split('/')[0] < new Date().getMonth() + 1 &&
+          value.split('/')[1] <= new Date().getFullYear()
+        ) {
+          formErrors.dateexpire = 'Fecha inválida'
+        } else if (
+          value.split('/')[0] >= 13 ||
+          value.split('/')[1] < new Date().getFullYear()
+        ) {
           formErrors.dateexpire = 'Fecha inválida'
         } else {
           formErrors.dateexpire = ''
@@ -154,7 +186,6 @@ class SubDetail extends Component {
     ) {
       this.setState({
         disabledButton: true,
-        statusButton: 'ACTUALIZANDO...',
       })
 
       window.Sales.apiOrigin = this.origin_api
@@ -220,17 +251,15 @@ class SubDetail extends Component {
                     `${'5555555555'}`
                   )
                   .then(resFin => {
-                    if (resFin.code === '300123,300124') {
-                      this.setState({
-                        showMessageFailed: true,
-                        disabledButton: false,
-                        statusButton: 'ACTUALIZAR',
-                      })
-                    } else {
+                    if (resFin.cardholderName === 'APPROVED') {
                       this.setState({
                         showMessageSuccess: true,
                         disabledButton: false,
-                        statusButton: 'ACTUALIZAR',
+                      })
+                    } else {
+                      this.setState({
+                        showMessageFailed: true,
+                        disabledButton: false,
                       })
                     }
                   })
@@ -238,7 +267,6 @@ class SubDetail extends Component {
                     this.setState({
                       showMessageFailed: true,
                       disabledButton: false,
-                      statusButton: 'ACTUALIZAR',
                     })
                   })
               })
@@ -295,7 +323,17 @@ class SubDetail extends Component {
   handleCheckbox(e, name) {
     this.setState({
       selectedOption: name,
+      typeAmex: name === 'AMEX',
     })
+    // if (name === 'AMEX') {
+    //   this.setState({
+    //     typeAmex: true,
+    //   })
+    // }else{
+    //   this.setState({
+    //     typeAmex: false,
+    //   })
+    // }
   }
 
   showUpdatePayment() {
@@ -317,8 +355,8 @@ class SubDetail extends Component {
       selectedOption,
       showMessageSuccess,
       showMessageFailed,
-      statusButton,
       disabledButton,
+      typeAmex,
     } = this.state
 
     const { arcSite } = this.props
@@ -368,9 +406,21 @@ class SubDetail extends Component {
               <legend>Método de pago</legend>
 
               <div className="left">
-                {resDetail.currentPaymentMethod.creditCardType.toUpperCase()}{' '}
-                que termina en
-                <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
+                {Cards.map(item => {
+                  if (
+                    item.name ===
+                    resDetail.currentPaymentMethod.creditCardType.toUpperCase()
+                  ) {
+                    return (
+                      <img key={item.name} src={item.image} alt={item.name} />
+                    )
+                  }
+                  return null
+                })}
+                <p>
+                  que termina en
+                  <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
+                </p>
               </div>
               <div className="right">
                 {ENV.ENVIRONMENT === 'elcomercio' ? null : (
@@ -498,7 +548,9 @@ class SubDetail extends Component {
                   </S.FormGroup>
 
                   <S.FormGroup width="20">
-                    <S.Input
+                    <S.InputMask
+                      mask={[/\d/, /\d/, /\d/, /\d/]}
+                      guide={false}
                       type="text"
                       name="codecvv"
                       placeholder="CVV"
@@ -525,8 +577,17 @@ class SubDetail extends Component {
                   </S.FormGroup>
 
                   <S.Msgcvv>
-                    <Cvv />
-                    <small>Se encuentra en el reverso de su tarjeta*</small>
+                    {typeAmex ? (
+                      <>
+                        <CvvFront />
+                        <small>Se encuentra en el anverso de su tarjeta*</small>
+                      </>
+                    ) : (
+                      <>
+                        <Cvv />
+                        <small>Se encuentra en el reverso de su tarjeta*</small>
+                      </>
+                    )}
                   </S.Msgcvv>
                 </S.Group>
 
@@ -540,7 +601,7 @@ class SubDetail extends Component {
                         resDetail.currentPaymentMethod.paymentMethodID
                       )
                     }>
-                    {statusButton}
+                    {disabledButton ? 'ACTUALIZANDO...' : 'ACTUALIZAR'}
                   </Button>
                 </S.Block>
               </S.Fieldset>

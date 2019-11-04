@@ -577,7 +577,7 @@ class FormLogin extends Component {
                         peru21: '#d5ecff',
                         peru21g21: '#d5ecff',
                         elbocon: '#fdabab',
-                        depor: '#fecd26',
+                        depor: '#d5d945',
                       }[arcSite]
                     }
                   />
