@@ -1,50 +1,39 @@
 import React from 'react'
 
 const classes = {
-  item: 'story-interest__item w-full mb-25',
-  detail: 'story-interest__detail w-full pl-10 pr-10 pt-10',
+  item: 'amp-story-interest__item flex w-full mb-25',
+  detail: 'amp-story-interest__detail w-full pl-10 pr-10',
   separatorCategory:
-    'story-interest__category mb-10 lg:text-center hidden md:block',
+    'amp-story-interest__category mb-10 lg:text-center hidden md:block',
   separatorCategoryLink: 'story-interest__category-link text-xl',
-  separatorTitle: 'story-interest__title overflow-hidden lg:text-center',
-  titleLink: 'story-interest__title-link text-md line-h-sm font-bold',
-  link: '',
-  itemImage: 'story-interest__img w-full h-full object-cover',
-  figure: 'story-interest__figure hidden md:block',
+  separatorTitle: 'amp-story-interest__title overflow-hidden lg:text-center',
+  titleLink: 'amp-story-interest__title-link text-lg line-h-sm font-bold',
+  link: 'amp-story-interest__link text-xl',
+  itemImage:
+    'amp-story-interest__img justify-center items-center w-full h-full overflow-hidden position-relative mr-15 object-cover',
+  figure: 'amp-story-interest__figure hidden md:block',
 }
 
 const StorySeparatorChildItemAmp = ({ data }) => {
-  const {
-    title,
-    link,
-    section,
-    sectionLink,
-    multimediaLandscapeL,
-    multimediaType,
-  } = data
+  const { title, link, multimediaLandscapeL, multimediaType } = data
 
   return (
     <div className={classes.item}>
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
-        <a href={link} title={title}>
+        <a href={link} className={classes.link} title={title}>
           <amp-img
             src={multimediaLandscapeL}
             layout="responsive"
             width="304"
             height="200"
             alt={title}
+            class={classes.itemImage}
           />
         </a>
       )}
-
       <div className={classes.detail}>
-        <h2 className={classes.separatorCategory}>
-          <a href={sectionLink} className={classes.separatorCategoryLink}>
-            {section}
-          </a>{' '}
-        </h2>
         <h3 className={classes.separatorTitle}>
           <a className={classes.titleLink} href={link}>
             {title}

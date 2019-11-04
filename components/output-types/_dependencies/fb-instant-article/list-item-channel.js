@@ -69,6 +69,8 @@ const ListItemNews = (contentElements, buildProps) => {
           const BuildHtmlProps = {
             scriptAnaliticaProps,
             propsScriptHeader,
+            canonical:pagePath,
+            oppublished: storydata.date,
             title: nbspToSpace(storydata.title),
             subTitle: nbspToSpace(storydata.subTitle),
             multimedia: storydata.multimediaNews,

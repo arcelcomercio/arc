@@ -35,7 +35,9 @@ const buildHeaderParagraph = (paragraph, level = '2') => {
   result.numberWords = countWordsHelper(clearHtml(paragraph))
 
   result.processedParagraph =
-    result.numberWords > 0 ? `<h${level}>${clearBrTag(paragraph)}</h${level}>` : ''
+    result.numberWords > 0
+      ? `<h${level}>${clearBrTag(paragraph)}</h${level}>`
+      : ''
 
   return result
 }
@@ -44,7 +46,8 @@ const buildTexParagraph = paragraph => {
   const result = { numberWords: 0, processedParagraph: '' }
   result.numberWords = countWordsHelper(clearHtml(paragraph))
 
-  result.processedParagraph = result.numberWords > 0 ? `<p>${clearBrTag(paragraph)}</p>` : ''
+  result.processedParagraph =
+    result.numberWords > 0 ? `<p>${clearBrTag(paragraph)}</p>` : ''
 
   return result
 }
@@ -185,9 +188,8 @@ const ParagraphshWithAdds = ({
         level,
       })
 
-      
       countWords += numberWords
-      
+
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
           countWords = 0
@@ -202,12 +204,10 @@ const ParagraphshWithAdds = ({
           paragraphwithAdd = `${processedParagraph}`
         }
       } else {
-        
         // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
-          
           countWords = 0
           paragraphwithAdd = `${processedParagraph} ${
             arrayadvertising[IndexAdd]
@@ -256,6 +256,8 @@ const BuildHtml = ({
   propsScriptHeader,
   title,
   subTitle,
+  canonical,
+  oppublished,
   multimedia,
   paragraphsNews = [],
   author = '',
@@ -279,6 +281,7 @@ const BuildHtml = ({
       <meta charset="utf-8" />
       <meta property="op:markup_version" content="v1.0" />
       <meta property="fb:article_style" content="${fbArticleStyle}" />
+      <link rel="canonical" href="${canonical}"/>
   </head>
   <body>
     <article>
@@ -296,6 +299,7 @@ const BuildHtml = ({
       <header>
         <h1>${title}</h1>
         ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
+        <time class="op-published" datetime="${oppublished}"> ${oppublished}</time>
       </header>
       ${multimediaHeader(multimedia, title)}
       
