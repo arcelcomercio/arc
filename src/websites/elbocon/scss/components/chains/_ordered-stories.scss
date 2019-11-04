@@ -1,16 +1,36 @@
 .chain-ordered-stories {
   background-color: #666;
+  .custom-title {
+    background-color: transparent;
+    background-image: none;
+    padding: 0 20px;
+  }
   .featured-story {
     background-color: transparent;
-    &.expand {
+    &.expand,
+    &.featured-story--no-expanded {
       .featured-story__category {
         background-image: url(/pf/resources/dist/elbocon/images/bullet.jpg);
-        background-color: $color-gray-300;
         border-bottom: 1px solid $color-black;
         display: flex;
         align-items: center;
         height: 22px;
         padding-bottom: 0;
+        padding-left: 9px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        @media (--only-mobile) {
+          display: none;
+        }
+      }
+    }
+    &.img-complete {
+      .featured-story__category {
+        background-image: none;
+        position: relative;
+        border-bottom: 0;
       }
     }
   }

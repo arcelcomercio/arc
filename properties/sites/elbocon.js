@@ -4,7 +4,7 @@ export default {
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Titillium+Web:400,700,900|Roboto+Slab:400,700',
+  googleFonts: 'Titillium+Web:400,600,700,900|Roboto+Slab:400,700',
   siteDomain: 'elbocon.pe',
   siteUrl: 'https://elbocon.pe',
   resizerUrl: 'https://elcomercio-elbocon-prod.cdn.arcpublishing.com/resizer',
@@ -12,7 +12,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Bocon_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-KFQK83S',
+  googleTagManagerId: 'GTM-WB49SJD',
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'elbocon',
   charbeatAccountNumber: 57773,
