@@ -485,7 +485,9 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -509,10 +511,14 @@ export const imageHtml = html => {
     /<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g,
     rplImageCde
   )
+
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
+  resHtml = resHtml
+    .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
+    .replace('<FONT', '<font')
   return resHtml
 }
 
@@ -541,12 +547,17 @@ export const twitterHtml = html => {
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
 
-  if (arcSite === ConfigParams.SITE_ELCOMERCIO)
+  if (arcSite === ConfigParams.SITE_ELCOMERCIO) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.elcomercio.pe$1'
     )
-  else
+  } else if (arcSite === ConfigParams.SITE_DEPOR) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
+      '$1'
+    )
+  } else
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.peru21.pe$1'
