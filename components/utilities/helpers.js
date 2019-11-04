@@ -117,7 +117,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-    } del ${date.getFullYear()}`
+  } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -215,8 +215,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
-    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-    }`
+        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+      }`
 }
 
 export const getMetaPagesPagination = (
@@ -315,10 +315,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-      .charAt(0)
-      .toUpperCase()
-      .concat(lastSection.slice(1))
-      .replace(/-/, ' ')
+        .charAt(0)
+        .toUpperCase()
+        .concat(lastSection.slice(1))
+        .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -487,7 +487,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-    }/optawidget?${matchesResult} ></amp-iframe>`
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -511,10 +511,14 @@ export const imageHtml = html => {
     /<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g,
     rplImageCde
   )
+
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
+  resHtml = resHtml
+    .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
+    .replace('<FONT', '<font')
   return resHtml
 }
 
@@ -543,12 +547,17 @@ export const twitterHtml = html => {
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
 
-  if (arcSite === ConfigParams.SITE_ELCOMERCIO)
+  if (arcSite === ConfigParams.SITE_ELCOMERCIO) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.elcomercio.pe$1'
     )
-  else
+  } else if (arcSite === ConfigParams.SITE_DEPOR) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
+      '$1'
+    )
+  } else
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.peru21.pe$1'
