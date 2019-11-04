@@ -138,6 +138,7 @@ export default {
       apple_icon_144:                    `{{contextPath}}/resources/dist/elcomercio/images/apple-touch-icon-144x144.png`,
       apple_icon_152:                    `{{contextPath}}/resources/dist/elcomercio/images/apple-touch-icon-152x152.png`,
       apple_icon_180:                    `{{contextPath}}/resources/dist/elcomercio/images/apple-touch-icon-180x180.png`,
+      cyberday_badge:                    `{{contextPath}}/resources/dist/elcomercio/images/cyberday-sello.{{ext}}`,
       lector:                            `{{contextPath}}/resources/dist/elcomercio/images/img_lector.{{ext}}`,
       corporativo:                       `{{contextPath}}/resources/dist/elcomercio/images/img_corporativo.{{ext}}`,
       confirmation:                      `{{contextPath}}/resources/dist/elcomercio/images/img_confirmation.{{ext}}`,
