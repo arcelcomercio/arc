@@ -130,11 +130,6 @@ const AmpOutputType = ({
           )}`}
         />
         <title>{title}</title>
-        <link rel="dns-prefetch" href="//ecoid.pe" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
