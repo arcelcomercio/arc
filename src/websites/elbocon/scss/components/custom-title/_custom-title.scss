@@ -5,12 +5,19 @@
   background-color: $color-gray-300;
   padding: 20px 15px;
   display: block;
+  font-weight: 700;
   @media (--tablet) {
     padding-left: 20px;
   }
   @media (--desktop) {
-    font-size: 42px;
-    line-height: 50px;
     padding-left: 20px;
+  }
+  &.medium,
+  &.large {
+    font-size: 28px;
+    @media (--desktop) {
+      line-height: 50px;
+      font-size: 42px;
+    }
   }
 }

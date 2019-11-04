@@ -1064,11 +1064,10 @@ export const storyTagsBbc = (data = []) => {
 }
 
 export const storyVideoPlayerId = (content = '') => {
-  return (
-    content.match(
-      /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
-    ) || []
-  )
+  const pattern = content.includes('id')
+    ? /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    : /<script (src=(.*))(.*)(async(=(.*))?)><\/script>/
+  return content.match(pattern) || []
 }
 
 export const getPhotoId = photoUrl => {

@@ -58,6 +58,24 @@
   }
   &__icon {
     color: $color-base-200;
+    border-radius: 50px;
+    background: rgba(51, 51, 51, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 8px;
+    bottom: 6px;
+    top: inherit;
+    transform: none;
+    left: inherit;
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    @media (--tablet) {
+      width: 51px;
+      height: 51px;
+      font-size: 40px;
+    }
   }
   &__right {
     margin-left: 0;
