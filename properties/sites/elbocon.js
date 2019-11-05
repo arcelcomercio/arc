@@ -1,6 +1,6 @@
 export default {
   siteName: 'El Bocón',
-  sitemapNewsName: 'Diario El Bocón',
+  sitemapNewsName: 'El Bocón',
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
