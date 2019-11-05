@@ -104,6 +104,8 @@ class CardFeaturedStoryAuto extends PureComponent {
       multimediaSquareS,
       multimediaLazyDefault,
       multimediaType,
+      multimediaSubtitle,
+      multimediaCaption,
     } = formattedData
 
     const params = {
@@ -126,6 +128,8 @@ class CardFeaturedStoryAuto extends PureComponent {
       multimediaType,
       isAdmin,
       siteName,
+      multimediaSubtitle,
+      multimediaCaption,
     }
     return <FeaturedStory {...params} />
   }
