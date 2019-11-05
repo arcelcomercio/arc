@@ -1,5 +1,6 @@
 .chain-ordered-stories {
   background-color: #666;
+
   .custom-title {
     background-color: transparent;
     background-image: none;
@@ -7,19 +8,14 @@
   }
   .featured-story {
     background-color: transparent;
-    /* &:first-child {
-      flex-direction: column-reverse;
-    }
+
     &.expand {
-      background: red;
       .featured-story__category {
         @media (--only-mobile) {
-          display: block;
-          background-image: none;
-          position: relative;
+          display: none;
         }
       }
-    } */
+    }
     &.expand,
     &.featured-story--no-expanded {
       .featured-story__category {
@@ -34,9 +30,6 @@
         width: 100%;
         left: 0;
         top: 0;
-        @media (--only-mobile) {
-          display: none;
-        }
       }
     }
     &.img-complete {
@@ -47,7 +40,8 @@
       }
     }
   }
-  .featured-story__title-link {
+  .featured-story__title-link,
+  .featured-story__author-link {
     color: $color-white;
   }
 }
