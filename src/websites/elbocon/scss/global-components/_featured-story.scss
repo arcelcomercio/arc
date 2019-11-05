@@ -25,8 +25,8 @@
 
   &__title-link {
     color: $color-gray-300;
-    -webkit-line-clamp: 3;
-    max-height: calc(1.3rem * 1.333 * 3);
+    -webkit-line-clamp: 4;
+    max-height: 108px;
     font-weight: 700;
     @media (--tablet) {
       margin-top: 10px;

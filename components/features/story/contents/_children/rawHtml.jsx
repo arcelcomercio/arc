@@ -10,6 +10,14 @@ const classes = {
   newsEmbed: 'story-content__embed',
 }
 
+const clearUrlOrCode = (url = '') => {
+  const clearUrl = url
+    .trim()
+    .replace('"', '')
+    .replace('"', '')
+  return { clearUrl, code: clearUrl.split('#')[1] }
+}
+
 class rawHTML extends PureComponent {
   constructor(props) {
     super(props)
@@ -53,17 +61,14 @@ class rawHTML extends PureComponent {
         content.includes('id') &&
         idVideo[2]
           ? `id_video_embed_${this.ID_VIDEO}`
-          : '_'
+          : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
       const myList = document.getElementById(idElement)
       appendToId(
         myList,
         createScript({
           src: content.includes('id')
             ? this.URL_VIDEO
-            : idVideo[2]
-                .trim()
-                .replace('"', '')
-                .replace('"', ''),
+            : clearUrlOrCode(idVideo[2]).clearUrl,
           async: true,
         })
       )
@@ -79,7 +84,7 @@ class rawHTML extends PureComponent {
       content.includes('id') &&
       idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
-        : '_'
+        : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
 
     return (
       <>

@@ -75,14 +75,17 @@ class HeaderStandard extends PureComponent {
         showInDesktop = true,
         showInTablet = true,
         showInMobile = true,
+        isSlider,
       },
     } = this.props
 
     this.formater.setData(data)
 
+    const params = { ...this.formater.getParams(), isSlider }
+
     return (
       <HeaderChildStandard
-        {...this.formater.getParams()}
+        {...params}
         deviceList={{ showInDesktop, showInTablet, showInMobile }}
       />
     )
@@ -90,7 +93,7 @@ class HeaderStandard extends PureComponent {
 }
 
 HeaderStandard.label = 'Cabecera - Estándar'
-HeaderStandard.static = true
+// HeaderStandard.static = true
 
 HeaderStandard.propTypes = {
   customFields,
