@@ -9,6 +9,13 @@
   .featured-story {
     background-color: transparent;
 
+    &.expand {
+      .featured-story__category {
+        @media (--only-mobile) {
+          display: none;
+        }
+      }
+    }
     &.expand,
     &.featured-story--no-expanded {
       .featured-story__category {
@@ -23,9 +30,6 @@
         width: 100%;
         left: 0;
         top: 0;
-        @media (--only-mobile) {
-          display: none;
-        }
       }
     }
     &.img-complete {
@@ -36,7 +40,8 @@
       }
     }
   }
-  .featured-story__title-link {
+  .featured-story__title-link,
+  .featured-story__author-link {
     color: $color-white;
   }
 }
