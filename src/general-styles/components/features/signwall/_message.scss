@@ -21,11 +21,9 @@
 
       &--success {
         color: #03d213;
-        display: none;
       }
       &--error {
         color: #ff2b2b;
-        display: none;
       }
       &__error {
         color: #ff2b2b;
@@ -34,9 +32,6 @@
         line-height: 16px;
         display: block;
         padding-top: 5px;
-      }
-      &--active {
-        display: block;
       }
     }
   }

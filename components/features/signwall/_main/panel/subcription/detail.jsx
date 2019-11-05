@@ -118,20 +118,22 @@ class SubDetail extends Component {
     const { formErrors } = this.state
     const { selectedOption } = this.state
 
+    const valueClear = value.replace(/\D/g, '')
     switch (name) {
       case 'numcard':
         if (value.length === 0) {
           formErrors.numcard = 'Este campo es requerido'
-        } else if (value.length < 17) {
-          formErrors.numcard = 'Formato inválido.'
-          // } else if (cardPatterns[selectedOption].test(value)) {
-          //   formErrors.numcard = ''
-          // } else {
+          // } else if (value.length < 17) {
           //   formErrors.numcard = 'Formato inválido.'
+          // } else {
+          //   formErrors.numcard = ''
           // }
-        } else {
+        } else if (cardPatterns[selectedOption].test(valueClear)) {
           formErrors.numcard = ''
+        } else {
+          formErrors.numcard = 'Formato inválido.'
         }
+
         break
       case 'dateexpire':
         if (value.length === 0) {

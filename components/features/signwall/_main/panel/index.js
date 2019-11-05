@@ -11,17 +11,13 @@ import Header from '../common/header'
 import GetProfile from '../utils/get-profile'
 import SubDetail from './subcription/detail'
 
-const getNameProfile = name => {
-  window.console.log(name)
-}
-
 const renderTemplate = (template, id) => {
   const templates = {
     // eslint-disable-next-line react/jsx-filename-extension
     home: <ResumeProfile />,
     news: <NewsLetter />,
     subs: <Subscription />,
-    prof: <MiPerfil getNameProfile={getNameProfile} />,
+    prof: <MiPerfil />,
     detail: <SubDetail IdSubscription={id} />,
   }
   return templates[template] || templates.home
@@ -66,7 +62,6 @@ export const Panel = props => {
                     userName={userName}
                     typeLogin={typeLogin}
                     closePopup={closePopup}
-                    userNameRefresh={getNameProfile}
                     closeDispatchEvent={closeDispatchEvent}
                     home={() => value.changeTemplate('home')}
                     news={() => value.changeTemplate('news')}

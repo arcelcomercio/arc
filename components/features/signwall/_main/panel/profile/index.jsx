@@ -39,11 +39,6 @@ class MiPerfil extends Component {
     this._isMounted = false
   }
 
-  handlerUpdateName = name => {
-    const { getNameProfile } = this.props
-    getNameProfile(name)
-  }
-
   render() {
     const { disabledSocial, loading } = this.state
     const { arcSite } = this.props
@@ -52,7 +47,7 @@ class MiPerfil extends Component {
       <Wrapper>
         {!loading ? (
           <>
-            <UpdateProfile handlerUpdateName={this.handlerUpdateName} />
+            <UpdateProfile />
             <div className="space-40" />
             <div hidden={disabledSocial}>
               <UpdatePass />

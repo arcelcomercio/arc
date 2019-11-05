@@ -50,12 +50,9 @@ class updatePassword extends Component {
       ModalProfile.style.overflow = 'hidden'
 
       setTimeout(() => {
-        const modalConfirmPass = document.querySelector(
-          '#arc-popup-profile',
-        );
-        modalConfirmPass.scrollIntoView();
-      }, 500);
-
+        const modalConfirmPass = document.querySelector('#arc-popup-profile')
+        modalConfirmPass.scrollIntoView()
+      }, 500)
     } else {
       // console.error('FORM INVALID', this.state.formErrors);
       if (newPassword == null) {
@@ -212,16 +209,14 @@ class updatePassword extends Component {
           <div className="form-grid__row">
             <h3 className="form-grid__title">Cambiar contraseña</h3>
             <div className="message">
-              <p
-                className={`message--success uppercase ${showMsgSuccess &&
-                  'message--active'}`}>
-                LA CONTRASEÑA HA SIDO ACTUALIZADA
-              </p>
-              <p
-                className={`message--error uppercase ${showMsgError &&
-                  'message--active'}`}>
-                {MessageErrorPass}
-              </p>
+              {showMsgSuccess && (
+                <p className="message--success">
+                  LA CONTRASEÑA HA SIDO ACTUALIZADA
+                </p>
+              )}
+              {showMsgError && (
+                <p className="message--error uppercase">{MessageErrorPass}</p>
+              )}
             </div>
           </div>
           <div className="form-grid__row form-grid__row--three">

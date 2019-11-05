@@ -172,8 +172,6 @@ class UpdateProfile extends Component {
   handleUpdateProfile = e => {
     e.preventDefault()
 
-    const { handlerUpdateName } = this.props
-
     const {
       firstName,
       lastName,
@@ -210,13 +208,14 @@ class UpdateProfile extends Component {
           textSubmit: 'Guardar cambios',
         })
 
-        handlerUpdateName(profile.firstName)
-
-        this.dispatchEvent('profile-update')
-
         const modalConfirmPass = document.querySelector('#arc-popup-profile')
         if (modalConfirmPass) {
           modalConfirmPass.scrollIntoView()
+        }
+
+        const textProfile = document.getElementById('name-user-profile')
+        if (textProfile) {
+          textProfile.textContent = `Hola ${profile.firstName}`
         }
 
         setTimeout(() => {
@@ -225,6 +224,7 @@ class UpdateProfile extends Component {
           })
         }, 5000)
 
+        this.dispatchEvent('profile-update')
       })
       .catch(() => {
         this.setState({
@@ -466,15 +466,16 @@ class UpdateProfile extends Component {
         <div className="form-grid__row form-grid__row--btw">
           <h3 className="form-grid__title">Tus datos</h3>
           <div className="message">
-            <p
-              className={`message--success ${showMsgSuccess &&
-                'message--active'}`}>
-              TUS DATOS HAN SIDO ACTUALIZADOS
-            </p>
-            <p
-              className={`message--error ${showMsgError && 'message--active'}`}>
-              HA OCURRIDO UN ERROR. VERIFICA TUS DATOS
-            </p>
+            {showMsgSuccess && (
+              <p className="message--success">
+                TUS DATOS HAN SIDO ACTUALIZADOS
+              </p>
+            )}
+            {showMsgError && (
+              <p className="message--error">
+                HA OCURRIDO UN ERROR. VERIFICA TUS DATOS
+              </p>
+            )}
           </div>
         </div>
         <div className="form-grid__row form-grid__row--three">

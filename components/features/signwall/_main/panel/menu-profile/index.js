@@ -51,7 +51,9 @@ export const MenuProfile = props => {
         userNameFB={userNameFB}
       />
       <WrapperMenu>
-        <h1 className="hello">Hola {userName || 'Usuario'}</h1>
+        <h1 className="hello" id="name-user-profile">
+          Hola {userName || 'Usuario'}
+        </h1>
         <p className="welcome">Bienvenido a tu Perfil</p>
         <div className="cont-menu">
           <ul>
