@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { getResponsiveClasses } from '../../../../utilities/helpers'
+import {
+  sideScroll,
+  handleNavScroll,
+  checkDisabledIcons,
+  getResponsiveClasses,
+} from '../../../../utilities/slidernav-helpers'
 import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
@@ -19,7 +24,21 @@ const classes = {
 }
 // TODO: Agregar el click afuera del menu
 const HeaderChildStandard = props => {
-  const { logo, logoLeft, sections, deviceList, tags, date, arcSite } = props
+  const {
+    logo,
+    logoLeft,
+    sections,
+    deviceList,
+    tags,
+    date,
+    arcSite,
+    isSlider,
+  } = props
+
+  useEffect(() => {
+    if (isSlider) checkDisabledIcons()
+  }, [isSlider])
+
   return (
     <>
       <header
@@ -43,8 +62,22 @@ const HeaderChildStandard = props => {
         className={`${deviceList.showInDesktop &&
           classes.navWrapper} ${getResponsiveClasses(deviceList)}`}>
         {tags !== '' && <div className={classes.tags}>{tags}</div>}
+        {isSlider && (
+          <button
+            type="button"
+            onClick={() => {
+              sideScroll('left', 15, 100, 5)
+            }}
+            className="header__button left disabled position-relative">
+            <i className="header__icon-back left icon-back text-white rounded font-bold p-5"></i>
+          </button>
+        )}
         {sections[0] && (
-          <ul className={classes.featured}>
+          <ul
+            className={`${classes.featured}${isSlider ? ' slider' : ''}`}
+            onScroll={e => {
+              if (isSlider) handleNavScroll(e)
+            }}>
             {sections.map(({ url, name, styles = [] }) => (
               <li
                 className={`${classes.item}${
@@ -65,6 +98,16 @@ const HeaderChildStandard = props => {
               </li>
             ))}
           </ul>
+        )}
+        {isSlider && (
+          <button
+            type="button"
+            onClick={() => {
+              sideScroll('right', 15, 100, 5)
+            }}
+            className="header__button right disabled position-relative">
+            <i className="header__icon-back right icon-back text-white rounded font-bold p-5"></i>
+          </button>
         )}
         {date.active && <div className={classes.date}>{date.value}</div>}
       </nav>

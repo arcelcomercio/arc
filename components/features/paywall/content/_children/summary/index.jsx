@@ -35,33 +35,6 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
   return (
     <div>
       <S.Content>
-        {amount === 0 || description.price_origin ? (
-          <>
-            <S.Expand color="#aaaaaa">
-              <span>{msgs.planPrice}</span>
-              <strong>
-                {/* <span> {`S/ ${amount}`} </span> */}
-                <span>{`${msgs.currencySymbol.toUpperCase()} ${
-                  description.price_origin
-                }`}</span>
-              </strong>
-            </S.Expand>
-            <S.Expand color="#a98e7c">
-              <span>
-                <strong>{msgs.subscriptorDiscount}</strong>
-              </span>
-              <strong>
-                {/* <span> {`- S/ ${amount}`} </span> */}
-                <span>
-                  {amount === 0
-                    ? `- ${msgs.currencySymbol} ${description.price_origin}`
-                    : `- ${msgs.currencySymbol} ${description.price_origin -
-                        amount}`}
-                </span>
-              </strong>
-            </S.Expand>
-          </>
-        ) : null}
         {/* <S.Expand>
           <span>Precio del plan</span>
           <strong>

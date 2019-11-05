@@ -761,6 +761,14 @@ class StoryData {
     return StoryData.getCaptionVideo(this.__data)
   }
 
+  get multimediaSubtitle() {
+    return this.getMultimediaConfig().subtitle
+  }
+
+  get multimediaCaption() {
+    return this.getMultimediaConfig().caption
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -779,6 +787,38 @@ class StoryData {
         size
       ) || this.defaultImg
     )
+  }
+
+  getMultimediaConfig() {
+    const {
+      promo_items: {
+        basic: {
+          subtitle: basicSubtitle = '',
+          caption: basicCaption = '',
+        } = {},
+        basic_video: {
+          promo_items: {
+            basic: {
+              subtitle: videoSubtitle = '',
+              caption: videoCaption = '',
+            } = {},
+          } = {},
+        } = {},
+        basic_gallery: {
+          promo_items: {
+            basic: {
+              subtitle: gallerySubtitle = '',
+              caption: galleryCaption = '',
+            } = {},
+          } = {},
+        } = {},
+      } = {},
+    } = this._data || {}
+
+    return {
+      subtitle: videoSubtitle || gallerySubtitle || basicSubtitle,
+      caption: videoCaption || galleryCaption || basicCaption,
+    }
   }
 
   getPromoItemsType = () => {
