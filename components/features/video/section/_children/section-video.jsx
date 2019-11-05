@@ -3,7 +3,7 @@ import ConfigParams from '../../../../utilities/config-params'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
 import {
-  socialMediaUrlShareListBlog,
+  socialMediaUrlShareList,
   addSlashToEnd,
   popUpWindow,
 } from '../../../../utilities/helpers'
@@ -84,7 +84,7 @@ export default ({
   }
   const { siteUrl = '' } = siteProperties
 
-  const urlsShareList = socialMediaUrlShareListBlog(
+  const urlsShareList = socialMediaUrlShareList(
     addSlashToEnd(siteUrl),
     principalVideo.websiteLink,
     principalVideo.title
@@ -188,7 +188,12 @@ export default ({
               </div>
             </div>
           </div>
-          <div className={ playListParams.arcSite === 'gestion' ? 'section-video__fixed--none':'section-video__fixed'}>
+          <div
+            className={
+              playListParams.arcSite === 'gestion'
+                ? 'section-video__fixed--none'
+                : 'section-video__fixed'
+            }>
             <div className="section-video__min">
               <div className="section-video__desc">
                 {/* <span>0:30 </span> */}
