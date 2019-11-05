@@ -145,7 +145,9 @@ export default ({
 
   const publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIO ||
-    arcSite === ConfigParams.SITE_ELCOMERCIOMAG
+    arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
+    arcSite === ConfigParams.SITE_DEPOR ||
+    arcSite === ConfigParams.SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
 
@@ -155,7 +157,9 @@ export default ({
     "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === ConfigParams.SITE_ELCOMERCIO ||
-      arcSite === ConfigParams.SITE_ELCOMERCIOMAG
+      arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
+      arcSite === ConfigParams.SITE_DEPOR ||
+      arcSite === ConfigParams.SITE_ELBOCON
         ? publishDateZone
         : lastPublishDate
     }",
