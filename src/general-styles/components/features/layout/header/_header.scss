@@ -68,9 +68,9 @@
       &::before {
         content: '';
         transform: translatex(100%);
-        width: 25px;
+        width: 20px;
         @media (--desktop) {
-          width: 40px;
+          width: 30px;
         }
         height: 100%;
         display: block;
@@ -88,9 +88,9 @@
       &::before {
         content: '';
         transform: translatex(100%);
-        width: 25px;
+        width: 20px;
         @media (--desktop) {
-          width: 40px;
+          width: 30px;
         }
         height: 100%;
         display: block;

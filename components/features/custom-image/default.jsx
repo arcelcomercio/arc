@@ -17,7 +17,7 @@ const CustomImage = props =>
   } = props;
 
   if(imgUrlDesktop === '') 
-    return <div>Modulo imagen, clic en editar para configurar.</div> 
+    return <div>Modulo imagen, clic en editar para configurar.</div>
 
   const picture = (
     <picture>
