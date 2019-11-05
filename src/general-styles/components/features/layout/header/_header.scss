@@ -46,4 +46,76 @@
       content: none;
     }
   }
+
+  &__featured.slider {
+    margin: 0;
+    justify-content: space-between;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  &__button {
+    &:focus {
+      outline: 0;
+    }
+    &.right {
+      transform: rotate(180deg);
+      &::before {
+        content: '';
+        transform: translatex(100%);
+        width: 20px;
+        @media (--desktop) {
+          width: 30px;
+        }
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.75) 0%,
+          rgba(255, 255, 255, 0.15)
+        );
+      }
+    }
+    &.left {
+      &::before {
+        content: '';
+        transform: translatex(100%);
+        width: 20px;
+        @media (--desktop) {
+          width: 30px;
+        }
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.75) 0%,
+          rgba(255, 255, 255, 0.15)
+        );
+      }
+    }
+    &.disabled {
+      pointer-events: none;
+      &::before {
+        content: none;
+      }
+      .header__icon-back {
+        background-color: $color-gray-200;
+      }
+    }
+  }
+  &__icon-back {
+    background-color: #555555;
+    font-size: 11px;
+  }
 }
