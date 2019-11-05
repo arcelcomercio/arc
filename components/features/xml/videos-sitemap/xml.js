@@ -22,7 +22,7 @@ class XmlVideosSitemap {
                 source: SOURCE,
                 query: {
                     section: '/videos',
-                    stories_qty: 2
+                    stories_qty: 100
                 },
                 filter: schemaFilter(props.arcSite, ConfigParams.VIDEO),
                 transform: data => {

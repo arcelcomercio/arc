@@ -5,6 +5,10 @@ const customFields = PropTypes.shape({
     name: 'Mostrar fecha',
     defaultValue: false,
   }),
+  isSlider: PropTypes.bool.tag({
+    name: 'Navegación con slider',
+    defaultValue: false,
+  }),
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
     defaultValue: 'Hoy interesa',
