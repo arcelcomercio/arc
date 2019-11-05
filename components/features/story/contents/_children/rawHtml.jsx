@@ -35,10 +35,6 @@ class rawHTML extends PureComponent {
         : `${idVideos[1].replace('src="//', 'https://')}`
 
       this.ID_VIDEO = content.includes('id') && `${idVideos[2]}`
-    } else if (content.includes('public.flourish.studio/')) {
-      const rgexpURL = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/
-      const [URI] = rgexpURL.exec(content) || []
-      this.URL = URI
     } else {
       this.newContent = content
     }
