@@ -38,7 +38,7 @@ const ListItemNews = (contentElements, buildProps) => {
             pagePath = `${siteUrl}${storydata.link}`
             fiaContent = fbArticleStyle
           }
-          // const pagePath = `${siteUrl}${storydata.link}`
+          
           const pageview = `${storydata.link}?outputType=fia`
           const propsScriptHeader = {
             siteDomain,
