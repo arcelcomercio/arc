@@ -518,6 +518,7 @@ export const imageHtml = html => {
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
   resHtml = resHtml
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
+    .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
     .replace('<FONT', '<font')
   return resHtml
 }

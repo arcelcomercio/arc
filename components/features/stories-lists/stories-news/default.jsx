@@ -20,13 +20,11 @@ const StoriesListNew = props => {
   const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
+  const { customFields: customFieldsProps = {} } = props
   const {
-    customFields: {
-      storyConfig: { contentService = '', contentConfigValues = {} } = {},
-      seeMoreLink,
-    } = {},
-  } = props
-  const customFieldsProps = customFields
+    storyConfig: { contentService = '', contentConfigValues = {} } = {},
+    seeMoreLink,
+  } = customFieldsProps
 
   const data =
     useContent({

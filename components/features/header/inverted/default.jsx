@@ -23,6 +23,7 @@ const HeaderInverted = props => {
       customLogoLink,
       tags,
       showDate,
+      isSlider,
     },
   } = props
 
@@ -126,6 +127,7 @@ const HeaderInverted = props => {
     search,
     isStory,
     shareButtons,
+    isSlider,
   }
 
   return <HeaderChildInverted {...formatter.getParams()} {...params} />
