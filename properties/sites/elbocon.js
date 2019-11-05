@@ -13,7 +13,7 @@ export default {
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Bocon_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-WB49SJD',
-  ampGoogleTagManagerId: 'UA-3055636-3',
+  ampGoogleTagManagerId: 'UA-15667156-1',
   ampGoogleTagManagerName: 'elbocon',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-15667156-1',
