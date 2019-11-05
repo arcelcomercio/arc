@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { searchQuery } from '../../../../utilities/helpers'
+import SignwallComponent from '../../../signwall/standard'
 
 const classes = {
   bar: 'navbar-nm w-full pr-5 pl-5 bg-black h-full',
@@ -61,12 +62,13 @@ export default props => {
         </div>
         <div className={classes.right}>
           <div className={classes.btns}>
-            <a className={classes.btn} href="/">
+            {/* <a className={classes.btn} href="/">
               Ingresa
             </a>
             <a className={classes.btn} href="/">
               Registrate
-            </a>
+            </a> */}
+            <SignwallComponent classButton={classes.btn}/>
           </div>
           <div className={classes.search}>
             <button
