@@ -215,7 +215,9 @@ class UpdateProfile extends Component {
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
-          textProfile.textContent = `Hola ${profile.firstName}`
+          textProfile.textContent = `Hola ${
+            profile.firstName ? profile.firstName : 'Usuario'
+          }`
         }
 
         setTimeout(() => {
