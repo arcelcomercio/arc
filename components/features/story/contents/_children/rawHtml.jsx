@@ -10,7 +10,7 @@ const classes = {
   newsEmbed: 'story-content__embed',
 }
 
-const clearUrlOrCode = url => {
+const clearUrlOrCode = (url = '') => {
   const clearUrl = url
     .trim()
     .replace('"', '')
@@ -61,7 +61,7 @@ class rawHTML extends PureComponent {
         content.includes('id') &&
         idVideo[2]
           ? `id_video_embed_${this.ID_VIDEO}`
-          : `_${clearUrlOrCode(idVideo[2]).code}`
+          : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
       const myList = document.getElementById(idElement)
       appendToId(
         myList,
@@ -84,7 +84,7 @@ class rawHTML extends PureComponent {
       content.includes('id') &&
       idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
-        : `_${clearUrlOrCode(idVideo[2]).code}`
+        : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
 
     return (
       <>
