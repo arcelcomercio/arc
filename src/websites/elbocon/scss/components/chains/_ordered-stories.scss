@@ -1,6 +1,8 @@
 .chain-ordered-stories {
   background-color: #666;
-
+  article.featured-story:first-child {
+    background-color: red;
+  }
   .custom-title {
     background-color: transparent;
     background-image: none;
