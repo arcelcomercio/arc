@@ -113,7 +113,7 @@ class SignWallPaywall extends Component {
                   {showPaywallBtn ? (
                     <input
                       type="button"
-                      className="btn btn--blue btn-bg"
+                      className="btn btn-bg"
                       value="VER PLANES"
                       onClick={e => {
                         Taggeo(
@@ -142,7 +142,7 @@ class SignWallPaywall extends Component {
 
                         value.changeTemplate('login')
                       }}
-                      className="btn btn--blue btn-bg"
+                      className="btn btn-bg"
                       value="CONTINUAR"></input>
                   )}
                 </div>

@@ -56,7 +56,7 @@ export default ({
       tags = [],
     } = {},
     subtype = '',
-    page_number: pageNumber = 1
+    page_number: pageNumber = 1,
   } = globalContent || {}
 
   const isStory =
@@ -68,13 +68,14 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-    nameSeccion.split('/')[1]
-    } ${subtype} `
+        nameSeccion.split('/')[1]
+      } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
-  if (arcSite === 'depor' && requestUri.match('^/depor-play')) {
-    classBody = `${classBody} depor-play`
+  if (arcSite === 'depor') {
+    if (requestUri.match('^/depor-play')) classBody = `${classBody} depor-play`
+    if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
   }
 
   const metaSiteData = {
@@ -98,8 +99,11 @@ export default ({
     let title = `${seoTitle} | ${siteProperties.siteName}`
     if (isStory) {
       title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
-    }
-    else if (pageNumber > 1 && (metaValue('id') === "meta_tag"/*  || metaValue('id') === "meta_search" || metaValue('id') === "meta_author" */)) {
+    } else if (
+      pageNumber > 1 &&
+      metaValue('id') ===
+        'meta_tag' /*  || metaValue('id') === "meta_search" || metaValue('id') === "meta_author" */
+    ) {
       title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteName}`
     }
     return title
@@ -109,8 +113,15 @@ export default ({
 
   const getDescription = () => {
     let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
-    if (metaValue('description') && !metaValue('description').match(/content/)) {
-      if (pageNumber > 1 && (metaValue('id') === "meta_tag"/*  || metaValue('id') === "meta_search" || metaValue('id') === "meta_author" */)) {
+    if (
+      metaValue('description') &&
+      !metaValue('description').match(/content/)
+    ) {
+      if (
+        pageNumber > 1 &&
+        metaValue('id') ===
+          'meta_tag' /*  || metaValue('id') === "meta_search" || metaValue('id') === "meta_author" */
+      ) {
         description = `${metaValue('description')} Página ${pageNumber}.`
       } else {
         description = `${metaValue('description')}`
@@ -264,7 +275,7 @@ export default ({
         {/* <!-- Identity & Sales & Paywall --> */}
         {siteProperties.activeSignwall && (
           <script
-            src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js`}
+            src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=1`}
           />
         )}
         {siteProperties.activePaywall && (

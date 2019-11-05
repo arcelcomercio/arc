@@ -142,6 +142,8 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       multimediaSquareS,
       multimediaLazyDefault,
       multimediaType,
+      multimediaSubtitle,
+      multimediaCaption,
     } = formattedData
 
     const paramsFeaturedStory = {
@@ -164,6 +166,8 @@ class CardFeaturedStoryAdvanced extends PureComponent {
       multimediaType,
       isAdmin,
       siteName,
+      multimediaSubtitle,
+      multimediaCaption,
     }
 
     const paramsFacebook = {

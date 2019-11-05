@@ -115,7 +115,7 @@ class Subs extends Component {
     const { fetched } = this.getContent('paywall-campaing')
 
     fetched.then(resCam => {
-      if (this._isMounted && resCam.name) {
+      if (this._isMounted && typeof resCam === 'object') {
         this.setState({
           paywallName: resCam.name || 'Plan',
           paywallPrice: resCam.plans[0].amount || '-',
@@ -240,7 +240,10 @@ class Subs extends Component {
                     </div>
                     <div className="cont-subs">
                       <div className="first-subs">
-                        <p>Accede ilimitadamente a nuestro contenido, adquiere el:</p>
+                        <p>
+                          Accede ilimitadamente a nuestro contenido, adquiere
+                          el:
+                        </p>
                         <h3>{paywallName}</h3>
                       </div>
                       <div className="last-subs">

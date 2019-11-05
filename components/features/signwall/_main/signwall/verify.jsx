@@ -8,6 +8,7 @@ import FormVerify from './_children/form-verify'
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
+const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor']
 @Consumer
 class SignWallVerify extends Component {
   constructor(props) {
@@ -72,25 +73,25 @@ class SignWallVerify extends Component {
             <ModalConsumer>
               {value => (
                 <Modal
-                  size={brandModal !== 'peru21' ? 'large' : 'small'}
+                  size={signwallSimple.includes(brandModal) ? 'small' : 'large'}
                   position="middle"
                   name="arc-popup-verifyaccount"
                   id="arc-popup-verifyaccount">
                   <Header closePopup={closePopup} typePopUp="verify" />
                   <div className="modal-body">
-                    {brandModal !== 'peru21' ? (
+                    {signwallSimple.includes(brandModal) ? null : (
                       <div className="modal-body__left">
                         <ListBenefits
                           typeMessage="organic"
                           brandCurrent={brandModal}
                         />
                       </div>
-                    ) : null}
+                    )}
                     <div
                       className={
-                        brandModal !== 'peru21'
-                          ? 'modal-body__right'
-                          : 'modal-body__full'
+                        signwallSimple.includes(brandModal)
+                          ? 'modal-body__full'
+                          : 'modal-body__right'
                       }>
                       {this.renderTemplate(value.selectedTemplate)}
                     </div>

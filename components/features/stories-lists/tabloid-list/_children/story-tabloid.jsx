@@ -19,7 +19,8 @@ export default ({
   })
 
   const classes = {
-    listadoSeeMore: 'flex justify-center mt-20 uppercase',
+    listadoSeeMore:
+      'stories-l-tabloid__btn flex justify-center mt-20 uppercase',
   }
 
   const formaZeroDate = (numb = 0) => {

@@ -11,6 +11,8 @@ import FormForgotPass from './_children/form-forgot-pass'
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
+const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor']
+
 class LoginRegister extends Component {
   constructor(props) {
     super(props)
@@ -68,18 +70,13 @@ class LoginRegister extends Component {
         <ModalConsumer>
           {value => (
             <Modal
-              size={
-                brandModal === 'peru21' || brandModal === 'peru21g21'
-                  ? 'small'
-                  : 'large'
-              }
+              size={signwallSimple.includes(brandModal) ? 'small' : 'large'}
               position="middle"
               name="arc-popup-signwall"
               id="arc-popup-signwall">
               <Header closePopup={closePopup} typePopUp="organico" />
               <div className="modal-body">
-                {brandModal === 'peru21' ||
-                brandModal === 'peru21g21' ? null : (
+                {signwallSimple.includes(brandModal) ? null : (
                   <div className="modal-body__left">
                     <ListBenefits
                       typeMessage="organic"
@@ -90,7 +87,7 @@ class LoginRegister extends Component {
 
                 <div
                   className={
-                    brandModal === 'peru21' || brandModal === 'peru21g21'
+                    signwallSimple.includes(brandModal)
                       ? 'modal-body__full'
                       : 'modal-body__right'
                   }>

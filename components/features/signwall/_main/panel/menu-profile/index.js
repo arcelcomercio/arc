@@ -14,6 +14,7 @@ const closeSession = props => {
   Cookies.deleteCookie('mpp_sess')
   Cookies.deleteCookie('ArcId.USER_INFO')
   window.sessionStorage.setItem('preferencesNews', '[]')
+  // window.localStorage.removeItem('ArcId._ID')
 
   window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
   window.Identity.logout()
@@ -50,7 +51,9 @@ export const MenuProfile = props => {
         userNameFB={userNameFB}
       />
       <WrapperMenu>
-        <h1 className="hello">Hola {userName || 'Usuario'}</h1>
+        <h1 className="hello" id="name-user-profile">
+          Hola {userName || 'Usuario'}
+        </h1>
         <p className="welcome">Bienvenido a tu Perfil</p>
         <div className="cont-menu">
           <ul>

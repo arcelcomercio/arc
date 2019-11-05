@@ -174,6 +174,7 @@ class StoryContents extends PureComponent {
                   raw_oembed: rawOembed,
                   content,
                   alignment = '',
+                  headlines: { basic: captionVideo = '' } = {},
                 } = element
                 if (type === ConfigParams.ELEMENT_IMAGE) {
                   return (
@@ -192,6 +193,7 @@ class StoryContents extends PureComponent {
                         <StoryContentsChildVideo
                           data={element.embed_html}
                           className={classes.newsImage}
+                          description={captionVideo}
                         />
                       ) : (
                         <StoryContentsChildVideoNativo

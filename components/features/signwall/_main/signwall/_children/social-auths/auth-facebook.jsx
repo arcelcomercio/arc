@@ -157,12 +157,14 @@ class AuthFacebook extends React.Component {
 
                 if (EMAIL_USER) {
                   Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
+                  // window.localStorage.setItem('ArcId._ID', resPro.uuid)
                 }
 
                 this.enterProfilePanel()
               } else {
                 if (EMAIL_USER) {
                   Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
+                  // window.localStorage.setItem('ArcId._ID', resPro.uuid)
                 }
 
                 this.enterProfilePanel()

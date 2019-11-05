@@ -137,7 +137,11 @@ class StoryContinue extends PureComponent {
     if (screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
       if (storyHeader) storyHeader.classList.add('hidden')
-      if (arcSite !== 'elcomercio' && arcSite !== 'depor') {
+      if (
+        arcSite !== 'elcomercio' &&
+        arcSite !== 'depor' &&
+        arcSite !== 'elbocon'
+      ) {
         const navSidebar = document.querySelector('.nav-sidebar')
         const nav = document.querySelector('.nav')
         const navWrapper = document.querySelector('.nav__wrapper')
