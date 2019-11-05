@@ -60,6 +60,9 @@ const StoryItem = props => {
       <epigraph> {epigraph}</epigraph>
       <seccion> {seccion}</seccion>
       <url_seccion>{urlSeccion}</url_seccion>
+      <content>
+        hola
+      </content>
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
