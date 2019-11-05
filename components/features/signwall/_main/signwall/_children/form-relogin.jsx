@@ -105,7 +105,7 @@ class FormReLogin extends Component {
                             sending: true,
                           })
                         })
-                    }, 500)
+                    }, 1000)
 
                     this.taggeoSuccess() // -- test tageo success
                   } else {
@@ -172,6 +172,7 @@ class FormReLogin extends Component {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
+      // window.localStorage.setItem('ArcId._ID', resGetProfile.uuid)
     })
   }
 
@@ -298,7 +299,7 @@ class FormReLogin extends Component {
 
               <div className="form-grid__group" hidden={!hiddenListBenefits}>
                 <div hidden={!hiddenTitleBenefits}>
-                  <h1 className="form-grid__title-big text-center hidden-tablet">
+                  <h1 className="form-grid__title-big text-center">
                     ¡Hola {nameMPP || 'Lector'}! Para mejorar tu experiencia de
                     navegación, inicia sesión nuevamente.
                   </h1>
@@ -395,7 +396,7 @@ class FormReLogin extends Component {
                       type="submit"
                       name="ingresar"
                       id="login_boton_ingresar"
-                      className="btn btn--blue btn-bg"
+                      className="btn btn-bg"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
                       // eslint-disable-next-line jsx-a11y/tabindex-no-positive
@@ -452,7 +453,7 @@ class FormReLogin extends Component {
                   <button
                     type="button"
                     onClick={this.hanbleShowListBenefits}
-                    className="link-blue hidden-tablet link-color">
+                    className="link-blue link-color">
                     Conoce aquí los beneficios de registrarte
                   </button>
                 </p>

@@ -82,6 +82,11 @@ export const Fieldset = styled.fieldset`
   & .left {
     text-align: left;
     width: 70%;
+    p,
+    img {
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
   & .right {
     text-align: right;
@@ -176,7 +181,7 @@ export const Group = styled.div`
   display: block;
   @media ${device.desktop} {
     display: flex;
-    align-items:${props => (props.ac ? 'center' : 'flex-start')};
+    align-items: ${props => (props.ac ? 'center' : 'flex-start')};
     box-sizing: border-box;
     justify-content: space-between;
   }

@@ -156,6 +156,8 @@ class FormResetPass extends Component {
                     gestion: '#F4E0D2',
                     peru21: '#d5ecff',
                     peru21g21:'#d5ecff',
+                    elbocon: '#fdabab',
+                    depor: '#d5d945',
                   }[brandCurrent]
                 }
               />
@@ -237,7 +239,7 @@ class FormResetPass extends Component {
                 <input
                   type="submit"
                   id="resetpass_boton_aceptar"
-                  className="btn btn--blue btn-bg"
+                  className="btn btn-bg"
                   value="Aceptar"
                   onClick={() => {
                     Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_aceptar_boton')
@@ -258,6 +260,8 @@ class FormResetPass extends Component {
                     gestion: '#F4E0D2',
                     peru21: '#d5ecff',
                     peru21g21:'#d5ecff',
+                    elbocon: '#fdabab',
+                    depor: '#d5d945',
                   }[brandCurrent]
                 }
               />
@@ -272,7 +276,7 @@ class FormResetPass extends Component {
                 <input
                   type="button"
                   id="reset_ingresar_cuenta"
-                  className="btn btn--blue btn-bg"
+                  className="btn btn-bg"
                   value="Ingresa a tu cuenta"
                   onClick={() => {
                     Taggeo('Web_Sign_Wall_Resetpass', 'web_swr_continuar_boton')

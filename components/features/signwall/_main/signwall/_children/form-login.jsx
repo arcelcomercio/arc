@@ -17,6 +17,7 @@ import { ModalConsumer } from '../context'
 const Cookies = new Cookie()
 const services = new Services()
 
+const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor']
 @Consumer
 class FormLogin extends Component {
   constructor(props) {
@@ -125,7 +126,7 @@ class FormLogin extends Component {
 
                           this.taggeoError() // -- test de tageo error
                         })
-                    }, 500)
+                    }, 1000)
                   } else {
                     this.setState({
                       messageError:
@@ -183,7 +184,8 @@ class FormLogin extends Component {
     window.Identity.getUserProfile().then(resProfile => {
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-
+      // window.localStorage.setItem('ArcId._ID', resProfile.uuid)
+      
       // set token cookie
       const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
       Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
@@ -358,7 +360,7 @@ class FormLogin extends Component {
                 </div>
 
                 <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                  {arcSite === 'peru21' || arcSite === 'peru21g21' ? null : (
+                  {signwallSimple.includes(arcSite)  ? null : (
                     <h1
                       className="form-grid__title-big text-center lg:hidden"
                       hidden={hiddenEnterUser}>
@@ -487,7 +489,7 @@ class FormLogin extends Component {
                           className={
                             arcSite !== 'peru21'
                               ? 'btn input-button'
-                              : 'btn btn--blue btn-bg'
+                              : 'btn btn-bg'
                           }
                           value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                           onClick={() =>
@@ -517,7 +519,7 @@ class FormLogin extends Component {
                         id="open_login_boton_ingresar"
                         className="btn btn-email">
                         <Icon.Mail />
-                        <span className="btn-text">Ingresa con tu usuario</span>
+                        <span>Ingresa con tu usuario</span>
                       </button>
                     </div>
                   )}
@@ -545,7 +547,7 @@ class FormLogin extends Component {
                     navegación y nunca publicaremos sin tu permiso
                   </p>
                 </div>
-                {arcSite === 'peru21' || arcSite === 'peru21g21' ? null : (
+                {signwallSimple.includes(arcSite) ? null : (
                   <div
                     className="form-grid__group lg:hidden mt-20"
                     hidden={!hiddenListBenefits}>
@@ -574,6 +576,8 @@ class FormLogin extends Component {
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
                         peru21g21: '#d5ecff',
+                        elbocon: '#fdabab',
+                        depor: '#d5d945',
                       }[arcSite]
                     }
                   />
@@ -594,7 +598,7 @@ class FormLogin extends Component {
                     {userWithSubs ? (
                       <input
                         type="button"
-                        className="btn btn--blue btn-md btn-bg"
+                        className="btn btn-bg"
                         value="SIGUE NAVEGANDO"
                         onClick={() => {
                           Taggeo(
@@ -620,7 +624,7 @@ class FormLogin extends Component {
                     ) : (
                       <input
                         type="button"
-                        className="btn btn--blue btn-md btn-bg"
+                        className="btn btn-bg"
                         value="VER PLANES"
                         onClick={e => this.handleSuscription(e)}
                       />

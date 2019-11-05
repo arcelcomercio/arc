@@ -193,6 +193,6 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna4-300x250-div-gpt-ad-8599377-4.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna5-300x250-div-gpt-ad-8599377-5.html',
   ],
-  activeSignwall: false,
+  activeSignwall: true,
   activePaywall: false,
 }

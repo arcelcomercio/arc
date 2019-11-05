@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import { Wrapper, Button } from '../../../_styles/common'
+import { Wrapper } from '../../../_styles/common'
 import Checkbox from './Checkbox'
 import Loading from '../../common/loading'
 import Services from '../../utils/services'
@@ -81,76 +81,37 @@ class NewsLetter extends Component {
     })
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  // clickSendNewsLetters(e) {
-  //   e.preventDefault()
-  //   const { checksNews } = this.state
-  //   this.setState({ disabled: true, textSave: 'GUARDANDO...' })
-
-  //   const SITE = 'gestion'
-  //   const EMAIL = window.Identity.userProfile.email
-  //   const UUID = window.Identity.userIdentity.uuid
-  //   const TOKEN_USER = `Bearer ${window.Identity.userIdentity.accessToken} ${SITE}`
-
-  //   const filteredOBJ = Object.keys(checksNews).reduce((p, c) => {
-  //     if (checksNews[c]) p[c] = checksNews[c]
-  //     return p
-  //   }, {})
-
-  //   const updateNews = Object.keys(filteredOBJ)
-
-  //   services
-  //     .sendNewsLettersUser(UUID, EMAIL, SITE, TOKEN_USER, updateNews)
-  //     .then(res => {
-  //       this.setState({ showsuccess: true, textSave: 'GUARDAR' })
-  //       window.sessionStorage.setItem(
-  //         'preferencesNews',
-  //         JSON.stringify(res.data.preferences)
-  //       )
-  //     })
-  //     .catch(() => {
-  //       this.setState({ disabled: false, textSave: 'GUARDAR' })
-  //     })
-  //     .finally(() => {
-  //       setTimeout(() => {
-  //         this.setState({ showsuccess: false })
-  //       }, 3000)
-  //     })
-  // }
-
   setPreference = () => {
     const { arcSite } = this.props
     const { selectCategories } = this.state
     const UUID = window.Identity.userIdentity.uuid
     const EMAIL = window.Identity.userProfile.email
-    const TOKEN_USER = window.Identity.userIdentity.accessToken
 
-    services
-      .sendNewsLettersUser(UUID, EMAIL, arcSite, TOKEN_USER, [
-        ...selectCategories,
-      ])
-      .then(() => {
-        if (this.newSetCategories) {
-          this.newSetCategories = null
-          this.setPreference()
-        }
-        setTimeout(() => {
-          const modalConfirmPass = document.getElementById('arc-popup-profile')
-          // modalConfirmPass.scrollIntoView()
-          modalConfirmPass.parentNode.scrollTop = modalConfirmPass.offsetTop;
-        }, 500)
-        this.setState({ showsuccess: true })
-        // window.sessionStorage.setItem(
-        //   'preferencesNews',
-        //   JSON.stringify(response.data.preferences)
-        // )
-        setTimeout(() => {
-          this.setState({ showsuccess: false })
-        }, 3000)
-      })
-      .catch(e => {
-        window.console.error(e)
-      })
+    window.Identity.extendSession().then(extSess => {
+      services
+        .sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
+          ...selectCategories,
+        ])
+        .then(() => {
+          if (this.newSetCategories) {
+            this.newSetCategories = null
+            this.setPreference()
+          }
+          setTimeout(() => {
+            const modalConfirmPass = document.getElementById(
+              'arc-popup-profile'
+            )
+            modalConfirmPass.parentNode.scrollTop = modalConfirmPass.offsetTop
+          }, 500)
+          this.setState({ showsuccess: true })
+          setTimeout(() => {
+            this.setState({ showsuccess: false })
+          }, 3000)
+        })
+        .catch(e => {
+          window.console.error(e)
+        })
+    })
   }
 
   debounce = () => {
@@ -181,14 +142,7 @@ class NewsLetter extends Component {
   }
 
   render() {
-    const {
-      newsletters,
-      loading,
-      checksNews,
-      // disabled,
-      showsuccess,
-      // textSave,
-    } = this.state
+    const { newsletters, loading, checksNews, showsuccess } = this.state
 
     const { arcSite } = this.props
 
@@ -197,7 +151,10 @@ class NewsLetter extends Component {
       <Wrapper>
         {!loading ? (
           <>
-            <h4>Selecciona los tipos de Newsletters que más te interesen para que los recibas en tu correo electrónico:</h4>
+            <h4>
+              Selecciona los tipos de Newsletters que más te interesen para que
+              los recibas en tu correo electrónico:
+            </h4>
 
             {showsuccess && (
               <div className="msg-success">
@@ -218,14 +175,6 @@ class NewsLetter extends Component {
                   />
                 </label>
               ))}
-              {/* <div className="content-butom">
-                <Button
-                  disabled={disabled}
-                  type="button"
-                  onClick={e => this.clickSendNewsLetters(e)}>
-                  {textSave}
-                </Button>
-              </div> */}
             </div>
           </>
         ) : (

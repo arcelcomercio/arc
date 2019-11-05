@@ -73,7 +73,14 @@ const Header = props => {
       {({ siteProperties, contextPath, deployment, arcSite }) => (
         <div
           className="modal-header"
-          style={{ background: arcSite === 'elcomerciomag' ? '#f7c600' : '' }}>
+          style={{
+            background:
+              arcSite === 'elcomerciomag'
+                ? '#f7c600'
+                : arcSite === 'elbocon'
+                ? '#333333'
+                : '',
+          }}>
           {typeHeader(siteProperties, contextPath, deployment, arcSite)}
         </div>
       )}

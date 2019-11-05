@@ -122,6 +122,7 @@ class FormRegister extends Component {
           })
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
+          // window.localStorage.setItem('ArcId._ID', window.Identity.userIdentity.uuid)
 
           this.taggeoSuccess() // -- test de tageo success
 
@@ -468,8 +469,8 @@ class FormRegister extends Component {
                       id="registro_boton_registrarme"
                       className={
                         arcSite !== 'peru21'
-                          ? 'btn btn-md input-button'
-                          : 'btn btn--blue btn-bg'
+                          ? 'btn input-button'
+                          : 'btn btn-bg'
                       }
                       value={!sending ? 'Registrando...' : 'Registrarme'}
                       onClick={() =>
@@ -495,6 +496,8 @@ class FormRegister extends Component {
                         gestion: '#F4E0D2',
                         peru21: '#d5ecff',
                         peru21g21: '#d5ecff',
+                        elbocon: '#fdabab',
+                        depor: '#d5d945',
                       }[brandCurrent]
                     }
                   />
@@ -519,7 +522,7 @@ class FormRegister extends Component {
                       <input
                         type="button"
                         id="registro_continuar_navegando"
-                        className="btn btn--blue btn-md btn-bg"
+                        className="btn btn-bg"
                         value="VER PLANES"
                         onClick={e => this.handleSuscription(e)}
                       />
@@ -527,7 +530,7 @@ class FormRegister extends Component {
                       <input
                         type="button"
                         id="registro_continuar_navegando"
-                        className="btn btn--blue btn-md btn-bg"
+                        className="btn btn-bg"
                         value="Continuar Navegando"
                         onClick={() => {
                           Taggeo(
