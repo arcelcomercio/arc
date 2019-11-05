@@ -17,7 +17,12 @@
   }
   &__list {
     @media (--only-mobile) {
-      display: flex;
+      display: none;
+    }
+    &.block {
+      @media (--only-mobile) {
+        display: block;
+      }
     }
   }
 }

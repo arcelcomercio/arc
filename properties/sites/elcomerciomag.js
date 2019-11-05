@@ -63,6 +63,8 @@ export default {
       logoAmp: 'logo-143x60.png',
       width: 143,
       height: 60,
+      widthAmp: 95,
+      heightAmp: 37,
     },
     premium: {
       logo: 'premium-logo.png',

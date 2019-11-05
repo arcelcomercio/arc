@@ -46,6 +46,8 @@ class Domains {
       gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
       peru21: 'f7bd562ca9912019255511635185bf2b',
       peru21g21: 'f7bd562ca9912019255511635185bf2b',
+      elbocon: 'dcd90a2190d1682f39d41a4889a1cc57',
+      depor: '6d83b35ec628d33d0606bcd9083dc2a6',
     }
 
     switch (type) {

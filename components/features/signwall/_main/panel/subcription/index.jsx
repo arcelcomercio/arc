@@ -148,7 +148,7 @@ class Subscription extends Component {
                           <div className="form-group">
                             <input
                               type="button"
-                              className="btn btn--blue btn-bg"
+                              className="btn btn-bg"
                               value="VER PLANES"
                               onClick={e => {
                                 this.handleSuscription(e)

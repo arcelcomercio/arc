@@ -21,24 +21,31 @@ const StoryContentChildVideo = ({ data }) => {
     .filter(String)
 
   const [{ url } = {}] = dataVideo
-  const videoMatch = !url && data.match(/(https:\/\/peru21.pe(.*).mp4)/g)
+  const videoMatch = !url && data.match(/(https:\/\/(.*)\/(.*).mp4)/g)
   const urlVideo = videoMatch
     ? videoMatch[0].replace('peru21.pe', 'g21.peru21.pe')
     : url
   return (
-    <amp-video
-      src={urlVideo}
-      poster={urlImage}
-      artwork={urlImage}
-      class={`id-${id}`}
-      title={caption}
-      album="Blender"
-      width="720"
-      height="405"
-      layout="responsive"
-      controls="controls"
-      dock="#dock-slot"
-    />
+    <>
+      {urlVideo && (
+        <>
+          <amp-video
+            src={urlVideo}
+            poster={urlImage}
+            artwork={urlImage}
+            class={`id-${id}`}
+            title={caption}
+            album="Blender"
+            width="720"
+            height="405"
+            layout="responsive"
+            controls="controls"
+            dock="#dock-slot"
+          />
+          <div className="pt-10">{caption}</div>
+        </>
+      )}
+    </>
   )
 }
 export default StoryContentChildVideo

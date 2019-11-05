@@ -22,7 +22,7 @@ class StoryData {
 
   constructor({
     data = {},
-    deployment = () => { },
+    deployment = () => {},
     contextPath = '',
     arcSite = '',
     defaultImgSize = 'md',
@@ -104,8 +104,8 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data).nameAuthor ||
       defaultAuthor +
-      this._website.charAt(0).toUpperCase() +
-      this._website.slice(1)
+        this._website.charAt(0).toUpperCase() +
+        this._website.slice(1)
     )
   }
 
@@ -330,6 +330,13 @@ class StoryData {
     return basic
   }
 
+  get relatedStories() {
+    const { recent_stories: { content_elements: contentElements = [] } = {} } =
+      this._data || {}
+
+    return contentElements
+  }
+
   get videoSeo() {
     const videosContent = StoryData.getVideoContent(
       this._data && this._data.content_elements,
@@ -444,7 +451,7 @@ class StoryData {
         this.__data.promo_items &&
         this.__data.promo_items[ConfigParams.VIDEO] &&
         this.__data.promo_items[ConfigParams.VIDEO].duration) ||
-      ''
+        ''
     )
   }
 
@@ -754,6 +761,14 @@ class StoryData {
     return StoryData.getCaptionVideo(this.__data)
   }
 
+  get multimediaSubtitle() {
+    return this.getMultimediaConfig().subtitle
+  }
+
+  get multimediaCaption() {
+    return this.getMultimediaConfig().caption
+  }
+
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
   getResizedImage(ratio, resolution) {
     if (this.multimedia) {
@@ -772,6 +787,38 @@ class StoryData {
         size
       ) || this.defaultImg
     )
+  }
+
+  getMultimediaConfig() {
+    const {
+      promo_items: {
+        basic: {
+          subtitle: basicSubtitle = '',
+          caption: basicCaption = '',
+        } = {},
+        basic_video: {
+          promo_items: {
+            basic: {
+              subtitle: videoSubtitle = '',
+              caption: videoCaption = '',
+            } = {},
+          } = {},
+        } = {},
+        basic_gallery: {
+          promo_items: {
+            basic: {
+              subtitle: gallerySubtitle = '',
+              caption: galleryCaption = '',
+            } = {},
+          } = {},
+        } = {},
+      } = {},
+    } = this._data || {}
+
+    return {
+      subtitle: videoSubtitle || gallerySubtitle || basicSubtitle,
+      caption: videoCaption || galleryCaption || basicCaption,
+    }
   }
 
   getPromoItemsType = () => {
@@ -822,13 +869,13 @@ class StoryData {
             }) => {
               return streamType === 'mp4'
                 ? {
-                  idVideo,
-                  url,
-                  resized_urls: resizedUrlsV,
-                  caption,
-                  urlImage,
-                  date,
-                }
+                    idVideo,
+                    url,
+                    resized_urls: resizedUrlsV,
+                    caption,
+                    urlImage,
+                    date,
+                  }
                 : []
             }
           )
@@ -924,12 +971,12 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
-                    idVideo,
-                    url,
-                    caption,
-                    urlImage,
-                    date,
-                  }
+                      idVideo,
+                      url,
+                      caption,
+                      urlImage,
+                      date,
+                    }
                   : []
               })
               .filter(String)
@@ -1002,7 +1049,7 @@ class StoryData {
 
   static getDataAuthor(
     data,
-    { contextPath = '', deployment = () => { }, website = '' } = {}
+    { contextPath = '', deployment = () => {}, website = '' } = {}
   ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
@@ -1158,7 +1205,7 @@ class StoryData {
         data.promo_items[ConfigParams.GALLERY] &&
         data.promo_items[ConfigParams.GALLERY].promo_items &&
         data.promo_items[ConfigParams.GALLERY].promo_items[
-        ConfigParams.IMAGE
+          ConfigParams.IMAGE
         ] &&
         ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
           .resized_urls &&

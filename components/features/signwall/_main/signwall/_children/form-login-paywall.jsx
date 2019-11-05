@@ -106,6 +106,8 @@ class FormLoginPaywall extends Component {
     window.Identity.getUserProfile().then(resGetProfile => {
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
+      // window.localStorage.setItem('ArcId._ID', resGetProfile.uuid)
+
       if (reloadLogin) {
         window.location.reload()
       } else {
@@ -293,7 +295,7 @@ class FormLoginPaywall extends Component {
                       type="submit"
                       name="ingresar"
                       id="login_boton_ingresar"
-                      className="btn btn--blue btn-bg"
+                      className="btn btn-bg"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
                       onClick={() =>
