@@ -36,7 +36,7 @@ export default {
   signwall: {
     ORIGIN_API: 'https://api-sandbox.gestion.pe',
     ORIGIN_IDENTITY_SDK:
-      'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js',
+      'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js?v=1',
     ORIGIN_SALES_SDK:
       'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js',
     ORIGIN_PAYU_SDK:
@@ -145,6 +145,17 @@ export default {
       arcSite: '',
       url: 'https://comercioxpress.com/',
     },
+    {
+      name: 'aptitus',
+      arcSite: '',
+      url: 'https://aptitus.com/?ref=ecf',
+    },
+    {
+      name: 'urbania',
+      arcSite: '',
+      url: 'https://urbania.pe/?ref=ecf',
+    },
+
   ],
   activeSignwall: false,
   activePaywall: false,

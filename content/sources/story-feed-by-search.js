@@ -1,12 +1,13 @@
 import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory, getContentCurrentPage } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 const schemaName = 'stories-dev'
 
 let website = '' // Variable se usa en método fuera del fetch
 let queryValue = ''
+let pageNumber = 1
 
 const params = [
   {
@@ -55,6 +56,7 @@ const pattern = key => {
 
   website = key['arc-site'] || 'Arc Site no está definido'
   queryValue = key.query
+  pageNumber = (!key.from || key.from === 0) ? 1 : key.from
   const sort = key.sort === 'ascendente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
@@ -154,13 +156,12 @@ const transform = data => {
     addResizedUrls
   )
   dataStories.siteName = siteName
-  const { next, previous, count, content_elements: { length = 0 } = [] } = dataStories
 
   return {
     ...dataStories,
     query: queryValue,
     decoded_query: decodeURIComponent(queryValue).replace(/\+/g, ' '),
-    page_number: getContentCurrentPage({ next, previous, count, length })
+    page_number: pageNumber
   }
 }
 

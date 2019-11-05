@@ -51,7 +51,6 @@ class StoryContentAmp extends PureComponent {
     } = this.props
     const {
       contentPosicionPublicidadAmp,
-      relatedContent,
       promoItems,
       tags,
       authorLink,
@@ -243,27 +242,6 @@ class StoryContentAmp extends PureComponent {
                   data-src={imgBbc}
                 />
               </a>
-            </div>
-          )}
-          {relatedContent.length > 0 && (
-            <div className={classes.related}>
-              <div className={classes.relatedTitle}>Relacionadas </div>
-              {relatedContent.map((item, i) => {
-                const { type } = item
-                const key = `related-${i}`
-                return type !== ConfigParams.ELEMENT_STORY ? (
-                  ''
-                ) : (
-                  <StoryContentChildRelated
-                    key={key}
-                    {...item}
-                    contextPath={contextPath}
-                    arcSite={arcSite}
-                    deployment={deployment}
-                    isAmp="true"
-                  />
-                )
-              })}
             </div>
           )}
         </div>

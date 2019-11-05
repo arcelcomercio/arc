@@ -18,7 +18,7 @@ const FlexibleContainer = ({ customFields, children = [] }) => {
   const [gridClass, setGridClass] = useState('grid')
   useEffect(() => {
     if (isIE()) setGridClass('ie-flex')
-  })
+  }, [])
 
   return (
     <ContainerType className={`${gridClass} ${classes} ${width} ${height}`}>

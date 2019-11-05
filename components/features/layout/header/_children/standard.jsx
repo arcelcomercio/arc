@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { getResponsiveClasses } from '../../../../utilities/helpers'
+import {
+  sideScroll,
+  handleNavScroll,
+  checkDisabledIcons,
+  getResponsiveClasses,
+} from '../../../../utilities/slidernav-helpers'
 
 const classes = {
   header: `header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex position-relative`,
@@ -17,7 +22,12 @@ const classes = {
 }
 // TODO: Agregar el click afuera del menu
 const HeaderChildStandard = props => {
-  const { logo, sections, deviceList, tags, date } = props
+  const { logo, sections, deviceList, tags, date, isSlider } = props
+
+  useEffect(() => {
+    if (isSlider) checkDisabledIcons()
+  }, [isSlider])
+
   return (
     <>
       <header
@@ -30,16 +40,52 @@ const HeaderChildStandard = props => {
         className={`${deviceList.showInDesktop &&
           classes.navWrapper} ${getResponsiveClasses(deviceList)}`}>
         {tags !== '' && <div className={classes.tags}>{tags}</div>}
+        {isSlider && (
+          <button
+            type="button"
+            onClick={() => {
+              sideScroll('left', 15, 100, 5)
+            }}
+            className="header__button left disabled position-relative">
+            <i className="header__icon-back left icon-back text-white rounded font-bold p-5"></i>
+          </button>
+        )}
         {sections[0] && (
-          <ul className={classes.featured}>
-            {sections.map(({ url, name }) => (
-              <li className={`${classes.item}`} key={url}>
-                <a className={classes.link} href={url}>
+          <ul
+            className={`${classes.featured}${isSlider ? ' slider' : ''}`}
+            onScroll={e => {
+              if (isSlider) handleNavScroll(e)
+            }}>
+            {sections.map(({ url, name, styles = [] }) => (
+              <li
+                className={`${classes.item}${
+                  styles ? ' header__custom-item' : ''
+                }`}
+                key={url}>
+                <a
+                  className={classes.link}
+                  href={url}
+                  {...(styles && {
+                    style: {
+                      backgroundColor: styles[0],
+                      color: styles[1] || '#ffffff',
+                    },
+                  })}>
                   {name}
                 </a>
               </li>
             ))}
           </ul>
+        )}
+        {isSlider && (
+          <button
+            type="button"
+            onClick={() => {
+              sideScroll('right', 15, 100, 5)
+            }}
+            className="header__button right disabled position-relative">
+            <i className="header__icon-back right icon-back text-white rounded font-bold p-5"></i>
+          </button>
         )}
         {date.active && <div className={classes.date}>{date.value}</div>}
       </nav>

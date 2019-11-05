@@ -3,6 +3,11 @@ import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
+import {
+  sideScroll,
+  handleNavScroll,
+  checkDisabledIcons,
+} from '../../../../utilities/slidernav-helpers'
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/standard'
@@ -51,7 +56,8 @@ const classes = {
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight: 'lg:flex items-center justify-end header__btn-container',
-  btnSubscribe: 'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
+  btnSubscribe:
+    'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -65,6 +71,7 @@ const HeaderChildInverted = ({
   search,
   isStory,
   shareButtons,
+  isSlider,
 }) => {
   const [scrolled, setScrolled] = useState(false)
   const [statusSidebar, setStatusSidebar] = useState(false)
@@ -238,10 +245,11 @@ const HeaderChildInverted = ({
 
   useEffect(() => {
     window.addEventListener('scroll', _handleScroll)
+    if (isSlider) checkDisabledIcons()
     return () => {
       window.removeEventListener('scroll', _handleScroll)
     }
-  }, [_handleScroll])
+  }, [_handleScroll, isSlider])
   /*   useEffect(() => {
     listContainer = document.querySelector('.nav-sidebar')
     layerBackground = document.querySelector('.layer')
@@ -271,16 +279,52 @@ const HeaderChildInverted = ({
       <nav className={classes.band}>
         <div className={classes.bandWrapper}>
           {tags && <div className={classes.tags}>{tags}</div>}
+          {isSlider && (
+            <button
+              type="button"
+              onClick={() => {
+                sideScroll('left', 15, 100, 5)
+              }}
+              className="header__button left disabled position-relative">
+              <i className="header__icon-back left icon-back text-white rounded font-bold p-5"></i>
+            </button>
+          )}
           {bandLinks && bandLinks[0] && (
-            <ul className={classes.featured}>
-              {bandLinks.map(section => (
-                <li className={classes.item} key={`band-${section.url}`}>
-                  <a className={classes.link} href={section.url}>
-                    {section.name}
+            <ul
+              className={`${classes.featured}${isSlider ? ' slider' : ''}`}
+              onScroll={e => {
+                if (isSlider) handleNavScroll(e)
+              }}>
+              {bandLinks.map(({ url, name, styles = [] }) => (
+                <li
+                  className={`${classes.item}${
+                    styles ? ' header__custom-item' : ''
+                  }`}
+                  key={`band-${url}`}>
+                  <a
+                    className={classes.link}
+                    href={url}
+                    {...(styles && {
+                      style: {
+                        backgroundColor: styles[0],
+                        color: styles[1] || '#ffffff',
+                      },
+                    })}>
+                    {name}
                   </a>
                 </li>
               ))}
             </ul>
+          )}
+          {isSlider && (
+            <button
+              type="button"
+              onClick={() => {
+                sideScroll('right', 15, 100, 5)
+              }}
+              className="header__button right disabled position-relative">
+              <i className="header__icon-back right icon-back text-white rounded font-bold p-5"></i>
+            </button>
           )}
           {date.active && (
             <time className={classes.date} dateTime={date.raw}>
@@ -315,7 +359,7 @@ const HeaderChildInverted = ({
               iconClass={classes.iconMenu}
               btnClass={`${classes.btnMenu} ${
                 scrolled && isStory ? 'border-r-1 border-solid' : ''
-                }`}
+              }`}
               btnText="Menú"
               onClick={_handleToggleSectionElements}
             />
@@ -328,7 +372,9 @@ const HeaderChildInverted = ({
               statusSearch &&
               'opacity-0'}`}>
             <img
-              src={scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src}
+              src={
+                scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
+              }
               alt={logo.alt}
               className={classes.logo}
             />
@@ -368,17 +414,22 @@ const HeaderChildInverted = ({
                 </div>
               </>
             ) : (
-                <div className={`${classes.navContainerRight} `}>
-                  {siteProperties.activePaywall && (
-                    <Button
-                      btnText="Suscríbete"
-                      btnClass={`${classes.btnSubscribe}`}
-                      btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${typeof window !== 'undefined' && window.section || ''}`}
-                    />
-                  )}
-                  {siteProperties.activeSignwall && <SignwallComponent />}
-                </div>
-              )}
+              <div className={`${classes.navContainerRight} `}>
+                {siteProperties.activePaywall && (
+                  <Button
+                    btnText="Suscríbete"
+                    btnClass={`${classes.btnSubscribe}`}
+                    btnLink={`${
+                      siteProperties.urlSubsOnline
+                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                      'undefined' &&
+                      window.section) ||
+                      ''}`}
+                  />
+                )}
+                {siteProperties.activeSignwall && <SignwallComponent />}
+              </div>
+            )}
           </div>
           {/** ************* // RIGHT *************** */}
         </div>

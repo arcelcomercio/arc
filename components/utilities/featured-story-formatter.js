@@ -15,7 +15,9 @@ class FeaturedStoryFormatter {
         }
         basic { 
           url 
-          type 
+          type
+          subtitle
+          caption
           resized_urls { 
             landscape_l 
             landscape_md 
@@ -29,6 +31,8 @@ class FeaturedStoryFormatter {
             basic { 
               url 
               type 
+              subtitle
+              caption
               resized_urls { 
                 landscape_l 
                 landscape_md 
@@ -43,7 +47,9 @@ class FeaturedStoryFormatter {
           promo_items {
             basic { 
               url 
-              type 
+              type
+              subtitle
+              caption
               resized_urls { 
                 landscape_l 
                 landscape_md 
@@ -158,6 +164,9 @@ class FeaturedStoryFormatter {
     newState.multimediaLazyDefault =
       lazyDefault || imgField || this.storyDataInstace.multimediaLazyDefault
     newState.multimediaType = this.storyDataInstace.multimediaType
+
+    newState.multimediaSubtitle = this.storyDataInstace.multimediaSubtitle
+    newState.multimediaCaption = this.storyDataInstace.multimediaCaption
 
     return newState
   }

@@ -132,6 +132,8 @@ class XmlFacebookInstantArticles {
                   propsScriptHeader,
                   title: nbspToSpace(storyData.title),
                   subTitle: nbspToSpace(storyData.subTitle),
+                  canonical: storyLink,
+                  oppublished: localISODate(storyData.date || ''),
                   multimedia: storyData.multimediaNews,
                   author: nbspToSpace(storyData.author),
                   paragraphsNews: storyData.paragraphsNews,

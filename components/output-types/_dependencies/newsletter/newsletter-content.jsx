@@ -4,6 +4,7 @@ import StoryData from '../../../utilities/story-data'
 const StoryItem = props => {
   const {
     title,
+    description,
     urlNew,
     id,
     publishedAt,
@@ -38,6 +39,11 @@ const StoryItem = props => {
       <title>{title}</title>
       <url>{urlNew}</url>
       <id>{id}</id>
+      <description>
+        {!(description === undefined || description === null || description === '')
+          ? description
+          : 'null'}
+      </description>
       <publishedAt>{publishedAt}</publishedAt>
       <imagen>
         <thumbnail_max> {tbmax}</thumbnail_max>
@@ -54,6 +60,9 @@ const StoryItem = props => {
       <epigraph> {epigraph}</epigraph>
       <seccion> {seccion}</seccion>
       <url_seccion>{urlSeccion}</url_seccion>
+      <content>
+        hola
+      </content>
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
@@ -93,8 +102,14 @@ const NewsLetterContent = ({
         ? story.promo_items.basic.resized_urls
         : {}
 
+    const description =
+      story && story.description && story.description.basic
+        ? story.description.basic
+        : ''
+
     const params = {
       title: storydata.title,
+      description,
       urlNew: `${siteUrl}${storydata.websiteLink}`,
       id: storydata.id,
       publishedAt: storydata.date,
@@ -109,8 +124,12 @@ const NewsLetterContent = ({
       authorTwitterUrl: storydata.authorTwitterLink,
       authorImage: `${siteUrl}${storydata.authorImage}`,
       authorSlug: storydata.authorSlug,
-      authorCargo: storydata.authorRoleByNewsLetter ?storydata.authorRoleByNewsLetter : 'null',
-      authorColumn: storydata.authorBiography ? storydata.authorBiography: 'null',
+      authorCargo: storydata.authorRoleByNewsLetter
+        ? storydata.authorRoleByNewsLetter
+        : 'null',
+      authorColumn: storydata.authorBiography
+        ? storydata.authorBiography
+        : 'null',
     }
 
     return <StoryItem {...params} />

@@ -117,7 +117,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-    } del ${date.getFullYear()}`
+  } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -215,8 +215,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
-    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-    }`
+        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+      }`
 }
 
 export const getMetaPagesPagination = (
@@ -315,10 +315,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-      .charAt(0)
-      .toUpperCase()
-      .concat(lastSection.slice(1))
-      .replace(/-/, ' ')
+        .charAt(0)
+        .toUpperCase()
+        .concat(lastSection.slice(1))
+        .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -487,7 +487,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-    }/optawidget?${matchesResult} ></amp-iframe>`
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -511,10 +511,15 @@ export const imageHtml = html => {
     /<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g,
     rplImageCde
   )
+
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
+  resHtml = resHtml
+    .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
+    .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
+    .replace('<FONT', '<font')
   return resHtml
 }
 
@@ -543,12 +548,17 @@ export const twitterHtml = html => {
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
 
-  if (arcSite === ConfigParams.SITE_ELCOMERCIO)
+  if (arcSite === ConfigParams.SITE_ELCOMERCIO) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.elcomercio.pe$1'
     )
-  else
+  } else if (arcSite === ConfigParams.SITE_DEPOR) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
+      '$1'
+    )
+  } else
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.peru21.pe$1'
@@ -844,7 +854,7 @@ export const formatDateStory = date => {
   const formatHours = hours < 10 ? `0${hours}` : hours
   const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
 
-  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatHours}:${formatMinutes} `
+  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatHours}:${formatMinutes} `
 }
 
 export const formatDateStoryAmp = date => {
@@ -854,7 +864,7 @@ export const formatDateStoryAmp = date => {
   const month = fecha.getMonth() + 1
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
-  return `Actualizado en ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
+  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
     fecha
   )}`
 }
@@ -1055,11 +1065,10 @@ export const storyTagsBbc = (data = []) => {
 }
 
 export const storyVideoPlayerId = (content = '') => {
-  return (
-    content.match(
-      /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
-    ) || []
-  )
+  const pattern = content.includes('id')
+    ? /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    : /<script (src=(.*))(.*)(async(=(.*))?)><\/script>/
+  return content.match(pattern) || []
 }
 
 export const getPhotoId = photoUrl => {
@@ -1113,6 +1122,10 @@ export const localISODate = date => {
   return localDate
 }
 
+/*
+Hasta ahora este metodo es innecesario, comento en caso de que
+la forma que se usa como reemplazo de algun error
+
 export const getContentCurrentPage = ({ next, previous, count, length }) => {
   let page = 1
   if (previous >= 0 && next >= 0)
@@ -1121,4 +1134,4 @@ export const getContentCurrentPage = ({ next, previous, count, length }) => {
     page = (previous / ((count - length) - previous) + 2)
   }
   return page
-}
+} */
