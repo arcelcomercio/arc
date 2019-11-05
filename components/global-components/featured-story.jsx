@@ -65,6 +65,8 @@ export default class FeaturedStory extends PureComponent {
       isAdmin,
       siteName,
       errorList = [],
+      multimediaSubtitle,
+      multimediaCaption,
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -210,7 +212,8 @@ export default class FeaturedStory extends PureComponent {
               src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
               data-src={getDesktopImage()}
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              alt=""
+              alt={multimediaCaption || titleField || title.name}
+              title={multimediaSubtitle || titleField || title.name}
             />
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>

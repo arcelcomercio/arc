@@ -230,6 +230,8 @@ class CardFeaturedStoryManual extends PureComponent {
       multimediaSquareS,
       multimediaLazyDefault,
       multimediaType,
+      multimediaSubtitle,
+      multimediaCaption,
     } = formattedData
 
     if (this.isExternalLink) {
@@ -258,6 +260,8 @@ class CardFeaturedStoryManual extends PureComponent {
       isAdmin,
       siteName,
       errorList: this.errorList || [],
+      multimediaSubtitle,
+      multimediaCaption,
     }
     return <FeaturedStory {...params} />
   }
