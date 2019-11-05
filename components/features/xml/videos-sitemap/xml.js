@@ -93,7 +93,7 @@ class XmlVideosSitemap {
                                     '#text': 'http://www.example.com/videoplayer.swf?video=123'
                                 }, */
                                 { 'video:duration': this.msToSec(duration) },
-                                { 'video:view_count': '15: ni idea de donde sacar esto' },
+                                // { 'video:view_count': '15: ni idea de donde sacar esto' },
                                 { 'video:publication_date': localISODate(date) },
                                 ...tags.map(tag => {
                                     return { 'video:tag': tag.text !== 'sample' ? tag.text : '' }

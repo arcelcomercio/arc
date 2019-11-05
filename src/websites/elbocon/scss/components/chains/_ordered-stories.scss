@@ -7,6 +7,19 @@
   }
   .featured-story {
     background-color: transparent;
+    /* &:first-child {
+      flex-direction: column-reverse;
+    }
+    &.expand {
+      background: red;
+      .featured-story__category {
+        @media (--only-mobile) {
+          display: block;
+          background-image: none;
+          position: relative;
+        }
+      }
+    } */
     &.expand,
     &.featured-story--no-expanded {
       .featured-story__category {
