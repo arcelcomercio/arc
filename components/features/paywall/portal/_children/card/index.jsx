@@ -1,4 +1,5 @@
 import React from 'react'
+import { withTheme } from 'styled-components'
 
 import * as S from './styled'
 import * as T from '../../styled'
@@ -6,7 +7,7 @@ import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import Taggeo from '../../../_dependencies/taggeo'
 
-function Card({ item, onSubscribe = i => i }) {
+function Card({ theme, item, onSubscribe = i => i }) {
   const msgs = useStrings()
   const {
     title,
@@ -19,13 +20,17 @@ function Card({ item, onSubscribe = i => i }) {
   } = item
   return (
     <S.Card>
-      <S.CardHead recommended>
+      <S.CardHead recommended={recommended}>
         {recommended && (
           <S.CardHeadPromotion>
             <span>{msgs.recommended}</span>
+            <S.CyberdayBadge
+              src={theme.images.cyberday_badge}
+              types={['png']}
+            />
           </S.CardHeadPromotion>
         )}
-        <S.Head>{title}</S.Head>
+        <S.Head recommended={recommended}>{title}</S.Head>
       </S.CardHead>
       <S.CardContent>
         <S.ContentPrice>
@@ -64,4 +69,4 @@ function Card({ item, onSubscribe = i => i }) {
   )
 }
 
-export default Card
+export default withTheme(Card)
