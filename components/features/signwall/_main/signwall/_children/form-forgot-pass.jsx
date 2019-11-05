@@ -85,7 +85,9 @@ class FormForgotPass extends Component {
       .reloginEcoID(email, '', 'forgotpass', arcSite, window)
       .then(resEco => {
         if (resEco.retry) {
-          this.pushStatePass()
+          setTimeout(() => {
+            this.pushStatePass()
+          }, 1000)
         } else {
           this.setState({
             messageError: 'Tu correo electrónico no está registrado.',
@@ -172,7 +174,7 @@ class FormForgotPass extends Component {
                 elcomerciomag: '#fecd26',
                 gestion: '#F4E0D2',
                 peru21: '#d5ecff',
-                peru21g21:'#d5ecff',
+                peru21g21: '#d5ecff',
                 elbocon: '#fdabab',
                 depor: '#d5d945',
               }[brandCurrent]
@@ -253,7 +255,7 @@ class FormForgotPass extends Component {
                 elcomerciomag: '#fecd26',
                 gestion: '#F4E0D2',
                 peru21: '#d5ecff',
-                peru21g21:'#d5ecff',
+                peru21g21: '#d5ecff',
                 elbocon: '#fdabab',
                 depor: '#d5d945',
               }[brandCurrent]

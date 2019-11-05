@@ -105,7 +105,7 @@ class FormReLogin extends Component {
                             sending: true,
                           })
                         })
-                    }, 500)
+                    }, 1000)
 
                     this.taggeoSuccess() // -- test tageo success
                   } else {

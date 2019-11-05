@@ -126,7 +126,7 @@ class FormLogin extends Component {
 
                           this.taggeoError() // -- test de tageo error
                         })
-                    }, 500)
+                    }, 1000)
                   } else {
                     this.setState({
                       messageError:
