@@ -1,8 +1,6 @@
 .chain-ordered-stories {
   background-color: #666;
-  article.featured-story:first-child {
-    background-color: red;
-  }
+
   .custom-title {
     background-color: transparent;
     background-image: none;
@@ -45,5 +43,27 @@
   .featured-story__title-link,
   .featured-story__author-link {
     color: $color-white;
+  }
+  .featured-story[class*=' col-2'] {
+    &.expand {
+      .featured-story__title-link {
+        @media (--only-mobile) {
+          color: $color-white;
+        }
+      }
+      .featured-story__category {
+        @media (--only-mobile) {
+          display: flex;
+          margin-bottom: 0;
+        }
+      }
+      .featured-story__category-link {
+        @media (--only-mobile) {
+          font-family: $primary-font;
+          color: #fe4343;
+          text-transform: uppercase;
+        }
+      }
+    }
   }
 }
