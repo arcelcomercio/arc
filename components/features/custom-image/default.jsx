@@ -21,9 +21,10 @@ const CustomImage = props =>
 
   const picture = (
     <picture>
-      { imgUrlMobile !== '' && <source media="(max-width: 650px)" srcSet={imgUrlMobile} className={classes.lazy} /> }
+      { imgUrlMobile !== '' && <source media="(max-width: 650px)" srcSet={imgUrlMobile} data-srcset={imgUrlMobile} className={classes.lazy} /> }
       <img 
         src={imgUrlDesktop} 
+        data-src={imgUrlDesktop}
         alt={imgAlt}
         {...imgTitle !== '' ? {title:imgTitle} : {}}
         {...imgWidth > 0 ? {width:imgWidth} : {}}
