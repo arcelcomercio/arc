@@ -70,23 +70,3 @@
     }
   }
 }
-
-.heading-tabs {
-  display: flex;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #eaeaea;
-  height: 59px;
-  align-items: center;
-  justify-content: space-around;
-}
-.heading-tabs-item {
-  flex-basis: 50%;
-  text-align: center;
-}
-.heading-tabs-item {
-  .active {
-    border-bottom: 3px solid #007c31;
-  }
-}
