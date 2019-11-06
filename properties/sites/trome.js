@@ -9,7 +9,7 @@ export default {
   resizerUrl: 'https://elcomercio-trome-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-PFPMXLF',
   ampGoogleTagManagerId: 'UA-3055636-8',
@@ -90,24 +90,24 @@ export default {
     socialNetworks: [
       {
         name: 'Twitter',
-        url: 'https://twitter.com/tuitdepor',
+        url: 'https://twitter.com/tuittrome',
       },
       {
         name: 'Facebook',
-        url: 'https://www.facebook.com/depor.pe',
+        url: 'https://www.facebook.com/trome.pe',
       },
 
       {
         name: 'Google+',
-        url: 'https://plus.google.com/u/0/+deporpe',
+        url: 'https://plus.google.com/u/0/+tromepe',
       },
       {
         name: 'Pinterest',
-        url: 'https://www.pinterest.com/deporpe',
+        url: 'https://www.pinterest.com/tromepe',
       },
       {
         name: 'RSS ',
-        url: 'https://depor.com/arcio/rss',
+        url: 'https://trome.com/arcio/rss',
       },
     ],
 
@@ -141,17 +141,17 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@depor.com',
-      url: 'https://www.facebook.com/depor.com',
+      user: '@trome.com',
+      url: 'https://www.facebook.com/trome.com',
     },
     twitter: {
       name: 'twitter',
-      user: 'tuitdepor',
-      url: 'https://twitter.com/tuitdepor',
+      user: 'tuittrome',
+      url: 'https://twitter.com/tuittrome',
     },
     youtube: {
       name: 'youtube',
-      url: 'https://plus.google.com/u/0/+deporcom',
+      url: 'https://plus.google.com/u/0/+tromecom',
     },
   },
   adsAmp: {
@@ -163,11 +163,11 @@ export default {
     movil5: 15011771,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna1-300x250-div-gpt-ad-8599377-11.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna2-300x250-div-gpt-ad-8599377-12.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna3-300x250-div-gpt-ad-8599377-13.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna4-300x250-div-gpt-ad-8599377-14.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna5-300x250-div-gpt-ad-8599377-15.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-dep_ia_interna1-300x250-div-gpt-ad-8599377-11.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-dep_ia_interna2-300x250-div-gpt-ad-8599377-12.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-dep_ia_interna3-300x250-div-gpt-ad-8599377-13.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-dep_ia_interna4-300x250-div-gpt-ad-8599377-14.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-dep_ia_interna5-300x250-div-gpt-ad-8599377-15.html',
   ],
   activeSignwall: true,
   activePaywall: false,
