@@ -117,7 +117,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                               this.setDefault('lg')
                             }
                             alt={movie.title}
-                            
+                            title={movie.title}
                           />
                         </picture>
                       </a>

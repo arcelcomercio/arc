@@ -102,6 +102,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
                 <img
                   src={sizes[MOVIE_IMG_SIZE_MD] || this.setDefault('lg')}
                   alt={title}
+                  title={title}
                   className={classes.img}
                 />
               </picture>
