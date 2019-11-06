@@ -84,11 +84,10 @@ const transform = data => {
   const realTag = tags.find(
     tag => decodeURIComponent(name).toLowerCase() === tag.slug
   )
-  // const { next, previous, count, content_elements: { length = 0 } = [] } = dataStories
 
   const additionalData = {
     tag_name: (realTag && realTag.text) || 'Tag',
-    page_number: pageNumber // getContentCurrentPage({ next, previous, count, length })
+    page_number: pageNumber
   }
   return {
     ...dataStories,
