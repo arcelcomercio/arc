@@ -155,7 +155,6 @@ export default {
       arcSite: '',
       url: 'https://urbania.pe/?ref=ecf',
     },
-
   ],
   activeSignwall: false,
   activePaywall: false,
