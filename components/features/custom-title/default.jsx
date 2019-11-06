@@ -5,6 +5,7 @@ import {
   formatSlugToText,
   arrayMonths,
   arrayDays,
+  createMarkup,
 } from '../../utilities/helpers'
 
 const classes = {
@@ -73,6 +74,7 @@ class CustomTitle extends PureComponent {
         TextType = 'h1',
         textAlign = 'left',
         size = 'large',
+        subtitleField,
       } = {},
     } = this.props
     const {
@@ -83,32 +85,40 @@ class CustomTitle extends PureComponent {
     const { query: { section } = {} } = globalContentConfig || {}
 
     return (
-      <TextType
-        {...editableField('customText')}
-        suppressContentEditableWarning
-        className={`${classes.title} text-${textAlign} ${
-          isUppercase ? 'uppercase' : ''
-        } ${isThreeCol ? 'col-3' : ''} ${
-          isCustomBorder ? 'custom-border' : ''
-        } ${seeMoreButton ? 'position-relative ' : ''} ${
-          isDarkBg ? 'dark-bg text-white bg-base-100' : ''
-        } ${size}`}>
-        {customText ||
-          sectionName ||
-          tagName ||
-          authorName ||
-          this.getSearchTitle() ||
-          this.getArchivoTitle() ||
-          formatSlugToText(section) ||
-          'Título'}
-        {seeMoreButton && (
-          <a
-            href={seeMoreButtonLink}
-            className={isDarkBg ? classes.darkButton : classes.button}>
-            VER MÁS
-          </a>
+      <>
+        <TextType
+          {...editableField('customText')}
+          suppressContentEditableWarning
+          className={`${classes.title} text-${textAlign} ${
+            isUppercase ? 'uppercase' : ''
+          } ${isThreeCol ? 'col-3' : ''} ${
+            isCustomBorder ? 'custom-border' : ''
+          } ${seeMoreButton ? 'position-relative ' : ''} ${
+            isDarkBg ? 'dark-bg text-white bg-base-100' : ''
+          } ${size}`}>
+          {customText ||
+            sectionName ||
+            tagName ||
+            authorName ||
+            this.getSearchTitle() ||
+            this.getArchivoTitle() ||
+            formatSlugToText(section) ||
+            'Título'}
+          {seeMoreButton && (
+            <a
+              href={seeMoreButtonLink}
+              className={isDarkBg ? classes.darkButton : classes.button}>
+              VER MÁS
+            </a>
+          )}
+        </TextType>
+        {subtitleField && (
+          <h2
+            className="text-lg mt-10 mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0"
+            dangerouslySetInnerHTML={createMarkup(subtitleField)}
+          />
         )}
-      </TextType>
+      </>
     )
   }
 }
@@ -160,6 +170,11 @@ CustomTitle.propTypes = {
     }),
     seeMoreButtonLink: PropTypes.string.tag({
       name: 'Url del botón "Ver más"',
+    }),
+    subtitleField: PropTypes.string.tag({
+      name: 'Subtítulo personalizado',
+      group: 'Agregar subtítulo',
+      description: 'Este campo acepta código html',
     }),
   }),
   editableField: PropTypes.func,
