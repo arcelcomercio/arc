@@ -86,6 +86,8 @@ class OrderedStoriesGrid extends PureComponent {
           arcSite,
           multimediaType: dataStory.multimediaType,
           isAdmin,
+          multimediaSubtitle: dataStory.multimediaSubtitle,
+          multimediaCaption: dataStory.multimediaCaption,
         }
         storyNumber += 1
         return <FeaturedStory key={dataStory.id} {...params} />

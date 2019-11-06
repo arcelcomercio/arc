@@ -30,6 +30,8 @@ const CardFeaturedStoryMultimedia = props => {
     date, // { display_date }
     primarySectionLink, // { taxonomy { primary_section { path } } }
     primarySection, // { taxonomy { primary_section { name } } }
+    multimediaSubtitle,
+    multimediaCaption,
   } = new StoryData({
     data,
     arcSite,
@@ -55,6 +57,8 @@ const CardFeaturedStoryMultimedia = props => {
             : `${section}/`,
         freeHtml,
         isAdmin,
+        multimediaSubtitle,
+        multimediaCaption,
       }}
     />
   )

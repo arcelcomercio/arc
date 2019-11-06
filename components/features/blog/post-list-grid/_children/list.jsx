@@ -13,7 +13,7 @@ const BlogPostListGridChildList = ({ data }) => {
   return (
     <div className={classes.containerGrid}>
       {data &&
-        data.map((row, index) => {
+        data.map(() => {
           return (
             <div className={classes.itemGrid}>
               <div className={classes.date}>fecha</div>
