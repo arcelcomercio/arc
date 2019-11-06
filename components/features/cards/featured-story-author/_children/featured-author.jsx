@@ -142,8 +142,13 @@ export default ({
           <a className={classes.authorImgLink} href={authorLink}>
             <picture>
               <img
-                className={classes.authorImg}
-                src={authorImageSquareXS || authorImage}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.authorImg}`}
+                data-src={authorImageSquareXS || authorImage}
+                src={
+                  isAdmin
+                    ? authorImageSquareXS || authorImage
+                    : multimediaLazyDefault
+                }
                 alt={author}
               />
             </picture>

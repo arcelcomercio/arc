@@ -96,7 +96,7 @@ class StoryContinue extends PureComponent {
 
   setTimeoutLoadPage = (linker, html = '') => {
     const { arcSite } = this.props || {}
-    const timeLoad = ConfigParams.SITE_OJO === arcSite ? 5000 : 2000
+    const timeLoad = ConfigParams.SITE_OJO === arcSite ? 5000 : 1000
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (

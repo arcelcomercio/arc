@@ -15,6 +15,9 @@
           display: none;
         }
       }
+      .featured-story__author-link {
+        color: $color-white;
+      }
     }
     &.expand,
     &.featured-story--no-expanded {
