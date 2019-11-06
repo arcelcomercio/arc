@@ -1,0 +1,16 @@
+.story,
+.futbol-internacional {
+  .most-read {
+    &__title {
+      background-color: #eae9e5;
+      font-family: $secondary-font;
+      font-weight: 900;
+      font-size: 16px;
+      color: #3f3f3f;
+      justify-content: center;
+    }
+    &__icon {
+      display: none;
+    }
+  }
+}
