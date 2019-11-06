@@ -1,0 +1,27 @@
+.custom-title {
+  font-family: $primary-font;
+  color: $color-primary;
+  font-weight: 700;
+  margin-bottom: 20px;
+  @media (--tablet) {
+    padding-left: 20px;
+  }
+  @media (--desktop) {
+    padding-left: 20px;
+  }
+  &.medium {
+    font-size: 24px;
+    @media (--tablet) {
+      font-size: 30px;
+    }
+  }
+  &.large {
+    font-size: 24px;
+    @media (--tablet) {
+      font-size: 30px;
+    }
+    @media (--desktop) {
+      font-size: 46px;
+    }
+  }
+}

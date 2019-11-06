@@ -1,0 +1,31 @@
+.breaking-news {
+  &--bgcolor-1 {
+    background-color: $color-white;
+    .breaking-news__link,
+    .breaking-news__btn-icon {
+      color: $color-fifth;
+    }
+    .breaking-news__tag {
+      background-color: $color-fifth;
+      color: $color-white;
+    }
+  }
+  &__tag {
+    font-family: 'arial';
+    font-size: 11px;
+    border-radius: 2px;
+    padding: 5px 10px;
+    min-width: 65px;
+  }
+  &__link {
+    font-family: $primary-font;
+    font-size: 15px;
+    @media (--tablet) {
+      font-size: 22px;
+    }
+  }
+  &__text {
+    display: flex;
+    align-items: center;
+  }
+}

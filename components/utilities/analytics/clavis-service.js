@@ -98,7 +98,7 @@ function clavisService(options, clientName, site) {
                 JSON.stringify({
                     userid: getUUID(),
                     articleid: `contentapi://${clavis.contentId}`,
-                    auxiliaries: clavis.auxiliaries,
+                    auxiliaries: clavis.auxiliaries || [],
                     referrer: document.referrer,
                     site
                 })

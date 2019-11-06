@@ -68,8 +68,8 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-        nameSeccion.split('/')[1]
-      } ${subtype} `
+    nameSeccion.split('/')[1]
+    } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -101,8 +101,8 @@ export default ({
       title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
     } else if (
       pageNumber > 1 &&
-      metaValue('id') ===
-        'meta_tag' /*  || metaValue('id') === "meta_search" || metaValue('id') === "meta_author" */
+      (metaValue('id') === 'meta_tag' || metaValue('id') === "meta_author")
+      /*  || metaValue('id') === "meta_search" */
     ) {
       title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteName}`
     }
@@ -119,8 +119,8 @@ export default ({
     ) {
       if (
         pageNumber > 1 &&
-        metaValue('id') ===
-          'meta_tag' /*  || metaValue('id') === "meta_search" || metaValue('id') === "meta_author" */
+        metaValue('id') === 'meta_tag' || metaValue('id') === "meta_author"
+        /*  || metaValue('id') === "meta_search" */
       ) {
         description = `${metaValue('description')} Página ${pageNumber}.`
       } else {
