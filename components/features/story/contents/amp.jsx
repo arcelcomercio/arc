@@ -36,6 +36,7 @@ const classes = {
     'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
+  rawHtmlClasses: 'story-content__embed',
 }
 
 @Consumer
@@ -162,7 +163,7 @@ class StoryContentAmp extends PureComponent {
                   ) : (
                     <RawHtml
                       content={ampHtml(content, arcSite)}
-                      rawHtmlClasses=""
+                      className={classes.rawHtmlClasses}
                     />
                   )
                 }

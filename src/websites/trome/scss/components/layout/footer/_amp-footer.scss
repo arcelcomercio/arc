@@ -1,0 +1,40 @@
+.amp-footer {
+  background-color: $color-primary;
+  &__text {
+    background: url(/pf/resources/dist/depor/images/bg-link.png) 0 0 no-repeat;
+    display: inline-block;
+    padding-top: 15px;
+    width: 196px;
+    height: 48px;
+  }
+  &__info {
+    background: url(/pf/resources/dist/depor/images/arrow-left-circle.png) 0 0
+      no-repeat;
+    padding: 0 0 0 64px;
+  }
+}
+
+.story-content__embed {
+  table {
+    margin-bottom: 25px;
+    width: 100%;
+    height: auto;
+    border: 1px solid #e0efa5;
+    font-size: 16px;
+    @media (--only-mobile) {
+      font-size: 11px;
+    }
+    tr {
+      &:nth-child(2n) {
+        td {
+          background-color: #e0efa5;
+        }
+      }
+    }
+    td {
+      font-family: $primary-font;
+      padding: 5px;
+      border-right: 1px solid #e0efa5;
+    }
+  }
+}

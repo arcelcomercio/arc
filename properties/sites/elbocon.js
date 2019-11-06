@@ -1,6 +1,6 @@
 export default {
   siteName: 'El Bocón',
-  sitemapNewsName: 'Diario El Bocón',
+  sitemapNewsName: 'El Bocón',
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
@@ -13,7 +13,7 @@ export default {
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Bocon_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-WB49SJD',
-  ampGoogleTagManagerId: 'UA-3055636-3',
+  ampGoogleTagManagerId: 'UA-15667156-1',
   ampGoogleTagManagerName: 'elbocon',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-15667156-1',
@@ -180,11 +180,11 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 14971944,
-    movil2: 14971945,
-    movil3: 14971947,
-    movil4: 14971953,
-    movil5: 14971957,
+    movil1: 15011755,
+    movil2: 15011756,
+    movil3: 15011757,
+    movil4: 15011758,
+    movil5: 15011759,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna1-300x250-div-gpt-ad-8599377-1.html',
@@ -196,8 +196,3 @@ export default {
   activeSignwall: false,
   activePaywall: false,
 }
-
-
-
-
-

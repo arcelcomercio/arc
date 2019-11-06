@@ -518,6 +518,8 @@ export const imageHtml = html => {
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
   resHtml = resHtml
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
+    .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
+    .replace(/<IMG (.*)SRC="(.*)" WIDTH=([0-9])\w+>/g, rplImageCde)
     .replace('<FONT', '<font')
   return resHtml
 }
@@ -542,6 +544,17 @@ export const twitterHtml = html => {
   )
 
   return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
+}
+
+export const deporPlay = html => {
+  const rplDeporPlay =
+    '<amp-iframe class="media" src="https://w.soundcloud.com/player/$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
+
+  const htmlDataDeporPlay = html.replace(
+    /<iframe (.*) src="https:\/\/w.soundcloud.com\/player\/(.*)"><\/iframe>/g,
+    rplDeporPlay
+  )
+  return htmlDataDeporPlay
 }
 
 export const iframeHtml = (html, arcSite = '') => {
@@ -729,6 +742,9 @@ export const ampHtml = (html = '', arcSite = '') => {
   let resultData = html
   // Opta Widget
   resultData = replaceHtmlMigracion(html)
+
+  // Opta Widget
+  resultData = deporPlay(html)
 
   // Opta Widget
   resultData = optaWidgetHtml(resultData)

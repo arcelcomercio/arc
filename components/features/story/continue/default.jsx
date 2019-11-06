@@ -96,7 +96,7 @@ class StoryContinue extends PureComponent {
 
   setTimeoutLoadPage = (linker, html = '') => {
     const { arcSite } = this.props || {}
-    const timeLoad = ConfigParams.SITE_OJO === arcSite ? 5000 : 2000
+    const timeLoad = ConfigParams.SITE_OJO === arcSite ? 5000 : 1000
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (
@@ -137,7 +137,11 @@ class StoryContinue extends PureComponent {
     if (screen.width < 630) {
       const storyHeader = document.querySelector('.story-header__list')
       if (storyHeader) storyHeader.classList.add('hidden')
-      if (arcSite !== 'elcomercio' && arcSite !== 'depor') {
+      if (
+        arcSite !== 'elcomercio' &&
+        arcSite !== 'depor' &&
+        arcSite !== 'elbocon'
+      ) {
         const navSidebar = document.querySelector('.nav-sidebar')
         const nav = document.querySelector('.nav')
         const navWrapper = document.querySelector('.nav__wrapper')
