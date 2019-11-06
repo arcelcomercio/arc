@@ -1,0 +1,28 @@
+.story-header {
+  &__title-section {
+    font-family: 'Time News Roman';
+  }
+  &__news-title {
+    font-family: $primary-font;
+    font-weight: 700;
+  }
+  &__icon {
+    color: $color-gray-300;
+  }
+  &__news-summary {
+    color: #999;
+    @media (--desktop) {
+      color: $color-gray-300;
+    }
+  }
+  &__list {
+    @media (--only-mobile) {
+      display: none;
+    }
+    &.block {
+      @media (--only-mobile) {
+        display: block;
+      }
+    }
+  }
+}

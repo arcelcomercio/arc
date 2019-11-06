@@ -1,0 +1,26 @@
+.footer {
+  &__info,
+  &__sections,
+  &__contact {
+    background-color: $color-gray-300;
+  }
+
+  &__legal-item,
+  &__list-title,
+  &__list-link,
+  &__social-title,
+  &__social-icon {
+    color: $color-white;
+  }
+  &__list-title,
+  &__list-link,
+  &__social-title,
+  &__legal-links,
+  &__legal-divider {
+    font-family: $primary-font;
+  }
+
+  &__list-link {
+    text-transform: none;
+  }
+}
