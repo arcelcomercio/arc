@@ -67,14 +67,17 @@ class StoryContents extends PureComponent {
     if (_id && taxonomy) {
       return {
         contentId: _id,
-        auxiliaries: taxonomy.auxiliaries && taxonomy.auxiliaries.map(aux => { return aux._id }),
+        auxiliaries:
+          taxonomy.auxiliaries &&
+          taxonomy.auxiliaries.map(aux => {
+            return aux._id
+          }),
         targetingUrl: 'https://targeting.perso.aws.arc.pub/api/v1/targeting',
         // legacy targetingUrl: 'https://targeting.perso.aws.arc.pub/TargetingWebAPP/targeting',
       }
     }
-    return null;
+    return null
   }
-
 
   handleOptaWidget = ({ id, css, js, defer }) => {
     // eslint-disable-next-line camelcase
@@ -159,15 +162,16 @@ class StoryContents extends PureComponent {
       ) || ''
 
     return (
-      <div className={classes.news}>
-        {primarySectionLink === '/impresa/'
-          ? promoItems && <StoryContentsChildImpresa data={promoItems} />
-          : promoItems &&
-            subtype !== ConfigParams.BIG_IMAGE &&
-            subtype !== ConfigParams.SPECIAL_BASIC &&
-            subtype !== ConfigParams.SPECIAL && (
-              <StoryContentsChildMultimedia data={params} />
-            )}
+      <>
+        <div className={classes.news}>
+          {primarySectionLink === '/impresa/'
+            ? promoItems && <StoryContentsChildImpresa data={promoItems} />
+            : promoItems &&
+              subtype !== ConfigParams.BIG_IMAGE &&
+              subtype !== ConfigParams.SPECIAL_BASIC &&
+              subtype !== ConfigParams.SPECIAL && (
+                <StoryContentsChildMultimedia data={params} />
+              )}
 
           <StoryContentsChildAuthor {...params} />
 
@@ -213,10 +217,10 @@ class StoryContents extends PureComponent {
                             description={captionVideo}
                           />
                         ) : (
-                            <StoryContentsChildVideoNativo
-                              streams={element && element.streams}
-                            />
-                          )}
+                          <StoryContentsChildVideoNativo
+                            streams={element && element.streams}
+                          />
+                        )}
                       </>
                     )
                   }
@@ -229,7 +233,9 @@ class StoryContents extends PureComponent {
                     )
                   }
                   if (type === ConfigParams.ELEMENT_TABLE) {
-                    return <StoryContentsChildTable data={element} type={type} />
+                    return (
+                      <StoryContentsChildTable data={element} type={type} />
+                    )
                   }
                   if (type === ConfigParams.ELEMENT_QUOTE) {
                     return <StoryContentsChildBlockQuote data={element} />
@@ -255,8 +261,8 @@ class StoryContents extends PureComponent {
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
                       ? `${classes.textClasses} ${
-                      classes.alignmentClasses
-                      }-${alignment}`
+                          classes.alignmentClasses
+                        }-${alignment}`
                       : classes.textClasses
                     return (
                       <Text
