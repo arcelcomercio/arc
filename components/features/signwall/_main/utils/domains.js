@@ -3,8 +3,11 @@ import ENV from 'fusion:environment'
 class Domains {
   getOriginAPI = site => {
     switch (site) {
-      case 'peru21':
       case 'depor':
+          return ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${site}.com`
+          : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
+      case 'peru21':
       case 'elbocon':
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
