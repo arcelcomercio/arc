@@ -102,6 +102,7 @@ const SeparatorsBasicChildSeparator = ({
                       src={isAdmin ? imageUrl : multimediaLazyDefault}
                       data-src={imageUrl}
                       alt={title}
+                      title={title}
                       className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
                     />
                   </picture>

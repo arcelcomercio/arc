@@ -74,6 +74,7 @@ const OpinionGridListItem = ({ data: story }) => {
                   className={classes.pictureNota}
                   src={story.multimediaLandscapeXS}
                   alt={story.title}
+                  title={story.title}
                 />
               </picture>
             </a>

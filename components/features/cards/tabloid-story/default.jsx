@@ -138,6 +138,7 @@ const CardsTabloidStory = props => {
               src={isAdmin ? imageSrc : lazyImg}
               data-src={imageSrc}
               alt={title}
+              title={title}
             />
           </picture>
         </a>
