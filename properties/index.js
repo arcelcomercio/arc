@@ -155,7 +155,6 @@ export default {
       arcSite: '',
       url: 'https://urbania.pe/?ref=ecf',
     },
-
   ],
   activeSignwall: false,
   activePaywall: false,
@@ -163,5 +162,6 @@ export default {
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
     mode: 'thumbnails-a',
+    placement: '',
   },
 }
