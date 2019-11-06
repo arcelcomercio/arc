@@ -38,6 +38,13 @@ const getTitle = (typeMessage, nameMPP, brandCurrent) => {
         subTitleExtra="Recuerda que con tu cuenta podrás:"
       />
     )
+  } else if (typeMessage === 'reloginhash') {
+    title = (
+      <Title
+        content="¡Hola Lector! Hemos mejorado tu experiencia de navegación, inicia sesión nuevamente."
+        subTitleExtra="Recuerda que con tu cuenta podrás:"
+      />
+    )
   } else if (typeMessage === 'organic') {
     switch (brandCurrent) {
       case 'elcomercio':
@@ -118,7 +125,7 @@ const Benefits = props => {
             <p className="benefits__item-text">desde la App</p>
           </div>
         </div>
-      ): null }
+      ) : null}
 
       <div className="benefits__item">
         <div className="benefits__icon">
@@ -130,18 +137,19 @@ const Benefits = props => {
           <p className="benefits__item-text">en la App</p>
         </div>
       </div>
-     
-      <div className="benefits__item">
-        <div className="benefits__icon">
-          <BeneFour />
-        </div>
 
-        <div>
-          <h3 className="benefits__item-title">Personalizar</h3>
-          <p className="benefits__item-text">tus Newsletters</p>
+      {brandCurrent === 'gestion' ? (
+        <div className="benefits__item">
+          <div className="benefits__icon">
+            <BeneFour />
+          </div>
+
+          <div>
+            <h3 className="benefits__item-title">Personalizar</h3>
+            <p className="benefits__item-text">tus Newsletters</p>
+          </div>
         </div>
-      </div>
-  
+      ) : null}
     </div>
   )
 }

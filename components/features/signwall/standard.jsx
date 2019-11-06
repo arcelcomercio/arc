@@ -7,12 +7,15 @@ import SignWallVerify from './_main/signwall/verify'
 import SignWallReset from './_main/signwall/reset'
 import SignWallRelogin from './_main/signwall/relogin'
 import SignWallPayPre from './_main/signwall/paywall-premium'
+import SignwallReHash from './_main/signwall/relogin-hash'
 import Services from './_main/utils/services'
 import GetProfile from './_main/utils/get-profile'
 import Domains from './_main/utils/domains'
 import { ButtonSignwall } from './styles'
+import Cookie from './_main/utils/cookie'
 
 const services = new Services()
+const Cookies = new Cookie()
 
 const classes = {
   iconLogin: 'nav__icon icon-user  title-sm text-primary-color',
@@ -29,8 +32,9 @@ class SignwallComponent extends PureComponent {
       showHard: false,
       showVerify: false,
       showReset: false,
-      showRelogin: false,
+      showReEmail: false,
       showPaywall: false,
+      showRelogHash: false,
       userName: false,
       initialUser: false,
     }
@@ -177,6 +181,18 @@ class SignwallComponent extends PureComponent {
     return false
   }
 
+  checkCookieHash = () => {
+    this._isMounted = true
+    const dataContType = window.document.querySelector(
+      'meta[name="content-type"]'
+    )
+    if (Cookies.getCookie('arc_e_id') && dataContType && this._isMounted) {
+      this.setState({ showRelogHash: true })
+      return true
+    }
+    return null
+  }
+
   getUrlParam = name => {
     const vars = {}
     if (typeof window !== 'undefined')
@@ -199,7 +215,7 @@ class SignwallComponent extends PureComponent {
             this.setState({ showReset: true })
             break
           case 'reloginEmail':
-            this.setState({ showRelogin: true })
+            this.setState({ showReEmail: true })
             break
           case 'signwallPaywall':
           case 'signwallPremium':
@@ -246,6 +262,13 @@ class SignwallComponent extends PureComponent {
     this.setState({ isActive: false })
   }
 
+  closeRelogHash() {
+    this.setState({ showRelogHash: false })
+    // const today = new Date()
+    // today.setTime(today.getTime() + 1 * 3600 * 1000)
+    // document.cookie = `check_relog_hash=${today.getTime()};path=/;expires=${today.toGMTString()}`
+  }
+
   closePopUp(name) {
     switch (name) {
       case 'signwallHard':
@@ -258,7 +281,7 @@ class SignwallComponent extends PureComponent {
         this.setState({ showReset: false })
         break
       case 'reloginEmail':
-        this.setState({ showRelogin: false })
+        this.setState({ showReEmail: false })
         break
       case 'signwallPaywall':
         this.setState({ showPaywall: false })
@@ -279,8 +302,9 @@ class SignwallComponent extends PureComponent {
       showHard,
       showVerify,
       showReset,
-      showRelogin,
+      showReEmail,
       showPaywall,
+      showRelogHash,
     } = this.state
     const { arcSite, siteProperties, classButton } = this.props
 
@@ -350,7 +374,7 @@ class SignwallComponent extends PureComponent {
 
         {this.getUrlParam('reloginEmail') &&
         !this.checkSession() &&
-        showRelogin &&
+        showReEmail &&
         siteProperties.activeSignwall ? (
           <SignWallRelogin
             closePopup={() => this.closePopUp('reloginEmail')}
@@ -368,6 +392,16 @@ class SignwallComponent extends PureComponent {
             typeModal={
               this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
             }
+          />
+        ) : null}
+
+        {this.checkCookieHash() &&
+        !this.checkSession() &&
+        showRelogHash &&
+        siteProperties.activePaywall ? (
+          <SignwallReHash
+            closePopup={() => this.closeRelogHash()}
+            brandModal={arcSite}
           />
         ) : null}
       </>
