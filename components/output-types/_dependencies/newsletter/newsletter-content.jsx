@@ -64,9 +64,7 @@ const StoryItem = props => {
       <epigraph> {epigraph}</epigraph>
       <seccion> {seccion}</seccion>
       <url_seccion>{urlSeccion}</url_seccion>
-      <content>
-        hola
-      </content>
+      <content>hola</content>
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
@@ -103,8 +101,8 @@ const NewsLetterContent = ({
 
   const listItemStories = (
     <>
-      <nameWebsked>{nameWebsked}</nameWebsked>
-      <descriptionWebsked>{descriptionWebsked}</descriptionWebsked>
+      <nameCollection>{nameWebsked}</nameCollection>
+      <descriptionCollection>{descriptionWebsked}</descriptionCollection>
       {contentElements.map(story => {
         storydata.__data = story
 
