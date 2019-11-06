@@ -162,6 +162,5 @@ export default {
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
     mode: 'thumbnails-a',
-    placement: '',
   },
 }
