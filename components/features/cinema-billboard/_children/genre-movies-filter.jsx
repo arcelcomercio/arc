@@ -80,9 +80,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                           className={classes.navItem}
                           key={`nav-${singleGenre.url}`}>
                           <a
-                            href={`${URI_BASE}${MOVIES_BASE}${TEATHERS_BASE}/${
-                              singleGenre.url
-                            }`}
+                            href={`${URI_BASE}${MOVIES_BASE}${TEATHERS_BASE}/${singleGenre.url}`}
                             className={`${classes.navLink} ${
                               genre === singleGenre.url
                                 ? 'movies-grid__nav-link--active'
@@ -112,9 +110,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                     singleGenre =>
                       singleGenre.name !== 'Otras' && (
                         <option
-                          value={`${URI_BASE}${MOVIES_BASE}${TEATHERS_BASE}/${
-                            singleGenre.url
-                          }`}
+                          value={`${URI_BASE}${MOVIES_BASE}${TEATHERS_BASE}/${singleGenre.url}`}
                           key={`select-${singleGenre.url}`}>
                           {singleGenre.name}
                         </option>
@@ -141,8 +137,8 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                           })
                         }
                         alt={movie.title || ''}
+                        title={movie.title || ''}
                         className={classes.image}
-                        
                       />
                       <figcaption className={classes.details}>
                         <h2 className={classes.title}>{movie.title || ''}</h2>

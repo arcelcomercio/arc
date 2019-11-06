@@ -31,7 +31,7 @@ const pattern = (key = {}) => {
   const { name } = key
   auxKey = key
   website = key['arc-site'] || 'Arc Site no está definido'
-  pageNumber = (!key.from || key.from === 0) ? 1 : key.from
+  pageNumber = !key.from || key.from === 0 ? 1 : key.from
   const size = key.size || 50
 
   if (!name) {
@@ -83,9 +83,13 @@ const transform = data => {
 
   const realAuthor = by.find(author => `/autor/${name}` === author.url)
 
+  const { additional_properties: { original: { longBio = '' } = {} } = {} } =
+    realAuthor || {}
+
   const additionalData = {
     author_name: (realAuthor && realAuthor.name) || 'Autor',
-    page_number: pageNumber
+    author_longBio: longBio,
+    page_number: pageNumber,
   }
   return {
     ...dataStories,

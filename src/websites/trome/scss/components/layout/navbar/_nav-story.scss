@@ -1,0 +1,76 @@
+.story {
+  .nav__story-title {
+    color: $color-gray-300;
+    position: relative;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: $primary-font;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 237px;
+    width: 100%;
+    @media (--tablet) {
+      max-width: 500px;
+    }
+  }
+  .header-full {
+    &.active {
+      .header-full__box-list {
+        display: none;
+      }
+      .nav__story-title,
+      .nav__story-social-network {
+        display: block;
+      }
+      .story-header__icon {
+        color: $color-white;
+        font-size: 34px;
+        border-radius: 50%;
+        &.icon-facebook-circle {
+          background-color: #496098;
+        }
+        &.icon-twitter-circle {
+          background-color: #4ca0eb;
+        }
+        &.icon-linkedin-circle {
+          background-color: #0e76a8;
+        }
+        &.icon-whatsapp {
+          background-color: #42c64c;
+        }
+      }
+      .header-full__box-logo {
+        @media (--only-mobile) {
+          display: none;
+        }
+      }
+    }
+    .story-header__list {
+      @media (--only-mobile) {
+        position: absolute;
+        right: 46px;
+        min-width: 175px;
+        width: 100%;
+        z-index: 1;
+        top: -1px;
+        background-color: $color-white;
+      }
+      .story-header__item:last-child {
+        @media (--tablet) {
+          display: none;
+        }
+      }
+    }
+    .story-content__more-link {
+      @media (--tablet) {
+        display: none;
+      }
+    }
+    .story-header__share-icon {
+      color: #858585;
+      font-size: 32px;
+    }
+  }
+}

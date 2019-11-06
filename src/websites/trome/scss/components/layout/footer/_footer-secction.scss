@@ -1,0 +1,39 @@
+.footer-secction {
+  &__item,
+  &__link-footer,
+  &__site-item,
+  &__list-title {
+    font-family: $fourth-font;
+  }
+  &__content-column {
+    li {
+      font-family: $fourth-font;
+      margin-bottom: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-right: 2px;
+      font-size: 11px;
+      @media (--desktop) {
+        font-size: 15px;
+        height: 17px;
+      }
+    }
+  }
+  &__text {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: $fourth-font;
+    line-height: 1.4;
+    @media (--tablet) {
+      font-size: 14px;
+    }
+  }
+  &__info {
+    ul {
+      @media (--only-mobile) {
+        display: none;
+      }
+    }
+  }
+}
