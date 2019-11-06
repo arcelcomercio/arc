@@ -1,0 +1,20 @@
+/******* Framework Variables*******/
+@import '../../general-styles/framework/variables/amp-index';
+/*---------------------*/
+
+/******* Site Variables *******/
+@import './scss/variables/index';
+@import '../../general-styles/framework/generators/amp-index';
+
+/******* Framework Core *******/
+@import '../../general-styles/framework/core/flex';
+@import '../../general-styles/framework/core/reset';
+@import '../../general-styles/framework/core/utils';
+
+/******* Partials *******/
+@import './scss/partials/base-amp';
+/*---------------------*/
+
+/******* Components *******/
+@import '../../general-styles/components/amp';
+/*---------------------*/
