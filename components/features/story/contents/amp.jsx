@@ -143,6 +143,7 @@ class StoryContentAmp extends PureComponent {
                   raw_oembed: rawOembed,
                   content_elements: innerContentElements,
                   content,
+                  level,
                   publicidad = false,
                 } = element
                 if (type === ConfigParams.ELEMENT_OEMBED) {
@@ -167,7 +168,9 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-
+                if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
+                  return <h2>{content}</h2>
+                }
                 if (type === ConfigParams.ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
                 }
