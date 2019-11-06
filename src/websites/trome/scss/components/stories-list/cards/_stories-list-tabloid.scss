@@ -1,0 +1,18 @@
+.stories-l-tabloid {
+  &__btn {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    a {
+      color: $color-white;
+      display: inline-block;
+      background-color: #bfbebb;
+      width: 405px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 35px;
+    }
+  }
+}

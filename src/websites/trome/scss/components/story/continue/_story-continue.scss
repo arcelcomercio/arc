@@ -1,0 +1,56 @@
+.story-continue {
+  @media (--only-mobile) {
+    height: 220px;
+    margin-bottom: 15px;
+    border-top: 1px solid #cbcbcb;
+    border-bottom: 1px solid #cbcbcb;
+  }
+  &__circle {
+    @media (--only-mobile) {
+      margin-bottom: 30px;
+    }
+  }
+  &__story-load {
+    @media (--tablet) {
+      width: 560px;
+    }
+  }
+  &__story-load-link {
+    @media (--only-mobile) {
+      flex-direction: column;
+    }
+  }
+  &__story-load-news {
+    @media (--only-mobile) {
+      width: 100%;
+      padding-left: 0;
+      text-align: center;
+    }
+  }
+  &__story-load-text {
+    font-family: $tertiary-font;
+    font-size: 15px;
+    font-weight: 700;
+    font-style: italic;
+    color: #9a9a9a;
+  }
+  &__story-load-title {
+    font-family: $tertiary-font;
+    color: #303030;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    -webkit-line-clamp: 1;
+  }
+  &__story-load-image {
+    background-image: url('/pf/resources/dist/depor/images/d.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    &::before {
+      display: none;
+    }
+  }
+  &__progress {
+    background: #adadad;
+  }
+}

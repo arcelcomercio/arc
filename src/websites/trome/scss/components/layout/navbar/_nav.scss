@@ -1,0 +1,29 @@
+.nav {
+  &__wrapper {
+    &:first-child {
+      background-color: $color-black-depor;
+    }
+  }
+  &__btn--section {
+    span {
+      color: #aaa;
+    }
+  }
+  &__icon-search,
+  &__icon-menu,
+  &__list-link {
+    color: #aaa;
+  }
+  &__list-link {
+    font-family: $tertiary-font;
+    text-align: center;
+    font-size: 14px;
+    &:hover {
+      color: #aaa;
+    }
+  }
+  &__search-box,
+  &__container-menu {
+    border-color: #aaa;
+  }
+}
