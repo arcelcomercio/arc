@@ -90,11 +90,12 @@ class StoryTitleAmp extends PureComponent {
             )}
             {title && <h1 className={classes.titleAmp}> {title} </h1>}
           </header>
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parameters)}
-          />
-
+          {arcSite !== 'elcomerciomag' && (
+            <div
+              className={classes.adsAmp}
+              dangerouslySetInnerHTML={publicidadAmp(parameters)}
+            />
+          )}
           {subTitle && <div className={classes.description}> {subTitle}</div>}
           <StorySocialChildAmpSocial />
 

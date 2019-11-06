@@ -36,6 +36,7 @@ const classes = {
     'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
+  rawHtmlClasses: 'story-content__embed',
 }
 
 @Consumer
@@ -51,7 +52,6 @@ class StoryContentAmp extends PureComponent {
     } = this.props
     const {
       contentPosicionPublicidadAmp,
-      relatedContent,
       promoItems,
       tags,
       authorLink,
@@ -163,7 +163,7 @@ class StoryContentAmp extends PureComponent {
                   ) : (
                     <RawHtml
                       content={ampHtml(content, arcSite)}
-                      rawHtmlClasses=""
+                      className={classes.rawHtmlClasses}
                     />
                   )
                 }
@@ -243,27 +243,6 @@ class StoryContentAmp extends PureComponent {
                   data-src={imgBbc}
                 />
               </a>
-            </div>
-          )}
-          {relatedContent.length > 0 && (
-            <div className={classes.related}>
-              <div className={classes.relatedTitle}>Relacionadas </div>
-              {relatedContent.map((item, i) => {
-                const { type } = item
-                const key = `related-${i}`
-                return type !== ConfigParams.ELEMENT_STORY ? (
-                  ''
-                ) : (
-                  <StoryContentChildRelated
-                    key={key}
-                    {...item}
-                    contextPath={contextPath}
-                    arcSite={arcSite}
-                    deployment={deployment}
-                    isAmp="true"
-                  />
-                )
-              })}
             </div>
           )}
         </div>

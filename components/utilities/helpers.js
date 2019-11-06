@@ -117,7 +117,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-    } del ${date.getFullYear()}`
+  } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -215,8 +215,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
-    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-    }`
+        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+      }`
 }
 
 export const getMetaPagesPagination = (
@@ -315,10 +315,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-      .charAt(0)
-      .toUpperCase()
-      .concat(lastSection.slice(1))
-      .replace(/-/, ' ')
+        .charAt(0)
+        .toUpperCase()
+        .concat(lastSection.slice(1))
+        .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -487,7 +487,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-    }/optawidget?${matchesResult} ></amp-iframe>`
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -511,10 +511,16 @@ export const imageHtml = html => {
     /<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g,
     rplImageCde
   )
+
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
+  resHtml = resHtml
+    .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
+    .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
+    .replace(/<IMG (.*)SRC="(.*)" WIDTH=([0-9])\w+>/g, rplImageCde)
+    .replace('<FONT', '<font')
   return resHtml
 }
 
@@ -540,15 +546,31 @@ export const twitterHtml = html => {
   return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
 }
 
+export const deporPlay = html => {
+  const rplDeporPlay =
+    '<amp-iframe class="media" src="https://w.soundcloud.com/player/$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
+
+  const htmlDataDeporPlay = html.replace(
+    /<iframe (.*) src="https:\/\/w.soundcloud.com\/player\/(.*)"><\/iframe>/g,
+    rplDeporPlay
+  )
+  return htmlDataDeporPlay
+}
+
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
 
-  if (arcSite === ConfigParams.SITE_ELCOMERCIO)
+  if (arcSite === ConfigParams.SITE_ELCOMERCIO) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.elcomercio.pe$1'
     )
-  else
+  } else if (arcSite === ConfigParams.SITE_DEPOR) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
+      '$1'
+    )
+  } else
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.peru21.pe$1'
@@ -720,6 +742,9 @@ export const ampHtml = (html = '', arcSite = '') => {
   let resultData = html
   // Opta Widget
   resultData = replaceHtmlMigracion(html)
+
+  // Opta Widget
+  resultData = deporPlay(html)
 
   // Opta Widget
   resultData = optaWidgetHtml(resultData)
@@ -1055,11 +1080,10 @@ export const storyTagsBbc = (data = []) => {
 }
 
 export const storyVideoPlayerId = (content = '') => {
-  return (
-    content.match(
-      /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
-    ) || []
-  )
+  const pattern = content.includes('id')
+    ? /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    : /<script (src=(.*))(.*)(async(=(.*))?)><\/script>/
+  return content.match(pattern) || []
 }
 
 export const getPhotoId = photoUrl => {

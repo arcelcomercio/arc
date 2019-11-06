@@ -80,6 +80,9 @@ class LayoutHeader extends PureComponent {
   renderHeader = () => {
     const { data } = this.state
     const {
+      customFields: { isSlider },
+    } = this.props
+    const {
       customFields: {
         headerType,
         showInDesktop = true,
@@ -89,7 +92,7 @@ class LayoutHeader extends PureComponent {
     } = this.props
 
     this.formater.setData(data)
-    const params = { ...this.formater.getParams() }
+    const params = { ...this.formater.getParams(), isSlider }
 
     const headers = {
       standard: (
@@ -141,6 +144,10 @@ LayoutHeader.propTypes = {
     }),
     showDate: PropTypes.bool.tag({
       name: 'Mostrar fecha',
+      defaultValue: false,
+    }),
+    isSlider: PropTypes.bool.tag({
+      name: 'Navegación con slider',
       defaultValue: false,
     }),
     tags: PropTypes.string.tag({

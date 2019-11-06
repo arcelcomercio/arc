@@ -1,5 +1,5 @@
 export default {
-  siteName: 'El Comercio',
+  siteName: 'El Comercio Perú',
   sitemapNewsName: 'El Comercio',
   newsletterBrand: 'comercio',
   api: {
@@ -102,7 +102,7 @@ export default {
       clickToCall:                       `https://c2c.kontactame.com/call/?id=161`,
       pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.elcomercio.pe`,
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.elcomercio.pe`,
-      originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js`,
+      originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js?v=1`,
       originSalesSdk:                    `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-sales.min.js`,
       originPayuSdk:                     `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`,
       originPayuTags:                    `https://maf.pagosonline.net/ws/fp/tags.js?id={{deviceSessionId}}80200`,
@@ -136,6 +136,7 @@ export default {
       apple_icon_144:                    `{{contextPath}}/resources/dist/elcomercio/images/apple-touch-icon-144x144.png`,
       apple_icon_152:                    `{{contextPath}}/resources/dist/elcomercio/images/apple-touch-icon-152x152.png`,
       apple_icon_180:                    `{{contextPath}}/resources/dist/elcomercio/images/apple-touch-icon-180x180.png`,
+      cyberday_badge:                    `{{contextPath}}/resources/dist/elcomercio/images/cyberday-sello.{{ext}}`,
       lector:                            `{{contextPath}}/resources/dist/elcomercio/images/img_lector.{{ext}}`,
       corporativo:                       `{{contextPath}}/resources/dist/elcomercio/images/img_corporativo.{{ext}}`,
       confirmation:                      `{{contextPath}}/resources/dist/elcomercio/images/img_confirmation.{{ext}}`,
