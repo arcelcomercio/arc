@@ -14,14 +14,16 @@ const Newsletter = ({
   contextPath = '',
   arcSite = '',
 }) => {
-  const { siteUrl = '', } = siteProperties
-  const { content_elements: contentElements } = globalContent || []
+  const { siteUrl = '' } = siteProperties
+  const { content_elements: contentElements, websked = {} } =
+    globalContent || {}
 
   const propsNewsLetterContent = {
     deployment,
     contextPath,
     arcSite,
     contentElements,
+    websked,
     siteUrl,
   }
   const listNewsLetter = NewsLetterContent(propsNewsLetterContent)
