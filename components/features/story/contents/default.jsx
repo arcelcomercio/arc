@@ -157,12 +157,12 @@ class StoryContents extends PureComponent {
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
+
     return (
-      <>
-        <div className={classes.news}>
-          {primarySection === 'Impresa'
-            ? promoItems && <StoryContentsChildImpresa data={promoItems} />
-            : promoItems &&
+      <div className={classes.news}>
+        {primarySectionLink === '/impresa/'
+          ? promoItems && <StoryContentsChildImpresa data={promoItems} />
+          : promoItems &&
             subtype !== ConfigParams.BIG_IMAGE &&
             subtype !== ConfigParams.SPECIAL_BASIC &&
             subtype !== ConfigParams.SPECIAL && (
