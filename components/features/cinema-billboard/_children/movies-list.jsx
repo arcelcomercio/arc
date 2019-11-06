@@ -93,8 +93,8 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                             })
                           }
                           alt={title}
+                          title={title}
                           className={classes.image}
-                          
                         />
                         <figcaption>
                           <h3 className={classes.title}>{title}</h3>
