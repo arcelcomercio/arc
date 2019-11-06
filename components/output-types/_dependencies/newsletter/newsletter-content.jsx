@@ -40,7 +40,11 @@ const StoryItem = props => {
       <url>{urlNew}</url>
       <id>{id}</id>
       <description>
-        {!(description === undefined || description === null || description === '')
+        {!(
+          description === undefined ||
+          description === null ||
+          description === ''
+        )
           ? description
           : 'null'}
       </description>
@@ -60,9 +64,7 @@ const StoryItem = props => {
       <epigraph> {epigraph}</epigraph>
       <seccion> {seccion}</seccion>
       <url_seccion>{urlSeccion}</url_seccion>
-      <content>
-        hola
-      </content>
+      <content>hola</content>
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
@@ -81,6 +83,7 @@ const NewsLetterContent = ({
   contextPath,
   arcSite,
   contentElements,
+  websked,
   siteUrl,
   imagenNewsLetter,
 }) => {
@@ -91,49 +94,60 @@ const NewsLetterContent = ({
     defaultImgSize: 'sm',
   })
 
-  const listItemStories = contentElements.map(story => {
-    storydata.__data = story
+  const {
+    name: nameWebsked = 'null',
+    description: descriptionWebsked = 'null',
+  } = websked || {}
 
-    const thumb =
-      story &&
-      story.promo_items &&
-      story.promo_items.basic &&
-      story.promo_items.basic.resized_urls
-        ? story.promo_items.basic.resized_urls
-        : {}
+  const listItemStories = (
+    <>
+      <nameCollection>{nameWebsked}</nameCollection>
+      <descriptionCollection>{descriptionWebsked}</descriptionCollection>
+      {contentElements.map(story => {
+        storydata.__data = story
 
-    const description =
-      story && story.description && story.description.basic
-        ? story.description.basic
-        : ''
+        const thumb =
+          story &&
+          story.promo_items &&
+          story.promo_items.basic &&
+          story.promo_items.basic.resized_urls
+            ? story.promo_items.basic.resized_urls
+            : {}
 
-    const params = {
-      title: storydata.title,
-      description,
-      urlNew: `${siteUrl}${storydata.websiteLink}`,
-      id: storydata.id,
-      publishedAt: storydata.date,
-      thumb,
-      image: imagenNewsLetter,
-      volada: 'null',
-      epigraph: storydata.subTitle,
-      seccion: storydata.section,
-      urlSeccion: `${siteUrl}${storydata.sectionLink}`,
-      authorName: storydata.author,
-      authorUrl: `${siteUrl}${storydata.authorLink}`,
-      authorTwitterUrl: storydata.authorTwitterLink,
-      authorImage: `${siteUrl}${storydata.authorImage}`,
-      authorSlug: storydata.authorSlug,
-      authorCargo: storydata.authorRoleByNewsLetter
-        ? storydata.authorRoleByNewsLetter
-        : 'null',
-      authorColumn: storydata.authorBiography
-        ? storydata.authorBiography
-        : 'null',
-    }
+        const description =
+          story && story.description && story.description.basic
+            ? story.description.basic
+            : ''
 
-    return <StoryItem {...params} />
-  })
+        const params = {
+          title: storydata.title,
+          description,
+          urlNew: `${siteUrl}${storydata.websiteLink}`,
+          id: storydata.id,
+          publishedAt: storydata.date,
+          thumb,
+          image: imagenNewsLetter,
+          volada: 'null',
+          epigraph: storydata.subTitle,
+          seccion: storydata.section,
+          urlSeccion: `${siteUrl}${storydata.sectionLink}`,
+          authorName: storydata.author,
+          authorUrl: `${siteUrl}${storydata.authorLink}`,
+          authorTwitterUrl: storydata.authorTwitterLink,
+          authorImage: `${siteUrl}${storydata.authorImage}`,
+          authorSlug: storydata.authorSlug,
+          authorCargo: storydata.authorRoleByNewsLetter
+            ? storydata.authorRoleByNewsLetter
+            : 'null',
+          authorColumn: storydata.authorBiography
+            ? storydata.authorBiography
+            : 'null',
+        }
+
+        return <StoryItem {...params} />
+      })}
+    </>
+  )
   return listItemStories
 }
 

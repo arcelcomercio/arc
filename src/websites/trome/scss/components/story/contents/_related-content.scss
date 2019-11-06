@@ -1,0 +1,73 @@
+$border-gray: #b7b7b7;
+.related-content {
+  &__title {
+    border-bottom: 1px solid $border-gray;
+    font-family: $primary-font;
+    font-size: 12px;
+    font-weight: 700;
+    width: 100%;
+  }
+  &__link {
+    font-family: 'Times New Roman', serif;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    font-size: 16px;
+    line-height: 1.33;
+    @media (--tablet) {
+      font-size: 20px;
+      max-height: calc(20px * 22px * 3);
+    }
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__item {
+    border: 0;
+    flex-direction: column;
+    display: flex;
+    height: 246px;
+    @media (--tablet) {
+      height: 262px;
+      width: 47%;
+      margin: 0 1.5% 18px;
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  &__information {
+    padding: 5px 10px;
+    max-width: 100%;
+    @media (--tablet) {
+      max-width: 100%;
+    }
+  }
+  &__multimedia {
+    order: -1;
+    height: 147px;
+    @media (--tablet) {
+      width: 100%;
+    }
+  }
+  &__icon {
+    left: 10px;
+    bottom: 10px;
+    background-color: $color-white;
+    color: $color-fourth;
+    margin: 0;
+    padding: 0;
+    top: inherit;
+    width: 35px;
+    height: 35px;
+    font-size: 35px;
+    @media (--tablet) {
+      font-size: 73px;
+      width: 72px;
+      height: 72px;
+    }
+  }
+}

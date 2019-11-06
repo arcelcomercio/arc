@@ -1,0 +1,16 @@
+.amp-header {
+  &__link {
+    color: $color-white;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  &__link-container {
+    height: 34px;
+    background: #01050e;
+    text-align: center;
+    padding: 9px;
+    border-radius: 5px;
+    border: none;
+  }
+}

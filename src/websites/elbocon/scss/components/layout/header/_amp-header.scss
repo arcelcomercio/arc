@@ -1,4 +1,7 @@
 .amp-header {
+  &__wrap {
+    background-color: #333;
+  }
   &__link {
     color: $color-white;
   }
