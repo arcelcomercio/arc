@@ -1,4 +1,5 @@
-// https://elcomercio.arcpublishing.com/alc/arc-products/clavis/user-docs
+// https://elcomercio.arcpublishing.com/alc/arc-products/clavis
+
 /* eslint-disable */
 function hasLocalStorage() {
     try {
@@ -36,7 +37,22 @@ function getUUID() {
     return uuid;
 }
 
-function clavisService(options, clientName) {
+/**
+ * @param {object} options clavisConfig.
+ * @param {string} clientName The Arc organization identifier.
+ * @param {string} site The site service id for the given site. Required for multisite organizations.
+ * 
+ * @returns 
+ * ```
+ * UserProfile {
+ *   userid:	string
+ *   aux_map:	[string($^[A-Z0-9]{3-5}_(H|M|L))
+ *      The auxiliaries that are assigned to the user (identified by the 3-letter uid) and whether they fall in the high (H), medium (M), or low (L) buckets.
+ *   ]
+ * }
+ * ```
+ */
+function clavisService(options, clientName, site) {
     if (options && clientName) {
         if (typeof window === "undefined") {
             throw new Error(
@@ -80,10 +96,11 @@ function clavisService(options, clientName) {
 
             request.send(
                 JSON.stringify({
-                    auxiliaries: clavis.auxiliaries,
+                    userid: getUUID(),
                     articleid: `contentapi://${clavis.contentId}`,
+                    auxiliaries: clavis.auxiliaries,
                     referrer: document.referrer,
-                    userid: getUUID()
+                    site
                 })
             );
         }

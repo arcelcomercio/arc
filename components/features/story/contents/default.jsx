@@ -68,7 +68,8 @@ class StoryContents extends PureComponent {
       return {
         contentId: _id,
         auxiliaries: taxonomy.auxiliaries && taxonomy.auxiliaries.map(aux => { return aux._id }),
-        targetingUrl: 'https://targeting.perso.aws.arc.pub/TargetingWebAPP/targeting',
+        targetingUrl: 'https://targeting.perso.aws.arc.pub/api/v1/targeting',
+        // legacy targetingUrl: 'https://targeting.perso.aws.arc.pub/TargetingWebAPP/targeting',
       }
     }
     return null;
