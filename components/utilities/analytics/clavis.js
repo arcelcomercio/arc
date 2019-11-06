@@ -1,9 +1,11 @@
-// https://elcomercio.arcpublishing.com/alc/arc-products/clavis/user-docs
+// https://elcomercio.arcpublishing.com/alc/arc-products/clavis
 
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useFusionContext } from 'fusion:context'
 import clavisService from "./clavis-service";
+
+const ARC_ORG_NAME = 'elcomercio'
 
 const Clavis = ({ clavisConfig }) => {
 
@@ -11,8 +13,7 @@ const Clavis = ({ clavisConfig }) => {
 
     useEffect(() => {
         if (clavisConfig) {
-            // Note: pass client name as 2nd param in ClavisService to run
-            clavisService(clavisConfig, arcSite);
+            clavisService(clavisConfig, ARC_ORG_NAME, arcSite);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
