@@ -1,4 +1,6 @@
-import { resizerSecret } from 'fusion:environment'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import request from 'request-promise-native'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
@@ -26,6 +28,32 @@ const pattern = (key = {}) => {
   return requestUri
 }
 
+const options = {
+  gzip: true,
+  json: true,
+}
+
+const fetch = key => {
+  return request({
+    uri: `${CONTENT_BASE}/${pattern(key)}`,
+    ...options,
+  }).then(response => {
+    return request({
+      uri: `${CONTENT_BASE}/websked/collections/v1/collections/${key.id}/`,
+      ...options,
+    }).then(resp => {
+      const { data: { name, description } = {} } = resp
+      return {
+        ...response,
+        websked: {
+          name,
+          description,
+        },
+      }
+    })
+  })
+}
+
 const transform = data => {
   const dataStories = data
   const { resizerUrl, siteName } = getProperties(website)
@@ -50,7 +78,8 @@ const transform = data => {
 const resolve = key => pattern(key)
 
 const source = {
-  resolve,
+  // resolve,
+  fetch,
   transform,
   schemaName,
   params,

@@ -77,12 +77,20 @@
       .featured-story__detail {
         height: auto;
       }
+      .featured-story__title {
+        max-width: 260px;
+      }
     }
   }
   &.expand {
     padding: 10px;
     .featured-story__detail {
       padding: 10px 0;
+    }
+    .featured-story__title {
+      @media (--only-mobile) {
+        max-width: 100%;
+      }
     }
   }
   &--live {

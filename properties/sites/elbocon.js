@@ -195,4 +195,8 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: false,
+  taboola: {
+    dataModeAmp: 'thumbnails-a-amp',
+    mode: 'thumbnails-c',
+  },
 }

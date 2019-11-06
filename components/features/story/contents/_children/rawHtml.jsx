@@ -35,7 +35,10 @@ class rawHTML extends PureComponent {
       const rgexpURL = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/
       const [URI] = rgexpURL.exec(scriptResult) || []
       this.URL = URI
-    } else if (content.includes('player.daznservices.com/')) {
+    } else if (
+      content.includes('player.daznservices.com/') &&
+      content.match(/^<script(.*)<\/script>$/)
+    ) {
       const idVideos = storyVideoPlayerId(content)
 
       this.URL_VIDEO = content.includes('id')

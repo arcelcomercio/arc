@@ -36,6 +36,7 @@ const classes = {
     'related-content__title font-bold uppercase pt-20 pb-20 secondary-font',
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
+  rawHtmlClasses: 'story-content__embed',
 }
 
 @Consumer
@@ -142,6 +143,7 @@ class StoryContentAmp extends PureComponent {
                   raw_oembed: rawOembed,
                   content_elements: innerContentElements,
                   content,
+                  level,
                   publicidad = false,
                 } = element
                 if (type === ConfigParams.ELEMENT_OEMBED) {
@@ -162,11 +164,13 @@ class StoryContentAmp extends PureComponent {
                   ) : (
                     <RawHtml
                       content={ampHtml(content, arcSite)}
-                      rawHtmlClasses=""
+                      className={classes.rawHtmlClasses}
                     />
                   )
                 }
-
+                if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
+                  return <h2>{content}</h2>
+                }
                 if (type === ConfigParams.ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
                 }
