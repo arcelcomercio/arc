@@ -14,6 +14,7 @@ const StoryContentChildAmpImage = ({ data, resizer = false }) => {
     <>
       <Image
         width="100%"
+        layout="responsive"
         ImgTag="amp-img"
         className={classes.image}
         captionClassName={classes.description}
