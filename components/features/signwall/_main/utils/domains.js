@@ -3,10 +3,15 @@ import ENV from 'fusion:environment'
 class Domains {
   getOriginAPI = site => {
     switch (site) {
+      case 'depor':
+          return ENV.ENVIRONMENT === 'elcomercio'
+          ? `https://api.${site}.com`
+          : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
       case 'peru21':
+      case 'elbocon':
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
-          : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
+          : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
       case 'peru21g21':
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.peru21.pe`
@@ -44,6 +49,8 @@ class Domains {
       gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
       peru21: 'f7bd562ca9912019255511635185bf2b',
       peru21g21: 'f7bd562ca9912019255511635185bf2b',
+      elbocon: 'dcd90a2190d1682f39d41a4889a1cc57',
+      depor: '6d83b35ec628d33d0606bcd9083dc2a6',
     }
 
     switch (type) {
@@ -75,11 +82,11 @@ class Domains {
     return ['UJWWFG', '7NK9SV', 'DQZ00K'] // price code bundle sandbox & prod
   }
 
-  getPayuSDK = () =>{
+  getPayuSDK = () => {
     return 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
   }
 
-  getPayuTags = () =>{
+  getPayuTags = () => {
     return 'https://maf.pagosonline.net/ws/fp/tags.js?id='
   }
 }

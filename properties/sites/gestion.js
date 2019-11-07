@@ -101,6 +101,8 @@ export default {
       facebook:                          `https://www.facebook.com/Gestionpe`,
       twitter:                           `https://twitter.com/gestionpe`,
       instagram:                         `https://www.instagram.com/diariogestion/?hl=es`,
+      codeCxense:                        `{{#isProd}}8n3linhnzos6{{/isProd}}
+                                          {{^isProd}}8msif5r9dikx{{/isProd}}`,
     },
     // prettier-ignore
     images: {

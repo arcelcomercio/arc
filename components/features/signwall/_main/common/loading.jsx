@@ -7,8 +7,8 @@ const Loading = props => {
   return (
     <>
       {sitesLoad.includes(site) ? (
-        <div className="profile__loader">
-          <div className="profile__cont-loader">
+        <div className="load__loader">
+          <div className="load__cont-loader">
             {
               {
                 gestion: (

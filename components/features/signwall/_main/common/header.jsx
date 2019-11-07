@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react'
 import Context from 'fusion:context'
 import { Back, Close, Gestion, Comercio } from './iconos'
@@ -13,10 +14,21 @@ const Header = props => {
           <Comercio color="black" width="159" height="24" size="1" />
         ),
         gestion: <Gestion color="white" width="138" height="30" size="1" />,
+        depor: (
+          <div className="modal-header__cont">
+            <img
+              className="modal-header__imgdepor"
+              alt={`Logo ${arcSite}`}
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/alternate-logo.png`
+              )}
+            />
+          </div>
+        ),
       }[arcSite] || (
         <img
           className="modal-header__img"
-          alt=""
+          alt={`Logo ${arcSite}`}
           src={deployment(
             `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
           )}
@@ -44,6 +56,8 @@ const Header = props => {
             Volver
           </span>
         </button>
+      ) : type === 'noclose' ? (
+        ''
       ) : (
         <button
           type="button"
@@ -73,7 +87,14 @@ const Header = props => {
       {({ siteProperties, contextPath, deployment, arcSite }) => (
         <div
           className="modal-header"
-          style={{ background: arcSite === 'elcomerciomag' ? '#f7c600' : '' }}>
+          style={{
+            background:
+              arcSite === 'elcomerciomag'
+                ? '#f7c600'
+                : arcSite === 'elbocon'
+                ? '#333333'
+                : '',
+          }}>
           {typeHeader(siteProperties, contextPath, deployment, arcSite)}
         </div>
       )}

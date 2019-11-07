@@ -2,25 +2,28 @@ import React, { Component } from 'react'
 
 import Modal from '../common/modal'
 import Header from '../common/header'
-import Taggeo from '../utils/taggeo'
-
-import FormLogin from './_children/form-login'
-import FormRegister from './_children/form-register'
+import FormRelogin from './_children/form-relogin'
 import FormForgotPass from './_children/form-forgot-pass'
+import FormRegister from './_children/form-register'
+import Taggeo from '../utils/taggeo'
 
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
-const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor']
-
-class LoginRegister extends Component {
+class SignwallReHash extends Component {
   constructor(props) {
+    const getProfileMPP = window.localStorage.getItem('profileMPP')
+    const profileMPP = JSON.parse(getProfileMPP)
+    const userName = profileMPP ? profileMPP.firstName : 'lector'
+
     super(props)
-    this.state = {}
+    this.state = {
+      nameMPP: userName !== 'undefined' ? userName : 'lector',
+    }
   }
 
   componentDidMount() {
-    Taggeo('Web_Sign_Wall_Organico', 'web_swo_open')
+    Taggeo('Web_Sign_Wall_Reloghash', 'web_swr_open')
     window.addEventListener('beforeunload', this.handleLeavePage)
   }
 
@@ -30,23 +33,24 @@ class LoginRegister extends Component {
 
   handleLeavePage = e => {
     e.preventDefault()
-    Taggeo('Web_Sign_Wall_0rganico', 'web_swo_leave')
+    Taggeo('Web_Sign_Wall_Reloghash', 'web_swr_leave')
   }
 
   renderTemplate(template) {
     const { closePopup, brandModal } = this.props
     const templates = {
-      login: (
-        <FormLogin
+      relogin: (
+        <FormRelogin
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp="reloghash"
           typeForm="login"
+          brandCurrent={brandModal}
         />
       ),
       register: (
         <FormRegister
           closePopup={closePopup}
-          typePopUp="organico"
+          typePopUp="reloghash"
           typeForm="registro"
           brandCurrent={brandModal}
         />
@@ -54,43 +58,37 @@ class LoginRegister extends Component {
       forgot: (
         <FormForgotPass
           closePopup={closePopup}
-          typePopUp="organico"
-          typeForm="login"
+          typePopUp="reloghash"
+          typeForm="reloghash"
           brandCurrent={brandModal}
         />
       ),
     }
-    return templates[template] || templates.login
+    return templates[template] || templates.relogin
   }
 
   render() {
+    const { nameMPP } = this.state
     const { closePopup, brandModal } = this.props
     return (
       <ModalProvider>
         <ModalConsumer>
           {value => (
             <Modal
-              size={signwallSimple.includes(brandModal) ? 'small' : 'large'}
+              size="large"
               position="middle"
-              name="arc-popup-signwall"
-              id="arc-popup-signwall">
-              <Header closePopup={closePopup} typePopUp="organico" />
+              name="arc-popup-relogin-hash"
+              id="arc-popup-relogin-hash">
+              <Header closePopup={closePopup} typePopUp="reloghash" type="noclose"/>
               <div className="modal-body">
-                {signwallSimple.includes(brandModal) ? null : (
-                  <div className="modal-body__left">
-                    <ListBenefits
-                      typeMessage="organic"
-                      brandCurrent={brandModal}
-                    />
-                  </div>
-                )}
-
-                <div
-                  className={
-                    signwallSimple.includes(brandModal)
-                      ? 'modal-body__full'
-                      : 'modal-body__right'
-                  }>
+                <div className="modal-body__left">
+                  <ListBenefits
+                    typeMessage="reloginhash"
+                    brandCurrent={brandModal}
+                    nameMPP={nameMPP || 'lector'}
+                  />
+                </div>
+                <div className="modal-body__right">
                   {this.renderTemplate(value.selectedTemplate)}
                 </div>
               </div>
@@ -102,4 +100,4 @@ class LoginRegister extends Component {
   }
 }
 
-export default LoginRegister
+export default SignwallReHash

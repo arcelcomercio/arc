@@ -85,7 +85,9 @@ class FormForgotPass extends Component {
       .reloginEcoID(email, '', 'forgotpass', arcSite, window)
       .then(resEco => {
         if (resEco.retry) {
-          this.pushStatePass()
+          setTimeout(() => {
+            this.pushStatePass()
+          }, 1000)
         } else {
           this.setState({
             messageError: 'Tu correo electrónico no está registrado.',
@@ -172,7 +174,9 @@ class FormForgotPass extends Component {
                 elcomerciomag: '#fecd26',
                 gestion: '#F4E0D2',
                 peru21: '#d5ecff',
-                peru21g21:'#d5ecff',
+                peru21g21: '#d5ecff',
+                elbocon: '#fdabab',
+                depor: '#d5d945',
               }[brandCurrent]
             }
           />
@@ -212,7 +216,7 @@ class FormForgotPass extends Component {
               <input
                 type="submit"
                 id="olvidepass_boton_enviar"
-                className="btn btn--blue btn-bg"
+                className="btn btn-bg"
                 value={!sending ? 'Enviando...' : 'Enviar'}
                 onClick={() =>
                   Taggeo(
@@ -251,7 +255,9 @@ class FormForgotPass extends Component {
                 elcomerciomag: '#fecd26',
                 gestion: '#F4E0D2',
                 peru21: '#d5ecff',
-                peru21g21:'#d5ecff',
+                peru21g21: '#d5ecff',
+                elbocon: '#fdabab',
+                depor: '#d5d945',
               }[brandCurrent]
             }
           />
@@ -264,7 +270,7 @@ class FormForgotPass extends Component {
               <input
                 type="button"
                 id="olvidepass_boton_aceptar"
-                className="btn btn--blue btn-bg"
+                className="btn btn-bg"
                 value="Aceptar"
                 onClick={() => {
                   Taggeo(

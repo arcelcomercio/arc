@@ -22,6 +22,7 @@ export const WrapperMenu = styled.div`
     line-height: 27px;
     margin-bottom: 10px;
     font-weight: normal;
+    text-transform: capitalize;
   }
   & .welcome {
     color: #000000;

@@ -128,6 +128,7 @@ function WizardPlan(props) {
       <CheckSuscription
         open={openModal}
         onSubmit={({ documentType, documentNumber, attemptToken }) => {
+          sendAction(PixelActions.CHECK_SUBSCRIPTOR_SUBMIT)
           window.location.href = interpolateUrl(urls.validateSubscriptor, {
             documentType,
             documentNumber,
@@ -135,6 +136,7 @@ function WizardPlan(props) {
           })
         }}
         onClose={() => {
+          sendAction(PixelActions.CHECK_SUBSCRIPTOR_CLOSE)
           setOpenModal(false)
         }}
       />
@@ -154,6 +156,7 @@ function WizardPlan(props) {
             }
             showImage={arcSite === 'elcomercio'}
             onClick={() => {
+              sendAction(PixelActions.CHECK_SUBSCRIPTOR_OPEN)
               setOpenModal(true)
             }}
           />
