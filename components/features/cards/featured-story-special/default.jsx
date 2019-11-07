@@ -121,6 +121,7 @@ const CardsFeaturedStorySpecial = props => {
             src={isAdmin ? multimediaLandscapeXL : multimediaLazyDefault}
             data-src={multimediaLandscapeXL}
             alt={title}
+            title={title}
           />
         </picture>
       </a>

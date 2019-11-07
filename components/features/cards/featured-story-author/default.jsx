@@ -43,6 +43,8 @@ const CardFeaturedStoryAuthor = props => {
     authorOccupation,
     subTitle,
     multimediaType,
+    multimediaSubtitle,
+    multimediaCaption,
   } = new StoryData({
     data,
     arcSite,
@@ -71,6 +73,8 @@ const CardFeaturedStoryAuthor = props => {
         multimediaType,
         design,
         isAdmin,
+        multimediaSubtitle,
+        multimediaCaption,
       }}
     />
   )

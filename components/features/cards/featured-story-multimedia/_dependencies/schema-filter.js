@@ -9,7 +9,9 @@ export default arcSite => {
     promo_items {
       basic { 
         url 
-        type 
+        type
+        subtitle
+        caption
         resized_urls { 
           landscape_md
           lazy_default
@@ -19,7 +21,9 @@ export default arcSite => {
         promo_items {
           basic { 
             url 
-            type 
+            type
+            subtitle
+            caption
             resized_urls { 
               landscape_md
               lazy_default
@@ -31,7 +35,9 @@ export default arcSite => {
         promo_items {
           basic { 
             url 
-            type 
+            type
+            subtitle
+            caption
             resized_urls { 
               landscape_md
               lazy_default

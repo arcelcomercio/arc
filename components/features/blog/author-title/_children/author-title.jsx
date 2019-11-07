@@ -27,8 +27,8 @@ const BlogAuthorTitleChildAuthorTitle = ({
         <img
           src={authorImg}
           alt={`Foto del autor: ${firstName}`}
+          title={firstName}
           className={classes.img}
-          
         />
       </div>
     </div>

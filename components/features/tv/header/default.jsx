@@ -64,6 +64,7 @@ const TvHeader = () => {
             `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
           )}
           alt={logoAlt}
+          title={logoAlt}
         />
       </a>
       <div className="tv-header__logo-container  position-absolute flex mt-25 bg-white p-5 pl-10 pr-10 rounded-md">
@@ -80,6 +81,7 @@ const TvHeader = () => {
               `${contextPath}/resources/dist/${arcSite}/images/${siteLogo}`
             )}
             alt={siteName}
+            title={siteName}
           />
         </a>
       </div>

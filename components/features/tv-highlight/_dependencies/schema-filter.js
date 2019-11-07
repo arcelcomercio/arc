@@ -7,15 +7,15 @@ export default `{
     }
     website_url
     promo_items {
-        basic { url type resized_urls { landscape_xl } }
+        basic { url type subtitle caption resized_urls { landscape_xl } }
         basic_video {
           promo_items {
-            basic { url type resized_urls { landscape_xl } }
+            basic { url type subtitle caption resized_urls { landscape_xl } }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type resized_urls { landscape_xl } }
+            basic { url type subtitle caption resized_urls { landscape_xl } }
           }
         }
       }

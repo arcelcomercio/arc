@@ -41,7 +41,8 @@ const StorySeparatorChildItem = ({ data }) => {
           <a href={link}>
             <img
               src={multimediaPortraitXS}
-              alt=""
+              alt={title}
+              title={title}
               className={classes.itemImage}
             />
           </a>

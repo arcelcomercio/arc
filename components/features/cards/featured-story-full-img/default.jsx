@@ -86,6 +86,8 @@ class FeatureStoryFullImage extends PureComponent {
       multimediaLazyDefault,
       multimediaType,
       websiteLink,
+      multimediaSubtitle,
+      multimediaCaption,
     } = new StoryData({
       data,
       arcSite,
@@ -120,6 +122,8 @@ class FeatureStoryFullImage extends PureComponent {
       model,
       section: categoryField || primarySection,
       isAdmin,
+      multimediaSubtitle,
+      multimediaCaption,
     }
 
     return <FeatureFullImageChild {...params} />

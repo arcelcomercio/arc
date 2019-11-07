@@ -49,6 +49,8 @@ const PhotoGallery = props => {
     multimediaSquareXL,
     multimediaLazyDefault,
     multimediaType,
+    multimediaCaption,
+    multimediaSubtitle,
   } = new StoryData({
     data,
     arcSite,
@@ -78,6 +80,8 @@ const PhotoGallery = props => {
     textAlign,
     textPosition,
     textOrientation,
+    multimediaCaption,
+    multimediaSubtitle,
   }
   return (
     <div className={classes.boxContainer}>

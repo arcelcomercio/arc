@@ -72,6 +72,7 @@ const RenderRelatedContentElement = (props, i) => {
               src={isAdmin ? filterData.multimediaImg : filterData.lazyImage}
               data-src={filterData.multimediaImg}
               alt={filterData.nameTitle}
+              title={filterData.nameTitle}
             />
           )}
 
