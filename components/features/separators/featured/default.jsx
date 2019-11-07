@@ -47,6 +47,8 @@ const SeparatorFeatured = props => {
       multimediaPortraitS,
       multimediaType,
       multimediaLazyDefault,
+      multimediaSubtitle,
+      multimediaCaption,
     } = storyData
     return {
       title,
@@ -56,6 +58,8 @@ const SeparatorFeatured = props => {
       multimediaPortraitS,
       multimediaType,
       multimediaLazyDefault,
+      multimediaSubtitle,
+      multimediaCaption,
     }
   })
 
@@ -98,6 +102,8 @@ const SeparatorFeatured = props => {
             multimediaPortraitS,
             multimediaLazyDefault,
             // multimediaType,
+            multimediaSubtitle,
+            multimediaCaption,
           },
           i
         ) => {
@@ -131,8 +137,8 @@ const SeparatorFeatured = props => {
                 <img
                   src={isAdmin ? multimediaPortraitS : multimediaLazyDefault}
                   data-src={multimediaPortraitS}
-                  alt={title}
-                  title={title}
+                  alt={multimediaCaption || title}
+                  title={multimediaSubtitle || title}
                   className={`${
                     isAdmin ? '' : 'lazy'
                   } featured-separator__img w-full object-cover`}
