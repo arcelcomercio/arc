@@ -128,7 +128,11 @@ function WizardPlan(props) {
       <CheckSuscription
         open={openModal}
         onSubmit={({ documentType, documentNumber, attemptToken }) => {
-          sendAction(PixelActions.CHECK_SUBSCRIPTOR_SUBMIT)
+          window.dataLayer.push({
+            event: 'paywall_check_subscriptor',
+            eventCategory: 'paywall_check_subscriptor',
+            eventAction: 'submit',
+          })
           window.location.href = interpolateUrl(urls.validateSubscriptor, {
             documentType,
             documentNumber,
@@ -136,6 +140,11 @@ function WizardPlan(props) {
           })
         }}
         onClose={() => {
+          window.dataLayer.push({
+            event: 'paywall_check_subscriptor',
+            eventCategory: 'paywall_check_subscriptor',
+            eventAction: 'close',
+          })
           sendAction(PixelActions.CHECK_SUBSCRIPTOR_CLOSE)
           setOpenModal(false)
         }}
@@ -156,7 +165,11 @@ function WizardPlan(props) {
             }
             showImage={arcSite === 'elcomercio'}
             onClick={() => {
-              sendAction(PixelActions.CHECK_SUBSCRIPTOR_OPEN)
+              window.dataLayer.push({
+                event: 'paywall_check_subscriptor',
+                eventCategory: 'paywall_check_subscriptor',
+                eventAction: 'open',
+              })
               setOpenModal(true)
             }}
           />

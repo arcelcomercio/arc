@@ -15,6 +15,10 @@
   }
   &__arrows {
     width: auto;
+    height: calc(100% - 86px);
+    @media (--only-mobile) {
+      height: calc(100% - 158px);
+    }
     &:before {
       width: 40px;
       height: 40px;

@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components'
 
-import Picture from '../../../_children/picture'
-
 export const Bullet = styled.div`
   display: flex;
   font-weight: 300;
@@ -42,16 +40,11 @@ export const Card = styled.div`
 `
 
 export const Head = styled.div`
-  ${({ theme, recommended }) => css`
+  ${({ theme }) => css`
     font-family: Judson;
-    font-size: ${theme.name === 'elcomercio' ? '25' : '28'}px;
+    font-size: 28px;
     font-weight: 700;
-    padding-top: ${recommended
-      ? theme.name === 'elcomercio'
-        ? '50'
-        : '46'
-      : '40'}px;
-    padding-bottom: 40px;
+    padding: 40px 0;
     text-align: center;
     ${theme.breakpoints.down('md')} {
       font-size: 26px;
@@ -74,28 +67,22 @@ export const CardHead = styled.div`
 `
 
 export const CardHeadPromotion = styled.div`
-  ${({ backgroundColor, theme }) => css`
-    position: absolute;
-    border-radius: 0 0 4px 4px;
-    height: 40px;
-    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
-    background-color: ${backgroundColor || theme.palette.primary.main};
-    transform: translate3d(-50%, -30%, 0);
-    top: ${theme.name === 'elcomercio' ? '-2px' : '0px'};
-    left: 40%;
-    width: 222px;
-    color: ${theme.palette.primary.contrastText};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    letter-spacing: 1.68px;
-  `}
-`
-
-export const CyberdayBadge = styled(Picture)`
+${({ backgroundColor, theme }) => css`
   position: absolute;
-  top: -23px;
+  border-radius: 0 0 4px 4px;
+  height: 40px;
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+  background-color: ${backgroundColor || theme.palette.primary.main};
+  transform: translate3d(-50%, -30%, 0);
+  left: 50%;
+  color: ${theme.palette.primary.contrastText};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 145px;
+  font-weight: 700;
+  letter-spacing: 1.68px;
+  `}
 `
 
 export const CardContent = styled.div`
