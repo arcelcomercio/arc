@@ -161,7 +161,11 @@ class Stick extends PureComponent {
             onKeyUp={this.closeStick}
           />
           <div className={classes.logo}>
-            <img src={imgLogo} alt="" />
+            <img 
+              src={imgLogo} 
+              alt="Sigue actualizado en nuestra APP" 
+              title="Sigue actualizado en nuestra APP" 
+            />
           </div>
           <div className={classes.description}>
             Sigue actualizado en nuestra APP

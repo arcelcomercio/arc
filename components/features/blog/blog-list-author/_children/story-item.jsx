@@ -6,15 +6,18 @@ import React, { PureComponent } from 'react'
 // import ConfigParams from '../../../../utilities/config-params'
 // import StoryData from '../../../../utilities/story-data'
 
-import { reduceWord, formatDateLocalTimeZone } from '../../../../utilities/helpers'
+import {
+  reduceWord,
+  formatDateLocalTimeZone,
+} from '../../../../utilities/helpers'
 
 const classes = {
   storyItem: `blog-post-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
   top: 'blog-post-item__top flex items-center md:flex-col md:items-start',
   section: 'blog-post-item__section text-sm text-black md:mb-15',
-  titlePost:
-    'blog-post-item__title-post text-sm text-black pl-10 block',
-  date: 'blog-post-item__date font-thin ml-5 text-xs text-gray-300 md:mt-5 md:ml-0',
+  titlePost: 'blog-post-item__title-post text-sm text-black pl-10 block',
+  date:
+    'blog-post-item__date font-thin ml-5 text-xs text-gray-300 md:mt-5 md:ml-0',
   bottom: 'blog-post-item__bottom flex lg:pb-15',
   left: 'blog-post-item__left flex flex-col justify-between pr-20 ',
   contentTitle: 'blog-post-item__content-title overflow-hidden',
@@ -36,14 +39,10 @@ const classes = {
 
 class StoriesList extends PureComponent {
   render() {
-    const {
-      data,
-      isAdmin,
-    } = this.props
-   
+    const { data, isAdmin } = this.props
+
     return (
-      <div
-        className={`${classes.storyItem}`}>
+      <div className={`${classes.storyItem}`}>
         <div className={classes.bottom}>
           <div className={classes.left}>
             <div className={classes.top}>
@@ -53,7 +52,12 @@ class StoriesList extends PureComponent {
             </div>
             <div className={classes.authorImageBox}>
               <a href={data.urlBlog} className={classes.author}>
-                <img src={data.authorImg} className={classes.authorImage} alt={data.author}/>
+                <img
+                  src={data.authorImg}
+                  className={classes.authorImage}
+                  title={data.author}
+                  alt={data.author}
+                />
               </a>
             </div>
             <div className={classes.wrapperTitle}>
@@ -66,13 +70,10 @@ class StoriesList extends PureComponent {
                 </a>
               </h2>
               <p className={classes.subtitle}>{reduceWord(data.blogTitle)}</p>
-              <a
-                href={data.urlPost}
-                className={classes.titlePost}>
+              <a href={data.urlPost} className={classes.titlePost}>
                 {data.postTitle} <span className={classes.read}>Leer</span>
               </a>
             </div>
-
           </div>
           <figure className={classes.right}>
             <a href={data.urlPost} className={classes.rightLink}>
@@ -80,21 +81,14 @@ class StoriesList extends PureComponent {
                 <source
                   className={isAdmin ? '' : 'lazy'}
                   media="(max-width: 639px)"
-                  srcSet={
-                    isAdmin
-                      ? data.imagePost
-                      : data.imagePost
-                  }
+                  srcSet={isAdmin ? data.imagePost : data.imagePost}
                   data-srcset={data.imagePost}
                 />
                 <img
+                  title={data.postTitle}
                   alt={data.postTitle}
                   className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                  src={
-                    isAdmin
-                      ? data.imagePost
-                      : data.imagePost
-                  }
+                  src={isAdmin ? data.imagePost : data.imagePost}
                   data-src={data.imagePost}
                 />
               </picture>

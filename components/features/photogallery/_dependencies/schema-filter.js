@@ -6,16 +6,16 @@ export default arcSite => {
         youtube_id {
           content
         }
-        basic { url type resized_urls { landscape_md landscape_l square_md lazy_default  } }
+        basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default  } }
         basic_video {
           promo_items {
-            basic { url type resized_urls { landscape_md landscape_l square_md lazy_default  } }
+            basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default  } }
           }
         }
         basic_gallery {
           content_elements
           promo_items {
-            basic { url type resized_urls { landscape_md landscape_l square_md lazy_default  } }
+            basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default  } }
           }
         }
       }

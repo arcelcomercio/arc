@@ -31,6 +31,7 @@ const ColumnistPremium = ({
       <a href={authorLink}>
         <img
           alt={`Foto de perfil de ${author}`}
+          title={author}
           className={`${isAdmin ? '' : 'lazy'} ${classes.profile}`}
           src={isAdmin ? authorImage : lazyImage}
           data-src={authorImage}

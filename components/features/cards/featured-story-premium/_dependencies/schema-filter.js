@@ -8,15 +8,15 @@ export default function(arcSite) {
     }
     websites { ${arcSite} { website_url } }
     promo_items {
-        basic { url type resized_urls { landscape_md landscape_l square_md lazy_default  } }
+        basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default  } }
         basic_video {
           promo_items {
-            basic { url type resized_urls { landscape_md landscape_l square_md lazy_default  } }
+            basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default  } }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type resized_urls { landscape_md landscape_l square_md lazy_default  } }
+            basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default  } }
           }
         }
       }

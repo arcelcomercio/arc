@@ -236,6 +236,8 @@ class CardFeaturedStoryManualLive extends PureComponent {
       multimediaSquareS,
       multimediaLazyDefault,
       multimediaType,
+      multimediaSubtitle,
+      multimediaCaption,
     } = formattedData
 
     if (this.isExternalLink) {
@@ -264,6 +266,8 @@ class CardFeaturedStoryManualLive extends PureComponent {
       isAdmin,
       siteName,
       errorList: this.errorList || [],
+      multimediaSubtitle,
+      multimediaCaption,
     }
 
     const paramsLive = {

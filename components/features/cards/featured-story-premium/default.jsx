@@ -173,6 +173,8 @@ const FeaturedStoryPremium = props => {
     multimediaType,
     primarySectionLink,
     primarySection,
+    multimediaSubtitle,
+    multimediaCaption,
   } = new StoryData({
     data,
     arcSite,
@@ -200,6 +202,8 @@ const FeaturedStoryPremium = props => {
     isAdmin,
     errorList,
     logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
+    multimediaSubtitle,
+    multimediaCaption,
   }
 
   const paramsLive = {

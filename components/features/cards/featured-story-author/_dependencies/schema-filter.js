@@ -19,7 +19,9 @@ export default arcSite => {
       }
       basic { 
         url 
-        type 
+        type
+        subtitle
+        caption
         resized_urls { 
           landscape_l 
           landscape_md 
@@ -32,7 +34,9 @@ export default arcSite => {
         promo_items {
           basic { 
             url 
-            type 
+            type
+            subtitle
+            caption
             resized_urls { 
               landscape_l 
               landscape_md 
@@ -47,7 +51,9 @@ export default arcSite => {
         promo_items {
           basic { 
             url 
-            type 
+            type
+            subtitle
+            caption
             resized_urls { 
               landscape_l 
               landscape_md 
