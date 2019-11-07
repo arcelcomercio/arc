@@ -188,8 +188,6 @@ const NewsLetterContent = ({
           story.promo_items.basic.resized_urls
             ? story.promo_items.basic.resized_urls
             : {}
-        console.log("AQUI!!!!!")
-        console.log(thumb)
 
         const description =
           story && story.description && story.description.basic
