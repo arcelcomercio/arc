@@ -5,7 +5,8 @@ const classes = {
     'blog-list-grid grid grid--content grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
   itemGrid: 'blog-list-grid__item',
   imageLink: 'blog-list-grid__image-link block',
-  imageBox: 'blog-list-grid__image-box block position-relative overflow-hidden w-full h-full',
+  imageBox:
+    'blog-list-grid__image-box block position-relative overflow-hidden w-full h-full',
   image: 'blog-list-grid__image  w-full object-cover',
   blogTitle: 'blog-list-grid__blog-title text-center text-sm pt-10',
   title: 'blog-list-grid__title text-center text-sm pt-10 pb-10',
@@ -14,11 +15,15 @@ const classes = {
   line: 'blog-list-grid__line',
 }
 
-const BlogPostListGridChildGrid = ({ data, urlLogoBrand = '', siteName = '' }) => {
+const BlogPostListGridChildGrid = ({
+  data,
+  urlLogoBrand = '',
+  siteName = '',
+}) => {
   return (
     <div className={classes.containerGrid}>
       {data &&
-        data.map((row, index) => {
+        data.map(row => {
           return (
             <div className={classes.itemGrid}>
               <a className={classes.imageLink} href={row.urlPost}>
@@ -35,14 +40,23 @@ const BlogPostListGridChildGrid = ({ data, urlLogoBrand = '', siteName = '' }) =
                     data-src={row.imagePost}
                     className={`${row.isAdmin ? '' : 'lazy'} ${classes.image}`}
                     alt={row.blogTitle}
+                    title={row.blogTitle}
                   />
                 </picture>
               </a>
-              <h3 className={classes.blogTitle}><a href={row.urlBlog}>{row.blogTitle}</a></h3>
-              <div className={classes.author}><a href={row.urlBlog}>{row.author}</a></div>
+              <h3 className={classes.blogTitle}>
+                <a href={row.urlBlog}>{row.blogTitle}</a>
+              </h3>
+              <div className={classes.author}>
+                <a href={row.urlBlog}>{row.author}</a>
+              </div>
               <div className={classes.line}></div>
-              <h2 className={classes.title}><a href={row.urlPost}>{row.postTitle}</a></h2>
-              <div className={classes.icon}><img src={urlLogoBrand} alt={siteName}/></div>
+              <h2 className={classes.title}>
+                <a href={row.urlPost}>{row.postTitle}</a>
+              </h2>
+              <div className={classes.icon}>
+                <img src={urlLogoBrand} alt={siteName} title={siteName} />
+              </div>
             </div>
           )
         })}

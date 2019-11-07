@@ -70,6 +70,7 @@ const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
                     data-src={el.authorImage}
                     src={isAdmin ? el.authorImage : el.multimediaLazyDefault}
                     alt={el.title}
+                    title={el.title}
                   />
                 </picture>
               </a>

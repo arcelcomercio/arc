@@ -181,7 +181,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
 
   render() {
     const { sliderWidth, slideWidth, positionSlide, sliders = [] } = this.state
-    const { isAdmin } = this.props
+    const { isAdmin, defaultImageGallery } = this.props
     const sliderStyle = {
       width: `${sliderWidth}%`,
       transform: `translateX(${positionSlide}%)`,
@@ -189,6 +189,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     const slideStyle = {
       width: `${slideWidth}%`,
     }
+
     return (
       <>
         {sliders.length > 0 && (
@@ -208,14 +209,22 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     <div className={classes.figure}>
                       <picture>
                         <source
+                          srcSet={slide.resized_urls.landscape_md}
+                          media="(max-width: 320px)"
+                        />
+                        <source
                           className={isAdmin ? '' : 'lazy'}
                           media="(max-width: 639px)"
                           srcSet={
                             isAdmin
                               ? slide.resized_urls.landscape_l
-                              : slide.resized_urls.lazy_default
+                              : defaultImageGallery
                           }
                           data-srcset={slide.resized_urls.landscape_l}
+                        />
+                        <source
+                          srcSet={slide.resized_urls.story_small}
+                          media="(max-width: 767px)"
                         />
                         <img
                           src={
@@ -225,6 +234,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                           }
                           data-src={slide.resized_urls.landscape_xl}
                           alt={slide.caption || slide.subtitle}
+                          title={slide.caption || slide.subtitle}
                           className={`${isAdmin ? '' : 'lazy'} ${
                             classes.image
                           }`}

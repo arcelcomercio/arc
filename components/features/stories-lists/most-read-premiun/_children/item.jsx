@@ -49,7 +49,8 @@ export default ({
                       className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                       src={isAdmin ? multimedia : lazyImage}
                       data-src={multimedia}
-                      alt=""
+                      alt={title}
+                      title={title}
                     />
                   </picture>
                 </a>

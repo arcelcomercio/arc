@@ -25,8 +25,18 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
       content: embedHtmlPromoItems = '',
     } = {},
     path_mp3: { content: mp3 = '' } = {},
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
   } = data
   const { type: typeImage, caption = '' } = basic || {}
+
+  const paramenters = {
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+    caption,
+  }
 
   return (
     <>
@@ -35,7 +45,7 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
       !typeInfo &&
       !typeEmbed &&
       typeImage ? (
-        <Imagen data={basic} showCaption={showCaption} />
+        <Imagen {...paramenters} />
       ) : (
         <Html data={embedHtmlPromoItems} caption={caption} />
       )}

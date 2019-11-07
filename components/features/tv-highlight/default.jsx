@@ -51,6 +51,8 @@ class TVHighlight extends PureComponent {
         multimediaImg: storyData.multimediaLandscapeXL,
       },
       tags: storyData.tags,
+      multimediaSubtitle: storyData.multimediaSubtitle,
+      multimediaCaption: storyData.multimediaCaption,
     }
   }
 

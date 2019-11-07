@@ -40,6 +40,8 @@ export default ({
   section,
   isAdmin,
   editableField,
+  multimediaSubtitle,
+  multimediaCaption,
 }) => {
   const getEditableField = element =>
     editableField ? editableField(element) : null
@@ -53,7 +55,8 @@ export default ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaLandscapeL}
             src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
-            alt={title}
+            title={multimediaSubtitle || title}
+            alt={multimediaCaption || title}
           />
         )}
         {model === 'full' && (
@@ -61,7 +64,8 @@ export default ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaSquareXL}
             src={isAdmin ? multimediaSquareXL : multimediaLazyDefault}
-            alt={title}
+            title={multimediaSubtitle || title}
+            alt={multimediaCaption || title}
           />
         )}
         {model === 'basic' && (
@@ -69,7 +73,8 @@ export default ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaPortraitMD}
             src={isAdmin ? multimediaPortraitMD : multimediaLazyDefault}
-            alt={title}
+            title={multimediaSubtitle || title}
+            alt={multimediaCaption || title}
           />
         )}
       </a>
