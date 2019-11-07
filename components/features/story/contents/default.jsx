@@ -317,7 +317,7 @@ class StoryContents extends PureComponent {
                 href={URL_BBC}
                 rel="nofollow noopener noreferrer"
                 target="_blank">
-                <img alt="BBC" src={imgBbc} data-src={imgBbc} />
+                <img alt="BBC" title="BBC" src={imgBbc} data-src={imgBbc} />
               </a>
             </div>
           )}

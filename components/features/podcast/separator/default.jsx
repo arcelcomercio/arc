@@ -161,6 +161,7 @@ const PodcastSeparator = props => {
                   <img
                     src={multimediaLandscapeL}
                     alt={title}
+                    title={title}
                     className="podcast-separator__img w-full"
                   />
                   <Icon

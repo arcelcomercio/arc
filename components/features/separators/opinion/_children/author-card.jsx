@@ -65,6 +65,7 @@ const SeparatorsChildAuthorCard = props => {
                 src={isAdmin ? imageUrl : multimediaLazyDefault}
                 data-src={imageUrl}
                 alt={author || ''}
+                title={author || ''}
               />
             </a>
           </figure>

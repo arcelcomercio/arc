@@ -225,6 +225,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                           }
                           data-src={slide.resized_urls.landscape_xl}
                           alt={slide.caption || slide.subtitle}
+                          title={slide.caption || slide.subtitle}
                           className={`${isAdmin ? '' : 'lazy'} ${
                             classes.image
                           }`}
