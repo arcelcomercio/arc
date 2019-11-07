@@ -3,7 +3,7 @@ import React from 'react'
 import Image from '@arc-core-components/element_image'
 
 const classes = {
-  image: 'story-content__visual--image ',
+  image: 'story-content__visual--image amp-img w-full h-full',
   description: 'story-content__news-media-description text-left',
 }
 

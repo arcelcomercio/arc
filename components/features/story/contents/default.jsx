@@ -14,6 +14,7 @@ import {
   replaceTags,
   storyTagsBbc,
   getDateSeo,
+  storyContenImage,
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -134,6 +135,9 @@ class StoryContents extends PureComponent {
       primarySectionLink,
       subtype,
       isPremium,
+      multimediaLandscapeMD,
+      multimediaStorySmall,
+      multimediaLarge,
       tags,
     } = new StoryData({
       data: globalContent,
@@ -153,6 +157,9 @@ class StoryContents extends PureComponent {
       primarySection,
       subtype,
       ...promoItems,
+      multimediaLandscapeMD,
+      multimediaStorySmall,
+      multimediaLarge,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -199,12 +206,7 @@ class StoryContents extends PureComponent {
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
                     return (
-                      <StoryContentsChildImage
-                        data={element}
-                        className={classes.newsImage}
-                        resizer="true"
-                        resizerContent="content"
-                      />
+                      <StoryContentsChildImage {...storyContenImage(element)} />
                     )
                   }
                   if (type === ConfigParams.ELEMENT_VIDEO) {
