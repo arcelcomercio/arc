@@ -99,6 +99,7 @@ const TripletChildTriplet = props => {
                 }
                 data-src={story.multimediaPortraitXS}
                 alt={story.title}
+                title={story.title}
               />
               <Icon type={story.multimediaType} iconClass={classes.icon} />
             </a>

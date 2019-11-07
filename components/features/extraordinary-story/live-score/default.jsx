@@ -148,6 +148,7 @@ class ExtraordinaryStoryLifeScore extends Component {
               src={isAdmin ? imgUrl : multimediaLazyDefault}
               data-src={imgUrl}
               alt={title}
+              title={title}
             />
           </picture>
         </a>

@@ -23,7 +23,7 @@ const StorySocialChildAuthor = ({
       {primarySection === 'Columnistas' && (
         <div className={classes.author}>
           <div className={classes.authorImag}>
-            <img src={authorImage} alt={author} />
+            <img src={authorImage} alt={author} title={author} />
           </div>
           <div>
             {author && (

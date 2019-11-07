@@ -117,6 +117,7 @@ class CardTabloid extends PureComponent {
               src={isAdmin ? tabloidImage : lazyImage}
               data-src={tabloidImage}
               alt={title}
+              title={title}
             />
           </picture>
           <time className={classes.date}>{dateField || nameDate}</time>

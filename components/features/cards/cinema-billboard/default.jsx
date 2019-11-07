@@ -158,6 +158,7 @@ class CardCinemaBillboard extends PureComponent {
                 src={isAdmin ? img : lazyDefault}
                 data-src={img}
                 alt={alt}
+                title={title}
                 className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               />
             </a>

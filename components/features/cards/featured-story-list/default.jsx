@@ -34,7 +34,9 @@ const CardsFeaturedStoryList = props => {
           promo_items {
             basic { 
               url 
-              type 
+              type
+              subtitle
+              caption
               resized_urls { 
                 landscape_l 
                 landscape_md 
@@ -47,7 +49,9 @@ const CardsFeaturedStoryList = props => {
               promo_items {
                 basic { 
                   url 
-                  type 
+                  type
+                  subtitle
+                  caption
                   resized_urls { 
                     landscape_l 
                     landscape_md 
@@ -62,7 +66,9 @@ const CardsFeaturedStoryList = props => {
               promo_items {
                 basic { 
                   url 
-                  type 
+                  type
+                  subtitle
+                  caption
                   resized_urls { 
                     landscape_l 
                     landscape_md 
@@ -115,6 +121,8 @@ const CardsFeaturedStoryList = props => {
       primarySection, // { taxonomy { primary_section { name } } }
       author,
       authorLink,
+      multimediaSubtitle,
+      multimediaCaption,
     } = new StoryData({
       data,
       arcSite,
@@ -149,6 +157,8 @@ const CardsFeaturedStoryList = props => {
       // categoryField, // OPCIONAL, o pasar el customField de los props
       multimediaType,
       isAdmin,
+      multimediaSubtitle,
+      multimediaCaption,
     }
   }
 

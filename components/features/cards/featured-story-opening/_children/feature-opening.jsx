@@ -71,7 +71,14 @@ export default ({
         <a href={primarySectionLink} className={classes.section}>
           {primarySection}
         </a>
-        {isPremium && <img src={logo} alt="" className={classes.image} />}
+        {isPremium && (
+          <img
+            src={logo}
+            alt="premium"
+            title="premium"
+            className={classes.image}
+          />
+        )}
       </div>
     </div>
   )

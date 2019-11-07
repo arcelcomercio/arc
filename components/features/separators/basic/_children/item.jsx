@@ -47,6 +47,7 @@ export default ({
               src={isAdmin ? imageUrl : lazyImage}
               data-src={imageUrl}
               alt={title}
+              title={title}
               className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             />
           </a>

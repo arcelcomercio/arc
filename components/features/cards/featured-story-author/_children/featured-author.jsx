@@ -20,6 +20,8 @@ export default ({
   multimediaType,
   design,
   isAdmin,
+  multimediaSubtitle,
+  multimediaCaption,
 }) => {
   const classes = {
     featuredAuthor: 'featured-author row-1',
@@ -112,7 +114,8 @@ export default ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.storyImg}`}
             data-src={storyImages.desktop}
             src={isAdmin ? storyImages.desktop : multimediaLazyDefault}
-            alt={title}
+            alt={multimediaCaption || title}
+            title={multimediaSubtitle || title}
           />
           <Icon type={multimediaType} iconClass={classes.icon} />
         </picture>
@@ -150,6 +153,7 @@ export default ({
                     : multimediaLazyDefault
                 }
                 alt={author}
+                title={author}
               />
             </picture>
           </a>

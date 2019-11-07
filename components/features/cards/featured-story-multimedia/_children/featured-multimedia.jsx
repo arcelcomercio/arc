@@ -32,6 +32,8 @@ export default ({
   sectionName,
   freeHtml,
   isAdmin,
+  multimediaSubtitle,
+  multimediaCaption,
 }) => {
   return (
     <article className={classes.featuredMultimedia}>
@@ -54,8 +56,8 @@ export default ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             src={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
             data-src={multimediaLandscapeMD}
-            alt={title}
-            
+            title={multimediaSubtitle || title}
+            alt={multimediaCaption || title}
           />
           <Icon type={multimediaType} iconClass="" />
         </picture>

@@ -48,6 +48,8 @@ const FeaturedStoryPremiumChild = ({
   isAdmin,
   logo,
   errorList = [],
+  multimediaSubtitle,
+  multimediaCaption,
 }) => {
   const formaZeroDate = (numb = 0) => {
     return numb < 10 ? `0${numb}` : numb
@@ -110,7 +112,12 @@ const FeaturedStoryPremiumChild = ({
               </a>
             </p>
             {isPremium && (
-              <img className={classes.iconImagePremium} src={logo} alt="" />
+              <img
+                className={classes.iconImagePremium}
+                src={logo}
+                title="premium"
+                alt="premium"
+              />
             )}
           </div>
         </div>
@@ -135,7 +142,8 @@ const FeaturedStoryPremiumChild = ({
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
               data-src={multimediaLandscapeL}
-              alt={title}
+              alt={multimediaSubtitle || title}
+              title={multimediaCaption || title}
             />
           </picture>
         </a>

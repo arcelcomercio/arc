@@ -106,6 +106,7 @@ export default ({
               />
               <img
                 alt={title}
+                title={title}
                 className={classes.img}
                 src={multimediaLandscapeS}
               />
