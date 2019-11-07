@@ -12,7 +12,7 @@ const CustomImage = props =>
       imgTitle = '',
       imgAlt,
       imgLink = '',
-      imgWidth = 0
+      imgWidth = ''
     } = {},
   } = props;
 
@@ -27,7 +27,7 @@ const CustomImage = props =>
         data-src={imgUrlDesktop}
         alt={imgAlt}
         {...imgTitle !== '' ? {title:imgTitle} : {}}
-        {...imgWidth > 0 ? {width:imgWidth} : {}}
+        {...imgWidth !== '' ? {width:imgWidth} : {width:'100%'}}
         className={classes.lazy}
       />
     </picture>
