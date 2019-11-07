@@ -1,7 +1,7 @@
 import React from 'react'
 import Video from './amp-video'
 import Html from './amp-html'
-import Imagen from './image'
+import Imagen from './amp-image'
 import ConfigParams from '../../../../utilities/config-params'
 
 export default props => {

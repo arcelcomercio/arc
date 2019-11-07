@@ -1153,6 +1153,15 @@ export const clearHtml = paragraph => {
   )
 }
 
+export const storyContenImage = ({ resized_urls: resizedUrls, caption }) => {
+  return {
+    multimediaLandscapeMD: resizedUrls.medium,
+    multimediaStorySmall: resizedUrls.content_small,
+    multimediaLarge: resizedUrls.content,
+    caption,
+  }
+}
+
 /*
 Hasta ahora este metodo es innecesario, comento en caso de que
 la forma que se usa como reemplazo de algun error
