@@ -1137,6 +1137,22 @@ export const localISODate = date => {
   return localDate
 }
 
+export const clearBrTag = paragraph => {
+  return nbspToSpace(paragraph.trim().replace(/<\/?br[^<>]+>/, ''))
+}
+
+export const clearHtml = paragraph => {
+  return nbspToSpace(
+    clearBrTag(
+      paragraph
+        .trim()
+        .replace(/(<([^>]+)>)/gi, '')
+        .replace('   ', ' ')
+        .replace('  ', ' ')
+    )
+  )
+}
+
 /*
 Hasta ahora este metodo es innecesario, comento en caso de que
 la forma que se usa como reemplazo de algun error

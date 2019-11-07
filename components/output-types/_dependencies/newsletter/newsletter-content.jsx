@@ -1,5 +1,64 @@
 import React from 'react'
+import { useContent } from 'fusion:content'
 import StoryData from '../../../utilities/story-data'
+import ConfigParams from '../../../utilities/config-params'
+import { clearHtml, clearBrTag } from '../../../utilities/helpers'
+
+const buildParagraphText = elementText => {
+  let result = ''
+  const cleanParagraph = clearHtml(elementText)
+  result = cleanParagraph !== '' ? `<p>${clearHtml(cleanParagraph)}</p>` : ''
+  return result
+}
+
+const buildParagraphList = listParagraph => {
+  let result = ''
+  const newListParagraph = StoryData.paragraphsNews(listParagraph)
+  newListParagraph.forEach(({ type = '', payload = '' }) => {
+    const paragraphParams = {
+      type,
+      payload,
+    }
+
+    // eslint-disable-next-line no-use-before-define
+    const processedParagraph = analyzeParagraph(paragraphParams)
+    result += `<li>${processedParagraph}</li>`
+  })
+  result = `<ul>${result}</ul>`
+  return result
+}
+
+const buildHeaderParagraph = paragraph => {
+  return `<h2>${clearBrTag(paragraph)}</h2>`
+}
+
+const analyzeParagraph = paragraph => {
+  let result = ''
+  switch (paragraph.type) {
+    case ConfigParams.ELEMENT_TEXT:
+      result += buildParagraphText(paragraph.payload)
+      break
+    case ConfigParams.ELEMENT_LIST:
+      result += buildParagraphList(paragraph.payload)
+      break
+    case ConfigParams.ELEMENT_HEADER:
+      result += buildHeaderParagraph(paragraph.payload)
+      break
+    default:
+      result += ''
+  }
+  return result
+}
+
+const buildContent = ({ paragraphsNews = [] }) => {
+  let result = ''
+
+  paragraphsNews.forEach(element => {
+    result += analyzeParagraph(element)
+  })
+
+  return result
+}
 
 const StoryItem = props => {
   const {
@@ -20,6 +79,7 @@ const StoryItem = props => {
     authorSlug,
     authorCargo = 'null',
     authorColumn = 'null',
+    paragraphsNews = [],
   } = props
 
   const {
@@ -33,6 +93,11 @@ const StoryItem = props => {
     tbgrande = '',
     tbflujo = '',
   } = thumb
+
+  const buildContentParams = {
+    paragraphsNews,
+  }
+  const content = buildContent(buildContentParams)
 
   return (
     <article>
@@ -64,7 +129,7 @@ const StoryItem = props => {
       <epigraph> {epigraph}</epigraph>
       <seccion> {seccion}</seccion>
       <url_seccion>{urlSeccion}</url_seccion>
-      <content>hola</content>
+      <content>{content}</content>
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
@@ -77,6 +142,7 @@ const StoryItem = props => {
     </article>
   )
 }
+const CONTENT_SOURCE = 'story-by-id'
 
 const NewsLetterContent = ({
   deployment,
@@ -104,7 +170,16 @@ const NewsLetterContent = ({
       <nameCollection>{nameWebsked}</nameCollection>
       <descriptionCollection>{descriptionWebsked}</descriptionCollection>
       {contentElements.map(story => {
-        storydata.__data = story
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const storyOfCollection = useContent({
+          source: CONTENT_SOURCE,
+          query: {
+            _id: story._id,
+          },
+        })
+
+        storydata.__data = storyOfCollection
+        // storydata.__data = story
 
         const thumb =
           story &&
@@ -113,6 +188,8 @@ const NewsLetterContent = ({
           story.promo_items.basic.resized_urls
             ? story.promo_items.basic.resized_urls
             : {}
+        console.log("AQUI!!!!!")
+        console.log(thumb)
 
         const description =
           story && story.description && story.description.basic
@@ -142,6 +219,7 @@ const NewsLetterContent = ({
           authorColumn: storydata.authorBiography
             ? storydata.authorBiography
             : 'null',
+          paragraphsNews: storydata.paragraphsNews,
         }
 
         return <StoryItem {...params} />
