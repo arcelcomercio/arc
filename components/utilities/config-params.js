@@ -109,6 +109,12 @@ class ConfigParams {
 
   static LAZY_DEFAULT = 'lazy_default'
 
+  // noticia
+
+  static STORY_SMALL = 'story_small'
+
+  static LARGE = 'large'
+
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
   // Sites
@@ -201,13 +207,21 @@ export const sizeImg = () => {
     medium: {
       width: 480,
     },
+    content: {
+      width: 980,
+    },
+    content_small: {
+      width: 320,
+    },
     large: {
       width: 940,
       height: 569,
     },
-    content: {
-      width: 980,
+    story_small: {
+      width: 482,
+      height: 290,
     },
+
     amp_new: {
       width: 1200,
       height: 800,
