@@ -31,14 +31,17 @@ const ListItemNews = (contentElements, buildProps) => {
 
       if (!storydata.isPremium) {
         if (storydata.fiaOrigen === true) {
-          if (storydata.canonicalWebsite === 'elcomerciomag') {
+          // if (storydata.canonicalWebsite === 'elcomerciomag') {
+            // se cambio la validacion del canonicalWebsite para la url,
+            // se solicito que ya no se concatene las notas de mag cuando sea el comercio
+          if (storydata.canonicalWebsite === 'xxxxxxxasdf') {
             fiaContent = 'MAG'
             pagePath = `${siteUrl}/mag${storydata.link}`
           } else {
             pagePath = `${siteUrl}${storydata.link}`
             fiaContent = fbArticleStyle
           }
-          
+
           const pageview = `${storydata.link}?outputType=fia`
           const propsScriptHeader = {
             siteDomain,
