@@ -236,8 +236,12 @@ class FormReLogin extends Component {
     const { hiddenListBenefits, linkListBenefits } = this.state
     const modalRelogEmail = document.querySelector('#arc-popup-relogin-email')
     const modalRelog = document.querySelector('#arc-popup-relogin')
+    const modalRelogHash = document.querySelector('#arc-popup-relogin-hash')
+
     if (modalRelogEmail) modalRelogEmail.scrollTop = '0px'
     if (modalRelog) modalRelog.scrollTop = '0px'
+    if (modalRelogHash) modalRelogHash.scrollTop = '0px'
+
     this.setState({
       hiddenListBenefits: !hiddenListBenefits,
       linkListBenefits: !linkListBenefits,
@@ -274,7 +278,7 @@ class FormReLogin extends Component {
       hiddenPass,
       sending,
     } = this.state
-    const { closePopup, typePopUp, typeForm } = this.props
+    const { closePopup, typePopUp, typeForm, arcSite } = this.props
 
     return (
       <ModalConsumer>
@@ -288,20 +292,22 @@ class FormReLogin extends Component {
                 <div className="form-grid__back">
                   <button
                     type="button"
-                    onClick={this.hanbleShowListBenefits}
+                    onClick={e => this.hanbleShowListBenefits(e)}
                     className="link-back">
                     <Icon.Back />
                     <span>Volver</span>
                   </button>
                 </div>
-                <ListBenefits />
+                <ListBenefits brandCurrent={arcSite} />
               </div>
 
               <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                <div hidden={!hiddenTitleBenefits}>
+                <div
+                  hidden={!hiddenTitleBenefits}
+                  className="inline-block lg:hidden">
                   <h1 className="form-grid__title-big text-center">
-                    ¡Hola {nameMPP || 'Lector'}! Para mejorar tu experiencia de
-                    navegación, inicia sesión nuevamente.
+                    ¡Hola {nameMPP || 'Lector'}! Hemos mejorado tu experiencia
+                    de navegación, inicia sesión nuevamente.
                   </h1>
                 </div>
 
@@ -427,36 +433,38 @@ class FormReLogin extends Component {
                     />
                   </div>
                 </div>
-              </div>
 
-              <div className="form-grid__group">
-                <p className="form-grid__link text-center text-sm pt-40 pb-20">
-                  ¿Aún no tienes una cuenta?
-                  <button
-                    type="button"
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typePopUp}`,
-                        `web_sw${typePopUp[0]}_login_boton_registrate`
-                      )
-                      value.changeTemplate('register')
-                    }}
-                    id="login_boton_registrate"
-                    className="link-blue link-color">
-                    Regístrate
-                  </button>
-                </p>
-              </div>
+                <div className="form-grid__group">
+                  <p className="form-grid__link text-center text-sm pt-40 pb-20">
+                    ¿Aún no tienes una cuenta?
+                    <button
+                      type="button"
+                      onClick={() => {
+                        Taggeo(
+                          `Web_Sign_Wall_${typePopUp}`,
+                          `web_sw${typePopUp[0]}_login_boton_registrate`
+                        )
+                        value.changeTemplate('register')
+                      }}
+                      id="login_boton_registrate"
+                      className="link-blue link-color">
+                      Regístrate
+                    </button>
+                  </p>
+                </div>
 
-              <div className="form-grid__group" hidden={linkListBenefits}>
-                <p className="form-grid__subtitle text-center form-group--center">
-                  <button
-                    type="button"
-                    onClick={this.hanbleShowListBenefits}
-                    className="link-blue link-color">
-                    Conoce aquí los beneficios de registrarte
-                  </button>
-                </p>
+                <div
+                  className="form-grid__group inline-block lg:hidden"
+                  hidden={hiddenListBenefits}>
+                  <p className="form-grid__subtitle text-center form-group--center">
+                    <button
+                      type="button"
+                      onClick={e => this.hanbleShowListBenefits(e)}
+                      className="link-blue link-color">
+                      Conoce aquí los beneficios de registrarte
+                    </button>
+                  </p>
+                </div>
               </div>
             </form>
           </div>
