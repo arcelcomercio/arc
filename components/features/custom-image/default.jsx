@@ -1,7 +1,7 @@
 import React from 'react'
 import customFields from './_dependencies/custom-fields'
 
-const classes = { lazy: "lazy" };
+const classes = { lazy: "lazy", wfull: 'w-full' };
 
 const CustomImage = props => 
 { 
@@ -12,7 +12,7 @@ const CustomImage = props =>
       imgTitle = '',
       imgAlt,
       imgLink = '',
-      imgWidth = 0
+      imgWidth
     } = {},
   } = props;
 
@@ -27,8 +27,8 @@ const CustomImage = props =>
         data-src={imgUrlDesktop}
         alt={imgAlt}
         {...imgTitle !== '' ? {title:imgTitle} : {}}
-        {...imgWidth > 0 ? {width:imgWidth} : {}}
-        className={classes.lazy}
+        {...imgWidth !== '' ? {width:imgWidth} : {}}
+        className={`${classes.lazy} ${classes.wfull}`}
       />
     </picture>
   );
