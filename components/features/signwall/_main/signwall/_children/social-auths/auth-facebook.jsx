@@ -110,6 +110,9 @@ class AuthFacebook extends React.Component {
                   if (tipmodal === 'relogemail') {
                     return 'reloginemail'
                   }
+                  if( tipmodal === 'reloghash'){
+                    return 'reloginhash'
+                  }
                   return '0'
                 }
 

@@ -62,6 +62,9 @@ class FormRegister extends Component {
       if (tipmodal === 'relogemail') {
         return 'reloginemail'
       }
+      if( tipmodal === 'reloghash'){
+        return 'reloginhash'
+      }
       return '0'
     }
 
