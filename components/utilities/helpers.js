@@ -214,7 +214,7 @@ export const metaPaginationUrl = (
 ) => {
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
-    : `${siteUrl}${requestUri.split('?')[0]}/${pageNumber}/${
+    : `${siteUrl}${requestUri.split('?')[0]}${pageNumber}/${
         requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
       }`
 }
@@ -485,9 +485,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -1151,6 +1149,15 @@ export const clearHtml = paragraph => {
         .replace('  ', ' ')
     )
   )
+}
+
+export const storyContenImage = ({ resized_urls: resizedUrls, caption }) => {
+  return {
+    multimediaLandscapeMD: resizedUrls.medium,
+    multimediaStorySmall: resizedUrls.content_small,
+    multimediaLarge: resizedUrls.content,
+    caption,
+  }
 }
 
 /*

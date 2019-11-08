@@ -239,6 +239,14 @@ class StoryData {
     return this.getMultimediaBySize(ConfigParams.SQUARE_XS)
   }
 
+  get multimediaLarge() {
+    return this.getMultimediaBySize(ConfigParams.LARGE)
+  }
+
+  get multimediaStorySmall() {
+    return this.getMultimediaBySize(ConfigParams.STORY_SMALL)
+  }
+
   get multimediaLazyDefault() {
     // return this.getMultimediaBySize(ConfigParams.LAZY_DEFAULT)
     return this.defaultImg

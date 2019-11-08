@@ -6,6 +6,7 @@ import StoryGalleryChildGallerySlider from './_children/gallery-slider'
 import StoryGalleryChildGallery from './_children/gallery'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
+import { defaultImage } from '../../../utilities/helpers'
 import Infografia from '../contents/_children/html'
 import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 
@@ -18,6 +19,7 @@ const StoryGallery = () => {
   const {
     arcSite,
     contextPath,
+    deployment,
     globalContent: data,
     isAdmin,
     siteProperties: { siteUrl },
@@ -30,9 +32,17 @@ const StoryGallery = () => {
     link,
     subtype,
     promoItems,
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
   } = new StoryData({
     data,
     contextPath,
+  })
+  const defaultImageGallery = defaultImage({
+    deployment,
+    contextPath,
+    arcSite,
   })
 
   const parameters = {
@@ -43,12 +53,20 @@ const StoryGallery = () => {
     isAdmin,
     siteUrl,
     arcSite,
+    defaultImageGallery,
   }
 
   const {
     basic: { caption = '' } = {},
     infografia: { content: embedHtmlPromoItems = '' } = {},
   } = promoItems
+
+  const parametersPromoItems = {
+    ...promoItems,
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+  }
 
   return (
     <>
@@ -72,7 +90,7 @@ const StoryGallery = () => {
       {subtype === ConfigParams.BIG_IMAGE ||
       subtype === ConfigParams.SPECIAL_BASIC ? (
         <div className={classes.image}>
-          <StoryContentsChildMultimedia data={promoItems} />
+          <StoryContentsChildMultimedia data={parametersPromoItems} />
         </div>
       ) : (
         ''

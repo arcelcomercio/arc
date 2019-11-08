@@ -9,7 +9,7 @@ const classes = {
   audio: 'pt-10 w-full',
 }
 
-const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
+const StoryContentChildMultimedia = ({ data } = []) => {
   const {
     basic_video: {
       embed_html: embedHtml = '',
@@ -25,8 +25,20 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
       content: embedHtmlPromoItems = '',
     } = {},
     path_mp3: { content: mp3 = '' } = {},
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+    showCaption,
   } = data
   const { type: typeImage, caption = '' } = basic || {}
+
+  const paramenters = {
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+    caption,
+    showCaption,
+  }
 
   return (
     <>
@@ -35,7 +47,7 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
       !typeInfo &&
       !typeEmbed &&
       typeImage ? (
-        <Imagen data={basic} showCaption={showCaption} />
+        <Imagen {...paramenters} />
       ) : (
         <Html data={embedHtmlPromoItems} caption={caption} />
       )}

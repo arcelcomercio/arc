@@ -47,15 +47,11 @@ export default ({
 
   const videoSeoItems = videoSeo.map(
     ({ url, caption, urlImage, date } = {}) => {
-      return `{ 
-      "@type":"VideoObject",
-        "name":"${formatHtmlToText(caption)}",
-        "thumbnailUrl": "${urlImage}",
-        "description":"${formatHtmlToText(caption)}",
-        "contentUrl": "${url}",
-        "uploadDate": "${date}"
-     }
-     `
+      return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
+        caption
+      )}",  "thumbnailUrl": "${urlImage}",  "description":"${formatHtmlToText(
+        caption
+      )}", "contentUrl": "${url}",  "uploadDate": "${date}" } `
     }
   )
 
@@ -69,15 +65,8 @@ export default ({
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
-    return `{ 
-         ${representativeOfPage}
-         "@type":"ImageObject",
-         "url": "${large || url}",
-         ${description}
-         "height":800,
-         "width":1200
-      }
-      `
+    return `{   ${representativeOfPage} "@type":"ImageObject", "url": "${large ||
+      url}", ${description} "height":800, "width":1200 }`
   })
 
   const listItems = tags.map(({ description }) => {
@@ -98,29 +87,16 @@ export default ({
   const relatedContentItem = resultRelated.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
     const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ''
-    return `{  
-      "@type":"ListItem",
-      "position":${i + 1},
-      "url":"${pathUrl}${urlItem}"
-      }`
+    return `{  "@type":"ListItem",  "position":${i +
+      1}, "url":"${pathUrl}${urlItem}" }`
   })
 
   const relatedContentData = relatedContentItem[0]
-    ? `{  
-      "@context":"https://schema.org",
-      "@type":"ItemList",
-      "itemListElement":[${relatedContentItem}]  
-   }`
+    ? `{  "@context":"https://schema.org", "@type":"ItemList", "itemListElement":[${relatedContentItem}]  }`
     : ''
 
   const storyPremium = !isAmp
-    ? ` "isAccessibleForFree": "False",
-    "hasPart":
-      {
-      "@type": "WebPageElement",
-      "isAccessibleForFree": "False",
-      "cssSelector" : ".paywall"
-      },`
+    ? ` "isAccessibleForFree": "False", "hasPart": { "@type": "WebPageElement",  "isAccessibleForFree": "False",   "cssSelector" : ".paywall" },`
     : ''
 
   const imagenData = imagesSeoItems[1]
@@ -129,19 +105,13 @@ export default ({
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
-    : ` "image": {
-      "@type": "ImageObject",
-      "url": "${siteUrl}${deployment(
+    : `"image": {  "@type": "ImageObject", "url": "${siteUrl}${deployment(
         `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
-      )}",
-      "description": "${formatHtmlToText(siteName)}",
-      "height": 800,
-      "width": 1200
-    },`
+      )}",  "description": "${formatHtmlToText(
+        siteName
+      )}", "height": 800, "width": 1200 },`
 
-  const dataVideo =
-    `  "video":[ ${videoSeoItems}
-  ],` || ''
+  const dataVideo = `  "video":[ ${videoSeoItems} ],` || ''
 
   const publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIO ||
@@ -151,10 +121,7 @@ export default ({
       ? getDateSeo(publishDate)
       : publishDate
 
-  const structuredData = `{  
-    "@context":"http://schema.org",
-    "@type":"NewsArticle",
-    "datePublished":"${publishDateZone}",
+  const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === ConfigParams.SITE_ELCOMERCIO ||
       arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
@@ -162,30 +129,17 @@ export default ({
       arcSite === ConfigParams.SITE_ELBOCON
         ? publishDateZone
         : lastPublishDate
-    }",
-    "headline":"${formatHtmlToText(title)}",
-    "description":"${formatHtmlToText(subTitle)}",
+    }", "headline":"${formatHtmlToText(
+    title
+  )}",  "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
-    "mainEntityOfPage":{  
-       "@type":"WebPage",
-       "@id":"${siteUrl}${link}"
-    },
+    "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },
     ${imagenDefoult}
     ${(videoSeoItems[0] && dataVideo) || ''}
-    "author":{  
-       "@type":"Person",
-       "name":"${seoAuthor}"
-    },
-    "publisher":{  
-       "@type":"Organization",
-       "name":"${siteName}",
-       "logo":{  
-          "@type":"ImageObject",
-          "url":"${siteUrl}${deployment(
+    "author":{    "@type":"Person",   "name":"${seoAuthor}"    },
+    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${siteUrl}${deployment(
     `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
-  )}",
-          "height":${seo.height},
-          "width":${seo.width}
+  )}",   "height":${seo.height}, "width":${seo.width}
        }
     },    
     ${(isPremium && storyPremium) || ''} 
@@ -199,21 +153,12 @@ export default ({
   const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
     return (
       url &&
-      `
-         {  
-            "@type":"ListItem",
-            "position":${i + 1},
-            "name":"${name}",
-            "item":"${url}"
-         } `
+      `{"@type":"ListItem", "position":${i +
+        1}, "name":"${name}", "item":"${url}" }`
     )
   })
 
-  const structuredBreadcrumb = `{  
-      "@context":"https://schema.org",
-      "@type":"BreadcrumbList",
-      "itemListElement":[${breadcrumbResult}]  
-      }`
+  const structuredBreadcrumb = `{ "@context":"https://schema.org", "@type":"BreadcrumbList", "itemListElement":[${breadcrumbResult}] }`
 
   const taboolaScript =
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
