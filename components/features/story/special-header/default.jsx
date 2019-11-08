@@ -32,7 +32,15 @@ const gradientBg = {
 
 const StorySpecialHeader = () => {
   const { arcSite, contextPath, globalContent: data } = useFusionContext()
-  const { title, link, editorNote, promoItems } = new StoryData({
+  const {
+    title,
+    link,
+    editorNote,
+    promoItems,
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+  } = new StoryData({
     data,
     contextPath,
   })
@@ -46,10 +54,16 @@ const StorySpecialHeader = () => {
 
   const titleParams = { title, editorNote }
   const socialParams = { title, link, siteUrl, siteNameRedSocial }
-
+  const parameters = {
+    ...promoItems,
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+    showCaption: false,
+  }
   return (
     <div className={classes.image}>
-      <StoryContentsChildMultimedia data={promoItems} showCaption={false} />
+      <StoryContentsChildMultimedia data={parameters} />
       <div className={classes.gradientLayer} style={gradientBg} />
       <div className={classes.story}>
         {editorNote && (
