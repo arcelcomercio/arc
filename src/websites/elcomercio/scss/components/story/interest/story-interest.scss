@@ -2,7 +2,7 @@
   &__titleList {
     border-top: 1px solid $border-gray;
     text-align: left;
-    font-family: $fourth-font;
+    font-family: $primary-font;
     @media (--only-mobile) {
       padding-left: 0;
       font-size: 16px;
@@ -41,7 +41,7 @@
     }
   }
   &__category-link {
-    font-family: $fourth-font;
+    font-family: $primary-font;
     font-size: 11px;
     font-weight: 500;
   }
@@ -51,7 +51,7 @@
     }
   }
   &__title-link {
-    font-family: $fourth-font;
+    font-family: $primary-font;
     color: $color-gray-300;
     margin-bottom: 15px;
     font-size: 20px;
