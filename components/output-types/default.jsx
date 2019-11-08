@@ -7,7 +7,11 @@ import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import ChartbeatBody from './_children/chartbeat-body'
-import { skipAdvertising, storyTagsBbc } from '../utilities/helpers'
+import {
+  skipAdvertising,
+  storyTagsBbc,
+  addSlashToEnd,
+} from '../utilities/helpers'
 
 export default ({
   children,
@@ -194,6 +198,15 @@ export default ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
+  const {
+    website_url: url = '',
+    content_restrictions: { content_code: contentCode = '' } = {},
+  } = globalContent || {}
+
+  const isPremium = (contentCode === 'premium' && true) || false
+
+  const htmlAmpIs = arcSite === 'gestion' && isPremium ? '' : true
+
   return (
     <html lang="es">
       <head>
@@ -205,6 +218,14 @@ export default ({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
+        {isStory && htmlAmpIs && (
+          <link
+            rel="amphtml"
+            href={`${siteProperties.siteUrl}${addSlashToEnd(
+              url
+            )}?outputType=amp`}
+          />
+        )}
         <title>{title}</title>
         <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
