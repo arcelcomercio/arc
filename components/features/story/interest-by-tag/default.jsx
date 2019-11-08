@@ -83,7 +83,7 @@ const InterestByTag = props => {
                   section: instance.primarySection,
                   sectionLink: instance.primarySectionLink,
                   lazyImage: instance.multimediaLazyDefault,
-                  multimediaLandscapeS: instance.multimediaLandscapeS,
+                  multimediaLandscapeMD: instance.multimediaLandscapeMD,
                   multimediaLandscapeL: instance.multimediaLandscapeL,
                   multimediaType: instance.multimediaType,
                   isAdmin,

@@ -22,7 +22,7 @@ const StorySeparatorChildItem = ({ data }) => {
     sectionLink,
     lazyImage,
     // multimediaLandscapeS,
-    multimediaLandscapeL,
+    multimediaLandscapeMD,
     multimediaType,
     isAdmin,
   } = data
@@ -42,8 +42,8 @@ const StorySeparatorChildItem = ({ data }) => {
             /> */}
             <img
               className={`${isAdmin ? '' : 'lazy'} ${classes.itemImage}`}
-              src={isAdmin ? multimediaLandscapeL : lazyImage}
-              data-src={multimediaLandscapeL}
+              src={isAdmin ? multimediaLandscapeMD : lazyImage}
+              data-src={multimediaLandscapeMD}
               alt={title}
               title={title}
             />
