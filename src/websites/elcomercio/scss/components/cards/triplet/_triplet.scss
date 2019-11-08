@@ -19,7 +19,7 @@
     font-weight: 700;
     font-size: 17px;
     line-height: 20px;
-    font-family: $fourth-font;
+    font-family: $primary-font;
     @media (--desktop) {
       font-size: 16px;
     }
@@ -40,7 +40,7 @@
     }
   }
   &__link {
-    font-family: $fourth-font;
+    font-family: $primary-font;
   }
   &__icon {
     background-color: transparent;

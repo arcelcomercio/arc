@@ -1,10 +1,10 @@
 .columnist-premium {
   &__name,
   &__section {
-    font-family: $fourth-font;
+    font-family: $primary-font;
     text-transform: uppercase;
   }
   &__description {
-    font-family: $fifth-font;
+    font-family: $tertiary-font;
   }
 }

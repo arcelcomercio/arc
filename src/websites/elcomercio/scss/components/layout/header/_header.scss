@@ -12,7 +12,7 @@
     font-weight: 600;
     font-size: 14px;
     text-transform: capitalize;
-    font-family: $fourth-font;
+    font-family: $primary-font;
     @media (--tablet) {
       font-size: 15px;
     }
@@ -21,7 +21,7 @@
     border-bottom: 1px dashed $color-gray-200;
   }
   &__date {
-    font-family: $tertiary-font;
+    font-family: $secondary-font;
   }
   &__featured {
     list-style-type: disc;
@@ -31,7 +31,7 @@
     }
   }
   &__tags {
-    font-family: $tertiary-font;
+    font-family: $secondary-font;
     text-transform: uppercase;
   }
   &__item {
