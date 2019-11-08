@@ -5,12 +5,12 @@
   h4,
   h5,
   h6 {
-    font-family: $fifth-font;
+    font-family: $tertiary-font;
   }
   .related-content__title,
   .related-internal__title-link,
   .story-header__news-title {
-    font-family: $fourth-font;
+    font-family: $primary-font;
   }
   .nav {
     height: 46px;
@@ -169,13 +169,13 @@
   &.special_basic,
   &.archivo-elcomercio {
     .story-special-title_note {
-      font-family: $fourth-font;
+      font-family: $primary-font;
       @media (--only-mobile) {
         font-size: 18px;
       }
     }
     .story-header__news-title {
-      font-family: $fourth-font;
+      font-family: $primary-font;
       @media (--desktop) {
         font-size: 45px;
       }

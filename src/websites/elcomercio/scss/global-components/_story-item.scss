@@ -85,7 +85,7 @@
     font-size: 16px;
     color: #666666;
 
-    font-family: $fifth-font;
+    font-family: $tertiary-font;
     @media (--tablet) {
       display: block;
     }
@@ -119,7 +119,7 @@
       font-size: 24px;
       line-height: 28px;
     }
-    font-family: $fourth-font;
+    font-family: $primary-font;
     letter-spacing: 0px;
     color: $color-gray-300;
     font-weight: 700;
