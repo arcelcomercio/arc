@@ -28,7 +28,7 @@
       &__button {
         top: 10px;
         font-weight: 700;
-        font-family: $tertiary-font;
+        font-family: $secondary-font;
       }
     }
   }
@@ -80,7 +80,7 @@
       &__title {
         font-weight: 700;
         font-size: 18px;
-        font-family: $fourth-font;
+        font-family: $primary-font;
         max-height: 74px;
         @media (--desktop) {
           font-size: 14px;
@@ -88,12 +88,12 @@
       }
       &__header-title {
         font-size: 18px;
-        font-family: $fourth-font;
+        font-family: $primary-font;
         padding-bottom: 30px;
       }
-      &__header-link {
+      /*  &__header-link {
         font-weight: 900;
-      }
+      } */
 
       &__button {
         top: 10px;
@@ -155,7 +155,7 @@
         font-size: 15px;
         -webkit-line-clamp: 3;
         max-height: calc(15px * 1.3333 * 3);
-        font-family: $fourth-font;
+        font-family: $primary-font;
         @media (--desktop) {
           -webkit-line-clamp: 4;
           max-height: calc(15px * 1.3333 * 4);

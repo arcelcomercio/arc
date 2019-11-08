@@ -1,6 +1,6 @@
 .story-tags {
   &__title {
-    font-family: $fourth-font;
+    font-family: $primary-font;
     @media (--tablet) {
       font-size: 16px;
     }
@@ -11,7 +11,7 @@
     text-decoration: underline;
     padding-left: 0;
     font-style: italic;
-    font-family: $fifth-font;
+    font-family: $tertiary-font;
     font-size: 18px;
     @media (--tablet) {
       font-size: 20px;
