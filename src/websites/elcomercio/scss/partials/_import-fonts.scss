@@ -78,23 +78,3 @@
   // url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.svg#NotoSerifSC')
   // format('svg'); /* Legacy iOS */
 }
-
-/* noto-serif-sc-900 - latin */
-@font-face {
-  font-family: 'Noto Serif SC';
-  font-style: normal;
-  font-weight: 900;
-  src: local('Noto Serif SC Black'), local('NotoSerifSC-Black'),
-    url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-900.woff2')
-      format('woff2'),
-    /* Super Modern Browsers */
-      url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-900.woff')
-      format('woff');
-  font-display: swap;
-  /* Modern Browsers */
-  // url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-900.ttf')
-  // format('truetype');
-  /* Safari, Android, iOS */
-  // url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-900.svg#NotoSerifSC')
-  // format('svg'); /* Legacy iOS */
-}
