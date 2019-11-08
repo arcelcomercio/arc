@@ -9,7 +9,7 @@ const classes = {
   audio: 'pt-10 w-full',
 }
 
-const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
+const StoryContentChildMultimedia = ({ data } = []) => {
   const {
     basic_video: {
       embed_html: embedHtml = '',
@@ -28,6 +28,7 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
+    showCaption,
   } = data
   const { type: typeImage, caption = '' } = basic || {}
 
@@ -36,6 +37,7 @@ const StoryContentChildMultimedia = ({ data, showCaption } = []) => {
     multimediaStorySmall,
     multimediaLarge,
     caption,
+    showCaption,
   }
 
   return (

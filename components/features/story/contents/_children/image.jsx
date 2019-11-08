@@ -10,6 +10,7 @@ const StoryContentChildImage = ({
   multimediaStorySmall,
   multimediaLarge,
   caption,
+  showCaption = true,
 }) => {
   return (
     <>
@@ -22,7 +23,9 @@ const StoryContentChildImage = ({
           alt={caption}
           title={caption}
         />
-        <figcaption className={classes.caption}>{caption} </figcaption>
+        {showCaption && (
+          <figcaption className={classes.caption}>{caption} </figcaption>
+        )}
       </picture>
     </>
   )
