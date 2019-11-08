@@ -32,6 +32,9 @@ const StoryGallery = () => {
     link,
     subtype,
     promoItems,
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
   } = new StoryData({
     data,
     contextPath,
@@ -58,6 +61,13 @@ const StoryGallery = () => {
     infografia: { content: embedHtmlPromoItems = '' } = {},
   } = promoItems
 
+  const parametersPromoItems = {
+    ...promoItems,
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+  }
+
   return (
     <>
       {contentElementGallery ? (
@@ -80,7 +90,7 @@ const StoryGallery = () => {
       {subtype === ConfigParams.BIG_IMAGE ||
       subtype === ConfigParams.SPECIAL_BASIC ? (
         <div className={classes.image}>
-          <StoryContentsChildMultimedia data={promoItems} />
+          <StoryContentsChildMultimedia data={parametersPromoItems} />
         </div>
       ) : (
         ''
