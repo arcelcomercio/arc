@@ -68,8 +68,8 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-    nameSeccion.split('/')[1]
-    } ${subtype} `
+        nameSeccion.split('/')[1]
+      } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -101,7 +101,7 @@ export default ({
       title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
     } else if (
       pageNumber > 1 &&
-      (metaValue('id') === 'meta_tag' || metaValue('id') === "meta_author")
+      (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')
       /*  || metaValue('id') === "meta_search" */
     ) {
       title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteName}`
@@ -112,14 +112,16 @@ export default ({
   const title = getTitle()
 
   const getDescription = () => {
-    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
+    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
+      siteProperties.siteName
+    }.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
     ) {
       if (
-        pageNumber > 1 &&
-        metaValue('id') === 'meta_tag' || metaValue('id') === "meta_author"
+        (pageNumber > 1 && metaValue('id') === 'meta_tag') ||
+        metaValue('id') === 'meta_author'
         /*  || metaValue('id') === "meta_search" */
       ) {
         description = `${metaValue('description')} Página ${pageNumber}.`
@@ -135,7 +137,9 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -194,6 +198,13 @@ export default ({
     <html lang="es">
       <head>
         <TagManager {...siteProperties} />
+
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
         <title>{title}</title>
         <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -206,13 +217,7 @@ export default ({
             rel="stylesheet"
           />
         )}
-        {renderMetaPage(metaValue('id'), metaPageData)}
-        <meta charSet="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
+
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         {arcSite === 'elcomerciomag' && (
@@ -221,7 +226,7 @@ export default ({
         {isStory ? '' : <meta name="keywords" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-
+        {renderMetaPage(metaValue('id'), metaPageData)}
         <AppNexus
           arcSite={arcSite}
           requestUri={requestUri}
@@ -295,7 +300,9 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              siteProperties.googleTagManagerId
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

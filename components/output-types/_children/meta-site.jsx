@@ -15,19 +15,9 @@ export default ({
   arcSite = '',
   contextPath = '',
 } = {}) => {
-  const structuredData = `{
-    "@context" : "http://schema.org",
-    "@type" : "Organization",
-    "name" : "${siteName}",
-    "url" : "${siteUrl}/",
-    "logo": "${deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
-    )}",
-    "sameAs" : [
-      "${facebook.url || ''}",
-      "${twitter.url || ''}"
-    ]
-  }`
+  const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${deployment(
+    `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
+  )}",  "sameAs" : [ "${facebook.url || ''}", "${twitter.url || ''}" ] }`
 
   const charbeatScript = `
           var _sf_async_config = _sf_async_config || {}
