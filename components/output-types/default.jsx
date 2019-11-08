@@ -178,6 +178,20 @@ export default ({
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));`
 
+  const structuredDetectIncognito = `(async function() {
+    if ("storage" in navigator && "estimate" in navigator.storage) {
+      var { usage, quota } = await navigator.storage.estimate();
+      if (quota < 120000000) {
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({
+          event: 'tag_signwall',
+          eventCategory: 'Web_Sign_Wall_Security',
+          eventAction: 'web_sws_mode_incognito',
+        })
+      }
+    }
+  })()`
+
   const { googleFonts = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
@@ -356,6 +370,7 @@ export default ({
           </>
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
+        <script dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }} />
       </body>
     </html>
   )
