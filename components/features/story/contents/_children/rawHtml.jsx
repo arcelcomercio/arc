@@ -18,6 +18,10 @@ const clearUrlOrCode = (url = '') => {
   return { clearUrl, code: clearUrl.split('#')[1] }
 }
 
+const isDaznServicePlayer = content =>
+  content.includes('player.daznservices.com/') ||
+  content.includes('player.performgroup.com/')
+
 class rawHTML extends PureComponent {
   constructor(props) {
     super(props)
@@ -36,14 +40,17 @@ class rawHTML extends PureComponent {
       const [URI] = rgexpURL.exec(scriptResult) || []
       this.URL = URI
     } else if (
-      content.includes('player.daznservices.com/') &&
+      isDaznServicePlayer(content) &&
       content.match(/^<script(.*)<\/script>$/)
     ) {
       const idVideos = storyVideoPlayerId(content)
+      const urlAssignHttp = idVideos[1]
+        .replace('src="//', 'https://')
+        .replace('performgroup', 'daznservices')
 
       this.URL_VIDEO = content.includes('id')
-        ? `${idVideos[1].replace('src="//', 'https://')}id=${idVideos[2]}`
-        : `${idVideos[1].replace('src="//', 'https://')}`
+        ? `${urlAssignHttp}id=${idVideos[2]}`
+        : `${urlAssignHttp}`
 
       this.ID_VIDEO = content.includes('id') && `${idVideos[2]}`
     } else {
@@ -60,9 +67,7 @@ class rawHTML extends PureComponent {
       const { content } = this.props
       const idVideo = storyVideoPlayerId(content)
       const idElement =
-        content.includes('player.daznservices.com/') &&
-        content.includes('id') &&
-        idVideo[2]
+        isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
           ? `id_video_embed_${this.ID_VIDEO}`
           : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
       const myList = document.getElementById(idElement)
@@ -83,9 +88,7 @@ class rawHTML extends PureComponent {
     const idVideo = storyVideoPlayerId(content)
 
     const idVideoEmbed =
-      content.includes('player.daznservices.com/') &&
-      content.includes('id') &&
-      idVideo[2]
+      isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
         : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
 
@@ -94,7 +97,11 @@ class rawHTML extends PureComponent {
         <div
           id={idVideoEmbed}
           className={classes.newsEmbed}
-          dangerouslySetInnerHTML={{ __html: content }}
+          dangerouslySetInnerHTML={{
+            __html: isDaznServicePlayer(content)
+              ? content.replace('performgroup', 'daznservices')
+              : content,
+          }}
         />
       </>
     )
