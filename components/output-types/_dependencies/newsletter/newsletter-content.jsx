@@ -44,6 +44,10 @@ const analyzeParagraph = paragraph => {
     case ConfigParams.ELEMENT_HEADER:
       result += buildHeaderParagraph(paragraph.payload)
       break
+    case ConfigParams.ELEMENT_RAW_HTML:
+      result += paragraph.payload
+      
+      break
     default:
       result += ''
   }
