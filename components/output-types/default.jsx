@@ -178,6 +178,20 @@ export default ({
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));`
 
+  const structuredDetectIncognito = `(async function() {
+    if ("storage" in navigator && "estimate" in navigator.storage) {
+      var { usage, quota } = await navigator.storage.estimate();
+      if (quota < 120000000) {
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({
+          event: 'tag_signwall',
+          eventCategory: 'Web_Sign_Wall_Security',
+          eventAction: 'web_sws_mode_incognito',
+        })
+      }
+    }
+  })()`
+
   const { googleFonts = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
@@ -271,11 +285,12 @@ export default ({
         {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
-
-        {/* <!-- Identity & Sales & Paywall --> */}
+        
+        {/* <!-- Identity & Sales & Paywall - Inicio --> */}
         {siteProperties.activeSignwall && (
           <script
-            src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=1`}
+            src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+            defer
           />
         )}
         {siteProperties.activePaywall && (
@@ -284,12 +299,16 @@ export default ({
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
                 .toISOString()
                 .slice(0, 10)}`}
+              async
             />
             <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-sales.min.js`}
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-sales.min.js?v=07112019`}
+              defer
             />
           </>
         )}
+        {/* <!-- Identity & Sales & Paywall - Fin --> */}
+
       </head>
       <body className={classBody}>
         <noscript>
@@ -351,6 +370,7 @@ export default ({
           </>
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
+        <script dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }} />
       </body>
     </html>
   )

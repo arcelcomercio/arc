@@ -33,20 +33,6 @@ export default {
     errorDescription:
       'La página que buscas no existe, probablemente el enlace que usaste es erróneo, intenta ubicarlo en la página principal o usa el buscador para encontrar la noticia que buscas:',
   },
-  signwall: {
-    ORIGIN_API: 'https://api-sandbox.gestion.pe',
-    ORIGIN_IDENTITY_SDK:
-      'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-identity.min.js?v=1',
-    ORIGIN_SALES_SDK:
-      'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js',
-    ORIGIN_PAYU_SDK:
-      'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js',
-    PAYU_PAYMENT_SERVICE:
-      'https://sandbox.api.payulatam.com/payments-api/4.0/service',
-    FACEBOOK_APPID: '287130908774061',
-    GOOGLE_CLIENTID:
-      '1038751133917-m10doi4gb3tl4u01s4uaje60vbukh2bs.apps.googleusercontent.com',
-  },
   apps: {
     android: {
       url:
