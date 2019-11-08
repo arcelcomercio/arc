@@ -26,6 +26,7 @@ class rawHTML extends PureComponent {
     this.URL = ''
     this.ID_VIDEO = ''
     this.URL_VIDEO = ''
+    console.log(content)
     if (content.includes('widgets.js')) {
       const beginURL = content.indexOf('<script')
       const endURL = content.lastIndexOf('</script>')
