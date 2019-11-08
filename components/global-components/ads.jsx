@@ -2,6 +2,7 @@ import React from 'react'
 
 export default props => {
   const { adElement, isDesktop = true, isMobile = true, classes } = props
+  console.log(classes, classes ? classes.mobile : '')
   return (
     <>
       {adElement && isMobile && (
@@ -14,8 +15,9 @@ export default props => {
         <div
           id={`ads_d_${adElement}`}
           className={`flex justify-center ${classes &&
-            classes.desktop}${adElement === 'fotogaleria2' ||
-            (adElement === 'boton1' && ' lg:flex-col')}`}
+            classes.desktop}${(adElement === 'fotogaleria2' ||
+            adElement === 'boton1') &&
+            ' lg:flex-col'}`}
         />
       )}
     </>

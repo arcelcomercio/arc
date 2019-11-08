@@ -1137,11 +1137,29 @@ export const localISODate = date => {
   return localDate
 }
 
+export const clearBrTag = paragraph => {
+  return nbspToSpace(paragraph.trim().replace(/<\/?br[^<>]+>/, ''))
+}
+
+export const clearHtml = paragraph => {
+  return nbspToSpace(
+    clearBrTag(
+      paragraph
+        .trim()
+        .replace(/(<([^>]+)>)/gi, '')
+        .replace('   ', ' ')
+        .replace('  ', ' ')
+    )
+  )
+}
+
 export const storyContenImage = ({ resized_urls: resizedUrls, caption }) => {
-  return {  multimediaLandscapeMD: resizedUrls.medium,
+  return {
+    multimediaLandscapeMD: resizedUrls.medium,
     multimediaStorySmall: resizedUrls.content_small,
     multimediaLarge: resizedUrls.content,
-    caption}
+    caption,
+  }
 }
 
 /*
