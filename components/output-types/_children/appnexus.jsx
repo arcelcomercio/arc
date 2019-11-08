@@ -10,7 +10,7 @@ const getSite = site => {
     gestion: 'ges',
     publimetro: 'pub',
     peru21: 'p21',
-    bocon: 'boc',
+    elbocon: 'boc',
     ojo: 'ojo',
     correo: 'cor',
   }
