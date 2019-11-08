@@ -25,7 +25,7 @@ const StoryHeaderChildAmpGallery = props => {
           layout="responsive"
           type="slides"
           {...slider}
-          on={`slideChange:AMP.setState({selectedSlide: event.index}),AMP.navigateTo(url='${link}?foto=2&source=amp')`}
+          on={`slideChange:AMP.setState({selectedSlide: event.index}),AMP.navigateTo(url='${siteUrl}${link}?foto=2&source=amp')`}
           class="media gallery">
           {data.map(({ resized_urls: resizedUrls, url, caption }) => (
             <>

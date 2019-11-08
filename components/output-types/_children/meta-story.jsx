@@ -133,9 +133,9 @@ export default ({
     title
   )}",  "description":"${formatHtmlToText(subTitle)}",
     "articleBody":"${dataElement}",
-    "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },
-    ${imagenDefoult}
-    ${(videoSeoItems[0] && dataVideo) || ''}
+    "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${(videoSeoItems[0] &&
+    dataVideo) ||
+    ''}
     "author":{    "@type":"Person",   "name":"${seoAuthor}"    },
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${siteUrl}${deployment(
     `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
@@ -238,7 +238,6 @@ export default ({
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
-
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}
