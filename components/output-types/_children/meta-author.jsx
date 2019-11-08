@@ -90,13 +90,13 @@ export default ({
       {pages.prev && (
         <>
           <link rel="prev" href={urlPrevPage} />
-          <link rel="prefetch" href={urlPrevPage} />
+          {/* <link rel="prefetch" href={urlPrevPage} /> */}
         </>
       )}
       {pages.next && (
         <>
           <link rel="next" href={urlNextPage} />
-          <link rel="prefetch" href={urlNextPage} />
+          {/* <link rel="prefetch" href={urlNextPage} /> */}
         </>
       )}
       <script
