@@ -13,9 +13,11 @@ import addPayU from '../../utils/payu'
 import { PayuError } from '../../utils/payu-error'
 import Services from '../../utils/services'
 import Radiobox from './Radiobox'
+import Cookie from '../../utils/cookie'
 // import FormValid from '../../utils/form-valid'
 
 const services = new Services()
+const cookies = new Cookie()
 
 const Cards = [
   {
@@ -420,12 +422,14 @@ class SubDetail extends Component {
                   return null
                 })}
                 <p>
+                  {' '}
                   que termina en
                   <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
                 </p>
               </div>
               <div className="right">
-                {ENV.ENVIRONMENT === 'elcomercio' ? null : (
+                {ENV.ENVIRONMENT === 'elcomercio' ||
+                cookies.getCookie('check_qa') === null ? null : (
                   <Button
                     type="button"
                     onClick={() => this.showUpdatePayment()}>

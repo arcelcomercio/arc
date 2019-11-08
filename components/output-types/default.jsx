@@ -270,11 +270,13 @@ export default ({
         />
         {/* <!-- Rubicon BlueKai - Fin --> */}
 
+        <Libs />
+        
         {/* <!-- Identity & Sales & Paywall - Inicio --> */}
         {siteProperties.activeSignwall && (
           <script
             src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-            async
+            defer
           />
         )}
         {siteProperties.activePaywall && (
@@ -286,13 +288,11 @@ export default ({
             />
             <script
               src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-sales.min.js?v=07112019`}
-              async
+              defer
             />
           </>
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
-
-        <Libs />
 
       </head>
       <body className={classBody}>
