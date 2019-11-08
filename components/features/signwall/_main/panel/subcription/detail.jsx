@@ -428,14 +428,14 @@ class SubDetail extends Component {
                 </p>
               </div>
               <div className="right">
-                {ENV.ENVIRONMENT === 'elcomercio' ||
-                cookies.getCookie('check_qa') === null ? null : (
+                {ENV.ENVIRONMENT !== 'elcomercio' ||
+                cookies.getCookie('check_qa') ? (
                   <Button
                     type="button"
                     onClick={() => this.showUpdatePayment()}>
                     {ShowUpdateCard ? 'CERRAR' : 'EDITAR'}
                   </Button>
-                )}
+                ) : null}
               </div>
             </S.Fieldset>
 
