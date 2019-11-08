@@ -66,7 +66,6 @@ const StoryGallery = () => {
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
-    showCaption: false,
   }
 
   return (
