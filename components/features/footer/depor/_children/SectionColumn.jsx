@@ -4,7 +4,6 @@ const classes = {
   sectionColumn:
     'footer-secction__content-column footer-secction__item-border flex flex-col',
   item: 'footer-secction__item',
-  itemTop:'',
 }
 
 const ItemLinkSubSection = ({ url, subsectionName }) => (

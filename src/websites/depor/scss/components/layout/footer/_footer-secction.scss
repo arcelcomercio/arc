@@ -1,4 +1,7 @@
 .footer-secction {
+  &__item {
+    color: $color-primary;
+  }
   &__item,
   &__link-footer,
   &__site-item,
