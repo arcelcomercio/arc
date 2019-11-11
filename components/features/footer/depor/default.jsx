@@ -30,12 +30,12 @@ const classes = {
 class FooterDepor extends PureComponent {
   constructor(props) {
     super(props)
-
+    const {arcSite} = this.props
     this.fetchContent({
       sections: {
         source: CONTENT_SOURCE,
         query: {
-          website: 'depor',
+          website: arcSite,
           hierarchy: DEFAULT_HIERARCHY,
         },
         filter: SCHEMA,
@@ -46,6 +46,7 @@ class FooterDepor extends PureComponent {
   render() {
     const { sections: { children = [] } = {} } = this.state
     const {
+      arcSite,
       siteProperties: {
         gecSites,
         siteUrl = '',
@@ -64,7 +65,7 @@ class FooterDepor extends PureComponent {
     // const imageDefault =  `${contextPath}/resources/dist/depor/images/logo.png`
     const { deployment } = this.props
     const imageDefault = deployment(
-      `${contextPath}/resources/dist/depor/images/logo.png`
+      `${contextPath}/resources/dist/${arcSite}/images/logo.png`
     )
 
     const footerProps = {
