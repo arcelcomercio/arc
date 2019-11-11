@@ -31,7 +31,6 @@ const Portal = ({ theme }) => {
   const corporateUrl = interpolateUrl(urls.corporateSuscription)
   const originSalesSdkUrl = interpolateUrl(urls.originSalesSdk)
   const originSubsOnline = interpolateUrl(urls.originSubsOnline)
-  const reviewVideoUrl = interpolateUrl(urls.reviewVideo)
 
   React.useEffect(() => {
     // Accion de datalayer "productImpressions"
@@ -119,9 +118,11 @@ const Portal = ({ theme }) => {
             id="vjs_video_1_html5_api"
             poster={theme.images.reviewPoster}
             preload="auto"
-            controls
-            src={reviewVideoUrl}>
-            <source src={reviewVideoUrl} type="application/vnd.apple.mpegurl" />
+            controls>
+            <source
+              src={interpolateUrl(urls.reviewVideo)}
+              type="application/vnd.apple.mpegurl"
+            />
           </S.ReviewVideo>
         </S.Review>
       )}
