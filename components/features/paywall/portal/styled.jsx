@@ -37,7 +37,7 @@ export const Review = styled.div`
     display: flex;
     padding-top: 25px;
     padding-bottom: 40px;
-    align-content: center;
+    align-content: right;
     flex-direction: column;
     width: 100%;
     background: url(${theme.images.backgroundReview});
