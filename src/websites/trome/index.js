@@ -22,5 +22,5 @@ import './images/arrow-left-circle.png'
 import './images/d.png'
 import './images/arrow-right-2.png'
 import './images/logo-depor.jpg'
-
+import './images/super_llamada_ganadora_trome.png'
 import '../../../components/utilities/lazyload'
