@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useRef, useEffect } from 'react'
 
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
@@ -82,6 +83,7 @@ export default ({
   isStory,
   shareButtons,
   postTitle,
+  siteName,
 }) => {
   const inputSearch = useRef(null)
   const [showMenu, toggleMenu] = useState(false)
@@ -148,6 +150,7 @@ export default ({
     else popUpWindow(item.link, '', 600, 400)
   }
 
+  const siteNameTrome = 'Trome'
   return (
     <>
       <div
@@ -350,12 +353,18 @@ export default ({
                   </ul>
                 </div>
               </>
-            ) : (
+            ) : siteName !== siteNameTrome ? (
               <div className={classes.btnContainer}>
                 <a
                   href="/resultados/futbol/resultados/"
                   className={classes.btnResult}>
                   Resultados
+                </a>
+              </div>
+            ) : (
+              <div>
+                <a href="https://trome.pe/registro/super-llamada-ganadora/" >
+                  <img src="https://assets.trome.pe/img/super_llamada_ganadora_trome.png" alt='Lamada Ganadora'/>
                 </a>
               </div>
             )}

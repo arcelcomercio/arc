@@ -24,7 +24,7 @@ const HeaderFull = props => {
     },
   } = useFusionContext()
 
-  const { footer: { socialNetworks = [] } = {} } = siteProperties
+  const { footer: { socialNetworks = [] } = {},siteName='' } = siteProperties
 
   const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
 
@@ -120,6 +120,7 @@ const HeaderFull = props => {
       `${contextPath}/resources/dist/${arcSite}/images/alternate-logo-w.png`
     ),
     shareButtons,
+    siteName,
   }
   return <HeaderFullView {...params} />
 }
