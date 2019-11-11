@@ -81,6 +81,7 @@ class XmlNewsletterFeed {
               epigraph: storyData.subTitle,
               seccion: storyData.primarySection,
               url_seccion: `${siteUrl}${storyData.primarySectionLink}`,
+              content:'',
               autor: {
                 nombre: storyData.author,
                 url: `${siteUrl}${storyData.authorLink}`,
