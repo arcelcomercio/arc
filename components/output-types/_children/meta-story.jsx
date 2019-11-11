@@ -254,6 +254,7 @@ export default ({
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{ __html: scriptTaboola }}
+          async
         />
       )}
     </>

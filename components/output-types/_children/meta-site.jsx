@@ -24,6 +24,7 @@ export default ({
           /** CONFIGURATION START **/
           _sf_async_config.uid = ${charbeatAccountNumber} // ACCOUNT NUMBER
           _sf_async_config.domain = "${siteDomain}" // DOMAIN TRACKED
+          _sf_async_config.flickerControl = false
           _sf_async_config.useCanonical = true
           var _sf_startpt = new Date().getTime()
           /** CONFIGURATION END **/`
