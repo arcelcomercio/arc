@@ -19,6 +19,7 @@
     transform: none;
   }
   &__logo {
+    max-width: 170px;
     @media (--tablet) {
       max-width: 170px;
     }
@@ -26,5 +27,10 @@
   }
   &__megamenu {
     top: 46px;
+  }
+  &__call-img {
+    @media (--desktop) {
+      display: block;
+    }
   }
 }

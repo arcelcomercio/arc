@@ -30,6 +30,7 @@ const classes = {
   angleRight:
     'icon-right header-full__angle flex justify-center items-center text-white',
   right: 'header-full__right flex items-center',
+  callImg: 'header-full__call-img flex items-center hidden',
   subMenuList: 'header-full__submenu-list',
   subMenuItem: 'header-full__submenu-item pr-25 pl-25 pt-5 pb-5 flex',
   btnContainer: 'header-full__btn-container',
@@ -362,9 +363,12 @@ export default ({
                 </a>
               </div>
             ) : (
-              <div>
-                <a href="https://trome.pe/registro/super-llamada-ganadora/" >
-                  <img src="https://assets.trome.pe/img/super_llamada_ganadora_trome.png" alt='Lamada Ganadora'/>
+              <div className={classes.callImg}>
+                <a href="https://trome.pe/registro/super-llamada-ganadora/">
+                  <img
+                    src="https://assets.trome.pe/img/super_llamada_ganadora_trome.png"
+                    alt="Lamada Ganadora"
+                  />
                 </a>
               </div>
             )}
