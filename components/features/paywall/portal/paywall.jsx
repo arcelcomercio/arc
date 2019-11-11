@@ -31,6 +31,7 @@ const Portal = ({ theme }) => {
   const corporateUrl = interpolateUrl(urls.corporateSuscription)
   const originSalesSdkUrl = interpolateUrl(urls.originSalesSdk)
   const originSubsOnline = interpolateUrl(urls.originSubsOnline)
+  const reviewVideoUrl = interpolateUrl(urls.reviewVideo)
 
   React.useEffect(() => {
     // Accion de datalayer "productImpressions"
@@ -107,6 +108,21 @@ const Portal = ({ theme }) => {
           </S.ClickToCallWrapper>
         </S.FooterContent>
       </S.Footer>
+      <S.Review>
+        <S.ReviewComment>
+          <S.Comment>{msgs.reviewComment}</S.Comment>
+          <S.ReviewCaption bold>{msgs.reviewOwnerName}</S.ReviewCaption>
+          <S.ReviewCaption>{msgs.reviewOwnerRole}</S.ReviewCaption>
+        </S.ReviewComment>
+        <S.ReviewVideo
+          id="vjs_video_1_html5_api"
+          poster={theme.images.reviewPoster}
+          preload="auto"
+          controls
+          src={reviewVideoUrl}>
+          <source src={reviewVideoUrl} type="application/vnd.apple.mpegurl" />
+        </S.ReviewVideo>
+      </S.Review>
     </S.Portal>
     // </FillHeight>
   )

@@ -8,9 +8,10 @@ export const Portal = styled.div`
     ${theme.breakpoints.up('md')} {
       background: url(${theme.images.backgroundx1});
     }
-
     ${theme.breakpoints.down('sm')} {
-      background: ${backgroundColor ? theme.palette.lighten(theme.palette.secondary.main, 0.8) : theme.palette.lighten(theme.palette.primary.main, 0.9) };
+      background: ${backgroundColor
+        ? theme.palette.lighten(theme.palette.secondary.main, 0.8)
+        : theme.palette.lighten(theme.palette.primary.main, 0.9)};
     }
   `}
 `
@@ -27,6 +28,86 @@ export const PortalContent = styled.div`
       flex-direction: column;
       min-width: auto;
       align-items: center;
+    }
+  `}
+`
+
+export const Review = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    padding-top: 25px;
+    padding-bottom: 40px;
+    align-content: center;
+    flex-direction: column;
+    width: 100%;
+    background: url(${theme.images.backgroundReview});
+    background-position-x: center;
+    background-position-y: bottom;
+    ${theme.breakpoints.down('xs')} {
+      padding-bottom: 0px;
+    }
+  `}
+`
+
+export const ReviewComment = styled.div`
+  display: flex;
+  align-self: center;
+  max-width: 930px;
+  margin: 0px 40px;
+  flex-direction: column;
+  font-family: OpenSans;
+  font-size: 25px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: italic;
+  line-height: 1.84;
+  letter-spacing: 2.25px;
+  text-align: center;
+  color: #ffffff;
+`
+
+export const Comment = styled.div`
+  ${({ theme }) => css`
+    font-family: OpenSans;
+    font-size: 25px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 1.84;
+    letter-spacing: 2.25px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 10px;
+    ${theme.breakpoints.down('xs')} {
+      font-size: 19px;
+      line-height: 1.64;
+    }
+  `}
+`
+
+export const ReviewCaption = styled.div`
+  ${({ theme }) => css`
+    font-size: 16px;
+    font-weight: ${props => (props.bold ? 'bold' : 'normal')};
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 1.28px;
+    text-align: right;
+    color: #ffffff;
+    ${theme.breakpoints.down('xs')} {
+      font-size: 12px;
+      line-height: 1.64;
+    }
+  `}
+`
+
+export const ReviewVideo = styled.video`
+  ${({ theme }) => css`
+    align-self: center;
+    width: 600px;
+    margin-top: 40px;
+    ${theme.breakpoints.down('xs')} {
+      width: 100%;
     }
   `}
 `
@@ -107,7 +188,7 @@ export const SubscribedText = styled.div`
   line-height: 24px;
   width: 100%;
   box-sizing: border-box;
-  & div{
+  & div {
     flex-direction: column;
     display: flex;
     & span:first-child {

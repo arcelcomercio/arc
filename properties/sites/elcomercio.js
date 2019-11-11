@@ -99,6 +99,7 @@ export default {
       // URLS
       canonical:                         `https://elcomercio.pe/suscripcionesdigitales/`,
       image:                             `https://elcomercio.pe/pf/resources/dist/elcomercio/images/logo_fb.jpg?d=158`,
+      reviewVideo:                       `http://perufront.com/EL_COMERCIO_SUBTITULOS.mp4`,
       clickToCall:                       `https://c2c.kontactame.com/call/?id=161`,
       pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.elcomercio.pe`,
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.elcomercio.pe`,
@@ -143,6 +144,8 @@ export default {
       confirmation:                      `{{contextPath}}/resources/dist/elcomercio/images/img_confirmation.{{ext}}`,
       support:                           `{{contextPath}}/resources/dist/elcomercio/images/img_soporte.{{ext}}`,
       backgroundx1:                      `{{contextPath}}/resources/dist/elcomercio/images/bg_planes_10.jpg`,
+      backgroundReview:                  `{{contextPath}}/resources/dist/elcomercio/images/bg_video.jpg`,
+      reviewPoster:                      `{{contextPath}}/resources/dist/elcomercio/images/review-poster.jpg`,
     }
   },
 
