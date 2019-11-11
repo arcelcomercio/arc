@@ -1,13 +1,30 @@
 .header-full {
+  height: 46px;
   &.active {
     .nav__loader-bar {
       background-color: #42c64c;
     }
   }
   &__link-nav {
-    font-family: $tertiary-font;
+    font-family: $primary-font;
   }
   &__btn-result {
-    font-family: $tertiary-font;
+    font-family: $primary-font;
+  }
+  &__box-logo {
+    background-color: transparent;
+  }
+  &__box-logo,
+  &__logo {
+    transform: none;
+  }
+  &__logo {
+    @media (--tablet) {
+      max-width: 170px;
+    }
+    height: 46px;
+  }
+  &__megamenu {
+    top: 46px;
   }
 }
