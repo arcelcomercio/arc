@@ -75,7 +75,6 @@ export default {
       // URLS
       canonical:                         `https://gestion.pe/suscripcionesdigitales/`,
       image:                             `https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158`,
-      reviewVideo:                       `http://perufront.com/EL_COMERCIO_SUBTITULOS.mp4`,
       clickToCall:                       `https://c2c.kontactame.com/call/?id=162`,
       pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.gestion.pe`,
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.gestion.pe`,
@@ -119,9 +118,7 @@ export default {
       corporativo:                       `{{contextPath}}/resources/dist/gestion/images/img_corporativo.{{ext}}`,
       confirmation:                      `{{contextPath}}/resources/dist/gestion/images/img_confirmation.{{ext}}`,
       support:                           `{{contextPath}}/resources/dist/gestion/images/img_soporte.{{ext}}`,
-      backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`,
-      backgroundReview:                  `{{contextPath}}/resources/dist/gestion/images/bg_video.jpg`,
-      reviewPoster:                      `{{contextPath}}/resources/dist/gestion/images/review_poster.jpg`,
+      backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`
     }
   },
   assets: {
