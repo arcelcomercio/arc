@@ -398,6 +398,7 @@ class SignwallComponent extends PureComponent {
         {this.checkCookieHash() &&
         !this.checkSession() &&
         showRelogHash &&
+        !window.navigator.userAgent.match(/iPhone/i) &&
         siteProperties.activePaywall ? (
           <SignwallReHash
             closePopup={() => this.closeRelogHash()}
