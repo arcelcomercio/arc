@@ -55,7 +55,7 @@ export const ReviewComment = styled.div`
   max-width: 930px;
   margin: 0px 40px;
   flex-direction: column;
-  font-family: OpenSans;
+  font-family: Open Sans;
   font-size: 25px;
   font-weight: normal;
   font-stretch: normal;
@@ -68,7 +68,7 @@ export const ReviewComment = styled.div`
 
 export const Comment = styled.div`
   ${({ theme }) => css`
-    font-family: OpenSans;
+    font-family: Open Sans;
     font-size: 25px;
     font-weight: normal;
     font-stretch: normal;
