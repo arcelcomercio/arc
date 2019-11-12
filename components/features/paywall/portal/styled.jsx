@@ -43,6 +43,7 @@ export const Review = styled.div`
     background: url(${theme.images.backgroundReview});
     background-position-x: center;
     background-position-y: bottom;
+    background-size: cover;
     ${theme.breakpoints.down('xs')} {
       padding-bottom: 0px;
     }
