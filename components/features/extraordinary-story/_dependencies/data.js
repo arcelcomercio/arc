@@ -19,6 +19,7 @@ class Data extends StoryData {
     arcSite,
     defaultImgSize,
     customFields,
+    customPhoto,
   }) {
     super({
       data,
@@ -29,6 +30,7 @@ class Data extends StoryData {
     })
     this.arcSite = arcSite
     this.customFields = customFields
+    this.customPhoto = customPhoto
   }
 
   get title() {
@@ -61,7 +63,18 @@ class Data extends StoryData {
       this.multimediaOrientation === 'right'
         ? super.multimediaSquareL
         : super.multimediaLandscapeXL
-    return this.customFields.image || multimedia
+
+    const {
+      resized_urls: { landscape_xl: landscapeXl, square_l: squareL } = {},
+    } = this.customPhoto || {}
+
+    const customMultimedia =
+      this.multimediaOrientation === 'left' ||
+      this.multimediaOrientation === 'right'
+        ? squareL
+        : landscapeXl
+
+    return customMultimedia || this.customFields.image || multimedia
   }
 
   get multimediaService() {
@@ -130,11 +143,12 @@ class Data extends StoryData {
     }
     return Data.getSourceMultimedia(
       multimediaTypeFeature,
-      multimediaSourceFeature
+      multimediaSourceFeature,
+      multimedia
     )
   }
 
-  static getSourceMultimedia(multimediaType, multimedia) {
+  static getSourceMultimedia(multimediaType, multimedia, customMultimedia) {
     let multimediaContent = ''
     if (
       (multimediaType === ConfigParams.VIDEO ||
@@ -149,13 +163,13 @@ class Data extends StoryData {
         multimediaType === Data.IMAGE) &&
       multimedia !== ''
     ) {
-      multimediaContent = multimedia || ''
+      multimediaContent = customMultimedia || multimedia || ''
     } else if (
       (multimediaType === ConfigParams.IMAGE ||
         multimediaType === Data.IMAGE) &&
       multimedia !== ''
     ) {
-      multimediaContent = multimedia || ''
+      multimediaContent = customMultimedia || multimedia || ''
     }
     return multimediaContent
   }
