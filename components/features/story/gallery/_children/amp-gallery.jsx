@@ -9,6 +9,8 @@ const classes = {
   image: 'story-gallery__img w-full h-full mb-10',
   caption: 'story-gallery__caption text-gray-200 text-sm',
   controlRight: 'story-gallery__control-right',
+  pager: 'story-gallery__pager pb-15 pt-15 mb-5',
+  count: 'story-gallery__count font-bold text-center mx-auto',
 }
 
 const StoryHeaderChildAmpGallery = props => {
@@ -16,9 +18,15 @@ const StoryHeaderChildAmpGallery = props => {
   const slider = '[slide]="selectedSlide"'
   const imgTag = 'amp-img'
   const sizerImg = 'amp'
+  const numeroFoto = ' [text]="+selectedSlide + 1"'
   return (
     <>
       <div className={classes.gallery}>
+        <div className={classes.pager}>
+          <div className={classes.count}>
+            Foto <span {...numeroFoto}>1 </span> de {data.length}
+          </div>
+        </div>
         <amp-carousel
           width="600"
           height="480"

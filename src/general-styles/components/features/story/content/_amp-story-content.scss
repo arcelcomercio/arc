@@ -105,8 +105,8 @@
 
 .story-gallery {
   &__control-right {
-    width: 36px;
-    height: 36px;
+    width: 45px;
+    height: 46px;
     background: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 50%;
@@ -123,6 +123,21 @@
       left: 50%;
       top: 50%;
       background: url(/pf/resources/dist/elcomercio/images/arrow-right-2.png);
+    }
+  }
+  &__pager {
+    padding: 15px 0;
+    background-color: #d5e5ed;
+  }
+  &__count {
+    width: 128px;
+    background-color: #4aa8fa;
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.7;
+
+    & span {
+      color: #f8de00;
     }
   }
 }
