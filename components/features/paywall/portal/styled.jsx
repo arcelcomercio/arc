@@ -37,7 +37,6 @@ export const Review = styled.div`
     display: flex;
     padding-top: 25px;
     padding-bottom: 40px;
-    align-content: right;
     flex-direction: column;
     width: 100%;
     background: url(${theme.images.backgroundReview});
@@ -53,7 +52,7 @@ export const Review = styled.div`
 export const ReviewComment = styled.div`
   display: flex;
   align-self: center;
-  max-width: 930px;
+  max-width: 825px;
   margin: 0px 40px;
   flex-direction: column;
   font-family: Open Sans;
@@ -63,7 +62,6 @@ export const ReviewComment = styled.div`
   font-style: italic;
   line-height: 1.84;
   letter-spacing: 2.25px;
-  text-align: center;
   color: #ffffff;
 `
 
@@ -76,7 +74,7 @@ export const Comment = styled.div`
     font-style: italic;
     line-height: 1.84;
     letter-spacing: 2.25px;
-    text-align: center;
+    text-align: right;
     color: #ffffff;
     margin-bottom: 10px;
     ${theme.breakpoints.down('xs')} {
