@@ -414,6 +414,21 @@ class StoryData {
       .filter(String)
   }
 
+  get imagePrimarySeo() {
+ 
+    const promoItemsImage =
+      (this._data &&
+        this._data.promo_items &&
+        StoryData.getSeoMultimedia(this._data.promo_items, 'image')) ||
+      []
+
+    const promoItemsImagex = !Array.isArray(promoItemsImage)
+      ? [promoItemsImage]
+      : promoItemsImage
+    return promoItemsImagex
+
+  }
+
   // TODO: Cambiar la fecha a lo que se estandarice
   get date() {
     return this.displayDate
