@@ -1,7 +1,7 @@
 // https://elcomercio.arcpublishing.com/alc/arc-products/clavis
 
 /* eslint-disable */
-function hasLocalStorage() {
+export function hasLocalStorage() {
     try {
         const uid = new Date().toString();
         window.localStorage.setItem(uid, uid);
@@ -13,7 +13,7 @@ function hasLocalStorage() {
     }
 }
 
-function generateUUID() {
+export function generateUUID() {
     let d = new Date().getTime();
     const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
         /[xy]/g,
@@ -28,7 +28,7 @@ function generateUUID() {
     return uuid;
 }
 
-function getUUID() {
+export function getUUID() {
     let uuid = localStorage.getItem("uuid");
     if (!uuid) {
         uuid = generateUUID();
@@ -42,7 +42,7 @@ function getUUID() {
  * @param {string} clientName The Arc organization identifier.
  * @param {string} site The site service id for the given site. Required for multisite organizations.
  * 
- * @returns 
+ * @returns - Almacena la respuesta en LocalStorage
  * ```
  * UserProfile {
  *   userid:	string
