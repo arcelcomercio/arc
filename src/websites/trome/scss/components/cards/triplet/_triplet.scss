@@ -1,0 +1,38 @@
+.triplet {
+  padding: 0;
+  &__title-link {
+    color: $color-black;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  &__link {
+    color: $color-primary;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  &__item {
+    border: 0;
+    padding-bottom: 0;
+    @media (--only-mobile) {
+      flex-direction: row-reverse;
+    }
+    &--right {
+      .triplet__information {
+        @media (--only-mobile) {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+  &__multimedia {
+    width: 98px;
+    height: 98px;
+  }
+  &__information {
+    @media (--only-mobile) {
+      padding-left: 10px;
+    }
+    max-width: calc(100% - 98px);
+  }
+}
