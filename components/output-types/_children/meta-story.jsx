@@ -28,7 +28,7 @@ export default ({
     publishDate: lastPublishDate,
     subTitle,
     seoAuthor,
-    imagesSeo,
+    imagePrimarySeo,
     primarySection,
     primarySectionLink,
     videoSeo,
@@ -55,17 +55,16 @@ export default ({
     }
   )
 
-  const imagesSeoItems = imagesSeo.map((image, i) => {
+  const imagesSeoItems = imagePrimarySeo.map((image, i) => {
     const {
       subtitle = false,
       url = '',
       resized_urls: { amp_new: large = '' } = {},
     } = image || {}
-    const representativeOfPage = i === 0 ? '"representativeOfPage":true,' : ''
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
-    return `{   ${representativeOfPage} "@type":"ImageObject", "url": "${large ||
+    return `{  "@type":"ImageObject", "url": "${large ||
       url}", ${description} "height":800, "width":1200 }`
   })
 
@@ -100,7 +99,7 @@ export default ({
     : ''
 
   const imagenData = imagesSeoItems[1]
-    ? `"image":[ ${imagesSeoItems} ],`
+    ? `"image": ${imagesSeoItems[0]} ,`
     : `"image": ${imagesSeoItems},`
 
   const imagenDefoult = imagesSeoItems[0]
