@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
-
+import BuildContent from './_dependencies/build-content'
 /**
  * @description Feed para Newsletter.
  *
@@ -23,7 +23,7 @@ class XmlNewsletterFeed {
       arcSite,
       siteProperties: { siteUrl = '' } = {},
     } = this.props
-    const { content_elements: stories } = globalContent || {}
+    const { content_elements: stories,stories:storiesContent =[] } = globalContent || {}
 
     if (!stories) {
       return null
@@ -39,7 +39,7 @@ class XmlNewsletterFeed {
     const newsletterFeed = {
       rss: {
         '@version': '2.0',
-        channel: stories.map(story => {
+        channel: stories.map((story,index) => {
           const {
             promo_items: {
               basic: {
@@ -58,12 +58,8 @@ class XmlNewsletterFeed {
             } = {},
           } = story || {}
 
-          const CONTENT_SOURCE = 'story-by-id'
-
-
-
-
-          storyData.__data = story
+          // storyData.__data = story
+          storyData.__data = storiesContent[index]
 
           return {
             article: {
@@ -86,7 +82,7 @@ class XmlNewsletterFeed {
               epigraph: storyData.subTitle,
               seccion: storyData.primarySection,
               url_seccion: `${siteUrl}${storyData.primarySectionLink}`,
-              content:'',
+              content:BuildContent({paragraphsNews:storyData.paragraphsNews}) ,
               autor: {
                 nombre: storyData.author,
                 url: `${siteUrl}${storyData.authorLink}`,

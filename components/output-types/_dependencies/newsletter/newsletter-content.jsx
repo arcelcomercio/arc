@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContent } from 'fusion:content'
+// import { useContent } from 'fusion:content'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 import { clearHtml, clearBrTag } from '../../../utilities/helpers'
@@ -146,7 +146,7 @@ const StoryItem = props => {
     </article>
   )
 }
-const CONTENT_SOURCE = 'story-by-id'
+// const CONTENT_SOURCE = 'story-by-id'
 
 const NewsLetterContent = ({
   deployment,
@@ -156,6 +156,7 @@ const NewsLetterContent = ({
   websked,
   siteUrl,
   imagenNewsLetter,
+  storiesContent,
 }) => {
   const storydata = new StoryData({
     deployment,
@@ -173,16 +174,16 @@ const NewsLetterContent = ({
     <>
       <nameCollection>{nameWebsked}</nameCollection>
       <descriptionCollection>{descriptionWebsked}</descriptionCollection>
-      {contentElements.map(story => {
+      {contentElements.map((story,index) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const storyOfCollection = useContent({
-          source: CONTENT_SOURCE,
-          query: {
-            _id: story._id,
-          },
-        })
+        // const storyOfCollection = useContent({
+        //   source: CONTENT_SOURCE,
+        //   query: {
+        //     _id: story._id,
+        //   },
+        // })
 
-        storydata.__data = storyOfCollection
+        storydata.__data = storiesContent[index]
         // storydata.__data = story
 
         const thumb =

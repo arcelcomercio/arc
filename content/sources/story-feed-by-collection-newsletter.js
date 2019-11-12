@@ -33,15 +33,6 @@ const options = {
   json: true,
 }
 
-// const setPageViewsUrls = (arrUrl, arrUrlRes) => {
-//   return arrUrlRes.map(row => {
-//     const item = arrUrl.find(el => {
-//       return el.path === row.website_url
-//     })
-//     return { ...row, page_views: item.pageviews || 0 }
-//   })
-// }
-
 const fetch = key => {
   return request({
     uri: `${CONTENT_BASE}/${pattern(key)}`,
@@ -61,29 +52,39 @@ const fetch = key => {
           ...options,
         })
       })
-      return Promise.all(newsList).then(resall =>{
-        console.log("AQUI!!!!!")
-        console.log(resall)
-        // return {content_elements: resall}
+      return Promise.all(newsList).then(resall => {
+
+        // eslint-disable-next-line no-use-before-define
+        const stories = sortStoryContent(response,resall)
 
         return {
           ...response,
-          stories:resall,
+          stories,
           websked: {
             name,
             description,
           },
         }
-
       })
-      
     })
   })
 }
 
-// const mapStoryToContentElement =(storiesCollection, Contents) =>{
-  
-// }
+const sortStoryContent = (collectionStories, storiesByCollection) => {
+  const result = []
+
+  const {
+    content_elements: contentElementsByCollection = [],
+  } = collectionStories
+
+  contentElementsByCollection.forEach(element => {
+    const { _id = '' } = element
+    const news = storiesByCollection.find(x => x._id === _id)
+    result.push(news)
+  })
+
+  return result
+}
 
 const transform = data => {
   const dataStories = data

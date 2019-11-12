@@ -15,7 +15,7 @@ const Newsletter = ({
   arcSite = '',
 }) => {
   const { siteUrl = '' } = siteProperties
-  const { content_elements: contentElements, websked = {} } =
+  const { content_elements: contentElements, websked = {}, stories:storiesContent =[] } =
     globalContent || {}
 
   const propsNewsLetterContent = {
@@ -25,6 +25,7 @@ const Newsletter = ({
     contentElements,
     websked,
     siteUrl,
+    storiesContent
   }
   const listNewsLetter = NewsLetterContent(propsNewsLetterContent)
 
