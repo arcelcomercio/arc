@@ -187,14 +187,8 @@ export default ({
         window.performance.mark('tbl_ic');
     }`
 
-  const htmlAmpIs =
-    arcSite === ConfigParams.ARC_SITE_GESTION && isPremium ? '' : true
-
   return (
     <>
-      {!isAmp && htmlAmpIs && (
-        <link rel="amphtml" href={`${siteUrl}${link}?outputType=amp`} />
-      )}
       <meta name="data-article-id" content={id} />
       <meta property="article:publisher" content={socialName.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
@@ -254,6 +248,7 @@ export default ({
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{ __html: scriptTaboola }}
+          async
         />
       )}
     </>
