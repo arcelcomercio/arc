@@ -99,7 +99,7 @@ export default {
       // URLS
       canonical:                         `https://elcomercio.pe/suscripcionesdigitales/`,
       image:                             `https://elcomercio.pe/pf/resources/dist/elcomercio/images/logo_fb.jpg?d=158`,
-      reviewVideo:                       `http://perufront.com/EL_COMERCIO_SUBTITULOS.mp4`,
+      reviewVideo:                       `https://pub.minoticia.pe/elcomercio/el_comercio.mp4`,
       clickToCall:                       `https://c2c.kontactame.com/call/?id=161`,
       pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.elcomercio.pe`,
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.elcomercio.pe`,
