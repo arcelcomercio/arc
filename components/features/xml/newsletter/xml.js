@@ -58,6 +58,11 @@ class XmlNewsletterFeed {
             } = {},
           } = story || {}
 
+          const CONTENT_SOURCE = 'story-by-id'
+
+
+
+
           storyData.__data = story
 
           return {

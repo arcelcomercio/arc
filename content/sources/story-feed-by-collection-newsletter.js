@@ -33,6 +33,15 @@ const options = {
   json: true,
 }
 
+// const setPageViewsUrls = (arrUrl, arrUrlRes) => {
+//   return arrUrlRes.map(row => {
+//     const item = arrUrl.find(el => {
+//       return el.path === row.website_url
+//     })
+//     return { ...row, page_views: item.pageviews || 0 }
+//   })
+// }
+
 const fetch = key => {
   return request({
     uri: `${CONTENT_BASE}/${pattern(key)}`,
@@ -43,16 +52,38 @@ const fetch = key => {
       ...options,
     }).then(resp => {
       const { data: { name, description } = {} } = resp
-      return {
-        ...response,
-        websked: {
-          name,
-          description,
-        },
-      }
+
+      const { content_elements: contentElements = [] } = response || {}
+      const newsList = contentElements.map(item => {
+        const { _id = '' } = item
+        return request({
+          uri: `${CONTENT_BASE}/content/v4/stories?_id=${_id}&website=${website}`,
+          ...options,
+        })
+      })
+      return Promise.all(newsList).then(resall =>{
+        console.log("AQUI!!!!!")
+        console.log(resall)
+        // return {content_elements: resall}
+
+        return {
+          ...response,
+          stories:resall,
+          websked: {
+            name,
+            description,
+          },
+        }
+
+      })
+      
     })
   })
 }
+
+// const mapStoryToContentElement =(storiesCollection, Contents) =>{
+  
+// }
 
 const transform = data => {
   const dataStories = data
