@@ -54,8 +54,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
             <img
               className={classes.gridHeaderImage}
               src={imgLogo}
-              alt={`Logo especial de ${arcSite}`}
-              title={`Logo especial de ${arcSite}`}
+              alt={`Logo especial de ${arcSite}`}              
             />
           </a>
         </div>

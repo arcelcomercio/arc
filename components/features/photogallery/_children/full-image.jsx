@@ -50,8 +50,7 @@ const FullImage = ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaLandscapeL}
             src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
-            alt={multimediaCaption || title}
-            title={multimediaSubtitle || title}
+            alt={multimediaCaption || title}            
           />
         </picture>
       </a>

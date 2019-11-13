@@ -136,8 +136,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                             size: 'sm',
                           })
                         }
-                        alt={movie.title || ''}
-                        title={movie.title || ''}
+                        alt={movie.title || ''}                        
                         className={classes.image}
                       />
                       <figcaption className={classes.details}>

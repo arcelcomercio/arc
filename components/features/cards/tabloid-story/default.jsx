@@ -137,8 +137,7 @@ const CardsTabloidStory = props => {
               } tabloid-story__img w-full object-cover`}
               src={isAdmin ? imageSrc : lazyImg}
               data-src={imageSrc}
-              alt={title}
-              title={title}
+              alt={title}              
             />
           </picture>
         </a>

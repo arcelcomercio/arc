@@ -160,8 +160,7 @@ const PodcastSeparator = props => {
                 <picture className="podcast-separator__picture">
                   <img
                     src={multimediaLandscapeL}
-                    alt={title}
-                    title={title}
+                    alt={title}                    
                     className="podcast-separator__img w-full"
                   />
                   <Icon

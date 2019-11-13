@@ -71,8 +71,7 @@ const RenderRelatedContentElement = (props, i) => {
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               src={isAdmin ? filterData.multimediaImg : filterData.lazyImage}
               data-src={filterData.multimediaImg}
-              alt={filterData.nameTitle}
-              title={filterData.nameTitle}
+              alt={filterData.nameTitle}              
             />
           )}
 
