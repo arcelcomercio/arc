@@ -230,6 +230,9 @@ class SignwallComponent extends PureComponent {
           case 'signwallPremium':
             this.setState({ showPaywall: true })
             break
+          case 'reloginHash':
+            this.setState({ showRelogHash: true })
+            break
           default:
         }
       }, 500)
@@ -271,13 +274,6 @@ class SignwallComponent extends PureComponent {
     this.setState({ isActive: false })
   }
 
-  closeRelogHash() {
-    this.setState({ showRelogHash: false })
-    // const today = new Date()
-    // today.setTime(today.getTime() + 1 * 3600 * 1000)
-    // document.cookie = `check_relog_hash=${today.getTime()};path=/;expires=${today.toGMTString()}`
-  }
-
   closePopUp(name) {
     switch (name) {
       case 'signwallHard':
@@ -294,6 +290,9 @@ class SignwallComponent extends PureComponent {
         break
       case 'signwallPaywall':
         this.setState({ showPaywall: false })
+        break
+      case 'reloginHash':
+        this.setState({ showRelogHash: false })
         break
       default:
         return null
@@ -351,6 +350,8 @@ class SignwallComponent extends PureComponent {
 
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
+        {this.checkCookieHash()}
+
         {this.getUrlParam('signwallHard') &&
         !this.checkSession() &&
         showHard &&
@@ -404,13 +405,12 @@ class SignwallComponent extends PureComponent {
           />
         ) : null}
 
-        {this.checkCookieHash() &&
+        {this.getUrlParam('reloginHash') &&
         !this.checkSession() &&
         showRelogHash &&
-        !window.navigator.userAgent.match(/iPhone/i) &&
         siteProperties.activePaywall ? (
           <SignwallReHash
-            closePopup={() => this.closeRelogHash()}
+            closePopup={() => this.closePopUp('reloginHash')}
             brandModal={arcSite}
           />
         ) : null}

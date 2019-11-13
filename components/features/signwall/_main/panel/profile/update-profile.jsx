@@ -480,6 +480,7 @@ class UpdateProfile extends Component {
             )}
           </div>
         </div>
+        
         <div className="form-grid__row form-grid__row--three">
           <div className="form-group">
             <input
