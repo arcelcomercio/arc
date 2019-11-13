@@ -27,6 +27,7 @@ const OpinionItem = ({
   urlSection,
   linesNumber,
 }) => {
+  
   return (
     <div className={classes.item}>
       <div className={classes.section}>
