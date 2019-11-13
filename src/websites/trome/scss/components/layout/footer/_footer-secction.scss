@@ -1,4 +1,7 @@
 .footer-secction {
+  &__item {
+    font-weight: 700;
+  }
   &__item,
   &__link-footer {
     color: $color-gray-300;
