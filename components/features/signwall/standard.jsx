@@ -183,12 +183,21 @@ class SignwallComponent extends PureComponent {
 
   checkCookieHash = () => {
     this._isMounted = true
-    const dataContType = window.document.querySelector(
-      'meta[name="content-type"]'
-    )
-    if (Cookies.getCookie('arc_e_id') && dataContType && this._isMounted) {
-      this.setState({ showRelogHash: true })
-      return true
+    const { arcSite } = this.props
+
+    if (typeof window !== 'undefined') {
+      const dataContType = window.document.querySelector(
+        'meta[name="content-type"]'
+      )
+      if (
+        Cookies.getCookie('arc_e_id') &&
+        !this.checkSession() &&
+        dataContType &&
+        this._isMounted &&
+        (arcSite === 'elcomercio' || arcSite === 'gestion')
+      ) {
+        window.location.href = '/?reloginHash=1'
+      }
     }
     return null
   }
