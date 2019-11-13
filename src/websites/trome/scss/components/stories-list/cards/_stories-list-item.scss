@@ -1,0 +1,29 @@
+.stories-l-card {
+  border: 0;
+  &__list {
+    padding-top: 10px;
+  }
+}
+.stories-l-item {
+  background-color: transparent;
+  border-color: #ccc;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__time {
+    color: $color-secondary;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  &__link {
+    color: $color-base-100;
+    font-size: 21.4px;
+    font-weight: 700;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+  }
+}

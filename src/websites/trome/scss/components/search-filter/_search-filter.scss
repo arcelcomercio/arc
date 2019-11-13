@@ -51,7 +51,7 @@
         color: $color-black;
         @media (--desktop) {
           background-color: transparent;
-          font-family: $secondary-font;
+          font-family: $primary-font;
         }
       }
     }
@@ -60,7 +60,7 @@
     }
   }
   &__link {
-    font-family: $secondary-font;
+    font-family: $primary-font;
     text-transform: capitalize;
     font-size: 12px;
     @media (--desktop) {

@@ -9,7 +9,7 @@
     color: $color-fourth;
     font-size: 16px;
     font-weight: 900;
-    font-family: $secondary-font;
+    font-family: $primary-font;
     text-align: center;
   }
   &__brand {
@@ -32,7 +32,7 @@
   &__month-view__weekdays__weekday abbr {
     color: #bbbbbb;
     font-weight: 900;
-    font-family: $secondary-font;
+    font-family: $primary-font;
     font-size: 13px;
   }
   &__tile--active {

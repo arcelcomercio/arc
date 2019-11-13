@@ -2,7 +2,6 @@ export default {
   siteName: 'Trome',
   sitemapNewsName: 'Trome',
   newsletterBrand: 'trome',
-  /*   googleFonts: 'Noticia+Text:400,700|Roboto+Condensed:400,700|Roboto:400,700', */
   colorPrimary: '#E06437',
   siteDomain: 'trome.pe',
   siteUrl: 'https://trome.pe',

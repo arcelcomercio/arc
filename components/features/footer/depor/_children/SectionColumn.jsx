@@ -1,5 +1,4 @@
 import React from 'react'
-import ItemTop from './ComponentStyles'
 
 const classes = {
   sectionColumn:
@@ -23,7 +22,7 @@ const SectionColumn = ({
   return (
     <ul className={classes.sectionColumn}>
       <li className={classes.item}>
-        <a href={urlSec} style={ItemTop}>
+        <a href={urlSec} className={classes.itemTop}>
           {title}
         </a>
       </li>

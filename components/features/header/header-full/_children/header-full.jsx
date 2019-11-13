@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useRef, useEffect } from 'react'
 
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
@@ -29,6 +30,7 @@ const classes = {
   angleRight:
     'icon-right header-full__angle flex justify-center items-center text-white',
   right: 'header-full__right flex items-center',
+  callImg: 'header-full__call-img flex items-center hidden',
   subMenuList: 'header-full__submenu-list',
   subMenuItem: 'header-full__submenu-item pr-25 pl-25 pt-5 pb-5 flex',
   btnContainer: 'header-full__btn-container',
@@ -82,6 +84,7 @@ export default ({
   isStory,
   shareButtons,
   postTitle,
+  siteName,
 }) => {
   const inputSearch = useRef(null)
   const [showMenu, toggleMenu] = useState(false)
@@ -148,6 +151,7 @@ export default ({
     else popUpWindow(item.link, '', 600, 400)
   }
 
+  const siteNameTrome = 'Trome'
   return (
     <>
       <div
@@ -350,12 +354,21 @@ export default ({
                   </ul>
                 </div>
               </>
-            ) : (
+            ) : siteName !== siteNameTrome ? (
               <div className={classes.btnContainer}>
                 <a
                   href="/resultados/futbol/resultados/"
                   className={classes.btnResult}>
                   Resultados
+                </a>
+              </div>
+            ) : (
+              <div className={classes.callImg}>
+                <a href="https://trome.pe/registro/super-llamada-ganadora/">
+                  <img
+                    src="https://assets.trome.pe/img/super_llamada_ganadora_trome.png"
+                    alt="Lamada Ganadora"
+                  />
                 </a>
               </div>
             )}

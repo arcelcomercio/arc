@@ -1,7 +1,7 @@
 .navbar-nm {
   max-height: 33px;
   &__link {
-    font-family: $tertiary-font;
+    font-family: $primary-font;
     color: rgb(170, 170, 170);
   }
   &__box-search {
@@ -10,7 +10,7 @@
   }
   &__btn {
     border: 1px solid #7f7f7f;
-    font-family: $fourth-font;
+    font-family: $primary-font;
     padding-left: 8px;
     padding-right: 8px;
     height: 25px;
@@ -24,7 +24,7 @@
     color: #006132;
     border: solid 1px $color-white;
     font-weight: 700;
-    font-family: $fourth-font;
+    font-family: $primary-font;
     font-size: 14px;
   }
 }
