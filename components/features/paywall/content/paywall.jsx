@@ -84,8 +84,20 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     }
   })
 
+  const match = window.location.href.match(/eventos\/(\w+)/)
+  const event = match ? { isEvent: true, event: match[1] } : {}
+  const { pathname: basePath, query } = React.useRef(
+    (() => {
+      const url = interpolateUrl(urls.digitalSubscriptions, {
+        ...event,
+      })
+      return new URL(url)
+    })()
+  ).current
+
   // const [memo, setMemo] = useState({})
   const memo = useRef({
+    event: event.event,
     arcSite,
     plans,
     plan: plans[0], // Por defecto asumir seleccionado el primer plan
@@ -95,9 +107,6 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     error,
   })
   const currMemo = memo.current
-  const { pathname: basePath, query } = React.useRef(
-    new URL(interpolateUrl(urls.digitalSubscriptions))
-  ).current
 
   useEffect(() => {
     history = createBrowserHistory({

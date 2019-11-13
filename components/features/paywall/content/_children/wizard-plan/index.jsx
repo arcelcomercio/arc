@@ -17,7 +17,7 @@ import PWA from '../../_dependencies/seed-pwa'
 function WizardPlan(props) {
   const {
     theme,
-    memo: { plans, summary, printedSubscriber, error },
+    memo: { event: eventCampaign, plans, summary, printedSubscriber, error },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
   } = props
@@ -133,11 +133,15 @@ function WizardPlan(props) {
             eventCategory: 'paywall_check_subscriptor',
             eventAction: 'submit',
           })
-          window.location.href = interpolateUrl(urls.validateSubscriptor, {
+
+          window.location.href = interpolateUrl(urls.digitalSubscriptions, {
+            isCheckingSubscriptor: true,
             documentType,
             documentNumber,
             attemptToken,
+            ...(eventCampaign ? { isEvent: true, event: eventCampaign } : {}),
           })
+          console.log(window.location.href)
         }}
         onClose={() => {
           window.dataLayer.push({

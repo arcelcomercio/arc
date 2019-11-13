@@ -5,14 +5,26 @@ import { interpolateUrl } from '../../components/features/paywall/_dependencies/
 
 const fetch = (key = {}) => {
   const site = key['arc-site']
-  const { documentType = 'DNI', documentNumber, attemptToken } = key
+  const { documentType = 'DNI', documentNumber, attemptToken, event } = key
   const {
     paywall: { urls },
   } = getProperties(site)
-  const url = interpolateUrl(
-    urls.originSubscriptions,
-    attemptToken ? { documentType, documentNumber, attemptToken } : undefined
-  )
+
+  const isCheckingSubscriptor = !!attemptToken
+  const isEvent = !!event
+  const params = {
+    ...(isCheckingSubscriptor
+      ? {
+          isCheckingSubscriptor,
+          documentType,
+          documentNumber,
+          attemptToken,
+        }
+      : {}),
+    ...(isEvent ? { isEvent, event } : {}),
+  }
+
+  const url = interpolateUrl(urls.originSubscriptions, params)
   return request({
     uri: url,
     json: true,
@@ -99,6 +111,7 @@ export default {
     documentNumber: 'text',
     documentType: 'text',
     attemptToken: 'text',
+    event: 'text',
   },
   ttl: 20,
 }
