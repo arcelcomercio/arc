@@ -44,8 +44,8 @@ export default ({
   link,
 }) => {
   return (
-    <div 
-      className={`${classes.storyItem} ${link}  ${
+    <div
+      className={`${classes.storyItem} ${
         formato && formato === 'row' ? 'story-item--row' : ''
       }`}>
       <div className={classes.bottom}>
@@ -59,7 +59,7 @@ export default ({
             <a href={primarySectionLink} className={classes.section}>
                 {primarySection}
             </a>
-      }
+           }
             <p className={classes.date}>{formatDateLocalTimeZone(date)}</p>
           </div>
           <div className={classes.wrapperTitle}>
