@@ -70,13 +70,15 @@
       background-color: $color-white;
     }
     * .separator__header-link {
-      color: $color-tertiary;
       font-family: $secondary-font;
-      font-size: 35px;
+      font-size: 28px;
       text-decoration: none;
       letter-spacing: 0.4px;
       text-transform: uppercase;
       font-weight: 400;
+      @media (--tablet) {
+        font-size: 35px;
+      }
       &:hover {
         text-decoration: none;
       }
@@ -110,9 +112,24 @@
     .separator__title {
       color: $color-white;
     }
-    .separator__detail,
-    .separator__article {
-      background-color: $color-fourth;
+
+    &.primary {
+      * .separator__header-link {
+        color: $color-tertiary;
+      }
+      * .separator__detail,
+      *.separator__article {
+        background-color: $color-fourth;
+      }
+    }
+    &.secondary {
+      * .separator__header-link {
+        color: #222;
+      }
+      * .separator__detail,
+      *.separator__article {
+        background-color: #222;
+      }
     }
   }
 }
