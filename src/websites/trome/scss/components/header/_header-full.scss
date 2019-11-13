@@ -33,4 +33,25 @@
       display: block;
     }
   }
+  &__wrapper-menu {
+    background-color: $color-white;
+  }
+  &__item {
+    &:nth-last-child(1) {
+      border-bottom: 0;
+    }
+  }
+  &__item,
+  &__submenu-list {
+    border-top: 1px solid #ccc;
+  }
+
+  &__submenu-item {
+    border-bottom: 1px solid #ccc;
+    .header-full__link {
+      color: $color-base-300;
+      text-transform: capitalize;
+      font-weight: 400;
+    }
+  }
 }
