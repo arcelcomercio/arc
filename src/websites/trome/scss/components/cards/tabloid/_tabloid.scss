@@ -7,33 +7,39 @@
     padding: 0;
   }
   &__body {
-    padding-top: 0;
+    justify-content: space-between;
   }
   &__header,
   &__body {
+    padding: 0;
     background-color: #222;
+  }
+  &__header {
+    margin-bottom: 10px;
   }
   &__header-link {
     font-size: 22px;
-    font-family: $primary-font;
+    font-family: $tertiary-font;
     color: #ffbf00;
+    font-weight: 700;
   }
   &__date {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    display: block;
+    text-align: left;
+    padding: 0;
     color: #ff9326;
     font-family: 'Arial';
     font-size: 12px;
-    background-color: transparent;
     text-transform: uppercase;
     font-weight: 400;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
   }
 
   &__face {
-    height: 320px;
-    width: 282px;
+    height: 295px;
+    width: 293px;
     display: block;
-    background-color: #ffbf00;
   }
 }
