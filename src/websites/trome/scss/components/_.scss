@@ -7,8 +7,8 @@
 @import './layout/footer/footer-secction';
 @import './layout/navbar-no-menu/navbar-nm';
 @import './breaking-news/breaking-news';
-@import './cards/tabloid/tabloid';
-@import './cards/most-read/most-read';
+@import './cards/triplet/triplet';
+@import './cards/opinion/opinion-card';
 @import './separators/basic/separador';
 @import './custom-title/custom-title';
 @import './header/header-full';
@@ -25,8 +25,6 @@
 @import './search-filter/search-filter';
 @import './search-filter/search-input';
 @import './archive-calendar/calendar';
-@import './story/most-read/most-read-item';
-@import './story/most-read/most-read';
-@import './stories-list/most-read-views/mr-view';
-@import './stories-list/cards/stories-list-tabloid';
-@import './depor-play/depor-play';
+@import './stories-list/cards/stories-list-header';
+@import './stories-list/cards/stories-list-item';
+@import './stories-list/cards/stories-l-footer';

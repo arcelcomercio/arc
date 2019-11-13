@@ -21,7 +21,7 @@
     }
   }
   &__subtitle {
-    font-family: $fourth-font;
+    font-family: $primary-font;
     font-size: 14px;
   }
   &__img {
@@ -31,10 +31,10 @@
   }
   &__team {
     font-size: 16px;
-    font-family: $secondary-font;
+    font-family: $primary-font;
   }
   &__score {
     font-size: 20px;
-    font-family: $secondary-font;
+    font-family: $primary-font;
   }
 }

@@ -1,9 +1,9 @@
 .nav {
-  &__wrapper {
+  /*   &__wrapper {
     &:first-child {
       background-color: $color-black-depor;
     }
-  }
+  } */
   &__btn--section {
     span {
       color: #aaa;
@@ -15,7 +15,7 @@
     color: #aaa;
   }
   &__list-link {
-    font-family: $tertiary-font;
+    font-family: $primary-font;
     text-align: center;
     font-size: 14px;
     &:hover {

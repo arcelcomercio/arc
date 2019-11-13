@@ -1,13 +1,22 @@
 .footer-secction {
   &__item,
+  &__link-footer {
+    color: $color-gray-300;
+  }
+  &__item,
   &__link-footer,
-  &__site-item,
+  &__list-title,
+  &__text,
+  &__link-footer,
+  &__content-column li {
+    font-family: $primary-font;
+  }
+
   &__list-title {
-    font-family: $fourth-font;
+    color: $color-primary;
   }
   &__content-column {
     li {
-      font-family: $fourth-font;
       margin-bottom: 5px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -20,14 +29,21 @@
       }
     }
   }
-  &__text {
+  &__text,
+  &__link-footer {
     font-size: 12px;
     font-weight: 400;
-    font-family: $fourth-font;
     line-height: 1.4;
     @media (--tablet) {
       font-size: 14px;
     }
+  }
+  &__text {
+    color: $footer-text;
+  }
+  &__link-footer,
+  &__site-item a {
+    color: $color-black;
   }
   &__info {
     ul {

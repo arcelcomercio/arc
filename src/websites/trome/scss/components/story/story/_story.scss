@@ -1,11 +1,11 @@
 .story {
   &.depor-play {
-    .story-header__news-title {
+    /*  .story-header__news-title {
       color: $color-text-depor;
-    }
+    } */
     .story-header__news-title,
     .story-content__font--secondary {
-      font-family: $sixth-font;
+      font-family: $primary-font;
     }
 
     .story-content__caption {
@@ -17,7 +17,7 @@
     }
     .related-content__link {
       color: $color-white;
-      font-family: $sixth-font;
+      font-family: $primary-font;
       font-size: 15px;
       font-weight: 400;
     }

@@ -27,7 +27,7 @@
   &__caption {
     color: #323232;
     padding: 10px 20px;
-    font-family: $fourth-font;
+    font-family: $primary-font;
     background-color: $color-secondary;
     margin-top: -2px;
     min-height: 54px;
@@ -47,7 +47,7 @@
   }
   &__date {
     color: $color-black;
-    font-family: $fourth-font;
+    font-family: $primary-font;
     font-size: 14px;
   }
   &__author {
@@ -56,13 +56,13 @@
     }
   }
   &__author-link {
-    font-family: $fourth-font;
+    font-family: $primary-font;
     font-size: 15px;
     color: $color-black;
     text-transform: uppercase;
   }
   &__author-email {
-    font-family: $fourth-font;
+    font-family: $primary-font;
     display: none;
   }
   &__more-link {
