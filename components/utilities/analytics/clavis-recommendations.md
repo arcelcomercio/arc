@@ -1,4 +1,7 @@
-## Cómo usar clavis-recommendations
+## Cómo usar clavis-recommendations sin Content Source. **Legacy**
+
+##### Se recomienda usar la content source. 
+##### Ejemplo de uso en /components/features/story/separator-by-recommendation
 
 `clavis-recommendations` devuelve una promesa con un objeto "results" que contiene un Array de historias recomendadas para el usuario y la historia pertinente.
 
@@ -17,7 +20,7 @@ const recommend = clavisRecommendations({
     contentId: globalContent && globalContent._id, // ID de la historia
     count: n, // Cantidad de historias 
     site: arcSite 
-    }, '/recommend' // Endpoint)
+    }, '/recommend' /** Endpoint */ )
 
 if (recommend)
     recommend.then(response => {
