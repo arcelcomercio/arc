@@ -50,8 +50,8 @@ export function generateUUID() {
  * @returns {string} UUID - ID del usuario.
  */
 export function getUUID() {
-    if (!hasLocalStorage())
-        return ''
+    /* if (!hasLocalStorage())
+        return '' */
     let uuid = localStorage.getItem("uuid");
     if (!uuid) {
         uuid = generateUUID();
