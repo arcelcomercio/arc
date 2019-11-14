@@ -41,6 +41,7 @@ export default ({
   multimediaLazyDefault,
   multimediaLandscapeS,
   formato,
+  link,
 }) => {
   return (
     <div
@@ -50,9 +51,15 @@ export default ({
       <div className={classes.bottom}>
         <div className={classes.left}>
           <div className={classes.top}>
-            <a href={primarySectionLink} className={classes.section}>
-              {primarySection}
+          { link && link === 'author' ?
+            <a href={authorLink} className={classes.section}>
+              {author}
             </a>
+             : 
+            <a href={primarySectionLink} className={classes.section}>
+                {primarySection}
+            </a>
+           }
             <p className={classes.date}>{formatDateLocalTimeZone(date)}</p>
           </div>
           <div className={classes.wrapperTitle}>

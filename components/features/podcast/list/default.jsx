@@ -141,8 +141,7 @@ const PodcastList = props => {
                 <picture className="podcast-list__picture">
                   <img
                     src={multimediaLandscapeL}
-                    alt={title}
-                    title={title}
+                    alt={title}                    
                     className="podcast-list__img w-full"
                   />
                 </picture>

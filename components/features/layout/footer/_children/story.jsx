@@ -24,8 +24,7 @@ const SecondaryFooter = props => {
           <img
             className={classes.logoImg}
             src={logoUrl}
-            alt={`Logo de ${arcSite}`}
-            
+            alt={`Logo de ${arcSite}`}            
           />
         </a>
         {/* Cuerpo */}

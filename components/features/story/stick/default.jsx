@@ -163,8 +163,7 @@ class Stick extends PureComponent {
           <div className={classes.logo}>
             <img 
               src={imgLogo} 
-              alt="Sigue actualizado en nuestra APP" 
-              title="Sigue actualizado en nuestra APP" 
+              alt="Sigue actualizado en nuestra APP"              
             />
           </div>
           <div className={classes.description}>

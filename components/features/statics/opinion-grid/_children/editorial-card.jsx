@@ -29,9 +29,7 @@ const OpinionGridEditorialCard = ({ data: story }) => {
               <img
                 className={classes.image}
                 src={story.authorImage}
-                alt={story.author}
-                title={story.author}
-                
+                alt={story.author}                
               />
             </a>
           </div>
