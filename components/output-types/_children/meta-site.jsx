@@ -41,8 +41,9 @@ export default ({
 
   const urlCanonical = deleteQueryString(requestUri)
   const regxTag = /^(\/noticias\/[\wa-zA-ZÀ-ÿ\u00f1\u00d1\d-%]+)\/?(?:\d+)?\/?$/
+  const auxUrlCanonicaMatch = urlCanonical.match(regxTag) || []
   const newURLCanonical = urlCanonical.startsWith('/noticias/')
-    ? urlCanonical.match(regxTag)[1]
+    ? auxUrlCanonicaMatch[1]
     : urlCanonical
   return (
     <>
