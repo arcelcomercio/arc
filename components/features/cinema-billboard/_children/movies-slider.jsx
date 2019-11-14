@@ -116,8 +116,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                               movie.poster.sizes.estreno ||
                               this.setDefault('lg')
                             }
-                            alt={movie.title}
-                            title={movie.title}
+                            alt={movie.title}                            
                           />
                         </picture>
                       </a>

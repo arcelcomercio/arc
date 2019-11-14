@@ -28,8 +28,7 @@ const BlogRelatedPostsGridChildCard = ({
             <img
               className={classes.image}
               src={imageLink}
-              alt={title}
-              title={title}
+              alt={title}              
             />
           </picture>
         </a>

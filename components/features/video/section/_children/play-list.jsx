@@ -29,8 +29,7 @@ export default props => {
                   <img
                     src={Story.multimediaSquareMD}
                     className="play-list__image"
-                    alt={Story.title}
-                    alt={Story.title}
+                    alt={Story.title}                    
                   />
                   {/* <span className="play-list__duration">0:41</span> */}
                 </a>

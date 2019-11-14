@@ -35,8 +35,7 @@ const AuthorListChildPostItem = ({
             <img
               className={classes.image}
               src={image}
-              alt={author}
-              title={author}
+              alt={author}              
             />
           </a>
         </figure>

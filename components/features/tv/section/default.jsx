@@ -39,8 +39,7 @@ const TvSection = () => {
           <img
             className="w-full h-full object-cover"
             src={sectionImg}
-            alt={sectionName}
-            title={sectionName}
+            alt={sectionName}            
           />
         </picture>
       </div>

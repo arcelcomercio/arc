@@ -44,8 +44,7 @@ const StorySeparatorChildItem = ({ data }) => {
               className={`${isAdmin ? '' : 'lazy'} ${classes.itemImage}`}
               src={isAdmin ? multimediaLandscapeMD : lazyImage}
               data-src={multimediaLandscapeMD}
-              alt={title}
-              title={title}
+              alt={title}              
             />
           </picture>
         </a>

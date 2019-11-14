@@ -14,8 +14,7 @@ export default ({
           <img
             className="video-list__image object-cover w-full"
             src={multimediaSquareMD}
-            alt={title}
-            title={title}
+            alt={title}            
           />
         </a>
       </picture>

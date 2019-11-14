@@ -26,8 +26,7 @@ const CardMostReadChildItem = props => {
               className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
               src={isAdmin ? imageUrl : lazyImage}
               data-src={imageUrl}
-              alt={title}
-              title={title}
+              alt={title}              
             />
             <Icon type={storyType} iconClass={classes.icon} />
           </figure>
