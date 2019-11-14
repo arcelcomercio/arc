@@ -149,4 +149,40 @@
       background-color: $color-tertiary;
     }
   }
+  &.complete {
+    .separator {
+      &__body {
+        @media (--only-mobile) {
+          flex-direction: column;
+        }
+      }
+      &__item {
+        @media (--only-mobile) {
+          display: block;
+          margin-bottom: 20px;
+        }
+      }
+      &__button {
+        top: 10px;
+        font-weight: 700;
+        font-family: $secondary-font;
+      }
+    }
+  }
+  &.partial {
+    .separator {
+      &__item {
+        @media (--only-mobile) {
+          &:nth-child(n + 2) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &.mobileHidden {
+    @media (--only-mobile) {
+      display: none;
+    }
+  }  
 }
