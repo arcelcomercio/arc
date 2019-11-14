@@ -98,8 +98,7 @@ const TripletChildTriplet = props => {
                     : story.multimediaLazyDefault
                 }
                 data-src={story.multimediaPortraitXS}
-                alt={story.title}
-                title={story.title}
+                alt={story.title}                
               />
               <Icon type={story.multimediaType} iconClass={classes.icon} />
             </a>

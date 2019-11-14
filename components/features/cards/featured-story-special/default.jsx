@@ -120,8 +120,7 @@ const CardsFeaturedStorySpecial = props => {
             } featured-special__img w-full object-cover`}
             src={isAdmin ? multimediaLandscapeXL : multimediaLazyDefault}
             data-src={multimediaLandscapeXL}
-            alt={title}
-            title={title}
+            alt={title}            
           />
         </picture>
       </a>

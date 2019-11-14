@@ -20,8 +20,7 @@ const StoryContentChildImage = ({
         <img
           className={classes.image}
           srcSet={multimediaLarge}
-          alt={caption}
-          title={caption}
+          alt={caption}          
         />
         {showCaption && (
           <figcaption className={classes.caption}>{caption} </figcaption>

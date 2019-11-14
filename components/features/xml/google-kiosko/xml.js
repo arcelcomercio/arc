@@ -101,7 +101,7 @@ class XmlGoogleKiosko {
                         // Listado de imagenes de promoItems en caso de que se trate de una galeria.
                         const { content_elements: promoImages = [] } = storyData.contentElementGallery || {}
                         // Si no se trata de una galeria, asigna el promoItem basic por defecto
-                        if (!promoImages.lenght)
+                        if (!promoImages.length)
                             promoImages.push({
                                 url: storyData.getMultimediaBySize(IMAGE_SIZE) || storyData.multimedia || '',
                                 isImage: true

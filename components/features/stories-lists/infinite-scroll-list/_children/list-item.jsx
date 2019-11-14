@@ -105,8 +105,7 @@ export default ({
                 srcSet={multimediaLandscapeXS}
               />
               <img
-                alt={title}
-                title={title}
+                alt={title}                
                 className={classes.img}
                 src={multimediaLandscapeS}
               />

@@ -147,8 +147,7 @@ class ExtraordinaryStoryLifeScore extends Component {
               } extraordinary-l-score__img w-full object-cover`}
               src={isAdmin ? imgUrl : multimediaLazyDefault}
               data-src={imgUrl}
-              alt={title}
-              title={title}
+              alt={title}              
             />
           </picture>
         </a>

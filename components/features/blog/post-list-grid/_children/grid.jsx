@@ -39,8 +39,7 @@ const BlogPostListGridChildGrid = ({
                     src={row.isAdmin ? row.imagePost : row.imagePost}
                     data-src={row.imagePost}
                     className={`${row.isAdmin ? '' : 'lazy'} ${classes.image}`}
-                    alt={row.blogTitle}
-                    title={row.blogTitle}
+                    alt={row.blogTitle}                    
                   />
                 </picture>
               </a>
@@ -55,7 +54,7 @@ const BlogPostListGridChildGrid = ({
                 <a href={row.urlPost}>{row.postTitle}</a>
               </h2>
               <div className={classes.icon}>
-                <img src={urlLogoBrand} alt={siteName} title={siteName} />
+                <img src={urlLogoBrand} alt={siteName} />
               </div>
             </div>
           )

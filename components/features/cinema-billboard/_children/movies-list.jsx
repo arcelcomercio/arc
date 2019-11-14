@@ -92,8 +92,7 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                               size: 'sm',
                             })
                           }
-                          alt={title}
-                          title={title}
+                          alt={title}                          
                           className={classes.image}
                         />
                         <figcaption>

@@ -12,7 +12,7 @@ const classes = {
   figure: 'story-separator__figure',
 }
 
-const StorySeparatorChildItem = ({ data }) => {
+const StorySeparatorByRecommendationChildItem = ({ data, clickedRecommendation }) => {
   const {
     title,
     link,
@@ -31,17 +31,18 @@ const StorySeparatorChildItem = ({ data }) => {
           <a href={sectionLink}>{section}</a>{' '}
         </h2>
         <h3 className={classes.separatorTitle}>
-          <a className={classes.titleLink} href={link} title={title}>
+          <a className={classes.titleLink} href={link} title={title} onClick={e => clickedRecommendation(e, link)}>
             {title}
           </a>
         </h3>
       </div>
       <figure className={classes.figure}>
         {link && (
-          <a href={link}>
+          <a href={link} onClick={e => clickedRecommendation(e, link)}>
             <img
               src={multimediaPortraitXS}
-              alt={title}              
+              alt={title}
+              title={title}
               className={classes.itemImage}
             />
           </a>
@@ -51,4 +52,4 @@ const StorySeparatorChildItem = ({ data }) => {
   )
 }
 
-export default StorySeparatorChildItem
+export default StorySeparatorByRecommendationChildItem

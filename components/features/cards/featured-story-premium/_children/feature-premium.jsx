@@ -114,8 +114,7 @@ const FeaturedStoryPremiumChild = ({
             {isPremium && (
               <img
                 className={classes.iconImagePremium}
-                src={logo}
-                title="premium"
+                src={logo}                
                 alt="premium"
               />
             )}
@@ -142,8 +141,7 @@ const FeaturedStoryPremiumChild = ({
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
               data-src={multimediaLandscapeL}
-              alt={multimediaSubtitle || title}
-              title={multimediaCaption || title}
+              alt={multimediaSubtitle || title}              
             />
           </picture>
         </a>

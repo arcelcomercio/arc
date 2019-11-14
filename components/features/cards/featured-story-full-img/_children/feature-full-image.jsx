@@ -54,8 +54,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaLandscapeL}
-            src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
-            title={multimediaSubtitle || title}
+            src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}            
             alt={multimediaCaption || title}
           />
         )}
@@ -63,8 +62,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaSquareXL}
-            src={isAdmin ? multimediaSquareXL : multimediaLazyDefault}
-            title={multimediaSubtitle || title}
+            src={isAdmin ? multimediaSquareXL : multimediaLazyDefault}            
             alt={multimediaCaption || title}
           />
         )}
@@ -72,8 +70,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaPortraitMD}
-            src={isAdmin ? multimediaPortraitMD : multimediaLazyDefault}
-            title={multimediaSubtitle || title}
+            src={isAdmin ? multimediaPortraitMD : multimediaLazyDefault}            
             alt={multimediaCaption || title}
           />
         )}

@@ -1,5 +1,5 @@
 /* eslint-disable */
-var JSONP = (function() {
+var JSONP = (function () {
   var counter = 0,
     head,
     query,
@@ -11,7 +11,7 @@ var JSONP = (function() {
     script.src = url
     script.async = true
 
-    script.onload = script.onreadystatechange = function() {
+    script.onload = script.onreadystatechange = function () {
       if (
         !done &&
         (!this.readyState ||
@@ -80,11 +80,11 @@ var JSONP = (function() {
       Math.round(Math.random() * 10000017) +
       '_' +
       Math.round(Math.random() * 1000001)
-    window[jsonpcall] = function(data) {
+    window[jsonpcall] = function (data) {
       callback(data)
       try {
         delete window[jsonpcall]
-      } catch (e) {}
+      } catch (e) { }
       window[jsonpcall] = null
     }
 
@@ -96,7 +96,7 @@ var JSONP = (function() {
   }
 })()
 
-var payU = (function() {
+var payU = (function () {
   'use strict'
   var url = 'https://api.payulatam.com/payments-api/4.0/service'
   var img_url =
@@ -119,7 +119,7 @@ var payU = (function() {
   var _r_checked = false
   var list_class = '_list_class_4567'
   var div_class = '_div_class_7897'
-  var error = function() {
+  var error = function () {
     if (msg === null) {
       msg = {}
       msg.es = {
@@ -192,29 +192,29 @@ var payU = (function() {
     }
     return msg
   }
-  var cssStyle = function() {
+  var cssStyle = function () {
     if (css_dropdown === null) {
       var head = document.getElementsByTagName('head')[0]
       var style = document.createElement('style')
       style.appendChild(
         document.createTextNode(
           '#' +
-            list_class +
-            ' {border:0px solid black; width:64px; height:63px; overflow:hidden; -moz-transition: height 0.1s; -webkit-transition: height 0.1s; -ms-transition: height 0.1s;  -o-transition: height 0.1s; transition: height 0.1s;}'
+          list_class +
+          ' {border:0px solid black; width:64px; height:63px; overflow:hidden; -moz-transition: height 0.1s; -webkit-transition: height 0.1s; -ms-transition: height 0.1s;  -o-transition: height 0.1s; transition: height 0.1s;}'
         )
       )
       style.appendChild(
         document.createTextNode(
           '#' +
-            list_class +
-            ' input {position:absolute;top:0;left:0;opacity:0;}'
+          list_class +
+          ' input {position:absolute;top:0;left:0;opacity:0;}'
         )
       )
       style.appendChild(
         document.createTextNode(
           '#' +
-            list_class +
-            ' label {display:none; margin:-1px; height:63px; opacity:0.2;}'
+          list_class +
+          ' label {display:none; margin:-1px; height:63px; opacity:0.2;}'
         )
       )
       style.appendChild(
@@ -230,8 +230,8 @@ var payU = (function() {
       style.appendChild(
         document.createTextNode(
           '#' +
-            list_class +
-            ' input:checked + label {opacity:1 !important; display:block;}'
+          list_class +
+          ' input:checked + label {opacity:1 !important; display:block;}'
         )
       )
       style.appendChild(document.createTextNode('#trace {margin:0 0 20px;}'))
@@ -240,7 +240,7 @@ var payU = (function() {
       css_dropdown = style
     }
   }
-  var addStyle = function() {
+  var addStyle = function () {
     if (imgCount === 0) {
       imgCount = 3
     }
@@ -248,14 +248,14 @@ var payU = (function() {
     css_dropdown.appendChild(
       document.createTextNode(
         '#' +
-          list_class +
-          '.allowHover:hover {width:65px;height:' +
-          imgCount +
-          'px; overflow-y:visible;-moz-transition: height 0.5s; -webkit-transition: height 0.5s; -ms-transition: height 0.5s;  -o-transition: height 0.5s;  transition: height 0.5s;}'
+        list_class +
+        '.allowHover:hover {width:65px;height:' +
+        imgCount +
+        'px; overflow-y:visible;-moz-transition: height 0.5s; -webkit-transition: height 0.5s; -ms-transition: height 0.5s;  -o-transition: height 0.5s;  transition: height 0.5s;}'
       )
     )
   }
-  var patterns = function() {
+  var patterns = function () {
     if (card_method === null) {
       card_method = {
         VISA: '^(4)(\\d{12}|\\d{15})$|^(606374\\d{10}$)',
@@ -277,14 +277,14 @@ var payU = (function() {
     }
     return card_method
   }
-  var getPaymentData = function() {
+  var getPaymentData = function () {
     return {
       public_key: payU.public_key,
       account_id: payU.account_id,
       list_id: payU.list_id,
     }
   }
-  var getTokenData = function() {
+  var getTokenData = function () {
     return {
       public_key: payU.public_key,
       account_id: payU.account_id,
@@ -292,7 +292,7 @@ var payU = (function() {
       _card: payU.card,
     }
   }
-  var validate = function(_d, _f, _s) {
+  var validate = function (_d, _f, _s) {
     if (payU.error) {
       response.error = payU.error
       _s(response)
@@ -324,18 +324,18 @@ var payU = (function() {
     }
     return true
   }
-  var handle_errors = function(data) {
+  var handle_errors = function (data) {
     if (typeof data.error_code !== 'undefined') {
       payU.error = error()[payU.language][data.error_code]
       return true
     }
     return false
   }
-  var paymentMethods = function() {
+  var paymentMethods = function () {
     sendData(
       url + '.payment',
       getPaymentData(),
-      function(data) {
+      function (data) {
         // handle errors
         if (handle_errors(data)) {
           return
@@ -384,19 +384,19 @@ var payU = (function() {
           addDropdownItem(_div, data[i], data.length - 1 === i)
         }
       },
-      function() {
+      function () {
         payU.error = error()[payU.language][6]
       }
     )
   }
-  var showDivLabel = function(_b) {
+  var showDivLabel = function (_b) {
     if (_b) {
       document.getElementById(div_class).style.display = 'block'
     } else {
       document.getElementById(div_class).style.display = 'none'
     }
   }
-  var method_check = function() {
+  var method_check = function () {
     var any_checked = false
     var countRadios = 0
     if (payU.card.method === null || payU.card.method === '') {
@@ -429,23 +429,23 @@ var payU = (function() {
       }
     }
   }
-  var addCard = function(_k, _v) {
+  var addCard = function (_k, _v) {
     payU.card[_k] = _v
   }
 
-  var payer_id = function(_v, j) {
+  var payer_id = function (_v, j) {
     if (typeof j === 'undefined') {
       j = _c.indexOf('payer_id')
     }
     if (typeof _v === 'undefined') {
       throw error()[payU.language][4]
     }
-    if (_v === '' || _v.lenght < 1) {
+    if (_v === '' || _v.length < 1) {
       throw error()[payU.language][4]
     }
     addCard(_c[j], _v)
   }
-  var expiryCheck = function(_y, _m) {
+  var expiryCheck = function (_y, _m) {
     _y = _y.replace(/\D/g, '')
     _m = _m.replace(/\D/g, '')
 
@@ -470,7 +470,7 @@ var payU = (function() {
     addCard('exp_year', _y)
     addCard('exp_month', _m)
   }
-  var cardType = function(_v) {
+  var cardType = function (_v) {
     _v = _v.replace(/\D/g, '')
     var patt = patterns()
     for (var propt in patt) {
@@ -483,7 +483,7 @@ var payU = (function() {
     }
     return error()[payU.language][9]
   }
-  var validateCardNumber = function(_v) {
+  var validateCardNumber = function (_v) {
     _v = _v.replace(/\D/g, '')
     if (_v === '' || (_v.length < 13 && _v.length > 20)) {
       showListbox(false)
@@ -512,7 +512,7 @@ var payU = (function() {
     showListbox(true)
     return _v
   }
-  var disableListBox = function(_b) {
+  var disableListBox = function (_b) {
     var _d = document.getElementById(list_class)
     _d.disabled = _b
     var _r = _d.getElementsByTagName('*')
@@ -525,7 +525,7 @@ var payU = (function() {
       _d.setAttribute('class', 'allowHover')
     }
   }
-  var showListbox = function(_b) {
+  var showListbox = function (_b) {
     var _d = document.getElementById(list_class)
     var _div = document.getElementById(div_class)
     if (_d === null || _div === null) {
@@ -539,23 +539,23 @@ var payU = (function() {
       _div.style.visibility = 'hidden'
     }
   }
-  var number = function(_v, j) {
+  var number = function (_v, j) {
     if (typeof j === 'undefined') {
       j = _c.indexOf('number')
     }
     addCard(_c[j], validateCardNumber(_v))
   }
-  var imgExists = function(url, _d, _n, _last, _b) {
+  var imgExists = function (url, _d, _n, _last, _b) {
     var img = new Image()
-    img.onerror = function() {
+    img.onerror = function () {
       _b(false, _d, _n, _last, url)
     }
-    img.onload = function() {
+    img.onload = function () {
       _b(true, _d, _n, _last, url)
     }
     img.src = url
   }
-  var addImage = function(exists, _d, _n, _last, _u) {
+  var addImage = function (exists, _d, _n, _last, _u) {
     if (exists) {
       var _o = document.createElement('input')
       _o.type = 'radio'
@@ -568,12 +568,12 @@ var payU = (function() {
       css_dropdown.appendChild(
         document.createTextNode(
           '#' +
-            list_class +
-            ' label[for=' +
-            _n.name +
-            '] {background-image:url(' +
-            _u +
-            ');}'
+          list_class +
+          ' label[for=' +
+          _n.name +
+          '] {background-image:url(' +
+          _u +
+          ');}'
         )
       )
       _d.appendChild(_l)
@@ -583,7 +583,7 @@ var payU = (function() {
       addStyle()
     }
   }
-  var sendData = function(_u, _d, _s, _e) {
+  var sendData = function (_u, _d, _s, _e) {
     if (typeof jQuery === 'undefined') {
       JSONP.get(_u, _d, _s, _e)
     } else {
@@ -598,18 +598,18 @@ var payU = (function() {
       })
     }
   }
-  var addDropdownItem = function(_d, _op, _last) {
+  var addDropdownItem = function (_d, _op, _last) {
     // dropdown!!
     var img = img_url + _op.name + '.png'
     imgExists(img, _d, _op, _last, addImage)
   }
-  var qaURL = function(qaurl) {
+  var qaURL = function (qaurl) {
     url = qaurl
   }
-  var qaURL_img = function(qaurl) {
+  var qaURL_img = function (qaurl) {
     img_url = qaurl
   }
-  var radiosChecked = function() {
+  var radiosChecked = function () {
     if (_r_checked) {
       _r_checked = false
 
@@ -621,7 +621,7 @@ var payU = (function() {
       }
     }
   }
-  var starts = function(pk) {
+  var starts = function (pk) {
     return pk.slice(0, 'PK'.length) === 'PK'
   }
   return {
@@ -629,17 +629,17 @@ var payU = (function() {
     setURL_img: qaURL_img,
     card: {},
     language: 'es',
-    setLanguage: function(lan) {
+    setLanguage: function (lan) {
       if (lan === 'pt' || lan === 'en' || lan === 'es') {
         this.language = lan
       }
     },
-    setPublicKey: function(public_key) {
+    setPublicKey: function (public_key) {
       if (typeof public_key === 'string') {
         this.public_key = public_key
       }
     },
-    setListBoxID: function(list_id, list_label) {
+    setListBoxID: function (list_id, list_label) {
       if (typeof list_id === 'string') {
         this.list_id = list_id
       }
@@ -647,18 +647,18 @@ var payU = (function() {
         this.list_label = list_label
       }
     },
-    setAccountID: function(account_id) {
+    setAccountID: function (account_id) {
       if (typeof account_id === 'string') {
         this.account_id = account_id
       }
     },
-    setCardDetails: function(card) {
+    setCardDetails: function (card) {
       if (typeof card === 'object') {
         this.card = card
       }
     },
     validateNumber: validateCardNumber,
-    validateCard: function(number) {
+    validateCard: function (number) {
       try {
         validateCardNumber(number)
         method_check()
@@ -667,7 +667,7 @@ var payU = (function() {
         return false
       }
     },
-    validateExpiry: function(year, month) {
+    validateExpiry: function (year, month) {
       try {
         expiryCheck(year, month)
         return true
@@ -675,7 +675,7 @@ var payU = (function() {
         return false
       }
     },
-    createToken: function(_s, _f) {
+    createToken: function (_s, _f) {
       var response = {}
       if (typeof payU.public_key === 'undefined') {
         response.error = error()[payU.language][12]
@@ -692,7 +692,7 @@ var payU = (function() {
       sendData(
         url + '.token',
         getTokenData(),
-        function(data) {
+        function (data) {
           // handle errors
           var response = {}
           if (handle_errors(data)) {
@@ -703,7 +703,7 @@ var payU = (function() {
           }
           _s(data)
         },
-        function() {
+        function () {
           payU.error = error()[payU.language][6]
           var response = {}
           response.error = payU.error

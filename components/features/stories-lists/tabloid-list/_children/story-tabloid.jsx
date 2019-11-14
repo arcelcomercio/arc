@@ -53,8 +53,7 @@ export default ({
                     <img
                       className="stories-l-tabloid__image"
                       src={Story.multimediaPortraitL}
-                      alt={Story.primarySection}
-                      title={Story.title}
+                      alt={Story.primarySection}                      
                     />
                   </a>
                   <a

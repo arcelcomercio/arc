@@ -229,12 +229,11 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                         <img
                           src={
                             isAdmin
-                              ? slide.resized_urls.landscape_xl
-                              : slide.resized_urls.lazy_default
+                              ? slide.resized_urls.large
+                              : defaultImageGallery
                           }
-                          data-src={slide.resized_urls.landscape_xl}
+                          data-src={slide.resized_urls.large}
                           alt={slide.caption || slide.subtitle}
-                          title={slide.caption || slide.subtitle}
                           className={`${isAdmin ? '' : 'lazy'} ${
                             classes.image
                           }`}
