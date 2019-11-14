@@ -67,11 +67,15 @@ const getVars = (
               ''
             ) /** /sección/esta-es-la-sub-seccion */
 
-        dataStory = ` var tipo_nota = '${getMultimedia(
-          multimediaType,
-          true
-        )}'  var id_nota = '${id}' var content_paywall = ${contentRestrictions}`
-        dataNucleoOrigen = ` var nucleo_origen = '${nucleoOrigen}' var format_origen = '${formatOrigen}' var content_origen = '${contentOrigen}' var gender_origen = '${genderOrigen}'`
+        dataStory = `
+            var tipo_nota = '${getMultimedia(multimediaType, true)}'
+            var id_nota = '${id}' 
+            var content_paywall = ${contentRestrictions}`
+        dataNucleoOrigen = `
+            var nucleo_origen = '${nucleoOrigen}' 
+            var format_origen = '${formatOrigen}' 
+            var content_origen = '${contentOrigen}' 
+            var gender_origen = '${genderOrigen}'`
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
       }
@@ -83,9 +87,14 @@ const getVars = (
     typeSpace = 'nota5'
 
   return `
-      var type_space = '${typeSpace}' var site = '${getSite(
-    site
-  )}' var type_template = '${template}' var section = '${section}' var subsection = '${subsection}' var path_name = '${path}'  ${dataStory}       ${dataNucleoOrigen}
+    var type_space = '${typeSpace}'
+    var site = '${getSite(site)}'
+    var type_template = '${template}'
+    var section = '${section}'
+    var subsection = '${subsection}'
+    var path_name = '${path}'
+    ${dataStory} 
+    ${dataNucleoOrigen}
 `
 }
 const AppNexus = props => {
