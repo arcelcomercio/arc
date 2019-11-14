@@ -82,7 +82,7 @@ class XmlStoriesSitemapNews {
               },
             },
             changefreq: 'hourly',
-            priority: '1',
+            priority: '1.0',
           },
         }
       }),
