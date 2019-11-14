@@ -1,5 +1,5 @@
 .story-item {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid $color-base-300;
   padding-top: 20px;
   padding-bottom: 0;
   border-bottom: 0;
@@ -13,8 +13,7 @@
     }
   }
 
-  &__section-left,
-  &__section {
+  &__section-left {
     color: $color-secondary;
     font-size: 11px;
     text-transform: uppercase;
@@ -45,46 +44,41 @@
     }
   }
   &__right {
-    width: 300px;
-    height: 166px;
+    width: 160px;
+    height: 89.59px;
     margin-left: 0;
     margin-right: 20px;
-    width: 130px;
-    height: 72px;
     @media (--tablet) {
       width: 300px;
-      height: 166px;
+      height: 168px;
     }
   }
-  &__top,
-  &__subtitle {
+  &__top {
     display: none;
     @media (--tablet) {
       display: none;
     }
   }
   &__icon {
-    background-color: $color-white;
-    border-radius: 50%;
-    bottom: 10px;
-    color: $color-fourth;
-    display: block;
-    left: 25px;
-    top: inherit;
-    bottom: -10px;
+    background-image: url(/pf/resources/dist/trome/images/rgba70.png);
+    border-radius: 10px;
+    color: $color-gray-300;
+    bottom: inherit;
+    left: inherit;
+    right: 10px;
+    top: 10px;
     pointer-events: none;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 36px;
-    transform: translate(-50%, -50%);
+    width: 66px;
+    height: 66px;
+    line-height: 66px;
+    font-size: 30px;
+    position: absolute;
+    transform: none;
     @media (--tablet) {
-      width: 72px;
-      height: 72px;
-      font-size: 73px;
-      line-height: 73px;
-      left: 45px;
-      bottom: -25px;
+      width: 66px;
+      height: 66px;
+      line-height: 66px;
+      font-size: 30px;
     }
     &::before {
       background-color: transparent;
@@ -96,16 +90,25 @@
     overflow: hidden;
     font-family: $primary-font;
     color: $color-black;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.2;
+    font-weight: 900;
+    max-height: 58px;
+    -webkit-line-clamp: 3;
+
     @media (--tablet) {
-      max-height: 115.2px;
-      line-height: 1.2;
-      -webkit-line-clamp: 4;
-      font-size: 24px;
+      max-height: 58px;
+      -webkit-line-clamp: 2;
+      font-size: 26px;
       margin-top: 0;
     }
   }
+  &__subtitle {
+    font-size: 13px;
+    color: $color-base-200;
+    line-height: 19.5px;
+  }
+
   &__information-box {
     display: flex;
     flex-direction: column;
@@ -124,14 +127,6 @@
       font-size: 16px;
       font-weight: bold;
       line-height: 35px;
-      // &::after {
-      //   content: '\e912';
-      //   width: 0;
-      //   height: 0;
-      //   border-top: 20px solid $color-white;
-      //   border-left: 10px solid transparent;
-      //   border-right: 10px solid transparent;
-      // }
     }
   }
   &__wrapper-item {

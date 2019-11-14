@@ -1,6 +1,12 @@
 .opinion-card {
+  &__item {
+    padding-bottom: 10px;
+  }
   &__head {
     border: 0;
+  }
+  &__section {
+    grid-template-rows: 1fr;
   }
   &__section-name {
     display: none;
