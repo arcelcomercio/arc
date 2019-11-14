@@ -7,9 +7,9 @@ const RENDERED = '/rendered'
 const CLICKED = '/clicked'
 
 const CONTENT_API_URL = 'contentapi://'
-const HEADERS = new Headers({
+const HEADERS = {
     'Content-Type': 'application/json'
-})
+}
 
 /**
  * @description
@@ -29,7 +29,7 @@ const HEADERS = new Headers({
  * - [Documentación.](https://elcomercio.arcpublishing.com/alc/docs/swagger/?url=./arc-products/recommendations.json#/recommend/getRecommendations)
  * - [Dashboard de Clavis.](https://elcomercio.arcpublishing.com/clavis/recommendations)
  */
-export default function clavisRecommendations({ contentId, count, site }) {
+export function clavisRecommendations({ contentId, count, site }) {
     if (contentId && typeof count === 'number' && site) {
         if (typeof window === "undefined") {
             throw new Error(
