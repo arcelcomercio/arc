@@ -54,6 +54,9 @@
       bottom: -25px;
     }
   }
+  &__author {
+    display: none;
+  }
   &.img-complete {
     .featured-story__title-link {
       @media (--tablet) {
