@@ -43,15 +43,47 @@ const fetch = key => {
       ...options,
     }).then(resp => {
       const { data: { name, description } = {} } = resp
-      return {
-        ...response,
-        websked: {
-          name,
-          description,
-        },
-      }
+
+      const { content_elements: contentElements = [] } = response || {}
+      const newsList = contentElements.map(item => {
+        const { _id = '' } = item
+        return request({
+          uri: `${CONTENT_BASE}/content/v4/stories?_id=${_id}&website=${website}`,
+          ...options,
+        })
+      })
+      return Promise.all(newsList).then(resall => {
+
+        // eslint-disable-next-line no-use-before-define
+        const stories = sortStoryContent(response,resall)
+
+        return {
+          ...response,
+          stories,
+          websked: {
+            name,
+            description,
+          },
+        }
+      })
     })
   })
+}
+
+const sortStoryContent = (collectionStories, storiesByCollection) => {
+  const result = []
+
+  const {
+    content_elements: contentElementsByCollection = [],
+  } = collectionStories
+
+  contentElementsByCollection.forEach(element => {
+    const { _id = '' } = element
+    const news = storiesByCollection.find(x => x._id === _id)
+    result.push(news)
+  })
+
+  return result
 }
 
 const transform = data => {

@@ -185,7 +185,7 @@ class FormLogin extends Component {
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
       // window.localStorage.setItem('ArcId._ID', resProfile.uuid)
-      
+
       // set token cookie
       const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
       Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
@@ -360,7 +360,7 @@ class FormLogin extends Component {
                 </div>
 
                 <div className="form-grid__group" hidden={!hiddenListBenefits}>
-                  {signwallSimple.includes(arcSite)  ? null : (
+                  {signwallSimple.includes(arcSite) ? null : (
                     <h1
                       className="form-grid__title-big text-center lg:hidden"
                       hidden={hiddenEnterUser}>
@@ -393,6 +393,7 @@ class FormLogin extends Component {
 
                   {hiddenEnterUser && (
                     <div className="form-grid__group mt-30">
+                      
                       <p className="form-grid__link text-center mb-20 col-center">
                         O ingresa con tu usuario
                       </p>
@@ -582,6 +583,7 @@ class FormLogin extends Component {
                     }
                   />
                 </div>
+                
                 <div className="form-grid__group">
                   <h1 className="form-grid__info text-center">
                     Bienvenido{' '}
@@ -593,6 +595,7 @@ class FormLogin extends Component {
                       : 'Ahora puedes continuar con tu compra'}
                   </p>
                 </div>
+               
                 <div className="form-grid__group">
                   <div className="form-group form-group--center mt-20">
                     {userWithSubs ? (

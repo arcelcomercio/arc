@@ -2,6 +2,9 @@
   &__head {
     border: 0;
   }
+  &__section-name {
+    display: none;
+  }
   &__title {
     font-family: $secondary-font;
     color: $color-primary;
@@ -12,5 +15,13 @@
     color: $color-black;
     font-size: 15px;
     font-weight: 700;
+  }
+  &__image-container {
+    align-items: flex-start;
+  }
+  &__image {
+    border-radius: 50%;
+    height: 61px;
+    width: 58px;
   }
 }

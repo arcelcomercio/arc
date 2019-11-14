@@ -279,7 +279,9 @@ class FormForgotPass extends Component {
                   )
                   if (reloadForgot) {
                     window.location.reload()
-                  } else {
+                  } else if(typePopUp ==='reloghash'){
+                    changeTemplate('login')
+                  }else{
                     closePopup()
                   }
                 }}

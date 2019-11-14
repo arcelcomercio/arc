@@ -183,12 +183,21 @@ class SignwallComponent extends PureComponent {
 
   checkCookieHash = () => {
     this._isMounted = true
-    const dataContType = window.document.querySelector(
-      'meta[name="content-type"]'
-    )
-    if (Cookies.getCookie('arc_e_id') && dataContType && this._isMounted) {
-      this.setState({ showRelogHash: true })
-      return true
+    const { arcSite } = this.props
+
+    if (typeof window !== 'undefined') {
+      const dataContType = window.document.querySelector(
+        'meta[name="content-type"]'
+      )
+      if (
+        Cookies.getCookie('arc_e_id') &&
+        !this.checkSession() &&
+        dataContType &&
+        this._isMounted &&
+        (arcSite === 'elcomercio' || arcSite === 'gestion')
+      ) {
+        window.location.href = '/?reloginHash=1'
+      }
     }
     return null
   }
@@ -220,6 +229,9 @@ class SignwallComponent extends PureComponent {
           case 'signwallPaywall':
           case 'signwallPremium':
             this.setState({ showPaywall: true })
+            break
+          case 'reloginHash':
+            this.setState({ showRelogHash: true })
             break
           default:
         }
@@ -262,13 +274,6 @@ class SignwallComponent extends PureComponent {
     this.setState({ isActive: false })
   }
 
-  closeRelogHash() {
-    this.setState({ showRelogHash: false })
-    // const today = new Date()
-    // today.setTime(today.getTime() + 1 * 3600 * 1000)
-    // document.cookie = `check_relog_hash=${today.getTime()};path=/;expires=${today.toGMTString()}`
-  }
-
   closePopUp(name) {
     switch (name) {
       case 'signwallHard':
@@ -285,6 +290,9 @@ class SignwallComponent extends PureComponent {
         break
       case 'signwallPaywall':
         this.setState({ showPaywall: false })
+        break
+      case 'reloginHash':
+        this.setState({ showRelogHash: false })
         break
       default:
         return null
@@ -342,6 +350,8 @@ class SignwallComponent extends PureComponent {
 
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
+        {this.checkCookieHash()}
+
         {this.getUrlParam('signwallHard') &&
         !this.checkSession() &&
         showHard &&
@@ -395,13 +405,12 @@ class SignwallComponent extends PureComponent {
           />
         ) : null}
 
-        {this.checkCookieHash() &&
+        {this.getUrlParam('reloginHash') &&
         !this.checkSession() &&
         showRelogHash &&
-        !window.navigator.userAgent.match(/iPhone/i) &&
         siteProperties.activePaywall ? (
           <SignwallReHash
-            closePopup={() => this.closeRelogHash()}
+            closePopup={() => this.closePopUp('reloginHash')}
             brandModal={arcSite}
           />
         ) : null}

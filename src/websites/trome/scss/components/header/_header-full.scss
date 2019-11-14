@@ -1,15 +1,25 @@
 .header-full {
   height: 46px;
+  z-index: 101;
   &.active {
     .nav__loader-bar {
       background-color: #42c64c;
     }
   }
-  &__link-nav {
-    font-family: $primary-font;
+  &__angle,
+  &__link,
+  &__btn-close {
+    color: $color-base-200;
   }
+  &__link,
+  &__link-nav,
   &__btn-result {
     font-family: $primary-font;
+  }
+  &__link-nav {
+    font-weight: 900;
+    font-size: 14px;
+    text-transform: uppercase;
   }
   &__box-logo {
     background-color: transparent;
@@ -31,6 +41,27 @@
   &__call-img {
     @media (--desktop) {
       display: block;
+    }
+  }
+  &__wrapper-menu {
+    background-color: $color-white;
+  }
+  &__item {
+    &:nth-last-child(1) {
+      border-bottom: 0;
+    }
+  }
+  &__item,
+  &__submenu-list {
+    border-top: 1px solid #ccc;
+  }
+
+  &__submenu-item {
+    border-bottom: 1px solid #ccc;
+    .header-full__link {
+      color: $color-base-300;
+      text-transform: capitalize;
+      font-weight: 400;
     }
   }
 }

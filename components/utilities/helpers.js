@@ -1,5 +1,9 @@
 import { addResizedUrlItem } from './thumbs'
-import ConfigParams, { sizeImg, sizeImgNewsLetter } from './config-params'
+import ConfigParams, {
+  sizeImg,
+  sizeImgNewsLetter,
+  sizeImgStory,
+} from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -485,7 +489,9 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -902,6 +908,9 @@ export const addResizedUrlsToStory = (
       switch (preset) {
         case 'newsletter':
           presets = sizeImgNewsLetter()
+          break
+        case 'story':
+          presets = sizeImgStory()
           break
         case 'related':
           presets = {
