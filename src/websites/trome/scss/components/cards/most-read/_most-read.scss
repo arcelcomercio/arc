@@ -1,0 +1,25 @@
+.most-read {
+  background-color: transparent;
+
+  &__title {
+    background-color: $color-gray-300;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 20px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-image: url(/pf/resources/dist/trome/images/logo_twitter.jpg);
+      background-size: cover;
+    }
+  }
+  &__link {
+    color: $color-white;
+  }
+  &__icon {
+    display: none;
+  }
+}

@@ -1,0 +1,29 @@
+.most-read-item {
+  border-color: $color-base-400;
+  &__detail {
+    font-size: 13px;
+    font-family: $primary-font;
+    font-weight: 700;
+    &.four-lines {
+      max-height: calc(13px * 1.33 * 4);
+    }
+  }
+  &__icon {
+    background-image: url(/pf/resources/dist/trome/images/rgba70.png);
+    border-radius: 7px;
+    top: calc(100% - 141px);
+    color: $color-gray-300;
+    bottom: inherit;
+    right: 10px;
+    top: 10px;
+    pointer-events: none;
+    width: 40px;
+    height: 40px;
+    line-height: 25px;
+    font-size: 25px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
