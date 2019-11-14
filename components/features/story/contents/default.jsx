@@ -70,13 +70,13 @@ class StoryContents extends PureComponent {
         contentId: _id,
         auxiliaries: taxonomy.auxiliaries
           ? taxonomy.auxiliaries.map(aux => {
-              return aux._id
-            })
+            return aux._id
+          })
           : [],
         targetingUrl: 'https://targeting.perso.aws.arc.pub/api/v1/targeting',
       }
     }
-    return null
+    return {}
   }
 
   handleOptaWidget = ({ id, css, js, defer }) => {
@@ -173,11 +173,11 @@ class StoryContents extends PureComponent {
           {primarySectionLink === '/impresa/'
             ? promoItems && <StoryContentsChildImpresa data={promoItems} />
             : promoItems &&
-              subtype !== ConfigParams.BIG_IMAGE &&
-              subtype !== ConfigParams.SPECIAL_BASIC &&
-              subtype !== ConfigParams.SPECIAL && (
-                <StoryContentsChildMultimedia data={params} />
-              )}
+            subtype !== ConfigParams.BIG_IMAGE &&
+            subtype !== ConfigParams.SPECIAL_BASIC &&
+            subtype !== ConfigParams.SPECIAL && (
+              <StoryContentsChildMultimedia data={params} />
+            )}
 
           <StoryContentsChildAuthor {...params} />
 
@@ -219,10 +219,10 @@ class StoryContents extends PureComponent {
                             description={captionVideo}
                           />
                         ) : (
-                          <StoryContentsChildVideoNativo
-                            streams={element && element.streams}
-                          />
-                        )}
+                            <StoryContentsChildVideoNativo
+                              streams={element && element.streams}
+                            />
+                          )}
                       </>
                     )
                   }
@@ -267,8 +267,8 @@ class StoryContents extends PureComponent {
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
                       ? `${classes.textClasses} ${
-                          classes.alignmentClasses
-                        }-${alignment}`
+                      classes.alignmentClasses
+                      }-${alignment}`
                       : classes.textClasses
                     return (
                       <Text
