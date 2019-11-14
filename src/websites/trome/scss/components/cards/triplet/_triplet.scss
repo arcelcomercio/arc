@@ -1,5 +1,9 @@
 .triplet {
   padding: 0;
+  &__title {
+    max-height: 59px;
+  }
+
   &__title-link {
     color: $color-black;
     font-weight: 700;
