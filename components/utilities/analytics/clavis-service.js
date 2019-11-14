@@ -1,6 +1,15 @@
-// https://elcomercio.arcpublishing.com/alc/arc-products/clavis
+// Documentación de Clavis. https://elcomercio.arcpublishing.com/alc/arc-products/clavis
+// Documentación de Clavis Targeting. https://elcomercio.arcpublishing.com/alc/docs/swagger/?url=./arc-products/targeting.json
 
 /* eslint-disable */
+
+/**
+ * @description Esta función verifica que el `localStorage` del navegador 
+ * sea accesible y pueda ser sobreescrito sin problemas. 
+ * Clavis depende del `localStorage` para funcionar.
+ * 
+ * @returns {boolean}
+ */
 export function hasLocalStorage() {
     try {
         const uid = new Date().toString();
@@ -13,6 +22,11 @@ export function hasLocalStorage() {
     }
 }
 
+/**
+ * @description Genera un nuevo ID de usuario único y aleatorio.
+ * 
+ * @returns {string} Nuevo UUID - ID del usuario.
+ */
 export function generateUUID() {
     let d = new Date().getTime();
     const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
@@ -28,7 +42,16 @@ export function generateUUID() {
     return uuid;
 }
 
+/**
+ * @description Verifica si el usuario cuenta con un ID o 
+ * genera uno nuevo y lo almacena en el `localStorage`. 
+ * Esta función requiere que el DOM exista.
+ * 
+ * @returns {string} UUID - ID del usuario.
+ */
 export function getUUID() {
+    if (!hasLocalStorage())
+        return ''
     let uuid = localStorage.getItem("uuid");
     if (!uuid) {
         uuid = generateUUID();
@@ -51,6 +74,8 @@ export function getUUID() {
  *   ]
  * }
  * ```
+ * 
+ * @see [Documentación de Clavis Targeting.](https://elcomercio.arcpublishing.com/alc/docs/swagger/?url=./arc-products/targeting.json)
  */
 function clavisService(options, clientName, site) {
     if (options && clientName) {

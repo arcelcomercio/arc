@@ -156,6 +156,11 @@ const HeaderChildInverted = ({
     else _openMenu()
   }
 
+  // const _handleToggleScroll = () => {
+  //   if (scrolled) setScrolled(false)
+  //   else  setScrolled(true)
+  // }
+
   /* const _initDrag = evt => {
     initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
     if (statusSidebar) {

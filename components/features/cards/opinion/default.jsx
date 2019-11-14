@@ -46,21 +46,32 @@ class CardOpinion extends PureComponent {
           results.forEach(res => {
             const { content_elements: contentElements = [] } = res || {}
             if (contentElements.length > 0) {
+              
               const {
                 headlines: { basic = '' } = {},
-                taxonomy: { sites = [], sections: secs = [] } = {},
+                taxonomy: { sections: secs = [] } = {},
                 website_url: websiteUrl = '',
               } = contentElements[0] || {}
 
+              // const {
+              //   additional_properties: {
+              //     original: {
+              //       site_topper: { site_logo_image: siteLogo = '' } = {},
+              //     } = {},
+              //   } = {},
+              // } = sites[0] || {}
+
               const {
+                name = '', 
+                path = '',
                 additional_properties: {
                   original: {
                     site_topper: { site_logo_image: siteLogo = '' } = {},
                   } = {},
                 } = {},
-              } = sites[0] || {}
-
-              const { name = '', path = '' } = secs[0] || {}
+              } = secs[0] ||{}
+              
+              // const { name = '', path = '' } = secs[1] || {}
 
               const indexSec = Object.values(sections).indexOf(path)
               const sectionActive = Object.keys(sections)[indexSec]
@@ -119,7 +130,6 @@ class CardOpinion extends PureComponent {
       arcSite,
       dataList: [section1, section2, section3, section4],
     }
-
     return <OpinionChildCard {...params} />
   }
 }

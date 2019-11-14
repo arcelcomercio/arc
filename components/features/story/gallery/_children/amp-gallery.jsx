@@ -17,7 +17,7 @@ const StoryHeaderChildAmpGallery = props => {
   const { data, link, siteUrl } = props
   const slider = '[slide]="selectedSlide"'
   const imgTag = 'amp-img'
-  const sizerImg = 'amp'
+  const sizerImg = 'large'
   const numeroFoto = ' [text]="+selectedSlide + 1"'
   return (
     <>
@@ -40,7 +40,7 @@ const StoryHeaderChildAmpGallery = props => {
               <div className="slide">
                 <div className="inner">
                   <amp-img
-                    src={(resizedUrls && resizedUrls.amp) || url}
+                    src={(resizedUrls && resizedUrls.large) || url}
                     alt={caption}
                     class={classes.image}
                     height="360"

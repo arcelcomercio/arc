@@ -237,6 +237,40 @@ export const sizeImg = () => {
   }
 }
 
+export const sizeImgStory = () => {
+  return {
+    large: {
+      width: 980,
+      height: 528,
+    },
+    landscape_md: {
+      width: 314,
+      height: 157,
+    },
+    story_small: {
+      width: 482,
+      height: 290,
+    },
+    medium: {
+      width: 480,
+    },
+    content: {
+      width: 980,
+    },
+    content_small: {
+      width: 320,
+    },
+    amp_new: {
+      width: 1200,
+      height: 800,
+    },
+    impresa: {
+      width: 617,
+      height: 637,
+    },
+  }
+}
+
 export const sizeImgNewsLetter = () => {
   return {
     // landscape

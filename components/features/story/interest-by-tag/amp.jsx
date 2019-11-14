@@ -83,7 +83,6 @@ const InterestByTagAmp = props => {
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
-        multimediaLandscapeS: instance.multimediaLandscapeS,
         multimediaLandscapeL: instance.multimediaLandscapeL,
         multimediaLandscapeMD: instance.multimediaLandscapeMD,
         multimediaType: instance.multimediaType,

@@ -4,9 +4,12 @@ export default `
       headlines {
           basic
       }
+      website_url
       canonical_url
       taxonomy{
-        sites{
+        sections{
+          name
+          path
           additional_properties{
             original{
               site_topper{
@@ -14,10 +17,6 @@ export default `
               }
             }
           }
-        }
-        sections{
-          name
-          path
         }
       }
       subheadlines{

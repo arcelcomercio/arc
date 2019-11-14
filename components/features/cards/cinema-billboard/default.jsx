@@ -59,49 +59,11 @@ class CardCinemaBillboard extends PureComponent {
       cinemaSelected: '',
     }
 
-    const { arcSite, deployment, contextPath } = this.props
-
     this.fetchContent({
       data: {
         source: 'cinema-billboard',
-        query: { website: '' },
+        query: { format: 'single' },
         // filter: schema,
-        transform: response => {
-          const { peliculas, cines, estrenos = [] } = response
-
-          const moviesList = Object.values(peliculas)
-          const cinemasList = cines
-
-          const {
-            poster: {
-              sizes: { poster = '' } = {},
-              resized_urls: { portrait_lg: portraitLg } = {},
-            } = {},
-            name,
-            url,
-            body,
-          } = estrenos[0] || {}
-
-          const premiereData = {
-            title: name,
-            img:
-              portraitLg ||
-              poster ||
-              defaultImage({
-                deployment,
-                contextPath,
-                arcSite,
-                size: 'sm',
-              }),
-            url,
-            alt: body,
-          }
-
-          return {
-            premiereData,
-            billboardData: { moviesList, cinemasList },
-          }
-        },
       },
     })
   }
@@ -131,10 +93,22 @@ class CardCinemaBillboard extends PureComponent {
     const {
       movieSelected,
       cinemaSelected,
-      data: { billboardData, premiereData: { alt, img, title, url } } = {},
-    } = this.state
+      data: {
+        billboardData,
+        premiereData: { alt, img: rawImg, title, url } = {},
+      } = {},
+    } = this.state || {}
 
     const { arcSite, deployment, contextPath, isAdmin } = this.props
+
+    const img =
+      rawImg ||
+      defaultImage({
+        deployment,
+        contextPath,
+        arcSite,
+        size: 'sm',
+      })
 
     const lazyDefault = defaultImage({
       deployment,

@@ -29,7 +29,6 @@ class FormReLogin extends Component {
     this.state = {
       hiddenListBenefits: true,
       hiddenTitleBenefits: true,
-      linkListBenefits: false,
       hiddenPass: true,
       email: profileMPP ? profileMPP.email : null,
       password: null,
@@ -172,14 +171,12 @@ class FormReLogin extends Component {
       closePopup()
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-      // window.localStorage.setItem('ArcId._ID', resGetProfile.uuid)
     })
   }
 
   handleLoginBackSocial = () => {
     this.setState({
       hiddenTitleBenefits: true,
-      linkListBenefits: false,
     })
   }
 
@@ -233,7 +230,7 @@ class FormReLogin extends Component {
   }
 
   hanbleShowListBenefits = () => {
-    const { hiddenListBenefits, linkListBenefits } = this.state
+    const { hiddenListBenefits } = this.state
     const modalRelogEmail = document.querySelector('#arc-popup-relogin-email')
     const modalRelog = document.querySelector('#arc-popup-relogin')
     const modalRelogHash = document.querySelector('#arc-popup-relogin-hash')
@@ -244,7 +241,6 @@ class FormReLogin extends Component {
 
     this.setState({
       hiddenListBenefits: !hiddenListBenefits,
-      linkListBenefits: !linkListBenefits,
     })
   }
 
@@ -272,9 +268,7 @@ class FormReLogin extends Component {
       nameMPP,
       hiddenListBenefits,
       hiddenTitleBenefits,
-      linkListBenefits,
       messageError,
-      email,
       hiddenPass,
       sending,
     } = this.state
@@ -315,7 +309,7 @@ class FormReLogin extends Component {
                   Ingresa con
                 </h1>
 
-                <div className="form-grid__group">
+                {/* <div className="form-grid__group"> */}
                   <div
                     className={`form-grid--error ${messageError && 'active'}`}>
                     {messageError}
@@ -333,28 +327,17 @@ class FormReLogin extends Component {
                       placeholder="Correo Electrónico"
                       noValidate
                       onChange={this.handleChangeValidation}
-                      // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-                      tabIndex="1"
-                      value={email || ''}
                     />
-                    <label htmlFor="email" className="form-group__label">
-                      Correo Electrónico
-                    </label>
+                    {/* <label htmlFor="email" className="form-group__label">
+                        Correo Electrónico
+                      </label> */}
+
                     {formErrors.email.length > 0 && (
                       <span className="message__error">{formErrors.email}</span>
                     )}
                   </div>
 
                   <div className="form-group row-pass">
-                    <input
-                      type="button"
-                      onClick={() => this.toggleShow()}
-                      className={
-                        hiddenPass
-                          ? 'row-pass__btn row-pass--hide'
-                          : 'row-pass__btn row-pass--show'
-                      }
-                    />
                     <input
                       type={hiddenPass ? 'password' : 'text'}
                       name="password"
@@ -366,13 +349,19 @@ class FormReLogin extends Component {
                       placeholder="Contraseña"
                       noValidate
                       onChange={this.handleChangeValidation}
-                      // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-                      tabIndex="2"
                     />
-
-                    <label htmlFor="password" className="form-group__label">
-                      Contraseña
-                    </label>
+                    <input
+                      type="button"
+                      onClick={() => this.toggleShow()}
+                      className={
+                        hiddenPass
+                          ? 'row-pass__btn row-pass--hide'
+                          : 'row-pass__btn row-pass--show'
+                      }
+                    />
+                    {/* <label htmlFor="password" className="form-group__label">
+                        Contraseña
+                      </label> */}
 
                     {formErrors.password.length > 0 && (
                       <span className="message__error">
@@ -397,27 +386,25 @@ class FormReLogin extends Component {
                     </p>
                   </div>
 
-                  <div className="row-grid form-group">
+                  <div className="form-group">
                     <input
                       type="submit"
                       name="ingresar"
                       id="login_boton_ingresar"
                       className="btn btn-bg"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
-                      disabled={!sending}
-                      // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-                      tabIndex="3"
                       onClick={() =>
                         Taggeo(
                           `Web_Sign_Wall_${typePopUp}`,
                           `web_sw${typePopUp[0]}_email_login_boton`
                         )
                       }
+                      disabled={!sending}
                     />
                   </div>
-                </div>
+                {/* </div> */}
 
-                <div className="row-grid form-group col-center">
+                <div className="form-grid__group">
                   <p className="text-center mt-20 mb-20">
                     ó ingresa con tu cuenta de:
                   </p>
