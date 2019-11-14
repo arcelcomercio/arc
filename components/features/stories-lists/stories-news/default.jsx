@@ -23,7 +23,7 @@ const StoriesListNew = props => {
   const { customFields: customFieldsProps = {} } = props
   const {
     storyConfig: { contentService = '', contentConfigValues = {} } = {},
-    seeMoreLink,
+    seeMoreLink,link,
   } = customFieldsProps
 
   const data =
@@ -94,6 +94,7 @@ const StoriesListNew = props => {
                     multimediaLazyDefault,
                     multimediaLandscapeS,
                     formato: 'row',
+                    link,
                   }}
                 />
                 {ads.length > 0 && (

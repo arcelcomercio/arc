@@ -74,8 +74,7 @@ export default ({
         {isPremium && (
           <img
             src={logo}
-            alt="premium"
-            title="premium"
+            alt="premium"            
             className={classes.image}
           />
         )}

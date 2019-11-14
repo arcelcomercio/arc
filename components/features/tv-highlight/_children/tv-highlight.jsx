@@ -49,8 +49,7 @@ const TVHighlightChild = props => {
           <img
             className={classes.image}
             src={multimediaImg}
-            alt={multimediaCaption || nameTitle}
-            title={multimediaSubtitle || nameTitle}
+            alt={multimediaCaption || nameTitle}            
           />
           {multimediaType !== 'basic' && (
             <span className={classes.iconContainer}>

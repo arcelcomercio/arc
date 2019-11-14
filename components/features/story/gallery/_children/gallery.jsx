@@ -34,8 +34,7 @@ const StoryHeaderChildGallery = props => {
                 <img
                   src={isAdmin ? slide.url : slide.url}
                   data-src={slide.url}
-                  alt={slide.caption || slide.subtitle}
-                  title={slide.caption || slide.subtitle}
+                  alt={slide.caption || slide.subtitle}                  
                   className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                 />
               </picture>

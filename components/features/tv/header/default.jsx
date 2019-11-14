@@ -63,8 +63,7 @@ const TvHeader = () => {
           src={deployment(
             `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
           )}
-          alt={logoAlt}
-          title={logoAlt}
+          alt={logoAlt}          
         />
       </a>
       <div className="tv-header__logo-container  position-absolute flex mt-25 bg-white p-5 pl-10 pr-10 rounded-md">
@@ -80,8 +79,7 @@ const TvHeader = () => {
             src={deployment(
               `${contextPath}/resources/dist/${arcSite}/images/${siteLogo}`
             )}
-            alt={siteName}
-            title={siteName}
+            alt={siteName}            
           />
         </a>
       </div>

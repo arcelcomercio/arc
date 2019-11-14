@@ -137,8 +137,7 @@ const SeparatorFeatured = props => {
                 <img
                   src={isAdmin ? multimediaPortraitS : multimediaLazyDefault}
                   data-src={multimediaPortraitS}
-                  alt={multimediaCaption || title}
-                  title={multimediaSubtitle || title}
+                  alt={multimediaCaption || title}                  
                   className={`${
                     isAdmin ? '' : 'lazy'
                   } featured-separator__img w-full object-cover`}

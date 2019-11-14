@@ -9,6 +9,14 @@ const customFields = PropTypes.shape({
     name: 'Link de Ver Mas',
     description: 'Cree el link a donde redirige ver mas. Ej. /archivo/seccion',
   }),
+  link: PropTypes.oneOf(['author', 'seccion']).tag({
+    name: 'Indicar Enlace Superior de nota',
+    labels: {
+      author: 'Autor',
+      seccion: 'Sección',
+    },
+    defaultValue: 'seccion',
+  }),  
   ...customFieldsAdsList,
 })
 

@@ -14,8 +14,7 @@ const ExtraordinayStoryGridSectionItem = props => {
         <figure className={classes.imageContainer}>
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-            alt={data.name}
-            title={data.name}
+            alt={data.name}            
             src={isAdmin ? data.imageLandscapeS : data.imageLazyDefault}
             data-src={data.imageLandscapeS}
           />
