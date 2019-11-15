@@ -8,7 +8,18 @@ module.exports = (mode, type = 'index') => {
       loader: 'babel-loader',
       options: {
         presets: ['@babel/preset-env'],
-        plugins: ['@babel/plugin-transform-runtime'],
+        cacheDirectory: true
+        /**
+         * plugins: ['@babel/plugin-transform-runtime'],
+         * 
+         * Si se piensa hacer que nuestro webpack realmente transpile JS 
+         * puro y duro, es recomendable habilitar este plugin de nuevo e 
+         * instalar:
+         * 
+         * npm install -D @babel/plugin-transform-runtime
+         * npm install @babel/runtime
+         * 
+         */
       },
     },
   }
