@@ -1,9 +1,8 @@
 .header-full {
   height: 46px;
-  z-index: 101;
   &.active {
     .nav__loader-bar {
-      background-color: #42c64c;
+      background-color: #f99519;
     }
   }
   &__angle,

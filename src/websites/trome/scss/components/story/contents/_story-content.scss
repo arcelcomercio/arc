@@ -6,7 +6,7 @@
   h5,
   h6,
   li {
-    font-family: 'Time News Roman';
+    font-family: $primary-font;
   }
   .pquote__text {
     color: $color-link;
@@ -15,20 +15,17 @@
     color: $color-gray-200;
   }
   &__font--secondary {
-    font-size: 20px;
-    font-family: 'Time News Roman';
-    @media (--only-mobile) {
-      font-size: 16px;
-    }
+    font-size: 18px;
+    font-family: $primary-font;
     a {
-      color: #0072d8;
+      color: $color-primary;
     }
   }
   &__caption {
     color: #323232;
     padding: 10px 20px;
     font-family: $primary-font;
-    background-color: $color-secondary;
+    background-color: transparent;
     margin-top: -2px;
     min-height: 54px;
     display: flex;
