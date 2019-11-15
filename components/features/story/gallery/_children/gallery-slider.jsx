@@ -209,22 +209,34 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     <div className={classes.figure}>
                       <picture>
                         <source
-                          srcSet={slide.resized_urls.landscape_md}
+                          className={isAdmin ? '' : 'lazy'}
                           media="(max-width: 320px)"
+                          srcSet={
+                            isAdmin
+                              ? slide.resized_urls.landscape_md
+                              : defaultImageGallery
+                          }
+                          data-srcset={slide.resized_urls.landscape_md}
                         />
                         <source
                           className={isAdmin ? '' : 'lazy'}
-                          media="(max-width: 639px)"
+                          media="(max-width: 530px)"
+                          srcSet={
+                            isAdmin
+                              ? slide.resized_urls.story_small
+                              : defaultImageGallery
+                          }
+                          data-srcset={slide.resized_urls.story_small}
+                        />
+                        <source
+                          className={isAdmin ? '' : 'lazy'}
+                          media="(max-width: 700px)"
                           srcSet={
                             isAdmin
                               ? slide.resized_urls.landscape_l
                               : defaultImageGallery
                           }
                           data-srcset={slide.resized_urls.landscape_l}
-                        />
-                        <source
-                          srcSet={slide.resized_urls.story_small}
-                          media="(max-width: 767px)"
                         />
                         <img
                           src={
@@ -236,7 +248,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                           alt={slide.caption || slide.subtitle}
                           className={`${isAdmin ? '' : 'lazy'} ${
                             classes.image
-                          }`}
+                            }`}
                         />
                       </picture>
                     </div>
