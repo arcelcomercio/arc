@@ -32,8 +32,7 @@ export default ({
           <h3>
             <a
               className={`${classes.text} ${numline}`}
-              href={link}
-              title={title}>
+              href={link}>
               {title}
             </a>
           </h3>

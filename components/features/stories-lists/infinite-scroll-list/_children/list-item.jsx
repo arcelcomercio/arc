@@ -73,7 +73,7 @@ export default ({
           </div>
           <div className={classes.wrapperTitle}>
             <h2 className={classes.contentTitle}>
-              <a className={classes.title} href={link} title={title}>
+              <a className={classes.title} href={link}>
                 {reduceWord(title)}
               </a>
             </h2>

@@ -42,8 +42,7 @@ const RenderRelatedContentElement = (props, i) => {
         <h2 className={classes.itemTitle}>
           <a
             href={filterData.urlTitle}
-            className={classes.itemTitleLink}
-            title={filterData.nameTitle}>
+            className={classes.itemTitleLink}>
             {filterData.nameTitle}
           </a>
         </h2>
@@ -54,8 +53,7 @@ const RenderRelatedContentElement = (props, i) => {
       <figure className={classes.multimedia}>
         <a
           href={filterData.urlTitle}
-          className={classes.link}
-          title={filterData.nameTitle}>
+          className={classes.link}>
           {isAmp ? (
             <amp-img
               // TODO: En amp se puede usar lazyload para las imagenes?
