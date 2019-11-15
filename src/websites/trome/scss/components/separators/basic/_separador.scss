@@ -87,11 +87,10 @@
       margin-right: 2px;
     }
     * .separator__icon {
-      background-color: #d5c5bd;
+      background-image: url(/pf/resources/dist/trome/images/rgba70.png);
       border-radius: 10px;
       top: calc(100% - 141px);
       color: $color-gray-300;
-      display: block;
       bottom: inherit;
       right: 10px;
       top: 10px;
