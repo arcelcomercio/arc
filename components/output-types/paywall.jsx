@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import * as Meta from './_children/meta'
 import TagManager from './_children/tag-manager'
 import { interpolateUrl } from '../features/paywall/_dependencies/domains'
-import './_dependencies/paywall.css'
+import './paywall.css'
 
 const Paywall = props => {
   const {
