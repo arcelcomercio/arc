@@ -185,8 +185,7 @@ export default class FeaturedStory extends PureComponent {
           <h2 className={classes.title}>
             <a
               className={classes.titleLink}
-              href={title.url}
-              title={titleField || title.name}
+              href={title.url}              
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
               {titleField || title.name}
@@ -213,7 +212,6 @@ export default class FeaturedStory extends PureComponent {
               data-src={getDesktopImage()}
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               alt={multimediaCaption || titleField || title.name}
-              title={multimediaSubtitle || titleField || title.name}
             />
             <Icon type={multimediaType} iconClass={classes.icon} />
           </picture>
