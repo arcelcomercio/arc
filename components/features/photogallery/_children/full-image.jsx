@@ -61,7 +61,7 @@ const FullImage = ({
           </a>
         </h3>
         <h2>
-          <a className={classes.title} href={websiteLink} title={title}>
+          <a className={classes.title} href={websiteLink}>
             {title}
           </a>
         </h2>

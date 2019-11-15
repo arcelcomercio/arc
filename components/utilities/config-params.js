@@ -194,10 +194,10 @@ export const sizeImg = () => {
       width: 75,
       height: 75,
     },
-    lazy_default: {
+    /*     lazy_default: {
       width: 5,
       height: 5,
-    },
+    }, */
     // TODO: Eliminar estos tamaños despues de actualizar
     // los tamaños de las imagenes de todos los componentes.
     small: {

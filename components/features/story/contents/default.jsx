@@ -76,7 +76,7 @@ class StoryContents extends PureComponent {
         targetingUrl: 'https://targeting.perso.aws.arc.pub/api/v1/targeting',
       }
     }
-    return null
+    return {}
   }
 
   handleOptaWidget = ({ id, css, js, defer }) => {
@@ -261,7 +261,13 @@ class StoryContents extends PureComponent {
                   }
 
                   if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
-                    return <h2>{content}</h2>
+                    return (
+                      <h2
+                        dangerouslySetInnerHTML={{
+                          __html: content,
+                        }}
+                      />
+                    )
                   }
 
                   if (type === ConfigParams.ELEMENT_TEXT) {
@@ -329,7 +335,7 @@ class StoryContents extends PureComponent {
                 href={URL_BBC}
                 rel="nofollow noopener noreferrer"
                 target="_blank">
-                <img alt="BBC" title="BBC" src={imgBbc} data-src={imgBbc} />
+                <img alt="BBC" src={imgBbc} data-src={imgBbc} />
               </a>
             </div>
           )}

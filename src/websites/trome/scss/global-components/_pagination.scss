@@ -3,7 +3,7 @@
 .pagination {
   &__page {
     padding: 0 12px;
-    background-color: #ccc;
+    background-color: #d8d7d4;
     margin: 4px 2px;
     color: $color-black;
     height: 30px;
@@ -11,10 +11,10 @@
     align-items: center;
     font-size: 14px;
     font-family: $primary-font;
-
+    text-transform: capitalize;
     &--current,
     &--disabled {
-      color: #999;
+      color: $color-base-300;
     }
   }
 }

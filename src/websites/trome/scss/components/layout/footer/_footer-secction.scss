@@ -1,6 +1,9 @@
 .footer-secction {
   &__item {
     font-weight: 700;
+    a {
+      font-weight: 400;
+    }
   }
   &__item,
   &__link-footer {
@@ -29,6 +32,13 @@
       @media (--desktop) {
         font-size: 15px;
         height: 17px;
+      }
+    }
+    .footer-secction__item {
+      &:first-child {
+        a {
+          font-weight: 700;
+        }
       }
     }
   }
