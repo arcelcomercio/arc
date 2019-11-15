@@ -64,7 +64,7 @@ export default ({
           </div>
           <div className={classes.wrapperTitle}>
             <h2 className={classes.contentTitle}>
-              <a className={classes.title} href={websiteLink} title={title}>
+              <a className={classes.title} href={websiteLink}>
                 {title}
               </a>
             </h2>

@@ -6,7 +6,7 @@ import ArcStoryContent, {
   /* RawHtml, */
   Text,
 } from '@arc-core-components/feature_article-body'
-import Clavis from '../../../utilities/analytics/clavis'
+// import Clavis from '../../../utilities/analytics/clavis'
 import {
   appendToBody,
   createLink,
@@ -62,7 +62,7 @@ class StoryContents extends PureComponent {
     }
   }
 
-  getClavisConfig = () => {
+  /* getClavisConfig = () => {
     const { globalContent } = this.props
     const { _id, taxonomy } = globalContent || {}
     if (_id && taxonomy) {
@@ -77,7 +77,7 @@ class StoryContents extends PureComponent {
       }
     }
     return {}
-  }
+  } */
 
   handleOptaWidget = ({ id, css, js, defer }) => {
     // eslint-disable-next-line camelcase
@@ -329,12 +329,12 @@ class StoryContents extends PureComponent {
                 href={URL_BBC}
                 rel="nofollow noopener noreferrer"
                 target="_blank">
-                <img alt="BBC" title="BBC" src={imgBbc} data-src={imgBbc} />
+                <img alt="BBC" src={imgBbc} data-src={imgBbc} />
               </a>
             </div>
           )}
         </div>
-        <Clavis clavisConfig={this.getClavisConfig()} />
+        {/* <Clavis clavisConfig={this.getClavisConfig()} /> */}
       </>
     )
   }

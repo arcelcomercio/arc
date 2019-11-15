@@ -43,9 +43,12 @@
     -webkit-line-clamp: 1;
   }
   &__story-load-image {
-    background-image: url('/pf/resources/dist/depor/images/d.png');
+    background-image: url('/pf/resources/dist/trome/images/logo-white.png');
     background-position: center;
     background-repeat: no-repeat;
+    background-size: contain;
+    width: 67px;
+    left: 18px;
     &::before {
       display: none;
     }
