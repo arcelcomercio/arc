@@ -88,8 +88,7 @@ export default ({
         <h2>
           <a
             className={classes.title}
-            href={websiteLink}
-            title={title}
+            href={websiteLink}            
             {...getEditableField('titleField')}
             suppressContentEditableWarning>
             {title}
