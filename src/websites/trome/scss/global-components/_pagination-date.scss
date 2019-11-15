@@ -1,0 +1,18 @@
+.pagination-date {
+  margin-bottom: 50px;
+
+  &__link {
+    background-color: #d8d7d4;
+    color: $color-black;
+    font-weight: 400;
+    &:hover {
+      background-color: #ccc;
+    }
+    &.active {
+      cursor: initial;
+      background-color: transparent;
+      color: $color-black;
+      text-decoration: none;
+    }
+  }
+}
