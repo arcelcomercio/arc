@@ -76,11 +76,11 @@ const ChartbeatBody = props => {
   const chartbeatConfig = `
     var _sf_async_config = _sf_async_config || {}; 	_sf_async_config.sections = "${renderSections}";
 		${
-      story
-        ? `
+    story
+      ? `
 		_sf_async_config.authors = '${author}'; 	_sf_async_config.type =  '${type}'; 		_sf_async_config.contentType = "${stringType}";
 		`
-        : ''
+      : ''
     }
     (function() {
           function loadChartbeat() {
@@ -96,6 +96,7 @@ const ChartbeatBody = props => {
   return (
     <>
       <script
+        async
         type="text/javascript"
         dangerouslySetInnerHTML={{ __html: chartbeatConfig }}
       />
