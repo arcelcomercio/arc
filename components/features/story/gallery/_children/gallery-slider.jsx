@@ -224,7 +224,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                         />
                         <source
                           srcSet={slide.resized_urls.story_small}
-                          media="(max-width: 767px)"
+                          media="(max-width: 768px)"
                         />
                         <img
                           src={
