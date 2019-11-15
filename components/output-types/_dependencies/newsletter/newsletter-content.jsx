@@ -45,7 +45,7 @@ const analyzeParagraph = paragraph => {
       break
     case ConfigParams.ELEMENT_RAW_HTML:
       result += paragraph.payload
-      
+
       break
     default:
       result += ''
@@ -173,8 +173,7 @@ const NewsLetterContent = ({
     <>
       <nameCollection>{nameWebsked}</nameCollection>
       <descriptionCollection>{descriptionWebsked}</descriptionCollection>
-      {contentElements.map((story,index) => {
-
+      {contentElements.map((story, index) => {
         storydata.__data = storiesContent[index]
 
         const thumb =
@@ -190,8 +189,10 @@ const NewsLetterContent = ({
             ? story.description.basic
             : ''
 
+        const title = (story && story.headlines && story.headlines.basic) || ''
+
         const params = {
-          title: storydata.title,
+          title,
           description,
           urlNew: `${siteUrl}${storydata.websiteLink}`,
           id: storydata.id,
