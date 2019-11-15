@@ -71,6 +71,7 @@ class FooterDepor extends PureComponent {
     const footerProps = {
       sections: children,
       socialNetworks,
+      arcSite,
     }
     const footerInfoProp = {
       siteUrl,
