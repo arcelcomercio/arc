@@ -63,8 +63,7 @@ class StoriesList extends PureComponent {
               <h2 className={classes.contentTitle}>
                 <a
                   className={classes.title}
-                  href={data.urlBlog}
-                  title={data.author}>
+                  href={data.urlBlog}>
                   {reduceWord(data.author)}
                 </a>
               </h2>

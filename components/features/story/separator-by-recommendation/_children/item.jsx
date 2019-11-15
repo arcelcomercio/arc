@@ -31,7 +31,7 @@ const StorySeparatorByRecommendationChildItem = ({ data, clickedRecommendation }
           <a href={sectionLink}>{section}</a>{' '}
         </h2>
         <h3 className={classes.separatorTitle}>
-          <a className={classes.titleLink} href={link} title={title} onClick={e => clickedRecommendation(e, link)}>
+          <a className={classes.titleLink} href={link} onClick={e => clickedRecommendation(e, link)}>
             {title}
           </a>
         </h3>
@@ -41,8 +41,7 @@ const StorySeparatorByRecommendationChildItem = ({ data, clickedRecommendation }
           <a href={link} onClick={e => clickedRecommendation(e, link)}>
             <img
               src={multimediaPortraitXS}
-              alt={title}
-              title={title}
+              alt={title}              
               className={classes.itemImage}
             />
           </a>

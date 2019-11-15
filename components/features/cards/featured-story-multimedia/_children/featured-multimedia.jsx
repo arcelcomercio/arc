@@ -55,8 +55,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             src={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
-            data-src={multimediaLandscapeMD}
-            title={multimediaSubtitle || title}
+            data-src={multimediaLandscapeMD}            
             alt={multimediaCaption || title}
           />
           <Icon type={multimediaType} iconClass="" />
