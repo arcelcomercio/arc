@@ -53,14 +53,6 @@ class CardOpinion extends PureComponent {
                 website_url: websiteUrl = '',
               } = contentElements[0] || {}
 
-              // const {
-              //   additional_properties: {
-              //     original: {
-              //       site_topper: { site_logo_image: siteLogo = '' } = {},
-              //     } = {},
-              //   } = {},
-              // } = sites[0] || {}
-
               const {
                 name = '', 
                 path = '',
@@ -70,8 +62,6 @@ class CardOpinion extends PureComponent {
                   } = {},
                 } = {},
               } = secs[0] ||{}
-              
-              // const { name = '', path = '' } = secs[1] || {}
 
               const indexSec = Object.values(sections).indexOf(path)
               const sectionActive = Object.keys(sections)[indexSec]
