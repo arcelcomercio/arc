@@ -72,8 +72,8 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-    nameSeccion.split('/')[1]
-    } ${subtype} `
+        nameSeccion.split('/')[1]
+      } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -118,7 +118,7 @@ export default ({
   const getDescription = () => {
     let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
       siteProperties.siteName
-      }.`
+    }.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
@@ -142,8 +142,8 @@ export default ({
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
       : `Noticias, ${
-      siteProperties.siteName
-      }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -219,7 +219,7 @@ export default ({
 
   const isPremium = (contentCode === 'premium' && true) || false
 
-  const htmlAmpIs = arcSite === 'gestion' && isPremium ? '' : true
+  const htmlAmpIs = isPremium ? '' : true
 
   return (
     <html lang="es">
@@ -334,7 +334,6 @@ export default ({
           </>
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
-
       </head>
       <body className={classBody}>
         <noscript>
@@ -342,7 +341,7 @@ export default ({
             title="Google Tag Manager - No Script"
             src={`https://www.googletagmanager.com/ns.html?id=${
               siteProperties.googleTagManagerId
-              }`}
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -351,7 +350,10 @@ export default ({
         {isStory && ( // TODO: pediente por definir comentarios por cada sitio
           <>
             <div id="fb-root" />
-            <script defer dangerouslySetInnerHTML={{ __html: structuredFacebook }} />
+            <script
+              defer
+              dangerouslySetInnerHTML={{ __html: structuredFacebook }}
+            />
           </>
         )}
         <div id="fusion-app" role="application">
@@ -398,7 +400,10 @@ export default ({
           </>
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
-        <script async dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }} />
+        <script
+          async
+          dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
+        />
       </body>
     </html>
   )
