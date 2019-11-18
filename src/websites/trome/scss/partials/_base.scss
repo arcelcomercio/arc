@@ -8,3 +8,36 @@ body {
     background: $color-white;
   }
 }
+table {
+  border-color: $color-gray-300;
+  border-collapse: collapse;
+  &.border-gray {
+    border-color: $color-gray-300;
+  }
+  thead {
+    background-color: $color-primary;
+    color: $color-white;
+    border-bottom: 1px solid $color-gray-300;
+    th {
+      padding: 5px;
+      border-right: 1px solid $color-gray-300;
+    }
+  }
+  tbody {
+    tr {
+      &:nth-child(2n) {
+        background-color: #ebebeb;
+      }
+    }
+    td {
+      font-family: $primary-font !important;
+      padding: 10px;
+      border-color: $color-gray-300;
+      vertical-align: middle;
+      text-align: center;
+      &.border-gray {
+        border-color: $color-gray-300;
+      }
+    }
+  }
+}

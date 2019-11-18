@@ -141,7 +141,7 @@ export default ({
   )}",   "height":${seo.height}, "width":${seo.width}
        }
     },    
-    ${(isPremium && storyPremium) || ''} 
+    ${storyPremium || ''} 
     "keywords":[${
       seoKeyWordsStructurada[0]
         ? seoKeyWordsStructurada.map(item => item)

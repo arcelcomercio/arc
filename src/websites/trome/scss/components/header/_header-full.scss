@@ -36,6 +36,7 @@
   }
   &__megamenu {
     top: 46px;
+    background-color: #ebebeb;
   }
   &__call-img {
     @media (--desktop) {
@@ -44,6 +45,12 @@
   }
   &__wrapper-menu {
     background-color: $color-white;
+    /*   &.active {
+      .header-full__btn-close {
+        background-color: $color-primary;
+        color: $color-white;
+      }
+    } */
   }
   &__item {
     &:nth-last-child(1) {
