@@ -1,7 +1,7 @@
 .stories-l-card {
   border: 0;
   &__list {
-    padding-top: 10px;
+    padding: 10px;
   }
 }
 .stories-l-item {
@@ -21,7 +21,7 @@
     color: $color-base-100;
     font-size: 21.4px;
     font-weight: 700;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     display: -webkit-box;
