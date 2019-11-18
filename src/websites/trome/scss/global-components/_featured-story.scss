@@ -15,8 +15,9 @@
   &__category-link {
     font-size: 11px;
     text-transform: uppercase;
-    font-family: 'Arial';
+    font-family: $primary-font;
     color: $color-white;
+    font-weight: 700;
   }
   &__title-link {
     display: -webkit-box;
@@ -264,6 +265,9 @@
     .featured-story__category {
       order: 1;
       display: flex;
+      @media (--only-mobile) {
+        margin-top: 10px;
+      }
       @media (--tablet) {
         display: flex;
       }
