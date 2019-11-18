@@ -21,10 +21,14 @@ const HeaderFull = props => {
       type = '',
       website_url: postPermaLink,
       headlines: { basic: postTitle } = {},
-    },
-  } = useFusionContext()
+    } = {},
+  } = useFusionContext() || {}
 
-  const { footer: { socialNetworks = [] } = {},winningCallUrl='', mobileHeaderFollowing='' } = siteProperties
+  const {
+    footer: { socialNetworks = [] } = {},
+    winningCallUrl = '',
+    mobileHeaderFollowing = '',
+  } = siteProperties
 
   const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
 
@@ -106,8 +110,8 @@ const HeaderFull = props => {
       },
     ],
   }
-  const arcSiteTrome ='trome'
-  
+  const arcSiteTrome = 'trome'
+
   const winningCallLogo =
     arcSite === arcSiteTrome
       ? deployment(

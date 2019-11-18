@@ -6,8 +6,8 @@ const classes = {
   item: 'footer-secction__item',
 }
 
-const ItemLinkSubSection = ({ url, subsectionName }) => (
-  <li className={classes.item}>
+const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
+  <li className={`${classes.item} ${isBold ? 'footer-secction__bold' : ''}`}>
     <a href={url}>{subsectionName}</a>
   </li>
 )
@@ -29,11 +29,22 @@ const SectionColumn = ({
       {listSubSections.map(
         ({ display_name: subsectionName = '', url = '' }, index) => {
           const keyString = `id${index}`
+          let subItemName = subsectionName
+          const rawMatch = subItemName.match(/\[.*\]/g)
+          const match =
+            rawMatch === null
+              ? ''
+              : rawMatch[0].replace('[', '').replace(']', '')
+
+          if (match) {
+            subItemName = subItemName.replace(/\[.*\]/g, '')
+          }
           return (
             <ItemLinkSubSection
               key={keyString}
-              subsectionName={subsectionName}
+              subsectionName={subItemName}
               url={url}
+              isBold={match === 'bold'}
             />
           )
         }
