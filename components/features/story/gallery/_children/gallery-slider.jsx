@@ -220,7 +220,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                         />
                         <source
                           className={isAdmin ? '' : 'lazy'}
-                          media="(max-width: 768px)"
+                          media="(max-width: 769px)"
                           srcSet={
                             isAdmin
                               ? slide.resized_urls.story_small

@@ -84,10 +84,15 @@ export default ({
   isStory,
   shareButtons,
   postTitle,
-  siteName,
+  arcSite,
+  winningCallLogo,
+  winningCallUrl,
+  mobileHeaderFollowing,
 }) => {
   const inputSearch = useRef(null)
   const [showMenu, toggleMenu] = useState(false)
+
+  const arcSiteTrome ='trome'
 
   const [scrolled, setScrolled] = useState(false)
 
@@ -151,7 +156,6 @@ export default ({
     else popUpWindow(item.link, '', 600, 400)
   }
 
-  const siteNameTrome = 'Trome'
   return (
     <>
       <div
@@ -248,7 +252,7 @@ export default ({
                 })}
               </ul>
               <div className={classes.footerMenu}>
-                <p className={classes.follow}>Siguenos en Depor</p>
+                <p className={classes.follow}>{mobileHeaderFollowing}</p>
                 <ul className={classes.mediaList}>
                   {socialNetworks.map(item => {
                     return (
@@ -354,7 +358,7 @@ export default ({
                   </ul>
                 </div>
               </>
-            ) : siteName !== siteNameTrome ? (
+            ) : arcSite !== arcSiteTrome ? (
               <div className={classes.btnContainer}>
                 <a
                   href="/resultados/futbol/resultados/"
@@ -364,11 +368,8 @@ export default ({
               </div>
             ) : (
               <div className={classes.callImg}>
-                <a href="https://trome.pe/registro/super-llamada-ganadora/">
-                  <img
-                    src="https://assets.trome.pe/img/super_llamada_ganadora_trome.png"
-                    alt="Lamada Ganadora"
-                  />
+                <a href={winningCallUrl}>
+                  <img src={winningCallLogo} alt="Lamada Ganadora" />
                 </a>
               </div>
             )}

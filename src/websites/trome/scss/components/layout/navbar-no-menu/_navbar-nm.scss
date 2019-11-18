@@ -1,26 +1,31 @@
 .navbar-nm {
   max-height: 33px;
+  background-color: $color-white;
   &__link {
     font-family: $primary-font;
     color: rgb(170, 170, 170);
   }
   &__box-search {
-    background-color: #ced11f;
+    background-color: #f78230;
     right: -5px;
   }
   &__btn {
-    border: 1px solid #7f7f7f;
+    border: 1px solid transparent;
+    color: #aaa;
     font-family: $primary-font;
     padding-left: 8px;
     padding-right: 8px;
     height: 25px;
-    font-size: 11px;
+    font-size: 12px;
+  }
+  &__icon-search {
+    color: #aaa;
   }
   &__input-search {
     padding: 0 8px;
   }
   &__btn-search {
-    background-color: #ced11f;
+    background-color: #f78230;
     color: #006132;
     border: solid 1px $color-white;
     font-weight: 700;

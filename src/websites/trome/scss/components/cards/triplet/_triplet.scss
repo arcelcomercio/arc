@@ -1,5 +1,9 @@
 .triplet {
   padding: 0;
+  &__title {
+    max-height: 59px;
+  }
+
   &__title-link {
     color: $color-black;
     font-weight: 700;
@@ -34,5 +38,25 @@
       padding-left: 10px;
     }
     max-width: calc(100% - 98px);
+  }
+  &__icon {
+    background-image: url(/pf/resources/dist/trome/images/rgba70.png);
+    border-radius: 10px;
+    top: calc(100% - 141px);
+    color: $color-gray-300;
+    bottom: inherit;
+    right: 10px;
+    top: 10px;
+    pointer-events: none;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 26px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: inherit;
+    transform: none;
   }
 }

@@ -7,7 +7,7 @@ const StorySeparatorChildItemSliderAmp = ({ data }) => {
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
-        <a href={link} title={title}>
+        <a href={link}>
           <amp-img
             src={multimediaLandscapeMD}
             width="240"

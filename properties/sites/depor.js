@@ -18,6 +18,7 @@ export default {
   idGoogleAnalitics: 'UA-3055636-8',
   fbArticleStyle: 'LogoDepor',
   nameStoryRelated: 'RELACIONADAS',
+  mobileHeaderFollowing:'Siguenos en Depor',
   siteDescription:
     'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',

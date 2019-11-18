@@ -21,13 +21,13 @@ class XmlMagStoriesSitemapWeb {
         source: SOURCE,
         query: {
           website: 'elcomerciomag',
-          stories_qty: 100
+          stories_qty: 100,
         },
         transform: data => {
           if (!data) return []
           const { content_elements: stories } = data
           return stories
-        }
+        },
       },
     })
   }
@@ -60,8 +60,8 @@ class XmlMagStoriesSitemapWeb {
           url: {
             loc: `${siteUrl}${MAG_PATH}${storyData.link || ''}`,
             lastmod: localISODate(storyData.date || ''),
-            changefreq: 'always',
-            priority: '1',
+            changefreq: 'hourly',
+            priority: '1.0',
           },
         }
       }),

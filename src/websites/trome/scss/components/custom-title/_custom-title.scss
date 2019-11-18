@@ -1,7 +1,7 @@
 .custom-title {
   font-family: $secondary-font;
-  color: $color-primary;
-  font-weight: 700;
+  color: $color-base-300;
+  font-weight: 400;
   margin-bottom: 20px;
   @media (--tablet) {
     padding-left: 20px;
@@ -9,19 +9,11 @@
   @media (--desktop) {
     padding-left: 20px;
   }
-  &.medium {
-    font-size: 24px;
-    @media (--tablet) {
-      font-size: 30px;
-    }
-  }
+  &.medium,
   &.large {
-    font-size: 24px;
+    font-size: 20px;
     @media (--tablet) {
-      font-size: 30px;
-    }
-    @media (--desktop) {
-      font-size: 46px;
+      font-size: 40px;
     }
   }
 }
