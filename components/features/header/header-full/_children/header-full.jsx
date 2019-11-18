@@ -92,7 +92,7 @@ export default ({
   const inputSearch = useRef(null)
   const [showMenu, toggleMenu] = useState(false)
 
-  const arcSiteTrome ='trome'
+  const arcSiteTrome = 'trome'
 
   const [scrolled, setScrolled] = useState(false)
 
@@ -306,17 +306,30 @@ export default ({
                         </h3>
                         <ul className={classes.megaMenuList}>
                           {item.children.map(subItem => {
-                            return (() => {
-                              return (
-                                <li className={classes.megaMenuItem}>
-                                  <a
-                                    href={subItem.url || subItem._id || '/'}
-                                    className={classes.megaMenuLink}>
-                                    {subItem.name || subItem.display_name}
-                                  </a>
-                                </li>
-                              )
-                            })()
+                            let subItemName =
+                              subItem.name || subItem.display_name
+                            const rawMatch = subItemName.match(/\[.*\]/g)
+                            const match =
+                              rawMatch === null
+                                ? ''
+                                : rawMatch[0].replace('[', '').replace(']', '')
+
+                            if (match) {
+                              subItemName = subItemName.replace(/\[.*\]/g, '')
+                            }
+                            return (
+                              <li className={classes.megaMenuItem}>
+                                <a
+                                  href={subItem.url || subItem._id || '/'}
+                                  className={`${classes.megaMenuLink} ${
+                                    match === 'bold'
+                                      ? 'megamenu__title-link font-bold'
+                                      : ''
+                                  }`}>
+                                  {subItemName}
+                                </a>
+                              </li>
+                            )
                           })}
                         </ul>
                       </div>
