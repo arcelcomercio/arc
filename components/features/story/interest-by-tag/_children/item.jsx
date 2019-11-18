@@ -32,7 +32,7 @@ const StorySeparatorChildItem = ({ data }) => {
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
-        <a href={link} title={title}>
+        <a href={link}>
           <picture className={classes.figure}>
             {/* <source
               className={isAdmin ? '' : 'lazy'}

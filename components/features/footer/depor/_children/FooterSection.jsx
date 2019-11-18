@@ -6,16 +6,18 @@ import SectionColumn from './SectionColumn'
 const classes = {
   footer: 'footer-secction flex-row mb-25',
 }
-const DeporFooter = ({ sections = [], socialNetworks }) => {
+const arcSiteDepor = 'depor'
+const DeporFooter = ({ sections = [], socialNetworks, arcSite }) => {
   return (
     <div className={classes.footer}>
       {sections.map((section, i) => {
         const keyString = `id${i}`
-        const sectionProps = { section ,keyString}
+        const sectionProps = { section, keyString }
         return <SectionColumn {...sectionProps} />
       })}
-
-      <SocialColumnSection key={0} socialNetworks={socialNetworks} />
+      {arcSite === arcSiteDepor && (
+        <SocialColumnSection key={0} socialNetworks={socialNetworks} />
+      )}
     </div>
   )
 }

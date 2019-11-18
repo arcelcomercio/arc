@@ -1,25 +1,32 @@
 .story-header {
   &__title-section {
-    font-family: 'Time News Roman';
     font-size: 26px;
     @media (--desktop) {
       font-size: 36px;
     }
   }
   &__news-title {
-    font-family: 'Time News Roman';
-    font-size: 26px;
+    font-size: 27px;
+    font-weight: 700;
     @media (--desktop) {
-      font-size: 36px;
+      font-size: 45px;
     }
   }
   &__icon {
     color: $color-gray-300;
   }
+  &__news-title,
+  &__news-summary,
+  &__title-section {
+    font-family: $primary-font;
+  }
   &__news-summary {
     font-size: 14px;
-    @media (--desktop) {
+    @media (--tablet) {
       font-size: 18px;
     }
+  }
+  &__share {
+    border-color: $color-base-300;
   }
 }

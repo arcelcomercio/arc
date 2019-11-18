@@ -56,7 +56,7 @@ export default ({
               )}
             </figure>
           )}
-          <a href={urlNews} title={title}>
+          <a href={urlNews}>
             <h3 className={classes.link}>{title}</h3>
           </a>
         </div>

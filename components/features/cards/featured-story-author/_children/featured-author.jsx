@@ -114,8 +114,7 @@ export default ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.storyImg}`}
             data-src={storyImages.desktop}
             src={isAdmin ? storyImages.desktop : multimediaLazyDefault}
-            alt={multimediaCaption || title}
-            title={multimediaSubtitle || title}
+            alt={multimediaCaption || title}            
           />
           <Icon type={multimediaType} iconClass={classes.icon} />
         </picture>
@@ -127,7 +126,7 @@ export default ({
           </a>
         </h3>
         <h2 className={classes.title}>
-          <a className={classes.titleLink} href={websiteLink} title={title}>
+          <a className={classes.titleLink} href={websiteLink}>
             {title}
           </a>
         </h2>
@@ -135,8 +134,7 @@ export default ({
           <h3 className={classes.subtitle}>
             <a
               className={classes.subtitleLink}
-              href={websiteLink}
-              title={subTitle}>
+              href={websiteLink}>
               {subTitle}
             </a>
           </h3>
@@ -152,8 +150,7 @@ export default ({
                     ? authorImageSquareXS || authorImage
                     : multimediaLazyDefault
                 }
-                alt={author}
-                title={author}
+                alt={author}                
               />
             </picture>
           </a>

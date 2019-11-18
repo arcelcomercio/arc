@@ -6,10 +6,10 @@
     background-color: transparent;
   }
   &__title {
-    color: $color-fourth;
-    font-size: 16px;
-    font-weight: 900;
-    font-family: $primary-font;
+    color: $color-secondary;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $secondary-font;
     text-align: center;
   }
   &__brand {
@@ -23,6 +23,7 @@
     border: 0;
   }
   &__month-view__days__day {
+    font-family: $primary-font;
     &:disabled {
       abbr {
         color: #bbbbbb;

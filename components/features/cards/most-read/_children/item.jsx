@@ -18,7 +18,7 @@ const CardMostReadChildItem = props => {
   if (viewImage) classes.numLines = 'four-lines'
 
   return (
-    <a href={websiteUrl} className={classes.item} title={title}>
+    <a href={websiteUrl} className={classes.item}>
       <article role="listitem" className={classes.article}>
         {viewImage && (
           <figure className={classes.figure}>

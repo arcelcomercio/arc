@@ -31,7 +31,7 @@ const StorySeparatorChildItem = ({ data }) => {
           <a href={sectionLink}>{section}</a>{' '}
         </h2>
         <h3 className={classes.separatorTitle}>
-          <a className={classes.titleLink} href={link} title={title}>
+          <a className={classes.titleLink} href={link}>
             {title}
           </a>
         </h3>
