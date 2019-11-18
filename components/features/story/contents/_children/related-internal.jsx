@@ -38,7 +38,7 @@ const RelartedItem = ({ data } /* , i */) => {
           <h2 className={classes.titleLink}>
             <a href={link}>{title}</a>
           </h2>
-          <a className={classes.linkAuthor} href={authorLink} title={author}>
+          <a className={classes.linkAuthor} href={authorLink}>
             {author}
           </a>
         </div>

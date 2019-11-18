@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 
 import schemaFilter from './_dependencies/schema-filter'
 import StorySeparatorByRecommendationChildItem from './_children/item'
@@ -27,6 +28,7 @@ const StorySeparatorByRecommendation = () => {
   const contentId = globalContent ? globalContent._id : ''
   const [query, setQuery] = useState({})
 
+  const { siteUrl } = getProperties(arcSite)
   const { content_elements: recommendations = [] } = useContent(query) || {}
 
   useEffect(() => {
@@ -84,7 +86,7 @@ const StorySeparatorByRecommendation = () => {
       contentId,
       count: STORIES_QTY, // Por ahora al ser desktop renderiza todas
       site: arcSite,
-      clickedUrl,
+      clickedUrl: `${siteUrl}${clickedUrl}`,
       response: buildClavisRenderedResponse([...recommendations])
     })
     window.location.href = clickedUrl;

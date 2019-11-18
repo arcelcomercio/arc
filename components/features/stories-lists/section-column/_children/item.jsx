@@ -33,7 +33,7 @@ const StoriesListsCardChildItem = ({
 
       <div className={classes.wrapper}>
         <div className={classes.linkBox}>
-          <a href={urlNews} title={title}>
+          <a href={urlNews}>
             <h3 className={classes.link}>{title}</h3>
           </a>
           <span>

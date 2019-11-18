@@ -73,8 +73,7 @@ const SeparatorsBasicChildSeparator = ({
                 <div className={classes.detail}>
                   <a
                     className="separator__title-link"
-                    href={websiteLink}
-                    title={title}>
+                    href={websiteLink}>
                     <h3 className={classes.text}>{title}</h3>
                   </a>
                   {isAuthorVisible && (

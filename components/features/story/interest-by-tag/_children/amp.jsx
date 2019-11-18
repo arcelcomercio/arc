@@ -22,7 +22,7 @@ const StorySeparatorChildItemAmp = ({ data }) => {
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
-        <a href={link} className={classes.link} title={title}>
+        <a href={link} className={classes.link}>
           <amp-img
             src={multimediaLandscapeL}
             layout="responsive"

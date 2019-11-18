@@ -79,8 +79,7 @@ const ExtraordinaryStory = props => {
               <h2 className={`${classes.title} ${numline}`}>
                 <a
                   href={data.link}
-                  className={classes.titleLink}
-                  title={data.title}>
+                  className={classes.titleLink}>
                   {data.title}
                 </a>
               </h2>
