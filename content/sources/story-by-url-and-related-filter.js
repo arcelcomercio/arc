@@ -304,6 +304,13 @@ export default {
       type
       name
       path
+      additional_properties{
+        original{
+          _admin:{
+            alias_ids
+          }
+        }
+      }
     }
     seo_keywords
   }
