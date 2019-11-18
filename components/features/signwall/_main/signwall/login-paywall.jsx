@@ -39,7 +39,6 @@ class LoginPaywall extends Component {
           closePopup={closePopup}
           typePopUp="suscripciones"
           typeForm="login"
-          reloadLogin
           onLogged={onLogged}
         />
       ),
@@ -49,7 +48,6 @@ class LoginPaywall extends Component {
           typePopUp="suscripciones"
           typeForm="registro"
           brandCurrent={brandModal}
-          reloadRegister
         />
       ),
       forgot: (
@@ -58,7 +56,6 @@ class LoginPaywall extends Component {
           typePopUp="suscripciones"
           typeForm="login"
           brandCurrent={brandModal}
-          reloadForgot
         />
       ),
     }
