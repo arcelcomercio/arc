@@ -151,13 +151,27 @@ const fetch = ({ website_url: websiteUrl, 'arc-site': website } = {}) => {
 
 const basicVideo = `    
 basic_video {
+  streams{
+    stream_type
+    filesize
+    url
+  }
+  embed_html
   promo_items {
     basic { 
       url 
       type 
       subtitle
       caption
-      resized_urls 
+      resized_urls{
+        resized_urls{
+          large
+          landscape_md
+          story_small
+          amp_new
+          impresa
+        }
+      }
     }
   }
 }`
@@ -335,7 +349,7 @@ export default {
       path
       additional_properties{
         original{
-          _admin:{
+          _admin{
             alias_ids
           }
         }

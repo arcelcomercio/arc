@@ -73,7 +73,7 @@ export default ({
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory
-    ? `story paywall ${basicGallery && 'basic_gallery'} ${arcSite} ${
+    ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
         nameSeccion.split('/')[1]
       } ${subtype} `
     : ''

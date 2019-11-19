@@ -183,7 +183,11 @@ class StoryContents extends PureComponent {
 
           <div id="ads_m_movil2" />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            className={`${classes.content} ${
+              isPremium || arcSite !== ConfigParams.SITE_GESTION
+                ? 'paywall'
+                : ''}
+                `}
             id="contenedor">
             <StoryContentsChildIcon />
             <div id="ads_d_inline" />
