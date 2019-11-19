@@ -54,8 +54,6 @@ class CardOpinion extends PureComponent {
                 website_url: websiteUrl = '',
               } = contentElements[0] || {}
 
-              
-              
               const sectionItem = sections[`section${index+1}`]
               const secPropperties = secs.find(x => x.path === sectionItem) || {}
               

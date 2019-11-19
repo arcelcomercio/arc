@@ -256,7 +256,8 @@ const adsParams =
       invCode: `${slot}_${el}`,
       sizes:
         device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
-      allowedformats: ['video', 'banner'],
+      allowedformats:
+        site === 'eco' ? ['video', 'banner', 'native'] : ['video', 'banner'],
       targetId: `ads_${device}_${el}`,
     }
   })
