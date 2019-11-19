@@ -97,7 +97,7 @@ const analyzeParagraph = ({
 
     case ConfigParams.ELEMENT_IMAGE:
       result.numberWords = numberWordMultimedia
-      result.processedParagraph = `<figure><img src="${processedParagraph}" /><figcaption></figcaption></figure>`
+      result.processedParagraph = `<figure><img src="${processedParagraph}" /></figure>`
       break
 
     case ConfigParams.ELEMENT_RAW_HTML:
