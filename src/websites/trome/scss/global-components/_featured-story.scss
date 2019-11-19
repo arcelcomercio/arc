@@ -125,20 +125,29 @@
       }
     }
   }
-  &--no-expanded {
+  &--no-expanded,
+  .featured-story---no-expanded.featured-story--reverse {
     @media (--only-mobile) {
-      flex-direction: row-reverse;
+      flex-direction: column-reverse;
+      height: auto;
+    }
+    .featured-story__detail {
+      @media (--only-mobile) {
+        height: calc(100% - 157px);
+        padding: 10px;
+      }
     }
     .featured-story__img-link {
       @media (--only-mobile) {
-        min-width: 130px;
+        height: 168px;
+        min-width: 100%;
         margin-left: 0;
       }
     }
     .featured-story__title-link {
       @media (--only-mobile) {
-        font-size: 14px;
-        height: 66px;
+        font-size: 21.4px;
+        max-height: 100px;
       }
     }
     .featured-story__author-link {
@@ -189,7 +198,7 @@
     }
   }
   &.featured-story--reverse {
-    @media (--only-mobile) {
+    /*    @media (--only-mobile) {
       flex-direction: row-reverse;
       padding: 0;
       height: 115px;
@@ -212,7 +221,7 @@
         margin-left: 0;
         height: 100%;
       }
-    }
+    } */
     &.expand {
       height: 374px;
       .featured-story__detail {
