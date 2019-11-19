@@ -3,23 +3,20 @@ $border-gray: #b7b7b7;
   &__title {
     border-bottom: 1px solid $border-gray;
     font-family: $primary-font;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 900;
     width: 100%;
   }
   &__link {
-    font-family: 'Times New Roman', serif;
+    font-family: $primary-font;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     overflow: hidden;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     display: -webkit-box;
-    font-size: 16px;
-    line-height: 1.33;
-    @media (--tablet) {
-      font-size: 20px;
-      max-height: calc(20px * 22px * 3);
-    }
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 19px;
   }
   &__list {
     display: flex;
@@ -54,20 +51,23 @@ $border-gray: #b7b7b7;
     }
   }
   &__icon {
-    left: 10px;
-    bottom: 10px;
-    background-color: $color-white;
-    color: $color-fourth;
-    margin: 0;
-    padding: 0;
-    top: inherit;
-    width: 35px;
-    height: 35px;
-    font-size: 35px;
-    @media (--tablet) {
-      font-size: 73px;
-      width: 72px;
-      height: 72px;
-    }
+    background-image: url(/pf/resources/dist/trome/images/rgba70.png);
+    border-radius: 10px;
+    top: calc(100% - 141px);
+    color: $color-gray-300;
+    bottom: inherit;
+    right: 10px;
+    top: 10px;
+    pointer-events: none;
+    width: 66px;
+    height: 66px;
+    line-height: 66px;
+    font-size: 30px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: inherit;
+    margin-top: 0;
   }
 }
