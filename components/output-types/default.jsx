@@ -11,7 +11,9 @@ import {
   skipAdvertising,
   storyTagsBbc,
   addSlashToEnd,
+  deleteQueryString,
 } from '../utilities/helpers'
+import ConfigParams from '../utilities/config-params'
 
 export default ({
   children,
@@ -71,7 +73,7 @@ export default ({
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory
-    ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
+    ? `story paywall ${basicGallery && 'basic_gallery'} ${arcSite} ${
         nameSeccion.split('/')[1]
       } ${subtype} `
     : ''
@@ -221,6 +223,9 @@ export default ({
 
   const htmlAmpIs = isPremium ? '' : true
 
+  let link = deleteQueryString(requestUri)
+  link = link.replace(/\/homepage[/]?$/, '/')
+
   return (
     <html lang="es">
       <head>
@@ -238,6 +243,13 @@ export default ({
             href={`${siteProperties.siteUrl}${addSlashToEnd(
               url
             )}?outputType=amp`}
+          />
+        )}
+        {arcSite === ConfigParams.SITE_ELCOMERCIOMAG && (
+          <link
+            rel="alternate"
+            href={`${siteProperties.siteUrlAlternate}${link}`}
+            hreflang="es"
           />
         )}
         <title>{title}</title>
