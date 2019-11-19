@@ -8,7 +8,7 @@ import {
   isEmpty,
 } from '../../../utilities/helpers'
 
-const NUMBER_WORD_MULTIMEDIA = 70
+// const NUMBER_WORD_MULTIMEDIA = 70
 
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
@@ -34,10 +34,15 @@ const buildHeaderParagraph = (paragraph, level = '2') => {
   const result = { numberWords: 0, processedParagraph: '' }
   result.numberWords = countWordsHelper(clearHtml(paragraph))
 
-  result.processedParagraph =
-    result.numberWords > 0
-      ? `<h${level}>${clearBrTag(paragraph)}</h${level}>`
-      : ''
+  if (level === 2 || level === 3 || level === 4 || level === 5 || level === 6) {
+    result.processedParagraph =
+      result.numberWords > 0 ? `<h2>${clearBrTag(paragraph)}</h2>` : ''
+  } else {
+    result.processedParagraph =
+      result.numberWords > 0
+        ? `<h${level}>${clearBrTag(paragraph)}</h${level}>`
+        : ''
+  }
 
   return result
 }
@@ -85,8 +90,14 @@ const analyzeParagraph = ({
 
       break
     case ConfigParams.ELEMENT_LIST:
+      const paramBuildListParagraph = {
+        processedParagraph,
+        numberWordMultimedia,
+      }
+
+      // textProcess = buildListParagraph(processedParagraph)
       // eslint-disable-next-line no-use-before-define
-      textProcess = buildListParagraph(processedParagraph)
+      textProcess = buildListParagraph(paramBuildListParagraph)
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
       break
@@ -146,22 +157,24 @@ const analyzeParagraph = ({
   return result
 }
 
-const buildListParagraph = listParagraph => {
+const buildListParagraph = ({
+  processedParagraph: listParagraph,
+  numberWordMultimedia,
+}) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
   newListParagraph.forEach(({ type = '', payload = '' }) => {
     const { processedParagraph, numberWords } = analyzeParagraph({
       originalParagraph: payload,
       type,
-      numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
+      numberWordMultimedia,
+      // numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
     })
     objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
     objTextsProcess.numberWords += numberWords
   })
 
-  objTextsProcess.processedParagraph = `<ul>${
-    objTextsProcess.processedParagraph
-  }</ul>`
+  objTextsProcess.processedParagraph = `<ul>${objTextsProcess.processedParagraph}</ul>`
   // objTextsProcess.totalwords = countwords
   return objTextsProcess
 }
@@ -170,12 +183,13 @@ const ParagraphshWithAdds = ({
   paragraphsNews = [],
   firstAdd = 50,
   nextAdds = 250,
+  numberWordMultimedia = 70,
   arrayadvertising = [],
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
-  const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
+  // const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
 
   newsWithAdd = paragraphsNews
     .map(({ payload: originalParagraph, type, level }) => {
@@ -264,13 +278,15 @@ const BuildHtml = ({
   fbArticleStyle = '',
   listUrlAdvertisings,
 }) => {
-  const firstAdd = 50
-  const nextAdds = 250
+  const firstAdd = 100
+  const nextAdds = 300
+  const numberWordMultimedia = 70
 
   const paramsBuildParagraph = {
     paragraphsNews,
     firstAdd,
     nextAdds,
+    numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
   }
 
