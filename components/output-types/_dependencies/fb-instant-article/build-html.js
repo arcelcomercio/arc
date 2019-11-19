@@ -102,11 +102,13 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
       break
     case ConfigParams.ELEMENT_VIDEO:
+
       result.numberWords = numberWordMultimedia
       result.processedParagraph = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${processedParagraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
+
       result.numberWords = numberWordMultimedia
       result.processedParagraph = `<figure><img src="${processedParagraph}" /></figure>`
       break
@@ -170,6 +172,7 @@ const buildListParagraph = ({
       numberWordMultimedia,
       // numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
     })
+
     objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
     objTextsProcess.numberWords += numberWords
   })
