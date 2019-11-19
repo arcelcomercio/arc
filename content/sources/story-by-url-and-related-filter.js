@@ -157,12 +157,31 @@ basic_video {
     url
   }
   embed_html
+  type
+  headlines{
+    basic
+  }
+  description{
+    basic
+  }
+  additional_properties{
+    advertising{
+      allowPrerollOnDomain
+      playAds
+      forceAd
+      playVideoAds
+      enableAdInsertion
+      enableAutoPreview
+    }
+  }
   promo_items {
     basic { 
       url 
       type 
       subtitle
       caption
+      width
+      height
       resized_urls{
         resized_urls{
           large
@@ -182,6 +201,8 @@ basic_gallery {
   content_elements{
     subtitle
     caption
+    width
+    height
     resized_urls{
       large
       landscape_md
@@ -212,11 +233,15 @@ export default {
     title
     subtype_label
     subtype
+    width
+    height
     citation{
       type
       content
     }
     content_elements{
+      width
+      height
       url
       subtitle
       type
@@ -250,6 +275,8 @@ export default {
     }
     embed_html
     promo_image{
+      width
+      height
       url
     }
     promo_items{
@@ -257,6 +284,8 @@ export default {
         caption
         subtitle
         url
+        width
+        height
       }
     }
     resized_urls{
@@ -366,6 +395,8 @@ export default {
       type
       subtitle
       caption
+      width
+      height
       resized_urls{
         large
         landscape_md
@@ -390,10 +421,17 @@ export default {
       url
       description
       image
+      type
+      social_links{
+        site
+        url
+      }
       additional_properties{
         original{
           email
           education
+          role
+          bio
         }
       }
     }
@@ -444,6 +482,8 @@ export default {
       promo_items{
         basic{
           url
+          width
+          height
           resized_urls{
             original
             landscape_md
