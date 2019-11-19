@@ -198,30 +198,6 @@
     }
   }
   &.featured-story--reverse {
-    /*    @media (--only-mobile) {
-      flex-direction: row-reverse;
-      padding: 0;
-      height: 115px;
-    }
-    .featured-story__title-link {
-      @media (--only-mobile) {
-        font-size: 14px;
-      }
-    }
-    .featured-story__detail {
-      @media (--only-mobile) {
-        padding: 12px 5px 12px 20px;
-        width: 100%;
-        height: 100%;
-      }
-    }
-    .featured-story__img-link {
-      @media (--only-mobile) {
-        min-width: 130px;
-        margin-left: 0;
-        height: 100%;
-      }
-    } */
     &.expand {
       height: 374px;
       .featured-story__detail {
