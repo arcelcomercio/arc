@@ -29,6 +29,7 @@ class CardOpinion extends PureComponent {
   init = () => {
     const sections = {}
     const sectionsFetch = []
+
     const { customFields, arcSite, deployment, contextPath } = this.props || {}
     for (let i = 1; i <= 4; i++) {
       const sec = customFields[`section${i}`]
@@ -43,7 +44,7 @@ class CardOpinion extends PureComponent {
       Promise.all(sectionsFetch)
         .then(results => {
           const jsonSections = {}
-          results.forEach(res => {
+          results.forEach((res,index )=> {
             const { content_elements: contentElements = [] } = res || {}
             if (contentElements.length > 0) {
               
@@ -53,6 +54,9 @@ class CardOpinion extends PureComponent {
                 website_url: websiteUrl = '',
               } = contentElements[0] || {}
 
+              const sectionItem = sections[`section${index+1}`]
+              const secPropperties = secs.find(x => x.path === sectionItem) || {}
+              
               const {
                 name = '', 
                 path = '',
@@ -61,7 +65,7 @@ class CardOpinion extends PureComponent {
                     site_topper: { site_logo_image: siteLogo = '' } = {},
                   } = {},
                 } = {},
-              } = secs[0] ||{}
+              } = secPropperties 
 
               const indexSec = Object.values(sections).indexOf(path)
               const sectionActive = Object.keys(sections)[indexSec]
@@ -100,6 +104,7 @@ class CardOpinion extends PureComponent {
       {
         website: arcSite,
         section,
+        stories_qty:1
       },
       filterSchema
     )
