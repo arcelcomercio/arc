@@ -858,6 +858,7 @@ export const preventDefault = e => {
 
 export const replaceTags = text => {
   return text
+    .replace(/<h1>(.*)<\/h1>/g, '<h2>$1</h2>')
     .replace(/(\s\w)=.(.*?)/g, '$2')
     .replace('http://http://', 'https://')
     .replace(/href=&quot;(.+)&quot;>/g, 'href="$1">')

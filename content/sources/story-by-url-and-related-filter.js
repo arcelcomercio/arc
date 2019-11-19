@@ -149,6 +149,49 @@ const fetch = ({ website_url: websiteUrl, 'arc-site': website } = {}) => {
   })
 }
 
+const basicVideo = `    
+basic_video {
+  streams{
+    stream_type
+    filesize
+    url
+  }
+  embed_html
+  promo_items {
+    basic { 
+      url 
+      type 
+      subtitle
+      caption
+      resized_urls{
+        resized_urls{
+          large
+          landscape_md
+          story_small
+          amp_new
+          impresa
+        }
+      }
+    }
+  }
+}`
+
+const basicGallery = `
+basic_gallery {
+  type
+  content_elements{
+    subtitle
+    caption
+    resized_urls{
+      large
+      landscape_md
+      story_small
+      amp_new
+      impresa
+    }
+  }
+}`
+
 export default {
   fetch,
   schemaName,
@@ -306,7 +349,7 @@ export default {
       path
       additional_properties{
         original{
-          _admin:{
+          _admin{
             alias_ids
           }
         }
@@ -336,34 +379,8 @@ export default {
       _id
       type
     }
-    basic_video {
-      promo_items {
-        basic { 
-          url 
-          type 
-          subtitle
-          caption
-          resized_urls 
-        }
-      }
-    }
-    basic_gallery {
-      promo_items {
-        basic { 
-          url 
-          type
-          subtitle
-          caption
-          resized_urls{
-            large
-            landscape_md
-            story_small
-            amp_new
-            impresa
-          } 
-        }
-      }
-    }
+    ${basicVideo}
+    ${basicGallery}
   }
 
   credits{
@@ -395,6 +412,18 @@ export default {
           url
           subtitle
         }
+        basic_gallery{
+          promo_items{
+            basic{
+              caption
+              subtitle
+              resized_urls{
+                landscape_md
+              }
+            }
+          }
+        }
+        ${basicVideo} 
       }
       publish_date
       headlines{
@@ -408,6 +437,7 @@ export default {
       _id
       canonical_url
       website_url
+      type
       headlines{
         basic
       }
@@ -419,6 +449,18 @@ export default {
             landscape_md
           }
         }
+        basic_gallery{
+          promo_items{
+            basic{
+              caption
+              subtitle
+              resized_urls{
+                landscape_md
+              }
+            }
+          }
+        }
+        ${basicVideo}
       }
     }
   }

@@ -70,8 +70,8 @@ class StoryContents extends PureComponent {
         contentId: _id,
         auxiliaries: taxonomy.auxiliaries
           ? taxonomy.auxiliaries.map(aux => {
-            return aux._id
-          })
+              return aux._id
+            })
           : [],
         targetingUrl: 'https://targeting.perso.aws.arc.pub/api/v1/targeting',
       }
@@ -173,17 +173,21 @@ class StoryContents extends PureComponent {
           {primarySectionLink === '/impresa/'
             ? promoItems && <StoryContentsChildImpresa data={promoItems} />
             : promoItems &&
-            subtype !== ConfigParams.BIG_IMAGE &&
-            subtype !== ConfigParams.SPECIAL_BASIC &&
-            subtype !== ConfigParams.SPECIAL && (
-              <StoryContentsChildMultimedia data={params} />
-            )}
+              subtype !== ConfigParams.BIG_IMAGE &&
+              subtype !== ConfigParams.SPECIAL_BASIC &&
+              subtype !== ConfigParams.SPECIAL && (
+                <StoryContentsChildMultimedia data={params} />
+              )}
 
           <StoryContentsChildAuthor {...params} />
 
           <div id="ads_m_movil2" />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            className={`${classes.content} ${
+              isPremium || arcSite !== ConfigParams.SITE_GESTION
+                ? 'paywall'
+                : ''}
+                `}
             id="contenedor">
             <StoryContentsChildIcon />
             <div id="ads_d_inline" />
@@ -219,10 +223,10 @@ class StoryContents extends PureComponent {
                             description={captionVideo}
                           />
                         ) : (
-                            <StoryContentsChildVideoNativo
-                              streams={element && element.streams}
-                            />
-                          )}
+                          <StoryContentsChildVideoNativo
+                            streams={element && element.streams}
+                          />
+                        )}
                       </>
                     )
                   }
@@ -261,14 +265,20 @@ class StoryContents extends PureComponent {
                   }
 
                   if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
-                    return <h2>{content}</h2>
+                    return (
+                      <h2
+                        dangerouslySetInnerHTML={{
+                          __html: content,
+                        }}
+                      />
+                    )
                   }
 
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
                       ? `${classes.textClasses} ${
-                      classes.alignmentClasses
-                      }-${alignment}`
+                          classes.alignmentClasses
+                        }-${alignment}`
                       : classes.textClasses
                     return (
                       <Text
