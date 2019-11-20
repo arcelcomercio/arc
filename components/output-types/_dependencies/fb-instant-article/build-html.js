@@ -185,7 +185,7 @@ const buildListParagraph = ({
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
   firstAdd = 50,
-  nextAdds = 250,
+  nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
 }) => {
@@ -209,10 +209,10 @@ const ParagraphshWithAdds = ({
 
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
-          countWords = 0
+          countWords = type!==ConfigParams.ELEMENT_HEADER ? 0 : countWords
 
           paragraphwithAdd = `${processedParagraph} ${
-            arrayadvertising[IndexAdd]
+            arrayadvertising[IndexAdd] && type!==ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
           }`
@@ -221,13 +221,13 @@ const ParagraphshWithAdds = ({
           paragraphwithAdd = `${processedParagraph}`
         }
       } else {
-        // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
+        // a partir del segundo parrafo se inserta cada 350 palabras (nextAdds)
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
-          countWords = 0
+          countWords = type!==ConfigParams.ELEMENT_HEADER ? 0 : countWords
           paragraphwithAdd = `${processedParagraph} ${
-            arrayadvertising[IndexAdd]
+            arrayadvertising[IndexAdd] && type!==ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
           }`
@@ -282,7 +282,7 @@ const BuildHtml = ({
   listUrlAdvertisings,
 }) => {
   const firstAdd = 100
-  const nextAdds = 300
+  const nextAdds = 350
   const numberWordMultimedia = 70
 
   const paramsBuildParagraph = {
