@@ -198,6 +198,21 @@ basic_video {
 const basicGallery = `
 basic_gallery {
   type
+  promo_items{
+    basic{
+      caption
+      type
+      width
+      height
+      resized_urls{
+        large
+        landscape_md
+        story_small
+        amp_new
+        impresa
+      }
+    }
+  }
   content_elements{
     subtitle
     caption

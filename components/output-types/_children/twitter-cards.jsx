@@ -13,13 +13,13 @@ export default ({
   deployment = () => {},
   globalContent: data,
 }) => {
-  const { multimediaLandscapeXL, title: seoTitle } = new StoryData({
+  const { multimediaLarge, title: seoTitle } = new StoryData({
     data,
     arcSite,
   })
   const image =
-    story && multimediaLandscapeXL
-      ? multimediaLandscapeXL
+    story && multimediaLarge
+      ? multimediaLarge
       : deployment(
           `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_twitter.jpg`
         )
