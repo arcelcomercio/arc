@@ -387,8 +387,13 @@ export default {
     seo_keywords
   }
   promo_items{
+    basic_html{
+      content
+      type
+    }
     youtube_id {
       content
+      type
     }
     basic { 
       url 
