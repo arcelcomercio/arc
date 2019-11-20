@@ -25,6 +25,9 @@
     font-size: 12px;
   }
   &__link {
+    @media (--only-mobile) {
+      font-size: 15px;
+    }
     color: $color-base-100;
     font-size: 21.4px;
     font-weight: 700;
