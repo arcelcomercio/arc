@@ -57,7 +57,6 @@ class FormLoginPaywall extends Component {
         .then(() => {
           this.setState({ sending: true })
           this.handleGetProfile()
-          // -- test de tageo sucess
         })
         .catch(errLogin => {
           let messageES = ''
@@ -104,9 +103,21 @@ class FormLoginPaywall extends Component {
 
     window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resGetProfile => {
-      Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
+      const { firstName, lastName, secondLastName, email, uuid } = resGetProfile
+      Cookies.setCookie('arc_e_id', sha256(email), 365)
       Cookies.deleteCookie('mpp_sess')
-      // window.localStorage.setItem('ArcId._ID', resGetProfile.uuid)
+      dataLayer.push({
+        event: 'loginSuccessful',
+        ecommerce: {
+          dataUser: {
+            id: uuid,
+            name: `${firstName} ${lastName} ${secondLastName}`
+              .replace(/\s*/, ' ')
+              .trim(),
+            email,
+          },
+        },
+      })
 
       if (reloadLogin) {
         window.location.reload()
@@ -281,8 +292,7 @@ class FormLoginPaywall extends Component {
                             `web_sw${typePopUp[0]}_contrasena_link_olvide`
                           )
                           value.changeTemplate('forgot')
-                          }
-                        }
+                        }}
                         type="button"
                         className="link-gray">
                         Olvidé mi contraseña
@@ -298,12 +308,15 @@ class FormLoginPaywall extends Component {
                       className="btn btn-bg"
                       value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
                       disabled={!sending}
-                      onClick={() =>
+                      onClick={() => {
                         Taggeo(
                           `Web_Sign_Wall_${typePopUp}`,
                           `web_sw${typePopUp[0]}_login_boton_ingresar`
                         )
-                      }
+                        dataLayer.push({
+                          event: 'inititateLogin',
+                        })
+                      }}
                       // eslint-disable-next-line jsx-a11y/tabindex-no-positive
                       tabIndex="3"
                     />
