@@ -13,7 +13,7 @@ const MIN_YEAR = 2014
  */
 
 @Consumer
-class XmlArchivoSitemap {
+class XmlArchiveSitemap {
     constructor(props) {
         this.props = props
         this.year = new Date(localISODate()).getFullYear()
@@ -47,4 +47,4 @@ class XmlArchivoSitemap {
     }
 }
 
-export default XmlArchivoSitemap
+export default XmlArchiveSitemap
