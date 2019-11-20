@@ -11,6 +11,7 @@ import Summary from '../summary'
 import * as S from './styled'
 import FormPay from './_children/form-pay'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import { useStrings } from '../../../_children/contexts'
 import addSales from '../../../_dependencies/sales'
 import addPayU from '../../../_dependencies/payu'
 import { PayuError } from '../../_dependencies/handle-errors'
@@ -21,11 +22,9 @@ import PWA from '../../_dependencies/seed-pwa'
 import Errors from '../../../_dependencies/errors'
 
 const isProd = ENVIRONMENT === 'elcomercio'
-const MESSAGE = {
-  PAYMENT_FAIL: 'Ha ocurrido un problema durante el pago',
-}
 
 function WizardPayment(props) {
+  const msgs = useStrings()
   const {
     memo,
     formName,
@@ -203,7 +202,7 @@ function WizardPayment(props) {
                   })
                   const { status, total, subscriptionIDs } = res
                   if (status !== 'Paid') {
-                    throw new Error(MESSAGE.PAYMENT_FAIL)
+                    throw new Error(msgs.paymentFail)
                   }
                   return {
                     publicKey,
