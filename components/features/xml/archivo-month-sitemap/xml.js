@@ -2,6 +2,7 @@ import Consumer from 'fusion:consumer'
 import { localISODate } from '../../../utilities/helpers'
 
 const SITEMAP = '/sitemap/archivo'
+const SITEMAP_OPTIONS = ['web', 'news']
 const OUTPUTTYPE = '?outputType=xml'
 
 /**
@@ -12,17 +13,18 @@ const OUTPUTTYPE = '?outputType=xml'
  */
 
 @Consumer
-class XmlArchivoYearSitemap {
+class XmlArchivoMonthSitemap {
     constructor(props) {
         this.props = props
         const date = new Date(localISODate())
         this.year = date.getFullYear()
         this.month = date.getMonth()
+        this.day = date.getDate()
     }
 
     render() {
         const { globalContent, siteProperties: { siteUrl = '' } = {} } = this.props
-        const { year } = globalContent || {}
+        const { year, month } = globalContent || {}
 
         const sitemaps = {
             sitemapindex: [{
@@ -30,18 +32,20 @@ class XmlArchivoYearSitemap {
             }]
         }
 
-        for (let m = this.month; m >= 0; m--) {
+        for (let d = this.day; d >= 1; d--) {
             sitemaps.sitemapindex = [
                 ...sitemaps.sitemapindex,
-                {
-                    sitemap: {
-                        loc: `${siteUrl}${SITEMAP}/${year}-${m >= 9 ? m + 1 : `0${m + 1}`}/${OUTPUTTYPE}`,
-                        lastmod: year === this.year && m === this.month
-                            ? localISODate() // Momento actual
-                            : `${new Date(year, m + 1, 0, 24, 0, -1).toISOString().split('.')[0]}-5:00` // Ultimo dia del mes,
+                ...SITEMAP_OPTIONS.map(option => (
+                    {
+                        sitemap: {
+                            loc: `${siteUrl}${SITEMAP}/${year}-${month}-${d >= 10 ? d : `0${d}`}-${option}/${OUTPUTTYPE}`,
+                            lastmod: year === this.year && month - 1 === this.month && d === this.day
+                                ? localISODate() // Momento actual
+                                : `${new Date(year, month, d, 24, 0, -1).toISOString().split('.')[0]}-5:00` // Ultima hora del dia,
 
+                        }
                     }
-                }
+                ))
             ]
         }
 
@@ -49,4 +53,4 @@ class XmlArchivoYearSitemap {
     }
 }
 
-export default XmlArchivoYearSitemap
+export default XmlArchivoMonthSitemap
