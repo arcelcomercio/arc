@@ -10,8 +10,8 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
-  googleTagManagerId: 'GTM-PFPMXLF',
-  ampGoogleTagManagerId: 'UA-3055636-8',
+  googleTagManagerId: 'GTM-PP8XNMR',
+  ampGoogleTagManagerId: 'UA-3055636-13',
   ampGoogleTagManagerName: 'trome',
   charbeatAccountNumber: 99999,
   idGoogleAnalitics: 'UA-3055636-13',
@@ -32,12 +32,12 @@ export default {
     frequentQuestions: '',
   },
   infoPagesProd: {
-    termsAndConditions: 'GKC4YH3FBZGGJNFEPGO7KMPN7U',
+    termsAndConditions: 'VYFDOX6VOZH7ZDDDA6ZRIW44ZM',
     guidingPrinciples: '',
-    privacyPolicies: 'NJZXERE3WVG5DB65JP7PGTLCV4',
+    privacyPolicies: 'WIKWUFMBPBDGNCUTFZIKYO4MPE',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '5ORUCK2RHBCH5CUYD4XIAVLQ2E',
+    cookiesPolicy: 'Q3OMMN6EQBE3XCX46Q44NDNNRU',
     aboutUs: '',
     frequentQuestions: '',
   },
@@ -66,16 +66,16 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      name: 'Términos y Condiciones',
+      url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politica-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politica-de-cookies',
     },
   ],
 
@@ -156,11 +156,11 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011765,
-    movil2: 15011768,
-    movil3: 15011769,
-    movil4: 15011770,
-    movil5: 15011771,
+    movil1: 15011760,
+    movil2: 15011761,
+    movil3: 15011762,
+    movil4: 15011763,
+    movil5: 15011764,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna1-300x250-div-gpt-ad-8599377-46.html',
