@@ -9,6 +9,7 @@ class Domains {
           : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
       case 'peru21':
       case 'elbocon':
+      case 'trome':
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
           : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
