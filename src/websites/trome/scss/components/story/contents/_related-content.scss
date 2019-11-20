@@ -24,10 +24,9 @@ $border-gray: #b7b7b7;
   }
   &__item {
     border: 0;
-    flex-direction: column;
     display: flex;
-    height: 246px;
     @media (--tablet) {
+      flex-direction: column;
       height: 262px;
       width: 47%;
       margin: 0 1.5% 18px;
@@ -38,7 +37,9 @@ $border-gray: #b7b7b7;
   }
   &__information {
     padding: 5px 10px;
-    max-width: 100%;
+    @media (--only-mobile) {
+      width: calc(100% - 80px);
+    }
     @media (--tablet) {
       max-width: 100%;
     }
@@ -46,6 +47,10 @@ $border-gray: #b7b7b7;
   &__multimedia {
     order: -1;
     height: 147px;
+    @media (--only-mobile) {
+      height: 90px;
+      width: 80px;
+    }
     @media (--tablet) {
       width: 100%;
     }
@@ -53,7 +58,6 @@ $border-gray: #b7b7b7;
   &__icon {
     background-image: url(/pf/resources/dist/trome/images/rgba70.png);
     border-radius: 10px;
-    top: calc(100% - 141px);
     color: $color-gray-300;
     bottom: inherit;
     right: 10px;
@@ -69,5 +73,12 @@ $border-gray: #b7b7b7;
     justify-content: center;
     left: inherit;
     margin-top: 0;
+    @media (--only-mobile) {
+      border-radius: 5px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 24px;
+    }
   }
 }

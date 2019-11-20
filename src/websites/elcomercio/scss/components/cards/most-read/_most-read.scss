@@ -1,4 +1,7 @@
 .most-read {
+  @media (--only-mobile) {
+    margin: 10px;
+  }
   &__title {
     background-color: $color-tertiary;
   }
