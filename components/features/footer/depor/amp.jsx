@@ -23,7 +23,7 @@ class LayoutAmpFooter extends PureComponent {
       siteProperties: { siteUrl },
       globalContent: data = {},
     } = this.props
-    const primarySectionLink = 'https://depor.com'
+    const primarySectionLink = siteUrl
     const { recentList } = new StoryData({
       data,
       arcSite,
