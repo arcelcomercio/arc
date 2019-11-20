@@ -63,7 +63,7 @@ const WizardConfirmation = props => {
       transactionProducts: [
         {
           sku,
-          name: plan,
+          name: planName,
           category: 'Planes',
           price: amount,
           quantity: 1,
