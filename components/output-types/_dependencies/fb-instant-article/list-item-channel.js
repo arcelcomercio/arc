@@ -48,12 +48,6 @@ const ListItemNews = (contentElements, buildProps) => {
             fiaContent = fbArticleStyle
           }
 
-          // console.log("INGRESO!!!!")
-          // console.log("premium",storydata.isPremium)
-          // console.log("titulo",storydata.title)
-          // console.log("canonical",storydata.canonicalWebsite)
-          // console.log("fiaOrigen",storydata.fiaOrigen)
-
           const pageview = `${storydata.link}?outputType=fia`
           const propsScriptHeader = {
             siteDomain,

@@ -102,13 +102,11 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
       break
     case ConfigParams.ELEMENT_VIDEO:
-
       result.numberWords = numberWordMultimedia
       result.processedParagraph = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${processedParagraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
-
       result.numberWords = numberWordMultimedia
       result.processedParagraph = `<figure><img src="${processedParagraph}" /></figure>`
       break
@@ -192,7 +190,6 @@ const ParagraphshWithAdds = ({
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
-  // const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
 
   newsWithAdd = paragraphsNews
     .map(({ payload: originalParagraph, type, level }) => {
@@ -209,14 +206,15 @@ const ParagraphshWithAdds = ({
 
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
-          countWords = type!==ConfigParams.ELEMENT_HEADER ? 0 : countWords
+          countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
 
           paragraphwithAdd = `${processedParagraph} ${
-            arrayadvertising[IndexAdd] && type!==ConfigParams.ELEMENT_HEADER
+
+            arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
           }`
-          IndexAdd += 1
+          IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
         }
@@ -225,13 +223,15 @@ const ParagraphshWithAdds = ({
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
-          countWords = type!==ConfigParams.ELEMENT_HEADER ? 0 : countWords
+          countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
+
           paragraphwithAdd = `${processedParagraph} ${
-            arrayadvertising[IndexAdd] && type!==ConfigParams.ELEMENT_HEADER
+
+            arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
           }`
-          IndexAdd += 1
+          IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
         }
