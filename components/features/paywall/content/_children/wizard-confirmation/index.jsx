@@ -39,7 +39,7 @@ const WizardConfirmation = props => {
   } = props
 
   const { orderNumber } = order
-  const { firstName, lastName, secondLastName, email } =
+  const { uuid, firstName, lastName, secondLastName, email } =
     freeAccess || profile || {}
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
@@ -93,6 +93,15 @@ const WizardConfirmation = props => {
     })
 
     dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 4 },
+        },
+      },
+    })
+
+    dataLayer.push({
       event: 'buy',
       ecommerce: {
         purchase: {
@@ -111,6 +120,13 @@ const WizardConfirmation = props => {
               subCategory: Frecuency[billingFrequency],
             },
           ],
+          dataUser: {
+            id: uuid,
+            name: `${firstName} ${lastName} ${secondLastName}`
+              .replace(/\s*/, ' ')
+              .trim(),
+            email,
+          },
         },
       },
     })

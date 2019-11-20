@@ -69,6 +69,15 @@ function WizardPayment(props) {
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
 
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 3 },
+        },
+      },
+    })
+
     Sentry.addBreadcrumb({
       category: 'compra',
       message: 'Valores en formulario de pago',
@@ -224,6 +233,14 @@ function WizardPayment(props) {
       })
       .catch(e => {
         const { name, message } = e
+        dataLayer.push({
+          event: 'refund',
+          ecommerce: {
+            refund: {
+              actionField: { id: orderNumber },
+            },
+          },
+        })
         switch (name) {
           case 'payU':
             setError(message)

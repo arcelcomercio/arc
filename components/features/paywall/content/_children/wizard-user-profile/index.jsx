@@ -75,6 +75,15 @@ function WizardUserProfile(props) {
     setError(false)
     setLoading(true)
 
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 2 },
+        },
+      },
+    })
+
     Sentry.addBreadcrumb({
       category: 'compra',
       message: 'Valores en formulario de perfil de pago',
@@ -109,7 +118,7 @@ function WizardUserProfile(props) {
           // Mezclamos valores del formulario con los valores de la respuesta
           const mergeResValues = Object.assign({}, memo, {
             order: res,
-            profile: values,
+            profile: Object.assign({}, sanitizedProfile, values),
           })
           Sentry.addBreadcrumb({
             category: 'compra',

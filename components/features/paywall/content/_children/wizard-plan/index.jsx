@@ -42,6 +42,14 @@ function WizardPlan(props) {
     origin.current =
       window.sessionStorage.getItem('paywall_type_modal') || 'organico'
     referer.current = window.sessionStorage.getItem('paywall_last_url')
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 1 },
+        },
+      },
+    })
     sendAction(PixelActions.PAYMENT_PLAN, {
       referer: referer.current,
       medioCompra: origin.current,
@@ -63,6 +71,41 @@ function WizardPlan(props) {
       message: 'Plan seleccionado',
       data: selectedPlan,
       level: Sentry.Severity.Info,
+    })
+    dataLayer.push({
+      event: 'productClick',
+      ecommerce: {
+        click: {
+          products: [
+            {
+              name: plan.productName,
+              id: plan.sku,
+              price: plan.amount,
+              brand: arcSite,
+              category: plan.name,
+              subCategory: plan.billingFrequency,
+            },
+          ],
+        },
+      },
+    })
+    dataLayer.push({
+      event: 'checkout',
+      ecommerce: {
+        checkout: {
+          actionField: { step: 1 },
+          products: [
+            {
+              name: plan.productName,
+              id: plan.sku,
+              price: plan.amount,
+              brand: arcSite,
+              category: plan.name,
+              subCategory: plan.billingFrequency,
+            },
+          ],
+        },
+      },
     })
 
     setTimeout(() => {
