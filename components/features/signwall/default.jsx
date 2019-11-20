@@ -6,7 +6,6 @@ import LoginPaywall from './_main/signwall/login-paywall'
 import { Panel } from './_main/panel/index'
 import Cookie from './_main/utils/cookie'
 import Domains from './_main/utils/domains'
-import {Students} from './_main/acceso/students'
 
 const Cookies = new Cookie()
 
@@ -94,8 +93,10 @@ class Signwall extends PureComponent {
     return (
       <>
         {showLogin && !singleSign && (
-        
-          <Students/>
+          <LoginRegister
+            closePopup={() => this.togglePopupLogin()}
+            brandModal={arcSite}
+          />
         )}
 
         {showLogin && singleSign && (
