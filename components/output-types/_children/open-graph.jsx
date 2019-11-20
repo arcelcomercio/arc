@@ -18,7 +18,7 @@ export default ({
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
   const {
-    multimediaLandscapeXL,
+    multimediaLarge,
     videoSeo: [{ url = '' } = {}] = [],
     title: seoTitle,
   } = new StoryData({
@@ -27,8 +27,8 @@ export default ({
   })
 
   const image =
-    story && multimediaLandscapeXL
-      ? multimediaLandscapeXL
+    story && multimediaLarge
+      ? multimediaLarge
       : deployment(
           `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
         )
