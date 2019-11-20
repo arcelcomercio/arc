@@ -10,14 +10,14 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
   fbAppId: 'fbappidDEEEEEPOR',
-  googleTagManagerId: 'GTM-PFPMXLF',
+  googleTagManagerId: 'GTM-PP8XNMR',
   ampGoogleTagManagerId: 'UA-3055636-8',
   ampGoogleTagManagerName: 'trome',
   charbeatAccountNumber: 99999,
   idGoogleAnalitics: 'UA-3055636-8',
   fbArticleStyle: 'LogoTrome',
   nameStoryRelated: 'RELACIONADAS',
-  mobileHeaderFollowing:'Siguenos en Trome',
+  mobileHeaderFollowing: 'Siguenos en Trome',
   siteDescription:
     'Noticias de Perú y el mundo en Trome.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
