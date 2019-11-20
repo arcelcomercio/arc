@@ -209,23 +209,15 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     <div className={classes.figure}>
                       <picture>
                         <source
-                          className={isAdmin ? '' : 'lazy'}
+                          className={isAdmin ? '' : ''}
                           media="(max-width: 320px)"
-                          srcSet={
-                            isAdmin
-                              ? slide.resized_urls.landscape_md
-                              : defaultImageGallery
-                          }
+                          srcSet={slide.resized_urls.landscape_md}
                           data-srcset={slide.resized_urls.landscape_md}
                         />
                         <source
-                          className={isAdmin ? '' : 'lazy'}
+                          className={isAdmin ? '' : ''}
                           media="(max-width: 769px)"
-                          srcSet={
-                            isAdmin
-                              ? slide.resized_urls.story_small
-                              : defaultImageGallery
-                          }
+                          srcSet={slide.resized_urls.story_small}
                           data-srcset={slide.resized_urls.story_small}
                         />
                         <img

@@ -9,6 +9,9 @@
     box-shadow: 0 0 24px 0 #969696;
     background-color: $color-white;
     border-radius: 5px;
+    @media print {
+      display: none !important;
+    }
   }
   &__close-app {
     background: #434343;
