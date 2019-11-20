@@ -21,7 +21,7 @@ const fetch = (key = {}) => {
       campaign: { name: campaignCode },
       subscriber = {},
       error,
-      products: [{ sku, attributes, pricingStrategies }],
+      products: [{ sku, name: productName, attributes, pricingStrategies }],
     } = data
     const {
       printed,
@@ -66,6 +66,7 @@ const fetch = (key = {}) => {
         return {
           sku,
           name,
+          productName,
           priceCode,
           pricingStrategyId,
           campaignCode,

@@ -43,13 +43,26 @@ const WizardConfirmation = props => {
     freeAccess || profile || {}
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
-    name: planName,
     sku,
+    name: planName,
+    productName,
     priceCode,
     amount,
     billingFrequency,
     description,
   } = plan
+
+  const Frecuency = {
+    Month: 'Mensual',
+    Year: 'Anual',
+    OneTime: 'Mensual',
+  }
+
+  const Period = {
+    Month: msgs.monthlyPeriod,
+    Year: msgs.yearlyPeriod,
+    OneTime: '',
+  }
 
   useEffect(() => {
     PWA.finalize()
@@ -78,6 +91,30 @@ const WizardConfirmation = props => {
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    dataLayer.push({
+      event: 'buy',
+      ecommerce: {
+        purchase: {
+          actionField: {
+            id: orderNumber,
+            affiliation: 'Online Store',
+            revenue: amount,
+          },
+          products: [
+            {
+              id: sku,
+              name: productName,
+              price: amount,
+              brand: arcSite,
+              category: planName,
+              subCategory: Frecuency[billingFrequency],
+            },
+          ],
+        },
+      },
+    })
+
     // eslint-disable-next-line no-unused-expressions
     document.getElementById('footer') &&
       (document.getElementById('footer').style.position = 'relative')
@@ -98,18 +135,6 @@ const WizardConfirmation = props => {
           ? HOME
           : sessionStorage.getItem(NAME_REDIRECT)
         : HOME
-  }
-
-  const Frecuency = {
-    Month: 'Mensual',
-    Year: 'Anual',
-    OneTime: 'Mensual',
-  }
-
-  const Period = {
-    Month: msgs.monthlyPeriod,
-    Year: msgs.yearlyPeriod,
-    OneTime: '',
   }
 
   return (
