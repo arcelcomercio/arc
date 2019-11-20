@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -14,6 +14,7 @@ import ClickToCall from '../_children/click-to-call'
 import Icon from '../_children/icon'
 // import FillHeight from '../_children/fill-height'
 import { useStrings } from '../_children/contexts'
+import { Students } from '../../signwall/_main/acceso/students'
 
 const Portal = ({ theme }) => {
   const msgs = useStrings()
@@ -31,6 +32,8 @@ const Portal = ({ theme }) => {
   const corporateUrl = interpolateUrl(urls.corporateSuscription)
   const originSalesSdkUrl = interpolateUrl(urls.originSalesSdk)
   const originSubsOnline = interpolateUrl(urls.originSubsOnline)
+
+  const [openSignwall, setOpenSignwall] = useState(false)
 
   React.useEffect(() => {
     // Accion de datalayer "productImpressions"
@@ -82,32 +85,53 @@ const Portal = ({ theme }) => {
 
   return (
     // <FillHeight substractElements={substractFeaturesIds}>
-    <S.Portal backgroundColor={arcSite === 'elcomercio'}>
-      <S.PortalContent>
-        {items.map(item => (
-          <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />
-        ))}
-      </S.PortalContent>
-      <S.Footer>
-        <S.FooterContent>
-          <S.LinkCorporate
-            linkStyle
-            href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
-            <S.SubscribedText>
-              <div>
-                <span>{`${msgs.businessSubscriptionsBanner1}`}</span>
-                <strong>{`${msgs.businessSubscriptionsBanner2}`}</strong>
-              </div>
-              <Icon type={theme.icon.arrowRight} />
-            </S.SubscribedText>
-          </S.LinkCorporate>
+    <>
+      <S.Portal backgroundColor={arcSite === 'elcomercio'}>
+        <S.PortalContent>
+          {items.map(item => (
+            <Card
+              item={item}
+              key={item.title}
+              onSubscribe={onSubscribeHandler}
+            />
+          ))}
+        </S.PortalContent>
+        <S.Footer>
+          <S.FooterContent>
+            {arcSite === 'gestion' && (
+              <S.LinkCorporate
+                primary
+                linkStyle
+                onClick={() => setOpenSignwall(true)}>
+                <S.SubscribedText primary>
+                  <div>
+                    <span>PLAN UNIVERSITARIO</span>
+                  </div>
+                  <Icon type={theme.icon.arrowRight} />
+                </S.SubscribedText>
+              </S.LinkCorporate>
+            )}
 
-          <S.ClickToCallWrapper>
-            <ClickToCall href={clickToCallUrl} />
-          </S.ClickToCallWrapper>
-        </S.FooterContent>
-      </S.Footer>
-    </S.Portal>
+            <S.LinkCorporate
+              linkStyle
+              href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
+              <S.SubscribedText>
+                <div>
+                  <span>{`${msgs.businessSubscriptionsBanner1}`}</span>
+                  <strong>{`${msgs.businessSubscriptionsBanner2}`}</strong>
+                </div>
+                <Icon type={theme.icon.arrowRight} />
+              </S.SubscribedText>
+            </S.LinkCorporate>
+
+            <S.ClickToCallWrapper>
+              <ClickToCall href={clickToCallUrl} />
+            </S.ClickToCallWrapper>
+          </S.FooterContent>
+        </S.Footer>
+      </S.Portal>
+      {openSignwall && <Students close={setOpenSignwall(false)} />}
+    </>
     // </FillHeight>
   )
 }

@@ -75,16 +75,20 @@ const LinkBase = styled.a`
 
 export const LinkCorporate = styled(LinkBase)`
   ${({ theme, linkStyle }) => css`
-    background: #444444;
+    background: ${props => props.primary ? '#8f071e': '#444444'};
+    margin-right: ${props => props.primary ? '40px': '0px'};
+    cursor: pointer;
     color: #fff;
     min-width: 360px;
     height: 50px;
     border-radius: 4px;
     ${theme.breakpoints.down('sm')} {
       min-width: calc(50% - 40px);
+      margin-right: 0px;
     }
     ${theme.breakpoints.down('xs')} {
       min-width: calc(100% - 40px);
+      margin-right: 0px;
     }
     ${linkStyle &&
       css`
@@ -103,7 +107,7 @@ export const SubscribedText = styled.div`
   align-items: center;
   max-height: 50px;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: ${props => props.primary ? '20': '14'}px;
   line-height: 24px;
   width: 100%;
   box-sizing: border-box;
