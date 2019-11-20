@@ -12,6 +12,7 @@
       font-size: 45px;
     }
   }
+
   &__icon {
     color: $color-gray-300;
   }
@@ -28,5 +29,16 @@
   }
   &__share {
     border-color: $color-base-300;
+  }
+}
+.opinionseno-maria {
+  & .story-header__news-title {
+    background-image: url(/pf/resources/dist/trome/images/bg_senomaria.jpg);
+    background-image: mistyrose;
+    background-color: #ffdab0;
+    background-repeat: no-repeat;
+    background-position: 0 bottom;
+    padding: 10px 20px 120px;
+    background-size: contain;
   }
 }
