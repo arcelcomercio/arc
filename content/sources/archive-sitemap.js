@@ -14,23 +14,16 @@ const params = [
         displayName: 'Día',
         type: 'number',
     },
-    {
-        name: 'type',
-        displayName: 'Tipo de sitemap',
-        type: 'string'
-        // Se espera que sea 'web' o 'news'
-    }
 ]
 
 
 const fetch = (key) => {
-    const { year, month, day, type } = key
+    const { year, month, day } = key
 
     return {
         year,
         month,
-        day,
-        type
+        day
     }
 }
 
