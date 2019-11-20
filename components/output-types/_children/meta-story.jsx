@@ -120,6 +120,7 @@ export default ({
       ? getDateSeo(publishDate)
       : publishDate
 
+  const bodyStructured = isAmp !== true ? `"articleBody":"${dataElement}",` : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === ConfigParams.SITE_ELCOMERCIO ||
@@ -131,7 +132,7 @@ export default ({
     }", "headline":"${formatHtmlToText(
     title
   )}",  "description":"${formatHtmlToText(subTitle)}",
-    "articleBody":"${dataElement}",
+  ${bodyStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${(videoSeoItems[0] &&
     dataVideo) ||
     ''}

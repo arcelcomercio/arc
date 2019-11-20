@@ -21,10 +21,14 @@ const HeaderFull = props => {
       type = '',
       website_url: postPermaLink,
       headlines: { basic: postTitle } = {},
-    },
-  } = useFusionContext()
+    } = {},
+  } = useFusionContext() || {}
 
-  const { footer: { socialNetworks = [] } = {},siteName='' } = siteProperties
+  const {
+    footer: { socialNetworks = [] } = {},
+    winningCallUrl = '',
+    mobileHeaderFollowing = '',
+  } = siteProperties
 
   const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
 
@@ -106,6 +110,14 @@ const HeaderFull = props => {
       },
     ],
   }
+  const arcSiteTrome = 'trome'
+
+  const winningCallLogo =
+    arcSite === arcSiteTrome
+      ? deployment(
+          `${contextPath}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png`
+        )
+      : ''
 
   const params = {
     headerList,
@@ -120,7 +132,10 @@ const HeaderFull = props => {
       `${contextPath}/resources/dist/${arcSite}/images/alternate-logo-w.png`
     ),
     shareButtons,
-    siteName,
+    arcSite,
+    winningCallLogo,
+    winningCallUrl,
+    mobileHeaderFollowing,
   }
   return <HeaderFullView {...params} />
 }

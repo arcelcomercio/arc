@@ -17,6 +17,7 @@ export default {
   idGoogleAnalitics: 'UA-3055636-8',
   fbArticleStyle: 'LogoTrome',
   nameStoryRelated: 'RELACIONADAS',
+  mobileHeaderFollowing:'Siguenos en Trome',
   siteDescription:
     'Noticias de Perú y el mundo en Trome.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
@@ -65,16 +66,16 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      name: 'Términos y Condiciones',
+      url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politica-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politica-de-cookies',
     },
   ],
 
