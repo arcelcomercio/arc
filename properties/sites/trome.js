@@ -66,16 +66,16 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones',
-      url: '/terminos-servicio',
+      name: 'Términos y Condiciones',
+      url: '/terminos-y-condiciones',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politica-de-privacidad',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politica-de-cookies',
     },
   ],
 
