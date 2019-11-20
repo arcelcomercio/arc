@@ -4,6 +4,7 @@ import { CONTENT_BASE } from 'fusion:environment'
 
 const flagDev = false
 
+/*
 const uriPostProd = site =>
   site === 'gestion'
     ? 'https://do5ggs99ulqpl.cloudfront.net/gestion/9043312/top_premium.json'
@@ -13,6 +14,39 @@ const uriPostDev = site =>
   site === 'gestion'
     ? 'https://d3ocw6unvuy6ob.cloudfront.net/gestion/9043312/top_premium.json'
     : 'https://d3ocw6unvuy6ob.cloudfront.net/elcomercio/21928896/top_premium.json'
+*/
+
+const codPremiumSite = {
+  elcomercio: '21928896',
+  gestion: '9043312',
+}
+
+const codSite = {
+  depor: '16646171',
+  peru21: '9849434',
+  ojo: '31245754',
+  elbocon: '31246731',
+}
+
+const getUriMostRead = (site, isPremium = false, isDev = false) => {
+  const codUriSite = isPremium
+    ? codPremiumSite[site] || ''
+    : codSite[site] || ''
+  let uriMostReadGeneral = `https://d3ocw6unvuy6ob.cloudfront.net/${site}/${codUriSite}/normal/top.json`
+  if (isPremium) {
+    uriMostReadGeneral = isDev
+      ? `https://d3ocw6unvuy6ob.cloudfront.net/${site}/${codUriSite}/top_premium.json`
+      : `https://do5ggs99ulqpl.cloudfront.net/${site}/${codUriSite}/top_premium.json`
+  }
+  return uriMostReadGeneral
+}
+
+/* 
+https://d3ocw6unvuy6ob.cloudfront.net/depor/16646171/normal/top.json
+https://d3ocw6unvuy6ob.cloudfront.net/peru21/9849434/normal/top.json
+https://d3ocw6unvuy6ob.cloudfront.net/ojo/31245754/normal/top.json
+https://d3ocw6unvuy6ob.cloudfront.net/elbocon/31246731/normal/top.json
+*/
 
 const options = {
   gzip: true,
@@ -40,6 +74,11 @@ const params = [
     displayName: 'Número de historias',
     type: 'number',
   },
+  {
+    name: 'isPremium',
+    displayName: '¿Es premium?',
+    type: 'number',
+  },
 ]
 
 const uriAPI = (url, site) => {
@@ -50,10 +89,10 @@ taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_da
 
 const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const { amountStories } = key
+  const { amountStories, isPremium = false } = key
 
   return request({
-    uri: flagDev ? uriPostDev(website) : uriPostProd(website),
+    uri: getUriMostRead(website, !!+isPremium, flagDev), // flagDev ? uriPostDev(website) : uriPostProd(website),
     ...options,
   }).then(resp => {
     const arrURL = resp.slice(0, amountStories)
