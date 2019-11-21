@@ -45,8 +45,8 @@ class XmlFacebookInstantArticles {
   }
 
   render() {
-    const { magStories } = this.state
-    if (magStories) this.stories = [...this.stories, ...magStories]
+    // const { magStories } = this.state
+    // if (magStories) this.stories = [...this.stories, ...magStories]
 
     const {
       deployment,
