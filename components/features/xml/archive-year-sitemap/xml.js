@@ -31,7 +31,7 @@ class XmlArchiveYearSitemap {
             }]
         }
 
-        for (let m = this.month; m >= 0; m--) {
+        for (let m = year === this.year ? this.month : 11; m >= 0; m--) {
             sitemaps.sitemapindex = [
                 ...sitemaps.sitemapindex,
                 {
