@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components'
 import { device } from '../../../_styles/breakpoints'
 
-// eslint-disable-next-line import/prefer-default-export
-
 const changeColor = color => {
   switch (color) {
     case 'light':
@@ -154,6 +152,7 @@ export const Link = styled.a`
   font-size: ${props => changeSize(props.s)};
   display: inline-block;
   font-weight: ${props => (props.fw ? props.fw : 'normal')};
+  cursor: pointer;
 `
 
 export const ContPaywall = styled.div`
@@ -236,4 +235,15 @@ export const ContPaywall = styled.div`
       margin-bottom: 10px;
     }
   }
+`
+export const Error = styled.div`
+  background: #ff2b2b;
+  color: #fff;
+  font-family: Libre Franklin, sans-serif;
+  font-size: 12px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
 `

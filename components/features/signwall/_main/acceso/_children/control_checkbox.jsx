@@ -13,20 +13,15 @@ export const CheckContainer = styled.label`
   user-select: none;
   color: #8b8b8b;
   line-height: 20px;
-  /* @media (--tablet) {
-        margin-bottom: 0px;
-        padding-left: 35px;
-        font-size: 13px;
-      } */
   & input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
-    &:checked ~ .check-container__checkmark {
+    &:checked ~ .checkmark {
       background-color: #2196f3;
       border: 1px solid #2196f3;
     }
-    &:checked ~ .check-container__checkmark:after {
+    &:checked ~ .checkmark:after {
       display: block;
     }
   }
@@ -58,12 +53,20 @@ export const CheckContainer = styled.label`
 `
 
 export const CheckBox = props => {
+  const { checked, value, onChange, valid } = props
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <CheckContainer>
-      <input type="checkbox" name="termsConds" checked />
+      <input
+        type="checkbox"
+        name="termsConds"
+        checked={checked}
+        value={value}
+        onChange={onChange}
+        required={valid}
+      />
 
-      <Text c="gray" lh="20" s="13" className="mt-20 mb-20">
+      <Text c="gray" lh="20" s="13" className="mt-20 mb-10">
         Al crear la cuenta acepto los
         <Link href="#" c="blue" fw="bold" className="ml-10 mr-10 inline">
           Términos y Condiciones

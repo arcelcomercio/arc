@@ -18,6 +18,31 @@ export const WrapperModal = styled.div`
   font-size: 16px;
   will-change: transform;
   animation: vDialog-enter 0.5s;
+  /* reset */
+  box-sizing: border-box;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  ul,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  p{
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0px;
+  }
+
+  /* reset */
   &.white {
     background-color: rgba(233, 233, 233, 0.8);
   }
@@ -101,7 +126,7 @@ export const DialogModal = styled.div`
   &.size-large {
     width: 100%;
     height: 100%;
-    
+
     @media ${device.tablet} {
       width: 90%;
       height: 540px;

@@ -3,13 +3,6 @@ import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
 import { WrapperModal, DialogModal } from './styles'
 
-const ISSAFARI =
-  window.navigator.vendor &&
-  window.navigator.vendor.indexOf('Apple') > -1 &&
-  window.navigator.userAgent &&
-  window.navigator.userAgent.indexOf('CriOS') === -1 &&
-  window.navigator.userAgent.indexOf('FxiOS') === -1
-
 class BodyEnd extends Component {
   constructor(props) {
     super(props)
@@ -33,6 +26,13 @@ class BodyEnd extends Component {
 
 class Modal extends Component {
   componentDidMount = () => {
+    const ISSAFARI =
+      window.navigator.vendor &&
+      window.navigator.vendor.indexOf('Apple') > -1 &&
+      window.navigator.userAgent &&
+      window.navigator.userAgent.indexOf('CriOS') === -1 &&
+      window.navigator.userAgent.indexOf('FxiOS') === -1
+
     if (ISSAFARI) {
       document.querySelector('html').classList.add('overflow-hidden-ios')
       document.querySelector('body').classList.add('overflow-hidden-ios')
@@ -42,6 +42,13 @@ class Modal extends Component {
   }
 
   componentWillUnmount = () => {
+    const ISSAFARI =
+      window.navigator.vendor &&
+      window.navigator.vendor.indexOf('Apple') > -1 &&
+      window.navigator.userAgent &&
+      window.navigator.userAgent.indexOf('CriOS') === -1 &&
+      window.navigator.userAgent.indexOf('FxiOS') === -1
+
     if (ISSAFARI) {
       document.querySelector('html').classList.remove('overflow-hidden-ios')
       document.querySelector('body').classList.remove('overflow-hidden-ios')

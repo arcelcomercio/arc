@@ -1,13 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, { useState } from 'react'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
 import { InputForm } from './control_input'
 import useForm from './useForm'
+import getCodeError from './codes_error'
+import { FormStudents } from './form_students'
+
+const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormLoginPaywall = () => {
+  const [showError, setShowError] = useState(false)
+  const [showLoading, setShowLoading] = useState(false)
+  const [showStudents, setShowStudents] = useState(false)
+
   const stateSchema = {
     lemail: { value: '', error: '' },
     lpass: { value: '', error: '' },
@@ -33,12 +41,46 @@ export const FormLoginPaywall = () => {
     },
   }
 
-  function onSubmitForm(state) {
+  const handleGetProfile = () => {
+    // const { closePopup, reloadLogin } = this.props
+    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.getUserProfile().then(resProfile => {
+      setShowStudents(!showStudents)
+      window.console.log(resProfile)
+      // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
+
+      // if (reloadLogin) {
+      //   window.location.reload()
+      // } else {
+      //   closePopup()
+      // }
+    })
+  }
+
+  const onSubmitForm = state => {
     const { lemail, lpass } = state
-    // eslint-disable-next-line no-alert
-    window.console.log(lemail, lpass)
-    // window.alert(JSON.stringify(state, null, 2))
-    // value.changeTemplate('students')
+    setShowLoading(true)
+    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.login(lemail, lpass, {
+      rememberMe: true,
+      cookie: true,
+    })
+      .then(() => {
+        handleGetProfile()
+      })
+      .catch(errLogin => {
+        setShowError(getCodeError(errLogin.code))
+      })
+      .finally(() => {
+        setShowLoading(false)
+      })
+  }
+
+  const isLogged = () => {
+    return (
+      window.localStorage.hasOwnProperty('ArcId.USER_INFO') &&
+      window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
+    )
   }
 
   const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
@@ -53,76 +95,84 @@ export const FormLoginPaywall = () => {
     // eslint-disable-next-line react/jsx-filename-extension
     <ModalConsumer>
       {value => (
-        <S.Form
-          onSubmit={e => {
-            handleOnSubmit(e)
-            value.changeTemplate('students')
-          }}>
-          <S.Text c="gray" s="14" className="mb-10 center">
-            Ingresa con tus redes sociales
-          </S.Text>
+        <>
+          {!showStudents && !isLogged() && (
+            <S.Form onSubmit={handleOnSubmit}>
+              <S.Text c="gray" s="14" className="mb-10 center">
+                Ingresa con tus redes sociales
+              </S.Text>
 
-          <ButtonSocial brand="facebook" size="middle" />
-          <ButtonSocial brand="google" size="middle" />
+              <ButtonSocial brand="facebook" size="middle" />
+              <ButtonSocial brand="google" size="middle" />
 
-          <S.Text c="gray" s="14" className="mt-20 center">
-            Ingresa con tu usuario
-          </S.Text>
+              <S.Text c="gray" s="14" className="mt-20 center">
+                Ingresa con tu usuario
+              </S.Text>
 
-          <InputForm
-            t="email"
-            n="lemail"
-            ph="Correo electrónico"
-            ac="on"
-            c="mb-10"
-            valid
-            value={lemail}
-            onChange={handleOnChange}
-            onFocus={handleOnChange}
-            error={errors.lemail}
-          />
+              {showError && <S.Error>{showError}</S.Error>}
 
-          <InputForm
-            t="password"
-            n="lpass"
-            ph="Contraseña"
-            ac="off"
-            valid
-            value={lpass}
-            onChange={handleOnChange}
-            onFocus={handleOnChange}
-            error={errors.lpass}
-          />
+              <InputForm
+                t="email"
+                n="lemail"
+                ph="Correo electrónico"
+                ac="on"
+                c="mb-10"
+                valid
+                value={lemail}
+                onChange={e => {
+                  handleOnChange(e)
+                  setShowError(false)
+                }}
+                onFocus={handleOnChange}
+                error={errors.lemail}
+              />
 
-          <S.Link
-            href="#"
-            c="light"
-            className="mt-10 mb-20 block right text-sm"
-            onClick={() => value.changeTemplate('forgot')}>
-            Olvidé mi contraseña
-          </S.Link>
+              <InputForm
+                t="password"
+                n="lpass"
+                ph="Contraseña"
+                ac="off"
+                valid
+                value={lpass}
+                onChange={e => {
+                  handleOnChange(e)
+                  setShowError(false)
+                }}
+                onFocus={handleOnChange}
+                error={errors.lpass}
+              />
 
-          <S.Button type="submit" disabled={disable}>
-            INICIA SESIÓN
-          </S.Button>
+              <S.Link
+                c="light"
+                className="mt-10 mb-20 block right text-sm"
+                onClick={() => value.changeTemplate('forgot')}>
+                Olvidé mi contraseña
+              </S.Link>
 
-          <S.Text c="black" s="12" className="mt-20 mb-10 center">
-            ¿Aún no tienes una cuenta?
-            <S.Link
-              href="#"
-              c="blue"
-              fw="bold"
-              className="ml-10"
-              onClick={() => value.changeTemplate('register')}>
-              Regístrate
-            </S.Link>
-          </S.Text>
+              <S.Button type="submit" disabled={disable || showLoading}>
+                {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
+              </S.Button>
 
-          <S.Text c="light" s="10" className="mt-10 center">
-            CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
-            NUNCA PUBLICAREMOS SIN TU PERMISO
-          </S.Text>
-        </S.Form>
+              <S.Text c="black" s="12" className="mt-20 mb-10 center">
+                ¿Aún no tienes una cuenta?
+                <S.Link
+                  c="blue"
+                  fw="bold"
+                  className="ml-10"
+                  onClick={() => value.changeTemplate('register')}>
+                  Regístrate
+                </S.Link>
+              </S.Text>
+
+              <S.Text c="light" s="10" className="mt-10 center">
+                CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
+                NUNCA PUBLICAREMOS SIN TU PERMISO
+              </S.Text>
+            </S.Form>
+          )}
+
+          {(showStudents || isLogged()) && <FormStudents />}
+        </>
       )}
     </ModalConsumer>
   )

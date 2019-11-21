@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { device } from '../../../_styles/breakpoints'
 
-// eslint-disable-next-line import/prefer-default-export
 export const ContMiddle = styled.div`
   display: block;
   height: 100%;

@@ -3,9 +3,13 @@ import React, { useState } from 'react'
 import * as S from './styles'
 import { InputForm } from './control_input'
 import useForm from './useForm'
+import Services from '../../utils/new_services'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormStudentsCode = () => {
+  const [showError, setShowError] = useState(false)
+  const [showLoading, setShowLoading] = useState(false)
+
   const stateSchema = {
     ucode: { value: '', error: '' },
   }
@@ -17,8 +21,23 @@ export const FormStudentsCode = () => {
   }
 
   const onSubmitForm = state => {
-    window.console.log(state)
-    window.console.log('redirigir landing')
+    setShowLoading(true)
+    const { ucode } = state
+    const JWT = window.Identity.userIdentity.accessToken
+    Services.checkCodeStudents(ucode, 'gestion', JWT)
+      .then(res => {
+        if (res.status) {
+          window.location.href = '/suscripcionesdigitales/?outputType=paywall'
+        } else {
+          setShowError(res.message)
+        }
+      })
+      .catch(() => {
+        setShowError('Oops. Ocurrió un error inesperado.')
+      })
+      .finally(() => {
+        setShowLoading(false)
+      })
   }
 
   const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
@@ -31,47 +50,52 @@ export const FormStudentsCode = () => {
 
   return (
     // eslint-disable-next-line react/jsx-filename-extension
-    <>
-      <S.Form onSubmit={handleOnSubmit}>
-        <S.Title className="center mb-10" cp>
-          PLAN UNIVERSITARIO
-        </S.Title>
+    <S.Form onSubmit={handleOnSubmit}>
+      <S.Title className="center mb-10" cp>
+        PLAN UNIVERSITARIO
+      </S.Title>
 
-        <S.Text c="light" s="14" lh="28" className="mb-20 center">
-          Ingresa aquí el código de validación que <br /> hemos enviado a tu
-          bandeja de correo
-        </S.Text>
+      <S.Text c="light" s="14" lh="28" className="mb-20 center">
+        Ingresa aquí el código de validación que <br /> hemos enviado a tu
+        bandeja de correo
+      </S.Text>
 
-        <InputForm
-          t="text"
-          n="ucode"
-          ph="Código de validación"
-          ac="off"
-          c="mb-20"
-          valid
-          value={ucode}
-          onChange={handleOnChange}
-          onFocus={handleOnChange}
-          error={errors.ucode}
-        />
+      {showError && <S.Error>{showError}</S.Error>}
 
-        <S.Button type="submit" disabled={disable}>
-          CONFIRMAR
-        </S.Button>
+      <InputForm
+        t="text"
+        n="ucode"
+        ph="Código de validación"
+        ac="off"
+        c="mb-20"
+        valid
+        value={ucode}
+        onChange={e => {
+          handleOnChange(e)
+          setShowError(false)
+        }}
+        onFocus={handleOnChange}
+        error={errors.ucode}
+      />
 
-        <S.Text c="gray" s="12" className="mt-20 center">
-          ¿No recibiste el correo?
-          <S.Link href="#" c="blue" className="ml-10">
-            Reenviar correo de validación
-          </S.Link>
-        </S.Text>
-      </S.Form>
-    </>
+      <S.Button type="submit" disabled={disable || showLoading}>
+        {showLoading ? 'CONFIRMANDO...' : 'CONFIRMAR'}
+      </S.Button>
+
+      <S.Text c="gray" s="12" className="mt-20 center">
+        ¿No recibiste el correo?
+        <S.Link c="blue" className="ml-10">
+          Reenviar correo de validación
+        </S.Link>
+      </S.Text>
+    </S.Form>
   )
 }
 
 export const FormStudents = () => {
   const [showReqCode, setShowReqCode] = useState(false)
+  const [showError, setShowError] = useState(false)
+  const [showLoading, setShowLoading] = useState(false)
 
   const ListMonth = [
     'Enero',
@@ -178,9 +202,21 @@ export const FormStudents = () => {
   }
 
   const onSubmitForm = state => {
-    window.console.log(state)
-    setShowReqCode(!showReqCode)
-    // window.alert(JSON.stringify(state, null, 2))
+    setShowLoading(true)
+    const { uemail, ugrade, uday, umonth, uyear } = state
+    const DATE = `${uyear}-${umonth}-${uday}`
+    const JWT = window.Identity.userIdentity.accessToken
+    Services.checkStudents(uemail, DATE, ugrade, 'gestion', JWT)
+      .then(res => {
+        if (res.status) setShowReqCode(!showReqCode)
+        setShowError(res.message)
+      })
+      .catch(() => {
+        setShowError('Oops. Ocurrió un error inesperado.')
+      })
+      .finally(() => {
+        setShowLoading(false)
+      })
   }
 
   const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
@@ -205,6 +241,8 @@ export const FormStudents = () => {
             estudiante
           </S.Text>
 
+          {showError && <S.Error>{showError}</S.Error>}
+
           <InputForm
             t="email"
             n="uemail"
@@ -213,7 +251,10 @@ export const FormStudents = () => {
             // c="mb-20"
             valid
             value={uemail}
-            onChange={handleOnChange}
+            onChange={e => {
+              handleOnChange(e)
+              setShowError(false)
+            }}
             onFocus={handleOnChange}
             error={errors.uemail}
           />
@@ -231,7 +272,10 @@ export const FormStudents = () => {
             mr="10"
             valid
             value={uday}
-            onChange={handleOnChange}
+            onChange={e => {
+              handleOnChange(e)
+              setShowError(false)
+            }}
             onFocus={handleOnChange}
             error={errors.uday}
             nolabel>
@@ -241,7 +285,7 @@ export const FormStudents = () => {
 
             {ListDays.map((value, index) => {
               return (
-                <option key={value} value={index}>
+                <option key={value} value={value}>
                   {value}
                 </option>
               )
@@ -257,7 +301,10 @@ export const FormStudents = () => {
             mr="10"
             valid
             value={umonth}
-            onChange={handleOnChange}
+            onChange={e => {
+              handleOnChange(e)
+              setShowError(false)
+            }}
             onFocus={handleOnChange}
             error={errors.umonth}
             nolabel>
@@ -267,7 +314,7 @@ export const FormStudents = () => {
 
             {ListMonth.map((value, index) => {
               return (
-                <option key={value} value={index}>
+                <option key={value} value={index + 1}>
                   {value}
                 </option>
               )
@@ -281,7 +328,10 @@ export const FormStudents = () => {
             c="mb-10"
             ml="10"
             value={uyear}
-            onChange={handleOnChange}
+            onChange={e => {
+              handleOnChange(e)
+              setShowError(false)
+            }}
             onFocus={handleOnChange}
             valid
             error={errors.uyear}
@@ -292,7 +342,7 @@ export const FormStudents = () => {
 
             {ListYears.map((value, index) => {
               return (
-                <option key={value} value={index}>
+                <option key={value} value={value}>
                   {value}
                 </option>
               )
@@ -313,18 +363,24 @@ export const FormStudents = () => {
             ph="Grado de Estudios"
             value={ugrade}
             onFocus={handleOnChange}
-            onChange={handleOnChange}
+            onChange={e => {
+              handleOnChange(e)
+              setShowError(false)
+            }}
             valid
             error={errors.ugrade}>
             <option disabled value="">
               -- Seleccione --
             </option>
-            <option value="pregrado">Estudiante pregrado </option>
-            <option value="postgrado">Estudiante postgrado </option>
+            <option value="pregrado">Estudiante pregrado</option>
+            <option value="postgrado">Estudiante postgrado</option>
           </InputForm>
 
-          <S.Button type="submit" className="mt-20" disabled={disable}>
-            VALIDAR
+          <S.Button
+            type="submit"
+            className="mt-20"
+            disabled={disable || showLoading}>
+            {showLoading ? 'VALIDANDO...' : 'VALIDAR'}
           </S.Button>
         </S.Form>
       )}
