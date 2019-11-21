@@ -33,7 +33,12 @@ const PAYMENT_FORM_NAME = 'paywall-payment-form'
 let history
 let finalized = false
 
-const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
+const Paywall = ({
+  theme,
+  dispatchEvent,
+  addEventListener,
+  removeEventListener,
+}) => {
   const {
     arcSite,
     customFields: { substractFeaturesHeights = '' },
@@ -202,6 +207,9 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
               memo={currMemo}
               onBeforeNextStep={onBeforeNextStepHandler}
               setLoading={setLoading}
+              dispatchEvent={dispatchEvent}
+              addEventListener={addEventListener}
+              removeEventListener={removeEventListener}
             />
             <WizardUserProfile
               memo={currMemo}
@@ -237,6 +245,7 @@ class PaywallWrapper extends React.Component {
         {...this.props}
         dispatchEvent={this.dispatchEvent.bind(this)}
         addEventListener={this.addEventListener.bind(this)}
+        removeEventListener={this.removeEventListener.bind(this)}
       />
     )
   }

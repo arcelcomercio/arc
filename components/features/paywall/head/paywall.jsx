@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import Consumer from 'fusion:consumer'
 
-import { addIdentity, userProfile } from '../_dependencies/Identity'
+import { addIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import Icon from '../_children/icon'
 import Signwall from '../../signwall/default'
 import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
@@ -24,6 +24,7 @@ class Head extends React.PureComponent {
 
   componentDidMount() {
     this.addEventListener('currentStep', this.currentStepHandler)
+    this.addEventListener('signInReq', this.signInReqHandler)
     this.getFirstName()
   }
 
@@ -42,6 +43,10 @@ class Head extends React.PureComponent {
 
   currentStepHandler = currentStep => {
     this.setState({ stepForm: currentStep })
+  }
+
+  signInReqHandler() {
+    if (!isLogged()) this.setState({ showSignwall: true })
   }
 
   getFirstName = () => {
@@ -111,6 +116,8 @@ class Head extends React.PureComponent {
           <SignwallPaywall
             brandModal={arcSite}
             closePopup={() => this.closeShowSignwall()}
+            onLogged={() => this.dispatchEvent('logged')}
+            onLoginFail={() => this.dispatchEvent('loginFailed')}
             reloadLogin
             noBtnClose
           />

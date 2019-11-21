@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-shadow */
 /* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect, useRef } from 'react'
 import { withTheme } from 'styled-components'
@@ -20,6 +22,9 @@ function WizardPlan(props) {
     memo: { event: eventCampaign, plans, summary, printedSubscriber, error },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
+    dispatchEvent = i => i,
+    addEventListener = i => i,
+    removeEventListener = i => i,
   } = props
 
   const { lighten } = theme.palette
@@ -35,8 +40,45 @@ function WizardPlan(props) {
 
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
+  const [profile, setProfile] = useState()
   const origin = useRef('organico')
   const referer = useRef('')
+
+  // Deferred actions
+  const checkingPrinted = React.useRef(false)
+  const planSelected = React.useRef()
+
+  const runDeferredAction = React.useRef(() => {
+    switch (true) {
+      case checkingPrinted.current:
+        setOpenModal(true)
+        break
+      case planSelected.current:
+        subscribePlanHandler(null, planSelected.current)
+        break
+      default:
+    }
+  }).current
+
+  const clearDeferredActions = React.useRef(() => {
+    checkingPrinted.current = false
+    planSelected.current = undefined
+  }).current
+
+  const loggedHandler = React.useRef(profile => {
+    runDeferredAction()
+    clearDeferredActions()
+    setProfile(profile)
+  }).current
+
+  const logoutHandler = React.useRef(() => {
+    clearDeferredActions()
+    setProfile()
+  }).current
+
+  const loginFailed = React.useRef(() => {
+    clearDeferredActions()
+  }).current
 
   useEffect(() => {
     origin.current =
@@ -49,33 +91,48 @@ function WizardPlan(props) {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
     document.getElementById('footer').style.position = 'relative'
+
+    addEventListener('logged', loggedHandler)
+    addEventListener('logout', logoutHandler)
+    addEventListener('loginFailed', loginFailed)
+
+    return () => {
+      removeEventListener('logged', loggedHandler)
+      removeEventListener('logout', logoutHandler)
+      removeEventListener('loginFailed', loginFailed)
+    }
   }, [])
 
   function subscribePlanHandler(e, plan) {
-    setLoading(true)
-    const selectedPlan = {
-      sku: plan.sku,
-      priceCode: plan.priceCode,
-      quantity: 1,
-    }
-    Sentry.addBreadcrumb({
-      category: 'compra',
-      message: 'Plan seleccionado',
-      data: selectedPlan,
-      level: Sentry.Severity.Info,
-    })
+    if (!profile) {
+      planSelected.current = plan
+      dispatchEvent('signInReq')
+    } else {
+      setLoading(true)
+      const selectedPlan = {
+        sku: plan.sku,
+        priceCode: plan.priceCode,
+        quantity: 1,
+      }
+      Sentry.addBreadcrumb({
+        category: 'compra',
+        message: 'Plan seleccionado',
+        data: selectedPlan,
+        level: Sentry.Severity.Info,
+      })
 
-    setTimeout(() => {
-      setLoading(false)
-      onBeforeNextStep(
-        {
-          plan,
-          origin: origin.current,
-          referer: referer.current,
-        },
-        props
-      )
-    }, 1000)
+      setTimeout(() => {
+        setLoading(false)
+        onBeforeNextStep(
+          {
+            plan,
+            origin: origin.current,
+            referer: referer.current,
+          },
+          props
+        )
+      }, 1000)
+    }
   }
 
   return (
@@ -169,12 +226,17 @@ function WizardPlan(props) {
             }
             showImage={arcSite === 'elcomercio'}
             onClick={() => {
-              window.dataLayer.push({
-                event: 'paywall_check_subscriptor',
-                eventCategory: 'paywall_check_subscriptor',
-                eventAction: 'open',
-              })
-              setOpenModal(true)
+              if (!profile) {
+                checkingPrinted.current = true
+                dispatchEvent('signInReq')
+              } else {
+                window.dataLayer.push({
+                  event: 'paywall_check_subscriptor',
+                  eventCategory: 'paywall_check_subscriptor',
+                  eventAction: 'open',
+                })
+                setOpenModal(true)
+              }
             }}
           />
           {arcSite !== 'elcomercio' && (
