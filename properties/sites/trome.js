@@ -113,17 +113,18 @@ export default {
 
     contacts: [
       {
-        position: 'Director Periodístico General de Deporte',
-        name: 'Guillermo Denegri',
+        position: 'Editora web Marilyn Corrales',
+        name: 'mcorrales@trome.com',
       },
       {
-        position: 'Director Periodístico',
-        name: 'Walter Corzo.',
+        position: 'Webmaster',
+        name: 'webmaster@trome.com',
       },
+
     ],
     corporateInfo: {
-      name: 'Grupo El Comercio',
-      direction: 'Jr. Santa Rosa #300 Lima 1, Perú',
+      name: 'Grupo El Comercio S.A.',
+      direction: 'Jr. Santa Rosa 247, piso 7 Lima 1 - Perú',
     },
     draftingContact: [
       {
