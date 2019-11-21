@@ -22,7 +22,8 @@ class XmlArchiveYearSitemap {
 
     render() {
         const { globalContent, siteProperties: { siteUrl = '' } = {} } = this.props
-        const { year } = globalContent || {}
+        let { year } = globalContent || {}
+        year = parseInt(year, 10)
 
         const sitemaps = {
             sitemapindex: [{
