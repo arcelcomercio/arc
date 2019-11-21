@@ -25,11 +25,8 @@
     font-size: 12px;
   }
   &__link {
-    @media (--only-mobile) {
-      font-size: 15px;
-    }
+    font-size: 15px;
     color: $color-base-100;
-    font-size: 21.4px;
     font-weight: 700;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
