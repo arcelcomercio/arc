@@ -28,15 +28,9 @@ const ListItemNews = (contentElements, buildProps) => {
 
       let pagePath = ''
       let fiaContent = ''
-      // console.log("AQUI!!!!")
-      // console.log("premium",storydata.isPremium)
-      // console.log("titulo",storydata.title)
-      // console.log("canonical",storydata.canonicalWebsite)
-      // console.log("fiaOrigen",storydata.fiaOrigen)
-      
+
       if (!storydata.isPremium) {
-        if (true) {
-          // if (storydata.fiaOrigen === true) {
+        if (storydata.fiaOrigen === true) {
           // if (storydata.canonicalWebsite === 'elcomerciomag') {
             // se cambio la validacion del canonicalWebsite para la url,
             // se solicito que ya no se concatene las notas de mag cuando sea el comercio
@@ -47,12 +41,6 @@ const ListItemNews = (contentElements, buildProps) => {
             pagePath = `${siteUrl}${storydata.link}`
             fiaContent = fbArticleStyle
           }
-
-          // console.log("INGRESO!!!!")
-          // console.log("premium",storydata.isPremium)
-          // console.log("titulo",storydata.title)
-          // console.log("canonical",storydata.canonicalWebsite)
-          // console.log("fiaOrigen",storydata.fiaOrigen)
 
           const pageview = `${storydata.link}?outputType=fia`
           const propsScriptHeader = {
@@ -99,7 +87,6 @@ const ListItemNews = (contentElements, buildProps) => {
           const codigoGUID = md5(storydata.id)
           
           
-
           const ItemDataXml = {
             pagePath,
             siteDomain,
