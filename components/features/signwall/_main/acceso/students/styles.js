@@ -35,12 +35,15 @@ export const SecondMiddle = styled(Base)`
     width: 50%;
   }
 `
-export const Close = styled.button`
+export const CloseBtn = styled.button`
   background: none;
   border: none;
   color: black;
   position: absolute;
-  top: 0;
+  top: 10px;
   outline: none;
-  right: 0;
+  right: 10px;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10px;
 `

@@ -3,7 +3,14 @@ import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
 import { WrapperModal, DialogModal } from './styles'
 
-class BodyEnd extends React.Component {
+const ISSAFARI =
+  window.navigator.vendor &&
+  window.navigator.vendor.indexOf('Apple') > -1 &&
+  window.navigator.userAgent &&
+  window.navigator.userAgent.indexOf('CriOS') === -1 &&
+  window.navigator.userAgent.indexOf('FxiOS') === -1
+
+class BodyEnd extends Component {
   constructor(props) {
     super(props)
     this.el = document.createElement('div')
@@ -26,27 +33,19 @@ class BodyEnd extends React.Component {
 
 class Modal extends Component {
   componentDidMount = () => {
-    // TODO: Verificar clases de ios, si no se usan borrar estos métodos
-    const isSafari =
-      window.navigator.vendor &&
-      window.navigator.vendor.indexOf('Apple') > -1 &&
-      window.navigator.userAgent &&
-      window.navigator.userAgent.indexOf('CriOS') === -1 &&
-      window.navigator.userAgent.indexOf('FxiOS') === -1
-
-    if (isSafari) {
+    if (ISSAFARI) {
       document.querySelector('html').classList.add('overflow-hidden-ios')
       document.querySelector('body').classList.add('overflow-hidden-ios')
     }
-
     document.querySelector('html').classList.add('overflow-hidden')
     document.querySelector('body').classList.add('overflow-hidden')
   }
 
   componentWillUnmount = () => {
-    document.querySelector('html').classList.remove('overflow-hidden-ios')
-    document.querySelector('body').classList.remove('overflow-hidden-ios')
-
+    if (ISSAFARI) {
+      document.querySelector('html').classList.remove('overflow-hidden-ios')
+      document.querySelector('body').classList.remove('overflow-hidden-ios')
+    }
     document.querySelector('html').classList.remove('overflow-hidden')
     document.querySelector('body').classList.remove('overflow-hidden')
   }

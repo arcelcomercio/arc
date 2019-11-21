@@ -14,7 +14,7 @@ import ClickToCall from '../_children/click-to-call'
 import Icon from '../_children/icon'
 // import FillHeight from '../_children/fill-height'
 import { useStrings } from '../_children/contexts'
-import { Students } from '../../signwall/_main/acceso/students'
+import { Students } from '../../signwall/_main/acceso/students/index'
 
 const Portal = ({ theme }) => {
   const msgs = useStrings()

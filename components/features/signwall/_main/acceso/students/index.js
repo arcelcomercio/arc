@@ -1,12 +1,13 @@
 import React from 'react'
 
 import { ModalProvider, ModalConsumer } from '../../signwall/context'
-import { Modal } from '../../common/modal'
+import { Modal } from '../../common/modal/index'
 import { FormStudents } from '../_children/form_students'
 import { FormLoginPaywall } from '../_children/form_login_landing'
 import { FormForgot } from '../_children/form_forgot'
 import { FormRegister } from '../_children/form_register'
-import { ContMiddle, FirstMiddle, SecondMiddle, Close } from './styles'
+import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styles'
+import { Close } from '../../common/iconos'
 
 const renderTemplate = template => {
   const templates = {
@@ -21,18 +22,17 @@ const renderTemplate = template => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const Students = props => {
-  const { close } = props
   return (
     <ModalProvider>
       <ModalConsumer>
         {value => (
           <Modal size="medium" position="middle">
             <ContMiddle>
+              <CloseBtn type="button" onClick={() => props.close()}>
+                <Close />
+              </CloseBtn>
               <FirstMiddle />
               <SecondMiddle>
-                <Close type="button" onClick={() => close()}>
-                  x
-                </Close>
                 {renderTemplate(value.selectedTemplate)}
               </SecondMiddle>
             </ContMiddle>

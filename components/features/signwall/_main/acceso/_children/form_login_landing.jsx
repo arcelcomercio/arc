@@ -8,7 +8,6 @@ import useForm from './useForm'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormLoginPaywall = () => {
-  
   const stateSchema = {
     lemail: { value: '', error: '' },
     lpass: { value: '', error: '' },
@@ -35,8 +34,9 @@ export const FormLoginPaywall = () => {
   }
 
   function onSubmitForm(state) {
+    const { lemail, lpass } = state
     // eslint-disable-next-line no-alert
-    window.console.log(state.lemail, state.lpass)
+    window.console.log(lemail, lpass)
     // window.alert(JSON.stringify(state, null, 2))
     // value.changeTemplate('students')
   }
