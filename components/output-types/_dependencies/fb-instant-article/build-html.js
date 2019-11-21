@@ -182,7 +182,7 @@ const buildListParagraph = ({
 
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
-  firstAdd = 50,
+  firstAdd = 100,
   nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
