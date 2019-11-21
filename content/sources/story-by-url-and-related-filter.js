@@ -110,7 +110,7 @@ const getAdditionalData = (storyData, website) => {
 
   const encodedBody = queryStoryRecent(section, website)
   return request({
-    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=6&from=0&sort=display_date:desc${excludedFields}`,
+    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=4&from=0&sort=display_date:desc${excludedFields}`,
     ...options,
   }).then(recientesResp => {
     storyData.recent_stories = recientesResp
