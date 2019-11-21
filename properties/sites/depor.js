@@ -67,7 +67,7 @@ export default {
 
   legalLinks: [
     {
-      name: 'Términos y condiciones',
+      name: 'Términos y Condiciones',
       url: '/terminos-servicio',
     },
     {

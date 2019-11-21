@@ -139,7 +139,7 @@
     }
     .featured-story__img-link {
       @media (--only-mobile) {
-        height: 168px;
+        height: auto;
         min-width: 100%;
         margin-left: 0;
       }

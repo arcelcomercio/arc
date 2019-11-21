@@ -253,11 +253,23 @@ export default ({
           />
         )}
         <title>{title}</title>
-        <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
+        <link rel="dns-prefetch" href="//www.facebook.com/" />
+        <link rel="dns-prefetch" href="//connect.facebook.net/" />
+        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
+        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
+        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
+        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
+        <link rel="dns-prefetch" href="//ping.chartbeat.net/" />
+        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
+        <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
+        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
         {googleFonts && (
           <link
             href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
@@ -289,10 +301,7 @@ export default ({
         )}
 
         {/* Scripts de APPNEXUS */}
-        <script
-          src="https://d34fzxxwb5p53o.cloudfront.net/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js?v2"
-          async
-        />
+
         {!nodas && (
           <>
             <script
