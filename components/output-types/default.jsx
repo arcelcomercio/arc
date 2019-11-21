@@ -74,8 +74,8 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-        nameSeccion.split('/')[1]
-      } ${subtype} `
+    nameSeccion.split('/')[1]
+    } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -111,6 +111,11 @@ export default ({
       /*  || metaValue('id') === "meta_search" */
     ) {
       title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteName}`
+    } else if (metaValue('id') === 'meta_archive') {
+      const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
+      if (!hasDate) {
+        title = `Archivo de Noticias | ${siteProperties.siteName}`
+      }
     }
     return title
   }
@@ -120,19 +125,23 @@ export default ({
   const getDescription = () => {
     let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
       siteProperties.siteName
-    }.`
+      }.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
     ) {
+      description = `${metaValue('description')}`
       if (
         (pageNumber > 1 && metaValue('id') === 'meta_tag') ||
         metaValue('id') === 'meta_author'
         /*  || metaValue('id') === "meta_search" */
       ) {
         description = `${metaValue('description')} Página ${pageNumber}.`
-      } else {
-        description = `${metaValue('description')}`
+      } else if (metaValue('id') === 'meta_archive') {
+        const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
+        if (!hasDate) {
+          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+        }
       }
     }
     return description
@@ -144,8 +153,8 @@ export default ({
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
       : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      siteProperties.siteName
+      }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -249,7 +258,7 @@ export default ({
           <link
             rel="alternate"
             href={`${siteProperties.siteUrlAlternate}${link}`}
-            hreflang="es"
+            hrefLang="es"
           />
         )}
         <title>{title}</title>
@@ -362,7 +371,7 @@ export default ({
             title="Google Tag Manager - No Script"
             src={`https://www.googletagmanager.com/ns.html?id=${
               siteProperties.googleTagManagerId
-            }`}
+              }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

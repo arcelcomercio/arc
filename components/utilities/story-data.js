@@ -550,7 +550,7 @@ class StoryData {
       recent_stories: { content_elements: contentElements = [] } = {},
       _id: id,
     } = this._data || {}
-    return StoryData.recentList(contentElements, id)
+    return StoryData.recentList(contentElements, id).filter(String)
   }
 
   get recentStoryContinue() {
