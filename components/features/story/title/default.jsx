@@ -13,7 +13,7 @@ const classes = {
 const StoryTitle = () => {
   const { contextPath, globalContent: data } = useFusionContext()
 
-  const { title, subTitle } = new StoryData({
+  const { title, subTitle, primarySectionLink } = new StoryData({
     data,
     contextPath,
   })
@@ -22,7 +22,8 @@ const StoryTitle = () => {
 
   return (
     <>
-      <div className={classes.story}>
+      <div
+        className={`${classes.story} ${primarySectionLink.replace(/\//g, '')}`}>
         <StoryTitleChildHeading {...parameters} />
         <StoryTitleChildShareSubheading {...parameters} />
       </div>

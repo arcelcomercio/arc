@@ -1,7 +1,14 @@
 .stories-l-card {
   border: 0;
+  @media (--only-mobile) {
+    background-color: #ebebeb;
+    padding: 10px;
+  }
   &__list {
     padding: 10px;
+    @media (--only-mobile) {
+      background-color: #ebebeb;
+    }
   }
 }
 .stories-l-item {
@@ -18,8 +25,8 @@
     font-size: 12px;
   }
   &__link {
+    font-size: 15px;
     color: $color-base-100;
-    font-size: 21.4px;
     font-weight: 700;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;

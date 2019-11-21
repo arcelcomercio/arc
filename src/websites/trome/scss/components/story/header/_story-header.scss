@@ -12,6 +12,7 @@
       font-size: 45px;
     }
   }
+
   &__icon {
     color: $color-gray-300;
   }
@@ -28,5 +29,49 @@
   }
   &__share {
     border-color: $color-base-300;
+  }
+}
+.opinionseno-maria {
+  & .story-header__news-title {
+    background-image: url(/pf/resources/dist/trome/images/bg_senomaria.jpg);
+    background-image: mistyrose;
+    background-color: #ffdab0;
+  }
+}
+.opinionel-buho {
+  & .story-header__news-title {
+    background-image: url(/pf/resources/dist/trome/images/bg_picotv.jpg);
+    background-color: #ccf9ff;
+  }
+}
+.opinionampay {
+  & .story-header__news-title {
+    background-image: url(/pf/resources/dist/trome/images/bg_ampay.jpg);
+    background-color: #e8d9ee;
+  }
+}
+.opinionel-bombardero {
+  & .story-header__news-title {
+    background-image: url(/pf/resources/dist/trome/images/bg_pisapelota.jpg);
+    background-color: #bcebbf;
+  }
+}
+.opinionseno-maria,
+.opinionel-buho,
+.opinionampay,
+.opinionel-bombardero {
+  & .story-header__news-title {
+    background-repeat: no-repeat;
+    background-position: 0 bottom;
+    background-size: contain;
+    padding: 10px 20px 65px;
+    line-height: 29px;
+    @media (min-width: 470px) and (max-width: 1023px) {
+      padding: 10px 20px 90px;
+    }
+    @media (--desktop) {
+      padding: 10px 20px 130px;
+      line-height: 49px;
+    }
   }
 }
