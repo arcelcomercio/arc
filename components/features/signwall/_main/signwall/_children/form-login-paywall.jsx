@@ -45,6 +45,8 @@ class FormLoginPaywall extends Component {
     e.preventDefault()
 
     const { email, password } = this.state
+    // TODO: onLogout esta implementado como evento de arc actualmente
+    const { onLoginFail } = this.props
 
     if (FormValid(this.state)) {
       this.setState({ sending: false })
@@ -60,6 +62,7 @@ class FormLoginPaywall extends Component {
           // -- test de tageo sucess
         })
         .catch(errLogin => {
+          onLoginFail()
           let messageES = ''
           switch (errLogin.code) {
             case '300040':
@@ -100,14 +103,13 @@ class FormLoginPaywall extends Component {
   }
 
   handleGetProfile = () => {
-    const { closePopup, reloadLogin } = this.props
+    const { closePopup, reloadLogin, onLogged } = this.props
 
     window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resGetProfile => {
       Cookies.setCookie('arc_e_id', sha256(resGetProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-      // window.localStorage.setItem('ArcId._ID', resGetProfile.uuid)
-
+      onLogged(resGetProfile)
       if (reloadLogin) {
         window.location.reload()
       } else {
