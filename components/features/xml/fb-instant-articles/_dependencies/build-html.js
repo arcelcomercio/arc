@@ -82,8 +82,13 @@ const analyzeParagraph = ({
 
       break
     case ConfigParams.ELEMENT_LIST:
+        const paramBuildListParagraph = {
+          processedParagraph,
+          numberWordMultimedia,
+        }
+
       // eslint-disable-next-line no-use-before-define
-      textProcess = buildListParagraph(processedParagraph)
+      textProcess = buildListParagraph(paramBuildListParagraph)
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
       break
@@ -143,14 +148,17 @@ const analyzeParagraph = ({
   return result
 }
 
-const buildListParagraph = listParagraph => {
+const buildListParagraph = ({
+  processedParagraph: listParagraph,
+  numberWordMultimedia,
+}) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
   newListParagraph.forEach(({ type = '', payload = '' }) => {
     const { processedParagraph, numberWords } = analyzeParagraph({
       originalParagraph: payload,
       type,
-      numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
+      numberWordMultimedia,
     })
     objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
     objTextsProcess.numberWords += numberWords
@@ -165,14 +173,15 @@ const buildListParagraph = listParagraph => {
 
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
-  firstAdd = 50,
+  firstAdd = 100,
   nextAdds = 250,
+  numberWordMultimedia = 70,
   arrayadvertising = [],
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
-  const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
+  // const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
 
   newsWithAdd = paragraphsNews
     .map(({ payload: originalParagraph, type, level }) => {
@@ -190,10 +199,10 @@ const ParagraphshWithAdds = ({
 
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
-          countWords = 0
+          countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
 
           paragraphwithAdd = `${processedParagraph} ${
-            arrayadvertising[IndexAdd]
+            arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
             }`
@@ -208,9 +217,9 @@ const ParagraphshWithAdds = ({
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
 
-          countWords = 0
+          countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
           paragraphwithAdd = `${processedParagraph} ${
-            arrayadvertising[IndexAdd]
+            arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
             }`
@@ -264,13 +273,15 @@ const BuildHtml = ({
   fbArticleStyle = '',
   listUrlAdvertisings,
 }) => {
-  const firstAdd = 50
-  const nextAdds = 250
+  const firstAdd = 100
+  const nextAdds = 350
+  const numberWordMultimedia = 70
 
   const paramsBuildParagraph = {
     paragraphsNews,
     firstAdd,
     nextAdds,
+    numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
   }
 
