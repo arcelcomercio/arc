@@ -156,11 +156,13 @@ basic_video {
     filesize
     url
   }
+  _id
   embed_html
   type
   headlines{
     basic
   }
+  publish_date
   description{
     basic
   }
@@ -174,7 +176,7 @@ basic_video {
       enableAutoPreview
     }
   }
-  promo_items {
+  promo_items{
     basic { 
       url 
       type 
@@ -183,13 +185,11 @@ basic_video {
       width
       height
       resized_urls{
-        resized_urls{
           large
           landscape_md
           story_small
           amp_new
           impresa
-        }
       }
     }
   }
@@ -250,6 +250,7 @@ export default {
     subtype_label
     subtype
     width
+    publish_date
     height
     citation{
       type

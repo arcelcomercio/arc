@@ -23,7 +23,11 @@ const StoryContentChildVideo = ({ data }) => {
   const [{ url } = {}] = dataVideo
   const videoMatch = !url && data.match(/(https:\/\/(.*)\/(.*).mp4)/g)
   const urlVideo = videoMatch
-    ? videoMatch[0].replace('peru21.pe', 'g21.peru21.pe')
+    ? videoMatch[0]
+        .replace('peru21.pe', 'img.peru21.pe')
+        .replace('elcomercio.pe', 'img.elcomercio.pe')
+        .replace('trome.pe', 'img.trome.pe')
+        .replace('depor.com', 'img.depor.com')
     : url
   return (
     <>
