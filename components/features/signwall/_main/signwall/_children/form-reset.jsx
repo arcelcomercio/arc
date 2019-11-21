@@ -158,6 +158,7 @@ class FormResetPass extends Component {
                     peru21g21:'#d5ecff',
                     elbocon: '#fdabab',
                     depor: '#d5d945',
+                    trome:'#ffede5',
                   }[brandCurrent]
                 }
               />
@@ -262,6 +263,7 @@ class FormResetPass extends Component {
                     peru21g21:'#d5ecff',
                     elbocon: '#fdabab',
                     depor: '#d5d945',
+                    trome:'#ffede5',
                   }[brandCurrent]
                 }
               />

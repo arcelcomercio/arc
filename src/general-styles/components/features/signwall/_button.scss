@@ -1,7 +1,7 @@
 .signwall {
   * {
     .btn {
-      font-family: $secondary-font;
+      font-family: $signwall-secondary-font;
       font-size: 14px;
       border-radius: 0.4rem;
       padding: 12px 20px;
@@ -33,27 +33,6 @@
         animation-duration: 1.5s;
         animation-iteration-count: infinite;
       }
-
-      // &--blue {
-      //   color: white !important;
-
-      //   &:hover {
-      //     box-shadow: 0rem 0rem 0.5rem #0f8bf7;
-      //     transition: all 0.5s ease-in-out;
-      //   }
-
-      //   &[disabled] {
-      //     opacity: 0.6;
-      //   }
-      // }
-
-      // &-text {
-      //   margin: 0 8px;
-      //   font-family: $secondary-font;
-      //   @media (--tablet) {
-      //     margin: 0 0px;
-      //   }
-      // }
 
       &-facebook,
       &-google {
@@ -141,19 +120,6 @@
         }
       }
 
-      // &-md {
-      //   width: 75%;
-      // }
-
-      // &-signwall {
-      //   padding: 6px 10px;
-      //   font-family: 'corpidbold', system-ui;
-      //   font-size: 14px;
-      //   border-radius: 4px;
-      //   margin: 0 4px;
-      //   line-height: 16px;
-      // }
-
       &-close {
         position: absolute;
         background: none;
@@ -177,7 +143,7 @@
     .input-button {
       border: 1px solid $signwall-color-link;
       color: $signwall-color-link !important;
-      font-family: $secondary-font;
+      font-family: $signwall-secondary-font;
 
       &:hover {
         background: $signwall-color-link !important;
