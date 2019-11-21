@@ -380,7 +380,7 @@ export default ({
               </div>
             ) : (
               <div className={classes.callImg}>
-                <a href="https://trome.pe/registro/super-llamada-ganadora/">
+                <a href="https://promociones.trome.pe/registro/super-llamada-ganadora/">
                   <img src={winningCallLogo} alt="Lamada Ganadora" />
                 </a>
               </div>

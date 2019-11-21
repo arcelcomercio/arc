@@ -68,8 +68,9 @@
   &__detail {
     display: flex;
     flex-direction: column-reverse;
-    width: calc(100% - 87px);
+    width: calc(100% - 116px);
     justify-content: flex-end;
     padding-top: 0;
+    padding-left: 0;
   }
 }

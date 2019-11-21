@@ -234,6 +234,7 @@ export default {
   params,
   filter: `
   _id
+  type
   content_elements {
     _id
     type
