@@ -62,9 +62,9 @@ const clearURL = (arr = [], site = 'gestion') => {
 const setPageViewsUrls = (arrUrl, arrUrlRes) => {
   return arrUrlRes.map(row => {
     const item = arrUrl.find(el => {
-      return el.path === row.website_url
+      return el.path === (row.website_url || row.canonical_url)
     })
-    return { ...row, page_views: item.pageviews || 0 }
+    return { ...row, page_views: (item && item.pageviews) || 0 }
   })
 }
 
@@ -95,6 +95,13 @@ const fetch = (key = {}) => {
     uri: getUriMostRead(website, !!+isPremium, flagDev), // flagDev ? uriPostDev(website) : uriPostProd(website),
     ...options,
   }).then(resp => {
+    /*
+    console.log('================4====================')
+    console.log(err)
+    console.log(resp)
+    console.log(body)
+    console.log('====================================')
+    */
     const arrURL = resp.slice(0, amountStories)
     arrURL.forEach(el => {
       // eslint-disable-next-line no-param-reassign
