@@ -170,7 +170,8 @@ class StoryContents extends PureComponent {
     return (
       <>
         <div className={classes.news}>
-          {primarySectionLink === '/impresa/'
+          {primarySectionLink === '/impresa/' ||
+          primarySectionLink === '/malcriadas/'
             ? promoItems && <StoryContentsChildImpresa data={promoItems} />
             : promoItems &&
               subtype !== ConfigParams.BIG_IMAGE &&
