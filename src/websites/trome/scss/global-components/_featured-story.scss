@@ -118,6 +118,9 @@
           }
         }
       }
+      .featured-story__detail {
+        height: auto;
+      }
     }
     .featured-story__img-box {
       &:before {
@@ -139,7 +142,7 @@
     }
     .featured-story__img-link {
       @media (--only-mobile) {
-        height: 168px;
+        height: auto;
         min-width: 100%;
         margin-left: 0;
       }
@@ -169,7 +172,7 @@
     }
     .featured-story__img-link {
       @media (--only-mobile) {
-        height: 100%;
+        height: auto;
       }
     }
 
@@ -199,6 +202,9 @@
   }
   &.featured-story--reverse {
     &.expand {
+      @media (--only-mobile) {
+        height: auto;
+      }
       height: 374px;
       .featured-story__detail {
         height: calc(100% - 157px);

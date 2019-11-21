@@ -415,7 +415,6 @@ class StoryData {
   }
 
   get imagePrimarySeo() {
- 
     const promoItemsImage =
       (this._data &&
         this._data.promo_items &&
@@ -426,7 +425,6 @@ class StoryData {
       ? [promoItemsImage]
       : promoItemsImage
     return promoItemsImagex
-
   }
 
   // TODO: Cambiar la fecha a lo que se estandarice
@@ -767,13 +765,16 @@ class StoryData {
   }
 
   get fiaOrigen() {
-    return (
-      (this._data &&
-        this._data.label &&
-        this._data.label.facebook_ia &&
-        this._data.label.facebook_ia.url) ||
-      true
-    )
+    const { label: { facebook_ia: { url = '' } = {} } = {} } = this._data
+    const result = (url === '' || url === 'true') && true
+    return result
+    // return (
+    //   (this._data &&
+    //     this._data.label &&
+    //     this._data.label.facebook_ia &&
+    //     this._data.label.facebook_ia.url) ||
+    //   true
+    // )
   }
 
   get hasAdsVideo() {
