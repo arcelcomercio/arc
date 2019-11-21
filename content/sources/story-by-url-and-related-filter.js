@@ -475,6 +475,7 @@ export default {
             basic{
               caption
               subtitle
+              url
               resized_urls{
                 landscape_md
               }
