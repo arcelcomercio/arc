@@ -56,7 +56,7 @@ export default ({
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
         caption
       )}",  "thumbnailUrl": "${large ||
-        urlImage}",  "description":"${formatHtmlToText(
+      urlImage}",  "description":"${formatHtmlToText(
         caption
       )}", "contentUrl": "${url}",  "uploadDate": "${date}" } `
     }
@@ -172,7 +172,28 @@ export default ({
 
 
   const scriptTaboola = `
-    window._taboola=window._taboola||[],_taboola.push({article:"auto"}),"undefined"!=typeof window&&document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("taboola-below-content-thumbnails");function t(){const e="tb_loader_script";if(!document.getElementById(e)){const t=document.createElement("script"),n=document.getElementsByTagName("script")[0];t.async=1,t.src="//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js",t.id=e,n.parentNode.insertBefore(t,n)}}if("IntersectionObserver"in window&&"IntersectionObserverEntry"in window&&"intersectionRatio"in window.IntersectionObserverEntry.prototype){const n=new IntersectionObserver((e,o)=>{e.forEach(e=>{e.isIntersecting&&(t(),n.unobserve(e.target))})},{rootMargin: "0px 0px 200px 0px"});n.observe(e)}else t()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic");
+      window._taboola = window._taboola || [];
+      _taboola.push({
+          article: 'auto'
+      });
+      ! function(){
+        if (typeof window !== 'undefined') {
+          window.onload = setTimeout(function() {
+            const id = 'tb_loader_script'
+            if (!document.getElementById(id)) {
+              const n = document.createElement('script')
+              const f = document.getElementsByTagName('script')[0]
+              n.async = 1;
+              n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
+              n.id = id;
+              f.parentNode.insertBefore(n, f);
+            }
+          }, 1000)
+        }
+        if (window.performance && typeof window.performance.mark == 'function') {
+          window.performance.mark('tbl_ic');
+        }
+      }()
     `
 
   /**
