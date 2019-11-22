@@ -54,26 +54,27 @@ export const FormStudentsCode = () => {
       })
   }
 
-  const onSubmitForm = state => {
+  const onSubmitFormCode = state => {
     setShowLoading(true)
     const { ucode } = state
     window.Identity.options({ apiOrigin: API_ORIGIN })
     window.Identity.extendSession()
       .then(resExtend => {
         Services.checkCodeStudents(ucode, 'gestion', resExtend.accessToken)
-          .then(res => {
-            if (res.status) {
+          .then(resCode => {
+            if (resCode.status) {
               Cookies.deleteCookie('Eco.REQUEST_STUDENTS')
-              window.location.href = `/suscripcionesdigitales/DNI/00000000/${res.token}/?outputType=paywall`
+              setTimeout(() => {
+                window.location.href = `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=paywall`
+              }, 2000)
             } else {
-              setShowError(res.message)
+              setShowLoading(false)
+              setShowError(resCode.message)
             }
           })
           .catch(() => {
-            setShowError('Oops. Ocurrió un error inesperado.')
-          })
-          .finally(() => {
             setShowLoading(false)
+            setShowError('Oops. Ocurrió un error inesperado.')
           })
       })
       .catch(resErr => {
@@ -85,7 +86,7 @@ export const FormStudentsCode = () => {
   const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
     stateSchema,
     stateValidSchema,
-    onSubmitForm
+    onSubmitFormCode
   )
 
   const { ucode } = values

@@ -86,6 +86,9 @@ export const Form = styled.form`
   & .right {
     text-align: right;
   }
+  & .f-right {
+    float: right;
+  }
   & .text-sm {
     font-size: 12px;
   }

@@ -143,7 +143,7 @@ export const FormLoginPaywall = () => {
 
               <S.Link
                 c="light"
-                className="mt-10 mb-20 block right text-sm"
+                className="mt-10 mb-20 inline f-right text-sm"
                 onClick={() => value.changeTemplate('forgot')}>
                 Olvidé mi contraseña
               </S.Link>
