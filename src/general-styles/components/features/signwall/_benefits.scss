@@ -2,7 +2,7 @@
   * {
     .benefits {
       padding-bottom: 5%;
-      font-family: $primary-font;
+      font-family: $signwall-primary-font;
       color: black;
       display: flex;
       align-items: center;
@@ -37,14 +37,14 @@
       }
 
       &__item-title {
-        font-family: $secondary-font;
+        font-family: $signwall-secondary-font;
         color: $signwall-color-item-title;
         font-weight: 400;
         font-size: 16px;
         line-height: 20px;
       }
       &__item-text {
-        font-family: $secondary-font;
+        font-family: $signwall-secondary-font;
         font-weight: 400;
         font-size: 14px;
         margin: 8px 0px;

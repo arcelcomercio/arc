@@ -9,6 +9,7 @@ class Domains {
           : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
       case 'peru21':
       case 'elbocon':
+      case 'trome':
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
           : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
@@ -51,6 +52,7 @@ class Domains {
       peru21g21: 'f7bd562ca9912019255511635185bf2b',
       elbocon: 'dcd90a2190d1682f39d41a4889a1cc57',
       depor: '6d83b35ec628d33d0606bcd9083dc2a6',
+      trome: '4895ff32853e4dd68b5bd63c6437d17c'
     }
 
     switch (type) {
