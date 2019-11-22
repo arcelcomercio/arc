@@ -32,25 +32,41 @@ const resolve = (key = {}) => {
     }`
 }
 
+const splitSections = (sections) => sections.slice(1).split('/').map(section => `${section
+  .charAt(0)
+  .toUpperCase()
+  .concat(section.slice(1))
+  .replace(/-/, ' ')} `
+).toString()
+
 const transform = (data, key) => {
   // Destructuración del key para prevenir que no devuelva null
-  const { date: auxDate = '' } = key
-  const { name: sectionName = 'Todas' } = data || {}
+  const { _id: id, date: auxDate = '' } = key
+  const sections = !id || id === '/' || id === '/todas' ? 'Todas' : splitSections(id)
+  // const { name: sectionName = 'Todas' } = data || {}
+
   const date = auxDate === null ? '' : auxDate
 
   const formatDate = date ? new Date(date) : ''
 
   return {
     ...data,
-    params: { section_name: sectionName, date },
+    params: {
+      section_name: sections, // sectionName,
+      // sections,
+      date
+    },
     archiveParams: {
+      // eslint-disable-next-line no-nested-ternary
       date: date
-        ? `ARCHIVO, ${arrayDays[
+        ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ${arrayDays[
           formatDate.getUTCDay()
         ].toUpperCase()} ${formatDate.getUTCDate()} DE ${arrayMonths[
           formatDate.getUTCMonth()
         ].toUpperCase()} DEL ${formatDate.getUTCFullYear()}`
-        : 'ÚLTIMO MINUTO',
+        : sections !== "Todas"
+          ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ÚLTIMO MINUTO`
+          : 'ÚLTIMO MINUTO'
     },
   }
 }

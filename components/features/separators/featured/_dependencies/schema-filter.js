@@ -9,7 +9,6 @@ export default arcSite => `
           basic {
             type 
             url
-            subtitle
             caption
             resized_urls { 
               portrait_s
@@ -24,7 +23,6 @@ export default arcSite => `
           basic {
             type 
             url
-            subtitle
             caption
             resized_urls { 
               portrait_s
@@ -36,7 +34,6 @@ export default arcSite => `
       basic {
         type 
         url
-        subtitle
         caption
         resized_urls { 
           portrait_s
