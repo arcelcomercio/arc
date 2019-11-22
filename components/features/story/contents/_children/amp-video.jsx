@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StoryContentChildVideo = ({ data }) => {
+const StoryContentChildVideoAmp = ({ data }) => {
   const {
     _id: id = '',
     streams = [],
@@ -52,4 +52,4 @@ const StoryContentChildVideo = ({ data }) => {
     </>
   )
 }
-export default StoryContentChildVideo
+export default StoryContentChildVideoAmp
