@@ -30,6 +30,7 @@ class rawHTML extends PureComponent {
     this.URL = ''
     this.ID_VIDEO = ''
     this.URL_VIDEO = ''
+
     if (content.includes('widgets.js')) {
       const beginURL = content.indexOf('<script')
       const endURL = content.lastIndexOf('</script>')
@@ -41,7 +42,7 @@ class rawHTML extends PureComponent {
       this.URL = URI
     } else if (
       isDaznServicePlayer(content) &&
-      content.match(/^<script(.*)<\/script>$/)
+      content.trim().match(/^<script(.*)<\/script>$/)
     ) {
       const idVideos = storyVideoPlayerId(content)
       const urlAssignHttp = idVideos[1]
