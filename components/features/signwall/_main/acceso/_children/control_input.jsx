@@ -39,6 +39,7 @@ export const General = css`
 
   &::placeholder {
     opacity: 0;
+    font-size:14px;
     transition: inherit;
   }
 
@@ -58,13 +59,15 @@ export const General = css`
 
 export const InputLabel = styled(Input)`
   ${General}
-  border: 1px solid ${props => (props.error ? '#ff2b2b' : '#bbbbbb')};
+  border: 1px solid ${props =>
+    props.error ? '#ff2b2b' : '#bbbbbb'} !important;
 `
 
 export const InputSelect = styled(Select)`
-  width: calc(100% - ${props => (props.mr ? props.mr : '0')}px);
   ${General}
-  border: 1px solid ${props => (props.error ? '#ff2b2b' : '#bbbbbb')};
+  width: calc(100% - ${props => (props.mr ? props.mr : '0')}px) !important;
+  border: 1px solid ${props =>
+    props.error ? '#ff2b2b' : '#bbbbbb'} !important;;
 `
 
 export const InputForm = props => {

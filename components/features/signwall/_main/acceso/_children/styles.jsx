@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 import { device } from '../../../_styles/breakpoints'
 
+// eslint-disable-next-line import/prefer-default-export
 const changeColor = color => {
   switch (color) {
     case 'light':
@@ -35,6 +36,18 @@ export const Text = styled.p`
 export const Form = styled.form`
   width: 100%;
   padding: 20px 30px;
+  input,
+  select,
+  button {
+    border: 1px solid #bbbbbb;
+    width: 100%;
+    height: 45px;
+    padding: 5px 10px;
+    font-size: 14px;
+    appearance: none;
+    outline: none;
+    border-radius: 4px;
+  }
   @media ${device.tablet} {
     padding: 20px 100px;
   }
@@ -67,6 +80,9 @@ export const Form = styled.form`
   & .center {
     text-align: center;
   }
+  & .bold {
+    font-weight: bold;
+  }
   & .right {
     text-align: right;
   }
@@ -79,6 +95,9 @@ export const Form = styled.form`
   & .inline {
     display: inline;
   }
+  & .sz-20 {
+    font-size: 20px;
+  }
   & .label {
     color: gray;
     font-size: 12px;
@@ -86,19 +105,7 @@ export const Form = styled.form`
   }
 `
 
-export const General = css`
-  width: 100%;
-  height: 45px;
-  padding: 5px 10px;
-  font-size: 14px;
-  appearance: none;
-  outline: none;
-  border-radius: 4px;
-`
-
 export const Input = styled.input`
-  ${General}
-  border: 1px solid #bbbbbb;
   box-sizing: border-box;
   cursor: text;
   @media ${device.tablet} {
@@ -106,9 +113,7 @@ export const Input = styled.input`
   }
 `
 export const Select = styled.select`
-  ${General}
   cursor: text;
-  border: 1px solid #bbbbbb;
   background: transparent;
   background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   background-repeat: no-repeat;
@@ -124,19 +129,18 @@ export const Select = styled.select`
   }
 `
 export const Button = styled.button`
-  ${General}
   background: #0179af;
   font-weight: bold;
   color: white;
   cursor: pointer;
-  border: 0px;
+  border: 0px !important;
   &:disabled {
     opacity: 0.7;
   }
 `
 
 export const ButtonBase = styled(Button)`
-  width: auto;
+  width: auto !important;
   background: none;
   color: black;
   padding: 0px;

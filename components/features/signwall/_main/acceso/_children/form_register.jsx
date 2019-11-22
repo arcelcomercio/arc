@@ -24,6 +24,7 @@ export const FormRegister = () => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
+    rterms: { value: '', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -44,13 +45,21 @@ export const FormRegister = () => {
         error: 'Mínimo 8 caracteres',
       },
     },
+    rterms: {
+      required: true,
+      validator: {
+        func: value => value !== '0',
+        error: 'acepta pe mascota',
+      },
+    },
   }
 
   const handleGetProfile = () => {
     // const { closePopup, reloadLogin } = this.props
     window.Identity.options({ apiOrigin: API_ORIGIN })
-    window.Identity.getUserProfile().then(() => {
+    window.Identity.getUserProfile().then(resProfile => {
       setShowConfirm(!showConfirm)
+      // window.console.log(resProfile)
       // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       // if (reloadLogin) {
       //   window.location.reload()
@@ -126,7 +135,7 @@ export const FormRegister = () => {
     onSubmitForm
   )
 
-  const { remail, rpass } = values
+  const { remail, rpass, rterms } = values
 
   return (
     // eslint-disable-next-line react/jsx-filename-extension
@@ -139,12 +148,12 @@ export const FormRegister = () => {
                 <>
                   <S.ButtonBase
                     type="button"
-                    className="mb-20"
+                    className="mb-10"
                     onClick={() => value.changeTemplate('login')}>
                     <Back /> Volver
                   </S.ButtonBase>
 
-                  <S.Text c="gray" s="20" className="mb-20 center">
+                  <S.Text c="gray" s="18" className="mb-20 center">
                     Accede fácilmente con:
                   </S.Text>
 
@@ -184,15 +193,21 @@ export const FormRegister = () => {
                       setShowError(false)
                     }}
                     onFocus={handleOnChange}
-                    error={errors.lpass}
+                    error={errors.rpass}
                   />
 
                   <CheckBox
+                    type="checkbox"
                     checked={showChecked}
-                    value={showChecked}
-                    name="terms"
-                    onChange={() => setShowChecked(!showChecked)}
+                    value={showChecked ? '1' : '0'}
+                    // value={rterms}
+                    name="rterms"
+                    onChange={e => {
+                      handleOnChange(e)
+                      setShowChecked(!showChecked)
+                    }}
                     valid
+                    error={errors.rterms}
                   />
 
                   <S.Text c="black" s="10" fw="bold" className="mt-10 mb-20">

@@ -46,7 +46,6 @@ export const FormLoginPaywall = () => {
     window.Identity.options({ apiOrigin: API_ORIGIN })
     window.Identity.getUserProfile().then(resProfile => {
       setShowStudents(!showStudents)
-      window.console.log(resProfile)
       // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
 
       // if (reloadLogin) {

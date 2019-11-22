@@ -4,11 +4,14 @@ import * as S from './styles'
 import { InputForm } from './control_input'
 import useForm from './useForm'
 import Services from '../../utils/new_services'
+import Cookies from '../../utils/new_cookies'
 
-// eslint-disable-next-line import/prefer-default-export
+const API_ORIGIN = 'https://api-sandbox.gestion.pe'
+
 export const FormStudentsCode = () => {
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
+  const [showLinkMail, setShowLinkMail] = useState(true)
 
   const stateSchema = {
     ucode: { value: '', error: '' },
@@ -20,22 +23,57 @@ export const FormStudentsCode = () => {
     },
   }
 
+  const sendRequestMail = () => {
+    const REQUEST = JSON.parse(
+      JSON.parse(Cookies.getCookie('Eco.REQUEST_STUDENTS'))
+    )
+    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.extendSession().then(resExtend => {
+      Services.checkStudents(
+        REQUEST.uemail,
+        REQUEST.date,
+        REQUEST.ugrade,
+        'gestion',
+        resExtend.accessToken
+      )
+        .then(resOk => {
+          if (resOk.status) {
+            setShowLinkMail(false)
+            setTimeout(() => {
+              setShowLinkMail(true)
+            }, 10000)
+          }
+        })
+        .catch(resErr => {
+          setShowError(resErr.message)
+        })
+    })
+  }
+
   const onSubmitForm = state => {
     setShowLoading(true)
     const { ucode } = state
-    const JWT = window.Identity.userIdentity.accessToken
-    Services.checkCodeStudents(ucode, 'gestion', JWT)
-      .then(res => {
-        if (res.status) {
-          window.location.href = '/suscripcionesdigitales/?outputType=paywall'
-        } else {
-          setShowError(res.message)
-        }
+    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.extendSession()
+      .then(resExtend => {
+        Services.checkCodeStudents(ucode, 'gestion', resExtend.accessToken)
+          .then(res => {
+            if (res.status) {
+              Cookies.deleteCookie('Eco.REQUEST_STUDENTS')
+              window.location.href = `/suscripcionesdigitales/DNI/00000000/${res.token}/?outputType=paywall`
+            } else {
+              setShowError(res.message)
+            }
+          })
+          .catch(() => {
+            setShowError('Oops. Ocurrió un error inesperado.')
+          })
+          .finally(() => {
+            setShowLoading(false)
+          })
       })
-      .catch(() => {
-        setShowError('Oops. Ocurrió un error inesperado.')
-      })
-      .finally(() => {
+      .catch(resErr => {
+        setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
         setShowLoading(false)
       })
   }
@@ -67,7 +105,7 @@ export const FormStudentsCode = () => {
         n="ucode"
         ph="Código de validación"
         ac="off"
-        c="mb-20"
+        c="mb-20 center bold sz-20"
         valid
         value={ucode}
         onChange={e => {
@@ -79,15 +117,21 @@ export const FormStudentsCode = () => {
       />
 
       <S.Button type="submit" disabled={disable || showLoading}>
-        {showLoading ? 'CONFIRMANDO...' : 'CONFIRMAR'}
+        {showLoading ? 'VALIDANDO...' : 'VALIDAR'}
       </S.Button>
 
-      <S.Text c="gray" s="12" className="mt-20 center">
-        ¿No recibiste el correo?
-        <S.Link c="blue" className="ml-10">
-          Reenviar correo de validación
-        </S.Link>
-      </S.Text>
+      {showLinkMail ? (
+        <S.Text c="gray" s="12" className="mt-20 center">
+          ¿No recibiste el correo?
+          <S.Link c="blue" onClick={() => sendRequestMail()} className="ml-10">
+            Reenviar correo de validación
+          </S.Link>
+        </S.Text>
+      ) : (
+        <S.Text c="gray" s="12" className="mt-20 center">
+          Podrás reenviar nuevamente dentro de 10 segundos.
+        </S.Text>
+      )}
     </S.Form>
   )
 }
@@ -113,15 +157,15 @@ export const FormStudents = () => {
   ]
 
   const ListDays = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
     '10',
     '11',
     '12',
@@ -201,14 +245,26 @@ export const FormStudents = () => {
     },
   }
 
+  const isRequestStudents = () => {
+    return Cookies.getCookie('Eco.REQUEST_STUDENTS')
+  }
+
   const onSubmitForm = state => {
     setShowLoading(true)
     const { uemail, ugrade, uday, umonth, uyear } = state
-    const DATE = `${uyear}-${umonth}-${uday}`
+    const date = `${uyear}-${
+      umonth < 10 ? `0${umonth.toString()}` : umonth.toString()
+    }-${uday}`
     const JWT = window.Identity.userIdentity.accessToken
-    Services.checkStudents(uemail, DATE, ugrade, 'gestion', JWT)
+    Services.checkStudents(uemail, date, ugrade, 'gestion', JWT)
       .then(res => {
-        if (res.status) setShowReqCode(!showReqCode)
+        if (res.status) {
+          Cookies.setCookieSession(
+            'Eco.REQUEST_STUDENTS',
+            JSON.stringify({ uemail, date, ugrade })
+          )
+          setShowReqCode(!showReqCode)
+        }
         setShowError(res.message)
       })
       .catch(() => {
@@ -230,7 +286,7 @@ export const FormStudents = () => {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <>
-      {!showReqCode && (
+      {!showReqCode && !isRequestStudents() && (
         <S.Form onSubmit={handleOnSubmit}>
           <S.Title s="16" className="center mb-10" cp>
             PLAN UNIVERSITARIO
@@ -283,7 +339,7 @@ export const FormStudents = () => {
               DÍA
             </option>
 
-            {ListDays.map((value, index) => {
+            {ListDays.map(value => {
               return (
                 <option key={value} value={value}>
                   {value}
@@ -340,7 +396,7 @@ export const FormStudents = () => {
               AÑO
             </option>
 
-            {ListYears.map((value, index) => {
+            {ListYears.map(value => {
               return (
                 <option key={value} value={value}>
                   {value}
@@ -384,7 +440,7 @@ export const FormStudents = () => {
           </S.Button>
         </S.Form>
       )}
-      {showReqCode && <FormStudentsCode />}
+      {(showReqCode || isRequestStudents()) && <FormStudentsCode />}
     </>
   )
 }

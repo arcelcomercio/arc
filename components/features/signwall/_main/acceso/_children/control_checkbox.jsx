@@ -3,6 +3,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { Text, Link } from './styles'
 
+const TERMS =
+  'https://ecoid.pe/terminos_y_condiciones/108f85a3d8e750a325ced951af6cd758a90e73a34'
+const PRIVA =
+  'https://ecoid.pe/politica_privacidad/108f85a3d8e750a325ced951af6cd758a90e73a34'
+
 export const CheckContainer = styled.label`
   font-size: 12px;
   text-align: left;
@@ -17,6 +22,8 @@ export const CheckContainer = styled.label`
     position: absolute;
     opacity: 0;
     cursor: pointer;
+    width: 5px;
+    height: 5px;
     &:checked ~ .checkmark {
       background-color: #2196f3;
       border: 1px solid #2196f3;
@@ -36,7 +43,7 @@ export const CheckContainer = styled.label`
     border-radius: 4px;
     &:after {
       left: 6px;
-      top: 2px;
+      top: 3px;
       width: 5px;
       height: 10px;
       border: solid #fff;
@@ -53,29 +60,42 @@ export const CheckContainer = styled.label`
 `
 
 export const CheckBox = props => {
-  const { checked, value, onChange, valid } = props
+  const { checked, type, value, onChange, valid, error } = props
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <CheckContainer>
       <input
-        type="checkbox"
+        type={type}
         name="termsConds"
         checked={checked}
         value={value}
         onChange={onChange}
         required={valid}
+        error={error}
       />
 
       <Text c="gray" lh="20" s="13" className="mt-20 mb-10">
         Al crear la cuenta acepto los
-        <Link href="#" c="blue" fw="bold" className="ml-10 mr-10 inline">
+        <Link
+          href={TERMS}
+          target="_blank"
+          c="blue"
+          fw="bold"
+          className="ml-10 mr-10 inline">
           Términos y Condiciones
         </Link>
         y
-        <Link href="#" c="blue" fw="bold" className="ml-10 inline">
+        <Link
+          href={PRIVA}
+          target="_blank"
+          c="blue"
+          fw="bold"
+          className="ml-10 inline">
           Políticas de Privacidad
         </Link>
       </Text>
+
+      <span className={error && 'error'}>{error}</span>
 
       <span className="checkmark" />
     </CheckContainer>

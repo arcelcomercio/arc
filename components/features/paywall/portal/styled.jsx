@@ -48,13 +48,21 @@ export const Footer = styled.div`
 `
 
 export const FooterContent = styled.div`
-  display: flex;
-  max-width: 1120px;
-  justify-content: center;
-  width: 100%;
-  position: relative;
-  height: 100%;
-  align-items: center;
+  ${({ theme }) => css`
+    display: flex;
+    max-width: 1120px;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    height: 100%;
+    align-items: center;
+    ${theme.breakpoints.down('xs')} {
+      display: block;
+      & a:first-child {
+        margin-bottom: 20px;
+      }
+    }
+  `}
 `
 
 export const ClickToCallWrapper = styled.div`
