@@ -65,7 +65,6 @@ export default class FeaturedStory extends PureComponent {
       isAdmin,
       siteName,
       errorList = [],
-      multimediaSubtitle,
       multimediaCaption,
     } = this.props
 
@@ -185,7 +184,7 @@ export default class FeaturedStory extends PureComponent {
           <h2 className={classes.title}>
             <a
               className={classes.titleLink}
-              href={title.url}              
+              href={title.url}
               {...getEditableField('titleField')}
               suppressContentEditableWarning>
               {titleField || title.name}

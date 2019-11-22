@@ -1,7 +1,7 @@
 import {
   removeLastSlash,
   arrayDays,
-  arrayMonths,
+  arrayMonths
 } from '../../components/utilities/helpers'
 
 const schemaName = 'section'
@@ -29,26 +29,27 @@ const resolve = (key = {}) => {
 
   return `/site/v3/website/${website}/section${
     id === null || !id ? '' : `?_id=${clearSlug}`
-  }`
+    }`
 }
 
 const transform = (data, key) => {
   // Destructuración del key para prevenir que no devuelva null
   const { date: auxDate = '' } = key
+  const { name: sectionName = 'Todas' } = data || {}
   const date = auxDate === null ? '' : auxDate
 
   const formatDate = date ? new Date(date) : ''
 
   return {
     ...data,
-    params: { date },
+    params: { section_name: sectionName, date },
     archiveParams: {
       date: date
         ? `ARCHIVO, ${arrayDays[
-            formatDate.getUTCDay()
-          ].toUpperCase()} ${formatDate.getUTCDate()} DE ${arrayMonths[
-            formatDate.getUTCMonth()
-          ].toUpperCase()} DEL ${formatDate.getUTCFullYear()}`
+          formatDate.getUTCDay()
+        ].toUpperCase()} ${formatDate.getUTCDate()} DE ${arrayMonths[
+          formatDate.getUTCMonth()
+        ].toUpperCase()} DEL ${formatDate.getUTCFullYear()}`
         : 'ÚLTIMO MINUTO',
     },
   }

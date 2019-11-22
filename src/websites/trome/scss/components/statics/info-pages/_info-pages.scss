@@ -1,0 +1,25 @@
+.info-pages {
+  font-family: $primary-font;
+  &__title {
+    font-family: $secondary-font;
+    font-size: 20px;
+    color: $color-base-300;
+    border-color: transparent;
+    padding-bottom: 0;
+    font-weight: 400;
+    @media (--tablet) {
+      font-size: 40px;
+    }
+  }
+  & * h1,
+  & * h2,
+  & * h3,
+  & * h4,
+  & * h5,
+  & * h6 {
+    color: #2f2f2f;
+  }
+  p {
+    color: $color-black;
+  }
+}

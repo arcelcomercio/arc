@@ -74,8 +74,8 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-    nameSeccion.split('/')[1]
-    } ${subtype} `
+        nameSeccion.split('/')[1]
+      } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -125,7 +125,7 @@ export default ({
   const getDescription = () => {
     let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
       siteProperties.siteName
-      }.`
+    }.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
@@ -140,7 +140,9 @@ export default ({
       } else if (metaValue('id') === 'meta_archive') {
         const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
         if (!hasDate) {
-          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+          description = `Archivo de noticias de ${
+            siteProperties.siteName
+          }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
         }
       }
     }
@@ -153,8 +155,8 @@ export default ({
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
       : `Noticias, ${
-      siteProperties.siteName
-      }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -242,10 +244,7 @@ export default ({
 
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {isStory && htmlAmpIs && (
           <link
             rel="amphtml"
@@ -371,7 +370,7 @@ export default ({
             title="Google Tag Manager - No Script"
             src={`https://www.googletagmanager.com/ns.html?id=${
               siteProperties.googleTagManagerId
-              }`}
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
