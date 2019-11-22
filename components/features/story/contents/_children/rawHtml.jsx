@@ -101,7 +101,7 @@ class rawHTML extends PureComponent {
           className={classes.newsEmbed}
           dangerouslySetInnerHTML={{
             __html: isDaznServicePlayer(content)
-              ? content.replace('performgroup', 'daznservices')
+              ? content.trim().replace('performgroup', 'daznservices')
               : content,
           }}
         />
