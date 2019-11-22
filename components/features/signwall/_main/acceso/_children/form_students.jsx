@@ -28,26 +28,30 @@ export const FormStudentsCode = () => {
       JSON.parse(Cookies.getCookie('Eco.REQUEST_STUDENTS'))
     )
     window.Identity.options({ apiOrigin: API_ORIGIN })
-    window.Identity.extendSession().then(resExtend => {
-      Services.checkStudents(
-        REQUEST.uemail,
-        REQUEST.date,
-        REQUEST.ugrade,
-        'gestion',
-        resExtend.accessToken
-      )
-        .then(resOk => {
-          if (resOk.status) {
-            setShowLinkMail(false)
-            setTimeout(() => {
-              setShowLinkMail(true)
-            }, 10000)
-          }
-        })
-        .catch(resErr => {
-          setShowError(resErr.message)
-        })
-    })
+    window.Identity.extendSession()
+      .then(resExtend => {
+        Services.checkStudents(
+          REQUEST.uemail,
+          REQUEST.date,
+          REQUEST.ugrade,
+          'gestion',
+          resExtend.accessToken
+        )
+          .then(resOk => {
+            if (resOk.status) {
+              setShowLinkMail(false)
+              setTimeout(() => {
+                setShowLinkMail(true)
+              }, 10000)
+            }
+          })
+          .catch(resErr => {
+            setShowError(resErr.message)
+          })
+      })
+      .catch(resErr => {
+        setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
+      })
   }
 
   const onSubmitForm = state => {
@@ -73,8 +77,8 @@ export const FormStudentsCode = () => {
           })
       })
       .catch(resErr => {
-        setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
         setShowLoading(false)
+        setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
       })
   }
 
@@ -191,8 +195,29 @@ export const FormStudents = () => {
   ]
 
   const ListYears = [
+    '1980',
+    '1981',
+    '1982',
+    '1983',
+    '1984',
+    '1985',
+    '1986',
+    '1987',
+    '1988',
+    '1989',
+    '1990',
+    '1991',
+    '1992',
+    '1993',
+    '1994',
+    '1995',
+    '1996',
+    '1997',
+    '1998',
+    '1999',
     '2000',
     '2001',
+    '2002',
     '2003',
     '2004',
     '2005',
@@ -255,23 +280,36 @@ export const FormStudents = () => {
     const date = `${uyear}-${
       umonth < 10 ? `0${umonth.toString()}` : umonth.toString()
     }-${uday}`
-    const JWT = window.Identity.userIdentity.accessToken
-    Services.checkStudents(uemail, date, ugrade, 'gestion', JWT)
-      .then(res => {
-        if (res.status) {
-          Cookies.setCookieSession(
-            'Eco.REQUEST_STUDENTS',
-            JSON.stringify({ uemail, date, ugrade })
-          )
-          setShowReqCode(!showReqCode)
-        }
-        setShowError(res.message)
+    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.extendSession()
+      .then(resExtend => {
+        Services.checkStudents(
+          uemail,
+          date,
+          ugrade,
+          'gestion',
+          resExtend.accessToken
+        )
+          .then(res => {
+            if (res.status) {
+              Cookies.setCookieSession(
+                'Eco.REQUEST_STUDENTS',
+                JSON.stringify({ uemail, date, ugrade })
+              )
+              setShowReqCode(!showReqCode)
+            }
+            setShowError(res.message)
+          })
+          .catch(() => {
+            setShowError('Oops. Ocurrió un error inesperado.')
+          })
+          .finally(() => {
+            setShowLoading(false)
+          })
       })
-      .catch(() => {
-        setShowError('Oops. Ocurrió un error inesperado.')
-      })
-      .finally(() => {
+      .catch(resErr => {
         setShowLoading(false)
+        setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
       })
   }
 
@@ -430,6 +468,8 @@ export const FormStudents = () => {
             </option>
             <option value="pregrado">Estudiante pregrado</option>
             <option value="postgrado">Estudiante postgrado</option>
+            <option value="docente">Docente</option>
+            <option value="administrativo">Administrativo</option>
           </InputForm>
 
           <S.Button
