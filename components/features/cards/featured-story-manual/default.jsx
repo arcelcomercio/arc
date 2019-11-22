@@ -206,6 +206,7 @@ class CardFeaturedStoryManual extends PureComponent {
         categoryField,
         imgField,
         path = '',
+        isLazyLoadActivate = true,
       } = {},
       siteProperties: { siteName = '' } = {},
     } = this.props
@@ -262,6 +263,7 @@ class CardFeaturedStoryManual extends PureComponent {
       errorList: this.errorList || [],
       multimediaSubtitle,
       multimediaCaption,
+      isLazyLoadActivate,
     }
     return <FeaturedStory {...params} />
   }

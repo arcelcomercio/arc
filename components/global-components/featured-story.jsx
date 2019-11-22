@@ -66,6 +66,7 @@ export default class FeaturedStory extends PureComponent {
       siteName,
       errorList = [],
       multimediaCaption,
+      isLazyLoadActivate,
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile
@@ -198,22 +199,38 @@ export default class FeaturedStory extends PureComponent {
           </address>
         </div>
         <a className={classes.imageLink} href={title.url}>
-          <picture className={classes.imageBox}>
-            <source
-              className={isAdmin ? '' : 'lazy'}
-              media="(max-width: 639px)"
-              type="image/jpeg"
-              srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
-              data-srcset={getMobileImage()}
-            />
-            <img
-              src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
-              data-src={getDesktopImage()}
-              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              alt={multimediaCaption || titleField || title.name}
-            />
-            <Icon type={multimediaType} iconClass={classes.icon} />
-          </picture>
+          {isLazyLoadActivate ? (
+            <picture className={classes.imageBox}>
+              <source
+                className={isAdmin ? '' : 'lazy'}
+                media="(max-width: 639px)"
+                type="image/jpeg"
+                srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
+                data-srcset={getMobileImage()}
+              />
+              <img
+                src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
+                data-src={getDesktopImage()}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+                alt={multimediaCaption || titleField || title.name}
+              />
+              <Icon type={multimediaType} iconClass={classes.icon} />
+            </picture>
+          ) : (
+            <picture className={classes.imageBox}>
+              <source
+                media="(max-width: 639px)"
+                type="image/jpeg"
+                srcSet={getMobileImage()}
+              />
+              <img
+                src={getDesktopImage()}
+                className={classes.image}
+                alt={multimediaCaption || titleField || title.name}
+              />
+              <Icon type={multimediaType} iconClass={classes.icon} />
+            </picture>
+          )}
         </a>
         {isAdmin && errorList.length > 0 && (
           <Notify message={renderMessage()} />
