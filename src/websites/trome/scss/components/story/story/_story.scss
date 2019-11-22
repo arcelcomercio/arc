@@ -7,4 +7,17 @@
       background-color: transparent;
     }
   }
+  &.malcriadas {
+    .header-full__logo {
+      @media (--tablet) {
+        max-width: 170px;
+        width: auto;
+        height: 46px;
+      }
+    }
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }

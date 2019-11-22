@@ -490,7 +490,9 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
+    ConfigParams.OPTA_WIDGET
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -568,17 +570,39 @@ export const iframeHtml = (html, arcSite = '') => {
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.elcomercio.pe$1'
     )
+
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.elcomercio.pe$1'
+    )
   } else if (arcSite === ConfigParams.SITE_DEPOR) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
       '$1'
     )
-  } else
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/depor.com(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.depor.com$1'
+    )
+  } else if (arcSite === ConfigParams.SITE_TROME) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://img.trome.pe$1'
+    )
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.trome.pe$1'
+    )
+  } else {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.peru21.pe$1'
     )
-
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/peru21.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.peru21.pe$1'
+    )
+  }
   const rplTwitter =
     '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
 

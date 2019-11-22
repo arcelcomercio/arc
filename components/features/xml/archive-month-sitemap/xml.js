@@ -34,7 +34,7 @@ class XmlArchiveMonthSitemap {
             }]
         }
 
-        for (let d = this.day; d >= 1; d--) {
+        for (let d = year === this.year && month === this.month ? this.day : new Date(year, month + 1, 0).getDate(); d >= 1; d--) {
             sitemaps.sitemapindex = [
                 ...sitemaps.sitemapindex,
                 ...SITEMAP_OPTIONS.map(option => (

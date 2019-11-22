@@ -1,6 +1,6 @@
 export default {
   siteName: 'Trome',
-  sitemapNewsName: 'Trome',
+  sitemapNewsName: 'Diario Trome',
   newsletterBrand: 'trome',
   colorPrimary: '#E06437',
   siteDomain: 'trome.pe',
@@ -172,4 +172,8 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: false,
+  taboola: {
+    dataModeAmp: 'thumbnails-c-amp',
+    mode: 'thumbnails-c',
+  },
 }

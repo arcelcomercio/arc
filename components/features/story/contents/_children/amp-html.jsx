@@ -13,6 +13,10 @@ const StoryContentChildHtml = ({
     .replace('data-mp4="', 'data-stream="')
     .replace(/(.*)data-stream="(.*?)"(.*)/, '$2')
     .replace('http://', 'https://')
+    .replace('peru21.pe', 'img.peru21.pe')
+    .replace('elcomercio.pe', 'img.elcomercio.pe')
+    .replace('trome.pe', 'img.trome.pe')
+    .replace('depor.com', 'img.depor.com')
 
   return (
     <>
