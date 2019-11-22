@@ -885,8 +885,8 @@ class StoryData {
           resized_urls: resizedUrls = '',
         } = {},
         promo_items: {
-          basic: { url: urlImageP = '', resized_urls: resizedUrlsP = '' },
-        },
+          basic: { url: urlImageP = '', resized_urls: resizedUrlsP = '' } = {},
+        } = {},
         headlines: { basic: caption = '' } = {},
       } = basicVideo
       if (type === 'video') {
