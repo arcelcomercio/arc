@@ -138,12 +138,22 @@ class SubDetail extends Component {
           formErrors.dateexpire = 'Fecha inválida'
         } else if (
           value.split('/')[0] < new Date().getMonth() + 1 &&
-          (value.split('/')[1] <= new Date().getFullYear() || value.split('/')[1] <= new Date().getFullYear().toString().substr(-2))
+          (value.split('/')[1] <= new Date().getFullYear() ||
+            value.split('/')[1] <=
+              new Date()
+                .getFullYear()
+                .toString()
+                .substr(-2))
         ) {
           formErrors.dateexpire = 'Fecha inválida'
         } else if (
           value.split('/')[0] >= 13 ||
-          (value.split('/')[1] < new Date().getFullYear() || value.split('/')[1] < new Date().getFullYear().toString().substr(-2) )
+          value.split('/')[1] < new Date().getFullYear() ||
+          value.split('/')[1] <
+            new Date()
+              .getFullYear()
+              .toString()
+              .substr(-2)
         ) {
           formErrors.dateexpire = 'Fecha inválida'
         } else {
@@ -182,8 +192,13 @@ class SubDetail extends Component {
       showMessageFailed: false,
     })
 
-    if (FormValid(this.state)) {
-      
+    // if (FormValid(this.state)) {
+
+    if (
+      formErrors.numcard === '' &&
+      formErrors.dateexpire === '' &&
+      formErrors.codecvv === ''
+    ) {
       this.setState({
         disabledButton: true,
       })
@@ -631,9 +646,9 @@ class SubDetail extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {resDetail.paymentHistory.map(reSubs => {
+                    {resDetail.paymentHistory.map((reSubs, index) => {
                       return (
-                        <tr key={reSubs.sku}>
+                        <tr key={index}>
                           <td>
                             <strong>
                               {fullName.firstName || 'Usuario'}{' '}

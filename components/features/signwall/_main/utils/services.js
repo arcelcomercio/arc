@@ -167,10 +167,12 @@ export default class Services {
             email,
             address: {
               // line1: '123 Main St.',
+              line1: 'Avenida 2 de Mayo 123',
               // line2: 'Apt 123',
               // locality: 'Springfield',
+              locality: 'Lima',
               // region: 'CA',
-              region: 'PE',
+              country: 'PE',
               // country: 'US',
               // postal: '12345',
             },
