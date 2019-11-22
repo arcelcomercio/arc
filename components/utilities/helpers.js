@@ -1107,10 +1107,10 @@ export const skipAdvertising = (data = []) => {
     .filter(String)[0]
 }
 
-export const storyTagsBbc = (data = []) => {
+export const storyTagsBbc = (data = [], slugTag = 'bbc') => {
   return data
     .map(({ slug }) => {
-      return slug === 'bbc' ? true : ''
+      return slug === slugTag ? true : ''
     })
     .filter(String)[0]
 }
