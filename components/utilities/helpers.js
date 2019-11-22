@@ -1211,3 +1211,16 @@ export const getContentCurrentPage = ({ next, previous, count, length }) => {
   }
   return page
 } */
+
+export const pixelAmpDate = arcSite => {
+  const hoy = new Date()
+  const day = hoy.getDate()
+  const month = hoy.getMonth() + 1
+  const year = hoy.getFullYear()
+  const pixelEc =
+    `${year}${month}${day}` === '20191123' &&
+    arcSite === ConfigParams.SITE_ELCOMERCIO
+      ? true
+      : ''
+  return pixelEc
+}
