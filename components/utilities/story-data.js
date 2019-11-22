@@ -872,7 +872,10 @@ class StoryData {
     } = {},
     type = ''
   ) {
-    if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
+    if (
+      (basicVideo.promo_image || basicVideo.promo_items) &&
+      (type === 'video' || type === 'image')
+    ) {
       const {
         _id: idVideo = '',
         streams = [],
@@ -880,6 +883,9 @@ class StoryData {
         promo_image: {
           url: urlImage = '',
           resized_urls: resizedUrls = '',
+        } = {},
+        promo_items: {
+          basic: { url: urlImageP = '', resized_urls: resizedUrlsP = '' } = {},
         } = {},
         headlines: { basic: caption = '' } = {},
       } = basicVideo
@@ -895,9 +901,9 @@ class StoryData {
                 ? {
                     idVideo,
                     url,
-                    resized_urls: resizedUrlsV,
+                    resized_urls: resizedUrlsV || resizedUrlsP,
                     caption,
-                    urlImage,
+                    urlImage: urlImage || urlImageP,
                     date,
                   }
                 : []
@@ -909,8 +915,8 @@ class StoryData {
       }
 
       return {
-        url: urlImage,
-        resized_urls: resizedUrls,
+        url: urlImage || urlImageP,
+        resized_urls: resizedUrls || resizedUrlsP,
         subtitle: caption,
       }
     }

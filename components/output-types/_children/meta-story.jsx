@@ -46,10 +46,17 @@ export default ({
   const resultRelated = relatedContent[0] ? relatedContent : relatedStories
 
   const videoSeoItems = videoSeo.map(
-    ({ url, caption, urlImage, date } = {}) => {
+    ({
+      url,
+      caption,
+      urlImage,
+      date,
+      resized_urls: { large = '' } = {},
+    } = {}) => {
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
         caption
-      )}",  "thumbnailUrl": "${urlImage}",  "description":"${formatHtmlToText(
+      )}",  "thumbnailUrl": "${large ||
+        urlImage}",  "description":"${formatHtmlToText(
         caption
       )}", "contentUrl": "${url}",  "uploadDate": "${date}" } `
     }

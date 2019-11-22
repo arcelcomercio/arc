@@ -171,7 +171,8 @@ class StoryContents extends PureComponent {
       <>
         <div className={classes.news}>
           {primarySectionLink === '/impresa/' ||
-          primarySectionLink === '/malcriadas/'
+          primarySectionLink === '/malcriadas/' ||
+          storyTagsBbc(tags, 'portada-trome')
             ? promoItems && <StoryContentsChildImpresa data={promoItems} />
             : promoItems &&
               subtype !== ConfigParams.BIG_IMAGE &&
