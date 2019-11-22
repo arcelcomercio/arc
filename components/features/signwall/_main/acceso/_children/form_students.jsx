@@ -25,7 +25,7 @@ export const FormStudentsCode = () => {
 
   const sendRequestMail = () => {
     const REQUEST = JSON.parse(
-      JSON.parse(Cookies.getCookie('Eco.REQUEST_STUDENTS'))
+      JSON.parse(Cookies.getCookie('EcoId.REQUEST_STUDENTS'))
     )
     window.Identity.options({ apiOrigin: API_ORIGIN })
     window.Identity.extendSession()
@@ -63,7 +63,7 @@ export const FormStudentsCode = () => {
         Services.checkCodeStudents(ucode, 'gestion', resExtend.accessToken)
           .then(resCode => {
             if (resCode.status) {
-              Cookies.deleteCookie('Eco.REQUEST_STUDENTS')
+              Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
               setTimeout(() => {
                 window.location.href = `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=paywall`
               }, 2000)
@@ -272,7 +272,7 @@ export const FormStudents = () => {
   }
 
   const isRequestStudents = () => {
-    return Cookies.getCookie('Eco.REQUEST_STUDENTS')
+    return Cookies.getCookie('EcoId.REQUEST_STUDENTS')
   }
 
   const onSubmitForm = state => {
@@ -294,7 +294,7 @@ export const FormStudents = () => {
           .then(res => {
             if (res.status) {
               Cookies.setCookieSession(
-                'Eco.REQUEST_STUDENTS',
+                'EcoId.REQUEST_STUDENTS',
                 JSON.stringify({ uemail, date, ugrade })
               )
               setShowReqCode(!showReqCode)
