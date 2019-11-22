@@ -30,7 +30,6 @@ class rawHTML extends PureComponent {
     this.URL = ''
     this.ID_VIDEO = ''
     this.URL_VIDEO = ''
-
     if (content.includes('widgets.js')) {
       const beginURL = content.indexOf('<script')
       const endURL = content.lastIndexOf('</script>')
@@ -45,9 +44,11 @@ class rawHTML extends PureComponent {
       content.trim().match(/^<script(.*)<\/script>$/)
     ) {
       const idVideos = storyVideoPlayerId(content)
-      const urlAssignHttp = idVideos[1]
-        .replace('src="//', 'https://')
-        .replace('performgroup', 'daznservices')
+      const urlAssignHttp = content.includes('player.daznservices.com/')
+        ? idVideos[1].replace('src="//', 'https://')
+        : idVideos[1]
+            .replace('src="//', 'https://')
+            .replace('performgroup', 'daznservices')
 
       this.URL_VIDEO = content.includes('id')
         ? `${urlAssignHttp}id=${idVideos[2]}`
