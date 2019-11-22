@@ -39,8 +39,11 @@ const WizardConfirmation = props => {
   } = props
 
   const { orderNumber } = order
-  const { uuid, firstName, lastName, secondLastName, email } =
-    freeAccess || profile || {}
+  const { uuid, firstName, lastName, secondLastName, email } = Object.assign(
+    {},
+    profile,
+    freeAccess
+  )
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
     sku,

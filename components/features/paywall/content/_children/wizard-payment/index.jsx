@@ -46,6 +46,14 @@ function WizardPayment(props) {
   profile.printed = !!printedSubscriber
 
   useEffect(() => {
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 3 },
+        },
+      },
+    })
     sendAction(PixelActions.PAYMENT_CARD_INFO, {
       sku: `${sku}`,
       referer,
@@ -67,15 +75,6 @@ function WizardPayment(props) {
     setLoading(true)
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
-
-    dataLayer.push({
-      event: 'checkoutOption',
-      ecommerce: {
-        checkout_option: {
-          actionField: { step: 3 },
-        },
-      },
-    })
 
     Sentry.addBreadcrumb({
       category: 'compra',

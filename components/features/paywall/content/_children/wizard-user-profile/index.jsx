@@ -47,6 +47,14 @@ function WizardUserProfile(props) {
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
   useEffect(() => {
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 2 },
+        },
+      },
+    })
     sendAction(PixelActions.PAYMENT_PROFILE, {
       sku: `${sku}`,
       periodo: billingFrequency,
@@ -74,15 +82,6 @@ function WizardUserProfile(props) {
     } = values
     setError(false)
     setLoading(true)
-
-    dataLayer.push({
-      event: 'checkoutOption',
-      ecommerce: {
-        checkout_option: {
-          actionField: { step: 2 },
-        },
-      },
-    })
 
     Sentry.addBreadcrumb({
       category: 'compra',
