@@ -98,8 +98,8 @@ const ListItemNews = (contentElements, buildProps) => {
           }
           const template = `
           <item>
-            <title>${nbspToSpace(ItemDataXml.title)}</title>
-            <pubDate>${ItemDataXml.date}</pubDate>
+            <title> <![CDATA[${nbspToSpace(ItemDataXml.title)} ]]></title>
+            <pubDate>${ItemDataXml.date} </pubDate>
             <link>${ItemDataXml.pagePath}</link>
             <guid>${ItemDataXml.codigoGUID}</guid>
             <author>${nbspToSpace(ItemDataXml.author)}</author>
