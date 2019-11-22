@@ -68,10 +68,18 @@ class StoryContentChildVideo extends PureComponent {
 
   render() {
     const { data = {}, description = '' } = this.props
-
+    const urlVideo = data
+      .replace(
+        /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+        'https://img.elcomercio.pe$1'
+      )
+      .replace(
+        /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+        'https://img.trome.pe$1'
+      )
     return (
       <>
-        {data && renderHTML(data.replace('[goldfish_publicidad]', ''))}
+        {urlVideo && renderHTML(urlVideo.replace('[goldfish_publicidad]', ''))}
         <figcaption className={classes.caption}>{description} </figcaption>
       </>
     )
