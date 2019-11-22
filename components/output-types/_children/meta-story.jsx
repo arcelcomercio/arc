@@ -46,16 +46,23 @@ export default ({
   const resultRelated = relatedContent[0] ? relatedContent : relatedStories
 
   const videoSeoItems = videoSeo.map(
-    ({ url, caption, urlImage, date } = {}) => {
+    ({
+      url,
+      caption,
+      urlImage,
+      date,
+      resized_urls: { large = '' } = {},
+    } = {}) => {
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
         caption
-      )}",  "thumbnailUrl": "${urlImage}",  "description":"${formatHtmlToText(
+      )}",  "thumbnailUrl": "${large ||
+        urlImage}",  "description":"${formatHtmlToText(
         caption
       )}", "contentUrl": "${url}",  "uploadDate": "${date}" } `
     }
   )
 
-  const imagesSeoItems = imagePrimarySeo.map((image, i) => {
+  const imagesSeoItems = imagePrimarySeo.map((image) => {
     const {
       subtitle = false,
       url = '',
@@ -105,48 +112,48 @@ export default ({
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
     : `"image": {  "@type": "ImageObject", "url": "${siteUrl}${deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
-      )}",  "description": "${formatHtmlToText(
-        siteName
-      )}", "height": 800, "width": 1200 },`
+      `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
+    )}",  "description": "${formatHtmlToText(
+      siteName
+    )}", "height": 800, "width": 1200 },`
 
   const dataVideo = `  "video":[ ${videoSeoItems} ],` || ''
 
   const publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIO ||
-    arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
-    arcSite === ConfigParams.SITE_DEPOR ||
-    arcSite === ConfigParams.SITE_ELBOCON
+      arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
+      arcSite === ConfigParams.SITE_DEPOR ||
+      arcSite === ConfigParams.SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
 
   const bodyStructured = isAmp !== true ? `"articleBody":"${dataElement}",` : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
-      arcSite === ConfigParams.SITE_ELCOMERCIO ||
+    arcSite === ConfigParams.SITE_ELCOMERCIO ||
       arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
       arcSite === ConfigParams.SITE_DEPOR ||
       arcSite === ConfigParams.SITE_ELBOCON
-        ? publishDateZone
-        : lastPublishDate
+      ? publishDateZone
+      : lastPublishDate
     }", "headline":"${formatHtmlToText(
-    title
-  )}",  "description":"${formatHtmlToText(subTitle)}",
+      title
+    )}",  "description":"${formatHtmlToText(subTitle)}",
   ${bodyStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${(videoSeoItems[0] &&
-    dataVideo) ||
+      dataVideo) ||
     ''}
     "author":{    "@type":"Person",   "name":"${seoAuthor}"    },
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${siteUrl}${deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
-  )}",   "height":${seo.height}, "width":${seo.width}
+      `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
+    )}",   "height":${seo.height}, "width":${seo.width}
        }
     },    
     ${(isPremium && storyPremium) || ''} 
     "keywords":[${
-      seoKeyWordsStructurada[0]
-        ? seoKeyWordsStructurada.map(item => item)
-        : listItemsTagsKeywords.map(item => item)
+    seoKeyWordsStructurada[0]
+      ? seoKeyWordsStructurada.map(item => item)
+      : listItemsTagsKeywords.map(item => item)
     }]
  }`
 
@@ -154,7 +161,7 @@ export default ({
     return (
       url &&
       `{"@type":"ListItem", "position":${i +
-        1}, "name":"${name}", "item":"${url}" }`
+      1}, "name":"${name}", "item":"${url}" }`
     )
   })
 
@@ -163,29 +170,62 @@ export default ({
   const taboolaScript =
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
+
   const scriptTaboola = `
-  window._taboola = window._taboola || [];
-    _taboola.push({
-        article: 'auto'
-    });
-    ! function(e, f, u, i) {
-        if (!document.getElementById(i)) {
-            e.async = 1;
-            e.src = u;
-            e.id = i;
-            f.parentNode.insertBefore(e, f);
+    window._taboola=window._taboola||[],_taboola.push({article:"auto"}),"undefined"!=typeof window&&document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("taboola-below-content-thumbnails");function t(){const e="tb_loader_script";if(!document.getElementById(e)){const t=document.createElement("script"),n=document.getElementsByTagName("script")[0];t.async=1,t.src="//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js",t.id=e,n.parentNode.insertBefore(t,n)}}if("IntersectionObserver"in window&&"IntersectionObserverEntry"in window&&"intersectionRatio"in window.IntersectionObserverEntry.prototype){const n=new IntersectionObserver((e,o)=>{e.forEach(e=>{e.isIntersecting&&(t(),n.unobserve(e.target))})},{rootMargin: "0px 0px 200px 0px"});n.observe(e)}else t()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic");
+    `
+
+  /**
+   ****************************** scriptTaboola NO MINIFICADO
+   *   window._taboola = window._taboola || [];
+      _taboola.push({
+          article: 'auto'
+      });
+
+      ! function(){
+        if (typeof window !== 'undefined') {
+          document.addEventListener('DOMContentLoaded', () => {
+            const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
+
+            function execTaboola() {
+              const id = 'tb_loader_script'
+              if (!document.getElementById(id)) {
+                const n = document.createElement('script')
+                const f = document.getElementsByTagName('script')[0]
+                n.async = 1;
+                n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
+                n.id = id;
+                f.parentNode.insertBefore(n, f);
+              }
+            }
+      
+            if (
+              'IntersectionObserver' in window &&
+              'IntersectionObserverEntry' in window &&
+              'intersectionRatio' in window.IntersectionObserverEntry.prototype
+            ) {
+              const taboolaObserver = new IntersectionObserver(
+                (entries, observer) => {
+                  entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                      execTaboola()
+                      taboolaObserver.unobserve(entry.target)
+                    }
+                  })
+                },{rootMargin: "0px 0px 200px 0px"}
+              )
+
+              taboolaObserver.observe(taboolaDiv)
+            } else {
+              execTaboola()
+            }
+          })
         }
-    }(document.createElement('script'),
-        document.getElementsByTagName('script')[0],
-        '//cdn.taboola.com/libtrc/grupoelcomercio-${
-          arcSite === ConfigParams.SITE_PUBLIMETRO
-            ? 'publimetrope'
-            : taboolaScript
-        }/loader.js',
-        'tb_loader_script');
-    if (window.performance && typeof window.performance.mark == 'function') {
-        window.performance.mark('tbl_ic');
-    }`
+        if (window.performance && typeof window.performance.mark == 'function') {
+          window.performance.mark('tbl_ic');
+        }
+      }()
+   */
 
   return (
     <>
@@ -221,10 +261,10 @@ export default ({
         property="article:modified_time"
         content={`${
           arcSite === ConfigParams.SITE_ELCOMERCIO ||
-          arcSite === ConfigParams.SITE_ELCOMERCIOMAG
+            arcSite === ConfigParams.SITE_ELCOMERCIOMAG
             ? publishDateZone
             : lastPublishDate
-        }`}
+          }`}
       />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />

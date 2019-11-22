@@ -30,6 +30,10 @@
     font-family: $primary-font;
     font-weight: 700;
     color: $color-black;
+    @media (--tablet) {
+      -webkit-line-clamp: 6;
+      max-height: 150px;
+    }
   }
   &__icon {
     background-image: url(/pf/resources/dist/trome/images/rgba70.png);
@@ -213,6 +217,12 @@
         @media (--only-mobile) {
           font-size: 21.4px;
         }
+      }
+    }
+    .featured-story__title-link {
+      @media (--tablet) {
+        -webkit-line-clamp: 4;
+        max-height: 101.2px;
       }
     }
   }

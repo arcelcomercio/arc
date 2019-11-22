@@ -16,7 +16,6 @@ class FeaturedStoryFormatter {
         basic { 
           url 
           type
-          subtitle
           caption
           resized_urls { 
             landscape_l 
@@ -29,8 +28,7 @@ class FeaturedStoryFormatter {
           promo_items {
             basic { 
               url 
-              type 
-              subtitle
+              type
               caption
               resized_urls { 
                 landscape_l 
@@ -46,7 +44,6 @@ class FeaturedStoryFormatter {
             basic { 
               url 
               type
-              subtitle
               caption
               resized_urls { 
                 landscape_l 
@@ -164,6 +161,11 @@ class FeaturedStoryFormatter {
 
     newState.multimediaSubtitle = this.storyDataInstace.multimediaSubtitle
     newState.multimediaCaption = this.storyDataInstace.multimediaCaption
+
+    if (this.arcSite === 'trome') {
+      newState.multimediaSquareS =
+        landscapeMD || imgField || this.storyDataInstace.multimediaLandscapeMD
+    }
 
     return newState
   }
