@@ -32,9 +32,10 @@ const resolve = (key = {}) => {
     }`
 }
 
-const splitSections = (sections) => sections.split('/').map(section => `${section
+const splitSections = (sections) => sections.slice(1).split('/').map(section => `${section
   .charAt(0)
   .toUpperCase()
+  .concat(section.slice(1))
   .replace(/-/, ' ')} `
 ).toString()
 
