@@ -232,9 +232,9 @@ function WizardPayment(props) {
       .catch(e => {
         const { name, message } = e
         dataLayer.push({
-          event: 'refund',
+          event: 'failedTransaction',
           ecommerce: {
-            refund: {
+            failedTransaction: {
               actionField: { id: orderNumber },
             },
           },

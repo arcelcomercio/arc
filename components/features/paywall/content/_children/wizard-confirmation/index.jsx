@@ -124,7 +124,7 @@ const WizardConfirmation = props => {
             },
           ],
           dataUser: {
-            id: uuid,
+            id: Identity.userIdentity.uuid || uuid,
             name: `${firstName} ${lastName} ${secondLastName}`
               .replace(/\s*/, ' ')
               .trim(),
