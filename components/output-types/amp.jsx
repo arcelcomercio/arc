@@ -6,7 +6,7 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
 import AmpTagManager from './_children/amp-tag-manager'
-import { createMarkup, addSlashToEnd } from '../utilities/helpers'
+import { createMarkup, addSlashToEnd, pixelAmpDate } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
 import StoryData from '../utilities/story-data'
 
@@ -63,11 +63,6 @@ const AmpOutputType = ({
     metaValue('description') && !metaValue('description').match(/content/)
       ? `${metaValue('description')} `
       : 'Últimas noticias en Perú y el mundo'
-
-  const keywords =
-    metaValue('keywords') && !metaValue('keywords').match(/content/)
-      ? metaValue('keywords')
-      : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -132,9 +127,10 @@ const AmpOutputType = ({
         <title>{title}</title>
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
-          <meta name="amp-experiments-opt-in" content="amp-next-page" />
-        )}
+        {arcSite !== ConfigParams.SITE_ELCOMERCIO ||
+          (pixelAmpDate(arcSite) && (
+            <meta name="amp-experiments-opt-in" content="amp-next-page" />
+          ))}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
@@ -191,12 +187,14 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
-        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
+        {arcSite !== ConfigParams.SITE_ELCOMERCIO || pixelAmpDate(arcSite) ? (
           <script
             async
             custom-element="amp-next-page"
             src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
           />
+        ) : (
+          <></>
         )}
         <script
           async

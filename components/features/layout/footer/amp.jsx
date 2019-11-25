@@ -3,6 +3,7 @@ import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
+import { pixelAmpDate } from '../../../utilities/helpers'
 
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
@@ -59,7 +60,7 @@ class LayoutAmpFooter extends PureComponent {
 
     return (
       <>
-        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
+        {arcSite !== ConfigParams.SITE_ELCOMERCIO || pixelAmpDate(arcSite) ? (
           <>
             <div className={classes.nextPageSeparator} separator>
               <p className={classes.nextPageSeparatorText}>
@@ -73,6 +74,8 @@ class LayoutAmpFooter extends PureComponent {
               />
             </amp-next-page>
           </>
+        ) : (
+          <></>
         )}
         <footer className={classes.footer}>
           <div className={classes.footerInfo}>

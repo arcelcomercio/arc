@@ -31,10 +31,10 @@ const ListItemNews = (contentElements, buildProps) => {
 
       if (!storydata.isPremium) {
         if (storydata.fiaOrigen === true) {
-          // if (storydata.canonicalWebsite === 'elcomerciomag') {
+          if (storydata.canonicalWebsite === 'elcomerciomag') {
             // se cambio la validacion del canonicalWebsite para la url,
             // se solicito que ya no se concatene las notas de mag cuando sea el comercio
-          if (storydata.canonicalWebsite === 'xxxxxxxasdf') {
+            // if (storydata.canonicalWebsite === 'xxxxxxxasdf') {
             fiaContent = 'MAG'
             pagePath = `${siteUrl}/mag${storydata.link}`
           } else {
@@ -72,7 +72,7 @@ const ListItemNews = (contentElements, buildProps) => {
           const BuildHtmlProps = {
             scriptAnaliticaProps,
             propsScriptHeader,
-            canonical:pagePath,
+            canonical: pagePath,
             oppublished: storydata.date,
             title: nbspToSpace(storydata.title),
             subTitle: nbspToSpace(storydata.subTitle),
@@ -85,8 +85,7 @@ const ListItemNews = (contentElements, buildProps) => {
 
           const htmlString = BuildHtml(BuildHtmlProps)
           const codigoGUID = md5(storydata.id)
-          
-          
+
           const ItemDataXml = {
             pagePath,
             siteDomain,
@@ -98,8 +97,8 @@ const ListItemNews = (contentElements, buildProps) => {
           }
           const template = `
           <item>
-            <title>${nbspToSpace(ItemDataXml.title)}</title>
-            <pubDate>${ItemDataXml.date}</pubDate>
+            <title> <![CDATA[${nbspToSpace(ItemDataXml.title)} ]]></title>
+            <pubDate>${ItemDataXml.date} </pubDate>
             <link>${ItemDataXml.pagePath}</link>
             <guid>${ItemDataXml.codigoGUID}</guid>
             <author>${nbspToSpace(ItemDataXml.author)}</author>

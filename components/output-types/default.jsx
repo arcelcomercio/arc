@@ -113,7 +113,10 @@ export default ({
       title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteName}`
     } else if (metaValue('id') === 'meta_archive') {
       const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
-      if (!hasDate) {
+      const hasSection =
+        /\/archivo\/([\w\d-]+)/.test(requestUri) &&
+        !/\/archivo\/todas/.test(requestUri)
+      if (!hasDate && !hasSection) {
         title = `Archivo de Noticias | ${siteProperties.siteName}`
       }
     }
@@ -139,7 +142,10 @@ export default ({
         description = `${metaValue('description')} Página ${pageNumber}.`
       } else if (metaValue('id') === 'meta_archive') {
         const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
-        if (!hasDate) {
+        const hasSection =
+          /\/archivo\/([\w\d-]+)/.test(requestUri) &&
+          !/\/archivo\/todas/.test(requestUri)
+        if (!hasDate && !hasSection) {
           description = `Archivo de noticias de ${
             siteProperties.siteName
           }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`

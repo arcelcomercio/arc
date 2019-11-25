@@ -17,6 +17,7 @@ const SeparatorFeatured = props => {
       sectionField2,
       sectionField3,
       sectionField4,
+      isLazyLoadActivate = true,
     } = {},
   } = props
 
@@ -102,7 +103,6 @@ const SeparatorFeatured = props => {
             multimediaPortraitS,
             multimediaLazyDefault,
             // multimediaType,
-            multimediaSubtitle,
             multimediaCaption,
           },
           i
@@ -110,8 +110,7 @@ const SeparatorFeatured = props => {
           return (
             <div className="featured-separator__story flex flex-1 border-l-1 border-dashed pl-10 pr-10 justify-between">
               <div className="featured-separator__story-content pr-5">
-                <h3
-                  className="featured-separator__story-section font-bold text-lg mb-5 line-h-xs tertiary-font overflow-hidden">
+                <h3 className="featured-separator__story-section font-bold text-lg mb-5 line-h-xs tertiary-font overflow-hidden">
                   <a
                     className="featured-separator__section-link"
                     href={primarySectionLink}
@@ -120,8 +119,7 @@ const SeparatorFeatured = props => {
                     {sectionFields[i] || primarySection}
                   </a>
                 </h3>
-                <h2
-                  className="featured-separator__story-title text-md line-h-xs tertiary-font overflow-hidden">
+                <h2 className="featured-separator__story-title text-md line-h-xs tertiary-font overflow-hidden">
                   <a
                     className="featured-separator__story-link"
                     href={websiteLink}>
@@ -132,14 +130,22 @@ const SeparatorFeatured = props => {
               <a
                 className="featured-separator__img-link block"
                 href={websiteLink}>
-                <img
-                  src={isAdmin ? multimediaPortraitS : multimediaLazyDefault}
-                  data-src={multimediaPortraitS}
-                  alt={multimediaCaption || title}                  
-                  className={`${
-                    isAdmin ? '' : 'lazy'
-                  } featured-separator__img w-full object-cover`}
-                />
+                {!isLazyLoadActivate && i === 0 ? (
+                  <img
+                    src={multimediaPortraitS}
+                    alt={multimediaCaption || title}
+                    className="featured-separator__img w-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={isAdmin ? multimediaPortraitS : multimediaLazyDefault}
+                    data-src={multimediaPortraitS}
+                    alt={multimediaCaption || title}
+                    className={`${
+                      isAdmin ? '' : 'lazy'
+                    } featured-separator__img w-full object-cover`}
+                  />
+                )}
               </a>
             </div>
           )
@@ -182,6 +188,11 @@ SeparatorFeatured.propTypes = {
     sectionField4: PropTypes.string.tag({
       name: 'Configurar sección de la noticia 4',
       group: 'Configurar noticias',
+    }),
+    isLazyLoadActivate: PropTypes.bool.tag({
+      name: 'Activar lazy load',
+      group: 'Configuración',
+      defaultValue: true,
     }),
   }),
 }
