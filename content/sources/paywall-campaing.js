@@ -92,6 +92,7 @@ const fetch = (key = {}) => {
     return Object.assign(
       {
         name,
+        event,
         summary,
         plans,
         freeAccess: freeAccess ? { firstName, lastName, secondLastName } : undefined,
