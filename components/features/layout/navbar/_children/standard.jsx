@@ -491,7 +491,7 @@ class NavBarDefault extends PureComponent {
                   <div>
                     <a
                       className={classes.moreLink}
-                      href={classes.moreLink}
+                      href='/'
                       onClick={event => {
                         this.openLink(event, 3)
                       }}>
