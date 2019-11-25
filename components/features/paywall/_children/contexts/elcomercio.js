@@ -7,7 +7,7 @@ export default {
     // General
     currencySymbol: `S/`,
 
-    // Errors
+    // Validation Errors
     minLength: `Longitud inválida, mínimo {{min}} caracteres.`,
     maxLength: `Longitud inválida, máximo {{max}} caracteres.`,
     lengthNotBetween: `Longitud inválida, entre {{min}} y {{max}} caracteres`,
@@ -67,6 +67,7 @@ export default {
      `Acepto las [condiciones de servicio]({{terms_url}}), 
       las [políticas de privacidad]({{privacy_url}}), 
       y estoy de acuerdo con la información.`,
+    paymentFail: 'Ha ocurrido un problema durante el pago',
     
 
     // Confirmation

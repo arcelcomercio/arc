@@ -47,6 +47,14 @@ function WizardUserProfile(props) {
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
   useEffect(() => {
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 2 },
+        },
+      },
+    })
     sendAction(PixelActions.PAYMENT_PROFILE, {
       sku: `${sku}`,
       periodo: billingFrequency,
@@ -109,7 +117,7 @@ function WizardUserProfile(props) {
           // Mezclamos valores del formulario con los valores de la respuesta
           const mergeResValues = Object.assign({}, memo, {
             order: res,
-            profile: values,
+            profile: Object.assign({}, sanitizedProfile, values),
           })
           Sentry.addBreadcrumb({
             category: 'compra',
