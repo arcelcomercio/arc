@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-shadow */
 /* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect, useRef } from 'react'
 import { withTheme } from 'styled-components'
@@ -11,15 +13,19 @@ import * as S from './styled'
 import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import { userProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
 import PWA from '../../_dependencies/seed-pwa'
 
 function WizardPlan(props) {
   const {
     theme,
-    memo: { plans, summary, printedSubscriber, error },
+    memo: { event: eventCampaign, plans, summary, printedSubscriber, error },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
+    dispatchEvent = i => i,
+    addEventListener = i => i,
+    removeEventListener = i => i,
   } = props
 
   const { lighten } = theme.palette
@@ -35,8 +41,48 @@ function WizardPlan(props) {
 
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
+  const [profile, setProfile] = useState()
   const origin = useRef('organico')
   const referer = useRef('')
+
+  // Deferred actions
+  const checkingPrinted = React.useRef(false)
+  const planSelected = React.useRef()
+
+  const runDeferredAction = React.useRef(() => {
+    switch (true) {
+      case checkingPrinted.current:
+        setOpenModal(true)
+        break
+      case !!planSelected.current:
+        subscribePlanHandler(null, planSelected.current)
+        break
+      default:
+    }
+  }).current
+
+  const clearDeferredActions = React.useRef(() => {
+    checkingPrinted.current = false
+    planSelected.current = undefined
+  }).current
+
+  const loggedHandler = React.useRef(profile => {
+    setProfile(profile)
+  }).current
+
+  const logoutHandler = React.useRef(() => {
+    clearDeferredActions()
+    setProfile()
+  }).current
+
+  const loginFailed = React.useRef(() => {
+    clearDeferredActions()
+  }).current
+
+  useEffect(() => {
+    runDeferredAction()
+    clearDeferredActions()
+  }, [profile])
 
   useEffect(() => {
     origin.current =
@@ -57,68 +103,89 @@ function WizardPlan(props) {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
     document.getElementById('footer').style.position = 'relative'
+
+    // Retomar sesion existente
+    if (isLogged()) {
+      userProfile(['documentNumber', 'phone', 'documentType']).then(setProfile)
+    }
+
+    addEventListener('logged', loggedHandler)
+    addEventListener('logout', logoutHandler)
+    addEventListener('loginFailed', loginFailed)
+
+    return () => {
+      removeEventListener('logged', loggedHandler)
+      removeEventListener('logout', logoutHandler)
+      removeEventListener('loginFailed', loginFailed)
+    }
   }, [])
 
   function subscribePlanHandler(e, plan) {
-    setLoading(true)
-    const selectedPlan = {
-      sku: plan.sku,
-      priceCode: plan.priceCode,
-      quantity: 1,
+    if (!profile) {
+      clearDeferredActions()
+      planSelected.current = plan
+      dispatchEvent('signInReq')
+    } else {
+      setLoading(true)
+      const selectedPlan = {
+        sku: plan.sku,
+        priceCode: plan.priceCode,
+        quantity: 1,
+      }
+      Sentry.addBreadcrumb({
+        category: 'compra',
+        message: 'Plan seleccionado',
+        data: selectedPlan,
+        level: Sentry.Severity.Info,
+      })
+      dataLayer.push({
+        event: 'productClick',
+        ecommerce: {
+          click: {
+           products: [
+              {
+                name: plan.productName,
+                id: plan.sku,
+                price: plan.amount,
+                brand: arcSite,
+                category: plan.name,
+                subCategory: plan.billingFrequency,
+              },
+            ],
+          },
+        },
+      })
+      dataLayer.push({
+        event: 'checkout',
+        ecommerce: {
+          checkout: {
+            actionField: { step: 1 },
+            products: [
+              {
+                name: plan.productName,
+                id: plan.sku,
+                price: plan.amount,
+                brand: arcSite,
+                category: plan.name,
+                subCategory: plan.billingFrequency,
+              },
+            ],
+          },
+        },
+      })
+      setTimeout(() => {
+        setLoading(false)
+        onBeforeNextStep(
+          {
+            plan,
+            profile,
+            origin: origin.current,
+            referer: referer.current,
+          },
+          props
+        )
+      }, 1000)
     }
-    Sentry.addBreadcrumb({
-      category: 'compra',
-      message: 'Plan seleccionado',
-      data: selectedPlan,
-      level: Sentry.Severity.Info,
-    })
-    dataLayer.push({
-      event: 'productClick',
-      ecommerce: {
-        click: {
-          products: [
-            {
-              name: plan.productName,
-              id: plan.sku,
-              price: plan.amount,
-              brand: arcSite,
-              category: plan.name,
-              subCategory: plan.billingFrequency,
-            },
-          ],
-        },
-      },
-    })
-    dataLayer.push({
-      event: 'checkout',
-      ecommerce: {
-        checkout: {
-          actionField: { step: 1 },
-          products: [
-            {
-              name: plan.productName,
-              id: plan.sku,
-              price: plan.amount,
-              brand: arcSite,
-              category: plan.name,
-              subCategory: plan.billingFrequency,
-            },
-          ],
-        },
-      },
-    })
-
-    setTimeout(() => {
-      setLoading(false)
-      onBeforeNextStep(
-        {
-          plan,
-          origin: origin.current,
-          referer: referer.current,
-        },
-        props
-      )
-    }, 1000)
   }
 
   return (
@@ -176,10 +243,13 @@ function WizardPlan(props) {
             eventCategory: 'paywall_check_subscriptor',
             eventAction: 'submit',
           })
-          window.location.href = interpolateUrl(urls.validateSubscriptor, {
+
+          window.location.href = interpolateUrl(urls.digitalSubscriptions, {
+            isCheckingSubscriptor: true,
             documentType,
             documentNumber,
             attemptToken,
+            ...(eventCampaign ? { isEvent: true, event: eventCampaign } : {}),
           })
         }}
         onClose={() => {
@@ -208,12 +278,18 @@ function WizardPlan(props) {
             }
             showImage={arcSite === 'elcomercio'}
             onClick={() => {
-              window.dataLayer.push({
-                event: 'paywall_check_subscriptor',
-                eventCategory: 'paywall_check_subscriptor',
-                eventAction: 'open',
-              })
-              setOpenModal(true)
+              if (!profile) {
+                clearDeferredActions()
+                checkingPrinted.current = true
+                dispatchEvent('signInReq')
+              } else {
+                window.dataLayer.push({
+                  event: 'paywall_check_subscriptor',
+                  eventCategory: 'paywall_check_subscriptor',
+                  eventAction: 'open',
+                })
+                setOpenModal(true)
+              }
             }}
           />
           {arcSite !== 'elcomercio' && (

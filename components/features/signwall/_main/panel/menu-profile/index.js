@@ -25,12 +25,11 @@ const closeSession = props => {
         arcSite === 'elcomercio'
       ) {
         closeDispatchEvent()
-        window.location.reload()
       } else {
-        closePopup()
         window.sessionStorage.removeItem('paywall-profile-form')
         window.sessionStorage.removeItem('paywall-payment-form')
       }
+      closePopup()
       window.sessionStorage.removeItem('paywall_last_url')
     })
     .catch(() => {

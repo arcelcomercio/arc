@@ -45,6 +45,8 @@ class FormLoginPaywall extends Component {
     e.preventDefault()
 
     const { email, password } = this.state
+    // TODO: onLogout esta implementado como evento de arc actualmente
+    const { onLoginFail } = this.props
 
     if (FormValid(this.state)) {
       this.setState({ sending: false })
@@ -59,6 +61,7 @@ class FormLoginPaywall extends Component {
           this.handleGetProfile()
         })
         .catch(errLogin => {
+          onLoginFail()
           let messageES = ''
           switch (errLogin.code) {
             case '300040':
@@ -99,13 +102,14 @@ class FormLoginPaywall extends Component {
   }
 
   handleGetProfile = () => {
-    const { closePopup, reloadLogin } = this.props
+    const { closePopup, reloadLogin, onLogged } = this.props
 
     window.Identity.apiOrigin = this.origin_api
     window.Identity.getUserProfile().then(resGetProfile => {
       const { firstName, lastName, secondLastName, email, uuid } = resGetProfile
       Cookies.setCookie('arc_e_id', sha256(email), 365)
       Cookies.deleteCookie('mpp_sess')
+      onLogged(resGetProfile)
       dataLayer.push({
         event: 'loginSuccessful',
         ecommerce: {
@@ -118,7 +122,7 @@ class FormLoginPaywall extends Component {
           },
         },
       })
-
+      
       if (reloadLogin) {
         window.location.reload()
       } else {

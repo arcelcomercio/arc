@@ -16,7 +16,6 @@ function WizardUserProfile(props) {
   const msgs = useStrings()
   const {
     memo,
-    profile,
     formName,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
@@ -26,6 +25,7 @@ function WizardUserProfile(props) {
     summary,
     printedSubscriber,
     plan: { sku, priceCode, amount, description, billingFrequency },
+    profile,
     referer,
     origin,
   } = memo
@@ -117,7 +117,7 @@ function WizardUserProfile(props) {
           // Mezclamos valores del formulario con los valores de la respuesta
           const mergeResValues = Object.assign({}, memo, {
             order: res,
-            profile: Object.assign({}, sanitizedProfile, values),
+            profile: { ...profile, ...values },
           })
           Sentry.addBreadcrumb({
             category: 'compra',
