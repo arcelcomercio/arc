@@ -36,6 +36,7 @@ function CardPrice(props) {
     mt,
     marginTop,
     offer,
+    event,
   } = props
 
   const frequency = {
@@ -44,9 +45,10 @@ function CardPrice(props) {
   }
 
   return (
-    <Panel type="card-price">
+    <Panel type="card-price" event={event}>
       <S.CardPrice onFocus={onFocus} onMouseOver={onMouseOver}>
-        {offer ? <S.Header>{offer}</S.Header> : null}
+        {offer && !event ? <S.Header>{offer}</S.Header> : null}
+        {event && <S.Header>{`PROMOCIÓN ${event.toUpperCase()}`}</S.Header>}
 
         <S.Content>
           <S.Frecuency mt={marginTop || mt || '20px'} marginBottom="8px">
@@ -60,6 +62,7 @@ function CardPrice(props) {
           </S.Description>
           <S.Description>{description.description}</S.Description>
         </S.Content>
+
         <S.Footer>
           <S.Button
             active={active}
@@ -68,7 +71,12 @@ function CardPrice(props) {
             {msgs.subscribe}
           </S.Button>
         </S.Footer>
+
+        {event && <S.NoticeText>Promoción válida hasta el 01/12/2019 <br/> para suscripciones anuales.</S.NoticeText>}
+
       </S.CardPrice>
+
+
     </Panel>
   )
 }

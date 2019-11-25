@@ -124,7 +124,7 @@ const Portal = ({ theme }) => {
           </S.LinkCorporate>
 
           <S.ClickToCallWrapper>
-            <ClickToCall href={clickToCallUrl} />
+            <ClickToCall href={clickToCallUrl} text="¿AYUDA?" />
           </S.ClickToCallWrapper>
         </S.FooterContent>
       </S.Footer>

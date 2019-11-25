@@ -88,6 +88,16 @@ const Paywall = ({
     })()
   ).current
 
+  // const planOverrides = plans => {
+  //   plans.map(plan => {
+  //     const overrides = {
+  //       amount: plan.overrideAmount,
+  //       billingFrequency: plan.overrideBillingFrequency,
+  //     }
+  //     return { ...plan , amount: plan.overrideAmount }
+  //   })
+  // }
+
   // const [memo, setMemo] = useState({})
   const memo = useRef({
     event: event.event,
@@ -188,7 +198,7 @@ const Paywall = ({
               <Nav
                 excludeSteps={freeAccess && [2, 3]}
                 stepsNames={stepNames}
-                right={<ClickToCall href={clickToCallUrl} />}
+                right={<ClickToCall href={clickToCallUrl} text="¿Necesitas ayuda?"/>}
               />
             }>
             <WizardPlan
