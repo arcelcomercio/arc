@@ -206,9 +206,11 @@ class FormForgotPass extends Component {
                   this.handleChangeValidation(e)
                 }}
               />
-              <label htmlFor="email" className="form-group__label">
+              
+              {/* <label htmlFor="email" className="form-group__label">
                 Correo Electrónico
-              </label>
+              </label> */}
+
               {formErrors.email.length > 0 && (
                 <span className="message__error">{formErrors.email}</span>
               )}
