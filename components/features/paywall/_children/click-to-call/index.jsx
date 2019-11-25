@@ -12,7 +12,7 @@ function ClickToCall({ href }) {
       target="_blank"
       rel="noopener noreferrer">
       <span>
-        <span>¿Necesitas ayuda?</span>
+        <span>¿AYUDA?</span>
         <Icon type="phone" />
       </span>
     </S.Button>

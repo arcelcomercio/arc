@@ -14,9 +14,13 @@ import ClickToCall from '../_children/click-to-call'
 import Icon from '../_children/icon'
 // import FillHeight from '../_children/fill-height'
 import { useStrings } from '../_children/contexts'
+import { Students } from '../../signwall/_main/acceso/students/index'
 
 const Portal = ({ theme }) => {
   const msgs = useStrings()
+
+  const [openSignwall, setOpenSignwall] = React.useState(false)
+
   const {
     arcSite,
     globalContent: items,
@@ -83,6 +87,7 @@ const Portal = ({ theme }) => {
   return (
     // <FillHeight substractElements={substractFeaturesIds}>
     <S.Portal backgroundColor={arcSite === 'elcomercio'}>
+      {openSignwall && <Students close={() => setOpenSignwall(false)} />}
       <S.PortalContent>
         {items.map(item => (
           <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />
@@ -90,6 +95,22 @@ const Portal = ({ theme }) => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
+          {arcSite === 'gestion' && (
+            <S.LinkCorporate
+              primary
+              linkStyle
+              onClick={() => {
+                setOpenSignwall(true)
+              }}>
+              <S.SubscribedText primary>
+                <div>
+                  <span>PLAN UNIVERSITARIO</span>
+                </div>
+                <Icon type={theme.icon.arrowRight} />
+              </S.SubscribedText>
+            </S.LinkCorporate>
+          )}
+
           <S.LinkCorporate
             linkStyle
             href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>

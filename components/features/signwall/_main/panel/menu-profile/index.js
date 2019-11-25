@@ -13,8 +13,8 @@ const closeSession = props => {
   Cookies.deleteCookie('arc_e_id')
   Cookies.deleteCookie('mpp_sess')
   Cookies.deleteCookie('ArcId.USER_INFO')
+  Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
   window.sessionStorage.setItem('preferencesNews', '[]')
-  // window.localStorage.removeItem('ArcId._ID')
 
   window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
   window.Identity.logout()
