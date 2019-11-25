@@ -69,7 +69,12 @@ const Description = styled.div`
 `
 
 const Content = styled.div`
-  pointer-events: none;
+  ${({ theme, elevation = 1 }) => css`
+    pointer-events: none;
+    box-shadow: ${theme.shadows[elevation]};
+    border-radius: 5px 5px 0px 0px;
+    background-color: #fff;
+  `}
 `
 
 export const Footer = styled.div``
@@ -116,4 +121,11 @@ const Header = styled.div`
   }}
 `
 
-export { CardPrice, Frecuency, Currency, Period, Description, Content, Header }
+const NoticeText = styled.p`
+  font-size: 12px;
+  color: black;
+  text-align: center;
+  font-weight: normal;
+`
+
+export { CardPrice, Frecuency, Currency, Period, Description, Content, Header, NoticeText }

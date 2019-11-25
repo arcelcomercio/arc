@@ -9,9 +9,9 @@ export const WizardPlan = styled.div`
 `
 
 export const Wrap = styled.div`
-  ${({ theme }) => css`
+  ${({ theme, col }) => css`
     display: flex;
-    justify-content: space-between;
+    justify-content: ${col ? 'center' : 'space-between'};
     flex: 1;
     max-width: 930px;
     width: 100%;
@@ -28,10 +28,10 @@ export const Wrap = styled.div`
 `
 
 export const WrapPlan = styled.div`
-  ${({ theme }) => css`
+  ${({ theme, col }) => css`
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: ${col ? 'none': '1'};
     margin-left: 20px;
     margin-top: 30px;
     position: relative;

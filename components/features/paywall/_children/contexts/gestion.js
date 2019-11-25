@@ -58,7 +58,9 @@ export default {
     businessSubscriptionsBanner1: `¿ERES EMPRESA? CONSULTA NUESTRAS`,
     businessSubscriptionsBanner2: `SUSCRIPCIONES CORPORATIVAS`,
     printedSubscriptorBanner1: '¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?',
-    printedSubscriptorBanner2: 'ADQUIERE EL PLAN DIGITAL GRATIS POR 3 MESES.',
+    printedSubscriptorBanner2: 'ADQUIERE EL PLAN DIGITAL GRATIS POR 3 MESES',
+    eventSubscriptorBanner1: `¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?`,
+    eventSubscriptorBanner2: `ADQUIERE EL PLAN DIGITAL CON UNA OFERTA ESPECIAL`,
     
     // Profile
     insertPersonalInfo: `Ingrese sus datos`,

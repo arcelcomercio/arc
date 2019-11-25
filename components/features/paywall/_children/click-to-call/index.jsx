@@ -3,7 +3,7 @@ import Icon from '../icon'
 import * as S from './styled'
 import Taggeo from '../../_dependencies/taggeo'
 
-function ClickToCall({ href }) {
+function ClickToCall({ href, text }) {
   return (
     <S.Button
       as="a"
@@ -12,7 +12,7 @@ function ClickToCall({ href }) {
       target="_blank"
       rel="noopener noreferrer">
       <span>
-        <span>¿AYUDA?</span>
+        <span>{text}</span>
         <Icon type="phone" />
       </span>
     </S.Button>

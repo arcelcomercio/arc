@@ -194,7 +194,7 @@ function WizardPlan(props) {
       {printedSubscriber && (
         <S.Markdown>{msgs.welcomePrintedSubscriptor}</S.Markdown>
       )}
-      <S.Wrap>
+      <S.Wrap col={eventCampaign}>
         <Summary
           backgroundColor={
             arcSite === 'elcomercio'
@@ -204,14 +204,14 @@ function WizardPlan(props) {
           elevation={1}
           {...summary}
         />
-        <S.WrapPlan>
-          {arcSite === 'elcomercio' && (
+        <S.WrapPlan col={eventCampaign}>
+          {arcSite === 'elcomercio' && !eventCampaign && (
             <S.Cintillo>{msgs.offerHeadBand}</S.Cintillo>
           )}
           <S.Plans>
             {plans.map((plan, idx) => {
               const { priceCode, billingFrequency, amount } = plan
-              const marginTop = arcSite === 'elcomercio' ? '20px' : '40px'
+              const marginTop =  (arcSite === 'elcomercio' && !eventCampaign)  ? '20px' : '40px'
               const hasOffer =
                 arcSite !== 'elcomercio' &&
                 billingFrequency === 'Month' &&
@@ -221,6 +221,7 @@ function WizardPlan(props) {
                   active={
                     activePlan === priceCode || (!activePlan && idx === 0)
                   }
+                  event={eventCampaign}
                   marginTop={marginTop}
                   offer={hasOffer && msgs.offerHeadBand}
                   key={priceCode}
@@ -265,11 +266,12 @@ function WizardPlan(props) {
       {!printedSubscriber && (
         <S.ContentBanner>
           <PromoBanner
-            width="60%"
+            width={eventCampaign ? '100%' : '60%'}
+            event={eventCampaign}
             marginTop={arcSite === 'elcomercio' ? '14px' : '30px'}
             fullWidth={arcSite === 'elcomercio'}
-            text1={msgs.printedSubscriptorBanner1}
-            text2={msgs.printedSubscriptorBanner2}
+            text1={eventCampaign ? msgs.eventSubscriptorBanner1 : msgs.printedSubscriptorBanner1}
+            text2={eventCampaign ? msgs.eventSubscriptorBanner2 : msgs.printedSubscriptorBanner2}
             image={arcSite === 'elcomercio' && theme.images.lector}
             backgroundColor={
               arcSite === 'elcomercio'
@@ -292,7 +294,7 @@ function WizardPlan(props) {
               }
             }}
           />
-          {arcSite !== 'elcomercio' && (
+          {arcSite !== 'elcomercio' || !eventCampaign && (
             <PromoBanner
               width="40%"
               ml="20px"
