@@ -30,7 +30,7 @@
     "is_default_website": false
   },
   {
-    "_id": "correo",
+    "_id": "diariocorreo",
     "display_name": "Correo",
     "is_default_website": false
   },
