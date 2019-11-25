@@ -1218,7 +1218,7 @@ export const pixelAmpDate = arcSite => {
   const month = hoy.getMonth() + 1
   const year = hoy.getFullYear()
   const pixelEc =
-    `${year}${month}${day}` === '20191123' &&
+    `${year}${month}${day}` === '20191124' &&
     arcSite === ConfigParams.SITE_ELCOMERCIO
       ? true
       : ''
