@@ -92,7 +92,7 @@ export const LinkCorporate = styled(LinkBase)`
     border-radius: 4px;
     ${theme.breakpoints.down('sm')} {
       min-width: calc(50% - 40px);
-      margin-right: 0px;
+      margin-right: 20px;
     }
     ${theme.breakpoints.down('xs')} {
       min-width: calc(100% - 40px);
