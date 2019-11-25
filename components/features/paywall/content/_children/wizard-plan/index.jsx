@@ -96,6 +96,11 @@ function WizardPlan(props) {
     })
     document.getElementById('footer').style.position = 'relative'
 
+    // Retomar sesion existente
+    if (isLogged()) {
+      userProfile(['documentNumber', 'phone', 'documentType']).then(setProfile)
+    }
+
     addEventListener('logged', loggedHandler)
     addEventListener('logout', logoutHandler)
     addEventListener('loginFailed', loginFailed)
