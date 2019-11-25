@@ -6,7 +6,7 @@ const classes = {
     'most-read-premium-footer__link flex items-center uppercase text-gray-200 text-xs',
 }
 
-export default ({ seeMore, seeMoreurl }) => {
+export default ({ seeMore, seeMoreurl,freeHTML }) => {
   return (
     <>
       {seeMore && (
@@ -16,6 +16,15 @@ export default ({ seeMore, seeMoreurl }) => {
           </a>
         </div>
       )}
+      {freeHTML && (
+        <div
+          className={classes.mrHTML}
+          dangerouslySetInnerHTML={{ __html: freeHTML }}
+        />
+      )}
     </>
   )
 }
+
+
+// agregado freeHTML && ( div ...)

@@ -27,6 +27,7 @@ const MostReadPremium = props => {
       seeMoreurl,
       storyNumber,
       seeImageNews,
+      freeHTML
     },
   } = props
   const { content_elements: contentElements } =
@@ -61,7 +62,7 @@ const MostReadPremium = props => {
         <Header {...paramsHeader} />
         <List {...paramsList} />
       </div>
-      {seeMore && <Footer {...{ seeMore, seeMoreurl }} />}
+      {seeMore || freeHTML && <Footer {...{ seeMore, seeMoreurl,freeHTML }} />}
     </div>
   )
 }
@@ -74,3 +75,6 @@ MostReadPremium.label = 'Más Leidas Premium'
 MostReadPremium.static = true
 
 export default MostReadPremium
+
+// agregado freeHTML
+

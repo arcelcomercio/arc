@@ -39,6 +39,12 @@ const customFields = PropTypes.shape({
     name: 'URL de Ver más',
     group: 'Configuración',
   }),
+  freeHTML: PropTypes.richtext.tag({
+    name: 'Insertar título con código HTML',
+  }),  
 })
 
 export default customFields
+
+
+// agregado freeHTML

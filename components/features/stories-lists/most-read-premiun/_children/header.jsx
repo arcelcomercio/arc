@@ -28,7 +28,7 @@ export default ({
           Ver más
         </a>
       )}
-      <i className={classes.icon} />{' '}
+      <i className={classes.icon} />
     </div>
   )
 }
