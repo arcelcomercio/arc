@@ -13,6 +13,7 @@ import * as S from './styled'
 import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import { userProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
 import PWA from '../../_dependencies/seed-pwa'
 
@@ -126,6 +127,7 @@ function WizardPlan(props) {
         onBeforeNextStep(
           {
             plan,
+            profile,
             origin: origin.current,
             referer: referer.current,
           },
@@ -198,7 +200,6 @@ function WizardPlan(props) {
             attemptToken,
             ...(eventCampaign ? { isEvent: true, event: eventCampaign } : {}),
           })
-          console.log(window.location.href)
         }}
         onClose={() => {
           window.dataLayer.push({

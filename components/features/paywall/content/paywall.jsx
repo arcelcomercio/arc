@@ -13,7 +13,6 @@ import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import * as S from './styled'
-import { addIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
@@ -57,19 +56,8 @@ const Paywall = ({
   const wizardRef = useRef(null)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
   const getCodeCxense = interpolateUrl(urls.codeCxense)
-  const [profile, setProfile] = useState('')
-  const getProfile = React.useRef(() =>
-    addIdentity(arcSite).then(() => {
-      if (isLogged()) {
-        userProfile(['documentNumber', 'phone', 'documentType']).then(
-          setProfile
-        )
-      }
-    })
-  ).current
 
   useEffect(() => {
-    getProfile()
     document.querySelector('html').classList.add('ios')
     PWA.mount(() => window.location.reload())
   }, [])
@@ -80,14 +68,14 @@ const Paywall = ({
   }).current
 
   addEventListener('logout', clearPaywallStorage)
-  addEventListener('profile-update', () => {
-    try {
-      getProfile()
-      sessionStorage.removeItem(PROFILE_FORM_NAME)
-    } catch (e) {
-      console.error(e)
-    }
-  })
+  // addEventListener('profile-update', () => {
+  //   try {
+  //     getProfile()
+  //     sessionStorage.removeItem(PROFILE_FORM_NAME)
+  //   } catch (e) {
+  //     console.error(e)
+  //   }
+  // })
 
   const match = window.location.href.match(/eventos\/(\w+)/)
   const event = match ? { isEvent: true, event: match[1] } : {}
@@ -213,7 +201,6 @@ const Paywall = ({
             />
             <WizardUserProfile
               memo={currMemo}
-              profile={profile}
               formName={PROFILE_FORM_NAME}
               onBeforeNextStep={onBeforeNextStepHandler}
               setLoading={setLoading}
