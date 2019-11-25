@@ -24,6 +24,12 @@ export default {
     // Home
     recommended: `¡RECOMENDADO!`,
 
+    // Header
+    welcomeUser: `Hola Usuario`,
+    startSession: `Iniciar Sesión`,
+    profile: `perfil`,
+    count: `cuenta`,
+
     // Summary
     planPrice: `Precio del plan`,
     subscriptorDiscount: `Descuento de suscriptor`,
