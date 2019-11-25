@@ -1189,11 +1189,12 @@ export const clearHtml = paragraph => {
   )
 }
 
-export const storyContenImage = ({ resized_urls: resizedUrls, caption }) => {
+export const storyContenImage = ({ resized_urls: resizedUrls, caption },multimediaLazyDefault) => {
   return {
     multimediaLandscapeMD: resizedUrls.medium,
     multimediaStorySmall: resizedUrls.content_small,
     multimediaLarge: resizedUrls.content,
+    multimediaLazyDefault,
     caption,
   }
 }

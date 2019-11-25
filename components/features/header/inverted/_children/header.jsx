@@ -291,7 +291,7 @@ const HeaderChildInverted = ({
                 sideScroll('left', 15, 100, 5)
               }}
               className="header__button left disabled position-relative">
-              <i className="header__icon-back left icon-back text-white rounded font-bold p-5"></i>
+              <i className="header__icon-back left icon-back text-white rounded font-bold p-5" />
             </button>
           )}
           {bandLinks && bandLinks[0] && (
@@ -309,12 +309,12 @@ const HeaderChildInverted = ({
                   <a
                     className={classes.link}
                     href={url}
-                    {...(styles && {
+                    {...styles && {
                       style: {
                         backgroundColor: styles[0],
                         color: styles[1] || '#ffffff',
                       },
-                    })}>
+                    }}>
                     {name}
                   </a>
                 </li>
@@ -328,7 +328,7 @@ const HeaderChildInverted = ({
                 sideScroll('right', 15, 100, 5)
               }}
               className="header__button right disabled position-relative">
-              <i className="header__icon-back right icon-back text-white rounded font-bold p-5"></i>
+              <i className="header__icon-back right icon-back text-white rounded font-bold p-5" />
             </button>
           )}
           {date.active && (
@@ -343,7 +343,9 @@ const HeaderChildInverted = ({
         <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
           <div
-            className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
+            className={`${classes.navBtnContainer} ${
+              classes.leftBtnContainer
+            }`}>
             <form className={classes.form} onSubmit={e => e.preventDefault()}>
               <input
                 ref={inputSearch}
@@ -387,14 +389,16 @@ const HeaderChildInverted = ({
           <div className={classes.navStoryTitle} />
           {/** ************* RIGHT *************** */}
           <div
-            className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
+            className={`${classes.navBtnContainer} ${
+              classes.rightBtnContainer
+            }`}>
             {isStory && scrolled ? (
               <>
                 <div className={classes.navStorySocialNetwork}>
                   <div>
                     <a
                       className={classes.moreLink}
-                      href={classes.moreLink}
+                      href="/"
                       onClick={event => {
                         openLink(event, 3)
                       }}>
