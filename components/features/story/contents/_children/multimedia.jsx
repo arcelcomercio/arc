@@ -28,6 +28,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
+    multimediaLazyDefault,
     showCaption,
   } = data
   const { type: typeImage, caption = '' } = basic || {}
@@ -35,6 +36,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
   const paramenters = {
     multimediaLandscapeMD,
     multimediaStorySmall,
+    multimediaLazyDefault,
     multimediaLarge,
     caption,
     showCaption,
