@@ -36,7 +36,7 @@ const BlogPostListGrid = props => {
       user: {
         user_avatarb: {
           resized_urls: {
-            lazy_default: lazyImage,
+            // lazy_default: lazyImage,
             author_sm: authorImg = defaultImage({
               deployment,
               contextPath,
@@ -51,7 +51,12 @@ const BlogPostListGrid = props => {
     } = blog
 
     return {
-      lazyImage,
+      lazyImage = defaultImage({
+        deployment,
+        contextPath,
+        arcSite,
+        size: 'sm',
+      }),
       imagePost,
       authorImg,
       date: postDate,

@@ -114,7 +114,9 @@ const BlogListAuthor = props => {
         last_name: lastName = '',
         user_avatarb: {
           resized_urls: {
-            lazy_default: lazyImage,
+            /* 
+            Por ahora se usa para el Lazy el logo de la marca, no esta img de 5x5
+            lazy_default: lazyImage, */
             author_sm: authorImg = defaultImage({
               deployment,
               contextPath,
@@ -145,7 +147,13 @@ const BlogListAuthor = props => {
 
       dataBlogs.push({
         isAdmin,
-        lazyImage,
+        // Eliminar la asignacion de defaulImage si se va a usar de nuevo la imagen de 5x5 para el Lazy
+        lazyImage = defaultImage({
+          deployment,
+          contextPath,
+          arcSite,
+          size: 'sm',
+        }),
         imagePost,
         authorImg,
         date: postDate,
