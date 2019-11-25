@@ -417,9 +417,9 @@ class FormLogin extends Component {
                           noValidate
                           onChange={this.handleChangeValidation}
                         />
-                        <label htmlFor="email" className="form-group__label">
+                        {/* <label htmlFor="email" className="form-group__label">
                           Correo Electrónico
-                        </label>
+                        </label> */}
 
                         {formErrors.email.length > 0 && (
                           <span className="message__error">
@@ -451,9 +451,10 @@ class FormLogin extends Component {
                               : 'row-pass__btn row-pass--show'
                           }
                         />
-                        <label htmlFor="password" className="form-group__label">
+                        
+                        {/* <label htmlFor="password" className="form-group__label">
                           Contraseña
-                        </label>
+                        </label> */}
 
                         {formErrors.password.length > 0 && (
                           <span className="message__error">
