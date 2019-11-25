@@ -26,8 +26,7 @@ const MostReadPremium = props => {
       seeMore,
       seeMoreurl,
       storyNumber,
-      seeImageNews,
-      freeHTML
+      seeImageNews
     },
   } = props
   const { content_elements: contentElements } =
@@ -62,7 +61,7 @@ const MostReadPremium = props => {
         <Header {...paramsHeader} />
         <List {...paramsList} />
       </div>
-      {seeMore || freeHTML && <Footer {...{ seeMore, seeMoreurl,freeHTML }} />}
+      {seeMore && <Footer {...{ seeMore, seeMoreurl}} />}
     </div>
   )
 }
