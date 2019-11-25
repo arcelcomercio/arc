@@ -54,7 +54,7 @@ function WizardPlan(props) {
       case checkingPrinted.current:
         setOpenModal(true)
         break
-      case planSelected.current:
+      case !!planSelected.current:
         subscribePlanHandler(null, planSelected.current)
         break
       default:
@@ -67,8 +67,6 @@ function WizardPlan(props) {
   }).current
 
   const loggedHandler = React.useRef(profile => {
-    runDeferredAction()
-    clearDeferredActions()
     setProfile(profile)
   }).current
 
@@ -80,6 +78,11 @@ function WizardPlan(props) {
   const loginFailed = React.useRef(() => {
     clearDeferredActions()
   }).current
+
+  useEffect(() => {
+    runDeferredAction()
+    clearDeferredActions()
+  }, [profile])
 
   useEffect(() => {
     origin.current =
@@ -106,6 +109,7 @@ function WizardPlan(props) {
 
   function subscribePlanHandler(e, plan) {
     if (!profile) {
+      clearDeferredActions()
       planSelected.current = plan
       dispatchEvent('signInReq')
     } else {
@@ -228,6 +232,7 @@ function WizardPlan(props) {
             showImage={arcSite === 'elcomercio'}
             onClick={() => {
               if (!profile) {
+                clearDeferredActions()
                 checkingPrinted.current = true
                 dispatchEvent('signInReq')
               } else {
