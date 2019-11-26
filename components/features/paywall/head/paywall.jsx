@@ -34,16 +34,28 @@ const Head = props => {
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [stepForm, setStepForm] = React.useState(1)
 
+  // eslint-disable-next-line react/sort-comp
+  const signInReqHandler = React.useRef(() => {
+    if (!isLogged()) {
+      setShowSignwall(true)
+    }
+  }).current
+
+  const logoutHandler = React.useRef(() => {
+    setProfile()
+  }).current
+
   React.useEffect(() => {
     window.Identity.getUserProfile().then(profile => {
       const conformedProfile = conformProfile(profile)
       setProfile(conformedProfile)
     })
-
     addEventListener('currentStep', setStepForm)
+    addEventListener('logout', logoutHandler)
     addEventListener('signInReq', signInReqHandler)
     return () => {
       removeEventListener('currentStep', setStepForm)
+      removeEventListener('logout', logoutHandler)
       removeEventListener('signInReq', signInReqHandler)
     }
   }, [])
