@@ -121,7 +121,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-  } del ${date.getFullYear()}`
+    } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -219,8 +219,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}${pageNumber}/${
-        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-      }`
+    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+    }`
 }
 
 export const getMetaPagesPagination = (
@@ -319,10 +319,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-        .charAt(0)
-        .toUpperCase()
-        .concat(lastSection.slice(1))
-        .replace(/-/, ' ')
+      .charAt(0)
+      .toUpperCase()
+      .concat(lastSection.slice(1))
+      .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -395,16 +395,17 @@ export const defaultImage = ({
   const site = () => {
     let domain = `${arcSite}.pe`
     if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
-    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe' 
+    else if (arcSite === 'depor') domain = 'depor.com'
     return domain
   }
 
-  // TODO: Comentar esto cuando se salga a producción
-  if (arcSite === 'depor' || arcSite === 'elbocon' || arcSite === 'trome') {
+  // Solo activar para sitios que no esten aun en PROD
+  /* if (arcSite === 'sitio') {
     return deployment(
       `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
     )
-  }
+  } */
 
   return deployment(
     `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
@@ -492,7 +493,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+    }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -922,14 +923,15 @@ export const formatDateStoryAmp = date => {
  * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
+  data,
   resizerUrl,
   resizerSecret,
   addResizedUrls,
-  data = [],
   preset = 'basic'
 ) => {
   return (
     data &&
+    data.length > 0 &&
     data.map(item => {
       const storyData = item
       if (!storyData.content_elements) storyData.content_elements = []
@@ -1224,7 +1226,7 @@ export const pixelAmpDate = arcSite => {
   const year = hoy.getFullYear()
   const pixelEc =
     `${year}${month}${day}` === '20191124' &&
-    arcSite === ConfigParams.SITE_ELCOMERCIO
+      arcSite === ConfigParams.SITE_ELCOMERCIO
       ? true
       : ''
   return pixelEc
