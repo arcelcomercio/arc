@@ -1,4 +1,4 @@
-import { BLOG_TOKEN, BLOG_URL_API, resizerSecret } from 'fusion:environment'
+import { BLOG_TOKEN, resizerSecret } from 'fusion:environment'
 
 import getProperties from 'fusion:properties'
 import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
@@ -17,7 +17,6 @@ const resolve = key => {
   const pagination = blogOffset > 0 ? blogLimit * (blogOffset - 1) : 0
   const postsLimit = key.posts_limit || 1
   const postsOffset = key.posts_offset || 0
-  // const urlApiblog = BLOG_URL_API
   const url = `${urlApiblog}?json=get_user_blog_and_posts&blog_limit=${blogLimit}&blog_offset=${pagination}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${process
     .env.TOKEN_BLOG || BLOG_TOKEN}`
 
