@@ -47,12 +47,12 @@ class StoryContinue extends PureComponent {
     if (innerHeight + scrollY >= html.scrollHeight) {
       const totalProgress = (MAX_PROGRESS - concurrentProgress) / 10
       for (let i = 0; i < totalProgress; i++) {
-        let newerProgress = concurrentProgress + 10 * i + 10
+        const newerProgress = concurrentProgress + 10 * i + 10
         this.setAttributeProgress(progress, newerProgress)
         if (newerProgress >= MAX_PROGRESS) {
           this.setTimeoutLoadPage(linker, html)
         }
-        newerProgress = +1
+        // newerProgress = +1
       }
     } else {
       this.setUpdateLoaderPage(progress, concurrentProgress)

@@ -17,17 +17,19 @@ const sideScrollInterval = (element, direction, speed, distance, step) => {
 export const sideScroll = direction => {
   if (window) {
     const container =
-      document.getElementsByClassName('header__featured')[0] || {}
+      document.getElementsByClassName('header__featured')[0]
     const isNotSupportSmooth =
       document.body.style['scroll-behavior'] === undefined
     if (container) {
       if (direction === 'left') {
         if (isNotSupportSmooth)
           sideScrollInterval(container, 'left', 25, 100, 20)
-        else container.scrollLeft -= 100
-      } else if (isNotSupportSmooth)
+        else
+          container.scrollLeft -= 100
+      } else if (isNotSupportSmooth) {
         sideScrollInterval(container, 'right', 25, 100, 25)
-      else container.scrollLeft += 100
+      } else
+        container.scrollLeft += 100
     }
   }
 }
