@@ -45,15 +45,19 @@ const fetch = key => {
       const { data: { name, description } = {} } = resp
 
       const { content_elements: contentElements = [] } = response || {}
-      
+      console.log("AQUi!!!!!")
+      console.log(JSON.stringify(response))
 
       const newsList = []
-
+      // const contentElementsFilterById = contentElements.filter(x=> x._id!==undefined)
+      const contentElementsFilterById=[]
       contentElements.forEach(item => {
         
         const { _id:newsId = '' } = item
         
         if(newsId!==''){
+          contentElementsFilterById.push(item)
+
           newsList.push(
             request({
               uri: `${CONTENT_BASE}/content/v4/stories?_id=${newsId}&website=${website}`,
@@ -71,6 +75,7 @@ const fetch = key => {
         // const stories=[]
         return {
           ...response,
+          content_elements:contentElementsFilterById,
           stories,
           websked: {
             name,
@@ -103,7 +108,10 @@ const sortStoryContent = (collectionStories, storiesByCollection) => {
   contentElementsByCollection.forEach(element => {
     const { _id = '' } = element
     const news = storiesByCollection.find(x => x._id === _id)
-    result.push(news)
+    if(news){
+      result.push(news)
+    }
+    
   })
 
   return result
