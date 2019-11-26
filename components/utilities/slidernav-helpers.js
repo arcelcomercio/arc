@@ -28,8 +28,7 @@ export const sideScroll = direction => {
           container.scrollLeft -= 100
       } else if (isNotSupportSmooth) {
         sideScrollInterval(container, 'right', 25, 100, 25)
-      } else
-        container.scrollLeft += 100
+      } else { container.scrollLeft += 100 }
     }
   }
 }
