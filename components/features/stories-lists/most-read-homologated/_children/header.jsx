@@ -1,11 +1,11 @@
 import React from 'react'
 
 const classes = {
-  header: `most-read-premium-header flex justify-between items-center w-auto pr-20 pl-20`,
-  seeMore: `most-read-premium-header__see-more flex items-center bg-white pt-5 pb-5 pr-10 pl-10 text-gray-200 text-sm`,
+  header: `most-read-homologated-header flex justify-between items-center w-auto pr-20 pl-20`,
+  seeMore: `most-read-homologated-header__see-more flex items-center bg-white pt-5 pb-5 pr-10 pl-10 text-gray-200 text-sm`,
   title:
-    'most-read-premium-header__title flex items-center full-height text-gray-300 uppercase',
-  icon: 'most-read-premium-header__icon icon-marca',
+    'most-read-homologated-header__title flex items-center full-height text-gray-300 uppercase',
+  icon: 'most-read-homologated-header__icon icon-marca',
 }
 export default ({
   titleList,
