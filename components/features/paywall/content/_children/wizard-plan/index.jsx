@@ -264,7 +264,6 @@ function WizardPlan(props) {
             eventCategory: 'paywall_check_subscriptor',
             eventAction: 'close',
           })
-          sendAction(PixelActions.CHECK_SUBSCRIPTOR_CLOSE)
           setOpenModal(false)
         }}
       />
