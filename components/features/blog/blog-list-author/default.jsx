@@ -73,7 +73,8 @@ const BlogListAuthor = props => {
     } = blog
 
     return {
-      lazyImage = defaultImage({
+      isAdmin,
+      lazyImage: defaultImage({
         deployment,
         contextPath,
         arcSite,
@@ -87,7 +88,6 @@ const BlogListAuthor = props => {
       postTitle,
       urlPost: `/blog/${postLink}`,
       urlBlog: addSlashToEnd(`/blog/${path}`),
-      isAdmin,
     }
   }
 
@@ -153,7 +153,7 @@ const BlogListAuthor = props => {
       dataBlogs.push({
         isAdmin,
         // Eliminar la asignacion de defaulImage si se va a usar de nuevo la imagen de 5x5 para el Lazy
-        lazyImage = defaultImage({
+        lazyImage: defaultImage({
           deployment,
           contextPath,
           arcSite,
