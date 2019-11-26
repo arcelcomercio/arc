@@ -45,21 +45,44 @@ const fetch = key => {
       const { data: { name, description } = {} } = resp
 
       const { content_elements: contentElements = [] } = response || {}
-      const newsList = contentElements.map(item => {
-        const { _id = '' } = item
-        return request({
-          uri: `${CONTENT_BASE}/content/v4/stories?_id=${_id}&website=${website}`,
-          ...options,
-        })
+      
+
+      const newsList = []
+
+      contentElements.forEach(item => {
+        
+        const { _id:newsId = '' } = item
+        
+        if(newsId!==''){
+          newsList.push(
+            request({
+              uri: `${CONTENT_BASE}/content/v4/stories?_id=${newsId}&website=${website}`,
+              ...options,
+            })
+          )
+        }
+
       })
+
       return Promise.all(newsList).then(resall => {
 
         // eslint-disable-next-line no-use-before-define
         const stories = sortStoryContent(response,resall)
-
+        // const stories=[]
         return {
           ...response,
           stories,
+          websked: {
+            name,
+            description,
+          },
+        }
+      }).catch(error=>{
+        console.log("AQUI ERROR!!")
+        console.log(error)
+        return {
+          ...response,
+          
           websked: {
             name,
             description,
