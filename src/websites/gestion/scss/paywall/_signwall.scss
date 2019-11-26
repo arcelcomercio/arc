@@ -90,10 +90,7 @@
   overflow: hidden;
 }
 
-@media screen and (min-width: 640px) {
-  .signwall {
-    .profile__left {
-      height: 320px !important;
-    }
-  }
+.overflow-hidden-ios {
+  overflow: hidden;
+  height: 100%;
 }
