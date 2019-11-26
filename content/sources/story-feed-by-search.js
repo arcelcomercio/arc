@@ -147,7 +147,6 @@ const pattern = key => {
 const resolve = key => pattern(key)
 
 const transform = data => {
-  console.log('data: data', data)
   const dataStories = data
   const { resizerUrl, siteName } = getProperties(website)
   dataStories.content_elements = addResizedUrlsToStory(
