@@ -25,7 +25,7 @@ const TVHighlightChild = props => {
     category: { nameSection, urlSection },
     multimedia: { multimediaImg, multimediaType },
     tags,
-    multimediaSubtitle,
+    // multimediaSubtitle,
     multimediaCaption,
   } = props
   return (
@@ -49,14 +49,14 @@ const TVHighlightChild = props => {
           <img
             className={classes.image}
             src={multimediaImg}
-            alt={multimediaCaption || nameTitle}            
+            alt={multimediaCaption || nameTitle}
           />
           {multimediaType !== 'basic' && (
             <span className={classes.iconContainer}>
               <i
                 className={`${getMultimediaIcon(multimediaType)} ${
                   classes.icon
-                }`}
+                  }`}
               />
             </span>
           )}

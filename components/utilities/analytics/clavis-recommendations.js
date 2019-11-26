@@ -44,9 +44,7 @@ export function clavisRecommendations({ contentId, count, site }) {
         }
 
         if (
-            contentId &&
             contentId.length > 0 &&
-            site &&
             site.length > 0
         ) {
             const requestUrl = `${BASE_URL}${RECOMMEND}`
@@ -105,9 +103,7 @@ export function clavisRendered({ contentId, count, site, response }) {
         }
 
         if (
-            contentId &&
             contentId.length > 0 &&
-            site &&
             site.length > 0
         ) {
             const requestUrl = `${BASE_URL}${RENDERED}`
@@ -167,11 +163,8 @@ export function clavisClicked({ contentId, count, site, clickedUrl, response }) 
         }
 
         if (
-            contentId &&
             contentId.length > 0 &&
-            site &&
             site.length > 0 &&
-            clickedUrl &&
             clickedUrl.length > 0
         ) {
             const requestUrl = `${BASE_URL}${CLICKED}`

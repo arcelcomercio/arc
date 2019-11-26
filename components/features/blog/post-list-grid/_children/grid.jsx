@@ -32,14 +32,14 @@ const BlogPostListGridChildGrid = ({
                     className={row.isAdmin ? '' : 'lazy'}
                     media="(max-width: 639px)"
                     type="image/jpeg"
-                    srcSet={row.isAdmin ? row.imagePost : row.imagePost}
+                    srcSet={row.isAdmin ? row.imagePost : row.lazyImage}
                     data-srcset={row.imagePost}
                   />
                   <img
-                    src={row.isAdmin ? row.imagePost : row.imagePost}
+                    src={row.isAdmin ? row.imagePost : row.lazyImage}
                     data-src={row.imagePost}
                     className={`${row.isAdmin ? '' : 'lazy'} ${classes.image}`}
-                    alt={row.blogTitle}                    
+                    alt={row.blogTitle}
                   />
                 </picture>
               </a>

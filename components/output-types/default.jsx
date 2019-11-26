@@ -66,7 +66,7 @@ export default ({
   } = globalContent || {}
 
   const isStory =
-    (metaValue('id') === 'meta_story' && true) ||
+    (metaValue('id') === 'meta_story') ||
     requestUri.match(`^/preview/([A-Z0-9]{26})/?`) ||
     ''
 
@@ -74,8 +74,8 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-        nameSeccion.split('/')[1]
-      } ${subtype} `
+    nameSeccion.split('/')[1]
+    } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -128,7 +128,7 @@ export default ({
   const getDescription = () => {
     let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
       siteProperties.siteName
-    }.`
+      }.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
@@ -148,7 +148,7 @@ export default ({
         if (!hasDate && !hasSection) {
           description = `Archivo de noticias de ${
             siteProperties.siteName
-          }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+            }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
         }
       }
     }
@@ -161,8 +161,8 @@ export default ({
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
       : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      siteProperties.siteName
+      }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -236,7 +236,7 @@ export default ({
     content_restrictions: { content_code: contentCode = '' } = {},
   } = globalContent || {}
 
-  const isPremium = (contentCode === 'premium' && true) || false
+  const isPremium = (contentCode === 'premium') || false
 
   const htmlAmpIs = isPremium ? '' : true
 
@@ -376,7 +376,7 @@ export default ({
             title="Google Tag Manager - No Script"
             src={`https://www.googletagmanager.com/ns.html?id=${
               siteProperties.googleTagManagerId
-            }`}
+              }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

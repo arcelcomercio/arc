@@ -82,10 +82,10 @@ const analyzeParagraph = ({
 
       break
     case ConfigParams.ELEMENT_LIST:
-        const paramBuildListParagraph = {
-          processedParagraph,
-          numberWordMultimedia,
-        }
+      const paramBuildListParagraph = {
+        processedParagraph,
+        numberWordMultimedia,
+      }
 
       // eslint-disable-next-line no-use-before-define
       textProcess = buildListParagraph(paramBuildListParagraph)
@@ -254,7 +254,7 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
     default:
-      result = ''
+      break
   }
 
   return result
