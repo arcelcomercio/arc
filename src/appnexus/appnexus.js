@@ -255,7 +255,6 @@ const adsParams =
   dataDevice.map(el => {
     return {
       invCode: `${slot}_${el}`,
-      ad_types: ['banner', 'native'],
       sizes:
         device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
       allowedFormats:
