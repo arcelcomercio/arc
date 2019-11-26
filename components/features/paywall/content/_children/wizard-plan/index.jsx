@@ -256,7 +256,7 @@ function WizardPlan(props) {
             documentType,
             documentNumber,
             attemptToken,
-            ...(eventCampaign ? { isEvent: true, event: eventCampaign } : {}),
+            //...(eventCampaign ? { isEvent: true, event: eventCampaign } : {}),
           })
         }}
         onClose={() => {
