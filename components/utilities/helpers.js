@@ -771,9 +771,10 @@ export const iframeMxm = (html, arcSite) => {
 }
 
 export const ampHtml = (html = '', arcSite = '') => {
-  let resultData = html
+  let resultData = ''
   // Opta Widget
-  resultData = replaceHtmlMigracion(html)
+  // Esta asignacion se esta sobreescribiendo con la que sigue.
+  // resultData = replaceHtmlMigracion(html)
 
   // Opta Widget
   resultData = deporPlay(html)
@@ -921,10 +922,10 @@ export const formatDateStoryAmp = date => {
  * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
-  data = [],
   resizerUrl,
   resizerSecret,
   addResizedUrls,
+  data = [],
   preset = 'basic'
 ) => {
   return (
@@ -1157,7 +1158,7 @@ export const msToTime = duration => {
     let seconds = parseInt((duration / 1000) % 60, 0)
     let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
     let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
-    hours = hours < 10 && hours < 10 ? `0${hours}:` : hours
+    hours = hours < 10 ? `0${hours}:` : hours
     minutes = minutes < 10 ? `0${minutes}` : minutes
     seconds = seconds < 10 ? `0${seconds}` : seconds
 
@@ -1189,7 +1190,10 @@ export const clearHtml = paragraph => {
   )
 }
 
-export const storyContenImage = ({ resized_urls: resizedUrls, caption },multimediaLazyDefault) => {
+export const storyContenImage = (
+  { resized_urls: resizedUrls, caption },
+  multimediaLazyDefault
+) => {
   return {
     multimediaLandscapeMD: resizedUrls.medium,
     multimediaStorySmall: resizedUrls.content_small,
