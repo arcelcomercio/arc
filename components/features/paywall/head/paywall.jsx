@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-extra-boolean-cast */
@@ -114,7 +115,7 @@ const Head = props => {
                     `Web_Sign_Wall_Suscripciones`,
                     `web_link_ingresar_${profile ? msgs.profile : msgs.account}`
                   )
-                  setIsActive(true)
+                  profile ? setIsActive(true) : setShowSignwall(true)
                 }}>
                 <span>{fullName}</span>
               </S.LoginButton>
