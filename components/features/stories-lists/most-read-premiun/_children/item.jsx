@@ -5,6 +5,7 @@ const classes = {
   story: `most-read-premium-item flex flex-col w-auto pt-10 pb-10 border-b-1 border-solid border-gray`,
   time: 'most-read-premium-item__time text-md line-h-sm mr-10',
   linkBox: 'most-read-premium-item__link-box flex flex-row text-gray-300',
+  linkContainer: 'most-read-premium-item__link-container',
   link:
     'most-read-premium-item__link flex bold m-0 text-md text-gray-300 line-h-sm',
   boxNew: 'flex flex-row',
@@ -49,14 +50,14 @@ export default ({
                       className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                       src={isAdmin ? multimedia : lazyImage}
                       data-src={multimedia}
-                      alt={title}                      
+                      alt={title}
                     />
                   </picture>
                 </a>
               )}
             </figure>
           )}
-          <a href={urlNews}>
+          <a className={classes.linkContainer} href={urlNews}>
             <h3 className={classes.link}>{title}</h3>
           </a>
         </div>
