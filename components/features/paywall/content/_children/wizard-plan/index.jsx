@@ -79,6 +79,7 @@ function WizardPlan(props) {
     clearDeferredActions()
   }).current
 
+  // Ejecutar acciones diferidas al cambiar estado de sesion
   useEffect(() => {
     runDeferredAction()
     clearDeferredActions()
@@ -145,7 +146,7 @@ function WizardPlan(props) {
         event: 'productClick',
         ecommerce: {
           click: {
-           products: [
+            products: [
               {
                 name: plan.productName,
                 id: plan.sku,
@@ -214,7 +215,8 @@ function WizardPlan(props) {
           <S.Plans>
             {plans.map((plan, idx) => {
               const { priceCode, billingFrequency, amount } = plan
-              const marginTop =  (arcSite === 'elcomercio' && !eventCampaign)  ? '20px' : '40px'
+              const marginTop =
+                arcSite === 'elcomercio' && !eventCampaign ? '20px' : '40px'
               const hasOffer =
                 arcSite !== 'elcomercio' &&
                 billingFrequency === 'Month' &&
@@ -273,8 +275,16 @@ function WizardPlan(props) {
             event={eventCampaign}
             marginTop={arcSite === 'elcomercio' ? '14px' : '30px'}
             fullWidth={arcSite === 'elcomercio'}
-            text1={eventCampaign ? msgs.eventSubscriptorBanner1 : msgs.printedSubscriptorBanner1}
-            text2={eventCampaign ? msgs.eventSubscriptorBanner2 : msgs.printedSubscriptorBanner2}
+            text1={
+              eventCampaign
+                ? msgs.eventSubscriptorBanner1
+                : msgs.printedSubscriptorBanner1
+            }
+            text2={
+              eventCampaign
+                ? msgs.eventSubscriptorBanner2
+                : msgs.printedSubscriptorBanner2
+            }
             image={arcSite === 'elcomercio' && theme.images.lector}
             backgroundColor={
               arcSite === 'elcomercio'
@@ -297,19 +307,23 @@ function WizardPlan(props) {
               }
             }}
           />
-          {arcSite !== 'elcomercio' || !eventCampaign && (
-            <PromoBanner
-              width="40%"
-              ml="20px"
-              backgroundColor={theme.palette.terciary.light}
-              text1={msgs.businessSubscriptionsBanner1}
-              text2={msgs.businessSubscriptionsBanner2}
-              invertTextSizes
-              onClick={() => {
-                window.open(interpolateUrl(urls.corporateSuscription), '_blank')
-              }}
-            />
-          )}
+          {arcSite !== 'elcomercio' ||
+            (!eventCampaign && (
+              <PromoBanner
+                width="40%"
+                ml="20px"
+                backgroundColor={theme.palette.terciary.light}
+                text1={msgs.businessSubscriptionsBanner1}
+                text2={msgs.businessSubscriptionsBanner2}
+                invertTextSizes
+                onClick={() => {
+                  window.open(
+                    interpolateUrl(urls.corporateSuscription),
+                    '_blank'
+                  )
+                }}
+              />
+            ))}
         </S.ContentBanner>
       )}
     </S.WizardPlan>
