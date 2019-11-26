@@ -3,7 +3,6 @@ import {
   createMarkup,
   getMultimedia,
   formatSlugToText,
-  pixelAmpDate,
 } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import StoryData from '../../utilities/story-data'
@@ -144,19 +143,16 @@ export default ({
 
   return (
     <>
-      {arcSite === ConfigParams.SITE_OJO ||
-        (pixelAmpDate(arcSite) && (
-          <amp-pixel src={urlPixel} layout="nodisplay" />
-        ))}
+      {arcSite === ConfigParams.SITE_OJO && (
+        <amp-pixel src={urlPixel} layout="nodisplay" />
+      )}
       <amp-analytics
         type="googleanalytics"
         id={`analytics-${siteProperties.ampGoogleTagManagerName}`}>
         <script
           type="application/json"
           dangerouslySetInnerHTML={createMarkup(
-            arcSite === ConfigParams.SITE_OJO || pixelAmpDate(arcSite)
-              ? ampAnalyticsOjo
-              : ampAnalytics
+            arcSite === ConfigParams.SITE_OJO ? ampAnalyticsOjo : ampAnalytics
           )}
         />
       </amp-analytics>

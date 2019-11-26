@@ -32,7 +32,8 @@ const StoriesListAuthor = props => {
     defaultImgSize: 'sm',
   })
   const storiesData = []
-  const { content_elements: contentElements = [] } = data || {}
+  const { content_elements: contentElements = [] } = data
+
   contentElements.forEach(el => {
     storyObj.__data = el
     storiesData.push({

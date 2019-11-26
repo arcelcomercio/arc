@@ -49,7 +49,7 @@ class FeatureStoryFullImage extends PureComponent {
       })
     }
     const photoId = imgField ? getPhotoId(imgField) : ''
-    if (photoId && photoId !== '') {
+    if (photoId) {
       this.fetchContent({
         customPhoto: {
           source: PHOTO_SOURCE,
