@@ -32,7 +32,7 @@ class LoginPaywall extends Component {
   }
 
   renderTemplate(template) {
-    const { closePopup, brandModal, onLogged } = this.props
+    const { closePopup, brandModal, onLogged = i => i } = this.props
     const templates = {
       login: (
         <FormLoginPaywall
