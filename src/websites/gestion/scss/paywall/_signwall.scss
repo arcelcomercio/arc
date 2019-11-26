@@ -11,6 +11,10 @@
 @import '../../../../general-styles/components/features/signwall/profile-account';
 @import '../../../../general-styles/components/features/signwall/benefits';
 
+body{
+  overscroll-behavior: none; 
+}
+
 .signwall {
   .text-center {
     text-align: center;

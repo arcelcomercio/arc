@@ -3,6 +3,11 @@ import styled from 'styled-components'
 import { device } from '../../../_styles/breakpoints'
 import { Facebook, Google, Mail } from '../../common/iconos'
 import { Button } from './styles'
+import Services from '../../utils/new_services'
+
+
+const URL = 'https://pre.ecoid.pe'
+const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 
 export const ButtonStyleSocial = styled(Button)`
   font-size: 16px;
@@ -51,11 +56,84 @@ export const ButtonStyleEmail = styled(Button)`
   }
 `
 
-export const ButtonSocial = props => {
-  const { brand, size } = props
+export const ButtonSocial = ({ brand, size, onlogged }) => {
+  const InitGoogle = () => {
+    window.Identity.options({ apiOrigin: API_ORIGIN })
+
+    const GOOGLEID =
+      '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
+
+    const GoogleSignInRenderOptions = {
+      width: 240,
+      height: 50,
+      longtitle: true,
+      theme: 'dark',
+    }
+
+    window.Identity.initGoogleLogin(
+      GOOGLEID,
+      { GoogleSignInRenderOptions },
+      'google-sign-in-button',
+      true
+    ).then(() => {
+      window.Identity.googleSignOn()
+    })
+  }
+
+  const OAuthFacebook = ({ data }) => {
+    if (data.origin !== URL && window.Identity.userIdentity.uuid) {
+      return
+    }
+
+    Services.loginFBeco(API_ORIGIN, '', data.accessToken, 'facebook').then(
+      resLogSocial => {
+        window.localStorage.setItem(
+          'ArcId.USER_INFO',
+          JSON.stringify(resLogSocial)
+        )
+        window.Identity.userIdentity = resLogSocial
+        window.Identity.options({ apiOrigin: API_ORIGIN })
+        window.Identity.getUserProfile()
+        onlogged()
+      }
+    )
+  }
+
+  const clickLoginFacebookEcoID = brandCurrent => {
+    if (brandCurrent === 'google') {
+      InitGoogle()
+    } else {
+      const eventMethod = window.addEventListener
+        ? 'addEventListener'
+        : 'attachEvent'
+      const eventer = window[eventMethod]
+      const messageEvent =
+        eventMethod === 'attachEvent' ? 'onmessage' : 'message'
+      eventer(messageEvent, OAuthFacebook)
+
+      const width = 780
+      const height = 640
+      const left = window.screen.width / 2 - 800 / 2
+      const top = window.screen.height / 2 - 600 / 2
+      const url = `${URL}/mpp/facebook/login/`
+      return window.open(
+        url,
+        '',
+        `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+      scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
+      height=${height}, top=${top}, left=${left}`
+      )
+    }
+    return null
+  }
+
   return (
     // eslint-disable-next-line react/jsx-filename-extension
-    <ButtonStyleSocial type="button" brand={brand} size={size}>
+    <ButtonStyleSocial
+      type="button"
+      brand={brand}
+      size={size}
+      onClick={() => clickLoginFacebookEcoID(brand)}>
       {brand === 'facebook' ? <Facebook /> : <Google />}
       {brand}
     </ButtonStyleSocial>

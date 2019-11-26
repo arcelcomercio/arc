@@ -59,6 +59,9 @@ const Panel = styled.div`
             ${event &&
               css`
                 margin: 0 auto;
+                ${theme.breakpoints.down('xs')} {
+                  min-width: 100%;
+                }
               `}
             ${theme.breakpoints.down('xs')} {
               max-width: 100%;
