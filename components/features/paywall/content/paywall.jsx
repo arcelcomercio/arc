@@ -92,21 +92,29 @@ const Paywall = ({
     })()
   ).current
 
-  // const planOverrides = plans => {
-  //   plans.map(plan => {
-  //     const overrides = {
-  //       amount: plan.overrideAmount,
-  //       billingFrequency: plan.overrideBillingFrequency,
-  //     }
-  //     return { ...plan , amount: plan.overrideAmount }
-  //   })
-  // }
+  const plansWithOverrides = React.useRef(
+    plans.map(plan => {
+      const {
+        displayFrequency: billingFrequency,
+        displayAmount: amount,
+        displayBanner: banner,
+      } = plan.description
+      let overrides = {
+        billingFrequency,
+        amount,
+        banner,
+      }
+      overrides = JSON.parse(JSON.stringify(overrides))
+      return { ...plan, ...overrides }
+    })
+  ).current
+
   // const [memo, setMemo] = useState({})
   const memo = useRef({
     event: event.event,
     arcSite,
-    plans,
-    plan: plans[0], // Por defecto asumir seleccionado el primer plan
+    plans: plansWithOverrides,
+    plan: plansWithOverrides[0], // Por defecto asumir seleccionado el primer plan
     summary,
     printedSubscriber,
     freeAccess,
