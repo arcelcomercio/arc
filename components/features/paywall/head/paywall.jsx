@@ -32,7 +32,6 @@ const Head = props => {
     removeEventListener,
   } = props
 
-  const fullName = React.useRef(msgs.startSession)
   const [profile, setProfile] = React.useState()
   const [isActive, setIsActive] = React.useState(false)
   const [showSignwall, setShowSignwall] = React.useState(false)
@@ -68,19 +67,19 @@ const Head = props => {
     return unregisterListeners
   }, [])
 
-  // Actualizar nombre al cambiar estado de sesion
-  React.useEffect(() => {
-    fullName.current = msgs.startSession
+  const getFullName = () => {
+    let fullName = msgs.startSession
     if (profile) {
-      fullName.current = profile.firstName
+      fullName = profile.firstName
         ? `${profile.firstName} ${profile.lastName}`
         : msgs.welcomeUser
-      fullName.current =
-        fullName.current.length > NAME_MAX_LENGHT
-          ? `${fullName.current.substring(0, NAME_MAX_LENGHT)}..`
+      fullName =
+        fullName.length > NAME_MAX_LENGHT
+          ? `${fullName.substring(0, NAME_MAX_LENGHT)}..`
           : fullName
     }
-  }, [profile])
+    return fullName
+  }
 
   const leftColor =
     arcSite === 'elcomercio'
@@ -123,7 +122,7 @@ const Head = props => {
         <S.WrapLogin>
           <S.Username>
             {stepForm !== 1 ? (
-              <span>{fullName.current}</span>
+              <span>{getFullName()}</span>
             ) : (
               <S.LoginButton
                 type="button"
@@ -134,7 +133,7 @@ const Head = props => {
                   )
                   profile ? setIsActive(true) : setShowSignwall(true)
                 }}>
-                <span>{fullName.current}</span>
+                <span>{getFullName()}</span>
               </S.LoginButton>
             )}
             <S.WrapIcon>
