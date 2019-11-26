@@ -30,10 +30,9 @@ class XmlArchiveDayNewsSitemap {
     render() {
         const { globalContent, deployment, contextPath, arcSite, siteProperties: { sitemapNewsName = '', siteUrl = '' } = {} } = this.props
         const {
-            content_elements: contentElements,
+            content_elements: stories,
             // params: { date } = {},
         } = globalContent || {}
-        const stories = contentElements || []
 
         if (!stories) {
             return null

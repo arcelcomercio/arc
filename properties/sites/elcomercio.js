@@ -166,6 +166,14 @@ export default {
       url: '/principios-rectores',
     },
     {
+      name: 'BUENAS PRÁCTICAS',
+      url: '/buenas-practicas',
+    },
+    {
+      name: 'PROYECTO CONFIANZA',
+      url: '/proyecto-confianza',
+    },
+    {
       name: 'POLÍTICAS DE PRIVACIDAD',
       url: '/politicas-privacidad',
     },

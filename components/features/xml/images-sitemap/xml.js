@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import ConfigParams from '../../../utilities/config-params'
 import { localISODate } from '../../../utilities/helpers'
-import schemaFilter from './_dependencies/schema-filter'
+// import schemaFilter from './_dependencies/schema-filter'
 
 const SOURCE = 'sitemap-feed-by-section'
 const VIDEO_FORMAT = 'mp4'

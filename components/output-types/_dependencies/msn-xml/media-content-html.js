@@ -1,5 +1,5 @@
 const mediaContentHtml = mediaContentHtmlProps => {
-  const { multimedia, title, type } = mediaContentHtmlProps
+  const { multimedia, title /* type */ } = mediaContentHtmlProps
 
   const element = `
       <media:thumbnail url="${multimedia}" type="image/jpeg" />

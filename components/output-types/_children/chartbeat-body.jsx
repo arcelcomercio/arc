@@ -9,7 +9,7 @@ const getSectionList = (sections, type) => {
   const stringList = formatList.split('/')
   if (type === 'meta_home') return 'portada'
   if (type === 'meta_section') return stringList
-  if (type === 'meta_story') return stringList.slice(0, [stringList.length - 1])
+  if (type === 'meta_story') return stringList.slice(0, stringList.length - 1)
   if (
     type === 'meta_archive' ||
     type === 'meta_author' ||

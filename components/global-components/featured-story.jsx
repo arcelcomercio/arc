@@ -66,7 +66,7 @@ export default class FeaturedStory extends PureComponent {
       siteName,
       errorList = [],
       multimediaCaption,
-      isLazyLoadActivate,
+      isLazyLoadActivate = true,
     } = this.props
 
     const noExpandedClass = !hightlightOnMobile

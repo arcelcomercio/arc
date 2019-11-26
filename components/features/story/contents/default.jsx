@@ -138,6 +138,7 @@ class StoryContents extends PureComponent {
       multimediaLandscapeMD,
       multimediaStorySmall,
       multimediaLarge,
+      multimediaLazyDefault,
       tags,
     } = new StoryData({
       data: globalContent,
@@ -160,6 +161,7 @@ class StoryContents extends PureComponent {
       multimediaLandscapeMD,
       multimediaStorySmall,
       multimediaLarge,
+      multimediaLazyDefault,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -208,7 +210,7 @@ class StoryContents extends PureComponent {
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
                     return (
-                      <StoryContentsChildImage {...storyContenImage(element)} />
+                      <StoryContentsChildImage {...storyContenImage(element,multimediaLazyDefault)} />
                     )
                   }
                   if (type === ConfigParams.ELEMENT_VIDEO) {
