@@ -56,7 +56,7 @@ const pattern = key => {
 
   website = key['arc-site'] || 'Arc Site no está definido'
   queryValue = key.query
-  pageNumber = (!key.from || key.from === 0) ? 1 : key.from
+  pageNumber = !key.from || key.from === 0 ? 1 : key.from
   const sort = key.sort === 'ascendente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
@@ -147,6 +147,7 @@ const pattern = key => {
 const resolve = key => pattern(key)
 
 const transform = data => {
+  console.log('data: data', data)
   const dataStories = data
   const { resizerUrl, siteName } = getProperties(website)
   dataStories.content_elements = addResizedUrlsToStory(
@@ -161,7 +162,7 @@ const transform = data => {
     ...dataStories,
     query: queryValue,
     decoded_query: decodeURIComponent(queryValue).replace(/\+/g, ' '),
-    page_number: pageNumber
+    page_number: pageNumber,
   }
 }
 
