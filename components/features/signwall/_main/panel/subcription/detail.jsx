@@ -406,13 +406,24 @@ class SubDetail extends Component {
                 <p>
                   <strong>BENEFICIOS</strong>
                 </p>
-                <ul>
-                  <li>
-                    Contenido Premium: análisis e informes exclusivamente
-                    desarrollados para {arcSite}.pe.
-                  </li>
-                  <li>Navegación ilimitada desde todos tus dispositivos.</li>
-                </ul>
+                {resDetail.productName.indexOf('Universitario') >= 0 ? (
+                  <ul>
+                    <li>Acceso a Plus G: análisis e informes exclusivos.</li>
+                    <li>
+                      Potencia tu perfil: datos sobre empleabilidad, finanzas y
+                      más.
+                    </li>
+                    <li>Fácil acceso: desde cualquier dispositivo.</li>
+                  </ul>
+                ) : (
+                  <ul>
+                    <li>
+                      Contenido Premium: análisis e informes exclusivamente
+                      desarrollados para {arcSite}.pe.
+                    </li>
+                    <li>Navegación ilimitada desde todos tus dispositivos.</li>
+                  </ul>
+                )}
               </div>
             </S.Subsdetail>
 

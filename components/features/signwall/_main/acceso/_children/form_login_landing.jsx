@@ -7,13 +7,14 @@ import { Input } from './control_input'
 import useForm from './useForm'
 import getCodeError from './codes_error'
 import { FormStudents } from './form_students'
+import Domains from '../../utils/domains'
 
 const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormLoginPaywall = props => {
-  console.log(props)
-  const { typeDialog, onClose } = props
+  
+  const { typeDialog, onClose, onLogged, onLoginFail, arcSite } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
@@ -45,12 +46,12 @@ export const FormLoginPaywall = props => {
 
   const handleGetProfile = () => {
     // const { closePopup, reloadLogin } = this.props
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile().then(resProfile => {
       if (typeDialog === 'students') {
         setShowStudents(!showStudents)
       } else {
-        console.log('cerrar', resProfile)
+        onLogged(resProfile) // para hendrul
         onClose()
       }
 
@@ -67,7 +68,7 @@ export const FormLoginPaywall = props => {
   const onSubmitForm = state => {
     const { lemail, lpass } = state
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.login(lemail, lpass, {
       rememberMe: true,
       cookie: true,
@@ -77,6 +78,7 @@ export const FormLoginPaywall = props => {
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
+        onLoginFail(errLogin) // para hendrul
       })
       .finally(() => {
         setShowLoading(false)
@@ -103,7 +105,7 @@ export const FormLoginPaywall = props => {
     <ModalConsumer>
       {value => (
         <>
-          {!showStudents && !isLogged() && (
+          {!isLogged() && (
             <S.Form onSubmit={handleOnSubmit}>
               <S.Text c="gray" s="14" className="mb-10 center">
                 Ingresa con tus redes sociales
@@ -112,14 +114,15 @@ export const FormLoginPaywall = props => {
               <ButtonSocial
                 brand="facebook"
                 size="middle"
-                onlogged={() => {
-                  if (typeDialog === 'students') {
-                    setShowStudents(!showStudents)
-                  } else {
-                    window.console.log('cerrar')
-                    onClose()
-                  }
-                }}
+                onLogged={onLogged}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                onStudents={() => setShowStudents(!showStudents)}
+                // onCloseLogged={
+                //   typeDialog === 'students'
+                //     ? setShowStudents(!showStudents)
+                //     : onClose
+                // }
               />
               <ButtonSocial brand="google" size="middle" />
 

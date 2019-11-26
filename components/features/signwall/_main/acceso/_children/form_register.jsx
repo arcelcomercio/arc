@@ -14,7 +14,9 @@ import { FormStudents } from './form_students'
 const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 
 // eslint-disable-next-line import/prefer-default-export
-export const FormRegister = () => {
+export const FormRegister = props => {
+
+  const { typeDialog, onClose, onLogged, onLoginFail } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -59,6 +61,8 @@ export const FormRegister = () => {
     window.Identity.options({ apiOrigin: API_ORIGIN })
     window.Identity.getUserProfile().then(resProfile => {
       setShowConfirm(!showConfirm)
+      onLogged(resProfile)
+
       // window.console.log(resProfile)
       // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       // if (reloadLogin) {
@@ -123,6 +127,7 @@ export const FormRegister = () => {
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
+        onLoginFail(errLogin)
       })
       .finally(() => {
         setShowLoading(false)
@@ -142,7 +147,7 @@ export const FormRegister = () => {
     <ModalConsumer>
       {value => (
         <>
-          {!showStudents ? (
+          {!showStudents && (
             <S.Form onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -239,15 +244,21 @@ export const FormRegister = () => {
 
                   <S.Button
                     type="button"
-                    onClick={() => setShowStudents(!showStudents)}>
+                    onClick={() => {
+                      if (typeDialog === 'students') {
+                        setShowStudents(!showStudents)
+                      } else {
+                        onClose()
+                      }
+                    }}>
                     CONTINUAR
                   </S.Button>
                 </>
               )}
             </S.Form>
-          ) : (
-            <FormStudents />
           )}
+
+          {typeDialog === 'students' && <FormStudents />}
         </>
       )}
     </ModalConsumer>

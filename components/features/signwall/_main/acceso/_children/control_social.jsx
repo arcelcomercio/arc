@@ -4,7 +4,7 @@ import { device } from '../../../_styles/breakpoints'
 import { Facebook, Google, Mail } from '../../common/iconos'
 import { Button } from './styles'
 import Services from '../../utils/new_services'
-
+import Domains from '../../utils/domains'
 
 const URL = 'https://pre.ecoid.pe'
 const API_ORIGIN = 'https://api-sandbox.gestion.pe'
@@ -56,9 +56,16 @@ export const ButtonStyleEmail = styled(Button)`
   }
 `
 
-export const ButtonSocial = ({ brand, size, onlogged }) => {
+export const ButtonSocial = ({
+  typeDialog,
+  brand,
+  size,
+  onLogged,
+  onClose,
+  onStudents,
+}) => {
   const InitGoogle = () => {
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI('gestion') })
 
     const GOOGLEID =
       '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
@@ -81,22 +88,34 @@ export const ButtonSocial = ({ brand, size, onlogged }) => {
   }
 
   const OAuthFacebook = ({ data }) => {
-    if (data.origin !== URL && window.Identity.userIdentity.uuid) {
+    if (
+      data.origin !== Domains.getUrlECOID() &&
+      window.Identity.userIdentity.uuid
+    ) {
       return
     }
 
-    Services.loginFBeco(API_ORIGIN, '', data.accessToken, 'facebook').then(
-      resLogSocial => {
-        window.localStorage.setItem(
-          'ArcId.USER_INFO',
-          JSON.stringify(resLogSocial)
-        )
-        window.Identity.userIdentity = resLogSocial
-        window.Identity.options({ apiOrigin: API_ORIGIN })
-        window.Identity.getUserProfile()
-        onlogged()
-      }
-    )
+    Services.loginFBeco(
+      Domains.getOriginAPI('gestion'),
+      '',
+      data.accessToken,
+      'facebook'
+    ).then(resLogSocial => {
+      window.localStorage.setItem(
+        'ArcId.USER_INFO',
+        JSON.stringify(resLogSocial)
+      )
+      window.Identity.userIdentity = resLogSocial
+      window.Identity.options({ apiOrigin: Domains.getOriginAPI('gestion') })
+      window.Identity.getUserProfile().then(resProfile => {
+        onLogged(resProfile)
+        if (typeDialog === 'students') {
+          onStudents()
+        } else {
+          onClose()
+        }
+      })
+    })
   }
 
   const clickLoginFacebookEcoID = brandCurrent => {
@@ -115,7 +134,7 @@ export const ButtonSocial = ({ brand, size, onlogged }) => {
       const height = 640
       const left = window.screen.width / 2 - 800 / 2
       const top = window.screen.height / 2 - 600 / 2
-      const url = `${URL}/mpp/facebook/login/`
+      const url = `${Domains.getUrlECOID()}/mpp/facebook/login/`
       return window.open(
         url,
         '',

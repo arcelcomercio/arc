@@ -13,6 +13,7 @@ import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
 import Signwall from '../../signwall/default'
 import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
+import { Landing } from '../../signwall/_main/acceso/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
 
@@ -91,6 +92,7 @@ const Head = props => {
   return (
     <S.Head id={id}>
       {showSignwall ? (
+        <>
         <SignwallPaywall
           brandModal={arcSite}
           closePopup={() => {
@@ -105,6 +107,21 @@ const Head = props => {
             dispatchEvent('loginFailed')
           }}
         />
+        {/* <Landing
+          typeDialog="landing" // tipo de modal (students , landing)
+          nameDialog="landing" // nombre que dara al modal
+          brandDialog={arcSite}
+          onLogged={profile => {
+            const conformedProfile = conformProfile(profile)
+            dispatchEvent('logged', conformedProfile)
+            setProfile(conformedProfile)
+          }}
+          onLoggedFail={dispatchEvent('loginFailed')}
+          onClose={() => {
+            setShowSignwall(!showSignwall)
+          }}
+        /> */}
+        </>
       ) : null}
       <S.Background>
         <S.Left backgroundColor={leftColor} />
