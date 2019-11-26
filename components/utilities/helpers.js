@@ -395,7 +395,8 @@ export const defaultImage = ({
   const site = () => {
     let domain = `${arcSite}.pe`
     if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
-    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe' 
+    else if (arcSite === 'depor') domain = 'depor.com'
     return domain
   }
 
