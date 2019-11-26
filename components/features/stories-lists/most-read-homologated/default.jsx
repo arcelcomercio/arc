@@ -26,12 +26,13 @@ const MostReadPremium = props => {
       seeMore,
       seeMoreurl,
       storyNumber,
-      seeImageNews
+      seeImageNews,
+      freeHTML
     },
   } = props
   const { content_elements: contentElements } =
     useContent({
-      source: 'get-most-related-premiun',
+      source: 'get-most-read-story',
       query: {
         amountStories,
       },
@@ -61,7 +62,7 @@ const MostReadPremium = props => {
         <Header {...paramsHeader} />
         <List {...paramsList} />
       </div>
-      {seeMore && <Footer {...{ seeMore, seeMoreurl}} />}
+      {seeMore || freeHTML && <Footer {...{ seeMore, seeMoreurl, freeHTML}} />}
     </div>
   )
 }
@@ -75,4 +76,5 @@ MostReadPremium.static = true
 
 export default MostReadPremium
 
+// agregado freeHTML
 
