@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 import * as S from './styles'
-import { InputForm } from './control_input'
+import { Input, Select } from './control_input'
 import useForm from './useForm'
 import Services from '../../utils/new_services'
 import Cookies from '../../utils/new_cookies'
@@ -23,16 +23,26 @@ export const FormStudentsCode = () => {
     },
   }
 
+  // let timeleft = 10
+  // const Timer = () => {
+  //   const downloadTimer = setInterval(() => {
+  //     window.console.log(`${timeleft} seconds remaining`)
+  //     timeleft -= 1
+  //     if (timeleft <= 0) {
+  //       clearInterval(downloadTimer)
+  //       window.console.log('Finished')
+  //     }
+  //   }, 1000)
+  // }
+
   const sendRequestMail = () => {
-    const REQUEST = JSON.parse(
-      JSON.parse(Cookies.getCookie('EcoId.REQUEST_STUDENTS'))
-    )
+    const REQUEST = JSON.parse(Cookies.getCookie('EcoId.REQUEST_STUDENTS'))
     window.Identity.options({ apiOrigin: API_ORIGIN })
     window.Identity.extendSession()
       .then(resExtend => {
         Services.checkStudents(
           REQUEST.uemail,
-          REQUEST.date,
+          REQUEST.udate,
           REQUEST.ugrade,
           'gestion',
           resExtend.accessToken
@@ -105,19 +115,20 @@ export const FormStudentsCode = () => {
 
       {showError && <S.Error>{showError}</S.Error>}
 
-      <InputForm
-        t="text"
-        n="ucode"
-        ph="Código de validación"
-        ac="off"
-        c="mb-20 center bold sz-20"
-        valid
+      <Input
+        type="text"
+        name="ucode"
+        placeholder="Código de validación"
+        autocomplete="off"
+        clase="mb-20 center bold sz-20"
+        autocapitalize="none"
+        autocorrect="off"
+        required
         value={ucode}
         onChange={e => {
           handleOnChange(e)
           setShowError(false)
         }}
-        onFocus={handleOnChange}
         error={errors.ucode}
       />
 
@@ -161,82 +172,14 @@ export const FormStudents = () => {
     'Diciembre',
   ]
 
-  const ListDays = [
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '25',
-    '26',
-    '27',
-    '28',
-    '29',
-    '30',
-    '31',
-  ]
-
-  const ListYears = [
-    '1980',
-    '1981',
-    '1982',
-    '1983',
-    '1984',
-    '1985',
-    '1986',
-    '1987',
-    '1988',
-    '1989',
-    '1990',
-    '1991',
-    '1992',
-    '1993',
-    '1994',
-    '1995',
-    '1996',
-    '1997',
-    '1998',
-    '1999',
-    '2000',
-    '2001',
-    '2002',
-    '2003',
-    '2004',
-    '2005',
-    '2006',
-    '2007',
-    '2008',
-    '2009',
-    '2010',
-    '2011',
-    '2012',
-    '2013',
-    '2014',
-    '2015',
-    '2016',
-    '2017',
-    '2018',
-    '2019',
-  ]
+  const ListNumRange = (start, end, order) => {
+    const list = []
+    let startRange = start
+    for (let i = startRange; i < end; i++) {
+      list.push((startRange += 1))
+    }
+    return order ? list.reverse() : list
+  }
 
   const stateSchema = {
     uemail: { value: '', error: '' },
@@ -278,25 +221,27 @@ export const FormStudents = () => {
   const onSubmitForm = state => {
     setShowLoading(true)
     const { uemail, ugrade, uday, umonth, uyear } = state
-    const date = `${uyear}-${
+    const udate = `${uyear}-${
       umonth < 10 ? `0${umonth.toString()}` : umonth.toString()
-    }-${uday}`
+    }-${uday < 10 ? `0${uday.toString()}` : uday.toString()}`
+
     window.Identity.options({ apiOrigin: API_ORIGIN })
     window.Identity.extendSession()
       .then(resExtend => {
         Services.checkStudents(
           uemail,
-          date,
+          udate,
           ugrade,
           'gestion',
           resExtend.accessToken
         )
           .then(res => {
             if (res.status) {
-              Cookies.setCookieSession(
-                'EcoId.REQUEST_STUDENTS',
-                JSON.stringify({ uemail, date, ugrade })
-              )
+              Cookies.setCookieSession('EcoId.REQUEST_STUDENTS', {
+                uemail,
+                udate,
+                ugrade,
+              })
               setShowReqCode(!showReqCode)
             }
             setShowError(res.message)
@@ -325,7 +270,7 @@ export const FormStudents = () => {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <>
-      {!showReqCode && !isRequestStudents() && (
+      {!showReqCode && !isRequestStudents() ? (
         <S.Form onSubmit={handleOnSubmit}>
           <S.Title s="16" className="center mb-10" cp>
             PLAN UNIVERSITARIO
@@ -338,131 +283,113 @@ export const FormStudents = () => {
 
           {showError && <S.Error>{showError}</S.Error>}
 
-          <InputForm
-            t="email"
-            n="uemail"
-            ph="Correo Universitario*"
-            ac="on"
-            // c="mb-20"
-            valid
+          <Input
+            type="email"
+            name="uemail"
+            required
+            placeholder="Correo Universitario*"
             value={uemail}
             onChange={e => {
               handleOnChange(e)
               setShowError(false)
             }}
-            onFocus={handleOnChange}
             error={errors.uemail}
           />
+
           <S.Text c="dark" s="11" lh="24" className="mb-10">
             *Válido de la Universidad de Lima
           </S.Text>
 
           <p className="label">Fecha de Nacimiento</p>
 
-          <InputForm
-            t="select"
-            n="uday"
-            w="23.3"
-            c="mb-10"
-            mr="10"
-            valid
-            value={uday}
-            onChange={e => {
-              handleOnChange(e)
-              setShowError(false)
-            }}
-            onFocus={handleOnChange}
-            error={errors.uday}
-            nolabel>
-            <option disabled value="">
-              DÍA
-            </option>
+          <div className="group-inline">
+            <Select
+              type="select"
+              name="uday"
+              width="20"
+              clase="mb-10"
+              required
+              value={uday}
+              onChange={e => {
+                handleOnChange(e)
+                setShowError(false)
+              }}
+              error={errors.uday}
+              nolabel>
+              <option disabled value="">
+                DÍA
+              </option>
+              {ListNumRange(0, 31).map(value => {
+                return (
+                  <option key={value} value={value}>
+                    {value}
+                  </option>
+                )
+              })}
+            </Select>
 
-            {ListDays.map(value => {
-              return (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              )
-            })}
-          </InputForm>
+            <Select
+              type="select"
+              name="umonth"
+              width="40"
+              clase="mb-10"
+              required
+              value={umonth}
+              onChange={e => {
+                handleOnChange(e)
+                setShowError(false)
+              }}
+              error={errors.umonth}
+              nolabel>
+              <option disabled value="">
+                MES
+              </option>
+              {ListMonth.map((value, index) => {
+                return (
+                  <option key={value} value={index + 1}>
+                    {value}
+                  </option>
+                )
+              })}
+            </Select>
 
-          <InputForm
-            t="select"
-            n="umonth"
-            w="43.3"
-            c="mb-10"
-            ml="10"
-            mr="10"
-            valid
-            value={umonth}
-            onChange={e => {
-              handleOnChange(e)
-              setShowError(false)
-            }}
-            onFocus={handleOnChange}
-            error={errors.umonth}
-            nolabel>
-            <option disabled value="">
-              MES
-            </option>
-
-            {ListMonth.map((value, index) => {
-              return (
-                <option key={value} value={index + 1}>
-                  {value}
-                </option>
-              )
-            })}
-          </InputForm>
-
-          <InputForm
-            t="select"
-            n="uyear"
-            w="33.3"
-            c="mb-10"
-            ml="10"
-            value={uyear}
-            onChange={e => {
-              handleOnChange(e)
-              setShowError(false)
-            }}
-            onFocus={handleOnChange}
-            valid
-            error={errors.uyear}
-            nolabel>
-            <option disabled value="">
-              AÑO
-            </option>
-
-            {ListYears.map(value => {
-              return (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              )
-            })}
-          </InputForm>
-
-          {/* <InputForm
-            t="date"
-            n="udate"
-            ph="Fecha de Nacimiento"
-            ac="on"
-            c="mb-10"
-          /> */}
-
-          <InputForm
-            t="select"
-            n="ugrade"
-            ph="Grado de Estudios"
+            <Select
+              type="select"
+              name="uyear"
+              width="30"
+              clase="mb-10"
+              value={uyear}
+              onChange={e => {
+                handleOnChange(e)
+                setShowError(false)
+              }}
+              required
+              error={errors.uyear}
+              nolabel>
+              <option disabled value="">
+                AÑO
+              </option>
+              {ListNumRange(1904, new Date().getFullYear(), 'desc').map(
+                value => {
+                  return (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  )
+                }
+              )}
+            </Select>
+          </div>
+          <Select
+            type="select"
+            name="ugrade"
+            placeholder="Grado de Estudios"
             value={ugrade}
-            onFocus={handleOnChange}
             onChange={e => {
               handleOnChange(e)
               setShowError(false)
             }}
-            valid
+            required
             error={errors.ugrade}>
             <option disabled value="">
               -- Seleccione --
@@ -471,7 +398,7 @@ export const FormStudents = () => {
             <option value="postgrado">Estudiante postgrado</option>
             <option value="docente">Docente</option>
             <option value="administrativo">Administrativo</option>
-          </InputForm>
+          </Select>
 
           <S.Button
             type="submit"
@@ -480,8 +407,9 @@ export const FormStudents = () => {
             {showLoading ? 'VALIDANDO...' : 'VALIDAR'}
           </S.Button>
         </S.Form>
+      ) : (
+        <FormStudentsCode />
       )}
-      {(showReqCode || isRequestStudents()) && <FormStudentsCode />}
     </>
   )
 }

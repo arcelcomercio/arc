@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
-import { InputForm } from './control_input'
+import { Input } from './control_input'
 import useForm from './useForm'
 import getCodeError from './codes_error'
 import { FormStudents } from './form_students'
+
 
 const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 
@@ -110,34 +111,32 @@ export const FormLoginPaywall = () => {
 
               {showError && <S.Error>{showError}</S.Error>}
 
-              <InputForm
-                t="email"
-                n="lemail"
-                ph="Correo electrónico"
-                ac="on"
-                c="mb-10"
-                valid
+              <Input
+                type="email"
+                name="lemail"
+                placeholder="Correo electrónico"
+                autocomplete="on"
+                clase="mb-10"
+                required
                 value={lemail}
                 onChange={e => {
                   handleOnChange(e)
                   setShowError(false)
                 }}
-                onFocus={handleOnChange}
                 error={errors.lemail}
               />
 
-              <InputForm
-                t="password"
-                n="lpass"
-                ph="Contraseña"
-                ac="off"
-                valid
+              <Input
+                type="password"
+                name="lpass"
+                placeholder="Contraseña"
+                autocomplete="off"
+                required
                 value={lpass}
                 onChange={e => {
                   handleOnChange(e)
                   setShowError(false)
                 }}
-                onFocus={handleOnChange}
                 error={errors.lpass}
               />
 

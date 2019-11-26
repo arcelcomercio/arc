@@ -37,6 +37,24 @@ class Services {
     })
     return response
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  loginFBeco(URL, username, accessToken, type) {
+    const response = new Promise(resolve => {
+      fetch(`${URL}/identity/public/v1/auth/token`, {
+        method: 'POST',
+        body: JSON.stringify({
+          userName: username,
+          credentials: accessToken,
+          grantType: type,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(res => resolve(res.json()))
+    })
+    return response
+  }
 }
 
 export default new Services()

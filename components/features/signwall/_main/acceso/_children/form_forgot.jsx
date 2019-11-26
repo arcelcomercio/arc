@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import * as S from './styles'
 import { ModalConsumer } from '../../signwall/context'
 import { ForgotPass, MsgForgotPass, Back } from '../../common/iconos'
-import { InputForm } from './control_input'
+import { Input } from './control_input'
 import getCodeError from './codes_error'
 import useForm from './useForm'
 
@@ -72,7 +72,7 @@ export const FormForgot = () => {
               <Back /> Volver
             </S.ButtonBase>
 
-            {!showConfirm && (
+            {!showConfirm ? (
               <>
                 <div className="center block mb-20">
                   <ForgotPass bgcolor="#F4E0D2" />
@@ -87,18 +87,17 @@ export const FormForgot = () => {
 
                 {showError && <S.Error>{showError}</S.Error>}
 
-                <InputForm
-                  t="email"
-                  n="femail"
-                  ph="Correo electrónico"
-                  ac="on"
-                  valid
+                <Input
+                  type="email"
+                  name="femail"
+                  placeholder="Correo electrónico"
+                  autocomplete="on"
+                  required
                   value={femail}
                   onChange={e => {
                     handleOnChange(e)
                     setShowError(false)
                   }}
-                  onFocus={handleOnChange}
                   error={errors.femail}
                 />
 
@@ -109,8 +108,7 @@ export const FormForgot = () => {
                   {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
                 </S.Button>
               </>
-            )}
-            {showConfirm && (
+            ) : (
               <>
                 <div className="center block mb-20">
                   <MsgForgotPass bgcolor="#F4E0D2" />

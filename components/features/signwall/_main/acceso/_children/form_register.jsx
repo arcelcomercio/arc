@@ -5,7 +5,7 @@ import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
 import { MsgRegister, Back } from '../../common/iconos'
 import { CheckBox } from './control_checkbox'
-import { InputForm } from './control_input'
+import { Input } from './control_input'
 import getCodeError from './codes_error'
 import useForm from './useForm'
 import getDevice from '../../utils/get-device'
@@ -142,7 +142,7 @@ export const FormRegister = () => {
     <ModalConsumer>
       {value => (
         <>
-          {!showStudents && (
+          {!showStudents ? (
             <S.Form onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -166,33 +166,31 @@ export const FormRegister = () => {
 
                   {showError && <S.Error>{showError}</S.Error>}
 
-                  <InputForm
-                    t="email"
-                    n="remail"
-                    ph="Correo electrónico*"
-                    ac="on"
-                    valid
+                  <Input
+                    type="email"
+                    name="remail"
+                    placeholder="Correo electrónico*"
+                    autocomplete="on"
+                    required
                     value={remail}
                     onChange={e => {
                       handleOnChange(e)
                       setShowError(false)
                     }}
-                    onFocus={handleOnChange}
                     error={errors.remail}
                   />
 
-                  <InputForm
-                    t="password"
-                    n="rpass"
-                    ph="Contraseña*"
-                    ac="off"
-                    valid
+                  <Input
+                    type="password"
+                    name="rpass"
+                    placeholder="Contraseña*"
+                    autocomplete="off"
+                    required
                     value={rpass}
                     onChange={e => {
                       handleOnChange(e)
                       setShowError(false)
                     }}
-                    onFocus={handleOnChange}
                     error={errors.rpass}
                   />
 
@@ -247,9 +245,9 @@ export const FormRegister = () => {
                 </>
               )}
             </S.Form>
+          ) : (
+            <FormStudents />
           )}
-
-          {showStudents && <FormStudents />}
         </>
       )}
     </ModalConsumer>

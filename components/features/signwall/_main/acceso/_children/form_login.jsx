@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import * as S from './styles'
 import { ButtonSocial, ButtonEmail } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
-import { InputForm } from './control_input'
+import { Input } from './control_input'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormLogin = () => {
@@ -29,14 +29,19 @@ export const FormLogin = () => {
 
           {showLoginEmail && (
             <>
-              <InputForm
-                t="email"
-                n="lemail"
-                ph="Correo electrónico"
-                ac="on"
+              <Input
+                type="email"
+                name="lemail"
+                placeholder="Correo electrónico"
+                autocomplete="on"
               />
 
-              <InputForm t="password" n="lpass" ph="Contraseña" ac="off" />
+              <Input
+                type="password"
+                name="lpass"
+                placeholder="Contraseña"
+                autocomplete="off"
+              />
 
               <S.Link
                 href="#"

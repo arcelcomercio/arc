@@ -1,7 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { device } from '../../../_styles/breakpoints'
 
-// eslint-disable-next-line import/prefer-default-export
 const changeColor = color => {
   switch (color) {
     case 'light':
@@ -57,7 +56,34 @@ export const Form = styled.form`
   box-sizing: border-box;
   display: block;
   & input {
+    box-sizing: border-box;
+    cursor: text;
     line-height: 20px;
+    @media ${device.tablet} {
+      padding: 5px 20px;
+    }
+    &.error {
+      border: 1px solid #ff2b2b;
+    }
+  }
+  & select {
+    cursor: text;
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 10px;
+    &.error {
+      border: 1px solid #ff2b2b;
+    }
+
+    &:focus {
+      background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    }
+
+    @media ${device.tablet} {
+      padding: 5px 15px;
+    }
   }
   & .mt-10 {
     margin-top: 10px;
@@ -106,31 +132,28 @@ export const Form = styled.form`
     font-size: 12px;
     margin-bottom: 5px;
   }
-`
-
-export const Input = styled.input`
-  box-sizing: border-box;
-  cursor: text;
-  @media ${device.tablet} {
-    padding: 5px 20px;
+  & .group-inline{
+    display: flex;
+    justify-content: space-between;
   }
 `
-export const Select = styled.select`
-  cursor: text;
-  background: transparent;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-  background-repeat: no-repeat;
-  background-position-x: 100%;
-  background-position-y: 10px;
 
-  &:focus {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-  }
+// export const Select = styled.select`
+//   cursor: text;
+//   background: transparent;
+//   background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+//   background-repeat: no-repeat;
+//   background-position-x: 100%;
+//   background-position-y: 10px;
 
-  @media ${device.tablet} {
-    padding: 5px 15px;
-  }
-`
+//   &:focus {
+//     background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+//   }
+
+//   @media ${device.tablet} {
+//     padding: 5px 15px;
+//   }
+// `
 export const Button = styled.button`
   background: #0179af;
   font-weight: bold;
