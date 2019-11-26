@@ -87,7 +87,16 @@ const Portal = ({ theme }) => {
   return (
     // <FillHeight substractElements={substractFeaturesIds}>
     <S.Portal backgroundColor={arcSite === 'elcomercio'}>
-      {openSignwall && <Students close={() => setOpenSignwall(false)} />}
+      {openSignwall && (
+        <Students
+          typeDialog="students" // tipo de modal (students , landing)
+          nameDialog="students" // nombre que dara al landing
+          brandDialog={arcSite}
+          onLogged={() => {}}
+          onLoggedFail={() => {}}
+          onClose={() => setOpenSignwall(false)}
+        />
+      )}
       <S.PortalContent>
         {items.map(item => (
           <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />

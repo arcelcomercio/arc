@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import * as S from './styles'
 import { ModalConsumer } from '../../signwall/context'
 import { ResetPass, MsgResetPass } from '../../common/iconos'
-import { InputForm } from './control_input'
+import { Input } from './control_input'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormReset = () => {
@@ -14,7 +14,7 @@ export const FormReset = () => {
       {value => (
         <>
           <S.Form>
-            {!showConfirm && (
+            {!showConfirm ? (
               <>
                 <div className="center block mb-20">
                   <ResetPass bgcolor="#F4E0D2" />
@@ -26,18 +26,18 @@ export const FormReset = () => {
                   Ingresa una nueva contraseña para tu cuenta
                 </S.Text>
 
-                <InputForm
-                  t="password"
-                  n="rpass"
-                  ph="Nueva contraseña"
-                  ac="off"
+                <Input
+                  type="password"
+                  name="rpass"
+                  placeholder="Nueva contraseña"
+                  autocomplete="off"
                 />
 
-                <InputForm
-                  t="password"
-                  n="rconfirmpass"
-                  ph="Confirmar contraseña"
-                  ac="off"
+                <Input
+                  type="password"
+                  name="rconfirmpass"
+                  placeholder="Confirmar contraseña"
+                  autocomplete="off"
                 />
 
                 <S.Button
@@ -47,8 +47,7 @@ export const FormReset = () => {
                   ACEPTAR
                 </S.Button>
               </>
-            )}
-            {showConfirm && (
+            ) : (
               <>
                 <div className="center block mb-20">
                   <MsgResetPass bgcolor="#F4E0D2" />

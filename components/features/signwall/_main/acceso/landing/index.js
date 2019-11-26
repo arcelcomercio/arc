@@ -2,7 +2,6 @@ import React from 'react'
 import Consumer from 'fusion:consumer'
 import { ModalProvider, ModalConsumer } from '../../signwall/context'
 import { Modal } from '../../common/modal/index'
-import { FormStudents } from '../_children/form_students'
 import { FormLoginPaywall } from '../_children/form_login_landing'
 import { FormForgot } from '../_children/form_forgot'
 import { FormRegister } from '../_children/form_register'
@@ -13,7 +12,6 @@ const renderTemplate = (template, attributes) => {
   const templates = {
     // eslint-disable-next-line react/jsx-filename-extension
     login: <FormLoginPaywall {...attributes} />,
-    students: <FormStudents />,
     forgot: <FormForgot />,
     register: <FormRegister />,
   }
@@ -21,7 +19,7 @@ const renderTemplate = (template, attributes) => {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-const StudentsInt = props => {
+export const LandingInt = props => {
   const { onClose, bgMmodalPng, bgMmodalWebp } = props
   return (
     <ModalProvider>
@@ -34,9 +32,11 @@ const StudentsInt = props => {
               </CloseBtn>
               <FirstMiddle>
                 <picture>
-                  <source srcSet={bgMmodalWebp} type="image/webp" />
-                  <source srcSet={bgMmodalPng} type="image/png" />
-                  <img src={bgMmodalPng} alt="img" />
+                  <picture>
+                    <source srcSet={bgMmodalWebp} type="image/webp" />
+                    <source srcSet={bgMmodalPng} type="image/png" />
+                    <img src={bgMmodalPng} alt="img" />
+                  </picture>
                 </picture>
               </FirstMiddle>
               <SecondMiddle>
@@ -51,21 +51,21 @@ const StudentsInt = props => {
 }
 
 @Consumer
-class Students extends React.Component {
+class Landing extends React.Component {
   render() {
     const { contextPath, deployment, arcSite } = this.props
 
     const backImagePng =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bg_students.png`
+        `${contextPath}/resources/dist/${arcSite}/images/bg_login.png`
       ) || ''
     const backImageWebp =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bg_students.webp`
+        `${contextPath}/resources/dist/${arcSite}/images/bg_login.webp`
       ) || ''
 
     return (
-      <StudentsInt
+      <LandingInt
         {...this.props}
         bgMmodalPng={backImagePng}
         bgMmodalWebp={backImageWebp}
@@ -77,4 +77,4 @@ class Students extends React.Component {
   }
 }
 
-export { Students }
+export { Landing }

@@ -13,9 +13,12 @@ const WizardUserProfile = styled.div`
 `
 
 const PanelUserProfile = styled(Panel)`
-  ${({ theme }) => css`
+  ${({ theme , elevation = 1}) => css`
     padding: 40px 50px;
     box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: ${theme.shadows[elevation]};
     ${theme.breakpoints.down('md')} {
       padding: 40px 30px;
     }

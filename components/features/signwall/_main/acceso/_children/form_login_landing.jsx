@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
-import { InputForm } from './control_input'
+import { Input } from './control_input'
 import useForm from './useForm'
 import getCodeError from './codes_error'
 import { FormStudents } from './form_students'
@@ -11,7 +11,9 @@ import { FormStudents } from './form_students'
 const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 
 // eslint-disable-next-line import/prefer-default-export
-export const FormLoginPaywall = () => {
+export const FormLoginPaywall = props => {
+  console.log(props)
+  const { typeDialog, onClose } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
@@ -45,7 +47,13 @@ export const FormLoginPaywall = () => {
     // const { closePopup, reloadLogin } = this.props
     window.Identity.options({ apiOrigin: API_ORIGIN })
     window.Identity.getUserProfile().then(resProfile => {
-      setShowStudents(!showStudents)
+      if (typeDialog === 'students') {
+        setShowStudents(!showStudents)
+      } else {
+        console.log('cerrar', resProfile)
+        onClose()
+      }
+
       // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
 
       // if (reloadLogin) {
@@ -101,7 +109,18 @@ export const FormLoginPaywall = () => {
                 Ingresa con tus redes sociales
               </S.Text>
 
-              <ButtonSocial brand="facebook" size="middle" />
+              <ButtonSocial
+                brand="facebook"
+                size="middle"
+                onlogged={() => {
+                  if (typeDialog === 'students') {
+                    setShowStudents(!showStudents)
+                  } else {
+                    window.console.log('cerrar')
+                    onClose()
+                  }
+                }}
+              />
               <ButtonSocial brand="google" size="middle" />
 
               <S.Text c="gray" s="14" className="mt-20 center">
@@ -110,34 +129,32 @@ export const FormLoginPaywall = () => {
 
               {showError && <S.Error>{showError}</S.Error>}
 
-              <InputForm
-                t="email"
-                n="lemail"
-                ph="Correo electrónico"
-                ac="on"
-                c="mb-10"
-                valid
+              <Input
+                type="email"
+                name="lemail"
+                placeholder="Correo electrónico"
+                autocomplete="on"
+                clase="mb-10"
+                required
                 value={lemail}
                 onChange={e => {
                   handleOnChange(e)
                   setShowError(false)
                 }}
-                onFocus={handleOnChange}
                 error={errors.lemail}
               />
 
-              <InputForm
-                t="password"
-                n="lpass"
-                ph="Contraseña"
-                ac="off"
-                valid
+              <Input
+                type="password"
+                name="lpass"
+                placeholder="Contraseña"
+                autocomplete="off"
+                required
                 value={lpass}
                 onChange={e => {
                   handleOnChange(e)
                   setShowError(false)
                 }}
-                onFocus={handleOnChange}
                 error={errors.lpass}
               />
 
@@ -170,7 +187,9 @@ export const FormLoginPaywall = () => {
             </S.Form>
           )}
 
-          {(showStudents || isLogged()) && <FormStudents />}
+          {(showStudents || isLogged()) && typeDialog === 'students' && (
+            <FormStudents />
+          )}
         </>
       )}
     </ModalConsumer>

@@ -29,6 +29,7 @@ import './images/logo-elcomercio.jpg'
 import './images/signwall/bg_paywall.png'
 import './images/signwall/logo_elcomercio.png'
 import './images/signwall/bg_login.png'
+import './images/signwall/bg_login.webp'
 
 import '../../../components/utilities/lazyload'
 

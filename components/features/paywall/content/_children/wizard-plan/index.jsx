@@ -307,23 +307,27 @@ function WizardPlan(props) {
               }
             }}
           />
-          {arcSite !== 'elcomercio' ||
-            (!eventCampaign && (
-              <PromoBanner
-                width="40%"
-                ml="20px"
-                backgroundColor={theme.palette.terciary.light}
-                text1={msgs.businessSubscriptionsBanner1}
-                text2={msgs.businessSubscriptionsBanner2}
-                invertTextSizes
-                onClick={() => {
-                  window.open(
-                    interpolateUrl(urls.corporateSuscription),
-                    '_blank'
-                  )
-                }}
-              />
-            ))}
+
+          {arcSite === 'gestion' && (
+            <>
+              {!eventCampaign && (
+                <PromoBanner
+                  width="40%"
+                  ml="20px"
+                  backgroundColor={theme.palette.terciary.light}
+                  text1={msgs.businessSubscriptionsBanner1}
+                  text2={msgs.businessSubscriptionsBanner2}
+                  invertTextSizes
+                  onClick={() => {
+                    window.open(
+                      interpolateUrl(urls.corporateSuscription),
+                      '_blank'
+                    )
+                  }}
+                />
+              )}
+            </>
+          )}
         </S.ContentBanner>
       )}
     </S.WizardPlan>
