@@ -192,9 +192,10 @@ class FormResetPass extends Component {
                     this.handleForcePassword(e)
                   }}
                 />
-                <label htmlFor="newPassword" className="form-group__label">
+                
+                {/* <label htmlFor="newPassword" className="form-group__label">
                   Nueva contraseña
-                </label>
+                </label> */}
 
                 {formErrors.newPassword.length > 0 && (
                   <span className="message__error">
@@ -226,9 +227,11 @@ class FormResetPass extends Component {
                     this.handleChangeValidation(e)
                   }}
                 />
-                <label htmlFor="repeatPassword" className="form-group__label">
+
+                {/* <label htmlFor="repeatPassword" className="form-group__label">
                   Confirmar contraseña
-                </label>
+                </label> */}
+
                 {formErrors.repeatPassword.length > 0 && (
                   <span className="message__error">
                     {formErrors.repeatPassword}

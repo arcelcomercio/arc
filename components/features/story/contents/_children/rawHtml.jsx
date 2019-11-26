@@ -41,12 +41,14 @@ class rawHTML extends PureComponent {
       this.URL = URI
     } else if (
       isDaznServicePlayer(content) &&
-      content.match(/^<script(.*)<\/script>$/)
+      content.trim().match(/^<script(.*)<\/script>$/)
     ) {
       const idVideos = storyVideoPlayerId(content)
-      const urlAssignHttp = idVideos[1]
-        .replace('src="//', 'https://')
-        .replace('performgroup', 'daznservices')
+      const urlAssignHttp = content.includes('player.daznservices.com/')
+        ? idVideos[1].replace('src="//', 'https://')
+        : idVideos[1]
+            .replace('src="//', 'https://')
+            .replace('performgroup', 'daznservices')
 
       this.URL_VIDEO = content.includes('id')
         ? `${urlAssignHttp}id=${idVideos[2]}`
@@ -99,7 +101,7 @@ class rawHTML extends PureComponent {
           className={classes.newsEmbed}
           dangerouslySetInnerHTML={{
             __html: isDaznServicePlayer(content)
-              ? content.replace('performgroup', 'daznservices')
+              ? content.trim().replace('performgroup', 'daznservices')
               : content,
           }}
         />
