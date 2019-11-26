@@ -13,7 +13,7 @@ import * as S from './styled'
 import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import { userProfile, isLogged } from '../../../_dependencies/Identity'
+import { conformProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
 import PWA from '../../_dependencies/seed-pwa'
 
@@ -104,9 +104,12 @@ function WizardPlan(props) {
     })
     document.getElementById('footer').style.position = 'relative'
 
-    // Retomar sesion existente
+    // Retomar sesion existente si hay una
     if (isLogged()) {
-      userProfile(['documentNumber', 'phone', 'documentType']).then(setProfile)
+      window.Identity.getUserProfile().then(profile => {
+        const conformedProfile = conformProfile(profile)
+        setProfile(conformedProfile)
+      })
     }
 
     addEventListener('logged', loggedHandler)

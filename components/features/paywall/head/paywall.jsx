@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import Consumer from 'fusion:consumer'
 
-import { addIdentity, userProfile, isLogged } from '../_dependencies/Identity'
+import { conformProfile, isLogged } from '../_dependencies/Identity'
 import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
 import Signwall from '../../signwall/default'
@@ -31,10 +31,9 @@ const Head = props => {
   const [stepForm, setStepForm] = React.useState(1)
 
   React.useEffect(() => {
-    addIdentity(arcSite).then(() => {
-      userProfile().then(profile => {
-        setProfile(profile)
-      })
+    window.Identity.getUserProfile().then(profile => {
+      const conformedProfile = conformProfile(profile)
+      setProfile(conformedProfile)
     })
 
     addEventListener('currentStep', setStepForm)
@@ -81,8 +80,9 @@ const Head = props => {
             setShowSignwall(!showSignwall)
           }}
           onLogged={profile => {
-            setProfile(profile)
-            dispatchEvent('logged', profile)
+            const conformedProfile = conformProfile(profile)
+            dispatchEvent('logged', conformedProfile)
+            setProfile(conformedProfile)
           }}
           onLoginFail={() => {
             dispatchEvent('loginFailed')
