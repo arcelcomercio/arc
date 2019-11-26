@@ -8,6 +8,7 @@ import { withTheme } from 'styled-components'
 import Consumer from 'fusion:consumer'
 
 import { conformProfile, isLogged } from '../_dependencies/Identity'
+import { interpolateUrl } from '../_dependencies/domains'
 import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
 import Signwall from '../../signwall/default'
@@ -22,6 +23,9 @@ const Head = props => {
   const {
     theme,
     arcSite,
+    siteProperties: {
+      paywall: { urls },
+    },
     customFields: { id },
     dispatchEvent,
     addEventListener,
@@ -46,6 +50,7 @@ const Head = props => {
   }).current
 
   React.useEffect(() => {
+    window.Identity.apiOrigin = interpolateUrl(urls.originApi)
     window.Identity.getUserProfile().then(profile => {
       const conformedProfile = conformProfile(profile)
       setProfile(conformedProfile)
