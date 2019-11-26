@@ -51,7 +51,7 @@ const BlogPostListGrid = props => {
     } = blog
 
     return {
-      lazyImage = defaultImage({
+      lazyImage: defaultImage({
         deployment,
         contextPath,
         arcSite,
