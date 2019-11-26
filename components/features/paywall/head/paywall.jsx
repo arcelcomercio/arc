@@ -15,6 +15,8 @@ import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
 
+const NAME_MAX_LENGHT = 10
+
 const Head = props => {
   const msgs = useStrings()
   const {
@@ -26,6 +28,7 @@ const Head = props => {
     removeEventListener,
   } = props
 
+  const fullName = React.useRef(msgs.startSession)
   const [profile, setProfile] = React.useState()
   const [isActive, setIsActive] = React.useState(false)
   const [showSignwall, setShowSignwall] = React.useState(false)
@@ -45,26 +48,20 @@ const Head = props => {
     }
   }, [])
 
-  const getFullName = React.useRef(maxLenght => {
+  // Actualizar nombre al cambiar estado de sesion
+  React.useEffect(() => {
+    fullName.current = msgs.startSession
     if (profile) {
-      const fullName = profile.firstName
+      fullName.current = profile.firstName
         ? `${profile.firstName} ${profile.lastName}`
         : msgs.welcomeUser
-      return fullName.length > maxLenght
-        ? `${fullName.substring(0, maxLenght)}..`
-        : fullName
+      fullName.current =
+        fullName.current.length > NAME_MAX_LENGHT
+          ? `${fullName.current.substring(0, NAME_MAX_LENGHT)}..`
+          : fullName
     }
-    return msgs.startSession
-  }).current
+  }, [profile])
 
-  // eslint-disable-next-line react/sort-comp
-  const signInReqHandler = React.useRef(() => {
-    if (!isLogged()) {
-      setShowSignwall(true)
-    }
-  }).current
-
-  const fullName = getFullName(10)
   const leftColor =
     arcSite === 'elcomercio'
       ? theme.palette.terciary.main
@@ -106,7 +103,7 @@ const Head = props => {
         <S.WrapLogin>
           <S.Username>
             {stepForm !== 1 ? (
-              <span>{fullName}</span>
+              <span>{fullName.current}</span>
             ) : (
               <S.LoginButton
                 type="button"
@@ -117,7 +114,7 @@ const Head = props => {
                   )
                   profile ? setIsActive(true) : setShowSignwall(true)
                 }}>
-                <span>{fullName}</span>
+                <span>{fullName.current}</span>
               </S.LoginButton>
             )}
             <S.WrapIcon>
