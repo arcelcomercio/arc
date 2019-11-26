@@ -249,14 +249,16 @@ const slot = `${site}_${device}_${type_space}`
 const result = available_ports.find(el => el.name === type_space)
 const dataDevice =
   device === 'd' && result !== null ? result.desktop_space : result.mobile_space
+
 const adsParams =
   dataDevice &&
   dataDevice.map(el => {
     return {
       invCode: `${slot}_${el}`,
+      ad_types: ['banner', 'native'],
       sizes:
         device === 'd' ? space_device.desktop[el] : space_device.mobile[el],
-      allowedformats:
+      allowedFormats:
         site === 'eco' ? ['video', 'banner', 'native'] : ['video', 'banner'],
       targetId: `ads_${device}_${el}`,
     }
