@@ -125,8 +125,8 @@ function WizardPlan(props) {
     }
   }, [])
 
-  function subscribePlanHandler(e, plan) {
-    if (!profile) {
+  const subscribePlanHandler = useRef((e, plan) => {
+    if (!isLogged()) {
       clearDeferredActions()
       planSelected.current = plan
       dispatchEvent('signInReq')
@@ -191,7 +191,7 @@ function WizardPlan(props) {
         )
       }, 1000)
     }
-  }
+  }).current
 
   return (
     <S.WizardPlan>
