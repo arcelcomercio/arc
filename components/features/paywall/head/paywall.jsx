@@ -50,19 +50,22 @@ const Head = props => {
   }).current
 
   React.useEffect(() => {
-    window.Identity.apiOrigin = interpolateUrl(urls.originApi)
-    window.Identity.getUserProfile().then(profile => {
-      const conformedProfile = conformProfile(profile)
-      setProfile(conformedProfile)
-    })
     addEventListener('currentStep', setStepForm)
     addEventListener('logout', logoutHandler)
     addEventListener('signInReq', signInReqHandler)
-    return () => {
+    const unregisterListeners = () => {
       removeEventListener('currentStep', setStepForm)
       removeEventListener('logout', logoutHandler)
       removeEventListener('signInReq', signInReqHandler)
     }
+    window.Identity.apiOrigin = interpolateUrl(urls.originApi)
+    window.Identity.getUserProfile()
+      .then(profile => {
+        const conformedProfile = conformProfile(profile)
+        setProfile(conformedProfile)
+      })
+      .catch(() => {})
+    return unregisterListeners
   }, [])
 
   // Actualizar nombre al cambiar estado de sesion
