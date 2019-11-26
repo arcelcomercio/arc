@@ -13,7 +13,7 @@ import * as S from './styled'
 import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
-import { userProfile, isLogged } from '../../../_dependencies/Identity'
+import { conformProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
 import PWA from '../../_dependencies/seed-pwa'
 
@@ -79,6 +79,7 @@ function WizardPlan(props) {
     clearDeferredActions()
   }).current
 
+  // Ejecutar acciones diferidas al cambiar estado de sesion
   useEffect(() => {
     runDeferredAction()
     clearDeferredActions()
@@ -104,9 +105,13 @@ function WizardPlan(props) {
     })
     document.getElementById('footer').style.position = 'relative'
 
-    // Retomar sesion existente
+    // Retomar sesion existente si hay una
     if (isLogged()) {
-      userProfile(['documentNumber', 'phone', 'documentType']).then(setProfile)
+      window.Identity.apiOrigin = interpolateUrl(urls.originApi)
+      window.Identity.getUserProfile().then(profile => {
+        const conformedProfile = conformProfile(profile)
+        setProfile(conformedProfile)
+      })
     }
 
     addEventListener('logged', loggedHandler)
@@ -120,8 +125,8 @@ function WizardPlan(props) {
     }
   }, [])
 
-  function subscribePlanHandler(e, plan) {
-    if (!profile) {
+  const subscribePlanHandler = useRef((e, plan) => {
+    if (!isLogged()) {
       clearDeferredActions()
       planSelected.current = plan
       dispatchEvent('signInReq')
@@ -142,7 +147,7 @@ function WizardPlan(props) {
         event: 'productClick',
         ecommerce: {
           click: {
-           products: [
+            products: [
               {
                 name: plan.productName,
                 id: plan.sku,
@@ -186,7 +191,7 @@ function WizardPlan(props) {
         )
       }, 1000)
     }
-  }
+  }).current
 
   return (
     <S.WizardPlan>
@@ -251,7 +256,7 @@ function WizardPlan(props) {
             documentType,
             documentNumber,
             attemptToken,
-            ...(eventCampaign ? { isEvent: true, event: eventCampaign } : {}),
+            //...(eventCampaign ? { isEvent: true, event: eventCampaign } : {}),
           })
         }}
         onClose={() => {
@@ -260,7 +265,6 @@ function WizardPlan(props) {
             eventCategory: 'paywall_check_subscriptor',
             eventAction: 'close',
           })
-          sendAction(PixelActions.CHECK_SUBSCRIPTOR_CLOSE)
           setOpenModal(false)
         }}
       />

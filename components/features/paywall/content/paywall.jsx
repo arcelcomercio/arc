@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-destructuring */
 import React, { useState, useEffect, useRef } from 'react'
@@ -60,6 +61,10 @@ const Paywall = ({
   useEffect(() => {
     document.querySelector('html').classList.add('ios')
     PWA.mount(() => window.location.reload())
+    addEventListener('logout', clearPaywallStorage)
+    return () => {
+      removeEventListener('logout', clearPaywallStorage)
+    }
   }, [])
 
   const clearPaywallStorage = useRef(() => {
@@ -67,7 +72,6 @@ const Paywall = ({
     sessionStorage.removeItem(PAYMENT_FORM_NAME)
   }).current
 
-  addEventListener('logout', clearPaywallStorage)
   // addEventListener('profile-update', () => {
   //   try {
   //     getProfile()
@@ -97,7 +101,6 @@ const Paywall = ({
   //     return { ...plan , amount: plan.overrideAmount }
   //   })
   // }
-
   // const [memo, setMemo] = useState({})
   const memo = useRef({
     event: event.event,
@@ -198,7 +201,9 @@ const Paywall = ({
               <Nav
                 excludeSteps={freeAccess && [2, 3]}
                 stepsNames={stepNames}
-                right={<ClickToCall href={clickToCallUrl} text="¿Necesitas ayuda?"/>}
+                right={
+                  <ClickToCall href={clickToCallUrl} text="¿Necesitas ayuda?" />
+                }
               />
             }>
             <WizardPlan
