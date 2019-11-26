@@ -69,11 +69,11 @@ const Description = styled.div`
 `
 
 const Content = styled.div`
-    pointer-events: none;
-    box-shadow: 0px -1px 2px 0px #cccccc;
-    border-radius: 5px 5px 0px 0px;
-    background-color: #fff;
-    padding: 10px 40px;
+  pointer-events: none;
+  box-shadow: 0px -1px 2px 0px #cccccc;
+  border-radius: 5px 5px 0px 0px;
+  background-color: #fff;
+  padding: 10px 30px;
 `
 
 export const Footer = styled.div``
