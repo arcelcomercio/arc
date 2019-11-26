@@ -2,16 +2,16 @@ import React from 'react'
 import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 const classes = {
-  story: `most-read-premium-item flex flex-col w-auto pt-10 pb-10 border-b-1 border-solid border-gray`,
-  time: 'most-read-premium-item__time text-md line-h-sm mr-10',
-  linkBox: 'most-read-premium-item__link-box flex flex-row text-gray-300',
+  story: `most-read-homologated-item flex flex-col w-auto pt-10 pb-10 border-b-1 border-solid border-gray`,
+  time: 'most-read-homologated-item__time text-md line-h-sm mr-10',
+  linkBox: 'most-read-homologated-item__link-box flex flex-row text-gray-300',
   link:
-    'most-read-premium-item__link flex bold m-0 text-md text-gray-300 line-h-sm',
+    'most-read-homologated-item__link flex bold m-0 text-md text-gray-300 line-h-sm',
   boxNew: 'flex flex-row',
   figure:
-    'most-read-premium-item__image mr-10 position-relative overflow-hidden',
+    'most-read-homologated-item__image mr-10 position-relative overflow-hidden',
   icon:
-    'position-absolute text-center most-read-premium-item__icon mx-auto rounded text-gray-100',
+    'position-absolute text-center most-read-homologated-item__icon mx-auto rounded text-gray-100',
   image: 'w-full h-full object-center object-cover',
 }
 

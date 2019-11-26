@@ -12,10 +12,10 @@ import Footer from './_children/footer'
 const classes = {
   lista:
     'stories-l-card bg-white flex flex-col justify-between overflow-hidden border-1 border-solid border-base',
-  containerList: 'most-read-premium-card__container-list',
+  containerList: 'most-read-homologated-card__container-list',
 }
 
-const MostReadPremium = props => {
+const MostReadHomologated = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const {
     customFields: {
@@ -67,14 +67,14 @@ const MostReadPremium = props => {
   )
 }
 
-MostReadPremium.propTypes = {
+MostReadHomologated.propTypes = {
   customFields,
 }
 
-MostReadPremium.label = 'Más Leidas Premium'
-MostReadPremium.static = true
+MostReadHomologated.label = 'Más Leidas Homologated'
+MostReadHomologated.static = true
 
-export default MostReadPremium
+export default MostReadHomologated
 
 // agregado freeHTML
 
