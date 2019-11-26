@@ -45,11 +45,8 @@ const fetch = key => {
       const { data: { name, description } = {} } = resp
 
       const { content_elements: contentElements = [] } = response || {}
-      console.log("AQUi!!!!!")
-      console.log(JSON.stringify(response))
 
       const newsList = []
-      // const contentElementsFilterById = contentElements.filter(x=> x._id!==undefined)
       const contentElementsFilterById=[]
       contentElements.forEach(item => {
         
@@ -77,17 +74,6 @@ const fetch = key => {
           ...response,
           content_elements:contentElementsFilterById,
           stories,
-          websked: {
-            name,
-            description,
-          },
-        }
-      }).catch(error=>{
-        console.log("AQUI ERROR!!")
-        console.log(error)
-        return {
-          ...response,
-          
           websked: {
             name,
             description,
