@@ -5,7 +5,7 @@ import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import * as S from './styled'
 
-const Summary = ({ overrides, elevation, summary, plan, event }) => {
+const Summary = ({ overrides, elevation, summary, plan, event, arcSite }) => {
   let _plan = plan
   if (overrides) {
     // Sobreescribimos los valores de los atributos del plan
@@ -36,13 +36,20 @@ const Summary = ({ overrides, elevation, summary, plan, event }) => {
           description={description}
           billingFrequency={billingFrequency}
           event={event}
+          arcSite={arcSite}
         />
       </S.Summary>
     </Panel>
   )
 }
 
-const Content = ({ amount = 0, description = {}, billingFrequency, event }) => {
+const Content = ({
+  amount = 0,
+  description = {},
+  billingFrequency,
+  event,
+  arcSite,
+}) => {
   const msgs = useStrings()
   const frequency = {
     month: ` ${msgs.monthlyPeriod}`,
@@ -53,8 +60,8 @@ const Content = ({ amount = 0, description = {}, billingFrequency, event }) => {
       <S.Content>
         {event && (
           <p>
-            Se efectuará un solo cobro por el año completo a <br /> S/234.
-            Válido hasta el 01/12/2019.
+            Se efectuará un solo cobro por el año completo a <br /> S/{' '}
+            {arcSite === 'gestion' ? '234' : '120'}. Válido hasta el 01/12/2019.
           </p>
         )}
         <S.Expand size={18} style={{ paddingTop: '20px' }}>

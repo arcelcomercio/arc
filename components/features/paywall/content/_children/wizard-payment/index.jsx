@@ -272,7 +272,7 @@ function WizardPayment(props) {
           onSubmit={onSubmitHandler}
         />
       </S.PanelPayment>
-      <Summary plan={plan} summary={summary} event={event} />
+      <Summary plan={plan} summary={summary} event={event} arcSite={arcSite} />
     </S.WizardPayment>
   )
 }

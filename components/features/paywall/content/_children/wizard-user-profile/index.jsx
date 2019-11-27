@@ -21,7 +21,15 @@ function WizardUserProfile(props) {
     setLoading,
   } = props
 
-  const { summary, printedSubscriber, plan, profile, referer, origin, event } = memo
+  const {
+    summary,
+    printedSubscriber,
+    plan,
+    profile,
+    referer,
+    origin,
+    event,
+  } = memo
 
   const { sku, priceCode, billingFrequency } = plan
 
@@ -145,7 +153,7 @@ function WizardUserProfile(props) {
           error={error}
         />
       </S.PanelUserProfile>
-      <Summary plan={plan} summary={summary} event={event} />
+      <Summary plan={plan} summary={summary} event={event} arcSite={arcSite} />
     </S.WizardUserProfile>
   )
 }

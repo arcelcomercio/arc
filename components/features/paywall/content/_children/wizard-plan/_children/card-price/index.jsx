@@ -38,6 +38,7 @@ function CardPrice(props) {
     marginTop,
     offer,
     event,
+    arcSite,
   } = props
 
   const frequency = {
@@ -99,7 +100,7 @@ function CardPrice(props) {
         {event && (
           <S.NoticeText>
             Se efectuará un solo cobro por el año <br />
-            completo a S/234.
+            completo a S/ {arcSite === 'gestion' ? '234' : '120'}.
             <br />
             Válido hasta el 01/12/2019
           </S.NoticeText>
