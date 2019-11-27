@@ -202,9 +202,7 @@ const WizardConfirmation = props => {
                   </strong>
                   <strong>{`${paidTotal !== 0 ? paidTotal : ''} `}</strong>
 
-                  {`${paidTotal !== 0 ? Period[billingFrequency] : ''} ${
-                    description.title
-                  } ${description.description}`}
+                  {`${paidTotal !== 0 ? description.cart : ''} `}
                 </S.Item>
 
                 <S.Small>{msgs.paymentNotice}</S.Small>
