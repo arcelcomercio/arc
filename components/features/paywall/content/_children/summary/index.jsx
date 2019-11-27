@@ -25,11 +25,7 @@ const Summary = ({ overrides, elevation, summary, plan, event }) => {
     // creamos plan con atributos sobreescritos
     _plan = { ...plan, ...attrOverrides }
   }
-  const {
-    amount,
-    billingFrequency,
-    description: { description = '' },
-  } = _plan
+  const { amount, billingFrequency, description } = _plan
 
   return (
     <Panel elevation={elevation} type="summary">
@@ -46,7 +42,7 @@ const Summary = ({ overrides, elevation, summary, plan, event }) => {
   )
 }
 
-const Content = ({ amount = 0, description, billingFrequency, event }) => {
+const Content = ({ amount = 0, description = {}, billingFrequency, event }) => {
   const msgs = useStrings()
   const frequency = {
     month: ` ${msgs.monthlyPeriod}`,
@@ -85,9 +81,9 @@ const Content = ({ amount = 0, description, billingFrequency, event }) => {
         </S.Expand>
         {/* <S.Description>{description.cart}</S.Description> */}
         <S.Description>
-          <strong>{description.title}</strong>
+          <strong>{description.title || ''}</strong>
         </S.Description>
-        <S.Description>{description.description}</S.Description>
+        <S.Description>{description.description || ''}</S.Description>
       </S.Content>
     </div>
   )
