@@ -8,9 +8,9 @@ const Panel = styled.div`
     elevation = 1,
     margin,
     valing,
+    event,
     type,
   }) => css`
-    background-color: #fff;
     display: flex;
     align-items: center;
     ${maxWidth &&
@@ -22,8 +22,6 @@ const Panel = styled.div`
         align-items: flex-start;
         flex-direction: direction || column;
       `}
-    box-shadow: ${theme.shadows[elevation]};
-    border-radius: 5px;
     flex: 1;
     margin: ${margin || 'initial'};
     ${valing &&
@@ -44,6 +42,9 @@ const Panel = styled.div`
           return css`
             max-width: 360px;
             align-items: flex-start;
+            box-shadow: ${theme.shadows[elevation]};
+            border-radius: 5px;
+            background-color: #fff;
             ${theme.breakpoints.down('md')} {
               max-width: 300px;
             }
@@ -55,6 +56,14 @@ const Panel = styled.div`
         case 'card-price':
           return css`
             max-width: 265px;
+            ${event &&
+              css`
+                max-width: 300px;
+                margin: 0 auto;
+                ${theme.breakpoints.down('xs')} {
+                  min-width: 100%;
+                }
+              `}
             ${theme.breakpoints.down('xs')} {
               max-width: 100%;
               height: 100%;

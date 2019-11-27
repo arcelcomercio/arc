@@ -56,11 +56,11 @@ const Description = styled.div`
     justify-content: center;
     display: flex;
     font-weight: ${props => (props.bold ? 'bold' : '300')};
-    padding: 5px 60px;
+    padding: 5px 0px;
     text-align: center;
     color: rgb(68, 68, 68);
     &:last-child {
-      padding: 0px 40px 20px 40px;
+      padding: 0px 0px 20px 0px;
     }
     ${theme.breakpoints.down('xs')} {
       padding: 8px 15px;
@@ -70,6 +70,10 @@ const Description = styled.div`
 
 const Content = styled.div`
   pointer-events: none;
+  box-shadow: 0px -1px 2px 0px #cccccc;
+  border-radius: 5px 5px 0px 0px;
+  background-color: #fff;
+  padding: 10px 30px;
 `
 
 export const Footer = styled.div``
@@ -116,4 +120,11 @@ const Header = styled.div`
   }}
 `
 
-export { CardPrice, Frecuency, Currency, Period, Description, Content, Header }
+const NoticeText = styled.p`
+  font-size: 12px;
+  color: black;
+  text-align: center;
+  font-weight: normal;
+`
+
+export { CardPrice, Frecuency, Currency, Period, Description, Content, Header, NoticeText }

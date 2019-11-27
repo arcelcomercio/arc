@@ -3,6 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
+import Consumer from 'fusion:consumer'
+import ENV from 'fusion:environment'
 
 import URL from 'url-parse'
 import * as S from './styled'
@@ -14,9 +16,19 @@ import ClickToCall from '../_children/click-to-call'
 import Icon from '../_children/icon'
 // import FillHeight from '../_children/fill-height'
 import { useStrings } from '../_children/contexts'
+import { Students } from '../../signwall/_main/acceso/students/index'
+import { conformProfile } from '../_dependencies/Identity'
 
-const Portal = ({ theme }) => {
+const PortalInt = (props) => {
   const msgs = useStrings()
+
+  const {
+    theme,
+    dispatchEvent,
+  } = props
+
+  const [openSignwall, setOpenSignwall] = React.useState(false)
+
   const {
     arcSite,
     globalContent: items,
@@ -83,6 +95,19 @@ const Portal = ({ theme }) => {
   return (
     // <FillHeight substractElements={substractFeaturesIds}>
     <S.Portal backgroundColor={arcSite === 'elcomercio'}>
+      {openSignwall && (
+        <Students
+          typeDialog="students" // tipo de modal (students , landing)
+          nameDialog="students" // nombre que dara al landing
+          brandDialog={arcSite}
+          onLogged={profile => {
+            const conformedProfile = conformProfile(profile)
+            dispatchEvent('logged', conformedProfile)
+          }}
+          onLoggedFail={() => dispatchEvent('loginFailed')}
+          onClose={() => setOpenSignwall(false)}
+        />
+      )}
       <S.PortalContent>
         {items.map(item => (
           <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />
@@ -90,6 +115,22 @@ const Portal = ({ theme }) => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
+          {arcSite === 'gestion' && ENV.ENVIRONMENT !== 'elcomercio' && (
+            <S.LinkCorporate
+              primary
+              linkStyle
+              onClick={() => {
+                setOpenSignwall(true)
+              }}>
+              <S.SubscribedText primary>
+                <div>
+                  <span>PLAN UNIVERSITARIO</span>
+                </div>
+                <Icon type={theme.icon.arrowRight} />
+              </S.SubscribedText>
+            </S.LinkCorporate>
+          )}
+
           <S.LinkCorporate
             linkStyle
             href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
@@ -103,7 +144,7 @@ const Portal = ({ theme }) => {
           </S.LinkCorporate>
 
           <S.ClickToCallWrapper>
-            <ClickToCall href={clickToCallUrl} />
+            <ClickToCall href={clickToCallUrl} text="¿AYUDA?" />
           </S.ClickToCallWrapper>
         </S.FooterContent>
       </S.Footer>
@@ -112,7 +153,22 @@ const Portal = ({ theme }) => {
   )
 }
 
+@Consumer
+class Portal extends React.Component {
+  render() {
+    return (
+      <PortalInt
+        {...this.props}
+        dispatchEvent={this.dispatchEvent.bind(this)}
+        addEventListener={this.addEventListener.bind(this)}
+        removeEventListener={this.removeEventListener.bind(this)}
+      />
+    )
+  }
+}
+
 const ThemedPortal = withTheme(Portal)
+
 ThemedPortal.propTypes = {
   customFields: PropTypes.shape({
     id: PropTypes.string,

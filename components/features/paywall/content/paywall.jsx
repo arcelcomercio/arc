@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-destructuring */
 import React, { useState, useEffect, useRef } from 'react'
@@ -13,7 +14,6 @@ import WizardUserProfile from './_children/wizard-user-profile'
 import Nav from './_children/wizard-nav'
 import WizardPlan from './_children/wizard-plan'
 import * as S from './styled'
-import { addIdentity, userProfile, isLogged } from '../_dependencies/Identity'
 import WizardConfirmation from './_children/wizard-confirmation'
 import WizardPayment from './_children/wizard-payment'
 import Loading from '../_children/loading'
@@ -33,7 +33,12 @@ const PAYMENT_FORM_NAME = 'paywall-payment-form'
 let history
 let finalized = false
 
-const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
+const Paywall = ({
+  theme,
+  dispatchEvent,
+  addEventListener,
+  removeEventListener,
+}) => {
   const {
     arcSite,
     customFields: { substractFeaturesHeights = '' },
@@ -52,21 +57,14 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
   const wizardRef = useRef(null)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
   const getCodeCxense = interpolateUrl(urls.codeCxense)
-  const [profile, setProfile] = useState('')
-  const getProfile = React.useRef(() =>
-    addIdentity(arcSite).then(() => {
-      if (isLogged()) {
-        userProfile(['documentNumber', 'phone', 'documentType']).then(
-          setProfile
-        )
-      }
-    })
-  ).current
 
   useEffect(() => {
-    getProfile()
     document.querySelector('html').classList.add('ios')
     PWA.mount(() => window.location.reload())
+    addEventListener('logout', clearPaywallStorage)
+    return () => {
+      removeEventListener('logout', clearPaywallStorage)
+    }
   }, [])
 
   const clearPaywallStorage = useRef(() => {
@@ -74,30 +72,46 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
     sessionStorage.removeItem(PAYMENT_FORM_NAME)
   }).current
 
-  addEventListener('logout', clearPaywallStorage)
-  addEventListener('profile-update', () => {
-    try {
-      getProfile()
-      sessionStorage.removeItem(PROFILE_FORM_NAME)
-    } catch (e) {
-      console.error(e)
-    }
-  })
+  const match = window.location.href.match(/eventos\/(\w+)/)
+  const event = match ? { isEvent: true, event: match[1] } : {}
+  const { pathname: basePath, query } = React.useRef(
+    (() => {
+      const url = interpolateUrl(urls.digitalSubscriptions, {
+        ...event,
+      })
+      return new URL(url)
+    })()
+  ).current
+
+  const plansWithOverrides = React.useRef(
+    plans.map(plan => {
+      const {
+        displayFrequency: billingFrequency,
+        displayAmount: amount,
+        displayBanner: banner,
+      } = plan.description
+      let overrides = {
+        billingFrequency,
+        amount,
+        banner,
+      }
+      overrides = JSON.parse(JSON.stringify(overrides))
+      return { ...plan, ...overrides }
+    })
+  ).current
 
   // const [memo, setMemo] = useState({})
   const memo = useRef({
+    event: event.event,
     arcSite,
-    plans,
-    plan: plans[0], // Por defecto asumir seleccionado el primer plan
+    plans: plansWithOverrides,
+    plan: plansWithOverrides[0], // Por defecto asumir seleccionado el primer plan
     summary,
     printedSubscriber,
     freeAccess,
     error,
   })
   const currMemo = memo.current
-  const { pathname: basePath, query } = React.useRef(
-    new URL(interpolateUrl(urls.digitalSubscriptions))
-  ).current
 
   useEffect(() => {
     history = createBrowserHistory({
@@ -186,17 +200,21 @@ const Paywall = ({ theme, dispatchEvent, addEventListener }) => {
               <Nav
                 excludeSteps={freeAccess && [2, 3]}
                 stepsNames={stepNames}
-                right={<ClickToCall href={clickToCallUrl} />}
+                right={
+                  <ClickToCall href={clickToCallUrl} text="¿Necesitas ayuda?" />
+                }
               />
             }>
             <WizardPlan
               memo={currMemo}
               onBeforeNextStep={onBeforeNextStepHandler}
               setLoading={setLoading}
+              dispatchEvent={dispatchEvent}
+              addEventListener={addEventListener}
+              removeEventListener={removeEventListener}
             />
             <WizardUserProfile
               memo={currMemo}
-              profile={profile}
               formName={PROFILE_FORM_NAME}
               onBeforeNextStep={onBeforeNextStepHandler}
               setLoading={setLoading}
@@ -228,6 +246,7 @@ class PaywallWrapper extends React.Component {
         {...this.props}
         dispatchEvent={this.dispatchEvent.bind(this)}
         addEventListener={this.addEventListener.bind(this)}
+        removeEventListener={this.removeEventListener.bind(this)}
       />
     )
   }

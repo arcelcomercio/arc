@@ -16,7 +16,6 @@ function WizardUserProfile(props) {
   const msgs = useStrings()
   const {
     memo,
-    profile,
     formName,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
@@ -26,6 +25,7 @@ function WizardUserProfile(props) {
     summary,
     printedSubscriber,
     plan: { sku, priceCode, amount, description, billingFrequency },
+    profile,
     referer,
     origin,
   } = memo
@@ -47,6 +47,14 @@ function WizardUserProfile(props) {
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
   useEffect(() => {
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 2 },
+        },
+      },
+    })
     sendAction(PixelActions.PAYMENT_PROFILE, {
       sku: `${sku}`,
       periodo: billingFrequency,
@@ -109,7 +117,7 @@ function WizardUserProfile(props) {
           // Mezclamos valores del formulario con los valores de la respuesta
           const mergeResValues = Object.assign({}, memo, {
             order: res,
-            profile: values,
+            profile: { ...profile, ...values },
           })
           Sentry.addBreadcrumb({
             category: 'compra',
