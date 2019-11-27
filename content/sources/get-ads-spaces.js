@@ -5,6 +5,8 @@ const resolve = () => {
 const transform = (data, { 'arc-site': website, space }) => {
   if (!space || !website) return data
 
+  if (!data[website]) return {}
+
   return data[website].filter(el => Object.keys(el).includes(space))[0] || {}
 }
 
