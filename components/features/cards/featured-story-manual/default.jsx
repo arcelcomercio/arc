@@ -76,7 +76,7 @@ class CardFeaturedStoryManual extends PureComponent {
 
     const validateScheduledNotes = () => {
       const filter = '{ publish_date }'
-      if (note1 !== 'undefined' && note1 !== '') {
+      if (note1 !== undefined && note1 !== '') {
         this.fetchContent({
           auxNote1: {
             source,
@@ -89,7 +89,7 @@ class CardFeaturedStoryManual extends PureComponent {
         })
       }
 
-      if (note2 !== 'undefined' && note2 !== '') {
+      if (note2 !== undefined && note2 !== '') {
         this.fetchContent({
           auxNote2: {
             source,
@@ -102,7 +102,7 @@ class CardFeaturedStoryManual extends PureComponent {
         })
       }
 
-      if (note3 !== 'undefined' && note3 !== '') {
+      if (note3 !== undefined && note3 !== '') {
         this.fetchContent({
           auxNote3: {
             source,
@@ -164,32 +164,34 @@ class CardFeaturedStoryManual extends PureComponent {
       }
     }
 
-    this.fetchContent({
-      data: {
-        source,
-        query: {
-          website_url: currentNotePath,
-        },
-        filter: schema,
-        // Si la nota programada no existe o no está publicada, usar la nota del campo "URL" (path)
-        // Esta nota se almacenará en el estado defaultData
-        transform: data => {
-          if (!data) {
-            this.fetchContent({
-              defaultData: {
-                source,
-                query: {
-                  website_url: path,
+    if (currentNotePath.length > 0) {
+      this.fetchContent({
+        data: {
+          source,
+          query: {
+            website_url: currentNotePath,
+          },
+          filter: schema,
+          // Si la nota programada no existe o no está publicada, usar la nota del campo "URL" (path)
+          // Esta nota se almacenará en el estado defaultData
+          transform: data => {
+            if (!data) {
+              this.fetchContent({
+                defaultData: {
+                  source,
+                  query: {
+                    website_url: path,
+                  },
+                  filter: schema,
                 },
-                filter: schema,
-              },
-            })
-          }
-          // /////////////////////////
-          return data
+              })
+            }
+            // /////////////////////////
+            return data
+          },
         },
-      },
-    })
+      })
+    }
   }
 
   render() {
