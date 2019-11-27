@@ -48,14 +48,23 @@ const Head = props => {
     setProfile()
   }).current
 
+  const profileUpdateHandler = React.useRef(profile => {
+    // sessionStorage.removeItem(PROFILE_FORM_NAME)
+    const conformedProfile = conformProfile(profile)
+    dispatchEvent('logged', conformedProfile)
+    setProfile(conformedProfile)
+  }).current
+
   React.useEffect(() => {
     addEventListener('currentStep', setStepForm)
     addEventListener('logout', logoutHandler)
     addEventListener('signInReq', signInReqHandler)
+    addEventListener('profileUpdate', profileUpdateHandler)
     const unregisterListeners = () => {
       removeEventListener('currentStep', setStepForm)
       removeEventListener('logout', logoutHandler)
       removeEventListener('signInReq', signInReqHandler)
+      removeEventListener('profileUpdate', profileUpdateHandler)
     }
     window.Identity.apiOrigin = interpolateUrl(urls.originApi)
     window.Identity.getUserProfile()
