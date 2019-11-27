@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 import Consumer from 'fusion:consumer'
+import ENV from 'fusion:environment'
 
 import URL from 'url-parse'
 import * as S from './styled'
@@ -99,7 +100,7 @@ const PortalInt = (props) => {
           typeDialog="students" // tipo de modal (students , landing)
           nameDialog="students" // nombre que dara al landing
           brandDialog={arcSite}
-          onLogged={ profile => {
+          onLogged={profile => {
             const conformedProfile = conformProfile(profile)
             dispatchEvent('logged', conformedProfile)
           }}
@@ -114,7 +115,7 @@ const PortalInt = (props) => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
-          {arcSite === 'gestion' && (
+          {arcSite === 'gestion' && ENV.ENVIRONMENT !== 'elcomercio' && (
             <S.LinkCorporate
               primary
               linkStyle
