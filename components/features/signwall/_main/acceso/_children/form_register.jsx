@@ -16,7 +16,7 @@ const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 // eslint-disable-next-line import/prefer-default-export
 export const FormRegister = props => {
 
-  const { typeDialog, onClose, onLogged, onLoginFail } = props
+  const { typeDialog, onClose, onLogged, onLoggedFail } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -127,7 +127,7 @@ export const FormRegister = props => {
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
-        onLoginFail(errLogin)
+        onLoggedFail(errLogin)
       })
       .finally(() => {
         setShowLoading(false)

@@ -14,7 +14,7 @@ const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 // eslint-disable-next-line import/prefer-default-export
 export const FormLoginPaywall = props => {
   
-  const { typeDialog, onClose, onLogged, onLoginFail, arcSite } = props
+  const { typeDialog, onClose, onLogged, onLoggedFail, arcSite } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
@@ -78,7 +78,7 @@ export const FormLoginPaywall = props => {
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
-        onLoginFail(errLogin) // para hendrul
+        onLoggedFail(errLogin) // para hendrul
       })
       .finally(() => {
         setShowLoading(false)

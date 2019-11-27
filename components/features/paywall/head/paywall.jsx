@@ -103,7 +103,7 @@ const Head = props => {
             dispatchEvent('logged', conformedProfile)
             setProfile(conformedProfile)
           }}
-          onLoginFail={() => {
+          onLoggedFail={() => {
             dispatchEvent('loginFailed')
           }}
         /> */}
@@ -116,7 +116,7 @@ const Head = props => {
             dispatchEvent('logged', conformedProfile)
             setProfile(conformedProfile)
           }}
-          onLoggedFail={dispatchEvent('loginFailed')}
+          onLoggedFail={() => dispatchEvent('loginFailed')}
           onClose={() => {
             setShowSignwall(!showSignwall)
           }}

@@ -104,7 +104,7 @@ const PortalInt = (props) => {
             const conformedProfile = conformProfile(profile)
             dispatchEvent('logged', conformedProfile)
           }}
-          onLoggedFail={dispatchEvent('loginFailed')}
+          onLoggedFail={() => dispatchEvent('loginFailed')}
           onClose={() => setOpenSignwall(false)}
         />
       )}

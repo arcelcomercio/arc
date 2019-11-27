@@ -46,7 +46,7 @@ class FormLoginPaywall extends Component {
 
     const { email, password } = this.state
     // TODO: onLogout esta implementado como evento de arc actualmente
-    const { onLoginFail = i => i } = this.props
+    const { onLoggedFail = i => i } = this.props
 
     if (FormValid(this.state)) {
       this.setState({ sending: false })
@@ -61,7 +61,7 @@ class FormLoginPaywall extends Component {
           this.handleGetProfile()
         })
         .catch(errLogin => {
-          onLoginFail(errLogin)
+          onLoggedFail(errLogin)
           let messageES = ''
           switch (errLogin.code) {
             case '300040':
