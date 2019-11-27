@@ -15,6 +15,7 @@ export const Base = styled.div`
 export const FirstMiddle = styled(Base)`
   width: 50%;
   height: 100%;
+  display: none;
   & img {
     display: none;
   }
