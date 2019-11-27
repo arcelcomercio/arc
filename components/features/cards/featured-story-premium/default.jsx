@@ -67,39 +67,39 @@ const FeaturedStoryPremium = props => {
   const validateScheduledNotes = () => {
     const filter = '{ publish_date additional_properties { is_published } }'
     const auxNote1 =
-      note1 !== ''
+      note1 !== undefined && note1 !== ''
         ? useContent({
-            source,
-            query: {
-              website_url: note1,
-              published: 'false',
-            },
-            filter,
-          })
+          source,
+          query: {
+            website_url: note1,
+            published: 'false',
+          },
+          filter,
+        })
         : {}
 
     const auxNote2 =
-      note2 !== ''
+      note2 !== undefined && note2 !== ''
         ? useContent({
-            source,
-            query: {
-              website_url: note2,
-              published: 'false',
-            },
-            filter,
-          })
+          source,
+          query: {
+            website_url: note2,
+            published: 'false',
+          },
+          filter,
+        })
         : {}
 
     const auxNote3 =
-      note3 !== ''
+      note3 !== undefined && note3 !== ''
         ? useContent({
-            source,
-            query: {
-              website_url: note3,
-              published: 'false',
-            },
-            filter,
-          })
+          source,
+          query: {
+            website_url: note3,
+            published: 'false',
+          },
+          filter,
+        })
         : {}
     const {
       publish_date: publishDate1,
