@@ -39,6 +39,7 @@ function WizardPayment(props) {
     printedSubscriber,
     referer,
     origin,
+    event,
   } = memo
   const { firstName, lastName, secondLastName, documentNumber } = profile
   const { orderNumber } = order
@@ -276,6 +277,7 @@ function WizardPayment(props) {
         billingFrequency={billingFrequency}
         description={description}
         summary={summary}
+        event={event}
       />
     </S.WizardPayment>
   )

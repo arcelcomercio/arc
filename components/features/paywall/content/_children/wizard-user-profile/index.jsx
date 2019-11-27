@@ -28,6 +28,7 @@ function WizardUserProfile(props) {
     profile,
     referer,
     origin,
+    event,
   } = memo
 
   const sanitizeValues = (value, key) => {
@@ -155,6 +156,7 @@ function WizardUserProfile(props) {
         billingFrequency={billingFrequency}
         description={description}
         summary={summary}
+        event={event}
       />
     </S.WizardUserProfile>
   )

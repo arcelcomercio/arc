@@ -52,7 +52,9 @@ function CardPrice(props) {
 
         <S.Content>
           <S.Frecuency mt={marginTop || mt || '20px'} marginBottom="8px">
-            {frequency[billingFrequency.toLowerCase()]}
+            {event
+              ? 'Suscripción Anual'
+              : frequency[billingFrequency.toLowerCase()]}
           </S.Frecuency>
           <S.Amount>
             <Price amount={amount} frequency={billingFrequency} />
@@ -72,11 +74,15 @@ function CardPrice(props) {
           </S.Button>
         </S.Footer>
 
-        {event && <S.NoticeText>Promoción válida hasta el 01/12/2019 <br/> para suscripciones anuales.</S.NoticeText>}
-
+        {event && (
+          <S.NoticeText>
+            Se efectuará un solo cobro por el año <br />
+            completo a S/234.
+            <br />
+            Válido hasta el 01/12/2019
+          </S.NoticeText>
+        )}
       </S.CardPrice>
-
-
     </Panel>
   )
 }

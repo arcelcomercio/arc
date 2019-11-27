@@ -13,21 +13,30 @@ const renderTemplate = (template, attributes) => {
     // eslint-disable-next-line react/jsx-filename-extension
     login: <FormLoginPaywall {...attributes} />,
     forgot: <FormForgot />,
-    register: <FormRegister {...attributes}/>,
+    register: <FormRegister {...attributes} />,
   }
   return templates[template] || templates.login
 }
 
 // eslint-disable-next-line import/prefer-default-export
 export const LandingInt = props => {
-  const { onClose, bgMmodalPng, bgMmodalWebp } = props
+  const { onClose, bgMmodalPng, onLogged, bgMmodalWebp } = props
   return (
     <ModalProvider>
       <ModalConsumer>
         {value => (
           <Modal size="medium" position="middle">
             <ContMiddle>
-              <CloseBtn type="button" onClick={() => onClose()}>
+              <CloseBtn
+                type="button"
+                onClick={() => {
+                  if (window.Identity.userProfile) {
+                    onLogged(window.Identity.userProfile)
+                    onClose()
+                  } else {
+                    onClose()
+                  }
+                }}>
                 <Close />
               </CloseBtn>
               <FirstMiddle>

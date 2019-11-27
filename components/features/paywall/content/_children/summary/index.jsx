@@ -11,6 +11,7 @@ const Summary = ({
   amount,
   description = '',
   billingFrequency,
+  event
 }) => {
   return (
     <Panel elevation={elevation} type="summary">
@@ -20,13 +21,14 @@ const Summary = ({
           amount={amount}
           description={description}
           billingFrequency={billingFrequency}
+          event={event}
         />
       </S.Summary>
     </Panel>
   )
 }
 
-const Content = ({ amount = 0, description, billingFrequency }) => {
+const Content = ({ amount = 0, description, billingFrequency, event }) => {
   const msgs = useStrings()
   const frequency = {
     month: ` ${msgs.monthlyPeriod}`,
@@ -35,6 +37,12 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
   return (
     <div>
       <S.Content>
+        {event && (
+          <p>
+            Se efectuará un solo cobro por el año completo a <br /> S/234.
+            Válido hasta el 01/12/2019.
+          </p>
+        )}
         <S.Expand size={18} style={{ paddingTop: '20px' }}>
           <strong>
             <span>{msgs.totalLabel}</span>

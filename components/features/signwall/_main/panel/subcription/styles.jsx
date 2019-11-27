@@ -40,7 +40,7 @@ export const Subsdetail = styled.div`
     }
   }
   & .details-right {
-    padding: 25px 20px;
+    padding: 30px 20px;
     width: 60%;
     color: #444444;
     background: #f4f4f4;
