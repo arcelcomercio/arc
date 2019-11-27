@@ -34,9 +34,10 @@ const WizardConfirmation = props => {
       payment = {},
       printedSubscriber,
       freeAccess,
+      event,
     },
     getCodeCxense,
-  } = props
+  } = props 
 
   const { orderNumber } = order
   const { uuid, firstName, lastName, secondLastName, email } = Object.assign(
@@ -182,7 +183,7 @@ const WizardConfirmation = props => {
             </S.DetailTitle>
             <Item label={`${msgs.planLabel.toUpperCase()}: `}>
               {(planName || '').toUpperCase()} -{' '}
-              {Frecuency[billingFrequency].toUpperCase()}
+              {event ? 'ANUAL' : Frecuency[billingFrequency].toUpperCase()}
             </Item>
             <Item label={`${msgs.nameLabel.toUpperCase()}: `}>
               <S.Names>
