@@ -80,7 +80,7 @@ const Head = props => {
     let fullName = msgs.startSession
     if (profile) {
       fullName = profile.firstName
-        ? `${profile.firstName} ${profile.lastName}`
+        ? `${profile.firstName} ${profile.lastName || ''}`.trim()
         : msgs.welcomeUser
       fullName =
         fullName.length > NAME_MAX_LENGHT
