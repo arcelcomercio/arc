@@ -61,9 +61,7 @@ const pattern = (key = {}) => {
 const resolve = key => pattern(key)
 
 const transform = data => {
-  const dataStories = data
-  const { name } = auxKey || {}
-  if (!name || !dataStories) return dataStories
+  const dataStories = data || {}
 
   const { resizerUrl, siteName } = getProperties(website)
   dataStories.content_elements = addResizedUrlsToStory(
@@ -73,6 +71,9 @@ const transform = data => {
     addResizedUrls
   )
   dataStories.siteName = siteName
+
+  const { name } = auxKey || {}
+  if (!name) return dataStories
 
   const {
     content_elements: [{ taxonomy: { tags = [] } = {} } = {}] = [],
