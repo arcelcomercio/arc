@@ -21,14 +21,9 @@ function WizardUserProfile(props) {
     setLoading,
   } = props
 
-  const {
-    summary,
-    printedSubscriber,
-    plan: { sku, priceCode, amount, description, billingFrequency },
-    profile,
-    referer,
-    origin,
-  } = memo
+  const { summary, printedSubscriber, plan, profile, referer, origin } = memo
+
+  const { sku, priceCode, billingFrequency } = plan
 
   const sanitizeValues = (value, key) => {
     if (key === 'documentType') {
@@ -150,12 +145,7 @@ function WizardUserProfile(props) {
           error={error}
         />
       </S.PanelUserProfile>
-      <Summary
-        amount={amount}
-        billingFrequency={billingFrequency}
-        description={description}
-        summary={summary}
-      />
+      <Summary plan={plan} summary={summary} />
     </S.WizardUserProfile>
   )
 }
