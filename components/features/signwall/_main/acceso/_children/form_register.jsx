@@ -278,7 +278,7 @@ export const FormRegister = props => {
             </S.Form>
           )}
 
-          {typeDialog === 'students' && <FormStudents />}
+          {(showStudents && typeDialog === 'students') && <FormStudents />}
         </>
       )}
     </ModalConsumer>

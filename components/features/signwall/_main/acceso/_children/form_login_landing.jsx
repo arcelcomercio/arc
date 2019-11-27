@@ -48,10 +48,10 @@ export const FormLoginPaywall = props => {
     // const { closePopup, reloadLogin } = this.props
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile().then(resProfile => {
+      onLogged(resProfile) // para hendrul
       if (typeDialog === 'students') {
         setShowStudents(!showStudents)
       } else {
-        onLogged(resProfile) // para hendrul
         onClose()
       }
 
