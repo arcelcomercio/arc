@@ -46,7 +46,7 @@ class Stick extends PureComponent {
       new StoryData({
         data: globalContent,
         contextPath,
-      }) || {}
+      })
 
     const aOpenApp = document.getElementById('button-app')
     // const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
@@ -161,9 +161,9 @@ class Stick extends PureComponent {
             onKeyUp={this.closeStick}
           />
           <div className={classes.logo}>
-            <img 
-              src={imgLogo} 
-              alt="Sigue actualizado en nuestra APP"              
+            <img
+              src={imgLogo}
+              alt="Sigue actualizado en nuestra APP"
             />
           </div>
           <div className={classes.description}>

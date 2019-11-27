@@ -213,7 +213,7 @@ const ParagraphshWithAdds = ({
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
-          }`
+            }`
           IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
@@ -230,7 +230,7 @@ const ParagraphshWithAdds = ({
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
-          }`
+            }`
           IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
@@ -262,7 +262,7 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
     default:
-      result = ''
+      break
   }
 
   return result
@@ -308,8 +308,8 @@ const BuildHtml = ({
         <iframe>
           <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
           <script type="text/javascript">${ScriptHeader(
-            propsScriptHeader
-          )}</script>
+      propsScriptHeader
+    )}</script>
           <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
           <script>${ScriptElement()}</script>
         </iframe>

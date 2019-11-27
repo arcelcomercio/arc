@@ -1148,7 +1148,6 @@ class StoryData {
       if (
         typeof item === 'object' &&
         item !== null &&
-        item !== undefined &&
         items[i] !== ConfigParams.HTML
       ) {
         typeMultimedia = items[i]

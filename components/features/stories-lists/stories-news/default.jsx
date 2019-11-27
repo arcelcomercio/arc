@@ -23,7 +23,7 @@ const StoriesListNew = props => {
   const { customFields: customFieldsProps = {} } = props
   const {
     storyConfig: { contentService = '', contentConfigValues = {} } = {},
-    seeMoreLink,link,
+    seeMoreLink, link,
   } = customFieldsProps
 
   const data =
@@ -33,7 +33,7 @@ const StoriesListNew = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  const { content_elements: contentElements } = data || {}
+  const { content_elements: contentElements } = data
   const stories = contentElements || []
 
   const activeAds = Object.keys(customFieldsProps)
