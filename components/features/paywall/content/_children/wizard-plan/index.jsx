@@ -49,7 +49,7 @@ function WizardPlan(props) {
   const checkingPrinted = React.useRef(false)
   const planSelected = React.useRef()
 
-  const runDeferredAction = React.useRef(() => {
+  const runDeferredAction = () => {
     switch (true) {
       case checkingPrinted.current:
         setOpenModal(true)
@@ -59,7 +59,7 @@ function WizardPlan(props) {
         break
       default:
     }
-  }).current
+  }
 
   const clearDeferredActions = React.useRef(() => {
     checkingPrinted.current = false
@@ -125,7 +125,7 @@ function WizardPlan(props) {
     }
   }, [])
 
-  const subscribePlanHandler = useRef((e, plan) => {
+  const subscribePlanHandler = (e, plan) => {
     if (!isLogged()) {
       clearDeferredActions()
       planSelected.current = plan
@@ -191,7 +191,7 @@ function WizardPlan(props) {
         )
       }, 1000)
     }
-  }).current
+  }
 
   return (
     <S.WizardPlan>
