@@ -18,6 +18,11 @@ const Footer = styled.div`
 
 const Content = styled.div`
   padding: 30px;
+  & p {
+    line-height: 20px;
+    margin: 0px;
+    margin-bottom: 20px;
+  }
 `
 
 export const Expand = styled.div`

@@ -5,13 +5,28 @@ import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import * as S from './styled'
 
-const Summary = ({
-  elevation,
-  summary,
-  amount,
-  description = '',
-  billingFrequency,
-}) => {
+const Summary = ({ overrides, elevation, summary, plan, event, arcSite }) => {
+  let _plan = plan
+  if (overrides) {
+    // Sobreescribimos los valores de los atributos del plan
+    // por los definidos en description
+    const {
+      displayFrequency: billingFrequency,
+      displayAmount: amount,
+      displayBanner: banner,
+    } = plan.description
+    let attrOverrides = {
+      billingFrequency,
+      amount,
+      banner,
+    }
+    // eliminamos atributos indefinidos
+    attrOverrides = JSON.parse(JSON.stringify(attrOverrides))
+    // creamos plan con atributos sobreescritos
+    _plan = { ...plan, ...attrOverrides }
+  }
+  const { amount, billingFrequency, description } = _plan
+
   return (
     <Panel elevation={elevation} type="summary">
       <S.Summary>
@@ -20,13 +35,21 @@ const Summary = ({
           amount={amount}
           description={description}
           billingFrequency={billingFrequency}
+          event={event}
+          arcSite={arcSite}
         />
       </S.Summary>
     </Panel>
   )
 }
 
-const Content = ({ amount = 0, description, billingFrequency }) => {
+const Content = ({
+  amount = 0,
+  description = {},
+  billingFrequency,
+  event,
+  arcSite,
+}) => {
   const msgs = useStrings()
   const frequency = {
     month: ` ${msgs.monthlyPeriod}`,
@@ -35,6 +58,12 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
   return (
     <div>
       <S.Content>
+        {event && (
+          <p>
+            Se efectuará un solo cobro por el año completo a <br /> S/{' '}
+            {arcSite === 'gestion' ? '234' : '120'}. Válido hasta el 01/12/2019.
+          </p>
+        )}
         <S.Expand size={18} style={{ paddingTop: '20px' }}>
           <strong>
             <span>{msgs.totalLabel}</span>
@@ -59,9 +88,9 @@ const Content = ({ amount = 0, description, billingFrequency }) => {
         </S.Expand>
         {/* <S.Description>{description.cart}</S.Description> */}
         <S.Description>
-          <strong>{description.title}</strong>
+          <strong>{description.title || ''}</strong>
         </S.Description>
-        <S.Description>{description.description}</S.Description>
+        <S.Description>{description.description || ''}</S.Description>
       </S.Content>
     </div>
   )

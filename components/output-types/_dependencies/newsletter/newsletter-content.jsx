@@ -31,6 +31,11 @@ const buildHeaderParagraph = paragraph => {
   return `<h2>${clearBrTag(paragraph)}</h2>`
 }
 
+const utf8ForXml =(inputStr) =>{
+  // eslint-disable-next-line no-control-regex
+  return inputStr.replace(/[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm, '');
+}
+
 const analyzeParagraph = paragraph => {
   let result = ''
   switch (paragraph.type) {
@@ -44,7 +49,7 @@ const analyzeParagraph = paragraph => {
       result += buildHeaderParagraph(paragraph.payload)
       break
     case ConfigParams.ELEMENT_RAW_HTML:
-      result += paragraph.payload
+      result += utf8ForXml(paragraph.payload)
 
       break
     default:
@@ -101,7 +106,7 @@ const StoryItem = props => {
     paragraphsNews,
   }
   const content = buildContent(buildContentParams)
-
+  // const contentreplace = utf8_for_xml(content)
   return (
     <article>
       <title>{title}</title>
@@ -132,7 +137,7 @@ const StoryItem = props => {
       <epigraph> {epigraph}</epigraph>
       <seccion> {seccion}</seccion>
       <url_seccion>{urlSeccion}</url_seccion>
-      <content>{content}</content>
+      <content>{`<![CDATA[${content}]]>`}</content>
       <autor>
         <nombre>{authorName}</nombre>
         <url>{authorUrl}</url>
@@ -145,7 +150,6 @@ const StoryItem = props => {
     </article>
   )
 }
-// const CONTENT_SOURCE = 'story-by-id'
 
 const NewsLetterContent = ({
   deployment,

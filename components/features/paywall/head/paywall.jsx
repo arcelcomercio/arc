@@ -99,22 +99,7 @@ const Head = props => {
 
   return (
     <S.Head id={id}>
-      {showSignwall ? (
-        <>
-        {/* <SignwallPaywall
-          brandModal={arcSite}
-          closePopup={() => {
-            setShowSignwall(!showSignwall)
-          }}
-          onLogged={profile => {
-            const conformedProfile = conformProfile(profile)
-            dispatchEvent('logged', conformedProfile)
-            setProfile(conformedProfile)
-          }}
-          onLoggedFail={() => {
-            dispatchEvent('loginFailed')
-          }}
-        /> */}
+      {showSignwall && (
         <Landing
           typeDialog="landing" // tipo de modal (students , landing)
           nameDialog="landing" // nombre que dara al modal
@@ -129,8 +114,7 @@ const Head = props => {
             setShowSignwall(!showSignwall)
           }}
         />
-        </>
-      ) : null}
+      )}
       <S.Background>
         <S.Left backgroundColor={leftColor} />
         <S.Right />
