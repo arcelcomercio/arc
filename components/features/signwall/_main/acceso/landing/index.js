@@ -13,7 +13,7 @@ const renderTemplate = (template, attributes) => {
     // eslint-disable-next-line react/jsx-filename-extension
     login: <FormLoginPaywall {...attributes} />,
     forgot: <FormForgot />,
-    register: <FormRegister />,
+    register: <FormRegister {...attributes}/>,
   }
   return templates[template] || templates.login
 }

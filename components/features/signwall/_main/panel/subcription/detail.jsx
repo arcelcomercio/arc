@@ -89,12 +89,16 @@ class SubDetail extends Component {
 
   componentDidMount() {
     const { IdSubscription } = this.props
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.getSubscriptionDetails(IdSubscription).then(resDetail => {
-      this.setState({
-        resDetail,
-        isLoading: false,
-        selectedOption: resDetail.currentPaymentMethod.creditCardType.toUpperCase(),
+    // window.Sales.apiOrigin = this.origin_api
+    window.Identity.options({ apiOrigin: this.origin_api })
+    window.Identity.extendSession().then(() => {
+      window.Sales.options({ apiOrigin: this.origin_api })
+      window.Sales.getSubscriptionDetails(IdSubscription).then(resDetail => {
+        this.setState({
+          resDetail,
+          isLoading: false,
+          selectedOption: resDetail.currentPaymentMethod.creditCardType.toUpperCase(),
+        })
       })
     })
   }
@@ -203,8 +207,10 @@ class SubDetail extends Component {
         disabledButton: true,
       })
 
-      window.Sales.apiOrigin = this.origin_api
+      // window.Sales.apiOrigin = this.origin_api
+      window.Identity.options({ apiOrigin: this.origin_api })
       window.Identity.extendSession().then(() => {
+        window.Sales.options({ apiOrigin: this.origin_api })
         window.Sales.getPaymentOptions().then(res => {
           const providerID = res[0].paymentMethodID // 1246
 
@@ -308,16 +314,20 @@ class SubDetail extends Component {
 
   deleteSub() {
     const { idSubsDelete } = this.state
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
-      () => {
-        this.setState({
-          isLoading: true,
-        })
-        this.closeModalConfirm()
-        window.document.getElementById('btn-mis-suscripciones').click()
-      }
-    )
+    // window.Sales.apiOrigin = this.origin_api
+    window.Identity.options({ apiOrigin: this.origin_api })
+    window.Identity.extendSession().then(() => {
+      window.Sales.options({ apiOrigin: this.origin_api })
+      window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
+        () => {
+          this.setState({
+            isLoading: true,
+          })
+          this.closeModalConfirm()
+          window.document.getElementById('btn-mis-suscripciones').click()
+        }
+      )
+    })
   }
 
   closeModalConfirm() {
@@ -406,16 +416,8 @@ class SubDetail extends Component {
                 <p>
                   <strong>BENEFICIOS</strong>
                 </p>
-                {resDetail.productName.indexOf('Universitario') >= 0 ? (
-                  <ul>
-                    <li>Acceso a Plus G: análisis e informes exclusivos.</li>
-                    <li>
-                      Potencia tu perfil: datos sobre empleabilidad, finanzas y
-                      más.
-                    </li>
-                    <li>Fácil acceso: desde cualquier dispositivo.</li>
-                  </ul>
-                ) : (
+
+                {arcSite === 'elcomercio' ? (
                   <ul>
                     <li>
                       Contenido Premium: análisis e informes exclusivamente
@@ -423,6 +425,34 @@ class SubDetail extends Component {
                     </li>
                     <li>Navegación ilimitada desde todos tus dispositivos.</li>
                   </ul>
+                ) : (
+                  <>
+                    {resDetail.productName.indexOf('Universitario') >= 0 ? (
+                      <ul>
+                        <li>
+                          Acceso a Plus G: análisis e informes exclusivos.
+                        </li>
+                        <li>
+                          Potencia tu perfil: datos sobre empleabilidad,
+                          finanzas y más.
+                        </li>
+                        <li>Fácil acceso: desde cualquier dispositivo.</li>
+                      </ul>
+                    ) : (
+                      <ul>
+                        <li>
+                          Contenido premium: análisis e informes exclusivamente
+                          desarrollados para gestion.pe. Navegación ilimitada
+                          desde todos tus dispositivos
+                        </li>
+                        <li>
+                          La mejor selección de artículos e informes elaborados
+                          por el diario Gestión, The Economist y la agencia
+                          Bloomberg
+                        </li>
+                      </ul>
+                    )}
+                  </>
                 )}
               </div>
             </S.Subsdetail>
@@ -443,8 +473,7 @@ class SubDetail extends Component {
                   return null
                 })}
                 <p>
-                  {' '}
-                  que termina en
+                  &nbsp;&nbsp; que termina en
                   <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
                 </p>
               </div>

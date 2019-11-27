@@ -20,7 +20,10 @@ export const ButtonStyleSocial = styled(Button)`
   height: 48px !important;
   display: inline-block;
   vertical-align: top;
-  padding: 0px 10px 0px 45px !important;
+  padding: ${props =>
+    props.size === 'full'
+      ? '0px 45px 0px 45px'
+      : '0px 10px 0px 45px'} !important;
   background: ${props =>
     props.brand === 'facebook' ? '#4267b2' : '#4285f4'} !important;
   border: 1px solid

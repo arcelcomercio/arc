@@ -1,12 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import styled from 'styled-components'
+import Domains from '../../utils/domains'
 import { Text, Link } from './styles'
-
-const TERMS =
-  'https://ecoid.pe/terminos_y_condiciones/108f85a3d8e750a325ced951af6cd758a90e73a34'
-const PRIVA =
-  'https://ecoid.pe/politica_privacidad/108f85a3d8e750a325ced951af6cd758a90e73a34'
 
 export const CheckContainer = styled.label`
   font-size: 12px;
@@ -60,7 +56,7 @@ export const CheckContainer = styled.label`
 `
 
 export const CheckBox = props => {
-  const { checked, type, value, onChange, valid, error } = props
+  const { checked, type, value, onChange, valid, error, arcSite } = props
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <CheckContainer>
@@ -77,7 +73,7 @@ export const CheckBox = props => {
       <Text c="gray" lh="20" s="13" className="mt-20 mb-10">
         Al crear la cuenta acepto los
         <Link
-          href={TERMS}
+          href={Domains.getPoliticsTerms('terms', arcSite)}
           target="_blank"
           c="blue"
           fw="bold"
@@ -86,7 +82,7 @@ export const CheckBox = props => {
         </Link>
         y
         <Link
-          href={PRIVA}
+          href={Domains.getPoliticsTerms('politics', arcSite)}
           target="_blank"
           c="blue"
           fw="bold"

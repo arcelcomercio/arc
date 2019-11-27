@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
+import ENV from 'fusion:environment'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
@@ -15,8 +16,7 @@ const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormRegister = props => {
-
-  const { typeDialog, onClose, onLogged, onLoggedFail } = props
+  const { typeDialog, onClose, onLogged, onLoggedFail, arcSite } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -61,8 +61,6 @@ export const FormRegister = props => {
     window.Identity.options({ apiOrigin: API_ORIGIN })
     window.Identity.getUserProfile().then(resProfile => {
       setShowConfirm(!showConfirm)
-      onLogged(resProfile)
-
       // window.console.log(resProfile)
       // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       // if (reloadLogin) {
@@ -162,8 +160,28 @@ export const FormRegister = props => {
                     Accede fácilmente con:
                   </S.Text>
 
-                  <ButtonSocial brand="facebook" size="middle" />
-                  <ButtonSocial brand="google" size="middle" />
+                  {ENV.ENVIRONMENT === 'elcomercio' ? (
+                    <ButtonSocial
+                      brand="facebook"
+                      size="full"
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                    />
+                  ) : (
+                    <>
+                      <ButtonSocial
+                        brand="facebook"
+                        size="middle"
+                        onLogged={onLogged}
+                        onClose={onClose}
+                        typeDialog={typeDialog}
+                        onStudents={() => setShowStudents(!showStudents)}
+                      />
+                      <ButtonSocial brand="google" size="middle" />
+                    </>
+                  )}
 
                   <S.Text c="gray" s="14" className="mt-20 center">
                     o completa tus datos para registrarte
@@ -211,6 +229,7 @@ export const FormRegister = props => {
                     }}
                     valid
                     error={errors.rterms}
+                    arcSite={arcSite}
                   />
 
                   <S.Text c="black" s="10" fw="bold" className="mt-10 mb-20">
@@ -249,6 +268,7 @@ export const FormRegister = props => {
                         setShowStudents(!showStudents)
                       } else {
                         onClose()
+                        onLogged(window.Identity.userProfile)
                       }
                     }}>
                     CONTINUAR

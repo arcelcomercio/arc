@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
+import ENV from 'fusion:environment'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
@@ -13,7 +14,6 @@ const API_ORIGIN = 'https://api-sandbox.gestion.pe'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormLoginPaywall = props => {
-  
   const { typeDialog, onClose, onLogged, onLoggedFail, arcSite } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
@@ -111,20 +111,28 @@ export const FormLoginPaywall = props => {
                 Ingresa con tus redes sociales
               </S.Text>
 
-              <ButtonSocial
-                brand="facebook"
-                size="middle"
-                onLogged={onLogged}
-                onClose={onClose}
-                typeDialog={typeDialog}
-                onStudents={() => setShowStudents(!showStudents)}
-                // onCloseLogged={
-                //   typeDialog === 'students'
-                //     ? setShowStudents(!showStudents)
-                //     : onClose
-                // }
-              />
-              <ButtonSocial brand="google" size="middle" />
+              {ENV.ENVIRONMENT === 'elcomercio' ? (
+                <ButtonSocial
+                  brand="facebook"
+                  size="full"
+                  onLogged={onLogged}
+                  onClose={onClose}
+                  typeDialog={typeDialog}
+                  onStudents={() => setShowStudents(!showStudents)}
+                />
+              ) : (
+                <>
+                  <ButtonSocial
+                    brand="facebook"
+                    size="middle"
+                    onLogged={onLogged}
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    onStudents={() => setShowStudents(!showStudents)}
+                  />
+                  <ButtonSocial brand="google" size="middle" />
+                </>
+              )}
 
               <S.Text c="gray" s="14" className="mt-20 center">
                 Ingresa con tu usuario
