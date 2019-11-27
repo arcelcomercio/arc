@@ -72,15 +72,6 @@ const Paywall = ({
     sessionStorage.removeItem(PAYMENT_FORM_NAME)
   }).current
 
-  // addEventListener('profile-update', () => {
-  //   try {
-  //     getProfile()
-  //     sessionStorage.removeItem(PROFILE_FORM_NAME)
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
-  // })
-
   const match = window.location.href.match(/eventos\/(\w+)/)
   const event = match ? { isEvent: true, event: match[1] } : {}
   const { pathname: basePath, query } = React.useRef(
