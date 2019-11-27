@@ -43,7 +43,7 @@ function WizardPayment(props) {
   } = memo
   const { firstName, lastName, secondLastName, documentNumber } = profile
   const { orderNumber } = order
-  const { sku, priceCode, amount, billingFrequency, description } = plan
+  const { sku, priceCode, billingFrequency } = plan
   profile.printed = !!printedSubscriber
 
   useEffect(() => {
@@ -272,13 +272,7 @@ function WizardPayment(props) {
           onSubmit={onSubmitHandler}
         />
       </S.PanelPayment>
-      <Summary
-        amount={amount}
-        billingFrequency={billingFrequency}
-        description={description}
-        summary={summary}
-        event={event}
-      />
+      <Summary plan={plan} summary={summary} event={event} />
     </S.WizardPayment>
   )
 }

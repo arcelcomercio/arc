@@ -83,29 +83,12 @@ const Paywall = ({
     })()
   ).current
 
-  const plansWithOverrides = React.useRef(
-    plans.map(plan => {
-      const {
-        displayFrequency: billingFrequency,
-        displayAmount: amount,
-        displayBanner: banner,
-      } = plan.description
-      let overrides = {
-        billingFrequency,
-        amount,
-        banner,
-      }
-      overrides = JSON.parse(JSON.stringify(overrides))
-      return { ...plan, ...overrides }
-    })
-  ).current
-
   // const [memo, setMemo] = useState({})
   const memo = useRef({
     event: event.event,
     arcSite,
-    plans: plansWithOverrides,
-    plan: plansWithOverrides[0], // Por defecto asumir seleccionado el primer plan
+    plans,
+    plan: plans[0], // Por defecto asumir seleccionado el primer plan
     summary,
     printedSubscriber,
     freeAccess,

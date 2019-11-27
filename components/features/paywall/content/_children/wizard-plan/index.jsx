@@ -223,6 +223,7 @@ function WizardPlan(props) {
                   active={
                     activePlan === priceCode || (!activePlan && idx === 0)
                   }
+                  overrides
                   event={eventCampaign}
                   marginTop={marginTop}
                   offer={banner}

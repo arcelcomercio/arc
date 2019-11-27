@@ -5,14 +5,32 @@ import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import * as S from './styled'
 
-const Summary = ({
-  elevation,
-  summary,
-  amount,
-  description = '',
-  billingFrequency,
-  event
-}) => {
+const Summary = ({ overrides, elevation, summary, plan, event }) => {
+  let _plan = plan
+  if (overrides) {
+    // Sobreescribimos los valores de los atributos del plan
+    // por los definidos en description
+    const {
+      displayFrequency: billingFrequency,
+      displayAmount: amount,
+      displayBanner: banner,
+    } = plan.description
+    let attrOverrides = {
+      billingFrequency,
+      amount,
+      banner,
+    }
+    // eliminamos atributos indefinidos
+    attrOverrides = JSON.parse(JSON.stringify(attrOverrides))
+    // creamos plan con atributos sobreescritos
+    _plan = { ...plan, ...attrOverrides }
+  }
+  const {
+    amount,
+    billingFrequency,
+    description: { description = '' },
+  } = _plan
+
   return (
     <Panel elevation={elevation} type="summary">
       <S.Summary>

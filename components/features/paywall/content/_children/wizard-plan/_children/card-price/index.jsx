@@ -28,7 +28,8 @@ function Price({ amount, frequency }) {
 function CardPrice(props) {
   const msgs = useStrings()
   const {
-    plan: { amount, billingFrequency, description },
+    plan,
+    overrides,
     onClick = i => i,
     onMouseOver,
     onFocus,
@@ -43,6 +44,27 @@ function CardPrice(props) {
     month: msgs.monthlyFrequency,
     year: msgs.yearlyFrequency,
   }
+
+  let _plan = plan
+  if (overrides) {
+    // Sobreescribimos los valores de los atributos del plan
+    // por los definidos en el objeto descripcion
+    const {
+      displayFrequency: billingFrequency,
+      displayAmount: amount,
+      displayBanner: banner,
+    } = plan.description
+    let attrOverrides = {
+      billingFrequency,
+      amount,
+      banner,
+    }
+    // eliminamos atributos indefinidos
+    attrOverrides = JSON.parse(JSON.stringify(attrOverrides))
+    // creamos plan con atributos sobreescritos
+    _plan = { ...plan, ...attrOverrides }
+  }
+  const { amount, billingFrequency, description } = _plan
 
   return (
     <Panel type="card-price" event={event}>
