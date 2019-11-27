@@ -121,7 +121,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-  } del ${date.getFullYear()}`
+    } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -219,8 +219,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}${pageNumber}/${
-        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-      }`
+    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+    }`
 }
 
 export const getMetaPagesPagination = (
@@ -319,10 +319,10 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-        .charAt(0)
-        .toUpperCase()
-        .concat(lastSection.slice(1))
-        .replace(/-/, ' ')
+      .charAt(0)
+      .toUpperCase()
+      .concat(lastSection.slice(1))
+      .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
@@ -395,16 +395,17 @@ export const defaultImage = ({
   const site = () => {
     let domain = `${arcSite}.pe`
     if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
-    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe' 
+    else if (arcSite === 'depor') domain = 'depor.com'
     return domain
   }
 
-  // TODO: Comentar esto cuando se salga a producción
-  if (arcSite === 'depor' || arcSite === 'elbocon' || arcSite === 'trome') {
+  // Solo activar para sitios que no esten aun en PROD
+  /* if (arcSite === 'sitio') {
     return deployment(
       `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
     )
-  }
+  } */
 
   return deployment(
     `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
@@ -492,7 +493,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+    }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -771,9 +772,10 @@ export const iframeMxm = (html, arcSite) => {
 }
 
 export const ampHtml = (html = '', arcSite = '') => {
-  let resultData = html
+  let resultData = ''
   // Opta Widget
-  resultData = replaceHtmlMigracion(html)
+  // Esta asignacion se esta sobreescribiendo con la que sigue.
+  // resultData = replaceHtmlMigracion(html)
 
   // Opta Widget
   resultData = deporPlay(html)
@@ -921,7 +923,7 @@ export const formatDateStoryAmp = date => {
  * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
-  data = [],
+  data,
   resizerUrl,
   resizerSecret,
   addResizedUrls,
@@ -929,6 +931,7 @@ export const addResizedUrlsToStory = (
 ) => {
   return (
     data &&
+    data.length > 0 &&
     data.map(item => {
       const storyData = item
       if (!storyData.content_elements) storyData.content_elements = []
@@ -1157,7 +1160,7 @@ export const msToTime = duration => {
     let seconds = parseInt((duration / 1000) % 60, 0)
     let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
     let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
-    hours = hours < 10 && hours < 10 ? `0${hours}:` : hours
+    hours = hours < 10 ? `0${hours}:` : hours
     minutes = minutes < 10 ? `0${minutes}` : minutes
     seconds = seconds < 10 ? `0${seconds}` : seconds
 
@@ -1189,11 +1192,15 @@ export const clearHtml = paragraph => {
   )
 }
 
-export const storyContenImage = ({ resized_urls: resizedUrls, caption }) => {
+export const storyContenImage = (
+  { resized_urls: resizedUrls, caption },
+  multimediaLazyDefault
+) => {
   return {
     multimediaLandscapeMD: resizedUrls.medium,
     multimediaStorySmall: resizedUrls.content_small,
     multimediaLarge: resizedUrls.content,
+    multimediaLazyDefault,
     caption,
   }
 }
@@ -1218,8 +1225,8 @@ export const pixelAmpDate = arcSite => {
   const month = hoy.getMonth() + 1
   const year = hoy.getFullYear()
   const pixelEc =
-    `${year}${month}${day}` === '20191123' &&
-    arcSite === ConfigParams.SITE_ELCOMERCIO
+    `${year}${month}${day}` === '20191124' &&
+      arcSite === ConfigParams.SITE_ELCOMERCIO
       ? true
       : ''
   return pixelEc

@@ -93,7 +93,6 @@ function clavisService(options, clientName, site) {
         }
         const clavis = options;
         if (
-            clavis &&
             clavis.contentId &&
             clavis.contentId.length > 0 &&
             clavis.targetingUrl &&
