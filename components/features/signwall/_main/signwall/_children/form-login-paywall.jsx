@@ -229,9 +229,11 @@ class FormLoginPaywall extends Component {
                       tabIndex="1"
                       value={email || ''}
                     />
-                    <label htmlFor="email" className="form-group__label">
+                    
+                    {/* <label htmlFor="email" className="form-group__label">
                       Correo Electrónico
-                    </label>
+                    </label> */}
+
                     {formErrors.email.length > 0 && (
                       <span className="message__error">{formErrors.email}</span>
                     )}
@@ -262,9 +264,9 @@ class FormLoginPaywall extends Component {
                       tabIndex="2"
                     />
 
-                    <label htmlFor="password" className="form-group__label">
+                    {/* <label htmlFor="password" className="form-group__label">
                       Contraseña
-                    </label>
+                    </label> */}
 
                     {formErrors.password.length > 0 && (
                       <span className="message__error">

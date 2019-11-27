@@ -48,63 +48,63 @@ const TripletChildTriplet = props => {
   return (
     <div role="list" className={classes.triplet}>
       {data.map((story, index) => {
-        console.log("indice =>" + index)
+        console.log(`indice => ${index}`)
         if (index === 0) {
           if (getSpace)
-          return (
-            <div dangerouslySetInnerHTML={createMarkup(getSpace)} />
-          )
-        }else if (index === 1) {
+            return (
+              <div dangerouslySetInnerHTML={createMarkup(getSpace)} />
+            )
+        } else if (index === 1) {
           if (getSpace2)
-          return (
-            <div dangerouslySetInnerHTML={createMarkup(getSpace2)} />
-          )
-        }else if (index === 2) {
+            return (
+              <div dangerouslySetInnerHTML={createMarkup(getSpace2)} />
+            )
+        } else if (index === 2) {
           if (getSpace3)
-          return (
-            <div dangerouslySetInnerHTML={createMarkup(getSpace3)} />
-          )
+            return (
+              <div dangerouslySetInnerHTML={createMarkup(getSpace3)} />
+            )
         }
-       return (
-        <article
-          className={classes.item}
-          role="listitem"
-          key={`triplet-${story.index}`}>
-          <div className={classes.information}>
-            <h2 className={`${classes.title} ${numline}`}>
-              <a
-                className={classes.titleLink}
-                href={story.websiteLink}
-                {...editableField(`title${index + 1}`)}
-                suppressContentEditableWarning>
-                {story.title}
+        return (
+          <article
+            className={classes.item}
+            role="listitem"
+            key={`triplet-${story.index}`}>
+            <div className={classes.information}>
+              <h2 className={`${classes.title} ${numline}`}>
+                <a
+                  className={classes.titleLink}
+                  href={story.websiteLink}
+                  {...editableField(`title${index + 1}`)}
+                  suppressContentEditableWarning>
+                  {story.title}
+                </a>
+              </h2>
+              <address className={classes.author}>
+                <a
+                  className={classes.authorLink}
+                  href={story.authorOrSectionLink}>
+                  {story.authorOrSection}
+                </a>
+              </address>
+            </div>
+            <figure className={classes.multimedia}>
+              <a className={classes.mLink} href={story.websiteLink}>
+                <img
+                  className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+                  src={
+                    isAdmin
+                      ? story.multimediaPortraitXS
+                      : story.multimediaLazyDefault
+                  }
+                  data-src={story.multimediaPortraitXS}
+                  alt={story.title}
+                />
+                <Icon type={story.multimediaType} iconClass={classes.icon} />
               </a>
-            </h2>
-            <address className={classes.author}>
-              <a
-                className={classes.authorLink}
-                href={story.authorOrSectionLink}>
-                {story.authorOrSection}
-              </a>
-            </address>
-          </div>
-          <figure className={classes.multimedia}>
-            <a className={classes.mLink} href={story.websiteLink}>
-              <img
-                className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                src={
-                  isAdmin
-                    ? story.multimediaPortraitXS
-                    : story.multimediaLazyDefault
-                }
-                data-src={story.multimediaPortraitXS}
-                alt={story.title}                
-              />
-              <Icon type={story.multimediaType} iconClass={classes.icon} />
-            </a>
-          </figure>
-        </article>
-       )
+            </figure>
+          </article>
+        )
       })}
     </div>
   )

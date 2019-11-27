@@ -1,4 +1,4 @@
-import { BLOG_TOKEN, BLOG_URL_API } from 'fusion:environment'
+import { BLOG_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 
 const resolve = key => {
@@ -13,7 +13,6 @@ const resolve = key => {
   const {
     api: { blog: urlApiblog = '' },
   } = getProperties(website)
-  // const urlApiblog = BLOG_URL_API
   const url = `${urlApiblog}?json=get_user_and_posts_by_blog_path&blog_path=${blogPath}&posts_limit=${postsLimit}&posts_offset=${pagination}&token=${process
     .env.TOKEN_BLOG || BLOG_TOKEN}`
 

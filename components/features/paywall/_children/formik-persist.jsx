@@ -27,11 +27,11 @@ class PersistImpl extends React.Component {
     const { values, touched, errors } = data
     return ignoreFields
       ? {
-          ...data,
-          values: omit(values, ignoreFields),
-          touched: omit(touched, ignoreFields),
-          errors: omit(errors, ignoreFields),
-        }
+        ...data,
+        values: omit(values, ignoreFields),
+        touched: omit(touched, ignoreFields),
+        errors: omit(errors, ignoreFields),
+      }
       : data
   }
 
@@ -46,7 +46,7 @@ class PersistImpl extends React.Component {
     const maybeState = this.props.isSessionStorage
       ? window.sessionStorage.getItem(this.props.name)
       : window.localStorage.getItem(this.props.name)
-    if (maybeState && maybeState !== null) {
+    if (maybeState) {
       const formik = this.props.formik
       const filteredState = this.omitIgnoredFields(
         JSON.parse(maybeState),

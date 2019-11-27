@@ -209,14 +209,16 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     <div className={classes.figure}>
                       <picture>
                         <source
-                          className={isAdmin ? '' : ''}
+                          // className={isAdmin ? '' : 'lazy'}
                           media="(max-width: 320px)"
+                          // srcSet={isAdmin ? ... : ...}
                           srcSet={slide.resized_urls.landscape_md}
                           data-srcset={slide.resized_urls.landscape_md}
                         />
                         <source
-                          className={isAdmin ? '' : ''}
+                          // className={isAdmin ? '' : 'lazy'}
                           media="(max-width: 769px)"
+                          // srcSet={isAdmin ? ... : ...}
                           srcSet={slide.resized_urls.story_small}
                           data-srcset={slide.resized_urls.story_small}
                         />
@@ -230,7 +232,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                           alt={slide.caption || slide.subtitle}
                           className={`${isAdmin ? '' : 'lazy'} ${
                             classes.image
-                          }`}
+                            }`}
                         />
                       </picture>
                     </div>

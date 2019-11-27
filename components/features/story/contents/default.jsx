@@ -6,7 +6,7 @@ import ArcStoryContent, {
   /* RawHtml, */
   Text,
 } from '@arc-core-components/feature_article-body'
-// import Clavis from '../../../utilities/analytics/clavis'
+import Clavis from '../../../utilities/analytics/clavis'
 import {
   appendToBody,
   createLink,
@@ -62,22 +62,22 @@ class StoryContents extends PureComponent {
     }
   }
 
-  /* getClavisConfig = () => {
+  getClavisConfig = () => {
     const { globalContent } = this.props
     const { _id, taxonomy } = globalContent || {}
     if (_id && taxonomy) {
       return {
         contentId: _id,
-        auxiliaries: taxonomy.auxiliaries
+        auxiliaries: taxonomy.auxiliaries && taxonomy.auxiliaries.length > 0
           ? taxonomy.auxiliaries.map(aux => {
-              return aux._id
-            })
+            return aux._id
+          })
           : [],
         targetingUrl: 'https://targeting.perso.aws.arc.pub/api/v1/targeting',
       }
     }
     return {}
-  } */
+  }
 
   handleOptaWidget = ({ id, css, js, defer }) => {
     // eslint-disable-next-line camelcase
@@ -138,6 +138,7 @@ class StoryContents extends PureComponent {
       multimediaLandscapeMD,
       multimediaStorySmall,
       multimediaLarge,
+      multimediaLazyDefault,
       tags,
     } = new StoryData({
       data: globalContent,
@@ -160,6 +161,7 @@ class StoryContents extends PureComponent {
       multimediaLandscapeMD,
       multimediaStorySmall,
       multimediaLarge,
+      multimediaLazyDefault,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -171,15 +173,15 @@ class StoryContents extends PureComponent {
       <>
         <div className={classes.news}>
           {primarySectionLink === '/impresa/' ||
-          primarySectionLink === '/malcriadas/' ||
-          storyTagsBbc(tags, 'portada-trome')
+            primarySectionLink === '/malcriadas/' ||
+            storyTagsBbc(tags, 'portada-trome')
             ? promoItems && <StoryContentsChildImpresa data={promoItems} />
             : promoItems &&
-              subtype !== ConfigParams.BIG_IMAGE &&
-              subtype !== ConfigParams.SPECIAL_BASIC &&
-              subtype !== ConfigParams.SPECIAL && (
-                <StoryContentsChildMultimedia data={params} />
-              )}
+            subtype !== ConfigParams.BIG_IMAGE &&
+            subtype !== ConfigParams.SPECIAL_BASIC &&
+            subtype !== ConfigParams.SPECIAL && (
+              <StoryContentsChildMultimedia data={params} />
+            )}
 
           <StoryContentsChildAuthor {...params} />
 
@@ -208,7 +210,7 @@ class StoryContents extends PureComponent {
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
                     return (
-                      <StoryContentsChildImage {...storyContenImage(element)} />
+                      <StoryContentsChildImage {...storyContenImage(element, multimediaLazyDefault)} />
                     )
                   }
                   if (type === ConfigParams.ELEMENT_VIDEO) {
@@ -221,10 +223,10 @@ class StoryContents extends PureComponent {
                             description={captionVideo}
                           />
                         ) : (
-                          <StoryContentsChildVideoNativo
-                            streams={element && element.streams}
-                          />
-                        )}
+                            <StoryContentsChildVideoNativo
+                              streams={element && element.streams}
+                            />
+                          )}
                       </>
                     )
                   }
@@ -275,8 +277,8 @@ class StoryContents extends PureComponent {
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
                       ? `${classes.textClasses} ${
-                          classes.alignmentClasses
-                        }-${alignment}`
+                      classes.alignmentClasses
+                      }-${alignment}`
                       : classes.textClasses
                     return (
                       <Text
@@ -342,7 +344,10 @@ class StoryContents extends PureComponent {
             </div>
           )}
         </div>
-        {/* <Clavis clavisConfig={this.getClavisConfig()} /> */}
+        {
+          // Pruebas de Clavis solo para peru21g21
+          arcSite === 'peru21g21' && <Clavis clavisConfig={this.getClavisConfig()} />
+        }
       </>
     )
   }

@@ -27,9 +27,7 @@ const resolve = (key = {}) => {
 
   const clearSlug = removeLastSlash(id)
 
-  return `/site/v3/website/${website}/section${
-    id === null || !id ? '' : `?_id=${clearSlug}`
-    }`
+  return `/site/v3/website/${website}/section${!id ? '' : `?_id=${clearSlug}`}`
 }
 
 const splitSections = (sections) => sections.slice(1).split('/').map(section => ` ${section

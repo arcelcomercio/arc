@@ -71,9 +71,9 @@ const transform = data => {
     addResizedUrls
   )
   dataStories.siteName = siteName
-  const { name } = auxKey || {}
 
-  if (!name || !dataStories) return dataStories
+  const { name } = auxKey || {}
+  if (!name) return dataStories
 
   const {
     content_elements: [{ credits: { by = [] } = {} } = {}] = [],
