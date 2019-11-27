@@ -66,13 +66,15 @@ const Head = props => {
       removeEventListener('signInReq', signInReqHandler)
       removeEventListener('profileUpdate', profileUpdateHandler)
     }
-    window.Identity.apiOrigin = interpolateUrl(urls.originApi)
-    window.Identity.getUserProfile()
-      .then(profile => {
-        const conformedProfile = conformProfile(profile)
-        setProfile(conformedProfile)
-      })
-      .catch(() => {})
+    if (isLogged()) {
+      window.Identity.options({ apiOrigin: interpolateUrl(urls.originApi) })
+      window.Identity.getUserProfile()
+        .then(profile => {
+          const conformedProfile = conformProfile(profile)
+          setProfile(conformedProfile)
+        })
+        .catch(() => {})
+    }
     return unregisterListeners
   }, [])
 
@@ -138,7 +140,7 @@ const Head = props => {
                 onClick={() => {
                   Taggeo(
                     `Web_Sign_Wall_Suscripciones`,
-                    `web_link_ingresar_${profile ? msgs.profile : msgs.account}`
+                    `web_link_ingresar_${profile ? 'perfil' : 'cuenta'}`
                   )
                   profile ? setIsActive(true) : setShowSignwall(true)
                 }}>
