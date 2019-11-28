@@ -22,7 +22,7 @@ class StoryData {
 
   constructor({
     data = {},
-    deployment = () => {},
+    deployment = () => { },
     contextPath = '',
     arcSite = '',
     defaultImgSize = 'md',
@@ -104,8 +104,8 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data).nameAuthor ||
       defaultAuthor +
-        this._website.charAt(0).toUpperCase() +
-        this._website.slice(1)
+      this._website.charAt(0).toUpperCase() +
+      this._website.slice(1)
     )
   }
 
@@ -472,7 +472,7 @@ class StoryData {
         this.__data.promo_items &&
         this.__data.promo_items[ConfigParams.VIDEO] &&
         this.__data.promo_items[ConfigParams.VIDEO].duration) ||
-        ''
+      ''
     )
   }
 
@@ -899,13 +899,13 @@ class StoryData {
             }) => {
               return streamType === 'mp4'
                 ? {
-                    idVideo,
-                    url,
-                    resized_urls: resizedUrlsV || resizedUrlsP,
-                    caption,
-                    urlImage: urlImage || urlImageP,
-                    date,
-                  }
+                  idVideo,
+                  url,
+                  resized_urls: resizedUrlsV || resizedUrlsP,
+                  caption,
+                  urlImage: urlImage || urlImageP,
+                  date,
+                }
                 : []
             }
           )
@@ -950,7 +950,7 @@ class StoryData {
 
   static getContentElementsText(data = [], typeElement = '') {
     return (
-      data &&
+      data && data.length > 0 &&
       data.map(({ content, type }) => {
         return type === typeElement ? formatHtmlToText(content) : []
       })
@@ -959,7 +959,7 @@ class StoryData {
 
   static getContentElementsHtml(data = [], typeElement = '') {
     return (
-      data &&
+      data && data.length > 0 &&
       data.map(({ content, type }) => {
         return type === typeElement ? content : []
       })
@@ -968,7 +968,7 @@ class StoryData {
 
   static getContentElementsImage(data = [], typeElement = '') {
     return (
-      data &&
+      data && data.length > 0 &&
       data.filter((img = {}) => {
         return img.type === typeElement
       })
@@ -977,9 +977,9 @@ class StoryData {
 
   static getContentElements(data = [], typeElement = '') {
     return (
-      data.map(item => {
+      data && data.length > 0 ? data.map(item => {
         return item.type === typeElement ? item : []
-      }) || []
+      }) : []
     )
   }
 
@@ -1001,12 +1001,12 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
-                      idVideo,
-                      url,
-                      caption,
-                      urlImage,
-                      date,
-                    }
+                    idVideo,
+                    url,
+                    caption,
+                    urlImage,
+                    date,
+                  }
                   : []
               })
               .filter(String)
@@ -1079,7 +1079,7 @@ class StoryData {
 
   static getDataAuthor(
     data,
-    { contextPath = '', deployment = () => {}, website = '' } = {}
+    { contextPath = '', deployment = () => { }, website = '' } = {}
   ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
@@ -1234,7 +1234,7 @@ class StoryData {
         data.promo_items[ConfigParams.GALLERY] &&
         data.promo_items[ConfigParams.GALLERY].promo_items &&
         data.promo_items[ConfigParams.GALLERY].promo_items[
-          ConfigParams.IMAGE
+        ConfigParams.IMAGE
         ] &&
         ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
           .resized_urls &&
