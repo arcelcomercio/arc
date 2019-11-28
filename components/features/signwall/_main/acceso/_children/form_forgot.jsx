@@ -6,11 +6,11 @@ import { ForgotPass, MsgForgotPass, Back } from '../../common/iconos'
 import { Input } from './control_input'
 import getCodeError from './codes_error'
 import useForm from './useForm'
-
-const API_ORIGIN = 'https://api-sandbox.gestion.pe'
+import Domains from '../../utils/domains'
 
 // eslint-disable-next-line import/prefer-default-export
-export const FormForgot = () => {
+export const FormForgot = props => {
+  const { arcSite } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -35,7 +35,7 @@ export const FormForgot = () => {
   const onSubmitForm = state => {
     const { femail } = state
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.requestResetPassword(femail)
       .then(() => {
         setShowConfirm(!showConfirm)
