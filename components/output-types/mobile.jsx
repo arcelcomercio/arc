@@ -415,12 +415,10 @@ export default ({
           async
           dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
         />
-        {arcSite === 'peru21g21' && (
-          <script
-            async
-            src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
-          />
-        )}
+        <script
+          async
+          src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
+        />
       </body>
     </html>
   )
