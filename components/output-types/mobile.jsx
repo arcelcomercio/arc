@@ -380,6 +380,9 @@ export default ({
           async
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
+        <script
+          src={deployment(`${contextPath}/resources/assets/mobile/dist/bundle.js`)}
+        />
       </body>
     </html>
   )
