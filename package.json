@@ -107,7 +107,7 @@
   },
   "scripts": {
     "dev": "webpack --config ./config/webpack.config.js --env.dev && gulp ",
-    "dev:all": "webpack --config ./config/webpack.config.js --env.dev --env.outputs='dmobile:css,mobile:css' && gulp",
+    "dev:all": "webpack --config ./config/webpack.config.js --env.dev --env.outputs='index, amp:css, dmobile:css,mobile:css, paywall:css' && gulp",
     "dev:amp": "webpack --config ./config/webpack.config.js --env.dev --env.amp",
     "dev:mobile": "webpack --config ./config/webpack.config.js --env.dev --env.mobile",
     "fusion": "fusion",

@@ -129,7 +129,7 @@ const HeaderInvertedMobile = props => {
     isSlider,
   }
 
-  return <HeaderChildInvertedMobile {...formatter.getParams()} {...params} />
+  return <></>
 }
 
 HeaderInvertedMobile.label = 'Cabecera - Banda superior'
