@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
-import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
-import {
-  sideScroll,
-  handleNavScroll,
-  checkDisabledIcons,
-} from '../../../../utilities/slidernav-helpers'
+import { popUpWindow } from '../../../../utilities/helpers'
+import { checkDisabledIcons } from '../../../../utilities/slidernav-helpers'
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/standard'
@@ -20,99 +16,54 @@ const LIST_WIDTH = 330
 const classes = {
   header: `header header-inverted `,
   wrapper: `w-full flex items-center `,
-  logoContainer: 'nav__mobile-logo position-absolute',
+  logoContainer: 'nav__mobile-logo',
   logo: 'header__logo',
   featured: 'header__featured ',
-  item: 'header__item flex items-center justify-center h-inherit',
-  link: 'header__link uppercase text-sm p-10',
+  item: 'header__item ',
+  link: 'header__link ',
   band: 'hidden md:block',
-  bandWrapper: 'justify-between w-full wrapper mx-auto md:flex',
-  tags: 'header__tags justify-center ml-20 mr-10 hidden md:flex',
-  date: 'header__date justify-center uppercase mr-20 hidden lg:flex',
+  bandWrapper: 'justify-between',
   navBtnContainer: `flex items-center `,
   leftBtnContainer: `left-0 ml-10 lg:ml-20`,
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
-  form: 'position-relative items-center hidden lg:flex',
-  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
+  form: 'position-relative',
+  search: `nav__input-search`,
   btnSearch: `header-inverted__btn-search `,
   iconSearch: 'icon-search text-lg',
   btnMenu: 'header-inverted__btn-menu ',
   iconMenu: 'icon-hamburguer title-sm pr-10',
-  btnProfile:
-    'items-center btn bg-base-100 text-sm hidden p-5 md:flex lg:pr-10 lg:pl-10',
+  btnProfile: 'items-center btn bg-base-100',
   btnClub: 'header-inverted__btn-club',
   btnSubs: 'header-inverted__btn-subs',
   /** ------------ */
-  navStoryTitle:
-    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15 line-h-sm',
-  navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
-  navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
+  navStoryTitle: 'nav__story-title position-absolute',
+  navStorySocialNetwork: 'nav__story-social-network',
+  navLoader: 'nav__loader-bar',
 
-  listIcon: 'story-header__list hidden md:flex justify-between rounded-sm',
+  listIcon: 'story-header__list',
   moreLink: 'story-content__more-link',
   shareItem: 'story-header__item',
-  shareLink: 'story-header__link flex items-center justify-center text-white',
+  shareLink: 'story-header__link',
   shareIcon: 'story-header__icon',
-  iconMore: 'story-header__share-icon icon-share text-white',
-  navContainerRight: 'lg:flex items-center justify-end header__btn-container',
-  btnSubscribe:
-    'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
+  iconMore: 'story-header__share-icon',
+  navContainerRight: 'header__btn-container',
+  btnSubscribe: 'story-header__subscribe',
 }
 
 // TODO: Agregar el click afuera del menu
 const HeaderChildInverted = ({
   logo,
   auxLogo,
-  bandLinks,
   menuSections,
-  tags,
-  date,
-  search,
   isStory,
   shareButtons,
   isSlider,
 }) => {
   const [scrolled, setScrolled] = useState(false)
   const [statusSidebar, setStatusSidebar] = useState(false)
-  const [statusSearch, setStatusSearch] = useState(false)
+  const [statusSearch] = useState(false)
 
   const { contextPath, siteProperties, arcSite } = useFusionContext()
-
-  const inputSearch = useRef()
-
-  const _handleSearch = () => {
-    const { value } = inputSearch.current
-    searchQuery(value)
-  }
-
-  const _handleKeyDown = e => {
-    e.preventDefault()
-    const { value } = e.target
-    if (value !== '' && e.which === 13) {
-      _handleSearch()
-    }
-  }
-
-  // Open search and automatic focus input
-  const focusInputSearch = () => {
-    inputSearch.current.focus()
-  }
-
-  // Add - Remove Class active input and button search
-  const activeSearch = () => {
-    return statusSearch ? 'active' : ''
-  }
-
-  // If input search is empty, buton close search else buton find search
-  const optionButtonClick = () => {
-    if (statusSearch) _handleSearch()
-    else focusInputSearch()
-    setStatusSearch(!statusSearch)
-  }
-
-  /** ------ // SEARCH ----- */
-
-  /** ------ SIDEBAR ----- */
 
   const toggleBodyOverflow = () => {
     if (typeof window !== 'undefined') {
@@ -195,22 +146,6 @@ const HeaderChildInverted = ({
             className={`${classes.navBtnContainer} ${
               classes.leftBtnContainer
             }`}>
-            <form className={classes.form} onSubmit={e => e.preventDefault()}>
-              <input
-                ref={inputSearch}
-                type="search"
-                defaultValue={search}
-                /* onBlur={this._handleCloseSectionsSearch} */
-                onKeyUp={_handleKeyDown}
-                placeholder="¿Qué Buscas?"
-                className={`${classes.search} ${activeSearch()}`}
-              />
-              <Button
-                iconClass={classes.iconSearch}
-                btnClass={`${classes.btnSearch} ${activeSearch()}`}
-                onClick={optionButtonClick}
-              />
-            </form>
             <Button
               iconClass={classes.iconMenu}
               btnClass={`${classes.btnMenu} ${
@@ -309,12 +244,6 @@ HeaderChildInverted.propTypes = {
     link: PropTypes.string,
     alt: PropTypes.string,
   }),
-  bandLinks: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      url: PropTypes.string,
-    })
-  ),
 }
 
 export default HeaderChildInverted
