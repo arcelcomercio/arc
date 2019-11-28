@@ -1,7 +1,12 @@
 import md5 from 'md5'
 import BuildHtml from './build-html'
 import StoryData from '../../../utilities/story-data'
-import { getMultimedia, nbspToSpace } from '../../../utilities/helpers'
+import {
+  getMultimedia,
+  nbspToSpace,
+  getActualDate,
+  formattedTime,
+} from '../../../utilities/helpers'
 
 const ListItemNews = (contentElements, buildProps) => {
   const {
@@ -85,6 +90,10 @@ const ListItemNews = (contentElements, buildProps) => {
 
           const htmlString = BuildHtml(BuildHtmlProps)
           const codigoGUID = md5(storydata.id)
+          const captureDate = getActualDate()
+
+          const today = new Date()
+          const localTime = new Date(today.setHours(today.getHours() - 5))
 
           const ItemDataXml = {
             pagePath,
@@ -94,7 +103,11 @@ const ListItemNews = (contentElements, buildProps) => {
             author: storydata.author,
             codigoGUID,
             htmlString,
+            premium: storydata.isPremium,
+            captureDate,
+            captureTime: `${localTime.getHours()}:${localTime.getMinutes()}`,
           }
+
           const template = `
           <item>
             <title> <![CDATA[${nbspToSpace(ItemDataXml.title)} ]]></title>
@@ -102,6 +115,10 @@ const ListItemNews = (contentElements, buildProps) => {
             <link>${ItemDataXml.pagePath}</link>
             <guid>${ItemDataXml.codigoGUID}</guid>
             <author>${nbspToSpace(ItemDataXml.author)}</author>
+            <premium>${ItemDataXml.premium}</premium>
+            <captureDate>${ItemDataXml.captureDate}, ${
+            ItemDataXml.captureTime
+          }</captureDate>
             <content:encoded><![CDATA[${
               ItemDataXml.htmlString
             }]]></content:encoded>
