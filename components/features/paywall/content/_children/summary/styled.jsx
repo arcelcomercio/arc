@@ -17,12 +17,18 @@ const Footer = styled.div`
 `
 
 const Content = styled.div`
-  padding: 30px;
-  & p {
-    line-height: 20px;
-    margin: 0px;
-    margin-bottom: 20px;
-  }
+  ${({ theme }) => css`
+    padding: 30px;
+    & p {
+      line-height: 20px;
+      margin: 0px;
+      margin-bottom: 20px;
+      ${theme.breakpoints.down('sm')} {
+        font-size: 14px;
+        text-align:center;
+      }
+    }
+  `}
 `
 
 export const Expand = styled.div`
