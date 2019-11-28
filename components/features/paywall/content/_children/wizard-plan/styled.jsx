@@ -15,7 +15,7 @@ export const Wrap = styled.div`
     flex: 1;
     max-width: 930px;
     width: 100%;
-    height: 360px;
+    height: ${col ? '420' : '360'}px;
     ${theme.breakpoints.down('sm')} {
       flex-direction: column;
       height: auto;
