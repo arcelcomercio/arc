@@ -51,4 +51,22 @@
   &-content__author {
     flex-direction: row;
   }
+  &-content__font--secondary {
+    font-family: $tertiary-font;
+    font-size: 21px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    margin-top: 20px;
+    a {
+      color: #4a88b1;
+      b {
+        font-family: $tertiary-font;
+      }
+    }
+    b {
+      font-family: $secondary-font;
+
+      font-size: 18px;
+    }
+  }
 }
