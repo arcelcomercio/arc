@@ -39,7 +39,7 @@ class XmlArchiveYearSitemap {
                         loc: `${siteUrl}${SITEMAP}/${year}-${m >= 9 ? m + 1 : `0${m + 1}`}/${OUTPUTTYPE}`,
                         lastmod: year === this.year && m === this.month
                             ? localISODate() // Momento actual
-                            : `${new Date(year, m + 1, 0, 24, 0, -1).toISOString().split('.')[0]}-5:00` // Ultimo dia del mes,
+                            : `${new Date(year, m + 1, 0, 24, 0, -1).toISOString().split('.')[0]}-05:00` // Ultimo dia del mes,
 
                     }
                 }
