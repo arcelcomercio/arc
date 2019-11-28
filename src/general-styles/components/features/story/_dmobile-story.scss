@@ -1,0 +1,94 @@
+.story {
+  &-header__title,
+  &-header__summary {
+    margin-bottom: 20px;
+  }
+  &-header__title,
+  &-header__summary,
+  &-content {
+    padding: 0 20px;
+  }
+  &-header__share {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-bottom-width: 1px;
+  }
+  &-header__title-section {
+    text-transform: uppercase;
+  }
+  &-content {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  &-content__caption {
+    padding-top: 10px;
+  }
+  &-content__author {
+    padding-top: 30px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    display: flex;
+  }
+  &-content__font--secondary {
+    margin-bottom: 25px;
+    margin-top: 20px;
+    line-height: 1.5;
+  }
+  &-tags {
+    margin: 25px 0 20px;
+    padding: 0 20px;
+    h2 {
+      display: inline-block;
+      margin-bottom: 5px;
+      margin-right: 5px;
+      font-weight: 400;
+    }
+  }
+  &-tags__title {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  &-tags__link {
+    padding: 5px 10px 5px 10px;
+  }
+}
+
+/* Footer de la nota */
+.footer-story {
+  .footer-secondary__logo-wrapper {
+    height: auto;
+    background-color: transparent;
+    padding: 20px 0;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-secondary__logo-link {
+    margin-bottom: 20px;
+  }
+  .footer-secondary__legal {
+    max-width: 700px;
+    width: 100%;
+    border-right: 0;
+    border-bottom: 0;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-secondary__legal-item {
+    line-height: 1.5;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 11px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+  }
+}
