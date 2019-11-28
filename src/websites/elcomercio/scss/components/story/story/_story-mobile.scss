@@ -48,15 +48,15 @@
     color: #888888;
   }
 
+  /* Información autor de la nota*/
   &-content__author {
     flex-direction: row;
   }
+
+  /* Texto cuerpo de la nota */
   &-content__font--secondary {
     font-family: $tertiary-font;
     font-size: 21px;
-    line-height: 1.5;
-    margin-bottom: 25px;
-    margin-top: 20px;
     a {
       color: #4a88b1;
       b {
@@ -65,8 +65,31 @@
     }
     b {
       font-family: $secondary-font;
-
       font-size: 18px;
     }
+  }
+  /* Tags de la nota */
+  &-tags__title {
+    font-size: 11.7px;
+    line-height: 1;
+  }
+  &-tags__link {
+    background-color: transparent;
+    color: #343434;
+    text-decoration: underline;
+    padding-left: 0;
+    font-style: italic;
+    font-family: $tertiary-font;
+    font-size: 18px;
+  }
+}
+
+/* Footer de la nota */
+.footer-story {
+  .footer-secondary__legal-item {
+    color: $color-gray-200;
+  }
+  .footer-secondary__logo-img {
+    height: 33px;
   }
 }
