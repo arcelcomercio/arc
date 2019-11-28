@@ -5,10 +5,10 @@ import { Input, Select } from './control_input'
 import useForm from './useForm'
 import Services from '../../utils/new_services'
 import Cookies from '../../utils/new_cookies'
+import Domains from '../../utils/domains'
 
-const API_ORIGIN = 'https://api-sandbox.gestion.pe'
-
-export const FormStudentsCode = () => {
+export const FormStudentsCode = props => {
+  const { arcSite } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showLinkMail, setShowLinkMail] = useState(true)
@@ -37,7 +37,7 @@ export const FormStudentsCode = () => {
 
   const sendRequestMail = () => {
     const REQUEST = JSON.parse(Cookies.getCookie('EcoId.REQUEST_STUDENTS'))
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then(resExtend => {
         Services.checkStudents(
@@ -67,7 +67,7 @@ export const FormStudentsCode = () => {
   const onSubmitFormCode = state => {
     setShowLoading(true)
     const { ucode } = state
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then(resExtend => {
         Services.checkCodeStudents(ucode, 'gestion', resExtend.accessToken)
@@ -152,7 +152,8 @@ export const FormStudentsCode = () => {
   )
 }
 
-export const FormStudents = () => {
+export const FormStudents = props => {
+  const { arcSite } = props
   const [showReqCode, setShowReqCode] = useState(false)
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
@@ -225,7 +226,7 @@ export const FormStudents = () => {
       umonth < 10 ? `0${umonth.toString()}` : umonth.toString()
     }-${uday < 10 ? `0${uday.toString()}` : uday.toString()}`
 
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then(resExtend => {
         Services.checkStudents(
@@ -408,7 +409,7 @@ export const FormStudents = () => {
           </S.Button>
         </S.Form>
       ) : (
-        <FormStudentsCode />
+        <FormStudentsCode arcSite={arcSite} />
       )}
     </>
   )
