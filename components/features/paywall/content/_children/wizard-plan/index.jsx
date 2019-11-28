@@ -107,7 +107,7 @@ function WizardPlan(props) {
 
     // Retomar sesion existente si hay una
     if (isLogged()) {
-      window.Identity.apiOrigin = interpolateUrl(urls.originApi)
+      window.Identity.options({ apiOrigin: interpolateUrl(urls.originApi) })
       window.Identity.getUserProfile().then(profile => {
         const conformedProfile = conformProfile(profile)
         setProfile(conformedProfile)
