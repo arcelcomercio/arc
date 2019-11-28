@@ -66,7 +66,7 @@ export default ({
   } = globalContent || {}
 
   const isStory =
-    (metaValue('id') === 'meta_story') ||
+    metaValue('id') === 'meta_story' ||
     requestUri.match(`^/preview/([A-Z0-9]{26})/?`) ||
     ''
 
@@ -74,8 +74,8 @@ export default ({
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-    nameSeccion.split('/')[1]
-    } ${subtype} `
+        nameSeccion.split('/')[1]
+      } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -128,7 +128,7 @@ export default ({
   const getDescription = () => {
     let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
       siteProperties.siteName
-      }.`
+    }.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
@@ -148,7 +148,7 @@ export default ({
         if (!hasDate && !hasSection) {
           description = `Archivo de noticias de ${
             siteProperties.siteName
-            }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+          }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
         }
       }
     }
@@ -161,8 +161,8 @@ export default ({
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
       : `Noticias, ${
-      siteProperties.siteName
-      }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+          siteProperties.siteName
+        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -193,17 +193,6 @@ export default ({
   const structuredTaboola = ` 
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
-
-  const structuredFacebook = `
-    (function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id))
-        return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4&appId=1626271884277579";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));`
 
   const structuredDetectIncognito = `(async function() {
     if ("storage" in navigator && "estimate" in navigator.storage) {
@@ -236,7 +225,7 @@ export default ({
     content_restrictions: { content_code: contentCode = '' } = {},
   } = globalContent || {}
 
-  const isPremium = (contentCode === 'premium') || false
+  const isPremium = contentCode === 'premium' || false
 
   const htmlAmpIs = isPremium ? '' : true
 
@@ -376,21 +365,13 @@ export default ({
             title="Google Tag Manager - No Script"
             src={`https://www.googletagmanager.com/ns.html?id=${
               siteProperties.googleTagManagerId
-              }`}
+            }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        {isStory && ( // TODO: pediente por definir comentarios por cada sitio
-          <>
-            <div id="fb-root" />
-            <script
-              defer
-              dangerouslySetInnerHTML={{ __html: structuredFacebook }}
-            />
-          </>
-        )}
+
         <div id="fusion-app" role="application">
           {children}
         </div>
@@ -439,9 +420,11 @@ export default ({
           async
           dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
         />
-        {(arcSite === 'peru21g21' || arcSite === 'ojo') && <script
-          src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
-        />}
+        {(arcSite === 'peru21g21' || arcSite === 'ojo') && (
+          <script
+            src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
+          />
+        )}
       </body>
     </html>
   )
