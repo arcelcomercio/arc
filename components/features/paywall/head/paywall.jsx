@@ -1,176 +1,190 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-shadow */
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-extra-boolean-cast */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import Consumer from 'fusion:consumer'
 
-import { addIdentity, userProfile } from '../_dependencies/Identity'
+import { conformProfile, isLogged } from '../_dependencies/Identity'
+import { interpolateUrl } from '../_dependencies/domains'
+import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
 import Signwall from '../../signwall/default'
-import SignwallPaywall from '../../signwall/_main/signwall/login-paywall'
-import GetProfile from '../../signwall/_main/utils/get-profile'
+import { Landing } from '../../signwall/_main/acceso/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
 
-@Consumer
-class Head extends React.PureComponent {
-  state = {
-    firstName: 'Invitado',
-    isActive: false,
-    showSignwall: false,
-    userName: new GetProfile().username,
-    stepForm: 1,
-  }
+const NAME_MAX_LENGHT = 10
 
-  componentDidMount() {
-    this.addEventListener('currentStep', this.currentStepHandler)
-    this.getFirstName()
-  }
+const Head = props => {
+  const msgs = useStrings()
+  const {
+    theme,
+    arcSite,
+    siteProperties: {
+      paywall: { urls },
+    },
+    customFields: { id },
+    dispatchEvent,
+    addEventListener,
+    removeEventListener,
+  } = props
 
-  componentDidUpdate() {
-    if (this.checkSession()) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        userName: new GetProfile().username,
-      })
+  const [profile, setProfile] = React.useState()
+  const [isActive, setIsActive] = React.useState(false)
+  const [showSignwall, setShowSignwall] = React.useState(false)
+  const [stepForm, setStepForm] = React.useState(1)
+
+  // eslint-disable-next-line react/sort-comp
+  const signInReqHandler = React.useRef(() => {
+    if (!isLogged()) {
+      setShowSignwall(true)
     }
-  }
+  }).current
 
-  componentWillUnmount() {
-    this.removeEventListener(this.currentStepHandler)
-  }
+  const logoutHandler = React.useRef(() => {
+    setProfile()
+  }).current
 
-  currentStepHandler = currentStep => {
-    this.setState({ stepForm: currentStep })
-  }
+  const profileUpdateHandler = React.useRef(profile => {
+    // sessionStorage.removeItem(PROFILE_FORM_NAME)
+    const conformedProfile = conformProfile(profile)
+    dispatchEvent('logged', conformedProfile)
+    setProfile(conformedProfile)
+  }).current
 
-  getFirstName = () => {
-    window.dataLayer = window.dataLayer || [] // temporalmente hasta agregar GTM
-    addIdentity(this.props.arcSite).then(() => {
-      userProfile()
-        .then(({ firstName }) => {
-          this.setState({ firstName })
+  React.useEffect(() => {
+    addEventListener('currentStep', setStepForm)
+    addEventListener('logout', logoutHandler)
+    addEventListener('signInReq', signInReqHandler)
+    addEventListener('profileUpdate', profileUpdateHandler)
+    const unregisterListeners = () => {
+      removeEventListener('currentStep', setStepForm)
+      removeEventListener('logout', logoutHandler)
+      removeEventListener('signInReq', signInReqHandler)
+      removeEventListener('profileUpdate', profileUpdateHandler)
+    }
+    if (isLogged()) {
+      window.Identity.options({ apiOrigin: interpolateUrl(urls.originApi) })
+      window.Identity.getUserProfile()
+        .then(profile => {
+          const conformedProfile = conformProfile(profile)
+          setProfile(conformedProfile)
         })
-        .catch(() => {
-          this.setState({ showSignwall: true })
-        })
-    })
-  }
-
-  checkSession = () => {
-    if (typeof window !== 'undefined') {
-      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
-      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-      if (profileStorage) {
-        return !(profileStorage === 'null' || sesionStorage === '{}') || false
-      }
+        .catch(() => {})
     }
-    return false
-  }
+    return unregisterListeners
+  }, [])
 
-  closeShowSignwall = () => {
-    const { showSignwall } = this.state
-    this.setState({ showSignwall: !showSignwall })
-    this.getFirstName()
-  }
-
-  // redirectLogo = () => {
-  //   if (window.location.pathname.includes('suscripciones/')) {
-  //     window.location.href = '/'
-  //   }
-  // }
-
-  userName = name => {
-    return name.length > 6 ? `${name.substring(0, 6)}..` : name
-  }
-
-  closeSignwall() {
-    this.setState({ isActive: false })
-  }
-
-  render() {
-    const { theme, arcSite, customFields } = this.props
-    const { showSignwall, userName, isActive, stepForm } = this.state
-    const { id, forceLogin: checkForceLogin } = customFields
-
-    let leftColor
-    let themedLogo
-    switch (arcSite) {
-      case 'elcomercio':
-        leftColor = theme.palette.terciary.main
-        themedLogo = theme.icon.logo_full
-        break
-      default:
-        leftColor = theme.palette.primary.main
-        themedLogo = theme.icon.logo
+  const getFullName = () => {
+    let fullName = msgs.startSession
+    if (profile) {
+      fullName = profile.firstName
+        ? `${profile.firstName} ${profile.lastName || ''}`.trim()
+        : msgs.welcomeUser
+      fullName =
+        fullName.length > NAME_MAX_LENGHT
+          ? `${fullName.substring(0, NAME_MAX_LENGHT)}..`
+          : fullName
     }
+    return fullName
+  }
 
-    return (
-      <S.Head id={id}>
-        {showSignwall && checkForceLogin ? (
-          <SignwallPaywall
-            brandModal={arcSite}
-            closePopup={() => this.closeShowSignwall()}
-            reloadLogin
-            noBtnClose
+  const leftColor =
+    arcSite === 'elcomercio'
+      ? theme.palette.terciary.main
+      : theme.palette.primary.main
+  const themedLogo =
+    arcSite === 'elcomercio' ? theme.icon.logo_full : theme.icon.logo
+
+  return (
+    <S.Head id={id}>
+      {showSignwall && (
+        <Landing
+          typeDialog="landing" // tipo de modal (students , landing)
+          nameDialog="landing" // nombre que dara al modal
+          brandDialog={arcSite}
+          onLogged={profile => {
+            const conformedProfile = conformProfile(profile)
+            dispatchEvent('logged', conformedProfile)
+            setProfile(conformedProfile)
+          }}
+          onLoggedFail={() => dispatchEvent('loginFailed')}
+          onClose={() => {
+            setShowSignwall(!showSignwall)
+          }}
+        />
+      )}
+      <S.Background>
+        <S.Left backgroundColor={leftColor} />
+        <S.Right />
+      </S.Background>
+      <S.Content backgroundColor={leftColor}>
+        <S.WrapLogo as="a" href="/" target="_blank">
+          <Icon
+            type={themedLogo}
+            fill={theme.palette.secondary.contrastText}
+            width="30"
+            height="30"
           />
-        ) : null}
-        <S.Background>
-          <S.Left backgroundColor={leftColor} />
-          <S.Right />
-        </S.Background>
-        <S.Content backgroundColor={leftColor}>
-          <S.WrapLogo as="a" href="/" target="_blank">
-            <Icon
-              type={themedLogo}
-              fill={theme.palette.secondary.contrastText}
-              width="30"
-              height="30"
-            />
-          </S.WrapLogo>
-          <S.WrapLogin>
-            <S.Username>
-              {stepForm !== 1 ? (
-                <span>
-                  {this.checkSession() ? `${userName}` : 'Hola Invitado'}
-                </span>
-              ) : (
-                <S.LoginButton
-                  type="button"
-                  onClick={() => {
-                    Taggeo(
-                      `Web_Sign_Wall_Suscripciones`,
-                      `web_link_ingresar_${
-                        this.checkSession() ? 'perfil' : 'cuenta'
-                      }`
-                    )
-                    this.setState({ isActive: true })
-                  }}>
-                  <span>
-                    {this.checkSession() ? `${userName}` : 'Iniciar Sesión'}
-                  </span>
-                </S.LoginButton>
-              )}
-              <S.WrapIcon>
-                <Icon
-                  type="profile"
-                  fill={theme.palette.secondary.contrastText}
-                  width="30"
-                  height="30"
-                />
-              </S.WrapIcon>
-            </S.Username>
-          </S.WrapLogin>
-        </S.Content>
-        {isActive && (
-          <Signwall singleSign closeSignwall={() => this.closeSignwall()} />
-        )}
-      </S.Head>
+        </S.WrapLogo>
+        <S.WrapLogin>
+          <S.Username>
+            {stepForm !== 1 ? (
+              <span>{getFullName()}</span>
+            ) : (
+              <S.LoginButton
+                type="button"
+                onClick={() => {
+                  Taggeo(
+                    `Web_Sign_Wall_Suscripciones`,
+                    `web_link_ingresar_${profile ? 'perfil' : 'cuenta'}`
+                  )
+                  profile ? setIsActive(true) : setShowSignwall(true)
+                }}>
+                <span>{getFullName()}</span>
+              </S.LoginButton>
+            )}
+            <S.WrapIcon>
+              <Icon
+                type="profile"
+                fill={theme.palette.secondary.contrastText}
+                width="30"
+                height="30"
+              />
+            </S.WrapIcon>
+          </S.Username>
+        </S.WrapLogin>
+      </S.Content>
+      {isActive && (
+        <Signwall
+          singleSign
+          closeSignwall={() => {
+            setIsActive(false)
+          }}
+        />
+      )}
+    </S.Head>
+  )
+}
+
+@Consumer
+class HeadWrapper extends React.Component {
+  render() {
+    return (
+      <Head
+        {...this.props}
+        dispatchEvent={this.dispatchEvent.bind(this)}
+        addEventListener={this.addEventListener.bind(this)}
+        removeEventListener={this.removeEventListener.bind(this)}
+      />
     )
   }
 }
 
-const ThemedHead = withTheme(Head)
+const ThemedHead = withTheme(HeadWrapper)
 
 ThemedHead.propTypes = {
   customFields: PropTypes.shape({

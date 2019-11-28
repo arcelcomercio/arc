@@ -21,7 +21,6 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     super(props)
     const {
       arcSite,
-      defaultImageGallery,
       contentElementGallery: { content_elements: contentElements = [] },
     } = props || {}
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-shadow */
 /* eslint-disable no-extra-boolean-cast */
 import React, { useState, useEffect, useRef } from 'react'
 import { withTheme } from 'styled-components'
@@ -11,15 +13,19 @@ import * as S from './styled'
 import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
+import { conformProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
 import PWA from '../../_dependencies/seed-pwa'
 
 function WizardPlan(props) {
   const {
     theme,
-    memo: { plans, summary, printedSubscriber, error },
+    memo: { event: eventCampaign, plans, summary, printedSubscriber, error },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
+    dispatchEvent = i => i,
+    addEventListener = i => i,
+    removeEventListener = i => i,
   } = props
 
   const { lighten } = theme.palette
@@ -35,13 +41,62 @@ function WizardPlan(props) {
 
   const [activePlan, setActivePlan] = useState()
   const [openModal, setOpenModal] = useState(false)
+  const [profile, setProfile] = useState()
   const origin = useRef('organico')
   const referer = useRef('')
+
+  // Deferred actions
+  const checkingPrinted = React.useRef(false)
+  const planSelected = React.useRef()
+
+  const runDeferredAction = () => {
+    switch (true) {
+      case checkingPrinted.current:
+        setOpenModal(true)
+        break
+      case !!planSelected.current:
+        subscribePlanHandler(null, planSelected.current)
+        break
+      default:
+    }
+  }
+
+  const clearDeferredActions = React.useRef(() => {
+    checkingPrinted.current = false
+    planSelected.current = undefined
+  }).current
+
+  const loggedHandler = React.useRef(profile => {
+    setProfile(profile)
+  }).current
+
+  const logoutHandler = React.useRef(() => {
+    clearDeferredActions()
+    setProfile()
+  }).current
+
+  const loginFailed = React.useRef(() => {
+    clearDeferredActions()
+  }).current
+
+  // Ejecutar acciones diferidas al cambiar estado de sesion
+  useEffect(() => {
+    runDeferredAction()
+    clearDeferredActions()
+  }, [profile])
 
   useEffect(() => {
     origin.current =
       window.sessionStorage.getItem('paywall_type_modal') || 'organico'
     referer.current = window.sessionStorage.getItem('paywall_last_url')
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 1 },
+        },
+      },
+    })
     sendAction(PixelActions.PAYMENT_PLAN, {
       referer: referer.current,
       medioCompra: origin.current,
@@ -49,33 +104,93 @@ function WizardPlan(props) {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
     document.getElementById('footer').style.position = 'relative'
+
+    // Retomar sesion existente si hay una
+    if (isLogged()) {
+      window.Identity.options({ apiOrigin: interpolateUrl(urls.originApi) })
+      window.Identity.getUserProfile().then(profile => {
+        const conformedProfile = conformProfile(profile)
+        setProfile(conformedProfile)
+      })
+    }
+
+    addEventListener('logged', loggedHandler)
+    addEventListener('logout', logoutHandler)
+    addEventListener('loginFailed', loginFailed)
+
+    return () => {
+      removeEventListener('logged', loggedHandler)
+      removeEventListener('logout', logoutHandler)
+      removeEventListener('loginFailed', loginFailed)
+    }
   }, [])
 
-  function subscribePlanHandler(e, plan) {
-    setLoading(true)
-    const selectedPlan = {
-      sku: plan.sku,
-      priceCode: plan.priceCode,
-      quantity: 1,
-    }
-    Sentry.addBreadcrumb({
-      category: 'compra',
-      message: 'Plan seleccionado',
-      data: selectedPlan,
-      level: Sentry.Severity.Info,
-    })
-
-    setTimeout(() => {
-      setLoading(false)
-      onBeforeNextStep(
-        {
-          plan,
-          origin: origin.current,
-          referer: referer.current,
+  const subscribePlanHandler = (e, plan) => {
+    if (!isLogged()) {
+      clearDeferredActions()
+      planSelected.current = plan
+      dispatchEvent('signInReq')
+    } else {
+      setLoading(true)
+      const selectedPlan = {
+        sku: plan.sku,
+        priceCode: plan.priceCode,
+        quantity: 1,
+      }
+      Sentry.addBreadcrumb({
+        category: 'compra',
+        message: 'Plan seleccionado',
+        data: selectedPlan,
+        level: Sentry.Severity.Info,
+      })
+      dataLayer.push({
+        event: 'productClick',
+        ecommerce: {
+          click: {
+            products: [
+              {
+                name: plan.productName,
+                id: plan.sku,
+                price: plan.amount,
+                brand: arcSite,
+                category: plan.name,
+                subCategory: plan.billingFrequency,
+              },
+            ],
+          },
         },
-        props
-      )
-    }, 1000)
+      })
+      dataLayer.push({
+        event: 'checkout',
+        ecommerce: {
+          checkout: {
+            actionField: { step: 1 },
+            products: [
+              {
+                name: plan.productName,
+                id: plan.sku,
+                price: plan.amount,
+                brand: arcSite,
+                category: plan.name,
+                subCategory: plan.billingFrequency,
+              },
+            ],
+          },
+        },
+      })
+      setTimeout(() => {
+        setLoading(false)
+        onBeforeNextStep(
+          {
+            plan,
+            profile,
+            origin: origin.current,
+            referer: referer.current,
+          },
+          props
+        )
+      }, 1000)
+    }
   }
 
   return (
@@ -84,7 +199,7 @@ function WizardPlan(props) {
       {printedSubscriber && (
         <S.Markdown>{msgs.welcomePrintedSubscriptor}</S.Markdown>
       )}
-      <S.Wrap>
+      <S.Wrap col={eventCampaign}>
         <Summary
           backgroundColor={
             arcSite === 'elcomercio'
@@ -94,25 +209,24 @@ function WizardPlan(props) {
           elevation={1}
           {...summary}
         />
-        <S.WrapPlan>
-          {arcSite === 'elcomercio' && (
+        <S.WrapPlan col={eventCampaign}>
+          {arcSite === 'elcomercio' && !eventCampaign && (
             <S.Cintillo>{msgs.offerHeadBand}</S.Cintillo>
           )}
           <S.Plans>
             {plans.map((plan, idx) => {
-              const { priceCode, billingFrequency, amount } = plan
-              const marginTop = arcSite === 'elcomercio' ? '20px' : '40px'
-              const hasOffer =
-                arcSite !== 'elcomercio' &&
-                billingFrequency === 'Month' &&
-                amount !== 0
+              const { priceCode, banner } = plan
+              const marginTop =
+                arcSite === 'elcomercio' && !eventCampaign ? '20px' : '40px'
               return (
                 <CardPrice
                   active={
                     activePlan === priceCode || (!activePlan && idx === 0)
                   }
+                  overrides
+                  event={eventCampaign}
                   marginTop={marginTop}
-                  offer={hasOffer && msgs.offerHeadBand}
+                  offer={banner}
                   key={priceCode}
                   plan={plan}
                   onMouseOver={() => setActivePlan(priceCode)}
@@ -133,10 +247,13 @@ function WizardPlan(props) {
             eventCategory: 'paywall_check_subscriptor',
             eventAction: 'submit',
           })
-          window.location.href = interpolateUrl(urls.validateSubscriptor, {
+
+          window.location.href = interpolateUrl(urls.digitalSubscriptions, {
+            isCheckingSubscriptor: true,
             documentType,
             documentNumber,
             attemptToken,
+            //...(eventCampaign ? { isEvent: true, event: eventCampaign } : {}),
           })
         }}
         onClose={() => {
@@ -145,18 +262,26 @@ function WizardPlan(props) {
             eventCategory: 'paywall_check_subscriptor',
             eventAction: 'close',
           })
-          sendAction(PixelActions.CHECK_SUBSCRIPTOR_CLOSE)
           setOpenModal(false)
         }}
       />
       {!printedSubscriber && (
         <S.ContentBanner>
           <PromoBanner
-            width="60%"
+            width={eventCampaign ? '100%' : '60%'}
+            event={eventCampaign}
             marginTop={arcSite === 'elcomercio' ? '14px' : '30px'}
             fullWidth={arcSite === 'elcomercio'}
-            text1={msgs.printedSubscriptorBanner1}
-            text2={msgs.printedSubscriptorBanner2}
+            text1={
+              eventCampaign
+                ? msgs.eventSubscriptorBanner1
+                : msgs.printedSubscriptorBanner1
+            }
+            text2={
+              eventCampaign
+                ? msgs.eventSubscriptorBanner2
+                : msgs.printedSubscriptorBanner2
+            }
             image={arcSite === 'elcomercio' && theme.images.lector}
             backgroundColor={
               arcSite === 'elcomercio'
@@ -165,26 +290,40 @@ function WizardPlan(props) {
             }
             showImage={arcSite === 'elcomercio'}
             onClick={() => {
-              window.dataLayer.push({
-                event: 'paywall_check_subscriptor',
-                eventCategory: 'paywall_check_subscriptor',
-                eventAction: 'open',
-              })
-              setOpenModal(true)
+              if (!profile) {
+                clearDeferredActions()
+                checkingPrinted.current = true
+                dispatchEvent('signInReq')
+              } else {
+                window.dataLayer.push({
+                  event: 'paywall_check_subscriptor',
+                  eventCategory: 'paywall_check_subscriptor',
+                  eventAction: 'open',
+                })
+                setOpenModal(true)
+              }
             }}
           />
-          {arcSite !== 'elcomercio' && (
-            <PromoBanner
-              width="40%"
-              ml="20px"
-              backgroundColor={theme.palette.terciary.light}
-              text1={msgs.businessSubscriptionsBanner1}
-              text2={msgs.businessSubscriptionsBanner2}
-              invertTextSizes
-              onClick={() => {
-                window.open(interpolateUrl(urls.corporateSuscription), '_blank')
-              }}
-            />
+
+          {arcSite === 'gestion' && (
+            <>
+              {!eventCampaign && (
+                <PromoBanner
+                  width="40%"
+                  ml="20px"
+                  backgroundColor={theme.palette.terciary.light}
+                  text1={msgs.businessSubscriptionsBanner1}
+                  text2={msgs.businessSubscriptionsBanner2}
+                  invertTextSizes
+                  onClick={() => {
+                    window.open(
+                      interpolateUrl(urls.corporateSuscription),
+                      '_blank'
+                    )
+                  }}
+                />
+              )}
+            </>
           )}
         </S.ContentBanner>
       )}

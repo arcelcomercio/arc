@@ -71,7 +71,7 @@
       background-color: $color-white;
     }
     * .separator__header-link {
-      font-family: $fifth-font;
+      font-family: $fourth-font;
       font-size: 45px;
       text-decoration: none;
       &:hover {
@@ -184,5 +184,5 @@
     @media (--only-mobile) {
       display: none;
     }
-  }  
+  }
 }

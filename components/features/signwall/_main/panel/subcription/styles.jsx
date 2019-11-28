@@ -11,7 +11,7 @@ export const Subsdetail = styled.div`
   width: 100%;
   display: inline-block;
   vertical-align: top;
-  background: ${props => (props.nobackground ? 'none' : ' #f4f4f4')};
+  background: ${props => (props.nobackground ? 'none' : ' #444444')};
   column-count: ${props => (props.nocolumn ? '0' : props.column)};
   line-height: 30px;
   font-size: 14px;
@@ -40,9 +40,10 @@ export const Subsdetail = styled.div`
     }
   }
   & .details-right {
-    padding: 25px 20px;
+    padding: 30px 20px;
     width: 60%;
     color: #444444;
+    background: #f4f4f4;
     @media ${device.mobile} {
       width: 100%;
     }

@@ -46,7 +46,7 @@ class ConfigParams {
 
   static COMSCORE_ID = '8429002'
 
-  static OPTA_WIDGET = 'https://assets.trome.pe/opta'
+  static OPTA_WIDGET = 'https://img.trome.pe/opta'
 
   static ELEMENT_YOUTUBE_ID = 'youtube_id'
 

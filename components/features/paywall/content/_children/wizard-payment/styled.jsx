@@ -16,7 +16,10 @@ export const WizardPayment = styled.div`
 export const PanelPayment = styled(Panel)`
   padding: 40px 50px;
   box-sizing: border-box;
-  ${({ theme }) => css`
+  border-radius: 5px;
+  background-color: #fff;
+  ${({ theme, elevation = 1 }) => css`
+    box-shadow: ${theme.shadows[elevation]};
     ${theme.breakpoints.down('md')} {
       padding: 40px 30px;
     }

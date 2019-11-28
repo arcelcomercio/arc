@@ -70,6 +70,10 @@ const Paywall = props => {
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,700&display=swap"
           rel="stylesheet"
         />
+        <script
+          src={`https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js?v=07112019`}
+          defer
+        />
       </head>
       <body onbeforeunload={() => 'message'}>
         <noscript>
