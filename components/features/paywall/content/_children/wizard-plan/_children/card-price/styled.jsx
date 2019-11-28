@@ -74,6 +74,7 @@ const Content = styled.div`
   border-radius: 5px 5px 0px 0px;
   background-color: #fff;
   padding: 10px 30px;
+  min-height: 240px;
 `
 
 export const Footer = styled.div``
