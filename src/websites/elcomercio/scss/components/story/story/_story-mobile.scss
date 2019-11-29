@@ -94,8 +94,66 @@
       }
     }
   }
-}
 
+  /* Te puede ineteresar */
+  &-interest__list {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0;
+  }
+  &__titleList {
+    border-top: 1px solid $border-gray;
+    text-align: left;
+    font-family: $primary-font;
+    padding-left: 0;
+    font-size: 16px;
+  }
+  &-interest__item {
+    border-top: 1px solid #c1c1c1;
+    padding-top: 10px;
+  }
+
+  /* Notas relacionadas */
+  .related-content {
+    &__title {
+      font-family: $primary-font;
+      border-top: 1px solid #c1c1c1;
+      border-bottom: 1px solid #c1c1c1;
+    }
+    &__link {
+      font-family: $primary-font;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      font-size: 17px;
+      line-height: 1.33;
+    }
+    &__item {
+      border-bottom: 1px dashed #c1c1c1;
+      border-top: 0;
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+    &__information {
+      order: 1;
+      padding: 10px 10px 0 10px;
+      width: calc(100% - 80px);
+    }
+    &__multimedia {
+      order: -1;
+      height: 90px;
+      width: 80px;
+    }
+    &__icon {
+      right: 10px;
+      top: 10px;
+      margin: 0;
+    }
+  }
+}
 /* Footer de la nota */
 .footer-story {
   .footer-secondary__logo-wrapper,

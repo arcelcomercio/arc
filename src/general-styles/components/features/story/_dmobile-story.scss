@@ -93,4 +93,54 @@
     font-weight: 700;
     overflow: hidden;
   }
+  &-interest {
+    padding: 0 20px;
+    width: 100%;
+  }
+  &-interest__container {
+    width: 100%;
+  }
+  &-interest__titleList {
+    padding: 20px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    width: 100%;
+    text-transform: uppercase;
+  }
+  &-interest__list {
+    padding: 0 20px;
+    display: flex;
+  }
+  &-interest__item {
+    margin-bottom: 40px;
+    width: 100%;
+  }
+  &-interest__img {
+    width: 100%;
+  }
+}
+.related-content {
+  &__list {
+    padding: 20px 20px 0 20px;
+  }
+  &__title {
+    text-transform: uppercase;
+    padding: 20px 0;
+    font-size: 16px;
+  }
+  &__title,
+  &__link {
+    font-weight: 700;
+  }
+  &__item {
+    padding: 15px 0;
+    display: flex;
+  }
+  &__multimedia {
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }
