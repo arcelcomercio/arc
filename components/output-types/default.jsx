@@ -439,7 +439,7 @@ export default ({
           async
           dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
         />
-        {(arcSite === 'peru21g21' || arcSite === 'ojo') && <script
+        {(arcSite === 'peru21g21' || arcSite === 'ojo' || arcSite === 'peru21') && <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />}
       </body>
