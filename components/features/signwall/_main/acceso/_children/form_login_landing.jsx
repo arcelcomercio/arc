@@ -10,8 +10,6 @@ import getCodeError from './codes_error'
 import { FormStudents } from './form_students'
 import Domains from '../../utils/domains'
 
-const API_ORIGIN = 'https://api-sandbox.gestion.pe'
-
 // eslint-disable-next-line import/prefer-default-export
 export const FormLoginPaywall = props => {
   const { typeDialog, onClose, onLogged, onLoggedFail, arcSite } = props
@@ -119,6 +117,7 @@ export const FormLoginPaywall = props => {
                   onClose={onClose}
                   typeDialog={typeDialog}
                   onStudents={() => setShowStudents(!showStudents)}
+                  arcSite={arcSite}
                 />
               ) : (
                 <>
@@ -129,6 +128,7 @@ export const FormLoginPaywall = props => {
                     onClose={onClose}
                     typeDialog={typeDialog}
                     onStudents={() => setShowStudents(!showStudents)}
+                    arcSite={arcSite}
                   />
                   <ButtonSocial brand="google" size="middle" />
                 </>

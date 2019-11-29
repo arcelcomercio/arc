@@ -36,7 +36,7 @@ class XmlArchiveSitemap {
                         loc: `${siteUrl}${SITEMAP}/${i}/${OUTPUTTYPE}`,
                         lastmod: i === this.year
                             ? localISODate() // Momento actual
-                            : `${new Date(i, 11, 31, 24, 0, -1).toISOString().split('.')[0]}-5:00` // 31 de Diciembre de ese anio,
+                            : `${new Date(i, 11, 31, 24, 0, -1).toISOString().split('.')[0]}-05:00` // 31 de Diciembre de ese anio,
 
                     }
                 }
