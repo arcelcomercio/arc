@@ -475,6 +475,7 @@ export default {
         basic_gallery{
           promo_items{
             basic{
+              type
               caption
               subtitle
               url
@@ -504,9 +505,11 @@ export default {
       }
       promo_items{
         basic{
+          type
           url
           width
           height
+          
           resized_urls{
             original
             landscape_md
@@ -515,6 +518,7 @@ export default {
         basic_gallery{
           promo_items{
             basic{
+              type
               caption
               subtitle
               resized_urls{
