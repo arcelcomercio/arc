@@ -1,3 +1,7 @@
-import foo from './js/test1'
+import storyContinue from './js/story-continue'
+import storyGallery from './js/story-gallery'
 
-foo()
+document.addEventListener('DOMContentLoaded', () => {
+  storyContinue()
+})
+storyGallery()
