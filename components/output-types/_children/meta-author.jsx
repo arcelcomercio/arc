@@ -54,7 +54,7 @@ export default ({
       "@type":"ListItem",
       "position":${index + 1}, 
       "url":"${canonicalUrl}"
-    }${contentElements.length - 1 > index ? ',' : ''}`
+    }`
     }
   )
 
