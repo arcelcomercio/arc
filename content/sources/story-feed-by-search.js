@@ -1,4 +1,6 @@
-import { resizerSecret } from 'fusion:environment'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import request from 'request-promise-native'
+import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
@@ -8,6 +10,11 @@ const schemaName = 'stories-dev'
 let website = '' // Variable se usa en método fuera del fetch
 let queryValue = ''
 let pageNumber = 1
+
+const options = {
+  gzip: true,
+  json: true,
+}
 
 const params = [
   {
@@ -35,17 +42,9 @@ const params = [
     displayName: 'Búsqueda',
     type: 'text',
   },
-  // date_from: 'text',
-  // date_to: 'text',
 ]
 
 const pattern = key => {
-  // if (!key.website) {
-  // 	throw new Error('This content source requires a website')
-  // }
-  // if (!key.startDate || !key.finalDate) {c
-  // 	throw new Error('This content source requires a start date and final date')
-  // }
 
   const validateFrom = () => {
     if (key.from !== '1' && key.from) {
@@ -62,7 +61,6 @@ const pattern = key => {
   const size = `${key.size || 15}`
   const section = key.section || 'todas'
 
-  // const page = `page=${'1'}`
   let valueQuery = key.query.replace(/\+/g, ' ')
   valueQuery = valueQuery.replace(/-/g, '+') || '*'
 
@@ -90,26 +88,6 @@ const pattern = key => {
     },
   }
 
-  // if(key.dateFrom && key.dateTo) {
-  // 	body.query.bool.must.push({
-  // 			range: {
-  // 				publish_date: {
-  // 					gte: `${key.date_from}T00:00:00-05:00`,
-  // 					lte: `${key.date_to}T23:59:59-05:00`
-  // 				}
-  // 			}
-  // 	})
-  // }
-
-  /* if (key.section) {
-		body.query.bool.must.push({
-      term: {
-        'taxonomy.site._id': `/${key.section}`,
-      },
-    })
-	} */
-
-  //  ''
   let encodedBody = ''
   if (section !== 'todas') {
     body.query.bool.must.push({
@@ -139,38 +117,44 @@ const pattern = key => {
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
   encodedBody = encodeURIComponent(JSON.stringify(body))
-  const requestUri = `/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}${excludedFields}`
+  const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}${excludedFields}`
 
-  return requestUri
+  return request({
+    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${section === 'todas' ? '/' : section}`,
+    ...options,
+  }).then(resp => {
+    if (Object.prototype.hasOwnProperty.call(resp, 'status'))
+      throw new Error('Sección no encontrada')
+    return request({
+      uri: requestUri,
+      ...options,
+    }).then(data => {
+      const dataStories = data
+      const { resizerUrl, siteName } = getProperties(website)
+      dataStories.content_elements = addResizedUrlsToStory(
+        dataStories.content_elements,
+        resizerUrl,
+        resizerSecret,
+        addResizedUrls
+      )
+      dataStories.siteName = siteName
+
+      return {
+        ...dataStories,
+        query: queryValue,
+        decoded_query: decodeURIComponent(queryValue).replace(/\+/g, ' '),
+        page_number: pageNumber,
+      }
+    })
+  })
 }
 
-const resolve = key => pattern(key)
-
-const transform = data => {
-  const dataStories = data
-  const { resizerUrl, siteName } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret,
-    addResizedUrls
-  )
-  dataStories.siteName = siteName
-
-  return {
-    ...dataStories,
-    query: queryValue,
-    decoded_query: decodeURIComponent(queryValue).replace(/\+/g, ' '),
-    page_number: pageNumber,
-  }
-}
+const fetch = key => pattern(key)
 
 const source = {
-  resolve,
-  transform,
+  fetch,
   schemaName,
   params,
-  // cache: false,
   ttl: 120,
 }
 
