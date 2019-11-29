@@ -113,8 +113,8 @@ export const ScriptHeader = ({
                       _sf_async_config.type = '${TipoNota}';
                       _sf_async_config.useCanonical = true; /** CONFIGURATION END **/
                       window._sf_endpt = (new Date()).getTime();
-                      var premium = '${premium}'
-                      var captureDate = '${localTime}'
+                      var premium = '${premium}';
+                      var captureDate = '${localTime}';
                       `
   return scriptTemplate
 }
