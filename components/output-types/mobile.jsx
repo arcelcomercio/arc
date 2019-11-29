@@ -5,7 +5,6 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
-import AppNexus from './_children/appnexus'
 import ChartbeatBody from './_children/chartbeat-body'
 import {
   skipAdvertising,
@@ -61,6 +60,7 @@ export default ({
     } = {},
     subtype = '',
     page_number: pageNumber = 1,
+    recent_stories: { content_elements: recentStories = [] } = {}
   } = globalContent || {}
 
   const isStory =
@@ -242,6 +242,14 @@ export default ({
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
 
+  const staticVariables = `window.MobileContent=${JSON.stringify(
+    {
+      recentStories: recentStories.map(
+        ({ canonical_url: canonicalUrl }) => canonicalUrl
+      )
+    } 
+  )}`
+
   return (
     <html lang="es">
       <head>
@@ -299,44 +307,6 @@ export default ({
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
-
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
-        )}
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-        )}
-
-        {/* Scripts de APPNEXUS */}
-
-        {!nodas && (
-          <>
-            <script
-              src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
-              async
-            />
-            <script
-              type="text/javascript"
-              src="//acdn.adnxs.com/ast/ast.js"
-              async
-            />
-          </>
-        )}
-        {/* Scripts de Chartbeat */}
-        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
-        {/* Rubicon BlueKai - Inicio */}
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-        />
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-        />
-        {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Resource path={`resources/dist/${arcSite}/css/dmobile.css`}>
           {({ data }) => {
@@ -416,8 +386,14 @@ export default ({
           dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
         />
         <script
+          dangerouslySetInnerHTML={{ __html: staticVariables }}
+        />
+        <script
           async
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
+        />
+        <script
+          src={deployment(`${contextPath}/resources/assets/mobile/dist/bundle.js`)}
         />
       </body>
     </html>
