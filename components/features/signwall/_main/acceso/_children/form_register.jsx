@@ -11,8 +11,7 @@ import getCodeError from './codes_error'
 import useForm from './useForm'
 import getDevice from '../../utils/get-device'
 import { FormStudents } from './form_students'
-
-const API_ORIGIN = 'https://api-sandbox.gestion.pe'
+import Domains from '../../utils/domains'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormRegister = props => {
@@ -58,7 +57,7 @@ export const FormRegister = props => {
 
   const handleGetProfile = () => {
     // const { closePopup, reloadLogin } = this.props
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile().then(resProfile => {
       setShowConfirm(!showConfirm)
       // window.console.log(resProfile)
@@ -74,7 +73,7 @@ export const FormRegister = props => {
   const onSubmitForm = state => {
     const { remail, rpass } = state
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: API_ORIGIN })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.signUp(
       {
         userName: remail,
@@ -278,7 +277,7 @@ export const FormRegister = props => {
             </S.Form>
           )}
 
-          {(showStudents && typeDialog === 'students') && <FormStudents />}
+          {showStudents && typeDialog === 'students' && <FormStudents />}
         </>
       )}
     </ModalConsumer>

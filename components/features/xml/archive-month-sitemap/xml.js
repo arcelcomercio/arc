@@ -43,7 +43,7 @@ class XmlArchiveMonthSitemap {
                             loc: `${siteUrl}${SITEMAP}/${year}-${month >= 10 ? month : `0${month}`}-${d >= 10 ? d : `0${d}`}-${option}/${OUTPUTTYPE}`,
                             lastmod: year === this.year && month - 1 === this.month && d === this.day
                                 ? localISODate() // Momento actual
-                                : `${new Date(year, month - 1, d, 24, 0, -1).toISOString().split('.')[0]}-5:00` // Ultima hora del dia,
+                                : `${new Date(year, month - 1, d, 24, 0, -1).toISOString().split('.')[0]}-05:00` // Ultima hora del dia,
 
                         }
                     }
