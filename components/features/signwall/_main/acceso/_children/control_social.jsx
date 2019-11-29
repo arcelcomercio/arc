@@ -6,9 +6,6 @@ import { Button } from './styles'
 import Services from '../../utils/new_services'
 import Domains from '../../utils/domains'
 
-const URL = 'https://pre.ecoid.pe'
-const API_ORIGIN = 'https://api-sandbox.gestion.pe'
-
 export const ButtonStyleSocial = styled(Button)`
   font-size: 16px;
   position: relative;
@@ -66,9 +63,10 @@ export const ButtonSocial = ({
   onLogged,
   onClose,
   onStudents,
+  arcSite,
 }) => {
   const InitGoogle = () => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI('gestion') })
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
 
     const GOOGLEID =
       '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
@@ -99,7 +97,7 @@ export const ButtonSocial = ({
     }
 
     Services.loginFBeco(
-      Domains.getOriginAPI('gestion'),
+      Domains.getOriginAPI(arcSite),
       '',
       data.accessToken,
       'facebook'
@@ -109,7 +107,7 @@ export const ButtonSocial = ({
         JSON.stringify(resLogSocial)
       )
       window.Identity.userIdentity = resLogSocial
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI('gestion') })
+      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       window.Identity.getUserProfile().then(resProfile => {
         onLogged(resProfile)
         if (typeDialog === 'students') {
