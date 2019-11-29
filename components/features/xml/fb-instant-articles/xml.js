@@ -28,7 +28,6 @@ class XmlFacebookInstantArticles {
     } = props
     const { content_elements: stories = [] } = globalContent || {}
     this.stories = stories
-
     if (siteDomain === 'elcomercio.pe') {
       // if (siteDomain === 'xxxxxasdf') {
       this.fetchContent({
@@ -42,11 +41,10 @@ class XmlFacebookInstantArticles {
         },
       })
     }
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', this.stories)
   }
 
   render() {
-    const { magStories } = this.state
+    const { magStories } = this.state || {}
     if (magStories) this.stories = [...this.stories, ...magStories]
 
     const {
@@ -111,6 +109,7 @@ class XmlFacebookInstantArticles {
                   tags: storyData.tags,
                   author: nbspToSpace(storyData.author),
                   typeNews: storyData.multimediaType,
+                  premium: storyData.isPremium,
                 }
 
                 const scriptAnaliticaProps = {

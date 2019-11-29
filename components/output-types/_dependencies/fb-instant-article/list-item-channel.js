@@ -5,7 +5,6 @@ import {
   getMultimedia,
   nbspToSpace,
   getActualDate,
-  formattedTime,
 } from '../../../utilities/helpers'
 
 const ListItemNews = (contentElements, buildProps) => {
@@ -55,6 +54,7 @@ const ListItemNews = (contentElements, buildProps) => {
             tags: storydata.tags,
             author: nbspToSpace(storydata.author),
             typeNews: storydata.multimediaType,
+            premium: storydata.isPremium,
           }
 
           const scriptAnaliticaProps = {

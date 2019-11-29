@@ -76,6 +76,7 @@ export const ScriptHeader = ({
   tags = [],
   author = '',
   typeNews,
+  premium,
 }) => {
   const listTag = tags.map(tg => tg.text && ` '${tg.text}'`).join(', ')
 
@@ -97,6 +98,9 @@ export const ScriptHeader = ({
       break
   }
 
+  const today = new Date()
+  const localTime = new Date(today.setHours(today.getHours() - 5))
+
   const scriptTemplate = `
                       var _sf_async_config = {}; /** CONFIGURATION START **/
                       _sf_async_config.uid = 57773;
@@ -109,6 +113,8 @@ export const ScriptHeader = ({
                       _sf_async_config.type = '${TipoNota}';
                       _sf_async_config.useCanonical = true; /** CONFIGURATION END **/
                       window._sf_endpt = (new Date()).getTime();
+                      var premium = '${premium}'
+                      var captureDate = '${localTime}'
                       `
   return scriptTemplate
 }
