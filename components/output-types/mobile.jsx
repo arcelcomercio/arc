@@ -60,6 +60,7 @@ export default ({
     } = {},
     subtype = '',
     page_number: pageNumber = 1,
+    recent_stories: { content_elements: recentStories = [] } = {}
   } = globalContent || {}
 
   const isStory =
@@ -241,6 +242,14 @@ export default ({
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
 
+  const staticVariables = `window.MobileContent=${JSON.stringify(
+    {
+      recentStories: recentStories.map(
+        ({ canonical_url: canonicalUrl }) => canonicalUrl
+      )
+    } 
+  )}`
+
   return (
     <html lang="es">
       <head>
@@ -375,6 +384,9 @@ export default ({
         <script
           async
           dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
+        />
+        <script
+          dangerouslySetInnerHTML={{ __html: staticVariables }}
         />
         <script
           async
