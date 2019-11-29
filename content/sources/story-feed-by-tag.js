@@ -6,7 +6,6 @@ import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory, /* getContentCurrentPage */ } from '../../components/utilities/helpers'
 import RedirectError from '../../components/utilities/redirect-error'
 
-
 const schemaName = 'stories'
 let website = ''
 let pageNumber = 1
