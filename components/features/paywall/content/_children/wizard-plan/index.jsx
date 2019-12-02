@@ -47,12 +47,16 @@ function WizardPlan(props) {
 
   // Deferred actions
   const checkingPrinted = React.useRef(false)
+  const subscribingCorporate = React.useRef(false)
   const planSelected = React.useRef()
 
   const runDeferredAction = () => {
     switch (true) {
       case checkingPrinted.current:
         setOpenModal(true)
+        break
+      case subscribingCorporate.current:
+        onCorporateSubscriptorHandler()
         break
       case !!planSelected.current:
         subscribePlanHandler(null, planSelected.current)
@@ -62,6 +66,7 @@ function WizardPlan(props) {
   }
 
   const clearDeferredActions = React.useRef(() => {
+    subscribingCorporate.current = false
     checkingPrinted.current = false
     planSelected.current = undefined
   }).current
@@ -126,7 +131,7 @@ function WizardPlan(props) {
   }, [])
 
   const subscribePlanHandler = (e, plan) => {
-    if (!isLogged()) {
+    if (!profile) {
       clearDeferredActions()
       planSelected.current = plan
       dispatchEvent('signInReq', 'landing')
@@ -190,6 +195,16 @@ function WizardPlan(props) {
           props
         )
       }, 1000)
+    }
+  }
+
+  const onCorporateSubscriptorHandler = () => {
+    if (!profile) {
+      clearDeferredActions()
+      subscribingCorporate.current = true
+      dispatchEvent('signInReq')
+    } else {
+      window.open(interpolateUrl(urls.corporateSuscription), '_blank')
     }
   }
 
@@ -315,12 +330,7 @@ function WizardPlan(props) {
                   text1={msgs.businessSubscriptionsBanner1}
                   text2={msgs.businessSubscriptionsBanner2}
                   invertTextSizes
-                  onClick={() => {
-                    window.open(
-                      interpolateUrl(urls.corporateSuscription),
-                      '_blank'
-                    )
-                  }}
+                  onClick={onCorporateSubscriptorHandler}
                 />
               )}
             </>

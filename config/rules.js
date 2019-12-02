@@ -8,17 +8,17 @@ module.exports = (mode, type = 'index') => {
       loader: 'babel-loader',
       options: {
         presets: ['@babel/preset-env'],
-        cacheDirectory: true
+        cacheDirectory: true,
         /**
          * plugins: ['@babel/plugin-transform-runtime'],
-         * 
-         * Si se piensa hacer que nuestro webpack realmente transpile JS 
-         * puro y duro, es recomendable habilitar este plugin de nuevo e 
+         *
+         * Si se piensa hacer que nuestro webpack realmente transpile JS
+         * puro y duro, es recomendable habilitar este plugin de nuevo e
          * instalar:
-         * 
+         *
          * npm install -D @babel/plugin-transform-runtime
          * npm install @babel/runtime
-         * 
+         *
          */
       },
     },
@@ -103,7 +103,7 @@ module.exports = (mode, type = 'index') => {
 
   const rules = [styles, fonts, images]
 
-  if (type !== 'amp') {
+  if (type !== 'amp' && type !== 'mobile' && type !== 'dmobile') {
     rules.unshift(javascript)
     rules.push(ico)
   }
