@@ -70,6 +70,7 @@ const Paywall = ({
   const clearPaywallStorage = useRef(() => {
     sessionStorage.removeItem(PROFILE_FORM_NAME)
     sessionStorage.removeItem(PAYMENT_FORM_NAME)
+    window.location.reload()
   }).current
 
   const match = window.location.href.match(/eventos\/(\w+)/)
