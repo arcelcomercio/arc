@@ -10,7 +10,7 @@ export default arcSite => `{
                     type 
                     url
                     resized_urls { 
-                        portrait_xs
+                        square_s
                         lazy_default
                     }
                 }
@@ -23,7 +23,7 @@ export default arcSite => `{
                     type 
                     url
                     resized_urls { 
-                        portrait_xs
+                        square_s
                         lazy_default
                     }
                 }
@@ -33,7 +33,7 @@ export default arcSite => `{
             type 
             url
             resized_urls { 
-                portrait_xs
+                square_s
                 lazy_default
             }
         }

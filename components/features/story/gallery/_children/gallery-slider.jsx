@@ -200,7 +200,10 @@ class StoryHeaderChildGallerySlider extends PureComponent {
               aria-valuemin="1"
               aria-valuemax="10"
               className={classes.body}>
-              <ul style={sliderStyle} className={classes.content}>
+              <ul
+                id="galery-ul"
+                style={sliderStyle}
+                className={classes.content}>
                 {sliders.map((slide, i) => (
                   <li
                     key={slide._id}
@@ -232,7 +235,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                           alt={slide.caption || slide.subtitle}
                           className={`${isAdmin ? '' : 'lazy'} ${
                             classes.image
-                            }`}
+                          }`}
                         />
                       </picture>
                     </div>

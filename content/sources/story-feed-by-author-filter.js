@@ -8,7 +8,7 @@ import RedirectError from '../../components/utilities/redirect-error'
 
 let website = ''
 let pageNumber = 1
-const schemaName = 'stories'
+const schemaName = 'stories-dev'
 
 const options = {
   gzip: true,
@@ -63,8 +63,10 @@ const pattern = (key = {}) => {
     uri: requestUri,
     ...options,
   }).then(data => {
-
-    if (!data || (data && data.content_elements && !data.content_elements.length > 0))
+    if (
+      !data ||
+      (data && data.content_elements && !data.content_elements.length > 0)
+    )
       throw new RedirectError('/404', 404)
 
     const dataStories = data || {}
@@ -108,6 +110,69 @@ const source = {
   schemaName,
   params,
   ttl: 120,
+  filter: `
+  content_elements {
+    subheadlines {
+      basic
+    }
+    headlines {
+      basic
+    }
+    credits {
+      by {
+        name
+        url
+        _id
+        type
+      }
+    }
+    taxonomy {
+      primary_site {
+        path
+        name
+      }
+    }
+    promo_items {
+      basic {
+        type
+        resized_urls {
+          landscape_xs
+          landscape_s
+        }
+      }
+      basic_gallery {
+        promo_items {
+          basic {
+            type
+            resized_urls {
+              landscape_xs
+              landscape_s
+            }
+          }
+        }
+      }
+      basic_video {
+        promo_items {
+          basic {
+            type
+            resized_urls {
+              landscape_xs
+              landscape_s
+            }
+          }
+        }
+      }
+    }
+    display_date
+    website_url
+  }
+  count
+  next
+  siteName
+  author_name
+  author_longBio
+  page_number
+  `,
 }
 
 export default source

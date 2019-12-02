@@ -950,28 +950,28 @@ class StoryData {
 
   static getContentElementsText(data = [], typeElement = '') {
     return (
-      data && data.length > 0 &&
-      data.map(({ content, type }) => {
-        return type === typeElement ? formatHtmlToText(content) : []
-      })
-    ).join(' ')
+      data && data.length > 0 ?
+        data.map(({ content, type }) => {
+          return type === typeElement ? formatHtmlToText(content) : []
+        }).join(' ') : ''
+    )
   }
 
   static getContentElementsHtml(data = [], typeElement = '') {
     return (
-      data && data.length > 0 &&
-      data.map(({ content, type }) => {
-        return type === typeElement ? content : []
-      })
-    ).join(' ')
+      data && data.length > 0 ?
+        data.map(({ content, type }) => {
+          return type === typeElement ? content : []
+        }).join(' ') : ''
+    )
   }
 
   static getContentElementsImage(data = [], typeElement = '') {
     return (
-      data && data.length > 0 &&
-      data.filter((img = {}) => {
-        return img.type === typeElement
-      })
+      data && data.length > 0 ?
+        data.filter((img = {}) => {
+          return img.type === typeElement
+        }) : []
     )
   }
 
