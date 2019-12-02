@@ -26,7 +26,7 @@ const Head = props => {
     siteProperties: {
       paywall: { urls },
     },
-    customFields: { id },
+    customFields: { id, forceLogin },
     dispatchEvent,
     addEventListener,
     removeEventListener,
@@ -103,7 +103,7 @@ const Head = props => {
 
   return (
     <S.Head id={id}>
-      {showSignwall && (
+      {(showSignwall || (!profile && forceLogin)) && (
         <Landing
           typeDialog={typeSignWall} // tipo de modal (students , landing)
           nameDialog={typeSignWall} // nombre de modal
@@ -117,6 +117,7 @@ const Head = props => {
             setShowSignwall(!showSignwall)
             setTypeSignWall('landing')
           }}
+          noBtnClose={!!forceLogin}
         />
       )}
       <S.Background>
