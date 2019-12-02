@@ -36,11 +36,13 @@ const Head = props => {
   const [isActive, setIsActive] = React.useState(false)
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [stepForm, setStepForm] = React.useState(1)
+  const [typeSignWall, setTypeSignWall] = React.useState('landing')
 
   // eslint-disable-next-line react/sort-comp
-  const signInReqHandler = React.useRef(() => {
-    if (!isLogged()) {
+  const signInReqHandler = React.useRef(typeSignWall => {
+    if (!isLogged() || typeSignWall === 'students') {
       setShowSignwall(true)
+      setTypeSignWall(typeSignWall)
     }
   }).current
 
@@ -103,9 +105,8 @@ const Head = props => {
     <S.Head id={id}>
       {showSignwall && (
         <Landing
-          typeDialog="landing" // tipo de modal (students , landing)
-          nameDialog="landing" // nombre que dara al modal
-          brandDialog={arcSite}
+          typeDialog={typeSignWall} // tipo de modal (students , landing)
+          nameDialog={typeSignWall} // nombre de modal
           onLogged={profile => {
             const conformedProfile = conformProfile(profile)
             dispatchEvent('logged', conformedProfile)
@@ -114,6 +115,7 @@ const Head = props => {
           onLoggedFail={() => dispatchEvent('loginFailed')}
           onClose={() => {
             setShowSignwall(!showSignwall)
+            setTypeSignWall('landing')
           }}
         />
       )}

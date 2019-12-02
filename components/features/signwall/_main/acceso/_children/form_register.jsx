@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 import ENV from 'fusion:environment'
+import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
@@ -12,6 +13,7 @@ import useForm from './useForm'
 import getDevice from '../../utils/get-device'
 import { FormStudents } from './form_students'
 import Domains from '../../utils/domains'
+import Cookies from '../../utils/new_cookies'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormRegister = props => {
@@ -56,17 +58,11 @@ export const FormRegister = props => {
   }
 
   const handleGetProfile = () => {
-    // const { closePopup, reloadLogin } = this.props
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile().then(resProfile => {
+    window.Identity.getUserProfile().then(profile => {
+      Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
       setShowConfirm(!showConfirm)
-      // window.console.log(resProfile)
-      // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
-      // if (reloadLogin) {
-      //   window.location.reload()
-      // } else {
-      //   closePopup()
-      // }
+      onLogged(profile)
     })
   }
 
@@ -267,7 +263,6 @@ export const FormRegister = props => {
                         setShowStudents(!showStudents)
                       } else {
                         onClose()
-                        onLogged(window.Identity.userProfile)
                       }
                     }}>
                     CONTINUAR
@@ -277,7 +272,9 @@ export const FormRegister = props => {
             </S.Form>
           )}
 
-          {showStudents && typeDialog === 'students' && <FormStudents />}
+          {showStudents && typeDialog === 'students' && (
+            <FormStudents {...props} />
+          )}
         </>
       )}
     </ModalConsumer>

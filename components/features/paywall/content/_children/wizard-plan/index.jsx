@@ -129,7 +129,7 @@ function WizardPlan(props) {
     if (!isLogged()) {
       clearDeferredActions()
       planSelected.current = plan
-      dispatchEvent('signInReq')
+      dispatchEvent('signInReq', 'landing')
     } else {
       setLoading(true)
       const selectedPlan = {
@@ -293,7 +293,7 @@ function WizardPlan(props) {
               if (!profile) {
                 clearDeferredActions()
                 checkingPrinted.current = true
-                dispatchEvent('signInReq')
+                dispatchEvent('signInReq', 'landing')
               } else {
                 window.dataLayer.push({
                   event: 'paywall_check_subscriptor',

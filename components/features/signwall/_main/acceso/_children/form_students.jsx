@@ -1,11 +1,13 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
+import ENV from 'fusion:environment'
 import * as S from './styles'
 import { Input, Select } from './control_input'
 import useForm from './useForm'
 import Services from '../../utils/new_services'
 import Cookies from '../../utils/new_cookies'
 import Domains from '../../utils/domains'
+
+const cookieStudents = 'EcoId.REQUEST_STUDENTS'
 
 export const FormStudentsCode = props => {
   const { arcSite } = props
@@ -36,7 +38,7 @@ export const FormStudentsCode = props => {
   // }
 
   const sendRequestMail = () => {
-    const REQUEST = JSON.parse(Cookies.getCookie('EcoId.REQUEST_STUDENTS'))
+    const REQUEST = JSON.parse(Cookies.getCookie(cookieStudents))
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then(resExtend => {
@@ -44,7 +46,7 @@ export const FormStudentsCode = props => {
           REQUEST.uemail,
           REQUEST.udate,
           REQUEST.ugrade,
-          'gestion',
+          arcSite,
           resExtend.accessToken
         )
           .then(resOk => {
@@ -70,13 +72,16 @@ export const FormStudentsCode = props => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then(resExtend => {
-        Services.checkCodeStudents(ucode, 'gestion', resExtend.accessToken)
+        Services.checkCodeStudents(ucode, arcSite, resExtend.accessToken)
           .then(resCode => {
             if (resCode.status) {
-              Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
+              Cookies.deleteCookie(cookieStudents)
               setTimeout(() => {
-                window.location.href = `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=paywall`
-              }, 2000)
+                window.location.href =
+                  ENV.ENVIRONMENT === 'elcomercio'
+                    ? `/suscripcionesdigitales/DNI/00000000/${resCode.token}/`
+                    : `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=paywall`
+              }, 1000)
             } else {
               setShowLoading(false)
               setShowError(resCode.message)
@@ -102,7 +107,6 @@ export const FormStudentsCode = props => {
   const { ucode } = values
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <S.Form onSubmit={handleOnSubmit}>
       <S.Title className="center mb-10" cp>
         PLAN UNIVERSITARIO
@@ -195,7 +199,7 @@ export const FormStudents = props => {
       required: true,
       validator: {
         func: value =>
-          /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
+          /^([\w-.]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)([\w-]+.)+[\w-]{2,4})?$/.test(
             value
           ),
         error: 'Correo Electrónico Inválido',
@@ -216,48 +220,74 @@ export const FormStudents = props => {
   }
 
   const isRequestStudents = () => {
-    return Cookies.getCookie('EcoId.REQUEST_STUDENTS')
+    return Cookies.getCookie(cookieStudents)
+  }
+
+  const daysInMonth = (m, y) => {
+    switch (m) {
+      case 1:
+        return (y % 4 === 0 && y % 100) || y % 400 === 0 ? 29 : 28
+      case 8:
+      case 3:
+      case 5:
+      case 10:
+        return 30
+      default:
+        return 31
+    }
   }
 
   const onSubmitForm = state => {
     setShowLoading(true)
     const { uemail, ugrade, uday, umonth, uyear } = state
-    const udate = `${uyear}-${
-      umonth < 10 ? `0${umonth.toString()}` : umonth.toString()
-    }-${uday < 10 ? `0${uday.toString()}` : uday.toString()}`
 
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.extendSession()
-      .then(resExtend => {
-        Services.checkStudents(
-          uemail,
-          udate,
-          ugrade,
-          'gestion',
-          resExtend.accessToken
-        )
-          .then(res => {
-            if (res.status) {
-              Cookies.setCookieSession('EcoId.REQUEST_STUDENTS', {
-                uemail,
-                udate,
-                ugrade,
-              })
-              setShowReqCode(!showReqCode)
-            }
-            setShowError(res.message)
-          })
-          .catch(() => {
-            setShowError('Oops. Ocurrió un error inesperado.')
-          })
-          .finally(() => {
-            setShowLoading(false)
-          })
-      })
-      .catch(resErr => {
-        setShowLoading(false)
-        setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
-      })
+    const Fmonth = parseInt(umonth, 10) - 1
+    if (
+      Fmonth >= 0 &&
+      Fmonth < 12 &&
+      uday > 0 &&
+      uday <= daysInMonth(Fmonth, uyear)
+    ) {
+      const udate = `${uyear}-${
+        umonth < 10 ? `0${umonth.toString()}` : umonth.toString()
+      }-${uday < 10 ? `0${uday.toString()}` : uday.toString()}`
+
+      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      window.Identity.extendSession()
+        .then(resExtend => {
+          Services.checkStudents(
+            uemail,
+            udate,
+            ugrade,
+            arcSite,
+            resExtend.accessToken
+          )
+            .then(res => {
+              if (res.status) {
+                Cookies.setCookieSession(cookieStudents, {
+                  uemail,
+                  udate,
+                  ugrade,
+                })
+                setShowReqCode(!showReqCode)
+              }
+              setShowError(res.message)
+            })
+            .catch(() => {
+              setShowError('Oops. Ocurrió un error inesperado.')
+            })
+            .finally(() => {
+              setShowLoading(false)
+            })
+        })
+        .catch(resErr => {
+          setShowLoading(false)
+          setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
+        })
+    } else {
+      setShowLoading(false)
+      setShowError('La Fecha de Nacimiento no es válida')
+    }
   }
 
   const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
@@ -269,7 +299,6 @@ export const FormStudents = props => {
   const { uemail, ugrade, uday, umonth, uyear } = values
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <>
       {!showReqCode && !isRequestStudents() ? (
         <S.Form onSubmit={handleOnSubmit}>

@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 import ENV from 'fusion:environment'
+import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
+import { FormStudents } from './form_students'
 import { Input } from './control_input'
 import useForm from './useForm'
 import getCodeError from './codes_error'
-import { FormStudents } from './form_students'
 import Domains from '../../utils/domains'
+import Cookies from '../../utils/new_cookies'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormLoginPaywall = props => {
@@ -43,23 +45,15 @@ export const FormLoginPaywall = props => {
   }
 
   const handleGetProfile = () => {
-    // const { closePopup, reloadLogin } = this.props
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile().then(resProfile => {
-      onLogged(resProfile) // para hendrul
+    window.Identity.getUserProfile().then(profile => {
+      Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+      onLogged(profile) // para hendrul
       if (typeDialog === 'students') {
         setShowStudents(!showStudents)
       } else {
         onClose()
       }
-
-      // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
-
-      // if (reloadLogin) {
-      //   window.location.reload()
-      // } else {
-      //   closePopup()
-      // }
     })
   }
 
@@ -199,7 +193,7 @@ export const FormLoginPaywall = props => {
           )}
 
           {(showStudents || isLogged()) && typeDialog === 'students' && (
-            <FormStudents />
+            <FormStudents {...props} />
           )}
         </>
       )}

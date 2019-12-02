@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import { ModalProvider, ModalConsumer } from '../../signwall/context'
 import { Modal } from '../../common/modal/index'
@@ -20,7 +20,8 @@ const renderTemplate = (template, attributes) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const LandingInt = props => {
-  const { onClose, bgMmodalPng, onLogged, bgMmodalWebp } = props
+  const { onClose, onLogged, typeDialog, pathSource } = props
+  const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
   return (
     <ModalProvider>
       <ModalConsumer>
@@ -41,11 +42,15 @@ export const LandingInt = props => {
               </CloseBtn>
               <FirstMiddle>
                 <picture>
-                  <picture>
-                    <source srcSet={bgMmodalWebp} type="image/webp" />
-                    <source srcSet={bgMmodalPng} type="image/png" />
-                    <img src={bgMmodalPng} alt="img" />
-                  </picture>
+                  <source
+                    srcSet={`${pathSource}/${IMG}.webp`}
+                    type="image/webp"
+                  />
+                  <source
+                    srcSet={`${pathSource}/${IMG}.png`}
+                    type="image/png"
+                  />
+                  <img src={`${pathSource}/${IMG}.png`} alt="img" />
                 </picture>
               </FirstMiddle>
               <SecondMiddle>
@@ -60,27 +65,18 @@ export const LandingInt = props => {
 }
 
 @Consumer
-class Landing extends React.Component {
+class Landing extends Component {
   render() {
     const { contextPath, deployment, arcSite } = this.props
 
-    const backImagePng =
-      deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bg_login.png`
-      ) || ''
-    const backImageWebp =
-      deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bg_login.webp`
-      ) || ''
+    const pathSource =
+      deployment(`${contextPath}/resources/dist/${arcSite}/images`) || ''
 
     return (
       <LandingInt
         {...this.props}
-        bgMmodalPng={backImagePng}
-        bgMmodalWebp={backImageWebp}
+        pathSource={pathSource}
         dispatchEvent={this.dispatchEvent.bind(this)}
-        addEventListener={this.addEventListener.bind(this)}
-        removeEventListener={this.removeEventListener.bind(this)}
       />
     )
   }
