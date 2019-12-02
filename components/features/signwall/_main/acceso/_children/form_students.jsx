@@ -14,6 +14,7 @@ export const FormStudentsCode = props => {
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showLinkMail, setShowLinkMail] = useState(true)
+  const EMAIL_USER = JSON.parse(Cookies.getCookie(cookieStudents)).uemail || ''
 
   const stateSchema = {
     ucode: { value: '', error: '' },
@@ -114,7 +115,9 @@ export const FormStudentsCode = props => {
 
       <S.Text c="light" s="14" lh="28" className="mb-20 center">
         Ingresa aquí el código de validación que <br /> hemos enviado a tu
-        bandeja de correo
+        bandeja de correo:
+        <br />
+        <strong>{EMAIL_USER}</strong>
       </S.Text>
 
       {showError && <S.Error>{showError}</S.Error>}

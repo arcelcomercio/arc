@@ -20,8 +20,7 @@ const renderTemplate = (template, attributes) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const LandingInt = props => {
-  const { onClose, onLogged, typeDialog, pathSource } = props
-  const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
+  const { onClose, onLogged, pathSourcePNG, pathSourceWEBP } = props
   return (
     <ModalProvider>
       <ModalConsumer>
@@ -42,15 +41,9 @@ export const LandingInt = props => {
               </CloseBtn>
               <FirstMiddle>
                 <picture>
-                  <source
-                    srcSet={`${pathSource}/${IMG}.webp`}
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet={`${pathSource}/${IMG}.png`}
-                    type="image/png"
-                  />
-                  <img src={`${pathSource}/${IMG}.png`} alt="img" />
+                  <source srcSet={pathSourceWEBP} type="image/webp" />
+                  <source srcSet={pathSourcePNG} type="image/png" />
+                  <img src={pathSourcePNG} alt="img" />
                 </picture>
               </FirstMiddle>
               <SecondMiddle>
@@ -67,15 +60,24 @@ export const LandingInt = props => {
 @Consumer
 class Landing extends Component {
   render() {
-    const { contextPath, deployment, arcSite } = this.props
+    const { contextPath, typeDialog, deployment, arcSite } = this.props
+    const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
 
-    const pathSource =
-      deployment(`${contextPath}/resources/dist/${arcSite}/images`) || ''
+    const pathSourcePNG =
+      deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/${IMG}.png`
+      ) || ''
+
+    const pathSourceWEBP =
+      deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/${IMG}.webp`
+      ) || ''
 
     return (
       <LandingInt
         {...this.props}
-        pathSource={pathSource}
+        pathSourcePNG={pathSourcePNG}
+        pathSourceWEBP={pathSourceWEBP}
         dispatchEvent={this.dispatchEvent.bind(this)}
       />
     )
