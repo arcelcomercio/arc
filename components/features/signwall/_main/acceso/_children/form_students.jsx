@@ -23,6 +23,10 @@ export const FormStudentsCode = props => {
   const stateValidSchema = {
     ucode: {
       required: true,
+      validator: {
+        func: value => /^[a-zA-Z0-9]{8,10}$/.test(value),
+        error: 'Formato inválido',
+      },
     },
   }
 
@@ -73,7 +77,7 @@ export const FormStudentsCode = props => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then(resExtend => {
-        Services.checkCodeStudents(ucode, arcSite, resExtend.accessToken)
+        Services.checkCodeStudents(ucode.trim(), arcSite, resExtend.accessToken)
           .then(resCode => {
             if (resCode.status) {
               Cookies.deleteCookie(cookieStudents)
@@ -322,16 +326,13 @@ export const FormStudents = props => {
             required
             placeholder="Correo Universitario*"
             value={uemail}
+            clase="mb-10"
             onChange={e => {
               handleOnChange(e)
               setShowError(false)
             }}
             error={errors.uemail}
           />
-
-          <S.Text c="dark" s="11" lh="24" className="mb-10">
-            *Válido de la Universidad de Lima
-          </S.Text>
 
           <p className="label">Fecha de Nacimiento</p>
 
