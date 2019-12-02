@@ -132,7 +132,7 @@ export const FormStudentsCode = props => {
         placeholder="Código de validación"
         autocomplete="off"
         clase="mb-20 center bold sz-20"
-        autocapitalize="none"
+        autocapitalize="off"
         autocorrect="off"
         required
         value={ucode}
@@ -206,7 +206,7 @@ export const FormStudents = props => {
       required: true,
       validator: {
         func: value =>
-          /^([\w-.]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)([\w-]+.)+[\w-]{2,4})?$/.test(
+          /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
             value
           ),
         error: 'Correo Electrónico Inválido',

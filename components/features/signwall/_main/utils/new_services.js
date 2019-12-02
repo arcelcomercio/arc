@@ -55,6 +55,35 @@ class Services {
     })
     return response
   }
+
+  sendNewsLettersUser(uuid, email, site, token, data) {
+    const response = new Promise(resolve => {
+      fetch(
+        `${Domains.getUrlNewsLetters()}/newsletter/events?v=${new Date().getTime()}`,
+        {
+          method: 'POST',
+          cache: 'no-cache',
+          body: JSON.stringify({
+            type: 'newsletter',
+            eventName: 'build_preference',
+            uuid,
+            email,
+            attributes: {
+              preferences: data,
+              first_name: '',
+              last_name: '',
+            },
+            brand: site,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token} ${site}`,
+          },
+        }
+      ).then(res => resolve(res.json()))
+    })
+    return response
+  }
 }
 
 export default new Services()

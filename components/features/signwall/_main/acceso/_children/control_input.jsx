@@ -68,6 +68,7 @@ export const Input = ({
   error,
   autocomplete,
   autocapitalize,
+  autocorrect,
 }) => {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
@@ -85,6 +86,7 @@ export const Input = ({
           className={`${clase} ${error && 'error'}`}
           autoComplete={autocomplete}
           autoCapitalize={autocapitalize}
+          autoCorrect={autocorrect}
         />
         <label htmlFor={name} className={error && 'error'}>
           {error || placeholder}
