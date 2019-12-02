@@ -10,9 +10,9 @@ const TripletChildTriplet = props => {
     isAdmin,
     data = [],
     multimediaOrientation = 'right',
-    getSpace = "",
-    getSpace2 = "",
-    getSpace3 = "",
+    getSpace = '',
+    getSpace2 = '',
+    getSpace3 = '',
   } = props
   const classes = {
     triplet: 'triplet bg-white border-solid border-1 border-gray p-20 row-1',
@@ -48,22 +48,15 @@ const TripletChildTriplet = props => {
   return (
     <div role="list" className={classes.triplet}>
       {data.map((story, index) => {
-        console.log(`indice => ${index}`)
         if (index === 0) {
           if (getSpace)
-            return (
-              <div dangerouslySetInnerHTML={createMarkup(getSpace)} />
-            )
+            return <div dangerouslySetInnerHTML={createMarkup(getSpace)} />
         } else if (index === 1) {
           if (getSpace2)
-            return (
-              <div dangerouslySetInnerHTML={createMarkup(getSpace2)} />
-            )
+            return <div dangerouslySetInnerHTML={createMarkup(getSpace2)} />
         } else if (index === 2) {
           if (getSpace3)
-            return (
-              <div dangerouslySetInnerHTML={createMarkup(getSpace3)} />
-            )
+            return <div dangerouslySetInnerHTML={createMarkup(getSpace3)} />
         }
         return (
           <article
@@ -94,10 +87,10 @@ const TripletChildTriplet = props => {
                   className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                   src={
                     isAdmin
-                      ? story.multimediaPortraitXS
+                      ? story.multimediaSquareS
                       : story.multimediaLazyDefault
                   }
-                  data-src={story.multimediaPortraitXS}
+                  data-src={story.multimediaSquareS}
                   alt={story.title}
                 />
                 <Icon type={story.multimediaType} iconClass={classes.icon} />
