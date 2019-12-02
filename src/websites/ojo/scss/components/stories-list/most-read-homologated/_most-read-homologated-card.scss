@@ -1,0 +1,19 @@
+// .stories-l-card{
+//     height: auto;
+//     min-height: $
+// }
+
+.stories-l-card{
+    border-style:none;
+    height: auto;
+    min-height: 374px;
+    max-height: 100%;
+}
+
+
+.most-read-homologated-card{
+    &__list{
+        padding-right: 0;
+        padding-left: 0;
+    }
+}

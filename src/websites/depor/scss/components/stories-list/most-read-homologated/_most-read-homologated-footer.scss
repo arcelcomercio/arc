@@ -1,0 +1,6 @@
+.most-read-homologated-card{
+    &__list{
+        height: calc(100% - 90px);
+        max-height: calc(100% - 40px);
+    }
+}

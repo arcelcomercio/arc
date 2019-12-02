@@ -13,6 +13,11 @@ const customFields = PropTypes.shape({
     defaultValue: 1,
     min: 1,
   }),
+  isPremium: PropTypes.bool.tag({
+    name: 'Premium ?',
+    defaultValue: true,
+    description: 'Por el momento Gestion y el Comercio solo son premium'
+  }),
   background: PropTypes.oneOf(['bg-info', 'bg-white']).tag({
     name: 'Color de fondo cabecera',
     labels: {
@@ -41,6 +46,7 @@ const customFields = PropTypes.shape({
   }),
   freeHTML: PropTypes.richtext.tag({
     name: 'Insertar título con código HTML',
+    group: 'Configuración'
   }),  
 })
 

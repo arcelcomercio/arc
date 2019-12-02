@@ -1,0 +1,19 @@
+
+.most-read-homologated-header{
+    background-color:#d0e7d9;
+    justify-content: space-between;
+    border: 1px solid #007d33;
+    &__title{
+        font-family: $primary-font;
+        font-weight: 400;
+        color:#007d33;
+        font-size: 15px;
+    }
+    &__see-more{
+        display:none;
+    }
+    &__icon{
+        display:block;
+        color:#007d33;
+    }
+}

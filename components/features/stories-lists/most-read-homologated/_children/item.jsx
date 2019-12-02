@@ -29,7 +29,7 @@ export default ({
   return (
     <article role="listitem" className={classes.story}>
       <div className={classes.linkBox}>
-        {storyNumber && <span className={classes.time}>-{storyIndex}-</span>}
+        {storyNumber && <span className={classes.time}>{storyIndex}</span>}
 
         <div className={classes.boxNew}>
           {seeImageNews && (

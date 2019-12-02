@@ -6,7 +6,7 @@ const classes = {
     'most-read-homologated-footer__link flex items-center uppercase text-gray-200 text-xs',
 }
 
-export default ({ seeMore, seeMoreurl, freeHTML}) => {
+export default ({ seeMore, seeMoreurl}) => {
   return (
     <>
       {seeMore && (
@@ -15,12 +15,6 @@ export default ({ seeMore, seeMoreurl, freeHTML}) => {
             Ver más
           </a>
         </div>
-      )}
-      {freeHTML && (
-        <div
-          className={classes.mrHTML}
-          dangerouslySetInnerHTML={{ __html: freeHTML }}
-        />
       )}
     </>
   )

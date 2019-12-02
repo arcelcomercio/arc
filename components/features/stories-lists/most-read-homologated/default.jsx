@@ -7,7 +7,8 @@ import customFields from './_dependencies/custom-fields'
 
 import Header from './_children/header'
 import List from './_children/list'
-import Footer from './_children/footer'
+import SeeMore from './_children/see-more'
+import FreeHtml from './_children/free-html'
 
 const classes = {
   lista:
@@ -27,7 +28,8 @@ const MostReadHomologated = props => {
       seeMoreurl,
       storyNumber,
       seeImageNews,
-      freeHTML
+      freeHTML,
+      isPremium
     },
   } = props
   const { content_elements: contentElements } =
@@ -35,6 +37,7 @@ const MostReadHomologated = props => {
       source: 'get-most-read-story',
       query: {
         amountStories,
+        isPremium: isPremium === true ? 1 : 0
       },
     }) || []
 
@@ -57,13 +60,14 @@ const MostReadHomologated = props => {
   }
 
   return (
-    <div className={classes.lista}>
-      <div className={seeMore ? classes.containerList : 'h-full pb-15'}>
-        <Header {...paramsHeader} />
-        <List {...paramsList} />
+      <div className={classes.lista}>
+        <div className={seeMore ? classes.containerList : 'h-full pb-15'}>
+          <Header {...paramsHeader} />
+          <List {...paramsList} />
+          {seeMore && <SeeMore {...{ seeMore, seeMoreurl}} />}
+          {freeHTML && <FreeHtml {...{freeHTML}} />}
+        </div>
       </div>
-      {seeMore || freeHTML && <Footer {...{ seeMore, seeMoreurl, freeHTML}} />}
-    </div>
   )
 }
 
@@ -78,3 +82,13 @@ export default MostReadHomologated
 
 // agregado freeHTML
 
+{/* <>
+<div className={classes.lista}>
+  <div className={seeMore ? classes.containerList : 'h-full pb-15'}>
+    <Header {...paramsHeader} />
+    <List {...paramsList} />
+  </div>
+  {seeMore && <Footer {...{ seeMore, seeMoreurl}} />}
+</div>
+{freeHTML && <Footer {...{freeHTML}} />}
+</> */}
