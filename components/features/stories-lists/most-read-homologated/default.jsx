@@ -12,7 +12,7 @@ import FreeHtml from './_children/free-html'
 
 const classes = {
   lista:
-    'stories-l-card bg-white flex flex-col justify-between overflow-hidden border-1 border-solid border-base',
+    'stories-l-card bg-white flex flex-col justify-between overflow-hidden',
   containerList: 'most-read-homologated-card__container-list',
 }
 
