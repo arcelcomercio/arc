@@ -20,6 +20,7 @@ import facebook from './facebook'
 import twitter from './twitter'
 import support from './support'
 import phone from './phone'
+import expandMore from './expand_more'
 
 // SITE THEMED ICONS
 import eco_180a from './eco_180a'
@@ -50,6 +51,7 @@ export {
   twitter,
   support,
   phone,
+  expandMore,
   eco_180a,
   eco_logo_full,
   eco_logo,
