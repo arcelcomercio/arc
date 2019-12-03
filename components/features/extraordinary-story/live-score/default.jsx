@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-state */
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
 
@@ -17,7 +17,7 @@ const PHOTO_SCHEMA = `{
 }`
 
 @Consumer
-class ExtraordinaryStoryLifeScore extends Component {
+class ExtraordinaryStoryLifeScore extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -144,10 +144,10 @@ class ExtraordinaryStoryLifeScore extends Component {
             <img
               className={`${
                 isAdmin ? '' : 'lazy'
-              } extraordinary-l-score__img w-full object-cover`}
+                } extraordinary-l-score__img w-full object-cover`}
               src={isAdmin ? imgUrl : multimediaLazyDefault}
               data-src={imgUrl}
-              alt={title}              
+              alt={title}
             />
           </picture>
         </a>
