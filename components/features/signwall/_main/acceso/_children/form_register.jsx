@@ -146,10 +146,11 @@ export const FormRegister = props => {
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
         onLoggedFail(errLogin)
-      })
-      .finally(() => {
         setShowLoading(false)
       })
+      // .finally(() => {
+      //   setShowLoading(false)
+      // })
   }
 
   const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(

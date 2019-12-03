@@ -6,6 +6,7 @@ import useForm from './useForm'
 import Services from '../../utils/new_services'
 import Cookies from '../../utils/new_cookies'
 import Domains from '../../utils/domains'
+import { Back } from '../../common/iconos'
 
 const cookieStudents = 'EcoId.REQUEST_STUDENTS'
 
@@ -113,6 +114,10 @@ export const FormStudentsCode = props => {
 
   return (
     <S.Form onSubmit={handleOnSubmit}>
+      <S.ButtonBase type="button" className="mb-10" onClick={() => {}}>
+        <Back /> Volver
+      </S.ButtonBase>
+
       <S.Title className="center mb-10" cp>
         PLAN UNIVERSITARIO
       </S.Title>
