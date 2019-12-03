@@ -9,10 +9,12 @@ export default ({
   siteName = '',
   siteUrl = '',
   requestUri = '',
+  contextPath,
+  arcSite,
 }) => {
   const { content_elements: contentElements = [] } = globalContent || {}
   const [{ credits: { by = [] } = {} } = {}] = contentElements || {}
-
+  const logoAutor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
   const {
     url: authorPath = '',
     image: { url: authorImg = '' } = {},
@@ -23,9 +25,19 @@ export default ({
     } = {},
   } = by[0] || []
 
-  const socialMedia = socialLinks.map(({ url }) => {
-    return `"${url}"`
-  })
+  const socialMedia = socialLinks
+    .map(({ url, site }) => {
+      const emailAuthor = site !== 'email' ? url : ''
+      return `"${emailAuthor}"`
+    })
+    .filter(String)
+
+  const emailAhutor = socialLinks
+    .map(({ url, site }) => {
+      const emailAuthor = site === 'email' ? url : ''
+      return `${emailAuthor}`
+    })
+    .filter(String)
 
   const patternPagination = /\/[0-9]+\/?(?=\?|$)/
   const pages = getMetaPagesPagination(
@@ -58,6 +70,13 @@ export default ({
     }
   )
 
+  const UrlRedesSocial =
+    (socialMedia[0] !== '""' &&
+      `"sameAs": [
+    ${socialMedia}
+  ],`) ||
+    ''
+
   const structuredAutor = `
   {
     "@context": "http://schema.org/",
@@ -65,10 +84,9 @@ export default ({
     "name": "${name}",
     "alternateName": "${firstName}${lastName}",
     "url": "${authorUrl}", 
-    "image": "${authorImg}",
-    "sameAs": [
-      ${socialMedia}
-    ],
+    "image": "${authorImg || logoAutor}",
+    "email": "${emailAhutor}",
+    ${UrlRedesSocial}
     "jobTitle": "${bio}",
       "worksFor": {
         "@type": "Organization",

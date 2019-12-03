@@ -26,18 +26,6 @@ export default ({
   requestUri,
   metaValue,
 }) => {
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
-  const BASE_URL_ADS =
-    CURRENT_ENVIRONMENT === 'prod'
-      ? `https://d1r08wok4169a5.cloudfront.net/ads-${arcSite}`
-      : 'https://jab.pe/f/arc'
-
-  const BASE_URL_ADS_ESPACIOS =
-    CURRENT_ENVIRONMENT === 'prod'
-      ? `https://d2dvq461rdwooi.cloudfront.net/ads-${arcSite}`
-      : `https://d37z8six7qdyn4.cloudfront.net/ads-${arcSite}`
-
   const metaPageData = {
     globalContent,
     requestUri,
@@ -60,7 +48,7 @@ export default ({
     } = {},
     subtype = '',
     page_number: pageNumber = 1,
-    recent_stories: { content_elements: recentStories = [] } = {}
+    recent_stories: { content_elements: recentStories = [] } = {},
   } = globalContent || {}
 
   const isStory =
@@ -193,17 +181,6 @@ export default ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
-  const structuredFacebook = `
-    (function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id))
-        return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4&appId=1626271884277579";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));`
-
   const structuredDetectIncognito = `(async function() {
     if ("storage" in navigator && "estimate" in navigator.storage) {
       var { usage, quota } = await navigator.storage.estimate();
@@ -219,9 +196,6 @@ export default ({
   })()`
 
   const { googleFonts = '' } = siteProperties || {}
-  const nodas = skipAdvertising(tags)
-
-  const isLivePage = arcSite === 'elcomercio' && requestUri.match(`^/en-vivo/`)
 
   const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
@@ -242,18 +216,20 @@ export default ({
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
 
-  const staticVariables = `window.MobileContent=${JSON.stringify(
-    {
-      recentStories: recentStories.map(
-        ({ canonical_url: canonicalUrl }) => canonicalUrl
-      )
-    } 
-  )}`
+  const staticVariables = `window.MobileContent=${JSON.stringify({
+    recentStories: recentStories.map(
+      ({ canonical_url: canonicalUrl }) => canonicalUrl
+    ),
+  })}`
+  const parameters = {
+    googleTagManagerId: siteProperties.googleTagManagerMobile,
+    arcSite,
+  }
 
   return (
     <html lang="es">
       <head>
-        <TagManager {...siteProperties} />
+        <TagManager {...parameters} />
 
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -328,22 +304,14 @@ export default ({
           <iframe
             title="Google Tag Manager - No Script"
             src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
+              siteProperties.googleTagManagerMobile
             }`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        {isStory && ( // TODO: pediente por definir comentarios por cada sitio
-          <>
-            <div id="fb-root" />
-            <script
-              defer
-              dangerouslySetInnerHTML={{ __html: structuredFacebook }}
-            />
-          </>
-        )}
+
         <div id="fusion-app" role="application">
           {children}
         </div>
@@ -385,15 +353,15 @@ export default ({
           async
           dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
         />
-        <script
-          dangerouslySetInnerHTML={{ __html: staticVariables }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: staticVariables }} />
         <script
           async
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
         <script
-          src={deployment(`${contextPath}/resources/assets/mobile/dist/bundle.js`)}
+          src={deployment(
+            `${contextPath}/resources/assets/mobile/dist/bundle.js`
+          )}
         />
       </body>
     </html>

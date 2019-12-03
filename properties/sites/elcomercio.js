@@ -22,6 +22,7 @@ export default {
   idGoogleAnalitics: 'UA-3055636-11',
   fbArticleStyle: 'LogoElcomercio',
   nameStoryRelated: 'VEA TAMBIÉN',
+  googleTagManagerMobile: 'GTM-NNX4LXF',
   siteDescription:
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
