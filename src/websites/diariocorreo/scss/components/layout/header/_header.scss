@@ -1,7 +1,9 @@
 .header {
+  background-color: #a8a89b;
   &__link {
-    text-transform: capitalize;
-    color: $color-gray-300;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
   }
   &__logo {
     position: relative;
@@ -12,5 +14,21 @@
   }
   &__wrapper--dashed {
     border-bottom: 1px dashed $color-gray-200;
+    background-color: #a8a89b;
+  }
+  &__tags,
+  &__date,
+  &__link {
+    font-family: $tertiary-font;
+    color: $color-base-300;
+  }
+  &__item {
+    &:after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 10px;
+      background-color: $color-white;
+    }
   }
 }
