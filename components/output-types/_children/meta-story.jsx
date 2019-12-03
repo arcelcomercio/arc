@@ -56,13 +56,13 @@ export default ({
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
         caption
       )}",  "thumbnailUrl": "${large ||
-      urlImage}",  "description":"${formatHtmlToText(
+        urlImage}",  "description":"${formatHtmlToText(
         caption
       )}", "contentUrl": "${url}",  "uploadDate": "${date}" } `
     }
   )
 
-  const imagesSeoItems = imagePrimarySeo.map((image) => {
+  const imagesSeoItems = imagePrimarySeo.map(image => {
     const {
       subtitle = false,
       url = '',
@@ -112,48 +112,56 @@ export default ({
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
     : `"image": {  "@type": "ImageObject", "url": "${siteUrl}${deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
-    )}",  "description": "${formatHtmlToText(
-      siteName
-    )}", "height": 800, "width": 1200 },`
+        `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
+      )}",  "description": "${formatHtmlToText(
+        siteName
+      )}", "height": 800, "width": 1200 },`
 
   const dataVideo = `  "video":[ ${videoSeoItems} ],` || ''
 
   const publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIO ||
-      arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
-      arcSite === ConfigParams.SITE_DEPOR ||
-      arcSite === ConfigParams.SITE_ELBOCON
+    arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
+    arcSite === ConfigParams.SITE_DEPOR ||
+    arcSite === ConfigParams.SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
 
-  const bodyStructured = isAmp !== true ? `"articleBody":"${dataElement}",` : ''
+  const bodyStructured =
+    isAmp !== true
+      ? `"articleBody":"${dataElement.replace(
+          /\(function\(d, s, id\).*\)\);/g,
+          ''
+        )}",`
+      : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
-    arcSite === ConfigParams.SITE_ELCOMERCIO ||
+      arcSite === ConfigParams.SITE_ELCOMERCIO ||
       arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
       arcSite === ConfigParams.SITE_DEPOR ||
       arcSite === ConfigParams.SITE_ELBOCON
-      ? publishDateZone
-      : lastPublishDate
+        ? publishDateZone
+        : lastPublishDate
     }", "headline":"${formatHtmlToText(
-      title
-    )}",  "description":"${formatHtmlToText(subTitle)}",
+    title
+  )}",  "description":"${formatHtmlToText(subTitle)}",
   ${bodyStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${(videoSeoItems[0] &&
-      dataVideo) ||
+    dataVideo) ||
     ''}
-    "author":{    "@type":"Person",   "name":"${seoAuthor}"    },
+    "author":{    "@type":"Person",   "name":"${formatHtmlToText(
+      seoAuthor
+    )}"    },
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${siteUrl}${deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
-    )}",   "height":${seo.height}, "width":${seo.width}
+    `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
+  )}",   "height":${seo.height}, "width":${seo.width}
        }
     },    
     ${(isPremium && storyPremium) || ''} 
     "keywords":[${
-    seoKeyWordsStructurada[0]
-      ? seoKeyWordsStructurada.map(item => item)
-      : listItemsTagsKeywords.map(item => item)
+      seoKeyWordsStructurada[0]
+        ? seoKeyWordsStructurada.map(item => item)
+        : listItemsTagsKeywords.map(item => item)
     }]
  }`
 
@@ -161,7 +169,7 @@ export default ({
     return (
       url &&
       `{"@type":"ListItem", "position":${i +
-      1}, "name":"${name}", "item":"${url}" }`
+        1}, "name":"${name}", "item":"${url}" }`
     )
   })
 
@@ -170,9 +178,10 @@ export default ({
   const taboolaScript =
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
-
   const scriptTaboola = `
-  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.async=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
+  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.async=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
+    arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript
+  }/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
         window._taboola = window._taboola || [];
@@ -286,10 +295,10 @@ export default ({
         property="article:modified_time"
         content={`${
           arcSite === ConfigParams.SITE_ELCOMERCIO ||
-            arcSite === ConfigParams.SITE_ELCOMERCIOMAG
+          arcSite === ConfigParams.SITE_ELCOMERCIOMAG
             ? publishDateZone
             : lastPublishDate
-          }`}
+        }`}
       />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
