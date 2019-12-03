@@ -3,15 +3,29 @@ export default () => {
   const URLS_STORAGE = '_recents_articles_'
 
   const { MobileContent: { recentStories = [] } = {} } = window || {}
-  const currentStorageUrls = window.sessionStorage.getItem(URLS_STORAGE) || []
 
-  if (!currentStorageUrls.length === 0) {
+  const currentStorageUrls =
+    JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || []
+
+  const isSameRecentContent = recentStories.includes(currentStorageUrls[0])
+
+  if (currentStorageUrls.length === 0 || !isSameRecentContent) {
+    window.sessionStorage.removeItem(URLS_STORAGE)
     window.sessionStorage.setItem(URLS_STORAGE, JSON.stringify(recentStories))
   }
 
-  /* const loadNextUrlStorage = () => {
-    
-  } */
+  const loadNextUrlStorage = () => {
+    const auxStorageUrls =
+      JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || []
+
+    window.sessionStorage.removeItem(URLS_STORAGE)
+    window.sessionStorage.setItem(
+      URLS_STORAGE,
+      JSON.stringify(auxStorageUrls.slice(1))
+    )
+
+    window.location.href = auxStorageUrls[0] || '/'
+  }
 
   document.addEventListener('scroll', () => {
     if (
@@ -27,7 +41,7 @@ export default () => {
         window.innerHeight + document.documentElement.scrollTop >=
         document.documentElement.offsetHeight
       ) {
-        // window.location.href = '/'
+        loadNextUrlStorage()
       }
     }
   })
