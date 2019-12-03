@@ -2,7 +2,7 @@
   &__info,
   &__sections,
   &__contact {
-    background-color: $color-gray-300;
+    background-color: $color-black;
   }
 
   &__legal-item,
@@ -17,10 +17,13 @@
   &__social-title,
   &__legal-links,
   &__legal-divider {
-    font-family: $primary-font;
+    font-family: $fourth-font;
   }
 
   &__list-link {
     text-transform: none;
+  }
+  &__logo-container {
+    max-width: 100px;
   }
 }
