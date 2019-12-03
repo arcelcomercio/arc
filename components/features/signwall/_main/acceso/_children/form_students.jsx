@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ENV from 'fusion:environment'
 import * as S from './styles'
 import { Input, Select } from './control_input'
@@ -10,8 +10,8 @@ import { Back } from '../../common/iconos'
 
 const cookieStudents = 'EcoId.REQUEST_STUDENTS'
 
-export const FormStudentsCode = props => {
-  const { arcSite } = props
+const FormCode = props => {
+  const { arcSite, showRequest } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showLinkMail, setShowLinkMail] = useState(true)
@@ -114,7 +114,13 @@ export const FormStudentsCode = props => {
 
   return (
     <S.Form onSubmit={handleOnSubmit}>
-      <S.ButtonBase type="button" className="mb-10" onClick={() => {}}>
+      <S.ButtonBase
+        type="button"
+        className="mb-10"
+        onClick={() => {
+          Cookies.deleteCookie(cookieStudents)
+          showRequest()
+        }}>
         <Back /> Volver
       </S.ButtonBase>
 
@@ -168,9 +174,8 @@ export const FormStudentsCode = props => {
   )
 }
 
-export const FormStudents = props => {
-  const { arcSite } = props
-  const [showReqCode, setShowReqCode] = useState(false)
+const FormRequest = props => {
+  const { arcSite, showCode } = props
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
 
@@ -231,10 +236,6 @@ export const FormStudents = props => {
     },
   }
 
-  const isRequestStudents = () => {
-    return Cookies.getCookie(cookieStudents)
-  }
-
   const daysInMonth = (m, y) => {
     switch (m) {
       case 1:
@@ -281,7 +282,7 @@ export const FormStudents = props => {
                   udate,
                   ugrade,
                 })
-                setShowReqCode(!showReqCode)
+                showCode()
               }
               setShowError(res.message)
             })
@@ -311,143 +312,156 @@ export const FormStudents = props => {
   const { uemail, ugrade, uday, umonth, uyear } = values
 
   return (
+    <S.Form onSubmit={handleOnSubmit}>
+      <S.Title s="16" className="center mb-10" cp>
+        PLAN UNIVERSITARIO
+      </S.Title>
+
+      <S.Text c="light" s="14" lh="28" className="mb-10 center">
+        Valida tu correo universitario y accede a la <br /> tarifa de estudiante
+      </S.Text>
+
+      {showError && <S.Error>{showError}</S.Error>}
+
+      <Input
+        type="email"
+        name="uemail"
+        required
+        placeholder="Correo Universitario*"
+        value={uemail}
+        clase="mb-10"
+        onChange={e => {
+          handleOnChange(e)
+          setShowError(false)
+        }}
+        error={errors.uemail}
+      />
+
+      <p className="label">Fecha de Nacimiento</p>
+
+      <div className="group-inline">
+        <Select
+          type="select"
+          name="uday"
+          width="20"
+          clase="mb-10"
+          required
+          value={uday}
+          onChange={e => {
+            handleOnChange(e)
+            setShowError(false)
+          }}
+          error={errors.uday}
+          nolabel>
+          <option disabled value="">
+            DÍA
+          </option>
+          {ListNumRange(0, 31).map(value => {
+            return (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            )
+          })}
+        </Select>
+
+        <Select
+          type="select"
+          name="umonth"
+          width="40"
+          clase="mb-10"
+          required
+          value={umonth}
+          onChange={e => {
+            handleOnChange(e)
+            setShowError(false)
+          }}
+          error={errors.umonth}
+          nolabel>
+          <option disabled value="">
+            MES
+          </option>
+          {ListMonth.map((value, index) => {
+            return (
+              <option key={value} value={index + 1}>
+                {value}
+              </option>
+            )
+          })}
+        </Select>
+
+        <Select
+          type="select"
+          name="uyear"
+          width="30"
+          clase="mb-10"
+          value={uyear}
+          onChange={e => {
+            handleOnChange(e)
+            setShowError(false)
+          }}
+          required
+          error={errors.uyear}
+          nolabel>
+          <option disabled value="">
+            AÑO
+          </option>
+          {ListNumRange(1904, new Date().getFullYear(), 'desc').map(value => {
+            return (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            )
+          })}
+        </Select>
+      </div>
+      <Select
+        type="select"
+        name="ugrade"
+        placeholder="Grado de Estudios"
+        value={ugrade}
+        onChange={e => {
+          handleOnChange(e)
+          setShowError(false)
+        }}
+        required
+        error={errors.ugrade}>
+        <option disabled value="">
+          -- Seleccione --
+        </option>
+        <option value="pregrado">Estudiante pregrado</option>
+        <option value="postgrado">Estudiante postgrado</option>
+        <option value="docente">Docente</option>
+        <option value="administrativo">Administrativo</option>
+      </Select>
+
+      <S.Button
+        type="submit"
+        className="mt-20"
+        disabled={disable || showLoading}>
+        {showLoading ? 'VALIDANDO...' : 'VALIDAR'}
+      </S.Button>
+    </S.Form>
+  )
+}
+
+// eslint-disable-next-line import/prefer-default-export
+export const FormStudents = props => {
+  const { arcSite } = props
+  const [showReqCode, setShowReqCode] = useState(false)
+
+  useEffect(() => {
+    if (Cookies.getCookie(cookieStudents)) {
+      setShowReqCode(true)
+    }
+  }, [])
+
+  return (
     <>
-      {!showReqCode && !isRequestStudents() ? (
-        <S.Form onSubmit={handleOnSubmit}>
-          <S.Title s="16" className="center mb-10" cp>
-            PLAN UNIVERSITARIO
-          </S.Title>
-
-          <S.Text c="light" s="14" lh="28" className="mb-10 center">
-            Valida tu correo universitario y accede a la <br /> tarifa de
-            estudiante
-          </S.Text>
-
-          {showError && <S.Error>{showError}</S.Error>}
-
-          <Input
-            type="email"
-            name="uemail"
-            required
-            placeholder="Correo Universitario*"
-            value={uemail}
-            clase="mb-10"
-            onChange={e => {
-              handleOnChange(e)
-              setShowError(false)
-            }}
-            error={errors.uemail}
-          />
-
-          <p className="label">Fecha de Nacimiento</p>
-
-          <div className="group-inline">
-            <Select
-              type="select"
-              name="uday"
-              width="20"
-              clase="mb-10"
-              required
-              value={uday}
-              onChange={e => {
-                handleOnChange(e)
-                setShowError(false)
-              }}
-              error={errors.uday}
-              nolabel>
-              <option disabled value="">
-                DÍA
-              </option>
-              {ListNumRange(0, 31).map(value => {
-                return (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                )
-              })}
-            </Select>
-
-            <Select
-              type="select"
-              name="umonth"
-              width="40"
-              clase="mb-10"
-              required
-              value={umonth}
-              onChange={e => {
-                handleOnChange(e)
-                setShowError(false)
-              }}
-              error={errors.umonth}
-              nolabel>
-              <option disabled value="">
-                MES
-              </option>
-              {ListMonth.map((value, index) => {
-                return (
-                  <option key={value} value={index + 1}>
-                    {value}
-                  </option>
-                )
-              })}
-            </Select>
-
-            <Select
-              type="select"
-              name="uyear"
-              width="30"
-              clase="mb-10"
-              value={uyear}
-              onChange={e => {
-                handleOnChange(e)
-                setShowError(false)
-              }}
-              required
-              error={errors.uyear}
-              nolabel>
-              <option disabled value="">
-                AÑO
-              </option>
-              {ListNumRange(1904, new Date().getFullYear(), 'desc').map(
-                value => {
-                  return (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  )
-                }
-              )}
-            </Select>
-          </div>
-          <Select
-            type="select"
-            name="ugrade"
-            placeholder="Grado de Estudios"
-            value={ugrade}
-            onChange={e => {
-              handleOnChange(e)
-              setShowError(false)
-            }}
-            required
-            error={errors.ugrade}>
-            <option disabled value="">
-              -- Seleccione --
-            </option>
-            <option value="pregrado">Estudiante pregrado</option>
-            <option value="postgrado">Estudiante postgrado</option>
-            <option value="docente">Docente</option>
-            <option value="administrativo">Administrativo</option>
-          </Select>
-
-          <S.Button
-            type="submit"
-            className="mt-20"
-            disabled={disable || showLoading}>
-            {showLoading ? 'VALIDANDO...' : 'VALIDAR'}
-          </S.Button>
-        </S.Form>
+      {showReqCode ? (
+        <FormCode arcSite={arcSite} showRequest={() => setShowReqCode(false)} />
       ) : (
-        <FormStudentsCode arcSite={arcSite} />
+        <FormRequest arcSite={arcSite} showCode={() => setShowReqCode(true)} />
       )}
     </>
   )

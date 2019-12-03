@@ -54,7 +54,9 @@ const PortalInt = props => {
       name: 'sdkSalesARC',
       url: originSalesSdkUrl,
     })
-    document.getElementById('footer').style.position = 'relative'
+    if (document.getElementById('footer')) {
+      document.getElementById('footer').style.position = 'relative'
+    }
   }, [])
 
   const onSubscribeHandler = React.useRef(item => {
