@@ -12,7 +12,7 @@ if (lazyLoadInstance) {
   lazyLoadInstance.update()
 }
  */
-;(() => {
+/* ;(() => {
   if (typeof window !== 'undefined') {
     document.addEventListener('DOMContentLoaded', () => {
       const lazyImages = [].slice.call(document.getElementsByClassName('lazy'))
@@ -49,4 +49,4 @@ if (lazyLoadInstance) {
       }
     })
   }
-})()
+})() */
