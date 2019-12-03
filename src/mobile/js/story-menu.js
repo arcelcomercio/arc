@@ -19,6 +19,17 @@ export default () => {
       navbar.classList.remove('sticky')
       body.classList.remove('sticky')
     }
+    const winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop
+    const height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight
+    const scrolled = (winScroll / height) * 100
+
+    document.getElementById('loader-bar').style.transform = `scaleX('${parseInt(
+      scrolled,
+      0
+    ) / 100}')`
   }
 
   window.onscroll = function() {
