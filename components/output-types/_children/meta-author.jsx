@@ -2,6 +2,7 @@ import React from 'react'
 import {
   metaPaginationUrl,
   getMetaPagesPagination,
+  formatHtmlToText,
 } from '../../utilities/helpers'
 
 export default ({
@@ -20,9 +21,7 @@ export default ({
     image: { url: authorImg = '' } = {},
     social_links: socialLinks = [],
     name = '',
-    additional_properties: {
-      original: { bio = '', firstName = '', lastName = '' } = {},
-    } = {},
+    additional_properties: { original: { bio = '' } = {} } = {},
   } = by[0] || []
 
   const socialMedia = socialLinks
@@ -81,8 +80,7 @@ export default ({
   {
     "@context": "http://schema.org/",
     "@type": "Person",
-    "name": "${name}",
-    "alternateName": "${firstName}${lastName}",
+    "name": "${formatHtmlToText(name)}",
     "url": "${authorUrl}", 
     "image": "${authorImg || logoAutor}",
     "email": "${emailAhutor}",
