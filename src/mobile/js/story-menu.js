@@ -1,5 +1,8 @@
 export default () => {
   const menu = document.getElementById('menu')
+  const body = document.body
+  const navbar = document.getElementById('header')
+  const sticky = navbar.offsetTop
 
   const toggleAction = () => {
     const navSidebar = document.getElementById('nav-sidebar')
@@ -8,19 +11,16 @@ export default () => {
   }
   menu.ontouchstart = toggleAction()
 
-  const body = document.body
-  const navbar = document.getElementById('header')
-  const sticky = navbar.offsetTop
-
   const myFunction = () => {
-    window.pageYOffset >= sticky
-      ? navbar.classList.add('sticky')
-      : navbar.classList.remove('sticky')
-    window.pageYOffset >= sticky
-      ? body.classList.add('sticky')
-      : body.classList.remove('sticky')
+    if (window.pageYOffset >= sticky) {
+      navbar.classList.add('sticky')
+      body.classList.add('sticky')
+    } else {
+      navbar.classList.remove('sticky')
+      body.classList.remove('sticky')
+    }
   }
-  //sticky menu
+
   window.onscroll = function() {
     myFunction()
   }
