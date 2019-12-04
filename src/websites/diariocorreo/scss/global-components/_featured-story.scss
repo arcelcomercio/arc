@@ -211,6 +211,7 @@
       @media (--only-mobile) {
         color: $color-black;
         margin-top: 0;
+        font-size: 24px;
       }
     }
     .featured-story__detail {
@@ -220,7 +221,7 @@
       height: auto;
       @media (--only-mobile) {
         position: relative;
-        padding-top: 0;
+        padding-top: 10px;
       }
     }
     .featured-story__author {
