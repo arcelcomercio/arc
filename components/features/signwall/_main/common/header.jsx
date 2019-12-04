@@ -17,10 +17,32 @@ const Header = props => {
         depor: (
           <div className="modal-header__cont">
             <img
-              className="modal-header__imgdepor"
+              className="modal-header__img-depor"
               alt={`Logo ${arcSite}`}
               src={deployment(
                 `${contextPath}/resources/dist/${arcSite}/images/alternate-logo.png`
+              )}
+            />
+          </div>
+        ),
+        trome: (
+          <div className="modal-header__cont-trome">
+            <img
+              className="modal-header__img-trome"
+              alt={`Logo ${arcSite}`}
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
+              )}
+            />
+          </div>
+        ),
+        ojo: (
+          <div className="modal-header__cont-ojo">
+            <img
+              className="modal-header__img-ojo"
+              alt={`Logo ${arcSite}`}
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
               )}
             />
           </div>
@@ -85,16 +107,7 @@ const Header = props => {
   return (
     <Context>
       {({ siteProperties, contextPath, deployment, arcSite }) => (
-        <div
-          className="modal-header"
-          style={{
-            background:
-              arcSite === 'elcomerciomag'
-                ? '#f7c600'
-                : arcSite === 'elbocon'
-                ? '#333333'
-                : '',
-          }}>
+        <div className={`modal-header color-${arcSite}`}>
           {typeHeader(siteProperties, contextPath, deployment, arcSite)}
         </div>
       )}

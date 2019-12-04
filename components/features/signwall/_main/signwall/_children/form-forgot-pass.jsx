@@ -178,6 +178,7 @@ class FormForgotPass extends Component {
                 elbocon: '#fdabab',
                 depor: '#d5d945',
                 trome:'#ffede5',
+                ojo:'#e7fced',
               }[brandCurrent]
             }
           />
@@ -262,6 +263,7 @@ class FormForgotPass extends Component {
                 elbocon: '#fdabab',
                 depor: '#d5d945',
                 trome:'#ffede5',
+                ojo:'#e7fced',
               }[brandCurrent]
             }
           />

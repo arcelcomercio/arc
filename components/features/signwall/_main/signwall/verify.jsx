@@ -8,7 +8,14 @@ import FormVerify from './_children/form-verify'
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
-const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor', 'trome']
+const signwallSimple = [
+  'peru21g21',
+  'peru21',
+  'elbocon',
+  'depor',
+  'trome',
+  'ojo',
+]
 @Consumer
 class SignWallVerify extends Component {
   constructor(props) {

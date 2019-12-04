@@ -44,17 +44,36 @@
         padding: 6px 10px;
       }
 
+      &__cont-trome {
+        padding: 0px;
+      }
+
+      &__cont-ojo {
+        padding: 5px 0px;
+      }
+
       &__img {
         max-width: 200px;
         height: 32px;
         object-fit: contain;
       }
 
-      &__imgdepor {
+      &__img-depor {
         max-width: 150px;
         height: auto;
         -webkit-transform: skew(13deg);
         transform: skew(13deg);
+      }
+
+      &__img-trome {
+        max-width: 185px;
+        height: auto;
+      }
+
+      &__img-ojo {
+        max-width: 200px;
+        height: 42px;
+        object-fit: contain;
       }
 
       &.logo-header-large {
@@ -65,6 +84,22 @@
       .logo-header {
         width: 170px;
       }
+    }
+
+    .color-elcomerciomag {
+      background: #f7c600 !important;
+    }
+
+    .color-elbocon {
+      background: #333333 !important;
+    }
+
+    .color-trome {
+      background: #000000 !important;
+    }
+
+    .color-ojo {
+      background: #333333 !important;
     }
 
     @media (max-width: 23.125em) {
