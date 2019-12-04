@@ -124,7 +124,7 @@ const FormCode = props => {
         <Back /> Volver
       </S.ButtonBase>
 
-      <S.Title className="center mb-10" cp>
+      <S.Title className="center mb-10 mt-20" cp>
         PLAN UNIVERSITARIO
       </S.Title>
 
@@ -313,7 +313,7 @@ const FormRequest = props => {
 
   return (
     <S.Form onSubmit={handleOnSubmit}>
-      <S.Title s="16" className="center mb-10" cp>
+      <S.Title s="16" className="center mb-10 mt-20" cp>
         PLAN UNIVERSITARIO
       </S.Title>
 

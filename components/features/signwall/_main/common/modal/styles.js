@@ -111,7 +111,6 @@ export const DialogModal = styled.div`
 
   &.size-medium {
     width: 100%;
-    height: 540px;
 
     @media ${device.tablet} {
       width: 600px;

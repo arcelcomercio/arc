@@ -99,7 +99,7 @@ export const FormLoginPaywall = props => {
         <>
           {!isLogged() && (
             <S.Form onSubmit={handleOnSubmit}>
-              <S.Text c="gray" s="14" className="mb-10 center">
+              <S.Text c="gray" s="14" className="mb-10 mt-20 center">
                 Ingresa con tus redes sociales
               </S.Text>
 

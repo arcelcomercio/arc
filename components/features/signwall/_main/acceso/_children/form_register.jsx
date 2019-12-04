@@ -265,7 +265,7 @@ export const FormRegister = props => {
 
               {showConfirm && (
                 <>
-                  <div className="center block mb-20">
+                  <div className="center block mb-20 mt-20">
                     <MsgRegister bgcolor="#F4E0D2" />
                   </div>
 

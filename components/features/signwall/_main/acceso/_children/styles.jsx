@@ -34,7 +34,7 @@ export const Text = styled.p`
 `
 export const Form = styled.form`
   width: 100%;
-  padding: 0px 30px;
+  padding: 10px 30px;
   input,
   select,
   button {
@@ -48,10 +48,10 @@ export const Form = styled.form`
     border-radius: 4px;
   }
   @media ${device.tablet} {
-    padding: 0px 100px;
+    padding: 10px 100px;
   }
   @media ${device.desktop} {
-    padding: 0px 50px;
+    padding: 20px 50px;
   }
   box-sizing: border-box;
   display: block;

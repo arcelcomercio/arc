@@ -50,6 +50,22 @@ export const Cont = styled.div`
       padding: 0px 10px;
     }
   }
+  @supports (-ms-accelerator: true) or (-ms-ime-align: auto) {
+    input,
+    select {
+      margin-top: 20px;
+    }
+    label {
+      font-size: 12px;
+      background: white;
+      margin-bottom: -10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: 10px;
+      margin-left: 10px;
+      position: absolute;
+    }
+  }
 `
 
 export const Field = styled.div`
