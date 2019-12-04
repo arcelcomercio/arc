@@ -78,7 +78,12 @@ const FormCode = props => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then(resExtend => {
-        Services.checkCodeStudents(ucode.trim(), arcSite, resExtend.accessToken)
+        Services.checkCodeStudents(
+          ucode.trim(),
+          EMAIL_USER,
+          arcSite,
+          resExtend.accessToken
+        )
           .then(resCode => {
             if (resCode.status) {
               Cookies.deleteCookie(cookieStudents)
