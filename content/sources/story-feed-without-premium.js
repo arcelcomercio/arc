@@ -15,7 +15,7 @@ const pattern = (key = {}) => {
 
   const size = rawSize === undefined || rawSize === null ? '10' : rawSize
 
-  return `/content/v4/search/published?website=${website}&q=type:story&sort=display_date:desc&size=${size}&from=0}`
+  return `/content/v4/search/published?website=${website}&q=type:story+AND+content_restrictions.content_code:(_ OR gratis)&sort=display_date:desc&size=${size}&from=0}`
 }
 
 const resolve = key => pattern(key)
