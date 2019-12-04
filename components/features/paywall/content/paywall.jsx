@@ -62,15 +62,19 @@ const Paywall = ({
 
   useEffect(() => {
     PWA.mount(() => window.location.reload())
-    addEventListener('logout', clearPaywallStorage)
+    addEventListener('logout', logoutHandler)
     return () => {
-      removeEventListener('logout', clearPaywallStorage)
+      removeEventListener('logout', logoutHandler)
     }
   }, [])
 
   const clearPaywallStorage = useRef(() => {
     sessionStorage.removeItem(PROFILE_FORM_NAME)
     sessionStorage.removeItem(PAYMENT_FORM_NAME)
+  }).current
+
+  const logoutHandler = useRef(() => {
+    clearPaywallStorage()
     window.location.reload()
   }).current
 
