@@ -78,7 +78,12 @@ const FormCode = props => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then(resExtend => {
-        Services.checkCodeStudents(ucode.trim(), arcSite, resExtend.accessToken)
+        Services.checkCodeStudents(
+          ucode.trim(),
+          EMAIL_USER,
+          arcSite,
+          resExtend.accessToken
+        )
           .then(resCode => {
             if (resCode.status) {
               Cookies.deleteCookie(cookieStudents)
@@ -406,7 +411,7 @@ const FormRequest = props => {
           <option disabled value="">
             AÑO
           </option>
-          {ListNumRange(1904, new Date().getFullYear(), 'desc').map(value => {
+          {ListNumRange(1904, new Date().getFullYear() - 16, 'desc').map(value => {
             return (
               <option key={value} value={value}>
                 {value}

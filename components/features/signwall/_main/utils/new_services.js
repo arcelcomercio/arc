@@ -21,12 +21,13 @@ class Services {
     return response
   }
 
-  checkCodeStudents(hash, site, jwt) {
+  checkCodeStudents(hash, email, site, jwt) {
     const response = new Promise(resolve => {
       fetch(`${Domains.getUrlStudents()}/activate_promotion/`, {
         method: 'POST',
         body: JSON.stringify({
           hash_user: hash,
+          email,
         }),
         headers: {
           'Content-Type': 'application/json',

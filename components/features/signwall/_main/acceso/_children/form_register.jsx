@@ -64,7 +64,7 @@ export const FormRegister = props => {
       Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
       setShowConfirm(!showConfirm)
       onLogged(profile)
-      
+
       // NEWSLETTER POR DEFAULT
       if (arcSite === 'gestion') {
         Services.sendNewsLettersUser(
@@ -141,16 +141,13 @@ export const FormRegister = props => {
               setShowError(getCodeError(errLogReg.code))
               onLoggedFail(errLogReg)
             })
-        }, 1000)
+        }, 2000)
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
         onLoggedFail(errLogin)
         setShowLoading(false)
       })
-    // .finally(() => {
-    //   setShowLoading(false)
-    // })
   }
 
   const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
