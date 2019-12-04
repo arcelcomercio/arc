@@ -411,7 +411,7 @@ const FormRequest = props => {
           <option disabled value="">
             AÑO
           </option>
-          {ListNumRange(1904, new Date().getFullYear(), 'desc').map(value => {
+          {ListNumRange(1904, new Date().getFullYear() - 16, 'desc').map(value => {
             return (
               <option key={value} value={value}>
                 {value}
