@@ -15,4 +15,9 @@
   &__sites {
     background-color: $color-white;
   }
+  &__logo-img {
+    @media (--desktop) {
+      height: 60px;
+    }
+  }
 }
