@@ -59,7 +59,6 @@ const Paywall = ({
   const getCodeCxense = interpolateUrl(urls.codeCxense)
 
   useEffect(() => {
-    document.querySelector('html').classList.add('ios')
     PWA.mount(() => window.location.reload())
     addEventListener('logout', clearPaywallStorage)
     return () => {
