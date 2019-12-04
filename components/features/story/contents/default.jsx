@@ -260,6 +260,7 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildRelatedInternal
                         stories={relatedContent}
                         id={_id}
+                        imageDefault={multimediaLazyDefault}
                       />
                     )
                   }

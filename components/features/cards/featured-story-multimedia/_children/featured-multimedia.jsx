@@ -12,7 +12,8 @@ const classes = {
   section: 'featured-multimedia__section overflow-hidden mb-10',
   sectionHtml: 'h-full',
   sectionLink: 'text-white text-md uppercase',
-  imgContainer: 'mb-25 bg-gray-300 position-relative  overflow-hidden',
+  imgContainer:
+    'featured-multimedia__img-wrapper mb-25 bg-gray-300 position-relative  overflow-hidden',
   img: 'featured-multimedia__img object-cover w-full block',
   time: 'text-primary-color text-md mb-5 secondary-font font-bold',
   title: 'flex-1 text-md line-h-sm',
@@ -55,7 +56,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             src={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
-            data-src={multimediaLandscapeMD}            
+            data-src={multimediaLandscapeMD}
             alt={multimediaCaption || title}
           />
           <Icon type={multimediaType} iconClass="" />

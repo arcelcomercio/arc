@@ -1,0 +1,85 @@
+/* Bitter regular */
+@font-face {
+  font-family: 'Bitter';
+  src: url('../../fonts/Bitter-Regular.woff2') format('woff2'),
+    url('../../fonts/Bitter-Regular.woff') format('woff'),
+    url('../../fonts/Bitter-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Bitter bold */
+@font-face {
+  font-family: 'Bitter';
+  src: url('../../fonts/Bitter-Bold.woff2') format('woff2'),
+    url('../../fonts/Bitter-Bold.woff') format('woff'),
+    url('../../fonts/Bitter-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Titillium Web bold */
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('../../fonts/TitilliumWeb-Bold.woff2') format('woff2'),
+    url('../../fonts/TitilliumWeb-Bold.woff') format('woff'),
+    url('../../fonts/TitilliumWeb-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Exo regular*/
+@font-face {
+  font-family: 'Exo';
+  src: url('../../fonts/Exo-Regular.woff2') format('woff2'),
+    url('../../fonts/Exo-Regular.woff') format('woff'),
+    url('../../fonts/Exo-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Exo bold*/
+@font-face {
+  font-family: 'Exo';
+  src: url('../../fonts/Exo-Bold.woff2') format('woff2'),
+    url('../../fonts/Exo-Bold.woff') format('woff'),
+    url('../../fonts/Exo-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* RobotoCondensed Regular */
+@font-face {
+  font-family: 'Roboto Condensed';
+  src: url('../../fonts/RobotoCondensed-Regular.woff2') format('woff2'),
+    url('../../fonts/RobotoCondensed-Regular.woff') format('woff'),
+    url('../../fonts/RobotoCondensed-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* RobotoCondensed Bold */
+@font-face {
+  font-family: 'Roboto Condensed';
+  src: url('../../fonts/RobotoCondensed-Bold.woff2') format('woff2'),
+    url('../../fonts/RobotoCondensed-Bold.woff') format('woff'),
+    url('../../fonts/RobotoCondensed-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* @font-face {
+  font-family: 'Merriweather';
+  src: url('../../fonts/Merriweather-Regular.woff2') format('woff2'),
+    url('../../fonts/Merriweather-Regular.woff') format('woff'),
+    url('../../fonts/Merriweather-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+} */
