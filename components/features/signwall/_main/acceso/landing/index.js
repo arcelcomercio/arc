@@ -20,25 +20,28 @@ const renderTemplate = (template, attributes) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const LandingInt = props => {
-  const { onClose, onLogged, pathSourcePNG, pathSourceWEBP } = props
+  const { onClose, onLogged, noBtnClose, pathSourcePNG, pathSourceWEBP } = props
   return (
     <ModalProvider>
       <ModalConsumer>
         {value => (
           <Modal size="medium" position="middle">
             <ContMiddle>
-              <CloseBtn
-                type="button"
-                onClick={() => {
-                  if (window.Identity.userProfile) {
-                    onLogged(window.Identity.userProfile)
-                    onClose()
-                  } else {
-                    onClose()
-                  }
-                }}>
-                <Close />
-              </CloseBtn>
+              {!noBtnClose && (
+                <CloseBtn
+                  type="button"
+                  onClick={() => {
+                    if (window.Identity.userProfile) {
+                      onLogged(window.Identity.userProfile)
+                      onClose()
+                    } else {
+                      onClose()
+                    }
+                  }}>
+                  <Close />
+                </CloseBtn>
+              )}
+
               <FirstMiddle>
                 <picture>
                   <source srcSet={pathSourceWEBP} type="image/webp" />
