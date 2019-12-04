@@ -117,8 +117,8 @@ const multimediaItems = ({
       break
     case 'basic_gallery':
       cadena = `${cadena}<div class="slideshow">${gallery.map(image => {
-        const { resized_urls: { amp_new: resizedImage } = {}, subtitle = false, url = '' } = image || {}
-        return `<figure><img src="${resizedImage || url}" alt="${subtitle}" title="${htmlToText(subtitle)}" /></figure>`
+        const { resized_urls: { amp_new: resizedImage } = {}, caption, subtitle = '', url = '' } = image || {}
+        return `<figure><img src="${resizedImage || url}" alt="${caption || subtitle}" title="${htmlToText(caption || subtitle)}" /></figure>`
       }).toString().replace(/>,/g, '>')}</div>`
       /**
        * <div class="slideshow">
@@ -131,8 +131,8 @@ const multimediaItems = ({
        */
       break
     default: {
-      const { resized_urls: { amp_new: resizedImage } = {}, subtitle = false, url = '' } = gallery || {}
-      cadena = `${cadena}<figure><img src="${resizedImage || url}" alt="${subtitle}" title="${htmlToText(subtitle)}" /></figure>`
+      const { resized_urls: { amp_new: resizedImage } = {}, caption, subtitle = '', url = '' } = gallery || {}
+      cadena = `${cadena}<figure><img src="${resizedImage || url}" alt="${caption || subtitle}" title="${htmlToText(caption || subtitle)}" /></figure>`
       /**
        *  <figure>
        *    <img src="" alt="" title="" />
