@@ -58,4 +58,9 @@
       border-color: $color-white;
     }
   }
+  .nav__list-container {
+    @media (--desktop) {
+      max-width: 600px;
+    }
+  }
 }
