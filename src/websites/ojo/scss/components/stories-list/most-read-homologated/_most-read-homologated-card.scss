@@ -6,13 +6,16 @@
 .stories-l-card{
     border-style:none;
     height: auto;
-    min-height: 374px;
     max-height: 100%;
+    // min-height: 374px;
+    // max-height: 100%;
 }
 
 
 .most-read-homologated-card{
     &__list{
+        height: calc(100% - 90px);
+        max-height: calc(100% - 40px);
         padding-right: 0;
         padding-left: 0;
     }

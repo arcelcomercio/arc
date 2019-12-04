@@ -1,14 +1,12 @@
 import React from 'react'
 
 const classes = {
-  footer: 'most-read-homologated-footer flex justify-center items-center pt-15',
-  seeMore:
-    'most-read-homologated-footer__link flex items-center uppercase text-gray-200 text-xs',
+  footerhtml: 'most-read-homologated-footer__html flex justify-center items-center pt-15'
 }
 
-export default ({freeHTML}) => {
+export default ({freeHTML}={}) => {
   return (
-    <div className={classes.footer}>
+    <div className={freeHTML && classes.footerhtml}>
       {freeHTML && (
           <div
             className={classes.mrHTML}
@@ -18,6 +16,3 @@ export default ({freeHTML}) => {
     </div>
   )
 }
-
-
-// agregado freeHTML && ( div ...)

@@ -61,11 +61,11 @@ const MostReadHomologated = props => {
 
   return (
       <div className={classes.lista}>
-        <div className={seeMore ? classes.containerList : 'h-full pb-15'}>
+        <div className={seeMore || freeHTML ? classes.containerList : 'h-full pb-15'}>
           <Header {...paramsHeader} />
           <List {...paramsList} />
           {seeMore && <SeeMore {...{ seeMore, seeMoreurl}} />}
-          {freeHTML && <FreeHtml {...{freeHTML}} />}
+          {typeof freeHTML === 'string' && <FreeHtml {...{freeHTML}} /> }
         </div>
       </div>
   )
@@ -79,16 +79,3 @@ MostReadHomologated.label = 'Más Leidas Homologated'
 MostReadHomologated.static = true
 
 export default MostReadHomologated
-
-// agregado freeHTML
-
-{/* <>
-<div className={classes.lista}>
-  <div className={seeMore ? classes.containerList : 'h-full pb-15'}>
-    <Header {...paramsHeader} />
-    <List {...paramsList} />
-  </div>
-  {seeMore && <Footer {...{ seeMore, seeMoreurl}} />}
-</div>
-{freeHTML && <Footer {...{freeHTML}} />}
-</> */}
