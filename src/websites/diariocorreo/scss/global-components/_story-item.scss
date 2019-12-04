@@ -1,36 +1,69 @@
 .story-item {
-  border-bottom: dashed 2px $color-base-200;
+  border-bottom: 0;
+  &__bottom {
+    flex-direction: row-reverse;
+  }
   &__section {
-    color: $color-gray-200;
+    padding: 0 6px;
+    background-color: $color-secondary;
+    height: 17px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: fit-content;
+    position: relative;
+    color: $color-white;
+    font-size: 11px;
     font-weight: 700;
-    padding: 0;
-    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
     @media (--tablet) {
-      margin: 0;
-      font-size: 16px;
+      justify-content: center;
+      display: flex;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      border-right: 2px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 7px solid $color-secondary;
+      border-top: 1px solid $color-secondary;
+      top: 17px;
+      right: 6px;
+      left: inherit;
+      width: auto;
     }
   }
   &__left {
-    padding-right: 25px;
-    // justify-content: start;
+    padding-right: 0;
+    padding-left: 20px;
     flex-direction: column-reverse;
   }
   &__top {
     justify-content: space-between;
+    order: 1;
     @media (--tablet) {
-      margin-top: 20px;
       flex-direction: row;
       align-items: center;
     }
   }
   &__date {
-    font-weight: 500;
+    /*     font-weight: 500;
     color: $color-base-300;
     font-size: 11px;
     font-family: $tertiary-font;
     @media (--tablet) {
       margin: 0;
       font-size: 12px;
+    } */
+    display: none;
+  }
+  &__section--desktop {
+    display: none;
+    @media (--tablet) {
+      display: none;
     }
   }
   &__content-title {
@@ -40,7 +73,7 @@
     }
   }
   &__title {
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     margin-top: 0;
     @media (--tablet) {
@@ -49,11 +82,10 @@
   }
   &__subtitle {
     color: $color-gray-300;
-    font-weight: 700;
-    font-size: $font-sm;
+    font-weight: 400;
+    font-family: $secondary-font;
     @media (--tablet) {
-      font-weight: 300;
-      font-size: 15px;
+      font-size: 14px;
     }
   }
   &__icon {
