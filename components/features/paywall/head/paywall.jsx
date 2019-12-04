@@ -143,9 +143,9 @@ const Head = props => {
                 onClick={() => {
                   Taggeo(
                     `Web_Sign_Wall_Suscripciones`,
-                    `web_link_ingresar_${profile ? 'perfil' : 'cuenta'}`
+                    `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
                   )
-                  profile ? setIsActive(true) : setShowSignwall(true)
+                  isLogged() ? setIsActive(true) : setShowSignwall(true)
                 }}>
                 <span>{getFullName()}</span>
               </S.LoginButton>
