@@ -82,7 +82,7 @@ const Head = props => {
 
   const getFullName = () => {
     let fullName = msgs.startSession
-    if (profile) {
+    if (isLogged()) {
       fullName = profile.firstName
         ? `${profile.firstName} ${profile.lastName || ''}`.trim()
         : msgs.welcomeUser
@@ -143,9 +143,9 @@ const Head = props => {
                 onClick={() => {
                   Taggeo(
                     `Web_Sign_Wall_Suscripciones`,
-                    `web_link_ingresar_${profile ? 'perfil' : 'cuenta'}`
+                    `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
                   )
-                  profile ? setIsActive(true) : setShowSignwall(true)
+                  isLogged() ? setIsActive(true) : setShowSignwall(true)
                 }}>
                 <span>{getFullName()}</span>
               </S.LoginButton>
