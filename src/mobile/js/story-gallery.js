@@ -1,8 +1,8 @@
 export default () => {
   const galeryUl = document.getElementById('galery-ul')
+  const state = document.getElementById('state')
 
   if (galeryUl) {
-    const state = document.getElementById('state')
     const totalSlides = (galeryUl && galeryUl.childElementCount) || 0
     const sliderWidth = totalSlides * 100
     const slideWidth = 100 / totalSlides
@@ -19,17 +19,16 @@ export default () => {
         ? (sliders[i].style.width = slideWidth + '%')
         : null
     }
-
-    const nextSlider = document.getElementById('nextSlider')
-    const prevSlider = document.getElementById('prevSlider')
   }
+  const nextSlider = document.getElementById('nextSlider')
+  const prevSlider = document.getElementById('prevSlider')
 
   const _moveSlide = () => {
-    const slidewidth = parseInt(state.dataset.slidewidth, 0)
+    const slideWidth3 = parseInt(state.dataset.slidewidth, 0)
     const currentslider = parseInt(state.dataset.currentslider, 0)
     const positionslide_ = (currentslider - 1) * ('-' + slideWidth3)
     state.setAttribute('data-positionslide', positionslide_)
-    galeryUl.style.transform = 'translateX(' + positionslide_ + '%)'
+    galeryUl.style.transform = `translateX(${positionslide_}%)`
   }
 
   const prevSliderAction = () => {
@@ -48,6 +47,7 @@ export default () => {
       _moveSlide()
     }
   }
+
   prevSlider.ontouchstart = prevSliderAction()
   nextSlider.ontouchstart = nextSliderAction()
 
@@ -61,8 +61,9 @@ export default () => {
     const listPositionPx = (listWidth * percentPosition) / 100
     state.setAttribute('data-listpositionpx', listPositionPx)
   }
+
   const _setListPosition = (pos, unit) => {
-    galeryUl.style.transform = 'translateX(' + pos + unit + ')'
+    galeryUl.style.transform = `translateX(${pos}${unit})`
   }
   const _getNewPosition = () => {
     return (

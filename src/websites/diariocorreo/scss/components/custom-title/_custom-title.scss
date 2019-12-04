@@ -1,23 +1,32 @@
 .custom-title {
   font-family: $secondary-font;
-  color: $color-white;
-  background-image: url(/pf/resources/dist/elbocon/images/seccion.jpg);
-  background-color: $color-gray-300;
-  padding: 20px 15px;
+  color: $color-gray-300;
+  background-color: $color-white;
+  padding: 0 10px;
   display: block;
   font-weight: 700;
-  @media (--tablet) {
-    padding-left: 20px;
-  }
-  @media (--desktop) {
-    padding-left: 20px;
-  }
+  position: relative;
+  z-index: 0;
+  height: 17px;
+
+  /*   &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    background: url(/pf/resources/dist/diariocorreo/images/big-lines.png)
+      repeat-x;
+    height: 17px;
+    position: absolute;
+    z-index: -1;
+    top: 17px;
+    left: 0;
+  } */
   &.medium,
   &.large {
-    font-size: 15px;
+    font-size: 20px;
     @media (--desktop) {
       line-height: 50px;
-      font-size: 25px;
+      font-size: 24px;
     }
   }
 }

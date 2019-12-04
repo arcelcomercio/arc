@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
@@ -31,7 +31,7 @@ const createScript = ({ src, async, defer, textContent = '', jquery }) => {
 }
 
 @Consumer
-class MinuteByMinute extends Component {
+class MinuteByMinute extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {}
@@ -59,11 +59,11 @@ class MinuteByMinute extends Component {
       const instances = getMxmInstances()
       const key = Object.keys(instances)[0]
 
-      instances[key].pubsub.on('data', function(data) {
+      instances[key].pubsub.on('data', function (data) {
         self.setState({ inner: data })
       })
     }
-    window.on_mxm_loaded = function(instances) {
+    window.on_mxm_loaded = function (instances) {
       window.getMxmInstances = () => {
         return instances
       }
@@ -154,7 +154,7 @@ class MinuteByMinute extends Component {
       <div
         className={`col-3 flex by-minute live-mxm ${
           typeComponent === 'partido' ? 'mxm-partido' : 'mxm-eventos'
-        }`}>
+          }`}>
         <div className="by-minute__left p-20">
           {typeComponent === 'partido' ? (
             <>
@@ -232,31 +232,31 @@ class MinuteByMinute extends Component {
               </div>
             </>
           ) : (
-            <>
-              <div className="w-game-info flex justify-center">
-                <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
-                  <img
-                    src={deployment(
-                      `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
-                    )}
-                    alt=""
-                    className="mr-5"
-                  />
-                  En vivo
+              <>
+                <div className="w-game-info flex justify-center">
+                  <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
+                    <img
+                      src={deployment(
+                        `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                      )}
+                      alt=""
+                      className="mr-5"
+                    />
+                    En vivo
                 </div>
-              </div>
-              <h2 className="text-center text-xl line-h-sm font-bold mt-20">
-                <a href={url} className="text-white tertiary-font">
-                  {title}
-                </a>
-              </h2>
-              <p className="text-center mt-15">
-                <a className="text-white" href={url}>
-                  {subTitle}
-                </a>
-              </p>
-            </>
-          )}
+                </div>
+                <h2 className="text-center text-xl line-h-sm font-bold mt-20">
+                  <a href={url} className="text-white tertiary-font">
+                    {title}
+                  </a>
+                </h2>
+                <p className="text-center mt-15">
+                  <a className="text-white" href={url}>
+                    {subTitle}
+                  </a>
+                </p>
+              </>
+            )}
 
           <div className="scorer-sponsor">
             <div id="eplAd_REEMPLAZAR_POR_EPLANNING1">
@@ -291,8 +291,8 @@ class MinuteByMinute extends Component {
           {typeComponent === 'partido' ? (
             <mxm-partido code={codeComponent} noframe h="235px" />
           ) : (
-            <mxm-evento code={codeComponent} noframe h="258px" />
-          )}
+              <mxm-evento code={codeComponent} noframe h="258px" />
+            )}
         </div>
       </div>
     )
