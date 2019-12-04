@@ -47,6 +47,17 @@ const Header = props => {
             />
           </div>
         ),
+        diariocorreo: (
+          <div className="modal-header__cont-diariocorreo">
+            <img
+              className="modal-header__img-diariocorreo"
+              alt={`Logo ${arcSite}`}
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
+              )}
+            />
+          </div>
+        ),
       }[arcSite] || (
         <img
           className="modal-header__img"

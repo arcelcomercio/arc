@@ -34,6 +34,7 @@ const handleBorderColor = color => {
     case 'elcomercio':
     case 'gestion':
     case 'trome':
+    case 'diariocorreo':
       return '#444444'
     case 'elcomerciomag':
       return '#000000'

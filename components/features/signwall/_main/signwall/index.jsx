@@ -18,6 +18,7 @@ const signwallSimple = [
   'depor',
   'trome',
   'ojo',
+  'diariocorreo',
 ]
 
 class LoginRegister extends Component {

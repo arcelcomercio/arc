@@ -11,6 +11,7 @@ class Domains {
       case 'elbocon':
       case 'trome':
       case 'ojo':
+      case 'diariocorreo':
         return ENV.ENVIRONMENT === 'elcomercio'
           ? `https://api.${site}.pe`
           : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
@@ -55,6 +56,7 @@ class Domains {
       depor: '6d83b35ec628d33d0606bcd9083dc2a6',
       trome: '4895ff32853e4dd68b5bd63c6437d17c',
       ojo: 'r2tbzg902jxaq6c0tmc2zr6txgzfzmiy',
+      diariocorreo: '547a1802dfdcaa443d08c92c8dac62e9',
     }
 
     switch (type) {

@@ -27,6 +27,7 @@ class FormVerify extends Component {
                   depor: '#d5d945',
                   trome:'#ffede5',
                   ojo:'#e7fced',
+                  diariocorreo: '#fdabab',
                 }[brandCurrent]
               }
             />

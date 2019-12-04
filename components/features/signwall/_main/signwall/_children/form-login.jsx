@@ -24,6 +24,7 @@ const signwallSimple = [
   'depor',
   'trome',
   'ojo',
+  'diariocorreo',
 ]
 @Consumer
 class FormLogin extends Component {

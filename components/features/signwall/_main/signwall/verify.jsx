@@ -15,6 +15,7 @@ const signwallSimple = [
   'depor',
   'trome',
   'ojo',
+  'diariocorreo',
 ]
 @Consumer
 class SignWallVerify extends Component {

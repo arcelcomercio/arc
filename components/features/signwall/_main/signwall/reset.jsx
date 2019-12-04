@@ -15,6 +15,7 @@ const signwallSimple = [
   'depor',
   'trome',
   'ojo',
+  'diariocorreo',
 ]
 
 class SignWallReset extends Component {
