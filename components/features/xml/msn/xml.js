@@ -93,7 +93,8 @@ class XmlMsn {
                                 'dc:creator': storyData.author,
                                 'media:keywords': storyTags.toString(),
                                 description: {
-                                    '#cdata': storyData.subTitle
+                                    '#cdata': storyData.title
+                                    // TODO: debe mostrar caption de la foto
                                 },
                                 'content:encoded': {
                                     '#cdata': buildHtml(buildHtmlProps),

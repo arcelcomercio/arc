@@ -101,8 +101,8 @@
     justify-content: space-between;
     padding: 0;
   }
-  &__titleList {
-    /*     border-top: 1px solid $border-gray; */
+  &-interest__titleList {
+    border-top: 1px solid #c1c1c1;
     text-align: left;
     font-family: $primary-font;
     padding-left: 0;

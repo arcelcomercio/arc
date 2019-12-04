@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
@@ -304,7 +304,7 @@ const HeaderChildInverted = ({
                 <li
                   className={`${classes.item}${
                     styles ? ' header__custom-item' : ''
-                  }`}
+                    }`}
                   key={`band-${url}`}>
                   <a
                     className={classes.link}
@@ -345,7 +345,7 @@ const HeaderChildInverted = ({
           <div
             className={`${classes.navBtnContainer} ${
               classes.leftBtnContainer
-            }`}>
+              }`}>
             <form className={classes.form} onSubmit={e => e.preventDefault()}>
               <input
                 ref={inputSearch}
@@ -366,7 +366,7 @@ const HeaderChildInverted = ({
               iconClass={classes.iconMenu}
               btnClass={`${classes.btnMenu} ${
                 scrolled && isStory ? 'border-r-1 border-solid' : ''
-              }`}
+                }`}
               btnText="Menú"
               onClick={_handleToggleSectionElements}
             />
@@ -391,7 +391,7 @@ const HeaderChildInverted = ({
           <div
             className={`${classes.navBtnContainer} ${
               classes.rightBtnContainer
-            }`}>
+              }`}>
             {isStory && scrolled ? (
               <>
                 <div className={classes.navStorySocialNetwork}>
@@ -423,22 +423,22 @@ const HeaderChildInverted = ({
                 </div>
               </>
             ) : (
-              <div className={`${classes.navContainerRight} `}>
-                {siteProperties.activePaywall && (
-                  <Button
-                    btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe}`}
-                    btnLink={`${
-                      siteProperties.urlSubsOnline
-                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                      'undefined' &&
-                      window.section) ||
-                      ''}`}
-                  />
-                )}
-                {siteProperties.activeSignwall && <SignwallComponent />}
-              </div>
-            )}
+                <div className={`${classes.navContainerRight} `}>
+                  {siteProperties.activePaywall && (
+                    <Button
+                      btnText="Suscríbete"
+                      btnClass={`${classes.btnSubscribe}`}
+                      btnLink={`${
+                        siteProperties.urlSubsOnline
+                        }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                          'undefined' &&
+                          window.section) ||
+                        ''}`}
+                    />
+                  )}
+                  {siteProperties.activeSignwall && <SignwallComponent />}
+                </div>
+              )}
           </div>
           {/** ************* // RIGHT *************** */}
         </div>
@@ -468,4 +468,4 @@ HeaderChildInverted.propTypes = {
   ),
 }
 
-export default HeaderChildInverted
+export default memo(HeaderChildInverted)
