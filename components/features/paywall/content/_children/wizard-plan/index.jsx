@@ -131,7 +131,7 @@ function WizardPlan(props) {
   }, [])
 
   const subscribePlanHandler = (e, plan) => {
-    if (!profile) {
+    if (!isLogged()) {
       clearDeferredActions()
       planSelected.current = plan
       dispatchEvent('signInReq', 'landing')
@@ -199,7 +199,7 @@ function WizardPlan(props) {
   }
 
   const onCorporateSubscriptorHandler = () => {
-    if (!profile) {
+    if (!isLogged()) {
       clearDeferredActions()
       subscribingCorporate.current = true
       dispatchEvent('signInReq')
@@ -305,7 +305,7 @@ function WizardPlan(props) {
             }
             showImage={arcSite === 'elcomercio'}
             onClick={() => {
-              if (!profile) {
+              if (!isLogged()) {
                 clearDeferredActions()
                 checkingPrinted.current = true
                 dispatchEvent('signInReq', 'landing')
