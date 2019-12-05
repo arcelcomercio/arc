@@ -140,4 +140,7 @@ export default {
     dataModeAmp: 'thumbnails-a-amp',
     mode: 'thumbnails-a',
   },
+  stick: {
+    logo: 'logo-stick.png',
+  },
 }
