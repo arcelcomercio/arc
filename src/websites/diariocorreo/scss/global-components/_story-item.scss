@@ -99,6 +99,9 @@
       height: 30px;
       font-size: 24px;
     }
+    &:before {
+      background-color: transparent;
+    }
   }
   &__right {
     margin-left: 0;
