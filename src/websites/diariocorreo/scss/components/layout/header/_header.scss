@@ -44,6 +44,11 @@
       height: 10px;
       background-color: $color-white;
     }
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
   }
   &__button.left,
   &__button.right {
