@@ -32,6 +32,9 @@
     }
   }
   /*   Estilos para nav loader en notas */
+  &__loader {
+    background-color: transparent;
+  }
   &__loader-bar {
     background-color: $color-primary;
   }
