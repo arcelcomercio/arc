@@ -1,6 +1,7 @@
 export default {
   siteName: 'Correo',
   sitemapNewsName: 'Diario Correo',
+  newsletterBrand: 'correo',
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
@@ -102,7 +103,7 @@ export default {
     {
       name: 'Oficinas Concesionarias',
       url: '/oficinas-concesionarias/',
-    }
+    },
   ],
 
   footer: {
