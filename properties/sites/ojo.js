@@ -155,7 +155,7 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna4-300x250-div-gpt-ad-8599377-29.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna5-300x250-div-gpt-ad-8599377-30.html',
   ],
-  activeSignwall: true,
+  activeSignwall: false,
   activePaywall: false,
   taboola: {
     dataModeAmp: 'thumbnails-e',
