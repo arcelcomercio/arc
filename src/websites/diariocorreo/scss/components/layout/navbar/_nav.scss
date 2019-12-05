@@ -13,8 +13,11 @@
   &__btn span {
     color: $color-white;
   }
-  &__container-menu,
   &__search-box {
+    border-right: 0;
+    order: 1;
+  }
+  &__container-menu {
     @media (--desktop) {
       display: none;
     }
@@ -62,6 +65,14 @@
     .nav__logo {
       padding: 0;
     }
+    .nav__search-box {
+      @media (--desktop) {
+        display: block;
+        border-right: 0;
+        height: auto;
+        order: 0;
+      }
+    }
   }
   &__input-search {
     color: $color-white;
@@ -74,7 +85,7 @@
   }
   .nav__list-container {
     @media (--desktop) {
-      max-width: 836px;
+      max-width: 753px;
     }
   }
 }
