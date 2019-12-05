@@ -32,6 +32,9 @@
     }
   }
   /*   Estilos para nav loader en notas */
+  &__loader {
+    background-color: transparent;
+  }
   &__loader-bar {
     background-color: $color-primary;
   }
@@ -52,6 +55,7 @@
     }
   }
   &.active {
+    z-index: 21;
     @media (--desktop) {
       background-color: $color-gray-300;
     }
