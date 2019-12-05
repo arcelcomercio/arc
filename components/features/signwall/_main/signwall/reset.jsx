@@ -8,7 +8,15 @@ import Taggeo from '../utils/taggeo'
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
-const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor', 'trome']
+const signwallSimple = [
+  'peru21g21',
+  'peru21',
+  'elbocon',
+  'depor',
+  'trome',
+  'ojo',
+  'diariocorreo',
+]
 
 class SignWallReset extends Component {
   constructor(props) {
