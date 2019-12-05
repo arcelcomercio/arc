@@ -43,7 +43,11 @@
   }
   &__wrapper {
     background-color: $color-black;
-
+    &:first-child {
+      @media (--desktop) {
+        justify-content: end;
+      }
+    }
     @media (--desktop) {
       justify-content: flex-end;
     }
@@ -81,11 +85,18 @@
     text-transform: uppercase;
     &.active {
       border-color: $color-white;
+      background-color: $color-black;
     }
   }
   .nav__list-container {
     @media (--desktop) {
-      max-width: 753px;
+      max-width: 777px;
+      margin-left: 120px;
+    }
+  }
+  &__search-box {
+    form {
+      right: 112px;
     }
   }
 }
