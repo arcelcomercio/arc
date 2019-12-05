@@ -99,6 +99,10 @@ export default {
       name: 'Politica de Cookies',
       url: '/politica-de-cookies/',
     },
+    {
+      name:'Oficinas Concesionarias',
+      url:'/oficinas-concesionarias/',
+    }
   ],
 
   footer: {
@@ -188,12 +192,19 @@ export default {
     movil5: 15011744,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna1-300x250-div-gpt-ad-8599377-1.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna2-300x250-div-gpt-ad-8599377-2.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna3-300x250-div-gpt-ad-8599377-3.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna4-300x250-div-gpt-ad-8599377-4.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna5-300x250-div-gpt-ad-8599377-5.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna1-300x250-div-gpt-ad-8599377-6.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna2-300x250-div-gpt-ad-8599377-7.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna3-300x250-div-gpt-ad-8599377-8.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna4-300x250-div-gpt-ad-8599377-9.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna5-300x250-div-gpt-ad-8599377-10.html',
   ],
   activeSignwall: false,
   activePaywall: false,
+  taboola: {
+    dataModeAmp: 'thumbnails-e',
+    mode: 'thumbnails-c',
+  },
+  stick: {
+    logo: 'logo-stick.png',
+  },
 }

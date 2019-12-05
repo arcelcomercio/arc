@@ -30,6 +30,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     multimediaLarge,
     multimediaLazyDefault,
     showCaption,
+    primaryImage,
   } = data
   const { type: typeImage, caption = '' } = basic || {}
 
@@ -40,6 +41,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     multimediaLarge,
     caption,
     showCaption,
+    primaryImage,
   }
 
   return (
