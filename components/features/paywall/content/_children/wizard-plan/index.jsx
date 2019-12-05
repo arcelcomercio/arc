@@ -80,6 +80,10 @@ function WizardPlan(props) {
     setProfile()
   }).current
 
+  const loginCanceledHandler = React.useRef(() => {
+    clearDeferredActions()
+  }).current
+
   const loginFailed = React.useRef(() => {
     clearDeferredActions()
   }).current
@@ -121,11 +125,13 @@ function WizardPlan(props) {
 
     addEventListener('logged', loggedHandler)
     addEventListener('logout', logoutHandler)
+    addEventListener('loginCanceled', loginCanceledHandler)
     addEventListener('loginFailed', loginFailed)
 
     return () => {
       removeEventListener('logged', loggedHandler)
       removeEventListener('logout', logoutHandler)
+      removeEventListener('loginCanceled', loginCanceledHandler)
       removeEventListener('loginFailed', loginFailed)
     }
   }, [])
@@ -272,6 +278,7 @@ function WizardPlan(props) {
           })
         }}
         onClose={() => {
+          clearDeferredActions()
           window.dataLayer.push({
             event: 'paywall_check_subscriptor',
             eventCategory: 'paywall_check_subscriptor',

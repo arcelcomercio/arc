@@ -117,6 +117,7 @@ const Head = props => {
           }}
           onLoggedFail={() => dispatchEvent('loginFailed')}
           onClose={() => {
+            dispatchEvent('loginCanceled')
             setShowSignwall(false)
             typeSignWall !== 'students' ? setTypeSignWall('landing') : null
           }}
