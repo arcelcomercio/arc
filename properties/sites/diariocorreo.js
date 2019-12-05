@@ -100,8 +100,8 @@ export default {
       url: '/politica-de-cookies/',
     },
     {
-      name:'Oficinas Concesionarias',
-      url:'/oficinas-concesionarias/',
+      name: 'Oficinas Concesionarias',
+      url: '/oficinas-concesionarias/',
     }
   ],
 
@@ -132,7 +132,7 @@ export default {
     socialNetworks: [
       {
         name: 'linkedin',
-        url: 'https://www.linkedin.com/,
+        url: 'https://www.linkedin.com/',
       },
       {
         name: 'facebook',
