@@ -10,9 +10,10 @@
   &__font--secondary {
     font-family: $secondary-font;
     font-size: 16px;
-    line-height: 22px;
+    line-height: 26px;
     @media (--desktop) {
       font-size: 18px;
+      line-height: 28px;
     }
     a {
       color: #294bcc;
@@ -58,6 +59,7 @@
   }
   &__author-link {
     margin-right: 6px;
+    line-height: 16px;
   }
   li {
     font-family: $primary-font;
