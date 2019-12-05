@@ -1,5 +1,11 @@
 .header {
-  background-color: #a8a89b;
+  background-color: transparent;
+  position: absolute;
+  z-index: 20;
+  left: 13px;
+  width: 120px;
+  height: 136px;
+
   &__link {
     font-size: 10px;
     font-weight: 700;
@@ -9,7 +15,7 @@
     position: relative;
     z-index: 1;
     @media (--desktop) {
-      height: 58px;
+      height: auto;
     }
   }
   &__wrapper--dashed {
@@ -17,7 +23,15 @@
     background-color: #a8a89b;
   }
   &__tags,
-  &__date,
+  &__date {
+    @media (--tablet) {
+      display: none;
+    }
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &__tags,
   &__link {
     font-family: $tertiary-font;
     color: $color-base-300;
@@ -38,5 +52,9 @@
         background: transparent;
       }
     }
+  }
+  &__featured {
+    flex-wrap: wrap;
+    max-width: 826px;
   }
 }

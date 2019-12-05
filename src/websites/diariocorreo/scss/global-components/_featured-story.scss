@@ -204,6 +204,9 @@
     }
     .featured-story__title {
       max-width: none;
+      @media (--only-mobile) {
+        height: 134px;
+      }
     }
     .featured-story__title-link {
       font-size: 20px;
