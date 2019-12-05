@@ -85,7 +85,7 @@ const Head = props => {
 
   const getFullName = () => {
     let fullName = msgs.startSession
-    if (isLogged()) {
+    if (isLogged() && profile) {
       fullName = profile.firstName
         ? `${profile.firstName} ${profile.lastName || ''}`.trim()
         : msgs.welcomeUser
@@ -106,7 +106,7 @@ const Head = props => {
 
   return (
     <S.Head id={id}>
-      {(showSignwall || (!profile && forceLogin.current)) && (
+      {(showSignwall || (!isLogged() && forceLogin.current)) && (
         <Landing
           typeDialog={typeSignWall} // tipo de modal (students , landing)
           nameDialog={typeSignWall} // nombre de modal
@@ -148,7 +148,12 @@ const Head = props => {
                     `Web_Sign_Wall_Suscripciones`,
                     `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
                   )
-                  isLogged() ? setIsActive(true) : setShowSignwall(true)
+                  if (isLogged()) {
+                    setIsActive(true)
+                  } else {
+                    if (profile) setProfile()
+                    setShowSignwall(true)
+                  }
                 }}>
                 <span>{getFullName()}</span>
               </S.LoginButton>
