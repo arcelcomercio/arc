@@ -93,7 +93,7 @@ const pattern = (key = {}) => {
 
     if (by.length === 0) return dataStories
 
-    const realAuthor = by.find(author => `/autor/${name}` === author.url)
+    const realAuthor = by.find(author => url === author.url)
 
     const { additional_properties: { original: { longBio = '' } = {} } = {} } =
       realAuthor || {}
