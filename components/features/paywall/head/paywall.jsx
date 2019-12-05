@@ -26,7 +26,7 @@ const Head = props => {
     siteProperties: {
       paywall: { urls },
     },
-    customFields: { id, forceLogin },
+    customFields: { id, forceLogin: _forceLogin },
     dispatchEvent,
     addEventListener,
     removeEventListener,
@@ -37,6 +37,8 @@ const Head = props => {
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [stepForm, setStepForm] = React.useState(1)
   const [typeSignWall, setTypeSignWall] = React.useState('landing')
+
+  const forceLogin = React.useRef()
 
   // eslint-disable-next-line react/sort-comp
   const signInReqHandler = React.useRef(typeSignWall => {
@@ -68,6 +70,7 @@ const Head = props => {
       removeEventListener('signInReq', signInReqHandler)
       removeEventListener('profileUpdate', profileUpdateHandler)
     }
+    forceLogin.current = _forceLogin
     if (isLogged()) {
       window.Identity.options({ apiOrigin: interpolateUrl(urls.originApi) })
       window.Identity.getUserProfile()
@@ -103,7 +106,7 @@ const Head = props => {
 
   return (
     <S.Head id={id}>
-      {(showSignwall || (!profile && forceLogin)) && (
+      {(showSignwall || (!profile && forceLogin.current)) && (
         <Landing
           typeDialog={typeSignWall} // tipo de modal (students , landing)
           nameDialog={typeSignWall} // nombre de modal
@@ -114,7 +117,7 @@ const Head = props => {
           }}
           onLoggedFail={() => dispatchEvent('loginFailed')}
           onClose={() => {
-            setShowSignwall(!showSignwall)
+            setShowSignwall(false)
             setTypeSignWall('landing')
           }}
           noBtnClose={!!forceLogin}
