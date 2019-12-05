@@ -202,7 +202,7 @@ function WizardPlan(props) {
     if (!isLogged()) {
       clearDeferredActions()
       subscribingCorporate.current = true
-      dispatchEvent('signInReq')
+      dispatchEvent('signInReq', 'landing')
     } else {
       window.open(interpolateUrl(urls.corporateSuscription), '_blank')
     }
