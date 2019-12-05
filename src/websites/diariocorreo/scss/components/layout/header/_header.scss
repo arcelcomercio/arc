@@ -31,4 +31,12 @@
       background-color: $color-white;
     }
   }
+  &__button.left,
+  &__button.right {
+    &::before {
+      @media (--desktop) {
+        background: transparent;
+      }
+    }
+  }
 }

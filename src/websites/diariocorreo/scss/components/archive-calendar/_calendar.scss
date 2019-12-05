@@ -8,8 +8,8 @@
   &__title {
     color: $color-white;
     font-size: 16px;
-    font-weight: 900;
-    font-family: $secondary-font;
+    font-weight: 400;
+    font-family: $primary-font;
     &:after {
       content: '';
       display: block;
@@ -18,7 +18,7 @@
       top: 0;
       width: 20px;
       height: 20px;
-      background-image: url(/pf/resources/dist/elbocon/images/loader.png);
+      background-image: url(/pf/resources/dist/diariocorreo/images/logo.png);
       background-size: cover;
     }
   }
@@ -41,7 +41,7 @@
   }
   &__month-view__weekdays__weekday abbr {
     color: #bbbbbb;
-    font-weight: 900;
+    font-weight: 400;
     font-family: $secondary-font;
     font-size: 13px;
   }
