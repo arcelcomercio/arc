@@ -162,6 +162,7 @@ class StoryContents extends PureComponent {
       multimediaStorySmall,
       multimediaLarge,
       multimediaLazyDefault,
+      primaryImage: true,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
