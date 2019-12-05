@@ -16,6 +16,12 @@
   &__container-menu,
   &__search-box {
     @media (--desktop) {
+      display: none;
+    }
+  }
+  &__container-menu,
+  &__search-box {
+    @media (--desktop) {
       border-right-color: $color-white;
     }
   }
@@ -31,6 +37,10 @@
   }
   &__wrapper {
     background-color: $color-black;
+
+    @media (--desktop) {
+      justify-content: flex-end;
+    }
   }
   &__list-link {
     color: $color-white;
@@ -60,7 +70,7 @@
   }
   .nav__list-container {
     @media (--desktop) {
-      max-width: 600px;
+      max-width: 836px;
     }
   }
 }
