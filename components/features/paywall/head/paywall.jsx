@@ -118,9 +118,9 @@ const Head = props => {
           onLoggedFail={() => dispatchEvent('loginFailed')}
           onClose={() => {
             setShowSignwall(false)
-            setTypeSignWall('landing')
+            typeSignWall !== 'students' ? setTypeSignWall('landing') : null
           }}
-          noBtnClose={!!forceLogin}
+          noBtnClose={typeSignWall === 'students' ? false : !!_forceLogin}
         />
       )}
       <S.Background>
@@ -205,7 +205,7 @@ ThemedHead.propTypes = {
     }),
     forceLogin: PropTypes.bool.tag({
       name: 'Forzar login:',
-      defaultValue: true,
+      defaultValue: false,
       description: 'Check para forzar a estar logeado.',
     }),
   }),
