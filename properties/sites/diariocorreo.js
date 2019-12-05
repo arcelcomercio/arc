@@ -11,7 +11,7 @@ export default {
     'https://elcomercio-diariocorreo-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Bocon_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Correo_Preroll&description_url=https%3A%2F%2Fdiariocorreo.pe&tfcd=0&npa=0&sz=640x360&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-TD2GS9Q',
   ampGoogleTagManagerId: 'UA-22221683-1',
@@ -22,8 +22,8 @@ export default {
   nameStoryRelated: 'VEA TAMBIÉN',
 
   siteDescription:
-    'Noticias de Perú y el mundo en Correo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage: 'https://correo.pe/f/i/pub_40.png',
+    'Noticias de Perú y el mundo en Diario Correo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsImage: 'https://diariocorreo.pe/f/i/pub_40.png',
   theme: {
     color: '#8F071F',
   },
@@ -61,7 +61,7 @@ export default {
       widthAmp: 178,
       heightAmp: 47,
     },
-    path: `/resources/dist/correo/`,
+    path: `/resources/dist/diariocorreo/`,
     paywall: {
       icon: `images/favicon.png`,
       apple_icon: 'images/apple-touch-icon.png',
@@ -100,8 +100,8 @@ export default {
       url: '/politica-de-cookies/',
     },
     {
-      name:'Oficinas Concesionarias',
-      url:'/oficinas-concesionarias/',
+      name: 'Oficinas Concesionarias',
+      url: '/oficinas-concesionarias/',
     }
   ],
 
@@ -113,7 +113,7 @@ export default {
       '© Empresa Editora El Comercio S.A.',
       'Jirón Jorge Salazar Araoz 171',
       'Lima 13 - Perú',
-      'Copyright© | correo.pe | Todos los derechos reservados',
+      'Copyright© | diariocorreo.pe | Todos los derechos reservados',
     ],
     story: [
       {
@@ -125,22 +125,22 @@ export default {
         name: 'Jr. Santa Rosa #300 Lima 1 Perú',
       },
       {
-        position: 'Copyright © correo.pe',
+        position: 'Copyright © diariocorreo.pe',
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
     socialNetworks: [
       {
         name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-el-bocon/',
+        url: 'https://www.linkedin.com/',
       },
       {
         name: 'facebook',
-        url: 'https://www.facebook.com/Diariocorreo',
+        url: 'https://www.facebook.com/CorreoPeru/',
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/correoonline',
+        url: 'https://twitter.com/diariocorreo',
       },
     ],
 
@@ -166,21 +166,21 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@Diariocorreo',
-      url: 'https://www.facebook.com/Diariocorreo',
+      user: '@CorreoPeru',
+      url: 'https://www.facebook.com/CorreoPeru/',
     },
     twitter: {
       name: 'twitter',
-      user: 'correoonline',
-      url: 'https://twitter.com/correoonline',
+      user: 'diariocorreo',
+      url: 'https://twitter.com/diariocorreo',
     },
     youtube: {
       name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
+      url: 'https://www.youtube.com/user/DiarioCorreoPeru',
     },
     linkedin: {
       name: 'linkedin',
-      url: 'https://www.linkedin.com/company/diario-el-bocon/',
+      url: 'https://www.linkedin.com/',
     },
   },
   adsAmp: {
