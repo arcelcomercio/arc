@@ -1,4 +1,18 @@
 .most-read-item {
   font-family: $primary-font;
-  // border-bottom-color: $color-base-100;
+  &__icon {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    background-color: $color-secondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: inherit;
+    right: 8px;
+    bottom: 6px;
+    top: inherit;
+    transform: none;
+    border-radius: 0;
+  }
 }

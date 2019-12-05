@@ -98,6 +98,7 @@ const customFields = PropTypes.shape({
       auspiciotop3: 'auspiciotop3',
       daily1: 'daily1',
       daily2: 'daily2',
+      daily3: 'daily3',
       catalogo1: 'catalogo1',
       catalogo2: 'catalogo2',
       zonaauspiciada0: 'zonaauspiciada0',
