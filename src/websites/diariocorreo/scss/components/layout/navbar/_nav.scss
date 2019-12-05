@@ -52,6 +52,7 @@
     }
   }
   &.active {
+    z-index: 21;
     @media (--desktop) {
       background-color: $color-gray-300;
     }
