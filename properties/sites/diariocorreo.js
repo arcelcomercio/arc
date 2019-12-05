@@ -12,7 +12,7 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Correo_Preroll&description_url=https%3A%2F%2Fdiariocorreo.pe&tfcd=0&npa=0&sz=640x360&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
-  fbAppId: '1667917060088448',
+  fbAppId: '1390081201315241',
   googleTagManagerId: 'GTM-TD2GS9Q',
   ampGoogleTagManagerId: 'UA-22221683-1',
   ampGoogleTagManagerName: 'correo',
