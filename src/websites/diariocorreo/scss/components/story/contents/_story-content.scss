@@ -9,10 +9,10 @@
   }
   &__font--secondary {
     font-family: $secondary-font;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 22px;
     @media (--desktop) {
-      font-size: 16px;
+      font-size: 18px;
     }
     a {
       color: #294bcc;
@@ -41,13 +41,16 @@
   }
   &__author {
     justify-content: end;
-    align-items: center;
+    align-items: end;
     border-top: dotted 1px #999;
     border-bottom: dotted 1px #999;
     width: 100%;
     padding-top: 8px;
     padding-bottom: 7px;
     margin: 10px 0;
+    @media (--tablet) {
+      align-items: center;
+    }
   }
   &__author-link {
     margin-top: -1px;

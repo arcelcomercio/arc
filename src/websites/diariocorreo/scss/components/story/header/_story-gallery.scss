@@ -1,0 +1,11 @@
+.story-gallery {
+  &-social__link {
+    background-color: transparent;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &-social__icon {
+    color: $color-base-200;
+  }
+}

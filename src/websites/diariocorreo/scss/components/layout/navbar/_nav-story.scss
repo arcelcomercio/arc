@@ -8,7 +8,6 @@
         border-right-color: $color-white;
       }
       .nav__story-title {
-        max-height: 15px;
         color: $color-white;
         @media (--desktop) {
           max-height: none;
