@@ -35,16 +35,23 @@ const params = [
     name: 'url',
     displayName: 'Url del autor (Opcional, reemplaza al slug)',
     type: 'text',
+  },
+  {
+    name: 'website',
+    displayName: 'ID del sitio (Opcional)',
+    type: 'text',
   }
 ]
 
 const pattern = (key = {}) => {
-  const { name, url: rawUrl = '' } = key
+  const { name, url: rawUrl = '', website: rawWebsite = '' } = key
   
   const authorUrl = rawUrl === null ? '' : rawUrl
   const url = authorUrl || `/autor/${name}`
 
-  website = key['arc-site'] || 'Arc Site no está definido'
+  const websiteField = rawWebsite === null ? '' : rawWebsite
+
+  website = websiteField || key['arc-site'] || 'Arc Site no está definido'
   pageNumber = !key.from || key.from === 0 ? 1 : key.from
   const size = key.size || 50
 
