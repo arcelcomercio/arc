@@ -48,6 +48,14 @@
         padding: 0px;
       }
 
+      &__cont-diariocorreo {
+        padding: 0px;
+      }
+
+      &__cont-ojo {
+        padding: 5px 0px;
+      }
+
       &__img {
         max-width: 200px;
         height: 32px;
@@ -64,6 +72,17 @@
       &__img-trome {
         max-width: 185px;
         height: auto;
+      }
+
+      &__img-diariocorreo {
+        max-width: 185px;
+        height: 48px;
+      }
+
+      &__img-ojo {
+        max-width: 200px;
+        height: 42px;
+        object-fit: contain;
       }
 
       &.logo-header-large {
@@ -85,6 +104,14 @@
     }
 
     .color-trome {
+      background: #000000 !important;
+    }
+
+    .color-ojo {
+      background: #333333 !important;
+    }
+
+    .color-diariocorreo {
       background: #000000 !important;
     }
 

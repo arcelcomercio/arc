@@ -6,13 +6,15 @@
   h5,
   h6 {
     color: #b40404;
+    margin-bottom: 10px;
   }
   &__font--secondary {
     font-family: $secondary-font;
     font-size: 16px;
-    line-height: 22px;
+    line-height: 26px;
     @media (--desktop) {
       font-size: 18px;
+      line-height: 28px;
     }
     a {
       color: #294bcc;
@@ -52,9 +54,13 @@
       align-items: center;
     }
   }
+  &__author-link,
+  &__author-email {
+    display: inline;
+  }
   &__author-link {
-    margin-top: -1px;
-    display: block;
+    margin-right: 6px;
+    line-height: 16px;
   }
   li {
     font-family: $primary-font;

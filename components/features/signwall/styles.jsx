@@ -22,6 +22,8 @@ const handleTextColor = color => {
     case 'peru21':
     case 'peru21g21':
       return '#0c70bf'
+    case 'ojo':
+      return '#007d33'
     default:
       return 'black'
   }
@@ -29,11 +31,20 @@ const handleTextColor = color => {
 
 const handleBorderColor = color => {
   switch (color) {
+    case 'elcomercio':
+    case 'gestion':
+    case 'trome':
+    case 'diariocorreo':
+      return '#444444'
     case 'elcomerciomag':
       return '#000000'
     case 'peru21':
     case 'peru21g21':
       return '#0c70bf'
+    case 'depor':
+      return '#ffffff'
+    case 'ojo':
+      return '#007d33'
     default:
       return 'transparent'
   }
@@ -62,10 +73,11 @@ export const ButtonSignwall = styled.button`
     background: white;
     line-height: 16px;
     border: 1px solid ${props => handleBorderColor(props.site)};
-    color: ${props =>
+    color: ${props => handleBorderColor(props.site)};
+    /* color: ${props =>
       props.site === 'peru21' || props.site === 'peru21g21'
         ? '#0c70bf'
-        : '#444444'};
+        : '#444444'}; */
   }
   & > i {
     text-transform: uppercase;

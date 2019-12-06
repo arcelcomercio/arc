@@ -17,7 +17,15 @@ import { ModalConsumer } from '../context'
 const Cookies = new Cookie()
 const services = new Services()
 
-const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor', 'trome']
+const signwallSimple = [
+  'peru21g21',
+  'peru21',
+  'elbocon',
+  'depor',
+  'trome',
+  'ojo',
+  'diariocorreo',
+]
 @Consumer
 class FormLogin extends Component {
   constructor(props) {

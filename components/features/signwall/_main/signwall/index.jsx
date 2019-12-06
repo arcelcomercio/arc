@@ -11,7 +11,15 @@ import FormForgotPass from './_children/form-forgot-pass'
 import ListBenefits from './_children/benefits'
 import { ModalProvider, ModalConsumer } from './context'
 
-const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor', 'trome']
+const signwallSimple = [
+  'peru21g21',
+  'peru21',
+  'elbocon',
+  'depor',
+  'trome',
+  'ojo',
+  'diariocorreo',
+]
 
 class LoginRegister extends Component {
   constructor(props) {
