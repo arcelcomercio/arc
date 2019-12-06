@@ -31,12 +31,22 @@ const params = [
     displayName: 'Cantidad a mostrar',
     type: 'number',
   },
+  {
+    name: 'website',
+    displayName: 'ID del sitio (Opcional)',
+    type: 'text',
+  },
 ]
 
 const pattern = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
+  const { name, website: rawWebsite = '', } = key
+
+  const websiteField = rawWebsite === null ? '' : rawWebsite
+
+  website = websiteField || key['arc-site'] || 'Arc Site no está definido'
+
   pageNumber = (!key.from || key.from === 0) ? 1 : key.from
-  const { name } = key
+  
   const size = key.size || 50
 
   if (!name) {
