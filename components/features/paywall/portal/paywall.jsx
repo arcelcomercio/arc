@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
 
 import URL from 'url-parse'
 import * as S from './styled'
@@ -97,21 +96,19 @@ const PortalInt = props => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
-          {arcSite === 'gestion' && ENV.ENVIRONMENT !== 'elcomercio' && (
-            <S.LinkCorporate
-              primary
-              linkStyle
-              onClick={() => {
-                dispatchEvent('signInReq', 'students')
-              }}>
-              <S.SubscribedText primary>
-                <div>
-                  <span>PLAN UNIVERSITARIO</span>
-                </div>
-                <Icon type={theme.icon.arrowRight} />
-              </S.SubscribedText>
-            </S.LinkCorporate>
-          )}
+          <S.LinkCorporate
+            primary
+            linkStyle
+            onClick={() => {
+              dispatchEvent('signInReq', 'students')
+            }}>
+            <S.SubscribedText primary>
+              <div>
+                <span>PLAN UNIVERSITARIO</span>
+              </div>
+              <Icon type={theme.icon.arrowRight} />
+            </S.SubscribedText>
+          </S.LinkCorporate>
 
           <S.LinkCorporate
             linkStyle
