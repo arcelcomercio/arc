@@ -16,12 +16,23 @@ const params = [
     displayName: 'Cantidad a mostrar',
     type: 'number',
   },
+  {
+    name: 'website',
+    displayName: 'ID del sitio (Opcional)',
+    type: 'text',
+  },
 ]
 
 const pattern = (key = {}) => {
-  const website = key['arc-site']
+  const {
+    from: rawFrom = 1,
+    size: rawSize = 10,
+    website: rawWebsite = '',
+  } = key
 
-  const { from: rawFrom = 1, size: rawSize = 10 } = key
+  const websiteField = rawWebsite === null ? '' : rawWebsite
+
+  const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
 
   const from = rawFrom === undefined || rawFrom === null ? '1' : rawFrom
   const size = rawSize === undefined || rawSize === null ? '10' : rawSize

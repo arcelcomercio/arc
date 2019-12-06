@@ -41,6 +41,11 @@ const params = [
     displayName: 'Cantidad de historias',
     type: 'number',
   },
+  {
+    name: 'website',
+    displayName: 'ID del sitio (Opcional)',
+    type: 'text',
+  },
 ]
 const options = {
   gzip: true,
@@ -52,8 +57,18 @@ const itemsToArray = (itemString = '') => {
 }
 
 const pattern = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, excludeSections, feedOffset, stories_qty: storiesQty } = key
+  const {
+    section,
+    excludeSections,
+    feedOffset,
+    stories_qty: storiesQty,
+    website: rawWebsite = '',
+  } = key
+
+  const websiteField = rawWebsite === null ? '' : rawWebsite
+
+  website = websiteField || key['arc-site'] || 'Arc Site no está definido'
+
   const clearSection = removeLastSlash(section)
   const newSection =
     clearSection === '' || clearSection === undefined || clearSection === null
