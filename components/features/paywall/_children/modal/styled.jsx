@@ -11,13 +11,12 @@ export const Background = styled.div`
 `
 
 export const Modal = styled.div`
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: relative;
   opacity: 0;
   pointer-events: none;
-  position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -27,8 +26,10 @@ export const Modal = styled.div`
   ${({ open }) =>
     open &&
     css`
+      display: flex;
       opacity: 1;
       pointer-events: inherit;
+      position: fixed;
     `};
 `
 

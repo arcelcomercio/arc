@@ -117,11 +117,6 @@ function WizardUserProfile(props) {
           // TODO: validar respuesta y mostrar errores de API
           setLoading(false)
           setSubmitting(false)
-          // Mezclamos valores del formulario con los valores de la respuesta
-          const mergeResValues = Object.assign({}, memo, {
-            order: res,
-            profile: { ...profile, ...values },
-          })
           Sentry.addBreadcrumb({
             category: 'compra',
             message: 'Orden de compra generada',
@@ -130,7 +125,12 @@ function WizardUserProfile(props) {
             },
             level: Sentry.Severity.Info,
           })
-          onBeforeNextStep(mergeResValues, props)
+
+          const stepResults = {
+            order: res,
+            profile: { ...profile, ...values },
+          }
+          onBeforeNextStep(stepResults, props)
         })
         .catch(e => {
           Sentry.captureException(e)

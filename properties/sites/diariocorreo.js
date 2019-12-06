@@ -57,10 +57,10 @@ export default {
     },
     seo: {
       logoAmp: 'logo-amp.png',
-      width: 246,
+      width: 214,
       height: 60,
-      widthAmp: 178,
-      heightAmp: 47,
+      widthAmp: 35,
+      heightAmp: 40,
     },
     path: `/resources/dist/diariocorreo/`,
     paywall: {

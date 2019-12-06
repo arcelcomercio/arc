@@ -14,20 +14,12 @@ import { sendAction, PixelActions } from '../_dependencies/analitycs'
 import Card from './_children/card'
 import ClickToCall from '../_children/click-to-call'
 import Icon from '../_children/icon'
-// import FillHeight from '../_children/fill-height'
 import { useStrings } from '../_children/contexts'
-import { Students } from '../../signwall/_main/acceso/students/index'
-import { conformProfile } from '../_dependencies/Identity'
 
-const PortalInt = (props) => {
+const PortalInt = props => {
   const msgs = useStrings()
 
-  const {
-    theme,
-    dispatchEvent,
-  } = props
-
-  const [openSignwall, setOpenSignwall] = React.useState(false)
+  const { theme, dispatchEvent } = props
 
   const {
     arcSite,
@@ -62,7 +54,9 @@ const PortalInt = (props) => {
       name: 'sdkSalesARC',
       url: originSalesSdkUrl,
     })
-    document.getElementById('footer').style.position = 'relative'
+    if (document.getElementById('footer')) {
+      document.getElementById('footer').style.position = 'relative'
+    }
   }, [])
 
   const onSubscribeHandler = React.useRef(item => {
@@ -95,20 +89,6 @@ const PortalInt = (props) => {
   return (
     // <FillHeight substractElements={substractFeaturesIds}>
     <S.Portal backgroundColor={arcSite === 'elcomercio'}>
-      {openSignwall && (
-        <Students
-          typeDialog="students" // tipo de modal (students , landing)
-          nameDialog="students" // nombre que dara al landing
-          brandDialog={arcSite}
-          onLogged={profile => {
-            const conformedProfile = conformProfile(profile)
-            dispatchEvent('logged', conformedProfile)
-            dispatchEvent('signInReq')
-          }}
-          onLoggedFail={() => dispatchEvent('loginFailed')}
-          onClose={() => setOpenSignwall(false)}
-        />
-      )}
       <S.PortalContent>
         {items.map(item => (
           <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />
@@ -121,7 +101,7 @@ const PortalInt = (props) => {
               primary
               linkStyle
               onClick={() => {
-                setOpenSignwall(true)
+                dispatchEvent('signInReq', 'students')
               }}>
               <S.SubscribedText primary>
                 <div>
@@ -161,8 +141,6 @@ class Portal extends React.Component {
       <PortalInt
         {...this.props}
         dispatchEvent={this.dispatchEvent.bind(this)}
-        addEventListener={this.addEventListener.bind(this)}
-        removeEventListener={this.removeEventListener.bind(this)}
       />
     )
   }

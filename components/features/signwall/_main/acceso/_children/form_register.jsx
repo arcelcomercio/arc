@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 import ENV from 'fusion:environment'
+import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
 import { ModalConsumer } from '../../signwall/context'
@@ -12,6 +13,8 @@ import useForm from './useForm'
 import getDevice from '../../utils/get-device'
 import { FormStudents } from './form_students'
 import Domains from '../../utils/domains'
+import Cookies from '../../utils/new_cookies'
+import Services from '../../utils/new_services'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormRegister = props => {
@@ -55,18 +58,23 @@ export const FormRegister = props => {
     },
   }
 
-  const handleGetProfile = () => {
-    // const { closePopup, reloadLogin } = this.props
+  const handleGetProfile = token => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile().then(resProfile => {
+    window.Identity.getUserProfile().then(profile => {
+      Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
       setShowConfirm(!showConfirm)
-      // window.console.log(resProfile)
-      // Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
-      // if (reloadLogin) {
-      //   window.location.reload()
-      // } else {
-      //   closePopup()
-      // }
+      onLogged(profile)
+
+      // NEWSLETTER POR DEFAULT
+      if (arcSite === 'gestion') {
+        Services.sendNewsLettersUser(
+          profile.uuid,
+          profile.email,
+          arcSite,
+          token,
+          ['general']
+        )
+      }
     })
   }
 
@@ -116,17 +124,28 @@ export const FormRegister = props => {
           },
         ],
       },
-      { doLogin: true },
-      { rememberMe: true }
+      { doLogin: false },
+      { rememberMe: false }
     )
       .then(() => {
-        handleGetProfile()
+        setTimeout(() => {
+          window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+          window.Identity.login(remail, rpass, {
+            rememberMe: true,
+            cookie: true,
+          })
+            .then(resLogReg => {
+              handleGetProfile(resLogReg.accessToken)
+            })
+            .catch(errLogReg => {
+              setShowError(getCodeError(errLogReg.code))
+              onLoggedFail(errLogReg)
+            })
+        }, 2000)
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
         onLoggedFail(errLogin)
-      })
-      .finally(() => {
         setShowLoading(false)
       })
   }
@@ -243,7 +262,7 @@ export const FormRegister = props => {
 
               {showConfirm && (
                 <>
-                  <div className="center block mb-20">
+                  <div className="center block mb-20 mt-20">
                     <MsgRegister bgcolor="#F4E0D2" />
                   </div>
 
@@ -267,7 +286,6 @@ export const FormRegister = props => {
                         setShowStudents(!showStudents)
                       } else {
                         onClose()
-                        onLogged(window.Identity.userProfile)
                       }
                     }}>
                     CONTINUAR
@@ -277,7 +295,9 @@ export const FormRegister = props => {
             </S.Form>
           )}
 
-          {showStudents && typeDialog === 'students' && <FormStudents />}
+          {showStudents && typeDialog === 'students' && (
+            <FormStudents {...props} />
+          )}
         </>
       )}
     </ModalConsumer>

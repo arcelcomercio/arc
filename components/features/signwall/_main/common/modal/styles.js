@@ -21,6 +21,9 @@ export const WrapperModal = styled.div`
   /* reset */
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
   *,
   *::before,
   *::after {
@@ -111,7 +114,6 @@ export const DialogModal = styled.div`
 
   &.size-medium {
     width: 100%;
-    height: 500px;
 
     @media ${device.tablet} {
       width: 600px;

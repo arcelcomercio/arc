@@ -481,9 +481,9 @@ class FormLogin extends Component {
                             }}
                             type="button"
                             className={
-                              arcSite !== 'peru21'
-                                ? 'link-gray'
-                                : 'link-blue link-color text-sm'
+                              arcSite === 'peru21' || arcSite === 'trome'
+                                ? 'link-blue link-color text-sm'
+                                : 'link-gray'
                             }>
                             Olvidé mi contraseña
                           </button>
