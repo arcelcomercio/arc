@@ -16,7 +16,15 @@ const customFields = PropTypes.shape({
       seccion: 'Sección',
     },
     defaultValue: 'seccion',
-  }),  
+  }),
+  imageType: PropTypes.oneOf(['story', 'author']).tag({
+    name: 'Indicar la imagen a mostrar',
+    labels: {
+      story: 'Historia',
+      author: 'Autor',
+    },
+    defaultValue: 'story',
+  }),
   ...customFieldsAdsList,
 })
 

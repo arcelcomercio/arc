@@ -16,6 +16,8 @@ const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
+const IMAGE_STORY = 'story'
+
 const StoriesListNew = props => {
   const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -23,7 +25,7 @@ const StoriesListNew = props => {
   const { customFields: customFieldsProps = {} } = props
   const {
     storyConfig: { contentService = '', contentConfigValues = {} } = {},
-    seeMoreLink, link,
+    seeMoreLink, link, imageType
   } = customFieldsProps
 
   const data =
@@ -71,11 +73,18 @@ const StoriesListNew = props => {
               subTitle,
               authorLink,
               author,
+              authorImage,
               multimediaType,
               multimediaLandscapeXS,
               multimediaLazyDefault,
               multimediaLandscapeS,
             } = Story
+
+            const imgItemLandscapeXS =
+              imageType !== IMAGE_STORY ? authorImage : multimediaLandscapeXS
+            const imgItemLandscapeS =
+              imageType !== IMAGE_STORY ? authorImage : multimediaLandscapeS
+
             return (
               <>
                 <StoryItem
@@ -89,10 +98,11 @@ const StoriesListNew = props => {
                     subTitle: reduceWord(subTitle),
                     authorLink,
                     author,
+                    authorImage,
                     multimediaType,
-                    multimediaLandscapeXS,
+                    multimediaLandscapeXS: imgItemLandscapeXS,
                     multimediaLazyDefault,
-                    multimediaLandscapeS,
+                    multimediaLandscapeS: imgItemLandscapeS,
                     formato: 'row',
                     link,
                   }}
