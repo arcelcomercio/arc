@@ -37,7 +37,6 @@ export const ButtonStyleSocial = styled(Button)`
     ${props => (props.size === 'full' ? '100% - 0px' : '50% - 10px')}
   ) !important;
   text-transform: capitalize;
-  margin-bottom: ${props => (props.size === 'full' ? '15px' : '0px')};
   font-size: 18px !important;
   font-weight: normal;
   @media ${device.tablet} {

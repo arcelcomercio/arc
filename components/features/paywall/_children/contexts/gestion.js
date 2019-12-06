@@ -6,6 +6,7 @@ export default {
   strings: {
     // General
     currencySymbol: `S/`,
+    help: `¿Necesitas ayuda?`,
 
     // Errors
     minLength: `Longitud inválida, mínimo {{min}} caracteres.`,

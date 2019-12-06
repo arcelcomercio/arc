@@ -66,6 +66,7 @@ export default {
     // prettier-ignore
     urls: {
       // PATHS
+      eventsRegexp:                      `eventos\\/(\\w+)`,
       corporateSuscription:              `{{contextPath}}/suscripcionesdigitales/empresa/?ref=HomeSuscripciones{{^isProd}}&_website=gestion&outputType=paywall{{/isProd}}`,
       faqs:                              `{{contextPath}}/suscripcionesdigitales/faqs/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
       digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales/{{#isEvent}}eventos/{{event}}/{{/isEvent}}{{#isCheckingSubscriptor}}{{documentType}}/{{documentNumber}}/{{attemptToken}}/{{/isCheckingSubscriptor}}{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,

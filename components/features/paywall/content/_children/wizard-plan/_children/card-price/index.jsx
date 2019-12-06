@@ -65,12 +65,12 @@ function CardPrice(props) {
     // creamos plan con atributos sobreescritos
     _plan = { ...plan, ...attrOverrides }
   }
-  const { amount, billingFrequency, description } = _plan
+  const { amount, billingFrequency, description, banner } = _plan
 
   return (
     <Panel type="card-price" event={event}>
       <S.CardPrice onFocus={onFocus} onMouseOver={onMouseOver}>
-        {offer && !event ? <S.Header>{offer}</S.Header> : null}
+        {banner && !event ? <S.Header>{banner}</S.Header> : null}
         {event && <S.Header>{`PROMOCIÓN ${event.toUpperCase()}`}</S.Header>}
 
         <S.Content>

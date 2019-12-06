@@ -47,12 +47,16 @@ function WizardPlan(props) {
 
   // Deferred actions
   const checkingPrinted = React.useRef(false)
+  const subscribingCorporate = React.useRef(false)
   const planSelected = React.useRef()
 
   const runDeferredAction = () => {
     switch (true) {
       case checkingPrinted.current:
         setOpenModal(true)
+        break
+      case subscribingCorporate.current:
+        onCorporateSubscriptorHandler()
         break
       case !!planSelected.current:
         subscribePlanHandler(null, planSelected.current)
@@ -62,6 +66,7 @@ function WizardPlan(props) {
   }
 
   const clearDeferredActions = React.useRef(() => {
+    subscribingCorporate.current = false
     checkingPrinted.current = false
     planSelected.current = undefined
   }).current
@@ -73,6 +78,10 @@ function WizardPlan(props) {
   const logoutHandler = React.useRef(() => {
     clearDeferredActions()
     setProfile()
+  }).current
+
+  const loginCanceledHandler = React.useRef(() => {
+    clearDeferredActions()
   }).current
 
   const loginFailed = React.useRef(() => {
@@ -116,11 +125,13 @@ function WizardPlan(props) {
 
     addEventListener('logged', loggedHandler)
     addEventListener('logout', logoutHandler)
+    addEventListener('loginCanceled', loginCanceledHandler)
     addEventListener('loginFailed', loginFailed)
 
     return () => {
       removeEventListener('logged', loggedHandler)
       removeEventListener('logout', logoutHandler)
+      removeEventListener('loginCanceled', loginCanceledHandler)
       removeEventListener('loginFailed', loginFailed)
     }
   }, [])
@@ -129,7 +140,7 @@ function WizardPlan(props) {
     if (!isLogged()) {
       clearDeferredActions()
       planSelected.current = plan
-      dispatchEvent('signInReq')
+      dispatchEvent('signInReq', 'landing')
     } else {
       setLoading(true)
       const selectedPlan = {
@@ -190,6 +201,16 @@ function WizardPlan(props) {
           props
         )
       }, 1000)
+    }
+  }
+
+  const onCorporateSubscriptorHandler = () => {
+    if (!isLogged()) {
+      clearDeferredActions()
+      subscribingCorporate.current = true
+      dispatchEvent('signInReq', 'landing')
+    } else {
+      window.open(interpolateUrl(urls.corporateSuscription), '_blank')
     }
   }
 
@@ -257,6 +278,7 @@ function WizardPlan(props) {
           })
         }}
         onClose={() => {
+          clearDeferredActions()
           window.dataLayer.push({
             event: 'paywall_check_subscriptor',
             eventCategory: 'paywall_check_subscriptor',
@@ -290,10 +312,10 @@ function WizardPlan(props) {
             }
             showImage={arcSite === 'elcomercio'}
             onClick={() => {
-              if (!profile) {
+              if (!isLogged()) {
                 clearDeferredActions()
                 checkingPrinted.current = true
-                dispatchEvent('signInReq')
+                dispatchEvent('signInReq', 'landing')
               } else {
                 window.dataLayer.push({
                   event: 'paywall_check_subscriptor',
@@ -315,12 +337,7 @@ function WizardPlan(props) {
                   text1={msgs.businessSubscriptionsBanner1}
                   text2={msgs.businessSubscriptionsBanner2}
                   invertTextSizes
-                  onClick={() => {
-                    window.open(
-                      interpolateUrl(urls.corporateSuscription),
-                      '_blank'
-                    )
-                  }}
+                  onClick={onCorporateSubscriptorHandler}
                 />
               )}
             </>
