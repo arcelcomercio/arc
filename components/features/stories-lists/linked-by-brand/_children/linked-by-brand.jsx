@@ -8,7 +8,11 @@ const classes = {
     list: 'flex flex-col'
 }
 
-const StoriesListLinkedByBrandChild = props => {
+const StoriesListLinkedByBrandChild = ({
+    isAdmin,
+    stories,
+    lazyImage
+}) => {
 
     return (
         <section className={classes.container}>
@@ -23,4 +27,5 @@ const StoriesListLinkedByBrandChild = props => {
     )
 }
 
+// TODO: Verificar si ayuda React.memo
 export default StoriesListLinkedByBrandChild

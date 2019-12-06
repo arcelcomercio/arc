@@ -24,45 +24,54 @@ const StoriesListLinkedByBrand = props => {
      * TODO: Se podria agregar caso por defecto para que haga fetch
      * de las ultimas notas de Mag o del sitio actual.
      */
-    const data = useContent({
+    const { content_elements: contentElements = [] } = useContent({
         source: contentService,
         query: contentConfigValues,
-        filter: schemaFilter(arcSite),
+        filter: schemaFilter(arcSite)
     }) || {}
 
-    const {
-        title,
-        websiteLink,
-        multimediaSquareL,
-        multimediaSquareMD,
-        multimediaSquareS,
-        multimediaType,
-        multimediaSubtitle,
-        multimediaCaption,
-    } = new StoryData({
-        data,
+    const storyData = new StoryData({
         arcSite,
         contextPath,
         deployment,
         defaultImgSize: 'sm',
     })
 
+    const lazyImage = defaultImage({
+        deployment,
+        contextPath,
+        arcSite,
+        size: 'sm',
+    })
+
+    const stories = contentElements.map(story => {
+        storyData._data = story
+        const {
+            title,
+            websiteLink,
+            multimediaSquareL,
+            multimediaSquareMD,
+            multimediaSquareS,
+            multimediaType,
+            multimediaSubtitle,
+            multimediaCaption,
+        } = storyData
+        return {
+            title,
+            websiteLink,
+            multimediaSquareL,
+            multimediaSquareMD,
+            multimediaSquareS,
+            multimediaType,
+            multimediaSubtitle,
+            multimediaCaption,
+        }
+    })
+
     const params = {
         isAdmin,
-        title,
-        websiteLink,
-        multimediaSquareL,
-        multimediaSquareMD,
-        multimediaSquareS,
-        lazyImage: defaultImage({
-            deployment,
-            contextPath,
-            arcSite,
-            size: 'sm',
-        }),
-        multimediaType,
-        multimediaSubtitle,
-        multimediaCaption,
+        stories,
+        lazyImage
     }
 
     return <StoriesListLinkedByBrandChild {...params} />
