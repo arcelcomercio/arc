@@ -73,8 +73,11 @@ class BasicHtml extends PureComponent {
     const {
       outputType,
       isAdmin,
-      customFields: { freeHtml = '' } = {},
+      customFields: { freeHtml = '', adsBorder = '' } = {},
     } = this.props
+
+    const addEmptyBorder = () =>
+      !adsBorder && isAdmin ? '' : ' container-publicidad'
 
     const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
 
@@ -82,7 +85,7 @@ class BasicHtml extends PureComponent {
       return <div dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())} />
     }
     return (
-      <div className={classes.htmlContainer}>
+      <div className={` ${classes.htmlContainer} ${addEmptyBorder()}`}>
         {freeHtml && outputType !== 'amp' && (
           <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
         )}
