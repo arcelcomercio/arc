@@ -1,12 +1,20 @@
 .separator {
   &__opinion {
-    @media (--only-mobile) {
-      padding: 0;
+    background-color: #c9ccd1;
+    position: relative;
+    padding-top: 20px;
+    &::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-top: solid 32px $color-white;
+      border-right: solid 40px transparent;
+      top: 0;
+      position: absolute;
+      left: 30px;
     }
     &--body {
-      @media (--only-mobile) {
-        flex-direction: column;
-      }
+      flex-wrap: wrap;
     }
     &--item-details {
       @media (--only-mobile) {
@@ -15,17 +23,37 @@
       }
     }
     &--item-image {
+      width: 150px;
+      height: 130px;
+
       @media (--only-mobile) {
         margin-bottom: 0;
       }
-      width: 80px;
-      height: 80px;
+      img {
+        border-radius: 0;
+      }
     }
     &--item {
-      background-color: #e8f2f7;
+      background-color: transparent;
       @media (--only-mobile) {
         display: block;
         margin-bottom: 10px;
+        width: 46%;
+      }
+    }
+    &--item-twoline {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      max-height: 74px;
+      a {
+        font-family: $primary-font;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 18px;
+        color: #61656e;
       }
     }
     &-description {
@@ -51,35 +79,30 @@
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      height: 59px;
-      margin-bottom: 20px;
-      line-height: 24px;
+      height: 30px;
+      margin-bottom: 10px;
       @media (--only-mobile) {
-        width: calc(100% - 80px);
-      }
-      @media (--tablet) {
-        height: 64px;
-      }
-      @media (--desktop) {
-        height: 96px;
-        -webkit-line-clamp: 3;
+        margin-top: 10px;
+        margin-bottom: 0;
       }
       &::before,
       &::after {
-        @media (--only-mobile) {
-          margin: 3px 0;
-        }
-        margin: 4px 0;
+        display: none;
       }
       a {
-        font-size: 20px;
+        font-size: 12px;
+        line-height: 14px;
+        color: $color-white;
+        font-family: $fifth-font;
+        text-transform: uppercase;
       }
     }
     &-title {
-      display: none;
       a {
-        color: $color-gray-300;
+        color: $color-white;
         font-weight: 700;
+        font-family: $primary-font;
+        font-size: 24;
       }
     }
   }

@@ -204,13 +204,17 @@
     }
     .featured-story__title {
       max-width: none;
+      @media (--only-mobile) {
+        height: 134px;
+      }
     }
     .featured-story__title-link {
-      font-size: 20px;
+      font-size: 28px;
       font-weight: 700;
       @media (--only-mobile) {
         color: $color-black;
         margin-top: 0;
+        font-size: 24px;
       }
     }
     .featured-story__detail {
@@ -220,7 +224,7 @@
       height: auto;
       @media (--only-mobile) {
         position: relative;
-        padding-top: 0;
+        padding-top: 10px;
       }
     }
     .featured-story__author {

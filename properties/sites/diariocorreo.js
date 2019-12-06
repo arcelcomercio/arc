@@ -1,6 +1,7 @@
 export default {
   siteName: 'Correo',
   sitemapNewsName: 'Diario Correo',
+  newsletterBrand: 'correo',
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
@@ -11,8 +12,8 @@ export default {
     'https://elcomercio-diariocorreo-prod.cdn.arcpublishing.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Bocon_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
-  fbAppId: '1667917060088448',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Correo_Preroll&description_url=https%3A%2F%2Fdiariocorreo.pe&tfcd=0&npa=0&sz=640x360&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+  fbAppId: '1390081201315241',
   googleTagManagerId: 'GTM-TD2GS9Q',
   ampGoogleTagManagerId: 'UA-22221683-1',
   ampGoogleTagManagerName: 'correo',
@@ -22,8 +23,8 @@ export default {
   nameStoryRelated: 'VEA TAMBIÉN',
 
   siteDescription:
-    'Noticias de Perú y el mundo en Correo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage: 'https://correo.pe/f/i/pub_40.png',
+    'Noticias de Perú y el mundo en Diario Correo.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsImage: 'https://diariocorreo.pe/f/i/pub_40.png',
   theme: {
     color: '#8F071F',
   },
@@ -56,12 +57,12 @@ export default {
     },
     seo: {
       logoAmp: 'logo-amp.png',
-      width: 246,
+      width: 214,
       height: 60,
-      widthAmp: 178,
-      heightAmp: 47,
+      widthAmp: 35,
+      heightAmp: 40,
     },
-    path: `/resources/dist/correo/`,
+    path: `/resources/dist/diariocorreo/`,
     paywall: {
       icon: `images/favicon.png`,
       apple_icon: 'images/apple-touch-icon.png',
@@ -99,6 +100,10 @@ export default {
       name: 'Politica de Cookies',
       url: '/politica-de-cookies/',
     },
+    {
+      name: 'Oficinas Concesionarias',
+      url: '/oficinas-concesionarias/',
+    },
   ],
 
   footer: {
@@ -109,7 +114,7 @@ export default {
       '© Empresa Editora El Comercio S.A.',
       'Jirón Jorge Salazar Araoz 171',
       'Lima 13 - Perú',
-      'Copyright© | correo.pe | Todos los derechos reservados',
+      'Copyright© | diariocorreo.pe | Todos los derechos reservados',
     ],
     story: [
       {
@@ -121,22 +126,22 @@ export default {
         name: 'Jr. Santa Rosa #300 Lima 1 Perú',
       },
       {
-        position: 'Copyright © correo.pe',
+        position: 'Copyright © diariocorreo.pe',
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
     socialNetworks: [
       {
         name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-el-bocon/',
+        url: 'https://www.linkedin.com/',
       },
       {
         name: 'facebook',
-        url: 'https://www.facebook.com/Diariocorreo',
+        url: 'https://www.facebook.com/CorreoPeru/',
       },
       {
         name: 'twitter',
-        url: 'https://twitter.com/correoonline',
+        url: 'https://twitter.com/diariocorreo',
       },
     ],
 
@@ -162,21 +167,21 @@ export default {
   social: {
     facebook: {
       name: 'facebook',
-      user: '@Diariocorreo',
-      url: 'https://www.facebook.com/Diariocorreo',
+      user: '@CorreoPeru',
+      url: 'https://www.facebook.com/CorreoPeru/',
     },
     twitter: {
       name: 'twitter',
-      user: 'correoonline',
-      url: 'https://twitter.com/correoonline',
+      user: 'diariocorreo',
+      url: 'https://twitter.com/diariocorreo',
     },
     youtube: {
       name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
+      url: 'https://www.youtube.com/user/DiarioCorreoPeru',
     },
     linkedin: {
       name: 'linkedin',
-      url: 'https://www.linkedin.com/company/diario-el-bocon/',
+      url: 'https://www.linkedin.com/',
     },
   },
   adsAmp: {
@@ -188,12 +193,19 @@ export default {
     movil5: 15011744,
   },
   listUrlAdvertisings: [
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna1-300x250-div-gpt-ad-8599377-1.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna2-300x250-div-gpt-ad-8599377-2.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna3-300x250-div-gpt-ad-8599377-3.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna4-300x250-div-gpt-ad-8599377-4.html',
-    'https://d1r08wok4169a5.cloudfront.net/ads-correo/ads-fia-28253241-boc_ia_interna5-300x250-div-gpt-ad-8599377-5.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna1-300x250-div-gpt-ad-8599377-6.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna2-300x250-div-gpt-ad-8599377-7.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna3-300x250-div-gpt-ad-8599377-8.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna4-300x250-div-gpt-ad-8599377-9.html',
+    'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna5-300x250-div-gpt-ad-8599377-10.html',
   ],
-  activeSignwall: false,
+  activeSignwall: true,
   activePaywall: false,
+  taboola: {
+    dataModeAmp: 'thumbnails-e',
+    mode: 'thumbnails-c',
+  },
+  stick: {
+    logo: 'logo-stick.png',
+  },
 }
