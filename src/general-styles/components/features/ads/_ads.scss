@@ -26,7 +26,6 @@ div#ads_d_vslider {
   right: 0px;
 }
 
-.container-publicidad:before {
-  width: calc(100% + 1px) !important;
-  height: calc(100% + 0px) !important;
+.container-publicidad {
+  margin: 0 !important;
 }

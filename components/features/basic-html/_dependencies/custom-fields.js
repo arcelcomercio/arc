@@ -15,8 +15,8 @@ const customFields = PropTypes.shape({
     name: 'Borde',
     group: 'Publicidad',
     labels: {
-      border: '',
-      containerp: 'Borde',
+      border: 'ConBorde',
+      containerp: 'SinBorde',
     },
     defaultValue: false,
   }),

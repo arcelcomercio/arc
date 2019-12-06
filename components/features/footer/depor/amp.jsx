@@ -59,21 +59,18 @@ class LayoutAmpFooter extends PureComponent {
 
     return (
       <>
-        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
-          <>
-            <div className={classes.nextPageSeparator} separator>
-              <p className={classes.nextPageSeparatorText}>
-                SIGUIENTE ARTÍCULO
-              </p>
-            </div>
-            <amp-next-page>
-              <script
-                type="application/json"
-                dangerouslySetInnerHTML={{ __html: structuredRecent }}
-              />
-            </amp-next-page>
-          </>
-        )}
+        <>
+          <div className={classes.nextPageSeparator} separator>
+            <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
+          </div>
+          <amp-next-page>
+            <script
+              type="application/json"
+              dangerouslySetInnerHTML={{ __html: structuredRecent }}
+            />
+          </amp-next-page>
+        </>
+
         <footer className={classes.footer}>
           <a href={primarySectionLink} className={classes.footerInfo}>
             <span className={classes.footerLogoContainer}>Ir a portada</span>
