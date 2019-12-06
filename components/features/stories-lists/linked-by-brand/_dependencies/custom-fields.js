@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-    feedConfig: PropTypes.contentConfig('story').isRequired.tag({
-        name: 'Fuente de historias',
-    })
+  storyConfig: PropTypes.contentConfig('stories').isRequired.tag({
+    name: 'Configuración del contenido',
+  }),
 })
 
 export default customFields
