@@ -114,7 +114,7 @@ export const FormRegister = props => {
           },
           {
             name: 'originAction',
-            value: { typeDialog },
+            value: typeDialog,
             type: 'String',
           },
           {
