@@ -96,19 +96,21 @@ const PortalInt = props => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
-          <S.LinkCorporate
-            primary
-            linkStyle
-            onClick={() => {
-              dispatchEvent('signInReq', 'students')
-            }}>
-            <S.SubscribedText primary>
-              <div>
-                <span>PLAN UNIVERSITARIO</span>
-              </div>
-              <Icon type={theme.icon.arrowRight} />
-            </S.SubscribedText>
-          </S.LinkCorporate>
+          {arcSite === 'gestion' && (
+            <S.LinkCorporate
+              primary
+              linkStyle
+              onClick={() => {
+                dispatchEvent('signInReq', 'students')
+              }}>
+              <S.SubscribedText primary>
+                <div>
+                  <span>PLAN UNIVERSITARIO</span>
+                </div>
+                <Icon type={theme.icon.arrowRight} />
+              </S.SubscribedText>
+            </S.LinkCorporate>
+          )}
 
           <S.LinkCorporate
             linkStyle
