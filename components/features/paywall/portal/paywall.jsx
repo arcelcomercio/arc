@@ -54,6 +54,7 @@ const PortalInt = props => {
       name: 'sdkSalesARC',
       url: originSalesSdkUrl,
     })
+
     if (document.getElementById('footer')) {
       document.getElementById('footer').style.position = 'relative'
     }
