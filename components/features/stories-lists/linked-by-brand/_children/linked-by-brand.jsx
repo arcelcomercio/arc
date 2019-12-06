@@ -5,7 +5,8 @@ const classes = {
     header: 'flex justify-between items-center border-b-1 border-solid border-black',
     headerText: 'uppercase',
     headerBrand: '',
-    list: 'flex flex-col'
+    list: 'flex flex-col',
+    listItem: ''
 }
 
 const StoriesListLinkedByBrandChild = ({
@@ -20,9 +21,15 @@ const StoriesListLinkedByBrandChild = ({
                 <p>NO TE PIERDAS</p>
                 <h3>Contenido de Mag.</h3>
             </div>
-            <ul className={classes.list}>
-                <li></li>
-            </ul>
+            <div role="list" className={classes.list}>
+                {
+                    stories && stories.length > 0 && stories.map(story => (
+                        <article role="listitem" className={classes.listItem}>
+
+                        </article>
+                    ))
+                }
+            </div>
         </section>
     )
 }
