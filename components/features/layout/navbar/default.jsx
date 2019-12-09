@@ -38,7 +38,48 @@ class LayoutNavbar extends PureComponent {
       },
       customFields
     )
+    // this.getDataHierarchy = this.getDataHierarchy.bind(this)
 
+    // Hierarchy independiente para el menú
+    // const { selectDesing } = customFields || {}
+    // if (selectDesing === 'standard') {
+    //   this.fetchContent({
+    //     navbarData: {
+    //       source: 'navigation-by-hierarchy',
+    //       query: { hierarchy: 'navbar-default' },
+    //       filter: this.formatter.getSchema(),
+    //     },
+    //   })
+    // }
+  }
+
+  // getDataHierarchy(){
+  //   const { customFields:{selectDesing} } = this.props || {}
+  //   if (selectDesing === 'standard') {
+  //     this.fetchContent({
+  //       navbarData: {
+  //         source: 'navigation-by-hierarchy',
+  //         query: { hierarchy: 'navbar-default' },
+  //         filter: this.formatter.getSchema(),
+  //       },
+  //     })
+  //   }
+  // }
+
+  componentDidMount(){
+    const { customFields:{selectDesing} } = this.props || {}
+    if (selectDesing === 'standard') {
+      this.fetchContent({
+        navbarData: {
+          source: 'navigation-by-hierarchy',
+          query: { hierarchy: 'navbar-default' },
+          filter: this.formatter.getSchema(),
+        },
+      })
+    }
+  }
+
+  getDataNavBarData = () => {
     if (this.formatter.main.fetch !== false) {
       const { params, source } = this.formatter.main.fetch.config
       /** Solicita la data a la API y setea los resultados en "state.data" */
@@ -46,18 +87,6 @@ class LayoutNavbar extends PureComponent {
         data: {
           source,
           query: params,
-          filter: this.formatter.getSchema(),
-        },
-      })
-    }
-
-    // Hierarchy independiente para el menú
-    const { selectDesing } = customFields || {}
-    if (selectDesing === 'standard') {
-      this.fetchContent({
-        navbarData: {
-          source: 'navigation-by-hierarchy',
-          query: { hierarchy: 'navbar-default' },
           filter: this.formatter.getSchema(),
         },
       })
@@ -73,13 +102,15 @@ class LayoutNavbar extends PureComponent {
         showInMobile = true,
       } = {},
     } = this.props
-    const { data, navbarData } = this.state || {}
+    const { data = [], navbarData = [] } = this.state || {}
+
     const NavBarType = {
       standard: (
         <NavBarComercio
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
           data={data}
           navbarData={navbarData}
+          getDataNavBarData={this.getDataNavBarData}
           {...this.formatter.main.initParams}
         />
       ),

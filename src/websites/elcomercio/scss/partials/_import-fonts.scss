@@ -6,14 +6,8 @@
   font-style: normal;
   font-weight: 500;
   src: local('Libre Franklin Medium'), local('LibreFranklin-Medium'),
-    url('../../fonts/LibreFranklin/libre-franklin-v4-latin-500.woff2')
-      format('woff2'),
-    /* Super Modern Browsers */
       url('../../fonts/LibreFranklin/libre-franklin-v4-latin-500.woff')
-      format('woff'),
-    /* Modern Browsers */
-      url('../../fonts/LibreFranklin/libre-franklin-v4-latin-500.ttf')
-      format('truetype');
+      format('woff');
   font-display: swap;
   /* Safari, Android, iOS */
   // url('../../fonts/LibreFranklin/libre-franklin-v4-latin-500.svg#LibreFranklin')
@@ -26,14 +20,8 @@
   font-style: normal;
   font-weight: 700;
   src: local('Libre Franklin Bold'), local('LibreFranklin-Bold'),
-    url('../../fonts/LibreFranklin/libre-franklin-v4-latin-700.woff2')
-      format('woff2'),
-    /* Super Modern Browsers */
       url('../../fonts/LibreFranklin/libre-franklin-v4-latin-700.woff')
-      format('woff'),
-    /* Modern Browsers */
-      url('../../fonts/LibreFranklin/libre-franklin-v4-latin-700.ttf')
-      format('truetype');
+      format('woff');
   font-display: swap;
   /* Safari, Android, iOS */
   // url('../../fonts/LibreFranklin/libre-franklin-v4-latin-700.svg#LibreFranklin')
@@ -45,15 +33,9 @@
   font-style: normal;
   font-weight: 500;
   src: local('Noto Serif SC Medium'), local('NotoSerifSC-Medium'),
-    url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-500.woff2')
-      format('woff2'),
-    /* Super Modern Browsers */
       url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-500.woff')
       format('woff');
   font-display: swap;
-  /* Modern Browsers */
-  // url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-500.ttf')
-  // format('truetype');
   /* Safari, Android, iOS */
   // url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-500.svg#NotoSerifSC')
   // format('svg'); /* Legacy iOS */
@@ -65,15 +47,9 @@
   font-style: normal;
   font-weight: 700;
   src: local('Noto Serif SC Bold'), local('NotoSerifSC-Bold'),
-    url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.woff2')
-      format('woff2'),
-    /* Super Modern Browsers */
       url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.woff')
       format('woff');
   font-display: swap;
-  /* Modern Browsers */
-  // url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.ttf')
-  // format('truetype');
   /* Safari, Android, iOS */
   // url('../../fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.svg#NotoSerifSC')
   // format('svg'); /* Legacy iOS */

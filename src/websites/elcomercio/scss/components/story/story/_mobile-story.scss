@@ -1,0 +1,192 @@
+.story {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $tertiary-font;
+  }
+
+  /* Titulo de la nota */
+  &-header__title {
+    font-family: $primary-font;
+    font-weight: 700;
+    font-size: 25px;
+    color: $color-gray-300;
+    line-height: 1.1666666667;
+  }
+
+  /* Bajada de la nota */
+  &-header__summary {
+    font-size: 18px;
+    word-wrap: break-word;
+    font-weight: 400;
+    line-height: 1.3333333333;
+  }
+  /* iconos redes sociales en la nota */
+  &-header__share {
+    border-top-color: $color-gray-200;
+    border-bottom-style: dashed;
+    border-bottom-color: $color-gray-200;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  &-header__title-section {
+    font-family: $primary-font;
+    font-size: 18px;
+  }
+  &-header__list {
+    display: none;
+  }
+  /* Leyenda de imagen */
+  &-content__caption {
+    border-bottom: 1px dashed $color-gray-200;
+    padding-bottom: 10px;
+    font-size: 13px;
+    font-family: $secondary-font;
+    color: #888888;
+  }
+
+  /* Información autor de la nota*/
+  &-content__author {
+    flex-direction: row;
+  }
+
+  /* Texto cuerpo de la nota */
+  &-content__font--secondary {
+    font-family: $tertiary-font;
+    font-size: 21px;
+    a {
+      color: #4a88b1;
+      b {
+        font-family: $tertiary-font;
+      }
+    }
+    b {
+      font-family: $secondary-font;
+      font-size: 18px;
+    }
+  }
+  /* Tags de la nota */
+  &-tags__title {
+    font-size: 11.7px;
+    line-height: 1;
+  }
+  &-tags__link {
+    background-color: transparent;
+    color: #343434;
+    text-decoration: underline;
+    padding-left: 0;
+    font-style: italic;
+    font-family: $tertiary-font;
+    font-size: 18px;
+  }
+  /* Cargando nota */
+  &-continue {
+    .story-continue__story-load-image {
+      &::before {
+        content: '\e903';
+        display: flex;
+        font-family: 'icomoon', system-ui, -apple-system, Segoe UI, Roboto,
+          Ubuntu, Cantarell, Noto Sans, sans-serif !important;
+        font-size: 40px;
+      }
+    }
+  }
+
+  /* Te puede ineteresar */
+  &-interest__list {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0;
+  }
+  &-interest__titleList {
+    border-top: 1px solid #c1c1c1;
+    text-align: left;
+    font-family: $primary-font;
+    padding-left: 0;
+    font-size: 16px;
+  }
+  &-interest__item {
+    border-top: 1px solid #c1c1c1;
+    padding-top: 10px;
+  }
+
+  /* Notas relacionadas */
+  .related-content {
+    &__title {
+      font-family: $primary-font;
+      border-top: 1px solid #c1c1c1;
+      border-bottom: 1px solid #c1c1c1;
+    }
+    &__link {
+      font-family: $primary-font;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      font-size: 17px;
+      line-height: 1.33;
+    }
+    &__item {
+      border-bottom: 1px dashed #c1c1c1;
+      border-top: 0;
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+    &__information {
+      order: 1;
+      padding: 10px 10px 0 10px;
+      width: calc(100% - 80px);
+    }
+    &__multimedia {
+      order: -1;
+      height: 90px;
+      width: 80px;
+    }
+    &__icon {
+      right: 10px;
+      top: 10px;
+      margin: 0;
+    }
+  }
+}
+/* Footer de la nota */
+.footer-story {
+  .footer-secondary__logo-wrapper,
+  .footer-secondary__legal,
+  .footer-secondary__legal-item {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-secondary__logo-wrapper {
+    height: auto;
+    background-color: transparent;
+    padding: 20px 0;
+  }
+  .footer-secondary__logo-link {
+    margin-bottom: 20px;
+  }
+  .footer-secondary__legal {
+    max-width: 700px;
+    width: 100%;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .footer-secondary__legal-item {
+    line-height: 1.5;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 11px;
+    color: $color-gray-200;
+  }
+  .footer-secondary__logo-img {
+    height: 33px;
+  }
+}

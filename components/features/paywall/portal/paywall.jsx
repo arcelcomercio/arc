@@ -3,6 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
+import Consumer from 'fusion:consumer'
+import ENV from 'fusion:environment'
 
 import URL from 'url-parse'
 import * as S from './styled'
@@ -12,11 +14,13 @@ import { sendAction, PixelActions } from '../_dependencies/analitycs'
 import Card from './_children/card'
 import ClickToCall from '../_children/click-to-call'
 import Icon from '../_children/icon'
-// import FillHeight from '../_children/fill-height'
 import { useStrings } from '../_children/contexts'
 
-const Portal = ({ theme }) => {
+const PortalInt = props => {
   const msgs = useStrings()
+
+  const { theme, dispatchEvent } = props
+
   const {
     arcSite,
     globalContent: items,
@@ -50,7 +54,9 @@ const Portal = ({ theme }) => {
       name: 'sdkSalesARC',
       url: originSalesSdkUrl,
     })
-    document.getElementById('footer').style.position = 'relative'
+    if (document.getElementById('footer')) {
+      document.getElementById('footer').style.position = 'relative'
+    }
   }, [])
 
   const onSubscribeHandler = React.useRef(item => {
@@ -90,6 +96,22 @@ const Portal = ({ theme }) => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
+          {arcSite === 'gestion' && ENV.ENVIRONMENT !== 'elcomercio' && (
+            <S.LinkCorporate
+              primary
+              linkStyle
+              onClick={() => {
+                dispatchEvent('signInReq', 'students')
+              }}>
+              <S.SubscribedText primary>
+                <div>
+                  <span>PLAN UNIVERSITARIO</span>
+                </div>
+                <Icon type={theme.icon.arrowRight} />
+              </S.SubscribedText>
+            </S.LinkCorporate>
+          )}
+
           <S.LinkCorporate
             linkStyle
             href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
@@ -103,7 +125,7 @@ const Portal = ({ theme }) => {
           </S.LinkCorporate>
 
           <S.ClickToCallWrapper>
-            <ClickToCall href={clickToCallUrl} />
+            <ClickToCall href={clickToCallUrl} text="¿AYUDA?" />
           </S.ClickToCallWrapper>
         </S.FooterContent>
       </S.Footer>
@@ -112,7 +134,20 @@ const Portal = ({ theme }) => {
   )
 }
 
+@Consumer
+class Portal extends React.Component {
+  render() {
+    return (
+      <PortalInt
+        {...this.props}
+        dispatchEvent={this.dispatchEvent.bind(this)}
+      />
+    )
+  }
+}
+
 const ThemedPortal = withTheme(Portal)
+
 ThemedPortal.propTypes = {
   customFields: PropTypes.shape({
     id: PropTypes.string,

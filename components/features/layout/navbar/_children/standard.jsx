@@ -255,7 +255,8 @@ class NavBarDefault extends PureComponent {
 
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
-    const { statusSearch } = this.state
+    const { statusSearch} = this.state
+    // getDataNavBarData()
     if (statusSearch) this._handleSearch()
     else this.focusInputSearch()
     this.setState({ statusSearch: !statusSearch })
@@ -324,6 +325,12 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
+    const {getDataNavBarData ,data =[]}=this.props
+    
+    if(data.length === 0){
+      getDataNavBarData()
+    }
+
     this.toggleBodyOverflow()
     if (statusSidebar) this._closeMenu()
     else this._openMenu()

@@ -5,6 +5,7 @@ import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'story-dev'
 
@@ -19,14 +20,6 @@ const params = [
 const options = {
   gzip: true,
   json: true,
-}
-
-class RedirectError extends Error {
-  constructor(location, statusCode) {
-    super()
-    this.location = location
-    this.statusCode = statusCode || 302
-  }
 }
 
 const queryStoryRecent = (section, site) => {
@@ -117,7 +110,7 @@ const getAdditionalData = (storyData, website) => {
     return request({
       uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
         storyData._id
-      }&website=${website}&published=true`,
+        }&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
       storyData.related_content = idsResp
@@ -475,6 +468,7 @@ export default {
         basic_gallery{
           promo_items{
             basic{
+              type
               caption
               subtitle
               url
@@ -504,9 +498,11 @@ export default {
       }
       promo_items{
         basic{
+          type
           url
           width
           height
+          
           resized_urls{
             original
             landscape_md
@@ -515,6 +511,7 @@ export default {
         basic_gallery{
           promo_items{
             basic{
+              type
               caption
               subtitle
               resized_urls{

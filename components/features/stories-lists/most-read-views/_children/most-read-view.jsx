@@ -19,7 +19,7 @@ const classes = {
   mrHTML: 'mr-view__html flex justify-center p-5',
 }
 
-export default ({
+export default React.memo(({
   data,
   title,
   urlTitle,
@@ -40,8 +40,8 @@ export default ({
                 {title || 'Lo mas leido'}
               </a>
             ) : (
-              <p className={classes.mrTitle}>{title || 'Lo mas leido'}</p>
-            )}
+                <p className={classes.mrTitle}>{title || 'Lo mas leido'}</p>
+              )}
           </div>
           <div className={classes.mrBody}>
             {dataList.map((item, index) => {
@@ -86,4 +86,4 @@ export default ({
       )}
     </div>
   )
-}
+})

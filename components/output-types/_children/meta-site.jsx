@@ -15,6 +15,7 @@ export default ({
   requestUri = '',
   arcSite = '',
   contextPath = '',
+  isMobile = false,
 } = {}) => {
   const logoSite = `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
   const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${deployment(
@@ -49,13 +50,15 @@ export default ({
   const newURLCanonical = urlCanonical.startsWith('/noticias/')
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
+
+  const style = isMobile === true ? 'mobile' : 'style'
   return (
     <>
       {isAmp === false && (
         <link
           rel="stylesheet"
           href={deployment(
-            `${contextPath}/resources/dist/${arcSite}/css/style.css`
+            `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
           )}
         />
       )}

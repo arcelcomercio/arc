@@ -135,8 +135,12 @@ export default {
   activeSignwall: false,
   activePaywall: false,
   gda: false, // Grupo Diarios de America
+  googleTagManagerMobile: 'GTM-NNX4LXF',
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
     mode: 'thumbnails-a',
+  },
+  stick: {
+    logo: 'logo-stick.png',
   },
 }

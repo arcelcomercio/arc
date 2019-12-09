@@ -12,7 +12,7 @@ const getSite = site => {
     peru21: 'p21',
     elbocon: 'boc',
     ojo: 'ojo',
-    correo: 'cor',
+    diariocorreo: 'cor',
   }
   return sites[site] || sites.elcomercio
 }

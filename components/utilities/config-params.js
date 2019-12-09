@@ -46,7 +46,7 @@ class ConfigParams {
 
   static COMSCORE_ID = '8429002'
 
-  static OPTA_WIDGET = 'https://assets.trome.pe/opta'
+  static OPTA_WIDGET = 'https://img.trome.pe/opta'
 
   static ELEMENT_YOUTUBE_ID = 'youtube_id'
 
@@ -324,6 +324,7 @@ export const spacesAdsId = () => {
     'auspiciotop3',
     'daily1',
     'daily2',
+    'daily3',
     'catalogo1',
     'catalogo2',
     'zonaauspiciada0',
@@ -351,6 +352,7 @@ export const spacesAdsName = () => {
     auspiciotop3: 'auspiciotop3',
     daily1: 'daily1',
     daily2: 'daily2',
+    daily3: 'daily3',
     catalogo1: 'catalogo1',
     catalogo2: 'catalogo2',
     zonaauspiciada0: 'zonaauspiciada0',
