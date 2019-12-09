@@ -164,7 +164,10 @@ class AuthFacebook extends React.Component {
                 }
 
                 // NEWSLETTER POR DEFAULT
-                if (arcSite === 'gestion') {
+                if (
+                  arcSite === 'gestion' &&
+                  EMAIL_USER.indexOf('facebook.com') < 0
+                ) {
                   services.sendNewsLettersUser(
                     resPro.uuid,
                     EMAIL_USER,

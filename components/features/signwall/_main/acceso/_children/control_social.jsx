@@ -163,7 +163,10 @@ export const ButtonSocial = ({
             Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
 
             // NEWSLETTER POR DEFAULT
-            if (arcSite === 'gestion') {
+            if (
+              arcSite === 'gestion' &&
+              EMAIL_USER.indexOf('facebook.com') < 0
+            ) {
               Services.sendNewsLettersUser(
                 resProfile.uuid,
                 EMAIL_USER,
