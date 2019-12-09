@@ -1,10 +1,13 @@
 import React from 'react'
+import { sha256 } from 'js-sha256'
 import styled from 'styled-components'
 import { device } from '../../../_styles/breakpoints'
 import { Facebook, Google, Mail } from '../../common/iconos'
 import { Button } from './styles'
 import Services from '../../utils/new_services'
 import Domains from '../../utils/domains'
+import Cookies from '../../utils/new_cookies'
+import getDevice from '../../utils/get-device'
 
 export const ButtonStyleSocial = styled(Button)`
   font-size: 16px;
@@ -89,7 +92,7 @@ export const ButtonSocial = ({
 
   const OAuthFacebook = ({ data }) => {
     if (
-      data.origin !== Domains.getUrlECOID() &&
+      data.origin !== Domains.getUrlECOID() ||
       window.Identity.userIdentity.uuid
     ) {
       return
@@ -101,20 +104,76 @@ export const ButtonSocial = ({
       data.accessToken,
       'facebook'
     ).then(resLogSocial => {
-      window.localStorage.setItem(
-        'ArcId.USER_INFO',
-        JSON.stringify(resLogSocial)
-      )
-      window.Identity.userIdentity = resLogSocial
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      window.Identity.getUserProfile().then(resProfile => {
-        onLogged(resProfile)
-        if (typeDialog === 'students') {
-          onStudents()
-        } else {
-          onClose()
-        }
-      })
+      if (resLogSocial.accessToken) {
+        window.localStorage.setItem(
+          'ArcId.USER_INFO',
+          JSON.stringify(resLogSocial)
+        )
+        window.Identity.userIdentity = resLogSocial
+        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.getUserProfile().then(resProfile => {
+          const EMAIL_USER =
+            resProfile.email ||
+            `${resProfile.identities[0].userName}@facebook.com`
+
+          if (!resProfile.displayName && !resProfile.attributes) {
+            const newProfileFB = {
+              firstName: resProfile.firstName.replace(/\./g, ''),
+              lastName: resProfile.lastName.replace(/\./g, ''),
+              displayName: EMAIL_USER,
+              email: EMAIL_USER,
+              attributes: [
+                {
+                  name: 'originDomain',
+                  value: window.location.hostname || 'none',
+                  type: 'String',
+                },
+                {
+                  name: 'originReferer',
+                  value: window.location.href || 'none',
+                  type: 'String',
+                },
+                {
+                  name: 'originMethod',
+                  value: '2',
+                  type: 'String',
+                },
+                {
+                  name: 'originDevice',
+                  value: getDevice(window) || 'none',
+                  type: 'String',
+                },
+                {
+                  name: 'originAction',
+                  value: typeDialog || 'none',
+                  type: 'String',
+                },
+                {
+                  name: 'termsCondPrivaPoli', // Terms Conditions and Privacy Policy
+                  value: '1',
+                  type: 'String',
+                },
+              ],
+            }
+
+            window.Identity.options({
+              apiOrigin: Domains.getOriginAPI(arcSite),
+            })
+            window.Identity.updateUserProfile(newProfileFB)
+            Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
+          } else {
+            Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
+          }
+          onLogged(resProfile)
+          if (typeDialog === 'students') {
+            onStudents()
+          } else {
+            onClose()
+          }
+        })
+      } else {
+        onClose()
+      }
     })
   }
 

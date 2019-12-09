@@ -35,6 +35,18 @@ export const Text = styled.p`
 export const Form = styled.form`
   width: 100%;
   padding: 10px 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  /* Change the white to any color ;) */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
   input,
   select,
   button {
@@ -132,7 +144,7 @@ export const Form = styled.form`
     font-size: 12px;
     margin-bottom: 5px;
   }
-  & .group-inline{
+  & .group-inline {
     display: flex;
     justify-content: space-between;
   }

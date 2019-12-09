@@ -62,7 +62,7 @@ class FormRegister extends Component {
       if (tipmodal === 'relogemail') {
         return 'reloginemail'
       }
-      if( tipmodal === 'reloghash'){
+      if (tipmodal === 'reloghash') {
         return 'reloginhash'
       }
       return '0'
@@ -156,6 +156,7 @@ class FormRegister extends Component {
                     showMsgConfirm: true,
                   })
                   window.localStorage.removeItem('ArcId.USER_PROFILE') // remueve profile creado por signup
+                  window.sessionStorage.removeItem('ArcId.USER_PROFILE') // remueve profile creado por signup
                   window.Identity.userProfile = null // remueve profile creado por signup
                 })
                 .catch(errSend => {
@@ -403,7 +404,7 @@ class FormRegister extends Component {
                     }}
                     tabIndex="0"
                   />
-                  
+
                   {/* <label htmlFor="password" className="form-group__label">
                     Contraseña
                   </label> */}
@@ -472,9 +473,7 @@ class FormRegister extends Component {
                       type="submit"
                       id="registro_boton_registrarme"
                       className={
-                        arcSite !== 'peru21'
-                          ? 'btn input-button'
-                          : 'btn btn-bg'
+                        arcSite !== 'peru21' ? 'btn input-button' : 'btn btn-bg'
                       }
                       value={!sending ? 'Registrando...' : 'Registrarme'}
                       onClick={() =>
@@ -502,8 +501,8 @@ class FormRegister extends Component {
                         peru21g21: '#d5ecff',
                         elbocon: '#fdabab',
                         depor: '#d5d945',
-                        trome:'#ffede5',
-                        ojo:'#e7fced',
+                        trome: '#ffede5',
+                        ojo: '#e7fced',
                         diariocorreo: '#fdabab',
                       }[brandCurrent]
                     }

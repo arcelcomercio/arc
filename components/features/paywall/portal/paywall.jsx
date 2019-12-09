@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react'
+import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -96,7 +97,7 @@ const PortalInt = props => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
-          {arcSite === 'gestion' && (
+          {arcSite === 'gestion' && ENV.ENVIRONMENT !== 'elcomercio' && (
             <S.LinkCorporate
               primary
               linkStyle

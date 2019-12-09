@@ -112,10 +112,7 @@ class SignwallComponent extends PureComponent {
             W.Identity.userIdentity.accessToken
           ) {
             return this.getListSubs().then(p => {
-              const isLoggedInSubs = !!(
-                W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-                W.localStorage.getItem('ArcId.USER_PROFILE')
-              )
+              const isLoggedInSubs = this.checkSession()
               return {
                 s: isLoggedInSubs,
                 p: p || null,
@@ -134,10 +131,7 @@ class SignwallComponent extends PureComponent {
         customRegCheck: () => {
           // user register state
           const start = Date.now()
-          const isLoggedIn = !!(
-            W.localStorage.getItem('ArcId.USER_PROFILE') !== 'null' &&
-            W.localStorage.getItem('ArcId.USER_PROFILE')
-          )
+          const isLoggedIn = this.checkSession()
           return Promise.resolve({
             l: isLoggedIn,
             timeTaken: Date.now() - start,
@@ -172,7 +166,9 @@ class SignwallComponent extends PureComponent {
 
   checkSession = () => {
     if (typeof window !== 'undefined') {
-      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
+      const profileStorage =
+        window.localStorage.getItem('ArcId.USER_PROFILE') ||
+        window.sessionStorage.getItem('ArcId.USER_PROFILE')
       const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
       if (profileStorage) {
         return !(profileStorage === 'null' || sesionStorage === '{}') || false

@@ -74,8 +74,10 @@ class SubDetail extends Component {
         dateexpire: '',
         codecvv: '',
       },
-      // eslint-disable-next-line react/no-unused-state
-      fullName: JSON.parse(window.localStorage.getItem('ArcId.USER_PROFILE')),
+      fullName: JSON.parse(
+        window.localStorage.getItem('ArcId.USER_PROFILE') ||
+          window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      ),
       selectedOption: 'VISA',
       showMessageSuccess: false,
       showMessageFailed: false,

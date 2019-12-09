@@ -14,8 +14,6 @@ import getDevice from '../../utils/get-device'
 import { FormStudents } from './form_students'
 import Domains from '../../utils/domains'
 import Cookies from '../../utils/new_cookies'
-import Services from '../../utils/new_services'
-
 // eslint-disable-next-line import/prefer-default-export
 export const FormRegister = props => {
   const { typeDialog, onClose, onLogged, onLoggedFail, arcSite } = props
@@ -58,23 +56,12 @@ export const FormRegister = props => {
     },
   }
 
-  const handleGetProfile = token => {
+  const handleGetProfile = () => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile().then(profile => {
       Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
       setShowConfirm(!showConfirm)
       onLogged(profile)
-
-      // NEWSLETTER POR DEFAULT
-      if (arcSite === 'gestion') {
-        Services.sendNewsLettersUser(
-          profile.uuid,
-          profile.email,
-          arcSite,
-          token,
-          ['general']
-        )
-      }
     })
   }
 
@@ -124,24 +111,11 @@ export const FormRegister = props => {
           },
         ],
       },
-      { doLogin: false },
-      { rememberMe: false }
+      { doLogin: true },
+      { rememberMe: true }
     )
       .then(() => {
-        setTimeout(() => {
-          window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-          window.Identity.login(remail, rpass, {
-            rememberMe: true,
-            cookie: true,
-          })
-            .then(resLogReg => {
-              handleGetProfile(resLogReg.accessToken)
-            })
-            .catch(errLogReg => {
-              setShowError(getCodeError(errLogReg.code))
-              onLoggedFail(errLogReg)
-            })
-        }, 2000)
+        handleGetProfile()
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
