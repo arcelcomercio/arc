@@ -24,6 +24,7 @@ import ErrorBoundary from '../_children/error-boundary'
 import PWA from './_dependencies/seed-pwa'
 import { interpolateUrl } from '../_dependencies/domains'
 import '../_dependencies/sentry'
+import { useStrings } from '../_children/contexts'
 
 const stepNames = ['PLANES', 'DATOS', 'PAGO', 'CONFIRMACIÓN']
 const stepSlugs = ['planes', 'datos', 'pago', 'confirmacion']
@@ -39,6 +40,7 @@ const Paywall = ({
   addEventListener,
   removeEventListener,
 }) => {
+  const msgs = useStrings()
   const {
     arcSite,
     customFields: { substractFeaturesHeights = '' },
@@ -59,11 +61,10 @@ const Paywall = ({
   const getCodeCxense = interpolateUrl(urls.codeCxense)
 
   useEffect(() => {
-    document.querySelector('html').classList.add('ios')
     PWA.mount(() => window.location.reload())
-    addEventListener('logout', clearPaywallStorage)
+    addEventListener('logout', logoutHandler)
     return () => {
-      removeEventListener('logout', clearPaywallStorage)
+      removeEventListener('logout', logoutHandler)
     }
   }, [])
 
@@ -72,7 +73,12 @@ const Paywall = ({
     sessionStorage.removeItem(PAYMENT_FORM_NAME)
   }).current
 
-  const match = window.location.href.match(/eventos\/(\w+)/)
+  const logoutHandler = useRef(() => {
+    clearPaywallStorage()
+    window.location.reload()
+  }).current
+
+  const match = window.location.href.match(RegExp(urls.eventsRegexp))
   const event = match ? { isEvent: true, event: match[1] } : {}
   const { pathname: basePath, query } = React.useRef(
     (() => {
@@ -183,9 +189,7 @@ const Paywall = ({
               <Nav
                 excludeSteps={freeAccess && [2, 3]}
                 stepsNames={stepNames}
-                right={
-                  <ClickToCall href={clickToCallUrl} text="¿Necesitas ayuda?" />
-                }
+                right={<ClickToCall href={clickToCallUrl} text={msgs.help} />}
               />
             }>
             <WizardPlan

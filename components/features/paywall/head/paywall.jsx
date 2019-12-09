@@ -26,7 +26,7 @@ const Head = props => {
     siteProperties: {
       paywall: { urls },
     },
-    customFields: { id },
+    customFields: { id, forceLogin: _forceLogin },
     dispatchEvent,
     addEventListener,
     removeEventListener,
@@ -36,11 +36,15 @@ const Head = props => {
   const [isActive, setIsActive] = React.useState(false)
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [stepForm, setStepForm] = React.useState(1)
+  const [typeSignWall, setTypeSignWall] = React.useState('landing')
+
+  const forceLogin = React.useRef()
 
   // eslint-disable-next-line react/sort-comp
-  const signInReqHandler = React.useRef(() => {
-    if (!isLogged()) {
+  const signInReqHandler = React.useRef(typeSignWall => {
+    if (!isLogged() || typeSignWall === 'students') {
       setShowSignwall(true)
+      setTypeSignWall(typeSignWall)
     }
   }).current
 
@@ -66,6 +70,7 @@ const Head = props => {
       removeEventListener('signInReq', signInReqHandler)
       removeEventListener('profileUpdate', profileUpdateHandler)
     }
+    forceLogin.current = _forceLogin
     if (isLogged()) {
       window.Identity.options({ apiOrigin: interpolateUrl(urls.originApi) })
       window.Identity.getUserProfile()
@@ -80,7 +85,7 @@ const Head = props => {
 
   const getFullName = () => {
     let fullName = msgs.startSession
-    if (profile) {
+    if (isLogged() && profile) {
       fullName = profile.firstName
         ? `${profile.firstName} ${profile.lastName || ''}`.trim()
         : msgs.welcomeUser
@@ -101,11 +106,10 @@ const Head = props => {
 
   return (
     <S.Head id={id}>
-      {showSignwall && (
+      {(showSignwall || (!isLogged() && forceLogin.current)) && (
         <Landing
-          typeDialog="landing" // tipo de modal (students , landing)
-          nameDialog="landing" // nombre que dara al modal
-          brandDialog={arcSite}
+          typeDialog={typeSignWall} // tipo de modal (students , landing)
+          nameDialog={typeSignWall} // nombre de modal
           onLogged={profile => {
             const conformedProfile = conformProfile(profile)
             dispatchEvent('logged', conformedProfile)
@@ -113,8 +117,11 @@ const Head = props => {
           }}
           onLoggedFail={() => dispatchEvent('loginFailed')}
           onClose={() => {
-            setShowSignwall(!showSignwall)
+            dispatchEvent('loginCanceled')
+            setShowSignwall(false)
+            typeSignWall !== 'students' ? setTypeSignWall('landing') : null
           }}
+          noBtnClose={typeSignWall === 'students' ? false : !!_forceLogin}
         />
       )}
       <S.Background>
@@ -140,9 +147,14 @@ const Head = props => {
                 onClick={() => {
                   Taggeo(
                     `Web_Sign_Wall_Suscripciones`,
-                    `web_link_ingresar_${profile ? 'perfil' : 'cuenta'}`
+                    `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
                   )
-                  profile ? setIsActive(true) : setShowSignwall(true)
+                  if (isLogged()) {
+                    setIsActive(true)
+                  } else {
+                    if (profile) setProfile()
+                    setShowSignwall(true)
+                  }
                 }}>
                 <span>{getFullName()}</span>
               </S.LoginButton>
@@ -194,7 +206,7 @@ ThemedHead.propTypes = {
     }),
     forceLogin: PropTypes.bool.tag({
       name: 'Forzar login:',
-      defaultValue: true,
+      defaultValue: false,
       description: 'Check para forzar a estar logeado.',
     }),
   }),

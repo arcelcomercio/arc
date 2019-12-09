@@ -13,3 +13,9 @@ setupTests.js
 .browserslistrc
 .babelrc
 .prettierrc
+*.md
+*.test*
+**/*.md
+**/*.test*
+package-lock.json
+yarn.lock

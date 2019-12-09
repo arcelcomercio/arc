@@ -80,7 +80,8 @@ module.exports = (mode, type = 'index') => {
   }
 
   const fonts = {
-    test: /\.(ttf|woff|woff2)$/, // No .eot https://caniuse.com/#search=eot
+    test: /\.(woff)$/, // No .eot https://caniuse.com/#search=eot
+    // Removing woff2 for now
     use: {
       loader: 'file-loader',
       options: {

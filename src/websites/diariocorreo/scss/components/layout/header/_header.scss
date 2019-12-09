@@ -1,23 +1,37 @@
 .header {
-  background-color: #a8a89b;
+  background-color: transparent;
+  position: relative;
+  @media (--desktop) {
+    z-index: 20;
+    height: 0;
+    top: -46px;
+  }
+
   &__link {
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
   }
   &__logo {
-    position: relative;
-    z-index: 1;
-    @media (--desktop) {
-      height: 58px;
-    }
+    position: absolute;
+    left: 13px;
+    width: 120px;
+    height: 136px;
   }
   &__wrapper--dashed {
     border-bottom: 0;
     background-color: #a8a89b;
   }
   &__tags,
-  &__date,
+  &__date {
+    @media (--tablet) {
+      display: none;
+    }
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &__tags,
   &__link {
     font-family: $tertiary-font;
     color: $color-base-300;
@@ -30,5 +44,22 @@
       height: 10px;
       background-color: $color-white;
     }
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+  &__button.left,
+  &__button.right {
+    &::before {
+      @media (--desktop) {
+        background: transparent;
+      }
+    }
+  }
+  &__featured {
+    flex-wrap: wrap;
+    max-width: 826px;
   }
 }

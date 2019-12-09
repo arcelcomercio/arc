@@ -31,15 +31,24 @@ const params = [
     displayName: 'Cantidad a mostrar',
     type: 'number',
   },
+  {
+    name: 'url',
+    displayName: 'Url del autor (Opcional, reemplaza al slug)',
+    type: 'text',
+  }
 ]
 
 const pattern = (key = {}) => {
-  const { name } = key
+  const { name, url: rawUrl = '' } = key
+  
+  const authorUrl = rawUrl === null ? '' : rawUrl
+  const url = authorUrl || `/autor/${name}`
+
   website = key['arc-site'] || 'Arc Site no está definido'
   pageNumber = !key.from || key.from === 0 ? 1 : key.from
   const size = key.size || 50
 
-  if (!name) {
+  if (!name && !authorUrl) {
     throw new Error('Esta fuente de contenido necesita el Slug del autor')
   }
 
@@ -57,7 +66,7 @@ const pattern = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  const requestUri = `${CONTENT_BASE}/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"/autor/${name}"+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
+  const requestUri = `${CONTENT_BASE}/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"${url}"+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
 
   return request({
     uri: requestUri,
@@ -84,7 +93,7 @@ const pattern = (key = {}) => {
 
     if (by.length === 0) return dataStories
 
-    const realAuthor = by.find(author => `/autor/${name}` === author.url)
+    const realAuthor = by.find(author => url === author.url)
 
     const { additional_properties: { original: { longBio = '' } = {} } = {} } =
       realAuthor || {}

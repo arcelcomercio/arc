@@ -220,12 +220,11 @@ function WizardPayment(props) {
         })
     })
       .then(res => {
-        // Mezclamos valores del formulario con el payload de respuesta
-        const mergedValues = Object.assign({}, memo, {
+        const stepResults = {
           payment: res,
           cardInfo: values,
-        })
-        onBeforeNextStep(mergedValues, props)
+        }
+        onBeforeNextStep(stepResults, props)
         if (getBrowser().isSafari) {
           setLoading(false)
         }

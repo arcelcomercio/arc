@@ -172,7 +172,7 @@
     .nav__search-box {
       border-color: $color-white;
       @media (--desktop) {
-        display: block;
+        display: flex;
       }
     }
     .nav__wrapper {
@@ -186,13 +186,6 @@
     .nav__btn--section span {
       display: block;
       color: $color-white;
-    }
-
-    .nav__btn--search {
-      top: 2px;
-      @media (--desktop) {
-        top: -4px;
-      }
     }
   }
 }

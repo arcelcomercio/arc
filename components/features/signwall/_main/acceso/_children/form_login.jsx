@@ -13,7 +13,7 @@ export const FormLogin = () => {
     <ModalConsumer>
       {value => (
         <S.Form>
-          <S.Text c="gray" s="20" className="mb-20 center">
+          <S.Text c="gray" s="20" className="mb-20 mt-20 center">
             Ingresa con
           </S.Text>
 

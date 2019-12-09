@@ -5,6 +5,7 @@ import { device } from '../../../_styles/breakpoints'
 export const ContMiddle = styled.div`
   display: block;
   height: 100%;
+  min-height: 520px;
 `
 
 export const Base = styled.div`
@@ -36,8 +37,8 @@ export const FirstMiddle = styled(Base)`
 export const SecondMiddle = styled(Base)`
   width: 100%;
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  /* top: 50%;
+  transform: translateY(-50%); */
   @media ${device.desktop} {
     width: 50%;
   }
