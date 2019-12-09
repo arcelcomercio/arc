@@ -23,12 +23,12 @@ const buildParagraph = (paragraph, type = '', imageCaption = '') => {
   if (type === ConfigParams.ELEMENT_RAW_HTML) {
     if (paragraph.includes('src="https://www.youtube.com/embed')) {
       // para videos youtube, se reemplaza por una imagen y link del video
-      const srcVideo = paragraph.match(/src="([^"]+)/)
-        ? paragraph.match(/src="([^"]+)/)[1]
+      const srcVideo = paragraph.match(/src="([^"?]+)/)
+        ? paragraph.match(/src="([^"?]+)/)[1]
         : ''
 
-      const videoId = srcVideo.match(/\w+$/) // OLD regex /embed\/([\w+\-+]+)["?]/
-        ? srcVideo.match(/\w+$/)[0]
+      const videoId = srcVideo.match(/[\w-]+$/) // OLD regex /embed\/([\w+\-+]+)["?]/
+        ? srcVideo.match(/[\w-]+$/)[0]
         : ''
 
       if (srcVideo !== '')
