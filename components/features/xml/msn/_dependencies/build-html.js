@@ -23,17 +23,16 @@ const buildParagraph = (paragraph, type = '', imageCaption = '') => {
   if (type === ConfigParams.ELEMENT_RAW_HTML) {
     if (paragraph.includes('src="https://www.youtube.com/embed')) {
       // para videos youtube, se reemplaza por una imagen y link del video
-      const srcVideo = paragraph.match(/src="([^"]+)?/)
-        ? paragraph.match(/src="([^"]+)?/)[1]
+      const srcVideo = paragraph.match(/src="([^"]+)/)
+        ? paragraph.match(/src="([^"]+)/)[1]
         : ''
 
-      const videoId = paragraph.match(/embed\/([\w+\-+]+)["?]/)
-        ? paragraph.match(/embed\/([\w+\-+]+)["?]/)[1]
+      const videoId = srcVideo.match(/\w+$/) // OLD regex /embed\/([\w+\-+]+)["?]/
+        ? srcVideo.match(/\w+$/)[0]
         : ''
 
       if (srcVideo !== '')
         result = `<div><img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" title="video youtube" alt="video youtube"><a href="${srcVideo}" title="video youtube">Ver Video Aquí</a></div>`
-
     } else if (paragraph.includes('<iframe')) {
       // valida si el parrafo contiene un iframe con video o foto
 
@@ -69,24 +68,27 @@ const buildParagraph = (paragraph, type = '', imageCaption = '') => {
   return result
 }
 
-const ParagraphshWithAdds = ({
-  paragraphsNews = []
-}) => {
+const ParagraphshWithAdds = ({ paragraphsNews = [] }) => {
   const newsWithAdd = []
   let resultParagraph = ''
 
-  paragraphsNews.forEach(({ payload: paragraphItem, type, caption: imageCaption }) => {
-    const paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
-    // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
+  paragraphsNews.forEach(
+    ({ payload: paragraphItem, type, caption: imageCaption }) => {
+      const paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
+      // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
-    let paragraphwithAdd = ''
-    const originalParagraph = paragraph
-    // paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
+      let paragraphwithAdd = ''
+      const originalParagraph = paragraph
+      // paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
 
-    paragraphwithAdd = `${buildParagraph(originalParagraph, type, imageCaption)}`
-    newsWithAdd.push(`${paragraphwithAdd}`)
-
-  })
+      paragraphwithAdd = `${buildParagraph(
+        originalParagraph,
+        type,
+        imageCaption
+      )}`
+      newsWithAdd.push(`${paragraphwithAdd}`)
+    }
+  )
   resultParagraph = newsWithAdd.map(item => item).join('')
   return resultParagraph
 }
@@ -96,17 +98,23 @@ const htmlToText = (html = '') => {
   return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
 }
 
-const multimediaItems = ({
-  gallery = [],
-  video = [],
-  typeNota = ''
-}) => {
+const multimediaItems = ({ gallery = [], video = [], typeNota = '' }) => {
   let cadena = ''
   switch (typeNota) {
     case 'basic_video':
-      cadena = video.map(({ url, caption, urlImage, resized_urls: { amp_new: resizedImage } = {} /** , date */ } = {}) =>
-        `<video title="${caption}" poster="${resizedImage || urlImage}" data-description="${caption}"><source src="${url}" type="video/mp4"></source></video>`
-      ).toString().replace(/>,/g, '>')
+      cadena = video
+        .map(
+          ({
+            url,
+            caption,
+            urlImage,
+            resized_urls: { amp_new: resizedImage } = {} /** , date */,
+          } = {}) =>
+            `<video title="${caption}" poster="${resizedImage ||
+              urlImage}" data-description="${caption}"><source src="${url}" type="video/mp4"></source></video>`
+        )
+        .toString()
+        .replace(/>,/g, '>')
       /**
        * ...
        * <video title="" poster="" data-description="">
@@ -116,10 +124,19 @@ const multimediaItems = ({
        */
       break
     case 'basic_gallery':
-      cadena = `${cadena}<div class="slideshow">${gallery.map(image => {
-        const { resized_urls: { amp_new: resizedImage } = {}, caption, subtitle = '', url = '' } = image || {}
-        return `<figure><img src="${resizedImage || url}" alt="${caption || subtitle}" title="${htmlToText(caption || subtitle)}" /></figure>`
-      }).toString().replace(/>,/g, '>')}</div>`
+      cadena = `${cadena}<div class="slideshow">${gallery
+        .map(image => {
+          const {
+            resized_urls: { amp_new: resizedImage } = {},
+            caption,
+            subtitle = '',
+            url = '',
+          } = image || {}
+          return `<figure><img src="${resizedImage || url}" alt="${caption ||
+            subtitle}" title="${htmlToText(caption || subtitle)}" /></figure>`
+        })
+        .toString()
+        .replace(/>,/g, '>')}</div>`
       /**
        * <div class="slideshow">
        * ...
@@ -131,8 +148,16 @@ const multimediaItems = ({
        */
       break
     default: {
-      const { resized_urls: { amp_new: resizedImage } = {}, caption, subtitle = '', url = '' } = gallery || {}
-      cadena = `${cadena}<figure><img src="${resizedImage || url}" alt="${caption || subtitle}" title="${htmlToText(caption || subtitle)}" /></figure>`
+      const {
+        resized_urls: { amp_new: resizedImage } = {},
+        caption,
+        subtitle = '',
+        url = '',
+      } = gallery || {}
+      cadena = `${cadena}<figure><img src="${resizedImage ||
+        url}" alt="${caption || subtitle}" title="${htmlToText(
+        caption || subtitle
+      )}" /></figure>`
       /**
        *  <figure>
        *    <img src="" alt="" title="" />
@@ -151,17 +176,17 @@ const BuildHtml = BuildHtmlProps => {
     paragraphsNews = [],
     gallery = [],
     video = [],
-    typeNota = ''
+    typeNota = '',
   } = BuildHtmlProps
 
   const paramsBuildParagraph = {
-    paragraphsNews
+    paragraphsNews,
   }
 
   const paramsGallery = {
     gallery,
     video,
-    typeNota
+    typeNota,
   }
   try {
     const element = `
