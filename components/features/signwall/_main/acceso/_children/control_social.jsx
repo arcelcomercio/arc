@@ -161,6 +161,17 @@ export const ButtonSocial = ({
             })
             window.Identity.updateUserProfile(newProfileFB)
             Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
+
+            // NEWSLETTER POR DEFAULT
+            if (arcSite === 'gestion') {
+              Services.sendNewsLettersUser(
+                resProfile.uuid,
+                EMAIL_USER,
+                arcSite,
+                resLogSocial.accessToken,
+                ['general']
+              )
+            }
           } else {
             Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
           }

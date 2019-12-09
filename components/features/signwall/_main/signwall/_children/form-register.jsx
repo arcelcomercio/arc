@@ -17,8 +17,10 @@ import FormValid from '../../utils/form-valid'
 import Taggeo from '../../utils/taggeo'
 import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
+import Services from '../../utils/services'
 
 const Cookies = new Cookie()
+const services = new Services()
 
 @Consumer
 class FormRegister extends Component {
@@ -125,7 +127,6 @@ class FormRegister extends Component {
           })
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
-          // window.localStorage.setItem('ArcId._ID', window.Identity.userIdentity.uuid)
 
           this.taggeoSuccess() // -- test de tageo success
 
@@ -134,6 +135,17 @@ class FormRegister extends Component {
             window.Identity.userIdentity || {}
           )
           Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+
+          // NEWSLETTER POR DEFAULT
+          if (arcSite === 'gestion') {
+            services.sendNewsLettersUser(
+              window.Identity.userIdentity.uuid,
+              EmailUserNew,
+              arcSite,
+              window.Identity.userIdentity.accessToken,
+              ['general']
+            )
+          }
         })
         .catch(err => {
           // console.log(err)
