@@ -64,11 +64,6 @@ const AmpOutputType = ({
       ? `${metaValue('description')} `
       : 'Últimas noticias en Perú y el mundo'
 
-  const keywords =
-    metaValue('keywords') && !metaValue('keywords').match(/content/)
-      ? metaValue('keywords')
-      : 'Noticias, El Comercio, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión'
-
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
     title,
@@ -132,9 +127,8 @@ const AmpOutputType = ({
         <title>{title}</title>
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
-          <meta name="amp-experiments-opt-in" content="amp-next-page" />
-        )}
+
+        <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
@@ -191,13 +185,13 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
-        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
-          <script
-            async
-            custom-element="amp-next-page"
-            src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
-          />
-        )}
+
+        <script
+          async
+          custom-element="amp-next-page"
+          src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
+        />
+
         <script
           async
           custom-element="amp-youtube"

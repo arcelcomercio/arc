@@ -1,4 +1,5 @@
 import React from 'react'
+import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
   item: 'story-interest__item w-full mb-40',
@@ -14,7 +15,7 @@ const classes = {
   figure: 'story-interest__figure hidden md:block',
 }
 
-const StorySeparatorChildItem = ({ data }) => {
+const StorySeparatorChildItem = ({ data, arcSite }) => {
   const {
     title,
     link,
@@ -44,18 +45,20 @@ const StorySeparatorChildItem = ({ data }) => {
               className={`${isAdmin ? '' : 'lazy'} ${classes.itemImage}`}
               src={isAdmin ? multimediaLandscapeMD : lazyImage}
               data-src={multimediaLandscapeMD}
-              alt={title}              
+              alt={title}
             />
           </picture>
         </a>
       )}
 
       <div className={classes.detail}>
-        <h2 className={classes.separatorCategory}>
-          <a href={sectionLink} className={classes.separatorCategoryLink}>
-            {section}
-          </a>{' '}
-        </h2>
+        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
+          <h2 className={classes.separatorCategory}>
+            <a href={sectionLink} className={classes.separatorCategoryLink}>
+              {section}
+            </a>
+          </h2>
+        )}
         <h3 className={classes.separatorTitle}>
           <a className={classes.titleLink} href={link}>
             {title}

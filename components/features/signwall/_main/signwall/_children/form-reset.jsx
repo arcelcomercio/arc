@@ -158,6 +158,9 @@ class FormResetPass extends Component {
                     peru21g21:'#d5ecff',
                     elbocon: '#fdabab',
                     depor: '#d5d945',
+                    trome:'#ffede5',
+                    ojo:'#e7fced',
+                    diariocorreo: '#fdabab',
                   }[brandCurrent]
                 }
               />
@@ -191,9 +194,10 @@ class FormResetPass extends Component {
                     this.handleForcePassword(e)
                   }}
                 />
-                <label htmlFor="newPassword" className="form-group__label">
+                
+                {/* <label htmlFor="newPassword" className="form-group__label">
                   Nueva contraseña
-                </label>
+                </label> */}
 
                 {formErrors.newPassword.length > 0 && (
                   <span className="message__error">
@@ -225,9 +229,11 @@ class FormResetPass extends Component {
                     this.handleChangeValidation(e)
                   }}
                 />
-                <label htmlFor="repeatPassword" className="form-group__label">
+
+                {/* <label htmlFor="repeatPassword" className="form-group__label">
                   Confirmar contraseña
-                </label>
+                </label> */}
+
                 {formErrors.repeatPassword.length > 0 && (
                   <span className="message__error">
                     {formErrors.repeatPassword}
@@ -262,6 +268,9 @@ class FormResetPass extends Component {
                     peru21g21:'#d5ecff',
                     elbocon: '#fdabab',
                     depor: '#d5d945',
+                    trome:'#ffede5',
+                    ojo:'#e7fced',
+                    diariocorreo: '#fdabab',
                   }[brandCurrent]
                 }
               />

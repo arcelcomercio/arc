@@ -86,7 +86,6 @@ export default ({
   postTitle,
   arcSite,
   winningCallLogo,
-  winningCallUrl,
   mobileHeaderFollowing,
 }) => {
   const inputSearch = useRef(null)
@@ -347,7 +346,7 @@ export default ({
                   <div>
                     <a
                       className={classes.moreLink}
-                      href={classes.moreLink}
+                      href='/'
                       onClick={event => {
                         openLink(event, 3)
                       }}>
@@ -381,7 +380,7 @@ export default ({
               </div>
             ) : (
               <div className={classes.callImg}>
-                <a href={winningCallUrl}>
+                <a href="https://promociones.trome.pe/registro/super-llamada-ganadora/">
                   <img src={winningCallLogo} alt="Lamada Ganadora" />
                 </a>
               </div>

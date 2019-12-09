@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { spacing } from '@material-ui/system'
 
 export const Subscribed = styled.a`
-  ${({ theme, width, fullWidth }) => css`
+  ${({ theme, width, event, fullWidth }) => css`
     display: flex;
     width: ${width};
     max-width: 930px;
@@ -26,7 +26,7 @@ export const Subscribed = styled.a`
         }
       `}
     ${theme.breakpoints.only('sm')} {
-      width: 50%;;
+      width: ${event ? '100%' : '50%'};
     }
     ${theme.breakpoints.down('xs')} {
       width: calc(100% - 40px);

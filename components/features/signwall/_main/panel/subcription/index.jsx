@@ -43,20 +43,23 @@ class Subscription extends Component {
   }
 
   getListSubs() {
-    if (window.Sales) {
-      window.Sales.apiOrigin = this.origin_api
-      window.Sales.getAllActiveSubscriptions()
-        .then(res => {
-          if (res.length > 0) {
+    if (window.Sales && window.Identity) {
+      window.Identity.options({ apiOrigin: this.origin_api })
+      window.Identity.extendSession().then(() => {
+        window.Sales.options({ apiOrigin: this.origin_api })
+        window.Sales.getAllActiveSubscriptions()
+          .then(res => {
+            if (res.length > 0) {
+              this.setState({
+                isSubs: true,
+              })
+            }
             this.setState({
-              isSubs: true,
+              loading: false,
             })
-          }
-          this.setState({
-            loading: false,
           })
-        })
-        .catch(err => window.console.error(err))
+          .catch(err => window.console.error(err))
+      })
     }
   }
 

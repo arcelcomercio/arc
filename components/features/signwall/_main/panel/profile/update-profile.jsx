@@ -226,7 +226,7 @@ class UpdateProfile extends Component {
           })
         }, 5000)
 
-        this.dispatchEvent('profile-update')
+        this.dispatchEvent('profileUpdate', profile)
       })
       .catch(() => {
         this.setState({

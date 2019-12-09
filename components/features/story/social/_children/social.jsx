@@ -108,7 +108,7 @@ class StoryHeaderChildSocial extends PureComponent {
       primarySection,
       primarySectionLink,
       subtype,
-      tags,
+      // tags,
       isPremium,
     } = new StoryData({
       data: globalContent,
@@ -130,11 +130,11 @@ class StoryHeaderChildSocial extends PureComponent {
         <div
           className={`${classes.news} ${
             subtype === ConfigParams.SPECIAL_BASIC ||
-            subtype === ConfigParams.SPECIAL ||
-            primarySectionLink === '/archivo-elcomercio/'
+              subtype === ConfigParams.SPECIAL ||
+              primarySectionLink === '/archivo-elcomercio/'
               ? 'justify-center'
               : 'justify-between'
-          }`}>
+            }`}>
           {subtype !== ConfigParams.SPECIAL_BASIC &&
             subtype !== ConfigParams.SPECIAL &&
             primarySectionLink !== '/archivo-elcomercio/' && (

@@ -1,0 +1,139 @@
+.story {
+  &-header__title,
+  &-header__summary {
+    margin-bottom: 20px;
+  }
+  &-header__title,
+  &-header__summary,
+  &-content {
+    padding: 0 20px;
+  }
+  &-header__share {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-bottom-width: 1px;
+  }
+  &-header__title-section {
+    text-transform: uppercase;
+  }
+  &-content {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  &-content__caption {
+    padding-top: 10px;
+  }
+  &-content__author {
+    padding-top: 30px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    display: flex;
+  }
+  &-content__font--secondary {
+    margin-bottom: 25px;
+    margin-top: 20px;
+    line-height: 1.5;
+  }
+  &-tags {
+    margin: 25px 0 20px;
+    padding: 0 20px;
+    h2 {
+      display: inline-block;
+      margin-bottom: 5px;
+      margin-right: 5px;
+      font-weight: 400;
+    }
+  }
+  &-tags__title {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  &-tags__link {
+    padding: 5px 10px 5px 10px;
+  }
+  &-continue,
+  &-continue__story-load,
+  &-continue__story-load-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-continue {
+    position: relative;
+    padding: 50px 0;
+  }
+  &-continue__story-load {
+    position: absolute;
+    height: 100%;
+  }
+  &-continue__circle {
+    border-radius: 50%;
+    position: relative;
+  }
+  &-continue__story-load-image,
+  &-continue__counter {
+    position: absolute;
+  }
+  &-continue__counter {
+    border-radius: 50%;
+  }
+  &-continue__story-load-news {
+    padding-left: 30px;
+  }
+  &-continue__story-load-text {
+    padding-bottom: 5px;
+    display: block;
+    color: $color-gray-200;
+  }
+  &-continue__story-load-title {
+    color: $color-gray-300;
+    font-weight: 700;
+    overflow: hidden;
+  }
+  &-interest {
+    padding: 0 20px;
+    width: 100%;
+  }
+  &-interest__container {
+    width: 100%;
+  }
+
+  &-interest__list {
+    display: flex;
+  }
+  &-interest__item {
+    margin-bottom: 40px;
+    width: 100%;
+  }
+  &-interest__img {
+    width: 100%;
+  }
+}
+.related-content {
+  &__list {
+    padding: 20px 20px 0 20px;
+  }
+  &__title {
+    text-transform: uppercase;
+    padding: 20px 0;
+    font-size: 16px;
+  }
+  &__title,
+  &__link {
+    font-weight: 700;
+  }
+  &__item {
+    padding: 15px 0;
+    display: flex;
+  }
+  &__multimedia {
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

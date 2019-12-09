@@ -10,7 +10,7 @@ const classes = {
   title: 'related-internal__title font-bold uppercase mb-10',
   multimedia: 'related-internal__figure position-relative',
   linkAuthor: 'related-internal__link-author',
-  image: 'w-full',
+  image: 'w-full lazy',
   icon:
     'related-internal__multimedia-icon position-absolute p-5 rounded-lg title-xl',
   info:
@@ -18,12 +18,12 @@ const classes = {
   titleLink: 'related-internal__title-link',
 }
 
-const RelartedItem = ({ data } /* , i */) => {
+const RelartedItem = ({ data, imageDefault } /* , i */) => {
   const {
     title,
     link,
     multimediaType,
-    multimedia,
+    multimediaLandscapeMD,
     authorLink,
     author,
   } = new DataStory({
@@ -44,7 +44,12 @@ const RelartedItem = ({ data } /* , i */) => {
         </div>
         <figure className={classes.multimedia}>
           <a href={link}>
-            <img src={multimedia} alt={title} className={classes.image} />
+            <img
+              src={imageDefault}
+              data-src={multimediaLandscapeMD}
+              alt={title}
+              className={classes.image}
+            />
             {multimediaType === ConfigParams.IMAGE || multimediaType === '' ? (
               ''
             ) : (
@@ -59,7 +64,7 @@ const RelartedItem = ({ data } /* , i */) => {
   )
 }
 
-const StoryContentChildRelatedInternal = ({ stories, id }) => {
+const StoryContentChildRelatedInternal = ({ stories, id, imageDefault }) => {
   const keyinternal = 'story-related-internal'
 
   return (
@@ -69,6 +74,7 @@ const StoryContentChildRelatedInternal = ({ stories, id }) => {
           <RelartedItem
             key={keyinternal.concat(item._id).concat(index)}
             data={item}
+            imageDefault={imageDefault}
           />
         ) : null
       )}

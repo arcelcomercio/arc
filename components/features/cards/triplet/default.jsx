@@ -147,7 +147,7 @@ class CardTriplet extends PureComponent {
         query: { _id: getPhotoId(image) },
         filter: `{
           resized_urls { 
-            portrait_xs
+            square_s
           }
         }`,
       }

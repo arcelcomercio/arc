@@ -1,0 +1,38 @@
+.sty-continue {
+  display: flex;
+  width: 320px;
+  margin: 25px auto;
+  &__left {
+    min-height: 100px;
+    min-width: 100px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+  }
+  &__logo {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__progress {
+    height: 100px;
+    width: 50px;
+    position: absolute;
+    background: linear-gradient(180deg, #adadad 0, #f5e9de);
+    border-radius: 50px 0 0 50px;
+    left: 0;
+    transform-origin: 100% 50% 0px;
+    transition: transform 0.1s linear 0s;
+  }
+  &__subtitle {
+    margin-bottom: 5px;
+    display: block;
+  }
+}

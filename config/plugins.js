@@ -7,6 +7,8 @@ const paths = require('./paths')
 
 const APP_DEFAULT = 'index'
 const APP_AMP = 'amp'
+const APP_MOBILE = 'mobile'
+const APP_DMOBILE = 'dmobile'
 const generalStylesPath = `${paths.generalStyles}/components`
 
 module.exports = type => {
@@ -27,9 +29,16 @@ module.exports = type => {
     return { feature: cssBaseFeature, globalComponent: cssBaseGlobalComponent }
   }
   const getListStyleComponents = dir => {
-    let pathStyle = `${generalStylesPath}/*(${dir})/**/**/_!(amp-)*.scss`
+    let pathStyle = `${generalStylesPath}/*(${dir})/**/**/_!(amp-|mobile-|dmobile-)*.scss`
     if (type === APP_AMP) {
       pathStyle = `${generalStylesPath}/*(${dir})/**/**/_amp-*.scss`
+    }
+
+    if (type === APP_MOBILE) {
+      pathStyle = `${generalStylesPath}/*(${dir})/**/**/_mobile-*.scss`
+    }
+    if (type === APP_DMOBILE) {
+      pathStyle = `${generalStylesPath}/*(${dir})/**/**/_dmobile-*.scss`
     }
     let entryStyles = glob.sync(pathStyle)
     entryStyles = entryStyles.map(el => {
@@ -87,9 +96,17 @@ module.exports = type => {
     plugins.unshift(
       new CreateFileWebpack(getOptionsIndexStyleWebpack('_amp.scss'))
     )
+  } else if (type === APP_DMOBILE) {
+    plugins.unshift(
+      new CreateFileWebpack(getOptionsIndexStyleWebpack('_dmobile.scss'))
+    )
+  } else if (type === APP_MOBILE) {
+    plugins.unshift(
+      new CreateFileWebpack(getOptionsIndexStyleWebpack('_mobile.scss'))
+    )
   }
 
-  if (type !== APP_AMP) {
+  if (type !== APP_AMP && type !== APP_MOBILE && type !== APP_DMOBILE) {
     plugins.push(
       new CleanWebpackPlugin([paths.dist], {
         verbose: true,

@@ -58,7 +58,7 @@ const pattern = (key = {}) => {
 
   /** Para enviar params a transform luego */
   globalParams = {
-    section_name: formatSlugToText(section || 'todas'),
+    section_name: formatSlugToText(section) || 'Todas',
     section: section || 'todas',
     date: date || getActualDate(),
   }

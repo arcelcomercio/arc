@@ -58,7 +58,7 @@ const BlogListAuthor = props => {
       user: {
         user_avatarb: {
           resized_urls: {
-            lazy_default: lazyImage,
+            // lazy_default: lazyImage,
             author_sm: authorImg = defaultImage({
               deployment,
               contextPath,
@@ -73,7 +73,13 @@ const BlogListAuthor = props => {
     } = blog
 
     return {
-      lazyImage,
+      isAdmin,
+      lazyImage: defaultImage({
+        deployment,
+        contextPath,
+        arcSite,
+        size: 'sm',
+      }),
       imagePost,
       authorImg,
       date: postDate,
@@ -82,7 +88,6 @@ const BlogListAuthor = props => {
       postTitle,
       urlPost: `/blog/${postLink}`,
       urlBlog: addSlashToEnd(`/blog/${path}`),
-      isAdmin,
     }
   }
 
@@ -91,7 +96,7 @@ const BlogListAuthor = props => {
   } = props
 
   const { total: totalItems = null } = totalItemBlogData
-  let blogs = globalContent
+  let blogs = {}
   let dataBlogs = []
   let pagLimit = 0
   let pagOffset = 0
@@ -114,7 +119,9 @@ const BlogListAuthor = props => {
         last_name: lastName = '',
         user_avatarb: {
           resized_urls: {
-            lazy_default: lazyImage,
+            /* 
+            Por ahora se usa para el Lazy el logo de la marca, no esta img de 5x5
+            lazy_default: lazyImage, */
             author_sm: authorImg = defaultImage({
               deployment,
               contextPath,
@@ -128,7 +135,7 @@ const BlogListAuthor = props => {
     } = globalContent || {}
     totalRows = countPosts
     posts.map((post, i) => {
-      const key = `post-${i}-${post.ID}`
+      // TODO: Eliminar si no se usa --> const key = `post-${i}-${post.ID}`
       const {
         post_title: postTitle,
         post_permalink: postLink,
@@ -145,7 +152,13 @@ const BlogListAuthor = props => {
 
       dataBlogs.push({
         isAdmin,
-        lazyImage,
+        // Eliminar la asignacion de defaulImage si se va a usar de nuevo la imagen de 5x5 para el Lazy
+        lazyImage: defaultImage({
+          deployment,
+          contextPath,
+          arcSite,
+          size: 'sm',
+        }),
         imagePost,
         authorImg,
         date: postDate,
@@ -175,7 +188,7 @@ const BlogListAuthor = props => {
 
   dataBlogs = dataBlogs.slice(initialPositionItem)
 
-  const seeMoreLink = `/archivo/`
+  // const seeMoreLink = `/archivo/`
 
   return (
     <>

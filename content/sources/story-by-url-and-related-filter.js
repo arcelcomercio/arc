@@ -5,6 +5,7 @@ import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'story-dev'
 
@@ -19,14 +20,6 @@ const params = [
 const options = {
   gzip: true,
   json: true,
-}
-
-class RedirectError extends Error {
-  constructor(location, statusCode) {
-    super()
-    this.location = location
-    this.statusCode = statusCode || 302
-  }
 }
 
 const queryStoryRecent = (section, site) => {
@@ -110,14 +103,14 @@ const getAdditionalData = (storyData, website) => {
 
   const encodedBody = queryStoryRecent(section, website)
   return request({
-    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=6&from=0&sort=display_date:desc${excludedFields}`,
+    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=4&from=0&sort=display_date:desc${excludedFields}`,
     ...options,
   }).then(recientesResp => {
     storyData.recent_stories = recientesResp
     return request({
       uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
         storyData._id
-      }&website=${website}&published=true`,
+        }&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
       storyData.related_content = idsResp
@@ -156,11 +149,13 @@ basic_video {
     filesize
     url
   }
+  _id
   embed_html
   type
   headlines{
     basic
   }
+  publish_date
   description{
     basic
   }
@@ -174,7 +169,7 @@ basic_video {
       enableAutoPreview
     }
   }
-  promo_items {
+  promo_items{
     basic { 
       url 
       type 
@@ -183,13 +178,11 @@ basic_video {
       width
       height
       resized_urls{
-        resized_urls{
           large
           landscape_md
           story_small
           amp_new
           impresa
-        }
       }
     }
   }
@@ -198,6 +191,21 @@ basic_video {
 const basicGallery = `
 basic_gallery {
   type
+  promo_items{
+    basic{
+      caption
+      type
+      width
+      height
+      resized_urls{
+        large
+        landscape_md
+        story_small
+        amp_new
+        impresa
+      }
+    }
+  }
   content_elements{
     subtitle
     caption
@@ -219,6 +227,7 @@ export default {
   params,
   filter: `
   _id
+  type
   content_elements {
     _id
     type
@@ -234,6 +243,7 @@ export default {
     subtype_label
     subtype
     width
+    publish_date
     height
     citation{
       type
@@ -387,8 +397,13 @@ export default {
     seo_keywords
   }
   promo_items{
+    basic_html{
+      content
+      type
+    }
     youtube_id {
       content
+      type
     }
     basic { 
       url 
@@ -453,8 +468,10 @@ export default {
         basic_gallery{
           promo_items{
             basic{
+              type
               caption
               subtitle
+              url
               resized_urls{
                 landscape_md
               }
@@ -481,9 +498,11 @@ export default {
       }
       promo_items{
         basic{
+          type
           url
           width
           height
+          
           resized_urls{
             original
             landscape_md
@@ -492,6 +511,7 @@ export default {
         basic_gallery{
           promo_items{
             basic{
+              type
               caption
               subtitle
               resized_urls{

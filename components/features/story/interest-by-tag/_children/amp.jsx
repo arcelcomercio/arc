@@ -15,7 +15,7 @@ const classes = {
 }
 
 const StorySeparatorChildItemAmp = ({ data }) => {
-  const { title, link, multimediaLandscapeL, multimediaType } = data
+  const { title, link, multimediaLandscapeMD, multimediaType } = data
 
   return (
     <div className={classes.item}>
@@ -24,7 +24,7 @@ const StorySeparatorChildItemAmp = ({ data }) => {
       {link && (
         <a href={link} className={classes.link}>
           <amp-img
-            src={multimediaLandscapeL}
+            src={multimediaLandscapeMD}
             layout="responsive"
             width="304"
             height="200"

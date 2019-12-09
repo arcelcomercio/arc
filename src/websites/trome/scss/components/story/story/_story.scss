@@ -2,4 +2,24 @@
   .nav__loader-bar {
     background-color: #f99519;
   }
+  &.opinion {
+    .content-sidebar {
+      background-color: transparent;
+    }
+  }
+  &.malcriadas {
+    .header-full__logo {
+      @media (--tablet) {
+        max-width: 170px;
+        width: auto;
+        height: 46px;
+      }
+    }
+    .story-content {
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
 }

@@ -67,9 +67,9 @@ class StoryContentAmp extends PureComponent {
     const namePublicidad =
       arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
 
-    const dataSlot = `/${
-      adsAmp.dataSlot
-    }/${namePublicidad}-amp-300x250-boton-movil2`
+    const dataSlot = `/${adsAmp.dataSlot}/${
+      arcSite === 'diariocorreo' ? 'correo' : namePublicidad
+    }-amp-300x250-boton-movil2`
     const imgTag = 'amp-img'
     const placementId = adsAmp.movil2
     const width = '300'
@@ -83,9 +83,9 @@ class StoryContentAmp extends PureComponent {
       arcSite,
     }
     const parametersMovil4 = {
-      dataSlot: `/${
-        adsAmp.dataSlot
-      }/${namePublicidad}-amp-300x250-middle-movil4`,
+      dataSlot: `/${adsAmp.dataSlot}/${
+        arcSite === 'diariocorreo' ? 'correo' : namePublicidad
+      }-amp-300x250-middle-movil4`,
       placementId: adsAmp.movil4,
       width,
       height,
@@ -93,9 +93,9 @@ class StoryContentAmp extends PureComponent {
       arcSite,
     }
     const parametersMovil5 = {
-      dataSlot: `/${
-        adsAmp.dataSlot
-      }/${namePublicidad}-amp-300x250-inferior-movil5`,
+      dataSlot: `/${adsAmp.dataSlot}/${
+        arcSite === 'diariocorreo' ? 'correo' : namePublicidad
+      }-amp-300x250-inferior-movil5`,
       placementId: adsAmp.movil5,
       width,
       height,
@@ -103,9 +103,9 @@ class StoryContentAmp extends PureComponent {
       arcSite,
     }
     const parametersMovil3 = {
-      dataSlot: `/${
-        adsAmp.dataSlot
-      }/${namePublicidad}-amp-300x250-inline-movil3`,
+      dataSlot: `/${adsAmp.dataSlot}/${
+        arcSite === 'diariocorreo' ? 'correo' : namePublicidad
+      }-amp-300x250-inline-movil3`,
       placementId: adsAmp.movil3,
       width,
       height,

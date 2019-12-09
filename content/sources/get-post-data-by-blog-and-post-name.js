@@ -1,8 +1,17 @@
-import { BLOG_TOKEN, BLOG_URL_API } from 'fusion:environment'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import request from 'request-promise-native'
+import { BLOG_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import RedirectError from '../../components/utilities/redirect-error'
 
-const resolve = (key = {}) => {
+const options = {
+  gzip: true,
+  json: true,
+}
+
+const fetch = (key = {}) => {
   const hasBlogPath = Object.prototype.hasOwnProperty.call(key, 'blog_path')
+
   if (!hasBlogPath)
     throw new Error('Esta fuente de contenido requiere un blog path')
   const hasYear = Object.prototype.hasOwnProperty.call(key, 'year')
@@ -12,6 +21,7 @@ const resolve = (key = {}) => {
   const hasPostName = Object.prototype.hasOwnProperty.call(key, 'post_name')
   if (!hasPostName)
     throw new Error('Esta fuente de contenido requiere un post name')
+
   const {
     blog_path: blogPath,
     year,
@@ -24,11 +34,20 @@ const resolve = (key = {}) => {
   const token = BLOG_TOKEN
   const website = key['arc-site']
   const {
+    siteUrl,
     api: { blog: urlApiblog = '' },
   } = getProperties(website)
-  // const urlApiblog = BLOG_URL_API
-  const url = `${urlApiblog}?json=${json}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${token}`
-  return url
+
+  const uri = `${urlApiblog}?json=${json}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${token}`
+
+  return request({
+    uri,
+    ...options
+  }).then(data => {
+    if (!data || data && data.status !== 'ok' && data.status !== 200)
+      throw new RedirectError(`${siteUrl}/blog/`, 301)
+    return data
+  })
 }
 
 const params = [
@@ -65,6 +84,6 @@ const params = [
 ]
 
 export default {
-  resolve,
+  fetch,
   params,
 }

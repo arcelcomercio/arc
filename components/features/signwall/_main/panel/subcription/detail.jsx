@@ -14,7 +14,7 @@ import { PayuError } from '../../utils/payu-error'
 import Services from '../../utils/services'
 import Radiobox from './Radiobox'
 import Cookie from '../../utils/cookie'
-// import FormValid from '../../utils/form-valid'
+import FormValid from '../../utils/form-valid'
 
 const services = new Services()
 const cookies = new Cookie()
@@ -89,12 +89,16 @@ class SubDetail extends Component {
 
   componentDidMount() {
     const { IdSubscription } = this.props
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.getSubscriptionDetails(IdSubscription).then(resDetail => {
-      this.setState({
-        resDetail,
-        isLoading: false,
-        selectedOption: resDetail.currentPaymentMethod.creditCardType.toUpperCase(),
+    // window.Sales.apiOrigin = this.origin_api
+    window.Identity.options({ apiOrigin: this.origin_api })
+    window.Identity.extendSession().then(() => {
+      window.Sales.options({ apiOrigin: this.origin_api })
+      window.Sales.getSubscriptionDetails(IdSubscription).then(resDetail => {
+        this.setState({
+          resDetail,
+          isLoading: false,
+          selectedOption: resDetail.currentPaymentMethod.creditCardType.toUpperCase(),
+        })
       })
     })
   }
@@ -125,31 +129,35 @@ class SubDetail extends Component {
       case 'numcard':
         if (value.length === 0) {
           formErrors.numcard = 'Este campo es requerido'
-          // } else if (value.length < 17) {
-          //   formErrors.numcard = 'Formato inválido.'
-          // } else {
-          //   formErrors.numcard = ''
-          // }
         } else if (cardPatterns[selectedOption].test(valueClear)) {
           formErrors.numcard = ''
         } else {
           formErrors.numcard = 'Formato inválido.'
         }
-
         break
       case 'dateexpire':
         if (value.length === 0) {
           formErrors.dateexpire = 'Este campo es requerido'
-        } else if (value.length < 7) {
+        } else if (value.length < 5) {
           formErrors.dateexpire = 'Fecha inválida'
         } else if (
           value.split('/')[0] < new Date().getMonth() + 1 &&
-          value.split('/')[1] <= new Date().getFullYear()
+          (value.split('/')[1] <= new Date().getFullYear() ||
+            value.split('/')[1] <=
+              new Date()
+                .getFullYear()
+                .toString()
+                .substr(-2))
         ) {
           formErrors.dateexpire = 'Fecha inválida'
         } else if (
           value.split('/')[0] >= 13 ||
-          value.split('/')[1] < new Date().getFullYear()
+          value.split('/')[1] < new Date().getFullYear() ||
+          value.split('/')[1] <
+            new Date()
+              .getFullYear()
+              .toString()
+              .substr(-2)
         ) {
           formErrors.dateexpire = 'Fecha inválida'
         } else {
@@ -183,6 +191,13 @@ class SubDetail extends Component {
 
     const { arcSite } = this.props
 
+    this.setState({
+      showMessageSuccess: false,
+      showMessageFailed: false,
+    })
+
+    // if (FormValid(this.state)) {
+
     if (
       formErrors.numcard === '' &&
       formErrors.dateexpire === '' &&
@@ -192,92 +207,96 @@ class SubDetail extends Component {
         disabledButton: true,
       })
 
-      window.Sales.apiOrigin = this.origin_api
-      window.Sales.getPaymentOptions().then(res => {
-        const providerID = res[0].paymentMethodID // 1246
+      // window.Sales.apiOrigin = this.origin_api
+      window.Identity.options({ apiOrigin: this.origin_api })
+      window.Identity.extendSession().then(() => {
+        window.Sales.options({ apiOrigin: this.origin_api })
+        window.Sales.getPaymentOptions().then(res => {
+          const providerID = res[0].paymentMethodID // 1246
 
-        services
-          .initPaymentUpdate(
-            subsID,
-            providerID,
-            arcSite,
-            window.Identity.userIdentity.accessToken
-          )
-          .then(resUpdate => {
-            const {
-              parameter1: publicKey,
-              parameter2: accountId,
-              parameter3: payuBaseUrl,
-              parameter4: deviceSessionId,
-            } = resUpdate
+          services
+            .initPaymentUpdate(
+              subsID,
+              providerID,
+              arcSite,
+              window.Identity.userIdentity.accessToken
+            )
+            .then(resUpdate => {
+              const {
+                parameter1: publicKey,
+                parameter2: accountId,
+                parameter3: payuBaseUrl,
+                parameter4: deviceSessionId,
+              } = resUpdate
 
-            return addPayU(arcSite, deviceSessionId)
-              .then(payU => {
-                payU.setURL(payuBaseUrl)
-                payU.setPublicKey(publicKey)
-                payU.setAccountID(accountId)
-                payU.setListBoxID('mylistID')
-                payU.getPaymentMethods()
-                payU.setLanguage('es')
-                payU.setCardDetails({
-                  number: numcard.replace(/\s/g, ''),
-                  name_card:
-                    ENV.ENVIRONMENT === 'elcomercio'
-                      ? `${fullName.firstName ||
-                          'Usuario'} ${fullName.lastName || 'Usuario'}`
-                      : 'APPROVED',
-                  payer_id: userDNI.split('_')[1],
-                  exp_month: dateexpire.split('/')[0],
-                  exp_year: dateexpire.split('/')[1],
-                  method: selectedOption,
-                  document: userDNI.split('_')[1],
-                  cvv: codecvv,
-                })
-                return new Promise((resolve, reject) => {
-                  payU.createToken(response => {
-                    if (response.error) {
-                      reject(new PayuError(response.error))
-                    } else {
-                      resolve(response.token)
-                    }
+              return addPayU(arcSite, deviceSessionId)
+                .then(payU => {
+                  payU.setURL(payuBaseUrl)
+                  payU.setPublicKey(publicKey)
+                  payU.setAccountID(accountId)
+                  payU.setListBoxID('mylistID')
+                  payU.getPaymentMethods()
+                  payU.setLanguage('es')
+                  payU.setCardDetails({
+                    number: numcard.replace(/\s/g, ''),
+                    name_card:
+                      ENV.ENVIRONMENT === 'elcomercio'
+                        ? `${fullName.firstName ||
+                            'Usuario'} ${fullName.lastName || 'Usuario'}`
+                        : 'APPROVED',
+                    payer_id: new Date().getTime(),
+                    exp_month: dateexpire.split('/')[0],
+                    exp_year: dateexpire.split('/')[1],
+                    method: selectedOption,
+                    document: userDNI.split('_')[1],
+                    cvv: codecvv,
+                  })
+                  return new Promise((resolve, reject) => {
+                    payU.createToken(response => {
+                      if (response.error) {
+                        reject(new PayuError(response.error))
+                        console.log('error payu')
+                      } else {
+                        resolve(response.token)
+                      }
+                    })
                   })
                 })
-              })
-              .then(token => {
-                services
-                  .finalizePaymentUpdate(
-                    subsID,
-                    providerID,
-                    arcSite,
-                    window.Identity.userIdentity.accessToken,
-                    `${token}~${deviceSessionId}~${codecvv}`,
-                    `${fullName.email || ''}`,
-                    `${'5555555555'}`
-                  )
-                  .then(resFin => {
-                    if (resFin.cardholderName === 'APPROVED') {
-                      this.setState({
-                        showMessageSuccess: true,
-                        disabledButton: false,
-                      })
-                    } else {
+                .then(token => {
+                  services
+                    .finalizePaymentUpdate(
+                      subsID,
+                      providerID,
+                      arcSite,
+                      window.Identity.userIdentity.accessToken,
+                      `${token}~${deviceSessionId}~${codecvv}`,
+                      `${fullName.email || ''}`,
+                      `${'5555555555'}`
+                    )
+                    .then(resFin => {
+                      if (resFin.cardholderName === 'APPROVED') {
+                        this.setState({
+                          showMessageSuccess: true,
+                          disabledButton: false,
+                        })
+                      } else {
+                        this.setState({
+                          showMessageFailed: true,
+                          disabledButton: false,
+                        })
+                      }
+                    })
+                    .catch(() => {
                       this.setState({
                         showMessageFailed: true,
                         disabledButton: false,
                       })
-                    }
-                  })
-                  .catch(() => {
-                    this.setState({
-                      showMessageFailed: true,
-                      disabledButton: false,
                     })
-                  })
-              })
-          })
+                })
+            })
+        })
       })
     } else {
-      const { formErrors } = this.state
       if (numcard === null) {
         formErrors.numcard = 'Este campo es requerido'
         this.setState({ formErrors, numcard: '' })
@@ -295,16 +314,20 @@ class SubDetail extends Component {
 
   deleteSub() {
     const { idSubsDelete } = this.state
-    window.Sales.apiOrigin = this.origin_api
-    window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
-      () => {
-        this.setState({
-          isLoading: true,
-        })
-        this.closeModalConfirm()
-        window.document.getElementById('btn-mis-suscripciones').click()
-      }
-    )
+    // window.Sales.apiOrigin = this.origin_api
+    window.Identity.options({ apiOrigin: this.origin_api })
+    window.Identity.extendSession().then(() => {
+      window.Sales.options({ apiOrigin: this.origin_api })
+      window.Sales.cancelSubscription(idSubsDelete, { reason: undefined }).then(
+        () => {
+          this.setState({
+            isLoading: true,
+          })
+          this.closeModalConfirm()
+          window.document.getElementById('btn-mis-suscripciones').click()
+        }
+      )
+    })
   }
 
   closeModalConfirm() {
@@ -329,22 +352,19 @@ class SubDetail extends Component {
       selectedOption: name,
       typeAmex: name === 'AMEX',
     })
-    // if (name === 'AMEX') {
-    //   this.setState({
-    //     typeAmex: true,
-    //   })
-    // }else{
-    //   this.setState({
-    //     typeAmex: false,
-    //   })
-    // }
   }
 
   showUpdatePayment() {
-    const { ShowUpdateCard } = this.state
+    const { ShowUpdateCard, formErrors } = this.state
     this.setState({
       ShowUpdateCard: !ShowUpdateCard,
     })
+    if (ShowUpdateCard) {
+      this.setState({
+        formErrors,
+        numcard: '',
+      })
+    }
   }
 
   render() {
@@ -396,13 +416,44 @@ class SubDetail extends Component {
                 <p>
                   <strong>BENEFICIOS</strong>
                 </p>
-                <ul>
-                  <li>
-                    Contenido Premium: análisis e informes exclusivamente
-                    desarrollados para {arcSite}.pe.
-                  </li>
-                  <li>Navegación ilimitada desde todos tus dispositivos.</li>
-                </ul>
+
+                {arcSite === 'elcomercio' ? (
+                  <ul>
+                    <li>
+                      Contenido Premium: análisis e informes exclusivamente
+                      desarrollados para {arcSite}.pe.
+                    </li>
+                    <li>Navegación ilimitada desde todos tus dispositivos.</li>
+                  </ul>
+                ) : (
+                  <>
+                    {resDetail.productName.indexOf('Universitario') >= 0 ? (
+                      <ul>
+                        <li>
+                          Acceso a Plus G: análisis e informes exclusivos.
+                        </li>
+                        <li>
+                          Potencia tu perfil: datos sobre empleabilidad,
+                          finanzas y más.
+                        </li>
+                        <li>Fácil acceso: desde cualquier dispositivo.</li>
+                      </ul>
+                    ) : (
+                      <ul>
+                        <li>
+                          Contenido premium: análisis e informes exclusivamente
+                          desarrollados para gestion.pe. Navegación ilimitada
+                          desde todos tus dispositivos
+                        </li>
+                        <li>
+                          La mejor selección de artículos e informes elaborados
+                          por el diario Gestión, The Economist y la agencia
+                          Bloomberg
+                        </li>
+                      </ul>
+                    )}
+                  </>
+                )}
               </div>
             </S.Subsdetail>
 
@@ -422,8 +473,7 @@ class SubDetail extends Component {
                   return null
                 })}
                 <p>
-                  {' '}
-                  que termina en
+                  &nbsp;&nbsp; que termina en
                   <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
                 </p>
               </div>
@@ -636,17 +686,19 @@ class SubDetail extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {resDetail.paymentHistory.map(reSubs => {
+                    {resDetail.paymentHistory.map((reSubs, index) => {
                       return (
-                        <tr key={reSubs.sku}>
+                        <tr key={index}>
                           <td>
                             <strong>
                               {fullName.firstName || 'Usuario'}{' '}
                               {fullName.lastName}
                             </strong>
                             <p>
-                              DNI:{' '}
-                              {resDetail.billingAddress.line2.split('_')[1]}
+                              {resDetail.billingAddress.line2.replace(
+                                '_',
+                                ': '
+                              )}
                             </p>
                           </td>
                           <td className="center">{resDetail.productName}</td>

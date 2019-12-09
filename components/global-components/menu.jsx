@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { useRef, useEffect, memo } from 'react'
 import { searchQuery } from '../utilities/helpers'
 import Button from './button'
 
@@ -27,18 +27,17 @@ const classes = {
 
 // const BASEURL = window.location.origin
 
-class NavbarChildMenu extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.inputSearchMovil = React.createRef()
-  }
+const NavbarChildMenu = (props) => {
 
-  _handleSearch = () => {
-    const { value } = this.inputSearchMovil.current
+  const inputSearchMovil = useRef(null)
+  const IS_MOBILE = useRef(true)
+
+  const _handleSearch = () => {
+    const { value } = inputSearchMovil.current
     searchQuery(value)
   }
 
-  renderSections = (sections, deep, nameId = 'root') => {
+  const renderSections = (sections, deep, nameId = 'root') => {
     const aux = deep
     return (
       sections &&
@@ -77,7 +76,7 @@ class NavbarChildMenu extends PureComponent {
                     className={`${
                       classes.containerSubMenu
                       } deep-${deep} ${idElem}`}>
-                    {this.renderSections(children, aux + 1, idElem)}
+                    {renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
               )}
@@ -88,25 +87,24 @@ class NavbarChildMenu extends PureComponent {
     )
   }
 
-  render() {
-    const {
-      showSidebar,
-      siteProperties: { siteDomain = '', legalLinks = [] } = {},
-      sections = [],
-    } = this.props
+  const {
+    showSidebar = false,
+    siteProperties: { siteDomain = '', legalLinks = [] } = {},
+    sections = [],
+  } = props
 
-    let IS_MOBILE = true
+  useEffect(() => {
+    IS_MOBILE.current = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      window.navigator.userAgent
+    )
+  }, [])
 
-    if (typeof window !== 'undefined')
-      IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-        window.navigator.userAgent
-      )
-
-    return (
-      <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
-        <div
+  return (
+    <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
+      {
+        showSidebar && <div
           className={`${classes.content} ${
-            IS_MOBILE ? 'w-full' : 'w-desktop'
+            IS_MOBILE.current ? 'w-full' : 'w-desktop'
             } ${showSidebar ? 'active' : ''}`}>
           <div className={classes.top}>
             <div className={classes.header}>
@@ -123,10 +121,10 @@ class NavbarChildMenu extends PureComponent {
                 className={classes.from}
                 onSubmit={e => {
                   e.preventDefault()
-                  this._handleSearch()
+                  _handleSearch()
                 }}>
                 <input
-                  ref={this.inputSearchMovil}
+                  ref={inputSearchMovil}
                   type="search"
                   // onBlur={this.handleCloseSectionsSearch}
                   placeholder="Buscar"
@@ -136,7 +134,7 @@ class NavbarChildMenu extends PureComponent {
             </div>
             <div className={classes.body}>
               <ul className={classes.list}>
-                {sections && this.renderSections(sections, 0)}
+                {sections && renderSections(sections, 0)}
               </ul>
             </div>
           </div>
@@ -151,9 +149,9 @@ class NavbarChildMenu extends PureComponent {
             ))}
           </div>
         </div>
-      </div>
-    )
-  }
+      }
+    </div>
+  )
 }
 
-export default NavbarChildMenu
+export default memo(NavbarChildMenu)

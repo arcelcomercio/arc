@@ -66,7 +66,7 @@ export default ({
   } = globalContent || {}
 
   const isStory =
-    (metaValue('id') === 'meta_story' && true) ||
+    metaValue('id') === 'meta_story' ||
     requestUri.match(`^/preview/([A-Z0-9]{26})/?`) ||
     ''
 
@@ -111,6 +111,14 @@ export default ({
       /*  || metaValue('id') === "meta_search" */
     ) {
       title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteName}`
+    } else if (metaValue('id') === 'meta_archive') {
+      const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
+      const hasSection =
+        /\/archivo\/([\w\d-]+)/.test(requestUri) &&
+        !/\/archivo\/todas/.test(requestUri)
+      if (!hasDate && !hasSection) {
+        title = `Archivo de Noticias | ${siteProperties.siteName}`
+      }
     }
     return title
   }
@@ -125,14 +133,23 @@ export default ({
       metaValue('description') &&
       !metaValue('description').match(/content/)
     ) {
+      description = `${metaValue('description')}`
       if (
         (pageNumber > 1 && metaValue('id') === 'meta_tag') ||
         metaValue('id') === 'meta_author'
         /*  || metaValue('id') === "meta_search" */
       ) {
         description = `${metaValue('description')} Página ${pageNumber}.`
-      } else {
-        description = `${metaValue('description')}`
+      } else if (metaValue('id') === 'meta_archive') {
+        const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
+        const hasSection =
+          /\/archivo\/([\w\d-]+)/.test(requestUri) &&
+          !/\/archivo\/todas/.test(requestUri)
+        if (!hasDate && !hasSection) {
+          description = `Archivo de noticias de ${
+            siteProperties.siteName
+          }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+        }
       }
     }
     return description
@@ -177,17 +194,6 @@ export default ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
-  const structuredFacebook = `
-    (function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id))
-        return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4&appId=1626271884277579";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));`
-
   const structuredDetectIncognito = `(async function() {
     if ("storage" in navigator && "estimate" in navigator.storage) {
       var { usage, quota } = await navigator.storage.estimate();
@@ -219,7 +225,7 @@ export default ({
     content_restrictions: { content_code: contentCode = '' } = {},
   } = globalContent || {}
 
-  const isPremium = (contentCode === 'premium' && true) || false
+  const isPremium = contentCode === 'premium' || false
 
   const htmlAmpIs = isPremium ? '' : true
 
@@ -233,10 +239,7 @@ export default ({
 
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {isStory && htmlAmpIs && (
           <link
             rel="amphtml"
@@ -249,15 +252,27 @@ export default ({
           <link
             rel="alternate"
             href={`${siteProperties.siteUrlAlternate}${link}`}
-            hreflang="es"
+            hrefLang="es"
           />
         )}
         <title>{title}</title>
-        <link rel="dns-prefetch" href="//ecoid.pe" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
+        <link rel="dns-prefetch" href="//www.facebook.com/" />
+        <link rel="dns-prefetch" href="//connect.facebook.net/" />
+        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
+        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
+        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
+        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
+        <link rel="dns-prefetch" href="//ping.chartbeat.net/" />
+        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
+        <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
+        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
         {googleFonts && (
           <link
             href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
@@ -289,10 +304,7 @@ export default ({
         )}
 
         {/* Scripts de APPNEXUS */}
-        <script
-          src="https://d34fzxxwb5p53o.cloudfront.net/prod/output/assets/componentes/ui-flyout/dist/unorm.min.js?v2"
-          async
-        />
+
         {!nodas && (
           <>
             <script
@@ -359,15 +371,7 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        {isStory && ( // TODO: pediente por definir comentarios por cada sitio
-          <>
-            <div id="fb-root" />
-            <script
-              defer
-              dangerouslySetInnerHTML={{ __html: structuredFacebook }}
-            />
-          </>
-        )}
+
         <div id="fusion-app" role="application">
           {children}
         </div>
@@ -416,6 +420,11 @@ export default ({
           async
           dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
         />
+
+        <script
+          src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
+        />
+
       </body>
     </html>
   )

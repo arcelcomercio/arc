@@ -54,7 +54,7 @@ const pattern = (key = {}) => {
     },
   }
 
-  if (clearSection && clearSection !== '/') {
+  if (clearSection !== '/') {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',

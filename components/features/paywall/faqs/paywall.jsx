@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { useFusionContext } from 'fusion:context'
 import Markdown from 'react-markdown/with-html'
 
 import ClientOnly from '../_children/client-only'
 import { useStrings } from '../_children/contexts'
+import Icon from '../_children/icon'
 import * as S from './styled'
 
 const Faqs = () => {
@@ -60,7 +60,7 @@ const FaqList = withTheme(({ theme, site, faqs = [], ...props }) => {
       expanded={expanded === `panel${idx1}`}
       onChange={handleChange(`panel${idx1}`)}
       {...props}>
-      <S.ExpansionPanelSummary expandIcon={<ExpandMoreIcon fontSize="large" />}>
+      <S.ExpansionPanelSummary expandIcon={<Icon type="expandMore" />}>
         <S.Title>
           <Markdown source={faqGroup.group} />
         </S.Title>

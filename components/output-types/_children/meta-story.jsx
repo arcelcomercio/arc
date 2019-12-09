@@ -46,16 +46,23 @@ export default ({
   const resultRelated = relatedContent[0] ? relatedContent : relatedStories
 
   const videoSeoItems = videoSeo.map(
-    ({ url, caption, urlImage, date } = {}) => {
+    ({
+      url,
+      caption,
+      urlImage,
+      date,
+      resized_urls: { large = '' } = {},
+    } = {}) => {
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
         caption
-      )}",  "thumbnailUrl": "${urlImage}",  "description":"${formatHtmlToText(
+      )}",  "thumbnailUrl": "${large ||
+        urlImage}",  "description":"${formatHtmlToText(
         caption
       )}", "contentUrl": "${url}",  "uploadDate": "${date}" } `
     }
   )
 
-  const imagesSeoItems = imagePrimarySeo.map((image, i) => {
+  const imagesSeoItems = imagePrimarySeo.map(image => {
     const {
       subtitle = false,
       url = '',
@@ -120,7 +127,13 @@ export default ({
       ? getDateSeo(publishDate)
       : publishDate
 
-  const bodyStructured = isAmp !== true ? `"articleBody":"${dataElement}",` : ''
+  const bodyStructured =
+    isAmp !== true
+      ? `"articleBody":"${dataElement.replace(
+          /\(function\(d, s, id\).*\)\);/g,
+          ''
+        )}",`
+      : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === ConfigParams.SITE_ELCOMERCIO ||
@@ -136,13 +149,15 @@ export default ({
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${(videoSeoItems[0] &&
     dataVideo) ||
     ''}
-    "author":{    "@type":"Person",   "name":"${seoAuthor}"    },
+    "author":{    "@type":"Person",   "name":"${formatHtmlToText(
+      seoAuthor
+    )}"    },
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${siteUrl}${deployment(
     `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
   )}",   "height":${seo.height}, "width":${seo.width}
        }
     },    
-    ${storyPremium || ''} 
+    ${(isPremium && storyPremium) || ''} 
     "keywords":[${
       seoKeyWordsStructurada[0]
         ? seoKeyWordsStructurada.map(item => item)
@@ -164,28 +179,87 @@ export default ({
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
   const scriptTaboola = `
-  window._taboola = window._taboola || [];
+  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.async=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
+    arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript
+  }/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
+
+  /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
+        window._taboola = window._taboola || [];
     _taboola.push({
         article: 'auto'
     });
-    ! function(e, f, u, i) {
-        if (!document.getElementById(i)) {
-            e.async = 1;
-            e.src = u;
-            e.id = i;
-            f.parentNode.insertBefore(e, f);
+    ! function(){
+      if (typeof window !== 'undefined') {
+        function injectTaboola() {
+          document.removeEventListener('scroll', injectTaboola)
+          const id = 'tb_loader_script'
+          if (!document.getElementById(id)) {
+            const n = document.createElement('script')
+            const f = document.getElementsByTagName('script')[0]
+            n.async = 1;
+            n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
+            n.id = id;
+            f.parentNode.insertBefore(n, f);
+          }
         }
-    }(document.createElement('script'),
-        document.getElementsByTagName('script')[0],
-        '//cdn.taboola.com/libtrc/grupoelcomercio-${
-          arcSite === ConfigParams.SITE_PUBLIMETRO
-            ? 'publimetrope'
-            : taboolaScript
-        }/loader.js',
-        'tb_loader_script');
-    if (window.performance && typeof window.performance.mark == 'function') {
+        window.onload = document.addEventListener('scroll', injectTaboola) 
+      }
+      if (window.performance && typeof window.performance.mark == 'function') {
         window.performance.mark('tbl_ic');
-    }`
+      }
+    }() */
+
+  /**
+   ****************************** scriptTaboola NO MINIFICADO
+   *   window._taboola = window._taboola || [];
+      _taboola.push({
+          article: 'auto'
+      });
+
+      ! function(){
+        if (typeof window !== 'undefined') {
+          document.addEventListener('DOMContentLoaded', () => {
+            const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
+
+            function execTaboola() {
+              const id = 'tb_loader_script'
+              if (!document.getElementById(id)) {
+                const n = document.createElement('script')
+                const f = document.getElementsByTagName('script')[0]
+                n.async = 1;
+                n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
+                n.id = id;
+                f.parentNode.insertBefore(n, f);
+              }
+            }
+      
+            if (
+              'IntersectionObserver' in window &&
+              'IntersectionObserverEntry' in window &&
+              'intersectionRatio' in window.IntersectionObserverEntry.prototype
+            ) {
+              const taboolaObserver = new IntersectionObserver(
+                (entries, observer) => {
+                  entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                      execTaboola()
+                      taboolaObserver.unobserve(entry.target)
+                    }
+                  })
+                },{rootMargin: "0px 0px 200px 0px"}
+              )
+
+              taboolaObserver.observe(taboolaDiv)
+            } else {
+              execTaboola()
+            }
+          })
+        }
+        if (window.performance && typeof window.performance.mark == 'function') {
+          window.performance.mark('tbl_ic');
+        }
+      }()
+   */
 
   return (
     <>

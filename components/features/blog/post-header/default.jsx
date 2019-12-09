@@ -28,7 +28,12 @@ class BlogPostHeader extends PureComponent {
       currentList: this.firstList,
     }
     const { globalContent, siteProperties } = props
-    const { siteUrl = '' } = siteProperties
+    const {
+      siteUrl = '',
+      social: {
+        twitter: { user: siteNameRedSocial },
+      },
+    } = siteProperties
     const {
       post: {
         post_permalink: postPermaLink = '',
@@ -38,7 +43,8 @@ class BlogPostHeader extends PureComponent {
     const urlsShareList = socialMediaUrlShareListBlog(
       addSlashToEnd(siteUrl),
       postPermaLink,
-      postTitle
+      postTitle,
+      siteNameRedSocial
     )
     this.shareButtons = {
       [this.firstList]: [

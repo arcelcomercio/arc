@@ -376,9 +376,9 @@ class FormRegister extends Component {
                     onChange={this.handleChangeValidation}
                     tabIndex="0"
                   />
-                  <label htmlFor="email" className="form-group__label">
+                  {/* <label htmlFor="email" className="form-group__label">
                     Correo Electrónico
-                  </label>
+                  </label> */}
                   {formErrors.usernamereg.length > 0 && (
                     <span className="message__error">
                       {formErrors.usernamereg}
@@ -403,9 +403,10 @@ class FormRegister extends Component {
                     }}
                     tabIndex="0"
                   />
-                  <label htmlFor="password" className="form-group__label">
+                  
+                  {/* <label htmlFor="password" className="form-group__label">
                     Contraseña
-                  </label>
+                  </label> */}
 
                   {formErrors.passwordreg.length > 0 && (
                     <span className="message__error">
@@ -501,6 +502,9 @@ class FormRegister extends Component {
                         peru21g21: '#d5ecff',
                         elbocon: '#fdabab',
                         depor: '#d5d945',
+                        trome:'#ffede5',
+                        ojo:'#e7fced',
+                        diariocorreo: '#fdabab',
                       }[brandCurrent]
                     }
                   />

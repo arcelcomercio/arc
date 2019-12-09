@@ -327,7 +327,10 @@ export const formatSlugToText = (text = '', length = 0) => {
 
 export const formatHtmlToText = (html = '') => {
   const htmlData = html.toString()
-  return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
+  return htmlData
+    .replace(/<[^>]*>/g, '')
+    .replace(/"/g, '“')
+    .replace(/\\/g, '')
 }
 
 export const removeLastSlash = (url = '') => {
@@ -396,14 +399,16 @@ export const defaultImage = ({
     let domain = `${arcSite}.pe`
     if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
     else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
+    else if (arcSite === 'depor') domain = 'depor.com'
     return domain
   }
 
-  if (arcSite === 'depor' || arcSite === 'elbocon') {
+  // Solo activar para sitios que no esten aun en PROD
+  /* if (arcSite === 'sitio') {
     return deployment(
       `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
     )
-  }
+  } */
 
   return deployment(
     `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
@@ -520,6 +525,7 @@ export const imageHtml = html => {
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
+  resHtml = resHtml.replace(/<img src=(.*?)\/>/g, rplImageCde1)
   resHtml = resHtml
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
     .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
@@ -569,17 +575,39 @@ export const iframeHtml = (html, arcSite = '') => {
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.elcomercio.pe$1'
     )
+
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.elcomercio.pe$1'
+    )
   } else if (arcSite === ConfigParams.SITE_DEPOR) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
       '$1'
     )
-  } else
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/depor.com(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.depor.com$1'
+    )
+  } else if (arcSite === ConfigParams.SITE_TROME) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://img.trome.pe$1'
+    )
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.trome.pe$1'
+    )
+  } else {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.peru21.pe$1'
     )
-
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/peru21.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.peru21.pe$1'
+    )
+  }
   const rplTwitter =
     '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
 
@@ -748,9 +776,10 @@ export const iframeMxm = (html, arcSite) => {
 }
 
 export const ampHtml = (html = '', arcSite = '') => {
-  let resultData = html
+  let resultData = ''
   // Opta Widget
-  resultData = replaceHtmlMigracion(html)
+  // Esta asignacion se esta sobreescribiendo con la que sigue.
+  // resultData = replaceHtmlMigracion(html)
 
   // Opta Widget
   resultData = deporPlay(html)
@@ -898,7 +927,7 @@ export const formatDateStoryAmp = date => {
  * TODO: Necesita CODE REVIEW
  */
 export const addResizedUrlsToStory = (
-  data = [],
+  data,
   resizerUrl,
   resizerSecret,
   addResizedUrls,
@@ -906,6 +935,7 @@ export const addResizedUrlsToStory = (
 ) => {
   return (
     data &&
+    data.length > 0 &&
     data.map(item => {
       const storyData = item
       if (!storyData.content_elements) storyData.content_elements = []
@@ -1084,10 +1114,10 @@ export const skipAdvertising = (data = []) => {
     .filter(String)[0]
 }
 
-export const storyTagsBbc = (data = []) => {
+export const storyTagsBbc = (data = [], slugTag = 'bbc') => {
   return data
     .map(({ slug }) => {
-      return slug === 'bbc' ? true : ''
+      return slug === slugTag ? true : ''
     })
     .filter(String)[0]
 }
@@ -1134,7 +1164,7 @@ export const msToTime = duration => {
     let seconds = parseInt((duration / 1000) % 60, 0)
     let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
     let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
-    hours = hours < 10 && hours < 10 ? `0${hours}:` : hours
+    hours = hours < 10 ? `0${hours}:` : hours
     minutes = minutes < 10 ? `0${minutes}` : minutes
     seconds = seconds < 10 ? `0${seconds}` : seconds
 
@@ -1166,11 +1196,15 @@ export const clearHtml = paragraph => {
   )
 }
 
-export const storyContenImage = ({ resized_urls: resizedUrls, caption }) => {
+export const storyContenImage = (
+  { resized_urls: resizedUrls, caption },
+  multimediaLazyDefault
+) => {
   return {
     multimediaLandscapeMD: resizedUrls.medium,
     multimediaStorySmall: resizedUrls.content_small,
     multimediaLarge: resizedUrls.content,
+    multimediaLazyDefault,
     caption,
   }
 }
@@ -1188,3 +1222,18 @@ export const getContentCurrentPage = ({ next, previous, count, length }) => {
   }
   return page
 } */
+
+export const pixelAmpDate = arcSite => {
+  const hoy = new Date()
+  const day = hoy.getDate()
+  const month = hoy.getMonth() + 1
+  const year = hoy.getFullYear()
+  const pixelEc =
+    (`${year}${month}${day}` === '2019127' ||
+      `${year}${month}${day}` === '2019128' ||
+      `${year}${month}${day}` === '2019129') &&
+    arcSite === ConfigParams.SITE_ELCOMERCIO
+      ? true
+      : ''
+  return pixelEc
+}

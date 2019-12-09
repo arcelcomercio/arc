@@ -1,11 +1,11 @@
 .amp-footer {
   background-color: $color-primary;
   &__text {
-    background: url(/pf/resources/dist/depor/images/bg-link.png) 0 0 no-repeat;
     display: inline-block;
     padding-top: 15px;
     width: 196px;
     height: 48px;
+    color: white;
   }
   &__info {
     background: url(/pf/resources/dist/depor/images/arrow-left-circle.png) 0 0

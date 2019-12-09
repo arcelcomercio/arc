@@ -54,7 +54,7 @@ class StoriesList extends PureComponent {
               <a href={data.urlBlog} className={classes.author}>
                 <img
                   src={data.authorImg}
-                  className={classes.authorImage}                  
+                  className={classes.authorImage}
                   alt={data.author}
                 />
               </a>
@@ -79,13 +79,13 @@ class StoriesList extends PureComponent {
                 <source
                   className={isAdmin ? '' : 'lazy'}
                   media="(max-width: 639px)"
-                  srcSet={isAdmin ? data.imagePost : data.imagePost}
+                  srcSet={isAdmin ? data.imagePost : data.lazyImage}
                   data-srcset={data.imagePost}
                 />
-                <img                  
+                <img
                   alt={data.postTitle}
                   className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                  src={isAdmin ? data.imagePost : data.imagePost}
+                  src={isAdmin ? data.imagePost : data.lazyImage}
                   data-src={data.imagePost}
                 />
               </picture>

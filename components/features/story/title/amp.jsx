@@ -41,9 +41,9 @@ class StoryTitleAmp extends PureComponent {
       data,
       contextPath,
     })
-
+    const adsId = arcSite !== 'diariocorreo' ? arcSite : 'correo'
     const dataSlot = `/${adsAmp.dataSlot}/${
-      arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
+      arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? adsId : 'eco'
     }-amp-320x50-top-movil1`
     const placementId = adsAmp.movil1
     const width = '320'

@@ -1,4 +1,5 @@
 // Configs
+const path = require('path')
 const entries = require('./entries')
 const paths = require('./paths')
 const rules = require('./rules')
@@ -31,13 +32,35 @@ function destructuring(outputs) {
   })
 }
 
+const mobileConfig = {
+  entry: './src/mobile/index.js',
+  output: {
+    path: path.resolve(__dirname, `../resources/assets/mobile/dist`),
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
+  },
+}
+
 module.exports = env => {
   const { outputs = 'index' } = env
   const mode = env.dev ? 'development' : 'production'
   // const type = env.amp ? 'amp' : 'index'
   // const ext = env.amp ? 'css' : 'js'
 
-  return setConfig(destructuring(outputs), mode)
+  return [...setConfig(destructuring(outputs), mode), ...[mobileConfig]]
 
   // return {
   //   mode,

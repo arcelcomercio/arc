@@ -98,7 +98,7 @@ const fetch = (key = {}) => {
     },
   }
 
-  if (clearSection && clearSection !== '/') {
+  if (clearSection !== '/') {
     const sectionsIncluded = itemsToArray(clearSection)
     body.query.bool.must.push({
       nested: {

@@ -25,9 +25,8 @@ const FbInstantOutputType = ({
   } = siteProperties
 
   let stories = []
-
-  // if (siteDomain === 'elcomercio.pe') {
-  if (siteDomain === 'xxxxxxxxxxxx') {
+  // if (siteDomain === 'xxxxxxxxxxxx') {
+  if (siteDomain === 'elcomercio.pe') {
     const data =
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent({

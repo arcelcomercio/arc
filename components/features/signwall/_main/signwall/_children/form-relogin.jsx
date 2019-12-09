@@ -328,6 +328,7 @@ class FormReLogin extends Component {
                       noValidate
                       onChange={this.handleChangeValidation}
                     />
+                    
                     {/* <label htmlFor="email" className="form-group__label">
                         Correo Electrónico
                       </label> */}
@@ -359,6 +360,7 @@ class FormReLogin extends Component {
                           : 'row-pass__btn row-pass--show'
                       }
                     />
+
                     {/* <label htmlFor="password" className="form-group__label">
                         Contraseña
                       </label> */}

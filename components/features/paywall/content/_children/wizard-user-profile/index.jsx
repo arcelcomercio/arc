@@ -16,7 +16,6 @@ function WizardUserProfile(props) {
   const msgs = useStrings()
   const {
     memo,
-    profile,
     formName,
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
@@ -25,10 +24,14 @@ function WizardUserProfile(props) {
   const {
     summary,
     printedSubscriber,
-    plan: { sku, priceCode, amount, description, billingFrequency },
+    plan,
+    profile,
     referer,
     origin,
+    event,
   } = memo
+
+  const { sku, priceCode, billingFrequency } = plan
 
   const sanitizeValues = (value, key) => {
     if (key === 'documentType') {
@@ -47,6 +50,14 @@ function WizardUserProfile(props) {
   const sanitizedProfile = deepMapValues(profile, sanitizeValues)
 
   useEffect(() => {
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 2 },
+        },
+      },
+    })
     sendAction(PixelActions.PAYMENT_PROFILE, {
       sku: `${sku}`,
       periodo: billingFrequency,
@@ -106,11 +117,6 @@ function WizardUserProfile(props) {
           // TODO: validar respuesta y mostrar errores de API
           setLoading(false)
           setSubmitting(false)
-          // Mezclamos valores del formulario con los valores de la respuesta
-          const mergeResValues = Object.assign({}, memo, {
-            order: res,
-            profile: values,
-          })
           Sentry.addBreadcrumb({
             category: 'compra',
             message: 'Orden de compra generada',
@@ -119,7 +125,12 @@ function WizardUserProfile(props) {
             },
             level: Sentry.Severity.Info,
           })
-          onBeforeNextStep(mergeResValues, props)
+
+          const stepResults = {
+            order: res,
+            profile: { ...profile, ...values },
+          }
+          onBeforeNextStep(stepResults, props)
         })
         .catch(e => {
           Sentry.captureException(e)
@@ -142,12 +153,7 @@ function WizardUserProfile(props) {
           error={error}
         />
       </S.PanelUserProfile>
-      <Summary
-        amount={amount}
-        billingFrequency={billingFrequency}
-        description={description}
-        summary={summary}
-      />
+      <Summary plan={plan} summary={summary} event={event} arcSite={arcSite} />
     </S.WizardUserProfile>
   )
 }

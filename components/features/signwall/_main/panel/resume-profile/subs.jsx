@@ -27,13 +27,32 @@ class Subs extends Component {
 
   componentDidMount() {
     this._isMounted = true
-    window.Identity.apiOrigin = this.origin_api
-
-    if (!window.Sales) {
-      addScriptAsync({
-        name: 'sdkSalesARC',
-        url: Domains.getScriptSales(),
-      }).then(() => {
+    window.Identity.options({ apiOrigin: this.origin_api })
+    window.Identity.extendSession().then(() => {
+      if (!window.Sales) {
+        addScriptAsync({
+          name: 'sdkSalesARC',
+          url: Domains.getScriptSales(),
+        }).then(() => {
+          this.getListSubs().then(p => {
+            setTimeout(() => {
+              if (p.length && this._isMounted) {
+                this.setState({
+                  userSubsDetail: p,
+                  isSubs: true,
+                  isLoad: false,
+                })
+              } else if (this._isMounted) {
+                this.setState({
+                  isSubs: false,
+                  isLoad: false,
+                })
+              }
+            }, 2000)
+          })
+          this.getCampain()
+        })
+      } else {
         this.getListSubs().then(p => {
           setTimeout(() => {
             if (p.length && this._isMounted) {
@@ -51,26 +70,8 @@ class Subs extends Component {
           }, 2000)
         })
         this.getCampain()
-      })
-    } else {
-      this.getListSubs().then(p => {
-        setTimeout(() => {
-          if (p.length && this._isMounted) {
-            this.setState({
-              userSubsDetail: p,
-              isSubs: true,
-              isLoad: false,
-            })
-          } else if (this._isMounted) {
-            this.setState({
-              isSubs: false,
-              isLoad: false,
-            })
-          }
-        }, 2000)
-      })
-      this.getCampain()
-    }
+      }
+    })
   }
 
   componentWillUnmount() {
@@ -79,8 +80,7 @@ class Subs extends Component {
 
   getListSubs = () => {
     this._isMounted = true
-
-    window.Sales.apiOrigin = this.origin_api
+    window.Sales.options({ apiOrigin: this.origin_api })
     return window.Sales.getAllActiveSubscriptions()
       .then(res => {
         let count = 0

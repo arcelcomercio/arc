@@ -221,7 +221,10 @@ class ProfileAccount extends Component {
                               type="button"
                               id="web_link_cerrarsesion"
                               className="profile__menu-link-close"
-                              onClick={e => this.closeSession(e)}>
+                              onClick={e => {
+                                this.closeSession(e)
+                                this.dispatchEvent('logout')
+                              }>
                               Cerrar Sesión
                             </button>
                           </li>

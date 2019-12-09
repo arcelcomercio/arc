@@ -146,7 +146,10 @@ export const Progress = styled(ProgressComponent)`
   bottom: -7px;
 `
 export const Panel = styled(PanelComponent)`
-  ${({ theme }) => css`
+  ${({ theme, elevation= 1  }) => css`
+    box-shadow: ${theme.shadows[elevation]};
+    border-radius: 5px;
+    background-color: #fff;
     ${theme.breakpoints.only('sm')} {
       flex-direction: column-reverse;
       align-items: center;

@@ -200,7 +200,10 @@ class StoryHeaderChildGallerySlider extends PureComponent {
               aria-valuemin="1"
               aria-valuemax="10"
               className={classes.body}>
-              <ul style={sliderStyle} className={classes.content}>
+              <ul
+                id="galery-ul"
+                style={sliderStyle}
+                className={classes.content}>
                 {sliders.map((slide, i) => (
                   <li
                     key={slide._id}
@@ -209,14 +212,16 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     <div className={classes.figure}>
                       <picture>
                         <source
-                          className={isAdmin ? '' : ''}
+                          // className={isAdmin ? '' : 'lazy'}
                           media="(max-width: 320px)"
+                          // srcSet={isAdmin ? ... : ...}
                           srcSet={slide.resized_urls.landscape_md}
                           data-srcset={slide.resized_urls.landscape_md}
                         />
                         <source
-                          className={isAdmin ? '' : ''}
+                          // className={isAdmin ? '' : 'lazy'}
                           media="(max-width: 769px)"
+                          // srcSet={isAdmin ? ... : ...}
                           srcSet={slide.resized_urls.story_small}
                           data-srcset={slide.resized_urls.story_small}
                         />

@@ -22,23 +22,26 @@ const FooterInfo = ({
   imageDefault,
   gecSites,
   legalLinks,
-  contacts,
+  contacts=[],
   corporateInfo,
   draftingContact,
   copyrightText,
 }) => {
+
+  let listContacs = ''
+  contacts.forEach(({position, name}) => {
+    listContacs+=`${position}: ${name} `
+  });
+
+  listContacs+=`${corporateInfo.name}: ${corporateInfo.direction}`
+  
   return (
     <div className={classes.info}>
       <a href={siteUrl}>
         <img src={imageDefault} className={classes.logo} alt="depor.com" />
       </a>
       <p className={classes.paragraph}>
-        {contacts &&
-          `${contacts[0].position}: ${contacts[0].name} ${
-            contacts[1].position
-          }: ${contacts[1].name} ${corporateInfo.name}: ${
-            corporateInfo.direction
-          }`}
+        {listContacs}
         <br />
         {`${draftingContact[0].name}: ${draftingContact[0].value} | ${
           draftingContact[1].name

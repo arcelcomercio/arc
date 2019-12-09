@@ -35,7 +35,8 @@ class BasicHtml extends PureComponent {
           freeHtml.lastIndexOf('</script>') + 9
         )
         const rgexpURL = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/
-        const url = rgexpURL.exec(scriptCDN)[0]
+        const match = rgexpURL.exec(scriptCDN)
+        const url = match && match.length > 0 ? match[0] : ''
         appendToBody(createScript({ src: url, async: true }))
       }
     }
@@ -72,16 +73,24 @@ class BasicHtml extends PureComponent {
     const {
       outputType,
       isAdmin,
-      customFields: { freeHtml = '' } = {},
+      customFields: { freeHtml = '', adsBorder = '' } = {},
     } = this.props
+
+    const addEmptyBorder = () =>
+      !adsBorder && isAdmin ? '' : ' container-publicidad'
 
     const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
 
     if (this.getAdsSpace()) {
-      return <div dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())} />
+      return (
+        <div
+          className={addEmptyBorder()}
+          dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())}
+        />
+      )
     }
     return (
-      <div className={classes.htmlContainer}>
+      <div className={` ${classes.htmlContainer} `}>
         {freeHtml && outputType !== 'amp' && (
           <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
         )}

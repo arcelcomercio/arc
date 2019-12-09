@@ -1,7 +1,12 @@
 import md5 from 'md5'
 import BuildHtml from './build-html'
 import StoryData from '../../../utilities/story-data'
-import { getMultimedia, nbspToSpace } from '../../../utilities/helpers'
+import {
+  getMultimedia,
+  nbspToSpace,
+  getActualDate,
+  formattedTime,
+} from '../../../utilities/helpers'
 
 const ListItemNews = (contentElements, buildProps) => {
   const {
@@ -28,31 +33,19 @@ const ListItemNews = (contentElements, buildProps) => {
 
       let pagePath = ''
       let fiaContent = ''
-      // console.log("AQUI!!!!")
-      // console.log("premium",storydata.isPremium)
-      // console.log("titulo",storydata.title)
-      // console.log("canonical",storydata.canonicalWebsite)
-      // console.log("fiaOrigen",storydata.fiaOrigen)
-      
+
       if (!storydata.isPremium) {
-        if (true) {
-          // if (storydata.fiaOrigen === true) {
-          // if (storydata.canonicalWebsite === 'elcomerciomag') {
+        if (storydata.fiaOrigen === true) {
+          if (storydata.canonicalWebsite === 'elcomerciomag') {
             // se cambio la validacion del canonicalWebsite para la url,
             // se solicito que ya no se concatene las notas de mag cuando sea el comercio
-          if (storydata.canonicalWebsite === 'xxxxxxxasdf') {
+            // if (storydata.canonicalWebsite === 'xxxxxxxasdf') {
             fiaContent = 'MAG'
             pagePath = `${siteUrl}/mag${storydata.link}`
           } else {
             pagePath = `${siteUrl}${storydata.link}`
             fiaContent = fbArticleStyle
           }
-
-          // console.log("INGRESO!!!!")
-          // console.log("premium",storydata.isPremium)
-          // console.log("titulo",storydata.title)
-          // console.log("canonical",storydata.canonicalWebsite)
-          // console.log("fiaOrigen",storydata.fiaOrigen)
 
           const pageview = `${storydata.link}?outputType=fia`
           const propsScriptHeader = {
@@ -84,7 +77,7 @@ const ListItemNews = (contentElements, buildProps) => {
           const BuildHtmlProps = {
             scriptAnaliticaProps,
             propsScriptHeader,
-            canonical:pagePath,
+            canonical: pagePath,
             oppublished: storydata.date,
             title: nbspToSpace(storydata.title),
             subTitle: nbspToSpace(storydata.subTitle),
@@ -97,8 +90,10 @@ const ListItemNews = (contentElements, buildProps) => {
 
           const htmlString = BuildHtml(BuildHtmlProps)
           const codigoGUID = md5(storydata.id)
-          
-          
+          const captureDate = getActualDate()
+
+          const today = new Date()
+          const localTime = new Date(today.setHours(today.getHours() - 5))
 
           const ItemDataXml = {
             pagePath,
@@ -108,14 +103,22 @@ const ListItemNews = (contentElements, buildProps) => {
             author: storydata.author,
             codigoGUID,
             htmlString,
+            premium: storydata.isPremium,
+            captureDate,
+            captureTime: `${localTime.getHours()}:${localTime.getMinutes()}`,
           }
+
           const template = `
           <item>
-            <title>${nbspToSpace(ItemDataXml.title)}</title>
-            <pubDate>${ItemDataXml.date}</pubDate>
+            <title> <![CDATA[${nbspToSpace(ItemDataXml.title)} ]]></title>
+            <pubDate>${ItemDataXml.date} </pubDate>
             <link>${ItemDataXml.pagePath}</link>
             <guid>${ItemDataXml.codigoGUID}</guid>
             <author>${nbspToSpace(ItemDataXml.author)}</author>
+            <premium>${ItemDataXml.premium}</premium>
+            <captureDate>${ItemDataXml.captureDate}, ${
+            ItemDataXml.captureTime
+          }</captureDate>
             <content:encoded><![CDATA[${
               ItemDataXml.htmlString
             }]]></content:encoded>

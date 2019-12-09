@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDateStory, getDateSeo } from '../../../../utilities/helpers'
+import { formatDateStory } from '../../../../utilities/helpers'
 
 const classes = {
   author:

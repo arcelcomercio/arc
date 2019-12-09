@@ -31,11 +31,9 @@ const buildParagraph = (paragraph, type = '', imageCaption = '') => {
         ? paragraph.match(/embed\/([\w+\-+]+)["?]/)[1]
         : ''
 
-      if (srcVideo !== '') {
+      if (srcVideo !== '')
         result = `<div><img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" title="video youtube" alt="video youtube"><a href="${srcVideo}" title="video youtube">Ver Video Aquí</a></div>`
-      } else {
-        result = ''
-      }
+
     } else if (paragraph.includes('<iframe')) {
       // valida si el parrafo contiene un iframe con video o foto
 
@@ -49,11 +47,10 @@ const buildParagraph = (paragraph, type = '', imageCaption = '') => {
         ? paragraph.match(/alt="([^"]+)?/)[1]
         : ''
 
-      if (imageUrl !== '') {
-        result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
-      } else {
-        result = ''
-      }
+      /* 
+      Nunca se esta ejecutando esto.
+      if (imageUrl !== '') 
+        result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>` */
 
       result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
     } else if (
@@ -79,12 +76,12 @@ const ParagraphshWithAdds = ({
   let resultParagraph = ''
 
   paragraphsNews.forEach(({ payload: paragraphItem, type, caption: imageCaption }) => {
-    let paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
+    const paragraph = paragraphItem.trim().replace(/<\/?br[^<>]+>/, '')
     // el primer script de publicidad se inserta despues de las primeras 50 palabras (firstAdd)
 
     let paragraphwithAdd = ''
     const originalParagraph = paragraph
-    paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
+    // paragraph = paragraph.replace(/(<([^>]+)>)/gi, '')
 
     paragraphwithAdd = `${buildParagraph(originalParagraph, type, imageCaption)}`
     newsWithAdd.push(`${paragraphwithAdd}`)
@@ -120,8 +117,8 @@ const multimediaItems = ({
       break
     case 'basic_gallery':
       cadena = `${cadena}<div class="slideshow">${gallery.map(image => {
-        const { resized_urls: { amp_new: resizedImage } = {}, subtitle = false, url = '' } = image || {}
-        return `<figure><img src="${resizedImage || url}" alt="${subtitle}" title="${htmlToText(subtitle)}" /></figure>`
+        const { resized_urls: { amp_new: resizedImage } = {}, caption, subtitle = '', url = '' } = image || {}
+        return `<figure><img src="${resizedImage || url}" alt="${caption || subtitle}" title="${htmlToText(caption || subtitle)}" /></figure>`
       }).toString().replace(/>,/g, '>')}</div>`
       /**
        * <div class="slideshow">
@@ -134,8 +131,8 @@ const multimediaItems = ({
        */
       break
     default: {
-      const { resized_urls: { amp_new: resizedImage } = {}, subtitle = false, url = '' } = gallery || {}
-      cadena = `${cadena}<figure><img src="${resizedImage || url}" alt="${subtitle}" title="${htmlToText(subtitle)}" /></figure>`
+      const { resized_urls: { amp_new: resizedImage } = {}, caption, subtitle = '', url = '' } = gallery || {}
+      cadena = `${cadena}<figure><img src="${resizedImage || url}" alt="${caption || subtitle}" title="${htmlToText(caption || subtitle)}" /></figure>`
       /**
        *  <figure>
        *    <img src="" alt="" title="" />

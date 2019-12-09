@@ -2,11 +2,13 @@
   &__url {
     color: $color-gray-300;
     font-size: 20px;
+    font-family: $tertiary-font;
   }
 
   &__box-title {
     p {
       color: $color-gray-200;
+      font-family: $tertiary-font;
     }
   }
 }

@@ -11,6 +11,7 @@ const PromoBanner = props => {
     backgroundColor,
     fullWidth,
     width,
+    event,
     text1,
     text2,
     invertTextSizes,
@@ -22,6 +23,7 @@ const PromoBanner = props => {
     <S.Subscribed
       fullWidth={fullWidth}
       width={width}
+      event={event}
       onClick={onClick}
       {...restProps}>
       {image && (

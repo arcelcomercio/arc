@@ -16,6 +16,7 @@ const classes = {
 const StoryHeaderChildGallery = props => {
   const {
     isAdmin,
+    defaultImageGallery,
     contentElementGallery: { content_elements: sliders = [] } = {},
   } = props
   return (
@@ -26,15 +27,16 @@ const StoryHeaderChildGallery = props => {
             <div className={classes.figure}>
               <picture>
                 <source
-                  className={isAdmin ? '' : 'lazy'}
+                  // className={isAdmin ? '' : 'lazy'}
                   media="(max-width: 639px)"
-                  srcSet={isAdmin ? slide.url : slide.url}
+                  // srcSet={isAdmin ? slide.url : slide.url}
+                  srcSet={slide.url}
                   data-srcset={slide.url}
                 />
                 <img
-                  src={isAdmin ? slide.url : slide.url}
+                  src={isAdmin ? slide.url : defaultImageGallery}
                   data-src={slide.url}
-                  alt={slide.caption || slide.subtitle}                  
+                  alt={slide.caption || slide.subtitle}
                   className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                 />
               </picture>

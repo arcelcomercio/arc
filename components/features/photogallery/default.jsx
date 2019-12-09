@@ -35,9 +35,7 @@ const PhotoGallery = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  //console.log(data, 'dataaaaaaaaaaa')
-  const { promo_items: promoItem } = data
-  //console.log(promoItem, 'ephpǵh')
+  // const { promo_items: promoItem } = data
 
   const {
     primarySection,

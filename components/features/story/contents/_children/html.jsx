@@ -13,7 +13,16 @@ const StoryContentChildHtml = ({ data, caption, header = false }) => {
     <>
       {data.includes('id="powa-') && !header ? (
         <Video
-          data={data.replace('data-mp4="', 'data-stream="')}
+          data={data
+            .replace('data-mp4="', 'data-stream="')
+            .replace(
+              /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(mp4))/g,
+              'https://img.elcomercio.pe$1'
+            )
+            .replace(
+              /https:\/\/peru21.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(mp4))/g,
+              'https://img.peru21.pe$1'
+            )}
           description={caption}
         />
       ) : (

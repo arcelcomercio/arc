@@ -1,0 +1,70 @@
+.feature-fullimage {
+  &__title {
+    -webkit-line-clamp: 3;
+  }
+  &__title,
+  &__section,
+  &__author {
+    font-family: $primary-font;
+  }
+  &__author {
+    display: none;
+  }
+  &__section {
+    background-color: $color-primary;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px;
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+  &__icon {
+    background-image: url(/pf/resources/dist/trome/images/rgba70.png);
+    border-radius: 10px;
+    color: $color-gray-300;
+    bottom: inherit;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+    width: 66px;
+    height: 66px;
+    line-height: 66px;
+    font-size: 30px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: inherit;
+    transform: none;
+  }
+  &__box-detail {
+    display: flex;
+    flex-direction: column-reverse;
+
+    @media (--only-mobile) {
+      background-color: #444;
+    }
+    h2 {
+      @media (--tablet) {
+        height: 180px;
+      }
+    }
+  }
+  &.twocol,
+  &.full {
+    .feature-fullimage__title {
+      font-weight: 900;
+      font-size: 26px;
+      line-height: 28.6px;
+      @media (--tablet) {
+        font-size: 45px;
+        line-height: 49.5px;
+      }
+    }
+    .feature-fullimage__box-detail {
+      width: 100%;
+    }
+  }
+}

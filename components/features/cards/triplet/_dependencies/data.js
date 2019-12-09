@@ -69,6 +69,15 @@ class Data extends StoryData {
       : super.sectionLink
   }
 
+  get multimediaSquareS() {
+    const { resized_urls: { square_s: squareS } = {} } = this.customImage
+    return (
+      squareS ||
+      this._customFields[`image${this.index}`] ||
+      super.multimediaSquareS
+    )
+  }
+
   get multimediaPortraitXS() {
     const { resized_urls: { portrait_xs: portraitXs } = {} } = this.customImage
     return (

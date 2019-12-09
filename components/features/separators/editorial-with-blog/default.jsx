@@ -89,7 +89,7 @@ const SeparatorEditorialWithBlog = () => {
         size: 'sm',
       }),
     } = {},
-  } = fetchImage || {}
+  } = fetchImage
 
   const paramsEditorial = {
     authorName: titleEditorial || 'Editorial',

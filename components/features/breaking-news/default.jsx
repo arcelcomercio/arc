@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-state */
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
@@ -14,7 +14,7 @@ const classes = {
 }
 
 @Consumer
-class BreakingNews extends Component {
+class BreakingNews extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {

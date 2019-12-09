@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
@@ -291,7 +291,7 @@ const HeaderChildInverted = ({
                 sideScroll('left', 15, 100, 5)
               }}
               className="header__button left disabled position-relative">
-              <i className="header__icon-back left icon-back text-white rounded font-bold p-5"></i>
+              <i className="header__icon-back left icon-back text-white rounded font-bold p-5" />
             </button>
           )}
           {bandLinks && bandLinks[0] && (
@@ -304,17 +304,17 @@ const HeaderChildInverted = ({
                 <li
                   className={`${classes.item}${
                     styles ? ' header__custom-item' : ''
-                  }`}
+                    }`}
                   key={`band-${url}`}>
                   <a
                     className={classes.link}
                     href={url}
-                    {...(styles && {
+                    {...styles && {
                       style: {
                         backgroundColor: styles[0],
                         color: styles[1] || '#ffffff',
                       },
-                    })}>
+                    }}>
                     {name}
                   </a>
                 </li>
@@ -328,7 +328,7 @@ const HeaderChildInverted = ({
                 sideScroll('right', 15, 100, 5)
               }}
               className="header__button right disabled position-relative">
-              <i className="header__icon-back right icon-back text-white rounded font-bold p-5"></i>
+              <i className="header__icon-back right icon-back text-white rounded font-bold p-5" />
             </button>
           )}
           {date.active && (
@@ -343,7 +343,9 @@ const HeaderChildInverted = ({
         <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
           <div
-            className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
+            className={`${classes.navBtnContainer} ${
+              classes.leftBtnContainer
+              }`}>
             <form className={classes.form} onSubmit={e => e.preventDefault()}>
               <input
                 ref={inputSearch}
@@ -364,7 +366,7 @@ const HeaderChildInverted = ({
               iconClass={classes.iconMenu}
               btnClass={`${classes.btnMenu} ${
                 scrolled && isStory ? 'border-r-1 border-solid' : ''
-              }`}
+                }`}
               btnText="Menú"
               onClick={_handleToggleSectionElements}
             />
@@ -387,14 +389,16 @@ const HeaderChildInverted = ({
           <div className={classes.navStoryTitle} />
           {/** ************* RIGHT *************** */}
           <div
-            className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
+            className={`${classes.navBtnContainer} ${
+              classes.rightBtnContainer
+              }`}>
             {isStory && scrolled ? (
               <>
                 <div className={classes.navStorySocialNetwork}>
                   <div>
                     <a
                       className={classes.moreLink}
-                      href={classes.moreLink}
+                      href="/"
                       onClick={event => {
                         openLink(event, 3)
                       }}>
@@ -419,22 +423,22 @@ const HeaderChildInverted = ({
                 </div>
               </>
             ) : (
-              <div className={`${classes.navContainerRight} `}>
-                {siteProperties.activePaywall && (
-                  <Button
-                    btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe}`}
-                    btnLink={`${
-                      siteProperties.urlSubsOnline
-                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                      'undefined' &&
-                      window.section) ||
-                      ''}`}
-                  />
-                )}
-                {siteProperties.activeSignwall && <SignwallComponent />}
-              </div>
-            )}
+                <div className={`${classes.navContainerRight} `}>
+                  {siteProperties.activePaywall && (
+                    <Button
+                      btnText="Suscríbete"
+                      btnClass={`${classes.btnSubscribe}`}
+                      btnLink={`${
+                        siteProperties.urlSubsOnline
+                        }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                          'undefined' &&
+                          window.section) ||
+                        ''}`}
+                    />
+                  )}
+                  {siteProperties.activeSignwall && <SignwallComponent />}
+                </div>
+              )}
           </div>
           {/** ************* // RIGHT *************** */}
         </div>
@@ -464,4 +468,4 @@ HeaderChildInverted.propTypes = {
   ),
 }
 
-export default HeaderChildInverted
+export default memo(HeaderChildInverted)

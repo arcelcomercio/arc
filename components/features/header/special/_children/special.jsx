@@ -316,7 +316,7 @@ const HeaderSpecialChildSpecial = ({
                 <div>
                   <a
                     className={classes.moreLink}
-                    href={classes.moreLink}
+                    href='/'
                     onClick={event => {
                       openLink(event, 3)
                     }}>

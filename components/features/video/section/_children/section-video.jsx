@@ -26,6 +26,7 @@ export default ({
 
     if (window.PoWaSettings) {
       const { urlPreroll } = siteProperties
+      window.preroll = urlPreroll 
       window.PoWaSettings.advertising = {
         adBar: false,
         adTag: () => {

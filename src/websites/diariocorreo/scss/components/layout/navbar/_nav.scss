@@ -1,0 +1,106 @@
+.nav {
+  background-color: $color-black;
+  &__btn {
+    &--section {
+      padding-left: 0;
+    }
+  }
+  &__logo {
+    padding: 0;
+  }
+  &__icon-search,
+  &__icon-menu,
+  &__btn span {
+    color: $color-white;
+  }
+  &__search-box {
+    border-right: 0;
+    order: 1;
+  }
+  &__container-menu {
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &__container-menu,
+  &__search-box {
+    @media (--desktop) {
+      border-right-color: $color-white;
+    }
+  }
+  &__btn--section {
+    span {
+      font-family: $primary-font;
+      font-weight: 400;
+    }
+  }
+  /*   Estilos para nav loader en notas */
+  &__loader {
+    background-color: transparent;
+  }
+  &__loader-bar {
+    background-color: $color-primary;
+  }
+  &__wrapper {
+    background-color: $color-black;
+    &:first-child {
+      @media (--desktop) {
+        justify-content: end;
+      }
+    }
+    @media (--desktop) {
+      justify-content: flex-end;
+    }
+  }
+  &__list-link {
+    color: $color-white;
+    font-family: $primary-font;
+    font-size: 15px;
+    text-transform: capitalize;
+    &:hover {
+      color: $color-white;
+    }
+  }
+  &.active {
+    z-index: 21;
+    @media (--desktop) {
+      background-color: $color-gray-300;
+    }
+    .nav__logo {
+      padding: 0;
+    }
+    .nav__search-box {
+      @media (--desktop) {
+        display: block;
+        border-right: 0;
+        height: auto;
+        order: 0;
+      }
+      form {
+        right: 0;
+      }
+    }
+  }
+  &__input-search {
+    color: $color-white;
+    font-family: $primary-font;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding-right: 49px;
+    &.active {
+      border-color: $color-white;
+      background-color: $color-black;
+    }
+  }
+  .nav__list-container {
+    @media (--desktop) {
+      max-width: 777px;
+      margin-left: 120px;
+    }
+  }
+  &__search-box {
+    form {
+      right: 112px;
+    }
+  }
+}

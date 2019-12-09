@@ -34,22 +34,39 @@ const WizardConfirmation = props => {
       payment = {},
       printedSubscriber,
       freeAccess,
+      event,
     },
     getCodeCxense,
-  } = props
+  } = props 
 
   const { orderNumber } = order
-  const { firstName, lastName, secondLastName, email } =
-    freeAccess || profile || {}
+  const { uuid, firstName, lastName, secondLastName, email } = Object.assign(
+    {},
+    profile,
+    freeAccess
+  )
   const { total: paidTotal, subscriptionIDs = [] } = payment
   const {
-    name: planName,
     sku,
+    name: planName,
+    productName,
     priceCode,
     amount,
     billingFrequency,
     description,
   } = plan
+
+  const Frecuency = {
+    Month: 'Mensual',
+    Year: 'Anual',
+    OneTime: 'Mensual',
+  }
+
+  const Period = {
+    Month: msgs.monthlyPeriod,
+    Year: msgs.yearlyPeriod,
+    OneTime: '',
+  }
 
   useEffect(() => {
     PWA.finalize()
@@ -63,7 +80,7 @@ const WizardConfirmation = props => {
       transactionProducts: [
         {
           sku,
-          name: plan,
+          name: planName,
           category: 'Planes',
           price: amount,
           quantity: 1,
@@ -78,6 +95,46 @@ const WizardConfirmation = props => {
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 4 },
+        },
+      },
+    })
+
+    dataLayer.push({
+      event: 'buy',
+      ecommerce: {
+        purchase: {
+          actionField: {
+            id: orderNumber,
+            affiliation: 'Online Store',
+            revenue: amount,
+          },
+          products: [
+            {
+              id: sku,
+              name: productName,
+              price: amount,
+              brand: arcSite,
+              category: planName,
+              subCategory: Frecuency[billingFrequency],
+            },
+          ],
+          dataUser: {
+            id: Identity.userIdentity.uuid || uuid,
+            name: `${firstName} ${lastName} ${secondLastName}`
+              .replace(/\s*/, ' ')
+              .trim(),
+            email,
+          },
+        },
+      },
+    })
+
     // eslint-disable-next-line no-unused-expressions
     document.getElementById('footer') &&
       (document.getElementById('footer').style.position = 'relative')
@@ -98,18 +155,6 @@ const WizardConfirmation = props => {
           ? HOME
           : sessionStorage.getItem(NAME_REDIRECT)
         : HOME
-  }
-
-  const Frecuency = {
-    Month: 'Mensual',
-    Year: 'Anual',
-    OneTime: 'Mensual',
-  }
-
-  const Period = {
-    Month: msgs.monthlyPeriod,
-    Year: msgs.yearlyPeriod,
-    OneTime: '',
   }
 
   return (
@@ -138,7 +183,7 @@ const WizardConfirmation = props => {
             </S.DetailTitle>
             <Item label={`${msgs.planLabel.toUpperCase()}: `}>
               {(planName || '').toUpperCase()} -{' '}
-              {Frecuency[billingFrequency].toUpperCase()}
+              {event ? 'ANUAL' : Frecuency[billingFrequency].toUpperCase()}
             </Item>
             <Item label={`${msgs.nameLabel.toUpperCase()}: `}>
               <S.Names>
@@ -158,9 +203,7 @@ const WizardConfirmation = props => {
                   </strong>
                   <strong>{`${paidTotal !== 0 ? paidTotal : ''} `}</strong>
 
-                  {`${paidTotal !== 0 ? Period[billingFrequency] : ''} ${
-                    description.title
-                  } ${description.description}`}
+                  {`${description.cart || ''} `}
                 </S.Item>
 
                 <S.Small>{msgs.paymentNotice}</S.Small>

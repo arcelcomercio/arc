@@ -1,0 +1,19 @@
+.story-continue {
+  &__story-load-image {
+    background-image: url(/pf/resources/dist/diariocorreo/images/logo.png);
+    width: 37px;
+    height: 37px;
+    background-size: cover;
+  }
+  &__counter {
+    &::after {
+      background: $color-white;
+    }
+  }
+  &__story-load-text {
+    font-family: $primary-font;
+  }
+  &__progress {
+    background: #ee3a36;
+  }
+}

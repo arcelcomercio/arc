@@ -68,10 +68,10 @@ class StoryContents extends PureComponent {
     if (_id && taxonomy) {
       return {
         contentId: _id,
-        auxiliaries: taxonomy.auxiliaries
+        auxiliaries: taxonomy.auxiliaries && taxonomy.auxiliaries.length > 0
           ? taxonomy.auxiliaries.map(aux => {
-              return aux._id
-            })
+            return aux._id
+          })
           : [],
         targetingUrl: 'https://targeting.perso.aws.arc.pub/api/v1/targeting',
       }
@@ -138,6 +138,7 @@ class StoryContents extends PureComponent {
       multimediaLandscapeMD,
       multimediaStorySmall,
       multimediaLarge,
+      multimediaLazyDefault,
       tags,
     } = new StoryData({
       data: globalContent,
@@ -160,6 +161,8 @@ class StoryContents extends PureComponent {
       multimediaLandscapeMD,
       multimediaStorySmall,
       multimediaLarge,
+      multimediaLazyDefault,
+      primaryImage: true,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -170,24 +173,22 @@ class StoryContents extends PureComponent {
     return (
       <>
         <div className={classes.news}>
-          {primarySectionLink === '/impresa/'
+          {primarySectionLink === '/impresa/' ||
+            primarySectionLink === '/malcriadas/' ||
+            storyTagsBbc(tags, 'portada-trome')
             ? promoItems && <StoryContentsChildImpresa data={promoItems} />
             : promoItems &&
-              subtype !== ConfigParams.BIG_IMAGE &&
-              subtype !== ConfigParams.SPECIAL_BASIC &&
-              subtype !== ConfigParams.SPECIAL && (
-                <StoryContentsChildMultimedia data={params} />
-              )}
+            subtype !== ConfigParams.BIG_IMAGE &&
+            subtype !== ConfigParams.SPECIAL_BASIC &&
+            subtype !== ConfigParams.SPECIAL && (
+              <StoryContentsChildMultimedia data={params} />
+            )}
 
           <StoryContentsChildAuthor {...params} />
 
           <div id="ads_m_movil2" />
           <div
-            className={`${classes.content} ${
-              isPremium || arcSite !== ConfigParams.SITE_GESTION
-                ? 'paywall'
-                : ''}
-                `}
+            className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
             <div id="ads_d_inline" />
@@ -210,7 +211,7 @@ class StoryContents extends PureComponent {
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
                     return (
-                      <StoryContentsChildImage {...storyContenImage(element)} />
+                      <StoryContentsChildImage {...storyContenImage(element, multimediaLazyDefault)} />
                     )
                   }
                   if (type === ConfigParams.ELEMENT_VIDEO) {
@@ -223,10 +224,10 @@ class StoryContents extends PureComponent {
                             description={captionVideo}
                           />
                         ) : (
-                          <StoryContentsChildVideoNativo
-                            streams={element && element.streams}
-                          />
-                        )}
+                            <StoryContentsChildVideoNativo
+                              streams={element && element.streams}
+                            />
+                          )}
                       </>
                     )
                   }
@@ -260,6 +261,7 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildRelatedInternal
                         stories={relatedContent}
                         id={_id}
+                        imageDefault={multimediaLazyDefault}
                       />
                     )
                   }
@@ -277,8 +279,8 @@ class StoryContents extends PureComponent {
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
                       ? `${classes.textClasses} ${
-                          classes.alignmentClasses
-                        }-${alignment}`
+                      classes.alignmentClasses
+                      }-${alignment}`
                       : classes.textClasses
                     return (
                       <Text
@@ -345,6 +347,7 @@ class StoryContents extends PureComponent {
           )}
         </div>
         {/* <Clavis clavisConfig={this.getClavisConfig()} /> */}
+
       </>
     )
   }

@@ -17,7 +17,15 @@ import { ModalConsumer } from '../context'
 const Cookies = new Cookie()
 const services = new Services()
 
-const signwallSimple = ['peru21g21', 'peru21', 'elbocon', 'depor']
+const signwallSimple = [
+  'peru21g21',
+  'peru21',
+  'elbocon',
+  'depor',
+  'trome',
+  'ojo',
+  'diariocorreo',
+]
 @Consumer
 class FormLogin extends Component {
   constructor(props) {
@@ -393,7 +401,6 @@ class FormLogin extends Component {
 
                   {hiddenEnterUser && (
                     <div className="form-grid__group mt-30">
-                      
                       <p className="form-grid__link text-center mb-20 col-center">
                         O ingresa con tu usuario
                       </p>
@@ -417,9 +424,9 @@ class FormLogin extends Component {
                           noValidate
                           onChange={this.handleChangeValidation}
                         />
-                        <label htmlFor="email" className="form-group__label">
+                        {/* <label htmlFor="email" className="form-group__label">
                           Correo Electrónico
-                        </label>
+                        </label> */}
 
                         {formErrors.email.length > 0 && (
                           <span className="message__error">
@@ -451,9 +458,10 @@ class FormLogin extends Component {
                               : 'row-pass__btn row-pass--show'
                           }
                         />
-                        <label htmlFor="password" className="form-group__label">
+
+                        {/* <label htmlFor="password" className="form-group__label">
                           Contraseña
-                        </label>
+                        </label> */}
 
                         {formErrors.password.length > 0 && (
                           <span className="message__error">
@@ -473,9 +481,9 @@ class FormLogin extends Component {
                             }}
                             type="button"
                             className={
-                              arcSite !== 'peru21'
-                                ? 'link-gray'
-                                : 'link-blue link-color text-sm'
+                              arcSite === 'peru21' || arcSite === 'trome'
+                                ? 'link-blue link-color text-sm'
+                                : 'link-gray'
                             }>
                             Olvidé mi contraseña
                           </button>
@@ -583,7 +591,7 @@ class FormLogin extends Component {
                     }
                   />
                 </div>
-                
+
                 <div className="form-grid__group">
                   <h1 className="form-grid__info text-center">
                     Bienvenido{' '}
@@ -595,7 +603,7 @@ class FormLogin extends Component {
                       : 'Ahora puedes continuar con tu compra'}
                   </p>
                 </div>
-               
+
                 <div className="form-grid__group">
                   <div className="form-group form-group--center mt-20">
                     {userWithSubs ? (

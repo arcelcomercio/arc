@@ -66,6 +66,7 @@ const StoryGallery = () => {
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
+    multimediaLazyDefault: defaultImageGallery,
   }
 
   return (

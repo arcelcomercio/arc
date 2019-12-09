@@ -94,6 +94,7 @@ class XmlMsn {
                                 'media:keywords': storyTags.toString(),
                                 description: {
                                     '#cdata': storyData.subTitle
+                                    // TODO: debe mostrar caption de la foto
                                 },
                                 'content:encoded': {
                                     '#cdata': buildHtml(buildHtmlProps),

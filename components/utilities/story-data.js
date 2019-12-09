@@ -22,7 +22,7 @@ class StoryData {
 
   constructor({
     data = {},
-    deployment = () => {},
+    deployment = () => { },
     contextPath = '',
     arcSite = '',
     defaultImgSize = 'md',
@@ -104,8 +104,8 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data).nameAuthor ||
       defaultAuthor +
-        this._website.charAt(0).toUpperCase() +
-        this._website.slice(1)
+      this._website.charAt(0).toUpperCase() +
+      this._website.slice(1)
     )
   }
 
@@ -415,7 +415,6 @@ class StoryData {
   }
 
   get imagePrimarySeo() {
- 
     const promoItemsImage =
       (this._data &&
         this._data.promo_items &&
@@ -426,7 +425,6 @@ class StoryData {
       ? [promoItemsImage]
       : promoItemsImage
     return promoItemsImagex
-
   }
 
   // TODO: Cambiar la fecha a lo que se estandarice
@@ -474,7 +472,7 @@ class StoryData {
         this.__data.promo_items &&
         this.__data.promo_items[ConfigParams.VIDEO] &&
         this.__data.promo_items[ConfigParams.VIDEO].duration) ||
-        ''
+      ''
     )
   }
 
@@ -767,13 +765,16 @@ class StoryData {
   }
 
   get fiaOrigen() {
-    return (
-      (this._data &&
-        this._data.label &&
-        this._data.label.facebook_ia &&
-        this._data.label.facebook_ia.url) ||
-      true
-    )
+    const { label: { facebook_ia: { url = '' } = {} } = {} } = this._data
+    const result = (url === '' || url === 'true') && true
+    return result
+    // return (
+    //   (this._data &&
+    //     this._data.label &&
+    //     this._data.label.facebook_ia &&
+    //     this._data.label.facebook_ia.url) ||
+    //   true
+    // )
   }
 
   get hasAdsVideo() {
@@ -871,7 +872,10 @@ class StoryData {
     } = {},
     type = ''
   ) {
-    if (basicVideo.promo_image && (type === 'video' || type === 'image')) {
+    if (
+      (basicVideo.promo_image || basicVideo.promo_items) &&
+      (type === 'video' || type === 'image')
+    ) {
       const {
         _id: idVideo = '',
         streams = [],
@@ -879,6 +883,9 @@ class StoryData {
         promo_image: {
           url: urlImage = '',
           resized_urls: resizedUrls = '',
+        } = {},
+        promo_items: {
+          basic: { url: urlImageP = '', resized_urls: resizedUrlsP = '' } = {},
         } = {},
         headlines: { basic: caption = '' } = {},
       } = basicVideo
@@ -892,13 +899,13 @@ class StoryData {
             }) => {
               return streamType === 'mp4'
                 ? {
-                    idVideo,
-                    url,
-                    resized_urls: resizedUrlsV,
-                    caption,
-                    urlImage,
-                    date,
-                  }
+                  idVideo,
+                  url,
+                  resized_urls: resizedUrlsV || resizedUrlsP,
+                  caption,
+                  urlImage: urlImage || urlImageP,
+                  date,
+                }
                 : []
             }
           )
@@ -908,8 +915,8 @@ class StoryData {
       }
 
       return {
-        url: urlImage,
-        resized_urls: resizedUrls,
+        url: urlImage || urlImageP,
+        resized_urls: resizedUrls || resizedUrlsP,
         subtitle: caption,
       }
     }
@@ -943,36 +950,36 @@ class StoryData {
 
   static getContentElementsText(data = [], typeElement = '') {
     return (
-      data &&
-      data.map(({ content, type }) => {
-        return type === typeElement ? formatHtmlToText(content) : []
-      })
-    ).join(' ')
+      data && data.length > 0 ?
+        data.map(({ content, type }) => {
+          return type === typeElement ? formatHtmlToText(content) : []
+        }).join(' ') : ''
+    )
   }
 
   static getContentElementsHtml(data = [], typeElement = '') {
     return (
-      data &&
-      data.map(({ content, type }) => {
-        return type === typeElement ? content : []
-      })
-    ).join(' ')
+      data && data.length > 0 ?
+        data.map(({ content, type }) => {
+          return type === typeElement ? content : []
+        }).join(' ') : ''
+    )
   }
 
   static getContentElementsImage(data = [], typeElement = '') {
     return (
-      data &&
-      data.filter((img = {}) => {
-        return img.type === typeElement
-      })
+      data && data.length > 0 ?
+        data.filter((img = {}) => {
+          return img.type === typeElement
+        }) : []
     )
   }
 
   static getContentElements(data = [], typeElement = '') {
     return (
-      data.map(item => {
+      data && data.length > 0 ? data.map(item => {
         return item.type === typeElement ? item : []
-      }) || []
+      }) : []
     )
   }
 
@@ -994,12 +1001,12 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
-                      idVideo,
-                      url,
-                      caption,
-                      urlImage,
-                      date,
-                    }
+                    idVideo,
+                    url,
+                    caption,
+                    urlImage,
+                    date,
+                  }
                   : []
               })
               .filter(String)
@@ -1072,7 +1079,7 @@ class StoryData {
 
   static getDataAuthor(
     data,
-    { contextPath = '', deployment = () => {}, website = '' } = {}
+    { contextPath = '', deployment = () => { }, website = '' } = {}
   ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
@@ -1141,7 +1148,6 @@ class StoryData {
       if (
         typeof item === 'object' &&
         item !== null &&
-        item !== undefined &&
         items[i] !== ConfigParams.HTML
       ) {
         typeMultimedia = items[i]
@@ -1228,7 +1234,7 @@ class StoryData {
         data.promo_items[ConfigParams.GALLERY] &&
         data.promo_items[ConfigParams.GALLERY].promo_items &&
         data.promo_items[ConfigParams.GALLERY].promo_items[
-          ConfigParams.IMAGE
+        ConfigParams.IMAGE
         ] &&
         ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
           .resized_urls &&

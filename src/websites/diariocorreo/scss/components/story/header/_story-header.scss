@@ -1,0 +1,32 @@
+.story-header {
+  &__title-section,
+  &__news-title {
+    font-family: $primary-font;
+  }
+  &__news-title {
+    font-weight: 700;
+    font-size: 24px;
+    color: $color-gray-300;
+    @media (--tablet) {
+      font-weight: 400;
+      font-size: 44px;
+    }
+  }
+  &__icon {
+    color: $color-gray-300;
+  }
+  &__news-summary {
+    color: $color-black;
+    font-size: 16px;
+  }
+  &__list {
+    @media (--only-mobile) {
+      display: none;
+    }
+    &.block {
+      @media (--only-mobile) {
+        display: block;
+      }
+    }
+  }
+}

@@ -28,16 +28,20 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
+    multimediaLazyDefault,
     showCaption,
+    primaryImage,
   } = data
   const { type: typeImage, caption = '' } = basic || {}
 
   const paramenters = {
     multimediaLandscapeMD,
     multimediaStorySmall,
+    multimediaLazyDefault,
     multimediaLarge,
     caption,
     showCaption,
+    primaryImage,
   }
 
   return (
