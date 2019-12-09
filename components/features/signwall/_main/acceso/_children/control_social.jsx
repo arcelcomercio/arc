@@ -90,11 +90,8 @@ export const ButtonSocial = ({
     })
   }
 
-  const OAuthFacebook = ({ data }) => {
-    if (
-      data.origin !== Domains.getUrlECOID() ||
-      window.Identity.userIdentity.uuid
-    ) {
+  const OAuthFacebook = ({ data, origin }) => {
+    if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
       return
     }
 

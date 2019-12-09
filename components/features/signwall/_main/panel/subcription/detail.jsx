@@ -14,7 +14,7 @@ import { PayuError } from '../../utils/payu-error'
 import Services from '../../utils/services'
 import Radiobox from './Radiobox'
 import Cookie from '../../utils/cookie'
-import FormValid from '../../utils/form-valid'
+// import FormValid from '../../utils/form-valid'
 
 const services = new Services()
 const cookies = new Cookie()
@@ -257,7 +257,10 @@ class SubDetail extends Component {
                     payU.createToken(response => {
                       if (response.error) {
                         reject(new PayuError(response.error))
-                        console.log('error payu')
+                        this.setState({
+                          showMessageFailed: true,
+                          disabledButton: false,
+                        })
                       } else {
                         resolve(response.token)
                       }
@@ -273,10 +276,10 @@ class SubDetail extends Component {
                       window.Identity.userIdentity.accessToken,
                       `${token}~${deviceSessionId}~${codecvv}`,
                       `${fullName.email || ''}`,
-                      `${'5555555555'}`
+                      userDNI
                     )
                     .then(resFin => {
-                      if (resFin.cardholderName === 'APPROVED') {
+                      if (resFin.cardholderName) {
                         this.setState({
                           showMessageSuccess: true,
                           disabledButton: false,
