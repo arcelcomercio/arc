@@ -77,7 +77,7 @@ export const LinkCorporate = styled.a`
     align-items: center;
     text-decoration: none;
     padding: 20px;
-    padding-left: 40px;
+    padding-left: 20px;
     background: ${props =>
       props.primary
         ? theme.palette.primary.main
@@ -102,11 +102,13 @@ export const SubscribedText = styled(Markdown)`
   align-items: flex-start;
   max-height: 50px;
   font-size: ${props => (props.primary ? '20' : '14')}px;
-  font-weight: 700;
   width: 100%;
   box-sizing: border-box;
   & span:first-child {
-    font-weight: 300;
+    font-weight: normal;
+  }
+  & strong:first-child {
+    font-weight: 700;
   }
   ${typography}
 `

@@ -24,13 +24,13 @@ export default {
 
     // Promo Banners
     businessSubscriptionsBannerText: 
-     `<strong>¿ERES EMPRESA? CONSULTA NUESTRAS</strong>
-      <span>SUSCRIPCIONES CORPORATIVAS</span>`,
+     `<span>¿ERES EMPRESA? CONSULTA NUESTRAS</span>
+      <strong>SUSCRIPCIONES CORPORATIVAS</strong>`,
     printedSubscriptorBannerText: 
      `<strong>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?</strong>
       <span>ADQUIERE EL PLAN DIGITAL GRATIS POR 6 MESES</span>`,
     printedSubscriptorBannerText2: 
-     `<span>¿Buscas opciones de suscripción impresa?</span>
+     `<span>¿BUSCAS OPCIONES DE SUSCRIPCIÓN IMPRESA?</span>
       <strong>CONSULTA AQUÍ</strong>`,
     eventSubscriptorBannerText: 
      `<span>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?</span>
