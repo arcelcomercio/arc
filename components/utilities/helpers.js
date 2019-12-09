@@ -121,7 +121,7 @@ export const formatDayMonthYear = (
 
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
-    } del ${date.getFullYear()}`
+  } del ${date.getFullYear()}`
   return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
 }
 
@@ -219,8 +219,8 @@ export const metaPaginationUrl = (
   return requestUri.match(patternPagination) !== null
     ? `${siteUrl}${requestUri.replace(patternPagination, `/${pageNumber}/`)}`
     : `${siteUrl}${requestUri.split('?')[0]}${pageNumber}/${
-    requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
-    }`
+        requestUri.split('?')[1] ? `?${requestUri.split('?')[1]}` : ''
+      }`
 }
 
 export const getMetaPagesPagination = (
@@ -319,15 +319,18 @@ export const formatSlugToText = (text = '', length = 0) => {
   return length
     ? lastSection
     : lastSection
-      .charAt(0)
-      .toUpperCase()
-      .concat(lastSection.slice(1))
-      .replace(/-/, ' ')
+        .charAt(0)
+        .toUpperCase()
+        .concat(lastSection.slice(1))
+        .replace(/-/, ' ')
 }
 
 export const formatHtmlToText = (html = '') => {
   const htmlData = html.toString()
-  return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
+  return htmlData
+    .replace(/<[^>]*>/g, '')
+    .replace(/"/g, '“')
+    .replace(/\\/g, '')
 }
 
 export const removeLastSlash = (url = '') => {
@@ -395,7 +398,7 @@ export const defaultImage = ({
   const site = () => {
     let domain = `${arcSite}.pe`
     if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
-    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe' 
+    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
     else if (arcSite === 'depor') domain = 'depor.com'
     return domain
   }
@@ -493,7 +496,7 @@ export const optaWidgetHtml = html => {
 
   const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
     ConfigParams.OPTA_WIDGET
-    }/optawidget?${matchesResult} ></amp-iframe>`
+  }/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -513,16 +516,17 @@ export const imageHtml = html => {
     /<div class="nota-media"><img src="(.*?)" border="0" width="(.+)"(.*)><\/div>/g,
     rplImageCde1
   )
-  resHtml = resHtml.replace(
-    /<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g,
-    rplImageCde
-  )
+  resHtml = resHtml
+    .replace(/<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g, rplImageCde)
+    .replace(/<img (.*)src="(.*)" width="(.*?)" (.*)>/g, rplImageCde)
 
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
-  resHtml = resHtml.replace(/<img src=(.*?)\/>/g, rplImageCde1)
+  resHtml = resHtml
+    .replace(/<img src="(.*?)"\/>/g, rplImageCde1)
+    .replace(/<img src=(.*?)\/>/g, rplImageCde1)
   resHtml = resHtml
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
     .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
@@ -544,11 +548,22 @@ export const playerHtml = html => {
 export const twitterHtml = html => {
   const rplTwitter =
     '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$3" ></amp-twitter>'
+  const rplTwitter1 =
+    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$2" ></amp-twitter>'
 
-  const htmlDataTwitter = html.replace(
-    /<blockquote class="twitter-tweet"(.*)<a href="https:\/\/twitter.com\/(.*)\/status\/(.*)">(.*)<\/blockquote>/g,
-    rplTwitter
-  )
+  const htmlDataTwitter = html
+    .replace(
+      /<blockquote class="twitter-tweet"(.*)<a href="https:\/\/twitter.com\/(.*)\/status\/(.*)">(.*)<\/blockquote>/g,
+      rplTwitter
+    )
+    .replace(
+      /<twitter-widget (.*) data-tweet-id="(.*)"><\/twitter-widget>/g,
+      rplTwitter1
+    )
+    .replace(
+      /<twitterwidget (.*) data-tweet-id="(.*)"><\/twitterwidget>/g,
+      rplTwitter1
+    )
 
   return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
 }
@@ -595,6 +610,15 @@ export const iframeHtml = (html, arcSite = '') => {
       /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.trome.pe$1'
     )
+  } else if (arcSite === ConfigParams.SITE_DIARIOCORREO) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /http:\/\/diariocorreo.pe(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://cdne.diariocorreo.pe$1'
+    )
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/diariocorreo.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://cdne.diariocorreo.pe$1'
+    )
   } else {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
@@ -630,6 +654,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe src="(.*)" width="(.*?)" (.*)><\/iframe>/g, rplIframe1)
     .replace('src="//', 'src="https://')
     .replace(/<iframe (.*) src='(.*)' (.*)><\/iframe>/g, rplIframe2)
+    .replace(/<iframe (.*) src="(.*)"><\/iframe>/g, rplIframe2)
     .replace(/<iframe (.*) src="(.*)" type=(.*)><\/iframe>/g, rplIframe2)
     .replace(/<iframe (.*) src="(.*)" (.*)><\/iframe>/g, rplIframe2)
     .replace(/<iframe src='(.*)' width='(.+)' (.*)><\/iframe>/g, rplIframe1)
@@ -1226,8 +1251,10 @@ export const pixelAmpDate = arcSite => {
   const month = hoy.getMonth() + 1
   const year = hoy.getFullYear()
   const pixelEc =
-    `${year}${month}${day}` === '20191124' &&
-      arcSite === ConfigParams.SITE_ELCOMERCIO
+    (`${year}${month}${day}` === '20191210' ||
+      `${year}${month}${day}` === '20191211' ||
+      `${year}${month}${day}` === '2019129') &&
+    arcSite === ConfigParams.SITE_ELCOMERCIO
       ? true
       : ''
   return pixelEc

@@ -26,7 +26,7 @@ export default ({
 
     if (window.PoWaSettings) {
       const { urlPreroll } = siteProperties
-      window.preroll = urlPreroll 
+      window.preroll = urlPreroll
       window.PoWaSettings.advertising = {
         adBar: false,
         adTag: () => {
@@ -34,7 +34,11 @@ export default ({
         },
       }
     }
-
+    if (window.innerWidth < 640) {
+      window.addEventListener('powaReady', ({ detail: { element } }) => {
+        element.setAttribute('data-sticky', 'true')
+      })
+    }
     if (!isAdmin) {
       const playList = document.querySelector('.play-list')
       const sectionVideo = document.querySelector('.section-video__wrapper')

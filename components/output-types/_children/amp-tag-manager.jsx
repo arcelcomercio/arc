@@ -2,6 +2,7 @@ import React from 'react'
 import {
   createMarkup,
   getMultimedia,
+  pixelAmpDate,
   formatSlugToText,
 } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
@@ -143,8 +144,10 @@ export default ({
 
   return (
     <>
-      {arcSite === ConfigParams.SITE_OJO && (
+      {arcSite === ConfigParams.SITE_OJO || pixelAmpDate(arcSite) ? (
         <amp-pixel src={urlPixel} layout="nodisplay" />
+      ) : (
+        <></>
       )}
       <amp-analytics
         type="googleanalytics"
@@ -152,7 +155,9 @@ export default ({
         <script
           type="application/json"
           dangerouslySetInnerHTML={createMarkup(
-            arcSite === ConfigParams.SITE_OJO ? ampAnalyticsOjo : ampAnalytics
+            arcSite === ConfigParams.SITE_OJO || pixelAmpDate(arcSite)
+              ? ampAnalyticsOjo
+              : ampAnalytics
           )}
         />
       </amp-analytics>
