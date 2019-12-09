@@ -6,7 +6,7 @@ import ArcStoryContent, {
   /* RawHtml, */
   Text,
 } from '@arc-core-components/feature_article-body'
-import Clavis from '../../../utilities/analytics/clavis'
+// import Clavis from '../../../utilities/analytics/clavis'
 import {
   appendToBody,
   createLink,
@@ -62,7 +62,7 @@ class StoryContents extends PureComponent {
     }
   }
 
-  getClavisConfig = () => {
+  /* getClavisConfig = () => {
     const { globalContent } = this.props
     const { _id, taxonomy } = globalContent || {}
     if (_id && taxonomy) {
@@ -77,7 +77,7 @@ class StoryContents extends PureComponent {
       }
     }
     return {}
-  }
+  } */
 
   handleOptaWidget = ({ id, css, js, defer }) => {
     // eslint-disable-next-line camelcase
@@ -346,10 +346,8 @@ class StoryContents extends PureComponent {
             </div>
           )}
         </div>
-        {
-          // Pruebas de Clavis solo para peru21g21
-          arcSite === 'peru21g21' && <Clavis clavisConfig={this.getClavisConfig()} />
-        }
+        {/* <Clavis clavisConfig={this.getClavisConfig()} /> */}
+
       </>
     )
   }
