@@ -3,7 +3,7 @@ import React from 'react'
 const classes = {
   container: 'flex flex-col justify-start p-20',
   header:
-    'linked-brand__header flex justify-between items-center border-b-1 border-solid border-black mb-15 pb-10',
+    'linked-brand__header flex justify-between items-center border-solid border-black mb-15 pb-10',
   headerText: 'uppercase',
   headerBrand: '',
   list: 'flex flex-col md:flex-row md:flex-wrap md:justify-between',
