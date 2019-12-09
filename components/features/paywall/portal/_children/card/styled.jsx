@@ -67,21 +67,35 @@ export const CardHead = styled.div`
 `
 
 export const CardHeadPromotion = styled.div`
-${({ backgroundColor, theme }) => css`
-  position: absolute;
-  border-radius: 0 0 4px 4px;
-  height: 40px;
-  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
-  background-color: ${backgroundColor || theme.palette.primary.main};
-  transform: translate3d(-50%, -30%, 0);
-  left: 50%;
-  color: ${theme.palette.primary.contrastText};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 145px;
-  font-weight: 700;
-  letter-spacing: 1.68px;
+  ${({ backgroundColor, theme }) => css`
+    position: absolute;
+    border-radius: 0 0 4px 4px;
+    height: 40px;
+    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+    background-color: ${backgroundColor || theme.palette.primary.main};
+    transform: translate3d(-50%, -30%, 0);
+    left: 50%;
+    color: ${theme.palette.primary.contrastText};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 145px;
+    font-weight: 700;
+    letter-spacing: 1.68px;
+  `}
+`
+export const LinkSubscribe = styled.a`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 0 0 5px 5px;
+    height: 70px;
+    background-color: ${theme.palette.secondary.main};
+    color: ${theme.palette.secondary.contrastText};
   `}
 `
 

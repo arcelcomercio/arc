@@ -22,6 +22,21 @@ export default {
     checkRequired: `Debe seleccionar el check`,
     tryLater: `Ha ocurrido un error. Inténtelo más tarde`,
 
+    // Promo Banners
+    businessSubscriptionsBannerText: 
+     `<span>¿ERES EMPRESA? CONSULTA NUESTRAS</span>
+      <strong>SUSCRIPCIONES CORPORATIVAS</strong>`,
+    printedSubscriptorBannerText: 
+     `<strong>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?</strong>
+      <span>ADQUIERE EL PLAN DIGITAL GRATIS POR 3 MESES</span>`,
+    printedSubscriptorBannerText2: 
+     `<span>¿Buscas opciones de suscripción impresa?</span>  
+      <strong>CONSULTA AQUÍ</strong>`,
+    eventSubscriptorBannerText: 
+     `<span>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?</span>  
+      <strong>ADQUIERE EL PLAN DIGITAL CON UNA OFERTA ESPECIAL</strong>`,
+    studentPlanBannerText: `<strong>PLAN UNIVERSITARIO</strong>`,
+
     // Home
     recommended: `¡RECOMENDADO!`,
 
@@ -56,12 +71,6 @@ export default {
     featureDescription1: 
      `Beneficio especial para  
       suscriptores del diario impreso`,
-    businessSubscriptionsBanner1: `¿ERES EMPRESA? CONSULTA NUESTRAS`,
-    businessSubscriptionsBanner2: `SUSCRIPCIONES CORPORATIVAS`,
-    printedSubscriptorBanner1: '¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?',
-    printedSubscriptorBanner2: 'ADQUIERE EL PLAN DIGITAL GRATIS POR 3 MESES',
-    eventSubscriptorBanner1: `¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?`,
-    eventSubscriptorBanner2: `ADQUIERE EL PLAN DIGITAL CON UNA OFERTA ESPECIAL`,
     
     // Profile
     insertPersonalInfo: `Ingrese sus datos`,

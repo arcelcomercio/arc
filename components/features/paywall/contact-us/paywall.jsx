@@ -28,7 +28,10 @@ const PaywallContactUs = props => {
   } = useFusionContext()
 
   React.useEffect(() => {
-    window.document.getElementById('footer').style.position = 'relative'
+    const footer = window.document.getElementById('footer')
+    if (footer) {
+      footer.style.position = 'relative'
+    }
   }, [])
 
   const initialValuesForm = {

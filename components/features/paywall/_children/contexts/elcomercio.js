@@ -22,6 +22,21 @@ export default {
     checkRequired: `Debe seleccionar el check`,
     tryLater: `Ha ocurrido un error. Inténtelo más tarde`,
 
+    // Promo Banners
+    businessSubscriptionsBannerText: 
+     `<strong>¿ERES EMPRESA? CONSULTA NUESTRAS</strong>
+      <span>SUSCRIPCIONES CORPORATIVAS</span>`,
+    printedSubscriptorBannerText: 
+     `<strong>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?</strong>
+      <span>ADQUIERE EL PLAN DIGITAL GRATIS POR 6 MESES</span>`,
+    printedSubscriptorBannerText2: 
+     `<span>¿Buscas opciones de suscripción impresa?</span>
+      <strong>CONSULTA AQUÍ</strong>`,
+    eventSubscriptorBannerText: 
+     `<span>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?</span>
+      <strong>ADQUIERE EL PLAN DIGITAL CON UNA OFERTA ESPECIAL</strong>`,
+    studentPlanBannerText: `<strong>PLAN UNIVERSITARIO</strong>`,
+
     // Home
     recommended: `¡RECOMENDADO!`,
 
@@ -56,12 +71,6 @@ export default {
     featureDescription1: 
      `Beneficio especial para  
       suscriptores del diario impreso`,
-    businessSubscriptionsBanner1: `¿Buscas opciones de suscripción impresa?`,
-    businessSubscriptionsBanner2: `CONSULTA AQUÍ`,
-    printedSubscriptorBanner1: `¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?`,
-    printedSubscriptorBanner2: `ADQUIERE EL PLAN DIGITAL GRATIS POR 6 MESES`,
-    eventSubscriptorBanner1: `¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?`,
-    eventSubscriptorBanner2: `ADQUIERE EL PLAN DIGITAL CON UNA OFERTA ESPECIAL`,
     
     // Profile
     insertPersonalInfo: `Ingrese sus datos`,
