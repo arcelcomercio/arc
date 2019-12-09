@@ -18,5 +18,12 @@
         max-height: calc(100% - 40px);
         padding-right: 0;
         padding-left: 0;
+        article:nth-last-child(1){
+            .most-read-homologated-item__link-box{
+                .flex{
+                    border-bottom: none;
+                }
+            }
+        }
     }
 }
