@@ -1,12 +1,14 @@
 import React from 'react'
 
+import { createMarkup } from '../../../../utilities/helpers'
+
 const classes = {
   container: 'flex flex-col justify-start p-20',
   header:
     'linked-site__header flex justify-between items-center border-solid border-black mb-15 pb-10',
   headerText: 'text-black font-bold secondary-font title-xs uppercase',
   headerSiteText: 'secondary-font text-md',
-  headerSite: '',
+  headerSite: 'font-bold',
   list: 'flex flex-col md:flex-row md:flex-wrap md:justify-between',
   listItem: 'linked-site__item flex mb-15 md:flex-col',
   listItemLink: 'mr-10 md:mr-0 md:mb-5',
@@ -15,15 +17,30 @@ const classes = {
   image: 'linked-site__image object-cover',
 }
 
-const StoriesListLinkedBySiteChild = ({ isAdmin, stories, isTargetBlank }) => {
+const StoriesListLinkedBySiteChild = ({
+  isAdmin,
+  siteName,
+  stories,
+  isTargetBlank,
+  titleField,
+  subtitleField,
+}) => {
   return (
     <section className={classes.container}>
       <div className={classes.header}>
-        <p className={classes.headerText}>NO TE PIERDAS</p>
+        <p className={classes.headerText}>{titleField || 'NO TE PIERDAS'}</p>
         <div>
-          <h3 className={classes.headerSiteText}>
-            Contenido de <span className={classes.headerSite}>Mag.</span>
-          </h3>
+          {subtitleField ? (
+            <div
+              className={classes.headerSiteText}
+              dangerouslySetInnerHTML={createMarkup(subtitleField)}
+            />
+          ) : (
+            <h3 className={classes.headerSiteText}>
+              Contenido de{' '}
+              <span className={classes.headerSite}>{siteName}</span>
+            </h3>
+          )}
         </div>
       </div>
       <div role="list" className={classes.list}>

@@ -16,6 +16,8 @@ const StoriesListLinkedBySite = props => {
     customFields: {
       storiesConfig: { contentService = '', contentConfigValues = {} } = {},
       isTargetBlank = false,
+      titleField,
+      subtitleField,
     } = {},
   } = props
   /**
@@ -25,7 +27,7 @@ const StoriesListLinkedBySite = props => {
 
   const { website } = contentConfigValues
 
-  const { siteUrl } = getProperties(website || arcSite) || {}
+  const { siteUrl, siteName } = getProperties(website || arcSite) || {}
 
   const data =
     useContent({
@@ -67,8 +69,11 @@ const StoriesListLinkedBySite = props => {
 
   const params = {
     isAdmin,
+    siteName,
     stories,
     isTargetBlank: isTargetBlank ? { target: '_blank' } : {},
+    titleField,
+    subtitleField,
   }
 
   return <StoriesListLinkedBySiteChild {...params} />
@@ -78,6 +83,7 @@ StoriesListLinkedBySite.propTypes = {
   customFields,
 }
 
-StoriesListLinkedBySite.label = 'No te pierdas - por marca'
+StoriesListLinkedBySite.label = 'Recomendados por marca'
+StoriesListLinkedBySite.static = true
 
 export default StoriesListLinkedBySite
