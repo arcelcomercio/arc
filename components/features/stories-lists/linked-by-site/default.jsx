@@ -2,6 +2,8 @@ import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
@@ -12,18 +14,24 @@ const StoriesListLinkedByBrand = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const {
     customFields: {
-      storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      storiesConfig: { contentService = '', contentConfigValues = {} } = {},
+      isTargetBlank = false,
     } = {},
   } = props
   /**
    * TODO: Se podria agregar caso por defecto para que haga fetch
    * de las ultimas notas de Mag o del sitio actual.
    */
+
+  const { website } = contentConfigValues
+
+  const { siteUrl } = getProperties(website || arcSite) || {}
+
   const data =
     useContent({
       source: contentService,
       query: contentConfigValues,
-      filter: schemaFilter(arcSite),
+      filter: schemaFilter(website || arcSite),
     }) || {}
   const { content_elements: contentElements = [] } = data || {}
 
@@ -36,6 +44,11 @@ const StoriesListLinkedByBrand = props => {
 
   const stories = contentElements.map(story => {
     storyData._data = story
+
+    const { websites = {} } = story || {}
+    const brandWeb = websites[website] || {}
+    const websiteUrl = brandWeb.website_url || ''
+
     const {
       title,
       websiteLink,
@@ -45,7 +58,7 @@ const StoriesListLinkedByBrand = props => {
     } = storyData
     return {
       title,
-      websiteLink,
+      websiteLink: `${siteUrl}${websiteUrl || websiteLink}`,
       multimediaLazyDefault,
       multimediaSquareS,
       multimediaLandscapeS,
@@ -55,6 +68,7 @@ const StoriesListLinkedByBrand = props => {
   const params = {
     isAdmin,
     stories,
+    isTargetBlank: isTargetBlank ? { target: '_blank' } : {},
   }
 
   return <StoriesListLinkedByBrandChild {...params} />

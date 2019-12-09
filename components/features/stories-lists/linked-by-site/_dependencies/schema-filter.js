@@ -5,10 +5,6 @@ export default arcSite => {
       headlines { basic }
       websites {
         ${arcSite} {
-          website_section {
-            name
-            path
-          }
           website_url
         }
       }

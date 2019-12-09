@@ -3,22 +3,26 @@ import React from 'react'
 const classes = {
   container: 'flex flex-col justify-start p-20',
   header:
-    'linked-brand__header flex justify-between items-center border-solid border-black mb-15 pb-10',
+    'linked-site__header flex justify-between items-center border-solid border-black mb-15 pb-10',
   headerText: 'uppercase',
   headerBrand: '',
   list: 'flex flex-col md:flex-row md:flex-wrap md:justify-between',
-  listItem: 'linked-brand__item flex mb-15 md:flex-col',
-  image: 'linked-brand__image object-cover',
+  listItem: 'linked-site__item flex mb-15 md:flex-col',
+  image: 'linked-site__image object-cover',
 }
 
-const StoriesListLinkedByBrandChild = ({ isAdmin, stories }) => {
+const StoriesListLinkedByBrandChild = ({ isAdmin, stories, isTargetBlank }) => {
   return (
     <section className={classes.container}>
       <div className={classes.header}>
         <p className="text-black font-bold secondary-font title-xs">
           NO TE PIERDAS
         </p>
-        <h3 className="secondary-font text-md">Contenido de Mag.</h3>
+        <div>
+          <h3 className="secondary-font text-md">
+            Contenido de <span className="font-bold">Mag.</span>
+          </h3>
+        </div>
       </div>
       <div role="list" className={classes.list}>
         {stories.map(
@@ -33,7 +37,10 @@ const StoriesListLinkedByBrandChild = ({ isAdmin, stories }) => {
               role="listitem"
               className={classes.listItem}
               key={websiteLink}>
-              <a href={websiteLink} className="mr-10 md:mr-0 md:mb-5">
+              <a
+                href={websiteLink}
+                className="mr-10 md:mr-0 md:mb-5"
+                {...isTargetBlank}>
                 <picture>
                   <source
                     className={isAdmin ? '' : 'lazy'}
@@ -52,8 +59,9 @@ const StoriesListLinkedByBrandChild = ({ isAdmin, stories }) => {
               </a>
               <h2>
                 <a
-                  className="linked-brand__title-link overflow-hidden block text-black font-bold secondary-font line-h-sm title-xs"
-                  href={websiteLink}>
+                  className="linked-site__title-link overflow-hidden block text-black font-bold secondary-font line-h-sm title-xs"
+                  href={websiteLink}
+                  {...isTargetBlank}>
                   {title}
                 </a>
               </h2>
