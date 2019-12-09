@@ -10,6 +10,13 @@ import { useStrings } from '../../../_children/contexts'
 
 const { trim } = Masks.Pipes
 
+const Captcha = props => (
+  <div
+    className="g-recaptcha"
+    data-sitekey="6Le3ssYUAAAAACgVIkwOblVR3iJZ5naYqoipnta2"
+    {...props}></div>
+)
+
 export default props => {
   const { initialValues, onSubmit, error } = props
   const msgs = useStrings()
