@@ -1,4 +1,5 @@
 import { useFusionContext } from 'fusion:context'
+import ENV from 'fusion:environment'
 import React from 'react'
 import StoryData from '../../../utilities/story-data'
 
@@ -20,15 +21,51 @@ const FooterElComercioAmp = () => {
     siteProperties: { siteUrl },
   } = useFusionContext()
 
-  const { primarySection, primarySectionLink } = new StoryData({
+  const { primarySection, primarySectionLink, recentList } = new StoryData({
     data,
     arcSite,
     contextPath,
     siteUrl,
   })
 
+  const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ``
+  const recentResult = recentList.map(
+    ({ basic, websiteUrl, urlImage } = {}, index) => {
+      return (
+        urlImage &&
+        `{  
+            "image":"${urlImage}",
+            "title":"${basic}",
+            "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&next=${index + 1}"
+          }`
+      )
+    }
+  )
+
+  const structuredRecent = `{  
+    "pages": [${recentResult}],
+    "hideSelectors": [
+      ".amp-header",
+      ".ad-amp-movil",
+      ".amp-nav__wrapper",
+      ".amp-nav",
+      ".footer"
+      ]
+    }`
+
   return (
     <>
+      <>
+        <div className={classes.nextPageSeparator} separator>
+          <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
+        </div>
+        <amp-next-page>
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{ __html: structuredRecent }}
+          />
+        </amp-next-page>
+      </>
       <footer className={classes.footer}>
         <div className={classes.footerInfo}>
           <a href={primarySectionLink} className={classes.footerLogoContainer}>
