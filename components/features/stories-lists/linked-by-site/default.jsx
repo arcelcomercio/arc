@@ -8,9 +8,9 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 
-import StoriesListLinkedByBrandChild from './_children/linked-by-brand'
+import StoriesListLinkedBySiteChild from './_children/linked-by-site'
 
-const StoriesListLinkedByBrand = props => {
+const StoriesListLinkedBySite = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const {
     customFields: {
@@ -46,8 +46,8 @@ const StoriesListLinkedByBrand = props => {
     storyData._data = story
 
     const { websites = {} } = story || {}
-    const brandWeb = websites[website] || {}
-    const websiteUrl = brandWeb.website_url || ''
+    const site = websites[website] || {}
+    const websiteUrl = site.website_url || ''
 
     const {
       title,
@@ -71,13 +71,13 @@ const StoriesListLinkedByBrand = props => {
     isTargetBlank: isTargetBlank ? { target: '_blank' } : {},
   }
 
-  return <StoriesListLinkedByBrandChild {...params} />
+  return <StoriesListLinkedBySiteChild {...params} />
 }
 
-StoriesListLinkedByBrand.propTypes = {
+StoriesListLinkedBySite.propTypes = {
   customFields,
 }
 
-StoriesListLinkedByBrand.label = 'No te pierdas - por marca'
+StoriesListLinkedBySite.label = 'No te pierdas - por marca'
 
-export default StoriesListLinkedByBrand
+export default StoriesListLinkedBySite

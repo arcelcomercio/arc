@@ -4,23 +4,25 @@ const classes = {
   container: 'flex flex-col justify-start p-20',
   header:
     'linked-site__header flex justify-between items-center border-solid border-black mb-15 pb-10',
-  headerText: 'uppercase',
-  headerBrand: '',
+  headerText: 'text-black font-bold secondary-font title-xs uppercase',
+  headerSiteText: 'secondary-font text-md',
+  headerSite: '',
   list: 'flex flex-col md:flex-row md:flex-wrap md:justify-between',
   listItem: 'linked-site__item flex mb-15 md:flex-col',
+  listItemLink: 'mr-10 md:mr-0 md:mb-5',
+  listItemTitle:
+    'linked-site__title-link overflow-hidden block text-black font-bold secondary-font line-h-sm title-xs',
   image: 'linked-site__image object-cover',
 }
 
-const StoriesListLinkedByBrandChild = ({ isAdmin, stories, isTargetBlank }) => {
+const StoriesListLinkedBySiteChild = ({ isAdmin, stories, isTargetBlank }) => {
   return (
     <section className={classes.container}>
       <div className={classes.header}>
-        <p className="text-black font-bold secondary-font title-xs">
-          NO TE PIERDAS
-        </p>
+        <p className={classes.headerText}>NO TE PIERDAS</p>
         <div>
-          <h3 className="secondary-font text-md">
-            Contenido de <span className="font-bold">Mag.</span>
+          <h3 className={classes.headerSiteText}>
+            Contenido de <span className={classes.headerSite}>Mag.</span>
           </h3>
         </div>
       </div>
@@ -39,7 +41,7 @@ const StoriesListLinkedByBrandChild = ({ isAdmin, stories, isTargetBlank }) => {
               key={websiteLink}>
               <a
                 href={websiteLink}
-                className="mr-10 md:mr-0 md:mb-5"
+                className={classes.listItemLink}
                 {...isTargetBlank}>
                 <picture>
                   <source
@@ -59,7 +61,7 @@ const StoriesListLinkedByBrandChild = ({ isAdmin, stories, isTargetBlank }) => {
               </a>
               <h2>
                 <a
-                  className="linked-site__title-link overflow-hidden block text-black font-bold secondary-font line-h-sm title-xs"
+                  className={classes.listItemTitle}
                   href={websiteLink}
                   {...isTargetBlank}>
                   {title}
@@ -74,4 +76,4 @@ const StoriesListLinkedByBrandChild = ({ isAdmin, stories, isTargetBlank }) => {
 }
 
 // TODO: Verificar si ayuda React.memo
-export default StoriesListLinkedByBrandChild
+export default StoriesListLinkedBySiteChild
