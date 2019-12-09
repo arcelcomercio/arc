@@ -77,7 +77,7 @@ class BasicHtml extends PureComponent {
     } = this.props
 
     const addEmptyBorder = () =>
-      !adsBorder && isAdmin ? '' : ' container-publicidad'
+    adsBorder === 'containerp' ? 'container-publicidad' : ''
 
     const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
 

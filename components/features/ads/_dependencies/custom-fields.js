@@ -47,6 +47,15 @@ const customFields = PropTypes.shape({
     labels: spacesAdsName(),
     defaultValue: 'none',
   }),
+  adsBorder: PropTypes.oneOf(['border', 'containerp']).tag({
+    name: 'Borde',
+    group: 'Publicidad',
+    labels: {
+      border: 'ConBorde',
+      containerp: 'SinBorde',
+    },
+    defaultValue: false,
+  }),
 })
 
 export default customFields
