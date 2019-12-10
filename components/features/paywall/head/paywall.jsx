@@ -153,6 +153,7 @@ const Head = props => {
                     setIsActive(true)
                   } else {
                     if (profile) setProfile()
+                    setTypeSignWall(typeSignWall)
                     setShowSignwall(true)
                   }
                 }}>
