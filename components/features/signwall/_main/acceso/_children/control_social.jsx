@@ -180,10 +180,14 @@ export const ButtonSocial = ({
             onStudents()
           } else {
             onClose()
+            window.removeEventListener('message', OAuthFacebook)
+            window.removeEventListener('onmessage', OAuthFacebook)
           }
         })
       } else {
         onClose()
+        window.removeEventListener('message', OAuthFacebook)
+        window.removeEventListener('onmessage', OAuthFacebook)
       }
     })
   }

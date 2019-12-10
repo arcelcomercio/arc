@@ -177,7 +177,7 @@ export default class Services {
               locality: 'Lima',
               country: 'PE',
             },
-            phone: UserPhone.value,
+            phone: UserPhone.value || UserPhone,
           }),
           headers: {
             'Content-Type': 'application/json',

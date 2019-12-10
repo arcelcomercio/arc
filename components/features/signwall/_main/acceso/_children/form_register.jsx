@@ -174,6 +174,7 @@ export const FormRegister = props => {
                       onClose={onClose}
                       typeDialog={typeDialog}
                       onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
                     />
                   ) : (
                     <>
@@ -184,6 +185,7 @@ export const FormRegister = props => {
                         onClose={onClose}
                         typeDialog={typeDialog}
                         onStudents={() => setShowStudents(!showStudents)}
+                        arcSite={arcSite}
                       />
                       <ButtonSocial brand="google" size="middle" />
                     </>
