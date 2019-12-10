@@ -116,40 +116,43 @@ class StoriesListInfiniteScroll extends PureComponent {
       defaultImgSize: 'sm',
     })
 
-    const stories = this.removeDuplicates(
-      contentElements.map(story => {
-        storyData._data = story
-        const {
-          primarySectionLink,
-          primarySection,
-          date,
-          websiteLink,
-          title,
-          subTitle,
-          authorLink,
-          author,
-          multimediaType,
-          multimediaLandscapeXS,
-          multimediaLandscapeS,
-          id,
-        } = storyData
-        return {
-          primarySectionLink,
-          primarySection,
-          date,
-          link: websiteLink,
-          title,
-          subTitle,
-          authorLink,
-          author,
-          multimediaType,
-          multimediaLandscapeXS,
-          multimediaLandscapeS,
-          id,
-        }
-      }),
-      'id'
-    )
+    const stories =
+      contentElements.length > 0
+        ? this.removeDuplicates(
+            contentElements.map(story => {
+              storyData._data = story
+              const {
+                primarySectionLink,
+                primarySection,
+                date,
+                websiteLink,
+                title,
+                subTitle,
+                authorLink,
+                author,
+                multimediaType,
+                multimediaLandscapeXS,
+                multimediaLandscapeS,
+                id,
+              } = storyData
+              return {
+                primarySectionLink,
+                primarySection,
+                date,
+                link: websiteLink,
+                title,
+                subTitle,
+                authorLink,
+                author,
+                multimediaType,
+                multimediaLandscapeXS,
+                multimediaLandscapeS,
+                id,
+              }
+            }),
+            'id'
+          )
+        : []
 
     const activeAds = Object.keys(customFieldsProps)
       .filter(prop => prop.match(/adsMobile(\d)/))
