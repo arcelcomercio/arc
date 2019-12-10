@@ -60,7 +60,8 @@ const StoriesListLinkedBySite = props => {
     } = storyData
     return {
       title,
-      websiteLink: `${siteUrl}${websiteUrl || websiteLink}`,
+      websiteLink: `${siteUrl}${websiteUrl ||
+        websiteLink}?ref=recomendados&source=${arcSite}`,
       multimediaLazyDefault,
       multimediaSquareS,
       multimediaLandscapeS,
