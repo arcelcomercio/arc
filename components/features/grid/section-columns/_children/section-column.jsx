@@ -36,45 +36,61 @@ const ChildrenSectionColumn = ({
       <div
         role="list"
         className="stories-l-card__list bg-white overflow-y-auto h-full">
-        {stories.map(({ multimediaType, multimedia, urlNews, lazyImage }, i) =>
-          i === 0 ? (
-            <figure className="position-relative mb-10 overflow-hidden">
-              {getMultimediaIcon(multimediaType) && (
-                <i
-                  className={`${getMultimediaIcon(
-                    multimediaType
-                  )} position-absolute text-center multimedia__icon mx-auto rounded text-gray-100`}
-                />
-              )}
-              {multimedia && (
-                <a href={urlNews}>
-                  <picture>
-                    <img
-                      className={`${
-                        isAdmin ? '' : 'lazy'
-                      } stories-l-card__image w-full object-center object-cover`}
-                      src={isAdmin ? multimedia : lazyImage}
-                      data-src={multimedia}
-                      alt=""
-                    />
-                  </picture>
-                </a>
-              )}
-            </figure>
-          ) : (
-            <div className={classes.wrapper}>
-              <div className={classes.linkBox}>
-                <a href={urlNews}>
-                  <h3 className={classes.link}>{title}</h3>
-                </a>
-                <span>
-                  <a className={classes.autorLink} href={urlAutor}>
-                    {author}
+        {stories.map(
+          (
+            {
+              multimediaType,
+              multimedia,
+              urlNews,
+              lazyImage,
+              title,
+              urlAutor,
+              author,
+            },
+            i
+          ) =>
+            i === 0 ? (
+              <figure className="position-relative mb-10 overflow-hidden">
+                {getMultimediaIcon(multimediaType) && (
+                  <i
+                    className={`${getMultimediaIcon(
+                      multimediaType
+                    )} position-absolute text-center multimedia__icon mx-auto rounded text-gray-100`}
+                  />
+                )}
+                {multimedia && (
+                  <a href={urlNews}>
+                    <picture>
+                      <img
+                        className={`${
+                          isAdmin ? '' : 'lazy'
+                        } stories-l-card__image w-full object-center object-cover`}
+                        src={isAdmin ? multimedia : lazyImage}
+                        data-src={multimedia}
+                        alt=""
+                      />
+                    </picture>
                   </a>
-                </span>
+                )}
+              </figure>
+            ) : (
+              <div className="stories-l-item__information pr-20 pl-20">
+                <div className="stories-l-item__link-box flex flex-col text-gray-300 border-b-1 border-dashed border-gray pb-10">
+                  <a href={urlNews}>
+                    <h3 className="stories-l-item__link mb-15 text-gray-300 line-h-sm font-bold overflow-hidden">
+                      {title}
+                    </h3>
+                  </a>
+                  <span>
+                    <a
+                      className="stories-l-item__autor text-gray-200"
+                      href={urlAutor}>
+                      {author}
+                    </a>
+                  </span>
+                </div>
               </div>
-            </div>
-          )
+            )
         )}
       </div>
     </div>
