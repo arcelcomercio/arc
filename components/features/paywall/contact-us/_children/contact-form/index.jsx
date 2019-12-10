@@ -13,7 +13,7 @@ const { trim } = Masks.Pipes
 const Captcha = props => (
   <div
     className="g-recaptcha"
-    data-sitekey="6Le3ssYUAAAAACgVIkwOblVR3iJZ5naYqoipnta2"
+    data-sitekey="6LfX6cYUAAAAABI7_fPZZWU9a1UgTuw59OZy9P_X"
     {...props}></div>
 )
 
@@ -67,6 +67,7 @@ export default props => {
                   component={InputFormik}
                 />
               </S.WrapField>
+              <Captcha></Captcha>
             </S.ContentRow>
 
             <S.ContentRow>
