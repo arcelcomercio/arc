@@ -98,11 +98,11 @@ const PortalInt = props => {
           {arcSite === 'gestion' && (
             <PromoBanner
               primary
-              href={originSubsOnline}
               text={msgs.studentPlanBannerText}
               fontSize="20px"
               fontWeight="100"
-              onClick={() => {
+              onClick={e => {
+                e.preventDefault()
                 dispatchEvent('signInReq', 'students')
               }}
             />
