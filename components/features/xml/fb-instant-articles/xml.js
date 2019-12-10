@@ -28,9 +28,8 @@ class XmlFacebookInstantArticles {
     } = props
     const { content_elements: stories = [] } = globalContent || {}
     this.stories = stories
-
     if (siteDomain === 'elcomercio.pe') {
-    // if (siteDomain === 'xxxxxasdf') {
+      // if (siteDomain === 'xxxxxasdf') {
       this.fetchContent({
         magStories: {
           source: SOURCE,
@@ -45,7 +44,7 @@ class XmlFacebookInstantArticles {
   }
 
   render() {
-    const { magStories } = this.state
+    const { magStories } = this.state || {}
     if (magStories) this.stories = [...this.stories, ...magStories]
 
     const {
@@ -93,7 +92,7 @@ class XmlFacebookInstantArticles {
             if (!storyData.isPremium) {
               if (storyData.fiaOrigen === true) {
                 if (storyData.canonicalWebsite === 'elcomerciomag') {
-                // if (storyData.canonicalWebsite === 'xxxxxasdf') {
+                  // if (storyData.canonicalWebsite === 'xxxxxasdf') {
                   fiaContent = 'MAG'
                   storyLink = `${siteUrl}/mag${storyData.link}`
                 } else {
@@ -110,6 +109,7 @@ class XmlFacebookInstantArticles {
                   tags: storyData.tags,
                   author: nbspToSpace(storyData.author),
                   typeNews: storyData.multimediaType,
+                  premium: storyData.isPremium,
                 }
 
                 const scriptAnaliticaProps = {

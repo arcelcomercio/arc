@@ -67,6 +67,8 @@ class ConfigParams {
 
   static SITE_OJO = 'ojo'
 
+  static SITE_DIARIOCORREO = 'diariocorreo'
+
   // opta
   static OPTA_CSS_LINK =
     'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
