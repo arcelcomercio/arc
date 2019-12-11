@@ -6,8 +6,9 @@ const classes = {
   container: 'flex flex-col justify-start p-20',
   header:
     'linked-site__header flex justify-between items-center border-solid border-black mb-15 pb-10',
-  headerText: 'text-black font-bold secondary-font title-xs uppercase',
-  headerSiteText: 'secondary-font text-md',
+  headerText:
+    'linked-site__h-text text-black font-bold secondary-font title-xs uppercase',
+  headerSiteText: 'linked-site__subtitle secondary-font text-md',
   headerSite: 'font-bold',
   list: 'flex flex-col md:flex-row md:flex-wrap md:justify-between',
   listItem: 'linked-site__item flex mb-15 md:flex-col',
