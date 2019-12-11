@@ -60,7 +60,7 @@ const pattern = (key = {}) => {
     size = 10,
   } = key
 
-  const section = auxSection === null ? '/' : auxSection
+  const section = auxSection === null || !auxSection ? '/' : auxSection
   const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate
 
   const body = {
