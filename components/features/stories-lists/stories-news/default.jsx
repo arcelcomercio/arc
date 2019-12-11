@@ -9,14 +9,13 @@ import StoryData from '../../../utilities/story-data'
 import { reduceWord } from '../../../utilities/helpers'
 import StoryItem from '../../../global-components/story-new'
 import Ads from '../../../global-components/ads'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   listado: 'w-full',
   listadoSeeMore: 'story-item__btn flex justify-center mt-20 uppercase',
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
-
-const IMAGE_STORY = 'story'
 
 const StoriesListNew = props => {
   const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
@@ -25,7 +24,8 @@ const StoriesListNew = props => {
   const { customFields: customFieldsProps = {} } = props
   const {
     storyConfig: { contentService = '', contentConfigValues = {} } = {},
-    seeMoreLink, link, imageType
+    seeMoreLink,
+    link,
   } = customFieldsProps
 
   const data =
@@ -80,10 +80,16 @@ const StoriesListNew = props => {
               multimediaLandscapeS,
             } = Story
 
-            const imgItemLandscapeXS =
-              imageType !== IMAGE_STORY ? authorImage : multimediaLandscapeXS
-            const imgItemLandscapeS =
-              imageType !== IMAGE_STORY ? authorImage : multimediaLandscapeS
+            const isOpinionCorreo =
+              primarySectionLink === '/opinion/' &&
+              arcSite === ConfigParams.SITE_DIARIOCORREO
+
+            const imgItemLandscapeXS = isOpinionCorreo
+              ? authorImage
+              : multimediaLandscapeXS
+            const imgItemLandscapeS = isOpinionCorreo
+              ? authorImage
+              : multimediaLandscapeS
 
             return (
               <>
