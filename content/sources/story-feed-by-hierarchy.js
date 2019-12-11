@@ -1,6 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import getProperties from 'fusion:properties'
+import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
+
+const MAX_SECTIONS = 5
 
 const options = {
   gzip: true,
@@ -20,13 +24,106 @@ const params = [
   },
 ]
 
-const fetch = ({ 'arc-site': website, hierarchy, size }) => {
+const queryStoryRecent = (section, site) => {
+  const body = {
+    query: {
+      bool: {
+        must: [
+          {
+            term: {
+              'revision.published': 'true',
+            },
+          },
+          {
+            term: {
+              type: 'story',
+            },
+          },
+        ],
+      },
+    },
+  }
+
+  if (section && section !== '/') {
+    body.query.bool.must.push({
+      nested: {
+        path: 'taxonomy.sections',
+        query: {
+          bool: {
+            must: [
+              {
+                terms: {
+                  'taxonomy.sections._id': [section],
+                },
+              },
+              {
+                term: {
+                  'taxonomy.sections._website': site,
+                },
+              },
+            ],
+          },
+        },
+      },
+    })
+  }
+
+  return encodeURI(JSON.stringify(body))
+}
+
+const transformImg = ({ contentElements, website }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets: '314x157',
+  })
+}
+
+const getStoriesBySection = ({ navigation, size, website }) => {
+  const includedFields =
+    '&_sourceInclude=websites,promo_items,headlines,credits'
+
+  const { children = [] } = navigation || {}
+  const sections = children.slice(0, MAX_SECTIONS)
+
+  const requestArray = sections.map(({ _id }) =>
+    request({
+      uri: `${CONTENT_BASE}/content/v4/search/published?body=${queryStoryRecent(
+        _id,
+        website
+      )}&website=${website}&size=${size}&from=0&sort=display_date:desc${includedFields}`,
+      ...options,
+    })
+  )
+
+  return Promise.all(requestArray).then((stories = []) => {
+    const navigationWithStories = navigation
+    navigationWithStories.children = sections.map((section, i) => {
+      const sectionWithStories = section
+      const { content_elements: contentElements } = stories[i] || {}
+      sectionWithStories.content_elements = transformImg({
+        contentElements,
+        website,
+      })
+      return sectionWithStories
+    })
+    return navigationWithStories
+  })
+}
+
+const fetch = ({ 'arc-site': website, hierarchy, size = 5 }) => {
   return request({
     uri: `${CONTENT_BASE}/site/v3/navigation/${website}/?hierarchy=${hierarchy ||
       'default'}`,
     ...options,
-  }).then(sections => {
-    return sections
+  }).then(navigation => {
+    return getStoriesBySection({
+      navigation,
+      size,
+      website,
+    })
   })
 }
 

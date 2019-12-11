@@ -20,10 +20,12 @@ class GridSectionColumns extends Component {
 
   componentDidMount() {
     const {
+      arcSite,
       customFields: {
         storyConfig: { contentService = '', contentConfigValues = {} } = {},
       } = {},
     } = this.props
+
     this.fetchContent({
       data: {
         source: contentService,
@@ -32,20 +34,50 @@ class GridSectionColumns extends Component {
           children {
             name
             _id
+            content_elements {
+              headlines { basic }
+              websites { ${arcSite} { website_url } }
+              promo_items {
+                basic { type resized_urls { 314x157 } }
+                basic_video {
+                  promo_items {
+                    basic { type resized_urls { 314x157 } }
+                  }
+                }
+                basic_gallery {
+                  promo_items {
+                    basic { type resized_urls { 314x157 } }
+                  }
+                }
+                youtube_id { content }
+              }
+              credits { by { type name url } }
+            }  
           }
         }`,
-        transform: data => {
-          const { children = [] } = data || {}
-          const { _id } = children[0] || {}
-          this.fetchContent({
-            storiesBySection1: {
-              source: 'story-feed-by-section',
-              query: {
-                section: _id,
-                stories_qty: 4,
-              },
-            },
-          })
+        transform: resp => {
+          const { children = [] } = resp || {}
+          return children.map(
+            ({
+              name: sectionName,
+              _id: sectionUrl,
+              content_elements: contentElements = [],
+            }) => ({
+              sectionName,
+              sectionUrl,
+              contentElements: contentElements.map(
+                ({
+                  headlines: { basic } = {},
+                  websites: {
+                    [arcSite]: { website_url: websiteUrl } = {},
+                  } = {},
+                }) => ({
+                  title: basic,
+                  storyUrl: websiteUrl,
+                })
+              ),
+            })
+          )
         },
       },
     })
@@ -53,14 +85,24 @@ class GridSectionColumns extends Component {
 
   render() {
     console.log('STATE->', this.state)
+    const { data: { children = [] } = {} } = this.state || {}
+    const { isAdmin } = this.props
     return (
       <>
         <h2 className="w-full mt-20 custom-title text-center col-3 custom-border large">
           SECCIONES
         </h2>
-        <ChildrenSectionColumn />
-        <ChildrenSectionColumn />
-        <ChildrenSectionColumn />
+        {children.map(
+          ({
+            name: sectionName,
+            _id: sectionUrl,
+            content_elements: contentElements = [],
+          } = {}) => (
+            <ChildrenSectionColumn
+              {...{ sectionName, sectionUrl, contentElements, isAdmin }}
+            />
+          )
+        )}
       </>
     )
   }

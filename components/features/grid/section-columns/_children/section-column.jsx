@@ -16,19 +16,19 @@ const getMultimediaIcon = multimediaType => {
 }
 
 const ChildrenSectionColumn = ({
-  urlTitle,
-  titleList,
+  sectionName,
+  sectionUrl,
+  contentElements,
   isAdmin,
-  stories = [],
 }) => {
   return (
     <div className="stories-l-section bg-white flex flex-col">
       <div className="stories-l-header flex items-center w-auto pr-20 pl-20 stories-l-section__header-font-position bg-info">
         <a
-          href={urlTitle}
+          href={sectionUrl}
           className="stories-l-header__title flex items-center full-height">
           <h4 className="uppercase font-bold stories-l-section__header-font-color">
-            {titleList}
+            {sectionName}
           </h4>
         </a>
       </div>
@@ -36,17 +36,12 @@ const ChildrenSectionColumn = ({
       <div
         role="list"
         className="stories-l-card__list bg-white overflow-y-auto h-full">
-        {stories.map(
+        {contentElements.map(
           (
             {
-              multimediaType,
-              multimedia,
-              urlNews,
-              lazyImage,
-              title,
-              urlAutor,
-              author,
-            },
+              headlines: { basic } = {},
+              websites: { [arcSite]: {} = {} } = {},
+            } = {},
             i
           ) =>
             i === 0 ? (
