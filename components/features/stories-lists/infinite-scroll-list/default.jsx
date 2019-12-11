@@ -10,6 +10,7 @@ import RenderPagination from './_children/pagination-by-date'
 import Ads from '../../../global-components/ads'
 import ListItem from './_children/list-item'
 import Spinner from '../../../global-components/spinner'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -116,43 +117,53 @@ class StoriesListInfiniteScroll extends PureComponent {
       defaultImgSize: 'sm',
     })
 
-    const stories =
-      contentElements.length > 0
-        ? this.removeDuplicates(
-            contentElements.map(story => {
-              storyData._data = story
-              const {
-                primarySectionLink,
-                primarySection,
-                date,
-                websiteLink,
-                title,
-                subTitle,
-                authorLink,
-                author,
-                multimediaType,
-                multimediaLandscapeXS,
-                multimediaLandscapeS,
-                id,
-              } = storyData
-              return {
-                primarySectionLink,
-                primarySection,
-                date,
-                link: websiteLink,
-                title,
-                subTitle,
-                authorLink,
-                author,
-                multimediaType,
-                multimediaLandscapeXS,
-                multimediaLandscapeS,
-                id,
-              }
-            }),
-            'id'
-          )
-        : []
+    const stories = this.removeDuplicates(
+      contentElements.map(story => {
+        storyData._data = story
+        const {
+          primarySectionLink,
+          primarySection,
+          date,
+          websiteLink,
+          title,
+          subTitle,
+          authorLink,
+          author,
+          authorImage,
+          multimediaType,
+          multimediaLandscapeXS,
+          multimediaLandscapeS,
+          id,
+        } = storyData
+
+        const isOpinionCorreo =
+          primarySectionLink === '/opinion/' &&
+          arcSite === ConfigParams.SITE_DIARIOCORREO
+
+        const imgItemLandscapeXS = isOpinionCorreo
+          ? authorImage
+          : multimediaLandscapeXS
+        const imgItemLandscapeS = isOpinionCorreo
+          ? authorImage
+          : multimediaLandscapeS
+
+        return {
+          primarySectionLink,
+          primarySection,
+          date,
+          link: websiteLink,
+          title,
+          subTitle,
+          authorLink,
+          author,
+          multimediaType,
+          multimediaLandscapeXS: imgItemLandscapeXS,
+          multimediaLandscapeS: imgItemLandscapeS,
+          id,
+        }
+      }),
+      'id'
+    )
 
     const activeAds = Object.keys(customFieldsProps)
       .filter(prop => prop.match(/adsMobile(\d)/))

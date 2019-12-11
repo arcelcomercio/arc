@@ -1,7 +1,7 @@
 // import React from 'react'
 
 // const MsnXmlOutputType = () => {
-//   // Debe redireccionar a la home del 
+//   // Debe redireccionar a la home del
 //   const script =`document.location.href="/";`
 //   return (
 //     <html lang="es">
@@ -35,7 +35,7 @@ const MsnXmlOutputType = ({
     siteDomain = '',
     idGoogleAnalitics = '',
     fbArticleStyle = '',
-    listUrlAdvertisings = []
+    listUrlAdvertisings = [],
   } = siteProperties
 
   const stories = contentElements
@@ -48,7 +48,7 @@ const MsnXmlOutputType = ({
     'xmlns:mi': 'http://schemas.ingestion.microsoft.com/common/',
     'xmlns:dcterms': 'http://purl.org/dc/terms/',
     'xmlns:media': 'http://search.yahoo.com/mrss/',
-    'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+    'xmlns:dc': 'http://purl.org/dc/elements/1.1/',
   }
 
   const chanelProps = {
@@ -81,6 +81,7 @@ const MsnXmlOutputType = ({
   )
 }
 
+MsnXmlOutputType.fallback = false
 MsnXmlOutputType.contentType = 'text/xml'
 
 export default MsnXmlOutputType
