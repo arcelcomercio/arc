@@ -59,7 +59,7 @@ class BasicHtml extends PureComponent {
   componentDidMount() {
     const { customFields: { freeHtml = '', adsSpace } = {} } = this.props
 
-    // DaznService Player
+    // DaznService Video Player
     if (this.URL) {
       appendToBody(createScript({ src: this.URL, async: true }))
     }
