@@ -4,6 +4,11 @@ import ConfigParams from '../../../../utilities/config-params'
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 } */
 
+const htmlToText = (html = '') => {
+  const htmlData = html.toString()
+  return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '-')
+}
+
 const buildParagraph = (paragraph, type = '', imageCaption = '') => {
   let result = ''
 
@@ -17,7 +22,8 @@ const buildParagraph = (paragraph, type = '', imageCaption = '') => {
   }
 
   if (type === ConfigParams.ELEMENT_IMAGE) {
-    result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" alt="${imageCaption}" title="${imageCaption}" /><figcaption>${imageCaption}</figcaption></figure>`
+    const cleanCaption = htmlToText(imageCaption)
+    result = `<figure data-feedback="fb:likes, fb:comments"><img src="${paragraph}" alt="${cleanCaption}" title="${cleanCaption}" /><figcaption>${cleanCaption}</figcaption></figure>`
   }
 
   if (type === ConfigParams.ELEMENT_RAW_HTML) {
@@ -51,7 +57,9 @@ const buildParagraph = (paragraph, type = '', imageCaption = '') => {
       if (imageUrl !== '') 
         result = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>` */
 
-      result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+      result = `<figure class="op-interactive"><img frameborder="0" width="560" height="315" src="${imageUrl}" alt="${htmlToText(
+        imageAlt
+      )}" /></figure>`
     } else if (
       paragraph.includes('<blockquote class="instagram-media"') ||
       paragraph.includes('<blockquote class="twitter-tweet"')
@@ -93,11 +101,6 @@ const ParagraphshWithAdds = ({ paragraphsNews = [] }) => {
   return resultParagraph
 }
 
-const htmlToText = (html = '') => {
-  const htmlData = html.toString()
-  return htmlData.replace(/<[^>]*>/g, '').replace(/"/g, '“')
-}
-
 const multimediaItems = ({ gallery = [], video = [], typeNota = '' }) => {
   let cadena = ''
   switch (typeNota) {
@@ -109,12 +112,13 @@ const multimediaItems = ({ gallery = [], video = [], typeNota = '' }) => {
             caption,
             urlImage,
             resized_urls: { amp_new: resizedImage } = {} /** , date */,
-          } = {}) =>
-            `<video title="${caption}" poster="${resizedImage ||
-              urlImage}" data-description="${caption}"><source src="${url}" type="video/mp4"></source></video>`
+          } = {}) => {
+            const cleanCaption = htmlToText(caption)
+            return `<video title="${cleanCaption}" poster="${resizedImage ||
+              urlImage}" data-description="${cleanCaption}"><source src="${url}" type="video/mp4"></source></video>`
+          }
         )
-        .toString()
-        .replace(/>,/g, '>')
+        .join('')
       /**
        * ...
        * <video title="" poster="" data-description="">
@@ -132,11 +136,11 @@ const multimediaItems = ({ gallery = [], video = [], typeNota = '' }) => {
             subtitle = '',
             url = '',
           } = image || {}
-          return `<figure><img src="${resizedImage || url}" alt="${caption ||
-            subtitle}" title="${htmlToText(caption || subtitle)}" /></figure>`
+          const cleanCaption = htmlToText(caption || subtitle)
+          return `<figure><img src="${resizedImage ||
+            url}" alt="${cleanCaption}" title="${cleanCaption}" /></figure>`
         })
-        .toString()
-        .replace(/>,/g, '>')}</div>`
+        .join('')}</div>`
       /**
        * <div class="slideshow">
        * ...
@@ -154,10 +158,9 @@ const multimediaItems = ({ gallery = [], video = [], typeNota = '' }) => {
         subtitle = '',
         url = '',
       } = gallery || {}
+      const cleanCaption = htmlToText(caption || subtitle)
       cadena = `${cadena}<figure><img src="${resizedImage ||
-        url}" alt="${caption || subtitle}" title="${htmlToText(
-        caption || subtitle
-      )}" /></figure>`
+        url}" alt="${cleanCaption}" title="${cleanCaption}" /></figure>`
       /**
        *  <figure>
        *    <img src="" alt="" title="" />

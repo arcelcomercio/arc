@@ -23,7 +23,11 @@ class XmlNewsletterFeed {
       arcSite,
       siteProperties: { siteUrl = '' } = {},
     } = this.props
-    const { content_elements: stories,stories:storiesContent =[] } = globalContent || {}
+    const {
+      content_elements: stories,
+      websked = {},
+      stories: storiesContent = [],
+    } = globalContent || {}
 
     if (!stories) {
       return null
@@ -39,7 +43,7 @@ class XmlNewsletterFeed {
     const newsletterFeed = {
       rss: {
         '@version': '2.0',
-        channel: stories.map((story,index) => {
+        channel: stories.map((story, index) => {
           const {
             promo_items: {
               basic: {
@@ -58,14 +62,24 @@ class XmlNewsletterFeed {
             } = {},
           } = story || {}
 
-          // storyData.__data = story
-          storyData.__data = storiesContent[index]
+          storyData.__data =
+            storiesContent && storiesContent.length > 0
+              ? storiesContent[index]
+              : story
+
+          const description =
+            storyData.__data &&
+            storyData.__data.description &&
+            storyData.__data.description.basic
+              ? storyData.__data.description.basic
+              : storyData.subTitle
 
           return {
             article: {
               title: storyData.title,
               url: `${siteUrl}${storyData.websiteLink || ''}`,
               id: storyData.id,
+              description,
               publishedAt: localISODate(storyData.date || ''),
               imagen: {
                 thumbnail_max: tbmax,
@@ -82,7 +96,11 @@ class XmlNewsletterFeed {
               epigraph: storyData.subTitle,
               seccion: storyData.primarySection,
               url_seccion: `${siteUrl}${storyData.primarySectionLink}`,
-              content:BuildContent({paragraphsNews:storyData.paragraphsNews}) ,
+              content: {
+                '#cdata': BuildContent({
+                  paragraphsNews: storyData.paragraphsNews,
+                }),
+              },
               autor: {
                 nombre: storyData.author,
                 url: `${siteUrl}${storyData.authorLink}`,
@@ -101,6 +119,14 @@ class XmlNewsletterFeed {
         }),
       },
     }
+
+    const { name: nameWebsked, description: descriptionWebsked } = websked || {}
+
+    if (nameWebsked)
+      newsletterFeed.rss.channel.unshift({
+        nameCollection: nameWebsked,
+        descriptionCollection: descriptionWebsked,
+      })
 
     return newsletterFeed
   }

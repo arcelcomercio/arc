@@ -13,6 +13,9 @@ export default arcSite => {
       credits {
         by { 
           name url type 
+          image {
+            url
+          }
         }
       }
       websites { ${arcSite} { website_url } }

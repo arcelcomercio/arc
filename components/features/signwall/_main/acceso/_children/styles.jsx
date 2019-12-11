@@ -35,6 +35,19 @@ export const Text = styled.p`
 export const Form = styled.form`
   width: 100%;
   padding: 10px 30px;
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  
+  /* Change the white to any color ;) */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
   input,
   select,
   button {
@@ -132,28 +145,11 @@ export const Form = styled.form`
     font-size: 12px;
     margin-bottom: 5px;
   }
-  & .group-inline{
+  & .group-inline {
     display: flex;
     justify-content: space-between;
   }
 `
-
-// export const Select = styled.select`
-//   cursor: text;
-//   background: transparent;
-//   background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-//   background-repeat: no-repeat;
-//   background-position-x: 100%;
-//   background-position-y: 10px;
-
-//   &:focus {
-//     background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-//   }
-
-//   @media ${device.tablet} {
-//     padding: 5px 15px;
-//   }
-// `
 export const Button = styled.button`
   background: #0179af;
   font-weight: bold;

@@ -1,0 +1,96 @@
+import React from 'react'
+
+import { createMarkup } from '../../../../utilities/helpers'
+
+const classes = {
+  container: 'flex flex-col justify-start p-20',
+  header:
+    'linked-site__header flex justify-between items-center border-solid border-black mb-15 pb-10',
+  headerText: 'text-black font-bold secondary-font title-xs uppercase',
+  headerSiteText: 'secondary-font text-md',
+  headerSite: 'font-bold',
+  list: 'flex flex-col md:flex-row md:flex-wrap md:justify-between',
+  listItem: 'linked-site__item flex mb-15 md:flex-col',
+  listItemLink: 'mr-10 md:mr-0 md:mb-5',
+  listItemTitle:
+    'linked-site__title-link overflow-hidden block text-black font-bold secondary-font line-h-sm title-xs',
+  image: 'linked-site__image object-cover',
+}
+
+const StoriesListLinkedBySiteChild = ({
+  isAdmin,
+  siteName,
+  stories,
+  isTargetBlank,
+  titleField,
+  subtitleField,
+}) => {
+  return (
+    <section className={classes.container}>
+      <div className={classes.header}>
+        <p className={classes.headerText}>{titleField || 'NO TE PIERDAS'}</p>
+        <div>
+          {subtitleField ? (
+            <div
+              className={classes.headerSiteText}
+              dangerouslySetInnerHTML={createMarkup(subtitleField)}
+            />
+          ) : (
+            <h3 className={classes.headerSiteText}>
+              Contenido de{' '}
+              <span className={classes.headerSite}>{siteName}</span>
+            </h3>
+          )}
+        </div>
+      </div>
+      <div role="list" className={classes.list}>
+        {stories.map(
+          ({
+            title,
+            websiteLink,
+            multimediaLazyDefault,
+            multimediaSquareS,
+            multimediaLandscapeS,
+          }) => (
+            <article
+              role="listitem"
+              className={classes.listItem}
+              key={websiteLink}>
+              <a
+                href={websiteLink}
+                className={classes.listItemLink}
+                {...isTargetBlank}>
+                <picture>
+                  <source
+                    className={isAdmin ? '' : 'lazy'}
+                    media="(max-width: 639px)"
+                    type="image/jpeg"
+                    srcSet={isAdmin ? multimediaSquareS : multimediaLazyDefault}
+                    data-srcset={multimediaSquareS}
+                  />
+                  <img
+                    src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
+                    data-src={multimediaLandscapeS}
+                    className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+                    alt={title}
+                  />
+                </picture>
+              </a>
+              <h2>
+                <a
+                  className={classes.listItemTitle}
+                  href={websiteLink}
+                  {...isTargetBlank}>
+                  {title}
+                </a>
+              </h2>
+            </article>
+          )
+        )}
+      </div>
+    </section>
+  )
+}
+
+// TODO: Verificar si ayuda React.memo
+export default StoriesListLinkedBySiteChild
