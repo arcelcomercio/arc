@@ -8,8 +8,7 @@ export default {
   googleFonts: 'Titillium+Web:400,600,700,900|Roboto+Slab:400,700',
   siteDomain: 'diarriocorreo.pe',
   siteUrl: 'https://diariocorreo.pe',
-  resizerUrl:
-    'https://elcomercio-diariocorreo-prod.cdn.arcpublishing.com/resizer',
+  resizerUrl: 'https://diariocorreo.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Correo_Preroll&description_url=https%3A%2F%2Fdiariocorreo.pe&tfcd=0&npa=0&sz=640x360&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
