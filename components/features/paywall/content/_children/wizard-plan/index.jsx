@@ -112,7 +112,10 @@ function WizardPlan(props) {
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    document.getElementById('footer').style.position = 'relative'
+    
+    if (document.getElementById('footer')) {
+      document.getElementById('footer').style.position = 'relative'
+    }
 
     // Retomar sesion existente si hay una
     if (isLogged()) {

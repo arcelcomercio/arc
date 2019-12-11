@@ -24,7 +24,7 @@ Sentry.init({
   whitelistUrls: [],
   beforeSend(event, hint) {
     // Check if it is an exception, and if so, show the report dialog
-    const userProfile = window.localStorage.getItem('ArcId.USER_PROFILE');
+    const userProfile = window.localStorage.getItem('ArcId.USER_PROFILE') || window.sessionStorage.getItem('ArcId.USER_PROFILE');
 
     switch (userProfile) {
       case null:

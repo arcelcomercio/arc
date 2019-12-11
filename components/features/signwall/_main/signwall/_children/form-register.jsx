@@ -17,8 +17,10 @@ import FormValid from '../../utils/form-valid'
 import Taggeo from '../../utils/taggeo'
 import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
+import Services from '../../utils/services'
 
 const Cookies = new Cookie()
+const services = new Services()
 
 @Consumer
 class FormRegister extends Component {
@@ -62,7 +64,7 @@ class FormRegister extends Component {
       if (tipmodal === 'relogemail') {
         return 'reloginemail'
       }
-      if( tipmodal === 'reloghash'){
+      if (tipmodal === 'reloghash') {
         return 'reloginhash'
       }
       return '0'
@@ -125,7 +127,6 @@ class FormRegister extends Component {
           })
 
           Cookies.setCookie('arc_e_id', sha256(EmailUserNew), 365)
-          // window.localStorage.setItem('ArcId._ID', window.Identity.userIdentity.uuid)
 
           this.taggeoSuccess() // -- test de tageo success
 
@@ -134,6 +135,17 @@ class FormRegister extends Component {
             window.Identity.userIdentity || {}
           )
           Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+
+          // NEWSLETTER POR DEFAULT
+          if (arcSite === 'gestion') {
+            services.sendNewsLettersUser(
+              window.Identity.userIdentity.uuid,
+              EmailUserNew,
+              arcSite,
+              window.Identity.userIdentity.accessToken,
+              ['general']
+            )
+          }
         })
         .catch(err => {
           // console.log(err)
@@ -156,6 +168,7 @@ class FormRegister extends Component {
                     showMsgConfirm: true,
                   })
                   window.localStorage.removeItem('ArcId.USER_PROFILE') // remueve profile creado por signup
+                  window.sessionStorage.removeItem('ArcId.USER_PROFILE') // remueve profile creado por signup
                   window.Identity.userProfile = null // remueve profile creado por signup
                 })
                 .catch(errSend => {
@@ -403,7 +416,7 @@ class FormRegister extends Component {
                     }}
                     tabIndex="0"
                   />
-                  
+
                   {/* <label htmlFor="password" className="form-group__label">
                     Contraseña
                   </label> */}
@@ -472,9 +485,7 @@ class FormRegister extends Component {
                       type="submit"
                       id="registro_boton_registrarme"
                       className={
-                        arcSite !== 'peru21'
-                          ? 'btn input-button'
-                          : 'btn btn-bg'
+                        arcSite !== 'peru21' ? 'btn input-button' : 'btn btn-bg'
                       }
                       value={!sending ? 'Registrando...' : 'Registrarme'}
                       onClick={() =>
@@ -502,8 +513,8 @@ class FormRegister extends Component {
                         peru21g21: '#d5ecff',
                         elbocon: '#fdabab',
                         depor: '#d5d945',
-                        trome:'#ffede5',
-                        ojo:'#e7fced',
+                        trome: '#ffede5',
+                        ojo: '#e7fced',
                         diariocorreo: '#fdabab',
                       }[brandCurrent]
                     }

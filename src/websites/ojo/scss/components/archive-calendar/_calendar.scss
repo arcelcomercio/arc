@@ -1,0 +1,47 @@
+.react-calendar {
+  &__box {
+    background-color: transparent;
+  }
+  &__header,
+  &__tile--active {
+    background-color: $color-base-200;
+  }
+  &__title {
+    color: $color-primary;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: $primary-font;
+  }
+  &__brand {
+    background-color: transparent;
+  }
+  &__icon {
+    color: $color-primary;
+    font-size: 18px;
+  }
+
+  &__month-view__days__day {
+    &:disabled {
+      cursor: default;
+      abbr {
+        color: #bbbbbb;
+      }
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  &__month-view__weekdays__weekday abbr {
+    color: #8c8c8c;
+    font-weight: 600;
+    font-family: $secondary-font;
+    font-size: 12px;
+  }
+  &__tile--active,
+  &__navigation__label {
+    font-weight: 700;
+  }
+  &__navigation__label {
+    font-family: $secondary-font;
+  }
+}

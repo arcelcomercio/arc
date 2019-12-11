@@ -154,7 +154,14 @@ export default class Services {
     return response
   }
 
-  finalizePaymentUpdate(id, pid, site, jwt, token, email, phone) {
+  finalizePaymentUpdate(id, pid, site, jwt, token, email, dni) {
+    const UserAttributes = window.Identity.userProfile.attributes
+    const UserPhone =
+      UserAttributes.find(o => o.name === 'phone') ||
+      window.Identity.userProfile.contacts
+        ? window.Identity.userProfile.contacts[0].phone
+        : '555555555'
+
     const response = new Promise(resolve => {
       fetch(
         `${Domains.getOriginAPI(
@@ -166,17 +173,11 @@ export default class Services {
             token,
             email,
             address: {
-              // line1: '123 Main St.',
-              line1: 'Avenida 2 de Mayo 123',
-              // line2: 'Apt 123',
-              // locality: 'Springfield',
+              line1: dni,
               locality: 'Lima',
-              // region: 'CA',
               country: 'PE',
-              // country: 'US',
-              // postal: '12345',
             },
-            phone,
+            phone: UserPhone.value || UserPhone,
           }),
           headers: {
             'Content-Type': 'application/json',

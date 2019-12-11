@@ -143,17 +143,13 @@ export default ({
 
   return (
     <>
-      {arcSite === ConfigParams.SITE_OJO && (
-        <amp-pixel src={urlPixel} layout="nodisplay" />
-      )}
+      <amp-pixel src={urlPixel} layout="nodisplay" />
       <amp-analytics
         type="googleanalytics"
         id={`analytics-${siteProperties.ampGoogleTagManagerName}`}>
         <script
           type="application/json"
-          dangerouslySetInnerHTML={createMarkup(
-            arcSite === ConfigParams.SITE_OJO ? ampAnalyticsOjo : ampAnalytics
-          )}
+          dangerouslySetInnerHTML={createMarkup(ampAnalyticsOjo)}
         />
       </amp-analytics>
 

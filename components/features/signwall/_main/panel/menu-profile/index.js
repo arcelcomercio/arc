@@ -29,6 +29,9 @@ const closeSession = props => {
         window.sessionStorage.removeItem('paywall-profile-form')
         window.sessionStorage.removeItem('paywall-payment-form')
       }
+      if (window.Sales) {
+        window.Sales.subscriptions = []
+      }
       closePopup()
       window.sessionStorage.removeItem('paywall_last_url')
     })
