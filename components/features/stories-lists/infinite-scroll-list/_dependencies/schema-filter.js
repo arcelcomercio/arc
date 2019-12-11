@@ -10,6 +10,9 @@ export default arcSite => {
       credits {
         by { 
           name url type 
+          image {
+            url
+          }
         }
       }
       promo_items {
