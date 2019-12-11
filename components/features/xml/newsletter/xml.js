@@ -23,8 +23,11 @@ class XmlNewsletterFeed {
       arcSite,
       siteProperties: { siteUrl = '' } = {},
     } = this.props
-    const { content_elements: stories, stories: storiesContent = [] } =
-      globalContent || {}
+    const {
+      content_elements: stories,
+      websked = {},
+      stories: storiesContent = [],
+    } = globalContent || {}
 
     if (!stories) {
       return null
@@ -59,14 +62,22 @@ class XmlNewsletterFeed {
             } = {},
           } = story || {}
 
-          // storyData.__data = story
-          storyData.__data = storiesContent[index]
+          storyData.__data =
+            storiesContent && storiesContent.length > 0
+              ? storiesContent[index]
+              : story
+
+          const description =
+            story && story.description
+              ? story.description.basic
+              : storyData.subTitle
 
           return {
             article: {
               title: storyData.title,
               url: `${siteUrl}${storyData.websiteLink || ''}`,
               id: storyData.id,
+              description,
               publishedAt: localISODate(storyData.date || ''),
               imagen: {
                 thumbnail_max: tbmax,
@@ -106,6 +117,14 @@ class XmlNewsletterFeed {
         }),
       },
     }
+
+    const { name: nameWebsked, description: descriptionWebsked } = websked || {}
+
+    if (nameWebsked)
+      newsletterFeed.rss.channel.unshift({
+        nameCollection: nameWebsked,
+        descriptionCollection: descriptionWebsked,
+      })
 
     return newsletterFeed
   }

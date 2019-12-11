@@ -1,9 +1,9 @@
+/* eslint-disable no-control-regex */
 import ConfigParams from '../../../../utilities/config-params'
 import StoryData from '../../../../utilities/story-data'
 import { clearHtml, clearBrTag } from '../../../../utilities/helpers'
 
 const utf8ForXml = inputStr => {
-  // eslint-disable-next-line no-control-regex
   return inputStr.replace(
     /[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm,
     ''
