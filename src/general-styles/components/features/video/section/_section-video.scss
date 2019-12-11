@@ -78,6 +78,9 @@
   &__right {
     width: 100%;
     padding: 30px 30px 15px 30px;
+    @media (--desktop) {
+      padding: 61px 30px 15px 30px;
+    }
     // @media (--desktop) {
     //   padding: 10px;
     //   display: flex;
