@@ -16,7 +16,7 @@ const Layout = styled.div`
 `
 const ContentContainer = styled.div`
   display: flex;
-  position: relative;
+  position: inherit;
   width: 100%;
   flex-direction: column;
   background: ${props => props.theme.palette.background.default};
