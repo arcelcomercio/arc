@@ -4,7 +4,6 @@ import { Form } from 'formik'
 const WrapField = styled.div`
   ${({ theme }) => css`
     min-width: 250px;
-    // max-width: 250px;
     ${theme.breakpoints.down('xs')} {
       width: 100%;
       max-width: 100%;
