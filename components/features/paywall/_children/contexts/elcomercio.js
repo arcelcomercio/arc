@@ -7,6 +7,7 @@ export default {
     // General
     currencySymbol: `S/`,
     help: `¿Necesitas ayuda?`,
+    helpShort: `¿Ayuda?`,
 
     // Validation Errors
     minLength: `Longitud inválida, mínimo {{min}} caracteres.`,
@@ -20,6 +21,7 @@ export default {
     wrongCvv: `CVV Inválido`,
     wrongDate: `Fecha incorrecta`,
     checkRequired: `Debe seleccionar el check`,
+    optionRequired: `Debe seleccionar una opción`,
     tryLater: `Ha ocurrido un error. Inténtelo más tarde`,
 
     // Promo Banners
@@ -126,7 +128,7 @@ export default {
     subscriptionType1: `Quiero una suscripción`,
     subscriptionType2: `Tengo una suscripción`,
     subscriptionType3: `Otros`,
-    messageSendNotifacion: `Tu mensaje ha sido enviado, nos pondremos en contacto con usted.`,
+    messageSendNotification: `Tu mensaje ha sido enviado, nos pondremos en contacto con usted.`,
     returnTo: `Volver a gestión`,
     thanks: `Gracias`,
 

@@ -6,7 +6,7 @@ export const createSchema = (values, msgs) =>
   _createSchema(values, {
     correo: value => {
       value.required(msgs.requiredField)
-      value.email(msgs.wrongEmails)
+      value.email(msgs.wrongEmail)
     },
     nombre: value => {
       value
@@ -32,7 +32,7 @@ export const createSchema = (values, msgs) =>
         .between(9, 12, msgs.lengthNotBetween)
     },
     tipo_consulta: value => {
-      value.required('Debe seleccionar un tipo')
+      value.required(msgs.optionRequired)
     },
     descripcion: value => {
       value.max(500, msgs.maxLength)

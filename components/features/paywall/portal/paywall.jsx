@@ -120,7 +120,7 @@ const PortalInt = props => {
           />
           <ClickToCall
             href={clickToCallUrl}
-            text="¿Ayuda?"
+            text={msgs.helpShort}
             top={{ md: '-35%' }}
             right={{ md: '0' }}
             position={{ md: 'absolute' }}

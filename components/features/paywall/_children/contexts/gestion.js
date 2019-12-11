@@ -7,8 +7,9 @@ export default {
     // General
     currencySymbol: `S/`,
     help: `¿Necesitas ayuda?`,
+    helpShort: `¿Ayuda?`,
 
-    // Errors
+    // Validation Errors
     minLength: `Longitud inválida, mínimo {{min}} caracteres.`,
     maxLength: `Longitud inválida, máximo {{max}} caracteres.`,
     lengthNotBetween: `Longitud inválida, entre {{min}} y {{max}} caracteres`,
@@ -20,6 +21,7 @@ export default {
     wrongCvv: `CVV Inválido`,
     wrongDate: `Fecha incorrecta`,
     checkRequired: `Debe seleccionar el check`,
+    optionRequired: `Debe seleccionar una opción`,
     tryLater: `Ha ocurrido un error. Inténtelo más tarde`,
 
     // Promo Banners
@@ -30,7 +32,7 @@ export default {
      `<strong>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?</strong>
       <span>ADQUIERE EL PLAN DIGITAL GRATIS POR 3 MESES</span>`,
     printedSubscriptorBannerText2: 
-     `<span>¿Buscas opciones de suscripción impresa?</span>  
+     `<span>¿BUSCAS OPCIONES DE SUSCRIPCIÓN IMPRESA?</span>  
       <strong>CONSULTA AQUÍ</strong>`,
     eventSubscriptorBannerText: 
      `<span>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO GESTIÓN?</span>  
@@ -126,7 +128,7 @@ export default {
     subscriptionType1: `Quiero una suscripción`,
     subscriptionType2: `Tengo una suscripción`,
     subscriptionType3: `Otros`,
-    messageSendNotifacion: `Tu mensaje ha sido enviado, nos pondremos en contacto con usted.`,
+    messageSendNotification: `Tu mensaje ha sido enviado, nos pondremos en contacto con usted.`,
     returnTo: `Volver a gestión`,
     thanks: `Gracias`,
 
