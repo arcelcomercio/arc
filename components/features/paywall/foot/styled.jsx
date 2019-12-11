@@ -10,7 +10,7 @@ export const Foot = styled.div`
     bottom: 0;
     width: 100%;
     box-sizing: border-box;
-    @media (max-width: 1024px), (max-height: 780px) {
+    ${theme.breakpoints.down('lg')} {
       position: relative;
     }
   `}

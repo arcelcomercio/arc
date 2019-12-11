@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
 
 import URL from 'url-parse'
 import * as S from './styled'
@@ -54,6 +53,7 @@ const PortalInt = props => {
       name: 'sdkSalesARC',
       url: originSalesSdkUrl,
     })
+
     if (document.getElementById('footer')) {
       document.getElementById('footer').style.position = 'relative'
     }
@@ -96,7 +96,7 @@ const PortalInt = props => {
       </S.PortalContent>
       <S.Footer>
         <S.FooterContent>
-          {arcSite === 'gestion' && ENV.ENVIRONMENT !== 'elcomercio' && (
+          {arcSite === 'gestion' && (
             <S.LinkCorporate
               primary
               linkStyle

@@ -35,6 +35,7 @@ const handleBorderColor = color => {
     case 'gestion':
     case 'trome':
     case 'diariocorreo':
+    case 'elbocon':
       return '#444444'
     case 'elcomerciomag':
       return '#000000'
@@ -72,12 +73,12 @@ export const ButtonSignwall = styled.button`
     padding: 8px 10px;
     background: white;
     line-height: 16px;
-    border: 1px solid ${props => handleBorderColor(props.site)};
+    border: 1px solid
+      ${props =>
+        props.site === 'elcomercio' || props.site === 'gestion'
+          ? 'transparent'
+          : handleBorderColor(props.site)};
     color: ${props => handleBorderColor(props.site)};
-    /* color: ${props =>
-      props.site === 'peru21' || props.site === 'peru21g21'
-        ? '#0c70bf'
-        : '#444444'}; */
   }
   & > i {
     text-transform: uppercase;
