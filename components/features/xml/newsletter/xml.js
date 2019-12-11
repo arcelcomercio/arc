@@ -68,8 +68,10 @@ class XmlNewsletterFeed {
               : story
 
           const description =
-            story && story.description
-              ? story.description.basic
+            storyData.__data &&
+            storyData.__data.description &&
+            storyData.__data.description.basic
+              ? storyData.__data.description.basic
               : storyData.subTitle
 
           return {
