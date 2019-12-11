@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable no-undef */
+import React, { useEffect } from 'react'
 import { Formik, Field } from 'formik'
 import SelectFormik from '../../../_children/select'
 import InputFormik from '../../../_children/input'
@@ -11,11 +12,37 @@ import { useStrings } from '../../../_children/contexts'
 const { trim } = Masks.Pipes
 
 const Captcha = props => {
-  const { dataSitekey, ...restProps } = props
+  const {
+    dataSitekey,
+    field: { onChange, onBlur, name, value },
+    form,
+    meta,
+    ...restProps
+  } = props
+
+  const captchaResponse = React.useRef(value)
+  useEffect(() => {
+    window.__gcaptchaResponseCallback = response => {
+      onChange(response)
+      captchaResponse.current = response
+    }
+    window.__gcaptchaExpiredCallback = response => {
+      onChange(response)
+      captchaResponse.current = response
+    }
+    window.__gcaptchaErrorCallback = response => {
+      onChange(response)
+      captchaResponse.current = response
+    }
+  }, [])
+
   return (
     <div
       className="g-recaptcha"
       data-sitekey={dataSitekey || '6LfEGMcUAAAAAEBWDI6qyRGEc0_KG0XTNBNeeCjv'}
+      data-callback="__gcaptchaResponseCallback"
+      data-expired-callback="__gcaptchaExpiredCallback"
+      data-error-callback="__gcaptchaErrorCallback"
       {...restProps}></div>
   )
 }
@@ -26,8 +53,16 @@ export default props => {
   return (
     <Formik
       initialValues={initialValues}
-      validate={values => createSchema(values, msgs)}
-      onSubmit={onSubmit}>
+      validate={values => {
+        const validations = createSchema(values, msgs)
+        const captchaResponse = grecaptcha && grecaptcha.getResponse()
+        if (!captchaResponse) validations.captcha = 'Captcha inválido'
+        return validations
+      }}
+      onSubmit={(values, ...args) => {
+        const captchaResponse = grecaptcha && grecaptcha.getResponse()
+        onSubmit({ ...values, captcha: captchaResponse }, ...args)
+      }}>
       {({ isSubmitting, values }) => (
         <S.StyledForm>
           <S.Message>
@@ -70,7 +105,7 @@ export default props => {
                   component={InputFormik}
                 />
               </S.WrapField>
-              <Captcha></Captcha>
+              <Field name="captcha" component={Captcha} />
             </S.ContentRow>
 
             <S.ContentRow>
