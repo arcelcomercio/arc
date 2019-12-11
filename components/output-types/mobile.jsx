@@ -15,7 +15,7 @@ import {
 } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
 
-export default ({
+const MobileOutput = ({
   children,
   contextPath,
   deployment,
@@ -113,9 +113,7 @@ export default ({
   const title = getTitle()
 
   const getDescription = () => {
-    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
-      siteProperties.siteName
-    }.`
+    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
@@ -133,9 +131,7 @@ export default ({
           /\/archivo\/([\w\d-]+)/.test(requestUri) &&
           !/\/archivo\/todas/.test(requestUri)
         if (!hasDate && !hasSection) {
-          description = `Archivo de noticias de ${
-            siteProperties.siteName
-          }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
         }
       }
     }
@@ -147,9 +143,7 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
     twitterUser: siteProperties.social.twitter.user,
@@ -289,9 +283,7 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerMobile
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerMobile}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -349,3 +341,7 @@ export default ({
     </html>
   )
 }
+
+MobileOutput.fallback = false
+
+export default MobileOutput
