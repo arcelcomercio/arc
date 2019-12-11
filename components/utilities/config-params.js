@@ -67,6 +67,8 @@ class ConfigParams {
 
   static SITE_OJO = 'ojo'
 
+  static SITE_DIARIOCORREO = 'diariocorreo'
+
   // opta
   static OPTA_CSS_LINK =
     'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
@@ -117,12 +119,6 @@ class ConfigParams {
 
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
-  // Sites
-  static ARC_SITE_PERU21 = 'peru21'
-
-  static ARC_SITE_PUBLIMETRO = 'publimetro'
-
-  static ARC_SITE_GESTION = 'gestion'
 }
 
 export const sizeImg = () => {

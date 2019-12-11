@@ -303,7 +303,7 @@ class StoryContents extends PureComponent {
                     let htmlReturn = ''
                     let contentVideo = content
                     if (contentVideo.includes('id="powa-')) {
-                      if (arcSite === ConfigParams.ARC_SITE_PERU21) {
+                      if (arcSite === ConfigParams.SITE_PERU21) {
                         contentVideo = content.replace(
                           /peru21.pe\/upload/gi,
                           'img.peru21.pe/upload'

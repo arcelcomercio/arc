@@ -1,5 +1,6 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
+import ConfigParams from '../../utilities/config-params'
 
 export default ({
   twitterUser,
@@ -13,16 +14,29 @@ export default ({
   deployment = () => {},
   globalContent: data,
 }) => {
-  const { multimediaLarge, title: seoTitle } = new StoryData({
+  const {
+    multimediaLarge,
+    title: seoTitle,
+    authorImage,
+    primarySectionLink,
+  } = new StoryData({
     data,
     arcSite,
   })
-  const image =
+  let image =
     story && multimediaLarge
       ? multimediaLarge
       : deployment(
           `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_twitter.jpg`
         )
+
+  console.log('primarySectionLink', primarySectionLink)
+  if (
+    arcSite === ConfigParams.SITE_DIARIOCORREO &&
+    primarySectionLink === '/opinion/'
+  ) {
+    image = authorImage + 'holaa'
+  }
   return (
     <>
       {/* <!-- Twitter Cards --> */}

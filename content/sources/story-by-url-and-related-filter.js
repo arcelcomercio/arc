@@ -110,7 +110,7 @@ const getAdditionalData = (storyData, website) => {
     return request({
       uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
         storyData._id
-        }&website=${website}&published=true`,
+      }&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
       storyData.related_content = idsResp
@@ -319,7 +319,9 @@ export default {
         slug
         url
         description
-        image
+        image {
+          url
+        }
         referent{
           type
           id  
@@ -435,7 +437,9 @@ export default {
       slug
       url
       description
-      image
+      image {
+        url
+      }
       type
       social_links{
         site
