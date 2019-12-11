@@ -2,7 +2,6 @@ import Consumer from 'fusion:consumer'
 import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
