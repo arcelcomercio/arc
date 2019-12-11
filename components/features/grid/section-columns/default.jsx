@@ -38,20 +38,20 @@ class GridSectionColumns extends Component {
               headlines { basic }
               websites { ${arcSite} { website_url } }
               promo_items {
-                basic { type resized_urls { 314x157 } }
+                basic { resized_urls { 314x157 } }
                 basic_video {
                   promo_items {
-                    basic { type resized_urls { 314x157 } }
+                    basic { resized_urls { 314x157 } }
                   }
                 }
                 basic_gallery {
                   promo_items {
-                    basic { type resized_urls { 314x157 } }
+                    basic { resized_urls { 314x157 } }
                   }
                 }
                 youtube_id { content }
               }
-              credits { by { type name url } }
+              credits { by { name url } }
             }  
           }
         }`,
@@ -71,9 +71,30 @@ class GridSectionColumns extends Component {
                   websites: {
                     [arcSite]: { website_url: websiteUrl } = {},
                   } = {},
+                  credits: { by: [{ name, url } = {}] = [] } = {},
+                  promo_items: {
+                    basic: { resized_urls: { '314x157': basicUrl } = {} } = {},
+                    basic_video: {
+                      promo_items: {
+                        basic: {
+                          resized_urls: { '314x157': basicVideoUrl } = {},
+                        } = {},
+                      } = {},
+                    } = {},
+                    basic_gallery: {
+                      promo_items: {
+                        basic: {
+                          resized_urls: { '314x157': basicGalleryUrl } = {},
+                        } = {},
+                      } = {},
+                    } = {},
+                  } = {},
                 }) => ({
                   title: basic,
                   storyUrl: websiteUrl,
+                  authorName: name,
+                  authorUrl: url,
+                  imageUrl: basicVideoUrl || basicUrl || basicGalleryUrl,
                 })
               ),
             })

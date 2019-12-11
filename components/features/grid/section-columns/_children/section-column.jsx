@@ -23,7 +23,7 @@ const ChildrenSectionColumn = ({
 }) => {
   return (
     <div className="stories-l-section bg-white flex flex-col">
-      <div className="stories-l-header flex items-center w-auto pr-20 pl-20 stories-l-section__header-font-position bg-info">
+      {/*  <div className="stories-l-header flex items-center w-auto pr-20 pl-20 stories-l-section__header-font-position bg-info">
         <a
           href={sectionUrl}
           className="stories-l-header__title flex items-center full-height">
@@ -39,8 +39,7 @@ const ChildrenSectionColumn = ({
         {contentElements.map(
           (
             {
-              headlines: { basic } = {},
-              websites: { [arcSite]: {} = {} } = {},
+              
             } = {},
             i
           ) =>
@@ -87,7 +86,7 @@ const ChildrenSectionColumn = ({
               </div>
             )
         )}
-      </div>
+      </div> */}
     </div>
   )
 }
