@@ -44,6 +44,7 @@ const Description = styled.div`
 export default props => {
   const { initialValues, onSubmit, error } = props
   const msgs = useStrings()
+  const submitting = React.useRef(false)
   const [captchaError, setCaptchaError] = useState('')
   return (
     <Formik
@@ -53,7 +54,8 @@ export default props => {
         const captchaResponse = grecaptcha && grecaptcha.getResponse()
         if (!captchaResponse) {
           validations.captcha = msgs.checkRequired
-          setCaptchaError(validations.captcha)
+          setCaptchaError(submitting.current ? validations.captcha : undefined)
+          submitting.current = false
         }
         return validations
       }}
@@ -139,12 +141,16 @@ export default props => {
               <Flex flex={1} mr="20px">
                 <Field
                   name="captcha"
+                  onChange={response => !response && setCaptchaError()}
                   component={Captcha}
                   error={captchaError}
                 />
               </Flex>
               <Flex flex={1} width="100%" mt={{ xs: '30px', sm: '0px' }}>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  onClick={() => (submitting.current = true)}>
                   {msgs.sendButton}
                 </Button>
               </Flex>
