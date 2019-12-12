@@ -206,8 +206,8 @@ const ParagraphshWithAdds = ({
 
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
+          
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
-
           paragraphwithAdd = `${processedParagraph} ${
 
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
@@ -223,8 +223,8 @@ const ParagraphshWithAdds = ({
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
+          
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
-
           paragraphwithAdd = `${processedParagraph} ${
 
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
