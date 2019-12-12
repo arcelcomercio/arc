@@ -529,7 +529,8 @@ export const imageHtml = html => {
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
     .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
     .replace(/<IMG (.*)SRC="(.*)" WIDTH=([0-9])\w+>/g, rplImageCde)
-    .replace('<FONT', '<font')
+    .replace('<FONT', '<font') 
+      .replace(/<img (.*) src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g, rplImageCde)
   return resHtml
 }
 
@@ -666,6 +667,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<mxm-partido (.+)<\/mxm-partido>/g, '')
     .replace(/<span (.*)>/g, '<span>')
     .replace(/<(.+):p>/g, '<span>')
+    .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
     .replace(/<font (.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
@@ -682,6 +684,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace("}(document, 'script', 'facebook-jssdk'));", '')
     .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
     .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])+")/g, '')
+    .replace(/<iframe(.*)><\/iframe>/g, '')
   return htmlDataTwitter
 }
 
