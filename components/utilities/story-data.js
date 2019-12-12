@@ -1,4 +1,4 @@
-import { addResizedUrlItem } from './thumbs'
+// import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
 import {
   defaultImage,
@@ -794,14 +794,14 @@ class StoryData {
   }
 
   // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
-  getResizedImage(ratio, resolution) {
+  /* getResizedImage(ratio, resolution) {
     if (this.multimedia) {
       return addResizedUrlItem(this.__website, this.multimedia, [
         `${ratio}|${resolution}`,
       ]).resized_urls[ratio]
     }
     return this.multimedia
-  }
+  } */
 
   getMultimediaBySize(size) {
     return (
