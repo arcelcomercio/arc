@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { device } from './_styles/breakpoints'
+import { device } from './breakpoints'
 
 // eslint-disable-next-line import/prefer-default-export
 const handleBackColor = color => {

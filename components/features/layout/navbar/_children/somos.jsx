@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { searchQuery } from '../../../../utilities/helpers'
-import SignwallComponent from '../../../signwall/standard'
+import SignwallComponent from '../../../signwall/main/default'
 
 const classes = {
   navbarSomos:

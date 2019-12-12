@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { searchQuery } from '../../../../utilities/helpers'
-import SignwallComponent from '../../../signwall/standard'
+import SignwallComponent from '../../../signwall/main/default'
 
 const classes = {
   bar: 'navbar-nm w-full pr-5 pl-5 bg-black h-full',

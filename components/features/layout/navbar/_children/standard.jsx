@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
-import SignwallComponent from '../../../signwall/standard'
+import SignwallComponent from '../../../signwall/main/default'
 import ConfigParams from '../../../../utilities/config-params'
 
 import Menu from '../../../../global-components/menu'

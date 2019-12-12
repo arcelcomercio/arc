@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
-import LoginRegister from './_main/signwall/index'
-import LoginPaywall from './_main/signwall/login-paywall'
-import { Panel } from './_main/panel/index'
-import Cookie from './_main/utils/cookie'
-import Domains from './_main/utils/domains'
+import LoginRegister from '../_main/signwall/index'
+import LoginPaywall from '../_main/signwall/login-paywall'
+import { Panel } from '../_main/panel/index'
+import Cookie from '../_main/utils/cookie'
+import Domains from '../_main/utils/domains'
 
 const Cookies = new Cookie()
 

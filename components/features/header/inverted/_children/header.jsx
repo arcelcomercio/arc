@@ -10,7 +10,7 @@ import {
 } from '../../../../utilities/slidernav-helpers'
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
-import SignwallComponent from '../../../signwall/standard'
+import SignwallComponent from '../../../signwall/main/default'
 
 /* 
 const DRAG_SCREEN_LIMIT = 90

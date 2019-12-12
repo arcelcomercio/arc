@@ -1,7 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-
-import Signwall from './default'
+import Signwall from './_children/signwall'
 import SignWallHard from './_main/signwall/hard'
 import SignWallVerify from './_main/signwall/verify'
 import SignWallReset from './_main/signwall/reset'
@@ -11,7 +10,7 @@ import SignwallReHash from './_main/signwall/relogin-hash'
 import Services from './_main/utils/services'
 import GetProfile from './_main/utils/get-profile'
 import Domains from './_main/utils/domains'
-import { ButtonSignwall } from './styles'
+import { ButtonSignwall } from './_styles/styles'
 import Cookie from './_main/utils/cookie'
 
 const services = new Services()
