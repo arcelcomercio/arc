@@ -66,7 +66,7 @@ const PaywallContactUs = props => {
         }
         if (res.status >= 400 && res.status < 500) {
           // eslint-disable-next-line no-throw-literal
-          setError('Entrada invalida')
+          setError(msgs.wrongInput)
           setSubmitting(false)
           setLoading(false)
         } else if (res.status >= 500) {

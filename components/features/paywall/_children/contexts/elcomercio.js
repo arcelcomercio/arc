@@ -151,6 +151,7 @@ export default {
     sendButton: `Enviar`,
     nextButton: `Continuar`,
     payButton: `Pagar`,
+    wrongInput: `Entrada inválida`,
 
     // Footer
     contactUs: `Contáctanos al`,
