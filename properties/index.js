@@ -131,6 +131,11 @@ export default {
       arcSite: '',
       url: 'https://comercioxpress.com/',
     },
+    {
+      name: 'mag',
+      arcSite: '',
+      url: 'https://mag.elcomercio.pe/',
+    },
   ],
   activeSignwall: false,
   activePaywall: false,
