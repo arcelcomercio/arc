@@ -1,6 +1,14 @@
+/* eslint-disable no-control-regex */
 import ConfigParams from '../../../../utilities/config-params'
 import StoryData from '../../../../utilities/story-data'
 import { clearHtml, clearBrTag } from '../../../../utilities/helpers'
+
+const utf8ForXml = inputStr => {
+  return inputStr.replace(
+    /[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm,
+    ''
+  )
+}
 
 const buildHeaderParagraph = paragraph => {
   return `<h2>${clearBrTag(paragraph)}</h2>`
@@ -41,6 +49,9 @@ const analyzeParagraph = paragraph => {
       break
     case ConfigParams.ELEMENT_HEADER:
       result += buildHeaderParagraph(paragraph.payload)
+      break
+    case ConfigParams.ELEMENT_RAW_HTML:
+      result += utf8ForXml(paragraph.payload)
       break
     default:
       result += ''

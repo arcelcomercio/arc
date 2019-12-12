@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import BillboardFormat from '../../../utilities/billboard-format'
+import BillboardFormat from '../../../../utilities/billboard-format'
 
 const classes = {
   container: 'movies-filter bg-gray-300 w-full p-20',

@@ -10,6 +10,7 @@ import RenderPagination from './_children/pagination-by-date'
 import Ads from '../../../global-components/ads'
 import ListItem from './_children/list-item'
 import Spinner from '../../../global-components/spinner'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -128,11 +129,24 @@ class StoriesListInfiniteScroll extends PureComponent {
           subTitle,
           authorLink,
           author,
+          authorImage,
           multimediaType,
           multimediaLandscapeXS,
           multimediaLandscapeS,
           id,
         } = storyData
+
+        const isOpinionCorreo =
+          primarySectionLink === '/opinion/' &&
+          arcSite === ConfigParams.SITE_DIARIOCORREO
+
+        const imgItemLandscapeXS = isOpinionCorreo
+          ? authorImage
+          : multimediaLandscapeXS
+        const imgItemLandscapeS = isOpinionCorreo
+          ? authorImage
+          : multimediaLandscapeS
+
         return {
           primarySectionLink,
           primarySection,
@@ -143,8 +157,8 @@ class StoriesListInfiniteScroll extends PureComponent {
           authorLink,
           author,
           multimediaType,
-          multimediaLandscapeXS,
-          multimediaLandscapeS,
+          multimediaLandscapeXS: imgItemLandscapeXS,
+          multimediaLandscapeS: imgItemLandscapeS,
           id,
         }
       }),

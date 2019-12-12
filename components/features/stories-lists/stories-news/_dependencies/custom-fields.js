@@ -16,7 +16,7 @@ const customFields = PropTypes.shape({
       seccion: 'Sección',
     },
     defaultValue: 'seccion',
-  }),  
+  }),
   ...customFieldsAdsList,
 })
 

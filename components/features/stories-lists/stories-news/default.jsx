@@ -9,6 +9,7 @@ import StoryData from '../../../utilities/story-data'
 import { reduceWord } from '../../../utilities/helpers'
 import StoryItem from '../../../global-components/story-new'
 import Ads from '../../../global-components/ads'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   listado: 'w-full',
@@ -23,7 +24,8 @@ const StoriesListNew = props => {
   const { customFields: customFieldsProps = {} } = props
   const {
     storyConfig: { contentService = '', contentConfigValues = {} } = {},
-    seeMoreLink, link,
+    seeMoreLink,
+    link,
   } = customFieldsProps
 
   const data =
@@ -71,11 +73,24 @@ const StoriesListNew = props => {
               subTitle,
               authorLink,
               author,
+              authorImage,
               multimediaType,
               multimediaLandscapeXS,
               multimediaLazyDefault,
               multimediaLandscapeS,
             } = Story
+
+            const isOpinionCorreo =
+              primarySectionLink === '/opinion/' &&
+              arcSite === ConfigParams.SITE_DIARIOCORREO
+
+            const imgItemLandscapeXS = isOpinionCorreo
+              ? authorImage
+              : multimediaLandscapeXS
+            const imgItemLandscapeS = isOpinionCorreo
+              ? authorImage
+              : multimediaLandscapeS
+
             return (
               <>
                 <StoryItem
@@ -89,10 +104,11 @@ const StoriesListNew = props => {
                     subTitle: reduceWord(subTitle),
                     authorLink,
                     author,
+                    authorImage,
                     multimediaType,
-                    multimediaLandscapeXS,
+                    multimediaLandscapeXS: imgItemLandscapeXS,
                     multimediaLazyDefault,
-                    multimediaLandscapeS,
+                    multimediaLandscapeS: imgItemLandscapeS,
                     formato: 'row',
                     link,
                   }}

@@ -7,4 +7,9 @@
   .pquote__text {
     color: #469bc6;
   }
+  & li {
+    & a {
+      color: #4a88b1;
+    }
+  }
 }

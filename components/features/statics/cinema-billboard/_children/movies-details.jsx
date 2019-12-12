@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import BillboardFormat from '../../../utilities/billboard-format'
-import { defaultImage } from '../../../utilities/helpers'
+import BillboardFormat from '../../../../utilities/billboard-format'
+import { defaultImage } from '../../../../utilities/helpers'
 
 const classes = {
   container: 'movie-details flex flex-col pr-20 pl-20 bg-gray-300',
@@ -101,7 +101,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
                 />
                 <img
                   src={sizes[MOVIE_IMG_SIZE_MD] || this.setDefault('lg')}
-                  alt={title}                  
+                  alt={title}
                   className={classes.img}
                 />
               </picture>

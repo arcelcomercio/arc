@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import BillboardFormat from '../../../utilities/billboard-format'
-import { defaultImage } from '../../../utilities/helpers'
+import BillboardFormat from '../../../../utilities/billboard-format'
+import { defaultImage } from '../../../../utilities/helpers'
 
 const classes = {
   moviesGrid: 'movies-grid bg-white mt-20 p-20',
@@ -136,7 +136,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                             size: 'sm',
                           })
                         }
-                        alt={movie.title || ''}                        
+                        alt={movie.title || ''}
                         className={classes.image}
                       />
                       <figcaption className={classes.details}>

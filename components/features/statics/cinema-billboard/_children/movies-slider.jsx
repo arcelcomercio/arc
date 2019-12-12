@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { defaultImage } from '../../../utilities/helpers'
+import { defaultImage } from '../../../../utilities/helpers'
 
 const classes = {
   moviesSlider: 'movies-slider',
@@ -116,7 +116,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                               movie.poster.sizes.estreno ||
                               this.setDefault('lg')
                             }
-                            alt={movie.title}                            
+                            alt={movie.title}
                           />
                         </picture>
                       </a>
@@ -129,10 +129,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                           {movie.title}
                         </a>
                       </h2>
-                      <p
-                        className={classes.movieDescription}>
-                        {movie.body}
-                      </p>
+                      <p className={classes.movieDescription}>{movie.body}</p>
                     </div>
                   </li>
                 ))}

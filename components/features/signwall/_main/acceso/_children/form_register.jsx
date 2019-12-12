@@ -58,23 +58,24 @@ export const FormRegister = props => {
     },
   }
 
-  const handleGetProfile = token => {
+  const handleGetProfile = () => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile().then(profile => {
       Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
-      setShowConfirm(!showConfirm)
-      onLogged(profile)
 
       // NEWSLETTER POR DEFAULT
       if (arcSite === 'gestion') {
         Services.sendNewsLettersUser(
-          profile.uuid,
+          window.Identity.userIdentity.uuid,
           profile.email,
           arcSite,
-          token,
+          window.Identity.userIdentity.accessToken,
           ['general']
         )
       }
+
+      setShowConfirm(!showConfirm)
+      onLogged(profile)
     })
   }
 
@@ -114,7 +115,7 @@ export const FormRegister = props => {
           },
           {
             name: 'originAction',
-            value: 'students',
+            value: typeDialog,
             type: 'String',
           },
           {
@@ -124,24 +125,11 @@ export const FormRegister = props => {
           },
         ],
       },
-      { doLogin: false },
-      { rememberMe: false }
+      { doLogin: true },
+      { rememberMe: true }
     )
       .then(() => {
-        setTimeout(() => {
-          window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-          window.Identity.login(remail, rpass, {
-            rememberMe: true,
-            cookie: true,
-          })
-            .then(resLogReg => {
-              handleGetProfile(resLogReg.accessToken)
-            })
-            .catch(errLogReg => {
-              setShowError(getCodeError(errLogReg.code))
-              onLoggedFail(errLogReg)
-            })
-        }, 2000)
+        handleGetProfile()
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
@@ -186,6 +174,7 @@ export const FormRegister = props => {
                       onClose={onClose}
                       typeDialog={typeDialog}
                       onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
                     />
                   ) : (
                     <>
@@ -196,6 +185,7 @@ export const FormRegister = props => {
                         onClose={onClose}
                         typeDialog={typeDialog}
                         onStudents={() => setShowStudents(!showStudents)}
+                        arcSite={arcSite}
                       />
                       <ButtonSocial brand="google" size="middle" />
                     </>

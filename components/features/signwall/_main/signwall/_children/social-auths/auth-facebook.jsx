@@ -59,11 +59,12 @@ class AuthFacebook extends React.Component {
   }
 
   OAuthFacebook = data => {
-    if (data.origin !== Domains.getUrlECOID()) {
-      return
-    }
+    const { arcSite } = this.props
 
-    if (window.Identity.userIdentity.uuid) {
+    if (
+      data.origin !== Domains.getUrlECOID() ||
+      window.Identity.userIdentity.uuid
+    ) {
       return
     }
 
@@ -110,7 +111,7 @@ class AuthFacebook extends React.Component {
                   if (tipmodal === 'relogemail') {
                     return 'reloginemail'
                   }
-                  if( tipmodal === 'reloghash'){
+                  if (tipmodal === 'reloghash') {
                     return 'reloginhash'
                   }
                   return '0'
@@ -160,14 +161,26 @@ class AuthFacebook extends React.Component {
 
                 if (EMAIL_USER) {
                   Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
-                  // window.localStorage.setItem('ArcId._ID', resPro.uuid)
+                }
+
+                // NEWSLETTER POR DEFAULT
+                if (
+                  arcSite === 'gestion' &&
+                  EMAIL_USER.indexOf('facebook.com') < 0
+                ) {
+                  services.sendNewsLettersUser(
+                    resPro.uuid,
+                    EMAIL_USER,
+                    arcSite,
+                    resLoginFb.accessToken,
+                    ['general']
+                  )
                 }
 
                 this.enterProfilePanel()
               } else {
                 if (EMAIL_USER) {
                   Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
-                  // window.localStorage.setItem('ArcId._ID', resPro.uuid)
                 }
 
                 this.enterProfilePanel()

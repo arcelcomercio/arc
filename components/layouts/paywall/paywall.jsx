@@ -6,9 +6,9 @@ import styled, { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import templayed from 'templayed'
 import { useFusionContext } from 'fusion:context'
 
-import { PaywallContextProvider } from '../features/paywall/_children/contexts'
-import { withTheme } from '../themes/utils'
-import paywallThemes from '../themes/paywall'
+import { PaywallContextProvider } from '../../features/paywall/_children/contexts'
+import { withTheme } from '../../themes/utils'
+import paywallThemes from '../../themes/paywall'
 
 const Layout = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const Layout = styled.div`
 `
 const ContentContainer = styled.div`
   display: flex;
-  position: relative;
+  position: inherit;
   width: 100%;
   flex-direction: column;
   background: ${props => props.theme.palette.background.default};

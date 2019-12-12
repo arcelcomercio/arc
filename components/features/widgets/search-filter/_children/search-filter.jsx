@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import SearchInput from '../../../global-components/search-input'
+import SearchInput from '../../../../global-components/search-input'
 import schemaFilter from '../_dependencies/schema-filter'
 
 // TODO: Refactorizar todo (la data debe venir desde el feature, no hacer fetches aca)
