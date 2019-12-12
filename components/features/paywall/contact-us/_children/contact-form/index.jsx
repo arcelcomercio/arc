@@ -69,7 +69,7 @@ export default props => {
             flexDirection="column"
             py="2em"
             px={{ xs: '2em', sm: '7em', md: '2em' }}>
-            <Flex p="30px 10px">
+            <Flex p="30px 10px" flexDirection="column">
               {error && <Error mb="4px" message={error} />}
               <Description>{msgs.corporateSubscriptionsTitle}</Description>
             </Flex>
