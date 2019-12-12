@@ -21,14 +21,6 @@ import {
   createScript,
 } from '@utilities/helpers'
 
-import {
-  addResizedUrlItem
-} from '@utilities/thumbs'
-
-jest.mock('../utilities/thumbs', () => ({
-  addResizedUrlItem: jest.fn(),
-}))
-
 describe('Funcion reduceWord helper', () => {
   it('menor a la longitud deseada', () => {
     const word = 'prueba longitud mayor a la longitud'
@@ -193,9 +185,11 @@ describe('Funcion isEmpty', () => {
     expect(isEmpty(false)).not.toBeTruthy()
   })
   it('debe retornar falso si el parametro es un objeto con atributs', () => {
-    expect(isEmpty({
-      test: 'prueba'
-    })).toBeFalsy()
+    expect(
+      isEmpty({
+        test: 'prueba',
+      })
+    ).toBeFalsy()
   })
 
   it('debe retornar true si el parametro es un objeto vacío', () => {
@@ -242,12 +236,6 @@ describe('Funcion ResizeImageUrl', () => {
     const ratio = '16:9'
     const resolution = '400x400'
 
-    addResizedUrlItem.mockImplementation(() => ({
-      resized_urls: {
-        '16:9': 'SDASD'
-      },
-    }))
-
     expect(ResizeImageUrl(arcSite, imgUrl, ratio, resolution)).toBe('SDASD')
     imgUrl = ''
     expect(ResizeImageUrl(arcSite, imgUrl, ratio, resolution)).toBe(imgUrl)
@@ -273,9 +261,7 @@ describe('Función defaultImage - Helpers', () => {
 
   test('Debe retornar un path definido', () => {
     params.deployment.mockReturnValueOnce(
-      `${params.contextPath}/resources/dist/${
-        params.arcSite
-      }/images/default-lg.png`
+      `${params.contextPath}/resources/dist/${params.arcSite}/images/default-lg.png`
     )
     expect(defaultImage(params)).toBe(
       'pf/resources/dist/elcomercio/images/default-lg.png'
@@ -284,18 +270,14 @@ describe('Función defaultImage - Helpers', () => {
 
   test('El path contiene "elcomercio"', () => {
     params.deployment.mockReturnValueOnce(
-      `${params.contextPath}/resources/dist/${
-        params.arcSite
-      }/images/default-lg.png`
+      `${params.contextPath}/resources/dist/${params.arcSite}/images/default-lg.png`
     )
     expect(defaultImage(params)).toContain('elcomercio')
   })
 
   test('El path contiene el tamaño "lg"', () => {
     params.deployment.mockReturnValueOnce(
-      `${params.contextPath}/resources/dist/${
-        params.arcSite
-      }/images/default-lg.png`
+      `${params.contextPath}/resources/dist/${params.arcSite}/images/default-lg.png`
     )
     expect(defaultImage(params)).toMatch('lg')
   })
@@ -490,7 +472,7 @@ describe('Función getMetaPagesPagination - Helpers', () => {
     const isQuery = true
     const globalContent = {
       next: '',
-      previous: ''
+      previous: '',
     }
     const patternPagination = ''
     const expected = ['current', 'next', 'prev']
@@ -566,7 +548,7 @@ describe('Función createScript - Helpers', () => {
     createScript({
       src: true,
       async: true,
-      defer: true
+      defer: true,
     })
     expect(document.createElement).toHaveBeenCalled()
   })
