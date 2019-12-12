@@ -4,7 +4,7 @@ import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 
-const MAX_SECTIONS = 5
+const MAX_SECTIONS = 10
 
 const options = {
   gzip: true,
