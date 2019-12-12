@@ -46,7 +46,7 @@ const classes = {
   button: `cinema-card__button bg-white inline-block uppercase font-bold primary-font border-0 text-md rounded-sm`,
 }
 
-const BASE_PATH = '/cartelera'
+const BASE_PATH = '/cartelera/'
 // const MOVIES_BASE_PATH = '/peliculas'
 const FORM_ACTION = `${BASE_PATH}/search`
 
@@ -139,7 +139,7 @@ class CardCinemaBillboard extends PureComponent {
           <div className={classes.detail}>
             <p className={classes.premiere}>Estreno</p>
             <h2 className={classes.movieTitle}>
-              <a className={classes.movieLink} href={`${BASE_PATH}/${url}`}>
+              <a className={classes.movieLink} href={`${BASE_PATH}/${url}/`}>
                 {title}
               </a>
             </h2>
