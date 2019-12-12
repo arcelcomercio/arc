@@ -116,6 +116,8 @@ const PortalInt = props => {
           <PromoBanner
             href={corporateUrl}
             text={msgs.businessSubscriptionsBannerText}
+            primary={arcSite === 'elcomercio'}
+            backgroundColor="#ccc19b"
             ml={{ xs: '0px', sm: '30px' }}
           />
           <ClickToCall

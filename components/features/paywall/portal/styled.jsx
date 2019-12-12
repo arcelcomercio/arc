@@ -80,7 +80,7 @@ export const LinkCorporate = styled.a`
     padding-left: 20px;
     background: ${props =>
       props.primary
-        ? theme.palette.primary.main
+        ? props.backgroundColor || theme.palette.primary.main
         : theme.palette.common.blackboard};
     cursor: pointer;
     color: ${({ primary }) =>
