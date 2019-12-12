@@ -520,6 +520,10 @@ export const imageHtml = html => {
 
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
+  resHtml = resHtml.replace(
+    /<img (.*)src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g,
+    rplImageCde
+  )
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
   resHtml = resHtml
@@ -529,8 +533,8 @@ export const imageHtml = html => {
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
     .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
     .replace(/<IMG (.*)SRC="(.*)" WIDTH=([0-9])\w+>/g, rplImageCde)
-    .replace('<FONT', '<font') 
-      .replace(/<img (.*) src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g, rplImageCde)
+    .replace('<FONT', '<font')
+   
   return resHtml
 }
 
@@ -683,7 +687,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace('fjs.parentNode.insertBefore(js, fjs);', '')
     .replace("}(document, 'script', 'facebook-jssdk'));", '')
     .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
-    .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])+")/g, '')
+    .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~; +#!-])+")/g, '')
     .replace(/<iframe(.*)><\/iframe>/g, '')
   return htmlDataTwitter
 }
