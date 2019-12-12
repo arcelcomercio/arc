@@ -8,8 +8,6 @@ import {
   isEmpty,
 } from '../../../../utilities/helpers'
 
-const NUMBER_WORD_MULTIMEDIA = 70
-
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
@@ -174,14 +172,13 @@ const buildListParagraph = ({
 const ParagraphshWithAdds = ({
   paragraphsNews = [],
   firstAdd = 100,
-  nextAdds = 250,
+  nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
-  // const numberWordMultimedia = NUMBER_WORD_MULTIMEDIA
 
   newsWithAdd = paragraphsNews
     .map(({ payload: originalParagraph, type, level }) => {
@@ -206,13 +203,13 @@ const ParagraphshWithAdds = ({
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
             }`
-          IndexAdd += 1
+            IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
         }
       } else {
 
-        // a partir del segundo parrafo se inserta cada 250 palabras (nextAdds)
+        // a partir del segundo parrafo se inserta cada 350 palabras (nextAdds)
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
@@ -223,7 +220,7 @@ const ParagraphshWithAdds = ({
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
             }`
-          IndexAdd += 1
+            IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
         }

@@ -494,9 +494,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -531,7 +529,8 @@ export const imageHtml = html => {
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
     .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
     .replace(/<IMG (.*)SRC="(.*)" WIDTH=([0-9])\w+>/g, rplImageCde)
-    .replace('<FONT', '<font')
+    .replace('<FONT', '<font') 
+      .replace(/<img (.*) src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g, rplImageCde)
   return resHtml
 }
 
@@ -654,6 +653,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe src="(.*)" width="(.*?)" (.*)><\/iframe>/g, rplIframe1)
     .replace('src="//', 'src="https://')
     .replace(/<iframe (.*) src='(.*)' (.*)><\/iframe>/g, rplIframe2)
+    .replace(/<iframe (.*) src="(.+?)" (.*)><\/iframe>/g, rplIframe2)
     .replace(/<iframe (.*) src="(.*)"><\/iframe>/g, rplIframe2)
     .replace(/<iframe (.*) src="(.*)" type=(.*)><\/iframe>/g, rplIframe2)
     .replace(/<iframe (.*) src="(.*)" (.*)><\/iframe>/g, rplIframe2)
@@ -667,6 +667,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<mxm-partido (.+)<\/mxm-partido>/g, '')
     .replace(/<span (.*)>/g, '<span>')
     .replace(/<(.+):p>/g, '<span>')
+    .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
     .replace(/<font (.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
@@ -682,7 +683,8 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace('fjs.parentNode.insertBefore(js, fjs);', '')
     .replace("}(document, 'script', 'facebook-jssdk'));", '')
     .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
-
+    .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])+")/g, '')
+    .replace(/<iframe(.*)><\/iframe>/g, '')
   return htmlDataTwitter
 }
 
