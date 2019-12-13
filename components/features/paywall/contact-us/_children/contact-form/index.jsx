@@ -45,27 +45,36 @@ export default props => {
   const { initialValues, onSubmit, error } = props
   const msgs = useStrings()
   const validateCaptcha = React.useRef(false)
-  const [captchaError, setCaptchaError] = useState('')
+  const [captchaErrorMsg, setCaptchaErrorMsg] = useState('')
   return (
     <Formik
       initialValues={initialValues}
       validate={values => {
         const validations = createSchema(values, msgs)
-        const captchaResponse = grecaptcha && grecaptcha.getResponse()
+        let captchaResponse
+        try {
+          captchaResponse = grecaptcha && grecaptcha.getResponse()
+        } catch (err) {
+          captchaResponse = err
+        }
         if (!captchaResponse) {
           validations.captcha = msgs.checkRequired
-          setCaptchaError(
-            validateCaptcha.current ? validations.captcha : undefined
-          )
+          validateCaptcha.current && setCaptchaErrorMsg(validations.captcha)
         } else {
-          setCaptchaError()
+          setCaptchaErrorMsg()
         }
         validateCaptcha.current = false
         return validations
       }}
       onSubmit={(values, ...args) => {
         const captchaResponse = grecaptcha && grecaptcha.getResponse()
-        onSubmit({ ...values, captcha: captchaResponse }, ...args)
+        onSubmit(
+          {
+            'g-recaptcha-response': captchaResponse,
+            ...values,
+          },
+          ...args
+        )
       }}>
       {({ isSubmitting, validateForm, values }) => (
         <StyledForm width="100%" alignItems="center" justifyContent="center">
@@ -150,7 +159,7 @@ export default props => {
                     validateForm()
                   }}
                   component={Captcha}
-                  error={captchaError}
+                  error={captchaErrorMsg}
                 />
               </Flex>
               <Flex flex={1} width="100%" mt={{ xs: '30px', sm: '0px' }}>
