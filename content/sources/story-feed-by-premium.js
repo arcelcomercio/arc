@@ -47,7 +47,7 @@ const pattern = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  return `/content/v4/search/published?website=${website}&q=type:story+AND+content_restrictions.content_code:premium&sort=display_date:desc&size=${size}&from=${getPagination()}${excludedFields}`
+  return `/content/v4/search/published?website=${website}&q=canonical_website:${website}+AND+type:story+AND+content_restrictions.content_code:premium&sort=display_date:desc&size=${size}&from=${getPagination()}${excludedFields}`
 }
 
 const transform = (data, key) => {
@@ -73,7 +73,7 @@ const source = {
   transform,
   schemaName,
   params,
-  ttl: 120,
+  ttl: 300,
 }
 
 export default source

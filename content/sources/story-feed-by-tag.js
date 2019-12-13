@@ -3,7 +3,9 @@ import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory, /* getContentCurrentPage */ } from '../../components/utilities/helpers'
+import {
+  addResizedUrlsToStory /* getContentCurrentPage */,
+} from '../../components/utilities/helpers'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'stories'
@@ -39,14 +41,14 @@ const params = [
 ]
 
 const pattern = (key = {}) => {
-  const { name, website: rawWebsite = '', } = key
+  const { name, website: rawWebsite = '' } = key
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
   website = websiteField || key['arc-site'] || 'Arc Site no está definido'
 
-  pageNumber = (!key.from || key.from === 0) ? 1 : key.from
-  
+  pageNumber = !key.from || key.from === 0 ? 1 : key.from
+
   const size = key.size || 50
 
   if (!name) {
@@ -74,8 +76,10 @@ const pattern = (key = {}) => {
     uri: requestUri,
     ...options,
   }).then(data => {
-
-    if (!data || (data && data.content_elements && !data.content_elements.length > 0))
+    if (
+      !data ||
+      (data && data.content_elements && !data.content_elements.length > 0)
+    )
       throw new RedirectError('/404', 404)
 
     const dataStories = data || {}
@@ -101,7 +105,7 @@ const pattern = (key = {}) => {
 
     const additionalData = {
       tag_name: (realTag && realTag.text) || 'Tag',
-      page_number: pageNumber
+      page_number: pageNumber,
     }
     return {
       ...dataStories,
@@ -116,7 +120,7 @@ const source = {
   fetch,
   schemaName,
   params,
-  ttl: 120,
+  ttl: 300,
 }
 
 export default source
