@@ -44,7 +44,7 @@ const Description = styled.div`
 export default props => {
   const { initialValues, onSubmit, error } = props
   const msgs = useStrings()
-  const submitting = React.useRef(false)
+  const validateCaptcha = React.useRef(false)
   const [captchaError, setCaptchaError] = useState('')
   return (
     <Formik
@@ -54,16 +54,20 @@ export default props => {
         const captchaResponse = grecaptcha && grecaptcha.getResponse()
         if (!captchaResponse) {
           validations.captcha = msgs.checkRequired
-          setCaptchaError(submitting.current ? validations.captcha : undefined)
-          submitting.current = false
+          setCaptchaError(
+            validateCaptcha.current ? validations.captcha : undefined
+          )
+        } else {
+          setCaptchaError()
         }
+        validateCaptcha.current = false
         return validations
       }}
       onSubmit={(values, ...args) => {
         const captchaResponse = grecaptcha && grecaptcha.getResponse()
         onSubmit({ ...values, captcha: captchaResponse }, ...args)
       }}>
-      {({ isSubmitting, values }) => (
+      {({ isSubmitting, validateForm, values }) => (
         <StyledForm width="100%" alignItems="center" justifyContent="center">
           <Flex
             flexDirection="column"
@@ -141,7 +145,10 @@ export default props => {
               <Flex flex={1} mr="20px">
                 <Field
                   name="captcha"
-                  onChange={response => !response && setCaptchaError()}
+                  onChange={() => {
+                    validateCaptcha.current = true
+                    validateForm()
+                  }}
                   component={Captcha}
                   error={captchaError}
                 />
@@ -150,7 +157,7 @@ export default props => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  onClick={() => (submitting.current = true)}>
+                  onClick={() => (validateCaptcha.current = true)}>
                   {msgs.sendButton}
                 </Button>
               </Flex>
