@@ -108,9 +108,7 @@ const getAdditionalData = (storyData, website) => {
   }).then(recientesResp => {
     storyData.recent_stories = recientesResp
     return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
-        storyData._id
-        }&website=${website}&published=true`,
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${storyData._id}&website=${website}&published=true`,
       ...options,
     }).then(idsResp => {
       storyData.related_content = idsResp
@@ -225,6 +223,7 @@ export default {
   fetch,
   schemaName,
   params,
+  ttl: 300,
   filter: `
   _id
   type
