@@ -96,7 +96,7 @@ class Domains {
     return 'https://maf.pagosonline.net/ws/fp/tags.js?id='
   }
 
-  getUrlStudents = () => {
+  getUrlComercioSubs = () => {
     return ENV.ENVIRONMENT === 'elcomercio'
       ? 'https://paywall.comerciosuscripciones.pe/api'
       : 'https://devpaywall.comerciosuscripciones.pe/api'

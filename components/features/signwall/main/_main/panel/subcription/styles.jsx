@@ -130,13 +130,13 @@ export const InputMask = styled(TextMask)`
   margin: 0;
   color: #333333;
   width: 100%;
-  font-weight: inherit;
+  font-weight: normal;
   border-radius: 0.4rem;
   border: 1px solid #cccccc;
   font-size: 14px;
   box-sizing: border-box;
   padding: 12px 20px;
-  line-height: inherit;
+  line-height: normal;
   appearance: none;
   cursor: text;
   outline: none;
@@ -204,6 +204,7 @@ export const FormGroup = styled.div`
   position: relative;
   margin-bottom: 30px;
   display: inline-block;
+  vertical-align: top;
   width: ${props =>
     props.width === '30' || props.width === '20' ? '50' : '100'}%;
   @media ${device.tablet} {
@@ -211,6 +212,11 @@ export const FormGroup = styled.div`
     margin: 0px 10px;
     box-sizing: border-box;
     margin-bottom: 20px;
+  }
+  @media ${device.tablet} {
+    &:last-child {
+      margin-right: 10px;
+    }
   }
   @media ${device.desktop} {
     width: ${props => props.width}%;
@@ -245,13 +251,13 @@ export const FormGroup = styled.div`
     margin: 0;
     color: #333333;
     width: 100%;
-    font-weight: inherit;
+    font-weight: normal;
     border-radius: 0.4rem;
     border: 1px solid #cccccc;
     font-size: 14px;
     box-sizing: border-box;
     padding: 12px 20px;
-    line-height: inherit;
+    line-height: normal;
     appearance: none;
     cursor: text;
     outline: none;
@@ -288,7 +294,7 @@ export const FormGroup = styled.div`
       visibility: visible;
       z-index: 1;
       opacity: 1;
-      transform: translate3d(0, -14px, 0) scale(0.8);
+      transform: translate3d(0, -15px, 0) scale(0.8);
       transition: transform 300ms, visibility 0ms, z-index 0ms;
     }
   }

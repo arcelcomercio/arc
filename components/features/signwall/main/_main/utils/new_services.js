@@ -4,7 +4,7 @@ import Domains from './domains'
 class Services {
   checkStudents(email, date, grade, site, jwt) {
     const response = new Promise(resolve => {
-      fetch(`${Domains.getUrlStudents()}/validate_user_academic/`, {
+      fetch(`${Domains.getUrlComercioSubs()}/validate_user_academic/`, {
         method: 'POST',
         body: JSON.stringify({
           correo: email,
@@ -23,7 +23,7 @@ class Services {
 
   checkCodeStudents(hash, email, site, jwt) {
     const response = new Promise(resolve => {
-      fetch(`${Domains.getUrlStudents()}/activate_promotion/`, {
+      fetch(`${Domains.getUrlComercioSubs()}/activate_promotion/`, {
         method: 'POST',
         body: JSON.stringify({
           hash_user: hash,
@@ -39,7 +39,6 @@ class Services {
     return response
   }
 
-  // eslint-disable-next-line class-methods-use-this
   loginFBeco(URL, username, accessToken, type) {
     const response = new Promise(resolve => {
       fetch(`${URL}/identity/public/v1/auth/token`, {
@@ -82,6 +81,64 @@ class Services {
           },
         }
       ).then(res => resolve(res.json()))
+    })
+    return response
+  }
+
+  initPaymentUpdate(id, pid, site, jwt) {
+    const response = new Promise(resolve => {
+      fetch(
+        `${Domains.getOriginAPI(
+          site
+        )}/sales/public/v1/paymentmethod/${id}/provider/${pid}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: jwt,
+          },
+        }
+      ).then(res => resolve(res.json()))
+    })
+    return response
+  }
+
+  finalizePaymentUpdate(id, pid, site, jwt, token, email, dni, phone) {
+    const response = new Promise(resolve => {
+      fetch(
+        `${Domains.getOriginAPI(
+          site
+        )}/sales/public/v1/paymentmethod/${id}/provider/${pid}/finalize`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            token,
+            email,
+            address: {
+              line1: dni,
+              locality: 'Lima',
+              country: 'PE',
+            },
+            phone,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: jwt,
+          },
+        }
+      ).then(res => resolve(res.json()))
+    })
+    return response
+  }
+
+  getProfilePayu(jwt, idsubs, site) {
+    const response = new Promise(resolve => {
+      fetch(`${Domains.getUrlComercioSubs()}/user/payment-profile/${idsubs}/`, {
+        method: 'GET',
+        headers: {
+          site,
+          'user-token': jwt,
+        },
+      }).then(res => resolve(res.json()))
     })
     return response
   }

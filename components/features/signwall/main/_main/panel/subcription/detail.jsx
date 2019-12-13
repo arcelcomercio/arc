@@ -11,12 +11,10 @@ import Loading from '../../common/loading'
 import Modal from '../../common/modal'
 import addPayU from '../../utils/payu'
 import { PayuError } from '../../utils/payu-error'
-import Services from '../../utils/services'
+import Services from '../../utils/new_services'
 import Radiobox from './Radiobox'
 import Cookie from '../../utils/cookie'
-// import FormValid from '../../utils/form-valid'
 
-const services = new Services()
 const cookies = new Cookie()
 
 const Cards = [
@@ -83,6 +81,7 @@ class SubDetail extends Component {
       showMessageFailed: false,
       disabledButton: false,
       typeAmex: false,
+      creditCardLastFour: '0000',
     }
 
     const { arcSite } = this.props
@@ -100,6 +99,7 @@ class SubDetail extends Component {
           resDetail,
           isLoading: false,
           selectedOption: resDetail.currentPaymentMethod.creditCardType.toUpperCase(),
+          creditCardLastFour: resDetail.currentPaymentMethod.lastFour,
         })
       })
     })
@@ -181,56 +181,44 @@ class SubDetail extends Component {
     this.setState({ formErrors, [name]: value })
   }
 
-  submitUpdateCard = (userDNI, subsID) => {
+  submitUpdateCard = subsID => {
     const {
       numcard,
       dateexpire,
       codecvv,
       selectedOption,
       fullName,
-      formErrors,
     } = this.state
 
-    const { arcSite } = this.props
+    const { arcSite, IdSubscription } = this.props
 
     this.setState({
       showMessageSuccess: false,
       showMessageFailed: false,
+      disabledButton: true,
     })
 
-    // if (FormValid(this.state)) {
+    window.Identity.options({ apiOrigin: this.origin_api })
+    window.Identity.extendSession().then(() => {
+      window.Sales.options({ apiOrigin: this.origin_api })
+      window.Sales.getPaymentOptions().then(res => {
+        const providerID = res[0].paymentMethodID
+        const accessTOKEN = window.Identity.userIdentity.accessToken
+        Services.initPaymentUpdate(
+          subsID,
+          providerID,
+          arcSite,
+          accessTOKEN
+        ).then(resUpdate => {
+          const {
+            parameter1: publicKey,
+            parameter2: accountId,
+            parameter3: payuBaseUrl,
+            parameter4: deviceSessionId,
+          } = resUpdate
 
-    if (
-      formErrors.numcard === '' &&
-      formErrors.dateexpire === '' &&
-      formErrors.codecvv === ''
-    ) {
-      this.setState({
-        disabledButton: true,
-      })
-
-      // window.Sales.apiOrigin = this.origin_api
-      window.Identity.options({ apiOrigin: this.origin_api })
-      window.Identity.extendSession().then(() => {
-        window.Sales.options({ apiOrigin: this.origin_api })
-        window.Sales.getPaymentOptions().then(res => {
-          const providerID = res[0].paymentMethodID // 1246
-
-          services
-            .initPaymentUpdate(
-              subsID,
-              providerID,
-              arcSite,
-              window.Identity.userIdentity.accessToken
-            )
-            .then(resUpdate => {
-              const {
-                parameter1: publicKey,
-                parameter2: accountId,
-                parameter3: payuBaseUrl,
-                parameter4: deviceSessionId,
-              } = resUpdate
-
+          Services.getProfilePayu(accessTOKEN, IdSubscription, arcSite).then(
+            profilePayu => {
               return addPayU(arcSite, deviceSessionId)
                 .then(payU => {
                   payU.setURL(payuBaseUrl)
@@ -243,14 +231,14 @@ class SubDetail extends Component {
                     number: numcard.replace(/\s/g, ''),
                     name_card:
                       ENV.ENVIRONMENT === 'elcomercio'
-                        ? `${fullName.firstName ||
-                            'Usuario'} ${fullName.lastName || 'Usuario'}`
+                        ? `${profilePayu.name ||
+                            'Usuario'} ${profilePayu.lastname || 'Usuario'}`
                         : 'APPROVED',
                     payer_id: new Date().getTime(),
                     exp_month: dateexpire.split('/')[0],
                     exp_year: dateexpire.split('/')[1],
                     method: selectedOption,
-                    document: userDNI.split('_')[1],
+                    document: profilePayu.doc_number,
                     cvv: codecvv,
                   })
                   return new Promise((resolve, reject) => {
@@ -268,22 +256,24 @@ class SubDetail extends Component {
                   })
                 })
                 .then(token => {
-                  services
-                    .finalizePaymentUpdate(
-                      subsID,
-                      providerID,
-                      arcSite,
-                      window.Identity.userIdentity.accessToken,
-                      `${token}~${deviceSessionId}~${codecvv}`,
-                      `${fullName.email || ''}`,
-                      userDNI
-                    )
+                  Services.finalizePaymentUpdate(
+                    subsID,
+                    providerID,
+                    arcSite,
+                    accessTOKEN,
+                    `${token}~${deviceSessionId}~${codecvv}`,
+                    `${fullName.email || ''}`,
+                    profilePayu.doc_number,
+                    profilePayu.phone
+                  )
                     .then(resFin => {
-                      if (resFin.cardholderName) {
+                      if (resFin.cardholderName && resFin.creditCardLastFour) {
                         this.setState({
                           showMessageSuccess: true,
                           disabledButton: false,
+                          creditCardLastFour: resFin.creditCardLastFour,
                         })
+                        this.showUpdatePayment()
                       } else {
                         this.setState({
                           showMessageFailed: true,
@@ -298,28 +288,15 @@ class SubDetail extends Component {
                       })
                     })
                 })
-            })
+            }
+          )
         })
       })
-    } else {
-      if (numcard === null) {
-        formErrors.numcard = 'Este campo es requerido'
-        this.setState({ formErrors, numcard: '' })
-      }
-      if (dateexpire === null) {
-        formErrors.dateexpire = 'Este campo es requerido'
-        this.setState({ formErrors, dateexpire: '' })
-      }
-      if (codecvv === null) {
-        formErrors.codecvv = 'Este campo es requerido'
-        this.setState({ formErrors, codecvv: '' })
-      }
-    }
+    })
   }
 
   deleteSub() {
     const { idSubsDelete } = this.state
-    // window.Sales.apiOrigin = this.origin_api
     window.Identity.options({ apiOrigin: this.origin_api })
     window.Identity.extendSession().then(() => {
       window.Sales.options({ apiOrigin: this.origin_api })
@@ -360,7 +337,7 @@ class SubDetail extends Component {
   }
 
   showUpdatePayment() {
-    const { ShowUpdateCard, formErrors } = this.state
+    const { ShowUpdateCard, formErrors} = this.state
     this.setState({
       ShowUpdateCard: !ShowUpdateCard,
     })
@@ -368,6 +345,10 @@ class SubDetail extends Component {
       this.setState({
         formErrors,
         numcard: '',
+      })
+    } else {
+      this.setState({
+        showMessageSuccess: false,
       })
     }
   }
@@ -386,6 +367,7 @@ class SubDetail extends Component {
       showMessageFailed,
       disabledButton,
       typeAmex,
+      creditCardLastFour,
     } = this.state
 
     const { arcSite } = this.props
@@ -465,6 +447,12 @@ class SubDetail extends Component {
             <S.Fieldset>
               <legend>Método de pago</legend>
 
+              {showMessageSuccess && (
+                <S.Message success>
+                  Se actualizó correctamente los datos de la tarjeta.
+                </S.Message>
+              )}
+
               <div className="left">
                 {Cards.map(item => {
                   if (
@@ -479,7 +467,8 @@ class SubDetail extends Component {
                 })}
                 <p>
                   &nbsp;&nbsp; que termina en
-                  <strong> {resDetail.currentPaymentMethod.lastFour} </strong>
+                  {/* <strong> {resDetail.currentPaymentMethod.lastFour} </strong> */}
+                  <strong> {creditCardLastFour} </strong>
                 </p>
               </div>
               <div className="right">
@@ -498,11 +487,6 @@ class SubDetail extends Component {
               <S.Fieldset>
                 <legend>Datos de la tarjeta</legend>
 
-                {showMessageSuccess && (
-                  <S.Message success>
-                    Se actualizó correctamente los datos de la tarjeta.
-                  </S.Message>
-                )}
                 {showMessageFailed && (
                   <S.Message failed>
                     Ha ocurrido un error al actualizar. Inténtalo nuevamente.
@@ -658,7 +642,6 @@ class SubDetail extends Component {
                     type="button"
                     onClick={() =>
                       this.submitUpdateCard(
-                        resDetail.billingAddress.line2,
                         resDetail.currentPaymentMethod.paymentMethodID
                       )
                     }>
@@ -700,10 +683,11 @@ class SubDetail extends Component {
                               {fullName.lastName}
                             </strong>
                             <p>
-                              {resDetail.billingAddress.line2.replace(
-                                '_',
-                                ': '
-                              )}
+                              {resDetail.billingAddress.line2 &&
+                                resDetail.billingAddress.line2.replace(
+                                  '_',
+                                  ': '
+                                )}
                             </p>
                           </td>
                           <td className="center">{resDetail.productName}</td>
