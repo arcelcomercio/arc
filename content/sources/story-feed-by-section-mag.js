@@ -8,4 +8,5 @@ const resolve = () => {
 
 export default {
   resolve,
+  ttl: 300,
 }

@@ -31,7 +31,10 @@ const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
   const { section, stories_qty: storiesQty } = key
   const clearSection =
-    section === '' || section === undefined || section === null || section === '/'
+    section === '' ||
+    section === undefined ||
+    section === null ||
+    section === '/'
       ? '/'
       : removeLastSlash(section)
 
@@ -115,8 +118,8 @@ const source = {
   fetch,
   schemaName: SCHEMA_NAME,
   params,
-  cache: false,
-  // ttl: 120,
+  // cache: false,
+  ttl: 120,
 }
 
 export default source

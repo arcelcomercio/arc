@@ -44,5 +44,5 @@ export default {
   resolve,
   transform,
   params,
-  ttl: 120,
+  ttl: 300,
 }
