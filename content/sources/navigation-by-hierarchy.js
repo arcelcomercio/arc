@@ -27,6 +27,7 @@ const source = {
   resolve,
   params,
   schemaName,
+  ttl: 600
 }
 
 export default source

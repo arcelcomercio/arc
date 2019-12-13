@@ -4,7 +4,6 @@
   "main": "index.js",
   "dependencies": {
     "@arc-core-components/amp-document-boilerplate": "^0.2.6-beta.1",
-    "@arc-core-components/content-schema_ans-feed-v0.6.2": "^0.1.6-beta.0",
     "@arc-core-components/content-source_content-api-v4": "^2.0.4-beta.0",
     "@arc-core-components/element_image": "^0.4.2-beta.1",
     "@arc-core-components/feature_article-body": "^1.0.1",
