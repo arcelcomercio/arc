@@ -1,54 +1,8 @@
 import React, { useEffect } from 'react'
 import styled, { css } from 'styled-components'
+import Recaptcha from 'react-recaptcha'
 
-const Captcha = props => {
-  const {
-    className,
-    dataSitekey,
-    onChange,
-    field: { onChange: fieldOnChange, onBlur, name, value },
-    form,
-    meta,
-    error,
-    ...restProps
-  } = props
-
-  const combineOnChange = response => {
-    onChange && onChange(response)
-    fieldOnChange && fieldOnChange(respones)
-  }
-
-  const captchaResponse = React.useRef(value)
-  useEffect(() => {
-    window.__gcaptchaResponseCallback = response => {
-      combineOnChange(response)
-      captchaResponse.current = response
-    }
-    window.__gcaptchaExpiredCallback = response => {
-      combineOnChange(response)
-      captchaResponse.current = response
-    }
-    window.__gcaptchaErrorCallback = response => {
-      combineOnChange(response)
-      captchaResponse.current = response
-    }
-  }, [])
-
-  return (
-    <div className={className}>
-      <div
-        className="g-recaptcha"
-        data-sitekey={dataSitekey || '6LfEGMcUAAAAAEBWDI6qyRGEc0_KG0XTNBNeeCjv'}
-        data-callback="__gcaptchaResponseCallback"
-        data-expired-callback="__gcaptchaExpiredCallback"
-        data-error-callback="__gcaptchaErrorCallback"
-        {...restProps}></div>
-      {error && <p>{error}</p>}
-    </div>
-  )
-}
-
-const StyledCaptcha = styled(Captcha)`
+const Border = styled.div`
   ${props =>
     props.error &&
     css`
@@ -65,4 +19,38 @@ const StyledCaptcha = styled(Captcha)`
     `}
 `
 
-export default StyledCaptcha
+const Captcha = props => {
+  const {
+    dataSitekey,
+    onChange,
+    field: { onChange: fieldOnChange, onBlur, name, value },
+    form,
+    meta,
+    error,
+    ...restProps
+  } = props
+
+  const recaptchaRef = React.useRef()
+
+  const combinedOnChange = response => {
+    onChange && onChange(response)
+    fieldOnChange && fieldOnChange(response)
+  }
+
+  return (
+    <Border error={error}>
+      <Recaptcha
+        ref={recaptchaRef}
+        sitekey={dataSitekey || '6LfEGMcUAAAAAEBWDI6qyRGEc0_KG0XTNBNeeCjv'}
+        size="normal"
+        verifyCallback={combinedOnChange}
+        expiredCallback={combinedOnChange}
+        errorCallback={combinedOnChange}
+        {...restProps}
+      />
+      {error && <p>{error}</p>}
+    </Border>
+  )
+}
+
+export default Captcha
