@@ -48,7 +48,7 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
-    socialName: siteProperties.social.facebook,
+    socialName: siteProperties.social && siteProperties.social.facebook,
     siteAssets: siteProperties.assets,
     metaValue,
     deployment,
@@ -159,13 +159,19 @@ export default ({
       : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
-    twitterUser: siteProperties.social.twitter.user,
+    twitterUser:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     title,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
     description,
-    twitterCreator: siteProperties.social.twitter.user,
+    twitterCreator:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     story: isStory, // check data origin - Boolean
     deployment,
     globalContent,

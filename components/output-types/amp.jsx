@@ -28,7 +28,7 @@ const AmpOutputType = ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
-    socialName: siteProperties.social.facebook,
+    socialName: siteProperties.social && siteProperties.social.facebook,
     siteAssets: siteProperties.assets,
     metaValue,
     isAmp: true,
@@ -65,13 +65,16 @@ const AmpOutputType = ({
       : 'Últimas noticias en Perú y el mundo'
 
   const twitterCardsData = {
-    twitterUser: siteProperties.social.twitter.user,
+    twitterUser:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     title,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
     description,
-    twitterCreator: siteProperties.social.twitter.user,
+    twitterCreator: siteProperties.social && siteProperties.social.twitter.user,
     story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
