@@ -2,6 +2,7 @@ import { useFusionContext } from 'fusion:context'
 import ENV from 'fusion:environment'
 import React from 'react'
 import StoryData from '../../../utilities/story-data'
+import StoriesRecent from '../../../global-components/stories-recent'
 
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
@@ -15,35 +16,53 @@ const classes = {
 
 const FooterElComercioAmp = () => {
   const {
-    globalContent: data = {},
     arcSite,
     contextPath,
+    deployment,
     siteProperties: { siteUrl },
+    globalContent: data = {},
   } = useFusionContext()
 
-  const { primarySection, primarySectionLink, recentList } = new StoryData({
+  const { id, primarySection, primarySectionLink } = new StoryData({
     data,
     arcSite,
     contextPath,
     siteUrl,
   })
 
+  const parameters = {
+    primarySectionLink,
+    id,
+    arcSite,
+    cant: 3,
+  }
+  const resultStoryRecent = StoriesRecent(parameters)
   const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ``
-  const recentResult = recentList.map(
-    ({ basic, websiteUrl, urlImage } = {}, index) => {
-      return (
-        urlImage &&
-        `{  
-            "image":"${urlImage}",
-            "title":"${basic}",
-            "ampUrl":"${pathUrl}${websiteUrl}?outputType=amp&next=${index + 1}"
+
+  const instance =
+    resultStoryRecent &&
+    new StoryData({
+      deployment,
+      contextPath,
+      arcSite,
+      defaultImgSize: 'sm',
+    })
+  const dataStorys = resultStoryRecent.map((story, index) => {
+    instance.__data = story
+    return (
+      instance.multimediaLandscapeMD &&
+      `{  
+            "image":"${instance.multimediaLandscapeMD}",
+            "title":"${instance.title}",
+            "ampUrl":"${pathUrl}${
+        instance.canonicalUrl
+      }?outputType=amp&next=${index + 1}"
           }`
-      )
-    }
-  )
+    )
+  })
 
   const structuredRecent = `{  
-    "pages": [${recentResult}],
+    "pages": [${dataStorys}],
     "hideSelectors": [
       ".amp-header",
       ".ad-amp-movil",

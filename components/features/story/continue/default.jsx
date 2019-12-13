@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
+import schemaFilter from '../../stories-lists/card/_dependencies/schema-filter'
 
 const classes = {
   storyContinue:
@@ -29,6 +30,23 @@ class StoryContinue extends PureComponent {
     super(props)
     this.preview = 0
     this.position = 0
+    const {
+      globalContent: {
+        taxonomy: { primary_section: { path = '' } = {} },
+      },
+      arcSite,
+    } = this.props
+
+    this.fetchContent({
+      dataList: {
+        source: 'story-feed-by-section',
+        query: {
+          section: path,
+          stories_qty: 6,
+        },
+        filter: schemaFilter(arcSite),
+      },
+    })
   }
 
   componentDidMount() {
@@ -230,10 +248,26 @@ class StoryContinue extends PureComponent {
   }
 
   render() {
-    const { contextPath, globalContent: data, siteProperties } =
+    const { siteProperties, deployment, contextPath, arcSite } =
       this.props || {}
     const { siteUrl } = siteProperties
-    const { recentStoryContinue = [] } = new StoryData({ data, contextPath })
+    const { dataList: { content_elements: dataStorys } = {} } = this.state
+
+    const instance =
+      dataStorys &&
+      new StoryData({
+        deployment,
+        contextPath,
+        arcSite,
+        defaultImgSize: 'sm',
+      })
+    const recentStoryContinue = dataStorys.map(story => {
+      instance.__data = story
+      return {
+        basic: instance.title,
+        websiteUrl: instance.canonicalUrl,
+      }
+    })
     const { title, websiteUrl } = this.getNextArticle(
       recentStoryContinue,
       siteUrl

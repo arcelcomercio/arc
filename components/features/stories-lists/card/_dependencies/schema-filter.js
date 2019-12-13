@@ -1,6 +1,7 @@
 export default arcSite => {
   return `{
     content_elements { 
+      _id
       headlines { basic }
       websites { ${arcSite} { website_url } }
       display_date

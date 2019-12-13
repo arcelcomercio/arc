@@ -144,7 +144,6 @@ const pattern = (key = {}) => {
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
-
   return request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${newSection}`,
     ...options,

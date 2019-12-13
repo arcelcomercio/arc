@@ -103,24 +103,13 @@ const fetch = key => {
 
     if (dataStory.type === 'redirect') return dataStory
 
-    const {
-      taxonomy: { primary_section: { path: section } = {} } = {},
-    } = dataStory
-
-    const encodedBody = queryStoryRecent(section, site)
     return request({
-      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${site}&size=6&from=0&sort=display_date:desc`,
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${site}&published=true`,
       ...options,
-    }).then(recientesResp => {
-      dataStory.recent_stories = recientesResp
-      return request({
-        uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${site}&published=true`,
-        ...options,
-      }).then(idsResp => {
-        dataStory.related_content = idsResp
-        const result = transformImg(dataStory)
-        return result
-      })
+    }).then(idsResp => {
+      dataStory.related_content = idsResp
+      const result = transformImg(dataStory)
+      return result
     })
   })
 }

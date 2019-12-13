@@ -22,53 +22,6 @@ const options = {
   json: true,
 }
 
-const queryStoryRecent = (section, site) => {
-  const body = {
-    query: {
-      bool: {
-        must: [
-          {
-            term: {
-              'revision.published': 'true',
-            },
-          },
-          {
-            term: {
-              type: 'story',
-            },
-          },
-        ],
-      },
-    },
-  }
-
-  if (section && section !== '/') {
-    body.query.bool.must.push({
-      nested: {
-        path: 'taxonomy.sections',
-        query: {
-          bool: {
-            must: [
-              {
-                terms: {
-                  'taxonomy.sections._id': [section],
-                },
-              },
-              {
-                term: {
-                  'taxonomy.sections._website': site,
-                },
-              },
-            ],
-          },
-        },
-      },
-    })
-  }
-
-  return encodeURI(JSON.stringify(body))
-}
-
 const transformImg = data => {
   const storyData = data
   const { resizerUrl } = getProperties(data.website)
@@ -94,29 +47,13 @@ const transformImg = data => {
 const getAdditionalData = (storyData, website) => {
   if (storyData.type === 'redirect') return storyData
 
-  const {
-    taxonomy: { primary_section: { path: section } = {} } = {},
-  } = storyData
-
-  const excludedFields =
-    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website,subheadlines,description,related_content,credits,websites,content_restrictions'
-
-  const encodedBody = queryStoryRecent(section, website)
   return request({
-    uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=4&from=0&sort=display_date:desc${excludedFields}`,
+    uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${storyData._id}&website=${website}&published=true`,
     ...options,
-  }).then(recientesResp => {
-    storyData.recent_stories = recientesResp
-    return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${
-        storyData._id
-        }&website=${website}&published=true`,
-      ...options,
-    }).then(idsResp => {
-      storyData.related_content = idsResp
-      const result = transformImg(storyData)
-      return result
-    })
+  }).then(idsResp => {
+    storyData.related_content = idsResp
+    const result = transformImg(storyData)
+    return result
   })
 }
 
@@ -457,36 +394,6 @@ export default {
   website
   editor_note
   website_url
-  recent_stories{
-    content_elements{
-      canonical_url
-      promo_items{
-        basic{
-          url
-          subtitle
-        }
-        basic_gallery{
-          promo_items{
-            basic{
-              type
-              caption
-              subtitle
-              url
-              resized_urls{
-                landscape_md
-              }
-            }
-          }
-        }
-        ${basicVideo} 
-      }
-      publish_date
-      headlines{
-        basic
-      }
-      _id
-    }
-  }
   related_content{
     basic{
       _id

@@ -1,19 +1,17 @@
 import React from 'react'
-import ENV from 'fusion:environment'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
-import ChartbeatBody from './_children/chartbeat-body'
 import {
-  skipAdvertising,
   storyTagsBbc,
   addSlashToEnd,
   deleteQueryString,
   createMarkup,
 } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
+import StoriesRecent from '../global-components/stories-recent'
 
 const MobileOutput = ({
   children,
@@ -41,6 +39,7 @@ const MobileOutput = ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+    _id: id,
     promo_items: { basic_gallery: basicGallery = 0 } = {},
     taxonomy: {
       primary_section: { path: nameSeccion = '' } = {},
@@ -48,8 +47,11 @@ const MobileOutput = ({
     } = {},
     subtype = '',
     page_number: pageNumber = 1,
-    recent_stories: { content_elements: recentStories = [] } = {},
   } = globalContent || {}
+
+  const primarySectionLink = '/peru'
+
+  const resultStoryRecent = StoriesRecent(primarySectionLink, id, arcSite)
 
   const isStory =
     metaValue('id') === 'meta_story' ||
@@ -197,7 +199,7 @@ const MobileOutput = ({
   link = link.replace(/\/homepage[/]?$/, '/')
 
   const staticVariables = `window.MobileContent=${JSON.stringify({
-    recentStories: recentStories.map(
+    recentStories: resultStoryRecent.map(
       ({ canonical_url: canonicalUrl }) => canonicalUrl
     ),
   })}`

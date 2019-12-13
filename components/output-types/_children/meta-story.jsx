@@ -1,5 +1,7 @@
 import React from 'react'
 import ENV from 'fusion:environment'
+import StoriesRecent from '../../global-components/stories-recent'
+
 import StoryData from '../../utilities/story-data'
 import {
   formatHtmlToText,
@@ -34,7 +36,6 @@ export default ({
     videoSeo,
     contentElementsText: dataElement,
     relatedContent,
-    relatedStories,
     seoKeywords,
     breadcrumbList,
     multimediaType,
@@ -43,7 +44,8 @@ export default ({
     sourceUrlOld,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
-  const resultRelated = relatedContent[0] ? relatedContent : relatedStories
+  const resultStoryRecent = StoriesRecent(primarySectionLink, id, arcSite)
+  const resultRelated = relatedContent[0] ? relatedContent : resultStoryRecent
 
   const videoSeoItems = videoSeo.map(
     ({
