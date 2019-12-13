@@ -55,9 +55,9 @@ const classes = {
   shareLink: 'story-header__link flex items-center justify-center text-white',
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
-  navContainerRight: 'lg:flex items-center justify-end header__btn-container',
+  navContainerRight: 'flex items-center justify-end header__btn-container',
   btnSubscribe:
-    'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
+    'flex items-center btn btn--outline capitalize text-md mr-20',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -427,7 +427,7 @@ const HeaderChildInverted = ({
                   {siteProperties.activePaywall && (
                     <Button
                       btnText="Suscríbete"
-                      btnClass={`${classes.btnSubscribe}`}
+                      btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
                       btnLink={`${
                         siteProperties.urlSubsOnline
                         }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==

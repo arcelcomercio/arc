@@ -37,8 +37,9 @@ const classes = {
   logoLeft: 'header__logo-secondary',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
+  btnSubs: 'nav__btn-subs',
   btnContainer: 'flex items-center justify-end header__btn-container',
-  btnSubscribe: `flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block`,
+  btnSubscribe: `flex items-center btn btn--outline  capitalize text-md mr-20`,
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden line-h-sm',
@@ -532,7 +533,7 @@ class NavBarDefault extends PureComponent {
                 {siteProperties.activePaywall && (
                   <Button
                     btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe}`}
+                    btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
                     btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${typeof window !== 'undefined' && window.section || ''}`}
                   />
                 )}

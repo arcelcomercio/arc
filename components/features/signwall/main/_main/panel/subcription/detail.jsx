@@ -182,13 +182,7 @@ class SubDetail extends Component {
   }
 
   submitUpdateCard = subsID => {
-    const {
-      numcard,
-      dateexpire,
-      codecvv,
-      selectedOption,
-      fullName,
-    } = this.state
+    const { numcard, dateexpire, codecvv, selectedOption } = this.state
 
     const { arcSite, IdSubscription } = this.props
 
@@ -262,7 +256,7 @@ class SubDetail extends Component {
                     arcSite,
                     accessTOKEN,
                     `${token}~${deviceSessionId}~${codecvv}`,
-                    `${fullName.email || ''}`,
+                    profilePayu.email,
                     profilePayu.doc_number,
                     profilePayu.phone
                   )
@@ -337,7 +331,7 @@ class SubDetail extends Component {
   }
 
   showUpdatePayment() {
-    const { ShowUpdateCard, formErrors} = this.state
+    const { ShowUpdateCard, formErrors } = this.state
     this.setState({
       ShowUpdateCard: !ShowUpdateCard,
     })
