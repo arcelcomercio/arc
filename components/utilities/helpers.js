@@ -520,6 +520,10 @@ export const imageHtml = html => {
 
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
+  resHtml = resHtml.replace(
+    /<img (.*)src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g,
+    rplImageCde
+  )
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
   resHtml = resHtml
@@ -529,8 +533,8 @@ export const imageHtml = html => {
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
     .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
     .replace(/<IMG (.*)SRC="(.*)" WIDTH=([0-9])\w+>/g, rplImageCde)
-    .replace('<FONT', '<font') 
-      .replace(/<img (.*) src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g, rplImageCde)
+    .replace('<FONT', '<font')
+
   return resHtml
 }
 
@@ -596,15 +600,22 @@ export const iframeHtml = (html, arcSite = '') => {
       /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
       '$1'
     )
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /https:\/\/depor.com(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.depor.com$1'
-    )
+    const replaceTwitter = `<amp-soundcloud width="480" height="480" layout="responsive" data-playlistid="$3" data-visual="true" ></amp-soundcloud>`
+    htmlDataTwitter = htmlDataTwitter
+      .replace(
+        /https:\/\/depor.com(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+        'https://img.depor.com$1'
+      )
+      .replace(
+        /<iframe(.*) src="(.*)soundcloud.com\/playlists\/([0-9]*[0-9])(.+)">(.*)<\/iframe>/g,
+        replaceTwitter
+      )
   } else if (arcSite === ConfigParams.SITE_TROME) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.trome.pe$1'
     )
+
     htmlDataTwitter = htmlDataTwitter.replace(
       /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.trome.pe$1'
@@ -683,8 +694,9 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace('fjs.parentNode.insertBefore(js, fjs);', '')
     .replace("}(document, 'script', 'facebook-jssdk'));", '')
     .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
-    .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])+")/g, '')
+    .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~; +#!-])+")/g, '')
     .replace(/<iframe(.*)><\/iframe>/g, '')
+    .replace(/(hreef=)/g, 'href=')
   return htmlDataTwitter
 }
 
@@ -800,13 +812,13 @@ export const iframeMxm = (html, arcSite) => {
 }
 
 export const ampHtml = (html = '', arcSite = '') => {
-  let resultData = ''
+  let resultData = html
   // Opta Widget
   // Esta asignacion se esta sobreescribiendo con la que sigue.
   // resultData = replaceHtmlMigracion(html)
 
   // Opta Widget
-  resultData = deporPlay(html)
+  // resultData = deporPlay(html)
 
   // Opta Widget
   resultData = optaWidgetHtml(resultData)
