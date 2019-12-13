@@ -25,7 +25,7 @@ const resolve = key => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  const requestUri = `/content/v4/search/published?q=taxonomy.sites.path:"/${key.section ||
+  const requestUri = `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.sites.path:"/${key.section ||
     ''}"&sort=display_date:desc&from=0&size=1&website=${website}${excludedFields}`
   return requestUri
 }
@@ -48,4 +48,5 @@ export default {
   transform,
   schemaName,
   params,
+  ttl: 300,
 }

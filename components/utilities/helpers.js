@@ -1,4 +1,3 @@
-import { addResizedUrlItem } from './thumbs'
 import ConfigParams, {
   sizeImg,
   sizeImgNewsLetter,
@@ -197,17 +196,6 @@ export const getIcon = type => {
     default:
       return ''
   }
-}
-
-// Simplificación de la función addResizedUrlItem, ej: ratio = "16:9" resolution = "400x400"
-export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
-  if (imgUrl) {
-    const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
-      .resized_urls[ratio]
-
-    return test
-  }
-  return imgUrl
 }
 
 export const metaPaginationUrl = (

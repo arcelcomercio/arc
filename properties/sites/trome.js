@@ -67,15 +67,15 @@ export default {
   legalLinks: [
     {
       name: 'Términos y Condiciones',
-      url: '/terminos-y-condiciones',
+      url: '/terminos-y-condiciones/',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politica-de-privacidad',
+      url: '/politica-de-privacidad/',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politica-de-cookies',
+      url: '/politica-de-cookies/',
     },
   ],
 

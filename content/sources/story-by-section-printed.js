@@ -130,6 +130,7 @@ const source = {
   fetch,
   schemaName,
   params,
+  ttl: 600,
 }
 
 export default source
