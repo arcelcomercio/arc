@@ -34,7 +34,7 @@ export const Button = styled.a`
         }
       }
     }
-    @media (max-width: 1024px) {
+    ${theme.breakpoints.down('sm')} {
       position: fixed;
       bottom: 5%;
       left: 5%;
