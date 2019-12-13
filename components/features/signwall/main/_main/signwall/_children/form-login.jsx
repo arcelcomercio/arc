@@ -288,12 +288,21 @@ class FormLogin extends Component {
   handleSuscription = e => {
     const { removeBefore, typePopUp, arcSite } = this.props
     e.preventDefault()
-    window.sessionStorage.setItem(
-      'paywall_last_url',
-      window.document.referrer
-        ? window.document.referrer.split(window.location.origin)[1]
-        : ''
-    )
+
+    if (typePopUp === 'premium') {
+      window.sessionStorage.setItem(
+        'paywall_last_url',
+        window.location.pathname ? window.location.pathname : ''
+      )
+    } else {
+      window.sessionStorage.setItem(
+        'paywall_last_url',
+        window.document.referrer
+          ? window.document.referrer.split(window.location.origin)[1]
+          : ''
+      )
+    }
+
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typePopUp)

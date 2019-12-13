@@ -33,6 +33,7 @@ class SignwallComponent extends PureComponent {
       showReset: false,
       showReEmail: false,
       showPaywall: false,
+      showPremium: false,
       showRelogHash: false,
       userName: false,
       initialUser: false,
@@ -67,14 +68,17 @@ class SignwallComponent extends PureComponent {
   }
 
   getPremium() {
-    if (typeof window !== 'undefined') {
-      const W = window
+    this._isMounted = true
+    if (typeof window !== 'undefined' && this._isMounted) {
+      // const W = window
       if (!this.checkSession()) {
-        W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
+        // W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
+        this.setState({ showPremium: true })
       } else {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
-            W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
+            // W.location.href = `/?signwallPremium=1&ref=${W.location.pathname}`
+            this.setState({ showPremium: true })
           }
           return false // tengo subs :D
         })
@@ -222,7 +226,6 @@ class SignwallComponent extends PureComponent {
             this.setState({ showReEmail: true })
             break
           case 'signwallPaywall':
-          case 'signwallPremium':
             this.setState({ showPaywall: true })
             break
           case 'reloginHash':
@@ -286,6 +289,9 @@ class SignwallComponent extends PureComponent {
       case 'signwallPaywall':
         this.setState({ showPaywall: false })
         break
+      case 'signwallPremium':
+        this.setState({ showPremium: false })
+        break
       case 'reloginHash':
         this.setState({ showRelogHash: false })
         break
@@ -307,6 +313,7 @@ class SignwallComponent extends PureComponent {
       showReset,
       showReEmail,
       showPaywall,
+      showPremium,
       showRelogHash,
     } = this.state
     const { arcSite, siteProperties, classButton } = this.props
@@ -387,16 +394,21 @@ class SignwallComponent extends PureComponent {
           />
         ) : null}
 
-        {(this.getUrlParam('signwallPaywall') ||
-          this.getUrlParam('signwallPremium')) &&
+        {this.getUrlParam('signwallPaywall') &&
         showPaywall &&
         siteProperties.activePaywall ? (
           <SignWallPayPre
             closePopup={() => this.closePopUp('signwallPaywall')}
             brandModal={arcSite}
-            typeModal={
-              this.getUrlParam('signwallPaywall') ? 'paywall' : 'premium'
-            }
+            typeModal="paywall"
+          />
+        ) : null}
+
+        {showPremium && siteProperties.activePaywall ? (
+          <SignWallPayPre
+            closePopup={() => this.closePopUp('signwallPremium')}
+            brandModal={arcSite}
+            typeModal="premium"
           />
         ) : null}
 

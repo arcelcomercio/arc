@@ -25,7 +25,7 @@ class SignWallPaywall extends Component {
 
   componentWillMount() {
     window.Identity.apiOrigin = this.origin_api
-    if (window.Identity.userProfile) {
+    if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
       this.setState({
         showPaywallBtn: true,
       })
@@ -50,12 +50,21 @@ class SignWallPaywall extends Component {
   handleSuscription = e => {
     const { removeBefore, typePopUp, arcSite } = this.props
     e.preventDefault()
-    window.sessionStorage.setItem(
-      'paywall_last_url',
-      window.document.referrer
-        ? window.document.referrer.split(window.location.origin)[1]
-        : ''
-    )
+
+    if (typePopUp === 'premium') {
+      window.sessionStorage.setItem(
+        'paywall_last_url',
+        window.location.pathname ? window.location.pathname : ''
+      )
+    } else {
+      window.sessionStorage.setItem(
+        'paywall_last_url',
+        window.document.referrer
+          ? window.document.referrer.split(window.location.origin)[1]
+          : ''
+      )
+    }
+
     removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typePopUp)
@@ -131,14 +140,23 @@ class SignWallPaywall extends Component {
                           `web_${typePopUp}_boton_iniciar_continuar`
                         )
 
-                        window.sessionStorage.setItem(
-                          'paywall_last_url',
-                          window.document.referrer
-                            ? window.document.referrer.split(
-                                window.location.origin
-                              )[1]
-                            : ''
-                        )
+                        if (typePopUp === 'premium') {
+                          window.sessionStorage.setItem(
+                            'paywall_last_url',
+                            window.location.pathname
+                              ? window.location.pathname
+                              : ''
+                          )
+                        } else {
+                          window.sessionStorage.setItem(
+                            'paywall_last_url',
+                            window.document.referrer
+                              ? window.document.referrer.split(
+                                  window.location.origin
+                                )[1]
+                              : ''
+                          )
+                        }
 
                         value.changeTemplate('login')
                       }}
@@ -151,7 +169,7 @@ class SignWallPaywall extends Component {
                   ¿ESTÁS SUSCRITO AL DIARIO IMPRESO? <br />
                   Disfruta
                   <strong>
-                    {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS {' '}
+                    {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS{' '}
                   </strong>
                   y luego S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '} al mes.
                 </p>

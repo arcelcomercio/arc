@@ -142,13 +142,18 @@ class PayWallPremium extends Component {
                     />
                   </center>
                 </div>
-                <div className={`modal-body__middle intro-paywall intro-${arcSite}`}>
+                <div
+                  className={`modal-body__middle intro-paywall intro-${arcSite}`}>
                   <button
                     type="button"
                     className="btn-close"
                     onClick={() => {
                       Taggeo(`Web_${typeModal}_Hard`, `web_${typeModal}_cerrar`)
-                      closePopup()
+                      if (typeModal === 'premium') {
+                        window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
+                      } else {
+                        closePopup()
+                      }
                     }}>
                     <i className="icon-close"></i>
                   </button>
