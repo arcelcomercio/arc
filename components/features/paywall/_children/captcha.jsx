@@ -5,25 +5,31 @@ const Captcha = props => {
   const {
     className,
     dataSitekey,
-    field: { onChange, onBlur, name, value },
+    onChange,
+    field: { onChange: fieldOnChange, onBlur, name, value },
     form,
     meta,
     error,
     ...restProps
   } = props
 
+  const combineOnChange = response => {
+    onChange && onChange(response)
+    fieldOnChange && fieldOnChange(respones)
+  }
+
   const captchaResponse = React.useRef(value)
   useEffect(() => {
     window.__gcaptchaResponseCallback = response => {
-      onChange(response)
+      combineOnChange(response)
       captchaResponse.current = response
     }
     window.__gcaptchaExpiredCallback = response => {
-      onChange(response)
+      combineOnChange(response)
       captchaResponse.current = response
     }
     window.__gcaptchaErrorCallback = response => {
-      onChange(response)
+      combineOnChange(response)
       captchaResponse.current = response
     }
   }, [])
