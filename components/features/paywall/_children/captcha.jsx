@@ -54,6 +54,7 @@ const StyledCaptcha = styled(Captcha)`
     css`
       position: relative;
       border: solid 1px #db0000;
+      border-radius: 4px;
       & p {
         color: #db0000;
         margin-top: 5px;
