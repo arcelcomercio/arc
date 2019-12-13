@@ -81,15 +81,15 @@ class GridSectionColumns extends Component {
               headlines { basic }
               websites { ${arcSite} { website_url } }
               promo_items {
-                basic { resized_urls { 314x157 } }
+                basic { resized_urls { mobile } }
                 basic_video {
                   promo_items {
-                    basic { resized_urls { 314x157 } }
+                    basic { resized_urls { mobile } }
                   }
                 }
                 basic_gallery {
                   promo_items {
-                    basic { resized_urls { 314x157 } }
+                    basic { resized_urls { mobile } }
                   }
                 }
                 youtube_id { content }
@@ -116,18 +116,18 @@ class GridSectionColumns extends Component {
                   } = {},
                   credits: { by: [{ name, url } = {}] = [] } = {},
                   promo_items: {
-                    basic: { resized_urls: { '314x157': basicUrl } = {} } = {},
+                    basic: { resized_urls: { mobile: basicUrl } = {} } = {},
                     basic_video: {
                       promo_items: {
                         basic: {
-                          resized_urls: { '314x157': basicVideoUrl } = {},
+                          resized_urls: { mobile: basicVideoUrl } = {},
                         } = {},
                       } = {},
                     } = {},
                     basic_gallery: {
                       promo_items: {
                         basic: {
-                          resized_urls: { '314x157': basicGalleryUrl } = {},
+                          resized_urls: { mobile: basicGalleryUrl } = {},
                         } = {},
                       } = {},
                     } = {},

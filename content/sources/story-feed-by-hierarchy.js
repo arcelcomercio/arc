@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
+// Es prueba
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
@@ -20,6 +21,16 @@ const params = [
   {
     name: 'size',
     displayName: 'Cantidad de noticias por jerarquía',
+    type: 'text',
+  },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes',
+    type: 'text',
+  },
+  {
+    name: 'includedFields',
+    displayName: 'Campos incluidos',
     type: 'text',
   },
 ]
@@ -71,17 +82,17 @@ const queryStoryRecent = (section, site) => {
   return encodeURI(JSON.stringify(body))
 }
 
-const transformImg = ({ contentElements, website }) => {
+const transformImg = ({ contentElements, website, presets }) => {
   const { resizerUrl } = getProperties(website)
   return addResizedUrlsToStories({
     contentElements,
     resizerUrl,
     resizerSecret,
-    presets: '314x157',
+    presets,
   })
 }
 
-const getStoriesBySection = ({ navigation, size, website }) => {
+const getStoriesBySection = ({ navigation, size, website, presets }) => {
   const includedFields =
     '&_sourceInclude=websites,promo_items,headlines,credits'
 
@@ -93,7 +104,8 @@ const getStoriesBySection = ({ navigation, size, website }) => {
       uri: `${CONTENT_BASE}/content/v4/search/published?body=${queryStoryRecent(
         _id,
         website
-      )}&website=${website}&size=${size}&from=0&sort=display_date:desc${includedFields}`,
+      )}&website=${website}&size=${size ||
+        5}&from=0&sort=display_date:desc${includedFields}`,
       ...options,
     })
   )
@@ -103,17 +115,22 @@ const getStoriesBySection = ({ navigation, size, website }) => {
     navigationWithStories.children = sections.map((section, i) => {
       const sectionWithStories = section
       const { content_elements: contentElements } = stories[i] || {}
-      sectionWithStories.content_elements = transformImg({
-        contentElements,
-        website,
-      })
+      if (presets) {
+        sectionWithStories.content_elements = transformImg({
+          contentElements,
+          website,
+          presets,
+        })
+      } else {
+        sectionWithStories.content_elements = contentElements
+      }
       return sectionWithStories
     })
     return navigationWithStories
   })
 }
 
-const fetch = ({ 'arc-site': website, hierarchy, size = 5 }) => {
+const fetch = ({ 'arc-site': website, hierarchy, size, presets }) => {
   return request({
     uri: `${CONTENT_BASE}/site/v3/navigation/${website}/?hierarchy=${hierarchy ||
       'default'}`,
@@ -123,6 +140,7 @@ const fetch = ({ 'arc-site': website, hierarchy, size = 5 }) => {
       navigation,
       size,
       website,
+      presets,
     })
   })
 }
