@@ -17,7 +17,10 @@ export const Subsdetail = styled.div`
   font-size: 14px;
   padding: ${props => (props.nopadding ? '0px' : '10px 20px')};
   border-radius: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  @media ${device.desktop} {
+    display: table;
+  }
   & .pass {
     font-size: 30px;
     vertical-align: middle;
@@ -28,6 +31,9 @@ export const Subsdetail = styled.div`
   & .details-right {
     display: inline-block;
     vertical-align: top;
+    @media ${device.desktop} {
+      display: table-cell;
+    }
   }
   & .details-left {
     background: #444444;

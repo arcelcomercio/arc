@@ -6,6 +6,7 @@ export const WrapperBlock = styled.div`
   position: relative;
   width: 100%;
   margin-bottom: 20px;
+
   &:last-child {
     margin-bottom: 0px;
   }
@@ -24,10 +25,7 @@ export const WrapperBlock = styled.div`
       line-height: 28px;
       color: black;
       font-weight: bold;
-      @media ${device.tablet} {
-        font-size: 18px;
-      }
-      @media ${device.desktop} {
+      @media screen and (min-width: 1025px) {
         font-size: 20px;
       }
     }
@@ -44,8 +42,8 @@ export const WrapperBlock = styled.div`
       }
     }
   }
-  
-  & .column{
+
+  & .column {
     width: 100%;
     column-count: 1;
     @media ${device.desktop} {
@@ -66,7 +64,12 @@ export const WrapperBlock = styled.div`
     @media ${device.desktop} {
       width: 80%;
     }
-    
+    & .details {
+      @media ${device.desktop} {
+        width: 100%;
+        display: table;
+      }
+    }
     & .pass {
       font-size: 30px;
       vertical-align: sub;
@@ -77,6 +80,9 @@ export const WrapperBlock = styled.div`
     & .details-right {
       display: inline-block;
       vertical-align: top;
+      @media ${device.desktop} {
+        display: table-cell;
+      }
     }
     & .details-left {
       background: #444444;
@@ -100,7 +106,7 @@ export const WrapperBlock = styled.div`
       }
     }
 
-    & .link{
+    & .link {
       color: #0179af;
       font-size: 14px;
       font-weight: bold;
@@ -123,12 +129,12 @@ export const WrapperBlock = styled.div`
     & .add-item {
       margin: 5px 5px;
       position: relative;
-      width:calc(50% - 10px);
-      & img{
+      width: calc(50% - 10px);
+      & img {
         height: 100%;
       }
       @media screen and (min-width: 568px) {
-        width:calc(33.3% - 20px);
+        width: calc(33.3% - 20px);
         margin: 10px 10px;
       }
     }
@@ -145,7 +151,7 @@ export const WrapperBlock = styled.div`
         position: absolute;
         bottom: 0;
         right: 0;
-       
+
         line-height: 16px;
         width: 100%;
         @media ${device.desktop} {
@@ -166,7 +172,7 @@ export const WrapperBlock = styled.div`
     }
 
     & .add-item {
-      background:#ffffff;
+      background: #ffffff;
       text-align: center;
       border: 2px #818181 dashed;
       color: #818181;

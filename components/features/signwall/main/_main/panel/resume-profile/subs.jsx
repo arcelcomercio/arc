@@ -174,57 +174,59 @@ class Subs extends Component {
                       </div>
 
                       <div className="right">
-                        <div className="details-left">
-                          <p className="small">DETALLE DE LA SUSCRIPCIÓN</p>
-                          <h2>{reSubs.productName}</h2>
-                        </div>
-                        <div className="details-right">
-                          {listBundle.includes(reSubs.priceCode) ? (
-                            <p>
-                              ¡Hola! Encuentra todos los detalles de tu
-                              suscripción DIGITAL + IMPRESA en:{' '}
-                              <a
-                                className="link"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href={`https://suscripciones.${arcSite}.pe/suscripciones/?ref=SignWallProfile`}>
-                                Suscripciones Online
-                              </a>
-                            </p>
-                          ) : (
-                            <>
+                        <div className="details">
+                          <div className="details-left">
+                            <p className="small">DETALLE DE LA SUSCRIPCIÓN</p>
+                            <h2>{reSubs.productName}</h2>
+                          </div>
+                          <div className="details-right">
+                            {listBundle.includes(reSubs.priceCode) ? (
                               <p>
-                                <strong>Plan de pago: </strong>{' '}
-                                {reSubs.paymentHistory[0] && (
-                                  <span>
-                                    {(new Date(
-                                      reSubs.paymentHistory[0].periodTo
-                                    ) -
-                                      new Date(
-                                        reSubs.paymentHistory[0].periodFrom
-                                      )) /
-                                      (1000 * 60 * 60 * 24) <=
-                                    31
-                                      ? 'MENSUAL'
-                                      : 'ANUAL'}
-                                  </span>
-                                )}
+                                ¡Hola! Encuentra todos los detalles de tu
+                                suscripción DIGITAL + IMPRESA en:{' '}
+                                <a
+                                  className="link"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  href={`https://suscripciones.${arcSite}.pe/suscripciones/?ref=SignWallProfile`}>
+                                  Suscripciones Online
+                                </a>
                               </p>
-                              <p>
-                                <strong>Precio: </strong>{' '}
-                                {reSubs.salesOrders[0] && (
-                                  <span>
-                                    {reSubs.salesOrders[0].total !== 0
-                                      ? ` S/ ${reSubs.salesOrders[0].total}`
-                                      : 'GRATIS'}
-                                  </span>
-                                )}
-                              </p>
-                            </>
-                          )}
-                          {/* <p className="small">
+                            ) : (
+                              <>
+                                <p>
+                                  <strong>Plan de pago: </strong>{' '}
+                                  {reSubs.paymentHistory[0] && (
+                                    <span>
+                                      {(new Date(
+                                        reSubs.paymentHistory[0].periodTo
+                                      ) -
+                                        new Date(
+                                          reSubs.paymentHistory[0].periodFrom
+                                        )) /
+                                        (1000 * 60 * 60 * 24) <=
+                                      31
+                                        ? 'MENSUAL'
+                                        : 'ANUAL'}
+                                    </span>
+                                  )}
+                                </p>
+                                <p>
+                                  <strong>Precio: </strong>{' '}
+                                  {reSubs.salesOrders[0] && (
+                                    <span>
+                                      {reSubs.salesOrders[0].total !== 0
+                                        ? ` S/ ${reSubs.salesOrders[0].total}`
+                                        : 'GRATIS'}
+                                    </span>
+                                  )}
+                                </p>
+                              </>
+                            )}
+                            {/* <p className="small">
                               *POR 6 MESES LUEGO S/ 20 CADA MES
                             </p> */}
+                          </div>
                         </div>
                       </div>
                     </WrapperBlock>
