@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { device } from '../../../_styles/breakpoints'
 import { Facebook, Google, Mail } from '../../common/iconos'
 import { Button } from './styles'
-import Services from '../../utils/new_services'
+import Services from '../../utils/services'
 import Domains from '../../utils/domains'
-import Cookies from '../../utils/new_cookies'
+import Cookies from '../../utils/cookies'
 import getDevice from '../../utils/get-device'
 
 export const ButtonStyleSocial = styled(Button)`

@@ -5,8 +5,6 @@ import Checkbox from './Checkbox'
 import Loading from '../../common/loading'
 import Services from '../../utils/services'
 
-const services = new Services()
-
 @Consumer
 class NewsLetter extends Component {
   state = {
@@ -35,7 +33,7 @@ class NewsLetter extends Component {
 
     const listAllNews = { ...[] }
 
-    services.getNewsLetters().then(resNews => {
+    Services.getNewsLetters().then(resNews => {
       resNews[SITE].map(item => {
         listAllNews[item.code] = false
         return null
@@ -59,7 +57,7 @@ class NewsLetter extends Component {
           return null
         })
       } else {
-        services.getNewsLettersUser(UUID, SITE).then(res => {
+        Services.getNewsLettersUser(UUID, SITE).then(res => {
           if (res.data.length >= 1) {
             res.data.map(item => {
               this.setState(prevState => ({
@@ -88,10 +86,9 @@ class NewsLetter extends Component {
     const EMAIL = window.Identity.userProfile.email
 
     window.Identity.extendSession().then(extSess => {
-      services
-        .sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
-          ...selectCategories,
-        ])
+      Services.sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
+        ...selectCategories,
+      ])
         .then(() => {
           if (this.newSetCategories) {
             this.newSetCategories = null

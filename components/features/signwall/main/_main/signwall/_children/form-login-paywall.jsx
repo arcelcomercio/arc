@@ -5,14 +5,12 @@ import React, { Component } from 'react'
 import { sha256 } from 'js-sha256'
 import Consumer from 'fusion:consumer'
 import AuthFacebook from './social-auths/auth-facebook'
-import Cookie from '../../utils/cookie'
+import Cookies from '../../utils/cookies'
 import { emailRegex } from '../../utils/regex'
 import FormValid from '../../utils/form-valid'
 import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
 import Taggeo from '../../utils/taggeo'
-
-const Cookies = new Cookie()
 
 @Consumer
 class FormLoginPaywall extends Component {
@@ -110,7 +108,7 @@ class FormLoginPaywall extends Component {
       Cookies.setCookie('arc_e_id', sha256(email), 365)
       Cookies.deleteCookie('mpp_sess')
       onLogged(resGetProfile)
-      dataLayer.push({
+      window.dataLayer.push({
         event: 'loginSuccessful',
         ecommerce: {
           dataUser: {
@@ -122,7 +120,7 @@ class FormLoginPaywall extends Component {
           },
         },
       })
-      
+
       if (reloadLogin) {
         window.location.reload()
       } else {
@@ -244,7 +242,7 @@ class FormLoginPaywall extends Component {
                       tabIndex="1"
                       value={email || ''}
                     />
-                    
+
                     {/* <label htmlFor="email" className="form-group__label">
                       Correo Electrónico
                     </label> */}

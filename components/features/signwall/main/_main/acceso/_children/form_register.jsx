@@ -13,8 +13,8 @@ import useForm from './useForm'
 import getDevice from '../../utils/get-device'
 import { FormStudents } from './form_students'
 import Domains from '../../utils/domains'
-import Cookies from '../../utils/new_cookies'
-import Services from '../../utils/new_services'
+import Cookies from '../../utils/cookies'
+import Services from '../../utils/services'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormRegister = props => {

@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import GetProfile from '../../utils/get-profile'
 import Services from '../../utils/services'
 import { WrapperBlock } from './styles'
-// import { ModalConsumer } from '../../../signwall/context'
-
-const services = new Services()
 
 class Prof extends Component {
   _isMounted = false
@@ -93,7 +90,7 @@ class Prof extends Component {
         default:
       }
     }
-    const result = services.getUbigeo(value)
+    const result = Services.getUbigeo(value)
 
     result
       .then(geoData => {

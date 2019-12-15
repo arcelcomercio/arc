@@ -14,8 +14,6 @@ import { clean } from '../../utils/object'
 import GetProfile from '../../utils/get-profile'
 import Domains from '../../utils/domains'
 
-const services = new Services()
-
 const SET_ATTRIBUTES_PROFILE = [
   'documentType',
   'documentNumber',
@@ -138,7 +136,7 @@ class UpdateProfile extends Component {
         default:
       }
     }
-    const result = services.getUbigeo(value)
+    const result = Services.getUbigeo(value)
 
     result
       .then(geoData => {
@@ -328,7 +326,7 @@ class UpdateProfile extends Component {
           formErrors.firstName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
-          (value !== 'null' && value !== 'undefined')
+          value !== 'null' && value !== 'undefined'
         ) {
           formErrors.firstName = ''
         } else {
@@ -340,7 +338,7 @@ class UpdateProfile extends Component {
           formErrors.lastName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
-          (value !== 'null' && value !== 'undefined')
+          value !== 'null' && value !== 'undefined'
         ) {
           formErrors.lastName = ''
         } else {
@@ -352,7 +350,7 @@ class UpdateProfile extends Component {
           formErrors.secondLastName = 'Longitud inválida, mínimo 2 caracteres'
         } else if (
           namesRegex.test(value) &&
-          (value !== 'null' && value !== 'undefined')
+          value !== 'null' && value !== 'undefined'
         ) {
           formErrors.secondLastName = ''
         } else {
@@ -480,7 +478,7 @@ class UpdateProfile extends Component {
             )}
           </div>
         </div>
-        
+
         <div className="form-grid__row form-grid__row--three">
           <div className="form-group">
             <input

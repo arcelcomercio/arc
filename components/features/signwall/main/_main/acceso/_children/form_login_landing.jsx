@@ -10,7 +10,7 @@ import { Input } from './control_input'
 import useForm from './useForm'
 import getCodeError from './codes_error'
 import Domains from '../../utils/domains'
-import Cookies from '../../utils/new_cookies'
+import Cookies from '../../utils/cookies'
 
 // eslint-disable-next-line import/prefer-default-export
 export const FormLoginPaywall = props => {

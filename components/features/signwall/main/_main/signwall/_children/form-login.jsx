@@ -7,15 +7,13 @@ import FormValid from '../../utils/form-valid'
 import * as Icon from '../../common/iconos'
 import ListBenefits from './benefits'
 import AuthFacebook from './social-auths/auth-facebook'
-import Cookie from '../../utils/cookie'
+import Cookies from '../../utils/cookies'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
 import Taggeo from '../../utils/taggeo'
 import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
-
-const Cookies = new Cookie()
-const services = new Services()
+import Loading from '../../common/loading'
 
 const signwallSimple = [
   'peru21g21',
@@ -46,6 +44,7 @@ class FormLogin extends Component {
       sending: true,
       showCheckPremium: false,
       userWithSubs: false,
+      isLoading: true,
     }
 
     const { arcSite } = this.props
@@ -60,8 +59,10 @@ class FormLogin extends Component {
     const { arcSite } = this.props
     const W = window
     return W.Identity.extendSession().then(resExt => {
-      const checkEntitlement = services
-        .getEntitlement(resExt.accessToken, arcSite)
+      const checkEntitlement = Services.getEntitlement(
+        resExt.accessToken,
+        arcSite
+      )
         .then(res => {
           if (res.skus) {
             const result = Object.keys(res.skus).map(key => {
@@ -105,14 +106,13 @@ class FormLogin extends Component {
             case '300037':
             case '300040':
               // aqui va el api de Guido:
-              services
-                .reloginEcoID(
-                  email,
-                  password,
-                  typePopUp === 'organico' ? 'organico' : '1',
-                  arcSite,
-                  window
-                )
+              Services.reloginEcoID(
+                email,
+                password,
+                typePopUp === 'organico' ? 'organico' : '1',
+                arcSite,
+                window
+              )
                 .then(resEco => {
                   if (resEco.retry) {
                     setTimeout(() => {
@@ -192,9 +192,7 @@ class FormLogin extends Component {
     window.Identity.getUserProfile().then(resProfile => {
       Cookies.setCookie('arc_e_id', sha256(resProfile.email), 365)
       Cookies.deleteCookie('mpp_sess')
-      // window.localStorage.setItem('ArcId._ID', resProfile.uuid)
 
-      // set token cookie
       const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
       Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
@@ -206,10 +204,12 @@ class FormLogin extends Component {
           if (p && p.length === 0) {
             this.setState({
               userWithSubs: false, // no tengo subs
+              isLoading: false,
             })
           } else {
             this.setState({
               userWithSubs: true, // tengo subs
+              isLoading: false,
             })
           }
         })
@@ -338,6 +338,7 @@ class FormLogin extends Component {
       hiddenbutton,
       showCheckPremium,
       userWithSubs,
+      isLoading,
     } = this.state
     const { closePopup, typePopUp, typeForm, arcSite } = this.props
     return (
@@ -468,10 +469,6 @@ class FormLogin extends Component {
                           }
                         />
 
-                        {/* <label htmlFor="password" className="form-group__label">
-                          Contraseña
-                        </label> */}
-
                         {formErrors.password.length > 0 && (
                           <span className="message__error">
                             {formErrors.password}
@@ -583,75 +580,81 @@ class FormLogin extends Component {
                 )}
               </form>
             ) : (
-              <form className="form-grid">
-                <div className="form-grid__group form-group--center">
-                  <Icon.MsgRegister
-                    className="form-grid__icon text-center"
-                    bgcolor={
-                      {
-                        elcomercio: '#fecd26',
-                        elcomerciomag: '#fecd26',
-                        gestion: '#F4E0D2',
-                        peru21: '#d5ecff',
-                        peru21g21: '#d5ecff',
-                        elbocon: '#fdabab',
-                        depor: '#d5d945',
-                      }[arcSite]
-                    }
-                  />
-                </div>
-
-                <div className="form-grid__group">
-                  <h1 className="form-grid__info text-center">
-                    Bienvenido{' '}
-                    {window.Identity.userProfile.firstName || 'Usuario'}
-                  </h1>
-                  <p className="form-grid__info-sub text-center">
-                    {userWithSubs
-                      ? 'Sigue disfrutando del contenido exclusivo que tenemos para ti'
-                      : 'Ahora puedes continuar con tu compra'}
-                  </p>
-                </div>
-
-                <div className="form-grid__group">
-                  <div className="form-group form-group--center mt-20">
-                    {userWithSubs ? (
-                      <input
-                        type="button"
-                        className="btn btn-bg"
-                        value="SIGUE NAVEGANDO"
-                        onClick={() => {
-                          Taggeo(
-                            `Web_${typePopUp}_Hard`,
-                            `web_${typePopUp}_boton_sigue_navegando`
-                          )
-                          if (
-                            window.sessionStorage.hasOwnProperty(
-                              'paywall_last_url'
-                            ) &&
-                            window.sessionStorage.getItem(
-                              'paywall_last_url'
-                            ) !== ''
-                          ) {
-                            window.location.href = window.sessionStorage.getItem(
-                              'paywall_last_url'
-                            )
-                          } else {
-                            closePopup()
-                          }
-                        }}
+              <>
+                {isLoading ? (
+                  <Loading site={arcSite} />
+                ) : (
+                  <form className="form-grid">
+                    <div className="form-grid__group form-group--center">
+                      <Icon.MsgRegister
+                        className="form-grid__icon text-center"
+                        bgcolor={
+                          {
+                            elcomercio: '#fecd26',
+                            elcomerciomag: '#fecd26',
+                            gestion: '#F4E0D2',
+                            peru21: '#d5ecff',
+                            peru21g21: '#d5ecff',
+                            elbocon: '#fdabab',
+                            depor: '#d5d945',
+                          }[arcSite]
+                        }
                       />
-                    ) : (
-                      <input
-                        type="button"
-                        className="btn btn-bg"
-                        value="VER PLANES"
-                        onClick={e => this.handleSuscription(e)}
-                      />
-                    )}
-                  </div>
-                </div>
-              </form>
+                    </div>
+
+                    <div className="form-grid__group">
+                      <h1 className="form-grid__info text-center">
+                        Bienvenido{' '}
+                        {window.Identity.userProfile.firstName || 'Usuario'}
+                      </h1>
+                      <p className="form-grid__info-sub text-center">
+                        {userWithSubs
+                          ? 'Sigue disfrutando del contenido exclusivo que tenemos para ti'
+                          : 'Ahora puedes continuar con tu compra'}
+                      </p>
+                    </div>
+
+                    <div className="form-grid__group">
+                      <div className="form-group form-group--center mt-20">
+                        {userWithSubs ? (
+                          <input
+                            type="button"
+                            className="btn btn-bg"
+                            value="SIGUE NAVEGANDO"
+                            onClick={() => {
+                              Taggeo(
+                                `Web_${typePopUp}_Hard`,
+                                `web_${typePopUp}_boton_sigue_navegando`
+                              )
+                              if (
+                                window.sessionStorage.hasOwnProperty(
+                                  'paywall_last_url'
+                                ) &&
+                                window.sessionStorage.getItem(
+                                  'paywall_last_url'
+                                ) !== ''
+                              ) {
+                                window.location.href = window.sessionStorage.getItem(
+                                  'paywall_last_url'
+                                )
+                              } else {
+                                closePopup()
+                              }
+                            }}
+                          />
+                        ) : (
+                          <input
+                            type="button"
+                            className="btn btn-bg"
+                            value="VER PLANES"
+                            onClick={e => this.handleSuscription(e)}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </form>
+                )}
+              </>
             )}
           </div>
         )}

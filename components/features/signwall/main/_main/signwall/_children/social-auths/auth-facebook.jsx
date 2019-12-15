@@ -2,14 +2,11 @@ import React from 'react'
 import Consumer from 'fusion:consumer'
 import { sha256 } from 'js-sha256'
 import { Facebook } from '../../../common/iconos'
-import Cookie from '../../../utils/cookie'
+import Cookies from '../../../utils/cookies'
 import getDevice from '../../../utils/get-device'
 import Services from '../../../utils/services'
 import Taggeo from '../../../utils/taggeo'
 import Domains from '../../../utils/domains'
-
-const Cookies = new Cookie()
-const services = new Services()
 
 @Consumer
 class AuthFacebook extends React.Component {
@@ -73,8 +70,7 @@ class AuthFacebook extends React.Component {
       sendingFbText: 'Cargando...',
     })
 
-    services
-      .loginFBeco(this.origin_api, '', data.data.accessToken, 'facebook')
+    Services.loginFBeco(this.origin_api, '', data.data.accessToken, 'facebook')
       .then(resLoginFb => {
         if (resLoginFb.accessToken) {
           this.setState({
@@ -168,7 +164,7 @@ class AuthFacebook extends React.Component {
                   arcSite === 'gestion' &&
                   EMAIL_USER.indexOf('facebook.com') < 0
                 ) {
-                  services.sendNewsLettersUser(
+                  Services.sendNewsLettersUser(
                     resPro.uuid,
                     EMAIL_USER,
                     arcSite,

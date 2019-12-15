@@ -7,16 +7,13 @@ import Consumer from 'fusion:consumer'
 import * as Icon from '../../common/iconos'
 import AuthFacebook from './social-auths/auth-facebook'
 import ListBenefits from './benefits'
-import Cookie from '../../utils/cookie'
+import Cookies from '../../utils/cookies'
 import { emailRegex } from '../../utils/regex'
 import Services from '../../utils/services'
 import FormValid from '../../utils/form-valid'
 import Taggeo from '../../utils/taggeo'
 import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
-
-const Cookies = new Cookie()
-const services = new Services()
 
 @Consumer
 class FormReLogin extends Component {
@@ -79,14 +76,13 @@ class FormReLogin extends Component {
             case '300040':
             case '300037':
               // aqui va el api de Guido:
-              services
-                .reloginEcoID(
-                  email,
-                  password,
-                  typePopUp === 'relogin' ? 'relogin' : 'reloginemail',
-                  arcSite,
-                  window
-                )
+              Services.reloginEcoID(
+                email,
+                password,
+                typePopUp === 'relogin' ? 'relogin' : 'reloginemail',
+                arcSite,
+                window
+              )
                 .then(resEco => {
                   if (resEco.retry === true) {
                     setTimeout(() => {
@@ -310,100 +306,99 @@ class FormReLogin extends Component {
                 </h1>
 
                 {/* <div className="form-grid__group"> */}
-                  <div
-                    className={`form-grid--error ${messageError && 'active'}`}>
-                    {messageError}
-                  </div>
+                <div className={`form-grid--error ${messageError && 'active'}`}>
+                  {messageError}
+                </div>
 
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      name="email"
-                      className={
-                        formErrors.email.length > 0
-                          ? 'form-group__input form-group__input--error'
-                          : 'form-group__input'
-                      }
-                      placeholder="Correo Electrónico"
-                      noValidate
-                      onChange={this.handleChangeValidation}
-                    />
-                    
-                    {/* <label htmlFor="email" className="form-group__label">
+                <div className="form-group">
+                  <input
+                    type="email"
+                    name="email"
+                    className={
+                      formErrors.email.length > 0
+                        ? 'form-group__input form-group__input--error'
+                        : 'form-group__input'
+                    }
+                    placeholder="Correo Electrónico"
+                    noValidate
+                    onChange={this.handleChangeValidation}
+                  />
+
+                  {/* <label htmlFor="email" className="form-group__label">
                         Correo Electrónico
                       </label> */}
 
-                    {formErrors.email.length > 0 && (
-                      <span className="message__error">{formErrors.email}</span>
-                    )}
-                  </div>
+                  {formErrors.email.length > 0 && (
+                    <span className="message__error">{formErrors.email}</span>
+                  )}
+                </div>
 
-                  <div className="form-group row-pass">
-                    <input
-                      type={hiddenPass ? 'password' : 'text'}
-                      name="password"
-                      className={
-                        formErrors.password.length > 0
-                          ? 'form-group__input form-group__input--error'
-                          : 'form-group__input'
-                      }
-                      placeholder="Contraseña"
-                      noValidate
-                      onChange={this.handleChangeValidation}
-                    />
-                    <input
-                      type="button"
-                      onClick={() => this.toggleShow()}
-                      className={
-                        hiddenPass
-                          ? 'row-pass__btn row-pass--hide'
-                          : 'row-pass__btn row-pass--show'
-                      }
-                    />
+                <div className="form-group row-pass">
+                  <input
+                    type={hiddenPass ? 'password' : 'text'}
+                    name="password"
+                    className={
+                      formErrors.password.length > 0
+                        ? 'form-group__input form-group__input--error'
+                        : 'form-group__input'
+                    }
+                    placeholder="Contraseña"
+                    noValidate
+                    onChange={this.handleChangeValidation}
+                  />
+                  <input
+                    type="button"
+                    onClick={() => this.toggleShow()}
+                    className={
+                      hiddenPass
+                        ? 'row-pass__btn row-pass--hide'
+                        : 'row-pass__btn row-pass--show'
+                    }
+                  />
 
-                    {/* <label htmlFor="password" className="form-group__label">
+                  {/* <label htmlFor="password" className="form-group__label">
                         Contraseña
                       </label> */}
 
-                    {formErrors.password.length > 0 && (
-                      <span className="message__error">
-                        {formErrors.password}
-                      </span>
-                    )}
+                  {formErrors.password.length > 0 && (
+                    <span className="message__error">
+                      {formErrors.password}
+                    </span>
+                  )}
 
-                    <p className="form-grid__pass">
-                      <button
-                        id="link-recuperar-pass"
-                        onClick={() => {
-                          Taggeo(
-                            `Web_Sign_Wall_${typePopUp}`,
-                            `web_sw${typePopUp[0]}_contrasena_link_olvide`
-                          )
-                          value.changeTemplate('forgot')
-                        }}
-                        type="button"
-                        className="link-gray">
-                        Olvidé mi contraseña
-                      </button>
-                    </p>
-                  </div>
-
-                  <div className="form-group">
-                    <input
-                      type="submit"
-                      name="ingresar"
-                      id="login_boton_ingresar"
-                      className="btn btn-bg"
-                      value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
-                      onClick={() =>
+                  <p className="form-grid__pass">
+                    <button
+                      id="link-recuperar-pass"
+                      onClick={() => {
                         Taggeo(
                           `Web_Sign_Wall_${typePopUp}`,
-                          `web_sw${typePopUp[0]}_email_login_boton`
+                          `web_sw${typePopUp[0]}_contrasena_link_olvide`
                         )
-                      }
-                      disabled={!sending}
-                    />
-                  </div>
+                        value.changeTemplate('forgot')
+                      }}
+                      type="button"
+                      className="link-gray">
+                      Olvidé mi contraseña
+                    </button>
+                  </p>
+                </div>
+
+                <div className="form-group">
+                  <input
+                    type="submit"
+                    name="ingresar"
+                    id="login_boton_ingresar"
+                    className="btn btn-bg"
+                    value={!sending ? 'Ingresando...' : 'Iniciar Sesión'}
+                    onClick={() =>
+                      Taggeo(
+                        `Web_Sign_Wall_${typePopUp}`,
+                        `web_sw${typePopUp[0]}_email_login_boton`
+                      )
+                    }
+                    disabled={!sending}
+                  />
+                </div>
                 {/* </div> */}
 
                 <div className="form-grid__group">

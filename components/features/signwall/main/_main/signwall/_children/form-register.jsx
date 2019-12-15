@@ -12,15 +12,12 @@ import {
 } from '../../utils/regex'
 import AuthFacebook from './social-auths/auth-facebook'
 import getDevice from '../../utils/get-device'
-import Cookie from '../../utils/cookie'
+import Cookies from '../../utils/cookies'
 import FormValid from '../../utils/form-valid'
 import Taggeo from '../../utils/taggeo'
 import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
 import Services from '../../utils/services'
-
-const Cookies = new Cookie()
-const services = new Services()
 
 @Consumer
 class FormRegister extends Component {
@@ -138,7 +135,7 @@ class FormRegister extends Component {
 
           // NEWSLETTER POR DEFAULT
           if (arcSite === 'gestion') {
-            services.sendNewsLettersUser(
+            Services.sendNewsLettersUser(
               window.Identity.userIdentity.uuid,
               EmailUserNew,
               arcSite,

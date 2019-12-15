@@ -86,7 +86,6 @@ class PayWallPremium extends Component {
       closePopup,
       typeModal,
       contextPath,
-      // siteProperties,
       arcSite,
       deployment,
     } = this.props
@@ -125,13 +124,6 @@ class PayWallPremium extends Component {
                   </p>
                   <h3 className="title-xl mt-30 font-bold">Plan Digital</h3>
                   <center>
-                    {/* <img
-                          className="mt-40"
-                          alt=""
-                          src={deployment(
-                            `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.nav.logo}`
-                          )}
-                        /> */}
                     <img
                       style={{ maxWidth: '320px', height: 'auto' }}
                       className="mt-40"

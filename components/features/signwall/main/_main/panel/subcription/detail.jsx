@@ -11,11 +11,9 @@ import Loading from '../../common/loading'
 import Modal from '../../common/modal'
 import addPayU from '../../utils/payu'
 import { PayuError } from '../../utils/payu-error'
-import Services from '../../utils/new_services'
+import Services from '../../utils/services'
 import Radiobox from './Radiobox'
-import Cookie from '../../utils/cookie'
-
-const cookies = new Cookie()
+import Cookies from '../../utils/cookies'
 
 const Cards = [
   {
@@ -467,7 +465,7 @@ class SubDetail extends Component {
               </div>
               <div className="right">
                 {ENV.ENVIRONMENT !== 'elcomercio' ||
-                cookies.getCookie('check_qa') ? (
+                Cookies.getCookie('check_qa') ? (
                   <Button
                     type="button"
                     onClick={() => this.showUpdatePayment()}>

@@ -2,10 +2,8 @@
 import React from 'react'
 import { WrapperMenu } from './styles'
 import { Avatar } from './avatar'
-import Cookie from '../../utils/cookie'
+import Cookies from '../../utils/cookies'
 import Domains from '../../utils/domains'
-
-const Cookies = new Cookie()
 
 const closeSession = props => {
   const { closePopup, closeDispatchEvent, arcSite } = props
@@ -34,6 +32,10 @@ const closeSession = props => {
       }
       closePopup()
       window.sessionStorage.removeItem('paywall_last_url')
+      window.scrollTo(0, 100)
+      setTimeout(() => {
+        window.scrollTo(0, 0)
+      }, 500)
     })
     .catch(() => {
       window.location.reload()

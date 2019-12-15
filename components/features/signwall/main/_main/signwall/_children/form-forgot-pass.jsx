@@ -11,8 +11,6 @@ import Taggeo from '../../utils/taggeo'
 import Domains from '../../utils/domains'
 import { ModalConsumer } from '../context'
 
-const services = new Services()
-
 @Consumer
 class FormForgotPass extends Component {
   constructor(props) {
@@ -81,8 +79,7 @@ class FormForgotPass extends Component {
 
   sendEmail(email) {
     const { arcSite } = this.props
-    services
-      .reloginEcoID(email, '', 'forgotpass', arcSite, window)
+    Services.reloginEcoID(email, '', 'forgotpass', arcSite, window)
       .then(resEco => {
         if (resEco.retry) {
           setTimeout(() => {
@@ -177,8 +174,8 @@ class FormForgotPass extends Component {
                 peru21g21: '#d5ecff',
                 elbocon: '#fdabab',
                 depor: '#d5d945',
-                trome:'#ffede5',
-                ojo:'#e7fced',
+                trome: '#ffede5',
+                ojo: '#e7fced',
                 diariocorreo: '#fdabab',
               }[brandCurrent]
             }
@@ -208,7 +205,7 @@ class FormForgotPass extends Component {
                   this.handleChangeValidation(e)
                 }}
               />
-              
+
               {/* <label htmlFor="email" className="form-group__label">
                 Correo Electrónico
               </label> */}
@@ -263,8 +260,8 @@ class FormForgotPass extends Component {
                 peru21g21: '#d5ecff',
                 elbocon: '#fdabab',
                 depor: '#d5d945',
-                trome:'#ffede5',
-                ojo:'#e7fced',
+                trome: '#ffede5',
+                ojo: '#e7fced',
                 diariocorreo: '#fdabab',
               }[brandCurrent]
             }
@@ -287,9 +284,12 @@ class FormForgotPass extends Component {
                   )
                   if (reloadForgot) {
                     window.location.reload()
-                  } else if(typePopUp ==='reloghash'){
+                  } else if (
+                    typePopUp === 'reloghash' ||
+                    typePopUp === 'premium'
+                  ) {
                     changeTemplate('login')
-                  }else{
+                  } else {
                     closePopup()
                   }
                 }}

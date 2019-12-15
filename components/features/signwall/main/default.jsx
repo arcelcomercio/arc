@@ -11,10 +11,7 @@ import Services from './_main/utils/services'
 import GetProfile from './_main/utils/get-profile'
 import Domains from './_main/utils/domains'
 import { ButtonSignwall } from './_styles/styles'
-import Cookie from './_main/utils/cookie'
-
-const services = new Services()
-const Cookies = new Cookie()
+import Cookies from './_main/utils/cookies'
 
 const classes = {
   iconLogin: 'nav__icon icon-user  title-sm text-primary-color',
@@ -149,8 +146,10 @@ class SignwallComponent extends PureComponent {
     const { arcSite } = this.props
     const W = window
     return W.Identity.extendSession().then(resExt => {
-      const checkEntitlement = services
-        .getEntitlement(resExt.accessToken, arcSite)
+      const checkEntitlement = Services.getEntitlement(
+        resExt.accessToken,
+        arcSite
+      )
         .then(res => {
           if (res.skus) {
             const result = Object.keys(res.skus).map(key => {
@@ -239,7 +238,7 @@ class SignwallComponent extends PureComponent {
   }
 
   checkIsEco = () => {
-    const response = services.getIpEco().then(res => {
+    const response = Services.getIpEco().then(res => {
       return !!(
         res.ip === '200.4.199.49' ||
         res.ip === '201.234.125.242' ||

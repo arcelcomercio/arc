@@ -4,8 +4,6 @@ import { WrapperBlock } from './styles'
 import Services from '../../utils/services'
 import Loading from '../../common/loading'
 
-const services = new Services()
-
 @Consumer
 class News extends Component {
   _isMounted = false
@@ -31,7 +29,7 @@ class News extends Component {
 
     const listAllNews = { ...[] }
 
-    services.getNewsLetters().then(resNews => {
+    Services.getNewsLetters().then(resNews => {
       resNews[SITE].map(item => {
         listAllNews[item.code] = false
         return null
@@ -59,7 +57,7 @@ class News extends Component {
           return null
         })
       } else {
-        services.getNewsLettersUser(UUID, SITE).then(res => {
+        Services.getNewsLettersUser(UUID, SITE).then(res => {
           if (res.data.length >= 1) {
             res.data.map(item => {
               if (this._isMounted) {
