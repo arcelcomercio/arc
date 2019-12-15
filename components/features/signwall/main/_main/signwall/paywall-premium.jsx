@@ -142,7 +142,11 @@ class PayWallPremium extends Component {
                     onClick={() => {
                       Taggeo(`Web_${typeModal}_Hard`, `web_${typeModal}_cerrar`)
                       if (typeModal === 'premium') {
-                        window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
+                        if (document.getElementById('btn-premium-continue')) {
+                          closePopup()
+                        } else {
+                          window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
+                        }
                       } else {
                         closePopup()
                       }

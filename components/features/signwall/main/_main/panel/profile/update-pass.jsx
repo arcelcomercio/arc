@@ -49,12 +49,12 @@ class updatePassword extends Component {
         document.querySelector('#arc-popup-profile').parentElement
       ModalProfile.style.overflow = 'hidden'
 
-      setTimeout(() => {
-        const modalConfirmPass = document.querySelector('#arc-popup-profile')
-        modalConfirmPass.scrollIntoView()
-      }, 500)
+      // setTimeout(() => {
+      //   const modalConfirmPass = document.querySelector('#arc-popup-profile')
+      //   modalConfirmPass.scrollIntoView()
+      // }, 500)
+      
     } else {
-      // console.error('FORM INVALID', this.state.formErrors);
       if (newPassword == null) {
         formErrors.newPassword = 'Este campo es requerido'
         this.setState({ formErrors })

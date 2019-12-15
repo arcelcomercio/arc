@@ -43,7 +43,7 @@ const handleBorderColor = color => {
     case 'peru21g21':
       return '#0c70bf'
     case 'depor':
-      return '#ffffff'
+      return '#007c31'
     case 'ojo':
       return '#007d33'
     default:
@@ -75,7 +75,9 @@ export const ButtonSignwall = styled.button`
     line-height: 16px;
     border: 1px solid
       ${props =>
-        props.site === 'elcomercio' || props.site === 'gestion'
+        props.site === 'elcomercio' ||
+        props.site === 'gestion' ||
+        props.site === 'trome'
           ? 'transparent'
           : handleBorderColor(props.site)};
     color: ${props => handleBorderColor(props.site)};

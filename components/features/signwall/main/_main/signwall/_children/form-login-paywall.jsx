@@ -243,10 +243,6 @@ class FormLoginPaywall extends Component {
                       value={email || ''}
                     />
 
-                    {/* <label htmlFor="email" className="form-group__label">
-                      Correo Electrónico
-                    </label> */}
-
                     {formErrors.email.length > 0 && (
                       <span className="message__error">{formErrors.email}</span>
                     )}
@@ -276,10 +272,6 @@ class FormLoginPaywall extends Component {
                       // eslint-disable-next-line jsx-a11y/tabindex-no-positive
                       tabIndex="2"
                     />
-
-                    {/* <label htmlFor="password" className="form-group__label">
-                      Contraseña
-                    </label> */}
 
                     {formErrors.password.length > 0 && (
                       <span className="message__error">
@@ -317,7 +309,7 @@ class FormLoginPaywall extends Component {
                           `Web_Sign_Wall_${typePopUp}`,
                           `web_sw${typePopUp[0]}_login_boton_ingresar`
                         )
-                        dataLayer.push({
+                        window.dataLayer.push({
                           event: 'inititateLogin',
                         })
                       }}

@@ -13,7 +13,7 @@ export const WrapperMenu = styled.div`
     padding: 80px 20px 20px 20px;
     margin-top: -60px;
   }
-  @media ${device.desktop} {
+  @media screen and (min-width: 1025px) {
     padding: 80px 40px 20px 40px;
   }
   & .hello {

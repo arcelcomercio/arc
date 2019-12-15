@@ -172,7 +172,6 @@ const Head = props => {
       </S.Content>
       {isActive && (
         <Signwall
-          singleSign
           closeSignwall={() => {
             setIsActive(false)
           }}

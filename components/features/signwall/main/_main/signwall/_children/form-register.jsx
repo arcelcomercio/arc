@@ -365,13 +365,6 @@ class FormRegister extends Component {
                       typeForm={typeForm}
                       checkPremium={() => this.handleGetProfile()}
                     />
-                    {/* <AuthGoogle
-                      align="middle"
-                      closePopup={closePopup}
-                      id="registro_boton_google"
-                      typePopUp={typePopUp}
-                      typeForm={typeForm}
-                    /> */}
                   </div>
                   <p className="form-grid__subtitle text-center mt-20 mb-10">
                     o completa tus datos para registrarte
@@ -395,9 +388,7 @@ class FormRegister extends Component {
                     onChange={this.handleChangeValidation}
                     tabIndex="0"
                   />
-                  {/* <label htmlFor="email" className="form-group__label">
-                    Correo Electrónico
-                  </label> */}
+
                   {formErrors.usernamereg.length > 0 && (
                     <span className="message__error">
                       {formErrors.usernamereg}
@@ -422,10 +413,6 @@ class FormRegister extends Component {
                     }}
                     tabIndex="0"
                   />
-
-                  {/* <label htmlFor="password" className="form-group__label">
-                    Contraseña
-                  </label> */}
 
                   {formErrors.passwordreg.length > 0 && (
                     <span className="message__error">

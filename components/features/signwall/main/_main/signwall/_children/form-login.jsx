@@ -410,7 +410,7 @@ class FormLogin extends Component {
                   )}
 
                   {hiddenEnterUser && (
-                    <div className="form-grid__group mt-30">
+                    <div className="form-grid__group mt-20">
                       <p className="form-grid__link text-center mb-20 col-center">
                         O ingresa con tu usuario
                       </p>
@@ -557,8 +557,8 @@ class FormLogin extends Component {
                       Regístrate
                     </button>
                   </p>
-                  <p className="form-grid__subtitle form-grid__subtitle--fb text-center mt-10">
-                    Con tus datos, mejoraremos tu experiencia de <br />{' '}
+                  <p className="form-grid__subtitle form-grid__subtitle--fb text-center">
+                    Con tus datos, mejoraremos tu experiencia de <br />
                     navegación y nunca publicaremos sin tu permiso
                   </p>
                 </div>
@@ -618,6 +618,7 @@ class FormLogin extends Component {
                       <div className="form-group form-group--center mt-20">
                         {userWithSubs ? (
                           <input
+                            id="btn-premium-continue"
                             type="button"
                             className="btn btn-bg"
                             value="SIGUE NAVEGANDO"

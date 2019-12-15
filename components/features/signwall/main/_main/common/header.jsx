@@ -1,72 +1,52 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
 import Context from 'fusion:context'
-import { Back, Close, Gestion, Comercio } from './iconos'
+import { Back, Close } from './iconos'
 import Taggeo from '../utils/taggeo'
 
 const Header = props => {
   const { type, closePopup, typePopUp } = props
   const typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
     <>
-      {{
-        elcomercio: <Comercio color="black" width="159" height="24" size="1" />,
-        elcomerciomag: (
-          <Comercio color="black" width="159" height="24" size="1" />
-        ),
-        gestion: <Gestion color="white" width="138" height="30" size="1" />,
-        depor: (
-          <div className="modal-header__cont">
+      <div className={`modal-header__cont-${arcSite}`}>
+        {{
+          elcomerciomag: (
             <img
-              className="modal-header__img-depor"
+              className="modal-header__img"
+              alt={`Logo ${arcSite}`}
+              src={deployment(
+                `${contextPath}/resources/dist/elcomercio/images/logo.png`
+              )}
+            />
+          ),
+          gestion: (
+            <img
+              className="modal-header__img"
+              alt={`Logo ${arcSite}`}
+              src={deployment(
+                `${contextPath}/resources/dist/${arcSite}/images/white-logo.png`
+              )}
+            />
+          ),
+          depor: (
+            <img
+              className={`modal-header__img-${arcSite}`}
               alt={`Logo ${arcSite}`}
               src={deployment(
                 `${contextPath}/resources/dist/${arcSite}/images/alternate-logo.png`
               )}
             />
-          </div>
-        ),
-        trome: (
-          <div className="modal-header__cont-trome">
-            <img
-              className="modal-header__img-trome"
-              alt={`Logo ${arcSite}`}
-              src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
-              )}
-            />
-          </div>
-        ),
-        ojo: (
-          <div className="modal-header__cont-ojo">
-            <img
-              className="modal-header__img-ojo"
-              alt={`Logo ${arcSite}`}
-              src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
-              )}
-            />
-          </div>
-        ),
-        diariocorreo: (
-          <div className="modal-header__cont-diariocorreo">
-            <img
-              className="modal-header__img-diariocorreo"
-              alt={`Logo ${arcSite}`}
-              src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
-              )}
-            />
-          </div>
-        ),
-      }[arcSite] || (
-        <img
-          className="modal-header__img"
-          alt={`Logo ${arcSite}`}
-          src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
-          )}
-        />
-      )}
+          ),
+        }[arcSite] || (
+          <img
+            className={`modal-header__img modal-header__img-${arcSite}`}
+            alt={`Logo ${arcSite}`}
+            src={deployment(
+              `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
+            )}
+          />
+        )}
+      </div>
 
       {type === 'large' ? (
         <button

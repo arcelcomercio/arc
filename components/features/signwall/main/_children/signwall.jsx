@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import Fingerprint2 from 'fingerprintjs2'
 import LoginRegister from '../_main/signwall/index'
-import LoginPaywall from '../_main/signwall/login-paywall'
 import { Panel } from '../_main/panel/index'
 import Cookies from '../_main/utils/cookies'
 import Domains from '../_main/utils/domains'
@@ -89,18 +88,11 @@ class Signwall extends PureComponent {
 
   render() {
     const { showLogin, showPanel } = this.state
-    const { arcSite, singleSign } = this.props
+    const { arcSite } = this.props
     return (
       <>
-        {showLogin && !singleSign && (
+        {showLogin && (
           <LoginRegister
-            closePopup={() => this.togglePopupLogin()}
-            brandModal={arcSite}
-          />
-        )}
-
-        {showLogin && singleSign && (
-          <LoginPaywall
             closePopup={() => this.togglePopupLogin()}
             brandModal={arcSite}
           />
