@@ -57,6 +57,7 @@ const source = {
   transform,
   schemaName,
   params,
+  ttl: 300,
 }
 
 export default source

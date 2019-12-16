@@ -75,7 +75,7 @@ class StoryContinue extends PureComponent {
       clientHeight: bodyClientHeight,
       scrollTop: bodyScrollTop,
     } = document.body
-
+    const { arcSite } = this.props || {}
     const [loader] = document.getElementsByClassName('nav__loader')
     const height = Math.max(clientHeight, scrollHeight, offsetHeight)
     const h = window.innerHeight || clientHeight || bodyClientHeight
@@ -83,7 +83,10 @@ class StoryContinue extends PureComponent {
 
     if (height > 0 && progressBar) {
       const scale = Math.round((scrolled / (height - h)) * 100) / 100
-      progressBar.style.transform = `scaleX(${scale})`
+      if (ConfigParams.SITE_ELCOMERCIO !== arcSite) {
+        progressBar.style.transform = `scaleX(${scale})`
+      }
+
       if (loader) loader.style.display = scale > 0.02 ? 'block' : 'none'
     }
   }

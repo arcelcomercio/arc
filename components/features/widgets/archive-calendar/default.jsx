@@ -46,6 +46,7 @@ const ArchiveCalendar = ({ customFields: { sectionField } = {} }) => {
     minDate: new Date(2014, 0, 1),
     onChange: newDate => setNewDate(newDate),
     value: calendarDate,
+    locale: 'es-419',
   }
 
   return <ArchiveCalendarChild {...params} />

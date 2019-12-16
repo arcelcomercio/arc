@@ -129,4 +129,5 @@ export default {
   fetch,
   schemaName,
   params,
+  ttl: 300,
 }
