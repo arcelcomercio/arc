@@ -87,7 +87,7 @@ export const LinkCorporate = styled.a`
       primary
         ? theme.palette.primary.contrastText
         : theme.palette.common.white};
-    min-width: 330px;
+    min-width: 300px;
     height: 50px;
     border-radius: 4px;
     ${spacing}
