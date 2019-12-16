@@ -47,12 +47,11 @@ const fetch = key => {
       const { content_elements: contentElements = [] } = response || {}
 
       const newsList = []
-      const contentElementsFilterById=[]
+      const contentElementsFilterById = []
       contentElements.forEach(item => {
-        
-        const { _id:newsId = '' } = item
-        
-        if(newsId!==''){
+        const { _id: newsId = '' } = item
+
+        if (newsId !== '') {
           contentElementsFilterById.push(item)
 
           newsList.push(
@@ -62,17 +61,15 @@ const fetch = key => {
             })
           )
         }
-
       })
 
       return Promise.all(newsList).then(resall => {
-
         // eslint-disable-next-line no-use-before-define
-        const stories = sortStoryContent(response,resall)
+        const stories = sortStoryContent(response, resall)
         // const stories=[]
         return {
           ...response,
-          content_elements:contentElementsFilterById,
+          content_elements: contentElementsFilterById,
           stories,
           websked: {
             name,
@@ -94,10 +91,9 @@ const sortStoryContent = (collectionStories, storiesByCollection) => {
   contentElementsByCollection.forEach(element => {
     const { _id = '' } = element
     const news = storiesByCollection.find(x => x._id === _id)
-    if(news){
+    if (news) {
       result.push(news)
     }
-    
   })
 
   return result
@@ -124,7 +120,7 @@ const transform = data => {
 
   return { ...dataStories }
 }
-const resolve = key => pattern(key)
+// const resolve = key => pattern(key)
 
 const source = {
   // resolve,

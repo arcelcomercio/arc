@@ -44,11 +44,6 @@ const pattern = (key = {}) => {
         must: [
           {
             term: {
-              'revision.published': 'true',
-            },
-          },
-          {
-            term: {
               type: 'story',
             },
           },

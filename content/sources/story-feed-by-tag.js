@@ -70,7 +70,7 @@ const pattern = (key = {}) => {
   /** TODO: Manejar comportamiento cuando no se obtiene data */
   const requestUri = `${CONTENT_BASE}/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
-  ).toLowerCase()}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
+  ).toLowerCase()}+AND+type:story&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
 
   return request({
     uri: requestUri,

@@ -73,7 +73,7 @@ const pattern = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  const requestUri = `${CONTENT_BASE}/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"${url}"+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
+  const requestUri = `${CONTENT_BASE}/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"${url}"+AND+type:story&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
 
   return request({
     uri: requestUri,
