@@ -30,12 +30,11 @@ export default ({
           `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_twitter.jpg`
         )
 
-  console.log('primarySectionLink', primarySectionLink)
   if (
     arcSite === ConfigParams.SITE_DIARIOCORREO &&
     primarySectionLink === '/opinion/'
   ) {
-    image = authorImage + 'holaa'
+    image = authorImage
   }
   return (
     <>
