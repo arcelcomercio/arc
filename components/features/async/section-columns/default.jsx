@@ -124,6 +124,6 @@ GridSectionColumns.propTypes = {
   }),
 }
 
-GridSectionColumns.label = 'Grid de noticias por sección - multiple fetch'
+GridSectionColumns.label = 'Grid de noticias por sección - async'
 
 export default GridSectionColumns
