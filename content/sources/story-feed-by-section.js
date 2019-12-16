@@ -181,7 +181,7 @@ const source = {
   schemaName: SCHEMA_NAME,
   params,
   // cache: false,
-  ttl: 120,
+  ttl: 300,
 }
 
 export default source

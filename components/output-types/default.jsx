@@ -48,7 +48,7 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
-    socialName: siteProperties.social.facebook,
+    socialName: siteProperties.social && siteProperties.social.facebook,
     siteAssets: siteProperties.assets,
     metaValue,
     deployment,
@@ -126,9 +126,7 @@ export default ({
   const title = getTitle()
 
   const getDescription = () => {
-    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
-      siteProperties.siteName
-    }.`
+    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
@@ -146,9 +144,7 @@ export default ({
           /\/archivo\/([\w\d-]+)/.test(requestUri) &&
           !/\/archivo\/todas/.test(requestUri)
         if (!hasDate && !hasSection) {
-          description = `Archivo de noticias de ${
-            siteProperties.siteName
-          }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
         }
       }
     }
@@ -160,18 +156,22 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
-    twitterUser: siteProperties.social.twitter.user,
+    twitterUser:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     title,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
     description,
-    twitterCreator: siteProperties.social.twitter.user,
+    twitterCreator:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
@@ -363,9 +363,7 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -379,7 +377,7 @@ export default ({
           <script
             defer
             src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/js/appnexus-min.js`
+              `${contextPath}/resources/assets/js/appnexus-min.js`
             )}
           />
         )}
@@ -424,7 +422,6 @@ export default ({
         <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
-
       </body>
     </html>
   )

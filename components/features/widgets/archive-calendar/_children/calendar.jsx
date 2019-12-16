@@ -17,6 +17,7 @@ const ArchiveCalendarChild = ({
   minDate,
   onChange,
   value,
+  locale,
 }) => {
   return (
     <div className={classes.box}>
@@ -33,6 +34,7 @@ const ArchiveCalendarChild = ({
           minDate={minDate}
           onChange={onChange}
           value={value}
+          locale={locale}
         />
       </div>
     </div>
