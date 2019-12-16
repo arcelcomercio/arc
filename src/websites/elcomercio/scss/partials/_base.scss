@@ -41,7 +41,6 @@ body,
 }
 
 #section-columns-lazy {
-  grid-template-columns: repeat(3, minmax(300px, 100vw));
   margin: 0;
   &:before {
     content: none;

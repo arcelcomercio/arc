@@ -64,15 +64,19 @@ class GridSectionColumns extends Component {
       arcSite,
       deployment,
       contextPath,
-      customFields: {
-        storyConfig: { contentService = '', contentConfigValues = {} } = {},
-      } = {},
+      customFields: { hierarchy = '' } = {},
     } = this.props
 
     this.fetchContent({
       sections: {
-        source: contentService,
-        query: contentConfigValues,
+        source: 'story-feed-by-hierarchy',
+        query: {
+          hierarchy,
+          size: 4,
+          presets: 'mobile:314x157',
+          includedFields:
+            'websites,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content,headlines.basic,credits.by.name,credits.by.url',
+        },
         filter: `{ 
           children {
             name
@@ -270,8 +274,8 @@ class GridSectionColumns extends Component {
 
 GridSectionColumns.propTypes = {
   customFields: PropTypes.shape({
-    storyConfig: PropTypes.contentConfig('navigation').tag({
-      name: 'Configuración del contenido',
+    hierarchy: PropTypes.contentConfig('navigation').tag({
+      name: 'Jerarquía',
     }),
     htmlAds: PropTypes.richtext.tag({
       name: 'HTML (Suplemento)',

@@ -21,7 +21,7 @@ const params = [
   {
     name: 'size',
     displayName: 'Cantidad de noticias por jerarquía',
-    type: 'text',
+    type: 'number',
   },
   {
     name: 'presets',
@@ -92,9 +92,15 @@ const transformImg = ({ contentElements, website, presets }) => {
   })
 }
 
-const getStoriesBySection = ({ navigation, size, website, presets }) => {
-  const includedFields =
-    '&_sourceInclude=websites,promo_items,headlines,credits'
+const getStoriesBySection = ({
+  navigation,
+  size,
+  website,
+  presets,
+  includedFields: rewIncludedFields,
+}) => {
+  const includedFields = `&_sourceInclude=${rewIncludedFields ||
+    'websites,promo_items,headlines,credits'}`
 
   const { children = [] } = navigation || {}
   const sections = children.slice(0, MAX_SECTIONS)
@@ -130,7 +136,13 @@ const getStoriesBySection = ({ navigation, size, website, presets }) => {
   })
 }
 
-const fetch = ({ 'arc-site': website, hierarchy, size, presets }) => {
+const fetch = ({
+  'arc-site': website,
+  hierarchy,
+  size,
+  presets,
+  includedFields,
+}) => {
   return request({
     uri: `${CONTENT_BASE}/site/v3/navigation/${website}/?hierarchy=${hierarchy ||
       'default'}`,
@@ -141,6 +153,7 @@ const fetch = ({ 'arc-site': website, hierarchy, size, presets }) => {
       size,
       website,
       presets,
+      includedFields,
     })
   })
 }

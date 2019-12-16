@@ -1,15 +1,8 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import Consumer from 'fusion:consumer'
 
 import ChildrenSectionColumn from './_children/section-column'
 import ChildernCinemaBillboardCard from './_children/cinema-billboard-card'
-
-const getMultimediaType = ({ basicVideoUrl, basicGalleryUrl }) => {
-  if (basicVideoUrl) return 'basic_video'
-  if (basicGalleryUrl) return 'basic_gallery'
-  return 'basic'
-}
 
 const createMarkup = html => {
   return {
@@ -25,16 +18,24 @@ const loadSrcScript = html => {
   document.head.appendChild(script)
 }
 
-@Consumer
-class GridSectionColumns extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isOnViewPort: false,
-    }
-  }
+const GridSectionColumns = ({
+  customFields: {
+    htmlAds,
+    ads,
+    section1,
+    section2,
+    section3,
+    section4,
+    section5,
+    section6,
+    section7,
+    section8,
+    section9,
+  } = {},
+}) => {
+  const [isOnViewPort, setIsOnViewPort] = useState(false)
 
-  componentDidMount() {
+  useEffect(() => {
     const { IntersectionObserver } = window
     const options = {
       rootMargin: '0px 0px 500px 0px',
@@ -42,188 +43,44 @@ class GridSectionColumns extends Component {
     const callback = (entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          this.setState({ isOnViewPort: true })
-          const { customFields: { htmlAds } = {} } = this.props || {}
-
-          for (let i = 1; i < 10; i++) {
-            const { customFields = {} } = this.props || {}
-            this.fetchSection(`section${i}`, customFields[`section${i}`])
-          }
-          this.fetchCinemaContent()
-
+          setIsOnViewPort(true)
           loadSrcScript(htmlAds)
-
           observer.unobserve(entry.target)
         }
       })
     }
     const observer = new IntersectionObserver(callback, options)
     observer.observe(document.querySelector('#section-columns-lazy'))
-  }
+  }, [htmlAds])
 
-  fetchSection(key, section) {
-    const { arcSite, deployment, contextPath } = this.props
+  return (
+    <>
+      <h2 className="w-full mt-20 custom-title text-center col-3 custom-border large">
+        SECCIONES
+      </h2>
 
-    this.fetchContent({
-      [key]: {
-        source: 'story-feed-by-section-v2',
-        query: {
-          section,
-          size: 4,
-          presets: 'mobile:314x157',
-          includedFields: 'headlines.basic,websites,promo_items,credits',
-        },
-        filter: `{ 
-          content_elements {
-            headlines { basic }
-            websites { ${arcSite} { website_url } }
-            promo_items {
-              basic { resized_urls { mobile } }
-              basic_video {
-                promo_items {
-                  basic { resized_urls { mobile } }
-                }
-              }
-              basic_gallery {
-                promo_items {
-                  basic { resized_urls { mobile } }
-                }
-              }
-              youtube_id { content }
-            }
-            credits { by { name url } }
-          }
-        }`,
-        transform: resp => {
-          console.log(resp)
-          const { content_elements: contentElements = [] } = resp || {}
-          return {
-            sectionName: '',
-            sectionUrl: '',
-            contentElements: contentElements.map(
-              ({
-                headlines: { basic } = {},
-                websites: { [arcSite]: { website_url: websiteUrl } = {} } = {},
-                credits: { by: [{ name, url } = {}] = [] } = {},
-                promo_items: {
-                  basic: { resized_urls: { mobile: basicUrl } = {} } = {},
-                  basic_video: {
-                    promo_items: {
-                      basic: {
-                        resized_urls: { mobile: basicVideoUrl } = {},
-                      } = {},
-                    } = {},
-                  } = {},
-                  basic_gallery: {
-                    promo_items: {
-                      basic: {
-                        resized_urls: { mobile: basicGalleryUrl } = {},
-                      } = {},
-                    } = {},
-                  } = {},
-                } = {},
-              }) => ({
-                title: basic,
-                storyUrl: websiteUrl,
-                authorName: name,
-                authorUrl: url,
-                imageUrl:
-                  basicVideoUrl ||
-                  basicGalleryUrl ||
-                  basicUrl ||
-                  deployment(
-                    `${contextPath}/resources/dist/${arcSite}/images/default-md.png`
-                  ),
-                multimediaType: getMultimediaType({
-                  basicVideoUrl,
-                  basicGalleryUrl,
-                }),
-              })
-            ),
-          }
-        },
-      },
-    })
-  }
-
-  fetchCinemaContent() {
-    this.fetchContent({
-      cinemaContent: {
-        source: 'cinema-billboard',
-        query: { format: 'single' },
-      },
-    })
-  }
-
-  render() {
-    console.log('STATE->', this.state)
-    const {
-      cinemaContent: {
-        billboardData,
-        premiereData: {
-          alt: premiereAlt,
-          img: premiereImg,
-          title: premiereTitle,
-          url: premiereUrl,
-        } = {},
-      } = {},
-      isOnViewPort,
-      section1,
-      section2,
-      section3,
-      section4,
-      section5,
-      section6,
-      section7,
-      section8,
-      section9,
-    } = this.state || {}
-
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      customFields: { htmlAds, ads } = {},
-    } = this.props
-
-    return (
-      <>
-        <h2 className="w-full mt-20 custom-title text-center col-3 custom-border large">
-          SECCIONES
-        </h2>
-        <div id="section-columns-lazy" className="grid grid--content col-3">
-          <ChildrenSectionColumn {...section1} />
-          <ChildrenSectionColumn {...section2} />
-          <ChildrenSectionColumn {...section3} />
-          <ChildrenSectionColumn {...section4} />
-          <ChildrenSectionColumn {...section5} />
-          {isOnViewPort && (
+      <div
+        id="section-columns-lazy"
+        className="grid grid--content grid--col-1 grid--col-2 grid--col-3 col-3">
+        {isOnViewPort && (
+          <>
+            <ChildrenSectionColumn section={section1} />
+            <ChildrenSectionColumn section={section2} />
+            <ChildrenSectionColumn section={section3} />
+            <ChildrenSectionColumn section={section4} />
+            <ChildrenSectionColumn section={section5} />
             <div dangerouslySetInnerHTML={createMarkup(htmlAds)}></div>
-          )}
-          <ChildrenSectionColumn {...section6} />
-          {premiereUrl && (
-            <ChildernCinemaBillboardCard
-              {...{
-                billboardData,
-                premiereAlt,
-                premiereImg:
-                  premiereImg ||
-                  deployment(
-                    `${contextPath}/resources/dist/${arcSite}/images/default-md.png`
-                  ),
-                premiereTitle,
-                premiereUrl,
-              }}
-            />
-          )}
-          <ChildrenSectionColumn {...section7} />
-          <ChildrenSectionColumn {...section8} />
-          <div dangerouslySetInnerHTML={createMarkup(ads)}></div>
-          <ChildrenSectionColumn {...section9} />
-        </div>
-      </>
-    )
-  }
+            <ChildrenSectionColumn section={section6} />
+            <ChildernCinemaBillboardCard />
+            <ChildrenSectionColumn section={section7} />
+            <ChildrenSectionColumn section={section8} />
+          </>
+        )}
+        <div dangerouslySetInnerHTML={createMarkup(ads)}></div>
+        {isOnViewPort && <ChildrenSectionColumn section={section9} />}
+      </div>
+    </>
+  )
 }
 
 GridSectionColumns.propTypes = {

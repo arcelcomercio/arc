@@ -34,9 +34,12 @@ export default ({
         basic_gallery: basicGallery = null,
         basic_video: basicVideo = null,
       } = {},
-    } = story
+    } = dataStory
 
     if (basicGallery && basicGallery.promo_items) {
+      const { content_elements: galleryContentElements } = basicGallery || {}
+      if (!galleryContentElements)
+        dataStory.promo_items.basic_gallery.content_elements = []
       const image = addResizedUrls(basicGallery, {
         resizerUrl,
         resizerSecret,
