@@ -205,13 +205,7 @@ function WizardPlan(props) {
   }
 
   const onCorporateSubscriptorHandler = () => {
-    if (!isLogged()) {
-      clearDeferredActions()
-      subscribingCorporate.current = true
-      dispatchEvent('signInReq', 'landing')
-    } else {
-      window.open(interpolateUrl(urls.corporateSuscription), '_blank')
-    }
+    window.open(interpolateUrl(urls.corporateSuscription), '_blank')
   }
 
   return (
