@@ -1,14 +1,14 @@
-const fs = require('fs')
+// const fs = require('fs')
+// const multiDest = require('gulp-multi-dest')
 const gulp = require('gulp')
-const multiDest = require('gulp-multi-dest')
 const babel = require('gulp-babel')
 const minify = require('gulp-minify')
 
-const buildSites = fs
+/* const buildSites = fs
   .readdirSync(__dirname + '/src/websites')
-  .filter(file => file !== 'postcss.config.js')
+  .filter(file => file !== 'postcss.config.js') */
 
-const outputBrands = buildSites.map(brand => `./resources/dist/${brand}/js`)
+// const outputBrands = buildSites.map(brand => `./resources/dist/${brand}/js`)
 
 gulp.task('default', () =>
   gulp
@@ -19,5 +19,5 @@ gulp.task('default', () =>
       })
     )
     .pipe(minify())
-    .pipe(multiDest(outputBrands))
+    .pipe(gulp.dest('./resources/assets/js'))
 )

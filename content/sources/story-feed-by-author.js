@@ -40,12 +40,12 @@ const params = [
     name: 'website',
     displayName: 'ID del sitio (Opcional)',
     type: 'text',
-  }
+  },
 ]
 
 const pattern = (key = {}) => {
   const { name, url: rawUrl = '', website: rawWebsite = '' } = key
-  
+
   const authorUrl = rawUrl === null ? '' : rawUrl
   const url = authorUrl || `/autor/${name}`
 
@@ -79,8 +79,10 @@ const pattern = (key = {}) => {
     uri: requestUri,
     ...options,
   }).then(data => {
-
-    if (!data || (data && data.content_elements && !data.content_elements.length > 0))
+    if (
+      !data ||
+      (data && data.content_elements && !data.content_elements.length > 0)
+    )
       throw new RedirectError('/404', 404)
 
     const dataStories = data || {}
@@ -123,7 +125,7 @@ const source = {
   fetch,
   schemaName,
   params,
-  ttl: 120,
+  ttl: 300,
 }
 
 export default source
