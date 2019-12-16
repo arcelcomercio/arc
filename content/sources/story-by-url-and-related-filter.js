@@ -318,7 +318,9 @@ export default {
         slug
         url
         description
-        image
+        image {
+          url
+        }
         referent{
           type
           id  
@@ -434,7 +436,9 @@ export default {
       slug
       url
       description
-      image
+      image {
+        url
+      }
       type
       social_links{
         site
@@ -472,6 +476,7 @@ export default {
               subtitle
               url
               resized_urls{
+                large
                 landscape_md
               }
             }
@@ -503,6 +508,7 @@ export default {
           height
           
           resized_urls{
+            large
             original
             landscape_md
           }
@@ -514,6 +520,7 @@ export default {
               caption
               subtitle
               resized_urls{
+                large
                 landscape_md
               }
             }
