@@ -21,6 +21,12 @@
       .story-header__share-icon {
         color: $color-white;
       }
+      .nav__mobile-logo {
+        @media (--desktop) {
+          position: relative;
+          left: -272px;
+        }
+      }
     }
   }
 }
