@@ -38,6 +38,46 @@ $nav-height-active: 46px;
     height: calc(100vh - #{$header-inverted-height});
   }
 
+  .header-inverted__btn-sign {
+    border: 0px;
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: $signwall-btn-m-bg;
+    color: $signwall-btn-m-color;
+    padding: 0px;
+    display: block;
+    @media (--desktop) {
+      border: 1px solid $signwall-btn-d-border;
+      background-color: $signwall-btn-d-bg;
+      color: $signwall-btn-d-color;
+      font-weight: bold;
+      font-size: 14px;
+      outline: none;
+      border-radius: 4px;
+      width: auto;
+      padding: 8px 16px;
+    }
+
+    & > i {
+      display: inline;
+      font-style: normal;
+      font-family: sans-serif;
+      text-transform: uppercase;
+      @media (--desktop) {
+        display: none;
+      }
+    }
+
+    & > span {
+      display: none;
+      @media (--desktop) {
+        display: block;
+      }
+    }
+  }
+
   &.active {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;
@@ -51,6 +91,7 @@ $nav-height-active: 46px;
       top: 0;
     }
 
+    .header-inverted__btn-sign,
     .header-inverted__btn-subs {
       display: flex;
     }

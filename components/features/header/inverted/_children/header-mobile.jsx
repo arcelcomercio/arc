@@ -35,6 +35,7 @@ const classes = {
   btnProfile: 'items-center btn bg-base-100',
   btnClub: 'header-inverted__btn-club',
   btnSubs: 'header-inverted__btn-subs',
+  btnSign: 'header-inverted__btn-sign',
   /** ------------ */
   navStoryTitle: 'nav__story-title position-absolute',
   navStorySocialNetwork: 'nav__story-social-network',
@@ -143,9 +144,7 @@ const HeaderChildInverted = ({
         <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
           <div
-            className={`${classes.navBtnContainer} ${
-              classes.leftBtnContainer
-            }`}>
+            className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
             <Button
               iconClass={classes.iconMenu}
               btnClass={`${classes.btnMenu} ${
@@ -173,9 +172,7 @@ const HeaderChildInverted = ({
           <div className={classes.navStoryTitle} />
           {/** ************* RIGHT *************** */}
           <div
-            className={`${classes.navBtnContainer} ${
-              classes.rightBtnContainer
-            }`}>
+            className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
             {isStory && scrolled ? (
               <>
                 <div className={classes.navStorySocialNetwork}>
@@ -211,7 +208,7 @@ const HeaderChildInverted = ({
                 {siteProperties.activePaywall && (
                   <Button
                     btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe}`}
+                    btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
                     btnLink={`${
                       siteProperties.urlSubsOnline
                     }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
@@ -220,7 +217,11 @@ const HeaderChildInverted = ({
                       ''}`}
                   />
                 )}
-                {siteProperties.activeSignwall && <SignwallComponent />}
+                {siteProperties.activeSignwall && (
+                  <SignwallComponent
+                    classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
+                  />
+                )}
               </div>
             )}
           </div>

@@ -55,7 +55,7 @@ class HeaderChildSomos extends PureComponent {
           <i className={classes.iconUser} />
           Ingresa a tu cuenta
         </button> */}
-        <SignwallComponent />
+        <SignwallComponent classButton={`${classes.loginButton}`}/>
         <button
           className="hidden md:block"
           type="button"

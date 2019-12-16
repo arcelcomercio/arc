@@ -38,8 +38,9 @@ const classes = {
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
   btnSubs: 'nav__btn-subs',
+  btnSign: 'nav__btn-sign',
   btnContainer: 'flex items-center justify-end header__btn-container',
-  btnSubscribe: `flex items-center btn btn--outline  capitalize text-md mr-20`,
+  btnSubscribe: `flex items-center btn capitalize text-md`,
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden line-h-sm',
@@ -256,7 +257,7 @@ class NavBarDefault extends PureComponent {
 
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
-    const { statusSearch} = this.state
+    const { statusSearch } = this.state
     // getDataNavBarData()
     if (statusSearch) this._handleSearch()
     else this.focusInputSearch()
@@ -326,9 +327,9 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
-    const {getDataNavBarData ,data =[]}=this.props
-    
-    if(data.length === 0){
+    const { getDataNavBarData, data = [] } = this.props
+
+    if (data.length === 0) {
       getDataNavBarData()
     }
 
@@ -402,7 +403,7 @@ class NavBarDefault extends PureComponent {
         <nav
           className={`${classes.nav} ${
             scrolled ? 'active' : ''
-            } ${responsiveClass}`}>
+          } ${responsiveClass}`}>
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
@@ -499,7 +500,7 @@ class NavBarDefault extends PureComponent {
                   <div>
                     <a
                       className={classes.moreLink}
-                      href='/'
+                      href="/"
                       onClick={event => {
                         this.openLink(event, 3)
                       }}>
@@ -534,11 +535,20 @@ class NavBarDefault extends PureComponent {
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                    btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${typeof window !== 'undefined' && window.section || ''}`}
+                    btnLink={`${
+                      siteProperties.urlSubsOnline
+                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                      'undefined' &&
+                      window.section) ||
+                      ''}`}
                   />
                 )}
 
-                {siteProperties.activeSignwall && <SignwallComponent />}
+                {siteProperties.activeSignwall && (
+                  <SignwallComponent
+                    classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
+                  />
+                )}
               </div>
             </div>
 

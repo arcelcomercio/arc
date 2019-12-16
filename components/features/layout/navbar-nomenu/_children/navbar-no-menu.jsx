@@ -20,6 +20,7 @@ const classes = {
   formSearch: 'flex items-center justify-center',
   inputSearch: 'navbar-nm__input-search',
   btnSearch: 'navbar-nm__btn-search capitalize',
+  btnLogin: 'navbar-nm__btn-sign',
 }
 
 export default props => {
@@ -68,7 +69,9 @@ export default props => {
             <a className={classes.btn} href="/">
               Registrate
             </a> */}
-            <SignwallComponent classButton={classes.btn}/>
+            <SignwallComponent
+              classButton={`${classes.btn} ${classes.btnLogin}`}
+            />
           </div>
           <div className={classes.search}>
             <button

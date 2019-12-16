@@ -10,7 +10,6 @@ import SignwallReHash from './_main/signwall/relogin-hash'
 import Services from './_main/utils/services'
 import GetProfile from './_main/utils/get-profile'
 import Domains from './_main/utils/domains'
-import { ButtonSignwall } from './_styles/styles'
 import Cookies from './_main/utils/cookies'
 
 const classes = {
@@ -261,7 +260,10 @@ class SignwallComponent extends PureComponent {
     } else if (this._isMounted) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        userName: arcSite === 'elcomercio' ? 'Iniciar' : 'Iniciar Sesión',
+        userName:
+          arcSite === 'elcomercio' || arcSite === 'diariocorreo'
+            ? 'Iniciar'
+            : 'Iniciar Sesión',
         initialUser: false,
       })
     }
@@ -316,38 +318,24 @@ class SignwallComponent extends PureComponent {
       showRelogHash,
     } = this.state
     const { arcSite, siteProperties, classButton } = this.props
-
+    
     return (
       <>
-        {classButton ? (
-          <button
-            site={arcSite}
-            className={classButton}
-            type="button"
-            id={
-              this.checkSession()
-                ? 'web_link_ingresaperfil'
-                : 'web_link_ingresacuenta'
-            }
-            onClick={() => this.setState({ isActive: true })}>
-            <span>{userName}</span>
-          </button>
-        ) : (
-          <ButtonSignwall
-            site={arcSite}
-            type="button"
-            id={
-              this.checkSession()
-                ? 'web_link_ingresaperfil'
-                : 'web_link_ingresacuenta'
-            }
-            onClick={() => this.setState({ isActive: true })}>
-            <i className={!initialUser ? `${classes.iconLogin}` : ``}>
-              {initialUser}
-            </i>
-            <span>{userName}</span>
-          </ButtonSignwall>
-        )}
+        <button
+          site={arcSite}
+          className={classButton}
+          type="button"
+          id={
+            this.checkSession()
+              ? 'web_link_ingresaperfil'
+              : 'web_link_ingresacuenta'
+          }
+          onClick={() => this.setState({ isActive: true })}>
+          <i className={!initialUser ? `${classes.iconLogin}` : ``}>
+            {initialUser}
+          </i>
+          <span>{userName}</span>
+        </button>
 
         {isActive && <Signwall closeSignwall={() => this.closeSignwall()} />}
 
