@@ -54,9 +54,8 @@ const FooterDeporAmp = () => {
       `{  
        "image":"${instance.multimediaLandscapeMD}",
        "title":"${instance.title}",
-       "ampUrl":"${pathUrl}${
-        instance.canonicalUrl
-      }?outputType=amp&next=${index + 1}"
+       "ampUrl":"${pathUrl}${instance.websiteLink}?outputType=amp&next=${index +
+        1}"
           }`
     )
   })

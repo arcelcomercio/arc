@@ -49,9 +49,15 @@ const MobileOutput = ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const primarySectionLink = '/peru'
+  const primarySectionLink = nameSeccion
 
-  const resultStoryRecent = StoriesRecent(primarySectionLink, id, arcSite)
+  const parametersStory = {
+    primarySectionLink,
+    id,
+    arcSite,
+    cant: 6,
+  }
+  const resultStoryRecent = StoriesRecent(parametersStory)
 
   const isStory =
     metaValue('id') === 'meta_story' ||

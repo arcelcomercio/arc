@@ -28,53 +28,6 @@ export const itemsToArray = (itemString = '') => {
     return item.replace(/"/g, '')
   })
 }
-const queryStoryRecent = (section, site) => {
-  const body = {
-    query: {
-      bool: {
-        must: [
-          {
-            term: {
-              'revision.published': 'true',
-            },
-          },
-          {
-            term: {
-              type: 'story',
-            },
-          },
-        ],
-      },
-    },
-  }
-
-  if (section && section !== '/') {
-    const sectionsIncluded = itemsToArray(section)
-    body.query.bool.must.push({
-      nested: {
-        path: 'taxonomy.sections',
-        query: {
-          bool: {
-            must: [
-              {
-                terms: {
-                  'taxonomy.sections._id': sectionsIncluded,
-                },
-              },
-              {
-                term: {
-                  'taxonomy.sections._website': site,
-                },
-              },
-            ],
-          },
-        },
-      },
-    })
-  }
-
-  return encodeURI(JSON.stringify(body))
-}
 
 const transformImg = data => {
   const dataStory = data

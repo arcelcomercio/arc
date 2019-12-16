@@ -39,7 +39,7 @@ class StoryContinue extends PureComponent {
 
     this.fetchContent({
       dataList: {
-        source: 'story-feed-by-section',
+        source: 'story-feed-by-section-url',
         query: {
           section: path,
           stories_qty: 6,
@@ -251,7 +251,7 @@ class StoryContinue extends PureComponent {
     const { siteProperties, deployment, contextPath, arcSite } =
       this.props || {}
     const { siteUrl } = siteProperties
-    const { dataList: { content_elements: dataStorys } = {} } = this.state
+    const { dataList: { content_elements: dataStorys = [] } = {} } = this.state
 
     const instance =
       dataStorys &&
@@ -265,7 +265,7 @@ class StoryContinue extends PureComponent {
       instance.__data = story
       return {
         basic: instance.title,
-        websiteUrl: instance.canonicalUrl,
+        websiteUrl: instance.websiteLink,
       }
     })
     const { title, websiteUrl } = this.getNextArticle(

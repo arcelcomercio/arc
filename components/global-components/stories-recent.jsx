@@ -10,7 +10,7 @@ const StoriesRecent = ({ primarySectionLink, id, arcSite, cant = 6 }) => {
 
   const storyData =
     useContent({
-      source: 'story-feed-by-section',
+      source: 'story-feed-by-section-url',
       query: params,
       filter: schemaFilter(arcSite),
     }) || {}

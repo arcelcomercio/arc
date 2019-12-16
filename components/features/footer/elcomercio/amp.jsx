@@ -55,7 +55,7 @@ const FooterElComercioAmp = () => {
             "image":"${instance.multimediaLandscapeMD}",
             "title":"${instance.title}",
             "ampUrl":"${pathUrl}${
-        instance.canonicalUrl
+        instance.websiteLink
       }?outputType=amp&next=${index + 1}"
           }`
     )

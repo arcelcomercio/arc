@@ -29,7 +29,14 @@ const InterestByTag = () => {
     contextPath,
   })
 
-  const resultStoryRecent = StoriesRecent(primarySectionLink, id, arcSite)
+  const parameters = {
+    primarySectionLink,
+    id,
+    arcSite,
+    cant: 6,
+  }
+
+  const resultStoryRecent = StoriesRecent(parameters)
 
   const instance =
     resultStoryRecent &&
@@ -50,7 +57,7 @@ const InterestByTag = () => {
 
       const data = {
         title: instance.title,
-        link: `${instance.canonicalUrl}?ref=amp&source=mas-en-seccion`,
+        link: `${instance.websiteLink}?ref=amp&source=mas-en-seccion`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
