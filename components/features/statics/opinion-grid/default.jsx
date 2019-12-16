@@ -160,7 +160,7 @@ class StaticOpinionGrid extends PureComponent {
             )
           })}
           <div className={classes.moreBox}>
-            <a href="/archivo/opinion" className={classes.more}>
+            <a href="/archivo/opinion/" className={classes.more}>
               Ver Más
             </a>
           </div>
