@@ -129,7 +129,7 @@ export default {
     subscriptionType2: `Tengo una suscripción`,
     subscriptionType3: `Otros`,
     messageSendNotification: `Tu mensaje ha sido enviado, nos pondremos en contacto con usted.`,
-    returnTo: `Volver a gestión`,
+    returnTo: `Volver a El Comercio`,
     thanks: `Gracias`,
 
     // Forms
