@@ -28,53 +28,6 @@ export const itemsToArray = (itemString = '') => {
     return item.replace(/"/g, '')
   })
 }
-const queryStoryRecent = (section, site) => {
-  const body = {
-    query: {
-      bool: {
-        must: [
-          {
-            term: {
-              'revision.published': 'true',
-            },
-          },
-          {
-            term: {
-              type: 'story',
-            },
-          },
-        ],
-      },
-    },
-  }
-
-  if (section && section !== '/') {
-    const sectionsIncluded = itemsToArray(section)
-    body.query.bool.must.push({
-      nested: {
-        path: 'taxonomy.sections',
-        query: {
-          bool: {
-            must: [
-              {
-                terms: {
-                  'taxonomy.sections._id': sectionsIncluded,
-                },
-              },
-              {
-                term: {
-                  'taxonomy.sections._website': site,
-                },
-              },
-            ],
-          },
-        },
-      },
-    })
-  }
-
-  return encodeURI(JSON.stringify(body))
-}
 
 const transformImg = data => {
   const dataStory = data
@@ -103,24 +56,13 @@ const fetch = key => {
 
     if (dataStory.type === 'redirect') return dataStory
 
-    const {
-      taxonomy: { primary_section: { path: section } = {} } = {},
-    } = dataStory
-
-    const encodedBody = queryStoryRecent(section, site)
     return request({
-      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${site}&size=6&from=0&sort=display_date:desc`,
+      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${site}&published=true`,
       ...options,
-    }).then(recientesResp => {
-      dataStory.recent_stories = recientesResp
-      return request({
-        uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${site}&published=true`,
-        ...options,
-      }).then(idsResp => {
-        dataStory.related_content = idsResp
-        const result = transformImg(dataStory)
-        return result
-      })
+    }).then(idsResp => {
+      dataStory.related_content = idsResp
+      const result = transformImg(dataStory)
+      return result
     })
   })
 }

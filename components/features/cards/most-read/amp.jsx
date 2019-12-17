@@ -1,9 +1,9 @@
 import React from 'react'
-
 import { useFusionContext } from 'fusion:context'
 import StorySeparatorChildItemAmp from '../../story/interest-by-tag/_children/amp'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
+import StoriesRecent from '../../../global-components/stories-recent'
 
 const classes = {
   storyInterest:
@@ -14,26 +14,32 @@ const classes = {
   list: 'amp-story-interest__list flex pl-20 pr-20',
 }
 
-const InterestByTag = props => {
+const InterestByTag = () => {
   const {
     arcSite,
-    globalContent: {
-      recent_stories: { content_elements: storyData },
-      _id: excluir,
-    },
+    globalContent: { _id: id },
     globalContent: storyDataPrimary,
     contextPath,
     deployment,
     isAdmin,
   } = useFusionContext()
 
-  const { primarySection } = new StoryData({
+  const { primarySection, primarySectionLink } = new StoryData({
     data: storyDataPrimary,
     contextPath,
   })
 
+  const parameters = {
+    primarySectionLink,
+    id,
+    arcSite,
+    cant: 6,
+  }
+
+  const resultStoryRecent = StoriesRecent(parameters)
+
   const instance =
-    storyData &&
+    resultStoryRecent &&
     new StoryData({
       deployment,
       contextPath,
@@ -43,21 +49,15 @@ const InterestByTag = props => {
 
   let key = 0
 
-  const dataInterest = storyData
-    .map(story => {
-      return story && story._id !== excluir ? story : ''
-    })
-    .filter(String)
-
   const getSize = cant => {
-    const dataStorys = dataInterest.map((story, i) => {
+    const dataStorys = resultStoryRecent.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
       key += 1
 
       const data = {
         title: instance.title,
-        link: `${instance.canonicalUrl}?ref=amp&source=mas-en-seccion`,
+        link: `${instance.websiteLink}?ref=amp&source=mas-en-seccion`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
@@ -83,7 +83,7 @@ const InterestByTag = props => {
 
   return (
     <>
-      {dataInterest && dataInterest[0] && (
+      {resultStoryRecent && resultStoryRecent[0] && (
         <div className={classes.storyInterest}>
           <div className={classes.title}>Más en {primarySection} </div>
           {getSize(6)}
