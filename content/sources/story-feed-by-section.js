@@ -1,34 +1,19 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import request from 'request-promise-native'
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
+import RedirectError from '../../components/utilities/redirect-error'
 import {
-  /* removeLastSlash, */
   addResizedUrlsToStory,
   removeLastSlash,
 } from '../../components/utilities/helpers'
 
-// Fix temporal
-
-// const removeLastSlash = section => {
-//   if (section === '/') return section
-//   return section && section.endsWith('/')
-//     ? section.slice(0, section.length - 1)
-//     : section
-// }
-
 const SCHEMA_NAME = 'stories'
-let website = ''
+
 const params = [
   {
     name: 'section',
-    displayName: 'Section(es)',
-    type: 'text',
-  },
-  {
-    name: 'excludeSections',
-    displayName: 'Secciones excluidas',
+    displayName: 'Sección',
     type: 'text',
   },
   {
@@ -47,19 +32,14 @@ const params = [
     type: 'text',
   },
 ]
-const options = {
-  gzip: true,
-  json: true,
-}
 
-const itemsToArray = (itemString = '') => {
+/* const itemsToArray = (itemString = '') => {
   return itemString.split(',').map(item => item.replace(/"/g, ''))
-}
+} */
 
-const pattern = (key = {}) => {
+const resolve = (key = {}) => {
   const {
-    section,
-    excludeSections,
+    section: rawSection,
     feedOffset,
     stories_qty: storiesQty,
     website: rawWebsite = '',
@@ -67,15 +47,14 @@ const pattern = (key = {}) => {
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
-  website = websiteField || key['arc-site'] || 'Arc Site no está definido'
+  const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
 
-  const clearSection = removeLastSlash(section)
-  const newSection =
-    clearSection === '' || clearSection === undefined || clearSection === null
+  const section = removeLastSlash(
+    rawSection === '' || rawSection === undefined || rawSection === null
       ? '/'
-      : clearSection
-  // TODO: itemsToArray debe ejecutarse antes que removeLastSlash
-  const sectionsExcluded = itemsToArray(excludeSections)
+      : rawSection
+  )
+
   const body = {
     query: {
       bool: {
@@ -86,35 +65,11 @@ const pattern = (key = {}) => {
             },
           },
         ],
-        must_not: [
-          {
-            nested: {
-              path: 'taxonomy.sections',
-              query: {
-                bool: {
-                  must: [
-                    {
-                      terms: {
-                        'taxonomy.sections._id': sectionsExcluded,
-                      },
-                    },
-                    {
-                      term: {
-                        'taxonomy.sections._website': website,
-                      },
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        ],
       },
     },
   }
 
-  if (newSection && newSection !== '/') {
-    const sectionsIncluded = itemsToArray(newSection)
+  if (section && section !== '/') {
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
@@ -123,7 +78,7 @@ const pattern = (key = {}) => {
             must: [
               {
                 terms: {
-                  'taxonomy.sections._id': sectionsIncluded,
+                  'taxonomy.sections._id': [section],
                 },
               },
               {
@@ -139,42 +94,53 @@ const pattern = (key = {}) => {
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
-  return request({
-    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${newSection}`,
-    ...options,
-  }).then(resp => {
-    if (Object.prototype.hasOwnProperty.call(resp, 'status'))
-      throw new Error('Sección no encontrada')
-    return request({
-      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
-        10}&from=${feedOffset || 0}&sort=display_date:desc`,
-      ...options,
-    }).then(data => {
-      const dataStory = data
-      const { resizerUrl, siteName } = getProperties(website)
-      dataStory.content_elements = addResizedUrlsToStory(
-        dataStory.content_elements,
-        resizerUrl,
-        resizerSecret,
-        addResizedUrls
-      )
-      dataStory.siteName = siteName
 
-      return {
-        ...dataStory,
-        section_name: resp.name || 'Sección',
-      }
-    })
-  })
+  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
+    10}&from=${feedOffset || 0}&sort=display_date:desc`
 }
 
-const fetch = key => pattern(key)
+const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
+  const section = removeLastSlash(
+    rawSection === '' || rawSection === undefined || rawSection === null
+      ? '/'
+      : rawSection
+  )
+
+  if (
+    !data ||
+    (data && data.content_elements && !data.content_elements.length > 0)
+  ) {
+    throw new RedirectError('/404', 404)
+  }
+  const dataStory = data
+  const { resizerUrl, siteName } = getProperties(arcSite)
+  dataStory.content_elements = addResizedUrlsToStory(
+    dataStory.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
+  dataStory.siteName = siteName
+
+  const { content_elements: [{ taxonomy: { sites = [] } = {} } = {}] = [] } =
+    dataStory || {}
+
+  let sectionName = ''
+  sites.forEach(({ _id, name }) => {
+    if (_id === section) sectionName = name
+  })
+
+  return {
+    ...dataStory,
+    section_name: sectionName || 'Sección',
+  }
+}
 
 const source = {
-  fetch,
+  resolve,
   schemaName: SCHEMA_NAME,
   params,
-  // cache: false,
+  transform,
   ttl: 300,
 }
 
