@@ -29,9 +29,9 @@ const transform = (data, key) => {
     if (format === 'single') {
       const { peliculas, cines = [], estrenos: auxEstrenos = [] } = auxData
 
-      const moviesList = Object.values(peliculas).map(
-        ({ mid, title, url }) => ({ mid, title, url })
-      )
+      const moviesList = Object.values(
+        peliculas
+      ).map(({ mid, title, url }) => ({ mid, title, url }))
       const cinemasList = cines.map(({ cid, nombre, url }) => ({
         cid,
         nombre,
@@ -76,4 +76,5 @@ export default {
     genre: 'text',
     format: 'text',
   },
+  ttl: 300,
 }
