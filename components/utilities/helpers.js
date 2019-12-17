@@ -640,7 +640,7 @@ export const iframeHtml = (html, arcSite = '') => {
   htmlDataTwitter = htmlDataTwitter
     .replace(/<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g, rplTwitter)
     .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
-    .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
+    .replace(/<iframe (.*)src="http(.*?)"(.*)>(.*)<\/iframe>/g, rplTwitter)
 
   htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
