@@ -150,7 +150,7 @@ export default {
   legalLinks: [
     {
       name: 'TÉRMINOS Y CONDICIONES DE USO',
-      url: '/terminos-y-condiciones',
+      url: '/terminos-y-condiciones/',
     },
     {
       name: 'LIBRO DE RECLAMACIONES',
@@ -159,36 +159,36 @@ export default {
     },
     {
       name: 'OFICINAS CONCESIONARIAS',
-      url: '/oficinas-concesionarias',
+      url: '/oficinas-concesionarias/',
       external: true,
     },
     {
       name: 'PRINCIPIOS RECTORES',
-      url: '/principios-rectores',
+      url: '/principios-rectores/',
     },
     {
       name: 'BUENAS PRÁCTICAS',
-      url: '/buenas-practicas',
+      url: '/buenas-practicas/',
     },
     {
       name: 'PROYECTO CONFIANZA',
-      url: '/proyecto-confianza',
+      url: '/proyecto-confianza/',
     },
     {
       name: 'POLÍTICAS DE PRIVACIDAD',
-      url: '/politicas-privacidad',
+      url: '/politicas-privacidad/',
     },
     {
       name: 'POLÍTICA INTEGRADA DE GESTIÓN',
-      url: '/politica-integrada-de-gestion',
+      url: '/politica-integrada-de-gestion/',
     },
     {
       name: 'DERECHOS ARCO',
-      url: '/procedimiento-arco',
+      url: '/procedimiento-arco/',
     },
     {
       name: 'POLÍTICA DE COOKIES',
-      url: '/politica-de-cookies',
+      url: '/politica-de-cookies/',
     },
   ],
 

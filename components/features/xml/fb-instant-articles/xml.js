@@ -5,6 +5,7 @@ import {
   localISODate,
   getMultimedia,
   nbspToSpace,
+  getActualDate,
 } from '../../../utilities/helpers'
 import buildHtml from './_dependencies/build-html'
 
@@ -92,14 +93,12 @@ class XmlFacebookInstantArticles {
             if (!storyData.isPremium) {
               if (storyData.fiaOrigen === true) {
                 if (storyData.canonicalWebsite === 'elcomerciomag') {
-                  // if (storyData.canonicalWebsite === 'xxxxxasdf') {
                   fiaContent = 'MAG'
                   storyLink = `${siteUrl}/mag${storyData.link}`
                 } else {
                   storyLink = `${siteUrl}${storyData.link}`
                   fiaContent = fbArticleStyle
                 }
-                // const storyLink = `${siteUrl}${storyData.link}`
                 const pageview = `${storyData.link}?outputType=fia`
 
                 const propsScriptHeader = {
@@ -150,6 +149,8 @@ class XmlFacebookInstantArticles {
                     link: storyLink,
                     guid: md5(storyData.id),
                     author: storyData.author,
+                    premium: storyData.isPremium,
+                    captureDate: getActualDate(),
                     'content:encoded': {
                       '#cdata': buildHtml(buildHtmlProps),
                     },

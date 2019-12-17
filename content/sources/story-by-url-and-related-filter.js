@@ -162,6 +162,7 @@ export default {
   fetch,
   schemaName,
   params,
+  ttl: 300,
   filter: `
   _id
   type
@@ -256,7 +257,9 @@ export default {
         slug
         url
         description
-        image
+        image {
+          url
+        }
         referent{
           type
           id  
@@ -372,7 +375,9 @@ export default {
       slug
       url
       description
-      image
+      image {
+        url
+      }
       type
       social_links{
         site
@@ -394,6 +399,40 @@ export default {
   website
   editor_note
   website_url
+<<<<<<< HEAD
+=======
+  recent_stories{
+    content_elements{
+      canonical_url
+      promo_items{
+        basic{
+          url
+          subtitle
+        }
+        basic_gallery{
+          promo_items{
+            basic{
+              type
+              caption
+              subtitle
+              url
+              resized_urls{
+                large
+                landscape_md
+              }
+            }
+          }
+        }
+        ${basicVideo} 
+      }
+      publish_date
+      headlines{
+        basic
+      }
+      _id
+    }
+  }
+>>>>>>> 583eee760bb0db040d8c6c3ef63f6299e7bfdd15
   related_content{
     basic{
       _id
@@ -411,6 +450,7 @@ export default {
           height
           
           resized_urls{
+            large
             original
             landscape_md
           }
@@ -422,6 +462,7 @@ export default {
               caption
               subtitle
               resized_urls{
+                large
                 landscape_md
               }
             }

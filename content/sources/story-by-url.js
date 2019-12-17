@@ -49,4 +49,5 @@ export default {
   transform,
   schemaName,
   params,
+  ttl: 300,
 }
