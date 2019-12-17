@@ -7,6 +7,7 @@ import Icon from './multimedia-icon'
 import StoryData from '../utilities/story-data'
 
 import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
+import ConfigParams from '../utilities/config-params'
 
 const classes = {
   storyItem: `story-item w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
@@ -29,6 +30,7 @@ const classes = {
   img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
   wrapperTitle: 'story-item__information-box w-full',
+  opinion:'story-item__opinion',
 }
 
 class StoriesList extends PureComponent {
@@ -48,6 +50,9 @@ class StoriesList extends PureComponent {
       arcSite,
       defaultImgSize: 'sm',
     })
+    const isOpinionPeru21 =
+    element.primarySectionLink.includes('/opinion/') &&
+    arcSite === ConfigParams.SITE_PERU21
 
     return (
       <div
@@ -55,7 +60,7 @@ class StoriesList extends PureComponent {
           formato && formato === 'row' ? 'story-item--row' : ''
         }`}>
         <div className={classes.bottom}>
-          <div className={classes.left}>
+          <div className={`${classes.left} ${isOpinionPeru21 ? classes.opinion : ''}`}>
             <div className={classes.top}>
               <a href={element.primarySectionLink} className={classes.section}>
                 {element.primarySection}
