@@ -3,7 +3,6 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import {
   addResizedUrlsToStory,
-  getActualDate,
   formatSlugToText,
 } from '../../components/utilities/helpers'
 
@@ -47,13 +46,12 @@ const transform = data => {
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, date, stories_qty: storiesQty = 6 } = key
+  const { section, stories_qty: storiesQty = 6 } = key
 
   /** Para enviar params a transform luego */
   globalParams = {
     section_name: formatSlugToText(section) || 'Todas',
     section: section || 'todas',
-    date: date || getActualDate(),
   }
 
   const body = {
@@ -63,11 +61,6 @@ const pattern = (key = {}) => {
           {
             term: {
               type: 'story',
-            },
-          },
-          {
-            term: {
-              'revision.published': 'true',
             },
           },
         ],
@@ -124,7 +117,7 @@ const source = {
   transform,
   params,
   // cache: false,
-  ttl: 120,
+  ttl: 300,
 }
 
 export default source
