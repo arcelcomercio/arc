@@ -40,6 +40,11 @@ export default ({
       const { content_elements: galleryContentElements } = basicGallery || {}
       if (!galleryContentElements)
         dataStory.promo_items.basic_gallery.content_elements = []
+      /**
+       * CR: esto esta bien? al final agregas el content_elements a la galeria en dataStory
+       * pero lo que estas mandando a addResizedUrls es basicGallery, asi como con basicVideo
+       * esta no es la que deberia tener el content_elements vacio para evitar errores?
+       */
       const image = addResizedUrls(basicGallery, {
         resizerUrl,
         resizerSecret,

@@ -35,6 +35,7 @@ const getSectionQuery = (section, site) => {
     query: {
       bool: {
         must: [
+          // CR: no hace falta este term porque el endpoint search/published ya filtra por las publicadas
           {
             term: {
               'revision.published': 'true',
@@ -119,6 +120,7 @@ const transform = (response, { 'arc-site': website, presets }) => {
   return response
 }
 
+// CR: agregar TTL, minimo 120, altamente recomendado 300
 export default {
   resolve,
   transform,
