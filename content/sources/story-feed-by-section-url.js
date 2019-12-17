@@ -47,7 +47,7 @@ const transform = data => {
 
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, date, stories_qty: storiesQty } = key
+  const { section, date, stories_qty: storiesQty = 6 } = key
 
   /** Para enviar params a transform luego */
   globalParams = {
@@ -102,7 +102,7 @@ const pattern = (key = {}) => {
   const prmoItems = (type = '') => {
     return `${type}promo_items.basic.caption,${type}promo_items.basic.url,${type}promo_items.basic.subtitle,${type}promo_items.basic.width,${type}promo_items.basic.height,${type}promo_items.basic.type,${type}promo_items.basic.additional_properties,`
   }
-  const includedFields = `&_sourceInclude=headlines.basic,websites,canonical_url,website_url,display_date,_id,type,${prmoItems()}promo_items.basic_gallery.caption,promo_items.basic_gallery.url,promo_items.basic_gallery.subtitle,promo_items.basic_gallery.width,promo_items.basic_gallery.height,promo_items.basic_gallery.type,promo_items.basic_gallery.additional_properties,${prmoItems(
+  const includedFields = `&_sourceInclude=headlines.basic,websites.${website}.website_url,canonical_url,website_url,display_date,_id,type,${prmoItems()}promo_items.basic_gallery.caption,promo_items.basic_gallery.url,promo_items.basic_gallery.subtitle,promo_items.basic_gallery.width,promo_items.basic_gallery.height,promo_items.basic_gallery.type,promo_items.basic_gallery.additional_properties,${prmoItems(
     'promo_items.basic_gallery.'
   )}promo_items.basic_gallery.content_elements,promo_items.basic_video.headlines.basic,promo_items.basic_video.type,promo_items.basic_video.embed_html,promo_items.basic_video.duration,${prmoItems(
     'promo_items.basic_video.'
