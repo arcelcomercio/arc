@@ -1,6 +1,7 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
 import { deleteQueryString } from '../../utilities/helpers'
+import ConfigParams from '../../utilities/config-params'
 
 export default ({
   fbAppId,
@@ -21,17 +22,27 @@ export default ({
     multimediaLarge,
     videoSeo: [{ url = '' } = {}] = [],
     title: seoTitle,
+    authorImage,
+    primarySectionLink,
   } = new StoryData({
     data,
     arcSite,
   })
 
-  const image =
+  let image =
     story && multimediaLarge
       ? multimediaLarge
       : deployment(
           `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
         )
+
+  if (
+    arcSite === ConfigParams.SITE_DIARIOCORREO &&
+    primarySectionLink === '/opinion/'
+  ) {
+    image = authorImage
+  }
+
   return (
     <>
       {/* <!-- Facebook OG --> */}
