@@ -1,10 +1,8 @@
 import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import { defaultImage } from '../../../../utilities/helpers'
 
-/** CR: habia un componente especial precisamente para esto. Revisar /global-components/multimedia-icon
- *  o revisar getMultimediaIcon en helpers.
- */
 const getMultimediaIcon = multimediaType => {
   let icon = ''
   switch (multimediaType) {
@@ -93,7 +91,6 @@ const ChildrenSectionColumn = ({
   </div>
 )
 
-// CR: no se si te sirva el metodo getMultimedia en helpers.
 const getMultimediaType = ({ basicVideoUrl, basicGalleryUrl }) => {
   if (basicVideoUrl) return 'basic_video'
   if (basicGalleryUrl) return 'basic_gallery'
@@ -150,10 +147,7 @@ const formatContent = ({
           basicVideoUrl ||
           basicGalleryUrl ||
           basicUrl ||
-          // CR: puedes llamar el metodo defaultImage de helpers por si la ruta o imagen cambia en el futuro. sea facil de cambiar.
-          deployment(
-            `${contextPath}/resources/dist/${arcSite}/images/default-md.png`
-          ),
+          defaultImage({ deployment, contextPath, arcSite, size: 'md' }),
         multimediaType: getMultimediaType({
           basicVideoUrl,
           basicGalleryUrl,
@@ -176,7 +170,6 @@ export default ({ section = '' }) => {
           includedFields:
             'websites,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content,headlines.basic,credits.by.name,credits.by.url,taxonomy.sections._id,taxonomy.sections.name',
         },
-        // CR: es necesario este filter aun con el includedFields?
         filter: `{ 
           content_elements {
             headlines { basic }

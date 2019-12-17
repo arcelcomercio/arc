@@ -4,21 +4,12 @@ import PropTypes from 'prop-types'
 import ChildrenSectionColumn from './_children/section-column'
 import ChildernCinemaBillboardCard from './_children/cinema-billboard-card'
 
-// CR: ya hay un metodo para esto en helpers. buscar createMarkup
-const createMarkup = html => {
-  return {
-    __html: html,
-  }
-}
+import { createMarkup, createScript } from '../../../utilities/helpers'
 
 const loadSrcScript = html => {
   const match = html.match(/<script.+src="(.+)"(\s|>).+><\/script>/) || []
-  const url = match[1]
-  // CR: hay unos metodos que hacen esto en helpers. buscar createScript
-  const script = document.createElement('script')
-  script.src = url
-  // CR: En helpers hay un append para body, podrias agregar este para head en helpers. buscar appendToBody
-  document.head.appendChild(script)
+  const src = match[1]
+  document.head.appendChild(createScript({ src }))
 }
 
 const GridSectionColumns = ({
@@ -58,7 +49,7 @@ const GridSectionColumns = ({
     } else {
       setIsOnViewPort(true)
     }
-  }, [htmlAds]) // CR: seguro que asi no hace mas renderizados de los necesarios? probaste poniendo algo en htmlAds?
+  }, [htmlAds])
 
   return (
     <>

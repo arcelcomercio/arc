@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-// CR: este feature no puede reemplazar al real cards/cinema-billboard y que se haga solo un import de uno de los dos?
+// TODO: este feature no puede reemplazar al real cards/cinema-billboard y que se haga solo un import de uno de los dos?
 
 const classes = {
   cinemaCard: 'cinema-card bg-white',
