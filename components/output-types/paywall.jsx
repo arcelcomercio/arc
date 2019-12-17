@@ -74,7 +74,7 @@ const Paywall = props => {
           src={`https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js?v=07112019`}
           defer
         />
-        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js?hl=es"></script>
       </head>
       <body onbeforeunload={() => 'message'}>
         <noscript>
