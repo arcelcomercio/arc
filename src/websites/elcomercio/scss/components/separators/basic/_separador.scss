@@ -9,7 +9,11 @@
       }
     }
   }
-
+  &__img-link {
+    @media (--tablet) {
+      height: auto;
+    }
+  }
   // Modificadores de responsive: complete, partial, mobileHidden
 
   &.complete {
