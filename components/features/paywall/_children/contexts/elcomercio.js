@@ -20,7 +20,7 @@ export default {
     wrongCardNumber: `Número tarjeta inválido`,
     wrongCvv: `CVV Inválido`,
     wrongDate: `Fecha incorrecta`,
-    checkRequired: `Debe seleccionar el check`,
+    checkRequired: `Seleccionar la casilla de verificación`,
     optionRequired: `Debe seleccionar una opción`,
     tryLater: `Ha ocurrido un error. Inténtelo más tarde`,
 
