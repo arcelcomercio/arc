@@ -1,10 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import {
-  addResizedUrlsToStory /* getContentCurrentPage */,
-} from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'stories'
@@ -57,8 +55,7 @@ const resolve = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  /** TODO: Manejar comportamiento cuando no se obtiene data */
-  return `${CONTENT_BASE}/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
+  return `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
   ).toLowerCase()}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
 }
