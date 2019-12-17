@@ -36,21 +36,25 @@ const GridSectionColumns = ({
   const [isOnViewPort, setIsOnViewPort] = useState(false)
 
   useEffect(() => {
-    const { IntersectionObserver } = window
-    const options = {
-      rootMargin: '0px 0px 500px 0px',
+    if ('IntersectionObserver' in window) {
+      const { IntersectionObserver } = window
+      const options = {
+        rootMargin: '0px 0px 500px 0px',
+      }
+      const callback = (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setIsOnViewPort(true)
+            loadSrcScript(htmlAds)
+            observer.unobserve(entry.target)
+          }
+        })
+      }
+      const observer = new IntersectionObserver(callback, options)
+      observer.observe(document.querySelector('#section-columns-lazy'))
+    } else {
+      setIsOnViewPort(true)
     }
-    const callback = (entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setIsOnViewPort(true)
-          loadSrcScript(htmlAds)
-          observer.unobserve(entry.target)
-        }
-      })
-    }
-    const observer = new IntersectionObserver(callback, options)
-    observer.observe(document.querySelector('#section-columns-lazy'))
   }, [htmlAds])
 
   return (
