@@ -23,28 +23,43 @@ class BodyEnd extends React.Component {
 }
 
 class Modal extends React.Component {
-  componentDidMount = () => {
-    // TODO: Verificar clases de ios, si no se usan borrar estos métodos
-    const isSafari =
+  changeView = rule => {
+    const view = document.querySelector('meta[name=viewport]')
+    if (view) view.remove()
+    const meta = document.createElement('meta')
+    meta.name = 'viewport'
+    meta.content = rule
+    document.getElementsByTagName('head')[0].appendChild(meta)
+  }
+
+  isSafari = () => {
+    return (
       window.navigator.vendor &&
       window.navigator.vendor.indexOf('Apple') > -1 &&
       window.navigator.userAgent &&
       window.navigator.userAgent.indexOf('CriOS') === -1 &&
       window.navigator.userAgent.indexOf('FxiOS') === -1
+    )
+  }
 
-    if (isSafari) {
+  componentDidMount = () => {
+    if (this.isSafari()) {
       document.querySelector('html').classList.add('overflow-hidden-ios')
       document.querySelector('body').classList.add('overflow-hidden-ios')
+      this.changeView(
+        'width=device-width, initial-scale=1, user-scalable=0, shrink-to-fit=no'
+      )
     }
-
     document.querySelector('html').classList.add('overflow-hidden')
     document.querySelector('body').classList.add('overflow-hidden')
   }
 
   componentWillUnmount = () => {
-    document.querySelector('html').classList.remove('overflow-hidden-ios')
-    document.querySelector('body').classList.remove('overflow-hidden-ios')
-
+    if (this.isSafari()) {
+      document.querySelector('html').classList.remove('overflow-hidden-ios')
+      document.querySelector('body').classList.remove('overflow-hidden-ios')
+      this.changeView('width=device-width, initial-scale=1')
+    }
     document.querySelector('html').classList.remove('overflow-hidden')
     document.querySelector('body').classList.remove('overflow-hidden')
   }
@@ -55,17 +70,17 @@ class Modal extends React.Component {
       <BodyEnd>
         <div className="signwall">
           <div>
-          <v-modal class={`modal ${bg === 'white' ? 'modal--white' : ''}`}>
-            <v-dialog
-              class={`modal__wrapper modal__position-${position} modal__size-${size}`}
-              heading={name}
-              size={size}
-              style={{ backgroundColor: color }}
-              id={id}
-              name={name}>
-              {children}
-            </v-dialog>
-          </v-modal>
+            <v-modal class={`modal ${bg === 'white' ? 'modal--white' : ''}`}>
+              <v-dialog
+                class={`modal__wrapper modal__position-${position} modal__size-${size}`}
+                heading={name}
+                size={size}
+                style={{ backgroundColor: color }}
+                id={id}
+                name={name}>
+                {children}
+              </v-dialog>
+            </v-modal>
           </div>
         </div>
       </BodyEnd>

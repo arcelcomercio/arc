@@ -7,35 +7,34 @@ import Domains from '../../utils/domains'
 
 const closeSession = props => {
   const { closePopup, closeDispatchEvent, arcSite } = props
+  const isSubs = window.location.pathname.indexOf('suscripciones') >= 0 || false
+  const isPremium = window.content_paywall
 
   Cookies.deleteCookie('arc_e_id')
   Cookies.deleteCookie('mpp_sess')
   Cookies.deleteCookie('ArcId.USER_INFO')
   Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
-  window.sessionStorage.setItem('preferencesNews', '[]')
+  window.sessionStorage.removeItem('paywall-profile-form') // formik raul
+  window.sessionStorage.removeItem('paywall-payment-form') // formik raul
+  window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
 
   window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
   window.Identity.logout()
     .then(() => {
-      if (
-        window.location.pathname.indexOf('suscripciones') >= 0 ||
-        arcSite === 'gestion' ||
-        arcSite === 'elcomercio'
-      ) {
+      if (isSubs || arcSite === 'gestion' || arcSite === 'elcomercio') {
         closeDispatchEvent()
-      } else {
-        window.sessionStorage.removeItem('paywall-profile-form')
-        window.sessionStorage.removeItem('paywall-payment-form')
-      }
-      if (window.Sales) {
-        window.Sales.subscriptions = []
+        if (window.Sales) {
+          window.Sales.subscriptions = []
+        }
+        if (isPremium) {
+          window.location.reload()
+        }
       }
       closePopup()
-      window.sessionStorage.removeItem('paywall_last_url')
-      window.scrollTo(0, 100)
-      setTimeout(() => {
-        window.scrollTo(0, 0)
-      }, 500)
+      // window.scrollTo(0, 100)
+      // setTimeout(() => {
+      //   window.scrollTo(0, 0)
+      // }, 500)
     })
     .catch(() => {
       window.location.reload()

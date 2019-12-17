@@ -92,6 +92,10 @@ $nav-height-active: 46px;
       top: 0;
     }
 
+    .header__btn-container{
+      display: none;
+    }
+
     .header-inverted__btn-sign,
     .header-inverted__btn-subs {
       display: flex;

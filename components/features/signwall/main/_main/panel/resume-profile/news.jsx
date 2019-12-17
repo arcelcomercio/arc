@@ -23,9 +23,6 @@ class News extends Component {
 
     const UUID = window.Identity.userIdentity.uuid
     const SITE = arcSite
-    const localNews = JSON.parse(
-      window.sessionStorage.getItem('preferencesNews')
-    )
 
     const listAllNews = { ...[] }
 
@@ -42,45 +39,29 @@ class News extends Component {
         })
       }
 
-      if (localNews && localNews.length >= 1) {
-        localNews.map(item => {
-          if (this._isMounted) {
-            this.setState(prevState => ({
-              checksNews: {
-                ...prevState.checksNews,
-                [item]: true,
-              },
-              loading: false,
-            }))
-          }
+      Services.getNewsLettersUser(UUID, SITE).then(res => {
+        if (res.data.length >= 1) {
+          res.data.map(item => {
+            if (this._isMounted) {
+              this.setState(prevState => ({
+                checksNews: {
+                  ...prevState.checksNews,
+                  [item]: true,
+                },
+                loading: false,
+              }))
+            }
 
-          return null
-        })
-      } else {
-        Services.getNewsLettersUser(UUID, SITE).then(res => {
-          if (res.data.length >= 1) {
-            res.data.map(item => {
-              if (this._isMounted) {
-                this.setState(prevState => ({
-                  checksNews: {
-                    ...prevState.checksNews,
-                    [item]: true,
-                  },
-                  loading: false,
-                }))
-              }
+            return null
+          })
+        }
 
-              return null
-            })
-          }
-
-          if (this._isMounted) {
-            this.setState({
-              loading: false,
-            })
-          }
-        })
-      }
+        if (this._isMounted) {
+          this.setState({
+            loading: false,
+          })
+        }
+      })
     })
   }
 

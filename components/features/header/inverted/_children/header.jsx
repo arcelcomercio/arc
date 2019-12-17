@@ -388,7 +388,7 @@ const HeaderChildInverted = ({
           {/** ************* RIGHT *************** */}
           <div
             className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
-            {isStory && scrolled ? (
+            {isStory && scrolled && (
               <>
                 <div className={classes.navStorySocialNetwork}>
                   <div>
@@ -418,27 +418,26 @@ const HeaderChildInverted = ({
                   </ul>
                 </div>
               </>
-            ) : (
-              <div className={`${classes.navContainerRight} `}>
-                {siteProperties.activePaywall && (
-                  <Button
-                    btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                    btnLink={`${
-                      siteProperties.urlSubsOnline
-                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                      'undefined' &&
-                      window.section) ||
-                      ''}`}
-                  />
-                )}
-                {siteProperties.activeSignwall && (
-                  <SignwallComponent
-                    classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
-                  />
-                )}
-              </div>
             )}
+            <div className={`${classes.navContainerRight} `}>
+              {siteProperties.activePaywall && (
+                <Button
+                  btnText="Suscríbete"
+                  btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
+                  btnLink={`${
+                    siteProperties.urlSubsOnline
+                  }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                    'undefined' &&
+                    window.section) ||
+                    ''}`}
+                />
+              )}
+              {siteProperties.activeSignwall && (
+                <SignwallComponent
+                  classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
+                />
+              )}
+            </div>
           </div>
           {/** ************* // RIGHT *************** */}
         </div>

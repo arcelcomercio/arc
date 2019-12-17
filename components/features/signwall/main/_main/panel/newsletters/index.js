@@ -29,7 +29,6 @@ class NewsLetter extends Component {
 
     const UUID = window.Identity.userIdentity.uuid
     const SITE = arcSite
-    const localNews = false
 
     const listAllNews = { ...[] }
 
@@ -44,38 +43,24 @@ class NewsLetter extends Component {
         checksNews: listAllNews,
       })
 
-      if (localNews && localNews.length >= 1) {
-        localNews.map(item => {
-          this.setState(prevState => ({
-            checksNews: {
-              ...prevState.checksNews,
-              [item]: true,
-            },
-            loading: false,
-          }))
-
-          return null
-        })
-      } else {
-        Services.getNewsLettersUser(UUID, SITE).then(res => {
-          if (res.data.length >= 1) {
-            res.data.map(item => {
-              this.setState(prevState => ({
-                checksNews: {
-                  ...prevState.checksNews,
-                  [item]: true,
-                },
-                loading: false,
-              }))
-              selectCategories.add(item)
-              return null
-            })
-          }
-          this.setState({
-            loading: false,
+      Services.getNewsLettersUser(UUID, SITE).then(res => {
+        if (res.data.length >= 1) {
+          res.data.map(item => {
+            this.setState(prevState => ({
+              checksNews: {
+                ...prevState.checksNews,
+                [item]: true,
+              },
+              loading: false,
+            }))
+            selectCategories.add(item)
+            return null
           })
+        }
+        this.setState({
+          loading: false,
         })
-      }
+      })
     })
   }
 
