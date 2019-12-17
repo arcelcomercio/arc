@@ -2,6 +2,8 @@
 import request from 'request-promise-native'
 import ENV, { CONTENT_BASE } from 'fusion:environment'
 
+// TODO: LIMPIAME POR FAVOR
+
 const flagDev = ENV.ENVIRONMENT !== 'elcomercio' // false
 
 const uriPostProd = site =>
