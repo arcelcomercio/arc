@@ -1,6 +1,9 @@
 .story-content {
   li {
     font-family: $tertiary-font;
+    & a {
+      color: #4a88b1;
+    }
   }
   .pquote__text {
     color: $color-link;

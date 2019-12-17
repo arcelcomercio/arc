@@ -119,12 +119,6 @@ class ConfigParams {
 
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
-  // Sites
-  static ARC_SITE_PERU21 = 'peru21'
-
-  static ARC_SITE_PUBLIMETRO = 'publimetro'
-
-  static ARC_SITE_GESTION = 'gestion'
 }
 
 export const sizeImg = () => {
