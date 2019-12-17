@@ -42,10 +42,8 @@ const Head = props => {
 
   // eslint-disable-next-line react/sort-comp
   const signInReqHandler = React.useRef(type => {
-    if (!isLogged()) {
-      typeSignWall.current = type
-      setShowSignwall(true)
-    }
+    typeSignWall.current = type
+    setShowSignwall(true)
   }).current
 
   const logoutHandler = React.useRef(() => {
