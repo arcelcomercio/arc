@@ -556,7 +556,9 @@ export const twitterHtml = html => {
       rplTwitter1
     )
 
-  return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
+  return htmlDataTwitter
+    .replace(/<script(.*\n)*.*">.*<\/script>/gm, '')
+    .replace(/(<script.*?>).*?(<\/script>)/g, '')
 }
 
 export const deporPlay = html => {
@@ -673,6 +675,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
     .replace(/<script>(.*\n)*.*<\/script>/g, '')
     .replace(/<(-?\/)?script>/g, '')
+    .replace(/<script(.*)>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 
     .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
