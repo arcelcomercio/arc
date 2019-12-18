@@ -117,8 +117,8 @@ export default {
     subscriptionType1: `Quiero una suscripción`,
     subscriptionType2: `Tengo una suscripción`,
     subscriptionType3: `Otros`,
-    messageSendNotifacion: `Tu mensaje ha sido enviado, nos pondremos en contacto con usted.`,
-    returnTo: `Volver a gestión`,
+    messageSendNotification: `Tu mensaje ha sido enviado, nos pondremos en contacto contigo.`,
+    returnTo: `Volver a El Comercio`,
     thanks: `Gracias`,
 
     // Forms
