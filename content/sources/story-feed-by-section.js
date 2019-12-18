@@ -100,18 +100,19 @@ const resolve = (key = {}) => {
 }
 
 const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
-  const section = removeLastSlash(
-    rawSection === '' || rawSection === undefined || rawSection === null
-      ? '/'
-      : rawSection
-  )
-
   if (
     !data ||
     (data && data.content_elements && !data.content_elements.length > 0)
   ) {
     throw new RedirectError('/404', 404)
   }
+
+  const section = removeLastSlash(
+    rawSection === '' || rawSection === undefined || rawSection === null
+      ? '/'
+      : rawSection
+  )
+
   const dataStory = data
   const { resizerUrl, siteName } = getProperties(arcSite)
   dataStory.content_elements = addResizedUrlsToStory(
@@ -122,11 +123,11 @@ const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
   )
   dataStory.siteName = siteName
 
-  const { content_elements: [{ taxonomy: { sites = [] } = {} } = {}] = [] } =
+  const { content_elements: [{ taxonomy: { sections = [] } = {} } = {}] = [] } =
     dataStory || {}
 
   let sectionName = ''
-  sites.forEach(({ _id, name }) => {
+  sections.forEach(({ _id, name }) => {
     if (_id === section) sectionName = name
   })
 

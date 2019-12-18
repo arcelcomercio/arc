@@ -5,6 +5,8 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
+// TODO: Dame amor
+
 let website = ''
 
 const schemaName = 'stories-dev'
@@ -55,6 +57,7 @@ const fetch = key => {
           contentElementsFilterById.push(item)
 
           newsList.push(
+            // TODO: cambiar por /content/v4/ids?website=elcomercio&ids=3TFGLTFHSNDODC57V5EFBWRLDU,HV2GFMASXFA7RGXUUZXKV7BU3Q
             request({
               uri: `${CONTENT_BASE}/content/v4/stories?_id=${newsId}&website=${website}`,
               ...options,

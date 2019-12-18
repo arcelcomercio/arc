@@ -1,9 +1,8 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import RedirectError from '../../components/utilities/redirect-error'
 
 /**
  * Esta función se usa para controlar el slash final, ideada unicamente para
@@ -16,18 +15,12 @@ const removeLastSlash = section => {
     : section
 }
 
-let website = ''
 const schemaName = 'story'
 
 const params = [
   {
     name: 'section',
-    displayName: 'Sección(es)',
-    type: 'text',
-  },
-  {
-    name: 'excludeSections',
-    displayName: 'Secciones excluidas',
+    displayName: 'Sección',
     type: 'text',
   },
   {
@@ -37,22 +30,9 @@ const params = [
   },
 ]
 
-const options = {
-  gzip: true,
-  json: true,
-}
-
-export const itemsToArray = (itemString = '') => {
-  return itemString.split(',').map(item => {
-    return item.replace(/"/g, '')
-  })
-}
-
-const fetch = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, excludeSections, feedOffset } = key
-
-  const sectionsExcluded = itemsToArray(excludeSections)
+const resolve = (key = {}) => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const { section, feedOffset } = key
 
   const clearSection = removeLastSlash(section) || '/'
 
@@ -66,35 +46,11 @@ const fetch = (key = {}) => {
             },
           },
         ],
-        must_not: [
-          {
-            nested: {
-              path: 'taxonomy.sections',
-              query: {
-                bool: {
-                  must: [
-                    {
-                      terms: {
-                        'taxonomy.sections._id': sectionsExcluded,
-                      },
-                    },
-                    {
-                      term: {
-                        'taxonomy.sections._website': website,
-                      },
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        ],
       },
     },
   }
 
   if (clearSection !== '/') {
-    const sectionsIncluded = itemsToArray(clearSection)
     body.query.bool.must.push({
       nested: {
         path: 'taxonomy.sections',
@@ -103,7 +59,7 @@ const fetch = (key = {}) => {
             must: [
               {
                 terms: {
-                  'taxonomy.sections._id': sectionsIncluded,
+                  'taxonomy.sections._id': [clearSection],
                 },
               },
               {
@@ -123,33 +79,40 @@ const fetch = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  return request({
-    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSection}`,
-    ...options,
-  }).then(resp => {
-    if (Object.prototype.hasOwnProperty.call(resp, 'status'))
-      throw new Error('Sección no encontrada')
-    return request({
-      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=1&from=${feedOffset ||
-        0}&sort=display_date:desc&single=true${excludedFields}`,
-      ...options,
-    }).then(storyData => {
-      const { resizerUrl } = getProperties(website)
-      return {
-        ...(addResizedUrlsToStory(
-          [storyData],
-          resizerUrl,
-          resizerSecret,
-          addResizedUrls
-        )[0] || null),
-        section_name: resp.name || 'Sección',
-      }
-    })
+  return `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=1&from=${feedOffset ||
+    0}&sort=display_date:desc&single=true${excludedFields}`
+}
+
+const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
+  if (!data) {
+    throw new RedirectError(null, 404)
+  }
+
+  const section = removeLastSlash(rawSection) || '/'
+  const { resizerUrl } = getProperties(arcSite)
+
+  const { content_elements: [{ taxonomy: { sections = [] } = {} } = {}] = [] } =
+    data || {}
+
+  let sectionName = ''
+  sections.forEach(({ _id, name }) => {
+    if (_id === section) sectionName = name
   })
+
+  return {
+    ...(addResizedUrlsToStory(
+      [data],
+      resizerUrl,
+      resizerSecret,
+      addResizedUrls
+    )[0] || null),
+    section_name: sectionName || 'Sección',
+  }
 }
 
 const source = {
-  fetch,
+  resolve,
+  transform,
   schemaName,
   params,
   ttl: 300,

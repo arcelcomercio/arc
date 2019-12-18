@@ -2,8 +2,8 @@ import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import RedirectError from '../../components/utilities/redirect-error'
 
-let website = ''
 const schemaName = 'story'
 
 const params = [
@@ -19,8 +19,8 @@ const params = [
   },
 ]
 
-const pattern = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
+const resolve = (key = {}) => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { name, feedOffset } = key
 
   const slugSearch = name ? `AND+taxonomy.tags.slug:${name.toLowerCase()}+` : ''
@@ -30,19 +30,19 @@ const pattern = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  const requestUri = `/content/v4/search/published?q=${q}&size=1&from=${feedOffset ||
+  return `/content/v4/search/published?q=${q}&size=1&from=${feedOffset ||
     0}&sort=display_date:desc&website=${website}&single=true${excludedFields}`
-
-  return requestUri
 }
 
 // TODO: Buscar de devolver el tag_name de alguna manera.
 
-const resolve = key => pattern(key)
+const transform = (data, { 'arc-site': arcSite }) => {
+  if (!data) {
+    throw new RedirectError(null, 404)
+  }
 
-const transform = data => {
   const dataStory = data
-  const { resizerUrl } = getProperties(website)
+  const { resizerUrl } = getProperties(arcSite)
   return (
     addResizedUrlsToStory(
       [dataStory],
