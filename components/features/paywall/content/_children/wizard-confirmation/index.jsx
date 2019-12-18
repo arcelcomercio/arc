@@ -91,7 +91,7 @@ const WizardConfirmation = props => {
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: origin,
-      accesoGratis: freeAccess,
+      accesoGratis: !!freeAccess ? 'si' : 'no',
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
