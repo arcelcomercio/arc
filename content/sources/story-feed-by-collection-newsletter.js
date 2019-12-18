@@ -5,7 +5,11 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
-// TODO: Dame amor
+// TODO: Este Content source realiza 2 fetch y un promise all con múltiples fetch,
+// el api de /websked/collections ya trae el id de las notas, por lo que no es necesario
+// hacer el primer fetch. En lugar de hacer un Promise all se debe usar el api:
+// /content/v4/ids?website=elcomercio&ids=3TFGLTFHSNDODC57V5EFBWRLDU,HV2GFMASXFA7RGXUUZXKV7BU3Q
+// para que se haga un solo fetch
 
 let website = ''
 
