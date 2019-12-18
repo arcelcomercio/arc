@@ -675,7 +675,6 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
     .replace(/<script>(.*\n)*.*<\/script>/g, '')
     .replace(/<(-?\/)?script>/g, '')
-    .replace(/<script(.*)>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 
     .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
