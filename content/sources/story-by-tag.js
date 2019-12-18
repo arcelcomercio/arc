@@ -2,7 +2,6 @@ import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
-import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'story'
 
@@ -37,10 +36,6 @@ const resolve = (key = {}) => {
 // TODO: Buscar de devolver el tag_name de alguna manera.
 
 const transform = (data, { 'arc-site': arcSite }) => {
-  if (!data) {
-    throw new RedirectError(null, 404)
-  }
-
   const dataStory = data
   const { resizerUrl } = getProperties(arcSite)
   return (

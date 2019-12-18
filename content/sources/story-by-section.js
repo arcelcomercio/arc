@@ -2,7 +2,6 @@ import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
-import RedirectError from '../../components/utilities/redirect-error'
 
 /**
  * Esta función se usa para controlar el slash final, ideada unicamente para
@@ -84,10 +83,6 @@ const resolve = (key = {}) => {
 }
 
 const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
-  if (!data) {
-    throw new RedirectError(null, 404)
-  }
-
   const section = removeLastSlash(rawSection) || '/'
   const { resizerUrl } = getProperties(arcSite)
 
