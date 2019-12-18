@@ -91,8 +91,7 @@ const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
   const section = removeLastSlash(rawSection) || '/'
   const { resizerUrl } = getProperties(arcSite)
 
-  const { content_elements: [{ taxonomy: { sections = [] } = {} } = {}] = [] } =
-    data || {}
+  const { taxonomy: { sections = [] } = {} } = data || {}
 
   let sectionName = ''
   sections.forEach(({ _id, name }) => {
