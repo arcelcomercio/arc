@@ -117,7 +117,6 @@ const Portal = ({ theme }) => {
           <S.ReviewVideo
             id="vjs_video_1_html5_api"
             poster={theme.images.reviewPoster}
-            preload="auto"
             controls
             src={interpolateUrl(urls.reviewVideo)}>
             <source
