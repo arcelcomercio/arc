@@ -44,7 +44,7 @@ const params = [
   },
 ]
 
-const pattern = key => {
+const fetch = key => {
   const validateFrom = () => {
     if (key.from !== '1' && key.from) {
       return (key.from - 1) * key.size
@@ -70,11 +70,6 @@ const pattern = key => {
           {
             term: {
               type: 'story',
-            },
-          },
-          {
-            term: {
-              'revision.published': 'true',
             },
           },
           {
@@ -149,8 +144,6 @@ const pattern = key => {
     })
   })
 }
-
-const fetch = key => pattern(key)
 
 const source = {
   fetch,
