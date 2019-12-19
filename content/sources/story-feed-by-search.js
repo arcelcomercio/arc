@@ -3,6 +3,10 @@ import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
+import {
+  includePromoItems,
+  includePrimarySection,
+} from '../../components/utilities/included-fields'
 
 const schemaName = 'stories-dev'
 
@@ -145,7 +149,7 @@ const fetch = ({
   // promo_items.basic.type es importante para el resizer
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`
-    : `&_sourceInclude=taxonomy.primary_section.path,taxonomy.primary_section.name,display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,credits.by.name,credits.by.url,promo_items.basic.type,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content`
+    : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,credits.by.name,credits.by.url,${includePromoItems}`
 
   /* Legacy
     const sourceExclude =
