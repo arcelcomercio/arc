@@ -126,6 +126,7 @@ class XmlFacebookInstantArticles {
                   formatOrigen: storyData.formatOrigen,
                   contentOrigen: storyData.contentOrigen,
                   genderOrigen: storyData.genderOrigen,
+                  arcSite,
                 }
 
                 const buildHtmlProps = {

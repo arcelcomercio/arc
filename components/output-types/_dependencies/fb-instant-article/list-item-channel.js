@@ -72,6 +72,7 @@ const ListItemNews = (contentElements, buildProps) => {
             formatOrigen: storydata.formatOrigen,
             contentOrigen: storydata.contentOrigen,
             genderOrigen: storydata.genderOrigen,
+            arcSite,
           }
 
           const BuildHtmlProps = {
