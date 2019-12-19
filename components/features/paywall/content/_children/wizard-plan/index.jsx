@@ -208,13 +208,7 @@ function WizardPlan(props) {
   }
 
   const onCorporateSubscriptorHandler = () => {
-    if (!isLogged()) {
-      clearDeferredActions()
-      subscribingCorporate.current = true
-      dispatchEvent('signInReq', 'landing')
-    } else {
-      window.open(interpolateUrl(urls.corporateSuscription), '_blank')
-    }
+    window.open(interpolateUrl(urls.corporateSuscription), '_blank')
   }
 
   return (
@@ -297,15 +291,10 @@ function WizardPlan(props) {
             event={eventCampaign}
             marginTop={arcSite === 'elcomercio' ? '14px' : '30px'}
             fullWidth={arcSite === 'elcomercio'}
-            text1={
+            text={
               eventCampaign
-                ? msgs.eventSubscriptorBanner1
-                : msgs.printedSubscriptorBanner1
-            }
-            text2={
-              eventCampaign
-                ? msgs.eventSubscriptorBanner2
-                : msgs.printedSubscriptorBanner2
+                ? msgs.eventSubscriptorBannerText
+                : msgs.printedSubscriptorBannerText
             }
             image={arcSite === 'elcomercio' && theme.images.lector}
             backgroundColor={
@@ -337,9 +326,7 @@ function WizardPlan(props) {
                   width="40%"
                   ml="20px"
                   backgroundColor={theme.palette.terciary.light}
-                  text1={msgs.businessSubscriptionsBanner1}
-                  text2={msgs.businessSubscriptionsBanner2}
-                  invertTextSizes
+                  text={msgs.businessSubscriptionsBannerText}
                   onClick={onCorporateSubscriptorHandler}
                 />
               )}

@@ -97,36 +97,37 @@ const PortalInt = props => {
       <S.Footer>
         <S.FooterContent>
           {arcSite === 'gestion' && (
-            <S.LinkCorporate
+            <PromoBanner
               primary
-              linkStyle
-              onClick={() => {
+              text={msgs.studentPlanBannerText}
+              fontSize="20px"
+              fontWeight="100"
+              onClick={e => {
+                e.preventDefault()
                 dispatchEvent('signInReq', 'students')
-              }}>
-              <S.SubscribedText primary>
-                <div>
-                  <span>PLAN UNIVERSITARIO</span>
-                </div>
-                <Icon type={theme.icon.arrowRight} />
-              </S.SubscribedText>
-            </S.LinkCorporate>
+              }}
+            />
           )}
-
-          <S.LinkCorporate
-            linkStyle
-            href={arcSite === 'elcomercio' ? originSubsOnline : corporateUrl}>
-            <S.SubscribedText>
-              <div>
-                <span>{`${msgs.businessSubscriptionsBanner1}`}</span>
-                <strong>{`${msgs.businessSubscriptionsBanner2}`}</strong>
-              </div>
-              <Icon type={theme.icon.arrowRight} />
-            </S.SubscribedText>
-          </S.LinkCorporate>
-
-          <S.ClickToCallWrapper>
-            <ClickToCall href={clickToCallUrl} text="¿AYUDA?" />
-          </S.ClickToCallWrapper>
+          {arcSite === 'elcomercio' && (
+            <PromoBanner
+              href={originSubsOnline}
+              text={msgs.printedSubscriptorBannerText2}
+            />
+          )}
+          <PromoBanner
+            href={corporateUrl}
+            text={msgs.businessSubscriptionsBannerText}
+            primary={arcSite === 'elcomercio'}
+            backgroundColor="#ccc19b"
+            ml={{ xs: '0px', sm: '30px' }}
+          />
+          <ClickToCall
+            href={clickToCallUrl}
+            text={msgs.helpShort}
+            top={{ md: '-35%' }}
+            right={{ md: '0' }}
+            position={{ md: 'absolute' }}
+          />
         </S.FooterContent>
       </S.Footer>
       {arcSite === 'elcomercio' && (
@@ -152,6 +153,17 @@ const PortalInt = props => {
     // </FillHeight>
   )
 }
+
+const PromoBanner = withTheme(({ theme, text, ...props }) => {
+  const { fontFamily, fontSize, fontWeight, ...restProps } = props
+  const typography = { fontFamily, fontSize, fontWeight }
+  return (
+    <S.LinkCorporate {...restProps}>
+      <S.SubscribedText {...typography}>{text}</S.SubscribedText>
+      <Icon type={theme.icon.arrowRight} />
+    </S.LinkCorporate>
+  )
+})
 
 @Consumer
 class Portal extends React.Component {
