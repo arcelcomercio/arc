@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import request from 'request-promise-native'
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import {
@@ -9,7 +7,7 @@ import {
 } from '../../components/utilities/helpers'
 
 const SCHEMA_NAME = 'stories-dev'
-let website = ''
+
 const params = [
   {
     name: 'section',
@@ -22,13 +20,9 @@ const params = [
     type: 'number',
   },
 ]
-const options = {
-  gzip: true,
-  json: true,
-}
 
-const pattern = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
+const resolve = (key = {}) => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { section, stories_qty: storiesQty } = key
   const clearSection =
     section === '' ||
@@ -42,11 +36,6 @@ const pattern = (key = {}) => {
     query: {
       bool: {
         must: [
-          {
-            term: {
-              'revision.published': 'true',
-            },
-          },
           {
             term: {
               type: 'story',
@@ -84,38 +73,29 @@ const pattern = (key = {}) => {
   const encodedBody = encodeURI(JSON.stringify(body))
   const sourceExclude = `&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,related_content`
 
-  return request({
-    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSection}`,
-    ...options,
-  }).then(({ status }) => {
-    if (status) throw new Error('Sección no encontrada')
-    return request({
-      uri: `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
-        50}&from=0&sort=display_date:desc${sourceExclude}`,
-      ...options,
-    }).then(data => {
-      const dataStory = data
-      const { resizerUrl, siteName } = getProperties(website)
-      dataStory.content_elements = addResizedUrlsToStory(
-        dataStory.content_elements,
-        resizerUrl,
-        resizerSecret,
-        addResizedUrls
-      )
-      dataStory.siteName = siteName
-
-      return {
-        ...dataStory,
-        // section_name: name || 'Sección',
-      }
-    })
-  })
+  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
+    50}&from=0&sort=display_date:desc${sourceExclude}`
 }
 
-const fetch = key => pattern(key)
+const transform = (data, { 'arc-site': arcSite }) => {
+  const dataStory = data
+  const { resizerUrl, siteName } = getProperties(arcSite)
+  dataStory.content_elements = addResizedUrlsToStory(
+    dataStory.content_elements,
+    resizerUrl,
+    resizerSecret,
+    addResizedUrls
+  )
+  dataStory.siteName = siteName
+
+  return {
+    ...dataStory,
+  }
+}
 
 const source = {
-  fetch,
+  resolve,
+  transform,
   schemaName: SCHEMA_NAME,
   params,
   // cache: false,

@@ -80,11 +80,6 @@ const pattern = (key = {}) => {
               },
             },
           },
-          {
-            term: {
-              'revision.published': 'true',
-            },
-          },
         ],
       },
     },

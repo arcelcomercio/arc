@@ -39,11 +39,6 @@ const pattern = key => {
               type: 'story',
             },
           },
-          {
-            term: {
-              'revision.published': 'true',
-            },
-          },
         ],
       },
     },

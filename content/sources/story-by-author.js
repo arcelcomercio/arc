@@ -3,8 +3,6 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
-let website = ''
-
 const schemaName = 'story'
 
 const params = [
@@ -20,28 +18,24 @@ const params = [
   },
 ]
 
-const pattern = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
+const resolve = (key = {}) => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { name, feedOffset } = key
 
   const slugSearch = name ? `AND+credits.by.url:"/autor/${name}"+` : ''
 
-  const q = `canonical_website:${website}+${slugSearch}AND+type:story+AND+revision.published:true`
+  const q = `canonical_website:${website}+${slugSearch}AND+type:story`
 
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  const requestUri = `/content/v4/search/published?q=${q}&size=1&from=${feedOffset ||
+  return `/content/v4/search/published?q=${q}&size=1&from=${feedOffset ||
     0}&sort=display_date:desc&website=${website}&single=true${excludedFields}`
-
-  return requestUri
 }
 
-const resolve = key => pattern(key)
-
-const transform = data => {
+const transform = (data, { 'arc-site': arcSite }) => {
   const dataStory = data
-  const { resizerUrl } = getProperties(website)
+  const { resizerUrl } = getProperties(arcSite)
   return (
     addResizedUrlsToStory(
       [dataStory],
