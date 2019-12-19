@@ -39,7 +39,7 @@ export const ThanksBtn = styled.a`
   border-radius: 2px;
   background-color: #2768b2;
   text-transform: uppercase;
-  padding: 1em 5em;
+  padding: 1em 4em;
   font-weight: 600;
   box-shadow: 0px 1px 2px 1px #2768b261;
   cursor: pointer;

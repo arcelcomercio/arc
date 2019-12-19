@@ -12,9 +12,7 @@ const PromoBanner = props => {
     fullWidth,
     width,
     event,
-    text1,
-    text2,
-    invertTextSizes,
+    text,
     image,
     onClick,
     ...restProps
@@ -41,19 +39,7 @@ const PromoBanner = props => {
         backgroundColor={backgroundColor}
         color={theme.palette.getContrastText(backgroundColor)}
         minPadding={image}>
-        <S.SubscribedText>
-          {invertTextSizes ? (
-            <>
-              <S.Small>{text1}</S.Small>
-              <span>{text2}</span>
-            </>
-          ) : (
-            <>
-              <span>{text1}</span>
-              <S.Small>{text2}</S.Small>
-            </>
-          )}
-        </S.SubscribedText>
+        <S.SubscribedText>{text}</S.SubscribedText>
         <div>
           <Icon type={theme.icon.arrowRight} />
         </div>

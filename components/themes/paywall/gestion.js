@@ -22,7 +22,7 @@ export default ({
         light: grey[700],
         contrastText: grey[100],
       },
-      common: { black: '#000', blackboard: grey[700], white: '#fff' },
+      common: { black: '#000', blackboard: '#444444', white: '#fff' },
       success: {
         main: '#22810b',
         light: 'rgba(34, 129, 11, 0.1)',

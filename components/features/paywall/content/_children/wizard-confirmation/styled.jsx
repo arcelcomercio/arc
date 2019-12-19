@@ -51,7 +51,7 @@ export const CardSummary = styled.div`
   ${({ theme }) => css`
     border-radius: 4px;
     background-color: ${theme.palette.background.default};
-    padding: 30px;
+    padding: 30px 26px;
     box-sizing: border-box;
     width: 100%;
     margin-bottom: 20px;

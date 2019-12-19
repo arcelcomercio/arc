@@ -36,16 +36,14 @@ const Head = props => {
   const [isActive, setIsActive] = React.useState(false)
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [stepForm, setStepForm] = React.useState(1)
-  const [typeSignWall, setTypeSignWall] = React.useState('landing')
 
+  const typeSignWall = React.useRef('landing')
   const forceLogin = React.useRef()
 
   // eslint-disable-next-line react/sort-comp
-  const signInReqHandler = React.useRef(typeSignWall => {
-    if (!isLogged() || typeSignWall === 'students') {
-      setShowSignwall(true)
-      setTypeSignWall(typeSignWall)
-    }
+  const signInReqHandler = React.useRef(type => {
+    typeSignWall.current = type
+    setShowSignwall(true)
   }).current
 
   const logoutHandler = React.useRef(() => {
@@ -103,13 +101,14 @@ const Head = props => {
       : theme.palette.primary.main
   const themedLogo =
     arcSite === 'elcomercio' ? theme.icon.logo_full : theme.icon.logo
+  const students = typeSignWall.current === 'students'
 
   return (
     <S.Head id={id}>
       {(showSignwall || (!isLogged() && forceLogin.current)) && (
         <Landing
-          typeDialog={typeSignWall} // tipo de modal (students , landing)
-          nameDialog={typeSignWall} // nombre de modal
+          typeDialog={typeSignWall.current} // tipo de modal (students , landing)
+          nameDialog={typeSignWall.current} // nombre de modal
           onLogged={profile => {
             const conformedProfile = conformProfile(profile)
             dispatchEvent('logged', conformedProfile)
@@ -118,10 +117,10 @@ const Head = props => {
           onLoggedFail={() => dispatchEvent('loginFailed')}
           onClose={() => {
             dispatchEvent('loginCanceled')
+            typeSignWall.current = 'landing'
             setShowSignwall(false)
-            typeSignWall !== 'students' ? setTypeSignWall('landing') : null
           }}
-          noBtnClose={typeSignWall === 'students' ? false : !!_forceLogin}
+          noBtnClose={students ? false : !!_forceLogin}
         />
       )}
       <S.Background>
@@ -153,6 +152,7 @@ const Head = props => {
                     setIsActive(true)
                   } else {
                     if (profile) setProfile()
+                    typeSignWall.current = 'landing'
                     setShowSignwall(true)
                   }
                 }}>
