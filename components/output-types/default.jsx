@@ -200,9 +200,7 @@ export default ({
       if (quota < 120000000) {
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({
-          event: 'tag_signwall',
-          eventCategory: 'Web_Sign_Wall_Security',
-          eventAction: 'web_sws_mode_incognito',
+          event: 'tag_signwall', eventCategory: 'Web_Sign_Wall_Security', eventAction: 'web_sws_mode_incognito',
         })
       }
     }

@@ -10,7 +10,7 @@ import {
 } from '../../../../utilities/slidernav-helpers'
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
-import SignwallComponent from '../../../signwall/standard'
+import SignwallComponent from '../../../signwall/main/default'
 
 /* 
 const DRAG_SCREEN_LIMIT = 90
@@ -43,6 +43,7 @@ const classes = {
     'items-center btn bg-base-100 text-sm hidden p-5 md:flex lg:pr-10 lg:pl-10',
   btnClub: 'header-inverted__btn-club',
   btnSubs: 'header-inverted__btn-subs',
+  btnSign: 'header-inverted__btn-sign',
   /** ------------ */
   navStoryTitle:
     'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15 line-h-sm',
@@ -55,9 +56,8 @@ const classes = {
   shareLink: 'story-header__link flex items-center justify-center text-white',
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
-  navContainerRight: 'lg:flex items-center justify-end header__btn-container',
-  btnSubscribe:
-    'flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block',
+  navContainerRight: 'flex items-center justify-end header__btn-container',
+  btnSubscribe: 'flex items-center btn capitalize text-md',
 }
 
 // TODO: Agregar el click afuera del menu
@@ -304,7 +304,7 @@ const HeaderChildInverted = ({
                 <li
                   className={`${classes.item}${
                     styles ? ' header__custom-item' : ''
-                    }`}
+                  }`}
                   key={`band-${url}`}>
                   <a
                     className={classes.link}
@@ -343,9 +343,7 @@ const HeaderChildInverted = ({
         <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
           <div
-            className={`${classes.navBtnContainer} ${
-              classes.leftBtnContainer
-              }`}>
+            className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
             <form className={classes.form} onSubmit={e => e.preventDefault()}>
               <input
                 ref={inputSearch}
@@ -366,7 +364,7 @@ const HeaderChildInverted = ({
               iconClass={classes.iconMenu}
               btnClass={`${classes.btnMenu} ${
                 scrolled && isStory ? 'border-r-1 border-solid' : ''
-                }`}
+              }`}
               btnText="Menú"
               onClick={_handleToggleSectionElements}
             />
@@ -389,10 +387,8 @@ const HeaderChildInverted = ({
           <div className={classes.navStoryTitle} />
           {/** ************* RIGHT *************** */}
           <div
-            className={`${classes.navBtnContainer} ${
-              classes.rightBtnContainer
-              }`}>
-            {isStory && scrolled ? (
+            className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
+            {isStory && scrolled && (
               <>
                 <div className={classes.navStorySocialNetwork}>
                   <div>
@@ -422,23 +418,26 @@ const HeaderChildInverted = ({
                   </ul>
                 </div>
               </>
-            ) : (
-                <div className={`${classes.navContainerRight} `}>
-                  {siteProperties.activePaywall && (
-                    <Button
-                      btnText="Suscríbete"
-                      btnClass={`${classes.btnSubscribe}`}
-                      btnLink={`${
-                        siteProperties.urlSubsOnline
-                        }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                          'undefined' &&
-                          window.section) ||
-                        ''}`}
-                    />
-                  )}
-                  {siteProperties.activeSignwall && <SignwallComponent />}
-                </div>
+            )}
+            <div className={`${classes.navContainerRight} `}>
+              {siteProperties.activePaywall && (
+                <Button
+                  btnText="Suscríbete"
+                  btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
+                  btnLink={`${
+                    siteProperties.urlSubsOnline
+                  }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                    'undefined' &&
+                    window.section) ||
+                    ''}`}
+                />
               )}
+              {siteProperties.activeSignwall && (
+                <SignwallComponent
+                  classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
+                />
+              )}
+            </div>
           </div>
           {/** ************* // RIGHT *************** */}
         </div>

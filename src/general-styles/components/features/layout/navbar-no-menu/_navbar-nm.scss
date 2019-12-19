@@ -29,4 +29,9 @@
     background-color: $color-gray-300;
     color: $color-white;
   }
+  &__btn-sign {
+    & > i{
+      display: none;
+    }
+  }
 }

@@ -95,6 +95,6 @@ body{
 }
 
 .overflow-hidden-ios {
-  overflow: hidden;
+  overflow: hidden !important;
   height: 100%;
 }
