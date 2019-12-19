@@ -24,7 +24,7 @@ const params = [
   },
   {
     name: 'section',
-    displayName: 'Sección / Categoría',
+    displayName: 'Sección / Categoría (sin slash)',
     type: 'text',
   },
   {
@@ -76,6 +76,32 @@ const transformImg = ({ contentElements, website, presets }) => {
   })
 }
 
+const transform = (
+  data,
+  { 'arc-site': website, query, from: page, presets: customPresets }
+) => {
+  const pageNumber = !page || page === 0 ? 1 : page
+  const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
+
+  const dataStories = data
+  const { content_elements: contentElements } = data || {}
+  dataStories.content_elements = transformImg({
+    contentElements,
+    website,
+    presets, // i.e. 'mobile:314x157'
+  })
+
+  const { siteName } = getProperties(website)
+  dataStories.siteName = siteName
+
+  return {
+    ...dataStories,
+    query,
+    decoded_query: decodeURIComponent(query).replace(/\+/g, ' '),
+    page_number: pageNumber,
+  }
+}
+
 const fetch = ({
   'arc-site': website,
   query,
@@ -83,12 +109,8 @@ const fetch = ({
   size: rawSize,
   from: page,
   sort: rawSort,
-  presets: customPresets,
   includedFields,
 }) => {
-  const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
-  const queryValue = query
-  const pageNumber = !page || page === 0 ? 1 : page
   const sort = rawSort === 'ascendente' ? 'asc' : 'desc'
   const from = `${validateFrom(page, rawSize)}`
   const size = `${rawSize || 15}`
@@ -96,6 +118,7 @@ const fetch = ({
 
   let queryFilter = ''
 
+  // Si se filtra por seccion se usa ?body, sino, se usa ?q
   if (section === 'todas') {
     queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${query}`
   } else {
@@ -113,7 +136,7 @@ const fetch = ({
             },
             {
               simple_query_string: {
-                query: `"${decodeURI(valueQuery)}"`, // NOTA: El navegador encodea las tildes
+                query: `"${decodeURI(valueQuery)}"`, // El navegador encodea las tildes
               },
             },
             {
@@ -145,18 +168,30 @@ const fetch = ({
     queryFilter = `body=${encodeURIComponent(JSON.stringify(body))}`
   }
 
+  // promo_items.basic.type es importante para el resizer
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`
-    : `&_sourceInclude=taxonomy.primary_section.path,taxonomy.primary_section.name,display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,credits.by.name,credits.by.url,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content`
-  const sourceExclude =
-    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+    : `&_sourceInclude=taxonomy.primary_section.path,taxonomy.primary_section.name,display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,credits.by.name,credits.by.url,promo_items.basic.type,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content`
+
+  /* Legacy
+    const sourceExclude =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website' */
 
   const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&${queryFilter}${sourceInclude}`
 
+  if (section === 'todas') {
+    return request({
+      uri: requestUri,
+      ...options,
+    }).then(data => data)
+  }
+
+  /**
+   * Si se esta buscando por seccion, primero se verifica que la seccion existe.
+   * Si la seccino no existe debe devolver 404.
+   */
   return request({
-    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${
-      section === 'todas' ? '' : section
-    }`,
+    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${section}`,
     ...options,
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
@@ -165,30 +200,13 @@ const fetch = ({
     return request({
       uri: requestUri,
       ...options,
-    }).then(data => {
-      const dataStories = data
-      const { content_elements: contentElements } = data || {}
-      dataStories.content_elements = transformImg({
-        contentElements,
-        website,
-        presets, // 'mobile:314x157'
-      })
-
-      const { siteName } = getProperties(website)
-      dataStories.siteName = siteName
-
-      return {
-        ...dataStories,
-        query: queryValue,
-        decoded_query: decodeURIComponent(queryValue).replace(/\+/g, ' '),
-        page_number: pageNumber,
-      }
-    })
+    }).then(data => data)
   })
 }
 
 const source = {
   fetch,
+  transform,
   schemaName,
   params,
   ttl: 300,
