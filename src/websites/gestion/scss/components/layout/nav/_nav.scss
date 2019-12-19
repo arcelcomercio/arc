@@ -7,8 +7,45 @@
         background-color: $color-base-400;
       }
     }
+
+    .nav__container-right {
+      @media (--only-mobile) {
+        right: 10px;
+      }
+      // @media (--tablet) {
+      //   display: none;
+      // }
+      @media (--desktop) {
+        display: block;
+      }
+    }
   }
 
+  &__btn-subs{
+    background-color: $color-white;
+    color: #444444;
+    font-weight: bold;
+    font-size: 14px;
+    outline: none;
+    margin-right: 10px;
+    border: 1px solid $color-white;
+    padding: 8px 12px;
+    &:hover{
+      text-decoration: none;
+    }
+    @media (--only-mobile) {
+      font-family: sans-serif;
+      background-color: $color-secondary;
+      color: $color-primary;
+      height: auto;
+      padding: 5px 7px;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: normal;
+      border: 1px solid $color-secondary;
+    }
+  }
+  
   &__btn,
   &__icon-search {
     @media (--desktop) {
@@ -29,6 +66,12 @@
       & .nav__icon-search {
         color: $color-base-400;
       }
+    }
+  }
+
+  &__mobile-logo {
+    @media (--only-mobile) {
+      left: 35%;
     }
   }
 

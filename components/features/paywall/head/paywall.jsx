@@ -11,8 +11,8 @@ import { conformProfile, isLogged } from '../_dependencies/Identity'
 import { interpolateUrl } from '../_dependencies/domains'
 import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
-import Signwall from '../../signwall/default'
-import { Landing } from '../../signwall/_main/acceso/landing/index'
+import Signwall from '../../signwall/main/_children/signwall'
+import { Landing } from '../../signwall/main/_main/acceso/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
 
@@ -172,7 +172,6 @@ const Head = props => {
       </S.Content>
       {isActive && (
         <Signwall
-          singleSign
           closeSignwall={() => {
             setIsActive(false)
           }}
