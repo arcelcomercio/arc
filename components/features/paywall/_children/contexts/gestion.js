@@ -131,7 +131,7 @@ export default {
     subscriptionType1: `Quiero una suscripción`,
     subscriptionType2: `Tengo una suscripción`,
     subscriptionType3: `Otros`,
-    messageSendNotification: `Tu mensaje ha sido enviado, nos pondremos en contacto con usted.`,
+    messageSendNotification: `Tu mensaje ha sido enviado, nos pondremos en contacto contigo.`,
     returnTo: `Volver a gestión`,
     thanks: `Gracias`,
 
