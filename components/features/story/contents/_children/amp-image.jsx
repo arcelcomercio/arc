@@ -10,8 +10,8 @@ const classes = {
 const StoryContentChildAmpImage = ({ data, resizer = false }) => {
   const sizerImg = resizer ? 'original' : 'large'
   const patameters = {
-    width: 1200,
-    height: 750,
+    width: 800,
+    height: 429,
     resized_urls: data.resized_urls,
     caption: data.caption,
     url: data.url,
