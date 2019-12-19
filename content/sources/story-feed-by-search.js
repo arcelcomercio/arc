@@ -1,9 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
 import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 
 const schemaName = 'stories-dev'
 
@@ -50,28 +49,57 @@ const params = [
   },
 ]
 
-const fetch = key => {
-  const validateFrom = () => {
-    if (key.from !== '1' && key.from) {
-      return (key.from - 1) * key.size
-    }
-    return '0'
+/**
+ * @description - calcula, usando el número de página y la cantidad de
+ * historias, el índice de la historia desde la cual se debe iniciar la
+ * solicitud.
+ *
+ * @param {*} page - número de página que se quiere consultar
+ * @param {*} size - cantidad de noticias que se quiere consultar
+ *
+ * @returns {*} índice de la historia inicial para la solicitud
+ */
+const validateFrom = (page, size) => {
+  if (page !== '1' && page) {
+    return (page - 1) * size
   }
+  return '0'
+}
 
-  const website = key['arc-site'] || 'Arc Site no está definido'
-  const queryValue = key.query
-  const pageNumber = !key.from || key.from === 0 ? 1 : key.from
-  const sort = key.sort === 'ascendente' ? 'asc' : 'desc'
-  const from = `${validateFrom()}`
-  const size = `${key.size || 15}`
-  const section = key.section || 'todas'
+const transformImg = ({ contentElements, website, presets }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets,
+  })
+}
+
+const fetch = ({
+  'arc-site': website,
+  query,
+  section: rawSection,
+  size: rawSize,
+  from: page,
+  sort: rawSort,
+  presets: customPresets,
+  includedFields,
+}) => {
+  const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
+  const queryValue = query
+  const pageNumber = !page || page === 0 ? 1 : page
+  const sort = rawSort === 'ascendente' ? 'asc' : 'desc'
+  const from = `${validateFrom(page, rawSize)}`
+  const size = `${rawSize || 15}`
+  const section = rawSection || 'todas'
 
   let queryFilter = ''
 
   if (section === 'todas') {
-    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${key.query}`
+    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${query}`
   } else {
-    let valueQuery = key.query.replace(/\+/g, ' ')
+    let valueQuery = query.replace(/\+/g, ' ')
     valueQuery = valueQuery.replace(/-/g, '+') || '*'
 
     const body = {
@@ -96,7 +124,7 @@ const fetch = key => {
                     must: [
                       {
                         terms: {
-                          'taxonomy.sections._id': [`/${key.section}`],
+                          'taxonomy.sections._id': [`/${rawSection}`],
                         },
                       },
                       {
@@ -117,10 +145,13 @@ const fetch = key => {
     queryFilter = `body=${encodeURIComponent(JSON.stringify(body))}`
   }
 
-  const excludedFields =
+  const sourceInclude = includedFields
+    ? `&_sourceInclude=${includedFields}`
+    : `&_sourceInclude=taxonomy.primary_section.path,taxonomy.primary_section.name,display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,credits.by.name,credits.by.url,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content`
+  const sourceExclude =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&${queryFilter}${excludedFields}`
+  const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&${queryFilter}${sourceInclude}`
 
   return request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${
@@ -130,18 +161,20 @@ const fetch = key => {
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
       throw new Error('Sección no encontrada')
+
     return request({
       uri: requestUri,
       ...options,
     }).then(data => {
       const dataStories = data
-      const { resizerUrl, siteName } = getProperties(website)
-      dataStories.content_elements = addResizedUrlsToStory(
-        dataStories.content_elements,
-        resizerUrl,
-        resizerSecret,
-        addResizedUrls
-      )
+      const { content_elements: contentElements } = data || {}
+      dataStories.content_elements = transformImg({
+        contentElements,
+        website,
+        presets, // 'mobile:314x157'
+      })
+
+      const { siteName } = getProperties(website)
       dataStories.siteName = siteName
 
       return {
