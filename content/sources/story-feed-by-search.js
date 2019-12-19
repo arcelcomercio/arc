@@ -7,10 +7,6 @@ import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
 const schemaName = 'stories-dev'
 
-let website = '' // Variable se usa en método fuera del fetch
-let queryValue = ''
-let pageNumber = 1
-
 const options = {
   gzip: true,
   json: true,
@@ -42,6 +38,16 @@ const params = [
     displayName: 'Búsqueda',
     type: 'text',
   },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes',
+    type: 'text',
+  },
+  {
+    name: 'includedFields',
+    displayName: 'Campos incluidos',
+    type: 'text',
+  },
 ]
 
 const fetch = key => {
@@ -52,66 +58,69 @@ const fetch = key => {
     return '0'
   }
 
-  website = key['arc-site'] || 'Arc Site no está definido'
-  queryValue = key.query
-  pageNumber = !key.from || key.from === 0 ? 1 : key.from
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const queryValue = key.query
+  const pageNumber = !key.from || key.from === 0 ? 1 : key.from
   const sort = key.sort === 'ascendente' ? 'asc' : 'desc'
   const from = `${validateFrom()}`
   const size = `${key.size || 15}`
   const section = key.section || 'todas'
 
-  let valueQuery = key.query.replace(/\+/g, ' ')
-  valueQuery = valueQuery.replace(/-/g, '+') || '*'
+  let queryFilter = ''
 
-  const body = {
-    query: {
-      bool: {
-        must: [
-          {
-            term: {
-              type: 'story',
-            },
-          },
-          {
-            simple_query_string: {
-              query: `"${decodeURI(valueQuery)}"`, // NOTA: El navegador encodea las tildes
-            },
-          },
-        ],
-      },
-    },
-  }
+  if (section === 'todas') {
+    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${key.query}`
+  } else {
+    let valueQuery = key.query.replace(/\+/g, ' ')
+    valueQuery = valueQuery.replace(/-/g, '+') || '*'
 
-  let encodedBody = ''
-  if (section !== 'todas') {
-    body.query.bool.must.push({
-      nested: {
-        path: 'taxonomy.sections',
-        query: {
-          bool: {
-            must: [
-              {
-                terms: {
-                  'taxonomy.sections._id': [`/${key.section}`],
+    const body = {
+      query: {
+        bool: {
+          must: [
+            {
+              term: {
+                type: 'story',
+              },
+            },
+            {
+              simple_query_string: {
+                query: `"${decodeURI(valueQuery)}"`, // NOTA: El navegador encodea las tildes
+              },
+            },
+            {
+              nested: {
+                path: 'taxonomy.sections',
+                query: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          'taxonomy.sections._id': [`/${key.section}`],
+                        },
+                      },
+                      {
+                        term: {
+                          'taxonomy.sections._website': website,
+                        },
+                      },
+                    ],
+                  },
                 },
               },
-              {
-                term: {
-                  'taxonomy.sections._website': website,
-                },
-              },
-            ],
-          },
+            },
+          ],
         },
       },
-    })
+    }
+
+    queryFilter = `body=${encodeURIComponent(JSON.stringify(body))}`
   }
 
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  encodedBody = encodeURIComponent(JSON.stringify(body))
-  const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}${excludedFields}`
+  const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&${queryFilter}${excludedFields}`
 
   return request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${
