@@ -556,7 +556,9 @@ export const twitterHtml = html => {
       rplTwitter1
     )
 
-  return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
+  return htmlDataTwitter
+    .replace(/<script(.*\n)*.*">.*<\/script>/gm, '')
+    .replace(/(<script.*?>).*?(<\/script>)/g, '')
 }
 
 export const deporPlay = html => {
@@ -684,6 +686,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
     .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~; +#!-])+")/g, '')
     .replace(/<iframe(.*)><\/iframe>/g, '')
+    .replace(/<iframe(.*)>\s*\n<\/iframe>/gm, '')
     .replace(/(hreef=)/g, 'href=')
   return htmlDataTwitter
 }
@@ -721,6 +724,10 @@ export const facebookHtml = html => {
     .replace(strFacebookRoot, '')
     .replace(strFacebook, rplFacebook)
     .replace(strFacebook2, rplFacebook2)
+    .replace(
+      /<iframe(.*)www.facebook.com\/plugins\/post.php\?href=(.*)&amp(.*)>\s*\n<\/iframe>/gm,
+      rplFacebook3
+    )
 }
 
 export const youtubeHtml = html => {
@@ -728,6 +735,7 @@ export const youtubeHtml = html => {
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
   const rplYoutube1 =
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="350"></amp-youtube>'
+
   return html
     .replace(
       /<iframe width="(.*?)" src="(.+)?(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w\-]{10,12})(.*)><\/iframe>/g,
@@ -737,13 +745,16 @@ export const youtubeHtml = html => {
       /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
       rplYoutube
     )
-
     .replace(
       /<iframe width="(.*?)" height="(.*?)" src="\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
       rplYoutube
     )
     .replace(
       /<iframe (.*) src="(.+)?youtube.com\/embed\/([A-Za-z0-9 _]*[A-Za-z0-9])(.*)" (.*)><\/iframe>/g,
+      rplYoutube1
+    )
+    .replace(
+      /<iframe (.*) src="(.+)?youtube.com\/embed\/(.*?)" (.*)>\s*\n<\/iframe>/gm,
       rplYoutube1
     )
     .replace(
