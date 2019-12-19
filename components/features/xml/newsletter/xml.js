@@ -62,21 +62,25 @@ class XmlNewsletterFeed {
             } = {},
           } = story || {}
 
-          storyData.__data =
-            storiesContent && storiesContent.length > 0
-              ? storiesContent[index]
-              : story
+          storyData.__data = storiesContent[index]
 
+          // const description =
+          //   storyData.__data &&
+          //   storyData.__data.description &&
+          //   storyData.__data.description.basic
+          //     ? storyData.__data.description.basic
+          //     : storyData.subTitle
+          const title = (story && story.headlines && story.headlines.basic) ? story.headlines.basic : storyData.title 
           const description =
-            storyData.__data &&
-            storyData.__data.description &&
-            storyData.__data.description.basic
-              ? storyData.__data.description.basic
+            (story 
+            && story.description
+            && story.description.basic)
+              ? story.description.basic
               : storyData.subTitle
 
           return {
             article: {
-              title: storyData.title,
+              title,
               url: `${siteUrl}${storyData.websiteLink || ''}`,
               id: storyData.id,
               description,
