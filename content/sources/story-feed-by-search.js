@@ -76,32 +76,6 @@ const transformImg = ({ contentElements, website, presets }) => {
   })
 }
 
-const transform = (
-  data,
-  { 'arc-site': website, query, from: page, presets: customPresets }
-) => {
-  const pageNumber = !page || page === 0 ? 1 : page
-  const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
-
-  const dataStories = data
-  const { content_elements: contentElements } = data || {}
-  dataStories.content_elements = transformImg({
-    contentElements,
-    website,
-    presets, // i.e. 'mobile:314x157'
-  })
-
-  const { siteName } = getProperties(website)
-  dataStories.siteName = siteName
-
-  return {
-    ...dataStories,
-    query,
-    decoded_query: decodeURIComponent(query).replace(/\+/g, ' '),
-    page_number: pageNumber,
-  }
-}
-
 const fetch = ({
   'arc-site': website,
   query,
@@ -202,6 +176,32 @@ const fetch = ({
       ...options,
     }).then(data => data)
   })
+}
+
+const transform = (
+  data,
+  { 'arc-site': website, query, from: page, presets: customPresets }
+) => {
+  const pageNumber = !page || page === 0 ? 1 : page
+  const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
+
+  const dataStories = data
+  const { content_elements: contentElements } = data || {}
+  dataStories.content_elements = transformImg({
+    contentElements,
+    website,
+    presets, // i.e. 'mobile:314x157'
+  })
+
+  const { siteName } = getProperties(website)
+  dataStories.siteName = siteName
+
+  return {
+    ...dataStories,
+    query,
+    decoded_query: decodeURIComponent(query).replace(/\+/g, ' '),
+    page_number: pageNumber,
+  }
 }
 
 const source = {
