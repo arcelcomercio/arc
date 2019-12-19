@@ -73,7 +73,7 @@ class StoriesList extends PureComponent {
               <h2 className={classes.contentTitle}>
                 <a
                   className={classes.title}
-                  href={element.link}>
+                  href={element.websiteLink}>
                   {reduceWord(element.title)}
                 </a>
               </h2>
@@ -93,7 +93,7 @@ class StoriesList extends PureComponent {
 
           <figure className={classes.right}>
             {/* TODO: Actualizar iconos con multimediaIcon */}
-            <a href={element.link} className={classes.rightLink}>
+            <a href={element.websiteLink} className={classes.rightLink}>
               <Icon type={element.multimediaType} iconClass={classes.icon} />
               <picture>
                 <source
