@@ -129,6 +129,25 @@ const PortalInt = props => {
           </S.ClickToCallWrapper>
         </S.FooterContent>
       </S.Footer>
+      {arcSite === 'elcomercio' && (
+        <S.Review>
+          <S.ReviewComment>
+            <S.Comment>{msgs.reviewComment}</S.Comment>
+            <S.ReviewCaption bold>{msgs.reviewOwnerName}</S.ReviewCaption>
+            <S.ReviewCaption>{msgs.reviewOwnerRole}</S.ReviewCaption>
+          </S.ReviewComment>
+          <S.ReviewVideo
+            id="vjs_video_1_html5_api"
+            poster={theme.images.reviewPoster}
+            controls
+            src={interpolateUrl(urls.reviewVideo)}>
+            <source
+              src={interpolateUrl(urls.reviewVideo)}
+              type="application/vnd.apple.mpegurl"
+            />
+          </S.ReviewVideo>
+        </S.Review>
+      )}
     </S.Portal>
     // </FillHeight>
   )

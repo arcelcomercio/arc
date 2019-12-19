@@ -24,6 +24,9 @@ export default {
 
     // Home
     recommended: `¡RECOMENDADO!`,
+    reviewComment: `“Nuestro primer deber es con los lectores, la información y la verdad.”`,
+    reviewOwnerName: `Juan José Garrido Koechlin.`,
+    reviewOwnerRole: `Director periodístico de El Comercio`,
 
     // Header
     welcomeUser: `Hola Usuario`,
