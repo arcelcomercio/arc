@@ -39,3 +39,10 @@ body,
     }
   }
 }
+
+#section-columns-lazy {
+  margin: 0;
+  &:before {
+    content: none;
+  }
+}
