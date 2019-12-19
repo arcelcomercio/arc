@@ -9,17 +9,24 @@ const classes = {
 
 const StoryContentChildAmpImage = ({ data, resizer = false }) => {
   const sizerImg = resizer ? 'original' : 'large'
-
+  const patameters = {
+    width: 1200,
+    height: 750,
+    resized_urls: data.resized_urls,
+    caption: data.caption,
+    url: data.url,
+    type: data.type,
+    subtitle: data.subtitle,
+  }
   return (
     <>
       <Image
-        width="100%"
         layout="responsive"
         ImgTag="amp-img"
         className={classes.image}
         captionClassName={classes.description}
         sizePreset={sizerImg}
-        {...data}
+        {...patameters}
       />
     </>
   )
