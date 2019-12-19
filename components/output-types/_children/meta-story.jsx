@@ -7,6 +7,7 @@ import {
   formatHtmlToText,
   getMultimedia,
   getDateSeo,
+  msToTime,
 } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 
@@ -63,20 +64,40 @@ export default ({
     })
   }
 
+  const publishedVideoOrganization = ` 
+  "publisher" : {
+    "@type": "Organization",
+    "name": "${siteName}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "${siteUrl}${deployment(
+    `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
+  )}",
+      "width": ${seo.width},
+      "height": ${seo.height}
+    }
+  },`
+
   const videoSeoItems = videoSeo.map(
     ({
       url,
       caption,
       urlImage,
       date,
+      duration,
       resized_urls: { large = '' } = {},
     } = {}) => {
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
         caption
-      )}",  "thumbnailUrl": "${large ||
+      )}", ${
+        isAmp === true ? publishedVideoOrganization : ''
+      }  "thumbnailUrl": "${large ||
         urlImage}",  "description":"${formatHtmlToText(
         caption
-      )}", "contentUrl": "${url}",  "uploadDate": "${date}" } `
+      )}", "contentUrl": "${url}",  "uploadDate": "${date}", "duration": "${msToTime(
+        duration,
+        false
+      )}" } `
     }
   )
 
