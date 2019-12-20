@@ -327,7 +327,6 @@ const BuildHtml = ({
       
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
-      ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}">Ver nota completa</a></p>` : ''}
       ${
         arcSite === 'elcomerciomag' ||
         arcSite === 'depor' ||
