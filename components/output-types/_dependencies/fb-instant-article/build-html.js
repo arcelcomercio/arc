@@ -337,7 +337,7 @@ const BuildHtml = ({
         (arcSite === 'elcomercio' && section === 'redes-sociales')
           ?
         `
-        ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}">Ver nota completa</a></p>` : ''}
+        ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>` : ''}
         ${
           websiteUrlsBytag.length > 0 ? 
           `<ul class="op-related-articles" title="Noticias relacionadas">
