@@ -292,7 +292,7 @@ const BuildHtml = ({
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
   }
-
+  const {type} = multimedia || {}
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -324,6 +324,7 @@ const BuildHtml = ({
       
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
+      ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}">Ver nota completa</a></p>` : ''}
     </article>
   </body>
 </html>`
