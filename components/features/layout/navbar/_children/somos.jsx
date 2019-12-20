@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { searchQuery } from '../../../../utilities/helpers'
-import SignwallComponent from '../../../signwall/standard'
+import SignwallComponent from '../../../signwall/main/default'
 
 const classes = {
   navbarSomos:
@@ -55,7 +55,7 @@ class HeaderChildSomos extends PureComponent {
           <i className={classes.iconUser} />
           Ingresa a tu cuenta
         </button> */}
-        <SignwallComponent />
+        <SignwallComponent classButton={`${classes.loginButton}`}/>
         <button
           className="hidden md:block"
           type="button"

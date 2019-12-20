@@ -1,7 +1,6 @@
 import React from 'react'
 
 import * as S from './styled'
-import * as T from '../../styled'
 import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import Taggeo from '../../../_dependencies/taggeo'
@@ -51,14 +50,14 @@ function Card({ item, onSubscribe = i => i }) {
         </S.Feature>
       </S.CardContent>
       <S.CardFooter>
-        <T.LinkSubscribe
+        <S.LinkSubscribe
           href={url}
           onClick={() => {
             Taggeo('Web_Paywall_Home', `web_paywall_home_button_${sku}`)
             onSubscribe(item)
           }}>
           {msgs.subscribe}
-        </T.LinkSubscribe>
+        </S.LinkSubscribe>
       </S.CardFooter>
     </S.Card>
   )

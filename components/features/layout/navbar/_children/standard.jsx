@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 import Button from '../../../../global-components/button'
-import SignwallComponent from '../../../signwall/standard'
+import SignwallComponent from '../../../signwall/main/default'
 import ConfigParams from '../../../../utilities/config-params'
 
 import Menu from '../../../../global-components/menu'
@@ -37,8 +37,10 @@ const classes = {
   logoLeft: 'header__logo-secondary',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
+  btnSubs: 'nav__btn-subs',
+  btnSign: 'nav__btn-sign',
   btnContainer: 'flex items-center justify-end header__btn-container',
-  btnSubscribe: `flex items-center btn btn--outline hidden capitalize text-md font-bold lg:inline-block`,
+  btnSubscribe: `flex items-center btn capitalize text-md`,
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden line-h-sm',
@@ -255,7 +257,7 @@ class NavBarDefault extends PureComponent {
 
   // If input search is empty, buton close search else buton find search
   optionButtonClick = () => {
-    const { statusSearch} = this.state
+    const { statusSearch } = this.state
     // getDataNavBarData()
     if (statusSearch) this._handleSearch()
     else this.focusInputSearch()
@@ -325,9 +327,9 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
-    const {getDataNavBarData ,data =[]}=this.props
-    
-    if(data.length === 0){
+    const { getDataNavBarData, data = [] } = this.props
+
+    if (data.length === 0) {
       getDataNavBarData()
     }
 
@@ -401,7 +403,7 @@ class NavBarDefault extends PureComponent {
         <nav
           className={`${classes.nav} ${
             scrolled ? 'active' : ''
-            } ${responsiveClass}`}>
+          } ${responsiveClass}`}>
           <div className={classes.wrapper}>
             {/** ************* LEFT *************** */}
 
@@ -498,7 +500,7 @@ class NavBarDefault extends PureComponent {
                   <div>
                     <a
                       className={classes.moreLink}
-                      href='/'
+                      href="/"
                       onClick={event => {
                         this.openLink(event, 3)
                       }}>
@@ -532,12 +534,21 @@ class NavBarDefault extends PureComponent {
                 {siteProperties.activePaywall && (
                   <Button
                     btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe}`}
-                    btnLink={`${siteProperties.urlSubsOnline}?ref=btn-suscribete-${arcSite}&loc=${typeof window !== 'undefined' && window.section || ''}`}
+                    btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
+                    btnLink={`${
+                      siteProperties.urlSubsOnline
+                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                      'undefined' &&
+                      window.section) ||
+                      ''}`}
                   />
                 )}
 
-                {siteProperties.activeSignwall && <SignwallComponent />}
+                {siteProperties.activeSignwall && (
+                  <SignwallComponent
+                    classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
+                  />
+                )}
               </div>
             </div>
 

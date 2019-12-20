@@ -73,11 +73,6 @@ const pattern = key => {
             },
           },
           {
-            term: {
-              'revision.published': 'true',
-            },
-          },
-          {
             simple_query_string: {
               query: `"${decodeURI(valueQuery)}"`, // NOTA: El navegador encodea las tildes
             },

@@ -5,6 +5,12 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 
+// TODO: Este Content source realiza 2 fetch y un promise all con múltiples fetch,
+// el api de /websked/collections ya trae el id de las notas, por lo que no es necesario
+// hacer el primer fetch. En lugar de hacer un Promise all se debe usar el api:
+// /content/v4/ids?website=elcomercio&ids=3TFGLTFHSNDODC57V5EFBWRLDU,HV2GFMASXFA7RGXUUZXKV7BU3Q
+// para que se haga un solo fetch
+
 let website = ''
 
 const schemaName = 'stories-dev'
@@ -47,32 +53,30 @@ const fetch = key => {
       const { content_elements: contentElements = [] } = response || {}
 
       const newsList = []
-      const contentElementsFilterById=[]
+      const contentElementsFilterById = []
       contentElements.forEach(item => {
-        
-        const { _id:newsId = '' } = item
-        
-        if(newsId!==''){
+        const { _id: newsId = '' } = item
+
+        if (newsId !== '') {
           contentElementsFilterById.push(item)
 
           newsList.push(
+            // TODO: cambiar por /content/v4/ids?website=elcomercio&ids=3TFGLTFHSNDODC57V5EFBWRLDU,HV2GFMASXFA7RGXUUZXKV7BU3Q
             request({
               uri: `${CONTENT_BASE}/content/v4/stories?_id=${newsId}&website=${website}`,
               ...options,
             })
           )
         }
-
       })
 
       return Promise.all(newsList).then(resall => {
-
         // eslint-disable-next-line no-use-before-define
-        const stories = sortStoryContent(response,resall)
+        const stories = sortStoryContent(response, resall)
         // const stories=[]
         return {
           ...response,
-          content_elements:contentElementsFilterById,
+          content_elements: contentElementsFilterById,
           stories,
           websked: {
             name,
@@ -94,10 +98,9 @@ const sortStoryContent = (collectionStories, storiesByCollection) => {
   contentElementsByCollection.forEach(element => {
     const { _id = '' } = element
     const news = storiesByCollection.find(x => x._id === _id)
-    if(news){
+    if (news) {
       result.push(news)
     }
-    
   })
 
   return result
@@ -124,7 +127,7 @@ const transform = data => {
 
   return { ...dataStories }
 }
-const resolve = key => pattern(key)
+// const resolve = key => pattern(key)
 
 const source = {
   // resolve,

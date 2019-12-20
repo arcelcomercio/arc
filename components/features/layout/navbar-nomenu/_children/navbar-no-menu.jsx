@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { searchQuery } from '../../../../utilities/helpers'
-import SignwallComponent from '../../../signwall/standard'
+import SignwallComponent from '../../../signwall/main/default'
 
 const classes = {
   bar: 'navbar-nm w-full pr-5 pl-5 bg-black h-full',
@@ -20,6 +20,7 @@ const classes = {
   formSearch: 'flex items-center justify-center',
   inputSearch: 'navbar-nm__input-search',
   btnSearch: 'navbar-nm__btn-search capitalize',
+  btnLogin: 'navbar-nm__btn-sign',
 }
 
 export default props => {
@@ -68,7 +69,9 @@ export default props => {
             <a className={classes.btn} href="/">
               Registrate
             </a> */}
-            <SignwallComponent classButton={classes.btn}/>
+            <SignwallComponent
+              classButton={`${classes.btn} ${classes.btnLogin}`}
+            />
           </div>
           <div className={classes.search}>
             <button

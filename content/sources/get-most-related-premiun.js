@@ -2,6 +2,8 @@
 import request from 'request-promise-native'
 import ENV, { CONTENT_BASE } from 'fusion:environment'
 
+// TODO: LIMPIAME POR FAVOR
+
 const flagDev = ENV.ENVIRONMENT !== 'elcomercio' // false
 
 const uriPostProd = site =>
@@ -19,11 +21,11 @@ const options = {
   json: true,
 }
 
-const clearURL = (arr = [], site = 'gestion') => {
+/* const clearURL = (arr = [], site = 'gestion') => {
   return arr.map(url => {
     return url.replace(`https://${site}.pe/`, '/')
   })
-}
+} */
 
 const setPageViewsUrls = (arrUrl, arrUrlRes) => {
   return arrUrlRes.map(row => {
@@ -45,6 +47,7 @@ const params = [
 const uriAPI = (url, site) => {
   const filter = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,
 taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
+
   return `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
 }
 
