@@ -88,6 +88,12 @@ class XmlFacebookInstantArticles {
           ...this.stories.map(story => {
             storyData.__data = story
 
+            const {related_by_tags: {content_elements: rawTagsUrls = []} = {}} = story || {}
+            const websiteUrlsBytag = rawTagsUrls.map(({websites = {} }) => {
+              const {website_url: websiteUrlBytag = ''} = websites[arcSite] || {}
+              return `${siteUrl}${websiteUrlBytag}`
+            })
+
             let storyLink = ''
             let fiaContent = ''
             if (!storyData.isPremium) {
@@ -126,6 +132,7 @@ class XmlFacebookInstantArticles {
                   formatOrigen: storyData.formatOrigen,
                   contentOrigen: storyData.contentOrigen,
                   genderOrigen: storyData.genderOrigen,
+                  arcSite,
                 }
 
                 const buildHtmlProps = {
@@ -140,6 +147,9 @@ class XmlFacebookInstantArticles {
                   paragraphsNews: storyData.paragraphsNews,
                   fbArticleStyle: fiaContent,
                   listUrlAdvertisings,
+                  websiteUrlsBytag,
+                  arcSite,
+                  section: storyData.sectionsFIA.section,
                 }
 
                 return {

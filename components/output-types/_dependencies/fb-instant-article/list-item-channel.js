@@ -30,6 +30,12 @@ const ListItemNews = (contentElements, buildProps) => {
     .map(story => {
       storydata.__data = story
 
+      const {related_by_tags: {content_elements: rawTagsUrls = []} = {}} = story || {}
+      const websiteUrlsBytag = rawTagsUrls.map(({websites = {} }) => {
+        const {website_url: websiteUrlBytag = ''} = websites[arcSite] || {}
+        return `${siteUrl}${websiteUrlBytag}`
+      })
+
       let pagePath = ''
       let fiaContent = ''
 
@@ -72,6 +78,7 @@ const ListItemNews = (contentElements, buildProps) => {
             formatOrigen: storydata.formatOrigen,
             contentOrigen: storydata.contentOrigen,
             genderOrigen: storydata.genderOrigen,
+            arcSite,
           }
 
           const BuildHtmlProps = {
@@ -86,6 +93,9 @@ const ListItemNews = (contentElements, buildProps) => {
             paragraphsNews: storydata.paragraphsNews,
             fbArticleStyle: fiaContent,
             listUrlAdvertisings,
+            websiteUrlsBytag,
+            arcSite,
+            section: storydata.sectionsFIA.section,
           }
 
           const htmlString = BuildHtml(BuildHtmlProps)
