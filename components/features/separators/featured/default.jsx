@@ -33,7 +33,7 @@ const SeparatorFeatured = props => {
   const { editableField } = useEditableContent()
 
   const presets = 'portrait_s:161x220'
-  const includedFields = `headlines.basic,${includePromoItems},${includePromoItemsCaptions},website_url,websites.${arcSite}.website_url,${includePrimarySection}`
+  const includedFields = `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection}`
 
   const { content_elements: contentElements = [] } =
     useContent({

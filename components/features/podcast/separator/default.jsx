@@ -28,7 +28,7 @@ const PodcastSeparator = props => {
   const { arcSite, contextPath, deployment } = useFusionContext()
 
   const presets = 'landscape_l:648x374'
-  const includedFields = `headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},website_url,websites.${arcSite}.website_url,${includePrimarySection},${includeSections},display_date`
+  const includedFields = `headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},display_date`
 
   const { content_elements: contentElements = [] } =
     useContent({
@@ -91,7 +91,6 @@ const PodcastSeparator = props => {
               path 
             }
           }
-          website_url
           display_date
         }
       }
