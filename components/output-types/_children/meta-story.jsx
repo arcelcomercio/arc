@@ -87,9 +87,9 @@ export default ({
       duration,
       resized_urls: {
         large = '',
-        amp_video_1x1: ampVideo1x1 = large,
-        amp_video_4x3: ampVideo4x3 = large,
-        amp_video_16x9: ampVideo16x9 = large,
+        amp_video_1x1: ampVideo1x1 = urlImage,
+        amp_video_4x3: ampVideo4x3 = urlImage,
+        amp_video_16x9: ampVideo16x9 = urlImage,
       } = {},
     } = {}) => {
       const image =
