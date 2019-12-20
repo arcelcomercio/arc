@@ -85,14 +85,23 @@ export default ({
       urlImage,
       date,
       duration,
-      resized_urls: { large = '' } = {},
+      resized_urls: {
+        large = '',
+        amp_video_1x1: ampVideo1x1,
+        amp_video_4x3: ampVideo4x3,
+        amp_video_16x9: ampVideo16x9,
+      } = {},
     } = {}) => {
+      const image =
+        isAmp === true
+          ? `"${large || urlImage}"`
+          : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
+
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
         caption
       )}", ${
         isAmp === true ? publishedVideoOrganization : ''
-      }  "thumbnailUrl": "${large ||
-        urlImage}",  "description":"${formatHtmlToText(
+      }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
         caption
       )}", "contentUrl": "${url}",  "uploadDate": "${date}", "duration": "${msToTime(
         duration,
