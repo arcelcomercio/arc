@@ -2,12 +2,17 @@ import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+
 import schemaFilter from './_dependencies/schema-filter'
 import StorySeparatorChildItemAmp from './_children/amp'
 import StorySeparatorChildItemSliderAmp from './_children/amp-item-slider'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
+import {
+  includePromoItems,
+  includePrimarySection,
+} from '../../../utilities/included-fields'
 
 const classes = {
   storyInterest:
@@ -37,6 +42,9 @@ const InterestByTagAmp = props => {
     outputType: isAmp,
   } = useFusionContext()
 
+  const presets = 'landscape_l:648x374,landscape_md:314x157'
+  const includedFields = `_id,headlines.basic,${includePromoItems},websites.${arcSite}.website_url,canonical_url,${includePrimarySection}`
+
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
     contextPath,
@@ -50,6 +58,8 @@ const InterestByTagAmp = props => {
         website: arcSite,
         name: urlTag,
         size: storiesQty,
+        presets,
+        includedFields,
       },
       filter: schemaFilter,
     }) || ''
@@ -79,7 +89,7 @@ const InterestByTagAmp = props => {
 
       const data = {
         title: instance.title,
-        link: `${instance.link}?ref=amp&source=tepuedeinteresar`,
+        link: `${instance.websiteLink}?ref=amp&source=tepuedeinteresar`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
