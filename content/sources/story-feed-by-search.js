@@ -53,6 +53,62 @@ const params = [
   },
 ]
 
+const getQueryFilter = (query, section, website) => {
+  let queryFilter = ''
+
+  // Si se filtra por seccion se usa ?body, sino, se usa ?q
+  if (section === 'todas') {
+    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${query}`
+  } else {
+    let valueQuery = query.replace(/\+/g, ' ')
+    valueQuery = valueQuery.replace(/-/g, '+') || '*'
+
+    const body = {
+      query: {
+        bool: {
+          must: [
+            {
+              term: {
+                type: 'story',
+              },
+            },
+            {
+              simple_query_string: {
+                query: `"${decodeURI(valueQuery)}"`, // El navegador encodea las tildes
+              },
+            },
+            {
+              nested: {
+                path: 'taxonomy.sections',
+                query: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          'taxonomy.sections._id': [`/${section}`],
+                        },
+                      },
+                      {
+                        term: {
+                          'taxonomy.sections._website': website,
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    }
+
+    queryFilter = `body=${encodeURIComponent(JSON.stringify(body))}`
+  }
+
+  return queryFilter
+}
+
 /**
  * @description - calcula, usando el número de página y la cantidad de
  * historias, el índice de la historia desde la cual se debe iniciar la
@@ -94,59 +150,8 @@ const fetch = ({
   const size = `${rawSize || 15}`
   const section = rawSection || 'todas'
 
-  let queryFilter = ''
+  const queryFilter = getQueryFilter(query, section, website)
 
-  // Si se filtra por seccion se usa ?body, sino, se usa ?q
-  if (section === 'todas') {
-    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${query}`
-  } else {
-    let valueQuery = query.replace(/\+/g, ' ')
-    valueQuery = valueQuery.replace(/-/g, '+') || '*'
-
-    const body = {
-      query: {
-        bool: {
-          must: [
-            {
-              term: {
-                type: 'story',
-              },
-            },
-            {
-              simple_query_string: {
-                query: `"${decodeURI(valueQuery)}"`, // El navegador encodea las tildes
-              },
-            },
-            {
-              nested: {
-                path: 'taxonomy.sections',
-                query: {
-                  bool: {
-                    must: [
-                      {
-                        terms: {
-                          'taxonomy.sections._id': [`/${rawSection}`],
-                        },
-                      },
-                      {
-                        term: {
-                          'taxonomy.sections._website': website,
-                        },
-                      },
-                    ],
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-    }
-
-    queryFilter = `body=${encodeURIComponent(JSON.stringify(body))}`
-  }
-
-  // promo_items.basic.type es importante para el resizer
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`
     : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,credits.by.name,credits.by.url,${includePromoItems}`
