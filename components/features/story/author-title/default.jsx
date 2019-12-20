@@ -14,8 +14,8 @@ class StoryAuthorTitle extends PureComponent {
     } = globalContent || {}
 
     const {
-      name,
-      url,
+      name = '',
+      url = '',
       image: {
         url: urlImage = defaultImage({
           deployment,
