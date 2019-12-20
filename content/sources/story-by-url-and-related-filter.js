@@ -239,6 +239,16 @@ export default {
         url
         width
         height
+        resized_urls{
+          large
+          landscape_md
+          story_small
+          amp_new
+          impresa
+          amp_video_1x1
+          amp_video_4x3
+          amp_video_16x9
+        }
       }
     }
     resized_urls{
