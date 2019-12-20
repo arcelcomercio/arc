@@ -5,6 +5,14 @@ import { useFusionContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
+import {
+  includePromoItems,
+  includePromoItemsCaptions,
+  includePrimarySection,
+} from '../../../utilities/included-fields'
+
+// TODO: Subir clases a objeto
+// TODO: sacar schemaFilter
 
 const SeparatorFeatured = props => {
   const {
@@ -24,10 +32,18 @@ const SeparatorFeatured = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const { editableField } = useEditableContent()
 
+  const presets = 'portrait_s:161x220'
+  const includedFields = `headlines.basic,${includePromoItems},${includePromoItemsCaptions},website_url,websites.${arcSite}.website_url,${includePrimarySection}`
+
   const { content_elements: contentElements = [] } =
     useContent({
       source: contentService,
-      query: Object.assign(contentConfigValues, { size: 4, stories_qty: 4 }),
+      query: Object.assign(contentConfigValues, {
+        size: 4,
+        stories_qty: 4,
+        presets,
+        includedFields,
+      }),
       filter: schemaFilter(arcSite),
     }) || {}
 
