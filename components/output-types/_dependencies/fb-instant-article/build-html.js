@@ -280,6 +280,7 @@ const BuildHtml = ({
   author = '',
   fbArticleStyle = '',
   listUrlAdvertisings,
+  websiteUrlsBytag
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -325,6 +326,12 @@ const BuildHtml = ({
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
       ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}">Ver nota completa</a></p>` : ''}
+      ${
+        websiteUrlsBytag.length > 0 ? 
+        `<ul class="op-related-articles" title="Noticias relacionadas">
+        ${websiteUrlsBytag.map(url => `<li><a href="${url}"></a></li>`).join('')}
+        </ul>` : ''
+      }
     </article>
   </body>
 </html>`
