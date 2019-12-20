@@ -10,6 +10,7 @@ import {
   includePromoItemsCaptions,
   includePrimarySection,
   includeSections,
+  includeCredits,
 } from '../../../utilities/included-fields'
 
 /**
@@ -29,7 +30,7 @@ const CardsFeaturedStoryList = props => {
 
   const presets =
     'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
-  const includedFields = `headlines.basic,subheadlines.basic,credits.by.name,credits.by.url,credits.by.type,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},publish_date,display_date`
+  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},publish_date,display_date`
 
   const { content_elements: contentElements = [] } =
     useContent({

@@ -6,7 +6,10 @@ import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import Separator from './_children/separator'
-import { includePromoItems } from '../../../utilities/included-fields'
+import {
+  includePromoItems,
+  includeCredits,
+} from '../../../utilities/included-fields'
 
 const SeparatorStories = props => {
   const {
@@ -26,7 +29,7 @@ const SeparatorStories = props => {
   const { arcSite, isAdmin, contextPath, deployment } = useFusionContext()
 
   const presets = 'landscape_l:648x374,landscape_s:234x161,portrait_md:314x374'
-  const includedFields = `headlines.basic,credits.by.name,credits.by.url,credits.by.type,${includePromoItems},websites.${arcSite}.website_url`
+  const includedFields = `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url`
 
   const { content_elements: contentElements = [] } =
     useContent({
