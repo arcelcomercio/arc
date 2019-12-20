@@ -73,14 +73,13 @@ const Paywall = props => {
           src={`https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js?v=07112019`}
           defer
         />
+        <script src="https://www.google.com/recaptcha/api.js?hl=es"></script>
       </head>
       <body onbeforeunload={() => 'message'}>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

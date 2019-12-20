@@ -131,7 +131,7 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 }
 
 .overflow-hidden-ios {
-  overflow: hidden;
+  overflow: hidden; // TODO: !important retirado por amp
   height: 100%;
 }
 
