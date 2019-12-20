@@ -6,6 +6,7 @@ import RedirectError from '../../components/utilities/redirect-error'
 import {
   includePromoItems,
   includePrimarySection,
+  includeCredits,
 } from '../../components/utilities/included-fields'
 
 const schemaName = 'stories'
@@ -77,7 +78,7 @@ const resolve = (key = {}) => {
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`
-    : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,credits.by.name,credits.by.url,${includePromoItems}`
+    : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
 
   /* const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
