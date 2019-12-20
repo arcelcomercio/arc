@@ -60,7 +60,7 @@ const resolve = (key = {}) => {
 
   const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
 
-  const size = key.size || 50
+  const size = key.size || 20
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug de la etiqueta')

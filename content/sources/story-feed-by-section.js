@@ -168,11 +168,12 @@ const transform = (
    * si tendra completo sentido.
    */
   if (presets) {
-    stories.content_elements = transformImg(
-      stories.content_elements,
+    const { content_elements: contentElements } = data || {}
+    stories.content_elements = transformImg({
+      contentElements,
       website,
-      presets // i.e. 'mobile:314x157'
-    )
+      presets, // i.e. 'mobile:314x157'
+    })
   }
 
   const { siteName } = getProperties(website)

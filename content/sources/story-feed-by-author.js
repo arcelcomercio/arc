@@ -44,7 +44,7 @@ const resolve = (key = {}) => {
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
   const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
-  const size = key.size || 50
+  const size = key.size || 20
 
   if (!name && !authorUrl) {
     throw new Error('Esta fuente de contenido necesita el Slug del autor')
