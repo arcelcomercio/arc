@@ -147,7 +147,9 @@ class XmlFacebookInstantArticles {
                   paragraphsNews: storyData.paragraphsNews,
                   fbArticleStyle: fiaContent,
                   listUrlAdvertisings,
-                  websiteUrlsBytag
+                  websiteUrlsBytag,
+                  arcSite,
+                  section: storyData.sectionsFIA.section,
                 }
 
                 return {

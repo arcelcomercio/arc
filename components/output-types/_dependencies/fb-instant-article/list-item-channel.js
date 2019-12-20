@@ -93,7 +93,9 @@ const ListItemNews = (contentElements, buildProps) => {
             paragraphsNews: storydata.paragraphsNews,
             fbArticleStyle: fiaContent,
             listUrlAdvertisings,
-            websiteUrlsBytag
+            websiteUrlsBytag,
+            arcSite,
+            section: storydata.sectionsFIA.section,
           }
 
           const htmlString = BuildHtml(BuildHtmlProps)

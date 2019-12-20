@@ -168,7 +168,7 @@ const fetch = (key = {}) => {
       ...dataStory,
       section_name: sectionName || 'Sección',
     }
-    console.log('relatedSize->', relatedSize)
+
     return addRelatedTags({
       data: formatedData,
       website,
