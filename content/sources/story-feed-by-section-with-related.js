@@ -61,10 +61,12 @@ const getRequtestTags = ({ tag, website, size = 4 }) => {
 const addRelatedTags = ({ data, size = 10, website }) => {
   const { content_elements: rawContentElements = [] } = data || {}
   const contentElements = rawContentElements.slice(0, size)
-  const requestArray = contentElements.map(story => {
+  const requestArray = contentElements
+  .map(story => {
     const { taxonomy: { tags = [] } = {} } = story || {}
     const { slug = '' } = tags[0] || {}
-    return getRequtestTags({ tag: slug, website })
+    if (slug) return getRequtestTags({ tag: slug, website })
+    return Promise.resolve([])
   })
   return Promise.all(requestArray).then(related => {
     const newData = data
