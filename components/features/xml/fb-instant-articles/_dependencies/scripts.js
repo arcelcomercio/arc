@@ -57,7 +57,8 @@ export const AnalyticsScript = ({
           arcSite === 'elbocon' ||
           arcSite === 'diariocorreo' ||
           (arcSite === 'elcomercio' && section === 'deporte-total') ||
-          (arcSite === 'elcomercio' && section === 'redes-sociales')
+          (arcSite === 'elcomercio' && section === 'redes-sociales') ||
+          (arcSite === 'elcomercio' && section === 'tvmas')
             ? `ga('set', 'title', '${newsTitle}')`
             : `ga('send', 'pageview', {title: '${newsTitle}'})`
         };
