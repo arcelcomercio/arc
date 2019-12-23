@@ -77,7 +77,6 @@ export default ({
       "height": ${seo.height}
     }
   },`
-
   const videoSeoItems = videoSeo.map(
     ({
       url,
