@@ -69,7 +69,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     const { origin, pathname, search } = window.location
     let querys = ''
     if (search !== '') {
-      querys = search.includes('foto')
+      querys = search.includes('foto=')
         ? search.replace(/foto=[0-9]+/, `foto=${slide}`)
         : `${search}&foto=${slide}`
     } else querys = `?foto=${slide}`
