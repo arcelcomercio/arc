@@ -3,6 +3,7 @@ import ENV from 'fusion:environment'
 import React from 'react'
 import StoryData from '../../../utilities/story-data'
 import StoriesRecent from '../../../global-components/stories-recent'
+import { formatHtmlToText } from '../../../utilities/helpers'
 
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
@@ -53,7 +54,7 @@ const FooterDeporAmp = () => {
       instance.multimediaLandscapeMD &&
       `{  
        "image":"${instance.multimediaLandscapeMD}",
-       "title":"${instance.title}",
+       "title":"${formatHtmlToText(instance.title)}",
        "ampUrl":"${pathUrl}${instance.websiteLink}?outputType=amp&next=${index +
         1}"
           }`

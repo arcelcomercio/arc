@@ -1205,9 +1205,9 @@ export const msToTime = (duration = 5555, seo = true) => {
     seconds = seconds < 10 ? `0${seconds}` : seconds
     resultSeo = `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
   } else {
-    hours = hours > 1 ? `${hours}H` : ''
-    minutes = minutes > 1 ? `${minutes}M` : ''
-    seconds = seconds > 1 ? `${seconds}S` : ''
+    hours = hours >= 1 ? `${hours}H` : ''
+    minutes = minutes >= 1 ? `${minutes}M` : ''
+    seconds = seconds >= 1 ? `${seconds}S` : ''
     resultSeo = `PT${hours}${minutes}${seconds}`
   }
   return resultSeo

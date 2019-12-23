@@ -1004,8 +1004,8 @@ class StoryData {
                   : []
               })
               .filter(String)
-
-            return resultVideo[0] || []
+            const cantidadVideo = resultVideo.length
+            return resultVideo[cantidadVideo - 1] || []
           }
         )
         .filter(String) || []
