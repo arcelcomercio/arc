@@ -23,7 +23,7 @@ class StoryAuthorTitle extends PureComponent {
           arcSite,
           size: 'sm',
         }),
-      },
+      } = {},
     } = by[0] || {}
 
     const data = {
