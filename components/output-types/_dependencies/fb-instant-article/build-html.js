@@ -334,14 +334,15 @@ const BuildHtml = ({
         arcSite === 'elbocon' ||
         arcSite === 'diariocorreo' ||
         (arcSite === 'elcomercio' && section === 'deporte-total') ||
-        (arcSite === 'elcomercio' && section === 'redes-sociales')
+        (arcSite === 'elcomercio' && section === 'redes-sociales') ||
+        (arcSite === 'elcomercio' && section === 'tvmas')
           ?
         `
         ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>` : ''}
         ${
           websiteUrlsBytag.length > 0 ? 
           `<ul class="op-related-articles" title="Noticias relacionadas">
-          ${websiteUrlsBytag.map(url => `<li><a href="${url}"></a></li>`).join('')}
+          ${websiteUrlsBytag.map(url => url === canonical ? '' : `<li><a href="${url}"></a></li>`).join('')}
           </ul>` : ''
         }
         `
