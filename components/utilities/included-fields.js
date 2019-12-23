@@ -6,13 +6,17 @@ export const includePromoItems = `promo_items.basic.type,promo_items.basic.url,p
 
 export const includePromoItemsCaptions = `promo_items.basic.subtitle,promo_items.basic.caption,promo_items.basic_video.promo_items.basic.subtitle,promo_items.basic_video.promo_items.basic.caption,promo_items.basic_gallery.promo_items.basic.subtitle,promo_items.basic_gallery.promo_items.basic.caption`
 
+export const includePromoVideoAds = `promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.additional_properties.advertising.playAds,promo_items.basic_video.additional_properties.advertising.playVideoAds`
+
 /** ----------------------------*
- *            SECTIONS          *
+ *            TAXONOMY          *
  *------------------------------*/
 
 export const includePrimarySection = `taxonomy.primary_section.path,taxonomy.primary_section.name`
 
 export const includeSections = `taxonomy.sections.path,taxonomy.sections.name`
+
+export const includeTags = `taxonomy.tags.description,taxonomy.tags.slug,taxonomy.tags.text`
 
 /** ----------------------------*
  *           CREDITS            *
