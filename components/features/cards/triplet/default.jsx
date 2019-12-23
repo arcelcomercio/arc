@@ -168,7 +168,7 @@ class CardTriplet extends PureComponent {
     this.fetchContent({
       webskedData: {
         source: API_FEED_BY_COLLECTION,
-        query: { id: webskedId },
+        query: { id: webskedId, presets: 'square_s:150x150' },
         filter: `
           content_elements ${schemaFilter(arcSite)}
         `,
