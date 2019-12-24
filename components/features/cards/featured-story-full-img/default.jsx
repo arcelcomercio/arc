@@ -1,12 +1,19 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 
 import FeatureFullImageChild from './_children/feature-full-image'
-import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import { getPhotoId } from '../../../utilities/helpers'
+import {
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+  includePromoItemsCaptions,
+  includeCreditsImage,
+} from '../../../utilities/included-fields'
 
 const PHOTO_SOURCE = 'photo-by-id'
 
@@ -20,114 +27,107 @@ const PHOTO_SCHEMA = `{
   }
 }`
 
-@Consumer
-class FeatureStoryFullImage extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      customFields: {
-        imgField,
-        storyConfig: { contentService = '', contentConfigValues = {} } = {},
+const FeatureStoryFullImage = props => {
+  const {
+    customFields: {
+      imgField,
+      storyConfig: {
+        crossY,
+        crossX,
+        model,
+        categoryField,
+        titleField,
+        contentService = '',
+        contentConfigValues = {},
       } = {},
-    } = props
+    } = {},
+  } = props
 
-    this.storyFormatter = new StoryFormatter({
-      deployment,
-      contextPath,
-      arcSite,
-    })
-    if (contentConfigValues) {
-      this.fetchContent({
-        data: {
-          source: contentService,
-          query: contentConfigValues,
-          filter: schemaFilter(arcSite),
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    isAdmin,
+    editableField,
+  } = useFusionContext()
+
+  const presets =
+    'landscape_l:648x374,portrait_md:314x374,square_xl:900x900,square_md:300x300'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsImage},${includePrimarySection}`
+
+  const data =
+    useContent({
+      source: contentService,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
+      filter: schemaFilter(arcSite),
+    }) || {}
+
+  let customPhoto = {}
+  const photoId = imgField ? getPhotoId(imgField) : ''
+  if (photoId) {
+    customPhoto =
+      useContent({
+        source: PHOTO_SOURCE,
+        query: {
+          _id: photoId,
         },
-      })
-    }
-    const photoId = imgField ? getPhotoId(imgField) : ''
-    if (photoId) {
-      this.fetchContent({
-        customPhoto: {
-          source: PHOTO_SOURCE,
-          query: {
-            _id: photoId,
-          },
-          filter: PHOTO_SCHEMA,
-        },
-      })
-    }
+        filter: PHOTO_SCHEMA,
+      }) || {}
   }
 
-  render() {
-    const {
-      arcSite,
-      contextPath,
-      deployment,
-      isAdmin,
-      editableField,
-      customFields: { crossY, crossX, model, categoryField, titleField } = {},
-    } = this.props
+  const {
+    author,
+    authorLink,
+    primarySection,
+    primarySectionLink,
+    title: titleStory,
+    multimediaLandscapeL,
+    multimediaSquareXL,
+    multimediaPortraitMD,
+    multimediaLazyDefault,
+    multimediaType,
+    websiteLink,
+    multimediaSubtitle,
+    multimediaCaption,
+  } = new StoryData({
+    data,
+    arcSite,
+    contextPath,
+    deployment,
+    defaultImgSize: 'sm',
+  })
 
-    const { customPhoto = {}, data = {} } = this.state || {}
+  const {
+    resized_urls: {
+      landscape_l: landscapeLCustom,
+      lazy_default: lazyDefaultCustom,
+      portrait_md: portraitMDCustom,
+      square_xl: squareXLCustom,
+    } = {},
+  } = customPhoto || {}
 
-    const {
-      author,
-      authorLink,
-      primarySection,
-      primarySectionLink,
-      title: titleStory,
-      multimediaLandscapeL,
-      multimediaSquareXL,
-      multimediaPortraitMD,
-      multimediaLazyDefault,
-      multimediaType,
-      websiteLink,
-      multimediaSubtitle,
-      multimediaCaption,
-    } = new StoryData({
-      data,
-      arcSite,
-      contextPath,
-      deployment,
-      defaultImgSize: 'sm',
-    })
-
-    const {
-      resized_urls: {
-        landscape_l: landscapeLCustom,
-        lazy_default: lazyDefaultCustom,
-        portrait_md: portraitMDCustom,
-        square_xl: squareXLCustom,
-      } = {},
-    } = customPhoto || {}
-
-    const params = {
-      author,
-      authorLink,
-      primarySectionLink,
-      title: titleField || titleStory,
-      multimediaLandscapeL: landscapeLCustom || multimediaLandscapeL, //
-      multimediaPortraitMD: portraitMDCustom || multimediaPortraitMD, //
-      multimediaSquareXL: squareXLCustom || multimediaSquareXL, //
-      multimediaLazyDefault: lazyDefaultCustom || multimediaLazyDefault,
-      multimediaType,
-      websiteLink,
-      editableField,
-      crossY,
-      crossX,
-      model,
-      section: categoryField || primarySection,
-      isAdmin,
-      multimediaSubtitle,
-      multimediaCaption,
-    }
-
-    return <FeatureFullImageChild {...params} />
+  const params = {
+    author,
+    authorLink,
+    primarySectionLink,
+    title: titleField || titleStory,
+    multimediaLandscapeL: landscapeLCustom || multimediaLandscapeL, //
+    multimediaPortraitMD: portraitMDCustom || multimediaPortraitMD, //
+    multimediaSquareXL: squareXLCustom || multimediaSquareXL, //
+    multimediaLazyDefault: lazyDefaultCustom || multimediaLazyDefault,
+    multimediaType,
+    websiteLink,
+    editableField,
+    crossY,
+    crossX,
+    model,
+    section: categoryField || primarySection,
+    isAdmin,
+    multimediaSubtitle,
+    multimediaCaption,
   }
+
+  return <FeatureFullImageChild {...params} />
 }
 
 FeatureStoryFullImage.propTypes = {
