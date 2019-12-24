@@ -85,4 +85,6 @@ Doblete.propTypes = {
 }
 
 Doblete.label = 'Doblete'
+Doblete.static = true
+
 export default Doblete
