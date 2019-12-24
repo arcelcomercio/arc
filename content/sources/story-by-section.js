@@ -172,7 +172,7 @@ const transform = (
   }
 
   return {
-    ...story,
+    ...story[0],
     section_name: sectionName || 'Sección',
   }
 }
