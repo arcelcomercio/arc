@@ -172,7 +172,7 @@ export default ({ section = '' }) => {
           section,
           stories_qty: 4,
           presets: 'mobile:314x157',
-          includedFields: `websites.${arcSite}.website_url,promo_items.basic.url,${includePromoItems},headlines.basic,${includeCredits},${includePrimarySection}`,
+          includedFields: `websites.${arcSite}.website_url,${includePromoItems},headlines.basic,${includeCredits},${includePrimarySection}`,
         },
         filter: `{ 
           content_elements {
