@@ -7,6 +7,10 @@ import DobleteCard from './_children/doblete-card'
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
+import {
+  includeCredits,
+  includePrimarySection,
+} from '../../../utilities/included-fields'
 
 const Doblete = props => {
   const { arcSite, contextPath, deployment } = useFusionContext()
@@ -48,17 +52,20 @@ const Doblete = props => {
     }
   }
 
+  const presets = ''
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includeCredits},${includePrimarySection}`
+
   const data1 =
     useContent({
       source: contentService1,
-      query: contentConfigValues1,
+      query: Object.assign(contentConfigValues1, { presets, includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 
   const data2 =
     useContent({
       source: contentService2,
-      query: contentConfigValues2,
+      query: Object.assign(contentConfigValues2, { presets, includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 
