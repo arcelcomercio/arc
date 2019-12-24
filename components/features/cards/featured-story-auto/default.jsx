@@ -11,6 +11,8 @@ import {
   includeCredits,
   includePromoItems,
   includePrimarySection,
+  includePromoItemsCaptions,
+  includeSections,
 } from '../../../utilities/included-fields'
 
 const PHOTO_SOURCE = 'photo-by-id'
@@ -54,42 +56,38 @@ const CardFeaturedStoryAuto = () => {
   })
 
   const { schema } = storyFormatter
-  const storiesSchema = `{ content_elements ${schema} }`
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
 
   const data = useContent({
-    source: 'story-feed-by-section',
+    source: 'story-by-section',
     query: {
       website: arcSite,
       section,
       feedOffset: storyNumber || 0,
-      presets: 'mobile:314x157',
-      includedFields: `websites.${arcSite}.website_url,${includePromoItems},headlines.basic,${includeCredits},${includePrimarySection}`,
+      presets,
+      includedFields,
     },
-    filter: storiesSchema,
+    filter: schema,
   })
 
   let customPhoto = {}
   if (imgField) {
     const photoId = getPhotoId(imgField)
     if (photoId) {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      customPhoto = useContent({
-        source: PHOTO_SOURCE,
-        query: {
-          _id: photoId,
-        },
-        filter: PHOTO_SCHEMA,
-      })
+      customPhoto =
+        useContent({
+          source: PHOTO_SOURCE,
+          query: {
+            _id: photoId,
+          },
+          filter: PHOTO_SCHEMA,
+        }) || {}
     }
   }
 
-  const { content_elements: contentElements = [] } = data || {}
-
-  const formattedData = storyFormatter.formatStory(
-    contentElements[0],
-    imgField,
-    customPhoto
-  )
+  const formattedData = storyFormatter.formatStory(data, imgField, customPhoto)
 
   const {
     category,
