@@ -24,6 +24,8 @@ export const includeTags = `taxonomy.tags.description,taxonomy.tags.slug,taxonom
 
 export const includeCredits = `credits.by.name,credits.by.url,credits.by.type`
 
+export const includeCreditsImage = `credits.by.image.url`
+
 export const includeCreditsRole = `credits.by.additional_properties.original.role`
 
 export const includeCreditsEducation = `credits.by.additional_properties.original.education.name`
