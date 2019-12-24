@@ -32,7 +32,6 @@ const CardFeaturedStoryAuto = () => {
     arcSite,
     deployment,
     contextPath,
-    editableField,
     isAdmin,
     customFields: {
       imgField,
@@ -116,7 +115,6 @@ const CardFeaturedStoryAuto = () => {
     headband,
     size,
     hightlightOnMobile,
-    editableField,
     titleField,
     categoryField,
     arcSite,
