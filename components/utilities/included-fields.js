@@ -14,7 +14,7 @@ export const includePromoVideoAds = `promo_items.basic_video._id,promo_items.bas
 
 export const includePrimarySection = `taxonomy.primary_section.path,taxonomy.primary_section.name`
 
-export const includeSections = `taxonomy.sections.path,taxonomy.sections.name`
+export const includeSections = `taxonomy.sections.path,taxonomy.sections._id,taxonomy.sections.name`
 
 export const includeTags = `taxonomy.tags.description,taxonomy.tags.slug,taxonomy.tags.text`
 
