@@ -6,6 +6,11 @@ import { useFusionContext } from 'fusion:context'
 
 import Icon from '../../../global-components/multimedia-icon'
 import StoryData from '../../../utilities/story-data'
+import {
+  includeSections,
+  includePrimarySection,
+  includePromoItems,
+} from '../../../utilities/included-fields'
 
 const PodcastExtraordinazryStory = props => {
   const {
@@ -16,10 +21,13 @@ const PodcastExtraordinazryStory = props => {
 
   const { arcSite, contextPath, deployment } = useFusionContext()
 
+  const presets = 'landscape_l:648x374'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},${includePrimarySection},${includeSections}`
+
   const data =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: `
       { 
         headlines { basic }
@@ -63,10 +71,6 @@ const PodcastExtraordinazryStory = props => {
         }
         websites {
           ${arcSite} {
-            website_section {
-              name
-              path
-            }
             website_url
           }
         }
@@ -80,7 +84,6 @@ const PodcastExtraordinazryStory = props => {
             path 
           }
         }
-        website_url
       }
       `,
     }) || {}

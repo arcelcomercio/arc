@@ -6,6 +6,8 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import { appendToBody } from '../../utilities/helpers'
 
+// TODO: convertir en componente funcional con hooks
+
 const createScript = ({ src, async, defer, textContent = '', jquery }) => {
   const node = document.createElement('script')
   if (src) {
