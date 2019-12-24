@@ -64,7 +64,7 @@ const Doblete = props => {
   const data2 =
     useContent({
       source: contentService2,
-      query: Object.assign(contentConfigValues2, { presets, includedFields }),
+      query: Object.assign(contentConfigValues2, { includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 
