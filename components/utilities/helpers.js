@@ -669,7 +669,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<span (.*)>/g, '<span>')
     .replace(/<(.+):p>/g, '<span>')
     .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
-    .replace(/<font (.*)>(.+)<\/font>/g, '$2')
+    .replace(/<font(.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
@@ -1194,18 +1194,23 @@ export const getDateSeo = data => {
   return fechaGenerada
 }
 
-export const msToTime = duration => {
-  if (duration) {
-    let seconds = parseInt((duration / 1000) % 60, 0)
-    let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
-    let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
+export const msToTime = (duration = 5555, seo = true) => {
+  let seconds = parseInt((duration / 1000) % 60, 0)
+  let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
+  let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
+  let resultSeo = ''
+  if (seo) {
     hours = hours < 10 ? `0${hours}:` : hours
     minutes = minutes < 10 ? `0${minutes}` : minutes
     seconds = seconds < 10 ? `0${seconds}` : seconds
-
-    return `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
+    resultSeo = `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
+  } else {
+    hours = hours >= 1 ? `${hours}H` : ''
+    minutes = minutes >= 1 ? `${minutes}M` : ''
+    seconds = seconds >= 1 ? `${seconds}S` : ''
+    resultSeo = `PT${hours}${minutes}${seconds}`
   }
-  return ''
+  return resultSeo
 }
 
 export const localISODate = date => {

@@ -869,6 +869,7 @@ class StoryData {
         _id: idVideo = '',
         streams = [],
         publish_date: date = '',
+        duration,
         promo_image: {
           url: urlImage = '',
           resized_urls: resizedUrls = '',
@@ -892,6 +893,7 @@ class StoryData {
                     url,
                     resized_urls: resizedUrlsV || resizedUrlsP,
                     caption,
+                    duration,
                     urlImage: urlImage || urlImageP,
                     date,
                   }
@@ -984,6 +986,7 @@ class StoryData {
             _id: idVideo = '',
             promo_image: { url: urlImage },
             streams,
+            duration,
             publish_date: date,
             headlines: { basic: caption = '' } = {},
           }) => {
@@ -994,14 +997,15 @@ class StoryData {
                       idVideo,
                       url,
                       caption,
+                      duration,
                       urlImage,
                       date,
                     }
                   : []
               })
               .filter(String)
-
-            return resultVideo[0] || []
+            const cantidadVideo = resultVideo.length
+            return resultVideo[cantidadVideo - 1] || []
           }
         )
         .filter(String) || []

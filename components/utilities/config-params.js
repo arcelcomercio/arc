@@ -118,7 +118,6 @@ class ConfigParams {
   static LARGE = 'large'
 
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
-
 }
 
 export const sizeImg = () => {
@@ -263,6 +262,18 @@ export const sizeImgStory = () => {
     impresa: {
       width: 617,
       height: 637,
+    },
+    amp_video_1x1: {
+      width: 1200,
+      height: 1200,
+    },
+    amp_video_4x3: {
+      width: 1200,
+      height: 900,
+    },
+    amp_video_16x9: {
+      width: 1200,
+      height: 675,
     },
   }
 }

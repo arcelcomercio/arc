@@ -13,6 +13,7 @@ export const AnalyticsScript = ({
   formatOrigen = '',
   contentOrigen = '',
   genderOrigen = '',
+  arcSite = '',
 }) => `(function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
@@ -44,12 +45,24 @@ export const AnalyticsScript = ({
         ga('set', 'dimension7', '${newsType}');
         ga('set', 'dimension8', '${newsId}');
         ga('set', 'dimension15', '${author}');
-        ga('send', 'pageview', '${pageview}');
-        ga('send', 'pageview', {title: '${newsTitle}'});
         ga('set', 'dimension16', '${nucleoOrigen}');
         ga('set', 'dimension19', '${formatOrigen}');
         ga('set', 'dimension20', '${contentOrigen}');
         ga('set', 'dimension21', '${genderOrigen}');
+        ${
+          // Validación temporal
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'depor' ||
+          arcSite === 'trome' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'diariocorreo' ||
+          (arcSite === 'elcomercio' && section === 'deporte-total') ||
+          (arcSite === 'elcomercio' && section === 'redes-sociales') ||
+          (arcSite === 'elcomercio' && section === 'tvmas')
+            ? `ga('set', 'title', '${newsTitle}')`
+            : `ga('send', 'pageview', {title: '${newsTitle}'})`
+        };
+        ga('send', 'pageview', '${pageview}');
         `
 
 export const ScriptElement = () =>
