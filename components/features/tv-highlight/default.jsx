@@ -17,13 +17,9 @@ import {
 
 const CONTENT_SOURCE = 'story-by-section'
 
-const TVHighlight = () => {
-  const {
-    arcSite,
-    deployment,
-    contextPath,
-    customFields: { section } = {},
-  } = useFusionContext()
+const TVHighlight = props => {
+  const { customFields: { section } = {} } = props
+  const { arcSite, deployment, contextPath } = useFusionContext()
 
   const story = useContent({
     source: CONTENT_SOURCE,
