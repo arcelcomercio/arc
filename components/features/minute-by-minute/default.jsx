@@ -59,11 +59,11 @@ class MinuteByMinute extends PureComponent {
       const instances = getMxmInstances()
       const key = Object.keys(instances)[0]
 
-      instances[key].pubsub.on('data', function (data) {
+      instances[key].pubsub.on('data', function(data) {
         self.setState({ inner: data })
       })
     }
-    window.on_mxm_loaded = function (instances) {
+    window.on_mxm_loaded = function(instances) {
       window.getMxmInstances = () => {
         return instances
       }
@@ -123,7 +123,9 @@ class MinuteByMinute extends PureComponent {
 
     const { fetched } = this.getContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, {
+        includedFields: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic`,
+      }),
       filter: schemaFilter(arcSite),
     })
 
@@ -154,7 +156,7 @@ class MinuteByMinute extends PureComponent {
       <div
         className={`col-3 flex by-minute live-mxm ${
           typeComponent === 'partido' ? 'mxm-partido' : 'mxm-eventos'
-          }`}>
+        }`}>
         <div className="by-minute__left p-20">
           {typeComponent === 'partido' ? (
             <>
@@ -232,31 +234,31 @@ class MinuteByMinute extends PureComponent {
               </div>
             </>
           ) : (
-              <>
-                <div className="w-game-info flex justify-center">
-                  <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
-                    <img
-                      src={deployment(
-                        `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
-                      )}
-                      alt=""
-                      className="mr-5"
-                    />
-                    En vivo
+            <>
+              <div className="w-game-info flex justify-center">
+                <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
+                  <img
+                    src={deployment(
+                      `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                    )}
+                    alt=""
+                    className="mr-5"
+                  />
+                  En vivo
                 </div>
-                </div>
-                <h2 className="text-center text-xl line-h-sm font-bold mt-20">
-                  <a href={url} className="text-white tertiary-font">
-                    {title}
-                  </a>
-                </h2>
-                <p className="text-center mt-15">
-                  <a className="text-white" href={url}>
-                    {subTitle}
-                  </a>
-                </p>
-              </>
-            )}
+              </div>
+              <h2 className="text-center text-xl line-h-sm font-bold mt-20">
+                <a href={url} className="text-white tertiary-font">
+                  {title}
+                </a>
+              </h2>
+              <p className="text-center mt-15">
+                <a className="text-white" href={url}>
+                  {subTitle}
+                </a>
+              </p>
+            </>
+          )}
 
           <div className="scorer-sponsor">
             <div id="eplAd_REEMPLAZAR_POR_EPLANNING1">
@@ -291,8 +293,8 @@ class MinuteByMinute extends PureComponent {
           {typeComponent === 'partido' ? (
             <mxm-partido code={codeComponent} noframe h="235px" />
           ) : (
-              <mxm-evento code={codeComponent} noframe h="258px" />
-            )}
+            <mxm-evento code={codeComponent} noframe h="258px" />
+          )}
         </div>
       </div>
     )
