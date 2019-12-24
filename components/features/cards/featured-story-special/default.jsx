@@ -4,6 +4,11 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
+import {
+  includePrimarySection,
+  includePromoItems,
+  includeSections,
+} from '../../../utilities/included-fields'
 
 /**
  * TODO:
@@ -22,9 +27,12 @@ const CardsFeaturedStorySpecial = props => {
 
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
+  const presets = 'landscape_xl:980x528,landscape_l:648x374'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePrimarySection},${includeSections}`
+
   const data = useContent({
     source: contentService,
-    query: contentConfigValues,
+    query: Object.assign(contentConfigValues, { presets, includedFields }),
     filter: `
       headlines { basic }
       promo_items {
@@ -66,10 +74,6 @@ const CardsFeaturedStorySpecial = props => {
       }
       websites {
         ${arcSite} {
-          website_section {
-            name
-            path
-          }
           website_url
         }
       }
@@ -120,7 +124,7 @@ const CardsFeaturedStorySpecial = props => {
             } featured-special__img w-full object-cover`}
             src={isAdmin ? multimediaLandscapeXL : multimediaLazyDefault}
             data-src={multimediaLandscapeXL}
-            alt={title}            
+            alt={title}
           />
         </picture>
       </a>
