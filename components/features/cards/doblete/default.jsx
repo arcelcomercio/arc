@@ -52,13 +52,12 @@ const Doblete = props => {
     }
   }
 
-  const presets = ''
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includeCredits},${includePrimarySection}`
 
   const data1 =
     useContent({
       source: contentService1,
-      query: Object.assign(contentConfigValues1, { presets, includedFields }),
+      query: Object.assign(contentConfigValues1, { includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 
