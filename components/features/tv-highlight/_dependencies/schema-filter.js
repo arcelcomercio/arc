@@ -1,11 +1,15 @@
-export default `{ 
+export default arcSite => `{ 
     canonical_url 
     headlines { basic }
     subheadlines { basic }
     credits {
       by { name url type }
     }
-    website_url
+    websites {
+      ${arcSite} {
+        website_url
+      }
+    }
     promo_items {
         basic { url type subtitle caption resized_urls { landscape_xl } }
         basic_video {
