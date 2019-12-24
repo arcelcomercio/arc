@@ -164,7 +164,7 @@ const transform = (
   let story = data
 
   if (presets) {
-    story = transformImg({
+    ;[story] = transformImg({
       contentElements: [story],
       website,
       presets, // i.e. 'mobile:314x157'
@@ -172,7 +172,7 @@ const transform = (
   }
 
   return {
-    ...story[0],
+    ...story,
     section_name: sectionName || 'Sección',
   }
 }
