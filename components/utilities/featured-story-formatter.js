@@ -57,10 +57,6 @@ class FeaturedStoryFormatter {
       }
       websites {
         ${this.arcSite} {
-          website_section {
-            name
-            path
-          }
           website_url
         }
       }
@@ -74,7 +70,6 @@ class FeaturedStoryFormatter {
           path 
         }
       }
-      website_url
       publish_date
       display_date
     }`
