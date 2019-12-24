@@ -2,7 +2,7 @@
 import React from 'react'
 import Content from 'fusion:content'
 
-const Dfp = ({ deployment, contextPath, siteProperties = {} }) => {
+const Dfp = ({ deployment, contextPath, siteProperties = {}, metaValueId }) => {
   const { adsAmp: { dataSlot } = {} } = siteProperties
   const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}},function(d){console.log("Advertisement has loaded...",d)});`
   const adsRegister = `
@@ -35,9 +35,23 @@ const Dfp = ({ deployment, contextPath, siteProperties = {} }) => {
 
   arcAds.registerAdCollection(ads);
 
+  googletag.cmd.push(function() {
+    
+    googletag.pubads().enableLazyLoad({fetchMarginPercent: -1});
+  
+    googletag.enableServices();
+  });
+
   `
   return (
-    <Content {...{ contentService: 'get-ads-spaces' }}>
+    <Content
+      {...{
+        contentService: 'story-by-section',
+        contentConfigValues: {
+          page: metaValueId,
+          section: '',
+        },
+      }}>
       {content => (
         <>
           <script
@@ -54,7 +68,7 @@ const Dfp = ({ deployment, contextPath, siteProperties = {} }) => {
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
-              __html: `var aa = "${JSON.stringify(content)}"`,
+              __html: `var aa = ${JSON.stringify(content)}`,
             }}
           />
         </>

@@ -296,7 +296,14 @@ export default ({
           globalContent={globalContent}
         />
         {arcSite === 'publimetro' && (
-          <Dfp {...{ deployment, contextPath, siteProperties }} />
+          <Dfp
+            {...{
+              deployment,
+              contextPath,
+              siteProperties,
+              metaValueId: metaValue('id'),
+            }}
+          />
         )}
         {!nodas && !isLivePage && (
           <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
