@@ -268,3 +268,5 @@ FeaturedStory.propTypes = {
   ]),
   isAdmin: PropTypes.bool,
 }
+
+export default React.memo(FeaturedStory)
