@@ -1293,7 +1293,10 @@ export const typeSpaceAdsDfp = (type, sectionAdsArray = [], isDfp = false) => {
         spaceAds = spacesAdsDfpPortada()
         break
       case ConfigParams.META_STORY:
-        spaceAds = spacesAdsDfpStory()
+        spaceAds =
+          sectionAdsArray &&
+          sectionAdsArray[1] &&
+          JSON.parse(sectionAdsArray[1])
         break
       default:
         ConfigParams.spaceAds = spacesAdsDfpDefault()
