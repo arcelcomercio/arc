@@ -24,7 +24,7 @@ const formatAdsCollection = response => {
   return `"use strict";var adsCollection=${JSON.stringify(
     adsCollection
   ).replace(
-    /"\[window.addLazyLoadToAd\]"/g,
+    /"\[window\.addLazyLoadToAd\]"/g,
     'window.addLazyLoadToAd'
   )};arcAds.registerAdCollection(adsCollection);`
 }
