@@ -15,6 +15,7 @@ import {
   storyTagsBbc,
   getDateSeo,
   storyContenImage,
+  typeSpaceAdsDfp,
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -32,6 +33,7 @@ import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
+import Ads from '../../../global-components/ads'
 
 const classes = {
   news: 'story-content ',
@@ -116,10 +118,14 @@ class StoryContents extends PureComponent {
       deployment,
       siteProperties: {
         ids: { opta },
+        isDfp,
       },
+      metaValue,
     } = this.props
-    const { related_content: { basic: relatedContent } = {} } =
-      globalContent || {}
+    const {
+      related_content: { basic: relatedContent } = {},
+      section_ads: sectionAds = [],
+    } = globalContent || {}
 
     const {
       publishDate: date,
@@ -168,6 +174,7 @@ class StoryContents extends PureComponent {
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
+    const sectionAdsResult = typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)
 
     return (
       <>
@@ -185,14 +192,38 @@ class StoryContents extends PureComponent {
 
           <StoryContentsChildAuthor {...params} />
 
-          <div id="ads_m_movil2" />
+          <Ads
+            adElement="movil2"
+            isDesktop={false}
+            isMobile
+            isDfp
+            sectionAds={sectionAdsResult}
+          />
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
-            <div id="ads_d_inline" />
-            <div id="ads_m_movil_video" />
-            <div id="ads_m_movil3" />
+            <Ads
+              adElement="inline"
+              isDesktop
+              isMobile={false}
+              isDfp
+              sectionAds={sectionAdsResult}
+            />
+            <Ads
+              adElement="movil_video"
+              isDesktop={false}
+              isMobile
+              isDfp
+              sectionAds={sectionAdsResult}
+            />
+            <Ads
+              adElement="movil3"
+              isDesktop={false}
+              isMobile
+              isDfp
+              sectionAds={sectionAdsResult}
+            />
             {contentElements && (
               <ArcStoryContent
                 data={contentElements}
@@ -278,9 +309,7 @@ class StoryContents extends PureComponent {
 
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
-                      ? `${classes.textClasses} ${
-                          classes.alignmentClasses
-                        }-${alignment}`
+                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                       : classes.textClasses
                     return (
                       <Text

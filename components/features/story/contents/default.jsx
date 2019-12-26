@@ -15,6 +15,7 @@ import {
   storyTagsBbc,
   getDateSeo,
   storyContenImage,
+  typeSpaceAdsDfp,
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -32,6 +33,7 @@ import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
+import Ads from '../../../global-components/ads'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -117,9 +119,15 @@ class StoryContents extends PureComponent {
       siteProperties: {
         ids: { opta },
       },
+      siteProperties: { isDfp },
+      metaValue,
     } = this.props
-    const { related_content: { basic: relatedContent } = {} } =
-      globalContent || {}
+    const {
+      related_content: {
+        basic: relatedContent,
+        section_ads: sectionAds = [],
+      } = {},
+    } = globalContent || {}
 
     const {
       publishDate: date,
@@ -170,30 +178,56 @@ class StoryContents extends PureComponent {
         `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
 
+    const sectionAdsResult = typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)
+
     return (
       <>
         <div className={classes.news}>
           {primarySectionLink === '/impresa/' ||
-            primarySectionLink === '/malcriadas/' ||
-            storyTagsBbc(tags, 'portada-trome')
+          primarySectionLink === '/malcriadas/' ||
+          storyTagsBbc(tags, 'portada-trome')
             ? promoItems && <StoryContentsChildImpresa data={promoItems} />
             : promoItems &&
-            subtype !== ConfigParams.BIG_IMAGE &&
-            subtype !== ConfigParams.SPECIAL_BASIC &&
-            subtype !== ConfigParams.SPECIAL && (
-              <StoryContentsChildMultimedia data={params} />
-            )}
+              subtype !== ConfigParams.BIG_IMAGE &&
+              subtype !== ConfigParams.SPECIAL_BASIC &&
+              subtype !== ConfigParams.SPECIAL && (
+                <StoryContentsChildMultimedia data={params} />
+              )}
 
           <StoryContentsChildAuthor {...params} />
 
-          <div id="ads_m_movil2" />
+          <Ads
+            adElement="movil2"
+            isDesktop={false}
+            isMobile
+            isDfp
+            sectionAds={sectionAdsResult}
+          />
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
-            <div id="ads_d_inline" />
-            <div id="ads_m_movil_video" />
-            <div id="ads_m_movil3" />
+            <Ads
+              adElement="inline"
+              isDesktop
+              isMobile={false}
+              isDfp
+              sectionAds={sectionAdsResult}
+            />
+            <Ads
+              adElement="movil_video"
+              isDesktop={false}
+              isMobile
+              isDfp
+              sectionAds={sectionAdsResult}
+            />
+            <Ads
+              adElement="movil3"
+              isDesktop={false}
+              isMobile
+              isDfp
+              sectionAds={sectionAdsResult}
+            />
             {contentElements && (
               <ArcStoryContent
                 data={contentElements}
@@ -211,7 +245,9 @@ class StoryContents extends PureComponent {
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
                     return (
-                      <StoryContentsChildImage {...storyContenImage(element, multimediaLazyDefault)} />
+                      <StoryContentsChildImage
+                        {...storyContenImage(element, multimediaLazyDefault)}
+                      />
                     )
                   }
                   if (type === ConfigParams.ELEMENT_VIDEO) {
@@ -224,10 +260,10 @@ class StoryContents extends PureComponent {
                             description={captionVideo}
                           />
                         ) : (
-                            <StoryContentsChildVideoNativo
-                              streams={element && element.streams}
-                            />
-                          )}
+                          <StoryContentsChildVideoNativo
+                            streams={element && element.streams}
+                          />
+                        )}
                       </>
                     )
                   }
@@ -278,9 +314,7 @@ class StoryContents extends PureComponent {
 
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
-                      ? `${classes.textClasses} ${
-                      classes.alignmentClasses
-                      }-${alignment}`
+                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                       : classes.textClasses
                     return (
                       <Text
@@ -347,7 +381,6 @@ class StoryContents extends PureComponent {
           )}
         </div>
         {/* <Clavis clavisConfig={this.getClavisConfig()} /> */}
-
       </>
     )
   }

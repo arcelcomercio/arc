@@ -7,6 +7,7 @@ import EditorialCard from './_children/editorial-card'
 import ListItem from './_children/list-item'
 import CustomTitle from '../../custom-title/default'
 import Ads from '../../../global-components/ads'
+import { typeSpaceAdsDfp } from '../../../utilities/helpers'
 // TODO: author-card y editorial-card pueden evitar código duplicado con un contenedor
 const classes = {
   container: 'opinion-grid grid w-full m-0 mx-auto',
@@ -21,8 +22,16 @@ const classes = {
 @Consumer
 class StaticOpinionGrid extends PureComponent {
   render() {
-    const { globalContent, deployment, contextPath, arcSite } = this.props
-    const { content_elements: contentElements } = globalContent || {}
+    const {
+      globalContent,
+      deployment,
+      contextPath,
+      arcSite,
+      siteProperties: { isDfp },
+      metaValue,
+    } = this.props
+    const { content_elements: contentElements, section_ads: sectionAds = [] } =
+      globalContent || {}
     const stories = contentElements || []
     const data = new StoryData({
       deployment,
@@ -32,6 +41,9 @@ class StaticOpinionGrid extends PureComponent {
     })
     let countAdd = 0
     let countAddPrint = 0
+
+    const sectionAdsResult = typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)
+
     return (
       <div>
         <div className={classes.title}>
@@ -60,6 +72,8 @@ class StaticOpinionGrid extends PureComponent {
                       columns=""
                       rows=""
                       freeHtml=""
+                      isDfp
+                      sectionAds={sectionAdsResult}
                     />
                   </Fragment>
                 )
@@ -93,6 +107,8 @@ class StaticOpinionGrid extends PureComponent {
                       columns=""
                       rows=""
                       freeHtml=""
+                      isDfp
+                      sectionAds={sectionAdsResult}
                     />
                   </Fragment>
                 )
@@ -120,6 +136,8 @@ class StaticOpinionGrid extends PureComponent {
           columns=""
           rows=""
           freeHtml=""
+          isDfp
+          sectionAds={sectionAdsResult}
         />
 
         <div role="list" className={classes.list}>
@@ -155,6 +173,8 @@ class StaticOpinionGrid extends PureComponent {
                   columns=""
                   rows=""
                   freeHtml=""
+                  isDfp
+                  sectionAds={sectionAdsResult}
                 />
               </Fragment>
             )

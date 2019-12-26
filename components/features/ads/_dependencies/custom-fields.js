@@ -13,6 +13,12 @@ const customFields = PropTypes.shape({
   isMobile: PropTypes.bool.tag({
     name: 'Mostrar en "mobile"',
   }),
+  isLazy: PropTypes.bool.tag({
+    name: 'Aplicar Lazy Load',
+  }),
+  isDfp: PropTypes.bool.tag({
+    name: 'Mostrar Publicidad DFP',
+  }),
   freeHtml: PropTypes.richtext.tag({
     name: 'Código HTML Adicional',
     group: 'Agregar bloque de HTML',

@@ -4,6 +4,7 @@ import Consumer from 'fusion:consumer'
 import customFields from './_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
 import Ads from '../../../global-components/ads'
+import { typeSpaceAdsDfp } from '../../../utilities/helpers'
 
 const classes = {
   listado: 'w-full',
@@ -24,12 +25,15 @@ class StoriesListSectionStories extends PureComponent {
       globalContentConfig,
       isAdmin,
       customFields: customFieldsProps = {},
+      siteProperties: { isDfp },
+      metaValue,
     } = this.props
 
     const { storiesQty = 50, initialStory = 0 } = customFieldsProps
 
     const { query: { section = '' } = {} } = globalContentConfig || {}
-    const { content_elements: contentElements } = globalContent || {}
+    const { content_elements: contentElements, section_ads: sectionAds = [] } =
+      globalContent || {}
     const stories = contentElements || []
 
     const activeAds = Object.keys(customFieldsProps)
@@ -68,6 +72,12 @@ class StoriesListSectionStories extends PureComponent {
                           adElement={ads[0].name}
                           isDesktop={false}
                           isMobile
+                          isDfp
+                          sectionAds={typeSpaceAdsDfp(
+                            metaValue('id'),
+                            sectionAds,
+                            isDfp
+                          )}
                         />
                       </div>
                     )}
