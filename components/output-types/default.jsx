@@ -303,6 +303,7 @@ export default ({
               siteProperties,
               metaValueId: metaValue('id'),
               globalContent,
+              requestUri,
             }}
           />
         )}

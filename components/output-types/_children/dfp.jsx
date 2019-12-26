@@ -6,8 +6,10 @@ const getSectionSlug = (sectionId = '') => {
   return sectionId.split('/')[1] || ''
 }
 
-const formatAdsCollection = response => {
+const formatAdsCollection = (response, requestUri = '') => {
   const { espacios: spaces = [] } = response || {}
+  const tmpAdTargeting = requestUri.match(/tmp_ad=([^&]*)/) || []
+  const tmpAdValue = tmpAdTargeting[1] || ''
   const adsCollection = spaces.map(
     ({ id, slotname, dimensions, islazyload }) => {
       const formatSpace = {
@@ -17,6 +19,11 @@ const formatAdsCollection = response => {
       }
       if (islazyload) {
         formatSpace.prerender = '[window.addLazyLoadToAd]'
+      }
+      if (tmpAdValue) {
+        formatSpace.targeting = {
+          tmp_ad: tmpAdValue,
+        }
       }
       return formatSpace
     }
@@ -35,11 +42,12 @@ const Dfp = ({
   siteProperties = {},
   metaValueId,
   globalContent = {},
+  requestUri,
 }) => {
   const { adsAmp: { dataSlot } = {} } = siteProperties
   const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}},function(d){console.log("Advertisement has loaded...",d)});`
 
-  const lazyLoadFunction = `"use strict";window.addLazyLoadToAd=function(e){if("IntersectionObserver"in window)return new Promise(function(n){var o=e.adId;new IntersectionObserver(function(e,o){e.forEach(function(e){e.isIntersecting&&(console.log("ad resolved!!!!"),n(),o.unobserve(e.target))})},{rootMargin:"0px 0px 500px 0px"}).observe(document.getElementById(o))})};`
+  const lazyLoadFunction = `"use strict";window.addLazyLoadToAd=function(e){if("IntersectionObserver"in window){var n=(e||{}).adId;if(n)return new Promise(function(e){var o=new IntersectionObserver(function(n,o){n.forEach(function(n){n.isIntersecting&&(console.log("resolved!!!!"),e(),o.unobserve(n.target))})},{rootMargin:"0px 0px 500px 0px"});document.getElementById(n)&&o.observe(document.getElementById(n))})}};`
 
   const {
     section_id: sectionId,
@@ -95,7 +103,9 @@ const Dfp = ({
           />
           <script
             type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: formatAdsCollection(content) }}
+            dangerouslySetInnerHTML={{
+              __html: formatAdsCollection(content, requestUri),
+            }}
           />
         </>
       )}
