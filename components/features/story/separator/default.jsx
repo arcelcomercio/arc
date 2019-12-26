@@ -1,10 +1,15 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useFusionContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
 
 import schemaFilter from './_dependencies/schema-filter'
 import StorySeparatorChildItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
+import {
+  includePromoItems,
+  includePrimarySection,
+} from '../../../utilities/included-fields'
 
 const classes = {
   separator: 'story-separator block non-tablet non-mobile w-full h-auto',
@@ -13,34 +18,25 @@ const classes = {
 
 const CONTENT_SOURCE = 'story-feed-by-section'
 
-@Consumer
-class StorySeparator extends PureComponent {
-  constructor(props) {
-    super(props)
-    const { arcSite, globalContent } = props
-    const { taxonomy: { primary_section: { path: section } = {} } = {} } =
-      globalContent || {}
+const StorySeparator = () => {
+  const { deployment, contextPath, arcSite, globalContent } = useFusionContext()
+  const { taxonomy: { primary_section: { path: section } = {} } = {} } =
+    globalContent || {}
 
-    this.fetchDataApi(arcSite, section, 7)
-  }
+  const data = useContent({
+    source: CONTENT_SOURCE,
+    query: {
+      website: arcSite,
+      section,
+      stories_qty: 7,
+      presets: 'portrait_xs:75x90',
+      includedFields: `websites.${arcSite}.website_url,canonical_url,headlines.basic,${includePromoItems},${includePrimarySection}`,
+    },
+    filter: schemaFilter(arcSite),
+  })
 
-  fetchDataApi = (arcSite, section, storiesQty) => {
-    this.fetchContent({
-      dataApi: {
-        source: CONTENT_SOURCE,
-        query: {
-          website: arcSite,
-          section,
-          stories_qty: storiesQty,
-        },
-        filter: schemaFilter,
-      },
-    })
-  }
-
-  renderItems(stories, excluir) {
-    const { deployment, contextPath, arcSite } = this.props
-    const instance = new StoryData({
+  const renderItems = (stories, excluir) => {
+    const storyData = new StoryData({
       deployment,
       contextPath,
       arcSite,
@@ -54,20 +50,20 @@ class StorySeparator extends PureComponent {
         if (key === 4) return false
         const { website_url: websiteUrl } = story
         if (websiteUrl === excluir) return false
-        instance.__data = story
+        storyData.__data = story
         key += 1
 
-        const data = {
-          title: instance.title,
-          link: instance.link,
-          section: instance.primarySection,
-          sectionLink: instance.primarySectionLink,
-          multimediaPortraitXS: instance.multimediaPortraitXS,
-          multimediaType: instance.multimediaType,
+        const filteredData = {
+          title: storyData.title,
+          link: storyData.websiteLink,
+          section: storyData.primarySection,
+          sectionLink: storyData.primarySectionLink,
+          multimediaPortraitXS: storyData.multimediaPortraitXS,
+          multimediaType: storyData.multimediaType,
         }
         return (
           <StorySeparatorChildItem
-            data={data}
+            data={filteredData}
             key={UtilListKey(i)}
             arcSite={arcSite}
           />
@@ -76,16 +72,14 @@ class StorySeparator extends PureComponent {
     )
   }
 
-  render() {
-    const { dataApi: { content_elements: stories } = {} } = this.state
-    const { globalContent } = this.props
-    const { website_url: excluir } = globalContent || {}
-    return (
-      <div className={classes.separator}>
-        <div className={classes.body}>{this.renderItems(stories, excluir)}</div>
-      </div>
-    )
-  }
+  const { content_elements: stories = [] } = data || {}
+  const { website_url: excluir } = globalContent || {}
+
+  return (
+    <div className={classes.separator}>
+      <div className={classes.body}>{renderItems(stories, excluir)}</div>
+    </div>
+  )
 }
 
 StorySeparator.label = 'Separador de artículo'
