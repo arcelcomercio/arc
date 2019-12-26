@@ -43,6 +43,7 @@ class StaticOpinionGrid extends PureComponent {
     let countAddPrint = 0
 
     const sectionAdsResult = typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)
+    const typeSpace = isDfp ? 'caja' : 'movil'
 
     return (
       <div>
@@ -67,7 +68,7 @@ class StaticOpinionGrid extends PureComponent {
                       data={data.attributesRaw}
                     />
                     <Ads
-                      adElement={`movil${countAddPrint}`}
+                      adElement={`${typeSpace}${countAddPrint}`}
                       isDesktop={false}
                       columns=""
                       rows=""
@@ -102,7 +103,7 @@ class StaticOpinionGrid extends PureComponent {
                       }}
                     />
                     <Ads
-                      adElement={`movil${countAddPrint}`}
+                      adElement={`${typeSpace}${countAddPrint}`}
                       isDesktop={false}
                       columns=""
                       rows=""
@@ -168,7 +169,7 @@ class StaticOpinionGrid extends PureComponent {
                   }}
                 />
                 <Ads
-                  adElement="movil5"
+                  adElement={`${isDfp ? 'caja5' : 'movil5'}`}
                   isDesktop={false}
                   columns=""
                   rows=""

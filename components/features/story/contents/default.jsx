@@ -148,6 +148,7 @@ class StoryContents extends PureComponent {
       multimediaLarge,
       multimediaLazyDefault,
       tags,
+      contentPosicionPublicidad,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -197,7 +198,7 @@ class StoryContents extends PureComponent {
           <StoryContentsChildAuthor {...params} />
 
           <Ads
-            adElement="movil2"
+            adElement={`${isDfp ? 'movil2' : 'caja2'}`}
             isDesktop={false}
             isMobile
             isDfp
@@ -207,30 +208,35 @@ class StoryContents extends PureComponent {
             className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
-            <Ads
-              adElement="inline"
-              isDesktop
-              isMobile={false}
-              isDfp
-              sectionAds={sectionAdsResult}
-            />
-            <Ads
-              adElement="movil_video"
-              isDesktop={false}
-              isMobile
-              isDfp
-              sectionAds={sectionAdsResult}
-            />
-            <Ads
-              adElement="movil3"
-              isDesktop={false}
-              isMobile
-              isDfp
-              sectionAds={sectionAdsResult}
-            />
-            {contentElements && (
+            {!isDfp && (
+              <>
+                <Ads
+                  adElement="inline"
+                  isDesktop
+                  isMobile={false}
+                  isDfp
+                  sectionAds={sectionAdsResult}
+                />
+                <Ads
+                  adElement="movil_video"
+                  isDesktop={false}
+                  isMobile
+                  isDfp
+                  sectionAds={sectionAdsResult}
+                />
+
+                <Ads
+                  adElement="movil3"
+                  isDesktop={false}
+                  isMobile
+                  isDfp
+                  sectionAds={sectionAdsResult}
+                />
+              </>
+            )}
+            {contentPosicionPublicidad && (
               <ArcStoryContent
-                data={contentElements}
+                data={contentPosicionPublicidad}
                 elementClasses={classes}
                 renderElement={element => {
                   const {
@@ -242,6 +248,8 @@ class StoryContents extends PureComponent {
                     level,
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
+                    publicidad = false,
+                    nameAds,
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
                     return (
@@ -317,10 +325,21 @@ class StoryContents extends PureComponent {
                       ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                       : classes.textClasses
                     return (
-                      <Text
-                        content={replaceTags(content)}
-                        className={alignmentClass}
-                      />
+                      <>
+                        <Text
+                          content={replaceTags(content)}
+                          className={alignmentClass}
+                        />
+                        {publicidad && isDfp && (
+                          <Ads
+                            adElement={nameAds}
+                            isDesktop={false}
+                            isMobile
+                            isDfp
+                            sectionAds={sectionAdsResult}
+                          />
+                        )}
+                      </>
                     )
                   }
 

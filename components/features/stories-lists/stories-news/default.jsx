@@ -46,9 +46,11 @@ const StoriesListNew = props => {
     .filter(prop => prop.match(/adsMobile(\d)/))
     .filter(key => customFieldsProps[key] === true)
 
+  const typeSpace = isDfp ? 'caja' : 'movil'
+
   const activeAdsArray = activeAds.map(el => {
     return {
-      name: `movil${el.slice(-1)}`,
+      name: `${typeSpace}${el.slice(-1)}`,
       pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
       inserted: false,
     }
