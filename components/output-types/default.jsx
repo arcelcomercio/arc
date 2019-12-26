@@ -6,6 +6,7 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
+import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
 import {
   skipAdvertising,
@@ -294,6 +295,17 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
+        {arcSite === 'publimetro' && (
+          <Dfp
+            {...{
+              deployment,
+              contextPath,
+              siteProperties,
+              metaValueId: metaValue('id'),
+              globalContent,
+            }}
+          />
+        )}
         {!nodas && !isLivePage && (
           <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
         )}
