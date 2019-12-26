@@ -16,14 +16,16 @@ const formatAdsCollection = response => {
         dimensions: JSON.parse(dimensions),
       }
       if (islazyload) {
-        if (typeof window !== 'undefined')
-          formatSpace.prerender = window.addLazyLoadToAd
+        formatSpace.prerender = '[window.addLazyLoadToAd]'
       }
       return formatSpace
     }
   )
   return `"use strict";var adsCollection=${JSON.stringify(
     adsCollection
+  ).replace(
+    `"[window.addLazyLoadToAd]"`,
+    'window.addLazyLoadToAd'
   )};arcAds.registerAdCollection(adsCollection);`
 }
 
