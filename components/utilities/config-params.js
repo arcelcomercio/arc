@@ -387,45 +387,22 @@ export const spacesAdsName = () => {
     caja3: 'caja3',
   }
 }
-export const spacesAdsDfpStory = () => {
-  return {
-    top: 'div-gpt-ad-1576700877296-0',
-    laterall: 'div-gpt-ad-1576700922689-0',
-    lateralr: 'div-gpt-ad-1576700971302-0',
-    skin: 'div-gpt-ad-1576701023732-0',
-    caja1: 'div-gpt-ad-1576701073340-0',
-    caja2: 'div-gpt-ad-1576701126548-0',
-    caja3: 'div-gpt-ad-1576701170652-0',
-    caja4: 'div-gpt-ad-1576701206654-0',
-    caja5: 'div-gpt-ad-1576701253748-0',
-    vslider: 'div-gpt-ad-1576701297995-0',
-    middle1: 'div-gpt-ad-1576701365379-0',
-    inline: 'div-gpt-ad-1576702208484-0',
-    content: 'div-gpt-ad-1576702333023-0',
-    perured1: 'div-gpt-ad-1576702376942-0',
-    perured2: 'div-gpt-ad-1576702424566-0',
-    perured3: 'div-gpt-ad-1576702505729-0',
-  }
-}
 
 export const spacesAdsDfpPortada = () => {
   return {
-    top: 'div-gpt-ad-1576700877296-0',
-    laterall: 'div-gpt-ad-1576700922689-0',
-    lateralr: 'div-gpt-ad-1576700971302-0',
-    skin: 'div-gpt-ad-1576701023732-0',
-    caja1: 'div-gpt-ad-1576701073340-0',
-    caja2: 'div-gpt-ad-1576701126548-0',
-    caja3: 'div-gpt-ad-1576701170652-0',
-    caja4: 'div-gpt-ad-1576701206654-0',
-    caja5: 'div-gpt-ad-1576701253748-0',
-    vslider: 'div-gpt-ad-1576701297995-0',
-    middle1: 'div-gpt-ad-1576701365379-0',
-    inline: 'div-gpt-ad-1576702208484-0',
-    content: 'div-gpt-ad-1576702333023-0',
-    perured1: 'div-gpt-ad-1576702376942-0',
-    perured2: 'div-gpt-ad-1576702424566-0',
-    perured3: 'div-gpt-ad-1576702505729-0',
+    top: 'div-gpt-ad-1576509739958-0',
+    laterall: 'div-gpt-ad-1576509887596-0',
+    lateralr: 'div-gpt-ad-1576509930781-0',
+    skin: 'div-gpt-ad-1576511131617-0',
+    caja1: 'div-gpt-ad-1576510052840-0',
+    caja2: 'div-gpt-ad-1576510107415-0',
+    caja3: 'div-gpt-ad-1576510192613-0',
+    caja4: 'div-gpt-ad-1576510231317-0',
+    caja5: 'div-gpt-ad-1576510257284-0',
+    vslider: 'div-gpt-ad-1576510281239-0',
+    middle1: 'div-gpt-ad-1576510323975-0',
+    middle2: 'div-gpt-ad-1576510356564-0',
+    zocalo: 'div-gpt-ad-1576510386069-0',
   }
 }
 
