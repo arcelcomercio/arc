@@ -156,8 +156,10 @@ const transform = (
   )
 
   const presets =
-    customPresets ||
-    'landscape_xl:980x528,landscape_l:648x374,landscape_md:314x157,landscape_s:234x161,landscape_xs:118x72,portrait_xl:528x900,portrait_l:374x648,portrait_md:314x374,portrait_s:161x220,portrait_xs:75x90,square_xl:900x900,square_l:600x600,square_md:300x300,square_s:150x150,square_xs:75x75,small:100x200,large:940x569,story_small:482x290,amp_new:1200x800,amp:900x600'
+    customPresets === 'no-presets'
+      ? ''
+      : customPresets ||
+        'landscape_xl:980x528,landscape_l:648x374,landscape_md:314x157,landscape_s:234x161,landscape_xs:118x72,portrait_xl:528x900,portrait_l:374x648,portrait_md:314x374,portrait_s:161x220,portrait_xs:75x90,square_xl:900x900,square_l:600x600,square_md:300x300,square_s:150x150,square_xs:75x75,small:100x200,large:940x569,story_small:482x290,amp_new:1200x800,amp:900x600'
 
   const stories = data
 

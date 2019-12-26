@@ -1,8 +1,12 @@
-const schemaFilter = () => `
+const schemaFilter = arcSite => `
 {
   content_elements{
     _id
-    website_url
+    websites {
+      ${arcSite} {
+        website_url
+      }
+    }
     taxonomy{
       primary_section{
         name
