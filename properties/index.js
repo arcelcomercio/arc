@@ -148,5 +148,5 @@ export default {
   stick: {
     logo: 'logo-stick.png',
   },
-  isDfp: true,
+  isDfp: false,
 }
