@@ -295,7 +295,7 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {arcSite === 'publimetro' && (
+        {arcSite === 'publimetro' && !nodas && !isLivePage && (
           <Dfp
             {...{
               deployment,

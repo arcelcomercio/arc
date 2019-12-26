@@ -1,14 +1,18 @@
-const fetch = ({ 'arc-site': website, page, section }) => {
+const devUrl = 'https://d37z8six7qdyn4.cloudfront.net'
+
+const resolve = ({ 'arc-site': website, page, sectionSlug }) => {
   if (!website) throw new Error('Arcsite no declarado')
   if (!page) throw new Error('Tipo de página no declarada')
 
-  return `/${website}/${page}${section || ''}/espacios.json`
+  return `${devUrl}/${website}/${page}${
+    sectionSlug ? `/${sectionSlug}` : ''
+  }/espacios.json`
 }
 
 export default {
-  fetch,
+  resolve,
   params: {
     page: 'text', // home, post, sect
-    section: 'text',
+    sectionSlug: 'text',
   },
 }
