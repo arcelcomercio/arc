@@ -2,6 +2,9 @@ import ConfigParams, {
   sizeImg,
   sizeImgNewsLetter,
   sizeImgStory,
+  spacesAdsDfpPortada,
+  spacesAdsDfpStory,
+  spacesAdsDfpDefault,
 } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
@@ -1276,4 +1279,27 @@ export const pixelAmpDate = arcSite => {
       ? true
       : ''
   return pixelEc
+}
+
+export const typeSpaceAdsDfp = (type, sectionAdsArray = [], isDfp = false) => {
+  let spaceAds = {}
+
+  if (isDfp) {
+    switch (type) {
+      case ConfigParams.META_SECTION:
+        spaceAds = sectionAdsArray[0] && JSON.parse(sectionAdsArray[0])
+        break
+      case ConfigParams.META_HOME:
+        spaceAds = spacesAdsDfpPortada()
+        break
+      case ConfigParams.META_STORY:
+        spaceAds = spacesAdsDfpStory()
+        break
+      default:
+        ConfigParams.spaceAds = spacesAdsDfpDefault()
+        break
+    }
+  }
+
+  return spaceAds
 }

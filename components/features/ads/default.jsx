@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import { createMarkup } from '../../utilities/helpers'
+import { createMarkup, typeSpaceAdsDfp } from '../../utilities/helpers'
 import customFields from './_dependencies/custom-fields'
 import AdsChild from '../../global-components/ads'
 
@@ -64,14 +64,19 @@ class Ads extends PureComponent {
         freeHtml,
         columns,
         adsBorder,
+        isDfp,
         rows,
       } = {},
+      globalContent: { section_ads: sectionAds = [] } = {},
+      metaValue,
     } = this.props
 
     const params = {
       adElement,
       isDesktop,
       isMobile,
+      sectionAds: typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp),
+      isDfp,
     }
 
     const addEmptyBorder = () =>

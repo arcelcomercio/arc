@@ -5,6 +5,7 @@ import { customFields } from '../_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
 import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
+import { typeSpaceAdsDfp } from '../../../utilities/helpers'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -24,17 +25,24 @@ class StoriesListPaginatedList extends PureComponent {
       requestUri,
       isAdmin,
       customFields: customFieldsProps = {},
+      siteProperties: { isDfp = false },
+      metaValue,
     } = this.props
-    const { content_elements: stories = [], count = 0 } = globalContent || {}
+    const {
+      content_elements: stories = [],
+      count = 0,
+      section_ads: sectionAds = [],
+    } = globalContent || {}
     const { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
     const activeAds = Object.keys(customFieldsProps)
       .filter(prop => prop.match(/adsMobile(\d)/))
       .filter(key => customFieldsProps[key] === true)
+    const typeSpace = isDfp ? 'caja' : 'movil'
 
     const activeAdsArray = activeAds.map(el => {
       return {
-        name: `movil${el.slice(-1)}`,
+        name: `${typeSpace}${el.slice(-1)}`,
         pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
         inserted: false,
       }
@@ -53,7 +61,17 @@ class StoriesListPaginatedList extends PureComponent {
                 />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
-                    <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp
+                      sectionAds={typeSpaceAdsDfp(
+                        metaValue('id'),
+                        sectionAds,
+                        isDfp
+                      )}
+                    />
                   </div>
                 )}
               </Fragment>
