@@ -65,7 +65,6 @@ class Ads extends PureComponent {
         columns,
         adsBorder,
         isDfp,
-        isLazy,
         rows,
       } = {},
       globalContent: { section_ads: sectionAds = [] } = {},
@@ -78,7 +77,6 @@ class Ads extends PureComponent {
       isMobile,
       sectionAds: typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp),
       isDfp,
-      isLazy,
     }
 
     const addEmptyBorder = () =>
