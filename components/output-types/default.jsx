@@ -302,6 +302,7 @@ export default ({
               contextPath,
               siteProperties,
               metaValueId: metaValue('id'),
+              globalContent,
             }}
           />
         )}
