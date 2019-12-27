@@ -662,9 +662,23 @@ class StoryData {
         let dataElements = {}
         const { type: typeElement } = dataContent
         dataElements = dataContent
-        if (i === 2 || i === 4 || i === 6) {
+        if (i === 2) {
           dataElements.publicidad = true
-          dataElements.nameAds = `caja${i}`
+          dataElements.nameAds = `inline`
+        }
+
+        if (i === 4) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja2`
+        }
+
+        if (i === 6) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja3`
+        }
+        if (i === 8) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
         }
         if (typeElement === ConfigParams.ELEMENT_TEXT) {
           i += 1
