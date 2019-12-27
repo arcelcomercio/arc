@@ -87,7 +87,7 @@ class Ads extends PureComponent {
 
     const addRowsClass = () => (rows === 'empty' ? '' : rows)
 
-    const neverShow = () => !isDesktop && !isMobile
+    const neverShow = () => !isDesktop && !isMobile && !isDfp
     const alwaysShow = () => isDesktop && isMobile
 
     const hideInDevice = () => {
@@ -157,6 +157,6 @@ Ads.propTypes = {
 }
 
 Ads.label = 'Publicidad AppNexus'
-Ads.static = true
+Ads.static = false
 
 export default Ads

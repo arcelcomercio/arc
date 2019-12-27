@@ -1299,7 +1299,7 @@ export const typeSpaceAdsDfp = (type, sectionAdsArray = [], isDfp = false) => {
           JSON.parse(sectionAdsArray[1])
         break
       default:
-        ConfigParams.spaceAds = spacesAdsDfpDefault()
+        spaceAds = spacesAdsDfpDefault()
         break
     }
   }
