@@ -109,6 +109,8 @@ class ConfigParams {
 
   static SQUARE_XS = 'square_xs'
 
+  static IMPRESA_S = 'impresa_s'
+
   static LAZY_DEFAULT = 'lazy_default'
 
   // noticia
@@ -229,6 +231,10 @@ export const sizeImg = () => {
       width: 617,
       height: 637,
     },
+    impresa_s: {
+      width: 273,
+      height: 289,
+    },
   }
 }
 
@@ -262,6 +268,10 @@ export const sizeImgStory = () => {
     impresa: {
       width: 617,
       height: 637,
+    },
+    impresa_s: {
+      width: 273,
+      height: 289,
     },
     amp_video_1x1: {
       width: 1200,
