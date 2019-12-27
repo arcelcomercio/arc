@@ -58,15 +58,29 @@ const Dfp = ({
   let contentConfigValues = {}
   switch (metaValueId) {
     case 'meta_section':
-      contentConfigValues = {
-        page: 'sect',
-        sectionSlug: getSectionSlug(sectionId || _id),
+      if (sectionId || _id) {
+        contentConfigValues = {
+          page: 'sect',
+          sectionSlug: getSectionSlug(sectionId || _id),
+        }
+      } else {
+        contentConfigValues = {
+          page: 'sect',
+          sectionSlug: 'default',
+        }
       }
       break
     case 'meta_story':
-      contentConfigValues = {
-        page: 'post',
-        sectionSlug: getSectionSlug(primarySection),
+      if (primarySection) {
+        contentConfigValues = {
+          page: 'post',
+          sectionSlug: getSectionSlug(primarySection),
+        }
+      } else {
+        contentConfigValues = {
+          page: 'post',
+          sectionSlug: 'default',
+        }
       }
       break
     case 'meta_home':
