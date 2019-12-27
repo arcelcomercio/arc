@@ -234,7 +234,7 @@ const IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
 
 const device = IS_MOBILE ? 'm' : 'd'
 
-const PREBID_TIMEOUT = site==='p21'? 2200:3000
+const PREBID_TIMEOUT = site==='p21'? 1500:3000
 const BIDDER_PERCENTAGE = 0.85
 
 // eslint-disable-next-line no-use-before-define
