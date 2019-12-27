@@ -119,7 +119,7 @@ class StoryContents extends PureComponent {
       siteProperties: {
         ids: { opta },
       },
-      siteProperties: { isDfp },
+      siteProperties: { isDfp=false },
       metaValue,
     } = this.props
     const {

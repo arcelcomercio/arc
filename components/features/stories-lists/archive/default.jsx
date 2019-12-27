@@ -24,7 +24,7 @@ class StoriesListArchive extends PureComponent {
       arcSite,
       isAdmin,
       customFields: customFieldsProps = {},
-      siteProperties: { isDfp },
+      siteProperties: { isDfp=false },
       metaValue,
     } = this.props
     const {

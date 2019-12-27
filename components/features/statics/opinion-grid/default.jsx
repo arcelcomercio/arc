@@ -27,7 +27,7 @@ class StaticOpinionGrid extends PureComponent {
       deployment,
       contextPath,
       arcSite,
-      siteProperties: { isDfp },
+      siteProperties: { isDfp =false },
       metaValue,
     } = this.props
     const { content_elements: contentElements, section_ads: sectionAds = [] } =

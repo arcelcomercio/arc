@@ -23,7 +23,7 @@ const StoriesListNew = props => {
 
   const {
     customFields: customFieldsProps = {},
-    siteProperties: { isDfp },
+    siteProperties: { isDfp = false },
     metaValue,
     globalContent: { section_ads: sectionAds = [] } = {},
   } = props

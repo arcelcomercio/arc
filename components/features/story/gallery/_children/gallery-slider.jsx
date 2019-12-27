@@ -185,7 +185,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     const {
       isAdmin,
       defaultImageGallery,
-      siteProperties: { isDfp },
+      siteProperties: { isDfp=false },
       metaValue,
       globalContent: { section_ads: sectionAds = [] } = {},
     } = this.props

@@ -106,7 +106,7 @@ class StoriesListInfiniteScroll extends PureComponent {
       contextPath,
       arcSite,
       customFields: customFieldsProps = {},
-      siteProperties: { isDfp },
+      siteProperties: { isDfp =false },
       metaValue,
       globalContent: { section_ads: sectionAds = [] } = {},
     } = this.props
