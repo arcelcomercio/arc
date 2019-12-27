@@ -76,8 +76,8 @@ const Dfp = ({
       break
     default:
       contentConfigValues = {
-        page: sectionId || _id ? 'sect' : 'home',
-        sectionSlug: getSectionSlug(sectionId || _id || ''),
+        page: 'sect',
+        sectionSlug: 'default',
       }
       break
   }
