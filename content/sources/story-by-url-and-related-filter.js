@@ -47,14 +47,6 @@ const transformImg = data => {
 
 const getAdditionalData = (storyData, website) => {
   if (storyData.type === 'redirect') return storyData
-  const { taxonomy: { primary_section: sections = [] } = {} } = storyData
-  const story = true
-  let section = ''
-  if (sections) {
-    section = sections.path
-  }
-
-  storyData.section_ads = SpacesAds(section, story)
 
   return request({
     uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${storyData._id}&website=${website}&published=true`,
@@ -62,6 +54,7 @@ const getAdditionalData = (storyData, website) => {
   }).then(idsResp => {
     storyData.related_content = idsResp
     const result = transformImg(storyData)
+
     return result
   })
 }
@@ -84,6 +77,13 @@ const fetch = ({ website_url: websiteUrl, 'arc-site': website } = {}) => {
       throw new RedirectError(storyResp.redirect_url, 301)
     }
     // Fetch additional data
+    const { taxonomy: { primary_section: sections = [] } = {} } = storyResp
+    const story = true
+    let section = ''
+    if (sections) {
+      section = sections.path
+    }
+    storyResp.section_ads = SpacesAds(section, story)
     return getAdditionalData(storyResp, website)
   })
 }
@@ -461,6 +461,23 @@ export default {
         ${basicVideo}
       }
     }
+  }
+  section_ads{
+    top
+    laterall
+    lateralr 
+    skin 
+    caja1 
+    caja2 
+    caja3 
+    caja4 
+    caja5 
+    vslider 
+    inline 
+    content 
+    perured1 
+    perured2 
+    perured3 
   }
   `,
 }

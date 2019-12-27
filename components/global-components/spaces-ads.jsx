@@ -155,7 +155,8 @@ const SpacesAds = (section, story = false) => {
       perured3: 'div-gpt-ad-1576702505729-0',
     },
   }
-  const sectionReplace = section.replace(/\//g, '').replace(/-/g, '')
+  const sectionArray = section.split('/')
+  const sectionReplace = sectionArray && sectionArray[1].replace(/-/g, '')
   const spacesAdsArry = story
     ? resultStory[sectionReplace]
     : resultSection[sectionReplace]
