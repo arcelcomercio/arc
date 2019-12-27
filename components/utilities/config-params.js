@@ -408,22 +408,17 @@ export const spacesAdsDfpPortada = () => {
 
 export const spacesAdsDfpDefault = () => {
   return {
-    top: 'div-gpt-ad-1576700877296-0',
-    laterall: 'div-gpt-ad-1576700922689-0',
-    lateralr: 'div-gpt-ad-1576700971302-0',
-    skin: 'div-gpt-ad-1576701023732-0',
-    caja1: 'div-gpt-ad-1576701073340-0',
-    caja2: 'div-gpt-ad-1576701126548-0',
-    caja3: 'div-gpt-ad-1576701170652-0',
-    caja4: 'div-gpt-ad-1576701206654-0',
-    caja5: 'div-gpt-ad-1576701253748-0',
-    vslider: 'div-gpt-ad-1576701297995-0',
-    middle1: 'div-gpt-ad-1576701365379-0',
-    inline: 'div-gpt-ad-1576702208484-0',
-    content: 'div-gpt-ad-1576702333023-0',
-    perured1: 'div-gpt-ad-1576702376942-0',
-    perured2: 'div-gpt-ad-1576702424566-0',
-    perured3: 'div-gpt-ad-1576702505729-0',
+    caja2: 'div-gpt-ad-1577397230565-0',
+    top: 'div-gpt-ad-1577396981875-0',
+    laterall: 'div-gpt-ad-1577397035225-0',
+    caja1: 'div-gpt-ad-1577397183295-0',
+    caja3: 'div-gpt-ad-1577397279455-0',
+    skin: 'div-gpt-ad-1577397130252-0',
+    lateralr: 'div-gpt-ad-1577397075716-0',
+    vslider: 'div-gpt-ad-1577397458297-0',
+    caja4: 'div-gpt-ad-1577397400084-0',
+    caja5: 'div-gpt-ad-1577397369013-0',
+    middle1: 'div-gpt-ad-1577397510018-0',
   }
 }
 export default ConfigParams
