@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { isIE, typeSpaceAdsDfp } from '../../utilities/helpers'
+import { isIE } from '../../utilities/helpers'
 
 import DataStory from '../../utilities/story-data'
 import FeaturedStory from '../../global-components/featured-story'
@@ -48,8 +48,9 @@ class OrderedStoriesGrid extends PureComponent {
       customFields,
       isAdmin,
       metaValue,
-      siteProperties: { isDfp = false },
+      siteProperties,
     } = this.props
+
     const {
       content_elements: contentElements = [],
       section_ads: sectionAds = [],
@@ -107,8 +108,9 @@ class OrderedStoriesGrid extends PureComponent {
             columns={element.col === 2 ? 'twoCol' : 'oneCol'}
             rows={element.row === 2 ? 'twoRow' : 'oneRow'}
             freeHtml={freeHtml}
-            isDfp
-            sectionAds={typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)}
+            metaValue={metaValue}
+            siteProperties={siteProperties}
+            section_ads={sectionAds}
           />
         )
       }

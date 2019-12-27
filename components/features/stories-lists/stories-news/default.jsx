@@ -19,12 +19,17 @@ const classes = {
 
 const StoriesListNew = props => {
   const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    metaValue,
+    isAdmin,
+    siteProperties: { isDfp = false },
+  } = useFusionContext()
 
   const {
     customFields: customFieldsProps = {},
-    siteProperties: { isDfp = false },
-    metaValue,
     globalContent: { section_ads: sectionAds = [] } = {},
   } = props
   const {
@@ -151,6 +156,6 @@ StoriesListNew.propTypes = {
 }
 
 StoriesListNew.label = 'Listado de Noticia'
-StoriesListNew.static = true
+StoriesListNew.static = false
 
 export default StoriesListNew

@@ -119,14 +119,12 @@ class StoryContents extends PureComponent {
       siteProperties: {
         ids: { opta },
       },
-      siteProperties: { isDfp=false },
+      siteProperties: { isDfp = false },
       metaValue,
     } = this.props
     const {
-      related_content: {
-        basic: relatedContent,
-        section_ads: sectionAds = [],
-      } = {},
+      related_content: { basic: relatedContent } = {},
+      section_ads: sectionAds = [],
     } = globalContent || {}
 
     const {
@@ -134,7 +132,6 @@ class StoryContents extends PureComponent {
       promoItems,
       displayDate: updatedDate,
       createdDate,
-      contentElements,
       authorImage,
       authorLink,
       author,
@@ -326,10 +323,6 @@ class StoryContents extends PureComponent {
                       : classes.textClasses
                     return (
                       <>
-                        <Text
-                          content={replaceTags(content)}
-                          className={alignmentClass}
-                        />
                         {publicidad && isDfp && (
                           <Ads
                             adElement={nameAds}
@@ -339,6 +332,10 @@ class StoryContents extends PureComponent {
                             sectionAds={sectionAdsResult}
                           />
                         )}
+                        <Text
+                          content={replaceTags(content)}
+                          className={alignmentClass}
+                        />
                       </>
                     )
                   }
