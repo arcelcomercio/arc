@@ -50,9 +50,9 @@ const getAdditionalData = (storyData, website) => {
   const { taxonomy: { primary_section: sections = [] } = {} } = storyData
   const story = true
   let section = ''
-  sections.forEach(({ path }) => {
-    section = path
-  })
+  if (sections) {
+    section = sections.path
+  }
 
   storyData.section_ads = SpacesAds(section, story)
 
