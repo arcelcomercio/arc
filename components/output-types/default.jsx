@@ -307,26 +307,33 @@ export default ({
             }}
           />
         )}
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
-        )}
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-        )}
-
-        {/* Scripts de APPNEXUS */}
-
-        {!nodas && (
+        {!(CURRENT_ENVIRONMENT === 'sandbox' && arcSite === 'publimetro') && (
           <>
-            <script
-              src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
-              async
-            />
-            <script
-              type="text/javascript"
-              src="//acdn.adnxs.com/ast/ast.js"
-              async
-            />
+            {!nodas && !isLivePage && (
+              <script
+                defer
+                src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`}
+              />
+            )}
+            {!nodas && !isLivePage && (
+              <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+            )}
+
+            {/* Scripts de APPNEXUS */}
+
+            {!nodas && (
+              <>
+                <script
+                  src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+                  async
+                />
+                <script
+                  type="text/javascript"
+                  src="//acdn.adnxs.com/ast/ast.js"
+                  async
+                />
+              </>
+            )}
           </>
         )}
         {/* Scripts de Chartbeat */}
