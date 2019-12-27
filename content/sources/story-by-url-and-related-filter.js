@@ -6,6 +6,7 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
 import RedirectError from '../../components/utilities/redirect-error'
+import SpacesAds from '../../components/global-components/spaces-ads'
 
 const schemaName = 'story-dev'
 
@@ -46,6 +47,14 @@ const transformImg = data => {
 
 const getAdditionalData = (storyData, website) => {
   if (storyData.type === 'redirect') return storyData
+  const { taxonomy: { primary_section: sections = [] } = {} } = storyData
+  const story = true
+  let section = ''
+  sections.forEach(({ path }) => {
+    section = path
+  })
+
+  storyData.section_ads = SpacesAds(section, story)
 
   return request({
     uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${storyData._id}&website=${website}&published=true`,

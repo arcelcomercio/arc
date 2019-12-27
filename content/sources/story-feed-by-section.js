@@ -8,6 +8,8 @@ import {
   removeLastSlash,
 } from '../../components/utilities/helpers'
 
+import SpacesAds from '../../components/global-components/spaces-ads'
+
 const SCHEMA_NAME = 'stories'
 
 const params = [
@@ -127,27 +129,15 @@ const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
     dataStory || {}
 
   let sectionName = ''
-  let spaceAds = []
-
-  sections.forEach(
-    ({
-      _id,
-      name,
-      additional_properties: {
-        original: { _admin: { alias_ids: aliasIds = [] } = {} } = {},
-      } = {},
-    }) => {
-      if (aliasIds[0]) spaceAds = aliasIds
-
-      if (_id === section) sectionName = name
-    }
-  )
+  sections.forEach(({ _id, name }) => {
+    if (_id === section) sectionName = name
+  })
 
   return {
     ...dataStory,
     section_name: sectionName || 'Sección',
-    section_ads: spaceAds || [],
     section_id: section,
+    section_ads: SpacesAds(section),
   }
 }
 
