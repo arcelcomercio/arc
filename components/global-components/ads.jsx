@@ -7,7 +7,7 @@ export default props => {
     isDfp,
     isDesktop = true,
     isMobile = true,
-    classes = '',
+    classes,
   } = props
   return (
     <>
