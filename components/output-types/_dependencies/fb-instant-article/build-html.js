@@ -282,7 +282,6 @@ const BuildHtml = ({
   listUrlAdvertisings,
   websiteUrlsBytag,
   arcSite,
-  section
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -333,9 +332,7 @@ const BuildHtml = ({
         arcSite === 'trome' ||
         arcSite === 'elbocon' ||
         arcSite === 'diariocorreo' ||
-        (arcSite === 'elcomercio' && section === 'deporte-total') ||
-        (arcSite === 'elcomercio' && section === 'redes-sociales') ||
-        (arcSite === 'elcomercio' && section === 'tvmas')
+        arcSite === 'elcomercio'
           ?
         `
         ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>` : ''}
