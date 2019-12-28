@@ -295,18 +295,7 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {arcSite === 'publimetro' && !nodas && !isLivePage && (
-          <Dfp
-            {...{
-              deployment,
-              contextPath,
-              siteProperties,
-              metaValueId: metaValue('id'),
-              globalContent,
-              requestUri,
-            }}
-          />
-        )}
+        {arcSite === 'publimetro' && !nodas && !isLivePage && <Dfp />}
         {!(CURRENT_ENVIRONMENT === 'sandbox' && arcSite === 'publimetro') && (
           <>
             {!nodas && !isLivePage && (

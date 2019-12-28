@@ -1,6 +1,11 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 import Content from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+
+const getAdId = (content, adId) => {
+  return { content, adId }
+}
 
 const getSectionSlug = (sectionId = '') => {
   return sectionId.split('/')[1] || ''
@@ -36,14 +41,16 @@ const formatAdsCollection = (response, requestUri = '') => {
   )};arcAds.registerAdCollection(adsCollection);`
 }
 
-const Dfp = ({
-  deployment,
-  contextPath,
-  siteProperties = {},
-  metaValueId,
-  globalContent = {},
-  requestUri,
-}) => {
+const Dfp = ({ isFuature, adId }) => {
+  const {
+    deployment,
+    contextPath,
+    siteProperties = {},
+    globalContent = {},
+    requestUri,
+    metaValue,
+  } = useFusionContext()
+
   const { adsAmp: { dataSlot } = {} } = siteProperties
   const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}},function(d){console.log("Advertisement has loaded...",d)});`
 
@@ -56,7 +63,7 @@ const Dfp = ({
   } = globalContent
 
   let contentConfigValues = {}
-  switch (metaValueId) {
+  switch (metaValue('id')) {
     case 'meta_section':
       if (sectionId || _id) {
         contentConfigValues = {
@@ -102,27 +109,31 @@ const Dfp = ({
         contentService: 'get-dfp-spaces',
         contentConfigValues,
       }}>
-      {content => (
-        <>
-          <script
-            src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
-          />
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: initAds }}
-          />
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: lazyLoadFunction }}
-          />
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: formatAdsCollection(content, requestUri),
-            }}
-          />
-        </>
-      )}
+      {content =>
+        isFuature ? (
+          <div id={getAdId(content, adId)}>HOLA MUNDO</div>
+        ) : (
+          <>
+            <script
+              src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
+            />
+            <script
+              type="text/javascript"
+              dangerouslySetInnerHTML={{ __html: initAds }}
+            />
+            <script
+              type="text/javascript"
+              dangerouslySetInnerHTML={{ __html: lazyLoadFunction }}
+            />
+            <script
+              type="text/javascript"
+              dangerouslySetInnerHTML={{
+                __html: formatAdsCollection(content, requestUri),
+              }}
+            />
+          </>
+        )
+      }
     </Content>
   )
 }
