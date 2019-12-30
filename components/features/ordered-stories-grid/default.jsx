@@ -1,6 +1,6 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useFusionContext } from 'fusion:context'
 import { isIE } from '../../utilities/helpers'
 
 import DataStory from '../../utilities/story-data'
@@ -26,30 +26,24 @@ const classes = {
   container: ' grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20',
 }
 
-@Consumer
-class OrderedStoriesGrid extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      gridClass: 'grid',
-    }
-  }
+const OrderedStoriesGrid = props => {
+  const { customFields } = props
+  const {
+    globalContent,
+    deployment,
+    contextPath,
+    arcSite,
+    isAdmin,
+  } = useFusionContext()
+  const { content_elements: contentElements = [] } = globalContent || {}
 
-  componentDidMount() {
-    if (isIE()) this.setState({ gridClass: 'ie-flex' })
-  }
+  const [gridClass, setGridClass] = useState('grid')
 
-  renderGrilla() {
-    const {
-      globalContent,
-      deployment,
-      contextPath,
-      arcSite,
-      customFields,
-      isAdmin,
-    } = this.props
-    const { content_elements: contentElements = [] } = globalContent || {}
+  useEffect(() => {
+    if (isIE()) setGridClass('ie-flex')
+  }, [])
 
+  const renderGrilla = () => {
     const dataStory = new DataStory({
       deployment,
       contextPath,
@@ -109,14 +103,9 @@ class OrderedStoriesGrid extends PureComponent {
     })
   }
 
-  render() {
-    const { gridClass } = this.state
-    return (
-      <div className={gridClass.concat(classes.container)}>
-        {this.renderGrilla()}
-      </div>
-    )
-  }
+  return (
+    <div className={gridClass.concat(classes.container)}>{renderGrilla()}</div>
+  )
 }
 
 OrderedStoriesGrid.propTypes = {
