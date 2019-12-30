@@ -282,6 +282,7 @@ const BuildHtml = ({
   listUrlAdvertisings,
   websiteUrlsBytag,
   arcSite,
+  section
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -327,12 +328,12 @@ const BuildHtml = ({
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
       ${
-        arcSite === 'elcomerciomag' ||
-        arcSite === 'depor' ||
-        arcSite === 'trome' ||
-        arcSite === 'elbocon' ||
-        arcSite === 'diariocorreo' ||
-        arcSite === 'elcomercio'
+        !(
+          (arcSite === 'ojo' && section === 'ojo-show') ||
+          (arcSite === 'publimetro' && section === 'actualidad') ||
+          (arcSite === 'publimetro' && section === 'redes-sociales') ||
+          (arcSite === 'publimetro' && section === 'entretenimiento')
+        )
           ?
         `
         ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>` : ''}
