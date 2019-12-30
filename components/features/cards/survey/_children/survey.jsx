@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+
 import SurveyChoices from './choices'
 import SurveyResults from './result'
 
@@ -14,71 +15,62 @@ const classes = {
   submit: `survey-card__submit uppercase pt-10 pb-10 pr-40 pl-40 text-xs text-white`,
 }
 
-class CardSurveyChildSurvey extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      optionSelected: '',
-    }
+const CardSurveyChildSurvey = props => {
+  const {
+    BASE_PATH,
+    title = '',
+    choices = [],
+    slug = '',
+    hasVote = false,
+  } = props
+
+  const [optionSelected, setOptionSelected] = useState('')
+
+  const setChoiceSelected = e => {
+    setOptionSelected(e.target.value)
   }
 
-  setChoiceSelected(evt) {
-    this.setState({
-      optionSelected: evt.target.value,
-    })
-  }
-
-  sendOption() {
-    const { sendQuiz } = this.props
-    const { optionSelected } = this.state
+  const sendOption = () => {
+    const { sendQuiz } = props
     sendQuiz(optionSelected)
   }
 
-  render() {
-    const {
-      BASE_PATH,
-      title = '',
-      choices = [],
-      slug = '',
-      hasVote = false,
-    } = this.props
-    const paramsOptions = {
-      choices,
-      setChoiceSelected: this.setChoiceSelected,
-    }
-
-    return (
-      <div className={classes.cardSurvey}>
-        <h3 className={classes.header}>encuesta</h3>
-        <form className={classes.question}>
-          <p className={classes.title}>{title}</p>
-          <div className={classes.choices}>
-            {!hasVote ? (
-              <SurveyChoices
-                {...paramsOptions}
-                onChange={evt => this.setChoiceSelected(evt)}
-              />
-            ) : (
-              <SurveyResults choices={choices} />
-            )}
-          </div>
-          {!hasVote && (
-            <div className={classes.buttons}>
-              <a href={`${BASE_PATH}/${slug}`} className={classes.results}>
-                Ver Resultados
-              </a>
-              <button
-                type="button"
-                className={classes.submit}
-                onClick={() => this.sendOption()}>
-                votar
-              </button>
-            </div>
-          )}
-        </form>
-      </div>
-    )
+  const paramsOptions = {
+    choices,
+    setChoiceSelected,
   }
+
+  return (
+    <div className={classes.cardSurvey}>
+      <h3 className={classes.header}>encuesta</h3>
+      <form className={classes.question}>
+        <p className={classes.title}>{title}</p>
+        <div className={classes.choices}>
+          {!hasVote ? (
+            <SurveyChoices
+              {...paramsOptions}
+              onChange={e => setChoiceSelected(e)}
+            />
+          ) : (
+            <SurveyResults choices={choices} />
+          )}
+        </div>
+        {!hasVote && (
+          <div className={classes.buttons}>
+            <a href={`${BASE_PATH}/${slug}`} className={classes.results}>
+              Ver Resultados
+            </a>
+            <button
+              type="button"
+              className={classes.submit}
+              onClick={() => sendOption()}>
+              votar
+            </button>
+          </div>
+        )}
+      </form>
+    </div>
+  )
 }
 
 CardSurveyChildSurvey.propTypes = {
