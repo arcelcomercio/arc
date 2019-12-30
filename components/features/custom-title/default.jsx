@@ -1,5 +1,7 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useFusionContext } from 'fusion:context'
+import { useEditableContent } from 'fusion:content'
+
 import PropTypes from 'prop-types'
 import {
   formatSlugToText,
@@ -16,10 +18,34 @@ const classes = {
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-white border-solid p-10 text-white',
 }
 
-@Consumer
-class CustomTitle extends PureComponent {
-  getArchivoTitle() {
-    const { globalContentConfig } = this.props
+const CustomTitle = props => {
+  const { globalContent, globalContentConfig } = useFusionContext()
+  const { editableField } = useEditableContent()
+
+  const {
+    customFields: {
+      isUppercase,
+      isThreeCol,
+      isCustomBorder,
+      seeMoreButton,
+      customText,
+      isDarkBg,
+      seeMoreButtonLink = '',
+      TextType = 'h1',
+      textAlign = 'left',
+      size = 'large',
+      subtitleField,
+    } = {},
+  } = props
+
+  const {
+    section_name: sectionName,
+    tag_name: tagName,
+    author_name: authorName,
+  } = globalContent || {}
+  const { query: { section } = {} } = globalContentConfig || {}
+
+  const getArchivoTitle = () => {
     const { source } = globalContentConfig || {}
     if (source !== 'story-feed-by-section-and-date') {
       return undefined
@@ -39,14 +65,12 @@ class CustomTitle extends PureComponent {
     ].toUpperCase()} DEL ${dateObj.getUTCFullYear()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
   }
 
-  getSearchTitle() {
-    const { globalContentConfig } = this.props
+  const getSearchTitle = () => {
     const { source } = globalContentConfig || {}
     if (source !== 'story-feed-by-search') {
       return undefined
     }
     const { query: { query = '' } = {} } = globalContentConfig || {}
-    const { globalContent } = this.props
     const { count = 0 } = globalContent || {}
 
     let search = query && query.replace(/\+/g, ' ')
@@ -58,69 +82,42 @@ class CustomTitle extends PureComponent {
     return title
   }
 
-  render() {
-    const {
-      globalContent,
-      globalContentConfig,
-      editableField,
-      customFields: {
-        isUppercase,
-        isThreeCol,
-        isCustomBorder,
-        seeMoreButton,
-        customText,
-        isDarkBg,
-        seeMoreButtonLink = '',
-        TextType = 'h1',
-        textAlign = 'left',
-        size = 'large',
-        subtitleField,
-      } = {},
-    } = this.props
-    const {
-      section_name: sectionName,
-      tag_name: tagName,
-      author_name: authorName,
-    } = globalContent || {}
-    const { query: { section } = {} } = globalContentConfig || {}
-
-    return (
-      <>
-        <TextType
-          {...editableField('customText')}
-          suppressContentEditableWarning
-          className={`${classes.title} text-${textAlign} ${
-            isUppercase ? 'uppercase' : ''
-          } ${isThreeCol ? 'col-3' : ''} ${
-            isCustomBorder ? 'custom-border' : ''
-          } ${seeMoreButton ? 'position-relative ' : ''} ${
-            isDarkBg ? 'dark-bg text-white bg-base-100' : ''
-          } ${size}`}>
-          {customText ||
-            sectionName ||
-            tagName ||
-            authorName ||
-            this.getSearchTitle() ||
-            this.getArchivoTitle() ||
-            formatSlugToText(section) ||
-            'Título'}
-          {seeMoreButton && (
-            <a
-              href={seeMoreButtonLink}
-              className={isDarkBg ? classes.darkButton : classes.button}>
-              VER MÁS
-            </a>
-          )}
-        </TextType>
-        {subtitleField && (
-          <h2
-            className="text-lg mt-10 mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0"
-            dangerouslySetInnerHTML={createMarkup(subtitleField)}
-          />
+  return (
+    <>
+      <TextType
+        {...editableField('customText')}
+        suppressContentEditableWarning
+        className={`${classes.title} text-${textAlign} ${
+          isUppercase ? 'uppercase' : ''
+        } ${isThreeCol ? 'col-3' : ''} ${
+          isCustomBorder ? 'custom-border' : ''
+        } ${seeMoreButton ? 'position-relative ' : ''} ${
+          isDarkBg ? 'dark-bg text-white bg-base-100' : ''
+        } ${size}`}>
+        {customText ||
+          sectionName ||
+          tagName ||
+          authorName ||
+          getSearchTitle() ||
+          getArchivoTitle() ||
+          formatSlugToText(section) ||
+          'Título'}
+        {seeMoreButton && (
+          <a
+            href={seeMoreButtonLink}
+            className={isDarkBg ? classes.darkButton : classes.button}>
+            VER MÁS
+          </a>
         )}
-      </>
-    )
-  }
+      </TextType>
+      {subtitleField && (
+        <h2
+          className="text-lg mt-10 mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0"
+          dangerouslySetInnerHTML={createMarkup(subtitleField)}
+        />
+      )}
+    </>
+  )
 }
 
 CustomTitle.propTypes = {
