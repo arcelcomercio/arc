@@ -8,6 +8,12 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import LiveStreaming from './_children/streaming-live'
+import {
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+  includePromoItemsCaptions,
+} from '../../../utilities/included-fields'
 
 const FeaturedStoryPremium = props => {
   const {
@@ -69,37 +75,37 @@ const FeaturedStoryPremium = props => {
     const auxNote1 =
       note1 !== undefined && note1 !== ''
         ? useContent({
-          source,
-          query: {
-            website_url: note1,
-            published: 'false',
-          },
-          filter,
-        })
+            source,
+            query: {
+              website_url: note1,
+              published: 'false',
+            },
+            filter,
+          })
         : {}
 
     const auxNote2 =
       note2 !== undefined && note2 !== ''
         ? useContent({
-          source,
-          query: {
-            website_url: note2,
-            published: 'false',
-          },
-          filter,
-        })
+            source,
+            query: {
+              website_url: note2,
+              published: 'false',
+            },
+            filter,
+          })
         : {}
 
     const auxNote3 =
       note3 !== undefined && note3 !== ''
         ? useContent({
-          source,
-          query: {
-            website_url: note3,
-            published: 'false',
-          },
-          filter,
-        })
+            source,
+            query: {
+              website_url: note3,
+              published: 'false',
+            },
+            filter,
+          })
         : {}
     const {
       publish_date: publishDate1,
@@ -145,13 +151,15 @@ const FeaturedStoryPremium = props => {
   }
 
   const errorList = isAdmin ? validateScheduledNotes() : []
+  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
   const sourceFetch =
     scheduledNotes.length > 0 ? 'story-by-url' : contentService
   const queryFetch =
     scheduledNotes.length > 0
       ? { website_url: currentNotePath }
-      : contentConfigValues
+      : Object.assign(contentConfigValues, { presets, includedFields })
   const data =
     useContent({
       source: sourceFetch,

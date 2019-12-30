@@ -6,9 +6,22 @@ import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import StoriesAuthorChild from './_children/stories-author'
 import StoryData from '../../../utilities/story-data'
+import {
+  includePromoItems,
+  includePromoItemsCaptions,
+  includePrimarySection,
+  includeSections,
+  includeCreditsRole,
+  includeCreditsEducation,
+  includeCredits,
+} from '../../../utilities/included-fields'
 
 const StoriesListAuthor = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,${includeCreditsEducation},${includeCreditsRole},${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},${includeSections}`
 
   const {
     customFields: {
@@ -21,7 +34,7 @@ const StoriesListAuthor = props => {
   const data =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 

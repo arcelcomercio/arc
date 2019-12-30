@@ -7,6 +7,7 @@ import getProperties from 'fusion:properties'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
+import { includePromoItems } from '../../../utilities/included-fields'
 
 import StoriesListLinkedBySiteChild from './_children/linked-by-site'
 
@@ -26,13 +27,16 @@ const StoriesListLinkedBySite = props => {
    */
 
   const { website } = contentConfigValues
-
   const { siteUrl, siteName } = getProperties(website || arcSite) || {}
+
+  const presets = 'landscape_s:234x161,square_s:150x150'
+  const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${website ||
+    arcSite}.website_url`
 
   const data =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: schemaFilter(website || arcSite),
     }) || {}
   const { content_elements: contentElements = [] } = data || {}

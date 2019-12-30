@@ -59,10 +59,6 @@ export default arcSite => {
       }
       websites {
         ${arcSite} {
-          website_section {
-            name
-            path
-          }
           website_url
         }
       }
@@ -76,7 +72,6 @@ export default arcSite => {
           path 
         }
       }
-      website_url
     }
   }`
 }

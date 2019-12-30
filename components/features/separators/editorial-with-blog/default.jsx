@@ -25,7 +25,7 @@ const classes = {
   seeMoreWrapper: `blog-separator__btn-wrapper flex items-center justify-center pt-10`,
 }
 const BLOG_BASE = '/blog/'
-const CONTENT_SOURCE_SECTION = 'story-feed-by-tag'
+const CONTENT_SOURCE_SECTION = 'story-by-tag'
 const CONTENT_SOURCE_BLOG = 'get-user-blog-and-posts'
 const CONTENT_SOURCE_PHOTO = 'photo-by-id'
 
@@ -52,15 +52,14 @@ const SeparatorEditorialWithBlog = () => {
       },
     }) || {}
 
+  // TODO: esto deberia llamar a story-by-tag
   const dataEditorial =
     useContent({
       source: CONTENT_SOURCE_SECTION,
       query: {
         name: 'editorial-de-gestion',
-        from: 1,
-        size: 1,
       },
-      filter: schemaEditorial,
+      filter: schemaEditorial(arcSite),
     }) || {}
 
   const fetchImage =
@@ -76,8 +75,9 @@ const SeparatorEditorialWithBlog = () => {
 
   const {
     headlines: { basic: postTitleEditorial = '' } = {},
-    website_url: postLinkEditorial = '',
-  } = dataEditorial.content_elements[0]
+    websites = {},
+  } = dataEditorial
+  const { website_url: postLinkEditorial = '' } = websites[arcSite] || {}
 
   const {
     resized_urls: {

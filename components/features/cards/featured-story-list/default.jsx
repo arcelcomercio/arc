@@ -5,6 +5,13 @@ import { useFusionContext } from 'fusion:context'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import StoryData from '../../../utilities/story-data'
+import {
+  includePromoItems,
+  includePromoItemsCaptions,
+  includePrimarySection,
+  includeSections,
+  includeCredits,
+} from '../../../utilities/included-fields'
 
 /**
  * TODO:
@@ -20,10 +27,15 @@ const CardsFeaturedStoryList = props => {
     } = {},
   } = props
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},publish_date,display_date`
+
   const { content_elements: contentElements = [] } =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: `
       {
         content_elements { 
@@ -82,10 +94,6 @@ const CardsFeaturedStoryList = props => {
           }
           websites {
             ${arcSite} {
-              website_section {
-                name
-                path
-              }
               website_url
             }
           }
@@ -99,7 +107,6 @@ const CardsFeaturedStoryList = props => {
               path 
             }
           }
-          website_url
           publish_date
           display_date
         }
@@ -123,26 +130,21 @@ const CardsFeaturedStoryList = props => {
       authorLink,
       multimediaSubtitle,
       multimediaCaption,
-    } = new StoryData({
-      data,
-      arcSite,
-      contextPath,
-      deployment,
-      defaultImgSize: 'md',
-    })
+    } = data
+
     return {
       category: {
         name: primarySection,
         url: primarySectionLink,
-      }, // Se espera un objeto {name: '', url: ''}
+      },
       title: {
         name: title,
         url: websiteLink,
-      }, // Se espera un objeto {name: '', url: ''}
+      },
       author: {
         name: author,
         url: authorLink,
-      }, // Se espera un objeto {name: '', url: ''}
+      },
       multimediaLandscapeL,
       multimediaLandscapeMD,
       multimediaPortraitMD,
@@ -162,11 +164,22 @@ const CardsFeaturedStoryList = props => {
     }
   }
 
+  const storyData = new StoryData({
+    arcSite,
+    contextPath,
+    deployment,
+    defaultImgSize: 'md',
+  })
+
   return (
     <>
-      {contentElements.map(data => (
-        <FeaturedStory key={formatData(data).title.url} {...formatData(data)} />
-      ))}
+      {contentElements.map(data => {
+        storyData.__data = data
+        const formattedData = formatData(storyData)
+        return (
+          <FeaturedStory key={formattedData.title.url} {...formattedData} />
+        )
+      })}
     </>
   )
 }

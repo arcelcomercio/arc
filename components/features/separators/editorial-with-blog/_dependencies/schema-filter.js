@@ -9,11 +9,13 @@ export const schemaBlog = `{
   }
 }`
 
-export const schemaEditorial = `{ 
-  content_elements {
-    website_url
-    headlines { basic }
+export const schemaEditorial = website => `{ 
+  websites {
+    ${website} {
+      website_url
+    }
   }
+  headlines { basic }
 }`
 
 export const schemaPhoto = `{

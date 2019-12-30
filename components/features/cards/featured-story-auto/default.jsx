@@ -1,10 +1,19 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useFusionContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 import { getPhotoId } from '../../../utilities/helpers'
+import {
+  includeCredits,
+  includePromoItems,
+  includePrimarySection,
+  includePromoItemsCaptions,
+  includeSections,
+} from '../../../utilities/included-fields'
 
 const PHOTO_SOURCE = 'photo-by-id'
 
@@ -18,121 +27,104 @@ const PHOTO_SCHEMA = `{
   }
 }`
 
-@Consumer
-class CardFeaturedStoryAuto extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
-      arcSite,
-      deployment,
-      contextPath,
-      customFields: { imgField, section, storyNumber } = {},
-    } = this.props
-    this.storyFormatter = new StoryFormatter({
-      deployment,
-      contextPath,
-      arcSite,
-    })
-
-    const { schema } = this.storyFormatter
-    const storiesSchema = `{ content_elements ${schema} }`
-
-    const source = 'story-feed-by-section'
-    const params = {
-      website: arcSite,
-      section,
-      feedOffset: storyNumber || 0,
-      stories_qty: 1,
-    }
-    this.fetchContent({
-      data: {
-        source,
-        query: params,
-        filter: storiesSchema,
-      },
-    })
-    if (imgField) {
-      const photoId = getPhotoId(imgField)
-      if (photoId) {
-        this.fetchContent({
-          customPhoto: {
-            source: PHOTO_SOURCE,
-            query: {
-              _id: photoId,
-            },
-            filter: PHOTO_SCHEMA,
-          },
-        })
-      }
-    }
-  }
-
-  render() {
-    const {
-      editableField,
-      arcSite,
-      isAdmin,
-      customFields: {
-        imageSize,
-        headband,
-        size,
-        hightlightOnMobile,
-        titleField,
-        categoryField,
-        imgField,
-      } = {},
-      siteProperties: { siteName = '' } = {},
-    } = this.props
-
-    const {
-      customPhoto = {},
-      data: { content_elements: contentElements = [] } = {},
-    } = this.state || {}
-
-    const formattedData = this.storyFormatter.formatStory(
-      contentElements[0],
+const CardFeaturedStoryAuto = () => {
+  const {
+    arcSite,
+    deployment,
+    contextPath,
+    isAdmin,
+    customFields: {
       imgField,
-      customPhoto
-    )
-    const {
-      category,
-      title,
-      author,
-      multimediaLandscapeL,
-      multimediaLandscapeMD,
-      multimediaPortraitMD,
-      multimediaSquareS,
-      multimediaLazyDefault,
-      multimediaType,
-      multimediaSubtitle,
-      multimediaCaption,
-    } = formattedData
-
-    const params = {
-      title,
-      category,
-      author,
-      multimediaLandscapeL,
-      multimediaLandscapeMD,
-      multimediaPortraitMD,
-      multimediaSquareS,
-      multimediaLazyDefault,
+      section,
+      storyNumber,
       imageSize,
       headband,
       size,
       hightlightOnMobile,
-      editableField,
       titleField,
       categoryField,
-      arcSite,
-      multimediaType,
-      isAdmin,
-      siteName,
-      multimediaSubtitle,
-      multimediaCaption,
+    } = {},
+  } = useFusionContext()
+
+  const { siteName = '' } = getProperties(arcSite)
+
+  const storyFormatter = new StoryFormatter({
+    deployment,
+    contextPath,
+    arcSite,
+  })
+
+  const { schema } = storyFormatter
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
+
+  const data = useContent({
+    source: 'story-by-section',
+    query: {
+      website: arcSite,
+      section,
+      feedOffset: storyNumber || 0,
+      presets,
+      includedFields,
+    },
+    filter: schema,
+  })
+
+  let customPhoto = {}
+  if (imgField) {
+    const photoId = getPhotoId(imgField)
+    if (photoId) {
+      customPhoto =
+        useContent({
+          source: PHOTO_SOURCE,
+          query: {
+            _id: photoId,
+          },
+          filter: PHOTO_SCHEMA,
+        }) || {}
     }
-    return <FeaturedStory {...params} />
   }
+
+  const formattedData = storyFormatter.formatStory(data, imgField, customPhoto)
+
+  const {
+    category,
+    title,
+    author,
+    multimediaLandscapeL,
+    multimediaLandscapeMD,
+    multimediaPortraitMD,
+    multimediaSquareS,
+    multimediaLazyDefault,
+    multimediaType,
+    multimediaSubtitle,
+    multimediaCaption,
+  } = formattedData
+
+  const params = {
+    title,
+    category,
+    author,
+    multimediaLandscapeL,
+    multimediaLandscapeMD,
+    multimediaPortraitMD,
+    multimediaSquareS,
+    multimediaLazyDefault,
+    imageSize,
+    headband,
+    size,
+    hightlightOnMobile,
+    titleField,
+    categoryField,
+    arcSite,
+    multimediaType,
+    isAdmin,
+    siteName,
+    multimediaSubtitle,
+    multimediaCaption,
+  }
+  return <FeaturedStory {...params} />
 }
 
 CardFeaturedStoryAuto.propTypes = {

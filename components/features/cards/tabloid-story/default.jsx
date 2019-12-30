@@ -5,6 +5,10 @@ import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import getLatinDate from '../../../utilities/date-name'
+import {
+  includePrimarySection,
+  includePromoItems,
+} from '../../../utilities/included-fields'
 
 /**
  * TODO:
@@ -23,65 +27,59 @@ const CardsTabloidStory = props => {
 
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
-  const { content_elements: contentElements = [] } =
+  const data =
     useContent({
-      source: 'story-feed-by-section-with-custom-presets',
+      source: 'story-by-section',
       query: {
         section,
-        stories_qty: 1,
         feedOffset: storyNumber,
-        preset1: '394x222',
-        preset2: '9x5',
+        presets: 'preset1:394x222',
+        includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,${includePrimarySection},${includePromoItems}`,
       },
       filter: `
       {
-        content_elements {
-          display_date
-          websites {
-            ${arcSite} {
-              website_url
-            }
+        display_date
+        websites {
+          ${arcSite} {
+            website_url
           }
-          headlines{
-            basic
+        }
+        headlines{
+          basic
+        }
+        taxonomy {
+          primary_section { 
+            name 
+            path
           }
-          taxonomy {
-            primary_section { 
-              name 
-              path
-            }
+        }
+        promo_items {
+          basic { 
+            url 
+            type 
+            resized_urls { 
+              preset1
+            } 
           }
-          promo_items {
-            basic { 
-              url 
-              type 
-              resized_urls { 
-                preset1
-                preset2
-              } 
-            }
-            basic_video {
-              promo_items {
-                basic { 
-                  url 
-                  type 
-                  resized_urls { 
-                    preset1
-                    preset2
-                  } 
-                }
+          basic_video {
+            promo_items {
+              basic { 
+                url 
+                type 
+                resized_urls { 
+                  preset1
+                } 
               }
             }
-            basic_gallery {
-              promo_items {
-                basic { 
-                  url 
-                  type 
-                  resized_urls { 
-                    preset1
-                    preset2
-                  } 
-                }
+          }
+          basic_gallery {
+            promo_items {
+              basic { 
+                url 
+                type 
+                resized_urls { 
+                  preset1
+                } 
               }
             }
           }
@@ -89,17 +87,15 @@ const CardsTabloidStory = props => {
       }
     `,
     }) || {}
-  const data = contentElements[0] || {}
 
   const {
-    promo_items: {
-      basic: { resized_urls: { preset1, preset2: lazyImg } = {} } = {},
-    } = {},
+    promo_items: { basic: { resized_urls: { preset1 } = {} } = {} } = {},
   } = data
 
   const {
     websiteLink, // { websites { ${arcsite} { website_url } } }
     multimedia,
+    multimediaLazyDefault,
     title, // { headlines { basic } }
     date,
     // multimediaType, // { promo_items }
@@ -135,9 +131,9 @@ const CardsTabloidStory = props => {
               className={`${
                 isAdmin ? '' : 'lazy'
               } tabloid-story__img w-full object-cover`}
-              src={isAdmin ? imageSrc : lazyImg}
+              src={isAdmin ? imageSrc : multimediaLazyDefault}
               data-src={imageSrc}
-              alt={title}              
+              alt={title}
             />
           </picture>
         </a>

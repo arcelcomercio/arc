@@ -1,7 +1,12 @@
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
+import {
+  includePromoItems,
+  includePrimarySection,
+  includeSections,
+  includeCredits,
+} from '../../components/utilities/included-fields'
 
 /**
  * Esta función se usa para controlar el slash final, ideada unicamente para
@@ -27,64 +32,125 @@ const params = [
     displayName: 'Número de la noticia',
     type: 'number',
   },
+  {
+    name: 'website',
+    displayName: 'ID del sitio (opcional)',
+    type: 'text',
+  },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
+  },
+  {
+    name: 'includedFields',
+    displayName: 'Campos incluidos (opcional)',
+    type: 'text',
+  },
 ]
 
-const resolve = (key = {}) => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
-  const { section, feedOffset } = key
-
-  const clearSection = removeLastSlash(section) || '/'
-
-  const body = {
-    query: {
-      bool: {
-        must: [
-          {
-            term: {
-              type: 'story',
-            },
-          },
-        ],
-      },
-    },
-  }
-
-  if (clearSection !== '/') {
-    body.query.bool.must.push({
-      nested: {
-        path: 'taxonomy.sections',
-        query: {
-          bool: {
-            must: [
-              {
-                terms: {
-                  'taxonomy.sections._id': [clearSection],
-                },
-              },
-              {
-                term: {
-                  'taxonomy.sections._website': website,
-                },
-              },
-            ],
-          },
-        },
-      },
-    })
-  }
-
-  const encodedBody = encodeURI(JSON.stringify(body))
-
-  const excludedFields =
-    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
-
-  return `${CONTENT_BASE}/content/v4/search/published?body=${encodedBody}&website=${website}&size=1&from=${feedOffset ||
-    0}&sort=display_date:desc&single=true${excludedFields}`
+const transformImg = ({ contentElements, website, presets }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets,
+  })
 }
 
-const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
-  const section = removeLastSlash(rawSection) || '/'
-  const { resizerUrl } = getProperties(arcSite)
+const getQueryFilter = (section, website) => {
+  let queryFilter = ''
+
+  // Si se filtra por seccion se usa ?body, sino, se usa ?q
+  if (section === '/') {
+    queryFilter = `q=canonical_website:${website}+AND+type:story`
+  } else {
+    const body = {
+      query: {
+        bool: {
+          must: [
+            {
+              term: {
+                type: 'story',
+              },
+            },
+            {
+              nested: {
+                path: 'taxonomy.sections',
+                query: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          'taxonomy.sections._id': [section],
+                        },
+                      },
+                      {
+                        term: {
+                          'taxonomy.sections._website': website,
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    }
+
+    queryFilter = `body=${encodeURI(JSON.stringify(body))}`
+  }
+
+  return queryFilter
+}
+
+const resolve = (key = {}) => {
+  const {
+    section: rawSection,
+    feedOffset,
+    website: rawWebsite = '',
+    includedFields,
+  } = key
+
+  const websiteField = rawWebsite === null ? '' : rawWebsite
+  const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
+
+  const clearSection = removeLastSlash(
+    rawSection === '' || rawSection === undefined || rawSection === null
+      ? '/'
+      : rawSection
+  )
+
+  const queryFilter = getQueryFilter(clearSection, website)
+
+  const sourceInclude = includedFields
+    ? `&_sourceInclude=${includedFields}`
+    : `&_sourceInclude=${includePrimarySection},${includeSections},display_date,publish_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
+
+  return `/content/v4/search/published?${queryFilter}&website=${website}&size=1&from=${feedOffset ||
+    0}&sort=display_date:desc&single=true${sourceInclude}`
+}
+
+const transform = (
+  data,
+  {
+    'arc-site': arcSite,
+    section: rawSection,
+    website: rawWebsite,
+    presets: customPresets,
+  }
+) => {
+  const websiteField = rawWebsite === null ? '' : rawWebsite
+  const website = websiteField || arcSite
+
+  const section = removeLastSlash(
+    rawSection === '' || rawSection === undefined || rawSection === null
+      ? '/'
+      : rawSection
+  )
 
   const { taxonomy: { sections = [] } = {} } = data || {}
 
@@ -93,13 +159,20 @@ const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
     if (_id === section) sectionName = name
   })
 
+  const presets = customPresets || ''
+
+  let story = data
+
+  if (presets) {
+    ;[story] = transformImg({
+      contentElements: [story],
+      website,
+      presets, // i.e. 'mobile:314x157'
+    })
+  }
+
   return {
-    ...(addResizedUrlsToStory(
-      [data],
-      resizerUrl,
-      resizerSecret,
-      addResizedUrls
-    )[0] || null),
+    ...story,
     section_name: sectionName || 'Sección',
   }
 }

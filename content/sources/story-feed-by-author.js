@@ -1,9 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 import RedirectError from '../../components/utilities/redirect-error'
+import {
+  includePromoItems,
+  includePrimarySection,
+  includeCredits,
+} from '../../components/utilities/included-fields'
 
 const schemaName = 'stories'
 
@@ -33,10 +37,35 @@ const params = [
     displayName: 'ID del sitio (Opcional)',
     type: 'text',
   },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
+  },
+  {
+    name: 'includedFields',
+    displayName: 'Campos incluidos (opcional)',
+    type: 'text',
+  },
 ]
 
+const transformImg = ({ contentElements, website, presets }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets,
+  })
+}
+
 const resolve = (key = {}) => {
-  const { name, url: rawUrl = '', website: rawWebsite = '' } = key
+  const {
+    name,
+    url: rawUrl = '',
+    website: rawWebsite = '',
+    includedFields,
+  } = key
 
   const authorUrl = rawUrl === null ? '' : rawUrl
   const url = authorUrl || `/autor/${name}`
@@ -44,7 +73,7 @@ const resolve = (key = {}) => {
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
   const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
-  const size = key.size || 50
+  const size = key.size || 20
 
   if (!name && !authorUrl) {
     throw new Error('Esta fuente de contenido necesita el Slug del autor')
@@ -61,15 +90,26 @@ const resolve = (key = {}) => {
 
   /** TODO: La consulta se debe hacer por SLUG, no por URL del autor */
 
-  const excludedFields =
-    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+  const sourceInclude = includedFields
+    ? `&_sourceInclude=${includedFields}`
+    : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
 
-  return `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"${url}"+AND+type:story&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
+  /* const excludedFields =
+    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
+ */
+  return `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"${url}"+AND+type:story&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
 }
 
 const transform = (
   data,
-  { 'arc-site': arcSite, name, url: rawUrl = '', from, website: rawWebsite }
+  {
+    'arc-site': arcSite,
+    name,
+    url: rawUrl = '',
+    from,
+    website: rawWebsite,
+    presets: customPresets,
+  }
 ) => {
   const websiteField = rawWebsite === null ? '' : rawWebsite
   const website = websiteField || arcSite || 'Arc Site no está definido'
@@ -85,13 +125,15 @@ const transform = (
 
   const dataStories = data || {}
 
-  const { resizerUrl, siteName } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret,
-    addResizedUrls
-  )
+  const { siteName } = getProperties(website)
+  const { content_elements: contentElements } = dataStories || {}
+  const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
+
+  dataStories.content_elements = transformImg({
+    contentElements,
+    website,
+    presets, // 'mobile:314x157'
+  })
   dataStories.siteName = siteName
 
   const {
