@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { useContent, useEditableContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 
 import CardMostReadList from './_children/list'
 
@@ -9,67 +10,58 @@ import { getQuery, getStories } from './_dependencies/functions'
 
 const CONTENT_SOURCE = 'story-feed-by-views'
 
-@Consumer
-class CardMostRead extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
-      globalContent,
-      globalContentConfig,
-      deployment,
-      contextPath,
-      arcSite,
-      customFields: { storiesQty = 5 } = {},
-    } = props
-    this.fetchContent({
-      data: {
-        source: CONTENT_SOURCE,
-        query: {
-          ...getQuery({ globalContent, globalContentConfig, storiesQty }),
-        },
-        filter: schemaFilter,
-        transform: ({ content_elements: contentElements = [] } = {}) => {
-          const data = {
-            stories: [
-              ...getStories({
-                data: contentElements,
-                deployment,
-                contextPath,
-                arcSite,
-              }),
-            ],
-          }
-          return data
-        },
-      },
-    })
+const CardMostRead = props => {
+  const {
+    globalContent,
+    globalContentConfig,
+    deployment,
+    contextPath,
+    arcSite,
+    requestUri,
+    isAdmin,
+  } = useFusionContext()
+
+  const { editableField } = useEditableContent()
+
+  const { customFields } = props
+  const { viewImage = false, storiesQty = 5, customTitle = '', customLink } =
+    customFields || {}
+
+  const data = useContent({
+    source: CONTENT_SOURCE,
+    query: {
+      ...getQuery({ globalContent, globalContentConfig, storiesQty }),
+    },
+    filter: schemaFilter,
+    transform: ({ content_elements: contentElements = [] } = {}) => {
+      const response = {
+        stories: [
+          ...getStories({
+            data: contentElements,
+            deployment,
+            contextPath,
+            arcSite,
+          }),
+        ],
+      }
+      return response
+    },
+  })
+
+  const { stories = [] } = data || {}
+  const params = {
+    viewImage,
+    storiesQty,
+    arcSite,
+    requestUri,
+    stories,
+    customTitle,
+    customLink,
+    editableField,
+    isAdmin,
   }
 
-  render() {
-    const {
-      customFields,
-      arcSite,
-      requestUri,
-      editableField,
-      isAdmin,
-    } = this.props
-    const { viewImage = false, storiesQty = 5, customTitle = '', customLink } =
-      customFields || {}
-    const { data: { stories } = {} } = this.state
-    const params = {
-      viewImage,
-      storiesQty,
-      arcSite,
-      requestUri,
-      stories,
-      customTitle,
-      customLink,
-      editableField,
-      isAdmin,
-    }
-
-    return <CardMostReadList {...params} />
-  }
+  return <CardMostReadList {...params} />
 }
 
 CardMostRead.propTypes = {
@@ -94,7 +86,7 @@ CardMostRead.propTypes = {
 }
 // TODO: Cambiar nombre a Noticias mas leidas
 // CardMostRead.label = 'Últimas Noticias'
-// 
+//
 CardMostRead.label = 'Noticias más Leidas'
 CardMostRead.static = true
 
