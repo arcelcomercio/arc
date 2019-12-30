@@ -15,6 +15,7 @@ import {
   storyTagsBbc,
   getDateSeo,
   storyContenImage,
+
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -32,6 +33,7 @@ import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
+import Ads from '../../../global-components/ads'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -117,6 +119,7 @@ class StoryContents extends PureComponent {
       siteProperties: {
         ids: { opta },
       },
+      siteProperties: { isDfp = false },
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
       globalContent || {}
@@ -126,7 +129,6 @@ class StoryContents extends PureComponent {
       promoItems,
       displayDate: updatedDate,
       createdDate,
-      contentElements,
       authorImage,
       authorLink,
       author,
@@ -140,6 +142,7 @@ class StoryContents extends PureComponent {
       multimediaLarge,
       multimediaLazyDefault,
       tags,
+      contentPosicionPublicidad,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -174,29 +177,39 @@ class StoryContents extends PureComponent {
       <>
         <div className={classes.news}>
           {primarySectionLink === '/impresa/' ||
-            primarySectionLink === '/malcriadas/' ||
-            storyTagsBbc(tags, 'portada-trome')
+          primarySectionLink === '/malcriadas/' ||
+          storyTagsBbc(tags, 'portada-trome')
             ? promoItems && <StoryContentsChildImpresa data={promoItems} />
             : promoItems &&
-            subtype !== ConfigParams.BIG_IMAGE &&
-            subtype !== ConfigParams.SPECIAL_BASIC &&
-            subtype !== ConfigParams.SPECIAL && (
-              <StoryContentsChildMultimedia data={params} />
-            )}
+              subtype !== ConfigParams.BIG_IMAGE &&
+              subtype !== ConfigParams.SPECIAL_BASIC &&
+              subtype !== ConfigParams.SPECIAL && (
+                <StoryContentsChildMultimedia data={params} />
+              )}
 
           <StoryContentsChildAuthor {...params} />
 
-          <div id="ads_m_movil2" />
+          <Ads
+            adElement={`${isDfp ? 'movil2' : 'caja2'}`}
+            isDesktop={false}
+            isMobile
+            isDfp
+          />
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
-            <div id="ads_d_inline" />
-            <div id="ads_m_movil_video" />
-            <div id="ads_m_movil3" />
-            {contentElements && (
+            {!isDfp && (
+              <>
+                <Ads adElement="inline" isDesktop isMobile={false} isDfp />
+                <Ads adElement="movil_video" isDesktop={false} isMobile isDfp />
+
+                <Ads adElement="movil3" isDesktop={false} isMobile isDfp />
+              </>
+            )}
+            {contentPosicionPublicidad && (
               <ArcStoryContent
-                data={contentElements}
+                data={contentPosicionPublicidad}
                 elementClasses={classes}
                 renderElement={element => {
                   const {
@@ -208,10 +221,14 @@ class StoryContents extends PureComponent {
                     level,
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
+                    publicidad = false,
+                    nameAds,
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
                     return (
-                      <StoryContentsChildImage {...storyContenImage(element, multimediaLazyDefault)} />
+                      <StoryContentsChildImage
+                        {...storyContenImage(element, multimediaLazyDefault)}
+                      />
                     )
                   }
                   if (type === ConfigParams.ELEMENT_VIDEO) {
@@ -224,10 +241,10 @@ class StoryContents extends PureComponent {
                             description={captionVideo}
                           />
                         ) : (
-                            <StoryContentsChildVideoNativo
-                              streams={element && element.streams}
-                            />
-                          )}
+                          <StoryContentsChildVideoNativo
+                            streams={element && element.streams}
+                          />
+                        )}
                       </>
                     )
                   }
@@ -278,15 +295,23 @@ class StoryContents extends PureComponent {
 
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
-                      ? `${classes.textClasses} ${
-                      classes.alignmentClasses
-                      }-${alignment}`
+                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                       : classes.textClasses
                     return (
-                      <Text
-                        content={replaceTags(content)}
-                        className={alignmentClass}
-                      />
+                      <>
+                        {publicidad && isDfp && (
+                          <Ads
+                            adElement={nameAds}
+                            isDesktop={false}
+                            isMobile
+                            isDfp
+                          />
+                        )}
+                        <Text
+                          content={replaceTags(content)}
+                          className={alignmentClass}
+                        />
+                      </>
                     )
                   }
 
@@ -347,7 +372,6 @@ class StoryContents extends PureComponent {
           )}
         </div>
         {/* <Clavis clavisConfig={this.getClavisConfig()} /> */}
-
       </>
     )
   }

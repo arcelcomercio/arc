@@ -106,6 +106,7 @@ class StoriesListInfiniteScroll extends PureComponent {
       contextPath,
       arcSite,
       customFields: customFieldsProps = {},
+      siteProperties: { isDfp = false },
     } = this.props
 
     const { sectionField, dateField } = customFieldsProps
@@ -168,10 +169,11 @@ class StoriesListInfiniteScroll extends PureComponent {
     const activeAds = Object.keys(customFieldsProps)
       .filter(prop => prop.match(/adsMobile(\d)/))
       .filter(key => customFieldsProps[key] === true)
+    const typeSpace = isDfp ? 'caja' : 'movil'
 
     const activeAdsArray = activeAds.map(el => {
       return {
-        name: `movil${el.slice(-1)}`,
+        name: `${typeSpace}${el.slice(-1)}`,
         pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
         inserted: false,
       }
@@ -194,7 +196,12 @@ class StoriesListInfiniteScroll extends PureComponent {
                 />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
-                    <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp={isDfp}
+                    />
                   </div>
                 )}
               </Fragment>

@@ -47,7 +47,10 @@ class OrderedStoriesGrid extends PureComponent {
       arcSite,
       customFields,
       isAdmin,
+      metaValue,
+      siteProperties,
     } = this.props
+
     const { content_elements: contentElements = [] } = globalContent || {}
 
     const dataStory = new DataStory({
@@ -102,6 +105,8 @@ class OrderedStoriesGrid extends PureComponent {
             columns={element.col === 2 ? 'twoCol' : 'oneCol'}
             rows={element.row === 2 ? 'twoRow' : 'oneRow'}
             freeHtml={freeHtml}
+            metaValue={metaValue}
+            siteProperties={siteProperties}
           />
         )
       }

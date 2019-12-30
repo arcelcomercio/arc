@@ -2,6 +2,9 @@ import ConfigParams, {
   sizeImg,
   sizeImgNewsLetter,
   sizeImgStory,
+  spacesAdsDfpPortada,
+  spacesAdsDfpStory,
+  spacesAdsDfpDefault,
 } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
@@ -1277,3 +1280,4 @@ export const pixelAmpDate = arcSite => {
       : ''
   return pixelEc
 }
+
