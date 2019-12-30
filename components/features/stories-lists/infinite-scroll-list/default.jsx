@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 
-import { getActualDate, typeSpaceAdsDfp } from '../../../utilities/helpers'
+import { getActualDate } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
 
@@ -106,9 +106,7 @@ class StoriesListInfiniteScroll extends PureComponent {
       contextPath,
       arcSite,
       customFields: customFieldsProps = {},
-      siteProperties: { isDfp =false },
-      metaValue,
-      globalContent: { section_ads: sectionAds = [] } = {},
+      siteProperties: { isDfp = false },
     } = this.props
 
     const { sectionField, dateField } = customFieldsProps
@@ -202,12 +200,7 @@ class StoriesListInfiniteScroll extends PureComponent {
                       adElement={ads[0].name}
                       isDesktop={false}
                       isMobile
-                      isDfp
-                      sectionAds={typeSpaceAdsDfp(
-                        metaValue('id'),
-                        sectionAds,
-                        isDfp
-                      )}
+                      isDfp={isDfp}
                     />
                   </div>
                 )}

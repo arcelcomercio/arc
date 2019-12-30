@@ -1281,25 +1281,3 @@ export const pixelAmpDate = arcSite => {
   return pixelEc
 }
 
-export const typeSpaceAdsDfp = (type, sectionAdsArray = [], isDfp = false) => {
-  let spaceAds = {}
-
-  if (isDfp) {
-    switch (type) {
-      case ConfigParams.META_SECTION:
-        spaceAds = sectionAdsArray
-        break
-      case ConfigParams.META_HOME:
-        spaceAds = spacesAdsDfpPortada()
-        break
-      case ConfigParams.META_STORY:
-        spaceAds = sectionAdsArray
-        break
-      default:
-        spaceAds = spacesAdsDfpDefault()
-        break
-    }
-  }
-
-  return spaceAds
-}

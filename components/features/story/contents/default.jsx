@@ -15,7 +15,7 @@ import {
   storyTagsBbc,
   getDateSeo,
   storyContenImage,
-  typeSpaceAdsDfp,
+
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -120,12 +120,9 @@ class StoryContents extends PureComponent {
         ids: { opta },
       },
       siteProperties: { isDfp = false },
-      metaValue,
     } = this.props
-    const {
-      related_content: { basic: relatedContent } = {},
-      section_ads: sectionAds = [],
-    } = globalContent || {}
+    const { related_content: { basic: relatedContent } = {} } =
+      globalContent || {}
 
     const {
       publishDate: date,
@@ -176,8 +173,6 @@ class StoryContents extends PureComponent {
         `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
 
-    const sectionAdsResult = typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)
-
     return (
       <>
         <div className={classes.news}>
@@ -199,7 +194,6 @@ class StoryContents extends PureComponent {
             isDesktop={false}
             isMobile
             isDfp
-            sectionAds={sectionAdsResult}
           />
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
@@ -207,28 +201,10 @@ class StoryContents extends PureComponent {
             <StoryContentsChildIcon />
             {!isDfp && (
               <>
-                <Ads
-                  adElement="inline"
-                  isDesktop
-                  isMobile={false}
-                  isDfp
-                  sectionAds={sectionAdsResult}
-                />
-                <Ads
-                  adElement="movil_video"
-                  isDesktop={false}
-                  isMobile
-                  isDfp
-                  sectionAds={sectionAdsResult}
-                />
+                <Ads adElement="inline" isDesktop isMobile={false} isDfp />
+                <Ads adElement="movil_video" isDesktop={false} isMobile isDfp />
 
-                <Ads
-                  adElement="movil3"
-                  isDesktop={false}
-                  isMobile
-                  isDfp
-                  sectionAds={sectionAdsResult}
-                />
+                <Ads adElement="movil3" isDesktop={false} isMobile isDfp />
               </>
             )}
             {contentPosicionPublicidad && (
@@ -329,7 +305,6 @@ class StoryContents extends PureComponent {
                             isDesktop={false}
                             isMobile
                             isDfp
-                            sectionAds={sectionAdsResult}
                           />
                         )}
                         <Text

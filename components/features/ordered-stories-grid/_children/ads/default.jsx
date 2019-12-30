@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { createMarkup, typeSpaceAdsDfp } from '../../../../utilities/helpers'
+import { createMarkup } from '../../../../utilities/helpers'
 import Ads from '../../../../global-components/ads'
 
 const OrderedStoriesGridAds = props => {
@@ -12,8 +12,6 @@ const OrderedStoriesGridAds = props => {
     rows,
     freeHtml,
     siteProperties: { isDfp = false },
-    section_ads: sectionAds = [],
-    metaValue = {},
   } = props
 
   const getSize = () => {
@@ -35,7 +33,6 @@ const OrderedStoriesGridAds = props => {
     isDesktop,
     isMobile,
     isDfp,
-    sectionAds: typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp),
   }
 
   // TODO: Corregir el nodo duplicado de html

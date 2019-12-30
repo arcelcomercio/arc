@@ -8,8 +8,6 @@ import {
   removeLastSlash,
 } from '../../components/utilities/helpers'
 
-import SpacesAds from '../../components/global-components/spaces-ads'
-
 const SCHEMA_NAME = 'stories'
 
 const params = [
@@ -137,7 +135,6 @@ const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
     ...dataStory,
     section_name: sectionName || 'Sección',
     section_id: section,
-    section_ads: SpacesAds(section),
   }
 }
 

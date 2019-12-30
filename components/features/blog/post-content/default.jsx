@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import renderHTML from 'react-render-html'
-import { getFullDateIso8601, typeSpaceAdsDfp } from '../../../utilities/helpers'
+import { getFullDateIso8601 } from '../../../utilities/helpers'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -18,17 +18,13 @@ class BlogPostContent extends PureComponent {
     const {
       globalContent,
       siteProperties: { isDfp = false },
-      metaValue,
     } = this.props
     const {
       post: { post_content: postContent, post_date: postDate } = {},
       user: { first_name: firstName } = {},
-      section_ads: sectionAds = [],
     } = globalContent || {}
     const formatDate = getFullDateIso8601(postDate)
     const { day, month, fullYear, hours, minutes } = formatDate || {}
-
-    const sectionAdsResult = typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)
 
     return (
       <div className={classes.content}>
@@ -39,27 +35,14 @@ class BlogPostContent extends PureComponent {
           </time>
         </div>
         <div className={classes.story} id="contenedor">
-          <Ads
-            adElement="inline"
-            isDesktop
-            isMobile={false}
-            isDfp
-            sectionAds={sectionAdsResult}
-          />
+          <Ads adElement="inline" isDesktop isMobile={false} isDfp={isDfp} />
           <Ads
             adElement="movil_video"
             isDesktop={false}
             isMobile
-            isDfp
-            sectionAds={sectionAdsResult}
+            isDfp={isDfp}
           />
-          <Ads
-            adElement="movil3"
-            isDesktop={false}
-            isMobile
-            isDfp
-            sectionAds={sectionAdsResult}
-          />
+          <Ads adElement="movil3" isDesktop={false} isMobile isDfp={isDfp} />
           <section>{postContent && renderHTML(postContent)}</section>
         </div>
       </div>

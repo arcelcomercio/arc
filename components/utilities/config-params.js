@@ -388,37 +388,5 @@ export const spacesAdsName = () => {
   }
 }
 
-export const spacesAdsDfpPortada = () => {
-  return {
-    top: 'div-gpt-ad-1576509739958-0',
-    laterall: 'div-gpt-ad-1576509887596-0',
-    lateralr: 'div-gpt-ad-1576509930781-0',
-    skin: 'div-gpt-ad-1576511131617-0',
-    caja1: 'div-gpt-ad-1576510052840-0',
-    caja2: 'div-gpt-ad-1576510107415-0',
-    caja3: 'div-gpt-ad-1576510192613-0',
-    caja4: 'div-gpt-ad-1576510231317-0',
-    caja5: 'div-gpt-ad-1576510257284-0',
-    vslider: 'div-gpt-ad-1576510281239-0',
-    middle1: 'div-gpt-ad-1576510323975-0',
-    middle2: 'div-gpt-ad-1576510356564-0',
-    zocalo: 'div-gpt-ad-1576510386069-0',
-  }
-}
 
-export const spacesAdsDfpDefault = () => {
-  return {
-    caja2: 'div-gpt-ad-1577397230565-0',
-    top: 'div-gpt-ad-1577396981875-0',
-    laterall: 'div-gpt-ad-1577397035225-0',
-    caja1: 'div-gpt-ad-1577397183295-0',
-    caja3: 'div-gpt-ad-1577397279455-0',
-    skin: 'div-gpt-ad-1577397130252-0',
-    lateralr: 'div-gpt-ad-1577397075716-0',
-    vslider: 'div-gpt-ad-1577397458297-0',
-    caja4: 'div-gpt-ad-1577397400084-0',
-    caja5: 'div-gpt-ad-1577397369013-0',
-    middle1: 'div-gpt-ad-1577397510018-0',
-  }
-}
 export default ConfigParams

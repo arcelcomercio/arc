@@ -6,7 +6,7 @@ import { useFusionContext } from 'fusion:context'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
-import { reduceWord, typeSpaceAdsDfp } from '../../../utilities/helpers'
+import { reduceWord } from '../../../utilities/helpers'
 import StoryItem from '../../../global-components/story-new'
 import Ads from '../../../global-components/ads'
 import ConfigParams from '../../../utilities/config-params'
@@ -23,15 +23,12 @@ const StoriesListNew = props => {
     arcSite,
     contextPath,
     deployment,
-    metaValue,
+
     isAdmin,
     siteProperties: { isDfp = false },
   } = useFusionContext()
 
-  const {
-    customFields: customFieldsProps = {},
-    globalContent: { section_ads: sectionAds = [] } = {},
-  } = props
+  const { customFields: customFieldsProps = {} } = props
   const {
     storyConfig: { contentService = '', contentConfigValues = {} } = {},
     seeMoreLink,
@@ -129,12 +126,7 @@ const StoriesListNew = props => {
                       adElement={ads[0].name}
                       isDesktop={false}
                       isMobile
-                      isDfp
-                      sectionAds={typeSpaceAdsDfp(
-                        metaValue('id'),
-                        sectionAds,
-                        isDfp
-                      )}
+                      isDfp={isDfp}
                     />
                   </div>
                 )}

@@ -6,7 +6,7 @@ import { customFields } from '../_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
 import RenderPagination from '../../../global-components/pagination-by-date'
 import Ads from '../../../global-components/ads'
-import { getActualDate, typeSpaceAdsDfp } from '../../../utilities/helpers'
+import { getActualDate } from '../../../utilities/helpers'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -24,13 +24,12 @@ class StoriesListArchive extends PureComponent {
       arcSite,
       isAdmin,
       customFields: customFieldsProps = {},
-      siteProperties: { isDfp=false },
+      siteProperties: { isDfp = false },
       metaValue,
     } = this.props
     const {
       content_elements: contentElements,
       params: { section, date } = {},
-      section_ads: sectionAds = [],
     } = globalContent || {}
     const stories = contentElements || []
 
@@ -66,11 +65,6 @@ class StoriesListArchive extends PureComponent {
                       isDesktop={false}
                       isMobile
                       isDfp
-                      sectionAds={typeSpaceAdsDfp(
-                        metaValue('id'),
-                        sectionAds,
-                        isDfp
-                      )}
                     />
                   </div>
                 )}

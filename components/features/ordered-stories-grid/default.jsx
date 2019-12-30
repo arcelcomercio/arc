@@ -51,10 +51,7 @@ class OrderedStoriesGrid extends PureComponent {
       siteProperties,
     } = this.props
 
-    const {
-      content_elements: contentElements = [],
-      section_ads: sectionAds = [],
-    } = globalContent || {}
+    const { content_elements: contentElements = [] } = globalContent || {}
 
     const dataStory = new DataStory({
       deployment,
@@ -110,7 +107,6 @@ class OrderedStoriesGrid extends PureComponent {
             freeHtml={freeHtml}
             metaValue={metaValue}
             siteProperties={siteProperties}
-            section_ads={sectionAds}
           />
         )
       }

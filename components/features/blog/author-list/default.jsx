@@ -3,11 +3,7 @@ import Consumer from 'fusion:consumer'
 import PostItem from './_children/post-item'
 import Pagination from '../../../global-components/pagination'
 import { customFields } from '../_dependencies/custom-fields'
-import {
-  defaultImage,
-  getFullDateIso8601,
-  typeSpaceAdsDfp,
-} from '../../../utilities/helpers'
+import { defaultImage, getFullDateIso8601 } from '../../../utilities/helpers'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -27,14 +23,12 @@ class BlogAuthorList extends PureComponent {
       arcSite = '',
       customFields: customFieldsProps = {},
       siteProperties: { isDfp = false },
-      metaValue,
     } = this.props
 
     const {
       posts = [],
       user: { first_name: author = 'Gestion' } = {},
       blog: { count_posts: countPosts = '' } = {},
-      section_ads: sectionAds = [],
     } = globalContent || {}
 
     const {
@@ -93,12 +87,7 @@ class BlogAuthorList extends PureComponent {
                     adElement={ads[0].name}
                     isDesktop={false}
                     isMobile
-                    isDfp
-                    sectionAds={typeSpaceAdsDfp(
-                      metaValue('id'),
-                      sectionAds,
-                      isDfp
-                    )}
+                    isDfp={isDfp}
                   />
                 </div>
               )}
