@@ -1,18 +1,16 @@
 import React from 'react'
+import Dfp from '../output-types/_children/dfp'
 
 export default props => {
-  const {
-    adElement,
-    sectionAds,
-    isDfp,
-    isDesktop = true,
-    isMobile = true,
-    classes,
-  } = props
+  const { adElement, isDfp, isDesktop = true, isMobile = true, classes } = props
+  const adsParams = {
+    isFuature: true,
+    adId: adElement,
+  }
   return (
     <>
-      {isDfp && sectionAds ? (
-        <div id={sectionAds[adElement]} className="flex justify-center" />
+      {isDfp ? (
+        <Dfp {...adsParams} />
       ) : (
         <>
           {adElement && isMobile && (

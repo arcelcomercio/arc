@@ -15,7 +15,7 @@ import {
   storyTagsBbc,
   getDateSeo,
   storyContenImage,
-  typeSpaceAdsDfp,
+  
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -120,12 +120,9 @@ class StoryContents extends PureComponent {
         ids: { opta },
         isDfp,
       },
-      metaValue,
     } = this.props
-    const {
-      related_content: { basic: relatedContent } = {},
-      section_ads: sectionAds = [],
-    } = globalContent || {}
+    const { related_content: { basic: relatedContent } = {} } =
+      globalContent || {}
 
     const {
       publishDate: date,
@@ -174,7 +171,6 @@ class StoryContents extends PureComponent {
       deployment(
         `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
-    const sectionAdsResult = typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)
 
     return (
       <>
@@ -192,38 +188,19 @@ class StoryContents extends PureComponent {
 
           <StoryContentsChildAuthor {...params} />
 
-          <Ads
-            adElement="movil2"
-            isDesktop={false}
-            isMobile
-            isDfp
-            sectionAds={sectionAdsResult}
-          />
+          <Ads adElement="movil2" isDesktop={false} isMobile isDfp={isDfp} />
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
-            <Ads
-              adElement="inline"
-              isDesktop
-              isMobile={false}
-              isDfp
-              sectionAds={sectionAdsResult}
-            />
+            <Ads adElement="inline" isDesktop isMobile={false} isDfp={isDfp} />
             <Ads
               adElement="movil_video"
               isDesktop={false}
               isMobile
-              isDfp
-              sectionAds={sectionAdsResult}
+              isDfp={isDfp}
             />
-            <Ads
-              adElement="movil3"
-              isDesktop={false}
-              isMobile
-              isDfp
-              sectionAds={sectionAdsResult}
-            />
+            <Ads adElement="movil3" isDesktop={false} isMobile isDfp={isDfp} />
             {contentElements && (
               <ArcStoryContent
                 data={contentElements}

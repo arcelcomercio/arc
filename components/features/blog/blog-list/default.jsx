@@ -9,7 +9,7 @@ import {
   formatDateLocalTimeZone,
   defaultImage,
   addSlashToEnd,
-  typeSpaceAdsDfp,
+
 } from '../../../utilities/helpers'
 
 const classes = {
@@ -100,7 +100,6 @@ class BlogList extends PureComponent {
       globalContentConfig = {},
       customFields: customFieldsProps = {},
       siteProperties: { isDfp = false },
-      metaValue,
     } = this.props
     const {
       query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
@@ -124,7 +123,6 @@ class BlogList extends PureComponent {
       }
     })
 
-    const { section_ads: sectionAds = [] } = globalContent || {}
     return (
       <>
         <div className={classes.list}>
@@ -143,12 +141,7 @@ class BlogList extends PureComponent {
                         adElement={ads[0].name}
                         isDesktop={false}
                         isMobile
-                        isDfp
-                        sectionAds={typeSpaceAdsDfp(
-                          metaValue('id'),
-                          sectionAds,
-                          isDfp
-                        )}
+                        isDfp={isDfp}
                       />
                     </div>
                   )}

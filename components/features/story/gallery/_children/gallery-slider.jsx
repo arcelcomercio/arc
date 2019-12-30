@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import ConfigParams from '../../../../utilities/config-params'
 import AdsFotogaleria from '../../../../global-components/ads'
-import { typeSpaceAdsDfp } from '../../../../utilities/helpers'
 
 const classes = {
   elementsSlider: 'story-gallery-slider p-20 bg-primary flex',
@@ -185,9 +184,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     const {
       isAdmin,
       defaultImageGallery,
-      siteProperties: { isDfp=false },
-      metaValue,
-      globalContent: { section_ads: sectionAds = [] } = {},
+      siteProperties: { isDfp = false },
     } = this.props
 
     const sliderStyle = {
@@ -197,8 +194,6 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     const slideStyle = {
       width: `${slideWidth}%`,
     }
-
-    const sectionAdsResult = typeSpaceAdsDfp(metaValue('id'), sectionAds, isDfp)
 
     return (
       <>
@@ -285,8 +280,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
               adElement="fotogaleria1"
               isDesktop
               isMobile={false}
-              isDfp
-              sectionAds={sectionAdsResult}
+              isDfp={isDfp}
             />
           </section>
         )}

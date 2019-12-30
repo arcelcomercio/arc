@@ -5,7 +5,6 @@ import { customFields } from '../_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
 import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
-import { typeSpaceAdsDfp } from '../../../utilities/helpers'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -26,13 +25,8 @@ class StoriesListPaginatedList extends PureComponent {
       isAdmin,
       customFields: customFieldsProps = {},
       siteProperties: { isDfp = false },
-      metaValue,
     } = this.props
-    const {
-      content_elements: stories = [],
-      count = 0,
-      section_ads: sectionAds = [],
-    } = globalContent || {}
+    const { content_elements: stories = [], count = 0 } = globalContent || {}
     const { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
     const activeAds = Object.keys(customFieldsProps)
@@ -65,12 +59,7 @@ class StoriesListPaginatedList extends PureComponent {
                       adElement={ads[0].name}
                       isDesktop={false}
                       isMobile
-                      isDfp
-                      sectionAds={typeSpaceAdsDfp(
-                        metaValue('id'),
-                        sectionAds,
-                        isDfp
-                      )}
+                      isDfp={isDfp}
                     />
                   </div>
                 )}

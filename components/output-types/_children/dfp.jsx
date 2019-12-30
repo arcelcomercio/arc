@@ -4,7 +4,15 @@ import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 const getAdId = (content, adId) => {
-  return { content, adId }
+  const { espacios: spaces = [] } = content || {}
+  const adsId = spaces.map(({ id, space }) => {
+    let formatAdsId = ''
+    if (space === adId) {
+      formatAdsId = id
+    }
+    return formatAdsId
+  })
+  return adsId.filter(String)[0]
 }
 
 const getSectionSlug = (sectionId = '') => {
@@ -21,6 +29,7 @@ const formatAdsCollection = (response, requestUri = '') => {
         id,
         slotName: slotname,
         dimensions: JSON.parse(dimensions),
+        display: 'all',
       }
       if (islazyload) {
         formatSpace.prerender = '[window.addLazyLoadToAd]'
@@ -111,7 +120,9 @@ const Dfp = ({ isFuature, adId }) => {
       }}>
       {content =>
         isFuature ? (
-          <div id={getAdId(content, adId)}>HOLA MUNDO</div>
+          <div
+            id={getAdId(content, adId)}
+            className="flex justify-center"></div>
         ) : (
           <>
             <script
