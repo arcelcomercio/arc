@@ -40,18 +40,19 @@ const CardTabloid = props => {
   const { editableField } = useEditableContent()
   const { linkTabloide = '' } = getProperties(arcSite)
 
-  let data = {}
-  if (!urlImage) {
-    data =
-      useContent({
-        source: CONTENT_SOURCE,
-        query: {
-          website: arcSite,
-          feedOffset,
-        },
-        filter: schemaFilter(arcSite),
-      }) || {}
-  }
+  const data =
+    useContent(
+      !urlImage
+        ? {
+            source: CONTENT_SOURCE,
+            query: {
+              website: arcSite,
+              feedOffset,
+            },
+            filter: schemaFilter(arcSite),
+          }
+        : {}
+    ) || {}
 
   const {
     title = '',
