@@ -148,6 +148,6 @@ StoriesListNew.propTypes = {
 }
 
 StoriesListNew.label = 'Listado de Noticia'
-StoriesListNew.static = false
+StoriesListNew.static = true
 
 export default StoriesListNew

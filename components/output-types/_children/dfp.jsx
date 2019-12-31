@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import React, { useEffect } from 'react'
+import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
@@ -42,12 +42,12 @@ const formatAdsCollection = (response, requestUri = '') => {
       return formatSpace
     }
   )
-  return `"use strict";var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})};
-  var adsCollection=getAdsCollection(${JSON.stringify(adsCollection).replace(
+  return `"use strict";var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})};var adsCollection=getAdsCollection(${JSON.stringify(
+    adsCollection
+  ).replace(
     /"\[window\.addLazyLoadToAd\]"/g,
     'window.addLazyLoadToAd'
-  )});
-  arcAds.registerAdCollection(adsCollection);`
+  )});arcAds.registerAdCollection(adsCollection);`
 }
 
 const Dfp = ({ isFuature, adId }) => {
@@ -111,10 +111,6 @@ const Dfp = ({ isFuature, adId }) => {
       }
       break
   }
-
-  useEffect(() => {
-    console.log('FUNCIONAAAA!!!')
-  })
 
   return (
     <Content
