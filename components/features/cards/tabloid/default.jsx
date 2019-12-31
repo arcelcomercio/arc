@@ -1,5 +1,7 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useContent, useEditableContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import { defaultImage } from '../../../utilities/helpers'
 import getLatinDate from '../../../utilities/date-name'
@@ -21,109 +23,94 @@ const classes = {
 
 const CONTENT_SOURCE = 'story-by-section-printed'
 
-// TODO: Modificar para usar Hooks.
 // TODO: Aplicar resizer a la imagen cuando viene por URL personalizada.
 
-@Consumer
-class CardTabloid extends PureComponent {
-  constructor(props) {
-    super(props)
+const CardTabloid = props => {
+  const {
+    customFields: {
+      date: dateField,
+      sectionName = '',
+      urlImage = '',
+      link = '',
+      feedOffset = 0,
+    } = {},
+  } = props
 
-    const {
-      arcSite,
-      customFields: { feedOffset = 0, urlImage = '' } = {},
-    } = this.props
+  const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
+  const { editableField } = useEditableContent()
+  const { linkTabloide = '' } = getProperties(arcSite)
 
-    if (!urlImage) {
-      this.fetchContent({
-        data: {
-          source: CONTENT_SOURCE,
-          query: {
-            website: arcSite,
-            feedOffset,
-          },
-          filter: schemaFilter(arcSite),
+  let data = {}
+  if (!urlImage) {
+    data =
+      useContent({
+        source: CONTENT_SOURCE,
+        query: {
+          website: arcSite,
+          feedOffset,
         },
-      })
-    }
+        filter: schemaFilter(arcSite),
+      }) || {}
   }
 
-  render() {
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      editableField,
-      isAdmin,
-      siteProperties: { linkTabloide = '' },
-      customFields: {
-        date: dateField,
-        sectionName = '',
-        urlImage = '',
-        link = '',
-      } = {},
-    } = this.props
+  const {
+    title = '',
+    createdDate = '',
+    primarySectionLink = '',
+  } = new StoryData({
+    data,
+    contextPath,
+    arcSite,
+  })
 
-    const { data = {} } = this.state || {}
-
-    const {
-      title = '',
-      createdDate = '',
-      primarySectionLink = '',
-    } = new StoryData({
-      data,
-      contextPath,
-      arcSite,
-    })
-
-    const {
-      section_name: sourceSectionName = '',
-      promo_items: {
-        basic: {
-          resized_urls: {
-            lazy_default: lazyImage = '',
-            printed_md: printedImage = defaultImage({
-              deployment,
-              contextPath,
-              arcSite,
-              size: 'sm',
-            }),
-          } = {},
+  const {
+    section_name: sourceSectionName = '',
+    promo_items: {
+      basic: {
+        resized_urls: {
+          lazy_default: lazyImage = '',
+          printed_md: printedImage = defaultImage({
+            deployment,
+            contextPath,
+            arcSite,
+            size: 'sm',
+          }),
         } = {},
       } = {},
-    } = data
+    } = {},
+  } = data
 
-    const tabloidImage = urlImage || printedImage
-    const nameDate = getLatinDate(createdDate, ' del', true)
-    return (
-      <div className={classes.tabloid}>
-        <h4 className={classes.header}>
-          <a
-            className={classes.headerLink}
-            href={link || primarySectionLink || '/impresa/'}
-            {...editableField('sectionName')}
-            suppressContentEditableWarning>
-            {sectionName || sourceSectionName}
-          </a>
-        </h4>
+  const tabloidImage = urlImage || printedImage
+  const nameDate = getLatinDate(createdDate, ' del', true)
+
+  return (
+    <div className={classes.tabloid}>
+      <h4 className={classes.header}>
         <a
-          className={classes.body}
-          href={link || linkTabloide}
-          target="_blank"
-          rel="noopener noreferrer">
-          <picture>
-            <img
-              className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
-              src={isAdmin ? tabloidImage : lazyImage}
-              data-src={tabloidImage}
-              alt={title}              
-            />
-          </picture>
-          <time className={classes.date}>{dateField || nameDate}</time>
+          className={classes.headerLink}
+          href={link || primarySectionLink || '/impresa/'}
+          {...editableField('sectionName')}
+          suppressContentEditableWarning>
+          {sectionName || sourceSectionName}
         </a>
-      </div>
-    )
-  }
+      </h4>
+      <a
+        className={classes.body}
+        href={link || linkTabloide}
+        target="_blank"
+        rel="noopener noreferrer">
+        <picture>
+          <img
+            className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
+            src={isAdmin ? tabloidImage : lazyImage}
+            data-src={tabloidImage}
+            alt={title}
+          />
+        </picture>
+        <time className={classes.date}>{dateField || nameDate}</time>
+      </a>
+    </div>
+  )
 }
 
 CardTabloid.label = 'Tabloide'
