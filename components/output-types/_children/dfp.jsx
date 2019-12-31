@@ -29,7 +29,6 @@ const formatAdsCollection = (response, requestUri = '') => {
         id,
         slotName: slotname,
         dimensions: JSON.parse(dimensions),
-        display: 'all',
       }
       if (islazyload) {
         formatSpace.prerender = '[window.addLazyLoadToAd]'
