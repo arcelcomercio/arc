@@ -105,7 +105,6 @@ class OrderedStoriesGrid extends PureComponent {
             columns={element.col === 2 ? 'twoCol' : 'oneCol'}
             rows={element.row === 2 ? 'twoRow' : 'oneRow'}
             freeHtml={freeHtml}
-            metaValue={metaValue}
             siteProperties={siteProperties}
           />
         )
