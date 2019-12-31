@@ -42,11 +42,13 @@ const StoriesListVideo = ({ customFields: customFieldsProps = {} }) => {
             website_url: url,
           },
         }) || ''
-      const title = getTitle(data)
+
       const multimediaType = getMultimediaType(data)
       let multimediaValue = ''
+      debugger
       if (multimediaType === VIDEO || multimediaType === ELEMENT_YOUTUBE_ID) {
         multimediaValue = multimediaNews(data)
+        const title = getTitle(data)
         item = {
           index,
           url,
@@ -55,11 +57,11 @@ const StoriesListVideo = ({ customFields: customFieldsProps = {} }) => {
             multimediaValue,
           },
         }
-      }
-
-      item = {
-        index,
-        url,
+      } else {
+        item = {
+          index,
+          url,
+        }
       }
     } else {
       item = {
@@ -69,29 +71,6 @@ const StoriesListVideo = ({ customFields: customFieldsProps = {} }) => {
     }
     return item
   })
-
-  //   const listStories = [
-  //     {
-  //       index: 0,
-  //       url: story01,
-  //     },
-  //     {
-  //       index: 1,
-  //       url: story02,
-  //     },
-  //     {
-  //       index: 2,
-  //       url: story03,
-  //     },
-  //     {
-  //       index: 3,
-  //       url: story04,
-  //     },
-  //     {
-  //       index: 4,
-  //       url: story05,
-  //     },
-  //   ]
 
   return (
     <>
