@@ -201,10 +201,9 @@ class StoryContents extends PureComponent {
             <StoryContentsChildIcon />
             {!isDfp && (
               <>
-                <Ads adElement="inline" isDesktop isMobile={false} isDfp />
-                <Ads adElement="movil_video" isDesktop={false} isMobile isDfp />
-
-                <Ads adElement="movil3" isDesktop={false} isMobile isDfp />
+                <div id="ads_d_inline" />
+                <div id="ads_m_movil_video" />
+                <div id="ads_m_movil3" />
               </>
             )}
             {contentPosicionPublicidad && (

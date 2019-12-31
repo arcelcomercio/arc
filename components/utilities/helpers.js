@@ -931,12 +931,9 @@ export const replacer = (str, p1, p2) => {
 }
 
 export const replaceTags = text => {
-  const resultText = text
-    .replace(/href="(.*\/)(([a-z-0-9])+)"/gm, replacer)
-    .replace(/href="(.*\/)([\w_-]+)(.*)(?:\/)?"/g, replacer)
-    .replace(' ', '/')
+  
 
-  return resultText
+  return text
     .replace(/<h1>(.*)<\/h1>/g, '<h2>$1</h2>')
     .replace(/(\s\w)=.(.*?)/g, '$2')
     .replace('http://http://', 'https://')
