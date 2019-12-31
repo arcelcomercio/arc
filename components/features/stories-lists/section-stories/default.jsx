@@ -4,7 +4,6 @@ import Consumer from 'fusion:consumer'
 import customFields from './_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
 import Ads from '../../../global-components/ads'
-import { typeSpaceAdsDfp } from '../../../utilities/helpers'
 
 const classes = {
   listado: 'w-full',

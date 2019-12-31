@@ -667,19 +667,6 @@ class StoryData {
           dataElements.nameAds = `inline`
         }
 
-        if (i === 4) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja2`
-        }
-
-        if (i === 6) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja3`
-        }
-        if (i === 8) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja4`
-        }
         if (typeElement === ConfigParams.ELEMENT_TEXT) {
           i += 1
         }
