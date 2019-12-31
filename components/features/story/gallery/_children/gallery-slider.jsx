@@ -181,11 +181,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
 
   render() {
     const { sliderWidth, slideWidth, positionSlide, sliders = [] } = this.state
-    const {
-      isAdmin,
-      defaultImageGallery,
-      siteProperties: { isDfp = false },
-    } = this.props
+    const { isAdmin, defaultImageGallery } = this.props
 
     const sliderStyle = {
       width: `${sliderWidth}%`,
@@ -280,7 +276,6 @@ class StoryHeaderChildGallerySlider extends PureComponent {
               adElement="fotogaleria1"
               isDesktop
               isMobile={false}
-              isDfp={isDfp}
             />
           </section>
         )}
