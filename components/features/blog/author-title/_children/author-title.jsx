@@ -26,7 +26,7 @@ const BlogAuthorTitleChildAuthorTitle = ({
       <div className={classes.section}>
         <img
           src={authorImg}
-          alt={`Foto del autor: ${firstName}`}          
+          alt={`Foto del autor: ${firstName}`}
           className={classes.img}
         />
       </div>
