@@ -18,16 +18,27 @@ const params = [
     displayName: 'Esta Nota esta publica? (Defecto es true)',
     type: 'text',
   },
+  {
+    name: 'includedFields',
+    displayName: 'Campos incluidos (opcional)',
+    type: 'text',
+  },
 ]
 
 const resolve = (key = {}) => {
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
+
   website = key['arc-site'] || 'Arc Site no está definido'
-  const { website_url: websiteUrl, published = '' } = key
+  const { website_url: websiteUrl, published = '', includedFields } = key
   const isPublished = published === 'false' ? 'false' : 'true'
-  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}&published=${isPublished}&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
+
+  const sourceInclude = includedFields
+    ? `&included_fields=${includedFields}`
+    : `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
+
+  const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}&published=${isPublished}${sourceInclude}`
   return requestUri
 }
 
