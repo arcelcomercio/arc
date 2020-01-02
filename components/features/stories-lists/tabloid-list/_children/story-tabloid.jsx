@@ -52,7 +52,7 @@ export default ({
                     href={Story.websiteLink}>
                     <img
                       className="stories-l-tabloid__image"
-                      src={Story.multimediaPortraitL}
+                      src={Story.multimediaImpresaS}
                       alt={Story.primarySection}                      
                     />
                   </a>

@@ -9,7 +9,7 @@ export default function(arcSite) {
           url 
           type 
           resized_urls { 
-            portrait_l
+            impresa_s
             lazy_default 
           } 
         }
@@ -19,7 +19,7 @@ export default function(arcSite) {
               url 
               type 
               resized_urls { 
-                portrait_l
+                impresa_s
                 lazy_default 
               } 
             }
@@ -31,7 +31,7 @@ export default function(arcSite) {
               url 
               type 
               resized_urls { 
-                portrait_l
+                impresa_s
                 lazy_default 
               } 
             }
