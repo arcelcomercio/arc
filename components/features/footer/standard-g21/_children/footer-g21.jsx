@@ -135,4 +135,4 @@ const FooterChildStandardG21 = props => {
   )
 }
 
-export default FooterChildStandardG21
+export default React.memo(FooterChildStandardG21)
