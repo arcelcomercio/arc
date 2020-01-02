@@ -93,12 +93,17 @@ class StoriesListVideo extends PureComponent {
   }
 
   StoryItemHandleClick = StoryItemIndex => {
-    const { listStoriesVideo = [] } = this.state
+    this.SortList(StoryItemIndex)
+  }
+
+  SortList = (StoryItemIndex) =>{
     const firstItemIndex = 0
     const lastItemIndex = 4
-    const listStoriesVideotmp = []
+
     // si el primer elemento es seleccionado, no debe haber ninguna accion
     if (StoryItemIndex !== firstItemIndex) {
+      const { listStoriesVideo = [] } = this.state
+      const sortListStories = []
       // si el elemento seleccionado es el ultimo,
       // solo es un cambio de posicion del primero con el ultimo
       if (StoryItemIndex === lastItemIndex) {
@@ -109,24 +114,24 @@ class StoriesListVideo extends PureComponent {
           ) {
             let news = {}
             news = { ...newsItem }
-            listStoriesVideotmp.push(news)
+            sortListStories.push(news)
           }
         })
       } else {
         listStoriesVideo.forEach(newsItem => {
           if (
             newsItem.index !== StoryItemIndex &&
-            newsItem.index !== firstItemIndex 
+            newsItem.index !== firstItemIndex
           ) {
             let news = {}
-            
-            if(newsItem.index > StoryItemIndex){
+
+            if (newsItem.index > StoryItemIndex) {
               news = { ...newsItem, index: newsItem.index - 1 }
-            }else{
+            } else {
               news = { ...newsItem }
             }
-            
-            listStoriesVideotmp.push(news)
+
+            sortListStories.push(news)
           }
         })
       }
@@ -142,13 +147,12 @@ class StoriesListVideo extends PureComponent {
       )
       firstItem.index = 0
 
-      listStoriesVideotmp.push(lastItem)
-      listStoriesVideotmp.push(firstItem)
-      listStoriesVideotmp.sort((a, b) => (a.index > b.index ? 1 : -1))
+      sortListStories.push(lastItem)
+      sortListStories.push(firstItem)
+      sortListStories.sort((a, b) => (a.index > b.index ? 1 : -1))
       this.setState({
-        listStoriesVideo:listStoriesVideotmp
+        listStoriesVideo: sortListStories,
       })
-      
     }
   }
 
