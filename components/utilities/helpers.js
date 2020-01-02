@@ -923,18 +923,18 @@ export const preventDefault = e => {
   event.returnValue = false
 }
 
-export const replacer = (str, p1, p2) => {
-  const psreplace = `${p2}/`
-  const psreplace2 = `${p2}/`
+export const replacer = (str, p1, p2, p3) => {
+  const isSlash = p3.slice(p3.length - 1, p3.length)
+  const psReplace = `${p3}/`
 
-  return `href="${p1}${p2 ? psreplace : psreplace2}"`
+  return `href="${p1}://${p2}${isSlash !== '/' ? psReplace : p3}"`
 }
 
 export const replaceTags = text => {
-  const resultText = text
-    .replace(/href="(.*\/)(([a-z-0-9])+)"/gm, replacer)
-    .replace(/href="(.*\/)([\w_-]+)(.*)(?:\/)?"/g, replacer)
-    .replace(' ', '/')
+  const resultText = text.replace(
+    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g,
+    replacer
+  )
 
   return resultText
     .replace(/<h1>(.*)<\/h1>/g, '<h2>$1</h2>')
