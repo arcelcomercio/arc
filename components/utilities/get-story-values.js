@@ -19,12 +19,16 @@ export const getMultimediaType = data => {
   if (items.length > 0) {
     if (items.includes(VIDEO)) {
       typeMultimedia = VIDEO
-    } else if (items.includes(ELEMENT_YOUTUBE_ID)) {
+      return typeMultimedia
+    } if (items.includes(ELEMENT_YOUTUBE_ID)) {
       typeMultimedia = ELEMENT_YOUTUBE_ID
-    } else if (items.includes(GALLERY)) {
+      return typeMultimedia
+    } if (items.includes(GALLERY)) {
       typeMultimedia = GALLERY
-    } else if (items.includes(IMAGE)) {
+      return typeMultimedia
+    } if (items.includes(IMAGE)) {
       typeMultimedia = IMAGE
+      return typeMultimedia
     }
   }
   return typeMultimedia

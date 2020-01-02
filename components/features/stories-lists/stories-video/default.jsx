@@ -43,19 +43,16 @@ class StoriesListVideo extends PureComponent {
     const urlList = [story01, story02, story03, story04, story05]
     urlList.forEach((url, index) => {
       if (url !== '') {
-        this.fetchContent(
-          {
-            [`story0${index + 1}`]: {
-              source: CONTENT_SOURCE,
-              query: {
-                website: arcSite,
-                website_url: url,
-              },
-              filter: schemaFilter,
+        this.fetchContent({
+          [`story0${index + 1}`]: {
+            source: CONTENT_SOURCE,
+            query: {
+              website: arcSite,
+              website_url: url,
             },
-          }
-          // filterSchema
-        )
+            filter: schemaFilter,
+          },
+        })
       }
     })
   }
@@ -91,62 +88,73 @@ class StoriesListVideo extends PureComponent {
     })
 
     this.setState({
-      listStoriesVideo
+      listStoriesVideo,
     })
   }
 
-  // getData() {}
-  // const {
-  //   arcSite = '',
-  //   customFields: {
-  //     story01 = '',
-  //     story02 = '',
-  //     story03 = '',
-  //     story04 = '',
-  //     story05 = '',
-  //   } = {},
-  // } = this.props
-  // const listUrls = [story01, story02, story03, story04, story05]
-  // const listStories = listUrls.map((url, index) => {
-  //   let item = {}
-  //   if (url !== '') {
+  StoryItemHandleClick = StoryItemIndex => {
+    const { listStoriesVideo = [] } = this.state
+    const firstItemIndex = 0
+    const lastItemIndex = 4
+    const listStoriesVideotmp = []
+    // si el primer elemento es seleccionado, no debe haber ninguna accion
+    if (StoryItemIndex !== firstItemIndex) {
+      // si el elemento seleccionado es el ultimo,
+      // solo es un cambio de posicion del primero con el ultimo
+      if (StoryItemIndex === lastItemIndex) {
+        listStoriesVideo.forEach(newsItem => {
+          if (
+            newsItem.index !== firstItemIndex &&
+            newsItem.index !== lastItemIndex
+          ) {
+            let news = {}
+            news = { ...newsItem }
+            listStoriesVideotmp.push(news)
+          }
+        })
+      } else {
+        listStoriesVideo.forEach(newsItem => {
+          if (
+            newsItem.index !== StoryItemIndex &&
+            newsItem.index !== firstItemIndex 
+          ) {
+            let news = {}
+            
+            if(newsItem.index > StoryItemIndex){
+              news = { ...newsItem, index: newsItem.index - 1 }
+            }else{
+              news = { ...newsItem }
+            }
+            
+            listStoriesVideotmp.push(news)
+          }
+        })
+      }
 
-  //     // colocar la logica para llamar la data
-  //     //
-  //     //
-  //     const multimediaType = getMultimediaType(data)
-  //     let multimediaValue = ''
+      // cambia el index del primer y el ultimo para el reordenamiento
+      // la nota que estaba destacada se va a al ultimo
+      const lastItem = JSON.parse(JSON.stringify(listStoriesVideo[0]))
+      lastItem.index = 4
 
-  //     if (multimediaType === VIDEO || multimediaType === ELEMENT_YOUTUBE_ID) {
-  //       multimediaValue = multimediaNews(data)
-  //       const title = getTitle(data)
-  //       item = {
-  //         index,
-  //         url,
-  //         content: {
-  //           title,
-  //           multimediaValue,
-  //         },
-  //       }
-  //     } else {
-  //       item = {
-  //         index,
-  //         url,
-  //       }
-  //     }
-  //   } else {
-  //     item = {
-  //       index,
-  //       url,
-  //     }
-  //   }
-  //   return item
-  // })
-  // }
+      // la nota que fue seleccionada pasa a ser destacada
+      const firstItem = JSON.parse(
+        JSON.stringify(listStoriesVideo[StoryItemIndex])
+      )
+      firstItem.index = 0
+
+      listStoriesVideotmp.push(lastItem)
+      listStoriesVideotmp.push(firstItem)
+      listStoriesVideotmp.sort((a, b) => (a.index > b.index ? 1 : -1))
+      this.setState({
+        listStoriesVideo:listStoriesVideotmp
+      })
+      
+    }
+  }
 
   render() {
     const { listStoriesVideo = [] } = this.state
-    debugger
+
     return (
       <>
         <div className={classes.listComponent}>
@@ -155,7 +163,16 @@ class StoriesListVideo extends PureComponent {
             <span>Logo</span>
           </div>
           {listStoriesVideo.map(item => {
-            return <StoryItem key={`item${item.index}`} {...item} />
+            const StoryItemProps = {
+              ...item,
+              StoryItemHandleClick: this.StoryItemHandleClick,
+            }
+            return (
+              <StoryItem
+                key={StoryItemProps.index.toString()}
+                {...StoryItemProps}
+              />
+            )
           })}
           <div>
             <a href="https://peru21.pe/peru21tv/">Ver programas</a>
