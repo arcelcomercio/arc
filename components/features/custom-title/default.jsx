@@ -174,7 +174,6 @@ CustomTitle.propTypes = {
       description: 'Este campo acepta código html',
     }),
   }),
-  editableField: PropTypes.func,
 }
 
 CustomTitle.label = 'Título Personalizable'

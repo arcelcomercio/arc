@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useContent, useEditableContent } from 'fusion:content'
+import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import CardMostReadList from './_children/list'
@@ -20,8 +20,6 @@ const CardMostRead = props => {
     requestUri,
     isAdmin,
   } = useFusionContext()
-
-  const { editableField } = useEditableContent()
 
   const { customFields } = props
   const { viewImage = false, storiesQty = 5, customTitle = '', customLink } =
@@ -57,7 +55,6 @@ const CardMostRead = props => {
     stories,
     customTitle,
     customLink,
-    editableField,
     isAdmin,
   }
 

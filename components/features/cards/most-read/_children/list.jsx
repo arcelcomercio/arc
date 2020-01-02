@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEditableContent } from 'fusion:content'
 import CardMostReadItem from './item'
 
 const classes = {
@@ -9,14 +10,8 @@ const classes = {
 }
 
 const CardMostReadChildList = props => {
-  const {
-    viewImage,
-    stories,
-    customTitle,
-    editableField,
-    isAdmin,
-    customLink,
-  } = props
+  const { viewImage, stories, customTitle, isAdmin, customLink } = props
+  const { editableField } = useEditableContent()
 
   return (
     <div role="list" className={classes.mostRead}>
