@@ -24,6 +24,8 @@ class StoriesListSectionStories extends PureComponent {
       globalContentConfig,
       isAdmin,
       customFields: customFieldsProps = {},
+      siteProperties: { isDfp = false },
+      metaValue,
     } = this.props
 
     const { storiesQty = 50, initialStory = 0 } = customFieldsProps
@@ -36,9 +38,11 @@ class StoriesListSectionStories extends PureComponent {
       .filter(prop => prop.match(/adsMobile(\d)/))
       .filter(key => customFieldsProps[key] === true)
 
+    const typeSpace = isDfp ? 'caja' : 'movil'
+
     const activeAdsArray = activeAds.map(el => {
       return {
-        name: `movil${el.slice(-1)}`,
+        name: `${typeSpace}${el.slice(-1)}`,
         pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
         inserted: false,
       }
@@ -68,6 +72,7 @@ class StoriesListSectionStories extends PureComponent {
                           adElement={ads[0].name}
                           isDesktop={false}
                           isMobile
+                          isDfp={isDfp}
                         />
                       </div>
                     )}

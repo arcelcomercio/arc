@@ -120,6 +120,16 @@ class ConfigParams {
   static LARGE = 'large'
 
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
+
+  static META_SECTION = 'meta_section'
+
+  static META_STORY = 'meta_story'
+
+  static META_SEARCH = 'meta_search'
+
+  static META_TAG = 'meta_tag'
+
+  static META_HOME = 'meta_home'
 }
 
 export const sizeImg = () => {
@@ -387,4 +397,6 @@ export const spacesAdsName = () => {
     caja3: 'caja3',
   }
 }
+
+
 export default ConfigParams

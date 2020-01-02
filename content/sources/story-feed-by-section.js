@@ -134,6 +134,7 @@ const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
   return {
     ...dataStory,
     section_name: sectionName || 'Sección',
+    section_id: section,
   }
 }
 
