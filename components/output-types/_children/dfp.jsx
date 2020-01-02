@@ -2,6 +2,7 @@
 import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 const getAdId = (content, adId) => {
   const { espacios: spaces = [] } = content || {}
@@ -44,6 +45,7 @@ const Dfp = ({ isFuature, adId }) => {
   } = globalContent
 
   let contentConfigValues = {}
+  let page=''
   switch (metaValue('id')) {
     case 'meta_section':
       if (sectionId || _id) {
@@ -57,6 +59,8 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
+      page='sección'        
+
       break
     case 'meta_story':
       if (primarySection) {
@@ -70,11 +74,13 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
+      page='nota' 
       break
     case 'meta_home':
       contentConfigValues = {
         page: 'home',
       }
+      page='portada' 
       break
     default:
       contentConfigValues = {
@@ -93,9 +99,11 @@ const Dfp = ({ isFuature, adId }) => {
     const sectionValues = (sectionId || _id || primarySection || '').split('/')
     const section = sectionValues[1] || ''
     const subsection = sectionValues[2] || ''
-
+    const{siteUrl}=getProperties(arcSite)
     const adsCollection = spaces.map(
+
       ({ id, slotname, dimensions, islazyload }) => {
+     
         const formatSpace = {
           id,
           slotName: slotname,
@@ -103,6 +111,10 @@ const Dfp = ({ isFuature, adId }) => {
           targeting: {
             publisher: arcSite,
             tmp_ad: '<::getTmpAd()::>',
+            phatname:`${siteUrl}${requestUri}`,
+            tipoplantilla:page,
+            seccion: section,
+            categoria:subsection
           },
           sizemap: {
             breakpoints: [
