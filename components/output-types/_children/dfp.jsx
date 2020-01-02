@@ -57,6 +57,7 @@ const Dfp = ({ isFuature, adId }) => {
     globalContent = {},
     requestUri,
     metaValue,
+    arcSite,
   } = useFusionContext()
 
   const { adsAmp: { dataSlot } = {} } = siteProperties
@@ -112,39 +113,45 @@ const Dfp = ({ isFuature, adId }) => {
   }
 
   return (
-    <Content
-      {...{
-        contentService: 'get-dfp-spaces',
-        contentConfigValues,
-      }}>
-      {content =>
-        isFuature ? (
-          <div
-            id={getAdId(content, adId)}
-            className="flex justify-center"></div>
-        ) : (
-          <>
-            <script
-              src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
-            />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: initAds }}
-            />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: lazyLoadFunction }}
-            />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: formatAdsCollection(content, requestUri),
-              }}
-            />
-          </>
-        )
-      }
-    </Content>
+    <>
+      {arcSite === 'publimetro' && (
+        <Content
+          {...{
+            contentService: 'get-dfp-spaces',
+            contentConfigValues,
+          }}>
+          {content =>
+            isFuature ? (
+              <div
+                id={getAdId(content, adId)}
+                className="flex justify-center"></div>
+            ) : (
+              <>
+                <script
+                  src={deployment(
+                    `${contextPath}/resources/assets/js/arcads.js`
+                  )}
+                />
+                <script
+                  type="text/javascript"
+                  dangerouslySetInnerHTML={{ __html: initAds }}
+                />
+                <script
+                  type="text/javascript"
+                  dangerouslySetInnerHTML={{ __html: lazyLoadFunction }}
+                />
+                <script
+                  type="text/javascript"
+                  dangerouslySetInnerHTML={{
+                    __html: formatAdsCollection(content, requestUri),
+                  }}
+                />
+              </>
+            )
+          }
+        </Content>
+      )}
+    </>
   )
 }
 
