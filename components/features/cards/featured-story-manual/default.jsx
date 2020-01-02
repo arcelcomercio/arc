@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContent, useEditableContent } from 'fusion:content'
+import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
@@ -50,7 +50,6 @@ const CardFeaturedStoryManual = props => {
   } = props
 
   const { arcSite, isAdmin, deployment, contextPath } = useFusionContext()
-  const { editableField } = useEditableContent()
   const { siteName = '' } = getProperties(arcSite)
 
   const storyFormatter = new StoryFormatter({
@@ -251,7 +250,6 @@ const CardFeaturedStoryManual = props => {
     headband,
     size,
     hightlightOnMobile,
-    editableField,
     titleField,
     categoryField,
     arcSite,

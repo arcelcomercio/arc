@@ -80,20 +80,20 @@ const CardFeaturedStoryAdvanced = props => {
       }) || {}
   }
 
-  let customPhoto = {}
-  if (imgField) {
-    const photoId = getPhotoId(imgField)
-    if (photoId) {
-      customPhoto =
-        useContent({
-          source: PHOTO_SOURCE,
-          query: {
-            _id: photoId,
-          },
-          filter: PHOTO_SCHEMA,
-        }) || {}
-    }
-  }
+  const photoId = imgField ? getPhotoId(imgField) : ''
+
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
+            source: PHOTO_SOURCE,
+            query: {
+              _id: photoId,
+            },
+            filter: PHOTO_SCHEMA,
+          }
+        : {}
+    ) || {}
 
   const getAdsSpace = () => {
     const toDate = dateStr => {
