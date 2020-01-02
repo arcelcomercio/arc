@@ -236,7 +236,7 @@ var body_class = document.querySelector('body').getAttribute('class'); // const 
 
 var IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);
 var device = IS_MOBILE ? 'm' : 'd';
-var PREBID_TIMEOUT = site === 'p21' ? 2200 : 3000;
+var PREBID_TIMEOUT = site === 'p21' ? 1500 : 3000;
 var BIDDER_PERCENTAGE = 0.85; // eslint-disable-next-line no-use-before-define
 
 var apntag = apntag || {}; // apntag viene de lib

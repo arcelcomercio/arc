@@ -51,12 +51,12 @@ export const AnalyticsScript = ({
         ga('set', 'dimension21', '${genderOrigen}');
         ${
           // Validación temporal
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'depor' ||
-          arcSite === 'trome' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'diariocorreo' ||
-          arcSite === 'elcomercio'
+          !(
+            (arcSite === 'ojo' && section === 'ojo-show') ||
+            (arcSite === 'publimetro' && section === 'actualidad') ||
+            (arcSite === 'publimetro' && section === 'redes-sociales') ||
+            (arcSite === 'publimetro' && section === 'entretenimiento')
+          )
             ? `ga('set', 'title', '${newsTitle}')`
             : `ga('send', 'pageview', {title: '${newsTitle}'})`
         };

@@ -6,6 +6,7 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
+import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
 import {
   skipAdvertising,
@@ -294,28 +295,36 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
-        )}
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-        )}
-
-        {/* Scripts de APPNEXUS */}
-
-        {!nodas && (
+        {arcSite === 'publimetro' && !nodas && !isLivePage && <Dfp />}
+        {/* {!(CURRENT_ENVIRONMENT === 'sandbox' && arcSite === 'publimetro') && ( */}
           <>
-            <script
-              src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
-              async
-            />
-            <script
-              type="text/javascript"
-              src="//acdn.adnxs.com/ast/ast.js"
-              async
-            />
+            {!nodas && !isLivePage && (
+              <script
+                defer
+                src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`}
+              />
+            )}
+            {!nodas && !isLivePage && (
+              <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+            )}
+
+            {/* Scripts de APPNEXUS */}
+
+            {!nodas && (
+              <>
+                <script
+                  src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+                  async
+                />
+                <script
+                  type="text/javascript"
+                  src="//acdn.adnxs.com/ast/ast.js"
+                  async
+                />
+              </>
+            )}
           </>
-        )}
+        {/* )} */}
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
@@ -371,14 +380,15 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {!nodas && (
-          <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/assets/js/appnexus-min.js`
-            )}
-          />
-        )}
+        {/* !(CURRENT_ENVIRONMENT === 'sandbox' && arcSite === 'publimetro') && */
+          !nodas && (
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/appnexus-min.js`
+              )}
+            />
+          )}
         <script
           defer
           src={deployment(

@@ -23,6 +23,7 @@ const Ads = props => {
       freeHtml,
       columns,
       adsBorder,
+      isDfp,
       rows,
     } = {},
   } = props
@@ -69,6 +70,7 @@ const Ads = props => {
     adElement,
     isDesktop,
     isMobile,
+    isDfp,
   }
 
   const addEmptyBorder = () =>
@@ -78,7 +80,7 @@ const Ads = props => {
 
   const addRowsClass = () => (rows === 'empty' ? '' : rows)
 
-  const neverShow = () => !isDesktop && !isMobile
+  const neverShow = () => !isDesktop && !isMobile && !isDfp
   const alwaysShow = () => isDesktop && isMobile
 
   const hideInDevice = () => {

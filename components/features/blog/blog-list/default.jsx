@@ -1,6 +1,7 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import BlogItem from './_children/item'
 import Pagination from '../../../global-components/pagination'
@@ -33,6 +34,7 @@ const BlogList = props => {
     globalContent = {},
     globalContentConfig = {},
   } = useFusionContext()
+  const { isDfp = false } = getProperties(arcSite)
 
   const totalPosts =
     useContent({
@@ -133,7 +135,12 @@ const BlogList = props => {
                 <BlogItem key={key} {...params} />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
-                    <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp={isDfp}
+                    />
                   </div>
                 )}
               </>

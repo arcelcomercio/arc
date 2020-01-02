@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
-import { isIE } from '../../utilities/helpers'
+import getProperties from 'fusion:properties'
 
+import { isIE } from '../../utilities/helpers'
 import DataStory from '../../utilities/story-data'
 import FeaturedStory from '../../global-components/featured-story'
 import Ads from './_children/ads/default'
@@ -34,7 +35,9 @@ const OrderedStoriesGrid = props => {
     contextPath,
     arcSite,
     isAdmin,
+    metaValue,
   } = useFusionContext()
+  const siteProperties = getProperties(arcSite)
   const { content_elements: contentElements = [] } = globalContent || {}
 
   const [gridClass, setGridClass] = useState('grid')
@@ -96,6 +99,7 @@ const OrderedStoriesGrid = props => {
             columns={element.col === 2 ? 'twoCol' : 'oneCol'}
             rows={element.row === 2 ? 'twoRow' : 'oneRow'}
             freeHtml={freeHtml}
+            siteProperties={siteProperties}
           />
         )
       }

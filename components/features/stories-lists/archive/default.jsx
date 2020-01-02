@@ -24,6 +24,8 @@ class StoriesListArchive extends PureComponent {
       arcSite,
       isAdmin,
       customFields: customFieldsProps = {},
+      siteProperties: { isDfp = false },
+      metaValue,
     } = this.props
     const {
       content_elements: contentElements,
@@ -35,9 +37,11 @@ class StoriesListArchive extends PureComponent {
       .filter(prop => prop.match(/adsMobile(\d)/))
       .filter(key => customFieldsProps[key] === true)
 
+    const typeSpace = isDfp ? 'caja' : 'movil'
+
     const activeAdsArray = activeAds.map(el => {
       return {
-        name: `movil${el.slice(-1)}`,
+        name: `${typeSpace}${el.slice(-1)}`,
         pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
         inserted: false,
       }
@@ -56,7 +60,12 @@ class StoriesListArchive extends PureComponent {
                 />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
-                    <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp
+                    />
                   </div>
                 )}
               </Fragment>

@@ -1,8 +1,10 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import renderHTML from 'react-render-html'
 import { getFullDateIso8601 } from '../../../utilities/helpers'
+import Ads from '../../../global-components/ads'
 
 const classes = {
   content: 'post-content bg-white p-20',
@@ -13,7 +15,8 @@ const classes = {
 }
 
 const BlogPostContent = () => {
-  const { globalContent } = useFusionContext()
+  const { globalContent, arcSite } = useFusionContext()
+  const { isDfp = false } = getProperties(arcSite)
   const {
     post: { post_content: postContent, post_date: postDate } = {},
     user: { first_name: firstName } = {},
@@ -30,9 +33,9 @@ const BlogPostContent = () => {
         </time>
       </div>
       <div className={classes.story} id="contenedor">
-        <div id="ads_d_inline" />
-        <div id="ads_m_movil_video" />
-        <div id="ads_m_movil3" />
+        <Ads adElement="inline" isDesktop isMobile={false} isDfp={isDfp} />
+        <Ads adElement="movil_video" isDesktop={false} isMobile isDfp={isDfp} />
+        <Ads adElement="movil3" isDesktop={false} isMobile isDfp={isDfp} />
         <section>{postContent && renderHTML(postContent)}</section>
       </div>
     </div>

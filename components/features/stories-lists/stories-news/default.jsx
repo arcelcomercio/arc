@@ -25,7 +25,14 @@ const classes = {
 
 const StoriesListNew = props => {
   const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+
+    isAdmin,
+    siteProperties: { isDfp = false },
+  } = useFusionContext()
 
   const presets = 'landscape_md:314x157,landscape_s:234x161,landscape_xs:118x72'
   const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,promo_items.basic_html.content,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},display_date`
@@ -50,9 +57,11 @@ const StoriesListNew = props => {
     .filter(prop => prop.match(/adsMobile(\d)/))
     .filter(key => customFieldsProps[key] === true)
 
+  const typeSpace = isDfp ? 'caja' : 'movil'
+
   const activeAdsArray = activeAds.map(el => {
     return {
-      name: `movil${el.slice(-1)}`,
+      name: `${typeSpace}${el.slice(-1)}`,
       pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
       inserted: false,
     }
@@ -122,7 +131,12 @@ const StoriesListNew = props => {
                 />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
-                    <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp={isDfp}
+                    />
                   </div>
                 )}
               </>
