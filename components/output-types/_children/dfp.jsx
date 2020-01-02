@@ -19,36 +19,6 @@ const getSectionSlug = (sectionId = '') => {
   return sectionId.split('/')[1] || ''
 }
 
-const formatAdsCollection = (response, requestUri = '') => {
-  const { espacios: spaces = [] } = response || {}
-  const tmpAdTargeting = requestUri.match(/tmp_ad=([^&]*)/) || []
-  const tmpAdValue = tmpAdTargeting[1] || ''
-  const adsCollection = spaces.map(
-    ({ id, slotname, dimensions, islazyload }) => {
-      const formatSpace = {
-        id,
-        slotName: slotname,
-        dimensions: JSON.parse(dimensions),
-      }
-      if (islazyload) {
-        formatSpace.prerender = '[window.addLazyLoadToAd]'
-      }
-      if (tmpAdValue) {
-        formatSpace.targeting = {
-          tmp_ad: tmpAdValue,
-        }
-      }
-      return formatSpace
-    }
-  )
-  return `"use strict";var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})};var adsCollection=getAdsCollection(${JSON.stringify(
-    adsCollection
-  ).replace(
-    /"\[window\.addLazyLoadToAd\]"/g,
-    'window.addLazyLoadToAd'
-  )});arcAds.registerAdCollection(adsCollection);`
-}
-
 const Dfp = ({ isFuature, adId }) => {
   const {
     deployment,
@@ -57,6 +27,7 @@ const Dfp = ({ isFuature, adId }) => {
     globalContent = {},
     requestUri,
     metaValue,
+    arcSite,
   } = useFusionContext()
 
   const { adsAmp: { dataSlot } = {} } = siteProperties
@@ -109,6 +80,48 @@ const Dfp = ({ isFuature, adId }) => {
         sectionSlug: 'default',
       }
       break
+  }
+
+  const formatAdsCollection = response => {
+    const { espacios: spaces = [] } = response || {}
+    const tmpAdTargeting = requestUri.match(/tmp_ad=([^&]*)/) || []
+    const tmpAdValue = tmpAdTargeting[1] || ''
+
+    const sectionValues = (sectionId || _id || primarySection).split('/')
+    const section = sectionValues[1] || ''
+    const subsection = sectionValues[2] || ''
+
+    const adsCollection = spaces.map(
+      ({ id, slotname, dimensions, islazyload }) => {
+        const formatSpace = {
+          id,
+          slotName: slotname,
+          dimensions: JSON.parse(dimensions),
+        }
+        formatSpace.targeting.web = arcSite
+        if (islazyload) {
+          formatSpace.prerender = '[window.addLazyLoadToAd]'
+        }
+        if (tmpAdValue) {
+          formatSpace.targeting = {
+            tmp_ad: tmpAdValue,
+          }
+        }
+        if (section) {
+          formatSpace.targeting.section = section
+        }
+        if (subsection) {
+          formatSpace.targeting.subsection = subsection
+        }
+        return formatSpace
+      }
+    )
+    return `"use strict";var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})};var adsCollection=getAdsCollection(${JSON.stringify(
+      adsCollection
+    ).replace(
+      /"\[window\.addLazyLoadToAd\]"/g,
+      'window.addLazyLoadToAd'
+    )});arcAds.registerAdCollection(adsCollection);`
   }
 
   return (
