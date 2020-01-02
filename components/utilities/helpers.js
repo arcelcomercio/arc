@@ -923,13 +923,23 @@ export const preventDefault = e => {
   event.returnValue = false
 }
 
+export const replacer = (str, p1, p2) => {
+  const psreplace = `${p2}/`
+  const psreplace2 = `${p2}/`
+
+  return `href="${p1}${p2 ? psreplace : psreplace2}"`
+}
+
 export const replaceTags = text => {
+  
+
   return text
     .replace(/<h1>(.*)<\/h1>/g, '<h2>$1</h2>')
     .replace(/(\s\w)=.(.*?)/g, '$2')
     .replace('http://http://', 'https://')
     .replace(/href=&quot;(.+)&quot;>/g, 'href="$1">')
     .replace(/http:\/\/gestion2.e3.pe\//g, 'https://cde.gestion2.e3.pe/')
+    .replace('http://', 'https://')
 }
 
 export const formatDateStory = date => {
@@ -1280,4 +1290,3 @@ export const pixelAmpDate = arcSite => {
       : ''
   return pixelEc
 }
-
