@@ -36,7 +36,7 @@ class LayoutNavbar extends PureComponent {
       data: {},
     }
     if (this.formater.main.fetch !== false) {
-      const { params = {} , source = '' } = this.formater.main.fetch.config || {}
+      const { params = {}, source = '' } = this.formater.main.fetch.config || {}
       /** Solicita la data a la API y setea los resultados en "state.data" */
       this.fetchContent({
         data: {
@@ -58,7 +58,22 @@ class LayoutNavbar extends PureComponent {
   }
 
   renderHeaderAmp() {
-    return <HeaderAmp {...this.props} />
+    const {
+      contextPath,
+      arcSite,
+      deployment,
+      siteProperties: {
+        siteUrl,
+        assets: { seo: { widthAmp, heightAmp } = {} } = {},
+      },
+    } = this.props
+
+    const imgLogo =
+      deployment(
+        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
+      ) || ''
+
+    return <HeaderAmp {...{ imgLogo, widthAmp, heightAmp, arcSite }} />
   }
 
   render() {
