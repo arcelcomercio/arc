@@ -95,7 +95,7 @@ const Dfp = ({ isFuature, adId }) => {
     const { espacios: spaces = [] } = response || {}
 
     const getTmpAdFunction = `var getTmpAd=function getTmpAd(){var tmpAdTargeting=window.location.search.match(/tmp_ad=([^&]*)/)||[];return tmpAdTargeting[1]||''}`
-    const getAdsCollectionFunction = `var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})}`
+    const getAdsDisplayFunction = `var getAdsDisplay=function getAdsDisplay(){var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return IS_MOBILE?'mobile':'desktop'}`
 
     const sectionValues = (primarySection || sectionId || _id || '').split('/')
     const section = sectionValues[1] || ''
@@ -109,6 +109,7 @@ const Dfp = ({ isFuature, adId }) => {
           id,
           slotName: slotname,
           dimensions: JSON.parse(dimensions),
+          display: '<::getAdsDisplay()::>',
           targeting: {
             publisher: arcSite,
             seccion: section,
@@ -135,11 +136,11 @@ const Dfp = ({ isFuature, adId }) => {
         return formatSpace
       }
     )
-    return `"use strict";${getAdsCollectionFunction};${getTmpAdFunction};var adsCollection=getAdsCollection(${JSON.stringify(
+    return `"use strict";${getTmpAdFunction};${getAdsDisplayFunction};var adsCollection=${JSON.stringify(
       adsCollection
     )
       .replace(/"<::/g, '')
-      .replace(/::>"/g, '')});arcAds.registerAdCollection(adsCollection);`
+      .replace(/::>"/g, '')};arcAds.registerAdCollection(adsCollection);`
   }
 
   return (
