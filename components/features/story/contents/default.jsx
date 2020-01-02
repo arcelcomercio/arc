@@ -190,10 +190,10 @@ class StoryContents extends PureComponent {
           <StoryContentsChildAuthor {...params} />
 
           <Ads
-            adElement={`${isDfp ? 'movil2' : 'caja2'}`}
+            adElement={`${isDfp ? 'movil2' : 'caja3'}`}
             isDesktop={false}
             isMobile
-            isDfp
+            isDfp={isDfp}
           />
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
@@ -303,7 +303,7 @@ class StoryContents extends PureComponent {
                             adElement={nameAds}
                             isDesktop={false}
                             isMobile
-                            isDfp
+                            isDfp={isDfp}
                           />
                         )}
                         <Text
