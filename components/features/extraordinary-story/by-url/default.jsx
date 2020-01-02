@@ -1,5 +1,7 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { useEffect } from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+
 import customFieldsExtern from './_dependencies/custom-fields'
 import schemaFilter from '../_dependencies/schema-filter'
 import Data from '../_dependencies/data'
@@ -17,77 +19,65 @@ const PHOTO_SCHEMA = `{
     square_l
   }
 }`
-@Consumer
-class ExtraordinaryStoryByUrl extends PureComponent {
-  constructor(props) {
-    super(props)
-    // this.isVideo = ''
+const ExtraordinaryStoryByUrl = props => {
+  const { customFields } = props
+  const { link = '', showExtraordinaryStory, multimediaSource } = customFields
+  const { deployment, contextPath, arcSite } = useFusionContext()
 
-    const {
-      customFields: { link = '', showExtraordinaryStory, multimediaSource },
-      arcSite,
-    } = this.props
-    if (showExtraordinaryStory) {
-      this.fetchContent({
-        data: {
-          source: API_URL,
-          query: { website_url: link },
-          filter: schemaFilter(arcSite),
-        },
-      })
-    }
-    if (multimediaSource) {
-      const photoId = getPhotoId(multimediaSource)
-      if (photoId) {
-        this.fetchContent({
-          customPhoto: {
+  const data =
+    useContent(
+      showExtraordinaryStory
+        ? {
+            source: API_URL,
+            query: { website_url: link },
+            filter: schemaFilter(arcSite),
+          }
+        : {}
+    ) || {}
+
+  const photoId = multimediaSource ? getPhotoId(multimediaSource) : ''
+
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
             source: PHOTO_SOURCE,
             query: {
               _id: photoId,
             },
             filter: PHOTO_SCHEMA,
-          },
-        })
-      }
-    }
-  }
+          }
+        : {}
+    ) || {}
 
-  componentDidMount() {
+  useEffect(() => {
     if (window.powaBoot) {
       window.powaBoot()
     }
+  }, [])
+
+  const formattedData = new Data({
+    data,
+    deployment,
+    contextPath,
+    arcSite,
+    customFields,
+    defaultImgSize: 'md',
+    customPhoto,
+  })
+  // this.isVideo = formattedData.isVideo
+
+  const params = {
+    data: formattedData,
+    multimediaType: formattedData.multimediaType,
+    multimediaOrientation: formattedData.multimediaOrientation,
+    contentOrientation: formattedData.contentOrientation,
+    deployment,
+    contextPath,
+    arcSite,
+    showExtraordinaryStory,
   }
-
-  render() {
-    const { deployment, contextPath, arcSite, customFields } = this.props
-    const {
-      customFields: { showExtraordinaryStory },
-    } = this.props
-    const { data = {}, customPhoto = {} } = this.state || {}
-
-    const formattedData = new Data({
-      data,
-      deployment,
-      contextPath,
-      arcSite,
-      customFields,
-      defaultImgSize: 'md',
-      customPhoto,
-    })
-    // this.isVideo = formattedData.isVideo
-
-    const params = {
-      data: formattedData,
-      multimediaType: formattedData.multimediaType,
-      multimediaOrientation: formattedData.multimediaOrientation,
-      contentOrientation: formattedData.contentOrientation,
-      deployment,
-      contextPath,
-      arcSite,
-      showExtraordinaryStory,
-    }
-    return <ExtraordinaryStory {...params} />
-  }
+  return <ExtraordinaryStory {...params} />
 }
 
 ExtraordinaryStoryByUrl.propTypes = {
