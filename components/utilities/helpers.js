@@ -1,8 +1,10 @@
-import { addResizedUrlItem } from './thumbs'
 import ConfigParams, {
   sizeImg,
   sizeImgNewsLetter,
   sizeImgStory,
+  spacesAdsDfpPortada,
+  spacesAdsDfpStory,
+  spacesAdsDfpDefault,
 } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
@@ -197,17 +199,6 @@ export const getIcon = type => {
     default:
       return ''
   }
-}
-
-// Simplificación de la función addResizedUrlItem, ej: ratio = "16:9" resolution = "400x400"
-export const ResizeImageUrl = (arcSite, imgUrl, ratio, resolution) => {
-  if (imgUrl) {
-    const test = addResizedUrlItem(arcSite, imgUrl, [`${ratio}|${resolution}`])
-      .resized_urls[ratio]
-
-    return test
-  }
-  return imgUrl
 }
 
 export const metaPaginationUrl = (
@@ -494,9 +485,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${
-    ConfigParams.OPTA_WIDGET
-  }/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -516,21 +505,27 @@ export const imageHtml = html => {
     /<div class="nota-media"><img src="(.*?)" border="0" width="(.+)"(.*)><\/div>/g,
     rplImageCde1
   )
-  resHtml = resHtml.replace(
-    /<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g,
-    rplImageCde
-  )
+  resHtml = resHtml
+    .replace(/<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g, rplImageCde)
+    .replace(/<img (.*)src="(.*)" width="(.*?)" (.*)>/g, rplImageCde)
 
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
   resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
+  resHtml = resHtml.replace(
+    /<img (.*)src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g,
+    rplImageCde
+  )
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
-  resHtml = resHtml.replace(/<img src=(.*?)\/>/g, rplImageCde1)
+  resHtml = resHtml
+    .replace(/<img src="(.*?)"\/>/g, rplImageCde1)
+    .replace(/<img src=(.*?)\/>/g, rplImageCde1)
   resHtml = resHtml
     .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
     .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
     .replace(/<IMG (.*)SRC="(.*)" WIDTH=([0-9])\w+>/g, rplImageCde)
     .replace('<FONT', '<font')
+
   return resHtml
 }
 
@@ -547,13 +542,26 @@ export const playerHtml = html => {
 export const twitterHtml = html => {
   const rplTwitter =
     '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$3" ></amp-twitter>'
+  const rplTwitter1 =
+    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$2" ></amp-twitter>'
 
-  const htmlDataTwitter = html.replace(
-    /<blockquote class="twitter-tweet"(.*)<a href="https:\/\/twitter.com\/(.*)\/status\/(.*)">(.*)<\/blockquote>/g,
-    rplTwitter
-  )
+  const htmlDataTwitter = html
+    .replace(
+      /<blockquote class="twitter-tweet"(.*)<a href="https:\/\/twitter.com\/(.*)\/status\/(.*)">(.*)<\/blockquote>/g,
+      rplTwitter
+    )
+    .replace(
+      /<twitter-widget (.*) data-tweet-id="(.*)"><\/twitter-widget>/g,
+      rplTwitter1
+    )
+    .replace(
+      /<twitterwidget (.*) data-tweet-id="(.*)"><\/twitterwidget>/g,
+      rplTwitter1
+    )
 
-  return htmlDataTwitter.replace(/(<script.*?>).*?(<\/script>)/g, '')
+  return htmlDataTwitter
+    .replace(/<script(.*\n)*.*">.*<\/script>/gm, '')
+    .replace(/(<script.*?>).*?(<\/script>)/g, '')
 }
 
 export const deporPlay = html => {
@@ -585,18 +593,34 @@ export const iframeHtml = (html, arcSite = '') => {
       /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
       '$1'
     )
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /https:\/\/depor.com(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.depor.com$1'
-    )
+    const replaceTwitter = `<amp-soundcloud width="480" height="480" layout="responsive" data-playlistid="$3" data-visual="true" ></amp-soundcloud>`
+    htmlDataTwitter = htmlDataTwitter
+      .replace(
+        /https:\/\/depor.com(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+        'https://img.depor.com$1'
+      )
+      .replace(
+        /<iframe(.*) src="(.*)soundcloud.com\/playlists\/([0-9]*[0-9])(.+)">(.*)<\/iframe>/g,
+        replaceTwitter
+      )
   } else if (arcSite === ConfigParams.SITE_TROME) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.trome.pe$1'
     )
+
     htmlDataTwitter = htmlDataTwitter.replace(
       /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.trome.pe$1'
+    )
+  } else if (arcSite === ConfigParams.SITE_DIARIOCORREO) {
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /http:\/\/diariocorreo.pe(\/media\/([0-9-a-z-A-Z])\w+)/g,
+      'https://cdne.diariocorreo.pe$1'
+    )
+    htmlDataTwitter = htmlDataTwitter.replace(
+      /https:\/\/diariocorreo.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://cdne.diariocorreo.pe$1'
     )
   } else {
     htmlDataTwitter = htmlDataTwitter.replace(
@@ -621,7 +645,7 @@ export const iframeHtml = (html, arcSite = '') => {
   htmlDataTwitter = htmlDataTwitter
     .replace(/<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g, rplTwitter)
     .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
-    .replace(/<iframe (.*)src="http(.*?)"(.*)><\/iframe>/g, rplTwitter)
+    .replace(/<iframe (.*)src="http(.*?)"(.*)>(.*)<\/iframe>/g, rplTwitter)
 
   htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
@@ -633,6 +657,8 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe src="(.*)" width="(.*?)" (.*)><\/iframe>/g, rplIframe1)
     .replace('src="//', 'src="https://')
     .replace(/<iframe (.*) src='(.*)' (.*)><\/iframe>/g, rplIframe2)
+    .replace(/<iframe (.*) src="(.+?)" (.*)><\/iframe>/g, rplIframe2)
+    .replace(/<iframe (.*) src="(.*)"><\/iframe>/g, rplIframe2)
     .replace(/<iframe (.*) src="(.*)" type=(.*)><\/iframe>/g, rplIframe2)
     .replace(/<iframe (.*) src="(.*)" (.*)><\/iframe>/g, rplIframe2)
     .replace(/<iframe src='(.*)' width='(.+)' (.*)><\/iframe>/g, rplIframe1)
@@ -645,7 +671,8 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<mxm-partido (.+)<\/mxm-partido>/g, '')
     .replace(/<span (.*)>/g, '<span>')
     .replace(/<(.+):p>/g, '<span>')
-    .replace(/<font (.*)>(.+)<\/font>/g, '$2')
+    .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
+    .replace(/<font(.*)>(.+)<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
@@ -660,7 +687,10 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace('fjs.parentNode.insertBefore(js, fjs);', '')
     .replace("}(document, 'script', 'facebook-jssdk'));", '')
     .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
-
+    .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~; +#!-])+")/g, '')
+    .replace(/<iframe(.*)><\/iframe>/g, '')
+    .replace(/<iframe(.*)>\s*\n<\/iframe>/gm, '')
+    .replace(/(hreef=)/g, 'href=')
   return htmlDataTwitter
 }
 
@@ -697,6 +727,10 @@ export const facebookHtml = html => {
     .replace(strFacebookRoot, '')
     .replace(strFacebook, rplFacebook)
     .replace(strFacebook2, rplFacebook2)
+    .replace(
+      /<iframe(.*)www.facebook.com\/plugins\/post.php\?href=(.*)&amp(.*)>\s*\n<\/iframe>/gm,
+      rplFacebook3
+    )
 }
 
 export const youtubeHtml = html => {
@@ -704,6 +738,7 @@ export const youtubeHtml = html => {
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
   const rplYoutube1 =
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="350"></amp-youtube>'
+
   return html
     .replace(
       /<iframe width="(.*?)" src="(.+)?(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w\-]{10,12})(.*)><\/iframe>/g,
@@ -713,13 +748,16 @@ export const youtubeHtml = html => {
       /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
       rplYoutube
     )
-
     .replace(
       /<iframe width="(.*?)" height="(.*?)" src="\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
       rplYoutube
     )
     .replace(
       /<iframe (.*) src="(.+)?youtube.com\/embed\/([A-Za-z0-9 _]*[A-Za-z0-9])(.*)" (.*)><\/iframe>/g,
+      rplYoutube1
+    )
+    .replace(
+      /<iframe (.*) src="(.+)?youtube.com\/embed\/(.*?)" (.*)>\s*\n<\/iframe>/gm,
       rplYoutube1
     )
     .replace(
@@ -776,13 +814,13 @@ export const iframeMxm = (html, arcSite) => {
 }
 
 export const ampHtml = (html = '', arcSite = '') => {
-  let resultData = ''
+  let resultData = html
   // Opta Widget
   // Esta asignacion se esta sobreescribiendo con la que sigue.
   // resultData = replaceHtmlMigracion(html)
 
   // Opta Widget
-  resultData = deporPlay(html)
+  // resultData = deporPlay(html)
 
   // Opta Widget
   resultData = optaWidgetHtml(resultData)
@@ -1159,18 +1197,23 @@ export const getDateSeo = data => {
   return fechaGenerada
 }
 
-export const msToTime = duration => {
-  if (duration) {
-    let seconds = parseInt((duration / 1000) % 60, 0)
-    let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
-    let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
+export const msToTime = (duration = 5555, seo = true) => {
+  let seconds = parseInt((duration / 1000) % 60, 0)
+  let minutes = parseInt((duration / (1000 * 60)) % 60, 0)
+  let hours = parseInt((duration / (1000 * 60 * 60)) % 24, 0)
+  let resultSeo = ''
+  if (seo) {
     hours = hours < 10 ? `0${hours}:` : hours
     minutes = minutes < 10 ? `0${minutes}` : minutes
     seconds = seconds < 10 ? `0${seconds}` : seconds
-
-    return `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
+    resultSeo = `${(hours !== '00:' && hours) || ''}${minutes}:${seconds}`
+  } else {
+    hours = hours >= 1 ? `${hours}H` : ''
+    minutes = minutes >= 1 ? `${minutes}M` : ''
+    seconds = seconds >= 1 ? `${seconds}S` : ''
+    resultSeo = `PT${hours}${minutes}${seconds}`
   }
-  return ''
+  return resultSeo
 }
 
 export const localISODate = date => {
@@ -1229,11 +1272,12 @@ export const pixelAmpDate = arcSite => {
   const month = hoy.getMonth() + 1
   const year = hoy.getFullYear()
   const pixelEc =
-    (`${year}${month}${day}` === '2019127' ||
-      `${year}${month}${day}` === '2019128' ||
+    (`${year}${month}${day}` === '20191210' ||
+      `${year}${month}${day}` === '20191211' ||
       `${year}${month}${day}` === '2019129') &&
     arcSite === ConfigParams.SITE_ELCOMERCIO
       ? true
       : ''
   return pixelEc
 }
+

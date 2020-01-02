@@ -21,7 +21,13 @@ const classes = {
 @Consumer
 class StaticOpinionGrid extends PureComponent {
   render() {
-    const { globalContent, deployment, contextPath, arcSite } = this.props
+    const {
+      globalContent,
+      deployment,
+      contextPath,
+      arcSite,
+      siteProperties: { isDfp = false },
+    } = this.props
     const { content_elements: contentElements } = globalContent || {}
     const stories = contentElements || []
     const data = new StoryData({
@@ -32,6 +38,9 @@ class StaticOpinionGrid extends PureComponent {
     })
     let countAdd = 0
     let countAddPrint = 0
+
+    const typeSpace = isDfp ? 'caja' : 'movil'
+
     return (
       <div>
         <div className={classes.title}>
@@ -55,11 +64,12 @@ class StaticOpinionGrid extends PureComponent {
                       data={data.attributesRaw}
                     />
                     <Ads
-                      adElement={`movil${countAddPrint}`}
+                      adElement={`${typeSpace}${countAddPrint}`}
                       isDesktop={false}
                       columns=""
                       rows=""
                       freeHtml=""
+                      isDfp
                     />
                   </Fragment>
                 )
@@ -88,11 +98,12 @@ class StaticOpinionGrid extends PureComponent {
                       }}
                     />
                     <Ads
-                      adElement={`movil${countAddPrint}`}
+                      adElement={`${typeSpace}${countAddPrint}`}
                       isDesktop={false}
                       columns=""
                       rows=""
                       freeHtml=""
+                      isDfp
                     />
                   </Fragment>
                 )
@@ -120,6 +131,7 @@ class StaticOpinionGrid extends PureComponent {
           columns=""
           rows=""
           freeHtml=""
+          isDfp
         />
 
         <div role="list" className={classes.list}>
@@ -150,17 +162,18 @@ class StaticOpinionGrid extends PureComponent {
                   }}
                 />
                 <Ads
-                  adElement="movil5"
+                  adElement={`${isDfp ? 'caja5' : 'movil5'}`}
                   isDesktop={false}
                   columns=""
                   rows=""
                   freeHtml=""
+                  isDfp
                 />
               </Fragment>
             )
           })}
           <div className={classes.moreBox}>
-            <a href="/archivo/opinion" className={classes.more}>
+            <a href="/archivo/opinion/" className={classes.more}>
               Ver Más
             </a>
           </div>

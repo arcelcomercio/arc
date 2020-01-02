@@ -63,6 +63,8 @@ class Ads extends PureComponent {
         isMobile,
         freeHtml,
         columns,
+        adsBorder,
+        isDfp,
         rows,
       } = {},
     } = this.props
@@ -71,14 +73,18 @@ class Ads extends PureComponent {
       adElement,
       isDesktop,
       isMobile,
+      isDfp,
     }
+
+    const addEmptyBorder = () =>
+      adsBorder === 'containerp' ? 'container-publicidad' : ''
 
     const addEmptyBackground = () =>
       !adElement && isAdmin ? 'bg-base-100' : ''
 
     const addRowsClass = () => (rows === 'empty' ? '' : rows)
 
-    const neverShow = () => !isDesktop && !isMobile
+    const neverShow = () => !isDesktop && !isMobile && !isDfp
     const alwaysShow = () => isDesktop && isMobile
 
     const hideInDevice = () => {
@@ -110,7 +116,10 @@ class Ads extends PureComponent {
         {(() => {
           if (this.getAdsSpace())
             return (
-              <div dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())} />
+              <div
+                className={addEmptyBorder()}
+                dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())}
+              />
             )
 
           if (outputType !== 'amp' && !neverShow())

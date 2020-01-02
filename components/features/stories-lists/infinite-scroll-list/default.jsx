@@ -10,6 +10,7 @@ import RenderPagination from './_children/pagination-by-date'
 import Ads from '../../../global-components/ads'
 import ListItem from './_children/list-item'
 import Spinner from '../../../global-components/spinner'
+import ConfigParams from '../../../utilities/config-params'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -105,6 +106,7 @@ class StoriesListInfiniteScroll extends PureComponent {
       contextPath,
       arcSite,
       customFields: customFieldsProps = {},
+      siteProperties: { isDfp = false },
     } = this.props
 
     const { sectionField, dateField } = customFieldsProps
@@ -128,11 +130,24 @@ class StoriesListInfiniteScroll extends PureComponent {
           subTitle,
           authorLink,
           author,
+          authorImage,
           multimediaType,
           multimediaLandscapeXS,
           multimediaLandscapeS,
           id,
         } = storyData
+
+        const isOpinionCorreo =
+          primarySectionLink === '/opinion/' &&
+          arcSite === ConfigParams.SITE_DIARIOCORREO
+
+        const imgItemLandscapeXS = isOpinionCorreo
+          ? authorImage
+          : multimediaLandscapeXS
+        const imgItemLandscapeS = isOpinionCorreo
+          ? authorImage
+          : multimediaLandscapeS
+
         return {
           primarySectionLink,
           primarySection,
@@ -143,8 +158,8 @@ class StoriesListInfiniteScroll extends PureComponent {
           authorLink,
           author,
           multimediaType,
-          multimediaLandscapeXS,
-          multimediaLandscapeS,
+          multimediaLandscapeXS: imgItemLandscapeXS,
+          multimediaLandscapeS: imgItemLandscapeS,
           id,
         }
       }),
@@ -154,10 +169,11 @@ class StoriesListInfiniteScroll extends PureComponent {
     const activeAds = Object.keys(customFieldsProps)
       .filter(prop => prop.match(/adsMobile(\d)/))
       .filter(key => customFieldsProps[key] === true)
+    const typeSpace = isDfp ? 'caja' : 'movil'
 
     const activeAdsArray = activeAds.map(el => {
       return {
-        name: `movil${el.slice(-1)}`,
+        name: `${typeSpace}${el.slice(-1)}`,
         pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
         inserted: false,
       }
@@ -180,7 +196,12 @@ class StoriesListInfiniteScroll extends PureComponent {
                 />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
-                    <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp={isDfp}
+                    />
                   </div>
                 )}
               </Fragment>

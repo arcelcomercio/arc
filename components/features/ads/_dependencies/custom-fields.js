@@ -13,6 +13,9 @@ const customFields = PropTypes.shape({
   isMobile: PropTypes.bool.tag({
     name: 'Mostrar en "mobile"',
   }),
+  isDfp: PropTypes.bool.tag({
+    name: 'Mostrar Publicidad DFP',
+  }),
   freeHtml: PropTypes.richtext.tag({
     name: 'Código HTML Adicional',
     group: 'Agregar bloque de HTML',
@@ -46,6 +49,15 @@ const customFields = PropTypes.shape({
     group: 'Publicidad',
     labels: spacesAdsName(),
     defaultValue: 'none',
+  }),
+  adsBorder: PropTypes.oneOf(['border', 'containerp']).tag({
+    name: 'Borde',
+    group: 'Publicidad',
+    labels: {
+      border: 'ConBorde',
+      containerp: 'SinBorde',
+    },
+    defaultValue: false,
   }),
 })
 

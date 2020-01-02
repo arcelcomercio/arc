@@ -15,6 +15,7 @@ import {
   storyTagsBbc,
   getDateSeo,
   storyContenImage,
+  
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -32,6 +33,7 @@ import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
+import Ads from '../../../global-components/ads'
 
 const classes = {
   news: 'story-content ',
@@ -116,6 +118,7 @@ class StoryContents extends PureComponent {
       deployment,
       siteProperties: {
         ids: { opta },
+        isDfp,
       },
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
@@ -185,14 +188,19 @@ class StoryContents extends PureComponent {
 
           <StoryContentsChildAuthor {...params} />
 
-          <div id="ads_m_movil2" />
+          <Ads adElement="movil2" isDesktop={false} isMobile isDfp={isDfp} />
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
-            <div id="ads_d_inline" />
-            <div id="ads_m_movil_video" />
-            <div id="ads_m_movil3" />
+            <Ads adElement="inline" isDesktop isMobile={false} isDfp={isDfp} />
+            <Ads
+              adElement="movil_video"
+              isDesktop={false}
+              isMobile
+              isDfp={isDfp}
+            />
+            <Ads adElement="movil3" isDesktop={false} isMobile isDfp={isDfp} />
             {contentElements && (
               <ArcStoryContent
                 data={contentElements}
@@ -278,9 +286,7 @@ class StoryContents extends PureComponent {
 
                   if (type === ConfigParams.ELEMENT_TEXT) {
                     const alignmentClass = alignment
-                      ? `${classes.textClasses} ${
-                          classes.alignmentClasses
-                        }-${alignment}`
+                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                       : classes.textClasses
                     return (
                       <Text
@@ -303,7 +309,7 @@ class StoryContents extends PureComponent {
                     let htmlReturn = ''
                     let contentVideo = content
                     if (contentVideo.includes('id="powa-')) {
-                      if (arcSite === ConfigParams.ARC_SITE_PERU21) {
+                      if (arcSite === ConfigParams.SITE_PERU21) {
                         contentVideo = content.replace(
                           /peru21.pe\/upload/gi,
                           'img.peru21.pe/upload'

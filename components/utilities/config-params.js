@@ -67,6 +67,8 @@ class ConfigParams {
 
   static SITE_OJO = 'ojo'
 
+  static SITE_DIARIOCORREO = 'diariocorreo'
+
   // opta
   static OPTA_CSS_LINK =
     'https://secure.widget.cloud.opta.net/v3/css/v3.football.opta-widgets.css'
@@ -107,6 +109,8 @@ class ConfigParams {
 
   static SQUARE_XS = 'square_xs'
 
+  static IMPRESA_S = 'impresa_s'
+
   static LAZY_DEFAULT = 'lazy_default'
 
   // noticia
@@ -117,12 +121,15 @@ class ConfigParams {
 
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
-  // Sites
-  static ARC_SITE_PERU21 = 'peru21'
+  static META_SECTION = 'meta_section'
 
-  static ARC_SITE_PUBLIMETRO = 'publimetro'
+  static META_STORY = 'meta_story'
 
-  static ARC_SITE_GESTION = 'gestion'
+  static META_SEARCH = 'meta_search'
+
+  static META_TAG = 'meta_tag'
+
+  static META_HOME = 'meta_home'
 }
 
 export const sizeImg = () => {
@@ -234,6 +241,10 @@ export const sizeImg = () => {
       width: 617,
       height: 637,
     },
+    impresa_s: {
+      width: 273,
+      height: 289,
+    },
   }
 }
 
@@ -267,6 +278,22 @@ export const sizeImgStory = () => {
     impresa: {
       width: 617,
       height: 637,
+    },
+    impresa_s: {
+      width: 273,
+      height: 289,
+    },
+    amp_video_1x1: {
+      width: 1200,
+      height: 1200,
+    },
+    amp_video_4x3: {
+      width: 1200,
+      height: 900,
+    },
+    amp_video_16x9: {
+      width: 1200,
+      height: 675,
     },
   }
 }
@@ -370,4 +397,6 @@ export const spacesAdsName = () => {
     caja3: 'caja3',
   }
 }
+
+
 export default ConfigParams

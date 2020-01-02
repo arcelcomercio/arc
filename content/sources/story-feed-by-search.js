@@ -45,7 +45,6 @@ const params = [
 ]
 
 const pattern = key => {
-
   const validateFrom = () => {
     if (key.from !== '1' && key.from) {
       return (key.from - 1) * key.size
@@ -71,11 +70,6 @@ const pattern = key => {
           {
             term: {
               type: 'story',
-            },
-          },
-          {
-            term: {
-              'revision.published': 'true',
             },
           },
           {
@@ -120,7 +114,9 @@ const pattern = key => {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&body=${encodedBody}${excludedFields}`
 
   return request({
-    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${section === 'todas' ? '' : section}`,
+    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${
+      section === 'todas' ? '' : section
+    }`,
     ...options,
   }).then(resp => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
@@ -155,7 +151,7 @@ const source = {
   fetch,
   schemaName,
   params,
-  ttl: 120,
+  ttl: 300,
 }
 
 export default source

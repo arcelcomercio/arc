@@ -39,11 +39,6 @@ const pattern = key => {
               type: 'story',
             },
           },
-          {
-            term: {
-              'revision.published': 'true',
-            },
-          },
         ],
       },
     },
@@ -105,7 +100,7 @@ const source = {
   schemaName,
   params,
   // cache: false,
-  ttl: 120,
+  ttl: 300,
 }
 
 export default source

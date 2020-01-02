@@ -5,7 +5,7 @@ export default {
   colorPrimary: '#E06437',
   siteDomain: 'trome.pe',
   siteUrl: 'https://trome.pe',
-  resizerUrl: 'https://elcomercio-trome-prod.cdn.arcpublishing.com/resizer',
+  resizerUrl: 'https://trome.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
@@ -67,15 +67,15 @@ export default {
   legalLinks: [
     {
       name: 'Términos y Condiciones',
-      url: '/terminos-y-condiciones',
+      url: '/terminos-y-condiciones/',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politica-de-privacidad',
+      url: '/politica-de-privacidad/',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politica-de-cookies',
+      url: '/politica-de-cookies/',
     },
   ],
 
@@ -120,7 +120,6 @@ export default {
         position: 'Webmaster',
         name: 'webmaster@trome.com',
       },
-
     ],
     corporateInfo: {
       name: 'Grupo El Comercio S.A.',

@@ -2,6 +2,8 @@
 import styled, { css } from 'styled-components'
 import { spacing } from '@material-ui/system'
 
+import Markdown from '../../../../../_children/markdown'
+
 export const Subscribed = styled.a`
   ${({ theme, width, event, fullWidth }) => css`
     display: flex;
@@ -36,12 +38,24 @@ export const Subscribed = styled.a`
   `}
 `
 
-export const SubscribedText = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-weight: 700;
-  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.16);
-  line-height: 1.44;
+export const SubscribedText = styled(Markdown)`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    & strong:first-child {
+      font-weight: 700;
+      line-height: 1.44;
+      text-shadow: 0 2px 1px rgba(0, 0, 0, 0.16);
+    }
+    & span:first-child {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.86;
+      ${theme.breakpoints.down('xs')} {
+        font-size: 12px;
+      }
+    }
+  `}
 `
 
 export const SubscribedContent = styled.div`

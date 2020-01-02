@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
+import schemaFilter from '../../stories-lists/card/_dependencies/schema-filter'
 
 const classes = {
   storyContinue:
@@ -29,6 +30,23 @@ class StoryContinue extends PureComponent {
     super(props)
     this.preview = 0
     this.position = 0
+    const {
+      globalContent: {
+        taxonomy: { primary_section: { path = '' } = {} },
+      },
+      arcSite,
+    } = this.props
+
+    this.fetchContent({
+      dataList: {
+        source: 'story-feed-by-section-url',
+        query: {
+          section: path,
+          stories_qty: 6,
+        },
+        filter: schemaFilter(arcSite),
+      },
+    })
   }
 
   componentDidMount() {
@@ -40,27 +58,30 @@ class StoryContinue extends PureComponent {
     const storyLoader = document.querySelector(`.story-continue__story-load`)
     const progress = storyLoader.querySelector(`.story-continue__progress`)
     const linker = storyLoader.querySelector(`.story-continue__story-load-link`)
+    const signwall = document.querySelector('#signwall-app')
     const html = document.documentElement
     const concurrentProgress = parseInt(progress.getAttribute('size'), 10)
     const { innerHeight, scrollY } = window
 
-    if (innerHeight + scrollY >= html.scrollHeight) {
-      const totalProgress = (MAX_PROGRESS - concurrentProgress) / 10
-      for (let i = 0; i < totalProgress; i++) {
-        const newerProgress = concurrentProgress + 10 * i + 10
-        this.setAttributeProgress(progress, newerProgress)
-        if (newerProgress >= MAX_PROGRESS) {
-          this.setTimeoutLoadPage(linker, html)
+    if(!signwall){
+      if (innerHeight + scrollY >= html.scrollHeight) {
+        const totalProgress = (MAX_PROGRESS - concurrentProgress) / 10
+        for (let i = 0; i < totalProgress; i++) {
+          const newerProgress = concurrentProgress + 10 * i + 10
+          this.setAttributeProgress(progress, newerProgress)
+          if (newerProgress >= MAX_PROGRESS) {
+            this.setTimeoutLoadPage(linker, html)
+          }
+          // newerProgress = +1
         }
-        // newerProgress = +1
+      } else {
+        this.setUpdateLoaderPage(progress, concurrentProgress)
+  
+        this.position = +1
       }
-    } else {
-      this.setUpdateLoaderPage(progress, concurrentProgress)
-
-      this.position = +1
+      this.setTitleHead()
+      this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
     }
-    this.setTitleHead()
-    this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
   }
 
   setInitiateHeights = ([e] = []) => {
@@ -75,7 +96,7 @@ class StoryContinue extends PureComponent {
       clientHeight: bodyClientHeight,
       scrollTop: bodyScrollTop,
     } = document.body
-
+    const { arcSite } = this.props || {}
     const [loader] = document.getElementsByClassName('nav__loader')
     const height = Math.max(clientHeight, scrollHeight, offsetHeight)
     const h = window.innerHeight || clientHeight || bodyClientHeight
@@ -83,7 +104,10 @@ class StoryContinue extends PureComponent {
 
     if (height > 0 && progressBar) {
       const scale = Math.round((scrolled / (height - h)) * 100) / 100
-      progressBar.style.transform = `scaleX(${scale})`
+      if (ConfigParams.SITE_ELCOMERCIO !== arcSite) {
+        progressBar.style.transform = `scaleX(${scale})`
+      }
+
       if (loader) loader.style.display = scale > 0.02 ? 'block' : 'none'
     }
   }
@@ -227,10 +251,26 @@ class StoryContinue extends PureComponent {
   }
 
   render() {
-    const { contextPath, globalContent: data, siteProperties } =
+    const { siteProperties, deployment, contextPath, arcSite } =
       this.props || {}
     const { siteUrl } = siteProperties
-    const { recentStoryContinue = [] } = new StoryData({ data, contextPath })
+    const { dataList: { content_elements: dataStorys = [] } = {} } = this.state
+
+    const instance =
+      dataStorys &&
+      new StoryData({
+        deployment,
+        contextPath,
+        arcSite,
+        defaultImgSize: 'sm',
+      })
+    const recentStoryContinue = dataStorys.map(story => {
+      instance.__data = story
+      return {
+        basic: instance.title,
+        websiteUrl: instance.websiteLink,
+      }
+    })
     const { title, websiteUrl } = this.getNextArticle(
       recentStoryContinue,
       siteUrl

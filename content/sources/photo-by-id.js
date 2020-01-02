@@ -15,8 +15,7 @@ const params = [
 
 const resolve = ({ _id: id }) => {
   if (!id) throw new Error('Esta fuente de contenido requiere un id')
-  const requestUri = `/photo/api/v2/photos/${id}`
-  return requestUri
+  return `/photo/api/v2/photos/${id}`
 }
 
 const transform = (data, key) => {

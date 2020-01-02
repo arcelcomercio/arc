@@ -206,8 +206,8 @@ const ParagraphshWithAdds = ({
 
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
+          
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
-
           paragraphwithAdd = `${processedParagraph} ${
 
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
@@ -223,8 +223,8 @@ const ParagraphshWithAdds = ({
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
+          
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
-
           paragraphwithAdd = `${processedParagraph} ${
 
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
@@ -280,6 +280,9 @@ const BuildHtml = ({
   author = '',
   fbArticleStyle = '',
   listUrlAdvertisings,
+  websiteUrlsBytag,
+  arcSite,
+  section
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -292,7 +295,7 @@ const BuildHtml = ({
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
   }
-
+  const {type} = multimedia || {}
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -324,6 +327,25 @@ const BuildHtml = ({
       
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
+      ${
+        !(
+          (arcSite === 'ojo' && section === 'ojo-show') ||
+          (arcSite === 'publimetro' && section === 'actualidad') ||
+          (arcSite === 'publimetro' && section === 'redes-sociales') ||
+          (arcSite === 'publimetro' && section === 'entretenimiento')
+        )
+          ?
+        `
+        ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>` : ''}
+        ${
+          websiteUrlsBytag.length > 0 ? 
+          `<ul class="op-related-articles" title="Noticias relacionadas">
+          ${websiteUrlsBytag.map(url => url === canonical ? '' : `<li><a href="${url}"></a></li>`).join('')}
+          </ul>` : ''
+        }
+        `
+        : ''
+      }
     </article>
   </body>
 </html>`

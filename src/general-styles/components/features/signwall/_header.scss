@@ -37,7 +37,7 @@
         padding: 2px 5px;
       }
 
-      &__cont {
+      &__cont-depor {
         background-color: #d5d745;
         -webkit-transform: skew(-13deg);
         transform: skew(-13deg);
@@ -60,6 +60,11 @@
         max-width: 200px;
         height: 32px;
         object-fit: contain;
+      }
+
+      &__img-elcomercio {
+        max-width: 180px;
+        height: auto;
       }
 
       &__img-depor {

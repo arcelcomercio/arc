@@ -69,7 +69,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
     const { origin, pathname, search } = window.location
     let querys = ''
     if (search !== '') {
-      querys = search.includes('foto')
+      querys = search.includes('foto=')
         ? search.replace(/foto=[0-9]+/, `foto=${slide}`)
         : `${search}&foto=${slide}`
     } else querys = `?foto=${slide}`
@@ -182,6 +182,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   render() {
     const { sliderWidth, slideWidth, positionSlide, sliders = [] } = this.state
     const { isAdmin, defaultImageGallery } = this.props
+
     const sliderStyle = {
       width: `${sliderWidth}%`,
       transform: `translateX(${positionSlide}%)`,

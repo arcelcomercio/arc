@@ -60,7 +60,7 @@ const pattern = (key = {}) => {
     size = 10,
   } = key
 
-  const section = auxSection === null ? '/' : auxSection
+  const section = auxSection === null || !auxSection ? '/' : auxSection
   const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate
 
   const body = {
@@ -78,11 +78,6 @@ const pattern = (key = {}) => {
                 gte: `${date}T05:00:00`,
                 lte: `${getNextDate(date)}T04:59:59`,
               },
-            },
-          },
-          {
-            term: {
-              'revision.published': 'true',
             },
           },
         ],

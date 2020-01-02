@@ -1,4 +1,3 @@
-import { addResizedUrlItem } from './thumbs'
 import ConfigParams from './config-params'
 import {
   defaultImage,
@@ -22,7 +21,7 @@ class StoryData {
 
   constructor({
     data = {},
-    deployment = () => { },
+    deployment = () => {},
     contextPath = '',
     arcSite = '',
     defaultImgSize = 'md',
@@ -104,8 +103,8 @@ class StoryData {
     return (
       StoryData.getDataAuthor(this._data).nameAuthor ||
       defaultAuthor +
-      this._website.charAt(0).toUpperCase() +
-      this._website.slice(1)
+        this._website.charAt(0).toUpperCase() +
+        this._website.slice(1)
     )
   }
 
@@ -245,6 +244,10 @@ class StoryData {
 
   get multimediaStorySmall() {
     return this.getMultimediaBySize(ConfigParams.STORY_SMALL)
+  }
+
+  get multimediaImpresaS() {
+    return this.getMultimediaBySize(ConfigParams.IMPRESA_S)
   }
 
   get multimediaLazyDefault() {
@@ -472,7 +475,7 @@ class StoryData {
         this.__data.promo_items &&
         this.__data.promo_items[ConfigParams.VIDEO] &&
         this.__data.promo_items[ConfigParams.VIDEO].duration) ||
-      ''
+        ''
     )
   }
 
@@ -654,6 +657,41 @@ class StoryData {
     )
   }
 
+  get contentPosicionPublicidad() {
+    let i = 0
+    const { content_elements: contentElements = null } = this._data || {}
+    return (
+      contentElements &&
+      contentElements.map(dataContent => {
+        let dataElements = {}
+        const { type: typeElement } = dataContent
+        dataElements = dataContent
+        if (i === 2) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `inline`
+        }
+
+        if (i === 4) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja2`
+        }
+
+        if (i === 6) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja3`
+        }
+        if (i === 8) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
+        }
+        if (typeElement === ConfigParams.ELEMENT_TEXT) {
+          i += 1
+        }
+        return dataElements
+      })
+    )
+  }
+
   get promoItems() {
     return (this._data && this._data.promo_items) || []
   }
@@ -793,16 +831,6 @@ class StoryData {
     return this.getMultimediaConfig().caption
   }
 
-  // Ratio (ejemplo: "1:1"), Resolution (ejemplo: "400x400")
-  getResizedImage(ratio, resolution) {
-    if (this.multimedia) {
-      return addResizedUrlItem(this.__website, this.multimedia, [
-        `${ratio}|${resolution}`,
-      ]).resized_urls[ratio]
-    }
-    return this.multimedia
-  }
-
   getMultimediaBySize(size) {
     return (
       StoryData.getThumbnailBySize(
@@ -880,6 +908,7 @@ class StoryData {
         _id: idVideo = '',
         streams = [],
         publish_date: date = '',
+        duration,
         promo_image: {
           url: urlImage = '',
           resized_urls: resizedUrls = '',
@@ -899,13 +928,14 @@ class StoryData {
             }) => {
               return streamType === 'mp4'
                 ? {
-                  idVideo,
-                  url,
-                  resized_urls: resizedUrlsV || resizedUrlsP,
-                  caption,
-                  urlImage: urlImage || urlImageP,
-                  date,
-                }
+                    idVideo,
+                    url,
+                    resized_urls: resizedUrlsV || resizedUrlsP,
+                    caption,
+                    duration,
+                    urlImage: urlImage || urlImageP,
+                    date,
+                  }
                 : []
             }
           )
@@ -949,38 +979,39 @@ class StoryData {
   }
 
   static getContentElementsText(data = [], typeElement = '') {
-    return (
-      data && data.length > 0 ?
-        data.map(({ content, type }) => {
-          return type === typeElement ? formatHtmlToText(content) : []
-        }).join(' ') : ''
-    )
+    return data && data.length > 0
+      ? data
+          .map(({ content, type }) => {
+            return type === typeElement ? formatHtmlToText(content) : []
+          })
+          .join(' ')
+      : ''
   }
 
   static getContentElementsHtml(data = [], typeElement = '') {
-    return (
-      data && data.length > 0 ?
-        data.map(({ content, type }) => {
-          return type === typeElement ? content : []
-        }).join(' ') : ''
-    )
+    return data && data.length > 0
+      ? data
+          .map(({ content, type }) => {
+            return type === typeElement ? content : []
+          })
+          .join(' ')
+      : ''
   }
 
   static getContentElementsImage(data = [], typeElement = '') {
-    return (
-      data && data.length > 0 ?
-        data.filter((img = {}) => {
+    return data && data.length > 0
+      ? data.filter((img = {}) => {
           return img.type === typeElement
-        }) : []
-    )
+        })
+      : []
   }
 
   static getContentElements(data = [], typeElement = '') {
-    return (
-      data && data.length > 0 ? data.map(item => {
-        return item.type === typeElement ? item : []
-      }) : []
-    )
+    return data && data.length > 0
+      ? data.map(item => {
+          return item.type === typeElement ? item : []
+        })
+      : []
   }
 
   static getVideoContent(data = []) {
@@ -994,6 +1025,7 @@ class StoryData {
             _id: idVideo = '',
             promo_image: { url: urlImage },
             streams,
+            duration,
             publish_date: date,
             headlines: { basic: caption = '' } = {},
           }) => {
@@ -1001,17 +1033,18 @@ class StoryData {
               .map(({ url = '', stream_type: streamType = '' }) => {
                 return streamType === 'mp4'
                   ? {
-                    idVideo,
-                    url,
-                    caption,
-                    urlImage,
-                    date,
-                  }
+                      idVideo,
+                      url,
+                      caption,
+                      duration,
+                      urlImage,
+                      date,
+                    }
                   : []
               })
               .filter(String)
-
-            return resultVideo[0] || []
+            const cantidadVideo = resultVideo.length
+            return resultVideo[cantidadVideo - 1] || []
           }
         )
         .filter(String) || []
@@ -1079,7 +1112,7 @@ class StoryData {
 
   static getDataAuthor(
     data,
-    { contextPath = '', deployment = () => { }, website = '' } = {}
+    { contextPath = '', deployment = () => {}, website = '' } = {}
   ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
@@ -1234,7 +1267,7 @@ class StoryData {
         data.promo_items[ConfigParams.GALLERY] &&
         data.promo_items[ConfigParams.GALLERY].promo_items &&
         data.promo_items[ConfigParams.GALLERY].promo_items[
-        ConfigParams.IMAGE
+          ConfigParams.IMAGE
         ] &&
         ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
           .resized_urls &&
@@ -1315,7 +1348,7 @@ class StoryData {
             const urlImage = StoryData.getThumbnailBySize(data, type)
             i += 1
             return {
-              basic,
+              basic: formatHtmlToText(basic),
               websiteUrl,
               urlImage,
             }

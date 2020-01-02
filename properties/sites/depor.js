@@ -6,7 +6,7 @@ export default {
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',
   siteUrl: 'https://depor.com',
-  resizerUrl: 'https://elcomercio-depor-prod.cdn.arcpublishing.com/resizer',
+  resizerUrl: 'https://depor.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
@@ -18,7 +18,7 @@ export default {
   idGoogleAnalitics: 'UA-3055636-8',
   fbArticleStyle: 'LogoDepor',
   nameStoryRelated: 'RELACIONADAS',
-  mobileHeaderFollowing:'Siguenos en Depor',
+  mobileHeaderFollowing: 'Siguenos en Depor',
   siteDescription:
     'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
@@ -68,15 +68,15 @@ export default {
   legalLinks: [
     {
       name: 'Términos y Condiciones',
-      url: '/terminos-servicio',
+      url: '/terminos-servicio/',
     },
     {
       name: 'Políticas de Privacidad',
-      url: '/politicas-privacidad',
+      url: '/politicas-privacidad/',
     },
     {
       name: 'Politicas de Cookies',
-      url: '/politicas-cookies',
+      url: '/politicas-cookies/',
     },
   ],
 

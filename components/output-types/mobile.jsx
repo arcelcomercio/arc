@@ -1,21 +1,19 @@
 import React from 'react'
-import ENV from 'fusion:environment'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
-import ChartbeatBody from './_children/chartbeat-body'
 import {
-  skipAdvertising,
   storyTagsBbc,
   addSlashToEnd,
   deleteQueryString,
   createMarkup,
 } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
+import StoriesRecent from '../global-components/stories-recent'
 
-export default ({
+const MobileOutput = ({
   children,
   contextPath,
   deployment,
@@ -33,7 +31,7 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
-    socialName: siteProperties.social.facebook,
+    socialName: siteProperties.social && siteProperties.social.facebook,
     siteAssets: siteProperties.assets,
     metaValue,
     deployment,
@@ -41,6 +39,7 @@ export default ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+    _id: id,
     promo_items: { basic_gallery: basicGallery = 0 } = {},
     taxonomy: {
       primary_section: { path: nameSeccion = '' } = {},
@@ -48,8 +47,17 @@ export default ({
     } = {},
     subtype = '',
     page_number: pageNumber = 1,
-    recent_stories: { content_elements: recentStories = [] } = {},
   } = globalContent || {}
+
+  const primarySectionLink = nameSeccion
+
+  const parametersStory = {
+    primarySectionLink,
+    id,
+    arcSite,
+    cant: 6,
+  }
+  const resultStoryRecent = StoriesRecent(parametersStory)
 
   const isStory =
     metaValue('id') === 'meta_story' ||
@@ -113,9 +121,7 @@ export default ({
   const title = getTitle()
 
   const getDescription = () => {
-    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
-      siteProperties.siteName
-    }.`
+    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
@@ -133,9 +139,7 @@ export default ({
           /\/archivo\/([\w\d-]+)/.test(requestUri) &&
           !/\/archivo\/todas/.test(requestUri)
         if (!hasDate && !hasSection) {
-          description = `Archivo de noticias de ${
-            siteProperties.siteName
-          }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
         }
       }
     }
@@ -147,18 +151,22 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
-    twitterUser: siteProperties.social.twitter.user,
+    twitterUser:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     title,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
     description,
-    twitterCreator: siteProperties.social.twitter.user,
+    twitterCreator:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
@@ -203,7 +211,7 @@ export default ({
   link = link.replace(/\/homepage[/]?$/, '/')
 
   const staticVariables = `window.MobileContent=${JSON.stringify({
-    recentStories: recentStories.map(
+    recentStories: resultStoryRecent.map(
       ({ canonical_url: canonicalUrl }) => canonicalUrl
     ),
   })}`
@@ -289,9 +297,7 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerMobile
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerMobile}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -349,3 +355,7 @@ export default ({
     </html>
   )
 }
+
+MobileOutput.fallback = false
+
+export default MobileOutput

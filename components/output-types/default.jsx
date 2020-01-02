@@ -6,6 +6,7 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
+import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
 import {
   skipAdvertising,
@@ -48,7 +49,7 @@ export default ({
     arcSite,
     siteName: siteProperties.siteName,
     siteUrl: siteProperties.siteUrl,
-    socialName: siteProperties.social.facebook,
+    socialName: siteProperties.social && siteProperties.social.facebook,
     siteAssets: siteProperties.assets,
     metaValue,
     deployment,
@@ -126,9 +127,7 @@ export default ({
   const title = getTitle()
 
   const getDescription = () => {
-    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${
-      siteProperties.siteName
-    }.`
+    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
     if (
       metaValue('description') &&
       !metaValue('description').match(/content/)
@@ -146,9 +145,7 @@ export default ({
           /\/archivo\/([\w\d-]+)/.test(requestUri) &&
           !/\/archivo\/todas/.test(requestUri)
         if (!hasDate && !hasSection) {
-          description = `Archivo de noticias de ${
-            siteProperties.siteName
-          }. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
+          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
         }
       }
     }
@@ -160,18 +157,22 @@ export default ({
   const keywords =
     metaValue('keywords') && !metaValue('keywords').match(/content/)
       ? metaValue('keywords')
-      : `Noticias, ${
-          siteProperties.siteName
-        }, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
 
   const twitterCardsData = {
-    twitterUser: siteProperties.social.twitter.user,
+    twitterUser:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     title,
     siteUrl: siteProperties.siteUrl,
     contextPath,
     arcSite,
     description,
-    twitterCreator: siteProperties.social.twitter.user,
+    twitterCreator:
+      siteProperties.social &&
+      siteProperties.social.twitter &&
+      siteProperties.social.twitter.user,
     story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
@@ -200,9 +201,7 @@ export default ({
       if (quota < 120000000) {
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({
-          event: 'tag_signwall',
-          eventCategory: 'Web_Sign_Wall_Security',
-          eventAction: 'web_sws_mode_incognito',
+          event: 'tag_signwall', eventCategory: 'Web_Sign_Wall_Security', eventAction: 'web_sws_mode_incognito',
         })
       }
     }
@@ -296,28 +295,36 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
-        )}
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-        )}
-
-        {/* Scripts de APPNEXUS */}
-
-        {!nodas && (
+        {arcSite === 'publimetro' && !nodas && !isLivePage && <Dfp />}
+        {/* {!(CURRENT_ENVIRONMENT === 'sandbox' && arcSite === 'publimetro') && ( */}
           <>
-            <script
-              src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
-              async
-            />
-            <script
-              type="text/javascript"
-              src="//acdn.adnxs.com/ast/ast.js"
-              async
-            />
+            {!nodas && !isLivePage && (
+              <script
+                defer
+                src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`}
+              />
+            )}
+            {!nodas && !isLivePage && (
+              <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+            )}
+
+            {/* Scripts de APPNEXUS */}
+
+            {!nodas && (
+              <>
+                <script
+                  src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+                  async
+                />
+                <script
+                  type="text/javascript"
+                  src="//acdn.adnxs.com/ast/ast.js"
+                  async
+                />
+              </>
+            )}
           </>
-        )}
+        {/* )} */}
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
@@ -363,9 +370,7 @@ export default ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              siteProperties.googleTagManagerId
-            }`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -375,14 +380,15 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {!nodas && (
-          <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/js/appnexus-min.js`
-            )}
-          />
-        )}
+        {/* !(CURRENT_ENVIRONMENT === 'sandbox' && arcSite === 'publimetro') && */
+          !nodas && (
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/appnexus-min.js`
+              )}
+            />
+          )}
         <script
           defer
           src={deployment(
@@ -424,7 +430,6 @@ export default ({
         <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
-
       </body>
     </html>
   )

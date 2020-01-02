@@ -31,4 +31,27 @@
   &__left {
     justify-content: flex-start;
   }
+  &__opinion {
+    flex-direction: column-reverse;
+    position: relative;
+    justify-content: flex-end;
+    .story-item__author-wrapper{
+      display: block;
+      .story-item__author {
+        font-weight: 700;
+        color:#0c70bf;
+      }
+    }
+    .story-item__section{
+      display: none;
+      
+    }
+    .story-item__date{
+      position: absolute;
+      top: 10px;
+      right: 0;
+      
+    }
+  }
+
 }

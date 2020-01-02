@@ -17,8 +17,10 @@ $nav-height-active: 45px;
 
   .header__logo {
     @media (--only-mobile) {
-      width: 201px;
-      height: 32px;
+      // width: 201px;
+      // height: 32px;
+      width: 140px;
+      height: auto;
     }
     width: 191px;
     height: 30px;
@@ -28,6 +30,9 @@ $nav-height-active: 45px;
     top: initial;
     left: initial;
     transform: translateX(0);
+    @media (--only-mobile) {
+      left: 15%;
+    }
   }
 
   .header-inverted__btn-menu,
@@ -37,7 +42,25 @@ $nav-height-active: 45px;
 
   .header-inverted__btn-club,
   .header-inverted__btn-subs {
-    color: $color-white;
+    border: 1px solid $color-white;
+    background-color: $color-white;
+    color: #444444;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 12px;
+    outline: none;
+    margin-right: 10px;
+    @media (--only-mobile) {
+      border: 1px solid $color-white;
+      font-family: sans-serif;
+      background-color: $color-white;
+      color: $color-secondary;
+      height: auto;
+      padding: 5px 7px;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: normal;
+    }
   }
 
   .header-inverted__btn-search.active {

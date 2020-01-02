@@ -3,7 +3,7 @@
   color: $color-white;
   background-image: url(/pf/resources/dist/elbocon/images/seccion.jpg);
   background-color: $color-gray-300;
-  padding: 20px 15px;
+  padding: 15px;
   display: block;
   font-weight: 700;
   @media (--tablet) {
@@ -16,7 +16,7 @@
   &.large {
     font-size: 15px;
     @media (--desktop) {
-      line-height: 50px;
+      line-height: 25px;
       font-size: 25px;
     }
   }

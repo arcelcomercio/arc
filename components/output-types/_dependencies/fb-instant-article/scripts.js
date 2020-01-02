@@ -13,6 +13,7 @@ export const AnalyticsScript = ({
   formatOrigen = '',
   contentOrigen = '',
   genderOrigen = '',
+  arcSite = '',
 }) => `(function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
@@ -44,12 +45,22 @@ export const AnalyticsScript = ({
         ga('set', 'dimension7', '${newsType}');
         ga('set', 'dimension8', '${newsId}');
         ga('set', 'dimension15', '${author}');
-        ga('send', 'pageview', '${pageview}');
-        ga('send', 'pageview', {title: '${newsTitle}'});
         ga('set', 'dimension16', '${nucleoOrigen}');
         ga('set', 'dimension19', '${formatOrigen}');
         ga('set', 'dimension20', '${contentOrigen}');
         ga('set', 'dimension21', '${genderOrigen}');
+        ${
+          // Validación temporal
+          !(
+            (arcSite === 'ojo' && section === 'ojo-show') ||
+            (arcSite === 'publimetro' && section === 'actualidad') ||
+            (arcSite === 'publimetro' && section === 'redes-sociales') ||
+            (arcSite === 'publimetro' && section === 'entretenimiento')
+          )
+            ? `ga('set', 'title', '${newsTitle}')`
+            : `ga('send', 'pageview', {title: '${newsTitle}'})`
+        };
+        ga('send', 'pageview', '${pageview}');
         `
 
 export const ScriptElement = () =>
@@ -76,6 +87,7 @@ export const ScriptHeader = ({
   tags = [],
   author = '',
   typeNews,
+  premium,
 }) => {
   const listTag = tags.map(tg => tg.text && ` '${tg.text}'`).join(', ')
 
@@ -97,6 +109,9 @@ export const ScriptHeader = ({
       break
   }
 
+  const today = new Date()
+  const localTime = new Date(today.setHours(today.getHours() - 5))
+
   const scriptTemplate = `
                       var _sf_async_config = {}; /** CONFIGURATION START **/
                       _sf_async_config.uid = 57773;
@@ -109,6 +124,8 @@ export const ScriptHeader = ({
                       _sf_async_config.type = '${TipoNota}';
                       _sf_async_config.useCanonical = true; /** CONFIGURATION END **/
                       window._sf_endpt = (new Date()).getTime();
+                      var premium = '${premium}';
+                      var captureDate = '${localTime}';
                       `
   return scriptTemplate
 }

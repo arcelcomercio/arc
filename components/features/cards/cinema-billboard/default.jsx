@@ -94,7 +94,7 @@ class CardCinemaBillboard extends PureComponent {
       movieSelected,
       cinemaSelected,
       data: {
-        billboardData,
+        billboardData:{moviesList=[],cinemasList=[]}={},
         premiereData: { alt, img: rawImg, title, url } = {},
       } = {},
     } = this.state || {}
@@ -122,7 +122,7 @@ class CardCinemaBillboard extends PureComponent {
         <article className={classes.container}>
           <span className={classes.gradient} />
           <h3 className={classes.category}>
-            <a className={classes.link} href={BASE_PATH}>
+            <a className={classes.link} href={`${BASE_PATH}/`}>
               Cartelera
             </a>
           </h3>
@@ -139,7 +139,7 @@ class CardCinemaBillboard extends PureComponent {
           <div className={classes.detail}>
             <p className={classes.premiere}>Estreno</p>
             <h2 className={classes.movieTitle}>
-              <a className={classes.movieLink} href={`${BASE_PATH}/${url}`}>
+              <a className={classes.movieLink} href={`${BASE_PATH}/${url}/`}>
                 {title}
               </a>
             </h2>
@@ -165,7 +165,7 @@ class CardCinemaBillboard extends PureComponent {
                   className={classes.option}>
                   PELÍCULAS
                 </option>
-                {billboardData.moviesList.map(movie => (
+                {moviesList.map(movie => (
                   <option
                     value={movie.url}
                     className={classes.option}
@@ -186,7 +186,7 @@ class CardCinemaBillboard extends PureComponent {
                   className={classes.option}>
                   CINES
                 </option>
-                {billboardData.cinemasList.map(cinema => (
+                {cinemasList.map(cinema => (
                   <option
                     value={cinema.url}
                     className={classes.option}

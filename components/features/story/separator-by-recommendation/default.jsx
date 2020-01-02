@@ -7,7 +7,11 @@ import schemaFilter from './_dependencies/schema-filter'
 import StorySeparatorByRecommendationChildItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
 import { getUUID } from '../../../utilities/analytics/clavis-service'
-import { clavisClicked, clavisRendered, buildClavisRenderedResponse } from '../../../utilities/analytics/clavis-recommendations'
+import {
+  clavisClicked,
+  clavisRendered,
+  buildClavisRenderedResponse,
+} from '../../../utilities/analytics/clavis-recommendations'
 
 const classes = {
   separator: 'story-separator block non-tablet non-mobile w-full h-auto',
@@ -17,13 +21,7 @@ const classes = {
 const STORIES_QTY = 4
 
 const StorySeparatorByRecommendation = () => {
-
-  const {
-    arcSite,
-    globalContent,
-    deployment,
-    contextPath,
-  } = useFusionContext()
+  const { arcSite, globalContent, deployment, contextPath } = useFusionContext()
 
   const contentId = globalContent ? globalContent._id : ''
   const [query, setQuery] = useState({})
@@ -33,8 +31,8 @@ const StorySeparatorByRecommendation = () => {
 
   useEffect(() => {
     /**
-     * Se define el contenido de la `query` para `useContent` dentro del 
-     * `useEffect` porque la función `getUUID()` y `document.referrer` necesitan 
+     * Se define el contenido de la `query` para `useContent` dentro del
+     * `useEffect` porque la función `getUUID()` y `document.referrer` necesitan
      * tener el DOM disponible.
      */
     setQuery({
@@ -45,18 +43,18 @@ const StorySeparatorByRecommendation = () => {
         count: STORIES_QTY,
         referrer: document.referrer,
       },
-      filter: schemaFilter(arcSite)
+      filter: schemaFilter(arcSite),
     })
   }, [])
 
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
     /**
-     * Esto esta dentro de un `useEffect` para que sólamene registre la 
-     * impresión de las historias recomendadas una vez la data esté 
+     * Esto esta dentro de un `useEffect` para que sólamene registre la
+     * impresión de las historias recomendadas una vez la data esté
      * inequívocamente disponible y evitar errores en `clavisRendered`.
-     * 
-     * Por ahora sólo registra en Clavis que las historias recomendadas han sido 
+     *
+     * Por ahora sólo registra en Clavis que las historias recomendadas han sido
      * renderizadas cuando el dispositivo tenga un `width >= 1024`.
      */
     if (recommendations && recommendations.length > 0 && isDesktop) {
@@ -64,35 +62,33 @@ const StorySeparatorByRecommendation = () => {
         contentId,
         count: STORIES_QTY,
         site: arcSite,
-        response: buildClavisRenderedResponse([...recommendations])
+        response: buildClavisRenderedResponse([...recommendations]),
       })
     }
-
-
   }, [recommendations])
 
   /**
-   * @description Envia a Clavis información sobre la historia recomendada a la que se 
+   * @description Envia a Clavis información sobre la historia recomendada a la que se
    * ha hecho click y luego redirige al usuario a la historia.
-   * 
+   *
    * @param {*} event Event
-   * @param {string} clickedUrl URL de la historia recomendada a la que se ha hecho **clic**.
-   * 
+   * @param {string} clickUrl URL de la historia recomendada a la que se ha hecho **clic**.
+   *
    * @see clavisClicked
    */
-  const clickedRecommendation = (event, clickedUrl) => {
-    event.preventDefault();
+  const clickedRecommendation = (event, clickUrl) => {
+    event.preventDefault()
     clavisClicked({
       contentId,
       count: STORIES_QTY, // Por ahora al ser desktop renderiza todas
       site: arcSite,
-      clickedUrl: `${siteUrl}${clickedUrl}`,
-      response: buildClavisRenderedResponse([...recommendations])
+      clickUrl: `${siteUrl}${clickUrl}`,
+      response: buildClavisRenderedResponse([...recommendations]),
     })
-    window.location.href = clickedUrl;
+    window.location.href = clickUrl
   }
 
-  const renderItems = (stories) => {
+  const renderItems = stories => {
     const instance = new StoryData({
       deployment,
       contextPath,
@@ -125,15 +121,11 @@ const StorySeparatorByRecommendation = () => {
     )
   }
 
-
   return (
     <div className={classes.separator}>
-      <div className={classes.body}>
-        {renderItems(recommendations)}
-      </div>
+      <div className={classes.body}>{renderItems(recommendations)}</div>
     </div>
   )
-
 }
 
 StorySeparatorByRecommendation.label = 'Separador de artículo'

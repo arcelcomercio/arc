@@ -7,6 +7,7 @@ export default {
     // General
     currencySymbol: `S/`,
     help: `¿Necesitas ayuda?`,
+    helpShort: `¿Ayuda?`,
 
     // Validation Errors
     minLength: `Longitud inválida, mínimo {{min}} caracteres.`,
@@ -19,11 +20,30 @@ export default {
     wrongCardNumber: `Número tarjeta inválido`,
     wrongCvv: `CVV Inválido`,
     wrongDate: `Fecha incorrecta`,
-    checkRequired: `Debe seleccionar el check`,
+    checkRequired: `Seleccionar la casilla de verificación`,
+    optionRequired: `Debe seleccionar una opción`,
     tryLater: `Ha ocurrido un error. Inténtelo más tarde`,
+
+    // Promo Banners
+    businessSubscriptionsBannerText: 
+     `<span>¿ERES EMPRESA? CONSULTA NUESTRAS</span>
+      <strong>SUSCRIPCIONES CORPORATIVAS</strong>`,
+    printedSubscriptorBannerText: 
+     `<strong>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?</strong>
+      <span>ADQUIERE EL PLAN DIGITAL GRATIS POR 6 MESES</span>`,
+    printedSubscriptorBannerText2: 
+     `<span>¿BUSCAS OPCIONES DE SUSCRIPCIÓN IMPRESA?</span>
+      <strong>CONSULTA AQUÍ</strong>`,
+    eventSubscriptorBannerText: 
+     `<span>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?</span>
+      <strong>ADQUIERE EL PLAN DIGITAL CON UNA OFERTA ESPECIAL</strong>`,
+    studentPlanBannerText: `<strong>PLAN UNIVERSITARIO</strong>`,
 
     // Home
     recommended: `¡RECOMENDADO!`,
+    reviewComment: `“Nuestro primer deber es con los lectores, la información y la verdad”.`,
+    reviewOwnerName: `Juan José Garrido Koechlin.`,
+    reviewOwnerRole: `Director periodístico de El Comercio`,
 
     // Header
     welcomeUser: `Hola Usuario`,
@@ -56,12 +76,6 @@ export default {
     featureDescription1: 
      `Beneficio especial para  
       suscriptores del diario impreso`,
-    businessSubscriptionsBanner1: `¿Buscas opciones de suscripción impresa?`,
-    businessSubscriptionsBanner2: `CONSULTA AQUÍ`,
-    printedSubscriptorBanner1: `¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?`,
-    printedSubscriptorBanner2: `ADQUIERE EL PLAN DIGITAL GRATIS POR 6 MESES`,
-    eventSubscriptorBanner1: `¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?`,
-    eventSubscriptorBanner2: `ADQUIERE EL PLAN DIGITAL CON UNA OFERTA ESPECIAL`,
     
     // Profile
     insertPersonalInfo: `Ingrese sus datos`,
@@ -117,8 +131,8 @@ export default {
     subscriptionType1: `Quiero una suscripción`,
     subscriptionType2: `Tengo una suscripción`,
     subscriptionType3: `Otros`,
-    messageSendNotifacion: `Tu mensaje ha sido enviado, nos pondremos en contacto con usted.`,
-    returnTo: `Volver a gestión`,
+    messageSendNotification: `Tu mensaje ha sido enviado, nos pondremos en contacto contigo.`,
+    returnTo: `Volver a El Comercio`,
     thanks: `Gracias`,
 
     // Forms
@@ -140,6 +154,7 @@ export default {
     sendButton: `Enviar`,
     nextButton: `Continuar`,
     payButton: `Pagar`,
+    wrongInput: `Entrada inválida`,
 
     // Footer
     contactUs: `Contáctanos al`,

@@ -37,7 +37,7 @@ const WizardConfirmation = props => {
       event,
     },
     getCodeCxense,
-  } = props 
+  } = props
 
   const { orderNumber } = order
   const { uuid, firstName, lastName, secondLastName, email } = Object.assign(
@@ -91,7 +91,7 @@ const WizardConfirmation = props => {
       priceCode,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       medioCompra: origin,
-      accesoGratis: freeAccess,
+      accesoGratis: !!freeAccess ? 'si' : 'no',
       referer,
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
@@ -135,9 +135,9 @@ const WizardConfirmation = props => {
       },
     })
 
-    // eslint-disable-next-line no-unused-expressions
-    document.getElementById('footer') &&
-      (document.getElementById('footer').style.position = 'relative')
+    if (document.getElementById('footer')) {
+      document.getElementById('footer').style.position = 'relative'
+    }
   }, [])
 
   const handleClick = () => {

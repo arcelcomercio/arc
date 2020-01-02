@@ -11,10 +11,7 @@ const FbInstantOutputType = ({
   globalContent = [],
   siteProperties = {},
 }) => {
-  const {
-    content_elements: contentElements,
-    
-  } = globalContent || []
+  const { content_elements: contentElements } = globalContent || []
   const {
     siteName = '',
     siteUrl = '',
@@ -36,10 +33,7 @@ const FbInstantOutputType = ({
         // },
         // filter: schemaNote(arcSite),
       }) || {}
-    const {
-      content_elements: contentElementsMag,
-      
-    } = data
+    const { content_elements: contentElementsMag } = data
     stories = contentElements.concat(contentElementsMag)
   } else {
     stories = contentElements
@@ -90,6 +84,7 @@ const FbInstantOutputType = ({
   return result
 }
 
+FbInstantOutputType.fallback = false
 FbInstantOutputType.contentType = 'text/xml'
 
 export default FbInstantOutputType
