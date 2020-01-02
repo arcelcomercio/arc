@@ -31,8 +31,6 @@ const Dfp = ({ isFuature, adId }) => {
     arcSite,
   } = useFusionContext()
 
-  console.log('requestUri->', requestUri)
-
   const { adsAmp: { dataSlot } = {} } = siteProperties
   const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}},function(d){console.log("Advertisement has loaded...",d)});`
 
@@ -41,11 +39,14 @@ const Dfp = ({ isFuature, adId }) => {
   const {
     section_id: sectionId,
     _id,
-    taxonomy: { primary_section: { path: primarySection } = {} } = {},
+    taxonomy: {
+      primary_section: { path: primarySection } = {},
+      tags = [],
+    } = {},
   } = globalContent
 
   let contentConfigValues = {}
-  let page=''
+  let page = ''
   switch (metaValue('id')) {
     case 'meta_section':
       if (sectionId || _id) {
@@ -59,7 +60,7 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
-      page='sección'        
+      page = 'sección'
 
       break
     case 'meta_story':
@@ -74,13 +75,13 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
-      page='nota' 
+      page = 'nota'
       break
     case 'meta_home':
       contentConfigValues = {
         page: 'home',
       }
-      page='portada' 
+      page = 'portada'
       break
     default:
       contentConfigValues = {
@@ -96,25 +97,28 @@ const Dfp = ({ isFuature, adId }) => {
     const getTmpAdFunction = `var getTmpAd=function getTmpAd(){var tmpAdTargeting=window.location.search.match(/tmp_ad=([^&]*)/)||[];return tmpAdTargeting[1]||''}`
     const getAdsCollectionFunction = `var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})}`
 
-    const sectionValues = (sectionId || _id || primarySection || '').split('/')
+    const sectionValues = (primarySection || sectionId || _id || '').split('/')
     const section = sectionValues[1] || ''
     const subsection = sectionValues[2] || ''
-    const{siteUrl}=getProperties(arcSite)
-    const adsCollection = spaces.map(
+    const { siteUrl = '' } = getProperties(arcSite) || {}
+    const targetingTags = tags.map(({ slug = '' }) => slug).join(',')
 
+    const adsCollection = spaces.map(
       ({ id, slotname, dimensions, islazyload }) => {
-     
         const formatSpace = {
           id,
           slotName: slotname,
           dimensions: JSON.parse(dimensions),
           targeting: {
             publisher: arcSite,
-            tmp_ad: '<::getTmpAd()::>',
-            phatname:`${siteUrl}${requestUri}`,
-            tipoplantilla:page,
             seccion: section,
-            categoria:subsection
+            categoria: subsection,
+            fuente: 'WEB',
+            tipoplantilla: page,
+            phatname: `${siteUrl}${requestUri}`,
+            tags: targetingTags,
+            ab_test: '',
+            tmp_ad: '<::getTmpAd()::>',
           },
           sizemap: {
             breakpoints: [
@@ -127,12 +131,6 @@ const Dfp = ({ isFuature, adId }) => {
         }
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
-        }
-        if (section) {
-          formatSpace.targeting.section = section
-        }
-        if (subsection) {
-          formatSpace.targeting.subsection = subsection
         }
         return formatSpace
       }
