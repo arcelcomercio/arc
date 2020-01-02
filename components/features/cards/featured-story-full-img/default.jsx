@@ -62,18 +62,19 @@ const FeatureStoryFullImage = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  let customPhoto = {}
   const photoId = imgField ? getPhotoId(imgField) : ''
-  if (photoId) {
-    customPhoto =
-      useContent({
-        source: PHOTO_SOURCE,
-        query: {
-          _id: photoId,
-        },
-        filter: PHOTO_SCHEMA,
-      }) || {}
-  }
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
+            source: PHOTO_SOURCE,
+            query: {
+              _id: photoId,
+            },
+            filter: PHOTO_SCHEMA,
+          }
+        : {}
+    ) || {}
 
   const {
     author,

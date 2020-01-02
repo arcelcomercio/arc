@@ -40,7 +40,7 @@ export default ({
   section,
   isAdmin,
   editableField,
-  multimediaSubtitle,
+  // multimediaSubtitle,
   multimediaCaption,
 }) => {
   const getEditableField = element =>
@@ -54,7 +54,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaLandscapeL}
-            src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}            
+            src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
             alt={multimediaCaption || title}
           />
         )}
@@ -62,7 +62,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaSquareXL}
-            src={isAdmin ? multimediaSquareXL : multimediaLazyDefault}            
+            src={isAdmin ? multimediaSquareXL : multimediaLazyDefault}
             alt={multimediaCaption || title}
           />
         )}
@@ -70,7 +70,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaPortraitMD}
-            src={isAdmin ? multimediaPortraitMD : multimediaLazyDefault}            
+            src={isAdmin ? multimediaPortraitMD : multimediaLazyDefault}
             alt={multimediaCaption || title}
           />
         )}
@@ -88,7 +88,7 @@ export default ({
         <h2>
           <a
             className={classes.title}
-            href={websiteLink}            
+            href={websiteLink}
             {...getEditableField('titleField')}
             suppressContentEditableWarning>
             {title}
