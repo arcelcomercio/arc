@@ -30,6 +30,8 @@ const Dfp = ({ isFuature, adId }) => {
     arcSite,
   } = useFusionContext()
 
+  console.log('requestUri->', requestUri)
+
   const { adsAmp: { dataSlot } = {} } = siteProperties
   const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}},function(d){console.log("Advertisement has loaded...",d)});`
 
@@ -84,10 +86,11 @@ const Dfp = ({ isFuature, adId }) => {
 
   const formatAdsCollection = response => {
     const { espacios: spaces = [] } = response || {}
-    const tmpAdTargeting = requestUri.match(/tmp_ad=([^&]*)/) || []
-    const tmpAdValue = tmpAdTargeting[1] || ''
 
-    const sectionValues = (sectionId || _id || primarySection).split('/')
+    const getTmpAdFunction = `var getTmpAd=function getTmpAd(){var tmpAdTargeting=window.location.search.match(/tmp_ad=([^&]*)/)||[];return tmpAdTargeting[1]||''}`
+    const getAdsCollectionFunction = `var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})}`
+
+    const sectionValues = (sectionId || _id || primarySection || '').split('/')
     const section = sectionValues[1] || ''
     const subsection = sectionValues[2] || ''
 
@@ -97,15 +100,21 @@ const Dfp = ({ isFuature, adId }) => {
           id,
           slotName: slotname,
           dimensions: JSON.parse(dimensions),
+          targeting: {
+            publisher: arcSite,
+            tmp_ad: '<::getTmpAd()::>',
+          },
+          sizemap: {
+            breakpoints: [
+              [1280, 0],
+              [800, 0],
+              [0, 0],
+            ],
+            refresh: true,
+          },
         }
-        formatSpace.targeting.web = arcSite
         if (islazyload) {
-          formatSpace.prerender = '[window.addLazyLoadToAd]'
-        }
-        if (tmpAdValue) {
-          formatSpace.targeting = {
-            tmp_ad: tmpAdValue,
-          }
+          formatSpace.prerender = '<::window.addLazyLoadToAd::>'
         }
         if (section) {
           formatSpace.targeting.section = section
@@ -116,12 +125,11 @@ const Dfp = ({ isFuature, adId }) => {
         return formatSpace
       }
     )
-    return `"use strict";var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})};var adsCollection=getAdsCollection(${JSON.stringify(
+    return `"use strict";${getAdsCollectionFunction};${getTmpAdFunction};var adsCollection=getAdsCollection(${JSON.stringify(
       adsCollection
-    ).replace(
-      /"\[window\.addLazyLoadToAd\]"/g,
-      'window.addLazyLoadToAd'
-    )});arcAds.registerAdCollection(adsCollection);`
+    )
+      .replace(/"<::/g, '')
+      .replace(/::>"/g, '')});arcAds.registerAdCollection(adsCollection);`
   }
 
   return (
