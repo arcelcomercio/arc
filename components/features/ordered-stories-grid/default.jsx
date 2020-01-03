@@ -114,7 +114,7 @@ const OrderedStoriesGrid = props => {
 
 OrderedStoriesGrid.propTypes = {
   customFields: PropTypes.shape({
-    initialStory: PropTypes.number.tag({
+    /* initialStory: PropTypes.number.tag({
       name: 'Iniciar desde la historia:',
       min: 1,
       max: 100,
@@ -122,7 +122,7 @@ OrderedStoriesGrid.propTypes = {
       defaultValue: 1,
       description:
         'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
-    }),
+    }), */
     /**
      *      CustomFields de publicidad
      */
