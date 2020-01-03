@@ -64,7 +64,7 @@ class StoriesListArchive extends PureComponent {
                       adElement={ads[0].name}
                       isDesktop={false}
                       isMobile
-                      isDfp
+                      isDfp={isDfp}
                     />
                   </div>
                 )}

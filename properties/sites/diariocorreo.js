@@ -58,7 +58,7 @@ export default {
       logoAmp: 'logo-amp.png',
       width: 214,
       height: 60,
-      widthAmp: 144,
+      widthAmp: 35,
       heightAmp: 40,
     },
     path: `/resources/dist/diariocorreo/`,
