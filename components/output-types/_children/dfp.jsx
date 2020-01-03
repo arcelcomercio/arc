@@ -104,12 +104,17 @@ const Dfp = ({ isFuature, adId }) => {
     const targetingTags = tags.map(({ slug = '' }) => slug)
 
     const adsCollection = spaces.map(
-      ({ id, slotname, dimensions, islazyload }) => {
+      ({
+        id,
+        slotname,
+        dimensions,
+        dimensions_mobile: dimensionsMobile,
+        islazyload,
+      }) => {
         const formatSpace = {
           id,
           slotName: slotname,
-          dimensions: JSON.parse(dimensions),
-          display: '<::getAdsDisplay()::>',
+          dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
           targeting: {
             publisher: arcSite,
             seccion: section,
@@ -120,14 +125,6 @@ const Dfp = ({ isFuature, adId }) => {
             tags: targetingTags,
             ab_test: '',
             tmp_ad: '<::getTmpAd()::>',
-          },
-          sizemap: {
-            breakpoints: [
-              [1280, 0],
-              [800, 0],
-              [0, 0],
-            ],
-            refresh: true,
           },
         }
         if (islazyload) {
