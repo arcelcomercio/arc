@@ -1,0 +1,17 @@
+.section-videos,
+.section-play {
+  background-color: $color-gray-300;
+  .section-video,
+  .play-list,
+  .video-navbar,
+  .video-list,
+  .bg-container {
+    background-color: $color-gray-300;
+  }
+  .play-list__name,
+  .play-list__title a,
+  .video-navbar__link,
+  .video-list__new {
+    color: $color-white;
+  }
+}
