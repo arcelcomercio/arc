@@ -4,7 +4,15 @@ import { createMarkup } from '../../../../utilities/helpers'
 import Ads from '../../../../global-components/ads'
 
 const OrderedStoriesGridAds = props => {
-  const { adElement, isDesktop, isMobile, columns, rows, freeHtml } = props
+  const {
+    adElement,
+    isDesktop,
+    isMobile,
+    columns,
+    rows,
+    freeHtml,
+    siteProperties: { isDfp = false },
+  } = props
 
   const getSize = () => {
     let colCLass = ''
@@ -24,6 +32,7 @@ const OrderedStoriesGridAds = props => {
     adElement,
     isDesktop,
     isMobile,
+    isDfp,
   }
 
   // TODO: Corregir el nodo duplicado de html

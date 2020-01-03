@@ -195,6 +195,7 @@ const transform = (
   return {
     ...stories,
     section_name: sectionName || 'Sección',
+    section_id: section,
   }
 }
 
