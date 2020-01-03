@@ -923,7 +923,7 @@ export const preventDefault = e => {
   event.returnValue = false
 }
 
-export const replacer = (str, p1, p2, p3) => {
+export const replacer = (str, p1 = '', p2 = '', p3 = '') => {
   const isSlash = p3.slice(p3.length - 1, p3.length)
   const psReplace = `${p3}/`
 

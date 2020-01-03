@@ -190,7 +190,7 @@ class StoryContents extends PureComponent {
           <StoryContentsChildAuthor {...params} />
 
           <Ads
-            adElement={`${isDfp ? 'movil2' : 'caja3'}`}
+            adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
             isDesktop={false}
             isMobile
             isDfp={isDfp}
