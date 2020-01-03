@@ -351,14 +351,10 @@ export default ({
               </ul>
             </div>
             <div className={`${classes.megaMenu} ${showMenu ? 'active' : ''}`}>
-              <div className={classes.megaMenuContainer}>
-                <div className={classes.megaMenuBox}>
-                  <div className={classes.body}>
-                    <ul className={classes.list}>
-                      {menuList && renderSections(menuList, 0)}
-                    </ul>
-                  </div>
-                </div>
+              <div className={classes.body}>
+                <ul className={classes.list}>
+                  {menuList && renderSections(menuList, 0)}
+                </ul>
               </div>
             </div>
           </div>
