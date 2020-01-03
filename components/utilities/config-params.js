@@ -109,6 +109,8 @@ class ConfigParams {
 
   static SQUARE_XS = 'square_xs'
 
+  static IMPRESA_S = 'impresa_s'
+
   static LAZY_DEFAULT = 'lazy_default'
 
   // noticia
@@ -118,6 +120,16 @@ class ConfigParams {
   static LARGE = 'large'
 
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
+
+  static META_SECTION = 'meta_section'
+
+  static META_STORY = 'meta_story'
+
+  static META_SEARCH = 'meta_search'
+
+  static META_TAG = 'meta_tag'
+
+  static META_HOME = 'meta_home'
 }
 
 export const sizeImg = () => {
@@ -229,6 +241,10 @@ export const sizeImg = () => {
       width: 617,
       height: 637,
     },
+    impresa_s: {
+      width: 273,
+      height: 289,
+    },
   }
 }
 
@@ -262,6 +278,10 @@ export const sizeImgStory = () => {
     impresa: {
       width: 617,
       height: 637,
+    },
+    impresa_s: {
+      width: 273,
+      height: 289,
     },
     amp_video_1x1: {
       width: 1200,
@@ -377,4 +397,6 @@ export const spacesAdsName = () => {
     caja3: 'caja3',
   }
 }
+
+
 export default ConfigParams

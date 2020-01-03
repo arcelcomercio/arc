@@ -246,6 +246,10 @@ class StoryData {
     return this.getMultimediaBySize(ConfigParams.STORY_SMALL)
   }
 
+  get multimediaImpresaS() {
+    return this.getMultimediaBySize(ConfigParams.IMPRESA_S)
+  }
+
   get multimediaLazyDefault() {
     // return this.getMultimediaBySize(ConfigParams.LAZY_DEFAULT)
     return this.defaultImg
@@ -644,6 +648,35 @@ class StoryData {
         if (i === 1) {
           dataElements.publicidad = true
           i += 1
+        }
+        if (typeElement === ConfigParams.ELEMENT_TEXT) {
+          i += 1
+        }
+        return dataElements
+      })
+    )
+  }
+
+  get contentPosicionPublicidad() {
+    let i = 0
+    const { content_elements: contentElements = null } = this._data || {}
+    return (
+      contentElements &&
+      contentElements.map(dataContent => {
+        let dataElements = {}
+        const { type: typeElement } = dataContent
+        dataElements = dataContent
+        if (i === 2) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `inline`
+        }
+        if (i === 4) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
+        }
+        if (i === 6) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja5`
         }
         if (typeElement === ConfigParams.ELEMENT_TEXT) {
           i += 1

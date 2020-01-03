@@ -164,7 +164,7 @@ export default {
       'Director periodístico',
       'JULIO LIRA SEGURA',
       '© Empresa Editora El Comercio S.A.',
-      'Jr. Santa Rosa N° 300. Piso 2 Lima 1 ',
+      'Jorge Salazar Araoz N° 171, La Victoria, Lima.',
       'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
     ],
     story: [
@@ -174,7 +174,7 @@ export default {
       },
       {
         position: 'Empresa Editora Gestión',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+        name: 'Jorge Salazar Araoz N° 171, La Victoria, Lima.',
       },
       {
         position: 'Copyright © gestion.pe',
