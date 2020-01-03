@@ -672,7 +672,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<span (.*)>/g, '<span>')
     .replace(/<(.+):p>/g, '<span>')
     .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
-    .replace(/<font(.*)>(.+)<\/font>/g, '$2')
+    .replace(/<font(.*)>(?:.*(?:))<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
@@ -932,7 +932,7 @@ export const replacer = (str, p1, p2, p3) => {
 
 export const replaceTags = text => {
   const resultText = text.replace(
-    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g,
+    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
     replacer
   )
 
