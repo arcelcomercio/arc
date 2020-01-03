@@ -27,7 +27,7 @@ const FooterInfo = ({
   legalLinks,
   contacts = [],
   corporateInfo,
-  draftingContact,
+  draftingContact = [],
   copyrightText,
 }) => {
   let listContacs = ''
@@ -45,7 +45,8 @@ const FooterInfo = ({
       <p className={classes.paragraph}>
         {listContacs}
         <br />
-        {`${draftingContact[0].name}: ${draftingContact[0].value} | ${draftingContact[1].name}: ${draftingContact[1].value}`}
+        {draftingContact.length > 0 &&
+          `${draftingContact[0].name}: ${draftingContact[0].value} | ${draftingContact[1].name}: ${draftingContact[1].value}`}
         <br />
         {copyrightText}
       </p>
