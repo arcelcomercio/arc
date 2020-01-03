@@ -15,7 +15,7 @@ const uriPostDev = site =>
     ? 'https://d3ocw6unvuy6ob.cloudfront.net/gestion/9043312/top_premium.json'
     : 'https://d3ocw6unvuy6ob.cloudfront.net/elcomercio/21928896/top_premium.json'
 */
-
+/*
 const codPremiumSite = {
   elcomercio: '21928896',
   gestion: '9043312',
@@ -27,16 +27,16 @@ const codSite = {
   ojo: '31245754',
   elbocon: '31246731',
 }
-
+*/
 const getUriMostRead = (site, isPremium = false, isDev = false) => {
   const codUriSite = isPremium
     ? codPremiumSite[site] || ''
     : codSite[site] || ''
-  let uriMostReadGeneral = `https://d3ocw6unvuy6ob.cloudfront.net/${site}/${codUriSite}/normal/top.json`
+  let uriMostReadGeneral = `https://d3ocw6unvuy6ob.cloudfront.net/${site}/normal/top.json`
   if (isPremium) {
     uriMostReadGeneral = isDev
-      ? `https://d3ocw6unvuy6ob.cloudfront.net/${site}/${codUriSite}/top_premium.json`
-      : `https://do5ggs99ulqpl.cloudfront.net/${site}/${codUriSite}/top_premium.json`
+      ? `https://d3ocw6unvuy6ob.cloudfront.net/${site}/premium/top.json`
+      : `https://do5ggs99ulqpl.cloudfront.net/${site}/premium/top.json`
   }
   return uriMostReadGeneral
 }
