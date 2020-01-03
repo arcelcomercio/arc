@@ -3,14 +3,14 @@ import {
   ELEMENT_YOUTUBE_ID,
   IMAGE,
   GALLERY,
-//   IMAGE_ORIGINAL,
+  //   IMAGE_ORIGINAL,
 } from './constants'
 
 export const getTitle = data => {
   const { headlines: { basic = '' } = {} } = data || {}
   return basic
 }
-// eslint-disable-next-line import/prefer-default-export
+
 export const getMultimediaType = data => {
   let typeMultimedia = null
   const { promo_items: promoItems = {} } = data || {}
@@ -20,13 +20,16 @@ export const getMultimediaType = data => {
     if (items.includes(VIDEO)) {
       typeMultimedia = VIDEO
       return typeMultimedia
-    } if (items.includes(ELEMENT_YOUTUBE_ID)) {
+    }
+    if (items.includes(ELEMENT_YOUTUBE_ID)) {
       typeMultimedia = ELEMENT_YOUTUBE_ID
       return typeMultimedia
-    } if (items.includes(GALLERY)) {
+    }
+    if (items.includes(GALLERY)) {
       typeMultimedia = GALLERY
       return typeMultimedia
-    } if (items.includes(IMAGE)) {
+    }
+    if (items.includes(IMAGE)) {
       typeMultimedia = IMAGE
       return typeMultimedia
     }
@@ -49,7 +52,7 @@ export const multimediaNews = data => {
         (data &&
           data.promo_items &&
           data.promo_items[VIDEO] &&
-          data.promo_items[VIDEO]._id) ||
+          data.promo_items[VIDEO].embed_html) ||
         ''
       break
 
@@ -78,6 +81,50 @@ export const multimediaNews = data => {
     default:
       result.payload = ''
       break
+  }
+  return result
+}
+
+export const getVideo = data => {
+  const result = { type: '', payload: '' }
+
+  result.payload =
+    (data &&
+      data.promo_items &&
+      data.promo_items[VIDEO] &&
+      data.promo_items[VIDEO].embed_html) ||
+    ''
+  if (result.payload !== '') {
+    result.type = VIDEO
+  }
+  return result
+}
+
+export const getVideoYoutube = data => {
+  const result = { type: '', payload: '' }
+  result.payload =
+    (data &&
+      data.promo_items &&
+      data.promo_items[ELEMENT_YOUTUBE_ID] &&
+      data.promo_items[ELEMENT_YOUTUBE_ID].content) ||
+    ''
+  if (result.payload !== '') {
+    result.type = ELEMENT_YOUTUBE_ID
+  }
+  return result
+}
+
+export const getImage = (data, ImageSize) => {
+  const result = { type: '', payload: '' }
+  result.payload =
+    (data &&
+      data.promo_items &&
+      data.promo_items[IMAGE] &&
+      data.promo_items[IMAGE].resized_urls &&
+      data.promo_items[IMAGE].resized_urls[ImageSize]) ||
+    ''
+  if (result.payload !== '') {
+    result.type = IMAGE
   }
   return result
 }

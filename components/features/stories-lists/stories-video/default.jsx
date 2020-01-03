@@ -4,8 +4,16 @@ import {
   getTitle,
   getMultimediaType,
   multimediaNews,
+  getVideo,
+  getVideoYoutube,
+  getImage,
 } from '../../../utilities/get-story-values'
-import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../utilities/constants'
+import {
+  VIDEO,
+  ELEMENT_YOUTUBE_ID,
+  IMAGE,
+  IMAGE_SMALL,
+} from '../../../utilities/constants'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filters'
 import StoryItem from './_children/story-video-item'
@@ -26,6 +34,9 @@ class StoriesListVideo extends PureComponent {
   }
 
   componentDidMount() {
+    if (window.powaBoot) {
+      window.powaBoot()
+    }
     this.getListVideoNews()
   }
 
@@ -62,20 +73,26 @@ class StoriesListVideo extends PureComponent {
     const listStories = [story01, story02, story03, story04, story05]
     const listStoriesVideo = []
     listStories.forEach((data, index) => {
+      const newsImage = getImage(data, IMAGE_SMALL)
+      const newsVideoCenter = getVideo(data)
+      const newsVideoYoutube = getVideoYoutube(data)
+
+      let newsVideo = {}
+      if (newsVideoCenter.type === VIDEO) {
+        newsVideo = newsVideoCenter
+      } else if (newsVideoYoutube.type === ELEMENT_YOUTUBE_ID) {
+        newsVideo = newsVideoYoutube
+      }
+      debugger
       let item = {}
-      if (
-        data &&
-        (getMultimediaType(data) === VIDEO ||
-          getMultimediaType(data) === ELEMENT_YOUTUBE_ID)
-      ) {
-        let multimediaValue = ''
-        multimediaValue = multimediaNews(data)
+      if (data && (newsImage.type === IMAGE || newsVideo.type !== '')) {
         const title = getTitle(data)
         item = {
           index,
           content: {
             title,
-            multimediaValue,
+            image: newsImage,
+            video: newsVideo,
           },
         }
       } else {
@@ -93,10 +110,13 @@ class StoriesListVideo extends PureComponent {
   }
 
   StoryItemHandleClick = StoryItemIndex => {
+    if (window.powaBoot) {
+      window.powaBoot()
+    }
     this.SortList(StoryItemIndex)
   }
 
-  SortList = (StoryItemIndex) =>{
+  SortList = StoryItemIndex => {
     const firstItemIndex = 0
     const lastItemIndex = 4
 

@@ -11,3 +11,5 @@ export const GALLERY = 'basic_gallery'
 
 // image size
 export const  IMAGE_ORIGINAL = 'original'
+
+export const  IMAGE_SMALL = 'small'

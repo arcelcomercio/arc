@@ -5,13 +5,15 @@ export default `{
     promo_items{
         basic_video{
             _id
+            embed_html
         }
         youtube_id{
             content
         }
-        basic
-        basic_gallery{
-            content_elements
+        basic{
+            resized_urls{
+                small
+            }
         }
     }
 }`
