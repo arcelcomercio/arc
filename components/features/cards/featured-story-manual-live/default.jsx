@@ -175,7 +175,7 @@ const CardFeaturedStoryManualLive = props => {
     useContent(
       photoId
         ? {
-            source: ,
+            source: PHOTO_SOURCE,
             query: {
               _id: photoId,
             },
