@@ -101,7 +101,7 @@ const Dfp = ({ isFuature, adId }) => {
     const section = sectionValues[1] || ''
     const subsection = sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
-    const targetingTags = tags.map(({ slug = '' }) => slug)
+    const targetingTags = tags.map(({ slug = '' }) => slug.replace('-',''))
 
     const adsCollection = spaces.map(
       ({
