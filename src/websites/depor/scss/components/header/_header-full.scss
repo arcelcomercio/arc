@@ -10,4 +10,15 @@
   &__btn-result {
     font-family: $secondary-font;
   }
+  &__megamenu {
+    max-width: 330px;
+    top: $nav-height;
+    height: calc(100vh - #{$nav-height});
+    left: 0;
+    will-change: transform;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform-origin: left;
+    transform: translateX(-100vw);
+    z-index: 1;
+  }
 }
