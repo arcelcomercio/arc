@@ -296,7 +296,7 @@ export default ({
           globalContent={globalContent}
         />
         {arcSite === 'publimetro' && !nodas && !isLivePage && <Dfp />}
-        {/* {!(CURRENT_ENVIRONMENT === 'sandbox' && arcSite === 'publimetro') && ( */}
+        {!(arcSite === 'publimetro') && (
           <>
             {!nodas && !isLivePage && (
               <script
@@ -324,7 +324,7 @@ export default ({
               </>
             )}
           </>
-        {/* )} */}
+        )}
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
@@ -380,15 +380,14 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {/* !(CURRENT_ENVIRONMENT === 'sandbox' && arcSite === 'publimetro') && */
-          !nodas && (
-            <script
-              defer
-              src={deployment(
-                `${contextPath}/resources/assets/js/appnexus-min.js`
-              )}
-            />
-          )}
+        {!(arcSite === 'publimetro') && !nodas && (
+          <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/assets/js/appnexus-min.js`
+            )}
+          />
+        )}
         <script
           defer
           src={deployment(
