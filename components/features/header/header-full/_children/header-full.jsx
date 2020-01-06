@@ -84,7 +84,7 @@ const classes = {
   menuArrow: 'nav-sidebar__menu-arrow hidden',
   labelParentItem:
     'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
-  link: 'nav-sidebar__link block p-15 pl-25 text-md text-white font-bold',
+  link: 'nav-sidebar__link block p-15 pl-25 text-md text-white',
 }
 
 export default ({
