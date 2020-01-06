@@ -24,13 +24,6 @@ const YoutubeVideo = ({ index, title = '', image = {}, video = {} }) => {
 }
 
 const VideoCenterItem = ({ index, title = '', image = {}, video = {} }) => {
-  // useEffect(()=>{
-  //   if(index === 0){
-  //     if (window.powaBoot) {
-  //       window.powaBoot()
-  //     }
-  //   }
-  // })
   return (
     <div>
       {index === 0 ? (

@@ -33,9 +33,6 @@ class StoriesListVideo extends PureComponent {
   }
 
   componentDidMount() {
-    // if (window.powaBoot) {
-    //   window.powaBoot()
-    // }
     this.getListVideoNews()
   }
 
@@ -116,9 +113,6 @@ class StoriesListVideo extends PureComponent {
   }
 
   StoryItemHandleClick = StoryItemIndex => {
-    // if (window.powaBoot) {
-    //   window.powaBoot()
-    // }
     this.SortList(StoryItemIndex)
   }
 
