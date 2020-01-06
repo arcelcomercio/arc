@@ -53,7 +53,8 @@ const classes = {
   linkNav:
     'header-full__link-nav text-white block secondary-font uppercase pt-5 pb-5 pr-5 pl-5 text-md',
 
-  megaMenu: 'header-full__megamenu megamenu position-absolute bg-white w-full',
+  megaMenu:
+    'header-full__megamenu megamenu w-full position-absolute overflow-hidden bottom-0 bg-gray-300',
   megaMenuContainer: 'megamenu__container',
   megaMenuBox: 'megamenu__box flex flex-row justify-center pb-20 pt-20',
   megaMenuRow: 'megamenu__row mr-25',
@@ -75,8 +76,8 @@ const classes = {
   iconMore: 'story-header__share-icon icon-share text-white',
   navLoader: 'nav__loader-bar position-absolute h-full left-0',
 
-  body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-0 h-full',
-  list: 'nav- sidebar__list',
+  body: 'nav-sidebar__body flex flex-col justify-between h-full overflow-y',
+  list: 'nav- sidebar__list pt-15 pb-15',
   item:
     'nav-sidebar__item position-relative flex justify-between items-center flex-wrap',
   containerSubMenu: 'nav-sidebar__container-submenu w-full overflow-hidden',

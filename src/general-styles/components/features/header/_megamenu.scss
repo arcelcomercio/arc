@@ -1,10 +1,4 @@
 .megamenu {
-  display: none;
-  @media (--desktop) {
-    &.active {
-      display: block;
-    }
-  }
   &__container {
     max-width: 940px;
     margin: 0 auto;
