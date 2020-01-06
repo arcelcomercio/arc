@@ -668,15 +668,15 @@ class StoryData {
         dataElements = dataContent
         if (i === 2) {
           dataElements.publicidad = true
-          dataElements.nameAds = `inline`
+          dataElements.nameAds = `gpt_inline`
         }
         if (i === 4) {
           dataElements.publicidad = true
-          dataElements.nameAds = `caja4`
+          dataElements.nameAds = `gpt_caja4`
         }
         if (i === 6) {
           dataElements.publicidad = true
-          dataElements.nameAds = `caja5`
+          dataElements.nameAds = `gpt_caja5`
         }
         if (typeElement === ConfigParams.ELEMENT_TEXT) {
           i += 1
