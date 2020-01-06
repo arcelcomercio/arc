@@ -60,7 +60,7 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
-      page = 'sección'
+      page = 'sect'
 
       break
     case 'meta_story':
@@ -75,13 +75,13 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
-      page = 'nota'
+      page = 'post'
       break
     case 'meta_home':
       contentConfigValues = {
         page: 'home',
       }
-      page = 'portada'
+      page = 'home'
       break
     default:
       contentConfigValues = {
@@ -101,8 +101,7 @@ const Dfp = ({ isFuature, adId }) => {
     const section = sectionValues[1] || ''
     const subsection = sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
-    const targetingTags = tags.map(({ slug = '' }) => slug.replace('-',''))
-
+    const targetingTags = tags.map(({ slug = '' }) => slug.split("-").join(""))
     const adsCollection = spaces.map(
       ({
         id,
