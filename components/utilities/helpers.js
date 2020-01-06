@@ -672,7 +672,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<span (.*)>/g, '<span>')
     .replace(/<(.+):p>/g, '<span>')
     .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
-    .replace(/<font(.*)>(.+)<\/font>/g, '$2')
+    .replace(/<font(.*)>(?:.*(?:))<\/font>/g, '$2')
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
@@ -923,17 +923,20 @@ export const preventDefault = e => {
   event.returnValue = false
 }
 
-export const replacer = (str, p1, p2) => {
-  const psreplace = `${p2}/`
-  const psreplace2 = `${p2}/`
+export const replacer = (str, p1 = '', p2 = '', p3 = '') => {
+  const isSlash = p3.slice(p3.length - 1, p3.length)
+  const psReplace = `${p3}/`
 
-  return `href="${p1}${p2 ? psreplace : psreplace2}"`
+  return `href="${p1}://${p2}${isSlash !== '/' ? psReplace : p3}"`
 }
 
 export const replaceTags = text => {
-  
+  const resultText = text.replace(
+    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
+    replacer
+  )
 
-  return text
+  return resultText
     .replace(/<h1>(.*)<\/h1>/g, '<h2>$1</h2>')
     .replace(/(\s\w)=.(.*?)/g, '$2')
     .replace('http://http://', 'https://')
