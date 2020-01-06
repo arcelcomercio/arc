@@ -1,30 +1,50 @@
-import React from 'react'
-import { VIDEO } from '../../../../utilities/constants'
+import React, { useEffect } from 'react'
+import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
-const YoutubeVideo = ({ title = '', multimediaValue = '' }) => {
+
+const YoutubeVideo = ({ index, title = '', image = {}, video = {} }) => {
   return (
     <div>
-      <iframe
-        className=""
-        src={`https://www.youtube.com/embed/${multimediaValue.payload}`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title="Video"
-      />
+      {index === 0 ? (
+        <iframe
+          className=""
+          src={`https://www.youtube.com/embed/${video.payload}`}
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title="Video"
+        />
+      ) : (
+        <img src={image.payload} alt={title} />
+      )}
+
       <span>{title}</span>
     </div>
   )
 }
 
-const VideoCenterItem = ({ title = '', multimediaValue = '' }) => {
+const VideoCenterItem = ({ index, title = '', image = {}, video = {} }) => {
+  // useEffect(()=>{
+  //   if(index === 0){
+  //     if (window.powaBoot) {
+  //       window.powaBoot()
+  //     }
+  //   }
+  // })
   return (
-    
     <div>
-      <div
-        style={{ height: 200, width: 200 }}
-        dangerouslySetInnerHTML={{ __html: multimediaValue.payload }}
-      />
+      {index === 0 ? (
+        <>
+          <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script>
+          <div
+            style={{ height: 200, width: 200 }}
+            dangerouslySetInnerHTML={{ __html: video.payload }}
+          />
+        </>
+      ) : (
+        <img src={image.payload} alt={title} />
+      )}
+
       <span className="">{title}</span>
     </div>
   )
@@ -37,19 +57,32 @@ const StoriesListStoryVideoItem = ({
 }) => {
   // console.log(multimediaValue)
   const paramsItem = {
+    index,
     title,
     image,
     video,
   }
-  debugger
+  let resultItemVideo = {}
+  switch (video.type) {
+    case VIDEO:
+      resultItemVideo = <VideoCenterItem {...paramsItem} />
+      break
+    case ELEMENT_YOUTUBE_ID:
+      resultItemVideo = <YoutubeVideo {...paramsItem} />
+      break
+    default:
+      resultItemVideo = null
+  }
+
+  useEffect(() => {
+    if (index === 0 && video.type === VIDEO) {
+      if (window.powaBoot) {
+        window.powaBoot()
+      }
+    }
+  })
   return (
-    <div onClick={() => StoryItemHandleClick(index)}>
-      {video.type === VIDEO ? (
-        <VideoCenterItem {...paramsItem} />
-      ) : (
-        <YoutubeVideo {...paramsItem} />
-      )}
-    </div>
+    <div onClick={() => StoryItemHandleClick(index)}>{resultItemVideo}</div>
   )
 }
 

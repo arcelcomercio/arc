@@ -2,18 +2,17 @@ import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import {
   getTitle,
-  getMultimediaType,
-  multimediaNews,
   getVideo,
   getVideoYoutube,
   getImage,
+  getVideoImage,
 } from '../../../utilities/get-story-values'
 import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
-  IMAGE,
   IMAGE_SMALL,
 } from '../../../utilities/constants'
+
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filters'
 import StoryItem from './_children/story-video-item'
@@ -34,9 +33,9 @@ class StoriesListVideo extends PureComponent {
   }
 
   componentDidMount() {
-    if (window.powaBoot) {
-      window.powaBoot()
-    }
+    // if (window.powaBoot) {
+    //   window.powaBoot()
+    // }
     this.getListVideoNews()
   }
 
@@ -73,25 +72,32 @@ class StoriesListVideo extends PureComponent {
     const listStories = [story01, story02, story03, story04, story05]
     const listStoriesVideo = []
     listStories.forEach((data, index) => {
-      const newsImage = getImage(data, IMAGE_SMALL)
       const newsVideoCenter = getVideo(data)
       const newsVideoYoutube = getVideoYoutube(data)
 
       let newsVideo = {}
+      let image = {}
       if (newsVideoCenter.type === VIDEO) {
         newsVideo = newsVideoCenter
+        image = getVideoImage(data, IMAGE_SMALL)
       } else if (newsVideoYoutube.type === ELEMENT_YOUTUBE_ID) {
         newsVideo = newsVideoYoutube
+        image = getImage(data, IMAGE_SMALL)
       }
-      debugger
+
       let item = {}
-      if (data && (newsImage.type === IMAGE || newsVideo.type !== '')) {
+
+      if (
+        data &&
+        (newsVideo.type === ELEMENT_YOUTUBE_ID || newsVideo.type === VIDEO)
+      ) {
         const title = getTitle(data)
+        
         item = {
           index,
           content: {
             title,
-            image: newsImage,
+            image,
             video: newsVideo,
           },
         }
@@ -110,9 +116,9 @@ class StoriesListVideo extends PureComponent {
   }
 
   StoryItemHandleClick = StoryItemIndex => {
-    if (window.powaBoot) {
-      window.powaBoot()
-    }
+    // if (window.powaBoot) {
+    //   window.powaBoot()
+    // }
     this.SortList(StoryItemIndex)
   }
 
@@ -181,6 +187,7 @@ class StoriesListVideo extends PureComponent {
 
     return (
       <>
+      <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script>
         <div className={classes.listComponent}>
           <div className={classes.listHeader}>
             <h3>video</h3>
