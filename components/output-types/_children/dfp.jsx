@@ -4,18 +4,6 @@ import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-const getAdId = (content, adId) => {
-  const { espacios: spaces = [] } = content || {}
-  const adsId = spaces.map(({ id, space }) => {
-    let formatAdsId = ''
-    if (space === adId) {
-      formatAdsId = id
-    }
-    return formatAdsId
-  })
-  return adsId.filter(String)[0]
-}
-
 const getSectionSlug = (sectionId = '') => {
   return sectionId.split('/')[1] || ''
 }
@@ -101,17 +89,17 @@ const Dfp = ({ isFuature, adId }) => {
     const section = sectionValues[1] || ''
     const subsection = sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
-    const targetingTags = tags.map(({ slug = '' }) => slug.split("-").join(""))
+    const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
     const adsCollection = spaces.map(
       ({
-        id,
+        space,
         slotname,
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
       }) => {
         const formatSpace = {
-          id,
+          id: `gpt_${space}`,
           slotName: slotname,
           dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
           targeting: {
@@ -149,9 +137,7 @@ const Dfp = ({ isFuature, adId }) => {
           }}>
           {content =>
             isFuature ? (
-              <div
-                id={getAdId(content, adId)}
-                className="flex justify-center"></div>
+              <div id={`gpt_${adId}`} className="flex justify-center"></div>
             ) : (
               <>
                 <script
