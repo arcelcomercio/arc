@@ -85,6 +85,9 @@ const classes = {
   labelParentItem:
     'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
   link: 'nav-sidebar__link block p-15 pl-25 text-md text-white',
+
+  footer: `nav-sidebar__footer p-30 border-b-1 border-solid border-gray`,
+  text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white`,
 }
 
 export default ({
@@ -99,6 +102,8 @@ export default ({
   arcSite,
   winningCallLogo,
   mobileHeaderFollowing,
+  siteDomain,
+  legalLinks,
 }) => {
   const inputSearch = useRef(null)
   const [showMenu, toggleMenu] = useState(false)
@@ -357,6 +362,16 @@ export default ({
                 <ul className={classes.list}>
                   {menuList && renderSections(menuList, 0)}
                 </ul>
+              </div>
+              <div className={classes.footer}>
+                <a href="/" className={classes.text}>
+                  {siteDomain}
+                </a>
+                {legalLinks.map(link => (
+                  <a key={link.url} href={link.url} className={classes.text}>
+                    {link.name}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
