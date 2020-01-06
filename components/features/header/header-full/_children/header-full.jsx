@@ -353,7 +353,7 @@ export default ({
               </ul>
             </div>
             <div className={`${classes.megaMenu} ${showMenu ? 'active' : ''}`}>
-              <div className={classes.body}>
+              <div className={`${classes.body} ${showMenu ? 'active' : ''}`}>
                 <ul className={classes.list}>
                   {menuList && renderSections(menuList, 0)}
                 </ul>
