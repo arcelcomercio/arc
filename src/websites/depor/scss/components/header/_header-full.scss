@@ -11,14 +11,46 @@
     font-family: $secondary-font;
   }
   &__megamenu {
+    background-color: $color-gray-300;
     max-width: 330px;
-    top: $nav-height;
-    height: calc(100vh - #{$nav-height});
+    top: 50px;
+    height: calc(100vh - 50px);
     left: 0;
     will-change: transform;
     transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
     transform-origin: left;
     transform: translateX(-100vw);
     z-index: 1;
+    &.active {
+      transform: translateX(0);
+    }
+    @media (--tablet) {
+      transform: scaleX(0);
+      &.active {
+        transform: scaleX(1);
+      }
+    }
+  }
+  .nav-sidebar__body {
+    box-sizing: content-box;
+    will-change: opacity;
+    transition: opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    /*  opacity: 0; */
+    overflow-x: hidden;
+
+    &.active {
+      will-change: opacity;
+      transition: opacity 0.5s cubic-bezier(0.56, 1.3, 0.76, 0.88) 0.3s;
+      opacity: 1;
+    }
+  }
+  .nav-sidebar__link {
+    font-family: $secondary-font;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .nav-sidebar__parent-item::after {
+    color: $color-white;
   }
 }

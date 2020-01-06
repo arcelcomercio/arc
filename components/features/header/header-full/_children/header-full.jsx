@@ -5,7 +5,8 @@ import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 
 const classes = {
   headerFull: 'header-full bg-primary w-full position-relative',
-  container: 'header-full__container h-full flex justify-between',
+  container:
+    'header-full__container h-full flex justify-between position-relative',
   left: 'header-full__left flex items-center',
   boxBtnMenu:
     'header-full__box-btnmenu h-full flex items-center justify-center',
@@ -74,7 +75,7 @@ const classes = {
   iconMore: 'story-header__share-icon icon-share text-white',
   navLoader: 'nav__loader-bar position-absolute h-full left-0',
 
-  body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-0',
+  body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-0 h-full',
   list: 'nav- sidebar__list',
   item:
     'nav-sidebar__item position-relative flex justify-between items-center flex-wrap',
@@ -82,7 +83,7 @@ const classes = {
   menuArrow: 'nav-sidebar__menu-arrow hidden',
   labelParentItem:
     'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
-  link: 'nav-sidebar__link block p-15 pl-25 text-md text-white',
+  link: 'nav-sidebar__link block p-15 pl-25 text-md text-white font-bold',
 }
 
 export default ({
