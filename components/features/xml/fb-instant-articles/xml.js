@@ -73,6 +73,11 @@ class XmlFacebookInstantArticles {
       defaultImgSize: 'sm',
     })
 
+    console.log(
+      '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+      storyData.getPremiumValue
+    )
+
     const fbInstantArticlesFeed = {
       rss: {
         '@version': '2.0',
@@ -88,9 +93,12 @@ class XmlFacebookInstantArticles {
           ...this.stories.map(story => {
             storyData.__data = story
 
-            const {related_by_tags: {content_elements: rawTagsUrls = []} = {}} = story || {}
-            const websiteUrlsBytag = rawTagsUrls.map(({websites = {} }) => {
-              const {website_url: websiteUrlBytag = ''} = websites[arcSite] || {}
+            const {
+              related_by_tags: { content_elements: rawTagsUrls = [] } = {},
+            } = story || {}
+            const websiteUrlsBytag = rawTagsUrls.map(({ websites = {} }) => {
+              const { website_url: websiteUrlBytag = '' } =
+                websites[arcSite] || {}
               return `${siteUrl}${websiteUrlBytag}`
             })
 
@@ -114,7 +122,7 @@ class XmlFacebookInstantArticles {
                   tags: storyData.tags,
                   author: nbspToSpace(storyData.author),
                   typeNews: storyData.multimediaType,
-                  premium: storyData.isPremium,
+                  premium: storyData.getPremiumValue,
                 }
 
                 const scriptAnaliticaProps = {
@@ -159,7 +167,7 @@ class XmlFacebookInstantArticles {
                     link: storyLink,
                     guid: md5(storyData.id),
                     author: storyData.author,
-                    premium: storyData.isPremium,
+                    premium: storyData.getPremiumValue,
                     captureDate: getActualDate(),
                     'content:encoded': {
                       '#cdata': buildHtml(buildHtmlProps),
