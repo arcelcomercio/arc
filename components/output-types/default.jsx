@@ -295,7 +295,14 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {arcSite === 'publimetro' && !nodas && !isLivePage && <Dfp />}
+
+        {arcSite === 'publimetro' && !nodas && !isLivePage && (
+          <script
+            defer
+            src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
+          />
+        )}
+
         {!(arcSite === 'publimetro') && (
           <>
             {!nodas && !isLivePage && (
@@ -429,6 +436,7 @@ export default ({
         <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
+        {arcSite === 'publimetro' && !nodas && !isLivePage && <Dfp />}
       </body>
     </html>
   )
