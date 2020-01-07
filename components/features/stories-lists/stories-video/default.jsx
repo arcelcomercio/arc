@@ -22,6 +22,8 @@ const classes = {
   listComponent: 'stories-video__wrapper w-full flex flex-col',
   listHeader: 'stories-video__header flex justify-between p-20',
   listTitle: 'stories-video__title text-white uppercase',
+  viewProgramsWrapper: 'stories-video__programs-wrapper flex flex-center p-20',
+  viewPrograms: 'stories-video__programs text-white',
 }
 
 const CONTENT_SOURCE = 'story-by-url'
@@ -232,8 +234,10 @@ class StoriesListVideo extends PureComponent {
               />
             )
           })}
-          <div>
-            <a href={PERU21TV_URL}>Ver programas</a>
+          <div className={classes.viewProgramsWrapper}>
+            <a className={classes.viewPrograms} href={PERU21TV_URL}>
+              Ver programas
+            </a>
           </div>
         </div>
       </>

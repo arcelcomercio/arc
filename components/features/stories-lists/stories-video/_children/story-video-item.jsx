@@ -3,16 +3,19 @@ import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
 const classes = {
-  listItemDestacado: 'stories-video__item-dest w-full',
+  listItemDest: 'stories-video__item-dest w-full',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
-  listItem: 'stories-video__item w-full p-20',
+
+  listItem: 'stories-video__item w-full p-20 flex justify-between',
   listItemTitle: 'stories-video__item-title text-white',
-  listItemImg: 'stories-video__item-img',
+  listItemImg:
+    'stories-video__item-img w-full h-full object-cover object-center mr-15',
+  listItemTime: 'stories-video__item-time position-absolute',
 }
 
 const YoutubeVideoDestacado = ({ video }) => {
   return (
-    <div className={classes.listItemDestacado}>
+    <div className={classes.listItemDest}>
       <iframe
         className=""
         src={`https://www.youtube.com/embed/${video.payload}`}
@@ -27,9 +30,9 @@ const YoutubeVideoDestacado = ({ video }) => {
 
 const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
   return (
-    <div>
+    <div className={classes.listItem}>
       <img src={image.payload} alt={title} className={classes.listItemImg} />
-      <span className={classes.listItemTitleDest}>{title}</span>
+      <span className={classes.listItemTitle}>{title}</span>
       {liveStory && <span>EN VIVO</span>}
     </div>
   )
@@ -54,15 +57,20 @@ const YoutubeVideo = ({
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
-const ItemVideoCenterItemDestacado = ({ video }) => {
-  return <div dangerouslySetInnerHTML={{ __html: video.payload }} />
+const ItemVideoCenterDestacado = ({ video }) => {
+  return (
+    <div
+      className={classes.listItemDest}
+      dangerouslySetInnerHTML={{ __html: video.payload }}
+    />
+  )
 }
 
-const ItemVideoCenterItemNoDestacado = ({ liveStory, image, title, time }) => {
+const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
   return (
-    <div>
-      <img src={image.payload} alt={title} />
-      <span>{time}</span>
+    <div className={classes.listItem}>
+      <img className={classes.listItemImg} src={image.payload} alt={title} />
+      <span className={classes.listItemTime}>{time}</span>
       <div>
         <span className={classes.listItemTitle}>{title}</span>
         {liveStory && <span>EN VIVO</span>}
@@ -89,9 +97,9 @@ const VideoCenter = ({
   }
 
   if (index === 0) {
-    return <ItemVideoCenterItemDestacado {...propsItem} />
+    return <ItemVideoCenterDestacado {...propsItem} />
   }
-  return <ItemVideoCenterItemNoDestacado {...propsItem} />
+  return <ItemVideoCenterNoDestacado {...propsItem} />
 }
 
 const StoriesListStoryVideoItem = ({
