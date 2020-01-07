@@ -73,11 +73,6 @@ class XmlFacebookInstantArticles {
       defaultImgSize: 'sm',
     })
 
-    console.log(
-      '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
-      storyData.getPremiumValue
-    )
-
     const fbInstantArticlesFeed = {
       rss: {
         '@version': '2.0',
