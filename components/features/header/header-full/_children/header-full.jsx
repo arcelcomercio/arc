@@ -54,7 +54,7 @@ const classes = {
     'header-full__link-nav text-white block secondary-font uppercase pt-5 pb-5 pr-5 pl-5 text-md',
 
   megaMenu:
-    'header-full__megamenu megamenu w-full position-absolute overflow-hidden bottom-0 bg-gray-300',
+    'header-full__megamenu megamenu w-full position-absolute overflow-hidden bottom-0 bg-gray-300 flex flex-col justify-between',
   megaMenuContainer: 'megamenu__container',
   megaMenuBox: 'megamenu__box flex flex-row justify-center pb-20 pt-20',
   megaMenuRow: 'megamenu__row mr-25',
@@ -76,7 +76,9 @@ const classes = {
   iconMore: 'story-header__share-icon icon-share text-white',
   navLoader: 'nav__loader-bar position-absolute h-full left-0',
 
-  body: 'nav-sidebar__body flex flex-col justify-between h-full overflow-y',
+  wrapper:
+    'nav-sidebar__wrapper flex flex-col justify-between h-full overflow-y',
+  body: 'nav-sidebar__body ',
   list: 'nav- sidebar__list pt-15 pb-15',
   item:
     'nav-sidebar__item position-relative flex justify-between items-center flex-wrap',
@@ -87,7 +89,7 @@ const classes = {
   link: 'nav-sidebar__link block p-15 pl-25 text-md text-white',
 
   footer: `nav-sidebar__footer p-30 border-b-1 border-solid border-gray`,
-  text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white`,
+  text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white uppercase`,
 }
 
 export default ({
@@ -358,20 +360,22 @@ export default ({
               </ul>
             </div>
             <div className={`${classes.megaMenu} ${showMenu ? 'active' : ''}`}>
-              <div className={`${classes.body} ${showMenu ? 'active' : ''}`}>
-                <ul className={classes.list}>
-                  {menuList && renderSections(menuList, 0)}
-                </ul>
-              </div>
-              <div className={classes.footer}>
-                <a href="/" className={classes.text}>
-                  {siteDomain}
-                </a>
-                {legalLinks.map(link => (
-                  <a key={link.url} href={link.url} className={classes.text}>
-                    {link.name}
+              <div className={`${classes.wrapper} ${showMenu ? 'active' : ''}`}>
+                <div className={classes.body}>
+                  <ul className={classes.list}>
+                    {menuList && renderSections(menuList, 0)}
+                  </ul>
+                </div>
+                <div className={classes.footer}>
+                  <a href="/" className={classes.text}>
+                    {siteDomain}
                   </a>
-                ))}
+                  {legalLinks.map(link => (
+                    <a key={link.url} href={link.url} className={classes.text}>
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

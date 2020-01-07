@@ -31,7 +31,7 @@
       }
     }
   }
-  .nav-sidebar__body {
+  .nav-sidebar__wrapper {
     box-sizing: content-box;
     overflow-x: hidden;
     opacity: 0;
@@ -51,5 +51,11 @@
   }
   .nav-sidebar__parent-item::after {
     color: $color-white;
+  }
+  .nav-sidebar__text {
+    font-family: $secondary-font;
+    &:first-child {
+      text-transform: lowercase;
+    }
   }
 }
