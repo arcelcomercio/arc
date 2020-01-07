@@ -22,8 +22,6 @@ const getSectionSlug = (sectionId = '') => {
 
 const Dfp = ({ isFuature, adId }) => {
   const {
-    deployment,
-    contextPath,
     siteProperties = {},
     globalContent = {},
     requestUri,
@@ -132,11 +130,11 @@ const Dfp = ({ isFuature, adId }) => {
         return formatSpace
       }
     )
-    return `"use strict";${getTmpAdFunction};${getAdsDisplayFunction};var adsCollection=${JSON.stringify(
+    return `"use strict";document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};var adsCollection=${JSON.stringify(
       adsCollection
     )
       .replace(/"<::/g, '')
-      .replace(/::>"/g, '')};arcAds.registerAdCollection(adsCollection);`
+      .replace(/::>"/g, '')};arcAds.registerAdCollection(adsCollection);});`
   }
 
   return (
@@ -154,19 +152,6 @@ const Dfp = ({ isFuature, adId }) => {
                 className="flex justify-center"></div>
             ) : (
               <>
-                <script
-                  src={deployment(
-                    `${contextPath}/resources/assets/js/arcads.js`
-                  )}
-                />
-                <script
-                  type="text/javascript"
-                  dangerouslySetInnerHTML={{ __html: initAds }}
-                />
-                <script
-                  type="text/javascript"
-                  dangerouslySetInnerHTML={{ __html: lazyLoadFunction }}
-                />
                 <script
                   type="text/javascript"
                   dangerouslySetInnerHTML={{
