@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react'
 import renderHTML from 'react-render-html'
 import Consumer from 'fusion:consumer'
-
+import { useFusionContext } from 'fusion:context'
 const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
@@ -44,16 +44,24 @@ class StoryContentChildVideo extends PureComponent {
       element.setAttribute('data-sticky', 'true')
     })
   }
-
+  
   getParametroPublicidad = () => {
+
+    const getSectionSlug = (sectionId = '') => {
+      return sectionId.split('/')[1] || ''
+    }
+
+    const { arcSite, metaValue } = useFusionContext()
     const {
       siteProperties: { urlPreroll },
       globalContent,
     } = this.props
 
     const {
+      section_id: sectionId,
       taxonomy: {
         primary_section: {
+          path: primarySection,
           additional_properties: {
             original: { _admin: { alias_ids: aliasId = [] } = {} },
           } = {},
@@ -63,6 +71,25 @@ class StoryContentChildVideo extends PureComponent {
     if (aliasId && aliasId[0]) {
       return aliasId[0]
     }
+    if(arcSite === 'publimetro'){
+      let tipoplantilla = ''
+      switch (metaValue('id')) {
+        case 'meta_section':
+          tipoplantilla = 'sect'
+          break;
+        case 'meta_story':
+          tipoplantilla ='post'
+          break;
+        default:
+          tipoplantilla ='post'
+          break
+      }
+      let sectionSlug = getSectionSlug(primarySection)
+      urlPreroll =   `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro_post_${sectionSlug}_web_preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Dpublimetro%26seccion%3D${sectionSlug}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`;
+      //urlPreroll = `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro_post_${sectionSlug}_web_preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1&fuente=web&publisher=publimetro&seccion=${sectionSlug}&tipoplantilla=${tipoplantilla}`
+    }
+
+
     return urlPreroll
   }
 
