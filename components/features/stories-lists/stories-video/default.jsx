@@ -19,8 +19,9 @@ import schemaFilter from './_dependencies/schema-filters'
 import StoryItem from './_children/story-video-item'
 
 const classes = {
-  listComponent: 'w-full flex flex-col',
-  listHeader: 'flex flex-row',
+  listComponent: 'stories-video__wrapper w-full flex flex-col',
+  listHeader: 'stories-video__header flex justify-between p-20',
+  listTitle: 'stories-video__title text-white uppercase',
 }
 
 const CONTENT_SOURCE = 'story-by-url'
@@ -197,11 +198,13 @@ class StoriesListVideo extends PureComponent {
 
     return (
       <>
-        <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script>
+        <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio" />
         <div className={classes.listComponent}>
           <div className={classes.listHeader}>
-            <h3>video</h3>
-            <span>Logo</span>
+            <h3 className={classes.listTitle}>video</h3>
+            <a href="https://peru21.pe/peru21tv/">
+              <img src="" alt="Logo" />
+            </a>
           </div>
           {listStoriesVideo.map(item => {
             const StoryItemProps = {

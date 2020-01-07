@@ -1,0 +1,15 @@
+.stories-video {
+  &__wrapper {
+    background-color: $color-gray-300;
+  }
+  &__title {
+    font-size: 15px;
+    &:after {
+      content: '';
+      display: block;
+      width: 80%;
+      height: 2px;
+      background-color: $color-primary;
+    }
+  }
+}
