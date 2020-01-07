@@ -1300,7 +1300,3 @@ export const pixelAmpDate = arcSite => {
       : ''
   return pixelEc
 }
-
-export const basicHtmlIsMp4 = (html ='') => {
-  return html.match(/(https:\/\/(.*)\/(.*).mp4)/g) && true
-}
