@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
-
+const classes = {
+  listItemDestacado: 'stories-video__item-dest w-full',
+  listItemTitleDest: 'stories-video__item-dest-title text-white',
+  listItem: 'stories-video__item w-full p-20',
+  listItemTitle: 'stories-video__item-title text-white',
+  listItemImg: 'stories-video__item-img',
+}
 const YoutubeVideo = ({ index, title = '', image = {}, video = {} }) => {
   return (
-    <div>
+    <div className={classes.listItem}>
       {index === 0 ? (
         <iframe
           className=""
@@ -15,20 +21,20 @@ const YoutubeVideo = ({ index, title = '', image = {}, video = {} }) => {
           title="Video"
         />
       ) : (
-        <img src={image.payload} alt={title} />
+        <img src={image.payload} alt={title} className={classes.listItemImg} />
       )}
 
-      <span>{title}</span>
+      <span className={classes.listItemTitle}>{title}</span>
     </div>
   )
 }
 
 const VideoCenterItem = ({ index, title = '', image = {}, video = {} }) => {
   return (
-    <div>
+    <div className={classes.listItemDestacado}>
       {index === 0 ? (
         <>
-          <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script>
+          <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio" />
           <div
             style={{ height: 200, width: 200 }}
             dangerouslySetInnerHTML={{ __html: video.payload }}
@@ -38,7 +44,7 @@ const VideoCenterItem = ({ index, title = '', image = {}, video = {} }) => {
         <img src={image.payload} alt={title} />
       )}
 
-      <span className="">{title}</span>
+      <span className={classes.listItemTitleDest}>{title}</span>
     </div>
   )
 }
