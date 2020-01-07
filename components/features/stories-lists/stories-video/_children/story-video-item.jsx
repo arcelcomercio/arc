@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
 const classes = {
@@ -8,9 +9,15 @@ const classes = {
   listItemTitle: 'stories-video__item-title text-white',
   listItemImg: 'stories-video__item-img',
 }
-const YoutubeVideo = ({ index, title = '', image = {}, video = {} }) => {
+const YoutubeVideo = ({
+  index,
+  liveStory,
+  title = '',
+  image = {},
+  video = {},
+}) => {
   return (
-    <div className={classes.listItem}>
+    <div className={classes.listItemDestacado}>
       {index === 0 ? (
         <iframe
           className=""
@@ -24,42 +31,56 @@ const YoutubeVideo = ({ index, title = '', image = {}, video = {} }) => {
         <img src={image.payload} alt={title} className={classes.listItemImg} />
       )}
 
-      <span className={classes.listItemTitle}>{title}</span>
+      <span className={classes.listItemTitleDest}>{title}</span>
+      {liveStory && <span>EN VIVO</span>}
     </div>
   )
 }
 
-const VideoCenterItem = ({ index, title = '', image = {}, video = {} }) => {
+const VideoCenterItem = ({
+  index,
+  liveStory,
+  title = '',
+  image = {},
+  video = {},
+  videoTime,
+}) => {
+  const time = msToTime(videoTime)
   return (
-    <div className={classes.listItemDestacado}>
+    <div className={classes.listItem}>
       {index === 0 ? (
         <>
-          <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio" />
-          <div
-            style={{ height: 200, width: 200 }}
-            dangerouslySetInnerHTML={{ __html: video.payload }}
-          />
+          {/* <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script> */}
+          <div dangerouslySetInnerHTML={{ __html: video.payload }} />
         </>
       ) : (
-        <img src={image.payload} alt={title} />
+        <div>
+          <img src={image.payload} alt={title} />
+          <span>{time}</span>
+        </div>
       )}
 
-      <span className={classes.listItemTitleDest}>{title}</span>
+      <div>
+        <span className={classes.listItemTitle}>{title}</span>
+        {liveStory && <span>EN VIVO</span>}
+      </div>
     </div>
   )
 }
 
 const StoriesListStoryVideoItem = ({
   index = 0,
-  content: { title = '', image = '', video = {} } = {},
+  liveStory = false,
+  content: { title = '', image = '', video = {}, videoTime = 0 } = {},
   StoryItemHandleClick,
 }) => {
-  // console.log(multimediaValue)
   const paramsItem = {
     index,
+    liveStory,
     title,
     image,
     video,
+    videoTime,
   }
   let resultItemVideo = {}
   switch (video.type) {

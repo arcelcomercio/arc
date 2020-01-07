@@ -49,7 +49,7 @@ export const getImage = (data, ImageSize) => {
   return result
 }
 
-export const getVideoImage = (data,ImageSize) => {
+export const getVideoImage = (data, ImageSize) => {
   const result = { type: '', payload: '' }
 
   result.payload =
@@ -59,10 +59,22 @@ export const getVideoImage = (data,ImageSize) => {
       data.promo_items[VIDEO].promo_items &&
       data.promo_items[VIDEO].promo_items[IMAGE] &&
       data.promo_items[VIDEO].promo_items[IMAGE].resized_urls &&
-      data.promo_items[VIDEO].promo_items[IMAGE].resized_urls[ImageSize] ) ||
+      data.promo_items[VIDEO].promo_items[IMAGE].resized_urls[ImageSize]) ||
     ''
   if (result.payload !== '') {
     result.type = VIDEO
   }
+  return result
+}
+
+export const getVideoTime = data => {
+  let result =0
+
+  result =
+    (data &&
+      data.promo_items &&
+      data.promo_items[VIDEO] &&
+      data.promo_items[VIDEO].duration) ||
+    0
   return result
 }

@@ -6,6 +6,7 @@ import {
   getVideoYoutube,
   getImage,
   getVideoImage,
+  getVideoTime,
 } from '../../../utilities/get-story-values'
 import {
   VIDEO,
@@ -24,7 +25,7 @@ const classes = {
 }
 
 const CONTENT_SOURCE = 'story-by-url'
-
+const PERU21TV_URL = 'https://peru21.pe/peru21tv/'
 @Consumer
 class StoriesListVideo extends PureComponent {
   // eslint-disable-next-line no-useless-constructor
@@ -67,7 +68,25 @@ class StoriesListVideo extends PureComponent {
 
   getListVideoNews = () => {
     const { story01, story02, story03, story04, story05 } = this.state
+
+    const {
+      customFields: {
+        liveStory01 = false,
+        liveStory02 = false,
+        liveStory03 = false,
+        liveStory04 = false,
+        liveStory05 = false,
+      } = {},
+    } = this.props
     const listStories = [story01, story02, story03, story04, story05]
+    const listLiveStory = [
+      liveStory01,
+      liveStory02,
+      liveStory03,
+      liveStory04,
+      liveStory05,
+    ]
+
     const listStoriesVideo = []
     listStories.forEach((data, index) => {
       const newsVideoCenter = getVideo(data)
@@ -93,15 +112,18 @@ class StoriesListVideo extends PureComponent {
 
         item = {
           index,
+          liveStory: listLiveStory[index],
           content: {
             title,
             image,
             video: newsVideo,
+            videoTime: getVideoTime(data),
           },
         }
       } else {
         item = {
           index,
+          liveStory: listLiveStory[index],
         }
       }
 
@@ -186,7 +208,7 @@ class StoriesListVideo extends PureComponent {
         <div className={classes.listComponent}>
           <div className={classes.listHeader}>
             <h3 className={classes.listTitle}>video</h3>
-            <a href="https://peru21.pe/peru21tv/">
+            <a href={PERU21TV_URL}>
               <img src="" alt="Logo" />
             </a>
           </div>
@@ -203,7 +225,7 @@ class StoriesListVideo extends PureComponent {
             )
           })}
           <div>
-            <a href="https://peru21.pe/peru21tv/">Ver programas</a>
+            <a href={PERU21TV_URL}>Ver programas</a>
           </div>
         </div>
       </>
