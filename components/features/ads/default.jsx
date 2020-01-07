@@ -64,6 +64,7 @@ class Ads extends PureComponent {
         freeHtml,
         columns,
         adsBorder,
+        isDfp,
         rows,
       } = {},
     } = this.props
@@ -72,6 +73,7 @@ class Ads extends PureComponent {
       adElement,
       isDesktop,
       isMobile,
+      isDfp,
     }
 
     const addEmptyBorder = () =>
@@ -82,7 +84,7 @@ class Ads extends PureComponent {
 
     const addRowsClass = () => (rows === 'empty' ? '' : rows)
 
-    const neverShow = () => !isDesktop && !isMobile
+    const neverShow = () => !isDesktop && !isMobile && !isDfp
     const alwaysShow = () => isDesktop && isMobile
 
     const hideInDevice = () => {
@@ -126,7 +128,7 @@ class Ads extends PureComponent {
                 <div
                   className={`${classes.adsBox} ${
                     adElement === 'boton1' ? 'justify-start' : 'justify-center'
-                  } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
+                  } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()} no-row-2-mobile`}>
                   <AdsChild {...params} />
                   {freeHtml && (
                     <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />

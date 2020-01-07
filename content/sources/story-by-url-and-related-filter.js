@@ -53,6 +53,7 @@ const getAdditionalData = (storyData, website) => {
   }).then(idsResp => {
     storyData.related_content = idsResp
     const result = transformImg(storyData)
+
     return result
   })
 }

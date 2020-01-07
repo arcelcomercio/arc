@@ -9,6 +9,7 @@ import {
   formatDateLocalTimeZone,
   defaultImage,
   addSlashToEnd,
+
 } from '../../../utilities/helpers'
 
 const classes = {
@@ -98,6 +99,7 @@ class BlogList extends PureComponent {
       globalContent = {},
       globalContentConfig = {},
       customFields: customFieldsProps = {},
+      siteProperties: { isDfp = false },
     } = this.props
     const {
       query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
@@ -111,10 +113,11 @@ class BlogList extends PureComponent {
     const activeAds = Object.keys(customFieldsProps)
       .filter(prop => prop.match(/adsMobile(\d)/))
       .filter(key => customFieldsProps[key] === true)
+    const typeSpace = isDfp ? 'caja' : 'movil'
 
     const activeAdsArray = activeAds.map(el => {
       return {
-        name: `movil${el.slice(-1)}`,
+        name: `${typeSpace}${el.slice(-1)}`,
         pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
         inserted: false,
       }
@@ -134,7 +137,12 @@ class BlogList extends PureComponent {
                   <BlogItem key={key} {...params} />
                   {ads.length > 0 && (
                     <div className={classes.adsBox}>
-                      <Ads adElement={ads[0].name} isDesktop={false} isMobile />
+                      <Ads
+                        adElement={ads[0].name}
+                        isDesktop={false}
+                        isMobile
+                        isDfp={isDfp}
+                      />
                     </div>
                   )}
                 </>

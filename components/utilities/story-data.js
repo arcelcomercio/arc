@@ -657,6 +657,35 @@ class StoryData {
     )
   }
 
+  get contentPosicionPublicidad() {
+    let i = 0
+    const { content_elements: contentElements = null } = this._data || {}
+    return (
+      contentElements &&
+      contentElements.map(dataContent => {
+        let dataElements = {}
+        const { type: typeElement } = dataContent
+        dataElements = dataContent
+        if (i === 2) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `inline`
+        }
+        if (i === 4) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
+        }
+        if (i === 6) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja5`
+        }
+        if (typeElement === ConfigParams.ELEMENT_TEXT) {
+          i += 1
+        }
+        return dataElements
+      })
+    )
+  }
+
   get promoItems() {
     return (this._data && this._data.promo_items) || []
   }
