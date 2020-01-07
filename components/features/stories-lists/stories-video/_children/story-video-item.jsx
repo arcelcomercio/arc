@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
 const YoutubeVideo = ({
@@ -35,19 +36,24 @@ const VideoCenterItem = ({
   title = '',
   image = {},
   video = {},
+  videoTime,
 }) => {
+  const time = msToTime(videoTime)
   return (
     <div>
       {index === 0 ? (
         <>
-          <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script>
+          {/* <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script> */}
           <div
             style={{ height: 200, width: 200 }}
             dangerouslySetInnerHTML={{ __html: video.payload }}
           />
         </>
       ) : (
-        <img src={image.payload} alt={title} />
+        <>
+          <img src={image.payload} alt={title} />
+          <span>{time}</span>
+        </>
       )}
 
       <span className="">{title}</span>
@@ -59,16 +65,16 @@ const VideoCenterItem = ({
 const StoriesListStoryVideoItem = ({
   index = 0,
   liveStory = false,
-  content: { title = '', image = '', video = {} } = {},
+  content: { title = '', image = '', video = {}, videoTime = 0 } = {},
   StoryItemHandleClick,
 }) => {
-  // console.log(multimediaValue)
   const paramsItem = {
     index,
     liveStory,
     title,
     image,
     video,
+    videoTime,
   }
   let resultItemVideo = {}
   switch (video.type) {
