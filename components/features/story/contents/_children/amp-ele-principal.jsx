@@ -9,18 +9,28 @@ export default props => {
     data: {
       basic_video: basicVideo = {},
       basic: data = {},
+      youtube_id: { content: youtubeId = '' } = {},
       basic_html: basicHtml,
     } = {},
   } = props
   const imgTag = 'amp-img'
   const parameters = { data, imgTag, basicVideo, basicHtml }
+   
   return (
     <>
-      {data.type === ConfigParams.ELEMENT_IMAGE && basicHtml && (
+      {basicHtml && (
         <Html {...parameters} />
       )}
-      {data.type === ConfigParams.ELEMENT_IMAGE && !basicHtml && (
+      {data.type === ConfigParams.ELEMENT_IMAGE && !basicHtml && !youtubeId && (
         <Imagen {...parameters} />
+      )}
+      {youtubeId && (
+        <amp-youtube
+          class="media"
+          data-videoid={youtubeId}
+          layout="responsive"
+          width="550"
+          height="350"></amp-youtube>
       )}
       {basicVideo.type === ConfigParams.ELEMENT_VIDEO && !basicHtml && (
         <Video data={basicVideo} />

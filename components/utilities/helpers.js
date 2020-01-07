@@ -673,7 +673,10 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<(.+):p>/g, '<span>')
     .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
     .replace(/<font(.*)>(?:.*(?:))<\/font>/g, '$2')
-    .replace(/<(font|eqwql|nimfw|yt|st1)(.*)>(?:.*(?:))<\/(font|eqwql|nimfw|yt|st1)>/g, '$2')
+    .replace(
+      /<(font|eqwql|nimfw|yt|st1)(.*)>(?:.*(?:))<\/(font|eqwql|nimfw|yt|st1)>/g,
+      '$2'
+    )
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
