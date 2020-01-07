@@ -1,6 +1,9 @@
 .section-videos,
 .section-play {
   background-color: $color-gray-300;
+  .section-video {
+    padding-top: 20px;
+  }
   .section-video,
   .play-list,
   .video-navbar,
@@ -12,7 +15,8 @@
   .play-list__title a,
   .video-navbar__link,
   .video-list__new,
-  .header__link {
+  .header__link,
+  .header__tags {
     color: $color-white;
   }
 }
