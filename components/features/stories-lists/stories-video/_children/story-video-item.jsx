@@ -3,11 +3,14 @@ import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
 const classes = {
-  listItemDestacado: 'stories-video__item-dest w-full',
+  listItemDest: 'stories-video__item-dest w-full',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
+  listItemDestPicture: 'stories-video__item-dest-picture position-relative',
   listItem: 'stories-video__item w-full p-20',
   listItemTitle: 'stories-video__item-title text-white',
-  listItemImg: 'stories-video__item-img',
+  listItemImg:
+    'stories-video__item-img w-full h-full object-cover object-center',
+  listItemTime: 'stories-video__item-time position-absolute',
 }
 const YoutubeVideo = ({
   index,
@@ -17,7 +20,7 @@ const YoutubeVideo = ({
   video = {},
 }) => {
   return (
-    <div className={classes.listItemDestacado}>
+    <div className={classes.listItemDest}>
       {index === 0 ? (
         <iframe
           className=""
@@ -28,7 +31,13 @@ const YoutubeVideo = ({
           title="Video"
         />
       ) : (
-        <img src={image.payload} alt={title} className={classes.listItemImg} />
+        <div className={classes.listItemDestPicture}>
+          <img
+            src={image.payload}
+            alt={title}
+            className={classes.listItemImgDest}
+          />
+        </div>
       )}
 
       <span className={classes.listItemTitleDest}>{title}</span>
@@ -55,8 +64,12 @@ const VideoCenterItem = ({
         </>
       ) : (
         <div>
-          <img src={image.payload} alt={title} />
-          <span>{time}</span>
+          <img
+            className={classes.listItemImg}
+            src={image.payload}
+            alt={title}
+          />
+          <span className={classes.listItemTime}>{time}</span>
         </div>
       )}
 
