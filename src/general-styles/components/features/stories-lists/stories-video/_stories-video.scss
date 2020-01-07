@@ -12,7 +12,13 @@
       background-color: $color-primary;
     }
   }
-  &__item-img {
+
+  &__item-title {
+    font-size: 14px;
+    line-height: 17px;
+  }
+  &__item-img,
+  &__item img {
     width: 96px;
     height: 72px;
   }

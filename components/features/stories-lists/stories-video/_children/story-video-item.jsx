@@ -5,13 +5,39 @@ import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 const classes = {
   listItemDest: 'stories-video__item-dest w-full',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
-  listItemDestPicture: 'stories-video__item-dest-picture position-relative',
-  listItem: 'stories-video__item w-full p-20',
+
+  listItem: 'stories-video__item w-full p-20 flex justify-between',
   listItemTitle: 'stories-video__item-title text-white',
   listItemImg:
-    'stories-video__item-img w-full h-full object-cover object-center',
+    'stories-video__item-img w-full h-full object-cover object-center mr-15',
   listItemTime: 'stories-video__item-time position-absolute',
 }
+
+const YoutubeVideoDestacado = ({ video }) => {
+  return (
+    <div className={classes.listItemDest}>
+      <iframe
+        className=""
+        src={`https://www.youtube.com/embed/${video.payload}`}
+        frameBorder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        title="Video"
+      />
+    </div>
+  )
+}
+
+const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
+  return (
+    <div className={classes.listItem}>
+      <img src={image.payload} alt={title} className={classes.listItemImg} />
+      <span className={classes.listItemTitle}>{title}</span>
+      {liveStory && <span>EN VIVO</span>}
+    </div>
+  )
+}
+
 const YoutubeVideo = ({
   index,
   liveStory,
@@ -19,34 +45,40 @@ const YoutubeVideo = ({
   image = {},
   video = {},
 }) => {
-  return (
-    <div className={classes.listItemDest}>
-      {index === 0 ? (
-        <iframe
-          className=""
-          src={`https://www.youtube.com/embed/${video.payload}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          title="Video"
-        />
-      ) : (
-        <div className={classes.listItemDestPicture}>
-          <img
-            src={image.payload}
-            alt={title}
-            className={classes.listItemImgDest}
-          />
-        </div>
-      )}
+  const propsItem = {
+    liveStory,
+    title,
+    image,
+    video,
+  }
+  if (index === 0) {
+    return <YoutubeVideoDestacado {...propsItem} />
+  }
+  return <YoutubeVideoNoDestacado {...propsItem} />
+}
 
-      <span className={classes.listItemTitleDest}>{title}</span>
-      {liveStory && <span>EN VIVO</span>}
-    </div>
+const ItemVideoCenterDestacado = ({ video }) => {
+  return (
+    <div
+      className={classes.listItemDest}
+      dangerouslySetInnerHTML={{ __html: video.payload }}
+    />
   )
 }
 
-const VideoCenterItem = ({
+const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
+  return (
+    <div className={classes.listItem}>
+      <img className={classes.listItemImg} src={image.payload} alt={title} />
+      <span className={classes.listItemTime}>{time}</span>
+      <div>
+        <span className={classes.listItemTitle}>{title}</span>
+        {liveStory && <span>EN VIVO</span>}
+      </div>
+    </div>
+  )
+}
+const VideoCenter = ({
   index,
   liveStory,
   title = '',
@@ -55,30 +87,19 @@ const VideoCenterItem = ({
   videoTime,
 }) => {
   const time = msToTime(videoTime)
-  return (
-    <div className={classes.listItem}>
-      {index === 0 ? (
-        <>
-          {/* <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script> */}
-          <div dangerouslySetInnerHTML={{ __html: video.payload }} />
-        </>
-      ) : (
-        <div>
-          <img
-            className={classes.listItemImg}
-            src={image.payload}
-            alt={title}
-          />
-          <span className={classes.listItemTime}>{time}</span>
-        </div>
-      )}
 
-      <div>
-        <span className={classes.listItemTitle}>{title}</span>
-        {liveStory && <span>EN VIVO</span>}
-      </div>
-    </div>
-  )
+  const propsItem = {
+    liveStory,
+    time,
+    title,
+    image,
+    video,
+  }
+
+  if (index === 0) {
+    return <ItemVideoCenterDestacado {...propsItem} />
+  }
+  return <ItemVideoCenterNoDestacado {...propsItem} />
 }
 
 const StoriesListStoryVideoItem = ({
@@ -98,7 +119,7 @@ const StoriesListStoryVideoItem = ({
   let resultItemVideo = {}
   switch (video.type) {
     case VIDEO:
-      resultItemVideo = <VideoCenterItem {...paramsItem} />
+      resultItemVideo = <VideoCenter {...paramsItem} />
       break
     case ELEMENT_YOUTUBE_ID:
       resultItemVideo = <YoutubeVideo {...paramsItem} />
