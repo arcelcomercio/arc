@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
-
-const YoutubeVideo = ({ index, title = '', image = {}, video = {} }) => {
+const YoutubeVideo = ({
+  index,
+  liveStory,
+  title = '',
+  image = {},
+  video = {},
+}) => {
   return (
     <div>
       {index === 0 ? (
@@ -19,11 +24,18 @@ const YoutubeVideo = ({ index, title = '', image = {}, video = {} }) => {
       )}
 
       <span>{title}</span>
+      {liveStory && <span>EN VIVO</span>}
     </div>
   )
 }
 
-const VideoCenterItem = ({ index, title = '', image = {}, video = {} }) => {
+const VideoCenterItem = ({
+  index,
+  liveStory,
+  title = '',
+  image = {},
+  video = {},
+}) => {
   return (
     <div>
       {index === 0 ? (
@@ -39,18 +51,21 @@ const VideoCenterItem = ({ index, title = '', image = {}, video = {} }) => {
       )}
 
       <span className="">{title}</span>
+      {liveStory && <span>EN VIVO</span>}
     </div>
   )
 }
 
 const StoriesListStoryVideoItem = ({
   index = 0,
+  liveStory = false,
   content: { title = '', image = '', video = {} } = {},
   StoryItemHandleClick,
 }) => {
   // console.log(multimediaValue)
   const paramsItem = {
     index,
+    liveStory,
     title,
     image,
     video,

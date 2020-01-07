@@ -6,6 +6,7 @@ import {
   getVideoYoutube,
   getImage,
   getVideoImage,
+  getVideoTime,
 } from '../../../utilities/get-story-values'
 import {
   VIDEO,
@@ -66,7 +67,19 @@ class StoriesListVideo extends PureComponent {
 
   getListVideoNews = () => {
     const { story01, story02, story03, story04, story05 } = this.state
+
+    const {
+      customFields: {
+        liveStory01=false,
+        liveStory02=false,
+        liveStory03=false,
+        liveStory04=false,
+        liveStory05=false,
+      } = {},
+    } = this.props
     const listStories = [story01, story02, story03, story04, story05]
+    const listLiveStory=[liveStory01,liveStory02,liveStory03,liveStory04,liveStory05]
+
     const listStoriesVideo = []
     listStories.forEach((data, index) => {
       const newsVideoCenter = getVideo(data)
@@ -89,21 +102,24 @@ class StoriesListVideo extends PureComponent {
         (newsVideo.type === ELEMENT_YOUTUBE_ID || newsVideo.type === VIDEO)
       ) {
         const title = getTitle(data)
-        
+
         item = {
           index,
+          liveStory:listLiveStory[index],
           content: {
             title,
             image,
             video: newsVideo,
+            videoTime:getVideoTime(data)
           },
         }
       } else {
         item = {
           index,
+          liveStory:listLiveStory[index],
         }
       }
-
+      
       listStoriesVideo.push(item)
     })
 
@@ -181,7 +197,7 @@ class StoriesListVideo extends PureComponent {
 
     return (
       <>
-      <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script>
+        <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script>
         <div className={classes.listComponent}>
           <div className={classes.listHeader}>
             <h3>video</h3>
