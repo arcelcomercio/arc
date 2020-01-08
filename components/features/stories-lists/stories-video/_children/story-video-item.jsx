@@ -6,16 +6,18 @@ import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
 const classes = {
   listItemDest: 'stories-video__item-dest w-full',
+  listItemText: 'pt-20 pl-20 pr-20 pb-10 w-full',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
-
+  listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItem:
-    'stories-video__item w-full p-20 flex justify-between position-relative',
-  listItemTitle: 'stories-video__item-title text-white',
+    'stories-video__item w-full p-20 flex justify-between position-relative cursor-pointer',
+  listItemTitle: 'stories-video__item-title text-white mb-10',
   listItemInfo: 'stories-video__item-text text-white',
   listItemImg:
     'stories-video__item-img w-full h-full object-cover object-center mr-15',
   listItemTime:
     'stories-video__item-time position-absolute icon-video text-white flex justify-center items-center',
+  live: 'stories-video__item-live flex items-center uppercase',
 }
 
 const YoutubeVideoDestacado = ({ title, video }) => {
@@ -39,8 +41,8 @@ const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
     <>
       <img src={image.payload} alt={title} className={classes.listItemImg} />
       <div className={classes.listItemInfo}>
-        <span className={classes.listItemTitle}>{title}</span>
-        {liveStory && <span>EN VIVO</span>}
+        <h2 className={classes.listItemTitle}>{title}</h2>
+        {liveStory && <p className={classes.live}>EN VIVO</p>}
       </div>
     </>
   )
@@ -84,7 +86,11 @@ const ItemVideoCenterDestacado = ({ title, video }) => {
         // className={classes.listItemDest}
         dangerouslySetInnerHTML={{ __html: video.payload }}
       />
-      <span>{title}</span>
+      <div className={classes.listItemText}>
+        <div className={classes.listBorder}>
+          <h2 className={classes.listItemTitleDest}>{title}</h2>
+        </div>
+      </div>
     </>
   )
 }
@@ -95,8 +101,8 @@ const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
       <img className={classes.listItemImg} src={image.payload} alt={title} />
       <span className={classes.listItemTime}>{time}</span>
       <div className={classes.listItemInfo}>
-        <span className={classes.listItemTitle}>{title}</span>
-        {liveStory && <span>EN VIVO</span>}
+        <h2 className={classes.listItemTitle}>{title}</h2>
+        {liveStory && <p className={classes.live}>EN VIVO</p>}
       </div>
     </>
   )
