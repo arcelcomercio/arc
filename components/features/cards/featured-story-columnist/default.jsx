@@ -6,6 +6,11 @@ import ColumnistPremium from './_childen/columnist-premium'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
+import {
+  includeCredits,
+  includePrimarySection,
+  includeCreditsImage,
+} from '../../../utilities/included-fields'
 
 const FeaturedStoryColumnist = props => {
   const {
@@ -26,10 +31,12 @@ const FeaturedStoryColumnist = props => {
     } = {},
   } = props
 
+  const includedFields = `content_restrictions.content_code,websites.${arcSite}.website_url,subheadlines.basic,${includeCredits},${includeCreditsImage},${includePrimarySection}`
+
   const data =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 

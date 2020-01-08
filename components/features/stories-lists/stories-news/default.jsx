@@ -10,6 +10,12 @@ import { reduceWord } from '../../../utilities/helpers'
 import StoryItem from '../../../global-components/story-new'
 import Ads from '../../../global-components/ads'
 import ConfigParams from '../../../utilities/config-params'
+import {
+  includePromoItems,
+  includePromoItemsCaptions,
+  includePrimarySection,
+  includeCredits,
+} from '../../../utilities/included-fields'
 
 const classes = {
   listado: 'w-full',
@@ -28,6 +34,9 @@ const StoriesListNew = props => {
     siteProperties: { isDfp = false },
   } = useFusionContext()
 
+  const presets = 'landscape_md:314x157,landscape_s:234x161,landscape_xs:118x72'
+  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,promo_items.basic_html.content,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},display_date`
+
   const { customFields: customFieldsProps = {} } = props
   const {
     storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -37,7 +46,7 @@ const StoriesListNew = props => {
   const data =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 

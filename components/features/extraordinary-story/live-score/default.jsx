@@ -5,8 +5,16 @@ import PropTypes from 'prop-types'
 
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
-
 import { getPhotoId } from '../../../utilities/helpers'
+import {
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+  includePromoItemsCaptions,
+  includeCreditsImage,
+} from '../../../utilities/included-fields'
+
+// TODO: cambiar a componente funcional con hooks
 
 const PHOTO_SOURCE = 'photo-by-id'
 
@@ -35,10 +43,13 @@ class ExtraordinaryStoryLifeScore extends PureComponent {
       deployment,
     } = this.props
 
+    const presets = 'landscape_l:648x374'
+    const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems}`
+
     this.fetchContent({
       story: {
         source: contentService,
-        query: contentConfigValues,
+        query: Object.assign(contentConfigValues, { presets, includedFields }),
         filter: schemaFilter(arcSite),
         transform(data) {
           const {
@@ -144,7 +155,7 @@ class ExtraordinaryStoryLifeScore extends PureComponent {
             <img
               className={`${
                 isAdmin ? '' : 'lazy'
-                } extraordinary-l-score__img w-full object-cover`}
+              } extraordinary-l-score__img w-full object-cover`}
               src={isAdmin ? imgUrl : multimediaLazyDefault}
               data-src={imgUrl}
               alt={title}

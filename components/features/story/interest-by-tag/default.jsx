@@ -8,6 +8,10 @@ import StorySeparatorChildItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
+import {
+  includePromoItems,
+  includePrimarySection,
+} from '../../../utilities/included-fields'
 
 const classes = {
   storyInterest: 'story-interest w-full h-auto pr-20 pl-20',
@@ -21,7 +25,7 @@ const classes = {
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
 const InterestByTag = props => {
-  const { customFields: { section = '', isWeb = '' } = {} } = props
+  const { customFields: { tag = '', isWeb = '' } = {} } = props
   const {
     arcSite,
     globalContent: dataContent,
@@ -31,12 +35,15 @@ const InterestByTag = props => {
     outputType: isAmp,
   } = useFusionContext()
 
+  const presets = 'landscape_l:648x374,landscape_md:314x157'
+  const includedFields = `_id,headlines.basic,${includePromoItems},websites.${arcSite}.website_url,canonical_url,${includePrimarySection}`
+
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
     contextPath,
   })
 
-  const urlTag = section || `/${slug}/`
+  const urlTag = `/${tag || slug}/`
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
@@ -44,9 +51,11 @@ const InterestByTag = props => {
         website: arcSite,
         name: urlTag,
         size: 5,
+        presets,
+        includedFields,
       },
-      filter: schemaFilter,
-    }) || ''
+      filter: schemaFilter(arcSite),
+    }) || {}
 
   const instance =
     storyData &&
@@ -79,7 +88,7 @@ const InterestByTag = props => {
 
                 const data = {
                   title: instance.title,
-                  link: instance.link,
+                  link: instance.websiteLink,
                   section: instance.primarySection,
                   sectionLink: instance.primarySectionLink,
                   lazyImage: instance.multimediaLazyDefault,

@@ -1,8 +1,12 @@
-export default `
+export default website => `
     {
       content_elements{
         canonical_url
-        website_url
+        websites {
+          ${website} {
+            website_url
+          }
+        }
         _id
         promo_items{
           basic_video {
@@ -45,9 +49,6 @@ export default `
         }
         taxonomy {
           primary_section {
-              _id 
-              _website 
-              type 
               name 
               path
           }

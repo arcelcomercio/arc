@@ -5,6 +5,7 @@ import customFields from './_dependencies/custom-fields'
 import VideoListItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
 import Spinner from '../../../global-components/spinner'
+import { includePrimarySection } from '../../../utilities/included-fields'
 
 @Consumer
 class VideoList extends PureComponent {
@@ -53,6 +54,9 @@ class VideoList extends PureComponent {
     })
   }
 
+  includedFields = arcSite =>
+    `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content`
+
   initialFetch = (section = '/') => {
     const { arcSite } = this.props
     const {
@@ -65,6 +69,8 @@ class VideoList extends PureComponent {
           section,
           feedOffset: offSetNote,
           stories_qty: quantyStory,
+          presets: 'landscape_md:314x157',
+          includedFields: this.includedFields(arcSite),
         },
         filter: SchemaFilter(arcSite),
       },
@@ -84,6 +90,8 @@ class VideoList extends PureComponent {
           section,
           feedOffset: next,
           stories_qty: 16,
+          presets: 'landscape_md:314x157',
+          includedFields: this.includedFields(arcSite),
         },
         filter: SchemaFilter(arcSite),
         transform: res => {

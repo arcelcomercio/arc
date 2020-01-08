@@ -1,9 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
-
-let website = ''
+import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 
 const schemaName = 'stories'
 
@@ -27,15 +24,34 @@ const params = [
     name: 'website',
     displayName: 'ID del sitio (Opcional)',
     type: 'text',
-  }
+  },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes',
+    type: 'text',
+  },
 ]
 
+const transformImg = ({ contentElements, website, presets }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets,
+  })
+}
+
 const pattern = (key = {}) => {
-  const { from: rawFrom = 0, size: rawSize = 20, website: rawWebsite = '' } = key
+  const {
+    from: rawFrom = 0,
+    size: rawSize = 20,
+    website: rawWebsite = '',
+  } = key
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
-  website = websiteField || key['arc-site'] || 'Arc Site no está definido'
+  const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
 
   const from = rawFrom === undefined || rawFrom === null ? '0' : rawFrom
   const size = rawSize === undefined || rawSize === null ? '20' : rawSize
@@ -48,22 +64,23 @@ const pattern = (key = {}) => {
   return requestUri
 }
 
-const transform = data => {
+const transform = (
+  data,
+  { 'arc-site': arcSite, website: websiteField, presets: customPresets }
+) => {
+  const website = websiteField || arcSite || 'Arc Site no está definido'
   const dataStories = data
-  const { resizerUrl, siteName } = getProperties(website)
+  const { siteName } = getProperties(website)
 
-  // TODO: Fix para que la función addResizedUrls funcione, preguntar a ARC
-  for (let i = 0; i < dataStories.content_elements.length; i++) {
-    dataStories.content_elements[i].content_elements = []
-  }
-  // ////////////////////////////////////////////////
+  const { content_elements: contentElements } = dataStories || {}
 
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret,
-    addResizedUrls
-  )
+  const presets = customPresets || ''
+
+  dataStories.content_elements = transformImg({
+    contentElements,
+    website,
+    presets, // 'mobile:314x157'
+  })
   dataStories.siteName = siteName
 
   return { ...dataStories }

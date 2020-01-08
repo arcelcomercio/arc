@@ -37,14 +37,15 @@ const FacebookLive = props => {
       {!showVideo && (
         <div className={classes.containerMask}>
           <img src={urlImageDefault} alt={arcSite} />
-          {!showVideo && <label class={classes.label}>{textError}</label>}
+          {!showVideo && <label className={classes.label}>{textError}</label>}
         </div>
       )}
       {showVideo && (
         <iframe
           src={formatURL}
+          title="facebook live"
           scrolling="no"
-          frameborder="0"
+          frameBorder="0"
           allowTransparency="true"
           allow="encrypted-media"
           allowFullScreen="true"

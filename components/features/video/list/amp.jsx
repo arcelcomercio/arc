@@ -7,6 +7,7 @@ import customFields from './_dependencies/custom-fields'
 import VideoListItemAmp from './_children/amp-item'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
+import { includePrimarySection } from '../../../utilities/included-fields'
 
 const classes = {
   videoList: 'video-list bg-white pl-20 pr-20 m-0 mx-auto amp-story-content',
@@ -35,6 +36,8 @@ const VideoListAmp = props => {
           section,
           feedOffset: offSetNote,
           stories_qty: quantyStory,
+          presets: 'landscape_md:314x157',
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content`,
         },
         filter: SchemaFilter(arcSite),
       }) || {}

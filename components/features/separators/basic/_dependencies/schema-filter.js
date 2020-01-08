@@ -1,9 +1,13 @@
 // TODO: cambiar website_url por websites.[arcSite].website_url
-export default `
+export default arcSite => `
     {
       content_elements{
         canonical_url
-        website_url
+        websites {
+          ${arcSite} {
+            website_url
+          }
+        }
         promo_items{
           basic_video {
             type

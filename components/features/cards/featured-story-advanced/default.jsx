@@ -1,11 +1,20 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 import FacebookLive from './_children/facebook-live'
 import { createMarkup, getPhotoId } from '../../../utilities/helpers'
+import {
+  includeCredits,
+  includePrimarySection,
+  includeSections,
+  includePromoItems,
+  includePromoItemsCaptions,
+} from '../../../utilities/included-fields'
 
 const PHOTO_SOURCE = 'photo-by-id'
 
@@ -19,62 +28,74 @@ const PHOTO_SCHEMA = `{
   }
 }`
 
-@Consumer
-class CardFeaturedStoryAdvanced extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      customFields: {
-        imgField,
-        adsSpace,
-        storyConfig: { contentService = '', contentConfigValues = {} } = {},
-      } = {},
-    } = props
+const CardFeaturedStoryAdvanced = props => {
+  const {
+    customFields: {
+      imageSize,
+      headband,
+      size,
+      hightlightOnMobile,
+      titleField,
+      categoryField,
+      imgField,
+      flagLive,
+      urlVideoFacebook,
+      adsSpace,
+      storyConfig: { contentService = '', contentConfigValues = {} } = {},
+    } = {},
+  } = props
 
-    this.storyFormatter = new StoryFormatter({
-      deployment,
-      contextPath,
-      arcSite,
-    })
-    const { schema } = this.storyFormatter
-    this.fetchContent({
-      data: {
-        source: contentService,
-        query: contentConfigValues,
-        filter: schema,
-      },
-    })
-    if (adsSpace && adsSpace !== 'none') {
-      this.fetchContent({
-        adsSpaces: {
-          source: 'get-ads-spaces',
-          query: { space: adsSpace },
-        },
-      })
-    }
-    if (imgField) {
-      const photoId = getPhotoId(imgField)
-      if (photoId) {
-        this.fetchContent({
-          customPhoto: {
-            source: PHOTO_SOURCE,
-            query: {
-              _id: photoId,
-            },
-            filter: PHOTO_SCHEMA,
+  const {
+    editableField,
+    arcSite,
+    isAdmin,
+    contextPath,
+    deployment,
+  } = useFusionContext()
+
+  const { siteName } = getProperties(arcSite)
+
+  const storyFormatter = new StoryFormatter({
+    deployment,
+    contextPath,
+    arcSite,
+  })
+  const { schema } = storyFormatter
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
+
+  const data = useContent({
+    source: contentService,
+    query: Object.assign(contentConfigValues, { presets, includedFields }),
+    filter: schema,
+  })
+
+  let adsSpaces = {}
+  if (adsSpace && adsSpace !== 'none') {
+    adsSpaces =
+      useContent({
+        source: 'get-ads-spaces',
+        query: { space: adsSpace },
+      }) || {}
+  }
+
+  let customPhoto = {}
+  if (imgField) {
+    const photoId = getPhotoId(imgField)
+    if (photoId) {
+      customPhoto =
+        useContent({
+          source: PHOTO_SOURCE,
+          query: {
+            _id: photoId,
           },
-        })
-      }
+          filter: PHOTO_SCHEMA,
+        }) || {}
     }
   }
 
-  getAdsSpace() {
-    const { adsSpaces = {} } = this.state || {}
-    const { customFields: { adsSpace } = {} } = this.props
-
+  const getAdsSpace = () => {
     const toDate = dateStr => {
       const [date, time] = dateStr.split(' ')
       const [day, month, year] = date.split('/')
@@ -98,94 +119,67 @@ class CardFeaturedStoryAdvanced extends PureComponent {
     return false
   }
 
-  render() {
-    const {
-      editableField,
-      arcSite,
-      isAdmin,
-      contextPath,
-      deployment,
-      customFields: {
-        imageSize,
-        headband,
-        size,
-        hightlightOnMobile,
-        titleField,
-        categoryField,
-        imgField,
-        flagLive,
-        urlVideoFacebook,
-      } = {},
-      siteProperties: { siteName = '' } = {},
-    } = this.props
-    const { customPhoto = {}, data = {} } = this.state || {}
+  const formattedData = storyFormatter.formatStory(data, imgField, customPhoto)
+  const {
+    category,
+    title,
+    author,
+    multimediaLandscapeL,
+    multimediaLandscapeMD,
+    multimediaPortraitMD,
+    multimediaSquareS,
+    multimediaLazyDefault,
+    multimediaType,
+    multimediaSubtitle,
+    multimediaCaption,
+  } = formattedData
 
-    const formattedData = this.storyFormatter.formatStory(
-      data,
-      imgField,
-      customPhoto
-    )
-    const {
-      category,
-      title,
-      author,
-      multimediaLandscapeL,
-      multimediaLandscapeMD,
-      multimediaPortraitMD,
-      multimediaSquareS,
-      multimediaLazyDefault,
-      multimediaType,
-      multimediaSubtitle,
-      multimediaCaption,
-    } = formattedData
-
-    const paramsFeaturedStory = {
-      title,
-      category,
-      author,
-      multimediaLandscapeL,
-      multimediaLandscapeMD,
-      multimediaPortraitMD,
-      multimediaSquareS,
-      multimediaLazyDefault,
-      imageSize,
-      headband,
-      size,
-      hightlightOnMobile,
-      editableField,
-      titleField,
-      categoryField,
-      arcSite,
-      multimediaType,
-      isAdmin,
-      siteName,
-      multimediaSubtitle,
-      multimediaCaption,
-    }
-
-    const paramsFacebook = {
-      arcSite,
-      contextPath,
-      deployment,
-      urlVideoFacebook,
-    }
-
-    return (
-      <>
-        {(() => {
-          if (this.getAdsSpace())
-            return (
-              <div
-                className={size === 'twoCol' ? 'col-2 row-1' : 'col-1 row-1'}
-                dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())}
-              />
-            )
-          if (flagLive) return <FacebookLive {...paramsFacebook} />
-          return <FeaturedStory {...paramsFeaturedStory} />
-        })()}
-      </>
-    )
+  const paramsFeaturedStory = {
+    title,
+    category,
+    author,
+    multimediaLandscapeL,
+    multimediaLandscapeMD,
+    multimediaPortraitMD,
+    multimediaSquareS,
+    multimediaLazyDefault,
+    imageSize,
+    headband,
+    size,
+    hightlightOnMobile,
+    editableField,
+    titleField,
+    categoryField,
+    arcSite,
+    multimediaType,
+    isAdmin,
+    siteName,
+    multimediaSubtitle,
+    multimediaCaption,
   }
+
+  const paramsFacebook = {
+    arcSite,
+    contextPath,
+    deployment,
+    urlVideoFacebook,
+  }
+
+  return (
+    <>
+      {(() => {
+        if (getAdsSpace())
+          return (
+            <div
+              className={size === 'twoCol' ? 'col-2 row-1' : 'col-1 row-1'}
+              dangerouslySetInnerHTML={createMarkup(getAdsSpace())}
+            />
+          )
+        if (flagLive) return <FacebookLive {...paramsFacebook} />
+        return <FeaturedStory {...paramsFeaturedStory} />
+      })()}
+    </>
+  )
 }
 
 CardFeaturedStoryAdvanced.propTypes = {
