@@ -13,3 +13,5 @@ export const GALLERY = 'basic_gallery'
 export const  IMAGE_ORIGINAL = 'original'
 
 export const  IMAGE_SMALL = 'small'
+
+export const SQUARE_XS = 'square_xs'

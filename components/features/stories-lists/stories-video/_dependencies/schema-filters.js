@@ -9,7 +9,7 @@ export default `{
             promo_items{
                 basic{
                     resized_urls{
-                        small
+                        square_xs
                     }
                 }
             }
@@ -20,7 +20,7 @@ export default `{
         }
         basic{
             resized_urls{
-                small
+                square_xs
             }
         }
     }
