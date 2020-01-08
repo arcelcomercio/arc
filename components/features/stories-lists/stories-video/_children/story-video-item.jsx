@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect } from 'react'
 import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
@@ -15,26 +16,24 @@ const classes = {
 
 const YoutubeVideoDestacado = ({ video }) => {
   return (
-    <div className={classes.listItemDest}>
-      <iframe
-        className=""
-        src={`https://www.youtube.com/embed/${video.payload}`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title="Video"
-      />
-    </div>
+    <iframe
+      className=""
+      src={`https://www.youtube.com/embed/${video.payload}`}
+      frameBorder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+      title="Video"
+    />
   )
 }
 
 const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
   return (
-    <div className={classes.listItem}>
+    <>
       <img src={image.payload} alt={title} className={classes.listItemImg} />
       <span className={classes.listItemTitle}>{title}</span>
       {liveStory && <span>EN VIVO</span>}
-    </div>
+    </>
   )
 }
 
@@ -60,7 +59,7 @@ const YoutubeVideo = ({
 const ItemVideoCenterDestacado = ({ video }) => {
   return (
     <div
-      className={classes.listItemDest}
+      // className={classes.listItemDest}
       dangerouslySetInnerHTML={{ __html: video.payload }}
     />
   )
@@ -68,14 +67,14 @@ const ItemVideoCenterDestacado = ({ video }) => {
 
 const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
   return (
-    <div className={classes.listItem}>
+    <>
       <img className={classes.listItemImg} src={image.payload} alt={title} />
       <span className={classes.listItemTime}>{time}</span>
       <div>
         <span className={classes.listItemTitle}>{title}</span>
         {liveStory && <span>EN VIVO</span>}
       </div>
-    </div>
+    </>
   )
 }
 const VideoCenter = ({
@@ -135,8 +134,12 @@ const StoriesListStoryVideoItem = ({
       }
     }
   })
+  const classItem = index === 0 ? classes.listItemDest : classes.listItem
   return (
-    <div onClick={() => StoryItemHandleClick(index)}>{resultItemVideo}</div>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div className={classItem} onClick={() => StoryItemHandleClick(index)}>
+      {resultItemVideo}
+    </div>
   )
 }
 
