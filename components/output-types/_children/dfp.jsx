@@ -147,6 +147,10 @@ const Dfp = ({ isFuature, adId }) => {
                     __html: formatAdsCollection(content, requestUri),
                   }}
                 />
+                <script
+                  defer
+                  src="https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js"
+                />
               </>
             )
           }
