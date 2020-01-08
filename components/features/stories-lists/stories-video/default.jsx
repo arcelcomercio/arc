@@ -11,7 +11,7 @@ import {
 import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
-  IMAGE_SMALL,
+  SQUARE_XS,
 } from '../../../utilities/constants'
 
 import customFields from './_dependencies/custom-fields'
@@ -99,10 +99,10 @@ class StoriesListVideo extends PureComponent {
       let image = {}
       if (newsVideoCenter.type === VIDEO) {
         newsVideo = newsVideoCenter
-        image = getVideoImage(data, IMAGE_SMALL)
+        image = getVideoImage(data, SQUARE_XS)
       } else if (newsVideoYoutube.type === ELEMENT_YOUTUBE_ID) {
         newsVideo = newsVideoYoutube
-        image = getImage(data, IMAGE_SMALL)
+        image = getImage(data, SQUARE_XS)
       }
 
       let item = {}

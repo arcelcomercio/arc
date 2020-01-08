@@ -1,5 +1,6 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
@@ -59,12 +60,33 @@ const YoutubeVideo = ({
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
+// function load (event){
+//   debugger
+
+// }
+
 const ItemVideoCenterDestacado = ({ video }) => {
+  const [playState, setPlayState] = useState(false)
+
+  useEffect(() => {
+    // document.addEventListener('powaRender',load)
+    window.addEventListener('powaRender', ({ detail: { powa } }) => {
+
+      if (playState) {
+        powa.play()
+      }
+
+      setPlayState(true)
+    })
+  })
   return (
-    <div
-      // className={classes.listItemDest}
-      dangerouslySetInnerHTML={{ __html: video.payload }}
-    />
+    <>
+      <div
+        // className={classes.listItemDest}
+        dangerouslySetInnerHTML={{ __html: video.payload }}
+      />
+      {/* <script dangerouslySetInnerHTML={{ __html: scriptLoad }} /> */}
+    </>
   )
 }
 
