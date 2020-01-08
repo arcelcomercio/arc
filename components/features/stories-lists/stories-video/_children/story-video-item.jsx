@@ -15,16 +15,19 @@ const classes = {
   listItemTime: 'stories-video__item-time position-absolute',
 }
 
-const YoutubeVideoDestacado = ({ video }) => {
+const YoutubeVideoDestacado = ({ title, video }) => {
   return (
-    <iframe
-      className=""
-      src={`https://www.youtube.com/embed/${video.payload}`}
-      frameBorder="0"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-      title="Video"
-    />
+    <>
+      <iframe
+        className=""
+        src={`https://www.youtube.com/embed/${video.payload}`}
+        frameBorder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        title="Video"
+      />
+      <span>{title}</span>
+    </>
   )
 }
 
@@ -57,18 +60,12 @@ const YoutubeVideo = ({
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
-// function load (event){
-//   debugger
-
-// }
-
-const ItemVideoCenterDestacado = ({ video }) => {
+const ItemVideoCenterDestacado = ({ title, video }) => {
   const [playState, setPlayState] = useState(false)
 
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
-
       if (playState) {
         powa.play()
       }
@@ -82,7 +79,7 @@ const ItemVideoCenterDestacado = ({ video }) => {
         // className={classes.listItemDest}
         dangerouslySetInnerHTML={{ __html: video.payload }}
       />
-      {/* <script dangerouslySetInnerHTML={{ __html: scriptLoad }} /> */}
+      <span>{title}</span>
     </>
   )
 }
