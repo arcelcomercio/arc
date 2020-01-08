@@ -35,8 +35,10 @@ const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
   return (
     <>
       <img src={image.payload} alt={title} className={classes.listItemImg} />
-      <span className={classes.listItemTitle}>{title}</span>
-      {liveStory && <span>EN VIVO</span>}
+      <div className={classes.listItemInfo}>
+        <span className={classes.listItemTitle}>{title}</span>
+        {liveStory && <span>EN VIVO</span>}
+      </div>
     </>
   )
 }
@@ -71,7 +73,6 @@ const ItemVideoCenterDestacado = ({ video }) => {
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
-
       if (playState) {
         powa.play()
       }
