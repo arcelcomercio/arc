@@ -20,7 +20,7 @@ const classes = {
   live: 'stories-video__item-live flex items-center uppercase',
 }
 
-const YoutubeVideoDestacado = ({ title, video }) => {
+const YoutubeVideoDestacado = ({ title, video,liveStory }) => {
   const [youtubeAutoPlay, setYoutubeAutoPlay] = useState('')
 
   useEffect(() => {
@@ -43,6 +43,7 @@ const YoutubeVideoDestacado = ({ title, video }) => {
         title="Video"
       />
       <span>{title}</span>
+      {liveStory && <p className={classes.live}>EN VIVO</p>}
     </>
   )
 }
@@ -78,7 +79,7 @@ const YoutubeVideo = ({
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
-const ItemVideoCenterDestacado = ({ title, video }) => {
+const ItemVideoCenterDestacado = ({ title, video ,liveStory}) => {
   const [powaAutoPlay, setPowaAutoPlay] = useState(false)
 
   useEffect(() => {
@@ -102,6 +103,7 @@ const ItemVideoCenterDestacado = ({ title, video }) => {
           <h2 className={classes.listItemTitleDest}>{title}</h2>
         </div>
       </div>
+      {liveStory && <p className={classes.live}>EN VIVO</p>}
     </>
   )
 }
