@@ -5,7 +5,8 @@ import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 
 const classes = {
   headerFull: 'header-full bg-primary w-full position-relative',
-  container: 'header-full__container h-full flex justify-between',
+  container:
+    'header-full__container h-full flex justify-between position-relative',
   left: 'header-full__left flex items-center',
   boxBtnMenu:
     'header-full__box-btnmenu h-full flex items-center justify-center',
@@ -52,7 +53,8 @@ const classes = {
   linkNav:
     'header-full__link-nav text-white block secondary-font uppercase pt-5 pb-5 pr-5 pl-5 text-md',
 
-  megaMenu: 'header-full__megamenu megamenu position-absolute bg-white w-full',
+  megaMenu:
+    'header-full__megamenu megamenu w-full position-absolute overflow-hidden bottom-0 bg-gray-300 flex flex-col justify-between',
   megaMenuContainer: 'megamenu__container',
   megaMenuBox: 'megamenu__box flex flex-row justify-center pb-20 pt-20',
   megaMenuRow: 'megamenu__row mr-25',
@@ -73,6 +75,21 @@ const classes = {
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
   navLoader: 'nav__loader-bar position-absolute h-full left-0',
+
+  wrapper:
+    'nav-sidebar__wrapper flex flex-col justify-between h-full overflow-y',
+  body: 'nav-sidebar__body ',
+  list: 'nav- sidebar__list pt-15 pb-15',
+  item:
+    'nav-sidebar__item position-relative flex justify-between items-center flex-wrap',
+  containerSubMenu: 'nav-sidebar__container-submenu w-full overflow-hidden',
+  menuArrow: 'nav-sidebar__menu-arrow hidden',
+  labelParentItem:
+    'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
+  link: 'nav-sidebar__link block p-15 pl-25 text-md text-white',
+
+  footer: `nav-sidebar__footer p-30 border-b-1 border-solid border-gray`,
+  text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white uppercase`,
 }
 
 export default ({
@@ -87,6 +104,8 @@ export default ({
   arcSite,
   winningCallLogo,
   mobileHeaderFollowing,
+  siteDomain,
+  legalLinks,
 }) => {
   const inputSearch = useRef(null)
   const [showMenu, toggleMenu] = useState(false)
@@ -153,6 +172,56 @@ export default ({
     event.preventDefault()
     if (item === 3) moreList()
     else popUpWindow(item.link, '', 600, 400)
+  }
+
+  const renderSections = (sections, deep, nameId = 'root') => {
+    const aux = deep
+    return (
+      sections &&
+      sections.map(
+        ({
+          children,
+          name = '',
+          _id: id = '',
+          display_name: displayName = '',
+          url = '',
+        }) => {
+          const idElem = `${nameId}-${name || displayName}`.toLowerCase()
+          return (
+            <li className={classes.item} key={`navbar-menu-${url || id}`}>
+              <a
+                href={url || id || '/'}
+                className={`${classes.link}${
+                  deep > 0 ? ` pl-${25 + deep * 15}` : ''
+                }`}>
+                {name || displayName}
+              </a>
+              {children && children.length > 0 && (
+                <>
+                  <input
+                    className={classes.menuArrow}
+                    type="checkbox"
+                    id={idElem}
+                    name="checkbox-submenu"
+                  />
+                  {/** TODO: verificar si se puede mejorar, el input debería estar dentro
+                   * del label pero por problemas de estilos para hecer la funcionalidad
+                   * con puro CSS no se encontró forma.
+                   * */}
+                  <label htmlFor={idElem} className={classes.labelParentItem} />
+                  <ul
+                    className={`${
+                      classes.containerSubMenu
+                    } deep-${deep} ${idElem}`}>
+                    {renderSections(children, aux + 1, idElem)}
+                  </ul>
+                </>
+              )}
+            </li>
+          )
+        }
+      )
+    )
   }
 
   return (
@@ -291,49 +360,21 @@ export default ({
               </ul>
             </div>
             <div className={`${classes.megaMenu} ${showMenu ? 'active' : ''}`}>
-              <div className={classes.megaMenuContainer}>
-                <div className={classes.megaMenuBox}>
-                  {menuList.map(item => {
-                    return (
-                      <div className={classes.megaMenuRow}>
-                        <h3>
-                          <a
-                            href={item.url || item._id || '/'}
-                            className={classes.megaMenuTitle}>
-                            {item.name || item.display_name}
-                          </a>
-                        </h3>
-                        <ul className={classes.megaMenuList}>
-                          {item.children.map(subItem => {
-                            let subItemName =
-                              subItem.name || subItem.display_name
-                            const rawMatch = subItemName.match(/\[.*\]/g)
-                            const match =
-                              rawMatch === null
-                                ? ''
-                                : rawMatch[0].replace('[', '').replace(']', '')
-
-                            if (match) {
-                              subItemName = subItemName.replace(/\[.*\]/g, '')
-                            }
-                            return (
-                              <li className={classes.megaMenuItem}>
-                                <a
-                                  href={subItem.url || subItem._id || '/'}
-                                  className={`${classes.megaMenuLink} ${
-                                    match === 'bold'
-                                      ? 'megamenu__title-link font-bold'
-                                      : ''
-                                  }`}>
-                                  {subItemName}
-                                </a>
-                              </li>
-                            )
-                          })}
-                        </ul>
-                      </div>
-                    )
-                  })}
+              <div className={`${classes.wrapper} ${showMenu ? 'active' : ''}`}>
+                <div className={classes.body}>
+                  <ul className={classes.list}>
+                    {menuList && renderSections(menuList, 0)}
+                  </ul>
+                </div>
+                <div className={classes.footer}>
+                  <a href="/" className={classes.text}>
+                    {siteDomain}
+                  </a>
+                  {legalLinks.map(link => (
+                    <a key={link.url} href={link.url} className={classes.text}>
+                      {link.name}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
@@ -346,7 +387,7 @@ export default ({
                   <div>
                     <a
                       className={classes.moreLink}
-                      href='/'
+                      href="/"
                       onClick={event => {
                         openLink(event, 3)
                       }}>
