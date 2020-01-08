@@ -118,11 +118,14 @@ const Dfp = ({ isFuature, adId }) => {
         return formatSpace
       }
     )
-    return `"use strict";document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};var adsCollection=${JSON.stringify(
+    return `"use strict";document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction}; window.adsCollection=${JSON.stringify(
       adsCollection
     )
       .replace(/"<::/g, '')
-      .replace(/::>"/g, '')};arcAds.registerAdCollection(adsCollection);});`
+      .replace(
+        /::>"/g,
+        ''
+      )};arcAds.registerAdCollection(window.adsCollection);});`
   }
 
   return (
