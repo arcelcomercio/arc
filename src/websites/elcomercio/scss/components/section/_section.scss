@@ -11,6 +11,10 @@
   .bg-container {
     background-color: $color-gray-300;
   }
+  .play-list__name {
+    text-align: left;
+    font-size: 19px;
+  }
   .play-list__name,
   .play-list__title a,
   .video-navbar__link,
@@ -18,5 +22,11 @@
   .header__link,
   .header__tags {
     color: $color-white;
+  }
+  .play-list {
+    @media (--tablet) {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
