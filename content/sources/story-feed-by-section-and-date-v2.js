@@ -1,11 +1,17 @@
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
+import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 import {
-  addResizedUrlsToStory,
   getYYYYMMDDfromISO,
   getActualDate,
 } from '../../components/utilities/helpers'
+import {
+  includeCredits,
+  includeCreditsImage,
+  includePrimarySection,
+  includeSections,
+  includePromoItems,
+} from '../../components/utilities/included-fields'
 
 const schemaName = 'stories-dev'
 
@@ -30,6 +36,16 @@ const params = [
     displayName: 'Cantidad de historias',
     type: 'number',
   },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
+  },
+  {
+    name: 'includedFields',
+    displayName: 'Campos incluidos (opcional)',
+    type: 'text',
+  },
 ]
 
 const getNextDate = date => {
@@ -38,31 +54,7 @@ const getNextDate = date => {
   return getYYYYMMDDfromISO(requestedDate)
 }
 
-const transform = (data, key) => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
-  const dataStories = data
-  const { resizerUrl } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret,
-    addResizedUrls
-  )
-  return dataStories
-}
-
-const pattern = (key = {}) => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
-  const {
-    section: auxSection = '/',
-    date: auxDate = getActualDate(),
-    from = 0,
-    size = 10,
-  } = key
-
-  const section = auxSection === null || !auxSection ? '/' : auxSection
-  const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate
-
+const getQueryFilter = (section, website, date) => {
   const body = {
     query: {
       bool: {
@@ -108,17 +100,61 @@ const pattern = (key = {}) => {
       },
     })
   }
-  const excludedFields =
-    '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  const requestUri = `/content/v4/search/published?sort=display_date:desc&website=${website}&body=${JSON.stringify(
-    body
-  )}&from=${from}&size=${size}${excludedFields}`
+  const queryFilter = `body=${encodeURI(JSON.stringify(body))}`
+
+  return queryFilter
+}
+
+const transformImg = ({ contentElements, website, presets }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets,
+  })
+}
+
+const resolve = (key = {}) => {
+  const website = key['arc-site'] || 'Arc Site no está definido'
+  const {
+    section: auxSection = '/',
+    date: auxDate = getActualDate(),
+    from = 0,
+    size = 10,
+    includedFields,
+  } = key
+
+  const section = auxSection === null || !auxSection ? '/' : auxSection
+  const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate
+
+  const queryFilter = getQueryFilter(section, website, date)
+
+  const sourceInclude = includedFields
+    ? `&_sourceInclude=${includedFields}`
+    : `&_sourceInclude=websites.${website}.website_url,_id,headlines.basic,subheadlines.basic,display_date,${includeCredits},${includeCreditsImage},${includePrimarySection},${includeSections},${includePromoItems},promo_items.basic_html.content`
+
+  const requestUri = `/content/v4/search/published?${queryFilter}&sort=display_date:desc&website=${website}&from=${from}&size=${size}${sourceInclude}`
 
   return requestUri
 }
 
-const resolve = key => pattern(key)
+const transform = (data, { 'arc-site': website, presets: customPresets }) => {
+  const stories = data
+  const presets = customPresets
+
+  if (presets) {
+    const { content_elements: contentElements } = data || {}
+    stories.content_elements = transformImg({
+      contentElements,
+      website,
+      presets, // i.e. 'mobile:314x157'
+    })
+  }
+
+  return stories
+}
 
 const source = {
   resolve,
