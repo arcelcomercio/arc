@@ -12,9 +12,16 @@
       background-color: $color-primary;
     }
   }
-  /*   &__programs {
-   
-  } */
+  &__programs {
+    font-size: 14px;
+    &:before {
+      margin-top: 5px;
+      margin-left: 10px;
+    }
+  }
+  &__item-text {
+    width: calc(100% - 96px - 15px);
+  }
   &__item-title {
     font-size: 14px;
     line-height: 17px;
@@ -23,5 +30,11 @@
   &__item img {
     width: 96px;
     height: 72px;
+  }
+  &__item-time {
+    width: 54px;
+    height: 18px;
+    font-size: 10px;
+    bottom: 20px;
   }
 }

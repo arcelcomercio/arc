@@ -7,11 +7,14 @@ const classes = {
   listItemDest: 'stories-video__item-dest w-full',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
 
-  listItem: 'stories-video__item w-full p-20 flex justify-between',
+  listItem:
+    'stories-video__item w-full p-20 flex justify-between position-relative',
   listItemTitle: 'stories-video__item-title text-white',
+  listItemInfo: 'stories-video__item-text text-white',
   listItemImg:
     'stories-video__item-img w-full h-full object-cover object-center mr-15',
-  listItemTime: 'stories-video__item-time position-absolute',
+  listItemTime:
+    'stories-video__item-time position-absolute icon-video text-white flex justify-center items-center',
 }
 
 const YoutubeVideoDestacado = ({ video }) => {
@@ -70,7 +73,7 @@ const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
     <>
       <img className={classes.listItemImg} src={image.payload} alt={title} />
       <span className={classes.listItemTime}>{time}</span>
-      <div>
+      <div className={classes.listItemInfo}>
         <span className={classes.listItemTitle}>{title}</span>
         {liveStory && <span>EN VIVO</span>}
       </div>

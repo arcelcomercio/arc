@@ -9,6 +9,19 @@
     font-family: $primary-font;
   }
   &__programs {
+    font-family: $tertiary-font;
     color: #ffcb05;
+    &:before {
+      content: '\ea3c';
+      font-family: 'icomoon';
+      margin-top: 5px;
+      margin-left: 10px;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &__item-time {
+    background-color: rgba(0, 0, 0, 0.8);
   }
 }
