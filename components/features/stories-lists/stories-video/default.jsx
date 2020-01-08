@@ -202,8 +202,16 @@ class StoriesListVideo extends PureComponent {
   }
 
   render() {
+    const {
+      deployment,
+      arcSite = '',
+      contextPath = '',
+      siteProperties: { siteUrl = '' } = {},
+    } = this.props
     const { listStoriesVideo = [] } = this.state
-
+    const logoImg = `${siteUrl}${deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/Logo_P21TV.png`
+    )}`
     return (
       <>
         <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio" />
@@ -211,7 +219,7 @@ class StoriesListVideo extends PureComponent {
           <div className={classes.listHeader}>
             <h3 className={classes.listTitle}>video</h3>
             <a href={PERU21TV_URL}>
-              <img src="" alt="Logo" />
+              <img src={logoImg} alt="Logo" />
             </a>
           </div>
           {listStoriesVideo.map(item => {
@@ -221,7 +229,7 @@ class StoriesListVideo extends PureComponent {
             }
             return (
               <StoryItem
-                key={StoryItemProps.index.toString()}
+                key={`key-${StoryItemProps.index}`}
                 {...StoryItemProps}
               />
             )
