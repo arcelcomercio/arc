@@ -250,6 +250,5 @@ StoriesListVideo.propTypes = {
 }
 
 StoriesListVideo.label = 'Listado de Videos'
-// StoriesListVideo.static = true
 
 export default StoriesListVideo

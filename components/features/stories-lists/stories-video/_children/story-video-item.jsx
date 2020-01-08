@@ -16,11 +16,22 @@ const classes = {
 }
 
 const YoutubeVideoDestacado = ({ title, video }) => {
+  const [youtubeAutoPlay, setYoutubeAutoPlay] = useState('')
+
+  useEffect(() => {
+    // document.addEventListener('powaRender',load)
+    if (youtubeAutoPlay === '') {
+      setYoutubeAutoPlay('?autoplay=0')
+    } else {
+      setYoutubeAutoPlay('?autoplay=1')
+    }
+  }, [youtubeAutoPlay])
+
   return (
     <>
       <iframe
         className=""
-        src={`https://www.youtube.com/embed/${video.payload}`}
+        src={`https://www.youtube.com/embed/${video.payload}${youtubeAutoPlay}`}
         frameBorder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
@@ -61,16 +72,16 @@ const YoutubeVideo = ({
 }
 
 const ItemVideoCenterDestacado = ({ title, video }) => {
-  const [playState, setPlayState] = useState(false)
+  const [powaAutoPlay, setPowaAutoPlay] = useState(false)
 
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
-      if (playState) {
+      if (powaAutoPlay) {
         powa.play()
       }
 
-      setPlayState(true)
+      setPowaAutoPlay(true)
     })
   })
   return (
