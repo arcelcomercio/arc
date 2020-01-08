@@ -23,7 +23,8 @@ const classes = {
   listHeader: 'stories-video__header flex justify-between p-20',
   listTitle: 'stories-video__title text-white uppercase',
   viewProgramsWrapper: 'stories-video__programs-wrapper flex flex-center p-20',
-  viewPrograms: 'stories-video__programs text-white',
+  viewPrograms:
+    'stories-video__programs text-white flex justify-center w-full flex-row-reverse items-center',
 }
 
 const CONTENT_SOURCE = 'story-by-url'
