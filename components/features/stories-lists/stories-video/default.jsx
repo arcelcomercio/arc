@@ -229,7 +229,7 @@ class StoriesListVideo extends PureComponent {
             }
             return (
               <StoryItem
-                key={StoryItemProps.index.toString()}
+                key={`key-${StoryItemProps.index}`}
                 {...StoryItemProps}
               />
             )
