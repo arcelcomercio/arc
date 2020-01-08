@@ -37,6 +37,32 @@ class MinuteByMinute extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {}
+
+    const {
+      customFields: {
+        storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      } = {},
+      arcSite,
+    } = props
+
+    this.fetchContent({
+      content: {
+        source: contentService,
+        query: Object.assign(contentConfigValues, {
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic`,
+        }),
+        filter: schemaFilter(arcSite),
+        transform: response => {
+          const {
+            headlines: { basic: title = '' } = {},
+            subheadlines: { basic: subTitle = '' } = {},
+            websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
+          } = response || {}
+
+          return { title, subTitle, url: websiteUrl }
+        },
+      },
+    })
   }
 
   componentDidMount() {
@@ -65,6 +91,7 @@ class MinuteByMinute extends PureComponent {
         self.setState({ inner: data })
       })
     }
+
     window.on_mxm_loaded = function(instances) {
       window.getMxmInstances = () => {
         return instances
@@ -72,19 +99,18 @@ class MinuteByMinute extends PureComponent {
     }
 
     const waitjQueryAndMxm = () => {
+      let timeout = 100
       if (window.jQuery) {
         if (document.querySelector('.mxm-input')) {
           runScorer()
           return true
         }
-        setTimeout(waitjQueryAndMxm, 1000)
+        timeout = 1000
       }
-      setTimeout(waitjQueryAndMxm, 100)
+      setTimeout(waitjQueryAndMxm, timeout)
     }
 
     waitjQueryAndMxm()
-
-    this.fetchData()
   }
 
   getTimeRender = (time = '') => {
@@ -115,40 +141,14 @@ class MinuteByMinute extends PureComponent {
       : 'show'
   }
 
-  fetchData() {
-    const {
-      customFields: {
-        storyConfig: { contentService = '', contentConfigValues = {} } = {},
-      } = {},
-      arcSite,
-    } = this.props
-
-    const { fetched } = this.getContent({
-      source: contentService,
-      query: Object.assign(contentConfigValues, {
-        includedFields: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic`,
-      }),
-      filter: schemaFilter(arcSite),
-    })
-
-    fetched.then(response => {
-      const {
-        headlines: { basic: title = '' } = {},
-        subheadlines: { basic: subTitle = '' } = {},
-        websites: { [arcSite]: { website_url: websiteUrl = '' } = {} },
-      } = response
-      this.setState({ title, subTitle, url: websiteUrl })
-    })
-  }
-
   render() {
-    const { title, url, subTitle } = this.state
     const { deployment, contextPath } = this.props
     const {
       customFields: { typeComponent = '', codeComponent = '' } = {},
     } = this.props
 
-    const { inner } = this.state
+    const { inner, content } = this.state
+    const { title, url, subTitle } = content || {}
     const defaultValue = '-'
 
     const equipos = (inner && inner.match && inner.match[0]) || {}

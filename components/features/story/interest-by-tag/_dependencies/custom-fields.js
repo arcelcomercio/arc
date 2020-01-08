@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-  section: PropTypes.string.tag({
+  tag: PropTypes.string.tag({
     name: 'Nombre del tag',
     description:
-      'Si no se coloca la URL de la sección, se renderiza la última historia publicada. Ejemplo: /deporte-total',
+      'Si no se coloca el tag, se renderiza la última historia publicada. Ejemplo (sin /): peru',
   }),
   title: PropTypes.string.tag({
     name: 'Titulo',

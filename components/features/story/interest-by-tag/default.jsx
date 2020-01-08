@@ -25,7 +25,7 @@ const classes = {
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
 const InterestByTag = props => {
-  const { customFields: { section = '', isWeb = '' } = {} } = props
+  const { customFields: { tag = '', isWeb = '' } = {} } = props
   const {
     arcSite,
     globalContent: dataContent,
@@ -43,7 +43,7 @@ const InterestByTag = props => {
     contextPath,
   })
 
-  const urlTag = section || `/${slug}/`
+  const urlTag = `/${tag || slug}/`
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
@@ -54,8 +54,8 @@ const InterestByTag = props => {
         presets,
         includedFields,
       },
-      filter: schemaFilter,
-    }) || ''
+      filter: schemaFilter(arcSite),
+    }) || {}
 
   const instance =
     storyData &&
