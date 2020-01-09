@@ -56,9 +56,9 @@ export default ({
           if (scrollHeight >= playOff && arcSite !== 'gestion') {
             sectionVideo.classList.add('fixed')
             changeFixedSection(true)
-            videoNavBar.classList.add('fixed')
-            videoList.classList.add(`${renderClassFix}`)
-            videoFrame.style.left = `${leftFix + 50}px`
+            //videoNavBar.classList.add('fixed')
+            //videoList.classList.add(`${renderClassFix}`)
+            //videoFrame.style.left = `${leftFix + 50}px`
 
             // videoList.style.marginTop = '570px'
           }
@@ -190,6 +190,32 @@ export default ({
                 <p className="section-video__subtitle">
                   {principalVideo.subTitle}
                 </p>
+                <div className="section-video__share">
+                  <button
+                    onClick={() => shareNew('facebook')}
+                    type="button"
+                    className="section-video__btn">
+                    <span className="icon-facebook" />
+                  </button>
+                  <button
+                    onClick={() => shareNew('twitter')}
+                    type="button"
+                    className="section-video__btn">
+                    <span className="icon-twitter" />
+                  </button>
+                  <button
+                    onClick={() => shareNew('linkedin')}
+                    type="button"
+                    className="section-video__btn">
+                    <span className="icon-linkedin" />
+                  </button>
+                  {/* <button type="button" className="section-video__btn">
+                  <span className="icon-share" />
+                </button> */}
+                </div>
+                <div className="section-video__detail">
+                  <span className="section-video__text">{fecha}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -198,76 +224,8 @@ export default ({
               playListParams.arcSite === 'gestion'
                 ? 'section-video__fixed--none'
                 : 'section-video__fixed'
-            }>
-            <div className="section-video__min">
-              <div className="section-video__desc">
-                {/* <span>0:30 </span> */}
-                <a
-                  className="text-white"
-                  href={principalVideo.primarySectionLink}>
-                  {principalVideo.primarySection}
-                </a>
-              </div>
-              <h2>
-                <a
-                  href={principalVideo.websiteLink}
-                  className="section-video__des-title text-white block">
-                  {principalVideo.title}
-                </a>
-              </h2>
-              <div className="section-video__share">
-                <button
-                  onClick={() => shareNew('facebook')}
-                  type="button"
-                  className="section-video__btn">
-                  <span className="icon-facebook" />
-                </button>
-                <button
-                  onClick={() => shareNew('twitter')}
-                  type="button"
-                  className="section-video__btn">
-                  <span className="icon-twitter" />
-                </button>
-                <button
-                  onClick={() => shareNew('linkedin')}
-                  type="button"
-                  className="section-video__btn">
-                  <span className="icon-linkedin" />
-                </button>
-                {/* <button type="button" className="section-video__btn">
-                  <span className="icon-share" />
-                </button> */}
-              </div>
-            </div>
-          </div>
-          <div className="section-video__detail">
-            <span className="section-video__text">{fecha}</span>
-          </div>
-          <div className="section-video__bottom">
-            <div className="section-video__share">
-              <button
-                onClick={() => shareNew('facebook')}
-                type="button"
-                className="section-video__btn">
-                <span className="icon-facebook" />
-              </button>
-              <button
-                onClick={() => shareNew('twitter')}
-                type="button"
-                className="section-video__btn">
-                <span className="icon-twitter" />
-              </button>
-              <button
-                onClick={() => shareNew('linkedin')}
-                type="button"
-                className="section-video__btn">
-                <span className="icon-linkedin" />
-              </button>
-              {/* <button type="button" className="section-video__btn">
-                <span className="icon-share" />
-              </button> */}
-            </div>
-          </div>
+            }
+          />
         </div>
         <PlayList {...playListParams} />
       </div>
