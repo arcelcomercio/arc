@@ -130,7 +130,7 @@ const Dfp = ({ isFuature, adId }) => {
 
   return (
     <>
-      {arcSite === 'publimetro' && (
+      {arcSite === 'publimetro' && arcSite === 'depor' && (
         <Content
           {...{
             contentService: 'get-dfp-spaces',
