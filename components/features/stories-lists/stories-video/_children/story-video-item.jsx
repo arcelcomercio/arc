@@ -87,13 +87,10 @@ const ItemVideoCenterDestacado = ({ title, video,autoPlayVideo }) => {
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
-      if (powaAutoPlay) {
+      if (powaAutoPlay||autoPlayVideo) {
         powa.play()
       }
 
-      if(autoPlayVideo){
-        powa.play()
-      }
       setPowaAutoPlay(true)
     })
   })
