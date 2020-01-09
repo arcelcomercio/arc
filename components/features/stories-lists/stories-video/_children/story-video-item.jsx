@@ -22,13 +22,16 @@ const classes = {
   destYoutube: 'stories-video__ position-relative',
 }
 
-const YoutubeVideoDestacado = ({ title, video, liveStory }) => {
+const YoutubeVideoDestacado = ({ title, video, autoPlayVideo, liveStory }) => {
+  const urlVideo = autoPlayVideo
+    ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
+    : `https://www.youtube.com/embed/${video.payload}`
   return (
     <>
       <div className={classes.destYoutube}>
         <iframe
           className=""
-          src={`https://www.youtube.com/embed/${video.payload}`}
+          src={urlVideo}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -63,21 +66,22 @@ const YoutubeVideo = ({
   title = '',
   image = {},
   video = {},
+  autoPlayVideo,
 }) => {
   const propsItem = {
     liveStory,
     title,
     image,
     video,
+    autoPlayVideo,
   }
   if (index === 0) {
-
     return <YoutubeVideoDestacado {...propsItem} />
   }
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
-const ItemVideoCenterDestacado = ({ title, video }) => {
+const ItemVideoCenterDestacado = ({ title, video,autoPlayVideo }) => {
   const [powaAutoPlay, setPowaAutoPlay] = useState(false)
 
   useEffect(() => {
@@ -87,6 +91,9 @@ const ItemVideoCenterDestacado = ({ title, video }) => {
         powa.play()
       }
 
+      if(autoPlayVideo){
+        powa.play()
+      }
       setPowaAutoPlay(true)
     })
   })
@@ -125,6 +132,7 @@ const VideoCenter = ({
   image = {},
   video = {},
   videoTime,
+  autoPlayVideo,
 }) => {
   const time = msToTime(videoTime)
 
@@ -134,6 +142,7 @@ const VideoCenter = ({
     title,
     image,
     video,
+    autoPlayVideo,
   }
 
   if (index === 0) {
@@ -142,11 +151,16 @@ const VideoCenter = ({
   return <ItemVideoCenterNoDestacado {...propsItem} />
 }
 
-
 const StoriesListStoryVideoItem = ({
   index = 0,
   liveStory = false,
-  content: { title = '', image = '', video = {}, videoTime = 0 } = {},
+  content: {
+    title = '',
+    image = '',
+    video = {},
+    autoPlayVideo = false,
+    videoTime = 0,
+  } = {},
   StoryItemHandleClick,
 }) => {
   const paramsItem = {
@@ -155,6 +169,7 @@ const StoriesListStoryVideoItem = ({
     title,
     image,
     video,
+    autoPlayVideo,
     videoTime,
   }
   let resultItemVideo = {}

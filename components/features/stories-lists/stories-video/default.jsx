@@ -119,6 +119,7 @@ class StoriesListVideo extends PureComponent {
             title,
             image,
             video: newsVideo,
+            autoPlayVideo:false,
             videoTime: getVideoTime(data),
           },
         }
@@ -192,9 +193,8 @@ class StoriesListVideo extends PureComponent {
       )
       firstItem.index = 0
       
-      if (firstItem.content.video.type === ELEMENT_YOUTUBE_ID) {
-        firstItem.content.video.payload = `${firstItem.content.video.payload}?autoplay=1`
-      }
+      // si el primer elemento debe tener autoplay 
+      firstItem.content.autoPlayVideo = true
 
       sortListStories.push(lastItem)
       sortListStories.push(firstItem)
