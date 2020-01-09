@@ -21,26 +21,16 @@ const classes = {
   destYoutube: 'stories-video__youtube',
 }
 
-const YoutubeVideoDestacado = ({ title, video }) => {
-  const [youtubeAutoPlay, setYoutubeAutoPlay] = useState('')
-
-  useEffect(() => {
-    // document.addEventListener('powaRender',load)
-    if (youtubeAutoPlay === '') {
-      setYoutubeAutoPlay('?autoplay=0')
-    } else {
-      setYoutubeAutoPlay('?autoplay=1')
-    }
-  }, [youtubeAutoPlay])
-
+const YoutubeVideoDestacado = ({ title, video, autoPlayVideo }) => {
+  const urlVideo = autoPlayVideo
+    ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
+    : `https://www.youtube.com/embed/${video.payload}`
   return (
     <>
       <div className={classes.destYoutube}>
         <iframe
           className=""
-          src={`https://www.youtube.com/embed/${
-            video.payload
-          }${youtubeAutoPlay}`}
+          src={urlVideo}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -74,12 +64,14 @@ const YoutubeVideo = ({
   title = '',
   image = {},
   video = {},
+  autoPlayVideo,
 }) => {
   const propsItem = {
     liveStory,
     title,
     image,
     video,
+    autoPlayVideo,
   }
   if (index === 0) {
     return <YoutubeVideoDestacado {...propsItem} />
@@ -87,7 +79,7 @@ const YoutubeVideo = ({
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
-const ItemVideoCenterDestacado = ({ title, video, liveStory }) => {
+const ItemVideoCenterDestacado = ({ title, video, autoPlayVideo }) => {
   const [powaAutoPlay, setPowaAutoPlay] = useState(false)
 
   useEffect(() => {
@@ -97,6 +89,9 @@ const ItemVideoCenterDestacado = ({ title, video, liveStory }) => {
         powa.play()
       }
 
+      if (autoPlayVideo) {
+        powa.play()
+      }
       setPowaAutoPlay(true)
     })
   })
@@ -135,6 +130,7 @@ const VideoCenter = ({
   image = {},
   video = {},
   videoTime,
+  autoPlayVideo,
 }) => {
   const time = msToTime(videoTime)
 
@@ -144,6 +140,7 @@ const VideoCenter = ({
     title,
     image,
     video,
+    autoPlayVideo,
   }
 
   if (index === 0) {
@@ -155,7 +152,13 @@ const VideoCenter = ({
 const StoriesListStoryVideoItem = ({
   index = 0,
   liveStory = false,
-  content: { title = '', image = '', video = {}, videoTime = 0 } = {},
+  content: {
+    title = '',
+    image = '',
+    video = {},
+    autoPlayVideo = false,
+    videoTime = 0,
+  } = {},
   StoryItemHandleClick,
 }) => {
   const paramsItem = {
@@ -164,6 +167,7 @@ const StoriesListStoryVideoItem = ({
     title,
     image,
     video,
+    autoPlayVideo,
     videoTime,
   }
   let resultItemVideo = {}

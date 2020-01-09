@@ -22,9 +22,10 @@ const classes = {
   listComponent: 'stories-video__wrapper w-full flex flex-col',
   listHeader: 'stories-video__header flex justify-between p-20',
   listTitle: 'stories-video__title text-white uppercase',
-  viewProgramsWrapper: 'stories-video__programs-wrapper flex flex-center p-20',
+  viewProgramsWrapper:
+    'stories-video__programs-wrapper flex justify-center p-20',
   viewPrograms:
-    'stories-video__programs text-white flex justify-center w-full flex-row-reverse items-center',
+    'stories-video__programs text-white flex items-center flex-row-reverse',
 }
 
 const CONTENT_SOURCE = 'story-by-url'
@@ -120,6 +121,7 @@ class StoriesListVideo extends PureComponent {
             title,
             image,
             video: newsVideo,
+            autoPlayVideo: false,
             videoTime: getVideoTime(data),
           },
         }
@@ -193,6 +195,9 @@ class StoriesListVideo extends PureComponent {
       )
       firstItem.index = 0
 
+      // si el primer elemento debe tener autoplay
+      firstItem.content.autoPlayVideo = true
+
       sortListStories.push(lastItem)
       sortListStories.push(firstItem)
       sortListStories.sort((a, b) => (a.index > b.index ? 1 : -1))
@@ -251,5 +256,6 @@ StoriesListVideo.propTypes = {
 }
 
 StoriesListVideo.label = 'Listado de Videos'
+// StoriesListVideo.static = true
 
 export default StoriesListVideo
