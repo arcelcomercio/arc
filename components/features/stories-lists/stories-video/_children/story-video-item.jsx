@@ -8,7 +8,6 @@ const classes = {
   listItemDest: 'stories-video__item-dest w-full',
   listItemText: 'pt-20 pl-20 pr-20 pb-10 w-full',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
-  liveVideo: 'stories-video__live-video text-white position-absolute',
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItem:
     'stories-video__item w-full p-20 flex justify-between position-relative cursor-pointer',
@@ -19,10 +18,10 @@ const classes = {
   listItemTime:
     'stories-video__item-time position-absolute icon-video text-white flex justify-center items-center',
   live: 'stories-video__item-live flex items-center uppercase',
-  destYoutube: 'stories-video__ position-relative',
+  destYoutube: 'stories-video__youtube',
 }
 
-const YoutubeVideoDestacado = ({ title, video, liveStory }) => {
+const YoutubeVideoDestacado = ({ title, video }) => {
   const [youtubeAutoPlay, setYoutubeAutoPlay] = useState('')
 
   useEffect(() => {
@@ -47,7 +46,6 @@ const YoutubeVideoDestacado = ({ title, video, liveStory }) => {
           allowFullScreen
           title="Video"
         />
-        {liveStory && <p className={classes.liveVideo}>EN VIVO</p>}
       </div>
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
