@@ -86,9 +86,9 @@ export default ({
       duration,
       resized_urls: {
         large = '',
-        amp_video_1x1: ampVideo1x1 = urlImage,
-        amp_video_4x3: ampVideo4x3 = urlImage,
-        amp_video_16x9: ampVideo16x9 = urlImage,
+        amp_image_1x1: ampVideo1x1 = urlImage,
+        amp_image_4x3: ampVideo4x3 = urlImage,
+        amp_image_16x9: ampVideo16x9 = urlImage,
       } = {},
     } = {}) => {
       const image =
@@ -108,6 +108,20 @@ export default ({
       )}" } `
     }
   )
+
+  const imagesSeoItemsAmp = imagePrimarySeo.map(image => {
+    const {
+      url = '',
+      resized_urls: {
+        amp_image_16x9: ampImage16x9 = '',
+        amp_image_1x1: ampImage1x1 = '',
+        amp_image_4x3: ampImage4x3 = '',
+      } = {},
+    } = image || {}
+
+    return `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 ||
+      url}"]`
+  })
 
   const imagesSeoItems = imagePrimarySeo.map(image => {
     const {
@@ -152,9 +166,11 @@ export default ({
     ? ` "isAccessibleForFree": "False", "hasPart": { "@type": "WebPageElement",  "isAccessibleForFree": "False",   "cssSelector" : ".paywall" },`
     : ''
 
-  const imagenData = imagesSeoItems[1]
-    ? `"image": ${imagesSeoItems[0]} ,`
-    : `"image": ${imagesSeoItems},`
+  const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
+
+  const imagenData = arrayImage[1]
+    ? `"image": ${arrayImage[0]} ,`
+    : `"image": ${arrayImage},`
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
