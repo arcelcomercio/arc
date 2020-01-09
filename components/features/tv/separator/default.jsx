@@ -9,7 +9,7 @@ import customFields from './_dependencies/custom-fields'
 import TvSeparatorItem from './_children/separator-item'
 import StoryData from '../../../utilities/story-data'
 import {
-  includePromoItems,
+  // includePromoItems,
   includeSections,
 } from '../../../utilities/included-fields'
 
@@ -36,7 +36,7 @@ const TvSeparator = props => {
         section,
         stories_qty: maxStories,
         presets: 'preset1:9x5,preset2:280xx157',
-        includedFields: `headlines.basic,display_name,${includePromoItems},promo_items.basic_html.content,${includeSections}`,
+        includedFields: `headlines.basic,display_name,promo_items,${includeSections}`,
       },
       filter: schemaFilter,
     }) || {}
