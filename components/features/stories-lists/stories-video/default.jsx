@@ -23,8 +23,7 @@ const classes = {
   listHeader: 'stories-video__header flex justify-between p-20',
   listTitle: 'stories-video__title text-white uppercase',
   viewProgramsWrapper: 'stories-video__programs-wrapper flex flex-center p-20',
-  viewPrograms:
-    'stories-video__programs text-white flex justify-center w-full flex-row-reverse items-center',
+  viewPrograms: 'stories-video__programs text-white',
 }
 
 const CONTENT_SOURCE = 'story-by-url'
@@ -192,6 +191,10 @@ class StoriesListVideo extends PureComponent {
         JSON.stringify(listStoriesVideo[StoryItemIndex])
       )
       firstItem.index = 0
+      
+      if (firstItem.content.video.type === ELEMENT_YOUTUBE_ID) {
+        firstItem.content.video.payload = `${firstItem.content.video.payload}?autoplay=1`
+      }
 
       sortListStories.push(lastItem)
       sortListStories.push(firstItem)
@@ -251,5 +254,6 @@ StoriesListVideo.propTypes = {
 }
 
 StoriesListVideo.label = 'Listado de Videos'
+// StoriesListVideo.static = true
 
 export default StoriesListVideo
