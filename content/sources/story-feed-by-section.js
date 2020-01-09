@@ -3,6 +3,7 @@ import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 import { removeLastSlash } from '../../components/utilities/helpers'
+import { formatIncludedFields } from '../../components/utilities/included-fields'
 
 const SCHEMA_NAME = 'stories'
 
@@ -123,7 +124,10 @@ const resolve = (key = {}) => {
   const queryFilter = getQueryFilter(section, website)
 
   const sourceInclude = includedFields
-    ? `&_sourceInclude=${includedFields}`
+    ? `&_sourceInclude=${formatIncludedFields({
+        includedFields,
+        arcSite: website,
+      })}`
     : ''
 
   return `/content/v4/search/published?${queryFilter}&website=${website}&size=${storiesQty ||

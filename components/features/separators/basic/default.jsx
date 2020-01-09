@@ -6,10 +6,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import SeparatorList from './_children/separator'
 import StoryData from '../../../utilities/story-data'
-import {
-  includePromoItems,
-  includePrimarySection,
-} from '../../../utilities/included-fields'
+import { separatorBasicFields } from '../../../utilities/included-fields'
 
 const STORIES_QTY_DEFAULT = 4
 const CONTENT_SOURCE = 'story-feed-by-section'
@@ -37,7 +34,7 @@ const SeparatorBasic = props => {
       section,
       stories_qty: STORIES_QTY_DEFAULT,
       presets: 'landscape_s:234x161,portrait_md:314x374',
-      includedFields: `websites.${arcSite}.website_url,canonical_url,headlines.basic,${includePromoItems},${includePrimarySection}`,
+      includedFields: separatorBasicFields,
     },
     filter: schemaFilter(arcSite),
     transform: data => {

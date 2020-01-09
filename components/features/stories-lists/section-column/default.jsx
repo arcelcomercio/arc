@@ -8,7 +8,7 @@ import schemaFilter from './_dependencies/schema-filter'
 
 import Header from './_children/header'
 import List from './_children/list'
-import { includePromoItems } from '../../../utilities/included-fields'
+import { sectionColumnsFields } from '../../../utilities/included-fields'
 
 const classes = {
   lista: 'stories-l-section bg-white flex flex-col',
@@ -27,7 +27,7 @@ const SectionColumnListCard = props => {
     excludeSections: '/impresa',
     stories_qty: newsNumber,
     presets: 'landscape_md:314x157',
-    includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems}`,
+    includedFields: sectionColumnsFields,
   }
   const data =
     useContent({
