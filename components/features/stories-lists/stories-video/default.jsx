@@ -14,6 +14,7 @@ import {
   SQUARE_XS,
 } from '../../../utilities/constants'
 
+import { defaultImage } from '../../../utilities/helpers'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filters'
 import StoryItem from './_children/story-video-item'
@@ -104,6 +105,18 @@ class StoriesListVideo extends PureComponent {
       } else if (newsVideoYoutube.type === ELEMENT_YOUTUBE_ID) {
         newsVideo = newsVideoYoutube
         image = getImage(data, SQUARE_XS)
+        image.payload = ''
+        image.default = false
+        if (image.payload === '') {
+          const { deployment, arcSite = '', contextPath = '' } = this.props
+          image.default = true
+          image.payload = defaultImage({
+            deployment,
+            contextPath,
+            arcSite,
+            size: 'sm',
+          })
+        }
       }
 
       let item = {}
@@ -117,6 +130,7 @@ class StoriesListVideo extends PureComponent {
         item = {
           index,
           liveStory: listLiveStory[index],
+          valid: true,
           content: {
             title,
             image,

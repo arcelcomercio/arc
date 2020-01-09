@@ -35,7 +35,7 @@ export const getVideoYoutube = data => {
 }
 
 export const getImage = (data, ImageSize) => {
-  const result = { type: '', payload: '' }
+  const result = { type: IMAGE, payload: '' }
   result.payload =
     (data &&
       data.promo_items &&
@@ -43,9 +43,7 @@ export const getImage = (data, ImageSize) => {
       data.promo_items[IMAGE].resized_urls &&
       data.promo_items[IMAGE].resized_urls[ImageSize]) ||
     ''
-  if (result.payload !== '') {
-    result.type = IMAGE
-  }
+  
   return result
 }
 

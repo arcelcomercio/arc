@@ -15,6 +15,7 @@ const classes = {
   listItemInfo: 'stories-video__item-text text-white',
   listItemImg:
     'stories-video__item-img w-full h-full object-cover object-center mr-15',
+  listItemImgDefault: 'stories-video__item-default w-full h-full object-cover object-center mr-15',
   listItemTime:
     'stories-video__item-time position-absolute icon-video text-white flex justify-center items-center',
   live: 'stories-video__item-live flex items-center uppercase',
@@ -47,9 +48,10 @@ const YoutubeVideoDestacado = ({ title, video, autoPlayVideo }) => {
 }
 
 const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
+  const imageclass = image.default === false ? classes.listItemImg : classes.listItemImgDefault
   return (
     <>
-      <img src={image.payload} alt={title} className={classes.listItemImg} />
+      <img src={image.payload} alt={title} className={imageclass} />
       <div className={classes.listItemInfo}>
         <h2 className={classes.listItemTitle}>{title}</h2>
         {liveStory && <p className={classes.live}>EN VIVO</p>}
@@ -85,7 +87,7 @@ const ItemVideoCenterDestacado = ({ title, video, autoPlayVideo }) => {
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
-      if (powaAutoPlay||autoPlayVideo) {
+      if (powaAutoPlay || autoPlayVideo) {
         powa.play()
       }
 
