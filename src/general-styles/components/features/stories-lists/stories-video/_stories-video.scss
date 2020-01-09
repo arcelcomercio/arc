@@ -52,6 +52,7 @@
     }
   }
   &__item-time {
+    background-color: rgba(0, 0, 0, 0.8);
     width: 54px;
     height: 18px;
     font-size: 10px;
@@ -68,13 +69,5 @@
       background-color: #ff280a;
       margin-right: 7px;
     }
-  }
-  &__live-video {
-    background-color: #ff280a;
-    width: 44px;
-    height: 16px;
-    font-size: 9px;
-    bottom: 10px;
-    left: 10px;
   }
 }
