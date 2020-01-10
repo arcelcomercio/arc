@@ -74,7 +74,7 @@ class StoryContentChildVideo extends PureComponent {
       return aliasId[0]
     }
     
-    if(arcSite === 'publimetro'){
+    if(arcSite === 'publimetro' ||arcSite === 'depor'){
 
       let tipoplantilla = ''
       switch (metaValue('id')) {
@@ -90,7 +90,7 @@ class StoryContentChildVideo extends PureComponent {
       }
 
       let sectionSlug = this.getSectionSlug(primarySection)
-      return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro_post_${sectionSlug}_web_preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Dpublimetro%26seccion%3D${sectionSlug}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`;
+      return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSite}_post_${sectionSlug}_web_preroll&description_url=https%3A%2F%2F${arcSite}.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSite}%26seccion%3D${sectionSlug}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`;
     }else{
       return urlPreroll
     }
