@@ -247,13 +247,7 @@ export default ({
             )}?outputType=amp`}
           />
         )}
-        {arcSite === ConfigParams.SITE_ELCOMERCIOMAG && (
-          <link
-            rel="alternate"
-            href={`${siteProperties.siteUrlAlternate}${link}`}
-            hrefLang="es"
-          />
-        )}
+
         <title>{title}</title>
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
@@ -379,9 +373,7 @@ export default ({
             defer
             dangerouslySetInnerHTML={{ __html: collapseDivs }}
           />
-        )
-        }
-
+        )}
       </head>
       <body className={classBody}>
         <noscript>
