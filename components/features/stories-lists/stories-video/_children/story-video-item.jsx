@@ -10,12 +10,13 @@ const classes = {
   listItemTitleDest: 'stories-video__item-dest-title text-white',
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItem:
-    'stories-video__item w-full p-20 flex justify-between position-relative cursor-pointer',
+    'stories-video__item w-full p-10 flex justify-between position-relative cursor-pointer',
   listItemTitle: 'stories-video__item-title text-white mb-10',
   listItemInfo: 'stories-video__item-text text-white',
   listItemImg:
     'stories-video__item-img w-full h-full object-cover object-center mr-15',
-  listItemImgDefault: 'stories-video__item-default w-full h-full object-cover object-center mr-15',
+  listItemImgDefault:
+    'stories-video__item-default w-full h-full object-cover object-center mr-15',
   listItemTime:
     'stories-video__item-time position-absolute icon-video text-white flex justify-center items-center',
   live: 'stories-video__item-live flex items-center uppercase',
@@ -48,7 +49,8 @@ const YoutubeVideoDestacado = ({ title, video, autoPlayVideo }) => {
 }
 
 const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
-  const imageclass = image.default === false ? classes.listItemImg : classes.listItemImgDefault
+  const imageclass =
+    image.default === false ? classes.listItemImg : classes.listItemImgDefault
   return (
     <>
       <img src={image.payload} alt={title} className={imageclass} />
@@ -81,17 +83,19 @@ const YoutubeVideo = ({
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
-const ItemVideoCenterDestacado = ({ title, video, autoPlayVideo }) => {
+const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
   const [powaAutoPlay, setPowaAutoPlay] = useState(false)
-
+  
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
-      if (powaAutoPlay || autoPlayVideo) {
-        powa.play()
-      }
+      if (!isAdmin) {
+        if (powaAutoPlay || autoPlayVideo) {
+          powa.play()
+        }
 
-      setPowaAutoPlay(true)
+        setPowaAutoPlay(true)
+      }
     })
   })
   return (
@@ -124,6 +128,7 @@ const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
 }
 const VideoCenter = ({
   index,
+  isAdmin,
   liveStory,
   title = '',
   image = {},
@@ -134,6 +139,7 @@ const VideoCenter = ({
   const time = msToTime(videoTime)
 
   const propsItem = {
+    isAdmin,
     liveStory,
     time,
     title,
@@ -150,6 +156,7 @@ const VideoCenter = ({
 
 const StoriesListStoryVideoItem = ({
   index = 0,
+  isAdmin,
   liveStory = false,
   content: {
     title = '',
@@ -162,6 +169,7 @@ const StoriesListStoryVideoItem = ({
 }) => {
   const paramsItem = {
     index,
+    isAdmin,
     liveStory,
     title,
     image,

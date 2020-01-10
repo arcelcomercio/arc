@@ -36,6 +36,9 @@ class StoriesListVideo extends PureComponent {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props)
+    this.state = {
+      listStoriesVideo: [],
+    }
     this.getContentApi()
   }
 
@@ -75,6 +78,7 @@ class StoriesListVideo extends PureComponent {
     const { story01, story02, story03, story04, story05 } = this.state
 
     const {
+      isAdmin,
       customFields: {
         liveStory01 = false,
         liveStory02 = false,
@@ -82,6 +86,7 @@ class StoriesListVideo extends PureComponent {
         liveStory04 = false,
         liveStory05 = false,
       } = {},
+      
     } = this.props
     const listStories = [story01, story02, story03, story04, story05]
     const listLiveStory = [
@@ -105,8 +110,8 @@ class StoriesListVideo extends PureComponent {
       } else if (newsVideoYoutube.type === ELEMENT_YOUTUBE_ID) {
         newsVideo = newsVideoYoutube
         image = getImage(data, SQUARE_XS)
-        image.payload = ''
         image.default = false
+        image.payload=''
         if (image.payload === '') {
           const { deployment, arcSite = '', contextPath = '' } = this.props
           image.default = true
@@ -129,6 +134,7 @@ class StoriesListVideo extends PureComponent {
 
         item = {
           index,
+          isAdmin,
           liveStory: listLiveStory[index],
           valid: true,
           content: {
@@ -142,6 +148,7 @@ class StoriesListVideo extends PureComponent {
       } else {
         item = {
           index,
+          isAdmin,
           liveStory: listLiveStory[index],
         }
       }
@@ -226,10 +233,17 @@ class StoriesListVideo extends PureComponent {
       deployment,
       arcSite = '',
       contextPath = '',
-      siteProperties: { siteUrl = '' } = {},
     } = this.props
     const { listStoriesVideo = [] } = this.state
-    const logoImg = `${siteUrl}${deployment(
+
+    // const imgLogo =
+    //   customFieldsData.logo ||
+    //   deployment(
+    //     `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
+    //   )
+
+
+    const logoImg = `${deployment(
       `${contextPath}/resources/dist/${arcSite}/images/Logo_P21TV.png`
     )}`
     return (
@@ -242,18 +256,19 @@ class StoriesListVideo extends PureComponent {
               <img src={logoImg} alt="Logo" />
             </a>
           </div>
-          {listStoriesVideo.map(item => {
-            const StoryItemProps = {
-              ...item,
-              StoryItemHandleClick: this.StoryItemHandleClick,
-            }
-            return (
-              <StoryItem
-                key={`key-${StoryItemProps.index}`}
-                {...StoryItemProps}
-              />
-            )
-          })}
+          {listStoriesVideo.length > 0 &&
+            listStoriesVideo.map(item => {
+              const StoryItemProps = {
+                ...item,
+                StoryItemHandleClick: this.StoryItemHandleClick,
+              }
+              return (
+                <StoryItem
+                  key={`key-${StoryItemProps.index}`}
+                  {...StoryItemProps}
+                />
+              )
+            })}
           <div className={classes.viewProgramsWrapper}>
             <a className={classes.viewPrograms} href={PERU21TV_URL}>
               Ver programas

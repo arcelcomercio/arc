@@ -1,6 +1,8 @@
 .stories-video {
   &__wrapper {
     background-color: #111;
+    grid-row: span 2;
+    height: 787px;
   }
   &__title {
     font-size: 15px;
