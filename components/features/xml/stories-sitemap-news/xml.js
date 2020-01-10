@@ -4,7 +4,7 @@ import { localISODate } from '../../../utilities/helpers'
 
 /**
  * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
- * funciona mejor con la content-source "sitemap-feed-by-section"
+ * funciona mejor con la content-source "story-feed-by-section"
  *
  * @returns {Object} Objeto con estructura manipulable por
  * xmlBuilder, para construir sitemaps para Google news.

@@ -1,17 +1,22 @@
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
+import {
+  includeTags,
+  includePromoItems,
+  includePromoItemsCaptions,
+} from '../../../utilities/included-fields'
 
 /**
  * @description Sitemap principal con historias de todo el sitio.
  * Este feature obtiene los datos que necesita desde "globalContent" y
- * funciona mejor con la content-source "sitemap-feed-by-section"
+ * funciona mejor con la content-source "story-feed-by-section"
  *
  * @returns {Object} Objeto con estructura manipulable por
  * xmlBuilder, para construir sitemaps principal con historias de todo el sitio.
  */
 
-const SOURCE = 'sitemap-feed-by-section'
+const SOURCE = 'story-feed-by-section'
 const OUTPUTTYPE = '?outputType=amp'
 const IMAGE_SIZE = 'amp_new'
 
@@ -19,12 +24,16 @@ const IMAGE_SIZE = 'amp_new'
 class XmlSiteNewsSitemap {
   constructor(props) {
     this.props = props
+    const { arcSite } = props
+
     this.fetchContent({
       data: {
         source: SOURCE,
         query: {
           section: '/',
           stories_qty: 100,
+          presets: `${IMAGE_SIZE}:1200x800`,
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -32,14 +41,9 @@ class XmlSiteNewsSitemap {
 
   promoItemHeadlines = ({ promo_items: promoItems }) => {
     if (!promoItems) return ''
-    const {
-      subtitle,
-      caption,
-      headlines: { basic: headlinesBasic } = {},
-      description: { basic: descriptionBasic } = {},
-    } = Object.values(promoItems)[0] || {}
+    const { subtitle, caption } = Object.values(promoItems)[0] || {}
 
-    return subtitle || caption || headlinesBasic || descriptionBasic || ''
+    return subtitle || caption || ''
   }
 
   render() {
@@ -89,7 +93,7 @@ class XmlSiteNewsSitemap {
                 storyData.multimedia ||
                 '',
               'image:title': {
-                '#cdata': this.promoItemHeadlines(story),
+                '#cdata': this.promoItemHeadlines(story) || storyData.title,
               },
             },
             changefreq: 'hourly',
