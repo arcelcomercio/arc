@@ -113,12 +113,12 @@ class XmlGoogleKiosko {
                         return {
                             item: [
                                 { title: storyData.title },
-                                { link: `${siteUrl}${storyData.link || ''}` },
+                                { link: `${siteUrl}${storyData.websiteLink || ''}` },
                                 { description: storyData.subTitle },
                                 {
                                     guid: {
                                         '@isPermaLink': 'true',
-                                        '#text': `${siteUrl}${storyData.link || ''}`
+                                        '#text': `${siteUrl}${storyData.websiteLink || ''}`
                                     }
                                 },
                                 { 'dc:creator': storyData.author },

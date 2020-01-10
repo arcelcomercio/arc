@@ -42,7 +42,7 @@ class XmlStoriesSitemapWeb {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${storyData.link || ''}`,
+            loc: `${siteUrl}${storyData.websiteLink || ''}`,
             lastmod: localISODate(storyData.date || ''),
             changefreq: 'hourly',
             priority: '1.0',

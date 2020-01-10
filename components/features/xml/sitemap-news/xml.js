@@ -1,6 +1,11 @@
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
+import {
+  includeTags,
+  includePromoItems,
+  includePromoItemsCaptions,
+} from '../../../utilities/included-fields'
 
 /**
  * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
@@ -11,32 +16,62 @@ import { localISODate } from '../../../utilities/helpers'
  */
 
 @Consumer
-class XmlStoriesSitemapNews {
+class XmlSitemapNews {
   constructor(props) {
     this.props = props
+    const { globalContentConfig, arcSite } = props
+    const { query: { _id: section } = {} } = globalContentConfig || {}
+
+    const presets = 'landscape_l:648x374'
+    const includedFields = `websites.${arcSite}.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`
+
+    this.fetchContent(this.getStates(section, presets, includedFields))
+  }
+
+  getStates = (section, presets, includedFields) => {
+    const interval = 100
+    const states = {}
+
+    let count = 0
+    // MAX 500 historias
+    while (count <= 4) {
+      states[`data${count}`] = {
+        source: 'story-feed-by-section',
+        query: {
+          section,
+          feedOffset: count * interval,
+          stories_qty: interval,
+          presets,
+          includedFields,
+        },
+      }
+      count += 1
+    }
+    return { ...states }
   }
 
   promoItemHeadlines = ({ promo_items: promoItems }) => {
     if (!promoItems) return ''
-    const {
-      subtitle,
-      caption,
-      headlines: { basic: headlinesBasic } = {},
-      description: { basic: descriptionBasic } = {},
-    } = Object.values(promoItems)[0] || {}
+    const { subtitle, caption } = Object.values(promoItems)[0] || {}
 
-    return subtitle || caption || headlinesBasic || descriptionBasic || ''
+    return subtitle || caption || ''
   }
 
   render() {
     const {
-      globalContent,
       deployment,
       contextPath,
       arcSite,
       siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
     } = this.props
-    const { content_elements: stories } = globalContent || {}
+
+    const stories = []
+    if (this.state)
+      Object.keys(this.state).forEach(key => {
+        const { content_elements: contentElements = [] } =
+          (key && this.state[key]) || {}
+        stories.push(...contentElements)
+      })
 
     if (!stories) {
       return null
@@ -78,7 +113,7 @@ class XmlStoriesSitemapNews {
               'image:loc':
                 storyData.multimediaLandscapeL || storyData.multimedia || '',
               'image:title': {
-                '#cdata': this.promoItemHeadlines(story),
+                '#cdata': this.promoItemHeadlines(story) || storyData.title,
               },
             },
             changefreq: 'hourly',
@@ -99,4 +134,4 @@ class XmlStoriesSitemapNews {
   }
 }
 
-export default XmlStoriesSitemapNews
+export default XmlSitemapNews

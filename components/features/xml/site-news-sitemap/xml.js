@@ -68,10 +68,10 @@ class XmlSiteNewsSitemap {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${storyData.link || ''}`,
+            loc: `${siteUrl}${storyData.websiteLink || ''}`,
             'xhtml:link': {
               '@rel': 'amphtml',
-              '@href': `${siteUrl}${storyData.link || ''}${OUTPUTTYPE}`,
+              '@href': `${siteUrl}${storyData.websiteLink || ''}${OUTPUTTYPE}`,
             },
             'news:news': {
               'news:publication': {

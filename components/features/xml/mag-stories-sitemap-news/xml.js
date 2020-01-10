@@ -70,7 +70,7 @@ class XmlMagStoriesSitemapNews {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${MAG_PATH}${storyData.link || ''}`,
+            loc: `${siteUrl}${MAG_PATH}${storyData.websiteLink || ''}`,
             // lastmod: localISODate(storyData.date || ''),
             'news:news': {
               'news:publication': {

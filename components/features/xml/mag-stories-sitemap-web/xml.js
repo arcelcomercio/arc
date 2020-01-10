@@ -58,7 +58,7 @@ class XmlMagStoriesSitemapWeb {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${MAG_PATH}${storyData.link || ''}`,
+            loc: `${siteUrl}${MAG_PATH}${storyData.websiteLink || ''}`,
             lastmod: localISODate(storyData.date || ''),
             changefreq: 'hourly',
             priority: '1.0',

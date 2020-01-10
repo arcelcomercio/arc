@@ -65,7 +65,7 @@ class XmlGoogleNews {
                                     '#cdata': storyData.title,
                                 },
                                 link: {
-                                    '#cdata': `${siteUrl}${storyData.link}?outputType=amp`,
+                                    '#cdata': `${siteUrl}${storyData.websiteLink}?outputType=amp`,
                                 },
                                 description: {
                                     '#cdata': storyData.subTitle,
