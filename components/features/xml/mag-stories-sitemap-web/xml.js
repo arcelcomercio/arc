@@ -1,5 +1,4 @@
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 
 /**
@@ -9,19 +8,23 @@ import { localISODate } from '../../../utilities/helpers'
  * xmlBuilder, para construir sitemaps estándar para la web de Mag.
  */
 
-const SOURCE = 'story-feed-by-website'
+const SOURCE = 'story-feed-by-section'
 const MAG_PATH = '/mag'
 
 @Consumer
 class XmlMagStoriesSitemapWeb {
   constructor(props) {
     this.props = props
+    const { arcSite } = props
+
     this.fetchContent({
       stories: {
         source: SOURCE,
         query: {
           website: 'elcomerciomag',
           stories_qty: 100,
+          presets: 'no-presets',
+          includedFields: `websites.${arcSite}.website_url,display_date`,
         },
         transform: data => {
           if (!data) return []
@@ -33,12 +36,7 @@ class XmlMagStoriesSitemapWeb {
   }
 
   render() {
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      siteProperties: { siteUrl = '' } = {},
-    } = this.props
+    const { arcSite, siteProperties: { siteUrl = '' } = {} } = this.props
 
     const { stories } = this.state || {}
 
@@ -46,20 +44,15 @@ class XmlMagStoriesSitemapWeb {
       return null
     }
 
-    const storyData = new StoryData({
-      deployment,
-      contextPath,
-      arcSite,
-      defaultImgSize: 'sm',
-    })
-
     const sitemap = {
       urlset: stories.map(story => {
-        storyData.__data = story
+        const { display_date: date = '', websites = {} } = story
+        const { website_url: websiteLink } = websites[arcSite] || {}
+
         return {
           url: {
-            loc: `${siteUrl}${MAG_PATH}${storyData.websiteLink || ''}`,
-            lastmod: localISODate(storyData.date || ''),
+            loc: `${siteUrl}${MAG_PATH}${websiteLink || ''}`,
+            lastmod: localISODate(date || ''),
             changefreq: 'hourly',
             priority: '1.0',
           },

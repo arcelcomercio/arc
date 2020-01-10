@@ -1,6 +1,11 @@
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
+import {
+  includeTags,
+  includePromoItems,
+  includePromoItemsCaptions,
+} from '../../../utilities/included-fields'
 
 /**
  * @description Sitemap para Google News de Mag.
@@ -9,19 +14,23 @@ import { localISODate } from '../../../utilities/helpers'
  * xmlBuilder, para construir sitemaps para Google news de Mag.
  */
 
-const SOURCE = 'story-feed-by-website'
+const SOURCE = 'story-feed-by-section'
 const MAG_PATH = '/mag'
 
 @Consumer
 class XmlMagStoriesSitemapNews {
   constructor(props) {
     this.props = props
+    const { arcSite } = props
+
     this.fetchContent({
       stories: {
         source: SOURCE,
         query: {
           website: 'elcomerciomag',
           stories_qty: 100,
+          presets: 'landscape_l:648x374',
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
         transform: data => {
           if (!data) return []
@@ -34,14 +43,9 @@ class XmlMagStoriesSitemapNews {
 
   promoItemHeadlines = ({ promo_items: promoItems }) => {
     if (!promoItems) return ''
-    const {
-      subtitle,
-      caption,
-      headlines: { basic: headlinesBasic } = {},
-      description: { basic: descriptionBasic } = {},
-    } = Object.values(promoItems)[0] || {}
+    const { subtitle, caption } = Object.values(promoItems)[0] || {}
 
-    return subtitle || caption || headlinesBasic || descriptionBasic || ''
+    return subtitle || caption || ''
   }
 
   render() {
@@ -94,7 +98,7 @@ class XmlMagStoriesSitemapNews {
               'image:loc':
                 storyData.multimediaLandscapeL || storyData.multimedia || '',
               'image:title': {
-                '#cdata': this.promoItemHeadlines(story),
+                '#cdata': this.promoItemHeadlines(story) || storyData.title,
               },
             },
             changefreq: 'hourly',

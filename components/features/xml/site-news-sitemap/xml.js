@@ -2,10 +2,13 @@ import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 import {
-  includeTags,
   includePromoItems,
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
+
+const SOURCE = 'story-feed-by-section'
+const OUTPUTTYPE = '?outputType=amp'
+const IMAGE_SIZE = 'amp_new'
 
 /**
  * @description Sitemap principal con historias de todo el sitio.
@@ -15,10 +18,6 @@ import {
  * @returns {Object} Objeto con estructura manipulable por
  * xmlBuilder, para construir sitemaps principal con historias de todo el sitio.
  */
-
-const SOURCE = 'story-feed-by-section'
-const OUTPUTTYPE = '?outputType=amp'
-const IMAGE_SIZE = 'amp_new'
 
 @Consumer
 class XmlSiteNewsSitemap {
