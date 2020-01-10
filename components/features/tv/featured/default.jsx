@@ -10,7 +10,7 @@ import StoryData from '../../../utilities/story-data'
 import { formattedTime } from '../../../utilities/helpers'
 
 import TvBody from './_children/body'
-import { includePromoItems } from '../../../utilities/included-fields'
+// import { includePromoItems } from '../../../utilities/included-fields'
 
 const TvFeatured = props => {
   const { customFields: { section = '' } = {} } = props
@@ -21,7 +21,7 @@ const TvFeatured = props => {
       query: {
         section,
         presets: 'preset1:1350x570,preset2:1023x450,preset3:624x285',
-        includedFields: `headlines.basic,display_date,${includePromoItems},promo_items.basic_html.content`,
+        includedFields: `headlines.basic,display_date,promo_items`,
       },
       filter: schemaFilter,
     }) || {}
