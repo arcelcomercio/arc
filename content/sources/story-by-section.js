@@ -6,6 +6,7 @@ import {
   includePrimarySection,
   includeSections,
   includeCredits,
+  formatIncludedFields,
 } from '../../components/utilities/included-fields'
 
 /**
@@ -127,7 +128,10 @@ const resolve = (key = {}) => {
   const queryFilter = getQueryFilter(clearSection, website)
 
   const sourceInclude = includedFields
-    ? `&_sourceInclude=${includedFields}`
+    ? `&_sourceInclude=${formatIncludedFields({
+        includedFields,
+        arcSite: website,
+      })}`
     : `&_sourceInclude=${includePrimarySection},${includeSections},display_date,publish_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
 
   return `/content/v4/search/published?${queryFilter}&website=${website}&size=1&from=${feedOffset ||

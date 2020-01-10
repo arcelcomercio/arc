@@ -8,13 +8,7 @@ import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 import FacebookLive from './_children/facebook-live'
 import { createMarkup, getPhotoId } from '../../../utilities/helpers'
-import {
-  includeCredits,
-  includePrimarySection,
-  includeSections,
-  includePromoItems,
-  includePromoItemsCaptions,
-} from '../../../utilities/included-fields'
+import { featuredStoryFields } from '../../../utilities/included-fields'
 
 const PHOTO_SOURCE = 'photo-by-id'
 
@@ -63,7 +57,7 @@ const CardFeaturedStoryAdvanced = props => {
   const { schema } = storyFormatter
   const presets =
     'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
+  const includedFields = featuredStoryFields
 
   const data = useContent({
     source: contentService,

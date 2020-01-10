@@ -29,3 +29,38 @@ export const includeCreditsImage = `credits.by.image.url`
 export const includeCreditsRole = `credits.by.additional_properties.original.role`
 
 export const includeCreditsEducation = `credits.by.additional_properties.original.education.name`
+
+/** ----------------------------*
+ *           FEATURES            *
+ *------------------------------*/
+
+const encodedFueatureName = name => `<${name}>`
+
+export const featuredStoryFields = encodedFueatureName('featuredStory')
+export const sectionColumnsFields = encodedFueatureName('sectionColumns')
+export const separatorFeaturedFields = encodedFueatureName('separatorFeatured')
+export const separatorBasicFields = encodedFueatureName('separatorBasic')
+export const separatorStoriesFields = encodedFueatureName('separatorStories')
+
+const getFeaturesIncludedFields = arcSite => ({
+  featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`,
+  sectionColumns: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems},${includeCredits}`,
+  separatorFeatured: `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection}`,
+  separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,${includePromoItems},${includePrimarySection}`,
+  separatorStories: `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url`,
+})
+
+/** Función que reemplaza los caracteres "<encodedFeatureName>" por los included fields
+ *  de un campo del objeto resultante de la función getFeaturesIncludedFields
+ */
+
+export const formatIncludedFields = ({ includedFields = '', arcSite = '' }) => {
+  // Formato de la variable a reemplazar <feature>
+  const matched = includedFields.match(/<(.*)>/) || []
+  const feature = matched[1] || ''
+
+  return includedFields.replace(
+    /<(.*)>/,
+    getFeaturesIncludedFields(arcSite)[feature] || ''
+  )
+}
