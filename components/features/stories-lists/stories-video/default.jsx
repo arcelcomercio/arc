@@ -21,7 +21,7 @@ import StoryItem from './_children/story-video-item'
 
 const classes = {
   listComponent: 'stories-video__wrapper w-full flex flex-col',
-  listHeader: 'stories-video__header flex justify-between p-20',
+  listHeader: 'stories-video__header flex items-center justify-between p-20',
   listTitle: 'stories-video__title text-white uppercase',
   viewProgramsWrapper:
     'stories-video__programs-wrapper flex justify-center p-20',
@@ -86,7 +86,6 @@ class StoriesListVideo extends PureComponent {
         liveStory04 = false,
         liveStory05 = false,
       } = {},
-      
     } = this.props
     const listStories = [story01, story02, story03, story04, story05]
     const listLiveStory = [
@@ -111,7 +110,7 @@ class StoriesListVideo extends PureComponent {
         newsVideo = newsVideoYoutube
         image = getImage(data, SQUARE_XS)
         image.default = false
-        image.payload=''
+        image.payload = ''
         if (image.payload === '') {
           const { deployment, arcSite = '', contextPath = '' } = this.props
           image.default = true
@@ -229,11 +228,7 @@ class StoriesListVideo extends PureComponent {
   }
 
   render() {
-    const {
-      deployment,
-      arcSite = '',
-      contextPath = '',
-    } = this.props
+    const { deployment, arcSite = '', contextPath = '' } = this.props
     const { listStoriesVideo = [] } = this.state
 
     // const imgLogo =
@@ -241,7 +236,6 @@ class StoriesListVideo extends PureComponent {
     //   deployment(
     //     `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
     //   )
-
 
     const logoImg = `${deployment(
       `${contextPath}/resources/dist/${arcSite}/images/Logo_P21TV.png`

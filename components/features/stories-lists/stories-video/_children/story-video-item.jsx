@@ -10,7 +10,7 @@ const classes = {
   listItemTitleDest: 'stories-video__item-dest-title text-white',
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItem:
-    'stories-video__item w-full p-10 flex justify-between position-relative cursor-pointer',
+    'stories-video__item w-full p-15 flex justify-between position-relative cursor-pointer',
   listItemTitle: 'stories-video__item-title text-white mb-10',
   listItemInfo: 'stories-video__item-text text-white',
   listItemImg:
@@ -85,7 +85,7 @@ const YoutubeVideo = ({
 
 const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
   const [powaAutoPlay, setPowaAutoPlay] = useState(false)
-  
+
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {

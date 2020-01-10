@@ -1,8 +1,9 @@
 .stories-video {
   &__wrapper {
     background-color: #111;
-    grid-row: span 2;
-    height: 787px;
+    @media (--tablet) {
+      grid-row: span 2;
+    }
   }
   &__title {
     font-size: 15px;
@@ -71,5 +72,8 @@
       background-color: #ff280a;
       margin-right: 7px;
     }
+  }
+  &__item-default {
+    background-color: #aaa;
   }
 }
