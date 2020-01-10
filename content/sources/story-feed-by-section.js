@@ -185,20 +185,18 @@ const transform = (
   const { siteName } = getProperties(website)
   stories.siteName = siteName
 
-  let sectionName = ''
+  let sectionMatch = ''
   if (section !== '/') {
     const {
       content_elements: [{ taxonomy: { sections = [] } = {} } = {}] = [],
     } = stories || {}
 
-    sections.forEach(({ _id, name }) => {
-      if (_id === section) sectionName = name
-    })
+    sectionMatch = sections.find(sec => sec._id === section)
   }
 
   return {
     ...stories,
-    section_name: sectionName || 'Sección',
+    section_name: (sectionMatch && sectionMatch.name) || 'Sección',
     section_id: section,
   }
 }

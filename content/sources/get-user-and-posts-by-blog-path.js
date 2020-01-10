@@ -37,7 +37,6 @@ const resolve = key => {
 
   if (key.posts_offset <= 0)
     throw new RedirectError(`${siteUrl}/blog/${blogPath}/`, 301)
-
   return `${urlApiblog}?json=get_user_and_posts_by_blog_path&blog_path=${blogPath}&posts_limit=${postsLimit}&posts_offset=${pagination}&token=${process
     .env.TOKEN_BLOG || BLOG_TOKEN}`
 }
