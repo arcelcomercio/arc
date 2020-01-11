@@ -14,16 +14,17 @@ const SOURCE = 'story-feed-by-section'
 class XmlGoogleNews {
   constructor(props) {
     this.props = props
-    const { arcSite } = props
+    const { globalContentConfig, arcSite } = props
+    const { query: { _id: section } = {} } = globalContentConfig || {}
 
     this.fetchContent({
       data: {
         source: SOURCE,
         query: {
-          section: '/',
+          section,
           stories_qty: 100,
           presets: 'no-presets',
-          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,credits.by.name`,
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,credits.by.name,credits.by.type`,
         },
       },
     })

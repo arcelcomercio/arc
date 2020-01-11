@@ -7,15 +7,15 @@ import {
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
 
+const SOURCE = 'story-feed-by-section'
+const MAG_PATH = '/mag'
+
 /**
  * @description Sitemap para Google News de Mag.
  *
  * @returns {Object} Objeto con estructura manipulable por
  * xmlBuilder, para construir sitemaps para Google news de Mag.
  */
-
-const SOURCE = 'story-feed-by-section'
-const MAG_PATH = '/mag'
 
 @Consumer
 class XmlMagStoriesSitemapNews {
