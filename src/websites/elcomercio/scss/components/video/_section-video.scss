@@ -87,17 +87,27 @@
     .section-video__detail {
       display: none;
     }
-    .section-video__share {
-      display: block;
+    .section-video__right {
+      .section-video__share {
+        display: block;
+      }
     }
     .section-video__right {
       width: calc(100% - 420px);
+      padding: 20px 0;
     }
     .section-video__left {
       width: 420px;
     }
-    .section-video__title {
+    .section-video__information {
       width: 70%;
+    }
+    .section-video__title {
+      margin: 10px 0 20px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+      overflow: hidden;
     }
   }
 }

@@ -32,6 +32,11 @@
     background-color: #111;
     border: 0;
     height: 48px;
+    &.fixed {
+      @media (--desktop) {
+        top: 296px;
+      }
+    }
   }
   .video-navbar__list {
     justify-content: center;
@@ -66,4 +71,9 @@
   }
   /*  .section-video__detail {
   } */
+  .section-video__right {
+    .section-video__share {
+      display: none;
+    }
+  }
 }

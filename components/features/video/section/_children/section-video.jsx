@@ -56,7 +56,7 @@ export default ({
           if (scrollHeight >= playOff && arcSite !== 'gestion') {
             sectionVideo.classList.add('fixed')
             changeFixedSection(true)
-            //videoNavBar.classList.add('fixed')
+            videoNavBar.classList.add('fixed')
             //videoList.classList.add(`${renderClassFix}`)
             //videoFrame.style.left = `${leftFix + 50}px`
 
@@ -163,7 +163,7 @@ export default ({
               /> */}
             </div>
             <div className="section-video__right">
-              <div section-video__information>
+              <div className="section-video__information">
                 {/* <div className="section-video__breadcrumbs">
                   <span className="section-video__sub">
                     <a href="/videos">Video</a>
@@ -191,6 +191,29 @@ export default ({
                 <p className="section-video__subtitle">
                   {principalVideo.subTitle}
                 </p>
+                <div className="section-video__share">
+                  <button
+                    onClick={() => shareNew('facebook')}
+                    type="button"
+                    className="section-video__btn">
+                    <span className="icon-facebook" />
+                  </button>
+                  <button
+                    onClick={() => shareNew('twitter')}
+                    type="button"
+                    className="section-video__btn">
+                    <span className="icon-twitter" />
+                  </button>
+                  <button
+                    onClick={() => shareNew('linkedin')}
+                    type="button"
+                    className="section-video__btn">
+                    <span className="icon-linkedin" />
+                  </button>
+                  {/* <button type="button" className="section-video__btn">
+                  <span className="icon-share" />
+                </button> */}
+                </div>
               </div>
             </div>
           </div>
