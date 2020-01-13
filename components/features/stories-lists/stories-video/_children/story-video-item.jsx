@@ -23,11 +23,17 @@ const classes = {
   destYoutube: 'stories-video__youtube',
 }
 
-const YoutubeVideoDestacado = ({isAdmin,liveStory, title, video, autoPlayVideo }) => {
-  
-  const urlVideo = autoPlayVideo && !isAdmin
-    ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
-    : `https://www.youtube.com/embed/${video.payload}`
+const YoutubeVideoDestacado = ({
+  isAdmin,
+  liveStory,
+  title,
+  video,
+  autoPlayVideo,
+}) => {
+  const urlVideo =
+    autoPlayVideo && !isAdmin
+      ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
+      : `https://www.youtube.com/embed/${video.payload}`
   return (
     <>
       <div className={classes.destYoutube}>
@@ -93,12 +99,16 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
-      if (!isAdmin) {
-        if (powaAutoPlay || autoPlayVideo) {
-          powa.play()
-        }
+      const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+      
+      if (!isIOS) {
+        if (!isAdmin) {
+          if (powaAutoPlay || autoPlayVideo) {
+            powa.play()
+          }
 
-        setPowaAutoPlay(true)
+          setPowaAutoPlay(true)
+        }
       }
     })
   })

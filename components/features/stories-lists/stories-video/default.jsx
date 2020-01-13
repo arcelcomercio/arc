@@ -11,7 +11,7 @@ import {
 import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
-  SQUARE_XS,
+  LANDSCAPE_XXS,
 } from '../../../utilities/constants'
 
 import { defaultImage } from '../../../utilities/helpers'
@@ -105,10 +105,10 @@ class StoriesListVideo extends PureComponent {
       let image = {}
       if (newsVideoCenter.type === VIDEO) {
         newsVideo = newsVideoCenter
-        image = getVideoImage(data, SQUARE_XS)
+        image = getVideoImage(data, LANDSCAPE_XXS)
       } else if (newsVideoYoutube.type === ELEMENT_YOUTUBE_ID) {
         newsVideo = newsVideoYoutube
-        image = getImage(data, SQUARE_XS)
+        image = getImage(data, LANDSCAPE_XXS)
         image.default = false
         
         if (image.payload === '') {

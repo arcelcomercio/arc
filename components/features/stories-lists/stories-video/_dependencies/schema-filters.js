@@ -9,7 +9,7 @@ export default `{
             promo_items{
                 basic{
                     resized_urls{
-                        square_xs
+                        landscape_xxs
                     }
                 }
             }
@@ -20,7 +20,7 @@ export default `{
         }
         basic{
             resized_urls{
-                square_xs
+                landscape_xxs
             }
         }
     }
