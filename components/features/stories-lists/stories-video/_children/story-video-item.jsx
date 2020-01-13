@@ -30,8 +30,12 @@ const YoutubeVideoDestacado = ({
   video,
   autoPlayVideo,
 }) => {
+  const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+    window.navigator.userAgent
+  )
+
   const urlVideo =
-    autoPlayVideo && !isAdmin
+    autoPlayVideo && !isAdmin && !isMobile
       ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
       : `https://www.youtube.com/embed/${video.payload}`
   return (
@@ -99,9 +103,11 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
   useEffect(() => {
     // document.addEventListener('powaRender',load)
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
-      const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
-      
-      if (!isIOS) {
+      const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+        window.navigator.userAgent
+      )
+
+      if (!isMobile) {
         if (!isAdmin) {
           if (powaAutoPlay || autoPlayVideo) {
             powa.play()
