@@ -25,7 +25,6 @@ class StoriesListSectionStories extends PureComponent {
       isAdmin,
       customFields: customFieldsProps = {},
       siteProperties: { isDfp = false },
-      metaValue,
     } = this.props
 
     const { storiesQty = 50, initialStory = 0 } = customFieldsProps

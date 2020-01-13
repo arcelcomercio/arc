@@ -2,6 +2,11 @@ import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import { defaultImage } from '../../../../utilities/helpers'
+import {
+  includeCredits,
+  includePromoItems,
+  includePrimarySection,
+} from '../../../../utilities/included-fields'
 
 const getMultimediaIcon = multimediaType => {
   let icon = ''
@@ -97,15 +102,6 @@ const getMultimediaType = ({ basicVideoUrl, basicGalleryUrl }) => {
   return 'basic'
 }
 
-const getSectionName = ({ sections, section } = []) => {
-  let currentName = ''
-  const { name: defaultName } = sections[0] || {}
-  sections.forEach(({ name, _id }) => {
-    if (_id === section) currentName = name
-  })
-  return currentName || defaultName
-}
-
 const formatContent = ({
   section,
   content,
@@ -113,12 +109,21 @@ const formatContent = ({
   deployment,
   contextPath,
 }) => {
-  const { content_elements: contentElements = [] } = content || {}
-  const { taxonomy: { sections = [] } = {} } = contentElements[0] || {}
-  const { _id: defaultId } = sections[0] || {}
+  const { content_elements: contentElements = [], section_name: sectionName } =
+    content || {}
+  const [
+    {
+      taxonomy: {
+        primary_section: {
+          path: primarySectionPath,
+          name: primarySectionName,
+        } = {},
+      } = {},
+    } = {},
+  ] = contentElements || []
   return {
-    sectionName: getSectionName({ sections, section }),
-    sectionUrl: `${section || defaultId}/`,
+    sectionName: sectionName || primarySectionName,
+    sectionUrl: `${section || primarySectionPath}/`,
     // CR: desde un tiempo para aca prefiero validar arregls con .length > 0
     contentElements: contentElements.map(
       ({
@@ -162,13 +167,12 @@ export default ({ section = '' }) => {
   return (
     <Content
       {...{
-        contentService: 'story-feed-by-section-opt',
+        contentService: 'story-feed-by-section',
         contentConfigValues: {
           section,
-          size: 4,
+          stories_qty: 4,
           presets: 'mobile:314x157',
-          includedFields:
-            'websites,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content,headlines.basic,credits.by.name,credits.by.url,taxonomy.sections._id,taxonomy.sections.name',
+          includedFields: `websites.${arcSite}.website_url,${includePromoItems},headlines.basic,${includeCredits},${includePrimarySection}`,
         },
         filter: `{ 
           content_elements {
@@ -189,7 +193,7 @@ export default ({ section = '' }) => {
               youtube_id { content }
             }
             credits { by { name url } }
-            taxonomy { sections { name _id } }
+            taxonomy { primary_section { name path } }
           }
         }`,
       }}>

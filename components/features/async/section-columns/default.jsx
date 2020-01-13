@@ -6,7 +6,7 @@ import ChildernCinemaBillboardCard from './_children/cinema-billboard-card'
 
 import { createMarkup, createScript } from '../../../utilities/helpers'
 
-const loadSrcScript = html => {
+const loadSrcScript = (html = '') => {
   const match = html.match(/<script.+src="(.+)"(\s|>).+><\/script>/) || []
   const src = match[1]
   document.head.appendChild(createScript({ src }))

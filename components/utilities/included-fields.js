@@ -1,0 +1,66 @@
+/** ----------------------------*
+ *          PROMO ITEMS         *
+ *------------------------------*/
+
+export const includePromoItems = `promo_items.basic.type,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content`
+
+export const includePromoItemsCaptions = `promo_items.basic.subtitle,promo_items.basic.caption,promo_items.basic_video.promo_items.basic.subtitle,promo_items.basic_video.promo_items.basic.caption,promo_items.basic_gallery.promo_items.basic.subtitle,promo_items.basic_gallery.promo_items.basic.caption`
+
+export const includePromoVideoAds = `promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.additional_properties.advertising.playAds,promo_items.basic_video.additional_properties.advertising.playVideoAds`
+
+/** ----------------------------*
+ *            TAXONOMY          *
+ *------------------------------*/
+
+export const includePrimarySection = `taxonomy.primary_section.path,taxonomy.primary_section.name`
+
+export const includeSections = `taxonomy.sections.path,taxonomy.sections._id,taxonomy.sections.name`
+
+export const includeTags = `taxonomy.tags.description,taxonomy.tags.slug,taxonomy.tags.text`
+
+/** ----------------------------*
+ *           CREDITS            *
+ *------------------------------*/
+
+export const includeCredits = `credits.by.name,credits.by.url,credits.by.type`
+
+export const includeCreditsImage = `credits.by.image.url`
+
+export const includeCreditsRole = `credits.by.additional_properties.original.role`
+
+export const includeCreditsEducation = `credits.by.additional_properties.original.education.name`
+
+/** ----------------------------*
+ *           FEATURES            *
+ *------------------------------*/
+
+const encodedFueatureName = name => `<${name}>`
+
+export const featuredStoryFields = encodedFueatureName('featuredStory')
+export const sectionColumnsFields = encodedFueatureName('sectionColumns')
+export const separatorFeaturedFields = encodedFueatureName('separatorFeatured')
+export const separatorBasicFields = encodedFueatureName('separatorBasic')
+export const separatorStoriesFields = encodedFueatureName('separatorStories')
+
+const getFeaturesIncludedFields = arcSite => ({
+  featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`,
+  sectionColumns: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems},${includeCredits}`,
+  separatorFeatured: `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection}`,
+  separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,${includePromoItems},${includePrimarySection}`,
+  separatorStories: `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url`,
+})
+
+/** Función que reemplaza los caracteres "<encodedFeatureName>" por los included fields
+ *  de un campo del objeto resultante de la función getFeaturesIncludedFields
+ */
+
+export const formatIncludedFields = ({ includedFields = '', arcSite = '' }) => {
+  // Formato de la variable a reemplazar <feature>
+  const matched = includedFields.match(/<(.*)>/) || []
+  const feature = matched[1] || ''
+
+  return includedFields.replace(
+    /<(.*)>/,
+    getFeaturesIncludedFields(arcSite)[feature] || ''
+  )
+}

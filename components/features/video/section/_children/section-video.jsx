@@ -106,6 +106,7 @@ export default ({
     arcSite,
     contextPath,
     deployment,
+    isAdmin,
   }
 
   return (
@@ -131,9 +132,7 @@ export default ({
                 <div className="section-video__frame">
                   <iframe
                     className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${
-                      principalVideo.video
-                    }`}
+                    src={`https://www.youtube.com/embed/${principalVideo.video}`}
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowFullscreen

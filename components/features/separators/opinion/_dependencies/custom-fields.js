@@ -1,8 +1,6 @@
-/* eslint-disable import/prefer-default-export */
-
 import PropTypes from 'prop-types'
 
-export const customFields = PropTypes.shape({
+const customFields = PropTypes.shape({
   // content: PropTypes.label.tag({
   //   name: 'Separador Opinión21',
   // }),
@@ -19,3 +17,5 @@ export const customFields = PropTypes.shape({
     name: 'Código HTML',
   }),
 })
+
+export default customFields

@@ -8,12 +8,17 @@ import ConfigParams from '../../../utilities/config-params'
 import { removeLastSlash, formatSections } from '../../../utilities/helpers'
 import ChildrenSectionVideo from './_children/section-video'
 import customFields from './_dependencies/custom-fields'
-
 import {
   SchemaMultiStory,
   SchemaSingleStory,
   SchemaHierarchy,
 } from './_dependencies/schema-filter'
+import {
+  includePromoItems,
+  includePrimarySection,
+  includePromoItemsCaptions,
+  includePromoVideoAds,
+} from '../../../utilities/included-fields'
 
 const SectionVideo = props => {
   const DEFAULT_HIERARCHY = 'header-default'
@@ -100,14 +105,19 @@ const SectionVideo = props => {
     section = removeLastSlash(primarySectionLink)
   }
 
+  const presets = 'landscape_md:314x157'
+
   const playListVideo = (offset = 0) => {
     const fetchPlayList =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent({
         source: 'story-feed-by-section',
         query: {
           section,
           feedOffset: offset,
           stories_qty: 4,
+          presets,
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},${includePromoItems},${includePromoVideoAds}`,
         },
         filter: SchemaMultiStory(arcSite),
       }) || {}
@@ -120,10 +130,13 @@ const SectionVideo = props => {
   } else {
     section = globalContent._id
     const fetchPrincipalVideo =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent({
         source: 'story-by-section',
         query: {
           section,
+          presets,
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,${includePrimarySection},${includePromoItems},${includePromoItemsCaptions},${includePromoVideoAds}`,
         },
         filter: SchemaSingleStory(arcSite),
       }) || {}
