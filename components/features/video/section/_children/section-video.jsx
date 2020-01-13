@@ -220,7 +220,7 @@ export default ({
                   <span className="icon-share" />
                 </button> */}
             </div>
-            <ul>
+            <ul className="section-video__list-text">
               <li className="section-video__text">{principalVideo.author}</li>
               {principalVideo.displayDate !== '' && (
                 <li className="section-video__text">{fecha}</li>

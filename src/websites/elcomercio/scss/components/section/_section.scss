@@ -31,7 +31,8 @@
   .play-list__title {
     line-height: 1.4;
   }
-  .play-list__image {
+  .play-list__image,
+  .video-list__image {
     background-color: #aaa;
   }
   .video-navbar {
@@ -83,11 +84,27 @@
       width: 100%;
     }
   }
-  /*   .section-video__detail {
-  } */
-  /*   .section-video__right {
-    .section-video__share {
-      display: none;
+  .section-video__text {
+    margin-right: 20px;
+    &:last-child {
+      margin-right: 0;
+      &:after {
+        display: none;
+      }
     }
-  } */
+    &:after {
+      content: '';
+      width: 1px;
+      height: 100%;
+      background-color: #aaa;
+      display: block;
+      margin-left: 10px;
+    }
+  }
+  .section-video__detail {
+    justify-content: flex-end;
+  }
+  .section-video__list-text {
+    display: flex;
+  }
 }
