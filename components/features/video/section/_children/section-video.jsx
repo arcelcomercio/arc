@@ -221,7 +221,9 @@ export default ({
                 </button> */}
             </div>
             <ul className="section-video__list-text">
-              <li className="section-video__text">{principalVideo.author}</li>
+              {principalVideo.author !== '' && (
+                <li className="section-video__text">{principalVideo.author}</li>
+              )}
               {principalVideo.displayDate !== '' && (
                 <li className="section-video__text">{fecha}</li>
               )}
