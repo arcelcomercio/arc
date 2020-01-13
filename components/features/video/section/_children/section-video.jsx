@@ -132,7 +132,9 @@ export default ({
                 <div className="section-video__frame">
                   <iframe
                     className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${principalVideo.video}`}
+                    src={`https://www.youtube.com/embed/${
+                      principalVideo.video
+                    }`}
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowFullscreen
@@ -189,34 +191,34 @@ export default ({
                 <p className="section-video__subtitle">
                   {principalVideo.subTitle}
                 </p>
-                <div className="section-video__share">
-                  <button
-                    onClick={() => shareNew('facebook')}
-                    type="button"
-                    className="section-video__btn">
-                    <span className="icon-facebook" />
-                  </button>
-                  <button
-                    onClick={() => shareNew('twitter')}
-                    type="button"
-                    className="section-video__btn">
-                    <span className="icon-twitter" />
-                  </button>
-                  <button
-                    onClick={() => shareNew('linkedin')}
-                    type="button"
-                    className="section-video__btn">
-                    <span className="icon-linkedin" />
-                  </button>
-                  {/* <button type="button" className="section-video__btn">
-                  <span className="icon-share" />
-                </button> */}
-                </div>
-                <div className="section-video__detail">
-                  <span className="section-video__text">{fecha}</span>
-                </div>
               </div>
             </div>
+          </div>
+          <div className="section-video__detail">
+            <div className="section-video__share">
+              <button
+                onClick={() => shareNew('facebook')}
+                type="button"
+                className="section-video__btn">
+                <span className="icon-facebook" />
+              </button>
+              <button
+                onClick={() => shareNew('twitter')}
+                type="button"
+                className="section-video__btn">
+                <span className="icon-twitter" />
+              </button>
+              <button
+                onClick={() => shareNew('linkedin')}
+                type="button"
+                className="section-video__btn">
+                <span className="icon-linkedin" />
+              </button>
+              {/* <button type="button" className="section-video__btn">
+                  <span className="icon-share" />
+                </button> */}
+            </div>
+            <span className="section-video__text">{fecha}</span>
           </div>
           <div
             className={
