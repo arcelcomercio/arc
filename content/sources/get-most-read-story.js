@@ -19,6 +19,7 @@ const options = {
   json: true,
 }
 
+// Eliminarlo no se usa
 const clearURL = (arr = [], site = 'gestion') => {
   return arr.map(url => {
     return url.replace(`https://${site}.pe/`, '/')
@@ -48,8 +49,10 @@ const params = [
 ]
 
 const uriAPI = (url, site) => {
+  // Recordar que aquí se debe colocar únicamente los campos que se necesitan
   const filter = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,
-taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
+  taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
+  //  
   const urlCheck = `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
   return urlCheck
 }
@@ -63,6 +66,7 @@ const fetch = (key = {}) => {
     ...options,
   }).then(resp => {
     const arrURL = resp.slice(0, amountStories)
+    // Este foreach creo que no se está usando
     arrURL.forEach(el => {
       el.path = el.path.match(/((.*)-noticia(.*)\/)(.*)/)[1] || ''
     })
