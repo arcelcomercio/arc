@@ -5,11 +5,7 @@ import { useFusionContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
-import {
-  includePromoItems,
-  includePromoItemsCaptions,
-  includePrimarySection,
-} from '../../../utilities/included-fields'
+import { separatorFeaturedFields } from '../../../utilities/included-fields'
 
 // TODO: Subir clases a objeto
 // TODO: sacar schemaFilter
@@ -33,7 +29,7 @@ const SeparatorFeatured = props => {
   const { editableField } = useEditableContent()
 
   const presets = 'portrait_s:161x220'
-  const includedFields = `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection}`
+  const includedFields = separatorFeaturedFields
 
   const { content_elements: contentElements = [] } =
     useContent({

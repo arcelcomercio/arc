@@ -7,6 +7,7 @@ import {
   includePromoItems,
   includePrimarySection,
   includeCredits,
+  formatIncludedFields,
 } from '../../components/utilities/included-fields'
 
 const schemaName = 'stories'
@@ -91,7 +92,10 @@ const resolve = (key = {}) => {
   /** TODO: La consulta se debe hacer por SLUG, no por URL del autor */
 
   const sourceInclude = includedFields
-    ? `&_sourceInclude=${includedFields}`
+    ? `&_sourceInclude=${formatIncludedFields({
+        includedFields,
+        arcSite: website,
+      })}`
     : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
 
   /* const excludedFields =
