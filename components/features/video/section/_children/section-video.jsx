@@ -191,29 +191,6 @@ export default ({
                 <p className="section-video__subtitle">
                   {principalVideo.subTitle}
                 </p>
-                <div className="section-video__share">
-                  <button
-                    onClick={() => shareNew('facebook')}
-                    type="button"
-                    className="section-video__btn">
-                    <span className="icon-facebook" />
-                  </button>
-                  <button
-                    onClick={() => shareNew('twitter')}
-                    type="button"
-                    className="section-video__btn">
-                    <span className="icon-twitter" />
-                  </button>
-                  <button
-                    onClick={() => shareNew('linkedin')}
-                    type="button"
-                    className="section-video__btn">
-                    <span className="icon-linkedin" />
-                  </button>
-                  {/* <button type="button" className="section-video__btn">
-                  <span className="icon-share" />
-                </button> */}
-                </div>
               </div>
             </div>
           </div>

@@ -28,6 +28,12 @@
       padding-right: 0;
     }
   }
+  .play-list__title {
+    line-height: 1.4;
+  }
+  .play-list__image {
+    background-color: #aaa;
+  }
   .video-navbar {
     background-color: #111;
     border: 0;
@@ -69,11 +75,19 @@
       text-decoration: none;
     }
   }
-  /*  .section-video__detail {
+  .video-list {
+    padding: 0 20px;
+  }
+  .video-list__item {
+    @media (--only-mobile) {
+      width: 100%;
+    }
+  }
+  /*   .section-video__detail {
   } */
-  .section-video__right {
+  /*   .section-video__right {
     .section-video__share {
       display: none;
     }
-  }
+  } */
 }

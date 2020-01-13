@@ -3,7 +3,7 @@
     background-color: $color-gray-300;
     color: white;
     padding-bottom: 20px;
-    @media (--desktop) {
+    /*     @media (--desktop) {
       &.fixed {
         .section-video__frame {
           position: fixed;
@@ -27,9 +27,61 @@
           justify-content: flex-start;
         }
       }
+    } */
+    &.fixed {
+      @media (--desktop) {
+        position: fixed;
+        width: 980px;
+        top: 46px;
+        z-index: 2;
+        height: 250px;
+      }
+      .section-video__top {
+        flex-direction: row;
+        padding-bottom: 20px;
+      }
+      .section-video__frame {
+        width: 280px;
+        height: 180px;
+        @media (--desktop) {
+          position: relative;
+          margin: auto;
+          top: 20px;
+        }
+      }
+      .section-video__fixed {
+        @media (--desktop) {
+          display: none;
+        }
+      }
+      .section-video__subtitle,
+      .section-video__detail {
+        display: none;
+      }
+      .section-video__right {
+        width: calc(100% - 420px);
+        padding: 20px 0;
+      }
+      .section-video__left {
+        width: 420px;
+      }
+      .section-video__information {
+        width: 70%;
+      }
+      .section-video__title {
+        margin: 10px 0 20px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        text-align: left;
+      }
+      .section-video__box-section {
+        justify-content: flex-start;
+      }
     }
   }
-  &__fixed {
+  /*   &__fixed {
     width: 100%;
     height: 250px;
     background-color: $color-gray-300;
@@ -38,23 +90,17 @@
     &--none {
       display: none;
     }
-  }
-  &__min {
+  } */
+  /*  &__min {
     width: calc(100% - 420px);
     padding: 20px 0;
-  }
+  } */
   &__top {
     display: flex;
     flex-direction: column;
-    // margin-bottom: 20px;
   }
   &__left {
     width: 100%;
-  }
-  &__des-title {
-    width: 70%;
-    margin-top: 10px;
-    margin-bottom: 20px;
   }
   &__frame {
     width: 100%;
@@ -73,9 +119,6 @@
   &__right {
     width: 100%;
     padding: 30px 30px 15px 30px;
-    @media (--desktop) {
-      padding: 61px 30px 15px 30px;
-    }
   }
   &__sub {
     a {
@@ -142,19 +185,20 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-top: 25px;
   }
   &__detail {
     width: 100%;
     color: #b1b1b1;
-    padding-bottom: 15px;
     display: flex;
     justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding-bottom: 0;
   }
   &__text {
     position: relative;
     display: inline-flex;
     align-items: center;
-  }
-  &__information {
   }
 }
