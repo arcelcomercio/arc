@@ -6,6 +6,7 @@ import {
   socialMediaUrlShareList,
   addSlashToEnd,
   popUpWindow,
+  formatDayMonthYear,
 } from '../../../../utilities/helpers'
 
 export default ({
@@ -99,7 +100,8 @@ export default ({
     popUpWindow(urlsShareList[origin], '', 600, 400)
   }
 
-  const { fecha } = formateDay()
+  // const { fecha } = formateDay()
+  const fecha = formatDayMonthYear(principalVideo.displayDate, true, true)
 
   const playListParams = {
     ...playListVideo,
@@ -241,7 +243,20 @@ export default ({
                   <span className="icon-share" />
                 </button> */}
             </div>
-            <span className="section-video__text">{fecha}</span>
+            <ul>
+              <li className="section-video__text">{principalVideo.author}</li>
+              {principalVideo.displayDate !== '' && (
+                <li className="section-video__text">{fecha}</li>
+              )}
+              {!(
+                principalVideo.videoDuration === '00:00' ||
+                principalVideo.videoDuration === '00:00:00'
+              ) && (
+                <li className="section-video__text">
+                  Duración: {principalVideo.videoDuration}
+                </li>
+              )}
+            </ul>
           </div>
           <div
             className={
