@@ -162,7 +162,7 @@ export default ({
               /> */}
             </div>
             <div className="section-video__right">
-              <div>
+              <div section-video__information>
                 {/* <div className="section-video__breadcrumbs">
                   <span className="section-video__sub">
                     <a href="/videos">Video</a>
