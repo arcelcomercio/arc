@@ -23,7 +23,7 @@ const classes = {
   destYoutube: 'stories-video__youtube',
 }
 
-const YoutubeVideoDestacado = ({isAdmin, title, video, autoPlayVideo }) => {
+const YoutubeVideoDestacado = ({isAdmin,liveStory, title, video, autoPlayVideo }) => {
   
   const urlVideo = autoPlayVideo && !isAdmin
     ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
@@ -39,6 +39,7 @@ const YoutubeVideoDestacado = ({isAdmin, title, video, autoPlayVideo }) => {
           allowFullScreen
           title="Video"
         />
+        {liveStory && <p className={classes.live}>EN VIVO</p>}
       </div>
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
