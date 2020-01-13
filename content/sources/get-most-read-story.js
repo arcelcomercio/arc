@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import { CONTENT_BASE } from 'fusion:environment'
+import { CONTENT_BASE, ENV } from 'fusion:environment'
 
-const flagDev = false
+const flagDev = !(ENV === 'elcomercio')
 
 const getUriMostRead = (site, isPremium = false, isDev = false) => {
   let uriMostReadGeneral = `https://d3ocw6unvuy6ob.cloudfront.net/${site}/normal/top.json`
@@ -11,19 +11,13 @@ const getUriMostRead = (site, isPremium = false, isDev = false) => {
       ? `https://d3ocw6unvuy6ob.cloudfront.net/${site}/premium/top.json`
       : `https://do5ggs99ulqpl.cloudfront.net/${site}/premium/top.json`
   }
+
   return uriMostReadGeneral
 }
 
 const options = {
   gzip: true,
   json: true,
-}
-
-// Eliminarlo no se usa
-const clearURL = (arr = [], site = 'gestion') => {
-  return arr.map(url => {
-    return url.replace(`https://${site}.pe/`, '/')
-  })
 }
 
 const setPageViewsUrls = (arrUrl, arrUrlRes) => {
@@ -49,10 +43,8 @@ const params = [
 ]
 
 const uriAPI = (url, site) => {
-  // Recordar que aquí se debe colocar únicamente los campos que se necesitan
   const filter = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,
   taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
-  //  
   const urlCheck = `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
   return urlCheck
 }
@@ -62,15 +54,11 @@ const fetch = (key = {}) => {
   const { amountStories, isPremium = false } = key
 
   return request({
-    uri: getUriMostRead(website, !!+isPremium, flagDev), // flagDev ? uriPostDev(website) : uriPostProd(website),
+    uri: getUriMostRead(website, !!+isPremium, flagDev),
     ...options,
   }).then(resp => {
-    const arrURL = resp.slice(0, amountStories)
-    // Este foreach creo que no se está usando
-    arrURL.forEach(el => {
-      el.path = el.path.match(/((.*)-noticia(.*)\/)(.*)/)[1] || ''
-    })
-
+    const arrURL = resp.slice(0, amountStories).filter(url => /((.*)-noticia(.*)\/)(.*)/.test(url.path))
+    
     const promiseArray = arrURL.map(url =>
       request({
         uri: uriAPI(url.path, website),
@@ -88,6 +76,7 @@ const fetch = (key = {}) => {
     .catch(err => console.log(`PromiseAll error: ${err}`))
   })
   .catch(err => { 
+    console.log(`Promise Fetch error: ${err}`)
     return { content_elements: [] }
   })
 }
