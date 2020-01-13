@@ -2,7 +2,7 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE } from 'fusion:environment'
 
-const flagDev = false
+const flagDev = true
 
 /*
 const uriPostProd = site =>
@@ -29,15 +29,19 @@ const codSite = {
 }
 */
 const getUriMostRead = (site, isPremium = false, isDev = false) => {
-  const codUriSite = isPremium
-    ? codPremiumSite[site] || ''
-    : codSite[site] || ''
+  //let uriMostReadGeneral = `https://cde.gestion2.e3.pe/doc/0/0/2/7/9/279593.txt`
+  //let uriMostReadGeneral = `https://cde.gestion2.e3.pe/doc/0/0/2/7/9/279593-error.txt`
   let uriMostReadGeneral = `https://d3ocw6unvuy6ob.cloudfront.net/${site}/normal/top.json`
   if (isPremium) {
     uriMostReadGeneral = isDev
       ? `https://d3ocw6unvuy6ob.cloudfront.net/${site}/premium/top.json`
       : `https://do5ggs99ulqpl.cloudfront.net/${site}/premium/top.json`
   }
+
+  //console.log('================1====================')
+  //console.log(`URL de Servicio: ${uriMostReadGeneral}`)
+  //console.log(`idPremium: ${isPremium}`)
+  //console.log('================1====================')
   return uriMostReadGeneral
 }
 
@@ -84,7 +88,8 @@ const params = [
 const uriAPI = (url, site) => {
   const filter = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,
 taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
-  return `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
+  const urlCheck = `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
+  return urlCheck
 }
 
 const fetch = (key = {}) => {
@@ -95,23 +100,17 @@ const fetch = (key = {}) => {
     uri: getUriMostRead(website, !!+isPremium, flagDev), // flagDev ? uriPostDev(website) : uriPostProd(website),
     ...options,
   }).then(resp => {
-    /*
-    console.log('================4====================')
-    console.log(err)
-    console.log(resp)
-    console.log(body)
-    console.log('====================================')
-    */
     const arrURL = resp.slice(0, amountStories)
     arrURL.forEach(el => {
       // eslint-disable-next-line no-param-reassign
       el.path = el.path.match(/((.*)-noticia(.*)\/)(.*)/)[1] || ''
     })
+
     const promiseArray = arrURL.map(url =>
       request({
         uri: uriAPI(url.path, website),
         ...options,
-      })
+      }).catch(err => console.log(`URL Promise error: ${err}`))
     )
 
     return Promise.all(promiseArray).then(res => {
@@ -121,6 +120,11 @@ const fetch = (key = {}) => {
       })
       return { content_elements: newRes }
     })
+    .catch(err => console.log(`PromiseAll error: ${err}`))
+  })
+  .catch(err => { 
+    //console.log(`PromiseFetch error: ${err}`) 
+    return { content_elements: [] }
   })
 }
 

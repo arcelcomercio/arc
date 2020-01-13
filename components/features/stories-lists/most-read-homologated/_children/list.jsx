@@ -29,7 +29,6 @@ export default ({
         listNews.map((el, index) => {
           Story.__data = el
           // const data = Story.attributesRaw
-
           const params = {
             key: Story.websiteLink,
             storyNumber,
