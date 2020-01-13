@@ -110,7 +110,7 @@ class StoriesListVideo extends PureComponent {
         newsVideo = newsVideoYoutube
         image = getImage(data, SQUARE_XS)
         image.default = false
-        image.payload = ''
+        
         if (image.payload === '') {
           const { deployment, arcSite = '', contextPath = '' } = this.props
           image.default = true
@@ -230,12 +230,6 @@ class StoriesListVideo extends PureComponent {
   render() {
     const { deployment, arcSite = '', contextPath = '' } = this.props
     const { listStoriesVideo = [] } = this.state
-
-    // const imgLogo =
-    //   customFieldsData.logo ||
-    //   deployment(
-    //     `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
-    //   )
 
     const logoImg = `${deployment(
       `${contextPath}/resources/dist/${arcSite}/images/Logo_P21TV.png`

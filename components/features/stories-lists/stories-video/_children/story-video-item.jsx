@@ -23,8 +23,9 @@ const classes = {
   destYoutube: 'stories-video__youtube',
 }
 
-const YoutubeVideoDestacado = ({ title, video, autoPlayVideo }) => {
-  const urlVideo = autoPlayVideo
+const YoutubeVideoDestacado = ({isAdmin, title, video, autoPlayVideo }) => {
+  
+  const urlVideo = autoPlayVideo && !isAdmin
     ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
     : `https://www.youtube.com/embed/${video.payload}`
   return (
@@ -64,6 +65,7 @@ const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
 
 const YoutubeVideo = ({
   index,
+  isAdmin,
   liveStory,
   title = '',
   image = {},
@@ -71,6 +73,7 @@ const YoutubeVideo = ({
   autoPlayVideo,
 }) => {
   const propsItem = {
+    isAdmin,
     liveStory,
     title,
     image,
