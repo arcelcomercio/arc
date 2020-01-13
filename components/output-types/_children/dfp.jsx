@@ -92,13 +92,14 @@ const Dfp = ({ isFuature, adId }) => {
       ({
         space,
         slotname,
+        slotname2,
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
       }) => {
         const formatSpace = {
           id: `gpt_${space}`,
-          slotName: slotname,
+          slotName: (arcSite === 'publimetro') ? slotname : slotname2,
           dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
           targeting: {
             publisher: arcSite,
