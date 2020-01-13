@@ -8,6 +8,10 @@ import customFields from './_dependencies/custom-fields'
 
 import TvSeparatorItem from './_children/separator-item'
 import StoryData from '../../../utilities/story-data'
+import {
+  // includePromoItems,
+  includeSections,
+} from '../../../utilities/included-fields'
 
 /** TODO:
  * El codigo relacionado al lazyloading de imagenes que no se esta
@@ -27,12 +31,12 @@ const TvSeparator = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const { content_elements: contentElements = [], section_name: sectionName } =
     useContent({
-      source: 'story-feed-by-section-with-custom-presets',
+      source: 'story-feed-by-section',
       query: {
         section,
         stories_qty: maxStories,
-        preset1: '9x5',
-        preset2: '280x157',
+        presets: 'preset1:9x5,preset2:280xx157',
+        includedFields: `headlines.basic,display_name,promo_items,${includeSections}`,
       },
       filter: schemaFilter,
     }) || {}
@@ -113,6 +117,8 @@ const TvSeparator = props => {
     })
     return auxParams
   }
+
+  console.log('---->>', sectionName)
 
   return (
     <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 pb-25">

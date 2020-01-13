@@ -27,6 +27,8 @@ const HeaderFull = props => {
   const {
     footer: { socialNetworks = [] } = {},
     mobileHeaderFollowing = '',
+    siteDomain = '',
+    legalLinks = [],
   } = siteProperties
 
   const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
@@ -134,6 +136,8 @@ const HeaderFull = props => {
     arcSite,
     winningCallLogo,
     mobileHeaderFollowing,
+    siteDomain,
+    legalLinks,
   }
   return <HeaderFullView {...params} />
 }

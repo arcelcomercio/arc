@@ -2,14 +2,20 @@ import React from 'react'
 import Dfp from '../output-types/_children/dfp'
 
 export default props => {
-  const { adElement, isDfp, isDesktop = true, isMobile = true, classes } = props
+  const {
+    adElement,
+    isDfp = false,
+    isDesktop = true,
+    isMobile = true,
+    classes,
+  } = props
   const adsParams = {
     isFuature: true,
     adId: adElement,
   }
   return (
     <>
-      {isDfp ? (
+      {isDfp === true ? (
         <Dfp {...adsParams} />
       ) : (
         <>

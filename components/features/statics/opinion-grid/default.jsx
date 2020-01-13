@@ -69,7 +69,7 @@ class StaticOpinionGrid extends PureComponent {
                       columns=""
                       rows=""
                       freeHtml=""
-                      isDfp
+                      isDfp={isDfp}
                     />
                   </Fragment>
                 )
@@ -103,7 +103,7 @@ class StaticOpinionGrid extends PureComponent {
                       columns=""
                       rows=""
                       freeHtml=""
-                      isDfp
+                      isDfp={isDfp}
                     />
                   </Fragment>
                 )
@@ -131,7 +131,7 @@ class StaticOpinionGrid extends PureComponent {
           columns=""
           rows=""
           freeHtml=""
-          isDfp
+          isDfp={isDfp}
         />
 
         <div role="list" className={classes.list}>
@@ -167,7 +167,7 @@ class StaticOpinionGrid extends PureComponent {
                   columns=""
                   rows=""
                   freeHtml=""
-                  isDfp
+                  isDfp={isDfp}
                 />
               </Fragment>
             )

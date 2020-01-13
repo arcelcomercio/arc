@@ -2,61 +2,19 @@
 import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-
-const getAdId = (content, adId) => {
-  const { espacios: spaces = [] } = content || {}
-  const adsId = spaces.map(({ id, space }) => {
-    let formatAdsId = ''
-    if (space === adId) {
-      formatAdsId = id
-    }
-    return formatAdsId
-  })
-  return adsId.filter(String)[0]
-}
+import getProperties from 'fusion:properties'
 
 const getSectionSlug = (sectionId = '') => {
   return sectionId.split('/')[1] || ''
 }
 
-const formatAdsCollection = (response, requestUri = '') => {
-  const { espacios: spaces = [] } = response || {}
-  const tmpAdTargeting = requestUri.match(/tmp_ad=([^&]*)/) || []
-  const tmpAdValue = tmpAdTargeting[1] || ''
-  const adsCollection = spaces.map(
-    ({ id, slotname, dimensions, islazyload }) => {
-      const formatSpace = {
-        id,
-        slotName: slotname,
-        dimensions: JSON.parse(dimensions),
-      }
-      if (islazyload) {
-        formatSpace.prerender = '[window.addLazyLoadToAd]'
-      }
-      if (tmpAdValue) {
-        formatSpace.targeting = {
-          tmp_ad: tmpAdValue,
-        }
-      }
-      return formatSpace
-    }
-  )
-  return `"use strict";var getAdsCollection=function getAdsCollection(){var adsCollection=arguments.length>0&&arguments[0]!==undefined?arguments[0]:[];var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return adsCollection.map(function(ad){return{...ad,display:IS_MOBILE?'mobile':'desktop'}})};var adsCollection=getAdsCollection(${JSON.stringify(
-    adsCollection
-  ).replace(
-    /"\[window\.addLazyLoadToAd\]"/g,
-    'window.addLazyLoadToAd'
-  )});arcAds.registerAdCollection(adsCollection);`
-}
-
 const Dfp = ({ isFuature, adId }) => {
   const {
-    deployment,
-    contextPath,
     siteProperties = {},
     globalContent = {},
     requestUri,
     metaValue,
+    arcSite,
   } = useFusionContext()
 
   const { adsAmp: { dataSlot } = {} } = siteProperties
@@ -67,10 +25,14 @@ const Dfp = ({ isFuature, adId }) => {
   const {
     section_id: sectionId,
     _id,
-    taxonomy: { primary_section: { path: primarySection } = {} } = {},
+    taxonomy: {
+      primary_section: { path: primarySection } = {},
+      tags = [],
+    } = {},
   } = globalContent
 
   let contentConfigValues = {}
+  let page = ''
   switch (metaValue('id')) {
     case 'meta_section':
       if (sectionId || _id) {
@@ -84,6 +46,8 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
+      page = 'sect'
+
       break
     case 'meta_story':
       if (primarySection) {
@@ -97,11 +61,13 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
+      page = 'post'
       break
     case 'meta_home':
       contentConfigValues = {
         page: 'home',
       }
+      page = 'home'
       break
     default:
       contentConfigValues = {
@@ -111,40 +77,86 @@ const Dfp = ({ isFuature, adId }) => {
       break
   }
 
-  return (
-    <Content
-      {...{
-        contentService: 'get-dfp-spaces',
-        contentConfigValues,
-      }}>
-      {content =>
-        isFuature ? (
-          <div
-            id={getAdId(content, adId)}
-            className="flex justify-center"></div>
-        ) : (
-          <>
-            <script
-              src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
-            />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: initAds }}
-            />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: lazyLoadFunction }}
-            />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: formatAdsCollection(content, requestUri),
-              }}
-            />
-          </>
-        )
+  const formatAdsCollection = response => {
+    const { espacios: spaces = [] } = response || {}
+
+    const getTmpAdFunction = `var getTmpAd=function getTmpAd(){var tmpAdTargeting=window.location.search.match(/tmp_ad=([^&]*)/)||[];return tmpAdTargeting[1]||''}`
+    const getAdsDisplayFunction = `var getAdsDisplay=function getAdsDisplay(){var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return IS_MOBILE?'mobile':'desktop'}`
+
+    const sectionValues = (primarySection || sectionId || _id || '').split('/')
+    const section = sectionValues[1] || ''
+    const subsection = sectionValues[2] || ''
+    const { siteUrl = '' } = getProperties(arcSite) || {}
+    const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
+    const adsCollection = spaces.map(
+      ({
+        space,
+        slotname,
+        dimensions,
+        dimensions_mobile: dimensionsMobile,
+        islazyload,
+      }) => {
+        const formatSpace = {
+          id: `gpt_${space}`,
+          slotName: slotname,
+          dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
+          targeting: {
+            publisher: arcSite,
+            seccion: section,
+            categoria: subsection,
+            fuente: 'WEB',
+            tipoplantilla: page,
+            phatname: `${siteUrl}${requestUri}`,
+            tags: targetingTags,
+            ab_test: '',
+            tmp_ad: '<::getTmpAd()::>',
+          },
+        }
+        if (islazyload) {
+          formatSpace.prerender = '<::window.addLazyLoadToAd::>'
+        }
+        return formatSpace
       }
-    </Content>
+    )
+    return `"use strict";document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction}; window.adsCollection=${JSON.stringify(
+      adsCollection
+    )
+      .replace(/"<::/g, '')
+      .replace(
+        /::>"/g,
+        ''
+      )};arcAds.registerAdCollection(window.adsCollection);console.log(window.googletag, '<-window.googletag.pubads')});`
+  }
+
+  return (
+    <>
+      {arcSite === 'publimetro' && (
+        <Content
+          {...{
+            contentService: 'get-dfp-spaces',
+            contentConfigValues,
+          }}>
+          {content =>
+            isFuature ? (
+              <div id={`gpt_${adId}`} className="flex justify-center"></div>
+            ) : (
+              <>
+                <script
+                  type="text/javascript"
+                  dangerouslySetInnerHTML={{
+                    __html: formatAdsCollection(content, requestUri),
+                  }}
+                />
+                <script
+                  defer
+                  src="https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js"
+                />
+              </>
+            )
+          }
+        </Content>
+      )}
+    </>
   )
 }
 

@@ -128,7 +128,7 @@ class Ads extends PureComponent {
                 <div
                   className={`${classes.adsBox} ${
                     adElement === 'boton1' ? 'justify-start' : 'justify-center'
-                  } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()}`}>
+                  } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()} no-row-2-mobile`}>
                   <AdsChild {...params} />
                   {freeHtml && (
                     <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />

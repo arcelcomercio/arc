@@ -1,5 +1,6 @@
 import React from 'react'
-// import ConfigParams from '../../../../utilities/config-params'
+import { useEditableContent } from 'fusion:content'
+
 import Icon from '../../../../global-components/multimedia-icon'
 
 const getModel = model => {
@@ -34,15 +35,15 @@ export default ({
   multimediaLazyDefault,
   websiteLink,
   multimediaType,
-  crossY,
-  crossX,
-  model,
   section,
   isAdmin,
-  editableField,
-  multimediaSubtitle,
+  // multimediaSubtitle,
   multimediaCaption,
+  crossY = '',
+  crossX = '',
+  model = 'basic',
 }) => {
+  const { editableField } = useEditableContent()
   const getEditableField = element =>
     editableField ? editableField(element) : null
 
@@ -54,7 +55,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaLandscapeL}
-            src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}            
+            src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
             alt={multimediaCaption || title}
           />
         )}
@@ -62,7 +63,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaSquareXL}
-            src={isAdmin ? multimediaSquareXL : multimediaLazyDefault}            
+            src={isAdmin ? multimediaSquareXL : multimediaLazyDefault}
             alt={multimediaCaption || title}
           />
         )}
@@ -70,7 +71,7 @@ export default ({
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaPortraitMD}
-            src={isAdmin ? multimediaPortraitMD : multimediaLazyDefault}            
+            src={isAdmin ? multimediaPortraitMD : multimediaLazyDefault}
             alt={multimediaCaption || title}
           />
         )}
@@ -88,7 +89,7 @@ export default ({
         <h2>
           <a
             className={classes.title}
-            href={websiteLink}            
+            href={websiteLink}
             {...getEditableField('titleField')}
             suppressContentEditableWarning>
             {title}

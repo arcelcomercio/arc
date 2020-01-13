@@ -1,10 +1,16 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+
 import ExtraordinaryStoryGridChild from './_children/extraordinary-story-grid'
 import customFields from './_dependencies/custom-fields'
 import { storySchema, sectionSchema } from './_dependencies/schema-filter'
 import Data from '../_dependencies/data'
 import SectionData from '../../../utilities/section-data'
+import {
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+} from '../../../utilities/included-fields'
 
 @Consumer
 class ExtraordinaryStoryGrid extends PureComponent {
@@ -26,10 +32,19 @@ class ExtraordinaryStoryGrid extends PureComponent {
 
     const { urlStory = {} /* multimediaService = '' */ } = customFieldsData
 
+    const presets = 'landscape_xl:980x528,landscape_l:648x374,square_l:600x600'
+    const includedFields = `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`
+
     // if (multimediaService === Data.AUTOMATIC) {
     // const { contentConfigValues: { section = '' } = {} } = urlStory
     // if (section !== '')
-    this.fetch('storyData', urlStory, storySchema(arcSite))
+    this.fetch(
+      'storyData',
+      urlStory,
+      storySchema(arcSite),
+      presets,
+      includedFields
+    )
     // }
 
     for (let i = 1; i <= 4; i++) {
@@ -45,12 +60,15 @@ class ExtraordinaryStoryGrid extends PureComponent {
     }
   }
 
-  fetch(state, contentConfig, schema) {
+  fetch(state, contentConfig, schema, presets, includedFields) {
     const { contentService = '', contentConfigValues = {} } = contentConfig
     return this.fetchContent({
       [state]: {
         source: contentService,
-        query: contentConfigValues,
+        query:
+          presets || includedFields
+            ? Object.assign(contentConfigValues, { presets, includedFields })
+            : contentConfigValues,
         filter: schema,
       },
     })

@@ -7,6 +7,12 @@ import FeaturedMultimedia from './_children/featured-multimedia'
 import customFields from './_dependencies/custom-fields'
 import SchemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
+import {
+  includePromoItems,
+  includePrimarySection,
+  includePromoItemsCaptions,
+  includeSections,
+} from '../../../utilities/included-fields'
 
 const CardFeaturedStoryMultimedia = props => {
   const { customFields: { section = '', freeHtml = '' } = {} } = props
@@ -15,7 +21,11 @@ const CardFeaturedStoryMultimedia = props => {
 
   const data = useContent({
     source: 'story-by-section',
-    query: { section },
+    query: {
+      section,
+      presets: 'landscape_md:314x157',
+      includedFields: `websites.${arcSite}.website_url,${includePromoItems},${includePromoItemsCaptions},headlines.basic,${includePrimarySection},${includeSections},display_date`,
+    },
     filter: SchemaFilter(arcSite),
   })
 

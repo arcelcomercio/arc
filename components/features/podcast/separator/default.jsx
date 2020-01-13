@@ -7,6 +7,14 @@ import { useFusionContext } from 'fusion:context'
 import Icon from '../../../global-components/multimedia-icon'
 import StoryData from '../../../utilities/story-data'
 import { formatDayMonthYear } from '../../../utilities/helpers'
+import {
+  includePromoItems,
+  includePrimarySection,
+  includeSections,
+} from '../../../utilities/included-fields'
+
+// TODO: Subir clases a objeto
+// TODO: sacar schemaFilter
 
 const PodcastSeparator = props => {
   const {
@@ -19,10 +27,13 @@ const PodcastSeparator = props => {
 
   const { arcSite, contextPath, deployment } = useFusionContext()
 
+  const presets = 'landscape_l:648x374'
+  const includedFields = `headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},display_date`
+
   const { content_elements: contentElements = [] } =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: `
       {
         content_elements {
@@ -67,10 +78,6 @@ const PodcastSeparator = props => {
           }
           websites {
             ${arcSite} {
-              website_section {
-                name
-                path
-              }
               website_url
             }
           }
@@ -84,7 +91,7 @@ const PodcastSeparator = props => {
               path 
             }
           }
-          website_url
+          display_date
         }
       }
       `,
@@ -160,7 +167,7 @@ const PodcastSeparator = props => {
                 <picture className="podcast-separator__picture">
                   <img
                     src={multimediaLandscapeL}
-                    alt={title}                    
+                    alt={title}
                     className="podcast-separator__img w-full"
                   />
                   <Icon

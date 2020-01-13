@@ -9,6 +9,11 @@ import StoryData from '../../utilities/story-data'
 
 import GalleryTitle from './_children/title'
 import FullImage from './_children/full-image'
+import {
+  includePrimarySection,
+  includePromoItems,
+  includePromoItemsCaptions,
+} from '../../utilities/included-fields'
 
 const classes = {
   boxContainer: 'photogallery col-3 pl-20 pb-20 pr-20',
@@ -28,10 +33,13 @@ const PhotoGallery = props => {
     } = {},
   } = props
 
+  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection}`
+
   const data =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 
