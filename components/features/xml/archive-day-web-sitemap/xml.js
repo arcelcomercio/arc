@@ -23,6 +23,7 @@ class XmlArchiveDayWebSitemap {
           section: '',
           date: `${year}-${month}-${day}`,
           size: 100,
+          presets: 'no-presets',
           includedFields: `websites.${arcSite}.website_url,display_date`,
         },
       },

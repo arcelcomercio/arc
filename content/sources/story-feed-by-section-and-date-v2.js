@@ -142,7 +142,10 @@ const resolve = (key = {}) => {
 
 const transform = (data, { 'arc-site': website, presets: customPresets }) => {
   const stories = data
-  const presets = customPresets
+  const presets =
+    customPresets === 'no-presets'
+      ? ''
+      : customPresets || 'landscape_s:234x161,landscape_xs:118x72'
 
   if (presets) {
     const { content_elements: contentElements } = data || {}
