@@ -25,7 +25,6 @@ const classes = {
 
 const YoutubeVideoDestacado = ({
   isAdmin,
-  liveStory,
   title,
   video,
   autoPlayVideo,
@@ -49,7 +48,6 @@ const YoutubeVideoDestacado = ({
           allowFullScreen
           title="Video"
         />
-        {liveStory && <p className={classes.live}>EN VIVO</p>}
       </div>
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
