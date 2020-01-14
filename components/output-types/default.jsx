@@ -190,7 +190,7 @@ export default ({
     deployment,
     globalContent,
   }
-
+  const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
   const structuredTaboola = ` 
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
@@ -247,13 +247,7 @@ export default ({
             )}?outputType=amp`}
           />
         )}
-        {arcSite === ConfigParams.SITE_ELCOMERCIOMAG && (
-          <link
-            rel="alternate"
-            href={`${siteProperties.siteUrlAlternate}${link}`}
-            hrefLang="es"
-          />
-        )}
+
         <title>{title}</title>
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
@@ -372,6 +366,13 @@ export default ({
           </>
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
+        {arcSite === 'publimetro' && !nodas && !isLivePage && (
+          <script
+            type="text/javascript"
+            defer
+            dangerouslySetInnerHTML={{ __html: collapseDivs }}
+          />
+        )}
       </head>
       <body className={classBody}>
         <noscript>

@@ -3,6 +3,7 @@ import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 import { removeLastSlash } from '../../components/utilities/helpers'
+import { formatIncludedFields } from '../../components/utilities/included-fields'
 
 const SCHEMA_NAME = 'stories'
 
@@ -123,7 +124,10 @@ const resolve = (key = {}) => {
   const queryFilter = getQueryFilter(section, website)
 
   const sourceInclude = includedFields
-    ? `&_sourceInclude=${includedFields}`
+    ? `&_sourceInclude=${formatIncludedFields({
+        includedFields,
+        arcSite: website,
+      })}`
     : ''
 
   return `/content/v4/search/published?${queryFilter}&website=${website}&size=${storiesQty ||
@@ -181,20 +185,18 @@ const transform = (
   const { siteName } = getProperties(website)
   stories.siteName = siteName
 
-  let sectionName = ''
+  let sectionMatch = ''
   if (section !== '/') {
     const {
       content_elements: [{ taxonomy: { sections = [] } = {} } = {}] = [],
     } = stories || {}
 
-    sections.forEach(({ _id, name }) => {
-      if (_id === section) sectionName = name
-    })
+    sectionMatch = sections.find(sec => sec._id === section)
   }
 
   return {
     ...stories,
-    section_name: sectionName || 'Sección',
+    section_name: (sectionMatch && sectionMatch.name) || 'Sección',
     section_id: section,
   }
 }

@@ -125,7 +125,7 @@ const Dfp = ({ isFuature, adId }) => {
       .replace(
         /::>"/g,
         ''
-      )};arcAds.registerAdCollection(window.adsCollection);});`
+      )};arcAds.registerAdCollection(window.adsCollection);console.log(window.googletag, '<-window.googletag.pubads')});`
   }
 
   return (
@@ -146,6 +146,10 @@ const Dfp = ({ isFuature, adId }) => {
                   dangerouslySetInnerHTML={{
                     __html: formatAdsCollection(content, requestUri),
                   }}
+                />
+                <script
+                  defer
+                  src="https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js"
                 />
               </>
             )
