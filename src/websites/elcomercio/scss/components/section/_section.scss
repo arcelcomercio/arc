@@ -12,8 +12,11 @@
   }
   .play-list__name {
     text-align: left;
-    font-size: 19px;
     color: #dddddd;
+    font-size: 16px;
+    @media (--desktop) {
+      font-size: 19px;
+    }
   }
   .play-list__title a,
   .video-list__new,
@@ -30,6 +33,10 @@
   }
   .play-list__title {
     line-height: 20px;
+    @media (--only-mobile) {
+      font-size: 16px;
+      padding: 5px 0;
+    }
   }
   .video-list__new {
     line-height: 1.4;
@@ -97,8 +104,9 @@
     }
   }
   .video-list {
-    @media (--desktop) {
-      padding: 0 20px;
+    padding: 0 20px;
+    @media (--only-mobile) {
+      margin-top: 0;
     }
   }
   .video-list__item {
@@ -106,8 +114,12 @@
       width: 100%;
     }
   }
+  .video-list__section {
+    display: none;
+  }
   .section-video__text {
     margin-right: 20px;
+    margin-bottom: 10px;
     &:last-child {
       margin-right: 0;
       &:after {
@@ -122,12 +134,29 @@
       display: block;
       margin-left: 10px;
     }
+    @media (--desktop) {
+      margin-bottom: 0;
+    }
   }
   .section-video__detail {
     justify-content: flex-end;
   }
   .section-video__list-text {
+    width: 100%;
     display: flex;
+    flex-direction: column;
+
+    @media (--only-mobile) {
+      padding: 0 20px;
+    }
+    @media (--tablet) {
+      padding: 0 30px;
+    }
+    @media (--desktop) {
+      width: auto;
+      padding: 0;
+      flex-direction: row;
+    }
   }
   .section-video__section {
     color: #999999;
@@ -137,6 +166,11 @@
     @media (--tablet) {
       justify-content: space-between;
       flex-wrap: wrap;
+    }
+  }
+  .play-list__item {
+    @media (--only-mobile) {
+      margin-bottom: 20px;
     }
   }
   .play-list__item,

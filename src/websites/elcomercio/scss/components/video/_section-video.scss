@@ -25,9 +25,12 @@
   }
 
   &__title {
-    font-size: 24px;
+    font-size: 18px;
     line-height: 32px;
     font-weight: 700;
+    @media (--desktop) {
+      font-size: 24px;
+    }
   }
   &__title,
   &__subtitle {
