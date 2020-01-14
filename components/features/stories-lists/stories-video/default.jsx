@@ -21,10 +21,11 @@ import StoryItem from './_children/story-video-item'
 
 const classes = {
   listComponent: 'stories-video__wrapper w-full flex flex-col',
-  listHeader: 'stories-video__header flex items-center justify-between p-20',
+  listHeader:
+    'stories-video__header flex items-center justify-between pt-10 pb-10 pl-20 pr-20',
   listTitle: 'stories-video__title text-white uppercase',
   viewProgramsWrapper:
-    'stories-video__programs-wrapper flex justify-center p-20',
+    'stories-video__programs-wrapper flex justify-center pt-10 pb-10 pl-20 pr-20',
   viewPrograms:
     'stories-video__programs text-white flex items-center flex-row-reverse',
 }
@@ -110,7 +111,7 @@ class StoriesListVideo extends PureComponent {
         newsVideo = newsVideoYoutube
         image = getImage(data, LANDSCAPE_XXS)
         image.default = false
-        
+
         if (image.payload === '') {
           const { deployment, arcSite = '', contextPath = '' } = this.props
           image.default = true

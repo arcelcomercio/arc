@@ -80,5 +80,20 @@
     iframe {
       width: 100%;
     }
+    &:hover {
+      .stories-video__youtube-live {
+        bottom: 50px;
+      }
+    }
+  }
+  &__youtube-live {
+    width: 44px;
+    height: 16px;
+    background-color: #ff280a;
+    color: $color-white;
+    font-size: 9px;
+    bottom: 12px;
+    left: 10px;
+    transition: all 0.5s;
   }
 }

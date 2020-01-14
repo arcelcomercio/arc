@@ -10,7 +10,7 @@ const classes = {
   listItemTitleDest: 'stories-video__item-dest-title text-white',
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItem:
-    'stories-video__item w-full p-15 flex justify-between position-relative cursor-pointer',
+    'stories-video__item w-full p-10 flex justify-between position-relative cursor-pointer',
   listItemTitle: 'stories-video__item-title text-white mb-10',
   listItemInfo: 'stories-video__item-text text-white',
   listItemImg:
@@ -20,10 +20,18 @@ const classes = {
   listItemTime:
     'stories-video__item-time position-absolute icon-video text-white flex justify-center items-center',
   live: 'stories-video__item-live flex items-center uppercase',
-  destYoutube: 'stories-video__youtube',
+  destYoutube: 'stories-video__youtube position-relative',
+  liveYoutube:
+    'stories-video__youtube-live flex items-center justify-center position-absolute',
 }
 
-const YoutubeVideoDestacado = ({ isAdmin,liveStory, title, video, autoPlayVideo }) => {
+const YoutubeVideoDestacado = ({
+  isAdmin,
+  liveStory,
+  title,
+  video,
+  autoPlayVideo,
+}) => {
   const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
     window.navigator.userAgent
   )
@@ -43,7 +51,7 @@ const YoutubeVideoDestacado = ({ isAdmin,liveStory, title, video, autoPlayVideo 
           allowFullScreen
           title="Video"
         />
-        {liveStory && <p className={classes.live}>EN VIVO</p>}
+        {liveStory && <p className={classes.liveYoutube}>EN VIVO</p>}
       </div>
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
