@@ -26,7 +26,7 @@ class XmlVideosSitemap {
           section: '/videos',
           stories_qty: 100,
           presets: 'no-presets',
-          includedFields: `headlines.basic,subheadlines.basic,websites.${arcSite}.website_url,promo_items.${VIDEO}.promo_image.url,promo_items.${VIDEO}.headlines.basic,promo_items.${VIDEO}.subheadlines.basic,promo_items.${VIDEO}.description.basic,promo_items.${VIDEO}.streams.stream_type,promo_items.${VIDEO}.streams.url,promo_items.${VIDEO}.streams.height,promo_items.${VIDEO}.streams.width,promo_items.${VIDEO}.duration,promo_items.${VIDEO}.display_date,promo_items.${VIDEO}.taxonomy.primary_section.name,promo_items.${VIDEO}.taxonomy.tags.text`,
+          includedFields: `headlines.basic,subheadlines.basic,websites.${arcSite}.website_url,promo_items.${VIDEO}.promo_image.url,promo_items.${VIDEO}.type,promo_items.${VIDEO}.url,promo_items.${VIDEO}.headlines.basic,promo_items.${VIDEO}.subheadlines.basic,promo_items.${VIDEO}.description.basic,promo_items.${VIDEO}.streams.stream_type,promo_items.${VIDEO}.streams.url,promo_items.${VIDEO}.streams.height,promo_items.${VIDEO}.streams.width,promo_items.${VIDEO}.duration,promo_items.${VIDEO}.display_date,promo_items.${VIDEO}.taxonomy.primary_section.name,promo_items.${VIDEO}.taxonomy.tags.text`,
         },
         filter: schemaFilter(props.arcSite, VIDEO),
         transform: data => {
