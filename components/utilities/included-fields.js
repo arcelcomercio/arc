@@ -22,7 +22,7 @@ export const includeTags = `taxonomy.tags.description,taxonomy.tags.slug,taxonom
  *           CREDITS            *
  *------------------------------*/
 
-export const includeCredits = `credits.by.name,credits.by.url,credits.by.type`
+export const includeCredits = `credits.by._id, credits.by.name,credits.by.url,credits.by.type`
 
 export const includeCreditsImage = `credits.by.image.url`
 
