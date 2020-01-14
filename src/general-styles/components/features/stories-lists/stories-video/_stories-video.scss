@@ -76,4 +76,9 @@
   &__item-default {
     background-color: #aaa;
   }
+  &__youtube {
+    iframe {
+      width: 100%;
+    }
+  }
 }
