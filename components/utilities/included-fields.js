@@ -9,7 +9,7 @@ export const includePromoItemsCaptions = `promo_items.basic.subtitle,promo_items
 export const includePromoVideoAds = `promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.additional_properties.advertising.playAds,promo_items.basic_video.additional_properties.advertising.playVideoAds`
 
 export const includeGalleryUrls =
-  'promo_items.basic_gallery.content_elements.resized_urls,promo_items.basic_gallery.content_elements.subtitle,promo_items.basic_gallery.content_elements.caption'
+  'promo_items.basic_gallery.content_elements.resized_urls,promo_items.basic_gallery.content_elements.subtitle,promo_items.basic_gallery.content_elements.caption,promo_items.basic_gallery.content_elements.type,promo_items.basic_gallery.content_elements.url'
 
 /** ----------------------------*
  *            TAXONOMY          *
