@@ -35,8 +35,8 @@ const SeparatorOpinion = props => {
       website: arcSite,
       stories_qty: STORIES_QTY,
       section,
-      presets: 'no-presets',
-      includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection},${includeCredits},${includeCreditsImage},credits.by.image.resized_urls.square_s`,
+      presets: 'square_s:85x85',
+      includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection},${includeCredits},${includeCreditsImage},credits.by.image.resized_urls`,
     },
     filter: schemaFilter(arcSite),
     transform: data => {
