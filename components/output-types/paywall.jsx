@@ -70,7 +70,7 @@ const Paywall = props => {
           rel="stylesheet"
         />
         <script
-          src={`https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js?v=07112019`}
+          src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js?v=07112019"
           defer
         />
         <script src="https://www.google.com/recaptcha/api.js?hl=es"></script>
