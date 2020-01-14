@@ -6,7 +6,7 @@ export default {
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
   googleFonts: 'Titillium+Web:400,600,700,900|Roboto+Slab:400,700',
-  siteDomain: 'diarriocorreo.pe',
+  siteDomain: 'diariocorreo.pe',
   siteUrl: 'https://diariocorreo.pe',
   resizerUrl: 'https://diariocorreo.pe/resizer',
   resizerSecretKeyEnvVar: '',

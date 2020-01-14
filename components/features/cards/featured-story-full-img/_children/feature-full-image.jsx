@@ -1,5 +1,6 @@
 import React from 'react'
-// import ConfigParams from '../../../../utilities/config-params'
+import { useEditableContent } from 'fusion:content'
+
 import Icon from '../../../../global-components/multimedia-icon'
 
 const getModel = model => {
@@ -34,15 +35,15 @@ export default ({
   multimediaLazyDefault,
   websiteLink,
   multimediaType,
-  crossY,
-  crossX,
-  model,
   section,
   isAdmin,
-  editableField,
   // multimediaSubtitle,
   multimediaCaption,
+  crossY = '',
+  crossX = '',
+  model = 'basic',
 }) => {
+  const { editableField } = useEditableContent()
   const getEditableField = element =>
     editableField ? editableField(element) : null
 

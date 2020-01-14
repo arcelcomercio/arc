@@ -64,7 +64,7 @@ const StaticOpinionGrid = () => {
                     columns=""
                     rows=""
                     freeHtml=""
-                    isDfp
+                    isDfp={isDfp}
                   />
                 </Fragment>
               )
@@ -98,7 +98,7 @@ const StaticOpinionGrid = () => {
                     columns=""
                     rows=""
                     freeHtml=""
-                    isDfp
+                    isDfp={isDfp}
                   />
                 </Fragment>
               )
@@ -126,7 +126,7 @@ const StaticOpinionGrid = () => {
         columns=""
         rows=""
         freeHtml=""
-        isDfp
+        isDfp={isDfp}
       />
 
       <div role="list" className={classes.list}>
@@ -162,7 +162,7 @@ const StaticOpinionGrid = () => {
                 columns=""
                 rows=""
                 freeHtml=""
-                isDfp
+                isDfp={isDfp}
               />
             </Fragment>
           )

@@ -26,7 +26,7 @@ const CONTENT_SOURCE = 'story-feed-by-tag'
 const InterestByTagAmp = props => {
   const {
     customFields: {
-      section = '',
+      tag = '',
       isWebAmp = '',
       storyAmp = '',
       titleAmp = 'Te puede interesar:',
@@ -50,7 +50,7 @@ const InterestByTagAmp = props => {
     contextPath,
   })
 
-  const urlTag = section || `/${slug}/`
+  const urlTag = `/${tag || slug}/`
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
@@ -61,8 +61,8 @@ const InterestByTagAmp = props => {
         presets,
         includedFields,
       },
-      filter: schemaFilter,
-    }) || ''
+      filter: schemaFilter(arcSite),
+    }) || {}
 
   const instance =
     storyData &&

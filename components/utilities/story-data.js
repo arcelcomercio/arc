@@ -456,13 +456,20 @@ class StoryData {
   }
 
   get isPremium() {
-    return (
-      (this.__data &&
-        this.__data.content_restrictions &&
-        this.__data.content_restrictions.content_code === 'premium' &&
-        true) ||
-      false
-    )
+    const {
+      __data: {
+        content_restrictions: { content_code: ContentCode = '' } = {},
+      } = {},
+    } = this || {}
+    return ContentCode === 'premium'
+  }
+
+  get getPremiumValue() {
+    const { __data: { content_restrictions: ContentRestrictions } = {} } =
+      this || {}
+
+    const { content_code: ContentCode = '' } = ContentRestrictions || {}
+    return (ContentRestrictions && ContentCode) || 'vacio'
   }
 
   get videoId() {
@@ -723,16 +730,6 @@ class StoryData {
       ''
 
     return comments
-  }
-
-  get contentRestrictions() {
-    return (
-      (this._data &&
-        this._data.content_restrictions &&
-        this._data.content_restrictions.content_code === 'premium' &&
-        true) ||
-      false
-    )
   }
 
   get videoIdContent() {

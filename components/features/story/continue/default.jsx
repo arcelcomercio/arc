@@ -63,9 +63,9 @@ class StoryContinue extends PureComponent {
     const concurrentProgress = parseInt(progress.getAttribute('size'), 10)
     const { innerHeight, scrollY } = window
 
-    if(!signwall){
-      if (innerHeight + scrollY >= html.scrollHeight) {
-        const totalProgress = (MAX_PROGRESS - concurrentProgress) / 10
+    if (!signwall) {
+      if (innerHeight + scrollY + 10 >= html.scrollHeight) {
+        const totalProgress = (MAX_PROGRESS - concurrentProgress) / 10 + 1
         for (let i = 0; i < totalProgress; i++) {
           const newerProgress = concurrentProgress + 10 * i + 10
           this.setAttributeProgress(progress, newerProgress)
@@ -76,11 +76,13 @@ class StoryContinue extends PureComponent {
         }
       } else {
         this.setUpdateLoaderPage(progress, concurrentProgress)
-  
+
         this.position = +1
       }
       this.setTitleHead()
-      this.setInitiateHeights(document.getElementsByClassName('nav__loader-bar'))
+      this.setInitiateHeights(
+        document.getElementsByClassName('nav__loader-bar')
+      )
     }
   }
 
@@ -120,12 +122,12 @@ class StoryContinue extends PureComponent {
 
   setTimeoutLoadPage = (linker, html = '') => {
     const { arcSite } = this.props || {}
-    const timeLoad = ConfigParams.SITE_OJO === arcSite ? 5000 : 1000
+    const timeLoad = ConfigParams.SITE_OJO === arcSite ? 5000 : 250
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (
         link !== '' &&
-        window.innerHeight + window.scrollY >= html.scrollHeight
+        window.innerHeight + window.scrollY + 10 >= html.scrollHeight
       ) {
         window.location = link
       }

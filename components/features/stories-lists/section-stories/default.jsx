@@ -23,7 +23,7 @@ const StoriesListSectionStories = props => {
     arcSite,
     globalContentConfig,
     isAdmin,
-    metaValue,
+    // metaValue,
   } = useFusionContext()
   const { isDfp = false } = getProperties(arcSite)
   const { storiesQty = 50, initialStory = 0 } = customFieldsProps

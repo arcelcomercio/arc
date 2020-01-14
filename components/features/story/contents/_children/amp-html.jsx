@@ -4,10 +4,10 @@ import { ampHtml } from '../../../../utilities/helpers'
 
 const StoryContentChildHtml = ({
   data: {
-    caption,
-    resized_urls: { landscape_xl: landscapeXl },
-  },
-  basicHtml: { content },
+    caption='',
+    resized_urls: { landscape_xl: landscapeXl='' }={},
+  }={},
+  basicHtml: { content='' }={},
 }) => {
   const urlMp4 = content
     .replace('data-mp4="', 'data-stream="')

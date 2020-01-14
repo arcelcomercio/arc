@@ -1,9 +1,7 @@
 .megamenu {
-  display: none;
+  visibility: hidden;
   @media (--desktop) {
-    &.active {
-      display: block;
-    }
+    visibility: visible;
   }
   &__container {
     max-width: 940px;

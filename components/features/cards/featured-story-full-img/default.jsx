@@ -31,25 +31,16 @@ const FeatureStoryFullImage = props => {
   const {
     customFields: {
       imgField,
-      storyConfig: {
-        crossY,
-        crossX,
-        model,
-        categoryField,
-        titleField,
-        contentService = '',
-        contentConfigValues = {},
-      } = {},
+      crossY,
+      crossX,
+      model,
+      categoryField,
+      titleField,
+      storyConfig: { contentService = '', contentConfigValues = {} } = {},
     } = {},
   } = props
 
-  const {
-    arcSite,
-    contextPath,
-    deployment,
-    isAdmin,
-    editableField,
-  } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
   const presets =
     'landscape_l:648x374,portrait_md:314x374,square_xl:900x900,square_md:300x300'
@@ -118,7 +109,6 @@ const FeatureStoryFullImage = props => {
     multimediaLazyDefault: lazyDefaultCustom || multimediaLazyDefault,
     multimediaType,
     websiteLink,
-    editableField,
     crossY,
     crossX,
     model,
