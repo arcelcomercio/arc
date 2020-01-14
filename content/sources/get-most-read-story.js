@@ -43,10 +43,8 @@ const params = [
 ]
 
 const uriAPI = (url, site) => {
-  const filter = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,
-  taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
-  const urlCheck = `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
-  return urlCheck
+  const filter = `&included_fields=type,websites,website,website_url,headlines,promo_items`
+  return `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
 }
 
 const fetch = (key = {}) => {
@@ -75,8 +73,7 @@ const fetch = (key = {}) => {
     })
     .catch(err => console.log(`PromiseAll error: ${err}`))
   })
-  .catch(err => { 
-    console.log(`Promise Fetch error: ${err}`)
+  .catch(() => { 
     return { content_elements: [] }
   })
 }

@@ -14,9 +14,9 @@ const customFields = PropTypes.shape({
     min: 1,
   }),
   isPremium: PropTypes.bool.tag({
-    name: 'Premium ?',
+    name: '¿Premium?',
     defaultValue: true,
-    description: 'Por el momento Gestion y el Comercio solo son premium'
+    description: 'Si se activa este campo, sólo se mostrarán notas premium si la marca lo tiene implementado.'
   }),
   background: PropTypes.oneOf(['bg-info', 'bg-white']).tag({
     name: 'Color de fondo cabecera',
