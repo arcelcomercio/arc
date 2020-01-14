@@ -70,10 +70,15 @@ class StoriesLiestInfiniteCards extends Component {
       arcSite,
     } = this.props
 
+    const presets = 'portrait_md:306x225'
+    const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection},promo_items.basic_gallery.content_elements.type`
+
     this.fetchContent({
       data: {
         source: contentService,
         query: Object.assign(contentConfigValues, {
+          presets,
+          includedFields,
           from: next,
           feedOffset: next,
         }),
