@@ -75,7 +75,7 @@ const resolve = (key = {}) => {
     return '0'
   }
 
-  const from = `${validateFrom()}`
+  const from = includedFields ? key.from || 0 : `${validateFrom()}`
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${formatIncludedFields({
