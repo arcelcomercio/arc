@@ -37,7 +37,7 @@ class XmlVideosSitemap {
     })
   }
 
-  msToSec = duration => {
+  msToSec = (duration = 0) => {
     return duration / 1000
   }
 
@@ -61,7 +61,7 @@ class XmlVideosSitemap {
             promo_items: promoItems = {},
           } = video
 
-          const { website_url: storyUrl = '' } = websites[arcSite]
+          const { website_url: storyUrl = '' } = websites[arcSite] || {}
 
           const {
             promo_image: { url: thumbnailUrl = '' } = {},
@@ -72,13 +72,15 @@ class XmlVideosSitemap {
               primary_section: { name: section = 'Videos' } = {},
               tags = [],
             } = {},
-          } = promoItems[VIDEO]
+          } = promoItems[VIDEO] || {}
 
-          const videoUrl = streams.find(
-            stream =>
-              stream.stream_type === VIDEO_FORMAT &&
-              stream.height >= MIN_VIDEO_HEIGHT
-          ).url
+          const videoUrl =
+            streams &&
+            streams.find(
+              stream =>
+                stream.stream_type === VIDEO_FORMAT &&
+                stream.height >= MIN_VIDEO_HEIGHT
+            ).url
 
           return {
             url: {
@@ -96,7 +98,7 @@ class XmlVideosSitemap {
                 { 'video:duration': this.msToSec(duration) },
                 // { 'video:view_count': '15: ni idea de donde sacar esto' },
                 { 'video:publication_date': localISODate(date) },
-                ...tags.map(tag => {
+                ...tags.map((tag = {}) => {
                   return { 'video:tag': tag.text !== 'sample' ? tag.text : '' }
                 }),
                 { 'video:category': section },
