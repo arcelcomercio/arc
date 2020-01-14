@@ -23,12 +23,7 @@ const classes = {
   destYoutube: 'stories-video__youtube',
 }
 
-const YoutubeVideoDestacado = ({
-  isAdmin,
-  title,
-  video,
-  autoPlayVideo,
-}) => {
+const YoutubeVideoDestacado = ({ isAdmin,liveStory, title, video, autoPlayVideo }) => {
   const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
     window.navigator.userAgent
   )
@@ -48,6 +43,7 @@ const YoutubeVideoDestacado = ({
           allowFullScreen
           title="Video"
         />
+        {liveStory && <p className={classes.live}>EN VIVO</p>}
       </div>
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
@@ -96,7 +92,7 @@ const YoutubeVideo = ({
 }
 
 const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
-  const [powaAutoPlay, setPowaAutoPlay] = useState(false)
+  // const [powaAutoPlay, setPowaAutoPlay] = useState(false)
 
   useEffect(() => {
     // document.addEventListener('powaRender',load)
@@ -105,14 +101,8 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
         window.navigator.userAgent
       )
 
-      if (!isMobile) {
-        if (!isAdmin) {
-          if (powaAutoPlay || autoPlayVideo) {
-            powa.play()
-          }
-
-          setPowaAutoPlay(true)
-        }
+      if (!isMobile && !isAdmin && autoPlayVideo) {
+        powa.play()
       }
     })
   })
