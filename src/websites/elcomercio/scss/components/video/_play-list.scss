@@ -1,6 +1,9 @@
 .play-list {
-  &__title {
+  &__title a {
     font-weight: 700;
-    font-family: $primary-font;
+    font-family: $tertiary-font;
+  }
+  &__name {
+    text-transform: capitalize;
   }
 }

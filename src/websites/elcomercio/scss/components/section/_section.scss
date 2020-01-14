@@ -13,30 +13,31 @@
   .play-list__name {
     text-align: left;
     font-size: 19px;
+    color: #dddddd;
   }
-  .play-list__name,
   .play-list__title a,
   .video-list__new,
   .header__link,
   .header__tags {
     color: $color-white;
   }
-  .video-navbar__link {
-    color: #b1b1b1;
-    &:hover {
-      text-decoration: none;
-      color: $color-white;
-    }
-  }
+
   .play-list {
     @media (--tablet) {
       padding-left: 0;
       padding-right: 0;
     }
   }
-  .play-list__title,
+  .play-list__title {
+    line-height: 20px;
+  }
   .video-list__new {
     line-height: 1.4;
+  }
+  .video-list__new {
+    font-size: 16px;
+    line-height: 22px;
+    color: #dddddd;
   }
   .play-list__image,
   .video-list__image {
@@ -66,6 +67,7 @@
     align-items: center;
     height: 100%;
     position: relative;
+    cursor: pointer;
     &:after {
       content: '';
       height: 3px;
@@ -81,7 +83,19 @@
       }
     }
   }
-
+  .video-navbar__link {
+    color: #777;
+    font-family: $secondary-font;
+    font-size: 14px;
+    font-weight: 700;
+    &:hover {
+      text-decoration: none;
+      color: $color-white;
+    }
+    @media (--desktop) {
+      padding: 0 15px;
+    }
+  }
   .video-list {
     @media (--desktop) {
       padding: 0 20px;
@@ -114,6 +128,10 @@
   }
   .section-video__list-text {
     display: flex;
+  }
+  .section-video__section {
+    color: #999999;
+    font-weight: 500;
   }
   .play-list__wrapper {
     @media (--tablet) {
