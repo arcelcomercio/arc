@@ -1,0 +1,33 @@
+.infinite-cards {
+  &__card {
+    width: calc(100% / 2);
+    @media (--tablet) {
+      width: calc(100% / 3);
+    }
+  }
+  &__len {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  &__section {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  &__media,
+  &__img {
+    max-height: 138px;
+    min-height: 70px;
+    @media (--tablet) {
+      min-height: 138px;
+      min-width: 186px;
+    }
+    @media (--desktop) {
+      max-height: 225px;
+      min-height: 225px;
+    }
+  }
+  &__link {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    max-height: calc(1.1rem * 1.3333 * 4);
+  }
+}

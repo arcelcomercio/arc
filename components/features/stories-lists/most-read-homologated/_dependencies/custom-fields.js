@@ -13,6 +13,11 @@ const customFields = PropTypes.shape({
     defaultValue: 1,
     min: 1,
   }),
+  isPremium: PropTypes.bool.tag({
+    name: '¿Premium?',
+    defaultValue: true,
+    description: 'Si se activa este campo, sólo se mostrarán notas premium si la marca lo tiene implementado.'
+  }),
   background: PropTypes.oneOf(['bg-info', 'bg-white']).tag({
     name: 'Color de fondo cabecera',
     labels: {
@@ -38,7 +43,11 @@ const customFields = PropTypes.shape({
   seeMoreurl: PropTypes.string.tag({
     name: 'URL de Ver más',
     group: 'Configuración',
-  })
+  }),
+  freeHTML: PropTypes.richtext.tag({
+    name: 'Insertar título con código HTML',
+    group: 'Configuración'
+  }),  
 })
 
 export default customFields
