@@ -84,7 +84,7 @@ class XmlMsn {
                                 pubDate: localISODate(storyData.date || ''),
                                 'dcterms:modified': localISODate(storyData.date || ''),
                                 'dcterms:alternative': storyData.title.replace('&', '-'),
-                                link: `${siteUrl}${storyData.link || ''}`,
+                                link: `${siteUrl}${storyData.websiteLink || ''}`,
                                 guid: {
                                     '@isPermaLink': 'false',
                                     '#text': md5(storyData.id)

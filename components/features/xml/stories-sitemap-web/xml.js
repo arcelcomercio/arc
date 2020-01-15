@@ -4,7 +4,7 @@ import { localISODate } from '../../../utilities/helpers'
 
 /**
  * @description Sitemap estándar para la web. Este feature obtiene los datos que necesita desde "globalContent" y
- * funciona mejor con la content-source "sitemap-feed-by-section"
+ * funciona mejor con la content-source "story-feed-by-section"
  *
  * @returns {Object} Objeto con estructura manipulable por
  * xmlBuilder, para construir sitemaps estándar para la web.
@@ -42,7 +42,7 @@ class XmlStoriesSitemapWeb {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${storyData.link || ''}`,
+            loc: `${siteUrl}${storyData.websiteLink || ''}`,
             lastmod: localISODate(storyData.date || ''),
             changefreq: 'hourly',
             priority: '1.0',

@@ -6,6 +6,7 @@ import {
   addSlashToEnd,
   msToTime,
 } from './helpers'
+import { getVideoIdRedSocial } from './story/helpers'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -691,6 +692,36 @@ class StoryData {
         return dataElements
       })
     )
+  }
+
+  get contentElementsRedesSociales() {
+    const { content_elements: contentElements = null } = this._data || {}
+    const videoprimary =
+      this._data &&
+      this._data.promo_items &&
+      this._data.promo_items[ConfigParams.HTML] &&
+      this._data.promo_items[ConfigParams.HTML].content
+
+    const primaryId = [getVideoIdRedSocial(videoprimary)]
+    const videosIds =
+      contentElements &&
+      contentElements.map(dataContent => {
+        let dataElements = ''
+        const {
+          type: typeElement,
+          raw_oembed: { html = '', type: typeRedsocial } = {},
+          content = '',
+        } = dataContent
+
+        if (
+          typeElement === ConfigParams.ELEMENT_RAW_HTML ||
+          typeElement === ConfigParams.ELEMENT_OEMBED
+        ) {
+          dataElements = getVideoIdRedSocial(html || content, typeRedsocial)
+        }
+        return dataElements
+      })
+    return primaryId.concat(videosIds).filter(String)
   }
 
   get promoItems() {
