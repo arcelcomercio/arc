@@ -1,6 +1,14 @@
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
+import {
+  includeTags,
+  includePromoItems,
+  includePromoItemsCaptions,
+} from '../../../utilities/included-fields'
+
+const SOURCE = 'story-feed-by-section'
+const MAG_PATH = '/mag'
 
 /**
  * @description Sitemap para Google News de Mag.
@@ -9,24 +17,20 @@ import { localISODate } from '../../../utilities/helpers'
  * xmlBuilder, para construir sitemaps para Google news de Mag.
  */
 
-const SOURCE = 'story-feed-by-website'
-const MAG_PATH = '/mag'
-
 @Consumer
 class XmlMagStoriesSitemapNews {
   constructor(props) {
     this.props = props
+    const { arcSite } = props
+
     this.fetchContent({
-      stories: {
+      data: {
         source: SOURCE,
         query: {
           website: 'elcomerciomag',
           stories_qty: 100,
-        },
-        transform: data => {
-          if (!data) return []
-          const { content_elements: stories } = data
-          return stories
+          presets: 'landscape_l:648x374',
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -34,14 +38,9 @@ class XmlMagStoriesSitemapNews {
 
   promoItemHeadlines = ({ promo_items: promoItems }) => {
     if (!promoItems) return ''
-    const {
-      subtitle,
-      caption,
-      headlines: { basic: headlinesBasic } = {},
-      description: { basic: descriptionBasic } = {},
-    } = Object.values(promoItems)[0] || {}
+    const { subtitle, caption } = Object.values(promoItems)[0] || {}
 
-    return subtitle || caption || headlinesBasic || descriptionBasic || ''
+    return subtitle || caption || ''
   }
 
   render() {
@@ -52,7 +51,8 @@ class XmlMagStoriesSitemapNews {
       siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
     } = this.props
 
-    const { stories } = this.state || {}
+    const { data } = this.state || {}
+    const { content_elements: stories = [] } = data || {}
 
     if (!stories) {
       return null
@@ -70,7 +70,7 @@ class XmlMagStoriesSitemapNews {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${MAG_PATH}${storyData.link || ''}`,
+            loc: `${siteUrl}${MAG_PATH}${storyData.websiteLink || ''}`,
             // lastmod: localISODate(storyData.date || ''),
             'news:news': {
               'news:publication': {
@@ -94,7 +94,7 @@ class XmlMagStoriesSitemapNews {
               'image:loc':
                 storyData.multimediaLandscapeL || storyData.multimedia || '',
               'image:title': {
-                '#cdata': this.promoItemHeadlines(story),
+                '#cdata': this.promoItemHeadlines(story) || storyData.title,
               },
             },
             changefreq: 'hourly',
