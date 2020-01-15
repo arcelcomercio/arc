@@ -13,6 +13,7 @@ const PHOTO_SOURCE = 'photo-by-id'
 const PHOTO_SCHEMA = `{
   resized_urls { 
     landscape_xl
+    landscape_ext_story
     landscape_l
     square_l
   }

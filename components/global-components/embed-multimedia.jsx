@@ -10,7 +10,10 @@ const GOLDFISH_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
 
 const EmbedMultimedia = props => {
-  const image = (url, { deployment, contextPath, website, title = '', linkStory = '' }) => {
+  const image = (
+    url,
+    { deployment, contextPath, website, title = '', linkStory = '' }
+  ) => {
     return (
       <a href={linkStory} className="w-full h-full">
         <img
@@ -92,6 +95,7 @@ const EmbedMultimedia = props => {
     width = '100%',
     height = '100%',
   } = props
+
   return getMultimedia(type)(source, {
     deployment,
     contextPath,

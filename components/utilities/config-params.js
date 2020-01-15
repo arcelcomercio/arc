@@ -139,6 +139,10 @@ export const sizeImg = () => {
       width: 980,
       height: 528,
     },
+    landscape_ext_story: {
+      width: 980,
+      height: 355,
+    },
     landscape_l: {
       width: 648,
       height: 374,
