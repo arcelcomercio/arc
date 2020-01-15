@@ -1,9 +1,13 @@
-export default `
+export default arcSite => `
   {
     headlines {
         basic
     }
-    website_url
+    websites {
+      ${arcSite} {
+        website_url
+      }
+    }
     canonical_url
     taxonomy{
       sections{
