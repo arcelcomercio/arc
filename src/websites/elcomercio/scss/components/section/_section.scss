@@ -88,6 +88,9 @@
       &:after {
         background-color: $color-primary;
       }
+      .video-navbar__link {
+        color: $color-white;
+      }
     }
   }
   .video-navbar__link {
@@ -95,9 +98,9 @@
     font-family: $secondary-font;
     font-size: 14px;
     font-weight: 700;
+    text-align: center;
     &:hover {
       text-decoration: none;
-      color: $color-white;
     }
     @media (--desktop) {
       padding: 0 15px;
