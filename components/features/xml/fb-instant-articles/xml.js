@@ -103,12 +103,12 @@ class XmlFacebookInstantArticles {
               if (storyData.fiaOrigen === true) {
                 if (storyData.canonicalWebsite === 'elcomerciomag') {
                   fiaContent = 'MAG'
-                  storyLink = `${siteUrl}/mag${storyData.link}`
+                  storyLink = `${siteUrl}/mag${storyData.websiteLink}`
                 } else {
-                  storyLink = `${siteUrl}${storyData.link}`
+                  storyLink = `${siteUrl}${storyData.websiteLink}`
                   fiaContent = fbArticleStyle
                 }
-                const pageview = `${storyData.link}?outputType=fia`
+                const pageview = `${storyData.websiteLink}?outputType=fia`
 
                 const propsScriptHeader = {
                   siteDomain,
