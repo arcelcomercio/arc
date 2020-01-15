@@ -101,6 +101,7 @@ export default ({
   }
 
   // const { fecha } = formateDay()
+
   const fecha = formatDayMonthYear(principalVideo.displayDate, true, true)
 
   const playListParams = {
