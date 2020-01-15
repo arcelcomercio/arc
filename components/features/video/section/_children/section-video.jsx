@@ -59,7 +59,7 @@ export default ({
             let mTop = 570;
             if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
             {
-              mTop = mTop + adsMiddle.clientHeight;
+              mTop += adsMiddle.clientHeight;
             }
             videoList.style.marginTop = `${mTop}px`;
           }
