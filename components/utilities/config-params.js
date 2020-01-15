@@ -155,6 +155,11 @@ export const sizeImg = () => {
       width: 118,
       height: 72,
     },
+    landscape_xxs: {
+      width: 170,
+      height: 90,
+    },
+
     // portrait
     // TODO: actualizar tamaño
     portrait_xl: {
