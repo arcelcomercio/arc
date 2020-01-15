@@ -71,15 +71,15 @@ class XmlVideosSitemap {
             } = {},
           } = promoItems[VIDEO] || {}
 
-          const videoUrl =
+          const videoStream =
             streams &&
             streams.find(
               stream =>
                 stream &&
                 stream.stream_type === VIDEO_FORMAT &&
-                stream &&
                 stream.height >= MIN_VIDEO_HEIGHT
-            ).url
+            )
+          const videoUrl = videoStream ? videoStream.url : ''
 
           return {
             url: {
