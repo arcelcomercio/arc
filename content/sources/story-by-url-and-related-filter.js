@@ -190,6 +190,13 @@ export default {
     content
     caption
     subtitle
+    raw_oembed{
+      url
+      html
+      provider_name
+      type
+      width
+    }
     level
     language
     url
