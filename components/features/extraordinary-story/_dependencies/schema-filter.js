@@ -1,4 +1,3 @@
-// Esquema de filtro
 const schemaFilter = arcSite => `{
     headlines {
         basic
