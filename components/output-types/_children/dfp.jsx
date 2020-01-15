@@ -126,7 +126,7 @@ const Dfp = ({ isFuature, adId }) => {
       .replace(
         /::>"/g,
         ''
-      )};arcAds.registerAdCollection(window.adsCollection);console.log(window.googletag, '<-window.googletag.pubads')});`
+      )};arcAds.registerAdCollection(window.adsCollection);});`
   }
 
   return (
