@@ -56,7 +56,7 @@ export default ({
             sectionVideo.classList.add('fixed')
             changeFixedSection(true)
             videoNavBar.classList.add('fixed')
-            let mTop = 570;
+            let mTop = 450;
             if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
             {
               mTop += adsMiddle.clientHeight;
