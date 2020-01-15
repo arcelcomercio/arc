@@ -24,18 +24,13 @@ class XmlMagStoriesSitemapNews {
     const { arcSite } = props
 
     this.fetchContent({
-      stories: {
+      data: {
         source: SOURCE,
         query: {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets: 'landscape_l:648x374',
           includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
-        },
-        transform: data => {
-          if (!data) return []
-          const { content_elements: stories } = data
-          return stories
         },
       },
     })
@@ -56,7 +51,8 @@ class XmlMagStoriesSitemapNews {
       siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
     } = this.props
 
-    const { stories } = this.state || {}
+    const { data } = this.state || {}
+    const { content_elements: stories = [] } = data || {}
 
     if (!stories) {
       return null

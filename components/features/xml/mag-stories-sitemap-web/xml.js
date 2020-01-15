@@ -18,18 +18,13 @@ class XmlMagStoriesSitemapWeb {
     const { arcSite } = props
 
     this.fetchContent({
-      stories: {
+      data: {
         source: SOURCE,
         query: {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets: 'no-presets',
           includedFields: `websites.${arcSite}.website_url,display_date`,
-        },
-        transform: data => {
-          if (!data) return []
-          const { content_elements: stories } = data
-          return stories
         },
       },
     })
@@ -38,7 +33,8 @@ class XmlMagStoriesSitemapWeb {
   render() {
     const { arcSite, siteProperties: { siteUrl = '' } = {} } = this.props
 
-    const { stories } = this.state || {}
+    const { data } = this.state || {}
+    const { content_elements: stories = [] } = data || {}
 
     if (!stories) {
       return null

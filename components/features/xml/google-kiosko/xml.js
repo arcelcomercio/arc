@@ -28,21 +28,16 @@ class XmlGoogleKiosko {
   constructor(props) {
     this.props = props
     const { globalContentConfig, arcSite } = props
-    const { query: { _id: section } = {} } = globalContentConfig || {}
+    const { query: { _id: section = '/' } = {} } = globalContentConfig || {}
 
     this.fetchContent({
-      stories: {
+      data: {
         source: SOURCE,
         query: {
           section,
           stories_qty: 100,
           presets: `${IMAGE_SIZE}:${IMAGE_WIDTH}x${IMAGE_HEIGHT}`,
           includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,credits.by.name,credits.by.type,${includeContentBasic},${includePromoItems},${includePromoItemsCaptions},promo_items.basic_html.content,${includeGalleryUrls}`,
-        },
-        transform: data => {
-          if (!data) return []
-          const { content_elements: stories } = data
-          return stories
         },
       },
     })
@@ -67,7 +62,8 @@ class XmlGoogleKiosko {
       siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
     } = this.props
 
-    const { stories } = this.state || {}
+    const { data } = this.state || {}
+    const { content_elements: stories = [] } = data || {}
 
     if (!stories) {
       return null
