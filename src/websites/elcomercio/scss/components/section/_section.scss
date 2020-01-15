@@ -117,6 +117,30 @@
   .video-list__section {
     display: none;
   }
+  .video-list__link {
+    position: relative;
+  }
+  .video-list__duration,
+  .play-list__duration {
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    width: 64px;
+    height: 24px;
+    background-color: rgba($color-black, 0.8);
+    font-size: 12px;
+    color: #dddddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $tertiary-font;
+    &:before {
+      display: none;
+    }
+    @media (--desktop) {
+      bottom: 2px;
+    }
+  }
   .section-video__text {
     margin-right: 20px;
     margin-bottom: 10px;
