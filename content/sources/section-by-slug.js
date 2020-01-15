@@ -22,7 +22,7 @@ const resolve = (key = {}) => {
   const clearSlug = removeLastSlash(slug)
 
   const requestUri =
-    slug === '' || slug === null
+    !slug || slug === '/'
       ? `${CONTENT_BASE}/site/v3/website/${website}/section`
       : `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSlug}`
   return requestUri
