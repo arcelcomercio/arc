@@ -10,23 +10,21 @@ import StoryData from '../../../utilities/story-data'
 import { formattedTime } from '../../../utilities/helpers'
 
 import TvBody from './_children/body'
+// import { includePromoItems } from '../../../utilities/included-fields'
 
 const TvFeatured = props => {
   const { customFields: { section = '' } = {} } = props
   const { arcSite, contextPath, deployment } = useFusionContext()
-  const { content_elements: contentElements = [] } =
+  const data =
     useContent({
-      source: 'story-feed-by-section-with-custom-presets',
+      source: 'story-by-section',
       query: {
         section,
-        stories_qty: 1,
-        preset1: '1350x570',
-        preset2: '1023x450',
-        preset3: '624x285',
+        presets: 'preset1:1350x570,preset2:1023x450,preset3:624x285',
+        includedFields: `headlines.basic,display_date,promo_items`,
       },
       filter: schemaFilter,
     }) || {}
-  const data = contentElements[0] || {}
 
   const { title, date, getPromoItemsType, multimedia, videoId } = new StoryData(
     {
@@ -107,6 +105,11 @@ const TvFeatured = props => {
   }
 
   /** Estados */
+  /**
+   * TODO: revisar manejo de fecha. Creo que se hizo asi para poder usar la fecha local
+   * en lugar de la fecha del servidor si el feature tuviera static true pero creo
+   * que se puede manejar sin necesidad de estados con metodos que ya existen.
+   */
   const [clientDate, setClientDate] = useState('')
 
   useEffect(() => {

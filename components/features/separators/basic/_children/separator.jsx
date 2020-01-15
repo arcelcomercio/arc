@@ -1,4 +1,6 @@
 import React from 'react'
+import { useEditableContent } from 'fusion:content'
+
 import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
@@ -17,7 +19,6 @@ const classes = {
 
 const SeparatorsBasicChildSeparator = props => {
   const {
-    editableField,
     isAdmin,
     model,
     seeMore,
@@ -31,6 +32,8 @@ const SeparatorsBasicChildSeparator = props => {
       htmlCode = '',
     } = {},
   } = props
+  const { editableField } = useEditableContent()
+
   let numline = ''
   switch (arcSite) {
     case 'elcomercio':
@@ -46,12 +49,14 @@ const SeparatorsBasicChildSeparator = props => {
       numline = classes.threeline
       break
   }
+
   const getImgUrl = el => {
     if (arcSite === 'peru21') {
       return el.multimediaPortraitMD
     }
     return el.multimediaLandscapeS
   }
+
   return (
     <div
       className={`${classes.separator} ${
@@ -85,7 +90,7 @@ const SeparatorsBasicChildSeparator = props => {
           items.map(el => {
             const params = {
               title: el.title,
-              link: el.link,
+              link: el.websiteLink,
               section: el.primarySection,
               sectionLink: el.primarySectionLink,
               numline,

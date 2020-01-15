@@ -6,6 +6,8 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import { appendToBody } from '../../utilities/helpers'
 
+// TODO: convertir en componente funcional con hooks
+
 const createScript = ({ src, async, defer, textContent = '', jquery }) => {
   const node = document.createElement('script')
   if (src) {
@@ -35,6 +37,32 @@ class MinuteByMinute extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {}
+
+    const {
+      customFields: {
+        storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      } = {},
+      arcSite,
+    } = props
+
+    this.fetchContent({
+      content: {
+        source: contentService,
+        query: Object.assign(contentConfigValues, {
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic`,
+        }),
+        filter: schemaFilter(arcSite),
+        transform: response => {
+          const {
+            headlines: { basic: title = '' } = {},
+            subheadlines: { basic: subTitle = '' } = {},
+            websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
+          } = response || {}
+
+          return { title, subTitle, url: websiteUrl }
+        },
+      },
+    })
   }
 
   componentDidMount() {
@@ -59,30 +87,30 @@ class MinuteByMinute extends PureComponent {
       const instances = getMxmInstances()
       const key = Object.keys(instances)[0]
 
-      instances[key].pubsub.on('data', function (data) {
+      instances[key].pubsub.on('data', function(data) {
         self.setState({ inner: data })
       })
     }
-    window.on_mxm_loaded = function (instances) {
+
+    window.on_mxm_loaded = function(instances) {
       window.getMxmInstances = () => {
         return instances
       }
     }
 
     const waitjQueryAndMxm = () => {
+      let timeout = 100
       if (window.jQuery) {
         if (document.querySelector('.mxm-input')) {
           runScorer()
           return true
         }
-        setTimeout(waitjQueryAndMxm, 1000)
+        timeout = 1000
       }
-      setTimeout(waitjQueryAndMxm, 100)
+      setTimeout(waitjQueryAndMxm, timeout)
     }
 
     waitjQueryAndMxm()
-
-    this.fetchData()
   }
 
   getTimeRender = (time = '') => {
@@ -113,38 +141,14 @@ class MinuteByMinute extends PureComponent {
       : 'show'
   }
 
-  fetchData() {
-    const {
-      customFields: {
-        storyConfig: { contentService = '', contentConfigValues = {} } = {},
-      } = {},
-      arcSite,
-    } = this.props
-
-    const { fetched } = this.getContent({
-      source: contentService,
-      query: contentConfigValues,
-      filter: schemaFilter(arcSite),
-    })
-
-    fetched.then(response => {
-      const {
-        headlines: { basic: title = '' } = {},
-        subheadlines: { basic: subTitle = '' } = {},
-        websites: { [arcSite]: { website_url: websiteUrl = '' } = {} },
-      } = response
-      this.setState({ title, subTitle, url: websiteUrl })
-    })
-  }
-
   render() {
-    const { title, url, subTitle } = this.state
     const { deployment, contextPath } = this.props
     const {
       customFields: { typeComponent = '', codeComponent = '' } = {},
     } = this.props
 
-    const { inner } = this.state
+    const { inner, content } = this.state
+    const { title, url, subTitle } = content || {}
     const defaultValue = '-'
 
     const equipos = (inner && inner.match && inner.match[0]) || {}
@@ -154,7 +158,7 @@ class MinuteByMinute extends PureComponent {
       <div
         className={`col-3 flex by-minute live-mxm ${
           typeComponent === 'partido' ? 'mxm-partido' : 'mxm-eventos'
-          }`}>
+        }`}>
         <div className="by-minute__left p-20">
           {typeComponent === 'partido' ? (
             <>
@@ -232,31 +236,31 @@ class MinuteByMinute extends PureComponent {
               </div>
             </>
           ) : (
-              <>
-                <div className="w-game-info flex justify-center">
-                  <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
-                    <img
-                      src={deployment(
-                        `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
-                      )}
-                      alt=""
-                      className="mr-5"
-                    />
-                    En vivo
+            <>
+              <div className="w-game-info flex justify-center">
+                <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
+                  <img
+                    src={deployment(
+                      `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                    )}
+                    alt=""
+                    className="mr-5"
+                  />
+                  En vivo
                 </div>
-                </div>
-                <h2 className="text-center text-xl line-h-sm font-bold mt-20">
-                  <a href={url} className="text-white tertiary-font">
-                    {title}
-                  </a>
-                </h2>
-                <p className="text-center mt-15">
-                  <a className="text-white" href={url}>
-                    {subTitle}
-                  </a>
-                </p>
-              </>
-            )}
+              </div>
+              <h2 className="text-center text-xl line-h-sm font-bold mt-20">
+                <a href={url} className="text-white tertiary-font">
+                  {title}
+                </a>
+              </h2>
+              <p className="text-center mt-15">
+                <a className="text-white" href={url}>
+                  {subTitle}
+                </a>
+              </p>
+            </>
+          )}
 
           <div className="scorer-sponsor">
             <div id="eplAd_REEMPLAZAR_POR_EPLANNING1">
@@ -291,8 +295,8 @@ class MinuteByMinute extends PureComponent {
           {typeComponent === 'partido' ? (
             <mxm-partido code={codeComponent} noframe h="235px" />
           ) : (
-              <mxm-evento code={codeComponent} noframe h="258px" />
-            )}
+            <mxm-evento code={codeComponent} noframe h="258px" />
+          )}
         </div>
       </div>
     )

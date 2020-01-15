@@ -20,9 +20,12 @@ class StoryContentChildVideo extends PureComponent {
       } = {},
     } = this.props
     this.videoData = video
+    
   }
 
   componentDidMount() {
+
+    
     if (window.powaBoot) {
       window.powaBoot()
     }
@@ -45,15 +48,22 @@ class StoryContentChildVideo extends PureComponent {
     })
   }
 
+  getSectionSlug = (sectionId = '') => {
+    return sectionId.split('/')[1] || ''
+  }
+
   getParametroPublicidad = () => {
     const {
       siteProperties: { urlPreroll },
       globalContent,
+      arcSite, 
+      metaValue,
     } = this.props
-
+    
     const {
       taxonomy: {
         primary_section: {
+          path: primarySection,
           additional_properties: {
             original: { _admin: { alias_ids: aliasId = [] } = {} },
           } = {},
@@ -63,7 +73,29 @@ class StoryContentChildVideo extends PureComponent {
     if (aliasId && aliasId[0]) {
       return aliasId[0]
     }
-    return urlPreroll
+    
+    if(arcSite === 'publimetro'){
+
+      let tipoplantilla = ''
+      switch (metaValue('id')) {
+        case 'meta_section':
+          tipoplantilla = 'sect'
+          break;
+        case 'meta_story':
+          tipoplantilla ='post'
+          break;
+        default:
+          tipoplantilla ='post'
+          break
+      }
+
+      let sectionSlug = this.getSectionSlug(primarySection)
+      return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro_post_${sectionSlug}_web_preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Dpublimetro%26seccion%3D${sectionSlug}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`;
+    }else{
+      return urlPreroll
+    }
+
+    
   }
 
   render() {

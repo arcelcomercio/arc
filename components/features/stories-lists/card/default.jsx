@@ -9,6 +9,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import Header from './_children/header'
 import List from './_children/list'
 import Footer from './_children/footer'
+import { includePromoItems } from '../../../utilities/included-fields'
 
 const classes = {
   lista:
@@ -35,6 +36,8 @@ const StoriesListCard = props => {
     section,
     excludeSections: '/impresa',
     stories_qty: storiesQty,
+    presets: 'landscape_md:314x157',
+    includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems}`,
   }
   const data =
     useContent({

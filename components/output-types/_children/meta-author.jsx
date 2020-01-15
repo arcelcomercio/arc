@@ -59,15 +59,13 @@ export default ({
   )
 
   const authorUrl = `${siteUrl}${authorPath}`
-  const listItems = contentElements.map(
-    ({ canonical_url: canonicalUrl }, index) => {
-      return `{
+  const listItems = contentElements.map(({ websites = {} }, index) => {
+    return `{
       "@type":"ListItem",
       "position":${index + 1}, 
-      "url":"${canonicalUrl}"
+      "url":"${websites[arcSite].website_url}"
     }`
-    }
-  )
+  })
 
   const UrlRedesSocial =
     (socialMedia[0] !== '""' &&

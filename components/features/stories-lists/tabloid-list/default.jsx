@@ -4,10 +4,18 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import TabloidListChild from './_children/story-tabloid'
-import schemaFilter from './_dependencies/filter-schema'
+import schemaFilter from './_dependencies/schema-filter'
+import {
+  includePromoItems,
+  includePrimarySection,
+} from '../../../utilities/included-fields'
 
 const TabloidList = props => {
   const { arcSite, contextPath, deployment } = useFusionContext()
+
+  const presets = 'portrait_l:374x648'
+  const includedFields = `headlines.basic,${includePromoItems},${includePrimarySection},websites.${arcSite}.website_url,display_date`
+
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -18,7 +26,7 @@ const TabloidList = props => {
   const data =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
   const params = {

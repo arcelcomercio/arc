@@ -6,6 +6,7 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
+import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
 import {
   skipAdvertising,
@@ -189,7 +190,7 @@ export default ({
     deployment,
     globalContent,
   }
-
+  const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
   const structuredTaboola = ` 
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
@@ -245,13 +246,7 @@ export default ({
             )}?outputType=amp`}
           />
         )}
-        {arcSite === ConfigParams.SITE_ELCOMERCIOMAG && (
-          <link
-            rel="alternate"
-            href={`${siteProperties.siteUrlAlternate}${link}`}
-            hrefLang="es"
-          />
-        )}
+
         <title>{title}</title>
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
@@ -293,26 +288,41 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`} />
-        )}
-        {!nodas && !isLivePage && (
-          <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+
+        {arcSite === 'publimetro' && !nodas && !isLivePage && (
+          <script
+            defer
+            src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
+          />
         )}
 
-        {/* Scripts de APPNEXUS */}
-
-        {!nodas && (
+        {!(arcSite === 'publimetro') && (
           <>
-            <script
-              src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
-              async
-            />
-            <script
-              type="text/javascript"
-              src="//acdn.adnxs.com/ast/ast.js"
-              async
-            />
+            {!nodas && !isLivePage && (
+              <script
+                defer
+                src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`}
+              />
+            )}
+            {!nodas && !isLivePage && (
+              <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
+            )}
+
+            {/* Scripts de APPNEXUS */}
+
+            {!nodas && (
+              <>
+                <script
+                  src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+                  async
+                />
+                <script
+                  type="text/javascript"
+                  src="//acdn.adnxs.com/ast/ast.js"
+                  async
+                />
+              </>
+            )}
           </>
         )}
         {/* Scripts de Chartbeat */}
@@ -355,6 +365,13 @@ export default ({
           </>
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
+        {arcSite === 'publimetro' && !nodas && !isLivePage && (
+          <script
+            type="text/javascript"
+            defer
+            dangerouslySetInnerHTML={{ __html: collapseDivs }}
+          />
+        )}
       </head>
       <body className={classBody}>
         <noscript>
@@ -370,7 +387,7 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {!nodas && (
+        {!(arcSite === 'publimetro') && !nodas && (
           <script
             defer
             src={deployment(
@@ -419,6 +436,7 @@ export default ({
         <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
+        {arcSite === 'publimetro' && !nodas && !isLivePage && <Dfp />}
       </body>
     </html>
   )

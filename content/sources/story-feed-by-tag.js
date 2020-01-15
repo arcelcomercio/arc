@@ -1,9 +1,14 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 import RedirectError from '../../components/utilities/redirect-error'
+import {
+  includePromoItems,
+  includePrimarySection,
+  includeCredits,
+  formatIncludedFields,
+} from '../../components/utilities/included-fields'
 
 const schemaName = 'stories'
 
@@ -28,16 +33,36 @@ const params = [
     displayName: 'ID del sitio (Opcional)',
     type: 'text',
   },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes',
+    type: 'text',
+  },
+  {
+    name: 'includedFields',
+    displayName: 'Campos incluidos',
+    type: 'text',
+  },
 ]
 
+const transformImg = ({ contentElements, website, presets }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets,
+  })
+}
+
 const resolve = (key = {}) => {
-  const { name, website: rawWebsite = '' } = key
+  const { name, website: rawWebsite = '', includedFields } = key
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
   const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
 
-  const size = key.size || 50
+  const size = key.size || 20
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug de la etiqueta')
@@ -50,19 +75,32 @@ const resolve = (key = {}) => {
     return '0'
   }
 
-  const from = `${validateFrom()}`
+  const from = includedFields ? key.from || 0 : `${validateFrom()}`
 
-  const excludedFields =
+  const sourceInclude = includedFields
+    ? `&_sourceInclude=${formatIncludedFields({
+        includedFields,
+        arcSite: website,
+      })}`
+    : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems},taxonomy.tags.slug,taxonomy.tags.text`
+
+  /* const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
-
+ */
   return `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
-  ).toLowerCase()}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${excludedFields}`
+  ).toLowerCase()}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
 }
 
 const transform = (
   data,
-  { 'arc-site': arcSite, name, from, website: rawWebsite }
+  {
+    'arc-site': arcSite,
+    name,
+    from,
+    website: rawWebsite,
+    presets: customPresets,
+  }
 ) => {
   const websiteField = rawWebsite === null ? '' : rawWebsite
   const website = websiteField || arcSite || 'Arc Site no está definido'
@@ -76,13 +114,14 @@ const transform = (
 
   const dataStories = data || {}
 
-  const { resizerUrl, siteName } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret,
-    addResizedUrls
-  )
+  const { siteName } = getProperties(website)
+  const { content_elements: contentElements } = data || {}
+  const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
+  dataStories.content_elements = transformImg({
+    contentElements,
+    website,
+    presets, // 'mobile:314x157'
+  })
   dataStories.siteName = siteName
 
   const {

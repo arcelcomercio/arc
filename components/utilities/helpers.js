@@ -2,6 +2,9 @@ import ConfigParams, {
   sizeImg,
   sizeImgNewsLetter,
   sizeImgStory,
+  spacesAdsDfpPortada,
+  spacesAdsDfpStory,
+  spacesAdsDfpDefault,
 } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
@@ -669,11 +672,15 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<span (.*)>/g, '<span>')
     .replace(/<(.+):p>/g, '<span>')
     .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
-    .replace(/<font(.*)>(.+)<\/font>/g, '$2')
+    .replace(/<font(.*)>(?:.*(?:))<\/font>/g, '$2')
+    .replace(
+      /<(font|eqwql|nimfw|yt|st1)(.*)>(?:.*(?:))<\/(font|eqwql|nimfw|yt|st1)>/g,
+      '$2'
+    )
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
-    .replace(/<script>(.*\n)*.*<\/script>/g, '')
+    .replace(/<(style|script)(.*)>(.*\n)*.*<\/(style|script)(.*)>/g, '')
     .replace(/<(-?\/)?script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 
@@ -685,7 +692,10 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace("}(document, 'script', 'facebook-jssdk'));", '')
     .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
     .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~; +#!-])+")/g, '')
-    .replace(/<iframe(.*)><\/iframe>/g, '')
+    .replace(
+      /<(twitterwidget|twitter|iframe|font)(?:.*(?:))>(?:.*(?:))<\/(twitterwidget|twitter|iframe|font)>/g,
+      ''
+    )
     .replace(/<iframe(.*)>\s*\n<\/iframe>/gm, '')
     .replace(/(hreef=)/g, 'href=')
   return htmlDataTwitter
@@ -920,13 +930,26 @@ export const preventDefault = e => {
   event.returnValue = false
 }
 
+export const replacer = (str, p1 = '', p2 = '', p3 = '') => {
+  const isSlash = p3.slice(p3.length - 1, p3.length)
+  const psReplace = `${p3}/`
+
+  return `href="${p1}://${p2}${isSlash !== '/' ? psReplace : p3}"`
+}
+
 export const replaceTags = text => {
-  return text
+  const resultText = text.replace(
+    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
+    replacer
+  )
+
+  return resultText
     .replace(/<h1>(.*)<\/h1>/g, '<h2>$1</h2>')
     .replace(/(\s\w)=.(.*?)/g, '$2')
     .replace('http://http://', 'https://')
     .replace(/href=&quot;(.+)&quot;>/g, 'href="$1">')
     .replace(/http:\/\/gestion2.e3.pe\//g, 'https://cde.gestion2.e3.pe/')
+    .replace('http://', 'https://')
 }
 
 export const formatDateStory = date => {

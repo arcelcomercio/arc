@@ -120,6 +120,16 @@ class ConfigParams {
   static LARGE = 'large'
 
   static AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
+
+  static META_SECTION = 'meta_section'
+
+  static META_STORY = 'meta_story'
+
+  static META_SEARCH = 'meta_search'
+
+  static META_TAG = 'meta_tag'
+
+  static META_HOME = 'meta_home'
 }
 
 export const sizeImg = () => {
@@ -278,15 +288,15 @@ export const sizeImgStory = () => {
       width: 273,
       height: 289,
     },
-    amp_video_1x1: {
+    amp_image_1x1: {
       width: 1200,
       height: 1200,
     },
-    amp_video_4x3: {
+    amp_image_4x3: {
       width: 1200,
       height: 900,
     },
-    amp_video_16x9: {
+    amp_image_16x9: {
       width: 1200,
       height: 675,
     },
@@ -392,4 +402,5 @@ export const spacesAdsName = () => {
     caja3: 'caja3',
   }
 }
+
 export default ConfigParams

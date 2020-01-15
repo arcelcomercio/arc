@@ -50,7 +50,7 @@ const getVars = (
           id,
           multimediaType,
           primarySectionLink,
-          contentRestrictions,
+          isPremium,
           nucleoOrigen,
           formatOrigen,
           contentOrigen,
@@ -70,7 +70,7 @@ const getVars = (
         dataStory = `
             var tipo_nota = '${getMultimedia(multimediaType, true)}'
             var id_nota = '${id}' 
-            var content_paywall = ${contentRestrictions}`
+            var content_paywall = ${isPremium}`
         dataNucleoOrigen = `
             var nucleo_origen = '${nucleoOrigen}' 
             var format_origen = '${formatOrigen}' 

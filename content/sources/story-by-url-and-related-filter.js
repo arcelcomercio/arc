@@ -53,6 +53,7 @@ const getAdditionalData = (storyData, website) => {
   }).then(idsResp => {
     storyData.related_content = idsResp
     const result = transformImg(storyData)
+
     return result
   })
 }
@@ -121,9 +122,9 @@ basic_video {
           story_small
           amp_new
           impresa
-          amp_video_1x1
-          amp_video_4x3
-          amp_video_16x9
+          amp_image_1x1
+          amp_image_4x3
+          amp_image_16x9
       }
     }
   }
@@ -144,6 +145,9 @@ basic_gallery {
         story_small
         amp_new
         impresa
+        amp_image_1x1
+        amp_image_4x3
+        amp_image_16x9
       }
     }
   }
@@ -158,6 +162,9 @@ basic_gallery {
       story_small
       amp_new
       impresa
+      amp_image_1x1
+      amp_image_4x3
+      amp_image_16x9
     }
   }
 }`
@@ -245,9 +252,9 @@ export default {
           story_small
           amp_new
           impresa
-          amp_video_1x1
-          amp_video_4x3
-          amp_video_16x9
+          amp_image_1x1
+          amp_image_4x3
+          amp_image_16x9
         }
       }
     }
@@ -260,6 +267,9 @@ export default {
       amp_new
       impresa
       medium
+      amp_image_1x1
+      amp_image_4x3
+      amp_image_16x9
     }
     canonical_url
     headlines{
@@ -373,6 +383,9 @@ export default {
         story_small
         amp_new
         impresa
+        amp_image_1x1
+        amp_image_4x3
+        amp_image_16x9
       }
     }
     path_mp3 {

@@ -27,6 +27,8 @@ const MostReadView = props => {
       query: {
         section: '/',
         stories_qty: storiesQty || 3,
+        presets: 'no-presets',
+        includedFields: `websites.${arcSite}.website_url,headlines.basic`,
       },
       filter: schemaFilter(arcSite),
     }) || {}

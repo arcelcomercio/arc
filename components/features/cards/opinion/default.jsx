@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import OpinionChildCard from './_children/card'
 import filterSchema from './_dependencies/schema-filter'
 import { defaultImage } from '../../../utilities/helpers'
+import { includeSections } from '../../../utilities/included-fields'
 
 @Consumer
 class CardOpinion extends PureComponent {
@@ -44,28 +45,28 @@ class CardOpinion extends PureComponent {
       Promise.all(sectionsFetch)
         .then(results => {
           const jsonSections = {}
-          results.forEach((res,index )=> {
-            const { content_elements: contentElements = [] } = res || {}
-            if (contentElements.length > 0) {
-              
+          results.forEach((story, index) => {
+            if (story) {
               const {
                 headlines: { basic = '' } = {},
                 taxonomy: { sections: secs = [] } = {},
-                website_url: websiteUrl = '',
-              } = contentElements[0] || {}
+                websites = {},
+              } = story || {}
+              const { website_url: websiteUrl = '' } = websites[arcSite] || {}
 
-              const sectionItem = sections[`section${index+1}`]
-              const secPropperties = secs.find(x => x.path === sectionItem) || {}
-              
+              const sectionItem = sections[`section${index + 1}`]
+              const secPropperties =
+                secs.find(x => x.path === sectionItem) || {}
+
               const {
-                name = '', 
+                name = '',
                 path = '',
                 additional_properties: {
                   original: {
                     site_topper: { site_logo_image: siteLogo = '' } = {},
                   } = {},
                 } = {},
-              } = secPropperties 
+              } = secPropperties
 
               const indexSec = Object.values(sections).indexOf(path)
               const sectionActive = Object.keys(sections)[indexSec]
@@ -100,11 +101,11 @@ class CardOpinion extends PureComponent {
   getContentApi = section => {
     const { arcSite } = this.props
     return this.getContent(
-      'story-feed-by-section',
+      'story-by-section',
       {
         website: arcSite,
         section,
-        stories_qty:1
+        includedFields: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,canonical_url,${includeSections},taxonomy.sections.additional_properties.original.site_topper.site_logo_image`,
       },
       filterSchema
     )

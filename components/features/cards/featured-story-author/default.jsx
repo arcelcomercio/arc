@@ -6,6 +6,16 @@ import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
 import FeaturedAuthor from './_children/featured-author'
+import {
+  includeCredits,
+  includePrimarySection,
+  includeSections,
+  includePromoItems,
+  includePromoItemsCaptions,
+  includeCreditsRole,
+  includeCreditsEducation,
+  includeCreditsImage,
+} from '../../../utilities/included-fields'
 
 const CardFeaturedStoryAuthor = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -20,10 +30,14 @@ const CardFeaturedStoryAuthor = props => {
     } = {},
   } = props
 
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsRole},${includeCreditsEducation},${includeCreditsImage},credits.by.image.resized_urls.square_xs,${includePrimarySection},${includeSections},publish_date,display_date`
+
   const data =
     useContent({
       source: contentService,
-      query: contentConfigValues,
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 

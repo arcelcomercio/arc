@@ -1,7 +1,7 @@
-// TODO
+// TODO:
 // Se comenzara a usar story-new a partir del comercio
 // y esto se eliminará junto con su feature
-import React, { PureComponent } from 'react'
+import React from 'react'
 // import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
 import Icon from './multimedia-icon'
 import StoryData from '../utilities/story-data'
@@ -30,99 +30,97 @@ const classes = {
   img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
   wrapperTitle: 'story-item__information-box w-full',
-  opinion:'story-item__opinion',
+  opinion: 'story-item__opinion',
 }
 
-class StoriesList extends PureComponent {
-  render() {
-    const {
-      data,
-      deployment,
-      contextPath,
-      arcSite,
-      formato,
-      isAdmin,
-    } = this.props
-    const element = new StoryData({
-      data,
-      deployment,
-      contextPath,
-      arcSite,
-      defaultImgSize: 'sm',
-    })
-    const isOpinionPeru21 =
+const StoriesList = ({
+  data,
+  deployment,
+  contextPath,
+  arcSite,
+  formato,
+  isAdmin,
+}) => {
+  const element = new StoryData({
+    data,
+    deployment,
+    contextPath,
+    arcSite,
+    defaultImgSize: 'sm',
+  })
+  const isOpinionPeru21 =
     element.primarySectionLink.includes('/opinion/') &&
     arcSite === ConfigParams.SITE_PERU21
 
-    return (
-      <div
-        className={`${classes.storyItem} ${
-          formato && formato === 'row' ? 'story-item--row' : ''
-        }`}>
-        <div className={classes.bottom}>
-          <div className={`${classes.left} ${isOpinionPeru21 ? classes.opinion : ''}`}>
-            <div className={classes.top}>
-              <a href={element.primarySectionLink} className={classes.section}>
-                {element.primarySection}
-              </a>
-              <p className={classes.date}>
-                {formatDateLocalTimeZone(element.date)}
-              </p>
-            </div>
-            <div className={classes.wrapperTitle}>
-              <h2 className={classes.contentTitle}>
-                <a
-                  className={classes.title}
-                  href={element.link}>
-                  {reduceWord(element.title)}
-                </a>
-              </h2>
-              <p className={classes.subtitle}>{reduceWord(element.subTitle)}</p>
-              <a
-                href={element.primarySectionLink}
-                className={classes.sectionHidden}>
-                {element.primarySection}
-              </a>
-            </div>
-            <div className={classes.contenetAuthor}>
-              <a href={element.authorLink} className={classes.author}>
-                {element.author}
-              </a>
-            </div>
-          </div>
-
-          <figure className={classes.right}>
-            {/* TODO: Actualizar iconos con multimediaIcon */}
-            <a href={element.link} className={classes.rightLink}>
-              <Icon type={element.multimediaType} iconClass={classes.icon} />
-              <picture>
-                <source
-                  className={isAdmin ? '' : 'lazy'}
-                  media="(max-width: 639px)"
-                  srcSet={
-                    isAdmin
-                      ? element.multimediaLandscapeXS
-                      : element.multimediaLazyDefault
-                  }
-                  data-srcset={element.multimediaLandscapeXS}
-                />
-                <img
-                  alt={element.title}
-                  className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                  src={
-                    isAdmin
-                      ? element.multimediaLandscapeS
-                      : element.multimediaLazyDefault
-                  }
-                  data-src={element.multimediaLandscapeS}
-                />
-              </picture>
+  return (
+    <div
+      className={`${classes.storyItem} ${
+        formato && formato === 'row' ? 'story-item--row' : ''
+      }`}>
+      <div className={classes.bottom}>
+        <div
+          className={`${classes.left} ${
+            isOpinionPeru21 ? classes.opinion : ''
+          }`}>
+          <div className={classes.top}>
+            <a href={element.primarySectionLink} className={classes.section}>
+              {element.primarySection}
             </a>
-          </figure>
+            <p className={classes.date}>
+              {formatDateLocalTimeZone(element.date)}
+            </p>
+          </div>
+          <div className={classes.wrapperTitle}>
+            <h2 className={classes.contentTitle}>
+              <a className={classes.title} href={element.websiteLink}>
+                {reduceWord(element.title)}
+              </a>
+            </h2>
+            <p className={classes.subtitle}>{reduceWord(element.subTitle)}</p>
+            <a
+              href={element.primarySectionLink}
+              className={classes.sectionHidden}>
+              {element.primarySection}
+            </a>
+          </div>
+          <div className={classes.contenetAuthor}>
+            <a href={element.authorLink} className={classes.author}>
+              {element.author}
+            </a>
+          </div>
         </div>
+
+        <figure className={classes.right}>
+          {/* TODO: Actualizar iconos con multimediaIcon */}
+          <a href={element.websiteLink} className={classes.rightLink}>
+            <Icon type={element.multimediaType} iconClass={classes.icon} />
+            <picture>
+              <source
+                className={isAdmin ? '' : 'lazy'}
+                media="(max-width: 639px)"
+                srcSet={
+                  isAdmin
+                    ? element.multimediaLandscapeXS
+                    : element.multimediaLazyDefault
+                }
+                data-srcset={element.multimediaLandscapeXS}
+              />
+              <img
+                alt={element.title}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+                src={
+                  isAdmin
+                    ? element.multimediaLandscapeS
+                    : element.multimediaLazyDefault
+                }
+                data-src={element.multimediaLandscapeS}
+              />
+            </picture>
+          </a>
+        </figure>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default StoriesList

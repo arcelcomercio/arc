@@ -182,6 +182,7 @@ class StoryHeaderChildGallerySlider extends PureComponent {
   render() {
     const { sliderWidth, slideWidth, positionSlide, sliders = [] } = this.state
     const { isAdmin, defaultImageGallery } = this.props
+
     const sliderStyle = {
       width: `${sliderWidth}%`,
       transform: `translateX(${positionSlide}%)`,
