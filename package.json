@@ -44,8 +44,6 @@
     "react": "^16.6.3"
   },
   "devDependencies": {
-    "@arc-core-components/content-source_story-feed_author-v4": "^1.0.4-beta.0",
-    "@arc-core-components/content-source_story-feed_tag-v4": "^1.0.4-beta.0",
     "@arc-fusion/cli": "^1.0.7",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
