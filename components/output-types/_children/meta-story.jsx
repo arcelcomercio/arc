@@ -59,7 +59,6 @@ export default ({
     arcSite === ConfigParams.SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
-console.log('contentElementsRedesSociales', contentElementsRedesSociales)
   const redSocialVideo = contentElementsRedesSociales.map(
     ({ youtube = '', facebook = '', twitter = '', user = '' }) => {
       const thumbnailUrlYoutube =
@@ -77,19 +76,15 @@ console.log('contentElementsRedesSociales', contentElementsRedesSociales)
       const embedUrlFacebook =
         facebook && `https://www.facebook.com${user}/videos/${facebook}`
 
-      return `{
-      "@context": "http://schema.org",
-      "@type": "VideoObject",
-      "name": "${formatHtmlToText(title)}",
-      "description": "${formatHtmlToText(subTitle)}",
-      "thumbnailUrl": "${thumbnailUrlYoutube ||
+      return `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
+        title
+      )}",   "description": "${formatHtmlToText(
+        subTitle
+      )}",  "thumbnailUrl": "${thumbnailUrlYoutube ||
         thumbnailUrlTwitter ||
-        thumbnailUrlFacebook}",
-      "uploadDate": "${publishDateZone}",
-      "embedUrl": "${embedUrlYoutube || embedUrlTwitter || embedUrlFacebook}"
-  }
-
-  `
+        thumbnailUrlFacebook}", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube ||
+        embedUrlTwitter ||
+        embedUrlFacebook}" }`
     }
   )
 

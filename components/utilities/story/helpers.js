@@ -23,7 +23,7 @@ export const getVideoIdRedSocial = (content = '') => {
         /facebook.com\/plugins\/video.php[?]href=(.+)\/(.*)\/(.*)videos\/([\d]{15,15})/
       )
       const [, , userId = '1', , facebookId = ''] = customPhotoUrl || []
-      videoId = { facebook: facebookId, user: userId }
+      videoId = { facebook: facebookId, user: `/${userId}` }
     }
     if (!customPhotoUrl) {
       customPhotoUrl = content.match(
