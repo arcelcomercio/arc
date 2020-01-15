@@ -46,10 +46,8 @@ export default ({
       const videoNavBar = document.querySelector('.video-navbar')
       const videoList = document.querySelector('.video-list')
       const videoFrame = document.querySelector('.section-video__frame')
-      const leftFix = videoFrame.getBoundingClientRect().left
-      const hasAdsMiddle = document.getElementById('ads_d_middle1') || {}
-      const renderClassFix =
-        hasAdsMiddle.childElementCount > 0 ? 'fixedAds' : 'fixedNoAds'
+      const adsMiddle = document.getElementById('ads_d_middle1')
+
       const playOff = playList.offsetTop
       if (window.innerWidth >= 1024) {
         window.addEventListener('scroll', () => {
@@ -58,18 +56,19 @@ export default ({
             sectionVideo.classList.add('fixed')
             changeFixedSection(true)
             videoNavBar.classList.add('fixed')
-            //videoList.classList.add(`${renderClassFix}`)
-            //videoFrame.style.left = `${leftFix + 50}px`
-
-            // videoList.style.marginTop = '570px'
+            let mTop = 570;
+            if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
+            {
+              mTop = mTop + adsMiddle.clientHeight;
+            }
+            videoList.style.marginTop = `${mTop}px`;
           }
           if (scrollHeight < playOff) {
             sectionVideo.classList.remove('fixed')
             changeFixedSection(false)
             videoNavBar.classList.remove('fixed')
-            videoList.classList.remove(`${renderClassFix}`)
             videoFrame.removeAttribute('style')
-            // videoList.style.marginTop = '50px'
+            videoList.style.marginTop = '50px'
           }
         })
       }
