@@ -92,13 +92,14 @@ const Dfp = ({ isFuature, adId }) => {
       ({
         space,
         slotname,
+        slotname2,
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
       }) => {
         const formatSpace = {
           id: `gpt_${space}`,
-          slotName: slotname,
+          slotName: (arcSite === 'publimetro') ? slotname : slotname2,
           dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
           targeting: {
             publisher: arcSite,
@@ -125,12 +126,12 @@ const Dfp = ({ isFuature, adId }) => {
       .replace(
         /::>"/g,
         ''
-      )};arcAds.registerAdCollection(window.adsCollection);console.log(window.googletag, '<-window.googletag.pubads')});`
+      )};arcAds.registerAdCollection(window.adsCollection);});`
   }
 
   return (
     <>
-      {arcSite === 'publimetro' && (
+      {(arcSite === 'publimetro' ||  arcSite === 'depor') && (
         <Content
           {...{
             contentService: 'get-dfp-spaces',

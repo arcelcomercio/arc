@@ -5,7 +5,7 @@ const resolve = ({ 'arc-site': website, page, sectionSlug }) => {
   if (!page) throw new Error('Tipo de página no declarada')
 
   return `${devUrl}/${website}/${page}${
-    sectionSlug ? `/${sectionSlug}` : ''
+    sectionSlug ? `/${sectionSlug.split('-').join('')}` : ''
   }/espacios.json`
 }
 

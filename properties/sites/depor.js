@@ -172,4 +172,5 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: false,
+  isDfp: true,
 }
