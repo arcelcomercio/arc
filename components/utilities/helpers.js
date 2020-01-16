@@ -2,9 +2,6 @@ import ConfigParams, {
   sizeImg,
   sizeImgNewsLetter,
   sizeImgStory,
-  spacesAdsDfpPortada,
-  spacesAdsDfpStory,
-  spacesAdsDfpDefault,
 } from './config-params'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
@@ -897,7 +894,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     width="320"
     height="50"
     type="doubleclick"
-    data-slot=${dataSlot}
+    data-slot="${dataSlot}"
     data-multi-size="320x50,300x100,300x50,320x100"
     data-multi-size-validation="false"
     ${json}

@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
+
+const SOURCE = 'story-feed-by-section'
 
 /**
  * @description Feed para Google News.
@@ -11,80 +12,93 @@ import { localISODate } from '../../../utilities/helpers'
 
 @Consumer
 class XmlGoogleNews {
-    constructor(props) {
-        this.props = props
+  constructor(props) {
+    this.props = props
+    const { globalContentConfig, arcSite } = props
+    const { query: { _id: section } = {} } = globalContentConfig || {}
+
+    this.fetchContent({
+      data: {
+        source: SOURCE,
+        query: {
+          section,
+          stories_qty: 100,
+          presets: 'no-presets',
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,credits.by.name,credits.by.type`,
+        },
+      },
+    })
+  }
+
+  render() {
+    const {
+      arcSite,
+      siteProperties: {
+        sitemapNewsName = '',
+        siteUrl = '',
+        siteDescription = '',
+        siteDomain = '',
+        googleNewsImage = '',
+      } = {},
+    } = this.props
+
+    const { data: { content_elements: stories = [] } = {} } = this.state || {}
+
+    if (!stories) {
+      return null
     }
 
-    render() {
-        const {
-            globalContent,
-            deployment,
-            contextPath,
-            arcSite,
-            siteProperties: {
-                sitemapNewsName = '',
-                siteUrl = '',
-                siteDescription = '',
-                siteDomain = '',
-                googleNewsImage = ''
-            } = {},
-        } = this.props
-        const { content_elements: stories } = globalContent || {}
+    const googleNewsFeed = {
+      rss: {
+        '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+        '@version': '2.0',
+        channel: [
+          { link: siteUrl },
+          { description: siteDescription },
+          { title: sitemapNewsName },
+          {
+            image: {
+              url: googleNewsImage,
+              title: siteDomain,
+              link: siteUrl,
+            },
+          },
+          ...stories.map(story => {
+            const {
+              display_date: date,
+              headlines: { basic: title = '' } = {},
+              subheadlines: { basic: subTitle = '' } = {},
+              credits: { by: [{ name: author } = {}] = [] } = {},
+              websites = {},
+            } = story || {}
+            const { website_url: websiteLink = '' } = websites[arcSite] || {}
 
-        if (!stories) {
-            return null
-        }
-
-        const storyData = new StoryData({
-            deployment,
-            contextPath,
-            arcSite,
-            defaultImgSize: 'sm',
-        })
-
-        const googleNewsFeed = {
-            rss: {
-                '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
-                '@version': '2.0',
-                channel: [
-                    { link: siteUrl },
-                    { description: siteDescription },
-                    { title: sitemapNewsName },
-                    {
-                        image: {
-                            url: googleNewsImage,
-                            title: siteDomain,
-                            link: siteUrl
-                        }
-                    },
-                    ...stories.map(story => {
-                        storyData.__data = story
-                        return {
-                            item: {
-                                title: {
-                                    '#cdata': storyData.title,
-                                },
-                                link: {
-                                    '#cdata': `${siteUrl}${storyData.link}?outputType=amp`,
-                                },
-                                description: {
-                                    '#cdata': storyData.subTitle,
-                                },
-                                pubDate: {
-                                    '#cdata': localISODate(storyData.date || ''),
-                                },
-                                'dc:creator': {
-                                    '#cdata': storyData.author,
-                                }
-                            }
-                        }
-                    })
-                ]
+            return {
+              item: {
+                title: {
+                  '#cdata': title,
+                },
+                link: {
+                  '#cdata': `${siteUrl}${websiteLink}?outputType=amp`,
+                },
+                description: {
+                  '#cdata': subTitle,
+                },
+                pubDate: {
+                  '#cdata': localISODate(date || ''),
+                },
+                'dc:creator': {
+                  '#cdata': author,
+                },
+              },
             }
-        }
-
-        return googleNewsFeed
+          }),
+        ],
+      },
     }
+
+    return googleNewsFeed
+  }
 }
 
 export default XmlGoogleNews

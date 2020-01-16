@@ -5,6 +5,13 @@ import Consumer from 'fusion:consumer'
 import { getActualDate } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
+import {
+  includeCredits,
+  includeCreditsImage,
+  includePrimarySection,
+  includeSections,
+  includePromoItems,
+} from '../../../utilities/included-fields'
 
 import RenderPagination from './_children/pagination-by-date'
 import Ads from '../../../global-components/ads'
@@ -73,10 +80,17 @@ class StoriesListInfiniteScroll extends PureComponent {
       arcSite,
     } = this.props
 
+    const presets = 'landscape_s:234x161,landscape_xs:118x72'
+    const includedFields = `&_sourceInclude=websites.${arcSite}.website_url,_id,headlines.basic,subheadlines.basic,display_date,${includeCredits},${includeCreditsImage},${includePrimarySection},${includeSections},${includePromoItems},promo_items.basic_html.content`
+
     this.fetchContent({
       data: {
         source: contentService,
-        query: Object.assign(contentConfigValues, { from: next }),
+        query: Object.assign(contentConfigValues, {
+          from: next,
+          presets,
+          includedFields,
+        }),
         filter: schemaFilter(arcSite),
         transform: res => {
           this.setState({ isLoading: false })

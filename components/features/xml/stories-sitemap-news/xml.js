@@ -4,7 +4,7 @@ import { localISODate } from '../../../utilities/helpers'
 
 /**
  * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
- * funciona mejor con la content-source "sitemap-feed-by-section"
+ * funciona mejor con la content-source "story-feed-by-section"
  *
  * @returns {Object} Objeto con estructura manipulable por
  * xmlBuilder, para construir sitemaps para Google news.
@@ -54,7 +54,7 @@ class XmlStoriesSitemapNews {
         storyData.__data = story
         return {
           url: {
-            loc: `${siteUrl}${storyData.link || ''}`,
+            loc: `${siteUrl}${storyData.websiteLink || ''}`,
             // lastmod: localISODate(storyData.date || ''),
             'news:news': {
               'news:publication': {

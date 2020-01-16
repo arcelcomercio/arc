@@ -43,6 +43,7 @@ const params = [
 const getQueryFilter = (section, website) => {
   let queryFilter = ''
 
+  // TODO: +AND+publish_date:%7Bnow-15d%20TO%20*%7D agregar pronto
   // Si se filtra por seccion se usa ?body, sino, se usa ?q
   if (section === '/') {
     queryFilter = `q=canonical_website:${website}+AND+type:story`

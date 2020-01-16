@@ -21,7 +21,7 @@ const CardMostReadChildList = props => {
             {customTitle || 'Lo más visto'}
           </a>
         </span>
-        <i className={classes.icon} />{' '}
+        <i className={classes.icon} />
       </h4>
 
       {stories &&

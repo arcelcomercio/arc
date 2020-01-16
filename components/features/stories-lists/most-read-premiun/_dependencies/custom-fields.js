@@ -38,7 +38,10 @@ const customFields = PropTypes.shape({
   seeMoreurl: PropTypes.string.tag({
     name: 'URL de Ver más',
     group: 'Configuración',
-  }),
+  })
 })
 
 export default customFields
+
+
+// agregado freeHTML
