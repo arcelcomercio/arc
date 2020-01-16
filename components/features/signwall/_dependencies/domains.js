@@ -93,9 +93,7 @@ class Domains {
   }
 
   getUrlProfile = () => {
-    return ENV.ENVIRONMENT === 'elcomercio'
-      ? '/mi-perfil/'
-      : `/mi-perfil/?outputType=signwall`
+    return '/mi-perfil/?outputType=signwall'
   }
 }
 
