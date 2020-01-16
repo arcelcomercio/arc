@@ -97,9 +97,13 @@ class XmlVideosSitemap {
                 { 'video:duration': this.msToSec(duration) },
                 // { 'video:view_count': '15: ni idea de donde sacar esto' },
                 { 'video:publication_date': localISODate(date) },
-                ...tags.map((tag = {}) => {
-                  return { 'video:tag': tag.text !== 'sample' ? tag.text : '' }
-                }),
+                ...tags
+                  .map((tag = {}) => {
+                    return {
+                      'video:tag': tag.text !== 'sample' ? tag.text : '',
+                    }
+                  })
+                  .filter(({ 'video:tag': videoTag }) => videoTag !== ''),
                 { 'video:category': section },
                 { 'video:family_friendly': 'yes' }, // o no
               ],
