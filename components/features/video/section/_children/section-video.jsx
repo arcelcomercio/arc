@@ -47,6 +47,7 @@ export default ({
       const videoList = document.querySelector('.video-list')
       const videoFrame = document.querySelector('.section-video__frame')
       const adsMiddle = document.getElementById('ads_d_middle1')
+      const mTop = 450;
 
       const playOff = playList.offsetTop
       if (window.innerWidth >= 1024) {
@@ -56,19 +57,24 @@ export default ({
             sectionVideo.classList.add('fixed')
             changeFixedSection(true)
             videoNavBar.classList.add('fixed')
-            let mTop = 450;
             if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
             {
-              mTop += adsMiddle.clientHeight;
+              adsMiddle.style.marginTop = `${mTop}px`;
+            }else{
+              videoList.style.marginTop = `${mTop}px`;
             }
-            videoList.style.marginTop = `${mTop}px`;
           }
           if (scrollHeight < playOff) {
             sectionVideo.classList.remove('fixed')
             changeFixedSection(false)
             videoNavBar.classList.remove('fixed')
             videoFrame.removeAttribute('style')
-            videoList.style.marginTop = '50px'
+            if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
+            {
+              adsMiddle.style.marginTop = `0px`;
+            }else{
+              videoList.style.marginTop = `50px`;
+            }
           }
         })
       }
