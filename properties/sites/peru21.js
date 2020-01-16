@@ -168,6 +168,15 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: false,
+  activeNewsletter: false,
+  signwall:{
+    mainColorBg: '#0c70bf',
+    mainColorTxt: '#ffffff',
+    mainLogo: 'white-logo.png',
+    mainColorBr: '#efdb96',
+    mainColorLink:'#36b',
+    mainColorBtn: '#0c70bf',
+  },
   tv: {
     logoUrl: '/peru21tv/',
     logoAlt: 'Perú21Tv',

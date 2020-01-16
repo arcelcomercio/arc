@@ -343,7 +343,7 @@ export default ({
 
         <Libs />
 
-        {/* <!-- Identity & Sales & Paywall - Inicio --> */}
+        {/* <!-- Identity & Paywall - Inicio --> */}
         {siteProperties.activeSignwall && (
           <script
             src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
@@ -351,18 +351,12 @@ export default ({
           />
         )}
         {siteProperties.activePaywall && (
-          <>
-            <script
-              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
-                .toISOString()
-                .slice(0, 10)}`}
-              async
-            />
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-sales.min.js?v=07112019`}
-              defer
-            />
-          </>
+          <script
+            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+            async
+          />
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
         {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && 

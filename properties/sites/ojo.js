@@ -157,6 +157,15 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeNewsletter: false,
+  signwall:{
+    mainColorBg: '#333333',
+    mainColorTxt: '#ffffff',
+    mainLogo: 'logo.png',
+    mainColorBr: '#e7fced',
+    mainColorLink:'#008929',
+    mainColorBtn: '#008929',
+  },
   taboola: {
     dataModeAmp: 'thumbnails-e',
     mode: 'thumbnails-a',

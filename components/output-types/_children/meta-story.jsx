@@ -6,6 +6,7 @@ import StoryData from '../../utilities/story-data'
 import {
   formatHtmlToText,
   getMultimedia,
+  removeLastSlash,
   getDateSeo,
   msToTime,
 } from '../../utilities/helpers'
@@ -374,7 +375,7 @@ export default ({
       <meta name="cXenseParse:per-categories" content={primarySection} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
       <meta name="content-type" content={getMultimedia(multimediaType)} />
-      <meta name="section-id" content={primarySectionLink} />
+      <meta name="section-id" content={removeLastSlash(primarySectionLink)} />
       <meta
         name="keywords"
         content={

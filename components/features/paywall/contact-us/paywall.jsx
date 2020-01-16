@@ -27,12 +27,12 @@ const PaywallContactUs = props => {
     },
   } = useFusionContext()
 
-  React.useEffect(() => {
-    const footer = window.document.getElementById('footer')
-    if (footer) {
-      footer.style.position = 'relative'
-    }
-  }, [])
+  // React.useEffect(() => {
+  //   const footer = window.document.getElementById('footer')
+  //   if (footer) {
+  //     footer.style.position = 'relative'
+  //   }
+  // }, [])
 
   const initialValuesForm = {
     correo: '',

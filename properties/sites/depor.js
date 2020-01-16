@@ -172,5 +172,14 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: false,
+  activeNewsletter: false,
+  signwall:{
+    mainColorBg: '#007c31',
+    mainColorTxt: '#ffffff',
+    mainLogo: 'alternate-logo.png',
+    mainColorBr: '#d5d945',
+    mainColorLink:'#007c31',
+    mainColorBtn: '#007c31',
+  },
   isDfp: true,
 }
