@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { searchQuery } from '../../../../utilities/helpers'
 import SignwallComponent from '../../../signwall/main/default'
+import Button from '../../../../global-components/button'
 
 const classes = {
   navbarSomos:
@@ -10,7 +11,8 @@ const classes = {
   logoImg: 'navbar-somos__logo-img ml-10',
   boxRight: 'h-full flex items-center',
   loginButton:
-    'navbar-somos__login-button font-bold uppercase flex items-center primary-font text-sm pt-0 pb-0 pr-15 pl-15 text-white',
+    'navbar-somos__btn-sign flex items-center btn capitalize text-md',
+  subsButton: 'navbar-somos__btn-subs flex items-center btn capitalize text-md',
   iconUser: 'icon-user navbar-somos__icon-user mr-5',
   searchIcon: 'icon-search navbar-somos__icon font-bold text-white',
   searchInput:
@@ -55,7 +57,15 @@ class HeaderChildSomos extends PureComponent {
           <i className={classes.iconUser} />
           Ingresa a tu cuenta
         </button> */}
-        <SignwallComponent classButton={`${classes.loginButton}`}/>
+
+        <Button
+          btnText="Suscríbete"
+          btnClass={`${classes.subsButton}`}
+          btnLink="https://elcomercio.pe/suscripciones/?ref=btn-suscribete-elcomercio&loc=somos"
+        />
+
+        <SignwallComponent classButton={`${classes.loginButton}`} />
+
         <button
           className="hidden md:block"
           type="button"

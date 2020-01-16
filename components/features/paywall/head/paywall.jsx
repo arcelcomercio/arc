@@ -11,8 +11,8 @@ import { conformProfile, isLogged } from '../_dependencies/Identity'
 import { interpolateUrl } from '../_dependencies/domains'
 import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
-import Signwall from '../../signwall/main/_children/signwall'
-import { Landing } from '../../signwall/main/_main/acceso/landing/index'
+// import Signwall from '../../signwall/main/_main/signwall'
+import { Landing } from '../../signwall/main/_main/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
 
@@ -149,7 +149,8 @@ const Head = props => {
                     `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
                   )
                   if (isLogged()) {
-                    setIsActive(true)
+                    // setIsActive(true)
+                    window.location.href = interpolateUrl(urls.profileSignwall)
                   } else {
                     if (profile) setProfile()
                     typeSignWall.current = 'landing'
@@ -170,13 +171,13 @@ const Head = props => {
           </S.Username>
         </S.WrapLogin>
       </S.Content>
-      {isActive && (
+      {/* {isActive && (
         <Signwall
           closeSignwall={() => {
             setIsActive(false)
           }}
         />
-      )}
+      )} */}
     </S.Head>
   )
 }

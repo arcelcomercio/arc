@@ -150,6 +150,15 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeNewsletter: false,
+  signwall:{
+    mainColorBg: '#265922',
+    mainColorTxt: '#ffffff',
+    mainLogo: 'logo.png',
+    mainColorBr: '#c3d1c2',
+    mainColorLink:'#265922',
+    mainColorBtn: '#265922'
+  },
   isDfp: true,
   taboola: {
     dataModeAmp: 'thumbnails-e',
