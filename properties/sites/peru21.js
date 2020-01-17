@@ -2,7 +2,7 @@ export default {
   siteName: 'Peru21',
   sitemapNewsName: 'Diario Perú21',
   newsletterBrand: 'peru21',
-  googleFonts: 'Lato:300,400,700,900|Exo:500',
+  googleFonts: 'Lato:300,400,700,900|Exo:500|Roboto:400,700,900',
 
   colorPrimary: '#005fa5',
   siteDomain: 'peru21.pe',
@@ -168,6 +168,15 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: false,
+  activeNewsletter: false,
+  signwall:{
+    mainColorBg: '#0c70bf',
+    mainColorTxt: '#ffffff',
+    mainLogo: 'white-logo.png',
+    mainColorBr: '#efdb96',
+    mainColorLink:'#36b',
+    mainColorBtn: '#0c70bf',
+  },
   tv: {
     logoUrl: '/peru21tv/',
     logoAlt: 'Perú21Tv',

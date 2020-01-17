@@ -1,0 +1,29 @@
+// .stories-l-card{
+//     height: auto;
+//     min-height: $
+// }
+
+.stories-l-card{
+    border-style:none;
+    height: auto;
+    max-height: 100%;
+    // min-height: 374px;
+    // max-height: 100%;
+}
+
+
+.most-read-homologated-card{
+    &__list{
+        height: calc(100% - 90px);
+        max-height: calc(100% - 40px);
+        padding-right: 0;
+        padding-left: 0;
+        article:nth-last-child(1){
+            .most-read-homologated-item__link-box{
+                .flex{
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}
