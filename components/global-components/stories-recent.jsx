@@ -16,13 +16,15 @@ const StoriesRecent = ({ primarySectionLink, id, arcSite, cant = 6 }) => {
     }) || {}
 
   const { content_elements: contentElements = [] } = storyData || {}
-  const dataInterest = contentElements
-    .map(story => {
-      return story && story._id !== id ? story : ''
-    })
-    .filter(String)
+  const dataInterest =
+    contentElements &&
+    contentElements
+      .map(story => {
+        return story && story._id !== id ? story : ''
+      })
+      .filter(String)
 
-  return dataInterest
+  return dataInterest || []
 }
 
 export default StoriesRecent
