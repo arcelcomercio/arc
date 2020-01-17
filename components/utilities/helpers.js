@@ -695,6 +695,7 @@ export const iframeHtml = (html, arcSite = '') => {
     )
     .replace(/<iframe(.*)>\s*\n<\/iframe>/gm, '')
     .replace(/(hreef=)/g, 'href=')
+    .replace(/(marked="([A-Za-z0-9]+)")/g, '')
   return htmlDataTwitter
 }
 
