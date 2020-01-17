@@ -129,7 +129,7 @@ export default {
       instagram:                         `https://www.instagram.com/elcomercio/?hl=es`,
       codeCxense:                        `{{#isProd}}8msiqbaswc5u{{/isProd}}
                                           {{^isProd}}8n3ltuopvlh1{{/isProd}}`,
-      profileSignwall:                    `{{contextPath}}/mi-perfil/{{^isProd}}?outputType=signwall{{/isProd}}`,
+      profileSignwall:                    `{{contextPath}}/mi-perfil/?outputType=signwall`,
     },
     // prettier-ignore
     images: {
@@ -322,7 +322,7 @@ export default {
   activeSignwall: true,
   activePaywall: true,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
     mainLogo: 'logo.png',
@@ -330,7 +330,7 @@ export default {
     mainColorLink: '#008eff',
     mainColorTitle: '#008eff',
     mainColorBtn: '#008eff',
-    primaryFont: 'Noto Serif SC'
+    primaryFont: 'Noto Serif SC',
   },
   urlSubsOnline: 'https://elcomercio.pe/suscripciones/',
   gda: true, // Grupo Diarios de America
