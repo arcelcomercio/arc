@@ -86,8 +86,8 @@ class SignwallComponent extends PureComponent {
     const dataContentPremium = W.content_paywall || false
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
 
-    // if (dataContentPremium && siteProperties.activePaywall) {
-    if (dataContentPremium && arcSite === 'gestion') {
+    if (dataContentPremium && siteProperties.activePaywall) {
+      // if (dataContentPremium && arcSite === 'gestion') {
       this.getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({

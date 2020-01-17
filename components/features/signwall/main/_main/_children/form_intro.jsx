@@ -72,7 +72,7 @@ export const FormIntro = ({
       {value => (
         <S.Form>
           {showLoading ? (
-            <Loading arcSite={arcSite} />
+            <Loading arcSite={arcSite} typeBg="wait" />
           ) : (
             <>
               <S.ContPaywall>

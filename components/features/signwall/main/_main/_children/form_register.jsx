@@ -279,7 +279,7 @@ export const FormRegister = props => {
           {!showStudents && (
             <>
               {showCheckPremium ? (
-                <Loading arcSite={arcSite} />
+                <Loading arcSite={arcSite} typeBg="wait" />
               ) : (
                 <S.Form onSubmit={handleOnSubmit}>
                   {!showConfirm && (

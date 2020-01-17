@@ -395,7 +395,7 @@ export const FormLogin = ({
           ) : (
             <>
               {showLoadingPremium ? (
-                <Loading arcSite={arcSite} />
+                <Loading arcSite={arcSite} typeBg="wait" />
               ) : (
                 <S.Form>
                   <div className="center block mb-20 mt-20">
