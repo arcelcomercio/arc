@@ -4,6 +4,12 @@ import React, { useState, useEffect } from 'react'
 import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
+// subcomponents
+import YoutubeVideoNoDestacado from './youtube-video-unpromoted'
+import YoutubeVideoDestacado from './youtube-video-promoted'
+import ItemVideoCenterNoDestacado from './powa-video-unpromoted'
+
+
 const classes = {
   listItemDest: 'stories-video__item-dest w-full',
   listItemText: 'pt-20 pl-20 pr-20 pb-10 w-full',
@@ -23,57 +29,6 @@ const classes = {
   destYoutube: 'stories-video__youtube position-relative',
   liveYoutube:
     'stories-video__youtube-live flex items-center justify-center position-absolute',
-}
-
-const YoutubeVideoDestacado = ({
-  isAdmin,
-  liveStory,
-  title,
-  video,
-  autoPlayVideo,
-}) => {
-  const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-    window.navigator.userAgent
-  )
-
-  const urlVideo =
-    autoPlayVideo && !isAdmin && !isMobile
-      ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
-      : `https://www.youtube.com/embed/${video.payload}`
-  return (
-    <>
-      <div className={classes.destYoutube}>
-        <iframe
-          className=""
-          src={urlVideo}
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          title="Video"
-        />
-        {liveStory && <p className={classes.liveYoutube}>EN VIVO</p>}
-      </div>
-      <div className={classes.listItemText}>
-        <div className={classes.listBorder}>
-          <h2 className={classes.listItemTitleDest}>{title}</h2>
-        </div>
-      </div>
-    </>
-  )
-}
-
-const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
-  const imageclass =
-    image.default === false ? classes.listItemImg : classes.listItemImgDefault
-  return (
-    <>
-      <img src={image.payload} alt={title} className={imageclass} />
-      <div className={classes.listItemInfo}>
-        <h2 className={classes.listItemTitle}>{title}</h2>
-        {liveStory && <p className={classes.live}>EN VIVO</p>}
-      </div>
-    </>
-  )
 }
 
 const YoutubeVideo = ({
@@ -99,51 +54,72 @@ const YoutubeVideo = ({
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
-const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
+const ItemVideoCenterDestacado = ({
+  isAdmin,
+  title,
+  video,
+  autoPlayVideo,
+  isPreviewYoutubeVideo,
+}) => {
   // onePlayFlag se usa para no dar play varias veces por los rerenderizados por el state
-  const [onePlayFlag, setonePlayFlag] = useState(true)
+  const [onePlayFlag, setonePlayFlag] = useState(0)
+  // const [prevYoutube, setPrevYoutube] = useState(isPreviewYoutubeVideo)
 
-  useEffect(() => {
+  // logica de reproduccion
+  // window.addEventListener('powaRender', event => {
+  window.addEventListener('powaRender', event => {
+    const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      window.navigator.userAgent
+    )
 
-    window.addEventListener('powaRender', ({ detail: { powa } }) => {
-      const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-        window.navigator.userAgent
-      )
+    const {
+      detail: { powa },
+    } = event
 
-      if (!isMobile && !isAdmin && autoPlayVideo && onePlayFlag) {
+    // if (isPreviewYoutubeVideo && !prevYoutube && powa && powa.destroy) {
+    //   // powa.pause
+    //   powa.destroy()
+    //   setPrevYoutube(false)
+    // }
+    // window.addEventListener('play',(evento)=>{
+    //   debugger
+    //   console.log("hola mundo")
+    // })
+
+    if (
+      !isMobile &&
+      !isAdmin &&
+      autoPlayVideo &&
+      // onePlayFlag &&
+      powa &&
+      powa.play
+      // isPreviewYoutubeVideo === false
+    ) {
+      if (onePlayFlag === 0) {
         powa.play()
-        setonePlayFlag(false)
+
+        setonePlayFlag(onePlayFlag + 1)
+      } else {
+        powa.pause()
+        setonePlayFlag(onePlayFlag + 1)
       }
-    })
+
+    }
   })
+
   return (
     <>
-      <div
-        // className={classes.listItemDest}
-        dangerouslySetInnerHTML={{ __html: video.payload }}
-      />
+      <div dangerouslySetInnerHTML={{ __html: video.payload }} />
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
           <h2 className={classes.listItemTitleDest}>{title}</h2>
         </div>
       </div>
-      {/*  {liveStory && <p className={classes.live}>EN VIVO</p>} */}
     </>
   )
 }
 
-const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
-  return (
-    <>
-      <img className={classes.listItemImg} src={image.payload} alt={title} />
-      <span className={classes.listItemTime}>{time}</span>
-      <div className={classes.listItemInfo}>
-        <h2 className={classes.listItemTitle}>{title}</h2>
-        {liveStory && <p className={classes.live}>EN VIVO</p>}
-      </div>
-    </>
-  )
-}
+
 const VideoCenter = ({
   index,
   isAdmin,
@@ -153,6 +129,7 @@ const VideoCenter = ({
   video = {},
   videoTime,
   autoPlayVideo,
+  isPreviewYoutubeVideo,
 }) => {
   const time = msToTime(videoTime)
 
@@ -164,6 +141,7 @@ const VideoCenter = ({
     image,
     video,
     autoPlayVideo,
+    isPreviewYoutubeVideo,
   }
 
   if (index === 0) {
@@ -182,6 +160,7 @@ const StoriesListStoryVideoItem = ({
     video = {},
     autoPlayVideo = false,
     videoTime = 0,
+    isPreviewYoutubeVideo = false,
   } = {},
   StoryItemHandleClick,
 }) => {
@@ -194,8 +173,9 @@ const StoriesListStoryVideoItem = ({
     video,
     autoPlayVideo,
     videoTime,
+    isPreviewYoutubeVideo,
   }
-  let resultItemVideo = {}
+  let resultItemVideo = null
   switch (video.type) {
     case VIDEO:
       resultItemVideo = <VideoCenter {...paramsItem} />
@@ -224,3 +204,37 @@ const StoriesListStoryVideoItem = ({
 }
 
 export default StoriesListStoryVideoItem
+
+// window.addEventListener('play', event => {
+//   debugger
+// })
+
+// window.addEventListener('pause', event => {
+//   debugger
+//   console.log('pause')
+// })
+
+// window.addEventListener('powaReady', event => {
+//   // event.detail.id
+
+//   console.log('playbackPaused')
+// })
+
+// window.addEventListener('play', event => {
+//   debugger
+// })
+
+// window.addEventListener('pause', event => {
+//   debugger
+//   console.log('pause')
+// })
+
+// window.addEventListener('mouse', event => {
+//   debugger
+//   console.log('mouse')
+// })
+
+// window.addEventListener('muted', event => {
+//   debugger
+//   console.log('muted')
+// })
