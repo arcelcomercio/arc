@@ -131,12 +131,12 @@ class HeaderChildSomos extends PureComponent {
                 </button>
               </form>
             </div>
-            <div className={classes.menuLogin}>
+            {/* <div className={classes.menuLogin}>
               <a href="/" className={classes.menuLoginLink}>
                 <i className={classes.menuLoginIcon} />
                 <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
               </a>
-            </div>
+            </div> */}
             <ul className={classes.menuList}>
               <li className={classes.menuItemLink}>
                 <a href={firstSection.url} className={classes.menuLinkIcon}>

@@ -15,6 +15,7 @@ const customFields = PropTypes.shape({
   }),
   isDfp: PropTypes.bool.tag({
     name: 'Mostrar Publicidad DFP',
+    defaultValue: true,
   }),
   freeHtml: PropTypes.richtext.tag({
     name: 'Código HTML Adicional',

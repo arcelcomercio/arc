@@ -6,6 +6,7 @@ import StoryData from '../../utilities/story-data'
 import {
   formatHtmlToText,
   getMultimedia,
+  removeLastSlash,
   getDateSeo,
   msToTime,
 } from '../../utilities/helpers'
@@ -43,6 +44,7 @@ export default ({
     sourceId,
     isPremium,
     sourceUrlOld,
+    contentElementsRedesSociales,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
   const parameters = {
     primarySectionLink,
@@ -51,6 +53,41 @@ export default ({
     cant: 4,
   }
   const resultStoryRecent = StoriesRecent(parameters)
+  const publishDateZone =
+    arcSite === ConfigParams.SITE_ELCOMERCIO ||
+    arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
+    arcSite === ConfigParams.SITE_DEPOR ||
+    arcSite === ConfigParams.SITE_ELBOCON
+      ? getDateSeo(publishDate)
+      : publishDate
+  const redSocialVideo = contentElementsRedesSociales.map(
+    ({ youtube = '', facebook = '', twitter = '', user = '' }) => {
+      const thumbnailUrlYoutube =
+        youtube && `https://img.youtube.com/vi/${youtube}/maxresdefault.jpg`
+      const embedUrlYoutube =
+        youtube && `https://www.youtube.com/embed/${youtube}`
+
+      const thumbnailUrlTwitter =
+        twitter && `https://twitter.com/i/videos/${twitter}`
+      const embedUrlTwitter =
+        twitter && `https://twitter.com${user}/status/${twitter}`
+
+      const thumbnailUrlFacebook =
+        facebook && `https://graph.facebook.com/${facebook}/picture`
+      const embedUrlFacebook =
+        facebook && `https://www.facebook.com${user}/videos/${facebook}`
+
+      return `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
+        title
+      )}",   "description": "${formatHtmlToText(
+        subTitle
+      )}",  "thumbnailUrl": "${thumbnailUrlYoutube ||
+        thumbnailUrlTwitter ||
+        thumbnailUrlFacebook}", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube ||
+        embedUrlTwitter ||
+        embedUrlFacebook}" }`
+    }
+  )
 
   let resultRelated = ''
 
@@ -180,15 +217,8 @@ export default ({
         siteName
       )}", "height": 800, "width": 1200 },`
 
-  const dataVideo = `  "video":[ ${videoSeoItems} ],` || ''
-
-  const publishDateZone =
-    arcSite === ConfigParams.SITE_ELCOMERCIO ||
-    arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
-    arcSite === ConfigParams.SITE_DEPOR ||
-    arcSite === ConfigParams.SITE_ELBOCON
-      ? getDateSeo(publishDate)
-      : publishDate
+  const dataVideo =
+    `  "video":[ ${redSocialVideo.concat(videoSeoItems)} ],` || ''
 
   const bodyStructured =
     isAmp !== true
@@ -205,13 +235,15 @@ export default ({
       arcSite === ConfigParams.SITE_ELBOCON
         ? publishDateZone
         : lastPublishDate
-    }", "headline":"${formatHtmlToText(
-    title
-  )}",  "description":"${formatHtmlToText(subTitle)}",
+    }",
+
+    "headline":"${formatHtmlToText(title)}",  "description":"${formatHtmlToText(
+    subTitle
+  )}",
   ${bodyStructured}
-    "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${(videoSeoItems[0] &&
-    dataVideo) ||
-    ''}
+    "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
+    videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
+  }
     "author":{    "@type":"Person",   "name":"${formatHtmlToText(
       seoAuthor
     )}"    },
@@ -343,7 +375,7 @@ export default ({
       <meta name="cXenseParse:per-categories" content={primarySection} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
       <meta name="content-type" content={getMultimedia(multimediaType)} />
-      <meta name="section-id" content={primarySectionLink} />
+      <meta name="section-id" content={removeLastSlash(primarySectionLink)} />
       <meta
         name="keywords"
         content={
