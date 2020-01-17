@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useEffect } from 'react'
+import React, {  useEffect } from 'react'
 import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
@@ -8,7 +8,7 @@ import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 import YoutubeVideoNoDestacado from './youtube-video-unpromoted'
 import YoutubeVideoDestacado from './youtube-video-promoted'
 import ItemVideoCenterNoDestacado from './powa-video-unpromoted'
-
+import ItemVideoCenterDestacado from  './powa-video-promoted'
 
 const classes = {
   listItemDest: 'stories-video__item-dest w-full',
@@ -54,70 +54,6 @@ const YoutubeVideo = ({
   return <YoutubeVideoNoDestacado {...propsItem} />
 }
 
-const ItemVideoCenterDestacado = ({
-  isAdmin,
-  title,
-  video,
-  autoPlayVideo,
-  isPreviewYoutubeVideo,
-}) => {
-  // onePlayFlag se usa para no dar play varias veces por los rerenderizados por el state
-  const [onePlayFlag, setonePlayFlag] = useState(0)
-  // const [prevYoutube, setPrevYoutube] = useState(isPreviewYoutubeVideo)
-
-  // logica de reproduccion
-  // window.addEventListener('powaRender', event => {
-  window.addEventListener('powaRender', event => {
-    const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-      window.navigator.userAgent
-    )
-
-    const {
-      detail: { powa },
-    } = event
-
-    // if (isPreviewYoutubeVideo && !prevYoutube && powa && powa.destroy) {
-    //   // powa.pause
-    //   powa.destroy()
-    //   setPrevYoutube(false)
-    // }
-    // window.addEventListener('play',(evento)=>{
-    //   debugger
-    //   console.log("hola mundo")
-    // })
-
-    if (
-      !isMobile &&
-      !isAdmin &&
-      autoPlayVideo &&
-      // onePlayFlag &&
-      powa &&
-      powa.play
-      // isPreviewYoutubeVideo === false
-    ) {
-      if (onePlayFlag === 0) {
-        powa.play()
-
-        setonePlayFlag(onePlayFlag + 1)
-      } else {
-        powa.pause()
-        setonePlayFlag(onePlayFlag + 1)
-      }
-
-    }
-  })
-
-  return (
-    <>
-      <div dangerouslySetInnerHTML={{ __html: video.payload }} />
-      <div className={classes.listItemText}>
-        <div className={classes.listBorder}>
-          <h2 className={classes.listItemTitleDest}>{title}</h2>
-        </div>
-      </div>
-    </>
-  )
-}
 
 
 const VideoCenter = ({
