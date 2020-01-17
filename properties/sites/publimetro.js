@@ -1,7 +1,7 @@
 export default {
   siteName: 'Publimetro Perú',
   sitemapNewsName: 'Publimetro Perú',
-  googleFonts: 'Roboto', // corpidbold, corpidregular
+  // googleFonts: 'Roboto', // corpidbold, corpidregular
 
   colorPrimary: '#265922',
   siteDomain: 'publimetro.pe',
