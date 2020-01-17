@@ -354,6 +354,9 @@ export default {
       description
       slug
     }
+    sections{
+      name
+    }
     primary_section{
       type
       name
