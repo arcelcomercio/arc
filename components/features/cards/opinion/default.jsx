@@ -107,7 +107,7 @@ class CardOpinion extends PureComponent {
         section,
         includedFields: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,canonical_url,${includeSections},taxonomy.sections.additional_properties.original.site_topper.site_logo_image`,
       },
-      filterSchema
+      filterSchema(arcSite)
     )
   }
 

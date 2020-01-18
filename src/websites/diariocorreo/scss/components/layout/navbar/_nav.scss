@@ -5,6 +5,12 @@
       padding-left: 0;
     }
   }
+  &__btn-sign{
+    @media (--desktop) {
+      font-size: 10px;
+      padding: 8px 8px !important;
+    }
+  }
   &__logo {
     padding: 0;
   }
@@ -65,6 +71,9 @@
     z-index: 21;
     @media (--desktop) {
       background-color: $color-gray-300;
+      .nav__container-right{
+        display: block;
+      }
     }
     .nav__logo {
       padding: 0;
@@ -79,7 +88,7 @@
       form {
         right: 0;
       }
-    }
+    } 
   }
   &__input-search {
     color: $color-white;
@@ -100,7 +109,7 @@
   }
   &__search-box {
     form {
-      right: 112px;
+      right: 125px;
     }
   }
 }

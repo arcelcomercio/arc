@@ -695,6 +695,7 @@ export const iframeHtml = (html, arcSite = '') => {
     )
     .replace(/<iframe(.*)>\s*\n<\/iframe>/gm, '')
     .replace(/(hreef=)/g, 'href=')
+    .replace(/(marked="([A-Za-z0-9]+)")/g, '')
   return htmlDataTwitter
 }
 
@@ -936,7 +937,7 @@ export const replacer = (str, p1 = '', p2 = '', p3 = '') => {
 
 export const replaceTags = text => {
   const resultText = text.replace(
-    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
+    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
     replacer
   )
 

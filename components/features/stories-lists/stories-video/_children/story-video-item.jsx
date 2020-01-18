@@ -100,17 +100,19 @@ const YoutubeVideo = ({
 }
 
 const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
-  // const [powaAutoPlay, setPowaAutoPlay] = useState(false)
+  // onePlayFlag se usa para no dar play varias veces por los rerenderizados por el state
+  const [onePlayFlag, setonePlayFlag] = useState(true)
 
   useEffect(() => {
-    // document.addEventListener('powaRender',load)
+
     window.addEventListener('powaRender', ({ detail: { powa } }) => {
       const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
         window.navigator.userAgent
       )
 
-      if (!isMobile && !isAdmin && autoPlayVideo) {
+      if (!isMobile && !isAdmin && autoPlayVideo && onePlayFlag) {
         powa.play()
+        setonePlayFlag(false)
       }
     })
   })
