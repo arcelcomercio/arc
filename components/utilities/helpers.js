@@ -961,7 +961,7 @@ export const replacer = (str, p1 = '', p2 = '', p3 = '') => {
 
 export const replaceTags = text => {
   const resultText = text.replace(
-    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
+    /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
     replacer
   )
 

@@ -246,8 +246,11 @@ function WizardPayment(props) {
           default:
             setError('Disculpe, ha ocurrido un error durante el pago')
         }
-        Sentry.captureException(e)
-        window.console.error(e)
+        Sentry.captureEvent({
+          message: e.message,
+          level: 'error',
+          extra: e,
+        })
       })
       .finally(() => {
         setLoading(false)
