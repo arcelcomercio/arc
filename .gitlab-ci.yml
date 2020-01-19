@@ -46,8 +46,8 @@ install_dependencies:
   when: always
 
 build-verify:
-  stage: build
   image : circleci/node:8.11-browsers
+  stage: build  
   dependencies:
     - install_dependencies
   script:
@@ -68,8 +68,8 @@ build-verify:
     - ls  
 
 deploy-sandbox:
-  stage: deploy
-  image : circleci/node:8.11-browsers  
+  image : circleci/node:8.11-browsers
+  stage: deploy  
   dependencies:
     - build-verify
   cache:
