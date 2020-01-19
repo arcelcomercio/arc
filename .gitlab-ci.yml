@@ -67,7 +67,7 @@ build-verify:
     - pwd
     - ls resources/
   only:
-    - test
+    - test_ci
     - sandbox    
   tags:
     - severless_api
@@ -97,7 +97,7 @@ deploy-sandbox:
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
   only:
-    - test
+    - test_ci
     - sandbox    
   tags:
     - severless_api
@@ -117,6 +117,7 @@ eslint-dev:
   allow_failure: True  
   except:
     - test
+    - test_ci
     - sandbox
     - master
   tags:
@@ -136,6 +137,7 @@ coverage-dev:
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'    
   except:
     - test
+    - test_ci
     - sandbox
     - master
   tags:
@@ -158,6 +160,7 @@ code-quality:
    - gitlab-sonar-scanner
  except:
     - test
+    - test_ci
     - sandbox
     - master
  tags:
@@ -180,6 +183,7 @@ code-quality-reports:
    - gitlab-sonar-scanner
  except:
     - test
+    - test_ci
     - sandbox
     - master
  tags:
