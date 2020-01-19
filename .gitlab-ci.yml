@@ -1,4 +1,4 @@
-image: registry.gitlab.ec.pe/contenidos/arc
+image : circleci/node:8.11-browsers
 variables:
   NAMEPROJECT: arc
 
@@ -45,8 +45,7 @@ install_dependencies:
     policy: push
   when: always
 
-build-verify:
-  image : circleci/node:8.11-browsers
+build-verify:  
   stage: build  
   dependencies:
     - install_dependencies
@@ -67,8 +66,7 @@ build-verify:
     - pwd
     - ls  
 
-deploy-sandbox:
-  image : circleci/node:8.11-browsers
+deploy-sandbox:  
   stage: deploy  
   dependencies:
     - build-verify
