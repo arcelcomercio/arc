@@ -1,8 +1,148 @@
-stages:
-  - analysis
+#image: registry.gitlab.ec.pe/contenidos/arc
+image : circleci/node:8.11-browsers
+variables:
+  NAMEPROJECT: arc
+
+stages:      
+  - install    
+  - build
+  - deploy
+  - test
+  - code-quality
+  - test-intsall-e2e
+  - test-e2e
+  - package
+  - deploy
+  - monitoring
+  - documentation
+  - release
+  - cleanup
+
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+  paths:
+    - .npm
+    - cache/Cypress
+    #- node_modules
+
+install_dependencies:
+  stage: install
+  script:    
+    #- apt-get update
+    #- apt-get install python-dev python-pip -y    
+    #- telnet https://juan.quevedo@comercio.com.pe:Linux-982079@api.sandbox.elcomercio.arcpublishing.com/deployments/fusion/bundles/?bundle=test&version=latest&force=true
+    - npm install || true
+    #- npm ci
+    #- npm config set cache node_modules/ --global
+  artifacts:
+    when: on_success
+    paths:      
+      - node_modules/
+    expire_in: 1 day
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    policy: push
+  when: always
+
+build-verify:
+  stage: build
+  dependencies:
+    - install_dependencies
+  script:
+    - ls
+    #- npm install || true
+    - npm run zip || true
+    - mkdir artifacts
+    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
+  artifacts:    
+    when: on_success
+    paths:
+      - artifacts/
+      - node_modules/        
+    expire_in: 1 day
+  after_script:
+    - echo "hola"
+    - pwd
+    - ls resources/
+  only:
+    - test
+    - sandbox    
+  tags:
+    - severless_api
+
+deploy-sandbox:
+  stage: deploy  
+  dependencies:
+    - build-verify
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    policy: pull
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    PB_VERSION: latest
+    BUNDLE_FILE: bundle.zip
+  script:
+    - pwd
+    - ls    
+    - cd artifacts/
+    - ls
+    - ls src/
+    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ src/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
+    - ls -l bundle.zip
+    - cp bundle.zip  ../bundle.zip
+    - node config/deploy/deploy.js
+  only:
+    - test
+    - sandbox    
+  tags:
+    - severless_api
+
+eslint-dev:
+  stage: test 
+  dependencies:
+    - install_dependencies
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    policy: pull 
+  script:    
+    # Run eslint
+    - npm run lint
+  allow_failure: True  
+  except:
+    - test
+    - sandbox
+    - master
+  tags:
+    - severless_api
+    
+coverage-dev:
+  stage: test
+  dependencies:
+    - install_dependencies
+  cache:    
+    paths:
+      - node_modules/
+  script:
+    - ls
+    - npm run test:coverage
+  allow_failure: True
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'    
+  except:
+    - test
+    - sandbox
+    - master
+  tags:
+    - severless_api
 
 code-quality:
- stage: analysis
+ stage: code-quality
  image: linux982079/codequality:v1
  variables:
    SONAR_URL: http://34.219.160.206:9000
@@ -16,13 +156,15 @@ code-quality:
    - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
    - cat sonar-project.properties
    - gitlab-sonar-scanner
- only:
+ except:
+    - test
+    - sandbox
     - master
  tags:
    - severless_api
 
 code-quality-reports:
- stage: analysis
+ stage: code-quality
  image: linux982079/codequality:v1
  variables:
    SONAR_URL: http://34.219.160.206:9000
@@ -36,7 +178,10 @@ code-quality-reports:
    - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
    - cat sonar-project.properties
    - gitlab-sonar-scanner
- only:
+ except:
+    - test
+    - sandbox
     - master
  tags:
    - severless_api
+   

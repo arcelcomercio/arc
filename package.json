@@ -44,6 +44,8 @@
     "react": "^16.6.3"
   },
   "devDependencies": {
+    "@arc-core-components/content-source_story-feed_author-v4": "^1.0.4-beta.0",
+    "@arc-core-components/content-source_story-feed_tag-v4": "^1.0.4-beta.0",
     "@arc-fusion/cli": "^1.0.7",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
@@ -66,7 +68,7 @@
     "cssnano": "^4.1.10",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "eslint": "^5.13.0",
+    "eslint": "^6.0.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-import": "^2.18.2",
@@ -100,25 +102,27 @@
     "style-loader": "0.23.1",
     "url-loader": "1.1.2",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "axios": "^0.19.1"
   },
   "scripts": {
     "dev": "webpack --config ./config/webpack.config.js --env.dev && gulp ",
-    "dev:all": "webpack --config ./config/webpack.config.js --env.dev --env.outputs='index, amp:css, dmobile:css,mobile:css, paywall:css, signwall:css' && gulp",
+    "dev:all": "webpack --config ./config/webpack.config.js --env.dev --env.outputs='index, amp:css, dmobile:css,mobile:css, paywall:css' && gulp",
     "dev:amp": "webpack --config ./config/webpack.config.js --env.dev --env.amp",
     "dev:mobile": "webpack --config ./config/webpack.config.js --env.dev --env.mobile",
     "fusion": "fusion",
     "prod": "webpack --config ./config/webpack.config.js --env.prod && gulp",
-    "prod:all": "webpack --config ./config/webpack.config.js --env.prod --env.outputs='index, dmobile:css,mobile:css, amp:css, paywall:css, signwall:css' && gulp",
+    "prod:all": "webpack --config ./config/webpack.config.js --env.prod --env.outputs='index, dmobile:css,mobile:css, amp:css, paywall:css' && gulp",
     "prod:amp": "webpack --config ./config/webpack.config.js --env.prod --env.amp",
     "prod:mobile": "webpack --config ./config/webpack.config.js --env.prod --env.mobile",
     "pw:clean": "rm -rf components/features/paywall/dist",
     "pw:mv": "npm run dev:all && cp -a resources/dist components/features/paywall",
     "start": "fusion start",
     "test": "jest",
-    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,jsx",
+    "test:coverage": "set CI=true && jest --verbose --color --coverage --watchAll=false ./components/ ./src/ || true",
     "test:watch": "jest --watch",
-    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, dmobile:css,mobile:css, amp:css, paywall:css, signwall:css' ",
+    "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, dmobile:css,mobile:css, amp:css, paywall:css' ",
     "watch:amp": "webpack --config ./config/webpack.config.js --watch --env.dev --env.amp",
     "watch:mobile": "webpack --config ./config/webpack.config.js --watch --env.dev --env.mobile",
     "zip": "npm run pw:clean && npm run prod:all && npx fusion zip"
@@ -146,7 +150,9 @@
     },
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/components/utilities/thumbs.js"
+      "<rootDir>/components/utilities/thumbs.js",
+      "<rootDir>/components/",
+      "<rootDir>/src/"
     ],
     "testMatch": [
       "**/__tests__/**/*.[jt]s?(x)",
