@@ -1,3 +1,4 @@
+#image: registry.gitlab.ec.pe/contenidos/arc
 image : circleci/node:8.11-browsers
 variables:
   NAMEPROJECT: arc
@@ -45,14 +46,13 @@ install_dependencies:
     policy: push
   when: always
 
-build-verify:  
-  stage: build  
+build-verify:
+  stage: build
   dependencies:
     - install_dependencies
   script:
     - ls      
     - npm run zip
-    - ls src
     - mkdir artifacts
     - mv components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
   artifacts:    
@@ -66,7 +66,7 @@ build-verify:
     - pwd
     - ls  
 
-deploy-sandbox:  
+deploy-sandbox:
   stage: deploy  
   dependencies:
     - build-verify
@@ -89,3 +89,4 @@ deploy-sandbox:
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
+
