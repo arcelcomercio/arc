@@ -55,7 +55,7 @@ build-verify:
     #- npm install || true
     - npm run zip
     - mkdir artifacts
-    - mv components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
+    - mv components/ config/ content/ environment/ jest/ properties/ resources/ src/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
   artifacts:    
     when: on_success
     paths:
