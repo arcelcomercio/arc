@@ -52,8 +52,8 @@ build-verify:
     - install_dependencies
   script:
     - ls
-    - npm install || true
-    - npm run zip || true
+    #- npm install || true
+    - npm run zip
     - mkdir artifacts
     - mv components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
   artifacts:    
