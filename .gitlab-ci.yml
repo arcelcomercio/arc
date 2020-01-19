@@ -91,4 +91,3 @@ deploy-sandbox:
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
-
