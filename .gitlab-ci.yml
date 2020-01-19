@@ -53,9 +53,9 @@ build-verify:
   script:
     - ls
     #- npm install || true
-    - npm run zip
+    - npm run zip || true
     - mkdir artifacts
-    - mv components/ config/ content/ environment/ jest/ properties/ resources/ src/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
+    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
   artifacts:    
     when: on_success
     paths:
@@ -65,8 +65,12 @@ build-verify:
   after_script:
     - echo "hola"
     - pwd
-    - ls  src/
-    - ls src/dist 
+    - ls resources/
+  only:
+    - test
+    - sandbox    
+  tags:
+    - severless_api
 
 deploy-sandbox:
   stage: deploy  
@@ -92,4 +96,92 @@ deploy-sandbox:
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
+  only:
+    - test
+    - sandbox    
+  tags:
+    - severless_api
 
+eslint-dev:
+  stage: test 
+  dependencies:
+    - install_dependencies
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    policy: pull 
+  script:    
+    # Run eslint
+    - npm run lint
+  allow_failure: True  
+  except:
+    - test
+    - sandbox
+    - master
+  tags:
+    - severless_api
+    
+coverage-dev:
+  stage: test
+  dependencies:
+    - install_dependencies
+  cache:    
+    paths:
+      - node_modules/
+  script:
+    - ls
+    - npm run test:coverage
+  allow_failure: True
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'    
+  except:
+    - test
+    - sandbox
+    - master
+  tags:
+    - severless_api
+
+code-quality:
+ stage: code-quality
+ image: linux982079/codequality:v1
+ variables:
+   SONAR_URL: http://34.219.160.206:9000
+   SONAR_ANALYSIS_MODE: issues
+ script:
+   - touch sonar-project.properties
+   - echo sonar.projectKey=arc >> sonar-project.properties
+   - echo sonar.sources=. >> sonar-project.properties
+   - echo sonar.gitlab.project_id=git@gitlab.ec.pe:contenidos/arc.git >> sonar-project.properties
+   - echo sonar.login=$TOKEN_SONAR >> sonar-project.properties
+   - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
+   - cat sonar-project.properties
+   - gitlab-sonar-scanner
+ except:
+    - test
+    - sandbox
+    - master
+ tags:
+   - severless_api
+
+code-quality-reports:
+ stage: code-quality
+ image: linux982079/codequality:v1
+ variables:
+   SONAR_URL: http://34.219.160.206:9000
+   SONAR_ANALYSIS_MODE: publish
+ script:
+   - touch sonar-project.properties
+   - echo sonar.projectKey=arc >> sonar-project.properties
+   - echo sonar.sources=. >> sonar-project.properties
+   - echo sonar.gitlab.project_id=git@gitlab.ec.pe:contenidos/arc.git >> sonar-project.properties
+   - echo sonar.login=$TOKEN_SONAR >> sonar-project.properties
+   - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
+   - cat sonar-project.properties
+   - gitlab-sonar-scanner
+ except:
+    - test
+    - sandbox
+    - master
+ tags:
+   - severless_api
+   
