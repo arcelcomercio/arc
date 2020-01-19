@@ -1,42 +1,94 @@
-stages:
-  - analysis
+image: registry.gitlab.ec.pe/contenidos/arc
+variables:
+  NAMEPROJECT: arc
 
-code-quality:
- stage: analysis
- image: linux982079/codequality:v1
- variables:
-   SONAR_URL: http://34.219.160.206:9000
-   SONAR_ANALYSIS_MODE: issues
- script:
-   - touch sonar-project.properties
-   - echo sonar.projectKey=arc >> sonar-project.properties
-   - echo sonar.sources=. >> sonar-project.properties
-   - echo sonar.gitlab.project_id=git@gitlab.ec.pe:contenidos/arc.git >> sonar-project.properties
-   - echo sonar.login=$TOKEN_SONAR >> sonar-project.properties
-   - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
-   - cat sonar-project.properties
-   - gitlab-sonar-scanner
- only:
-    - master
- tags:
-   - severless_api
+stages:      
+  - install    
+  - build
+  - deploy
+  - test
+  - code-quality
+  - test-intsall-e2e
+  - test-e2e
+  - package
+  - deploy
+  - monitoring
+  - documentation
+  - release
+  - cleanup
 
-code-quality-reports:
- stage: analysis
- image: linux982079/codequality:v1
- variables:
-   SONAR_URL: http://34.219.160.206:9000
-   SONAR_ANALYSIS_MODE: publish
- script:
-   - touch sonar-project.properties
-   - echo sonar.projectKey=arc >> sonar-project.properties
-   - echo sonar.sources=. >> sonar-project.properties
-   - echo sonar.gitlab.project_id=git@gitlab.ec.pe:contenidos/arc.git >> sonar-project.properties
-   - echo sonar.login=$TOKEN_SONAR >> sonar-project.properties
-   - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
-   - cat sonar-project.properties
-   - gitlab-sonar-scanner
- only:
-    - master
- tags:
-   - severless_api
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+  paths:
+    - .npm
+    - cache/Cypress
+    #- node_modules
+
+install_dependencies:
+  stage: install
+  script:    
+    #- apt-get update
+    #- apt-get install python-dev python-pip -y    
+    #- telnet https://juan.quevedo@comercio.com.pe:Linux-982079@api.sandbox.elcomercio.arcpublishing.com/deployments/fusion/bundles/?bundle=test&version=latest&force=true
+    - npm install || true
+    #- npm ci
+    #- npm config set cache node_modules/ --global
+  artifacts:
+    when: on_success
+    paths:      
+      - node_modules/
+    expire_in: 1 day
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    policy: push
+  when: always
+
+build-verify:
+  stage: build
+  image : circleci/node:8.11-browsers
+  dependencies:
+    - install_dependencies
+  script:
+    - ls      
+    - npm run zip
+    - ls src
+    - mkdir artifacts
+    - mv components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
+  artifacts:    
+    when: on_success
+    paths:
+      - artifacts/
+      - node_modules/        
+    expire_in: 1 day
+  after_script:
+    - echo "hola"
+    - pwd
+    - ls  
+
+deploy-sandbox:
+  stage: deploy
+  image : circleci/node:8.11-browsers  
+  dependencies:
+    - build-verify
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    policy: pull
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    PB_VERSION: latest
+    BUNDLE_FILE: bundle.zip
+  script:
+    - pwd
+    - ls    
+    - cd artifacts/
+    - ls
+    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ src/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
+    - ls -l bundle.zip
+    - cp bundle.zip  ../bundle.zip
+    - node config/deploy/deploy.js
+
