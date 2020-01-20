@@ -88,6 +88,9 @@ deploy-sandbox:
     BUNDLE_FILE: bundle.zip
   script:
     - pwd
+    - export BUNDLE_NAME = $CI_COMMIT_REF_SLUG
+    - export USERNAME = $USERNAME
+    - export PASSWORD = $PASSWORD
     - ls    
     - cd artifacts/
     - ls    
