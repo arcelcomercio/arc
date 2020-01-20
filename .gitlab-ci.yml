@@ -96,9 +96,8 @@ deploy-sandbox:
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
   only:
-    - test_ci
-    - sandbox    
     - test_ci_v2
+    - sandbox    
   tags:
     - severless_api
 
@@ -117,9 +116,9 @@ eslint-dev:
   allow_failure: True  
   except:
     - test
-    - test_ci
+    - test_ci_v2
     - sandbox
-    - master_ci
+    - master_ci_v2
   tags:
     - severless_api
     
@@ -137,9 +136,9 @@ coverage-dev:
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'    
   except:
     - test
-    - test_ci
+    - test_ci_v2
     - sandbox
-    - master_ci
+    - master_ci_v2
   tags:
     - severless_api
 
@@ -160,9 +159,9 @@ code-quality:
    - gitlab-sonar-scanner
  except:
     - test
-    - test_ci
+    - test_ci_v2
     - sandbox
-    - master_ci
+    - master_ci_v2
  tags:
    - severless_api
 
@@ -183,9 +182,9 @@ code-quality-reports:
    - gitlab-sonar-scanner
  except:
     - test
-    - test_ci
+    - test_ci_v2
     - sandbox
-    - master_ci
+    - master_ci_v2
  tags:
    - severless_api
 
@@ -212,7 +211,7 @@ build-verify_master:
     - pwd
     - ls resources/
   only:
-    - master_ci    
+    - master_ci_v2
   tags:
     - severless_api
 
@@ -240,7 +239,7 @@ deploy-master:
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
   only:
-    - master_ci
+    - master_ci_v2
   tags:
     - severless_api
 
@@ -259,7 +258,7 @@ publish:
     - yarn add --dev conventional-changelog-eslint
     - DEBUG=semantic-delivery-gitlab ./node_modules/.bin/semantic-delivery-gitlab  --token xfctBNu4ACq4AD8AGBCg  --preset eslint
   only:
-    - master_ci
+    - master_ci_v2
   tags:
     - severless_api   
 
