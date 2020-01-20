@@ -245,6 +245,7 @@ deploy-master:
     - severless_api
 
 publish:
+  image: registry.gitlab.ec.pe/contenidos/arc
   stage: release
   dependencies:
     - deploy-master
