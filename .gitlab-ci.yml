@@ -66,6 +66,7 @@ build-verify:
     - pwd
     - ls artifacts/resources/
   only:
+    - test_ci
     - test_ci_v2
     - sandbox    
   tags:
