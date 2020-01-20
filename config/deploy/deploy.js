@@ -11,7 +11,7 @@ const endpoint = process.env.ARC_DOMAIN;
 const bundleName = process.env.BUNDLE_NAME;
 const username = process.env.USERNAME;
 const password = process.env.PASSWORD;
-const token_sandbox=process.env.TOKEN_SANDBOX;
+const token_sandbox=process.env.TOKEN_ARC;
 
 const baseURL = `https://${username}:${password}@${endpoint}/deployments/fusion/`;
 const newBaseURL = `https://${endpoint}/deployments/fusion/`
