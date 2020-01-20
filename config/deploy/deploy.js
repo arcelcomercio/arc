@@ -33,7 +33,7 @@ const deploy = () =>
   axios.post(`${baseURL}services?bundle=${bundleName}&version=${pbVersion}`,{
     headers: {        
         'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${token_sandbox}`;
+        'Authorization': `Bearer ${token_sandbox}`
     }});
 
 const handleError = error => {
@@ -69,8 +69,7 @@ has had a *failure*. Please see the CircleCI logs for more details. :angryparrot
 
 
 const headers = form.getHeaders();
-headers["Authorization"] =
-  `Bearer ${token_sandbox}`;
+headers["Authorization"] =`Bearer ${token_sandbox}`;
 console.log(headers);
 axios
   .post(`${newBaseURL}bundles`, form, {
