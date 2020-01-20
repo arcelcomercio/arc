@@ -62,10 +62,9 @@ build-verify:
       - artifacts/
       - node_modules/        
     expire_in: 1 day
-  after_script:
-    - echo "hola"
+  after_script:    
     - pwd
-    - ls resources/
+    - ls artifacts/resources/
   only:
     - test_ci
     - sandbox    
