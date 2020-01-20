@@ -27,19 +27,12 @@ cache:
 
 install_dependencies:
   stage: install
-  script:    
-    #- apt-get update
-    #- apt-get install python-dev python-pip -y    
-    #- telnet https://juan.quevedo@comercio.com.pe:Linux-982079@api.sandbox.elcomercio.arcpublishing.com/deployments/fusion/bundles/?bundle=test&version=latest&force=true
-    - npm install
-    #- npm ci
-    #- npm config set cache node_modules/ --global
-    - export BUNDLE_NAME="$CI_COMMIT_REF_SLUG"
-    - echo $BUNDLE_NAME
+  script:        
+    - npm install    
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"    
     - export USERNAME=$USERNAME
-    - echo $USERNAME
-    - export PASSWORD=$PASSWORD
-    - echo $PASSWORD
+    - export PASSWORD=$PASSWORD    
+    - export TOKEN_SANDBOX=$TOKEN_SANDBOX
     - ls    
     - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
     - ls -l bundle.zip
@@ -62,8 +55,7 @@ build-verify:
   dependencies:
     - install_dependencies
   script:
-    - ls
-    #- npm install || true
+    - ls    
     - npm run zip || true
     - mkdir artifacts
     - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
