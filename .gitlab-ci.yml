@@ -28,16 +28,7 @@ cache:
 install_dependencies:
   stage: install
   script:        
-    - npm install    
-    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"    
-    - export USERNAME=$USERNAME
-    - export PASSWORD=$PASSWORD    
-    - export TOKEN_SANDBOX=$TOKEN_SANDBOX
-    - ls    
-    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
-    - ls -l bundle.zip
-    - cp bundle.zip  ../bundle.zip
-    - node config/deploy/deploy.js
+    - npm install
   artifacts:
     when: on_success
     paths:      
@@ -90,9 +81,18 @@ deploy-sandbox:
     PB_VERSION: latest
     BUNDLE_FILE: bundle.zip
   script:
-    - export BUNDLE_NAME=$CI_COMMIT_REF_SLUG
+    - pwd
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     - export USERNAME=$USERNAME
     - export PASSWORD=$PASSWORD
+    - export ENV="$CI_JOB_STAGE"
+    - ls    
+    - cd artifacts/
+    - ls    
+    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
+    - ls -l bundle.zip
+    - cp bundle.zip  ../bundle.zip
+    - node config/deploy/deploy.js
   only:
     - test_ci_v2
     - sandbox    
@@ -229,9 +229,10 @@ deploy-master:
     BUNDLE_FILE: bundle.zip
   script:
     - pwd
-    - export BUNDLE_NAME=$CI_COMMIT_REF_SLUG
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     - export USERNAME=$USERNAME
     - export PASSWORD=$PASSWORD
+    - export ENV="$CI_JOB_STAGE"
     - cd artifacts/
     - ls    
     - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
