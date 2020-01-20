@@ -44,6 +44,9 @@
     "react": "^16.6.3"
   },
   "devDependencies": {
+    "@hutson/semantic-delivery-gitlab": "^9.0.5",
+    "semantic-release": "^15.13.31",
+    "conventional-changelog-eslint": "^3.0.4",
     "@arc-core-components/content-source_story-feed_author-v4": "^1.0.4-beta.0",
     "@arc-core-components/content-source_story-feed_tag-v4": "^1.0.4-beta.0",
     "@arc-fusion/cli": "^1.0.7",
