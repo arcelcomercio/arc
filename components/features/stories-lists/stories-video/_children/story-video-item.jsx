@@ -126,6 +126,7 @@ const StoriesListStoryVideoItem = ({
   useEffect(() => {
     if (index === 0 && video.type === VIDEO) {
       if (window.powaBoot) {
+        
         window.powaBoot()
       }
     }

@@ -30,17 +30,23 @@ class ItemVideoCenterDestacado extends PureComponent {
     }
   }
 
-//   componentDidMount() {
-//     const { index, video } = this.props
-//     if (index === 0 && video.type === VIDEO) {
-//       if (window.powaBoot) {
-//         window.powaBoot()
-//       }
-//     }
-//   }
+  // componentDidMount() {
+  // const { index, video } = this.props
+  // if (index === 0 && video.type === VIDEO) {
+  //   if (window.powaBoot) {
+  //     window.powaBoot()
+  //   }
+  // }
+  // }
 
   render() {
-    const { isAdmin, title, video, autoPlayVideo } = this.props
+    const {
+      isAdmin,
+      title,
+      video,
+      autoPlayVideo,
+      isPreviewYoutubeVideo,
+    } = this.props
     const { onePlayFlag } = this.state
 
     window.addEventListener('powaRender', event => {
@@ -62,15 +68,18 @@ class ItemVideoCenterDestacado extends PureComponent {
         // isPreviewYoutubeVideo === false
       ) {
         if (onePlayFlag === false) {
+          debugger
           powa.play()
 
           this.setState({ onePlayFlag: true })
         } else {
+          debugger
           powa.pause()
-          this.setState({ onePlayFlag: true })
+          this.setState({ onePlayFlag: false })
         }
       }
     })
+
     return (
       <>
         <div dangerouslySetInnerHTML={{ __html: video.payload }} />
