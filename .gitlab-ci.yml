@@ -246,7 +246,7 @@ deploy-master:
 publish:
   stage: release
   dependencies:
-    - deploy-dev
+    - deploy-master
   before_script:
     #- apt-get update
     - apt-get install python-dev python-pip -y
