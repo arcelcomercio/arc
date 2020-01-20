@@ -1,4 +1,5 @@
 import React from 'react'
+import {getActualDate} from '../../utilities/helpers'
 
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
@@ -11,7 +12,7 @@ export default props => {
           /\/[0-9]{4}-[0-9]{2}-[0-9]{2}?(?=$|\/|\?)/,
           `/${newDateFormatted}`
         )}`
-      : `${siteUrl}${requestUri}${newDateFormatted}`
+      : `${siteUrl}${requestUri}${newDateFormatted}/`
   }
 
   const calcDate = (option, date) => {
@@ -40,7 +41,7 @@ export default props => {
   }
 
   const getPrevDay = date => {
-    const newDate = calcDate('prev', date)
+    const newDate = calcDate('prev', date || getActualDate())
     return getNewDateFormatted(newDate)
   }
 
