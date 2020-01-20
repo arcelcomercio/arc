@@ -2,6 +2,7 @@ import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { formatIncludedFields } from '../../components/utilities/included-fields'
 
 let website = ''
 
@@ -35,7 +36,7 @@ const resolve = (key = {}) => {
   const isPublished = published === 'false' ? 'false' : 'true'
 
   const sourceInclude = includedFields
-    ? `&included_fields=${includedFields}`
+    ? `&included_fields=${formatIncludedFields({includedFields, arcSite: website})}`
     : `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
 
   const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}&published=${isPublished}${sourceInclude}`
