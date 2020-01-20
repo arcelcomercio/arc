@@ -36,9 +36,7 @@ install_dependencies:
     #- npm config set cache node_modules/ --global
     - export BUNDLE_NAME="$CI_COMMIT_REF_SLUG"
     - export USERNAME=$USERNAME
-    - export PASSWORD=$PASSWORD
-    - ls    
-    - cd artifacts/
+    - export PASSWORD=$PASSWORD      
     - ls    
     - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
     - ls -l bundle.zip
