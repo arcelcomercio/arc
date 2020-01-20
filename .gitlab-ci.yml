@@ -31,7 +31,7 @@ install_dependencies:
     #- apt-get update
     #- apt-get install python-dev python-pip -y    
     #- telnet https://juan.quevedo@comercio.com.pe:Linux-982079@api.sandbox.elcomercio.arcpublishing.com/deployments/fusion/bundles/?bundle=test&version=latest&force=true
-    - npm install || true
+    - npm install
     #- npm ci
     #- npm config set cache node_modules/ --global
   artifacts:
