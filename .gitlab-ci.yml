@@ -90,17 +90,9 @@ deploy-sandbox:
     PB_VERSION: latest
     BUNDLE_FILE: bundle.zip
   script:
-    - pwd
     - export BUNDLE_NAME=$CI_COMMIT_REF_SLUG
     - export USERNAME=$USERNAME
     - export PASSWORD=$PASSWORD
-    - ls    
-    - cd artifacts/
-    - ls    
-    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
-    - ls -l bundle.zip
-    - cp bundle.zip  ../bundle.zip
-    - node config/deploy/deploy.js
   only:
     - test_ci_v2
     - sandbox    
@@ -237,7 +229,9 @@ deploy-master:
     BUNDLE_FILE: bundle.zip
   script:
     - pwd
-    - ls    
+    - export BUNDLE_NAME=$CI_COMMIT_REF_SLUG
+    - export USERNAME=$USERNAME
+    - export PASSWORD=$PASSWORD
     - cd artifacts/
     - ls    
     - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
