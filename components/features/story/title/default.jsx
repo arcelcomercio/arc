@@ -8,6 +8,7 @@ import StoryData from '../../../utilities/story-data'
 
 const classes = {
   story: 'story-header__header-title w-full text-white ',
+  premium: 'story-header__news-premium',
 }
 
 const StoryTitle = () => {
@@ -24,6 +25,7 @@ const StoryTitle = () => {
     <>
       <div
         className={`${classes.story} ${primarySectionLink.replace(/\//g, '')}`}>
+        {isPremium && <div className={`${classes.premium}`}></div>}
         <StoryTitleChildHeading {...parameters} />
         <StoryTitleChildShareSubheading {...parameters} />
       </div>
