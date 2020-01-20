@@ -27,13 +27,8 @@ cache:
 
 install_dependencies:
   stage: install
-  script:    
-    #- apt-get update
-    #- apt-get install python-dev python-pip -y    
-    #- telnet https://juan.quevedo@comercio.com.pe:Linux-982079@api.sandbox.elcomercio.arcpublishing.com/deployments/fusion/bundles/?bundle=test&version=latest&force=true
+  script:        
     - npm install
-    #- npm ci
-    #- npm config set cache node_modules/ --global
   artifacts:
     when: on_success
     paths:      
@@ -51,8 +46,7 @@ build-verify:
   dependencies:
     - install_dependencies
   script:
-    - ls
-    #- npm install || true
+    - ls    
     - npm run zip || true
     - mkdir artifacts
     - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
@@ -88,9 +82,10 @@ deploy-sandbox:
     BUNDLE_FILE: bundle.zip
   script:
     - pwd
-    - export BUNDLE_NAME= $CI_COMMIT_REF_SLUG
-    - export USERNAME= $USERNAME
-    - export PASSWORD= $PASSWORD
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    - export USERNAME=$USERNAME
+    - export PASSWORD=$PASSWORD
+    - export ENV="$CI_JOB_STAGE"
     - ls    
     - cd artifacts/
     - ls    
@@ -234,7 +229,10 @@ deploy-master:
     BUNDLE_FILE: bundle.zip
   script:
     - pwd
-    - ls    
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    - export USERNAME=$USERNAME
+    - export PASSWORD=$PASSWORD
+    - export ENV="$CI_JOB_STAGE"
     - cd artifacts/
     - ls    
     - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
