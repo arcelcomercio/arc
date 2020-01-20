@@ -6,11 +6,11 @@ const fs = require("fs");
 //const webhook = new IncomingWebhook(process.env.SLACK_NOTIFY_WEBHOOK);
 
 const pbVersion = "latest";
-const environment = "sandbox";
-const endpoint = "api.sandbox.elcomercio.arcpublishing.com";
+const environment = process.env.ENV;
+const endpoint = process.env.ARC_DOMAIN;
+const bundleName = process.env.BUNDLE_NAME;
 const username = process.env.USERNAME;
 const password = process.env.PASSWORD;
-const bundleName = process.env.BUNDLE_NAME;
 const token_sandbox=process.env.TOKEN_SANDBOX;
 
 const baseURL = `https://${username}:${password}@${endpoint}/deployments/fusion/`;
