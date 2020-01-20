@@ -5,12 +5,16 @@ const fs = require("fs");
 
 //const webhook = new IncomingWebhook(process.env.SLACK_NOTIFY_WEBHOOK);
 
+const username = process.env.USERNAME;
+
 const pbVersion = "latest";
 const environment = "sandbox";
 const endpoint = "api.sandbox.elcomercio.arcpublishing.com";
-const username = "juan.quevedo@comercio.com.pe";
-const password = "Linux-982079";
-const bundleName = "test-jccc";
+//const username = "juan.quevedo@comercio.com.pe";
+//const password = "Linux-982079";
+const username = process.env.USERNAME;
+const password = process.env.PASSWORD;
+const bundleName = process.env.BUNDLE_NAME;
 
 const baseURL = `https://${username}:${password}@${endpoint}/deployments/fusion/`;
 const newBaseURL = `https://${endpoint}/deployments/fusion/`
