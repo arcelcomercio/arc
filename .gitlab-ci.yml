@@ -258,7 +258,7 @@ publish:
   script:    
     - yarn add --dev @hutson/semantic-delivery-gitlab
     - yarn add --dev conventional-changelog-eslint
-    - DEBUG=semantic-delivery-gitlab ./node_modules/.bin/semantic-delivery-gitlab  --token xfctBNu4ACq4AD8AGBCg  --preset eslint
+    - semantic-delivery-gitlab ./node_modules/.bin/semantic-delivery-gitlab  --token xfctBNu4ACq4AD8AGBCg  --preset eslint
   only:
     - master_ci_v2
   tags:
