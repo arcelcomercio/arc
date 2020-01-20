@@ -159,9 +159,9 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "mocks",
-      "<rootDir>/components/utilities/thumbs.js",
-      "<rootDir>/components/",
-      "<rootDir>/src/"
+      "<rootDir>/components/utilities/thumbs.js"
+      //"<rootDir>/components/",
+      //"<rootDir>/src/"
     ],
     "moduleDirectories": [
       "node_modules",
