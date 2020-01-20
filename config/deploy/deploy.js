@@ -5,8 +5,6 @@ const fs = require("fs");
 
 //const webhook = new IncomingWebhook(process.env.SLACK_NOTIFY_WEBHOOK);
 
-const username = process.env.USERNAME;
-
 const pbVersion = "latest";
 const environment = "sandbox";
 const endpoint = "api.sandbox.elcomercio.arcpublishing.com";
