@@ -34,7 +34,7 @@ install_dependencies:
     - npm install
     #- npm ci
     #- npm config set cache node_modules/ --global
-    - export BUNDLE_NAME=$CI_COMMIT_REF_SLUG
+    - export BUNDLE_NAME="$CI_COMMIT_REF_SLUG"
     - export USERNAME=$USERNAME
     - export PASSWORD=$PASSWORD
     - ls    
