@@ -187,4 +187,80 @@ code-quality-reports:
     - master
  tags:
    - severless_api
-   
+
+
+
+build-verify_master:
+  stage: build
+  dependencies:
+    - install_dependencies
+  script:
+    - ls
+    #- npm install || true
+    - npm run zip || true
+    - mkdir artifacts
+    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
+  artifacts:    
+    when: on_success
+    paths:
+      - artifacts/
+      - node_modules/        
+    expire_in: 1 day
+  after_script:
+    - echo "hola"
+    - pwd
+    - ls resources/
+  only:
+    - master_ci    
+  tags:
+    - severless_api
+
+deploy-master:
+  stage: deploy  
+  dependencies:
+    - build-verify_master
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    policy: pull
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    PB_VERSION: latest
+    BUNDLE_FILE: bundle.zip
+  script:
+    - pwd
+    - ls    
+    - cd artifacts/
+    - ls    
+    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
+    - ls -l bundle.zip
+    - cp bundle.zip  ../bundle.zip
+    - node config/deploy/deploy.js
+  only:
+    - master_ci
+  tags:
+    - severless_api
+
+publish:
+  stage: release
+  dependencies:
+    - deploy-dev
+  before_script:
+    #- apt-get update
+    - apt-get install python-dev python-pip -y
+    - apt-get install git -y
+    - npm install
+    - yarn install --frozen-lockfile
+  script:    
+    - yarn add --dev @hutson/semantic-delivery-gitlab
+    - yarn add --dev conventional-changelog-eslint
+    - DEBUG=semantic-delivery-gitlab ./node_modules/.bin/semantic-delivery-gitlab  --token xfctBNu4ACq4AD8AGBCg  --preset eslint
+  only:
+    - master_ci
+  tags:
+    - severless_api   
+
+
+
