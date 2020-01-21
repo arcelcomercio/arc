@@ -120,6 +120,7 @@
     "pw:mv": "npm run dev:all && cp -a resources/dist components/features/paywall",
     "start": "fusion start",
     "test": "jest",
+    "lint": "eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,jsx",
     "test:coverage": "set CI=true && jest --verbose --color --coverage --watchAll=false ./components/ ./src/ || true",
     "test:watch": "jest --watch",
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, dmobile:css,mobile:css, amp:css, paywall:css, signwall:css' ",
