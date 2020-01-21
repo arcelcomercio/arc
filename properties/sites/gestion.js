@@ -103,6 +103,7 @@ export default {
       instagram:                         `https://www.instagram.com/diariogestion/?hl=es`,
       codeCxense:                        `{{#isProd}}8n3linhnzos6{{/isProd}}
                                           {{^isProd}}8msif5r9dikx{{/isProd}}`,
+      profileSignwall:                    `{{contextPath}}/mi-perfil/?outputType=signwall`,
     },
     // prettier-ignore
     images: {
@@ -252,6 +253,17 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
+  activeNewsletter: true,
+  signwall: {
+    mainColorBg: '#8f071f',
+    mainColorTxt: '#ffffff',
+    mainLogo: 'white-logo.png',
+    mainColorBr: '#f4e0d2',
+    mainColorLink: '#0e6dc1',
+    mainColorTitle: '#d64445',
+    mainColorBtn: '#0179af',
+    primaryFont: 'Judson',
+  },
   urlSubsOnline: 'https://gestion.pe/suscripciones/',
   stick: {
     logo: 'logo-gestion-stick.png',

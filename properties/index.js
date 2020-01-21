@@ -139,6 +139,14 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeNewsletter: false,
+  signwall:{
+    mainColorBg: '#f7c600',
+    mainColorTxt: '#000000',
+    mainLogo: 'logo.png',
+    mainColorBr: '#efdb96',
+    mainColorLink:'#008eff'
+  },
   gda: false, // Grupo Diarios de America
   googleTagManagerMobile: 'GTM-NNX4LXF',
   taboola: {

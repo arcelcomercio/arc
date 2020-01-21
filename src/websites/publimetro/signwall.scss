@@ -1,0 +1,10 @@
+@import '../../general-styles/framework/variables/index';
+
+/******* Site Variables *******/
+@import './scss/variables/colors';
+@import './scss/signwall/reset';
+@import './scss/signwall/loading';
+
+/******* Temporales *******/
+@import '../../general-styles/components/features/signwall/modal';
+@import '../../general-styles/components/features/signwall/modal-body';

@@ -140,7 +140,8 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       window.history.pushState(null, '', this._getUrlGalleryImage(nextSlide))
       this._moveSlide()
     } else {
-      const urlGalery = arcSite === ConfigParams.SITE_DEPOR ? '/muchafoto' : '/'
+      let urlGalery = arcSite === ConfigParams.SITE_DEPOR ? '/muchafoto/' : '/'
+      urlGalery = arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? '/fotos/' : '/'
       window.location.href = urlGalery
     }
   }

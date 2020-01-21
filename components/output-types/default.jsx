@@ -289,14 +289,14 @@ export default ({
           globalContent={globalContent}
         />
 
-        {arcSite === 'publimetro' && !nodas && !isLivePage && (
+        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && (
           <script
             defer
             src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
           />
         )}
 
-        {!(arcSite === 'publimetro') && (
+        {!(arcSite === 'publimetro' || arcSite === 'depor' ) && (
           <>
             {!nodas && !isLivePage && (
               <script
@@ -343,7 +343,7 @@ export default ({
 
         <Libs />
 
-        {/* <!-- Identity & Sales & Paywall - Inicio --> */}
+        {/* <!-- Identity & Paywall - Inicio --> */}
         {siteProperties.activeSignwall && (
           <script
             src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
@@ -351,21 +351,16 @@ export default ({
           />
         )}
         {siteProperties.activePaywall && (
-          <>
-            <script
-              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
-                .toISOString()
-                .slice(0, 10)}`}
-              async
-            />
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-sales.min.js?v=07112019`}
-              defer
-            />
-          </>
+          <script
+            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+            async
+          />
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
-        {arcSite === 'publimetro' && !nodas && !isLivePage && (
+        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && 
+        (
           <script
             type="text/javascript"
             defer
@@ -387,7 +382,7 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {!(arcSite === 'publimetro') && !nodas && (
+        {!(arcSite === 'publimetro' || arcSite === 'depor') && !nodas && (
           <script
             defer
             src={deployment(
@@ -436,7 +431,7 @@ export default ({
         <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
-        {arcSite === 'publimetro' && !nodas && !isLivePage && <Dfp />}
+        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && <Dfp />}
       </body>
     </html>
   )
