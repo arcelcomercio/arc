@@ -107,6 +107,8 @@ class StoriesListVideo extends PureComponent {
       if (newsVideoCenter.type === VIDEO) {
         newsVideo = newsVideoCenter
         image = getVideoImage(data, LANDSCAPE_XXS)
+
+        // newsVideo.payload='<div class="powa" data-autoplay id="powa-d046636b-bef2-4e6b-a756-52fccf2330ea" data-org="elcomercio" data-env="prod" data-uuid="d046636b-bef2-4e6b-a756-52fccf2330ea" data-aspect-ratio="0.562" data-api="prod"><script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script></div>'
       } else if (newsVideoYoutube.type === ELEMENT_YOUTUBE_ID) {
         newsVideo = newsVideoYoutube
         image = getImage(data, LANDSCAPE_XXS)
@@ -124,7 +126,7 @@ class StoriesListVideo extends PureComponent {
         }
       }
 
-      let item = {}
+      let item = { key: index }
 
       if (
         data &&
@@ -143,6 +145,7 @@ class StoriesListVideo extends PureComponent {
             video: newsVideo,
             autoPlayVideo: false,
             videoTime: getVideoTime(data),
+            isPreviewYoutubeVideo: false,
           },
         }
       } else {
@@ -215,6 +218,8 @@ class StoriesListVideo extends PureComponent {
         JSON.stringify(listStoriesVideo[StoryItemIndex])
       )
       firstItem.index = 0
+      firstItem.content.isPreviewYoutubeVideo =
+        lastItem.content.video.type === ELEMENT_YOUTUBE_ID && true
 
       // si el primer elemento debe tener autoplay
       firstItem.content.autoPlayVideo = true
@@ -251,12 +256,7 @@ class StoriesListVideo extends PureComponent {
                 ...item,
                 StoryItemHandleClick: this.StoryItemHandleClick,
               }
-              return (
-                <StoryItem
-                  key={`key-${StoryItemProps.index}`}
-                  {...StoryItemProps}
-                />
-              )
+              return <StoryItem  {...StoryItemProps} />
             })}
           <div className={classes.viewProgramsWrapper}>
             <a className={classes.viewPrograms} href={PERU21TV_URL}>
