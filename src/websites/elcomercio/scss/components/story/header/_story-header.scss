@@ -25,22 +25,4 @@
       display: flex;
     }
   }
-  &__news-premium {
-    margin: 35px 0px 20px 20px;
-    position: relative;
-    width: 160px;
-    height: 22px;
-
-    &::before {
-      content: '.';
-      top: 0px;
-      color: transparent;
-      position: absolute;
-      height: 22px;
-      width: 160px;
-      left: 0px;
-      background: url(http://perufront.com/premium.png) no-repeat left center;
-      // url(/pf/resources/dist/gestion/images/plusg.png?d=285)
-    }
-  }
 }
