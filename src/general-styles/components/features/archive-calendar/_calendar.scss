@@ -20,7 +20,9 @@
     color: $calendar-icon;
   }
 
-  // &__content-calendar {}
+  &__content-calendar {
+    min-height: 260px;
+  }
 
   /** Estas clases son añadidas por la biblioteca */
   &__navigation {
