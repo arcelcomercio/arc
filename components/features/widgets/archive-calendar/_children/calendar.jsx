@@ -28,14 +28,16 @@ const ArchiveCalendarChild = ({
         </div>
       </div>
       <div className={classes.content}>
-        <Calendar
-          activeStartDate={activeStartDate}
-          maxDate={maxDate}
-          minDate={minDate}
-          onChange={onChange}
-          value={value}
-          locale={locale}
-        />
+        {typeof window !== 'undefined' && (
+          <Calendar
+            activeStartDate={activeStartDate}
+            maxDate={maxDate}
+            minDate={minDate}
+            onChange={onChange}
+            value={value}
+            locale={locale}
+          />
+        )}
       </div>
     </div>
   )
