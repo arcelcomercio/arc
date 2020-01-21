@@ -59,20 +59,29 @@ const CardFeaturedStoryAdvanced = props => {
     'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
   const includedFields = featuredStoryFields
 
-  const data = useContent({
-    source: contentService,
-    query: Object.assign(contentConfigValues, { presets, includedFields }),
-    filter: schema,
-  })
+  const data =
+    useContent(
+      adsSpace && adsSpace !== 'none'
+        ? {}
+        : {
+            source: contentService,
+            query: Object.assign(contentConfigValues, {
+              presets,
+              includedFields,
+            }),
+            filter: schema,
+          }
+    ) || {}
 
-  let adsSpaces = {}
-  if (adsSpace && adsSpace !== 'none') {
-    adsSpaces =
-      useContent({
-        source: 'get-ads-spaces',
-        query: { space: adsSpace },
-      }) || {}
-  }
+  const adsSpaces =
+    useContent(
+      adsSpace && adsSpace !== 'none'
+        ? {
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
+          }
+        : {}
+    ) || {}
 
   const photoId = imgField ? getPhotoId(imgField) : ''
 
