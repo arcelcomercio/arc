@@ -19,7 +19,7 @@ const classes = {
   icon: 'featured-premium__icon',
   image: 'featured-premium__image',
   premiumWrapper:
-    'premium__wrapper bg-primary flex justify-center items-center mb-20',
+    'premium__wrapper bg-primary flex justify-center items-center',
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
