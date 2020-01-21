@@ -25,6 +25,10 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'basic',
   }),
+  imageSize: PropTypes.bool.tag({
+    name: 'Imagen completa',
+    group: 'Configuración',
+  }),
   bgColor: PropTypes.oneOf(['white', 'gray', 'transparent']).tag({
     name: 'Color de fondo',
     group: 'Configuración',
