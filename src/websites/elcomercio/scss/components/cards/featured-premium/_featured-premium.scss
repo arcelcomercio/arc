@@ -116,6 +116,13 @@
           padding-bottom: 20px;
         }
       }
+      .featured-premium__right {
+        picture {
+          &:after {
+            height: 80%;
+          }
+        }
+      }
     }
     .featured-premium__left {
       @media (--tablet) {
