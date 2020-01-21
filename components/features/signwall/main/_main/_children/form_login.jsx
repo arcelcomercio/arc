@@ -387,7 +387,7 @@ export const FormLogin = ({
                 </S.Link>
               </S.Text>
 
-              <S.Text c="light" s="10" className="mt-10 center">
+              <S.Text c="light" s="10" className="mt-10 mb-10 center">
                 CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
                 NUNCA PUBLICAREMOS SIN TU PERMISO
               </S.Text>

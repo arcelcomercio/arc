@@ -5,11 +5,12 @@ import { LoadingGes, LoadingEco, LoadingP21 } from './iconos'
 import { device } from '../_dependencies/breakpoints'
 
 export const WrapperLoading = styled.div`
+  width: 100%;
+  text-align: center;
   ${props =>
     props.typeBg === 'wait' &&
     css`
       position: relative;
-      width: 100%;
       background: transparent;
       padding: 50% 0%;
       @media ${device.desktop} {
@@ -21,11 +22,36 @@ export const WrapperLoading = styled.div`
     props.typeBg === 'block' &&
     css`
       position: absolute;
-      width: 100%;
       background: rgba(255, 255, 255, 0.5);
       padding: 20% 0%;
       z-index: 20;
     `};
+
+  .cont-loader-logo {
+    svg {
+      margin: 0px 5px;
+    }
+    svg:nth-child(1) {
+      animation: identifier 700ms infinite linear;
+    }
+    svg:nth-child(2) {
+      animation: identifier 700ms infinite linear;
+      animation-delay: calc(350ms);
+    }
+    svg:nth-child(3) {
+      animation: identifier 700ms infinite linear;
+      animation-delay: calc(350ms * 2);
+    }
+  }
+
+  @keyframes identifier {
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 `
 
 const Loading = ({ arcSite, typeBg }) => {

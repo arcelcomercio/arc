@@ -411,7 +411,7 @@ export const FormRegister = props => {
                       <S.Button
                         color={mainColorBtn}
                         type="submit"
-                        className="mt-20"
+                        className="mt-20 mb-20"
                         disabled={disable || showLoading || showFormatInvalid}
                         onClick={() =>
                           Taggeo(
