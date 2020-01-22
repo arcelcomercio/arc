@@ -55,7 +55,6 @@ const FeaturedStoryPremiumChild = ({
   logo,
   errorList = [],
   multimediaSubtitle,
-  //multimediaCaption,
 }) => {
   const formaZeroDate = (numb = 0) => {
     return numb < 10 ? `0${numb}` : numb
