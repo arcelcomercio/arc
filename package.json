@@ -76,6 +76,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "3.0.1",
+    "git-commit-msg-linter": "^2.3.11",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",

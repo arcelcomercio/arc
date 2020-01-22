@@ -1,0 +1,19 @@
+{
+  "types": {
+    "Fix": "Corrección de error",
+    "Update": "Actualización de funcionalidad",
+    "New": "Implementación de una nueva funcionalidad",
+    "feat": false,
+    "fix": false,
+    "docs": false,
+    "style": false,
+    "refactor": false,
+    "test": false,
+    "chore": false,
+    "perf": false,
+    "ci": false,
+    "temp": false
+  },
+  "max-len": 100,
+  "debug": false
+}
