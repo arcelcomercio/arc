@@ -25,7 +25,7 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'basic',
   }),
-  imageSize: PropTypes.bool.tag({
+  imgType: PropTypes.bool.tag({
     name: 'Imagen completa',
     group: 'Configuración',
   }),

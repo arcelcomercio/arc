@@ -37,7 +37,7 @@ const FeaturedStoryPremiumChild = ({
   arcSite,
   isPremium,
   model,
-  imageSize,
+  imgType,
   bgColor,
   websiteLink,
   multimediaSquareMD,
@@ -86,13 +86,12 @@ const FeaturedStoryPremiumChild = ({
   }
 
   const isComercio = arcSite === 'elcomercio'
-
   return (
     <div
       className={classes.featuredPremium
         .concat(getModel(model))
         .concat(` featured-premium--${bgColor}`)
-        .concat(imageSize && isComercio ? ' complete ' : '')}>
+        .concat(imgType && isComercio ? ' complete ' : '')}>
       <div className={classes.left}>
         <h3 className={classes.section}>
           <a href={primarySectionLink}>{primarySection}</a>
