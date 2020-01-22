@@ -17,7 +17,7 @@ const StoryHeaderChildHeading = props => {
     <>
       {isPremium && ConfigParams.SITE_ELCOMERCIO === arcSite && (
         <div className={classes.premiumWrapper}>
-          <p className={classes.premiumText}>Exclusivo Suscriptores</p>
+          <p className={classes.premiumText}>Suscriptor Digital</p>
         </div>
       )}
       {title && <h1 className={classes.title}> {title}</h1>}
