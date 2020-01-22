@@ -5,16 +5,13 @@ const fs = require("fs");
 
 //const webhook = new IncomingWebhook(process.env.SLACK_NOTIFY_WEBHOOK);
 
-const username = process.env.USERNAME;
-
 const pbVersion = "latest";
-const environment = "sandbox";
-const endpoint = "api.sandbox.elcomercio.arcpublishing.com";
-//const username = "juan.quevedo@comercio.com.pe";
-//const password = "Linux-982079";
+const environment = process.env.ENV;
+const endpoint = process.env.ARC_DOMAIN;
+const bundleName = process.env.BUNDLE_NAME;
 const username = process.env.USERNAME;
 const password = process.env.PASSWORD;
-const bundleName = process.env.BUNDLE_NAME;
+const token_sandbox=process.env.TOKEN_ARC;
 
 const baseURL = `https://${username}:${password}@${endpoint}/deployments/fusion/`;
 const newBaseURL = `https://${endpoint}/deployments/fusion/`
@@ -36,7 +33,7 @@ const deploy = () =>
   axios.post(`${baseURL}services?bundle=${bundleName}&version=${pbVersion}`,{
     headers: {        
         'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer HMO2U3MQHUJOSNKN25OMKKQKQQ72HMIOasPsMxbqoVpZ8C+P+duoUDjRhyfnzF7qWYUHW6no'
+        'Authorization': `Bearer ${token_sandbox}`
     }});
 
 const handleError = error => {
@@ -72,8 +69,7 @@ has had a *failure*. Please see the CircleCI logs for more details. :angryparrot
 
 
 const headers = form.getHeaders();
-headers["Authorization"] =
-  "Bearer HMO2U3MQHUJOSNKN25OMKKQKQQ72HMIOasPsMxbqoVpZ8C+P+duoUDjRhyfnzF7qWYUHW6no";
+headers["Authorization"] =`Bearer ${token_sandbox}`;
 console.log(headers);
 axios
   .post(`${newBaseURL}bundles`, form, {

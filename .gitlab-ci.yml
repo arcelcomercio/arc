@@ -47,7 +47,6 @@ build-verify:
     - install_dependencies
   script:
     - ls
-    #- npm install || true
     - npm run zip || true
     - mkdir artifacts
     - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
@@ -80,13 +79,11 @@ deploy-sandbox:
     PB_VERSION: latest
     BUNDLE_FILE: bundle.zip
   script:
-    - pwd
-    - export BUNDLE_NAME= $CI_COMMIT_REF_SLUG
-    - export USERNAME= $USERNAME
-    - export PASSWORD= $PASSWORD
-    - ls    
-    - cd artifacts/
-    - ls    
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
+    - export TOKEN_ARC=$TOKEN_SANDBOX
+    - export ENV="$CI_JOB_STAGE"    
+    - cd artifacts/    
     - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
@@ -216,7 +213,10 @@ deploy-master:
     BUNDLE_FILE: bundle.zip
   script:
     - pwd
-    - ls    
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"  
+    - export ARC_DOMAIN=$ARC_DOMAIN_MASTER
+    - export ENV="$CI_JOB_STAGE"
+    - export TOKEN_ARC=$TOKEN_MASTER
     - cd artifacts/
     - ls    
     - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
@@ -229,6 +229,7 @@ deploy-master:
     - severless_api
 
 publish:
+  image: registry.gitlab.ec.pe/contenidos/arc
   stage: release
   dependencies:
     - deploy-master
@@ -241,7 +242,7 @@ publish:
   script:    
     - yarn add --dev @hutson/semantic-delivery-gitlab
     - yarn add --dev conventional-changelog-eslint
-    - DEBUG=semantic-delivery-gitlab ./node_modules/.bin/semantic-delivery-gitlab  --token xfctBNu4ACq4AD8AGBCg  --preset eslint
+    - ./node_modules/.bin/semantic-delivery-gitlab  --token xfctBNu4ACq4AD8AGBCg  --preset eslint
   only:
     - master
   tags:
