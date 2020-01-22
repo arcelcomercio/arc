@@ -133,11 +133,14 @@
     "zip": "npm run pw:clean && npm run prod:all && npx fusion zip"
   },
   "lint-staged": {
+    "*.{js,jsx,json,css,scss,md,graphql}": [
+      "prettier --write"
+    ],
     "*.{js,jsx}": [
       "eslint"
     ],
-    "*.{js,jsx,json,css,scss,md,graphql}": [
-      "prettier --write"
+    "*.{css,scss}": [
+      "stylelint"
     ]
   },
   "husky": {
