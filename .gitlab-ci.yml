@@ -27,13 +27,8 @@ cache:
 
 install_dependencies:
   stage: install
-  script:    
-    #- apt-get update
-    #- apt-get install python-dev python-pip -y    
-    #- telnet https://juan.quevedo@comercio.com.pe:Linux-982079@api.sandbox.elcomercio.arcpublishing.com/deployments/fusion/bundles/?bundle=test&version=latest&force=true
-    - npm install
-    #- npm ci
-    #- npm config set cache node_modules/ --global
+  script:      
+    - npm install    
   artifacts:
     when: on_success
     paths:      
@@ -66,8 +61,6 @@ build-verify:
     - pwd
     - ls artifacts/resources/
   only:
-    - test_ci
-    - test_ci_v2
     - sandbox    
   tags:
     - severless_api
@@ -98,8 +91,7 @@ deploy-sandbox:
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
-  only:
-    - test_ci_v2
+  only:    
     - sandbox    
   tags:
     - severless_api
@@ -117,11 +109,9 @@ eslint-dev:
     # Run eslint
     - npm run lint
   allow_failure: True  
-  except:
-    - test
-    - test_ci_v2
+  except:    
     - sandbox
-    - master_ci_v2
+    - master
   tags:
     - severless_api
     
@@ -137,11 +127,9 @@ coverage-dev:
     - npm run test:coverage
   allow_failure: True
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'    
-  except:
-    - test
-    - test_ci_v2
+  except:    
     - sandbox
-    - master_ci_v2
+    - master
   tags:
     - severless_api
 
@@ -160,11 +148,9 @@ code-quality:
    - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
    - cat sonar-project.properties
    - gitlab-sonar-scanner
- except:
-    - test
-    - test_ci_v2
+ except:    
     - sandbox
-    - master_ci_v2
+    - master
  tags:
    - severless_api
 
@@ -183,14 +169,11 @@ code-quality-reports:
    - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
    - cat sonar-project.properties
    - gitlab-sonar-scanner
- except:
-    - test
-    - test_ci_v2
+ except:    
     - sandbox
-    - master_ci_v2
+    - master
  tags:
    - severless_api
-
 
 
 build-verify_master:
@@ -198,8 +181,7 @@ build-verify_master:
   dependencies:
     - install_dependencies
   script:
-    - ls
-    #- npm install || true
+    - ls  
     - npm run zip || true
     - mkdir artifacts
     - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/    
@@ -214,7 +196,7 @@ build-verify_master:
     - pwd
     - ls resources/
   only:
-    - master_ci_v2
+    - master
   tags:
     - severless_api
 
@@ -242,7 +224,7 @@ deploy-master:
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
   only:
-    - master_ci_v2
+    - master
   tags:
     - severless_api
 
@@ -261,9 +243,6 @@ publish:
     - yarn add --dev conventional-changelog-eslint
     - DEBUG=semantic-delivery-gitlab ./node_modules/.bin/semantic-delivery-gitlab  --token xfctBNu4ACq4AD8AGBCg  --preset eslint
   only:
-    - master_ci_v2
+    - master
   tags:
     - severless_api   
-
-
-
