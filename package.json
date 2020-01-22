@@ -100,6 +100,9 @@
     "sass": "^1.23.7",
     "sass-loader": "^7.3.1",
     "style-loader": "0.23.1",
+    "stylelint": "^13.0.0",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-prettier": "^1.1.2",
     "url-loader": "1.1.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
@@ -123,13 +126,15 @@
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, dmobile:css,mobile:css, amp:css, paywall:css, signwall:css' ",
     "watch:amp": "webpack --config ./config/webpack.config.js --watch --env.dev --env.amp",
     "watch:mobile": "webpack --config ./config/webpack.config.js --watch --env.dev --env.mobile",
+    "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint --ext=js,jsx ./components/ ./content ./properties",
     "eslint:fix": "eslint --ext=js,jsx --fix .",
+    "stylelint": "stylelint 'src/**/*.scss'",
     "zip": "npm run pw:clean && npm run prod:all && npx fusion zip"
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "npm run eslint"
+      "eslint"
     ],
     "*.{js,jsx,json,css,scss,md,graphql}": [
       "prettier --write"
