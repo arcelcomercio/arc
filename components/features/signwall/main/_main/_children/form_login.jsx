@@ -446,7 +446,13 @@ export const FormLogin = ({
                     <S.Button
                       type="button"
                       color={mainColorBtn}
-                      onClick={() => handleSuscription()}>
+                      onClick={() => {
+                        Taggeo(
+                          `Web_${typeDialog}_Hard`,
+                          `web_${typeDialog}_boton_ver_planes`
+                        )
+                        handleSuscription()
+                      }}>
                       VER PLANES
                     </S.Button>
                   )}

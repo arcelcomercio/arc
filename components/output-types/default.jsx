@@ -15,6 +15,7 @@ import {
   deleteQueryString,
 } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
+import CounterPaywall from './_children/counter-paywall'
 
 export default ({
   children,
@@ -294,11 +295,11 @@ export default ({
         />
 
         {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && (
-          <script
-            defer
-            src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
-          />
-        )}
+            <script
+              defer
+              src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
+            />
+          )}
 
         {!(arcSite === 'publimetro' || arcSite === 'depor' ) && (
           <>
@@ -355,22 +356,17 @@ export default ({
           />
         )}
         {siteProperties.activePaywall && (
-          <script
-            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
-            async
-          />
+          <CounterPaywall arcSite={arcSite} arcEnv={CURRENT_ENVIRONMENT} />
         )}
-        {/* <!-- Identity & Sales & Paywall - Fin --> */}
-        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && 
+        {/* <!-- Identity & Paywall - Fin --> */}
+        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage &&
         (
-          <script
-            type="text/javascript"
-            defer
-            dangerouslySetInnerHTML={{ __html: collapseDivs }}
-          />
-        )}
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: collapseDivs }}
+            />
+          )}
       </head>
       <body className={classBody}>
         <noscript>
