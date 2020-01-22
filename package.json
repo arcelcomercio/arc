@@ -81,8 +81,10 @@
     "gulp-babel": "^8.0.0",
     "gulp-minify": "^3.1.0",
     "gulp-multi-dest": "^1.3.7",
+    "husky": "^4.2.0",
     "jest": "^24.9.0",
     "jest-enzyme": "^7.1.2",
+    "lint-staged": "^10.0.1",
     "mini-css-extract-plugin": "0.5.0",
     "postcss": "7.0.14",
     "postcss-flexbugs-fixes": "^4.1.0",
@@ -121,7 +123,22 @@
     "watch": "webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, dmobile:css,mobile:css, amp:css, paywall:css, signwall:css' ",
     "watch:amp": "webpack --config ./config/webpack.config.js --watch --env.dev --env.amp",
     "watch:mobile": "webpack --config ./config/webpack.config.js --watch --env.dev --env.mobile",
+    "eslint": "eslint --ext=js,jsx ./components/ ./content ./properties",
+    "eslint:fix": "eslint --ext=js,jsx --fix .",
     "zip": "npm run pw:clean && npm run prod:all && npx fusion zip"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run eslint"
+    ],
+    "*.{js,jsx,json,css,scss,md,graphql}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "jest": {
     "automock": false,
