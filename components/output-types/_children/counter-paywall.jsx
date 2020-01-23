@@ -2,19 +2,20 @@ import React from 'react'
 
 export default ({ arcSite, arcEnv }) => {
   const PaywallCounter = `!(function() {
-    var dataContTyp = document.querySelector('meta[name="content-type"]')
-    var dataContSec = document.querySelector('meta[name="section-id"]')
-    var dataContentPremium = content_paywall || false
+    var dataContTyp = window.document.querySelector('meta[name="content-type"]')
+    var dataContSec = window.document.querySelector('meta[name="section-id"]')
+    var dataContentPremium = window.content_paywall || false
+    var userInfo = window.JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')) || {}
     console.log('is premium:', dataContentPremium)
-  
+
     window.ArcPOptions = {
       paywallFunction: function(campaign) {
         console.log('arc paywall fired!', campaign)
       },
       contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
       section: dataContSec ? dataContSec.getAttribute('content') : 'none',
-      userName: Identity.userIdentity.uuid || null,
-      jwt: Identity.userIdentity.accessToken || null,
+      userName: userInfo.uuid || null,
+      jwt: userInfo.accessToken || null,
       apiOrigin: 'api-sandbox.${arcSite}.pe',
     }
   
