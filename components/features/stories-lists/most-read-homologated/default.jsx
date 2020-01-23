@@ -12,7 +12,7 @@ import FreeHtml from './_children/free-html'
 
 const classes = {
   lista:
-    'stories-l-card bg-white flex flex-col justify-between overflow-hidden',
+    'most-read-homologated-card  bg-white flex flex-col justify-between overflow-hidden',
   containerList: 'most-read-homologated-card__container-list',
 }
 
@@ -29,7 +29,7 @@ const MostReadHomologated = props => {
       storyNumber,
       seeImageNews,
       freeHTML,
-      isPremium
+      isPremium,
     },
   } = props
   const { content_elements: contentElements } =
@@ -37,7 +37,7 @@ const MostReadHomologated = props => {
       source: 'get-most-read-story',
       query: {
         amountStories,
-        isPremium: isPremium === true ? 1 : 0
+        isPremium: isPremium === true ? 1 : 0,
       },
     }) || []
 
@@ -60,14 +60,17 @@ const MostReadHomologated = props => {
   }
 
   return (
-      <div className={classes.lista}>
-        <div className={seeMore || freeHTML ? classes.containerList : 'h-full pb-15'}>
-          <Header {...paramsHeader} />
-          <List {...paramsList} />
-          {seeMore && <SeeMore {...{ seeMore, seeMoreurl}} />}
-          {typeof freeHTML === 'string' && <FreeHtml {...{freeHTML}} /> }
-        </div>
+    <div className={classes.lista}>
+      <div
+        className={
+          seeMore || freeHTML ? classes.containerList : 'h-full pb-15'
+        }>
+        <Header {...paramsHeader} />
+        <List {...paramsList} />
+        {seeMore && <SeeMore {...{ seeMore, seeMoreurl }} />}
+        {typeof freeHTML === 'string' && <FreeHtml {...{ freeHTML }} />}
       </div>
+    </div>
   )
 }
 
