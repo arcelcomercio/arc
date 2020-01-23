@@ -97,7 +97,7 @@ export const FormRegister = props => {
           : ''
       )
     }
-    // removeBefore() // dismount before
+    removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
@@ -281,7 +281,7 @@ export const FormRegister = props => {
               {showCheckPremium ? (
                 <Loading arcSite={arcSite} typeBg="wait" />
               ) : (
-                <S.Form onSubmit={handleOnSubmit}>
+                <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
                   {!showConfirm && (
                     <>
                       <S.ButtonBase

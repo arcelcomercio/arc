@@ -11,7 +11,10 @@ export const WrapperModal = styled.div`
   width: 100%;
   height: 100%;
   z-index: 9999999999;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${props =>
+    props.bgColor === 'white'
+      ? 'rgba(255, 255, 255, 0.5)'
+      : 'rgba(0, 0, 0, 0.5)'};
   overflow-x: hidden;
   overflow-y: auto;
   transition: opacity 0.25s;
@@ -72,13 +75,19 @@ export const DialogModal = styled.div`
   align-self: flex-start;
   box-shadow: 0rem 0rem 0.5rem #949494;
   @media ${device.tablet} {
-    border-radius: 8px;
+    border-radius: ${props => (props.noborderRa ? '0' : '8')}px;
   }
 
   &.position-middle {
     max-height: 100%;
     overflow-y: auto;
     align-self: center;
+  }
+
+  &.position-bottom {
+    max-height: 100%;
+    overflow-y: auto;
+    align-self: flex-end;
   }
 
   &.position-fit {
@@ -124,6 +133,30 @@ export const DialogModal = styled.div`
 
     @media ${device.desktop} {
       width: 864px;
+    }
+  }
+
+  &.size-smallbottom {
+    width: 90%;
+
+    @media ${device.tablet} {
+      width: 518px;
+    }
+
+    @media ${device.desktop} {
+      width: 518px;
+    }
+  }
+
+  &.size-smallbottom-large {
+    width: 90%;
+
+    @media ${device.tablet} {
+      width: 640px;
+    }
+
+    @media ${device.desktop} {
+      width: 640px;
     }
   }
 

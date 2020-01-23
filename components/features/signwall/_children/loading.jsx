@@ -7,6 +7,7 @@ import { device } from '../_dependencies/breakpoints'
 export const WrapperLoading = styled.div`
   width: 100%;
   text-align: center;
+
   ${props =>
     props.typeBg === 'wait' &&
     css`
@@ -25,6 +26,12 @@ export const WrapperLoading = styled.div`
       background: rgba(255, 255, 255, 0.5);
       padding: 20% 0%;
       z-index: 20;
+    `};
+
+  ${props =>
+    props.typeDialog === 'premium' &&
+    css`
+      padding: 20% 0% !important;
     `};
 
   .cont-loader-logo {
@@ -54,10 +61,10 @@ export const WrapperLoading = styled.div`
   }
 `
 
-const Loading = ({ arcSite, typeBg }) => {
+const Loading = ({ arcSite, typeBg, typeDialog }) => {
   const sitesLoad = ['gestion', 'elcomercio', 'peru21']
   return (
-    <WrapperLoading typeBg={typeBg}>
+    <WrapperLoading typeBg={typeBg} typeDialog={typeDialog}>
       {sitesLoad.includes(arcSite) ? (
         <div className="cont-loader-logo">
           {

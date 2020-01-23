@@ -110,7 +110,7 @@ export const FormLogin = ({
       )
     }
 
-    // removeBefore() // dismount before
+    removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
@@ -254,7 +254,7 @@ export const FormLogin = ({
       {value => (
         <>
           {!showCheckPremium ? (
-            <S.Form onSubmit={handleOnSubmit}>
+            <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
               {activePaywall && (
                 <S.Title
                   s="22"

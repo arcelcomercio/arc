@@ -128,7 +128,8 @@ export const FormForgot = ({
           <S.Form
             onSubmit={e => {
               handleOnSubmit(e)
-            }}>
+            }}
+            typeDialog={typeDialog}>
             <S.ButtonBase
               type="button"
               onClick={() => {

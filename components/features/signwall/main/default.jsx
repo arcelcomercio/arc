@@ -4,6 +4,7 @@ import Fingerprint2 from 'fingerprintjs2'
 
 import { Generic } from './_main/generic'
 import { Paywall } from './_main/paywall'
+import { Premium } from './_main/premium'
 
 import Services from '../_dependencies/services'
 import GetProfile from '../_dependencies/get-profile'
@@ -223,6 +224,9 @@ class SignwallComponent extends PureComponent {
           case 'signwallPaywall':
             this.setState({ showPaywall: true })
             break
+          case 'signwallPremium':
+            this.setState({ showPremium: true })
+            break
           case 'reloginHash':
             this.setState({ showRelogHash: true })
             break
@@ -367,8 +371,8 @@ class SignwallComponent extends PureComponent {
               />
             )}
 
-            {showPremium && (
-              <Paywall
+            {(this.getUrlParam('signwallPremium') || showPremium) && (
+              <Premium
                 onClose={() => this.closePopUp('showPremium')}
                 arcSite={arcSite}
                 typeDialog="premium"
