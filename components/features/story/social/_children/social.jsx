@@ -1,6 +1,5 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import rawHtml from 'react-render-html'
 
 import {
   popUpWindow,
@@ -130,11 +129,11 @@ class StoryHeaderChildSocial extends PureComponent {
         <div
           className={`${classes.news} ${
             subtype === ConfigParams.SPECIAL_BASIC ||
-              subtype === ConfigParams.SPECIAL ||
-              primarySectionLink === '/archivo-elcomercio/'
+            subtype === ConfigParams.SPECIAL ||
+            primarySectionLink === '/archivo-elcomercio/'
               ? 'justify-center'
               : 'justify-between'
-            }`}>
+          }`}>
           {subtype !== ConfigParams.SPECIAL_BASIC &&
             subtype !== ConfigParams.SPECIAL &&
             primarySectionLink !== '/archivo-elcomercio/' && (
@@ -142,7 +141,10 @@ class StoryHeaderChildSocial extends PureComponent {
                 className={`${classes.category} ${(isPremium &&
                   classes.premium) ||
                   ''}`}>
-                {(editorNote && rawHtml(editorNote)) || primarySection}
+                {(editorNote && (
+                  <p dangerouslySetInnerHTML={{ __html: editorNote }}></p>
+                )) ||
+                  primarySection}
                 <StorySocialChildAuthor {...params} />
               </div>
             )}
