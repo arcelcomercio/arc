@@ -13,7 +13,6 @@ import FreeHtml from './_children/free-html'
 const classes = {
   lista:
     'most-read-homologated-card  bg-white flex flex-col justify-between overflow-hidden',
-  containerList: 'most-read-homologated-card__container-list',
 }
 
 const MostReadHomologated = props => {
@@ -61,15 +60,10 @@ const MostReadHomologated = props => {
 
   return (
     <div className={classes.lista}>
-      <div
-        className={
-          seeMore || freeHTML ? classes.containerList : 'h-full pb-15'
-        }>
-        <Header {...paramsHeader} />
-        <List {...paramsList} />
-        {seeMore && <SeeMore {...{ seeMore, seeMoreurl }} />}
-        {typeof freeHTML === 'string' && <FreeHtml {...{ freeHTML }} />}
-      </div>
+      <Header {...paramsHeader} />
+      <List {...paramsList} />
+      {seeMore && <SeeMore {...{ seeMore, seeMoreurl }} />}
+      {typeof freeHTML === 'string' && <FreeHtml {...{ freeHTML }} />}
     </div>
   )
 }
