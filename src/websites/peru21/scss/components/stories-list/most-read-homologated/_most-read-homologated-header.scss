@@ -1,0 +1,18 @@
+.most-read-homologated-header {
+  background-color: $color-secondary;
+  justify-content: space-between;
+  border: 0;
+  &__title {
+    font-family: $primary-font;
+    font-weight: 400;
+    color: $color-white;
+    font-size: 15px;
+  }
+  &__see-more {
+    display: none;
+  }
+  &__icon {
+    display: block;
+    color: $color-white;
+  }
+}

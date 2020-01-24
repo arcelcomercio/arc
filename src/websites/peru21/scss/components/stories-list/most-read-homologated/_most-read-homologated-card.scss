@@ -1,0 +1,11 @@
+.most-read-homologated-card {
+  &__list {
+    article:nth-last-child(1) {
+      .most-read-homologated-item__link-box {
+        .flex {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
