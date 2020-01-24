@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import ENV from 'fusion:environment'
+// import ENV from 'fusion:environment'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial, ButtonEmail } from './control_social'
@@ -280,7 +280,7 @@ export const FormLogin = ({
                 activeNewsletter={activeNewsletter}
                 checkUserSubs={checkUserSubs}
               />
-              {ENV.ENVIRONMENT !== 'elcomercio' && (
+              {/* {ENV.ENVIRONMENT !== 'elcomercio' && (
                 <ButtonSocial
                   brand="google"
                   size="full"
@@ -292,7 +292,7 @@ export const FormLogin = ({
                   activeNewsletter={activeNewsletter}
                   checkUserSubs={checkUserSubs}
                 />
-              )}
+              )} */}
 
               {!showLoginEmail && (
                 <ButtonEmail

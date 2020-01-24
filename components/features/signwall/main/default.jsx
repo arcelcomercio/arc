@@ -224,7 +224,7 @@ class SignwallComponent extends PureComponent {
           case 'signwallPaywall':
             this.setState({ showPaywall: true })
             break
-          case 'signwallPremium':
+          case 'signwallPremiumTest':
             this.setState({ showPremium: true })
             break
           case 'reloginHash':
@@ -371,7 +371,7 @@ class SignwallComponent extends PureComponent {
               />
             )}
 
-            {(this.getUrlParam('signwallPremium') || showPremium) && (
+            {(this.getUrlParam('signwallPremiumTest') || showPremium) && (
               <Premium
                 onClose={() => this.closePopUp('showPremium')}
                 arcSite={arcSite}

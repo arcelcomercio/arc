@@ -2,12 +2,11 @@ import React from 'react'
 
 export default ({ arcSite, arcEnv }) => {
   const PaywallCounter = `!(function(w, d) {
-    var dataContTyp = d.querySelector('meta[name="content-type"]')
-    var dataContSec = d.querySelector('meta[name="section-id"]')
     var dataContentPremium = w.content_paywall || false
-    var userInfo = w.JSON.parse(w.localStorage.getItem('ArcId.USER_INFO')) || {}
-    
     if(!dataContentPremium){
+      var dataContTyp = d.querySelector('meta[name="content-type"]')
+      var dataContSec = d.querySelector('meta[name="section-id"]')
+      var userInfo = w.JSON.parse(w.localStorage.getItem('ArcId.USER_INFO')) || {}
       w.ArcPOptions = {
         paywallFunction: function(campaign) {
           w.location.href = campaign + '&ref=' + w.location.pathname
@@ -26,9 +25,7 @@ export default ({ arcSite, arcEnv }) => {
       script.async = 'true'
       d.head.appendChild(script)
     }
-    
   })(window, document)`
-
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: PaywallCounter }} />

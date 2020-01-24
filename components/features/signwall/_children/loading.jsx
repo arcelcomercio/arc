@@ -32,6 +32,9 @@ export const WrapperLoading = styled.div`
     props.typeDialog === 'premium' &&
     css`
       padding: 20% 0% !important;
+      @media ${device.tablet} {
+        padding: 35% 0% !important;
+      }
     `};
 
   .cont-loader-logo {
