@@ -6,7 +6,7 @@ const classes = {
   time: 'most-read-homologated-item__time text-md line-h-sm mr-10',
   linkBox: 'most-read-homologated-item__link-box flex flex-row text-gray-300',
   link:
-    'most-read-homologated-item__link flex bold m-0 text-md text-gray-300 line-h-sm',
+    'most-read-homologated-item__link flex font-bold m-0 text-md text-gray-300 line-h-sm',
   boxNew: ' pt-10 pb-10',
   figure:
     'most-read-homologated-item__image mr-10 position-relative overflow-hidden',
