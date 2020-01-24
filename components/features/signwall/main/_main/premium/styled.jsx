@@ -67,7 +67,11 @@ export const ContPaywall = styled.div`
   min-height: 140px !important;
   @media ${device.tablet} {
     min-height: 120px !important;
-    position: absolute;
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
     padding: ${props =>
       props.arcSite === 'gestion' ? '15px 10px' : '25px 25px'};
   }
