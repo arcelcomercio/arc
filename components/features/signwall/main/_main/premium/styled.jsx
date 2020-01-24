@@ -22,13 +22,13 @@ export const FirstMiddle = styled(Base)`
   position: relative;
   overflow: hidden;
   background: ${props => (props.arcSite === 'gestion' ? '#8f071f' : '#232323')};
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   @media ${device.tablet} {
     width: 50%;
     display: table-cell;
     background: url(${props => props.pathSourcePNG});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 `
 
@@ -48,7 +48,7 @@ export const CloseBtn = styled.button`
   border: none;
   color: black;
   position: absolute;
-  top: 150px;
+  top: 155px;
   outline: none;
   right: 5px;
   cursor: pointer;
@@ -68,7 +68,8 @@ export const ContPaywall = styled.div`
   @media ${device.tablet} {
     min-height: 120px !important;
     position: absolute;
-    padding: 25px 10px;
+    padding: ${props =>
+      props.arcSite === 'gestion' ? '15px 10px' : '25px 25px'};
   }
   p {
     width: 100%;
@@ -76,10 +77,11 @@ export const ContPaywall = styled.div`
     text-align: center;
   }
   .logo {
-    margin-top: 15px;
-    max-width: 212px;
+    margin-top: 20px;
+    max-width: 200px;
     @media ${device.tablet} {
-      margin-top: 25px;
+      margin-top: ${props => (props.arcSite === 'gestion' ? '10px' : '20px')};
+      max-width: ${props => (props.arcSite === 'gestion' ? '160px' : '220px')};
     }
   }
   p {
@@ -97,6 +99,7 @@ export const ContPaywall = styled.div`
     display: none;
     @media ${device.tablet} {
       display: block;
+      margin-top: 10px;
     }
     li {
       color: white;

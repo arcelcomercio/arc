@@ -100,7 +100,7 @@ export const PremiumInt = props => {
                 <Close />
               </CloseBtn>
               <FirstMiddle pathSourcePNG={pathSourcePNG} arcSite={arcSite}>
-                <ContPaywall>
+                <ContPaywall arcSite={arcSite}>
                   <p>
                     Para acceder a este contenido
                     <br />
@@ -111,7 +111,7 @@ export const PremiumInt = props => {
                     <img
                       alt="Logo"
                       className="logo"
-                      src={`https://gestion.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
+                      src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
                     />
                   </center>
 
@@ -120,7 +120,6 @@ export const PremiumInt = props => {
                       return <li key={item}>{item}</li>
                     })}
                   </ul>
-                  
                 </ContPaywall>
               </FirstMiddle>
               <SecondMiddle arcSite={arcSite}>

@@ -140,11 +140,11 @@ export const DialogModal = styled.div`
     width: 90%;
 
     @media ${device.tablet} {
-      width: 518px;
+      width: 648px;
     }
 
     @media ${device.desktop} {
-      width: 518px;
+      width: 648px;
     }
   }
 

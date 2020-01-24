@@ -255,7 +255,7 @@ export const FormLogin = ({
         <>
           {!showCheckPremium ? (
             <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
-              {activePaywall && (
+              {activePaywall && typeDialog !== 'premium' && (
                 <S.Title
                   s="22"
                   primaryFont={primaryFont}

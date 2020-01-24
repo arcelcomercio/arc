@@ -43,7 +43,7 @@ export const Form = styled.form`
   ${props =>
     props.typeDialog === 'premium' &&
     css`
-      padding: 0px 20px !important;
+      padding: 10px 20px !important;
     `}
 
   @media ${device.tablet} {
@@ -305,7 +305,7 @@ export const Error = styled.div`
   color: #fff;
   font-family: Libre Franklin, sans-serif;
   font-size: 12px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 4px;
   text-align: center;
   margin-top: 7px;
