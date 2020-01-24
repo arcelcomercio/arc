@@ -21,6 +21,7 @@ export const FirstMiddle = styled(Base)`
   display: block;
   position: relative;
   overflow: hidden;
+  height: 100%;
   background: ${props => (props.arcSite === 'gestion' ? '#8f071f' : '#232323')};
   @media ${device.tablet} {
     width: 50%;
