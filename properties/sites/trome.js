@@ -82,7 +82,7 @@ export default {
   footer: {
     siteLegal: [
       'Empresa Editora Trome',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
       'Copyright © Trome.pe',
       'Trome - Todos los derechos reservados',
     ],
