@@ -62,7 +62,7 @@ build-verify:
   only:
     - sandbox    
   tags:
-    - severless_api
+    - aws
 
 deploy-sandbox:
   stage: deploy  
@@ -91,7 +91,7 @@ deploy-sandbox:
   only:    
     - sandbox    
   tags:
-    - severless_api
+    - aws
 
 eslint-dev:
   stage: test 
@@ -110,8 +110,8 @@ eslint-dev:
     - sandbox
     - master
   tags:
-    - severless_api
-    
+    - aws
+
 coverage-dev:
   stage: test
   dependencies:
@@ -128,7 +128,7 @@ coverage-dev:
     - sandbox
     - master
   tags:
-    - severless_api
+    - aws
 
 code-quality:
  stage: code-quality
@@ -149,7 +149,7 @@ code-quality:
     - sandbox
     - master
  tags:
-   - severless_api
+    - aws
 
 code-quality-reports:
  stage: code-quality
@@ -170,7 +170,7 @@ code-quality-reports:
     - sandbox
     - master
  tags:
-   - severless_api
+    - aws
 
 
 build-verify_master:
@@ -195,7 +195,7 @@ build-verify_master:
   only:
     - master
   tags:
-    - severless_api
+    - aws
 
 deploy-master:
   stage: deploy  
@@ -226,7 +226,7 @@ deploy-master:
   only:
     - master
   tags:
-    - severless_api
+    - aws
 
 publish:
   image: registry.gitlab.ec.pe/contenidos/arc
@@ -246,4 +246,4 @@ publish:
   only:
     - master
   tags:
-    - severless_api   
+    - aws
