@@ -247,3 +247,5 @@ publish:
     - master
   tags:
     - severless_api   
+    - aws
+    - docker
