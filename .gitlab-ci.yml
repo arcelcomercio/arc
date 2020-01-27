@@ -40,6 +40,9 @@ install_dependencies:
       - node_modules/
     policy: push
   when: always
+  tags:
+    - aws
+    - docker
 
 build-verify:
   stage: build
@@ -62,7 +65,8 @@ build-verify:
   only:
     - sandbox    
   tags:
-    - severless_api
+    - aws
+    - docker
 
 deploy-sandbox:
   stage: deploy  
@@ -91,7 +95,8 @@ deploy-sandbox:
   only:    
     - sandbox    
   tags:
-    - severless_api
+    - aws
+    - docker
 
 eslint-dev:
   stage: test 
@@ -110,7 +115,8 @@ eslint-dev:
     - sandbox
     - master
   tags:
-    - severless_api
+    - aws
+    - docker
     
 coverage-dev:
   stage: test
@@ -128,7 +134,8 @@ coverage-dev:
     - sandbox
     - master
   tags:
-    - severless_api
+    - aws
+    - docker
 
 code-quality:
  stage: code-quality
@@ -149,7 +156,8 @@ code-quality:
     - sandbox
     - master
  tags:
-   - severless_api
+   - aws
+   - docker
 
 code-quality-reports:
  stage: code-quality
@@ -170,7 +178,8 @@ code-quality-reports:
     - sandbox
     - master
  tags:
-   - severless_api
+   - aws
+   - docker
 
 
 build-verify_master:
@@ -195,7 +204,8 @@ build-verify_master:
   only:
     - master
   tags:
-    - severless_api
+    - aws
+    - docker
 
 deploy-master:
   stage: deploy  
@@ -213,7 +223,7 @@ deploy-master:
     BUNDLE_FILE: bundle.zip
   script:
     - pwd
-    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"  
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
     - export ARC_DOMAIN=$ARC_DOMAIN_MASTER
     - export ENV="$CI_JOB_STAGE"
     - export TOKEN_ARC=$TOKEN_MASTER
@@ -226,7 +236,8 @@ deploy-master:
   only:
     - master
   tags:
-    - severless_api
+    - aws
+    - docker
 
 publish:
   image: registry.gitlab.ec.pe/contenidos/arc
@@ -246,4 +257,5 @@ publish:
   only:
     - master
   tags:
-    - severless_api   
+    - aws
+    - docker
