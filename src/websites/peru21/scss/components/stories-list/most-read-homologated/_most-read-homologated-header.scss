@@ -4,7 +4,7 @@
   border: 0;
   &__title {
     font-family: $primary-font;
-    font-weight: 400;
+    font-weight: 700;
     color: $color-white;
     font-size: 15px;
   }
@@ -13,6 +13,14 @@
   }
   &__icon {
     display: block;
-    color: $color-white;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-image: url(/pf/resources/dist/peru21/images/logo-sm.png?d=380);
+      background-size: cover;
+    }
   }
 }
