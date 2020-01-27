@@ -44,8 +44,6 @@ const MostReadHomologated = props => {
     titleList,
     urlTitle,
     background,
-    seeMore,
-    seeMoreurl,
   }
 
   const paramsList = {
