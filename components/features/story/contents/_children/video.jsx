@@ -73,7 +73,7 @@ class StoryContentChildVideo extends PureComponent {
     if (aliasId && aliasId[0]) {
       return aliasId[0]
     }
-    
+
     if (
       arcSite === 'publimetro' ||
       arcSite === 'depor' ||
