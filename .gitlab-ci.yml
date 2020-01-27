@@ -83,7 +83,7 @@ deploy-sandbox:
     PB_VERSION: latest
     BUNDLE_FILE: bundle.zip
   script:
-    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
     - export TOKEN_ARC=$TOKEN_SANDBOX
     - export ENV="$CI_JOB_STAGE"
