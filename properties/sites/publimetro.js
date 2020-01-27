@@ -72,7 +72,7 @@ export default {
   footer: {
     siteLegal: [
       'Empresa Editora Publimetro',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
       'Copyright © publimetro.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
@@ -83,7 +83,7 @@ export default {
       },
       {
         position: 'Empresa Editora Publimetro',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+        name: 'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
       },
       {
         position: 'Copyright © publimetro.pe',
