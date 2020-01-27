@@ -83,7 +83,7 @@ export default {
   footer: {
     siteLegal: [
       'Empresa Editora Depor',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
       'Copyright © Depor.pe',
       'Grupo Depor - Todos los derechos reservados',
     ],
@@ -119,12 +119,12 @@ export default {
       },
       {
         position: 'Director Periodístico',
-        name: 'Walter Corzo.',
+        name: 'Miguel Morales.',
       },
     ],
     corporateInfo: {
       name: 'Grupo El Comercio',
-      direction: 'Jr. Santa Rosa #300 Lima 1, Perú',
+      direction: 'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
     },
     draftingContact: [
       {
