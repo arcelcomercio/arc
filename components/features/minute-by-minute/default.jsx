@@ -66,51 +66,54 @@ class MinuteByMinute extends PureComponent {
   }
 
   componentDidMount() {
-    appendToBody(
-      createScript({
-        src:
-          'https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7',
-        async: true,
-      })
-    )
-    appendToBody(
-      createScript({
-        src: 'https://code.jquery.com/jquery-2.2.4.min.js',
-        async: true,
-        jquery: true,
-      })
-    )
+    const { isAdmin } = this.props
+    if (!isAdmin) {
+      appendToBody(
+        createScript({
+          src:
+            'https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7',
+          async: true,
+        })
+      )
+      appendToBody(
+        createScript({
+          src: 'https://code.jquery.com/jquery-2.2.4.min.js',
+          async: true,
+          jquery: true,
+        })
+      )
 
-    const self = this
-    function runScorer() {
-      // eslint-disable-next-line no-undef
-      const instances = getMxmInstances()
-      const key = Object.keys(instances)[0]
+      const self = this
+      function runScorer() {
+        // eslint-disable-next-line no-undef
+        const instances = getMxmInstances()
+        const key = Object.keys(instances)[0]
 
-      instances[key].pubsub.on('data', function(data) {
-        self.setState({ inner: data })
-      })
-    }
-
-    window.on_mxm_loaded = function(instances) {
-      window.getMxmInstances = () => {
-        return instances
+        instances[key].pubsub.on('data', function(data) {
+          self.setState({ inner: data })
+        })
       }
-    }
 
-    const waitjQueryAndMxm = () => {
-      let timeout = 100
-      if (window.jQuery) {
-        if (document.querySelector('.mxm-input')) {
-          runScorer()
-          return true
+      window.on_mxm_loaded = function(instances) {
+        window.getMxmInstances = () => {
+          return instances
         }
-        timeout = 1000
       }
-      setTimeout(waitjQueryAndMxm, timeout)
-    }
 
-    waitjQueryAndMxm()
+      const waitjQueryAndMxm = () => {
+        let timeout = 100
+        if (window.jQuery) {
+          if (document.querySelector('.mxm-input')) {
+            runScorer()
+            return true
+          }
+          timeout = 1000
+        }
+        setTimeout(waitjQueryAndMxm, timeout)
+      }
+
+      waitjQueryAndMxm()
+    }
   }
 
   getTimeRender = (time = '') => {
