@@ -85,6 +85,10 @@ export default ({
     if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
   }
 
+  if (arcSite === 'elcomercio') {
+    if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
+  }
+
   const metaSiteData = {
     ...siteProperties,
     requestUri,
