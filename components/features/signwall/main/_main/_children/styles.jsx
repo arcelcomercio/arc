@@ -47,7 +47,7 @@ export const Form = styled.form`
     `}
 
   @media ${device.tablet} {
-    padding: ${props => (props.npadding ? '0px' : '10px 100px')};
+    padding: ${props => (props.npadding ? '0px' : '50px 35px')};
   }
   @media ${device.desktop} {
     padding: ${props => (props.npadding ? '0px' : '20px 50px')};
