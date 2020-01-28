@@ -443,7 +443,7 @@ export const breadcrumbList = (siteUrl = '', primarySectionLink = '') => {
       sectionQueue = `${sectionQueue}${section}/`
       return {
         name:
-          section.charAt(0).toUpperCase() + section.slice(1).replace('-', ' '),
+          section.charAt(0).toUpperCase() + section.slice(1).replace(/-/g, ' '),
         url: `${siteUrl}${sectionQueue}`,
       }
     })
