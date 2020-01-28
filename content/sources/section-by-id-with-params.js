@@ -64,7 +64,8 @@ const transform = (data, key) => {
         ].toUpperCase()} DEL ${formatDate.getUTCFullYear()}`
         : sections !== "Todas"
           ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ÚLTIMO MINUTO`
-          : 'ÚLTIMO MINUTO'
+          : 'ÚLTIMO MINUTO',
+      date_desc: date ? `, ${date}` : ''
     },
   }
 }
