@@ -1,3 +1,5 @@
 .podcast-title {
-  border-color: #aaa;
+  &__text {
+    border-color: #aaa;
+  }
 }
