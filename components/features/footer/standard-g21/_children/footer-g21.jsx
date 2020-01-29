@@ -69,13 +69,14 @@ const FooterChildStandardG21 = props => {
       <div className={classes.sections}>
         <ul className={classes.list}>
           <li className={classes.listTitle}>Nuestras secciones</li>
-          {sections.map(el => (
-            <li className={classes.listLinkSection} key={el.url}>
-              <a className={classes.listLink} href={el.url}>
-                {el.name}
-              </a>
-            </li>
-          ))}
+          {sections &&
+            sections.map(el => (
+              <li className={classes.listLinkSection} key={el.url}>
+                <a className={classes.listLink} href={el.url}>
+                  {el.name}
+                </a>
+              </li>
+            ))}
         </ul>
       </div>
 
@@ -135,4 +136,4 @@ const FooterChildStandardG21 = props => {
   )
 }
 
-export default FooterChildStandardG21
+export default React.memo(FooterChildStandardG21)

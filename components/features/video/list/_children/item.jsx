@@ -6,6 +6,7 @@ export default ({
   multimediaSquareMD,
   primarySection,
   primarySectionLink,
+  videoDuration,
 }) => {
   return (
     <div className="video-list__item">
@@ -14,8 +15,11 @@ export default ({
           <img
             className="video-list__image object-cover w-full"
             src={multimediaSquareMD}
-            alt={title}            
+            alt={title}
           />
+          {!(videoDuration === '00:00' || videoDuration === '00:00:00') && (
+            <span className="video-list__duration">{videoDuration}</span>
+          )}
         </a>
       </picture>
       <div className="flex">

@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { useState } from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 // import { defaultImage } from '../../../utilities/helpers'
 
 // Se evita usar funciones de helpers debido a que este feature no usa static true
@@ -50,35 +51,34 @@ const BASE_PATH = '/cartelera'
 // const MOVIES_BASE_PATH = '/peliculas'
 const FORM_ACTION = `${BASE_PATH}/search`
 
-@Consumer
-class CardCinemaBillboard extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      movieSelected: '',
-      cinemaSelected: '',
-    }
+const CardCinemaBillboard = () => {
+  const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
-    this.fetchContent({
-      data: {
-        source: 'cinema-billboard',
-        query: { format: 'single' },
-        // filter: schema,
-      },
-    })
+  // TODO: verificar si funciona asi o es necesario usar useRef()
+  const [movieSelected, setMovieSelected] = useState('')
+  const [cinemaSelected, setCinemaSelected] = useState('')
+
+  const data =
+    useContent({
+      source: 'cinema-billboard',
+      query: { format: 'single' },
+      // filter: schema,
+    }) || {}
+
+  const {
+    billboardData: { moviesList = [], cinemasList = [] } = {},
+    premiereData: { alt, img: rawImg, title, url } = {},
+  } = data
+
+  const handleMovieSelected = event => {
+    setMovieSelected(event.target.value)
   }
 
-  handleMovieSelected(event) {
-    this.setState({ movieSelected: event.target.value })
+  const handleCinemaSelected = event => {
+    setCinemaSelected(event.target.value)
   }
 
-  handleCinemaSelected(event) {
-    this.setState({ cinemaSelected: event.target.value })
-  }
-
-  handleSubmit(event) {
-    const { movieSelected, cinemaSelected } = this.state
-
+  const handleSubmit = event => {
     const moviePath = movieSelected || 'peliculas'
     const cinemaPath = cinemaSelected || 'cines'
 
@@ -89,121 +89,100 @@ class CardCinemaBillboard extends PureComponent {
     event.preventDefault()
   }
 
-  render() {
-    const {
-      movieSelected,
-      cinemaSelected,
-      data: {
-        billboardData:{moviesList=[],cinemasList=[]}={},
-        premiereData: { alt, img: rawImg, title, url } = {},
-      } = {},
-    } = this.state || {}
-
-    const { arcSite, deployment, contextPath, isAdmin } = this.props
-
-    const img =
-      rawImg ||
-      defaultImage({
-        deployment,
-        contextPath,
-        arcSite,
-        size: 'sm',
-      })
-
-    const lazyDefault = defaultImage({
+  const img =
+    rawImg ||
+    defaultImage({
       deployment,
       contextPath,
       arcSite,
       size: 'sm',
     })
 
-    return (
-      <div className={classes.cinemaCard}>
-        <article className={classes.container}>
-          <span className={classes.gradient} />
-          <h3 className={classes.category}>
-            <a className={classes.link} href={`${BASE_PATH}/`}>
-              Cartelera
+  const lazyDefault = defaultImage({
+    deployment,
+    contextPath,
+    arcSite,
+    size: 'sm',
+  })
+
+  return (
+    <div className={classes.cinemaCard}>
+      <article className={classes.container}>
+        <span className={classes.gradient} />
+        <h3 className={classes.category}>
+          <a className={classes.link} href={`${BASE_PATH}/`}>
+            Cartelera
+          </a>
+        </h3>
+        <figure className={classes.figure}>
+          <a href={`${BASE_PATH}/${url}`}>
+            <img
+              src={isAdmin ? img : lazyDefault}
+              data-src={img}
+              alt={alt}
+              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+            />
+          </a>
+        </figure>
+        <div className={classes.detail}>
+          <p className={classes.premiere}>Estreno</p>
+          <h2 className={classes.movieTitle}>
+            <a className={classes.movieLink} href={`${BASE_PATH}/${url}/`}>
+              {title}
             </a>
-          </h3>
-          <figure className={classes.figure}>
-            <a href={`${BASE_PATH}/${url}`}>
-              <img
-                src={isAdmin ? img : lazyDefault}
-                data-src={img}
-                alt={alt}                
-                className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              />
-            </a>
-          </figure>
-          <div className={classes.detail}>
-            <p className={classes.premiere}>Estreno</p>
-            <h2 className={classes.movieTitle}>
-              <a className={classes.movieLink} href={`${BASE_PATH}/${url}/`}>
-                {title}
-              </a>
-            </h2>
-          </div>
-        </article>
-        <div className={classes.moviesList}>
-          <h4 className={classes.title}>Vamos al cine</h4>
-          <form
-            action={FORM_ACTION}
-            method="post"
-            className={classes.form}
-            onSubmit={e => this.handleSubmit(e)}>
-            <div className={classes.selectsContainer}>
-              <select
-                name="movie"
-                className={classes.select}
-                value={movieSelected}
-                onChange={e => this.handleMovieSelected(e)}>
-                <option
-                  value=""
-                  defaultValue
-                  disabled
-                  className={classes.option}>
-                  PELÍCULAS
-                </option>
-                {moviesList.map(movie => (
-                  <option
-                    value={movie.url}
-                    className={classes.option}
-                    key={movie.mid}>
-                    {movie.title}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="theater"
-                className={classes.select}
-                value={cinemaSelected}
-                onChange={e => this.handleCinemaSelected(e)}>
-                <option
-                  value=""
-                  defaultValue
-                  disabled
-                  className={classes.option}>
-                  CINES
-                </option>
-                {cinemasList.map(cinema => (
-                  <option
-                    value={cinema.url}
-                    className={classes.option}
-                    key={cinema.cid}>
-                    {cinema.nombre}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button type="submit" className={classes.button}>
-              Buscar
-            </button>
-          </form>
+          </h2>
         </div>
+      </article>
+      <div className={classes.moviesList}>
+        <h4 className={classes.title}>Vamos al cine</h4>
+        <form
+          action={FORM_ACTION}
+          method="post"
+          className={classes.form}
+          onSubmit={e => handleSubmit(e)}>
+          <div className={classes.selectsContainer}>
+            <select
+              name="movie"
+              className={classes.select}
+              value={movieSelected}
+              onChange={e => handleMovieSelected(e)}>
+              <option value="" defaultValue disabled className={classes.option}>
+                PELÍCULAS
+              </option>
+              {moviesList.map(movie => (
+                <option
+                  value={movie.url}
+                  className={classes.option}
+                  key={movie.mid}>
+                  {movie.title}
+                </option>
+              ))}
+            </select>
+            <select
+              name="theater"
+              className={classes.select}
+              value={cinemaSelected}
+              onChange={e => handleCinemaSelected(e)}>
+              <option value="" defaultValue disabled className={classes.option}>
+                CINES
+              </option>
+              {cinemasList.map(cinema => (
+                <option
+                  value={cinema.url}
+                  className={classes.option}
+                  key={cinema.cid}>
+                  {cinema.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="submit" className={classes.button}>
+            Buscar
+          </button>
+        </form>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 CardCinemaBillboard.label = 'Mini-Cartelera'
