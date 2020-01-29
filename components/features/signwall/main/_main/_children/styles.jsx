@@ -34,6 +34,15 @@ export const Text = styled.p`
   font-size: ${props => props.s}px;
   line-height: ${props => (props.lh ? props.lh : '18')}px;
   font-weight: ${props => (props.fw ? props.fw : 'normal')};
+  @media ${device.mobile} {
+    & .sub-paragraph {
+      display: inline-block;
+    }
+  }
+  & .sub-paragraph .price{
+    display: inline-block;
+    min-width: 30px;
+  }
 `
 export const Form = styled.form`
   width: 100%;

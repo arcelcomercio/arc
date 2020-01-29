@@ -164,11 +164,17 @@ export const FormIntro = ({
                 c="gray"
                 s={typeDialog === 'premium' ? '12' : '15'}
                 className="mb-10 center note-premium">
-                Disfruta
-                <strong>
-                  {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS{' '}
-                </strong>
-                y luego S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '} al mes.
+                <div className="sub-paragraph">
+                  Disfruta
+                  <strong>
+                    {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS
+                  </strong>
+                </div>{' '}
+                <div className="sub-paragraph">
+                  y luego{' '}
+                  <span className="price">S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '}</span> al
+                  mes.
+                </div>
               </S.Text>
             </>
           )}
