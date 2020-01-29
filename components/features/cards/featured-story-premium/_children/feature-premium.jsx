@@ -18,6 +18,10 @@ const classes = {
   right: 'featured-premium__right',
   icon: 'featured-premium__icon',
   image: 'featured-premium__image',
+  premiumWrapper:
+    'premium__wrapper bg-primary flex justify-center items-center',
+  premiumText:
+    'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 
 const getModel = model => {
@@ -30,8 +34,10 @@ const getModel = model => {
 }
 
 const FeaturedStoryPremiumChild = ({
+  arcSite,
   isPremium,
   model,
+  imgType,
   bgColor,
   websiteLink,
   multimediaSquareMD,
@@ -48,8 +54,7 @@ const FeaturedStoryPremiumChild = ({
   isAdmin,
   logo,
   errorList = [],
-  // multimediaSubtitle,
-  multimediaCaption,
+  multimediaSubtitle,
 }) => {
   const formaZeroDate = (numb = 0) => {
     return numb < 10 ? `0${numb}` : numb
@@ -79,11 +84,13 @@ const FeaturedStoryPremiumChild = ({
     })
   }
 
+  const isComercio = arcSite === 'elcomercio'
   return (
     <div
       className={classes.featuredPremium
         .concat(getModel(model))
-        .concat(` featured-premium--${bgColor}`)}>
+        .concat(` featured-premium--${bgColor}`)
+        .concat(imgType && isComercio ? ' complete ' : '')}>
       <div className={classes.left}>
         <h3 className={classes.section}>
           <a href={primarySectionLink}>{primarySection}</a>
@@ -111,7 +118,7 @@ const FeaturedStoryPremiumChild = ({
                 {primarySection || 'Sección'}
               </a>
             </p>
-            {isPremium && (
+            {isPremium && !isComercio && (
               <img
                 className={classes.iconImagePremium}
                 src={logo}
@@ -119,6 +126,11 @@ const FeaturedStoryPremiumChild = ({
               />
             )}
           </div>
+          {isPremium && isComercio && (
+            <div className={classes.premiumWrapper}>
+              <p className={classes.premiumText}>Suscriptor Digital</p>
+            </div>
+          )}
         </div>
       </div>
       <div className={classes.right}>
@@ -141,7 +153,7 @@ const FeaturedStoryPremiumChild = ({
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
               data-src={multimediaLandscapeL}
-              alt={multimediaCaption || title}
+              alt={multimediaSubtitle || title}
             />
           </picture>
         </a>

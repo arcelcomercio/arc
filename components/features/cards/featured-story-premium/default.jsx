@@ -32,6 +32,7 @@ const FeaturedStoryPremium = props => {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
       model,
+      imgType,
       bgColor,
       note1,
       date1,
@@ -192,8 +193,10 @@ const FeaturedStoryPremium = props => {
   })
 
   const params = {
+    arcSite,
     isPremium,
     model,
+    imgType,
     bgColor,
     websiteLink,
     multimediaSquareMD,

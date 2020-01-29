@@ -6,6 +6,7 @@ import {
   socialMediaUrlShareList,
   addSlashToEnd,
   popUpWindow,
+  formatDayMonthYear,
 } from '../../../../utilities/helpers'
 
 export default ({
@@ -45,10 +46,9 @@ export default ({
       const videoNavBar = document.querySelector('.video-navbar')
       const videoList = document.querySelector('.video-list')
       const videoFrame = document.querySelector('.section-video__frame')
-      const leftFix = videoFrame.getBoundingClientRect().left
-      const hasAdsMiddle = document.getElementById('ads_d_middle1') || {}
-      const renderClassFix =
-        hasAdsMiddle.childElementCount > 0 ? 'fixedAds' : 'fixedNoAds'
+      const adsMiddle = document.getElementById('ads_d_middle1')
+      const mTop = 450;
+
       const playOff = playList.offsetTop
       if (window.innerWidth >= 1024) {
         window.addEventListener('scroll', () => {
@@ -57,18 +57,24 @@ export default ({
             sectionVideo.classList.add('fixed')
             changeFixedSection(true)
             videoNavBar.classList.add('fixed')
-            videoList.classList.add(`${renderClassFix}`)
-            videoFrame.style.left = `${leftFix + 50}px`
-
-            // videoList.style.marginTop = '570px'
+            if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
+            {
+              adsMiddle.style.marginTop = `${mTop}px`;
+            }else{
+              videoList.style.marginTop = `${mTop}px`;
+            }
           }
           if (scrollHeight < playOff) {
             sectionVideo.classList.remove('fixed')
             changeFixedSection(false)
             videoNavBar.classList.remove('fixed')
-            videoList.classList.remove(`${renderClassFix}`)
             videoFrame.removeAttribute('style')
-            // videoList.style.marginTop = '50px'
+            if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
+            {
+              adsMiddle.style.marginTop = `0px`;
+            }else{
+              videoList.style.marginTop = `50px`;
+            }
           }
         })
       }
@@ -99,7 +105,9 @@ export default ({
     popUpWindow(urlsShareList[origin], '', 600, 400)
   }
 
-  const { fecha } = formateDay()
+  // const { fecha } = formateDay()
+
+  const fecha = formatDayMonthYear(principalVideo.displayDate, true, true)
 
   const playListParams = {
     ...playListVideo,
@@ -132,7 +140,9 @@ export default ({
                 <div className="section-video__frame">
                   <iframe
                     className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${principalVideo.video}`}
+                    src={`https://www.youtube.com/embed/${
+                      principalVideo.video
+                    }`}
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowFullscreen
@@ -161,7 +171,7 @@ export default ({
               /> */}
             </div>
             <div className="section-video__right">
-              <div>
+              <div className="section-video__information">
                 {/* <div className="section-video__breadcrumbs">
                   <span className="section-video__sub">
                     <a href="/videos">Video</a>
@@ -192,57 +202,7 @@ export default ({
               </div>
             </div>
           </div>
-          <div
-            className={
-              playListParams.arcSite === 'gestion'
-                ? 'section-video__fixed--none'
-                : 'section-video__fixed'
-            }>
-            <div className="section-video__min">
-              <div className="section-video__desc">
-                {/* <span>0:30 </span> */}
-                <a
-                  className="text-white"
-                  href={principalVideo.primarySectionLink}>
-                  {principalVideo.primarySection}
-                </a>
-              </div>
-              <h2>
-                <a
-                  href={principalVideo.websiteLink}
-                  className="section-video__des-title text-white block">
-                  {principalVideo.title}
-                </a>
-              </h2>
-              <div className="section-video__share">
-                <button
-                  onClick={() => shareNew('facebook')}
-                  type="button"
-                  className="section-video__btn">
-                  <span className="icon-facebook" />
-                </button>
-                <button
-                  onClick={() => shareNew('twitter')}
-                  type="button"
-                  className="section-video__btn">
-                  <span className="icon-twitter" />
-                </button>
-                <button
-                  onClick={() => shareNew('linkedin')}
-                  type="button"
-                  className="section-video__btn">
-                  <span className="icon-linkedin" />
-                </button>
-                {/* <button type="button" className="section-video__btn">
-                  <span className="icon-share" />
-                </button> */}
-              </div>
-            </div>
-          </div>
           <div className="section-video__detail">
-            <span className="section-video__text">{fecha}</span>
-          </div>
-          <div className="section-video__bottom">
             <div className="section-video__share">
               <button
                 onClick={() => shareNew('facebook')}
@@ -263,10 +223,33 @@ export default ({
                 <span className="icon-linkedin" />
               </button>
               {/* <button type="button" className="section-video__btn">
-                <span className="icon-share" />
-              </button> */}
+                  <span className="icon-share" />
+                </button> */}
             </div>
+            <ul className="section-video__list-text">
+              {principalVideo.author !== '' && (
+                <li className="section-video__text">{principalVideo.author}</li>
+              )}
+              {principalVideo.displayDate !== '' && (
+                <li className="section-video__text">{fecha}</li>
+              )}
+              {!(
+                principalVideo.videoDuration === '00:00' ||
+                principalVideo.videoDuration === '00:00:00'
+              ) && (
+                <li className="section-video__text">
+                  Duración: {principalVideo.videoDuration}
+                </li>
+              )}
+            </ul>
           </div>
+          <div
+            className={
+              playListParams.arcSite === 'gestion'
+                ? 'section-video__fixed--none'
+                : 'section-video__fixed'
+            }
+          />
         </div>
         <PlayList {...playListParams} />
       </div>

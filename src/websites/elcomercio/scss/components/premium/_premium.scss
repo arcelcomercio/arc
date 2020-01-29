@@ -1,0 +1,18 @@
+.premium {
+  &__wrapper {
+    width: 133px;
+    height: 22px;
+    border-radius: 2px;
+    background-color: #f7c603;
+  }
+  &__text {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-family: $secondary-font !important;
+    &:before {
+      color: $color-black;
+      font-family: 'icomoon';
+      margin-right: 4px;
+    }
+  }
+}
