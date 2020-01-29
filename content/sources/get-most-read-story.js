@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import { CONTENT_BASE, ENV } from 'fusion:environment'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN, ENV } from 'fusion:environment'
 
 const flagDev = !(ENV === 'elcomercio')
 
@@ -18,6 +18,9 @@ const getUriMostRead = (site, isPremium = false, isDev = false) => {
 const options = {
   gzip: true,
   json: true,
+  auth: {
+    bearer: ARC_ACCESS_TOKEN,
+  },
 }
 
 const setPageViewsUrls = (arrUrl, arrUrlRes) => {
@@ -54,28 +57,32 @@ const fetch = (key = {}) => {
   return request({
     uri: getUriMostRead(website, !!+isPremium, flagDev),
     ...options,
-  }).then(resp => {
-    const arrURL = resp.slice(0, amountStories).filter(url => /((.*)-noticia(.*)\/)(.*)/.test(url.path))
-    
-    const promiseArray = arrURL.map(url =>
-      request({
-        uri: uriAPI(url.path, website),
-        ...options,
-      }).catch(err => console.log(`URL Promise error: ${err}`))
-    )
+  })
+    .then(resp => {
+      const arrURL = resp
+        .slice(0, amountStories)
+        .filter(url => /((.*)-noticia(.*)\/)(.*)/.test(url.path))
 
-    return Promise.all(promiseArray).then(res => {
-      const newRes = setPageViewsUrls(arrURL, res) || res
-      newRes.sort((a, b) => {
-        return b.page_views - a.page_views
-      })
-      return { content_elements: newRes }
+      const promiseArray = arrURL.map(url =>
+        request({
+          uri: uriAPI(url.path, website),
+          ...options,
+        }).catch(err => console.log(`URL Promise error: ${err}`))
+      )
+
+      return Promise.all(promiseArray)
+        .then(res => {
+          const newRes = setPageViewsUrls(arrURL, res) || res
+          newRes.sort((a, b) => {
+            return b.page_views - a.page_views
+          })
+          return { content_elements: newRes }
+        })
+        .catch(err => console.log(`PromiseAll error: ${err}`))
     })
-    .catch(err => console.log(`PromiseAll error: ${err}`))
-  })
-  .catch(() => { 
-    return { content_elements: [] }
-  })
+    .catch(() => {
+      return { content_elements: [] }
+    })
 }
 
 export default {

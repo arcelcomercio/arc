@@ -1,6 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import {
+  resizerSecret,
+  CONTENT_BASE,
+  ARC_ACCESS_TOKEN,
+} from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/helpers'
@@ -23,6 +27,14 @@ const params = [
   },
 ]
 
+const options = {
+  gzip: true,
+  json: true,
+  auth: {
+    bearer: ARC_ACCESS_TOKEN,
+  },
+}
+
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
 
@@ -32,11 +44,6 @@ const pattern = (key = {}) => {
   const requestUri = `/content/v4/collections?website=${website}&_id=${key.id}`
 
   return requestUri
-}
-
-const options = {
-  gzip: true,
-  json: true,
 }
 
 const fetch = key => {
