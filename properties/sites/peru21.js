@@ -91,7 +91,7 @@ export default {
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
-      'Jr. Miró Quesada 247. Piso 6 Lima 1',
+      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
       'Copyright © Peru21.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
@@ -102,7 +102,7 @@ export default {
       },
       {
         position: 'Diario Perú21: ',
-        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
+        name: 'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
       },
       {
         position: 'Copyright © Peru21.pe',

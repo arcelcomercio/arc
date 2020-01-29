@@ -37,7 +37,14 @@ export default props => {
                     className={`play-list__image ${isAdmin ? '' : 'lazy'}`}
                     alt={Story.title}
                   />
-                  {/* <span className="play-list__duration">0:41</span> */}
+                  {!(
+                    Story.videoDuration === '00:00' ||
+                    Story.videoDuration === '00:00:00'
+                  ) && (
+                    <span className="play-list__duration">
+                      {Story.videoDuration}
+                    </span>
+                  )}
                 </a>
                 <h3 className="play-list__title">
                   <a href={Story.websiteLink}>{Story.title}</a>

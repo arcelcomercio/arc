@@ -32,6 +32,7 @@ $map-icons: (img: $img,
   loading: $loading,
   share: $share,
   arrow-r:$arrow-r,
+  padlock:$padlock,
 ) !default;
 
 @mixin generate-icons() {
