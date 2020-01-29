@@ -83,7 +83,12 @@ export default {
       },
       {
         position: 'Empresa Editora Publimetro',
+<<<<<<< HEAD
         name: 'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
+=======
+        name:
+          'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
+>>>>>>> master
       },
       {
         position: 'Copyright © publimetro.pe',
