@@ -1,9 +1,11 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+
 import {
-  formatDateStoryAmp,
+  // formatDateStoryAmp,
   publicidadAmp,
-  getDateSeo,
+  // getDateSeo,
   storyTagsBbc,
 } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
@@ -22,98 +24,95 @@ const classes = {
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
 }
-@Consumer
-class StoryTitleAmp extends PureComponent {
-  render() {
-    const {
-      arcSite,
-      siteProperties: { adsAmp, siteUrl },
-      deployment,
-      contextPath,
-      globalContent: data,
-    } = this.props
+const StoryTitleAmp = () => {
+  const {
+    arcSite,
+    deployment,
+    contextPath,
+    globalContent: data,
+  } = useFusionContext()
 
-    const {
-      title,
-      subTitle,
-      tags,
-      link,
-      promoItems: {
-        basic_gallery: { content_elements: galleryItems } = {},
-      } = {},
-    } = new StoryData({
-      data,
-      contextPath,
-    })
-    const adsId = arcSite !== 'diariocorreo' ? arcSite : 'correo'
-    const dataSlot = `/${adsAmp.dataSlot}/${
-      arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? adsId : 'eco'
-    }-amp-320x50-top-movil1`
+  const { adsAmp, siteUrl } = getProperties(arcSite)
 
-    const placementId = adsAmp.movil1
-    const width = '320'
-    const height = '50'
-    const parameters = {
-      dataSlot,
-      placementId,
-      width,
-      height,
-      movil1: true,
-      arcSite,
-    }
+  const {
+    title,
+    subTitle,
+    tags,
+    link,
+    promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
+  } = new StoryData({
+    data,
+    contextPath,
+  })
+  const adsId = arcSite !== 'diariocorreo' ? arcSite : 'correo'
+  const dataSlot = `/${adsAmp.dataSlot}/${
+    arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? adsId : 'eco'
+  }-amp-320x50-top-movil1`
 
-    const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
-    const imgBbc =
-      deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
-
-    return (
-      <>
-        <div className={galleryItems ? classes.gallery : classes.stories}>
-          <header>
-            {storyTagsBbc(tags) && (
-              <div className={classes.bbcHead}>
-                <a
-                  href={URL_BBC}
-                  rel="nofollow noopener noreferrer"
-                  target="_blank">
-                  <amp-img
-                    alt="BBC"
-                    layout="responsive"
-                    width="500"
-                    height="30"
-                    src={imgBbc}
-                    data-src={imgBbc}
-                  />
-                </a>
-              </div>
-            )}
-            {title && <h1 className={classes.titleAmp}> {title} </h1>}
-          </header>
-          {arcSite !== 'elcomerciomag' && (
-            <div
-              className={classes.adsAmp}
-              dangerouslySetInnerHTML={publicidadAmp(parameters)}
-            />
-          )}
-          {subTitle && <div className={classes.description}> {subTitle}</div>}
-          <StorySocialChildAmpSocial />
-
-          {galleryItems && (
-            <StoryHeaderChildAmpGallery
-              data={galleryItems}
-              siteUrl={siteUrl}
-              link={link}
-              width="500"
-              height="300"
-            />
-          )}
-        </div>
-      </>
-    )
+  const placementId = adsAmp.movil1
+  const width = '320'
+  const height = '50'
+  const parameters = {
+    dataSlot,
+    placementId,
+    width,
+    height,
+    movil1: true,
+    arcSite,
   }
+
+  const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
+  const imgBbc =
+    deployment(
+      `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+    ) || ''
+
+  return (
+    <>
+      <div className={galleryItems ? classes.gallery : classes.stories}>
+        <header>
+          {storyTagsBbc(tags) && (
+            <div className={classes.bbcHead}>
+              <a
+                href={URL_BBC}
+                rel="nofollow noopener noreferrer"
+                target="_blank">
+                <amp-img
+                  alt="BBC"
+                  layout="responsive"
+                  width="500"
+                  height="30"
+                  src={imgBbc}
+                  data-src={imgBbc}
+                />
+              </a>
+            </div>
+          )}
+          {title && <h1 className={classes.titleAmp}> {title} </h1>}
+        </header>
+        {arcSite !== 'elcomerciomag' && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parameters)}
+          />
+        )}
+        {subTitle && <div className={classes.description}> {subTitle}</div>}
+        <StorySocialChildAmpSocial />
+
+        {galleryItems && (
+          <StoryHeaderChildAmpGallery
+            data={galleryItems}
+            siteUrl={siteUrl}
+            link={link}
+            width="500"
+            height="300"
+          />
+        )}
+      </div>
+    </>
+  )
 }
 
 StoryTitleAmp.static = true
+
 export default StoryTitleAmp

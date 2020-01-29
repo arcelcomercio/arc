@@ -86,37 +86,35 @@ const StandardFooter = props => {
       <div className={classes.sections}>
         <ul className={classes.list}>
           <li className={classes.listTitle}>Nuestras secciones</li>
-          {sections.map(el => (
-            <li className={classes.listLinkSection} key={el.url}>
-              <a className={classes.listLink} href={el.url}>
-                {el.name}
-              </a>
-            </li>
-          ))}
+          {sections &&
+            sections.map(el => (
+              <li className={classes.listLinkSection} key={el.url}>
+                <a className={classes.listLink} href={el.url}>
+                  {el.name}
+                </a>
+              </li>
+            ))}
         </ul>
       </div>
 
       <div className={classes.contact}>
         <ul className={classes.list}>
           {/* <li className={classes.listTitle}>Contacto</li> */}
-          {contacts.map(el => (
-            el.position && (
-              <li className={classes.listItem} key={el.name}>
-                <span
-                  className={`${classes.listLinkTitle} ${
-                    classes.contactPosition
-                    }`}>
-                  {el.position}:
+          {contacts.map(
+            el =>
+              el.position && (
+                <li className={classes.listItem} key={el.name}>
+                  <span
+                    className={`${classes.listLinkTitle} ${classes.contactPosition}`}>
+                    {el.position}:
                   </span>
-                <span
-                  className={`${classes.listLinkInfo} ${
-                    classes.contactName
-                    }`}>
-                  {el.name}
-                </span>
-              </li>
-            )
-          ))}
+                  <span
+                    className={`${classes.listLinkInfo} ${classes.contactName}`}>
+                    {el.name}
+                  </span>
+                </li>
+              )
+          )}
         </ul>
         <div className={classes.textContent}>
           <p className={classes.socialTitle}>Síguenos</p>

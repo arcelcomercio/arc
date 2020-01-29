@@ -1,5 +1,7 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 
 import NavBarAmp from '../../layout/navbar/_children/amp'
@@ -7,68 +9,57 @@ import HeaderAmp from './_children/header-amp'
 
 import Formatter from '../../layout/navbar/_dependencies/formatter'
 
-@Consumer
-class LayoutNavbar extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
-      contextPath,
-      arcSite,
-      deployment,
-      customFields,
-      siteProperties: {
-        siteDomain,
-        assets: { nav },
-      },
-    } = this.props
-    this.formater = new Formatter(
-      {
-        deployment,
-        contextPath,
-        siteDomain,
-        nav,
-        arcSite,
-        getContent: this.getContent,
-      },
-      customFields
-    )
-    this.state = {
-      data: {},
-    }
-    if (this.formater.main.fetch !== false) {
-      const { params = {} , source = '' } = this.formater.main.fetch.config || {}
-      /** Solicita la data a la API y setea los resultados en "state.data" */
-      this.fetchContent({
-        data: {
-          source,
-          query: params,
-          filter: this.formater.getSchema(),
-        },
-      })
-    }
-  }
+const LayoutNavbar = props => {
+  const { customFields } = props
+  const { contextPath, arcSite, deployment } = useFusionContext()
 
-  renderNavBar() {
-    const { customFields: { selectDesing } = {} } = this.props
-    const { data } = this.state
+  const { siteDomain, siteUrl, assets: { nav } = {} } = getProperties(arcSite)
+
+  const formater = new Formatter(
+    {
+      deployment,
+      contextPath,
+      siteDomain,
+      nav,
+      arcSite,
+    },
+    customFields
+  )
+
+  const { params = {}, source = '' } =
+    formater.main.fetch !== false ? formater.main.fetch.config : {}
+  /** Solicita la data a la API y setea los resultados en "state.data" */
+
+  const data =
+    useContent(
+      params && source
+        ? {
+            source,
+            query: params,
+            filter: formater.getSchema(),
+          }
+        : {}
+    ) || {}
+
+  const renderNavBar = () => {
+    const { selectDesing } = customFields
     const NavBarType = {
-      standard: <NavBarAmp data={data} {...this.formater.main.initParams} />,
+      standard: <NavBarAmp data={data} {...formater.main.initParams} />,
     }
     return NavBarType[selectDesing] || NavBarType.standard
   }
 
-  renderHeaderAmp() {
-    return <HeaderAmp {...this.props} />
-  }
+  const imgLogo =
+    deployment(
+      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
+    ) || ''
 
-  render() {
-    return (
-      <>
-        {this.renderNavBar()}
-        {this.renderHeaderAmp()}
-      </>
-    )
-  }
+  return (
+    <>
+      {renderNavBar()}
+      <HeaderAmp {...{ imgLogo, arcSite }} />
+    </>
+  )
 }
 
 LayoutNavbar.propTypes = {

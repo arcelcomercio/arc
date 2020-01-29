@@ -1,6 +1,8 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
 import ENV from 'fusion:environment'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import ArcArticleBody from '@arc-core-components/feature_article-body'
 import PropTypes from 'prop-types'
 
@@ -26,40 +28,19 @@ const classes = {
     'info-pages__title font-bold uppercase mb-25 title-md line-h-sm primary-font border-b-1 border-solid border-base pb-20',
 }
 
-@Consumer
-class InfoPages extends PureComponent {
-  constructor(props) {
-    super(props)
+const InfoPages = props => {
+  const { customFields: { typeOfPolicy } = {} } = props
+  const { arcSite } = useFusionContext()
+  const { infoPagesDev = {}, infoPagesProd = {} } = getProperties(arcSite)
 
-    this.fetchContent({
-      data: {
-        source: CONTENT_SOURCE,
-        query: { ...this.getPolicyId() },
-        // Agregar schema aquí perjudica más de lo que ayuda
-        transform: ({
-          content_elements: contentElements = [],
-          headlines = {},
-        } = {}) => {
-          const filteredData = {
-            contentElements,
-            headlines: headlines.basic,
-          }
-          return { ...filteredData }
-        },
-      },
-    })
-  }
-
-  getPolicyId() {
-    const {
-      siteProperties: { infoPagesDev = {}, infoPagesProd = {} } = {},
-      customFields: { typeOfPolicy } = {},
-    } = this.props
+  const getPolicyId = () => {
     const infoPagesEnv =
       ENV.ENVIRONMENT === 'elcomercio' ? infoPagesProd : infoPagesDev
+
     const infoPageId = typeOfPolicy
       ? infoPagesEnv[typeOfPolicy]
       : infoPagesEnv[DEFAULT_POLICY]
+
     const params = {
       _id: infoPageId,
       published: 'false',
@@ -68,29 +49,41 @@ class InfoPages extends PureComponent {
     return params
   }
 
-  render() {
-    const {
-      data: {
-        contentElements = [],
-        headlines = 'No existe contenido para la página seleccionada.',
-      } = {},
-    } = this.state
-    return (
-      <div className={classes.staticPolicy}>
-        <h1 className={classes.title}>{headlines}</h1>
-        <ArcArticleBody
-          data={contentElements}
-          renderElement={element => {
-            const { type } = element
-            if (type === 'table') {
-              return <StoryTable data={element} type={type} />
-            }
-            return ''
-          }}
-        />
-      </div>
-    )
-  }
+  const data = useContent({
+    source: CONTENT_SOURCE,
+    query: { ...getPolicyId() },
+    transform: ({
+      content_elements: contentElements = [],
+      headlines = {},
+    } = {}) => {
+      const filteredData = {
+        contentElements,
+        headlines: headlines.basic,
+      }
+      return { ...filteredData }
+    },
+  })
+
+  const {
+    contentElements = [],
+    headlines = 'No existe contenido para la página seleccionada.',
+  } = data || {}
+
+  return (
+    <div className={classes.staticPolicy}>
+      <h1 className={classes.title}>{headlines}</h1>
+      <ArcArticleBody
+        data={contentElements}
+        renderElement={element => {
+          const { type } = element
+          if (type === 'table') {
+            return <StoryTable data={element} type={type} />
+          }
+          return ''
+        }}
+      />
+    </div>
+  )
 }
 
 InfoPages.propTypes = {

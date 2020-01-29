@@ -1,15 +1,16 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { useEffect } from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+
 import customFields from './_dependencies/custom-fields'
 import {
   createMarkup,
   createScript,
   appendToBody,
   appendToId,
-  storyVideoPlayerId
+  storyVideoPlayerId,
 } from '../../utilities/helpers'
 
-// TODO: aplicar context para usar solo customFields
 const classes = {
   htmlContainer: 'htmlContainer overflow-x-auto overflow-y-hidden',
   newsEmbed: 'story-content__embed',
@@ -27,67 +28,63 @@ const clearUrlOrCode = (url = '') => {
   return { clearUrl, code: clearUrl.split('#')[1] }
 }
 
-@Consumer
-class BasicHtml extends PureComponent {
+const BasicHtml = props => {
+  const {
+    customFields: { freeHtml = '', adsSpace, adsBorder = '' } = {},
+  } = props
+  const { outputType, isAdmin } = useFusionContext()
+  let ID_VIDEO = ''
+  let URL_VIDEO = ''
 
-  constructor(props) {
+  const adsSpaces =
+    useContent(
+      adsSpace && adsSpace !== 'none'
+        ? {
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
+          }
+        : {}
+    ) || {}
 
-    super(props)
-    const { customFields: { freeHtml = '' } = {} } = this.props
-    this.ID_VIDEO = ''
-    this.URL_VIDEO = ''
-
-    if (
-      isDaznServicePlayer(freeHtml) &&
-      freeHtml.trim().match(/^<script(.*)<\/script>$/)
-    ) {
-      const idVideos = storyVideoPlayerId(freeHtml)
-      const urlAssignHttp = freeHtml.includes('player.daznservices.com/')
-        ? idVideos[1].replace('src="//', 'https://')
-        : idVideos[1]
+  if (
+    isDaznServicePlayer(freeHtml) &&
+    freeHtml.trim().match(/^<script(.*)<\/script>$/)
+  ) {
+    const idVideos = storyVideoPlayerId(freeHtml)
+    const urlAssignHttp = freeHtml.includes('player.daznservices.com/')
+      ? idVideos[1].replace('src="//', 'https://')
+      : idVideos[1]
           .replace('src="//', 'https://')
           .replace('performgroup', 'daznservices')
 
-      this.URL_VIDEO = freeHtml.includes('id')
-        ? `${urlAssignHttp}id=${idVideos[2]}`
-        : `${urlAssignHttp}`
+    URL_VIDEO = freeHtml.includes('id')
+      ? `${urlAssignHttp}id=${idVideos[2]}`
+      : `${urlAssignHttp}`
 
-      this.ID_VIDEO = freeHtml.includes('id') && `${idVideos[2]}`
-    }
+    ID_VIDEO = freeHtml.includes('id') && `${idVideos[2]}`
   }
 
-  componentDidMount() {
-    const { customFields: { freeHtml = '', adsSpace } = {} } = this.props
-
-    // DaznService Video Player
-    if (this.URL) {
-      appendToBody(createScript({ src: this.URL, async: true }))
+  useEffect(() => {
+    if (URL) {
+      appendToBody(createScript({ src: URL, async: true }))
     }
-    if (this.URL_VIDEO) {
+
+    if (URL_VIDEO) {
       const idVideo = storyVideoPlayerId(freeHtml)
       const idElement =
         isDaznServicePlayer(freeHtml) && freeHtml.includes('id') && idVideo[2]
-          ? `id_video_embed_${this.ID_VIDEO}`
+          ? `id_video_embed_${ID_VIDEO}`
           : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
       const myList = document.getElementById(idElement)
       appendToId(
         myList,
         createScript({
           src: freeHtml.includes('id')
-            ? this.URL_VIDEO
+            ? URL_VIDEO
             : clearUrlOrCode(idVideo[2]).clearUrl,
           async: true,
         })
       )
-    }
-
-    if (adsSpace && adsSpace !== 'none') {
-      this.fetchContent({
-        adsSpaces: {
-          source: 'get-ads-spaces',
-          query: { space: adsSpace },
-        },
-      })
     }
 
     // TODO: separar en funciones puras
@@ -104,12 +101,9 @@ class BasicHtml extends PureComponent {
         appendToBody(createScript({ src: url, async: true }))
       }
     }
-  }
+  }, [])
 
-  getAdsSpace() {
-    const { adsSpaces = {} } = this.state || {}
-    const { customFields: { adsSpace } = {} } = this.props
-
+  const getAdsSpace = () => {
     const toDate = dateStr => {
       const [date, time] = dateStr.split(' ')
       const [day, month, year] = date.split('/')
@@ -133,24 +127,17 @@ class BasicHtml extends PureComponent {
     return false
   }
 
-  render() {
-    const {
-      outputType,
-      isAdmin,
-      customFields: { freeHtml = '', adsBorder = '' } = {},
-    } = this.props
+  // DaznService Player
+  if (isDaznServicePlayer(freeHtml)) {
+    const idVideo = storyVideoPlayerId(freeHtml)
 
-    // DaznService Player
-    if (isDaznServicePlayer(freeHtml)) {
+    const idVideoEmbed =
+      isDaznServicePlayer(freeHtml) && freeHtml.includes('id') && idVideo[2]
+        ? `id_video_embed_${idVideo[2]}`
+        : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
 
-      const idVideo = storyVideoPlayerId(freeHtml)
-
-      const idVideoEmbed =
-        isDaznServicePlayer(freeHtml) && freeHtml.includes('id') && idVideo[2]
-          ? `id_video_embed_${idVideo[2]}`
-          : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
-
-      return (<div className={classes.htmlContainer}>
+    return (
+      <div className={classes.htmlContainer}>
         <div
           id={idVideoEmbed}
           className={classes.newsEmbed}
@@ -161,36 +148,35 @@ class BasicHtml extends PureComponent {
           }}
         />
       </div>
-      )
-    }
-
-    const addEmptyBorder = () =>
-    adsBorder === 'containerp' ? 'container-publicidad' : ''
-
-    const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
-
-    if (this.getAdsSpace()) {
-      return (
-        <div
-          className={addEmptyBorder()}
-          dangerouslySetInnerHTML={createMarkup(this.getAdsSpace())}
-        />
-      )
-    }
-    return (
-      <div className={` ${classes.htmlContainer} `}>
-        {freeHtml && outputType !== 'amp' && (
-          <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
-        )}
-        {!freeHtml && isAdmin && (
-          <div
-            dangerouslySetInnerHTML={createMarkup(freeHtml)}
-            className={addEmptyBackground()}
-          />
-        )}
-      </div>
     )
   }
+
+  const addEmptyBorder = () =>
+    adsBorder === 'containerp' ? 'container-publicidad' : ''
+
+  const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
+
+  if (getAdsSpace()) {
+    return (
+      <div
+        className={addEmptyBorder()}
+        dangerouslySetInnerHTML={createMarkup(getAdsSpace())}
+      />
+    )
+  }
+  return (
+    <div className={` ${classes.htmlContainer} `}>
+      {freeHtml && outputType !== 'amp' && (
+        <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+      )}
+      {!freeHtml && isAdmin && (
+        <div
+          dangerouslySetInnerHTML={createMarkup(freeHtml)}
+          className={addEmptyBackground()}
+        />
+      )}
+    </div>
+  )
 }
 
 BasicHtml.propTypes = {

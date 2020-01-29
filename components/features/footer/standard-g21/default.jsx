@@ -1,5 +1,7 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 
 import FooterChildStandardG21 from './_children/footer-g21'
@@ -17,30 +19,33 @@ const SCHEMA = `{
   }
 }`
 
-@Consumer
-class FooterStandardG21 extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
-      customFields: {
-        sectionsHierarchyConfig: {
-          contentConfigValues: { hierarchy: sectionsHierarchy = '' } = {},
-        } = {},
+const FooterStandardG21 = props => {
+  const {
+    customFields: {
+      sectionsHierarchyConfig: {
+        contentConfigValues: { hierarchy: sectionsHierarchy = '' } = {},
       } = {},
-    } = this.props
+    } = {},
+  } = props
 
-    this.fetchContent({
-      sections: {
-        source: CONTENT_SOURCE,
-        query: {
-          hierarchy: sectionsHierarchy || DEFAULT_HIERARCHY,
-        },
-        filter: SCHEMA,
-      },
-    })
-  }
+  const { deployment, contextPath, arcSite } = useFusionContext()
 
-  formatData = res => {
+  const {
+    gecSites,
+    legalLinks,
+    footer: { socialNetworks = [], siteLegal, story },
+    assets: { footer: { logo } = {} } = {},
+  } = getProperties(arcSite)
+
+  const sections = useContent({
+    source: CONTENT_SOURCE,
+    query: {
+      hierarchy: sectionsHierarchy || DEFAULT_HIERARCHY,
+    },
+    filter: SCHEMA,
+  })
+
+  const formatData = res => {
     const { children = [] } = res || {}
     const auxList = children.map(el => {
       if (el.node_type === 'link') {
@@ -59,39 +64,23 @@ class FooterStandardG21 extends PureComponent {
     return auxList
   }
 
-  render() {
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      siteProperties: {
-        gecSites,
-        legalLinks,
-        footer: { socialNetworks = [], siteLegal, story },
-        assets: { footer: { logo } = {} } = {},
-      },
-    } = this.props
+  const logoUrl =
+    deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) || ''
 
-    const logoUrl =
-      deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) ||
-      ''
+  const formattedSections = sections && formatData(sections)
 
-    const { sections: rawSections = [] } = this.state || {}
-    const sections = rawSections && this.formatData(rawSections)
-
-    const params = {
-      socialNetworks,
-      gecSites,
-      legalLinks,
-      siteLegal,
-      logoUrl,
-      sections,
-      arcSite,
-      story,
-    }
-
-    return <FooterChildStandardG21 {...params} />
+  const params = {
+    socialNetworks,
+    gecSites,
+    legalLinks,
+    siteLegal,
+    logoUrl,
+    sections: formattedSections,
+    arcSite,
+    story,
   }
+
+  return <FooterChildStandardG21 {...params} />
 }
 
 FooterStandardG21.label = 'Pie de Página - G21'
