@@ -1,2 +1,25 @@
 .podcast-extraordinary {
+  &__icon {
+    background-color: $color-white;
+    border-radius: 50%;
+    color: $color-fourth;
+    display: block;
+    left: 25px;
+    top: inherit;
+    bottom: -10px;
+    pointer-events: none;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 36px;
+    transform: translate(-50%, -50%);
+    @media (--desktop) {
+      width: 72px;
+      height: 72px;
+      font-size: 73px;
+      line-height: 73px;
+      left: 45px;
+      bottom: -25px;
+    }
+  }
 }
