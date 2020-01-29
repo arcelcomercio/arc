@@ -13,7 +13,10 @@ const SITE_TITLE = 'Visite también: '
 
 const ItemSite = ({ url, name }) => (
   <li className={classes.listItem}>
-    <a href={url} rel="noopener noreferrer" target="_blank"> {name}</a>
+    <a href={url} rel="noopener noreferrer" target="_blank">
+      {' '}
+      {name}
+    </a>
   </li>
 )
 
@@ -22,19 +25,18 @@ const FooterInfo = ({
   imageDefault,
   gecSites,
   legalLinks,
-  contacts=[],
+  contacts = [],
   corporateInfo,
-  draftingContact,
+  draftingContact = [],
   copyrightText,
 }) => {
-
   let listContacs = ''
-  contacts.forEach(({position, name}) => {
-    listContacs+=`${position}: ${name} `
-  });
+  contacts.forEach(({ position, name }) => {
+    listContacs += `${position}: ${name} `
+  })
 
-  listContacs+=`${corporateInfo.name}: ${corporateInfo.direction}`
-  
+  listContacs += `${corporateInfo.name}: ${corporateInfo.direction}`
+
   return (
     <div className={classes.info}>
       <a href={siteUrl}>
@@ -43,9 +45,8 @@ const FooterInfo = ({
       <p className={classes.paragraph}>
         {listContacs}
         <br />
-        {`${draftingContact[0].name}: ${draftingContact[0].value} | ${
-          draftingContact[1].name
-        }: ${draftingContact[1].value}`}
+        {draftingContact.length > 0 &&
+          `${draftingContact[0].name}: ${draftingContact[0].value} | ${draftingContact[1].name}: ${draftingContact[1].value}`}
         <br />
         {copyrightText}
       </p>
@@ -74,4 +75,4 @@ const FooterInfo = ({
   )
 }
 
-export default FooterInfo
+export default React.memo(FooterInfo)

@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useEditableContent } from 'fusion:content'
+
 import Icon from '../../../../global-components/multimedia-icon'
 import { createMarkup } from '../../../../utilities/helpers'
 
 const TripletChildTriplet = props => {
   const {
     arcSite,
-    editableField,
     isAdmin,
     data = [],
     multimediaOrientation = 'right',
@@ -32,6 +33,7 @@ const TripletChildTriplet = props => {
   }
 
   let numline = ''
+  const { editableField } = useEditableContent()
 
   switch (arcSite) {
     case 'elcomercio':
@@ -105,7 +107,6 @@ const TripletChildTriplet = props => {
 
 TripletChildTriplet.propTypes = {
   arcSite: PropTypes.string,
-  editableField: PropTypes.func,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       link: PropTypes.string,
@@ -119,4 +120,4 @@ TripletChildTriplet.propTypes = {
   multimediaOrientation: PropTypes.string,
 }
 
-export default TripletChildTriplet
+export default React.memo(TripletChildTriplet)

@@ -1,18 +1,13 @@
 /* eslint-disable react/no-unused-state */
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { useState, useEffect } from 'react'
+import { useContent, useEditableContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
 import { getPhotoId } from '../../../utilities/helpers'
-import {
-  includeCredits,
-  includePrimarySection,
-  includePromoItems,
-  includePromoItemsCaptions,
-  includeCreditsImage,
-} from '../../../utilities/included-fields'
+import { includePromoItems } from '../../../utilities/included-fields'
 
 // TODO: cambiar a componente funcional con hooks
 
@@ -24,88 +19,69 @@ const PHOTO_SCHEMA = `{
   }
 }`
 
-@Consumer
-class ExtraordinaryStoryLifeScore extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      results: {},
-      count: 0,
-    }
+const ExtraordinaryStoryLifeScore = props => {
+  const { customFields } = props
+  const {
+    storyConfig: { contentService = '', contentConfigValues = {} } = {},
+    codeField = '',
+    titleField = '',
+    subTitleField = '',
+    isLive,
+    imgField,
+  } = customFields || {}
 
-    const {
-      customFields: {
-        storyConfig: { contentService = '', contentConfigValues = {} } = {},
-        imgField,
-      } = {},
-      arcSite,
-      contextPath,
-      deployment,
-    } = this.props
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { editableField } = useEditableContent()
 
-    const presets = 'landscape_l:648x374'
-    const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems}`
+  const [results, setResults] = useState({})
+  const [count, setCount] = useState(0)
 
-    this.fetchContent({
-      story: {
-        source: contentService,
-        query: Object.assign(contentConfigValues, { presets, includedFields }),
-        filter: schemaFilter(arcSite),
-        transform(data) {
-          const {
-            title,
-            subTitle,
-            multimediaLandscapeL,
-            websiteLink,
-            multimediaLazyDefault,
-          } = new StoryData({
-            data,
-            arcSite,
-            contextPath,
-            deployment,
-            defaultImgSize: 'md',
-          })
-          return {
-            title,
-            subTitle,
-            multimediaLandscapeL,
-            websiteLink,
-            multimediaLazyDefault,
-          }
-        },
-      },
-    })
-    if (imgField) {
-      const photoId = getPhotoId(imgField)
-      if (photoId) {
-        this.fetchContent({
-          customPhoto: {
+  const presets = 'landscape_l:648x374'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems}`
+
+  const story = useContent({
+    source: contentService,
+    query: Object.assign(contentConfigValues, { presets, includedFields }),
+    filter: schemaFilter(arcSite),
+    transform(data) {
+      const {
+        title,
+        subTitle,
+        multimediaLandscapeL,
+        websiteLink,
+        multimediaLazyDefault,
+      } = new StoryData({
+        data,
+        arcSite,
+        contextPath,
+        deployment,
+        defaultImgSize: 'md',
+      })
+      return {
+        title,
+        subTitle,
+        multimediaLandscapeL,
+        websiteLink,
+        multimediaLazyDefault,
+      }
+    },
+  })
+
+  const photoId = imgField ? getPhotoId(imgField) : ''
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
             source: PHOTO_SOURCE,
             query: {
               _id: photoId,
             },
             filter: PHOTO_SCHEMA,
-          },
-        })
-      }
-    }
-  }
+          }
+        : {}
+    ) || {}
 
-  componentDidMount() {
-    this.setState({ count: Date.now() })
-    const { customFields: { codeField } = {} } = this.props
-    if (codeField) {
-      this.fetch(Date.now())
-      setInterval(() => {
-        this.fetch()
-      }, 5000)
-    }
-  }
-
-  fetch(first) {
-    const { count } = this.state
-    const { customFields: { codeField = '' } = {} } = this.props
-
+  const customFetch = first => {
     const actualCount = first || count
 
     fetch(
@@ -113,95 +89,91 @@ class ExtraordinaryStoryLifeScore extends PureComponent {
     )
       .then(res => res.json())
       .then(res => {
-        this.setState({ results: res, count: actualCount + 1 })
+        setResults(res)
+        setCount(actualCount + 1)
       })
       .catch(err => console.error(err))
   }
 
-  render() {
-    const {
-      results: { data: { equipos: teams = [] } = {} } = {},
-      story: {
-        title,
-        subTitle,
-        multimediaLandscapeL,
-        websiteLink,
-        multimediaLazyDefault,
-      } = {},
-      customPhoto: { resized_urls: { landscape_l: landscapeL } = {} } = {},
-    } = this.state || {}
-    const {
-      customFields: {
-        codeField = '',
-        titleField = '',
-        subTitleField = '',
-        isLive,
-        imgField,
-      } = {},
-      editableField,
-      isAdmin,
-    } = this.props
+  useEffect(() => {
+    setCount(Date.now())
+    if (codeField) {
+      customFetch(Date.now())
+      setInterval(() => {
+        customFetch()
+      }, 5000)
+    }
+  }, [])
 
-    const [firstTeam = {}, secondTeam = {}] = teams
+  const { data: { equipos: teams = [] } = {} } = results || {}
+  const {
+    title,
+    subTitle,
+    multimediaLandscapeL,
+    websiteLink,
+    multimediaLazyDefault,
+  } = story || {}
+  const { resized_urls: { landscape_l: landscapeL } = {} } = customPhoto || {}
 
-    const imgUrl = landscapeL || imgField || multimediaLandscapeL
+  const [firstTeam = {}, secondTeam = {}] = teams
 
-    return (
-      <div className="extraordinary-l-score bg-gray-300 lg:flex flex-row-reverse">
-        <a
-          className="extraordinary-l-score__img-link block lg:p-20"
-          href={websiteLink}>
-          <picture className="extraordinary-l-score__picture">
-            <img
-              className={`${
-                isAdmin ? '' : 'lazy'
-              } extraordinary-l-score__img w-full object-cover`}
-              src={isAdmin ? imgUrl : multimediaLazyDefault}
-              data-src={imgUrl}
-              alt={title}
-            />
-          </picture>
-        </a>
-        <div className="extraordinary-l-score__content p-10 lg:p-20">
-          {codeField && (
-            <a
-              href={websiteLink}
-              className="extraordinary-l-score__score-content text-white flex mb-15">
-              <div className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex justify-end items-center">
-                {firstTeam.nombre || ''}
-              </div>
-              <div className="extraordinary-l-score__score p-10 title-xs font-bold bg-black flex items-center">{`${firstTeam.score ||
-                ''} - ${secondTeam.score || ''}`}</div>
-              <div className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex items-center">
-                {secondTeam.nombre || ''}
-              </div>
-            </a>
+  const imgUrl = landscapeL || imgField || multimediaLandscapeL
+
+  return (
+    <div className="extraordinary-l-score bg-gray-300 lg:flex flex-row-reverse">
+      <a
+        className="extraordinary-l-score__img-link block lg:p-20"
+        href={websiteLink}>
+        <picture className="extraordinary-l-score__picture">
+          <img
+            className={`${
+              isAdmin ? '' : 'lazy'
+            } extraordinary-l-score__img w-full object-cover`}
+            src={isAdmin ? imgUrl : multimediaLazyDefault}
+            data-src={imgUrl}
+            alt={title}
+          />
+        </picture>
+      </a>
+      <div className="extraordinary-l-score__content p-10 lg:p-20">
+        {codeField && (
+          <a
+            href={websiteLink}
+            className="extraordinary-l-score__score-content text-white flex mb-15">
+            <div className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex justify-end items-center">
+              {firstTeam.nombre || ''}
+            </div>
+            <div className="extraordinary-l-score__score p-10 title-xs font-bold bg-black flex items-center">{`${firstTeam.score ||
+              ''} - ${secondTeam.score || ''}`}</div>
+            <div className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex items-center">
+              {secondTeam.nombre || ''}
+            </div>
+          </a>
+        )}
+        <h1 className="extraordinary-l-score__title mb-15 overflow-hidden">
+          {isLive && (
+            <div className="extraordinary-l-score__live text-white inline-block mr-10">
+              <span className="extraordinary-l-score__live-icon inline-block rounded mr-5" />
+              EN VIVO
+            </div>
           )}
-          <h1 className="extraordinary-l-score__title mb-15 overflow-hidden">
-            {isLive && (
-              <div className="extraordinary-l-score__live text-white inline-block mr-10">
-                <span className="extraordinary-l-score__live-icon inline-block rounded mr-5" />
-                EN VIVO
-              </div>
-            )}
-            <a
-              href={websiteLink}
-              className="extraordinary-l-score__title-link text-white title-md font-bold line-h-xs"
-              {...editableField('titleField')}
-              suppressContentEditableWarning>
-              {titleField || title}
-            </a>
-          </h1>
-          <p
-            className="extraordinary-l-score__subtitle text-white hidden md:block text-lg line-h-sm mb-20"
-            {...editableField('subTitleField')}
+          <a
+            href={websiteLink}
+            className="extraordinary-l-score__title-link text-white title-md font-bold line-h-xs"
+            {...editableField('titleField')}
             suppressContentEditableWarning>
-            {subTitleField || subTitle}
-          </p>
-        </div>
+            {titleField || title}
+          </a>
+        </h1>
+        <p
+          className="extraordinary-l-score__subtitle text-white hidden md:block text-lg line-h-sm mb-20"
+          {...editableField('subTitleField')}
+          suppressContentEditableWarning>
+          {subTitleField || subTitle}
+        </p>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 ExtraordinaryStoryLifeScore.label = 'Apertura extraordinaria - En vivo'

@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { useEffect } from 'react'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
@@ -17,13 +18,14 @@ const classes = {
   commentsAllow: 'comments-allow ',
 }
 
-@Consumer
-class StoryComentario extends PureComponent {
-  componentDidMount() {
-    const {
-      customFields: { comment = '', spotId = 'sp_LX2WRR7S' } = {},
-    } = this.props
+const StoryComentario = props => {
+  const {
+    customFields: { comment = '', spotId = 'sp_LX2WRR7S', excluir = '' } = {},
+  } = props
+  const { contextPath, arcSite, globalContent: data } = useFusionContext()
+  const { siteUrl } = getProperties(arcSite)
 
+  useEffect(() => {
     if (
       comment === 'spotim' &&
       document.querySelector('.story-spotim-script')
@@ -53,59 +55,50 @@ class StoryComentario extends PureComponent {
         document.querySelector('.story-spotim-script').before(node)
       }
     }
-  }
+  }, [])
 
-  render() {
-    const {
-      contextPath,
-      globalContent: data,
-      siteProperties: { siteUrl } = {},
-      customFields: { comment = '', spotId = 'sp_LX2WRR7S', excluir = '' } = {},
-    } = this.props
+  const {
+    link,
+    primarySection,
+    commentsDisplay,
+    commentsAllow,
+    sourceId,
+  } = new StoryData({
+    data,
+    contextPath,
+  })
+  const excluirArray = excluir.split('|')
+  const excluirComment = excluirArray.indexOf(primarySection)
+  return (
+    <>
+      <div className={classes.story}>
+        {comment === 'faceboosk' && (
+          <div
+            className="fb-comments"
+            data-href={`${siteUrl}${link}`}
+            data-numposts="5"
+          />
+        )}
 
-    const {
-      link,
-      primarySection,
-      commentsDisplay,
-      commentsAllow,
-      sourceId,
-    } = new StoryData({
-      data,
-      contextPath,
-    })
-    const excluirArray = excluir.split('|')
-    const excluirComment = excluirArray.indexOf(primarySection)
-    return (
-      <>
-        <div className={classes.story}>
-          {comment === 'faceboosk' && (
-            <div
-              className="fb-comments"
-              data-href={`${siteUrl}${link}`}
-              data-numposts="5"
-            />
+        {comment === 'spotim' &&
+          (commentsDisplay || commentsAllow || sourceId) &&
+          excluirComment === -1 && (
+            <>
+              <div
+                data-spotim-module="recirculation"
+                data-spot-id={spotId}
+                className={classes.spotim}
+              />
+              <div className={classes.spotimScript} />
+              {commentsDisplay ||
+                (sourceId && <div className={classes.commentsDisplay} />)}
+              {commentsAllow ||
+                (sourceId && <div className={classes.commentsAllow} />)}
+            </>
           )}
-
-          {comment === 'spotim' &&
-            (commentsDisplay || commentsAllow || sourceId) &&
-            excluirComment === -1 && (
-              <>
-                <div
-                  data-spotim-module="recirculation"
-                  data-spot-id={spotId}
-                  className={classes.spotim}
-                />
-                <div className={classes.spotimScript} />
-                {commentsDisplay ||
-                  (sourceId && <div className={classes.commentsDisplay} />)}
-                {commentsAllow ||
-                  (sourceId && <div className={classes.commentsAllow} />)}
-              </>
-            )}
-        </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  )
 }
 
 StoryComentario.propTypes = {

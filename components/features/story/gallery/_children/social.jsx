@@ -1,5 +1,6 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import {
   popUpWindow,
@@ -17,82 +18,75 @@ const classes = {
   iconFacebook: 'icon-facebook-circle',
   iconTwitter: 'icon-twitter-circle',
 }
-@Consumer
-class StoryGalleryChildSocial extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.firstList = 'firstList'
-    this.secondList = 'secondList'
-    this.state = {
-      currentList: this.firstList,
-    }
-    const {
-      siteProperties: {
-        social: {
-          twitter: { user: siteNameRedSocial },
-        },
-        siteUrl,
+
+const StoryGalleryChildSocial = () => {
+  const firstList = 'firstList'
+  const secondList = 'secondList'
+  const currentList = firstList
+
+  const {
+    globalContent: {
+      website_url: postPermaLink,
+      headlines: { basic: postTitle } = {},
+    },
+    arcSite,
+  } = useFusionContext()
+
+  const {
+    social: { twitter: { user: siteNameRedSocial } = {} } = {},
+    siteUrl,
+  } = getProperties(arcSite)
+
+  const urlsShareList = socialMediaUrlShareList(
+    siteUrl,
+    postPermaLink,
+    postTitle,
+    siteNameRedSocial
+  )
+
+  const shareButtons = {
+    [firstList]: [
+      {
+        icon: classes.iconFacebook,
+        link: urlsShareList.facebook,
+        mobileClass: classes.mobileClass,
       },
-      globalContent: {
-        website_url: postPermaLink,
-        headlines: { basic: postTitle } = {},
+
+      {
+        icon: classes.iconTwitter,
+        link: urlsShareList.twitter,
+        mobileClass: classes.mobileClass,
       },
-    } = props
-
-    const urlsShareList = socialMediaUrlShareList(
-      siteUrl,
-      postPermaLink,
-      postTitle,
-      siteNameRedSocial
-    )
-
-    this.shareButtons = {
-      [this.firstList]: [
-        {
-          icon: classes.iconFacebook,
-          link: urlsShareList.facebook,
-          mobileClass: classes.mobileClass,
-        },
-
-        {
-          icon: classes.iconTwitter,
-          link: urlsShareList.twitter,
-          mobileClass: classes.mobileClass,
-        },
-      ],
-    }
+    ],
   }
 
-  openLink = (event, item, print) => {
+  const openLink = (event, item, print) => {
     event.preventDefault()
     if (print) window.print()
     else popUpWindow(item.link, '', 600, 400)
   }
 
-  render() {
-    const { currentList } = this.state
-    return (
-      <>
-        <ul className={classes.list}>
-          {this.shareButtons[currentList].map((item, i) => (
-            <li
-              key={UtilListKey(i)}
-              className={` ${classes.item} ${item.mobileClass}`}>
-              <a
-                className={classes.link}
-                href={item.link}
-                onClick={event => {
-                  const isPrint = i === 2 && currentList === this.secondList
-                  this.openLink(event, item, isPrint)
-                }}>
-                <i className={`${item.icon} ${classes.icon}`} />
-              </a>
-            </li>
-          ))}
-        </ul>
-      </>
-    )
-  }
+  return (
+    <>
+      <ul className={classes.list}>
+        {shareButtons[currentList].map((item, i) => (
+          <li
+            key={UtilListKey(i)}
+            className={` ${classes.item} ${item.mobileClass}`}>
+            <a
+              className={classes.link}
+              href={item.link}
+              onClick={event => {
+                const isPrint = i === 2 && currentList === secondList
+                openLink(event, item, isPrint)
+              }}>
+              <i className={`${item.icon} ${classes.icon}`} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
 }
 
 export default StoryGalleryChildSocial
