@@ -7,6 +7,7 @@ export const SchemaSingleStory = arcSite => {
     taxonomy {
       primary_section { name path }
     }
+    credits { by { name, url, id, type } }
     promo_items {
       basic { url type caption resized_urls { landscape_md lazy_default  } }
       basic_video {
@@ -14,6 +15,7 @@ export const SchemaSingleStory = arcSite => {
         additional_properties { 
           advertising { playAds playVideoAds }
         }
+        duration
         embed_html
         promo_items {
           basic { url type caption resized_urls { landscape_md lazy_default  } }
@@ -34,11 +36,13 @@ export const SchemaMultiStory = arcSite => {
       taxonomy {
         primary_section { name path }
       }
+      credits { by { name, url, id, type } }
       promo_items {
         basic { url type resized_urls { landscape_md lazy_default  } }
         basic_video {
           _id
           embed_html
+          duration
           additional_properties { 
             advertising { playAds playVideoAds }
           }

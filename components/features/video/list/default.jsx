@@ -131,6 +131,7 @@ class VideoList extends PureComponent {
                 multimediaSquareMD,
                 primarySection,
                 primarySectionLink,
+                videoDuration,
               } = Story
               const params = {
                 websiteLink,
@@ -138,6 +139,7 @@ class VideoList extends PureComponent {
                 multimediaSquareMD,
                 primarySection,
                 primarySectionLink,
+                videoDuration,
               }
               return <VideoListItem {...params} />
             })}

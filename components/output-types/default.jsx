@@ -84,6 +84,10 @@ export default ({
     if (requestUri.match('^/depor-play')) classBody = `${classBody} depor-play`
     if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
   }
+    
+  if(requestUri.match(`^(/play/.*)`)) classBody = "section-play"
+  if(requestUri.match(`^(/videos/.*)`)) classBody = "section-videos"  
+
 
   const metaSiteData = {
     ...siteProperties,

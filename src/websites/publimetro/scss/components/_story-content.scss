@@ -1,6 +1,6 @@
 .story-content {
   &__font--secondary {
-    font-family: $font-regular;
+    font-family: $secondary-font;
     a {
       color: $color-primary;
       font-weight: bold;
@@ -11,6 +11,6 @@
   }
 
   &__author {
-    font-family: $font-regular;
+    font-family: $secondary-font;
   }
 }
