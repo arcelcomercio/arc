@@ -37,7 +37,7 @@ const FacebookLive = props => {
       {!showVideo && (
         <div className={classes.containerMask}>
           <img src={urlImageDefault} alt={arcSite} />
-          {!showVideo && <label className={classes.label}>{textError}</label>}
+          {!showVideo && <span className={classes.label}>{textError}</span>}
         </div>
       )}
       {showVideo && (

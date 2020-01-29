@@ -1,5 +1,8 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+
 import FooterDeporColumnSection from './_children/FooterSection'
 import FooterInfo from './_children/FooterInfo'
 
@@ -26,74 +29,62 @@ const classes = {
   content: 'footer-secction__content-footer ',
 }
 
-@Consumer
-class FooterDepor extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {arcSite} = this.props
-    this.fetchContent({
-      sections: {
-        source: CONTENT_SOURCE,
-        query: {
-          website: arcSite,
-          hierarchy: DEFAULT_HIERARCHY,
-        },
-        filter: SCHEMA,
-      },
-    })
+const FooterDepor = () => {
+  const { arcSite, contextPath, deployment } = useFusionContext()
+
+  const {
+    gecSites,
+    siteUrl = '',
+    legalLinks = [],
+    footer: {
+      socialNetworks = [],
+      contacts = [],
+      corporateInfo = {},
+      draftingContact = [],
+      copyrightText = '',
+    } = {},
+  } = getProperties(arcSite)
+
+  const imageDefault = deployment(
+    `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+  )
+
+  const sections = useContent({
+    source: CONTENT_SOURCE,
+    query: {
+      website: arcSite,
+      hierarchy: DEFAULT_HIERARCHY,
+    },
+    filter: SCHEMA,
+  })
+
+  const { children = [] } = sections || {}
+
+  const footerProps = {
+    sections: children,
+    socialNetworks,
+    arcSite,
   }
-
-  render() {
-    const { sections: { children = [] } = {} } = this.state
-    const {
-      arcSite,
-      siteProperties: {
-        gecSites,
-        siteUrl = '',
-        legalLinks = [],
-        footer: {
-          socialNetworks = [],
-          contacts = [],
-          corporateInfo = {},
-          draftingContact = [],
-          copyrightText = '',
-        } = {},
-      } = {},
-      contextPath,
-    } = this.props
-
-    // const imageDefault =  `${contextPath}/resources/dist/depor/images/logo.png`
-    const { deployment } = this.props
-    const imageDefault = deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/logo.png`
-    )
-
-    const footerProps = {
-      sections: children,
-      socialNetworks,
-      arcSite,
-    }
-    const footerInfoProp = {
-      siteUrl,
-      imageDefault,
-      gecSites,
-      legalLinks,
-      socialNetworks,
-      contacts,
-      corporateInfo,
-      draftingContact,
-      copyrightText,
-    }
-    const keyString = 'key0'
-    return (
-      <footer className={classes.footer}>
-        <div className={classes.content}>
-          <FooterDeporColumnSection key={keyString} {...footerProps} />
-          <FooterInfo key={0} {...footerInfoProp} />
-        </div>
-      </footer>
-    )
+  const footerInfoProp = {
+    siteUrl,
+    imageDefault,
+    gecSites,
+    legalLinks,
+    socialNetworks,
+    contacts,
+    corporateInfo,
+    draftingContact,
+    copyrightText,
   }
+  const keyString = 'key0'
+  return (
+    <footer className={classes.footer}>
+      <div className={classes.content}>
+        <FooterDeporColumnSection key={keyString} {...footerProps} />
+        <FooterInfo key={0} {...footerInfoProp} />
+      </div>
+    </footer>
+  )
 }
 
 FooterDepor.label = 'Pié de página - Depor'

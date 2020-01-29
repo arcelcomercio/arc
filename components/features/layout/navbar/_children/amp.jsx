@@ -1,5 +1,4 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
 import AmpSocial from '../../../story/social/_children/amp-social'
 
 const classes = {
@@ -13,36 +12,33 @@ const classes = {
   btnContainer: 'flex items-center justify-end header__btn-container',
 }
 
-@Consumer
-class NavBarDefault extends PureComponent {
-  render() {
-    const tapSidebar = 'tap:sidebar.toggle'
-    return (
-      <>
-        <nav className={classes.nav}>
-          <div className={classes.wrapper}>
-            {/** ************* LEFT *************** */}
+const NavBarDefault = () => {
+  const tapSidebar = 'tap:sidebar.toggle'
+  return (
+    <>
+      <nav className={classes.nav}>
+        <div className={classes.wrapper}>
+          {/** ************* LEFT *************** */}
 
-            <div className={classes.navBtnContainer}>
-              <button
-                type="button"
-                // eslint-disable-next-line react/no-unknown-property
-                tabindex="0"
-                on={tapSidebar}
-                className={classes.iconMenu}
-              />
-            </div>
-
-            {/** ************* RIGHT *************** */}
-
-            <div className={classes.btnContainer}>
-              <AmpSocial />
-            </div>
+          <div className={classes.navBtnContainer}>
+            <button
+              type="button"
+              // eslint-disable-next-line react/no-unknown-property
+              tabindex="0"
+              on={tapSidebar}
+              className={classes.iconMenu}
+            />
           </div>
-        </nav>
-      </>
-    )
-  }
+
+          {/** ************* RIGHT *************** */}
+
+          <div className={classes.btnContainer}>
+            <AmpSocial />
+          </div>
+        </div>
+      </nav>
+    </>
+  )
 }
 
-export default NavBarDefault
+export default React.memo(NavBarDefault)

@@ -67,7 +67,10 @@ const StoriesList = ({
               {element.primarySection}
             </a>
             <p className={classes.date}>
-              {formatDateLocalTimeZone(element.date)}
+              {// Con esto se comprueba si se renderiza en cliente o servidor
+              typeof window === 'undefined'
+                ? formatDateLocalTimeZone(element.date)
+                : formatDateLocalTimeZone(element.date, '-', true)}
             </p>
           </div>
           <div className={classes.wrapperTitle}>
@@ -123,4 +126,4 @@ const StoriesList = ({
   )
 }
 
-export default StoriesList
+export default React.memo(StoriesList)

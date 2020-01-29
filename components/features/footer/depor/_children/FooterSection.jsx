@@ -22,4 +22,4 @@ const DeporFooter = ({ sections = [], socialNetworks, arcSite }) => {
   )
 }
 
-export default DeporFooter
+export default React.memo(DeporFooter)

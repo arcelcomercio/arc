@@ -1,4 +1,9 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+
+// TODO: Separar Feature de Componente.
 
 const classes = {
   header: 'amp-header w-full position-absolute mx-auto',
@@ -14,7 +19,15 @@ const classes = {
     'i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
 }
 
-const LayoutInvertedAmpHeader = ({ imgLogo, arcSite }) => {
+const LayoutAmpHeader = () => {
+  const { contextPath, arcSite, deployment } = useFusionContext()
+  const { siteUrl } = getProperties(arcSite)
+
+  const imgLogo =
+    deployment(
+      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
+    ) || ''
+
   return (
     <>
       <header className={classes.header}>
@@ -41,6 +54,7 @@ const LayoutInvertedAmpHeader = ({ imgLogo, arcSite }) => {
   )
 }
 
-LayoutInvertedAmpHeader.label = 'Cabecera de Página'
+LayoutAmpHeader.label = 'Cabecera de Página'
+LayoutAmpHeader.static = true
 
-export default LayoutInvertedAmpHeader
+export default LayoutAmpHeader
