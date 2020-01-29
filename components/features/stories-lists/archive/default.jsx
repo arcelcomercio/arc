@@ -1,6 +1,7 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { Fragment } from 'react'
 // El fragment se usa para poder agregar "key"
-import Consumer from 'fusion:consumer'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import { customFields } from '../_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
@@ -12,70 +13,65 @@ const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
-@Consumer
-class StoriesListArchive extends PureComponent {
-  hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
+const StoriesListArchive = props => {
+  const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
 
-  render() {
-    const {
-      globalContent,
-      deployment,
-      contextPath,
-      arcSite,
-      isAdmin,
-      customFields: customFieldsProps = {},
-      siteProperties: { isDfp = false },
-      metaValue,
-    } = this.props
-    const {
-      content_elements: contentElements,
-      params: { section, date } = {},
-    } = globalContent || {}
-    const stories = contentElements || []
+  const { customFields: customFieldsProps = {} } = props
+  const {
+    globalContent,
+    deployment,
+    contextPath,
+    arcSite,
+    isAdmin,
+    metaValue,
+  } = useFusionContext()
+  const { isDfp = false } = getProperties(arcSite)
+  const { content_elements: contentElements, params: { section, date } = {} } =
+    globalContent || {}
+  const stories = contentElements || []
 
-    const activeAds = Object.keys(customFieldsProps)
-      .filter(prop => prop.match(/adsMobile(\d)/))
-      .filter(key => customFieldsProps[key] === true)
+  const activeAds = Object.keys(customFieldsProps)
+    .filter(prop => prop.match(/adsMobile(\d)/))
+    .filter(key => customFieldsProps[key] === true)
 
-    const typeSpace = isDfp ? 'caja' : 'movil'
+  const typeSpace = isDfp ? 'caja' : 'movil'
 
-    const activeAdsArray = activeAds.map(el => {
-      return {
-        name: `${typeSpace}${el.slice(-1)}`,
-        pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
-        inserted: false,
-      }
-    })
+  const activeAdsArray = activeAds.map(el => {
+    return {
+      name: `${typeSpace}${el.slice(-1)}`,
+      pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+      inserted: false,
+    }
+  })
 
-    return (
-      <>
-        <div>
-          {stories.map((story, index) => {
-            const ads = this.hasAds(index + 1, activeAdsArray)
-            return (
-              <Fragment key={`Archivo-${story._id}`}>
-                <StoryItem
-                  data={story}
-                  {...{ deployment, contextPath, arcSite, isAdmin }}
-                />
-                {ads.length > 0 && (
-                  <div className={classes.adsBox}>
-                    <Ads
-                      adElement={ads[0].name}
-                      isDesktop={false}
-                      isMobile
-                      isDfp={isDfp}
-                    />
-                  </div>
-                )}
-              </Fragment>
-            )
-          })}
-        </div>
-        <RenderPagination section={section} date={date || getActualDate()} />
-      </>
-    )
-  }
+  return (
+    <>
+      <div>
+        {stories.map((story, index) => {
+          const ads = hasAds(index + 1, activeAdsArray)
+          return (
+            <Fragment key={`Archivo-${story._id}`}>
+              <StoryItem
+                data={story}
+                {...{ deployment, contextPath, arcSite, isAdmin }}
+              />
+              {ads.length > 0 && (
+                <div className={classes.adsBox}>
+                  <Ads
+                    adElement={ads[0].name}
+                    isDesktop={false}
+                    isMobile
+                    isDfp={isDfp}
+                  />
+                </div>
+              )}
+            </Fragment>
+          )
+        })}
+      </div>
+      <RenderPagination section={section} date={date || getActualDate()} />
+    </>
+  )
 }
 
 StoriesListArchive.propTypes = {

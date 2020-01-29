@@ -3,24 +3,24 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import HeaderChildStandard from './_children/standard'
+import HeaderChildSomos from './_children/somos'
 import Formatter from './_dependencies/formatter'
 import customFields from './_dependencies/custom-fields'
 
 const DEFAULT_HIERARCHY = 'header-default'
 
-const HeaderStandard = props => {
+const LayoutHeader = props => {
   const {
     customFields: {
+      hierarchyConfig,
       customLogo,
       customLogoLink,
       tags,
       showDate,
-      hierarchyConfig,
+      isSlider,
       showInDesktop = true,
       showInTablet = true,
       showInMobile = true,
-      isSlider,
     },
   } = props
 
@@ -63,22 +63,20 @@ const HeaderStandard = props => {
     }) || {}
 
   formater.setData(data)
-
   const params = { ...formater.getParams(), isSlider }
 
   return (
-    <HeaderChildStandard
+    <HeaderChildSomos
       {...params}
       deviceList={{ showInDesktop, showInTablet, showInMobile }}
     />
   )
 }
 
-HeaderStandard.label = 'Cabecera - Estándar'
-// HeaderStandard.static = true
+LayoutHeader.label = 'Cabecera - Somos'
 
-HeaderStandard.propTypes = {
+LayoutHeader.propTypes = {
   customFields,
 }
 
-export default HeaderStandard
+export default LayoutHeader

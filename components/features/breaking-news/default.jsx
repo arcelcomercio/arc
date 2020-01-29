@@ -31,14 +31,19 @@ const BreakingNews = props => {
   const { editableField } = useEditableContent()
   const [isVisible, setIsVisible] = useState(true)
 
-  const article = useContent({
-    source: 'story-by-url',
-    query: {
-      website_url: storyLink,
-      website: arcSite,
-    },
-    filter: schemaFilter,
-  })
+  const article = useContent(
+    storyLink
+      ? {
+          source: 'story-by-url',
+          query: {
+            website_url: storyLink,
+            website: arcSite,
+            includedFields: `headlines.basic,subheadlines.basic,website,website_url`,
+          },
+          filter: schemaFilter,
+        }
+      : {}
+  )
 
   const handleOnclickClose = () => {
     setIsVisible(false)

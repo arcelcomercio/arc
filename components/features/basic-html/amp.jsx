@@ -1,11 +1,5 @@
-import { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
-
-@Consumer
-class BasicAmpHtml extends PureComponent {
-  render() {
-    return false
-  }
+const BasicAmpHtml = () => {
+  return false
 }
 
 export default BasicAmpHtml

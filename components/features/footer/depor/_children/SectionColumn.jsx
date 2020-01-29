@@ -53,4 +53,4 @@ const SectionColumn = ({
   )
 }
 
-export default SectionColumn
+export default React.memo(SectionColumn)

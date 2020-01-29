@@ -1,84 +1,62 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 
 import Menu from './_children/menu'
-
 import Formatter from '../navbar/_dependencies/formatter'
 
-@Consumer
-class LayoutNavbar extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
+const LayoutNavbar = props => {
+  const { customFields } = props
+  const { contextPath, arcSite, deployment } = useFusionContext()
+
+  const {
+    siteDomain,
+    footer: { socialNetworks },
+    assets: { nav },
+    siteUrl,
+  } = getProperties(arcSite)
+
+  const formater = new Formatter(
+    {
+      deployment,
       contextPath,
+      siteDomain,
+      nav,
       arcSite,
-      deployment,
-      customFields,
-      siteProperties: {
-        siteDomain,
-        footer: { socialNetworks },
-        assets: { nav },
-      },
-    } = this.props
-
-    this.formater = new Formatter(
-      {
-        deployment,
-        contextPath,
-        siteDomain,
-        nav,
-        arcSite,
-        socialNetworks,
-        getContent: this.getContent,
-      },
-      customFields
-    )
-    this.state = {
-      data: {},
-    }
-    if (this.formater.main.fetch !== false) {
-      const { params = {} , source = '' } = this.formater.main.fetch.config || {}
-      /** Solicita la data a la API y setea los resultados en "state.data" */
-      this.fetchContent({
-        data: {
-          source,
-          query: params,
-          filter: this.formater.getSchema(),
-        },
-      })
-    }
-  }
-
-  renderNavBar() {
-    const { data } = this.state
-    const {
-      contextPath,
-      arcSite,
-      deployment,
-      siteProperties: {
-        footer: { socialNetworks },
-        siteUrl,
-      },
-    } = this.props
-
-    const parameters = {
-      contextPath,
-      deployment,
       socialNetworks,
-      arcSite,
-      siteUrl,
-    }
+    },
+    customFields
+  )
 
-    const NavBarType = {
-      standard: <Menu data={data} {...parameters} />,
-    }
-    return NavBarType.standard
+  const { params = {}, source = '' } =
+    formater.main.fetch !== false ? formater.main.fetch.config : {}
+  /** Solicita la data a la API y setea los resultados en "state.data" */
+
+  const data =
+    useContent(
+      params && source
+        ? {
+            source,
+            query: params,
+            filter: formater.getSchema(),
+          }
+        : {}
+    ) || {}
+
+  const parameters = {
+    contextPath,
+    deployment,
+    socialNetworks,
+    arcSite,
+    siteUrl,
   }
 
-  render() {
-    return this.renderNavBar()
+  const NavBarType = {
+    standard: <Menu data={data} {...parameters} />,
   }
+  return NavBarType.standard
 }
 
 LayoutNavbar.propTypes = {

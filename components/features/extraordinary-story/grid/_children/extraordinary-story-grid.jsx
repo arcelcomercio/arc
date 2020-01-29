@@ -54,7 +54,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
             <img
               className={classes.gridHeaderImage}
               src={imgLogo}
-              alt={`Logo especial de ${arcSite}`}              
+              alt={`Logo especial de ${arcSite}`}
             />
           </a>
         </div>
@@ -80,4 +80,4 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
   )
 }
 
-export default ExtraordinaryStoryGridChildExtraordinaryStoryGrid
+export default React.memo(ExtraordinaryStoryGridChildExtraordinaryStoryGrid)

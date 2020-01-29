@@ -1,5 +1,8 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+
 import BlogItem from './_children/item'
 import Pagination from '../../../global-components/pagination'
 import { customFields } from '../_dependencies/custom-fields'
@@ -9,7 +12,6 @@ import {
   formatDateLocalTimeZone,
   defaultImage,
   addSlashToEnd,
-
 } from '../../../utilities/helpers'
 
 const classes = {
@@ -20,25 +22,53 @@ const classes = {
 
 const CONTENT_SOURCE = 'get-count-all-blogs'
 
-@Consumer
-class BlogList extends PureComponent {
-  constructor(props) {
-    super(props)
-    const { arcSite } = this.props
+const BlogList = props => {
+  const { customFields: customFieldsProps = {} } = props
 
-    this.fetchContent({
-      totalPosts: {
-        source: CONTENT_SOURCE,
-        query: {
-          website: arcSite,
-        },
+  const {
+    arcSite,
+    isAdmin,
+    deployment,
+    contextPath,
+    requestUri,
+    globalContent = {},
+    globalContentConfig = {},
+  } = useFusionContext()
+  const { isDfp = false } = getProperties(arcSite)
+
+  const totalPosts =
+    useContent({
+      source: CONTENT_SOURCE,
+      query: {
+        website: arcSite,
       },
-    })
-  }
+    }) || {}
 
-  hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
+  const {
+    query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
+  } = globalContentConfig || {}
 
-  transformDate = postDate => {
+  const { total: totalItems = null } = totalPosts
+
+  const blogs = Object.values(globalContent).filter(
+    item => typeof item === 'object'
+  )
+
+  const activeAds = Object.keys(customFieldsProps)
+    .filter(prop => prop.match(/adsMobile(\d)/))
+    .filter(key => customFieldsProps[key] === true)
+
+  const activeAdsArray = activeAds.map(el => {
+    return {
+      name: `movil${el.slice(-1)}`,
+      pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+      inserted: false,
+    }
+  })
+
+  const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
+
+  const transformDate = postDate => {
     const arrayDate = formatDateLocalTimeZone(postDate).split(' ')
     if (arrayDate.length > 1)
       return parseInt(arrayDate[1].split(':')[0], 10) > 12
@@ -50,9 +80,7 @@ class BlogList extends PureComponent {
       .join('/')
   }
 
-  buildParams = blog => {
-    const { isAdmin, deployment, contextPath = '', arcSite = '' } = this.props
-
+  const buildParams = blog => {
     const {
       blog: { blogname = '', path = '' } = {},
       posts: [
@@ -82,7 +110,7 @@ class BlogList extends PureComponent {
     return {
       lazyImage,
       authorImg,
-      date: this.transformDate(postDate),
+      date: transformDate(postDate),
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
       postTitle,
@@ -93,74 +121,43 @@ class BlogList extends PureComponent {
     }
   }
 
-  render() {
-    const {
-      requestUri,
-      globalContent = {},
-      globalContentConfig = {},
-      customFields: customFieldsProps = {},
-      siteProperties: { isDfp = false },
-    } = this.props
-    const {
-      query: { blog_limit: blogLimit = '', blog_offset: blogOffset = '' } = {},
-    } = globalContentConfig
-    const { totalPosts = {} } = this.state
-    const { total: totalItems = null } = totalPosts
-    const blogs = Object.values(globalContent).filter(
-      item => typeof item === 'object'
-    )
-
-    const activeAds = Object.keys(customFieldsProps)
-      .filter(prop => prop.match(/adsMobile(\d)/))
-      .filter(key => customFieldsProps[key] === true)
-    const typeSpace = isDfp ? 'caja' : 'movil'
-
-    const activeAdsArray = activeAds.map(el => {
-      return {
-        name: `${typeSpace}${el.slice(-1)}`,
-        pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
-        inserted: false,
-      }
-    })
-
-    return (
-      <>
-        <div className={classes.list}>
-          <h1 className={classes.title}>blogs</h1>
-          <div>
-            {blogs.map((blog, i) => {
-              const params = this.buildParams(blog)
-              const key = `blog-${i}-${params.urlPost}`
-              const ads = this.hasAds(i + 1, activeAdsArray)
-              return (
-                <>
-                  <BlogItem key={key} {...params} />
-                  {ads.length > 0 && (
-                    <div className={classes.adsBox}>
-                      <Ads
-                        adElement={ads[0].name}
-                        isDesktop={false}
-                        isMobile
-                        isDfp={isDfp}
-                      />
-                    </div>
-                  )}
-                </>
-              )
-            })}
-          </div>
+  return (
+    <>
+      <div className={classes.list}>
+        <h1 className={classes.title}>blogs</h1>
+        <div>
+          {blogs.map((blog, i) => {
+            const params = buildParams(blog)
+            const key = `blog-${i}-${params.urlPost}`
+            const ads = hasAds(i + 1, activeAdsArray)
+            return (
+              <>
+                <BlogItem key={key} {...params} />
+                {ads.length > 0 && (
+                  <div className={classes.adsBox}>
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp={isDfp}
+                    />
+                  </div>
+                )}
+              </>
+            )
+          })}
         </div>
-        {totalItems && (
-          <Pagination
-            totalElements={totalItems}
-            storiesQty={blogLimit}
-            currentPage={blogOffset || 1}
-            requestUri={requestUri}
-          />
-        )}
-      </>
-    )
-  }
+      </div>
+      {totalItems && (
+        <Pagination
+          totalElements={totalItems}
+          storiesQty={blogLimit}
+          currentPage={blogOffset || 1}
+          requestUri={requestUri}
+        />
+      )}
+    </>
+  )
 }
 
 BlogList.propTypes = {
