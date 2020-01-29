@@ -98,4 +98,4 @@ BreakingNews.propTypes = {
 
 BreakingNews.label = 'Cintillo Urgente'
 
-export default React.memo(BreakingNews)
+export default BreakingNews
