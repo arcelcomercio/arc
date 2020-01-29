@@ -184,7 +184,7 @@ export default ({
                 </p>
               </div>
               {principalVideo.captionVideo && (
-                <span className="text-sm text-gray-200 ml-5 mt-5 block">
+                <span className="section-video__caption text-sm text-gray-200">
                   {principalVideo.captionVideo}
                 </span>
               )}
