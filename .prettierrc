@@ -3,6 +3,14 @@
   "tabWidth": 2,
   "semi": false,
   "singleQuote": true,
+  "overrides": [
+    {
+      "files": ["**/*.css", "**/*.scss"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ],
   "bracketSpacing": true,
   "jsxBracketSameLine": true
 }
