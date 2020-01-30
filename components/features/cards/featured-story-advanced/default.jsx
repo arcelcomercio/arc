@@ -36,6 +36,7 @@ const CardFeaturedStoryAdvanced = props => {
       urlVideoFacebook,
       adsSpace,
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      isLazyLoadActivate = true,
     } = {},
   } = props
 
@@ -155,6 +156,7 @@ const CardFeaturedStoryAdvanced = props => {
     siteName,
     multimediaSubtitle,
     multimediaCaption,
+    isLazyLoadActivate,
   }
 
   const paramsFacebook = {
