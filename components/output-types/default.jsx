@@ -367,11 +367,9 @@ export default ({
         )}
         {siteProperties.activePaywall && (
           <script
-            src={`${
-              CURRENT_ENVIRONMENT === 'prod'
-                ? siteProperties.siteUrl
-                : `https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com`
-            }/arc/subs/p.js?v=${new Date().toISOString().slice(0, 10)}`}
+            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
             async
           />
         )}
