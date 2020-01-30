@@ -1,4 +1,4 @@
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret } from 'fusion:environment'
 import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { removeLastSlash } from '../../components/utilities/helpers'
@@ -23,8 +23,8 @@ const resolve = (key = {}) => {
 
   const requestUri =
     !slug || slug === '/'
-      ? `${CONTENT_BASE}/site/v3/website/${website}/section`
-      : `${CONTENT_BASE}/site/v3/website/${website}/section?_id=${clearSlug}`
+      ? `/site/v3/website/${website}/section`
+      : `/site/v3/website/${website}/section?_id=${clearSlug}`
   return requestUri
 }
 
@@ -62,4 +62,5 @@ export default {
   transform,
   schemaName,
   params,
+  ttl: 600,
 }

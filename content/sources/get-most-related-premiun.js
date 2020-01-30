@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import ENV, { CONTENT_BASE } from 'fusion:environment'
+import ENV, { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 
 // TODO: LIMPIAME POR FAVOR
 
@@ -19,6 +19,9 @@ const uriPostDev = site =>
 const options = {
   gzip: true,
   json: true,
+  auth: {
+    bearer: ARC_ACCESS_TOKEN,
+  },
 }
 
 /* const clearURL = (arr = [], site = 'gestion') => {

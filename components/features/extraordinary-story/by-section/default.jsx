@@ -19,20 +19,22 @@ const ExtraordinaryStoryBySection = props => {
   const { sectionName, positionData, showExtraordinaryStory } = customFields
   const { deployment, contextPath, arcSite } = useFusionContext()
 
-  let data = {}
-  if (showExtraordinaryStory) {
-    data =
-      useContent({
-        source: SOURCE,
-        query: {
-          section: sectionName,
-          feedOffset: positionData || 0,
-          presets: 'landscape_xl:980x528,landscape_l:648x374,square_l:600x600',
-          includedFields: `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`,
-        },
-        filter: schemaFilter(arcSite),
-      }) || {}
-  }
+  const data =
+    useContent(
+      showExtraordinaryStory
+        ? {
+            source: SOURCE,
+            query: {
+              section: sectionName,
+              feedOffset: positionData || 0,
+              presets:
+                'landscape_xl:980x528,landscape_l:648x374,square_l:600x600',
+              includedFields: `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`,
+            },
+            filter: schemaFilter(arcSite),
+          }
+        : {}
+    ) || {}
 
   useEffect(() => {
     if (window.powaBoot) {

@@ -18,6 +18,7 @@ import {
   includePrimarySection,
   includePromoItemsCaptions,
   includePromoVideoAds,
+  includeCredits,
 } from '../../../utilities/included-fields'
 
 const SectionVideo = props => {
@@ -76,6 +77,8 @@ const SectionVideo = props => {
       promoItemsType,
       hasAdsVideo,
       captionVideo,
+      author,
+      videoDuration,
     } = Story
     dataVideo.principalVideo = {
       primarySection,
@@ -87,6 +90,8 @@ const SectionVideo = props => {
       promoItemsType,
       hasAdsVideo,
       captionVideo,
+      author,
+      videoDuration,
     }
     if (promoItemsType === ConfigParams.VIDEO) {
       const { video } = Story
@@ -117,7 +122,7 @@ const SectionVideo = props => {
           feedOffset: offset,
           stories_qty: 4,
           presets,
-          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},${includePromoItems},${includePromoVideoAds}`,
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},${includePromoItems},${includePromoVideoAds},${includeCredits},promo_items.basic_video.duration`,
         },
         filter: SchemaMultiStory(arcSite),
       }) || {}
@@ -136,7 +141,7 @@ const SectionVideo = props => {
         query: {
           section,
           presets,
-          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,${includePrimarySection},${includePromoItems},${includePromoItemsCaptions},${includePromoVideoAds}`,
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,${includePrimarySection},${includePromoItems},${includePromoItemsCaptions},${includePromoVideoAds},${includeCredits},promo_items.basic_video.duration`,
         },
         filter: SchemaSingleStory(arcSite),
       }) || {}

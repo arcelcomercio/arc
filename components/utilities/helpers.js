@@ -65,12 +65,36 @@ export const getActualDate = () => {
   return getYYYYMMDDfromISO(today)
 }
 
-export const formatDateLocalTimeZone = (publishDateString, delimiter = '-') => {
+/**
+ * @description Devuelve la fecha de publicacion de la historia o 
+ * la hora, en caso de que se publicara el mismo dia. Este metodo 
+ * funciona para mostrar el tiempo correcto desde servidor o cliente 
+ * gracias al ultimo parametro.
+ * 
+ * @param {string} publishDateString Fecha de publicacion de la historia.
+ * @param {string} [delimiter=-] Separador para la fecha. ie. 2020-01-01 o 2020/01/01.
+ * @param {boolean} [isClient=false] Define si se renderiza en cliente o servidor. 
+ * 
+ * @returns {string} Fecha con formato **HH:MM** o **YYYY-MM-DD**
+ * 
+ * @example ```
+ * <p className={classes.date}>
+      {typeof window === 'undefined'
+        ? formatDateLocalTimeZone(element.date)
+        : formatDateLocalTimeZone(element.date, '-', true)}
+    </p>
+ * ```
+ */
+export const formatDateLocalTimeZone = (
+  publishDateString,
+  delimiter = '-',
+  isClient = false
+) => {
   const publishDate = new Date(publishDateString)
-  publishDate.setHours(publishDate.getHours() - 5)
+  if (!isClient) publishDate.setHours(publishDate.getHours() - 5)
 
   const today = new Date()
-  today.setHours(today.getHours() - 5)
+  if (!isClient) today.setHours(today.getHours() - 5)
 
   let formattedDate = ''
 
@@ -1181,6 +1205,7 @@ export const storyVideoPlayerId = (content = '') => {
 }
 
 export const getPhotoId = photoUrl => {
+  if (!photoUrl) return ''
   const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
   const [, photoId] = customPhotoUrl || []
   return photoId

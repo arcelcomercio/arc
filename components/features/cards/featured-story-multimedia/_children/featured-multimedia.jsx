@@ -33,7 +33,7 @@ export default ({
   sectionName,
   freeHtml,
   isAdmin,
-  multimediaSubtitle,
+  // multimediaSubtitle,
   multimediaCaption,
 }) => {
   return (

@@ -36,7 +36,7 @@ const BlogListChildItem = ({
             <img
               src={isAdmin ? authorImg : lazyImage}
               data-src={authorImg}
-              alt={postTitle}              
+              alt={postTitle}
               className={`${isAdmin ? '' : 'lazy'} ${classes.avatar}`}
             />
           </a>
@@ -57,4 +57,4 @@ const BlogListChildItem = ({
   )
 }
 
-export default BlogListChildItem
+export default React.memo(BlogListChildItem)

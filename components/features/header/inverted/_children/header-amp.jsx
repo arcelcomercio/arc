@@ -15,18 +15,11 @@ const classes = {
 }
 
 const LayoutInvertedAmpHeader = ({
-  contextPath,
-  arcSite,
-  deployment,
-  siteProperties: {
-    siteUrl = '',
-    assets: { seo: { widthAmp = '', heightAmp = '' } = {} } = {},
-  } = {},
+  imgLogo = '',
+  widthAmp = '',
+  heightAmp = '',
+  arcSite = '',
 }) => {
-  const imgLogo =
-    deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-    ) || ''
   return (
     <>
       <header className={classes.header}>
