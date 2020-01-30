@@ -225,6 +225,9 @@ export default {
     headlines{
       basic
     }
+    description{
+      basic
+    }
     items{
       type
       content
