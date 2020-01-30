@@ -48,6 +48,9 @@
     display: none;
   }
   &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     @media (--only-mobile) {
       padding: 20px;
     }
@@ -64,7 +67,7 @@
       flex-direction: row;
       border-top: 1px solid;
       border-bottom: 1px solid;
-      border-color: #999;
+      border-color: #666;
       height: 49px;
     }
   }
@@ -78,5 +81,10 @@
   }
   .powa-button.powa-shot-play-btn {
     outline: none;
+  }
+  &__caption {
+    font-size: 14px;
+    color: #666666;
+    font-family: $secondary-font;
   }
 }
