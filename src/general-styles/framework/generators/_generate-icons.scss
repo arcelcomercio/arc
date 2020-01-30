@@ -31,8 +31,8 @@ $map-icons: (img: $img,
   whatsapp: $whatsapp,
   loading: $loading,
   share: $share,
-  arrow-r:$arrow-r,
-  padlock:$padlock,
+  arrow-r: $arrow-r,
+  padlock: $padlock,
 ) !default;
 
 @mixin generate-icons() {
