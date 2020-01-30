@@ -46,6 +46,11 @@ const params = [
     displayName: 'Campos incluidos (opcional)',
     type: 'text',
   },
+  {
+    name: 'excludedSections',
+    displayName: 'Secciones excluidas',
+    type: 'text',
+  },
 ]
 
 const getNextDate = date => {
@@ -54,7 +59,7 @@ const getNextDate = date => {
   return getYYYYMMDDfromISO(requestedDate)
 }
 
-const getQueryFilter = (section, website, date) => {
+const getQueryFilter = (section, excludedSections, website, date) => {
   const body = {
     query: {
       bool: {
@@ -101,6 +106,35 @@ const getQueryFilter = (section, website, date) => {
     })
   }
 
+  if (excludedSections !== '/') {
+    body.query.bool = {
+      ...body.query.bool,
+      must_not: [
+        {
+          nested: {
+            path: 'taxonomy.sections',
+            query: {
+              bool: {
+                must: [
+                  {
+                    terms: {
+                      'taxonomy.sections._id': excludedSections,
+                    },
+                  },
+                  {
+                    term: {
+                      'taxonomy.sections._website': website,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    }
+  }
+
   const queryFilter = `body=${encodeURI(JSON.stringify(body))}`
 
   return queryFilter
@@ -124,12 +158,16 @@ const resolve = (key = {}) => {
     from = 0,
     size = 10,
     includedFields,
+    excludedSections: auxExcludedSec = '/',
   } = key
 
   const section = auxSection === null || !auxSection ? '/' : auxSection
   const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate
 
-  const queryFilter = getQueryFilter(section, website, date)
+  const excSections =
+    auxExcludedSec === null || !auxExcludedSec ? '/' : auxExcludedSec.split(',')
+
+  const queryFilter = getQueryFilter(section,excSections, website, date)
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`
