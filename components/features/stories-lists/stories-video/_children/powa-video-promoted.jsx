@@ -7,7 +7,6 @@ const classes = {
 }
 
 const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
-  
   window.addEventListener('powaRender', event => {
     const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
       window.navigator.userAgent
@@ -16,6 +15,19 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
     const {
       detail: { powa },
     } = event
+    powa.on(window.PoWa.EVENTS.PLAY, (playEvent) => {
+      window.addEventListener('scroll', () => {
+        const playOf = document.querySelector('.stories-video__wrapper')
+        const itemDest = document.querySelector('.stories-video__item-dest')
+        const scrollHeight = window.scrollY
+
+        if (scrollHeight >= playOf.offsetTop + playOf.offsetHeight) {
+          itemDest.classList.add('sticky')
+        } else {
+          itemDest.classList.remove('sticky')
+        }
+      })
+    })
 
     if (
       !isMobile &&

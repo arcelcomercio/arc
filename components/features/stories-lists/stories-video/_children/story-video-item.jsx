@@ -48,7 +48,6 @@ const VideoCenter = ({
   video = {},
   videoTime,
   autoPlayVideo,
-  isPreviewYoutubeVideo,
 }) => {
   const time = msToTime(videoTime)
 
@@ -60,7 +59,6 @@ const VideoCenter = ({
     image,
     video,
     autoPlayVideo,
-    isPreviewYoutubeVideo,
   }
 
   if (index === 0) {
@@ -79,7 +77,6 @@ const StoriesListStoryVideoItem = ({
     video = {},
     autoPlayVideo = false,
     videoTime = 0,
-    isPreviewYoutubeVideo = false,
   } = {},
   StoryItemHandleClick,
 }) => {
@@ -92,7 +89,6 @@ const StoriesListStoryVideoItem = ({
     video,
     autoPlayVideo,
     videoTime,
-    isPreviewYoutubeVideo,
   }
   let resultItemVideo = null
   switch (video.type) {
@@ -123,37 +119,3 @@ const StoriesListStoryVideoItem = ({
 }
 
 export default StoriesListStoryVideoItem
-
-// window.addEventListener('play', event => {
-//   debugger
-// })
-
-// window.addEventListener('pause', event => {
-//   debugger
-//   console.log('pause')
-// })
-
-// window.addEventListener('powaReady', event => {
-//   // event.detail.id
-
-//   console.log('playbackPaused')
-// })
-
-// window.addEventListener('play', event => {
-//   debugger
-// })
-
-// window.addEventListener('pause', event => {
-//   debugger
-//   console.log('pause')
-// })
-
-// window.addEventListener('mouse', event => {
-//   debugger
-//   console.log('mouse')
-// })
-
-// window.addEventListener('muted', event => {
-//   debugger
-//   console.log('muted')
-// })
