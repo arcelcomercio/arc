@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { useState, useEffect } from 'react'
 import InternalSurveyChildInput from './input'
 import InternalSurveyChildResult from './result'
 import InternalSurveyChildConfirmation from './confirmation'
@@ -28,139 +28,116 @@ const classes = {
   slug:
     'internal-survey__slug h-full position-absolute text-center top-0 text-white',
 }
-class InternalSurveyChildSurvey extends PureComponent {
-  constructor() {
-    super()
-    this.state = {
-      flagViewResult: false,
-      flagViewSurveyConfirm: false,
-      flagDisable: false,
-      optionSelected: '',
-      optionsList: [],
-    }
-  }
 
-  componentDidMount() {
-    const { hasVote } = this.props
+const InternalSurveyChildSurvey = props => {
+  const [flagViewResult, setFlagViewResult] = useState(false)
+  const [flagViewSurveyConfirm, setFlagViewSurveyConfirm] = useState(false)
+  const [flagDisable, setFlagDisable] = useState(false)
+  const [optionSelected, setOptionSelected] = useState('')
+  const [optionsList, setOptionsList] = useState([])
+
+  useEffect(() => {
+    const { hasVote } = props
     if (hasVote) {
-      this.setState({
-        flagDisable: true,
-        flagViewSurveyConfirm: true,
-      })
+      setFlagDisable(true)
+      setFlagViewSurveyConfirm(true)
     }
-  }
+  }, [])
 
-  viewResult = () => {
-    const { getResults } = this.props
+  const viewResult = () => {
+    const { getResults } = props
     getResults().then(response => {
-      this.setState({
-        optionsList: response.choices,
-        flagViewResult: true,
-        flagViewSurveyConfirm: false,
-      })
+      setOptionsList(response.choices)
+      setFlagViewResult(true)
+      setFlagViewSurveyConfirm(false)
     })
   }
 
-  setChoiceSelected = evt => {
+  const setChoiceSelected = evt => {
     const { value } = evt.target
-    this.setState({
-      optionSelected: value,
-    })
+    setOptionSelected(value)
   }
 
-  viewConfirm = e => {
+  const viewConfirm = e => {
     e.preventDefault()
-    const { sendQuiz } = this.props
-    const { optionSelected } = this.state
+    const { sendQuiz } = props
     if (optionSelected !== '') {
       sendQuiz(optionSelected).then(() => {
-        this.setState({
-          flagViewResult: false,
-          flagViewSurveyConfirm: true,
-          flagDisable: true,
-        })
+        setFlagViewResult(false)
+        setFlagViewSurveyConfirm(true)
+        setFlagDisable(true)
       })
     }
   }
 
-  render() {
-    const {
-      flagViewResult,
-      flagViewSurveyConfirm,
-      flagDisable,
-      optionsList,
-    } = this.state
-    const { title, date, choices, prev, next, sharelinks } = this.props
+  const { title, date, choices, prev, next, sharelinks } = props
 
-    let urlNext = ''
-    let urlPrev = ''
+  let urlNext = ''
+  let urlPrev = ''
 
-    if (next) urlNext = `/encuesta/${next}`
-    if (prev) urlPrev = `/encuesta/${prev}`
+  if (next) urlNext = `/encuesta/${next}`
+  if (prev) urlPrev = `/encuesta/${prev}`
 
-    return (
-      <div className={classes.InternalSurvey}>
-        <div className={`${classes.detail} ${flagDisable && 'disable'}`}>
-          <div className={`${classes.nav} ${flagDisable && 'active'}`}>
-            {prev && (
-              <a
-                href={urlPrev}
-                className={`${classes.navprev} ${classes.slug}`}>
-                <i className={classes.icon}> prev </i>
-              </a>
-            )}
-            {next && (
-              <a href={urlNext} className={`${classes.navnex} ${classes.slug}`}>
-                <i className={classes.icon}> next </i>
-              </a>
-            )}
+  return (
+    <div className={classes.InternalSurvey}>
+      <div className={`${classes.detail} ${flagDisable && 'disable'}`}>
+        <div className={`${classes.nav} ${flagDisable && 'active'}`}>
+          {prev && (
+            <a href={urlPrev} className={`${classes.navprev} ${classes.slug}`}>
+              <i className={classes.icon}> prev </i>
+            </a>
+          )}
+          {next && (
+            <a href={urlNext} className={`${classes.navnex} ${classes.slug}`}>
+              <i className={classes.icon}> next </i>
+            </a>
+          )}
+        </div>
+
+        <time className={classes.date}>{getLatinDate(date, ',')}</time>
+        <h1 className={classes.title}>{title}</h1>
+        <form action="">
+          <ul>
+            {choices.map((choice, index) => (
+              <InternalSurveyChildInput
+                key={UtilListKey(index)}
+                value={choice.option}
+                index={`item${choice.option}${index}`}
+                onChange={evt => setChoiceSelected(evt)}
+              />
+            ))}
+          </ul>
+          <div className={classes.buttons}>
+            <button
+              type="submit"
+              className={classes.buttonpool}
+              onClick={e => viewConfirm(e)}>
+              Votar
+            </button>
+            <button
+              type="button"
+              className={classes.viewresult}
+              onClick={viewResult}>
+              Ver Resultados
+            </button>
           </div>
-
-          <time className={classes.date}>{getLatinDate(date, ',')}</time>
-          <h1 className={classes.title}>{title}</h1>
-          <form action="">
-            <ul>
-              {choices.map((choice, index) => (
-                <InternalSurveyChildInput
-                  key={UtilListKey(index)}
-                  value={choice.option}
-                  index={`item${choice.option}${index}`}
-                  onChange={evt => this.setChoiceSelected(evt)}
-                />
-              ))}
-            </ul>
-            <div className={classes.buttons}>
-              <button
-                type="submit"
-                className={classes.buttonpool}
-                onClick={e => this.viewConfirm(e)}>
-                Votar
-              </button>
-              <button
-                type="button"
-                className={classes.viewresult}
-                onClick={this.viewResult}>
-                Ver Resultados
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className={classes.result}>
-          {flagViewResult && optionsList && (
-            <InternalSurveyChildResult
-              choices={optionsList}
-              sharelinks={sharelinks}
-            />
-          )}
-          {flagViewSurveyConfirm && (
-            <InternalSurveyChildConfirmation
-              handleOnClickViewResult={this.viewResult}
-            />
-          )}
-        </div>
+        </form>
       </div>
-    )
-  }
+      <div className={classes.result}>
+        {flagViewResult && optionsList && (
+          <InternalSurveyChildResult
+            choices={optionsList}
+            sharelinks={sharelinks}
+          />
+        )}
+        {flagViewSurveyConfirm && (
+          <InternalSurveyChildConfirmation
+            handleOnClickViewResult={viewResult}
+          />
+        )}
+      </div>
+    </div>
+  )
 }
 
 export default InternalSurveyChildSurvey

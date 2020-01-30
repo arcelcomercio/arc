@@ -1,8 +1,9 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { isIE } from '../../utilities/helpers'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
+import { isIE } from '../../utilities/helpers'
 import DataStory from '../../utilities/story-data'
 import FeaturedStory from '../../global-components/featured-story'
 import Ads from './_children/ads/default'
@@ -26,33 +27,26 @@ const classes = {
   container: ' grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20',
 }
 
-@Consumer
-class OrderedStoriesGrid extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      gridClass: 'grid',
-    }
-  }
+const OrderedStoriesGrid = props => {
+  const { customFields } = props
+  const {
+    globalContent,
+    deployment,
+    contextPath,
+    arcSite,
+    isAdmin,
+    metaValue,
+  } = useFusionContext()
+  const siteProperties = getProperties(arcSite)
+  const { content_elements: contentElements = [] } = globalContent || {}
 
-  componentDidMount() {
-    if (isIE()) this.setState({ gridClass: 'ie-flex' })
-  }
+  const [gridClass, setGridClass] = useState('grid')
 
-  renderGrilla() {
-    const {
-      globalContent,
-      deployment,
-      contextPath,
-      arcSite,
-      customFields,
-      isAdmin,
-      metaValue,
-      siteProperties,
-    } = this.props
+  useEffect(() => {
+    if (isIE()) setGridClass('ie-flex')
+  }, [])
 
-    const { content_elements: contentElements = [] } = globalContent || {}
-
+  const renderGrilla = () => {
     const dataStory = new DataStory({
       deployment,
       contextPath,
@@ -113,19 +107,14 @@ class OrderedStoriesGrid extends PureComponent {
     })
   }
 
-  render() {
-    const { gridClass } = this.state
-    return (
-      <div className={gridClass.concat(classes.container)}>
-        {this.renderGrilla()}
-      </div>
-    )
-  }
+  return (
+    <div className={gridClass.concat(classes.container)}>{renderGrilla()}</div>
+  )
 }
 
 OrderedStoriesGrid.propTypes = {
   customFields: PropTypes.shape({
-    initialStory: PropTypes.number.tag({
+    /* initialStory: PropTypes.number.tag({
       name: 'Iniciar desde la historia:',
       min: 1,
       max: 100,
@@ -133,7 +122,7 @@ OrderedStoriesGrid.propTypes = {
       defaultValue: 1,
       description:
         'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
-    }),
+    }), */
     /**
      *      CustomFields de publicidad
      */

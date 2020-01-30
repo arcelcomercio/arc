@@ -1,4 +1,4 @@
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import { resizerSecret } from 'fusion:environment'
 import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 
@@ -75,7 +75,7 @@ const resolve = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  return `${CONTENT_BASE}/content/v4/search?website=${website}&sort=created_date:desc&from=${feedOffset ||
+  return `/content/v4/search?website=${website}&sort=created_date:desc&from=${feedOffset ||
     0}&size=1&single=true&body=${encodedBody}${excludedFields}`
 }
 

@@ -7,6 +7,7 @@
 @import './cards/featured-story-author/featured-author';
 @import './cards/columnist-premium/columnist-premium';
 @import './cards/cinema-billboard/cinema-card';
+@import './cards/featured-premium/featured-premium';
 @import './layout/navbar/nav';
 @import './layout/navbar/nav-sidebar';
 @import './layout/navbar/nav-story';
@@ -43,7 +44,11 @@
 @import './blog/author-title';
 @import './video/play-list';
 @import './video/video-list';
+@import './video/section-video';
 @import './statics/opinion-grid/author-card';
 @import './statics/opinion-grid/author-item';
 @import './statics/opinion-grid/opinion-grid';
 @import './separators/featured/featured-separator';
+@import './premium/premium';
+@import './section/section';
+

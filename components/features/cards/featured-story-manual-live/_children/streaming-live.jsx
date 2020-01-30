@@ -14,12 +14,12 @@ const PLATFORM_YOUTUBE = 'youtube'
 const LiveStreaming = props => {
   const { arcSite, contextPath, deployment, platformLive, urlVideo } = props
 
-  const getFormatUrl = (platform, urlVideo) => {
+  const getFormatUrl = (platform, video) => {
     return platform === PLATFORM_FACEBOOK
       ? `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
-          urlVideo
+          video
         )}&show_text=false&appId=467845563244454`
-      : `https://www.youtube.com/embed/${urlVideo}`
+      : `https://www.youtube.com/embed/${video}`
   }
 
   const patterYt = /(https|www|facebook\.com)/
@@ -52,13 +52,14 @@ const LiveStreaming = props => {
       {!showVideo && (
         <div className={classes.containerMask}>
           <img src={urlImageDefault} alt={arcSite} />
-          {!showVideo && <label class={classes.label}>{textError}</label>}
+          {!showVideo && <span className={classes.label}>{textError}</span>}
         </div>
       )}
       {isFacebook && (
         <iframe
+          title="Facebook Live"
           src={formatURL}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen="true"
           className={classes.iframeVideo}
@@ -66,6 +67,7 @@ const LiveStreaming = props => {
       )}
       {isYoutube && (
         <iframe
+          title="Youtube Live"
           src={formatURL}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

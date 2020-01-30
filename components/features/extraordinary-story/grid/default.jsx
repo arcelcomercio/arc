@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 
 import ExtraordinaryStoryGridChild from './_children/extraordinary-story-grid'
 import customFields from './_dependencies/custom-fields'
@@ -12,117 +13,138 @@ import {
   includePromoItems,
 } from '../../../utilities/included-fields'
 
-@Consumer
-class ExtraordinaryStoryGrid extends PureComponent {
-  constructor(props) {
-    super(props)
-    // this.isVideo = false}
+const ExtraordinaryStoryGrid = props => {
+  const { customFields: customFieldsData = {} } = props
+  const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
 
-    this.initFetch()
-  }
+  const presets = 'landscape_xl:980x528,landscape_l:648x374,square_l:600x600'
+  const includedFields = `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`
 
-  /* componentDidMount() {
-    if (window.powaBoot) {
-      window.powaBoot()
-    }
-  } */
+  const {
+    urlStory: {
+      contentService: storyService = '',
+      contentConfigValues: storyConfigValues = {},
+    } = {},
+  } = customFieldsData || {}
 
-  initFetch = () => {
-    const { customFields: customFieldsData = {}, arcSite = '' } = this.props
+  const storyData = useContent({
+    source: storyService,
+    query:
+      presets || includedFields
+        ? Object.assign(storyConfigValues, { presets, includedFields })
+        : storyConfigValues,
+    filter: storySchema(arcSite),
+  })
 
-    const { urlStory = {} /* multimediaService = '' */ } = customFieldsData
+  const {
+    section1: {
+      contentConfigValues: {
+        _id: id1 = '',
+        contentService: sectionService1 = '',
+        contentConfigValues: sectionConfigValues1 = {},
+      } = {},
+    } = {},
+    section2: {
+      contentConfigValues: {
+        _id: id2 = '',
+        contentService: sectionService2 = '',
+        contentConfigValues: sectionConfigValues2 = {},
+      } = {},
+    } = {},
+    section3: {
+      contentConfigValues: {
+        _id: id3 = '',
+        contentService: sectionService3 = '',
+        contentConfigValues: sectionConfigValues3 = {},
+      } = {},
+    } = {},
+    section4: {
+      contentConfigValues: {
+        _id: id4 = '',
+        contentService: sectionService4 = '',
+        contentConfigValue: sectionConfigValues4 = {},
+      } = {},
+    } = {},
+  } = customFieldsData || {}
 
-    const presets = 'landscape_xl:980x528,landscape_l:648x374,square_l:600x600'
-    const includedFields = `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`
+  const section1 =
+    useContent(
+      id1
+        ? {
+            source: sectionService1,
+            query: sectionConfigValues1,
+            filter: sectionSchema,
+          }
+        : {}
+    ) || {}
 
-    // if (multimediaService === Data.AUTOMATIC) {
-    // const { contentConfigValues: { section = '' } = {} } = urlStory
-    // if (section !== '')
-    this.fetch(
-      'storyData',
-      urlStory,
-      storySchema(arcSite),
-      presets,
-      includedFields
+  const section2 =
+    useContent(
+      id2
+        ? {
+            source: sectionService2,
+            query: sectionConfigValues2,
+            filter: sectionSchema,
+          }
+        : {}
+    ) || {}
+
+  const section3 =
+    useContent(
+      id3
+        ? {
+            source: sectionService3,
+            query: sectionConfigValues3,
+            filter: sectionSchema,
+          }
+        : {}
+    ) || {}
+
+  const section4 =
+    useContent(
+      id4
+        ? {
+            source: sectionService4,
+            query: sectionConfigValues4,
+            filter: sectionSchema,
+          }
+        : {}
+    ) || {}
+
+  const formattedStoryData = new Data({
+    customFields: customFieldsData,
+    data: storyData,
+    arcSite,
+    deployment,
+    contextPath,
+    defaultImgSize: 'sm',
+  })
+
+  const formattedSection1 = new SectionData(section1, arcSite)
+  const formattedSection2 = new SectionData(section2, arcSite)
+  const formattedSection3 = new SectionData(section3, arcSite)
+  const formattedSection4 = new SectionData(section4, arcSite)
+  // this.isVideo = formattedStoryData.isVideo
+
+  const imgLogo =
+    customFieldsData.logo ||
+    deployment(
+      `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
     )
-    // }
 
-    for (let i = 1; i <= 4; i++) {
-      const { contentConfigValues: { _id = '' } = {} } =
-        customFieldsData[`section${i}`] || {}
-      if (_id !== '') {
-        this.fetch(
-          `section${i}`,
-          customFieldsData[`section${i}`],
-          sectionSchema
-        )
-      }
-    }
+  const params = {
+    storyData: formattedStoryData,
+    section1: formattedSection1,
+    section2: formattedSection2,
+    section3: formattedSection3,
+    section4: formattedSection4,
+    deployment,
+    contextPath,
+    arcSite,
+    imgLogo,
+    isAdmin,
   }
-
-  fetch(state, contentConfig, schema, presets, includedFields) {
-    const { contentService = '', contentConfigValues = {} } = contentConfig
-    return this.fetchContent({
-      [state]: {
-        source: contentService,
-        query:
-          presets || includedFields
-            ? Object.assign(contentConfigValues, { presets, includedFields })
-            : contentConfigValues,
-        filter: schema,
-      },
-    })
-  }
-
-  render() {
-    const {
-      deployment,
-      contextPath,
-      arcSite,
-      customFields: customFieldsData,
-      isAdmin,
-    } = this.props
-    const {
-      storyData = {},
-      section1 = {},
-      section2 = {},
-      section3 = {},
-      section4 = {},
-    } = this.state || {}
-    const formattedStoryData = new Data({
-      customFields: customFieldsData,
-      data: storyData,
-      arcSite,
-      deployment,
-      contextPath,
-      defaultImgSize: 'sm',
-    })
-    const formattedSection1 = new SectionData(section1, arcSite)
-    const formattedSection2 = new SectionData(section2, arcSite)
-    const formattedSection3 = new SectionData(section3, arcSite)
-    const formattedSection4 = new SectionData(section4, arcSite)
-    // this.isVideo = formattedStoryData.isVideo
-
-    const imgLogo =
-      customFieldsData.logo ||
-      deployment(
-        `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
-      )
-
-    const params = {
-      storyData: formattedStoryData,
-      section1: formattedSection1,
-      section2: formattedSection2,
-      section3: formattedSection3,
-      section4: formattedSection4,
-      deployment,
-      contextPath,
-      arcSite,
-      imgLogo,
-      isAdmin,
-    }
-    return <ExtraordinaryStoryGridChild {...params} />
-  }
+  return <ExtraordinaryStoryGridChild {...params} />
 }
 
 ExtraordinaryStoryGrid.propTypes = {

@@ -1,6 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import { resizerSecret, CONTENT_BASE } from 'fusion:environment'
+import {
+  resizerSecret,
+  CONTENT_BASE,
+  ARC_ACCESS_TOKEN,
+} from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
 import {
@@ -14,6 +18,9 @@ const schemaName = 'stories-dev'
 const options = {
   gzip: true,
   json: true,
+  auth: {
+    bearer: ARC_ACCESS_TOKEN,
+  },
 }
 
 const params = [

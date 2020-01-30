@@ -60,7 +60,6 @@ const SecondaryFooter = props => {
             className={classes.logoImg}
             src={logoUrl}
             alt={`Logo de ${arcSite}`}
-            
           />
         </a>
       </div>
@@ -80,13 +79,14 @@ const SecondaryFooter = props => {
         <div className={classes.sections}>
           <h3 className={classes.listTitle}>Secciones</h3>
           <ul className={classes.listSection}>
-            {sections.map(el => (
-              <li className={classes.listLinkSection} key={el.url}>
-                <a className={classes.listLink} href={el.url}>
-                  {el.name}
-                </a>
-              </li>
-            ))}
+            {sections &&
+              sections.map(el => (
+                <li className={classes.listLinkSection} key={el.url}>
+                  <a className={classes.listLink} href={el.url}>
+                    {el.name}
+                  </a>
+                </li>
+              ))}
           </ul>
         </div>
         <div className={classes.twoWrapper}>

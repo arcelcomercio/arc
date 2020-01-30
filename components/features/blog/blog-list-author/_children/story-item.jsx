@@ -1,10 +1,4 @@
-// TODO
-// Se comenzara a usar story-new a partir del comercio
-// y esto se eliminará junto con su feature
-import React, { PureComponent } from 'react'
-// import { alignmentClassesPropType } from '@arc-core-components/feature_article-body/build/helpers'
-// import ConfigParams from '../../../../utilities/config-params'
-// import StoryData from '../../../../utilities/story-data'
+import React from 'react'
 
 import {
   reduceWord,
@@ -37,64 +31,58 @@ const classes = {
   read: 'blog-post-item__read',
 }
 
-class StoriesList extends PureComponent {
-  render() {
-    const { data, isAdmin } = this.props
-
-    return (
-      <div className={`${classes.storyItem}`}>
-        <div className={classes.bottom}>
-          <div className={classes.left}>
-            <div className={classes.top}>
-              <p className={classes.date}>
-                {formatDateLocalTimeZone(data.date, '.')}
-              </p>
-            </div>
-            <div className={classes.authorImageBox}>
-              <a href={data.urlBlog} className={classes.author}>
-                <img
-                  src={data.authorImg}
-                  className={classes.authorImage}
-                  alt={data.author}
-                />
-              </a>
-            </div>
-            <div className={classes.wrapperTitle}>
-              <h2 className={classes.contentTitle}>
-                <a
-                  className={classes.title}
-                  href={data.urlBlog}>
-                  {reduceWord(data.author)}
-                </a>
-              </h2>
-              <p className={classes.subtitle}>{reduceWord(data.blogTitle)}</p>
-              <a href={data.urlPost} className={classes.titlePost}>
-                {data.postTitle} <span className={classes.read}>Leer</span>
-              </a>
-            </div>
+const StoriesList = ({ data, isAdmin }) => {
+  return (
+    <div className={`${classes.storyItem}`}>
+      <div className={classes.bottom}>
+        <div className={classes.left}>
+          <div className={classes.top}>
+            <p className={classes.date}>
+              {formatDateLocalTimeZone(data.date, '.')}
+            </p>
           </div>
-          <figure className={classes.right}>
-            <a href={data.urlPost} className={classes.rightLink}>
-              <picture>
-                <source
-                  className={isAdmin ? '' : 'lazy'}
-                  media="(max-width: 639px)"
-                  srcSet={isAdmin ? data.imagePost : data.lazyImage}
-                  data-srcset={data.imagePost}
-                />
-                <img
-                  alt={data.postTitle}
-                  className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                  src={isAdmin ? data.imagePost : data.lazyImage}
-                  data-src={data.imagePost}
-                />
-              </picture>
+          <div className={classes.authorImageBox}>
+            <a href={data.urlBlog} className={classes.author}>
+              <img
+                src={data.authorImg}
+                className={classes.authorImage}
+                alt={data.author}
+              />
             </a>
-          </figure>
+          </div>
+          <div className={classes.wrapperTitle}>
+            <h2 className={classes.contentTitle}>
+              <a className={classes.title} href={data.urlBlog}>
+                {reduceWord(data.author)}
+              </a>
+            </h2>
+            <p className={classes.subtitle}>{reduceWord(data.blogTitle)}</p>
+            <a href={data.urlPost} className={classes.titlePost}>
+              {data.postTitle} <span className={classes.read}>Leer</span>
+            </a>
+          </div>
         </div>
+        <figure className={classes.right}>
+          <a href={data.urlPost} className={classes.rightLink}>
+            <picture>
+              <source
+                className={isAdmin ? '' : 'lazy'}
+                media="(max-width: 639px)"
+                srcSet={isAdmin ? data.imagePost : data.lazyImage}
+                data-srcset={data.imagePost}
+              />
+              <img
+                alt={data.postTitle}
+                className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+                src={isAdmin ? data.imagePost : data.lazyImage}
+                data-src={data.imagePost}
+              />
+            </picture>
+          </a>
+        </figure>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default StoriesList
+export default React.memo(StoriesList)

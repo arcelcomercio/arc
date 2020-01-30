@@ -1,5 +1,5 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useFusionContext } from 'fusion:context'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
@@ -13,50 +13,46 @@ const classes = {
   footerTextContainer: 'perured__textContainer',
   footerText: 'perured__text font-bold m-0',
 }
-@Consumer
-class Ads extends PureComponent {
-  render() {
-    const {
-      isAdmin,
-      outputType,
-      customFields: { isDesktop, isMobile } = {},
-    } = this.props
 
-    const addEmptyBackground = () => (isAdmin ? 'bg-base-100' : '')
+const Ads = props => {
+  const { customFields: { isDesktop, isMobile } = {} } = props
 
-    const getHtml = device => {
-      return (
-        <div
-          className={`${classes.adsContainer} ${addEmptyBackground()} ${
-            device === 'd' ? 'no-mobile' : 'no-desktop'
-          }`}>
-          <div className={`${classes.header} perured-header-${device}`}>
-            <p className={classes.title}>Anuncios de interés</p>
+  const { isAdmin, outputType } = useFusionContext()
+
+  const addEmptyBackground = () => (isAdmin ? 'bg-base-100' : '')
+
+  const getHtml = device => {
+    return (
+      <div
+        className={`${classes.adsContainer} ${addEmptyBackground()} ${
+          device === 'd' ? 'no-mobile' : 'no-desktop'
+        }`}>
+        <div className={`${classes.header} perured-header-${device}`}>
+          <p className={classes.title}>Anuncios de interés</p>
+        </div>
+        <div id={`cnt-perured-${device}`} className={classes.adsBox} />
+        <div className={`${classes.footer} perured-footer-${device}`}>
+          <div className={classes.iconContainer}>
+            <img
+              src="https://cdn.perured.pe/static/desktop/i/logo_perured.png?pr"
+              alt="Logo de perured"
+              className={classes.icon}
+            />
           </div>
-          <div id={`cnt-perured-${device}`} className={classes.adsBox} />
-          <div className={`${classes.footer} perured-footer-${device}`}>
-            <div className={classes.iconContainer}>
-              <img
-                src="https://cdn.perured.pe/static/desktop/i/logo_perured.png?pr"
-                alt="Logo de perured"
-                className={classes.icon}
-              />
-            </div>
-            <div className={classes.footerTextContainer}>
-              <p className={classes.footerText}>Recomendado por:</p>
-            </div>
+          <div className={classes.footerTextContainer}>
+            <p className={classes.footerText}>Recomendado por:</p>
           </div>
         </div>
-      )
-    }
-
-    return (
-      <>
-        {outputType !== 'amp' && isDesktop && getHtml('d')}
-        {outputType !== 'amp' && isMobile && getHtml('m')}
-      </>
+      </div>
     )
   }
+
+  return (
+    <>
+      {outputType !== 'amp' && isDesktop && getHtml('d')}
+      {outputType !== 'amp' && isMobile && getHtml('m')}
+    </>
+  )
 }
 
 Ads.propTypes = {
