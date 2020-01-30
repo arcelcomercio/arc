@@ -152,7 +152,7 @@ class Data extends StoryData {
     )
   }
 
-  static getSourceMultimedia(multimediaType, multimedia, customMultimedia) {
+  static getSourceMultimedia(multimediaType, customMultimedia, multimedia) {
     let multimediaContent = ''
     if (
       (multimediaType === ConfigParams.VIDEO ||
