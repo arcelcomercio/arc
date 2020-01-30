@@ -293,14 +293,14 @@ export default ({
           globalContent={globalContent}
         />
 
-        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && (
+        {(arcSite === 'publimetro' ||  arcSite === 'depor'||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && !nodas && !isLivePage && (
           <script
             defer
             src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
           />
         )}
 
-        {!(arcSite === 'publimetro' || arcSite === 'depor' ) && (
+        {!(arcSite === 'publimetro' || arcSite === 'depor' ||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && (
           <>
             {!nodas && !isLivePage && (
               <script
@@ -363,7 +363,7 @@ export default ({
           />
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
-        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && 
+        {(arcSite === 'publimetro' ||  arcSite === 'depor' ||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && !nodas && !isLivePage && 
         (
           <script
             type="text/javascript"
@@ -386,7 +386,7 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {!(arcSite === 'publimetro' || arcSite === 'depor') && !nodas && (
+        {!(arcSite === 'publimetro' || arcSite === 'depor' ||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && !nodas && (
           <script
             defer
             src={deployment(
@@ -435,7 +435,7 @@ export default ({
         <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
-        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && <Dfp />}
+        {(arcSite === 'publimetro' ||  arcSite === 'depor' ||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && !nodas && !isLivePage && <Dfp />}
       </body>
     </html>
   )
