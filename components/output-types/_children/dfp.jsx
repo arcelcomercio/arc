@@ -33,6 +33,8 @@ const Dfp = ({ isFuature, adId }) => {
 
   let contentConfigValues = {}
   let page = ''
+  let flagsub = false
+  console.log(requestUri,'dnns_section dnns')
   switch (metaValue('id')) {
     case 'meta_section':
       if (sectionId || _id) {
@@ -43,8 +45,9 @@ const Dfp = ({ isFuature, adId }) => {
       } else {
         contentConfigValues = {
           page: 'sect',
-          sectionSlug: 'default',
+          sectionSlug: getSectionSlug(requestUri),
         }
+        flagsub = true
       }
       page = 'sect'
 
@@ -69,6 +72,14 @@ const Dfp = ({ isFuature, adId }) => {
       }
       page = 'home'
       break
+      case 'meta_tag':
+        contentConfigValues = {
+          page: 'sect',
+          sectionSlug: 'default',
+        }
+        page = 'sect'
+        flagsub=true
+        break
     default:
       contentConfigValues = {
         page: 'sect',
@@ -82,10 +93,10 @@ const Dfp = ({ isFuature, adId }) => {
 
     const getTmpAdFunction = `var getTmpAd=function getTmpAd(){var tmpAdTargeting=window.location.search.match(/tmp_ad=([^&]*)/)||[];return tmpAdTargeting[1]||''}`
     const getAdsDisplayFunction = `var getAdsDisplay=function getAdsDisplay(){var IS_MOBILE=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);return IS_MOBILE?'mobile':'desktop'}`
-
-    const sectionValues = (primarySection || sectionId || _id || '').split('/')
+ 
+    const sectionValues = (page==='home'|| page==='post')?(primarySection || sectionId || _id|| '').split('/'):(primarySection || sectionId || _id || requestUri || '').split('/')
     const section = sectionValues[1] || ''
-    const subsection = sectionValues[2] || ''
+    const subsection = flagsub?'':sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
     const adsCollection = spaces.map(
@@ -131,7 +142,7 @@ const Dfp = ({ isFuature, adId }) => {
 
   return (
     <>
-      {(arcSite === 'publimetro' ||  arcSite === 'depor') && (
+      {(arcSite === 'publimetro' ||  arcSite === 'depor'||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && (
         <Content
           {...{
             contentService: 'get-dfp-spaces',

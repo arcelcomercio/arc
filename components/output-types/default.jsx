@@ -294,6 +294,7 @@ export default ({
           globalContent={globalContent}
         />
 
+<<<<<<< HEAD
         {(arcSite === 'publimetro' || arcSite === 'depor') &&
           !nodas &&
           !isLivePage && (
@@ -304,6 +305,16 @@ export default ({
           )}
 
         {!(arcSite === 'publimetro' || arcSite === 'depor') && (
+=======
+        {(arcSite === 'publimetro' ||  arcSite === 'depor'||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && !nodas && !isLivePage && (
+          <script
+            defer
+            src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
+          />
+        )}
+
+        {!(arcSite === 'publimetro' || arcSite === 'depor' ||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && (
+>>>>>>> master
           <>
             {!nodas && !isLivePage && (
               <script
@@ -366,6 +377,7 @@ export default ({
           />
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
+<<<<<<< HEAD
         {(arcSite === 'publimetro' || arcSite === 'depor') &&
           !nodas &&
           !isLivePage && (
@@ -375,6 +387,16 @@ export default ({
               dangerouslySetInnerHTML={{ __html: collapseDivs }}
             />
           )}
+=======
+        {(arcSite === 'publimetro' ||  arcSite === 'depor' ||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && !nodas && !isLivePage && 
+        (
+          <script
+            type="text/javascript"
+            defer
+            dangerouslySetInnerHTML={{ __html: collapseDivs }}
+          />
+        )}
+>>>>>>> master
       </head>
       <body className={classBody}>
         <noscript>
@@ -390,7 +412,7 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {!(arcSite === 'publimetro' || arcSite === 'depor') && !nodas && (
+        {!(arcSite === 'publimetro' || arcSite === 'depor' ||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && !nodas && (
           <script
             defer
             src={deployment(
@@ -439,9 +461,13 @@ export default ({
         <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
+<<<<<<< HEAD
         {(arcSite === 'publimetro' || arcSite === 'depor') &&
           !nodas &&
           !isLivePage && <Dfp />}
+=======
+        {(arcSite === 'publimetro' ||  arcSite === 'depor' ||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && !nodas && !isLivePage && <Dfp />}
+>>>>>>> master
       </body>
     </html>
   )
