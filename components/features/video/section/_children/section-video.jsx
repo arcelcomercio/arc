@@ -47,7 +47,7 @@ export default ({
       const videoList = document.querySelector('.video-list')
       const videoFrame = document.querySelector('.section-video__frame')
       const adsMiddle = document.getElementById('ads_d_middle1')
-      const mTop = 450;
+      const mTop = 450
 
       const playOff = playList.offsetTop
       if (window.innerWidth >= 1024) {
@@ -57,11 +57,10 @@ export default ({
             sectionVideo.classList.add('fixed')
             changeFixedSection(true)
             videoNavBar.classList.add('fixed')
-            if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
-            {
-              adsMiddle.style.marginTop = `${mTop}px`;
-            }else{
-              videoList.style.marginTop = `${mTop}px`;
+            if (typeof adsMiddle !== 'undefined' && adsMiddle != null) {
+              adsMiddle.style.marginTop = `${mTop}px`
+            } else {
+              videoList.style.marginTop = `${mTop}px`
             }
           }
           if (scrollHeight < playOff) {
@@ -69,11 +68,10 @@ export default ({
             changeFixedSection(false)
             videoNavBar.classList.remove('fixed')
             videoFrame.removeAttribute('style')
-            if (typeof(adsMiddle) !== 'undefined' && adsMiddle != null)
-            {
-              adsMiddle.style.marginTop = `0px`;
-            }else{
-              videoList.style.marginTop = `50px`;
+            if (typeof adsMiddle !== 'undefined' && adsMiddle != null) {
+              adsMiddle.style.marginTop = `0px`
+            } else {
+              videoList.style.marginTop = `50px`
             }
           }
         })
@@ -130,11 +128,6 @@ export default ({
                     className="w-full h-full"
                     dangerouslySetInnerHTML={{ __html: principalVideo.video }}
                   />
-                  {principalVideo.captionVideo && hasFixedSection && (
-                    <span className="text-sm text-gray-200 ml-5 mt-5 mr-5 block">
-                      {principalVideo.captionVideo}
-                    </span>
-                  )}
                 </div>
               ) : (
                 <div className="section-video__frame">
@@ -148,17 +141,7 @@ export default ({
                     allowFullscreen
                     title="Video"
                   />
-                  {principalVideo.captionVideo && hasFixedSection && (
-                    <span className="text-sm text-gray-200 ml-5 mt-5 mr-5 block">
-                      {principalVideo.captionVideo}
-                    </span>
-                  )}
                 </div>
-              )}
-              {principalVideo.captionVideo && (
-                <span className="text-sm text-gray-200 ml-5 mt-5 block">
-                  {principalVideo.captionVideo}
-                </span>
               )}
 
               {/* <iframe
@@ -200,6 +183,11 @@ export default ({
                   {principalVideo.subTitle}
                 </p>
               </div>
+              {principalVideo.captionVideo && (
+                <span className="section-video__caption text-sm text-gray-200">
+                  {principalVideo.captionVideo}
+                </span>
+              )}
             </div>
           </div>
           <div className="section-video__detail">
