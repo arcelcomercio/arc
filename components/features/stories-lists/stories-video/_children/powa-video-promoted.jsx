@@ -5,7 +5,7 @@ const classes = {
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
 }
-
+const showClose = false
 const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
   window.addEventListener('powaRender', event => {
     const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
@@ -15,17 +15,30 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
     const {
       detail: { powa },
     } = event
-    powa.on(window.PoWa.EVENTS.PLAY, (playEvent) => {
+
+    powa.on(window.PoWa.EVENTS.PLAY, playEvent => {
       window.addEventListener('scroll', () => {
         const playOf = document.querySelector('.stories-video__wrapper')
         const itemDest = document.querySelector('.stories-video__item-dest')
         const scrollHeight = window.scrollY
 
-        if (scrollHeight >= playOf.offsetTop + playOf.offsetHeight) {
+        // si esta fuera de foco
+        if (scrollHeight >= playOf.offsetTop) {
+          // + playOf.offsetHeight
           itemDest.classList.add('sticky')
-        } else {
+          // showClose = true
+        }
+
+        if (scrollHeight < playOf.offsetTop) {
           itemDest.classList.remove('sticky')
         }
+
+        // if (scrollHeight < playOf.offsetTop) {
+        //   console.log('top', playOf.offsetTop, 'scroll height', scrollHeight)
+        // }
+        // else {
+        //   itemDest.classList.remove('sticky')
+        // }
       })
     })
 
