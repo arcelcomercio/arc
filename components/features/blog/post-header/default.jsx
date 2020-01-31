@@ -1,5 +1,7 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React, { useState } from 'react'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+
 import {
   popUpWindow,
   socialMediaUrlShareListBlog,
@@ -18,130 +20,120 @@ const classes = {
   button:
     'post-header__button flex items-center justify-center w-full h-full text-white',
 }
-@Consumer
-class BlogPostHeader extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.firstList = 'firstList'
-    this.secondList = 'secondList'
-    this.state = {
-      currentList: this.firstList,
-    }
-    const { globalContent, siteProperties } = props
-    const {
-      siteUrl = '',
-      social: {
-        twitter: { user: siteNameRedSocial },
+
+const BlogPostHeader = () => {
+  const firstList = 'firstList'
+  const secondList = 'secondList'
+
+  const [currentList, setCurrentList] = useState(firstList)
+  const { globalContent, arcSite } = useFusionContext()
+  const {
+    siteUrl = '',
+    social: { twitter: { user: siteNameRedSocial } = {} } = {},
+  } = getProperties(arcSite)
+
+  const {
+    post: {
+      post_permalink: postPermaLink = '',
+      post_title: postTitle = '',
+    } = {},
+  } = globalContent || {}
+
+  const urlsShareList = socialMediaUrlShareListBlog(
+    addSlashToEnd(siteUrl),
+    postPermaLink,
+    postTitle,
+    siteNameRedSocial
+  )
+
+  const shareButtons = {
+    [firstList]: [
+      {
+        icon: 'icon-linkedin',
+        link: urlsShareList.linkedin,
+        title: 'LinkedIn',
       },
-    } = siteProperties
-    const {
-      post: {
-        post_permalink: postPermaLink = '',
-        post_title: postTitle = '',
-      } = {},
-    } = globalContent || {}
-    const urlsShareList = socialMediaUrlShareListBlog(
-      addSlashToEnd(siteUrl),
-      postPermaLink,
-      postTitle,
-      siteNameRedSocial
-    )
-    this.shareButtons = {
-      [this.firstList]: [
-        {
-          icon: 'icon-linkedin',
-          link: urlsShareList.linkedin,
-          title: 'LinkedIn',
-        },
-        {
-          icon: 'icon-facebook',
-          link: urlsShareList.facebook,
-          title: 'Facebook',
-        },
-        {
-          icon: 'icon-twitter',
-          link: urlsShareList.twitter,
-          mobileClass: 'no-mobile',
-          title: 'Twitter',
-        },
-        {
-          icon: 'icon-whatsapp',
-          link: urlsShareList.whatsapp,
-          mobileClass: 'no-desktop',
-          title: 'Whatsapp',
-        },
-      ],
-      [this.secondList]: [
-        {
-          icon: 'icon-twitter',
-          link: urlsShareList.twitter,
-          mobileClass: 'no-desktop',
-          title: 'Twitter',
-        },
-        {
-          icon: 'icon-print',
-          link: '',
-          title: 'Imprimir',
-        },
-      ],
-    }
+      {
+        icon: 'icon-facebook',
+        link: urlsShareList.facebook,
+        title: 'Facebook',
+      },
+      {
+        icon: 'icon-twitter',
+        link: urlsShareList.twitter,
+        mobileClass: 'no-mobile',
+        title: 'Twitter',
+      },
+      {
+        icon: 'icon-whatsapp',
+        link: urlsShareList.whatsapp,
+        mobileClass: 'no-desktop',
+        title: 'Whatsapp',
+      },
+    ],
+    [secondList]: [
+      {
+        icon: 'icon-twitter',
+        link: urlsShareList.twitter,
+        mobileClass: 'no-desktop',
+        title: 'Twitter',
+      },
+      {
+        icon: 'icon-print',
+        link: '',
+        title: 'Imprimir',
+      },
+    ],
   }
 
-  handleMoreButton = () => {
-    const { currentList } = this.state
-    const newList =
-      currentList === this.firstList ? this.secondList : this.firstList
-    this.setState({ currentList: newList })
+  const handleMoreButton = () => {
+    const newList = currentList === firstList ? secondList : firstList
+    setCurrentList(newList)
   }
 
-  openLink = (event, item, print) => {
+  const openLink = (event, item, print) => {
     event.preventDefault()
     if (print) window.print()
     else popUpWindow(item.link, '', 600, 400)
   }
 
-  render() {
-    const { currentList } = this.state
-    const { globalContent } = this.props
-    const { post: { post_title: postTitle } = {} } = globalContent || {}
-    return (
-      <div className={classes.header}>
-        <h1 className={classes.title}>{postTitle}</h1>
-        <ul className={classes.list}>
-          {this.shareButtons[currentList].map((item, i) => (
-            <li className={`${classes.item} ${item.mobileClass || ''}`}>
-              <a
-                className={classes.link}
-                href={item.link}
-                onClick={event => {
-                  const isPrint = i === 1 && currentList === this.secondList
-                  this.openLink(event, item, isPrint)
-                }}>
-                <i className={item.icon} />
-                <span className={classes.share}>
-                  {
-                    /* i === 1 && currentList === this.secondList
+  return (
+    <div className={classes.header}>
+      <h1 className={classes.title}>{postTitle}</h1>
+      <ul className={classes.list}>
+        {shareButtons[currentList].map((item, i) => (
+          <li className={`${classes.item} ${item.mobileClass || ''}`}>
+            <a
+              className={classes.link}
+              href={item.link}
+              onClick={event => {
+                const isPrint = i === 1 && currentList === secondList
+                openLink(event, item, isPrint)
+              }}>
+              <i className={item.icon} />
+              <span className={classes.share}>
+                {
+                  /* i === 1 && currentList === secondList
                     ? 'Imprimir'
                   : 'Compartir' */
-                    item.title
-                  }
-                </span>
-              </a>
-            </li>
-          ))}
-
-          <li className={classes.more}>
-            <button
-              className={classes.button}
-              type="button"
-              onClick={e => this.handleMoreButton(e)}>
-              <i>{currentList === this.firstList ? '+' : '-'}</i>
-            </button>
+                  item.title
+                }
+              </span>
+            </a>
           </li>
-        </ul>
-      </div>
-    )
-  }
+        ))}
+
+        <li className={classes.more}>
+          <button
+            className={classes.button}
+            type="button"
+            onClick={e => handleMoreButton(e)}>
+            <i>{currentList === firstList ? '+' : '-'}</i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  )
 }
 
 BlogPostHeader.label = 'Blog - Cabecera del post'

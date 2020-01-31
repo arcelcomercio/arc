@@ -1,5 +1,7 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useEditableContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 
 import SearchInput from '../../../global-components/search-input'
@@ -15,40 +17,40 @@ const classes = {
   searchBox: 'pt-10 pb-20 m-0 mx-auto',
 }
 
-@Consumer
-class Error404 extends PureComponent {
-  render() {
-    const { customFields, editableField, siteProperties = {} } = this.props
+const Error404 = props => {
+  const { customFields } = props
+  const { arcSite } = useFusionContext()
+  const { messages: { errorTitle, errorDescription } = {} } = getProperties(
+    arcSite
+  )
+  const { title = errorTitle, description = errorDescription } = customFields
+  const { editableField } = useEditableContent()
 
-    const { messages: { errorTitle, errorDescription } = {} } = siteProperties
-    const { title = errorTitle, description = errorDescription } = customFields
-
-    return (
-      <>
-        <div role="group" className={classes.container}>
-          <h3
-            className={classes.title}
-            {...editableField('title')}
-            suppressContentEditableWarning>
-            {title}
-          </h3>
-          <p
-            className={classes.content}
-            {...editableField('description')}
-            suppressContentEditableWarning>
-            {description}
-          </p>
-          <div role="search" className={classes.searchBox}>
-            <SearchInput />
-          </div>
-          <a href="/" className={classes.link}>
-            Volver a la página principal
-          </a>
+  return (
+    <>
+      <div role="group" className={classes.container}>
+        <h3
+          className={classes.title}
+          {...editableField('title')}
+          suppressContentEditableWarning>
+          {title}
+        </h3>
+        <p
+          className={classes.content}
+          {...editableField('description')}
+          suppressContentEditableWarning>
+          {description}
+        </p>
+        <div role="search" className={classes.searchBox}>
+          <SearchInput />
         </div>
-        {/* <div className="datafromAjax" /> TODO: Falta implementar esta parte */}
-      </>
-    )
-  }
+        <a href="/" className={classes.link}>
+          Volver a la página principal
+        </a>
+      </div>
+      {/* <div className="datafromAjax" /> TODO: Falta implementar esta parte */}
+    </>
+  )
 }
 
 Error404.label = 'Error 404'

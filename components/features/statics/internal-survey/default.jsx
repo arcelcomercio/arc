@@ -86,8 +86,8 @@ class StaticInternalSurvey extends PureComponent {
       title = '',
       dateStart: date = '',
       choices = [],
-      slugNext: { slug: next = '' },
-      slugPrev: { slug: prev = '' },
+      slugNext: { slug: next = '' } = {},
+      slugPrev: { slug: prev = '' } = {},
     } = globalContent || {}
 
     const params = {

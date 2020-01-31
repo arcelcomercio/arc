@@ -13,6 +13,8 @@ setupTests.js
 .browserslistrc
 .babelrc
 .prettierrc
+.stylelintrc.json
+commitlinterrc.json
 *.md
 *.test*
 **/*.md

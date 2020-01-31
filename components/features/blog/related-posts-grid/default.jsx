@@ -1,5 +1,7 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useEditableContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+
 import PropTypes from 'prop-types'
 import BlogRelatedPostsGridChildCard from './_children/card'
 import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
@@ -13,9 +15,18 @@ const classes = {
 
 const BLOG_URL = `/blog/`
 
-@Consumer
-class BlogRelatedPostsGrid extends PureComponent {
-  buildParams = (relatedPostItem, blog, contextPath, arcSite, deployment) => {
+const BlogRelatedPostsGrid = props => {
+  const { customFields: { featureTitle } = {} } = props
+
+  const {
+    contextPath,
+    arcSite,
+    deployment,
+    globalContent: { related_posts: relatedPosts, blog } = {},
+  } = useFusionContext()
+  const { editableField } = useEditableContent()
+
+  const buildParams = relatedPostItem => {
     const postLink = addSlashToEnd(
       `${BLOG_URL}${relatedPostItem.post_permalink}`
     )
@@ -39,44 +50,34 @@ class BlogRelatedPostsGrid extends PureComponent {
     }
   }
 
-  render() {
-    const {
-      contextPath,
-      arcSite,
-      deployment,
-      editableField,
-      customFields: { featureTitle } = {},
-      globalContent: { related_posts: relatedPosts, blog } = {},
-    } = this.props || {}
-    return (
-      <div role="region" className={classes.bmInterestYou}>
-        <h4
-          className={classes.generalTitle}
-          {...editableField('featureTitle')}
-          suppressContentEditableWarning>
-          {featureTitle || 'Te puede interesar'}
-        </h4>
-        <div role="list" className={classes.container}>
-          {relatedPosts &&
-            relatedPosts.map(item => {
-              const params = this.buildParams(
-                item,
-                blog,
-                contextPath,
-                arcSite,
-                deployment
-              )
-              return (
-                <BlogRelatedPostsGridChildCard
-                  key={params.postLink}
-                  {...params}
-                />
-              )
-            })}
-        </div>
+  return (
+    <div role="region" className={classes.bmInterestYou}>
+      <h4
+        className={classes.generalTitle}
+        {...editableField('featureTitle')}
+        suppressContentEditableWarning>
+        {featureTitle || 'Te puede interesar'}
+      </h4>
+      <div role="list" className={classes.container}>
+        {relatedPosts &&
+          relatedPosts.map(item => {
+            const params = buildParams(
+              item,
+              blog,
+              contextPath,
+              arcSite,
+              deployment
+            )
+            return (
+              <BlogRelatedPostsGridChildCard
+                key={params.postLink}
+                {...params}
+              />
+            )
+          })}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 BlogRelatedPostsGrid.label = 'Blog - Te puede interesar'

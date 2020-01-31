@@ -2,11 +2,12 @@
 //   border-color: $color-primary;
 // }
 
-
 .stories-l-card {
   height: auto;
 
-  // &__list {}
+  &__list {
+    max-height: 324px;
+  }
   &__image {
     max-height: 157px;
     // Esta altura está relacionada a la altura de "landscape_md"

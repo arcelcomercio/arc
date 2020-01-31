@@ -1,55 +1,27 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 
 import { setSurveyCookie, getCookie } from '../../../utilities/helpers'
 import CardSurveyChildSurvey from './_children/survey'
 
 const BASE_PATH = '/encuesta'
 
-@Consumer
-class CardSurvey extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      quizData: {
-        title: '',
-        slug: '',
-        dateStart: '',
-        dateEnd: '',
-        choices: [],
-        slugNext: {
-          id: 0,
-          slug: '',
-        },
-        slugPrev: {
-          id: 0,
-          slug: '',
-        },
-      },
-    }
+const CardSurvey = () => {
+  const { contextPath } = useFusionContext()
+  const currentSurveyId = 674
+  const hasVote = getCookie(`idpoll${currentSurveyId}`) === '1'
 
-    this.currentSurveyId = 674
-    this.hasVote = getCookie(`idpoll${this.currentSurveyId}`) === '1'
-  }
+  const quizData = useContent({
+    source: 'quiz-by-id',
+    query: {
+      id: currentSurveyId,
+    },
+  })
 
-  componentDidMount() {
-    this.gestQuiz()
-  }
-
-  gestQuiz = () => {
-    const service = 'quiz-by-id'
-    const params = {
-      id: this.currentSurveyId,
-    }
-    const { fetched } = this.getContent(service, params)
-    fetched.then(response => {
-      this.setState({ quizData: response })
-    })
-  }
-
-  sendQuiz = optionSelected => {
+  const sendQuiz = optionSelected => {
     const body = {
-      id: this.currentSurveyId,
+      id: currentSurveyId,
       option: optionSelected,
       website: 'peru21',
     }
@@ -65,30 +37,25 @@ class CardSurvey extends PureComponent {
       .catch(error => error)
       .then(response => {
         if (response.status === 200) {
-          const { quizData: { slug = '' } = {} } = this.state
+          const { slug = '' } = quizData || {}
           setSurveyCookie(body.id, 1)
           window.location.href = `${BASE_PATH}/${slug}`
         }
       })
   }
 
-  render() {
-    const { contextPath } = this.props
-    const {
-      quizData: { title = '', slug = '', choices = [] },
-    } = this.state
-    const params = {
-      BASE_PATH,
-      contextPath,
-      title,
-      slug,
-      choices,
-      hasVote: this.hasVote,
-      sendQuiz: this.sendQuiz,
-    }
-
-    return <CardSurveyChildSurvey {...params} />
+  const { title = '', slug = '', choices = [] } = quizData || {}
+  const params = {
+    BASE_PATH,
+    contextPath,
+    title,
+    slug,
+    choices,
+    hasVote,
+    sendQuiz,
   }
+
+  return <CardSurveyChildSurvey {...params} />
 }
 
 CardSurvey.label = 'Encuesta'

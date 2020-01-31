@@ -1,5 +1,6 @@
-import React, { PureComponent, Fragment } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { Fragment } from 'react'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import { customFields } from '../_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
@@ -10,74 +11,71 @@ const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
-@Consumer
-class StoriesListPaginatedList extends PureComponent {
-  hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
+const StoriesListPaginatedList = props => {
+  const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
 
-  render() {
-    const {
-      globalContent,
-      globalContentConfig,
-      deployment,
-      contextPath,
-      arcSite,
-      requestUri,
-      isAdmin,
-      customFields: customFieldsProps = {},
-      siteProperties: { isDfp = false },
-    } = this.props
-    const { content_elements: stories = [], count = 0 } = globalContent || {}
-    const { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
+  const {
+    globalContent,
+    globalContentConfig,
+    deployment,
+    contextPath,
+    arcSite,
+    requestUri,
+    isAdmin,
+  } = useFusionContext()
+  const { customFields: customFieldsProps = {} } = props
+  const { isDfp = false } = getProperties(arcSite)
+  const { content_elements: stories = [], count = 0 } = globalContent || {}
+  const { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
-    const activeAds = Object.keys(customFieldsProps)
-      .filter(prop => prop.match(/adsMobile(\d)/))
-      .filter(key => customFieldsProps[key] === true)
-    const typeSpace = isDfp ? 'caja' : 'movil'
+  const activeAds = Object.keys(customFieldsProps)
+    .filter(prop => prop.match(/adsMobile(\d)/))
+    .filter(key => customFieldsProps[key] === true)
+  const typeSpace = isDfp ? 'caja' : 'movil'
 
-    const activeAdsArray = activeAds.map(el => {
-      return {
-        name: `${typeSpace}${el.slice(-1)}`,
-        pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
-        inserted: false,
-      }
-    })
+  const activeAdsArray = activeAds.map(el => {
+    return {
+      name: `${typeSpace}${el.slice(-1)}`,
+      pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+      inserted: false,
+    }
+  })
 
-    return (
-      <>
-        <div>
-          {stories.map((story, index) => {
-            const ads = this.hasAds(index + 1, activeAdsArray)
-            return (
-              <Fragment key={`Paginated-list-${story._id}`}>
-                <StoryItem
-                  data={story}
-                  {...{ deployment, contextPath, arcSite, isAdmin }}
-                />
-                {ads.length > 0 && (
-                  <div className={classes.adsBox}>
-                    <Ads
-                      adElement={ads[0].name}
-                      isDesktop={false}
-                      isMobile
-                      isDfp={isDfp}
-                    />
-                  </div>
-                )}
-              </Fragment>
-            )
-          })}
-        </div>
-        {count !== 0 && (
-          <Pagination
-            totalElements={count}
-            storiesQty={size}
-            currentPage={from}
-            requestUri={requestUri}
-          />
-        )}
-      </>
-    )
-  }
+  return (
+    <>
+      <div>
+        {stories.map((story, index) => {
+          const ads = hasAds(index + 1, activeAdsArray)
+          return (
+            <Fragment key={`Paginated-list-${story._id}`}>
+              <StoryItem
+                data={story}
+                {...{ deployment, contextPath, arcSite, isAdmin }}
+              />
+              {ads.length > 0 && (
+                <div className={classes.adsBox}>
+                  <Ads
+                    adElement={ads[0].name}
+                    isDesktop={false}
+                    isMobile
+                    isDfp={isDfp}
+                  />
+                </div>
+              )}
+            </Fragment>
+          )
+        })}
+      </div>
+      {count !== 0 && (
+        <Pagination
+          totalElements={count}
+          storiesQty={size}
+          currentPage={from}
+          requestUri={requestUri}
+        />
+      )}
+    </>
+  )
 }
 
 StoriesListPaginatedList.propTypes = {
