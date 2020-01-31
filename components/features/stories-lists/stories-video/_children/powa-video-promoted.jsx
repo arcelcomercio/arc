@@ -5,7 +5,11 @@ const classes = {
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
 }
-const showClose = false
+
+const closeSticky = () => {
+  console.log('close Sticky')
+}
+
 const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
   window.addEventListener('powaRender', event => {
     const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
@@ -26,7 +30,6 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
         if (scrollHeight >= playOf.offsetTop) {
           // + playOf.offsetHeight
           itemDest.classList.add('sticky')
-          // showClose = true
         }
 
         if (scrollHeight < playOf.offsetTop) {
@@ -54,6 +57,7 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
       powa.isPlay = true
     }
   })
+
   return (
     <>
       <div dangerouslySetInnerHTML={{ __html: video.payload }} />
@@ -61,6 +65,7 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
         <div className={classes.listBorder}>
           <h2 className={classes.listItemTitleDest}>{title}</h2>
         </div>
+        <span onClick={closeSticky}>X</span>
       </div>
     </>
   )
