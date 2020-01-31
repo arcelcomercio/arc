@@ -36,6 +36,7 @@ const CardFeaturedStoryAdvanced = props => {
       urlVideoFacebook,
       adsSpace,
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      isLazyLoadActivate = true,
     } = {},
   } = props
 
@@ -60,18 +61,14 @@ const CardFeaturedStoryAdvanced = props => {
   const includedFields = featuredStoryFields
 
   const data =
-    useContent(
-      adsSpace && adsSpace !== 'none'
-        ? {}
-        : {
-            source: contentService,
-            query: Object.assign(contentConfigValues, {
-              presets,
-              includedFields,
-            }),
-            filter: schema,
-          }
-    ) || {}
+    useContent({
+      source: contentService,
+      query: Object.assign(contentConfigValues, {
+        presets,
+        includedFields,
+      }),
+      filter: schema,
+    }) || {}
 
   const adsSpaces =
     useContent(
@@ -159,6 +156,7 @@ const CardFeaturedStoryAdvanced = props => {
     siteName,
     multimediaSubtitle,
     multimediaCaption,
+    isLazyLoadActivate,
   }
 
   const paramsFacebook = {
