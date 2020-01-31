@@ -5,7 +5,7 @@ const classes = {
   title:
     'story-header__news-title pr-20 pl-20 mb-20 primary-font line-h-xs text-gray-300 title-xl',
   premiumWrapper:
-    'premium__wrapper bg-primary flex justify-center items-center mb-10 ml-20',
+    'premium__wrapper bg-primary flex justify-center items-center mb-10 ml-20 hidden',
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }

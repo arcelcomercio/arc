@@ -15,7 +15,6 @@ const MAG_PATH = '/mag'
 class XmlMagStoriesSitemapWeb {
   constructor(props) {
     this.props = props
-    const { arcSite } = props
 
     this.fetchContent({
       data: {
@@ -24,14 +23,14 @@ class XmlMagStoriesSitemapWeb {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets: 'no-presets',
-          includedFields: `websites.${arcSite}.website_url,display_date`,
+          includedFields: `websites.elcomerciomag.website_url,display_date`,
         },
       },
     })
   }
 
   render() {
-    const { arcSite, siteProperties: { siteUrl = '' } = {} } = this.props
+    const { siteProperties: { siteUrl = '' } = {} } = this.props
 
     const { data } = this.state || {}
     const { content_elements: stories = [] } = data || {}
@@ -43,7 +42,7 @@ class XmlMagStoriesSitemapWeb {
     const sitemap = {
       urlset: stories.map(story => {
         const { display_date: date = '', websites = {} } = story
-        const { website_url: websiteLink } = websites[arcSite] || {}
+        const { website_url: websiteLink } = websites.elcomerciomag || {}
 
         return {
           url: {

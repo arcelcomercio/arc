@@ -84,10 +84,11 @@ export default ({
     if (requestUri.match('^/depor-play')) classBody = `${classBody} depor-play`
     if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
   }
-    
-  if(requestUri.match(`^(/play/.*)`)) classBody = "section-play"
-  if(requestUri.match(`^(/videos/.*)`)) classBody = "section-videos"  
 
+  if (requestUri.match(`^(/play/.*)`))
+    classBody = `${isStory && 'story'} section-play`
+  if (requestUri.match(`^(/videos/.*)`))
+    classBody = `${isStory && 'story'} section-videos`
 
   const metaSiteData = {
     ...siteProperties,
@@ -293,14 +294,24 @@ export default ({
           globalContent={globalContent}
         />
 
-        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && (
-          <script
-            defer
-            src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
-          />
-        )}
+        {(arcSite === 'publimetro' ||
+          arcSite === 'depor' ||
+          arcSite === 'elcomercio' ||
+          arcSite === 'elcomerciomag') &&
+          !nodas &&
+          !isLivePage && (
+            <script
+              defer
+              src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
+            />
+          )}
 
-        {!(arcSite === 'publimetro' || arcSite === 'depor' ) && (
+        {!(
+          arcSite === 'publimetro' ||
+          arcSite === 'depor' ||
+          arcSite === 'elcomercio' ||
+          arcSite === 'elcomerciomag'
+        ) && (
           <>
             {!nodas && !isLivePage && (
               <script
@@ -363,14 +374,18 @@ export default ({
           />
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
-        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && 
-        (
-          <script
-            type="text/javascript"
-            defer
-            dangerouslySetInnerHTML={{ __html: collapseDivs }}
-          />
-        )}
+        {(arcSite === 'publimetro' ||
+          arcSite === 'depor' ||
+          arcSite === 'elcomercio' ||
+          arcSite === 'elcomerciomag') &&
+          !nodas &&
+          !isLivePage && (
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: collapseDivs }}
+            />
+          )}
       </head>
       <body className={classBody}>
         <noscript>
@@ -386,14 +401,20 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {!(arcSite === 'publimetro' || arcSite === 'depor') && !nodas && (
-          <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/assets/js/appnexus-min.js`
-            )}
-          />
-        )}
+        {!(
+          arcSite === 'publimetro' ||
+          arcSite === 'depor' ||
+          arcSite === 'elcomercio' ||
+          arcSite === 'elcomerciomag'
+        ) &&
+          !nodas && (
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/appnexus-min.js`
+              )}
+            />
+          )}
         <script
           defer
           src={deployment(
@@ -435,7 +456,12 @@ export default ({
         <script
           src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
         />
-        {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage && <Dfp />}
+        {(arcSite === 'publimetro' ||
+          arcSite === 'depor' ||
+          arcSite === 'elcomercio' ||
+          arcSite === 'elcomerciomag') &&
+          !nodas &&
+          !isLivePage && <Dfp />}
       </body>
     </html>
   )

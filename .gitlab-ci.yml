@@ -241,6 +241,7 @@ deploy-master:
 publish:
   image: registry.gitlab.ec.pe/contenidos/arc
   stage: release
+  when: manual
   dependencies:
     - deploy-master
   before_script:
