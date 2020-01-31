@@ -3,8 +3,10 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-import { BLOG_TOKEN } from 'fusion:environment'
-import transform from '../../../../content/sources/get-user-blog-and-posts'
+import { BLOG_TOKEN, resizerSecret } from 'fusion:environment'
+import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
+import RedirectError from '../../../../components/utilities/redirect-error' 
+// import { transform } from '../../../../content/sources/get-user-blog-and-posts'
 
 import SeparatorBlogChildItem from './_children/item'
 import {
@@ -57,48 +59,6 @@ const SeparatorEditorialBlogManual = () => {
     api: { blog: urlApiblog = '' },
   } = getProperties(arcSite)
 
-  // const transform = (data, { 'arc-site': arcSite }) => {
-  //   if (!data || (data && data.status !== 'ok' && data.status !== 200)) {
-  //     const { siteUrl } = getProperties(arcSite)
-  //     throw new RedirectError(`${siteUrl}/blog/`, 301)
-  //   }
-
-  //   // Agregamos las urls de las imagenes redimensionadas
-  //   const { resizerUrl } = getProperties(arcSite)
-  //   const newData = data
-
-  //   const { user: { user_avatarb: { guid } = {} } = {} } = data || {}
-  //   if (guid) {
-  //     const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
-  //       presets: {
-  //         lazy_default: {
-  //           width: 5,
-  //           height: 5,
-  //         },
-  //         author_sm: {
-  //           width: 125,
-  //           height: 125,
-  //         },
-  //       },
-  //     })({
-  //       url: guid,
-  //     })
-  //     newData.user.user_avatarb.resized_urls = resizedUrls
-  //   }
-    
-  //   return newData
-  // }
-
-  const dataBlog =
-    useContent({
-      source: CONTENT_SOURCE_BLOG,
-      query: {
-        website_url: BLOG_BASE,
-        blog_limit: 5,
-        filter: schemaBlog,
-      },
-    }) || {}
-
   const urlList = [post01, post02, post03, post04]
   const paramsSource = urlList.map((url) => {
     if (url !== '') {
@@ -107,10 +67,11 @@ const SeparatorEditorialBlogManual = () => {
     }
   })
 
-  let dataBlogNew = []
+  let dataBlog = []
+  dataBlog.status = "ok"
   
   if(paramsSource[0] !== undefined){
-    dataBlogNew.push(
+    dataBlog.push(
       useContent({
         source: 'get-post-data-by-blog-and-post-name',
         query: {
@@ -125,7 +86,7 @@ const SeparatorEditorialBlogManual = () => {
   }
 
   if(paramsSource[1] !== undefined){
-    dataBlogNew.push(
+    dataBlog.push(
       useContent({
         source: 'get-post-data-by-blog-and-post-name',
         query: {
@@ -140,7 +101,7 @@ const SeparatorEditorialBlogManual = () => {
   }
   
   if(paramsSource[2] !== undefined){
-    dataBlogNew.push(
+    dataBlog.push(
       useContent({
         source: 'get-post-data-by-blog-and-post-name',
         query: {
@@ -155,7 +116,7 @@ const SeparatorEditorialBlogManual = () => {
   }
 
   if(paramsSource[3] !== undefined){
-    dataBlogNew.push(
+    dataBlog.push(
       useContent({
         source: 'get-post-data-by-blog-and-post-name',
         query: {
@@ -169,22 +130,6 @@ const SeparatorEditorialBlogManual = () => {
       }) || [])
   }
 
-  dataBlogNew.status = "ok"
-  // dataBlogNew = transform(dataBlogNew, { 'arc-site': arcSite })
-
-  
-  console.log("======================")
-  console.log(dataBlogNew[0].user)
-  console.log("======================")
-
-  // urlList.forEach((url, index) => {
-  //   if (url !== '') {
-  //     const [, blogPath, year, month, postName] = url.match(/\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\/?/)
-  //     const urlData = `${urlApiblog}?json=${CONTENT_SOURCE_POST}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=6&posts_offset=0&token=${BLOG_TOKEN}`    
-  //   }
-  // }) || []
-
-  // TODO: esto deberia llamar a story-by-tag
   const dataEditorial =
     useContent({
       source: CONTENT_SOURCE_SECTION,
@@ -265,12 +210,10 @@ const SeparatorEditorialBlogManual = () => {
                 } = {},
               } = {},
               blog: { path: blogUrl = '', blogname: blogName = '' } = {},
-              posts: [
-                {
+              post: {
                   post_permalink: postLink = '',
                   post_title: postTitle = '',
                 } = {},
-              ] = [],
             } = post
 
             const data = {
