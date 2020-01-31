@@ -550,8 +550,7 @@ class StoryData {
   }
 
   get breadcrumbList() {
-    const { website_url: url = '' } = this._data || {}
-    return breadcrumbList(url, this._siteUrl)
+    return breadcrumbList(this._siteUrl, this.primarySectionLink)
   }
 
   get recentList() {
@@ -939,6 +938,7 @@ class StoryData {
           basic: { url: urlImageP = '', resized_urls: resizedUrlsP = '' } = {},
         } = {},
         headlines: { basic: caption = '' } = {},
+        description: { basic: description = '' } = {},
       } = basicVideo
       if (type === 'video') {
         const dataVideo = streams
@@ -957,6 +957,7 @@ class StoryData {
                     duration,
                     urlImage: urlImage || urlImageP,
                     date,
+                    description,
                   }
                 : []
             }
@@ -1050,6 +1051,7 @@ class StoryData {
             duration,
             publish_date: date,
             headlines: { basic: caption = '' } = {},
+            description: { basic: description = '' } = {},
           }) => {
             const resultVideo = streams
               .map(({ url = '', stream_type: streamType = '' }) => {
@@ -1061,6 +1063,7 @@ class StoryData {
                       duration,
                       urlImage,
                       date,
+                      description,
                     }
                   : []
               })

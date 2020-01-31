@@ -458,24 +458,19 @@ export const appendToId = (id, node) => {
   id.append(node)
 }
 
-export const breadcrumbList = (url, siteUrl) => {
-  const arrayData = []
-  if (url) {
-    const dataSeccion = url.split('/')
-    dataSeccion.forEach((element, i) => {
-      if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
-        const separator = '/'
-        arrayData[i] = {
-          name:
-            element.charAt(0).toUpperCase() +
-            element.slice(1).replace('-', ' '),
-          url: siteUrl + separator + element,
-        }
+export const breadcrumbList = (siteUrl = '', primarySectionLink = '') => {
+  let sectionQueue = '/'
+  return primarySectionLink
+    .split('/')
+    .filter(section => section !== '')
+    .map(section => {
+      sectionQueue = `${sectionQueue}${section}/`
+      return {
+        name:
+          section.charAt(0).toUpperCase() + section.slice(1).replace(/-/g, ' '),
+        url: `${siteUrl}${sectionQueue}`,
       }
     })
-  }
-
-  return arrayData.filter(String)
 }
 
 export const getUrlParameter = () => {

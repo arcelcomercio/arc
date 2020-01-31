@@ -60,8 +60,8 @@ export default ({
     arcSite === ConfigParams.SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
-  const redSocialVideo = contentElementsRedesSociales.map(
-    ({ youtube = '', facebook = '', twitter = '', user = '' }) => {
+  const redSocialVideo = contentElementsRedesSociales
+    .map(({ youtube = '', facebook = '', twitter = '', user = '' }) => {
       const thumbnailUrlYoutube =
         youtube && `https://img.youtube.com/vi/${youtube}/maxresdefault.jpg`
       const embedUrlYoutube =
@@ -77,17 +77,19 @@ export default ({
       const embedUrlFacebook =
         facebook && `https://www.facebook.com${user}/videos/${facebook}`
 
-      return `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
-        title
-      )}",   "description": "${formatHtmlToText(
-        subTitle
-      )}",  "thumbnailUrl": "${thumbnailUrlYoutube ||
-        thumbnailUrlTwitter ||
-        thumbnailUrlFacebook}", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube ||
-        embedUrlTwitter ||
-        embedUrlFacebook}" }`
-    }
-  )
+      return thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
+        ? `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
+            title
+          )}",   "description": "${formatHtmlToText(
+            subTitle
+          )}",  "thumbnailUrl": "${thumbnailUrlYoutube ||
+            thumbnailUrlTwitter ||
+            thumbnailUrlFacebook}", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube ||
+            embedUrlTwitter ||
+            embedUrlFacebook}" }`
+        : ''
+    })
+    .filter(redSocialVideo => redSocialVideo !== '')
 
   let resultRelated = ''
 
@@ -118,6 +120,7 @@ export default ({
     ({
       url,
       caption,
+      description,
       urlImage,
       date,
       duration,
@@ -138,7 +141,7 @@ export default ({
       )}", ${
         isAmp === true ? publishedVideoOrganization : ''
       }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
-        caption
+        description || caption
       )}", "contentUrl": "${url}",  "uploadDate": "${date}", "duration": "${msToTime(
         duration,
         false
