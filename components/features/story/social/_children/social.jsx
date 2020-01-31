@@ -2,6 +2,8 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
+import rawHtml from 'react-render-html'
+
 import {
   popUpWindow,
   socialMediaUrlShareList,
@@ -128,10 +130,7 @@ const StoryHeaderChildSocial = () => {
               className={`${classes.category} ${(isPremium &&
                 classes.premium) ||
                 ''}`}>
-              {(editorNote && (
-                <p dangerouslySetInnerHTML={{ __html: editorNote }}></p>
-              )) ||
-                primarySection}
+              {(editorNote && rawHtml(editorNote)) || primarySection}
               <StorySocialChildAuthor {...params} />
             </div>
           )}

@@ -2,7 +2,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import { Parser } from 'html-to-react'
+import renderHTML from 'react-render-html'
 import { getFullDateIso8601 } from '../../../utilities/helpers'
 import Ads from '../../../global-components/ads'
 
@@ -24,8 +24,6 @@ const BlogPostContent = () => {
   const formatDate = getFullDateIso8601(postDate)
   const { day, month, fullYear, hours, minutes } = formatDate || {}
 
-  const htmlParser = new Parser()
-
   return (
     <div className={classes.content}>
       <div className={classes.header}>
@@ -38,7 +36,7 @@ const BlogPostContent = () => {
         <Ads adElement="inline" isDesktop isMobile={false} isDfp={isDfp} />
         <Ads adElement="movil_video" isDesktop={false} isMobile isDfp={isDfp} />
         <Ads adElement="movil3" isDesktop={false} isMobile isDfp={isDfp} />
-        <section>{postContent && htmlParser.parse(postContent)}</section>
+        <section>{postContent && renderHTML(postContent)}</section>
       </div>
     </div>
   )
