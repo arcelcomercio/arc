@@ -2,6 +2,9 @@ import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+import { BLOG_TOKEN } from 'fusion:environment'
+import transform from '../../../../content/sources/get-user-blog-and-posts'
 
 import SeparatorBlogChildItem from './_children/item'
 import {
@@ -27,6 +30,7 @@ const classes = {
 const BLOG_BASE = '/blog/'
 const CONTENT_SOURCE_SECTION = 'story-by-tag'
 const CONTENT_SOURCE_BLOG = 'get-user-blog-and-posts'
+const CONTENT_SOURCE_POST = 'get_post_data_by_blog_and_post_name'
 const CONTENT_SOURCE_PHOTO = 'photo-by-id'
 
 const urlLogoGestion =
@@ -49,6 +53,42 @@ const SeparatorEditorialBlogManual = () => {
     siteProperties: { siteUrl } = {},
   } = useFusionContext()
 
+  const {
+    api: { blog: urlApiblog = '' },
+  } = getProperties(arcSite)
+
+  // const transform = (data, { 'arc-site': arcSite }) => {
+  //   if (!data || (data && data.status !== 'ok' && data.status !== 200)) {
+  //     const { siteUrl } = getProperties(arcSite)
+  //     throw new RedirectError(`${siteUrl}/blog/`, 301)
+  //   }
+
+  //   // Agregamos las urls de las imagenes redimensionadas
+  //   const { resizerUrl } = getProperties(arcSite)
+  //   const newData = data
+
+  //   const { user: { user_avatarb: { guid } = {} } = {} } = data || {}
+  //   if (guid) {
+  //     const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
+  //       presets: {
+  //         lazy_default: {
+  //           width: 5,
+  //           height: 5,
+  //         },
+  //         author_sm: {
+  //           width: 125,
+  //           height: 125,
+  //         },
+  //       },
+  //     })({
+  //       url: guid,
+  //     })
+  //     newData.user.user_avatarb.resized_urls = resizedUrls
+  //   }
+    
+  //   return newData
+  // }
+
   const dataBlog =
     useContent({
       source: CONTENT_SOURCE_BLOG,
@@ -60,26 +100,89 @@ const SeparatorEditorialBlogManual = () => {
     }) || {}
 
   const urlList = [post01, post02, post03, post04]
-  const dataBlogManual =
-  urlList.forEach((url, index) => {
+  const paramsSource = urlList.map((url) => {
     if (url !== '') {
       const [, blogPath, year, month, postName] = url.match(/\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\/?/)
-      console.log("=============================")
-      console.log(blogPath, year, month, postName)
-      console.log("=============================")      
-      
-      // this.fetchContent({
-      //   [`story0${index + 1}`]: {
-      //     source: CONTENT_SOURCE,
-      //     query: {
-      //       website: arcSite,
-      //       website_url: url,
-      //     },
-      //     filter: schemaFilter,
-      //   },
-      // })
+      return [blogPath, year, month, postName]
     }
-  }) || {}
+  })
+
+  let dataBlogNew = []
+  
+  if(paramsSource[0] !== undefined){
+    dataBlogNew.push(
+      useContent({
+        source: 'get-post-data-by-blog-and-post-name',
+        query: {
+          'blog_path': paramsSource[0][0],
+          'year': paramsSource[0][1],
+          'month': paramsSource[0][2],
+          'post_name': paramsSource[0][3],
+          'posts_limit': 6, 
+          'posts_offset': 0
+        },
+      }) || [])
+  }
+
+  if(paramsSource[1] !== undefined){
+    dataBlogNew.push(
+      useContent({
+        source: 'get-post-data-by-blog-and-post-name',
+        query: {
+          'blog_path': paramsSource[1][0],
+          'year': paramsSource[1][1],
+          'month': paramsSource[1][2],
+          'post_name': paramsSource[1][3],
+          'posts_limit': 6, 
+          'posts_offset': 0
+        },
+      }) || [])
+  }
+  
+  if(paramsSource[2] !== undefined){
+    dataBlogNew.push(
+      useContent({
+        source: 'get-post-data-by-blog-and-post-name',
+        query: {
+          'blog_path': paramsSource[2][0],
+          'year': paramsSource[2][1],
+          'month': paramsSource[2][2],
+          'post_name': paramsSource[2][3],
+          'posts_limit': 6, 
+          'posts_offset': 0
+        },
+      }) || [])
+  }
+
+  if(paramsSource[3] !== undefined){
+    dataBlogNew.push(
+      useContent({
+        source: 'get-post-data-by-blog-and-post-name',
+        query: {
+          'blog_path': paramsSource[3][0],
+          'year': paramsSource[3][1],
+          'month': paramsSource[3][2],
+          'post_name': paramsSource[3][3],
+          'posts_limit': 6, 
+          'posts_offset': 0
+        },
+      }) || [])
+  }
+
+  dataBlogNew.status = "ok"
+  // dataBlogNew = transform(dataBlogNew, { 'arc-site': arcSite })
+
+  
+  console.log("======================")
+  console.log(dataBlogNew[0].user)
+  console.log("======================")
+
+  // urlList.forEach((url, index) => {
+  //   if (url !== '') {
+  //     const [, blogPath, year, month, postName] = url.match(/\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\/?/)
+  //     const urlData = `${urlApiblog}?json=${CONTENT_SOURCE_POST}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=6&posts_offset=0&token=${BLOG_TOKEN}`    
+  //   }
+  // }) || []
 
   // TODO: esto deberia llamar a story-by-tag
   const dataEditorial =
