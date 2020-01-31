@@ -1,6 +1,5 @@
 // content/sources/content-api-v4.js
 import React, { PureComponent } from 'react'
-import renderHTML from 'react-render-html'
 import Consumer from 'fusion:consumer'
 
 const classes = {
@@ -20,12 +19,9 @@ class StoryContentChildVideo extends PureComponent {
       } = {},
     } = this.props
     this.videoData = video
-    
   }
 
   componentDidMount() {
-
-    
     if (window.powaBoot) {
       window.powaBoot()
     }
@@ -93,23 +89,21 @@ class StoryContentChildVideo extends PureComponent {
           break
       }
 
-      let sectionSlug = this.getSectionSlug(primarySection)
+      const sectionSlug = this.getSectionSlug(primarySection)
       if (arcSite === 'publimetro') {
         return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSite}_post_${sectionSlug}_web_preroll&description_url=https%3A%2F%2F${arcSite}.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSite}%26seccion%3D${sectionSlug}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`
-      } else {
-        return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSite}/web/post/${sectionSlug
-          .split('-')
-          .join(
-            ''
-          )}/preroll&description_url=https%3A%2F%2F${arcSite}.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSite}%26seccion%3D${sectionSlug
-          .split('-')
-          .join(
-            ''
-          )}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`
       }
-    } else {
-      return urlPreroll
+      return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSite}/web/post/${sectionSlug
+        .split('-')
+        .join(
+          ''
+        )}/preroll&description_url=https%3A%2F%2F${arcSite}.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSite}%26seccion%3D${sectionSlug
+        .split('-')
+        .join(
+          ''
+        )}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`
     }
+    return urlPreroll
   }
 
   render() {
@@ -125,7 +119,12 @@ class StoryContentChildVideo extends PureComponent {
       )
     return (
       <>
-        {urlVideo && renderHTML(urlVideo.replace('[goldfish_publicidad]', ''))}
+        {urlVideo && (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: urlVideo.replace('[goldfish_publicidad]', ''),
+            }}></div>
+        )}
         <figcaption className={classes.caption}>{description} </figcaption>
       </>
     )

@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
 
-import rawHtml from 'react-render-html'
 import StoryTitleChildHeading from '../title/_children/heading'
 import StoryData from '../../../utilities/story-data'
 
@@ -31,7 +30,7 @@ const StorySpecialTitle = () => {
       <div className={classes.story}>
         <div className={classes.note}>
           {editorNote ? (
-            rawHtml(editorNote)
+            <p dangerouslySetInnerHTML={{ __html: editorNote }}></p>
           ) : (
             <a href={primarySectionLink}>{primarySection}</a>
           )}
