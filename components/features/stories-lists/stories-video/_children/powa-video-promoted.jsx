@@ -1,9 +1,11 @@
 import React from 'react'
 
 const classes = {
-  listItemText: 'pt-20 pl-20 pr-20 pb-10 w-full',
+  listItemText: 'pt-20 pl-20 pr-20 pb-10 w-full position-relative',
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
+  closeSticky:
+    'stories-video__close text-white hidden position-absolute right-0 top-0 rounded items-center justify-center font-bold',
 }
 
 const closeSticky = () => {
@@ -65,7 +67,9 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
         <div className={classes.listBorder}>
           <h2 className={classes.listItemTitleDest}>{title}</h2>
         </div>
-        <span onClick={closeSticky}>X</span>
+        <span className={classes.closeSticky} onClick={closeSticky}>
+          X
+        </span>
       </div>
     </>
   )
