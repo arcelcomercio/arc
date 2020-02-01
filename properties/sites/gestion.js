@@ -75,7 +75,7 @@ export default {
       // URLS
       canonical:                         `https://gestion.pe/suscripcionesdigitales/`,
       image:                             `https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158`,
-      clickToCall:                       `https://c2c.kontactame.com/call/?id=162`,
+      clickToCall:                       `https://pe-eca.grupodigitex.com/C2C_Comercio/Gestion/Gestion.aspx`,
       pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.gestion.pe`,
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.gestion.pe`,
       originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js?v=1`,
