@@ -5,10 +5,11 @@ import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import Taggeo from '../../../_dependencies/taggeo'
 
-function Card({ item, onSubscribe = i => i }) {
+function Card({ item, onSubscribe = i => i }) { 
   const msgs = useStrings()
   const {
     title,
+    subtitle,
     url,
     recommended = false,
     features,
@@ -18,14 +19,20 @@ function Card({ item, onSubscribe = i => i }) {
   } = item
   return (
     <S.Card>
-      <S.CardHead recommended>
+      <S.CardHead recommended={recommended}>
         {recommended && (
-          <S.CardHeadPromotion>
-            <span>{msgs.recommended}</span>
-          </S.CardHeadPromotion>
+          <>
+            <S.CardHeadPromotion>
+              <span>{msgs.recommended}</span>
+            </S.CardHeadPromotion>
+          </>
         )}
-        <S.Head>{title}</S.Head>
+        <S.HeadContent>
+          <div>{title}</div>
+          <div>{subtitle}</div>
+        </S.HeadContent>
       </S.CardHead>
+      {recommended && <S.CardHeadTail />}
       <S.CardContent>
         <S.ContentPrice>
           <S.Price>
