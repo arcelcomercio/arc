@@ -16,6 +16,7 @@ export default {
     lengthNotExactly: `Longitud inválida, requiere {{len}} dígitos`,
     requiredField: `Este campo es requerido`,
     wrongFormat: `Formato inválido`,
+    wrongDni: `DNI inválido`,
     wrongEmail: `Correo inválido`,
     wrongCardNumber: `Número tarjeta inválido`,
     wrongCvv: `CVV Inválido`,
