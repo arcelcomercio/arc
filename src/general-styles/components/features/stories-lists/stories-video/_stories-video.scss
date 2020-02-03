@@ -96,4 +96,38 @@
     left: 10px;
     transition: all 0.5s;
   }
+  &__item-dest {
+    &.sticky {
+      background-color: #222222;
+      height: 145px;
+      position: fixed;
+      top: 46px;
+      max-width: 980px;
+      z-index: 2;
+      display: flex;
+      padding: 10px;
+      justify-content: space-between;
+      .stories-video__item-border {
+        display: flex;
+        align-items: center;
+        border: 0;
+        height: 100%;
+      }
+      .powa {
+        width: 222px;
+        height: 125px;
+      }
+      .stories-video__item-dest-title {
+        font-size: 18px;
+        color: #dddddd;
+        line-height: 21px;
+      }
+      .stories-video__close {
+        display: flex;
+        background-color: #111;
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
 }
