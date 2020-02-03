@@ -59,7 +59,6 @@ export default {
 
     // Plans
     subscribe: `SUSCRIBIRME`,
-    offerHeadBand: `PROMOCIÓN DE LANZAMIENTO`,
     freeAmount: `Gratis`,
     initialOffer: `durante 3 meses`,
     regularOffer: `Luego, S/ 19 cada mes.`,
