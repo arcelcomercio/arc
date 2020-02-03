@@ -268,4 +268,5 @@ export default {
   stick: {
     logo: 'logo-gestion-stick.png',
   },
+  isDfp: true,
 }
