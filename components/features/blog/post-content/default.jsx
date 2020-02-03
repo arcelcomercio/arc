@@ -6,6 +6,7 @@ import { getFullDateIso8601 } from '../../../utilities/helpers'
 import Ads from '../../../global-components/ads'
 import { Parser } from 'html-to-react'
 
+
 const classes = {
   content: 'post-content bg-white p-20',
   header: 'post-content__header uppercase inline-block mb-25 text-md',
