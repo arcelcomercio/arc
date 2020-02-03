@@ -65,14 +65,18 @@ class Data extends StoryData {
         : super.multimediaLandscapeXL
 
     const {
-      resized_urls: { landscape_xl: landscapeXl, square_l: squareL } = {},
+      /* resized_urls: { landscape_xl: landscapeXl, square_l: squareL } = {}, */
+      resized_urls: {
+        landscape_ext_story: landscapeExt,
+        square_l: squareL,
+      } = {},
     } = this.customPhoto || {}
 
     const customMultimedia =
       this.multimediaOrientation === 'left' ||
       this.multimediaOrientation === 'right'
         ? squareL
-        : landscapeXl
+        : landscapeExt
 
     return customMultimedia || this.customFields.image || multimedia
   }
@@ -148,7 +152,7 @@ class Data extends StoryData {
     )
   }
 
-  static getSourceMultimedia(multimediaType, multimedia, customMultimedia) {
+  static getSourceMultimedia(multimediaType, customMultimedia, multimedia) {
     let multimediaContent = ''
     if (
       (multimediaType === ConfigParams.VIDEO ||
