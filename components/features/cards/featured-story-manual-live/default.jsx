@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
@@ -48,6 +49,7 @@ const CardFeaturedStoryManualLive = props => {
       flagLive,
       platformLive,
       urlVideo,
+      isLazyLoadActivate = true,
     } = {},
   } = props
 
@@ -263,6 +265,7 @@ const CardFeaturedStoryManualLive = props => {
     errorList,
     multimediaSubtitle,
     multimediaCaption,
+    isLazyLoadActivate,
   }
 
   const paramsLive = {
