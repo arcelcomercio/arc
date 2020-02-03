@@ -44,6 +44,10 @@ class Modal extends Component {
     )
   }
 
+  handleScroll = (e) => {
+    e.preventDefault();
+  }
+
   componentDidMount = () => {
     if (this.isSafari()) {
       document.querySelector('html').classList.add('overflow-hidden-ios')
@@ -52,6 +56,7 @@ class Modal extends Component {
         'width=device-width, initial-scale=1, user-scalable=0, shrink-to-fit=no'
       )
     }
+    document.body.addEventListener('touchmove', this.handleScroll, { passive: false})
     document.querySelector('html').classList.add('overflow-hidden')
     document.querySelector('body').classList.add('overflow-hidden')
   }
@@ -64,6 +69,7 @@ class Modal extends Component {
     }
     document.querySelector('html').classList.remove('overflow-hidden')
     document.querySelector('body').classList.remove('overflow-hidden')
+    document.body.removeEventListener(this.handleScroll);
   }
 
   render() {
