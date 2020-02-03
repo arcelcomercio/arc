@@ -6,9 +6,39 @@ const classes = {
   listItemTitleDest: 'stories-video__item-dest-title text-white',
 }
 
-const handleCloseStickyClick = () => {
+const removeSticky = () => {
   const itemDest = document.querySelector('.stories-video__item-dest')
   itemDest.classList.remove('sticky')
+}
+
+const addSticky = () => {
+  const itemDest = document.querySelector('.stories-video__item-dest')
+  itemDest.classList.add('sticky')
+}
+
+const handleCloseStickyClick = () => {
+  // const itemDest = document.querySelector('.stories-video__item-dest')
+  // itemDest.classList.remove('sticky')
+  removeSticky()
+}
+
+const handleScrolVideList = () => {
+  const playOf = document.querySelector('.stories-video__wrapper')
+  // const itemDest = document.querySelector('.stories-video__item-dest')
+  const scrollHeight = window.scrollY
+
+  const offsetButton = scrollHeight >= playOf.offsetTop + playOf.offsetHeight
+  const offSetTop = scrollHeight + window.innerHeight < playOf.offsetTop
+  // si esta fuera de foco por abajo
+  if (offsetButton || offSetTop) {
+    // itemDest.classList.add('sticky')
+    addSticky()
+    console.log('offset abajo')
+  } else {
+    // itemDest.classList.remove('sticky')
+    removeSticky()
+    console.log('en pantalla')
+  }
 }
 
 const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
@@ -22,27 +52,17 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
     } = event
 
     powa.on(window.PoWa.EVENTS.PLAY, () => {
-      window.addEventListener('scroll', () => {
-        const playOf = document.querySelector('.stories-video__wrapper')
-        const itemDest = document.querySelector('.stories-video__item-dest')
-        const scrollHeight = window.scrollY
+      window.addEventListener('scroll', handleScrolVideList)
+    })
 
-        // si esta fuera de foco por abajo
-        if (scrollHeight >= playOf.offsetTop + playOf.offsetHeight) {
-          // + playOf.offsetHeight
-          itemDest.classList.add('sticky')
-          console.log('offset abajo')
-        }else if (scrollHeight + window.innerHeight < playOf.offsetTop) {
-          // si esta fuera de foco por arriba
-          // console.log('scroll', scrollHeight, 'top cpn', playOf.offsetTop)
-          itemDest.classList.add('sticky')
-          console.log('offset arriba')
-        }else{
-          itemDest.classList.remove('sticky')
-          console.log('en pantalla')
-        }
+    powa.on(window.PoWa.EVENTS.PAUSE, () => {
+      removeSticky()
+      window.removeEventListener('scroll', handleScrolVideList)
+    })
 
-      })
+    powa.on(window.PoWa.EVENTS.END, () => {
+      removeSticky()
+      window.removeEventListener('scroll', handleScrolVideList)
     })
 
     if (
