@@ -1,25 +1,5 @@
 .tabloid {
-  padding: 10px;
-  &__header {
-    height: auto;
-    background-color: transparent;
-    justify-content: end;
-  }
-  &__body {
-    padding-top: 0;
-  }
-  &__header,
-  &__body {
-    background-color: $color-white;
-  }
-  &__header-link {
-    font-size: 18.72px;
-    font-family: $primary-font;
-    color: $color-gray-300;
-    font-weight: 400;
-    text-transform: capitalize;
-  }
-  &__date {
-    display: none;
+  &__date{
+    color: $color-white;
   }
 }
