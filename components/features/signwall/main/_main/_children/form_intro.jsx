@@ -12,6 +12,7 @@ export const FormIntro = ({
   arcSite,
   typeDialog,
   removeBefore = i => i,
+  checkModal = i => i,
 }) => {
   const [showLoading, setShowLoading] = useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = useState(false)
@@ -70,9 +71,9 @@ export const FormIntro = ({
   return (
     <ModalConsumer>
       {value => (
-        <S.Form>
+        <S.Form typeDialog={typeDialog}>
           {showLoading ? (
-            <Loading arcSite={arcSite} />
+            <Loading arcSite={arcSite} typeBg="wait" typeDialog={typeDialog} />
           ) : (
             <>
               <S.ContPaywall>
@@ -92,15 +93,21 @@ export const FormIntro = ({
                   </div>
                 </div>
 
-                <h3 className="title-line line-gestion uppercase text-center mt-30 mb-20">
-                  <span>Beneficios</span>
-                </h3>
+                {typeDialog !== 'premium' ? (
+                  <>
+                    <h3 className="title-line line-gestion uppercase text-center mt-30 mb-20">
+                      <span>Beneficios</span>
+                    </h3>
 
-                <ul className="list-benefits mb-20">
-                  {resCampaing.featuresDescription.map(item => {
-                    return <li key={item}>{item}</li>
-                  })}
-                </ul>
+                    <ul className="list-benefits mb-20">
+                      {resCampaing.featuresDescription.map(item => {
+                        return <li key={item}>{item}</li>
+                      })}
+                    </ul>
+                  </>
+                ) : (
+                  <div className="mt-20 block"></div>
+                )}
               </S.ContPaywall>
 
               {showPaywallBtn ? (
@@ -140,19 +147,34 @@ export const FormIntro = ({
                       )
                     }
                     value.changeTemplate('login')
+                    checkModal()
                   }}>
                   CONTINUAR
                 </S.Button>
               )}
 
-              <S.Text c="gray" s="15" lh="26" className="mt-20 mb-10 center">
+              <S.Text
+                c="gray"
+                s={typeDialog === 'premium' ? '12' : '15'}
+                className="mt-20 mb-10 center">
                 ¿ESTÁS SUSCRITO AL DIARIO IMPRESO?
-                <br />
-                Disfruta
-                <strong>
-                  {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS{' '}
-                </strong>
-                y luego S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '} al mes.
+              </S.Text>
+
+              <S.Text
+                c="gray"
+                s={typeDialog === 'premium' ? '12' : '15'}
+                className="mb-10 center note-premium">
+                <div className="sub-paragraph">
+                  Disfruta
+                  <strong>
+                    {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS
+                  </strong>
+                </div>{' '}
+                <div className="sub-paragraph">
+                  y luego{' '}
+                  <span className="price">S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '}</span> al
+                  mes.
+                </div>
               </S.Text>
             </>
           )}

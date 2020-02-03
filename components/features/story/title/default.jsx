@@ -13,7 +13,7 @@ const classes = {
 const StoryTitle = () => {
   const { contextPath, globalContent: data, arcSite } = useFusionContext()
 
-  const { title, subTitle, primarySectionLink, isPremium } = new StoryData({
+  const { title, subTitle, primarySectionLink } = new StoryData({
     data,
     contextPath,
   })

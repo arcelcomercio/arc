@@ -108,7 +108,7 @@ class News extends Component {
                 </div>
               </>
             ) : (
-              <Loading arcSite={arcSite} />
+              <Loading arcSite={arcSite} typeBg="wait" />
             )}
           </WrapperBlock>
         )}
