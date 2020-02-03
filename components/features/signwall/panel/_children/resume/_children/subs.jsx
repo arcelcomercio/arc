@@ -158,7 +158,7 @@ class Subs extends Component {
     return (
       <>
         {isLoad ? (
-          <Loading arcSite={arcSite} />
+          <Loading arcSite={arcSite} typeBg="wait" />
         ) : (
           <>
             {isSubs ? (

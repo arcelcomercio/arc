@@ -67,15 +67,15 @@ class Modal extends Component {
   }
 
   render() {
-    const { bg, position, size, name, color, id, children } = this.props
+    const { bgColor, position, size, name, color, id, children } = this.props
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <BodyEnd>
-        {/* <WrapperModal className="white"> */}
-        <WrapperModal className="open">
+        <WrapperModal className="open" bgColor={bgColor}>
           <DialogModal
-            className={`position-middle size-${size}`}
+            className={`position-${position} size-${size}`}
             heading={name}
+            noborderRa
             size={size}
             style={{ backgroundColor: color }}
             id={id}
