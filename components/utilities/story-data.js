@@ -550,7 +550,14 @@ class StoryData {
   }
 
   get breadcrumbList() {
-    return breadcrumbList(this._siteUrl, this.primarySectionLink)
+    const { website_url: url = '' } = this._data || {}
+    const primarySectionLinks = this.primarySectionLink
+    const link = url.split('/')
+    const primarySectionLink = primarySectionLinks[0]
+      ? primarySectionLinks
+      : `/${link[1]}/`
+
+    return breadcrumbList(this._siteUrl, primarySectionLink)
   }
 
   get recentList() {
