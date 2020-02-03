@@ -35,6 +35,8 @@ const CONTENT_SOURCE_BLOG = 'get-user-blog-and-posts'
 const CONTENT_SOURCE_POST = 'get_post_data_by_blog_and_post_name'
 const CONTENT_SOURCE_PHOTO = 'photo-by-id'
 
+const postRegexp = /\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\/?/
+
 const urlLogoGestion =
   'https://arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/U4XN23KAQRDAHCTARRCGIKVJOE.png'
 
@@ -61,74 +63,33 @@ const SeparatorEditorialBlogManual = () => {
 
   const urlList = [post01, post02, post03, post04]
   const paramsSource = urlList.map((url) => {
-    if (url !== '') {
-      const [, blogPath, year, month, postName] = url.match(/\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\/?/)
+    let ret = ['', '', '', '']
+    if (postRegexp.test(url)) {
+      const [, blogPath, year, month, postName] = url.match(postRegexp)
       return [blogPath, year, month, postName]
     }
+
+    return ret
   })
 
   let dataBlog = []
-  dataBlog.status = "ok"
-  
-  if(paramsSource[0] !== undefined){
-    dataBlog.push(
-      useContent({
-        source: 'get-post-data-by-blog-and-post-name',
-        query: {
-          'blog_path': paramsSource[0][0],
-          'year': paramsSource[0][1],
-          'month': paramsSource[0][2],
-          'post_name': paramsSource[0][3],
-          'posts_limit': 6, 
-          'posts_offset': 0
-        },
-      }) || [])
-  }
 
-  if(paramsSource[1] !== undefined){
-    dataBlog.push(
-      useContent({
-        source: 'get-post-data-by-blog-and-post-name',
-        query: {
-          'blog_path': paramsSource[1][0],
-          'year': paramsSource[1][1],
-          'month': paramsSource[1][2],
-          'post_name': paramsSource[1][3],
-          'posts_limit': 6, 
-          'posts_offset': 0
-        },
-      }) || [])
-  }
-  
-  if(paramsSource[2] !== undefined){
-    dataBlog.push(
-      useContent({
-        source: 'get-post-data-by-blog-and-post-name',
-        query: {
-          'blog_path': paramsSource[2][0],
-          'year': paramsSource[2][1],
-          'month': paramsSource[2][2],
-          'post_name': paramsSource[2][3],
-          'posts_limit': 6, 
-          'posts_offset': 0
-        },
-      }) || [])
-  }
-
-  if(paramsSource[3] !== undefined){
-    dataBlog.push(
-      useContent({
-        source: 'get-post-data-by-blog-and-post-name',
-        query: {
-          'blog_path': paramsSource[3][0],
-          'year': paramsSource[3][1],
-          'month': paramsSource[3][2],
-          'post_name': paramsSource[3][3],
-          'posts_limit': 6, 
-          'posts_offset': 0
-        },
-      }) || [])
-  }
+  paramsSource.forEach((ps) => {
+    if(ps !== undefined){
+      dataBlog.push(
+        useContent({
+          source: 'get-post-data-by-blog-and-post-name',
+          query: {
+            'blog_path': ps[0],
+            'year': ps[1],
+            'month': ps[2],
+            'post_name': ps[3],
+            'posts_limit': 6, 
+            'posts_offset': 0
+          },
+        }) || [])
+    }
+  })
 
   const dataEditorial =
     useContent({
