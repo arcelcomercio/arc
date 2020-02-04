@@ -2,15 +2,9 @@ import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-import getProperties from 'fusion:properties'
-import { BLOG_TOKEN, resizerSecret } from 'fusion:environment'
-import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
-import RedirectError from '../../../../components/utilities/redirect-error' 
-// import { transform } from '../../../../content/sources/get-user-blog-and-posts'
+import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
 
-import SeparatorBlogChildItem from './_children/item'
 import {
-  schemaBlog,
   schemaEditorial,
   schemaPhoto,
 } from './_dependencies/schema-filter'
@@ -31,8 +25,6 @@ const classes = {
 }
 const BLOG_BASE = '/blog/'
 const CONTENT_SOURCE_SECTION = 'story-by-tag'
-const CONTENT_SOURCE_BLOG = 'get-user-blog-and-posts'
-const CONTENT_SOURCE_POST = 'get_post_data_by_blog_and_post_name'
 const CONTENT_SOURCE_PHOTO = 'photo-by-id'
 
 const postRegexp = /\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\/?/
@@ -57,19 +49,14 @@ const SeparatorEditorialBlogManual = () => {
     siteProperties: { siteUrl } = {},
   } = useFusionContext()
 
-  const {
-    api: { blog: urlApiblog = '' },
-  } = getProperties(arcSite)
 
   const urlList = [post01, post02, post03, post04]
   const paramsSource = urlList.map((url) => {
-    let ret = ['', '', '', '']
     if (postRegexp.test(url)) {
       const [, blogPath, year, month, postName] = url.match(postRegexp)
       return [blogPath, year, month, postName]
     }
-
-    return ret
+    return ['', '', '', '']
   })
 
   let dataBlog = []
@@ -108,7 +95,6 @@ const SeparatorEditorialBlogManual = () => {
     }) || {}
 
   let listPost = Object.values(dataBlog)
-  listPost = listPost.slice(0, 4)
   const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
 
   const {
