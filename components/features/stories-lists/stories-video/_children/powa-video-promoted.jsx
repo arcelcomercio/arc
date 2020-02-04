@@ -42,13 +42,23 @@ const handleScrolVideList = () => {
   const offsetButton = scrollHeight >= playOf.offsetTop + playOf.offsetHeight
   const offSetTop = scrollHeight + window.innerHeight < playOf.offsetTop
   let stickyTop = false
-  if (offsetButton) {
+  // if (offsetButton || offSetTop) {
+  //   // si esta fuera de foco por (abajo y arriba)
+  //   stickyTop = false
+  //   addSticky(stickyTop)
+  // } else {
+  //   removeSticky()
+  // }
+
+  if ((offsetButton || offSetTop) && scrollHeight === 0) {
+    // si esta fuera de foco por arriba en la parte superior (top 0)
+    stickyTop = true
+    removeSticky()
+    addSticky(stickyTop)
+  } else if (offsetButton || offSetTop) {
     // si esta fuera de foco por (abajo y arriba)
     stickyTop = false
-    addSticky(stickyTop)
-  } else if (offSetTop) {
-    // en pantalla
-    stickyTop = true
+    removeSticky()
     addSticky(stickyTop)
   } else {
     removeSticky()
