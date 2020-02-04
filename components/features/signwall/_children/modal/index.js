@@ -69,7 +69,7 @@ class Modal extends Component {
     }
     document.querySelector('html').classList.remove('overflow-hidden')
     document.querySelector('body').classList.remove('overflow-hidden')
-    document.body.removeEventListener(this.handleScroll);
+    document.body.removeEventListener('touchmove',this.handleScroll);
   }
 
   render() {
