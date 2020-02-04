@@ -68,7 +68,7 @@ const customFields = {
     name: 'Identificador de recurso',
     group: 'Multimedia',
     description:
-      'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen. GoldFish: ID del video. Youtube: ID del video.',
+      'Automático: Obtiene imagen o video de la noticia. Imagen: Url de la imagen (se ajustara al tamaño 980x355 px). GoldFish: ID del video. Youtube: ID del video.',
   }),
 }
 
