@@ -15,11 +15,16 @@ const classes = {
 const removeSticky = () => {
   const itemDest = document.querySelector('.stories-video__item-dest')
   itemDest.classList.remove('sticky')
+  itemDest.classList.remove('sticky-top')
 }
 
-const addSticky = () => {
+const addSticky = (stickyTop = false) => {
   const itemDest = document.querySelector('.stories-video__item-dest')
-  itemDest.classList.add('sticky')
+  if (stickyTop) {
+    itemDest.classList.add('sticky-top')
+  } else {
+    itemDest.classList.add('sticky')
+  }
 }
 
 const handleCloseStickyClick = powaPlayer => {
@@ -35,12 +40,16 @@ const handleScrolVideList = () => {
 
   const offsetButton = scrollHeight >= playOf.offsetTop + playOf.offsetHeight
   const offSetTop = scrollHeight + window.innerHeight < playOf.offsetTop
-
-  if (offsetButton || offSetTop) {
+  let stickyTop = false
+  if (offsetButton) {
     // si esta fuera de foco por (abajo y arriba)
-    addSticky()
-  } else {
+    stickyTop = false
+    addSticky(stickyTop)
+  } else if (offSetTop) {
     // en pantalla
+    stickyTop = true
+    addSticky(stickyTop)
+  } else {
     removeSticky()
   }
 }
