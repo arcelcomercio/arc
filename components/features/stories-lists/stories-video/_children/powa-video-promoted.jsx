@@ -82,10 +82,10 @@ const ItemVideoCenterDestacado = ({
       window.addEventListener('scroll', handleScrolVideList)
     })
 
-    powa.on(window.PoWa.EVENTS.PAUSE, () => {
-      // removeSticky()
-      // window.removeEventListener('scroll', handleScrolVideList)
-    })
+    // powa.on(window.PoWa.EVENTS.PAUSE, () => {
+    //   removeSticky()
+    //   window.removeEventListener('scroll', handleScrolVideList)
+    // })
 
     powa.on(window.PoWa.EVENTS.END, () => {
       removeSticky()
