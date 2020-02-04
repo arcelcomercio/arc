@@ -403,7 +403,7 @@ export const SubDetailInt = props => {
   return (
     <Wrapper>
       {showLoading ? (
-        <Loading arcSite={arcSite} />
+        <Loading arcSite={arcSite} typeBg="wait" />
       ) : (
         <S.WrapperBlock>
           <S.Subsdetail nopadding nocolumn>
@@ -502,7 +502,7 @@ export const SubDetailInt = props => {
 
           {showUpdateCard && (
             <S.Fieldset>
-              {showOpenUpdate && <Loading typeBg="block" arcSite={arcSite} />}
+              {showOpenUpdate && <Loading arcSite={arcSite} typeBg="block" />}
 
               <legend>Datos de la tarjeta</legend>
 

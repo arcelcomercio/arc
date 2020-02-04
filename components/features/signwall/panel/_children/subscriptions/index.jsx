@@ -95,7 +95,7 @@ class Subscription extends Component {
                 )}
               </>
             ) : (
-              <Loading arcSite={arcSite} />
+              <Loading arcSite={arcSite} typeBg="wait" />
             )}
           </Wrapper>
         )}

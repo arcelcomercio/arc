@@ -128,7 +128,8 @@ export const FormForgot = ({
           <S.Form
             onSubmit={e => {
               handleOnSubmit(e)
-            }}>
+            }}
+            typeDialog={typeDialog}>
             <S.ButtonBase
               type="button"
               onClick={() => {
@@ -183,7 +184,7 @@ export const FormForgot = ({
                 <S.Button
                   type="submit"
                   color={mainColorBtn}
-                  className="mt-20"
+                  className="mt-20 mb-10"
                   disabled={disable || showLoading}
                   onClick={() =>
                     Taggeo(

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { device } from '../../../_dependencies/breakpoints'
 
 const changeColor = color => {
@@ -16,29 +16,58 @@ const changeColor = color => {
   }
 }
 
-const changeSize = size => {
-  return `${size}px`
-}
-
 export const Title = styled.h4`
   color: ${props => (props.cp ? '#8f071f' : '#000000')};
   font-family: ${props => props.primaryFont};
-  font-size: ${props => changeSize(props.s)};
+  font-size: ${props => props.s - 6}px;
   font-weight: bold;
   line-height: 28px;
-  @media ${device.mobile} {
-    font-size: ${props => changeSize(props.s - 2)};
+  @media ${device.tablet} {
+    font-size: ${props => props.s - 3}px;
+  }
+  @media ${device.desktop} {
+    font-size: ${props => props.s}px;
   }
 `
 export const Text = styled.p`
   color: ${props => changeColor(props.c)};
-  font-size: ${props => changeSize(props.s)};
+  font-size: ${props => props.s}px;
   line-height: ${props => (props.lh ? props.lh : '18')}px;
   font-weight: ${props => (props.fw ? props.fw : 'normal')};
+  @media ${device.mobile} {
+    & .sub-paragraph {
+      display: inline-block;
+    }
+  }
+  & .sub-paragraph .price{
+    display: inline-block;
+    min-width: 30px;
+  }
 `
 export const Form = styled.form`
   width: 100%;
   padding: ${props => (props.npadding ? '0px' : '10px 30px')};
+  box-sizing: border-box;
+  display: block;
+  ${props =>
+    props.typeDialog === 'premium' &&
+    css`
+      padding: 10px 20px !important;
+    `}
+
+  @media ${device.tablet} {
+    padding: ${props => (props.npadding ? '0px' : '50px 35px')};
+  }
+  @media ${device.desktop} {
+    padding: ${props => (props.npadding ? '0px' : '20px 50px')};
+
+    ${props =>
+      props.typeDialog === 'premium' &&
+      css`
+        padding: 20px !important;
+      `}
+  }
+
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -57,14 +86,7 @@ export const Form = styled.form`
     outline: none;
     border-radius: 4px;
   }
-  @media ${device.tablet} {
-    padding: ${props => (props.npadding ? '0px' : '10px 100px')};
-  }
-  @media ${device.desktop} {
-    padding: ${props => (props.npadding ? '0px' : '20px 50px')};
-  }
-  box-sizing: border-box;
-  display: block;
+
   & input {
     box-sizing: border-box;
     cursor: text;
@@ -155,6 +177,15 @@ export const Form = styled.form`
       display: block;
     }
   }
+  & .note-premium{
+    padding: 0px;
+    @media ${device.tablet} {
+      padding: 0px 40px 0px 40px;
+    }
+    @media ${device.desktop} {
+      padding: 0px 34px 0px 34px;
+    }
+  }
 `
 export const Button = styled.button`
   background: ${props => (props.color ? props.color : '#0179af')};
@@ -181,7 +212,7 @@ export const ButtonBase = styled(Button)`
 export const Link = styled.a`
   color: ${props => props.c};
   text-decoration: underline;
-  font-size: ${props => changeSize(props.s)};
+  font-size: ${props => props.s}px;
   display: inline-block;
   font-weight: ${props => (props.fw ? props.fw : 'normal')};
   cursor: pointer;
@@ -189,26 +220,36 @@ export const Link = styled.a`
 
 export const ContPaywall = styled.div`
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-  background: #ffffff;
   color: #444444;
   line-height: 20px;
   position: relative;
   .cont-price-detail {
     margin-top: 20px;
+    @media ${device.tablet} {
+      margin-top: 35px;
+    }
+    @media ${device.desktop} {
+      margin-top: 30px;
+    }
     .price,
     .detail-price {
       display: inline-block;
       vertical-align: initial;
     }
     .price {
-      font-size: 4em;
+      font-size: 65px;
       font-weight: 600;
       width: 40%;
       text-align: center;
+      letter-spacing: -2px;
+      @media ${device.tablet} {
+        text-align: left;
+        font-size: 58px;
+      }
       @media ${device.desktop} {
         text-align: left;
+        font-size: 56px;
       }
-      letter-spacing: -2px;
       i {
         font-size: 0.5em;
         font-weight: normal;
@@ -273,7 +314,7 @@ export const Error = styled.div`
   color: #fff;
   font-family: Libre Franklin, sans-serif;
   font-size: 12px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 4px;
   text-align: center;
   margin-top: 7px;
