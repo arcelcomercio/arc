@@ -5,7 +5,8 @@
 import React from 'react'
 
 const classes = {
-  listItemText: 'pt-20 pl-20 pr-20 pb-10 w-full position-relative',
+  listItemText:
+    'stories-video__content pt-20 pl-10 lg:pl-20 pr-20 pb-10 w-full position-relative',
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
   closeSticky:

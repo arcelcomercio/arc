@@ -111,6 +111,7 @@
         max-width: 620px;
       }
       @media (--desktop) {
+        top: 46px;
         height: 145px;
         max-width: 980px;
       }
@@ -119,7 +120,10 @@
         align-items: center;
         border: 0;
         height: 100%;
-        max-width: 441px;
+        max-width: 380px;
+        @media (--desktop) {
+          max-width: 441px;
+        }
       }
       .powa {
         width: 130px;
@@ -150,7 +154,16 @@
         background-color: #111;
         width: 32px;
         height: 32px;
+        position: relative;
+        @media (--desktop) {
+          position: absolute;
+        }
       }
+      /*  .stories-video__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      } */
     }
   }
 }
