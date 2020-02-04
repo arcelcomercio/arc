@@ -1,6 +1,5 @@
 .play-list {
   &__title a {
-    font-weight: 700;
     @media (--desktop) {
       font-family: $tertiary-font;
     }
