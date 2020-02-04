@@ -21,6 +21,7 @@ const removeSticky = () => {
 const addSticky = (stickyTop = false) => {
   const itemDest = document.querySelector('.stories-video__item-dest')
   if (stickyTop) {
+    itemDest.classList.add('sticky')
     itemDest.classList.add('sticky-top')
   } else {
     itemDest.classList.add('sticky')
@@ -52,7 +53,7 @@ const handleScrolVideList = () => {
   if ((offsetButton || offSetTop) && scrollHeight === 0) {
     // si esta fuera de foco por arriba en la parte superior (top 0)
     stickyTop = true
-    removeSticky()
+    
     addSticky(stickyTop)
   } else if (offsetButton || offSetTop) {
     // si esta fuera de foco por (abajo y arriba)
