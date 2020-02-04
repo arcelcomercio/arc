@@ -16,6 +16,16 @@ const customFields = PropTypes.shape({
     name: 'Codigo',
     description: 'Inserte el codigo del evento o del partido.',
   }),
+  titleField: PropTypes.string.tag({
+    name: 'Título',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la noticia.',
+  }),
+  subtitleField: PropTypes.string.tag({
+    name: 'Bajada',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la noticia.',
+  }),
 })
 
 export default customFields
