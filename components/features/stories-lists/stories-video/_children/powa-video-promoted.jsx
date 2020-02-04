@@ -1,3 +1,7 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/no-danger */
 import React from 'react'
 
 const classes = {
@@ -18,47 +22,50 @@ const addSticky = () => {
   itemDest.classList.add('sticky')
 }
 
-const handleCloseStickyClick = () => {
-  // const itemDest = document.querySelector('.stories-video__item-dest')
-  // itemDest.classList.remove('sticky')
-  removeSticky()
+const handleCloseStickyClick = powaPlayer => {
+  if (powaPlayer !== null) {
+    removeSticky()
+    powaPlayer.pause()
+  }
 }
 
 const handleScrolVideList = () => {
   const playOf = document.querySelector('.stories-video__wrapper')
-  // const itemDest = document.querySelector('.stories-video__item-dest')
   const scrollHeight = window.scrollY
 
   const offsetButton = scrollHeight >= playOf.offsetTop + playOf.offsetHeight
   const offSetTop = scrollHeight + window.innerHeight < playOf.offsetTop
-  // si esta fuera de foco por abajo
+
   if (offsetButton || offSetTop) {
-    // itemDest.classList.add('sticky')
+    // si esta fuera de foco por (abajo y arriba)
     addSticky()
-    console.log('offset abajo')
   } else {
-    // itemDest.classList.remove('sticky')
+    // en pantalla
     removeSticky()
-    console.log('en pantalla')
   }
 }
 
-const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
+const ItemVideoCenterDestacado = ({
+  isAdmin,
+  title,
+  video: { payload },
+  autoPlayVideo,
+}) => {
+  let powaPlayer = null
   window.addEventListener('powaRender', event => {
     const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
       window.navigator.userAgent
     )
-
     const {
       detail: { powa },
     } = event
 
+    powaPlayer = powa
     powa.on(window.PoWa.EVENTS.PLAY, () => {
       window.addEventListener('scroll', handleScrolVideList)
     })
 
     powa.on(window.PoWa.EVENTS.PAUSE, () => {
-      removeSticky()
       window.removeEventListener('scroll', handleScrolVideList)
     })
 
@@ -82,12 +89,14 @@ const ItemVideoCenterDestacado = ({ isAdmin, title, video, autoPlayVideo }) => {
 
   return (
     <>
-      <div dangerouslySetInnerHTML={{ __html: video.payload }} />
+      <div dangerouslySetInnerHTML={{ __html: payload }} />
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
           <h2 className={classes.listItemTitleDest}>{title}</h2>
         </div>
-        <span className={classes.closeSticky} onClick={handleCloseStickyClick}>
+        <span
+          className={classes.closeSticky}
+          onClick={() => handleCloseStickyClick(powaPlayer)}>
           X
         </span>
       </div>
