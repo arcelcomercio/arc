@@ -99,28 +99,51 @@
   &__item-dest {
     &.sticky {
       background-color: #222222;
-      height: 145px;
+      height: 94px;
       position: fixed;
       top: 46px;
-      max-width: 980px;
       z-index: 2;
       display: flex;
       padding: 10px;
       justify-content: space-between;
+
+      @media (--tablet) {
+        max-width: 620px;
+      }
+      @media (--desktop) {
+        height: 145px;
+        max-width: 980px;
+      }
       .stories-video__item-border {
         display: flex;
         align-items: center;
         border: 0;
         height: 100%;
+        max-width: 441px;
       }
       .powa {
-        width: 222px;
-        height: 125px;
+        width: 130px;
+        height: 74px;
+        @media (--desktop) {
+          width: 222px;
+          height: 125px;
+        }
       }
       .stories-video__item-dest-title {
-        font-size: 18px;
+        font-size: 14px;
         color: #dddddd;
-        line-height: 21px;
+        line-height: 18px;
+        letter-spacing: 0.28px;
+        /*    display: -webkit-box;
+        max-height: 55px;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden; */
+        @media (--desktop) {
+          font-size: 18px;
+          letter-spacing: 0.36px;
+          line-height: 21px;
+        }
       }
       .stories-video__close {
         display: flex;
