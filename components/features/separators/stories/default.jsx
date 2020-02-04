@@ -6,6 +6,7 @@ import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import Separator from './_children/separator'
+import SeparatorOpt from './_children/separator-opt'
 import { separatorStoriesFields } from '../../../utilities/included-fields'
 
 const SeparatorStories = props => {
@@ -20,6 +21,7 @@ const SeparatorStories = props => {
       bgColor,
       isSeeMoreVisible,
       responsive = 'complete',
+      isOptHtml,
     } = {},
   } = props
 
@@ -72,21 +74,23 @@ const SeparatorStories = props => {
     }
   })
 
-  return (
-    <Separator
-      {...{
-        htmlCode,
-        titleLink,
-        titleSeparator,
-        stories,
-        isAuthorVisible,
-        isAdmin,
-        design,
-        bgColor,
-        isSeeMoreVisible,
-        responsive,
-      }}
-    />
+  const separatorParams = {
+    htmlCode,
+    titleLink,
+    titleSeparator,
+    stories,
+    isAuthorVisible,
+    isAdmin,
+    design,
+    bgColor,
+    isSeeMoreVisible,
+    responsive,
+  }
+
+  return isOptHtml ? (
+    <SeparatorOpt {...separatorParams} />
+  ) : (
+    <Separator {...separatorParams} />
   )
 }
 

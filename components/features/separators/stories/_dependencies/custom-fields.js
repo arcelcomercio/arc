@@ -42,6 +42,10 @@ export default PropTypes.shape({
     defaultValue: 'default',
     group: 'Configuración de diseño',
   }),
+  isOptHtml: PropTypes.bool.tag({
+    name: 'Optimizar estructura HTML',
+    group: 'Configuración de diseño',
+  }),
   responsive: PropTypes.oneOf(['complete', 'partial', 'mobileHidden']).tag({
     name: 'Vista móvil',
     labels: {
