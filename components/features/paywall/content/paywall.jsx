@@ -49,6 +49,7 @@ const Paywall = ({
     },
     globalContent: {
       summary = [],
+      description,
       plans = [],
       printedSubscriber,
       freeAccess,
@@ -95,6 +96,7 @@ const Paywall = ({
     arcSite,
     plans,
     plan: plans[0], // Por defecto asumir seleccionado el primer plan
+    description,
     summary,
     printedSubscriber,
     freeAccess,

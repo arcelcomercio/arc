@@ -128,13 +128,3 @@ export const WrapperAvatar = styled.div`
     border-radius: 50%;
   }
 `
-export const BackLoading = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  background: #ffffff;
-  z-index: 20;
-  top: 0;
-  left: 0;
-`
