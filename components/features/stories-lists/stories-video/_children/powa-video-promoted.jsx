@@ -6,7 +6,8 @@
 import React from 'react'
 
 const classes = {
-  listItemText: 'pt-20 pl-20 pr-20 pb-10 w-full position-relative',
+  listItemText:
+    'stories-video__content pt-10 lg:pt-20 pl-10 lg:pl-20 pr-10 lg:pr-20 pb-10 w-full position-relative',
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
   closeSticky:
@@ -49,7 +50,7 @@ const handleScrolVideList = () => {
   if ((offsetButton || offSetTop) && scrollHeight === 0) {
     // si esta fuera de foco por arriba en la parte superior (top 0)
     stickyTop = true
-    
+
     addSticky(stickyTop)
   } else if (offsetButton || offSetTop) {
     // si esta fuera de foco por (abajo y arriba)
