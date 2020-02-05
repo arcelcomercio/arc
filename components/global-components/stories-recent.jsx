@@ -1,16 +1,19 @@
 import { useContent } from 'fusion:content'
 import schemaFilter from '../features/stories-lists/card/_dependencies/schema-filter'
 import { removeLastSlash } from '../utilities/helpers'
+import { includePromoItems } from '../utilities/included-fields'
 
 const StoriesRecent = ({ primarySectionLink, id, arcSite, cant = 6 }) => {
   const params = {
     section: removeLastSlash(primarySectionLink),
     stories_qty: cant,
+    presets: 'landscape_md:314x157',
+    includedFields: `_id,headlines.basic,website.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
   }
 
   const storyData =
     useContent({
-      source: 'story-feed-by-section-url',
+      source: 'story-feed-by-section',
       query: params,
       filter: schemaFilter(arcSite),
     }) || {}
