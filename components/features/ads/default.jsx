@@ -34,10 +34,8 @@ const Ads = props => {
     useContent(
       adsSpace && adsSpace !== 'none'
         ? {
-            adsSpaces: {
-              source: 'get-ads-spaces',
-              query: { space: adsSpace },
-            },
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
           }
         : {}
     ) || {}

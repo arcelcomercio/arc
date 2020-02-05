@@ -13,7 +13,7 @@ export default {
   resizerUrl: 'https://elcomercio.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ECO_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/web/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Delcomercio%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
@@ -101,7 +101,7 @@ export default {
       canonical:                         `https://elcomercio.pe/suscripcionesdigitales/`,
       image:                             `https://elcomercio.pe/pf/resources/dist/elcomercio/images/logo_fb.jpg?d=158`,
       reviewVideo:                       `https://pub.minoticia.pe/elcomercio/el_comercio.mp4`,
-      clickToCall:                       `https://c2c.kontactame.com/call/?id=161`,
+      clickToCall:                       `https://pe-eca.grupodigitex.com/C2C_Comercio/Ventas/Ventas.aspx?utm_source=web-suscripciones&utm_medium=boton&utm_campaign=C2C&utm_term=ayuda-llamar&utm_content=suscripciones-portada`,
       pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.elcomercio.pe`,
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.elcomercio.pe`,
       originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js?v=1`,
@@ -338,4 +338,5 @@ export default {
     dataModeAmp: 'thumbnails-a-amp',
     mode: 'thumbnails-c',
   },
+  isDfp: true,
 }

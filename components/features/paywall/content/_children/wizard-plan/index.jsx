@@ -20,7 +20,14 @@ import PWA from '../../_dependencies/seed-pwa'
 function WizardPlan(props) {
   const {
     theme,
-    memo: { event: eventCampaign, plans, summary, printedSubscriber, error },
+    memo: {
+      event: eventCampaign,
+      plans,
+      description: productDescription,
+      summary,
+      printedSubscriber,
+      error,
+    },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
     dispatchEvent = i => i,
@@ -228,8 +235,8 @@ function WizardPlan(props) {
           {...summary}
         />
         <S.WrapPlan col={eventCampaign}>
-          {arcSite === 'elcomercio' && !eventCampaign && (
-            <S.Cintillo>{msgs.offerHeadBand}</S.Cintillo>
+          {productDescription.mainBanner && (
+            <S.Cintillo>{productDescription.mainBanner}</S.Cintillo>
           )}
           <S.Plans>
             {plans.map((plan, idx) => {
