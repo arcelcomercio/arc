@@ -45,7 +45,7 @@ class StoryContinue extends PureComponent {
           section: path,
           stories_qty: 6,
           presets: 'landscape_md:314x157',
-          includedFields: `_id,headlines.basic,website.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
+          includedFields: `_id,headlines.basic,websites.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
         },
         filter: schemaFilter(arcSite),
       },
