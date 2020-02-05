@@ -50,11 +50,12 @@ class SignwallComponent extends PureComponent {
 
     this.checkUserName()
 
-    if (siteProperties.activePaywall) this.getPaywall()
-      const dataContentPremium = window.content_paywall || false
-      if (dataContentPremium && siteProperties.activePaywall) {
-        this.getPremium()
-      }
+    if (siteProperties.activePaywall) {
+      this.getPaywall()
+      // const dataContentPremium = window.content_paywall || false
+      // if (dataContentPremium && siteProperties.activePaywall) {
+      //   this.getPremium()
+      // }
     }
   }
 
