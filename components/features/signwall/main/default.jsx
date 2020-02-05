@@ -40,9 +40,9 @@ class SignwallComponent extends PureComponent {
     const { siteProperties, arcSite } = this.props
     if (typeof window !== 'undefined' && window.Identity) {
       window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      // if (window.Sales !== undefined) {
-      //   window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      // }
+      if (window.Sales !== undefined) {
+        window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      }
       Fingerprint2.getV18({}, result => {
         Cookies.setCookie('gecdigarc', result, 365)
       })
@@ -50,11 +50,12 @@ class SignwallComponent extends PureComponent {
 
     this.checkUserName()
 
-    if (typeof window !== 'undefined') {
-      const dataContentPremium = window.content_paywall || false
-      if (dataContentPremium && siteProperties.activePaywall) {
-        this.getPremium()
-      }
+    if (siteProperties.activePaywall) {
+      this.getPaywall()
+      // const dataContentPremium = window.content_paywall || false
+      // if (dataContentPremium && siteProperties.activePaywall) {
+      //   this.getPremium()
+      // }
     }
   }
 
@@ -83,64 +84,64 @@ class SignwallComponent extends PureComponent {
     return false
   }
 
-  // getPaywall() {
-  // const { siteProperties, arcSite } = this.props
-  // const W = window || {}
+  getPaywall() {
+    const { siteProperties, arcSite } = this.props
+    const W = window || {}
 
-  // const dataContTyp = W.document.querySelector('meta[name="content-type"]')
-  // const dataContSec = W.document.querySelector('meta[name="section-id"]')
-  // const dataContentPremium = W.content_paywall || false
-  // const URL_ORIGIN = Domains.getOriginAPI(arcSite)
+    const dataContTyp = W.document.querySelector('meta[name="content-type"]')
+    const dataContSec = W.document.querySelector('meta[name="section-id"]')
+    const dataContentPremium = W.content_paywall || false
+    const URL_ORIGIN = Domains.getOriginAPI(arcSite)
 
-  // if (dataContentPremium && siteProperties.activePaywall) {
-  //   // if (dataContentPremium && arcSite === 'gestion') {
-  //   this.getPremium()
-  // } else if (W.ArcP) {
-  // W.ArcP.run({
-  //   paywallFunction: campaignURL => {
-  //     W.location.href = `${campaignURL}&ref=${W.location.pathname}`
-  //   },
-  //   contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
-  //   section: dataContSec ? dataContSec.getAttribute('content') : 'none',
-  //   userName: W.Identity.userIdentity.uuid || null,
-  //   jwt: W.Identity.userIdentity.accessToken || null,
-  //   apiOrigin: URL_ORIGIN,
-  //   customSubCheck: () => {
-  //     // user subscription state only GESTION & EL COMERCIO
-  //     if (
-  //       siteProperties.activePaywall &&
-  //       W.Identity.userIdentity.accessToken
-  //     ) {
-  //       return this.getListSubs().then(p => {
-  //         const isLoggedInSubs = this.checkSession()
-  //         return {
-  //           s: isLoggedInSubs,
-  //           p: p || null,
-  //           timeTaken: 100,
-  //           updated: Date.now(),
-  //         }
-  //       })
-  //     }
-  //     return {
-  //       s: false,
-  //       p: null,
-  //       timeTaken: 100,
-  //       updated: Date.now(),
-  //     }
-  //   },
-  //   customRegCheck: () => {
-  //     // user register state
-  //     const start = Date.now()
-  //     const isLoggedIn = this.checkSession()
-  //     return Promise.resolve({
-  //       l: isLoggedIn,
-  //       timeTaken: Date.now() - start,
-  //       updated: Date.now(),
-  //     })
-  //   },
-  // })
-  // }
-  // }
+    if (dataContentPremium && siteProperties.activePaywall) {
+      // if (dataContentPremium && arcSite === 'gestion') {
+      this.getPremium()
+    } else if (W.ArcP) {
+      W.ArcP.run({
+        paywallFunction: campaignURL => {
+          W.location.href = `${campaignURL}&ref=${W.location.pathname}`
+        },
+        contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
+        section: dataContSec ? dataContSec.getAttribute('content') : 'none',
+        userName: W.Identity.userIdentity.uuid || null,
+        jwt: W.Identity.userIdentity.accessToken || null,
+        apiOrigin: URL_ORIGIN,
+        customSubCheck: () => {
+          // user subscription state only GESTION & EL COMERCIO
+          if (
+            siteProperties.activePaywall &&
+            W.Identity.userIdentity.accessToken
+          ) {
+            return this.getListSubs().then(p => {
+              const isLoggedInSubs = this.checkSession()
+              return {
+                s: isLoggedInSubs,
+                p: p || null,
+                timeTaken: 100,
+                updated: Date.now(),
+              }
+            })
+          }
+          return {
+            s: false,
+            p: null,
+            timeTaken: 100,
+            updated: Date.now(),
+          }
+        },
+        customRegCheck: () => {
+          // user register state
+          const start = Date.now()
+          const isLoggedIn = this.checkSession()
+          return Promise.resolve({
+            l: isLoggedIn,
+            timeTaken: Date.now() - start,
+            updated: Date.now(),
+          })
+        },
+      })
+    }
+  }
 
   getListSubs() {
     const { arcSite } = this.props
