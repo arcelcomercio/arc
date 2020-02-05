@@ -22,11 +22,10 @@ const removeSticky = () => {
 
 const addSticky = (stickyTop = false) => {
   const itemDest = document.querySelector('.stories-video__item-dest')
+  itemDest.classList.add('sticky')
+
   if (stickyTop) {
-    itemDest.classList.add('sticky')
     itemDest.classList.add('sticky-top')
-  } else {
-    itemDest.classList.add('sticky')
   }
 }
 
@@ -45,7 +44,6 @@ const handleScrolVideList = () => {
   const offsetButton = scrollHeight >= playOf.offsetTop + playOf.offsetHeight
   const offSetTop = scrollHeight + window.innerHeight < playOf.offsetTop
   let stickyTop = false
-
 
   if ((offsetButton || offSetTop) && scrollHeight === 0) {
     // si esta fuera de foco por arriba en la parte superior (top 0)
@@ -75,7 +73,7 @@ const ItemVideoCenterDestacado = ({
     )
     const {
       detail: { powa },
-    } = event 
+    } = event
 
     powaPlayer = powa
     powa.on(window.PoWa.EVENTS.PLAY, () => {

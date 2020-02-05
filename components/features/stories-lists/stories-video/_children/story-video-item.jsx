@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
@@ -116,6 +117,35 @@ const StoriesListStoryVideoItem = ({
       {resultItemVideo}
     </div>
   )
+}
+
+YoutubeVideo.propTypes = {
+  index: PropTypes.number.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  liveStory: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  image: PropTypes.object.isRequired,
+  video: PropTypes.object.isRequired,
+  autoPlayVideo: PropTypes.bool.isRequired,
+}
+
+VideoCenter.propTypes = {
+  index: PropTypes.number.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  liveStory: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  image: PropTypes.object.isRequired,
+  video: PropTypes.object.isRequired,
+  videoTime: PropTypes.number.isRequired,
+  autoPlayVideo: PropTypes.bool.isRequired,
+}
+
+StoriesListStoryVideoItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  liveStory: PropTypes.bool.isRequired,
+  content: PropTypes.object.isRequired,
+  StoryItemHandleClick: PropTypes.func.isRequired,
 }
 
 export default StoriesListStoryVideoItem
