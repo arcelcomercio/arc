@@ -118,6 +118,7 @@
     "dev:amp": "webpack --config ./config/webpack.config.js --env.dev --env.amp",
     "dev:mobile": "webpack --config ./config/webpack.config.js --env.dev --env.mobile",
     "fusion": "fusion",
+    "lint": "eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts,jsx",
     "prod": "webpack --config ./config/webpack.config.js --env.prod && gulp",
     "prod:all": "webpack --config ./config/webpack.config.js --env.prod --env.outputs='index, dmobile:css,mobile:css, amp:css, paywall:css, signwall:css' && gulp",
     "prod:amp": "webpack --config ./config/webpack.config.js --env.prod --env.amp",

@@ -145,7 +145,7 @@ class StoriesListVideo extends PureComponent {
             video: newsVideo,
             autoPlayVideo: false,
             videoTime: getVideoTime(data),
-            isPreviewYoutubeVideo: false,
+            
           },
         }
       } else {
@@ -218,8 +218,7 @@ class StoriesListVideo extends PureComponent {
         JSON.stringify(listStoriesVideo[StoryItemIndex])
       )
       firstItem.index = 0
-      firstItem.content.isPreviewYoutubeVideo =
-        lastItem.content.video.type === ELEMENT_YOUTUBE_ID && true
+      
 
       // si el primer elemento debe tener autoplay
       firstItem.content.autoPlayVideo = true
