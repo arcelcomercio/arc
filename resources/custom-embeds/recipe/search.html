@@ -1,0 +1,95 @@
+<script>
+  let data = []
+
+  const handleSearch = () => {
+    // 1. Make an Ajax call to content source
+    // 2. Set data based on response
+    // 3. Re-render search results
+
+    const id = document.getElementById('searchId').value
+
+    superagent
+      .get('/pf/api/v3/content/fetch/story-by-id')
+      .query({ query: JSON.stringify({ _id: id }) })
+      .set('Accept', 'application/json')
+      .then(res => {
+        data = res.body.Search
+        console.log(res)
+        alert(res)
+        /*  render() */
+      })
+  }
+
+  const handleClick = index => event => {
+    // Send message back to Composer about selected item
+    // message must contain:
+    // {
+    //   "id": (content item id - string)
+    //   "url": (content source identifier - string)
+    //   "config": (contextual metadata - object)
+    // }
+
+    const ansCustomEmbed = {
+      id: data[index]['imdbID'],
+      url: 'https://www.imdb.com/title/',
+      config: {
+        show_poster: true,
+        caption: 'No caption specified',
+      },
+    }
+
+    sendMessage('data', ansCustomEmbed)
+  }
+
+  const render = () => {
+    // Show search results to user
+    /* const template = document.getElementById('content_template').innerHTML
+    document.getElementById('search_content').innerHTML = ''
+
+    for (i = 0; i < data.length; i++) {
+      const html = template
+        .replace('%item_id%', 'row-' + data[i].imdbID)
+        .replace('%image_id%', data[i].Poster)
+        .replace('%text%', data[i].Title)
+        .replace('%year%', data[i].Year)
+      const element = document.createElement('div')
+      document.getElementById('search_content').appendChild(element)
+      element.outerHTML = html
+      document
+        .getElementById('row-' + data[i].imdbID)
+        .addEventListener('click', handleClick(i))
+    } */
+  }
+</script>
+
+<!-- Search Form -->
+<h1 class="jumbotron-heading text-dark">
+  Movie Finder
+</h1>
+<p class="lead text-muted">
+  Let's go to the movies
+</p>
+<p class="lead"></p>
+<label for="searchId"
+  >ID:
+  <input type="textfield" id="searchId" name="searchId" />
+</label>
+<input type="button" name="Search" value="Search" onclick="handleSearch()" />
+<!-- 
+<template id="content_template"> -->
+<!-- Rendered Search Result Item -->
+<!--   <div class="col-md-6 hoverable" id="%item_id%">
+    <div class="card mb-6 box-shadow">
+      <img class="card-img-top" src="%image_id%" alt="Card image cap" />
+      <div class="card-body">
+        <p class="card-text text-muted">
+          <label style="display: block; font-weight: bold"
+            ><span>%text%</span></label
+          >
+          <label style="display: block"><span>%year%</span></label>
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+ -->
