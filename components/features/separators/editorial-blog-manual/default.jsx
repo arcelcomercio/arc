@@ -2,10 +2,9 @@ import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-
 import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
+
 import {
-  schemaBlog,
   schemaEditorial,
   schemaPhoto,
 } from './_dependencies/schema-filter'
@@ -26,33 +25,59 @@ const classes = {
 }
 const BLOG_BASE = '/blog/'
 const CONTENT_SOURCE_SECTION = 'story-by-tag'
-const CONTENT_SOURCE_BLOG = 'get-user-blog-and-posts'
 const CONTENT_SOURCE_PHOTO = 'photo-by-id'
+
+const postRegexp = /\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\/?/
 
 const urlLogoGestion =
   'https://arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/U4XN23KAQRDAHCTARRCGIKVJOE.png'
 
-const SeparatorEditorialWithBlog = () => {
+const SeparatorEditorialBlogManual = () => {
   const {
     arcSite,
     contextPath,
     deployment,
     isAdmin,
-    customFields: { titleEditorial, imageEditorial },
+    customFields: { 
+      titleEditorial, 
+      imageEditorial, 
+      post01 = '',  
+      post02 = '', 
+      post03 = '', 
+      post04 = '' 
+    },
     siteProperties: { siteUrl } = {},
   } = useFusionContext()
 
-  const dataBlog =
-    useContent({
-      source: CONTENT_SOURCE_BLOG,
-      query: {
-        website_url: BLOG_BASE,
-        blog_limit: 5,
-        filter: schemaBlog,
-      },
-    }) || {}
 
-  // TODO: esto deberia llamar a story-by-tag
+  const urlList = [post01, post02, post03, post04]
+  const paramsSource = urlList.map((url) => {
+    if (postRegexp.test(url)) {
+      const [, blogPath, year, month, postName] = url.match(postRegexp)
+      return [blogPath, year, month, postName]
+    }
+    return ['', '', '', '']
+  })
+
+  const dataBlog = []
+
+  paramsSource.forEach((ps) => {
+    if(ps !== undefined){
+      dataBlog.push(
+        useContent({
+          source: 'get-post-data-by-blog-and-post-name',
+          query: {
+            'blog_path': ps[0],
+            'year': ps[1],
+            'month': ps[2],
+            'post_name': ps[3],
+            'posts_limit': 6, 
+            'posts_offset': 0
+          },
+        }) || [])
+    }
+  })
+
   const dataEditorial =
     useContent({
       source: CONTENT_SOURCE_SECTION,
@@ -69,8 +94,7 @@ const SeparatorEditorialWithBlog = () => {
       filter: schemaPhoto,
     }) || {}
 
-  let listPost = Object.values(dataBlog)
-  listPost = listPost.slice(0, 4)
+  const listPost = Object.values(dataBlog)
   const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
 
   const {
@@ -133,12 +157,10 @@ const SeparatorEditorialWithBlog = () => {
                 } = {},
               } = {},
               blog: { path: blogUrl = '', blogname: blogName = '' } = {},
-              posts: [
-                {
+              post: {
                   post_permalink: postLink = '',
                   post_title: postTitle = '',
                 } = {},
-              ] = [],
             } = post
 
             const data = {
@@ -163,10 +185,10 @@ const SeparatorEditorialWithBlog = () => {
   )
 }
 
-SeparatorEditorialWithBlog.label = 'Separador de Editorial con Blog'
-SeparatorEditorialWithBlog.propTypes = {
+SeparatorEditorialBlogManual.label = 'Separador Blog Manual con Editorial'
+SeparatorEditorialBlogManual.propTypes = {
   customFields,
 }
-SeparatorEditorialWithBlog.static = true
+SeparatorEditorialBlogManual.static = true
 
-export default SeparatorEditorialWithBlog
+export default SeparatorEditorialBlogManual
