@@ -89,6 +89,9 @@ export default ({
     classBody = `${isStory && 'story'} section-play`
   if (requestUri.match(`^(/videos/.*)`))
     classBody = `${isStory && 'story'} section-videos`
+  if (arcSite === 'elcomercio') {
+    if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
+  }
 
   const metaSiteData = {
     ...siteProperties,
