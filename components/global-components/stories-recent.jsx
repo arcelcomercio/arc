@@ -8,7 +8,7 @@ const StoriesRecent = ({ primarySectionLink, id, arcSite, cant = 6 }) => {
     section: removeLastSlash(primarySectionLink),
     stories_qty: cant,
     presets: 'landscape_md:314x157',
-    includedFields: `_id,headlines.basic,website.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
+    includedFields: `_id,headlines.basic,websites.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
   }
 
   const storyData =
@@ -26,7 +26,6 @@ const StoriesRecent = ({ primarySectionLink, id, arcSite, cant = 6 }) => {
         return story && story._id !== id ? story : ''
       })
       .filter(String)
-
   return dataInterest || []
 }
 
