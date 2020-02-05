@@ -59,7 +59,7 @@ const SeparatorEditorialBlogManual = () => {
     return ['', '', '', '']
   })
 
-  let dataBlog = []
+  const dataBlog = []
 
   paramsSource.forEach((ps) => {
     if(ps !== undefined){
@@ -94,7 +94,7 @@ const SeparatorEditorialBlogManual = () => {
       filter: schemaPhoto,
     }) || {}
 
-  let listPost = Object.values(dataBlog)
+  const listPost = Object.values(dataBlog)
   const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
 
   const {
