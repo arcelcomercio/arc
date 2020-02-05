@@ -15,7 +15,6 @@ import {
   deleteQueryString,
 } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
-import CounterPaywall from './_children/counter-paywall'
 
 export default ({
   children,
@@ -356,7 +355,12 @@ export default ({
           />
         )}
         {siteProperties.activePaywall && (
-          <CounterPaywall arcSite={arcSite} arcEnv={CURRENT_ENVIRONMENT} />
+          <script
+            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+            async
+          />
         )}
         {/* <!-- Identity & Paywall - Fin --> */}
         {(arcSite === 'publimetro' ||  arcSite === 'depor') && !nodas && !isLivePage &&
