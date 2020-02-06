@@ -7,7 +7,6 @@ import {
   ButtonBack,
   ContLogo,
   ButtonClose,
-  BackLoading,
 } from './styled'
 import Logo from './_children/logo'
 import Taggeo from '../_dependencies/taggeo'
@@ -36,9 +35,9 @@ const Head = ({
   return (
     <>
       {showLoading && !noLoading ? (
-        <BackLoading className="back-loading">
+        <div className="back-loading">
           <Loading arcSite={arcSite} />
-        </BackLoading>
+        </div>
       ) : (
         <HeaderWrapper cbg={mainColorBg} ctx={mainColorTxt}>
           <HeaderContent>

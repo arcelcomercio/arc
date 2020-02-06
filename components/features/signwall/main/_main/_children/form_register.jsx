@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import ENV from 'fusion:environment'
+// import ENV from 'fusion:environment'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
@@ -97,7 +97,7 @@ export const FormRegister = props => {
           : ''
       )
     }
-    // removeBefore() // dismount before
+    removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
@@ -279,9 +279,9 @@ export const FormRegister = props => {
           {!showStudents && (
             <>
               {showCheckPremium ? (
-                <Loading arcSite={arcSite} />
+                <Loading arcSite={arcSite} typeBg="wait" />
               ) : (
-                <S.Form onSubmit={handleOnSubmit}>
+                <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
                   {!showConfirm && (
                     <>
                       <S.ButtonBase
@@ -309,9 +309,10 @@ export const FormRegister = props => {
 
                       <ButtonSocial
                         brand="facebook"
-                        size={
-                          ENV.ENVIRONMENT === 'elcomercio' ? 'full' : 'middle'
-                        }
+                        // size={
+                        //   ENV.ENVIRONMENT === 'elcomercio' ? 'full' : 'middle'
+                        // }
+                        size="full"
                         onLogged={onLogged}
                         onClose={onClose}
                         typeDialog={typeDialog}
@@ -321,7 +322,7 @@ export const FormRegister = props => {
                         activeNewsletter={activeNewsletter}
                         checkUserSubs={checkUserSubs}
                       />
-                      {ENV.ENVIRONMENT !== 'elcomercio' && (
+                      {/* {ENV.ENVIRONMENT !== 'elcomercio' && (
                         <ButtonSocial
                           brand="google"
                           size="middle"
@@ -334,7 +335,7 @@ export const FormRegister = props => {
                           activeNewsletter={activeNewsletter}
                           checkUserSubs={checkUserSubs}
                         />
-                      )}
+                      )} */}
 
                       <S.Text c="gray" s="14" className="mt-20 center">
                         o completa tus datos para registrarte
@@ -411,7 +412,7 @@ export const FormRegister = props => {
                       <S.Button
                         color={mainColorBtn}
                         type="submit"
-                        className="mt-20"
+                        className="mt-20 mb-20"
                         disabled={disable || showLoading || showFormatInvalid}
                         onClick={() =>
                           Taggeo(

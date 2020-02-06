@@ -101,7 +101,7 @@ export default {
       canonical:                         `https://elcomercio.pe/suscripcionesdigitales/`,
       image:                             `https://elcomercio.pe/pf/resources/dist/elcomercio/images/logo_fb.jpg?d=158`,
       reviewVideo:                       `https://pub.minoticia.pe/elcomercio/el_comercio.mp4`,
-      clickToCall:                       `https://c2c.kontactame.com/call/?id=161`,
+      clickToCall:                       `https://pe-eca.grupodigitex.com/C2C_Comercio/Ventas/Ventas.aspx?utm_source=web-suscripciones&utm_medium=boton&utm_campaign=C2C&utm_term=ayuda-llamar&utm_content=suscripciones-portada`,
       pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.elcomercio.pe`,
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.elcomercio.pe`,
       originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js?v=1`,
