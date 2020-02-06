@@ -8,7 +8,7 @@
   &__title {
     font-size: 15px;
     &:after {
-      content: '';
+      content: "";
       display: block;
       width: 80%;
       height: 2px;
@@ -64,7 +64,7 @@
   &__item-live {
     font-size: 12px;
     &:before {
-      content: '';
+      content: "";
       display: block;
       width: 8px;
       height: 8px;
@@ -108,11 +108,13 @@
 
       @media (--tablet) {
         max-width: 620px;
+        left: calc((100% - 620px) / 2);
       }
       @media (--desktop) {
         top: 46px;
         height: 145px;
         max-width: 980px;
+        left: calc((100% - 980px) / 2);
       }
       .stories-video__item-border {
         display: flex;
