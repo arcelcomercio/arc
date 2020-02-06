@@ -14,16 +14,7 @@ const classes = {
     'i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
 }
 
-const LayoutInvertedAmpHeader = ({
-  contextPath,
-  arcSite,
-  deployment,
-  siteProperties: { siteUrl = '' } = {},
-}) => {
-  const imgLogo =
-    deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-    ) || ''
+const LayoutInvertedAmpHeader = ({ imgLogo, arcSite }) => {
   return (
     <>
       <header className={classes.header}>

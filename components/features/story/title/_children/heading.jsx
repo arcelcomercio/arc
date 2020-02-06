@@ -8,7 +8,7 @@ const classes = {
 const StoryHeaderChildHeading = props => {
   const { title } = props || {}
 
-  return title && <h1 className={classes.title}> {title}</h1>
+  return <>{title && <h1 className={classes.title}> {title}</h1>}</>
 }
 
 export default StoryHeaderChildHeading

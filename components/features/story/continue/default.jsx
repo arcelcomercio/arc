@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 import schemaFilter from '../../stories-lists/card/_dependencies/schema-filter'
+import { includePromoItems } from '../../../utilities/included-fields'
 
 const classes = {
   storyContinue:
@@ -39,10 +40,12 @@ class StoryContinue extends PureComponent {
 
     this.fetchContent({
       dataList: {
-        source: 'story-feed-by-section-url',
+        source: 'story-feed-by-section',
         query: {
           section: path,
           stories_qty: 6,
+          presets: 'landscape_md:314x157',
+          includedFields: `_id,headlines.basic,websites.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
         },
         filter: schemaFilter(arcSite),
       },

@@ -1,5 +1,7 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import HeaderChildStandard from './_children/standard'
 import Formatter from './_dependencies/formatter'
@@ -7,89 +9,69 @@ import customFields from './_dependencies/custom-fields'
 
 const DEFAULT_HIERARCHY = 'header-default'
 
-@Consumer
-class HeaderStandard extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {
-      contextPath,
-      arcSite,
-      deployment,
-      siteProperties: {
-        siteDomain,
-        assets: { header: headerProperties },
-      },
-      customFields: { customLogo, customLogoLink, tags, showDate },
-    } = this.props
-
-    this.formater = new Formatter(
-      deployment,
-      contextPath,
-      siteDomain,
-      headerProperties,
-      arcSite,
-      {},
+const HeaderStandard = props => {
+  const {
+    customFields: {
       customLogo,
       customLogoLink,
       tags,
-      showDate
-    )
-    this.getNavigationSections()
-  }
+      showDate,
+      hierarchyConfig,
+      showInDesktop = true,
+      showInTablet = true,
+      showInMobile = true,
+      isSlider,
+    },
+  } = props
 
-  /* componentDidMount() {
-    // TODO: Si googleTagManager no ejecuta, descomentar.
-    // const { googleTagManagerScript } = this.props.siteProperties
-  } */
+  const { contextPath, arcSite, deployment } = useFusionContext()
 
-  getNavigationSections() {
-    const {
-      arcSite,
-      customFields: { hierarchyConfig },
-    } = this.props
+  const {
+    siteDomain,
+    assets: { header: headerProperties },
+  } = getProperties(arcSite)
 
-    const { contentService = '', contentConfigValues = {} } =
-      hierarchyConfig || {}
+  const formater = new Formatter(
+    deployment,
+    contextPath,
+    siteDomain,
+    headerProperties,
+    arcSite,
+    {},
+    customLogo,
+    customLogoLink,
+    tags,
+    showDate
+  )
 
-    const isHierarchyReady = !!contentConfigValues.hierarchy
-    const source = isHierarchyReady ? contentService : 'navigation-by-hierarchy'
-    const params = isHierarchyReady
-      ? contentConfigValues
-      : {
-          website: arcSite,
-          hierarchy: DEFAULT_HIERARCHY,
-        }
-    this.fetchContent({
-      data: {
-        source,
-        query: params,
-        filter: this.formater.getSchema(),
-      },
-    })
-  }
+  const { contentService = '', contentConfigValues = {} } =
+    hierarchyConfig || {}
 
-  render() {
-    const { data } = this.state
-    const {
-      customFields: {
-        showInDesktop = true,
-        showInTablet = true,
-        showInMobile = true,
-        isSlider,
-      },
-    } = this.props
+  const isHierarchyReady = !!contentConfigValues.hierarchy
+  const source = isHierarchyReady ? contentService : 'navigation-by-hierarchy'
 
-    this.formater.setData(data)
+  const data =
+    useContent({
+      source,
+      query: isHierarchyReady
+        ? contentConfigValues
+        : {
+            website: arcSite,
+            hierarchy: DEFAULT_HIERARCHY,
+          },
+      filter: formater.getSchema(),
+    }) || {}
 
-    const params = { ...this.formater.getParams(), isSlider }
+  formater.setData(data)
 
-    return (
-      <HeaderChildStandard
-        {...params}
-        deviceList={{ showInDesktop, showInTablet, showInMobile }}
-      />
-    )
-  }
+  const params = { ...formater.getParams(), isSlider }
+
+  return (
+    <HeaderChildStandard
+      {...params}
+      deviceList={{ showInDesktop, showInTablet, showInMobile }}
+    />
+  )
 }
 
 HeaderStandard.label = 'Cabecera - Estándar'

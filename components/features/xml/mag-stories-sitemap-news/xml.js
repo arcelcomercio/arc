@@ -21,7 +21,6 @@ const MAG_PATH = '/mag'
 class XmlMagStoriesSitemapNews {
   constructor(props) {
     this.props = props
-    const { arcSite } = props
 
     this.fetchContent({
       data: {
@@ -30,7 +29,7 @@ class XmlMagStoriesSitemapNews {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets: 'landscape_l:648x374',
-          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
+          includedFields: `websites.elcomerciomag.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -61,7 +60,7 @@ class XmlMagStoriesSitemapNews {
     const storyData = new StoryData({
       deployment,
       contextPath,
-      arcSite,
+      arcSite: 'elcomerciomag',
       defaultImgSize: 'sm',
     })
 

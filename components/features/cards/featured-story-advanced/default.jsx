@@ -36,6 +36,7 @@ const CardFeaturedStoryAdvanced = props => {
       urlVideoFacebook,
       adsSpace,
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      isLazyLoadActivate = true,
     } = {},
   } = props
 
@@ -59,35 +60,40 @@ const CardFeaturedStoryAdvanced = props => {
     'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
   const includedFields = featuredStoryFields
 
-  const data = useContent({
-    source: contentService,
-    query: Object.assign(contentConfigValues, { presets, includedFields }),
-    filter: schema,
-  })
+  const data =
+    useContent({
+      source: contentService,
+      query: Object.assign(contentConfigValues, {
+        presets,
+        includedFields,
+      }),
+      filter: schema,
+    }) || {}
 
-  let adsSpaces = {}
-  if (adsSpace && adsSpace !== 'none') {
-    adsSpaces =
-      useContent({
-        source: 'get-ads-spaces',
-        query: { space: adsSpace },
-      }) || {}
-  }
+  const adsSpaces =
+    useContent(
+      adsSpace && adsSpace !== 'none'
+        ? {
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
+          }
+        : {}
+    ) || {}
 
-  let customPhoto = {}
-  if (imgField) {
-    const photoId = getPhotoId(imgField)
-    if (photoId) {
-      customPhoto =
-        useContent({
-          source: PHOTO_SOURCE,
-          query: {
-            _id: photoId,
-          },
-          filter: PHOTO_SCHEMA,
-        }) || {}
-    }
-  }
+  const photoId = imgField ? getPhotoId(imgField) : ''
+
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
+            source: PHOTO_SOURCE,
+            query: {
+              _id: photoId,
+            },
+            filter: PHOTO_SCHEMA,
+          }
+        : {}
+    ) || {}
 
   const getAdsSpace = () => {
     const toDate = dateStr => {
@@ -150,6 +156,7 @@ const CardFeaturedStoryAdvanced = props => {
     siteName,
     multimediaSubtitle,
     multimediaCaption,
+    isLazyLoadActivate,
   }
 
   const paramsFacebook = {

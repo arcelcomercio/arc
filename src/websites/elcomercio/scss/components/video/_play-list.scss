@@ -1,6 +1,10 @@
 .play-list {
-  &__title {
-    font-weight: 700;
-    font-family: $primary-font;
+  &__title a {
+    @media (--desktop) {
+      font-family: $tertiary-font;
+    }
+  }
+  &__name {
+    text-transform: capitalize;
   }
 }

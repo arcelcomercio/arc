@@ -1,5 +1,4 @@
 import React from 'react'
-import renderHTML from 'react-render-html'
 import ConfigParams from '../../../../utilities/config-params'
 
 const classes = {
@@ -21,11 +20,13 @@ const StoryContentChildBlockQuote = props => {
           ? classes.blockquote
           : classes.pull
       }>
-      <p className={classes.text}>
-        {content && renderHTML(content)}
+      <div className={classes.text}>
+        {content && <p dangerouslySetInnerHTML={{ __html: content }}></p>}
         <br />
-        {citation && renderHTML(citation.content)}
-      </p>
+        {citation && (
+          <p dangerouslySetInnerHTML={{ __html: citation.content }}></p>
+        )}
+      </div>
     </blockquote>
   )
 }

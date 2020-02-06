@@ -1,16 +1,23 @@
 .back-loading {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   margin: 0px;
+  padding: 0px;
   background: #ffffff;
   z-index: 20;
+  top: 0;
+  left: 0;
 }
 
-.cont-loader {
+.cont-loader-logo {
+  position: absolute;
   width: 200px;
   height: 50px;
-  margin: 50% auto;
+  left: 50%;
+  top: 50%;
+  margin-top: -25px;
+  margin-left: -100px;
   text-align: center;
   svg {
     margin: 0px 5px;
@@ -26,23 +33,24 @@
     animation: identifier 700ms infinite linear;
     animation-delay: calc(350ms * 2);
   }
-  @media screen and (min-width: 1024px) {
-    margin: 20% auto;
-  }
-  & > .cont-default {
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    margin: 0 auto;
-    display: block;
-    position: relative;
-    img {
-      width: auto;
-      max-width: 80px;
-      max-height: 30px;
-      animation: identifier 700ms infinite linear;
-      margin-top: 35%;
-    }
+}
+
+.cont-loader-default {
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  margin-top: -60px;
+  margin-left: -60px;
+  text-align: center;
+  img {
+    width: auto;
+    max-width: 80px;
+    max-height: 30px;
+    animation: identifier 700ms infinite linear;
+    margin-top: 40%;
   }
 }
 

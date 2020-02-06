@@ -20,7 +20,7 @@ export default ({
   multimediaType,
   design,
   isAdmin,
-  multimediaSubtitle,
+  // multimediaSubtitle,
   multimediaCaption,
 }) => {
   const classes = {
@@ -114,7 +114,7 @@ export default ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.storyImg}`}
             data-src={storyImages.desktop}
             src={isAdmin ? storyImages.desktop : multimediaLazyDefault}
-            alt={multimediaCaption || title}            
+            alt={multimediaCaption || title}
           />
           <Icon type={multimediaType} iconClass={classes.icon} />
         </picture>
@@ -132,9 +132,7 @@ export default ({
         </h2>
         {design !== 'first' && (
           <h3 className={classes.subtitle}>
-            <a
-              className={classes.subtitleLink}
-              href={websiteLink}>
+            <a className={classes.subtitleLink} href={websiteLink}>
               {subTitle}
             </a>
           </h3>
@@ -150,7 +148,7 @@ export default ({
                     ? authorImageSquareXS || authorImage
                     : multimediaLazyDefault
                 }
-                alt={author}                
+                alt={author}
               />
             </picture>
           </a>

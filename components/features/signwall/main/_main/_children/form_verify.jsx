@@ -57,7 +57,7 @@ export const FormVerify = ({
         <>
           <S.Form>
             {showLoading ? (
-              <Loading arcSite={arcSite} />
+              <Loading arcSite={arcSite} typeBg="wait" />
             ) : (
               <>
                 <div className="center block mb-20">

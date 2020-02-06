@@ -1,12 +1,7 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-@Consumer
-class LayoutAmpNavbar extends PureComponent {
-  render() {
-    return ''
-  }
+const LayoutAmpNavbar = () => {
+  return ''
 }
 
 LayoutAmpNavbar.propTypes = {
@@ -21,5 +16,7 @@ LayoutAmpNavbar.propTypes = {
     }),
   }),
 }
+
 LayoutAmpNavbar.label = 'Barra de Navegación AMP'
+
 export default LayoutAmpNavbar

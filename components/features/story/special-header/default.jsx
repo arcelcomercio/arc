@@ -2,7 +2,6 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import rawHtml from 'react-render-html'
 import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 import StoryTitleChildHeading from './_children/heading'
 import StoryTitleChildSocial from './_children/social'
@@ -67,7 +66,9 @@ const StorySpecialHeader = () => {
       <div className={classes.gradientLayer} style={gradientBg} />
       <div className={classes.story}>
         {editorNote && (
-          <div className={classes.note}>{rawHtml(editorNote)}</div>
+          <div
+            className={classes.note}
+            dangerouslySetInnerHTML={{ __html: editorNote }}></div>
         )}
         <StoryTitleChildHeading {...titleParams} />
         <StoryTitleChildSocial {...socialParams} />

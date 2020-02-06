@@ -25,9 +25,8 @@ const SocialColumnSection = ({ socialNetworks }) => {
           const keyString = `id${index}`
           return <ItemLink key={keyString} name={name} url={url} />
         })}
-     
     </ul>
   )
 }
 
-export default SocialColumnSection
+export default React.memo(SocialColumnSection)

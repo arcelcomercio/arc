@@ -1,5 +1,4 @@
 import React from 'react'
-import renderHTML from 'react-render-html'
 import UtilListKey from '../utilities/list-keys'
 
 const classes = {
@@ -19,7 +18,9 @@ const StoryCotentChildTable = props => {
         <tr>
           {header &&
             header.map((item, i) => (
-              <th key={UtilListKey(i)}>{renderHTML(item.content) || ''}</th>
+              <th
+                key={UtilListKey(i)}
+                dangerouslySetInnerHTML={{ __html: item.content }}></th>
             ))}
         </tr>
       </thead>
@@ -35,9 +36,8 @@ const StoryCotentChildTable = props => {
                   <td
                     className={classes.cell}
                     data-editor={rowIndex}
-                    key={UtilListKey(index)}>
-                    {renderHTML(itemCell.content) || ''}
-                  </td>
+                    key={UtilListKey(index)}
+                    dangerouslySetInnerHTML={{ __html: itemCell.content }}></td>
                 ))}
             </tr>
           ))}

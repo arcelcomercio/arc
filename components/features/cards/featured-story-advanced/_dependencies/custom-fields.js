@@ -39,6 +39,11 @@ const customFields = PropTypes.shape({
       'Si esta opción es activada, la vista del elemento en móvil será igual a su vista en escritorio.',
     defaultValue: false,
   }),
+  isLazyLoadActivate: PropTypes.bool.tag({
+    name: 'Activar lazy load',
+    group: 'Configuración',
+    defaultValue: true,
+  }),
   categoryField: PropTypes.string.tag({
     name: 'Sección',
     group: 'Editar campos',
@@ -72,6 +77,7 @@ const customFields = PropTypes.shape({
     'auspiciotop3',
     'daily1',
     'daily2',
+    'daily3',
     'catalogo1',
     'catalogo2',
     'zonaauspiciada0',

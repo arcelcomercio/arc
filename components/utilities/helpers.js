@@ -65,12 +65,36 @@ export const getActualDate = () => {
   return getYYYYMMDDfromISO(today)
 }
 
-export const formatDateLocalTimeZone = (publishDateString, delimiter = '-') => {
+/**
+ * @description Devuelve la fecha de publicacion de la historia o 
+ * la hora, en caso de que se publicara el mismo dia. Este metodo 
+ * funciona para mostrar el tiempo correcto desde servidor o cliente 
+ * gracias al ultimo parametro.
+ * 
+ * @param {string} publishDateString Fecha de publicacion de la historia.
+ * @param {string} [delimiter=-] Separador para la fecha. ie. 2020-01-01 o 2020/01/01.
+ * @param {boolean} [isClient=false] Define si se renderiza en cliente o servidor. 
+ * 
+ * @returns {string} Fecha con formato **HH:MM** o **YYYY-MM-DD**
+ * 
+ * @example ```
+ * <p className={classes.date}>
+      {typeof window === 'undefined'
+        ? formatDateLocalTimeZone(element.date)
+        : formatDateLocalTimeZone(element.date, '-', true)}
+    </p>
+ * ```
+ */
+export const formatDateLocalTimeZone = (
+  publishDateString,
+  delimiter = '-',
+  isClient = false
+) => {
   const publishDate = new Date(publishDateString)
-  publishDate.setHours(publishDate.getHours() - 5)
+  if (!isClient) publishDate.setHours(publishDate.getHours() - 5)
 
   const today = new Date()
-  today.setHours(today.getHours() - 5)
+  if (!isClient) today.setHours(today.getHours() - 5)
 
   let formattedDate = ''
 
@@ -434,24 +458,19 @@ export const appendToId = (id, node) => {
   id.append(node)
 }
 
-export const breadcrumbList = (url, siteUrl) => {
-  const arrayData = []
-  if (url) {
-    const dataSeccion = url.split('/')
-    dataSeccion.forEach((element, i) => {
-      if (i === 1 || (i === 2 && dataSeccion.length === 4)) {
-        const separator = '/'
-        arrayData[i] = {
-          name:
-            element.charAt(0).toUpperCase() +
-            element.slice(1).replace('-', ' '),
-          url: siteUrl + separator + element,
-        }
+export const breadcrumbList = (siteUrl = '', primarySectionLink = '') => {
+  let sectionQueue = '/'
+  return primarySectionLink
+    .split('/')
+    .filter(section => section !== '')
+    .map(section => {
+      sectionQueue = `${sectionQueue}${section}/`
+      return {
+        name:
+          section.charAt(0).toUpperCase() + section.slice(1).replace(/-/g, ' '),
+        url: `${siteUrl}${sectionQueue}`,
       }
     })
-  }
-
-  return arrayData.filter(String)
 }
 
 export const getUrlParameter = () => {
@@ -1186,6 +1205,7 @@ export const storyVideoPlayerId = (content = '') => {
 }
 
 export const getPhotoId = photoUrl => {
+  if (!photoUrl) return ''
   const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
   const [, photoId] = customPhotoUrl || []
   return photoId
