@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Search recipe API plugin</title>
+
+    <style>
+      .hoverable {
+        padding-top: 1em;
+        cursor: pointer;
+      }
+      .hoverable:hover {
+        background-color: #e2cdcd;
+      }
+    </style>
+  </head>
+  <body>
+
+    <template id="content_template">
+      <!-- Rendered Search Result Story -->
+      <div class="col-md-6 hoverable" id="%story_id%">
+        <div class="card mb-6 box-shadow">
+          <img class="card-img-top" src="%image_id%" alt="Card image cap" />
+          <div class="card-body">
+            <p class="card-text text-muted">
+              <label style="display: block; font-weight: bold"
+                ><span>%title%</span></label
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </template>
+
+        <!-- Search Form -->
+        <h1 class="jumbotron-heading text-dark">
+            Buscador de recetas
+          </h1>
+          <p class="lead text-muted">
+            Ingresa el ID de la noticia/receta para editar su contenido
+          </p>
+          <p class="lead"></p>
+          <label for="searchId"
+            >ID:
+            <input type="textfield" id="searchId" name="searchId" />
+          </label>
+          <input
+            type="button"
+            name="Search"
+            value="Search"
+            onclick="handleSearch()"
+          />
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="search_content"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let data = {}
+
+      const handleSearch = () => {
+        // 1. Make an Ajax call to content source
+        // 2. Set data based on response
+        // 3. Re-render search results
+
+        const id = document.getElementById('searchId').value
+        superagent
+          .get('/pf/api/v3/content/fetch/story-by-id')
+          .query({ query: JSON.stringify({ _id: id }) })
+          .set('Accept', 'application/json')
+          .then(res => {
+            data = res.body
+            console.log(data)
+            render()
+          })
+      }
+
+      const handleClick = () => event => {
+        const { _id, promo_items, headlines, website_url, canonical_url } =
+          data || {}
+        // Send message back to Composer about selected item
+        // message must contain:
+        // {
+        //   "id": (content item id - string)
+        //   "url": (content source identifier - string)
+        //   "config": (contextual metadata - object)
+        // }
+
+        const ansCustomEmbed = {
+          id: _id,
+          url: website_url || canonical_url,
+          config: {
+            show_poster: true,
+            caption: 'No caption specified',
+            ingredientes: ['primero', 'segundo'],
+          },
+        }
+
+        sendMessage('data', ansCustomEmbed)
+      }
+
+      const render = () => {
+        // Show search results to user
+        const template = document.getElementById('content_template').innerHTML
+        document.getElementById('search_content').innerHTML = ''
+
+        if(data) {
+            const { _id = '', promo_items: { basic_video = {}, basic_gallery = {} } = {}, headlines = {} } = data || {}
+            const { promo_items: { basic: { url: image = '' } = {} } = {} } = basic_video || basic_gallery || data || {}
+
+            const html = template
+                .replace('%story_id%', 'row-' + _id || 'default-id')
+                .replace('%image_id%', image || '#')
+                .replace('%title%', headlines.basic || headlines.meta_title)
+            const element = document.createElement('div')
+            document.getElementById('search_content').appendChild(element)
+            element.outerHTML = html
+            document
+                .getElementById('row-' + _id)
+                .addEventListener('click', handleClick())
+        }
+      }
+    </script>
+  </body>
+</html>
