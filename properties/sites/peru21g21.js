@@ -173,4 +173,5 @@ export default {
     logoUrl: '/peru21tv/',
     logoAlt: 'Perú21Tv',
   },
+  isDfp: true,
 }

@@ -74,7 +74,10 @@ class StoryContentChildVideo extends PureComponent {
       arcSite === 'publimetro' ||
       arcSite === 'depor' ||
       arcSite === 'elcomercio' ||
-      arcSite === 'elcomerciomag'
+      arcSite === 'elcomerciomag' || 
+      arcSite === 'peru21' || 
+      arcSite === 'gestion' || 
+      arcSite === 'peru21g21'
     ) {
       let tipoplantilla = ''
       switch (metaValue('id')) {
