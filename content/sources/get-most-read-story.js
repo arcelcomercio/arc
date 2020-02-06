@@ -5,14 +5,10 @@ import { CONTENT_BASE, ARC_ACCESS_TOKEN, ENV } from 'fusion:environment'
 const flagDev = !(ENV === 'elcomercio')
 
 const getUriMostRead = (site, isPremium = false, isDev = false) => {
-  let uriMostReadGeneral = `https://d3ocw6unvuy6ob.cloudfront.net/${site}/normal/top.json`
-  if (isPremium) {
-    uriMostReadGeneral = isDev
-      ? `https://d3ocw6unvuy6ob.cloudfront.net/${site}/premium/top.json`
-      : `https://do5ggs99ulqpl.cloudfront.net/${site}/premium/top.json`
-  }
-
-  return uriMostReadGeneral
+  const endpoint = isDev ? `d3ocw6unvuy6ob` : `do5ggs99ulqpl`
+  const type = isPremium ? `premium` : `normal`
+  
+  return `https://${endpoint}.cloudfront.net/${site}/${type}/top.json`
 }
 
 const options = {
@@ -80,7 +76,7 @@ const fetch = (key = {}) => {
         })
         .catch(err => console.log(`PromiseAll error: ${err}`))
     })
-    .catch(() => {
+    .catch((err) => {
       return { content_elements: [] }
     })
 }
