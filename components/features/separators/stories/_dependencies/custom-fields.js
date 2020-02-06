@@ -6,6 +6,7 @@ export default PropTypes.shape({
   }),
   isAuthorVisible: PropTypes.bool.tag({
     name: 'Mostrar autor',
+    description: 'Esta campo no se mostrará en algunos diseños',
   }),
   isSeeMoreVisible: PropTypes.bool.tag({
     name: 'Mostrar botón "Ver más"',
@@ -41,10 +42,8 @@ export default PropTypes.shape({
     },
     defaultValue: 'default',
     group: 'Configuración de diseño',
-  }),
-  isOptHtml: PropTypes.bool.tag({
-    name: 'Optimizar estructura HTML',
-    group: 'Configuración de diseño',
+    description:
+      'No aplica en algunos diseños que tienen un color de fondo único',
   }),
   responsive: PropTypes.oneOf(['complete', 'partial', 'mobileHidden']).tag({
     name: 'Vista móvil',

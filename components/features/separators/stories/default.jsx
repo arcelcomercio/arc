@@ -21,7 +21,6 @@ const SeparatorStories = props => {
       bgColor,
       isSeeMoreVisible,
       responsive = 'complete',
-      isOptHtml,
     } = {},
   } = props
 
@@ -87,7 +86,7 @@ const SeparatorStories = props => {
     responsive,
   }
 
-  return isOptHtml ? (
+  return arcSite === 'elcomercio' ? (
     <SeparatorOpt {...separatorParams} />
   ) : (
     <Separator {...separatorParams} />

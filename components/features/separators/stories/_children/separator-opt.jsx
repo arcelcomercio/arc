@@ -35,7 +35,9 @@ const SeparatorItemComplete = ({
         src={isAdmin ? imageUrl : multimediaLazyDefault}
         data-src={imageUrl}
         alt={title}
-        className={`${isAdmin ? '' : 'lazy'} w-full md:h-full object-cover`}
+        className={`${
+          isAdmin ? '' : 'lazy'
+        } sep-opt__img w-full md:h-full object-cover`}
       />
     </picture>
   </a>
@@ -59,7 +61,7 @@ const SeparatorItemPartial = ({
       index === 0 ? '' : 'md:ml-5'
     }`}>
     <Icon type={multimediaType} iconClass="sep-opt__icon" />
-    <picture className="">
+    <picture className="block">
       <source
         className={isAdmin ? '' : 'lazy'}
         media="(max-width: 639px)"
@@ -71,16 +73,16 @@ const SeparatorItemPartial = ({
         src={isAdmin ? imageUrl : multimediaLazyDefault}
         data-src={imageUrl}
         alt={title}
-        className={`${isAdmin ? '' : 'lazy'} w-full md:h-full object-cover`}
+        className={`${isAdmin ? '' : 'lazy'} sep-opt__img w-full object-cover`}
       />
     </picture>
-    <h3 className="sep-opt__title overflow-hidden font-bold line-h-sm bottom-0 m-15">
+    <h3 className="sep-opt__title overflow-hidden font-bold line-h-sm bottom-0 m-10">
       {title}
     </h3>
     {isAuthorVisible && (
       <a
         href={authorLink}
-        className="z-10 w-full position-relative block text-sm uppercase text-gray-200 ml-15 br-15 mt-0 mb-20">
+        className="z-10 position-relative block text-sm uppercase text-gray-200 ml-15 br-15 mt-0 mb-20">
         {author}
       </a>
     )}
@@ -126,31 +128,30 @@ const SeparatorsBasicChildSeparator = ({
       )}
       <div role="list" className="sep-opt__list flex flex-col md:flex-row">
         {stories.map((story, index) => {
-          switch (design) {
-            case 'custom':
-              return (
-                <SeparatorItemComplete
-                  {...{
-                    ...story,
-                    index,
-                    isAuthorVisible,
-                    isAdmin,
-                  }}
-                />
-              )
-
-            default:
-              return (
-                <SeparatorItemPartial
-                  {...{
-                    ...story,
-                    index,
-                    isAuthorVisible,
-                    isAdmin,
-                  }}
-                />
-              )
+          if (design === 'custom') {
+            return (
+              <SeparatorItemComplete
+                {...{
+                  ...story,
+                  index,
+                  isAuthorVisible,
+                  isAdmin,
+                  design,
+                }}
+              />
+            )
           }
+          return (
+            <SeparatorItemPartial
+              {...{
+                ...story,
+                index,
+                isAuthorVisible,
+                isAdmin,
+                design,
+              }}
+            />
+          )
         })}
       </div>
     </div>
