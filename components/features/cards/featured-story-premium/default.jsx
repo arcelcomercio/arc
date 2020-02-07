@@ -238,10 +238,12 @@ const FeaturedStoryPremium = props => {
     imgType,
     bgColor,
     websiteLink,
-    multimediaSquareMD: squareMDCustom || multimediaSquareMD,
-    multimediaLandscapeMD: landscapeMDCustom || multimediaLandscapeMD,
-    multimediaLandscapeL: landscapeLCustom || multimediaLandscapeL,
-    multimediaLazyDefault: lazyDefaultCustom || multimediaLazyDefault,
+    multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
+    multimediaLandscapeMD:
+      landscapeMDCustom || imgField || multimediaLandscapeMD,
+    multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
+    multimediaLazyDefault:
+      lazyDefaultCustom || imgField || multimediaLazyDefault,
     title,
     subTitle,
     author,
