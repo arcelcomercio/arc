@@ -96,12 +96,15 @@
     left: 10px;
   }
   &__item-dest {
+    .powa-button {
+      outline: 0;
+    }
     &.sticky {
       background-color: #222222;
       height: 94px;
       position: fixed;
       top: 46px;
-      z-index: 2;
+      z-index: 3;
       display: flex;
       padding: 10px;
       justify-content: space-between;
@@ -134,6 +137,7 @@
           height: 125px;
         }
       }
+
       .stories-video__item-dest-title {
         font-size: 14px;
         color: #dddddd;
@@ -158,6 +162,7 @@
         width: 32px;
         height: 32px;
         position: relative;
+        cursor: pointer;
         @media (--desktop) {
           position: absolute;
         }
