@@ -1,14 +1,25 @@
-.section-videos,
-.section-play {
+.section-videos{
   background-color: $color-gray-300;
-
+  &.story{
+    .story-header__list {
+      @media (--only-mobile) {
+        display: none;
+      }
+      &.block {
+        @media (--only-mobile) {
+          display: flex;
+        }
+      }
+    }
+  }
   .section-video {
     padding-top: 20px;
   }
   .section-video,
   .play-list,
   .video-list,
-  .bg-container {
+  .bg-container,
+  .content-layout-container {
     background-color: $color-gray-300;
   }
   .play-list__name {
