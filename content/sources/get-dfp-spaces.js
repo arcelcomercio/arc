@@ -4,7 +4,8 @@ const resolve = ({ 'arc-site': website, page, sectionSlug }) => {
   if (!website) throw new Error('Arcsite no declarado')
   if (!page) throw new Error('Tipo de página no declarada')
 
-  return `${devUrl}/${website}/${page}${
+  const site=website==='peru21g21'?'peru21':website
+  return `${devUrl}/${site}/${page}${
     sectionSlug ? `/${sectionSlug.split('-').join('')}` : ''
   }/espacios.json`
 }
