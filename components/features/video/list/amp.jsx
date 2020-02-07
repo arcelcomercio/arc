@@ -68,7 +68,7 @@ const VideoListAmp = props => {
             const {
               websiteLink,
               title,
-              multimediaSquareMD,
+              multimediaLandscapeMD,
               primarySection,
               primarySectionLink,
               videoDuration,
@@ -76,7 +76,7 @@ const VideoListAmp = props => {
             const params = {
               websiteLink,
               title,
-              multimediaSquareMD,
+              multimediaLandscapeMD,
               primarySection,
               primarySectionLink,
               videoDuration,

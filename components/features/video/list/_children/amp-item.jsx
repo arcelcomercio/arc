@@ -8,12 +8,17 @@ const classes = {
   title: 'line-h-xs text-xl font-bold amp-video-list__title overflow-hidden',
 }
 
-export default ({ websiteLink, title, multimediaSquareMD, videoDuration }) => {
+export default ({
+  websiteLink,
+  title,
+  multimediaLandscapeMD,
+  videoDuration,
+}) => {
   return (
     <div className={classes.videoList}>
       <a className={classes.link} href={websiteLink}>
         <amp-img
-          src={multimediaSquareMD}
+          src={multimediaLandscapeMD}
           layout="responsive"
           width="304"
           height="200"
