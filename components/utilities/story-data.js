@@ -955,7 +955,7 @@ class StoryData {
               stream_type: streamType,
               resized_urls: resizedUrlsV = '',
             }) => {
-              return streamType === 'mp4'
+              return streamType === 'ts'
                 ? {
                     idVideo,
                     url,
@@ -1062,7 +1062,7 @@ class StoryData {
           }) => {
             const resultVideo = streams
               .map(({ url = '', stream_type: streamType = '' }) => {
-                return streamType === 'mp4'
+                return streamType === 'ts'
                   ? {
                       idVideo,
                       url,

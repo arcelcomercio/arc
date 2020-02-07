@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEditableContent } from 'fusion:content'
 import Icon from '../../../../global-components/multimedia-icon'
 import Notify from '../../../../global-components/notify'
 import { formatAMPM } from '../../../../utilities/helpers'
@@ -55,6 +56,8 @@ const FeaturedStoryPremiumChild = ({
   logo,
   errorList = [],
   multimediaSubtitle,
+  titleField, // OPCIONAL, o pasar el customField de los props
+  categoryField, // OPCIONAL, o pasar el customField de los props
 }) => {
   const formaZeroDate = (numb = 0) => {
     return numb < 10 ? `0${numb}` : numb
@@ -71,6 +74,11 @@ const FeaturedStoryPremiumChild = ({
       return `${day}/${month}/${year} - ${formatAMPM(date)}`
     }
   }
+
+  const { editableField } = useEditableContent()
+
+  const getEditableField = element =>
+    editableField ? editableField(element) : null
 
   let fechaProgramada = ''
   let fechaPublicacion = ''
@@ -93,11 +101,20 @@ const FeaturedStoryPremiumChild = ({
         .concat(imgType && isComercio ? ' complete ' : '')}>
       <div className={classes.left}>
         <h3 className={classes.section}>
-          <a href={primarySectionLink}>{primarySection}</a>
+          <a
+            href={primarySectionLink}
+            {...getEditableField('categoryField')}
+            suppressContentEditableWarning>
+            {categoryField || primarySection}
+          </a>
         </h3>
         <h2>
-          <a className={classes.title} href={websiteLink}>
-            {title}
+          <a
+            className={classes.title}
+            href={websiteLink}
+            {...getEditableField('titleField')}
+            suppressContentEditableWarning>
+            {titleField || title}
           </a>
         </h2>
         <p className={classes.detail}>
@@ -114,8 +131,12 @@ const FeaturedStoryPremiumChild = ({
           </h6>
           <div className={classes.boxIcon}>
             <p>
-              <a className={classes.sectionSmall} href={primarySectionLink}>
-                {primarySection || 'Sección'}
+              <a
+                className={classes.sectionSmall}
+                href={primarySectionLink}
+                {...getEditableField('categoryField')}
+                suppressContentEditableWarning>
+                {categoryField || primarySection || 'Sección'}
               </a>
             </p>
             {isPremium && !isComercio && (
