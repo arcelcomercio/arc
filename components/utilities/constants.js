@@ -10,12 +10,20 @@ export const IMAGE = 'basic'
 export const GALLERY = 'basic_gallery'
 
 // image size
-export const  IMAGE_ORIGINAL = 'original'
+export const IMAGE_ORIGINAL = 'original'
 
-export const  IMAGE_SMALL = 'small'
+export const IMAGE_SMALL = 'small'
 
 export const SQUARE_XS = 'square_xs'
 
 export const LANDSCAPE_XS = 'landscape_xs'
 
 export const LANDSCAPE_XXS = 'landscape_xxs'
+
+export const getAssetsPath = (arcSite, contextPath) => {
+  if (!contextPath) return '/pf'
+  if (!arcSite) return contextPath
+
+  if (arcSite === 'elcomercio') return `https://cdna.${arcSite}.pe`
+  return contextPath
+}
