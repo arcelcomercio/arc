@@ -43,7 +43,7 @@ const params = [
 ]
 
 const uriAPI = (id, site) => {
-  const filter = `&included_fields=type,websites,website,website_url,headlines,promo_items`
+  const filter = `&included_fields=type,websites,website,website_url,headlines,promo_items,_id`
   // return `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
   return `${CONTENT_BASE}/content/v4/stories/?_id=${id}&website=${site}&published=true${filter}`
 }
