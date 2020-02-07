@@ -79,6 +79,37 @@ class StoryContentChildVideo extends PureComponent {
       arcSite === 'gestion' || 
       arcSite === 'peru21g21'
     ) {
+
+      const arcSiteNew=arcSite==='peru21g21'?'peru21':arcSite
+      let webSite=''
+      switch (arcSite) 
+      {
+        case 'publimetro':
+          webSite='publimetro.pe'
+          break
+        case 'depor':
+          webSite='depor.com'
+          break
+        case 'elcomercio':
+          webSite='elcomercio.pe'
+          break
+        case 'elcomerciomag':
+          webSite='mag.elcomercio.pe'
+          break
+        case 'peru21':
+          webSite='peru21'
+          break
+        case 'gestion':
+          webSite='gestion.pe'
+          break
+        case 'peru21g21':
+          webSite='peru21.pe'
+          break
+          default:
+            webSite=''
+            break
+      }
+
       let tipoplantilla = ''
       switch (metaValue('id')) {
         case 'meta_section':
@@ -94,13 +125,13 @@ class StoryContentChildVideo extends PureComponent {
 
       const sectionSlug = this.getSectionSlug(primarySection)
       if (arcSite === 'publimetro') {
-        return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSite}_post_${sectionSlug}_web_preroll&description_url=https%3A%2F%2F${arcSite}.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSite}%26seccion%3D${sectionSlug}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`
+        return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSiteNew}_post_${sectionSlug}_web_preroll&description_url=https%3A%2F%2F${webSite}%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`
       }
-      return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSite}/web/post/${sectionSlug
+      return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSiteNew}/web/post/${sectionSlug
         .split('-')
         .join(
           ''
-        )}/preroll&description_url=https%3A%2F%2F${arcSite}.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSite}%26seccion%3D${sectionSlug
+        )}/preroll&description_url=https%3A%2F%2F${webSite}%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug
         .split('-')
         .join(
           ''
