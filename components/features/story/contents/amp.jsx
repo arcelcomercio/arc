@@ -169,7 +169,11 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
                 if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
-                  return <h2>{content}</h2>
+                  return (
+                    <h2>
+                      <RawHtml content={content}></RawHtml>
+                    </h2>
+                  )
                 }
                 if (type === ConfigParams.ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />

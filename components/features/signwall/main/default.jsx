@@ -51,6 +51,7 @@ class SignwallComponent extends PureComponent {
     this.checkUserName()
 
     if (siteProperties.activePaywall) {
+        this.getPaywall();
     }
   }
 
