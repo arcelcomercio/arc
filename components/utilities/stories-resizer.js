@@ -1,4 +1,7 @@
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
+import {
+  addResizedUrls,
+  createUrlResizer,
+} from '@arc-core-components/content-source_content-api-v4'
 
 // Formato de los presets: "mobile:314x157,tablet:314x157,desktop:314x157"
 const getPresetsSize = (presets = '') => {
@@ -15,7 +18,20 @@ const getPresetsSize = (presets = '') => {
   return formatPresets
 }
 
-export default ({
+export const createResizedUrl = ({
+  url,
+  presets,
+  resizerUrl,
+  resizerSecret,
+}) => {
+  return createUrlResizer(resizerSecret, resizerUrl, {
+    presets: getPresetsSize(presets),
+  })({
+    url,
+  })
+}
+
+export const addResizedUrlsToStories = ({
   contentElements = [],
   presets,
   resizerUrl,

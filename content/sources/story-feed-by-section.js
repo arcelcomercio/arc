@@ -1,7 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
-import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
+import { addResizedUrlsToStories } from '../../components/utilities/stories-resizer'
 import { removeLastSlash } from '../../components/utilities/helpers'
 import { formatIncludedFields } from '../../components/utilities/included-fields'
 

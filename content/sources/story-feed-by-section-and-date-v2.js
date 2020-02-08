@@ -1,6 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
+import { addResizedUrlsToStories } from '../../components/utilities/stories-resizer'
 import {
   getYYYYMMDDfromISO,
   getActualDate,
@@ -167,7 +167,7 @@ const resolve = (key = {}) => {
   const excSections =
     auxExcludedSec === null || !auxExcludedSec ? '/' : auxExcludedSec.split(',')
 
-  const queryFilter = getQueryFilter(section,excSections, website, date)
+  const queryFilter = getQueryFilter(section, excSections, website, date)
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`

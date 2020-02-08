@@ -91,6 +91,7 @@ const CardFeaturedStoryManual = props => {
     const includedFields = 'publish_date'
 
     const auxNote1 =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent(
         note1 !== undefined && note1 !== ''
           ? {
@@ -106,6 +107,7 @@ const CardFeaturedStoryManual = props => {
       ) || {}
 
     const auxNote2 =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent(
         note2 !== undefined && note2 !== ''
           ? {
@@ -121,6 +123,7 @@ const CardFeaturedStoryManual = props => {
       ) || {}
 
     const auxNote3 =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent(
         note3 !== undefined && note3 !== ''
           ? {
@@ -166,6 +169,9 @@ const CardFeaturedStoryManual = props => {
 
   const errorList = isAdmin ? validateScheduledNotes() : []
   const photoId = imgField ? getPhotoId(imgField) : ''
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
 
   const customPhoto =
     useContent(
@@ -174,13 +180,13 @@ const CardFeaturedStoryManual = props => {
             source: PHOTO_SOURCE,
             query: {
               _id: photoId,
+              presets,
             },
             filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}
 
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
   const data =
     useContent(
       currentNotePath.length > 0

@@ -1,7 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
-import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { sizeImg } from '../../components/utilities/config-params'
+import { createResizedUrl } from '../../components/utilities/stories-resizer'
 
 const schemaName = 'photo'
 
@@ -11,6 +10,11 @@ const params = [
     displayName: 'ID de Photo Center',
     type: 'text',
   },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
+  },
 ]
 
 const resolve = ({ _id: id }) => {
@@ -18,8 +22,7 @@ const resolve = ({ _id: id }) => {
   return `/photo/api/v2/photos/${id}`
 }
 
-const transform = (data, key) => {
-  const website = key['arc-site']
+const transform = (data, { 'arc-site': website, presets }) => {
   if (!website) return data
 
   let photoData = {}
@@ -29,14 +32,11 @@ const transform = (data, key) => {
     const { url } = photoData
     const { resizerUrl } = getProperties(website)
 
-    const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
-      /**
-       * TODO: Agregar tambien la capacidad para custom-presets.
-       * Si se hace, tambien es necesario hacer cambios en el Schema.
-       */
-      presets: sizeImg(),
-    })({
+    const resizedUrls = createResizedUrl({
       url,
+      presets,
+      resizerUrl,
+      resizerSecret,
     })
     photoData.resized_urls = resizedUrls
   }

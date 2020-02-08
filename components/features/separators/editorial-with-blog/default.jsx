@@ -65,7 +65,10 @@ const SeparatorEditorialWithBlog = () => {
   const fetchImage =
     useContent({
       source: CONTENT_SOURCE_PHOTO,
-      query: { _id: getPhotoId(imageEditorial || urlLogoGestion) },
+      query: {
+        _id: getPhotoId(imageEditorial || urlLogoGestion),
+        presets: 'square_s:150x150',
+      },
       filter: schemaPhoto,
     }) || {}
 
