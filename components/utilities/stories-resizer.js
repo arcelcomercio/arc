@@ -3,7 +3,16 @@ import {
   createUrlResizer,
 } from '@arc-core-components/content-source_content-api-v4'
 
-// Formato de los presets: "mobile:314x157,tablet:314x157,desktop:314x157"
+/**
+ * Transforma la cadena de presets en un objeto para que pueda ser digerido
+ * por las funciones que hacen resize.
+ *
+ * @param {string} presets - Cadena de "preset:pixeles" separados por
+ * coma (,).
+ * ej: square_md:300x300,square_s:150x150
+ *
+ * @example getPresetsSize('mobile:314x157,tablet:314x157,desktop:314x157')
+ */
 const getPresetsSize = (presets = '') => {
   const formatPresets = {}
   presets.split(',').forEach(preset => {
@@ -18,6 +27,34 @@ const getPresetsSize = (presets = '') => {
   return formatPresets
 }
 
+/**
+ * Crea un listado de imagenes escaladas al tamano deseado a partir de
+ * la URL de una imagen original y un conjunto de presets.
+ *
+ * @param {Object} config Configuracion.
+ * @param {string} config.url - URL original de la imagen a escalar.
+ * @param {string} config.presets - Cadena de "preset:pixeles" separados por
+ * coma (,).
+ * ej: square_md:300x300,square_s:150x150
+ * @param {string} config.resizerUrl - URL base para las imagenes escaladas, por marca.
+ * Se obtiene desde siteProperties.
+ * @param {string} config.resizerSecret - Token para generar las imagenes escaladas.
+ * Se obtiene desde "fusion:environment".
+ *
+ * @example ```
+ * import { resizerSecret } from 'fusion:environment'
+ * import getProperties from 'fusion:properties'
+ *
+ * const { resizerUrl } = getProperties(website)
+ *
+ * createResizedUrl({
+ *  url: 'url/de/la/imagen.jpg',
+ *  presets: 'mobile:314x157,tablet:314x157,desktop:314x157,
+ *  resizedUrl,
+ *  resizedSecret
+ * })
+ * ```
+ */
 export const createResizedUrl = ({
   url,
   presets,
@@ -31,6 +68,35 @@ export const createResizedUrl = ({
   })
 }
 
+/**
+ * Recorre toda la historia agregando el objeto resized_urls a cada promo_items con
+ * las imagenes escaladas a los tamanos definidos como presets.
+ *
+ * @param {Object} config Configuracion.
+ * @param {Array} config.contentElements - Todo el contenido de la historia con las
+ * imagenes que se desea escalar.
+ * @param {string} config.presets - Cadena de "preset:pixeles" separados por
+ * coma (,).
+ * ej: square_md:300x300,square_s:150x150
+ * @param {string} config.resizerUrl - URL base para las imagenes escaladas, por marca.
+ * Se obtiene desde siteProperties.
+ * @param {string} config.resizerSecret - Token para generar las imagenes escaladas.
+ * Se obtiene desde "fusion:environment".
+ *
+ *  * @example ```
+ * import { resizerSecret } from 'fusion:environment'
+ * import getProperties from 'fusion:properties'
+ *
+ * const { resizerUrl } = getProperties(website)
+ *
+ * addResizedUrlsToStories({
+ *  contentElements: [story],
+ *  presets: 'mobile:314x157,tablet:314x157,desktop:314x157,
+ *  resizedUrl,
+ *  resizedSecret
+ * })
+ * ```
+ */
 export const addResizedUrlsToStories = ({
   contentElements = [],
   presets,
