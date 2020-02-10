@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import * as Meta from './_children/meta'
 import TagManager from './_children/tag-manager'
 import { interpolateUrl } from '../features/paywall/_dependencies/domains'
-import { getAssetsPath } from '../utilities/constants'
 
 const Paywall = props => {
   const {
@@ -59,10 +58,7 @@ const Paywall = props => {
         <link
           rel="stylesheet"
           href={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/css/paywall.css`
+            `${contextPath}/resources/dist/${arcSite}/css/paywall.css`
           )}
         />
         <props.MetaTags />
