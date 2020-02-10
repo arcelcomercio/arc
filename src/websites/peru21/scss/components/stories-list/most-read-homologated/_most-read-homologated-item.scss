@@ -15,8 +15,9 @@
     overflow: hidden;
     color: $color-gray-300;
     &-box {
+      margin: 0;
       div {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid $color-secondary;
       }
     }
   }
@@ -25,7 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $color-fourth;
+    color: $color-primary;
     font-size: 30px;
     font-family: $primary-font;
     font-weight: 900;
