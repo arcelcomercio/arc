@@ -5,6 +5,7 @@ import getProperties from 'fusion:properties'
 import PropTypes from 'prop-types'
 
 import FooterChildStandardG21 from './_children/footer-g21'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -65,7 +66,12 @@ const FooterStandardG21 = props => {
   }
 
   const logoUrl =
-    deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) || ''
+    deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
+    ) || ''
 
   const formattedSections = sections && formatData(sections)
 

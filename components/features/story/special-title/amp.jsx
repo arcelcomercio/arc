@@ -11,6 +11,7 @@ import {
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 import StoryData from '../../../utilities/story-data'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
@@ -64,7 +65,10 @@ const StoryTitleAmp = () => {
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
     deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png`
     ) || ''
 
   return (

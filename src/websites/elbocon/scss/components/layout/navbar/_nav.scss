@@ -1,6 +1,6 @@
 .nav {
   background-color: $color-gray-300;
-  background-image: url(/pf/resources/dist/elbocon/images/bc-tramado-nav.png);
+  background-image: url($assets_url+"/resources/dist/elbocon/images/bc-tramado-nav.png");
 
   @media (--desktop) {
     background-image: none;

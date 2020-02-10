@@ -1,5 +1,6 @@
 import schemaFilter from './schema-filter'
 import { formatDayMonthYear } from '../../../../utilities/helpers'
+import { getAssetsPath } from '../../../../utilities/constants'
 
 export default class StandardHeader {
   constructor(
@@ -73,14 +74,18 @@ export default class StandardHeader {
         src:
           this.customLogo ||
           this.deployment(
-            `${this.contextPath}/resources/dist/${this.arcSite}/images/${logo}`
+            `${getAssetsPath(this.arcSite, this.contextPath)}/resources/dist/${
+              this.arcSite
+            }/images/${logo}`
           ),
         link: this.customLogoLink,
         alt: this.siteDomain,
       },
       logoLeft: {
         src: this.deployment(
-          `${this.contextPath}/resources/dist/${this.arcSite}/images/otorongo.png`
+          `${getAssetsPath(this.arcSite, this.contextPath)}/resources/dist/${
+            this.arcSite
+          }/images/otorongo.png`
         ),
         alt: this.arcSite,
       },

@@ -43,7 +43,7 @@
     -webkit-line-clamp: 1;
   }
   &__story-load-image {
-    background-image: url('/pf/resources/dist/depor/images/d.png');
+    background-image: url($assets_url+"/resources/dist/depor/images/d.png");
     background-position: center;
     background-repeat: no-repeat;
     &::before {

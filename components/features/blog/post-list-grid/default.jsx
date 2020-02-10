@@ -4,6 +4,7 @@ import { useFusionContext } from 'fusion:context'
 import { customFields } from './_dependencies/custom-fields'
 import BlogPostListGridChildGrid from './_children/grid'
 import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const BlogPostListGrid = props => {
   const {
@@ -86,7 +87,10 @@ const BlogPostListGrid = props => {
     initialPositionItem + numShowItems
   )
   const urlLogoBrand = deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/author.png`
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/author.png`
   )
   const { siteName = '' } = siteProperties
 
