@@ -21,7 +21,11 @@ class Stick extends PureComponent {
   {
     super(props)
 
-    const active =  getCookie(`idpoll_open_app_stick`) !== '1' 
+    const { arcSite } = this.props
+    
+    this.sitioWeb = arcSite; 
+
+    const active =  getCookie(`idpoll_open_appstick_${arcSite}`) !== '1' 
 
     this.state = {
       active
@@ -104,7 +108,7 @@ class Stick extends PureComponent {
 
   closeStick = () => {
     
-    setSurveyCookie('_open_app_stick', 7)
+    setSurveyCookie(`_open_appstick_${this.sitioWeb}`, 7)
 
     this.setState({
       active: false,
