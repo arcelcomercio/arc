@@ -8,8 +8,8 @@
     color: white;
   }
   &__info {
-    background: url(/pf/resources/dist/depor/images/arrow-left-circle.png) 0 0
-      no-repeat;
+    background: url($assets_url+"/resources/dist/depor/images/arrow-left-circle.png")
+      0 0 no-repeat;
     padding: 0 0 0 64px;
   }
 }

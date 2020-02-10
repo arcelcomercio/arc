@@ -12,6 +12,7 @@ import {
 } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
 import StoriesRecent from '../global-components/stories-recent'
+import { getAssetsPath } from '../utilities/constants'
 
 const MobileOutput = ({
   children,
@@ -311,7 +312,10 @@ const MobileOutput = ({
         <script
           defer
           src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/js/index.js`
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/js/index.js`
           )}
         />
 
@@ -344,11 +348,19 @@ const MobileOutput = ({
         <script dangerouslySetInnerHTML={{ __html: staticVariables }} />
         <script
           async
-          src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
+          src={deployment(
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/assets/js/lazyload.js`
+          )}
         />
         <script
           src={deployment(
-            `${contextPath}/resources/assets/mobile/dist/bundle.js`
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/assets/mobile/dist/bundle.js`
           )}
         />
       </body>

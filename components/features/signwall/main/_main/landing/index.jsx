@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import { ModalProvider, ModalConsumer } from '../../../_children/context'
@@ -7,6 +8,7 @@ import { FormForgot } from '../_children/form_forgot'
 import { FormRegister } from '../_children/form_register'
 import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styled'
 import { Close } from '../../../_children/iconos'
+import { getAssetsPath } from '../../../../../utilities/constants'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
@@ -66,12 +68,18 @@ class Landing extends Component {
 
     const pathSourcePNG =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/${IMG}.png`
+        `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/${IMG}.png`
       ) || ''
 
     const pathSourceWEBP =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/${IMG}.webp`
+        `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/${IMG}.webp`
       ) || ''
 
     return (

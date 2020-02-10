@@ -4,6 +4,7 @@ import { useContent } from 'fusion:content'
 import getProperties from 'fusion:properties'
 
 import MenuTV from './_children/menu'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const TvHeader = () => {
   const { contextPath, deployment, arcSite } = useFusionContext()
@@ -61,9 +62,12 @@ const TvHeader = () => {
         <img
           className="w-full"
           src={deployment(
-            `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/assets/extraordinary-story/grid/logo.png`
           )}
-          alt={logoAlt}          
+          alt={logoAlt}
         />
       </a>
       <div className="tv-header__logo-container  position-absolute flex mt-25 bg-white p-5 pl-10 pr-10 rounded-md">
@@ -77,9 +81,12 @@ const TvHeader = () => {
           <img
             className="w-full"
             src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/images/${siteLogo}`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/${siteLogo}`
             )}
-            alt={siteName}            
+            alt={siteName}
           />
         </a>
       </div>

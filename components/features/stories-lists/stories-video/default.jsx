@@ -12,6 +12,7 @@ import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
   LANDSCAPE_XXS,
+  getAssetsPath,
 } from '../../../utilities/constants'
 
 import { defaultImage } from '../../../utilities/helpers'
@@ -237,7 +238,10 @@ class StoriesListVideo extends PureComponent {
     const { listStoriesVideo = [] } = this.state
 
     const logoImg = `${deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/Logo_P21TV.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/Logo_P21TV.png`
     )}`
     return (
       <>
@@ -255,7 +259,7 @@ class StoriesListVideo extends PureComponent {
                 ...item,
                 StoryItemHandleClick: this.StoryItemHandleClick,
               }
-              return <StoryItem  {...StoryItemProps} />
+              return <StoryItem {...StoryItemProps} />
             })}
           <div className={classes.viewProgramsWrapper}>
             <a className={classes.viewPrograms} href={PERU21TV_URL}>

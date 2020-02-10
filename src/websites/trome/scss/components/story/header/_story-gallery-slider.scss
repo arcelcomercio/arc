@@ -22,7 +22,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-image: url(/pf/resources/dist/trome/images/rgba40.png);
+      background-image: url($assets_url+"/resources/dist/trome/images/rgba40.png");
       @media (--only-mobile) {
         width: 28px;
         height: 52px;

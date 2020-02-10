@@ -2,13 +2,13 @@
   &__title {
     background-color: $color-gray-300;
     &:after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       right: 20px;
       width: 20px;
       height: 20px;
-      background-image: url(/pf/resources/dist/elbocon/images/loader.png);
+      background-image: url($assets_url+"/resources/dist/elbocon/images/loader.png");
       background-size: cover;
     }
   }

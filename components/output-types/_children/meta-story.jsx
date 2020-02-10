@@ -11,6 +11,7 @@ import {
   msToTime,
 } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
+import { getAssetsPath } from '../../utilities/constants'
 
 export default ({
   globalContent: data,
@@ -110,7 +111,9 @@ export default ({
     "logo": {
       "@type": "ImageObject",
       "url": "${siteUrl}${deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
+    `${getAssetsPath(arcSite, contextPath)}/resources/dist/${arcSite}/images/${
+      seo.logoAmp
+    }`
   )}",
       "width": ${seo.width},
       "height": ${seo.height}
@@ -215,7 +218,10 @@ export default ({
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
     : `"image": {  "@type": "ImageObject", "url": "${siteUrl}${deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/logo-story-default.jpg`
+        `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo-story-default.jpg`
       )}",  "description": "${formatHtmlToText(
         siteName
       )}", "height": 800, "width": 1200 },`
@@ -251,7 +257,9 @@ export default ({
       seoAuthor
     )}"    },
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${siteUrl}${deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/${seo.logoAmp}`
+    `${getAssetsPath(arcSite, contextPath)}/resources/dist/${arcSite}/images/${
+      seo.logoAmp
+    }`
   )}",   "height":${seo.height}, "width":${seo.width}
        }
     },    
