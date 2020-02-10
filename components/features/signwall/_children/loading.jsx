@@ -3,6 +3,7 @@ import Context from 'fusion:context'
 import styled, { css } from 'styled-components'
 import { LoadingGes, LoadingEco, LoadingP21 } from './iconos'
 import { device } from '../_dependencies/breakpoints'
+import { getAssetsPath } from '../../../utilities/constants'
 
 export const WrapperLoading = styled.div`
   width: 100%;
@@ -108,7 +109,12 @@ const Loading = ({ arcSite, typeBg, typeDialog }) => {
                 <img
                   alt={`Logo ${arcSite}`}
                   src={deployment(
-                    `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
+                    `${getAssetsPath(
+                      arcSite,
+                      contextPath
+                    )}/resources/dist/${arcSite}/images/${
+                      siteProperties.assets.header.logo
+                    }`
                   )}
                 />
               </div>

@@ -15,7 +15,7 @@ import {
   storyTagsBbc,
   getDateSeo,
   storyContenImage,
-  
+
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
@@ -34,6 +34,7 @@ import StoryData from '../../../utilities/story-data'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
 import Ads from '../../../global-components/ads'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   news: 'story-content ',
@@ -169,7 +170,10 @@ class StoryContents extends PureComponent {
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+        `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
 
     return (

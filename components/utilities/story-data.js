@@ -7,6 +7,7 @@ import {
   msToTime,
 } from './helpers'
 import { getVideoIdRedSocial } from './story/helpers'
+import { getAssetsPath } from './constants'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -1148,7 +1149,10 @@ class StoryData {
   ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
-      `${contextPath}/resources/dist/${website}/images/author.png`
+      `${getAssetsPath(
+        website,
+        contextPath
+      )}/resources/dist/${website}/images/author.png`
     )
 
     let nameAuthor = ''

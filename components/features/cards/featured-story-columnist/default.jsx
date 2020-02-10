@@ -11,6 +11,7 @@ import {
   includePrimarySection,
   includeCreditsImage,
 } from '../../../utilities/included-fields'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const FeaturedStoryColumnist = props => {
   const {
@@ -58,7 +59,10 @@ const FeaturedStoryColumnist = props => {
   })
 
   const lazyImage = deployment(
-    `${contextPath}/resources/assets/author-grid/author.png`
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/author-grid/author.png`
   )
 
   const params = {
@@ -72,7 +76,12 @@ const FeaturedStoryColumnist = props => {
     isPremium,
     websiteLink,
     isAdmin,
-    logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
+    logo: deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
+    ),
   }
   return <ColumnistPremium {...params} />
 }

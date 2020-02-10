@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import { getAssetsPath } from '../../../../utilities/constants'
 
 // TODO: este feature no puede reemplazar al real cards/cinema-billboard y que se haga solo un import de uno de los dos?
 
@@ -159,7 +160,10 @@ export default () => {
             premiereImg:
               premiereImg ||
               deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/default-md.png`
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/default-md.png`
               ),
             premiereTitle,
             premiereUrl,

@@ -2,6 +2,7 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import { getAssetsPath } from '../../../utilities/constants'
 
 // TODO: Separar Feature de Componente.
 
@@ -24,9 +25,16 @@ const LayoutAmpHeader = () => {
   const { siteUrl } = getProperties(arcSite)
 
   const imgLogo =
-    deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-    ) || ''
+    arcSite === 'elcomercio'
+      ? deployment(
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/logo-amp.png`
+        )
+      : deployment(
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
+        ) || ''
 
   return (
     <>
