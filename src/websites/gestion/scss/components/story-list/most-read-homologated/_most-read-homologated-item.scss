@@ -33,4 +33,11 @@
     flex-grow: 1;
     flex-shrink: 0;
   }
+  &__content {
+    display: flex;
+    flex-direction: row;
+  }
+  &__image {
+    flex-basis: 50px;
+  }
 }
