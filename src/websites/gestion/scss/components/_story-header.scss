@@ -19,7 +19,7 @@
     position: relative;
 
     &::before {
-      content: '.';
+      content: ".";
       top: -3px;
       color: transparent;
       position: absolute;
@@ -28,7 +28,7 @@
       left: 0px;
       border-right: 1px solid $color-primary;
       padding-right: 15px;
-      background: url(/pf/resources/dist/gestion/images/plusg.png?d=285)
+      background: url($assets_url+"/resources/dist/gestion/images/plusg.png?d=285")
         no-repeat left center;
     }
   }
