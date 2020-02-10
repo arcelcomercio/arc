@@ -123,7 +123,8 @@ export default {
     ],
     corporateInfo: {
       name: 'Grupo El Comercio S.A.',
-      direction: 'Jr. Santa Rosa 247, piso 7 Lima 1 - Perú',
+      direction:
+        'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima - Perú',
     },
     draftingContact: [
       {
@@ -172,12 +173,12 @@ export default {
   activeSignwall: true,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
     mainLogo: 'logo.png',
     mainColorBr: '#ffede5',
-    mainColorLink:'#e06437',
+    mainColorLink: '#e06437',
     mainColorBtn: '#f15c23',
   },
   taboola: {
