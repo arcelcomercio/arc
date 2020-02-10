@@ -10,9 +10,7 @@ const classes = {
 export default ({
   titleList,
   background,
-  seeMore,
   urlTitle,
-  seeMoreurl = '/',
 }) => {
   return (
     <div className={`${classes.header} ${background}`}>
@@ -22,11 +20,6 @@ export default ({
         </a>
       ) : (
         <h4 className={classes.title}>{titleList}</h4>
-      )}
-      {seeMore && (
-        <a href={seeMoreurl} className={classes.seeMore}>
-          Ver más
-        </a>
       )}
       <i className={classes.icon} />
     </div>
