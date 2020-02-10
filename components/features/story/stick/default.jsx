@@ -3,7 +3,7 @@ import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
-import { removeLastSlash } from '../../../utilities/helpers'
+import { removeLastSlash, setSurveyCookie, getCookie } from '../../../utilities/helpers'
 
 const classes = {
   stickWrapper: 'stick w-full pl-20 pr-20',
@@ -17,10 +17,18 @@ const classes = {
 
 @Consumer
 class Stick extends PureComponent {
-  constructor(props) {
+  constructor(props) 
+  {
     super(props)
+
+    const { arcSite } = this.props
+    
+    this.sitioWeb = arcSite; 
+
+    const active =  getCookie(`idpoll_open_appstick_${arcSite}`) !== '1' 
+
     this.state = {
-      active: true,
+      active
     }
   }
 
@@ -99,6 +107,9 @@ class Stick extends PureComponent {
   }
 
   closeStick = () => {
+    
+    setSurveyCookie(`_open_appstick_${this.sitioWeb}`, 7)
+
     this.setState({
       active: false,
     })
