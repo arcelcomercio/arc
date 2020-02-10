@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStories } from '../../components/utilities/stories-resizer'
+import { addResizedUrlsToStories } from '../../components/utilities/resizer'
 import RedirectError from '../../components/utilities/redirect-error'
 import {
   includePromoItems,

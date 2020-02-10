@@ -1,6 +1,6 @@
 import { BLOG_TOKEN, resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { createResizedUrl } from '../../components/utilities/stories-resizer'
+import { createResizedUrl } from '../../components/utilities/resizer'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const params = [

@@ -1,6 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { createResizedUrl } from '../../components/utilities/stories-resizer'
+import { createResizedUrl } from '../../components/utilities/resizer'
 
 const schemaName = 'photo'
 
