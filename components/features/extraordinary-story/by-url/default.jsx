@@ -37,6 +37,8 @@ const ExtraordinaryStoryByUrl = props => {
     ) || {}
 
   const photoId = multimediaSource ? getPhotoId(multimediaSource) : ''
+  const presets =
+    'landscape_xl:980x528,landscape_ext_story:980x355,landscape_l:648x374,square_l:600x600'
 
   const customPhoto =
     useContent(
@@ -45,6 +47,7 @@ const ExtraordinaryStoryByUrl = props => {
             source: PHOTO_SOURCE,
             query: {
               _id: photoId,
+              presets,
             },
             filter: PHOTO_SCHEMA,
           }

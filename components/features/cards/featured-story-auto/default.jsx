@@ -73,6 +73,7 @@ const CardFeaturedStoryAuto = () => {
             source: PHOTO_SOURCE,
             query: {
               _id: photoId,
+              presets,
             },
             filter: PHOTO_SCHEMA,
           }

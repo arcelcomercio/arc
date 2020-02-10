@@ -172,6 +172,9 @@ const CardFeaturedStoryManualLive = props => {
 
   const errorList = isAdmin ? validateScheduledNotes() : []
   const photoId = imgField ? getPhotoId(imgField) : ''
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
 
   const customPhoto =
     useContent(
@@ -180,13 +183,13 @@ const CardFeaturedStoryManualLive = props => {
             source: PHOTO_SOURCE,
             query: {
               _id: photoId,
+              presets,
             },
             filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}
 
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
   const data =
     useContent(
       currentNotePath.length > 0

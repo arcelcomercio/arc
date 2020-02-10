@@ -20,9 +20,9 @@ const PHOTO_SOURCE = 'photo-by-id'
 const PHOTO_SCHEMA = `{
   resized_urls { 
     landscape_l 
-    landscape_md
     portrait_md 
     square_xl
+    square_md
     lazy_default  
   }
 }`
@@ -61,6 +61,7 @@ const FeatureStoryFullImage = props => {
             source: PHOTO_SOURCE,
             query: {
               _id: photoId,
+              presets,
             },
             filter: PHOTO_SCHEMA,
           }
