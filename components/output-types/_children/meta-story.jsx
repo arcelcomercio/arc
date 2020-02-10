@@ -93,7 +93,7 @@ export default ({
 
   let resultRelated = ''
 
-  if (relatedContent[0]) {
+  if (relatedContent[0] && relatedContent[0].type !== 'reference') {
     resultRelated = relatedContent
   } else {
     resultRelated = resultStoryRecent.map(story => {
