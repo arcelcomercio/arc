@@ -81,13 +81,8 @@ const CardTriplet = props => {
   }
   const fetchImageModel = image => {
     return {
-      source: 'photo-by-id',
-      query: { _id: getPhotoId(image), presets },
-      filter: `{
-            resized_urls { 
-              square_s
-            }
-          }`,
+      source: 'photo-resizer',
+      query: { url: getPhotoId(image) ? image : '', presets },
     }
   }
 

@@ -16,17 +16,7 @@ import {
 } from '../../../utilities/included-fields'
 
 const source = 'story-by-url'
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_s 
-    lazy_default  
-  }
-}`
+const PHOTO_SOURCE = 'photo-resizer'
 
 const CardFeaturedStoryManual = props => {
   const {
@@ -168,21 +158,21 @@ const CardFeaturedStoryManual = props => {
   }
 
   const errorList = isAdmin ? validateScheduledNotes() : []
-  const photoId = imgField ? getPhotoId(imgField) : ''
   const presets =
     'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`
 
+  // Solo acepta custom image desde Photo Center
+  const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
       photoId
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: imgField,
               presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}

@@ -8,13 +8,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import { getPhotoId } from '../../../utilities/helpers'
 import { includePromoItems } from '../../../utilities/included-fields'
 
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l   
-  }
-}`
+const PHOTO_SOURCE = 'photo-resizer'
 
 const ExtraordinaryStoryLifeScore = props => {
   const { customFields } = props
@@ -64,6 +58,7 @@ const ExtraordinaryStoryLifeScore = props => {
     },
   })
 
+  // Solo acepta custom image desde Photo Center
   const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
@@ -71,10 +66,9 @@ const ExtraordinaryStoryLifeScore = props => {
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: imgField,
               presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}

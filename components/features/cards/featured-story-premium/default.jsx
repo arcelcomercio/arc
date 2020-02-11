@@ -16,15 +16,7 @@ import {
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
 
-const PHOTO_SOURCE = 'photo-by-id'
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    square_md 
-    lazy_default  
-  }
-}`
+const PHOTO_SOURCE = 'photo-resizer'
 
 const FeaturedStoryPremium = props => {
   const {
@@ -168,20 +160,20 @@ const FeaturedStoryPremium = props => {
     return arrError
   }
 
-  const photoId = imgField ? getPhotoId(imgField) : ''
   const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
+  // Solo acepta custom image desde Photo Center
+  const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
       photoId
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: imgField,
               presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}
