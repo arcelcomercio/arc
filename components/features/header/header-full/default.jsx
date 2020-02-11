@@ -10,6 +10,7 @@ import { socialMediaUrlShareList } from '../../../utilities/helpers'
 import ConfigParams from '../../../utilities/config-params'
 
 import HeaderFullView from './_children/header-full'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const HeaderFull = props => {
   const {
@@ -116,7 +117,10 @@ const HeaderFull = props => {
   const winningCallLogo =
     arcSite === arcSiteTrome
       ? deployment(
-          `${contextPath}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png`
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png`
         )
       : ''
 
@@ -127,10 +131,16 @@ const HeaderFull = props => {
     postTitle,
     isStory,
     logo: deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/alternate-logo.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/alternate-logo.png`
     ),
     whiteLogo: deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/alternate-logo-w.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/alternate-logo-w.png`
     ),
     shareButtons,
     arcSite,

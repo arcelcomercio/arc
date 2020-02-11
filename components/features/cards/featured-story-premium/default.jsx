@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 
 import { useContent } from 'fusion:content'
@@ -15,6 +16,7 @@ import {
   includePromoItems,
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const PHOTO_SOURCE = 'photo-by-id'
 const PHOTO_SCHEMA = `{
@@ -255,7 +257,12 @@ const FeaturedStoryPremium = props => {
     errorList,
     titleField,
     categoryField,
-    logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
+    logo: deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
+    ),
     multimediaSubtitle,
     multimediaCaption,
   }

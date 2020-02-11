@@ -6,6 +6,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 
 import HeaderChildSomos from './_children/section-header'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const DEFAULT_HIERARCHY = 'header-default'
 
@@ -69,9 +70,10 @@ const LayoutHeader = props => {
     return (
       customLogo ||
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/${
-          headerProperties.logo
-        }`
+        `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/${headerProperties.logo}`
       )
     )
   }

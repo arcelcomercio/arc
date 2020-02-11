@@ -22,7 +22,7 @@
     &.expand,
     &.featured-story--no-expanded {
       .featured-story__category {
-        background-image: url(/pf/resources/dist/elbocon/images/bullet.jpg);
+        background-image: url($assets_url+"/resources/dist/elbocon/images/bullet.jpg");
         border-bottom: 1px solid $color-black;
         display: flex;
         align-items: center;
@@ -47,7 +47,7 @@
   .featured-story__author-link {
     color: $color-white;
   }
-  .featured-story[class*=' col-2'] {
+  .featured-story[class*=" col-2"] {
     &.expand {
       .featured-story__title-link {
         @media (--only-mobile) {

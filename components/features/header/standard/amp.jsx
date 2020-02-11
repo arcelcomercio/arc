@@ -3,6 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import HeaderChildStandardAmp from '../inverted/_children/header-amp'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const HeaderStandardAmp = () => {
   const { contextPath, arcSite, deployment } = useFusionContext()
@@ -12,9 +13,16 @@ const HeaderStandardAmp = () => {
   } = getProperties(arcSite)
 
   const imgLogo =
-    deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-    ) || ''
+    arcSite === 'elcomercio'
+      ? deployment(
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/logo-amp.png`
+        )
+      : deployment(
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
+        ) || ''
 
   const parameters = { imgLogo, widthAmp, heightAmp, arcSite }
 

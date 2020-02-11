@@ -5,6 +5,7 @@ import getProperties from 'fusion:properties'
 
 import FooterDeporColumnSection from './_children/FooterSection'
 import FooterInfo from './_children/FooterInfo'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 
@@ -46,7 +47,10 @@ const FooterDepor = () => {
   } = getProperties(arcSite)
 
   const imageDefault = deployment(
-    `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo.png`
   )
 
   const sections = useContent({

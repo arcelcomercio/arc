@@ -8,6 +8,7 @@ import NavBarAmp from '../../layout/navbar/_children/amp'
 import HeaderAmp from './_children/header-amp'
 
 import Formatter from '../../layout/navbar/_dependencies/formatter'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const LayoutNavbar = props => {
   const { customFields } = props
@@ -50,9 +51,16 @@ const LayoutNavbar = props => {
   }
 
   const imgLogo =
-    deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-    ) || ''
+    arcSite === 'elcomercio'
+      ? deployment(
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/logo-amp.png`
+        )
+      : deployment(
+          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
+        ) || ''
 
   return (
     <>
