@@ -184,19 +184,23 @@ class UpdateProfile extends Component {
       ...restState
     } = this.state
 
-    const profile = {
+    let profile = {
       firstName,
       lastName,
       secondLastName,
       displayName,
       email,
-      contacts,
-      attributes: [
+      contacts
+    }
+    clean(profile);
+
+    profile.attributes = [
         ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
         ...this._backup_attributes,
-      ],
-    }
-    clean(profile)
+    ].map(attribute => {
+      if(attribute.name === "originReference") return { ...attribute, value: attribute.value.replace("/#", "")}
+      return attribute;
+    }); // work around - [MEJORA]
 
     this.setState({ loading: true, textSubmit: 'Guardando...' })
 
