@@ -16,6 +16,7 @@ export default {
     lengthNotExactly: `Longitud inválida, requiere {{len}} dígitos`,
     requiredField: `Este campo es requerido`,
     wrongFormat: `Formato inválido`,
+    wrongDni: `DNI inválido`,
     wrongEmail: `Correo inválido`,
     wrongCardNumber: `Número tarjeta inválido`,
     wrongCvv: `CVV Inválido`,
@@ -58,7 +59,6 @@ export default {
 
     // Plans
     subscribe: `SUSCRIBIRME`,
-    offerHeadBand: `¡APROVECHA NUESTRAS PROMOCIONES DE LANZAMIENTO!`,
     freeAmount: `Gratis`,
     initialOffer: `durante 6 meses`,
     regularOffer: `Luego, S/ 10 cada mes.`,

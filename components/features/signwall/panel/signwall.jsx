@@ -19,11 +19,7 @@ const renderTemplate = (template, id) => {
   return templates[template] || templates.home
 }
 
-const Panel = ({
-  siteProperties,
-  addEventListener,
-  removeEventListener,
-}) => {
+const Panel = ({ siteProperties, addEventListener, removeEventListener }) => {
   if (
     typeof window !== 'undefined' &&
     window.Identity &&

@@ -2,7 +2,7 @@ $nav-height-active: 46px;
 
 .header-inverted {
   height: $header-inverted-height;
-  z-index: 20;
+  z-index: 21;
 
   @media print {
     display: none;
@@ -92,7 +92,7 @@ $nav-height-active: 46px;
       top: 0;
     }
 
-    .header__btn-container{
+    .header__btn-container {
       display: none;
     }
 

@@ -88,6 +88,7 @@ export const ScriptHeader = ({
   author = '',
   typeNews,
   premium,
+  revision,
 }) => {
   const listTag = tags.map(tg => tg.text && ` '${tg.text}'`).join(', ')
 
@@ -125,6 +126,7 @@ export const ScriptHeader = ({
                       _sf_async_config.useCanonical = true; /** CONFIGURATION END **/
                       window._sf_endpt = (new Date()).getTime();
                       var premium = '${premium}';
+                      var revisionID = '${revision}';
                       var captureDate = '${localTime}';
                       `
   return scriptTemplate

@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable import/no-extraneous-dependencies */
 import request from 'request-promise-native'
 import getProperties from 'fusion:properties'
@@ -33,7 +34,15 @@ const fetch = (key = {}) => {
       campaign: { name: campaignCode },
       subscriber = {},
       error,
-      products: [{ sku, name: productName, attributes, pricingStrategies }],
+      products: [
+        {
+          sku,
+          name: productName,
+          description: productDescription,
+          attributes,
+          pricingStrategies,
+        },
+      ],
     } = data
     const {
       printed,
@@ -69,12 +78,7 @@ const fetch = (key = {}) => {
       ({ pricingStrategyId, priceCode, description, rates }) => {
         const [price] = rates
         const { amount, billingFrequency } = price
-        let parsedDescription = (description || '').replace(/<p>|<\/p>/g, '')
-        try {
-          parsedDescription = JSON.parse(parsedDescription)
-        } catch (err) {
-          parsedDescription = { err: 'is not a object' }
-        }
+        const parsedDescription = parseJSON(description)
         return {
           sku,
           name,
@@ -96,6 +100,7 @@ const fetch = (key = {}) => {
         event,
         summary,
         plans,
+        description: parseJSON(productDescription),
         freeAccess: freeAccess ? { firstName, lastName, secondLastName } : undefined,
         printedSubscriber: printed ? { documentType, documentNumber } : undefined,
       },
@@ -116,4 +121,13 @@ export default {
     event: 'text',
   },
   ttl: 20,
+}
+
+function parseJSON(str) {
+  const noParagraphStr = (str || '').replace(/<p>|<\/p>/g, '')
+  try {
+    return JSON.parse(noParagraphStr)
+  } catch (err) {
+    return { err: 'is not a object' }
+  }
 }

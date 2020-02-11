@@ -4,7 +4,7 @@ import StoryData from '../../../../utilities/story-data'
 
 const classes = {
   list:
-    'most-read-homologated-card__list stories-l-card__list bg-white overflow-y-auto',
+    'most-read-homologated-card__list bg-white overflow-y-auto pt-10 pb-10 pl-20 pr-20',
 }
 
 export default ({

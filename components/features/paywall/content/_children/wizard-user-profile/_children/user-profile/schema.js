@@ -28,7 +28,10 @@ export const createSchema = (values, msgs) =>
       switch (documentType) {
         default:
         case 'DNI':
-          value.required(msgs.requiredField).length(8, msgs.lengthNotExactly)
+          value
+            .required(msgs.requiredField)
+            .length(8, msgs.lengthNotExactly)
+            .custom(/^(?!00000000)\d*$/, msgs.wrongDni)
           break
         case 'CDI':
         case 'CEX':

@@ -14,7 +14,8 @@ import {
   addSlashToEnd,
   deleteQueryString,
 } from '../utilities/helpers'
-import ConfigParams from '../utilities/config-params'
+// import ConfigParams from '../utilities/config-params'
+import { getAssetsPath } from '../utilities/constants'
 
 export default ({
   children,
@@ -89,6 +90,10 @@ export default ({
     classBody = `${isStory && 'story'} section-play`
   if (requestUri.match(`^(/videos/.*)`))
     classBody = `${isStory && 'story'} section-videos`
+
+  if (arcSite === 'elcomercio') {
+    if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
+  }
 
   const metaSiteData = {
     ...siteProperties,
@@ -305,7 +310,12 @@ export default ({
           !isLivePage && (
             <script
               defer
-              src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
+              src={deployment(
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/assets/js/arcads.js`
+              )}
             />
           )}
 
@@ -430,7 +440,10 @@ export default ({
         <script
           defer
           src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/js/index.js`
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/js/index.js`
           )}
         />
         <Fusion />
@@ -466,7 +479,12 @@ export default ({
         />
 
         <script
-          src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
+          src={deployment(
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/assets/js/lazyload.js`
+          )}
         />
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||

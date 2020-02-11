@@ -218,6 +218,7 @@ export default {
       url
       subtitle
       type
+      content
     }
     header{
       type

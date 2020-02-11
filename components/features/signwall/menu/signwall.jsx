@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { PureComponent, useState } from 'react'
 import Consumer from 'fusion:consumer'
-import { WrapperMenu, BackLoading } from './styled'
+import { WrapperMenu } from './styled'
 import { Avatar } from './_children/avatar'
 import Cookies from '../_dependencies/cookies'
 import Domains from '../_dependencies/domains'
@@ -51,7 +51,7 @@ const Menu = ({
         if (isSubs || activePaywall) {
           if (W.Sales) W.Sales.subscriptions = []
         }
-        Taggeo(`Web_Sign_Wall_General`, ` web_swg_link_cerrarsesion`)
+        Taggeo(`Web_Sign_Wall_General`, `web_swg_link_cerrarsesion`)
         W.location.href = document.referrer ? document.referrer : '/'
       })
       .catch(() => {
@@ -66,9 +66,9 @@ const Menu = ({
   return (
     <>
       {showLoading ? (
-        <BackLoading className="back-loading">
+        <div className="back-loading">
           <Loading arcSite={arcSite} />
-        </BackLoading>
+        </div>
       ) : (
         <>
           <Avatar

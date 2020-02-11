@@ -1,15 +1,16 @@
 .section-videos,
 .section-play {
-  background-color: $color-gray-300;
+  background-color: #222;
 
   .section-video {
-    padding-top: 20px;
+    padding: 20px;
   }
   .section-video,
   .play-list,
   .video-list,
-  .bg-container {
-    background-color: $color-gray-300;
+  .bg-container,
+  .section-video__wrapper {
+    background-color: #222;
   }
   .play-list__name {
     text-align: left;
@@ -19,7 +20,9 @@
       font-size: 19px;
     }
   }
-  .play-list__title a,
+  .play-list__title a {
+    color: #dddddd;
+  }
   .video-list__new,
   .header__link,
   .header__tags {
@@ -97,14 +100,14 @@
   .video-navbar__link {
     color: #777;
     font-family: $secondary-font;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     text-align: center;
     &:hover {
       text-decoration: none;
     }
     @media (--desktop) {
-      padding: 0 15px;
+      padding: 0 20px;
     }
   }
   .video-list {
@@ -137,7 +140,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: $tertiary-font;
+    font-family: $secondary-font;
     &:before {
       display: none;
     }
@@ -206,5 +209,9 @@
     @media (--tablet) and (max-width: 1023px) {
       width: 48%;
     }
+  }
+  .section-video__title {
+    color: #eaeaea;
+    letter-spacing: 0.23px;
   }
 }

@@ -3,7 +3,7 @@ import React from 'react'
 export default ({
   websiteLink,
   title,
-  multimediaSquareMD,
+  multimediaLandscapeMD,
   primarySection,
   primarySectionLink,
   videoDuration,
@@ -14,7 +14,7 @@ export default ({
         <a className="video-list__link" href={websiteLink}>
           <img
             className="video-list__image object-cover w-full"
-            src={multimediaSquareMD}
+            src={multimediaLandscapeMD}
             alt={title}
           />
           {!(videoDuration === '00:00' || videoDuration === '00:00:00') && (

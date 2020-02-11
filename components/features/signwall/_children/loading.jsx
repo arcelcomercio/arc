@@ -5,23 +5,39 @@ import { LoadingGes, LoadingEco, LoadingP21 } from './iconos'
 import { device } from '../_dependencies/breakpoints'
 
 export const WrapperLoading = styled.div`
-  background: transparent;
-  position: relative;
+  width: 100%;
+  text-align: center;
+
+  ${props =>
+    props.typeBg === 'wait' &&
+    css`
+      position: relative;
+      background: transparent;
+      padding: 50% 0%;
+      @media ${device.desktop} {
+        padding: 20% 0%;
+      }
+    `};
 
   ${props =>
     props.typeBg === 'block' &&
     css`
       position: absolute;
-      width: 100%;
       background: rgba(255, 255, 255, 0.5);
+      padding: 20% 0%;
       z-index: 20;
     `};
 
-  & > .cont-loader {
-    width: 200px;
-    height: 50px;
-    margin: 50% auto;
-    text-align: center;
+  ${props =>
+    props.typeDialog === 'premium' &&
+    css`
+      padding: 20% 0% !important;
+      @media ${device.tablet} {
+        padding: 35% 0% !important;
+      }
+    `};
+
+  .cont-loader-logo {
     svg {
       margin: 0px 5px;
     }
@@ -36,25 +52,6 @@ export const WrapperLoading = styled.div`
       animation: identifier 700ms infinite linear;
       animation-delay: calc(350ms * 2);
     }
-    @media ${device.desktop} {
-      margin: 20% auto;
-    }
-
-    & > .cont-default {
-      height: 120px;
-      width: 120px;
-      border-radius: 50%;
-      margin: 0 auto;
-      display: block;
-      position: relative;
-      img {
-        width: auto;
-        max-width: 80px;
-        max-height: 30px;
-        animation: identifier 700ms infinite linear;
-        margin-top: 35%;
-      }
-    }
   }
 
   @keyframes identifier {
@@ -67,60 +64,58 @@ export const WrapperLoading = styled.div`
   }
 `
 
-const Loading = ({ arcSite, typeBg }) => {
+const Loading = ({ arcSite, typeBg, typeDialog }) => {
   const sitesLoad = ['gestion', 'elcomercio', 'peru21']
   return (
-    <WrapperLoading typeBg={typeBg}>
-      <div className="cont-loader">
-        {sitesLoad.includes(arcSite) ? (
-          <>
+    <WrapperLoading typeBg={typeBg} typeDialog={typeDialog}>
+      {sitesLoad.includes(arcSite) ? (
+        <div className="cont-loader-logo">
+          {
             {
-              {
-                gestion: (
-                  <>
-                    <LoadingGes />
-                    <LoadingGes />
-                    <LoadingGes />
-                  </>
-                ),
-                elcomercio: (
-                  <>
-                    <LoadingEco />
-                    <LoadingEco />
-                    <LoadingEco />
-                  </>
-                ),
-                peru21: (
-                  <>
-                    <LoadingP21 />
-                    <LoadingP21 />
-                    <LoadingP21 />
-                  </>
-                ),
-              }[arcSite]
-            }
-          </>
-        ) : (
-          <>
-            <Context>
-              {({ siteProperties, contextPath, deployment }) => (
-                <div
-                  className="cont-default"
-                  style={{
-                    background: siteProperties.signwall.mainColorBg || 'gray',
-                  }}>
-                  <img
-                    alt={`Logo ${arcSite}`}
-                    src={deployment(
-                      `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
-                    )}
-                  />
-                </div>
-              )}
-            </Context>
-          </>
-        )}
-      </div>
+              gestion: (
+                <>
+                  <LoadingGes />
+                  <LoadingGes />
+                  <LoadingGes />
+                </>
+              ),
+              elcomercio: (
+                <>
+                  <LoadingEco />
+                  <LoadingEco />
+                  <LoadingEco />
+                </>
+              ),
+              peru21: (
+                <>
+                  <LoadingP21 />
+                  <LoadingP21 />
+                  <LoadingP21 />
+                </>
+              ),
+            }[arcSite]
+          }
+        </div>
+      ) : (
+        <>
+          <Context>
+            {({ siteProperties, contextPath, deployment }) => (
+              <div
+                className="cont-loader-default"
+                style={{
+                  background: siteProperties.signwall.mainColorBg || 'gray',
+                }}>
+                <img
+                  alt={`Logo ${arcSite}`}
+                  src={deployment(
+                    `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
+                  )}
+                />
+              </div>
+            )}
+          </Context>
+        </>
+      )}
     </WrapperLoading>
   )
 }
