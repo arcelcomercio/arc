@@ -1,17 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/named */
-/* eslint-disable import/no-unresolved */
 import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
-import {
-  schemaBlog,
-  schemaEditorial,
-  schemaPhoto,
-} from './_dependencies/schema-filter'
+import { schemaBlog, schemaEditorial } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import {
   defaultImage,
