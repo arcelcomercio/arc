@@ -24,10 +24,6 @@ export const getAssetsPath = (arcSite, contextPath) => {
   if (!contextPath) return '/pf'
   if (!arcSite) return contextPath
 
-  let site = `${arcSite}.pe`
-  if (arcSite === 'depor') site = `${arcSite}.com`
-  if (arcSite === 'elcomerciomag') site = 'elcomercio.pe'
-  if (arcSite === 'peru21g21') site = 'peru21.pe'
-
-  return `https://cdna.${site}`
+  if (arcSite === 'elcomercio') return `https://cdna.${arcSite}.pe`
+  return contextPath
 }
