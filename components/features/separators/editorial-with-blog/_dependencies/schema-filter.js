@@ -17,10 +17,3 @@ export const schemaEditorial = website => `{
   }
   headlines { basic }
 }`
-
-export const schemaPhoto = `{
-  resized_urls { 
-    square_s
-    lazy_default
-  }
-}`

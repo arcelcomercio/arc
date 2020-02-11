@@ -1,20 +1,18 @@
+.most-read-homologated-header {
+  background-color: #ccc;
 
-.most-read-homologated-header{
-    background-color:#eee;
-    justify-content: center;
-    &__title{
-        font-family: $tertiary-font;
-        font-weight: 900;
-        h4{
-            font-weight: 900;
-            font-size: 16px;
-        }
+  &__title {
+    font-family: $tertiary-font;
+    font-weight: 900;
+    h4 {
+      font-weight: 900;
+      font-size: 16px;
     }
-    &__see-more{
-        display:none
-    }
+  }
+  &__icon {
+    display: block;
+  }
+  &__see-more {
+    display: none;
+  }
 }
-
-
-
-

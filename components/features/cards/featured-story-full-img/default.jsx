@@ -15,17 +15,7 @@ import {
   includeCreditsImage,
 } from '../../../utilities/included-fields'
 
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_xl
-    lazy_default  
-  }
-}`
+const PHOTO_SOURCE = 'photo-resizer'
 
 const FeatureStoryFullImage = props => {
   const {
@@ -53,6 +43,7 @@ const FeatureStoryFullImage = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
+  // Solo acepta custom image desde Photo Center
   const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
@@ -60,9 +51,9 @@ const FeatureStoryFullImage = props => {
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: imgField,
+              presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}

@@ -1,8 +1,8 @@
 .most-read-homologated-footer {
-  display: none;
-  height: 60px;
+  background-color: $color-base-200;
   &__link {
     padding: 8px 20px;
     border: solid 1px $color-gray-100;
+    font-size: 12px;
   }
 }
