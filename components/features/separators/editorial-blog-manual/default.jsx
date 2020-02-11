@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+// import { debug } from 'webpack'
 import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
 
-import {
-  schemaEditorial,
-  schemaPhoto,
-} from './_dependencies/schema-filter'
+import { schemaEditorial, schemaPhoto } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import {
   defaultImage,
@@ -26,63 +24,28 @@ const classes = {
 const BLOG_BASE = '/blog/'
 const CONTENT_SOURCE_SECTION = 'story-by-tag'
 const CONTENT_SOURCE_PHOTO = 'photo-by-id'
+const CONTENT_SOURCE_EDITORIAL_GESTION = 'editorial-de-gestion'
+// editorial-de-gestion
 
 const postRegexp = /\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\/?/
 
 const urlLogoGestion =
   'https://arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/U4XN23KAQRDAHCTARRCGIKVJOE.png'
 
-const SeparatorEditorialBlogManual = () => {
+const getDataEditorial = () => {
   const {
     arcSite,
     contextPath,
     deployment,
     isAdmin,
-    customFields: { 
-      titleEditorial, 
-      imageEditorial, 
-      post01 = '',  
-      post02 = '', 
-      post03 = '', 
-      post04 = '' 
-    },
-    siteProperties: { siteUrl } = {},
+    customFields: { titleEditorial, imageEditorial },
   } = useFusionContext()
-
-
-  const urlList = [post01, post02, post03, post04]
-  const paramsSource = urlList.map((url) => {
-    if (postRegexp.test(url)) {
-      const [, blogPath, year, month, postName] = url.match(postRegexp)
-      return [blogPath, year, month, postName]
-    }
-    return ['', '', '', '']
-  })
-
-  const dataBlog = []
-
-  paramsSource.forEach((ps) => {
-    if(ps !== undefined){
-      dataBlog.push(
-        useContent({
-          source: 'get-post-data-by-blog-and-post-name',
-          query: {
-            'blog_path': ps[0],
-            'year': ps[1],
-            'month': ps[2],
-            'post_name': ps[3],
-            'posts_limit': 6, 
-            'posts_offset': 0
-          },
-        }) || [])
-    }
-  })
 
   const dataEditorial =
     useContent({
       source: CONTENT_SOURCE_SECTION,
       query: {
-        name: 'editorial-de-gestion',
+        name: CONTENT_SOURCE_EDITORIAL_GESTION,
       },
       filter: schemaEditorial(arcSite),
     }) || {}
@@ -94,13 +57,11 @@ const SeparatorEditorialBlogManual = () => {
       filter: schemaPhoto,
     }) || {}
 
-  const listPost = Object.values(dataBlog)
-  const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
-
   const {
     headlines: { basic: postTitleEditorial = '' } = {},
     websites = {},
   } = dataEditorial
+
   const { website_url: postLinkEditorial = '' } = websites[arcSite] || {}
 
   const {
@@ -124,6 +85,90 @@ const SeparatorEditorialBlogManual = () => {
     postTitle: postTitleEditorial,
     isAdmin,
   }
+  return paramsEditorial
+}
+
+const getContentPost = ps => {
+  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  let data = {}
+
+  if (ps && ps !== '') {
+    const contentPost =
+      useContent({
+        source: 'get-post-data-by-blog-and-post-name',
+        query: {
+          blog_path: ps[0],
+          year: ps[1],
+          month: ps[2],
+          post_name: ps[3],
+          posts_limit: 6,
+          posts_offset: 0,
+        },
+      }) || []
+
+    const {
+      user: {
+        first_name: authorName = '',
+        user_avatarb: {
+          resized_urls: {
+            lazy_default: lazyImage,
+            author_sm: authorImg = defaultImage({
+              deployment,
+              contextPath,
+              arcSite,
+              size: 'sm',
+            }),
+          } = {},
+        } = {},
+      } = {},
+      blog: { path: blogUrl = '', blogname: blogName = '' } = {},
+      post: { post_permalink: postLink = '', post_title: postTitle = '' } = {},
+    } = contentPost
+
+    data = {
+      authorName,
+      lazyImage,
+      authorImg,
+      blogUrl: addSlashToEnd(`${BLOG_BASE}${blogUrl}`),
+      blogName,
+      postLink: `${BLOG_BASE}${postLink}`,
+      postTitle,
+      isAdmin,
+    }
+  }
+
+  return data
+}
+
+const getValueFromUrl = url => {
+  let paramsSource = []
+  if (postRegexp.test(url)) {
+    const [, blogPath, year, month, postName] = url.match(postRegexp)
+    paramsSource = [blogPath, year, month, postName]
+  }
+  return paramsSource
+}
+
+const SeparatorEditorialBlogManual = () => {
+  const {
+    customFields: { post01 = '', post02 = '', post03 = '', post04 = '' },
+    siteProperties: { siteUrl } = {},
+  } = useFusionContext()
+  // guarda en un state los parametros de la editorial
+  const [editorialData] = useState(getDataEditorial())
+
+  // guarda en una lista los url obtenidos de los customfields
+  const urlList = [post01, post02, post03, post04]
+  
+  // iteratua los url y obtiene los valores de los post
+  const paramList = []
+  urlList.forEach(post => {
+    if (post !== '') {
+      paramList.push(getContentPost(getValueFromUrl(post)))
+    }
+  })
+
+  const seeMoreUrl = `${siteUrl}${BLOG_BASE}`
 
   return (
     <div className={classes.separator}>
@@ -138,43 +183,9 @@ const SeparatorEditorialBlogManual = () => {
         </a>
       </div>
       <div className={classes.itemsWrapper}>
-        <SeparatorBlogChildItem {...paramsEditorial} />
-        {listPost &&
-          listPost.map(post => {
-            const {
-              user: {
-                first_name: authorName = '',
-                user_avatarb: {
-                  resized_urls: {
-                    lazy_default: lazyImage,
-                    author_sm: authorImg = defaultImage({
-                      deployment,
-                      contextPath,
-                      arcSite,
-                      size: 'sm',
-                    }),
-                  } = {},
-                } = {},
-              } = {},
-              blog: { path: blogUrl = '', blogname: blogName = '' } = {},
-              post: {
-                  post_permalink: postLink = '',
-                  post_title: postTitle = '',
-                } = {},
-            } = post
-
-            const data = {
-              authorName,
-              lazyImage,
-              authorImg,
-              blogUrl: addSlashToEnd(`${BLOG_BASE}${blogUrl}`),
-              blogName,
-              postLink: `${BLOG_BASE}${postLink}`,
-              postTitle,
-              isAdmin,
-            }
-            return <SeparatorBlogChildItem key={blogUrl} {...data} />
-          })}
+        {editorialData && <SeparatorBlogChildItem {...editorialData} />}
+        {paramList.length > 0 &&
+          paramList.map(post => <SeparatorBlogChildItem {...post} />)}
       </div>
       <div className={`${classes.seeMoreWrapper} non-desktop`}>
         <a href={seeMoreUrl} className={classes.seeMoreText}>
