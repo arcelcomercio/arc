@@ -97,7 +97,7 @@ class StoryContentChildVideo extends PureComponent {
           webSite='mag.elcomercio.pe'
           break
         case 'peru21':
-          webSite='peru21'
+          webSite='peru21.pe'
           break
         case 'gestion':
           webSite='gestion.pe'
