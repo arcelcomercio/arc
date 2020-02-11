@@ -23,4 +23,16 @@ import './images/d.png'
 import './images/arrow-right-2.png'
 import './images/logo-depor.jpg'
 
-import '../../../components/utilities/lazyload'
+/** Fonts & icons */
+import './icons/fonts/default.woff'
+import './icons/fonts/depor.woff'
+import './icons/fonts/default.svg'
+import './icons/fonts/depor.svg'
+
+import './fonts/NoticiaText-Bold.woff'
+import './fonts/NoticiaText-Regular.woff'
+import './fonts/OstrichSans-Bold.woff'
+import './fonts/RobotoCondensed-Bold.woff'
+import './fonts/RobotoCondensed-Regular.woff'
+import './fonts/Saira-Bold.woff'
+import './fonts/Saira-Regular.woff'
