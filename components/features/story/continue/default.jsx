@@ -4,6 +4,7 @@ import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 import schemaFilter from '../../stories-lists/card/_dependencies/schema-filter'
 import { includePromoItems } from '../../../utilities/included-fields'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   storyContinue:
@@ -205,8 +206,14 @@ class StoryContinue extends PureComponent {
       if (arcSite !== 'gestion') {
         navLogo.src = deployment(
           arcSite === 'publimetro'
-            ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-            : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+            ? `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/publimetro/images/green-logo.png`
+            : `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/logo.png`
         )
       }
     }

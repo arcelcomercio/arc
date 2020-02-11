@@ -4,6 +4,7 @@ import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import FooterChildElComercio from './children/footer'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const FooterElComercio = () => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -17,10 +18,20 @@ const FooterElComercio = () => {
   } = getProperties(arcSite)
 
   const logoUrl =
-    deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) || ''
+    deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
+    ) || ''
 
   const gdaLogo =
-    deployment(`${contextPath}/resources/assets/footer/logo-gda.png`) || ''
+    deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/assets/footer/logo-gda.png`
+    ) || ''
 
   const params = {
     legalLinks,

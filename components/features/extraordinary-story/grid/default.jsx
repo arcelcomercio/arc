@@ -12,6 +12,7 @@ import {
   includePrimarySection,
   includePromoItems,
 } from '../../../utilities/included-fields'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const ExtraordinaryStoryGrid = props => {
   const { customFields: customFieldsData = {} } = props
@@ -129,7 +130,10 @@ const ExtraordinaryStoryGrid = props => {
   const imgLogo =
     customFieldsData.logo ||
     deployment(
-      `${contextPath}/resources/assets/extraordinary-story/grid/logo.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/assets/extraordinary-story/grid/logo.png`
     )
 
   const params = {

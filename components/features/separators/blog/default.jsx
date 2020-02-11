@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
-import SeparatorBlogChildItem from './_children/item'
+import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
 import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 
 const classes = {

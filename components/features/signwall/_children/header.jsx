@@ -3,6 +3,7 @@ import React from 'react'
 import Context from 'fusion:context'
 import { Back, Close } from './iconos'
 import Taggeo from '../_dependencies/taggeo'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const Header = ({ type, closePopup, typePopUp }) => {
   const typeHeader = (siteProperties, contextPath, deployment, arcSite) => (
@@ -14,7 +15,10 @@ const Header = ({ type, closePopup, typePopUp }) => {
               className="modal-header__img"
               alt={`Logo ${arcSite}`}
               src={deployment(
-                `${contextPath}/resources/dist/elcomercio/images/logo.png`
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/elcomercio/images/logo.png`
               )}
             />
           ),
@@ -23,7 +27,10 @@ const Header = ({ type, closePopup, typePopUp }) => {
               className="modal-header__img"
               alt={`Logo ${arcSite}`}
               src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/white-logo.png`
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/white-logo.png`
               )}
             />
           ),
@@ -32,7 +39,10 @@ const Header = ({ type, closePopup, typePopUp }) => {
               className={`modal-header__img-${arcSite}`}
               alt={`Logo ${arcSite}`}
               src={deployment(
-                `${contextPath}/resources/dist/${arcSite}/images/alternate-logo.png`
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/alternate-logo.png`
               )}
             />
           ),
@@ -41,7 +51,12 @@ const Header = ({ type, closePopup, typePopUp }) => {
             className={`modal-header__img modal-header__img-${arcSite}`}
             alt={`Logo ${arcSite}`}
             src={deployment(
-              `${contextPath}/resources/dist/${arcSite}/images/${siteProperties.assets.header.logo}`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/${
+                siteProperties.assets.header.logo
+              }`
             )}
           />
         )}

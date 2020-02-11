@@ -46,6 +46,7 @@ export const Text = styled.p`
 `
 export const Form = styled.form`
   width: 100%;
+  background-color: inherit;
   padding: ${props => (props.npadding ? '0px' : '10px 30px')};
   box-sizing: border-box;
   display: block;

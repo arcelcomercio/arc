@@ -12,6 +12,7 @@ import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
   LANDSCAPE_XXS,
+  getAssetsPath,
 } from '../../../utilities/constants'
 
 import { defaultImage } from '../../../utilities/helpers'
@@ -145,7 +146,7 @@ class StoriesListVideo extends PureComponent {
             video: newsVideo,
             autoPlayVideo: false,
             videoTime: getVideoTime(data),
-            isPreviewYoutubeVideo: false,
+            
           },
         }
       } else {
@@ -218,8 +219,7 @@ class StoriesListVideo extends PureComponent {
         JSON.stringify(listStoriesVideo[StoryItemIndex])
       )
       firstItem.index = 0
-      firstItem.content.isPreviewYoutubeVideo =
-        lastItem.content.video.type === ELEMENT_YOUTUBE_ID && true
+      
 
       // si el primer elemento debe tener autoplay
       firstItem.content.autoPlayVideo = true
@@ -238,7 +238,10 @@ class StoriesListVideo extends PureComponent {
     const { listStoriesVideo = [] } = this.state
 
     const logoImg = `${deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/Logo_P21TV.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/Logo_P21TV.png`
     )}`
     return (
       <>
@@ -256,7 +259,7 @@ class StoriesListVideo extends PureComponent {
                 ...item,
                 StoryItemHandleClick: this.StoryItemHandleClick,
               }
-              return <StoryItem  {...StoryItemProps} />
+              return <StoryItem {...StoryItemProps} />
             })}
           <div className={classes.viewProgramsWrapper}>
             <a className={classes.viewPrograms} href={PERU21TV_URL}>

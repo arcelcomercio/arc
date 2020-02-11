@@ -301,7 +301,10 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -319,7 +322,10 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag'
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21'
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -386,7 +392,10 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -414,13 +423,19 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag'
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21'
         ) &&
           !nodas && (
             <script
               defer
               src={deployment(
-                `${contextPath}/resources/assets/js/appnexus-min.js`
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/assets/js/appnexus-min.js`
               )}
             />
           )}
@@ -476,7 +491,10 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && <Dfp />}
       </body>
