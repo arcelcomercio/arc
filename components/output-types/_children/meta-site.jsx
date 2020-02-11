@@ -65,10 +65,7 @@ export default ({
         <link
           rel="stylesheet"
           href={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/css/${style}.css`
+            `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
           )}
         />
       )}

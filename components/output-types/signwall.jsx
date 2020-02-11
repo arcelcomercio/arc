@@ -2,7 +2,6 @@ import React from 'react'
 import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
-import { getAssetsPath } from '../utilities/constants'
 
 const SignwallOutputType = ({
   children,
@@ -36,10 +35,7 @@ const SignwallOutputType = ({
         <link
           rel="stylesheet"
           href={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/css/signwall.css`
+            `${contextPath}/resources/dist/${arcSite}/css/signwall.css`
           )}
         />
 
