@@ -97,10 +97,6 @@ class Stick extends PureComponent {
   }
 
   closeStick = () => {
-<<<<<<< HEAD
-=======
-
->>>>>>> sprint4-18394
     setSurveyCookie(`_open_appstick_${this.sitioWeb}`, 7)
 
     this.setState({
