@@ -208,6 +208,10 @@
       top: 0;
       padding-left: 0;
       padding-top: 0;
+      &:before,
+      &:after {
+        display: none;
+      }
     }
     .featured-premium__icon {
       display: none;
