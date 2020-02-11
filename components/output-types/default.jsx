@@ -302,7 +302,10 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -320,7 +323,10 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag'
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21'
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -387,7 +393,10 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -415,7 +424,10 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag'
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21'
         ) &&
           !nodas && (
             <script
@@ -477,7 +489,10 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && <Dfp />}
       </body>

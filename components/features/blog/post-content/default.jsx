@@ -2,9 +2,10 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import { Parser } from 'html-to-react'
 import { getFullDateIso8601 } from '../../../utilities/helpers'
 import Ads from '../../../global-components/ads'
+import { Parser } from 'html-to-react'
+
 
 const classes = {
   content: 'post-content bg-white p-20',

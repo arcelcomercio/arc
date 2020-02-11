@@ -184,4 +184,5 @@ export default {
   stick: {
     logo: 'logo-peru21-stick.png',
   },
+  isDfp: true,
 }
