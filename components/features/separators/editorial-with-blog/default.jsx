@@ -3,7 +3,7 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import SeparatorBlogChildItem from './_children/item'
+import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
 import { schemaBlog, schemaEditorial } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import {
