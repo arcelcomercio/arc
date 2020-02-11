@@ -198,7 +198,7 @@ class UpdateProfile extends Component {
         ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
         ...this._backup_attributes,
     ].map(attribute => {
-      if(attribute.name === "originReference") return { ...attribute, value: attribute.value.replace("/#", "")}
+      if(attribute.name === "originReferer") return { ...attribute, value: attribute.value.replace(/\/#|#$/, "")}
       return attribute;
     }); // work around - [MEJORA]
 
