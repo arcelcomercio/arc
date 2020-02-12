@@ -94,19 +94,6 @@ class Stick extends PureComponent {
       })
     })
 
-    // eslint-disable-next-line no-undef
-    if (apntag && Object.keys(apntag).length > 1) {
-      // eslint-disable-next-line no-undef
-      apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
-        const tickerContainer = document.querySelector('#content_ads_m_ticker')
-        this.closeStick()
-        tickerContainer.addEventListener('click', evt => {
-          if (evt.target.classList.contains('zocalo-button-close')) {
-            this.openStick()
-          }
-        })
-      })
-    }
   }
 
   closeStick = () => {
