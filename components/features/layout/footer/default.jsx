@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import StandardFooter from './_children/standard'
 import SecondaryFooter from './_children/secondary'
 import StoryFooter from './_children/story'
+import { getAssetsPath } from '../../../utilities/constants'
 
 /**
  * TODO: Este feature que controla distintos componentes debe ser
@@ -76,7 +77,12 @@ const LayoutFooter = props => {
   }
 
   const logoUrl =
-    deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`) || ''
+    deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
+    ) || ''
 
   const formattedSections = sections && formatData(sections)
 

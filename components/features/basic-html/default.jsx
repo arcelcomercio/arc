@@ -65,7 +65,7 @@ const BasicHtml = props => {
   }
 
   useEffect(() => {
-    if (URL) {
+    if (URL_VIDEO) {
       appendToBody(createScript({ src: URL, async: true }))
     }
 

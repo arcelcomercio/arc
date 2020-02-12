@@ -5,6 +5,7 @@ import React, { PureComponent } from 'react'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import { appendToBody } from '../../utilities/helpers'
+import { getAssetsPath } from '../../utilities/constants'
 
 // TODO: convertir en componente funcional con hooks
 
@@ -156,6 +157,7 @@ class MinuteByMinute extends PureComponent {
         subtitleField = '',
       } = {},
       editableField,
+      arcSite,
     } = this.props
 
     const { inner, content } = this.state
@@ -187,7 +189,10 @@ class MinuteByMinute extends PureComponent {
                   <li className="game-live secondary-font mr-10 text-md flex items-center text-white">
                     <img
                       src={deployment(
-                        `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                        `${getAssetsPath(
+                          arcSite,
+                          contextPath
+                        )}/resources/assets/minute-by-minute/icon_live.png`
                       )}
                       alt=""
                       className="mr-5"
@@ -256,7 +261,10 @@ class MinuteByMinute extends PureComponent {
                 <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
                   <img
                     src={deployment(
-                      `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                      `${getAssetsPath(
+                        arcSite,
+                        contextPath
+                      )}/resources/assets/minute-by-minute/icon_live.png`
                     )}
                     alt=""
                     className="mr-5"

@@ -1,4 +1,5 @@
 import React from 'react'
+import { getAssetsPath } from '../../../../utilities/constants'
 
 const Logo = ({ arcSite, deployment, contextPath, mainLogo }) => {
   return (
@@ -6,7 +7,10 @@ const Logo = ({ arcSite, deployment, contextPath, mainLogo }) => {
       <img
         alt={`Logo ${arcSite}`}
         src={deployment(
-          `${contextPath}/resources/dist/${arcSite}/images/${mainLogo}`
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/${mainLogo}`
         )}
       />
     </div>

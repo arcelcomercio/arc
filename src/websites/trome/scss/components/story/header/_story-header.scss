@@ -33,26 +33,26 @@
 }
 .opinionseno-maria {
   & .story-header__news-title {
-    background-image: url(/pf/resources/dist/trome/images/bg_senomaria.jpg);
+    background-image: url($assets_url+"/resources/dist/trome/images/bg_senomaria.jpg");
     background-image: mistyrose;
     background-color: #ffdab0;
   }
 }
 .opinionel-buho {
   & .story-header__news-title {
-    background-image: url(/pf/resources/dist/trome/images/bg_picotv.jpg);
+    background-image: url($assets_url+"/resources/dist/trome/images/bg_picotv.jpg");
     background-color: #ccf9ff;
   }
 }
 .opinionampay {
   & .story-header__news-title {
-    background-image: url(/pf/resources/dist/trome/images/bg_ampay.jpg);
+    background-image: url($assets_url+"/resources/dist/trome/images/bg_ampay.jpg");
     background-color: #e8d9ee;
   }
 }
 .opinionel-bombardero {
   & .story-header__news-title {
-    background-image: url(/pf/resources/dist/trome/images/bg_pisapelota.jpg);
+    background-image: url($assets_url+"/resources/dist/trome/images/bg_pisapelota.jpg");
     background-color: #bcebbf;
   }
 }

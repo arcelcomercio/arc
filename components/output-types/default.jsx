@@ -433,7 +433,10 @@ export default ({
             <script
               defer
               src={deployment(
-                `${contextPath}/resources/assets/js/appnexus-min.js`
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/assets/js/appnexus-min.js`
               )}
             />
           )}

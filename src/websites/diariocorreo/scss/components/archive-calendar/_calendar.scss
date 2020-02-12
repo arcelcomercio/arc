@@ -11,14 +11,14 @@
     font-weight: 400;
     font-family: $primary-font;
     &:after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       right: 0;
       top: 0;
       width: 20px;
       height: 20px;
-      background-image: url(/pf/resources/dist/diariocorreo/images/logo.png);
+      background-image: url($assets_url+"/resources/dist/diariocorreo/images/logo.png");
       background-size: cover;
     }
   }
