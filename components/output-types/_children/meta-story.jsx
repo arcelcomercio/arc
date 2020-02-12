@@ -110,11 +110,12 @@ export default ({
     "name": "${siteName}",
     "logo": {
       "@type": "ImageObject",
-      "url": "${siteUrl}${deployment(
-    `${getAssetsPath(arcSite, contextPath)}/resources/dist/${arcSite}/images/${
-      seo.logoAmp
-    }`
-  )}",
+      "url": "${deployment(
+        `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/${seo.logoAmp}`
+      )}",
       "width": ${seo.width},
       "height": ${seo.height}
     }
@@ -217,7 +218,7 @@ export default ({
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${siteUrl}${deployment(
+    : `"image": {  "@type": "ImageObject", "url": "${deployment(
         `${getAssetsPath(
           arcSite,
           contextPath
@@ -256,7 +257,7 @@ export default ({
     "author":{    "@type":"Person",   "name":"${formatHtmlToText(
       seoAuthor
     )}"    },
-    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${siteUrl}${deployment(
+    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${deployment(
     `${getAssetsPath(arcSite, contextPath)}/resources/dist/${arcSite}/images/${
       seo.logoAmp
     }`
