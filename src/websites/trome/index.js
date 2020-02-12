@@ -28,3 +28,15 @@ import './images/bg_ampay.jpg'
 import './images/bg_pisapelota.jpg'
 import './images/bg_picotv.jpg'
 import './images/bg_senomaria.jpg'
+
+/** Fonts & icons */
+import './icons/fonts/default.woff'
+import './icons/fonts/default.svg'
+import './icons/fonts/trome.woff'
+import './icons/fonts/trome.svg'
+
+import './fonts/Roboto-Regular.woff'
+import './fonts/Roboto-Bold.woff'
+import './fonts/Roboto-Black.woff'
+import './fonts/Ultra.woff'
+import './fonts/MorganBig-Italic.woff'
