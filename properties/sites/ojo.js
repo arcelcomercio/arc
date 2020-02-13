@@ -170,4 +170,5 @@ export default {
     dataModeAmp: 'thumbnails-e',
     mode: 'thumbnails-a',
   },
+  isDfp: true,
 }

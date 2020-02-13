@@ -18,16 +18,7 @@ import {
 } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/constants'
 
-const PHOTO_SOURCE = 'photo-by-id'
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_s 
-    lazy_default  
-  }
-}`
+const PHOTO_SOURCE = 'photo-resizer'
 
 const FeaturedStoryPremium = props => {
   const {
@@ -92,7 +83,8 @@ const FeaturedStoryPremium = props => {
     const filter = '{ publish_date additional_properties { is_published } }'
     const auxNote1 =
       note1 !== undefined && note1 !== ''
-        ? useContent({
+        ? // eslint-disable-next-line react-hooks/rules-of-hooks
+          useContent({
             source,
             query: {
               website_url: note1,
@@ -104,7 +96,8 @@ const FeaturedStoryPremium = props => {
 
     const auxNote2 =
       note2 !== undefined && note2 !== ''
-        ? useContent({
+        ? // eslint-disable-next-line react-hooks/rules-of-hooks
+          useContent({
             source,
             query: {
               website_url: note2,
@@ -116,7 +109,8 @@ const FeaturedStoryPremium = props => {
 
     const auxNote3 =
       note3 !== undefined && note3 !== ''
-        ? useContent({
+        ? // eslint-disable-next-line react-hooks/rules-of-hooks
+          useContent({
             source,
             query: {
               website_url: note3,
@@ -168,24 +162,25 @@ const FeaturedStoryPremium = props => {
     return arrError
   }
 
-  const photoId = imgField ? getPhotoId(imgField) : ''
+  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
+  // Solo acepta custom image desde Photo Center
+  const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
       photoId
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: imgField,
+              presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}
 
   const errorList = isAdmin ? validateScheduledNotes() : []
-  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
   const sourceFetch =
     scheduledNotes.length > 0 ? 'story-by-url' : contentService
@@ -204,7 +199,7 @@ const FeaturedStoryPremium = props => {
     isPremium,
     websiteLink,
     multimediaSquareMD,
-    multimediaLandscapeMD,
+    multimediaPortraitMD,
     multimediaLandscapeL,
     multimediaLazyDefault,
     title,
@@ -229,7 +224,7 @@ const FeaturedStoryPremium = props => {
       square_md: squareMDCustom,
       lazy_default: lazyDefaultCustom,
       landscape_l: landscapeLCustom,
-      landscape_md: landscapeMDCustom,
+      portrait_md: portraitMDCustom,
     } = {},
   } = customPhoto || {}
 
@@ -241,8 +236,7 @@ const FeaturedStoryPremium = props => {
     bgColor,
     websiteLink,
     multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
-    multimediaLandscapeMD:
-      landscapeMDCustom || imgField || multimediaLandscapeMD,
+    multimediaLandscapeMD: portraitMDCustom || imgField || multimediaPortraitMD,
     multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
     multimediaLazyDefault:
       lazyDefaultCustom || imgField || multimediaLazyDefault,

@@ -77,7 +77,9 @@ class StoryContentChildVideo extends PureComponent {
       arcSite === 'elcomerciomag' || 
       arcSite === 'peru21' || 
       arcSite === 'gestion' || 
-      arcSite === 'peru21g21'
+      arcSite === 'peru21g21' ||
+      arcSite === 'diariocorreo' || 
+      arcSite === 'ojo'
     ) {
 
       const arcSiteNew=arcSite==='peru21g21'?'peru21':arcSite
@@ -104,6 +106,12 @@ class StoryContentChildVideo extends PureComponent {
           break
         case 'peru21g21':
           webSite='peru21.pe'
+          break
+        case 'diariocorreo':
+          webSite='diariocorreo.pe'
+          break
+        case 'ojo':
+          webSite='ojo.pe'
           break
           default:
             webSite=''

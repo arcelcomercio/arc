@@ -3,12 +3,8 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import SeparatorBlogChildItem from './_children/item'
-import {
-  schemaBlog,
-  schemaEditorial,
-  schemaPhoto,
-} from './_dependencies/schema-filter'
+import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
+import { schemaBlog, schemaEditorial } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import {
   defaultImage,
@@ -27,7 +23,7 @@ const classes = {
 const BLOG_BASE = '/blog/'
 const CONTENT_SOURCE_SECTION = 'story-by-tag'
 const CONTENT_SOURCE_BLOG = 'get-user-blog-and-posts'
-const CONTENT_SOURCE_PHOTO = 'photo-by-id'
+const CONTENT_SOURCE_PHOTO = 'photo-resizer'
 
 const urlLogoGestion =
   'https://arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/U4XN23KAQRDAHCTARRCGIKVJOE.png'
@@ -62,12 +58,20 @@ const SeparatorEditorialWithBlog = () => {
       filter: schemaEditorial(arcSite),
     }) || {}
 
+  const customImage = imageEditorial || urlLogoGestion
+  const photoId = getPhotoId(customImage) || ''
   const fetchImage =
-    useContent({
-      source: CONTENT_SOURCE_PHOTO,
-      query: { _id: getPhotoId(imageEditorial || urlLogoGestion) },
-      filter: schemaPhoto,
-    }) || {}
+    useContent(
+      photoId
+        ? {
+            source: CONTENT_SOURCE_PHOTO,
+            query: {
+              url: customImage,
+              presets: 'square_s:150x150',
+            },
+          }
+        : {}
+    ) || {}
 
   let listPost = Object.values(dataBlog)
   listPost = listPost.slice(0, 4)

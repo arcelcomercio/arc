@@ -163,7 +163,7 @@ export const FormIntro = ({
               <S.Text
                 c="gray"
                 s={typeDialog === 'premium' ? '12' : '15'}
-                className="mb-10 center note-premium">
+                className={`center note-premium ${(arcSite === 'elcomercio')? 'mb-10' : ''}`}>
                 <div className="sub-paragraph">
                   Disfruta
                   <strong>

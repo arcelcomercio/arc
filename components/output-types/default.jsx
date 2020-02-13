@@ -90,7 +90,6 @@ export default ({
     classBody = `${isStory && 'story'} section-play`
   if (requestUri.match(`^(/videos/.*)`))
     classBody = `${isStory && 'story'} section-videos`
-
   if (arcSite === 'elcomercio') {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
@@ -305,7 +304,9 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -326,7 +327,9 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo'
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -396,7 +399,9 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -427,7 +432,9 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo'
         ) &&
           !nodas && (
             <script
@@ -495,7 +502,9 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo') &&
           !nodas &&
           !isLivePage && <Dfp />}
       </body>
