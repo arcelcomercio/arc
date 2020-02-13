@@ -1,9 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
-
-let website = ''
+import { addResizedUrlsToStories } from '../../components/utilities/resizer'
 
 const schemaName = 'story'
 
@@ -18,14 +15,29 @@ const params = [
     displayName: 'Esta Nota esta publica? (Defecto es true)',
     type: 'text',
   },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
+  },
 ]
+
+const transformImg = ({ contentElements, website, presets }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets,
+  })
+}
 
 const resolve = (key = {}) => {
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
 
-  website = key['arc-site'] || 'Arc Site no está definido'
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { website_url: websiteUrl, published = '' } = key
   const isPublished = published === 'false' ? 'false' : 'true'
 
@@ -35,13 +47,18 @@ const resolve = (key = {}) => {
   return requestUri
 }
 
-const transform = data => {
+const transform = (data, { 'arc-site': website, presets: customPresets }) => {
   if (data.type === 'redirect') return data
-  const { resizerUrl } = getProperties(website)
 
   const { promo_items: { basic_gallery: basicGallery } = {} } = data
 
-  const dataStory = data || {}
+  const presets =
+    customPresets === 'no-presets'
+      ? ''
+      : customPresets ||
+        'landscape_xl:980x528,landscape_l:648x374,landscape_md:314x157,landscape_s:234x161,landscape_xs:118x72,portrait_xl:528x900,portrait_l:374x648,portrait_md:314x374,portrait_s:161x220,portrait_xs:75x90,square_xl:900x900,square_l:600x600,square_md:300x300,square_s:150x150,square_xs:75x75,small:100x200,large:940x569,story_small:482x290,amp_new:1200x800,amp:900x600'
+
+  let dataStory = data || {}
 
   if (basicGallery && basicGallery.promo_items) {
     const { content_elements: galleryContentElements } = basicGallery || {}
@@ -49,14 +66,21 @@ const transform = data => {
       dataStory.promo_items.basic_gallery.content_elements = []
   }
 
-  return (
-    addResizedUrlsToStory(
-      [dataStory],
-      resizerUrl,
-      resizerSecret,
-      addResizedUrls
-    )[0] || null
-  )
+  /**
+   * Si, por ahora siempre va a a existir presets por defecto pero
+   * se espera que esto cambie en el futuro porque todos los features
+   * deberian definir sus propios presets. Cuando eso suceda, esta validacion
+   * si tendra completo sentido.
+   */
+  if (presets) {
+    ;[dataStory] = transformImg({
+      contentElements: [dataStory],
+      website,
+      presets, // i.e. 'mobile:314x157'
+    })
+  }
+
+  return { ...dataStory }
 }
 
 export default {
