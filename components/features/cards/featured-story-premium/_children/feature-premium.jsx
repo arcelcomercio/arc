@@ -42,7 +42,7 @@ const FeaturedStoryPremiumChild = ({
   bgColor,
   websiteLink,
   multimediaSquareMD,
-  multimediaPortraitMD,
+  multimediaLandscapeMD,
   multimediaLandscapeL,
   multimediaLazyDefault,
   title,
@@ -160,8 +160,8 @@ const FeaturedStoryPremiumChild = ({
           <picture>
             <source
               className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? multimediaPortraitMD : multimediaLazyDefault}
-              data-srcset={multimediaPortraitMD}
+              srcSet={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
+              data-srcset={multimediaLandscapeMD}
               media="(max-width: 480px)" // 367px
             />
             <source
