@@ -204,7 +204,7 @@ const FeaturedStoryPremium = props => {
     isPremium,
     websiteLink,
     multimediaSquareMD,
-    multimediaLandscapeMD,
+    multimediaPortraitMD,
     multimediaLandscapeL,
     multimediaLazyDefault,
     title,
@@ -229,7 +229,7 @@ const FeaturedStoryPremium = props => {
       square_md: squareMDCustom,
       lazy_default: lazyDefaultCustom,
       landscape_l: landscapeLCustom,
-      landscape_md: landscapeMDCustom,
+      portrait_md: portraitMDCustom,
     } = {},
   } = customPhoto || {}
 
@@ -241,8 +241,7 @@ const FeaturedStoryPremium = props => {
     bgColor,
     websiteLink,
     multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
-    multimediaLandscapeMD:
-      landscapeMDCustom || imgField || multimediaLandscapeMD,
+    multimediaLandscapeMD: portraitMDCustom || imgField || multimediaPortraitMD,
     multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
     multimediaLazyDefault:
       lazyDefaultCustom || imgField || multimediaLazyDefault,

@@ -23,4 +23,8 @@ import './images/arrow-right-2.png'
 import './images/seccion.jpg'
 import './images/bullet.jpg'
 
-import '../../../components/utilities/lazyload'
+/** Fonts & icons */
+import './icons/fonts/default.woff'
+import './icons/fonts/gestion.woff'
+import './icons/fonts/default.svg'
+import './icons/fonts/gestion.svg'

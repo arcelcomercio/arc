@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import TextMask from 'react-text-mask'
 
 export const Cont = styled.div`
+  background-color: inherit;
   display: inline-block;
   width: ${props => (props.width ? props.width : '100')}%;
   label,
@@ -16,6 +17,7 @@ export const Cont = styled.div`
   label {
     pointer-events: none;
     color: gray;
+    background-color: white;
     width: fit-content;
     &.error {
       color: #ff2b2b;
@@ -45,9 +47,9 @@ export const Cont = styled.div`
     &:not(:placeholder-shown) + label,
     &:focus + label {
       transform-origin: 0 0;
-      transform: translate(0.5rem, 0.5rem) scale(0.75);
+      transform: translate(0.5rem, 0.58rem) scale(0.75);
       cursor: pointer;
-      background: white;
+      background-color: inherit;
       padding: 0px 10px;
     }
   }
@@ -58,7 +60,7 @@ export const Cont = styled.div`
     }
     label {
       font-size: 12px;
-      background: white;
+      background: transparent;
       margin-bottom: -10px;
       padding-left: 10px;
       padding-right: 10px;
@@ -70,8 +72,14 @@ export const Cont = styled.div`
 `
 
 export const Field = styled.div`
+  background-color: inherit;
   display: flex;
   flex-flow: column-reverse;
+  position: relative;
+  label{
+    position: relative;
+    z-index: 3;
+  }
 `
 
 export const InputMask = styled(TextMask)`
