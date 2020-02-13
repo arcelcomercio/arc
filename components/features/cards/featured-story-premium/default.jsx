@@ -81,6 +81,8 @@ const FeaturedStoryPremium = props => {
 
   const validateScheduledNotes = () => {
     const filter = '{ publish_date additional_properties { is_published } }'
+    const presets = 'no-presets'
+
     const auxNote1 =
       note1 !== undefined && note1 !== ''
         ? // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -89,6 +91,7 @@ const FeaturedStoryPremium = props => {
             query: {
               website_url: note1,
               published: 'false',
+              presets,
             },
             filter,
           })
@@ -102,6 +105,7 @@ const FeaturedStoryPremium = props => {
             query: {
               website_url: note2,
               published: 'false',
+              presets,
             },
             filter,
           })
@@ -115,6 +119,7 @@ const FeaturedStoryPremium = props => {
             query: {
               website_url: note3,
               published: 'false',
+              presets,
             },
             filter,
           })
@@ -186,7 +191,7 @@ const FeaturedStoryPremium = props => {
     scheduledNotes.length > 0 ? 'story-by-url' : contentService
   const queryFetch =
     scheduledNotes.length > 0
-      ? { website_url: currentNotePath }
+      ? { website_url: currentNotePath, presets }
       : Object.assign(contentConfigValues, { presets, includedFields })
   const data =
     useContent({

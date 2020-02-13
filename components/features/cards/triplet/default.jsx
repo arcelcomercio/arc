@@ -75,7 +75,7 @@ const CardTriplet = props => {
   const fetchDataModel = url => {
     return {
       source: API_STORY_BY_URL,
-      query: { website_url: url },
+      query: { website_url: url, presets },
       filter: schemaFilter(arcSite),
     }
   }
