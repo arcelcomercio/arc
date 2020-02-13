@@ -93,7 +93,6 @@ class Stick extends PureComponent {
         urlSource,
       })
     })
-
   }
 
   closeStick = () => {
