@@ -22,19 +22,13 @@ const classes = {
 
 const LayoutAmpHeader = () => {
   const { contextPath, arcSite, deployment } = useFusionContext()
-  const { siteUrl } = getProperties(arcSite)
 
-  const imgLogo =
-    arcSite === 'elcomercio'
-      ? deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/logo-amp.png`
-        )
-      : deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-        ) || ''
+  const imgLogo = deployment(
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo-amp.png`
+  )
 
   return (
     <>

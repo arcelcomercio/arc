@@ -12,17 +12,12 @@ const HeaderStandardAmp = () => {
     assets: { seo: { widthAmp, heightAmp } = {} } = {},
   } = getProperties(arcSite)
 
-  const imgLogo =
-    arcSite === 'elcomercio'
-      ? deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/logo-amp.png`
-        )
-      : deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-        ) || ''
+  const imgLogo = deployment(
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo-amp.png`
+  )
 
   const parameters = { imgLogo, widthAmp, heightAmp, arcSite }
 
