@@ -24,4 +24,16 @@ import './images/seccion.jpg'
 import './images/bullet.jpg'
 import './images/big-lines.png'
 
-import '../../../components/utilities/lazyload'
+/** Fonts & icons */
+import './icons/fonts/default.woff'
+import './icons/fonts/correo.woff'
+import './icons/fonts/default.svg'
+import './icons/fonts/correo.svg'
+
+import './fonts/Bitter-Bold.woff'
+import './fonts/Bitter-Regular.woff'
+import './fonts/Exo-Bold.woff'
+import './fonts/Exo-Regular.woff'
+import './fonts/RobotoCondensed-Bold.woff'
+import './fonts/RobotoCondensed-Regular.woff'
+import './fonts/TitilliumWeb-Bold.woff'

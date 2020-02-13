@@ -20,4 +20,10 @@ import './images/logo-amp.png'
 import './images/author.png'
 import './images/arrow-right-2.png'
 
-// import '../../../components/utilities/lazyload'
+/** Fonts & icons */
+import './icons/fonts/default.woff'
+import './icons/fonts/ojo.woff'
+import './icons/fonts/default.svg'
+import './icons/fonts/ojo.svg'
+
+import './fonts/OpenSans-Regular-webfont.woff'
