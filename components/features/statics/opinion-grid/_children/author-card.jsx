@@ -36,7 +36,7 @@ const OpinionGridAuthorCard = ({ data: story }) => {
             <img
               className={classes.image}
               src={story.authorImage}
-              alt={story.author}              
+              alt={story.author}
             />
           )}
         </figure>
@@ -48,7 +48,7 @@ const OpinionGridAuthorCard = ({ data: story }) => {
           </h3>
           <p className={classes.group}>{story.authorOccupation}</p>
           <h2>
-            <a className={classes.title} href={story.link}>
+            <a className={classes.title} href={story.websiteLink}>
               {story.title}
             </a>
           </h2>
