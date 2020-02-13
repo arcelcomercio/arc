@@ -43,29 +43,51 @@ const resolve = key => {
     .env.TOKEN_BLOG || BLOG_TOKEN}`
 }
 
-const transform = (data, { 'arc-site': arcSite }) => {
-  if (!data || (data && data.status !== 'ok' && data.status !== 200)) {
+const transform = (data, { 'arc-site': arcSite, blog_offset: blogOffset }) => {
+  if (
+    (blogOffset === 0 || blogOffset === 1) &&
+    (!data || (data && data.status !== 'ok' && data.status !== 200))
+  ) {
+    throw new RedirectError(`/404`, 404)
+  } else if (!data || (data && data.status !== 'ok' && data.status !== 200)) {
     const { siteUrl } = getProperties(arcSite)
     throw new RedirectError(`${siteUrl}/blog/`, 301)
   }
 
   const { resizerUrl } = getProperties(arcSite)
-  const newData = data
-  Object.keys(data).forEach(item => {
-    const { user: { user_avatarb: { guid } = {} } = {} } = data[item] || {}
+  const blogs = data
 
-    if (guid) {
+  Object.keys(data).forEach(blog => {
+    const { user: { user_avatarb: { guid: avatar } = {} } = {}, posts = [] } =
+      data[blog] || {}
+
+    if (avatar) {
       const resizedUrls = createResizedUrl({
-        url: guid,
+        url: avatar,
         presets: 'author_sm:125x125',
         resizerUrl,
         resizerSecret,
       })
-      newData[item].user.user_avatarb.resized_urls = resizedUrls
+      blogs[blog].user.user_avatarb.resized_urls = resizedUrls
     }
+
+    posts.forEach(post => {
+      const { post_thumbnail: { guid: thumbnail } = {} } = post || {}
+
+      if (thumbnail) {
+        const resizedUrls = createResizedUrl({
+          url: thumbnail,
+          presets:
+            'thumbnail_lg:480x248,thumbnail_md:290x150,thumbnail_sm:111x72',
+          resizerUrl,
+          resizerSecret,
+        })
+        blogs[blog].posts[post].post_thumbnail.resized_urls = resizedUrls
+      }
+    })
   })
 
-  return newData
+  return blogs
 }
 
 export default {
