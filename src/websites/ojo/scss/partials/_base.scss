@@ -13,3 +13,8 @@ body,
 .bg-container {
   background: $color-gray-100;
 }
+@media screen and(max-width: 1023px) {
+  .no-row-2-mobile {
+    height: auto;
+  }
+}

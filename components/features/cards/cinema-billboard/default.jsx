@@ -9,23 +9,11 @@ import { getAssetsPath } from '../../../utilities/constants'
 const defaultImage = ({ deployment, contextPath, arcSite, size = 'lg' }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
-  const site = () => {
-    let domain = `${arcSite}.pe`
-    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
-    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
-    return domain
-  }
-
-  if (arcSite === 'elcomercio') {
-    return deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/default-${size}.png`
-    )
-  }
   return deployment(
-    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 

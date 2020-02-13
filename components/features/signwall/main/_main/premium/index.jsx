@@ -144,7 +144,7 @@ class Premium extends PureComponent {
 
     const pathSourcePNG =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bg_paywall.png`
+        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.png`
       ) || ''
 
     return (
