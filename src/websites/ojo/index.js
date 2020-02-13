@@ -19,6 +19,7 @@ import './images/loader.png'
 import './images/logo-amp.png'
 import './images/author.png'
 import './images/arrow-right-2.png'
+import './images/logo-ojo.jpg'
 
 /** Fonts & icons */
 import './icons/fonts/default.woff'
