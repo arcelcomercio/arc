@@ -29,6 +29,7 @@ import './images/signwall/bg_students.png'
 import './images/signwall/bg_students.webp'
 import './images/author.png'
 import './images/arrow-right-2.png'
+import './images/logo-gestion.jpg'
 
 /** Fonts & icons */
 import './icons/fonts/default.woff'

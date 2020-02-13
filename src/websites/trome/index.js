@@ -28,6 +28,7 @@ import './images/bg_ampay.jpg'
 import './images/bg_pisapelota.jpg'
 import './images/bg_picotv.jpg'
 import './images/bg_senomaria.jpg'
+import './images/logo-trome.jpg'
 
 /** Fonts & icons */
 import './icons/fonts/default.woff'

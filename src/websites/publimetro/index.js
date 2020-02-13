@@ -21,8 +21,7 @@ import './images/loader.png'
 import './images/green-logo.png'
 import './images/author.png'
 import './images/arrow-right-2.png'
-
-import '../../../components/utilities/lazyload'
+import './images/logo-publimetro.jpg'
 
 /** Fonts & icons */
 import './icons/fonts/default.woff'

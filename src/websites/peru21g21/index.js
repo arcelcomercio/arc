@@ -23,6 +23,7 @@ import './images/logo-p21.png'
 import './images/logo-peru21-214x60.png'
 import './images/author.png'
 import './images/arrow-right-2.png'
+import './images/logo-peru21g21.jpg'
 
 // import '../../../components/utilities/lazyload'
 
