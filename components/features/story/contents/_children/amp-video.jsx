@@ -18,9 +18,12 @@ const StoryContentChildVideoAmp = ({ data }) => {
   const {
     _id: id = '',
     streams = [],
-    promo_image: { url: urlImage = '' } = {},
+    promo_image: { url: urlImage = false } = {},
+    promo_items: { basic: { resized_urls: { large = '' } = {} } = {} } = {},
     headlines: { basic: caption = '' } = {},
   } = data
+
+  const imageVideo = urlImage === false ? large : urlImage
   const dataVideo = getTypeVideo(streams, 'mp4')
   const dataVideoTs = getTypeVideo(streams, 'ts')
 
@@ -35,20 +38,20 @@ const StoryContentChildVideoAmp = ({ data }) => {
         .replace('trome.pe', 'img.trome.pe')
         .replace('depor.com', 'img.depor.com')
     : url
+
   return (
     <>
       {urlVideo && (
         <>
           <amp-video
-            src={urlVideo}
-            poster={urlImage}
-            artwork={urlImage}
-            class={`id-${id}`}
-            title={caption}
-            album="Blender"
             width="720"
             height="405"
             layout="responsive"
+            src={urlVideo}
+            poster={imageVideo}
+            class={`id-${id}`}
+            title={caption}
+            album="Blender"
             controls="controls"
             dock="#dock-slot">
             {urlTs && (
