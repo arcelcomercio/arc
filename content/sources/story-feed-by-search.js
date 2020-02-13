@@ -6,7 +6,7 @@ import {
   ARC_ACCESS_TOKEN,
 } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import addResizedUrlsToStories from '../../components/utilities/stories-resizer'
+import { addResizedUrlsToStories } from '../../components/utilities/resizer'
 import {
   includePromoItems,
   includePrimarySection,
