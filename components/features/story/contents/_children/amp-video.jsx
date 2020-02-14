@@ -43,18 +43,22 @@ const StoryContentChildVideoAmp = ({ data }) => {
     <>
       {urlVideo && (
         <>
-          <amp-video
+          <amp-ima-video
             width="720"
             height="405"
             layout="responsive"
-            src={urlVideo}
-            poster={imageVideo}
-            class={`id-${id} classs_video`}
+            data-src={urlVideo}
+            data-tag="https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/28253241/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonlybumper&cmsid=496&vid=short_onecue&correlator="
+            data-poster={imageVideo}
+            class={`id-${id}`}
             title={caption}
-            controls="controls"
-            dock="#dock-slot"/>
-   
-          
+            dock="#dock-slot">
+            {urlTs && (
+              <source
+                type="application/vnd.apple.mpegurl"
+                data-src={urlTs}></source>
+            )}
+          </amp-ima-video>
           <div className="pt-10">{caption}</div>
         </>
       )}
