@@ -1,4 +1,5 @@
 import React from 'react'
+import { useFusionContext } from 'fusion:context'
 
 const getTypeVideo = (streams, typo = 'ts') => {
   const dataVideo = streams
@@ -15,6 +16,8 @@ const getTypeVideo = (streams, typo = 'ts') => {
 }
 
 const StoryContentChildVideoAmp = ({ data }) => {
+  const { siteProperties: { urlPreroll = '' } = {} } = useFusionContext()
+
   const {
     _id: id = '',
     streams = [],
@@ -48,7 +51,7 @@ const StoryContentChildVideoAmp = ({ data }) => {
             height="405"
             layout="responsive"
             data-src={urlVideo}
-            data-tag="https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/28253241/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonlybumper&cmsid=496&vid=short_onecue&correlator="
+            data-tag={urlPreroll}
             data-poster={imageVideo}
             class={`id-${id}`}
             title={caption}
