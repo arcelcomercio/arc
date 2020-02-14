@@ -168,8 +168,11 @@ const FeaturedStoryPremium = props => {
     return arrError
   }
 
-  const photoId = imgField ? getPhotoId(imgField) : ''
+  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
+  // Solo acepta custom image desde Photo Center
+  const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
       photoId
@@ -184,8 +187,6 @@ const FeaturedStoryPremium = props => {
     ) || {}
 
   const errorList = isAdmin ? validateScheduledNotes() : []
-  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300,portrait_md:314x374'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
   const sourceFetch =
     scheduledNotes.length > 0 ? 'story-by-url' : contentService
