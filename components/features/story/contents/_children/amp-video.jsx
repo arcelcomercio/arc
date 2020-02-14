@@ -49,13 +49,12 @@ const StoryContentChildVideoAmp = ({ data }) => {
             layout="responsive"
             src={urlVideo}
             poster={imageVideo}
-            class={`id-${id}`}
+            class={`id-${id} classs_video`}
             title={caption}
-            album="Blender"
             controls="controls"
-            dock="#dock-slot">
+            dock="#dock-slot"/>
    
-          </amp-video>
+          
           <div className="pt-10">{caption}</div>
         </>
       )}
