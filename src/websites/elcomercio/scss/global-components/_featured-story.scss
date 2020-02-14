@@ -28,7 +28,7 @@
     }
   }
   &__category::before {
-    content: '';
+    content: "";
     border-bottom: 1px solid $color-gray-300;
     display: block;
     height: 1px;
@@ -87,6 +87,10 @@
   }
   &.expand {
     padding: 10px;
+    &::before,
+    &::after {
+      border: 1px solid #e8e8e8;
+    }
     .featured-story__detail {
       padding: 10px 0;
     }
@@ -105,7 +109,7 @@
         font-size: 10px;
       }
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         border-top: 13px solid transparent;
         border-left: 14px solid #f15a24;
@@ -140,6 +144,13 @@
     .featured-story__detail {
       @media (--only-mobile) {
         padding: 0;
+      }
+    }
+  }
+  &--reverse {
+    .featured-story__detail {
+      @media (--tablet) {
+        padding: 20px 0 0;
       }
     }
   }

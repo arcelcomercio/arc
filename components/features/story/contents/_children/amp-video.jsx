@@ -18,9 +18,12 @@ const StoryContentChildVideoAmp = ({ data }) => {
   const {
     _id: id = '',
     streams = [],
-    promo_image: { url: urlImage = '' } = {},
+    promo_image: { url: urlImage = false } = {},
+    promo_items: { basic: { resized_urls: { large = '' } = {} } = {} } = {},
     headlines: { basic: caption = '' } = {},
   } = data
+
+  const imageVideo = urlImage === false ? large : urlImage
   const dataVideo = getTypeVideo(streams, 'mp4')
   const dataVideoTs = getTypeVideo(streams, 'ts')
 
@@ -35,26 +38,27 @@ const StoryContentChildVideoAmp = ({ data }) => {
         .replace('trome.pe', 'img.trome.pe')
         .replace('depor.com', 'img.depor.com')
     : url
+
   return (
     <>
       {urlVideo && (
         <>
-          <amp-video
-            src={urlVideo}
-            poster={urlImage}
-            artwork={urlImage}
-            class={`id-${id}`}
-            title={caption}
-            album="Blender"
+          <amp-ima-video
             width="720"
             height="405"
             layout="responsive"
-            controls="controls"
+            data-src={urlVideo}
+            data-tag="https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/28253241/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonlybumper&cmsid=496&vid=short_onecue&correlator="
+            data-poster={imageVideo}
+            class={`id-${id}`}
+            title={caption}
             dock="#dock-slot">
             {urlTs && (
-              <source type="application/vnd.apple.mpegurl" src={urlTs}></source>
+              <source
+                type="application/vnd.apple.mpegurl"
+                data-src={urlTs}></source>
             )}
-          </amp-video>
+          </amp-ima-video>
           <div className="pt-10">{caption}</div>
         </>
       )}
