@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
-import ENV from "fusion:enviroment";
+import ENV from "fusion:environment";
 
 import { popUpWindow } from '../../../../utilities/helpers'
 import { checkDisabledIcons } from '../../../../utilities/slidernav-helpers'
@@ -9,9 +9,9 @@ import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/main/default'
 
-/* 
+/*
 const DRAG_SCREEN_LIMIT = 90
-const LIST_WIDTH = 330 
+const LIST_WIDTH = 330
 */
 
 const classes = {
