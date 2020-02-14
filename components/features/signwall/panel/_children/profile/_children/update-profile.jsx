@@ -1,5 +1,8 @@
+/* eslint-disable jsx-a11y/tabindex-no-positive */
+/* eslint-disable react/no-string-refs */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
+
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import Services from '../../../../_dependencies/services'
@@ -14,7 +17,9 @@ import { clean } from '../../../../_dependencies/object'
 import GetProfile from '../../../../_dependencies/get-profile'
 import Domains from '../../../../_dependencies/domains'
 import { FormGrid, FormGroup, Message } from './styled'
-import { Button } from '../../../../main/_main/_children/styles'
+import { Text, Button } from '../../../../main/_main/_children/styles'
+import Modal from '../../../../_children/modal'
+import { Close } from '../../../../_children/iconos'
 
 const SET_ATTRIBUTES_PROFILE = [
   'documentType',
@@ -24,6 +29,7 @@ const SET_ATTRIBUTES_PROFILE = [
   'department',
   'province',
   'district',
+  'secondLastName',
 ]
 const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
 
@@ -43,10 +49,18 @@ class UpdateProfile extends Component {
     const { identities = [] } = publicProfile
     const [identitie = { type: 'Password' }] = identities || []
 
-    this.state = {
+    const customVars = {
       showMsgSuccess: false,
       showMsgError: false,
+      showModalConfirm: false,
+      currentPassword: '',
+      formErrorsConfirm: {
+        currentPassword: '',
+      },
+      sending: true,
+      sendingConfirmText: 'CONFIRMAR',
     }
+
     this.state = Object.assign(
       {},
       {
@@ -71,10 +85,9 @@ class UpdateProfile extends Component {
         typeDoc: _attrib.documentType !== 'dni' ? 'text' : 'numeric',
       },
       publicProfile,
-      _attrib
+      _attrib,
+      customVars
     )
-    const { arcSite } = this.props
-    this.origin_api = Domains.getOriginAPI(arcSite)
   }
 
   attributeToObject = (attributes = []) => {
@@ -87,7 +100,6 @@ class UpdateProfile extends Component {
       }
     }
 
-    // return attributes.reduce((prev, { name, value }) => {
     return clearObject.reduce((prev, { name, value }) => {
       const newPrev = prev
       switch (name) {
@@ -171,8 +183,8 @@ class UpdateProfile extends Component {
     }
   }
 
-  handleUpdateProfile = e => {
-    e.preventDefault()
+  handleUpdateProfile = () => {
+    const { arcSite } = this.props
 
     const {
       firstName,
@@ -184,24 +196,29 @@ class UpdateProfile extends Component {
       ...restState
     } = this.state
 
-    const profile = {
+    let profile = {
       firstName,
       lastName,
       secondLastName,
       displayName,
       email,
       contacts,
-      attributes: [
-        ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
-        ...this._backup_attributes,
-      ],
     }
     clean(profile)
 
-    this.setState({ loading: true, textSubmit: 'Guardando...' })
+    profile.attributes = [
+      ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
+      ...this._backup_attributes,
+    ].map(attribute => {
+      if (attribute.name === 'originReferer')
+        return { ...attribute, value: attribute.value.replace(/\/#|#|\/$/, '') }
+      return attribute
+    }) // work around - [MEJORA]
+
+    this.setState({ loading: true, textSubmit: 'GUARDANDO...' })
 
     if (typeof window !== 'undefined') {
-      window.Identity.apiOrigin = this.origin_api
+      window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
       window.Identity.updateUserProfile(profile)
         .then(() => {
           this.setState({
@@ -231,7 +248,12 @@ class UpdateProfile extends Component {
 
           this.dispatchEvent('profileUpdate', profile)
         })
-        .catch(() => {
+        .catch(errUpdate => {
+          if (errUpdate.code === '100018') {
+            this.setState({
+              showModalConfirm: true,
+            })
+          }
           this.setState({
             showMsgError: false,
             loading: false,
@@ -286,7 +308,6 @@ class UpdateProfile extends Component {
     this.setState(state, () => {
       let { documentNumber } = this.state
       documentNumber = documentNumber !== undefined ? documentNumber : ''
-      // let { typeDocLenghtMin, typeDoc, documentNumber } = state;
       const { typeDocLenghtMin, typeDoc } = state
       const minLenghtInput = typeDocLenghtMin
       const { formErrors } = this.state
@@ -316,6 +337,31 @@ class UpdateProfile extends Component {
         formErrors,
       })
     })
+  }
+
+  changeValidationConfirm = e => {
+    const { name, value } = e.target
+    const { formErrorsConfirm } = this.state
+    const space =
+      value.indexOf(' ') >= 0
+        ? 'Contraseña inválida, no se permite espacios'
+        : ''
+    const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
+
+    formErrorsConfirm.currentPassword =
+      value.length === 0 ? 'Este campo es requerido' : min
+
+    this.setState({ formErrorsConfirm, [name]: value })
+
+    if (formErrorsConfirm.currentPassword.length >= 1) {
+      this.setState({
+        sending: true,
+      })
+    } else {
+      this.setState({
+        sending: false,
+      })
+    }
   }
 
   handleValidation = e => {
@@ -438,6 +484,84 @@ class UpdateProfile extends Component {
     })
   }
 
+  submitConfirmPassword = e => {
+    e.preventDefault()
+
+    const { formErrorsConfirm, currentPassword, email } = this.state
+    const { arcSite } = this.props
+
+    formErrorsConfirm.oldPassword =
+      currentPassword.length === 0 ? 'Este campo es requerido' : ''
+    this.setState({ formErrorsConfirm })
+
+    if (
+      typeof window !== 'undefined' &&
+      formErrorsConfirm.currentPassword === ''
+    ) {
+      this.setState({ sending: true, sendingConfirmText: 'CONFIRMANDO...' })
+
+      window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
+
+      const currentEmail = email || window.Identity.userProfile.email
+
+      window.Identity.login(currentEmail, currentPassword, {
+        rememberMe: true,
+        cookie: true,
+      })
+        .then(() => {
+          this.handleUpdateProfile()
+          this.setState({
+            showMsgSuccess: true,
+          })
+          setTimeout(() => {
+            this.setState({
+              showMsgSuccess: false,
+            })
+          }, 5000)
+        })
+        .catch(() => {
+          this.setState({
+            showMsgError: true,
+          })
+
+          setTimeout(() => {
+            this.setState({
+              showMsgError: false,
+            })
+          }, 5000)
+        })
+        .finally(() => {
+          this.setState({
+            currentPassword: '',
+            showModalConfirm: false,
+            sending: false,
+            sendingConfirmText: 'CONFIRMAR',
+          })
+
+          const ModalProfile =
+            document.getElementById('profile-signwall').parentNode ||
+            document.getElementById('profile-signwall').parentElement
+          ModalProfile.style.overflow = 'auto'
+        })
+    }
+  }
+
+  togglePopupModalConfirm() {
+    const { showModalConfirm } = this.state
+    this.setState({
+      showModalConfirm: !showModalConfirm,
+    })
+
+    const ModalProfile =
+      document.getElementById('profile-signwall').parentNode ||
+      document.getElementById('profile-signwall').parentElement
+    if (showModalConfirm) {
+      ModalProfile.style.overflow = 'auto'
+    } else {
+      ModalProfile.style.overflow = 'hidden'
+    }
+  }
+
   render() {
     const {
       formErrors,
@@ -465,6 +589,10 @@ class UpdateProfile extends Component {
       dataProvinces,
       dataDistricts,
       textSubmit,
+      showModalConfirm,
+      formErrorsConfirm,
+      sending,
+      sendingConfirmText,
     } = this.state
 
     const {
@@ -477,372 +605,417 @@ class UpdateProfile extends Component {
     const { phone } = primaryPhone
 
     return (
-      <FormGrid onSubmit={e => this.handleUpdateProfile(e)}>
-        <div className="row btw">
-          <h3 className="title">Tus datos</h3>
-        </div>
+      <>
+        <FormGrid
+          onSubmit={e => {
+            e.preventDefault()
+            this.handleUpdateProfile()
+          }}>
+          <div className="row btw">
+            <h3 className="title">Tus datos</h3>
+          </div>
 
-        {showMsgSuccess && (
-          <Message success>
-            Tus datos de perfil han sido actualizados correctamente.
-          </Message>
-        )}
-        {showMsgError && (
-          <Message failed>
-            Ha ocurrido un error al actualizar. Inténtalo en otro momento.
-          </Message>
-        )}
+          {showMsgSuccess && (
+            <Message success>
+              Tus datos de perfil han sido actualizados correctamente.
+            </Message>
+          )}
+          {showMsgError && (
+            <Message failed>
+              Ha ocurrido un error al actualizar. Inténtalo en otro momento.
+            </Message>
+          )}
 
-        <div className="row three">
-          <FormGroup>
-            <input
-              type="text"
-              name="firstName"
-              className={
-                formErrors.firstName.length > 0
-                  ? 'input error capitalize'
-                  : 'input capitalize'
-              }
-              placeholder="Nombres"
-              noValidate
-              maxLength="50"
-              onChange={e => {
-                this.handleOnChange(e)
-                this.handleValidation(e)
-              }}
-              defaultValue={firstName}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="1"
-              disabled={!email}
-            />
-            <label htmlFor="name" className="label">
-              Nombres
-            </label>
-            {formErrors.firstName.length > 0 && (
-              <span className="error">{formErrors.firstName}</span>
-            )}
-          </FormGroup>
-          <FormGroup>
-            <input
-              type="text"
-              name="lastName"
-              className={
-                formErrors.lastName.length > 0
-                  ? 'input error capitalize'
-                  : 'input capitalize'
-              }
-              placeholder="Apellido Paterno"
-              noValidate
-              maxLength="50"
-              onChange={e => {
-                this.handleValidation(e)
-                this.handleOnChange(e)
-              }}
-              defaultValue={lastName}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="2"
-              disabled={!email}
-            />
-            <label htmlFor="lastnameP" className="label">
-              Apellido Paterno
-            </label>
-            {formErrors.lastName.length > 0 && (
-              <span className="error">{formErrors.lastName}</span>
-            )}
-          </FormGroup>
-          <FormGroup>
-            <input
-              type="text"
-              name="secondLastName"
-              className={
-                formErrors.secondLastName.length > 0
-                  ? 'input error capitalize'
-                  : 'input capitalize'
-              }
-              placeholder="Apellido Materno"
-              noValidate
-              maxLength="50"
-              onChange={e => {
-                this.handleValidation(e)
-                this.handleOnChange(e)
-              }}
-              defaultValue={secondLastName}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="3"
-              disabled={!email}
-            />
-            <label htmlFor="secondLastName" className="label">
-              Apellido Materno
-            </label>
-            {formErrors.secondLastName.length > 0 && (
-              <span className="error">{formErrors.secondLastName}</span>
-            )}
-          </FormGroup>
-        </div>
-
-        <div className="row three">
-          <FormGroup>
-            <div className="combo">
-              <select
-                name="documentType"
+          <div className="row three">
+            <FormGroup>
+              <input
+                type="text"
+                name="firstName"
                 className={
-                  formErrors.typeDocument.length > 0
-                    ? 'input input-minimal error'
-                    : 'input input-minimal'
+                  formErrors.firstName.length > 0
+                    ? 'input error capitalize'
+                    : 'input capitalize'
                 }
-                defaultValue={
-                  documentType ? documentType.toUpperCase() : 'default'
-                }
+                placeholder="Nombres"
+                noValidate
+                maxLength="50"
                 onChange={e => {
                   this.handleOnChange(e)
-                  this.handleTypeDocument(e)
                   this.handleValidation(e)
                 }}
-                // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-                tabIndex="4"
+                defaultValue={firstName}
+                tabIndex="1"
+                disabled={!email}
+              />
+              <label htmlFor="name" className="label">
+                Nombres
+              </label>
+              {formErrors.firstName.length > 0 && (
+                <span className="error">{formErrors.firstName}</span>
+              )}
+            </FormGroup>
+            <FormGroup>
+              <input
+                type="text"
+                name="lastName"
+                className={
+                  formErrors.lastName.length > 0
+                    ? 'input error capitalize'
+                    : 'input capitalize'
+                }
+                placeholder="Apellido Paterno"
+                noValidate
+                maxLength="50"
+                onChange={e => {
+                  this.handleValidation(e)
+                  this.handleOnChange(e)
+                }}
+                defaultValue={lastName}
+                tabIndex="2"
+                disabled={!email}
+              />
+              <label htmlFor="lastnameP" className="label">
+                Apellido Paterno
+              </label>
+              {formErrors.lastName.length > 0 && (
+                <span className="error">{formErrors.lastName}</span>
+              )}
+            </FormGroup>
+            <FormGroup>
+              <input
+                type="text"
+                name="secondLastName"
+                className={
+                  formErrors.secondLastName.length > 0
+                    ? 'input error capitalize'
+                    : 'input capitalize'
+                }
+                placeholder="Apellido Materno"
+                noValidate
+                maxLength="50"
+                onChange={e => {
+                  this.handleValidation(e)
+                  this.handleOnChange(e)
+                }}
+                defaultValue={secondLastName}
+                tabIndex="3"
+                disabled={!email}
+              />
+              <label htmlFor="secondLastName" className="label">
+                Apellido Materno
+              </label>
+              {formErrors.secondLastName.length > 0 && (
+                <span className="error">{formErrors.secondLastName}</span>
+              )}
+            </FormGroup>
+          </div>
+
+          <div className="row three">
+            <FormGroup>
+              <div className="combo">
+                <select
+                  name="documentType"
+                  className={
+                    formErrors.typeDocument.length > 0
+                      ? 'input input-minimal error'
+                      : 'input input-minimal'
+                  }
+                  defaultValue={
+                    documentType ? documentType.toUpperCase() : 'default'
+                  }
+                  onChange={e => {
+                    this.handleOnChange(e)
+                    this.handleTypeDocument(e)
+                    this.handleValidation(e)
+                  }}
+                  tabIndex="4"
+                  disabled={!email}>
+                  <option disabled="disabled" value="default">
+                    Seleccione
+                  </option>
+                  <option value="DNI">DNI</option>
+                  <option value="CEX">CEX</option>
+                  <option value="CDI">CDI</option>
+                </select>
+                <label htmlFor="statusCivil" className="label">
+                  Tipo Doc.
+                </label>
+
+                <input
+                  type="text"
+                  name="documentNumber"
+                  className={
+                    formErrors.documentNumber.length > 0
+                      ? 'input error'
+                      : 'input'
+                  }
+                  placeholder="Num Documento"
+                  noValidate
+                  minLength={typeDocLenghtMin}
+                  maxLength={typeDocLenghtMax}
+                  typedoc={typeDoc}
+                  onChange={e => {
+                    this.handleOnChange(e)
+                    this.handleValidation(e)
+                  }}
+                  onBlur={e => this.handleValidation(e)}
+                  defaultValue={documentNumber}
+                  tabIndex="5"
+                  disabled={!email}
+                />
+              </div>
+              {formErrors.documentNumber.length > 0 && (
+                <span className="error">{formErrors.documentNumber}</span>
+              )}
+              {formErrors.typeDocument.length > 0 && (
+                <span className="error">{formErrors.typeDocument}</span>
+              )}
+            </FormGroup>
+            <FormGroup>
+              <select
+                name="civilStatus"
+                className="input input-minimal"
+                value={civilStatus ? civilStatus.toUpperCase() : 'default'}
+                onChange={e => {
+                  this.handleOnChange(e)
+                  this.handleValidation(e)
+                }}
+                tabIndex="6"
                 disabled={!email}>
                 <option disabled="disabled" value="default">
                   Seleccione
                 </option>
-                <option value="DNI">DNI</option>
-                <option value="CEX">CEX</option>
-                <option value="CDI">CDI</option>
+                <option value="SO">Soltero(a)</option>
+                <option value="CA">Casado(a)</option>
+                <option value="DI">Divorciado(a)</option>
+                <option value="VI">Viudo(a)</option>
               </select>
               <label htmlFor="statusCivil" className="label">
-                Tipo Doc.
+                Estado Civil
               </label>
-
+            </FormGroup>
+            <FormGroup>
               <input
                 type="text"
-                name="documentNumber"
+                name="mobilePhone"
                 className={
-                  formErrors.documentNumber.length > 0 ? 'input error' : 'input'
+                  formErrors.mobilePhone.length > 0 ? 'input error' : 'input'
                 }
-                placeholder="Num Documento"
+                placeholder="Número de Celular"
                 noValidate
-                minLength={typeDocLenghtMin}
-                maxLength={typeDocLenghtMax}
-                typedoc={typeDoc}
+                maxLength="12"
                 onChange={e => {
                   this.handleOnChange(e)
                   this.handleValidation(e)
                 }}
-                onBlur={e => this.handleValidation(e)}
-                defaultValue={documentNumber}
-                // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-                tabIndex="5"
+                defaultValue={phone}
+                tabIndex="7"
                 disabled={!email}
+                autoComplete="off"
               />
+              <label htmlFor="mobilePhone" className="label">
+                Número de Celular
+              </label>
+              {formErrors.mobilePhone.length > 0 && (
+                <span className="error">{formErrors.mobilePhone}</span>
+              )}
+            </FormGroup>
+          </div>
+
+          <div className="row three">
+            <FormGroup>
+              <select
+                name="country"
+                className="input input-minimal"
+                value={country || 'default'}
+                onChange={e => {
+                  this.handleOnChange(e)
+                  this._getUbigeo(e, 'department')
+                  this.handleValidation(e)
+                }}
+                tabIndex="8"
+                disabled={!email}>
+                <option disabled="disabled" value="default">
+                  Seleccione
+                </option>
+                <option value="260000">Perú</option>
+              </select>
+              <label htmlFor="País" className="label">
+                País
+              </label>
+            </FormGroup>
+            <FormGroup>
+              <select
+                name="department"
+                className="input input-minimal"
+                value={department || 'default'}
+                onChange={e => {
+                  this.handleOnChange(e)
+                  this._getUbigeo(e, 'province')
+                  this.handleValidation(e)
+                }}
+                tabIndex="9"
+                disabled={!email}>
+                <option disabled="disabled" value="default">
+                  Seleccione
+                </option>
+                {dataDepartments.map(([code, name]) => (
+                  <option key={code} value={code}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+
+              <label htmlFor="Departamento" className="label">
+                Departamento
+              </label>
+            </FormGroup>
+            <FormGroup>
+              <select
+                name="province"
+                className="input input-minimal"
+                value={province || 'default'}
+                onChange={e => {
+                  this.handleOnChange(e)
+                  this._getUbigeo(e, 'district')
+                  this.handleValidation(e)
+                }}
+                tabIndex="10"
+                disabled={!email}>
+                <option disabled="disabled" value="default">
+                  Seleccione
+                </option>
+                {dataProvinces.map(([code, name]) => (
+                  <option key={code} value={code}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="Provincia" className="label">
+                Provincia
+              </label>
+            </FormGroup>
+          </div>
+
+          <div className="row three">
+            <FormGroup>
+              <select
+                name="district"
+                className="input input-minimal"
+                value={district || 'default'}
+                onChange={e => {
+                  this.handleValidation(e)
+                  this.handleOnChange(e)
+                }}
+                tabIndex="11"
+                disabled={!email}>
+                <option disabled="disabled" value="default">
+                  Seleccione
+                </option>
+                {dataDistricts.map(([code, name]) => (
+                  <option key={code} value={code}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="Distrito" className="label">
+                Distrito
+              </label>
+            </FormGroup>
+            <FormGroup>
+              <input
+                type="text"
+                name="email"
+                className={
+                  formErrors.userEmail.length > 0 ? 'input error' : 'input'
+                }
+                placeholder="Correo electrónico"
+                noValidate
+                maxLength="30"
+                defaultValue={email}
+                tabIndex="12"
+                disabled={email !== null}
+                onChange={e => {
+                  this.handleValidation(e)
+                  this.handleOnChange(e)
+                }}
+              />
+              <label htmlFor="email" className="label">
+                Correo electrónico
+              </label>
+              {formErrors.userEmail.length > 0 && (
+                <span className="error">{formErrors.userEmail}</span>
+              )}
+            </FormGroup>
+            <FormGroup>
+              <Button
+                type="submit"
+                color={mainColorBtn}
+                disabled={!hasChange || loading || hasError}
+                tabIndex="13">
+                {textSubmit}
+              </Button>
+            </FormGroup>
+          </div>
+        </FormGrid>
+
+        {showModalConfirm && (
+          <Modal
+            size="mini"
+            position="middle"
+            bg="white"
+            name="modal-div-confirmpass"
+            id="modal-div-confirmpass">
+            <div className="text-right">
+              <button
+                type="button"
+                onClick={e => this.togglePopupModalConfirm(e)}>
+                <Close />
+              </button>
             </div>
-            {formErrors.documentNumber.length > 0 && (
-              <span className="error">{formErrors.documentNumber}</span>
-            )}
-            {formErrors.typeDocument.length > 0 && (
-              <span className="error">{formErrors.typeDocument}</span>
-            )}
-          </FormGroup>
-          <FormGroup>
-            <select
-              name="civilStatus"
-              className="input input-minimal"
-              value={civilStatus ? civilStatus.toUpperCase() : 'default'}
-              onChange={e => {
-                this.handleOnChange(e)
-                this.handleValidation(e)
-              }}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="6"
-              disabled={!email}>
-              <option disabled="disabled" value="default">
-                Seleccione
-              </option>
-              <option value="SO">Soltero(a)</option>
-              <option value="CA">Casado(a)</option>
-              <option value="DI">Divorciado(a)</option>
-              <option value="VI">Viudo(a)</option>
-            </select>
-            <label htmlFor="statusCivil" className="label">
-              Estado Civil
-            </label>
-          </FormGroup>
-          <FormGroup>
-            <input
-              type="text"
-              name="mobilePhone"
-              className={
-                formErrors.mobilePhone.length > 0 ? 'input error' : 'input'
-              }
-              placeholder="Número de Celular"
-              noValidate
-              maxLength="12"
-              onChange={e => {
-                this.handleOnChange(e)
-                this.handleValidation(e)
-              }}
-              defaultValue={phone}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="7"
-              disabled={!email}
-              autoComplete="off"
-            />
-            <label htmlFor="mobilePhone" className="label">
-              Número de Celular
-            </label>
-            {formErrors.mobilePhone.length > 0 && (
-              <span className="error">{formErrors.mobilePhone}</span>
-            )}
-          </FormGroup>
-        </div>
 
-        <div className="row three">
-          <FormGroup>
-            <select
-              name="country"
-              className="input input-minimal"
-              value={country || 'default'}
-              onChange={e => {
-                this.handleOnChange(e)
-                this._getUbigeo(e, 'department')
-                this.handleValidation(e)
-              }}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="8"
-              disabled={!email}>
-              <option disabled="disabled" value="default">
-                Seleccione
-              </option>
-              <option value="260000">Perú</option>
-            </select>
-            <label htmlFor="País" className="label">
-              País
-            </label>
-          </FormGroup>
-          <FormGroup>
-            <select
-              name="department"
-              className="input input-minimal"
-              value={department || 'default'}
-              onChange={e => {
-                this.handleOnChange(e)
-                this._getUbigeo(e, 'province')
-                this.handleValidation(e)
-              }}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="9"
-              disabled={!email}>
-              <option disabled="disabled" value="default">
-                Seleccione
-              </option>
-              {dataDepartments.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
+            <div className="modal-body__wrapper">
+              <FormGrid onSubmit={e => this.submitConfirmPassword(e)}>
+                <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
+                  Para realizar los cambios, por favor ingresa tu contraseña
+                </Text>
 
-            <label htmlFor="Departamento" className="label">
-              Departamento
-            </label>
-          </FormGroup>
-          <FormGroup>
-            <select
-              name="province"
-              className="input input-minimal"
-              value={province || 'default'}
-              onChange={e => {
-                this.handleOnChange(e)
-                this._getUbigeo(e, 'district')
-                this.handleValidation(e)
-              }}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="10"
-              disabled={!email}>
-              <option disabled="disabled" value="default">
-                Seleccione
-              </option>
-              {dataProvinces.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="Provincia" className="label">
-              Provincia
-            </label>
-          </FormGroup>
-        </div>
+                <FormGroup full>
+                  <input
+                    type="password"
+                    name="currentPassword"
+                    className={
+                      formErrorsConfirm.currentPassword.length > 0
+                        ? 'input error'
+                        : 'input'
+                    }
+                    placeholder="Contraseña"
+                    noValidate
+                    maxLength="50"
+                    autoComplete="off"
+                    onChange={e => {
+                      this.setState({ currentPassword: e.target.value })
+                      this.changeValidationConfirm(e)
+                    }}
+                  />
+                  <label htmlFor="currentPassword" className="label">
+                    Contraseña
+                  </label>
+                  {formErrorsConfirm.currentPassword.length > 0 && (
+                    <span className="error">
+                      {formErrorsConfirm.currentPassword}
+                    </span>
+                  )}
+                </FormGroup>
 
-        <div className="row three">
-          <FormGroup>
-            <select
-              name="district"
-              className="input input-minimal"
-              value={district || 'default'}
-              onChange={e => {
-                this.handleValidation(e)
-                this.handleOnChange(e)
-              }}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="11"
-              disabled={!email}>
-              <option disabled="disabled" value="default">
-                Seleccione
-              </option>
-              {dataDistricts.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="Distrito" className="label">
-              Distrito
-            </label>
-          </FormGroup>
-          <FormGroup>
-            <input
-              type="text"
-              name="email"
-              className={
-                formErrors.userEmail.length > 0 ? 'input error' : 'input'
-              }
-              placeholder="Correo electrónico"
-              noValidate
-              maxLength="30"
-              defaultValue={email}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="12"
-              disabled={email !== null}
-              onChange={e => {
-                this.handleValidation(e)
-                this.handleOnChange(e)
-              }}
-            />
-            <label htmlFor="email" className="label">
-              Correo electrónico
-            </label>
-            {formErrors.userEmail.length > 0 && (
-              <span className="error">{formErrors.userEmail}</span>
-            )}
-          </FormGroup>
-          <FormGroup>
-            {/* <input
-              type="submit"
-              className="btn btn-bg"
-              value={textSubmit}
-              disabled={!hasChange || loading || hasError}
-              tabIndex="13"
-            /> */}
-            <Button
-              type="submit"
-              color={mainColorBtn}
-              disabled={!hasChange || loading || hasError}
-              // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-              tabIndex="13">
-              {textSubmit}
-            </Button>
-          </FormGroup>
-        </div>
-      </FormGrid>
+                <Button type="submit" disabled={sending} color={mainColorBtn}>
+                  {sendingConfirmText}
+                </Button>
+              </FormGrid>
+            </div>
+          </Modal>
+        )}
+      </>
     )
   }
 }
