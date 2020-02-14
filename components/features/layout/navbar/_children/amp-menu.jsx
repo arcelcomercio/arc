@@ -41,7 +41,6 @@ class NavbarChildMenu extends PureComponent {
     const {
       contextPath,
       deployment,
-      siteProperties: { siteUrl },
       sections = [],
       footer = {},
       arcSite,
@@ -52,17 +51,12 @@ class NavbarChildMenu extends PureComponent {
       twitter:
         'M21.3 10.5v.5c0 4.7-3.5 10.1-9.9 10.1-2 0-3.8-.6-5.3-1.6.3 0 .6.1.8.1 1.6 0 3.1-.6 4.3-1.5-1.5 0-2.8-1-3.3-2.4.2 0 .4.1.7.1l.9-.1c-1.6-.3-2.8-1.8-2.8-3.5.5.3 1 .4 1.6.4-.9-.6-1.6-1.7-1.6-2.9 0-.6.2-1.3.5-1.8 1.7 2.1 4.3 3.6 7.2 3.7-.1-.3-.1-.5-.1-.8 0-2 1.6-3.5 3.5-3.5 1 0 1.9.4 2.5 1.1.8-.1 1.5-.4 2.2-.8-.3.8-.8 1.5-1.5 1.9.7-.1 1.4-.3 2-.5-.4.4-1 1-1.7 1.5z',
     }
-    const logoAmp =
-      arcSite === 'elcomercio'
-        ? deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/assets/amp/icon-cross.png`
-          )
-        : deployment(
-            `${siteUrl}${contextPath}/resources/assets/amp/icon-cross.png`
-          )
+    const logoAmp = deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/assets/amp/icon-cross.png`
+    )
 
     return (
       <amp-sidebar

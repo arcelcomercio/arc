@@ -76,7 +76,6 @@ class NavbarChildMenu extends PureComponent {
       arcSite,
       deployment,
       data: { children: sections = [] } = {},
-      siteUrl = '',
       socialNetworks = {},
     } = this.props
 
@@ -91,17 +90,13 @@ class NavbarChildMenu extends PureComponent {
       arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? adsId : 'eco'
     }-amp-320x50-inferior2-movil0`
 
-    const logoAmp =
-      arcSite === 'elcomercio'
-        ? deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/assets/amp/icon-cross.png`
-          )
-        : deployment(
-            `${siteUrl}${contextPath}/resources/assets/amp/icon-cross.png`
-          )
+    const logoAmp = deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/assets/amp/icon-cross.png`
+    )
+
     const parameters = {
       arcSite,
       dataSlot,
