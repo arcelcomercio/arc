@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
+import ENV from 'fusion:environment'
 
 import Button from '../../../../global-components/button'
 import SignwallComponent from '../../../signwall/main/default'
@@ -365,6 +366,7 @@ class NavBarDefault extends PureComponent {
   }
 
   render() {
+    const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { statusSidebar, scrolled } = this.state
     const {
       logo,
@@ -535,14 +537,15 @@ class NavBarDefault extends PureComponent {
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                    btnLink={`${
-                      siteProperties.urlSubsOnline
-                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                      'undefined' &&
-                      window.section) ||
-                      ''}`}
-                  />
-                )}
+                    onClick={()=>{
+                      const { origin, search } = window.location;
+                      const outputType = (_env === 'prod')? '' : 'outputType=paywall';
+                      const pf = _env === 'prod' ? '' : '/pf';
+                      const connector = search !== "" ? `?_website=${arcSite}&` : `?`;
+                      const link = origin + pf + siteProperties.urlSubsOnline + connector + outputType;
+                      const ref = `&ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
+                      window.location.href = link + ref;
+                    }}/>)}
 
                 {siteProperties.activeSignwall && (
                   <SignwallComponent

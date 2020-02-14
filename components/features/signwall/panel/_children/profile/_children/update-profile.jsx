@@ -198,11 +198,11 @@ class UpdateProfile extends Component {
         ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
         ...this._backup_attributes,
     ].map(attribute => {
-      if(attribute.name === "originReferer") return { ...attribute, value: attribute.value.replace(/\/#|#$/, "")}
+      if(attribute.name === "originReferer") return { ...attribute, value: attribute.value.replace(/\/#|#|\/$/, "")}
       return attribute;
     }); // work around - [MEJORA]
 
-    this.setState({ loading: true, textSubmit: 'Guardando...' })
+    this.setState({ loading: true, textSubmit: 'GUARDANDO...' })
 
     if (typeof window !== 'undefined') {
       window.Identity.apiOrigin = this.origin_api
