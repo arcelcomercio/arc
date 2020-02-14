@@ -54,9 +54,7 @@ const StoryContentChildVideoAmp = ({ data }) => {
             album="Blender"
             controls="controls"
             dock="#dock-slot">
-            {urlTs && (
-              <source type="application/vnd.apple.mpegurl" src={urlTs}></source>
-            )}
+   
           </amp-video>
           <div className="pt-10">{caption}</div>
         </>
