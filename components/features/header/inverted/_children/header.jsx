@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
+import ENV from 'fusion:environment'
 
 import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 import {
@@ -279,6 +280,7 @@ const HeaderChildInverted = ({
     }
   }, []) */
 
+  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod': 'sandbox';
   return (
     <>
       <nav className={classes.band}>
@@ -309,12 +311,12 @@ const HeaderChildInverted = ({
                   <a
                     className={classes.link}
                     href={url}
-                    {...styles && {
+                    {...(styles && {
                       style: {
                         backgroundColor: styles[0],
                         color: styles[1] || '#ffffff',
                       },
-                    }}>
+                    })}>
                     {name}
                   </a>
                 </li>
@@ -422,15 +424,17 @@ const HeaderChildInverted = ({
             <div className={`${classes.navContainerRight} `}>
               {siteProperties.activePaywall && (
                 <Button
-                  btnText="Suscríbete"
-                  btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                  btnLink={`${
-                    siteProperties.urlSubsOnline
-                  }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                    'undefined' &&
-                    window.section) ||
-                    ''}`}
-                />
+                    btnText="Suscríbete"
+                    btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
+                    onClick={()=>{
+                      const { origin, search } = window.location;
+                      const outputType = (_env === 'prod')? '' : 'outputType=paywall';
+                      const pf = _env === 'prod' ? '' : '/pf';
+                      const connector = search !== "" ? `?_website=${arcSite}&` : `?`;
+                      const link = origin + pf + siteProperties.urlSubsOnline + connector + outputType;
+                      const ref = `&ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
+                      window.location.href = link + ref;
+                    }}/>
               )}
               {siteProperties.activeSignwall && (
                 <SignwallComponent
