@@ -38,21 +38,7 @@ const BlogPostListGrid = props => {
           } = {},
         } = {},
       ] = [],
-      user: {
-        user_avatarb: {
-          resized_urls: {
-            // lazy_default: lazyImage,
-            author_sm: authorImg = defaultImage({
-              deployment,
-              contextPath,
-              arcSite,
-              size: 'sm',
-            }),
-          } = {},
-        } = {},
-        first_name: firstName = '',
-        last_name: lastName = '',
-      } = {},
+      user: { first_name: firstName = '', last_name: lastName = '' } = {},
     } = blog
 
     return {
@@ -65,7 +51,6 @@ const BlogPostListGrid = props => {
       imagePost,
       postImageLg,
       postImageMd,
-      authorImg,
       date: postDate,
       blogTitle: blogname,
       author: `${firstName} ${lastName}`,
@@ -83,15 +68,10 @@ const BlogPostListGrid = props => {
     item => typeof item === 'object'
   )
 
-  // TODO: Cambiar el foreach por map en el render.
-  let dataBlogs = []
-  blogs.forEach(ele => {
-    dataBlogs.push(buildParams(ele))
-  })
-  dataBlogs = dataBlogs.slice(
-    initialPositionItem,
-    initialPositionItem + numShowItems
-  )
+  const dataBlogs = blogs
+    .slice(initialPositionItem, initialPositionItem + numShowItems)
+    .map(blog => buildParams(blog))
+
   const urlLogoBrand = deployment(
     `${getAssetsPath(
       arcSite,

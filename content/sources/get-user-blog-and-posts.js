@@ -7,22 +7,22 @@ const params = [
   {
     name: 'blog_limit',
     displayName: 'Limite de Blog',
-    type: 'text',
+    type: 'number',
   },
   {
     name: 'blog_offset',
     displayName: 'A partir de que Blog',
-    type: 'text',
+    type: 'number',
   },
   {
     name: 'posts_limit',
     displayName: 'Limite de Post',
-    type: 'text',
+    type: 'number',
   },
   {
     name: 'posts_offset',
     displayName: 'A partir de que Post',
-    type: 'text',
+    type: 'number',
   },
 ]
 
@@ -71,18 +71,18 @@ const transform = (data, { 'arc-site': arcSite, blog_offset: blogOffset }) => {
       blogs[blog].user.user_avatarb.resized_urls = resizedUrls
     }
 
-    posts.forEach(post => {
-      const { post_thumbnail: { guid: thumbnail } = {} } = post || {}
+    posts.forEach((post, i) => {
+      const { post_thumbnail: { guid } = {} } = post || {}
 
-      if (thumbnail) {
+      if (guid) {
         const resizedUrls = createResizedUrl({
-          url: thumbnail,
+          url: guid,
           presets:
             'thumbnail_lg:480x248,thumbnail_md:290x150,thumbnail_sm:111x72',
           resizerUrl,
           resizerSecret,
         })
-        blogs[blog].posts[post].post_thumbnail.resized_urls = resizedUrls
+        blogs[blog].posts[i].post_thumbnail.resized_urls = resizedUrls
       }
     })
   })
