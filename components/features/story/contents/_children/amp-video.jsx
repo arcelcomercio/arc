@@ -49,15 +49,12 @@ const StoryContentChildVideoAmp = ({ data }) => {
             layout="responsive"
             src={urlVideo}
             poster={imageVideo}
-            class={`id-${id}`}
+            class={`id-${id} classs_video`}
             title={caption}
-            album="Blender"
             controls="controls"
-            dock="#dock-slot">
-            {urlTs && (
-              <source type="application/vnd.apple.mpegurl" src={urlTs}></source>
-            )}
-          </amp-video>
+            dock="#dock-slot"/>
+   
+          
           <div className="pt-10">{caption}</div>
         </>
       )}
