@@ -29,8 +29,15 @@ import './images/signwall/bg_students.png'
 import './images/signwall/bg_students.webp'
 import './images/author.png'
 import './images/arrow-right-2.png'
+import './images/logo-gestion.jpg'
 
-import '../../../components/utilities/lazyload'
+/** Fonts & icons */
+import './icons/fonts/default.woff'
+import './icons/fonts/gestion.woff'
+import './icons/fonts/default.svg'
+import './icons/fonts/gestion.svg'
+
+import './fonts/OpenSans-Regular-webfont.woff'
 
 // Imagenes paywall
 require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)

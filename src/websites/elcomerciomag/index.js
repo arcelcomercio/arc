@@ -23,5 +23,10 @@ import './images/author.png'
 import './images/authorOpinion.png'
 import './images/arrow-right-2.png'
 import './images/logo-amp.png'
+import './images/logo-elcomerciomag.jpg'
 
-import '../../../components/utilities/lazyload'
+/** Fonts & icons */
+import './icons/fonts/default.woff'
+import './icons/fonts/default.svg'
+
+import './fonts/OpenSans-Regular-webfont.woff'
