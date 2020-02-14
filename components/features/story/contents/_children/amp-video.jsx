@@ -54,7 +54,9 @@ const StoryContentChildVideoAmp = ({ data }) => {
             title={caption}
             dock="#dock-slot">
             {urlTs && (
-              <source type="application/vnd.apple.mpegurl" src={urlTs}></source>
+              <source
+                type="application/vnd.apple.mpegurl"
+                data-src={urlTs}></source>
             )}
           </amp-ima-video>
           <div className="pt-10">{caption}</div>
