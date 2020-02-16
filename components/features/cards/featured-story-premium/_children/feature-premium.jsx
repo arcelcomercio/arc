@@ -42,8 +42,10 @@ const FeaturedStoryPremiumChild = ({
   bgColor,
   websiteLink,
   multimediaSquareMD,
+  multimediaSquareXL,
   multimediaLandscapeMD,
   multimediaLandscapeL,
+  multimediaPortraitMD,
   multimediaLazyDefault,
   title,
   author,
@@ -90,6 +92,21 @@ const FeaturedStoryPremiumChild = ({
         el.note
       }. La fecha Programada (${fechaProgramada()}) es menor a la fecha de publicación de la nota (${fechaPublicacion()})`
     })
+  }
+
+  const getMobileImage = () => {
+    const imgBasic = imgType ? multimediaPortraitMD : multimediaLandscapeMD
+    return model === 'basic' ? imgBasic : multimediaPortraitMD
+  }
+
+  const getDesktopImage = () => {
+    let imageDesktop
+    if (model === 'basic')
+      imageDesktop = imgType ? multimediaPortraitMD : multimediaLandscapeMD
+    else if (model === 'twoCol') imageDesktop = multimediaLandscapeL
+    else if (model === 'full') imageDesktop = multimediaSquareXL
+    else imageDesktop = multimediaLandscapeL
+    return imageDesktop
   }
 
   const isComercio = arcSite === 'elcomercio'
@@ -160,20 +177,20 @@ const FeaturedStoryPremiumChild = ({
           <picture>
             <source
               className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
-              data-srcset={multimediaLandscapeMD}
+              srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
+              data-srcset={getMobileImage()}
               media="(max-width: 480px)" // 367px
             />
             <source
               className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? multimediaSquareMD : multimediaLazyDefault}
-              data-srcset={multimediaSquareMD}
+              srcSet={isAdmin ? getDesktopImage() : multimediaLazyDefault}
+              data-srcset={getDesktopImage()}
               media="(max-width: 620px)"
             />
             <img
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
-              data-src={multimediaLandscapeL}
+              src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
+              data-src={getDesktopImage()}
               alt={multimediaSubtitle || title}
             />
           </picture>
