@@ -1,0 +1,43 @@
+.newsletters-subscription {
+  & figure {
+    width: 90%;
+  }
+
+  & .author-card__name:after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 1px;
+    background-color: #333;
+    margin: 10px auto 0;
+  }
+
+  & .author-card__detail {
+    width: 90%;
+  }
+
+  .card__text {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  & .author-card__icono {
+    background-color: #f7c600;
+  }
+
+  & .link-suscribe {
+    border: 1px solid #000;
+    color: #000;
+    background-color: white;
+    border-radius: 3px;
+    padding: 8px 8px;
+    display: inline-block;
+    font-size: 13px;
+  }
+
+  & .author-card__icono {
+    bottom: auto;
+    top: 172px;
+  }
+}
