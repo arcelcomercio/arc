@@ -18,7 +18,17 @@ import {
 } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/constants'
 
-const PHOTO_SOURCE = 'photo-resizer'
+const PHOTO_SOURCE = 'photo-by-id'
+const PHOTO_SCHEMA = `{
+  resized_urls { 
+    landscape_l 
+    landscape_md
+    portrait_md 
+    square_s 
+    square_xl
+    lazy_default  
+  }
+}`
 
 const FeaturedStoryPremium = props => {
   const {
@@ -187,9 +197,6 @@ const FeaturedStoryPremium = props => {
     ) || {}
 
   const errorList = isAdmin ? validateScheduledNotes() : []
-  const presets =
-    'landscape_l:648x374,landscape_md:314x157,square_md:300x300,portrait_md:314x374'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
   const sourceFetch =
     scheduledNotes.length > 0 ? 'story-by-url' : contentService
@@ -208,7 +215,9 @@ const FeaturedStoryPremium = props => {
     isPremium,
     websiteLink,
     multimediaSquareMD,
+    multimediaSquareXL,
     multimediaPortraitMD,
+    multimediaLandscapeMD,
     multimediaLandscapeL,
     multimediaLazyDefault,
     title,
@@ -231,8 +240,10 @@ const FeaturedStoryPremium = props => {
   const {
     resized_urls: {
       square_md: squareMDCustom,
+      square_xl: squareXLCustom,
       lazy_default: lazyDefaultCustom,
       landscape_l: landscapeLCustom,
+      landscape_md: landscapeMDCustom,
       portrait_md: portraitMDCustom,
     } = {},
   } = customPhoto || {}
@@ -245,8 +256,11 @@ const FeaturedStoryPremium = props => {
     bgColor,
     websiteLink,
     multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
-    multimediaLandscapeMD: portraitMDCustom || imgField || multimediaPortraitMD,
+    multimediaSquareXL: squareXLCustom || imgField || multimediaSquareXL,
+    multimediaLandscapeMD:
+      landscapeMDCustom || imgField || multimediaLandscapeMD,
     multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
+    multimediaPortraitMD: portraitMDCustom || imgField || multimediaPortraitMD,
     multimediaLazyDefault:
       lazyDefaultCustom || imgField || multimediaLazyDefault,
     title,
