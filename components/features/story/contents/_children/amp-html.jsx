@@ -4,10 +4,10 @@ import { ampHtml } from '../../../../utilities/helpers'
 
 const StoryContentChildHtml = ({
   data: {
-    caption='',
-    resized_urls: { landscape_xl: landscapeXl='' }={},
-  }={},
-  basicHtml: { content='' }={},
+    caption = '',
+    resized_urls: { landscape_xl: landscapeXl = '' } = {},
+  } = {},
+  basicHtml: { content = '' } = {},
 }) => {
   const urlMp4 = content
     .replace('data-mp4="', 'data-stream="')
@@ -22,7 +22,7 @@ const StoryContentChildHtml = ({
     <>
       {content.includes('id="powa-') ? (
         <amp-video
-          src={urlMp4}
+          src={urlMp4.replace('cde.3.img.', 'cde.3.')}
           poster={landscapeXl}
           artwork={landscapeXl}
           title={caption}

@@ -59,6 +59,7 @@ class UpdateProfile extends Component {
       },
       sending: true,
       sendingConfirmText: 'CONFIRMAR',
+      messageErrorPass: '',
     }
 
     this.state = Object.assign(
@@ -210,9 +211,14 @@ class UpdateProfile extends Component {
         ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
         ...this._backup_attributes,
     ].map(attribute => {
-      if(attribute.name === "originReferer") return { ...attribute, value: attribute.value.replace(/\/#|#|\/$/, "")}
-      return attribute;
-    }); // work around - [MEJORA]
+      if (attribute.name === 'originReferer') {
+        return {
+          ...attribute,
+          value: attribute.value.split('&')[0].replace(/(\/#|#|\/)$/, ''),
+        }
+      }
+      return attribute
+    }) // work around - [MEJORA]
 
     this.setState({ loading: true, textSubmit: 'GUARDANDO...' })
 
@@ -252,17 +258,24 @@ class UpdateProfile extends Component {
             this.setState({
               showModalConfirm: true,
             })
+          } else {
+            this.setState({
+              messageErrorPass:
+                'Ha ocurrido un error al actualizar. Inténtalo en otro momento.',
+              showMsgError: true,
+            })
+            setTimeout(() => {
+              this.setState({
+                showMsgError: false,
+              })
+            }, 5000)
           }
+        })
+        .finally(() => {
           this.setState({
-            showMsgError: false,
             loading: false,
             textSubmit: 'GUARDAR CAMBIOS',
           })
-          setTimeout(() => {
-            this.setState({
-              showMsgError: false,
-            })
-          }, 5000)
         })
     }
   }
@@ -520,6 +533,8 @@ class UpdateProfile extends Component {
         })
         .catch(() => {
           this.setState({
+            messageErrorPass:
+              'Ha ocurrido un error al actualizar. Contraseña Incorrecta.',
             showMsgError: true,
           })
 
@@ -592,6 +607,7 @@ class UpdateProfile extends Component {
       formErrorsConfirm,
       sending,
       sendingConfirmText,
+      messageErrorPass,
     } = this.state
 
     const {
@@ -619,11 +635,7 @@ class UpdateProfile extends Component {
               Tus datos de perfil han sido actualizados correctamente.
             </Message>
           )}
-          {showMsgError && (
-            <Message failed>
-              Ha ocurrido un error al actualizar. Inténtalo en otro momento.
-            </Message>
-          )}
+          {showMsgError && <Message failed>{messageErrorPass}</Message>}
 
           <div className="row three">
             <FormGroup>
