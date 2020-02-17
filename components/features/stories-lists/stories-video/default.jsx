@@ -247,14 +247,17 @@ class StoriesListVideo extends PureComponent {
               <img src={logoImg} alt="Logo" />
             </a>
           </div>
-          {listStoriesVideo.length > 0 &&
-            listStoriesVideo.map(item => {
-              const StoryItemProps = {
-                ...item,
-                StoryItemHandleClick: this.StoryItemHandleClick,
-              }
-              return <StoryItem {...StoryItemProps} />
-            })}
+          <div className="clase">
+            {listStoriesVideo.length > 0 &&
+              listStoriesVideo.map(item => {
+                const StoryItemProps = {
+                  ...item,
+                  StoryItemHandleClick: this.StoryItemHandleClick,
+                }
+                return <StoryItem {...StoryItemProps} />
+              })}
+          </div>
+
           <div className={classes.viewProgramsWrapper}>
             <a className={classes.viewPrograms} href={PERU21TV_URL}>
               Ver programas
