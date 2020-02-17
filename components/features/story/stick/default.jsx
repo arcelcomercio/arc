@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react'
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
 import { removeLastSlash } from '../../../utilities/helpers'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   stickWrapper: 'stick w-full pl-20 pr-20',
@@ -42,11 +43,10 @@ class Stick extends PureComponent {
       siteProperties: { siteUrl = '' } = {},
     } = this.props
 
-    const { link = '/' } =
-      new StoryData({
-        data: globalContent,
-        contextPath,
-      })
+    const { link = '/' } = new StoryData({
+      data: globalContent,
+      contextPath,
+    })
 
     const aOpenApp = document.getElementById('button-app')
     // const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
@@ -147,7 +147,10 @@ class Stick extends PureComponent {
       contextPath,
     })
     const imgLogo = deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/${logo}`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
     )
 
     return (
@@ -161,10 +164,7 @@ class Stick extends PureComponent {
             onKeyUp={this.closeStick}
           />
           <div className={classes.logo}>
-            <img
-              src={imgLogo}
-              alt="Sigue actualizado en nuestra APP"
-            />
+            <img src={imgLogo} alt="Sigue actualizado en nuestra APP" />
           </div>
           <div className={classes.description}>
             Sigue actualizado en nuestra APP

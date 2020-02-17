@@ -23,6 +23,7 @@ export const FirstMiddle = styled(Base)`
 `
 
 export const SecondMiddle = styled(Base)`
+  background-color: white;
   width: 100%;
   @media ${device.desktop} {
     width: ${props => (props.full ? '100' : '42')}%;

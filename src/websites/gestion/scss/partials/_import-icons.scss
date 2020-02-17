@@ -1,16 +1,20 @@
 @font-face {
-  font-family: 'icomoon';
-  src: url('../../icons/fonts/default.woff?o217b7') format('woff'),
-    url('../../icons/fonts/default.svg?o217b7#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("https://cdna.gestion.pe/resources/dist/gestion/fonts/default.woff")
+      format("woff"),
+    url("https://cdna.gestion.pe/resources/dist/gestion/images/default.svg")
+      format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'icomoon';
-  src: url('../../icons/fonts/gestion.woff?9jkd5z') format('woff'),
-    url('../../icons/fonts/gestion.svg?9jkd5z#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("https://cdna.gestion.pe/resources/dist/gestion/fonts/gestion.woff")
+      format("woff"),
+    url("https://cdna.gestion.pe/resources/dist/gestion/images/gestion.svg")
+      format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

@@ -30,7 +30,7 @@ const SignwallOutputType = ({
         <meta name="description" content={siteDescription} />
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
-
+        <meta name="robots" content="noindex,follow" />
         <Libs />
         <link
           rel="stylesheet"

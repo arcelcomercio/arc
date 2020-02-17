@@ -13,6 +13,7 @@ import StoryData from '../../../utilities/story-data'
 import StoryContentChildTags from '../../story/contents/_children/tags'
 import StoryContentChildRelated from '../../story/contents/_children/related'
 import ConfigParams from '../../../utilities/config-params'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -68,9 +69,7 @@ const VideoSectionAmp = () => {
   const namePublicidad =
     arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
 
-  const dataSlot = `/${
-    adsAmp.dataSlot
-  }/${namePublicidad}-amp-300x250-boton-movil2`
+  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}-amp-300x250-boton-movil2`
 
   const placementId = adsAmp.movil2
   const parameters = { dataSlot, placementId, width, height }
@@ -82,9 +81,7 @@ const VideoSectionAmp = () => {
     height,
   }
   const parametersMovil5 = {
-    dataSlot: `/${
-      adsAmp.dataSlot
-    }/${namePublicidad}-amp-300x250-inferior-movil5`,
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}-amp-300x250-inferior-movil5`,
     placementId: adsAmp.movil5,
     width,
     height,
@@ -93,7 +90,10 @@ const VideoSectionAmp = () => {
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
     deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png`
     ) || ''
 
   return (

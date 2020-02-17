@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 
 import { useContent } from 'fusion:content'
@@ -7,6 +8,7 @@ import FeaturedOpening from './_children/feature-opening'
 import customFields from './_dependencies/custom-fields'
 import { schemaNote, schemaURL } from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const CardFeaturedOpening = props => {
   const {
@@ -95,7 +97,12 @@ const CardFeaturedOpening = props => {
     note1Link,
     note2Title,
     note2Link,
-    logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
+    logo: deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
+    ),
   }
 
   return <FeaturedOpening {...params} />

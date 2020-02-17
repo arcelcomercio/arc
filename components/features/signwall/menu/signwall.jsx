@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { PureComponent, useState } from 'react'
 import Consumer from 'fusion:consumer'
-import { WrapperMenu, BackLoading } from './styled'
+import { WrapperMenu } from './styled'
 import { Avatar } from './_children/avatar'
 import Cookies from '../_dependencies/cookies'
 import Domains from '../_dependencies/domains'
@@ -51,7 +51,7 @@ const Menu = ({
         if (isSubs || activePaywall) {
           if (W.Sales) W.Sales.subscriptions = []
         }
-        Taggeo(`Web_Sign_Wall_General`, ` web_swg_link_cerrarsesion`)
+        Taggeo(`Web_Sign_Wall_General`, `web_swg_link_cerrarsesion`)
         W.location.href = document.referrer ? document.referrer : '/'
       })
       .catch(() => {
@@ -66,9 +66,9 @@ const Menu = ({
   return (
     <>
       {showLoading ? (
-        <BackLoading className="back-loading">
+        <div className="back-loading">
           <Loading arcSite={arcSite} />
-        </BackLoading>
+        </div>
       ) : (
         <>
           <Avatar
@@ -86,13 +86,23 @@ const Menu = ({
               <ul>
                 {activePaywall && (
                   <li>
-                    <a href="#" onClick={() => openItemMenu('home')}>
+                    <a
+                      href="#"
+                      onClick={e => {
+                        e.preventDefault()
+                        openItemMenu('home')
+                      }}>
                       Inicio
                     </a>
                   </li>
                 )}
                 <li>
-                  <a href="#" onClick={() => openItemMenu('prof')}>
+                  <a
+                    href="#"
+                    onClick={e => {
+                      e.preventDefault()
+                      openItemMenu('prof')
+                    }}>
                     Mis Datos
                   </a>
                 </li>
@@ -101,14 +111,22 @@ const Menu = ({
                     <a
                       href="#"
                       id="btn-subs"
-                      onClick={() => openItemMenu('subs')}>
+                      onClick={e => {
+                        e.preventDefault()
+                        openItemMenu('subs')
+                      }}>
                       Mi Suscripción
                     </a>
                   </li>
                 )}
                 {activeNewsletter && (
                   <li>
-                    <a href="#" onClick={() => openItemMenu('news')}>
+                    <a
+                      href="#"
+                      onClick={e => {
+                        e.preventDefault()
+                        openItemMenu('news')
+                      }}>
                       Newsletters
                     </a>
                   </li>
@@ -118,7 +136,10 @@ const Menu = ({
                     className="close-sesion"
                     href="#"
                     id="web_link_cerrarsesion"
-                    onClick={() => closeSession()}>
+                    onClick={e => {
+                      e.preventDefault()
+                      closeSession()
+                    }}>
                     Cerrar sesión
                   </a>
                 </li>

@@ -34,7 +34,6 @@ const Dfp = ({ isFuature, adId }) => {
   let contentConfigValues = {}
   let page = ''
   let flagsub = false
-  console.log(requestUri,'dnns_section dnns')
   switch (metaValue('id')) {
     case 'meta_section':
       if (sectionId || _id) {
@@ -142,7 +141,14 @@ const Dfp = ({ isFuature, adId }) => {
 
   return (
     <>
-      {(arcSite === 'publimetro' ||  arcSite === 'depor'||  arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && (
+      {(  arcSite === 'publimetro' ||  
+          arcSite === 'depor'||  
+          arcSite === 'elcomercio' || 
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21'
+          ) && (
         <Content
           {...{
             contentService: 'get-dfp-spaces',

@@ -128,7 +128,7 @@ class VideoList extends PureComponent {
               const {
                 websiteLink,
                 title,
-                multimediaSquareMD,
+                multimediaLandscapeMD,
                 primarySection,
                 primarySectionLink,
                 videoDuration,
@@ -136,7 +136,7 @@ class VideoList extends PureComponent {
               const params = {
                 websiteLink,
                 title,
-                multimediaSquareMD,
+                multimediaLandscapeMD,
                 primarySection,
                 primarySectionLink,
                 videoDuration,

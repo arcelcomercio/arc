@@ -9,9 +9,9 @@ const customFields = PropTypes.shape({
   }),
   amountStories: PropTypes.number.tag({
     name: 'Nro. de Notas',
-    max: 20,
     defaultValue: 1,
     min: 1,
+    description: 'Máximo 50 notas para listar.'
   }),
   isPremium: PropTypes.bool.tag({
     name: '¿Premium?',

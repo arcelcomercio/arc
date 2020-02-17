@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import ENV from 'fusion:environment'
+// import ENV from 'fusion:environment'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial, ButtonEmail } from './control_social'
@@ -110,7 +110,7 @@ export const FormLogin = ({
       )
     }
 
-    // removeBefore() // dismount before
+    removeBefore() // dismount before
     window.location.href = Domains.getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
@@ -254,8 +254,8 @@ export const FormLogin = ({
       {value => (
         <>
           {!showCheckPremium ? (
-            <S.Form onSubmit={handleOnSubmit}>
-              {activePaywall && (
+            <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
+              {activePaywall && typeDialog !== 'premium' && (
                 <S.Title
                   s="22"
                   primaryFont={primaryFont}
@@ -280,7 +280,7 @@ export const FormLogin = ({
                 activeNewsletter={activeNewsletter}
                 checkUserSubs={checkUserSubs}
               />
-              {ENV.ENVIRONMENT !== 'elcomercio' && (
+              {/* {ENV.ENVIRONMENT !== 'elcomercio' && (
                 <ButtonSocial
                   brand="google"
                   size="full"
@@ -292,7 +292,7 @@ export const FormLogin = ({
                   activeNewsletter={activeNewsletter}
                   checkUserSubs={checkUserSubs}
                 />
-              )}
+              )} */}
 
               {!showLoginEmail && (
                 <ButtonEmail
@@ -344,7 +344,8 @@ export const FormLogin = ({
                     href="#"
                     c="light"
                     className="mt-10 mb-20 inline f-right text-sm"
-                    onClick={() => {
+                    onClick={e => {
+                      e.preventDefault()
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
                         `web_sw${typeDialog[0]}_contrasena_link_olvide`
@@ -376,7 +377,8 @@ export const FormLogin = ({
                   c={mainColorLink}
                   fw="bold"
                   className="ml-10"
-                  onClick={() => {
+                  onClick={e => {
+                    e.preventDefault()
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
                       `web_sw${typeDialog[0]}_login_boton_registrate`
@@ -387,7 +389,7 @@ export const FormLogin = ({
                 </S.Link>
               </S.Text>
 
-              <S.Text c="light" s="10" className="mt-10 center">
+              <S.Text c="light" s="10" className="mt-10 mb-10 center">
                 CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
                 NUNCA PUBLICAREMOS SIN TU PERMISO
               </S.Text>
@@ -395,7 +397,7 @@ export const FormLogin = ({
           ) : (
             <>
               {showLoadingPremium ? (
-                <Loading arcSite={arcSite} />
+                <Loading arcSite={arcSite} typeBg="wait" />
               ) : (
                 <S.Form>
                   <div className="center block mb-20 mt-20">
@@ -446,7 +448,13 @@ export const FormLogin = ({
                     <S.Button
                       type="button"
                       color={mainColorBtn}
-                      onClick={() => handleSuscription()}>
+                      onClick={() => {
+                        Taggeo(
+                          `Web_${typeDialog}_Hard`,
+                          `web_${typeDialog}_boton_ver_planes`
+                        )
+                        handleSuscription()
+                      }}>
                       VER PLANES
                     </S.Button>
                   )}

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import Markdown from '../../../_children/markdown'
 
 export const Bullet = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ export const BulletIcon = styled.div`
   padding: 5px 0px;
 `
 
-export const BulletText = styled.div`
+export const BulletText = styled(Markdown)`
   line-height: 1.83;
 `
 

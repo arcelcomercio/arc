@@ -44,6 +44,10 @@ class Modal extends Component {
     )
   }
 
+  handleScroll = (e) => {
+    e.preventDefault();
+  }
+
   componentDidMount = () => {
     if (this.isSafari()) {
       document.querySelector('html').classList.add('overflow-hidden-ios')
@@ -52,6 +56,7 @@ class Modal extends Component {
         'width=device-width, initial-scale=1, user-scalable=0, shrink-to-fit=no'
       )
     }
+    document.body.addEventListener('touchmove', this.handleScroll, { passive: false})
     document.querySelector('html').classList.add('overflow-hidden')
     document.querySelector('body').classList.add('overflow-hidden')
   }
@@ -64,22 +69,38 @@ class Modal extends Component {
     }
     document.querySelector('html').classList.remove('overflow-hidden')
     document.querySelector('body').classList.remove('overflow-hidden')
+    document.body.removeEventListener('touchmove',this.handleScroll);
+  }
+
+  turnOffFormScroll = () => {
+    if((typeof window) !== 'undefined'){
+      document.body.removeEventListener('touchmove', this.handleScroll);
+    }
+  }
+
+  turnOnFormScroll = () => {
+    if((typeof window) !== 'undefined'){
+      document.body.removeEventListener('touchmove', this.handleScroll);
+    }
   }
 
   render() {
-    const { bg, position, size, name, color, id, children } = this.props
+    const { bgColor, position, size, name, color, id, children } = this.props
     return (
       // eslint-disable-next-line react/jsx-filename-extension
       <BodyEnd>
-        {/* <WrapperModal className="white"> */}
-        <WrapperModal className="open">
+        <WrapperModal className="open" bgColor={bgColor}>
           <DialogModal
-            className={`position-middle size-${size}`}
+            className={`position-${position} size-${size}`}
             heading={name}
+            noborderRa
             size={size}
             style={{ backgroundColor: color }}
             id={id}
-            name={name}>
+            name={name}
+            onTouchStart={this.turnOffFormScroll}
+            onTouchEnd={this.turnOnFormScroll}
+            >
             {children}
           </DialogModal>
         </WrapperModal>

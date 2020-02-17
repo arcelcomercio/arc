@@ -3,6 +3,7 @@ import ConfigParams, {
   sizeImgNewsLetter,
   sizeImgStory,
 } from './config-params'
+import { getAssetsPath } from './constants'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -423,7 +424,12 @@ export const defaultImage = ({
   } */
 
   return deployment(
-    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    arcSite === 'elcomercio'
+      ? `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/default-${size}.png`
+      : `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
@@ -697,6 +703,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
     .replace(/<(style|script)(.*)>(.*\n)*.*<\/(style|script)(.*)>/g, '')
+
     .replace(/<(-?\/)?script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 

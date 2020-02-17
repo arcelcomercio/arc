@@ -36,7 +36,6 @@ function CardPrice(props) {
     active,
     mt,
     marginTop,
-    offer,
     event,
     arcSite,
   } = props

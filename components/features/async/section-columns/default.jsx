@@ -25,6 +25,9 @@ const GridSectionColumns = ({
     section7,
     section8,
     section9,
+    section10,
+    section11,
+    section12,
   } = {},
 }) => {
   const [isOnViewPort, setIsOnViewPort] = useState(false)
@@ -75,7 +78,14 @@ const GridSectionColumns = ({
           </>
         )}
         <div dangerouslySetInnerHTML={createMarkup(ads)}></div>
-        {isOnViewPort && <ChildrenSectionColumn section={section9} />}
+        {isOnViewPort && (
+          <>
+            <ChildrenSectionColumn section={section9} />
+            <ChildrenSectionColumn section={section10} />
+            <ChildrenSectionColumn section={section11} />
+            <ChildrenSectionColumn section={section12} />
+          </>
+        )}
       </div>
     </>
   )
@@ -118,6 +128,15 @@ GridSectionColumns.propTypes = {
     }),
     section9: PropTypes.string.tag({
       name: 'Campo 12 (URL de la sección)',
+    }),
+    section10: PropTypes.string.tag({
+      name: 'Campo 13 (URL de la sección)',
+    }),
+    section11: PropTypes.string.tag({
+      name: 'Campo 14 (URL de la sección)',
+    }),
+    section12: PropTypes.string.tag({
+      name: 'Campo 15 (URL de la sección)',
     }),
   }),
 }
