@@ -1,8 +1,7 @@
 /* eslint-disable no-use-before-define */
-/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/no-danger */
+
 import React from 'react'
 
 const classes = {
@@ -39,10 +38,27 @@ const handleCloseStickyClick = powaPlayer => {
 
 const handleScrolVideList = () => {
   const playOf = document.querySelector('.stories-video__wrapper')
-  const scrollHeight = window.scrollY
+  const itemHeight =
+    document.querySelector('.stories-video__item').offsetHeight * 4
+  const promoContentHeight = document.querySelector('.stories-video__content')
+    .offsetHeight
+  const programsWrapperHeight = document.querySelector(
+    '.stories-video__programs-wrapper'
+  ).offsetHeight
+  const storiesHeaderHeigth = document.querySelector('.stories-video__header')
+    .offsetHeight
 
-  const offsetButton = scrollHeight >= playOf.offsetTop + playOf.offsetHeight
-  const offSetTop = scrollHeight + window.innerHeight < playOf.offsetTop
+  const scrollHeight = window.scrollY
+  // si el scroll es mayor o igual a la suma de la distancia del componente a la parte supe.offsetHeight * 4rior y  el alto del componente
+  const offsetButton =
+    scrollHeight >=
+    playOf.offsetTop +
+      playOf.offsetHeight -
+      (itemHeight + promoContentHeight + programsWrapperHeight)
+
+  // si el scroll  mas el tamaño de la pantalla es menor a la distancia del componente a la parte superior de la pantalla
+  const offSetTop =
+    scrollHeight + window.innerHeight - storiesHeaderHeigth < playOf.offsetTop
   let stickyTop = false
 
   if ((offsetButton || offSetTop) && scrollHeight === 0) {
@@ -79,11 +95,6 @@ const ItemVideoCenterDestacado = ({
     powa.on(window.PoWa.EVENTS.PLAY, () => {
       window.addEventListener('scroll', handleScrolVideList)
     })
-
-    // powa.on(window.PoWa.EVENTS.PAUSE, () => {
-    //   removeSticky()
-    //   window.removeEventListener('scroll', handleScrolVideList)
-    // })
 
     powa.on(window.PoWa.EVENTS.END, () => {
       removeSticky()

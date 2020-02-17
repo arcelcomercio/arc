@@ -21,10 +21,11 @@ import schemaFilter from './_dependencies/schema-filters'
 import StoryItem from './_children/story-video-item'
 
 const classes = {
-  listComponent: 'stories-video__wrapper w-full flex flex-col',
+  listComponent: 'stories-video__wrapper w-full flex flex-col justify-between',
   listHeader:
     'stories-video__header flex items-center justify-between pt-10 pb-10 pl-20 pr-20',
   listTitle: 'stories-video__title text-white uppercase',
+  listWrapper: 'stories-video__list-wrapper h-full flex flex-col justify-end',
   viewProgramsWrapper:
     'stories-video__programs-wrapper flex justify-center pt-10 pb-10 pl-20 pr-20',
   viewPrograms:
@@ -147,7 +148,6 @@ class StoriesListVideo extends PureComponent {
             video: newsVideo,
             autoPlayVideo: false,
             videoTime: getVideoTime(data),
-            
           },
         }
       } else {
@@ -220,7 +220,6 @@ class StoriesListVideo extends PureComponent {
         JSON.stringify(listStoriesVideo[StoryItemIndex])
       )
       firstItem.index = 0
-      
 
       // si el primer elemento debe tener autoplay
       firstItem.content.autoPlayVideo = true
@@ -254,18 +253,21 @@ class StoriesListVideo extends PureComponent {
               <img src={logoImg} alt="Logo" />
             </a>
           </div>
-          {listStoriesVideo.length > 0 &&
-            listStoriesVideo.map(item => {
-              const StoryItemProps = {
-                ...item,
-                StoryItemHandleClick: this.StoryItemHandleClick,
-              }
-              return <StoryItem {...StoryItemProps} />
-            })}
-          <div className={classes.viewProgramsWrapper}>
-            <a className={classes.viewPrograms} href={PERU21TV_URL}>
-              Ver programas
-            </a>
+          <div className={classes.listWrapper}>
+            {listStoriesVideo.length > 0 &&
+              listStoriesVideo.map(item => {
+                const StoryItemProps = {
+                  ...item,
+                  StoryItemHandleClick: this.StoryItemHandleClick,
+                }
+                return <StoryItem {...StoryItemProps} />
+              })}
+
+            <div className={classes.viewProgramsWrapper}>
+              <a className={classes.viewPrograms} href={PERU21TV_URL}>
+                Ver programas
+              </a>
+            </div>
           </div>
         </div>
       </>
