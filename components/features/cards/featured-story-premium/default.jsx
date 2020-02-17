@@ -187,6 +187,11 @@ const FeaturedStoryPremium = props => {
     ) || {}
 
   const errorList = isAdmin ? validateScheduledNotes() : []
+<<<<<<< HEAD
+=======
+  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300,portrait_md:314x374'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
+>>>>>>> sprint5-19402
 
   const sourceFetch =
     scheduledNotes.length > 0 ? 'story-by-url' : contentService

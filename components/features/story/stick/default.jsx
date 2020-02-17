@@ -23,6 +23,7 @@ const classes = {
 @Consumer
 class Stick extends PureComponent {
   constructor(props) {
+
     super(props)
 
     const { arcSite } = this.props
@@ -32,7 +33,11 @@ class Stick extends PureComponent {
     const active = getCookie(`idpoll_open_appstick_${arcSite}`) !== '1'
 
     this.state = {
+<<<<<<< HEAD
       active,
+=======
+      active
+>>>>>>> sprint5-19402
     }
   }
 
@@ -93,9 +98,17 @@ class Stick extends PureComponent {
         urlSource,
       })
     })
+<<<<<<< HEAD
   }
 
   closeStick = () => {
+=======
+
+  }
+
+  closeStick = () => {
+
+>>>>>>> sprint5-19402
     setSurveyCookie(`_open_appstick_${this.sitioWeb}`, 7)
 
     this.setState({
