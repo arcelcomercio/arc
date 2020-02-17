@@ -149,7 +149,9 @@ const Dfp = ({ isFuature, adId }) => {
           arcSite === 'gestion' || 
           arcSite === 'peru21g21' ||
           arcSite === 'diariocorreo' || 
-          arcSite === 'ojo'
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
           ) && (
         <Content
           {...{
