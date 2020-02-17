@@ -18,7 +18,17 @@ import {
 } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/constants'
 
-const PHOTO_SOURCE = 'photo-resizer'
+const PHOTO_SOURCE = 'photo-by-id'
+const PHOTO_SCHEMA = `{
+  resized_urls { 
+    landscape_l 
+    landscape_md
+    portrait_md 
+    square_s 
+    square_xl
+    lazy_default  
+  }
+}`
 
 const FeaturedStoryPremium = props => {
   const {
@@ -81,17 +91,13 @@ const FeaturedStoryPremium = props => {
 
   const validateScheduledNotes = () => {
     const filter = '{ publish_date additional_properties { is_published } }'
-    const presets = 'no-presets'
-
     const auxNote1 =
       note1 !== undefined && note1 !== ''
-        ? // eslint-disable-next-line react-hooks/rules-of-hooks
-          useContent({
+        ? useContent({
             source,
             query: {
               website_url: note1,
               published: 'false',
-              presets,
             },
             filter,
           })
@@ -99,13 +105,11 @@ const FeaturedStoryPremium = props => {
 
     const auxNote2 =
       note2 !== undefined && note2 !== ''
-        ? // eslint-disable-next-line react-hooks/rules-of-hooks
-          useContent({
+        ? useContent({
             source,
             query: {
               website_url: note2,
               published: 'false',
-              presets,
             },
             filter,
           })
@@ -113,13 +117,11 @@ const FeaturedStoryPremium = props => {
 
     const auxNote3 =
       note3 !== undefined && note3 !== ''
-        ? // eslint-disable-next-line react-hooks/rules-of-hooks
-          useContent({
+        ? useContent({
             source,
             query: {
               website_url: note3,
               published: 'false',
-              presets,
             },
             filter,
           })
@@ -167,32 +169,31 @@ const FeaturedStoryPremium = props => {
     return arrError
   }
 
-  const presets =
-    'landscape_l:648x374,landscape_md:314x157,square_md:300x300,portrait_md:314x374'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
-
-  // Solo acepta custom image desde Photo Center
   const photoId = imgField ? getPhotoId(imgField) : ''
+
   const customPhoto =
     useContent(
       photoId
         ? {
             source: PHOTO_SOURCE,
             query: {
-              url: imgField,
-              presets,
+              _id: photoId,
             },
+            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}
 
   const errorList = isAdmin ? validateScheduledNotes() : []
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,square_md:300x300,portrait_md:314x374'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
   const sourceFetch =
     scheduledNotes.length > 0 ? 'story-by-url' : contentService
   const queryFetch =
     scheduledNotes.length > 0
-      ? { website_url: currentNotePath, presets }
+      ? { website_url: currentNotePath }
       : Object.assign(contentConfigValues, { presets, includedFields })
   const data =
     useContent({
@@ -205,7 +206,9 @@ const FeaturedStoryPremium = props => {
     isPremium,
     websiteLink,
     multimediaSquareMD,
+    multimediaSquareXL,
     multimediaPortraitMD,
+    multimediaLandscapeMD,
     multimediaLandscapeL,
     multimediaLazyDefault,
     title,
@@ -228,8 +231,10 @@ const FeaturedStoryPremium = props => {
   const {
     resized_urls: {
       square_md: squareMDCustom,
+      square_xl: squareXLCustom,
       lazy_default: lazyDefaultCustom,
       landscape_l: landscapeLCustom,
+      landscape_md: landscapeMDCustom,
       portrait_md: portraitMDCustom,
     } = {},
   } = customPhoto || {}
@@ -242,8 +247,11 @@ const FeaturedStoryPremium = props => {
     bgColor,
     websiteLink,
     multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
-    multimediaLandscapeMD: portraitMDCustom || imgField || multimediaPortraitMD,
+    multimediaSquareXL: squareXLCustom || imgField || multimediaSquareXL,
+    multimediaLandscapeMD:
+      landscapeMDCustom || imgField || multimediaLandscapeMD,
     multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
+    multimediaPortraitMD: portraitMDCustom || imgField || multimediaPortraitMD,
     multimediaLazyDefault:
       lazyDefaultCustom || imgField || multimediaLazyDefault,
     title,
