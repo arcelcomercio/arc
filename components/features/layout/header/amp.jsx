@@ -22,23 +22,14 @@ const classes = {
 @Consumer
 class LayoutAmpHeader extends PureComponent {
   render() {
-    const {
-      contextPath,
-      arcSite,
-      deployment,
-      siteProperties: { siteUrl },
-    } = this.props
-    const imgLogo =
-      arcSite === 'elcomercio'
-        ? deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/images/logo-amp.png`
-          )
-        : deployment(
-            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-          ) || ''
+    const { contextPath, arcSite, deployment } = this.props
+    const imgLogo = deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo-amp.png`
+    )
+
     return (
       <>
         <header className={classes.header}>

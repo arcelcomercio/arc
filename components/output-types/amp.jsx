@@ -231,9 +231,9 @@ const AmpOutputType = ({
           <>
             <script
               async
-              custom-element="amp-video"
-              src="https://cdn.ampproject.org/v0/amp-video-0.1.js"
-            />
+              custom-element="amp-ima-video"
+              src="https://cdn.ampproject.org/v0/amp-ima-video-0.1.js"></script>
+
             <script
               async
               custom-element="amp-video-docking"

@@ -14,7 +14,7 @@ const LayoutNavbar = props => {
   const { customFields } = props
   const { contextPath, arcSite, deployment } = useFusionContext()
 
-  const { siteDomain, siteUrl, assets: { nav } = {} } = getProperties(arcSite)
+  const { siteDomain, assets: { nav } = {} } = getProperties(arcSite)
 
   const formater = new Formatter(
     {
@@ -50,17 +50,12 @@ const LayoutNavbar = props => {
     return NavBarType[selectDesing] || NavBarType.standard
   }
 
-  const imgLogo =
-    arcSite === 'elcomercio'
-      ? deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/logo-amp.png`
-        )
-      : deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-        ) || ''
+  const imgLogo = deployment(
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo-amp.png`
+  )
 
   return (
     <>

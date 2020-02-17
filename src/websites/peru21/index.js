@@ -25,6 +25,7 @@ import './images/author.png'
 import './images/arrow-right-2.png'
 import './images/Logo_P21TV.png'
 import './images/Logo_P21TVx2.png'
+import './images/logo-peru21.jpg'
 
 // import '../../../components/utilities/lazyload'
 
