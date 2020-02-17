@@ -1,4 +1,6 @@
 import React from 'react'
+import { useFusionContext } from 'fusion:context'
+
 import { RawHtml } from '@arc-core-components/feature_article-body'
 import { ampHtml } from '../../../../utilities/helpers'
 
@@ -9,6 +11,8 @@ const StoryContentChildHtml = ({
   } = {},
   basicHtml: { content = '' } = {},
 }) => {
+  const { siteProperties: { urlPreroll } = {} } = useFusionContext()
+
   const urlMp4 = content
     .replace('data-mp4="', 'data-stream="')
     .replace(/(.*)data-stream="(.*?)"(.*)/, '$2')
@@ -21,16 +25,14 @@ const StoryContentChildHtml = ({
   return (
     <>
       {content.includes('id="powa-') ? (
-        <amp-video
-          src={urlMp4.replace('cde.3.img.', 'cde.3.')}
-          poster={landscapeXl}
-          artwork={landscapeXl}
+        <amp-ima-video
+          data-src={urlMp4.replace('cde.3.img.', 'cde.3.')}
+          data-poster={landscapeXl}
+          data-tag={urlPreroll}
           title={caption}
-          album="Blender"
           width="720"
           height="405"
           layout="responsive"
-          controls="controls"
           dock="#dock-slot"
         />
       ) : (
