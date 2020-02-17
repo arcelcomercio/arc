@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 export const Bullet = styled.div`
   display: flex;
   font-weight: 300;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: 12px;
 `
 
@@ -24,6 +24,7 @@ export const Card = styled.div`
   flex-direction: column;
   justify-content: space-between;
   border-radius: 4px;
+  z-index: 0;
   box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
   ${({ theme }) => css`
     ${theme.breakpoints.down('md')} {
@@ -52,7 +53,7 @@ export const HeadContent = styled.div`
     }
     & div:last-of-type {
       font-size: 15px;
-      font-weight: normal;
+      font-weight: 600;
     }
   `}
 `
