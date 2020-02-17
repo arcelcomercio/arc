@@ -76,21 +76,16 @@ class LayoutNavbar extends PureComponent {
       arcSite,
       deployment,
       siteProperties: {
-        siteUrl,
         assets: { seo: { widthAmp = '', heightAmp = '' } = {} } = {},
       },
     } = this.props
-    const imgLogo =
-      arcSite === 'elcomercio'
-        ? deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/images/logo-amp.png`
-          )
-        : deployment(
-            `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-          ) || ''
+    const imgLogo = deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo-amp.png`
+    )
+
     return (
       <>
         <header className={classes.header}>

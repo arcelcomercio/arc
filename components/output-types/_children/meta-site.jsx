@@ -18,13 +18,11 @@ export default ({
   contextPath = '',
   isMobile = false,
 } = {}) => {
-  const logoSite =
-    arcSite === 'elcomercio'
-      ? `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
-      : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
+  const logoSite = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
+
   const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${deployment(
     `${logoSite}`
   )}",  "sameAs" : [ "${facebook.url || ''}", "${twitter.url || ''}"] }`
@@ -73,12 +71,10 @@ export default ({
         rel="shortcut icon"
         type="image/png"
         href={deployment(
-          arcSite === 'elcomercio'
-            ? `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/favicon.png`
-            : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/favicon.png`
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/favicon.png`
         )}
       />
       {isAmp === false && (
@@ -86,72 +82,60 @@ export default ({
           <link
             rel="apple-touch-icon"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="76x76"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-76x76.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-76x76.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-76x76.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="120x120"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-120x120.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-120x120.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-120x120.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="144x144"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-144x144.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-144x144.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-144x144.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="152x152"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-152x152.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-152x152.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-152x152.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-180x180.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-180x180.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-180x180.png`
             )}
           />
         </>

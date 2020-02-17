@@ -408,28 +408,11 @@ export const defaultImage = ({
 }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
-  const site = () => {
-    let domain = `${arcSite}.pe`
-    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
-    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
-    else if (arcSite === 'depor') domain = 'depor.com'
-    return domain
-  }
-
-  // Solo activar para sitios que no esten aun en PROD
-  /* if (arcSite === 'sitio') {
-    return deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
-    )
-  } */
-
   return deployment(
-    arcSite === 'elcomercio'
-      ? `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/default-${size}.png`
-      : `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
