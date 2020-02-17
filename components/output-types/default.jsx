@@ -306,7 +306,9 @@ export default ({
           arcSite === 'gestion' || 
           arcSite === 'peru21g21' ||
           arcSite === 'diariocorreo' || 
-          arcSite === 'ojo') &&
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -329,7 +331,9 @@ export default ({
           arcSite === 'gestion' || 
           arcSite === 'peru21g21' ||
           arcSite === 'diariocorreo' || 
-          arcSite === 'ojo'
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -401,7 +405,9 @@ export default ({
           arcSite === 'gestion' || 
           arcSite === 'peru21g21' ||
           arcSite === 'diariocorreo' || 
-          arcSite === 'ojo') &&
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -434,7 +440,9 @@ export default ({
           arcSite === 'gestion' || 
           arcSite === 'peru21g21' ||
           arcSite === 'diariocorreo' || 
-          arcSite === 'ojo'
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
         ) &&
           !nodas && (
             <script
@@ -504,7 +512,9 @@ export default ({
           arcSite === 'gestion' || 
           arcSite === 'peru21g21' ||
           arcSite === 'diariocorreo' || 
-          arcSite === 'ojo') &&
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && <Dfp />}
       </body>

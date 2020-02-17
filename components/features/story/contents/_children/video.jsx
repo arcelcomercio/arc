@@ -79,7 +79,9 @@ class StoryContentChildVideo extends PureComponent {
       arcSite === 'gestion' || 
       arcSite === 'peru21g21' ||
       arcSite === 'diariocorreo' || 
-      arcSite === 'ojo'
+      arcSite === 'ojo' ||
+      arcSite === 'elbocon' ||
+      arcSite === 'trome'
     ) {
 
       const arcSiteNew=arcSite==='peru21g21'?'peru21':arcSite
@@ -113,6 +115,12 @@ class StoryContentChildVideo extends PureComponent {
         case 'ojo':
           webSite='ojo.pe'
           break
+          case 'elbocon':
+            webSite='elbocon.pe'
+            break
+          case 'trome':
+            webSite='trome.pe'
+            break
           default:
             webSite=''
             break
