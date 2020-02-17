@@ -54,17 +54,12 @@ const LayoutNavbar = props => {
     return NavBarType[selectDesing] || NavBarType.standard
   }
 
-  const imgLogo =
-    arcSite === 'elcomercio'
-      ? deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/logo-amp.png`
-        )
-      : deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-        ) || ''
+  const imgLogo = deployment(
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo-amp.png`
+  )
 
   const headerParams = {
     imgLogo,
