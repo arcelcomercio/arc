@@ -9,9 +9,9 @@ import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/main/default'
 
-/*
+/* 
 const DRAG_SCREEN_LIMIT = 90
-const LIST_WIDTH = 330
+const LIST_WIDTH = 330 
 */
 
 const classes = {
@@ -212,12 +212,12 @@ const HeaderChildInverted = ({
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
                     onClick={()=>{
-                      const { origin, search } = window.location;
-                      const outputType = (_env === 'prod')? '' : 'outputType=paywall';
+                      const { origin } = window.location;
+                      const outputType = (_env === 'prod')? '' : 'outputType=paywall&';
                       const pf = _env === 'prod' ? '' : '/pf';
-                      const connector = search !== "" ? `?_website=${arcSite}&` : `?`;
+                      const connector = _env !== "prod" ? `?_website=${arcSite}&` : `?`;
                       const link = origin + pf + siteProperties.urlSubsOnline + connector + outputType;
-                      const ref = `&ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
+                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
                       window.location.href = link + ref;
                     }}/>
                 )}
