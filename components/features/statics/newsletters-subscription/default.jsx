@@ -95,19 +95,19 @@ const Newsletters = props => {
 
   return (
     <>
-      <div className="content--grid-base content-layout grid--box grid--col-1 grid--col-2 grid--col-3 col-3">
+      <div className="newsletters-subscription grid--col-1 grid--col-2 grid--col-3 col-3">
         <SubscriptionTitle />
-        <div role="main" className="newsletters-subscription">
-          <div role="list" className="opinion-grid grid w-full m-0 mx-auto">
-            {typeNewsletters.map(item => {
-              const data = {
-                ...item,
-                isSubscribed: categories.includes(item.code),
-                callbackSubscription: subscribeOnclickHandle,
-              }
-              return <SubscriptionItem key={item.code} {...data} />
-            })}
-          </div>
+        <div
+          role="list"
+          className="newsletters-subscription__list grid w-full m-0 mx-auto">
+          {typeNewsletters.map(item => {
+            const data = {
+              ...item,
+              isSubscribed: categories.includes(item.code),
+              callbackSubscription: subscribeOnclickHandle,
+            }
+            return <SubscriptionItem key={item.code} {...data} />
+          })}
         </div>
       </div>
 

@@ -1,29 +1,68 @@
 .newsletters-subscription {
-  & figure {
-    width: 90%;
+  &__title {
+    height: 35px;
   }
-
-  & .author-card__name:after {
-    content: "";
-    display: block;
-    width: 30px;
-    height: 1px;
-    background-color: #333;
-    margin: 10px auto 0;
+  &__link {
+    font-size: 20px;
   }
-
-  & .author-card__detail {
-    width: 90%;
+  &__list {
+    grid-template-columns: 1fr;
+    @media (--tablet) {
+      grid-template-columns: repeat(2, 50%);
+      max-width: 700px;
+    }
+    @media (--desktop) {
+      grid-template-columns: repeat(3, 33.3%);
+      max-width: 100%;
+    }
+  }
+  &__item {
+    margin: 10px;
+    position: relative;
+    width: auto;
+    min-width: auto;
+    overflow: visible;
+  }
+  &__card {
+    background-color: $color-tertiary;
+    @media (--tablet) {
+      height: 340px;
+    }
+    @media (--desktop) {
+      height: 361px;
+      width: 298px;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      border: 1px solid #e8e8e8;
+    }
+  }
+  &__name {
+    font-size: 20px;
+    letter-spacing: 0px;
+    line-height: 24px;
+    &:after {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 1px;
+      background-color: #333;
+      margin: 10px auto 0;
+    }
   }
 
   .card__text {
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-  }
-
-  & .author-card__icono {
-    background-color: #f7c600;
   }
 
   & .link-suscribe {
@@ -36,8 +75,10 @@
     font-size: 13px;
   }
 
-  & .author-card__icono {
-    bottom: auto;
-    top: 172px;
+  &__icono {
+    background-color: #f7c600;
+    bottom: -12px;
+    height: 24px;
+    width: 24px;
   }
 }

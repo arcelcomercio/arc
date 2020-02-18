@@ -10,20 +10,16 @@ const NewslettersSubscriptionItem = ({
   callbackSubscription,
 }) => {
   return (
-    <article role="listitem" className="author-card p-5 position-relative">
-      <div className="author-card__wrapper flex flex-col items-center lg:pt-20 md:pt-20 xs:pt-20 pt-20 pb-60 md:pb-25 lg:pb-25">
-        <figure className="flex flex-col items-center ">
-          <img
-            className="featured-story__img w-full h-full object-cover"
-            src={image}
-            alt={name}
-          />
+    <article role="listitem" className="newsletters-subscription__item p-5">
+      <div className="newsletters-subscription__card flex flex-col items-center pl-10 pr-10 lg:pt-20 md:pt-20 xs:pt-20 pt-20 pb-20 md:pb-25 lg:pb-25">
+        <figure className="newsletters-subscription__figure w-full flex flex-col items-center position-relative">
+          <img className="w-full h-full object-cover" src={image} alt={name} />
+          <i className="newsletters-subscription__icono icon-marca position-absolute bottom-0 flex items-center justify-center rounded" />
         </figure>
-        <i className="author-card__icono icon-marca position-absolute mb-20 flex items-center justify-center" />
-        <div className="author-card__detail flex flex-col items-center pt-10">
+        <div className="newsletters-subscription__detail w-full flex flex-col items-center pt-10">
           <h3>
             <a
-              class="author-card__name block mb-10 mt-5 secondary-font font-bold title-sm text-gray-300 line-h-xs text-center"
+              class="newsletters-subscription__name block mb-10 mt-5 primary-font font-bold  text-gray-300 text-center"
               href="#">
               {name}
             </a>
