@@ -250,6 +250,12 @@ export const ButtonSocial = ({
                 checkUserSubs()
               } else {
                 onClose()
+                if (
+                  typeDialog === 'organico' &&
+                  window.location.pathname.match(/newsletters/)
+                ) {
+                  window.location.reload()
+                }
               }
               window.removeEventListener('message', OAuthFacebook)
               window.removeEventListener('onmessage', OAuthFacebook)

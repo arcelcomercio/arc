@@ -75,6 +75,12 @@ const Head = ({
                     `web_sw${typeDialog[0]}_boton_cerrar`
                   )
                   onClose()
+                  if (
+                    window.location.pathname.match(/newsletters/) &&
+                    window.Identity.userProfile
+                  ) {
+                    window.location.reload()
+                  }
                 }}>
                 <Close color={mainColorTxt} />
               </ButtonClose>

@@ -37,6 +37,10 @@ const Newsletters = props => {
 
   const afterLoggued = () => {
     console.log('TO DO: FLOW NEWSLETTER')
+    window.scrollTo(0, 100)
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 500)
   }
 
   useEffect(() => {
