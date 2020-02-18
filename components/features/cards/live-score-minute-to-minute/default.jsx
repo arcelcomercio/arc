@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useContent } from 'fusion:content'
 import TeanScore from './_children/team-score'
 
 const classes = {
@@ -7,11 +7,20 @@ const classes = {
 }
 
 const LiveScoreMinuteToMinute = () => {
+  const gameid = '8i1z80gjthm86l814hdf1sh2i'
+  const data = useContent({
+    source: 'get-score-data-opta',
+    query: {
+      gameid,
+    },
+  })
+
+  console.log(data)
   const teanScoreParams1 = {
-    firstTeamName: true,
+    localTeam: true,
   }
   const teanScoreParams2 = {
-    firstTeamName: false,
+    localTeam: false,
   }
   return (
     <div className={classes.liveScore}>

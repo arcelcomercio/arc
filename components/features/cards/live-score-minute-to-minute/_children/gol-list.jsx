@@ -7,13 +7,13 @@ const GolList = () => {
   return (
     <ul className={classes.list}>
       <li>
-        A witsel <span>(P 38)</span>{' '}
+        A witsel <span>(P 38)</span>
       </li>
       <li>
-        A witsel <span>(P 38)</span>{' '}
+        A witsel <span>(P 38)</span>
       </li>
       <li>
-        A witsel <span>(P 38)</span>{' '}
+        A witsel <span>(P 38)</span>
       </li>
     </ul>
   )

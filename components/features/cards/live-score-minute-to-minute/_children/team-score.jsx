@@ -10,16 +10,16 @@ const classes = {
   gol: 'flex flex-row',
 }
 
-const LiveScoreMinuteToMinuteTeanScore = ({ firstTeamName = true }) => {
+const LiveScoreMinuteToMinuteTeanScore = ({ localTeam = true }) => {
   return (
     <div>
       <div className={classes.score}>
-        {firstTeamName ? <ItemTeamName /> : <ItemScore />}
+        {localTeam ? <ItemTeamName /> : <ItemScore />}
         <ItemTeamFlag />
-        {firstTeamName ? <ItemScore /> : <ItemTeamName />}
+        {localTeam ? <ItemScore /> : <ItemTeamName />}
       </div>
       <div className={classes.gol}>
-        {firstTeamName ? (
+        {localTeam ? (
           <>
             <GolList />
             <span>icono</span>
