@@ -12,6 +12,8 @@
       background-color: rgb(27, 27, 27);
       border-top: 0;
       border-bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       .video-navbar__link {
         color: white;
       }
