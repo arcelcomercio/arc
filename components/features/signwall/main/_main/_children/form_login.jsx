@@ -26,6 +26,7 @@ export const FormLogin = ({
     activePaywall,
   },
   removeBefore = i => i,
+  onLogged = i => i,
 }) => {
   const [showLoginEmail, setShowLoginEmail] = useState(false)
   const [showError, setShowError] = useState(false)
@@ -219,6 +220,7 @@ export const FormLogin = ({
       .then(() => {
         handleGetProfile()
         taggeoSuccess()
+        onLogged()
       })
       .catch(errLogin => {
         if (errLogin.code === '300040' || errLogin.code === '300037') {
@@ -279,6 +281,7 @@ export const FormLogin = ({
                 typeForm="login"
                 activeNewsletter={activeNewsletter}
                 checkUserSubs={checkUserSubs}
+                onLogged={onLogged}
               />
               {/* {ENV.ENVIRONMENT !== 'elcomercio' && (
                 <ButtonSocial
