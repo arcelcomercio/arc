@@ -4,7 +4,7 @@
     width: 32px;
     height: 32px;
     background-size: cover;
-    background-image: url($assets_url/resources/assets/social/facebook_icon.png);
+    background-image: url("#{$assets_url}/resources/assets/social/facebook_icon.png");
   }
 
   &--twitter {
@@ -12,7 +12,7 @@
     width: 32px;
     height: 32px;
     background-size: cover;
-    background-image: url($assets_url/resources/assets/social/twitter.png);
+    background-image: url("#{$assets_url}/resources/assets/social/twitter.png");
   }
 
   &--margin-right {
