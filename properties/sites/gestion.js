@@ -264,7 +264,7 @@ export default {
     mainColorBtn: '#0179af',
     primaryFont: 'Judson',
   },
-  urlSubsOnline: 'https://gestion.pe/suscripciones/',
+  urlSubsOnline: '/suscripciones/',
   stick: {
     logo: 'logo-gestion-stick.png',
   },

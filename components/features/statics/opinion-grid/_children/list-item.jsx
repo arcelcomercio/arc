@@ -21,11 +21,7 @@ const classes = {
   pictureWrapper: 'author-item__picture-wrapper',
 }
 
-const OpinionGridListItem = ({ data: story }) => {
-  // const opinionImageDefault = deployment(
-  //   `${contextPath}/resources/dist/${arcSite}/images/authorOpinion.png`
-  // )
-
+const OpinionGridListItem = ({ data: story, isAdmin, defaultAuthorImage }) => {
   const existImageAuthor = story.authorImage.includes('author.png')
 
   return (
@@ -41,10 +37,11 @@ const OpinionGridListItem = ({ data: story }) => {
             <i className={classes.defaultImage} />
           ) : (
             <figure className={classes.imageBox}>
-              <a href={story.link}>
+              <a href={story.websiteLink}>
                 <img
-                  src={story.authorImage}
-                  className={classes.image}
+                  src={isAdmin ? story.authorImage : defaultAuthorImage}
+                  data-src={story.authorImage}
+                  className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                   alt={story.author}
                 />
               </a>
@@ -61,19 +58,23 @@ const OpinionGridListItem = ({ data: story }) => {
               </a>
             </h2>
             <p>
-              <a href={story.link} className={classes.subtitle}>
+              <a href={story.websiteLink} className={classes.subtitle}>
                 {story.title}
               </a>
             </p>
           </div>
           <figure className={classes.pictureWrapper}>
-            <a href={story.link}>
+            <a href={story.websiteLink}>
               <picture>
-                <source srcSet={story.multimediaLandscapeXS} />
                 <img
-                  className={classes.pictureNota}
-                  src={story.multimediaLandscapeXS}
-                  alt={story.title}                  
+                  className={`${isAdmin ? '' : 'lazy'} ${classes.pictureNota}`}
+                  alt={story.title}
+                  src={
+                    isAdmin
+                      ? story.multimediaLandscapeXS
+                      : story.multimediaLazyDefault
+                  }
+                  data-src={story.multimediaLandscapeXS}
                 />
               </picture>
             </a>

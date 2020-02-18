@@ -17,6 +17,7 @@ const CardTriplet = props => {
     custom || {}
 
   const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
+  const presets = 'square_s:150x150'
 
   const adsSpaces =
     useContent(
@@ -53,7 +54,7 @@ const CardTriplet = props => {
       webskedId
         ? {
             source: API_FEED_BY_COLLECTION,
-            query: { id: webskedId, presets: 'square_s:150x150' },
+            query: { id: webskedId, presets },
             filter: `
         content_elements ${schemaFilter(arcSite)}
       `,
@@ -74,19 +75,14 @@ const CardTriplet = props => {
   const fetchDataModel = url => {
     return {
       source: API_STORY_BY_URL,
-      query: { website_url: url },
+      query: { website_url: url, presets },
       filter: schemaFilter(arcSite),
     }
   }
   const fetchImageModel = image => {
     return {
-      source: 'photo-by-id',
-      query: { _id: getPhotoId(image) },
-      filter: `{
-            resized_urls { 
-              square_s
-            }
-          }`,
+      source: 'photo-resizer',
+      query: { url: getPhotoId(image) ? image : '', presets },
     }
   }
 
