@@ -103,6 +103,7 @@ export default ({
     deployment,
     isStory,
     isAmp: false,
+    CURRENT_ENVIRONMENT,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -302,9 +303,9 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && (
@@ -323,9 +324,9 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21'
         ) && (
           <>
@@ -393,9 +394,9 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && (
@@ -424,9 +425,9 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21'
         ) &&
           !nodas && (
@@ -492,9 +493,9 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && <Dfp />}
