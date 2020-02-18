@@ -8,7 +8,7 @@ export default function(arcSite) {
     }
     websites { ${arcSite} { website_url } }
     promo_items {
-        basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default portrait_md } }
+        basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default portrait_md square_xl } }
         basic_video {
           promo_items {
             basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default portrait_md  } }
