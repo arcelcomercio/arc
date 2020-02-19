@@ -1,4 +1,4 @@
-import React, { PureComponent, useEffect } from 'react'
+import React, { PureComponent, useEffect, useState } from 'react'
 import Consumer from 'fusion:consumer'
 import { ModalProvider, ModalConsumer } from '../../../_children/context'
 import { FormIntro } from '../_children/form_intro'
@@ -27,11 +27,12 @@ const renderTemplate = (template, attributes) => {
   return templates[template] || templates.intro
 }
 
-export const PaywallInt = props => {
+export const PremiumInt = props => {
+  const [resizeModal, setResizeModal] = useState('smallbottom')
+  const [resCampaing, setResCampaing] = useState([])
   const {
     onClose,
     pathSourcePNG,
-    pathSourceWEBP,
     arcSite,
     typeDialog,
     siteProperties: {
@@ -39,7 +40,14 @@ export const PaywallInt = props => {
     },
     addEventListener,
     removeEventListener,
+    getContent,
   } = props
+
+  const checkModal = () => {
+    if (typeDialog === 'premium') {
+      setResizeModal('smallbottom-large')
+    }
+  }
 
   const handleLeavePage = event => {
     event.preventDefault()
@@ -54,6 +62,13 @@ export const PaywallInt = props => {
     }
   }, [])
 
+  useEffect(() => {
+    const { fetched } = getContent('paywall-campaing')
+    fetched.then(resCam => {
+      setResCampaing(resCam.summary.feature || [])
+    })
+  }, [])
+
   const removeBefore = () => {
     removeEventListener('beforeunload', handleLeavePage)
   }
@@ -62,7 +77,10 @@ export const PaywallInt = props => {
     <ModalProvider>
       <ModalConsumer>
         {value => (
-          <Modal size="medium" position="middle">
+          <Modal
+            size={resizeModal}
+            position="bottom"
+            bgColor={arcSite === 'gestion' ? 'black' : 'white'}>
             <ContMiddle>
               <CloseBtn
                 type="button"
@@ -81,35 +99,33 @@ export const PaywallInt = props => {
                 }}>
                 <Close />
               </CloseBtn>
-              <FirstMiddle>
-                <picture>
-                  <source srcSet={pathSourceWEBP} type="image/webp" />
-                  <source srcSet={pathSourcePNG} type="image/png" />
-                  <img src={pathSourcePNG} alt="img" />
-                </picture>
-                <ContPaywall>
+              <FirstMiddle pathSourcePNG={pathSourcePNG} arcSite={arcSite}>
+                <ContPaywall arcSite={arcSite}>
                   <p>
-                    {typeDialog === 'paywall'
-                      ? 'Has alcanzado el límite de noticias.'
-                      : 'Para acceder a este contenido'}
+                    Para acceder a este contenido
                     <br />
-                    {typeDialog === 'paywall'
-                      ? 'Para continuar leyendo, adquiere el'
-                      : 'exclusivo, adquiere tu'}
+                    exclusivo, adquiere tu
                   </p>
                   <Title f={primaryFont}>Plan Digital</Title>
                   <center>
                     <img
-                      style={{ maxWidth: '320px', height: 'auto' }}
                       alt="Logo"
-                      src={`https://gestion.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
+                      className="logo"
+                      src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
                     />
                   </center>
+
+                  <ul className="list-benefits mb-20">
+                    {resCampaing.map(item => {
+                      return <li key={item}>{item}</li>
+                    })}
+                  </ul>
                 </ContPaywall>
               </FirstMiddle>
-              <SecondMiddle>
+              <SecondMiddle arcSite={arcSite}>
                 {renderTemplate(value.selectedTemplate, {
                   removeBefore,
+                  checkModal,
                   ...props,
                 })}
               </SecondMiddle>
@@ -122,7 +138,7 @@ export const PaywallInt = props => {
 }
 
 @Consumer
-class Paywall extends PureComponent {
+class Premium extends PureComponent {
   render() {
     const { contextPath, deployment, arcSite } = this.props
 
@@ -131,16 +147,10 @@ class Paywall extends PureComponent {
         `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.png`
       ) || ''
 
-    const pathSourceWEBP =
-      deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.webp`
-      ) || ''
-
     return (
-      <PaywallInt
+      <PremiumInt
         {...this.props}
         pathSourcePNG={pathSourcePNG}
-        pathSourceWEBP={pathSourceWEBP}
         getContent={this.getContent.bind(this)}
         addEventListener={this.addEventListener.bind(this)}
         removeEventListener={this.removeEventListener.bind(this)}
@@ -148,4 +158,4 @@ class Paywall extends PureComponent {
     )
   }
 }
-export { Paywall }
+export { Premium }
