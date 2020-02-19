@@ -96,6 +96,18 @@ class Modal extends Component {
     }
   }
 
+  turnOffFormScroll = () => {
+    if((typeof window) !== 'undefined'){
+      document.body.removeEventListener('touchmove', this.handleScroll);
+    }
+  }
+
+  turnOnFormScroll = () => {
+    if((typeof window) !== 'undefined'){
+      document.body.removeEventListener('touchmove', this.handleScroll);
+    }
+  }
+
   render() {
     const { bgColor, position, size, name, color, id, children } = this.props
     return (

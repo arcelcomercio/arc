@@ -7,6 +7,7 @@ import CardMostReadList from './_children/list'
 
 import schemaFilter from './_dependencies/schema-filter'
 import { getQuery, getStories } from './_dependencies/functions'
+import { getResizedUrlsToStories } from '../../../utilities/resizer'
 
 const CONTENT_SOURCE = 'story-feed-by-views'
 
@@ -21,6 +22,8 @@ const CardMostRead = props => {
     isAdmin,
   } = useFusionContext()
 
+  const presets = 'no-presets'
+
   const { customFields } = props
   const { viewImage = false, storiesQty = 5, customTitle = '', customLink } =
     customFields || {}
@@ -28,14 +31,21 @@ const CardMostRead = props => {
   const data = useContent({
     source: CONTENT_SOURCE,
     query: {
+      presets,
       ...getQuery({ globalContent, globalContentConfig, storiesQty }),
     },
     filter: schemaFilter,
-    transform: ({ content_elements: contentElements = [] } = {}) => {
+    transform: ({ content_elements: contentElements } = {}) => {
+      const parametrs = {
+        contentElements,
+        presets: 'landscape_md:314x157,landscape_xs:118x72',
+        arcSite,
+      }
+
       const response = {
         stories: [
           ...getStories({
-            data: contentElements,
+            data: getResizedUrlsToStories(parametrs),
             deployment,
             contextPath,
             arcSite,

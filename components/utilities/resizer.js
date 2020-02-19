@@ -2,6 +2,8 @@ import {
   addResizedUrls,
   createUrlResizer,
 } from '@arc-core-components/content-source_content-api-v4'
+import ENV from 'fusion:environment'
+import getProperties from 'fusion:properties'
 
 /**
  * Transforma la cadena de presets en un objeto para que pueda ser digerido
@@ -26,7 +28,6 @@ const getPresetsSize = (presets = '') => {
   })
   return formatPresets
 }
-
 /**
  * Crea un listado de imagenes escaladas al tamano deseado a partir de
  * la URL de una imagen original y un conjunto de presets.
@@ -67,7 +68,6 @@ export const createResizedUrl = ({
     url,
   })
 }
-
 /**
  * Recorre toda la historia agregando el objeto resized_urls a cada promo_items con
  * las imagenes escaladas a los tamanos definidos como presets.
@@ -104,20 +104,16 @@ export const addResizedUrlsToStories = ({
   resizerSecret,
 }) => {
   const presetsArray = getPresetsSize(presets)
-
   return contentElements.map(story => {
     const dataStory = story
-
     const { content_elements: auxContentElements } = dataStory || {}
     if (!auxContentElements) dataStory.content_elements = []
-
     const {
       promo_items: {
         basic_gallery: basicGallery = null,
         basic_video: basicVideo = null,
       } = {},
     } = dataStory
-
     if (basicGallery && basicGallery.promo_items) {
       const { content_elements: galleryContentElements } = basicGallery || {}
       if (!galleryContentElements)
@@ -150,5 +146,19 @@ export const addResizedUrlsToStories = ({
       resizerSecret,
       presets: presetsArray,
     })
+  })
+}
+
+export const getResizedUrlsToStories = ({
+  contentElements = [],
+  presets,
+  arcSite,
+}) => {
+  const { resizerUrl } = getProperties(arcSite)
+  return addResizedUrlsToStories({
+    contentElements,
+    presets,
+    resizerUrl,
+    resizerSecret: ENV.resizerSecret,
   })
 }

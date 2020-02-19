@@ -102,6 +102,7 @@ export default ({
     deployment,
     isStory,
     isAmp: false,
+    CURRENT_ENVIRONMENT,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -301,6 +302,7 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
+<<<<<<< HEAD
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
@@ -309,6 +311,12 @@ export default ({
           arcSite === 'ojo' ||
           arcSite === 'elbocon' ||
           arcSite === 'trome') &&
+=======
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21') &&
+>>>>>>> e60a877672523a26958c561872b0aab791e2cdf2
           !nodas &&
           !isLivePage && (
             <script
@@ -326,6 +334,7 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
+<<<<<<< HEAD
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
@@ -334,6 +343,12 @@ export default ({
           arcSite === 'ojo' ||
           arcSite === 'elbocon' ||
           arcSite === 'trome'
+=======
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21'
+>>>>>>> e60a877672523a26958c561872b0aab791e2cdf2
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -400,6 +415,7 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
+<<<<<<< HEAD
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
@@ -408,6 +424,12 @@ export default ({
           arcSite === 'ojo' ||
           arcSite === 'elbocon' ||
           arcSite === 'trome') &&
+=======
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21') &&
+>>>>>>> e60a877672523a26958c561872b0aab791e2cdf2
           !nodas &&
           !isLivePage && (
             <script
