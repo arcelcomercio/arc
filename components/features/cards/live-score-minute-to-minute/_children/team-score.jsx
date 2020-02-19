@@ -10,24 +10,38 @@ const classes = {
   gol: 'flex flex-row',
 }
 
-const LiveScoreMinuteToMinuteTeanScore = ({ localTeam = true }) => {
+const LiveScoreMinuteToMinuteTeanScore = ({
+  homeTeam = true,
+  name = '',
+  flag = '',
+  scoreTeam = 0,
+  goalList = [],
+}) => {
   return (
     <div>
       <div className={classes.score}>
-        {localTeam ? <ItemTeamName /> : <ItemScore />}
-        <ItemTeamFlag />
-        {localTeam ? <ItemScore /> : <ItemTeamName />}
+        {homeTeam ? (
+          <ItemTeamName name={name} />
+        ) : (
+          <ItemScore scoreTeam={scoreTeam} />
+        )}
+        <ItemTeamFlag flag={flag} />
+        {homeTeam ? (
+          <ItemScore scoreTeam={scoreTeam} />
+        ) : (
+          <ItemTeamName name={name} />
+        )}
       </div>
       <div className={classes.gol}>
-        {localTeam ? (
+        {homeTeam ? (
           <>
-            <GolList />
+            <GolList homeTeam={homeTeam} goalList={goalList} />
             <span>icono</span>
           </>
         ) : (
           <>
             <span>icono</span>
-            <GolList />
+            <GolList homeTeam={homeTeam} goalList={goalList} />
           </>
         )}
       </div>

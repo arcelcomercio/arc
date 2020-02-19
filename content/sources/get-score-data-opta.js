@@ -25,20 +25,42 @@ const transform = (data = {}) => {
       goal = [],
     } = {},
   } = data
-  const contestants = []
-  const goalList = []
-  const liveData = {
-    home,
-    away,
-  }
+
+  let homeTeamParams = {}
+  let awayTeamParams = {}
+  let homeTeamId = ''
+  let awayTeamId = ''
+  const goalListHomeTeam = []
+  const goalListAwayTeam = []
+
+  // filtra los datos de homeTeam y awayTeam
   contestant.forEach(
-    ({ id = '', name = '', shortName = '', position = '' }) => {
-      contestants.push({
-        id,
-        name,
-        shortName,
-        position,
-      })
+    ({ id = '', name = '', flag = '', shortName = '', position = '' }) => {
+      if (position === 'home') {
+        homeTeamId = id
+        homeTeamParams = {
+          id,
+          name,
+          shortName,
+          position,
+          flag,
+          scoreTeam: home,
+          goalList: [],
+        }
+      }
+
+      if (position === 'away') {
+        awayTeamId = id
+        awayTeamParams = {
+          id,
+          name,
+          shortName,
+          position,
+          flag,
+          scoreTeam: away,
+          goalList: [],
+        }
+      }
     }
   )
 
@@ -51,17 +73,33 @@ const transform = (data = {}) => {
       awayScore = 0,
       scorerName = '',
     }) => {
-      goalList.push({
-        contestantId,
-        timeMinSec,
-        type,
-        homeScore,
-        awayScore,
-        scorerName,
-      })
+      if (contestantId === homeTeamId) {
+        goalListHomeTeam.push({
+          contestantId,
+          timeMinSec,
+          type,
+          homeScore,
+          awayScore,
+          scorerName,
+        })
+      }
+
+      if (contestantId === awayTeamId) {
+        goalListAwayTeam.push({
+          contestantId,
+          timeMinSec,
+          type,
+          homeScore,
+          awayScore,
+          scorerName,
+        })
+      }
     }
   )
-  return { contestants, liveData, goalList }
+
+  homeTeamParams.goalList = goalListHomeTeam
+  awayTeamParams.goalList = goalListAwayTeam
+  return { homeTeamParams, awayTeamParams }
 }
 
 const source = {

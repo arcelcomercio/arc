@@ -1,7 +1,7 @@
 import React from 'react'
 
-const ItemTeamName = () => {
-  return <div>Alianza Lima</div>
+const ItemTeamName = ({ name }) => {
+  return <div>{name}</div>
 }
 
 export default ItemTeamName

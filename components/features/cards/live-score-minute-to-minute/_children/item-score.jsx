@@ -1,7 +1,7 @@
 import React from 'react'
 
-const ItemScore = () => {
-  return <div>Score</div>
+const ItemScore = ({ scoreTeam = 0 }) => {
+  return <div>{scoreTeam}</div>
 }
 
 export default ItemScore
