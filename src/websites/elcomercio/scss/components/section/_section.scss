@@ -5,6 +5,9 @@
   .section-video {
     padding: 20px;
   }
+  .header__item:before{
+    background-color: $color-white;
+  }
   .section-video,
   .play-list,
   .video-list,
@@ -69,7 +72,6 @@
     justify-content: space-between;
     height: 100%;
     align-items: center;
-    padding: 0;
     @media (--desktop) {
       justify-content: center;
     }
@@ -214,5 +216,9 @@
   .section-video__title {
     color: #eaeaea;
     letter-spacing: 0.23px;
+  }
+  .footer__sites-visit,
+  .footer__sites-item a{
+    color: #666;
   }
 }
