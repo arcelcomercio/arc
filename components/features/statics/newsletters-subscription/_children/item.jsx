@@ -24,7 +24,9 @@ const NewslettersSubscriptionItem = ({
               {name}
             </a>
           </h3>
-          <p className="card__text">{description}</p>
+          <p className="newsletters-subscription__description card__text">
+            {description}
+          </p>
           {isSubscribed ? (
             <a
               href="javascript:;"
