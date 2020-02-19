@@ -4,17 +4,9 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
-import {
-  schemaBlog,
-  schemaEditorial,
-  schemaPhoto,
-} from './_dependencies/schema-filter'
+import { schemaBlog, schemaEditorial } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import {
-  defaultImage,
-  addSlashToEnd,
-  getPhotoId,
-} from '../../../utilities/helpers'
+import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 
 const classes = {
   separator: 'blog-separator mb-20',
@@ -27,7 +19,7 @@ const classes = {
 const BLOG_BASE = '/blog/'
 const CONTENT_SOURCE_SECTION = 'story-by-tag'
 const CONTENT_SOURCE_BLOG = 'get-user-blog-and-posts'
-const CONTENT_SOURCE_PHOTO = 'photo-by-id'
+const CONTENT_SOURCE_PHOTO = 'photo-resizer'
 
 const urlLogoGestion =
   'https://arc-anglerfish-arc2-sandbox-sandbox-elcomercio.s3.amazonaws.com/public/U4XN23KAQRDAHCTARRCGIKVJOE.png'
@@ -62,12 +54,19 @@ const SeparatorEditorialWithBlog = () => {
       filter: schemaEditorial(arcSite),
     }) || {}
 
+  const customImage = imageEditorial || urlLogoGestion
   const fetchImage =
-    useContent({
-      source: CONTENT_SOURCE_PHOTO,
-      query: { _id: getPhotoId(imageEditorial || urlLogoGestion) },
-      filter: schemaPhoto,
-    }) || {}
+    useContent(
+      customImage
+        ? {
+            source: CONTENT_SOURCE_PHOTO,
+            query: {
+              url: customImage,
+              presets: 'square_s:150x150',
+            },
+          }
+        : {}
+    ) || {}
 
   let listPost = Object.values(dataBlog)
   listPost = listPost.slice(0, 4)
@@ -80,20 +79,19 @@ const SeparatorEditorialWithBlog = () => {
   const { website_url: postLinkEditorial = '' } = websites[arcSite] || {}
 
   const {
-    resized_urls: {
-      lazy_default: lazyImageEditorial = '',
-      square_s: authorImgEditorial = defaultImage({
-        deployment,
-        contextPath,
-        arcSite,
-        size: 'sm',
-      }),
-    } = {},
+    resized_urls: { square_s: authorImgEditorial = '' } = {},
   } = fetchImage
+
+  const defaultImg = defaultImage({
+    deployment,
+    contextPath,
+    arcSite,
+    size: 'sm',
+  })
 
   const paramsEditorial = {
     authorName: titleEditorial || 'Editorial',
-    lazyImage: lazyImageEditorial || urlLogoGestion,
+    lazyImage: defaultImg,
     authorImg: authorImgEditorial || urlLogoGestion,
     blogUrl: '/noticias/editorial-de-gestion/',
     postLink: postLinkEditorial,
@@ -122,13 +120,8 @@ const SeparatorEditorialWithBlog = () => {
                 first_name: authorName = '',
                 user_avatarb: {
                   resized_urls: {
-                    lazy_default: lazyImage,
-                    author_sm: authorImg = defaultImage({
-                      deployment,
-                      contextPath,
-                      arcSite,
-                      size: 'sm',
-                    }),
+                    lazy_default: lazyImage = defaultImg,
+                    author_sm: authorImg = defaultImg,
                   } = {},
                 } = {},
               } = {},
