@@ -13,14 +13,45 @@ const Newsletters = props => {
 
   const [typeNewsletters, setTypeNewsletters] = useState([])
   const [categories, setCategories] = useState([])
+  const [codeNewsletter, setCodeNewsletter] = useState('')
   const [showSignwall, setShowSignwall] = useState(false)
 
-  const UUID = window.Identity.userIdentity
+  let UUID = window.Identity.userIdentity
     ? window.Identity.userIdentity.uuid
     : ''
-  const EMAIL = window.Identity.userProfile
+  let EMAIL = window.Identity.userProfile
     ? window.Identity.userProfile.email
     : ''
+
+  const addOrRemoveNewslettersType = code => {
+    console.log('state categories', categories)
+    const data = categories
+    if (!data.includes(code)) {
+      data.push(code)
+    } else {
+      data.splice(data.indexOf(code), 1)
+    }
+    console.log('data categories', categories)
+    return data || []
+  }
+
+  const subscribe = code => {
+    console.log('subscribe code', code)
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.extendSession().then(extSess => {
+      Services.sendNewsLettersUser(
+        UUID,
+        EMAIL,
+        arcSite,
+        extSess.accessToken,
+        addOrRemoveNewslettersType(code)
+      ).then(res => {
+        console.log('sendNewsLettersUser', res)
+        setCategories(res.data.preferences || [])
+        // setCodeNewsletter('')
+      })
+    })
+  }
 
   useEffect(() => {
     Services.getNewsLetters().then(res => {
@@ -36,7 +67,24 @@ const Newsletters = props => {
   }, [])
 
   const afterLoggued = () => {
-    console.log('TO DO: FLOW NEWSLETTER')
+    console.log('afterLoggued codeNewsletter', codeNewsletter)
+    window.scrollTo(0, 100)
+    setTimeout(() => {
+      console.log('TO DO: FLOW NEWSLETTER 4', window.Identity.userProfile)
+      window.scrollTo(0, 0)
+      UUID =
+        (window.Identity.userIdentity && window.Identity.userIdentity.uuid) ||
+        ''
+      EMAIL =
+        (window.Identity.userProfile && window.Identity.userProfile.email) || ''
+
+      console.log('data', UUID, EMAIL)
+      Services.getNewsLettersUser(UUID, arcSite).then(res => {
+        console.log('afterLoggued getNewsLettersUser', res)
+        setCategories(res.data)
+        subscribe(codeNewsletter)
+      })
+    }, 1000)
   }
 
   useEffect(() => {
@@ -45,18 +93,6 @@ const Newsletters = props => {
       removeEventListener('logged', afterLoggued)
     }
   }, [])
-
-  const addOrRemoveNewslettersType = code => {
-    console.log('state categories', categories)
-    const data = categories
-    if (!data.includes(code)) {
-      data.push(code)
-    } else {
-      data.splice(data.indexOf(code), 1)
-    }
-    console.log('data categories', categories)
-    return data || []
-  }
 
   const checkSession = () => {
     if (typeof window !== 'undefined') {
@@ -72,23 +108,14 @@ const Newsletters = props => {
   }
 
   const subscribeOnclickHandle = code => {
+    setCodeNewsletter(prevCode => code)
+    // setCodeNewsletter(code)
+    console.log('subscribeOnclickHandle code', code)
+    console.log('subscribeOnclickHandle codeNewsletter', codeNewsletter)
     if (checkSession()) {
-      console.log('subscribeOnclickHandle code', code)
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      window.Identity.extendSession().then(extSess => {
-        Services.sendNewsLettersUser(
-          UUID,
-          EMAIL,
-          arcSite,
-          extSess.accessToken,
-          addOrRemoveNewslettersType(code)
-        ).then(res => {
-          console.log('sendNewsLettersUser', res)
-          setCategories(res.data.preferences || [])
-        })
-      })
+      subscribe(code)
     } else {
-      console.log('no tiene session')
+      console.log('no tiene session 4')
       setShowSignwall(!showSignwall)
     }
   }

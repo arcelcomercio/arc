@@ -28,12 +28,12 @@ const NewslettersSubscriptionItem = ({
             {description}
           </p>
           {isSubscribed ? (
-            <a
-              href="javascript:;"
+            <button
+              type="button"
               onClick={() => callbackSubscription(code)}
               className="link-suscribe mt-15">
               Desuscribirme
-            </a>
+            </button>
           ) : (
             <button
               type="button"
@@ -48,11 +48,11 @@ const NewslettersSubscriptionItem = ({
   )
 }
 
-/* NewslettersSubscriptionItem.propTypes = {
+NewslettersSubscriptionItem.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-} */
+}
 
 export default NewslettersSubscriptionItem
