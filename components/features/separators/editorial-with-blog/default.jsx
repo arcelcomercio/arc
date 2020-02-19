@@ -3,14 +3,10 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import SeparatorBlogChildItem from './_children/item'
+import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
 import { schemaBlog, schemaEditorial } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import {
-  defaultImage,
-  addSlashToEnd,
-  getPhotoId,
-} from '../../../utilities/helpers'
+import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 
 const classes = {
   separator: 'blog-separator mb-20',
@@ -59,10 +55,9 @@ const SeparatorEditorialWithBlog = () => {
     }) || {}
 
   const customImage = imageEditorial || urlLogoGestion
-  const photoId = getPhotoId(customImage) || ''
   const fetchImage =
     useContent(
-      photoId
+      customImage
         ? {
             source: CONTENT_SOURCE_PHOTO,
             query: {
@@ -84,20 +79,19 @@ const SeparatorEditorialWithBlog = () => {
   const { website_url: postLinkEditorial = '' } = websites[arcSite] || {}
 
   const {
-    resized_urls: {
-      lazy_default: lazyImageEditorial = '',
-      square_s: authorImgEditorial = defaultImage({
-        deployment,
-        contextPath,
-        arcSite,
-        size: 'sm',
-      }),
-    } = {},
+    resized_urls: { square_s: authorImgEditorial = '' } = {},
   } = fetchImage
+
+  const defaultImg = defaultImage({
+    deployment,
+    contextPath,
+    arcSite,
+    size: 'sm',
+  })
 
   const paramsEditorial = {
     authorName: titleEditorial || 'Editorial',
-    lazyImage: lazyImageEditorial || urlLogoGestion,
+    lazyImage: defaultImg,
     authorImg: authorImgEditorial || urlLogoGestion,
     blogUrl: '/noticias/editorial-de-gestion/',
     postLink: postLinkEditorial,
@@ -126,13 +120,8 @@ const SeparatorEditorialWithBlog = () => {
                 first_name: authorName = '',
                 user_avatarb: {
                   resized_urls: {
-                    lazy_default: lazyImage,
-                    author_sm: authorImg = defaultImage({
-                      deployment,
-                      contextPath,
-                      arcSite,
-                      size: 'sm',
-                    }),
+                    lazy_default: lazyImage = defaultImg,
+                    author_sm: authorImg = defaultImg,
                   } = {},
                 } = {},
               } = {},

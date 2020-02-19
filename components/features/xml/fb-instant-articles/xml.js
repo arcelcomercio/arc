@@ -103,7 +103,12 @@ class XmlFacebookInstantArticles {
               if (storyData.fiaOrigen === true) {
                 if (storyData.canonicalWebsite === 'elcomerciomag') {
                   fiaContent = 'MAG'
-                  storyLink = `${siteUrl}/mag${storyData.websiteLink}`
+                  const {
+                    websites: {
+                      elcomerciomag: { website_url: magWebsiteUrl = '' } = {},
+                    } = {},
+                  } = story || {}
+                  storyLink = `${siteUrl}/mag${magWebsiteUrl}`
                 } else {
                   storyLink = `${siteUrl}${storyData.websiteLink}`
                   fiaContent = fbArticleStyle
