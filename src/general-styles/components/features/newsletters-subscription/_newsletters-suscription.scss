@@ -1,43 +1,105 @@
 .newsletters-subscription {
-  & figure {
-    width: 90%;
+  &__title {
+    height: 35px;
+    font-size: 20px;
+  }
+  &__list {
+    grid-template-columns: 1fr;
+    @media (--tablet) {
+      grid-template-columns: repeat(2, 50%);
+      max-width: 700px;
+    }
+    @media (--desktop) {
+      grid-template-columns: repeat(3, 33.3%);
+      max-width: 100%;
+    }
+  }
+  &__item {
+    margin: 10px;
+    position: relative;
+    width: auto;
+    min-width: auto;
+    overflow: visible;
+  }
+  &__card {
+    background-color: $color-tertiary;
+    @media (--tablet) {
+      height: 352px;
+    }
+    @media (--desktop) {
+      height: 361px;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      border: 1px solid $color-gray-100;
+    }
+  }
+  &__figure {
+    @media (--desktop) {
+      height: 162px;
+    }
+  }
+  &__title-text {
+    &:after {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 1px;
+      background-color: $color-gray-300;
+      margin: 10px auto 0;
+    }
+  }
+  &__title-span {
+    font-size: 20px;
+    letter-spacing: 0px;
+    line-height: 24px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    max-height: 37px;
+    overflow: hidden;
   }
 
-  & .author-card__name:after {
-    content: "";
-    display: block;
-    width: 30px;
-    height: 1px;
-    background-color: #333;
-    margin: 10px auto 0;
-  }
-
-  & .author-card__detail {
-    width: 90%;
-  }
-
-  .card__text {
+  &__description {
     font-size: 14px;
     line-height: 20px;
     text-align: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    max-height: 63px;
+    overflow: hidden;
+    padding: 0 10px;
   }
 
-  & .author-card__icono {
-    background-color: #f7c600;
-  }
-
-  & .link-suscribe {
-    border: 1px solid #000;
-    color: #000;
-    background-color: white;
+  &__btn {
+    border: 1px solid $color-black;
+    color: $color-black;
+    background-color: $color-white;
     border-radius: 3px;
     padding: 8px 8px;
     display: inline-block;
     font-size: 13px;
+    outline: 0;
+    &--subscribed {
+      background-color: $color-primary;
+      color: $color-gray-300;
+      border: 0;
+    }
   }
 
-  & .author-card__icono {
-    bottom: auto;
-    top: 172px;
+  &__icono {
+    background-color: #f7c600;
+    bottom: -12px;
+    height: 24px;
+    width: 24px;
   }
 }

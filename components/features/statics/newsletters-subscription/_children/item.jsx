@@ -10,37 +10,31 @@ const NewslettersSubscriptionItem = ({
   callbackSubscription,
 }) => {
   return (
-    <article role="listitem" className="author-card p-5 position-relative">
-      <div className="author-card__wrapper flex flex-col items-center lg:pt-20 md:pt-20 xs:pt-20 pt-20 pb-60 md:pb-25 lg:pb-25">
-        <figure className="flex flex-col items-center ">
-          <img
-            className="featured-story__img w-full h-full object-cover"
-            src={image}
-            alt={name}
-          />
+    <article role="listitem" className="newsletters-subscription__item p-5">
+      <div className="newsletters-subscription__card flex flex-col items-center pl-10 pr-10 md:pt-20 xs:pt-20 pt-20 pb-20 md:pb-20">
+        <figure className="newsletters-subscription__figure w-full flex flex-col items-center position-relative">
+          <img className="w-full h-full object-cover" src={image} alt={name} />
+          <i className="newsletters-subscription__icono icon-marca position-absolute bottom-0 flex items-center justify-center rounded" />
         </figure>
-        <i className="author-card__icono icon-marca position-absolute mb-20 flex items-center justify-center" />
-        <div className="author-card__detail flex flex-col items-center pt-10">
-          <h3>
-            <a
-              class="author-card__name block mb-10 mt-5 secondary-font font-bold title-sm text-gray-300 line-h-xs text-center"
-              href="#">
+        <div className="newsletters-subscription__detail w-full flex flex-col items-center pt-10">
+          <h3 className="newsletters-subscription__title-text text-center mb-10 mt-5">
+            <span className="newsletters-subscription__title-span  primary-font font-bold text-gray-300">
               {name}
-            </a>
+            </span>
           </h3>
-          <p className="card__text">{description}</p>
+          <p className="newsletters-subscription__description">{description}</p>
           {isSubscribed ? (
             <button
               type="button"
               onClick={() => callbackSubscription(code)}
-              className="link-suscribe mt-15">
+              className="newsletters-subscription__btn newsletters-subscription__btn--subscribed mt-15">
               Desuscribirme
             </button>
           ) : (
             <button
               type="button"
               onClick={() => callbackSubscription(code)}
-              className="link-suscribe mt-15">
+              className="newsletters-subscription__btn mt-15">
               Suscribirme
             </button>
           )}
