@@ -38,6 +38,7 @@ export const SecondMiddle = styled(Base)`
   position: relative;
   width: 100%;
   position: relative;
+  background: #ffffff;
   @media ${device.desktop} {
     width: 50%;
   }
