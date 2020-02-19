@@ -68,9 +68,10 @@ const Newsletters = props => {
 
   const afterLoggued = () => {
     console.log('afterLoggued codeNewsletter', codeNewsletter)
+    window.scrollTo(0, 100)
     setTimeout(() => {
       console.log('TO DO: FLOW NEWSLETTER 4', window.Identity.userProfile)
-
+      window.scrollTo(0, 0)
       UUID =
         (window.Identity.userIdentity && window.Identity.userIdentity.uuid) ||
         ''

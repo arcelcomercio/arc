@@ -157,6 +157,12 @@ export const FormLogin = ({
         })
       } else {
         onClose()
+        if (
+          typeDialog === 'organico' &&
+          window.location.pathname.match(/newsletters/)
+        ) {
+          window.location.reload()
+        }
       }
     })
   }
