@@ -24,11 +24,9 @@
   &__card {
     background-color: $color-tertiary;
     @media (--tablet) {
-      height: 352px;
+      height: 376px;
     }
-    @media (--desktop) {
-      height: 361px;
-    }
+
     &:before {
       content: "";
       position: absolute;
@@ -43,8 +41,14 @@
     }
   }
   &__figure {
-    @media (--desktop) {
+    @media (--tablet) {
       height: 162px;
+    }
+  }
+
+  &__detail {
+    @media (--tablet) {
+      height: calc(100% - 162px);
     }
   }
   &__title-text {

@@ -16,7 +16,7 @@ const NewslettersSubscriptionItem = ({
           <img className="w-full h-full object-cover" src={image} alt={name} />
           <i className="newsletters-subscription__icono icon-marca position-absolute bottom-0 flex items-center justify-center rounded" />
         </figure>
-        <div className="newsletters-subscription__detail w-full flex flex-col items-center pt-10">
+        <div className="newsletters-subscription__detail w-full flex flex-col items-center justify-between pt-10">
           <h3 className="newsletters-subscription__title-text text-center mb-10 mt-5">
             <span className="newsletters-subscription__title-span  primary-font font-bold text-gray-300">
               {name}
