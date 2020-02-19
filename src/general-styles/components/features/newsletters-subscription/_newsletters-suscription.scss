@@ -1,8 +1,6 @@
 .newsletters-subscription {
   &__title {
     height: 35px;
-  }
-  &__link {
     font-size: 20px;
   }
   &__list {
@@ -26,11 +24,10 @@
   &__card {
     background-color: $color-tertiary;
     @media (--tablet) {
-      height: 340px;
+      height: 352px;
     }
     @media (--desktop) {
       height: 361px;
-      width: 298px;
     }
     &:before {
       content: "";
@@ -42,37 +39,61 @@
       left: 50%;
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      border: 1px solid #e8e8e8;
+      border: 1px solid $color-gray-100;
     }
   }
-  &__name {
-    font-size: 20px;
-    letter-spacing: 0px;
-    line-height: 24px;
+  &__figure {
+    @media (--desktop) {
+      height: 162px;
+    }
+  }
+  &__title-text {
     &:after {
       content: "";
       display: block;
       width: 30px;
       height: 1px;
-      background-color: #333;
+      background-color: $color-gray-300;
       margin: 10px auto 0;
     }
+  }
+  &__title-span {
+    font-size: 20px;
+    letter-spacing: 0px;
+    line-height: 24px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    max-height: 37px;
+    overflow: hidden;
   }
 
   &__description {
     font-size: 14px;
     line-height: 20px;
     text-align: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    max-height: 63px;
+    overflow: hidden;
+    padding: 0 10px;
   }
 
-  & .link-suscribe {
-    border: 1px solid #000;
-    color: #000;
-    background-color: white;
+  &__btn {
+    border: 1px solid $color-black;
+    color: $color-black;
+    background-color: $color-white;
     border-radius: 3px;
     padding: 8px 8px;
     display: inline-block;
     font-size: 13px;
+    outline: 0;
+    &--subscribed {
+      background-color: $color-primary;
+      color: $color-gray-300;
+      border: 0;
+    }
   }
 
   &__icono {
