@@ -9,7 +9,7 @@ import { Generic } from '../../signwall/main/_main/generic'
 
 const Newsletters = props => {
   const { dispatchEvent, addEventListener, removeEventListener } = props
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite } = useFusionContext()
 
   const [typeNewsletters, setTypeNewsletters] = useState([])
   const [categories, setCategories] = useState([])
@@ -92,7 +92,7 @@ const Newsletters = props => {
     return () => {
       removeEventListener('logged', afterLoggued)
     }
-  }, [])
+  }, [afterLoggued])
 
   const checkSession = () => {
     if (typeof window !== 'undefined') {
@@ -108,14 +108,17 @@ const Newsletters = props => {
   }
 
   const subscribeOnclickHandle = code => {
-    setCodeNewsletter(prevCode => code)
-    // setCodeNewsletter(code)
+    // setCodeNewsletter(prevCode => code)
+    setCodeNewsletter(code)
     console.log('subscribeOnclickHandle code', code)
     console.log('subscribeOnclickHandle codeNewsletter', codeNewsletter)
+    setTimeout(() => {
+      console.log('subscribeOnclickHandle codeNewsletter 2', codeNewsletter)
+    }, 500)
     if (checkSession()) {
       subscribe(code)
     } else {
-      console.log('no tiene session 4')
+      console.log('no tiene session 1')
       setShowSignwall(!showSignwall)
     }
   }
@@ -158,9 +161,9 @@ class NewslettersSubscription extends React.Component {
     return (
       <Newsletters
         {...this.props}
-        dispatchEvent={this.dispatchEvent.bind(this)}
-        addEventListener={this.addEventListener.bind(this)}
-        removeEventListener={this.removeEventListener.bind(this)}
+        dispatchEvent={this.dispatchEvent}
+        addEventListener={this.addEventListener}
+        removeEventListener={this.removeEventListener}
       />
     )
   }
