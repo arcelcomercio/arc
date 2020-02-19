@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React, { useState, useEffect } from 'react'
 import { useContent, useEditableContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
@@ -9,15 +8,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import { getPhotoId } from '../../../utilities/helpers'
 import { includePromoItems } from '../../../utilities/included-fields'
 
-// TODO: cambiar a componente funcional con hooks
-
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l   
-  }
-}`
+const PHOTO_SOURCE = 'photo-resizer'
 
 const ExtraordinaryStoryLifeScore = props => {
   const { customFields } = props
@@ -67,6 +58,7 @@ const ExtraordinaryStoryLifeScore = props => {
     },
   })
 
+  // Solo acepta custom image desde Photo Center
   const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
@@ -74,9 +66,9 @@ const ExtraordinaryStoryLifeScore = props => {
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: imgField,
+              presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}
@@ -92,7 +84,9 @@ const ExtraordinaryStoryLifeScore = props => {
         setResults(res)
         setCount(actualCount + 1)
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        throw new Error(err)
+      })
   }
 
   useEffect(() => {
@@ -103,6 +97,7 @@ const ExtraordinaryStoryLifeScore = props => {
         customFetch()
       }, 5000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const { data: { equipos: teams = [] } = {} } = results || {}

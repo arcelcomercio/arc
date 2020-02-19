@@ -15,17 +15,7 @@ import {
   includeCreditsImage,
 } from '../../../utilities/included-fields'
 
-const PHOTO_SOURCE = 'photo-by-id'
-
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_xl
-    lazy_default  
-  }
-}`
+const PHOTO_SOURCE = 'photo-resizer'
 
 const FeatureStoryFullImage = props => {
   const {
@@ -42,8 +32,7 @@ const FeatureStoryFullImage = props => {
 
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
-  const presets =
-    'landscape_l:648x374,portrait_md:314x374,square_xl:900x900,square_md:300x300'
+  const presets = 'landscape_l:648x374,portrait_md:314x374,square_xl:647x767'
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsImage},${includePrimarySection}`
 
   const data =
@@ -53,6 +42,7 @@ const FeatureStoryFullImage = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
+  // Solo acepta custom image desde Photo Center
   const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
@@ -60,9 +50,9 @@ const FeatureStoryFullImage = props => {
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: imgField,
+              presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}
