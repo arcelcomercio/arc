@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 
 import { useContent } from 'fusion:content'
@@ -44,18 +45,20 @@ const InterestByTag = props => {
   })
 
   const urlTag = `/${tag || slug}/`
-  const { content_elements: storyData = [] } =
-    useContent({
-      source: CONTENT_SOURCE,
-      query: {
-        website: arcSite,
-        name: urlTag,
-        size: 5,
-        presets,
-        includedFields,
-      },
-      filter: schemaFilter(arcSite),
-    }) || {}
+
+  const { content_elements: storyData = [] } = !isAmp
+    ? useContent({
+        source: CONTENT_SOURCE,
+        query: {
+          website: arcSite,
+          name: urlTag,
+          size: 5,
+          presets,
+          includedFields,
+        },
+        filter: schemaFilter(arcSite),
+      }) || {}
+    : ''
 
   const instance =
     storyData &&

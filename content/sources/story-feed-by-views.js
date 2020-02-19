@@ -20,6 +20,11 @@ const params = [
     type: 'text',
   },
   {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes',
+    type: 'text',
+  },
+  {
     name: 'size',
     displayName: 'Cantidad de historias',
     type: 'number',
@@ -80,15 +85,18 @@ const pattern = key => {
 
 const resolve = key => pattern(key)
 
-const transform = data => {
+const transform = (data, { presets: customPresets }) => {
   const dataStories = data
   const { resizerUrl, siteName } = getProperties(website)
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret,
-    addResizedUrls
-  )
+
+  if (customPresets !== 'no-presets') {
+    dataStories.content_elements = addResizedUrlsToStory(
+      dataStories.content_elements,
+      resizerUrl,
+      resizerSecret,
+      addResizedUrls
+    )
+  }
   dataStories.siteName = siteName
   return {
     ...dataStories,
