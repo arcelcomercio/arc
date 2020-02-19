@@ -232,7 +232,6 @@ const FeaturedStoryPremium = props => {
     resized_urls: {
       square_md: squareMDCustom,
       square_xl: squareXLCustom,
-      lazy_default: lazyDefaultCustom,
       landscape_l: landscapeLCustom,
       landscape_md: landscapeMDCustom,
       portrait_md: portraitMDCustom,
@@ -252,8 +251,7 @@ const FeaturedStoryPremium = props => {
       landscapeMDCustom || imgField || multimediaLandscapeMD,
     multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
     multimediaPortraitMD: portraitMDCustom || imgField || multimediaPortraitMD,
-    multimediaLazyDefault:
-      lazyDefaultCustom || imgField || multimediaLazyDefault,
+    multimediaLazyDefault,
     title,
     subTitle,
     author,
