@@ -92,9 +92,7 @@ class updatePassword extends Component {
             showMsgSuccess: true,
             sending: true,
           })
-          // eslint-disable-next-line react/no-string-refs
           this.refs.newPassword.value = ''
-          // eslint-disable-next-line react/no-string-refs
           this.refs.repeatPassword.value = ''
           setTimeout(() => {
             this.setState({

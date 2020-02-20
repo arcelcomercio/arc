@@ -32,8 +32,7 @@ const FeatureStoryFullImage = props => {
 
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
-  const presets =
-    'landscape_l:648x374,portrait_md:314x374,square_xl:900x900,square_md:300x300'
+  const presets = 'landscape_l:648x374,portrait_md:314x374,square_xl:647x767'
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsImage},${includePrimarySection}`
 
   const data =

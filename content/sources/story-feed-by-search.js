@@ -66,7 +66,12 @@ const getQueryFilter = (query, section, website) => {
 
   // Si se filtra por seccion se usa ?body, sino, se usa ?q
   if (section === 'todas') {
-    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${query}`
+    let queryAll = query
+    if (query !== '') {
+      // queryAll = query.replace(/ /g, '+AND+')
+      queryAll = `("${queryAll}")`
+    }
+    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${queryAll}`
   } else {
     let valueQuery = query.replace(/\+/g, ' ')
     valueQuery = valueQuery.replace(/-/g, '+') || '*'
