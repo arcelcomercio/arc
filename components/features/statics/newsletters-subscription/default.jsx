@@ -22,6 +22,10 @@ const Newsletters = props => {
   const [codeNewsletter, setCodeNewsletter] = useState('')
   const [showSignwall, setShowSignwall] = useState(false)
 
+  const isFetching = false
+  let newSetCategories
+  let timeout
+
   let UUID = window.Identity.userIdentity
     ? window.Identity.userIdentity.uuid
     : ''
@@ -57,11 +61,26 @@ const Newsletters = props => {
         extSess.accessToken,
         addOrRemoveNewslettersType(code, categoriesNews, fromLoggued)
       ).then(res => {
+        if (newSetCategories) {
+          newSetCategories = null
+          subscribe(code, categoriesNews)
+        }
         console.log('sendNewsLettersUser', res)
         setCategories(res.data.preferences || [])
         setCodeNewsletter('')
       })
     })
+  }
+
+  const debounce = (codex, categoriesx) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      if (!isFetching) {
+        subscribe(codex, categoriesx)
+      } else {
+        newSetCategories = true
+      }
+    }, 1000)
   }
 
   useEffect(() => {
@@ -130,7 +149,8 @@ const Newsletters = props => {
       console.log('subscribeOnclickHandle codeNewsletter 2', codeNewsletter)
     }, 500)
     if (checkSession()) {
-      subscribe(code, categories)
+      // subscribe(code, categories)
+      debounce(code, categories)
     } else {
       console.log('no tiene session 2')
       setShowSignwall(!showSignwall)
