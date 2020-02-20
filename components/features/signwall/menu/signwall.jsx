@@ -125,7 +125,11 @@ const Menu = ({
                       href="#"
                       onClick={e => {
                         e.preventDefault()
-                        openItemMenu('news')
+                        if (arcSite === 'elcomercio') {
+                          window.open('/newsletters', '_blank')
+                        } else {
+                          openItemMenu('news')
+                        }
                       }}>
                       Newsletters
                     </a>
