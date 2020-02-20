@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useFusionContext } from 'fusion:context'
 import Consumer from 'fusion:consumer'
 import SubscriptionTitle from './_children/title'
@@ -6,6 +6,12 @@ import SubscriptionItem from './_children/item'
 import Services from '../../signwall/_dependencies/services'
 import Domains from '../../signwall/_dependencies/domains'
 import { Generic } from '../../signwall/main/_main/generic'
+
+const classes = {
+  container:
+    'newsletters-subscription grid--col-1 grid--col-2 grid--col-3 col-3',
+  list: 'newsletters-subscription__list grid w-full m-0 mx-auto',
+}
 
 const Newsletters = props => {
   const { dispatchEvent, addEventListener, removeEventListener } = props
@@ -23,19 +29,24 @@ const Newsletters = props => {
     ? window.Identity.userProfile.email
     : ''
 
-  const addOrRemoveNewslettersType = code => {
+  const addOrRemoveNewslettersType = (
+    code,
+    categoriesNews,
+    fromLoggued = false
+  ) => {
     console.log('state categories', categories)
-    const data = categories
+    console.log('categoriesNews', categoriesNews)
+    const data = categoriesNews
     if (!data.includes(code)) {
       data.push(code)
-    } else {
+    } else if (!fromLoggued) {
       data.splice(data.indexOf(code), 1)
     }
-    console.log('data categories', categories)
+    console.log('data categories', data)
     return data || []
   }
 
-  const subscribe = code => {
+  const subscribe = (code, categoriesNews, fromLoggued = false) => {
     console.log('subscribe code', code)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession().then(extSess => {
@@ -44,11 +55,11 @@ const Newsletters = props => {
         EMAIL,
         arcSite,
         extSess.accessToken,
-        addOrRemoveNewslettersType(code)
+        addOrRemoveNewslettersType(code, categoriesNews, fromLoggued)
       ).then(res => {
         console.log('sendNewsLettersUser', res)
         setCategories(res.data.preferences || [])
-        // setCodeNewsletter('')
+        setCodeNewsletter('')
       })
     })
   }
@@ -82,7 +93,7 @@ const Newsletters = props => {
       Services.getNewsLettersUser(UUID, arcSite).then(res => {
         console.log('afterLoggued getNewsLettersUser', res)
         setCategories(res.data)
-        subscribe(codeNewsletter)
+        subscribe(codeNewsletter, res.data, true)
       })
     }, 1000)
   }
@@ -107,29 +118,30 @@ const Newsletters = props => {
     return false
   }
 
+  // const forceUpdate = useCallback(code => setCodeNewsletter(code), [])
+
   const subscribeOnclickHandle = code => {
     // setCodeNewsletter(prevCode => code)
     setCodeNewsletter(code)
+    // forceUpdate(code)
     console.log('subscribeOnclickHandle code', code)
     console.log('subscribeOnclickHandle codeNewsletter', codeNewsletter)
     setTimeout(() => {
       console.log('subscribeOnclickHandle codeNewsletter 2', codeNewsletter)
     }, 500)
     if (checkSession()) {
-      subscribe(code)
+      subscribe(code, categories)
     } else {
-      console.log('no tiene session 1')
+      console.log('no tiene session 2')
       setShowSignwall(!showSignwall)
     }
   }
 
   return (
     <>
-      <div className="newsletters-subscription grid--col-1 grid--col-2 grid--col-3 col-3">
+      <div className={classes.container}>
         <SubscriptionTitle />
-        <div
-          role="list"
-          className="newsletters-subscription__list grid w-full m-0 mx-auto">
+        <div role="list" className={classes.list}>
           {typeNewsletters.map(item => {
             const data = {
               ...item,
