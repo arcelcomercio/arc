@@ -473,6 +473,14 @@ export const FormRegister = props => {
                                   )
                                 } else {
                                   onClose()
+                                  if (
+                                    typeDialog === 'organico' &&
+                                    window.location.pathname.match(
+                                      /newsletters/
+                                    )
+                                  ) {
+                                    window.location.reload()
+                                  }
                                 }
                               }}>
                               SIGUE NAVEGANDO
@@ -514,6 +522,12 @@ export const FormRegister = props => {
                                 setShowStudents(!showStudents)
                               } else {
                                 onClose()
+                                if (
+                                  typeDialog === 'organico' &&
+                                  window.location.pathname.match(/newsletters/)
+                                ) {
+                                  window.location.reload()
+                                }
                               }
                             }}>
                             CONTINUAR
