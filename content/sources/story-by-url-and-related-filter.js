@@ -387,6 +387,10 @@ export default {
       content
       type
     }
+    uuid_match{
+      content
+      type
+    }
     youtube_id {
       content
       type
@@ -453,6 +457,7 @@ export default {
       _id
       canonical_url
       website_url
+      subtype
       type
       headlines{
         basic
@@ -469,6 +474,10 @@ export default {
             original
             landscape_md
           }
+        }
+        uuid_match{
+          content
+          type
         }
         basic_gallery{
           promo_items{
