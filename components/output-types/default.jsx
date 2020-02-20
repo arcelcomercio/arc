@@ -90,7 +90,6 @@ export default ({
     classBody = `${isStory && 'story'} section-play`
   if (requestUri.match(`^(/videos/.*)`))
     classBody = `${isStory && 'story'} section-videos`
-
   if (arcSite === 'elcomercio') {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
@@ -303,11 +302,11 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' || 
+          arcSite === 'diariocorreo' ||
           arcSite === 'ojo' ||
           arcSite === 'elbocon' ||
           arcSite === 'trome') &&
@@ -328,11 +327,11 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' || 
+          arcSite === 'diariocorreo' ||
           arcSite === 'ojo' ||
           arcSite === 'elbocon' ||
           arcSite === 'trome'
@@ -402,11 +401,11 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' || 
+          arcSite === 'diariocorreo' ||
           arcSite === 'ojo' ||
           arcSite === 'elbocon' ||
           arcSite === 'trome') &&
@@ -437,11 +436,11 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' || 
+          arcSite === 'diariocorreo' ||
           arcSite === 'ojo' ||
           arcSite === 'elbocon' ||
           arcSite === 'trome'
@@ -509,11 +508,11 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
           arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' || 
+          arcSite === 'diariocorreo' ||
           arcSite === 'ojo' ||
           arcSite === 'elbocon' ||
           arcSite === 'trome') &&

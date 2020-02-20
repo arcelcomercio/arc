@@ -79,6 +79,7 @@ const CardFeaturedStoryManual = props => {
   const validateScheduledNotes = () => {
     const filter = '{ publish_date }'
     const includedFields = 'publish_date'
+    const presets = 'no-presets'
 
     const auxNote1 =
       // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -89,6 +90,7 @@ const CardFeaturedStoryManual = props => {
               query: {
                 website_url: note1,
                 published: 'false',
+                presets,
                 includedFields,
               },
               filter,
@@ -105,6 +107,7 @@ const CardFeaturedStoryManual = props => {
               query: {
                 website_url: note2,
                 published: 'false',
+                presets,
                 includedFields,
               },
               filter,
@@ -121,6 +124,7 @@ const CardFeaturedStoryManual = props => {
               query: {
                 website_url: note3,
                 published: 'false',
+                presets,
                 includedFields,
               },
               filter,
@@ -184,6 +188,7 @@ const CardFeaturedStoryManual = props => {
             source,
             query: {
               website_url: currentNotePath,
+              presets,
               includedFields,
             },
             filter: schema,
@@ -199,6 +204,7 @@ const CardFeaturedStoryManual = props => {
           source,
           query: {
             website_url: path,
+            presets,
             includedFields,
           },
           filter: schema,

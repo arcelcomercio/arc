@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const classes = {
   listItemDest: 'stories-video__item-dest w-full',
@@ -55,6 +56,14 @@ const YoutubeVideoDestacado = ({
       </div>
     </>
   )
+}
+
+YoutubeVideoDestacado.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
+  liveStory: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  video: PropTypes.object.isRequired,
+  autoPlayVideo: PropTypes.bool.isRequired,
 }
 
 export default YoutubeVideoDestacado

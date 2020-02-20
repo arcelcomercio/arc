@@ -25,12 +25,15 @@ const CardFeaturedOpening = props => {
   } = siteProperties || {}
 
   const { customFields: { url, customTitle, note1, note2 } = {} } = props
+  const source = 'story-by-url'
+  const presets = 'no-presets'
 
   const data =
     useContent({
-      source: 'story-by-url',
+      source,
       query: {
         website_url: url,
+        presets,
       },
       filter: schemaNote(arcSite),
     }) || {}
@@ -38,9 +41,10 @@ const CardFeaturedOpening = props => {
   const getNote1 =
     (note1 &&
       useContent({
-        source: 'story-by-url',
+        source,
         query: {
           website_url: note1,
+          presets,
         },
         filter: schemaURL(),
       })) ||
@@ -49,9 +53,10 @@ const CardFeaturedOpening = props => {
   const getNote2 =
     (note2 &&
       useContent({
-        source: 'story-by-url',
+        source,
         query: {
           website_url: note2,
+          presets,
         },
         filter: schemaURL(),
       })) ||

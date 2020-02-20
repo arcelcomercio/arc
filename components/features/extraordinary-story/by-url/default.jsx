@@ -16,19 +16,19 @@ const ExtraordinaryStoryByUrl = props => {
   const { link = '', showExtraordinaryStory, multimediaSource } = customFields
   const { deployment, contextPath, arcSite } = useFusionContext()
 
+  const presets =
+    'landscape_xl:980x528,landscape_ext_story:980x355,landscape_l:648x374,square_l:600x600'
+
   const data =
     useContent(
       showExtraordinaryStory
         ? {
             source: API_URL,
-            query: { website_url: link },
+            query: { website_url: link, presets },
             filter: schemaFilter(arcSite),
           }
         : {}
     ) || {}
-
-  const presets =
-    'landscape_xl:980x528,landscape_ext_story:980x355,landscape_l:648x374,square_l:600x600'
 
   // Solo acepta custom image desde Photo Center
   const photoId = multimediaSource ? getPhotoId(multimediaSource) : ''

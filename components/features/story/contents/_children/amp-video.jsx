@@ -16,7 +16,7 @@ const getTypeVideo = (streams, typo = 'ts') => {
 }
 
 const StoryContentChildVideoAmp = ({ data }) => {
-  const { siteProperties: { urlPreroll } = {} } = useFusionContext()
+  const { siteProperties: { urlPreroll = '' } = {} } = useFusionContext()
 
   const {
     _id: id = '',
