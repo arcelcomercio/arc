@@ -321,7 +321,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  activeNewsletter: false,
+  activeNewsletter: true,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',

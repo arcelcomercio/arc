@@ -86,13 +86,23 @@ const Menu = ({
               <ul>
                 {activePaywall && (
                   <li>
-                    <a href="#" onClick={() => openItemMenu('home')}>
+                    <a
+                      href="#"
+                      onClick={e => {
+                        e.preventDefault()
+                        openItemMenu('home')
+                      }}>
                       Inicio
                     </a>
                   </li>
                 )}
                 <li>
-                  <a href="#" onClick={() => openItemMenu('prof')}>
+                  <a
+                    href="#"
+                    onClick={e => {
+                      e.preventDefault()
+                      openItemMenu('prof')
+                    }}>
                     Mis Datos
                   </a>
                 </li>
@@ -101,14 +111,26 @@ const Menu = ({
                     <a
                       href="#"
                       id="btn-subs"
-                      onClick={() => openItemMenu('subs')}>
+                      onClick={e => {
+                        e.preventDefault()
+                        openItemMenu('subs')
+                      }}>
                       Mi Suscripción
                     </a>
                   </li>
                 )}
                 {activeNewsletter && (
                   <li>
-                    <a href="#" onClick={() => openItemMenu('news')}>
+                    <a
+                      href="#"
+                      onClick={e => {
+                        e.preventDefault()
+                        if (arcSite === 'elcomercio') {
+                          window.open('/newsletters', '_blank')
+                        } else {
+                          openItemMenu('news')
+                        }
+                      }}>
                       Newsletters
                     </a>
                   </li>
@@ -118,7 +140,10 @@ const Menu = ({
                     className="close-sesion"
                     href="#"
                     id="web_link_cerrarsesion"
-                    onClick={() => closeSession()}>
+                    onClick={e => {
+                      e.preventDefault()
+                      closeSession()
+                    }}>
                     Cerrar sesión
                   </a>
                 </li>
