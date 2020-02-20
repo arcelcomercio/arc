@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import Consumer from 'fusion:consumer'
 import SubscriptionTitle from './_children/title'
@@ -38,20 +38,16 @@ const Newsletters = props => {
     categoriesNews,
     fromLoggued = false
   ) => {
-    console.log('state categories', categories)
-    console.log('categoriesNews', categoriesNews)
     const data = categoriesNews
     if (!data.includes(code)) {
       data.push(code)
     } else if (!fromLoggued) {
       data.splice(data.indexOf(code), 1)
     }
-    console.log('data categories', data)
     return data || []
   }
 
   const subscribe = (code, categoriesNews, fromLoggued = false) => {
-    console.log('subscribe code', code)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession().then(extSess => {
       Services.sendNewsLettersUser(
@@ -65,7 +61,6 @@ const Newsletters = props => {
           newSetCategories = null
           subscribe(code, categoriesNews)
         }
-        console.log('sendNewsLettersUser', res)
         setCategories(res.data.preferences || [])
         setCodeNewsletter('')
       })
@@ -86,21 +81,16 @@ const Newsletters = props => {
   useEffect(() => {
     Services.getNewsLetters().then(res => {
       setTypeNewsletters(res[arcSite])
-      console.log('res', res)
-      console.log('dataTypeNewsletters', typeNewsletters)
     })
 
     Services.getNewsLettersUser(UUID, arcSite).then(res => {
-      console.log('getNewsLettersUser', res)
       setCategories(res.data)
     })
   }, [])
 
   const afterLoggued = () => {
-    console.log('afterLoggued codeNewsletter', codeNewsletter)
     window.scrollTo(0, 100)
     setTimeout(() => {
-      console.log('TO DO: FLOW NEWSLETTER 4', window.Identity.userProfile)
       window.scrollTo(0, 0)
       UUID =
         (window.Identity.userIdentity && window.Identity.userIdentity.uuid) ||
@@ -108,9 +98,7 @@ const Newsletters = props => {
       EMAIL =
         (window.Identity.userProfile && window.Identity.userProfile.email) || ''
 
-      console.log('data', UUID, EMAIL)
       Services.getNewsLettersUser(UUID, arcSite).then(res => {
-        console.log('afterLoggued getNewsLettersUser', res)
         setCategories(res.data)
         subscribe(codeNewsletter, res.data, true)
       })
@@ -137,22 +125,12 @@ const Newsletters = props => {
     return false
   }
 
-  // const forceUpdate = useCallback(code => setCodeNewsletter(code), [])
-
   const subscribeOnclickHandle = code => {
-    // setCodeNewsletter(prevCode => code)
     setCodeNewsletter(code)
-    // forceUpdate(code)
-    console.log('subscribeOnclickHandle code', code)
-    console.log('subscribeOnclickHandle codeNewsletter', codeNewsletter)
-    setTimeout(() => {
-      console.log('subscribeOnclickHandle codeNewsletter 2', codeNewsletter)
-    }, 500)
     if (checkSession()) {
       // subscribe(code, categories)
       debounce(code, categories)
     } else {
-      console.log('no tiene session 2')
       setShowSignwall(!showSignwall)
     }
   }
