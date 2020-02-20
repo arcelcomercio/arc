@@ -12,7 +12,6 @@ const classes = {
   headerSite: 'font-bold',
   list: 'flex flex-col md:flex-row md:flex-wrap md:justify-between',
   listItem: 'linked-site__item flex mb-15 md:flex-col',
-  listItemLink: 'mr-10 md:mr-0 md:mb-5',
   listItemTitle:
     'linked-site__title-link overflow-hidden block text-black font-bold secondary-font line-h-sm title-xs',
   image: 'linked-site__image object-cover',
@@ -53,39 +52,29 @@ const StoriesListLinkedBySiteChild = ({
             multimediaSquareS,
             multimediaLandscapeS,
           }) => (
-            <article
-              role="listitem"
+            <a
               className={classes.listItem}
-              key={websiteLink}>
-              <a
-                href={websiteLink}
-                className={classes.listItemLink}
-                {...isTargetBlank}>
-                <picture>
-                  <source
-                    className={isAdmin ? '' : 'lazy'}
-                    media="(max-width: 639px)"
-                    type="image/jpeg"
-                    srcSet={isAdmin ? multimediaSquareS : multimediaLazyDefault}
-                    data-srcset={multimediaSquareS}
-                  />
-                  <img
-                    src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-                    data-src={multimediaLandscapeS}
-                    className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                    alt={title}
-                  />
-                </picture>
-              </a>
-              <h2>
-                <a
-                  className={classes.listItemTitle}
-                  href={websiteLink}
-                  {...isTargetBlank}>
-                  {title}
-                </a>
-              </h2>
-            </article>
+              key={websiteLink}
+              href={websiteLink}
+              {...isTargetBlank}>
+              <picture className="block mr-10 md:mr-0 md:mb-5">
+                <source
+                  className={isAdmin ? '' : 'lazy'}
+                  media="(max-width: 639px)"
+                  type="image/jpeg"
+                  srcSet={isAdmin ? multimediaSquareS : multimediaLazyDefault}
+                  data-srcset={multimediaSquareS}
+                />
+                <img
+                  src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
+                  data-src={multimediaLandscapeS}
+                  className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+                  alt={title}
+                />
+              </picture>
+
+              <h2 className={classes.listItemTitle}>{title}</h2>
+            </a>
           )
         )}
       </div>

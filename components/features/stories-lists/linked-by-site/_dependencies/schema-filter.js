@@ -16,20 +16,14 @@ export default arcSite => {
           content
         }
         basic { 
-          type 
-          resized_urls { 
-            square_s
-            landscape_s
-          } 
+          type
+          url
         }
         basic_video {
           promo_items {
             basic { 
               type 
-              resized_urls { 
-                square_s
-                landscape_s
-              } 
+              url
             }
           }
         }
@@ -37,10 +31,7 @@ export default arcSite => {
           promo_items {
             basic { 
               type 
-              resized_urls { 
-                square_s
-                landscape_s
-              } 
+              url
             }
           }
         }

@@ -104,6 +104,7 @@ export const addResizedUrlsToStories = ({
   resizerSecret,
 }) => {
   const presetsArray = getPresetsSize(presets)
+  if (presets === 'no-presets') return contentElements
   return contentElements.map(story => {
     const dataStory = story
     const { content_elements: auxContentElements } = dataStory || {}
@@ -158,5 +159,15 @@ export const getResizedUrlsToStories = ({
     presets,
     resizerUrl,
     resizerSecret: ENV.resizerSecret,
+  })
+}
+
+export const getResizedUrl = ({ url, presets, arcSite }) => {
+  const { resizerUrl } = getProperties(arcSite)
+  return createResizedUrl({
+    url,
+    presets,
+    resizerSecret: ENV.resizerSecret,
+    resizerUrl,
   })
 }
