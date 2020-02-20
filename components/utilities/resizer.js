@@ -160,3 +160,13 @@ export const getResizedUrlsToStories = ({
     resizerSecret: ENV.resizerSecret,
   })
 }
+
+export const getResizedUrl = ({ url, presets, arcSite }) => {
+  const { resizerUrl } = getProperties(arcSite)
+  return createResizedUrl({
+    url,
+    presets,
+    resizerSecret: ENV.resizerSecret,
+    resizerUrl,
+  })
+}
