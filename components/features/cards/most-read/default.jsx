@@ -7,7 +7,6 @@ import CardMostReadList from './_children/list'
 
 import schemaFilter from './_dependencies/schema-filter'
 import { getQuery, getStories } from './_dependencies/functions'
-import { getResizedUrlsToStories } from '../../../utilities/resizer'
 
 const CONTENT_SOURCE = 'story-feed-by-views'
 
@@ -35,17 +34,11 @@ const CardMostRead = props => {
       ...getQuery({ globalContent, globalContentConfig, storiesQty }),
     },
     filter: schemaFilter,
-    transform: ({ content_elements: contentElements } = {}) => {
-      const parametrs = {
-        contentElements,
-        presets: 'landscape_md:314x157,landscape_xs:118x72',
-        arcSite,
-      }
-
+    transform: ({ content_elements: contentElements = [] } = {}) => {
       const response = {
         stories: [
           ...getStories({
-            data: getResizedUrlsToStories(parametrs),
+            data: contentElements,
             deployment,
             contextPath,
             arcSite,
@@ -55,7 +48,6 @@ const CardMostRead = props => {
       return response
     },
   })
-
   const { stories = [] } = data || {}
   const params = {
     viewImage,
