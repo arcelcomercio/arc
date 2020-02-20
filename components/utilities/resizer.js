@@ -104,6 +104,7 @@ export const addResizedUrlsToStories = ({
   resizerSecret,
 }) => {
   const presetsArray = getPresetsSize(presets)
+  if (presets === 'no-presets') return contentElements
   return contentElements.map(story => {
     const dataStory = story
     const { content_elements: auxContentElements } = dataStory || {}
