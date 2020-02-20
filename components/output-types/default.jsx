@@ -303,10 +303,14 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -324,10 +328,14 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21'
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -394,10 +402,14 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -425,10 +437,14 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21'
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
         ) &&
           !nodas && (
             <script
@@ -493,10 +509,14 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21') &&
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && <Dfp />}
       </body>
