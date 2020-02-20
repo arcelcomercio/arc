@@ -37,7 +37,7 @@ export const SecondMiddle = styled(Base)`
   width: 100%;
   position: relative;
   /* display: block; */
-  background: ${props => (props.arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4')};
+  background-color: ${props => (props.arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4')};
   @media ${device.tablet} {
     width: 50%;
     display: table-cell;

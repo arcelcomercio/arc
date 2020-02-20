@@ -40,6 +40,7 @@ export const FirstMiddle = styled(Base)`
 `
 
 export const SecondMiddle = styled(Base)`
+  background-color: #fff;
   width: 100%;
   position: relative;
   @media ${device.desktop} {

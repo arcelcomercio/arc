@@ -17,6 +17,7 @@ export default ({
   arcSite = '',
   contextPath = '',
   isMobile = false,
+  CURRENT_ENVIRONMENT,
 } = {}) => {
   const logoSite = `${getAssetsPath(
     arcSite,
@@ -57,16 +58,21 @@ export default ({
     : urlCanonical
 
   const style = isMobile === true ? 'mobile' : 'style'
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
+  if (
+    (arcSite === 'elcomercio' ||
+      arcSite === 'peru21' ||
+      arcSite === 'trome' ||
+      arcSite === 'depor' ||
+      arcSite === 'diariocorreo') &&
+    CURRENT_ENVIRONMENT === 'prod'
+  ) {
+    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
+  }
+
   return (
     <>
-      {isAmp === false && (
-        <link
-          rel="stylesheet"
-          href={deployment(
-            `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
-          )}
-        />
-      )}
+      {isAmp === false && <link rel="stylesheet" href={deployment(styleUrl)} />}
       <link
         rel="shortcut icon"
         type="image/png"

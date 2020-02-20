@@ -37,13 +37,15 @@ const StoriesListCard = props => {
     excludeSections: '/impresa',
     stories_qty: storiesQty,
     presets: 'landscape_md:314x157',
-    includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems}`,
+    includedFields: seeImageNews
+      ? `websites.${arcSite}.website_url,headlines.basic,display_date,${includePromoItems}`
+      : `websites.${arcSite}.website_url,headlines.basic,display_date`,
   }
   const data =
     useContent({
       source: 'story-feed-by-section',
       query: params,
-      filter: schemaFilter(arcSite),
+      filter: schemaFilter(arcSite, seeImageNews),
     }) || {}
 
   const paramsHeader = {

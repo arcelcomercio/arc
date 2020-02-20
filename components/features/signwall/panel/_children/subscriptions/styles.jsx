@@ -147,6 +147,7 @@ export const FormGroup = styled.div`
   display: inline-block;
   vertical-align: top;
   margin: 0px 10px;
+  background: white;
   width: calc(
     ${props => (props.width === '20' || props.width === '10' ? '50%' : '100%')} -
       20px
