@@ -285,10 +285,10 @@ const Dfp = ({ isFuature, adId }) => {
         window.adsCollection = [{
             "id": "gpt_laterall",
             "slotName": "depor/web/home/laterall",
-            "dimensions": "[[[160, 600], [120, 600]]]",
+            "dimensions":[[ [160, 600] ], [ [120, 600] ], [ [0,0]]],
             "sizemap":{
-              "breakpoints":"[ [1280, 0] ]",
-              "refresh":"true"
+              "breakpoints":[ [1280, 0], [1124, 0], [0, 0] ],
+              "refresh":true
             },
             "targeting": {
                 "publisher": "depor",
@@ -306,10 +306,10 @@ const Dfp = ({ isFuature, adId }) => {
         {
             "id": "gpt_lateralr",
             "slotName": "depor/web/home/lateralr",
-            "dimensions":"[[ [160, 600], [120, 600] ], [ [1,1] ], [ [1,1]]]",
+            "dimensions":[[ [160, 600] ], [ [120, 600] ], [ [0,0]]],
             "sizemap":{
-              "breakpoints":"[ [1280, 0], [800, 0], [0, 0] ]",
-              "refresh":"true"
+              "breakpoints":[ [1280, 0], [1124, 0], [0, 0] ],
+              "refresh":true
           },
             "targeting": {
                 "publisher": "depor",
