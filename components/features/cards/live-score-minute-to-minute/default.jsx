@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFusionContext } from 'fusion:context'
+// import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import TeanScore from './_children/team-score'
 
@@ -9,7 +9,7 @@ const classes = {
 
 const LiveScoreMinuteToMinute = () => {
   const gameid = '8i1z80gjthm86l814hdf1sh2i'
-  const { globalContent = [] } = useFusionContext()
+  // const { globalContent = [] } = useFusionContext()
 
   const data = useContent({
     source: 'get-score-data-opta',
@@ -17,8 +17,6 @@ const LiveScoreMinuteToMinute = () => {
       gameid,
     },
   })
-
-  console.log(globalContent)
 
   const { homeTeamParams = {}, awayTeamParams = {} } = data
 
