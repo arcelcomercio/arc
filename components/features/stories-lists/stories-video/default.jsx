@@ -69,6 +69,7 @@ class StoriesListVideo extends PureComponent {
             query: {
               website: arcSite,
               website_url: url,
+              presets: `${LANDSCAPE_XXS}:170x90`,
             },
             filter: schemaFilter,
           },

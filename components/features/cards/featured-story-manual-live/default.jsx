@@ -85,6 +85,7 @@ const CardFeaturedStoryManualLive = props => {
   const validateScheduledNotes = () => {
     const filter = '{ publish_date }'
     const includedFields = 'publish_date'
+    const presets = 'no-presets'
 
     const auxNote1 =
       useContent(
@@ -94,6 +95,7 @@ const CardFeaturedStoryManualLive = props => {
               query: {
                 website_url: note1,
                 published: 'false',
+                presets,
                 includedFields,
               },
               filter,
@@ -109,6 +111,7 @@ const CardFeaturedStoryManualLive = props => {
               query: {
                 website_url: note2,
                 published: 'false',
+                presets,
                 includedFields,
               },
               filter,
@@ -124,6 +127,7 @@ const CardFeaturedStoryManualLive = props => {
               query: {
                 website_url: note3,
                 published: 'false',
+                presets,
                 includedFields,
               },
               filter,
@@ -187,6 +191,7 @@ const CardFeaturedStoryManualLive = props => {
             source,
             query: {
               website_url: currentNotePath,
+              presets,
               includedFields,
             },
             filter: schema,
@@ -202,6 +207,7 @@ const CardFeaturedStoryManualLive = props => {
           source,
           query: {
             website_url: path,
+            presets,
             includedFields,
           },
           filter: schema,
