@@ -1,5 +1,6 @@
 import StoryData from '../../../../utilities/story-data'
 import { removeLastSlash } from '../../../../utilities/helpers'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 const formatStories = ({ data, deployment, contextPath, arcSite }) => {
   const aux = []
@@ -13,11 +14,15 @@ const formatStories = ({ data, deployment, contextPath, arcSite }) => {
 
   data.forEach(el => {
     element.__data = el
-
-    const img =
-      arcSite === 'depor'
-        ? element.multimediaLandscapeMD
-        : element.multimediaLandscapeXS
+    const { landscape_md: landscapeMD, landscape_xs: landscapeXS } =
+      typeof window === 'undefined'
+        ? getResizedUrl({
+            url: element.multimedia,
+            presets: 'landscape_md:314x157,landscape_xs:118x72',
+            arcSite,
+          }) || {}
+        : {}
+    const img = arcSite === 'depor' ? landscapeMD : landscapeXS
 
     aux.push({
       websiteUrl: element.link,
@@ -55,7 +60,6 @@ export const getQuery = ({
 
 export const getStories = ({ data, deployment, contextPath, arcSite }) => {
   let stories = []
-
   if (data.length > 0) {
     stories = formatStories({
       data,
