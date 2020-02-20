@@ -18,6 +18,9 @@ const LiveScoreMinuteToMinute = () => {
     },
   })
 
+  // debugger
+  // console.log(globalContent)
+
   const { homeTeamParams = {}, awayTeamParams = {} } = data
 
   const localTeamParams = {
