@@ -130,7 +130,6 @@ export const addResizedUrlsToStories = ({
       })
       dataStory.promo_items.basic_gallery = image
     }
-
     if (basicVideo && basicVideo.promo_items) {
       basicVideo.content_elements = []
       const image = addResizedUrls(basicVideo, {
@@ -140,7 +139,6 @@ export const addResizedUrlsToStories = ({
       })
       dataStory.promo_items.basic_video = image
     }
-
     return addResizedUrls(dataStory, {
       resizerUrl,
       resizerSecret,
@@ -160,5 +158,15 @@ export const getResizedUrlsToStories = ({
     presets,
     resizerUrl,
     resizerSecret: ENV.resizerSecret,
+  })
+}
+
+export const getResizedUrl = ({ url, presets, arcSite }) => {
+  const { resizerUrl } = getProperties(arcSite)
+  return createResizedUrl({
+    url,
+    presets,
+    resizerSecret: ENV.resizerSecret,
+    resizerUrl,
   })
 }
