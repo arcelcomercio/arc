@@ -1,6 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
+import { createResizedUrl } from '../../components/utilities/resizer'
 
 const resolve = () => {
   return `http://archivo.elcomercio.pe/html/cartelera/all/all.json`
@@ -18,12 +18,12 @@ const transform = (data, key) => {
   if (data) {
     const auxData = data
 
-    const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
-      presets: { portrait_lg: { width: 307, height: 400 } },
-    })({
+    const resizedUrls = createResizedUrl({
       url: filepath,
+      presets: 'portrait_lg:307x400',
+      resizerUrl,
+      resizerSecret,
     })
-
     auxData.estrenos[0].poster.resized_urls = resizedUrls
 
     if (format === 'single') {

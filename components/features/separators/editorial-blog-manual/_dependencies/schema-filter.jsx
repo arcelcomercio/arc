@@ -1,6 +1,6 @@
 export const schemaBlog = `{
   blog { path blogname }
-  posts { post_permalink post_title }
+  post { post_permalink post_title }
   user { 
     first_name 
     user_avatarb { 
@@ -16,4 +16,11 @@ export const schemaEditorial = website => `{
     }
   }
   headlines { basic }
+}`
+
+export const schemaPhoto = `{
+  resized_urls { 
+    square_s
+    lazy_default
+  }
 }`

@@ -72,6 +72,18 @@ class Modal extends Component {
     document.body.removeEventListener('touchmove',this.handleScroll);
   }
 
+  turnOffFormScroll = () => {
+    if((typeof window) !== 'undefined'){
+      document.body.removeEventListener('touchmove', this.handleScroll);
+    }
+  }
+
+  turnOnFormScroll = () => {
+    if((typeof window) !== 'undefined'){
+      document.body.removeEventListener('touchmove', this.handleScroll);
+    }
+  }
+
   render() {
     const { bgColor, position, size, name, color, id, children } = this.props
     return (
@@ -85,7 +97,10 @@ class Modal extends Component {
             size={size}
             style={{ backgroundColor: color }}
             id={id}
-            name={name}>
+            name={name}
+            onTouchStart={this.turnOffFormScroll}
+            onTouchEnd={this.turnOnFormScroll}
+            >
             {children}
           </DialogModal>
         </WrapperModal>
