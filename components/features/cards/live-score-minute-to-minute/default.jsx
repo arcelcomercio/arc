@@ -4,7 +4,11 @@ import { useContent } from 'fusion:content'
 import TeanScore from './_children/team-score'
 
 const classes = {
-  liveScore: 'flex flex-row',
+  liveScore: 'score w-full p-20',
+  liveWrapper:
+    'score__wrapper flex justify-center items-start mx-auto position-relative',
+  liveEnd:
+    'score__end flex justify-center items-center rounded font-bold uppercase text-gray-200',
 }
 
 const LiveScoreMinuteToMinute = () => {
@@ -33,9 +37,11 @@ const LiveScoreMinuteToMinute = () => {
 
   return (
     <div className={classes.liveScore}>
-      <TeanScore {...localTeamParams} />
-      <span>Fin</span>
-      <TeanScore {...visitingTeamParams} />
+      <div className={classes.liveWrapper}>
+        <TeanScore {...localTeamParams} />
+        <div className={classes.liveEnd}>Fin</div>
+        <TeanScore {...visitingTeamParams} />
+      </div>
     </div>
   )
 }
