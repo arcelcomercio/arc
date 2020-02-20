@@ -59,15 +59,14 @@ export default ({
 
   const style = isMobile === true ? 'mobile' : 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
-  if (
-    (arcSite === 'elcomercio' ||
-      arcSite === 'peru21' ||
-      arcSite === 'trome' ||
-      arcSite === 'depor' ||
-      arcSite === 'diariocorreo') &&
-    CURRENT_ENVIRONMENT === 'prod'
-  ) {
+  if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
 
   return (
