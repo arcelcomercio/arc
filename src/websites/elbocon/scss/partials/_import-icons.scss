@@ -1,16 +1,20 @@
 @font-face {
-  font-family: 'icomoon';
-  src: url('../../icons/fonts/default.woff?o217b7') format('woff'),
-    url('../../icons/fonts/default.svg?o217b7#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("https://cdna.elbocon.pe/resources/dist/elbocon/fonts/default.woff")
+      format("woff"),
+    url("https://cdna.elbocon.pe/resources/dist/elbocon/images/default.svg")
+      format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'icomoon';
-  src: url('../../icons/fonts/gestion.woff?o05x3b') format('woff'),
-    url('../../icons/fonts/gestion.svg?o05x3b#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("https://cdna.elbocon.pe/resources/dist/elbocon/fonts/gestion.woff")
+      format("woff"),
+    url("https://cdna.elbocon.pe/resources/dist/elbocon/images/gestion.svg")
+      format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

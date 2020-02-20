@@ -103,6 +103,7 @@ export default ({
     deployment,
     isStory,
     isAmp: false,
+    CURRENT_ENVIRONMENT,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle

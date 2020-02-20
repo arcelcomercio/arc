@@ -21,5 +21,14 @@ import './images/loader.png'
 import './images/green-logo.png'
 import './images/author.png'
 import './images/arrow-right-2.png'
+import './images/logo-publimetro.jpg'
 
-import '../../../components/utilities/lazyload'
+/** Fonts & icons */
+import './icons/fonts/default.woff'
+import './icons/fonts/default.svg'
+import './icons/fonts/publimetro.woff'
+import './icons/fonts/publimetro.svg'
+
+import './fonts/OpenSans-Regular-webfont.woff'
+import './fonts/corpid_bold-webfont.woff'
+import './fonts/corpid_regular-webfont.woff'

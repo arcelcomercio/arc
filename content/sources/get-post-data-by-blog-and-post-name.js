@@ -1,6 +1,7 @@
-import { BLOG_TOKEN } from 'fusion:environment'
+import { BLOG_TOKEN, resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
+import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
 
 const params = [
   {
@@ -71,7 +72,30 @@ const transform = (data, { 'arc-site': arcSite }) => {
     const { siteUrl } = getProperties(arcSite)
     throw new RedirectError(`${siteUrl}/blog/`, 301)
   }
-  return data
+
+  const { resizerUrl } = getProperties(arcSite)
+  const newData = data
+  const { user: { user_avatarb: { guid } = {} } = {} } = data || {}
+
+  if (guid) {
+    const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
+      presets: {
+        lazy_default: {
+          width: 5,
+          height: 5,
+        },
+        author_sm: {
+          width: 125,
+          height: 125,
+        },
+      },
+    })({
+      url: guid,
+    })
+    newData.user.user_avatarb.resized_urls = resizedUrls
+  }
+
+  return newData
 }
 
 export default {

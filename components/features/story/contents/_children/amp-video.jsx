@@ -1,4 +1,5 @@
 import React from 'react'
+import { useFusionContext } from 'fusion:context'
 
 const getTypeVideo = (streams, typo = 'ts') => {
   const dataVideo = streams
@@ -15,12 +16,17 @@ const getTypeVideo = (streams, typo = 'ts') => {
 }
 
 const StoryContentChildVideoAmp = ({ data }) => {
+  const { siteProperties: { urlPreroll } = {} } = useFusionContext()
+
   const {
     _id: id = '',
     streams = [],
-    promo_image: { url: urlImage = '' } = {},
+    promo_image: { url: urlImage = false } = {},
+    promo_items: { basic: { resized_urls: { large = '' } = {} } = {} } = {},
     headlines: { basic: caption = '' } = {},
   } = data
+
+  const imageVideo = urlImage === false ? large : urlImage
   const dataVideo = getTypeVideo(streams, 'mp4')
   const dataVideoTs = getTypeVideo(streams, 'ts')
 
@@ -35,26 +41,27 @@ const StoryContentChildVideoAmp = ({ data }) => {
         .replace('trome.pe', 'img.trome.pe')
         .replace('depor.com', 'img.depor.com')
     : url
+
   return (
     <>
       {urlVideo && (
         <>
-          <amp-video
-            src={urlVideo}
-            poster={urlImage}
-            artwork={urlImage}
-            class={`id-${id}`}
-            title={caption}
-            album="Blender"
+          <amp-ima-video
             width="720"
             height="405"
             layout="responsive"
-            controls="controls"
+            data-src={urlVideo}
+            data-tag={urlPreroll}
+            data-poster={imageVideo}
+            class={`id-${id}`}
+            title={caption}
             dock="#dock-slot">
             {urlTs && (
-              <source type="application/vnd.apple.mpegurl" src={urlTs}></source>
+              <source
+                type="application/vnd.apple.mpegurl"
+                data-src={urlTs}></source>
             )}
-          </amp-video>
+          </amp-ima-video>
           <div className="pt-10">{caption}</div>
         </>
       )}

@@ -4,7 +4,7 @@ import Markdown from '../../../_children/markdown'
 export const Bullet = styled.div`
   display: flex;
   font-weight: 300;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: 12px;
 `
 
@@ -19,11 +19,13 @@ export const BulletText = styled(Markdown)`
 
 export const Card = styled.div`
   width: 360px;
+  position: relative;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 4px;
+  z-index: 0;
   box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
   ${({ theme }) => css`
     ${theme.breakpoints.down('md')} {
@@ -40,42 +42,71 @@ export const Card = styled.div`
   `}
 `
 
-export const Head = styled.div`
+export const HeadContent = styled.div`
   ${({ theme }) => css`
-    font-family: Judson;
-    font-size: 28px;
-    font-weight: 700;
-    padding: 40px 0;
-    text-align: center;
-    ${theme.breakpoints.down('md')} {
-      font-size: 26px;
+    & div:first-of-type {
+      font-family: Open Sans;
+      font-size: 20px;
+      font-weight: 600;
+      ${theme.breakpoints.down('md')} {
+        font-size: 18px;
+      }
+    }
+    & div:last-of-type {
+      font-size: 15px;
+      font-weight: 600;
     }
   `}
 `
 
 export const CardHead = styled.div`
-  background-color: #f4f4f4;
-  max-height: 90px;
-  ${({ recommended }) =>
-    recommended
+  ${({ recommended }) => css`
+    display: flex;
+    justify-content: ${recommended ? 'flex-start' : 'center'};
+    padding-left: ${recommended ? '25px' : '0'};
+    align-items: center;
+    height: 70px;
+    background-color: #f4f4f4;
+    z-index: 2;
+    ${recommended
       ? css`
           position: relative;
-          & ${Head}: {
-            padding: 40px 0 10px;
+          & ${HeadContent}: {
+            padding: 40px 0;
           }
         `
       : ''}
+  `}
+`
+
+export const CardHeadTail = styled.div`
+  ${({ backgroundColor, theme }) => css`
+    z-index: 1;
+    height: 14px;
+    width: 8px;
+    background-color: ${theme.palette.darken(
+      backgroundColor || theme.palette.primary.main,
+      0.5
+    )};
+    transform: rotate(45deg);
+    position: absolute;
+    top: 48px;
+    right: -4px;
+  `}
 `
 
 export const CardHeadPromotion = styled.div`
   ${({ backgroundColor, theme }) => css`
     position: absolute;
-    border-radius: 0 0 4px 4px;
+    border-radius: 4px 0px 0px 4px;
     height: 40px;
     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
     background-color: ${backgroundColor || theme.palette.primary.main};
     transform: translate3d(-50%, -30%, 0);
-    left: 50%;
+    left: auto;
+    right: -80px;
+    top: 25px;
+    z-index: 3;
     color: ${theme.palette.primary.contrastText};
     display: flex;
     justify-content: center;

@@ -28,12 +28,10 @@ export default ({
     story && multimediaLarge
       ? multimediaLarge
       : deployment(
-          arcSite === 'elcomercio'
-            ? `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/logo_twitter.jpg`
-            : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_twitter.jpg`
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/logo_twitter.jpg`
         )
 
   if (
