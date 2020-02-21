@@ -1,27 +1,37 @@
-import React from 'react'
-// import { useFusionContext } from 'fusion:context'
+import React, { useState } from 'react'
+import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import TeanScore from './_children/team-score'
+
+import { getFootballGameId } from '../../../utilities/get-story-values'
 
 const classes = {
   liveScore: 'flex flex-row',
 }
 
-const LiveScoreMinuteToMinute = () => {
-  const gameid = '8i1z80gjthm86l814hdf1sh2i'
-  // const { globalContent = [] } = useFusionContext()
-
+const getDataScore = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { globalContent = [] } = useFusionContext()
+  const gameid = getFootballGameId(globalContent)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const data = useContent({
     source: 'get-score-data-opta',
     query: {
       gameid,
     },
   })
+  return JSON.parse(JSON.stringify(data))
+}
 
-  // debugger
-  // console.log(globalContent)
+const LiveScoreMinuteToMinute = () => {
+  // const { globalContent = [] } = useFusionContext()
+  const [teamParams, setTeamParams] = useState(getDataScore())
 
-  const { homeTeamParams = {}, awayTeamParams = {} } = data
+  setInterval(() => {
+    setTeamParams(getDataScore())
+  }, 5000)
+
+  const { homeTeamParams = {}, awayTeamParams = {} } = teamParams
 
   const localTeamParams = {
     homeTeam: true,
