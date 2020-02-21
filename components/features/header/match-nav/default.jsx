@@ -130,8 +130,8 @@ class MatchNav extends PureComponent {
             <ul>
                 <li><a href={configTabs['partido_previa']}>Previa</a></li>
                 <li><a href={configTabs['partido_directo']}>Directo</a></li>
-                <li>Alineaciones</li>
-                <li>Estadísticas</li>
+                <li><a href={"/alineaciones" + configTabs['partido_previa']}>Alineaciones</a></li>
+                <li><a href={"/estadisticas" + configTabs['partido_previa']}>Estadísticas</a></li>
                 <li><a href={configTabs['partido_cronica']}>Crónica</a></li>
             </ul>
         </div>
