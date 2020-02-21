@@ -287,12 +287,21 @@ class StoryContinue extends PureComponent {
       recentStoryContinue,
       siteUrl
     )
+    const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      navigator.userAgent
+    )
+
+    const storyLoadAmp =
+      arcSite === ConfigParams.SITE_ELCOMERCIO && isMobile
+        ? '?ref=nota&ft=autoload&outputType=amp'
+        : '?ref=nota&ft=autoload'
+
     return (
       <>
         <div className={classes.storyContinue}>
           <div className={classes.storyLoad} data-state="outviewport">
             <a
-              href={`${websiteUrl}?ref=nota&ft=autoload`}
+              href={`${websiteUrl}${storyLoadAmp}`}
               className={classes.storyLoadLink}>
               <div className={classes.storyCircle}>
                 <span className={classes.storyLoadImage} />
