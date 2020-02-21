@@ -103,6 +103,7 @@ export default ({
     deployment,
     isStory,
     isAmp: false,
+    CURRENT_ENVIRONMENT,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -305,7 +306,11 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -326,7 +331,11 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -396,7 +405,11 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -427,7 +440,11 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
         ) &&
           !nodas && (
             <script
@@ -495,7 +512,11 @@ export default ({
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && <Dfp />}
       </body>

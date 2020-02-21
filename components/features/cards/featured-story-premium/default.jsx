@@ -9,13 +9,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import LiveStreaming from './_children/streaming-live'
-import { getPhotoId } from '../../../utilities/helpers'
-import {
-  includeCredits,
-  includePrimarySection,
-  includePromoItems,
-  includePromoItemsCaptions,
-} from '../../../utilities/included-fields'
+import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/constants'
 
 const PHOTO_SOURCE = 'photo-resizer'
@@ -81,6 +75,8 @@ const FeaturedStoryPremium = props => {
 
   const validateScheduledNotes = () => {
     const filter = '{ publish_date additional_properties { is_published } }'
+    const presets = 'no-presets'
+
     const auxNote1 =
       note1 !== undefined && note1 !== ''
         ? // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -89,6 +85,7 @@ const FeaturedStoryPremium = props => {
             query: {
               website_url: note1,
               published: 'false',
+              presets,
             },
             filter,
           })
@@ -102,6 +99,7 @@ const FeaturedStoryPremium = props => {
             query: {
               website_url: note2,
               published: 'false',
+              presets,
             },
             filter,
           })
@@ -115,6 +113,7 @@ const FeaturedStoryPremium = props => {
             query: {
               website_url: note3,
               published: 'false',
+              presets,
             },
             filter,
           })
@@ -162,14 +161,13 @@ const FeaturedStoryPremium = props => {
     return arrError
   }
 
-  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
+  const presets =
+    'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,'
+  const includedFields = featuredStoryPremiumFields
 
-  // Solo acepta custom image desde Photo Center
-  const photoId = imgField ? getPhotoId(imgField) : ''
   const customPhoto =
     useContent(
-      photoId
+      imgField
         ? {
             source: PHOTO_SOURCE,
             query: {
@@ -186,7 +184,7 @@ const FeaturedStoryPremium = props => {
     scheduledNotes.length > 0 ? 'story-by-url' : contentService
   const queryFetch =
     scheduledNotes.length > 0
-      ? { website_url: currentNotePath }
+      ? { website_url: currentNotePath, presets }
       : Object.assign(contentConfigValues, { presets, includedFields })
   const data =
     useContent({
@@ -199,7 +197,9 @@ const FeaturedStoryPremium = props => {
     isPremium,
     websiteLink,
     multimediaSquareMD,
+    multimediaSquareXL,
     multimediaPortraitMD,
+    multimediaLandscapeMD,
     multimediaLandscapeL,
     multimediaLazyDefault,
     title,
@@ -222,8 +222,9 @@ const FeaturedStoryPremium = props => {
   const {
     resized_urls: {
       square_md: squareMDCustom,
-      lazy_default: lazyDefaultCustom,
+      square_xl: squareXLCustom,
       landscape_l: landscapeLCustom,
+      landscape_md: landscapeMDCustom,
       portrait_md: portraitMDCustom,
     } = {},
   } = customPhoto || {}
@@ -236,10 +237,12 @@ const FeaturedStoryPremium = props => {
     bgColor,
     websiteLink,
     multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
-    multimediaLandscapeMD: portraitMDCustom || imgField || multimediaPortraitMD,
+    multimediaSquareXL: squareXLCustom || imgField || multimediaSquareXL,
+    multimediaLandscapeMD:
+      landscapeMDCustom || imgField || multimediaLandscapeMD,
     multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
-    multimediaLazyDefault:
-      lazyDefaultCustom || imgField || multimediaLazyDefault,
+    multimediaPortraitMD: portraitMDCustom || imgField || multimediaPortraitMD,
+    multimediaLazyDefault,
     title,
     subTitle,
     author,
