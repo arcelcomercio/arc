@@ -6,8 +6,10 @@ import ItemTeamName from './item-team-name'
 import GolList from './gol-list'
 
 const classes = {
-  score: 'flex flex-row',
-  gol: 'flex flex-row',
+  scoreBox: 'score__box flex flex-col items-center',
+  scoreTeam: 'score__team flex items-center mb-15 pl-20 pr-20',
+  gol: 'score__gol-wrapper flex',
+  golImg: 'score__gol-img w-full h-full object-cover',
 }
 
 const LiveScoreMinuteToMinuteTeanScore = ({
@@ -18,8 +20,8 @@ const LiveScoreMinuteToMinuteTeanScore = ({
   goalList = [],
 }) => {
   return (
-    <div>
-      <div className={classes.score}>
+    <div className={classes.scoreBox}>
+      <div className={classes.scoreTeam}>
         {homeTeam ? (
           <ItemTeamName name={name} />
         ) : (
@@ -36,11 +38,13 @@ const LiveScoreMinuteToMinuteTeanScore = ({
         {homeTeam ? (
           <>
             <GolList homeTeam={homeTeam} goalList={goalList} />
-            <span>icono</span>
+
+            <img src="" alt="" className={classes.golImg} />
           </>
         ) : (
           <>
-            <span>icono</span>
+            <img src="" alt="" className={classes.golImg} />
+
             <GolList homeTeam={homeTeam} goalList={goalList} />
           </>
         )}

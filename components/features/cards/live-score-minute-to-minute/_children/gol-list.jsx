@@ -2,7 +2,9 @@
 import React from 'react'
 
 const classes = {
-  list: 'flex flex-row',
+  list: 'score__gol-list flex ',
+  listItem: 'score__gol-item flex mr-10',
+  listName: 'score__gol-name text-gray-300 font-bold mr-5',
 }
 const GolList = ({ goalList = [] }) => {
   return (
@@ -15,8 +17,9 @@ const GolList = ({ goalList = [] }) => {
           const time = `(${type !== 'G' ? type : ''} ${min}', ${seg}'')`
 
           return (
-            <li>
-              {scorerName} <span>{time}</span>
+            <li className={classes.listItem}>
+              <p className={classes.listName}>{scorerName}</p>{' '}
+              <span>{time}</span>
             </li>
           )
         })}
