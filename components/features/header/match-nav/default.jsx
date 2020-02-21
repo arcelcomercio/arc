@@ -54,6 +54,8 @@ const classes = {
 class MatchNav extends PureComponent {
 
   render() {
+    const subtypes = ['partido_previa', 'partido_directo', 'partido_cronica']
+
     const {
       globalContent,
       arcSite,
@@ -64,70 +66,73 @@ class MatchNav extends PureComponent {
       },
       siteProperties: { isDfp = false },
     } = this.props
-    const { related_content: { basic: relatedContent } = {} } =
+
+    const { subtype, canonical_url, related_content: { basic: relatedContent } = {} } =
       globalContent || {}
 
-    const {
-      publishDate: date,
-      promoItems,
-      displayDate: updatedDate,
-      createdDate,
-      authorImage,
-      authorLink,
-      author,
-      primarySection,
-      authorEmail,
-      primarySectionLink,
-      subtype,
-      isPremium,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
-      tags,
-      contentPosicionPublicidad,
-    } = new StoryData({
-      data: globalContent,
-      contextPath,
-      deployment,
-      arcSite,
-    })
+    const configTabs = []
+    relatedContent.forEach(element => {
+        configTabs[element.subtype] = element.canonical_url
+    });
+    configTabs[subtype] = canonical_url
 
-    const params = {
-      authorImage,
-      author,
-      authorLink,
-      updatedDate: getDateSeo(updatedDate || createdDate),
-      date,
-      primarySectionLink,
-      authorEmail,
-      primarySection,
-      subtype,
-      ...promoItems,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
-      primaryImage: true,
-    }
-    const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
-    const imgBbc =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
+    console.log("===========================================")
+    console.log(configTabs)
+    console.log("===========================================")
+
+    // const {
+    //   publishDate: date,
+    //   promoItems,
+    //   displayDate: updatedDate,
+    //   createdDate,
+    //   authorImage,
+    //   authorLink,
+    //   author,
+    //   primarySection,
+    //   authorEmail,
+    //   primarySectionLink,
+    //   subtype,
+    //   isPremium,
+    //   multimediaLandscapeMD,
+    //   multimediaStorySmall,
+    //   multimediaLarge,
+    //   multimediaLazyDefault,
+    //   tags,
+    //   contentPosicionPublicidad,
+    // } = new StoryData({
+    //   data: globalContent,
+    //   contextPath,
+    //   deployment,
+    //   arcSite,
+    // })
+
+    // const params = {
+    //   authorImage,
+    //   author,
+    //   authorLink,
+    //   updatedDate: getDateSeo(updatedDate || createdDate),
+    //   date,
+    //   primarySectionLink,
+    //   authorEmail,
+    //   primarySection,
+    //   subtype,
+    //   ...promoItems,
+    //   multimediaLandscapeMD,
+    //   multimediaStorySmall,
+    //   multimediaLarge,
+    //   multimediaLazyDefault,
+    //   primaryImage: true,
+    // }
 
     return (
       <>
         <div className={classes.news}>
             <ul>
-                <li>Previa</li>
-                <li>Directo</li>
+                <li><a href={configTabs['partido_previa']}>Previa</a></li>
+                <li><a href={configTabs['partido_directo']}>Directo</a></li>
                 <li>Alineaciones</li>
                 <li>Estadísticas</li>
-                <li>Crónica</li>
+                <li><a href={configTabs['partido_cronica']}>Crónica</a></li>
             </ul>
         </div>
       </>
