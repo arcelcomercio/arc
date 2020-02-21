@@ -5,10 +5,9 @@ import TeanScore from './_children/team-score'
 
 const classes = {
   liveScore: 'score w-full p-20',
-  liveWrapper:
-    'score__wrapper flex justify-center items-start mx-auto position-relative',
-  liveEnd:
-    'score__end flex justify-center items-center rounded font-bold uppercase text-gray-200',
+  liveWrapper: 'score__wrapper flex justify-center items-start mx-auto',
+  liveEnd: 'score__end flex justify-center items-center position-relative',
+  liveEndText: 'score__end-text rounded font-bold uppercase text-gray-200',
 }
 
 const LiveScoreMinuteToMinute = () => {
@@ -37,7 +36,9 @@ const LiveScoreMinuteToMinute = () => {
     <div className={classes.liveScore}>
       <div className={classes.liveWrapper}>
         <TeanScore {...localTeamParams} />
-        <div className={classes.liveEnd}>Fin</div>
+        <div className={classes.liveEnd}>
+          <span className={classes.liveEndText}>Fin</span>
+        </div>
         <TeanScore {...visitingTeamParams} />
       </div>
     </div>
