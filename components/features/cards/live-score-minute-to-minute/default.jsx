@@ -30,11 +30,7 @@ const getDataScore = () => {
 
 const LiveScoreMinuteToMinute = () => {
   // const { globalContent = [] } = useFusionContext()
-  const [teamParams, setTeamParams] = useState(getDataScore())
-
-  setInterval(() => {
-    setTeamParams(getDataScore())
-  }, 5000)
+  const [teamParams] = useState(getDataScore())
 
   const { homeTeamParams = {}, awayTeamParams = {} } = teamParams
 
