@@ -16,7 +16,7 @@ export default () => {
     taxonomy: { primary_section: { path: primarySection } = {} } = {},
   } = globalContent || {}
 
-  const section = primarySection || sectionId || _id
+  const section = (primarySection || sectionId || _id || '').split('/')[1]
 
   let cdnUrl = `https://cdnc.${siteDomain}/resources`
   if (arcSite === 'elcomerciomag') {
@@ -31,13 +31,13 @@ export default () => {
 
   return (
     <>
-      {arcSite === 'depor' && section === '/futbol-peruano' && (
+      {arcSite === 'depor' && section === 'futbol-peruano' && (
         <script
           defer
           src={deployment(`${resourcesPath}/assets/js/ads/lg-floor-prices.js`)}
         />
       )}
-      {arcSite === 'peru21' && section === '/espectaculos' && (
+      {arcSite === 'peru21' && section === 'espectaculos' && (
         <script
           defer
           src={deployment(`${resourcesPath}/assets/js/ads/sm-floor-prices.js`)}
