@@ -40,9 +40,7 @@ export default () => {
       {arcSite === 'peru21' && section === '/espectaculos' && (
         <script
           defer
-          src={deployment(
-            `${contextPath}/resources/assets/js/ads/sm-floor-prices.js`
-          )}
+          src={deployment(`${resourcesPath}/assets/js/ads/sm-floor-prices.js`)}
         />
       )}
     </>
