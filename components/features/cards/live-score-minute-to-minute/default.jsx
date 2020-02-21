@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import TeanScore from './_children/team-score'
+import GolListItem from './_children/gol-list'
 
 import { getFootballGameId } from '../../../utilities/get-story-values'
 
@@ -24,7 +25,7 @@ const getDataScore = () => {
       gameid,
     },
   })
-  return JSON.parse(JSON.stringify(data))
+  return data
 }
 
 const LiveScoreMinuteToMinute = () => {
@@ -46,6 +47,11 @@ const LiveScoreMinuteToMinute = () => {
     ...awayTeamParams,
   }
 
+  const golListItem = {
+    homeTeamGolList: homeTeamParams.goalList,
+    awayTeamGolList: awayTeamParams.goalList,
+  }
+
   return (
     <div className={classes.liveScore}>
       <div className={classes.liveWrapper}>
@@ -53,6 +59,7 @@ const LiveScoreMinuteToMinute = () => {
         <div className={classes.liveEnd}>Fin</div>
         <TeanScore {...visitingTeamParams} />
       </div>
+      <GolListItem {...golListItem} />
     </div>
   )
 }
