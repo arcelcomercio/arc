@@ -98,11 +98,10 @@ const Dfp = ({ isFuature, adId }) => {
     const subsection = flagsub?'':sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
-    const getTargetFunction = `var getTarget=function getTarget(){ return {"publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
+    const getTargetFunction = `var getTarget=function getTarget(){ return {"publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
     const adsCollection = spaces.map(
       ({
         space,
-        slotname,
         slotname2,
         dimensions,
         dimensions_mobile: dimensionsMobile,
@@ -110,7 +109,7 @@ const Dfp = ({ isFuature, adId }) => {
       }) => {
         const formatSpace = {
           id: `gpt_${space}`,
-          slotName: (arcSite === 'publimetro') ? slotname : slotname2,
+          slotName: slotname2,
           dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
           targeting: `<::getTarget() ::>`,
         }
