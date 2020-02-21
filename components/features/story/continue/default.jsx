@@ -288,6 +288,7 @@ class StoryContinue extends PureComponent {
       siteUrl
     )
     const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      // eslint-disable-next-line no-undef
       navigator.userAgent
     )
 
