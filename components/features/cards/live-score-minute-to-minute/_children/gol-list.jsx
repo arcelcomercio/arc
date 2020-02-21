@@ -1,30 +1,24 @@
-/* eslint-disable radix */
 import React from 'react'
+import GolListItem from './gol-list-item'
 
 const classes = {
-  list: 'score__gol-list flex ',
-  listItem: 'score__gol-item flex mr-10',
-  listName: 'score__gol-name text-gray-300 font-bold mr-5',
+  gol: 'score__gol-wrapper flex',
+  golImg: 'score__gol-img w-full h-full object-cover',
 }
-const GolList = ({ goalList = [] }) => {
+
+const GolListTeams = ({ homeTeamGolList = [], awayTeamGolList = [] }) => {
   return (
-    <ul className={classes.list}>
-      {goalList.length > 0 &&
-        goalList.map(({ timeMinSec = '', scorerName, type }) => {
-          const min = parseInt(timeMinSec.split(':')[0])
-          const seg = parseInt(timeMinSec.split(':')[1])
+    <div className={classes.gol}>
+      <>
+        <GolListItem homeTeam goalList={homeTeamGolList} />
 
-          const time = `(${type !== 'G' ? type : ''} ${min}', ${seg}'')`
+        <img src="" alt="" className={classes.golImg} />
+        <img src="" alt="" className={classes.golImg} />
 
-          return (
-            <li className={classes.listItem}>
-              <p className={classes.listName}>{scorerName}</p>{' '}
-              <span>{time}</span>
-            </li>
-          )
-        })}
-    </ul>
+        <GolListItem homeTeam={false} goalList={awayTeamGolList} />
+      </>
+    </div>
   )
 }
 
-export default GolList
+export default GolListTeams
