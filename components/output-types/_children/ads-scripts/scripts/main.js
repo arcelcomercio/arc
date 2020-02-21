@@ -702,7 +702,7 @@ googletag.cmd.push(function() {
         getCanvasuserContext: function() {
             var canvas = document.createElement('canvas');
             var ctx = canvas.getContext('2d');
-            var txt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-={}|[]\:"<>?;,.';
+            var txt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-={}|[]\\:"<>?;,.';
             ctx.textBaseline = "top";
             ctx.font = "14px 'Arial'";
             ctx.textBaseline = "alphabetic";
@@ -729,7 +729,7 @@ function userContext_browser() {
     strOut = null;
     try {
         strUserAgent = navigator.userAgent.toLowerCase();
-        if (/msie (\d+\.\d+);/.test(strUserAgent)) {
+        if (/msie (\\d+\\.\\d+);/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             if (strUserAgent.indexOf("trident/6") > -1) {
                 numVersion = 10;
@@ -744,52 +744,52 @@ function userContext_browser() {
         } else if (strUserAgent.indexOf("trident/7") > -1) {
             numVersion = 11;
             strBrowser = "Internet Explorer " + numVersion;
-        } else if (/firefox[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/firefox[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Firefox " + numVersion;
-        } else if (/opera[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/opera[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Opera " + numVersion;
-        } else if (/chrome[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/chrome[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Chrome " + numVersion;
-        } else if (/version[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/version[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Safari " + numVersion;
-        } else if (/rv[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/rv[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Mozilla " + numVersion;
-        } else if (/mozilla[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/mozilla[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Mozilla " + numVersion;
-        } else if (/binget[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/binget[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (BinGet) " + numVersion;
-        } else if (/curl[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/curl[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (cURL) " + numVersion;
-        } else if (/java[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/java[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (Java) " + numVersion;
-        } else if (/libwww-perl[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/libwww-perl[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (libwww-perl) " + numVersion;
-        } else if (/microsoft url control -[\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/microsoft url control -[\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (Microsoft URL Control) " + numVersion;
-        } else if (/peach[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/peach[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (Peach) " + numVersion;
-        } else if (/php[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/php[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (PHP) " + numVersion;
-        } else if (/pxyscand[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/pxyscand[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (pxyscand) " + numVersion;
-        } else if (/pycurl[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/pycurl[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (PycURL) " + numVersion;
-        } else if (/python-urllib[\/\s](\d+\.\d+)/.test(strUserAgent)) {
+        } else if (/python-urllib[\\/\\s](\\d+\\.\\d+)/.test(strUserAgent)) {
             numVersion = Number(RegExp.$1);
             strBrowser = "Library (Python URLlib) " + numVersion;
         } else if (/appengine-google/.test(strUserAgent)) {
@@ -1304,7 +1304,6 @@ function log(event, status) {
     request.send(JSON.stringify(data));
 }
 `
-
 
 export const smFloorPrices = `
 'use strict'
