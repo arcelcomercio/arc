@@ -46,14 +46,14 @@ const NewslettersSubscriptionItem = ({
               type="button"
               onClick={() => callbackSubscription(code)}
               className={classes.btnSubscribed}>
-              Desuscribirme
+              Eliminar registro
             </button>
           ) : (
             <button
               type="button"
               onClick={() => callbackSubscription(code)}
               className={classes.btn}>
-              Suscribirme
+              Regístrate
             </button>
           )}
         </div>
