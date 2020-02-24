@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { fbAppSecret, fbPixelId } from 'fusion:environment'
+import { FB_APP_SECRET, FB_PIXEL_ID } from 'fusion:environment'
 import createHmac from 'create-hmac'
 import qs from 'query-string'
 import uuid from 'uuid'
@@ -22,8 +22,8 @@ function buildBrowserTag(
 }
 
 function generateSignedFbEventUri(event, data) {
-  const pixelId = fbPixelId
-  const appSecret = fbAppSecret
+  const pixelId = FB_PIXEL_ID
+  const appSecret = FB_APP_SECRET
   const payload = {
     id: pixelId,
     ev: event,
