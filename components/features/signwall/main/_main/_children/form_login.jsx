@@ -15,11 +15,14 @@ import Cookies from '../../../_dependencies/cookies'
 import Taggeo from '../../../_dependencies/taggeo'
 import Services from '../../../_dependencies/services'
 import Loading from '../../../_children/loading'
+import generateSignedFbEventTag from '../../../_dependencies/fb-event-tag'
 
 export const FormLogin = ({
   typeDialog,
   onClose,
   arcSite,
+  isFia,
+  handleCallToAction,
   siteProperties: {
     signwall: { mainColorLink, mainColorBtn, primaryFont, mainColorBr },
     activeNewsletter = false,
@@ -208,6 +211,14 @@ export const FormLogin = ({
       })
   }
 
+  const handleFia = () => {
+    if (typeof window !== 'undefined' && isFia) {
+      generateSignedFbEventTag("",{}, arcSite.fbPixelId);
+      handleCallToAction(true);
+    }
+    return null;
+  }
+
   const onSubmitForm = state => {
     const { lemail, lpass } = state
     setShowLoading(true)
@@ -219,6 +230,7 @@ export const FormLogin = ({
       .then(() => {
         handleGetProfile()
         taggeoSuccess()
+        handleFia()
       })
       .catch(errLogin => {
         if (errLogin.code === '300040' || errLogin.code === '300037') {
