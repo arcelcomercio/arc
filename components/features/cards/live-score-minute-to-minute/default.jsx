@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { useFusionContext } from 'fusion:context'
-import { useContent } from 'fusion:content'
+import React, { PureComponent } from 'react'
+import Consumer from 'fusion:consumer'
 import TeanScore from './_children/team-score'
 import GolListItem from './_children/gol-list'
 
@@ -14,50 +13,61 @@ const classes = {
     'score__end flex justify-center items-center rounded font-bold uppercase text-gray-200',
 }
 
-const getDataScore = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { globalContent = [] } = useFusionContext()
-  const gameid = getFootballGameId(globalContent)
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const data = useContent({
-    source: 'get-score-data-opta',
-    query: {
-      gameid,
-    },
-  })
-  return data
-}
+const CONTENT_SOURCE = 'get-score-data-opta'
 
-const LiveScoreMinuteToMinute = () => {
-  // const { globalContent = [] } = useFusionContext()
-  const [teamParams] = useState(getDataScore())
-
-  const { homeTeamParams = {}, awayTeamParams = {} } = teamParams
-
-  const localTeamParams = {
-    homeTeam: true,
-    ...homeTeamParams,
-  }
-  const visitingTeamParams = {
-    homeTeam: false,
-    ...awayTeamParams,
+@Consumer
+class LiveScoreMinuteToMinute extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      teamParams: {},
+    }
+    this.getDataScore()
   }
 
-  const golListItem = {
-    homeTeamGolList: homeTeamParams.goalList,
-    awayTeamGolList: awayTeamParams.goalList,
+  getDataScore = () => {
+    const { globalContent } = this.props
+    const gameid = getFootballGameId(globalContent)
+    this.fetchContent({
+      teamParams: {
+        source: CONTENT_SOURCE,
+        query: {
+          gameid,
+        },
+      },
+    })
   }
 
-  return (
-    <div className={classes.liveScore}>
-      <div className={classes.liveWrapper}>
-        <TeanScore {...localTeamParams} />
-        <div className={classes.liveEnd}>Fin</div>
-        <TeanScore {...visitingTeamParams} />
+  render() {
+    const {
+      teamParams: { homeTeamParams = {}, awayTeamParams = {} } = {},
+    } = this.state
+
+    const localTeamParams = {
+      homeTeam: true,
+      ...homeTeamParams,
+    }
+    const visitingTeamParams = {
+      homeTeam: false,
+      ...awayTeamParams,
+    }
+
+    const golListItem = {
+      homeTeamGolList: homeTeamParams.goalList,
+      awayTeamGolList: awayTeamParams.goalList,
+    }
+
+    return (
+      <div className={classes.liveScore}>
+        <div className={classes.liveWrapper}>
+          <TeanScore {...localTeamParams} />
+          <div className={classes.liveEnd}>Fin</div>
+          <TeanScore {...visitingTeamParams} />
+        </div>
+        <GolListItem {...golListItem} />
       </div>
-      <GolListItem {...golListItem} />
-    </div>
-  )
+    )
+  }
 }
 
 LiveScoreMinuteToMinute.label = 'Score en vivo minuto a minuto'
