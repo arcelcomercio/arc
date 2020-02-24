@@ -8,7 +8,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
-// import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
+import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
 import {
   skipAdvertising,
   storyTagsBbc,
@@ -301,7 +301,7 @@ export default ({
           globalContent={globalContent}
         />
 
-        {/* <AdsScriptsFloorPrices /> */}
+        <AdsScriptsFloorPrices />
 
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||

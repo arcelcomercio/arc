@@ -1,7 +1,10 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
-import { lgFloorPrices, smFloorPrices } from './scripts/main'
+import {
+  // lgFloorPrices,
+  smFloorPrices,
+} from './scripts/main'
 
 export default () => {
   const { globalContent = {}, arcSite } = useFusionContext()
@@ -15,13 +18,13 @@ export default () => {
 
   return (
     <>
-      {arcSite === 'depor' && section === 'futbol-peruano' && (
+      {/* {arcSite === 'depor' && section === 'futbol-peruano' && (
         <script
           dangerouslySetInnerHTML={{
             __html: lgFloorPrices,
           }}
         />
-      )}
+      )} */}
       {arcSite === 'peru21' && section === 'espectaculos' && (
         <script
           dangerouslySetInnerHTML={{
