@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ItemScore from './item-score'
-import ItemTeamFlag from './item-team-flag'
+// import ItemTeamFlag from './item-team-flag'
 import ItemTeamName from './item-team-name'
 
 const classes = {
@@ -17,15 +17,15 @@ const LiveScoreMinuteToMinuteTeanScore = ({
   return (
     <div className={classes.scoreBox}>
       {homeTeam ? (
-        <ItemTeamName name={name} />
+        <ItemTeamName name={name} flags={flag} />
       ) : (
         <ItemScore scoreTeam={scoreTeam} />
       )}
-      <ItemTeamFlag flag={flag} />
+
       {homeTeam ? (
         <ItemScore scoreTeam={scoreTeam} />
       ) : (
-        <ItemTeamName name={name} />
+        <ItemTeamName name={name} flags={flag} />
       )}
     </div>
   )

@@ -12,8 +12,8 @@ const GolListTeams = ({ homeTeamGolList = [], awayTeamGolList = [] }) => {
       <>
         <GolListItem homeTeam goalList={homeTeamGolList} />
 
-        <img src="" alt="" className={classes.golImg} />
-        <img src="" alt="" className={classes.golImg} />
+        {/* <img src="" alt="" className={classes.golImg} />
+        <img src="" alt="" className={classes.golImg} /> */}
 
         <GolListItem homeTeam={false} goalList={awayTeamGolList} />
       </>
