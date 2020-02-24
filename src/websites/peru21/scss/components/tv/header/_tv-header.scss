@@ -1,0 +1,18 @@
+.tv-header {
+    &__logo {
+      font: Bold 12px/14px $tertiary-font;
+      padding-top: 4px;
+    }
+
+    &__go-portada{
+        color: #AAAAAA;
+        font: Bold 12px/14px $tertiary-font;
+        padding-top: 2px;
+        top: 18px;
+        right: 20px;
+        img{
+          vertical-align: middle;
+        }
+    }
+}
+  

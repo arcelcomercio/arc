@@ -1,4 +1,5 @@
-.section-videos {
+.section-videos,
+.section-peru21tv {
   background-color: #222;
 
   &.story {
@@ -257,5 +258,31 @@
   .section-video__title {
     color: #eaeaea;
     letter-spacing: 0.23px;
+  }
+
+  .footer-secondary{
+    background-color: #111111;
+    &__logo-wrapper{
+      margin: 0 auto;
+      @media (--desktop) {
+        max-width: 980px;
+      }
+      @media (--only-mobile) {
+        width: auto
+      }
+    }
+  }
+}
+
+.section-peru21tv{
+  .section-video__section {
+    color: #FFCB05;
+    text-transform: uppercase;
+  }
+  .section-video__top{
+    padding-top: 20px;
+  }
+  .video-navbar.fixed{
+    z-index: 2;
   }
 }
