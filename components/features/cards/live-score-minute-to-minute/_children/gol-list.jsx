@@ -2,7 +2,7 @@ import React from 'react'
 import GolListItem from './gol-list-item'
 
 const classes = {
-  gol: 'score__gol-wrapper flex',
+  gol: 'score__gol-wrapper flex justify-between pt-10 pb-10',
   golImg: 'score__gol-img w-full h-full object-cover',
 }
 

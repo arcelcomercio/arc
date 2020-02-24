@@ -2,7 +2,7 @@
 import React from 'react'
 
 const classes = {
-  list: 'score__gol-list flex ',
+  list: 'score__gol-list flex pl-20 pr-20',
   listItem: 'score__gol-item flex mr-10',
   listName: 'score__gol-name text-gray-300 font-bold mr-5',
 }
