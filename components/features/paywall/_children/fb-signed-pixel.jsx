@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getContent } from 'fusion:content'
+import getContent from 'fusion:content'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
