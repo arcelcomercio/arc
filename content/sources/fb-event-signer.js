@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { FB_APP_SECRET, FB_PIXEL_ID } from 'fusion:environment'
+import * as ENV from 'fusion:environment'
 import createHmac from 'create-hmac'
 import qs from 'query-string'
 import uuid from 'uuid'
@@ -21,21 +21,20 @@ function buildBrowserTag(
   return uri
 }
 
-function generateSignedFbEventUri(event, data) {
-  const pixelId = FB_PIXEL_ID
-  const appSecret = FB_APP_SECRET
+function generateSignedFbEventUri(pixelId, event, data) {
   const payload = {
     id: pixelId,
     ev: event,
     cd: data,
     noscript: 1,
   }
-  return buildBrowserTag(payload, appSecret)
+  return buildBrowserTag(payload, ENV.FB_APP_SECRET)
 }
 
 const fetch = (key = {}) => {
-  const { event, ...data } = key
-  const uri = generateSignedFbEventUri(event, data)
+  const { 'arc-site': site, event, ...data } = key
+  const pixelId = ENV[`FB_PIXEL_ID_${site.toUpperCase()}`]
+  const uri = generateSignedFbEventUri(pixelId, event, data)
   return Promise.resolve({ uri })
 }
 
