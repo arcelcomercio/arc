@@ -5,6 +5,7 @@ const classes = {
   list: 'score__gol-list flex pl-20 pr-20',
   listItem: 'score__gol-item flex mr-10',
   listName: 'score__gol-name text-gray-300 font-bold mr-5',
+  listTime: 'score__gol-time text-gray-200',
 }
 const GolListItem = ({ goalList = [] }) => {
   return (
@@ -19,7 +20,7 @@ const GolListItem = ({ goalList = [] }) => {
           return (
             <li className={classes.listItem}>
               <p className={classes.listName}>{scorerName}</p>
-              <span>{time}</span>
+              <span className={classes.listTime}>{time}</span>
             </li>
           )
         })}
