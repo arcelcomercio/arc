@@ -2,29 +2,35 @@
 import React from 'react'
 
 const classes = {
-  list: 'score__gol-list flex pl-20 pr-20',
-  listItem: 'score__gol-item flex mr-10',
+  golBox: 'score__gol-box flex flex-row-reverse pl-20 pr-20',
+  list: 'score__gol-list flex pl-20 pr-20 flex-wrap justify-end',
+  listItem: 'score__gol-item flex flex-wrap mr-10',
   listName: 'score__gol-name text-gray-300 font-bold mr-5',
   listTime: 'score__gol-time text-gray-200',
+  golImg: 'score__gol-img object-cover block',
 }
-const GolListItem = ({ goalList = [] }) => {
+const GolListItem = ({ homeTeam = true, goalList = [] }) => {
   return (
-    <ul className={classes.list}>
-      {goalList.length > 0 &&
-        goalList.map(({ timeMinSec = '', scorerName, type }) => {
-          const min = parseInt(timeMinSec.split(':')[0])
-          const seg = parseInt(timeMinSec.split(':')[1])
+    <div className={classes.golBox}>
+      {homeTeam && <img src="" alt="" className={classes.golImg} />}
+      <ul className={classes.list}>
+        {goalList.length > 0 &&
+          goalList.map(({ timeMinSec = '', scorerName, type }) => {
+            const min = parseInt(timeMinSec.split(':')[0])
+            const seg = parseInt(timeMinSec.split(':')[1])
 
-          const time = `(${type !== 'G' ? type : ''} ${min}', ${seg}'')`
+            const time = `(${type !== 'G' ? type : ''} ${min}', ${seg}'')`
 
-          return (
-            <li className={classes.listItem}>
-              <p className={classes.listName}>{scorerName}</p>
-              <span className={classes.listTime}>{time}</span>
-            </li>
-          )
-        })}
-    </ul>
+            return (
+              <li className={classes.listItem}>
+                <p className={classes.listName}>{scorerName}</p>
+                <span className={classes.listTime}>{time}</span>
+              </li>
+            )
+          })}
+      </ul>
+      {homeTeam === false && <img src="" alt="" className={classes.golImg} />}
+    </div>
   )
 }
 

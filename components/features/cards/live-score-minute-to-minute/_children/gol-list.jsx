@@ -2,7 +2,7 @@ import React from 'react'
 import GolListItem from './gol-list-item'
 
 const classes = {
-  gol: 'score__gol-wrapper flex justify-between pt-10 pb-10',
+  gol: 'score__gol-wrapper flex justify-between pt-5 pb-5',
   golImg: 'score__gol-img w-full h-full object-cover',
 }
 
@@ -12,8 +12,8 @@ const GolListTeams = ({ homeTeamGolList = [], awayTeamGolList = [] }) => {
       <>
         <GolListItem homeTeam goalList={homeTeamGolList} />
 
-        <img src="" alt="" className={classes.golImg} />
-        <img src="" alt="" className={classes.golImg} />
+        {/* <img src="" alt="" className={classes.golImg} />
+        <img src="" alt="" className={classes.golImg} /> */}
 
         <GolListItem homeTeam={false} goalList={awayTeamGolList} />
       </>
