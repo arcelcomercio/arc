@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
-import { sizeImg } from '../../../utilities/config-params'
+
 import buildHtml from './_dependencies/build-html'
 import {
   includeContentBasic,
@@ -9,6 +9,7 @@ import {
   includePromoItemsCaptions,
   includeGalleryUrls,
 } from '../../../utilities/included-fields'
+import { sizeImg } from '../../../utilities/resizer'
 
 const SOURCE = 'story-feed-by-section'
 const IMAGE_SIZE = 'amp_new'

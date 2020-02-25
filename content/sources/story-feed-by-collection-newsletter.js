@@ -7,7 +7,7 @@ import {
 } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 // TODO: Este Content source realiza 2 fetch y un promise all con múltiples fetch,
 // el api de /websked/collections ya trae el id de las notas, por lo que no es necesario
