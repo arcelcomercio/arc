@@ -66,7 +66,7 @@
     &.right {
       transform: rotate(180deg);
       &::before {
-        content: '';
+        content: "";
         transform: translatex(100%);
         width: 20px;
         @media (--desktop) {
@@ -86,7 +86,7 @@
     }
     &.left {
       &::before {
-        content: '';
+        content: "";
         transform: translatex(100%);
         width: 20px;
         @media (--desktop) {
@@ -110,7 +110,7 @@
         content: none;
       }
       .header__icon-back {
-        background-color: $color-gray-200;
+        background-color: #8a8a8a;
       }
     }
   }
