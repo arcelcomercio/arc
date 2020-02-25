@@ -12,6 +12,7 @@ class Data extends StoryData {
     customFields,
     index = 0,
     customImage = {},
+    isAdmin,
   }) {
     super({
       data,
@@ -23,6 +24,7 @@ class Data extends StoryData {
     this._customFields = customFields
     this._index = index
     this._customImage = customImage
+    this._isAdmin = isAdmin
   }
 
   get index() {
@@ -38,6 +40,10 @@ class Data extends StoryData {
 
   get customImage() {
     return this._customImage
+  }
+
+  get triplet() {
+    return this._triplet
   }
 
   set __customImage(val) {
@@ -70,7 +76,8 @@ class Data extends StoryData {
   }
 
   get multimediaSquareS() {
-    const { resized_urls: { square_s: squareS } = {} } = this.customImage
+    const { resized_urls: { square_s: squaress } = {} } = this.customImage
+    const squareS = this._isAdmin ? squaress : this.customImage
     return (
       squareS ||
       this._customFields[`image${this.index}`] ||

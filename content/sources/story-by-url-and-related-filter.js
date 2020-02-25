@@ -8,7 +8,7 @@ import {
 } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'story-dev'
