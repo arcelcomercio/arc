@@ -684,10 +684,12 @@ export const iframeHtml = (html, arcSite = '') => {
     )
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
-    .replace(/<script>(.*\n)+.*<\/script>/g, '')
+    .replace(/script/gm, 'noscript')
+    .replace(/type="application\/ld\+json"/gm, '')
+    // .replace(/<script>(.*\n)+.*<\/script>/g, '')
     .replace(/<(style|script)(.*)>(.*\n)*.*<\/(style|script)(.*)>/g, '')
 
-    .replace(/<(-?\/)?script>/g, '')
+    // .replace(/<(-?\/)?script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 
     .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
