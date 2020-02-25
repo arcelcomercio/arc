@@ -25,6 +25,12 @@ class LiveScoreMinuteToMinute extends PureComponent {
     this.getDataScore()
   }
 
+  componentDidMount() {
+    setInterval(() => {
+      this.getDataScore()
+    }, 5000)
+  }
+
   getDataScore = () => {
     const { globalContent } = this.props
     const gameid = getFootballGameId(globalContent)
@@ -42,6 +48,8 @@ class LiveScoreMinuteToMinute extends PureComponent {
     const {
       teamParams: { homeTeamParams = {}, awayTeamParams = {} } = {},
     } = this.state
+
+    console.log(Date().toString(), this.state)
 
     const localTeamParams = {
       homeTeam: true,
