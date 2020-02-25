@@ -1,8 +1,14 @@
 import React, { PureComponent } from 'react'
-import { searchQuery } from '../../../../utilities/helpers'
 import SignwallComponent from '../../../signwall/main/default'
 import Button from '../../../../global-components/button'
 
+export const searchQuery = (query, sort) => {
+  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
+  if (query !== '')
+    // eslint-disable-next-line no-restricted-globals
+    location.href = `/buscar/${newQuery}/todas/${sort ||
+      'descendiente'}/?query=${newQuery}`
+}
 const classes = {
   navbarSomos:
     'navbar-somos bg-black flex items-center justify-between pt-0 pb-0 pr-10 pl-10',
