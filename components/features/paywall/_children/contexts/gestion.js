@@ -105,6 +105,7 @@ export default {
      `Enviaremos la boleta de compra de la  
       suscripción al correo: **{{email}}**`,
     continueButton: `SIGUE NAVEGANDO`,
+    continueMessage: `Cierre el navegador para continuar`,
 
     // Support
     supportTitle: `Soporte`,
