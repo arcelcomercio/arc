@@ -18,7 +18,7 @@ function buildBrowserTag(
   const queryString = qs.stringify({ ...params, eid: uuid(), ts: Date.now() })
   const signature = encodeURIComponent(hmac256(queryString, secret))
   const uri = `${baseUrl}?${queryString}&sig=${signature}`
-  return uri
+  return { uri }
 }
 
 function generateSignedFbEventUri(pixelId, event, data) {
@@ -32,10 +32,10 @@ function generateSignedFbEventUri(pixelId, event, data) {
 }
 
 const fetch = (key = {}) => {
-  const { 'arc-site': site, event, ...data } = key
+  const site = key['arc-site']
+  const { event, ...data } = key
   const pixelId = ENV[`FB_PIXEL_ID_${site.toUpperCase()}`]
-  const uri = generateSignedFbEventUri(pixelId, event, data)
-  return Promise.resolve({ uri })
+  return generateSignedFbEventUri(pixelId, event, data)
 }
 
 export default { fetch }
