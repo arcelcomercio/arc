@@ -1,8 +1,8 @@
 .score {
   background-color: $color-white;
-  &__wrapper {
+  /*   &__wrapper {
     max-width: 700px;
-  }
+  } */
 
   &__end-text {
     width: 50px;
@@ -27,7 +27,18 @@
   }
   &__team {
     width: 50%;
+    @media (--only-mobile) {
+      align-items: flex-start;
+    }
+    &:first-child {
+      justify-content: flex-end;
+    }
     &:last-child {
+      .score__team-details {
+        @media (--tablet) {
+          flex-direction: row-reverse;
+        }
+      }
       .score__team-number {
         margin-right: 25px;
       }
@@ -37,32 +48,75 @@
     }
     &-name {
       font-size: 22px;
-      margin-right: 25px;
+      @media (--only-mobile) {
+        font-size: 16px;
+        margin-top: 15px;
+      }
+      @media (--tablet) {
+        margin-right: 25px;
+      }
     }
     &-logo {
       width: 40px;
       height: 40px;
       background-color: red;
       margin-right: 25px;
+      @media (--only-mobile) {
+        margin-right: 0;
+      }
     }
     &-number {
       font-size: 40px;
     }
+    &-details {
+      @media (--only-mobile) {
+        flex-direction: column-reverse;
+      }
+    }
   }
   &__gol {
-    &-content {
-    }
     &-wrapper {
       border-top: 1px solid #eee;
       border-bottom: 1px solid #eee;
     }
-    &-list {
-      width: 48%;
-      &:first-child {
+    &-box {
+      width: 50%;
+      &:last-child {
         justify-content: flex-end;
+        @media (--only-mobile) {
+          padding-right: 0;
+        }
+      }
+      &:first-child {
+        @media (--only-mobile) {
+          padding-left: 0;
+        }
       }
     }
-    &-name {
+    &-list {
+      width: calc(100% - 20px);
+      @media (max-width: 1023px) {
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+      &:first-child {
+        @media (max-width: 1023px) {
+          align-items: flex-end;
+        }
+        @media (--desktop) {
+          justify-content: flex-start;
+        }
+      }
+      @media (--only-mobile) {
+        flex-direction: column;
+      }
+    }
+    &-item {
+      margin-bottom: 5px;
+    }
+    &-name,
+    &-time {
+      font-size: 13px;
     }
     &-img {
       width: 20px;

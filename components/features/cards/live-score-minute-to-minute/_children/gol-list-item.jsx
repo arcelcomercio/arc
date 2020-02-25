@@ -2,14 +2,16 @@
 import React from 'react'
 
 const classes = {
-  list: 'score__gol-list flex pl-20 pr-20',
-  listItem: 'score__gol-item flex mr-10',
+  golBox: 'score__gol-box flex flex-row-reverse pl-20 pr-20',
+  list: 'score__gol-list flex pl-20 pr-20 flex-wrap justify-end',
+  listItem: 'score__gol-item flex flex-wrap mr-10',
   listName: 'score__gol-name text-gray-300 font-bold mr-5',
-  golImg: 'score__gol-img w-full h-full object-cover',
+  listTime: 'score__gol-time text-gray-200',
+  golImg: 'score__gol-img object-cover block',
 }
 const GolListItem = ({ homeTeam = true, goalList = [] }) => {
   return (
-    <div>
+    <div className={classes.golBox}>
       {homeTeam && <img src="" alt="" className={classes.golImg} />}
       <ul className={classes.list}>
         {goalList.length > 0 &&
@@ -22,7 +24,7 @@ const GolListItem = ({ homeTeam = true, goalList = [] }) => {
             return (
               <li className={classes.listItem}>
                 <p className={classes.listName}>{scorerName}</p>
-                <span>{time}</span>
+                <span className={classes.listTime}>{time}</span>
               </li>
             )
           })}
