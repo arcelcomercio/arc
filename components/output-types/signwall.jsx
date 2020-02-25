@@ -1,0 +1,89 @@
+import React from 'react'
+import ENV from 'fusion:environment'
+import PropTypes from 'prop-types'
+import TagManager from './_children/tag-manager'
+
+const SignwallOutputType = ({
+  children,
+  contextPath,
+  siteProperties,
+  deployment,
+  arcSite,
+  Libs,
+  Fusion,
+}) => {
+  const { siteName, siteDescription } = siteProperties
+
+  const C_ENVIRONMENT = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+
+  return (
+    <html lang="es">
+      <head>
+        <TagManager {...siteProperties} />
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+        <title>Signwall {siteName}</title>
+        <meta name="description" content={siteDescription} />
+        <meta name="theme-color" content="#444444" />
+        <meta name="msapplication-TileColor" content="#444444" />
+        <meta name="robots" content="noindex,follow" />
+        <Libs />
+        <link
+          rel="stylesheet"
+          href={deployment(
+            `${contextPath}/resources/dist/${arcSite}/css/signwall.css`
+          )}
+        />
+
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+
+        {/* <!-- Identity & Sales & Paywall - Inicio --> */}
+        {siteProperties.activeSignwall && (
+          <script
+            src={`https://arc-subs-sdk.s3.amazonaws.com/${C_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+            defer
+          />
+        )}
+        {siteProperties.activePaywall && (
+          <>
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${C_ENVIRONMENT}/sdk-sales.min.js?v=07112019`}
+              defer
+            />
+          </>
+        )}
+        {/* <!-- Identity & Sales & Paywall - Fin --> */}
+      </head>
+      <body>
+        <noscript>
+          <iframe
+            title="Google Tag Manager - No Script"
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+
+        <div id="fusion-app" role="application">
+          {children}
+        </div>
+
+        <Fusion />
+      </body>
+    </html>
+  )
+}
+
+SignwallOutputType.propTypes = {
+  children: PropTypes.node,
+  arcSite: PropTypes.string,
+}
+
+export default SignwallOutputType
