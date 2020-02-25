@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { PureComponent } from 'react'
 
-import { publicidadAmpMovil0 } from '../../../../utilities/helpers'
 import { getAssetsPath } from '../../../../utilities/constants'
+import { publicidadAmpMovil0 } from '../../../../utilities/story/helpers-amp'
 
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
