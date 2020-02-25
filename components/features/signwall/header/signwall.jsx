@@ -77,9 +77,12 @@ const Head = ({
                   onClose()
                   if (
                     window.location.pathname.match(/newsletters/) &&
-                    window.Identity.userProfile
+                    window.Identity.userProfile &&
+                    typeDialog === 'organico'
                   ) {
-                    window.location.reload()
+                    setTimeout(() => {
+                      window.location.reload()
+                    }, 800)
                   }
                 }}>
                 <Close color={mainColorTxt} />
