@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
 import TeanScore from './_children/team-score'
 import GolListItem from './_children/gol-list'
@@ -16,7 +16,7 @@ const classes = {
 const CONTENT_SOURCE = 'get-score-data-opta'
 
 @Consumer
-class LiveScoreMinuteToMinute extends PureComponent {
+class LiveScoreMinuteToMinute extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -26,9 +26,8 @@ class LiveScoreMinuteToMinute extends PureComponent {
   }
 
   componentDidMount() {
-    setInterval(() => {
-      this.getDataScore()
-    }, 5000)
+    const interval = setInterval(() => this.getDataScore(), 5000)
+    this.setState({ interval })
   }
 
   getDataScore = () => {
