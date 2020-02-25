@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react'
 import ENV from 'fusion:environment'
 
 import Button from '../../../../global-components/button'
-import SignwallComponent from '../../../signwall/main/default'
 import ConfigParams from '../../../../utilities/config-params'
 
 import Menu from '../../../../global-components/menu'
@@ -537,19 +536,25 @@ class NavBarDefault extends PureComponent {
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                    onClick={()=>{
-                      const { origin } = window.location;
-                      const outputType = (_env === 'prod')? '' : 'outputType=paywall&';
-                      const pf = _env === 'prod' ? '' : '/pf';
-                      const connector = _env !== "prod" ? `?_website=${arcSite}&` : `?`;
-                      const link = origin + pf + siteProperties.urlSubsOnline + connector + outputType;
-                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
-                      window.location.href = link + ref;
-                    }}/>)}
-
-                {siteProperties.activeSignwall && (
-                  <SignwallComponent
-                    classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
+                    onClick={() => {
+                      const { origin } = window.location
+                      const outputType =
+                        _env === 'prod' ? '' : 'outputType=paywall&'
+                      const pf = _env === 'prod' ? '' : '/pf'
+                      const connector =
+                        _env !== 'prod' ? `?_website=${arcSite}&` : `?`
+                      const link =
+                        origin +
+                        pf +
+                        siteProperties.urlSubsOnline +
+                        connector +
+                        outputType
+                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                        'undefined' &&
+                        window.section) ||
+                        ''}`
+                      window.location.href = link + ref
+                    }}
                   />
                 )}
               </div>
