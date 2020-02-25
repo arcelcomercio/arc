@@ -263,10 +263,10 @@ export const iframeHtml = (html, arcSite = '') => {
     )
     .replace(/<hl2>(.+)<\/hl2>/g, '$1')
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
-    .replace(/<script>(.*\n)+.*<\/script>/g, '')
+    .replace(/<script>(.*\n)+.*<\/script>/gm, '')
     .replace(/<(style|script)(.*)>(.*\n)*.*<\/(style|script)(.*)>/g, '')
 
-    .replace(/<(-?\/)?script>/g, '')
+    .replace(/<(-?\/)?script>/gm, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 
     .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
@@ -441,11 +441,11 @@ export const ampHtml = (html = '', arcSite = '') => {
   resultData = freeHtml(resultData)
 
   // HTML Iframe
-  resultData = iframeHtml(resultData, arcSite)
+  // resultData = iframeHtml(resultData, arcSite)
 
   // Mxm Iframe
 
-  resultData = iframeMxm(resultData, arcSite)
+  // resultData = iframeMxm(resultData, arcSite)
 
   return resultData
 }
