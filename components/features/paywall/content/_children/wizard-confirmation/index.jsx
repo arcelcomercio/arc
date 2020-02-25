@@ -1,4 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
+/* global Identity */
 import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
 import * as S from './styled'
@@ -8,6 +9,7 @@ import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
 import { pushCxense } from '../../../_dependencies/cxense'
+import { SubscribeEventTag } from '../../../_children/fb-signed-pixel'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -33,6 +35,7 @@ const WizardConfirmation = props => {
       referer,
       payment = {},
       printedSubscriber,
+      fromFia,
       freeAccess,
       event,
     },
@@ -160,6 +163,14 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
+        {fromFia && (
+          <SubscribeEventTag
+            subscriptionId={Identity.userIdentity.uuid}
+            offerCode={priceCode}
+            currency="PEN"
+            value={amount}
+          />
+        )}
         <Picture
           width={{ xs: '0px', md: '360px' }}
           hideOnScreenSize="sm"
