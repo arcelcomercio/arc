@@ -103,12 +103,19 @@ class XmlFacebookInstantArticles {
               if (storyData.fiaOrigen === true) {
                 if (storyData.canonicalWebsite === 'elcomerciomag') {
                   fiaContent = 'MAG'
-                  storyLink = `${siteUrl}/mag${storyData.websiteLink}`
+                  const {
+                    websites: {
+                      elcomerciomag: { website_url: magWebsiteUrl = '' } = {},
+                    } = {},
+                  } = story || {}
+                  storyLink = `${siteUrl}/mag${magWebsiteUrl}`
                 } else {
                   storyLink = `${siteUrl}${storyData.websiteLink}`
                   fiaContent = fbArticleStyle
                 }
                 const pageview = `${storyData.websiteLink}?outputType=fia`
+                const { revision: { revision_id: revisionId = '' } = {} } =
+                  storyData._data || {}
 
                 const propsScriptHeader = {
                   siteDomain,
@@ -118,6 +125,7 @@ class XmlFacebookInstantArticles {
                   author: nbspToSpace(storyData.author),
                   typeNews: storyData.multimediaType,
                   premium: storyData.getPremiumValue,
+                  revision: revisionId,
                 }
 
                 const scriptAnaliticaProps = {
@@ -163,6 +171,7 @@ class XmlFacebookInstantArticles {
                     guid: md5(storyData.id),
                     author: storyData.author,
                     premium: storyData.getPremiumValue,
+                    revision: revisionId,
                     captureDate: getActualDate(),
                     'content:encoded': {
                       '#cdata': buildHtml(buildHtmlProps),

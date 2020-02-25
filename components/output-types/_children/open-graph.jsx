@@ -2,6 +2,7 @@ import React from 'react'
 import StoryData from '../../utilities/story-data'
 import { deleteQueryString } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
+import { getAssetsPath } from '../../utilities/constants'
 
 export default ({
   fbAppId,
@@ -33,7 +34,10 @@ export default ({
     story && multimediaLarge
       ? multimediaLarge
       : deployment(
-          `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo_fb.jpg`
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/logo_fb.jpg`
         )
 
   if (

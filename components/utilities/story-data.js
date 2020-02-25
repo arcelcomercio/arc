@@ -7,6 +7,7 @@ import {
   msToTime,
 } from './helpers'
 import { getVideoIdRedSocial } from './story/helpers'
+import { getAssetsPath } from './constants'
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -955,7 +956,7 @@ class StoryData {
               stream_type: streamType,
               resized_urls: resizedUrlsV = '',
             }) => {
-              return streamType === 'mp4'
+              return streamType === 'ts'
                 ? {
                     idVideo,
                     url,
@@ -1062,7 +1063,7 @@ class StoryData {
           }) => {
             const resultVideo = streams
               .map(({ url = '', stream_type: streamType = '' }) => {
-                return streamType === 'mp4'
+                return streamType === 'ts'
                   ? {
                       idVideo,
                       url,
@@ -1148,7 +1149,10 @@ class StoryData {
   ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = deployment(
-      `${contextPath}/resources/dist/${website}/images/author.png`
+      `${getAssetsPath(
+        website,
+        contextPath
+      )}/resources/dist/${website}/images/author.png`
     )
 
     let nameAuthor = ''

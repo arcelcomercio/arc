@@ -1,0 +1,23 @@
+.most-read-homologated-header {
+  background-color: $color-gray-300;
+
+  &__title {
+    font-family: $tertiary-font;
+    font-weight: 900;
+    color: $color-white;
+  }
+  &__icon {
+    display: block;
+    &:before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-image: url(/pf/resources/dist/elbocon/images/loader.png);
+      background-size: cover;
+    }
+  }
+  &__see-more {
+    display: none;
+  }
+}

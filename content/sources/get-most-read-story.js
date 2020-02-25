@@ -5,14 +5,10 @@ import { CONTENT_BASE, ARC_ACCESS_TOKEN, ENV } from 'fusion:environment'
 const flagDev = !(ENV === 'elcomercio')
 
 const getUriMostRead = (site, isPremium = false, isDev = false) => {
-  let uriMostReadGeneral = `https://d3ocw6unvuy6ob.cloudfront.net/${site}/normal/top.json`
-  if (isPremium) {
-    uriMostReadGeneral = isDev
-      ? `https://d3ocw6unvuy6ob.cloudfront.net/${site}/premium/top.json`
-      : `https://do5ggs99ulqpl.cloudfront.net/${site}/premium/top.json`
-  }
-
-  return uriMostReadGeneral
+  const endpoint = isDev ? `d3ocw6unvuy6ob` : `do5ggs99ulqpl`
+  const type = isPremium ? `premium` : `normal`
+  
+  return `https://${endpoint}.cloudfront.net/${site}/${type}/top.json`
 }
 
 const options = {
@@ -26,7 +22,8 @@ const options = {
 const setPageViewsUrls = (arrUrl, arrUrlRes) => {
   return arrUrlRes.map(row => {
     const item = arrUrl.find(el => {
-      return el.path === (row.website_url || row.canonical_url)
+      // return el.path === (row.website_url || row.canonical_url)
+      return el.dimension8 === row._id 
     })
     return { ...row, page_views: (item && item.pageviews) || 0 }
   })
@@ -45,9 +42,10 @@ const params = [
   },
 ]
 
-const uriAPI = (url, site) => {
-  const filter = `&included_fields=type,websites,website,website_url,headlines,promo_items`
-  return `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
+const uriAPI = (id, site) => {
+  const filter = `&included_fields=type,websites,website,website_url,headlines,promo_items,_id`
+  // return `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
+  return `${CONTENT_BASE}/content/v4/stories/?_id=${id}&website=${site}&published=true${filter}`
 }
 
 const fetch = (key = {}) => {
@@ -59,13 +57,13 @@ const fetch = (key = {}) => {
     ...options,
   })
     .then(resp => {
-      const arrURL = resp
-        .slice(0, amountStories)
-        .filter(url => /((.*)-noticia(.*)\/)(.*)/.test(url.path))
+      const arrURL = resp.slice(0, amountStories)
+      // .filter(url => /((.*)-noticia(.*)\/)(.*)/.test(url.path))
 
       const promiseArray = arrURL.map(url =>
         request({
-          uri: uriAPI(url.path, website),
+          // uri: uriAPI(url.path, website),
+          uri: uriAPI(url.dimension8, website),
           ...options,
         }).catch(err => console.log(`URL Promise error: ${err}`))
       )
@@ -80,7 +78,7 @@ const fetch = (key = {}) => {
         })
         .catch(err => console.log(`PromiseAll error: ${err}`))
     })
-    .catch(() => {
+    .catch(err => {
       return { content_elements: [] }
     })
 }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import NavBarAmp from '../../layout/navbar/_children/amp'
 import Formatter from '../../layout/navbar/_dependencies/formatter'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   header: 'amp-header w-full position-absolute mx-auto',
@@ -75,14 +76,16 @@ class LayoutNavbar extends PureComponent {
       arcSite,
       deployment,
       siteProperties: {
-        siteUrl,
         assets: { seo: { widthAmp = '', heightAmp = '' } = {} } = {},
       },
     } = this.props
-    const imgLogo =
-      deployment(
-        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-      ) || ''
+    const imgLogo = deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo-amp.png`
+    )
+
     return (
       <>
         <header className={classes.header}>

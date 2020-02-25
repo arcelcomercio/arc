@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 
 import { useContent } from 'fusion:content'
@@ -8,12 +9,26 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import LiveStreaming from './_children/streaming-live'
+import { getPhotoId } from '../../../utilities/helpers'
 import {
   includeCredits,
   includePrimarySection,
   includePromoItems,
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
+import { getAssetsPath } from '../../../utilities/constants'
+
+const PHOTO_SOURCE = 'photo-by-id'
+const PHOTO_SCHEMA = `{
+  resized_urls { 
+    landscape_l 
+    landscape_md
+    portrait_md 
+    square_s 
+    square_xl
+    lazy_default  
+  }
+}`
 
 const FeaturedStoryPremium = props => {
   const {
@@ -43,6 +58,9 @@ const FeaturedStoryPremium = props => {
       flagLive,
       platformLive,
       urlVideo,
+      titleField,
+      imgField,
+      categoryField,
     } = {},
   } = props
 
@@ -151,8 +169,24 @@ const FeaturedStoryPremium = props => {
     return arrError
   }
 
+  const photoId = imgField ? getPhotoId(imgField) : ''
+
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
+            source: PHOTO_SOURCE,
+            query: {
+              _id: photoId,
+            },
+            filter: PHOTO_SCHEMA,
+          }
+        : {}
+    ) || {}
+
   const errorList = isAdmin ? validateScheduledNotes() : []
-  const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
+  const presets =
+    'landscape_l:648x374,landscape_md:314x157,square_md:300x300,portrait_md:314x374'
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
   const sourceFetch =
@@ -172,6 +206,8 @@ const FeaturedStoryPremium = props => {
     isPremium,
     websiteLink,
     multimediaSquareMD,
+    multimediaSquareXL,
+    multimediaPortraitMD,
     multimediaLandscapeMD,
     multimediaLandscapeL,
     multimediaLazyDefault,
@@ -192,6 +228,16 @@ const FeaturedStoryPremium = props => {
     defaultImgSize: 'sm',
   })
 
+  const {
+    resized_urls: {
+      square_md: squareMDCustom,
+      square_xl: squareXLCustom,
+      landscape_l: landscapeLCustom,
+      landscape_md: landscapeMDCustom,
+      portrait_md: portraitMDCustom,
+    } = {},
+  } = customPhoto || {}
+
   const params = {
     arcSite,
     isPremium,
@@ -199,9 +245,12 @@ const FeaturedStoryPremium = props => {
     imgType,
     bgColor,
     websiteLink,
-    multimediaSquareMD,
-    multimediaLandscapeMD,
-    multimediaLandscapeL,
+    multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
+    multimediaSquareXL: squareXLCustom || imgField || multimediaSquareXL,
+    multimediaLandscapeMD:
+      landscapeMDCustom || imgField || multimediaLandscapeMD,
+    multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
+    multimediaPortraitMD: portraitMDCustom || imgField || multimediaPortraitMD,
     multimediaLazyDefault,
     title,
     subTitle,
@@ -212,7 +261,14 @@ const FeaturedStoryPremium = props => {
     primarySection,
     isAdmin,
     errorList,
-    logo: deployment(`${contextPath}/resources/dist/${arcSite}/images/${logo}`),
+    titleField,
+    categoryField,
+    logo: deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
+    ),
     multimediaSubtitle,
     multimediaCaption,
   }

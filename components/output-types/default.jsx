@@ -14,8 +14,8 @@ import {
   addSlashToEnd,
   deleteQueryString,
 } from '../utilities/helpers'
-import ConfigParams from '../utilities/config-params'
-import CounterPaywall from './_children/counter-paywall'
+// import ConfigParams from '../utilities/config-params'
+import { getAssetsPath } from '../utilities/constants'
 
 export default ({
   children,
@@ -91,6 +91,10 @@ export default ({
   if (requestUri.match(`^(/videos/.*)`))
     classBody = `${isStory && 'story'} section-videos`
 
+  if (arcSite === 'elcomercio') {
+    if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
+  }
+
   const metaSiteData = {
     ...siteProperties,
     requestUri,
@@ -99,6 +103,7 @@ export default ({
     deployment,
     isStory,
     isAmp: false,
+    CURRENT_ENVIRONMENT,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -298,12 +303,20 @@ export default ({
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && (
             <script
               defer
-              src={deployment(`${contextPath}/resources/assets/js/arcads.js`)}
+              src={deployment(
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/assets/js/arcads.js`
+              )}
             />
           )}
 
@@ -311,7 +324,10 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag'
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21'
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -367,13 +383,21 @@ export default ({
           />
         )}
         {siteProperties.activePaywall && (
-          <CounterPaywall arcSite={arcSite} arcEnv={CURRENT_ENVIRONMENT} />
+          <script
+            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+            async
+          />
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -401,20 +425,29 @@ export default ({
           arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag'
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21'
         ) &&
           !nodas && (
             <script
               defer
               src={deployment(
-                `${contextPath}/resources/assets/js/appnexus-min.js`
+                `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/assets/js/appnexus-min.js`
               )}
             />
           )}
         <script
           defer
           src={deployment(
-            `${contextPath}/resources/dist/${arcSite}/js/index.js`
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/js/index.js`
           )}
         />
         <Fusion />
@@ -450,12 +483,20 @@ export default ({
         />
 
         <script
-          src={deployment(`${contextPath}/resources/assets/js/lazyload.js`)}
+          src={deployment(
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/assets/js/lazyload.js`
+          )}
         />
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag') &&
+          arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21') &&
           !nodas &&
           !isLivePage && <Dfp />}
       </body>

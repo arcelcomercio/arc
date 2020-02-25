@@ -2,27 +2,18 @@ import React, { useState } from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 // import { defaultImage } from '../../../utilities/helpers'
+import { getAssetsPath } from '../../../utilities/constants'
 
 // Se evita usar funciones de helpers debido a que este feature no usa static true
 // TODO: Refactorizar para poder usar static true
 const defaultImage = ({ deployment, contextPath, arcSite, size = 'lg' }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
-  const site = () => {
-    let domain = `${arcSite}.pe`
-    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
-    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
-    return domain
-  }
-
-  if (arcSite === 'depor' || arcSite === 'elbocon') {
-    return deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
-    )
-  }
-
   return deployment(
-    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 

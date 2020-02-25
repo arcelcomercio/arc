@@ -8,12 +8,13 @@ import NavBarAmp from '../../layout/navbar/_children/amp'
 import HeaderAmp from './_children/header-amp'
 
 import Formatter from '../../layout/navbar/_dependencies/formatter'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const LayoutNavbar = props => {
   const { customFields } = props
   const { contextPath, arcSite, deployment } = useFusionContext()
 
-  const { siteDomain, siteUrl, assets: { nav } = {} } = getProperties(arcSite)
+  const { siteDomain, assets: { nav } = {} } = getProperties(arcSite)
 
   const formater = new Formatter(
     {
@@ -49,10 +50,12 @@ const LayoutNavbar = props => {
     return NavBarType[selectDesing] || NavBarType.standard
   }
 
-  const imgLogo =
-    deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-    ) || ''
+  const imgLogo = deployment(
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo-amp.png`
+  )
 
   return (
     <>

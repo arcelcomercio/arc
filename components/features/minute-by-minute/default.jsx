@@ -5,6 +5,7 @@ import React, { PureComponent } from 'react'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import { appendToBody } from '../../utilities/helpers'
+import { getAssetsPath } from '../../utilities/constants'
 
 // TODO: convertir en componente funcional con hooks
 
@@ -84,6 +85,7 @@ class MinuteByMinute extends PureComponent {
       )
 
       const self = this
+      // eslint-disable-next-line no-inner-declarations
       function runScorer() {
         // eslint-disable-next-line no-undef
         const instances = getMxmInstances()
@@ -100,6 +102,7 @@ class MinuteByMinute extends PureComponent {
         }
       }
 
+      // eslint-disable-next-line consistent-return
       const waitjQueryAndMxm = () => {
         let timeout = 100
         if (window.jQuery) {
@@ -147,7 +150,14 @@ class MinuteByMinute extends PureComponent {
   render() {
     const { deployment, contextPath } = this.props
     const {
-      customFields: { typeComponent = '', codeComponent = '' } = {},
+      customFields: {
+        typeComponent = '',
+        codeComponent = '',
+        titleField = '',
+        subtitleField = '',
+      } = {},
+      editableField,
+      arcSite,
     } = this.props
 
     const { inner, content } = this.state
@@ -166,8 +176,12 @@ class MinuteByMinute extends PureComponent {
           {typeComponent === 'partido' ? (
             <>
               <h2 className="text-center text-xl line-h-sm font-bold mb-20">
-                <a href={url} className="text-white tertiary-font">
-                  {title}
+                <a
+                  {...editableField('titleField')}
+                  suppressContentEditableWarning
+                  href={url}
+                  className="text-white tertiary-font">
+                  {titleField || title}
                 </a>
               </h2>
               <div className="w-game-info">
@@ -175,7 +189,10 @@ class MinuteByMinute extends PureComponent {
                   <li className="game-live secondary-font mr-10 text-md flex items-center text-white">
                     <img
                       src={deployment(
-                        `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                        `${getAssetsPath(
+                          arcSite,
+                          contextPath
+                        )}/resources/assets/minute-by-minute/icon_live.png`
                       )}
                       alt=""
                       className="mr-5"
@@ -244,7 +261,10 @@ class MinuteByMinute extends PureComponent {
                 <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
                   <img
                     src={deployment(
-                      `${contextPath}/resources/assets/minute-by-minute/icon_live.png`
+                      `${getAssetsPath(
+                        arcSite,
+                        contextPath
+                      )}/resources/assets/minute-by-minute/icon_live.png`
                     )}
                     alt=""
                     className="mr-5"
@@ -253,13 +273,21 @@ class MinuteByMinute extends PureComponent {
                 </div>
               </div>
               <h2 className="text-center text-xl line-h-sm font-bold mt-20">
-                <a href={url} className="text-white tertiary-font">
-                  {title}
+                <a
+                  {...editableField('titleField')}
+                  suppressContentEditableWarning
+                  href={url}
+                  className="text-white tertiary-font">
+                  {titleField || title}
                 </a>
               </h2>
               <p className="text-center mt-15">
-                <a className="text-white" href={url}>
-                  {subTitle}
+                <a
+                  {...editableField('subtitleField')}
+                  suppressContentEditableWarning
+                  className="text-white line-h-xs"
+                  href={url}>
+                  {subtitleField || subTitle}
                 </a>
               </p>
             </>
@@ -296,9 +324,9 @@ class MinuteByMinute extends PureComponent {
         </div>
         <div className="by-minute__right">
           {typeComponent === 'partido' ? (
-            <mxm-partido code={codeComponent} noframe h="235px" />
+            <mxm-partido code={codeComponent} noframe h="270px" />
           ) : (
-            <mxm-evento code={codeComponent} noframe h="258px" />
+            <mxm-evento code={codeComponent} noframe h="270px" />
           )}
         </div>
       </div>

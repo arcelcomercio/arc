@@ -3,6 +3,8 @@ import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 import schemaFilter from '../../stories-lists/card/_dependencies/schema-filter'
+import { includePromoItems } from '../../../utilities/included-fields'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   storyContinue:
@@ -39,10 +41,12 @@ class StoryContinue extends PureComponent {
 
     this.fetchContent({
       dataList: {
-        source: 'story-feed-by-section-url',
+        source: 'story-feed-by-section',
         query: {
           section: path,
           stories_qty: 6,
+          presets: 'landscape_md:314x157',
+          includedFields: `_id,headlines.basic,websites.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
         },
         filter: schemaFilter(arcSite),
       },
@@ -202,8 +206,14 @@ class StoryContinue extends PureComponent {
       if (arcSite !== 'gestion') {
         navLogo.src = deployment(
           arcSite === 'publimetro'
-            ? `${contextPath}/resources/dist/publimetro/images/green-logo.png`
-            : `${contextPath}/resources/dist/${arcSite}/images/logo.png`
+            ? `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/publimetro/images/green-logo.png`
+            : `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/logo.png`
         )
       }
     }

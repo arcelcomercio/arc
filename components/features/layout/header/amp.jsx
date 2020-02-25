@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import { getAssetsPath } from '../../../utilities/constants'
 
 // TODO: Separar Feature de Componente.
 
@@ -21,16 +22,14 @@ const classes = {
 @Consumer
 class LayoutAmpHeader extends PureComponent {
   render() {
-    const {
-      contextPath,
-      arcSite,
-      deployment,
-      siteProperties: { siteUrl },
-    } = this.props
-    const imgLogo =
-      deployment(
-        `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-      ) || ''
+    const { contextPath, arcSite, deployment } = this.props
+    const imgLogo = deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo-amp.png`
+    )
+
     return (
       <>
         <header className={classes.header}>

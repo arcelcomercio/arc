@@ -1,16 +1,19 @@
 @font-face {
-  font-family: 'icomoon';
-  src: url('../../icons/fonts/default.woff?o217b7') format('woff'),
-    url('../../icons/fonts/default.svg?o217b7#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("https://cdna.ojo.pe/resources/dist/ojo/fonts/default.woff")
+      format("woff"),
+    url("https://cdna.ojo.pe/resources/dist/ojo/images/default.svg")
+      format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'icomoon';
-  src: url('../../icons/fonts/ojo.woff?yb9233') format('woff'),
-    url('../../icons/fonts/ojo.svg?yb9233#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("https://cdna.ojo.pe/resources/dist/ojo/fonts/ojo.woff")
+      format("woff"),
+    url("https://cdna.ojo.pe/resources/dist/ojo/images/ojo.svg") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

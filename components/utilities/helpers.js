@@ -3,6 +3,7 @@ import ConfigParams, {
   sizeImgNewsLetter,
   sizeImgStory,
 } from './config-params'
+import { getAssetsPath } from './constants'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -407,23 +408,11 @@ export const defaultImage = ({
 }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
-  const site = () => {
-    let domain = `${arcSite}.pe`
-    if (arcSite === 'elcomerciomag') domain = 'mag.elcomercio.pe'
-    else if (arcSite === 'peru21g21') domain = 'g21.peru21.pe'
-    else if (arcSite === 'depor') domain = 'depor.com'
-    return domain
-  }
-
-  // Solo activar para sitios que no esten aun en PROD
-  /* if (arcSite === 'sitio') {
-    return deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
-    )
-  } */
-
   return deployment(
-    `https://${site()}${contextPath}/resources/dist/${arcSite}/images/default-${size}.png`
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
 
@@ -697,6 +686,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
     .replace(/<script>(.*\n)+.*<\/script>/g, '')
     .replace(/<(style|script)(.*)>(.*\n)*.*<\/(style|script)(.*)>/g, '')
+
     .replace(/<(-?\/)?script>/g, '')
     .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
 
@@ -715,6 +705,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/<iframe(.*)>\s*\n<\/iframe>/gm, '')
     .replace(/(hreef=)/g, 'href=')
     .replace(/(marked="([A-Za-z0-9]+)")/g, '')
+    .replace('imageanchor="1"', '')
   return htmlDataTwitter
 }
 

@@ -1,0 +1,12 @@
+.most-read-homologated-footer {
+  background-color: $color-gray-300;
+  &__link {
+    border-color: $color-white;
+    color: $color-white;
+    font-weight: 700;
+  }
+  &__html {
+    display: flex;
+    padding-top: 9px;
+  }
+}

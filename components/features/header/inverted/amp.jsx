@@ -8,6 +8,7 @@ import NavBarAmp from '../../layout/navbar/_children/amp'
 import HeaderAmp from './_children/header-amp'
 
 import Formatter from '../../layout/navbar/_dependencies/formatter'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const LayoutNavbar = props => {
   const { customFields } = props
@@ -53,10 +54,12 @@ const LayoutNavbar = props => {
     return NavBarType[selectDesing] || NavBarType.standard
   }
 
-  const imgLogo =
-    deployment(
-      `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-amp.png`
-    ) || ''
+  const imgLogo = deployment(
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo-amp.png`
+  )
 
   const headerParams = {
     imgLogo,

@@ -5,7 +5,6 @@ import { defaultImage } from '../../../../utilities/helpers'
 import {
   includeCredits,
   includePromoItems,
-  includePrimarySection,
 } from '../../../../utilities/included-fields'
 
 const getMultimediaIcon = multimediaType => {
@@ -172,9 +171,11 @@ export default ({ section = '' }) => {
           section,
           stories_qty: 4,
           presets: 'mobile:314x157',
-          includedFields: `websites.${arcSite}.website_url,${includePromoItems},headlines.basic,${includeCredits},${includePrimarySection}`,
+          includedFields: `websites.${arcSite}.website_url,${includePromoItems},headlines.basic,${includeCredits},taxonomy.sections._id,taxonomy.sections.name`,
         },
-        filter: `{ 
+        filter: `{
+          section_name
+          section_id
           content_elements {
             headlines { basic }
             websites { ${arcSite} { website_url } }

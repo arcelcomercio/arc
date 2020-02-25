@@ -36,7 +36,7 @@
     }
   }
   &__icon {
-    background-image: url(/pf/resources/dist/trome/images/rgba70.png);
+    background-image: url($assets_url+"/resources/dist/trome/images/rgba70.png");
     border-radius: 10px;
     top: calc(100% - 141px);
     color: $color-gray-300;
@@ -227,7 +227,7 @@
     }
   }
 }
-.featured-story[class*=' col-2'] {
+.featured-story[class*=" col-2"] {
   &.img-complete {
     @media (--only-mobile) {
       flex-direction: row-reverse;

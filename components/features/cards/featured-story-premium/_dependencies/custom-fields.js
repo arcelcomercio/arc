@@ -39,6 +39,21 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'transparent',
   }),
+  categoryField: PropTypes.string.tag({
+    name: 'Sección',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
+  titleField: PropTypes.string.tag({
+    name: 'Título',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
+  imgField: PropTypes.string.tag({
+    name: 'Imagen',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
   note1: PropTypes.string.tag({
     name: 'Nota 1',
     group: 'Programar Notas',

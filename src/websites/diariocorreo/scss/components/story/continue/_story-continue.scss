@@ -1,6 +1,6 @@
 .story-continue {
   &__story-load-image {
-    background-image: url(/pf/resources/dist/diariocorreo/images/logo.png);
+    background-image: url($assets_url+"/resources/dist/diariocorreo/images/logo.png");
     width: 37px;
     height: 37px;
     background-size: cover;

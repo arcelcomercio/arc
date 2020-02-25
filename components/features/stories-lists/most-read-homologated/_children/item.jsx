@@ -2,12 +2,12 @@ import React from 'react'
 import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 const classes = {
-  story: `most-read-homologated-item flex flex-col w-auto pt-10 pb-10 border-b-1 border-solid border-gray`,
+  story: `most-read-homologated-item flex flex-col w-auto border-b-1 border-solid border-gray`,
   time: 'most-read-homologated-item__time text-md line-h-sm mr-10',
   linkBox: 'most-read-homologated-item__link-box flex flex-row text-gray-300',
   link:
-    'most-read-homologated-item__link flex bold m-0 text-md text-gray-300 line-h-sm',
-  boxNew: 'flex flex-row',
+    'most-read-homologated-item__link flex font-bold m-0 text-md text-gray-300 line-h-sm',
+  boxNew: 'most-read-homologated-item__content pt-10 pb-10',
   figure:
     'most-read-homologated-item__image mr-10 position-relative overflow-hidden',
   icon:
@@ -49,7 +49,7 @@ export default ({
                       className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                       src={isAdmin ? multimedia : lazyImage}
                       data-src={multimedia}
-                      alt={title}                      
+                      alt={title}
                     />
                   </picture>
                 </a>

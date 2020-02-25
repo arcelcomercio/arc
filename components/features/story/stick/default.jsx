@@ -3,7 +3,12 @@ import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
-import { removeLastSlash } from '../../../utilities/helpers'
+import {
+  removeLastSlash,
+  setSurveyCookie,
+  getCookie,
+} from '../../../utilities/helpers'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   stickWrapper: 'stick w-full pl-20 pr-20',
@@ -18,9 +23,17 @@ const classes = {
 @Consumer
 class Stick extends PureComponent {
   constructor(props) {
+
     super(props)
+
+    const { arcSite } = this.props
+
+    this.sitioWeb = arcSite
+
+    const active = getCookie(`idpoll_open_appstick_${arcSite}`) !== '1'
+
     this.state = {
-      active: true,
+      active
     }
   }
 
@@ -42,11 +55,10 @@ class Stick extends PureComponent {
       siteProperties: { siteUrl = '' } = {},
     } = this.props
 
-    const { link = '/' } =
-      new StoryData({
-        data: globalContent,
-        contextPath,
-      })
+    const { link = '/' } = new StoryData({
+      data: globalContent,
+      contextPath,
+    })
 
     const aOpenApp = document.getElementById('button-app')
     // const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
@@ -83,22 +95,12 @@ class Stick extends PureComponent {
       })
     })
 
-    // eslint-disable-next-line no-undef
-    if (apntag && Object.keys(apntag).length > 1) {
-      // eslint-disable-next-line no-undef
-      apntag.onEvent('adLoaded', 'ads_m_ticker', () => {
-        const tickerContainer = document.querySelector('#content_ads_m_ticker')
-        this.closeStick()
-        tickerContainer.addEventListener('click', evt => {
-          if (evt.target.classList.contains('zocalo-button-close')) {
-            this.openStick()
-          }
-        })
-      })
-    }
   }
 
   closeStick = () => {
+
+    setSurveyCookie(`_open_appstick_${this.sitioWeb}`, 7)
+
     this.setState({
       active: false,
     })
@@ -147,7 +149,10 @@ class Stick extends PureComponent {
       contextPath,
     })
     const imgLogo = deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/${logo}`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}`
     )
 
     return (
@@ -161,10 +166,7 @@ class Stick extends PureComponent {
             onKeyUp={this.closeStick}
           />
           <div className={classes.logo}>
-            <img
-              src={imgLogo}
-              alt="Sigue actualizado en nuestra APP"
-            />
+            <img src={imgLogo} alt="Sigue actualizado en nuestra APP" />
           </div>
           <div className={classes.description}>
             Sigue actualizado en nuestra APP

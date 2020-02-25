@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEditableContent } from 'fusion:content'
 import Icon from '../../../../global-components/multimedia-icon'
 import Notify from '../../../../global-components/notify'
 import { formatAMPM } from '../../../../utilities/helpers'
@@ -41,8 +42,10 @@ const FeaturedStoryPremiumChild = ({
   bgColor,
   websiteLink,
   multimediaSquareMD,
+  multimediaSquareXL,
   multimediaLandscapeMD,
   multimediaLandscapeL,
+  multimediaPortraitMD,
   multimediaLazyDefault,
   title,
   author,
@@ -55,6 +58,8 @@ const FeaturedStoryPremiumChild = ({
   logo,
   errorList = [],
   multimediaSubtitle,
+  titleField, // OPCIONAL, o pasar el customField de los props
+  categoryField, // OPCIONAL, o pasar el customField de los props
 }) => {
   const formaZeroDate = (numb = 0) => {
     return numb < 10 ? `0${numb}` : numb
@@ -72,6 +77,11 @@ const FeaturedStoryPremiumChild = ({
     }
   }
 
+  const { editableField } = useEditableContent()
+
+  const getEditableField = element =>
+    editableField ? editableField(element) : null
+
   let fechaProgramada = ''
   let fechaPublicacion = ''
   const renderMessage = () => {
@@ -84,6 +94,21 @@ const FeaturedStoryPremiumChild = ({
     })
   }
 
+  const getMobileImage = () => {
+    const imgBasic = imgType ? multimediaPortraitMD : multimediaLandscapeMD
+    return model === 'basic' ? imgBasic : multimediaPortraitMD
+  }
+
+  const getDesktopImage = () => {
+    let imageDesktop
+    if (model === 'basic')
+      imageDesktop = imgType ? multimediaPortraitMD : multimediaLandscapeMD
+    else if (model === 'twoCol') imageDesktop = multimediaLandscapeL
+    else if (model === 'full') imageDesktop = multimediaSquareXL
+    else imageDesktop = multimediaLandscapeL
+    return imageDesktop
+  }
+
   const isComercio = arcSite === 'elcomercio'
   return (
     <div
@@ -93,11 +118,20 @@ const FeaturedStoryPremiumChild = ({
         .concat(imgType && isComercio ? ' complete ' : '')}>
       <div className={classes.left}>
         <h3 className={classes.section}>
-          <a href={primarySectionLink}>{primarySection}</a>
+          <a
+            href={primarySectionLink}
+            {...getEditableField('categoryField')}
+            suppressContentEditableWarning>
+            {categoryField || primarySection}
+          </a>
         </h3>
         <h2>
-          <a className={classes.title} href={websiteLink}>
-            {title}
+          <a
+            className={classes.title}
+            href={websiteLink}
+            {...getEditableField('titleField')}
+            suppressContentEditableWarning>
+            {titleField || title}
           </a>
         </h2>
         <p className={classes.detail}>
@@ -114,8 +148,12 @@ const FeaturedStoryPremiumChild = ({
           </h6>
           <div className={classes.boxIcon}>
             <p>
-              <a className={classes.sectionSmall} href={primarySectionLink}>
-                {primarySection || 'Sección'}
+              <a
+                className={classes.sectionSmall}
+                href={primarySectionLink}
+                {...getEditableField('categoryField')}
+                suppressContentEditableWarning>
+                {categoryField || primarySection || 'Sección'}
               </a>
             </p>
             {isPremium && !isComercio && (
@@ -139,20 +177,20 @@ const FeaturedStoryPremiumChild = ({
           <picture>
             <source
               className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? multimediaLandscapeMD : multimediaLazyDefault}
-              data-srcset={multimediaLandscapeMD}
+              srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
+              data-srcset={getMobileImage()}
               media="(max-width: 480px)" // 367px
             />
             <source
               className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? multimediaSquareMD : multimediaLazyDefault}
-              data-srcset={multimediaSquareMD}
+              srcSet={isAdmin ? getDesktopImage() : multimediaLazyDefault}
+              data-srcset={getDesktopImage()}
               media="(max-width: 620px)"
             />
             <img
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
-              data-src={multimediaLandscapeL}
+              src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
+              data-src={getDesktopImage()}
               alt={multimediaSubtitle || title}
             />
           </picture>

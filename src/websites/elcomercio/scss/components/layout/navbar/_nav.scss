@@ -14,7 +14,7 @@
     }
   }
 
-  &__btn-subs{
+  &__btn-subs {
     background-color: $color-white;
     color: #444444;
     font-weight: bold;
@@ -23,7 +23,7 @@
     margin-right: 10px;
     border: 1px solid $color-white;
     padding: 8px 12px;
-    &:hover{
+    &:hover {
       text-decoration: none;
     }
     @media (--only-mobile) {
@@ -126,6 +126,7 @@
   &.active {
     height: $nav-height;
     max-width: 100%;
+    z-index: 21;
     @media (--desktop) {
       background-color: #555555;
     }
@@ -153,7 +154,7 @@
       }
     }
     .nav__btn-sign {
-      & > i{
+      & > i {
         color: $signwall-btn-m-color;
       }
     }

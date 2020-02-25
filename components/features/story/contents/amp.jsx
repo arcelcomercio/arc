@@ -12,7 +12,7 @@ import StoryContentChildVideo from './_children/amp-video'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryContentChildTags from './_children/tags'
-import StoryContentChildRelated from './_children/related'
+// import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
   ampHtml,
@@ -24,6 +24,7 @@ import {
 } from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -115,7 +116,10 @@ class StoryContentAmp extends PureComponent {
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+        `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
 
     return (
@@ -169,7 +173,11 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
                 if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
-                  return <h2>{content}</h2>
+                  return (
+                    <h2>
+                      <RawHtml content={content}></RawHtml>
+                    </h2>
+                  )
                 }
                 if (type === ConfigParams.ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />

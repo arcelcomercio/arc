@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
+import ENV from "fusion:environment";
 
 import { popUpWindow } from '../../../../utilities/helpers'
 import { checkDisabledIcons } from '../../../../utilities/slidernav-helpers'
@@ -137,6 +138,7 @@ const HeaderChildInverted = ({
     }
   }, [_handleScroll, isSlider])
 
+  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   return (
     <>
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
@@ -209,13 +211,15 @@ const HeaderChildInverted = ({
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                    btnLink={`${
-                      siteProperties.urlSubsOnline
-                    }?ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                      'undefined' &&
-                      window.section) ||
-                      ''}`}
-                  />
+                    onClick={()=>{
+                      const { origin } = window.location;
+                      const outputType = (_env === 'prod')? '' : 'outputType=paywall&';
+                      const pf = _env === 'prod' ? '' : '/pf';
+                      const connector = _env !== "prod" ? `?_website=${arcSite}&` : `?`;
+                      const link = origin + pf + siteProperties.urlSubsOnline + connector + outputType;
+                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
+                      window.location.href = link + ref;
+                    }}/>
                 )}
                 {siteProperties.activeSignwall && (
                   <SignwallComponent

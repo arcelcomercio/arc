@@ -2,6 +2,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import { storyTagsBbc } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   bbcHead: 'bbc-head p-10',
@@ -18,12 +19,18 @@ const StoryBbc = () => {
 
   const imgBbcSource =
     deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/bbc_head.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png`
     ) || ''
 
   const imgBbc =
     deployment(
-      `${contextPath}/resources/dist/${arcSite}/images/bbc_head_fg.jpg`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head_fg.jpg`
     ) || ''
 
   return (

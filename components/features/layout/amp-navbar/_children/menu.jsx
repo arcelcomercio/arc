@@ -1,6 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import React, { PureComponent } from 'react'
 
 import { publicidadAmpMovil0 } from '../../../../utilities/helpers'
+import { getAssetsPath } from '../../../../utilities/constants'
 
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
@@ -55,9 +58,7 @@ class NavbarChildMenu extends PureComponent {
                   />
                   <label htmlFor={idElem} className={classes.labelParentItem} />
                   <ul
-                    className={`${
-                      classes.containerSubMenu
-                    } deep-${deep} ${idElem}`}>
+                    className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
                     {this.renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
@@ -75,7 +76,6 @@ class NavbarChildMenu extends PureComponent {
       arcSite,
       deployment,
       data: { children: sections = [] } = {},
-      siteUrl = '',
       socialNetworks = {},
     } = this.props
 
@@ -91,8 +91,12 @@ class NavbarChildMenu extends PureComponent {
     }-amp-320x50-inferior2-movil0`
 
     const logoAmp = deployment(
-      `${siteUrl}${contextPath}/resources/assets/amp/icon-cross.png`
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/assets/amp/icon-cross.png`
     )
+
     const parameters = {
       arcSite,
       dataSlot,
