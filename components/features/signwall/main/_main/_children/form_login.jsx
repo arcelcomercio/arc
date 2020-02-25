@@ -15,7 +15,6 @@ import Cookies from '../../../_dependencies/cookies'
 import Taggeo from '../../../_dependencies/taggeo'
 import Services from '../../../_dependencies/services'
 import Loading from '../../../_children/loading'
-import generateSignedFbEventTag from '../../../_dependencies/fb-event-tag'
 
 export const FormLogin = ({
   typeDialog,
@@ -213,7 +212,6 @@ export const FormLogin = ({
 
   const handleFia = () => {
     if (typeof window !== 'undefined' && isFia) {
-      generateSignedFbEventTag("",{}, arcSite.fbPixelId);
       handleCallToAction(true);
     }
     return null;

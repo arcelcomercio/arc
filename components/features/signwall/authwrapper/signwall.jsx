@@ -10,6 +10,7 @@ import { FormReset } from '../main/_main/_children/form_reset'
 import { FormVerify } from '../main/_main/_children/form_verify'
 import { FormRelogin } from '../main/_main/_children/form_relogin'
 import CallToActionFia from './_children/call_to_action';
+import { device } from '../_dependencies/breakpoints';
 
 const renderTemplate = (template, attributes) => {
   const { typeDialog } = attributes;
@@ -58,13 +59,13 @@ const _AuthWrapper = props => {
       <AuthBox>
         <ModalConsumer>
           {value => (
-            <SecondMiddle full>
+            <SecondMiddle>
               {!isLogged ? renderTemplate(value.selectedTemplate, {
                 ...props,
                 isFia: true,
                 handleCallToAction,
-                onClose : i => i
-              }) : <CallToActionFia message="Puede cerrar este navegador..."/>}
+                onClose : () => window.close()
+              }) : <CallToActionFia />}
             </SecondMiddle>
           )}
         </ModalConsumer>
@@ -87,9 +88,17 @@ class AuthWrapper extends React.PureComponent {
 }
 
 const AuthBox = styled.div`
-  padding: 12px;
-  max-width: 600px;
+  padding: 20px 0;
+  width: 305px;
+  min-height: 280px;
   margin: 0 auto;
+
+  @media ${device.desktop}{
+    width: 350px;
+    & > * {
+      width: 100%;
+    }
+  }
 `
 
 export default AuthWrapper

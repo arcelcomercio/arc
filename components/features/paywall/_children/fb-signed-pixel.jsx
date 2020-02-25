@@ -1,18 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getContent } from 'fusion:content'
+import getContent from 'fusion:content'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
 const FbEventTag = React.memo(({ event, ...props }) => {
-  const [uri, setUri] = React.useState()
-  React.useEffect(() => {
-    getContent(SIGNER_CONTENT_SOURCE, {
-      event,
-      ...props,
-    }).then(setUri)
-  }, [])
+  const uri = getContent(SIGNER_CONTENT_SOURCE, {
+    event,
+    ...props,
+  })
+
   return uri ? <img src={uri} style={{ display: 'none' }} /> : null
 })
 

@@ -35,7 +35,7 @@ const fetch = (key = {}) => {
   const { 'arc-site': site, event, ...data } = key
   const pixelId = ENV[`FB_PIXEL_ID_${site.toUpperCase()}`]
   const uri = generateSignedFbEventUri(pixelId, event, data)
-  return Promise.resolve({ uri })
+  return uri 
 }
 
 export default { fetch }
