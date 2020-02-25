@@ -1,11 +1,6 @@
 import { useFusionContext } from 'fusion:context'
 import React from 'react'
-import {
-  publicidadAmp,
-  formatDateStoryAmp,
-  getDateSeo,
-  storyTagsBbc,
-} from '../../../utilities/helpers'
+import { storyTagsBbc } from '../../../utilities/helpers'
 
 import StorySocialChildAmpSocial from '../../story/social/_children/amp-social'
 import ElePrincipal from '../../story/contents/_children/amp-ele-principal'
@@ -14,6 +9,7 @@ import StoryContentChildTags from '../../story/contents/_children/tags'
 import StoryContentChildRelated from '../../story/contents/_children/related'
 import ConfigParams from '../../../utilities/config-params'
 import { getAssetsPath } from '../../../utilities/constants'
+import { publicidadAmp } from '../../../utilities/story/helpers-amp'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -41,7 +37,7 @@ const VideoSectionAmp = () => {
   const {
     title,
     subTitle,
-    displayDate,
+
     tags,
     promoItems,
     authorLink,
