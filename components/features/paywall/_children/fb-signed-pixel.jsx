@@ -37,6 +37,7 @@ SubscribeEventTag.propTypes = {
   currency: PropTypes.string,
 }
 export const LogIntoAccountEventTag = ({ subscriptionId, isSubscriber }) => {
+  console.log(subscriptionId, isSubscriber)
   return (
     <FbEventTag
       event="LogIntoAccount"
