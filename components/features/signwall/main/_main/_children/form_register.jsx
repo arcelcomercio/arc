@@ -118,11 +118,14 @@ export const FormRegister = props => {
             arcSite,
             window.Identity.userIdentity.accessToken,
             ['general']
-          )
+          ).then(() => {
+            setShowConfirm(true)
+            onLogged(profile)
+          })
+        } else {
+          setShowConfirm(true)
+          onLogged(profile)
         }
-
-        setShowConfirm(true)
-        onLogged(profile)
       })
       .catch(() => {
         Taggeo(
@@ -473,14 +476,6 @@ export const FormRegister = props => {
                                   )
                                 } else {
                                   onClose()
-                                  if (
-                                    typeDialog === 'organico' &&
-                                    window.location.pathname.match(
-                                      /newsletters/
-                                    )
-                                  ) {
-                                    window.location.reload()
-                                  }
                                 }
                               }}>
                               SIGUE NAVEGANDO

@@ -6,6 +6,7 @@ import SubscriptionItem from './_children/item'
 import Services from '../../signwall/_dependencies/services'
 import Domains from '../../signwall/_dependencies/domains'
 import { Generic } from '../../signwall/main/_main/generic'
+import Loading from '../../signwall/_children/loading'
 
 const classes = {
   container:
@@ -21,6 +22,7 @@ const Newsletters = props => {
   const [categories, setCategories] = useState([])
   const [codeNewsletter, setCodeNewsletter] = useState('')
   const [showSignwall, setShowSignwall] = useState(false)
+  const [showLoading, setShowLoading] = useState(true)
 
   const isFetching = false
   let newSetCategories
@@ -85,10 +87,12 @@ const Newsletters = props => {
 
     Services.getNewsLettersUser(UUID, arcSite).then(res => {
       setCategories(res.data)
+      setShowLoading(false)
     })
   }, [])
 
   const afterLoggued = () => {
+    setShowLoading(true)
     window.scrollTo(0, 100)
     setTimeout(() => {
       window.scrollTo(0, 0)
@@ -101,8 +105,9 @@ const Newsletters = props => {
       Services.getNewsLettersUser(UUID, arcSite).then(res => {
         setCategories(res.data)
         subscribe(codeNewsletter, res.data, true)
+        setShowLoading(false)
       })
-    }, 1000)
+    }, 2000)
   }
 
   useEffect(() => {
@@ -139,16 +144,20 @@ const Newsletters = props => {
     <>
       <div className={classes.container}>
         <SubscriptionTitle />
-        <div role="list" className={classes.list}>
-          {typeNewsletters.map(item => {
-            const data = {
-              ...item,
-              isSubscribed: categories.includes(item.code),
-              callbackSubscription: subscribeOnclickHandle,
-            }
-            return <SubscriptionItem key={item.code} {...data} />
-          })}
-        </div>
+        {showLoading ? (
+          <Loading arcSite={arcSite} typeBg="wait" />
+        ) : (
+          <div role="list" className={classes.list}>
+            {typeNewsletters.map(item => {
+              const data = {
+                ...item,
+                isSubscribed: categories.includes(item.code),
+                callbackSubscription: subscribeOnclickHandle,
+              }
+              return <SubscriptionItem key={item.code} {...data} />
+            })}
+          </div>
+        )}
       </div>
 
       {showSignwall && (
