@@ -77,7 +77,11 @@ class StoryContentChildVideo extends PureComponent {
       arcSite === 'elcomerciomag' || 
       arcSite === 'peru21' || 
       arcSite === 'gestion' || 
-      arcSite === 'peru21g21'
+      arcSite === 'peru21g21' ||
+      arcSite === 'diariocorreo' || 
+      arcSite === 'ojo' ||
+      arcSite === 'elbocon' ||
+      arcSite === 'trome'
     ) {
 
       const arcSiteNew=arcSite==='peru21g21'?'peru21':arcSite
@@ -105,6 +109,18 @@ class StoryContentChildVideo extends PureComponent {
         case 'peru21g21':
           webSite='peru21.pe'
           break
+        case 'diariocorreo':
+          webSite='diariocorreo.pe'
+          break
+        case 'ojo':
+          webSite='ojo.pe'
+          break
+          case 'elbocon':
+            webSite='elbocon.pe'
+            break
+          case 'trome':
+            webSite='trome.pe'
+            break
           default:
             webSite=''
             break
@@ -124,9 +140,7 @@ class StoryContentChildVideo extends PureComponent {
       }
 
       const sectionSlug = this.getSectionSlug(primarySection)
-      if (arcSite === 'publimetro') {
-        return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSiteNew}_post_${sectionSlug}_web_preroll&description_url=https%3A%2F%2F${webSite}%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`
-      }
+
       return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSiteNew}/web/post/${sectionSlug
         .split('-')
         .join(

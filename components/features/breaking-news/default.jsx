@@ -38,6 +38,7 @@ const BreakingNews = props => {
           query: {
             website_url: storyLink,
             website: arcSite,
+            presets: 'no-presets',
             includedFields: `headlines.basic,subheadlines.basic,website,website_url`,
           },
           filter: schemaFilter,

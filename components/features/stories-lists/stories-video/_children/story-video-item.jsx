@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { msToTime } from '../../../../utilities/helpers'
 import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
 
@@ -48,7 +49,6 @@ const VideoCenter = ({
   video = {},
   videoTime,
   autoPlayVideo,
-  isPreviewYoutubeVideo,
 }) => {
   const time = msToTime(videoTime)
 
@@ -60,7 +60,6 @@ const VideoCenter = ({
     image,
     video,
     autoPlayVideo,
-    isPreviewYoutubeVideo,
   }
 
   if (index === 0) {
@@ -79,7 +78,6 @@ const StoriesListStoryVideoItem = ({
     video = {},
     autoPlayVideo = false,
     videoTime = 0,
-    isPreviewYoutubeVideo = false,
   } = {},
   StoryItemHandleClick,
 }) => {
@@ -92,7 +90,6 @@ const StoriesListStoryVideoItem = ({
     video,
     autoPlayVideo,
     videoTime,
-    isPreviewYoutubeVideo,
   }
   let resultItemVideo = null
   switch (video.type) {
@@ -122,38 +119,33 @@ const StoriesListStoryVideoItem = ({
   )
 }
 
+YoutubeVideo.propTypes = {
+  index: PropTypes.number.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  liveStory: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  image: PropTypes.object.isRequired,
+  video: PropTypes.object.isRequired,
+  autoPlayVideo: PropTypes.bool.isRequired,
+}
+
+VideoCenter.propTypes = {
+  index: PropTypes.number.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  liveStory: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  image: PropTypes.object.isRequired,
+  video: PropTypes.object.isRequired,
+  videoTime: PropTypes.number.isRequired,
+  autoPlayVideo: PropTypes.bool.isRequired,
+}
+
+StoriesListStoryVideoItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  liveStory: PropTypes.bool.isRequired,
+  content: PropTypes.object.isRequired,
+  StoryItemHandleClick: PropTypes.func.isRequired,
+}
+
 export default StoriesListStoryVideoItem
-
-// window.addEventListener('play', event => {
-//   debugger
-// })
-
-// window.addEventListener('pause', event => {
-//   debugger
-//   console.log('pause')
-// })
-
-// window.addEventListener('powaReady', event => {
-//   // event.detail.id
-
-//   console.log('playbackPaused')
-// })
-
-// window.addEventListener('play', event => {
-//   debugger
-// })
-
-// window.addEventListener('pause', event => {
-//   debugger
-//   console.log('pause')
-// })
-
-// window.addEventListener('mouse', event => {
-//   debugger
-//   console.log('mouse')
-// })
-
-// window.addEventListener('muted', event => {
-//   debugger
-//   console.log('muted')
-// })

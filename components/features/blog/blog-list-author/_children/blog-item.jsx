@@ -31,7 +31,7 @@ const classes = {
   read: 'blog-post-item__read',
 }
 
-const StoriesList = ({ data, isAdmin }) => {
+const BlogsList = ({ data, isAdmin }) => {
   return (
     <div className={`${classes.storyItem}`}>
       <div className={classes.bottom}>
@@ -67,15 +67,15 @@ const StoriesList = ({ data, isAdmin }) => {
             <picture>
               <source
                 className={isAdmin ? '' : 'lazy'}
-                media="(max-width: 639px)"
-                srcSet={isAdmin ? data.imagePost : data.lazyImage}
-                data-srcset={data.imagePost}
+                media="(max-width: 575px)"
+                srcSet={isAdmin ? data.postImageSm : data.lazyImage}
+                data-srcset={data.postImageSm}
               />
               <img
                 alt={data.postTitle}
                 className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                src={isAdmin ? data.imagePost : data.lazyImage}
-                data-src={data.imagePost}
+                src={isAdmin ? data.postImageMd : data.lazyImage}
+                data-src={data.postImageMd}
               />
             </picture>
           </a>
@@ -85,4 +85,4 @@ const StoriesList = ({ data, isAdmin }) => {
   )
 }
 
-export default React.memo(StoriesList)
+export default React.memo(BlogsList)

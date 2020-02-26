@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const classes = {
   listItemDest: 'stories-video__item-dest w-full',
@@ -33,6 +34,12 @@ const YoutubeVideoNoDestacado = ({ image, title, liveStory }) => {
       </div>
     </>
   )
+}
+
+YoutubeVideoNoDestacado.propTypes = {
+  image: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  liveStory: PropTypes.bool.isRequired,
 }
 
 export default YoutubeVideoNoDestacado

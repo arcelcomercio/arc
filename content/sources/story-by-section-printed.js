@@ -1,6 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
-import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
+import { createResizedUrl } from '../../components/utilities/resizer'
 
 const schemaName = 'printed'
 
@@ -86,19 +86,11 @@ const transform = (storyData, { 'arc-site': arcSite }) => {
     const { promo_items: { basic: { url = '' } = {} } = {} } = data
 
     if (url) {
-      const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
-        presets: {
-          lazy_default: {
-            width: 5,
-            height: 5,
-          },
-          printed_md: {
-            width: 236,
-            height: 266,
-          },
-        },
-      })({
+      const resizedUrls = createResizedUrl({
         url,
+        presets: 'printed_md:236x266',
+        resizerUrl,
+        resizerSecret,
       })
       data.promo_items.basic.resized_urls = resizedUrls
     }

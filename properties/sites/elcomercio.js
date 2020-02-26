@@ -332,7 +332,7 @@ export default {
     mainColorBtn: '#008eff',
     primaryFont: 'Noto Serif SC',
   },
-  urlSubsOnline: 'https://elcomercio.pe/suscripciones/',
+  urlSubsOnline: '/suscripciones/',
   gda: true, // Grupo Diarios de America
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',

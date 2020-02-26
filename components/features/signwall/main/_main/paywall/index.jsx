@@ -128,12 +128,12 @@ class Paywall extends PureComponent {
 
     const pathSourcePNG =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bg_paywall.png`
+        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.png`
       ) || ''
 
     const pathSourceWEBP =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/bg_paywall.webp`
+        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.webp`
       ) || ''
 
     return (
