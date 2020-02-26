@@ -417,19 +417,7 @@ export default ({
               dangerouslySetInnerHTML={{ __html: collapseDivs }}
             />
           )}
-                  {(arcSite === 'publimetro' ||
-          arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' || 
-          arcSite === 'peru21' || 
-          arcSite === 'gestion' || 
-          arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' || 
-          arcSite === 'ojo' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'trome') &&
-          !nodas &&
-          !isLivePage && <Dfp />}
+
       </head>
       <body className={classBody}>
         <noscript>
@@ -518,7 +506,19 @@ export default ({
             )}/resources/assets/js/lazyload.js`
           )}
         />
-
+        {(arcSite === 'publimetro' ||
+          arcSite === 'depor' ||
+          arcSite === 'elcomercio' ||
+          arcSite === 'elcomerciomag' || 
+          arcSite === 'peru21' || 
+          arcSite === 'gestion' || 
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
+          !nodas &&
+          !isLivePage && <Dfp />}
       </body>
     </html>
   )
