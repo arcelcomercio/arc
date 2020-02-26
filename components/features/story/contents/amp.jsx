@@ -15,16 +15,18 @@ import StoryContentChildTags from './_children/tags'
 // import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
-  ampHtml,
-  publicidadAmp,
   replaceTags,
   storyTagsBbc,
-  formatDateStoryAmp,
   getDateSeo,
 } from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
 import { getAssetsPath } from '../../../utilities/constants'
+import {
+  formatDateStoryAmp,
+  publicidadAmp,
+  ampHtml,
+} from '../../../utilities/story/helpers-amp'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
