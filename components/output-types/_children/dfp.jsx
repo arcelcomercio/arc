@@ -113,7 +113,7 @@ const Dfp = ({ isFuature, adId }) => {
         const formatSpace = {
           id: `gpt_${space}`,
           slotName: slotname2,
-          dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
+          dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensions} : ${dimensions}::>`,
           sizemap:{
             breakpoints,
             refresh
