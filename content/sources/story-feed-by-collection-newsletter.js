@@ -127,7 +127,6 @@ const transform = data => {
     dataStories.content_elements,
     resizerUrl,
     resizerSecret,
-    addResizedUrls,
     'newsletter'
   )
   dataStories.siteName = siteName
