@@ -420,6 +420,7 @@ export default ({
               dangerouslySetInnerHTML={{ __html: collapseDivs }}
             />
           )}
+
       </head>
       <body className={classBody}>
         <noscript>
