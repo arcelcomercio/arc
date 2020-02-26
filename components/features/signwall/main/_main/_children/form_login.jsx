@@ -352,7 +352,7 @@ export const FormLogin = ({
 
                   <S.Link
                     href="#"
-                    c="light"
+                    c="gray"
                     className="mt-10 mb-20 inline f-right text-sm"
                     onClick={e => {
                       e.preventDefault()

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { LogIntoAccountEventTag } from '../../../paywall/_children/fb-signed-pixel'
-import CheckImage from '../../_children/checkimg'
+import { MsgRegister } from '../../_children/iconos'
 import Services from '../../_dependencies/services'
 
 const CallToActionFia = props => {
-  const { arcSite } = props
+  const { arcSite, mainColorBr } = props
+
   const [suscriptionId, setSuscriptionId] = useState(null)
   const [listSubs, setListSubs] = useState([])
   const [loading, setLoading] = useState(true)
@@ -36,7 +37,7 @@ const CallToActionFia = props => {
           isSubscriber={listSubs.length >= 1}
         />
       )}
-      <CheckImage />
+      <MsgRegister bgcolor={mainColorBr} />
       <div className="paragraph">Haz iniciado sesión</div>
       <div className="paragraph">correctamente</div>
       <Button onClick={() => window.close()}>Volver a la nota</Button>
@@ -49,13 +50,14 @@ const CTAwrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
   border-radius: 4px;
   color: #444444;
   padding: 45px;
   & .paragraph {
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
+    line-height: 24px;
+    font-weight: bold;
 
     &:first-of-type {
       margin-top: 30px;
