@@ -139,7 +139,7 @@ export default ({
   }&cid=CLIENT_ID(_ga)&dl=${urlStory}&dt=${title}&cd4=noticias&cd5=&cd6=AMP&cd7=${getMultimedia(
     multimediaType,
     true
-  )}&cd8=${id}&cd11=nologin-v&cd15=${author}&cd16=${nucleoOrigen} `
+  )}&cd8=${id}&cd11=nologin-v&cd15=${author}&cd16=${nucleoOrigen}&cd19=${formatOrigen}&cd20=${contentOrigen}&cd21=${genderOrigen}`
 
   return (
     <>

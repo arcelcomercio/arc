@@ -26,6 +26,7 @@ export const FormLogin = ({
     activePaywall,
   },
   removeBefore = i => i,
+  onLogged = i => i,
 }) => {
   const [showLoginEmail, setShowLoginEmail] = useState(false)
   const [showError, setShowError] = useState(false)
@@ -156,6 +157,12 @@ export const FormLogin = ({
         })
       } else {
         onClose()
+        if (
+          typeDialog === 'organico' &&
+          window.location.pathname.match(/newsletters/)
+        ) {
+          window.location.reload()
+        }
       }
     })
   }
@@ -219,6 +226,7 @@ export const FormLogin = ({
       .then(() => {
         handleGetProfile()
         taggeoSuccess()
+        onLogged()
       })
       .catch(errLogin => {
         if (errLogin.code === '300040' || errLogin.code === '300037') {
@@ -279,6 +287,7 @@ export const FormLogin = ({
                 typeForm="login"
                 activeNewsletter={activeNewsletter}
                 checkUserSubs={checkUserSubs}
+                onLogged={onLogged}
               />
               {/* {ENV.ENVIRONMENT !== 'elcomercio' && (
                 <ButtonSocial
@@ -344,7 +353,8 @@ export const FormLogin = ({
                     href="#"
                     c="light"
                     className="mt-10 mb-20 inline f-right text-sm"
-                    onClick={() => {
+                    onClick={e => {
+                      e.preventDefault()
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
                         `web_sw${typeDialog[0]}_contrasena_link_olvide`
@@ -376,7 +386,8 @@ export const FormLogin = ({
                   c={mainColorLink}
                   fw="bold"
                   className="ml-10"
-                  onClick={() => {
+                  onClick={e => {
+                    e.preventDefault()
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
                       `web_sw${typeDialog[0]}_login_boton_registrate`

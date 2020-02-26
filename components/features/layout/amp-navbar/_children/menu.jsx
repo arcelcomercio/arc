@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { PureComponent } from 'react'
 
-import { publicidadAmpMovil0 } from '../../../../utilities/helpers'
 import { getAssetsPath } from '../../../../utilities/constants'
+import { publicidadAmpMovil0 } from '../../../../utilities/story/helpers-amp'
 
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
@@ -76,7 +76,6 @@ class NavbarChildMenu extends PureComponent {
       arcSite,
       deployment,
       data: { children: sections = [] } = {},
-      siteUrl = '',
       socialNetworks = {},
     } = this.props
 
@@ -91,17 +90,13 @@ class NavbarChildMenu extends PureComponent {
       arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? adsId : 'eco'
     }-amp-320x50-inferior2-movil0`
 
-    const logoAmp =
-      arcSite === 'elcomercio'
-        ? deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/assets/amp/icon-cross.png`
-          )
-        : deployment(
-            `${siteUrl}${contextPath}/resources/assets/amp/icon-cross.png`
-          )
+    const logoAmp = deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/assets/amp/icon-cross.png`
+    )
+
     const parameters = {
       arcSite,
       dataSlot,

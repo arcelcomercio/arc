@@ -17,14 +17,13 @@ export default ({
   arcSite = '',
   contextPath = '',
   isMobile = false,
+  CURRENT_ENVIRONMENT,
 } = {}) => {
-  const logoSite =
-    arcSite === 'elcomercio'
-      ? `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
-      : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
+  const logoSite = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
+
   const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${deployment(
     `${logoSite}`
   )}",  "sameAs" : [ "${facebook.url || ''}", "${twitter.url || ''}"] }`
@@ -59,26 +58,28 @@ export default ({
     : urlCanonical
 
   const style = isMobile === true ? 'mobile' : 'style'
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
+  if (CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
+  }
+
   return (
     <>
-      {isAmp === false && (
-        <link
-          rel="stylesheet"
-          href={deployment(
-            `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
-          )}
-        />
-      )}
+      {isAmp === false && <link rel="stylesheet" href={deployment(styleUrl)} />}
       <link
         rel="shortcut icon"
         type="image/png"
         href={deployment(
-          arcSite === 'elcomercio'
-            ? `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/favicon.png`
-            : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/favicon.png`
+          `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/favicon.png`
         )}
       />
       {isAmp === false && (
@@ -86,72 +87,60 @@ export default ({
           <link
             rel="apple-touch-icon"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="76x76"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-76x76.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-76x76.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-76x76.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="120x120"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-120x120.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-120x120.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-120x120.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="144x144"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-144x144.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-144x144.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-144x144.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="152x152"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-152x152.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-152x152.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-152x152.png`
             )}
           />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
             href={deployment(
-              arcSite === 'elcomercio'
-                ? `${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/apple-touch-icon-180x180.png`
-                : `${siteUrl}${contextPath}/resources/dist/${arcSite}/images/apple-touch-icon-180x180.png`
+              `${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/apple-touch-icon-180x180.png`
             )}
           />
         </>

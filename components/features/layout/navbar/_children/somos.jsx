@@ -3,26 +3,6 @@ import { searchQuery } from '../../../../utilities/helpers'
 import SignwallComponent from '../../../signwall/main/default'
 import Button from '../../../../global-components/button'
 
-const classes = {
-  navbarSomos:
-    'navbar-somos bg-black flex items-center justify-between pt-0 pb-0 pr-10 pl-10',
-  logoLink: 'h-full flex items-center',
-  logoIcon: 'icon-back navbar-somos__icon font-bold text-white',
-  logoImg: 'navbar-somos__logo-img ml-10',
-  boxRight: 'h-full flex items-center',
-  loginButton:
-    'navbar-somos__btn-sign flex items-center btn capitalize text-md',
-  subsButton: 'navbar-somos__btn-subs flex items-center btn capitalize text-md',
-  iconUser: 'icon-user navbar-somos__icon-user mr-5',
-  searchIcon: 'icon-search navbar-somos__icon font-bold text-white',
-  searchInput:
-    'navbar-somos__search-input primary-font font-bold text-md pt-0 pb-0 pr-10 pl-10 border-0',
-  searchButton: 'navbar-somos__search-button bg-white border-0',
-  closeButton: 'navbar-somos__close-button hidden md:block',
-  closeIcon: 'icon-close navbar-somos__icon font-bold text-white',
-  searchInputIcon: 'icon-search',
-}
-
 class HeaderChildSomos extends PureComponent {
   constructor(props) {
     super(props)
@@ -60,11 +40,11 @@ class HeaderChildSomos extends PureComponent {
 
         <Button
           btnText="Suscríbete"
-          btnClass={`${classes.subsButton}`}
+          btnClass="navbar-somos__btn-subs flex items-center btn capitalize text-md"
           btnLink="https://elcomercio.pe/suscripciones/?ref=btn-suscribete-elcomercio&loc=somos"
         />
 
-        <SignwallComponent classButton={`${classes.loginButton}`} />
+        <SignwallComponent classButton="navbar-somos__btn-sign flex items-center btn capitalize text-md" />
 
         <button
           className="hidden md:block"
@@ -73,7 +53,7 @@ class HeaderChildSomos extends PureComponent {
             this.toggleSearchInputs()
             setTimeout(() => this.searchInput.current.focus(), 50)
           }}>
-          <i className={classes.searchIcon} />
+          <i className="icon-search navbar-somos__icon font-bold text-white" />
         </button>
       </>
     )
@@ -83,20 +63,22 @@ class HeaderChildSomos extends PureComponent {
           <input
             type="search"
             placeholder="¿QUÉ BUSCAS?"
-            className={classes.searchInput}
+            className="navbar-somos__search-input primary-font font-bold text-md pt-0 pb-0 pr-10 pl-10 border-0"
             value={searchInputText}
             onChange={e => this.handleSearchInput(e)}
             ref={this.searchInput}
           />
-          <button type="submit" className={classes.searchButton}>
-            <i className={classes.searchInputIcon} />
+          <button
+            type="submit"
+            className="navbar-somos__search-button bg-white border-0">
+            <i className="icon-search" />
           </button>
         </form>
         <button
           type="button"
-          className={classes.closeButton}
+          className="navbar-somos__close-button hidden md:block"
           onClick={() => this.toggleSearchInputs()}>
-          <i className={classes.closeIcon} />
+          <i className="icon-close navbar-somos__icon font-bold text-white" />
         </button>
       </>
     )
@@ -118,13 +100,17 @@ class HeaderChildSomos extends PureComponent {
     }
     return (
       _handleHide() && (
-        <header className={classes.navbarSomos}>
-          <a href={link} className={classes.logoLink}>
-            <i className={classes.logoIcon} />
-            <img className={classes.logoImg} src={logo} alt={alt} />
+        <header className="navbar-somos bg-black flex items-center justify-between pt-0 pb-0 pr-10 pl-10">
+          <a href={link} className="h-full flex items-center">
+            <i className="icon-back navbar-somos__icon font-bold text-white" />
+            <img
+              className="navbar-somos__logo-img ml-10"
+              src={logo}
+              alt={alt}
+            />
           </a>
           <div
-            className={classes.boxRight}
+            className="h-full flex items-center"
             role={isSearchActive ? 'search' : 'section'}>
             {isSearchActive ? searchInputs : initInputs}
           </div>

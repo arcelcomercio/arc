@@ -154,6 +154,7 @@ export default props => {
               <Flex flex={1} mr="20px">
                 <Field
                   name="captcha"
+                  hl="es"
                   onChange={() => {
                     validateCaptcha.current = true
                     validateForm()

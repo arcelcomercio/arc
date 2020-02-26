@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const classes = {
   listItemDest: 'stories-video__item-dest w-full',
@@ -21,10 +22,15 @@ const classes = {
     'stories-video__youtube-live flex items-center justify-center position-absolute',
 }
 
-const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
+const ItemVideoCenterNoDestacado = ({
+  liveStory,
+  image: { payload = '' } = {},
+  title,
+  time,
+}) => {
   return (
     <>
-      <img className={classes.listItemImg} src={image.payload} alt={title} />
+      <img className={classes.listItemImg} src={payload} alt={title} />
       <span className={classes.listItemTime}>{time}</span>
       <div className={classes.listItemInfo}>
         <h2 className={classes.listItemTitle}>{title}</h2>
@@ -32,6 +38,13 @@ const ItemVideoCenterNoDestacado = ({ liveStory, image, title, time }) => {
       </div>
     </>
   )
+}
+
+ItemVideoCenterNoDestacado.propTypes = {
+  liveStory: PropTypes.bool.isRequired,
+  image: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
 }
 
 export default ItemVideoCenterNoDestacado

@@ -321,7 +321,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  activeNewsletter: false,
+  activeNewsletter: true,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
@@ -332,7 +332,7 @@ export default {
     mainColorBtn: '#008eff',
     primaryFont: 'Noto Serif SC',
   },
-  urlSubsOnline: 'https://elcomercio.pe/suscripciones/',
+  urlSubsOnline: '/suscripciones/',
   gda: true, // Grupo Diarios de America
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
