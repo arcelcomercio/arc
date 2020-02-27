@@ -105,9 +105,9 @@
     &-list {
       width: calc(100% - 20px);
     }
-    &-item {
+    /*  &-item {
       margin-bottom: 5px;
-    }
+    } */
     &-name,
     &-time {
       font-size: 13px;
@@ -115,7 +115,8 @@
     &-img {
       width: 20px;
       height: 20px;
-      background-color: red;
+      background-image: url("#{$assets_url}/resources/assets/social/twitter.png");
+      background-size: cover;
     }
   }
 }
