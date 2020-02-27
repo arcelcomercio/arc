@@ -8,7 +8,7 @@
   &__title {
     font-size: 15px;
     &:after {
-      content: '';
+      content: "";
       display: block;
       width: 80%;
       height: 2px;
@@ -64,7 +64,7 @@
   &__item-live {
     font-size: 12px;
     &:before {
-      content: '';
+      content: "";
       display: block;
       width: 8px;
       height: 8px;
@@ -94,6 +94,90 @@
     font-size: 9px;
     bottom: 12px;
     left: 10px;
-    transition: all 0.5s;
+  }
+  &__item-dest {
+    .powa-button {
+      outline: 0;
+    }
+    &.sticky {
+      background-color: #222222;
+      height: 94px;
+      position: fixed;
+      top: 46px;
+      z-index: 3;
+      display: flex;
+      padding: 10px;
+      justify-content: space-between;
+
+      @media (--tablet) {
+        max-width: 620px;
+        left: calc((100% - 620px) / 2);
+      }
+      @media (--desktop) {
+        top: 46px;
+        height: 145px;
+        max-width: 980px;
+        left: calc((100% - 980px) / 2);
+      }
+      .stories-video__item-border {
+        display: flex;
+        align-items: center;
+        border: 0;
+        height: 100%;
+        max-width: calc(100% - 32px);
+        @media (--desktop) {
+          max-width: 441px;
+        }
+      }
+      .powa {
+        width: 130px;
+        height: 74px;
+        @media (--desktop) {
+          width: 222px;
+          height: 125px;
+        }
+      }
+
+      .stories-video__item-dest-title {
+        font-size: 14px;
+        color: #dddddd;
+        line-height: 18px;
+        letter-spacing: 0.28px;
+        display: -webkit-box;
+        max-height: 74px;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        @media (--desktop) {
+          -webkit-line-clamp: 2;
+          max-height: 50px;
+          font-size: 18px;
+          letter-spacing: 0.36px;
+          line-height: 21px;
+        }
+      }
+      .stories-video__close {
+        display: flex;
+        background-color: #111;
+        width: 32px;
+        height: 32px;
+        position: relative;
+        cursor: pointer;
+        @media (--desktop) {
+          position: absolute;
+        }
+      }
+      .stories-video__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      &.sticky-top {
+        transition: all 0.5s;
+        @media (--desktop) {
+          top: 140px;
+        }
+      }
+    }
   }
 }

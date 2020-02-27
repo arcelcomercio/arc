@@ -70,11 +70,12 @@ class XmlNewsletterFeed {
           //   storyData.__data.description.basic
           //     ? storyData.__data.description.basic
           //     : storyData.subTitle
-          const title = (story && story.headlines && story.headlines.basic) ? story.headlines.basic : storyData.title 
+          const title =
+            story && story.headlines && story.headlines.basic
+              ? story.headlines.basic
+              : storyData.title
           const description =
-            (story 
-            && story.description
-            && story.description.basic)
+            story && story.description && story.description.basic
               ? story.description.basic
               : storyData.subTitle
 
@@ -84,6 +85,7 @@ class XmlNewsletterFeed {
               url: `${siteUrl}${storyData.websiteLink || ''}`,
               id: storyData.id,
               description,
+              premium: storyData.isPremium,
               publishedAt: localISODate(storyData.date || ''),
               imagen: {
                 thumbnail_max: tbmax,

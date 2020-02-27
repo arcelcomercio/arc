@@ -15,7 +15,7 @@ const StoriesRecent = ({ primarySectionLink, id, arcSite, cant = 6 }) => {
     useContent({
       source: 'story-feed-by-section',
       query: params,
-      filter: schemaFilter(arcSite),
+      filter: schemaFilter(arcSite,true),
     }) || {}
 
   const { content_elements: contentElements = [] } = storyData || {}

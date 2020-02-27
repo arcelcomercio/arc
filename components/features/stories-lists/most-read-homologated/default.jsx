@@ -70,7 +70,7 @@ MostReadHomologated.propTypes = {
   customFields,
 }
 
-MostReadHomologated.label = 'Most Views'
+MostReadHomologated.label = 'Más Leídas'
 MostReadHomologated.static = true
 
 export default MostReadHomologated

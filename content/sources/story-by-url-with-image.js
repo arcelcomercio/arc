@@ -7,10 +7,8 @@ import {
 } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import {
-  addResizedUrlsToStory,
-  addSlashToEnd,
-} from '../../components/utilities/helpers'
+import { addSlashToEnd } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 const options = {
   gzip: true,

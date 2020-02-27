@@ -17,7 +17,7 @@ const CardTriplet = props => {
     custom || {}
 
   const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
-  const presets = 'square_s:150x150'
+  const presets = isAdmin ? 'square_s:150x150' : 'no-presets'
 
   const adsSpaces =
     useContent(
@@ -67,31 +67,39 @@ const CardTriplet = props => {
     data1: url1,
     data2: url2,
     data3: url3,
-    image1: img1,
-    image2: img2,
-    image3: img3,
+    image1: img1 = '',
+    image2: img2 = '',
+    image3: img3 = '',
   } = custom || {}
 
   const fetchDataModel = url => {
     return {
       source: API_STORY_BY_URL,
-      query: { website_url: url },
+      query: { website_url: url, presets },
       filter: schemaFilter(arcSite),
     }
   }
   const fetchImageModel = image => {
-    return {
-      source: 'photo-resizer',
-      query: { url: getPhotoId(image) ? image : '', presets },
-    }
+    return (
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useContent(
+        image
+          ? {
+              source: 'photo-resizer',
+              query: { url: getPhotoId(image) ? image : '', presets },
+            }
+          : {}
+      ) || {}
+    )
   }
 
   const data1 = useContent(url1 ? fetchDataModel(url1) : {}) || {}
   const data2 = useContent(url2 ? fetchDataModel(url2) : {}) || {}
   const data3 = useContent(url3 ? fetchDataModel(url3) : {}) || {}
-  const image1 = useContent(img1 ? fetchImageModel(img1) : {}) || {}
-  const image2 = useContent(img2 ? fetchImageModel(img2) : {}) || {}
-  const image3 = useContent(img3 ? fetchImageModel(img3) : {}) || {}
+
+  const image1 = isAdmin ? fetchImageModel(img1) : img1
+  const image2 = isAdmin ? fetchImageModel(img2) : img2
+  const image3 = isAdmin ? fetchImageModel(img3) : img3
 
   const data = new Data({
     deployment,
@@ -99,6 +107,7 @@ const CardTriplet = props => {
     arcSite,
     customFields: custom,
     defaultImgSize: 'sm',
+    isAdmin,
   })
 
   const toDate = dateStr => {
