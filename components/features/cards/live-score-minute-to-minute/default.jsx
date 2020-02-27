@@ -8,7 +8,7 @@ import { getFootballGameId } from '../../../utilities/get-story-values'
 const classes = {
   liveScore: 'score w-full pb-20 pl-0 pr-0 lg:pl-20 lg:pr-20',
   liveWrapper:
-    'score__wrapper pt-20 pb-20 flex justify-center items-start mx-auto overflow-hidden',
+    'score__wrapper pt-20 pb-20 flex justify-center items-center mx-auto overflow-hidden',
   liveEnd: 'score__end position-relative',
   liveEndText:
     'score__end-text rounded font-bold uppercase text-gray-200 flex justify-center items-center secondary-font',

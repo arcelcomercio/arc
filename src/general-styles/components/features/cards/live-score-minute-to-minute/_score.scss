@@ -22,7 +22,7 @@
   &__end-text {
     width: 44px;
     height: 44px;
-    border: 5px solid #eae9e5;
+    border: 5px solid $color-gray-100;
     font-size: 14px;
     line-height: 16px;
     color: #9ba4ad;
@@ -66,19 +66,15 @@
       }
     }
     &-logo {
-      width: 60px;
-      height: 60px;
+      width: 42px;
       background-color: red;
       margin-right: 25px;
       @media (--only-mobile) {
-        width: 42px;
-        height: 42px;
         margin-right: 0;
       }
     }
     &-number {
       font-size: 50px;
-      line-height: 68px;
     }
     &-details {
       @media (--only-mobile) {
@@ -88,8 +84,7 @@
   }
   &__gol {
     &-wrapper {
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
+      border-color: $color-gray-100;
     }
     &-box {
       width: 50%;

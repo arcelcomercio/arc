@@ -3,7 +3,7 @@ import React from 'react'
 
 const classes = {
   golBox: 'score__gol-box flex flex-row-reverse pl-20 pr-20',
-  list: 'score__gol-list flex pl-20 pr-20 flex-wrap justify-end',
+  list: 'score__gol-list flex pl-20 pr-20 flex-wrap justify-end items-center',
   listItem: 'score__gol-item flex flex-wrap mr-10',
   listName: 'score__gol-name text-gray-300 font-bold mr-5',
   listTime: 'score__gol-time text-gray-200',
