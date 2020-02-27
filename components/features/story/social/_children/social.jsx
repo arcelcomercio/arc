@@ -2,13 +2,13 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import {
-  popUpWindow,
-  socialMediaUrlShareList,
-} from '../../../../utilities/helpers'
+import { socialMediaUrlShareList } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryData from '../../../../utilities/story-data'
-import ConfigParams from '../../../../utilities/config-params'
+import {
+  SPECIAL,
+  SPECIAL_BASIC,
+} from '../../../../utilities/constants/subtypes'
 import StorySocialChildAuthor from './author'
 
 const classes = {
@@ -31,10 +31,6 @@ const classes = {
 }
 
 const StoryHeaderChildSocial = () => {
-  const firstList = 'firstList'
-  const secondList = 'secondList'
-  const currentList = firstList
-
   const { globalContent, arcSite, contextPath } = useFusionContext()
   const { website_url: postPermaLink, headlines: { basic: postTitle } = {} } =
     globalContent || {}
@@ -51,37 +47,29 @@ const StoryHeaderChildSocial = () => {
     siteNameRedSocial
   )
 
-  const shareButtons = {
-    [firstList]: [
-      {
-        icon: classes.iconFacebook,
-        link: urlsShareList.facebook,
-        mobileClass: classes.mobileClass,
-      },
+  const shareButtons = [
+    {
+      icon: classes.iconFacebook,
+      link: urlsShareList.facebook,
+      mobileClass: classes.mobileClass,
+    },
 
-      {
-        icon: classes.iconTwitter,
-        link: urlsShareList.twitter,
-        mobileClass: classes.mobileClass,
-      },
-      {
-        icon: classes.iconLinkedin,
-        link: urlsShareList.linkedin,
-        mobileClass: classes.mobileClass,
-      },
-      {
-        icon: classes.iconWhatsapp,
-        link: urlsShareList.whatsapp,
-        mobileClass: `block md:hidden ${classes.mobileClass}`,
-      },
-    ],
-  }
-
-  const openLink = (event, item, print) => {
-    event.preventDefault()
-    if (print) window.print()
-    else popUpWindow(item.link, '', 600, 400)
-  }
+    {
+      icon: classes.iconTwitter,
+      link: urlsShareList.twitter,
+      mobileClass: classes.mobileClass,
+    },
+    {
+      icon: classes.iconLinkedin,
+      link: urlsShareList.linkedin,
+      mobileClass: classes.mobileClass,
+    },
+    {
+      icon: classes.iconWhatsapp,
+      link: urlsShareList.whatsapp,
+      mobileClass: `block md:hidden ${classes.mobileClass}`,
+    },
+  ]
 
   const {
     publishDate: date,
@@ -115,14 +103,14 @@ const StoryHeaderChildSocial = () => {
     <>
       <div
         className={`${classes.news} ${
-          subtype === ConfigParams.SPECIAL_BASIC ||
-          subtype === ConfigParams.SPECIAL ||
+          subtype === SPECIAL_BASIC ||
+          subtype === SPECIAL ||
           primarySectionLink === '/archivo-elcomercio/'
             ? 'justify-center'
             : 'justify-between'
         }`}>
-        {subtype !== ConfigParams.SPECIAL_BASIC &&
-          subtype !== ConfigParams.SPECIAL &&
+        {subtype !== SPECIAL_BASIC &&
+          subtype !== SPECIAL &&
           primarySectionLink !== '/archivo-elcomercio/' && (
             <div
               className={`${classes.category} ${(isPremium &&
@@ -136,17 +124,11 @@ const StoryHeaderChildSocial = () => {
             </div>
           )}
         <ul className={classes.list}>
-          {shareButtons[currentList].map((item, i) => (
+          {shareButtons.map((item, i) => (
             <li
               key={UtilListKey(i)}
               className={` ${classes.item} ${item.mobileClass}`}>
-              <a
-                className={classes.link}
-                href={item.link}
-                onClick={event => {
-                  const isPrint = i === 2 && currentList === secondList
-                  openLink(event, item, isPrint)
-                }}>
+              <a className={classes.link} href={item.link} data-share="">
                 <i className={`${item.icon} ${classes.icon}`} />
               </a>
             </li>
