@@ -3,7 +3,6 @@
 import * as ENV from 'fusion:environment'
 const createHmac = require('create-hmac')
 const uuid = require('uuid')
-import uuid from 'uuid'
 
 const hmac256 = (queryString, secret, encoding = 'base64') => {
   const hmac = createHmac('sha256', Buffer.from(secret))
