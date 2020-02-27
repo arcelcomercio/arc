@@ -16,25 +16,29 @@ function buildBrowserTag(
   secret,
   baseUrl = 'https://www.facebook.com/tr'
 ) {
-  const finalParams = { ...params, eid: uuid(), ts: Date.now() }
+  const finalParams = {
+    ...params,
+    eid: uuid(),
+    ts: Date.now(),
+  }
   const encodedParams = Object.keys(finalParams).reduce((prev, key) => {
     let value = finalParams[key]
     if (typeof value !== 'object') {
-      value = encodeURI(`${key}=${value}`)
+      value = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
       return [...prev, value]
     }
     const innerParams = Object.keys(value).reduce((prev, innerKey) => {
       const innerValue = value[innerKey]
       let valueToSet =
         typeof innerValue === 'string' ? innerValue : JSON.stringify(innerValue)
-      valueToSet = encodeURI(valueToSet)
-      const keyToSet = encodeURI(`[${innerKey}]`)
+      valueToSet = encodeURIComponent(valueToSet)
+      const keyToSet = encodeURIComponent(`[${innerKey}]`)
       return [...prev, `${key}${keyToSet}=${valueToSet}`]
     }, [])
     return [...prev, ...innerParams]
   }, [])
   const queryString = encodedParams.join('&')
-  const signature = encodeURI(hmac256(queryString, secret))
+  const signature = encodeURIComponent(hmac256(queryString, secret))
   const uri = `${baseUrl}?${queryString}&sig=${signature}`
   return { uri }
 }
