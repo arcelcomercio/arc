@@ -5,7 +5,6 @@ import schemaFilter from './_dependencies/schema-filter'
 
 const SOURCE = 'story-feed-by-section'
 const VIDEO_FORMAT = 'mp4'
-const MIN_VIDEO_HEIGHT = 360
 const { VIDEO } = ConfigParams
 
 /**
@@ -71,16 +70,17 @@ class XmlVideosSitemap {
             } = {},
           } = promoItems[VIDEO] || {}
 
-          const videoStream =
+          const dataVideo =
             streams &&
-            streams.find(
-              stream =>
-                stream &&
-                stream.stream_type === VIDEO_FORMAT &&
-                stream.height >= MIN_VIDEO_HEIGHT
-            )
-          const videoUrl = videoStream ? videoStream.url : ''
+            streams
+              .map(({ url, stream_type: streamType }) => {
+                return streamType === VIDEO_FORMAT ? url : []
+              })
+              .filter(String)
 
+          const cantidadVideo = dataVideo.length
+
+          const videoUrl = dataVideo[cantidadVideo - 1]
           return {
             url: {
               loc: `${siteUrl}${storyUrl}`,
