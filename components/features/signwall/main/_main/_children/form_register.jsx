@@ -26,6 +26,8 @@ export const FormRegister = props => {
     onLogged = i => i,
     onLoggedFail = i => i,
     arcSite,
+    isFia,
+    handleCallToAction,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr },
       activeNewsletter = false,
@@ -147,6 +149,13 @@ export const FormRegister = props => {
     }
   }
 
+  const handleFia = () => {
+    if (typeof window !== 'undefined' && isFia) {
+      handleCallToAction(true)
+    }
+    return null
+  }
+
   const onSubmitForm = state => {
     const { remail, rpass } = state
     setShowLoading(true)
@@ -202,6 +211,7 @@ export const FormRegister = props => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_success_registrarme`
         )
+        handleFia()
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))

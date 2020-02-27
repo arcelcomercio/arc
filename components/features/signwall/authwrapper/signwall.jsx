@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import Consumer from 'fusion:consumer';
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react'
+import Consumer from 'fusion:consumer'
+import styled from 'styled-components'
 import { ModalConsumer, ModalProvider } from '../_children/context'
 import { SecondMiddle } from '../main/_main/generic/styled'
 import { FormLogin } from '../main/_main/_children/form_login'
 import { FormRegister } from '../main/_main/_children/form_register'
 import { FormForgot } from '../main/_main/_children/form_forgot'
-import { FormReset } from '../main/_main/_children/form_reset'
-import { FormVerify } from '../main/_main/_children/form_verify'
-import { FormRelogin } from '../main/_main/_children/form_relogin'
-import CallToActionFia from './_children/call_to_action';
-import { device } from '../_dependencies/breakpoints';
+// import { FormReset } from '../main/_main/_children/form_reset'
+// import { FormVerify } from '../main/_main/_children/form_verify'
+// import { FormRelogin } from '../main/_main/_children/form_relogin'
+import CallToActionFia from './_children/call_to_action'
+import { device } from '../_dependencies/breakpoints'
 
 const renderTemplate = (template, attributes) => {
-  const { typeDialog } = attributes;
+  const { typeDialog } = attributes
   const templates = {
     login: <FormLogin {...attributes} />,
     register: <FormRegister {...attributes} />,
     forgot: <FormForgot {...attributes} />,
-    reset: <FormReset {...attributes} />,
-    verify: <FormVerify { ...attributes} />,
-    relogin: <FormRelogin { ...attributes} />,
   }
 
   const getDefault = () => {
@@ -41,11 +38,11 @@ const renderTemplate = (template, attributes) => {
 }
 
 const _AuthWrapper = props => {
+  const { arcSite } = props
+  const [isLogged, setLogged] = useState(false)
 
-  const [isLogged, setLogged] = useState(false);
-
-  const handleCallToAction = (status) => {
-    setLogged(status);
+  const handleCallToAction = status => {
+    setLogged(status)
   }
 
   useEffect(() => {
@@ -60,12 +57,16 @@ const _AuthWrapper = props => {
         <ModalConsumer>
           {value => (
             <SecondMiddle>
-              {!isLogged ? renderTemplate(value.selectedTemplate, {
-                ...props,
-                isFia: true,
-                handleCallToAction,
-                onClose : () => window.close()
-              }) : <CallToActionFia />}
+              {!isLogged ? (
+                renderTemplate(value.selectedTemplate, {
+                  ...props,
+                  isFia: true,
+                  handleCallToAction,
+                  onClose: () => window.close(),
+                })
+              ) : (
+                <CallToActionFia arcSite={arcSite} />
+              )}
             </SecondMiddle>
           )}
         </ModalConsumer>
@@ -93,7 +94,7 @@ const AuthBox = styled.div`
   min-height: 280px;
   margin: 0 auto;
 
-  @media ${device.desktop}{
+  @media ${device.desktop} {
     width: 350px;
     & > * {
       width: 100%;
