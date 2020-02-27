@@ -76,59 +76,11 @@ class MatchNav extends PureComponent {
     });
     configTabs[subtype] = canonical_url
 
-    console.log("===========================================")
-    console.log(configTabs)
-    console.log("===========================================")
-
-    // const {
-    //   publishDate: date,
-    //   promoItems,
-    //   displayDate: updatedDate,
-    //   createdDate,
-    //   authorImage,
-    //   authorLink,
-    //   author,
-    //   primarySection,
-    //   authorEmail,
-    //   primarySectionLink,
-    //   subtype,
-    //   isPremium,
-    //   multimediaLandscapeMD,
-    //   multimediaStorySmall,
-    //   multimediaLarge,
-    //   multimediaLazyDefault,
-    //   tags,
-    //   contentPosicionPublicidad,
-    // } = new StoryData({
-    //   data: globalContent,
-    //   contextPath,
-    //   deployment,
-    //   arcSite,
-    // })
-
-    // const params = {
-    //   authorImage,
-    //   author,
-    //   authorLink,
-    //   updatedDate: getDateSeo(updatedDate || createdDate),
-    //   date,
-    //   primarySectionLink,
-    //   authorEmail,
-    //   primarySection,
-    //   subtype,
-    //   ...promoItems,
-    //   multimediaLandscapeMD,
-    //   multimediaStorySmall,
-    //   multimediaLarge,
-    //   multimediaLazyDefault,
-    //   primaryImage: true,
-    // }
-
     return (
       <>
         <div className={classes.news}>
             <ul>
-                <li><a href={configTabs['partido_previa']}>Previa</a></li>
+                { configTabs['partido_previa'] && <li><a href={configTabs['partido_previa']}>Previa</a></li> }
                 <li><a href={configTabs['partido_directo']}>Directo</a></li>
                 <li><a href={"/alineaciones" + configTabs['partido_previa']}>Alineaciones</a></li>
                 <li><a href={"/estadisticas" + configTabs['partido_previa']}>Estadísticas</a></li>
