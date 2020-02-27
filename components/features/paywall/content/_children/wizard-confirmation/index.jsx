@@ -1,5 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
-/* global Identity */
+/* global Identity fbq dataLayer */
 import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
 import * as S from './styled'
@@ -10,6 +10,7 @@ import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
 import { pushCxense } from '../../../_dependencies/cxense'
 import { SubscribeEventTag } from '../../../_children/fb-signed-pixel'
+import fbEventSigner from '../../../../../../content/sources/fb-event-signer'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -138,6 +139,15 @@ const WizardConfirmation = props => {
         },
       },
     })
+    fbq('track', 'Purchase', {
+      content_name: productName,
+      content_ids: [plan.sku],
+      content_type: productName,
+      contents: [{ id: plan.sku, quantity: 1 }],
+      currency: 'PEN',
+      num_items: 1,
+      value: plan.amount,
+    })
 
     if (document.getElementById('footer')) {
       document.getElementById('footer').style.position = 'relative'
@@ -172,14 +182,12 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
-        {fromFia && (
-          <SubscribeEventTag
-            subscriptionId={Identity.userIdentity.uuid}
-            offerCode={priceCode}
-            currency="PEN"
-            value={amount}
-          />
-        )}
+        <SubscribeEventTag
+          subscriptionId={Identity.userIdentity.uuid}
+          offerCode={priceCode}
+          currency="PEN"
+          value={amount}
+        />
         <Picture
           width={{ xs: '0px', md: '360px' }}
           hideOnScreenSize="sm"

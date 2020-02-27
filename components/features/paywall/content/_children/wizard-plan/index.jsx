@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable no-extra-boolean-cast */
+/* global dataLayer fbq */
 import React, { useState, useEffect, useRef } from 'react'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -119,6 +120,16 @@ function WizardPlan(props) {
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+    fbq(
+      'track',
+      'Lead'
+      // {
+      //   content_category: "",
+      //   content_name: "",
+      //   currency: "",
+      //   value: "",
+      // }
+    )
 
     // if (document.getElementById('footer')) {
     //   document.getElementById('footer').style.position = 'relative'
@@ -180,6 +191,14 @@ function WizardPlan(props) {
             ],
           },
         },
+      })
+      fbq('track', 'InitiateCheckout', {
+        content_category: plan.name,
+        content_ids: [plan.sku],
+        contents: [{ id: plan.sku, quantity: 1 }],
+        currency: 'PEN',
+        num_items: 1,
+        value: plan.amount,
       })
       dataLayer.push({
         event: 'checkout',
