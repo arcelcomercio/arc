@@ -27,8 +27,8 @@ export const SubscribeEventTag = ({
   return (
     <FbEventTag
       event="Subscribe"
-      subscriptionId={subscriptionId}
-      offerCode={offerCode}
+      subscription_id={subscriptionId}
+      offer_code={offerCode}
       value={value}
       currency={currency}
     />
@@ -44,8 +44,8 @@ export const LogIntoAccountEventTag = ({ subscriptionId, isSubscriber }) => {
   return (
     <FbEventTag
       event="LogIntoAccount"
-      subscriptionId={subscriptionId}
-      isSubscriber={isSubscriber}
+      subscription_id={subscriptionId}
+      is_subscriber={isSubscriber}
     />
   )
 }
