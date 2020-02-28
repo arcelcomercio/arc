@@ -98,30 +98,27 @@ const Dfp = ({ isFuature, adId }) => {
     const subsection = flagsub?'':sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
+    const getTargetFunction = `var getTarget=function getTarget(){ return {"publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
     const adsCollection = spaces.map(
       ({
         space,
-        slotname,
         slotname2,
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
+        breakpoints,
+        refresh
+        
       }) => {
         const formatSpace = {
           id: `gpt_${space}`,
-          slotName: (arcSite === 'publimetro') ? slotname : slotname2,
-          dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
-          targeting: {
-            publisher: arcSite,
-            seccion: section,
-            categoria: subsection,
-            fuente: 'WEB',
-            tipoplantilla: page,
-            phatname: `${siteUrl}${requestUri}`,
-            tags: targetingTags,
-            ab_test: '',
-            tmp_ad: '<::getTmpAd()::>',
+          slotName: slotname2,
+          dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensions} : ${dimensions}::>`,
+          sizemap:{
+            breakpoints,
+            refresh
           },
+          targeting: `<::getTarget() ::>`,
         }
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
@@ -129,14 +126,178 @@ const Dfp = ({ isFuature, adId }) => {
         return formatSpace
       }
     )
-    return `"use strict";document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction}; window.adsCollection=${JSON.stringify(
-      adsCollection
-    )
+    return `"use strict"; document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}; window.adsCollection=${JSON.stringify(adsCollection)
       .replace(/"<::/g, '')
       .replace(
         /::>"/g,
         ''
       )};arcAds.registerAdCollection(window.adsCollection);});`
+
+    // if(arcSite === 'publimetro') {
+    //   return `"use strict";
+    //   document.addEventListener('DOMContentLoaded', function() {
+    //       "use strict";
+    //       var arcAds = new ArcAds({
+    //           dfp: {
+    //               id: "28253241"
+    //           }
+    //       }, function(d) {
+    //           console.log("Advertisement has loaded...", d)
+    //       });
+    //       "use strict";
+    //       window.addLazyLoadToAd = function(e) {
+    //           if ("IntersectionObserver" in window) {
+    //               var n = (e || {}).adId;
+    //               if (n) return new Promise(function(e) {
+    //                   var o = new IntersectionObserver(function(n, o) {
+    //                       n.forEach(function(n) {
+    //                           n.isIntersecting && (console.log("resolved!!!!"), e(), o.unobserve(n.target))
+    //                       })
+    //                   }, {
+    //                       rootMargin: "0px 0px 500px 0px"
+    //                   });
+    //                   document.getElementById(n) && o.observe(document.getElementById(n))
+    //               })
+    //           }
+    //       };
+    //       var getTmpAd = function getTmpAd() {
+    //           var tmpAdTargeting = window.location.search.match(/tmp_ad=([^&]*)/) || [];
+    //           return tmpAdTargeting[1] || ''
+    //       };
+    //       var getAdsDisplay = function getAdsDisplay() {
+    //           var IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);
+    //           return IS_MOBILE ? 'mobile' : 'desktop'
+    //       };
+    //       window.adsCollection = [
+    //       {
+    //           "id": "gpt_laterall",
+    //           "slotName": "publimetro/web/home/laterall",
+    //           "dimensions": [[ [160, 600]],[[120, 600]],[[1,1]]],
+    //           "sizemap":{
+    //             "breakpoints":[[1380, 0], [1250, 0], [0, 0]],
+    //            "refresh": true
+    //          },
+    //           "targeting": {
+    //               "publisher": "publimetro",
+    //               "seccion": "",
+    //               "categoria": "",
+    //               "fuente": "WEB",
+    //               "tipoplantilla": "home",
+    //               "phatname": "https://publimetro.pe/homepage?ref=pur",
+    //               "tags": [],
+    //               "ab_test": "",
+    //               "tmp_ad": getTmpAd()
+    //           },
+      
+    //           "prerender": window.addLazyLoadToAd
+    //       }, 
+    //       {
+    //           "id": "gpt_lateralr",
+    //           "slotName": "publimetro/web/home/lateralr",
+    //           "dimensions": [[[160, 600]],[[120, 600]],[[1,1]]],
+    //           "sizemap":{
+    //             "breakpoints":[[1380, 0], [1250, 0], [0, 0]],
+    //            "refresh": true
+    //          },
+    //           "targeting": {
+    //               "publisher": "publimetro",
+    //               "seccion": "",
+    //               "categoria": "",
+    //               "fuente": "WEB",
+    //               "tipoplantilla": "home",
+    //               "phatname": "https://publimetro.pe/homepage?ref=pur",
+    //               "tags": [],
+    //               "ab_test": "",
+    //               "tmp_ad": getTmpAd()
+    //           },
+      
+    //           "prerender": window.addLazyLoadToAd
+    //       }];
+    //       arcAds.registerAdCollection(window.adsCollection);
+    //   });`
+    // } 
+    // if(arcSite==='depor'){
+    //   return `"use strict";
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     "use strict";
+    //     var arcAds = new ArcAds({
+    //         dfp: {
+    //             id: "28253241"
+    //         }
+    //     }, function(d) {
+    //         console.log("Advertisement has loaded...", d)
+    //     });
+    //     "use strict";
+    //     window.addLazyLoadToAd = function(e) {
+    //         if ("IntersectionObserver" in window) {
+    //             var n = (e || {}).adId;
+    //             if (n) return new Promise(function(e) {
+    //                 var o = new IntersectionObserver(function(n, o) {
+    //                     n.forEach(function(n) {
+    //                         n.isIntersecting && (console.log("resolved!!!!"), e(), o.unobserve(n.target))
+    //                     })
+    //                 }, {
+    //                     rootMargin: "0px 0px 500px 0px"
+    //                 });
+    //                 document.getElementById(n) && o.observe(document.getElementById(n))
+    //             })
+    //         }
+    //     };
+    //     var getTmpAd = function getTmpAd() {
+    //         var tmpAdTargeting = window.location.search.match(/tmp_ad=([^&]*)/) || [];
+    //         return tmpAdTargeting[1] || ''
+    //     };
+    //     var getAdsDisplay = function getAdsDisplay() {
+    //         var IS_MOBILE = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);
+    //         return IS_MOBILE ? 'mobile' : 'desktop'
+    //     };
+    //     window.adsCollection = [{
+    //         "id": "gpt_laterall",
+    //         "slotName": "depor/web/home/laterall",
+    //         "dimensions":[ [[160, 600] ], 
+    //                       [[120, 600] ] ],
+    //         "sizemap":{
+    //           "breakpoints":[ [1380, 0], [1224, 0]],
+    //           "refresh":true
+    //         },
+    //         "targeting": {
+    //             "publisher": "depor",
+    //             "seccion": "",
+    //             "categoria": "",
+    //             "fuente": "WEB",
+    //             "tipoplantilla": "home",
+    //             "phatname": "https://depor.com/homepage?ref=depr",
+    //             "tags": [],
+    //             "ab_test": "",
+    //             "tmp_ad": getTmpAd()
+    //         },
+    //         "prerender": window.addLazyLoadToAd
+    //     }, 
+    //     {
+    //         "id": "gpt_lateralr",
+    //         "slotName": "depor/web/home/lateralr",
+    //         "dimensions":[ [[160, 600] ], 
+    //                       [[120, 600] ] ],
+    //         "sizemap":{
+    //           "breakpoints":[ [1380, 0], [1224, 0]],
+    //           "refresh":true
+    //       },
+    //         "targeting": {
+    //             "publisher": "depor",
+    //             "seccion": "",
+    //             "categoria": "",
+    //             "fuente": "WEB",
+    //             "tipoplantilla": "home",
+    //             "phatname": "https://depor.com/homepage?ref=depr",
+    //             "tags": [],
+    //             "ab_test": "",
+    //             "tmp_ad": getTmpAd()
+    //         },
+    //         "prerender": window.addLazyLoadToAd
+    //     }];
+    //     arcAds.registerAdCollection(window.adsCollection);
+    // });`
+    // } 
   }
 
   return (
@@ -147,7 +308,11 @@ const Dfp = ({ isFuature, adId }) => {
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
           ) && (
         <Content
           {...{

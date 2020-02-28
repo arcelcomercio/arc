@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 
 import { useContent } from 'fusion:content'
@@ -9,26 +8,11 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import LiveStreaming from './_children/streaming-live'
-import { getPhotoId } from '../../../utilities/helpers'
-import {
-  includeCredits,
-  includePrimarySection,
-  includePromoItems,
-  includePromoItemsCaptions,
-} from '../../../utilities/included-fields'
+import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/constants'
+import { getResizedUrl } from '../../../utilities/resizer'
 
-const PHOTO_SOURCE = 'photo-by-id'
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_l 
-    landscape_md
-    portrait_md 
-    square_s 
-    square_xl
-    lazy_default  
-  }
-}`
+const PHOTO_SOURCE = 'photo-resizer'
 
 const FeaturedStoryPremium = props => {
   const {
@@ -93,7 +77,8 @@ const FeaturedStoryPremium = props => {
     const filter = '{ publish_date additional_properties { is_published } }'
     const auxNote1 =
       note1 !== undefined && note1 !== ''
-        ? useContent({
+        ? // eslint-disable-next-line react-hooks/rules-of-hooks
+          useContent({
             source,
             query: {
               website_url: note1,
@@ -105,7 +90,8 @@ const FeaturedStoryPremium = props => {
 
     const auxNote2 =
       note2 !== undefined && note2 !== ''
-        ? useContent({
+        ? // eslint-disable-next-line react-hooks/rules-of-hooks
+          useContent({
             source,
             query: {
               website_url: note2,
@@ -117,7 +103,8 @@ const FeaturedStoryPremium = props => {
 
     const auxNote3 =
       note3 !== undefined && note3 !== ''
-        ? useContent({
+        ? // eslint-disable-next-line react-hooks/rules-of-hooks
+          useContent({
             source,
             query: {
               website_url: note3,
@@ -169,25 +156,25 @@ const FeaturedStoryPremium = props => {
     return arrError
   }
 
-  const photoId = imgField ? getPhotoId(imgField) : ''
+  const presets = isAdmin
+    ? 'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374'
+    : 'no-presets'
+  const includedFields = featuredStoryPremiumFields
 
   const customPhoto =
     useContent(
-      photoId
+      imgField && isAdmin
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: imgField,
+              presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}
 
   const errorList = isAdmin ? validateScheduledNotes() : []
-  const presets =
-    'landscape_l:648x374,landscape_md:314x157,square_md:300x300,portrait_md:314x374'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`
 
   const sourceFetch =
     scheduledNotes.length > 0 ? 'story-by-url' : contentService
@@ -220,6 +207,7 @@ const FeaturedStoryPremium = props => {
     primarySection,
     multimediaSubtitle,
     multimediaCaption,
+    multimedia,
   } = new StoryData({
     data,
     arcSite,
@@ -238,6 +226,63 @@ const FeaturedStoryPremium = props => {
     } = {},
   } = customPhoto || {}
 
+  const getImageUrls = () => {
+    const {
+      square_md: localSquareMDCustom,
+      square_xl: localSquareXLCustom,
+      landscape_l: localLandscapeLCustom,
+      landscape_md: localLandscapeMDCustom,
+      portrait_md: localPortraitMDCustom,
+    } = imgField
+      ? getResizedUrl({
+          url: imgField,
+          presets:
+            'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374',
+          arcSite,
+        }) || {}
+      : {}
+
+    const {
+      square_md: localMultimediaSquareMD,
+      square_xl: localMultimediaSquareXL,
+      landscape_l: localMultimediaLandscapeL,
+      landscape_md: localMultimediaLandscapeMD,
+      portrait_md: localMultimediaPortraitMD,
+    } =
+      getResizedUrl({
+        url: multimedia,
+        presets:
+          'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374',
+        arcSite,
+      }) || {}
+
+    return {
+      multimediaSquareMD:
+        localSquareMDCustom || imgField || localMultimediaSquareMD,
+      multimediaSquareXL:
+        localSquareXLCustom || imgField || localMultimediaSquareXL,
+      multimediaLandscapeL:
+        localLandscapeLCustom || imgField || localMultimediaLandscapeL,
+      multimediaLandscapeMD:
+        localLandscapeMDCustom || imgField || localMultimediaLandscapeMD,
+      multimediaPortraitMD:
+        localPortraitMDCustom || imgField || localMultimediaPortraitMD,
+    }
+  }
+
+  const imageUrls = isAdmin
+    ? {
+        multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
+        multimediaSquareXL: squareXLCustom || imgField || multimediaSquareXL,
+        multimediaLandscapeMD:
+          landscapeMDCustom || imgField || multimediaLandscapeMD,
+        multimediaLandscapeL:
+          landscapeLCustom || imgField || multimediaLandscapeL,
+        multimediaPortraitMD:
+          portraitMDCustom || imgField || multimediaPortraitMD,
+      }
+    : getImageUrls()
+
   const params = {
     arcSite,
     isPremium,
@@ -245,12 +290,7 @@ const FeaturedStoryPremium = props => {
     imgType,
     bgColor,
     websiteLink,
-    multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
-    multimediaSquareXL: squareXLCustom || imgField || multimediaSquareXL,
-    multimediaLandscapeMD:
-      landscapeMDCustom || imgField || multimediaLandscapeMD,
-    multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
-    multimediaPortraitMD: portraitMDCustom || imgField || multimediaPortraitMD,
+    ...imageUrls,
     multimediaLazyDefault,
     title,
     subTitle,

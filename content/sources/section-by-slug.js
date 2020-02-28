@@ -1,6 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
-import { createUrlResizer } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
+import { createResizedUrl } from '../../components/utilities/resizer'
 import { removeLastSlash } from '../../components/utilities/helpers'
 
 const schemaName = 'section'
@@ -34,23 +34,11 @@ const transform = data => {
     data || {}
   const sectionData = data
   if (siteLogoImage) {
-    const resizedUrls = createUrlResizer(resizerSecret, resizerUrl, {
-      presets: {
-        lazy_default: {
-          width: 5,
-          height: 5,
-        },
-        landscape_xl: {
-          width: 1354,
-          height: 220,
-        },
-        landscape_s: {
-          width: 304,
-          height: 90,
-        },
-      },
-    })({
+    const resizedUrls = createResizedUrl({
       url: siteLogoImage,
+      presets: 'landscape_xl:1354x220,landscape_s:304x90',
+      resizerUrl,
+      resizerSecret,
     })
     sectionData.site_topper.resized_urls = resizedUrls
   }

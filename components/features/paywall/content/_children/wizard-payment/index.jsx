@@ -16,12 +16,32 @@ import addSales from '../../../_dependencies/sales'
 import addPayU from '../../../_dependencies/payu'
 import { PayuError } from '../../_dependencies/handle-errors'
 import { getBrowser } from '../../../_dependencies/browsers'
-import { parseQueryString } from '../../../../../utilities/helpers'
+
 import PWA from '../../_dependencies/seed-pwa'
 
 import Errors from '../../../_dependencies/errors'
 
 const isProd = ENVIRONMENT === 'elcomercio'
+
+export function parseQueryString(str) {
+  if (typeof str !== 'string' || str.length === 0) return {}
+  const s = str.replace(/^\?/, '').split('&')
+  const sLength = s.length
+  let bit
+  const query = {}
+  let first
+  let second
+  for (let i = 0; i < sLength; i++) {
+    bit = s[i].split('=')
+    first = decodeURIComponent(bit[0])
+    if (first.length === 0) continue
+    second = decodeURIComponent(bit[1])
+    if (typeof query[first] === 'undefined') query[first] = second
+    else if (query[first] instanceof Array) query[first].push(second)
+    else query[first] = [query[first], second]
+  }
+  return query
+}
 
 function WizardPayment(props) {
   const msgs = useStrings()

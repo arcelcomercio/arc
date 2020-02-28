@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 
 import { useContent } from 'fusion:content'
@@ -12,6 +13,7 @@ import {
   includePromoItems,
   includePrimarySection,
 } from '../../../utilities/included-fields'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   storyInterest: 'story-interest w-full h-auto pr-20 pl-20',
@@ -35,7 +37,7 @@ const InterestByTag = props => {
     outputType: isAmp,
   } = useFusionContext()
 
-  const presets = 'landscape_l:648x374,landscape_md:314x157'
+  const presets = 'no-presets'
   const includedFields = `_id,headlines.basic,${includePromoItems},websites.${arcSite}.website_url,canonical_url,${includePrimarySection}`
 
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
@@ -44,18 +46,21 @@ const InterestByTag = props => {
   })
 
   const urlTag = `/${tag || slug}/`
+
   const { content_elements: storyData = [] } =
-    useContent({
-      source: CONTENT_SOURCE,
-      query: {
-        website: arcSite,
-        name: urlTag,
-        size: 5,
-        presets,
-        includedFields,
-      },
-      filter: schemaFilter(arcSite),
-    }) || {}
+    isAmp !== 'amp'
+      ? useContent({
+          source: CONTENT_SOURCE,
+          query: {
+            website: arcSite,
+            name: urlTag,
+            size: 5,
+            presets,
+            includedFields,
+          },
+          filter: schemaFilter(arcSite),
+        }) || {}
+      : ''
 
   const instance =
     storyData &&
@@ -86,14 +91,23 @@ const InterestByTag = props => {
                 instance.__data = story
                 key += 1
 
+                const { landscape_l: landscapeL, landscape_md: landscapeMD } =
+                  typeof window === 'undefined'
+                    ? getResizedUrl({
+                        url: instance.multimedia,
+                        presets: 'landscape_l:648x374,landscape_md:314x157',
+                        arcSite,
+                      }) || {}
+                    : {}
+
                 const data = {
                   title: instance.title,
                   link: instance.websiteLink,
                   section: instance.primarySection,
                   sectionLink: instance.primarySectionLink,
                   lazyImage: instance.multimediaLazyDefault,
-                  multimediaLandscapeMD: instance.multimediaLandscapeMD,
-                  multimediaLandscapeL: instance.multimediaLandscapeL,
+                  multimediaLandscapeMD: landscapeMD,
+                  multimediaLandscapeL: landscapeL,
                   multimediaType: instance.multimediaType,
                   isAdmin,
                 }

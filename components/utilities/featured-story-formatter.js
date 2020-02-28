@@ -157,6 +157,8 @@ class FeaturedStoryFormatter {
     newState.multimediaSubtitle = this.storyDataInstace.multimediaSubtitle
     newState.multimediaCaption = this.storyDataInstace.multimediaCaption
 
+    newState.multimedia = this.storyDataInstace.multimedia
+
     if (this.arcSite === 'trome') {
       newState.multimediaSquareS =
         landscapeMD || imgField || this.storyDataInstace.multimediaLandscapeMD

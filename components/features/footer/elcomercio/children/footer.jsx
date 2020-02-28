@@ -31,7 +31,7 @@ const classes = {
   linksLink: 'block',
   /** ---------------------- */
   sites: 'p-20',
-  sitesTitle: 'text-sm line-h-sm text-center uppercase mb-10 font-bold',
+  sitesTitle: 'text-sm line-h-sm text-center uppercase mb-10 font-bold footer__sites-visit',
   sitesList: 'flex flex-wrap justify-center',
   sitesItem: 'footer__sites-item position-relative',
   sitesLink: 'pb-5 pr-10 pl-10 text-sm line-h-sm inline-block',
