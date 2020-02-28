@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-// import { defaultImage } from '../../../utilities/helpers'
+
 import { getAssetsPath } from '../../../utilities/constants'
 
-// Se evita usar funciones de helpers debido a que este feature no usa static true
-// TODO: Refactorizar para poder usar static true
 const defaultImage = ({ deployment, contextPath, arcSite, size = 'lg' }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
@@ -24,10 +22,6 @@ const FORM_ACTION = `${BASE_PATH}/search`
 const CardCinemaBillboard = () => {
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
-  // TODO: verificar si funciona asi o es necesario usar useRef()
-  const [movieSelected, setMovieSelected] = useState('')
-  const [cinemaSelected, setCinemaSelected] = useState('')
-
   const data =
     useContent({
       source: 'cinema-billboard',
@@ -39,25 +33,6 @@ const CardCinemaBillboard = () => {
     billboardData: { moviesList = [], cinemasList = [] } = {},
     premiereData: { alt, img: rawImg, title, url } = {},
   } = data
-
-  const handleMovieSelected = event => {
-    setMovieSelected(event.target.value)
-  }
-
-  const handleCinemaSelected = event => {
-    setCinemaSelected(event.target.value)
-  }
-
-  const handleSubmit = event => {
-    const moviePath = movieSelected || 'peliculas'
-    const cinemaPath = cinemaSelected || 'cines'
-
-    const fullPath =
-      !movieSelected && !cinemaSelected ? '' : `${moviePath}/${cinemaPath}`
-
-    window.location.href = `${BASE_PATH}/${fullPath}`
-    event.preventDefault()
-  }
 
   const img =
     rawImg ||
@@ -75,6 +50,9 @@ const CardCinemaBillboard = () => {
     size: 'sm',
   })
 
+  const cinemaScript =
+    '"use strict";setTimeout(function(){document.getElementById("cinema-form").addEventListener("submit",function(){var e=document.getElementById("movie-select").value,t=document.getElementById("theater-select").value,n=t||"cines",c=e||t?"".concat(e||"peliculas","/").concat(n):"";window.location.href="".concat("/cartelera","/").concat(c,"/"),event.preventDefault()})},0);'
+
   return (
     <div className="cinema-card bg-white">
       <article className="position-relative">
@@ -85,7 +63,7 @@ const CardCinemaBillboard = () => {
           </a>
         </h3>
         <figure className="cinema-card__figure overflow-hidden">
-          <a href={`${BASE_PATH}/${url}`}>
+          <a href={`${BASE_PATH}/${url}/`}>
             <img
               src={isAdmin ? img : lazyDefault}
               data-src={img}
@@ -112,16 +90,16 @@ const CardCinemaBillboard = () => {
           Vamos al cine
         </h4>
         <form
+          id="cinema-form"
           action={FORM_ACTION}
           method="post"
-          className="text-right"
-          onSubmit={e => handleSubmit(e)}>
+          className="text-right">
           <div className="mb-10">
             <select
+              id="movie-select"
               name="movie"
               className="cinema-card__select w-full primary-font mb-10 pl-10 text-xs"
-              value={movieSelected}
-              onChange={e => handleMovieSelected(e)}>
+              value="">
               <option
                 value=""
                 defaultValue
@@ -139,10 +117,10 @@ const CardCinemaBillboard = () => {
               ))}
             </select>
             <select
+              id="theater-select"
               name="theater"
               className="cinema-card__select w-full primary-font mb-10 pl-10 text-xs"
-              value={cinemaSelected}
-              onChange={e => handleCinemaSelected(e)}>
+              value="">
               <option
                 value=""
                 defaultValue
@@ -167,10 +145,12 @@ const CardCinemaBillboard = () => {
           </button>
         </form>
       </div>
+      <script dangerouslySetInnerHTML={{ __html: cinemaScript }}></script>
     </div>
   )
 }
 
 CardCinemaBillboard.label = 'Mini-Cartelera'
+CardCinemaBillboard.static = true
 
 export default CardCinemaBillboard
