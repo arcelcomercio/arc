@@ -1,7 +1,9 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
@@ -40,14 +42,39 @@ SubscribeEventTag.propTypes = {
   value: PropTypes.number,
   currency: PropTypes.string,
 }
-export const LogIntoAccountEventTag = ({ subscriptionId, isSubscriber }) => {
-  return (
+export const LogIntoAccountEventTag = ({ subscriptionId }) => {
+  const [subscriptions, setSubscriptions] = React.useState()
+  const {
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
+
+  React.useEffect(() => {
+    const url = `${urls.originApi}${urls.arcEntitlements}`
+    const accessToken = window.Identity.userIdentity.accessToken
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: accessToken,
+      },
+    }).then(res => {
+      if (res.skus) {
+        const result = Object.keys(res.skus).map(key => {
+          return res.skus[key].sku
+        })
+        setSubscriptions(result)
+      }
+    })
+  }, [])
+
+  return subscriptions ? (
     <FbEventTag
       event="LogIntoAccount"
       subscription_id={subscriptionId}
-      is_subscriber={isSubscriber}
+      is_subscriber={subscriptions.length > 0}
     />
-  )
+  ) : null
 }
 LogIntoAccountEventTag.propTypes = {
   subscriptionId: PropTypes.string,

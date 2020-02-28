@@ -97,6 +97,7 @@ export default {
       faqs:                              `{{contextPath}}/suscripcionesdigitales/faqs/{{^isProd}}?_website=elcomercio&outputType=paywall{{/isProd}}`,
       digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales/{{#isEvent}}eventos/{{event}}/{{/isEvent}}{{#isCheckingSubscriptor}}{{documentType}}/{{documentNumber}}/{{attemptToken}}/{{/isCheckingSubscriptor}}{{^isProd}}?_website=elcomercio&outputType=paywall{{/isProd}}`,
       digitalSubscriptionsHome:          `{{contextPath}}/suscripciones/{{^isProd}}?_website=elcomercio&outputType=paywall{{/isProd}}`,
+      arcEntitlements:                   `/sales/public/v1/entitlements`,
 
       // URLS
       canonical:                         `https://elcomercio.pe/suscripcionesdigitales/`,
