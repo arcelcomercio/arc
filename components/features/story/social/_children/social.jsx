@@ -29,25 +29,26 @@ const classes = {
   premium: 'story-header__premium',
 }
 
-const popup = setTimeout(function() {
+const windowW = 600
+const windowH = 400
+
+const popup = `(setTimeout(function() {
   const $shareButtons = document.querySelectorAll('a[data-share]')
   if ($shareButtons && $shareButtons.length > 0) {
-    const w = 600
-    const h = 400
-    const windowLeft = window.screen.width / 2 - w / 2
-    const windowTop = window.screen.height / 2 - h / 2
+    const windowLeft = window.screen.width / 2 - ${windowW} / 2
+    const windowTop = window.screen.height / 2 - ${windowH} / 2
     $shareButtons.forEach(button => {
       button.addEventListener('click', function(e) {
         e.preventDefault()
         window.open(
           button.getAttribute('href'),
           '',
-          `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${windowTop}, left=${windowLeft}`
+          'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${windowW}, height=${windowH}, top='+windowTop+', left='+windowLeft+''
         )
       })
     })
   }
-}, 0)()
+}, 0))()`
 
 // Funcion extraida de Helpers
 const socialMediaUrlShareList = (
@@ -120,7 +121,6 @@ const StoryHeaderChildSocial = () => {
     primarySection,
     primarySectionLink,
     subtype,
-    // tags,
     isPremium,
   } = new StoryData({
     data: globalContent,
@@ -173,7 +173,7 @@ const StoryHeaderChildSocial = () => {
           ))}
         </ul>
       </div>
-      <script dangerouslySetInnerHTML={{ __html: popup.toString() }}></script>
+      <script dangerouslySetInnerHTML={{ __html: popup }}></script>
     </>
   )
 }
