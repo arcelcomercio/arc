@@ -1,6 +1,5 @@
 .score {
   background-color: $color-white;
-  box-shadow: 0px 3px 6px #00000019;
   &__end {
     &:before,
     &:after {
@@ -105,12 +104,19 @@
     &-list {
       width: calc(100% - 20px);
     }
-    /*  &-item {
-      margin-bottom: 5px;
-    } */
+    &-name {
+      color: #3e4750;
+    }
+    &-time {
+      color: #9a9a9a;
+    }
     &-name,
     &-time {
-      font-size: 13px;
+      font-size: 14px;
+      line-height: 16px;
+      @media (--only-mobile) {
+        font-size: 12px;
+      }
     }
     &-img {
       width: 20px;
