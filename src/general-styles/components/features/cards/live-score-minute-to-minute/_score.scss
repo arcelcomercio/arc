@@ -1,0 +1,129 @@
+.score {
+  background-color: $color-white;
+  &__end {
+    &:before,
+    &:after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 100%;
+      background-color: $color-gray-100;
+      position: absolute;
+      left: 50%;
+    }
+    &:before {
+      top: -100%;
+    }
+    &:after {
+      bottom: -100%;
+    }
+  }
+  &__end-text {
+    width: 44px;
+    height: 44px;
+    border: 5px solid $color-gray-100;
+    font-size: 14px;
+    line-height: 16px;
+    color: #9ba4ad;
+  }
+  &__team {
+    width: 50%;
+    @media (--only-mobile) {
+      align-items: flex-start;
+    }
+    &:first-child {
+      justify-content: flex-end;
+      .score__team-number {
+        @media (--only-mobile) {
+          margin-left: 25px;
+        }
+      }
+    }
+    &:last-child {
+      .score__team-details {
+        @media (--tablet) {
+          flex-direction: row-reverse;
+        }
+      }
+      .score__team-number {
+        margin-right: 25px;
+      }
+      .score__team-name {
+        margin-right: 0;
+      }
+    }
+    &-name {
+      font-size: 30px;
+      line-height: 41px;
+      @media (--only-mobile) {
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: 5px;
+      }
+      @media (--tablet) {
+        margin-right: 25px;
+      }
+    }
+    &-logo {
+      width: 42px;
+      background-color: red;
+      margin-right: 25px;
+      @media (--only-mobile) {
+        margin-right: 0;
+      }
+    }
+    &-number {
+      font-size: 50px;
+    }
+    &-details {
+      @media (--only-mobile) {
+        flex-direction: column-reverse;
+      }
+    }
+  }
+  &__gol {
+    &-wrapper {
+      border-color: $color-gray-100;
+    }
+    &-box {
+      width: 50%;
+      &:last-child {
+        .score__gol-list {
+          justify-content: flex-start;
+        }
+        @media (--only-mobile) {
+          padding-right: 0;
+        }
+      }
+      &:first-child {
+        @media (--only-mobile) {
+          padding-left: 0;
+        }
+      }
+    }
+    &-list {
+      width: calc(100% - 14px);
+    }
+    &-name {
+      color: #3e4750;
+    }
+    &-time {
+      color: #9a9a9a;
+    }
+    &-name,
+    &-time {
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 0.4px;
+      @media (--only-mobile) {
+        font-size: 12px;
+      }
+    }
+    &-img {
+      width: 14px;
+      height: 14px;
+      background-image: url("#{$assets_url}/resources/assets/minute-by-minute/gol.png");
+      background-size: cover;
+    }
+  }
+}

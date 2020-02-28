@@ -2,11 +2,11 @@ import { resizerSecret } from 'fusion:environment'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import {
-  addResizedUrlsToStory,
   getYYYYMMDDfromISO,
   getActualDate,
   formatSlugToText,
 } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 let globalParams = {}
 

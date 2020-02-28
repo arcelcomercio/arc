@@ -4,7 +4,7 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import { customFields } from './_dependencies/custom-fields'
-import StoryItem from './_children/story-item'
+import BlogItem from './_children/blog-item'
 import Pagination from '../../../global-components/pagination'
 
 import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
@@ -52,13 +52,16 @@ const BlogListAuthor = props => {
               arcSite,
               size: 'sm',
             }),
+            resized_urls: {
+              thumbnail_md: postImageMd,
+              thumbnail_sm: postImageSm,
+            } = {},
           } = {},
         } = {},
       ] = [],
       user: {
         user_avatarb: {
           resized_urls: {
-            // lazy_default: lazyImage,
             author_sm: authorImg = defaultImage({
               deployment,
               contextPath,
@@ -81,6 +84,8 @@ const BlogListAuthor = props => {
         size: 'sm',
       }),
       imagePost,
+      postImageMd,
+      postImageSm,
       authorImg,
       date: postDate,
       blogTitle: blogname,
@@ -119,9 +124,6 @@ const BlogListAuthor = props => {
         last_name: lastName = '',
         user_avatarb: {
           resized_urls: {
-            /* 
-            Por ahora se usa para el Lazy el logo de la marca, no esta img de 5x5
-            lazy_default: lazyImage, */
             author_sm: authorImg = defaultImage({
               deployment,
               contextPath,
@@ -134,8 +136,8 @@ const BlogListAuthor = props => {
       blog: { count_posts: countPosts = '', path = '', blogname = '' } = {},
     } = globalContent || {}
     totalRows = countPosts
-    posts.map((post, i) => {
-      // TODO: Eliminar si no se usa --> const key = `post-${i}-${post.ID}`
+
+    dataBlogs = posts.slice(initialPositionItem).map(post => {
       const {
         post_title: postTitle,
         post_permalink: postLink,
@@ -147,12 +149,15 @@ const BlogListAuthor = props => {
             arcSite,
             size: 'sm',
           }),
+          resized_urls: {
+            thumbnail_md: postImageMd,
+            thumbnail_sm: postImageSm,
+          } = {},
         } = {},
       } = post
 
-      dataBlogs.push({
+      return {
         isAdmin,
-        // Eliminar la asignacion de defaulImage si se va a usar de nuevo la imagen de 5x5 para el Lazy
         lazyImage: defaultImage({
           deployment,
           contextPath,
@@ -160,6 +165,8 @@ const BlogListAuthor = props => {
           size: 'sm',
         }),
         imagePost,
+        postImageMd,
+        postImageSm,
         authorImg,
         date: postDate,
         blogTitle: blogname,
@@ -167,7 +174,7 @@ const BlogListAuthor = props => {
         postTitle,
         urlPost: `/blog/${postLink}`,
         urlBlog: addSlashToEnd(`/blog/${path}`),
-      })
+      }
     })
   } else {
     const {
@@ -178,38 +185,23 @@ const BlogListAuthor = props => {
     blogs = Object.values(globalContent).filter(
       item => typeof item === 'object'
     )
-    // TODO: Cambiar el foreach por map en el render.
-    blogs.forEach(ele => {
-      dataBlogs.push(buildParams(ele))
-    })
+    dataBlogs = blogs.slice(initialPositionItem).map(ele => buildParams(ele))
 
     totalRows = totalItems
   }
 
-  dataBlogs = dataBlogs.slice(initialPositionItem)
-
-  // const seeMoreLink = `/archivo/`
-
   return (
     <>
       <div className={classes.container}>
-        {dataBlogs.map((story, index) => {
-          return (
-            <Fragment key={`Blog-author-${index}`}>
-              <StoryItem data={story} {...{ isAdmin }} />
-            </Fragment>
-          )
-        })}
+        {dataBlogs.map(
+          story =>
+            story && (
+              <Fragment key={story.urlPost}>
+                <BlogItem data={story} {...{ isAdmin }} />
+              </Fragment>
+            )
+        )}
         {
-          /* <div className={classes.listadoSeeMore}>
-          <a
-            href={seeMoreLink}
-            className={classes.buttonLink}
-            tabIndex="0"
-            role="button">
-            Ver más
-          </a>
-      </div> */
           <Pagination
             totalElements={totalRows}
             storiesQty={pagLimit}

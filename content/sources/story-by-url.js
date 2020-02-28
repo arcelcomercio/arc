@@ -1,9 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
-
-let website = ''
+import { addResizedUrlsToStories, sizeImg } from '../../components/utilities/resizer'
 
 const schemaName = 'story'
 
@@ -18,14 +15,29 @@ const params = [
     displayName: 'Esta Nota esta publica? (Defecto es true)',
     type: 'text',
   },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
+  },
 ]
+
+const transformImg = ({ contentElements, website, presets }) => {
+  const { resizerUrl } = getProperties(website)
+  return addResizedUrlsToStories({
+    contentElements,
+    resizerUrl,
+    resizerSecret,
+    presets,
+  })
+}
 
 const resolve = (key = {}) => {
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
 
-  website = key['arc-site'] || 'Arc Site no está definido'
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { website_url: websiteUrl, published = '' } = key
   const isPublished = published === 'false' ? 'false' : 'true'
 
@@ -35,13 +47,12 @@ const resolve = (key = {}) => {
   return requestUri
 }
 
-const transform = data => {
-  if (data.type === 'redirect') return data
-  const { resizerUrl } = getProperties(website)
+const transform = (data, { 'arc-site': website, presets }) => {
+  if (data.type === 'redirect' || presets === 'no-presets') return data
 
   const { promo_items: { basic_gallery: basicGallery } = {} } = data
-
-  const dataStory = data || {}
+  const defaultPresets = sizeImg()
+  let dataStory = data || {}
 
   if (basicGallery && basicGallery.promo_items) {
     const { content_elements: galleryContentElements } = basicGallery || {}
@@ -49,14 +60,20 @@ const transform = data => {
       dataStory.promo_items.basic_gallery.content_elements = []
   }
 
-  return (
-    addResizedUrlsToStory(
-      [dataStory],
-      resizerUrl,
-      resizerSecret,
-      addResizedUrls
-    )[0] || null
-  )
+  ;[dataStory] = transformImg({
+    contentElements: [dataStory],
+    website,
+    presets:
+      presets ||
+      Object.keys(defaultPresets)
+        .map(
+          res =>
+            `${res}:${defaultPresets[res].width}x${defaultPresets[res].height}`
+        )
+        .join(','),
+  })
+
+  return { ...dataStory }
 }
 
 export default {

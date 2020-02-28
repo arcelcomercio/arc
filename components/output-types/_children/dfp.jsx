@@ -98,10 +98,10 @@ const Dfp = ({ isFuature, adId }) => {
     const subsection = flagsub?'':sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
+    const getTargetFunction = `var getTarget=function getTarget(){ return {"publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
     const adsCollection = spaces.map(
       ({
         space,
-        slotname,
         slotname2,
         dimensions,
         dimensions_mobile: dimensionsMobile,
@@ -109,19 +109,9 @@ const Dfp = ({ isFuature, adId }) => {
       }) => {
         const formatSpace = {
           id: `gpt_${space}`,
-          slotName: (arcSite === 'publimetro') ? slotname : slotname2,
+          slotName: slotname2,
           dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
-          targeting: {
-            publisher: arcSite,
-            seccion: section,
-            categoria: subsection,
-            fuente: 'WEB',
-            tipoplantilla: page,
-            phatname: `${siteUrl}${requestUri}`,
-            tags: targetingTags,
-            ab_test: '',
-            tmp_ad: '<::getTmpAd()::>',
-          },
+          targeting: `<::getTarget() ::>`,
         }
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
@@ -129,9 +119,7 @@ const Dfp = ({ isFuature, adId }) => {
         return formatSpace
       }
     )
-    return `"use strict";document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction}; window.adsCollection=${JSON.stringify(
-      adsCollection
-    )
+    return `"use strict"; document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}; window.adsCollection=${JSON.stringify(adsCollection)
       .replace(/"<::/g, '')
       .replace(
         /::>"/g,
@@ -147,7 +135,11 @@ const Dfp = ({ isFuature, adId }) => {
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
           ) && (
         <Content
           {...{
