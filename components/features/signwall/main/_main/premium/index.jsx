@@ -55,18 +55,15 @@ export const PremiumInt = props => {
   }
 
   useEffect(() => {
+    const { fetched } = getContent('paywall-campaing')
+    fetched.then(resCam => {
+      setResCampaing(resCam.summary.feature || [])
+    })
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)
     addEventListener('beforeunload', handleLeavePage)
     return () => {
       removeEventListener('beforeunload', handleLeavePage)
     }
-  }, [])
-
-  useEffect(() => {
-    const { fetched } = getContent('paywall-campaing')
-    fetched.then(resCam => {
-      setResCampaing(resCam.summary.feature || [])
-    })
   }, [])
 
   const removeBefore = () => {
