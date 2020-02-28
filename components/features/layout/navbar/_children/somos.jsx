@@ -1,7 +1,14 @@
 import React, { PureComponent } from 'react'
-import { searchQuery } from '../../../../utilities/helpers'
 import SignwallComponent from '../../../signwall/main/default'
 import Button from '../../../../global-components/button'
+
+export const searchQuery = (query, sort) => {
+  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
+  if (query !== '')
+    // eslint-disable-next-line no-restricted-globals
+    location.href = `/buscar/${newQuery}/todas/${sort ||
+      'descendiente'}/?query=${newQuery}`
+}
 
 class HeaderChildSomos extends PureComponent {
   constructor(props) {

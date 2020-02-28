@@ -75,7 +75,7 @@ const HeaderStandard = props => {
 }
 
 HeaderStandard.label = 'Cabecera - Estándar'
-// HeaderStandard.static = true
+HeaderStandard.static = true
 
 HeaderStandard.propTypes = {
   customFields,

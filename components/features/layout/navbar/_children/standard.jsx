@@ -4,17 +4,61 @@ import ENV from 'fusion:environment'
 
 import Button from '../../../../global-components/button'
 import SignwallComponent from '../../../signwall/main/default'
-import ConfigParams from '../../../../utilities/config-params'
+// import ConfigParams from '../../../../utilities/config-params'
 
 import Menu from '../../../../global-components/menu'
 // import Ads from '../../../../global-components/ads'
 
-import {
-  getResponsiveClasses,
-  searchQuery,
-  popUpWindow,
-  socialMediaUrlShareList,
-} from '../../../../utilities/helpers'
+const ELEMENT_STORY = 'story'
+const SITE_PERU21 = 'peru21'
+
+const socialMediaUrlShareList = (
+  siteUrl,
+  postPermaLink,
+  postTitle,
+  siteNameRedSocial = 'Gestionpe'
+) => {
+  return {
+    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      postTitle
+    )}&url=${siteUrl}${postPermaLink}&via=${siteNameRedSocial}`,
+    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
+    whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
+    fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
+  }
+}
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
+}
+
+const searchQuery = (query, sort) => {
+  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
+  if (query !== '')
+    // eslint-disable-next-line no-restricted-globals
+    location.href = `/buscar/${newQuery}/todas/${sort ||
+      'descendiente'}/?query=${newQuery}`
+}
+
+const getResponsiveClasses = ({
+  showInDesktop = true,
+  showInTablet = true,
+  showInMobile = true,
+}) => {
+  const responsiveClasses = []
+  if (!showInDesktop) responsiveClasses.push('non-desktop')
+  if (!showInTablet) responsiveClasses.push('non-tablet')
+  if (!showInMobile) responsiveClasses.push('non-mobile')
+  return responsiveClasses.join(' ')
+}
 
 @Consumer
 class NavBarDefault extends PureComponent {
@@ -438,19 +482,18 @@ class NavBarDefault extends PureComponent {
               />
             </a>
 
-            {type !== ConfigParams.ELEMENT_STORY &&
-              arcSite === ConfigParams.SITE_PERU21 && (
-                <a
-                  className="header__logo-secondary"
-                  href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
-                  <img src={logoLeft.src} alt={logo.alt} />
-                </a>
-              )}
+            {type !== ELEMENT_STORY && arcSite === SITE_PERU21 && (
+              <a
+                className="header__logo-secondary"
+                href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
+                <img src={logoLeft.src} alt={logo.alt} />
+              </a>
+            )}
 
             <div className="nav__story-title position-relative overflow-hidden line-h-sm" />
 
             <div className="nav__story-social-network position-relative mr-5">
-              {type === ConfigParams.ELEMENT_STORY && (
+              {type === ELEMENT_STORY && (
                 <>
                   <div>
                     <a
