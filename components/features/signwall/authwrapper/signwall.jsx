@@ -6,39 +6,26 @@ import { SecondMiddle } from '../main/_main/generic/styled'
 import { FormLogin } from '../main/_main/_children/form_login'
 import { FormRegister } from '../main/_main/_children/form_register'
 import { FormForgot } from '../main/_main/_children/form_forgot'
-// import { FormReset } from '../main/_main/_children/form_reset'
-// import { FormVerify } from '../main/_main/_children/form_verify'
-// import { FormRelogin } from '../main/_main/_children/form_relogin'
 import CallToActionFia from './_children/call_to_action'
 import { device } from '../_dependencies/breakpoints'
 
 const renderTemplate = (template, attributes) => {
-  const { typeDialog } = attributes
   const templates = {
     login: <FormLogin {...attributes} />,
     register: <FormRegister {...attributes} />,
     forgot: <FormForgot {...attributes} />,
   }
 
-  const getDefault = () => {
-    switch (typeDialog) {
-      case 'resetpass':
-        return templates.reset
-      case 'verify':
-        return templates.verify
-      case 'relogemail':
-      case 'reloghash':
-        return templates.relogin
-      default:
-        return templates.login
-    }
-  }
-
-  return templates[template] || getDefault()
+  return templates[template] || templates.login
 }
 
 const _AuthWrapper = props => {
-  const { arcSite } = props
+  const {
+    arcSite,
+    siteProperties: {
+      signwall: { mainColorBr },
+    },
+  } = props
   const [isLogged, setLogged] = useState(false)
 
   const handleCallToAction = status => {
@@ -65,7 +52,7 @@ const _AuthWrapper = props => {
                   onClose: () => window.close(),
                 })
               ) : (
-                <CallToActionFia arcSite={arcSite} />
+                <CallToActionFia arcSite={arcSite} mainColorBr={mainColorBr} />
               )}
             </SecondMiddle>
           )}
@@ -81,7 +68,7 @@ class AuthWrapper extends React.PureComponent {
     return (
       <_AuthWrapper
         {...this.props}
-        typeDialog="fia-signwall"
+        typeDialog="authfia"
         getContent={this.getContent.bind(this)}
       />
     )
@@ -90,14 +77,15 @@ class AuthWrapper extends React.PureComponent {
 
 const AuthBox = styled.div`
   padding: 20px 0;
-  width: 305px;
+  width: 100%;
   min-height: 280px;
-  margin: 0 auto;
 
-  @media ${device.desktop} {
-    width: 350px;
+  @media ${device.tablet} {
+    width: 380px;
+    margin: 0 auto;
     & > * {
       width: 100%;
+      margin: 0 auto;
     }
   }
 `
