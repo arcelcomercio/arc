@@ -47,6 +47,7 @@ const Paywall = ({
     siteProperties: {
       paywall: { urls },
     },
+    requestUri,
     globalContent: {
       summary = [],
       description,
@@ -58,6 +59,12 @@ const Paywall = ({
   } = useFusionContext()
 
   const wizardRef = useRef(null)
+  const fromFia = useRef(
+    (() => {
+      const qs = new URL(requestUri).query
+      return /\bfia=true\b/.test(qs)
+    })()
+  )
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
   const getCodeCxense = interpolateUrl(urls.codeCxense)
 
@@ -99,6 +106,7 @@ const Paywall = ({
     description,
     summary,
     printedSubscriber,
+    fromFia,
     freeAccess,
     error,
   })

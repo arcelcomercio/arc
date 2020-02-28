@@ -20,6 +20,8 @@ export const FormLogin = ({
   typeDialog,
   onClose,
   arcSite,
+  isFia,
+  handleCallToAction,
   siteProperties: {
     signwall: { mainColorLink, mainColorBtn, primaryFont, mainColorBr },
     activeNewsletter = false,
@@ -215,6 +217,13 @@ export const FormLogin = ({
       })
   }
 
+  const handleFia = () => {
+    if (typeof window !== 'undefined' && isFia) {
+      handleCallToAction(true);
+    }
+    return null;
+  }
+
   const onSubmitForm = state => {
     const { lemail, lpass } = state
     setShowLoading(true)
@@ -227,6 +236,7 @@ export const FormLogin = ({
         handleGetProfile()
         taggeoSuccess()
         onLogged()
+        handleFia()
       })
       .catch(errLogin => {
         if (errLogin.code === '300040' || errLogin.code === '300037') {
@@ -351,7 +361,7 @@ export const FormLogin = ({
 
                   <S.Link
                     href="#"
-                    c="light"
+                    c="gray"
                     className="mt-10 mb-20 inline f-right text-sm"
                     onClick={e => {
                       e.preventDefault()
