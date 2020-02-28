@@ -2,7 +2,6 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import { socialMediaUrlShareList } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryData from '../../../../utilities/story-data'
 import {
@@ -28,6 +27,45 @@ const classes = {
   iconWhatsapp: 'icon-whatsapp',
   bbcHead: 'bbc-head',
   premium: 'story-header__premium',
+}
+
+const popup = setTimeout(function() {
+  const $shareButtons = document.querySelectorAll('a[data-share]')
+  if ($shareButtons && $shareButtons.length > 0) {
+    const w = 600
+    const h = 400
+    const windowLeft = window.screen.width / 2 - w / 2
+    const windowTop = window.screen.height / 2 - h / 2
+    $shareButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault()
+        window.open(
+          button.getAttribute('href'),
+          '',
+          `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${windowTop}, left=${windowLeft}`
+        )
+      })
+    })
+  }
+}, 0)()
+
+// Funcion extraida de Helpers
+const socialMediaUrlShareList = (
+  siteUrl,
+  postPermaLink,
+  postTitle,
+  siteNameRedSocial = 'Gestionpe'
+) => {
+  return {
+    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      postTitle
+    )}&url=${siteUrl}${postPermaLink}&via=${siteNameRedSocial}`,
+    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
+    whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
+    fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
+  }
 }
 
 const StoryHeaderChildSocial = () => {
@@ -135,6 +173,7 @@ const StoryHeaderChildSocial = () => {
           ))}
         </ul>
       </div>
+      <script dangerouslySetInnerHTML={{ __html: popup.toString() }}></script>
     </>
   )
 }

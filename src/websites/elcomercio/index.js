@@ -46,22 +46,3 @@ import './fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.woff'
 
 // Imagenes paywall
 require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)
-
-// story/social - actions
-const $shareButtons = document.querySelectorAll('a[data-share]')
-if ($shareButtons && $shareButtons.length > 0) {
-  const w = 600
-  const h = 400
-  const windowLeft = window.screen.width / 2 - w / 2
-  const windowTop = window.screen.height / 2 - h / 2
-  $shareButtons.forEach(button => {
-    button.addEventListener('click', e => {
-      e.preventDefault()
-      window.open(
-        button.getAttribute('href'),
-        '',
-        `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${windowTop}, left=${windowLeft}`
-      )
-    })
-  })
-}
