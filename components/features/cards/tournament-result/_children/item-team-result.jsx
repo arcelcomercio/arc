@@ -1,23 +1,41 @@
 import React from 'react'
 
+import { PLAYING, PLAYED } from '../../../../utilities/constants'
+
 const classes = {
   itemTeamResult: 'flex flex-row',
 }
 
-const ItemTeamResult = () => {
+const ItemTeamResult = ({
+  homeTeamShortName = '',
+  awayTeamShortName = '',
+  homeTeamScore = 0,
+  awayTeamScore = 0,
+  homeTeamFlag = '',
+  awayTeamFlag = '',
+  matchTime = '',
+  matchDate = '',
+  matchStatus = '',
+}) => {
   return (
     <div className={classes.itemTeamResult}>
-      <div>Germany</div>
-      <div>bandera</div>
+      <div>{homeTeamShortName}</div>
+      <div>{homeTeamFlag}</div>
       <div>
         <div>
-          <span>8</span>
-          <span>1</span>
+          <span>{homeTeamScore}</span>
+          <span>{awayTeamScore}</span>
         </div>
-        <span>En vivo</span>
+        {matchStatus === PLAYING && <span>En vivo</span>}
+        {matchStatus === PLAYED && (
+          <div>
+            <span>{matchDate}</span>
+            <span>{matchTime}</span>
+          </div>
+        )}
       </div>
-      <div>bandera</div>
-      <div>Brasil</div>
+      <div>{awayTeamFlag}</div>
+      <div>{awayTeamShortName}</div>
     </div>
   )
 }

@@ -2,12 +2,17 @@ import React from 'react'
 
 import ItemTeamResult from './item-team-result'
 
-const CardListResult = () => {
+const CardListResult = ({
+  firstCard = true,
+  leagueNme = '',
+  listMatchResults = [],
+}) => {
   return (
     <div>
-      <ItemTeamResult />
-      <ItemTeamResult />
-      <ItemTeamResult />
+      {firstCard ? <div>{leagueNme}</div> : <div>publicidad</div>}
+      {listMatchResults.map(itemResult => (
+        <ItemTeamResult {...itemResult} />
+      ))}
     </div>
   )
 }
