@@ -21,7 +21,6 @@ const renderTemplate = (template, attributes) => {
 
 const _AuthWrapper = props => {
   const {
-    arcSite,
     siteProperties: {
       signwall: { mainColorBr },
     },
@@ -52,7 +51,7 @@ const _AuthWrapper = props => {
                   onClose: () => window.close(),
                 })
               ) : (
-                <CallToActionFia arcSite={arcSite} mainColorBr={mainColorBr} />
+                <CallToActionFia mainColorBr={mainColorBr} />
               )}
             </SecondMiddle>
           )}
