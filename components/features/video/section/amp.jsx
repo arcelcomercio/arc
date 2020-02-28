@@ -48,13 +48,13 @@ const VideoSectionAmp = () => {
     contextPath,
   })
 
-  const dataSlotNa = `/${adsAmp.dataSlot}/${
-    arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
-  }-amp-320x50-top-movil1`
+  const dataSlotNa = `/${adsAmp.dataSlot}/${  
+    arcSite !== 'peru21g21'  ? arcSite : 'peru21'
+  }/amp/post/top`
   const placementIdNa = adsAmp.movil1
   const width = '320'
   const height = '50'
-  const parametersNa = {
+  const parametersTop = { // top
     dataSlot: dataSlotNa,
     placementId: placementIdNa,
     width,
@@ -63,21 +63,21 @@ const VideoSectionAmp = () => {
   }
 
   const namePublicidad =
-    arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
+    arcSite !== 'peru21g21'  ? arcSite : 'peru21'
 
-  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}-amp-300x250-boton-movil2`
+  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja1` // movil2
 
   const placementId = adsAmp.movil2
-  const parameters = { dataSlot, placementId, width, height }
+  const parametersCaja1 = { dataSlot, placementId, width, height }
 
-  const parametersMovil4 = {
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}-amp-300x250-middle-movil4`,
+  const parametersCaja3 = { // movil4
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}amp/post/caja3`,
     placementId: adsAmp.movil4,
     width,
     height,
   }
-  const parametersMovil5 = {
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}-amp-300x250-inferior-movil5`,
+  const parametersCaja4 = { // movil5
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja4`,
     placementId: adsAmp.movil5,
     width,
     height,
@@ -99,7 +99,7 @@ const VideoSectionAmp = () => {
           {arcSite !== 'elcomerciomag' && (
             <div
               className={classes.adsAmp}
-              dangerouslySetInnerHTML={publicidadAmp(parametersNa)}
+              dangerouslySetInnerHTML={publicidadAmp(parametersTop)}
             />
           )}
           {storyTagsBbc(tags) && (
@@ -123,7 +123,7 @@ const VideoSectionAmp = () => {
         </header>
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parameters)}
+          dangerouslySetInnerHTML={publicidadAmp(parametersCaja1)}
         />
 
         <div className={classes.description}> {subTitle}</div>
@@ -138,11 +138,11 @@ const VideoSectionAmp = () => {
 
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersMovil4)}
+          dangerouslySetInnerHTML={publicidadAmp(parametersCaja3)}
         />
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersMovil5)}
+          dangerouslySetInnerHTML={publicidadAmp(parametersCaja4)}
         />
         <StoryContentChildTags data={tags} {...isAmp} />
         {relatedContent.length > 0 && (
