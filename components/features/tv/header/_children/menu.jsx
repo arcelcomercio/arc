@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 const MenuTV = ({ toggleMenu, menuSections }) => {
   useEffect(() => {
-    document.body.classList.add('overflow-hidden')
+    
   })
   const [closeClass, setCloseClass] = useState('')
   const closeModal = () => {
@@ -14,17 +14,6 @@ const MenuTV = ({ toggleMenu, menuSections }) => {
   }
   return (
     <>
-      <div
-        className={`video-modal__gradient ${closeClass}`}
-        role="button"
-        tabIndex="0"
-        onKeyDown={e => {
-          if (e.key === 'Escape') {
-            closeModal()
-          }
-        }}
-        onClick={() => closeModal()}
-      />
       <div className={`tv-menu ${closeClass}`}>
         <div className="tv-menu__header">
           <p className="tv-menu__title">Portada</p>

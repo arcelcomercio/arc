@@ -214,8 +214,9 @@
       margin-bottom: 0;
     }
   }
-  .section-video__detail {
-    justify-content: flex-end;
+  .section-video__share{
+    display: block;
+    width: 300px;
   }
   .section-video__list-text {
     width: 100%;
@@ -267,6 +268,9 @@
       @media (--desktop) {
         max-width: 980px;
       }
+      @media (--tablet) {
+        max-width: 620px
+      }
       @media (--only-mobile) {
         width: auto
       }
@@ -275,6 +279,9 @@
 }
 
 .section-peru21tv{
+  .section-video{
+    padding-top: 0;
+  }
   .section-video__section {
     color: #FFCB05;
     text-transform: uppercase;

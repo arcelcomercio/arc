@@ -1,18 +1,74 @@
 .tv-header {
-    &__logo {
-      font: Bold 12px/14px $tertiary-font;
-      padding-top: 4px;
+  background-color: $color-black;
+  width: 100%;
+  z-index: 3;
+  &.active{
+    position: fixed;
+  }
+  &__content{
+    height: 60px;
+    @media (--desktop) {
+      min-width: 980px;
     }
+    @media (--tablet) {
+      min-width: 620px
+    }
+    @media (--only-mobile) {
+      min-width: 100%
+    }
+  }
+  &__section-logo {
+    width: 98px;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    z-index: 21;
+    @media (--only-mobile) {
+      width: 96px;
+    }
+  }
+  &__logo {
+    font: Bold 12px/14px $tertiary-font;
+    padding-top: 4px;
+    width: 100px;
+    color: $color-white;
+    @media (--only-mobile) {
+      width: 0px;
+      overflow: hidden;
+    }
+  }
+  &__logo-container {
+    left: 20px;
+    z-index: 1;
+    background-color: #151515;
+    border-radius: 5px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    @media (--desktop) {
+      left: 20px;
+    }
+    @media (--only-mobile) {
+      button{
+        margin-right: 0px;
+      }
+    }
+  }
+  &__icon {
+    font-size: 20px;
+    color: $color-white;
+  }
 
-    &__go-portada{
-        color: #AAAAAA;
-        font: Bold 12px/14px $tertiary-font;
-        padding-top: 2px;
-        top: 18px;
-        right: 20px;
-        img{
-          vertical-align: middle;
-        }
+  &__go-portada{
+    color: #AAAAAA;
+    font: Bold 12px/14px $tertiary-font;
+    padding-top: 2px;
+    top: 18px;
+    right: 20px;
+    img{
+      vertical-align: middle;
     }
+  }
 }
+
   

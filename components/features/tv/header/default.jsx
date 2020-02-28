@@ -116,7 +116,7 @@ const TvHeader = () => {
         <a 
         href="https://peru21.pe/"
         className="tv-header__go-portada position-absolute">
-        { (isMobile) ? `Peru21 ` : `Portada Peru21 ` }
+        { (isMobile) ? `Perú21 ` : `Portada Perú21 ` }
         { window.location.host.includes('localhost') ? (
           <img
             alt={`Ir a ${arcSite}`}
