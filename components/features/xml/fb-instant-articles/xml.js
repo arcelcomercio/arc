@@ -113,7 +113,10 @@ class XmlFacebookInstantArticles {
                   storyLink = `${siteUrl}${storyData.websiteLink}`
                   fiaContent = fbArticleStyle
                 }
-                const pageview = `${storyLink}?outputType=fia`
+                const pageview = `${storyLink.replace(
+                  siteUrl,
+                  ''
+                )}?outputType=fia`
                 const { revision: { revision_id: revisionId = '' } = {} } =
                   storyData._data || {}
 
