@@ -6,7 +6,7 @@ import GolListItem from './_children/gol-list'
 import { getFootballGameId } from '../../../utilities/get-story-values'
 
 const classes = {
-  liveScore: 'score w-full pb-20',
+  liveScore: 'score w-full',
   liveWrapper:
     'score__wrapper pt-20 pb-20 flex justify-center items-center mx-auto overflow-hidden',
   liveEnd: 'score__end position-relative',

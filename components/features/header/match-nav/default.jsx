@@ -37,22 +37,15 @@ import Ads from '../../../global-components/ads'
 import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
-  news: 'story-content w-full pr-20 pl-20',
-  content: 'story-content__content position-relative flex flex-row-reverse',
-  textClasses:
-    'story-content__font--secondary mb-25 title-xs line-h-md mt-20 secondary-font pr-20',
-  newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
-  newsEmbed: 'story-content__embed',
-  tags: 'story-content',
-  section: 'w-full',
-  listClasses: 'story-content__paragraph-list',
-  alignmentClasses: 'story-content__alignment',
-  bbcHead: 'bbc-head p-10',
+  navTabs: 'navegation-tabs w-full bg-white pt-10 flex justify-center',
+  navTabsList: 'navegation-tabs__list flex',
+  navTabsItem: 'navegation-tabs__item flex items-center',
+  navTabsTitle:
+    'navegation-tabs__title secondary-font pl-10 pr-10 md:pl-20 md:pr-20 pb-10',
 }
 
 @Consumer
 class MatchNav extends PureComponent {
-
   render() {
     const subtypes = ['partido_previa', 'partido_directo', 'partido_cronica']
 
@@ -67,25 +60,60 @@ class MatchNav extends PureComponent {
       siteProperties: { isDfp = false },
     } = this.props
 
-    const { subtype, canonical_url, related_content: { basic: relatedContent } = {} } =
-      globalContent || {}
+    const {
+      subtype,
+      canonical_url,
+      related_content: { basic: relatedContent } = {},
+    } = globalContent || {}
 
     const configTabs = []
     relatedContent.forEach(element => {
-        configTabs[element.subtype] = element.canonical_url
-    });
+      configTabs[element.subtype] = element.canonical_url
+    })
     configTabs[subtype] = canonical_url
 
     return (
       <>
-        <div className={classes.news}>
-            <ul>
-                { configTabs['partido_previa'] && <li><a href={configTabs['partido_previa']}>Previa</a></li> }
-                <li><a href={configTabs['partido_directo']}>Directo</a></li>
-                <li><a href={"/alineaciones" + configTabs['partido_previa']}>Alineaciones</a></li>
-                <li><a href={"/estadisticas" + configTabs['partido_previa']}>Estadísticas</a></li>
-                <li><a href={configTabs['partido_cronica']}>Crónica</a></li>
-            </ul>
+        <div className={classes.navTabs}>
+          <ul className={classes.navTabsList}>
+            {configTabs['partido_previa'] && (
+              <li className={classes.navTabsItem}>
+                <a
+                  href={configTabs['partido_previa']}
+                  className={classes.navTabsTitle}>
+                  Previa
+                </a>
+              </li>
+            )}
+            <li className={classes.navTabsItem}>
+              <a
+                href={configTabs['partido_directo']}
+                className={classes.navTabsTitle}>
+                Directo
+              </a>
+            </li>
+            <li className={classes.navTabsItem}>
+              <a
+                href={'/alineaciones' + configTabs['partido_previa']}
+                className={classes.navTabsTitle}>
+                Alineaciones
+              </a>
+            </li>
+            <li className={classes.navTabsItem}>
+              <a
+                href={'/estadisticas' + configTabs['partido_previa']}
+                className={classes.navTabsTitle}>
+                Estadísticas
+              </a>
+            </li>
+            <li className={classes.navTabsItem}>
+              <a
+                href={configTabs['partido_cronica']}
+                className={classes.navTabsTitle}>
+                Crónica
+              </a>
+            </li>
+          </ul>
         </div>
       </>
     )
