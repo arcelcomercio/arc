@@ -102,7 +102,7 @@
       }
     }
     &-list {
-      width: calc(100% - 20px);
+      width: calc(100% - 14px);
     }
     &-name {
       color: #3e4750;
@@ -114,14 +114,15 @@
     &-time {
       font-size: 14px;
       line-height: 16px;
+      letter-spacing: 0.4px;
       @media (--only-mobile) {
         font-size: 12px;
       }
     }
     &-img {
-      width: 20px;
-      height: 20px;
-      background-image: url("#{$assets_url}/resources/assets/social/twitter.png");
+      width: 14px;
+      height: 14px;
+      background-image: url("#{$assets_url}/resources/assets/minute-by-minute/gol.png");
       background-size: cover;
     }
   }
