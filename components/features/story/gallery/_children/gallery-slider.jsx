@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react'
-import ConfigParams from '../../../../utilities/config-params'
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_DEPOR,
+} from '../../../../utilities/constants/sitenames'
 import AdsFotogaleria from '../../../../global-components/ads'
 
 const classes = {
@@ -140,8 +143,8 @@ class StoryHeaderChildGallerySlider extends PureComponent {
       window.history.pushState(null, '', this._getUrlGalleryImage(nextSlide))
       this._moveSlide()
     } else {
-      let urlGalery = arcSite === ConfigParams.SITE_DEPOR ? '/muchafoto/' : '/'
-      urlGalery = arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? '/fotos/' : '/'
+      let urlGalery = arcSite === SITE_DEPOR ? '/muchafoto/' : '/'
+      urlGalery = arcSite === SITE_ELCOMERCIOMAG ? '/fotos/' : '/'
       window.location.href = urlGalery
     }
   }
