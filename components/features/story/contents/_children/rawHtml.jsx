@@ -3,11 +3,17 @@ import {
   createScript,
   appendToBody,
   appendToId,
-  storyVideoPlayerId,
-} from '../../../../utilities/helpers'
+} from '../../../../utilities/DOM/nodes'
 
 const classes = {
   newsEmbed: 'story-content__embed',
+}
+
+const storyVideoPlayerId = (content = '') => {
+  const pattern = content.includes('id')
+    ? /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    : /<script (src=(.*))(.*)(async(=(.*))?)><\/script>/
+  return content.match(pattern) || []
 }
 
 const clearUrlOrCode = (url = '') => {
