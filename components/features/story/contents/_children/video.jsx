@@ -1,4 +1,3 @@
-// content/sources/content-api-v4.js
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 
@@ -19,29 +18,6 @@ class StoryContentChildVideo extends PureComponent {
       } = {},
     } = this.props
     this.videoData = video
-  }
-
-  componentDidMount() {
-    if (window.powaBoot) {
-      window.powaBoot()
-    }
-
-    if (window.PoWaSettings) {
-      window.preroll = this.getParametroPublicidad()
-      window.PoWaSettings.advertising = {
-        adBar: false,
-        adTag: () => {
-          return this.videoData.advertising &&
-            this.videoData.advertising.playAds === true
-            ? this.getParametroPublicidad()
-            : ''
-        },
-      }
-    }
-
-    window.addEventListener('powaReady', ({ detail: { element } }) => {
-      element.setAttribute('data-sticky', 'true')
-    })
   }
 
   getSectionSlug = (sectionId = '') => {
@@ -74,56 +50,54 @@ class StoryContentChildVideo extends PureComponent {
       arcSite === 'publimetro' ||
       arcSite === 'depor' ||
       arcSite === 'elcomercio' ||
-      arcSite === 'elcomerciomag' || 
-      arcSite === 'peru21' || 
-      arcSite === 'gestion' || 
+      arcSite === 'elcomerciomag' ||
+      arcSite === 'peru21' ||
+      arcSite === 'gestion' ||
       arcSite === 'peru21g21' ||
-      arcSite === 'diariocorreo' || 
+      arcSite === 'diariocorreo' ||
       arcSite === 'ojo' ||
       arcSite === 'elbocon' ||
       arcSite === 'trome'
     ) {
-
-      const arcSiteNew=arcSite==='peru21g21'?'peru21':arcSite
-      let webSite=''
-      switch (arcSite) 
-      {
+      const arcSiteNew = arcSite === 'peru21g21' ? 'peru21' : arcSite
+      let webSite = ''
+      switch (arcSite) {
         case 'publimetro':
-          webSite='publimetro.pe'
+          webSite = 'publimetro.pe'
           break
         case 'depor':
-          webSite='depor.com'
+          webSite = 'depor.com'
           break
         case 'elcomercio':
-          webSite='elcomercio.pe'
+          webSite = 'elcomercio.pe'
           break
         case 'elcomerciomag':
-          webSite='mag.elcomercio.pe'
+          webSite = 'mag.elcomercio.pe'
           break
         case 'peru21':
-          webSite='peru21.pe'
+          webSite = 'peru21.pe'
           break
         case 'gestion':
-          webSite='gestion.pe'
+          webSite = 'gestion.pe'
           break
         case 'peru21g21':
-          webSite='peru21.pe'
+          webSite = 'peru21.pe'
           break
         case 'diariocorreo':
-          webSite='diariocorreo.pe'
+          webSite = 'diariocorreo.pe'
           break
         case 'ojo':
-          webSite='ojo.pe'
+          webSite = 'ojo.pe'
           break
-          case 'elbocon':
-            webSite='elbocon.pe'
-            break
-          case 'trome':
-            webSite='trome.pe'
-            break
-          default:
-            webSite=''
-            break
+        case 'elbocon':
+          webSite = 'elbocon.pe'
+          break
+        case 'trome':
+          webSite = 'trome.pe'
+          break
+        default:
+          webSite = ''
+          break
       }
 
       let tipoplantilla = ''
@@ -165,6 +139,29 @@ class StoryContentChildVideo extends PureComponent {
         /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
         'https://img.trome.pe$1'
       )
+
+    const powa = `
+      (function(){
+        window.addEventListener('load',
+          function(){ setTimeout(function(){
+            if (window.powaBoot) window.powaBoot()
+            if (window.PoWaSettings) {
+              window.preroll = '${this.getParametroPublicidad()}'
+              window.PoWaSettings.advertising = {
+                adBar: false,
+                adTag: '${
+                  this.videoData.advertising &&
+                  this.videoData.advertising.playAds === true
+                    ? this.getParametroPublicidad()
+                    : ''
+                }'
+              }
+            }
+            window.addEventListener('powaReady', ({ detail: { element } }) => {element.setAttribute('data-sticky', 'true')})
+          }, 0)} 
+        )
+      })()`
+
     return (
       <>
         {urlVideo && (
@@ -174,6 +171,7 @@ class StoryContentChildVideo extends PureComponent {
             }}></div>
         )}
         <figcaption className={classes.caption}>{description} </figcaption>
+        <script dangerouslySetInnerHTML={{ __html: powa }}></script>
       </>
     )
   }
