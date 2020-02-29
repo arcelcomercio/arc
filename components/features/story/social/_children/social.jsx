@@ -32,7 +32,7 @@ const classes = {
 const windowW = 600
 const windowH = 400
 
-const popup = `(setTimeout(function() {
+const popup = `(function(){setTimeout(function() {
   const $shareButtons = document.querySelectorAll('a[data-share]')
   if ($shareButtons && $shareButtons.length > 0) {
     const windowLeft = window.screen.width / 2 - ${windowW} / 2
@@ -48,7 +48,7 @@ const popup = `(setTimeout(function() {
       })
     })
   }
-}, 0))()`
+}, 0)})()`
 
 // Funcion extraida de Helpers
 const socialMediaUrlShareList = (
@@ -63,9 +63,9 @@ const socialMediaUrlShareList = (
       postTitle
     )}&url=${siteUrl}${postPermaLink}&via=${siteNameRedSocial}`,
     linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
-    pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
+    // pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
     whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
-    fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
+    // fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
   }
 }
 
