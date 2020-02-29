@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable no-extra-boolean-cast */
-/* global dataLayer fbq */
+/* global dataLayer fbq Identity */
 import React, { useState, useEffect, useRef } from 'react'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -13,6 +13,7 @@ import Summary from './_children/summary'
 import * as S from './styled'
 import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
+import { LogIntoAccountEventTag } from '../../../_children/fb-signed-pixel'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { conformProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
@@ -52,6 +53,7 @@ function WizardPlan(props) {
   const [profile, setProfile] = useState()
   const origin = useRef('organico')
   const referer = useRef('')
+  const justLogged = useRef()
 
   // Deferred actions
   const checkingPrinted = React.useRef(false)
@@ -81,6 +83,7 @@ function WizardPlan(props) {
 
   const loggedHandler = React.useRef(profile => {
     setProfile(profile)
+    justLogged.current = true
   }).current
 
   const logoutHandler = React.useRef(() => {
@@ -240,6 +243,9 @@ function WizardPlan(props) {
   return (
     <S.WizardPlan>
       {error && <S.Error>{error}</S.Error>}
+      {justLogged.current && (
+        <LogIntoAccountEventTag subscriptionId={Identity.userIdentity.uuid} />
+      )}
       {printedSubscriber && (
         <S.Markdown>{msgs.welcomePrintedSubscriptor}</S.Markdown>
       )}
