@@ -21,6 +21,8 @@ const CardMostRead = props => {
     isAdmin,
   } = useFusionContext()
 
+  const presets = 'no-presets'
+
   const { customFields } = props
   const { viewImage = false, storiesQty = 5, customTitle = '', customLink } =
     customFields || {}
@@ -28,6 +30,7 @@ const CardMostRead = props => {
   const data = useContent({
     source: CONTENT_SOURCE,
     query: {
+      presets,
       ...getQuery({ globalContent, globalContentConfig, storiesQty }),
     },
     filter: schemaFilter,
@@ -45,7 +48,6 @@ const CardMostRead = props => {
       return response
     },
   })
-
   const { stories = [] } = data || {}
   const params = {
     viewImage,

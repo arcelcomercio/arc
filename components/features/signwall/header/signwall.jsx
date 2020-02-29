@@ -75,6 +75,15 @@ const Head = ({
                     `web_sw${typeDialog[0]}_boton_cerrar`
                   )
                   onClose()
+                  if (
+                    window.location.pathname.match(/newsletters/) &&
+                    window.Identity.userProfile &&
+                    typeDialog === 'organico'
+                  ) {
+                    setTimeout(() => {
+                      window.location.reload()
+                    }, 800)
+                  }
                 }}>
                 <Close color={mainColorTxt} />
               </ButtonClose>

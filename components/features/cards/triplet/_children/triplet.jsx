@@ -4,6 +4,7 @@ import { useEditableContent } from 'fusion:content'
 
 import Icon from '../../../../global-components/multimedia-icon'
 import { createMarkup } from '../../../../utilities/helpers'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 const TripletChildTriplet = props => {
   const {
@@ -50,6 +51,15 @@ const TripletChildTriplet = props => {
   return (
     <div role="list" className={classes.triplet}>
       {data.map((story, index) => {
+        const { square_s: squareS } =
+          typeof window === 'undefined' && !isAdmin
+            ? getResizedUrl({
+                url: story.multimediaSquareS || story.multimedia,
+                presets: 'square_s:150x150',
+                arcSite,
+              }) || {}
+            : {}
+
         if (index === 0) {
           if (getSpace)
             return <div dangerouslySetInnerHTML={createMarkup(getSpace)} />
@@ -92,7 +102,7 @@ const TripletChildTriplet = props => {
                       ? story.multimediaSquareS
                       : story.multimediaLazyDefault
                   }
-                  data-src={story.multimediaSquareS}
+                  data-src={isAdmin ? story.multimediaSquareS : squareS}
                   alt={story.title}
                 />
                 <Icon type={story.multimediaType} iconClass={classes.icon} />

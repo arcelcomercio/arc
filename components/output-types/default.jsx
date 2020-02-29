@@ -8,6 +8,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
+import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
 import {
   skipAdvertising,
   storyTagsBbc,
@@ -90,7 +91,6 @@ export default ({
     classBody = `${isStory && 'story'} section-play`
   if (requestUri.match(`^(/videos/.*)`))
     classBody = `${isStory && 'story'} section-videos`
-
   if (arcSite === 'elcomercio') {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
@@ -300,13 +300,19 @@ export default ({
           globalContent={globalContent}
         />
 
+        <AdsScriptsFloorPrices />
+
         {(arcSite === 'publimetro' ||
           arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
           arcSite === 'elcomerciomag' ||
           arcSite === 'peru21' ||
           arcSite === 'gestion' ||
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' ||
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -327,7 +333,11 @@ export default ({
           arcSite === 'elcomerciomag' ||
           arcSite === 'peru21' ||
           arcSite === 'gestion' ||
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' ||
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
         ) && (
           <>
             {!nodas && !isLivePage && (
@@ -397,7 +407,11 @@ export default ({
           arcSite === 'elcomerciomag' ||
           arcSite === 'peru21' ||
           arcSite === 'gestion' ||
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' ||
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && (
             <script
@@ -406,6 +420,7 @@ export default ({
               dangerouslySetInnerHTML={{ __html: collapseDivs }}
             />
           )}
+
       </head>
       <body className={classBody}>
         <noscript>
@@ -428,7 +443,11 @@ export default ({
           arcSite === 'elcomerciomag' ||
           arcSite === 'peru21' ||
           arcSite === 'gestion' ||
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' ||
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
         ) &&
           !nodas && (
             <script
@@ -496,7 +515,11 @@ export default ({
           arcSite === 'elcomerciomag' ||
           arcSite === 'peru21' ||
           arcSite === 'gestion' ||
-          arcSite === 'peru21g21') &&
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' ||
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome') &&
           !nodas &&
           !isLivePage && <Dfp />}
       </body>

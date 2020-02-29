@@ -3,7 +3,7 @@ import { resizerSecret } from 'fusion:environment'
 import request from 'request-promise-native'
 import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 const schemaName = 'stories-dev'
 

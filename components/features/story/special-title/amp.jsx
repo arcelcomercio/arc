@@ -2,16 +2,12 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import {
-  // formatDateStoryAmp,
-  publicidadAmp,
-  // getDateSeo,
-  storyTagsBbc,
-} from '../../../utilities/helpers'
+import { storyTagsBbc } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 import StoryData from '../../../utilities/story-data'
 import { getAssetsPath } from '../../../utilities/constants'
+import { publicidadAmp } from '../../../utilities/story/helpers-amp'
 
 const classes = {
   stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
@@ -45,10 +41,8 @@ const StoryTitleAmp = () => {
     data,
     contextPath,
   })
-  const adsId = arcSite !== 'diariocorreo' ? arcSite : 'correo'
-  const dataSlot = `/${adsAmp.dataSlot}/${
-    arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? adsId : 'eco'
-  }-amp-320x50-top-movil1`
+  const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  const dataSlot = `/${adsAmp.dataSlot}/${adsId}/amp/post/top`
 
   const placementId = adsAmp.movil1
   const width = '320'

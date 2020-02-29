@@ -1,0 +1,93 @@
+.lifweek-designers {
+    font-family: sans-serif;
+    @media (--only-mobile) {
+        padding: 0 20px;
+    }
+    &__section-title {
+        color: $lifweek-color;
+        font-size: 28px;
+    }
+    &__profile {
+        flex-flow: row wrap;
+    }
+    &__profile-detail {
+        width: calc(100% - 300px);
+        @media (--only-mobile) {
+            padding: 0px;
+            text-align: justify;
+            width: 100%;
+            margin-top: 30px;
+        }
+    }
+    &__profile-name {
+        font-size: 32px;
+        color: $lifweek-color;
+        line-height: 34px;
+    }
+    &__profile-name_blue {
+        color: $color-white;
+        background: $lifweek-color;
+        font-size: 26px;
+        line-height: 34px;
+        padding: 10px 9px 0;
+    }
+    &__profile-bio {
+        font-size: 16px;
+        line-height: 2;
+        color: #6f6f6f;
+    }
+    &__profile-divider {
+        height: 1px;
+        background: $lifweek-border-color;
+    }
+    &__profile-image {
+        max-width: 300px;
+    }
+    &__list {
+        border-color: $lifweek-border-color;
+        text-align: center;
+    }
+    &__list-content {
+        align-items: center;
+        justify-content: center;
+        flex-flow: row wrap;
+        align-content: flex-end;
+    }
+    &__list-title {
+        font-size: 25px;
+        border-color: #7a7a7a;
+        padding-bottom: 1px;
+        @media (--only-mobile) {
+            margin: 0 5px
+        }
+    }
+    &__list-title--bold {
+        color: $lifweek-color;
+        font-style: italic;
+    }
+    &__list-item {
+        width: 286px;
+        height: 400px;
+    }
+    &__list-link {
+        color: $color-white;
+    }
+    &__list-content_name {
+        bottom: -4px;
+        left: 5px;
+    }
+    &__list-name {
+        background-color: $lifweek-color;
+        color: $color-white;
+        font-size: 26px;
+        padding: 8px 12px 2px 9px;
+        min-width: 100px;
+    }
+    &__list-lastname {
+        background-color: $color-white;
+        color: $lifweek-color;
+        font-size: 31px;
+        padding: 8px 12px 2px 21px;
+        min-height: 50px
+    }
+}

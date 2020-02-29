@@ -9,10 +9,8 @@ import { addResizedUrls } from '@arc-core-components/content-source_content-api-
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 
-import {
-  addResizedUrlsToStory,
-  removeLastSlash,
-} from '../../components/utilities/helpers'
+import { removeLastSlash } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 const SCHEMA_NAME = 'stories-dev'
 
