@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
+import { interpolateUrl } from '../_dependencies/domains'
+
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
 const FbEventTag = ({ event, ...props }) => {
@@ -51,7 +53,7 @@ export const LogIntoAccountEventTag = ({ subscriptionId }) => {
   } = useFusionContext()
 
   React.useEffect(() => {
-    const url = `${urls.originApi}${urls.arcEntitlements}`
+    const url = interpolateUrl(`${urls.originApi}${urls.arcEntitlements}`)
     const accessToken = window.Identity.userIdentity.accessToken
     fetch(url, {
       method: 'GET',
