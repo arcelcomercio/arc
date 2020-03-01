@@ -1,5 +1,5 @@
 import React from 'react'
-import ConfigParams from '../../../../utilities/config-params'
+import { ELEMENT_BLOCKQUOTE } from '../../../../utilities/constants/element-types'
 
 const classes = {
   blockquote: 'pquote',
@@ -16,9 +16,7 @@ const StoryContentChildBlockQuote = props => {
   return (
     <blockquote
       className={
-        subtype === ConfigParams.ELEMENT_BLOCKQUOTE
-          ? classes.blockquote
-          : classes.pull
+        subtype === ELEMENT_BLOCKQUOTE ? classes.blockquote : classes.pull
       }>
       <div className={classes.text}>
         {content && <p dangerouslySetInnerHTML={{ __html: content }}></p>}
