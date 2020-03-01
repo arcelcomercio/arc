@@ -1,37 +1,41 @@
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
+import React from 'react'
+import { useFusionContext } from 'fusion:context'
 
 const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
 
-@Consumer
-class StoryContentChildVideo extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.videoData = ''
-    const {
-      globalContent: {
-        promo_items: {
-          basic_video: { additional_properties: video = {} } = {},
-        } = {},
-      } = {},
-    } = this.props
-    this.videoData = video
-  }
+const StoryContentChildVideo = props => {
+  const {
+    siteProperties: { urlPreroll },
+    globalContent,
+    arcSite,
+    metaValue,
+  } = useFusionContext()
 
-  getSectionSlug = (sectionId = '') => {
+  const {
+    promo_items: {
+      basic_video: { additional_properties: video = {} } = {},
+    } = {},
+  } = globalContent || {}
+
+  const videoData = video || ''
+  const { data = {}, description = '' } = props
+  const urlVideo = data
+    .replace(
+      /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.elcomercio.pe$1'
+    )
+    .replace(
+      /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.trome.pe$1'
+    )
+
+  const getSectionSlug = (sectionId = '') => {
     return sectionId.split('/')[1] || ''
   }
 
-  getParametroPublicidad = () => {
-    const {
-      siteProperties: { urlPreroll },
-      globalContent,
-      arcSite,
-      metaValue,
-    } = this.props
-
+  const getParametroPublicidad = () => {
     const {
       taxonomy: {
         primary_section: {
@@ -113,7 +117,7 @@ class StoryContentChildVideo extends PureComponent {
           break
       }
 
-      const sectionSlug = this.getSectionSlug(primarySection)
+      const sectionSlug = getSectionSlug(primarySection)
 
       return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSiteNew}/web/post/${sectionSlug
         .split('-')
@@ -128,31 +132,19 @@ class StoryContentChildVideo extends PureComponent {
     return urlPreroll
   }
 
-  render() {
-    const { data = {}, description = '' } = this.props
-    const urlVideo = data
-      .replace(
-        /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-        'https://img.elcomercio.pe$1'
-      )
-      .replace(
-        /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-        'https://img.trome.pe$1'
-      )
-
-    const powa = `
+  const powa = `
       (function(){
         window.addEventListener('load',
           function(){ setTimeout(function(){
             if (window.powaBoot) window.powaBoot()
             if (window.PoWaSettings) {
-              window.preroll = '${this.getParametroPublicidad()}'
+              window.preroll = '${getParametroPublicidad()}'
               window.PoWaSettings.advertising = {
                 adBar: false,
                 adTag: '${
-                  this.videoData.advertising &&
-                  this.videoData.advertising.playAds === true
-                    ? this.getParametroPublicidad()
+                  videoData.advertising &&
+                  videoData.advertising.playAds === true
+                    ? getParametroPublicidad()
                     : ''
                 }'
               }
@@ -162,18 +154,18 @@ class StoryContentChildVideo extends PureComponent {
         )
       })()`
 
-    return (
-      <>
-        {urlVideo && (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: urlVideo.replace('[goldfish_publicidad]', ''),
-            }}></div>
-        )}
-        <figcaption className={classes.caption}>{description} </figcaption>
-        <script dangerouslySetInnerHTML={{ __html: powa }}></script>
-      </>
-    )
-  }
+  return (
+    <>
+      {urlVideo && (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: urlVideo.replace('[goldfish_publicidad]', ''),
+          }}></div>
+      )}
+      <figcaption className={classes.caption}>{description} </figcaption>
+      <script dangerouslySetInnerHTML={{ __html: powa }}></script>
+    </>
+  )
 }
+
 export default StoryContentChildVideo
