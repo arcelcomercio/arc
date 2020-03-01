@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from '@arc-core-components/element_image'
 
-// Basic flex stuff
 const classes = {
   paperNav: 'paper-nav position-relative',
   paperPrev:
@@ -27,12 +26,6 @@ const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
           sizePreset={sizerImg}
           {...basic}
         />
-        {/* <a href="/impresa/presion-alta-498352" className={classes.paperPrev}>
-          <i className={classes.iconPrev}> </i>
-        </a>
-        <a href="/impresa/coimas-498663" className={classes.paperNext}>
-          <i className={classes.iconNext}> </i>
-  </a>*/}
       </div>
     </>
   )
