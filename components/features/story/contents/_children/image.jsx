@@ -10,9 +10,9 @@ const classes = {
 }
 
 const StoryContentChildImage = ({
-  multimediaLandscapeMD,
-  multimediaStorySmall,
   multimediaLarge,
+  url,
+  _id = 'image',
   multimediaLazyDefault,
   caption,
   showCaption = true,
@@ -34,20 +34,20 @@ const StoryContentChildImage = ({
 
   return (
     <>
-      <Static id="image">
+      <Static id={_id}>
         <picture>
           {primaryImage ? (
             <>
               <source
-                srcSet={extractImage(multimediaLandscapeMD).landscapeMd}
+                srcSet={extractImage(multimediaLarge || url).landscapeMd}
                 media="(max-width: 320px)"
               />
               <source
-                srcSet={extractImage(multimediaStorySmall).storySmall}
+                srcSet={extractImage(multimediaLarge || url).storySmall}
                 media="(max-width: 767px)"
               />
               <img
-                src={extractImage(multimediaLarge).large}
+                src={extractImage(multimediaLarge || url).large}
                 alt={caption}
                 className={classes.image}
               />
@@ -56,20 +56,20 @@ const StoryContentChildImage = ({
             <>
               <source
                 srcSet={multimediaLazyDefault}
-                data-srcset={extractImage(multimediaLandscapeMD).landscapeMd}
+                data-srcset={extractImage(multimediaLarge || url).landscapeMd}
                 media="(max-width: 320px)"
                 className="lazy"
               />
               <source
                 srcSet={multimediaLazyDefault}
-                data-srcset={extractImage(multimediaStorySmall).storySmall}
+                data-srcset={extractImage(multimediaLarge || url).storySmall}
                 media="(max-width: 767px)"
                 className="lazy"
               />
               <img
                 className={`${classes.image} lazy`}
                 src={multimediaLazyDefault}
-                data-src={extractImage(multimediaLarge).large}
+                data-src={extractImage(multimediaLarge || url).large}
                 alt={caption}
               />
             </>
