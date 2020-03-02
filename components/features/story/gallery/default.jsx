@@ -44,7 +44,7 @@ const StoryGallery = () => {
     deployment,
     contextPath,
     arcSite,
-    size: 'sm',
+    size: 'lg',
   })
 
   const parameters = {
