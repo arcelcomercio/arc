@@ -3,7 +3,7 @@ import React from 'react'
 import ItemTeamResult from './item-team-result'
 
 const classes = {
-  tournamentCard: 'tournament-result__card',
+  tournamentCard: 'tournament-result__card bg-white p-20 border-solid',
   tournamentCardTitle:
     'tournament-result__card-title font-bold text-primary-color mb-20',
 }
@@ -17,7 +17,7 @@ const CardListResult = ({
       {firstCard ? (
         <div className={classes.tournamentCardTitle}>{leagueNme}</div>
       ) : (
-        <div>publicidad</div>
+        <div className={classes.tournamentCardTitle}>publicidad</div>
       )}
       {listMatchResults.map(itemResult => (
         <ItemTeamResult {...itemResult} />

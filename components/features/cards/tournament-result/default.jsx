@@ -8,7 +8,8 @@ import CardListResult from './_children/card-list-result'
 import AddTournamentResult from './_children/add-tournament-result'
 
 const classes = {
-  tournamentResult: 'tournament-result flex justify-between',
+  tournamentResult: 'tournament-result flex justify-between flex-wrap',
+  tournamentBox: 'tournament-result__box flex justify-between flex-wrap',
 }
 
 const CONTENT_SOURCE = 'get-score-results-from-the-league'
@@ -39,8 +40,10 @@ const TournamentResult = () => {
   }
   return (
     <div className={classes.tournamentResult}>
-      <CardListResult {...cardOneParams} />
-      <CardListResult {...cardTwoParams} />
+      <div className={classes.tournamentBox}>
+        <CardListResult {...cardOneParams} />
+        <CardListResult {...cardTwoParams} />
+      </div>
       <AddTournamentResult />
     </div>
   )
