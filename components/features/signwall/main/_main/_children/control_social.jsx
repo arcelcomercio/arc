@@ -116,7 +116,7 @@ export const ButtonSocial = ({
 
     if (URL_QUERY) {
       OAuthFacebook({
-        data: { accessToken: URL_QUERY },
+        data: { accessToken: URL_QUERY.replace(/(#_=_)$/, '') },
         origin: Domains.getUrlECOID(),
       })
     }
