@@ -3,7 +3,10 @@ import React from 'react'
 import { PLAYING, PLAYED } from '../../../../utilities/constants'
 
 const classes = {
-  itemTeamResult: 'flex flex-row',
+  itemTeamResult: 'tournament-result__item flex',
+  itemName: 'tournament-result__name text-black',
+  itemFigure: 'tournament-result__figure',
+  itemImg: 'tournament-result__img w-full h-full objet-cover',
 }
 
 const ItemTeamResult = ({
@@ -19,8 +22,10 @@ const ItemTeamResult = ({
 }) => {
   return (
     <div className={classes.itemTeamResult}>
-      <div>{homeTeamShortName}</div>
-      <div>{homeTeamFlag}</div>
+      <div className={classes.itemName}>{homeTeamShortName}</div>
+      <div className={classes.itemFigure}>
+        <img src="" alt="{homeTeamFlag}" className={classes.itemImg} />
+      </div>
       <div>
         <div>
           <span>{homeTeamScore}</span>
@@ -34,8 +39,8 @@ const ItemTeamResult = ({
           </div>
         )}
       </div>
-      <div>{awayTeamFlag}</div>
-      <div>{awayTeamShortName}</div>
+      <div className={classes.itemFigure}>{awayTeamFlag}</div>
+      <div className={classes.itemName}>{awayTeamShortName}</div>
     </div>
   )
 }

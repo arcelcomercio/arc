@@ -8,7 +8,7 @@ import CardListResult from './_children/card-list-result'
 import AddTournamentResult from './_children/add-tournament-result'
 
 const classes = {
-  tournamentResult: 'flex flex-row',
+  tournamentResult: 'tournament-result flex justify-between',
 }
 
 const CONTENT_SOURCE = 'get-score-results-from-the-league'
