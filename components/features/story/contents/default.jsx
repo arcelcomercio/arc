@@ -227,10 +227,13 @@ class StoryContents extends PureComponent {
                     nameAds,
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
+                    const presets = 'landscapeMd:314,storySmall:482,large:980'
+
                     return (
                       <StoryContentsChildImage
                         {...element}
                         {...multimediaLazyDefault}
+                        presets={presets}
                       />
                     )
                   }

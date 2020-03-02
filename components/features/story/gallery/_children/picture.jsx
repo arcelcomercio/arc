@@ -50,7 +50,7 @@ const StoryHeaderChildPicture = (slide = {}) => {
             }
             data-src={extractImage(slide.url).large}
             alt={slide.caption || slide.subtitle}
-            className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+            className={`${isAdmin ? '' : 'lazys'} ${classes.image}`}
           />
         </picture>
       </Static>

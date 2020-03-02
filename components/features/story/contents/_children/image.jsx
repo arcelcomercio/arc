@@ -17,6 +17,7 @@ const StoryContentChildImage = ({
   caption,
   showCaption = true,
   primaryImage = false,
+  presets = 'landscapeMd:314x157,storySmall:482x290,large:980x528',
 }) => {
   const { arcSite } = useFusionContext()
   const extractImage = urlImg => {
@@ -24,7 +25,7 @@ const StoryContentChildImage = ({
       return (
         getResizedUrl({
           url: urlImg,
-          presets: 'landscapeMd:314x157,storySmall:482x290,large:980x528',
+          presets,
           arcSite,
         }) || {}
       )

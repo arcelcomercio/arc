@@ -39,10 +39,12 @@ const StoryGallery = () => {
     data,
     contextPath,
   })
+
   const defaultImageGallery = defaultImage({
     deployment,
     contextPath,
     arcSite,
+    size: 'blog',
   })
 
   const parameters = {
