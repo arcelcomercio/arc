@@ -33,13 +33,14 @@ class LiveScoreMinuteToMinute extends Component {
 
   getDataScore = () => {
     const { globalContent } = this.props
-    const gameid =
+    // id temporal
+    const gameId =
       getFootballGameId(globalContent) || '1f2wtjteq1cv9ttjllylwgbje'
     this.fetchContent({
       teamParams: {
         source: CONTENT_SOURCE,
         query: {
-          gameid,
+          gameId,
         },
       },
     })

@@ -8,69 +8,60 @@ const params = [
 
 const resolve = (key = {}) => {
   let urlApi = ''
-  if (key.gameId !== '') {
-    urlApi = `https://api.performfeeds.com/soccerdata/matchstats/c6e9w0u6xbhr1g20ds11r0w41?_fmt=json&_lcl=es&_rt=b&fx=${key.gameid}`
+
+  if (key && key.gameId && key.gameId !== '') {
+    urlApi = `http://devresultadosopta.elcomercio.pe/api/v2/match/?format=json&uuid=${key.gameId}`
   }
   return urlApi
 }
 
 const transform = (data = {}) => {
-  const {
-    matchInfo: { contestant = [] } = {},
-    liveData: {
-      matchDetails: {
-        scores: { total: { home = 0, away = 0 } = {} } = {},
-      } = {},
-      goal = [],
-    } = {},
-  } = data
+  const { items = [] } = data
 
-  let homeTeamParams = {}
-  let awayTeamParams = {}
-  let homeTeamId = ''
-  let awayTeamId = ''
+  const {
+    contestant_home: {
+      id: idHome = '',
+      name: nameHome = '',
+      image: flagHome = '',
+    } = {},
+    contestant_away: {
+      id: idAway = '',
+      name: nameAway = '',
+      image: flagAway = '',
+    } = {},
+    goals = [],
+  } = items[0]
+
+  const homeTeamParams = {
+    id: idHome,
+    name: nameHome,
+    shortName: nameHome,
+    flag: flagHome,
+    goalList: [],
+  }
+
+  const awayTeamParams = {
+    id: idAway,
+    name: nameAway,
+    shortName: nameAway,
+    flag: flagAway,
+    goalList: [],
+  }
+
+  const homeTeamId = idHome
+  const awayTeamId = idAway
   const goalListHomeTeam = []
   const goalListAwayTeam = []
 
-  // filtra los datos de homeTeam y awayTeam
-  contestant.forEach(
-    ({ id = '', name = '', flag = '', shortName = '', position = '' }) => {
-      if (position === 'home') {
-        homeTeamId = id
-        homeTeamParams = {
-          id,
-          name,
-          shortName,
-          position,
-          flag,
-          scoreTeam: home,
-          goalList: [],
-        }
-      }
-
-      if (position === 'away') {
-        awayTeamId = id
-        awayTeamParams = {
-          id,
-          name,
-          shortName,
-          position,
-          flag,
-          scoreTeam: away,
-          goalList: [],
-        }
-      }
-    }
-  )
-
-  goal.forEach(
+  goals.forEach(
     ({
-      contestantId = '',
-      timeMinSec = '',
+      contestant: { id: contestantId = 0 } = {},
+
+      time_min_sec: timeMinSec = '',
       type = '',
-      homeScore = 0,
-      awayScore = 0,
-      scorerName = '',
+      home_score: homeScore = 0,
+      away_score: awayScore = 0,
+      scorer_name: scorerName = '',
     }) => {
       if (contestantId === homeTeamId) {
         goalListHomeTeam.push({
@@ -95,6 +86,36 @@ const transform = (data = {}) => {
       }
     }
   )
+  // filtra los datos de homeTeam y awayTeam
+  // contestant.forEach(
+  //   ({ id = '', name = '', flag = '', shortName = '', position = '' }) => {
+  //     if (position === 'home') {
+  //       homeTeamId = id
+  //       homeTeamParams = {
+  //         id,
+  //         name,
+  //         shortName,
+  //         position,
+  //         flag,
+  //         scoreTeam: home,
+  //         goalList: [],
+  //       }
+  //     }
+
+  //     if (position === 'away') {
+  //       awayTeamId = id
+  //       awayTeamParams = {
+  //         id,
+  //         name,
+  //         shortName,
+  //         position,
+  //         flag,
+  //         scoreTeam: away,
+  //         goalList: [],
+  //       }
+  //     }
+  //   }
+  // )
 
   homeTeamParams.goalList = goalListHomeTeam
   awayTeamParams.goalList = goalListAwayTeam
