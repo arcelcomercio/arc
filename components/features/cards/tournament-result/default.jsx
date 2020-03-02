@@ -1,6 +1,7 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
-// import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
+import customFields from './_dependencies/custom-fields'
 
 // children
 import CardListResult from './_children/card-list-result'
@@ -10,81 +11,21 @@ const classes = {
   tournamentResult: 'tournament-result flex justify-between',
 }
 
-const data = {
-  leagueNme: 'Champions',
-  listMatchResults1: [
-    {
-      homeTeamShortName: 'Napoli',
-      awayTeamShortName: 'Barcelona',
-      homeTeamScore: 1,
-      awayTeamScore: 1,
-      homeTeamFlag: 'Bandera Home Team',
-      awayTeamFlag: 'Bandera Away Team',
-      matchTime: '6:00 am',
-      matchDate: '11/04',
-      matchStatus: 'Played',
-    },
-    {
-      homeTeamShortName: 'Napoli',
-      awayTeamShortName: 'Barcelona',
-      homeTeamScore: 1,
-      awayTeamScore: 1,
-      homeTeamFlag: 'Bandera Home Team',
-      awayTeamFlag: 'Bandera Away Team',
-      matchTime: '6:00 am',
-      matchDate: '11/04',
-      matchStatus: 'pasado',
-    },
-    {
-      homeTeamShortName: 'Napoli',
-      awayTeamShortName: 'Barcelona',
-      homeTeamScore: 1,
-      awayTeamScore: 1,
-      homeTeamFlag: 'Bandera Home Team',
-      awayTeamFlag: 'Bandera Away Team',
-      matchTime: '6:00 am',
-      matchDate: '11/04',
-      matchStatus: 'pasado',
-    },
-  ],
-  listMatchResults2: [
-    {
-      homeTeamShortName: 'Napoli',
-      awayTeamShortName: 'Barcelona',
-      homeTeamScore: 1,
-      awayTeamScore: 1,
-      homeTeamFlag: 'asd/asd',
-      awayTeamFlag: 'asd/asd',
-      matchTime: '6:00 am',
-      matchDate: '11/04',
-      matchStatus: 'Played',
-    },
-    {
-      homeTeamShortName: 'Napoli',
-      awayTeamShortName: 'Barcelona',
-      homeTeamScore: 1,
-      awayTeamScore: 1,
-      homeTeamFlag: 'asd/asd',
-      awayTeamFlag: 'asd/asd',
-      matchTime: '6:00 am',
-      matchDate: '11/04',
-      matchStatus: '',
-    },
-    {
-      homeTeamShortName: 'Napoli',
-      awayTeamShortName: 'Barcelona',
-      homeTeamScore: 1,
-      awayTeamScore: 1,
-      homeTeamFlag: 'asd/asd',
-      awayTeamFlag: 'asd/asd',
-      matchTime: '6:00 am',
-      matchDate: '11/04',
-      matchStatus: '',
-    },
-  ],
-}
+const CONTENT_SOURCE = 'get-score-results-from-the-league'
+
 const TournamentResult = () => {
-  const { leagueNme, listMatchResults1, listMatchResults } = data
+  const {
+    customFields: { idLeague = '' },
+  } = useFusionContext()
+
+  const data = useContent({
+    source: CONTENT_SOURCE,
+    query: { idLeague },
+  })
+
+  const { leagueNme = '', listMatchResults1 = [], listMatchResults = [] } =
+    data || {}
+
   const cardOneParams = {
     firstCard: true,
     leagueNme,
@@ -103,6 +44,10 @@ const TournamentResult = () => {
       <AddTournamentResult />
     </div>
   )
+}
+
+TournamentResult.propTypes = {
+  customFields,
 }
 
 TournamentResult.label = 'Resultado de torneo'
