@@ -43,7 +43,7 @@ const StoryTitleAmp = () => {
     contextPath,
   })
   const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  const dataSlot = `/${adsAmp.dataSlot}/${adsId }/amp/post/top`
+  const dataSlot = `/${adsAmp.dataSlot}/${adsId }/amp/post/caja1`
   const placementId = adsAmp.movil1
   const width = '320'
 

@@ -91,7 +91,7 @@ class NavbarChildMenu extends PureComponent {
     // }-amp-320x50-inferior2-movil0`
 
     const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-    const dataSlot = `/28253241/${adsId}/amp/post/skin`
+    const dataSlot = `/28253241/${adsId}/amp/post/zocalo`
 
     const logoAmp = deployment(
       `${getAssetsPath(
