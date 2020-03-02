@@ -232,7 +232,7 @@ class StoryContents extends PureComponent {
                     return (
                       <StoryContentsChildImage
                         {...element}
-                        {...multimediaLazyDefault}
+                        multimediaLazyDefault={multimediaLazyDefault}
                         presets={presets}
                       />
                     )
