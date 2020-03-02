@@ -23,7 +23,7 @@ const TournamentResult = () => {
     query: { idLeague },
   })
 
-  const { leagueNme = '', listMatchResults1 = [], listMatchResults = [] } =
+  const { leagueNme = '', listMatchResults1 = [], listMatchResults2 = [] } =
     data || {}
 
   const cardOneParams = {
@@ -35,7 +35,7 @@ const TournamentResult = () => {
   const cardTwoParams = {
     firstCard: false,
     leagueNme,
-    listMatchResults,
+    listMatchResults: listMatchResults2,
   }
   return (
     <div className={classes.tournamentResult}>
