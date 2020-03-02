@@ -17,7 +17,7 @@ const LiveScoreMinuteToMinuteTeanScore = ({
   return (
     <div className={classes.scoreBox}>
       {homeTeam ? (
-        <ItemTeamName name={name} flags={flag} />
+        <ItemTeamName name={name} flag={flag} />
       ) : (
         <ItemScore scoreTeam={scoreTeam} />
       )}
@@ -25,7 +25,7 @@ const LiveScoreMinuteToMinuteTeanScore = ({
       {homeTeam ? (
         <ItemScore scoreTeam={scoreTeam} />
       ) : (
-        <ItemTeamName name={name} flags={flag} />
+        <ItemTeamName name={name} flag={flag} />
       )}
     </div>
   )

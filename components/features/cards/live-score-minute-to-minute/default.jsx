@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
+import customFields from './_dependencies/custom-fields'
+
 import TeanScore from './_children/team-score'
 import GolListItem from './_children/gol-list'
 
@@ -27,7 +29,16 @@ class LiveScoreMinuteToMinute extends Component {
   }
 
   componentDidMount() {
-    const interval = setInterval(() => this.getDataScore(), 5000)
+    const {
+      customFields: { intervalTime = 1 },
+    } = this.props
+
+    const intervalTimeMilliseconds = intervalTime * 60000
+
+    const interval = setInterval(
+      () => this.getDataScore(),
+      intervalTimeMilliseconds
+    )
     this.setState({ interval })
   }
 
@@ -83,5 +94,9 @@ class LiveScoreMinuteToMinute extends Component {
 }
 
 LiveScoreMinuteToMinute.label = 'Score en vivo minuto a minuto'
+
+LiveScoreMinuteToMinute.propTypes = {
+  customFields,
+}
 
 export default LiveScoreMinuteToMinute
