@@ -267,8 +267,12 @@ class SignwallComponent extends PureComponent {
     if (this._isMounted) this.setState({ [name]: false })
 
     if (typeof window !== 'undefined') {
-      if (name !== 'showOrganic' || this.getUrlParam('signOrganic')) {
+      if (name !== 'showOrganic') {
         window.history.pushState({}, document.title, '/')
+      }
+      if (this.getUrlParam('signOrganic')) {
+        window.history.pushState({}, document.title, '/')
+        window.location.reload()
       }
     }
 
@@ -316,7 +320,7 @@ class SignwallComponent extends PureComponent {
 
         {siteProperties.activeSignwall && (
           <>
-            {(showOrganic || this.getUrlParam('signOrganic')) && (
+            {(this.getUrlParam('signOrganic') || showOrganic) && (
               <Generic
                 onClose={() => this.closePopUp('showOrganic')}
                 arcSite={arcSite}
