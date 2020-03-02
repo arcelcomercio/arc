@@ -89,6 +89,7 @@ class StoryContentAmp extends PureComponent {
       height,
       primarySectionLink,
       arcSite,
+      movil1: true,
     }
     const parametersCaja4 = { //movil4
       dataSlot: `/${adsAmp.dataSlot}/${ namePublicidad}/amp/post/caja4`,
@@ -97,6 +98,7 @@ class StoryContentAmp extends PureComponent {
       height,
       primarySectionLink,
       arcSite,
+      movil1: true,
     }
     const parametersCaja5 = {  //movil5
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja5`,
@@ -105,6 +107,7 @@ class StoryContentAmp extends PureComponent {
       height,
       primarySectionLink,
       arcSite,
+      movil1: true,
     }
     const parametersCaja3 = { //movil3
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja3`,
@@ -113,6 +116,7 @@ class StoryContentAmp extends PureComponent {
       height,
       primarySectionLink,
       arcSite,
+      movil1: true,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =

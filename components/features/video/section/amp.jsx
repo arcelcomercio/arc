@@ -68,19 +68,21 @@ const VideoSectionAmp = () => {
   const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja2` // movil2
 
   const placementId = adsAmp.movil2
-  const parametersCaja2 = { dataSlot, placementId, width, height }
+  const parametersCaja2 = { dataSlot, placementId, width, height,movil1: true }
 
   const parametersCaja4 = { // movil4
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja4`,
     placementId: adsAmp.movil4,
     width,
     height,
+    movil1: true,
   }
   const parametersCaja5 = { // movil5
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja5`,
     placementId: adsAmp.movil5,
     width,
     height,
+    movil1: true,
   }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
