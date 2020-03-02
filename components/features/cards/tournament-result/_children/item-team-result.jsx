@@ -39,8 +39,8 @@ const ItemTeamResult = ({
           </div>
         )}
       </div>
-      <div>{awayTeamFlag}</div>
-      <div>{awayTeamShortName}</div>
+      <div className={classes.itemFigure}>{awayTeamFlag}</div>
+      <div className={classes.itemName}>{awayTeamShortName}</div>
     </div>
   )
 }
