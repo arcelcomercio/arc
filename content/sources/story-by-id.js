@@ -1,5 +1,4 @@
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
@@ -35,12 +34,7 @@ const transform = (data, { 'arc-site': arcSite }) => {
   const dataStory = data
   const { resizerUrl } = getProperties(arcSite)
   return (
-    addResizedUrlsToStory(
-      [dataStory],
-      resizerUrl,
-      resizerSecret,
-      addResizedUrls
-    )[0] || null
+    addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret)[0] || null
   )
 }
 

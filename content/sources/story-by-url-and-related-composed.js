@@ -6,7 +6,6 @@ import {
   CONTENT_BASE,
   ARC_ACCESS_TOKEN,
 } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 import RedirectError from '../../components/utilities/redirect-error'
@@ -42,17 +41,11 @@ const transformImg = data => {
       storyData.related_content.basic,
       resizerUrl,
       resizerSecret,
-      addResizedUrls,
       'related'
     )
   return (
-    addResizedUrlsToStory(
-      [storyData],
-      resizerUrl,
-      resizerSecret,
-      addResizedUrls,
-      'story'
-    )[0] || null
+    addResizedUrlsToStory([storyData], resizerUrl, resizerSecret, 'story')[0] ||
+    null
   )
 }
 

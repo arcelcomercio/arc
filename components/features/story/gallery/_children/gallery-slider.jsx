@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import ConfigParams from '../../../../utilities/config-params'
 import AdsFotogaleria from '../../../../global-components/ads'
+import StoryHeaderChildPicture from './picture'
 
 const classes = {
   elementsSlider: 'story-gallery-slider p-20 bg-primary flex',
@@ -212,34 +213,11 @@ class StoryHeaderChildGallerySlider extends PureComponent {
                     style={slideStyle}
                     className={classes.slide}>
                     <div className={classes.figure}>
-                      <picture>
-                        <source
-                          // className={isAdmin ? '' : 'lazy'}
-                          media="(max-width: 320px)"
-                          // srcSet={isAdmin ? ... : ...}
-                          srcSet={slide.resized_urls.landscape_md}
-                          data-srcset={slide.resized_urls.landscape_md}
-                        />
-                        <source
-                          // className={isAdmin ? '' : 'lazy'}
-                          media="(max-width: 769px)"
-                          // srcSet={isAdmin ? ... : ...}
-                          srcSet={slide.resized_urls.story_small}
-                          data-srcset={slide.resized_urls.story_small}
-                        />
-                        <img
-                          src={
-                            isAdmin
-                              ? slide.resized_urls.large
-                              : defaultImageGallery
-                          }
-                          data-src={slide.resized_urls.large}
-                          alt={slide.caption || slide.subtitle}
-                          className={`${isAdmin ? '' : 'lazy'} ${
-                            classes.image
-                          }`}
-                        />
-                      </picture>
+                      <StoryHeaderChildPicture
+                        {...slide}
+                        defaultImageGallery={defaultImageGallery}
+                        i={i}
+                      />
                     </div>
                     <figcaption className={classes.caption}>
                       <span className={classes.quantity}>
