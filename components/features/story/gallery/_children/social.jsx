@@ -18,23 +18,25 @@ const classes = {
 const windowW = 600
 const windowH = 400
 
-const popup = `(function(){setTimeout(function() {
-  const $shareButtons = document.querySelectorAll('a[data-gallery-share]')
-  if ($shareButtons && $shareButtons.length > 0) {
-    const windowLeft = window.screen.width / 2 - ${windowW} / 2
-    const windowTop = window.screen.height / 2 - ${windowH} / 2
-    $shareButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault()
-        window.open(
-          button.getAttribute('href'),
-          '',
-          'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${windowW}, height=${windowH}, top='+windowTop+', left='+windowLeft+''
-        )
+const popup = `(function(){window.addEventListener('load', function(){
+  setTimeout(function() {
+    const $shareButtons = document.querySelectorAll('a[data-gallery-share]')
+    if ($shareButtons && $shareButtons.length > 0) {
+      const windowLeft = window.screen.width / 2 - ${windowW} / 2
+      const windowTop = window.screen.height / 2 - ${windowH} / 2
+      $shareButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault()
+          window.open(
+            button.getAttribute('href'),
+            '',
+            'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${windowW}, height=${windowH}, top='+windowTop+', left='+windowLeft+''
+          )
+        })
       })
-    })
-  }
-}, 0)})()`
+    }
+  }, 0)
+})})()`
 
 // Funcion extraida de Helpers
 const socialMediaUrlShareList = (
