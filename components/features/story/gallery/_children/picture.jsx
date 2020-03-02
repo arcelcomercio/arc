@@ -43,14 +43,9 @@ const StoryHeaderChildPicture = (slide = {}) => {
             data-srcset={extractImage(slide.url).story_small}
           />
           <img
-            src={
-              isAdmin
-                ? extractImage(slide.url).large
-                : slide.defaultImageGallery
-            }
-            data-src={extractImage(slide.url).large}
+            src={extractImage(slide.url).large}
             alt={slide.caption || slide.subtitle}
-            className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+            className={` ${classes.image}`}
           />
         </picture>
       </Static>
