@@ -1,5 +1,6 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import { useFusionContext } from 'fusion:context'
+import customFields from './_dependencies/custom-fields'
 // import { useContent } from 'fusion:content'
 
 // children
@@ -83,7 +84,14 @@ const data = {
     },
   ],
 }
+
 const TournamentResult = () => {
+  const {
+    customFields: { idLeague = '' },
+  } = useFusionContext()
+
+  console.log(idLeague)
+
   const { leagueNme, listMatchResults1, listMatchResults } = data
   const cardOneParams = {
     firstCard: true,
@@ -103,6 +111,10 @@ const TournamentResult = () => {
       <AddTournamentResult />
     </div>
   )
+}
+
+TournamentResult.propTypes = {
+  customFields,
 }
 
 TournamentResult.label = 'Resultado de torneo'
