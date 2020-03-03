@@ -53,6 +53,12 @@ export const separatorStoriesFields = encodedFueatureName('separatorStories')
 export const featuredStoryPremiumFields = encodedFueatureName(
   'featuredStoryPremium'
 )
+export const featuredStoryRecentImgFields = encodedFueatureName(
+  'featuredStoryRecentImg'
+)
+export const featuredStoryRecentFields = encodedFueatureName(
+  'featuredStoryRecent'
+)
 
 const getFeaturesIncludedFields = arcSite => ({
   featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`,
@@ -61,6 +67,8 @@ const getFeaturesIncludedFields = arcSite => ({
   separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,${includePromoItems},${includePrimarySection}`,
   separatorStories: `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url`,
   featuredStoryPremium: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`,
+  featuredStoryRecentImg: `headlines.basic,websites.${arcSite}.website_url,_id,display_date,publish_date,${includePromoItems}`,
+  featuredStoryRecent: `headlines.basic,websites.${arcSite}.website_url,_id,display_date,publish_date`,
 })
 
 /** Función que reemplaza los caracteres "<encodedFeatureName>" por los included fields

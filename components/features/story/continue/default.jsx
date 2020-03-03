@@ -3,7 +3,6 @@ import Consumer from 'fusion:consumer'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 import schemaFilter from '../../stories-lists/card/_dependencies/schema-filter'
-import { includePromoItems } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
@@ -45,8 +44,8 @@ class StoryContinue extends PureComponent {
         query: {
           section: path,
           stories_qty: 6,
-          presets: 'landscape_md:314x157',
-          includedFields: `_id,headlines.basic,websites.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
+          presets: 'no-presets',
+          includedFields: `_id,headlines.basic,websites.${arcSite}.website_url,display_date,publish_date`,
         },
         filter: schemaFilter(arcSite),
       },
@@ -289,7 +288,7 @@ class StoryContinue extends PureComponent {
     )
     const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
       // eslint-disable-next-line no-undef
-      navigator.userAgent
+      navigator && navigator.userAgent
     )
 
     const storyLoadAmp =

@@ -1,6 +1,7 @@
 import React from 'react'
-
+import { useFusionContext } from 'fusion:context'
 import Image from '@arc-core-components/element_image'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
   image: 'story-content__visual--image amp-img w-full h-full',
@@ -8,11 +9,17 @@ const classes = {
 }
 
 const StoryContentChildAmpImage = ({ data, resizer = false }) => {
+  const { arcSite } = useFusionContext()
   const sizerImg = resizer ? 'original' : 'large'
   const patameters = {
     width: 800,
     height: 429,
-    resized_urls: data.resized_urls,
+    resized_urls:
+      getResizedUrl({
+        url: data.url,
+        presets: 'large:980x528',
+        arcSite,
+      }) || {},
     caption: data.caption,
     url: data.url,
     type: data.type,

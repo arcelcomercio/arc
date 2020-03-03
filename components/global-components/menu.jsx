@@ -1,6 +1,14 @@
 import React, { useRef, useEffect, memo } from 'react'
-import { searchQuery } from '../utilities/helpers'
+// import { searchQuery } from '../utilities/helpers'
 import Button from './button'
+
+const searchQuery = (query, sort) => {
+  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
+  if (query !== '')
+    // eslint-disable-next-line no-restricted-globals
+    location.href = `/buscar/${newQuery}/todas/${sort ||
+      'descendiente'}/?query=${newQuery}`
+}
 
 const classes = {
   sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300`,
@@ -27,8 +35,7 @@ const classes = {
 
 // const BASEURL = window.location.origin
 
-const NavbarChildMenu = (props) => {
-
+const NavbarChildMenu = props => {
   const inputSearchMovil = useRef(null)
   const IS_MOBILE = useRef(true)
 
@@ -56,7 +63,7 @@ const NavbarChildMenu = (props) => {
                 href={url || id || '/'}
                 className={`${classes.link}${
                   deep > 0 ? ` pl-${25 + deep * 15}` : ''
-                  }`}>
+                }`}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -73,9 +80,7 @@ const NavbarChildMenu = (props) => {
                    * */}
                   <label htmlFor={idElem} className={classes.labelParentItem} />
                   <ul
-                    className={`${
-                      classes.containerSubMenu
-                      } deep-${deep} ${idElem}`}>
+                    className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
                     {renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
@@ -101,11 +106,11 @@ const NavbarChildMenu = (props) => {
 
   return (
     <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
-      {
-        showSidebar && <div
+      {showSidebar && (
+        <div
           className={`${classes.content} ${
             IS_MOBILE.current ? 'w-full' : 'w-desktop'
-            } ${showSidebar ? 'active' : ''}`}>
+          } ${showSidebar ? 'active' : ''}`}>
           <div className={classes.top}>
             <div className={classes.header}>
               <div className={classes.btnBox}>
@@ -149,7 +154,7 @@ const NavbarChildMenu = (props) => {
             ))}
           </div>
         </div>
-      }
+      )}
     </div>
   )
 }
