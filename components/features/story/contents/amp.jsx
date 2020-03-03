@@ -25,6 +25,7 @@ import { getAssetsPath } from '../../../utilities/constants'
 import {
   formatDateStoryAmp,
   publicidadAmp,
+  publicidadAmpAd,
   ampHtml,
 } from '../../../utilities/story/helpers-amp'
 
@@ -76,7 +77,7 @@ class StoryContentAmp extends PureComponent {
     const namePublicidad =
     arcSite !== 'peru21g21'? arcSite : 'peru21'
 
-  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja2`
+  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
 
     const imgTag = 'amp-img'
     const placementId = adsAmp.movil2
@@ -92,7 +93,7 @@ class StoryContentAmp extends PureComponent {
       movil1: true,
     }
     const parametersCaja4 = { //movil4
-      dataSlot: `/${adsAmp.dataSlot}/${ namePublicidad}/amp/post/caja4`,
+      dataSlot: `/${adsAmp.dataSlot}/${ namePublicidad}/amp/post/default/caja4`,
       placementId: adsAmp.movil4,
       width,
       height,
@@ -101,7 +102,7 @@ class StoryContentAmp extends PureComponent {
       movil1: true,
     }
     const parametersCaja5 = {  //movil5
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja5`,
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
       placementId: adsAmp.movil5,
       width,
       height,
@@ -110,7 +111,7 @@ class StoryContentAmp extends PureComponent {
       movil1: true,
     }
     const parametersCaja3 = { //movil3
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja3`,
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
       placementId: adsAmp.movil3,
       width,
       height,
@@ -222,7 +223,7 @@ class StoryContentAmp extends PureComponent {
                       {publicidad && (
                         <div
                           className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmp(
+                          dangerouslySetInnerHTML={publicidadAmpAd(
                             parametersCaja3
                           )}
                         />
@@ -240,7 +241,7 @@ class StoryContentAmp extends PureComponent {
           )}
           <div
             className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parametersCaja4)}
+            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
           />
 
           <StoryContentChildTags data={tags} {...isAmp} />
@@ -265,7 +266,7 @@ class StoryContentAmp extends PureComponent {
 
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersCaja5)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
         />
       </>
     )

@@ -9,7 +9,7 @@ import StoryContentChildTags from '../../story/contents/_children/tags'
 import StoryContentChildRelated from '../../story/contents/_children/related'
 import ConfigParams from '../../../utilities/config-params'
 import { getAssetsPath } from '../../../utilities/constants'
-import { publicidadAmp } from '../../../utilities/story/helpers-amp'
+import { publicidadAmp, publicidadAmpAd } from '../../../utilities/story/helpers-amp'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -50,7 +50,7 @@ const VideoSectionAmp = () => {
 
   const dataSlotNa = `/${adsAmp.dataSlot}/${  
     arcSite !== 'peru21g21'  ? arcSite : 'peru21'
-  }/amp/post/caja1`
+  }/amp/post/default/caja1`
   const placementIdNa = adsAmp.movil1
   const width = '320'
   const height = '50'
@@ -65,20 +65,20 @@ const VideoSectionAmp = () => {
   const namePublicidad =
     arcSite !== 'peru21g21'  ? arcSite : 'peru21'
 
-  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja2` // movil2
+  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2` // movil2
 
   const placementId = adsAmp.movil2
   const parametersCaja2 = { dataSlot, placementId, width, height,movil1: true }
 
   const parametersCaja4 = { // movil4
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja4`,
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
     placementId: adsAmp.movil4,
     width,
     height,
     movil1: true,
   }
   const parametersCaja5 = { // movil5
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja5`,
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
     placementId: adsAmp.movil5,
     width,
     height,
@@ -140,11 +140,11 @@ const VideoSectionAmp = () => {
 
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersCaja4)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
         />
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersCaja5)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
         />
         <StoryContentChildTags data={tags} {...isAmp} />
         {relatedContent.length > 0 && (
