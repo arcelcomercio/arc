@@ -1,7 +1,6 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import { storyTagsBbc } from '../../../utilities/helpers'
-import StoryData from '../../../utilities/story-data'
+import { storyTagsBbc } from '../../../utilities/tags'
 import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
@@ -11,11 +10,7 @@ const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
 
 const StoryBbc = () => {
   const { globalContent, contextPath, arcSite, deployment } = useFusionContext()
-
-  const { tags } = new StoryData({
-    data: globalContent,
-    contextPath,
-  })
+  const { taxonomy: { tags = [] } = {} } = globalContent || {}
 
   const imgBbcSource =
     deployment(
