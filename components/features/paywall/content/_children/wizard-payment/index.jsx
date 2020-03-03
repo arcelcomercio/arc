@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-shadow */
@@ -34,6 +35,7 @@ export function parseQueryString(str) {
   for (let i = 0; i < sLength; i++) {
     bit = s[i].split('=')
     first = decodeURIComponent(bit[0])
+    // eslint-disable-next-line no-continue
     if (first.length === 0) continue
     second = decodeURIComponent(bit[1])
     if (typeof query[first] === 'undefined') query[first] = second

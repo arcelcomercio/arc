@@ -48,13 +48,14 @@ const VideoSectionAmp = () => {
     contextPath,
   })
 
-  const dataSlotNa = `/${adsAmp.dataSlot}/${  
-    arcSite !== 'peru21g21'  ? arcSite : 'peru21'
+  const dataSlotNa = `/${adsAmp.dataSlot}/${
+    arcSite !== 'peru21g21' ? arcSite : 'peru21'
   }/amp/post/caja1`
   const placementIdNa = adsAmp.movil1
   const width = '320'
   const height = '50'
-  const parametersCaja1 = { // top
+  const parametersCaja1 = {
+    // top
     dataSlot: dataSlotNa,
     placementId: placementIdNa,
     width,
@@ -62,22 +63,23 @@ const VideoSectionAmp = () => {
     movil1: true,
   }
 
-  const namePublicidad =
-    arcSite !== 'peru21g21'  ? arcSite : 'peru21'
+  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
 
   const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja2` // movil2
 
   const placementId = adsAmp.movil2
-  const parametersCaja2 = { dataSlot, placementId, width, height,movil1: true }
+  const parametersCaja2 = { dataSlot, placementId, width, height, movil1: true }
 
-  const parametersCaja4 = { // movil4
+  const parametersCaja4 = {
+    // movil4
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja4`,
     placementId: adsAmp.movil4,
     width,
     height,
     movil1: true,
   }
-  const parametersCaja5 = { // movil5
+  const parametersCaja5 = {
+    // movil5
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/caja5`,
     placementId: adsAmp.movil5,
     width,

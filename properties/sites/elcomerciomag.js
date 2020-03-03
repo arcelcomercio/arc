@@ -215,13 +215,13 @@ export default {
   activeSignwall: true,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
     mainLogo: 'white-logo.png',
     mainColorBr: '#cccccc',
-    mainColorLink:'#1c75c9',
-    mainColorBtn: '#000000'
+    mainColorLink: '#1c75c9',
+    mainColorBtn: '#000000',
   },
   gda: true, // Grupo Diarios de America
   taboola: {
