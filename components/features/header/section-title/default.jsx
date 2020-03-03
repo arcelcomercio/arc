@@ -2,9 +2,8 @@ import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
 
-import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
-
+import { addSlashToEnd } from '../../../utilities/parse/strings'
 import SectionTitle from '../../../global-components/independent-title'
 
 const HeaderSectionTitle = ({
@@ -16,19 +15,22 @@ const HeaderSectionTitle = ({
     TextType = 'h1',
   } = {},
 }) => {
-  const { contextPath, globalContent: data } = useFusionContext()
-
-  const { primarySectionLink, primarySection } = new StoryData({
-    data,
-    contextPath,
-  })
+  const { globalContent } = useFusionContext()
+  const {
+    taxonomy: {
+      primary_section: {
+        name: primarySection = '',
+        path: primarySectionLink = '/',
+      } = {},
+    } = {},
+  } = globalContent
 
   const title = section || primarySection
   const link = sectionUrl || primarySectionLink
 
   const params = {
     title,
-    link,
+    link: addSlashToEnd(link),
     bgColor,
     fontColor,
     TextType,
