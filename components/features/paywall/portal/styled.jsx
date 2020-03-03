@@ -8,6 +8,8 @@ export const Portal = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
+    position: relative;
+    z-index: 10;
     ${theme.breakpoints.up('md')} {
       background: url(${theme.images.backgroundx1});
     }
@@ -46,6 +48,7 @@ export const Review = styled.div`
     background-position-x: center;
     background-position-y: bottom;
     background-size: cover;
+    z-index: -1;
     ${theme.breakpoints.down('xs')} {
       padding-bottom: 0px;
     }

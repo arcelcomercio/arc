@@ -14,6 +14,7 @@ import Icon from '../_children/icon'
 import { Landing } from '../../signwall/main/_main/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const NAME_MAX_LENGHT = 10
 
@@ -22,8 +23,9 @@ const Head = props => {
   const {
     theme,
     arcSite,
+    contextPath,
     siteProperties: {
-      paywall: { urls },
+      paywall: { urls, images },
     },
     customFields: { id, forceLogin: _forceLogin },
     dispatchEvent,
@@ -106,8 +108,6 @@ const Head = props => {
     arcSite === 'elcomercio'
       ? theme.palette.terciary.main
       : theme.palette.primary.main
-  const themedLogo =
-    arcSite === 'elcomercio' ? theme.icon.logo_full : theme.icon.logo
   const students = typeSignWall.current === 'students'
 
   return (
@@ -139,11 +139,11 @@ const Head = props => {
       </S.Background>
       <S.Content backgroundColor={leftColor}>
         <S.WrapLogo as="a" href="/" target="_blank">
-          <Icon
-            type={themedLogo}
-            fill={theme.palette.secondary.contrastText}
-            width="30"
-            height="30"
+          <img
+            alt={`logo ${arcSite}`}
+            src={`${getAssetsPath(arcSite, contextPath)}${interpolateUrl(
+              images.mainLogo
+            )}`}
           />
         </S.WrapLogo>
         <S.WrapLogin>

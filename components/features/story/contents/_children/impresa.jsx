@@ -1,38 +1,44 @@
 import React from 'react'
+import Static from 'fusion:static'
+import { useFusionContext } from 'fusion:context'
 import Image from '@arc-core-components/element_image'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 // Basic flex stuff
 const classes = {
-  paperNav: 'paper-nav position-relative',
-  paperPrev:
-    'paper-nav__arrows position-absolute top-0 left-0 h-full flex items-center justify-center',
-  paperNext:
-    'paper-nav__arrows position-absolute top-0 right-0 h-full flex items-center justify-center',
-  iconPrev: 'paper-nav__arrows--prev icon-left',
-  iconNext: 'paper-nav__arrows--next icon-right',
+  paperNav: 'paper-nav position-relative vv',
 }
 
 const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
-  const sizerImg = 'impresa'
   const ampClass = 'amp-'
+
+  const { arcSite } = useFusionContext()
+  const extractImage = urlImg => {
+    if (typeof window === 'undefined') {
+      return (
+        getResizedUrl({
+          url: basic.url,
+          presets: 'impresa:617x637',
+          arcSite,
+        }) || {}
+      )
+    }
+    return urlImg
+  }
 
   return (
     <>
       <div className={classes.paperNav}>
-        <Image
-          width="100%"
-          layout="responsive"
-          imgClassName={classes.image}
-          captionClassName={`${ampClass}${classes.caption}`}
-          sizePreset={sizerImg}
-          {...basic}
-        />
-        {/* <a href="/impresa/presion-alta-498352" className={classes.paperPrev}>
-          <i className={classes.iconPrev}> </i>
-        </a>
-        <a href="/impresa/coimas-498663" className={classes.paperNext}>
-          <i className={classes.iconNext}> </i>
-  </a>*/}
+        <Static id="image">
+          <Image
+            width="100%"
+            layout="responsive"
+            imgClassName={classes.image}
+            captionClassName={`${ampClass}${classes.caption}`}
+            {...basic}
+            url={extractImage(basic.url).impresa}
+          />
+        </Static>
       </div>
     </>
   )

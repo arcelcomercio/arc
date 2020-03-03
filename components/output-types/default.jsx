@@ -387,7 +387,11 @@ export default ({
         <Libs />
 
         {/* <!-- Identity & Paywall - Inicio --> */}
-        {siteProperties.activeSignwall && (
+        {(arcSite === 'depor' ||
+          arcSite === 'elcomercio' ||
+          arcSite === 'peru21' ||
+          arcSite === 'gestion' ||
+          arcSite === 'peru21g21') && (
           <script
             src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
             defer

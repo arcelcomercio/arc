@@ -16,7 +16,6 @@ export const formatDateStoryAmp = date => {
 
 export const publicidadAmp = ({
   dataSlot,
-  placementId,
   width,
   height,
   primarySectionLink = '/peru',
@@ -31,16 +30,14 @@ export const publicidadAmp = ({
     ''
   const nuevoScript =
     (movil1 &&
-      `data-multi-size="320x100,320x50"
+      `data-multi-size="300x250,320x50,320x100,300x50"
   data-multi-size-validation="false"`) ||
     ''
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript} 
-  rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}' ${json}></amp-ad>`
+  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -56,7 +53,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     height="50"
     type="doubleclick"
     data-slot="${dataSlot}"
-    data-multi-size="320x50,300x100,300x50,320x100"
+    data-multi-size="320x50,320x100"
     data-multi-size-validation="false"
     ${json}
   />`

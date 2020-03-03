@@ -106,6 +106,9 @@ const WrapIcon = styled.span`
 
 const WrapLogo = styled.span`
   cursor: pointer;
+  img {
+    max-width:230px
+  }
   ${({ theme }) => css`
     display: inline-grid;
     ${theme.breakpoints.down('md')} {
@@ -115,6 +118,9 @@ const WrapLogo = styled.span`
       margin-left: 20px;
       width: 150px;
       overflow: hidden;
+      img {
+        max-width:150px
+      }
     }
   `}
 `

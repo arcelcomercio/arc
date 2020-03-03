@@ -5,7 +5,6 @@ import {
   CONTENT_BASE,
   ARC_ACCESS_TOKEN,
 } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addSlashToEnd } from '../../components/utilities/helpers'
 import { addResizedUrlsToStory } from '../../components/utilities/resizer'
@@ -38,12 +37,7 @@ const transformImg = data => {
   const dataStory = data
   const { resizerUrl } = getProperties(data.website)
   return (
-    addResizedUrlsToStory(
-      [dataStory],
-      resizerUrl,
-      resizerSecret,
-      addResizedUrls
-    )[0] || null
+    addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret)[0] || null
   )
 }
 
