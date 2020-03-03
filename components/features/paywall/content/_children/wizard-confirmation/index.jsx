@@ -24,7 +24,6 @@ const Item = ({ label, children }) => {
 
 const WizardConfirmation = props => {
   const msgs = useStrings()
-  const [windowClosable, setWindowClosable] = React.useState(true)
   const {
     theme,
     memo: {
@@ -158,14 +157,6 @@ const WizardConfirmation = props => {
       PWA.pwaCloseWebView()
       return
     }
-    if (fromFia) {
-      try {
-        window.close()
-      } catch (e) {
-        setWindowClosable(false)
-      }
-      return
-    }
     const { sessionStorage, location } = window
 
     location.href =
@@ -242,12 +233,10 @@ const WizardConfirmation = props => {
               source={msgs.interpolate(msgs.subscriptionNotice, { email })}
             />
           )}
-          {windowClosable ? (
+          {!fromFia && (
             <S.WrapButton>
               <Button onClick={handleClick}>{msgs.continueButton}</Button>
             </S.WrapButton>
-          ) : (
-            <S.Small>{msgs.continueMessage}</S.Small>
           )}
         </S.Content>
       </S.Panel>
