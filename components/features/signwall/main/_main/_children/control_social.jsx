@@ -112,7 +112,8 @@ export const ButtonSocial = ({
       vars.signEmail ||
       vars.signHash ||
       vars.signPaywall ||
-      vars.signPremium
+      vars.signPremium ||
+      vars.signLanding
 
     if (URL_QUERY) {
       OAuthFacebook({
@@ -174,6 +175,8 @@ export const ButtonSocial = ({
         return 'signPaywall'
       case 'premium':
         return 'signPremium'
+      case 'landing':
+        return 'signLanding'
       default:
         return typeDialog
     }
@@ -336,18 +339,25 @@ export const ButtonSocial = ({
       const height = 640
       const left = window.screen.width / 2 - 800 / 2
       const top = window.screen.height / 2 - 600 / 2
-      const param =
-        getDevice(window) !== 'desktop'
-          ? `?urlReference=${window.location.href}&typeModal=${queryDialog()}`
-          : ''
-      const url = `${Domains.getUrlECOID()}/mpp/facebook/login/${param}`
-      return window.open(
-        window.encodeURI(url),
-        '',
-        `toolbar=no, location=no, directories=no, status=no, menubar=no, 
-      scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
-      height=${height}, top=${top}, left=${left}`
-      )
+      const URL = `${Domains.getUrlECOID()}/mpp/facebook/login/`
+
+      const URLRedirect = () => {
+        window.location.href = `${URL}?urlReference=${encodeURIComponent(
+          window.location.href
+        )}&typeModal=${queryDialog()}`
+      }
+
+      const URLWindow = () => {
+        window.open(
+          URL,
+          '',
+          `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+    scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
+    height=${height}, top=${top}, left=${left}`
+        )
+      }
+
+      return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
     }
     return null
   }

@@ -11,7 +11,6 @@ import { conformProfile, isLogged } from '../_dependencies/Identity'
 import { interpolateUrl } from '../_dependencies/domains'
 import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
-// import Signwall from '../../signwall/main/_main/signwall'
 import { Landing } from '../../signwall/main/_main/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
@@ -33,7 +32,6 @@ const Head = props => {
   } = props
 
   const [profile, setProfile] = React.useState()
-  const [isActive, setIsActive] = React.useState(false)
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [stepForm, setStepForm] = React.useState(1)
 
@@ -51,7 +49,6 @@ const Head = props => {
   }).current
 
   const profileUpdateHandler = React.useRef(profile => {
-    // sessionStorage.removeItem(PROFILE_FORM_NAME)
     const conformedProfile = conformProfile(profile)
     dispatchEvent('logged', conformedProfile)
     setProfile(conformedProfile)
@@ -78,6 +75,16 @@ const Head = props => {
         })
         .catch(() => {})
     }
+
+    const vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+      vars[key] = value
+    })
+
+    if (vars.signLanding) {
+      setShowSignwall(true)
+    }
+
     return unregisterListeners
   }, [])
 
@@ -119,6 +126,9 @@ const Head = props => {
             dispatchEvent('loginCanceled')
             typeSignWall.current = 'landing'
             setShowSignwall(false)
+            // remover queryString signLanding
+            const url = window.location.href.split('signLanding=');
+            window.history.pushState(null, null, url[0]);
           }}
           noBtnClose={students ? false : !!_forceLogin}
         />
@@ -149,7 +159,6 @@ const Head = props => {
                     `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
                   )
                   if (isLogged()) {
-                    // setIsActive(true)
                     window.location.href = interpolateUrl(urls.profileSignwall)
                   } else {
                     if (profile) setProfile()
@@ -171,13 +180,6 @@ const Head = props => {
           </S.Username>
         </S.WrapLogin>
       </S.Content>
-      {/* {isActive && (
-        <Signwall
-          closeSignwall={() => {
-            setIsActive(false)
-          }}
-        />
-      )} */}
     </S.Head>
   )
 }
