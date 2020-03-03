@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default ({ fbPixelId }) => {
+export default props => {
+  const {
+    siteProperties: { fbPixelId },
+  } = props
   const fbPixelScript = `
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

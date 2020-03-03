@@ -20,7 +20,7 @@ export default {
   ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-11',
-  fbPixelId: '',
+  fbPixelId: '637459447015102',
   fbArticleStyle: 'LogoElcomercio',
   nameStoryRelated: 'VEA TAMBIÉN',
   googleTagManagerMobile: 'GTM-NNX4LXF',

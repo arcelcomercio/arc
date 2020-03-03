@@ -27,7 +27,7 @@ const Paywall = props => {
     <html lang="es" className={arcSite}>
       <head>
         <TagManager {...siteProperties} />
-        <FbPixel {...siteProperties} />
+        <FbPixel {...props} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
