@@ -1,5 +1,7 @@
 import React from 'react'
 import AmpImage from '@arc-core-components/element_image'
+import { useFusionContext } from 'fusion:context'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
   gallery: 'story-gallery pt-10 pr-20 pl-20 md:pr-0 md:pl-0',
@@ -17,8 +19,22 @@ const StoryHeaderChildAmpGallery = props => {
   const { data, link, siteUrl } = props
   const slider = '[slide]="selectedSlide"'
   const imgTag = 'amp-img'
-  const sizerImg = 'large'
   const numeroFoto = ' [text]="+selectedSlide + 1"'
+
+  const { arcSite } = useFusionContext()
+  const extractImage = urlImg => {
+    if (typeof window === 'undefined') {
+      return (
+        getResizedUrl({
+          url: urlImg,
+          presets: 'large:980x528',
+          arcSite,
+        }) || {}
+      )
+    }
+    return urlImg
+  }
+
   return (
     <>
       <div className={classes.gallery}>
@@ -35,12 +51,12 @@ const StoryHeaderChildAmpGallery = props => {
           {...slider}
           on={`slideChange:AMP.setState({selectedSlide: event.index}),AMP.navigateTo(url='${siteUrl}${link}?foto=2&source=amp')`}
           class="media gallery">
-          {data.map(({ resized_urls: resizedUrls, url, caption }) => (
+          {data.map(({ url, caption }) => (
             <>
               <div className="slide">
                 <div className="inner">
                   <amp-img
-                    src={(resizedUrls && resizedUrls.large) || url}
+                    src={extractImage(url).large || url}
                     alt={caption}
                     class={classes.image}
                     height="360"
@@ -50,7 +66,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <a
                     href={`${siteUrl}${link}?foto=2`}
                     className={classes.controlRight}>
-                    {``}
+                    {' '}
                   </a>
                 </div>
                 <div className="legend">
@@ -62,15 +78,17 @@ const StoryHeaderChildAmpGallery = props => {
         </amp-carousel>
         <amp-carousel width="600" height="480" layout="nodisplay" type="slides">
           {data.map(item => (
-            <div className="slide">
-              <AmpImage
-                {...item}
-                ImgTag={imgTag}
-                imgClassName={classes.image}
-                layout="responsive"
-                sizePreset={sizerImg}
-              />
-            </div>
+            <>
+              <div className="slide">
+                <AmpImage
+                  {...item}
+                  url={extractImage(item.url).large}
+                  ImgTag={imgTag}
+                  imgClassName={classes.image}
+                  layout="responsive"
+                />
+              </div>
+            </>
           ))}
         </amp-carousel>
       </div>

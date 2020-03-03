@@ -5,7 +5,6 @@ import {
   CONTENT_BASE,
   ARC_ACCESS_TOKEN,
 } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 
@@ -156,8 +155,7 @@ const fetch = (key = {}) => {
     dataStory.content_elements = addResizedUrlsToStory(
       dataStory.content_elements,
       resizerUrl,
-      resizerSecret,
-      addResizedUrls
+      resizerSecret
     )
     dataStory.siteName = siteName
 

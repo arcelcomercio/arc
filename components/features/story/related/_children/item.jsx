@@ -2,6 +2,7 @@ import React from 'react'
 
 import UtilListKey from '../../../../utilities/list-keys'
 import { IMAGE } from '../../../../utilities/constants/multimedia-types'
+import { getResizedUrl } from '../../../../utilities/resizer'
 import StoryData from '../../../../utilities/story-data'
 
 // Basic flex stuff
@@ -44,9 +45,17 @@ const RenderRelatedContentElement = (props, i) => {
     nameTitle: get.title,
     urlTitle: get.websiteLink,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimediaLandscapeMD,
+    multimediaImg:
+      typeof window === 'undefined'
+        ? getResizedUrl({
+            url: get.multimediaLandscapeMD,
+            presets: 'landscape_md:314x157',
+            arcSite,
+          }).landscape_md || {}
+        : '',
     lazyImage: get.multimediaLazyDefault,
   }
+
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>

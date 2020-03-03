@@ -3,6 +3,7 @@ import StoryData from '../../utilities/story-data'
 import { deleteQueryString } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
+import { getResizedUrl } from '../../utilities/resizer'
 
 export default ({
   fbAppId,
@@ -32,7 +33,11 @@ export default ({
 
   let image =
     story && multimediaLarge
-      ? multimediaLarge
+      ? getResizedUrl({
+          url: multimediaLarge,
+          presets: 'large:980x528',
+          arcSite,
+        }).large
       : deployment(
           `${getAssetsPath(
             arcSite,

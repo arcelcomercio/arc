@@ -61,19 +61,6 @@ const classes = {
   bbcHead: 'bbc-head p-10',
 }
 
-const storyContenImage = (
-  { resized_urls: resizedUrls, caption },
-  multimediaLazyDefault
-) => {
-  return {
-    multimediaLandscapeMD: resizedUrls.medium,
-    multimediaStorySmall: resizedUrls.content_small,
-    multimediaLarge: resizedUrls.content,
-    multimediaLazyDefault,
-    caption,
-  }
-}
-
 @Consumer
 class StoryContents extends PureComponent {
   render() {
@@ -193,9 +180,13 @@ class StoryContents extends PureComponent {
                     nameAds,
                   } = element
                   if (type === ELEMENT_IMAGE) {
+                    const presets = 'landscapeMd:314,storySmall:482,large:980'
+
                     return (
                       <StoryContentsChildImage
-                        {...storyContenImage(element, multimediaLazyDefault)}
+                        {...element}
+                        multimediaLazyDefault={multimediaLazyDefault}
+                        presets={presets}
                       />
                     )
                   }
