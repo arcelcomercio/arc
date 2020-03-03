@@ -5,6 +5,15 @@ const customFields = PropTypes.shape({
     name: 'Id de la liga',
     description: 'Identificador de la liga',
   }),
+  leagueNameText: PropTypes.string.isRequired.tag({
+    name: 'Nombre de la liga',
+  }),
+  sponsorName: PropTypes.string.isRequired.tag({
+    name: 'Texto de patrocinador',
+  }),
+  htmlAds: PropTypes.string.isRequired.tag({
+    name: 'Html',
+  }),
 })
 
 export default customFields

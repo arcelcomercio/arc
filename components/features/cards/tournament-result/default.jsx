@@ -5,7 +5,7 @@ import customFields from './_dependencies/custom-fields'
 
 // children
 import CardListResult from './_children/card-list-result'
-import AddTournamentResult from './_children/add-tournament-result'
+import AdsTournamentResult from './_children/ads-tournament-result'
 
 const classes = {
   tournamentResult: 'tournament-result flex justify-between flex-wrap',
@@ -16,7 +16,12 @@ const CONTENT_SOURCE = 'get-score-results-from-the-league'
 
 const TournamentResult = () => {
   const {
-    customFields: { idLeague = '' },
+    customFields: {
+      idLeague = '',
+      leagueNameText = '',
+      sponsorName = '',
+      htmlAds = '',
+    },
   } = useFusionContext()
 
   const data = useContent({
@@ -30,13 +35,19 @@ const TournamentResult = () => {
   const cardOneParams = {
     firstCard: true,
     leagueNme,
+    leagueNameText,
     listMatchResults: listMatchResults1,
   }
 
   const cardTwoParams = {
     firstCard: false,
     leagueNme,
+    sponsorName,
     listMatchResults: listMatchResults2,
+  }
+
+  const adsParams = {
+    htmlAds,
   }
   return (
     <div className={classes.tournamentResult}>
@@ -44,7 +55,7 @@ const TournamentResult = () => {
         <CardListResult {...cardOneParams} />
         <CardListResult {...cardTwoParams} />
       </div>
-      <AddTournamentResult />
+      <AdsTournamentResult {...adsParams} />
     </div>
   )
 }

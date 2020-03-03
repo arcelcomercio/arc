@@ -12,14 +12,26 @@ const classes = {
 const CardListResult = ({
   firstCard = true,
   leagueNme = '',
+  leagueNameText,
+  sponsorName,
   listMatchResults = [],
 }) => {
   return (
     <div className={classes.tournamentContent}>
       {firstCard ? (
-        <div className={classes.tournamentCardTitle}>{leagueNme}</div>
+        <div className={classes.tournamentCardTitle}>
+          {leagueNameText !== '' ? leagueNameText : leagueNme}
+        </div>
       ) : (
-        <div className={classes.tournamentCardTitle}>publicidad</div>
+        <div className={classes.tournamentCardTitle}>
+          {sponsorName}
+          <div>
+            {/* imagen para la publicdad */}
+            <figure>
+              <img src="" alt="" />
+            </figure>
+          </div>
+        </div>
       )}
       <div className={classes.tournamentCard}>
         {listMatchResults.map(itemResult => (
