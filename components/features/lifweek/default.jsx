@@ -10,19 +10,19 @@ const classes = {
     profile_image: 'lifweek-designers__profile-image',
     profile_detail: 'lifweek-designers__profile-detail pl-20',
     profile_name: 'lifweek-designers__profile-name mb-15',
-    profile_name_blue: 'lifweek-designers__profile-name_blue inline-block mr-5',
+    profile_name_blue: 'lifweek-designers__profile-name_blue inline-block mr-5 text-white',
     profile_bio: 'lifweek-designers__profile-bio',
     profile_divider: 'lifweek-designers__profile-divider mt-30 mb-20',
 
-    list: 'lifweek-designers__list border-1 border-solid mb-10 pb-20 pt-30',
+    list: 'lifweek-designers__list border-1 border-solid mb-10 pb-20 pt-30 text-center',
     list_title: 'lifweek-designers__list-title inline-block mb-20 border-b-1 border-solid',
     list_title_bold: 'lifweek-designers__list-title--bold',
-    list_content: 'lifweek-designers__list-content flex flex-row flex-wrap',
+    list_content: 'lifweek-designers__list-content flex flex-row flex-wrap justify-center items-center',
     list_item: 'lifweek-designers__list-item position-relative m-10',
-    list_link: 'lifweek-designers__list-link block',
+    list_link: 'lifweek-designers__list-link block text-white',
     list_content_name: 'lifweek-designers__list-content_name position-absolute text-left',
-    list_name: 'lifweek-designers__list-name inline-block',
-    list_lastname: 'lifweek-designers__list-lastname w-full inline-block'
+    list_name: 'lifweek-designers__list-name inline-block text-white',
+    list_lastname: 'lifweek-designers__list-lastname w-full inline-block bg-white'
 }
 
 const LIFWEEK_SOURCE = 'get-designers-lifweek';
@@ -33,13 +33,13 @@ const Lifweek = () =>
         source: LIFWEEK_SOURCE
     })
 
-    const { arcSite, isAdmin } = useFusionContext()
+    const { arcSite, isAdmin, requestUri } = useFusionContext()
 
     const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
     const { participantes = [] } = designersData || {}
 
-    const currentUrl   = window.location.href.split('?')[0];
+    const currentUrl   = requestUri.split('?')[0];
     let   slugDesigner = currentUrl.match(/([^/]*)\/*$/)[1];
 
     if(slugDesigner === 'disenadores' || isAdmin)
@@ -102,5 +102,5 @@ const Lifweek = () =>
 }
 
 Lifweek.label = 'Lifweek Diseñadores'
-
+Lifweek.static = true
 export default Lifweek
