@@ -3,6 +3,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/alt-text */
 const ENV = require('fusion:environment')
+const getProperties = require('fusion:properties')
 const request = require('request-promise-native')
 const createHmac = require('create-hmac')
 const uuid = require('uuid')
@@ -57,8 +58,8 @@ function generateSignedFbEventUri(pixelId, event, data) {
 
 const fetch = (key = {}) => {
   const site = key['arc-site']
+  const { fbPixelId } = getProperties(site)
   const { debug, accessToken, entitlementsUrl, event, ...data } = key
-  const pixelId = ENV[`FB_PIXEL_ID_${site.toUpperCase()}`]
   return new Promise((resolve, reject) => {
     if (entitlementsUrl) {
       request({
@@ -85,7 +86,7 @@ const fetch = (key = {}) => {
     }
     if (debug) console.log(`Event: ${event}`)
     if (debug) console.log(`SignatureParams: ${JSON.stringify(data)}`)
-    const signedRes = generateSignedFbEventUri(pixelId, event, data)
+    const signedRes = generateSignedFbEventUri(fbPixelId, event, data)
     if (debug) console.log(`SignatureResponse: ${JSON.stringify(signedRes)}`)
     return signedRes
   })
