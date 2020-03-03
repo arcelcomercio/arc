@@ -19,21 +19,8 @@ import {
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
 
-import StoryContentsChildVideo from './_children/video'
-import StoryContentsChildImage from './_children/image'
-import StoryHeaderChildGallery from '../gallery/_children/gallery'
-import StoryContentChildRawHTML from './_children/rawHtml'
-import StoryContentsChildBlockQuote from './_children/blockquote'
-import StoryContentsChildTable from '../../../global-components/story-table'
-import StoryContentsChildAuthor from './_children/author'
-import StoryContentsChildMultimedia from './_children/multimedia'
-import StoryContentsChildRelatedInternal from './_children/related-internal'
-import StoryContentsChildIcon from './_children/icon-list'
 import ConfigParams from '../../../utilities/config-params'
 import StoryData from '../../../utilities/story-data'
-import StoryContentsChildImpresa from './_children/impresa'
-import StoryContentsChildVideoNativo from './_children/video-nativo'
-import Ads from '../../../global-components/ads'
 import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
@@ -48,17 +35,8 @@ const classes = {
 @Consumer
 class MatchNav extends PureComponent {
   render() {
-    const subtypes = ['partido_previa', 'partido_directo', 'partido_cronica']
-
     const {
-      globalContent,
-      arcSite,
-      contextPath,
-      deployment,
-      siteProperties: {
-        ids: { opta },
-      },
-      siteProperties: { isDfp = false },
+      globalContent
     } = this.props
 
     const {
