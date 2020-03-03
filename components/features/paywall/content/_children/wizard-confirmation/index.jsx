@@ -9,7 +9,7 @@ import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
 import { pushCxense } from '../../../_dependencies/cxense'
-import { SubscribeEventTag } from '../../../_children/fb-signed-pixel'
+import { SubscribeEventTag } from '../../../_children/fb-account-linking'
 import fbEventSigner from '../../../../../../content/sources/fb-event-signer'
 
 const HOME = '/'
