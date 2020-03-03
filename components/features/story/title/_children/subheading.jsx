@@ -1,5 +1,5 @@
 import React from 'react'
-import ConfigParams from '../../../../utilities/config-params'
+import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
 
 const classes = {
   description:
@@ -15,7 +15,7 @@ const StoryHeaderChildShareSubheading = data => {
   return (
     <>
       {subTitle && <h2 className={classes.description}> {subTitle}</h2>}
-      {isPremium && ConfigParams.SITE_ELCOMERCIO === arcSite && (
+      {isPremium && SITE_ELCOMERCIO === arcSite && (
         <div className={classes.premiumWrapper}>
           <p className={classes.premiumText}>Suscriptor Digital</p>
         </div>
