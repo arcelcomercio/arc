@@ -4,7 +4,7 @@ import { PLAYING, PLAYED } from '../../../../utilities/constants'
 
 const classes = {
   itemTeamResult:
-    'tournament-result__item flex items-center justify-between mb-20',
+    'tournament-result__item flex items-center justify-between mb-20 w-full',
   itemName: 'tournament-result__name secondary-font text-black',
   itemFigure: 'tournament-result__figure',
   itemImg: 'tournament-result__img w-full h-full objet-cover',

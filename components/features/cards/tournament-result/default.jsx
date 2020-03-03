@@ -9,7 +9,7 @@ import AddTournamentResult from './_children/add-tournament-result'
 
 const classes = {
   tournamentResult: 'tournament-result flex justify-between flex-wrap',
-  tournamentBox: 'tournament-result__box flex justify-between flex-wrap',
+  tournamentBox: 'tournament-result__box flex justify-between flex-wrap w-full',
 }
 
 const CONTENT_SOURCE = 'get-score-results-from-the-league'
