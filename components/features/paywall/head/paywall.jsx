@@ -11,10 +11,10 @@ import { conformProfile, isLogged } from '../_dependencies/Identity'
 import { interpolateUrl } from '../_dependencies/domains'
 import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
-// import Signwall from '../../signwall/main/_main/signwall'
 import { Landing } from '../../signwall/main/_main/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const NAME_MAX_LENGHT = 10
 
@@ -23,8 +23,9 @@ const Head = props => {
   const {
     theme,
     arcSite,
+    contextPath,
     siteProperties: {
-      paywall: { urls },
+      paywall: { urls, images },
     },
     customFields: { id, forceLogin: _forceLogin },
     dispatchEvent,
@@ -33,7 +34,6 @@ const Head = props => {
   } = props
 
   const [profile, setProfile] = React.useState()
-  const [isActive, setIsActive] = React.useState(false)
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [stepForm, setStepForm] = React.useState(1)
 
@@ -51,7 +51,6 @@ const Head = props => {
   }).current
 
   const profileUpdateHandler = React.useRef(profile => {
-    // sessionStorage.removeItem(PROFILE_FORM_NAME)
     const conformedProfile = conformProfile(profile)
     dispatchEvent('logged', conformedProfile)
     setProfile(conformedProfile)
@@ -99,8 +98,6 @@ const Head = props => {
     arcSite === 'elcomercio'
       ? theme.palette.terciary.main
       : theme.palette.primary.main
-  const themedLogo =
-    arcSite === 'elcomercio' ? theme.icon.logo_full : theme.icon.logo
   const students = typeSignWall.current === 'students'
 
   return (
@@ -129,11 +126,11 @@ const Head = props => {
       </S.Background>
       <S.Content backgroundColor={leftColor}>
         <S.WrapLogo as="a" href="/" target="_blank">
-          <Icon
-            type={themedLogo}
-            fill={theme.palette.secondary.contrastText}
-            width="30"
-            height="30"
+          <img
+            alt={`logo ${arcSite}`}
+            src={`${getAssetsPath(arcSite, contextPath)}${interpolateUrl(
+              images.mainLogo
+            )}`}
           />
         </S.WrapLogo>
         <S.WrapLogin>
@@ -149,7 +146,6 @@ const Head = props => {
                     `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
                   )
                   if (isLogged()) {
-                    // setIsActive(true)
                     window.location.href = interpolateUrl(urls.profileSignwall)
                   } else {
                     if (profile) setProfile()
@@ -171,13 +167,6 @@ const Head = props => {
           </S.Username>
         </S.WrapLogin>
       </S.Content>
-      {/* {isActive && (
-        <Signwall
-          closeSignwall={() => {
-            setIsActive(false)
-          }}
-        />
-      )} */}
     </S.Head>
   )
 }
