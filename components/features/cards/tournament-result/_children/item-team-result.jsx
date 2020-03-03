@@ -4,13 +4,12 @@ import { PLAYING, PLAYED } from '../../../../utilities/constants'
 
 const classes = {
   itemTeamResult:
-    'tournament-result__item flex items-center justify-center mb-20',
-  itemName: 'tournament-result__name secondary-font text-black mr-20',
-  itemFigure: 'tournament-result__figure mr-20',
+    'tournament-result__item flex items-center justify-between mb-20',
+  itemName: 'tournament-result__name secondary-font text-black',
+  itemFigure: 'tournament-result__figure',
   itemImg: 'tournament-result__img w-full h-full objet-cover',
-  itemScore: 'tournament-result__score mr-20',
-  itemScoreBox:
-    'tournament-result__score-box flex justify-between items-center',
+  itemScore: 'tournament-result__score',
+  itemScoreBox: 'tournament-result__score-box flex justify-evenly items-center',
   itemScoreText:
     'tournament-result__score-text font-bold secondary-font text-black',
 }
@@ -40,8 +39,8 @@ const ItemTeamResult = ({
         {matchStatus === PLAYING && <span>En vivo</span>}
         {matchStatus === PLAYED && (
           <div>
-            <span>{matchDate}</span>
-            <span>{matchTime}</span>
+            <p>{matchDate}</p>
+            <p>{matchTime}</p>
           </div>
         )}
       </div>

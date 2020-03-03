@@ -5,20 +5,30 @@
       width: 100%;
     }
   }
-  &__card {
+  &__card-content {
     border-top-width: 5px;
     border-color: #aaa;
-    width: 48%;
-    @media (--only-mobile) {
-      width: 100%;
+    width: 100%;
+    @media (--desktop) {
+      width: 49%;
     }
     &-title {
     }
+  }
+  &__item {
+    max-width: 350px;
+    width: 100%;
+  }
+  &__name {
+    width: 70px;
   }
   &__figure {
     width: 30px;
     height: 30px;
     background-color: red;
+  }
+  &__score {
+    width: 70px;
   }
   &__add {
     width: 300px;
