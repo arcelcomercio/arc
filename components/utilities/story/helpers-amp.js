@@ -30,7 +30,7 @@ export const publicidadAmp = ({
     ''
   const nuevoScript =
     (movil1 &&
-      `data-multi-size="300x250,320x50,320x100,300x50"
+      `data-multi-size="300x600,300x250,320x100,320x50,300x100,300x50"
   data-multi-size-validation="false"`) ||
     ''
 
@@ -41,7 +41,33 @@ export const publicidadAmp = ({
   }
   return createMarkup(resultData)
 }
+export const publicidadAmpAd = ({
+  dataSlot,
+  width,
+  height,
+  primarySectionLink = '/peru',
+  movil1 = '',
+  arcSite = '',
+}) => {
+  const secctionPrimary = primarySectionLink.split('/')
+  let resultData = ''
+  const json =
+    (ConfigParams.SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
+  const nuevoScript =
+    (movil1 &&
+      `data-multi-size="300x250,320x100,320x50,300x100,300x50"
+  data-multi-size-validation="false"`) ||
+    ''
 
+  if (secctionPrimary[1] !== 'respuestas') {
+    resultData = `
+  <amp-ad width="${width}" height="${height}" type="doubleclick"
+  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>`
+  }
+  return createMarkup(resultData)
+}
 export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
   let resultData = ''
   const json =
@@ -53,7 +79,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     height="50"
     type="doubleclick"
     data-slot="${dataSlot}"
-    data-multi-size="320x50,320x100"
+    data-multi-size="fluid,728x90,320x50"
     data-multi-size-validation="false"
     ${json}
   />`
