@@ -12,6 +12,7 @@ import {
 } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
+import { getResizedUrl } from '../../utilities/resizer'
 
 export default ({
   globalContent: data,
@@ -52,6 +53,7 @@ export default ({
     id,
     arcSite,
     cant: 4,
+    presets: 'no-presets',
   }
   const resultStoryRecent = StoriesRecent(parameters)
   const publishDateZone =
@@ -90,7 +92,7 @@ export default ({
             embedUrlFacebook}" }`
         : ''
     })
-    .filter(redSocialVideo => redSocialVideo !== '')
+    .filter(video => video !== '')
 
   let resultRelated = ''
 
@@ -121,20 +123,19 @@ export default ({
     }
   },`
   const videoSeoItems = videoSeo.map(
-    ({
-      url,
-      caption,
-      description,
-      urlImage,
-      date,
-      duration,
-      resized_urls: {
+    ({ url, caption, description, urlImage, date, duration } = {}) => {
+      const {
         large = '',
         amp_image_1x1: ampVideo1x1 = urlImage,
         amp_image_4x3: ampVideo4x3 = urlImage,
         amp_image_16x9: ampVideo16x9 = urlImage,
-      } = {},
-    } = {}) => {
+      } =
+        getResizedUrl({
+          url: urlImage || url,
+          presets:
+            'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
+          arcSite,
+        }) || {}
       const image =
         isAmp === true
           ? `"${large || urlImage}"`
@@ -153,26 +154,33 @@ export default ({
     }
   )
 
-  const imagesSeoItemsAmp = imagePrimarySeo.map(image => {
+  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url }) => {
     const {
-      url = '',
-      resized_urls: {
-        amp_image_16x9: ampImage16x9 = '',
-        amp_image_1x1: ampImage1x1 = '',
-        amp_image_4x3: ampImage4x3 = '',
-      } = {},
-    } = image || {}
+      amp_image_1x1: ampImage1x1 = url,
+      amp_image_4x3: ampImage4x3 = url,
+      amp_image_16x9: ampImage16x9 = url,
+    } =
+      getResizedUrl({
+        url,
+        presets:
+          'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
+        arcSite,
+      }) || {}
 
     return `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 ||
       url}"]`
   })
 
   const imagesSeoItems = imagePrimarySeo.map(image => {
-    const {
-      subtitle = false,
-      url = '',
-      resized_urls: { amp_new: large = '' } = {},
-    } = image || {}
+    const { subtitle = false, url = '' } = image || {}
+
+    const { large } =
+      getResizedUrl({
+        url,
+        presets: 'large:1200x800',
+        arcSite,
+      }) || {}
+
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''

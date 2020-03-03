@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-state */
-import React, { useState } from 'react'
+import React from 'react'
 import { useContent, useEditableContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
@@ -15,6 +15,10 @@ const classes = {
   link: 'breaking-news__link mr-5 text-white font-bold',
 }
 
+const handleClose = `(setTimeout(document.getElementById('close-breaking-news').addEventListener('click', function(e){
+  document.getElementById('breaking-news').remove()
+})), 0)()`
+
 const BreakingNews = props => {
   const {
     customFields: {
@@ -29,7 +33,6 @@ const BreakingNews = props => {
 
   const { arcSite } = useFusionContext()
   const { editableField } = useEditableContent()
-  const [isVisible, setIsVisible] = useState(true)
 
   const article = useContent(
     storyLink
@@ -46,10 +49,6 @@ const BreakingNews = props => {
       : {}
   )
 
-  const handleOnclickClose = () => {
-    setIsVisible(false)
-  }
-
   const objContent = {
     title: title || (article && article.headlines && article.headlines.basic),
     subTitle:
@@ -62,7 +61,8 @@ const BreakingNews = props => {
     <>
       {showBreakingNews && (
         <div
-          className={`${isVisible ? '' : 'hidden'}
+          id="breaking-news"
+          className={`
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
@@ -85,15 +85,15 @@ const BreakingNews = props => {
             </span>
           </h2>
           <button
+            id="close-breaking-news"
             type="button"
             className={classes.close}
-            onClick={handleOnclickClose}
-            onKeyPress={handleOnclickClose}
             tabIndex={0}>
             <i className={classes.icon} />
           </button>
         </div>
       )}
+      <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
     </>
   )
 }
@@ -103,5 +103,6 @@ BreakingNews.propTypes = {
 }
 
 BreakingNews.label = 'Cintillo Urgente'
+BreakingNews.static = true
 
 export default BreakingNews

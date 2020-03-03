@@ -1,8 +1,6 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
-import { lgFloorPrices, smFloorPrices } from './scripts/main'
-
 export default () => {
   const { globalContent = {}, arcSite } = useFusionContext()
   const {
@@ -16,18 +14,10 @@ export default () => {
   return (
     <>
       {arcSite === 'depor' && section === 'futbol-peruano' && (
-        <script
-          dangerouslySetInnerHTML={{
-            __html: lgFloorPrices,
-          }}
-        />
+        <script src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js" />
       )}
       {arcSite === 'peru21' && section === 'espectaculos' && (
-        <script
-          dangerouslySetInnerHTML={{
-            __html: smFloorPrices,
-          }}
-        />
+        <script src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-opt.js" />
       )}
     </>
   )

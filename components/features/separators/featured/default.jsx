@@ -8,7 +8,6 @@ import StoryData from '../../../utilities/story-data'
 import { separatorFeaturedFields } from '../../../utilities/included-fields'
 
 // TODO: Subir clases a objeto
-// TODO: sacar schemaFilter
 
 const SeparatorFeatured = props => {
   const {
@@ -168,6 +167,7 @@ const SeparatorFeatured = props => {
 }
 
 SeparatorFeatured.label = 'Separador destacado'
+SeparatorFeatured.static = true
 
 SeparatorFeatured.propTypes = {
   customFields: PropTypes.shape({

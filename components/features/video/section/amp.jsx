@@ -1,11 +1,6 @@
 import { useFusionContext } from 'fusion:context'
 import React from 'react'
-import {
-  publicidadAmp,
-  formatDateStoryAmp,
-  getDateSeo,
-  storyTagsBbc,
-} from '../../../utilities/helpers'
+import { storyTagsBbc } from '../../../utilities/helpers'
 
 import StorySocialChildAmpSocial from '../../story/social/_children/amp-social'
 import ElePrincipal from '../../story/contents/_children/amp-ele-principal'
@@ -14,6 +9,10 @@ import StoryContentChildTags from '../../story/contents/_children/tags'
 import StoryContentChildRelated from '../../story/contents/_children/related'
 import ConfigParams from '../../../utilities/config-params'
 import { getAssetsPath } from '../../../utilities/constants'
+import {
+  publicidadAmp,
+  publicidadAmpAd,
+} from '../../../utilities/story/helpers-amp'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -41,7 +40,7 @@ const VideoSectionAmp = () => {
   const {
     title,
     subTitle,
-    displayDate,
+
     tags,
     promoItems,
     authorLink,
@@ -53,12 +52,13 @@ const VideoSectionAmp = () => {
   })
 
   const dataSlotNa = `/${adsAmp.dataSlot}/${
-    arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
-  }-amp-320x50-top-movil1`
+    arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  }/amp/post/default/caja1`
   const placementIdNa = adsAmp.movil1
   const width = '320'
   const height = '50'
-  const parametersNa = {
+  const parametersCaja1 = {
+    // top
     dataSlot: dataSlotNa,
     placementId: placementIdNa,
     width,
@@ -66,25 +66,28 @@ const VideoSectionAmp = () => {
     movil1: true,
   }
 
-  const namePublicidad =
-    arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
+  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
 
-  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}-amp-300x250-boton-movil2`
+  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2` // movil2
 
   const placementId = adsAmp.movil2
-  const parameters = { dataSlot, placementId, width, height }
+  const parametersCaja2 = { dataSlot, placementId, width, height, movil1: true }
 
-  const parametersMovil4 = {
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}-amp-300x250-middle-movil4`,
+  const parametersCaja4 = {
+    // movil4
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
     placementId: adsAmp.movil4,
     width,
     height,
+    movil1: true,
   }
-  const parametersMovil5 = {
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}-amp-300x250-inferior-movil5`,
+  const parametersCaja5 = {
+    // movil5
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
     placementId: adsAmp.movil5,
     width,
     height,
+    movil1: true,
   }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
@@ -103,7 +106,7 @@ const VideoSectionAmp = () => {
           {arcSite !== 'elcomerciomag' && (
             <div
               className={classes.adsAmp}
-              dangerouslySetInnerHTML={publicidadAmp(parametersNa)}
+              dangerouslySetInnerHTML={publicidadAmp(parametersCaja1)}
             />
           )}
           {storyTagsBbc(tags) && (
@@ -127,7 +130,7 @@ const VideoSectionAmp = () => {
         </header>
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parameters)}
+          dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
         />
 
         <div className={classes.description}> {subTitle}</div>
@@ -142,11 +145,11 @@ const VideoSectionAmp = () => {
 
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersMovil4)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
         />
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersMovil5)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
         />
         <StoryContentChildTags data={tags} {...isAmp} />
         {relatedContent.length > 0 && (

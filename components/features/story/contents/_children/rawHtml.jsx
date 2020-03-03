@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react'
-import {
-  createScript,
-  appendToBody,
-  appendToId,
-  storyVideoPlayerId,
-} from '../../../../utilities/helpers'
 
 const classes = {
   newsEmbed: 'story-content__embed',
+}
+
+// Funcion extraida de helpers
+const storyVideoPlayerId = (content = '') => {
+  const pattern = content.includes('id')
+    ? /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    : /<script (src=(.*))(.*)(async(=(.*))?)><\/script>/
+  return content.match(pattern) || []
 }
 
 const clearUrlOrCode = (url = '') => {
@@ -60,31 +62,6 @@ class rawHTML extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    if (this.URL) {
-      appendToBody(createScript({ src: this.URL, async: true }))
-    }
-
-    if (this.URL_VIDEO) {
-      const { content } = this.props
-      const idVideo = storyVideoPlayerId(content)
-      const idElement =
-        isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
-          ? `id_video_embed_${this.ID_VIDEO}`
-          : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
-      const myList = document.getElementById(idElement)
-      appendToId(
-        myList,
-        createScript({
-          src: content.includes('id')
-            ? this.URL_VIDEO
-            : clearUrlOrCode(idVideo[2]).clearUrl,
-          async: true,
-        })
-      )
-    }
-  }
-
   render() {
     const { content } = this.props
     const idVideo = storyVideoPlayerId(content)
@@ -105,6 +82,16 @@ class rawHTML extends PureComponent {
               : content,
           }}
         />
+        {/* {this.URL_VIDEO && (
+          <script
+            src={
+              content.includes('id')
+                ? this.URL_VIDEO
+                : clearUrlOrCode(idVideo[2]).clearUrl
+            }
+            defer></script>
+        )} */}
+        {this.URL && <script src={this.URL} defer></script>}
       </>
     )
   }

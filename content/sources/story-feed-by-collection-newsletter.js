@@ -5,9 +5,8 @@ import {
   CONTENT_BASE,
   ARC_ACCESS_TOKEN,
 } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 // TODO: Este Content source realiza 2 fetch y un promise all con múltiples fetch,
 // el api de /websked/collections ya trae el id de las notas, por lo que no es necesario
@@ -127,7 +126,6 @@ const transform = data => {
     dataStories.content_elements,
     resizerUrl,
     resizerSecret,
-    addResizedUrls,
     'newsletter'
   )
   dataStories.siteName = siteName
