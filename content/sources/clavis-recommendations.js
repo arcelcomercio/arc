@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { resizerSecret } from 'fusion:environment'
 import request from 'request-promise-native'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
@@ -87,12 +86,8 @@ const fetch = (key = {}) => {
       const { resizerUrl } = getProperties(site)
       const stories = {
         content_elements:
-          addResizedUrlsToStory(
-            recommendations,
-            resizerUrl,
-            resizerSecret,
-            addResizedUrls
-          ) || null,
+          addResizedUrlsToStory(recommendations, resizerUrl, resizerSecret) ||
+          null,
       }
       return stories
     })

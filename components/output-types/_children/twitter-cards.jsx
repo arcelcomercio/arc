@@ -2,6 +2,7 @@ import React from 'react'
 import StoryData from '../../utilities/story-data'
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
+import { getResizedUrl } from '../../utilities/resizer'
 
 export default ({
   twitterUser,
@@ -24,9 +25,14 @@ export default ({
     data,
     arcSite,
   })
+
   let image =
     story && multimediaLarge
-      ? multimediaLarge
+      ? getResizedUrl({
+          url: multimediaLarge,
+          presets: 'large:980x528',
+          arcSite,
+        }).large
       : deployment(
           `${getAssetsPath(
             arcSite,
