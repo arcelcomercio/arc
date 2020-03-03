@@ -9,7 +9,7 @@ import { interpolateUrl } from '../_dependencies/domains'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
-const FbEventTag = ({ event, ...props }) => {
+const FbEventTag = React.memo(({ event, onBeforeSend = i => i, ...props }) => {
   const content = useContent({
     source: SIGNER_CONTENT_SOURCE,
     query: {
@@ -17,10 +17,11 @@ const FbEventTag = ({ event, ...props }) => {
       ...props,
     },
   })
+  if (content) onBeforeSend(content.uri)
   return content && content.uri ? (
     <img src={content.uri} style={{ display: 'none' }} />
   ) : null
-}
+})
 
 export const SubscribeEventTag = ({
   subscriptionId,
@@ -60,14 +61,16 @@ export const LogIntoAccountEventTag = ({ subscriptionId }) => {
       headers: {
         Authorization: accessToken,
       },
-    }).then(res => {
-      if (res.skus) {
-        const result = Object.keys(res.skus).map(key => {
-          return res.skus[key].sku
-        })
-        setSubscriptions(result)
-      }
     })
+      .then(res => res.json())
+      .then(res => {
+        if (res.skus) {
+          const result = Object.keys(res.skus).map(key => {
+            return res.skus[key].sku
+          })
+          setSubscriptions(result)
+        }
+      })
   }, [])
 
   return subscriptions ? (
@@ -80,5 +83,4 @@ export const LogIntoAccountEventTag = ({ subscriptionId }) => {
 }
 LogIntoAccountEventTag.propTypes = {
   subscriptionId: PropTypes.string,
-  isSubscriber: PropTypes.bool,
 }
