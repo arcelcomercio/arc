@@ -27,6 +27,7 @@ import {
   publicidadAmp,
   ampHtml,
 } from '../../../utilities/story/helpers-amp'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -201,6 +202,13 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <AmpImage
                       {...element}
+                      url={
+                        getResizedUrl({
+                          url: element.url,
+                          presets: 'large:400x',
+                          arcSite,
+                        }).large || {}
+                      }
                       ImgTag={imgTag}
                       imgClassName={classes.image}
                       layout="responsive"
