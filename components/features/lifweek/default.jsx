@@ -4,18 +4,18 @@ import { useFusionContext } from 'fusion:context'
 import ENV from "fusion:environment";
 
 const classes = {
-    lifweek: 'lifweek-designers',
+    lifweek: 'lifweek-designers p-0 pl-20 pr-20 md:p-0',
     seccion_title: 'lifweek-designers__section-title mb-20 mt-20',
     profile: 'lifweek-designers__profile flex flex-row flex-wrap mb-40',
     profile_image: 'lifweek-designers__profile-image',
-    profile_detail: 'lifweek-designers__profile-detail pl-20',
+    profile_detail: 'lifweek-designers__profile-detail p-0 md:pl-20 mt-30 md:mt-0',
     profile_name: 'lifweek-designers__profile-name mb-15',
     profile_name_blue: 'lifweek-designers__profile-name_blue inline-block mr-5 text-white',
     profile_bio: 'lifweek-designers__profile-bio',
     profile_divider: 'lifweek-designers__profile-divider mt-30 mb-20',
 
     list: 'lifweek-designers__list border-1 border-solid mb-10 pb-20 pt-30 text-center',
-    list_title: 'lifweek-designers__list-title inline-block mb-20 border-b-1 border-solid',
+    list_title: 'lifweek-designers__list-title inline-block mb-20 ml-5 mr-5 md:ml-0 md:mr-0 border-b-1 border-solid',
     list_title_bold: 'lifweek-designers__list-title--bold',
     list_content: 'lifweek-designers__list-content flex flex-row flex-wrap justify-center items-center',
     list_item: 'lifweek-designers__list-item position-relative m-10',

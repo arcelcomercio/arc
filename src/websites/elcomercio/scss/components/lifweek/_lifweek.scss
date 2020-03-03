@@ -1,8 +1,5 @@
 .lifweek-designers {
   font-family: sans-serif;
-  @media (--only-mobile) {
-    padding: 0 20px;
-  }
   &__section-title {
     color: $lifweek-color;
     font-size: 28px;
@@ -10,10 +7,8 @@
   &__profile-detail {
     width: calc(100% - 300px);
     @media (--only-mobile) {
-      padding: 0px;
       text-align: justify;
       width: 100%;
-      margin-top: 30px;
     }
   }
   &__profile-name {
@@ -46,9 +41,6 @@
     font-size: 25px;
     border-color: #7a7a7a;
     padding-bottom: 1px;
-    @media (--only-mobile) {
-      margin: 0 5px
-    }
   }
   &__list-title--bold {
     color: $lifweek-color;
