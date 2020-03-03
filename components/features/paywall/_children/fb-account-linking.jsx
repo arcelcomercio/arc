@@ -17,6 +17,9 @@ const FbEventTag = React.memo(({ event, onBeforeSend = i => i, ...props }) => {
       ...props,
     },
   })
+  if (content && props.debug) {
+    console.log(`SignedUri: ${content.uri}`)
+  }
   if (content) onBeforeSend(content.uri)
   return content && content.uri ? (
     <img src={content.uri} style={{ display: 'none' }} />
@@ -24,6 +27,7 @@ const FbEventTag = React.memo(({ event, onBeforeSend = i => i, ...props }) => {
 })
 
 export const SubscribeEventTag = ({
+  debug,
   subscriptionId,
   offerCode,
   value,
@@ -31,6 +35,7 @@ export const SubscribeEventTag = ({
 }) => {
   return (
     <FbEventTag
+      debug={debug}
       event="Subscribe"
       subscription_id={subscriptionId}
       offer_code={offerCode}
@@ -40,47 +45,33 @@ export const SubscribeEventTag = ({
   )
 }
 SubscribeEventTag.propTypes = {
-  subscriptionId: PropTypes.string,
+  debug: PropTypes.bool,
+  subscriptionId: PropTypes.string.isRequired,
   offerCode: PropTypes.string,
   value: PropTypes.number,
   currency: PropTypes.string,
 }
-export const LogIntoAccountEventTag = ({ subscriptionId }) => {
-  const [subscriptions, setSubscriptions] = React.useState()
+export const LogIntoAccountEventTag = ({ subscriptionId, debug }) => {
   const {
     siteProperties: {
       paywall: { urls },
     },
   } = useFusionContext()
 
-  React.useEffect(() => {
-    const url = interpolateUrl(`${urls.originApi}${urls.arcEntitlements}`)
-    const accessToken = window.Identity.userIdentity.accessToken
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: accessToken,
-      },
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res.skus) {
-          const result = Object.keys(res.skus).map(key => {
-            return res.skus[key].sku
-          })
-          setSubscriptions(result)
-        }
-      })
-  }, [])
+  const url = interpolateUrl(`${urls.originApi}${urls.arcEntitlements}`)
+  const accessToken = window.Identity.userIdentity.accessToken
 
-  return subscriptions ? (
+  return (
     <FbEventTag
+      debug={debug}
       event="LogIntoAccount"
+      accessToken={accessToken}
+      entitlementsUrl={url}
       subscription_id={subscriptionId}
-      is_subscriber={subscriptions.length > 0}
     />
-  ) : null
+  )
 }
 LogIntoAccountEventTag.propTypes = {
-  subscriptionId: PropTypes.string,
+  debug: PropTypes.bool,
+  subscriptionId: PropTypes.string.isRequired,
 }

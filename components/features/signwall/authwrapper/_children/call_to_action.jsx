@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { LogIntoAccountEventTag } from '../../../paywall/_children/fb-signed-pixel'
+import { LogIntoAccountEventTag } from '../../../paywall/_children/fb-account-linking'
 import { MsgRegister } from '../../_children/iconos'
 
 const CallToActionFia = props => {

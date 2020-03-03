@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/alt-text */
-import * as ENV from 'fusion:environment'
+const ENV = require('fusion:environment')
+const request = require('request-promise-native')
 const createHmac = require('create-hmac')
 const uuid = require('uuid')
 
@@ -54,9 +57,38 @@ function generateSignedFbEventUri(pixelId, event, data) {
 
 const fetch = (key = {}) => {
   const site = key['arc-site']
-  const { event, ...data } = key
+  const { debug, accessToken, entitlementsUrl, event, ...data } = key
   const pixelId = ENV[`FB_PIXEL_ID_${site.toUpperCase()}`]
-  return generateSignedFbEventUri(pixelId, event, data)
+  return new Promise((resolve, reject) => {
+    if (entitlementsUrl) {
+      request({
+        uri: entitlementsUrl,
+        headers: {
+          Authorization: accessToken,
+        },
+        json: true, // Automatically parses the JSON string in the response
+      })
+        .then(entitlements => {
+          if (debug)
+            console.log(`Subscriptions: ${JSON.stringify(entitlements.skus)}`)
+          const isSubscriber =
+            Array.isArray(entitlements.skus) && entitlements.skus.length > 0
+          resolve(isSubscriber)
+        })
+        .catch(reject)
+    } else {
+      resolve(undefined)
+    }
+  }).then(isSubscriber => {
+    if (isSubscriber !== undefined) {
+      data.is_subscriber = isSubscriber
+    }
+    if (debug) console.log(`Event: ${event}`)
+    if (debug) console.log(`SignatureParams: ${JSON.stringify(data)}`)
+    const signedRes = generateSignedFbEventUri(pixelId, event, data)
+    if (debug) console.log(`SignatureResponse: ${JSON.stringify(signedRes)}`)
+    return signedRes
+  })
 }
 
 export default { fetch }
