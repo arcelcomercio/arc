@@ -117,22 +117,7 @@ const TvHeader = () => {
         href="https://peru21.pe/"
         className="tv-header__go-portada position-absolute">
         { (isMobile) ? `Perú21 ` : `Portada Perú21 ` }
-        { window.location.host.includes('localhost') ? (
-          <img
-            alt={`Ir a ${arcSite}`}
-            src={`/pf/resources/dist/${arcSite}/images/arrow_forward-24px.svg`}
-          />
-        ) : (
-          <img
-          alt={`Ir a ${arcSite}`}
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/images/arrow_forward-24px.svg`
-            )}
-          />
-        )}
+        <i className="tv-header__go-arrow icon-arrow-r"></i>
         </a>
       </div>
     </header>

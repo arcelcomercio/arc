@@ -20,7 +20,19 @@ export default ({
   siteProperties,
 }) => {
   const [hasFixedSection, changeFixedSection] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  
   useEffect(() => {
+
+    const isDesktop = window.innerWidth >= 1024
+    // No ocultar si es desktop
+    if(arcSite !== 'peru21'){
+      setHidden(false)
+    }else{
+      setHidden(!isDesktop)
+    }
+    
+
     if (window.powaBoot) {
       window.powaBoot()
     }
@@ -114,7 +126,7 @@ export default ({
     deployment,
     isAdmin,
   }
-
+console.log(`variabled00000000000000${hidden}`)
   return (
     <div className="section-video">
       <div className="section-video__box">
@@ -155,16 +167,7 @@ export default ({
             </div>
             <div className="section-video__right">
               <div className="section-video__information">
-                {/* <div className="section-video__breadcrumbs">
-                  <span className="section-video__sub">
-                    <a href="/videos">Video</a>
-                  </span>
-                  <span className="section-video__sub">
-                    <a href={principalVideo.primarySectionLink}>
-                      {principalVideo.primarySection}
-                    </a>
-                  </span>
-                </div> */}
+
                 <div className="section-video__box-section">
                   <a
                     href={principalVideo.primarySectionLink}
@@ -179,14 +182,54 @@ export default ({
                     {principalVideo.title}
                   </a>
                 </h1>
-                <p className="section-video__subtitle">
-                  {principalVideo.subTitle}
-                </p>
+                {(arcSite === 'peru21' &&
+                <div className="section-video__content-share pt-10 pb-20 flex flex-row justify-between border-b-1 border-solid">
+                  <div className="section-video__share">
+                    <button
+                      onClick={() => shareNew('facebook')}
+                      type="button"
+                      className="section-video__btn section-video__btn--facebook">
+                      <span className="icon-facebook" />
+                    </button>
+                    <button
+                      onClick={() => shareNew('twitter')}
+                      type="button"
+                      className="section-video__btn section-video__btn--twitter">
+                      <span className="icon-twitter" />
+                    </button>
+                    <button
+                      onClick={() => shareNew('whatsapp')}
+                      type="button"
+                      className="section-video__btn section-video__btn--whatsapp">
+                      <span className="icon-whatsapp" />
+                    </button>
+                  </div>
+                  {!hidden ? (
+                    <button
+                    type="button"
+                    onClick={() => setHidden(true)} className="section-video__read"> 
+                    Mostrar menos</button>
+                  ) : (
+                    <button
+                    type="button"
+                    onClick={() => setHidden(false)} className="section-video__read"> 
+                    Mostrar más</button>
+                  )}
+                </div>
+                )}
+                {!hidden && (
+                  <p className="section-video__subtitle">
+                    {principalVideo.subTitle}
+                  </p>
+                )
+                }
               </div>
               {principalVideo.captionVideo && (
-                <span className="section-video__caption text-sm text-gray-200">
-                  {principalVideo.captionVideo}
-                </span>
+                !hidden && (
+                  <span className="section-video__caption text-sm text-gray-200">
+                    {principalVideo.captionVideo}
+                  </span>
+                )
               )}
             </div>
           </div>
@@ -195,41 +238,40 @@ export default ({
               <button
                 onClick={() => shareNew('facebook')}
                 type="button"
-                className="section-video__btn">
+                className="section-video__btn section-video__btn--facebook">
                 <span className="icon-facebook" />
               </button>
               <button
                 onClick={() => shareNew('twitter')}
                 type="button"
-                className="section-video__btn">
+                className="section-video__btn section-video__btn--twitter">
                 <span className="icon-twitter" />
               </button>
               <button
-                onClick={() => shareNew('linkedin')}
+                onClick={() => shareNew('whatsapp')}
                 type="button"
-                className="section-video__btn">
-                <span className="icon-linkedin" />
+                className="section-video__btn section-video__btn--whatsapp">
+                <span className="icon-whatsapp" />
               </button>
-              {/* <button type="button" className="section-video__btn">
-                  <span className="icon-share" />
-                </button> */}
             </div>
-            <ul className="section-video__list-text">
-              {principalVideo.author !== '' && (
-                <li className="section-video__text">{principalVideo.author}</li>
-              )}
-              {principalVideo.displayDate !== '' && (
-                <li className="section-video__text">{fecha}</li>
-              )}
-              {!(
-                principalVideo.videoDuration === '00:00' ||
-                principalVideo.videoDuration === '00:00:00'
-              ) && (
-                <li className="section-video__text">
-                  Duración: {principalVideo.videoDuration}
-                </li>
-              )}
-            </ul>
+            {!hidden && (
+              <ul className="section-video__list-text">
+                {principalVideo.author !== '' && (
+                  <li className="section-video__text">{principalVideo.author}</li>
+                )}
+                {principalVideo.displayDate !== '' && (
+                  <li className="section-video__text">{fecha}</li>
+                )}
+                {!(
+                  principalVideo.videoDuration === '00:00' ||
+                  principalVideo.videoDuration === '00:00:00'
+                ) && (
+                  <li className="section-video__text">
+                    Duración: {principalVideo.videoDuration}
+                  </li>
+                )}
+              </ul>
+            )}
           </div>
           <div
             className={

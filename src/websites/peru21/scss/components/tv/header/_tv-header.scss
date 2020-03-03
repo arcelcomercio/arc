@@ -62,12 +62,11 @@
   &__go-portada{
     color: #AAAAAA;
     font: Bold 12px/14px $tertiary-font;
-    padding-top: 2px;
-    top: 18px;
+    top: 24px;
     right: 20px;
-    img{
-      vertical-align: middle;
-    }
+  }
+  &__go-arrow{
+    vertical-align: middle;
   }
 }
 
