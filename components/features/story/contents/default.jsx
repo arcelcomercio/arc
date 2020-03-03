@@ -14,7 +14,6 @@ import {
   replaceTags,
   storyTagsBbc,
   getDateSeo,
-  storyContenImage,
 
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
@@ -228,9 +227,13 @@ class StoryContents extends PureComponent {
                     nameAds,
                   } = element
                   if (type === ConfigParams.ELEMENT_IMAGE) {
+                    const presets = 'landscapeMd:314,storySmall:482,large:980'
+
                     return (
                       <StoryContentsChildImage
-                        {...storyContenImage(element, multimediaLazyDefault)}
+                        {...element}
+                        multimediaLazyDefault={multimediaLazyDefault}
+                        presets={presets}
                       />
                     )
                   }

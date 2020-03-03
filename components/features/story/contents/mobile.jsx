@@ -14,7 +14,6 @@ import {
   replaceTags,
   storyTagsBbc,
   getDateSeo,
-  storyContenImage,
 
   /* replaceHtmlMigracion, */
 } from '../../../utilities/helpers'
@@ -223,7 +222,8 @@ class StoryContents extends PureComponent {
                   if (type === ConfigParams.ELEMENT_IMAGE) {
                     return (
                       <StoryContentsChildImage
-                        {...storyContenImage(element, multimediaLazyDefault)}
+                        {...element}
+                        {...multimediaLazyDefault}
                       />
                     )
                   }
