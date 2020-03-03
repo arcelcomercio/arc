@@ -66,7 +66,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <a
                     href={`${siteUrl}${link}?foto=2`}
                     className={classes.controlRight}>
-                    {``}
+                    {' '}
                   </a>
                 </div>
                 <div className="legend">

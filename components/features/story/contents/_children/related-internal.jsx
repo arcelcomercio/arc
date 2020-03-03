@@ -1,8 +1,6 @@
 import React from 'react'
-// import StoryData from '../../../../utilities/story-data'
-import { getIcon } from '../../../../utilities/helpers'
-import ConfigParams from '../../../../utilities/config-params'
-import DataStory from '../../../../utilities/story-data'
+import { IMAGE } from '../../../../utilities/constants/multimedia-types'
+import StoryData from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
@@ -18,15 +16,27 @@ const classes = {
   titleLink: 'related-internal__title-link',
 }
 
-const RelartedItem = ({ data, imageDefault } /* , i */) => {
+// Funcion extraida de helpers
+const getIcon = type => {
+  switch (type) {
+    case 'basic_gallery':
+      return 'img'
+    case 'basic_video':
+      return 'video'
+    default:
+      return ''
+  }
+}
+
+const RelatedItem = ({ data, imageDefault } /* , i */) => {
   const {
     title,
-    link,
+    websiteLink,
     multimediaType,
     multimediaLandscapeMD,
     authorLink,
     author,
-  } = new DataStory({
+  } = new StoryData({
     data,
   })
 
@@ -36,21 +46,21 @@ const RelartedItem = ({ data, imageDefault } /* , i */) => {
         <div className={classes.title}>Siga Leyendo </div>
         <div className={`${classes.info}`}>
           <h2 className={classes.titleLink}>
-            <a href={link}>{title}</a>
+            <a href={websiteLink}>{title}</a>
           </h2>
           <a className={classes.linkAuthor} href={authorLink}>
             {author}
           </a>
         </div>
         <figure className={classes.multimedia}>
-          <a href={link}>
+          <a href={websiteLink}>
             <img
               src={imageDefault}
               data-src={multimediaLandscapeMD}
               alt={title}
               className={classes.image}
             />
-            {multimediaType === ConfigParams.IMAGE || multimediaType === '' ? (
+            {multimediaType === IMAGE || multimediaType === '' ? (
               ''
             ) : (
               <span
@@ -71,7 +81,7 @@ const StoryContentChildRelatedInternal = ({ stories, id, imageDefault }) => {
     <>
       {stories.map((item, index) =>
         item._id === id ? (
-          <RelartedItem
+          <RelatedItem
             key={keyinternal.concat(item._id).concat(index)}
             data={item}
             imageDefault={imageDefault}

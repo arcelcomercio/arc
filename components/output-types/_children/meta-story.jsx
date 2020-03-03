@@ -92,7 +92,7 @@ export default ({
             embedUrlFacebook}" }`
         : ''
     })
-    .filter(redSocialVideo => redSocialVideo !== '')
+    .filter(video => video !== '')
 
   let resultRelated = ''
 

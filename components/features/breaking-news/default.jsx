@@ -1,10 +1,23 @@
 /* eslint-disable react/no-unused-state */
-import React, { useState } from 'react'
+import React from 'react'
 import { useContent, useEditableContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
+
+const classes = {
+  breakingnews: `breaking-news secondary-font flex justify-between mt-20 md:mt-0 pt-15 pb-15 pl-20 pr-20 text-white`,
+  close: 'breaking-news__btn-close text-right text-white',
+  icon: 'breaking-news__btn-icon icon-close-circle title-sm text-white',
+  text: 'breaking-news__text m-0 title-xs line-h-xs items-center',
+  tag: 'breaking-news__tag uppercase mr-5 font-bold',
+  link: 'breaking-news__link mr-5 text-white font-bold',
+}
+
+const handleClose = `(setTimeout(document.getElementById('close-breaking-news').addEventListener('click', function(e){
+  document.getElementById('breaking-news').remove()
+})), 0)()`
 
 const BreakingNews = props => {
   const {
@@ -20,7 +33,6 @@ const BreakingNews = props => {
 
   const { arcSite } = useFusionContext()
   const { editableField } = useEditableContent()
-  const [isVisible, setIsVisible] = useState(true)
 
   const article = useContent(
     storyLink
@@ -37,10 +49,6 @@ const BreakingNews = props => {
       : {}
   )
 
-  const handleOnclickClose = () => {
-    setIsVisible(false)
-  }
-
   const objContent = {
     title: title || (article && article.headlines && article.headlines.basic),
     subTitle:
@@ -53,18 +61,21 @@ const BreakingNews = props => {
     <>
       {showBreakingNews && (
         <div
-          className={`${isVisible ? '' : 'hidden'}
-          ${backgroundColor} breaking-news secondary-font flex justify-between mt-20 md:mt-0 pt-15 pb-15 pl-20 pr-20 text-white`}>
-          <h2 className="breaking-news__text m-0 title-xs line-h-xs items-center">
+          id="breaking-news"
+          className={`
+          ${backgroundColor} 
+          ${classes.breakingnews}
+          `}>
+          <h2 className={classes.text}>
             <span
-              className="breaking-news__tag uppercase mr-5 font-bold"
+              className={classes.tag}
               {...editableField('tags')}
               suppressContentEditableWarning>
               {tags}
             </span>
             <span>
               <a
-                className="breaking-news__link mr-5 text-white font-bold"
+                className={classes.link}
                 href={objContent.link}
                 rel="noopener noreferrer"
                 {...editableField('title')}
@@ -74,15 +85,15 @@ const BreakingNews = props => {
             </span>
           </h2>
           <button
+            id="close-breaking-news"
             type="button"
-            className="breaking-news__btn-close text-right text-white"
-            onClick={handleOnclickClose}
-            onKeyPress={handleOnclickClose}
+            className={classes.close}
             tabIndex={0}>
-            <i className="breaking-news__btn-icon icon-close-circle title-sm text-white" />
+            <i className={classes.icon} />
           </button>
         </div>
       )}
+      <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
     </>
   )
 }
@@ -92,5 +103,6 @@ BreakingNews.propTypes = {
 }
 
 BreakingNews.label = 'Cintillo Urgente'
+BreakingNews.static = true
 
 export default BreakingNews

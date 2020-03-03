@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useEffect, memo } from 'react'
 // import { searchQuery } from '../utilities/helpers'
 import Button from './button'
