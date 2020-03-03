@@ -99,4 +99,5 @@ LiveScoreMinuteToMinute.propTypes = {
   customFields,
 }
 
+LiveScoreMinuteToMinute.static = true
 export default LiveScoreMinuteToMinute
