@@ -291,14 +291,17 @@ class StoryContents extends PureComponent {
                                 timezone: 'America/Lima'
                             };`,
                             }}></script>
-                          <script src={OPTA_JS_LINK} defer></script>
                           <StoryContentChildRawHTML content={content} />
                           <script
                             dangerouslySetInnerHTML={{
                               __html: `(function(){setTimeout(function(){
-                              var n = document.createElement('link')
-                              n.rel = 'stylesheet'
-                              n.href = '${OPTA_CSS_LINK}'
+                              var n=document.createElement('link')
+                              n.rel='stylesheet'
+                              n.href='${OPTA_CSS_LINK}'
+                              var s=document.createElement('script')
+                              s.src='${OPTA_JS_LINK}'
+                              s.defer=true
+                              document.head.append(s)
                               document.head.append(n)
                             }, 0)})()`,
                             }}
