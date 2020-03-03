@@ -11,6 +11,7 @@ import StoryData from '../../../utilities/story-data'
 import LiveStreaming from './_children/streaming-live'
 import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/constants'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 const PHOTO_SOURCE = 'photo-resizer'
 
@@ -161,13 +162,14 @@ const FeaturedStoryPremium = props => {
     return arrError
   }
 
-  const presets =
-    'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,'
+  const presets = isAdmin
+    ? 'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374'
+    : 'no-presets'
   const includedFields = featuredStoryPremiumFields
 
   const customPhoto =
     useContent(
-      imgField
+      imgField && isAdmin
         ? {
             source: PHOTO_SOURCE,
             query: {
@@ -211,6 +213,7 @@ const FeaturedStoryPremium = props => {
     primarySection,
     multimediaSubtitle,
     multimediaCaption,
+    multimedia,
   } = new StoryData({
     data,
     arcSite,
@@ -229,6 +232,63 @@ const FeaturedStoryPremium = props => {
     } = {},
   } = customPhoto || {}
 
+  const getImageUrls = () => {
+    const {
+      square_md: localSquareMDCustom,
+      square_xl: localSquareXLCustom,
+      landscape_l: localLandscapeLCustom,
+      landscape_md: localLandscapeMDCustom,
+      portrait_md: localPortraitMDCustom,
+    } = imgField
+      ? getResizedUrl({
+          url: imgField,
+          presets:
+            'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374',
+          arcSite,
+        }) || {}
+      : {}
+
+    const {
+      square_md: localMultimediaSquareMD,
+      square_xl: localMultimediaSquareXL,
+      landscape_l: localMultimediaLandscapeL,
+      landscape_md: localMultimediaLandscapeMD,
+      portrait_md: localMultimediaPortraitMD,
+    } =
+      getResizedUrl({
+        url: multimedia,
+        presets:
+          'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374',
+        arcSite,
+      }) || {}
+
+    return {
+      multimediaSquareMD:
+        localSquareMDCustom || imgField || localMultimediaSquareMD,
+      multimediaSquareXL:
+        localSquareXLCustom || imgField || localMultimediaSquareXL,
+      multimediaLandscapeL:
+        localLandscapeLCustom || imgField || localMultimediaLandscapeL,
+      multimediaLandscapeMD:
+        localLandscapeMDCustom || imgField || localMultimediaLandscapeMD,
+      multimediaPortraitMD:
+        localPortraitMDCustom || imgField || localMultimediaPortraitMD,
+    }
+  }
+
+  const imageUrls = isAdmin
+    ? {
+        multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
+        multimediaSquareXL: squareXLCustom || imgField || multimediaSquareXL,
+        multimediaLandscapeMD:
+          landscapeMDCustom || imgField || multimediaLandscapeMD,
+        multimediaLandscapeL:
+          landscapeLCustom || imgField || multimediaLandscapeL,
+        multimediaPortraitMD:
+          portraitMDCustom || imgField || multimediaPortraitMD,
+      }
+    : getImageUrls()
+
   const params = {
     arcSite,
     isPremium,
@@ -236,12 +296,7 @@ const FeaturedStoryPremium = props => {
     imgType,
     bgColor,
     websiteLink,
-    multimediaSquareMD: squareMDCustom || imgField || multimediaSquareMD,
-    multimediaSquareXL: squareXLCustom || imgField || multimediaSquareXL,
-    multimediaLandscapeMD:
-      landscapeMDCustom || imgField || multimediaLandscapeMD,
-    multimediaLandscapeL: landscapeLCustom || imgField || multimediaLandscapeL,
-    multimediaPortraitMD: portraitMDCustom || imgField || multimediaPortraitMD,
+    ...imageUrls,
     multimediaLazyDefault,
     title,
     subTitle,

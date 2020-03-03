@@ -3,6 +3,7 @@ import { getIcon } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import ConfigParams from '../../../../utilities/config-params'
 import DataStory from '../../../../utilities/story-data'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 // Basic flex stuff
 const classes = {
@@ -33,16 +34,22 @@ const RenderRelatedContentElement = (props, i) => {
     nameTitle: get.title,
     urlTitle: get.link,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimediaLandscapeMD,
+    multimediaImg:
+      typeof window === 'undefined'
+        ? getResizedUrl({
+            url: get.multimediaLandscapeMD,
+            presets: 'landscape_md:314x157',
+            arcSite,
+          }).landscape_md || {}
+        : '',
     lazyImage: get.multimediaLazyDefault,
   }
+
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>
         <h2 className={classes.itemTitle}>
-          <a
-            href={filterData.urlTitle}
-            className={classes.itemTitleLink}>
+          <a href={filterData.urlTitle} className={classes.itemTitleLink}>
             {filterData.nameTitle}
           </a>
         </h2>
@@ -51,9 +58,7 @@ const RenderRelatedContentElement = (props, i) => {
         </a>
       </div>
       <figure className={classes.multimedia}>
-        <a
-          href={filterData.urlTitle}
-          className={classes.link}>
+        <a href={filterData.urlTitle} className={classes.link}>
           {isAmp ? (
             <amp-img
               // TODO: En amp se puede usar lazyload para las imagenes?
@@ -69,7 +74,7 @@ const RenderRelatedContentElement = (props, i) => {
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               src={isAdmin ? filterData.multimediaImg : filterData.lazyImage}
               data-src={filterData.multimediaImg}
-              alt={filterData.nameTitle}              
+              alt={filterData.nameTitle}
             />
           )}
 
