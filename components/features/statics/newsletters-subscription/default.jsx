@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useFusionContext } from 'fusion:context'
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
+import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import SubscriptionTitle from './_children/title'
-import SubscriptionItem from './_children/item'
+import Checkbox from './_children/item'
+import Loading from '../../signwall/_children/loading'
 import Services from '../../signwall/_dependencies/services'
 import Domains from '../../signwall/_dependencies/domains'
-import { Generic } from '../../signwall/main/_main/generic'
-import Loading from '../../signwall/_children/loading'
+import SubscriptionTitle from './_children/title'
 
 const classes = {
   container:
@@ -14,181 +15,162 @@ const classes = {
   list: 'newsletters-subscription__list grid w-full m-0 mx-auto',
 }
 
-const Newsletters = props => {
-  const { dispatchEvent, addEventListener, removeEventListener } = props
-  const { arcSite } = useFusionContext()
-
-  const [typeNewsletters, setTypeNewsletters] = useState([])
-  const [categories, setCategories] = useState([])
-  const [codeNewsletter, setCodeNewsletter] = useState('')
-  const [showSignwall, setShowSignwall] = useState(false)
-  const [showLoading, setShowLoading] = useState(true)
-
-  const isFetching = false
-  let newSetCategories
-  let timeout
-
-  let UUID = window.Identity.userIdentity
-    ? window.Identity.userIdentity.uuid
-    : ''
-  let EMAIL = window.Identity.userProfile
-    ? window.Identity.userProfile.email
-    : ''
-
-  const addOrRemoveNewslettersType = (
-    code,
-    categoriesNews,
-    fromLoggued = false
-  ) => {
-    const data = categoriesNews
-    if (!data.includes(code)) {
-      data.push(code)
-    } else if (!fromLoggued) {
-      data.splice(data.indexOf(code), 1)
-    }
-    return data || []
+@Consumer
+class NewslettersSubscription extends Component {
+  state = {
+    newsletters: [],
+    checksNews: {},
+    loading: true,
+    disabled: true,
+    showsuccess: false,
+    textSave: 'GUARDAR',
+    categories: null,
+    selectCategories: new Set(),
+    isFetching: false,
   }
 
-  const subscribe = (code, categoriesNews, fromLoggued = false) => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.extendSession().then(extSess => {
-      Services.sendNewsLettersUser(
-        UUID,
-        EMAIL,
-        arcSite,
-        extSess.accessToken,
-        addOrRemoveNewslettersType(code, categoriesNews, fromLoggued)
-      ).then(res => {
-        if (newSetCategories) {
-          newSetCategories = null
-          subscribe(code, categoriesNews)
+  newSetCategories
+
+  timeout
+
+  componentDidMount() {
+    const { selectCategories } = this.state
+    const { arcSite } = this.props
+
+    const UUID = window.Identity.userIdentity.uuid
+    const SITE = arcSite
+
+    const listAllNews = { ...[] }
+
+    Services.getNewsLetters().then(resNews => {
+      resNews[SITE].map(item => {
+        listAllNews[item.code] = false
+        return null
+      })
+
+      this.setState({
+        newsletters: resNews[SITE] || [],
+        checksNews: listAllNews,
+      })
+
+      Services.getNewsLettersUser(UUID, SITE).then(res => {
+        if (res.data.length >= 1) {
+          res.data.map(item => {
+            this.setState(prevState => ({
+              checksNews: {
+                ...prevState.checksNews,
+                [item]: true,
+              },
+              loading: false,
+            }))
+            selectCategories.add(item)
+            return null
+          })
         }
-        setCategories(res.data.preferences || [])
-        setCodeNewsletter('')
+        this.setState({
+          loading: false,
+        })
       })
     })
   }
 
-  const debounce = (codex, categoriesx) => {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => {
+  setPreference = () => {
+    const { arcSite } = this.props
+    const { selectCategories } = this.state
+    const UUID = window.Identity.userIdentity.uuid
+    const EMAIL = window.Identity.userProfile.email
+
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.extendSession().then(extSess => {
+      Services.sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
+        ...selectCategories,
+      ])
+        .then(() => {
+          if (this.newSetCategories) {
+            this.newSetCategories = null
+            this.setPreference()
+          }
+          const modalConfirmPass = document.getElementById('profile-signwall')
+          setTimeout(() => {
+            if (modalConfirmPass) {
+              modalConfirmPass.parentNode.scrollTop = modalConfirmPass.offsetTop
+            }
+          }, 500)
+          this.setState({ showsuccess: true })
+          setTimeout(() => {
+            this.setState({ showsuccess: false })
+          }, 3000)
+        })
+        .catch(e => {
+          window.console.error(e)
+        })
+    })
+  }
+
+  debounce = () => {
+    const { isFetching } = this.state
+    clearTimeout(this.timeout)
+    this.timeout = setTimeout(() => {
       if (!isFetching) {
-        subscribe(codex, categoriesx)
+        this.setPreference()
       } else {
-        newSetCategories = true
+        this.newSetCategories = true
       }
     }, 1000)
   }
 
-  useEffect(() => {
-    Services.getNewsLetters().then(res => {
-      setTypeNewsletters(res[arcSite])
-    })
+  handleCheckbox(e, name) {
+    const newState = { ...this.state }
+    newState.checksNews[name] = e.target.checked
+    this.setState(newState)
+    this.setState({ disabled: false, showsuccess: false })
 
-    Services.getNewsLettersUser(UUID, arcSite).then(res => {
-      setCategories(res.data)
-      setShowLoading(false)
-    })
-  }, [])
-
-  const afterLoggued = () => {
-    setShowLoading(true)
-    window.scrollTo(0, 100)
-    setTimeout(() => {
-      window.scrollTo(0, 0)
-      UUID =
-        (window.Identity.userIdentity && window.Identity.userIdentity.uuid) ||
-        ''
-      EMAIL =
-        (window.Identity.userProfile && window.Identity.userProfile.email) || ''
-
-      Services.getNewsLettersUser(UUID, arcSite).then(res => {
-        setCategories(res.data)
-        subscribe(codeNewsletter, res.data, true)
-        setShowLoading(false)
-      })
-    }, 2000)
-  }
-
-  useEffect(() => {
-    addEventListener('logged', afterLoggued)
-    return () => {
-      removeEventListener('logged', afterLoggued)
-    }
-  }, [afterLoggued])
-
-  const checkSession = () => {
-    if (typeof window !== 'undefined') {
-      const profileStorage =
-        window.localStorage.getItem('ArcId.USER_PROFILE') ||
-        window.sessionStorage.getItem('ArcId.USER_PROFILE')
-      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-      if (profileStorage) {
-        return !(profileStorage === 'null' || sesionStorage === '{}') || false
-      }
-    }
-    return false
-  }
-
-  const subscribeOnclickHandle = code => {
-    setCodeNewsletter(code)
-    if (checkSession()) {
-      // subscribe(code, categories)
-      debounce(code, categories)
+    const { selectCategories } = this.state
+    if (e.target.checked) {
+      selectCategories.add(e.target.value)
     } else {
-      setShowSignwall(!showSignwall)
+      selectCategories.delete(e.target.value)
     }
+    this.debounce([...selectCategories])
   }
 
-  return (
-    <>
+  render() {
+    const { newsletters, loading, checksNews, showsuccess } = this.state
+
+    const { arcSite } = this.props
+
+    return (
       <div className={classes.container}>
         <SubscriptionTitle />
-        {showLoading ? (
+
+        {showsuccess && (
+          <div className="msg-success">
+            <span>&#10003;</span>OPCIONES ACTUALIZADAS
+          </div>
+        )}
+
+        {loading ? (
           <Loading arcSite={arcSite} typeBg="wait" />
         ) : (
           <div role="list" className={classes.list}>
-            {typeNewsletters.map(item => {
-              const data = {
-                ...item,
-                isSubscribed: categories.includes(item.code),
-                callbackSubscription: subscribeOnclickHandle,
-              }
-              return <SubscriptionItem key={item.code} {...data} />
-            })}
+            {newsletters.map(item => (
+              <label className="item" key={item.code}>
+                <Checkbox
+                  image={item.image}
+                  name={item.name}
+                  description={item.description}
+                  site={arcSite}
+                  checked={checksNews[item.code]}
+                  onChange={e => this.handleCheckbox(e, item.code)}
+                  value={item.code}
+                />
+              </label>
+            ))}
           </div>
         )}
       </div>
-
-      {showSignwall && (
-        <Generic
-          onClose={() => setShowSignwall(!showSignwall)}
-          arcSite={arcSite}
-          typeDialog="newsletter"
-          onLogged={() => {
-            dispatchEvent('logged')
-          }}
-        />
-      )}
-    </>
-  )
-}
-
-@Consumer
-class NewslettersSubscription extends React.Component {
-  render() {
-    return (
-      <Newsletters
-        {...this.props}
-        dispatchEvent={this.dispatchEvent}
-        addEventListener={this.addEventListener}
-        removeEventListener={this.removeEventListener}
-      />
     )
   }
 }
-
-NewslettersSubscription.label = 'Newsletter Suscripción - Página'
-// NewsletterSubscription.static = true
 
 export default NewslettersSubscription
