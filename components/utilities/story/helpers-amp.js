@@ -16,7 +16,6 @@ export const formatDateStoryAmp = date => {
 
 export const publicidadAmp = ({
   dataSlot,
-  placementId,
   width,
   height,
   primarySectionLink = '/peru',
@@ -38,9 +37,7 @@ export const publicidadAmp = ({
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript} 
-  rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}' ${json}></amp-ad>`
+  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
