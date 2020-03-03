@@ -6,8 +6,12 @@ const params = [
   },
 ]
 const resolve = (key = {}) => {
-  console.log('AQUI!!!!!', key)
-  return `http://devresultadosopta.elcomercio.pe/api/v2/match/?format=json&uuid=e3tz6ya6vdcivtg04yvw3kpre`
+  let urlResult = ''
+  if (key && key.idLeague && key.idLeague !== '') {
+    urlResult = `http://devresultadosopta.elcomercio.pe/api/v2/match/?format=json&uuid=e3tz6ya6vdcivtg04yvw3kpre`
+  }
+
+  return urlResult
 }
 
 const transform = () => {
