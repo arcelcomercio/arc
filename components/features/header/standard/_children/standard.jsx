@@ -21,10 +21,7 @@ const HeaderChildStandard = props => {
 
   return (
     <>
-      <header
-        className={`header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex position-relative ${getResponsiveClasses(
-          deviceList
-        )}`}>
+      <header className="header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex position-relative">
         <a href={logo.link}>
           <img src={logo.src} alt={logo.alt} className="header__logo" />
         </a>
