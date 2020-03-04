@@ -36,12 +36,13 @@ const ItemTeamResult = ({
   return (
     <div className={classes.itemTeamResult}>
       <div className={classes.itemName}>{homeTeamShortName}</div>
-      <div className={classes.itemFigure} />
-      <img
-        src={homeTeamFlag}
-        alt="{homeTeamFlag}"
-        className={classes.itemImg}
-      />
+      <div className={classes.itemFigure}>
+        <img
+          src={homeTeamFlag}
+          alt="{homeTeamFlag}"
+          className={classes.itemImg}
+        />
+      </div>
 
       <div className={classes.itemScore}>
         <div className={classes.itemScoreBox}>

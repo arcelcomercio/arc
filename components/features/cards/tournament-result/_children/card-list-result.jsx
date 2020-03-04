@@ -12,8 +12,8 @@ const classes = {
     'tournament-result__card-sponsor flex items-center justify-between mb-15',
   tournamentSponsorText:
     'tournament-result__card-text text-black secondary-font',
-  tournamentCardFigure:
-    'tournament-result__card-patron text-black mb-20 flex justify-between secondary-font',
+  tournamentCardFigure: 'tournament-result__card-figure h-full',
+  tournamentCardImg: 'tournament-result__card-img w-full h-full object-cover',
 }
 const CardListResult = ({
   firstCard = true,
@@ -34,7 +34,7 @@ const CardListResult = ({
 
           {/* imagen para la publicdad */}
           <figure className={classes.tournamentCardFigure}>
-            <img src="" alt="" />
+            <img src="" alt="" className={classes.tournamentCardImg} />
           </figure>
         </div>
       )}

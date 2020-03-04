@@ -30,6 +30,9 @@
     &-sponsor {
       height: 20px;
     }
+    &-figure {
+      width: 60%;
+    }
   }
   &__item {
     max-width: 350px;
@@ -45,7 +48,6 @@
   &__figure {
     width: 30px;
     height: 30px;
-    background-color: red;
   }
   &__score {
     width: 50px;
