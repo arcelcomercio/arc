@@ -301,6 +301,7 @@ class StoryContents extends PureComponent {
                               var s=document.createElement('script')
                               s.src='${OPTA_JS_LINK}'
                               s.defer=true
+                              s.type='text/javascript'
                               document.head.append(s)
                               document.head.append(n)
                             }, 0)})()`,
