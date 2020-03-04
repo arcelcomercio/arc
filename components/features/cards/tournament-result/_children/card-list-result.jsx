@@ -7,9 +7,11 @@ const classes = {
   tournamentCard:
     'tournament-result__card bg-white p-20 border-solid mb-20 lg:mb-0 overflow-y-auto',
   tournamentCardLig:
-    'tournament-result__card-league font-bold text-black mb-20',
+    'tournament-result__card-league font-bold text-black mb-15',
   tournamentCardSponsor:
-    'tournament-result__card-sponsor text-black mb-20 flex justify-between secondary-font',
+    'tournament-result__card-sponsor flex items-center justify-between mb-15',
+  tournamentSponsorText:
+    'tournament-result__card-text text-black secondary-font',
   tournamentCardFigure:
     'tournament-result__card-patron text-black mb-20 flex justify-between secondary-font',
 }
@@ -28,7 +30,7 @@ const CardListResult = ({
         </div>
       ) : (
         <div className={classes.tournamentCardSponsor}>
-          {sponsorName}
+          <p className={classes.tournamentSponsorText}>{sponsorName}</p>
 
           {/* imagen para la publicdad */}
           <figure className={classes.tournamentCardFigure}>

@@ -4,7 +4,7 @@ import { PLAYING, PLAYED } from '../../../../utilities/constants'
 
 const classes = {
   itemTeamResult:
-    'tournament-result__item flex items-center justify-between mb-20 w-full mx-auto',
+    'tournament-result__item flex items-center justify-between mb-25 w-full mx-auto',
   itemName: 'tournament-result__name secondary-font text-black',
   itemDetails: 'tournament-result__details flex items-center',
   itemFigure: 'tournament-result__figure',
@@ -37,7 +37,7 @@ const ItemTeamResult = ({
     <div className={classes.itemTeamResult}>
       <div className={classes.itemName}>{homeTeamShortName}</div>
       <div className={classes.itemFigure} />
-      {/* <img src="" alt="{homeTeamFlag}" className={classes.itemImg} /> */}
+      {/*  <img src="" alt="{homeTeamFlag}" className={classes.itemImg} /> */}
 
       <div className={classes.itemScore}>
         <div className={classes.itemScoreBox}>
