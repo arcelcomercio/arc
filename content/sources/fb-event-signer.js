@@ -87,6 +87,9 @@ const fetch = (key = {}) => {
     if (debug) console.log(`Event: ${event}`)
     if (debug) console.log(`SignatureParams: ${JSON.stringify(data)}`)
     const signedRes = generateSignedFbEventUri(fbPixelId, event, data)
+    if (isSubscriber !== undefined) {
+      signedRes.isSubscriber = isSubscriber
+    }
     if (debug) console.log(`SignatureResponse: ${JSON.stringify(signedRes)}`)
     return signedRes
   })

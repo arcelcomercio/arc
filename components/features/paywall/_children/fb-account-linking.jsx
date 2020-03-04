@@ -20,7 +20,7 @@ const FbEventTag = React.memo(({ event, onBeforeSend = i => i, ...props }) => {
   if (content && props.debug) {
     console.log(`SignedUri: ${content.uri}`)
   }
-  if (content) onBeforeSend(content.uri)
+  if (content) onBeforeSend(content)
   return content && content.uri ? (
     <img src={content.uri} style={{ display: 'none' }} />
   ) : null
@@ -28,6 +28,7 @@ const FbEventTag = React.memo(({ event, onBeforeSend = i => i, ...props }) => {
 
 export const SubscribeEventTag = ({
   debug,
+  onBeforeSend,
   subscriptionId,
   offerCode,
   value,
@@ -36,6 +37,7 @@ export const SubscribeEventTag = ({
   return (
     <FbEventTag
       debug={debug}
+      onBeforeSend={onBeforeSend}
       event="Subscribe"
       subscription_id={subscriptionId}
       offer_code={offerCode}
@@ -51,7 +53,11 @@ SubscribeEventTag.propTypes = {
   value: PropTypes.number,
   currency: PropTypes.string,
 }
-export const LogIntoAccountEventTag = ({ subscriptionId, debug }) => {
+export const LogIntoAccountEventTag = ({
+  subscriptionId,
+  debug,
+  onBeforeSend,
+}) => {
   const {
     siteProperties: {
       paywall: { urls },
@@ -64,6 +70,7 @@ export const LogIntoAccountEventTag = ({ subscriptionId, debug }) => {
   return (
     <FbEventTag
       debug={debug}
+      onBeforeSend={onBeforeSend}
       event="LogIntoAccount"
       accessToken={accessToken}
       entitlementsUrl={url}
