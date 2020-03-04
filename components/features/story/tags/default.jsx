@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
 
-import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
@@ -15,12 +14,8 @@ const classes = {
 }
 
 const StoryTags = () => {
-  const { contextPath, globalContent: data, isAmp } = useFusionContext()
-
-  const { tags } = new StoryData({
-    data,
-    contextPath,
-  })
+  const { globalContent, isAmp } = useFusionContext()
+  const { taxonomy: { tags = [] } = {} } = globalContent || {}
 
   return (
     tags.length > 0 && (

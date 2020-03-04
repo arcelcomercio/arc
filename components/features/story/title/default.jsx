@@ -4,20 +4,20 @@ import { useFusionContext } from 'fusion:context'
 
 import StoryTitleChildHeading from './_children/heading'
 import StoryTitleChildShareSubheading from './_children/subheading'
-import StoryData from '../../../utilities/story-data'
 
 const classes = {
   story: 'story-header__header-title w-full text-white ',
 }
 
 const StoryTitle = () => {
-  const { contextPath, globalContent: data, arcSite } = useFusionContext()
-
-  const { title, subTitle, primarySectionLink, isPremium } = new StoryData({
-    data,
-    contextPath,
-  })
-
+  const { globalContent, arcSite } = useFusionContext()
+  const {
+    headlines: { basic: title = '' } = {},
+    subheadlines: { basic: subTitle = '' } = {},
+    content_restrictions: { content_code: ContentCode = '' } = {},
+    taxonomy: { primary_section: { path: primarySectionLink = '' } = {} } = {},
+  } = globalContent || {}
+  const isPremium = ContentCode === 'premium'
   const parameters = { title, subTitle, isPremium, arcSite }
 
   return (

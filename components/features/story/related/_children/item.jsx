@@ -1,8 +1,9 @@
 import React from 'react'
-import { getIcon } from '../../../../utilities/helpers'
+
 import UtilListKey from '../../../../utilities/list-keys'
-import ConfigParams from '../../../../utilities/config-params'
-import DataStory from '../../../../utilities/story-data'
+import { IMAGE } from '../../../../utilities/constants/multimedia-types'
+import { getResizedUrl } from '../../../../utilities/resizer'
+import StoryData from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
@@ -19,10 +20,21 @@ const classes = {
   author: 'related-content__author uppercase text-gray-200',
 }
 
+const getIcon = type => {
+  switch (type) {
+    case 'basic_gallery':
+      return 'img'
+    case 'basic_video':
+      return 'video'
+    default:
+      return ''
+  }
+}
+
 const RenderRelatedContentElement = (props, i) => {
   const { deployment, contextPath, arcSite, isAdmin, isAmp = '' } = props
 
-  const get = new DataStory({
+  const get = new StoryData({
     data: props,
     contextPath,
     deployment,
@@ -31,18 +43,24 @@ const RenderRelatedContentElement = (props, i) => {
   })
   const filterData = {
     nameTitle: get.title,
-    urlTitle: get.link,
+    urlTitle: get.websiteLink,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimediaLandscapeMD,
+    multimediaImg:
+      typeof window === 'undefined'
+        ? getResizedUrl({
+            url: get.multimediaLandscapeMD,
+            presets: 'landscape_md:314x157',
+            arcSite,
+          }).landscape_md || {}
+        : '',
     lazyImage: get.multimediaLazyDefault,
   }
+
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>
         <h2 className={classes.itemTitle}>
-          <a
-            href={filterData.urlTitle}
-            className={classes.itemTitleLink}>
+          <a href={filterData.urlTitle} className={classes.itemTitleLink}>
             {filterData.nameTitle}
           </a>
         </h2>
@@ -51,9 +69,7 @@ const RenderRelatedContentElement = (props, i) => {
         </a>
       </div>
       <figure className={classes.multimedia}>
-        <a
-          href={filterData.urlTitle}
-          className={classes.link}>
+        <a href={filterData.urlTitle} className={classes.link}>
           {isAmp ? (
             <amp-img
               // TODO: En amp se puede usar lazyload para las imagenes?
@@ -69,11 +85,11 @@ const RenderRelatedContentElement = (props, i) => {
               className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
               src={isAdmin ? filterData.multimediaImg : filterData.lazyImage}
               data-src={filterData.multimediaImg}
-              alt={filterData.nameTitle}              
+              alt={filterData.nameTitle}
             />
           )}
 
-          {filterData.multimediaType === ConfigParams.IMAGE ||
+          {filterData.multimediaType === IMAGE ||
           filterData.multimediaType === '' ? (
             ''
           ) : (

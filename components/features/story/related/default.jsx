@@ -2,9 +2,7 @@ import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
 
-import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../utilities/config-params'
-import { getRelatedIds } from '../../../utilities/helpers'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import StoryContentChildRelated from './_children/item'
 
 const classes = {
@@ -16,20 +14,33 @@ const classes = {
   alignmentClasses: 'story-content__alignment',
 }
 
+const getRelatedIds = data => {
+  return (
+    data &&
+    data.map(({ _id }) => {
+      return _id
+    })
+  )
+}
+
 const StoryRelated = () => {
   const {
     contextPath,
-    globalContent: data,
+    globalContent,
     arcSite,
     deployment,
     isAdmin,
     siteProperties: { nameStoryRelated },
   } = useFusionContext()
 
-  const { relatedContent, relatedInternal } = new StoryData({
-    data,
-    contextPath,
-  })
+  const {
+    related_content: { basic: relatedContent = [] } = {},
+    content_elements: contentElements = [],
+  } = globalContent || {}
+
+  const relatedInternal =
+    contentElements.length > 0 &&
+    contentElements.filter(item => item.type === 'story')
 
   return (
     <>
@@ -39,7 +50,7 @@ const StoryRelated = () => {
           {relatedContent.map((item, i) => {
             const { type, _id: id } = item
             const key = `related-content-${i}`
-            return type === ConfigParams.ELEMENT_STORY &&
+            return type === ELEMENT_STORY &&
               getRelatedIds(relatedInternal).indexOf(id) ? (
               <StoryContentChildRelated
                 key={key}

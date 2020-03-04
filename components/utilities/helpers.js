@@ -1,5 +1,5 @@
-import ConfigParams from './config-params'
-import { getAssetsPath } from './constants'
+import { SITE_ELCOMERCIO } from './constants/sitenames'
+import { VIDEO, GALLERY, getAssetsPath } from './constants'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -468,10 +468,10 @@ export const getUrlParameter = () => {
 export const getMultimediaIcon = multimediaType => {
   let icon = ''
   switch (multimediaType) {
-    case ConfigParams.VIDEO:
+    case VIDEO:
       icon = 'icon-video'
       break
-    case ConfigParams.GALLERY:
+    case GALLERY:
       icon = 'icon-img'
       break
     default:
@@ -582,6 +582,7 @@ export function parseQueryString(str) {
   for (let i = 0; i < sLength; i++) {
     bit = s[i].split('=')
     first = decodeURIComponent(bit[0])
+    // eslint-disable-next-line no-continue
     if (first.length === 0) continue
     second = decodeURIComponent(bit[1])
     if (typeof query[first] === 'undefined') query[first] = second
@@ -594,10 +595,10 @@ export function parseQueryString(str) {
 export const getMultimedia = (multimediaType, amp = false) => {
   let type = ''
   switch (multimediaType) {
-    case ConfigParams.VIDEO:
+    case VIDEO:
       type = 'video'
       break
-    case ConfigParams.GALLERY:
+    case GALLERY:
       type = amp ? 'foto_galeria' : 'gallery'
       break
     default:
@@ -740,19 +741,6 @@ export const clearHtml = paragraph => {
   )
 }
 
-export const storyContenImage = (
-  { resized_urls: resizedUrls, caption },
-  multimediaLazyDefault
-) => {
-  return {
-    multimediaLandscapeMD: resizedUrls.medium,
-    multimediaStorySmall: resizedUrls.content_small,
-    multimediaLarge: resizedUrls.content,
-    multimediaLazyDefault,
-    caption,
-  }
-}
-
 /*
 Hasta ahora este metodo es innecesario, comento en caso de que
 la forma que se usa como reemplazo de algun error
@@ -776,7 +764,7 @@ export const pixelAmpDate = arcSite => {
     (`${year}${month}${day}` === '20191210' ||
       `${year}${month}${day}` === '20191211' ||
       `${year}${month}${day}` === '2019129') &&
-    arcSite === ConfigParams.SITE_ELCOMERCIO
+    arcSite === SITE_ELCOMERCIO
       ? true
       : ''
   return pixelEc
