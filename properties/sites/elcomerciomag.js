@@ -13,7 +13,7 @@ export default {
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomerciomag/web/post/default/preroll&description_url=https%3A%2F%2Fmag.elcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Delcomerciomag%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomerciomag/amp/post/preroll&description_url=https%3A%2F%2Fmag.elcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Delcomerciomag%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomerciomag/amp/post/default/preroll&description_url=https%3A%2F%2Fmag.elcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Delcomerciomag%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
@@ -215,13 +215,13 @@ export default {
   activeSignwall: true,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
     mainLogo: 'white-logo.png',
     mainColorBr: '#cccccc',
-    mainColorLink:'#1c75c9',
-    mainColorBtn: '#000000'
+    mainColorLink: '#1c75c9',
+    mainColorBtn: '#000000',
   },
   gda: true, // Grupo Diarios de America
   taboola: {

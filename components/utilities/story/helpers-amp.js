@@ -16,7 +16,6 @@ export const formatDateStoryAmp = date => {
 
 export const publicidadAmp = ({
   dataSlot,
-  placementId,
   width,
   height,
   primarySectionLink = '/peru',
@@ -31,20 +30,44 @@ export const publicidadAmp = ({
     ''
   const nuevoScript =
     (movil1 &&
-      `data-multi-size="300x250,320x50,320x100,300x50"
+      `data-multi-size="300x600,300x250,320x100,320x50,300x100,300x50"
   data-multi-size-validation="false"`) ||
     ''
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript} 
-  rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}' ${json}></amp-ad>`
+  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
+export const publicidadAmpAd = ({
+  dataSlot,
+  width,
+  height,
+  primarySectionLink = '/peru',
+  movil1 = '',
+  arcSite = '',
+}) => {
+  const secctionPrimary = primarySectionLink.split('/')
+  let resultData = ''
+  const json =
+    (ConfigParams.SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
+  const nuevoScript =
+    (movil1 &&
+      `data-multi-size="300x250,320x100,320x50,300x100,300x50"
+  data-multi-size-validation="false"`) ||
+    ''
 
+  if (secctionPrimary[1] !== 'respuestas') {
+    resultData = `
+  <amp-ad width="${width}" height="${height}" type="doubleclick"
+  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>`
+  }
+  return createMarkup(resultData)
+}
 export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
   let resultData = ''
   const json =
@@ -56,7 +79,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     height="50"
     type="doubleclick"
     data-slot="${dataSlot}"
-    data-multi-size="320x50,320x100"
+    data-multi-size="fluid,728x90,320x50"
     data-multi-size-validation="false"
     ${json}
   />`
@@ -340,7 +363,7 @@ export const youtubeHtml = html => {
 
   return html
     .replace(
-      /<iframe width="(.*?)" src="(.+)?(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w\-]{10,12})(.*)><\/iframe>/g,
+      /<iframe width="(.*?)" src="(.+)?(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w-]{10,12})(.*)><\/iframe>/g,
       rplYoutube1
     )
     .replace(
@@ -392,7 +415,7 @@ export const iframeMxm = (html, arcSite) => {
   const strWidgetVivo =
     '/<script src="https://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
   const rplWidgetVivo = ''
-  const strWidgetVivo2 = `<script>var f = new ECO.Widget\({width: 625,height: 900}\).draw\("depor\/wg-${arcSite}\/(.*?)"\);<\/script>/g`
+  const strWidgetVivo2 = `<script>var f = new ECO.Widget({width: 625,height: 900}).draw("depor/wg-${arcSite}/(.*?)");</script>/g`
 
   const rplWidgetVivo3 =
     '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivo/$1/$2"></amp-iframe>'

@@ -7,7 +7,6 @@ import { getResizedUrl } from '../../utilities/resizer'
 export default ({
   twitterUser,
   title,
-  siteUrl,
   contextPath,
   arcSite,
   description,
