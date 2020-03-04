@@ -4,6 +4,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 const ENV = require('fusion:environment')
 const getProperties = require('fusion:properties')
+const {
+  interpolateUrl,
+} = require('../../components/features/paywall/_dependencies/domains')
 const request = require('request-promise-native')
 const createHmac = require('create-hmac')
 const uuid = require('uuid')
@@ -58,12 +61,16 @@ function generateSignedFbEventUri(pixelId, event, data) {
 
 const fetch = (key = {}) => {
   const site = key['arc-site']
-  const { fbPixelId } = getProperties(site)
-  const { debug, accessToken, entitlementsUrl, event, ...data } = key
+  const {
+    fbPixelId,
+    paywall: { urls },
+  } = getProperties(site)
+  const { debug, accessToken, event, ...data } = key
+  const uri = interpolateUrl(`${urls.originApi}${urls.arcEntitlements}`)
   return new Promise((resolve, reject) => {
-    if (entitlementsUrl) {
+    if (event === 'LogIntoAccount') {
       request({
-        uri: entitlementsUrl,
+        uri,
         headers: {
           Authorization: accessToken,
         },
