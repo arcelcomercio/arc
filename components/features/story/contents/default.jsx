@@ -282,29 +282,43 @@ class StoryContents extends PureComponent {
                     ) {
                       return (
                         <>
-                          <script
+                          {/* <script
                             dangerouslySetInnerHTML={{
                               __html: `
-                            var opta_settings={
-                                subscription_id: '${opta}',
-                                language: 'es_CO',
-                                timezone: 'America/Lima'
-                            };`,
-                            }}></script>
+                                var opta_settings={
+                                  subscription_id: '${opta}',
+                                  language: 'es_CO',
+                                  timezone: 'America/Lima'
+                                };`,
+                            }}></script> */}
                           <StoryContentChildRawHTML content={content} />
                           <script
                             dangerouslySetInnerHTML={{
-                              __html: `(function(){setTimeout(function(){
-                              var n=document.createElement('link')
-                              n.rel='stylesheet'
-                              n.href='${OPTA_CSS_LINK}'
-                              var s=document.createElement('script')
-                              s.src='${OPTA_JS_LINK}'
-                              s.defer=true
-                              s.type='text/javascript'
-                              document.head.append(s)
-                              document.head.append(n)
-                            }, 0)})()`,
+                              __html: `(function(){window.addEventListener('load', function(){
+                                setTimeout(function(){
+                                  if(!window.optaReady){
+                                    var os=document.createElement('script')
+                                    os.textContent=\`
+                                      var opta_settings={
+                                        subscription_id: '${opta}',
+                                        language: 'es_CO',
+                                        timezone: 'America/Lima'
+                                      };\`
+                                    document.head.append(os)
+                                    var s=document.createElement('script')
+                                    s.src='${OPTA_JS_LINK}'
+                                    s.defer=true
+                                    s.type='text/javascript'
+                                    document.head.append(s)
+                                    var n=document.createElement('link')
+                                    n.rel='stylesheet'
+                                    n.href='${OPTA_CSS_LINK}'
+                                    document.head.append(n)
+                                    window.optaReady=true
+                                  }
+                                }, 0)
+                              })
+                              })()`,
                             }}
                           />
                         </>
