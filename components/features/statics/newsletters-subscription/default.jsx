@@ -8,6 +8,7 @@ import Loading from '../../signwall/_children/loading'
 import Services from '../../signwall/_dependencies/services'
 import Domains from '../../signwall/_dependencies/domains'
 import SubscriptionTitle from './_children/title'
+import { Generic } from '../../signwall/main/_main/generic'
 
 const classes = {
   container:
@@ -20,58 +21,32 @@ class NewslettersSubscription extends Component {
   state = {
     newsletters: [],
     checksNews: {},
-    loading: true,
+    loading: false,
     disabled: true,
     showsuccess: false,
     textSave: 'GUARDAR',
     categories: null,
     selectCategories: new Set(),
     isFetching: false,
+    showSignwall: false,
+    lastItemSelected: null,
   }
 
   newSetCategories
 
   timeout
 
+  componentWillMount() {
+    this.removeEventListener('logged', this.afterLoggued)
+  }
+
   componentDidMount() {
-    const { selectCategories } = this.state
-    const { arcSite } = this.props
+    this.loadSetting()
+    this.addEventListener('logged', this.afterLoggued)
+  }
 
-    const UUID = window.Identity.userIdentity.uuid
-    const SITE = arcSite
-
-    const listAllNews = { ...[] }
-
-    Services.getNewsLetters().then(resNews => {
-      resNews[SITE].map(item => {
-        listAllNews[item.code] = false
-        return null
-      })
-
-      this.setState({
-        newsletters: resNews[SITE] || [],
-        checksNews: listAllNews,
-      })
-
-      Services.getNewsLettersUser(UUID, SITE).then(res => {
-        if (res.data.length >= 1) {
-          res.data.map(item => {
-            this.setState(prevState => ({
-              checksNews: {
-                ...prevState.checksNews,
-                [item]: true,
-              },
-              loading: false,
-            }))
-            selectCategories.add(item)
-            return null
-          })
-        }
-        this.setState({
-          loading: false,
-        })
-      })
-    })
+  afterLoggued = () => {
+    this.loadSetting()
   }
 
   setPreference = () => {
@@ -90,16 +65,10 @@ class NewslettersSubscription extends Component {
             this.newSetCategories = null
             this.setPreference()
           }
-          const modalConfirmPass = document.getElementById('profile-signwall')
-          setTimeout(() => {
-            if (modalConfirmPass) {
-              modalConfirmPass.parentNode.scrollTop = modalConfirmPass.offsetTop
-            }
-          }, 500)
-          this.setState({ showsuccess: true })
-          setTimeout(() => {
-            this.setState({ showsuccess: false })
-          }, 3000)
+          // this.setState({ showsuccess: true })
+          // setTimeout(() => {
+          //   this.setState({ showsuccess: false })
+          // }, 3000)
         })
         .catch(e => {
           window.console.error(e)
@@ -119,6 +88,77 @@ class NewslettersSubscription extends Component {
     }, 1000)
   }
 
+  checkSession = () => {
+    if (typeof window !== 'undefined') {
+      const profileStorage =
+        window.localStorage.getItem('ArcId.USER_PROFILE') ||
+        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+      if (profileStorage) {
+        return !(profileStorage === 'null' || sesionStorage === '{}') || false
+      }
+    }
+    return false
+  }
+
+  loadSetting = () => {
+    this.setState({
+      loading: true,
+    })
+
+    const { selectCategories, lastItemSelected } = this.state
+    const { arcSite } = this.props
+
+    const UUID = window.Identity.userIdentity.uuid
+    const SITE = arcSite
+
+    const listAllNews = { ...[] }
+
+    Services.getNewsLetters().then(resNews => {
+      resNews[SITE].map(item => {
+        listAllNews[item.code] = false
+        return null
+      })
+
+      this.setState({
+        newsletters: resNews[SITE] || [],
+        checksNews: listAllNews,
+      })
+
+      Services.getNewsLettersUser(UUID, SITE)
+        .then(res => {
+          if (res.data.length >= 1) {
+            res.data.map(item => {
+              this.setState(prevState => ({
+                checksNews: {
+                  ...prevState.checksNews,
+                  [item]: true,
+                },
+                loading: false,
+              }))
+              selectCategories.add(item)
+              return null
+            })
+          }
+
+          if (lastItemSelected && !selectCategories.has(lastItemSelected)) {
+            selectCategories.add(lastItemSelected)
+            this.setPreference()
+            window.scrollTo(0, 100)
+            setTimeout(() => {
+              this.loadSetting()
+              window.scrollTo(0, 0)
+            }, 1000)
+          }
+        })
+        .finally(() => {
+          this.setState({
+            loading: false,
+          })
+        })
+    })
+  }
+
   handleCheckbox(e, name) {
     const newState = { ...this.state }
     newState.checksNews[name] = e.target.checked
@@ -135,40 +175,68 @@ class NewslettersSubscription extends Component {
   }
 
   render() {
-    const { newsletters, loading, checksNews, showsuccess } = this.state
+    const {
+      newsletters,
+      loading,
+      checksNews,
+      showsuccess,
+      showSignwall,
+    } = this.state
 
     const { arcSite } = this.props
 
     return (
-      <div className={classes.container}>
-        <SubscriptionTitle />
+      <>
+        <div className={classes.container}>
+          <SubscriptionTitle />
 
-        {showsuccess && (
-          <div className="msg-success">
-            <span>&#10003;</span>OPCIONES ACTUALIZADAS
-          </div>
-        )}
+          {showsuccess && (
+            <div className="msg-success">
+              <span>&#10003;</span>OPCIONES ACTUALIZADAS
+            </div>
+          )}
 
-        {loading ? (
-          <Loading arcSite={arcSite} typeBg="wait" />
-        ) : (
-          <div role="list" className={classes.list}>
-            {newsletters.map(item => (
-              <label className="item" key={item.code}>
-                <Checkbox
-                  image={item.image}
-                  name={item.name}
-                  description={item.description}
-                  site={arcSite}
-                  checked={checksNews[item.code]}
-                  onChange={e => this.handleCheckbox(e, item.code)}
-                  value={item.code}
-                />
-              </label>
-            ))}
-          </div>
+          {loading ? (
+            <Loading arcSite={arcSite} typeBg="wait" />
+          ) : (
+            <div role="list" className={classes.list}>
+              {newsletters.map(item => (
+                <label className="item" key={item.code}>
+                  <Checkbox
+                    image={item.image}
+                    name={item.name}
+                    description={item.description}
+                    site={arcSite}
+                    checked={checksNews[item.code]}
+                    onChange={e => {
+                      if (this.checkSession()) {
+                        this.handleCheckbox(e, item.code)
+                      } else {
+                        this.setState({
+                          showSignwall: !showSignwall,
+                          lastItemSelected: item.code,
+                        })
+                      }
+                    }}
+                    value={item.code}
+                  />
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {showSignwall && (
+          <Generic
+            onClose={() => this.setState({ showSignwall: !showSignwall })}
+            arcSite={arcSite}
+            typeDialog="newsletter"
+            onLogged={() => {
+              this.dispatchEvent('logged')
+            }}
+          />
         )}
-      </div>
+      </>
     )
   }
 }

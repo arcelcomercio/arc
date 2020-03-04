@@ -30,15 +30,6 @@ const CheckboxContainer = styled.div`
   position: relative;
   cursor: pointer;
   user-select: none;
-  /* @media screen and (max-width: 320px) {
-    width: 140px;
-  }
-  @media ${device.tablet} {
-    width: 180px;
-  }
-  @media ${device.desktop} {
-    width: 220px;
-  } */
 `
 
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
