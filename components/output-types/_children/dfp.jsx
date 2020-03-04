@@ -106,7 +106,10 @@ const Dfp = ({ isFuature, adId }) => {
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
+        breakpoint: breakpoints,
+        refresh=false
       }) => {
+        const flagDimension = (space === 'laterall'||space === 'lateralr' )? true:''
         const formatSpace = {
           id: `gpt_${space}`,
           slotName: slotname2,
@@ -116,6 +119,14 @@ const Dfp = ({ isFuature, adId }) => {
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
         }
+        if (flagDimension) {
+          formatSpace.dimensions=`<::${dimensions}::>`
+          formatSpace.sizemap={
+            breakpoints:`<::${breakpoints}::>`,
+            refresh
+        }
+      }
+
         return formatSpace
       }
     )
