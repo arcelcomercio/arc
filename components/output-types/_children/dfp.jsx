@@ -25,6 +25,7 @@ const Dfp = ({ isFuature, adId }) => {
   const {
     section_id: sectionId,
     _id,
+    content_restrictions: {content_code:contentCode='standar'}={},
     taxonomy: {
       primary_section: { path: primarySection } = {},
       tags = [],
@@ -98,7 +99,7 @@ const Dfp = ({ isFuature, adId }) => {
     const subsection = flagsub?'':sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
-    const getTargetFunction = `var getTarget=function getTarget(){ return {"publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
+    const getTargetFunction = `var getTarget=function getTarget(){ return {"contenido":"${contentCode}","publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
     const adsCollection = spaces.map(
       ({
         space,
