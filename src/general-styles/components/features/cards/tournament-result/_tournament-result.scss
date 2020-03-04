@@ -1,6 +1,6 @@
 .tournament-result {
   &__box {
-    @media (--tablet) {
+    @media (--desktop) {
       width: calc(100% - 315px);
     }
   }

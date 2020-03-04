@@ -35,11 +35,10 @@ const ItemTeamResult = ({
 }) => {
   return (
     <div className={classes.itemTeamResult}>
-      <div className={classes.itemDetails}>
-        <div className={classes.itemName}>{homeTeamShortName}</div>
-        <div className={classes.itemFigure} />
-        {/* <img src="" alt="{homeTeamFlag}" className={classes.itemImg} /> */}
-      </div>
+      <div className={classes.itemName}>{homeTeamShortName}</div>
+      <div className={classes.itemFigure} />
+      {/* <img src="" alt="{homeTeamFlag}" className={classes.itemImg} /> */}
+
       <div className={classes.itemScore}>
         <div className={classes.itemScoreBox}>
           <p className={classes.itemScoreText}>{homeTeamScore}</p>
@@ -55,12 +54,11 @@ const ItemTeamResult = ({
           </div>
         )}
       </div>
-      <div className={classes.itemDetails}>
-        <div className={classes.itemFigure}>
-          {/*   <img src="" alt=" {awayTeamFlag}" className={classes.itemImg} /> */}
-        </div>
-        <div className={classes.itemName}>{awayTeamShortName}</div>
+
+      <div className={classes.itemFigure}>
+        {/*   <img src="" alt=" {awayTeamFlag}" className={classes.itemImg} /> */}
       </div>
+      <div className={classes.itemName}>{awayTeamShortName}</div>
     </div>
   )
 }
