@@ -56,7 +56,7 @@ class MatchNav extends PureComponent {
         <div className={classes.navTabs}>
           <ul className={classes.navTabsList}>
             {configTabs['partido_previa'] && (
-              <li className={subtype=='partido_previa'?classes.navTabsItemAActive:classes.navTabsItem}>
+              <li className={subtype=='partido_previa'?classes.navTabsItemActive:classes.navTabsItem}>
                 <a
                   href={configTabs['partido_previa']}
                   className={classes.navTabsTitle}>
