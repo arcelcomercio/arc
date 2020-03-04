@@ -3,9 +3,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
-
-import { interpolateUrl } from '../_dependencies/domains'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
@@ -58,13 +55,6 @@ export const LogIntoAccountEventTag = ({
   debug,
   onBeforeSend,
 }) => {
-  const {
-    siteProperties: {
-      paywall: { urls },
-    },
-  } = useFusionContext()
-
-  const url = interpolateUrl(`${urls.originApi}${urls.arcEntitlements}`)
   const accessToken = window.Identity.userIdentity.accessToken
 
   return (
@@ -73,7 +63,6 @@ export const LogIntoAccountEventTag = ({
       onBeforeSend={onBeforeSend}
       event="LogIntoAccount"
       accessToken={accessToken}
-      entitlementsUrl={url}
       subscription_id={subscriptionId}
     />
   )
