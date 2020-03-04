@@ -73,25 +73,25 @@ class rawHTML extends PureComponent {
 
     return (
       <>
-        <div
-          id={idVideoEmbed}
-          className={classes.newsEmbed}
-          dangerouslySetInnerHTML={{
-            __html: isDaznServicePlayer(content)
-              ? content.trim().replace('performgroup', 'daznservices')
-              : content,
-          }}
-        />
-        {/* {this.URL_VIDEO && (
-          <script
-            src={
-              content.includes('id')
-                ? this.URL_VIDEO
-                : clearUrlOrCode(idVideo[2]).clearUrl
-            }
-            defer></script>
-        )} */}
-        {this.URL && <script src={this.URL} defer></script>}
+        {this.URL_VIDEO || this.URL ? (
+          <>
+            {this.URL_VIDEO && (
+              <div id={idVideoEmbed} className={classes.newsEmbed}>
+                <script src={this.URL_VIDEO} defer></script>
+              </div>
+            )}
+            {this.URL && <script src={this.URL} defer></script>}
+          </>
+        ) : (
+          <div
+            className={classes.newsEmbed}
+            dangerouslySetInnerHTML={{
+              __html: isDaznServicePlayer(content)
+                ? content.trim().replace('performgroup', 'daznservices')
+                : content,
+            }}
+          />
+        )}
       </>
     )
   }
