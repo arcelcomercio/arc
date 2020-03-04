@@ -28,9 +28,6 @@
   }
   &__team {
     width: 50%;
-    @media (--only-mobile) {
-      align-items: flex-start;
-    }
     &:first-child {
       justify-content: flex-end;
       .score__team-number {
@@ -54,7 +51,7 @@
     }
     &-name {
       @media (--only-mobile) {
-        font-size: 12px;
+        font-size: 13px;
         line-height: 16px;
         margin-top: 5px;
       }
