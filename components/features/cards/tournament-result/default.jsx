@@ -65,5 +65,5 @@ TournamentResult.propTypes = {
 }
 
 TournamentResult.label = 'Resultado de torneo'
-TournamentResult.static = true
+// TournamentResult.static = true
 export default TournamentResult

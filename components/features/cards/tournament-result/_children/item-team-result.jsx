@@ -38,7 +38,11 @@ const ItemTeamResult = ({
       <div className={classes.itemDetails}>
         <div className={classes.itemName}>{homeTeamShortName}</div>
         <div className={classes.itemFigure} />
-        {/* <img src="" alt="{homeTeamFlag}" className={classes.itemImg} /> */}
+        <img
+          src={homeTeamFlag}
+          alt="{homeTeamFlag}"
+          className={classes.itemImg}
+        />
       </div>
       <div className={classes.itemScore}>
         <div className={classes.itemScoreBox}>
@@ -57,7 +61,11 @@ const ItemTeamResult = ({
       </div>
       <div className={classes.itemDetails}>
         <div className={classes.itemFigure}>
-          {/*   <img src="" alt=" {awayTeamFlag}" className={classes.itemImg} /> */}
+          <img
+            src={awayTeamFlag}
+            alt=" {awayTeamFlag}"
+            className={classes.itemImg}
+          />
         </div>
         <div className={classes.itemName}>{awayTeamShortName}</div>
       </div>
