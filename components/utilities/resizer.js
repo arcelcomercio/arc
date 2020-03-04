@@ -381,14 +381,17 @@ export const getResizedUrlsToStories = ({
   })
 }
 
-export const getResizedUrl = ({ url, presets, arcSite }) => {
-  const { resizerUrl } = getProperties(arcSite)
-  return createResizedUrl({
-    url,
-    presets,
-    resizerSecret: ENV.resizerSecret,
-    resizerUrl,
-  })
+export const getResizedUrl = ({ url = false, presets, arcSite }) => {
+  if (url) {
+    const { resizerUrl } = getProperties(arcSite)
+    return createResizedUrl({
+      url,
+      presets,
+      resizerSecret: ENV.resizerSecret,
+      resizerUrl,
+    })
+  }
+  return ''
 }
 
 /**
