@@ -4,7 +4,7 @@ import { PLAYING, PLAYED } from '../../../../utilities/constants'
 
 const classes = {
   itemTeamResult:
-    'tournament-result__item flex items-center justify-between mb-20 w-full mx-auto',
+    'tournament-result__item flex items-center justify-between mb-25 w-full mx-auto',
   itemName: 'tournament-result__name secondary-font text-black',
   itemDetails: 'tournament-result__details flex items-center',
   itemFigure: 'tournament-result__figure',
@@ -35,15 +35,14 @@ const ItemTeamResult = ({
 }) => {
   return (
     <div className={classes.itemTeamResult}>
-      <div className={classes.itemDetails}>
-        <div className={classes.itemName}>{homeTeamShortName}</div>
-        <div className={classes.itemFigure} />
-        <img
-          src={homeTeamFlag}
-          alt="{homeTeamFlag}"
-          className={classes.itemImg}
-        />
-      </div>
+      <div className={classes.itemName}>{homeTeamShortName}</div>
+      <div className={classes.itemFigure} />
+      <img
+        src={homeTeamFlag}
+        alt="{homeTeamFlag}"
+        className={classes.itemImg}
+      />
+
       <div className={classes.itemScore}>
         <div className={classes.itemScoreBox}>
           <p className={classes.itemScoreText}>{homeTeamScore}</p>
@@ -59,16 +58,15 @@ const ItemTeamResult = ({
           </div>
         )}
       </div>
-      <div className={classes.itemDetails}>
-        <div className={classes.itemFigure}>
-          <img
-            src={awayTeamFlag}
-            alt=" {awayTeamFlag}"
-            className={classes.itemImg}
-          />
-        </div>
-        <div className={classes.itemName}>{awayTeamShortName}</div>
+
+      <div className={classes.itemFigure}>
+        <img
+          src={awayTeamFlag}
+          alt=" {awayTeamFlag}"
+          className={classes.itemImg}
+        />
       </div>
+      <div className={classes.itemName}>{awayTeamShortName}</div>
     </div>
   )
 }

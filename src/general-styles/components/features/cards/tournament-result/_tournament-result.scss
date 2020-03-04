@@ -1,6 +1,6 @@
 .tournament-result {
   &__box {
-    @media (--tablet) {
+    @media (--desktop) {
       width: calc(100% - 315px);
     }
   }
@@ -12,14 +12,23 @@
   &__card {
     border-top-width: 5px;
     border-color: #aaa;
-    height: 195px;
+    height: 185px;
     overflow-x: hidden;
-    &-league,
-    &-sponsor {
+    &-league {
       font-size: 14px;
       @media (--desktop) {
-        font-size: 20px;
+        font-size: 18px;
       }
+    }
+    &-text {
+      font-size: 14px;
+      @media (--desktop) {
+        font-size: 16px;
+      }
+    }
+    &-league,
+    &-sponsor {
+      height: 20px;
     }
   }
   &__item {
@@ -30,11 +39,9 @@
   }
   &__name {
     width: 70px;
-    font-size: 16px;
+    font-size: 14px;
+    word-break: break-word;
   }
-  /*   &__details {
-    width: 50px;
-  } */
   &__figure {
     width: 30px;
     height: 30px;
