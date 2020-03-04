@@ -51,7 +51,7 @@
     }
     &-name {
       @media (--only-mobile) {
-        font-size: 13px;
+        font-size: 12px;
         line-height: 16px;
         margin-top: 5px;
       }
@@ -116,7 +116,7 @@
       line-height: 16px;
       letter-spacing: 0.4px;
       @media (--only-mobile) {
-        font-size: 12px;
+        font-size: 13px;
       }
     }
     &-img {
