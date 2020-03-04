@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { device } from '../../../signwall/_dependencies/breakpoints'
 
 const classes = {
   item: 'newsletters-subscription__item p-5',
@@ -88,7 +87,7 @@ const Checkbox = ({
           <p className={classes.description}>{description}</p>
 
           <ButtonSub className={classes.btnSubscribed} checked={checked}>
-            Regístrate
+            {(checked && `Eliminar registro`) || `Regístrate`}
           </ButtonSub>
         </div>
 
