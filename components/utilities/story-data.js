@@ -463,6 +463,7 @@ class StoryData {
         content_restrictions: { content_code: ContentCode = '' } = {},
       } = {},
     } = this || {}
+    console.log('ContentCode:::::::::::::', ContentCode)
     return ContentCode === 'premium'
   }
 

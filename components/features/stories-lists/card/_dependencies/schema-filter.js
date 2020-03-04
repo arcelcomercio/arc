@@ -3,6 +3,9 @@ export default (arcSite, seeImageNews) => {
     content_elements { 
       headlines { basic }
       websites { ${arcSite} { website_url } }
+      content_restrictions{
+        content_code
+      }
       display_date
       ${
         seeImageNews

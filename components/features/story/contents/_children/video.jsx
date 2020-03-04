@@ -61,10 +61,10 @@ class StoryContentChildVideo extends PureComponent {
         primary_section: {
           path: primarySection,
           additional_properties: {
-            original: { _admin: { alias_ids: aliasId = [] } = {} },
+            original: { _admin: { alias_ids: aliasId = [] } = {} } = {},
           } = {},
         } = {},
-      },
+      } = {},
     } = globalContent || {}
     if (aliasId && aliasId[0]) {
       return aliasId[0]

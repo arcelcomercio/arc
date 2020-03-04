@@ -2,6 +2,9 @@ export default website => `
     {
       content_elements{
         canonical_url
+        content_restrictions{
+          content_code
+        }
         websites {
           ${website} {
             website_url
