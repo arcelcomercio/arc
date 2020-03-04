@@ -53,17 +53,18 @@
       }
     }
     &-name {
-      font-size: 30px;
-      line-height: 32px;
       @media (--only-mobile) {
         font-size: 12px;
         line-height: 16px;
         margin-top: 5px;
       }
       @media (--tablet) {
+        font-size: 22px;
+        line-height: 23px;
         margin-right: 25px;
       }
       @media (--desktop) {
+        font-size: 30px;
         line-height: 41px;
       }
     }
