@@ -5,7 +5,7 @@ import ItemScore from './item-score'
 import ItemTeamName from './item-team-name'
 
 const classes = {
-  scoreBox: 'score__team flex items-start pl-20 pr-20',
+  scoreBox: 'score__team flex items-end pl-20 pr-20',
 }
 
 const LiveScoreMinuteToMinuteTeanScore = ({

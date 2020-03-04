@@ -54,7 +54,7 @@
     }
     &-name {
       font-size: 30px;
-      line-height: 41px;
+      line-height: 32px;
       @media (--only-mobile) {
         font-size: 12px;
         line-height: 16px;
@@ -63,10 +63,12 @@
       @media (--tablet) {
         margin-right: 25px;
       }
+      @media (--desktop) {
+        line-height: 41px;
+      }
     }
     &-logo {
       width: 42px;
-      background-color: red;
       margin-right: 25px;
       @media (--only-mobile) {
         margin-right: 0;

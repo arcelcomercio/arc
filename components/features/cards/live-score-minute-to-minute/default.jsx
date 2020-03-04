@@ -46,7 +46,7 @@ class LiveScoreMinuteToMinute extends Component {
     const { globalContent } = this.props
     // id temporal
     const gameId =
-      getFootballGameId(globalContent) || '1f2wtjteq1cv9ttjllylwgbje'
+      getFootballGameId(globalContent) || '9pg2evs77obh70jmd5wa7lsh6'
     this.fetchContent({
       teamParams: {
         source: CONTENT_SOURCE,
