@@ -1,18 +1,8 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react'
 
-import customFields from './_dependencies/custom-fields'
-
-const BreakingNewsAmp = props => {
-  const {
-    customFields: { title, subTitle, storyLink = '' },
-  } = props
-
+const BreakingNewsAmp = () => {
   return <></>
-}
-
-BreakingNewsAmp.propTypes = {
-  customFields,
 }
 
 BreakingNewsAmp.label = 'Cintillo Urgente'
