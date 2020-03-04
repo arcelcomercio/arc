@@ -1,12 +1,18 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { LogIntoAccountEventTag } from '../../../paywall/_children/fb-account-linking'
 import { MsgRegister } from '../../_children/iconos'
+import Loading from '../../_children/loading'
+import Taggeo from '../../_dependencies/taggeo'
 
 const CallToActionFia = props => {
-  const { mainColorBr } = props
+  const { mainColorBr, logoutSession, arcSite, typeDialog, urlPlan } = props
 
   const [suscriptionId, setSuscriptionId] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [statusSubs, setStatusSubs] = useState(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -14,15 +20,59 @@ const CallToActionFia = props => {
     }
   }, [])
 
+  const handleSuscription = () => {
+    // window.sessionStorage.setItem('paywall_last_url', '/')
+    window.sessionStorage.setItem('paywall_type_modal', 'fia')
+    window.location.href = urlPlan
+  }
+
   return (
     <CTAwrapper>
       {suscriptionId && (
-        <LogIntoAccountEventTag subscriptionId={suscriptionId} />
+        <LogIntoAccountEventTag
+          subscriptionId={suscriptionId}
+          onBeforeSend={res => {
+            setLoading(false)
+            setStatusSubs(res.isSubscriber)
+          }}
+        />
       )}
-      <MsgRegister bgcolor={mainColorBr} />
-      <div className="paragraph">Haz iniciado sesión</div>
-      <div className="paragraph">correctamente</div>
-      <Button onClick={() => window.close()}>Volver a la nota</Button>
+
+      {loading ? (
+        <Loading arcSite={arcSite} />
+      ) : (
+        <>
+          <MsgRegister bgcolor={mainColorBr} />
+          <div className="paragraph">Haz iniciado sesión</div>
+          <div className="paragraph">correctamente</div>
+
+          {!statusSubs && (
+            <Button
+              onClick={() => {
+                Taggeo(
+                  `Web_Sign_Wall_${typeDialog}`,
+                  `web_sw${typeDialog[0]}_boton_ver_planes`
+                )
+                handleSuscription()
+              }}>
+              Ver Planes
+            </Button>
+          )}
+
+          <Link
+            href="#"
+            onClick={e => {
+              e.preventDefault()
+              Taggeo(
+                `Web_Sign_Wall_${typeDialog}`,
+                `web_sw${typeDialog[0]}_cerrar_sesion`
+              )
+              logoutSession()
+            }}>
+            Cerrar sesión
+          </Link>
+        </>
+      )}
     </CTAwrapper>
   )
 }
@@ -56,6 +106,12 @@ const Button = styled.button`
   text-transform: uppercase;
   font-weight: 700;
   margin: 30px 0 20px 0;
+`
+
+const Link = styled.a`
+  font-size: 12px;
+  color: gray;
+  margin-top: 20px;
 `
 
 export default CallToActionFia

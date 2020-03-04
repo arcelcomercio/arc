@@ -2,17 +2,19 @@ import React from 'react'
 import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
-import FbPixel from "./_children/fb-pixel";
+import FbPixel from './_children/fb-pixel'
 
-const SignwallOutputType = ({
-  children,
-  contextPath,
-  siteProperties,
-  deployment,
-  arcSite,
-  Libs,
-  Fusion,
-}) => {
+const SignwallOutputType = props => {
+  const {
+    children,
+    contextPath,
+    siteProperties,
+    deployment,
+    arcSite,
+    Libs,
+    Fusion,
+  } = props
+
   const { siteName, siteDescription } = siteProperties
 
   const C_ENVIRONMENT = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
@@ -21,7 +23,7 @@ const SignwallOutputType = ({
     <html lang="es">
       <head>
         <TagManager {...siteProperties} />
-        <FbPixel {...siteProperties} />
+        <FbPixel {...props} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta

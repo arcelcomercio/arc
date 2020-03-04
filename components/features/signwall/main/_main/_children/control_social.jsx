@@ -193,7 +193,10 @@ export const ButtonSocial = ({
                   },
                   {
                     name: 'originReferer',
-                    value: window.location.href || 'none',
+                    value:
+                      window.location.href
+                        .split('&')[0]
+                        .replace(/(\/#|#|\/)$/, '') || 'none',
                     type: 'String',
                   },
                   {

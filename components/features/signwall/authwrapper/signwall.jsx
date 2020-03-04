@@ -8,6 +8,7 @@ import { FormRegister } from '../main/_main/_children/form_register'
 import { FormForgot } from '../main/_main/_children/form_forgot'
 import CallToActionFia from './_children/call_to_action'
 import { device } from '../_dependencies/breakpoints'
+import Domains from '../_dependencies/domains'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
@@ -24,11 +25,22 @@ const _AuthWrapper = props => {
     siteProperties: {
       signwall: { mainColorBr },
     },
+    arcSite,
+    typeDialog,
   } = props
+
   const [isLogged, setLogged] = useState(false)
 
   const handleCallToAction = status => {
     setLogged(status)
+  }
+
+  const logoutSession = () => {
+    if (typeof window !== 'undefined') {
+      window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
+      window.Identity.logout()
+      setLogged(false)
+    }
   }
 
   useEffect(() => {
@@ -48,10 +60,23 @@ const _AuthWrapper = props => {
                   ...props,
                   isFia: true,
                   handleCallToAction,
-                  onClose: () => window.close(),
+                  onClose: () => {
+                    if (
+                      window.Identity.userProfile &&
+                      window.Identity.userIdentity.uuid
+                    ) {
+                      setLogged(true)
+                    }
+                  },
                 })
               ) : (
-                <CallToActionFia mainColorBr={mainColorBr} />
+                <CallToActionFia
+                  mainColorBr={mainColorBr}
+                  logoutSession={logoutSession}
+                  arcSite={arcSite}
+                  typeDialog={typeDialog}
+                  urlPlan={Domains.getUrlPaywall(arcSite)}
+                />
               )}
             </SecondMiddle>
           )}
