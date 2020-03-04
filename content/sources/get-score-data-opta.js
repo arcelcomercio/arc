@@ -29,6 +29,8 @@ const transform = (data = {}) => {
       name: nameAway = '',
       image: flagAway = '',
     } = {},
+    scores_total_home: scoresTotalHome = 0,
+    scores_total_away: scoresTotalAway = 0,
     goals = [],
   } = items[0]
 
@@ -36,6 +38,7 @@ const transform = (data = {}) => {
     id: idHome,
     name: nameHome,
     shortName: nameHome,
+    scoreTeam: scoresTotalHome,
     flag: flagHome,
     goalList: [],
   }
@@ -44,6 +47,7 @@ const transform = (data = {}) => {
     id: idAway,
     name: nameAway,
     shortName: nameAway,
+    scoreTeam: scoresTotalAway,
     flag: flagAway,
     goalList: [],
   }
@@ -56,7 +60,7 @@ const transform = (data = {}) => {
   goals.forEach(
     ({
       contestant: { id: contestantId = 0 } = {},
-
+      // id: contestantId = 0,
       time_min_sec: timeMinSec = '',
       type = '',
       home_score: homeScore = 0,
