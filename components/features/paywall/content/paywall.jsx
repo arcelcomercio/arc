@@ -58,6 +58,9 @@ const Paywall = ({
     },
   } = useFusionContext()
 
+  if (fromFia && typeof window !== 'undefined')
+    window.sessionStorage.setItem('paywall_type_modal', 'facebook')
+
   const wizardRef = useRef(null)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
   const getCodeCxense = interpolateUrl(urls.codeCxense)
@@ -100,13 +103,14 @@ const Paywall = ({
     description,
     summary,
     printedSubscriber,
-    fromFia,
     freeAccess,
     error,
   })
   const currMemo = memo.current
 
   useEffect(() => {
+    const sessionFia = window.sessionStorage.getItem('paywall_type_modal')
+    if (sessionFia) currMemo.fromFia = !!sessionFia
     history = createBrowserHistory({
       basename: '',
       // getUserConfirmation: (message, callback) => callback(window.confirm(message))
