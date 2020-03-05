@@ -84,13 +84,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora Trome',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © Trome.pe',
-      'Trome - Todos los derechos reservados',
-    ],
-
     socialNetworks: [
       {
         name: 'Twitter',
@@ -114,34 +107,6 @@ export default {
         url: 'https://trome.com/arcio/rss',
       },
     ],
-
-    contacts: [
-      {
-        position: 'Editora web Marilyn Corrales',
-        name: 'mcorrales@trome.com',
-      },
-      {
-        position: 'Webmaster',
-        name: 'webmaster@trome.com',
-      },
-    ],
-    corporateInfo: {
-      name: 'Grupo El Comercio S.A.',
-      direction:
-        'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima - Perú',
-    },
-    draftingContact: [
-      {
-        name: 'Redacción',
-        value: '311-6500(2858) trome@trome.pe',
-      },
-      {
-        name: 'Publicidad Web',
-        value: 'Fonoavisos@comercio.com.pe',
-      },
-    ],
-    copyrightText:
-      'Copyright© Trome.pe - Grupo El Comercio - Todos los derechos reservados.',
   },
   social: {
     facebook: {

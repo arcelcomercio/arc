@@ -71,26 +71,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora El Comercio',
-      'Prensmart Jirón Jorge Salazar Araoz 171  Lima 13 - Perú',
-      'Copyright © ojo.pe',
-      '2019 © PrenSmart S.A.C. Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Publicidad Online: fonoavisos@comercio.com.pe ',
-        name: 'Contacto Administrativo: contacto@prensmart.pe',
-      },
-      {
-        position: 'Empresa Editora Ojo',
-        name: 'Prensmart Jirón Jorge Salazar Araoz 171  Lima 13 - Perú',
-      },
-      {
-        position: 'Copyright © ojo.pe',
-        name: '2019 © PrenSmart S.A.C. Todos los derechos reservados',
-      },
-    ],
     socialNetworks: [
       {
         name: 'facebook',
@@ -99,30 +79,6 @@ export default {
       {
         name: 'linkedin',
         url: 'https://www.linkedin.com/company/ojo/',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Director Periodístico',
-        name: 'Jaime Asián Domínguez   jasian@grupoepensa.pe',
-      },
-      {
-        position: 'Editor Web',
-        name: 'Chavely Chiroque Quiroz ichiroque@grupoepensa.pe',
-      },
-      {
-        position: '-',
-        name: 'Contacto comercial',
-      },
-      {
-        position: 'Publicidad Online',
-        name: 'fonoavisos@comercio.com.pe',
-      },
-
-      {
-        position: 'Call Center',
-        name: '+51 1708 9999',
       },
     ],
   },
