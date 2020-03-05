@@ -38,15 +38,36 @@ class NewslettersSubscription extends Component {
 
   componentWillMount() {
     this.removeEventListener('logged', this.afterLoggued)
+    this.removeEventListener('protect', this.protectRefresh)
+    this.removeEventListener('unprotect', this.unProtectRefresh)
   }
 
   componentDidMount() {
     this.loadSetting()
     this.addEventListener('logged', this.afterLoggued)
+    this.addEventListener('protect', this.protectRefresh)
+    this.addEventListener('unprotect', this.unProtectRefresh)
+  }
+
+  handleLeavePage = e => {
+    const confirmationMessage = '¿Deseas volver a argar el sitio?'
+    e.returnValue = confirmationMessage
+    return confirmationMessage
+  }
+
+  protectRefresh = () => {
+    window.addEventListener('beforeunload', this.handleLeavePage)
+  }
+
+  unProtectRefresh = () => {
+    window.removeEventListener('beforeunload', this.handleLeavePage)
   }
 
   afterLoggued = () => {
     this.loadSetting()
+    // remover queryString signLanding temporal hasta lamar a la libreria QueryStrings de Singwall
+    const url = window.location.href.split('signNewsletters=')
+    window.history.pushState(null, null, url[0])
   }
 
   setPreference = () => {
@@ -69,6 +90,7 @@ class NewslettersSubscription extends Component {
           // setTimeout(() => {
           //   this.setState({ showsuccess: false })
           // }, 3000)
+          this.dispatchEvent('unprotect')
         })
         .catch(e => {
           window.console.error(e)
@@ -159,7 +181,21 @@ class NewslettersSubscription extends Component {
     })
   }
 
+  getUrlParam = name => {
+    const vars = {}
+    if (typeof window !== 'undefined')
+      window.location.href.replace(
+        /[?&]+([^=&]+)=([^&]*)/gi,
+        (m, key, value) => {
+          vars[key] = value
+        }
+      )
+    return vars[name]
+  }
+
   handleCheckbox(e, name) {
+    this.dispatchEvent('protect')
+
     const newState = { ...this.state }
     newState.checksNews[name] = e.target.checked
     this.setState(newState)
@@ -226,9 +262,9 @@ class NewslettersSubscription extends Component {
           )}
         </div>
 
-        {showSignwall && (
+        {(this.getUrlParam('signNewsletters') || showSignwall) && (
           <Generic
-            onClose={() => this.setState({ showSignwall: !showSignwall })}
+            onClose={() => this.setState({ showSignwall: false })}
             arcSite={arcSite}
             typeDialog="newsletter"
             onLogged={() => {

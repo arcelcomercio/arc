@@ -46,7 +46,7 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 
 const Cover = styled.div`
   width: 100%;
-  height: 162px;
+  height: 100%;
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0px;
@@ -74,11 +74,10 @@ const Checkbox = ({
     <div className={classes.card}>
       <CheckboxContainer checked={checked} className={className}>
         <figure className={classes.figure}>
+          <Cover checked={checked} />
           <img className={classes.image} src={image} alt={name} />
           <i className={classes.icon} />
         </figure>
-
-        <Cover checked={checked} />
 
         <div className={classes.detail}>
           <h3 className={classes.titleText}>
