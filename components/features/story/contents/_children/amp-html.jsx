@@ -21,6 +21,7 @@ const StoryContentChildHtml = ({
     .replace('elcomercio.pe', 'img.elcomercio.pe')
     .replace('trome.pe', 'img.trome.pe')
     .replace('depor.com', 'img.depor.com')
+    .replace('gestion.pe', 'img.gestion.pe')
 
   return (
     <>
