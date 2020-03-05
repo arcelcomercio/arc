@@ -70,6 +70,9 @@ class rawHTML extends PureComponent {
       isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
         : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
+
+    const isWidgets = this.URL && this.URL.includes('widgets.js')
+
     return (
       <>
         {this.URL_VIDEO || this.URL ? (
@@ -80,6 +83,15 @@ class rawHTML extends PureComponent {
               </div>
             )}
             {this.URL && <script src={this.URL} defer></script>}
+
+            {isWidgets && (
+              <div
+                className={classes.newsEmbed}
+                dangerouslySetInnerHTML={{
+                  __html: content,
+                }}
+              />
+            )}
           </>
         ) : (
           <div
