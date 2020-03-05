@@ -58,8 +58,12 @@ const Paywall = ({
     },
   } = useFusionContext()
 
+  // En sandbox por alguna razon hacen una redireccion y evita
+  // que se mantenga el valor de la bandera fromFia que viene
+  // como resultado de la plantilla, por lo que persisto esta
+  // bandera en sessionStorage
   if (fromFia && typeof window !== 'undefined')
-    window.sessionStorage.setItem('paywall_type_modal', 'facebook')
+    window.sessionStorage.setItem('paywall_type_modal', 'fia')
 
   const wizardRef = useRef(null)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
