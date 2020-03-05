@@ -29,8 +29,8 @@ const CustomImage = ({
   if (cols === 'col-2') width = '633'
   if (cols === 'col-3') width = '960'
 
-  let height = '374'
-  if (rows === 'row-2') height = '768'
+  let height = '0'
+  if (rows === 'row-2') height = '0'
   if (rows === 'w-full') height = imgHeight || '0'
 
   const {
@@ -91,9 +91,11 @@ const CustomImage = ({
 
   if (imgLink !== '') {
     return (
-      <a className={containerClass} href={imgLink}>
-        {picture}
-      </a>
+      <div>
+        <a className={containerClass} href={imgLink}>
+          {picture}
+        </a>
+      </div>
     )
   }
 
