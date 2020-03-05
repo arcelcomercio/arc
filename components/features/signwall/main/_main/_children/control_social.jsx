@@ -107,6 +107,7 @@ export const ButtonSocial = ({
       'signPremium',
       'signLanding',
       'signFia',
+      'signNewsletters',
     ]
 
     listUrlRedirect.map(item => {
@@ -178,6 +179,8 @@ export const ButtonSocial = ({
         return 'signLanding'
       case 'authfia':
         return 'signFia'
+      case 'newsletter':
+        return 'signNewsletters'
       default:
         return typeDialog
     }
