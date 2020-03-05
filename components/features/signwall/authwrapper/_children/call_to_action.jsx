@@ -21,7 +21,6 @@ const CallToActionFia = props => {
   }, [])
 
   const handleSuscription = () => {
-    // window.sessionStorage.setItem('paywall_last_url', '/')
     window.sessionStorage.setItem('paywall_type_modal', 'fia')
     window.location.href = urlPlan
   }
@@ -39,7 +38,7 @@ const CallToActionFia = props => {
       )}
 
       {loading ? (
-        <Loading arcSite={arcSite} />
+        <Loading arcSite={arcSite} typeBg="wait" />
       ) : (
         <>
           <MsgRegister bgcolor={mainColorBr} />
@@ -84,7 +83,9 @@ const CTAwrapper = styled.div`
   justify-content: center;
   border-radius: 4px;
   color: #444444;
+  background: #ffffff;
   padding: 45px;
+  min-height: 320px;
   & .paragraph {
     font-size: 16px;
     text-align: center;
