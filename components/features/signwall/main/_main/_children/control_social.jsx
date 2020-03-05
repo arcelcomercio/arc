@@ -9,6 +9,7 @@ import Domains from '../../../_dependencies/domains'
 import Cookies from '../../../_dependencies/cookies'
 import getDevice from '../../../_dependencies/get-device'
 import Taggeo from '../../../_dependencies/taggeo'
+import QueryString from '../../../_dependencies/querystring'
 
 export const ButtonStyleSocial = styled(Button)`
   font-size: ${props => (props.size === 'full' ? '18' : '16')}px !important;
@@ -97,30 +98,28 @@ export const ButtonSocial = ({
   const [showTextLoad, setShowTextLoad] = useState('')
 
   useEffect(() => {
-    const vars = {}
-    if (typeof window !== 'undefined')
-      window.location.href.replace(
-        /[?&]+([^=&]+)=([^&]*)/gi,
-        (m, key, value) => {
-          vars[key] = value
-        }
-      )
+    const listUrlRedirect = [
+      'signOrganic',
+      'signHard',
+      'signEmail',
+      'signHash',
+      'signPaywall',
+      'signPremium',
+      'signLanding',
+      'signFia',
+    ]
 
-    const URL_QUERY =
-      vars.signOrganic ||
-      vars.signHard ||
-      vars.signEmail ||
-      vars.signHash ||
-      vars.signPaywall ||
-      vars.signPremium ||
-      vars.signLanding
-
-    if (URL_QUERY) {
-      OAuthFacebook({
-        data: { accessToken: URL_QUERY.replace(/(#_=_)$/, '') },
-        origin: Domains.getUrlECOID(),
-      })
-    }
+    listUrlRedirect.map(item => {
+      if (QueryString.getQuery(item)) {
+        OAuthFacebook({
+          data: {
+            accessToken: QueryString.getQuery(item).replace(/(#_=_)$/, ''),
+          },
+          origin: Domains.getUrlECOID(),
+        })
+      }
+      return null
+    })
   }, [])
 
   const InitGoogle = () => {
@@ -177,6 +176,8 @@ export const ButtonSocial = ({
         return 'signPremium'
       case 'landing':
         return 'signLanding'
+      case 'authfia':
+        return 'signFia'
       default:
         return typeDialog
     }

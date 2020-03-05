@@ -15,6 +15,7 @@ import { Landing } from '../../signwall/main/_main/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
 import { getAssetsPath } from '../../../utilities/constants'
+import QueryString from '../../signwall/_dependencies/querystring'
 
 const NAME_MAX_LENGHT = 10
 
@@ -78,12 +79,7 @@ const Head = props => {
         .catch(() => {})
     }
 
-    const vars = {}
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-      vars[key] = value
-    })
-
-    if (vars.signLanding) {
+    if (QueryString.getQuery('signLanding')) {
       setShowSignwall(true)
     }
 
@@ -126,9 +122,7 @@ const Head = props => {
             dispatchEvent('loginCanceled')
             typeSignWall.current = 'landing'
             setShowSignwall(false)
-            // remover queryString signLanding
-            const url = window.location.href.split('signLanding=');
-            window.history.pushState(null, null, url[0]);
+            QueryString.deleteQuery('signLanding') // remover queryString signLanding
           }}
           noBtnClose={students ? false : !!_forceLogin}
         />
