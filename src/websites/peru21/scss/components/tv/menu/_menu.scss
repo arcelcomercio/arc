@@ -6,9 +6,12 @@
   padding: 15px;
   z-index: 20;
   background-color: #111;
+  overflow-y: auto;
   @media (--only-mobile) {
     width: 100%;
-    left: 0px;
+    height: 100%;
+    position: fixed;
+    left: 0;
   }
   &__header {
     display: flex;

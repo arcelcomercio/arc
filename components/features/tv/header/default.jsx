@@ -37,7 +37,12 @@ const TvHeader = () => {
     }) || {}
 
   const toggleMenu = () => {
+    if(statusMenu){
+      document.body.classList.remove('overflow-hidden');
+    }
     changeStatus(!statusMenu)
+
+    console.log("alwwaysssssssssssssss"+statusMenu)
   }
 
   const formatMenuSections = res => {
@@ -84,7 +89,6 @@ const TvHeader = () => {
       <div className="tv-header__content position-relative">
         {statusMenu && (
           <MenuTV
-            toggleMenu={toggleMenu}
             {...{ menuSections: formatMenuSections(menuSections) }}
           />
         )}
