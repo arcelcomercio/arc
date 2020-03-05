@@ -106,15 +106,15 @@
     }
     &-name {
       color: #3e4750;
+      letter-spacing: 0.4px;
     }
     &-time {
       color: #9a9a9a;
     }
     &-name,
     &-time {
-      font-size: 14px;
+      font-size: 15px;
       line-height: 16px;
-      letter-spacing: 0.4px;
       @media (--only-mobile) {
         font-size: 13px;
       }
