@@ -56,7 +56,9 @@ const StoryRelatedAmp = () => {
 
       const data = {
         title: instance.title,
-        link: `${instance.link}?ref=amp&source=relacionadas`,
+        link: `${instance.link}?ref=amp&source=relacionadas${
+          instance.isPremium === false ? '&outputType=amp' : ''
+        }`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
