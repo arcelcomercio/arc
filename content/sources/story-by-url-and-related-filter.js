@@ -369,6 +369,9 @@ export default {
       _id
       canonical_url
       website_url
+      content_restrictions{
+        content_code
+      }
       type
       headlines{
         basic
