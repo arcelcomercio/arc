@@ -414,7 +414,59 @@ const gestion = {
   },
 }
 
-// const laprensa = { aun sin definir }
+const laprensa = {
+  footer: {
+    siteLegal: [
+      'Empresa Editora El Comercio',
+      'Jr. Santa Rosa 247. Piso 6 Lima 1',
+      'Copyright © Elcomercio.pe',
+      'Grupo El Comercio - Todos los derechos reservados',
+    ],
+    story: [
+      {
+        position: 'Directora Periodística:',
+        name: 'Cecilia Valenzuela',
+      },
+      {
+        position: 'Diario Perú21: ',
+        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
+      },
+      {
+        position: 'Copyright © Peru21.pe',
+        name: 'Grupo El Comercio - Todos los derechos reservados',
+      },
+    ],
+    socialNetworks: [
+      {
+        name: 'facebook',
+        url: 'https://www.facebook.com/peru21',
+      },
+      {
+        name: 'twitter',
+        url: 'https://twitter.com/peru21noticias',
+      },
+      {
+        name: 'google+',
+        url: 'https://plus.google.com/u/0/+elcomerciope',
+      },
+    ],
+
+    contacts: [
+      {
+        position: 'Directora Periodística',
+        name: 'Cecilia Valenzuela',
+      },
+      {
+        position: 'Diario Perú21',
+        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
+      },
+      {
+        position: 'Contacto comercial',
+        name: '',
+      },
+    ],
+  },
+}
 
 const ojo = {
   footer: {
@@ -650,7 +702,7 @@ const sites = {
   elcomercio,
   elcomerciomag,
   gestion,
-  // laprensa,
+  laprensa,
   ojo,
   peru21,
   peru21g21,
