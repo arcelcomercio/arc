@@ -31,7 +31,7 @@ const BreakingNews = props => {
     },
   } = props
 
-  const { arcSite } = useFusionContext()
+  const { arcSite,outputType } = useFusionContext()
   const { editableField } = useEditableContent()
 
   const article = useContent(
@@ -59,7 +59,8 @@ const BreakingNews = props => {
 
   return (
     <>
-      {showBreakingNews && (
+      {showBreakingNews && outputType !=='amp' (
+        <>
         <div
           id="breaking-news"
           className={`
@@ -92,8 +93,10 @@ const BreakingNews = props => {
             <i className={classes.icon} />
           </button>
         </div>
+        <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
+        </>
       )}
-      <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
+      
     </>
   )
 }
