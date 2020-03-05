@@ -28,14 +28,16 @@
       width: 96px;
     }
   }
-  &__logo {
+  &__programas {
     font: Bold 12px/14px $tertiary-font;
-    padding-top: 4px;
     width: 100px;
     color: $color-white;
+    padding-left: 4px;
     @media (--only-mobile) {
-      width: 0px;
-      overflow: hidden;
+      display: none;
+    }
+    &:focus{
+      outline: 0;
     }
   }
   &__logo-container {

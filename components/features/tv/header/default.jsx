@@ -95,9 +95,12 @@ const TvHeader = () => {
             onClick={() => toggleMenu()}>
             <i className="tv-header__icon icon-hamburguer text-primary-color" />
           </button>
-          <a href="/" className="tv-header__logo block">
+          <button 
+            type="button" 
+            className="tv-header__programas block" 
+            onClick={() => toggleMenu()}>
             PROGRAMAS
-          </a>
+          </button>
         </div>
         <a
           href={logoUrl}

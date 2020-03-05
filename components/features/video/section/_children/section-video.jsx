@@ -106,7 +106,7 @@ export default ({
   const { siteUrl = '' } = siteProperties
 
   const urlsShareList = socialMediaUrlShareList(
-    addSlashToEnd(siteUrl),
+    siteUrl,
     principalVideo.websiteLink,
     principalVideo.title
   )
@@ -126,7 +126,7 @@ export default ({
     deployment,
     isAdmin,
   }
-console.log(`variabled00000000000000${hidden}`)
+
   return (
     <div className="section-video">
       <div className="section-video__box">
@@ -246,12 +246,6 @@ console.log(`variabled00000000000000${hidden}`)
                 type="button"
                 className="section-video__btn section-video__btn--twitter">
                 <span className="icon-twitter" />
-              </button>
-              <button
-                onClick={() => shareNew('whatsapp')}
-                type="button"
-                className="section-video__btn section-video__btn--whatsapp">
-                <span className="icon-whatsapp" />
               </button>
             </div>
             {!hidden && (
