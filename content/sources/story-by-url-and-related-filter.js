@@ -243,6 +243,10 @@ export default {
   }
   source
   label{
+    audiencia_nicho{
+      text
+      url
+    }
     nucleo{
       text
       url
