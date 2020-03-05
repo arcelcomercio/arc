@@ -30,7 +30,6 @@ const classes = {
   sitesList: 'flex flex-wrap justify-center',
   sitesItem:
     'footer-secondary__sites-item mb-15 mr-10 color-gray-300 text-md flex items-center',
-  sitesLink: '',
   listTitle: 'footer-secondary__title uppercase pb-20 font-bold text-md',
   facebookIcon: 'footer-secondary__icon icon-facebook border-1 rounded mr-10',
   twitterIcon: 'footer-secondary__icon icon-twitter border-1 rounded mr-10',
@@ -129,24 +128,23 @@ const SecondaryFooter = props => {
       {/* Sitios grupo el comercio */}
       <div className={classes.sites}>
         <p className={classes.sitesItemTitle}>Visite también</p>
-        <ul className={classes.sitesList}>
+        <p className={classes.sitesList}>
           {gecSites.map(site => {
             if (site.arcSite !== arcSite) {
               return (
-                <li className={classes.sitesItem} key={site.url}>
-                  <a
-                    className={classes.sitesLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={site.url}>
-                    {site.name}
-                  </a>
-                </li>
+                <a
+                  className={classes.sitesItem}
+                  key={site.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={site.url}>
+                  {site.name}
+                </a>
               )
             }
             return ''
           })}
-        </ul>
+        </p>
       </div>
     </footer>
   )
