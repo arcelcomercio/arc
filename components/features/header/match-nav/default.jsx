@@ -51,6 +51,8 @@ class MatchNav extends PureComponent {
     })
     configTabs[subtype] = canonical_url
 
+    let urlEstaticas = configTabs['partido_previa']?configTabs['partido_previa']:(configTabs['partido_directo']?configTabs['partido_directo']:configTabs['partido_cronica'])
+
     return (
       <>
         <div className={classes.navTabs}>
@@ -75,14 +77,14 @@ class MatchNav extends PureComponent {
             )}
             <li className={classes.navTabsItem}>
               <a
-                href={'/alineaciones' + configTabs['partido_previa']}
+                href={'/alineaciones' + urlEstaticas}
                 className={classes.navTabsTitle}>
                 Alineaciones
               </a>
             </li>
             <li className={classes.navTabsItem}>
               <a
-                href={'/estadisticas' + configTabs['partido_previa']}
+                href={'/estadisticas' + urlEstaticas}
                 className={classes.navTabsTitle}>
                 Estadísticas
               </a>
