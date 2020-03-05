@@ -54,8 +54,8 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 
 // TODO:_Homologar las clases de no-<device>
 .no-desktop,
-[id*='ads-m'],
-[id*='ads_m'] {
+[id*="ads-m"],
+[id*="ads_m"] {
   @media (--tablet) {
     display: none;
   }
@@ -63,17 +63,17 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 
 .no-mobile,
 .non-mobile,
-[id*='ads-d'],
-[id*='ads_d'] {
+[id*="ads-d"],
+[id*="ads_d"] {
   @media screen and (max-width: 639px) {
     display: none;
   }
 }
 
-[id*='ads-m'],
-[id*='ads_m'],
-[id*='ads-d'],
-[id*='ads_d'] {
+[id*="ads-m"],
+[id*="ads_m"],
+[id*="ads-d"],
+[id*="ads_d"] {
   text-align: center;
 
   @media print {
@@ -95,7 +95,7 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 
 .clearfix {
   display: table;
-  content: '';
+  content: "";
 }
 
 /** ----------------------------*
@@ -209,11 +209,11 @@ $map-radius: (
   sm: 4px,
   md: 16px,
   lg: 50px,
-  '': 50%,
+  "": 50%,
 );
 
 @each $radius-class, $radius in $map-radius {
-  @if $radius-class== '' {
+  @if $radius-class== "" {
     @include build-class(rounded, border-radius, $radius);
   } @else {
     @include build-class(rounded-#{$radius-class}, border-radius, $radius);
@@ -255,4 +255,18 @@ No es un adios, es un hasta luego
 
 .wrapper {
   max-width: 1366px;
+}
+
+.md\:row-1 {
+  @media (--tablet) {
+    grid-row: span 1;
+    height: ($row-height * 1);
+  }
+}
+
+.md\:row-2 {
+  @media (--tablet) {
+    grid-row: span 1;
+    height: ($row-height * 2) + 20px;
+  }
 }
