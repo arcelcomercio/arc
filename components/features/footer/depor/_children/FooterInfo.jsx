@@ -12,12 +12,14 @@ const classes = {
 const SITE_TITLE = 'Visite también: '
 
 const ItemSite = ({ url, name }) => (
-  <li className={classes.listItem}>
-    <a href={url} rel="noopener noreferrer" target="_blank">
-      {' '}
-      {name}
-    </a>
-  </li>
+  <a
+    className={classes.listItem}
+    href={url}
+    rel="noopener noreferrer"
+    target="_blank">
+    {' '}
+    {name}
+  </a>
 )
 
 const FooterInfo = ({
@@ -59,8 +61,8 @@ const FooterInfo = ({
       <a href={legalLinks[2].url} className={classes.footerLink}>
         {legalLinks[2].name}{' '}
       </a>
-      <ul>
-        <li className={classes.titleList}>{SITE_TITLE}</li>
+      <p>
+        <h5 className={classes.titleList}>{SITE_TITLE}</h5>
         {gecSites &&
           gecSites.map(({ url = '', name = '' }, index) => {
             const KeyString = `key${index}`
@@ -70,7 +72,7 @@ const FooterInfo = ({
               ) : null
             return result
           })}
-      </ul>
+      </p>
     </div>
   )
 }
