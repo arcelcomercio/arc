@@ -84,27 +84,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora El Comercio',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © Peru21.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Directora Periodística:',
-        name: 'Cecilia Valenzuela',
-      },
-      {
-        position: 'Diario Perú21: ',
-        name:
-          'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      },
-      {
-        position: 'Copyright © Peru21.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
     socialNetworks: [
       {
         name: 'facebook',
@@ -113,21 +92,6 @@ export default {
       {
         name: 'twitter',
         url: 'https://twitter.com/peru21noticias',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Directora Periodística',
-        name: 'Cecilia Valenzuela',
-      },
-      {
-        position: 'Editora Web',
-        name: 'Esther Vargas - esther.vargas@peru21.com',
-      },
-      {
-        position: 'Publicidad Web',
-        name: 'fonoavisos@comercio.pe',
       },
     ],
   },

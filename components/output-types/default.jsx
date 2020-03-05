@@ -34,15 +34,6 @@ export default ({
 }) => {
   const CURRENT_ENVIRONMENT =
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
-  const BASE_URL_ADS =
-    CURRENT_ENVIRONMENT === 'prod'
-      ? `https://d1r08wok4169a5.cloudfront.net/ads-${arcSite}`
-      : 'https://jab.pe/f/arc'
-
-  const BASE_URL_ADS_ESPACIOS =
-    CURRENT_ENVIRONMENT === 'prod'
-      ? `https://d2dvq461rdwooi.cloudfront.net/ads-${arcSite}`
-      : `https://d37z8six7qdyn4.cloudfront.net/ads-${arcSite}`
 
   const metaPageData = {
     globalContent,
@@ -305,19 +296,9 @@ export default ({
 
         <AdsScriptsFloorPrices />
 
-        {(arcSite === 'publimetro' ||
-          arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' ||
-          arcSite === 'ojo' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'trome') &&
-          !nodas &&
-          !isLivePage && (
+        {/* Scripts de AdManager */}
+        {!nodas && !isLivePage && (
+          <>
             <script
               defer
               src={deployment(
@@ -327,64 +308,18 @@ export default ({
                 )}/resources/assets/js/arcads.js`
               )}
             />
-          )}
-
-        {!(
-          arcSite === 'publimetro' ||
-          arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' ||
-          arcSite === 'ojo' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'trome'
-        ) && (
-          <>
-            {!nodas && !isLivePage && (
-              <script
-                defer
-                src={`${BASE_URL_ADS_ESPACIOS}/spaces_${arcSite}.js`}
-              />
-            )}
-            {!nodas && !isLivePage && (
-              <script defer src={`${BASE_URL_ADS}/data_${arcSite}.js`} />
-            )}
-
-            {/* Scripts de APPNEXUS */}
-
-            {!nodas && (
-              <>
-                <script
-                  src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
-                  async
-                />
-                <script
-                  type="text/javascript"
-                  src="//acdn.adnxs.com/ast/ast.js"
-                  async
-                />
-              </>
-            )}
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: collapseDivs }}
+            />
+            <Dfp />
           </>
         )}
+        {/* Scripts de AdManager - Fin */}
+
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
-        {/* Rubicon BlueKai - Inicio */}
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-        />
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-        />
-        {/* <!-- Rubicon BlueKai - Fin --> */}
 
         <Libs />
 
@@ -408,25 +343,6 @@ export default ({
           />
         )}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
-        {(arcSite === 'publimetro' ||
-          arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' ||
-          arcSite === 'ojo' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'trome') &&
-          !nodas &&
-          !isLivePage && (
-            <script
-              type="text/javascript"
-              defer
-              dangerouslySetInnerHTML={{ __html: collapseDivs }}
-            />
-          )}
       </head>
       <body className={classBody}>
         <noscript>
@@ -442,30 +358,7 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {!(
-          arcSite === 'publimetro' ||
-          arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' ||
-          arcSite === 'ojo' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'trome'
-        ) &&
-          !nodas && (
-            <script
-              defer
-              src={deployment(
-                `${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/assets/js/appnexus-min.js`
-              )}
-            />
-          )}
+
         <script
           defer
           src={deployment(
@@ -515,19 +408,19 @@ export default ({
             )}/resources/assets/js/lazyload.js`
           )}
         />
-        {(arcSite === 'publimetro' ||
-          arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21' ||
-          arcSite === 'diariocorreo' ||
-          arcSite === 'ojo' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'trome') &&
-          !nodas &&
-          !isLivePage && <Dfp />}
+
+        {/* Rubicon BlueKai - Inicio */}
+        <script
+          type="text/javascript"
+          async
+          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+        />
+        <script
+          type="text/javascript"
+          async
+          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+        />
+        {/* Rubicon BlueKai - Fin */}
       </body>
     </html>
   )

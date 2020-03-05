@@ -3,6 +3,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
+import getFooterProperties from '../_dependencies/properties'
 import FooterChildElComercio from './children/footer'
 import { getAssetsPath } from '../../../utilities/constants'
 
@@ -12,10 +13,13 @@ const FooterElComercio = () => {
   const {
     assets: { footer: { logo } = {} } = {},
     legalLinks = [],
-    footer: { siteLegal = [], directors = [], contacts = [] },
     gecSites = [],
     gda = false,
   } = getProperties(arcSite)
+
+  const {
+    footer: { siteLegal = [], directors = [], contacts = [] } = {},
+  } = getFooterProperties(arcSite)
 
   const logoUrl =
     deployment(
