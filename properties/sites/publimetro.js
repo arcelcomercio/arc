@@ -73,28 +73,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora Publimetro',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © publimetro.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
-      },
-      {
-        position: 'Empresa Editora Publimetro',
-        name:
-          'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      },
-      {
-        position: 'Copyright © publimetro.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
-
     socialNetworks: [
       {
         name: 'facebook',
@@ -103,21 +81,6 @@ export default {
       {
         name: 'twitter',
         url: 'https://twitter.com/publimetrope',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
-      },
-      {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
-      },
-      {
-        position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
       },
     ],
   },

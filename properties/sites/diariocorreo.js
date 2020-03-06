@@ -109,29 +109,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      // TODO: DESCOMENTAR ESTO PARA LA SEGUNDA SALIDA DE GESTIÓN
-      /* 'Director periodístico',
-      'DIRECTOR DE Correo', */
-      '© Empresa Editora El Comercio S.A.',
-      'Jirón Jorge Salazar Araoz 171',
-      'Lima 13 - Perú',
-      'Copyright© | diariocorreo.pe | Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Director Periodístico',
-        name: 'DIRECTOR DE Correo',
-      },
-      {
-        position: 'Empresa Editora Correo',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
-      },
-      {
-        position: 'Copyright © diariocorreo.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
     socialNetworks: [
       {
         name: 'linkedin',
@@ -144,25 +121,6 @@ export default {
       {
         name: 'twitter',
         url: 'https://twitter.com/diariocorreo',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Contacto Administrativo',
-        name: 'contacto@prensmart.pe',
-      },
-      {
-        position: 'Publicidad Online',
-        name: 'fonoavisos@comercio.com.pe',
-      },
-      {
-        position: 'Call Center',
-        name: '+51 1708 9999',
-      },
-      {
-        position: 'Temas periodísticos',
-        name: '+51 1 631 1111',
       },
     ],
   },

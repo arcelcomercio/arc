@@ -7,9 +7,9 @@ const classes = {
   contact: 'footer__contact  bg-primary md:pt-20 pb-20 hidden md:block',
   sites: 'footer__sites flex flex-col p-20 hidden md:block',
   sitesList: 'footer__sites-list flex flex-wrap w-full p-0',
-  sitesItem: `footer__sites-item mb-5 pr-10 text-sm line-h-xs uppercase flex items-center`,
   sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase mb-10 font-bold',
-  sitesLink: 'footer__sites-link text-gray-200 primary-font',
+  sitesItem:
+    'footer__sites-item mb-5 pr-10 text-sm line-h-xs uppercase flex items-center text-gray-200 primary-font',
   legalList: 'footer__legal-list text-md',
   legalItem: `footer__legal-item mb-10 text-gray-300 line-h-none text-xs primary-font`,
   logoContainer: 'footer__logo-container block mb-15',
@@ -115,22 +115,21 @@ const FooterChildStandardG21 = props => {
       </div>
       <div className={classes.sites}>
         <p className={classes.sitesItemTitle}>Red el comercio</p>
-        <ul className={classes.sitesList}>
+        <p className={classes.sitesList}>
           {gecSites.map(site => {
             if (site.arcSite === arcSite) return ''
             return (
-              <li className={classes.sitesItem} key={site.url}>
-                <a
-                  className={classes.sitesLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={site.url}>
-                  {site.name}
-                </a>
-              </li>
+              <a
+                className={classes.sitesItem}
+                key={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                href={site.url}>
+                {site.name}
+              </a>
             )
           })}
-        </ul>
+        </p>
       </div>
     </footer>
   )

@@ -104,29 +104,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      // TODO: DESCOMENTAR ESTO PARA LA SEGUNDA SALIDA DE GESTIÓN
-      /* 'Director periodístico',
-      'DIRECTOR DE EL BOCÓN', */
-      '© Empresa Editora El Comercio S.A.',
-      'Jirón Jorge Salazar Araoz 171',
-      'Lima 13 - Perú',
-      'Copyright© | elbocon.pe | Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Director Periodístico',
-        name: 'DIRECTOR DE EL BOCÓN',
-      },
-      {
-        position: 'Empresa Editora El Bocón',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
-      },
-      {
-        position: 'Copyright © elbocon.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
     socialNetworks: [
       {
         name: 'linkedin',
@@ -139,25 +116,6 @@ export default {
       {
         name: 'twitter',
         url: 'https://twitter.com/elbocononline',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Contacto Administrativo',
-        name: 'contacto@prensmart.pe',
-      },
-      {
-        position: 'Publicidad Online',
-        name: 'fonoavisos@comercio.com.pe',
-      },
-      {
-        position: 'Call Center',
-        name: '+51 1708 9999',
-      },
-      {
-        position: 'Temas periodísticos',
-        name: '+51 1 631 1111',
       },
     ],
   },

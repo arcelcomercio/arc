@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-import PropTypes from 'prop-types'
 
+import getFooterProperties from '../_dependencies/properties'
 import FooterChildStandardG21 from './_children/footer-g21'
 import { getAssetsPath } from '../../../utilities/constants'
 
@@ -34,9 +35,12 @@ const FooterStandardG21 = props => {
   const {
     gecSites,
     legalLinks,
-    footer: { socialNetworks = [], siteLegal, story },
     assets: { footer: { logo } = {} } = {},
   } = getProperties(arcSite)
+
+  const {
+    footer: { socialNetworks = [], siteLegal, story } = {},
+  } = getFooterProperties(arcSite)
 
   const sections = useContent({
     source: CONTENT_SOURCE,
