@@ -31,8 +31,11 @@ const CallToActionFia = props => {
         <LogIntoAccountEventTag
           subscriptionId={suscriptionId}
           onBeforeSend={res => {
+            setStatusSubs((res && res.isSubscriber) || false)
             setLoading(false)
-            setStatusSubs(res.isSubscriber)
+            // remover queryString signFia temporal hasta lamar a la libreria QueryStrings de Singwall
+            const url = window.location.href.split('signFia=')
+            window.history.pushState(null, null, url[0])
           }}
         />
       )}
