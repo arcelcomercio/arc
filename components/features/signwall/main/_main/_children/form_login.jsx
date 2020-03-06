@@ -120,7 +120,6 @@ export const FormLogin = ({
 
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
-
       getListSubs().then(p => {
         if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
@@ -128,6 +127,10 @@ export const FormLogin = ({
         } else {
           setShowUserWithSubs(true) // tengo subs
           setShowLoadingPremium(false)
+          const divPremium = document.getElementById('contenedor')
+          if (divPremium) {
+            divPremium.classList.remove('story-content__nota-premium')
+          }
         }
       })
     }
@@ -144,7 +147,6 @@ export const FormLogin = ({
 
       if (typeDialog === 'premium' || typeDialog === 'paywall') {
         setShowCheckPremium(true) // no tengo subs
-
         getListSubs().then(p => {
           if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
@@ -152,6 +154,10 @@ export const FormLogin = ({
           } else {
             setShowUserWithSubs(true) // tengo subs
             setShowLoadingPremium(false)
+            const divPremium = document.getElementById('contenedor')
+            if (divPremium) {
+              divPremium.classList.remove('story-content__nota-premium')
+            }
           }
         })
       } else {
