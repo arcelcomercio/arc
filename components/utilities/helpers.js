@@ -543,16 +543,6 @@ export const deleteQueryString = url => {
   return onlyUrl.split('#')[0]
 }
 
-export const isIE = () => {
-  const ua = window.navigator.userAgent
-  const msie = ua.indexOf('MSIE ')
-  const trident = ua.indexOf('Trident/')
-  if (msie > 0 || trident > 0) {
-    return true
-  }
-  return false
-}
-
 export const addSlashToDateEnd = url => {
   let urlSlash = url
   const fecha = new Date('2019-07-16T22:30:00')
