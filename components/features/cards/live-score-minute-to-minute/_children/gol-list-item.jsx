@@ -12,7 +12,9 @@ const classes = {
 const GolListItem = ({ homeTeam = true, goalList = [] }) => {
   return (
     <div className={classes.golBox}>
-      {homeTeam && <img src="" alt="" className={classes.golImg} />}
+      {homeTeam && goalList.length > 0 && (
+        <img src="" alt="" className={classes.golImg} />
+      )}
       <ul className={classes.list}>
         {goalList.length > 0 &&
           goalList.map(({ timeMinSec = '', scorerName, type }) => {
@@ -29,7 +31,9 @@ const GolListItem = ({ homeTeam = true, goalList = [] }) => {
             )
           })}
       </ul>
-      {homeTeam === false && <img src="" alt="" className={classes.golImg} />}
+      {homeTeam === false && goalList.length > 0 && (
+        <img src="" alt="" className={classes.golImg} />
+      )}
     </div>
   )
 }
