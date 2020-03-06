@@ -23,7 +23,6 @@ function WizardPlan(props) {
   const {
     theme,
     memo: {
-      fromFia,
       event: eventCampaign,
       plans,
       description: productDescription,
@@ -107,9 +106,8 @@ function WizardPlan(props) {
   }, [profile])
 
   useEffect(() => {
-    origin.current = fromFia
-      ? 'facebook'
-      : window.sessionStorage.getItem('paywall_type_modal') || 'organico'
+    origin.current =
+      window.sessionStorage.getItem('paywall_type_modal') || 'organico'
     referer.current = window.sessionStorage.getItem('paywall_last_url')
     dataLayer.push({
       event: 'checkoutOption',
