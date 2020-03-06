@@ -12,13 +12,13 @@ import {
   includePrimarySection,
   includePromoItems,
 } from '../../../utilities/included-fields'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const ExtraordinaryStoryGrid = props => {
   const { customFields: customFieldsData = {} } = props
   const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
 
-  const presets = 'landscape_xl:980x528,landscape_l:648x374,square_l:600x600'
+  const presets = 'landscape_xl:980x528,square_l:600x600'
   const includedFields = `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`
 
   const {

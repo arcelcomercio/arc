@@ -27,8 +27,7 @@ const ExtraordinaryStoryBySection = props => {
             query: {
               section: sectionName,
               feedOffset: positionData || 0,
-              presets:
-                'landscape_xl:980x528,landscape_l:648x374,square_l:600x600',
+              presets: 'landscape_xl:980x528,square_l:600x600',
               includedFields: `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`,
             },
             filter: schemaFilter(arcSite),
