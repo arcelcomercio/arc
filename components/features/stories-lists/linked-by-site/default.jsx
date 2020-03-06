@@ -84,7 +84,7 @@ const StoriesListLinkedBySite = props => {
     isAdmin,
     siteName,
     stories,
-    isTargetBlank: isTargetBlank ? { target: '_blank' } : {},
+    isTargetBlank: isTargetBlank ? { target: '_blank', rel: 'noopener' } : {},
     titleField,
     subtitleField,
   }

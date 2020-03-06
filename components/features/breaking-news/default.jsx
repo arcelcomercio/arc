@@ -31,7 +31,7 @@ const BreakingNews = props => {
     },
   } = props
 
-  const { arcSite } = useFusionContext()
+  const { arcSite, outputType } = useFusionContext()
   const { editableField } = useEditableContent()
 
   const article = useContent(
@@ -59,41 +59,43 @@ const BreakingNews = props => {
 
   return (
     <>
-      {showBreakingNews && (
-        <div
-          id="breaking-news"
-          className={`
+      {showBreakingNews && outputType !== 'amp' && (
+        <>
+          <div
+            id="breaking-news"
+            className={`
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-          <h2 className={classes.text}>
-            <span
-              className={classes.tag}
-              {...editableField('tags')}
-              suppressContentEditableWarning>
-              {tags}
-            </span>
-            <span>
-              <a
-                className={classes.link}
-                href={objContent.link}
-                rel="noopener noreferrer"
-                {...editableField('title')}
+            <h2 className={classes.text}>
+              <span
+                className={classes.tag}
+                {...editableField('tags')}
                 suppressContentEditableWarning>
-                {objContent.title}
-              </a>
-            </span>
-          </h2>
-          <button
-            id="close-breaking-news"
-            type="button"
-            className={classes.close}
-            tabIndex={0}>
-            <i className={classes.icon} />
-          </button>
-        </div>
+                {tags}
+              </span>
+              <span>
+                <a
+                  className={classes.link}
+                  href={objContent.link}
+                  rel="noopener noreferrer"
+                  {...editableField('title')}
+                  suppressContentEditableWarning>
+                  {objContent.title}
+                </a>
+              </span>
+            </h2>
+            <button
+              id="close-breaking-news"
+              type="button"
+              className={classes.close}
+              tabIndex={0}>
+              <i className={classes.icon} />
+            </button>
+          </div>
+          <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
+        </>
       )}
-      <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
     </>
   )
 }

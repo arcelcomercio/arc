@@ -168,27 +168,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Director periodístico',
-      'JULIO LIRA SEGURA',
-      '© Empresa Editora El Comercio S.A.',
-      'Jorge Salazar Araoz N° 171, La Victoria, Lima.',
-      'Copyright© | Gestion.pe | Grupo El Comercio | Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Director Periodístico',
-        name: 'JULIO LIRA SEGURA',
-      },
-      {
-        position: 'Empresa Editora Gestión',
-        name: 'Jorge Salazar Araoz N° 171, La Victoria, Lima.',
-      },
-      {
-        position: 'Copyright © gestion.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
     socialNetworks: [
       {
         name: 'linkedin',
@@ -201,21 +180,6 @@ export default {
       {
         name: 'twitter',
         url: 'https://twitter.com/gestionpe',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Director Periodístico',
-        name: 'JULIO LIRA SEGURA',
-      },
-      // {
-      //   position: 'Editor Web',
-      //   name: 'PARKER CHAVEZ JAVIER EDUARDO javier.parker@diariogestion.com.pe',
-      // },
-      {
-        position: '',
-        name: '',
       },
     ],
   },

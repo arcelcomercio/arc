@@ -22,6 +22,10 @@ const StoryContentChildHtml = ({ data, caption, header = false }) => {
             .replace(
               /https:\/\/peru21.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(mp4))/g,
               'https://img.peru21.pe$1'
+            )
+            .replace(
+              /https:\/\/gestion.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+              'https://img.gestion.pe$1'
             )}
           description={caption}
         />

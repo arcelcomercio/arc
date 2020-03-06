@@ -71,16 +71,27 @@ class rawHTML extends PureComponent {
         ? `id_video_embed_${idVideo[2]}`
         : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
 
+    const isWidgets = this.URL && this.URL.includes('widgets.js')
+
     return (
       <>
         {this.URL_VIDEO || this.URL ? (
           <>
             {this.URL_VIDEO && (
               <div id={idVideoEmbed} className={classes.newsEmbed}>
-                <script src={this.URL_VIDEO} defer></script>
+                <script src={this.URL_VIDEO.replace('"', '')} defer></script>
               </div>
             )}
             {this.URL && <script src={this.URL} defer></script>}
+
+            {isWidgets && (
+              <div
+                className={classes.newsEmbed}
+                dangerouslySetInnerHTML={{
+                  __html: content,
+                }}
+              />
+            )}
           </>
         ) : (
           <div

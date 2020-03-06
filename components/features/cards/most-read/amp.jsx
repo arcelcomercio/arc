@@ -57,7 +57,9 @@ const InterestByTag = () => {
 
       const data = {
         title: instance.title,
-        link: `${instance.websiteLink}?ref=amp&source=mas-en-seccion`,
+        link: `${
+          instance.websiteLink
+        }?ref=amp&source=mas-en-seccion${ instance.isPremium === false ? '&outputType=amp' : ''}`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,

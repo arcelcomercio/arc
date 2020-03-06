@@ -154,7 +154,7 @@ export default ({
     }
   )
 
-  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url }) => {
+  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url='' }) => {
     const {
       amp_image_1x1: ampImage1x1 = url,
       amp_image_4x3: ampImage4x3 = url,

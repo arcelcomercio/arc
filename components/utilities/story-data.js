@@ -859,6 +859,16 @@ class StoryData {
     )
   }
 
+  get audienciaNicho() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.audiencia_nicho &&
+        this._data.label.audiencia_nicho.url) ||
+      ''
+    )
+  }
+
   get fiaOrigen() {
     const { label: { facebook_ia: { url = '' } = {} } = {} } = this._data
     const result = (url === '' || url === 'true') && true
