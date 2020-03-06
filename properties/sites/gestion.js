@@ -24,6 +24,7 @@ export default {
   ampGoogleTagManagerName: 'gestion',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-3',
+  fbPixelId: '2760131437441699',
   fbArticleStyle: 'LogoGestion',
   nameStoryRelated: 'VEA TAMBIÉN',
   siteDescription:
@@ -74,6 +75,7 @@ export default {
       faqs:                              `{{contextPath}}/suscripcionesdigitales/faqs/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
       digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales/{{#isEvent}}eventos/{{event}}/{{/isEvent}}{{#isCheckingSubscriptor}}{{documentType}}/{{documentNumber}}/{{attemptToken}}/{{/isCheckingSubscriptor}}{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
       digitalSubscriptionsHome:          `{{contextPath}}/suscripciones/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
+      arcEntitlements:                   `/sales/public/v1/entitlements`,
 
       // URLS
       canonical:                         `https://gestion.pe/suscripcionesdigitales/`,
@@ -87,7 +89,7 @@ export default {
       originPayuTags:                    `https://maf.pagosonline.net/ws/fp/tags.js?id={{deviceSessionId}}80200`,
       originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
       originSubscriptionOnlineToken:     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-      originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/{{#hasParams}}?{{/hasParams}}{{#isCheckingSubscriptor}}doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/isCheckingSubscriptor}}{{#isEvent}}{{#isCheckingSubscriptor}}&{{/isCheckingSubscriptor}}event={{event}}{{/isEvent}}`,
+      originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/{{#hasParams}}?{{/hasParams}}{{#isCheckingSubscriptor}}doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/isCheckingSubscriptor}}{{#isEvent}}{{#isCheckingSubscriptor}}&{{/isCheckingSubscriptor}}event={{event}}{{/isEvent}}{{#fromFia}}from_fia=true{{/fromFia}}`,
       originSubscriptionsBundles:        `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/bundle/`,
       originSubsPrinted:                 `{{#isProd}}https://suscripciones.gestion.pe/payment/7/96/{{/isProd}}
                                           {{^isProd}}http://pre.suscripciones.gestion.pe/payment/7/96/{{/isProd}}`,
@@ -104,6 +106,7 @@ export default {
       facebook:                          `https://www.facebook.com/Gestionpe`,
       twitter:                           `https://twitter.com/gestionpe`,
       instagram:                         `https://www.instagram.com/diariogestion/?hl=es`,
+      fbSubscriptionsSync:               `https://graph.facebook.com/v2.10/{{subscriptionNodeId}}/subscriptions`,
       codeCxense:                        `{{#isProd}}8n3linhnzos6{{/isProd}}
                                           {{^isProd}}8msif5r9dikx{{/isProd}}`,
       profileSignwall:                    `{{contextPath}}/mi-perfil/?outputType=signwall`,

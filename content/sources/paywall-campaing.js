@@ -6,7 +6,13 @@ import { interpolateUrl } from '../../components/features/paywall/_dependencies/
 
 const fetch = (key = {}) => {
   const site = key['arc-site']
-  const { documentType = 'DNI', documentNumber, attemptToken, event } = key
+  const {
+    documentType = 'DNI',
+    documentNumber,
+    attemptToken,
+    event,
+    fromFia,
+  } = key
   const {
     paywall: { urls },
   } = getProperties(site)
@@ -23,6 +29,7 @@ const fetch = (key = {}) => {
         }
       : {}),
     ...(isEvent ? { isEvent, event } : {}),
+    ...(fromFia ? { fromFia: true } : {}),
   }
 
   const url = interpolateUrl(urls.originSubscriptions, params)
@@ -98,6 +105,7 @@ const fetch = (key = {}) => {
       {
         name,
         event,
+        fromFia: !!fromFia,
         summary,
         plans,
         description: parseJSON(productDescription),
@@ -115,10 +123,11 @@ const fetch = (key = {}) => {
 export default {
   fetch,
   params: {
+    fromFia: 'text',
     documentNumber: 'text',
     documentType: 'text',
     attemptToken: 'text',
-    event: 'text',
+    //event: 'text',
   },
   ttl: 20,
 }
