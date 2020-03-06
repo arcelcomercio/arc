@@ -5,13 +5,13 @@ const customFields = PropTypes.shape({
     name: 'Id de la liga',
     description: 'Identificador de la liga',
   }),
-  leagueNameText: PropTypes.string.isRequired.tag({
+  leagueNameText: PropTypes.string.tag({
     name: 'Nombre de la liga',
   }),
   sponsorName: PropTypes.string.isRequired.tag({
     name: 'Texto de patrocinador',
   }),
-  htmlAds: PropTypes.string.isRequired.tag({
+  htmlAds: PropTypes.string.tag({
     name: 'Html',
   }),
 })
