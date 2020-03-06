@@ -17,7 +17,7 @@ const classes = {
 }
 const CardListResult = ({
   firstCard = true,
-  leagueNme = '',
+  leagueName = '',
   leagueNameText,
   sponsorName,
   listMatchResults = [],
@@ -26,7 +26,7 @@ const CardListResult = ({
     <div className={classes.tournamentContent}>
       {firstCard ? (
         <div className={classes.tournamentCardLig}>
-          {leagueNameText !== '' ? leagueNameText : leagueNme}
+          {leagueNameText !== '' ? leagueNameText : leagueName}
         </div>
       ) : (
         <div className={classes.tournamentCardSponsor}>

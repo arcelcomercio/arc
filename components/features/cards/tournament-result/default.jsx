@@ -31,19 +31,19 @@ const TournamentResult = () => {
     query: { idLeague },
   })
 
-  const { leagueNme = '', listMatchResults1 = [], listMatchResults2 = [] } =
+  const { leagueName = '', listMatchResults1 = [], listMatchResults2 = [] } =
     data || {}
 
   const cardOneParams = {
     firstCard: true,
-    leagueNme,
+    leagueName,
     leagueNameText,
     listMatchResults: listMatchResults1,
   }
 
   const cardTwoParams = {
     firstCard: false,
-    leagueNme,
+    leagueName,
     sponsorName,
     listMatchResults: listMatchResults2,
   }
