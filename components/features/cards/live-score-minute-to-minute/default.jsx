@@ -46,7 +46,7 @@ class LiveScoreMinuteToMinute extends Component {
     const { globalContent } = this.props
     // id temporal
     const gameId =
-      getFootballGameId(globalContent) || '9pg2evs77obh70jmd5wa7lsh6'
+      getFootballGameId(globalContent) || '2fotq7p7kpwzjsr8m7bsk29uy'
     this.fetchContent({
       teamParams: {
         source: CONTENT_SOURCE,
@@ -79,8 +79,8 @@ class LiveScoreMinuteToMinute extends Component {
     }
 
     const golListItemValidation =
-      golListItem.homeTeamGolList.length > 0 &&
-      golListItem.awayTeamGolList.length > 0
+      golListItem.homeTeamGolList.length === 0 &&
+      golListItem.awayTeamGolList.length === 0
 
     return (
       <div className={classes.liveScore}>
@@ -91,7 +91,7 @@ class LiveScoreMinuteToMinute extends Component {
           </div>
           <TeanScore {...visitingTeamParams} />
         </div>
-        {golListItemValidation ? <GolListItem {...golListItem} /> : null}
+        {!golListItemValidation ? <GolListItem {...golListItem} /> : null}
       </div>
     )
   }
