@@ -55,9 +55,14 @@ export const LogIntoAccountEventTag = ({
   debug,
   onBeforeSend,
 }) => {
-  const accessToken = window.Identity.userIdentity.accessToken
+  const [accessToken, setAccessToken] = React.useState()
+  React.useEffect(() => {
+    window.Identity.extendSession().then(({ accessToken: token }) => {
+      setAccessToken(token)
+    })
+  }, [])
 
-  return (
+  return accessToken ? (
     <FbEventTag
       debug={debug}
       onBeforeSend={onBeforeSend}
@@ -65,7 +70,7 @@ export const LogIntoAccountEventTag = ({
       accessToken={accessToken}
       subscription_id={subscriptionId}
     />
-  )
+  ) : null
 }
 LogIntoAccountEventTag.propTypes = {
   debug: PropTypes.bool,
