@@ -243,6 +243,10 @@ export default {
   }
   source
   label{
+    audiencia_nicho{
+      text
+      url
+    }
     nucleo{
       text
       url
@@ -365,6 +369,9 @@ export default {
       _id
       canonical_url
       website_url
+      content_restrictions{
+        content_code
+      }
       type
       headlines{
         basic

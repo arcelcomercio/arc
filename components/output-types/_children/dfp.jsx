@@ -25,6 +25,7 @@ const Dfp = ({ isFuature, adId }) => {
   const {
     section_id: sectionId,
     _id,
+    content_restrictions: {content_code:contentCode=''}={},
     taxonomy: {
       primary_section: { path: primarySection } = {},
       tags = [],
@@ -34,6 +35,7 @@ const Dfp = ({ isFuature, adId }) => {
   let contentConfigValues = {}
   let page = ''
   let flagsub = false
+  let typeContent = ''
   switch (metaValue('id')) {
     case 'meta_section':
       if (sectionId || _id) {
@@ -64,6 +66,7 @@ const Dfp = ({ isFuature, adId }) => {
         }
       }
       page = 'post'
+      typeContent=(contentCode==='')?'standar':contentCode
       break
     case 'meta_home':
       contentConfigValues = {
@@ -98,7 +101,7 @@ const Dfp = ({ isFuature, adId }) => {
     const subsection = flagsub?'':sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
-    const getTargetFunction = `var getTarget=function getTarget(){ return {"publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
+    const getTargetFunction = `var getTarget=function getTarget(){ return {"contenido":"${typeContent}","publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
     const adsCollection = spaces.map(
       ({
         space,
@@ -106,7 +109,10 @@ const Dfp = ({ isFuature, adId }) => {
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
+        breakpoint: breakpoints,
+        refresh=false
       }) => {
+        const flagDimension = (space === 'laterall'||space === 'lateralr' )? true:''
         const formatSpace = {
           id: `gpt_${space}`,
           slotName: slotname2,
@@ -116,6 +122,14 @@ const Dfp = ({ isFuature, adId }) => {
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
         }
+        if (flagDimension) {
+          formatSpace.dimensions=`<::${dimensions}::>`
+          formatSpace.sizemap={
+            breakpoints:`<::${breakpoints}::>`,
+            refresh
+        }
+      }
+
         return formatSpace
       }
     )

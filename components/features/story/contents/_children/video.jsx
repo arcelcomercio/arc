@@ -30,6 +30,10 @@ const StoryContentChildVideo = props => {
       /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.trome.pe$1'
     )
+    .replace(
+      /https:\/\/gestion.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      'https://img.gestion.pe$1'
+    )
 
   const getSectionSlug = (sectionId = '') => {
     return sectionId.split('/')[1] || ''

@@ -84,13 +84,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora Depor',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © Depor.pe',
-      'Grupo Depor - Todos los derechos reservados',
-    ],
-
     socialNetworks: [
       {
         name: 'Twitter',
@@ -114,34 +107,6 @@ export default {
         url: 'https://depor.com/arcio/rss',
       },
     ],
-
-    contacts: [
-      {
-        position: 'Director Periodístico General de Deporte',
-        name: 'Guillermo Denegri',
-      },
-      {
-        position: 'Director Periodístico',
-        name: 'Miguel Morales.',
-      },
-    ],
-    corporateInfo: {
-      name: 'Grupo El Comercio',
-      direction:
-        'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-    },
-    draftingContact: [
-      {
-        name: 'Redacción',
-        value: '311-6500(2858) depor@depor.pe',
-      },
-      {
-        name: 'Publicidad Web',
-        value: 'Fonoavisos@comercio.com.pe',
-      },
-    ],
-    copyrightText:
-      'Copyright© Depor.pe - Grupo El Comercio - Todos los derechos reservados.',
   },
   social: {
     facebook: {

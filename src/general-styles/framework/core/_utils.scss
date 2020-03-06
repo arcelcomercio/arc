@@ -260,3 +260,17 @@ No es un adios, es un hasta luego
 .wrapper {
   max-width: 1366px;
 }
+
+.md\:row-1 {
+  @media (--tablet) {
+    grid-row: span 1;
+    height: ($row-height * 1);
+  }
+}
+
+.md\:row-2 {
+  @media (--tablet) {
+    grid-row: span 1;
+    height: ($row-height * 2) + 20px;
+  }
+}
