@@ -59,11 +59,13 @@ export const LogIntoAccountEventTag = ({
   onBeforeSend,
 }) => {
   const {
-    paywall: { urls },
+    siteProperties: {
+      paywall: { urls },
+    },
   } = useFusionContext()
   const [accessToken, setAccessToken] = React.useState()
   React.useEffect(() => {
-    const apiOrigin = interpolateUrl(`${urls.originApi}${urls.arcEntitlements}`)
+    const apiOrigin = interpolateUrl(urls.originApi)
     window.Identity.options({ apiOrigin })
     window.Identity.extendSession().then(({ accessToken: token }) => {
       setAccessToken(token)
