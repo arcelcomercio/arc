@@ -78,7 +78,7 @@ class LiveScoreMinuteToMinute extends Component {
       awayTeamGolList: awayTeamParams.goalList,
     }
 
-    const validate =
+    const golListItemValidation =
       golListItem.homeTeamGolList.length > 0 &&
       golListItem.awayTeamGolList.length > 0
 
@@ -91,7 +91,7 @@ class LiveScoreMinuteToMinute extends Component {
           </div>
           <TeanScore {...visitingTeamParams} />
         </div>
-        {validate ? <GolListItem {...golListItem} /> : null}
+        {golListItemValidation ? <GolListItem {...golListItem} /> : null}
       </div>
     )
   }
