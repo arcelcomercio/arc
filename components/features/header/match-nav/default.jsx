@@ -37,7 +37,8 @@ import Ads from '../../../global-components/ads'
 import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
-  navTabs: 'navegation-tabs w-full bg-white pt-10 flex justify-center',
+  navTabs:
+    'navegation-tabs w-full bg-white pt-10 flex justify-center border-t-1 border-solid',
   navTabsList: 'navegation-tabs__list flex',
   navTabsItem: 'navegation-tabs__item flex items-center',
   navTabsItemActive:
