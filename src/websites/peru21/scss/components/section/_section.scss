@@ -263,6 +263,14 @@
       outline:none
     }
   }
+  .section-video__icon{
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 4px;
+    &--up{
+      transform: rotate(180deg);
+    }
+  }
   .section-video__list-text {
     width: 100%;
     display: flex;

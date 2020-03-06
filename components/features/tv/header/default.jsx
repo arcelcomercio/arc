@@ -41,8 +41,6 @@ const TvHeader = () => {
       document.body.classList.remove('overflow-hidden');
     }
     changeStatus(!statusMenu)
-
-    console.log("alwwaysssssssssssssss"+statusMenu)
   }
 
   const formatMenuSections = res => {

@@ -103,12 +103,18 @@ export default ({
       hora: `${hora}:${minutes}`,
     }
   }
-  const { siteUrl = '' } = siteProperties
+  
+  const { 
+    social: {
+      twitter: { user: siteNameRedSocial },
+    },siteUrl = '' 
+  } = siteProperties
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
     principalVideo.websiteLink,
-    principalVideo.title
+    principalVideo.title,
+    siteNameRedSocial
   )
 
   const shareNew = origin => {
@@ -208,12 +214,12 @@ export default ({
                     <button
                     type="button"
                     onClick={() => setHidden(true)} className="section-video__read"> 
-                    Mostrar menos</button>
+                    Mostrar menos <i className="section-video__icon section-video__icon--up icon-down"></i></button>
                   ) : (
                     <button
                     type="button"
                     onClick={() => setHidden(false)} className="section-video__read"> 
-                    Mostrar más</button>
+                    Mostrar más <i className="section-video__icon icon-down"></i></button>
                   )}
                 </div>
                 )}
