@@ -123,6 +123,13 @@ function WizardPlan(props) {
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+    fbq('track', 'ViewContent', {
+      content_category: plans[0].productName,
+      content_ids: [plans[0].sku],
+      contents: [{ id: plans[0].sku, quantity: 1 }],
+      currency: 'PEN',
+      num_items: 1,
+    })
     fbq(
       'track',
       'Lead'
@@ -197,8 +204,8 @@ function WizardPlan(props) {
       })
       fbq('track', 'InitiateCheckout', {
         content_category: plan.name,
-        content_ids: [plan.sku],
-        contents: [{ id: plan.sku, quantity: 1 }],
+        content_ids: [plan.priceCode],
+        contents: [{ id: plan.priceCode, quantity: 1 }],
         currency: 'PEN',
         num_items: 1,
         value: plan.amount,
