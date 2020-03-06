@@ -36,7 +36,8 @@ const classes = {
 class MatchNav extends PureComponent {
   render() {
     const {
-      globalContent
+      globalContent, 
+      requestUri
     } = this.props
 
     const {
@@ -53,12 +54,21 @@ class MatchNav extends PureComponent {
 
     let urlEstaticas = configTabs['partido_previa']?configTabs['partido_previa']:(configTabs['partido_directo']?configTabs['partido_directo']:configTabs['partido_cronica'])
 
+    let currentTab = subtype
+    if(requestUri.includes("/alineaciones/")){
+      currentTab = "alineaciones"
+    }
+
+    if(requestUri.includes("/estadisticas/")){
+      currentTab = "estadisticas"
+    }
+
     return (
       <>
         <div className={classes.navTabs}>
           <ul className={classes.navTabsList}>
             {configTabs['partido_previa'] && (
-              <li className={subtype=='partido_previa'?classes.navTabsItemActive:classes.navTabsItem}>
+              <li className={currentTab=='partido_previa'?classes.navTabsItemActive:classes.navTabsItem}>
                 <a
                   href={configTabs['partido_previa']}
                   className={classes.navTabsTitle}>
@@ -67,7 +77,7 @@ class MatchNav extends PureComponent {
               </li>
             )}
             {configTabs['partido_directo'] && (
-              <li className={subtype=='partido_directo'?classes.navTabsItemActive:classes.navTabsItem}>
+              <li className={currentTab=='partido_directo'?classes.navTabsItemActive:classes.navTabsItem}>
                 <a
                   href={configTabs['partido_directo']}
                   className={classes.navTabsTitle}>
@@ -75,14 +85,14 @@ class MatchNav extends PureComponent {
                 </a>
               </li>
             )}
-            <li className={classes.navTabsItem}>
+            <li className={currentTab=='alineaciones'?classes.navTabsItemActive:classes.navTabsItem}>
               <a
                 href={'/alineaciones' + urlEstaticas}
                 className={classes.navTabsTitle}>
                 Alineaciones
               </a>
             </li>
-            <li className={classes.navTabsItem}>
+            <li className={currentTab=='estadisticas'?classes.navTabsItemActive:classes.navTabsItem}>
               <a
                 href={'/estadisticas' + urlEstaticas}
                 className={classes.navTabsTitle}>
@@ -90,10 +100,10 @@ class MatchNav extends PureComponent {
               </a>
             </li>
             {configTabs['partido_cronica'] && (
-              <li className={subtype=='partido_cronica'?classes.navTabsItemActive:classes.navTabsItem}>
+              <li className={currentTab=='partido_cronica'?classes.navTabsItemActive:classes.navTabsItem}>
                 <a
                   href={configTabs['partido_cronica']}
-                  className={classes.navTabsTitle}>
+                  className={classes.navTabsTitle}> 
                   Crónica
                 </a>
               </li>
