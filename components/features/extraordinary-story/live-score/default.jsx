@@ -5,10 +5,16 @@ import PropTypes from 'prop-types'
 
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
-import { getPhotoId } from '../../../utilities/helpers'
 import { includePromoItems } from '../../../utilities/included-fields'
 
 const PHOTO_SOURCE = 'photo-resizer'
+
+const getPhotoId = photoUrl => {
+  if (!photoUrl) return ''
+  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
+  const [, photoId] = customPhotoUrl || []
+  return photoId
+}
 
 const ExtraordinaryStoryLifeScore = props => {
   const { customFields } = props
