@@ -3,6 +3,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+
+import { interpolateUrl } from '../_dependencies/domains'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
@@ -55,8 +58,13 @@ export const LogIntoAccountEventTag = ({
   debug,
   onBeforeSend,
 }) => {
+  const {
+    paywall: { urls },
+  } = useFusionContext()
   const [accessToken, setAccessToken] = React.useState()
   React.useEffect(() => {
+    const apiOrigin = interpolateUrl(`${urls.originApi}${urls.arcEntitlements}`)
+    window.Identity.options({ apiOrigin })
     window.Identity.extendSession().then(({ accessToken: token }) => {
       setAccessToken(token)
     })
