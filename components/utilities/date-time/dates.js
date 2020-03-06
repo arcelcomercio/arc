@@ -1,3 +1,54 @@
+// Extraida de ./time.js
+export const formattedTime = date => {
+  const hours =
+    date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
+
+  const minutes =
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+
+  return `${hours}:${minutes}`
+}
+
+export const arrayMonths = [
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre',
+]
+
+export const arrayDays = [
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado',
+]
+
+export const formatDayMonthYear = (
+  currentDate,
+  showTime = true,
+  isStatic = false
+) => {
+  const date = new Date(currentDate)
+
+  if (isStatic) date.setHours(date.getHours() - 5)
+
+  const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
+    arrayMonths[date.getMonth()]
+  } del ${date.getFullYear()}`
+  return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
+}
+
 export const getDateSeo = data => {
   const fechaZone = data
     ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]

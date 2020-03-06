@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import ENV from 'fusion:environment'
 
-import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 import {
   sideScroll,
   handleNavScroll,
@@ -59,6 +58,24 @@ const classes = {
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight: 'flex items-center justify-end header__btn-container',
   btnSubscribe: 'flex items-center btn capitalize text-md',
+}
+
+const searchQuery = (query, sort) => {
+  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
+  if (query !== '')
+    // eslint-disable-next-line no-restricted-globals
+    location.href = `/buscar/${newQuery}/todas/${sort ||
+      'descendiente'}/?query=${newQuery}`
+}
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
 }
 
 // TODO: Agregar el click afuera del menu
@@ -280,7 +297,7 @@ const HeaderChildInverted = ({
     }
   }, []) */
 
-  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod': 'sandbox';
+  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   return (
     <>
       <nav className={classes.band}>
@@ -424,17 +441,28 @@ const HeaderChildInverted = ({
             <div className={`${classes.navContainerRight} `}>
               {siteProperties.activePaywall && (
                 <Button
-                    btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                    onClick={()=>{
-                      const { origin } = window.location;
-                      const outputType = (_env === 'prod')? '' : 'outputType=paywall&';
-                      const pf = _env === 'prod' ? '' : '/pf';
-                      const connector = _env !== "prod" ? `?_website=${arcSite}&` : `?`;
-                      const link = origin + pf + siteProperties.urlSubsOnline + connector + outputType;
-                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
-                      window.location.href = link + ref;
-                    }}/>
+                  btnText="Suscríbete"
+                  btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
+                  onClick={() => {
+                    const { origin } = window.location
+                    const outputType =
+                      _env === 'prod' ? '' : 'outputType=paywall&'
+                    const pf = _env === 'prod' ? '' : '/pf'
+                    const connector =
+                      _env !== 'prod' ? `?_website=${arcSite}&` : `?`
+                    const link =
+                      origin +
+                      pf +
+                      siteProperties.urlSubsOnline +
+                      connector +
+                      outputType
+                    const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                      'undefined' &&
+                      window.section) ||
+                      ''}`
+                    window.location.href = link + ref
+                  }}
+                />
               )}
               {siteProperties.activeSignwall && (
                 <SignwallComponent

@@ -1,4 +1,4 @@
-import { formatDayMonthYear } from '../../../../utilities/helpers'
+import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../../utilities/constants'
 
 const LINK = 'link'
