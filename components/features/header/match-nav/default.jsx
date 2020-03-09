@@ -25,7 +25,7 @@ class MatchNav extends PureComponent {
 
     const configTabs = []
     relatedContent.forEach(element => {
-      configTabs[element.subtype] = element.canonicalUrl
+      configTabs[element.subtype] = element.canonical_url
     })
     configTabs[subtype] = canonicalUrl
 
