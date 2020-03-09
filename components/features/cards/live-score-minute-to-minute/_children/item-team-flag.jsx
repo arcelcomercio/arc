@@ -5,10 +5,10 @@ const classes = {
   scoreImg: 'score__team-img w-full h-full object-cover',
 }
 
-const TeamFlag = () => {
+const TeamFlag = ({ flag = '' }) => {
   return (
     <figure className={classes.scoreLogo}>
-      <img src="" alt="" className={classes.scoreImg} />
+      <img src={flag} alt="" className={classes.scoreImg} />
     </figure>
   )
 }

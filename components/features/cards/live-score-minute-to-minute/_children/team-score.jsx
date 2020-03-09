@@ -5,7 +5,7 @@ import ItemScore from './item-score'
 import ItemTeamName from './item-team-name'
 
 const classes = {
-  scoreBox: 'score__team flex items-start pl-20 pr-20',
+  scoreBox: 'score__team flex items-center md:items-end pl-20 pr-20',
 }
 
 const LiveScoreMinuteToMinuteTeanScore = ({
@@ -17,7 +17,7 @@ const LiveScoreMinuteToMinuteTeanScore = ({
   return (
     <div className={classes.scoreBox}>
       {homeTeam ? (
-        <ItemTeamName name={name} flags={flag} />
+        <ItemTeamName name={name} flag={flag} />
       ) : (
         <ItemScore scoreTeam={scoreTeam} />
       )}
@@ -25,7 +25,7 @@ const LiveScoreMinuteToMinuteTeanScore = ({
       {homeTeam ? (
         <ItemScore scoreTeam={scoreTeam} />
       ) : (
-        <ItemTeamName name={name} flags={flag} />
+        <ItemTeamName name={name} flag={flag} />
       )}
     </div>
   )

@@ -6,13 +6,15 @@ const classes = {
   list: 'score__gol-list flex pl-10 pr-10 flex-wrap justify-end items-center',
   listItem: 'score__gol-item flex flex-wrap mb-5 md:mr-10',
   listName: 'score__gol-name font-bold mr-5 secondary-font',
-  listTime: 'score__gol-time secondary-font',
+  listTime: 'score__gol-time font-bold secondary-font',
   golImg: 'score__gol-img object-cover block',
 }
 const GolListItem = ({ homeTeam = true, goalList = [] }) => {
   return (
     <div className={classes.golBox}>
-      {homeTeam && <img src="" alt="" className={classes.golImg} />}
+      {homeTeam && goalList.length > 0 && (
+        <img src="" alt="" className={classes.golImg} />
+      )}
       <ul className={classes.list}>
         {goalList.length > 0 &&
           goalList.map(({ timeMinSec = '', scorerName, type }) => {
@@ -29,7 +31,9 @@ const GolListItem = ({ homeTeam = true, goalList = [] }) => {
             )
           })}
       </ul>
-      {homeTeam === false && <img src="" alt="" className={classes.golImg} />}
+      {homeTeam === false && goalList.length > 0 && (
+        <img src="" alt="" className={classes.golImg} />
+      )}
     </div>
   )
 }

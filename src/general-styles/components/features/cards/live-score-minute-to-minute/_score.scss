@@ -28,9 +28,6 @@
   }
   &__team {
     width: 50%;
-    @media (--only-mobile) {
-      align-items: flex-start;
-    }
     &:first-child {
       justify-content: flex-end;
       .score__team-number {
@@ -53,20 +50,23 @@
       }
     }
     &-name {
-      font-size: 30px;
-      line-height: 41px;
       @media (--only-mobile) {
         font-size: 12px;
         line-height: 16px;
         margin-top: 5px;
       }
       @media (--tablet) {
+        font-size: 22px;
+        line-height: 23px;
         margin-right: 25px;
+      }
+      @media (--desktop) {
+        font-size: 30px;
+        line-height: 41px;
       }
     }
     &-logo {
       width: 42px;
-      background-color: red;
       margin-right: 25px;
       @media (--only-mobile) {
         margin-right: 0;
@@ -106,17 +106,17 @@
     }
     &-name {
       color: #3e4750;
+      letter-spacing: 0.4px;
     }
     &-time {
       color: #9a9a9a;
     }
     &-name,
     &-time {
-      font-size: 14px;
+      font-size: 15px;
       line-height: 16px;
-      letter-spacing: 0.4px;
       @media (--only-mobile) {
-        font-size: 12px;
+        font-size: 13px;
       }
     }
     &-img {

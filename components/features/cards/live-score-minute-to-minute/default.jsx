@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
+import customFields from './_dependencies/custom-fields'
+
 import TeanScore from './_children/team-score'
 import GolListItem from './_children/gol-list'
 
@@ -27,19 +29,29 @@ class LiveScoreMinuteToMinute extends Component {
   }
 
   componentDidMount() {
-    const interval = setInterval(() => this.getDataScore(), 5000)
+    const {
+      customFields: { intervalTime = 1 },
+    } = this.props
+
+    const intervalTimeMilliseconds = intervalTime * 60000
+
+    const interval = setInterval(
+      () => this.getDataScore(),
+      intervalTimeMilliseconds
+    )
     this.setState({ interval })
   }
 
   getDataScore = () => {
     const { globalContent } = this.props
-    const gameid =
-      getFootballGameId(globalContent) || '1f2wtjteq1cv9ttjllylwgbje'
+    // id temporal
+    const gameId =
+      getFootballGameId(globalContent) || '2fotq7p7kpwzjsr8m7bsk29uy'
     this.fetchContent({
       teamParams: {
         source: CONTENT_SOURCE,
         query: {
-          gameid,
+          gameId,
         },
       },
     })
@@ -66,6 +78,10 @@ class LiveScoreMinuteToMinute extends Component {
       awayTeamGolList: awayTeamParams.goalList,
     }
 
+    const golListItemValidation =
+      golListItem.homeTeamGolList.length === 0 &&
+      golListItem.awayTeamGolList.length === 0
+
     return (
       <div className={classes.liveScore}>
         <div className={classes.liveWrapper}>
@@ -75,7 +91,7 @@ class LiveScoreMinuteToMinute extends Component {
           </div>
           <TeanScore {...visitingTeamParams} />
         </div>
-        <GolListItem {...golListItem} />
+        {!golListItemValidation ? <GolListItem {...golListItem} /> : null}
       </div>
     )
   }
@@ -83,4 +99,9 @@ class LiveScoreMinuteToMinute extends Component {
 
 LiveScoreMinuteToMinute.label = 'Score en vivo minuto a minuto'
 
+LiveScoreMinuteToMinute.propTypes = {
+  customFields,
+}
+
+// LiveScoreMinuteToMinute.static = true
 export default LiveScoreMinuteToMinute
