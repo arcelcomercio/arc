@@ -312,6 +312,10 @@ export default {
       content
       type
     }
+    uuid_match{
+      content
+      type
+    }
     youtube_id {
       content
       type
@@ -372,6 +376,7 @@ export default {
       content_restrictions{
         content_code
       }
+      subtype
       type
       headlines{
         basic
@@ -382,6 +387,10 @@ export default {
           url
           width
           height
+        }
+        uuid_match{
+          content
+          type
         }
         basic_gallery{
           promo_items{
