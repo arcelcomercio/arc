@@ -8,7 +8,7 @@ const params = [
 const resolve = (key = {}) => {
   let urlResult = ''
   if (key && key.idLeague && key.idLeague !== '') {
-    urlResult = `https://devresultadosopta.elcomercio.pe/api/v2/competitioncomponent/?format=json&uuid=${key.idLeague}`
+    urlResult = `https://cdna-resultadosopta.minoticia.pe/api/v2/competitioncomponent/?format=json&uuid=${key.idLeague}`
   }
 
   return urlResult

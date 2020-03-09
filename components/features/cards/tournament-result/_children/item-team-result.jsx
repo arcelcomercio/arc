@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PLAYING, PLAYED } from '../../../../utilities/constants'
+import { PLAYING, PLAYED, FIXTURE } from '../../../../utilities/constants'
 
 const classes = {
   itemTeamResult:
@@ -46,13 +46,23 @@ const ItemTeamResult = ({
 
       <div className={classes.itemScore}>
         <div className={classes.itemScoreBox}>
-          <p className={classes.itemScoreText}>{homeTeamScore}</p>
-          <p className={classes.itemScoreText}>{awayTeamScore}</p>
+          {matchStatus !== FIXTURE && (
+            <>
+              <p className={classes.itemScoreText}>{homeTeamScore}</p>
+              <p className={classes.itemScoreText}>{awayTeamScore}</p>
+            </>
+          )}
         </div>
         {matchStatus === PLAYING && (
           <p className={classes.itemScoreEnVivo}>En vivo</p>
         )}
         {matchStatus === PLAYED && (
+          <div className={classes.itemScoreMatch}>
+            <p className={classes.itemScoreDate}>{matchDate}</p>
+            <p className={classes.itemScoreTime}>{matchTime}</p>
+          </div>
+        )}
+        {matchStatus === FIXTURE && (
           <div className={classes.itemScoreMatch}>
             <p className={classes.itemScoreDate}>{matchDate}</p>
             <p className={classes.itemScoreTime}>{matchTime}</p>
