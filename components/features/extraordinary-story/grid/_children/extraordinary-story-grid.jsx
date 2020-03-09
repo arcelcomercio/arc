@@ -1,7 +1,7 @@
 import React from 'react'
 import SectionItem from './section-item'
 import EmbedMultimedia from '../../../../global-components/embed-multimedia'
-import ConfigParams from '../../../../utilities/config-params'
+import { ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants/element-types'
 
 const classes = {
   extraordinayStoryGridContainer: `extraordinary-story-grid flex position-relative p-10 flex-col lg:flex-row`,
@@ -28,9 +28,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
   } = props
   storyData.multimediaOrientation = 'grid'
   const youtubeClass =
-    storyData.typeMultimediaGeneral === ConfigParams.ELEMENT_YOUTUBE_ID
-      ? 'youtube-box'
-      : ''
+    storyData.typeMultimediaGeneral === ELEMENT_YOUTUBE_ID ? 'youtube-box' : ''
 
   return (
     <div
