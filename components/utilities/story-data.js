@@ -204,6 +204,17 @@ class StoryData {
     )
   }
 
+  // Se creó esta función para obtener por defecto un string vacío
+  get imageUrl() {
+    return (
+      StoryData.getThumbnailBySize(
+        this._data,
+        StoryData.getTypeMultimedia(this._data),
+        ConfigParams.IMAGE_ORIGINAL
+      ) || ''
+    )
+  }
+
   get multimedia() {
     return this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
   }

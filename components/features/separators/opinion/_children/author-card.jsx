@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { getResizedUrl } from '../../../../utilities/resizer'
+
 const classes = {
   opinionItem:
     'separator__opinion--item position-relative pt-20 pb-20 pr-20 pl-20 bg-tertiary hidden',
@@ -28,8 +30,9 @@ const SeparatorsChildAuthorCard = props => {
       // section,
       // sectionUrl,
       websiteUrl,
-      imageUrl,
+      imageUrl: adminImageUrl,
       multimediaLazyDefault,
+      multimedia,
     } = {},
   } = props
 
@@ -45,6 +48,11 @@ const SeparatorsChildAuthorCard = props => {
       numline = classes.opiniontwoline
       break
   }
+
+  const { imageUrl = adminImageUrl } = isAdmin
+    ? {}
+    : getResizedUrl({ url: multimedia, arcSite, presets: 'imageUrl:85x85' }) ||
+      {}
 
   const existImageAuthor = imageUrl.includes('author.png')
 
@@ -64,7 +72,7 @@ const SeparatorsChildAuthorCard = props => {
                 }`}
                 src={isAdmin ? imageUrl : multimediaLazyDefault}
                 data-src={imageUrl}
-                alt={author || ''}                
+                alt={author || ''}
               />
             </a>
           </figure>

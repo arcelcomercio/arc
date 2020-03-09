@@ -6,6 +6,7 @@ import { useFusionContext } from 'fusion:context'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import { separatorFeaturedFields } from '../../../utilities/included-fields'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 // TODO: Subir clases a objeto
 
@@ -27,7 +28,7 @@ const SeparatorFeatured = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
   const { editableField } = useEditableContent()
 
-  const presets = 'portrait_s:161x220'
+  const presets = isAdmin ? 'portrait_s:161x220' : 'no-presets'
   const includedFields = separatorFeaturedFields
 
   const { content_elements: contentElements = [] } =
@@ -56,12 +57,19 @@ const SeparatorFeatured = props => {
       websiteLink,
       primarySection,
       primarySectionLink,
-      multimediaPortraitS,
       multimediaType,
       multimediaLazyDefault,
       multimediaSubtitle,
       multimediaCaption,
+      imageUrl,
     } = storyData
+    const { multimediaPortraitS = multimediaLazyDefault } = isAdmin
+      ? storyData
+      : getResizedUrl({
+          url: imageUrl,
+          arcSite,
+          presets: 'multimediaPortraitS:161x220',
+        }) || {}
     return {
       title,
       websiteLink,
