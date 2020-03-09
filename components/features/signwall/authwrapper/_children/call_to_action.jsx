@@ -6,6 +6,7 @@ import { LogIntoAccountEventTag } from '../../../paywall/_children/fb-account-li
 import { MsgRegister } from '../../_children/iconos'
 import Loading from '../../_children/loading'
 import Taggeo from '../../_dependencies/taggeo'
+import QueryString from '../../_dependencies/querystring'
 
 const CallToActionFia = props => {
   const { mainColorBr, logoutSession, arcSite, typeDialog, urlPlan } = props
@@ -33,9 +34,7 @@ const CallToActionFia = props => {
           onBeforeSend={res => {
             setStatusSubs((res && res.isSubscriber) || false)
             setLoading(false)
-            // remover queryString signFia temporal hasta lamar a la libreria QueryStrings de Singwall
-            const url = window.location.href.split('signFia=')
-            window.history.pushState(null, null, url[0])
+            QueryString.deleteQuery('signFia')
           }}
         />
       )}

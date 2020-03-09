@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 import Fingerprint2 from 'fingerprintjs2'
 
@@ -11,6 +12,7 @@ import GetProfile from '../_dependencies/get-profile'
 import Domains from '../_dependencies/domains'
 import Cookies from '../_dependencies/cookies'
 import Taggeo from '../_dependencies/taggeo'
+import QueryString from '../_dependencies/querystring'
 
 const classes = {
   iconLogin: 'nav__icon icon-user  title-sm text-primary-color',
@@ -52,10 +54,6 @@ class SignwallComponent extends PureComponent {
 
     if (siteProperties.activePaywall) {
       this.getPaywall()
-      // const dataContentPremium = window.content_paywall || false
-      // if (dataContentPremium && siteProperties.activePaywall) {
-      //   this.getPremium()
-      // }
     }
   }
 
@@ -88,10 +86,18 @@ class SignwallComponent extends PureComponent {
     const { siteProperties, arcSite } = this.props
     const W = window || {}
 
+    const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
     const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
     const dataContentPremium = W.content_paywall || false
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
+
+    if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
+      window.location.href =
+        ENV.ENVIRONMENT !== 'elcomercio'
+          ? `/pf/suscripcionesdigitales/fia/planes/?_website=${arcSite}&outputType=paywall`
+          : `/suscripcionesdigitales/fia/planes/`
+    }
 
     if (dataContentPremium && siteProperties.activePaywall) {
       // if (dataContentPremium && arcSite === 'gestion') {
