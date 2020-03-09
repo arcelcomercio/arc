@@ -5,7 +5,7 @@ const classes = {
   story: `sec-col__story flex flex-col pb-10 mr-20 ml-20 mb-20 text-gray-300 border-b-1 border-dashed border-gray`,
 
   link: 'sec-col__link mb-15 text-gray-300 line-h-sm font-bold overflow-hidden',
-  autorLink: 'sec-col__author text-gray-200 ',
+  autorLink: 'sec-col__author text-gray-200',
 }
 
 const StoriesListsCardChildItem = ({
