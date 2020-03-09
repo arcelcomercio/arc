@@ -95,6 +95,12 @@ class Domains {
   getUrlProfile = () => {
     return '/mi-perfil/?outputType=signwall'
   }
+
+  getUrlLandingAuth = arcSite => {
+    return ENV.ENVIRONMENT === 'elcomercio'
+      ? '/auth-fia/?outputType=signwall'
+      : `/pf/auth-fia/?_website=${arcSite}&outputType=signwall`
+  }
 }
 
 export default new Domains()

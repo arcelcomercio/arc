@@ -1,5 +1,4 @@
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
 import React, { PureComponent } from 'react'
 import Fingerprint2 from 'fingerprintjs2'
 
@@ -93,10 +92,11 @@ class SignwallComponent extends PureComponent {
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
 
     if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
-      window.location.href =
-        ENV.ENVIRONMENT !== 'elcomercio'
-          ? `/pf/suscripcionesdigitales/fia/planes/?_website=${arcSite}&outputType=paywall`
-          : `/suscripcionesdigitales/fia/planes/`
+      const artURL = decodeURIComponent(
+        QueryString.getQuery('article_url') || ''
+      )
+      window.sessionStorage.setItem('paywall_last_url', artURL)
+      window.location.href = Domains.getUrlLandingAuth(arcSite)
     }
 
     if (dataContentPremium && siteProperties.activePaywall) {
