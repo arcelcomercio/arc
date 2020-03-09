@@ -9,6 +9,7 @@ import { FormForgot } from '../main/_main/_children/form_forgot'
 import CallToActionFia from './_children/call_to_action'
 import { device } from '../_dependencies/breakpoints'
 import Domains from '../_dependencies/domains'
+import Cookies from '../_dependencies/cookies'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
@@ -39,6 +40,7 @@ const _AuthWrapper = props => {
     if (typeof window !== 'undefined') {
       window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
       window.Identity.logout()
+      Cookies.deleteCookie('arc_e_id')
       setLogged(false)
     }
   }
