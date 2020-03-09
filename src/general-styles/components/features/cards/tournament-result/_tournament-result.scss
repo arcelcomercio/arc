@@ -1,0 +1,68 @@
+.tournament-result {
+  &__box {
+    @media (--desktop) {
+      width: calc(100% - 315px);
+    }
+  }
+  &__content {
+    @media (--tablet) {
+      width: 49%;
+    }
+  }
+  &__card {
+    border-top-width: 6px;
+    border-color: #ddd;
+    height: 186px;
+    overflow-x: hidden;
+    &-league {
+      font-size: 14px;
+      @media (--desktop) {
+        font-size: 18px;
+      }
+    }
+    &-text {
+      font-size: 14px;
+      @media (--desktop) {
+        font-size: 16px;
+      }
+    }
+    &-league,
+    &-sponsor {
+      height: 20px;
+    }
+    &-figure {
+      width: 60%;
+    }
+  }
+  &__item {
+    max-width: 350px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__name {
+    width: 70px;
+    font-size: 14px;
+    word-break: break-word;
+  }
+  &__figure {
+    width: 30px;
+    height: 30px;
+  }
+  &__score {
+    width: 50px;
+    &-live {
+      color: red;
+      font-size: 13px;
+    }
+  }
+  &__date,
+  &__time {
+    font-size: 13px;
+  }
+  &__add {
+    width: 300px;
+    height: 250px;
+    background-color: blue;
+  }
+}

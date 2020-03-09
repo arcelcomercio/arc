@@ -33,3 +33,9 @@ export const getAssetsPath = (arcSite, contextPath) => {
 
   return `https://cdna.${site}`
 }
+
+// Estados de los partidos (opta)
+
+export const FIXTURE = 'Fixture' // por jugarse
+export const PLAYING = 'Playing' // en vivo
+export const PLAYED = 'Played' // jugado
