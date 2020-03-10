@@ -129,11 +129,9 @@ const Head = props => {
       </S.Background>
       <S.Content backgroundColor={leftColor}>
         <S.WrapLogo as="a" href="/" target="_blank">
-          <Icon
-            type={themedLogo}
-            fill={theme.palette.secondary.contrastText}
-            width="30"
-            height="30"
+          <img
+            alt={`logo ${arcSite}`}
+            src={`${interpolateUrl(images.mainLogo)}`}
           />
         </S.WrapLogo>
         <S.WrapLogin>

@@ -122,7 +122,8 @@ export default {
       corporativo:                       `{{contextPath}}/resources/dist/gestion/images/img_corporativo.{{ext}}`,
       confirmation:                      `{{contextPath}}/resources/dist/gestion/images/img_confirmation.{{ext}}`,
       support:                           `{{contextPath}}/resources/dist/gestion/images/img_soporte.{{ext}}`,
-      backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`
+      backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`,
+      mainLogo:                          `{{contextPath}}/resources/dist/gestion/images/logo_gestion_30.png`,
     }
   },
   assets: {

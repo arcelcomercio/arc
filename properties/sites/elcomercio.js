@@ -150,6 +150,7 @@ export default {
       backgroundx1:                      `{{contextPath}}/resources/dist/elcomercio/images/bg_planes_10.jpg`,
       backgroundReview:                  `{{contextPath}}/resources/dist/elcomercio/images/bg_video.jpg`,
       reviewPoster:                      `{{contextPath}}/resources/dist/elcomercio/images/review_poster.jpg`,
+      mainLogo:                          `{{contextPath}}/resources/dist/elcomercio/images/white-logo.png`, 
     }
   },
 
