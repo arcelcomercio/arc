@@ -7,6 +7,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import { createMarkup } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
+import Separator from './_children/separator'
 import {
   includePrimarySection,
   includeCredits,
@@ -74,7 +75,9 @@ const SeparatorOpinion = props => {
       return filteredStories
     },
   })
-
+  if (arcSite === 'elcomercio') {
+    return <Separator {...{ arcSite, isAdmin, stories }} />
+  }
   return (
     <div className={classes.separator}>
       {titleSection ? (

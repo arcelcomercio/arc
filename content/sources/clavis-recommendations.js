@@ -91,7 +91,9 @@ const fetch = (key = {}) => {
       }
       return stories
     })
-    .catch(e => console.error(e))
+    .catch(e => {
+      throw new Error(e)
+    })
 }
 
 const source = {

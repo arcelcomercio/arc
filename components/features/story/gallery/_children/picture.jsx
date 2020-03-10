@@ -10,7 +10,7 @@ const classes = {
 }
 
 const StoryHeaderChildPicture = (slide = {}) => {
-  const { arcSite, isAdmin } = useFusionContext()
+  const { arcSite } = useFusionContext()
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
       return (
@@ -29,16 +29,16 @@ const StoryHeaderChildPicture = (slide = {}) => {
       <Static id={slide.i}>
         <picture>
           <source
-            // className={isAdmin ? '' : 'lazy'}
+            // className ? '' : 'lazy'}
             media="(max-width: 320px)"
-            // srcSet={isAdmin ? ... : ...}
+            // srcSet ? ... : ...}
             srcSet={extractImage(slide.url).landscape_md}
             data-srcset={extractImage(slide.url).landscape_md}
           />
           <source
-            // className={isAdmin ? '' : 'lazy'}
+            // className ? '' : 'lazy'}
             media="(max-width: 769px)"
-            // srcSet={isAdmin ? ... : ...}
+            // srcSet ? ... : ...}
             srcSet={extractImage(slide.url).story_small}
             data-srcset={extractImage(slide.url).story_small}
           />

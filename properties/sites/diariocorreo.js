@@ -11,10 +11,10 @@ export default {
   resizerUrl: 'https://diariocorreo.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-   // 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Correo_Preroll&description_url=https%3A%2F%2Fdiariocorreo.pe&tfcd=0&npa=0&sz=640x360&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    // 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Correo_Preroll&description_url=https%3A%2F%2Fdiariocorreo.pe&tfcd=0&npa=0&sz=640x360&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/diariocorreo/web/post/default/preroll&description_url=https%3A%2F%2Fdiariocorreo.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Ddiariocorreo%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/diariocorreo/amp/post/preroll&description_url=https%3A%2F%2Fdiariocorreo.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Ddiariocorreo%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',  
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/diariocorreo/amp/post/default/preroll&description_url=https%3A%2F%2Fdiariocorreo.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Ddiariocorreo%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1390081201315241',
   googleTagManagerId: 'GTM-TD2GS9Q',
   ampGoogleTagManagerId: 'UA-22221683-1',
@@ -109,29 +109,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      // TODO: DESCOMENTAR ESTO PARA LA SEGUNDA SALIDA DE GESTIÓN
-      /* 'Director periodístico',
-      'DIRECTOR DE Correo', */
-      '© Empresa Editora El Comercio S.A.',
-      'Jirón Jorge Salazar Araoz 171',
-      'Lima 13 - Perú',
-      'Copyright© | diariocorreo.pe | Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Director Periodístico',
-        name: 'DIRECTOR DE Correo',
-      },
-      {
-        position: 'Empresa Editora Correo',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
-      },
-      {
-        position: 'Copyright © diariocorreo.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
     socialNetworks: [
       {
         name: 'linkedin',
@@ -144,25 +121,6 @@ export default {
       {
         name: 'twitter',
         url: 'https://twitter.com/diariocorreo',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Contacto Administrativo',
-        name: 'contacto@prensmart.pe',
-      },
-      {
-        position: 'Publicidad Online',
-        name: 'fonoavisos@comercio.com.pe',
-      },
-      {
-        position: 'Call Center',
-        name: '+51 1708 9999',
-      },
-      {
-        position: 'Temas periodísticos',
-        name: '+51 1 631 1111',
       },
     ],
   },
@@ -204,12 +162,12 @@ export default {
   activeSignwall: true,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
     mainLogo: 'logo.png',
     mainColorBr: '#feabab',
-    mainColorLink:'#c00000',
+    mainColorLink: '#c00000',
     mainColorBtn: '#d31e18',
   },
   taboola: {

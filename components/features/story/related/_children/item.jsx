@@ -1,9 +1,9 @@
 import React from 'react'
-import { getIcon } from '../../../../utilities/helpers'
+
 import UtilListKey from '../../../../utilities/list-keys'
-import ConfigParams from '../../../../utilities/config-params'
-import DataStory from '../../../../utilities/story-data'
+import { IMAGE } from '../../../../utilities/constants/multimedia-types'
 import { getResizedUrl } from '../../../../utilities/resizer'
+import StoryData from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
@@ -20,10 +20,21 @@ const classes = {
   author: 'related-content__author uppercase text-gray-200',
 }
 
+const getIcon = type => {
+  switch (type) {
+    case 'basic_gallery':
+      return 'img'
+    case 'basic_video':
+      return 'video'
+    default:
+      return ''
+  }
+}
+
 const RenderRelatedContentElement = (props, i) => {
   const { deployment, contextPath, arcSite, isAdmin, isAmp = '' } = props
 
-  const get = new DataStory({
+  const get = new StoryData({
     data: props,
     contextPath,
     deployment,
@@ -78,7 +89,7 @@ const RenderRelatedContentElement = (props, i) => {
             />
           )}
 
-          {filterData.multimediaType === ConfigParams.IMAGE ||
+          {filterData.multimediaType === IMAGE ||
           filterData.multimediaType === '' ? (
             ''
           ) : (

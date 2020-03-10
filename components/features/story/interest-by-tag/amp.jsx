@@ -76,16 +76,16 @@ const InterestByTagAmp = props => {
       return story && story._id !== excluir ? story : ''
     })
     .filter(String)
-
   const getSize = cant => {
     const dataStorys = dataInterest.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
       key += 1
-
       const data = {
         title: instance.title,
-        link: `${instance.websiteLink}?ref=amp&source=tepuedeinteresar`,
+        link: `${instance.websiteLink}?ref=amp&source=tepuedeinteresar${
+          instance.isPremium === false ? '&outputType=amp' : ''
+        }`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,

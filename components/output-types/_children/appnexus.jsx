@@ -55,6 +55,7 @@ const getVars = (
           formatOrigen,
           contentOrigen,
           genderOrigen,
+          audienciaNicho,
         } = new StoryData({
           data: globalContent,
           arcSite,
@@ -75,7 +76,8 @@ const getVars = (
             var nucleo_origen = '${nucleoOrigen}' 
             var format_origen = '${formatOrigen}' 
             var content_origen = '${contentOrigen}' 
-            var gender_origen = '${genderOrigen}'`
+            var gender_origen = '${genderOrigen}'
+            var audiencia_nicho = '${audienciaNicho}'`
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
       }

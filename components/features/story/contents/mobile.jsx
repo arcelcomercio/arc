@@ -212,7 +212,7 @@ class StoryContents extends PureComponent {
                   const {
                     _id,
                     type,
-                    subtype,
+                    subtype: sub,
                     raw_oembed: rawOembed,
                     content,
                     level,
@@ -264,7 +264,7 @@ class StoryContents extends PureComponent {
                     return (
                       <Oembed
                         rawOembed={rawOembed}
-                        subtype={subtype}
+                        subtype={sub}
                         className={classes.newsEmbed}
                       />
                     )

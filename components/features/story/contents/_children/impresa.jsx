@@ -4,7 +4,6 @@ import { useFusionContext } from 'fusion:context'
 import Image from '@arc-core-components/element_image'
 import { getResizedUrl } from '../../../../utilities/resizer'
 
-// Basic flex stuff
 const classes = {
   paperNav: 'paper-nav position-relative vv',
 }

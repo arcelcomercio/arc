@@ -76,26 +76,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora El Comercio',
-      'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      'Copyright © Elcomercio.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Directora Periodística:',
-        name: 'Cecilia Valenzuela',
-      },
-      {
-        position: 'Diario Perú21: ',
-        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      },
-      {
-        position: 'Copyright © Peru21.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
     socialNetworks: [
       {
         name: 'facebook',
@@ -108,21 +88,6 @@ export default {
       {
         name: 'google+',
         url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Directora Periodística',
-        name: 'Cecilia Valenzuela',
-      },
-      {
-        position: 'Diario Perú21',
-        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      },
-      {
-        position: 'Contacto comercial',
-        name: '',
       },
     ],
   },
@@ -160,12 +125,12 @@ export default {
   activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
     mainLogo: 'logo.png',
     mainColorBr: '#efdb96',
-    mainColorLink:'#36b'
+    mainColorLink: '#36b',
   },
   tv: {
     logoUrl: '/peru21tv/',
