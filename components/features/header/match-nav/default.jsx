@@ -3,13 +3,14 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
 const classes = {
-  navTabs: 'navegation-tabs w-full bg-white pt-10 flex justify-center',
+  navTabs:
+    'navegation-tabs w-full bg-white pt-10 flex justify-center border-t-1 border-solid',
   navTabsList: 'navegation-tabs__list flex',
   navTabsItem: 'navegation-tabs__item flex items-center',
   navTabsItemActive:
     'navegation-tabs__item navegation-tabs__item--active flex items-center',
   navTabsTitle:
-    'navegation-tabs__title secondary-font pl-10 pr-10 md:pl-20 md:pr-20 pb-10',
+    'navegation-tabs__title secondary-font pl-10 pr-10 md:pl-20 md:pr-20 pb-5',
 }
 
 @Consumer
@@ -51,8 +52,8 @@ class MatchNav extends PureComponent {
             {configTabs.partido_previa && (
               <li
                 className={
-                  currentTab === 'partido_previa'
-                    ? classes.navTabsItemActive
+                  subtype === 'partido_previa'
+                    ? classes.navTabsItemAActive
                     : classes.navTabsItem
                 }>
                 <a
@@ -65,7 +66,7 @@ class MatchNav extends PureComponent {
             {configTabs.partido_directo && (
               <li
                 className={
-                  currentTab === 'partido_directo'
+                  subtype === 'partido_directo'
                     ? classes.navTabsItemActive
                     : classes.navTabsItem
                 }>
@@ -103,7 +104,7 @@ class MatchNav extends PureComponent {
             {configTabs.partido_cronica && (
               <li
                 className={
-                  currentTab === 'partido_cronica'
+                  subtype === 'partido_cronica'
                     ? classes.navTabsItemActive
                     : classes.navTabsItem
                 }>
