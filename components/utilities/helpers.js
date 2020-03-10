@@ -1,5 +1,6 @@
 import { SITE_ELCOMERCIO } from './constants/sitenames'
-import { VIDEO, GALLERY, getAssetsPath } from './constants'
+import { VIDEO, GALLERY } from './constants/multimedia-types'
+import { getAssetsPath } from './assets'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word

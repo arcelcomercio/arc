@@ -14,7 +14,6 @@ const schemaFilter = arcSite => `{
                     type 
                     url
                     resized_urls { 
-                        landscape_ext_story
                         landscape_xl
                         landscape_l
                         square_l
