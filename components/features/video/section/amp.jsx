@@ -73,17 +73,17 @@ const VideoSectionAmp = () => {
   const placementId = adsAmp.movil2
   const parametersCaja2 = { dataSlot, placementId, width, height, movil1: true }
 
-  const parametersCaja4 = {
-    // movil4
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
+  const parametersCaja3 = {
+    // movil4 caja4 caja3
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
     placementId: adsAmp.movil4,
     width,
     height,
     movil1: true,
   }
-  const parametersCaja5 = {
-    // movil5
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
+  const parametersCaja4 = {
+    // movil5 caja5 caja4
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
     placementId: adsAmp.movil5,
     width,
     height,
@@ -145,11 +145,11 @@ const VideoSectionAmp = () => {
 
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja3)}
         />
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
         />
         <StoryContentChildTags data={tags} {...isAmp} />
         {relatedContent.length > 0 && (
