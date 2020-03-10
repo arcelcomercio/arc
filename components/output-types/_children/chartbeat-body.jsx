@@ -73,26 +73,48 @@ const ChartbeatBody = props => {
   const { author, tags, typeStory } = dataStory || {}
   const { type, stringType } = typeStory || {}
   const renderSections = story ? sectionList.concat(tags) : sectionList
-  const chartbeatConfig = `
-    var _sf_async_config = _sf_async_config || {}; 	_sf_async_config.sections = "${renderSections}";
-		${
-    story
-      ? `
-		_sf_async_config.authors = '${author}'; 	_sf_async_config.type =  '${type}'; 		_sf_async_config.contentType = "${stringType}";
-		`
-      : ''
-    }
+
+  const chartbeatLoaderScript = `
     (function() {
-          function loadChartbeat() {
-              window._sf_endpt = (new Date()).getTime(); var e = document.createElement('script'); e.setAttribute('language', 'javascript'); e.setAttribute('type', 'text/javascript');
-              e.setAttribute('src', '//static.chartbeat.com/js/chartbeat_video.js'); document.body.appendChild(e);
-          }
-          var oldonload = window.onload;
-          window.onload = (typeof window.onload != 'function') 
-            ? loadChartbeat 
-            : function() { oldonload(); loadChartbeat(); };
-      })();    
-  `
+      function loadChartbeat() {
+        window._sf_endpt = (new Date()).getTime(); var e = document.createElement('script'); e.setAttribute('language', 'javascript'); e.setAttribute('type', 'text/javascript');
+        e.setAttribute('src', '//static.chartbeat.com/js/chartbeat_video.js'); document.body.appendChild(e);
+      }
+      var oldonload = window.onload;
+      window.onload = (typeof window.onload != 'function') 
+        ? loadChartbeat 
+        : function() { oldonload(); loadChartbeat(); };
+    })();
+`
+
+  const chartbeatLoaderScriptAsync = `
+    (function() {
+      function loadChartbeat() {
+        window._sf_endpt = new Date().getTime();
+        var e = document.createElement('script');
+        var n = document.getElementsByTagName('script')[0];
+        e.type = 'text/javascript';
+        e.async = true;
+        e.src = '//static.chartbeat.com/js/chartbeat.js';
+        n.parentNode.insertBefore(e, n);
+      }
+
+      loadChartbeat();
+    })();
+`
+
+  const chartbeatConfig = `
+    var _sf_async_config = _sf_async_config || {}; _sf_async_config.sections = "${renderSections}"; ${
+    story
+      ? `_sf_async_config.authors = '${author}'; _sf_async_config.type = '${type}'; _sf_async_config.contentType = "${stringType}";`
+      : ''
+  } ${
+    page === 'meta_home' &&
+    (arcSite === 'publimetro' || arcSite === 'elcomercio')
+      ? chartbeatLoaderScriptAsync
+      : chartbeatLoaderScript
+  }`
+
   return (
     <>
       <script
