@@ -31,9 +31,9 @@ const StoryContentChildVideo = props => {
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     headlines: { basic: basicContent = '' } = {},
     url: imagenMigrate = '',
-    contentElemtent=false
+    contentElemtent = false,
   } = props
-  const imageUrl = contentElemtent ? urlImageContent: urlImage
+  const imageUrl = contentElemtent ? urlImageContent : urlImage
   const { large } =
     getResizedUrl({
       url: imageUrl || imagenMigrate,
@@ -163,7 +163,8 @@ const StoryContentChildVideo = props => {
   const powa = `
       (function(){
         window.addEventListener('powaReady', ({ detail: { element } }) => {element.setAttribute('data-sticky', 'true')})
-               window.addEventListener('load',
+              
+        window.addEventListener('load',
           function(){ setTimeout(function(){
             if (window.powaBoot) window.powaBoot()
             if (window.PoWaSettings) {
@@ -180,20 +181,33 @@ const StoryContentChildVideo = props => {
             }
           }, 0)} 
         )
-       })()
-      window.PoWaSettings.promo = {
+       
+       window.addEventListener('powaRender',
+      
+
+      window.PoWaSettings.promo = window.PoWaSettings.promo || {
         size: 'medium',
-               template: function (data) {
-            function _pad2(n) {
-              return n < 10 ? '0' + n : n;
-            }
-                   let template = '<div class=" powa-shot-image " style="background-image: url(${large})"><div class="powa-shot-title ">${basic ||
-    basicContent}</div><div class="powa-shot-play-btn  "><i class="m-icon icon-video featured-story__icon powa-play-btn"> </div></div></div>';
+        template: function (data) {
+                   let template = '<div class=" powa-shot-image powa-shot-click powa-shot-click-play powa-shot-touch powa-shot-touch-background " style="background-image: url(${large})"><div class="powa-shot-title ">${basic ||
+    basicContent}</div><div class="powa-shot-play-btn powa-shot-hover powa-shot-click powa-shot-click-play  "><i class="m-icon icon-video featured-story__icon powa-play-btn"> </div></div></div>';
               return template.trim();
           }
         }  
+      )
+      
+    })()
       `
   const stylePwa = `
+  .powa-shot {
+    position: absolute;
+    color: rgb(240, 248, 255);
+    font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
    .powa-shot-title {
         font-size: x-large;
         text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
