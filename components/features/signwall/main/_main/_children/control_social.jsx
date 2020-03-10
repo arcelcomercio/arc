@@ -193,7 +193,10 @@ export const ButtonSocial = ({
                   },
                   {
                     name: 'originReferer',
-                    value: window.location.href || 'none',
+                    value:
+                      window.location.href
+                        .split('&')[0]
+                        .replace(/(\/#|#|\/)$/, '') || 'none',
                     type: 'String',
                   },
                   {
@@ -250,6 +253,12 @@ export const ButtonSocial = ({
                 checkUserSubs()
               } else {
                 onClose()
+                if (
+                  typeDialog === 'organico' &&
+                  window.location.pathname.match(/newsletters/)
+                ) {
+                  window.location.reload()
+                }
               }
               window.removeEventListener('message', OAuthFacebook)
               window.removeEventListener('onmessage', OAuthFacebook)

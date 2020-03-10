@@ -1,4 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
+/* global Identity fbq dataLayer */
 import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
 import * as S from './styled'
@@ -8,6 +9,7 @@ import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
 import { pushCxense } from '../../../_dependencies/cxense'
+import { SubscribeEventTag } from '../../../_children/fb-account-linking'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -33,6 +35,7 @@ const WizardConfirmation = props => {
       referer,
       payment = {},
       printedSubscriber,
+      fromFia,
       freeAccess,
       event,
     },
@@ -134,6 +137,15 @@ const WizardConfirmation = props => {
         },
       },
     })
+    fbq('track', 'Purchase', {
+      content_name: productName,
+      content_ids: [plan.sku],
+      content_type: productName,
+      contents: [{ id: plan.sku, quantity: 1 }],
+      currency: 'PEN',
+      num_items: 1,
+      value: plan.amount,
+    })
 
     if (document.getElementById('footer')) {
       document.getElementById('footer').style.position = 'relative'
@@ -160,6 +172,12 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
+        <SubscribeEventTag
+          subscriptionId={Identity.userIdentity.uuid}
+          offerCode={priceCode}
+          currency="PEN"
+          value={amount}
+        />
         <Picture
           width={{ xs: '0px', md: '360px' }}
           hideOnScreenSize="sm"
@@ -215,9 +233,11 @@ const WizardConfirmation = props => {
               source={msgs.interpolate(msgs.subscriptionNotice, { email })}
             />
           )}
-          <S.WrapButton>
-            <Button onClick={handleClick}>{msgs.continueButton}</Button>
-          </S.WrapButton>
+          {!fromFia && (
+            <S.WrapButton>
+              <Button onClick={handleClick}>{msgs.continueButton}</Button>
+            </S.WrapButton>
+          )}
         </S.Content>
       </S.Panel>
     </div>
