@@ -1,7 +1,10 @@
 import ENV from 'fusion:environment'
 import React from 'react'
-import ConfigParams from '../utilities/config-params'
-import { defaultImage } from '../utilities/helpers'
+import {
+  VIDEO,
+  ELEMENT_YOUTUBE_ID,
+} from '../utilities/constants/multimedia-types'
+import { defaultImage } from '../utilities/assets'
 
 const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
@@ -75,10 +78,13 @@ const EmbedMultimedia = props => {
     )
 
   const getMultimedia = type => {
-    if (type === GOLDFISH || type === ConfigParams.VIDEO) {
+    if (type === GOLDFISH || type === { VIDEO, ELEMENT_YOUTUBE_ID }.VIDEO) {
       return videoGoldfish
     }
-    if (type === YOUTUBE || type === ConfigParams.ELEMENT_YOUTUBE_ID) {
+    if (
+      type === YOUTUBE ||
+      type === { VIDEO, ELEMENT_YOUTUBE_ID }.ELEMENT_YOUTUBE_ID
+    ) {
       return videoYoutube
     }
     return image
