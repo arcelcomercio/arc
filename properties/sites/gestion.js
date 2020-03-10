@@ -21,7 +21,7 @@ export default {
   ampGoogleTagManagerName: 'gestion',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-3',
-  fbPixelId: '2760131437441699',
+  fbPixelId: '192820708803212',
   fbArticleStyle: 'LogoGestion',
   nameStoryRelated: 'VEA TAMBIÉN',
   siteDescription:
