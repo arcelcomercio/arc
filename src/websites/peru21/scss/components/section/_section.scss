@@ -378,11 +378,20 @@
   .play-list__title,
   .video-list__title{
     @media (--only-mobile) {
-      -webkit-line-clamp: 3;
-      max-height: 69.16px;
+      max-height: 67px;
       width: 100%;
       overflow: hidden;
-      font-weight: normal;
+      font-weight: bold;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      color: #DDDDDD;
+    }
+  }
+  .video-list__new{
+    @media (--only-mobile) {
+      font-weight: bold;
+      color: #DDDDDD;
     }
   }
   .play-list__duration,
