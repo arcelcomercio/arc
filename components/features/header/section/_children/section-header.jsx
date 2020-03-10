@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import {
-  getResponsiveClasses,
-  searchQuery,
-} from '../../../../utilities/helpers'
+import getResponsiveClasses from '../../../../utilities/responsive-classes'
+import searchQuery from '../../../../utilities/client/search'
 
 const classes = {
   // header

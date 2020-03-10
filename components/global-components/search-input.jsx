@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { searchQuery } from '../utilities/helpers'
+import searchQuery from '../utilities/client/search'
 
 const classes = {
   container: `search-input__container flex items-center mb-15 lg:mb-0 lg:items-start lg:w-full`,

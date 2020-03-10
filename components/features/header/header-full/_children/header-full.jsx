@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import React, { useState, useRef, useEffect } from 'react'
+import searchQuery from '../../../../utilities/client/search'
 
 const classes = {
   headerFull: 'header-full bg-primary w-full position-relative',
@@ -90,14 +91,6 @@ const classes = {
 
   footer: `nav-sidebar__footer p-30 border-b-1 border-solid border-gray`,
   text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white uppercase`,
-}
-
-const searchQuery = (query, sort) => {
-  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
-  if (query !== '')
-    // eslint-disable-next-line no-restricted-globals
-    location.href = `/buscar/${newQuery}/todas/${sort ||
-      'descendiente'}/?query=${newQuery}`
 }
 
 const popUpWindow = (url, title, w, h) => {

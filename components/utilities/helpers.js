@@ -554,14 +554,6 @@ export const addSlashToDateEnd = url => {
   return urlSlash
 }
 
-export const searchQuery = (query, sort) => {
-  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
-  if (query !== '')
-    // eslint-disable-next-line no-restricted-globals
-    location.href = `/buscar/${newQuery}/todas/${sort ||
-      'descendiente'}/?query=${newQuery}`
-}
-
 export function parseQueryString(str) {
   if (typeof str !== 'string' || str.length === 0) return {}
   const s = str.replace(/^\?/, '').split('&')

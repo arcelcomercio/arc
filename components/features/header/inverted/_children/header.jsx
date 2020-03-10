@@ -11,6 +11,7 @@ import {
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/main/default'
+import searchQuery from '../../../../utilities/client/search'
 
 /* 
 const DRAG_SCREEN_LIMIT = 90
@@ -58,14 +59,6 @@ const classes = {
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight: 'flex items-center justify-end header__btn-container',
   btnSubscribe: 'flex items-center btn capitalize text-md',
-}
-
-const searchQuery = (query, sort) => {
-  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
-  if (query !== '')
-    // eslint-disable-next-line no-restricted-globals
-    location.href = `/buscar/${newQuery}/todas/${sort ||
-      'descendiente'}/?query=${newQuery}`
 }
 
 const popUpWindow = (url, title, w, h) => {
