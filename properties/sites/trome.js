@@ -8,7 +8,11 @@ export default {
   resizerUrl: 'https://trome.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    //  'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome/web/post/default/preroll&description_url=https%3A%2F%2Ftrome.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Dtrome%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+  urlPrerollAmp:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome/amp/post/default/preroll&description_url=https%3A%2F%2Ftrome.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Dtrome%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-PP8XNMR',
   ampGoogleTagManagerId: 'UA-3055636-13',
@@ -80,13 +84,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora Trome',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © Trome.pe',
-      'Trome - Todos los derechos reservados',
-    ],
-
     socialNetworks: [
       {
         name: 'Twitter',
@@ -110,34 +107,6 @@ export default {
         url: 'https://trome.com/arcio/rss',
       },
     ],
-
-    contacts: [
-      {
-        position: 'Editora web Marilyn Corrales',
-        name: 'mcorrales@trome.com',
-      },
-      {
-        position: 'Webmaster',
-        name: 'webmaster@trome.com',
-      },
-    ],
-    corporateInfo: {
-      name: 'Grupo El Comercio S.A.',
-      direction:
-        'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima - Perú',
-    },
-    draftingContact: [
-      {
-        name: 'Redacción',
-        value: '311-6500(2858) trome@trome.pe',
-      },
-      {
-        name: 'Publicidad Web',
-        value: 'Fonoavisos@comercio.com.pe',
-      },
-    ],
-    copyrightText:
-      'Copyright© Trome.pe - Grupo El Comercio - Todos los derechos reservados.',
   },
   social: {
     facebook: {
@@ -185,4 +154,5 @@ export default {
     dataModeAmp: 'thumbnails-e',
     mode: 'thumbnails-c',
   },
+  isDfp: true,
 }

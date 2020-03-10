@@ -4,6 +4,7 @@ import { useFusionContext } from 'fusion:context'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import StorySeparatorChildItemAmp from '../interest-by-tag/_children/amp'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   storyInterest:
@@ -35,20 +36,35 @@ const StoryRelatedAmp = () => {
       defaultImgSize: 'sm',
     })
 
+  const presets = 'landscape_l:648x374,landscape_md:314x157'
+
   const getSize = () => {
     const dataStorys = storyData.map((story, i) => {
-      if ( story.type !== 'story') return false
+      if (story.type !== 'story') return false
 
       instance.__data = story
+
+      const {
+        landscape_md: multimediaLandscapeMD,
+        landscape_l: multimediaLandscapeL,
+      } =
+        getResizedUrl({
+          url: instance.multimediaLandscapeMD,
+          presets,
+          arcSite,
+        }) || {}
+
       const data = {
         title: instance.title,
-        link: `${instance.link}?ref=amp&source=relacionadas`,
+        link: `${instance.link}?ref=amp&source=relacionadas${
+          instance.isPremium === false ? '&outputType=amp' : ''
+        }`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
         multimediaLandscapeS: instance.multimediaLandscapeS,
-        multimediaLandscapeL: instance.multimediaLandscapeL,
-        multimediaLandscapeMD: instance.multimediaLandscapeMD,
+        multimediaLandscapeL,
+        multimediaLandscapeMD,
         multimediaType: instance.multimediaType,
         isAdmin,
       }

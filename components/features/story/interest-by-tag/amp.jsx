@@ -9,10 +9,7 @@ import StorySeparatorChildItemSliderAmp from './_children/amp-item-slider'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
-import {
-  includePromoItems,
-  includePrimarySection,
-} from '../../../utilities/included-fields'
+import { separatorBasicFields } from '../../../utilities/included-fields'
 
 const classes = {
   storyInterest:
@@ -43,7 +40,6 @@ const InterestByTagAmp = props => {
   } = useFusionContext()
 
   const presets = 'landscape_l:648x374,landscape_md:314x157'
-  const includedFields = `_id,headlines.basic,${includePromoItems},websites.${arcSite}.website_url,canonical_url,${includePrimarySection}`
 
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
@@ -59,7 +55,7 @@ const InterestByTagAmp = props => {
         name: urlTag,
         size: storiesQty,
         presets,
-        includedFields,
+        includedFields: separatorBasicFields,
       },
       filter: schemaFilter(arcSite),
     }) || {}
@@ -80,16 +76,16 @@ const InterestByTagAmp = props => {
       return story && story._id !== excluir ? story : ''
     })
     .filter(String)
-
   const getSize = cant => {
     const dataStorys = dataInterest.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
       key += 1
-
       const data = {
         title: instance.title,
-        link: `${instance.websiteLink}?ref=amp&source=tepuedeinteresar`,
+        link: `${instance.websiteLink}?ref=amp&source=tepuedeinteresar${
+          instance.isPremium === false ? '&outputType=amp' : ''
+        }`,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,

@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../utilities/config-params'
-import schemaFilter from '../../stories-lists/card/_dependencies/schema-filter'
-import { includePromoItems } from '../../../utilities/included-fields'
+import {
+  SITE_ELCOMERCIO,
+  SITE_OJO,
+} from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
@@ -26,6 +26,7 @@ const classes = {
 const URLS_STORAGE = '_recents_articles_'
 const MAX_PROGRESS = 350
 const MIN_PROGRESS = 180
+
 @Consumer
 class StoryContinue extends PureComponent {
   constructor(props) {
@@ -45,10 +46,9 @@ class StoryContinue extends PureComponent {
         query: {
           section: path,
           stories_qty: 6,
-          presets: 'landscape_md:314x157',
-          includedFields: `_id,headlines.basic,websites.${arcSite}.website_url,display_date,publish_date,${includePromoItems}`,
+          presets: 'no-presets',
+          includedFields: `_id,headlines.basic,websites.${arcSite}.website_url`,
         },
-        filter: schemaFilter(arcSite),
       },
     })
   }
@@ -110,7 +110,7 @@ class StoryContinue extends PureComponent {
 
     if (height > 0 && progressBar) {
       const scale = Math.round((scrolled / (height - h)) * 100) / 100
-      if (ConfigParams.SITE_ELCOMERCIO !== arcSite) {
+      if (SITE_ELCOMERCIO !== arcSite) {
         progressBar.style.transform = `scaleX(${scale})`
       }
 
@@ -126,7 +126,7 @@ class StoryContinue extends PureComponent {
 
   setTimeoutLoadPage = (linker, html = '') => {
     const { arcSite } = this.props || {}
-    const timeLoad = ConfigParams.SITE_OJO === arcSite ? 5000 : 250
+    const timeLoad = SITE_OJO === arcSite ? 5000 : 250
     setTimeout(() => {
       const link = linker.getAttribute('href')
       if (
@@ -192,33 +192,35 @@ class StoryContinue extends PureComponent {
   }
 
   setInitialLoaderPage = () => {
-    const storyLoader = document.querySelector(`.story-continue__story-load`)
-    const progress = storyLoader.querySelector(`.story-continue__progress`)
-    storyLoader.setAttribute('data-state', 'outviewport')
-    // TODO: retirar despues del 15 de agosto
-    /**
-     * Esto cambia el logo de la barra de navegación cuando estás viendo una noticia,
-     * es necesario porque por ahora el color es distinto.
-     */
-    const navLogo = document.querySelector('.nav__logo')
-    if (window.screen.width > 1023 && navLogo) {
-      const { arcSite, contextPath, deployment } = this.props || {}
-      if (arcSite !== 'gestion') {
-        navLogo.src = deployment(
-          arcSite === 'publimetro'
-            ? `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/publimetro/images/green-logo.png`
-            : `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/logo.png`
-        )
+    setTimeout(() => {
+      const storyLoader = document.querySelector(`.story-continue__story-load`)
+      const progress = storyLoader.querySelector(`.story-continue__progress`)
+      storyLoader.setAttribute('data-state', 'outviewport')
+      // TODO: retirar despues del 15 de agosto
+      /**
+       * Esto cambia el logo de la barra de navegación cuando estás viendo una noticia,
+       * es necesario porque por ahora el color es distinto.
+       */
+      const navLogo = document.querySelector('.nav__logo')
+      if (window.screen.width > 1023 && navLogo) {
+        const { arcSite, contextPath, deployment } = this.props || {}
+        if (arcSite !== 'gestion') {
+          navLogo.src = deployment(
+            arcSite === 'publimetro'
+              ? `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/publimetro/images/green-logo.png`
+              : `${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/logo.png`
+          )
+        }
       }
-    }
-    // TODO: finnnn
-    this.setAttributeProgress(progress, MIN_PROGRESS)
+      // TODO: finnnn
+      this.setAttributeProgress(progress, MIN_PROGRESS)
+    }, 0)
   }
 
   setAttributeProgress = (progress, value) => {
@@ -263,36 +265,41 @@ class StoryContinue extends PureComponent {
   }
 
   render() {
-    const { siteProperties, deployment, contextPath, arcSite } =
-      this.props || {}
+    const { siteProperties, arcSite } = this.props || {}
     const { siteUrl } = siteProperties
-    const { dataList: { content_elements: dataStorys = [] } = {} } = this.state
+    const { dataList: { content_elements: stories = [] } = {} } = this.state
 
-    const instance =
-      dataStorys &&
-      new StoryData({
-        deployment,
-        contextPath,
-        arcSite,
-        defaultImgSize: 'sm',
-      })
-    const recentStoryContinue = dataStorys.map(story => {
-      instance.__data = story
+    const recentStoryContinue = stories.map(story => {
+      const { headlines: { basic: title = '' } = '', websites = {} } = story
+      const { website_url: websiteUrl } = websites[arcSite] || {}
+
       return {
-        basic: instance.title,
-        websiteUrl: instance.websiteLink,
+        basic: title,
+        websiteUrl,
       }
     })
+
     const { title, websiteUrl } = this.getNextArticle(
       recentStoryContinue,
       siteUrl
     )
+
+    const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      // eslint-disable-next-line no-undef
+      typeof window !== 'undefined' ? navigator.userAgent : ''
+    )
+
+    const storyLoadAmp =
+      arcSite === SITE_ELCOMERCIO && isMobile
+        ? '?ref=nota&ft=autoload&outputType=amp'
+        : '?ref=nota&ft=autoload'
+
     return (
       <>
         <div className={classes.storyContinue}>
           <div className={classes.storyLoad} data-state="outviewport">
             <a
-              href={`${websiteUrl}?ref=nota&ft=autoload`}
+              href={`${websiteUrl}${storyLoadAmp}`}
               className={classes.storyLoadLink}>
               <div className={classes.storyCircle}>
                 <span className={classes.storyLoadImage} />

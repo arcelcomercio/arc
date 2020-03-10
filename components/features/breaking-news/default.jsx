@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-state */
-import React, { useState } from 'react'
+import React from 'react'
 import { useContent, useEditableContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
@@ -15,6 +15,10 @@ const classes = {
   link: 'breaking-news__link mr-5 text-white font-bold',
 }
 
+const handleClose = `(setTimeout(document.getElementById('close-breaking-news').addEventListener('click', function(e){
+  document.getElementById('breaking-news').remove()
+})), 0)()`
+
 const BreakingNews = props => {
   const {
     customFields: {
@@ -27,9 +31,8 @@ const BreakingNews = props => {
     },
   } = props
 
-  const { arcSite } = useFusionContext()
+  const { arcSite, outputType } = useFusionContext()
   const { editableField } = useEditableContent()
-  const [isVisible, setIsVisible] = useState(true)
 
   const article = useContent(
     storyLink
@@ -38,16 +41,13 @@ const BreakingNews = props => {
           query: {
             website_url: storyLink,
             website: arcSite,
+            presets: 'no-presets',
             includedFields: `headlines.basic,subheadlines.basic,website,website_url`,
           },
           filter: schemaFilter,
         }
       : {}
   )
-
-  const handleOnclickClose = () => {
-    setIsVisible(false)
-  }
 
   const objContent = {
     title: title || (article && article.headlines && article.headlines.basic),
@@ -59,39 +59,42 @@ const BreakingNews = props => {
 
   return (
     <>
-      {showBreakingNews && (
-        <div
-          className={`${isVisible ? '' : 'hidden'}
+      {showBreakingNews && outputType !== 'amp' && (
+        <>
+          <div
+            id="breaking-news"
+            className={`
           ${backgroundColor} 
           ${classes.breakingnews}
           `}>
-          <h2 className={classes.text}>
-            <span
-              className={classes.tag}
-              {...editableField('tags')}
-              suppressContentEditableWarning>
-              {tags}
-            </span>
-            <span>
-              <a
-                className={classes.link}
-                href={objContent.link}
-                rel="noopener noreferrer"
-                {...editableField('title')}
+            <h2 className={classes.text}>
+              <span
+                className={classes.tag}
+                {...editableField('tags')}
                 suppressContentEditableWarning>
-                {objContent.title}
-              </a>
-            </span>
-          </h2>
-          <button
-            type="button"
-            className={classes.close}
-            onClick={handleOnclickClose}
-            onKeyPress={handleOnclickClose}
-            tabIndex={0}>
-            <i className={classes.icon} />
-          </button>
-        </div>
+                {tags}
+              </span>
+              <span>
+                <a
+                  className={classes.link}
+                  href={objContent.link}
+                  rel="noopener noreferrer"
+                  {...editableField('title')}
+                  suppressContentEditableWarning>
+                  {objContent.title}
+                </a>
+              </span>
+            </h2>
+            <button
+              id="close-breaking-news"
+              type="button"
+              className={classes.close}
+              tabIndex={0}>
+              <i className={classes.icon} />
+            </button>
+          </div>
+          <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
+        </>
       )}
     </>
   )
@@ -102,5 +105,6 @@ BreakingNews.propTypes = {
 }
 
 BreakingNews.label = 'Cintillo Urgente'
+BreakingNews.static = true
 
 export default BreakingNews

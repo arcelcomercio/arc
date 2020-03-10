@@ -1,10 +1,7 @@
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import {
-  addResizedUrlsToStory,
-  removeLastSlash,
-} from '../../components/utilities/helpers'
+import { removeLastSlash } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 const SCHEMA_NAME = 'stories-dev'
 
@@ -83,8 +80,7 @@ const transform = (data, { 'arc-site': arcSite }) => {
   dataStory.content_elements = addResizedUrlsToStory(
     dataStory.content_elements,
     resizerUrl,
-    resizerSecret,
-    addResizedUrls
+    resizerSecret
   )
   dataStory.siteName = siteName
 

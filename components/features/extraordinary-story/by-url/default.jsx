@@ -6,47 +6,46 @@ import customFieldsExtern from './_dependencies/custom-fields'
 import schemaFilter from '../_dependencies/schema-filter'
 import Data from '../_dependencies/data'
 import ExtraordinaryStory from '../../../global-components/extraordinary-story'
-import { getPhotoId } from '../../../utilities/helpers'
 
 const API_URL = 'story-by-url'
+const PHOTO_SOURCE = 'photo-resizer'
 
-const PHOTO_SOURCE = 'photo-by-id'
+const getPhotoId = photoUrl => {
+  if (!photoUrl) return ''
+  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
+  const [, photoId] = customPhotoUrl || []
+  return photoId
+}
 
-const PHOTO_SCHEMA = `{
-  resized_urls { 
-    landscape_xl
-    landscape_ext_story
-    landscape_l
-    square_l
-  }
-}`
 const ExtraordinaryStoryByUrl = props => {
   const { customFields } = props
   const { link = '', showExtraordinaryStory, multimediaSource } = customFields
   const { deployment, contextPath, arcSite } = useFusionContext()
+
+  const presets = 'landscape_xl:980x355,square_l:600x600'
 
   const data =
     useContent(
       showExtraordinaryStory
         ? {
             source: API_URL,
-            query: { website_url: link },
+            query: { website_url: link, presets },
             filter: schemaFilter(arcSite),
           }
         : {}
     ) || {}
 
+  // Solo acepta custom image desde Photo Center
   const photoId = multimediaSource ? getPhotoId(multimediaSource) : ''
-
   const customPhoto =
     useContent(
       photoId
         ? {
             source: PHOTO_SOURCE,
             query: {
-              _id: photoId,
+              url: multimediaSource,
+              presets,
             },
-            filter: PHOTO_SCHEMA,
           }
         : {}
     ) || {}

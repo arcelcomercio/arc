@@ -1,13 +1,41 @@
 import ConfigParams from './config-params'
-import {
-  defaultImage,
-  formatHtmlToText,
-  breadcrumbList,
-  addSlashToEnd,
-  msToTime,
-} from './helpers'
+import { formatHtmlToText, addSlashToEnd } from './parse/strings'
+import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
-import { getAssetsPath } from './constants'
+import { getAssetsPath } from './assets'
+
+// Funcion extraida de helpers
+export const defaultImage = ({
+  deployment,
+  contextPath,
+  arcSite,
+  size = 'lg',
+}) => {
+  if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  return deployment(
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/default-${size}.png`
+  )
+}
+
+// Funcion extraida de helpers
+export const breadcrumbList = (siteUrl = '', primarySectionLink = '') => {
+  let sectionQueue = '/'
+  return primarySectionLink
+    .split('/')
+    .filter(section => section !== '')
+    .map(section => {
+      sectionQueue = `${sectionQueue}${section}/`
+      return {
+        name:
+          section.charAt(0).toUpperCase() + section.slice(1).replace(/-/g, ' '),
+        url: `${siteUrl}${sectionQueue}`,
+      }
+    })
+}
 
 class StoryData {
   static VIDEO = ConfigParams.VIDEO
@@ -831,6 +859,16 @@ class StoryData {
     )
   }
 
+  get audienciaNicho() {
+    return (
+      (this._data &&
+        this._data.label &&
+        this._data.label.audiencia_nicho &&
+        this._data.label.audiencia_nicho.url) ||
+      ''
+    )
+  }
+
   get fiaOrigen() {
     const { label: { facebook_ia: { url = '' } = {} } = {} } = this._data
     const result = (url === '' || url === 'true') && true
@@ -1363,10 +1401,10 @@ class StoryData {
   static lengthImageGallery(data = {}) {
     const {
       promo_items: {
-        basic_gallery: { content_elements: content_elements = [] } = {},
+        basic_gallery: { content_elements: contentElements = [] } = {},
       } = {},
     } = data
-    return content_elements.length || 0
+    return contentElements.length || 0
   }
 
   static recentList(recentElements, id, numero = 2) {

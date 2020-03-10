@@ -1,7 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/helpers'
+import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 const schemaName = 'story'
 
@@ -59,8 +58,7 @@ const transform = (
     return addResizedUrlsToStory(
       [stories[feedOffset]],
       resizerUrl,
-      resizerSecret,
-      addResizedUrls
+      resizerSecret
     )[0]
   }
   throw new Error(`No existe una historia en la posición ${feedOffset}`)

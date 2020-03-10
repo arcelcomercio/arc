@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react'
 
 import { useContent } from 'fusion:content'
@@ -5,13 +6,9 @@ import { useFusionContext } from 'fusion:context'
 // import { debug } from 'webpack'
 import SeparatorBlogChildItem from '../../../global-components/separator-blog-item'
 
-import { schemaEditorial, schemaPhoto } from './_dependencies/schema-filter'
+import { schemaEditorial } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import {
-  defaultImage,
-  addSlashToEnd,
-  getPhotoId,
-} from '../../../utilities/helpers'
+import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
 
 const classes = {
   separator: 'blog-separator mb-20',
@@ -23,7 +20,7 @@ const classes = {
 }
 const BLOG_BASE = '/blog/'
 const CONTENT_SOURCE_SECTION = 'story-by-tag'
-const CONTENT_SOURCE_PHOTO = 'photo-by-id'
+const CONTENT_SOURCE_PHOTO = 'photo-resizer'
 const CONTENT_SOURCE_EDITORIAL_GESTION = 'editorial-de-gestion'
 // editorial-de-gestion
 
@@ -53,8 +50,10 @@ const getDataEditorial = () => {
   const fetchImage =
     useContent({
       source: CONTENT_SOURCE_PHOTO,
-      query: { _id: getPhotoId(imageEditorial || urlLogoGestion) },
-      filter: schemaPhoto,
+      query: {
+        url: imageEditorial || urlLogoGestion,
+        presets: 'square_s:150x150',
+      },
     }) || {}
 
   const {
@@ -65,21 +64,20 @@ const getDataEditorial = () => {
   const { website_url: postLinkEditorial = '' } = websites[arcSite] || {}
 
   const {
-    resized_urls: {
-      lazy_default: lazyImageEditorial = '',
-      square_s: authorImgEditorial = defaultImage({
-        deployment,
-        contextPath,
-        arcSite,
-        size: 'sm',
-      }),
-    } = {},
+    resized_urls: { square_s: authorImgEditorial = '' } = {},
   } = fetchImage
+
+  const defaultImg = defaultImage({
+    deployment,
+    contextPath,
+    arcSite,
+    size: 'sm',
+  })
 
   const paramsEditorial = {
     authorName: titleEditorial || 'Editorial',
-    lazyImage: lazyImageEditorial || urlLogoGestion,
-    authorImg: authorImgEditorial || urlLogoGestion,
+    lazyImage: defaultImg,
+    authorImg: authorImgEditorial || urlLogoGestion || defaultImg,
     blogUrl: '/noticias/editorial-de-gestion/',
     postLink: postLinkEditorial,
     postTitle: postTitleEditorial,
@@ -159,7 +157,7 @@ const SeparatorEditorialBlogManual = () => {
 
   // guarda en una lista los url obtenidos de los customfields
   const urlList = [post01, post02, post03, post04]
-  
+
   // iteratua los url y obtiene los valores de los post
   const paramList = []
   urlList.forEach(post => {

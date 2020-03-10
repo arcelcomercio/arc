@@ -16,7 +16,7 @@ const getTypeVideo = (streams, typo = 'ts') => {
 }
 
 const StoryContentChildVideoAmp = ({ data }) => {
-  const { siteProperties: { urlPreroll } = {} } = useFusionContext()
+  const { siteProperties: { urlPrerollAmp } = {} } = useFusionContext()
 
   const {
     _id: id = '',
@@ -40,6 +40,7 @@ const StoryContentChildVideoAmp = ({ data }) => {
         .replace('elcomercio.pe', 'img.elcomercio.pe')
         .replace('trome.pe', 'img.trome.pe')
         .replace('depor.com', 'img.depor.com')
+        .replace('gestion.pe', 'img.gestion.pe')
     : url
 
   return (
@@ -51,7 +52,7 @@ const StoryContentChildVideoAmp = ({ data }) => {
             height="405"
             layout="responsive"
             data-src={urlVideo}
-            data-tag={urlPreroll}
+            data-tag={urlPrerollAmp}
             data-poster={imageVideo}
             class={`id-${id}`}
             title={caption}

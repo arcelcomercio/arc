@@ -25,6 +25,7 @@ const Dfp = ({ isFuature, adId }) => {
   const {
     section_id: sectionId,
     _id,
+    content_restrictions: {content_code:contentCode=''}={},
     taxonomy: {
       primary_section: { path: primarySection } = {},
       tags = [],
@@ -34,6 +35,7 @@ const Dfp = ({ isFuature, adId }) => {
   let contentConfigValues = {}
   let page = ''
   let flagsub = false
+  let typeContent = ''
   switch (metaValue('id')) {
     case 'meta_section':
       if (sectionId || _id) {
@@ -64,6 +66,7 @@ const Dfp = ({ isFuature, adId }) => {
         }
       }
       page = 'post'
+      typeContent=(contentCode==='')?'standar':contentCode
       break
     case 'meta_home':
       contentConfigValues = {
@@ -98,40 +101,39 @@ const Dfp = ({ isFuature, adId }) => {
     const subsection = flagsub?'':sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
+    const getTargetFunction = `var getTarget=function getTarget(){ return {"contenido":"${typeContent}","publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
     const adsCollection = spaces.map(
       ({
         space,
-        slotname,
         slotname2,
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
+        breakpoint: breakpoints,
+        refresh=false
       }) => {
+        const flagDimension = (breakpoints !== '[]')? true:''
         const formatSpace = {
           id: `gpt_${space}`,
-          slotName: (arcSite === 'publimetro') ? slotname : slotname2,
+          slotName: slotname2,
           dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
-          targeting: {
-            publisher: arcSite,
-            seccion: section,
-            categoria: subsection,
-            fuente: 'WEB',
-            tipoplantilla: page,
-            phatname: `${siteUrl}${requestUri}`,
-            tags: targetingTags,
-            ab_test: '',
-            tmp_ad: '<::getTmpAd()::>',
-          },
+          targeting: `<::getTarget() ::>`,
         }
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
         }
+        if (flagDimension) {
+          formatSpace.dimensions=`<::${dimensions}::>`
+          formatSpace.sizemap={
+            breakpoints:`<::${breakpoints}::>`,
+            refresh
+        }
+      }
+
         return formatSpace
       }
     )
-    return `"use strict";document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction}; window.adsCollection=${JSON.stringify(
-      adsCollection
-    )
+    return `"use strict"; document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}; window.adsCollection=${JSON.stringify(adsCollection)
       .replace(/"<::/g, '')
       .replace(
         /::>"/g,
@@ -147,7 +149,11 @@ const Dfp = ({ isFuature, adId }) => {
           arcSite === 'elcomerciomag' || 
           arcSite === 'peru21' || 
           arcSite === 'gestion' || 
-          arcSite === 'peru21g21'
+          arcSite === 'peru21g21' ||
+          arcSite === 'diariocorreo' || 
+          arcSite === 'ojo' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'trome'
           ) && (
         <Content
           {...{

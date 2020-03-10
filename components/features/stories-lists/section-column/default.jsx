@@ -11,7 +11,7 @@ import List from './_children/list'
 import { sectionColumnsFields } from '../../../utilities/included-fields'
 
 const classes = {
-  lista: 'stories-l-section bg-white flex flex-col',
+  lista: 'sec-col bg-white flex flex-col',
 }
 
 const newsNumber = 4
@@ -26,7 +26,7 @@ const SectionColumnListCard = props => {
     section,
     excludeSections: '/impresa',
     stories_qty: newsNumber,
-    presets: 'landscape_md:314x157',
+    presets: isAdmin ? 'landscape_md:314x157' : 'no-presets',
     includedFields: sectionColumnsFields,
   }
   const data =

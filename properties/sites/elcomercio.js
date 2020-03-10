@@ -14,6 +14,8 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/web/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Delcomercio%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+  urlPrerollAmp:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/amp/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Delcomercio%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
@@ -200,27 +202,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
-      'Copyright © Elcomercio.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'DIRECTOR PERIODÍSTICO:',
-        name: 'Juan José Garrido Koechlin',
-      },
-      {
-        position: 'Empresa Editora El Comercio',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
-      },
-      {
-        position: 'Copyright © elcomercio.pe',
-        name:
-          '© Empresa Editora El Comercio - Grupo El Comercio - Todos los derechos reservados.',
-      },
-    ],
     socialNetworks: [
       {
         name: 'facebook',
@@ -233,57 +214,6 @@ export default {
       {
         name: 'youtube',
         url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-
-    directors: [
-      {
-        position: 'Director Periodístico',
-        names: ['JUAN JOSÉ GARRIDO KOECHLIN'],
-      },
-      {
-        position: 'Directores Fundadores',
-        names: [
-          'Manuel Amunátegui [1839-1875] y',
-          'Alejandro Villota [1839-1861]',
-        ],
-      },
-      {
-        position: 'Directores',
-        names: [
-          'Francisco Miró Quesada Cantuarias',
-          'Luis Carranza [1875-1898]',
-          'José Antonio Miró Quesada [1875-1905]',
-          'Antonio Miró Quesada de la Guerra [1905-1935]',
-          'Aurelio Miró Quesada de la Guerra [1935-1950]',
-          'Luis Miró Quesada de la Guerra [1935-1974]',
-          'Óscar Miró Quesada de la Guerra [1980-1981]',
-          'Aurelio Miró Quesada Sosa [1980-1998]',
-          'Alejandro Miró Quesada Garland [1980-2011]',
-          'Alejandro Miró Quesada Cisneros [1999-2008]',
-          'Francisco Miró Quesada Rada [2008-2013]',
-          'Fritz Du Bois Freund [2013-2014]',
-          'Fernando Berckemeyer Olaechea [2014-2018]',
-        ],
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Suscripciones',
-        name: 'suscriptores@comercio.com.pe',
-      },
-      {
-        position: 'Publicidad',
-        name: 'fonoavisos@comercio.com.pe',
-      },
-      {
-        position: 'Club El Comercio',
-        name: 'clubelcomercio@comercio.com.pe',
-        link: {
-          name: 'Compromiso de Autorregulación Comercial',
-          url: 'https://elcomercio.pe/compromiso-autoregulacion-comercial.pdf',
-        },
       },
     ],
   },

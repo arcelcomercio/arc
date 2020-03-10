@@ -1,5 +1,10 @@
 import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../utilities/config-params'
+import {
+  ELEMENT_YOUTUBE_ID,
+  GALLERY,
+  IMAGE,
+  VIDEO,
+} from '../../../utilities/constants/multimedia-types'
 
 class Data extends StoryData {
   static GOLDFISH = 'goldfish'
@@ -65,20 +70,16 @@ class Data extends StoryData {
         : super.multimediaLandscapeXL
 
     const {
-      /* resized_urls: { landscape_xl: landscapeXl, square_l: squareL } = {}, */
-      resized_urls: {
-        landscape_ext_story: landscapeExt,
-        square_l: squareL,
-      } = {},
+      resized_urls: { landscape_xl: landscapeXL, square_l: squareL } = {},
     } = this.customPhoto || {}
 
     const customMultimedia =
       this.multimediaOrientation === 'left' ||
       this.multimediaOrientation === 'right'
         ? squareL
-        : landscapeExt
+        : landscapeXL
 
-    return customMultimedia || this.customFields.image || multimedia
+    return customMultimedia || multimedia
   }
 
   get multimediaService() {
@@ -112,7 +113,7 @@ class Data extends StoryData {
       multimediaService === Data.GOLDFISH
     )
       isVideoCustom = true
-    if (super.multimediaType === ConfigParams.VIDEO) isVideoApi = true
+    if (super.multimediaType === VIDEO) isVideoApi = true
     return multimediaService !== Data.AUTOMATIC ? isVideoCustom : isVideoApi
   } */
 
@@ -140,8 +141,7 @@ class Data extends StoryData {
     let multimediaSourceFeature = multimediaSource
     if (Data.AUTOMATIC === multimediaService) {
       multimediaSourceFeature =
-        promoItemsType === ConfigParams.VIDEO ||
-        promoItemsType === ConfigParams.ELEMENT_YOUTUBE_ID
+        promoItemsType === VIDEO || promoItemsType === ELEMENT_YOUTUBE_ID
           ? videoIdContent
           : multimedia
     }
@@ -155,25 +155,20 @@ class Data extends StoryData {
   static getSourceMultimedia(multimediaType, customMultimedia, multimedia) {
     let multimediaContent = ''
     if (
-      (multimediaType === ConfigParams.VIDEO ||
-        multimediaType === ConfigParams.ELEMENT_YOUTUBE_ID ||
+      (multimediaType === VIDEO ||
+        multimediaType === ELEMENT_YOUTUBE_ID ||
         multimediaType === Data.YOUTUBE ||
         multimediaType === Data.GOLDFISH) &&
       multimedia !== ''
     ) {
       multimediaContent = multimedia
     } else if (
-      (multimediaType === ConfigParams.GALLERY ||
+      (multimediaType === GALLERY ||
+        multimediaType === IMAGE ||
         multimediaType === Data.IMAGE) &&
       multimedia !== ''
     ) {
-      multimediaContent = customMultimedia || multimedia || ''
-    } else if (
-      (multimediaType === ConfigParams.IMAGE ||
-        multimediaType === Data.IMAGE) &&
-      multimedia !== ''
-    ) {
-      multimediaContent = customMultimedia || multimedia || ''
+      multimediaContent = /* customMultimedia || */ multimedia || ''
     }
     return multimediaContent
   }

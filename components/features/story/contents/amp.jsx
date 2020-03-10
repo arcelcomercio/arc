@@ -15,16 +15,20 @@ import StoryContentChildTags from './_children/tags'
 // import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
-  ampHtml,
-  publicidadAmp,
   replaceTags,
   storyTagsBbc,
-  formatDateStoryAmp,
   getDateSeo,
 } from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
 import { getAssetsPath } from '../../../utilities/constants'
+import {
+  formatDateStoryAmp,
+  publicidadAmp,
+  publicidadAmpAd,
+  ampHtml,
+} from '../../../utilities/story/helpers-amp'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -65,53 +69,59 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       siteUrl,
     })
-    const namePublicidad =
-      arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
+    // const namePublicidad =
+    //   arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
 
-    const dataSlot = `/${adsAmp.dataSlot}/${
-      arcSite === 'diariocorreo' ? 'correo' : namePublicidad
-    }-amp-300x250-boton-movil2`
+    // const dataSlot = `/${adsAmp.dataSlot}/${
+    //   arcSite === 'diariocorreo' ? 'correo' : namePublicidad
+    // }-amp-300x250-boton-movil2`
+    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+
+    const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
+
     const imgTag = 'amp-img'
     const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
-    const parameters = {
+    const parametersCaja2 = {
+      // movil2 caja2
       dataSlot,
       placementId,
       width,
       height,
       primarySectionLink,
       arcSite,
+      movil1: true,
     }
-    const parametersMovil4 = {
-      dataSlot: `/${adsAmp.dataSlot}/${
-        arcSite === 'diariocorreo' ? 'correo' : namePublicidad
-      }-amp-300x250-middle-movil4`,
+    const parametersCaja3 = {
+      // movil4 caja3 caja3
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
       placementId: adsAmp.movil4,
       width,
       height,
       primarySectionLink,
       arcSite,
+      movil1: true,
     }
-    const parametersMovil5 = {
-      dataSlot: `/${adsAmp.dataSlot}/${
-        arcSite === 'diariocorreo' ? 'correo' : namePublicidad
-      }-amp-300x250-inferior-movil5`,
+    const parametersCaja4 = {
+      // movil5 caja5 caja4
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
       placementId: adsAmp.movil5,
       width,
       height,
       primarySectionLink,
       arcSite,
+      movil1: true,
     }
-    const parametersMovil3 = {
-      dataSlot: `/${adsAmp.dataSlot}/${
-        arcSite === 'diariocorreo' ? 'correo' : namePublicidad
-      }-amp-300x250-inline-movil3`,
+    const parametersInline = {
+      // movil3 caja3 inline
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/inline`,
       placementId: adsAmp.movil3,
       width,
       height,
       primarySectionLink,
       arcSite,
+      movil1: false,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -128,7 +138,7 @@ class StoryContentAmp extends PureComponent {
           {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
           <div
             className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parameters)}
+            dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
           />
           <p className={classes.author}>
             <a href={authorLink}>{author}</a>
@@ -199,6 +209,13 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <AmpImage
                       {...element}
+                      url={
+                        getResizedUrl({
+                          url: element.url,
+                          presets: 'large:400x',
+                          arcSite,
+                        }).large || {}
+                      }
                       ImgTag={imgTag}
                       imgClassName={classes.image}
                       layout="responsive"
@@ -217,8 +234,8 @@ class StoryContentAmp extends PureComponent {
                       {publicidad && (
                         <div
                           className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmp(
-                            parametersMovil3
+                          dangerouslySetInnerHTML={publicidadAmpAd(
+                            parametersInline
                           )}
                         />
                       )}
@@ -235,7 +252,7 @@ class StoryContentAmp extends PureComponent {
           )}
           <div
             className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parametersMovil4)}
+            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja3)}
           />
 
           <StoryContentChildTags data={tags} {...isAmp} />
@@ -260,7 +277,7 @@ class StoryContentAmp extends PureComponent {
 
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parametersMovil5)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
         />
       </>
     )

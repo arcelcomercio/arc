@@ -21,7 +21,13 @@ const classes = {
 }
 
 const StaticOpinionGrid = () => {
-  const { globalContent, deployment, contextPath, arcSite } = useFusionContext()
+  const {
+    globalContent,
+    deployment,
+    contextPath,
+    arcSite,
+    isAdmin,
+  } = useFusionContext()
   const { content_elements: contentElements } = globalContent || {}
   const stories = contentElements || []
   const data = new StoryData({
@@ -35,6 +41,10 @@ const StaticOpinionGrid = () => {
 
   const { isDfp = false } = getProperties(arcSite)
   const typeSpace = isDfp ? 'caja' : 'movil'
+
+  const defaultAuthorImage = deployment(
+    `${contextPath}/resources/assets/author-grid/author-alpha.png`
+  )
 
   return (
     <div>
@@ -140,9 +150,8 @@ const StaticOpinionGrid = () => {
               {...{
                 key: `List-item-${story._id}`,
                 data: data.attributesRaw,
-                deployment,
-                contextPath,
-                arcSite,
+                isAdmin,
+                defaultAuthorImage,
               }}
             />
           ) : (
@@ -151,9 +160,8 @@ const StaticOpinionGrid = () => {
                 {...{
                   key: `List-item-${story._id}`,
                   data: data.attributesRaw,
-                  deployment,
-                  contextPath,
-                  arcSite,
+                  isAdmin,
+                  defaultAuthorImage,
                 }}
               />
               <Ads

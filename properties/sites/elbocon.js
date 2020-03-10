@@ -10,7 +10,10 @@ export default {
   resizerUrl: 'https://elbocon.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Bocon_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    // 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Bocon_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elbocon/web/post/default/preroll&description_url=https%3A%2F%2Felbocon.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Delbocon%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+  urlPrerollAmp:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elbocon/amp/post/default/preroll&description_url=https%3A%2F%2Felbocon.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Delbocon%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-WB49SJD',
   ampGoogleTagManagerId: 'UA-15667156-1',
@@ -101,29 +104,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      // TODO: DESCOMENTAR ESTO PARA LA SEGUNDA SALIDA DE GESTIÓN
-      /* 'Director periodístico',
-      'DIRECTOR DE EL BOCÓN', */
-      '© Empresa Editora El Comercio S.A.',
-      'Jirón Jorge Salazar Araoz 171',
-      'Lima 13 - Perú',
-      'Copyright© | elbocon.pe | Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Director Periodístico',
-        name: 'DIRECTOR DE EL BOCÓN',
-      },
-      {
-        position: 'Empresa Editora El Bocón',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
-      },
-      {
-        position: 'Copyright © elbocon.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
     socialNetworks: [
       {
         name: 'linkedin',
@@ -136,25 +116,6 @@ export default {
       {
         name: 'twitter',
         url: 'https://twitter.com/elbocononline',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Contacto Administrativo',
-        name: 'contacto@prensmart.pe',
-      },
-      {
-        position: 'Publicidad Online',
-        name: 'fonoavisos@comercio.com.pe',
-      },
-      {
-        position: 'Call Center',
-        name: '+51 1708 9999',
-      },
-      {
-        position: 'Temas periodísticos',
-        name: '+51 1 631 1111',
       },
     ],
   },
@@ -196,16 +157,17 @@ export default {
   activeSignwall: true,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#333333',
     mainColorTxt: '#ffffff',
     mainLogo: 'logo.png',
     mainColorBr: '#feabab',
-    mainColorLink:'#c2080e',
+    mainColorLink: '#c2080e',
     mainColorBtn: '#d20100',
   },
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
     mode: 'thumbnails-c',
   },
+  isDfp: true,
 }

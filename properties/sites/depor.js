@@ -9,7 +9,10 @@ export default {
   resizerUrl: 'https://depor.com/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    //  'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/DEPOR_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/depor/web/post/default/preroll&description_url=https%3A%2F%2Fdepor.com%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Ddepor%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+  urlPrerollAmp:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/depor/amp/post/default/preroll&description_url=https%3A%2F%2Fdepor.com%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Ddepor%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-PFPMXLF',
   ampGoogleTagManagerId: 'UA-3055636-8',
@@ -81,13 +84,6 @@ export default {
   ],
 
   footer: {
-    siteLegal: [
-      'Empresa Editora Depor',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © Depor.pe',
-      'Grupo Depor - Todos los derechos reservados',
-    ],
-
     socialNetworks: [
       {
         name: 'Twitter',
@@ -111,33 +107,6 @@ export default {
         url: 'https://depor.com/arcio/rss',
       },
     ],
-
-    contacts: [
-      {
-        position: 'Director Periodístico General de Deporte',
-        name: 'Guillermo Denegri',
-      },
-      {
-        position: 'Director Periodístico',
-        name: 'Miguel Morales.',
-      },
-    ],
-    corporateInfo: {
-      name: 'Grupo El Comercio',
-      direction: 'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-    },
-    draftingContact: [
-      {
-        name: 'Redacción',
-        value: '311-6500(2858) depor@depor.pe',
-      },
-      {
-        name: 'Publicidad Web',
-        value: 'Fonoavisos@comercio.com.pe',
-      },
-    ],
-    copyrightText:
-      'Copyright© Depor.pe - Grupo El Comercio - Todos los derechos reservados.',
   },
   social: {
     facebook: {
@@ -173,12 +142,12 @@ export default {
   activeSignwall: true,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#007c31',
     mainColorTxt: '#ffffff',
     mainLogo: 'alternate-logo.png',
     mainColorBr: '#d5d945',
-    mainColorLink:'#007c31',
+    mainColorLink: '#007c31',
     mainColorBtn: '#007c31',
   },
   isDfp: true,

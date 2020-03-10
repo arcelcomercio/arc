@@ -31,10 +31,11 @@ const classes = {
   linksLink: 'block',
   /** ---------------------- */
   sites: 'p-20',
-  sitesTitle: 'text-sm line-h-sm text-center uppercase mb-10 font-bold',
-  sitesList: 'flex flex-wrap justify-center',
-  sitesItem: 'footer__sites-item position-relative',
-  sitesLink: 'pb-5 pr-10 pl-10 text-sm line-h-sm inline-block',
+  sitesTitle:
+    'text-sm line-h-sm text-center uppercase mb-10 font-bold footer__sites-visit',
+  sitesList: 'flex flex-wrap justify-center block',
+  sitesItem:
+    'footer__sites-item pb-5 pr-10 pl-10 text-sm line-h-sm inline-block position-relative',
 }
 
 const SITES_TITLE = 'Visite también'
@@ -116,9 +117,7 @@ const FooterChildElComercio = ({
                   name && (
                     <li className={classes.contactItem} key={`contact-${name}`}>
                       <h5
-                        className={`${classes.contactTitle} ${
-                          classes.contactPosition
-                        }`}>
+                        className={`${classes.contactTitle} ${classes.contactPosition}`}>
                         {position}
                       </h5>
                       <a
@@ -179,23 +178,22 @@ const FooterChildElComercio = ({
       </div>
       <div className={classes.sites}>
         <h5 className={classes.sitesTitle}>{SITES_TITLE}</h5>
-        <ul className={classes.sitesList}>
+        <p className={classes.sitesList}>
           {gecSites &&
             gecSites.map(site => {
               if (site.arcSite === arcSite) return ''
               return (
-                <li className={classes.sitesItem} key={`site-${site.url}`}>
-                  <a
-                    className={classes.sitesLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={site.url}>
-                    {site.name}
-                  </a>
-                </li>
+                <a
+                  className={classes.sitesItem}
+                  key={`site-${site.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={site.url}>
+                  {site.name}
+                </a>
               )
             })}
-        </ul>
+        </p>
       </div>
     </footer>
   )
