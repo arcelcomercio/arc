@@ -11,7 +11,7 @@ import List from './_children/list'
 import { sectionColumnsFields } from '../../../utilities/included-fields'
 
 const classes = {
-  lista: 'stories-l-section bg-white flex flex-col',
+  lista: 'sec-col bg-white flex flex-col',
 }
 
 const newsNumber = 4

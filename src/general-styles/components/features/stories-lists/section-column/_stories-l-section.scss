@@ -1,30 +1,25 @@
-.stories-l-section {
-  .stories-l-header {
+.sec-col {
+  &__header {
     height: 40px;
     &.bg-info {
       background-color: $color-base-200;
     }
   }
-  .stories-l-item {
-    &:first-child {
-      padding-top: 0;
-      .stories-l-item__link {
-        font-size: 16px;
-        font-weight: 700;
-      }
-    }
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-  .stories-l-card__image {
+
+  &__image {
     height: 169px;
     max-height: none;
   }
-  .stories-l-item__link {
-    font-size: 14px;
+
+  &__link {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
-  .stories-l-header__title {
-    max-width: 100%;
+
+  &__story {
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 }

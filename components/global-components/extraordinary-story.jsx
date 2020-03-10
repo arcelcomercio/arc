@@ -1,6 +1,6 @@
 import React from 'react'
 import EmbedMultimedia from './embed-multimedia'
-import ConfigParams from '../utilities/config-params'
+import { GALLERY } from '../utilities/constants/multimedia-types'
 import Icon from './multimedia-icon'
 
 const classes = {
@@ -104,7 +104,7 @@ const ExtraordinaryStory = props => {
               website={arcSite}
               linkStory={data.link}
             />
-            {multimediaType === ConfigParams.GALLERY && (
+            {multimediaType === { GALLERY }.GALLERY && (
               <Icon
                 type={multimediaType}
                 iconClass="extraordinary-story__icon"
