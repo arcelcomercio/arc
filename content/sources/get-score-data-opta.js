@@ -60,7 +60,6 @@ const transform = (data = {}) => {
   goals.forEach(
     ({
       contestant: { id: contestantId = 0 } = {},
-      // id: contestantId = 0,
       time_min_sec: timeMinSec = '',
       type = '',
       home_score: homeScore = 0,
@@ -90,36 +89,6 @@ const transform = (data = {}) => {
       }
     }
   )
-  // filtra los datos de homeTeam y awayTeam
-  // contestant.forEach(
-  //   ({ id = '', name = '', flag = '', shortName = '', position = '' }) => {
-  //     if (position === 'home') {
-  //       homeTeamId = id
-  //       homeTeamParams = {
-  //         id,
-  //         name,
-  //         shortName,
-  //         position,
-  //         flag,
-  //         scoreTeam: home,
-  //         goalList: [],
-  //       }
-  //     }
-
-  //     if (position === 'away') {
-  //       awayTeamId = id
-  //       awayTeamParams = {
-  //         id,
-  //         name,
-  //         shortName,
-  //         position,
-  //         flag,
-  //         scoreTeam: away,
-  //         goalList: [],
-  //       }
-  //     }
-  //   }
-  // )
 
   homeTeamParams.goalList = goalListHomeTeam
   awayTeamParams.goalList = goalListAwayTeam
