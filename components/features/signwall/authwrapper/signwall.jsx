@@ -77,7 +77,7 @@ const _AuthWrapper = props => {
                   logoutSession={logoutSession}
                   arcSite={arcSite}
                   typeDialog={typeDialog}
-                  urlPlan={Domains.getUrlPaywall(arcSite)}
+                  urlPlan={Domains.getUrlPaywallFia(arcSite)}
                 />
               )}
             </SecondMiddle>
