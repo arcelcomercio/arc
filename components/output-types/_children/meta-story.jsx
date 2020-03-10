@@ -376,7 +376,8 @@ export default ({
         }
       }()
    */
-
+  const dataStructuraHtmlAmp =
+    contentElementsHtml.match(/:<script(.*?)>(.*?)<\/script>:/gm) || []
   return (
     <>
       <meta name="data-article-id" content={id} />
@@ -443,23 +444,20 @@ export default ({
         />
       )}
       {isAmp === true &&
-        contentElementsHtml &&
-        contentElementsHtml
-          .match(/:<script(.*?)>(.*?)<\/script>:/gm)
-          .map(datas => {
-            return (
-              <>
-                <script
-                  type="application/ld+json"
-                  dangerouslySetInnerHTML={{
-                    __html: datas
-                      .replace(':<script type="application/ld+json">', '')
-                      .replace('</script>:', ''),
-                  }}
-                />
-              </>
-            )
-          })}
+        dataStructuraHtmlAmp.map(datas => {
+          return (
+            <>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: datas
+                    .replace(':<script type="application/ld+json">', '')
+                    .replace('</script>:', ''),
+                }}
+              />
+            </>
+          )
+        })}
     </>
   )
 }

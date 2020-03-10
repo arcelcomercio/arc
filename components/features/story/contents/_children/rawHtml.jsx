@@ -101,7 +101,7 @@ class rawHTML extends PureComponent {
                 ? content.trim().replace('performgroup', 'daznservices')
                 : content
                     .replace('</script>:', '</script>')
-                    .replace(':<script>', '<script>'),
+                    .replace(':<script', '<script'),
             }}
           />
         )}
