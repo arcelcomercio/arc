@@ -8,8 +8,14 @@ const customFields = PropTypes.shape({
   leagueNameText: PropTypes.string.tag({
     name: 'Nombre de la liga',
   }),
+  urlLeagueNameText: PropTypes.string.tag({
+    name: 'Url del nombre de la liga',
+  }),
   sponsorName: PropTypes.string.isRequired.tag({
     name: 'Texto de patrocinador',
+  }),
+  UrlImageSponsor: PropTypes.string.isRequired.tag({
+    name: 'Url de la imagen del patrocinador',
   }),
   htmlAds: PropTypes.string.tag({
     name: 'Html',
