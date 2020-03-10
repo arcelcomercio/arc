@@ -39,6 +39,7 @@ export default ({
     primarySectionLink,
     videoSeo,
     contentElementsText: dataElement,
+    contentElementsHtml = [],
     relatedContent,
     seoKeywords,
     breadcrumbList,
@@ -154,7 +155,7 @@ export default ({
     }
   )
 
-  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url='' }) => {
+  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url = '' }) => {
     const {
       amp_image_1x1: ampImage1x1 = url,
       amp_image_4x3: ampImage4x3 = url,
@@ -429,6 +430,7 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: relatedContentData }}
       />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
@@ -440,6 +442,24 @@ export default ({
           async
         />
       )}
+      {isAmp === true &&
+        contentElementsHtml &&
+        contentElementsHtml
+          .match(/:<script(.*?)>(.*?)<\/script>:/gm)
+          .map(datas => {
+            return (
+              <>
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: datas
+                      .replace(':<script type="application/ld+json">', '')
+                      .replace('</script>:', ''),
+                  }}
+                />
+              </>
+            )
+          })}
     </>
   )
 }

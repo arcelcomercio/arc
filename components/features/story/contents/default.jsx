@@ -196,8 +196,10 @@ class StoryContents extends PureComponent {
                         {element && element.embed_html ? (
                           <StoryContentsChildVideo
                             data={element.embed_html}
+                            {...element}
                             className={classes.newsImage}
                             description={captionVideo}
+                            contentElemtent="true"
                           />
                         ) : (
                           <StoryContentsChildVideoNativo
@@ -340,6 +342,7 @@ class StoryContents extends PureComponent {
                           <StoryContentsChildVideo
                             data={contentVideo}
                             className={classes.newsImage}
+                            {...element}
                           />
                         </>
                       )

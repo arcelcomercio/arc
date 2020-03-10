@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
@@ -15,13 +16,33 @@ const StoryContentChildVideo = props => {
 
   const {
     promo_items: {
-      basic_video: { additional_properties: video = {} } = {},
+      basic_video: {
+        additional_properties: video = {},
+        promo_items: { basic: { url: urlImage = '' } = {} } = {},
+        headlines: { basic = false } = {},
+      } = {},
     } = {},
   } = globalContent || {}
 
   const videoData = video || ''
-  const { data = {}, description = '' } = props
+  const {
+    data = {},
+    description = '',
+    promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
+    headlines: { basic: basicContent = '' } = {},
+    url: imagenMigrate = '',
+    contentElemtent=false
+  } = props
+  const imageUrl = contentElemtent ? urlImageContent: urlImage
+  const { large } =
+    getResizedUrl({
+      url: imageUrl || imagenMigrate,
+      presets: 'large:680x400',
+      arcSite,
+    }) || {}
+
   const urlVideo = data
+
     .replace(
       /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.elcomercio.pe$1'
@@ -33,7 +54,10 @@ const StoryContentChildVideo = props => {
     .replace(
       /https:\/\/gestion.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.gestion.pe$1'
-    )
+    ) // .replace(
+  // 'class="powa"',
+  // 'class="powa" data-stream="https://d2yh8l41rvc5n9.cloudfront.net/wp-elcomercio/2020/03/06/5e6294fd46e0fb0001de95c7/t_e8328ba7d48b470db2106d7de53b3e4a_name_DANI_ALVES/hlsv4_master.m3u8"'
+  // )
 
   const getSectionSlug = (sectionId = '') => {
     return sectionId.split('/')[1] || ''
@@ -138,7 +162,8 @@ const StoryContentChildVideo = props => {
 
   const powa = `
       (function(){
-        window.addEventListener('load',
+        window.addEventListener('powaReady', ({ detail: { element } }) => {element.setAttribute('data-sticky', 'true')})
+               window.addEventListener('load',
           function(){ setTimeout(function(){
             if (window.powaBoot) window.powaBoot()
             if (window.PoWaSettings) {
@@ -153,10 +178,49 @@ const StoryContentChildVideo = props => {
                 }'
               }
             }
-            window.addEventListener('powaReady', ({ detail: { element } }) => {element.setAttribute('data-sticky', 'true')})
           }, 0)} 
         )
-      })()`
+       })()
+      window.PoWaSettings.promo = {
+        size: 'medium',
+               template: function (data) {
+            function _pad2(n) {
+              return n < 10 ? '0' + n : n;
+            }
+                   let template = '<div class=" powa-shot-image " style="background-image: url(${large})"><div class="powa-shot-title ">${basic ||
+    basicContent}</div><div class="powa-shot-play-btn  "><i class="m-icon icon-video featured-story__icon powa-play-btn"> </div></div></div>';
+              return template.trim();
+          }
+        }  
+      `
+  const stylePwa = `
+   .powa-shot-title {
+        font-size: x-large;
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+        position: absolute;
+        top: 15px;
+        left: 15px;
+   }
+   .powa-shot-image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+   }
+   .powa-shot-play-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+   }  
+   .powa-play-btn {
+    transform: inherit;
+}`
 
   return (
     <>
@@ -167,7 +231,14 @@ const StoryContentChildVideo = props => {
           }}></div>
       )}
       <figcaption className={classes.caption}>{description} </figcaption>
-      <script dangerouslySetInnerHTML={{ __html: powa }}></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: powa,
+        }}></script>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: stylePwa,
+        }}></style>
     </>
   )
 }
