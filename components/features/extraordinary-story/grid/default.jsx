@@ -14,6 +14,15 @@ import {
 } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/assets'
 
+const PHOTO_SOURCE = 'photo-resizer'
+
+const getPhotoId = photoUrl => {
+  if (!photoUrl) return ''
+  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
+  const [, photoId] = customPhotoUrl || []
+  return photoId
+}
+
 const ExtraordinaryStoryGrid = props => {
   const { customFields: customFieldsData = {} } = props
   const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
@@ -26,6 +35,7 @@ const ExtraordinaryStoryGrid = props => {
       contentService: storyService = '',
       contentConfigValues: storyConfigValues = {},
     } = {},
+    multimediaSource,
   } = customFieldsData || {}
 
   const storyData = useContent({
@@ -36,6 +46,21 @@ const ExtraordinaryStoryGrid = props => {
         : storyConfigValues,
     filter: storySchema(arcSite),
   })
+
+  // Solo acepta custom image desde Photo Center
+  const photoId = multimediaSource ? getPhotoId(multimediaSource) : ''
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
+            source: PHOTO_SOURCE,
+            query: {
+              url: multimediaSource,
+              presets,
+            },
+          }
+        : {}
+    ) || {}
 
   const {
     section1: {
@@ -119,6 +144,7 @@ const ExtraordinaryStoryGrid = props => {
     deployment,
     contextPath,
     defaultImgSize: 'sm',
+    customPhoto,
   })
 
   const formattedSection1 = new SectionData(section1, arcSite)
