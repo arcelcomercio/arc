@@ -27,7 +27,7 @@ const getDataOpta = storyData => {
   // const {} = storyData
   const footballGameId = getFootballGameId(storyData)
   if (footballGameId !== '') {
-    const urlCDN = `https://devresultadosopta.elcomercio.pe/api/v2/match/?format=json&uuid=${footballGameId}`
+    const urlCDN = `https://cdna-resultadosopta.minoticia.pe/api/v2/match/?format=json&uuid=${footballGameId}`
 
     return request({
       uri: urlCDN,
