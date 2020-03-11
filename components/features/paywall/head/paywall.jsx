@@ -14,6 +14,7 @@ import Icon from '../_children/icon'
 import { Landing } from '../../signwall/main/_main/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
+import QueryString from '../../signwall/_dependencies/querystring'
 
 const NAME_MAX_LENGHT = 10
 
@@ -76,6 +77,11 @@ const Head = props => {
         })
         .catch(() => {})
     }
+
+    if (QueryString.getQuery('signLanding')) {
+      setShowSignwall(true)
+    }
+
     return unregisterListeners
   }, [])
 
@@ -115,6 +121,7 @@ const Head = props => {
             dispatchEvent('loginCanceled')
             typeSignWall.current = 'landing'
             setShowSignwall(false)
+            QueryString.deleteQuery('signLanding') // remover queryString signLanding
           }}
           noBtnClose={students ? false : !!_forceLogin}
         />
