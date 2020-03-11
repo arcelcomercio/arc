@@ -7,11 +7,11 @@ const classes = {
   tournamentCard:
     'tournament-result__card bg-white p-20 border-solid mb-20 lg:mb-0 overflow-y-auto',
   tournamentCardLig:
-    'tournament-result__card-league font-bold text-black mb-15',
+    'tournament-result__card-league font-bold text-black mb-15 overflow-hidden',
   tournamentCardSponsor:
     'tournament-result__card-sponsor flex items-center justify-between mb-15',
   tournamentSponsorText:
-    'tournament-result__card-text text-black secondary-font',
+    'tournament-result__card-text text-black secondary-font overflow-hidden',
   tournamentCardFigure: 'tournament-result__card-figure h-full',
   tournamentCardImg: 'tournament-result__card-img w-full h-full object-cover',
 }
