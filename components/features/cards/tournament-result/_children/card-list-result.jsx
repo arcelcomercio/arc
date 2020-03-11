@@ -39,13 +39,15 @@ const CardListResult = ({
           <p className={classes.tournamentSponsorText}>{sponsorName}</p>
 
           {/* imagen para la publicdad */}
-          <figure className={classes.tournamentCardFigure}>
-            <img
-              src={UrlImageSponsor}
-              alt=""
-              className={classes.tournamentCardImg}
-            />
-          </figure>
+          {UrlImageSponsor !== '' && (
+            <figure className={classes.tournamentCardFigure}>
+              <img
+                src={UrlImageSponsor}
+                alt=""
+                className={classes.tournamentCardImg}
+              />
+            </figure>
+          )}
         </div>
       )}
       <div className={classes.tournamentCard}>

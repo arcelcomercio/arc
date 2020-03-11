@@ -78,7 +78,7 @@ export const getVideoTime = data => {
 }
 
 export const getFootballGameId = data => {
-  let result = 0
+  let result = ''
 
   result =
     (data &&

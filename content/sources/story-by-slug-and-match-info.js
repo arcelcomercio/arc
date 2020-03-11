@@ -3,6 +3,7 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import RedirectError from '../../components/utilities/redirect-error'
+import { getFootballGameId } from '../../components/utilities/get-story-values'
 
 const schemaName = 'story-dev'
 
@@ -24,21 +25,24 @@ const options = {
 
 const getDataOpta = storyData => {
   // const {} = storyData
+  const footballGameId = getFootballGameId(storyData)
+  if (footballGameId !== '') {
+    const urlCDN = `https://devresultadosopta.elcomercio.pe/api/v2/match/?format=json&uuid=${footballGameId}`
 
-  const urlCDN = `https://devresultadosopta.elcomercio.pe/api/v2/match/?format=json&uuid=2fotq7p7kpwzjsr8m7bsk29uy`
-
-  return request({
-    uri: urlCDN,
-    ...options,
-  })
-    .then(dataOpta => {
-      storyData.opta_data = dataOpta
-      return storyData
+    return request({
+      uri: urlCDN,
+      ...options,
     })
-    .catch(error => {
-      console.log('ERRROR!!!!!!!!!!!!!!!!')
-      console.log(error)
-    })
+      .then(dataOpta => {
+        storyData.opta_data = dataOpta
+        return storyData
+      })
+      .catch(error => {
+        console.log(error)
+        return storyData
+      })
+  }
+  return storyData
 }
 
 const getAdditionalData = (storyData, website) => {
