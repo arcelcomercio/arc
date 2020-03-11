@@ -1,3 +1,4 @@
+/* global fbq */
 import React from 'react'
 
 import Icon from '../icon'
@@ -9,7 +10,10 @@ function ClickToCall({ href, text, ...restProps }) {
     <S.Button
       as="a"
       href={href}
-      onClick={() => Taggeo('Web_Paywall_Home', 'web_paywall_home_call')}
+      onClick={() => {
+        Taggeo('Web_Paywall_Home', 'web_paywall_home_call')
+        fbq('track', 'Contact')
+      }}
       target="_blank"
       rel="noopener noreferrer"
       {...restProps}>

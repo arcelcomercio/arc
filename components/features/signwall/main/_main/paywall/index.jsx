@@ -6,6 +6,8 @@ import { FormLogin } from '../_children/form_login'
 import { FormForgot } from '../_children/form_forgot'
 import { FormRegister } from '../_children/form_register'
 import Taggeo from '../../../_dependencies/taggeo'
+import QueryString from '../../../_dependencies/querystring'
+
 import {
   ContMiddle,
   FirstMiddle,
@@ -24,6 +26,15 @@ const renderTemplate = (template, attributes) => {
     forgot: <FormForgot {...attributes} />,
     register: <FormRegister {...attributes} />,
   }
+
+  if (QueryString.getQuery('signPaywall')) {
+    setTimeout(() => {
+      QueryString.deleteQuery('signPaywall')
+    }, 2000)
+
+    return templates.login
+  }
+
   return templates[template] || templates.intro
 }
 

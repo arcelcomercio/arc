@@ -14,7 +14,7 @@ import Icon from '../_children/icon'
 import { Landing } from '../../signwall/main/_main/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
-import { getAssetsPath } from '../../../utilities/constants'
+import QueryString from '../../signwall/_dependencies/querystring'
 
 const NAME_MAX_LENGHT = 10
 
@@ -23,7 +23,7 @@ const Head = props => {
   const {
     theme,
     arcSite,
-    contextPath,
+    deployment,
     siteProperties: {
       paywall: { urls, images },
     },
@@ -77,6 +77,11 @@ const Head = props => {
         })
         .catch(() => {})
     }
+
+    if (QueryString.getQuery('signLanding')) {
+      setShowSignwall(true)
+    }
+
     return unregisterListeners
   }, [])
 
@@ -116,6 +121,7 @@ const Head = props => {
             dispatchEvent('loginCanceled')
             typeSignWall.current = 'landing'
             setShowSignwall(false)
+            QueryString.deleteQuery('signLanding') // remover queryString signLanding
           }}
           noBtnClose={students ? false : !!_forceLogin}
         />
@@ -128,9 +134,7 @@ const Head = props => {
         <S.WrapLogo as="a" href="/" target="_blank">
           <img
             alt={`logo ${arcSite}`}
-            src={`${getAssetsPath(arcSite, contextPath)}${interpolateUrl(
-              images.mainLogo
-            )}`}
+            src={deployment(interpolateUrl(images.mainLogo))}
           />
         </S.WrapLogo>
         <S.WrapLogin>

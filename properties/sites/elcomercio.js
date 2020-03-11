@@ -22,6 +22,7 @@ export default {
   ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-11',
+  fbPixelId: '637459447015102',
   fbArticleStyle: 'LogoElcomercio',
   nameStoryRelated: 'VEA TAMBIÉN',
   googleTagManagerMobile: 'GTM-NNX4LXF',
@@ -98,6 +99,7 @@ export default {
       faqs:                              `{{contextPath}}/suscripcionesdigitales/faqs/{{^isProd}}?_website=elcomercio&outputType=paywall{{/isProd}}`,
       digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales/{{#isEvent}}eventos/{{event}}/{{/isEvent}}{{#isCheckingSubscriptor}}{{documentType}}/{{documentNumber}}/{{attemptToken}}/{{/isCheckingSubscriptor}}{{^isProd}}?_website=elcomercio&outputType=paywall{{/isProd}}`,
       digitalSubscriptionsHome:          `{{contextPath}}/suscripciones/{{^isProd}}?_website=elcomercio&outputType=paywall{{/isProd}}`,
+      arcEntitlements:                   `/sales/public/v1/entitlements`,
 
       // URLS
       canonical:                         `https://elcomercio.pe/suscripcionesdigitales/`,
@@ -112,7 +114,7 @@ export default {
       originPayuTags:                    `https://maf.pagosonline.net/ws/fp/tags.js?id={{deviceSessionId}}80200`,
       originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
       originSubscriptionOnlineToken:     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-      originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/elcomercio/{{#hasParams}}?{{/hasParams}}{{#isCheckingSubscriptor}}doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/isCheckingSubscriptor}}{{#isEvent}}{{#isCheckingSubscriptor}}&{{/isCheckingSubscriptor}}event={{event}}{{/isEvent}}`,
+      originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/elcomercio/{{#hasParams}}?{{/hasParams}}{{#isCheckingSubscriptor}}doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/isCheckingSubscriptor}}{{#isEvent}}{{#isCheckingSubscriptor}}&{{/isCheckingSubscriptor}}event={{event}}{{/isEvent}}{{#fromFia}}from_fia=true{{/fromFia}}`,
       originSubscriptionsBundles:        `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/elcomercio/bundle/`,
       originSubsPrinted:                 `{{#isProd}}https://suscripciones.elcomercio.pe/payment/9/101/{{/isProd}}
                                           {{^isProd}}http://pre.suscripciones.elcomercio.pe/payment/9/101/{{/isProd}}`,
@@ -150,7 +152,7 @@ export default {
       backgroundx1:                      `{{contextPath}}/resources/dist/elcomercio/images/bg_planes_10.jpg`,
       backgroundReview:                  `{{contextPath}}/resources/dist/elcomercio/images/bg_video.jpg`,
       reviewPoster:                      `{{contextPath}}/resources/dist/elcomercio/images/review_poster.jpg`,
-      mainLogo:                          `/resources/dist/elcomercio/images/white-logo.png`, 
+      mainLogo:                          `{{contextPath}}/resources/dist/elcomercio/images/white-logo.png`, 
     }
   },
 

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as Meta from './_children/meta'
 import TagManager from './_children/tag-manager'
+import FbPixel from './_children/fb-pixel'
 import { interpolateUrl } from '../features/paywall/_dependencies/domains'
 
 const Paywall = props => {
@@ -26,6 +27,7 @@ const Paywall = props => {
     <html lang="es" className={arcSite}>
       <head>
         <TagManager {...siteProperties} />
+        <FbPixel {...props} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -83,6 +85,13 @@ const Paywall = props => {
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
+          />
+          <img
+            alt=""
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src={`https://www.facebook.com/tr?id=${siteProperties.fbPixelId}&ev=PageView&noscript=1`}
           />
         </noscript>
         <div id="fusion-app" role="application" className="layout-paywall">
