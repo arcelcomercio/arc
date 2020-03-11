@@ -54,7 +54,7 @@ const OrderedStoriesGrid = props => {
         const params = {
           title: {
             name: dataStory.title,
-            url: dataStory.link,
+            url: dataStory.websiteLink,
           },
           category: {
             name: dataStory.primarySection,
