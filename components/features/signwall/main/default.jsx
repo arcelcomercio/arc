@@ -216,7 +216,11 @@ class SignwallComponent extends PureComponent {
     if (vars[name]) {
       setTimeout(() => {
         switch (name) {
+          case 'signOrganic':
+            this.setState({ showOrganic: true })
+            break
           case 'signwallHard':
+          case 'signHard':
             this.setState({ showHard: true })
             break
           case 'tokenVerify':
@@ -226,15 +230,18 @@ class SignwallComponent extends PureComponent {
             this.setState({ showReset: true })
             break
           case 'reloginEmail':
+          case 'signEmail':
             this.setState({ showReEmail: true })
             break
           case 'signwallPaywall':
+          case 'signPaywall':
             this.setState({ showPaywall: true })
             break
-          case 'signwallPremiumTest':
+          case 'signPremium':
             this.setState({ showPremium: true })
             break
           case 'reloginHash':
+          case 'signHash':
             this.setState({ showRelogHash: true })
             break
           default:
@@ -264,8 +271,17 @@ class SignwallComponent extends PureComponent {
   closePopUp(name) {
     this._isMounted = true
     if (this._isMounted) this.setState({ [name]: false })
-    if (typeof window !== 'undefined' && name !== 'showOrganic')
-      window.history.pushState({}, document.title, '/')
+
+    if (typeof window !== 'undefined') {
+      if (name !== 'showOrganic') {
+        window.history.pushState({}, document.title, '/')
+      }
+      if (this.getUrlParam('signOrganic')) {
+        window.history.pushState({}, document.title, '/')
+        window.location.reload()
+      }
+    }
+
     return null
   }
 
@@ -310,7 +326,7 @@ class SignwallComponent extends PureComponent {
 
         {siteProperties.activeSignwall && (
           <>
-            {showOrganic && (
+            {(this.getUrlParam('signOrganic') || showOrganic) && (
               <Generic
                 onClose={() => this.closePopUp('showOrganic')}
                 arcSite={arcSite}
@@ -340,29 +356,35 @@ class SignwallComponent extends PureComponent {
               <>
                 {this.checkCookieHash()}
 
-                {this.getUrlParam('signwallHard') && showHard && (
-                  <Generic
-                    onClose={() => this.closePopUp('showHard')}
-                    arcSite={arcSite}
-                    typeDialog="hard"
-                  />
-                )}
+                {(this.getUrlParam('signHard') ||
+                  this.getUrlParam('signwallHard')) &&
+                  showHard && (
+                    <Generic
+                      onClose={() => this.closePopUp('showHard')}
+                      arcSite={arcSite}
+                      typeDialog="hard"
+                    />
+                  )}
 
-                {this.getUrlParam('reloginEmail') && showReEmail && (
-                  <Generic
-                    onClose={() => this.closePopUp('showReEmail')}
-                    arcSite={arcSite}
-                    typeDialog="relogemail"
-                  />
-                )}
+                {(this.getUrlParam('signEmail') ||
+                  this.getUrlParam('reloginEmail')) &&
+                  showReEmail && (
+                    <Generic
+                      onClose={() => this.closePopUp('showReEmail')}
+                      arcSite={arcSite}
+                      typeDialog="relogemail"
+                    />
+                  )}
 
-                {this.getUrlParam('reloginHash') && showRelogHash && (
-                  <Generic
-                    onClose={() => this.closePopUp('showRelogHash')}
-                    arcSite={arcSite}
-                    typeDialog="reloghash"
-                  />
-                )}
+                {(this.getUrlParam('signHash') ||
+                  this.getUrlParam('reloginHash')) &&
+                  showRelogHash && (
+                    <Generic
+                      onClose={() => this.closePopUp('showRelogHash')}
+                      arcSite={arcSite}
+                      typeDialog="reloghash"
+                    />
+                  )}
               </>
             )}
           </>
@@ -370,15 +392,17 @@ class SignwallComponent extends PureComponent {
 
         {siteProperties.activePaywall && (
           <>
-            {this.getUrlParam('signwallPaywall') && showPaywall && (
-              <Paywall
-                onClose={() => this.closePopUp('showPaywall')}
-                arcSite={arcSite}
-                typeDialog="paywall"
-              />
-            )}
+            {(this.getUrlParam('signPaywall') ||
+              this.getUrlParam('signwallPaywall')) &&
+              showPaywall && (
+                <Paywall
+                  onClose={() => this.closePopUp('showPaywall')}
+                  arcSite={arcSite}
+                  typeDialog="paywall"
+                />
+              )}
 
-            {(this.getUrlParam('signwallPremiumTest') || showPremium) && (
+            {(this.getUrlParam('signPremium') || showPremium) && (
               <Premium
                 onClose={() => this.closePopUp('showPremium')}
                 arcSite={arcSite}
