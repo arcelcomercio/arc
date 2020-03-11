@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import { getAssetsPathVideo } from '../../../../utilities/assets'
 
 const getTypeVideo = (streams, typo = 'ts') => {
   const dataVideo = streams
@@ -16,7 +17,7 @@ const getTypeVideo = (streams, typo = 'ts') => {
 }
 
 const StoryContentChildVideoAmp = ({ data }) => {
-  const { siteProperties: { urlPrerollAmp } = {} } = useFusionContext()
+  const { siteProperties: { urlPrerollAmp } = {}, arcSite } = useFusionContext()
 
   const {
     _id: id = '',
@@ -51,7 +52,7 @@ const StoryContentChildVideoAmp = ({ data }) => {
             width="720"
             height="405"
             layout="responsive"
-            data-src={urlVideo}
+            data-src={getAssetsPathVideo(arcSite, urlVideo)}
             data-tag={urlPrerollAmp}
             data-poster={imageVideo}
             class={`id-${id}`}
@@ -60,7 +61,7 @@ const StoryContentChildVideoAmp = ({ data }) => {
             {urlTs && (
               <source
                 type="application/vnd.apple.mpegurl"
-                data-src={urlTs}></source>
+                data-src={getAssetsPathVideo(arcSite, urlTs)}></source>
             )}
           </amp-ima-video>
           <div className="pt-10">{caption}</div>
