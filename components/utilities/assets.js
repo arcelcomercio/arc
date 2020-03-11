@@ -36,3 +36,15 @@ export const defaultImage = ({
     )}/resources/dist/${arcSite}/images/default-${size}.png`
   )
 }
+
+export const getAssetsPathVideo = (arcSite, urlVideo = '') => {
+  let site = `${arcSite}.pe`
+  if (arcSite === 'depor') site = `${arcSite}.com`
+  if (arcSite === 'elcomerciomag') site = 'elcomercio.pe'
+  if (arcSite === 'peru21g21') site = 'peru21.pe'
+
+  return urlVideo.replace(
+    'https://d2yh8l41rvc5n9.cloudfront.net/wp-elcomercio',
+    `https://cdnv.${site}`
+  )
+}
