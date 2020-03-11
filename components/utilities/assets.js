@@ -37,7 +37,7 @@ export const defaultImage = ({
   )
 }
 
-export const getAssetsPathVideo = (arcSite, urlVideo) => {
+export const getAssetsPathVideo = (arcSite, urlVideo = '') => {
   let site = `${arcSite}.pe`
   if (arcSite === 'depor') site = `${arcSite}.com`
   if (arcSite === 'elcomerciomag') site = 'elcomercio.pe'
