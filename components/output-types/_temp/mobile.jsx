@@ -1,18 +1,19 @@
+// Actualizar imports al sacar de directorio _temp
 import React from 'react'
-import MetaSite from './_children/meta-site'
-import TwitterCards from './_children/twitter-cards'
-import OpenGraph from './_children/open-graph'
-import TagManager from './_children/tag-manager'
-import renderMetaPage from './_children/render-meta-page'
+import MetaSite from '../_children/meta-site'
+import TwitterCards from '../_children/twitter-cards'
+import OpenGraph from '../_children/open-graph'
+import TagManager from '../_children/tag-manager'
+import renderMetaPage from '../_children/render-meta-page'
 import {
   storyTagsBbc,
   addSlashToEnd,
   deleteQueryString,
   createMarkup,
-} from '../utilities/helpers'
-import ConfigParams from '../utilities/config-params'
-import StoriesRecent from '../global-components/stories-recent'
-import { getAssetsPath } from '../utilities/constants'
+} from '../../utilities/helpers'
+import ConfigParams from '../../utilities/config-params'
+import StoriesRecent from '../../global-components/stories-recent'
+import { getAssetsPath } from '../../utilities/constants'
 
 const MobileOutput = ({
   children,
