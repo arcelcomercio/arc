@@ -28,9 +28,9 @@ const CardListResult = ({
     <div className={classes.tournamentContent}>
       {firstCard ? (
         <div className={classes.tournamentCardLig}>
-          {leagueNameText === '' ? (
-            leagueName
-          ) : (
+          {leagueNameText === '' && urlLeagueNameText === '' && leagueName}
+          {leagueNameText !== '' && urlLeagueNameText === '' && leagueNameText}
+          {leagueNameText !== '' && urlLeagueNameText !== '' && (
             <a href={urlLeagueNameText}>{leagueNameText}</a>
           )}
         </div>

@@ -11,7 +11,7 @@ const classes = {
   tournamentResult:
     'tournament-result flex justify-between flex-wrap pl-20 md:pl-0 pr-20 md:pr-0',
   tournamentBox:
-    'tournament-result__box flex justify-between flex-wrap w-full lg:pt-30',
+    'tournament-result__box flex justify-between flex-wrap w-full lg:pt-30 items-end',
 }
 
 const CONTENT_SOURCE = 'get-score-results-from-the-league'
