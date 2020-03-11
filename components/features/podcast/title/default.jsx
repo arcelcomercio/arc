@@ -2,12 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
-import {
-  socialMediaUrlShareList,
-  popUpWindow,
-} from '../../../utilities/helpers'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
 
 const classes = {}
+
+export const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
+}
 
 const PodcastTitle = props => {
   const { customFields: { titleField = '', socialUrl = '' } = {} } = props
