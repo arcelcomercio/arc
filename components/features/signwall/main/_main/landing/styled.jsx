@@ -34,6 +34,8 @@ export const FirstMiddle = styled(Base)`
 `
 
 export const SecondMiddle = styled(Base)`
+  background-color: white;
+  position: relative;
   width: 100%;
   position: relative;
   background: #ffffff;

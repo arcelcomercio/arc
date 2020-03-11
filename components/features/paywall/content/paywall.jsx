@@ -48,6 +48,7 @@ const Paywall = ({
       paywall: { urls },
     },
     globalContent: {
+      fromFia,
       summary = [],
       description,
       plans = [],
@@ -56,6 +57,13 @@ const Paywall = ({
       error,
     },
   } = useFusionContext()
+
+  // En sandbox por alguna razon hacen una redireccion y evita
+  // que se mantenga el valor de la bandera fromFia que viene
+  // como resultado de la plantilla, por lo que persisto esta
+  // bandera en sessionStorage
+  if (fromFia && typeof window !== 'undefined')
+    window.sessionStorage.setItem('paywall_type_modal', 'fia')
 
   const wizardRef = useRef(null)
   const clickToCallUrl = interpolateUrl(urls.clickToCall)
@@ -105,6 +113,8 @@ const Paywall = ({
   const currMemo = memo.current
 
   useEffect(() => {
+    const sessionFia = window.sessionStorage.getItem('paywall_type_modal')
+    currMemo.fromFia = sessionFia === 'fia'
     history = createBrowserHistory({
       basename: '',
       // getUserConfirmation: (message, callback) => callback(window.confirm(message))

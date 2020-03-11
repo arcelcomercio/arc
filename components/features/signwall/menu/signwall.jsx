@@ -59,8 +59,29 @@ const Menu = ({
       })
   }
 
+  const checkSession = () => {
+    if (typeof window !== 'undefined') {
+      const profileStorage =
+        window.localStorage.getItem('ArcId.USER_PROFILE') ||
+        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+      if (profileStorage) {
+        return !(profileStorage === 'null' || sesionStorage === '{}') || false
+      }
+    }
+    return false
+  }
+
   const openItemMenu = item => {
-    dispatchEvent('openMenu', item)
+    if (checkSession()) {
+      if (arcSite === 'elcomercio' && item === 'news') {
+        window.open('/newsletters', '_blank')
+      } else {
+        dispatchEvent('openMenu', item)
+      }
+    } else {
+      window.location.href = '/'
+    }
   }
 
   return (

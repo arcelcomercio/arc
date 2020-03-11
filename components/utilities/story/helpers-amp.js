@@ -59,7 +59,8 @@ export const publicidadAmpAd = ({
     (movil1 &&
       `data-multi-size="300x250,320x100,320x50,300x100,300x50"
   data-multi-size-validation="false"`) ||
-    ''
+    `data-multi-size="1x1"
+    data-multi-size-validation="false"`
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `

@@ -4,7 +4,7 @@ import StoryData from '../../../../utilities/story-data'
 import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
-  list: 'stories-l-card__list bg-white overflow-y-auto h-full',
+  list: 'sec-col__list bg-white h-full',
 }
 
 const StoriesListsCardChildList = ({

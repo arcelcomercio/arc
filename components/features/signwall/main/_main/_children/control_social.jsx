@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { sha256 } from 'js-sha256'
 import styled, { css } from 'styled-components'
 import { device } from '../../../_dependencies/breakpoints'
@@ -9,6 +9,7 @@ import Domains from '../../../_dependencies/domains'
 import Cookies from '../../../_dependencies/cookies'
 import getDevice from '../../../_dependencies/get-device'
 import Taggeo from '../../../_dependencies/taggeo'
+import QueryString from '../../../_dependencies/querystring'
 
 export const ButtonStyleSocial = styled(Button)`
   font-size: ${props => (props.size === 'full' ? '18' : '16')}px !important;
@@ -96,6 +97,32 @@ export const ButtonSocial = ({
 }) => {
   const [showTextLoad, setShowTextLoad] = useState('')
 
+  useEffect(() => {
+    const listUrlRedirect = [
+      'signOrganic',
+      'signHard',
+      'signEmail',
+      'signHash',
+      'signPaywall',
+      'signPremium',
+      'signLanding',
+      'signFia',
+      'signNewsletters',
+    ]
+
+    listUrlRedirect.map(item => {
+      if (QueryString.getQuery(item)) {
+        OAuthFacebook({
+          data: {
+            accessToken: QueryString.getQuery(item).replace(/(#_=_)$/, ''),
+          },
+          origin: Domains.getUrlECOID(),
+        })
+      }
+      return null
+    })
+  }, [])
+
   const InitGoogle = () => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
 
@@ -134,6 +161,31 @@ export const ButtonSocial = ({
     }
   }
 
+  const queryDialog = () => {
+    switch (typeDialog) {
+      case 'organico':
+        return 'signOrganic'
+      case 'hard':
+        return 'signHard'
+      case 'relogemail':
+        return 'signEmail'
+      case 'reloghash':
+        return 'signHash'
+      case 'paywall':
+        return 'signPaywall'
+      case 'premium':
+        return 'signPremium'
+      case 'landing':
+        return 'signLanding'
+      case 'authfia':
+        return 'signFia'
+      case 'newsletter':
+        return 'signNewsletters'
+      default:
+        return typeDialog
+    }
+  }
+
   const taggeoError = () => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
@@ -164,112 +216,124 @@ export const ButtonSocial = ({
       '',
       data.accessToken,
       'facebook'
-    ).then(resLogSocial => {
-      setShowTextLoad('Conectando...')
-      if (resLogSocial.accessToken) {
-        window.localStorage.setItem(
-          'ArcId.USER_INFO',
-          JSON.stringify(resLogSocial)
-        )
-        window.Identity.userIdentity = resLogSocial
-        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-        window.Identity.getUserProfile()
-          .then(resProfile => {
-            const EMAIL_USER =
-              resProfile.email ||
-              `${resProfile.identities[0].userName}@facebook.com`
+    )
+      .then(resLogSocial => {
+        setShowTextLoad('Conectando...')
+        if (resLogSocial.accessToken) {
+          window.localStorage.setItem(
+            'ArcId.USER_INFO',
+            JSON.stringify(resLogSocial)
+          )
+          window.Identity.userIdentity = resLogSocial
+          window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+          window.Identity.getUserProfile()
+            .then(resProfile => {
+              const EMAIL_USER =
+                resProfile.email ||
+                `${resProfile.identities[0].userName}@facebook.com`
 
-            if (!resProfile.displayName && !resProfile.attributes) {
-              const newProfileFB = {
-                firstName: resProfile.firstName.replace(/\./g, ''),
-                lastName: resProfile.lastName.replace(/\./g, ''),
-                displayName: EMAIL_USER,
-                email: EMAIL_USER,
-                attributes: [
-                  {
-                    name: 'originDomain',
-                    value: window.location.hostname || 'none',
-                    type: 'String',
-                  },
-                  {
-                    name: 'originReferer',
-                    value: window.location.href || 'none',
-                    type: 'String',
-                  },
-                  {
-                    name: 'originMethod',
-                    value: '2',
-                    type: 'String',
-                  },
-                  {
-                    name: 'originDevice',
-                    value: getDevice(window) || 'none',
-                    type: 'String',
-                  },
-                  {
-                    name: 'originAction',
-                    value: originAction() || 'none',
-                    type: 'String',
-                  },
-                  {
-                    name: 'termsCondPrivaPoli',
-                    value: '1',
-                    type: 'String',
-                  },
-                ],
-              }
-
-              window.Identity.options({
-                apiOrigin: Domains.getOriginAPI(arcSite),
-              })
-              window.Identity.updateUserProfile(newProfileFB).then(() => {
-                if (
-                  activeNewsletter &&
-                  EMAIL_USER.indexOf('facebook.com') < 0
-                ) {
-                  Services.sendNewsLettersUser(
-                    resProfile.uuid,
-                    EMAIL_USER,
-                    arcSite,
-                    resLogSocial.accessToken,
-                    ['general']
-                  )
+              if (!resProfile.displayName && !resProfile.attributes) {
+                const newProfileFB = {
+                  firstName: resProfile.firstName.replace(/\./g, ''),
+                  lastName: resProfile.lastName.replace(/\./g, ''),
+                  displayName: EMAIL_USER,
+                  email: EMAIL_USER,
+                  attributes: [
+                    {
+                      name: 'originDomain',
+                      value: window.location.hostname || 'none',
+                      type: 'String',
+                    },
+                    {
+                      name: 'originReferer',
+                      value:
+                        window.location.href
+                          .split('&')[0]
+                          .replace(/(\/#|#|\/)$/, '') || 'none',
+                      type: 'String',
+                    },
+                    {
+                      name: 'originMethod',
+                      value: '2',
+                      type: 'String',
+                    },
+                    {
+                      name: 'originDevice',
+                      value: getDevice(window) || 'none',
+                      type: 'String',
+                    },
+                    {
+                      name: 'originAction',
+                      value: originAction() || 'none',
+                      type: 'String',
+                    },
+                    {
+                      name: 'termsCondPrivaPoli',
+                      value: '1',
+                      type: 'String',
+                    },
+                  ],
                 }
-              })
 
-              enterProfilePanel(EMAIL_USER)
-            } else {
-              enterProfilePanel(EMAIL_USER)
-            }
+                window.Identity.options({
+                  apiOrigin: Domains.getOriginAPI(arcSite),
+                })
+                window.Identity.updateUserProfile(newProfileFB).then(() => {
+                  if (
+                    activeNewsletter &&
+                    EMAIL_USER.indexOf('facebook.com') < 0
+                  ) {
+                    Services.sendNewsLettersUser(
+                      resProfile.uuid,
+                      EMAIL_USER,
+                      arcSite,
+                      resLogSocial.accessToken,
+                      ['general']
+                    )
+                  }
+                })
 
-            onLogged(resProfile)
-            if (typeDialog === 'students') {
-              onStudents()
-            } else {
-              if (typeDialog.match(/premium|paywall/)) {
-                checkUserSubs()
+                enterProfilePanel(EMAIL_USER)
               } else {
-                onClose()
+                enterProfilePanel(EMAIL_USER)
               }
-              window.removeEventListener('message', OAuthFacebook)
-              window.removeEventListener('onmessage', OAuthFacebook)
-            }
-          })
-          .catch(() => {
-            taggeoError()
-            onClose()
-          })
-      } else {
-        taggeoError()
-        onClose()
-        window.removeEventListener('message', OAuthFacebook)
-        window.removeEventListener('onmessage', OAuthFacebook)
-      }
-    })
+
+              onLogged(resProfile)
+              if (typeDialog === 'students') {
+                onStudents()
+              } else {
+                if (typeDialog.match(/premium|paywall/)) {
+                  checkUserSubs()
+                } else {
+                  onClose()
+                  if (
+                    typeDialog === 'organico' &&
+                    window.location.pathname.match(/newsletters/)
+                  ) {
+                    window.location.reload()
+                  }
+                }
+                window.removeEventListener('message', OAuthFacebook)
+                window.removeEventListener('onmessage', OAuthFacebook)
+              }
+            })
+            .catch(() => {
+              taggeoError()
+              onClose()
+            })
+        } else {
+          taggeoError()
+          onClose()
+          window.removeEventListener('message', OAuthFacebook)
+          window.removeEventListener('onmessage', OAuthFacebook)
+        }
+      })
+      .catch(() => {
+        window.console.error('oups ocurrio un error')
+      })
   }
 
   const clickLoginFacebookEcoID = brandCurrent => {
-    // setShowTextLoad('Abriendo...')
     if (brandCurrent === 'google') {
       InitGoogle()
     } else {
@@ -285,14 +349,25 @@ export const ButtonSocial = ({
       const height = 640
       const left = window.screen.width / 2 - 800 / 2
       const top = window.screen.height / 2 - 600 / 2
-      const url = `${Domains.getUrlECOID()}/mpp/facebook/login/`
-      return window.open(
-        url,
-        '',
-        `toolbar=no, location=no, directories=no, status=no, menubar=no, 
-      scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
-      height=${height}, top=${top}, left=${left}`
-      )
+      const URL = `${Domains.getUrlECOID()}/mpp/facebook/login/`
+
+      const URLRedirect = () => {
+        window.location.href = `${URL}?urlReference=${encodeURIComponent(
+          window.location.href
+        )}&typeModal=${queryDialog()}`
+      }
+
+      const URLWindow = () => {
+        window.open(
+          URL,
+          '',
+          `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+    scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
+    height=${height}, top=${top}, left=${left}`
+        )
+      }
+
+      return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
     }
     return null
   }
