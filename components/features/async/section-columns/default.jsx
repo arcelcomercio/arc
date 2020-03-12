@@ -9,13 +9,14 @@ import { createMarkup, createScript } from '../../../utilities/helpers'
 const loadSrcScript = (html = '') => {
   const match = html.match(/<script.+src="(.+)"(\s|>).+><\/script>/) || []
   const src = match[1]
-  document.head.appendChild(createScript({ src }))
+  if (src) {
+    document.head.appendChild(createScript({ src }))
+  }
 }
 
 const GridSectionColumns = ({
   customFields: {
     htmlAds,
-    ads,
     section1,
     section2,
     section3,
@@ -28,6 +29,7 @@ const GridSectionColumns = ({
     section10,
     section11,
     section12,
+    section13,
   } = {},
 }) => {
   const [isOnViewPort, setIsOnViewPort] = useState(false)
@@ -75,15 +77,11 @@ const GridSectionColumns = ({
             <ChildernCinemaBillboardCard />
             <ChildrenSectionColumn section={section7} />
             <ChildrenSectionColumn section={section8} />
-          </>
-        )}
-        <div dangerouslySetInnerHTML={createMarkup(ads)}></div>
-        {isOnViewPort && (
-          <>
             <ChildrenSectionColumn section={section9} />
             <ChildrenSectionColumn section={section10} />
             <ChildrenSectionColumn section={section11} />
             <ChildrenSectionColumn section={section12} />
+            <ChildrenSectionColumn section={section13} />
           </>
         )}
       </div>
@@ -123,9 +121,6 @@ GridSectionColumns.propTypes = {
     section8: PropTypes.string.tag({
       name: 'Campo 10 (URL de la sección)',
     }),
-    ads: PropTypes.richtext.tag({
-      name: 'Campo 11 (Publicidad HTML)',
-    }),
     section9: PropTypes.string.tag({
       name: 'Campo 12 (URL de la sección)',
     }),
@@ -137,6 +132,9 @@ GridSectionColumns.propTypes = {
     }),
     section12: PropTypes.string.tag({
       name: 'Campo 15 (URL de la sección)',
+    }),
+    section13: PropTypes.string.tag({
+      name: 'Campo 16 (URL de la sección)',
     }),
   }),
 }
