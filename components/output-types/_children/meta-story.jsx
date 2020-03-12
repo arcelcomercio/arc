@@ -29,6 +29,7 @@ export default ({
   const {
     id,
     title,
+    metaTitle,
     tags,
     link,
     displayDate: publishDate,
@@ -259,9 +260,9 @@ export default ({
         : lastPublishDate
     }",
 
-    "headline":"${formatHtmlToText(title)}",  "description":"${formatHtmlToText(
-    subTitle
-  )}",
+    "headline":"${formatHtmlToText(title)}",
+    "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
+    "description":"${formatHtmlToText(subTitle)}",
   ${bodyStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
