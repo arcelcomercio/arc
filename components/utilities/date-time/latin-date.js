@@ -1,4 +1,4 @@
-import { arrayMonths, arrayDays } from './helpers'
+import { arrayMonths, arrayDays } from './constants'
 
 const getLatinDate = (dateString, yearSeparator, isStatic = false) => {
   let name = ''

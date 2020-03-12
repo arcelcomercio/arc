@@ -4,7 +4,7 @@ import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import { defaultImage } from '../../../utilities/helpers'
-import getLatinDate from '../../../utilities/date-name'
+import getLatinDate from '../../../utilities/date-time/latin-date'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
