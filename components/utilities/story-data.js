@@ -2,7 +2,7 @@ import ConfigParams from './config-params'
 import { formatHtmlToText, addSlashToEnd } from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
-import { getAssetsPath } from './constants'
+import { getAssetsPath } from './assets'
 
 // Funcion extraida de helpers
 export const defaultImage = ({

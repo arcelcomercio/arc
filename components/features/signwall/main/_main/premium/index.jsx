@@ -6,6 +6,8 @@ import { FormLogin } from '../_children/form_login'
 import { FormForgot } from '../_children/form_forgot'
 import { FormRegister } from '../_children/form_register'
 import Taggeo from '../../../_dependencies/taggeo'
+import QueryString from '../../../_dependencies/querystring'
+
 import {
   ContMiddle,
   FirstMiddle,
@@ -24,6 +26,15 @@ const renderTemplate = (template, attributes) => {
     forgot: <FormForgot {...attributes} />,
     register: <FormRegister {...attributes} />,
   }
+
+  if (QueryString.getQuery('signPremium')) {
+    setTimeout(() => {
+      QueryString.deleteQuery('signPremium')
+    }, 2000)
+
+    return templates.login
+  }
+
   return templates[template] || templates.intro
 }
 
@@ -55,18 +66,15 @@ export const PremiumInt = props => {
   }
 
   useEffect(() => {
+    const { fetched } = getContent('paywall-campaing')
+    fetched.then(resCam => {
+      setResCampaing(resCam.summary.feature || [])
+    })
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)
     addEventListener('beforeunload', handleLeavePage)
     return () => {
       removeEventListener('beforeunload', handleLeavePage)
     }
-  }, [])
-
-  useEffect(() => {
-    const { fetched } = getContent('paywall-campaing')
-    fetched.then(resCam => {
-      setResCampaing(resCam.summary.feature || [])
-    })
   }, [])
 
   const removeBefore = () => {

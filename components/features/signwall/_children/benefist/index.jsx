@@ -2,10 +2,10 @@ import React from 'react'
 import { BeneOne, BeneThree, BeneFive, BeneFour } from '../iconos'
 import { Cont, ItemTitle, TitleContainer } from './styles'
 
-const Title = ({ content, subTitle, subTitleExtra, subTitleMore }) => {
+const Title = ({ content, subTitle, subTitleExtra, subTitleMore, arcSite }) => {
   return (
     <>
-      <h1 className="title">
+      <h1 className={`title title-${arcSite}`}>
         {content}
         {subTitleMore && (
           <>
@@ -36,6 +36,7 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
         content={`¡Hola ${nameMPP ||
           'Lector'}! Para mejorar tu experiencia de navegación, inicia sesión nuevamente.`}
         subTitleExtra="Recuerda que con tu cuenta podrás:"
+        arcSite={arcSite}
       />
     )
   } else if (typeMessage === 'reloghash') {
@@ -43,12 +44,14 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
       <Title
         content="¡Hola Lector! Hemos mejorado tu experiencia de navegación, inicia sesión nuevamente."
         subTitleExtra="Recuerda que con tu cuenta podrás:"
+        arcSite={arcSite}
       />
     )
   } else if (
     typeMessage === 'organico' ||
     typeMessage === 'resetpass' ||
-    typeMessage === 'verify'
+    typeMessage === 'verify' ||
+    typeMessage === 'newsletter'
   ) {
     switch (arcSite) {
       case 'elcomercio':
@@ -57,6 +60,7 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
           <Title
             content="Regístrate gratis para continuar leyendo y estar siempre informado con las noticias más relevantes."
             subTitleMore
+            arcSite={arcSite}
           />
         )
         break
@@ -65,24 +69,33 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
           <Title
             content="Regístrate y continúa informándote con lo más completo en economía, negocios y finanzas."
             subTitleMore
+            arcSite={arcSite}
           />
         )
         break
       default:
         title = (
-          <Title content="Regístrate y continúa informándote." subTitleMore />
+          <Title
+            content="Regístrate y continúa informándote."
+            subTitleMore
+            arcSite={arcSite}
+          />
         )
     }
   } else if (typeMessage === 'hard') {
     if (arcSite === 'elcomercio') {
       title = (
-        <Title content="Regístrate gratis para continuar leyendo y estar siempre informado con las noticias más relevantes." />
+        <Title
+          content="Regístrate gratis para continuar leyendo y estar siempre informado con las noticias más relevantes."
+          arcSite={arcSite}
+        />
       )
     } else {
       title = (
         <Title
           content="¿TE GUSTA LO QUE ESTÁS LEYENDO?"
           subTitle="Regístrate y continúa informándote con lo más completo en economía, negocios y finanzas."
+          arcSite={arcSite}
         />
       )
     }
@@ -145,7 +158,7 @@ const Benefits = ({
         </div>
       </div>
 
-      {arcSite === 'gestion' ? (
+      {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
         <div className="item">
           <div className="icon">
             <BeneFour />

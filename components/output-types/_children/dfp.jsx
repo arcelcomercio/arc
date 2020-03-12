@@ -112,7 +112,7 @@ const Dfp = ({ isFuature, adId }) => {
         breakpoint: breakpoints,
         refresh=false
       }) => {
-        const flagDimension = (space === 'laterall'||space === 'lateralr' )? true:''
+        const flagDimension = (breakpoints !== '[]')? true:''
         const formatSpace = {
           id: `gpt_${space}`,
           slotName: slotname2,

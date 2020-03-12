@@ -13,6 +13,7 @@ import {
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
 import { getResizedUrl } from '../../utilities/resizer'
+import { getAssetsPathVideo } from '../../utilities/assets'
 
 export default ({
   globalContent: data,
@@ -147,14 +148,17 @@ export default ({
         isAmp === true ? publishedVideoOrganization : ''
       }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
         description || caption
-      )}", "contentUrl": "${url}",  "uploadDate": "${date}", "duration": "${msToTime(
+      )}", "contentUrl": "${getAssetsPathVideo(
+        arcSite,
+        url
+      )}",  "uploadDate": "${date}", "duration": "${msToTime(
         duration,
         false
       )}" } `
     }
   )
 
-  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url='' }) => {
+  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url = '' }) => {
     const {
       amp_image_1x1: ampImage1x1 = url,
       amp_image_4x3: ampImage4x3 = url,

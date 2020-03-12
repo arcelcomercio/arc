@@ -1,5 +1,6 @@
 import React, { PureComponent, useState, useEffect } from 'react'
 import Consumer from 'fusion:consumer'
+import PropTypes from 'prop-types'
 import { Back, Close } from '../_children/iconos'
 import {
   HeaderWrapper,
@@ -23,6 +24,7 @@ const Head = ({
   onClose,
   typeDialog,
   noLoading,
+  customFields: { buttonBack: _buttonBack },
 }) => {
   const [showLoading, setShowLoading] = useState(true)
 
@@ -41,7 +43,7 @@ const Head = ({
       ) : (
         <HeaderWrapper cbg={mainColorBg} ctx={mainColorTxt}>
           <HeaderContent>
-            {!buttonClose ? (
+            {!buttonClose && !_buttonBack ? (
               <ButtonBack
                 type="button"
                 ctx={mainColorTxt}
@@ -75,6 +77,15 @@ const Head = ({
                     `web_sw${typeDialog[0]}_boton_cerrar`
                   )
                   onClose()
+                  if (
+                    window.location.pathname.match(/newsletters/) &&
+                    window.Identity.userProfile &&
+                    typeDialog === 'organico'
+                  ) {
+                    setTimeout(() => {
+                      window.location.reload()
+                    }, 800)
+                  }
                 }}>
                 <Close color={mainColorTxt} />
               </ButtonClose>
@@ -91,6 +102,16 @@ class HeaderSignwall extends PureComponent {
   render() {
     return <Head {...this.props} />
   }
+}
+
+HeaderSignwall.propTypes = {
+  customFields: PropTypes.shape({
+    buttonBack: PropTypes.bool.tag({
+      name: 'Boton Volver:',
+      defaultValue: true,
+      description: 'Mostrar Boton Volver atráz.',
+    }),
+  }),
 }
 
 export default HeaderSignwall
