@@ -32,7 +32,7 @@ const StoryContentChildVideo = props => {
     data = {},
     description = '',
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
-    streamsContent = [],
+    streams: streamsContent = [],
 
     url: imagenMigrate = '',
     contentElemtent = false,
