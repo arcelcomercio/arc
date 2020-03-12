@@ -207,10 +207,9 @@ const StoryContentChildVideo = props => {
               if (entry.isIntersecting) {
              
             console.log('entries',entries)
-            document.querySelector("#${labelId}").innerHTML ='${VideoFinal.replace(
-    '[goldfish_publicidad]',
-    ''
-  ).replace(/<script.*><\/script>/gm, '')}'
+            document.querySelector("#${labelId}").innerHTML ='${urlVideo
+    .replace('[goldfish_publicidad]', '')
+    .replace(/<script.*><\/script>/gm, '')}'
 
    
       if (window.powaBoot) window.powaBoot()
@@ -227,15 +226,7 @@ const StoryContentChildVideo = props => {
               }
             }
 
-            window.addEventListener('powaRender',
-            window.PoWaSettings.promo =  {
-              size: 'medium',
-              template: function (data) {
-                          let template = '<div class=" powa-shot-image powa-shot-click powa-shot-click-play powa-shot-touch powa-shot-touch-background " style="background-image: url(${large})"><div class="powa-shot-play-btn powa-shot-hover powa-shot-click powa-shot-click-play  "><i class="m-icon icon-video featured-story__icon powa-play-btn"> </div></div></div>';
-                    return template.trim();
-                }
-              }  
-            )
+           
 
              observer.unobserve(entry.target)
           }
