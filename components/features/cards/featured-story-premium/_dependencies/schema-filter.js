@@ -1,7 +1,7 @@
 export default function(arcSite) {
   return `{ 
     headlines { basic }
-    subheadlines { basic }
+    ${arcSite === 'elcomercio' ? '' : 'subheadlines { basic }'}
     content_restrictions { content_code }
     credits {
       by { name url type }
