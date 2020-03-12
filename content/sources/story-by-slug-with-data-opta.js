@@ -175,7 +175,7 @@ opta_data{
         }
         match_time
         period_id
-
+        matchstatus
     }
 }
 

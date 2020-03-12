@@ -141,14 +141,24 @@ class LiveScoreMinuteToMinute extends Component {
       <div className={classes.liveScore}>
         <div className={classes.liveWrapper}>
           <TeanScore {...localTeamParams} />
-          <div className={classes.liveEnd}>
-            {matchstatus === PLAYED && (
+          {matchstatus === PLAYED && (
+            <div className={classes.liveEnd}>
               <span className={classes.liveEndText}>Fin</span>
-            )}
-            {matchstatus === PLAYING && (
+            </div>
+          )}
+
+          {matchstatus === PLAYING && (
+            <div className={classes.liveEnd}>
               <span className={classes.liveEndText}>{matchTime}</span>
-            )}
-          </div>
+            </div>
+          )}
+
+          {matchstatus !== PLAYING && matchstatus !== PLAYED && (
+            <div className={classes.liveEnd}>
+              <span className={classes.liveEndText}></span>
+            </div>
+          )}
+
           <TeanScore {...visitingTeamParams} />
         </div>
         {!golListItemValidation ? <GolListItem {...golListItem} /> : null}
