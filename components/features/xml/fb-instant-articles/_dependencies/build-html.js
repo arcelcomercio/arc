@@ -142,35 +142,21 @@ const analyzeParagraph = ({
         // eslint-disable-next-line camelcase
         typeof opta_settings === 'undefined'
       ) {
-        result.processedParagraph = `
-        ${processedParagraph}
-        <script>
-          (function(){window.addEventListener('load', function(){
-            setTimeout(function(){
-              if(!window.optaReady){
-                var os=document.createElement('script')
-                os.textContent=\`
-                  var opta_settings={
-                    subscription_id: '${opta}',
-                    language: 'es_CO',
-                    timezone: 'America/Lima'
-                  };\`
-                document.head.append(os)
-                var s=document.createElement('script')
-                s.src='${OPTA_JS_LINK}'
-                s.defer=true
-                s.type='text/javascript'
-                document.head.append(s)
-                var n=document.createElement('link')
-                n.rel='stylesheet'
-                n.href='${OPTA_CSS_LINK}'
-                document.head.append(n)
-                window.optaReady=true
-              }
-            }, 0)
-          })
-          })()
-        </script>`
+        const domainOriginIframeOpta = 'https://img.depor.com/opta/optawidget'
+        const pattern = /^<opta-widget (.+)><\/opta-widget>$/
+        const attributesWOpta = processedParagraph.match(pattern)[1].split(' ')
+
+        let urlIframe = `${domainOriginIframeOpta}?`
+        attributesWOpta.forEach((item, index) => {
+          const attr = item.match(/(.+)="(.+)"/)
+          const key = attr[1]
+          const value = attr[2]
+          urlIframe += `${key}=${value}${
+            index < attributesWOpta.length - 1 ? '&' : ''
+          }`
+        })
+
+        result.processedParagraph = `<iframe src="${urlIframe}" width="100%" height="500px" style="max-height:500px" frameborder=0></iframe>`
       } else if (
         processedParagraph.includes('https://www.facebook.com/plugins')
       ) {
