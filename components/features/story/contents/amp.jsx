@@ -80,13 +80,11 @@ class StoryContentAmp extends PureComponent {
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
 
     const imgTag = 'amp-img'
-    const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
     const parametersCaja2 = {
       // movil2 caja2
       dataSlot,
-      placementId,
       width,
       height,
       primarySectionLink,
@@ -96,33 +94,43 @@ class StoryContentAmp extends PureComponent {
     const parametersCaja3 = {
       // movil4 caja3 caja3
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
-      placementId: adsAmp.movil4,
       width,
       height,
       primarySectionLink,
       arcSite,
       movil1: true,
+      size: '300x250,320x100,320x50,300x100,300x50',
     }
     const parametersCaja4 = {
       // movil5 caja5 caja4
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
-      placementId: adsAmp.movil5,
       width,
       height,
       primarySectionLink,
       arcSite,
       movil1: true,
+      size: '300x250,320x100,320x50,300x100,300x50',
+    }
+    const parametersCaja5 = {
+      // movil5 caja5 caja4
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
+      width,
+      height,
+      primarySectionLink,
+      arcSite,
+      movil1: true,
+      size: '300x250,320x100,320x50,300x100,300x50',
     }
     const parametersInline = {
       // movil3 caja3 inline
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/inline`,
-      placementId: adsAmp.movil3,
       width,
       height,
       primarySectionLink,
       arcSite,
       movil1: false,
     }
+
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
       deployment(
@@ -158,7 +166,8 @@ class StoryContentAmp extends PureComponent {
                   content_elements: innerContentElements,
                   content,
                   level,
-                  publicidad = false,
+                  publicidadInline = false,
+                  publicidadCaja3 = false,
                 } = element
                 if (type === ConfigParams.ELEMENT_OEMBED) {
                   return (
@@ -231,11 +240,19 @@ class StoryContentAmp extends PureComponent {
                         content={ampHtml(replaceTags(content), arcSite)}
                         className={classes.textClasses}
                       />
-                      {publicidad && (
+                      {publicidadInline && (
                         <div
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
                             parametersInline
+                          )}
+                        />
+                      )}
+                      {publicidadCaja3 && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={publicidadAmpAd(
+                            parametersCaja3
                           )}
                         />
                       )}
@@ -252,7 +269,7 @@ class StoryContentAmp extends PureComponent {
           )}
           <div
             className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja3)}
+            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
           />
 
           <StoryContentChildTags data={tags} {...isAmp} />
@@ -277,7 +294,7 @@ class StoryContentAmp extends PureComponent {
 
         <div
           className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
+          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
         />
       </>
     )

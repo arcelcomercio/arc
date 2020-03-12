@@ -146,11 +146,6 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011739,
-    movil2: 15011740,
-    movil3: 15011741,
-    movil4: 15011742,
-    movil5: 15011744,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna1-300x250-div-gpt-ad-8599377-6.html',

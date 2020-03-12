@@ -126,11 +126,7 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011765,
-    movil2: 15011768,
-    movil3: 15011769,
-    movil4: 15011770,
-    movil5: 15011771,
+ 
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna1-300x250-div-gpt-ad-8599377-11.html',

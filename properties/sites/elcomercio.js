@@ -239,11 +239,6 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011632,
-    movil2: 15011649,
-    movil3: 15011662,
-    movil4: 15011668,
-    movil5: 15011680,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna1-300x250-div-gpt-ad-8599377-16.html',
