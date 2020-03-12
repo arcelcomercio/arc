@@ -191,7 +191,7 @@ const StoryContentChildVideo = props => {
     }
     return urlPreroll
   }
-
+  const VideoFinal = videoUrlContent || videoUrlPrincipal
   const ids = id || idPrincial
   const labelId = `video-id_${ids}`
   const powa = `
@@ -213,10 +213,10 @@ const StoryContentChildVideo = props => {
                 document.head.append(s)
 
             console.log('entries',entries)
-            document.querySelector("#${labelId}").innerHTML ='${videoUrlContent ||
-    videoUrlPrincipal
-      .replace('[goldfish_publicidad]', '')
-      .replace(/<script.*><\/script>/gm, '')}'
+            document.querySelector("#${labelId}").innerHTML ='${VideoFinal.replace(
+    '[goldfish_publicidad]',
+    ''
+  ).replace(/<script.*><\/script>/gm, '')}'
 
    
       if (window.powaBoot) window.powaBoot()
