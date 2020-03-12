@@ -336,9 +336,6 @@ class StoryContents extends PureComponent {
                       }
                       return (
                         <>
-                          <script
-                            src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"
-                            async></script>
                           <StoryContentsChildVideo
                             data={contentVideo}
                             className={classes.newsImage}

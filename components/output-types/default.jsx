@@ -17,6 +17,7 @@ import {
 } from '../utilities/helpers'
 // import ConfigParams from '../utilities/config-params'
 import { getAssetsPath } from '../utilities/constants'
+import StoryData from '../utilities/story-data'
 
 export default ({
   children,
@@ -234,6 +235,16 @@ export default ({
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
 
+  const {
+    videoSeo,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
+  const contenidoVideo =
+    content.includes('id="powa-') || videoSeo[0] ? 1 : false
   return (
     <html lang="es">
       <head>
@@ -320,7 +331,11 @@ export default ({
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
         <Libs />
-
+        {contenidoVideo && (
+          <script
+            src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
+            async></script>
+        )}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(arcSite === 'depor' ||
           arcSite === 'elcomercio' ||

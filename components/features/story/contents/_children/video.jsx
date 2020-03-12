@@ -200,18 +200,12 @@ const StoryContentChildVideo = props => {
         if ('IntersectionObserver' in window) {
           const { IntersectionObserver } = window
           const options = {
-            rootMargin: '500px 0px 0px 0px',
+            rootMargin: '0px 0px 0px 0px',
           }
           const callback = (entries, observer) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
-                var scritpowa =  document.querySelector('script[src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"]') 
-                scritpowa && scritpowa.remove()
-                var s=document.createElement('script')
-                s.src='//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio'
-                s.type='text/javascript'
-                document.head.append(s)
-
+             
             console.log('entries',entries)
             document.querySelector("#${labelId}").innerHTML ='${VideoFinal.replace(
     '[goldfish_publicidad]',
