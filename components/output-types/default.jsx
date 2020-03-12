@@ -210,7 +210,7 @@ export default ({
     }
   })()`
 
-  const { googleFonts = '' } = siteProperties || {}
+  const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
   const isLivePage = arcSite === 'elcomercio' && requestUri.match(`^/en-vivo/`)
@@ -251,8 +251,11 @@ export default ({
         )}
 
         <title>{title}</title>
-        <link rel="preconnect dns-prefetch" href="//cdnc.elcomercio.pe" />
-        <link rel="preconnect dns-prefetch" href="//cdna.elcomercio.pe" />
+        <link rel="preconnect dns-prefetch" href={`//cdnc.${siteDomain}`} />
+        <link
+          rel="preconnect dns-prefetch"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
         <link
           rel="preconnect dns-prefetch"
           href="//d1r08wok4169a5.cloudfront.net"
