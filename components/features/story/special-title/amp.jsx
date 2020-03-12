@@ -44,12 +44,11 @@ const StoryTitleAmp = () => {
   const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
   const dataSlot = `/${adsAmp.dataSlot}/${adsId}/amp/post/default/caja1`
 
-  const placementId = adsAmp.movil1
   const width = '320'
   const height = '50'
   const parameters = {
     dataSlot,
-    placementId,
+
     width,
     height,
     movil1: true,

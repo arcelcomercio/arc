@@ -141,11 +141,6 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011755,
-    movil2: 15011756,
-    movil3: 15011757,
-    movil4: 15011758,
-    movil5: 15011759,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna1-300x250-div-gpt-ad-8599377-1.html',

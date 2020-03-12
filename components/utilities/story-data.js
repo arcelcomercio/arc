@@ -689,7 +689,12 @@ class StoryData {
         const { type: typeElement } = dataContent
         dataElements = dataContent
         if (i === 1) {
-          dataElements.publicidad = true
+          dataElements.publicidadInline = true
+          i += 1
+        }
+
+        if (i === 4 && contentElements.length > 4) {
+          dataElements.publicidadCaja3 = true
           i += 1
         }
         if (typeElement === ConfigParams.ELEMENT_TEXT) {
