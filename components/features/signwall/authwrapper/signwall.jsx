@@ -41,6 +41,9 @@ const _AuthWrapper = props => {
       window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
       window.Identity.logout()
       Cookies.deleteCookie('arc_e_id')
+      window.sessionStorage.removeItem('paywall-profile-form') // formik raul
+      window.sessionStorage.removeItem('paywall-payment-form') // formik raul
+      window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
       setLogged(false)
     }
   }
