@@ -1,11 +1,8 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import { setSurveyCookie, getCookie } from '../../../utilities/client/cookies'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
 import InternalSurveyChildSurvey from './_children/survey'
-import {
-  setSurveyCookie,
-  getCookie,
-  socialMediaUrlShareList,
-} from '../../../utilities/helpers'
 
 @Consumer
 class StaticInternalSurvey extends PureComponent {
