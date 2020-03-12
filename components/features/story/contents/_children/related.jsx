@@ -64,7 +64,7 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
           ) : (
             <img
               src={filterData.multimediaImg}
-              alt={filterData.nameTitle}              
+              alt={filterData.nameTitle}
               className={classes.image}
             />
           )}

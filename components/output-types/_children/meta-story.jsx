@@ -41,6 +41,7 @@ export default ({
     primarySectionLink,
     videoSeo,
     contentElementsText: dataElement,
+    contentElementsHtml = [],
     relatedContent,
     seoKeywords,
     breadcrumbList,
@@ -389,6 +390,8 @@ export default ({
 
     return contenType
   }
+  const dataStructuraHtmlAmp =
+    contentElementsHtml.match(/:<script(.*?)>(.*?)<\/script>:/gm) || []
   return (
     <>
       <meta name="data-article-id" content={id} />
@@ -442,6 +445,7 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: relatedContentData }}
       />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
@@ -453,6 +457,21 @@ export default ({
           async
         />
       )}
+      {isAmp === true &&
+        dataStructuraHtmlAmp.map(datas => {
+          return (
+            <>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: datas
+                    .replace(':<script type="application/ld+json">', '')
+                    .replace('</script>:', ''),
+                }}
+              />
+            </>
+          )
+        })}
     </>
   )
 }

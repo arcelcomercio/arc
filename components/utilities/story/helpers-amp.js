@@ -259,6 +259,7 @@ export const iframeHtml = (html, arcSite = '') => {
 
   htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
+    .replace(/:<script(.*)>(.*)<\/script>:/gm, '')
     .replace(/<html_free><blockquote (.*)">/g, '')
     .replace(/<\/blockquote><\/html_free>/g, '')
     .replace('</p>', '')

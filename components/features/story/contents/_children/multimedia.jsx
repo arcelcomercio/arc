@@ -32,6 +32,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     showCaption,
     primaryImage,
   } = data
+
   const { type: typeImage, caption = '' } = basic || {}
 
   const paramenters = {
@@ -53,7 +54,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
       typeImage ? (
         <Imagen {...paramenters} />
       ) : (
-        <Html data={embedHtmlPromoItems} caption={caption} />
+        <Html data={embedHtmlPromoItems} caption={caption} {...data} />
       )}
 
       {youtubeId && (
@@ -67,7 +68,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
         />
       )}
       {typoVideo === 'video' && embedHtml ? (
-        <Video data={embedHtml} description={descriptionVideo} />
+        <Video data={embedHtml} description={descriptionVideo} {...basic} />
       ) : (
         <>{streams && <VideoNativo streams={streams} />}</>
       )}

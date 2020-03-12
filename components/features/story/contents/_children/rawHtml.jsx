@@ -99,7 +99,9 @@ class rawHTML extends PureComponent {
             dangerouslySetInnerHTML={{
               __html: isDaznServicePlayer(content)
                 ? content.trim().replace('performgroup', 'daznservices')
-                : content,
+                : content
+                    .replace('</script>:', '</script>')
+                    .replace(':<script', '<script'),
             }}
           />
         )}
