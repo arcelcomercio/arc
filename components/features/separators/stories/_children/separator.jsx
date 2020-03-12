@@ -30,6 +30,7 @@ const SeparatorsBasicChildSeparator = ({
   design,
   bgColor,
   isSeeMoreVisible,
+  isImageVisible,
   responsive,
 }) => {
   return (
@@ -71,9 +72,7 @@ const SeparatorsBasicChildSeparator = ({
               <article role="listitem" className={classes.article}>
                 <Icon type={multimediaType} iconClass={classes.icon} />
                 <div className={classes.detail}>
-                  <a
-                    className="separator__title-link"
-                    href={websiteLink}>
+                  <a className="separator__title-link" href={websiteLink}>
                     <h3 className={classes.text}>{title}</h3>
                   </a>
                   {isAuthorVisible && (
@@ -86,25 +85,29 @@ const SeparatorsBasicChildSeparator = ({
                     </h2>
                   )}
                 </div>
-                <a
-                  className="separator__img-link block h-full"
-                  href={websiteLink}>
-                  <picture className={classes.imgBox}>
-                    <source
-                      className={isAdmin ? '' : 'lazy'}
-                      media="(max-width: 639px)"
-                      type="image/jpeg"
-                      srcSet={isAdmin ? imageUrlMobile : multimediaLazyDefault}
-                      data-srcset={imageUrlMobile}
-                    />
-                    <img
-                      src={isAdmin ? imageUrl : multimediaLazyDefault}
-                      data-src={imageUrl}
-                      alt={title}                      
-                      className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                    />
-                  </picture>
-                </a>
+                {isImageVisible && (
+                  <a
+                    className="separator__img-link block h-full"
+                    href={websiteLink}>
+                    <picture className={classes.imgBox}>
+                      <source
+                        className={isAdmin ? '' : 'lazy'}
+                        media="(max-width: 639px)"
+                        type="image/jpeg"
+                        srcSet={
+                          isAdmin ? imageUrlMobile : multimediaLazyDefault
+                        }
+                        data-srcset={imageUrlMobile}
+                      />
+                      <img
+                        src={isAdmin ? imageUrl : multimediaLazyDefault}
+                        data-src={imageUrl}
+                        alt={title}
+                        className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
+                      />
+                    </picture>
+                  </a>
+                )}
               </article>
             </div>
           )
