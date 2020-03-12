@@ -403,6 +403,11 @@ class StoryData {
     return videosContent.concat(promoItemsVideo).filter(String)
   }
 
+  get metaTitle() {
+    const { headlines: { meta_title: metaTitle = '' } = {} } = this._data || {}
+    return metaTitle
+  }
+
   get seoTitle() {
     const { headlines: { meta_title: metaTitle = '', basic = '' } = {} } =
       this._data || {}
