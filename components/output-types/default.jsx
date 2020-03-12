@@ -251,23 +251,41 @@ export default ({
         )}
 
         <title>{title}</title>
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
-        <link rel="dns-prefetch" href="//www.facebook.com/" />
-        <link rel="dns-prefetch" href="//connect.facebook.net/" />
-        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
-        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
-        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//ping.chartbeat.net/" />
-        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
-        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
+        <link rel="preconnect dns-prefetch" href="//cdnc.elcomercio.pe" />
+        <link rel="preconnect dns-prefetch" href="//cdna.elcomercio.pe" />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//d1r08wok4169a5.cloudfront.net"
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//elcomercio-elcomercio-prod.cdn.arcpublishing.com"
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com"
+        />
+        <link rel="preconnect dns-prefetch" href="//s.go-mpulse.net" />
+        <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect dns-prefetch" href="//ajax.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
+        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
+        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
+        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
+        <link rel="preconnect dns-prefetch" href="//static.chartbeat.com" />
+        <link rel="preconnect dns-prefetch" href="//scomcluster.cxense.com" />
+        <link rel="preconnect dns-prefetch" href="//sb.scorecardresearch.com" />
+        <link rel="preconnect dns-prefetch" href="//ping.chartbeat.net" />
+        <link rel="preconnect dns-prefetch" href="//mab.chartbeat.com" />
+        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-subs-sdk.s3.amazonaws.com"
+        />
+        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
         {googleFonts && (
           <link
             href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
