@@ -1,6 +1,7 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import { getResizedUrl } from '../../../../utilities/resizer'
+import { getAssetsPathVideo } from '../../../../utilities/assets'
 
 const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
@@ -17,19 +18,22 @@ const StoryContentChildVideo = props => {
   const {
     promo_items: {
       basic_video: {
+        _id: idPrincial,
         additional_properties: video = {},
         promo_items: { basic: { url: urlImage = '' } = {} } = {},
-        headlines: { basic = false } = {},
+        streams = [],
       } = {},
     } = {},
   } = globalContent || {}
 
   const videoData = video || ''
   const {
+    _id: id,
     data = {},
     description = '',
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
-    headlines: { basic: basicContent = '' } = {},
+    streamsContent = [],
+
     url: imagenMigrate = '',
     contentElemtent = false,
   } = props
@@ -54,10 +58,37 @@ const StoryContentChildVideo = props => {
     .replace(
       /https:\/\/gestion.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.gestion.pe$1'
-    ) // .replace(
-  // 'class="powa"',
-  // 'class="powa" data-stream="https://d2yh8l41rvc5n9.cloudfront.net/wp-elcomercio/2020/03/06/5e6294fd46e0fb0001de95c7/t_e8328ba7d48b470db2106d7de53b3e4a_name_DANI_ALVES/hlsv4_master.m3u8"'
-  // )
+    )
+
+  const getResultVideo = streamss => {
+    const resultVideo = streamss
+      .map(({ url = '', stream_type: streamType = '' }) => {
+        return streamType === 'ts' ? url : []
+      })
+      .filter(String)
+    const cantidadVideo = resultVideo.length
+    const resultVideoContent = contentElemtent
+      ? urlVideo.replace(
+          /(data-uuid="([0-9a-z-A-Z]*[0-9a-z-A-Z])\w+)"/,
+          'data-uuid="d24a48f4-091f-4dd5-aed3-9a9a505cb5cd"'
+        )
+      : urlVideo
+    return (
+      resultVideoContent.replace(
+        'class="powa"',
+        `class="powa" data-stream="${
+          arcSite === 'depor' || arcSite === 'elcomerciomag'
+            ? getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
+            : resultVideo[cantidadVideo - 1]
+        }"`
+      ) || []
+    )
+  }
+
+  const videoUrlContent =
+    contentElemtent && streamsContent[1] ? getResultVideo(streamsContent) : ''
+
+  const videoUrlPrincipal = streams[1] ? getResultVideo(streams) : ''
 
   const getSectionSlug = (sectionId = '') => {
     return sectionId.split('/')[1] || ''
@@ -92,6 +123,7 @@ const StoryContentChildVideo = props => {
       arcSite === 'trome'
     ) {
       const arcSiteNew = arcSite === 'peru21g21' ? 'peru21' : arcSite
+
       let webSite = ''
       switch (arcSite) {
         case 'publimetro':
@@ -160,13 +192,34 @@ const StoryContentChildVideo = props => {
     return urlPreroll
   }
 
+  const ids = id || idPrincial
+  const labelId = `video-id_${ids}`
   const powa = `
       (function(){
         window.addEventListener('powaReady', ({ detail: { element } }) => {element.setAttribute('data-sticky', 'true')})
-              
-        window.addEventListener('load',
-          function(){ setTimeout(function(){
-            if (window.powaBoot) window.powaBoot()
+        if ('IntersectionObserver' in window) {
+          const { IntersectionObserver } = window
+          const options = {
+            rootMargin: '500px 0px 0px 0px',
+          }
+          const callback = (entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                var scritpowa =  document.querySelector('script[src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"]') 
+                scritpowa && scritpowa.remove()
+                var s=document.createElement('script')
+                s.src='//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio'
+                s.type='text/javascript'
+                document.head.append(s)
+
+            console.log('entries',entries)
+            document.querySelector("#${labelId}").innerHTML ='${videoUrlContent ||
+    videoUrlPrincipal
+      .replace('[goldfish_publicidad]', '')
+      .replace(/<script.*><\/script>/gm, '')}'
+
+   
+      if (window.powaBoot) window.powaBoot()
             if (window.PoWaSettings) {
               window.preroll = '${getParametroPublicidad()}'
               window.PoWaSettings.advertising = {
@@ -179,71 +232,37 @@ const StoryContentChildVideo = props => {
                 }'
               }
             }
-          }, 0)} 
-        )
-       
-       window.addEventListener('powaRender',
-      
 
-      window.PoWaSettings.promo = window.PoWaSettings.promo || {
-        size: 'medium',
-        template: function (data) {
-                   let template = '<div class=" powa-shot-image powa-shot-click powa-shot-click-play powa-shot-touch powa-shot-touch-background " style="background-image: url(${large})"><div class="powa-shot-title ">${basic ||
-    basicContent}</div><div class="powa-shot-play-btn powa-shot-hover powa-shot-click powa-shot-click-play  "><i class="m-icon icon-video featured-story__icon powa-play-btn"> </div></div></div>';
-              return template.trim();
+            window.addEventListener('powaRender',
+            window.PoWaSettings.promo =  {
+              size: 'medium',
+              template: function (data) {
+                          let template = '<div class=" powa-shot-image powa-shot-click powa-shot-click-play powa-shot-touch powa-shot-touch-background " style="background-image: url(${large})"><div class="powa-shot-play-btn powa-shot-hover powa-shot-click powa-shot-click-play  "><i class="m-icon icon-video featured-story__icon powa-play-btn"> </div></div></div>';
+                    return template.trim();
+                }
+              }  
+            )
+
+             observer.unobserve(entry.target)
           }
-        }  
-      )
-      
-    })()
+        })
+      }
+   
+
+const observer = new IntersectionObserver(callback, options)
+observer.observe(document.querySelector('#${labelId}'))
+} 
+})()
       `
   const stylePwa = `
-  .powa-shot {
-    position: absolute;
-    color: rgb(240, 248, 255);
-    font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-}
-   .powa-shot-title {
-        font-size: x-large;
-        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
-        position: absolute;
-        top: 15px;
-        left: 15px;
-   }
-   .powa-shot-image {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-   }
-   .powa-shot-play-btn {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-   }  
-   .powa-play-btn {
-    transform: inherit;
-}`
+  .powa-shot { position: absolute; color: rgb(240, 248, 255); font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;    z-index: 1;    width: 100%; height: 100%;    top: 0px;    left: 0px;}
+  .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
+  .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
+  .powa-play-btn { transform: inherit; }`
 
   return (
     <>
-      {urlVideo && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: urlVideo.replace('[goldfish_publicidad]', ''),
-          }}></div>
-      )}
+      <div id={`video-id_${ids}`}></div>
       <figcaption className={classes.caption}>{description} </figcaption>
       <script
         dangerouslySetInnerHTML={{
