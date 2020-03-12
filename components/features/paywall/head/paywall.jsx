@@ -23,7 +23,6 @@ const Head = props => {
   const {
     theme,
     arcSite,
-    deployment,
     siteProperties: {
       paywall: { urls, images },
     },
@@ -134,7 +133,7 @@ const Head = props => {
         <S.WrapLogo as="a" href="/" target="_blank">
           <img
             alt={`logo ${arcSite}`}
-            src={deployment(interpolateUrl(images.mainLogo))}
+            src={interpolateUrl(images.mainLogo)}
           />
         </S.WrapLogo>
         <S.WrapLogin>

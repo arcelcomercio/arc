@@ -22,7 +22,7 @@ export default {
   ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-11',
-  fbPixelId: '637459447015102',
+  fbPixelId: '1252229265121278',
   fbArticleStyle: 'LogoElcomercio',
   nameStoryRelated: 'VEA TAMBIÉN',
   googleTagManagerMobile: 'GTM-NNX4LXF',
@@ -152,7 +152,7 @@ export default {
       backgroundx1:                      `{{contextPath}}/resources/dist/elcomercio/images/bg_planes_10.jpg`,
       backgroundReview:                  `{{contextPath}}/resources/dist/elcomercio/images/bg_video.jpg`,
       reviewPoster:                      `{{contextPath}}/resources/dist/elcomercio/images/review_poster.jpg`,
-      mainLogo:                          `{{contextPath}}/resources/dist/elcomercio/images/white-logo.png`, 
+      mainLogo:                          `/pf/resources/dist/elcomercio/images/white-logo.png?d=813`, 
     }
   },
 

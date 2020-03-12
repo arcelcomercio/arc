@@ -379,7 +379,15 @@ export default ({
         }
       }()
    */
+  const getContentType = () => {
+    let contenType = isPremium ? 'locked' : 'metered'
+    const section = primarySectionLink && primarySectionLink.split('/')[1]
+    contenType = section.match(/publirreportaje|publireportaje/)
+      ? 'free'
+      : contenType
 
+    return contenType
+  }
   return (
     <>
       <meta name="data-article-id" content={id} />
@@ -421,7 +429,7 @@ export default ({
       />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
-
+      <meta property="article:content_tier" content={getContentType()} />
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
