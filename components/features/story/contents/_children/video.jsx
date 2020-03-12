@@ -205,14 +205,11 @@ const StoryContentChildVideo = props => {
           const callback = (entries, observer) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
-             
-            console.log('entries',entries)
+              
             document.querySelector("#${labelId}").innerHTML ='${urlVideo
     .replace('[goldfish_publicidad]', '')
     .replace(/<script.*><\/script>/gm, '')}'
-
-   
-      if (window.powaBoot) window.powaBoot()
+         if (window.powaBoot) window.powaBoot()
             if (window.PoWaSettings) {
               window.preroll = '${getParametroPublicidad()}'
               window.PoWaSettings.advertising = {
@@ -225,20 +222,15 @@ const StoryContentChildVideo = props => {
                 }'
               }
             }
-
-           
-
+    
              observer.unobserve(entry.target)
           }
         })
       }
-   
-
-const observer = new IntersectionObserver(callback, options)
+   const observer = new IntersectionObserver(callback, options)
 observer.observe(document.querySelector('#${labelId}'))
 } 
-})()
-      `
+})()      `
   const stylePwa = `
   .powa-shot { position: absolute; color: rgb(240, 248, 255); font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;    z-index: 1;    width: 100%; height: 100%;    top: 0px;    left: 0px;}
   .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
