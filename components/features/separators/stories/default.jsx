@@ -20,6 +20,7 @@ const SeparatorStories = props => {
       design = 'standart',
       bgColor,
       isSeeMoreVisible,
+      isImageVisible,
       responsive = 'complete',
     } = {},
   } = props
@@ -83,6 +84,7 @@ const SeparatorStories = props => {
     design,
     bgColor,
     isSeeMoreVisible,
+    isImageVisible,
     responsive,
   }
 
