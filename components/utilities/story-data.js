@@ -204,6 +204,17 @@ class StoryData {
     )
   }
 
+  // Se creó esta función para obtener por defecto un string vacío
+  get imageUrl() {
+    return (
+      StoryData.getThumbnailBySize(
+        this._data,
+        StoryData.getTypeMultimedia(this._data),
+        ConfigParams.IMAGE_ORIGINAL
+      ) || ''
+    )
+  }
+
   get multimedia() {
     return this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
   }
@@ -390,6 +401,11 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     return videosContent.concat(promoItemsVideo).filter(String)
+  }
+
+  get metaTitle() {
+    const { headlines: { meta_title: metaTitle = '' } = {} } = this._data || {}
+    return metaTitle
   }
 
   get seoTitle() {
@@ -689,7 +705,12 @@ class StoryData {
         const { type: typeElement } = dataContent
         dataElements = dataContent
         if (i === 1) {
-          dataElements.publicidad = true
+          dataElements.publicidadInline = true
+          i += 1
+        }
+
+        if (i === 4 && contentElements.length > 4) {
+          dataElements.publicidadCaja3 = true
           i += 1
         }
         if (typeElement === ConfigParams.ELEMENT_TEXT) {

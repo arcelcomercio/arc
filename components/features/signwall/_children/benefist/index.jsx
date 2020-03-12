@@ -158,7 +158,7 @@ const Benefits = ({
         </div>
       </div>
 
-      {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
+      {arcSite === 'gestion' ? (
         <div className="item">
           <div className="icon">
             <BeneFour />

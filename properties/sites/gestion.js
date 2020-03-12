@@ -126,7 +126,7 @@ export default {
       confirmation:                      `{{contextPath}}/resources/dist/gestion/images/img_confirmation.{{ext}}`,
       support:                           `{{contextPath}}/resources/dist/gestion/images/img_soporte.{{ext}}`,
       backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`,
-      mainLogo:                          `{{contextPath}}/resources/dist/gestion/images/logo_gestion_30.png`,
+      mainLogo:                          `/pf/resources/dist/gestion/images/logo_gestion_30.png?d=813`,
     }
   },
   assets: {
@@ -209,11 +209,7 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 14971944,
-    movil2: 14971945,
-    movil3: 14971947,
-    movil4: 14971953,
-    movil5: 14971957,
+
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',

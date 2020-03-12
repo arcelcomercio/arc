@@ -286,10 +286,11 @@ class SignwallComponent extends PureComponent {
   }
 
   toogleButton() {
+    const { arcSite } = this.props
     if (typeof window !== 'undefined') {
       if (this.checkSession()) {
         Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresacuenta`)
-        window.location.href = Domains.getUrlProfile()
+        window.location.href = Domains.getUrlProfile(arcSite)
       } else {
         Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresaperfil`)
         this.setState({ showOrganic: true })

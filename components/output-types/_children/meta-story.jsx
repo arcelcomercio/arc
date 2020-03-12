@@ -29,6 +29,7 @@ export default ({
   const {
     id,
     title,
+    metaTitle,
     tags,
     link,
     displayDate: publishDate,
@@ -40,6 +41,7 @@ export default ({
     primarySectionLink,
     videoSeo,
     contentElementsText: dataElement,
+    contentElementsHtml = [],
     relatedContent,
     seoKeywords,
     breadcrumbList,
@@ -259,9 +261,9 @@ export default ({
         : lastPublishDate
     }",
 
-    "headline":"${formatHtmlToText(title)}",  "description":"${formatHtmlToText(
-    subTitle
-  )}",
+    "headline":"${formatHtmlToText(title)}",
+    "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
+    "description":"${formatHtmlToText(subTitle)}",
   ${bodyStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
@@ -379,7 +381,17 @@ export default ({
         }
       }()
    */
+  const getContentType = () => {
+    let contenType = isPremium ? 'locked' : 'metered'
+    const section = primarySectionLink && primarySectionLink.split('/')[1]
+    contenType = section.match(/publirreportaje|publireportaje/)
+      ? 'free'
+      : contenType
 
+    return contenType
+  }
+  const dataStructuraHtmlAmp =
+    contentElementsHtml.match(/:<script(.*?)>(.*?)<\/script>:/gm) || []
   return (
     <>
       <meta name="data-article-id" content={id} />
@@ -421,7 +433,7 @@ export default ({
       />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
-
+      <meta property="article:content_tier" content={getContentType()} />
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
@@ -433,6 +445,7 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: relatedContentData }}
       />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
@@ -444,6 +457,21 @@ export default ({
           async
         />
       )}
+      {isAmp === true &&
+        dataStructuraHtmlAmp.map(datas => {
+          return (
+            <>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: datas
+                    .replace(':<script type="application/ld+json">', '')
+                    .replace('</script>:', ''),
+                }}
+              />
+            </>
+          )
+        })}
     </>
   )
 }

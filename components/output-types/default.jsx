@@ -17,6 +17,7 @@ import {
 } from '../utilities/helpers'
 // import ConfigParams from '../utilities/config-params'
 import { getAssetsPath } from '../utilities/constants'
+import StoryData from '../utilities/story-data'
 
 export default ({
   children,
@@ -234,6 +235,16 @@ export default ({
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
 
+  const {
+    videoSeo,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
+  const contenidoVideo =
+    content.includes('id="powa-') || videoSeo[0] ? 1 : false
   return (
     <html lang="es">
       <head>
@@ -251,23 +262,41 @@ export default ({
         )}
 
         <title>{title}</title>
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
-        <link rel="dns-prefetch" href="//www.facebook.com/" />
-        <link rel="dns-prefetch" href="//connect.facebook.net/" />
-        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
-        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
-        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//ping.chartbeat.net/" />
-        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
-        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
+        <link rel="preconnect dns-prefetch" href="//cdnc.elcomercio.pe" />
+        <link rel="preconnect dns-prefetch" href="//cdna.elcomercio.pe" />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//d1r08wok4169a5.cloudfront.net"
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//elcomercio-elcomercio-prod.cdn.arcpublishing.com"
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com"
+        />
+        <link rel="preconnect dns-prefetch" href="//s.go-mpulse.net" />
+        <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect dns-prefetch" href="//ajax.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
+        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
+        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
+        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
+        <link rel="preconnect dns-prefetch" href="//static.chartbeat.com" />
+        <link rel="preconnect dns-prefetch" href="//scomcluster.cxense.com" />
+        <link rel="preconnect dns-prefetch" href="//sb.scorecardresearch.com" />
+        <link rel="preconnect dns-prefetch" href="//ping.chartbeat.net" />
+        <link rel="preconnect dns-prefetch" href="//mab.chartbeat.com" />
+        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-subs-sdk.s3.amazonaws.com"
+        />
+        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
         {googleFonts && (
           <link
             href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
@@ -320,7 +349,11 @@ export default ({
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
         <Libs />
-
+        {contenidoVideo && (
+          <script
+            src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
+            async></script>
+        )}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(arcSite === 'depor' ||
           arcSite === 'elcomercio' ||

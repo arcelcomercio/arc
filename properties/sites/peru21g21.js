@@ -113,11 +113,6 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 14926789,
-    movil2: 14904301,
-    movil3: 14926493,
-    movil4: 14926495,
-    movil5: 14926496,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna1-300x250-div-gpt-ad-8599377-31.html',
