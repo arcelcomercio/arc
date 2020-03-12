@@ -19,9 +19,9 @@ const GolListItem = ({ homeTeam = true, goalList = [] }) => {
         {goalList.length > 0 &&
           goalList.map(({ timeMinSec = '', scorerName, type }) => {
             const min = parseInt(timeMinSec.split(':')[0])
-            const seg = parseInt(timeMinSec.split(':')[1])
+            // const seg = parseInt(timeMinSec.split(':')[1])
 
-            const time = `(${type !== 'G' ? type : ''} ${min}', ${seg}'')`
+            const time = `(${type !== 'G' ? type : ''} ${min}' )`
 
             return (
               <li className={classes.listItem}>

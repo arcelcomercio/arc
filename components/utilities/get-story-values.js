@@ -89,24 +89,31 @@ export const getFootballGameId = data => {
   return result
 }
 
-export const buildTeamFootballOptaParams = data => {
+export const buildTeamFootballOptaParams = (data = {}) => {
   const { items = [] } = data
-
+  const values = items[0] || {}
   const {
-    contestant_home: {
-      id: idHome = '',
-      name: nameHome = '',
-      image: flagHome = '',
-    } = {},
-    contestant_away: {
-      id: idAway = '',
-      name: nameAway = '',
-      image: flagAway = '',
-    } = {},
+    contestant_home: contestantHome = {},
+    contestant_away: contestantAway = {},
+    match_time: matchTime,
+    matchstatus = '',
+    period_id: periodId = '',
     scores_total_home: scoresTotalHome = 0,
     scores_total_away: scoresTotalAway = 0,
     goals = [],
-  } = items[0]
+  } = values
+
+  const {
+    id: idHome = '',
+    name: nameHome = '',
+    image: flagHome = '',
+  } = contestantHome
+
+  const {
+    id: idAway = '',
+    name: nameAway = '',
+    image: flagAway = '',
+  } = contestantAway
 
   const homeTeamParams = {
     id: idHome,
@@ -166,5 +173,11 @@ export const buildTeamFootballOptaParams = data => {
 
   homeTeamParams.goalList = goalListHomeTeam
   awayTeamParams.goalList = goalListAwayTeam
-  return { homeTeamParams, awayTeamParams }
+  return {
+    homeTeamParams,
+    awayTeamParams,
+    matchTime: matchTime || 0,
+    matchstatus,
+    periodId,
+  }
 }
