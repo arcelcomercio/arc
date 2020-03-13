@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import ENV from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import customFields from './_dependencies/custom-fields'
 
-import { setSurveyCookie, getCookie } from '../../../utilities/client/cookies'
 import { removeLastSlash } from '../../../utilities/parse/strings'
 import { getAssetsPath } from '../../../utilities/assets'
 
 const classes = {
-  stickWrapper: 'stick w-full pl-20 pr-20',
+  stickWrapper: 'stick w-full pl-20 pr-20 hidden',
   stick: `stick__content position-relative flex items-center justify-between p-10`,
   closeApp: `stick__close-app position-absolute icon-close text-white flex items-center justify-center`,
   logo: 'stick__logo',
@@ -43,17 +42,6 @@ const Stick = props => {
     stick: { logo = 'default_logo.png' },
   } = getProperties(arcSite)
 
-  const [active, setActive] = useState(false)
-
-  const closeStick = () => {
-    setSurveyCookie(`_open_appstick_${arcSite}`, 7)
-    setActive(false)
-  }
-
-  /*   const openStick = () => {
-    setActive(true)
-  } */
-
   const getUrlApp = ({ urlApp, currentLink, urlSource = '' }) => {
     const genUrl = new URL(currentLink)
     const appData = genUrl.pathname !== '/' ? `news${genUrl.pathname}` : '/'
@@ -62,38 +50,33 @@ const Stick = props => {
     return url
   }
 
-  useEffect(() => {
-    setActive(getCookie(`idpoll_open_appstick_${arcSite}`) !== '1')
-
-    const aOpenApp = document.getElementById('button-app')
-    // const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
-
-    aOpenApp.addEventListener('click', e => {
-      e.preventDefault()
-      /*
-        const urlpwdbase = `${urlpwd}/?link=https://${arcSite}.pe/`
-        const appData = `?appData=/&apn=com.eeec.${arcSite}&amv=30&ibi=com.eeec.${arcSite}&ipbi=com.eeec.${arcSite}&isi=991197788&imv=31&ofl=HREF`
-        const href = `&efr=1&utm_source=btn_openapp_home&mt=8&ct=btn_openapp_home`
-  
-        window.location.href = `${urlpwdbase}/?link=https://${arcSite}.pe/${
-          window.location.pathname
-        }?appData=/${dataPageId !== '/' && 'news'}${dataPageId}${appData}${
-          window.location.href
-        }${href}`
-        */
-
-      const urlApp = ENV.ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev
-      const urlSource =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? '&utm_source=btn_openapp_note&mt=8&ct=btn_openapp_note'
-          : ''
-      window.location.href = getUrlApp({
-        urlApp,
-        currentLink: `${removeLastSlash(siteUrl)}${websiteLink}`,
-        urlSource,
+  const activateStick = `
+    (function(){window.addEventListener('load', function(){setTimeout(function(){
+      var appStick = document.getElementById('appstick')
+      var stickCookie = null
+      var cookieValue = document.cookie.match('(^|;) ?idpoll_open_appstick_${arcSite}=([^;]*)(;|$)')
+      if(!cookieValue || (cookieValue && cookieValue[2] !== '1'))
+        appStick.classList.remove('hidden');
+      var closeStick = document.getElementById('close-stick')
+      closeStick.addEventListener('click', function(){
+        var cookieDate = new Date()
+        cookieDate.setTime(cookieDate.getTime() + 24 * 60 * 60 * 1000 * 7)
+        document.cookie = 'idpoll_open_appstick_${arcSite}=1;path=/;expires='+cookieDate.toGMTString()+''
+        appStick.classList.add('hidden');
       })
-    })
-  }, [])
+      var aOpenApp = document.getElementById('button-app')
+      aOpenApp.addEventListener('click', function(){
+        e.preventDefault()    
+        window.location.href = '${getUrlApp({
+          urlApp: ENV.ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev,
+          currentLink: `${removeLastSlash(siteUrl)}${websiteLink}`,
+          urlSource:
+            ENV.ENVIRONMENT === 'elcomercio'
+              ? '&utm_source=btn_openapp_note&mt=8&ct=btn_openapp_note'
+              : '',
+        })}'
+      })
+    }, 0)})})()`
 
   const imgLogo = deployment(
     `${getAssetsPath(
@@ -103,14 +86,13 @@ const Stick = props => {
   )
 
   return (
-    <div className={`${classes.stickWrapper} ${active ? 'block' : 'hidden'}`}>
+    <div id="appstick" className={classes.stickWrapper}>
       <div className={classes.stick}>
         <i
+          id="close-stick"
           role="button"
           tabIndex={0}
           className={classes.closeApp}
-          onClick={closeStick}
-          onKeyUp={closeStick}
         />
         <div className={classes.logo}>
           <img src={imgLogo} alt="Sigue actualizado en nuestra APP" />
@@ -126,6 +108,7 @@ const Stick = props => {
           Abrir en App
         </div>
       </div>
+      <script dangerouslySetInnerHTML={{ __html: activateStick }}></script>
     </div>
   )
 }
@@ -135,6 +118,6 @@ Stick.propTypes = {
 }
 
 Stick.label = 'Artículo - Abrir en App'
-// Stick.static = true
+Stick.static = true
 
 export default Stick
