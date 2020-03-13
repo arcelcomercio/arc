@@ -338,6 +338,7 @@ class StoryContents extends PureComponent {
                         <>
                           <StoryContentsChildVideo
                             data={contentVideo}
+                            htmlContent="html"
                             className={classes.newsImage}
                             {...element}
                           />
