@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import { NEWSLETTER_API } from 'fusion:environment'
+import { NEWSLETTER_API, NEWSLETTER_COVID19_API } from 'fusion:environment'
 
 import customFieldsExtern from './_dependencies/custom-fields'
 import NewsletterChild from './_children/newsletter'
@@ -23,9 +23,15 @@ class Newsletter extends PureComponent {
         const {
           siteProperties: { newsletterBrand = '' },
         } = this.props
-        return Object.assign(params, {
+        const {
+          customFields: { isActiveApiCovid19 },
+        } = this.props
+        const dataBody = {
           brand: newsletterBrand,
-        })
+        }
+        if (isActiveApiCovid19) dataBody.topics = ['coronavirus']
+
+        return Object.assign(params, dataBody)
       }
 
       const messageApi = response => {
@@ -44,7 +50,10 @@ class Newsletter extends PureComponent {
         return response && response.status !== false
       }
 
-      const url = NEWSLETTER_API
+      const {
+        customFields: { isActiveApiCovid19 },
+      } = this.props
+      const url = isActiveApiCovid19 ? NEWSLETTER_COVID19_API : NEWSLETTER_API
       fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -157,6 +166,7 @@ class Newsletter extends PureComponent {
       submitForm,
       confirmRegister,
       formMessage,
+      isActiveApiCovid19: customFields.isActiveApiCovid19,
     }
     return <NewsletterChild {...params} />
   }
