@@ -10,15 +10,18 @@ import {
   buildTeamFootballOptaParams,
 } from '../../../utilities/get-story-values'
 
-import { PLAYING, PLAYED } from '../../../utilities/constants'
+import { FIXTURE, PLAYING, PLAYED } from '../../../utilities/constants'
 
 const classes = {
   liveScore: 'score w-full',
   liveWrapper:
-    'score__wrapper pt-20 pb-20 flex justify-center items-center mx-auto overflow-hidden',
+    'score__wrapper pt-20 pb-30 flex justify-center items-center mx-auto overflow-hidden',
   liveEnd: 'score__end position-relative',
   liveEndText:
     'score__end-text rounded font-bold uppercase text-gray-200 flex justify-center items-center secondary-font',
+  liveFixtureText:
+    'score__status-fixture flex justify-center items-center secondary-font',
+  liveTextStatus: 'score__status-message flex justify-center items-center',
 }
 
 // const CDN = 'get-score-data-opta'
@@ -48,8 +51,6 @@ class LiveScoreMinuteToMinute extends Component {
         periodId,
       },
     }
-    // this.getDataScore()
-    // this.setInsetvalForRequest = this.setInsetvalForRequest.bind(this)
   }
 
   componentDidMount() {
@@ -72,10 +73,8 @@ class LiveScoreMinuteToMinute extends Component {
 
   getDataScore = () => {
     const { globalContent } = this.props
-    // id temporal
 
-    const gameId =
-      getFootballGameId(globalContent) || '2fotq7p7kpwzjsr8m7bsk29uy'
+    const gameId = getFootballGameId(globalContent)
 
     const url = `https://cdna-resultadosopta.minoticia.pe/api/v2/match/?format=json&uuid=${gameId}`
     fetch(url)
@@ -113,7 +112,7 @@ class LiveScoreMinuteToMinute extends Component {
         awayTeamParams,
         matchTime,
         matchstatus,
-        // periodId,
+        periodId,
       },
     } = this.state
 
@@ -149,18 +148,21 @@ class LiveScoreMinuteToMinute extends Component {
 
           {matchstatus === PLAYING && (
             <div className={classes.liveEnd}>
-              <span className={classes.liveEndText}>{matchTime}</span>
+              <span className={classes.liveEndText}>{`${matchTime}''`}</span>
             </div>
           )}
-
-          {matchstatus !== PLAYING && matchstatus !== PLAYED && (
+          {matchstatus === FIXTURE && (
             <div className={classes.liveEnd}>
-              <span className={classes.liveEndText}></span>
+              <span className={classes.liveFixtureText}>Previo al partido</span>
             </div>
           )}
 
           <TeanScore {...visitingTeamParams} />
         </div>
+        {matchstatus !== FIXTURE && (
+          <span className={classes.liveTextStatus}>{periodId}</span>
+        )}
+
         {!golListItemValidation ? <GolListItem {...golListItem} /> : null}
       </div>
     )

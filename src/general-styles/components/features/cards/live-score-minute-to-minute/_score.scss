@@ -1,5 +1,6 @@
 .score {
   background-color: $color-white;
+  position: relative;
   &__end {
     &:before,
     &:after {
@@ -18,6 +19,32 @@
       bottom: -100%;
     }
   }
+  &__status-fixture {
+    width: 85px;
+    height: 35px;
+    @media (--desktop) {
+      width: 105px;
+      height: 30px;
+    }
+    @media (--tablet) {
+      width: 92px;
+      height: 30px;
+    }
+  }
+
+  &__status-message{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 85px;
+    @media (--desktop) {
+      top: 75px;
+    }
+    @media (--tablet) {
+      top: 75px;
+    }
+  }
+
   &__end-text {
     width: 44px;
     height: 44px;
