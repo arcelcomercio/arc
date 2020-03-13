@@ -30,12 +30,13 @@ const StoryContentChildVideo = props => {
   const {
     _id: id,
     data = {},
+    htmlContent = false,
     description = '',
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
-
     url: imagenMigrate = '',
     contentElemtent = false,
+    reziserVideo = true,
   } = props
   const imageUrl = contentElemtent ? urlImageContent : urlImage
   const { large } =
@@ -67,22 +68,10 @@ const StoryContentChildVideo = props => {
       })
       .filter(String)
     const cantidadVideo = resultVideo.length
-    const resultVideoContent = contentElemtent
-      ? urlVideo.replace(
-          /(data-uuid="([0-9a-z-A-Z]*[0-9a-z-A-Z])\w+)"/,
-          'data-uuid="d24a48f4-091f-4dd5-aed3-9a9a505cb5cd"'
-        )
-      : urlVideo
-    return (
-      resultVideoContent.replace(
-        'class="powa"',
-        `class="powa" data-stream="${
-          arcSite === 'depor' || arcSite === 'elcomerciomag'
-            ? getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
-            : resultVideo[cantidadVideo - 1]
-        }"`
-      ) || []
-    )
+
+    return arcSite !== 'elcomercio'
+      ? getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
+      : resultVideo[cantidadVideo - 1]
   }
 
   const videoUrlContent =
@@ -191,64 +180,32 @@ const StoryContentChildVideo = props => {
     }
     return urlPreroll
   }
-  const VideoFinal = videoUrlContent || videoUrlPrincipal
   const ids = id || idPrincial
-  const labelId = `video-id_${ids}`
-  const powa = `
-      (function(){
-        window.addEventListener('powaReady', ({ detail: { element } }) => {element.setAttribute('data-sticky', 'true')})
-        if ('IntersectionObserver' in window) {
-          const { IntersectionObserver } = window
-          const options = {
-            rootMargin: '0px 0px 0px 0px',
-          }
-          const callback = (entries, observer) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-              
-            document.querySelector("#${labelId}").innerHTML ='${urlVideo
-    .replace('[goldfish_publicidad]', '')
-    .replace(/<script.*><\/script>/gm, '')}'
-         if (window.powaBoot) window.powaBoot()
-            if (window.PoWaSettings) {
-              window.preroll = '${getParametroPublicidad()}'
-              window.PoWaSettings.advertising = {
-                adBar: false,
-                adTag: '${
-                  videoData.advertising &&
-                  videoData.advertising.playAds === true
-                    ? getParametroPublicidad()
-                    : ''
-                }'
-              }
-            }
-    
-             observer.unobserve(entry.target)
-          }
-        })
-      }
-   const observer = new IntersectionObserver(callback, options)
-observer.observe(document.querySelector('#${labelId}'))
-} 
-})()      `
-  const stylePwa = `
-  .powa-shot { position: absolute; color: rgb(240, 248, 255); font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;    z-index: 1;    width: 100%; height: 100%;    top: 0px;    left: 0px;}
-  .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
-  .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
-  .powa-play-btn { transform: inherit; }`
+
+  const uidArray = urlVideo.match(
+    /data-uuid="(([0-9a-z-A-Z]*[0-9a-z-A-Z])\w+)"/
+  )
+  const videoArray = urlVideo.match(
+    /stream="((.*).(jpeg|jpg|png|gif|mp4|mp3))"/
+  )
 
   return (
     <>
-      <div id={`video-id_${ids}`}></div>
+      <div
+        className="lazyload-video"
+        data-uuid={ids || (uidArray && uidArray[1])}
+        data-reziser={reziserVideo}
+        data-api="prod"
+        data-streams={
+          videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
+        }
+        data-preroll={
+          videoData.advertising && videoData.advertising.playAds === true
+            ? getParametroPublicidad()
+            : ''
+        }
+        data-poster={large}></div>
       <figcaption className={classes.caption}>{description} </figcaption>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: powa,
-        }}></script>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: stylePwa,
-        }}></style>
     </>
   )
 }

@@ -723,6 +723,7 @@ class StoryData {
 
   get contentPosicionPublicidad() {
     let i = 0
+    let v = 0
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
@@ -742,9 +743,23 @@ class StoryData {
           dataElements.publicidad = true
           dataElements.nameAds = `caja5`
         }
+
         if (typeElement === ConfigParams.ELEMENT_TEXT) {
           i += 1
+          v += 1
         }
+
+        if (
+          typeElement === ConfigParams.ELEMENT_VIDEO ||
+          typeElement === ConfigParams.ELEMENT_RAW_HTML
+        ) {
+          if (v >= 2) {
+            dataElements.reziserVideo = true
+          } else dataElements.reziserVideo = false
+          
+          v = 0
+        }
+
         return dataElements
       })
     )
