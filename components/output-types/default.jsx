@@ -289,6 +289,24 @@ export default ({
           href="//arc-subs-sdk.s3.amazonaws.com"
         />
         <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
+        {arcSite === 'elcomercio' && (
+          <>
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff"
+            />
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff"
+            />
+          </>
+        )}
         {googleFonts && (
           <link
             href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
