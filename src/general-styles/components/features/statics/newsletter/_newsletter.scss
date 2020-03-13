@@ -13,23 +13,7 @@
     align-self: center;
 
     @media (--desktop) {
-      max-width: 400px;
-      &::before,
-      &::after {
-        background-color: #666;
-        content: "";
-        height: 1px;
-        width: 400px;
-        position: absolute;
-      }
-      &::before {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
-      &::after {
-        margin-top: 15px;
-        margin-bottom: 5px;
-      }
+      max-width: 450px;
     }
   }
 
@@ -45,7 +29,6 @@
 
   &__email {
     height: 50px;
-    border-color: #666;
   }
 
   &__error-message {
@@ -70,7 +53,6 @@
 
   &__title {
     color: #666;
-    padding-bottom: 15px;
 
     &::after {
       background-color: $color-primary;
@@ -82,18 +64,6 @@
       position: absolute;
       width: 115px;
     }
-    &--covid19 {
-      padding-bottom: 0px;
-      &::after {
-        height: 0px;
-      }
-    }
-  }
-
-  &__covid19 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #d30e00;
   }
 
   &__strong {

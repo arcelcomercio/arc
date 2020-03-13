@@ -5,11 +5,11 @@ const classes = {
   titleCovid19: `newsletter__title--covid19`,
   description: 'newsletter__description secondary-font title-sm line-h-xs',
   row: 'newsletter__row mb-20',
-  email: 'newsletter__email w-full pr-15 pl-15 text-md border-1 border-solid',
+  email:
+    'newsletter__email w-full pr-15 pl-15 text-md border-1 border-solid border-gray',
   errorMessage: 'newsletter__error-message block pt-5 text-xs',
   textCenter: 'text-center',
-  button:
-    'newsletter__button bg-primary font-bold w-full border-0 text-black uppercase',
+  button: 'newsletter__button bg-gray-300 font-bold w-full border-0 text-white',
   policies: 'newsletter__policies font-bold cursor-pointer text-sm',
   pageLink: 'newsletter__page-link text-gray-300',
   inputCheckbox: 'newsletter__input-checkbox mr-10',

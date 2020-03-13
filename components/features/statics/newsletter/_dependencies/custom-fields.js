@@ -21,7 +21,7 @@ const customFields = PropTypes.shape({
     name: 'URL de políticas de privacidad',
   }),
   isActiveApiCovid19: PropTypes.bool.tag({
-    name: 'Usar Api de Covid-19',
+    name: 'Cambiar newsletter Covid-19',
     defaultValue: false,
   }),
 })
