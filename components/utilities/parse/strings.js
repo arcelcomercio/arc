@@ -1,3 +1,7 @@
+export const reduceWord = (word, len = 145, finalText = '...') => {
+  return word.length > len ? word.slice(0, len).concat(finalText) : word
+}
+
 export const formatSlugToText = (text = '', length = 0) => {
   if (!text) return null
   const splitText = text.slice(1).includes('/')

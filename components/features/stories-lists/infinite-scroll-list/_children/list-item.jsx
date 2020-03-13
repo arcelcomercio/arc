@@ -1,8 +1,11 @@
 import React from 'react'
 
-import ConfigParams from '../../../../utilities/config-params'
-
-import { reduceWord, formattedTime } from '../../../../utilities/helpers'
+import {
+  GALLERY,
+  VIDEO,
+} from '../../../../utilities/constants/multimedia-types'
+import { reduceWord } from '../../../../utilities/parse/strings'
+import formatTime from '../../../../utilities/date-time/format-time'
 
 const formatDateLocalTimeZone = rawDate => {
   const auxDate = new Date(rawDate)
@@ -11,7 +14,7 @@ const formatDateLocalTimeZone = rawDate => {
     `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
   if (format(auxDate) === format(today)) {
-    return formattedTime(auxDate)
+    return formatTime(auxDate)
   }
   return format(auxDate)
 }
@@ -92,11 +95,11 @@ export default ({
           {/* TODO: Actualizar iconos con multimediaIcon */}
           <a href={link} className={classes.rightLink}>
             {multimediaType !== null &&
-              multimediaType === ConfigParams.GALLERY && (
+              multimediaType === { GALLERY, VIDEO }.GALLERY && (
                 <span className={classes.iconGallery} />
               )}
             {multimediaType !== null &&
-              multimediaType === ConfigParams.VIDEO && (
+              multimediaType === { GALLERY, VIDEO }.VIDEO && (
                 <span className={classes.iconVideo} />
               )}
             <picture>
@@ -105,7 +108,7 @@ export default ({
                 srcSet={multimediaLandscapeXS}
               />
               <img
-                alt={title}                
+                alt={title}
                 className={classes.img}
                 src={multimediaLandscapeS}
               />

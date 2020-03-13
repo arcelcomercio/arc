@@ -1,14 +1,13 @@
 import { arrayDays, arrayMonths } from './constants'
+import formatTime from './format-time'
 
-// Extraida de ./time.js
-export const formattedTime = date => {
-  const hours =
-    date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
+export const getYYYYMMDDfromISO = date =>
+  date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 
-  const minutes =
-    date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
-
-  return `${hours}:${minutes}`
+export const getActualDate = () => {
+  const today = new Date()
+  today.setHours(today.getHours() - 5)
+  return getYYYYMMDDfromISO(today)
 }
 
 export const formatDayMonthYear = (
@@ -23,7 +22,7 @@ export const formatDayMonthYear = (
   const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
     arrayMonths[date.getMonth()]
   } del ${date.getFullYear()}`
-  return showTime ? `${formattedDate}, ${formattedTime(date)}` : formattedDate
+  return showTime ? `${formattedDate}, ${formatTime(date)}` : formattedDate
 }
 
 export const getDateSeo = data => {
