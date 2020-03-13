@@ -213,7 +213,7 @@ export default ({
     }
   })()`
 
-  const { googleFonts = '' } = siteProperties || {}
+  const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
   const isLivePage = arcSite === 'elcomercio' && requestUri.match(`^/en-vivo/`)
@@ -313,8 +313,11 @@ if ('IntersectionObserver' in window) {
         )}
 
         <title>{title}</title>
-        <link rel="preconnect dns-prefetch" href="//cdnc.elcomercio.pe" />
-        <link rel="preconnect dns-prefetch" href="//cdna.elcomercio.pe" />
+        <link rel="preconnect dns-prefetch" href={`//cdnc.${siteDomain}`} />
+        <link
+          rel="preconnect dns-prefetch"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
         <link
           rel="preconnect dns-prefetch"
           href="//d1r08wok4169a5.cloudfront.net"
@@ -348,6 +351,24 @@ if ('IntersectionObserver' in window) {
           href="//arc-subs-sdk.s3.amazonaws.com"
         />
         <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
+        {arcSite === 'elcomercio' && (
+          <>
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff"
+            />
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff"
+            />
+          </>
+        )}
         {googleFonts && (
           <link
             href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
