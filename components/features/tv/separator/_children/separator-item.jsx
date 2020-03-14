@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import Icon from '../../../../global-components/multimedia-icon'
-import { formattedTime } from '../../../../utilities/helpers'
+import formatTime from '../../../../utilities/date-time/format-time'
 import Modal from '../../../../global-components/video-modal'
 
 // TODO: Las clases deben extraerse a la parte superior
@@ -14,7 +14,7 @@ export default ({ date, multimedia, title, videoId, maxStories }) => {
       auxDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0] ===
       today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
     ) {
-      return formattedTime(auxDate)
+      return formatTime(auxDate)
     }
     return `${auxDate.getUTCDate()}/${auxDate.getUTCMonth() +
       1}/${auxDate.getUTCFullYear()}`
@@ -27,14 +27,7 @@ export default ({ date, multimedia, title, videoId, maxStories }) => {
     return initDate >= new Date(timeStampYesterday * 1000).getTime()
   }
 
-  const [clientDate, setClientDate] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  useEffect(() => {
-    if (date) {
-      setClientDate(formatDateLocalTimeZone(date))
-    }
-  }, [date])
 
   return (
     <div
@@ -74,7 +67,7 @@ export default ({ date, multimedia, title, videoId, maxStories }) => {
         </button>
       </h2>
       <time className="block text-white text-md" dateTime={date}>
-        {clientDate}
+        {typeof window !== 'undefined' ? formatDateLocalTimeZone(date) : ''}
       </time>
       {isModalOpen && (
         <Modal
