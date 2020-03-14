@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import ENV from 'fusion:environment'
-import { createMarkup } from '../utilities/helpers'
 
 const VIDEO_CENTER_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
@@ -16,6 +15,7 @@ export default ({ close, youtubeId, multimediaSource, multimediaEmbed }) => {
     close()
     document.body.classList.remove('overflow-hidden')
   }
+
   return (
     <>
       <div
@@ -62,9 +62,12 @@ export default ({ close, youtubeId, multimediaSource, multimediaEmbed }) => {
         )}
         {multimediaEmbed && (
           <div
-            dangerouslySetInnerHTML={createMarkup(
-              multimediaEmbed.replace(/^<div/, '<div data-autoplay="true"')
-            )}
+            dangerouslySetInnerHTML={{
+              __html: multimediaEmbed.replace(
+                /^<div/,
+                '<div data-autoplay="true"'
+              ),
+            }}
           />
         )}
       </div>
