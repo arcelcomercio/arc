@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({
+const videoListChild = ({
   websiteLink,
   title,
   multimediaLandscapeMD,
@@ -38,3 +38,5 @@ export default ({
     </div>
   )
 }
+
+export default React.memo(videoListChild)
