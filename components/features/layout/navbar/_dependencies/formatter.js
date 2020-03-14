@@ -1,5 +1,5 @@
 import schemaFilter from './schema-filter'
-import { getAssetsPath } from '../../../../utilities/constants'
+import { getAssetsPath } from '../../../../utilities/assets'
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 const DEFAULT_HIERARCHY = 'menu-default'
