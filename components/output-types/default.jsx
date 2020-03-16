@@ -236,7 +236,7 @@ export default ({
       const poster = target.getAttribute('data-poster')
       const streams = target.getAttribute('data-streams')
       const reziser = target.getAttribute('data-reziser')
-      const dataVideo = '<div class="powa" id="powa-{uuid}" data-org="elcomercio" data-env="prod" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="prod" ></div>'
+      const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="prod" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="prod" data-preload=none ></div>'
      
       target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
        if (window.powaBoot) window.powaBoot()
