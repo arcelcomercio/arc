@@ -201,12 +201,7 @@ class StoriesListInfiniteScroll extends PureComponent {
             const ads = this.hasAds(index + 1, activeAdsArray)
             return (
               <Fragment key={`Archivo-${story.id}`}>
-                <ListItem
-                  {...{
-                    story,
-                    isRender,
-                  }}
-                />
+                <ListItem {...story} isRender={isRender} />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
                     <Ads

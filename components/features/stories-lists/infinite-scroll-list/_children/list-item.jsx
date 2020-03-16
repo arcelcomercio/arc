@@ -42,8 +42,8 @@ const classes = {
   wrapperTitle: 'story-item__information-box w-full',
 }
 
-export default ({
-  story: {
+export default React.memo(
+  ({
     primarySectionLink,
     primarySection,
     date,
@@ -55,67 +55,67 @@ export default ({
     multimediaType,
     multimediaLandscapeXS,
     multimediaLandscapeS,
-  } = {},
-  format,
-  isRender,
-}) => {
-  return (
-    <div
-      className={`${classes.storyItem} ${
-        format && format === 'row' ? 'story-item--row' : ''
-      }`}>
-      <div className={classes.bottom}>
-        <div className={classes.left}>
-          <div className={classes.top}>
-            <a href={primarySectionLink} className={classes.section}>
-              {primarySection}
-            </a>
-            <p className={classes.date}>
-              {date && isRender ? formatDateLocalTimeZone(date) : ''}
-            </p>
-          </div>
-          <div className={classes.wrapperTitle}>
-            <h2 className={classes.contentTitle}>
-              <a className={classes.title} href={link}>
-                {reduceWord(title)}
+    format,
+    isRender,
+  }) => {
+    return (
+      <div
+        className={`${classes.storyItem} ${
+          format && format === 'row' ? 'story-item--row' : ''
+        }`}>
+        <div className={classes.bottom}>
+          <div className={classes.left}>
+            <div className={classes.top}>
+              <a href={primarySectionLink} className={classes.section}>
+                {primarySection}
               </a>
-            </h2>
-            <p className={classes.subtitle}>{reduceWord(subTitle)}</p>
-            <a href={primarySectionLink} className={classes.sectionHidden}>
-              {primarySection}
-            </a>
+              <p className={classes.date}>
+                {date && isRender ? formatDateLocalTimeZone(date) : ''}
+              </p>
+            </div>
+            <div className={classes.wrapperTitle}>
+              <h2 className={classes.contentTitle}>
+                <a className={classes.title} href={link}>
+                  {reduceWord(title)}
+                </a>
+              </h2>
+              <p className={classes.subtitle}>{reduceWord(subTitle)}</p>
+              <a href={primarySectionLink} className={classes.sectionHidden}>
+                {primarySection}
+              </a>
+            </div>
+            <div className={classes.contenetAuthor}>
+              <a href={authorLink} className={classes.author}>
+                {author}
+              </a>
+            </div>
           </div>
-          <div className={classes.contenetAuthor}>
-            <a href={authorLink} className={classes.author}>
-              {author}
+          <figure className={classes.right}>
+            {/* TODO: Actualizar iconos con multimediaIcon */}
+            <a href={link} className={classes.rightLink}>
+              {multimediaType !== null &&
+                multimediaType === { GALLERY, VIDEO }.GALLERY && (
+                  <span className={classes.iconGallery} />
+                )}
+              {multimediaType !== null &&
+                multimediaType === { GALLERY, VIDEO }.VIDEO && (
+                  <span className={classes.iconVideo} />
+                )}
+              <picture>
+                <source
+                  media="(max-width: 639px)"
+                  srcSet={multimediaLandscapeXS}
+                />
+                <img
+                  alt={title}
+                  className={classes.img}
+                  src={multimediaLandscapeS}
+                />
+              </picture>
             </a>
-          </div>
+          </figure>
         </div>
-        <figure className={classes.right}>
-          {/* TODO: Actualizar iconos con multimediaIcon */}
-          <a href={link} className={classes.rightLink}>
-            {multimediaType !== null &&
-              multimediaType === { GALLERY, VIDEO }.GALLERY && (
-                <span className={classes.iconGallery} />
-              )}
-            {multimediaType !== null &&
-              multimediaType === { GALLERY, VIDEO }.VIDEO && (
-                <span className={classes.iconVideo} />
-              )}
-            <picture>
-              <source
-                media="(max-width: 639px)"
-                srcSet={multimediaLandscapeXS}
-              />
-              <img
-                alt={title}
-                className={classes.img}
-                src={multimediaLandscapeS}
-              />
-            </picture>
-          </a>
-        </figure>
       </div>
-    </div>
-  )
-}
+    )
+  }
+)
