@@ -39,3 +39,4 @@ export const getAssetsPath = (arcSite, contextPath) => {
 export const FIXTURE = 'Fixture' // por jugarse
 export const PLAYING = 'Playing' // en vivo
 export const PLAYED = 'Played' // jugado
+export const POSTPONED = 'Postponed' // pospuesto

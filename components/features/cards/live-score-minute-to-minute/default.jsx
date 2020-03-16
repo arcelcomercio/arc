@@ -10,7 +10,12 @@ import {
   buildTeamFootballOptaParams,
 } from '../../../utilities/get-story-values'
 
-import { FIXTURE, PLAYING, PLAYED } from '../../../utilities/constants'
+import {
+  FIXTURE,
+  PLAYING,
+  PLAYED,
+  POSTPONED,
+} from '../../../utilities/constants'
 
 const classes = {
   liveScore: 'score w-full',
@@ -54,10 +59,6 @@ class LiveScoreMinuteToMinute extends Component {
 
     this.setInsetvalForRequest()
   }
-
-  // componentDidMount() {
-  //   this.setInsetvalForRequest()
-  // }
 
   setInsetvalForRequest = () => {
     const {
@@ -141,10 +142,12 @@ class LiveScoreMinuteToMinute extends Component {
 
     const localTeamParams = {
       homeTeam: true,
+      matchstatus,
       ...homeTeamParams,
     }
     const visitingTeamParams = {
       homeTeam: false,
+      matchstatus,
       ...awayTeamParams,
     }
 
@@ -187,7 +190,7 @@ class LiveScoreMinuteToMinute extends Component {
 
           <TeanScore {...visitingTeamParams} />
         </div>
-        {matchstatus !== FIXTURE && (
+        {matchstatus !== FIXTURE && matchstatus !== POSTPONED && (
           <span className={classes.liveTextStatus}>{periodId}</span>
         )}
 

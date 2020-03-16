@@ -1,7 +1,6 @@
 import React from 'react'
 
 import ItemScore from './item-score'
-// import ItemTeamFlag from './item-team-flag'
 import ItemTeamName from './item-team-name'
 
 const classes = {
@@ -10,6 +9,7 @@ const classes = {
 
 const LiveScoreMinuteToMinuteTeanScore = ({
   homeTeam = true,
+  matchstatus = '',
   name = '',
   flag = '',
   scoreTeam = 0,
@@ -19,11 +19,11 @@ const LiveScoreMinuteToMinuteTeanScore = ({
       {homeTeam ? (
         <ItemTeamName name={name} flag={flag} />
       ) : (
-        <ItemScore scoreTeam={scoreTeam} />
+        <ItemScore scoreTeam={scoreTeam} matchstatus={matchstatus} />
       )}
 
       {homeTeam ? (
-        <ItemScore scoreTeam={scoreTeam} />
+        <ItemScore scoreTeam={scoreTeam} matchstatus={matchstatus} />
       ) : (
         <ItemTeamName name={name} flag={flag} />
       )}
