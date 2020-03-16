@@ -110,8 +110,6 @@ class StoriesListVideo extends PureComponent {
       if (newsVideoCenter.type === VIDEO) {
         newsVideo = newsVideoCenter
         image = getVideoImage(data, LANDSCAPE_XXS)
-
-        // newsVideo.payload='<div class="powa" data-autoplay id="powa-d046636b-bef2-4e6b-a756-52fccf2330ea" data-org="elcomercio" data-env="prod" data-uuid="d046636b-bef2-4e6b-a756-52fccf2330ea" data-aspect-ratio="0.562" data-api="prod"><script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"></script></div>'
       } else if (newsVideoYoutube.type === ELEMENT_YOUTUBE_ID) {
         newsVideo = newsVideoYoutube
         image = getImage(data, LANDSCAPE_XXS)
