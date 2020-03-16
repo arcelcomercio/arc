@@ -192,7 +192,8 @@ const StoryContentChildVideo = props => {
   return (
     <>
       <div
-        className="lazyload-video"
+        id="powa-default"
+        className="lazyload-video powa-default"
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
@@ -205,6 +206,9 @@ const StoryContentChildVideo = props => {
             : ''
         }
         data-poster={large}></div>
+      <i
+        id="powa-icon-default"
+        className="m-icon position-absolute rounded text-white featured-story__icon icon-video powa-icon-default"></i>
       <figcaption className={classes.caption}>{description} </figcaption>
     </>
   )

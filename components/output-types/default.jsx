@@ -236,7 +236,7 @@ export default ({
       const poster = target.getAttribute('data-poster')
       const streams = target.getAttribute('data-streams')
       const reziser = target.getAttribute('data-reziser')
-      const dataVideo = '<div class="powa" id="powa-{uuid}" data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" ></div>'
+      const dataVideo = '<div class="powa" id="powa-{uuid}" data-org="elcomercio" data-env="prod" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="prod" ></div>'
      
       target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
        if (window.powaBoot) window.powaBoot()
@@ -247,7 +247,16 @@ export default ({
           adTag: preroll,
         }
       }
-
+      
+      window.addEventListener('powaRender',
+        function () {
+          const element = document.getElementById("powa-default")
+          element.classList.remove("powa-default")
+          const elemento=document.getElementById('powa-icon-default');
+          elemento.parentNode.removeChild(elemento);
+        }
+     )
+  
       observer.unobserve(target)
     }
   })
@@ -294,7 +303,10 @@ if ('IntersectionObserver' in window) {
     .powa-shot { position: absolute; color: rgb(240, 248, 255); font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;    z-index: 1;    width: 100%; height: 100%;    top: 0px;    left: 0px;}
     .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
     .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
-    .powa-play-btn { transform: inherit; }`
+    .powa-play-btn { transform: inherit; }
+    .powa-default{ background-color: #000;  height: 348px;  }
+    .powa-icon-default{bottom: auto;top: inherit;padding-top: x;left: 90px;margin-top: -92px;}
+    `
 
   return (
     <html lang="es">
@@ -394,7 +406,14 @@ if ('IntersectionObserver' in window) {
         />
 
         <AdsScriptsFloorPrices />
-
+        {contenidoVideo && (
+          <>
+            <style
+              dangerouslySetInnerHTML={{
+                __html: stylePwa,
+              }}></style>
+          </>
+        )}
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
@@ -532,10 +551,6 @@ if ('IntersectionObserver' in window) {
               defer
               dangerouslySetInnerHTML={{ __html: scriptVideo }}
             />
-            <style
-              dangerouslySetInnerHTML={{
-                __html: stylePwa,
-              }}></style>
           </>
         )}
         {/* Rubicon BlueKai - Fin */}
