@@ -236,7 +236,7 @@ export default ({
       const poster = target.getAttribute('data-poster')
       const streams = target.getAttribute('data-streams')
       const reziser = target.getAttribute('data-reziser')
-      const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
+      const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="prod" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="prod" data-preload=none ></div>'
      
       target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
        if (window.powaBoot) window.powaBoot()
@@ -304,8 +304,12 @@ if ('IntersectionObserver' in window) {
     .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
     .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
     .powa-play-btn { transform: inherit; }
-    .powa-default{ background-color: #000;  height: 348px;  }
+    .powa-default{ background-color: #000;  height: 323px;  }
     .powa-icon-default{bottom: auto;top: inherit;padding-top: x;left: 90px;margin-top: -92px;}
+    @media only screen and (max-width: 600px) { .powa-icon-default{display:none;}
+    .powa-default {
+      height: 157px;
+    }}
     `
 
   return (
