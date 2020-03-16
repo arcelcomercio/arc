@@ -2,7 +2,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import { socialMediaUrlShareList } from '../../../../utilities/helpers'
+import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 
 const classes = {
   share: 'amp-story-header__share ml-10 text-sm',
