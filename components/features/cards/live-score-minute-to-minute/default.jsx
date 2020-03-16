@@ -51,11 +51,13 @@ class LiveScoreMinuteToMinute extends Component {
         periodId,
       },
     }
-  }
 
-  componentDidMount() {
     this.setInsetvalForRequest()
   }
+
+  // componentDidMount() {
+  //   this.setInsetvalForRequest()
+  // }
 
   setInsetvalForRequest = () => {
     const {
@@ -105,6 +107,23 @@ class LiveScoreMinuteToMinute extends Component {
       })
   }
 
+  handleMovileScroll = () => {
+    const scrollHeight = window.scrollY
+    const score = document.getElementById('scoreMinuteByMinute')
+    const header =
+      document.querySelector('.header-full') &&
+      document.querySelector('.header-full').offsetHeight
+        ? document.querySelector('.header-full').offsetHeight
+        : 0
+    const heightTotal = score.offsetHeight + header
+
+    if (scrollHeight > heightTotal) {
+      score.classList.add('sticky')
+    } else {
+      score.classList.remove('sticky')
+    }
+  }
+
   render() {
     const {
       teamParams: {
@@ -115,6 +134,8 @@ class LiveScoreMinuteToMinute extends Component {
         periodId,
       },
     } = this.state
+
+    const { isAdmin } = this.props
 
     console.log(Date().toString(), this.state)
 
@@ -136,8 +157,15 @@ class LiveScoreMinuteToMinute extends Component {
       golListItem.homeTeamGolList.length === 0 &&
       golListItem.awayTeamGolList.length === 0
 
+    const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      window.navigator.userAgent
+    )
+    if (isMobile && !isAdmin) {
+      window.addEventListener('scroll', this.handleMovileScroll)
+    }
+
     return (
-      <div className={classes.liveScore}>
+      <div className={classes.liveScore} id="scoreMinuteByMinute">
         <div className={classes.liveWrapper}>
           <TeanScore {...localTeamParams} />
           {matchstatus === PLAYED && (
