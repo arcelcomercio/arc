@@ -39,7 +39,7 @@ const FeaturedStoryPremiumChild = ({
     sectionLink: 'featured-story__category-link text-md',
 
     title: 'featured-story__title overflow-hidden mb-5 line-h-xs flex-1',
-    titleLink: 'featured-story__title-link title-xs line-h-sm ',
+    titleLink: 'featured-story__title-link title-xs line-h-sm overflow-hidden',
 
     author: 'featured-story__author uppercase mb-10',
     authorLink: 'featured-story__author-link text-gray-200 text-xs',
@@ -99,6 +99,8 @@ const FeaturedStoryPremiumChild = ({
     classes.featuredPremium =
       'f-premium featured-story position-relative flex expand img-complete col-2'
     classes.detail = 'featured-story__detail'
+    classes.title =
+      'featured-story__title overflow-hidden mb-10 line-h-xs flex-1'
   }
   if (model === 'full') {
     classes.featuredPremium =
