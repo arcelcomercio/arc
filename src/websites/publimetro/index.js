@@ -34,4 +34,3 @@ import './fonts/corpid_bold-webfont.woff'
 import './fonts/corpid_regular-webfont.woff'
 
 /** Scripts */
-import '../../../components/utilities/grid-to-flex'

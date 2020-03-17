@@ -40,4 +40,3 @@ import './fonts/RobotoCondensed-Regular.woff'
 import './fonts/TitilliumWeb-Bold.woff'
 
 /** Scripts */
-import '../../../components/utilities/grid-to-flex'

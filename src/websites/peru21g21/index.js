@@ -33,4 +33,3 @@ import './icons/fonts/default.svg'
 import './fonts/OpenSans-Regular-webfont.woff'
 
 /** Scripts */
-import '../../../components/utilities/grid-to-flex'

@@ -466,6 +466,11 @@ export default ({
           src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
         />
         {/* Rubicon BlueKai - Fin */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `"use strict";(function(){setTimeout(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}},0)})()`,
+          }}
+        />
       </body>
     </html>
   )

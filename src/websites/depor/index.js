@@ -38,4 +38,3 @@ import './fonts/Saira-Bold.woff'
 import './fonts/Saira-Regular.woff'
 
 /** Scripts */
-import '../../../components/utilities/grid-to-flex'

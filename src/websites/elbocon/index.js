@@ -31,4 +31,3 @@ import './icons/fonts/default.svg'
 import './icons/fonts/gestion.svg'
 
 /** Scripts */
-import '../../../components/utilities/grid-to-flex'
