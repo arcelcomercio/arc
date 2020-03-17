@@ -388,6 +388,7 @@ export default ({
       ? 'free'
       : contenType
 
+      contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
     return contenType
   }
   const dataStructuraHtmlAmp =
