@@ -1,15 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-
-const isIE = () => {
-  const ua = window.navigator.userAgent
-  const msie = ua.indexOf('MSIE ')
-  const trident = ua.indexOf('Trident/')
-  if (msie > 0 || trident > 0) {
-    return true
-  }
-  return false
-}
 
 /* **************** SIN USO ****************** */
 
@@ -50,14 +40,9 @@ const OrderedStories = ({ children, customFields }) => {
     return child
   }) */
 
-  const [gridClass, setGridClass] = useState('grid')
-  useEffect(() => {
-    if (isIE()) setGridClass('ie-flex')
-  }, [])
-
   return (
     <div
-      className={`${gridClass} grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20 col-3 ${paddingConfig &&
+      className={`grid grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20 col-3 ${paddingConfig &&
         'pl-20 pr-20 pb-20'} ${renderBackground(
         backgroundChain
       )} chain-ordered-stories`}>
@@ -102,6 +87,6 @@ OrderedStories.propTypes = {
 }
 
 OrderedStories.label = 'Grilla de historias ordenadas'
-// OrderedStories.static = true
+OrderedStories.static = true
 
 export default OrderedStories

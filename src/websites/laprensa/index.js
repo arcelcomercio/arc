@@ -10,4 +10,6 @@ import './images/logo-footer-sm.png'
 import './images/author.png'
 import './images/arrow-right-2.png'
 
+/** Scripts */
+import '../../../components/utilities/grid-to-flex'
 import '../../../components/utilities/lazyload'

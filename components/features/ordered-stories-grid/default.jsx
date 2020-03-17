@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import { isIE } from '../../utilities/helpers'
 import DataStory from '../../utilities/story-data'
 import FeaturedStory from '../../global-components/featured-story'
 import Ads from './_children/ads/default'
@@ -24,7 +23,8 @@ const elements = [
 ]
 
 const classes = {
-  container: ' grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20',
+  container:
+    'grid grid--content grid--col-3 grid--col-2 grid--col-1 w-full mt-20',
 }
 
 const OrderedStoriesGrid = props => {
@@ -35,16 +35,9 @@ const OrderedStoriesGrid = props => {
     contextPath,
     arcSite,
     isAdmin,
-    metaValue,
   } = useFusionContext()
   const siteProperties = getProperties(arcSite)
   const { content_elements: contentElements = [] } = globalContent || {}
-
-  const [gridClass, setGridClass] = useState('grid')
-
-  useEffect(() => {
-    if (isIE()) setGridClass('ie-flex')
-  }, [])
 
   const renderGrilla = () => {
     const dataStory = new DataStory({
@@ -107,9 +100,7 @@ const OrderedStoriesGrid = props => {
     })
   }
 
-  return (
-    <div className={gridClass.concat(classes.container)}>{renderGrilla()}</div>
-  )
+  return <div className={classes.container}>{renderGrilla()}</div>
 }
 
 OrderedStoriesGrid.propTypes = {

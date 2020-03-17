@@ -1,45 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-
-export const isIE = () => {
-  const ua = window.navigator.userAgent
-  const msie = ua.indexOf('MSIE ')
-  const trident = ua.indexOf('Trident/')
-  if (msie > 0 || trident > 0) {
-    return true
-  }
-  return false
-}
 
 const classes = {
   layout: 'flex justify-center',
   contentContainer:
     'flex flex-col content-layout-container w-full position-relative bg-container',
   content:
-    'grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
+    'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
   aditional: 'mb-20',
   zocalo: 'ads__zocalo',
 }
 
 const GridLayout = ({ children = [] }) => {
-  const [gridClass, setGridClass] = useState('grid')
-  useEffect(() => {
-    if (isIE()) setGridClass('ie-flex')
-  })
   return (
     <div className={classes.layout}>
       <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
       <div className={classes.contentContainer}>
         {children[1] /* Publicidad Top */}
         {children[2] /* Barra de navegación */}
-        {children[3] /* Cabecera de página */}
-        {children[4] /* Encabezado */}
-        <div role="main" className={`${gridClass} ${classes.content}`}>
-          {children[5] /* Contenido */}
-        </div>
-        {children[6] && (
-          <section className={classes.aditional}>{children[6]}</section>
-        ) /* Contenido adicional */}
         {children[7] /* Pie de página */}
       </div>
       <div className={classes.zocalo}>{children[8] /* Zocalo derecha */}</div>
