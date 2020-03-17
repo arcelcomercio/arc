@@ -491,10 +491,22 @@ if ('IntersectionObserver' in window) {
         <script
           defer
           src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/js/index.js`
+            `${(() => {
+              let cdncPath = `${contextPath}`
+              if (CURRENT_ENVIRONMENT === 'prod') {
+                cdncPath = `https://cdnc.${siteProperties.siteDomain}`
+              }
+              if (
+                arcSite === 'elcomerciomag' &&
+                CURRENT_ENVIRONMENT === 'prod'
+              ) {
+                cdncPath = `https://cdnc.mag.elcomercio.pe`
+              }
+              if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+                cdncPath = `https://cdnc.g21.peru21.pe`
+              }
+              return cdncPath
+            })()}/resources/dist/${arcSite}/js/index.js`
           )}
         />
         <Fusion />
@@ -559,6 +571,11 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         {/* Rubicon BlueKai - Fin */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `"use strict";(function(){setTimeout(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}},0)})()`,
+          }}
+        />
       </body>
     </html>
   )
