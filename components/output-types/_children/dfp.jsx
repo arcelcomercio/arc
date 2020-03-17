@@ -160,7 +160,7 @@ const Dfp = ({ isFuature, adId }) => {
       }
 
       if(flagHb){
-        if(space == 'top'){
+        if(space === 'top'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
@@ -191,7 +191,7 @@ const Dfp = ({ isFuature, adId }) => {
               ]
             }
           }
-        }else if(space == 'caja1'){
+        }else if(space === 'caja1'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
@@ -222,7 +222,7 @@ const Dfp = ({ isFuature, adId }) => {
               ]
             }
           }
-        }else if(space == 'caja2'){
+        }else if(space === 'caja2'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
@@ -253,7 +253,7 @@ const Dfp = ({ isFuature, adId }) => {
               ]
             }
           }
-        }else if(space == 'caja3'){
+        }else if(space === 'caja3'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
@@ -284,7 +284,7 @@ const Dfp = ({ isFuature, adId }) => {
               ]
             }
           }
-        }else if(space == 'caja4'){
+        }else if(space === 'caja4'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
@@ -315,7 +315,7 @@ const Dfp = ({ isFuature, adId }) => {
               ]
             }
           }
-        }else if(space == 'caja5'){
+        }else if(space === 'caja5'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
@@ -346,7 +346,7 @@ const Dfp = ({ isFuature, adId }) => {
               ]
             }
           }
-        }else if(space == 'laterall'){
+        }else if(space === 'laterall'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
@@ -377,7 +377,7 @@ const Dfp = ({ isFuature, adId }) => {
               ]
             }
           }
-        }else if(space == 'lateralr'){
+        }else if(space === 'lateralr'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
@@ -408,7 +408,7 @@ const Dfp = ({ isFuature, adId }) => {
               ]
             }
           }
-        }else if(space == 'zocalo'){
+        }else if(space === 'zocalo'){
           formatSpace.bidding={
             prebid:{
               enabled: true,
