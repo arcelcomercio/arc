@@ -1,0 +1,18 @@
+.interstitial-link {
+  color: #4a88b1;
+  font-size: $font-md;
+  font-family: Roboto, Georgia;
+  font-weight: bold;
+  text-decoration: underline;
+
+  &::before {
+    color: #000;
+    content: "[";
+    margin-right: 4px;
+  }
+  &::after {
+    color: #000;
+    content: "]";
+    margin-left: 4px;
+  }
+}
