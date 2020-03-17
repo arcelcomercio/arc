@@ -5,6 +5,8 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import FeaturedStoryPremiumChild from './_children/feature-premium'
+import FeaturedStoryPremiumOpt from './_children/featured-premium-opt'
+
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
@@ -327,12 +329,11 @@ const FeaturedStoryPremium = props => {
     urlVideo,
   }
 
-  return (
-    <>
-      {!flagLive && <FeaturedStoryPremiumChild {...params} />}
-      {flagLive && <LiveStreaming {...paramsLive} />}
-    </>
-  )
+  if (flagLive) {
+    return <LiveStreaming {...paramsLive} />
+  }
+  if (arcSite === 'elcomercio') return <FeaturedStoryPremiumOpt {...params} />
+  return <FeaturedStoryPremiumChild {...params} />
 }
 
 FeaturedStoryPremium.propTypes = {
