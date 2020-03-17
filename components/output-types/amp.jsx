@@ -221,6 +221,12 @@ const AmpOutputType = ({
           custom-element="amp-facebook"
           src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
         />
+        <script 
+          async 
+          custom-element="amp-fx-flying-carpet" 
+          src="https://cdn.ampproject.org/v0/amp-fx-flying-carpet-0.1.js"
+        />
+
         {arcSite === ConfigParams.SITE_DEPOR && (
           <script
             async
