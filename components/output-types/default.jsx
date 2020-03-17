@@ -85,7 +85,7 @@ export default ({
     classBody = `${isStory && 'story'} section-videos`
   if (requestUri.match(`^(/peru21tv/.*)`))
     classBody = `${isStory && 'story'} section-peru21tv`
-    
+
   if (arcSite === 'elcomercio') {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
@@ -395,10 +395,22 @@ export default ({
         <script
           defer
           src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/js/index.js`
+            `${(() => {
+              let cdncPath = `${contextPath}`
+              if (CURRENT_ENVIRONMENT === 'prod') {
+                cdncPath = `https://cdnc.${siteProperties.siteDomain}`
+              }
+              if (
+                arcSite === 'elcomerciomag' &&
+                CURRENT_ENVIRONMENT === 'prod'
+              ) {
+                cdncPath = `https://cdnc.mag.elcomercio.pe`
+              }
+              if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+                cdncPath = `https://cdnc.g21.peru21.pe`
+              }
+              return cdncPath
+            })()}/resources/dist/${arcSite}/js/index.js`
           )}
         />
         <Fusion />
