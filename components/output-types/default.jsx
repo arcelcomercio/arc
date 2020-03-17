@@ -250,8 +250,9 @@ export default ({
       
       window.addEventListener('powaRender',
         function () {
-          const element = document.getElementById("powa-default")
-          element.classList.remove("powa-default")
+          Array.from(document.getElementsByClassName('powa-default')).forEach(function (contShare) {
+            contShare.classList.remove("powa-default")
+        });
           const elemento=document.getElementById('powa-icon-default');
           elemento.parentNode.removeChild(elemento);
         }
@@ -304,7 +305,7 @@ if ('IntersectionObserver' in window) {
     .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
     .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
     .powa-play-btn { transform: inherit; }
-    .powa-default{ background-color: #000;  height: 323px;  }
+    .powa-default{ background-color: #000;  height: 345px;  }
     .powa-icon-default{bottom: auto;top: inherit;padding-top: x;left: 90px;margin-top: -92px;}
     @media only screen and (max-width: 600px) { .powa-icon-default{display:none;}
     .powa-default {
