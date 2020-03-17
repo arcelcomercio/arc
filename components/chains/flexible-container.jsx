@@ -8,6 +8,7 @@ import {
   customHeight,
   customWidth,
   containerClass,
+  containerCustomClass,
 } from '../utilities/custom-fields'
 
 const classes = 'grid--content'
@@ -18,6 +19,7 @@ const FlexibleContainer = ({ customFields, children = [] }) => {
     width = 'w-full',
     height = '',
     ContainerClass = '',
+    ContainerCustomClass = '',
   } = customFields || {}
 
   const [gridClass, setGridClass] = useState('grid')
@@ -27,7 +29,7 @@ const FlexibleContainer = ({ customFields, children = [] }) => {
 
   return (
     <ContainerType
-      className={`${gridClass} ${classes} ${width} ${height} ${ContainerClass}`}>
+      className={`${gridClass} ${classes} ${width} ${height} ${ContainerClass} ${ContainerCustomClass}`}>
       {children}
     </ContainerType>
   )
@@ -39,6 +41,7 @@ FlexibleContainer.propTypes = {
     width: customWidth,
     height: customHeight,
     ContainerClass: containerClass,
+    ContainerCustomClass: containerCustomClass,
   }),
 }
 
