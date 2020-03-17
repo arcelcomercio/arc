@@ -40,4 +40,20 @@ CardSurveyChildSurveyOptions.propTypes = {
   onChange: PropTypes.func,
 }
 
-export default CardSurveyChildSurveyOptions
+export default React.memo(
+  CardSurveyChildSurveyOptions,
+  (prevProps, nextProps) => {
+    const { choices } = prevProps
+    const { choices: nextChoices } = nextProps
+    let memo = true
+
+    choices.forEach((choice, i) => {
+      const { option } = choice
+      const { option: nextOption } = nextChoices[i]
+
+      if (option !== nextOption) memo = false
+    })
+
+    return memo
+  }
+)
