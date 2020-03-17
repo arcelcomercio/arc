@@ -9,7 +9,7 @@ import AdsTournamentResult from './_children/ads-tournament-result'
 
 const classes = {
   tournamentResult:
-    'tournament-result flex justify-between flex-wrap pl-20 md:pl-0 pr-20 md:pr-0 col-3 mt-20 w-full',
+    'tournament-result flex justify-between flex-wrap pl-20 md:pl-0 pr-20 md:pr-0 col-3 mt-20 mb-20 w-full',
   tournamentBox:
     'tournament-result__box flex justify-between flex-wrap w-full lg:pt-30 items-end',
 }

@@ -26,7 +26,7 @@ const classes = {
     'score__end-text rounded font-bold uppercase text-gray-200 flex justify-center items-center secondary-font',
   liveFixtureText:
     'score__status-fixture flex justify-center items-center secondary-font',
-  liveTextStatus: 'score__status-message flex justify-center items-center',
+  liveTextStatus: 'score__status-message primary-font',
 }
 
 // const CDN = 'get-score-data-opta'

@@ -32,14 +32,12 @@
     }
   }
 
-  &__status-message{
+  &__status-message {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     top: 85px;
-    @media (--desktop) {
-      top: 75px;
-    }
+    font-size: 10px;
     @media (--tablet) {
       top: 75px;
     }
