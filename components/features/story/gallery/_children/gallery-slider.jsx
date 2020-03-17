@@ -39,7 +39,7 @@ const StoryHeaderChildGallerySlider = props => {
   }
 
   const handleGallery = `(
-      function(){window.addEventListener('load', function(){
+      function(){window.addEventListener('DOMContentLoaded', function(){
         setTimeout(function(){
           var currentSlide = 1;
           var slideWidth = 100 / ${totalSlides};

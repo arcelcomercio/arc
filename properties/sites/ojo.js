@@ -101,11 +101,7 @@ export default {
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011747,
-    movil2: 15011749,
-    movil3: 15011750,
-    movil4: 15011751,
-    movil5: 15011752,
+
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna1-300x250-div-gpt-ad-8599377-26.html',

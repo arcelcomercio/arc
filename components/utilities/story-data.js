@@ -2,7 +2,7 @@ import ConfigParams from './config-params'
 import { formatHtmlToText, addSlashToEnd } from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
-import { getAssetsPath } from './constants'
+import { getAssetsPath } from './assets'
 
 // Funcion extraida de helpers
 export const defaultImage = ({
@@ -204,6 +204,17 @@ class StoryData {
     )
   }
 
+  // Se creó esta función para obtener por defecto un string vacío
+  get imageUrl() {
+    return (
+      StoryData.getThumbnailBySize(
+        this._data,
+        StoryData.getTypeMultimedia(this._data),
+        ConfigParams.IMAGE_ORIGINAL
+      ) || ''
+    )
+  }
+
   get multimedia() {
     return this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
   }
@@ -390,6 +401,11 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     return videosContent.concat(promoItemsVideo).filter(String)
+  }
+
+  get metaTitle() {
+    const { headlines: { meta_title: metaTitle = '' } = {} } = this._data || {}
+    return metaTitle
   }
 
   get seoTitle() {
@@ -689,7 +705,12 @@ class StoryData {
         const { type: typeElement } = dataContent
         dataElements = dataContent
         if (i === 1) {
-          dataElements.publicidad = true
+          dataElements.publicidadInline = true
+          i += 1
+        }
+
+        if (i === 4 && contentElements.length > 4) {
+          dataElements.publicidadCaja3 = true
           i += 1
         }
         if (typeElement === ConfigParams.ELEMENT_TEXT) {
@@ -702,6 +723,7 @@ class StoryData {
 
   get contentPosicionPublicidad() {
     let i = 0
+    let v = 0
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
@@ -721,9 +743,23 @@ class StoryData {
           dataElements.publicidad = true
           dataElements.nameAds = `caja5`
         }
+
         if (typeElement === ConfigParams.ELEMENT_TEXT) {
           i += 1
+          v += 1
         }
+
+        if (
+          typeElement === ConfigParams.ELEMENT_VIDEO ||
+          typeElement === ConfigParams.ELEMENT_RAW_HTML
+        ) {
+          if (v >= 2) {
+            dataElements.reziserVideo = true
+          } else dataElements.reziserVideo = false
+          
+          v = 0
+        }
+
         return dataElements
       })
     )

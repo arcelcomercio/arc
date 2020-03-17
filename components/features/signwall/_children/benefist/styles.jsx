@@ -21,7 +21,7 @@ export const Cont = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    margin-top: 25px;
+    margin-top: 20px;
   }
 
   & .item-text {
@@ -49,15 +49,15 @@ export const ItemTitle = styled.h3`
 
 export const TitleContainer = styled.div`
   font-family: ${props => props.primaryFont};
-  /* width: 83%; */
   width: 72%;
   text-align: center;
   & .title {
     font-size: 1.4rem;
     line-height: 30px;
     font-weight: bold;
+    margin-bottom: 5px;
   }
-  /* &.organic {
-    width: 67%;
-  } */
+  & .title-elcomercio {
+    font-size: 1.2rem;
+  }
 `

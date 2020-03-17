@@ -21,6 +21,7 @@ export const publicidadAmp = ({
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
+  size = '300x600,300x250,320x100,320x50,300x100,300x50',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -30,7 +31,7 @@ export const publicidadAmp = ({
     ''
   const nuevoScript =
     (movil1 &&
-      `data-multi-size="300x600,300x250,320x100,320x50,300x100,300x50"
+      `data-multi-size="${size}"
   data-multi-size-validation="false"`) ||
     ''
 
@@ -48,6 +49,7 @@ export const publicidadAmpAd = ({
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
+  size = '300x250,320x100,320x50,300x100,300x50',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -57,9 +59,10 @@ export const publicidadAmpAd = ({
     ''
   const nuevoScript =
     (movil1 &&
-      `data-multi-size="300x250,320x100,320x50,300x100,300x50"
+      `data-multi-size="${size}"
   data-multi-size-validation="false"`) ||
-    ''
+    `data-multi-size="1x1"
+    data-multi-size-validation="false"`
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
@@ -256,6 +259,7 @@ export const iframeHtml = (html, arcSite = '') => {
 
   htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
+    .replace(/:<script(.*)>(.*)<\/script>:/gm, '')
     .replace(/<html_free><blockquote (.*)">/g, '')
     .replace(/<\/blockquote><\/html_free>/g, '')
     .replace('</p>', '')

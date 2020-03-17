@@ -26,6 +26,8 @@ export const FormRegister = props => {
     onLogged = i => i,
     onLoggedFail = i => i,
     arcSite,
+    isFia,
+    handleCallToAction,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr },
       activeNewsletter = false,
@@ -118,11 +120,14 @@ export const FormRegister = props => {
             arcSite,
             window.Identity.userIdentity.accessToken,
             ['general']
-          )
+          ).then(() => {
+            setShowConfirm(true)
+            onLogged(profile)
+          })
+        } else {
+          setShowConfirm(true)
+          onLogged(profile)
         }
-
-        setShowConfirm(true)
-        onLogged(profile)
       })
       .catch(() => {
         Taggeo(
@@ -145,6 +150,13 @@ export const FormRegister = props => {
       default:
         return typeDialog
     }
+  }
+
+  const handleFia = () => {
+    if (typeof window !== 'undefined' && isFia) {
+      handleCallToAction(true)
+    }
+    return null
   }
 
   const onSubmitForm = state => {
@@ -202,6 +214,7 @@ export const FormRegister = props => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_success_registrarme`
         )
+        handleFia()
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
@@ -518,6 +531,12 @@ export const FormRegister = props => {
                                 setShowStudents(!showStudents)
                               } else {
                                 onClose()
+                                if (
+                                  typeDialog === 'organico' &&
+                                  window.location.pathname.match(/newsletters/)
+                                ) {
+                                  window.location.reload()
+                                }
                               }
                             }}>
                             CONTINUAR

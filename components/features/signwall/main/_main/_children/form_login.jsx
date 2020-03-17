@@ -20,12 +20,15 @@ export const FormLogin = ({
   typeDialog,
   onClose,
   arcSite,
+  isFia,
+  handleCallToAction,
   siteProperties: {
     signwall: { mainColorLink, mainColorBtn, primaryFont, mainColorBr },
     activeNewsletter = false,
     activePaywall,
   },
   removeBefore = i => i,
+  onLogged = i => i,
 }) => {
   const [showLoginEmail, setShowLoginEmail] = useState(false)
   const [showError, setShowError] = useState(false)
@@ -162,6 +165,12 @@ export const FormLogin = ({
         })
       } else {
         onClose()
+        if (
+          typeDialog === 'organico' &&
+          window.location.pathname.match(/newsletters/)
+        ) {
+          window.location.reload()
+        }
       }
     })
   }
@@ -214,6 +223,13 @@ export const FormLogin = ({
       })
   }
 
+  const handleFia = () => {
+    if (typeof window !== 'undefined' && isFia) {
+      handleCallToAction(true);
+    }
+    return null;
+  }
+
   const onSubmitForm = state => {
     const { lemail, lpass } = state
     setShowLoading(true)
@@ -225,6 +241,8 @@ export const FormLogin = ({
       .then(() => {
         handleGetProfile()
         taggeoSuccess()
+        onLogged()
+        handleFia()
       })
       .catch(errLogin => {
         if (errLogin.code === '300040' || errLogin.code === '300037') {
@@ -285,6 +303,7 @@ export const FormLogin = ({
                 typeForm="login"
                 activeNewsletter={activeNewsletter}
                 checkUserSubs={checkUserSubs}
+                onLogged={onLogged}
               />
               {/* {ENV.ENVIRONMENT !== 'elcomercio' && (
                 <ButtonSocial
@@ -348,7 +367,7 @@ export const FormLogin = ({
 
                   <S.Link
                     href="#"
-                    c="light"
+                    c="gray"
                     className="mt-10 mb-20 inline f-right text-sm"
                     onClick={e => {
                       e.preventDefault()

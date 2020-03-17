@@ -5,7 +5,7 @@ import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'story-dev'
-
+let arcSite = ''
 const params = [
   {
     name: 'website_url',
@@ -23,6 +23,7 @@ const options = {
 }
 
 const getAdditionalData = (storyData, website) => {
+  arcSite = website
   if (storyData.type === 'redirect') return storyData
 
   return request({

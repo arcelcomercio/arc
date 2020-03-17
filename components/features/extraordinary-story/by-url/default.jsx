@@ -6,18 +6,23 @@ import customFieldsExtern from './_dependencies/custom-fields'
 import schemaFilter from '../_dependencies/schema-filter'
 import Data from '../_dependencies/data'
 import ExtraordinaryStory from '../../../global-components/extraordinary-story'
-import { getPhotoId } from '../../../utilities/helpers'
 
 const API_URL = 'story-by-url'
 const PHOTO_SOURCE = 'photo-resizer'
+
+const getPhotoId = photoUrl => {
+  if (!photoUrl) return ''
+  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
+  const [, photoId] = customPhotoUrl || []
+  return photoId
+}
 
 const ExtraordinaryStoryByUrl = props => {
   const { customFields } = props
   const { link = '', showExtraordinaryStory, multimediaSource } = customFields
   const { deployment, contextPath, arcSite } = useFusionContext()
 
-  const presets =
-    'landscape_xl:980x528,landscape_ext_story:980x355,landscape_l:648x374,square_l:600x600'
+  const presets = 'landscape_xl:980x355,square_l:600x600'
 
   const data =
     useContent(

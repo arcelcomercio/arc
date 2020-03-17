@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import getProperties from 'fusion:properties'
@@ -9,6 +9,11 @@ import { getAssetsPath } from '../../../utilities/constants'
 const TvHeader = () => {
   const { contextPath, deployment, arcSite } = useFusionContext()
   const [statusMenu, changeStatus] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+    window.navigator.userAgent
+  )
 
   const {
     assets: { tv: { siteLogo } = {} } = {},
@@ -32,6 +37,9 @@ const TvHeader = () => {
     }) || {}
 
   const toggleMenu = () => {
+    if(statusMenu){
+      document.body.classList.remove('overflow-hidden');
+    }
     changeStatus(!statusMenu)
   }
 
@@ -54,48 +62,69 @@ const TvHeader = () => {
     return auxList
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const _handleScroll = () => {
+    const { body = {}, documentElement = {} } = document
+    const { scrollTop: scrollBody = 0 } = body
+    const { scrollTop: scrollElement = 0 } = documentElement
+    const scroll = scrollBody || scrollElement
+
+    const headerTop = 10
+    if (!scrolled && scroll > headerTop) setScrolled(true)
+    else if (scrolled && scroll <= headerTop) setScrolled(false)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', _handleScroll)
+    return () => {
+      window.removeEventListener('scroll', _handleScroll)
+    }
+  }, [_handleScroll])
+
   return (
-    <header className="tv-header">
-      <a
-        href={logoUrl}
-        className="tv-header__section-logo block position-absolute mt-25">
-        <img
-          className="w-full"
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/assets/extraordinary-story/grid/logo.png`
-          )}
-          alt={logoAlt}
-        />
-      </a>
-      <div className="tv-header__logo-container  position-absolute flex mt-25 bg-white p-5 pl-10 pr-10 rounded-md">
-        <button
-          type="button"
-          className="mr-15 p-0"
-          onClick={() => toggleMenu()}>
-          <i className="tv-header__icon icon-hamburguer text-primary-color" />
-        </button>
-        <a href="/" className="tv-header__logo block">
+    <header className={`tv-header flex justify-center ${
+      scrolled ? 'active' : ''}`}>
+      <div className="tv-header__content position-relative">
+        {statusMenu && (
+          <MenuTV
+            {...{ menuSections: formatMenuSections(menuSections) }}
+          />
+        )}
+        <div className="tv-header__logo-container  position-absolute flex mt-10 pl-15 pr-15">
+          <button
+            type="button"
+            className="mr-15 p-0"
+            onClick={() => toggleMenu()}>
+            <i className="tv-header__icon icon-hamburguer text-primary-color" />
+          </button>
+          <button 
+            type="button" 
+            className="tv-header__programas block" 
+            onClick={() => toggleMenu()}>
+            PROGRAMAS
+          </button>
+        </div>
+        <a
+          href={logoUrl}
+          className="tv-header__section-logo block position-absolute mt-5">
           <img
             className="w-full"
             src={deployment(
               `${getAssetsPath(
                 arcSite,
                 contextPath
-              )}/resources/dist/${arcSite}/images/${siteLogo}`
+              )}/resources/assets/extraordinary-story/grid/logo.png`
             )}
-            alt={siteName}
+            alt={logoAlt}
           />
         </a>
+        <a 
+        href="https://peru21.pe/"
+        className="tv-header__go-portada position-absolute">
+        { (isMobile) ? `Perú21 ` : `Portada Perú21 ` }
+        <i className="tv-header__go-arrow icon-arrow-r"></i>
+        </a>
       </div>
-      {statusMenu && (
-        <MenuTV
-          toggleMenu={toggleMenu}
-          {...{ menuSections: formatMenuSections(menuSections) }}
-        />
-      )}
     </header>
   )
 }

@@ -92,8 +92,22 @@ class Domains {
     return `https://${_env_}paywall.comerciosuscripciones.pe/api`
   }
 
-  getUrlProfile = () => {
-    return '/mi-perfil/?outputType=signwall'
+  getUrlProfile = arcSite => {
+    return ENV.ENVIRONMENT === 'elcomercio'
+      ? '/mi-perfil/?outputType=signwall'
+      : `/pf/mi-perfil/?_website=${arcSite}&outputType=signwall`
+  }
+
+  getUrlLandingAuth = arcSite => {
+    return ENV.ENVIRONMENT === 'elcomercio'
+      ? '/auth-fia/?outputType=signwall'
+      : `/pf/auth-fia/?_website=${arcSite}&outputType=signwall`
+  }
+
+  getUrlPaywallFia = arcSite => {
+    return ENV.ENVIRONMENT === 'elcomercio'
+      ? `/suscripcionesdigitales/fia/planes/?ref=auth-fia`
+      : `/pf/suscripcionesdigitales/fia/planes/?_website=${arcSite}&outputType=paywall`
   }
 }
 

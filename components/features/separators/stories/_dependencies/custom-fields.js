@@ -11,6 +11,10 @@ export default PropTypes.shape({
   isSeeMoreVisible: PropTypes.bool.tag({
     name: 'Mostrar botón "Ver más"',
   }),
+  isImageVisible: PropTypes.bool.tag({
+    name: 'Mostrar Imagen',
+    defaultValue: true,
+  }),
   titleSeparator: PropTypes.string.tag({
     name: 'Titulo del separador',
     group: 'Configuración del título',

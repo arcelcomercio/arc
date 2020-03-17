@@ -1,4 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
+/* global fbq dataLayer */
 import React, { useState, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'

@@ -206,14 +206,12 @@ const ParagraphshWithAdds = ({
 
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
-          
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
           paragraphwithAdd = `${processedParagraph} ${
-
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
-            }`
+          }`
           IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
@@ -223,14 +221,12 @@ const ParagraphshWithAdds = ({
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
-          
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
           paragraphwithAdd = `${processedParagraph} ${
-
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
-            }`
+          }`
           IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
@@ -282,7 +278,7 @@ const BuildHtml = ({
   listUrlAdvertisings,
   websiteUrlsBytag,
   arcSite,
-  section
+  section,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -295,7 +291,15 @@ const BuildHtml = ({
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
   }
-  const {type} = multimedia || {}
+  const getContentType = ({ premium = '' } = {}) => {
+    let contenType = premium ? 'locked' : 'metered'
+    contenType = section.match(/publirreportaje|publireportaje/)
+      ? 'free'
+      : contenType
+
+    return contenType
+  }
+  const { type } = multimedia || {}
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -303,6 +307,9 @@ const BuildHtml = ({
       <meta charset="utf-8" />
       <meta property="op:markup_version" content="v1.0" />
       <meta property="fb:article_style" content="${fbArticleStyle}" />
+      <meta property="article:content_tier" content="${getContentType(
+        propsScriptHeader
+      )}"/>
       <link rel="canonical" href="${canonical}"/>
   </head>
   <body>
@@ -311,8 +318,8 @@ const BuildHtml = ({
         <iframe>
           <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
           <script type="text/javascript">${ScriptHeader(
-      propsScriptHeader
-    )}</script>
+            propsScriptHeader
+          )}</script>
           <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
           <script>${ScriptElement()}</script>
         </iframe>
@@ -334,17 +341,25 @@ const BuildHtml = ({
           (arcSite === 'publimetro' && section === 'redes-sociales') ||
           (arcSite === 'publimetro' && section === 'entretenimiento')
         )
-          ?
-        `
-        ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>` : ''}
+          ? `
         ${
-          websiteUrlsBytag.length > 0 ? 
-          `<ul class="op-related-articles" title="Noticias relacionadas">
-          ${websiteUrlsBytag.map(url => url === canonical ? '' : `<li><a href="${url}"></a></li>`).join('')}
-          </ul>` : ''
+          type === ConfigParams.GALLERY
+            ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>`
+            : ''
+        }
+        ${
+          websiteUrlsBytag.length > 0
+            ? `<ul class="op-related-articles" title="Noticias relacionadas">
+          ${websiteUrlsBytag
+            .map(url =>
+              url === canonical ? '' : `<li><a href="${url}"></a></li>`
+            )
+            .join('')}
+          </ul>`
+            : ''
         }
         `
-        : ''
+          : ''
       }
     </article>
   </body>

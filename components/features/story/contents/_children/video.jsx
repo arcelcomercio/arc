@@ -1,5 +1,7 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import { getResizedUrl } from '../../../../utilities/resizer'
+import { getAssetsPathVideo } from '../../../../utilities/assets'
 
 const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
@@ -15,13 +17,37 @@ const StoryContentChildVideo = props => {
 
   const {
     promo_items: {
-      basic_video: { additional_properties: video = {} } = {},
+      basic_video: {
+        _id: idPrincial,
+        additional_properties: video = {},
+        promo_items: { basic: { url: urlImage = '' } = {} } = {},
+        streams = [],
+      } = {},
     } = {},
   } = globalContent || {}
 
   const videoData = video || ''
-  const { data = {}, description = '' } = props
+  const {
+    _id: id,
+    data = {},
+    htmlContent = false,
+    description = '',
+    promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
+    streams: streamsContent = [],
+    url: imagenMigrate = '',
+    contentElemtent = false,
+    reziserVideo = true,
+  } = props
+  const imageUrl = contentElemtent ? urlImageContent : urlImage
+  const { large } =
+    getResizedUrl({
+      url: imageUrl || imagenMigrate,
+      presets: 'large:680x400',
+      arcSite,
+    }) || {}
+
   const urlVideo = data
+
     .replace(
       /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.elcomercio.pe$1'
@@ -34,6 +60,24 @@ const StoryContentChildVideo = props => {
       /https:\/\/gestion.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.gestion.pe$1'
     )
+
+  const getResultVideo = streamss => {
+    const resultVideo = streamss
+      .map(({ url = '', stream_type: streamType = '' }) => {
+        return streamType === 'ts' ? url : []
+      })
+      .filter(String)
+    const cantidadVideo = resultVideo.length
+
+    return arcSite !== 'elcomercio'
+      ? getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
+      : resultVideo[cantidadVideo - 1]
+  }
+
+  const videoUrlContent =
+    contentElemtent && streamsContent[1] ? getResultVideo(streamsContent) : ''
+
+  const videoUrlPrincipal = streams[1] ? getResultVideo(streams) : ''
 
   const getSectionSlug = (sectionId = '') => {
     return sectionId.split('/')[1] || ''
@@ -68,6 +112,7 @@ const StoryContentChildVideo = props => {
       arcSite === 'trome'
     ) {
       const arcSiteNew = arcSite === 'peru21g21' ? 'peru21' : arcSite
+
       let webSite = ''
       switch (arcSite) {
         case 'publimetro':
@@ -135,39 +180,32 @@ const StoryContentChildVideo = props => {
     }
     return urlPreroll
   }
+  const ids = id || idPrincial
 
-  const powa = `
-      (function(){
-        window.addEventListener('load',
-          function(){ setTimeout(function(){
-            if (window.powaBoot) window.powaBoot()
-            if (window.PoWaSettings) {
-              window.preroll = '${getParametroPublicidad()}'
-              window.PoWaSettings.advertising = {
-                adBar: false,
-                adTag: '${
-                  videoData.advertising &&
-                  videoData.advertising.playAds === true
-                    ? getParametroPublicidad()
-                    : ''
-                }'
-              }
-            }
-            window.addEventListener('powaReady', ({ detail: { element } }) => {element.setAttribute('data-sticky', 'true')})
-          }, 0)} 
-        )
-      })()`
+  const uidArray = urlVideo.match(
+    /data-uuid="(([0-9a-z-A-Z]*[0-9a-z-A-Z])\w+)"/
+  )
+  const videoArray = urlVideo.match(
+    /stream="((.*).(jpeg|jpg|png|gif|mp4|mp3))"/
+  )
 
   return (
     <>
-      {urlVideo && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: urlVideo.replace('[goldfish_publicidad]', ''),
-          }}></div>
-      )}
+      <div
+        className="lazyload-video"
+        data-uuid={ids || (uidArray && uidArray[1])}
+        data-reziser={reziserVideo}
+        data-api="prod"
+        data-streams={
+          videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
+        }
+        data-preroll={
+          videoData.advertising && videoData.advertising.playAds === true
+            ? getParametroPublicidad()
+            : ''
+        }
+        data-poster={large}></div>
       <figcaption className={classes.caption}>{description} </figcaption>
-      <script dangerouslySetInnerHTML={{ __html: powa }}></script>
     </>
   )
 }

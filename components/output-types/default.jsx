@@ -17,6 +17,7 @@ import {
 } from '../utilities/helpers'
 // import ConfigParams from '../utilities/config-params'
 import { getAssetsPath } from '../utilities/constants'
+import StoryData from '../utilities/story-data'
 
 export default ({
   children,
@@ -82,6 +83,8 @@ export default ({
     classBody = `${isStory && 'story'} section-play`
   if (requestUri.match(`^(/videos/.*)`))
     classBody = `${isStory && 'story'} section-videos`
+  if (requestUri.match(`^(/peru21tv/.*)`))
+    classBody = `${isStory && 'story'} section-peru21tv`
 
   if (arcSite === 'elcomercio') {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
@@ -210,7 +213,7 @@ export default ({
     }
   })()`
 
-  const { googleFonts = '' } = siteProperties || {}
+  const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
   const isLivePage = arcSite === 'elcomercio' && requestUri.match(`^/en-vivo/`)
@@ -221,6 +224,48 @@ export default ({
   s_bbcws('partner', 'elcomercio.pe');
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
+
+  const scriptVideo = `
+ const videoObserver = (entries, observer) => {
+  entries.forEach(entry => {
+    const { isIntersecting, target } = entry
+    if (isIntersecting) {
+      const uuid = target.getAttribute('data-uuid')
+      const preroll = target.getAttribute('data-preroll')
+      const api = target.getAttribute('data-api')
+      const poster = target.getAttribute('data-poster')
+      const streams = target.getAttribute('data-streams')
+      const reziser = target.getAttribute('data-reziser')
+      const dataVideo = '<div class="powa" id="powa-{uuid}" data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" ></div>'
+     
+      target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
+       if (window.powaBoot) window.powaBoot()
+      if (window.PoWaSettings) {
+        window.preroll = preroll
+        window.PoWaSettings.advertising = {
+          adBar: false,
+          adTag: preroll,
+        }
+      }
+
+      observer.unobserve(target)
+    }
+  })
+}
+
+if ('IntersectionObserver' in window) {
+  const options = {
+    rootMargin: '0px 0px 0px 0px',
+  }
+  const videos = Array.from(document.querySelectorAll('.lazyload-video'))
+  videos.forEach(video => {
+   
+      const observer = new IntersectionObserver(videoObserver, options)
+      observer.observe(video)
+      
+  })
+}
+`
 
   const {
     website_url: url = '',
@@ -233,6 +278,23 @@ export default ({
 
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
+
+  const {
+    videoSeo,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
+  const contenidoVideo =
+    content.includes('id="powa-') || videoSeo[0] ? 1 : false
+
+  const stylePwa = `
+    .powa-shot { position: absolute; color: rgb(240, 248, 255); font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;    z-index: 1;    width: 100%; height: 100%;    top: 0px;    left: 0px;}
+    .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
+    .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
+    .powa-play-btn { transform: inherit; }`
 
   return (
     <html lang="es">
@@ -251,23 +313,62 @@ export default ({
         )}
 
         <title>{title}</title>
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
-        <link rel="dns-prefetch" href="//www.facebook.com/" />
-        <link rel="dns-prefetch" href="//connect.facebook.net/" />
-        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
-        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
-        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//ping.chartbeat.net/" />
-        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
-        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
+        <link rel="preconnect dns-prefetch" href={`//cdnc.${siteDomain}`} />
+        <link
+          rel="preconnect dns-prefetch"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//d1r08wok4169a5.cloudfront.net"
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//elcomercio-elcomercio-prod.cdn.arcpublishing.com"
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com"
+        />
+        <link rel="preconnect dns-prefetch" href="//s.go-mpulse.net" />
+        <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect dns-prefetch" href="//ajax.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
+        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
+        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
+        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
+        <link rel="preconnect dns-prefetch" href="//static.chartbeat.com" />
+        <link rel="preconnect dns-prefetch" href="//scomcluster.cxense.com" />
+        <link rel="preconnect dns-prefetch" href="//sb.scorecardresearch.com" />
+        <link rel="preconnect dns-prefetch" href="//ping.chartbeat.net" />
+        <link rel="preconnect dns-prefetch" href="//mab.chartbeat.com" />
+        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-subs-sdk.s3.amazonaws.com"
+        />
+        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
+        {arcSite === 'elcomercio' && (
+          <>
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff"
+            />
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff"
+            />
+          </>
+        )}
         {googleFonts && (
           <link
             href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
@@ -320,7 +421,13 @@ export default ({
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
         <Libs />
-
+        {contenidoVideo && (
+          <>
+            <script
+              src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
+              async></script>
+          </>
+        )}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(arcSite === 'depor' ||
           arcSite === 'elcomercio' ||
@@ -418,6 +525,19 @@ export default ({
           async
           src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
         />
+        {contenidoVideo && (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: scriptVideo }}
+            />
+            <style
+              dangerouslySetInnerHTML={{
+                __html: stylePwa,
+              }}></style>
+          </>
+        )}
         {/* Rubicon BlueKai - Fin */}
       </body>
     </html>

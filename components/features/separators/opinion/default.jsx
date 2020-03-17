@@ -7,6 +7,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import { createMarkup } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
+import Separator from './_children/separator'
 import {
   includePrimarySection,
   includeCredits,
@@ -35,8 +36,8 @@ const SeparatorOpinion = props => {
       website: arcSite,
       stories_qty: STORIES_QTY,
       section,
-      presets: 'square_s:85x85',
-      includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection},${includeCredits},${includeCreditsImage},credits.by.image.resized_urls`,
+      presets: isAdmin ? 'square_s:85x85' : 'no-presets',
+      includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection},${includeCredits},${includeCreditsImage},credits.by.image.resized_urls,credits.by.image.url`,
     },
     filter: schemaFilter(arcSite),
     transform: data => {
@@ -54,7 +55,10 @@ const SeparatorOpinion = props => {
         contentElements.map(story => {
           const { credits: { by = [] } = {} } = story || {}
           const {
-            image: { resized_urls: { square_s: squareS = '' } = {} } = {},
+            image: {
+              resized_urls: { square_s: squareS = '' } = {},
+              url = '',
+            } = {},
           } = by[0] || {}
 
           storyData.__data = story
@@ -68,13 +72,16 @@ const SeparatorOpinion = props => {
             websiteUrl: storyData.websiteLink,
             imageUrl: squareS || storyData.authorImage,
             multimediaLazyDefault: storyData.multimediaLazyDefault,
+            multimedia: url,
           }
         })
 
       return filteredStories
     },
   })
-
+  if (arcSite === 'elcomercio') {
+    return <Separator {...{ arcSite, isAdmin, stories }} />
+  }
   return (
     <div className={classes.separator}>
       {titleSection ? (

@@ -43,7 +43,7 @@ const RenderRelatedContentElement = (props, i) => {
   })
   const filterData = {
     nameTitle: get.title,
-    urlTitle: get.websiteLink,
+    urlTitle: get.link,
     multimediaType: get.multimediaType,
     multimediaImg:
       typeof window === 'undefined'
