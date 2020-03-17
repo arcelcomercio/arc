@@ -18,6 +18,14 @@ const GridLayout = ({ children = [] }) => {
       <div className={classes.contentContainer}>
         {children[1] /* Publicidad Top */}
         {children[2] /* Barra de navegación */}
+        {children[3] /* Cabecera de página */}
+        {children[4] /* Encabezado */}
+        <div role="main" className={classes.content}>
+          {children[5] /* Contenido */}
+        </div>
+        {children[6] && (
+          <section className={classes.aditional}>{children[6]}</section>
+        ) /* Contenido adicional */}
         {children[7] /* Pie de página */}
       </div>
       <div className={classes.zocalo}>{children[8] /* Zocalo derecha */}</div>
