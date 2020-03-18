@@ -36,7 +36,7 @@ const TvSeparator = props => {
         section,
         stories_qty: maxStories,
         presets: 'preset1:9x5,preset2:280xx157',
-        includedFields: `headlines.basic,display_name,promo_items,${includeSections}`,
+        includedFields: `headlines.basic,display_date,promo_items,${includeSections}`,
       },
       filter: schemaFilter,
     }) || {}
