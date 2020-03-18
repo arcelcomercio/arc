@@ -1,5 +1,9 @@
 import React from 'react'
-import { deleteQueryString, addSlashToEnd } from '../../utilities/helpers'
+import {
+  deleteQueryString,
+  addSlashToEnd,
+  createMarkup,
+} from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
 
@@ -18,6 +22,8 @@ export default ({
   contextPath = '',
   isMobile = false,
   CURRENT_ENVIRONMENT,
+  Resource,
+  isStyleBasic = false,
 } = {}) => {
   const logoSite = `${getAssetsPath(
     arcSite,
@@ -71,7 +77,30 @@ export default ({
 
   return (
     <>
-      {isAmp === false && <link rel="stylesheet" href={deployment(styleUrl)} />}
+      {isStyleBasic ? (
+        <>
+          <Resource path={`resources/dist/${arcSite}/css/basic.css`}>
+            {({ data }) => {
+              return data ? (
+                <style
+                  amp-custom="amp-custom"
+                  dangerouslySetInnerHTML={createMarkup(
+                    data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', '')
+                  )}
+                />
+              ) : null
+            }}
+          </Resource>
+        </>
+      ) : (
+        <>
+          {isAmp === false && (
+            <link rel="stylesheet" href={deployment(styleUrl)} />
+          )}
+        </>
+      )}
       <link
         rel="shortcut icon"
         type="image/png"

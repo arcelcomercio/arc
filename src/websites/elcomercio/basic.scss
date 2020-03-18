@@ -1,0 +1,18 @@
+$assets_url: "https://cdna.elcomercio.pe";
+$header-mobile-height: 60px;
+/******* Framework Variables*******/
+@import "../../general-styles/framework/variables/index";
+/*---------------------*/
+
+/******* Site Variables *******/
+@import "../../general-styles/framework/core/index";
+@import "../../general-styles/framework/generators/basic";
+/*---------------------*/
+
+/******* Partials *******/
+/*---------------------*/
+
+@import "../../general-styles/components/features/layout/navbar/nav";
+@import "../../general-styles/components/features/layout/header/header";
+@import "./scss/components/layout/navbar/nav";
+@import "./scss/components/layout/header/header";
