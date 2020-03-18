@@ -120,9 +120,9 @@ class LiveScoreMinuteToMinute extends Component {
     // const heightTotal = score.offsetHeight
 
     if (scrollHeight > heightTotal) {
-      score.classList.add('sticky')
+      score.classList.add('score-sticky__content')
     } else {
-      score.classList.remove('sticky')
+      score.classList.remove('score-sticky__content')
     }
   }
 
