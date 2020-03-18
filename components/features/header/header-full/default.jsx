@@ -18,6 +18,7 @@ const HeaderFull = props => {
     contextPath,
     deployment,
     siteProperties,
+    requestUri,
     globalContent: {
       type = '',
       website_url: postPermaLink,
@@ -82,7 +83,13 @@ const HeaderFull = props => {
   const { children: headerList = [] } = dataHeader
   const { children: menuList = [] } = dataMenu
 
-  const isStory = type === ConfigParams.ELEMENT_STORY
+  let isStory = type === ConfigParams.ELEMENT_STORY
+  if (
+    requestUri.includes('/alineaciones/') ||
+    requestUri.includes('/estadisticas/')
+  ) {
+    isStory = false
+  }
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
