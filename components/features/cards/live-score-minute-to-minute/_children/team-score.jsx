@@ -17,15 +17,23 @@ const LiveScoreMinuteToMinuteTeanScore = ({
   return (
     <div className={classes.scoreBox}>
       {homeTeam ? (
-        <ItemTeamName name={name} flag={flag} />
+        <ItemTeamName name={name} flag={flag} homeTeam={homeTeam} />
       ) : (
-        <ItemScore scoreTeam={scoreTeam} matchstatus={matchstatus} />
+        <ItemScore
+          scoreTeam={scoreTeam}
+          matchstatus={matchstatus}
+          homeTeam={homeTeam}
+        />
       )}
 
       {homeTeam ? (
-        <ItemScore scoreTeam={scoreTeam} matchstatus={matchstatus} />
+        <ItemScore
+          scoreTeam={scoreTeam}
+          matchstatus={matchstatus}
+          homeTeam={homeTeam}
+        />
       ) : (
-        <ItemTeamName name={name} flag={flag} />
+        <ItemTeamName name={name} flag={flag} homeTeam={homeTeam} />
       )}
     </div>
   )
