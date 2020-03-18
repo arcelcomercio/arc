@@ -192,10 +192,15 @@ class LiveScoreMinuteToMinute extends Component {
               <span className={classes.liveFixtureText}>Previo al partido</span>
             </div>
           )}
+          {matchstatus === POSTPONEDSTATE && (
+            <div className={classes.liveEnd}>
+              <span className={classes.liveFixtureText}>Previo al partido</span>
+            </div>
+          )}
 
           <TeanScore {...visitingTeamParams} />
         </div>
-        {textStatusValidation && (
+        {!textStatusValidation && (
           <span className={classes.liveTextStatus}>{periodId}</span>
         )}
 
