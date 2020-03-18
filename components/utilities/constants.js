@@ -36,7 +36,7 @@ export const getAssetsPath = (arcSite, contextPath) => {
 
 // Estados de los partidos (opta)
 
-export const FIXTURE = 'Fixture' // por jugarse
+export const FIXTURESTATE = 'Fixture' // por jugarse
 export const PLAYING = 'Playing' // en vivo
 export const PLAYED = 'Played' // jugado
-export const POSTPONED = 'Postponed' // pospuesto
+export const POSTPONEDSTATE = 'Postponed' // pospuesto

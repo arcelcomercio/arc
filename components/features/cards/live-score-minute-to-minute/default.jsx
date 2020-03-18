@@ -11,10 +11,10 @@ import {
 } from '../../../utilities/get-story-values'
 
 import {
-  FIXTURE,
+  FIXTURESTATE,
   PLAYING,
   PLAYED,
-  POSTPONED,
+  POSTPONEDSTATE,
 } from '../../../utilities/constants'
 
 const classes = {
@@ -167,6 +167,11 @@ class LiveScoreMinuteToMinute extends Component {
       window.addEventListener('scroll', this.handleMovileScroll)
     }
 
+    const textStatusValidation = [FIXTURESTATE, POSTPONEDSTATE].includes(
+      matchstatus
+    )
+    // const textStatusValidation = matchstatus !== FIXTURESTATE && matchstatus !== POSTPONEDSTATE
+
     return (
       <div className={classes.liveScore} id="scoreMinuteByMinute">
         <div className={classes.liveWrapper}>
@@ -182,7 +187,7 @@ class LiveScoreMinuteToMinute extends Component {
               <span className={classes.liveEndText}>{`${matchTime}''`}</span>
             </div>
           )}
-          {matchstatus === FIXTURE && (
+          {matchstatus === FIXTURESTATE && (
             <div className={classes.liveEnd}>
               <span className={classes.liveFixtureText}>Previo al partido</span>
             </div>
@@ -190,7 +195,7 @@ class LiveScoreMinuteToMinute extends Component {
 
           <TeanScore {...visitingTeamParams} />
         </div>
-        {matchstatus !== FIXTURE && matchstatus !== POSTPONED && (
+        {textStatusValidation && (
           <span className={classes.liveTextStatus}>{periodId}</span>
         )}
 

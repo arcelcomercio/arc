@@ -181,3 +181,30 @@ export const buildTeamFootballOptaParams = (data = {}) => {
     periodId,
   }
 }
+
+export const formatGoalList = (goalList = []) => {
+  // agrupa los goles de los jugadores
+  const footballPlayers = []
+  const result = []
+  goalList.forEach(footballPlayer => {
+    const { scorerName } = footballPlayer
+    if (!footballPlayers.includes(scorerName)) {
+      footballPlayers.push(scorerName)
+      const goalMinute = []
+
+      for (let j = 0; j < goalList.length; j++) {
+        if (goalList[j].scorerName === footballPlayer.scorerName) {
+          const type = goalList[j].type !== 'G' ? goalList[j].type : ''
+          goalMinute.push(`${type} ${goalList[j].timeMinSec.split(':')[0]}`)
+        }
+      }
+
+      const listText = goalMinute.map(text => `${text}'`).join(',')
+      result.push({
+        scorerName,
+        timeMinSec: listText,
+      })
+    }
+  })
+  return result
+}
