@@ -110,7 +110,7 @@ class LiveScoreMinuteToMinute extends Component {
 
   handleMovileScroll = () => {
     const scrollHeight = window.scrollY
-    const score = document.getElementById('scoreMinuteByMinute')
+    const score = document.querySelector('.score-sticky')
     const header =
       document.querySelector('.header-full') &&
       document.querySelector('.header-full').offsetHeight
@@ -170,7 +170,6 @@ class LiveScoreMinuteToMinute extends Component {
     const textStatusValidation = [FIXTURESTATE, POSTPONEDSTATE].includes(
       matchstatus
     )
-    // const textStatusValidation = matchstatus !== FIXTURESTATE && matchstatus !== POSTPONEDSTATE
 
     return (
       <div className={classes.liveScore} id="scoreMinuteByMinute">
