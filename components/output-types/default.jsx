@@ -332,7 +332,8 @@ if ('IntersectionObserver' in window) {
   as="style"
 />`
 
-  const isStyleBasic = arcSite === 'elcomercio' && link === '/' && true
+  const isStyleBasic =
+    arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
   return (
     <html lang="es">
       <head>

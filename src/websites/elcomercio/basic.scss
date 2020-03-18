@@ -14,5 +14,10 @@ $header-mobile-height: 60px;
 
 @import "../../general-styles/components/features/layout/navbar/nav";
 @import "../../general-styles/components/features/layout/header/header";
+@import "../../general-styles/components/global-components/extraordinary-story";
+@import "../../general-styles/components/features/breaking-news/breaking-news";
+
 @import "./scss/components/layout/navbar/nav";
 @import "./scss/components/layout/header/header";
+@import "./scss/global-components/extraordinary-story";
+@import "./scss/components/breaking-news/breaking-news";
