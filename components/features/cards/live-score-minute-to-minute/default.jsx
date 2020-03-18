@@ -117,6 +117,7 @@ class LiveScoreMinuteToMinute extends Component {
         ? document.querySelector('.header-full').offsetHeight
         : 0
     const heightTotal = score.offsetHeight + header
+    // const heightTotal = score.offsetHeight
 
     if (scrollHeight > heightTotal) {
       score.classList.add('sticky')
