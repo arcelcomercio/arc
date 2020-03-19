@@ -83,7 +83,6 @@ export default ({
             {({ data }) => {
               return data ? (
                 <style
-                  amp-custom="amp-custom"
                   dangerouslySetInnerHTML={createMarkup(
                     data
                       .replace('@charset "UTF-8";', '')
