@@ -551,16 +551,33 @@ if ('IntersectionObserver' in window) {
         />
 
         {/* Rubicon BlueKai - Inicio */}
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-        />
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-        />
+        {arcSite === 'elcomercio' && metaValue('id') === 'meta_home' ? (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+            />
+            <script
+              type="text/javascript"
+              defer
+              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+            />
+          </>
+        ) : (
+          <>
+            <script
+              type="text/javascript"
+              async
+              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+            />
+            <script
+              type="text/javascript"
+              async
+              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+            />
+          </>
+        )}
         {contenidoVideo && (
           <>
             <script
