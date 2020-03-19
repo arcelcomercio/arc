@@ -1,7 +1,7 @@
 /* eslint-disable no-control-regex */
 import ConfigParams from '../../../../utilities/config-params'
 import StoryData from '../../../../utilities/story-data'
-import { clearHtml, clearBrTag } from '../../../../utilities/helpers'
+import { nbspToSpace } from '../../../../utilities/helpers'
 
 const utf8ForXml = inputStr => {
   return inputStr.replace(
@@ -10,15 +10,29 @@ const utf8ForXml = inputStr => {
   )
 }
 
+const clearBrTag = paragraph => {
+  return nbspToSpace(paragraph.trim().replace(/<\/?br[^<>]+>/, ''))
+}
+
+const clearHtml = paragraph => {
+  return nbspToSpace(
+    clearBrTag(
+      paragraph
+        .trim()
+        .replace(/(<([^(<!a|!b|!i)>]+)>)/gi, '')
+        .replace('   ', ' ')
+        .replace('  ', ' ')
+    )
+  )
+}
+
 const buildHeaderParagraph = paragraph => {
   return `<h2>${clearBrTag(paragraph)}</h2>`
 }
 
 const buildParagraphText = elementText => {
-  let result = ''
   const cleanParagraph = clearHtml(elementText)
-  result = cleanParagraph !== '' ? `<p>${clearHtml(cleanParagraph)}</p>` : ''
-  return result
+  return cleanParagraph !== '' ? `<p>${clearHtml(cleanParagraph)}</p>` : ''
 }
 
 const buildParagraphList = listParagraph => {
@@ -38,9 +52,17 @@ const buildParagraphList = listParagraph => {
   return result
 }
 
+const buildParagraphImage = image => {
+  const { payload = '', caption = '' } = image
+  return `<img src="${payload}" alt="${caption}">`
+}
+
 const analyzeParagraph = paragraph => {
   let result = ''
   switch (paragraph.type) {
+    case ConfigParams.ELEMENT_IMAGE:
+      result += buildParagraphImage(paragraph)
+      break
     case ConfigParams.ELEMENT_TEXT:
       result += buildParagraphText(paragraph.payload)
       break
@@ -56,6 +78,7 @@ const analyzeParagraph = paragraph => {
     default:
       result += ''
   }
+  // console.log('!!!!!!!!!!!!!!!!!!! result analyze', paragraph.type, result)
   return result
 }
 

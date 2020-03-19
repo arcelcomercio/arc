@@ -7,6 +7,10 @@ import {
   nbspToSpace,
   isEmpty,
 } from '../../../../utilities/helpers'
+/* import {
+  OPTA_CSS_LINK,
+  OPTA_JS_LINK,
+} from '../../../../utilities/constants/opta' */
 
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
@@ -33,7 +37,9 @@ const buildHeaderParagraph = (paragraph, level = '2') => {
   result.numberWords = countWordsHelper(clearHtml(paragraph))
 
   result.processedParagraph =
-    result.numberWords > 0 ? `<h${level}>${clearBrTag(paragraph)}</h${level}>` : ''
+    result.numberWords > 0
+      ? `<h${level}>${clearBrTag(paragraph)}</h${level}>`
+      : ''
 
   return result
 }
@@ -42,7 +48,8 @@ const buildTexParagraph = paragraph => {
   const result = { numberWords: 0, processedParagraph: '' }
   result.numberWords = countWordsHelper(clearHtml(paragraph))
 
-  result.processedParagraph = result.numberWords > 0 ? `<p>${clearBrTag(paragraph)}</p>` : ''
+  result.processedParagraph =
+    result.numberWords > 0 ? `<p>${clearBrTag(paragraph)}</p>` : ''
 
   return result
 }
@@ -52,6 +59,7 @@ const analyzeParagraph = ({
   type = '',
   numberWordMultimedia,
   level = null,
+  opta,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -83,6 +91,7 @@ const analyzeParagraph = ({
       const paramBuildListParagraph = {
         processedParagraph,
         numberWordMultimedia,
+        opta,
       }
 
       // eslint-disable-next-line no-use-before-define
@@ -129,6 +138,26 @@ const analyzeParagraph = ({
         // para twitter y para instagram
         result.processedParagraph = `<figure class="op-interactive"><iframe>${processedParagraph}</iframe></figure>`
       } else if (
+        processedParagraph.includes('opta-widget') &&
+        // eslint-disable-next-line camelcase
+        typeof opta_settings === 'undefined'
+      ) {
+        const domainOriginIframeOpta = 'https://img.depor.com/opta/optawidget'
+        const pattern = /^<opta-widget (.+)><\/opta-widget>$/
+        const attributesWOpta = processedParagraph.match(pattern)[1].split(' ')
+
+        let urlIframe = `${domainOriginIframeOpta}?`
+        attributesWOpta.forEach((item, index) => {
+          const attr = item.match(/(.+)="(.+)"/)
+          const key = attr[1]
+          const value = attr[2]
+          urlIframe += `${key}=${value}${
+            index < attributesWOpta.length - 1 ? '&' : ''
+          }`
+        })
+
+        result.processedParagraph = `<iframe src="${urlIframe}" width="100%" height="500" style="max-height:500px" frameborder=0></iframe>`
+      } else if (
         processedParagraph.includes('https://www.facebook.com/plugins')
       ) {
         // para facebook
@@ -149,6 +178,7 @@ const analyzeParagraph = ({
 const buildListParagraph = ({
   processedParagraph: listParagraph,
   numberWordMultimedia,
+  opta,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
@@ -157,14 +187,13 @@ const buildListParagraph = ({
       originalParagraph: payload,
       type,
       numberWordMultimedia,
+      opta,
     })
     objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
     objTextsProcess.numberWords += numberWords
   })
 
-  objTextsProcess.processedParagraph = `<ul>${
-    objTextsProcess.processedParagraph
-    }</ul>`
+  objTextsProcess.processedParagraph = `<ul>${objTextsProcess.processedParagraph}</ul>`
   // objTextsProcess.totalwords = countwords
   return objTextsProcess
 }
@@ -175,6 +204,7 @@ const ParagraphshWithAdds = ({
   nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
+  opta,
 }) => {
   let newsWithAdd = []
   let countWords = 0
@@ -189,8 +219,8 @@ const ParagraphshWithAdds = ({
         type,
         numberWordMultimedia,
         level,
+        opta,
       })
-
 
       countWords += numberWords
 
@@ -202,25 +232,23 @@ const ParagraphshWithAdds = ({
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
-            }`
-            IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
+          }`
+          IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
         }
       } else {
-
         // a partir del segundo parrafo se inserta cada 350 palabras (nextAdds)
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
-
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
           paragraphwithAdd = `${processedParagraph} ${
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
-            }`
-            IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
+          }`
+          IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
         }
@@ -271,7 +299,8 @@ const BuildHtml = ({
   listUrlAdvertisings,
   websiteUrlsBytag,
   arcSite,
-  section
+  section,
+  opta,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -283,8 +312,9 @@ const BuildHtml = ({
     nextAdds,
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
+    opta,
   }
-  const {type} = multimedia || {}
+  const { type } = multimedia || {}
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -300,8 +330,8 @@ const BuildHtml = ({
         <iframe>
           <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
           <script type="text/javascript">${ScriptHeader(
-      propsScriptHeader
-    )}</script>
+            propsScriptHeader
+          )}</script>
           <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
           <script>${ScriptElement()}</script>
         </iframe>
@@ -323,17 +353,25 @@ const BuildHtml = ({
           (arcSite === 'publimetro' && section === 'redes-sociales') ||
           (arcSite === 'publimetro' && section === 'entretenimiento')
         )
-          ?
-        `
-        ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>` : ''}
+          ? `
         ${
-          websiteUrlsBytag.length > 0 ? 
-          `<ul class="op-related-articles" title="Noticias relacionadas">
-          ${websiteUrlsBytag.map(url => url === canonical ? '' : `<li><a href="${url}"></a></li>`).join('')}
-          </ul>` : ''
+          type === ConfigParams.GALLERY
+            ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>`
+            : ''
+        }
+        ${
+          websiteUrlsBytag.length > 0
+            ? `<ul class="op-related-articles" title="Noticias relacionadas">
+          ${websiteUrlsBytag
+            .map(url =>
+              url === canonical ? '' : `<li><a href="${url}"></a></li>`
+            )
+            .join('')}
+          </ul>`
+            : ''
         }
         `
-        : ''
+          : ''
       }
     </article>
   </body>
