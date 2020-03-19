@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  link: 'interstitial-link',
+  link: 'interstitial-link block secondary-font mb-10 mt-20 pr-20',
 }
 
 function interstitialLink({ url, content }) {
