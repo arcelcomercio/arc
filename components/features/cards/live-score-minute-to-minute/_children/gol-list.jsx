@@ -10,8 +10,8 @@ const classes = {
 const GolListTeams = ({ homeTeamGolList = [], awayTeamGolList = [] }) => {
   return (
     <div className={classes.gol}>
-      <GolListItem homeTeam goalList={homeTeamGolList} />
-      <GolListItem homeTeam={false} goalList={awayTeamGolList} />
+      <GolListItem goalList={homeTeamGolList} homeTeam />
+      <GolListItem goalList={awayTeamGolList} homeTeam={false} />
     </div>
   )
 }
