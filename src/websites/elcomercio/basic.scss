@@ -1,5 +1,6 @@
 $assets_url: "https://cdna.elcomercio.pe";
 $header-mobile-height: 60px;
+$color-base-300: #e8f2f7;
 /******* Framework Variables*******/
 @import "../../general-styles/framework/variables/index";
 /*---------------------*/
@@ -19,6 +20,7 @@ $header-mobile-height: 60px;
 @import "../../general-styles/components/features/cards/featured-story-manual-live/featured-story-manual-live";
 
 @import "./scss/components/layout/navbar/nav";
+@import "./scss/partials/base";
 @import "./scss/components/layout/header/header";
 @import "./scss/global-components/extraordinary-story";
 @import "./scss/components/breaking-news/breaking-news";
@@ -27,4 +29,8 @@ $header-mobile-height: 60px;
 
 .bg-primary {
   background-color: #f7c600;
+}
+.extraordinary-story__section {
+  background-color: #444;
+  padding-top: 10px;
 }
