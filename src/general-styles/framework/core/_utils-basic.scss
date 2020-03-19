@@ -52,35 +52,6 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
   @include build-class($display-class, display, $display);
 }
 
-// TODO:_Homologar las clases de no-<device>
-.no-desktop,
-[id*="ads-m"],
-[id*="ads_m"] {
-  @media (--tablet) {
-    display: none;
-  }
-}
-
-.no-mobile,
-.non-mobile,
-[id*="ads-d"],
-[id*="ads_d"] {
-  @media screen and (max-width: 639px) {
-    display: none;
-  }
-}
-
-[id*="ads-m"],
-[id*="ads_m"],
-[id*="ads-d"],
-[id*="ads_d"] {
-  text-align: center;
-
-  @media print {
-    display: none;
-  }
-}
-
 .non-tablet {
   @media screen and (min-width: 640px) and (max-width: 1023px) {
     display: none;
@@ -139,13 +110,7 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 *           POSITION            *
 *-------------------------------*/
 
-$map-pos: relative, absolute;
-
-@each $pos in $map-pos {
-  @include build-class(position-#{$pos}, position, $pos);
-}
-
-$map-pos-0: top, right, bottom, left;
+$map-pos-0: left;
 
 @each $pos-0 in $map-pos-0 {
   @include build-class(#{$pos-0}-0, $pos-0, 0);
@@ -155,18 +120,10 @@ $map-pos-0: top, right, bottom, left;
 *               TEXT            *
 *-------------------------------*/
 
-$map-text-pos: left, center, right;
+$map-text-pos: left;
 
 @each $text-pos in $map-text-pos {
   @include build-class(text-#{$text-pos}, text-align, $text-pos);
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.capitalize {
-  text-transform: capitalize;
 }
 
 .underline {
@@ -176,14 +133,6 @@ $map-text-pos: left, center, right;
 /** ----------------------------*
 *             FONTS             *
 *-------------------------------*/
-
-.primary-font {
-  font-family: $primary-font; // TODO: !important retirado por amp
-}
-
-.secondary-font {
-  font-family: $secondary-font; // TODO: !important retirado por amp
-}
 
 .tertiary-font {
   font-family: $tertiary-font;
@@ -240,22 +189,6 @@ No es un adios, es un hasta luego
 .lazy {
   filter: blur(10px);
 } */
-
-.font-0 {
-  font-size: 0;
-}
-
-.border-none {
-  border: none;
-}
-
-.opacity-0 {
-  opacity: 0;
-}
-
-.opacity-1 {
-  opacity: 1;
-}
 
 .wrapper {
   max-width: 1366px;
