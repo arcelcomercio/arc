@@ -4,7 +4,7 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
-import getLatinDate from '../../../utilities/date-name'
+import getLatinDate from '../../../utilities/date-time/latin-date'
 import {
   includePrimarySection,
   includePromoItems,

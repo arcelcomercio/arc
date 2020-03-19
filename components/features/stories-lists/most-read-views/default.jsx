@@ -33,8 +33,10 @@ const MostReadView = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
+  const { content_elements: dataList = [] } = data
+
   const params = {
-    data,
+    dataList,
     title,
     urlTitle,
     showViews,

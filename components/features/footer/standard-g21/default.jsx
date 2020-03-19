@@ -6,7 +6,7 @@ import getProperties from 'fusion:properties'
 
 import getFooterProperties from '../_dependencies/properties'
 import FooterChildStandardG21 from './_children/footer-g21'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'

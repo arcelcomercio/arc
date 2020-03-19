@@ -260,6 +260,10 @@ export const FormRegister = props => {
             setShowUserWithSubs(false) // no tengo subs
           } else {
             setShowUserWithSubs(true) // tengo subs
+            const divPremium = document.getElementById('contenedor')
+            if (divPremium) {
+              divPremium.classList.remove('story-content__nota-premium')
+            }
           }
         })
         .finally(() => {

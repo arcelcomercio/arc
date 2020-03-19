@@ -2,11 +2,8 @@ import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import {
-  popUpWindow,
-  socialMediaUrlShareListBlog,
-  addSlashToEnd,
-} from '../../../utilities/helpers'
+import { addSlashToEnd } from '../../../utilities/parse/strings'
+import { socialMediaUrlShareListBlog } from '../../../utilities/social-media'
 
 const classes = {
   header: 'post-header bg-white p-20',
@@ -19,6 +16,16 @@ const classes = {
   more: 'post-header__more bg-base-200',
   button:
     'post-header__button flex items-center justify-center w-full h-full text-white',
+}
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
 }
 
 const BlogPostHeader = () => {
@@ -111,14 +118,7 @@ const BlogPostHeader = () => {
                 openLink(event, item, isPrint)
               }}>
               <i className={item.icon} />
-              <span className={classes.share}>
-                {
-                  /* i === 1 && currentList === secondList
-                    ? 'Imprimir'
-                  : 'Compartir' */
-                  item.title
-                }
-              </span>
+              <span className={classes.share}>{item.title}</span>
             </a>
           </li>
         ))}

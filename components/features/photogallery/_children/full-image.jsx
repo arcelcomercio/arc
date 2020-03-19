@@ -33,7 +33,7 @@ const FullImage = ({
   textPosition,
   textOrientation,
   multimediaCaption,
-  multimediaSubtitle,
+  // multimediaSubtitle,
 }) => {
   return (
     <div className={`${classes.fullImg} ${textOrientation} ${textPosition}`}>
@@ -50,7 +50,7 @@ const FullImage = ({
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             data-src={multimediaLandscapeL}
             src={isAdmin ? multimediaLandscapeL : multimediaLazyDefault}
-            alt={multimediaCaption || title}            
+            alt={multimediaCaption || title}
           />
         </picture>
       </a>

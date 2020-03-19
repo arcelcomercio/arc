@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { createMarkup } from '../../../../utilities/helpers'
 import Ads from '../../../../global-components/ads'
 
 const OrderedStoriesGridAds = props => {
@@ -40,12 +39,12 @@ const OrderedStoriesGridAds = props => {
     <>
       <div className={`no-mobile ${getSize()}`}>
         <Ads {...params} />
-        {freeHtml && <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />}
+        {freeHtml && <div dangerouslySetInnerHTML={{ __html: freeHtml }} />}
       </div>
       {freeHtml && (
         <div
           className="no-desktop"
-          dangerouslySetInnerHTML={createMarkup(freeHtml)}
+          dangerouslySetInnerHTML={{ __html: freeHtml }}
         />
       )}
     </>

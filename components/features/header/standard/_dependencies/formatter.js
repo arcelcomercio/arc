@@ -1,6 +1,6 @@
 import schemaFilter from './schema-filter'
-import { formatDayMonthYear } from '../../../../utilities/helpers'
-import { getAssetsPath } from '../../../../utilities/constants'
+import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
+import { getAssetsPath } from '../../../../utilities/assets'
 
 export default class StandardHeader {
   constructor(
