@@ -26,7 +26,6 @@
     color: #dddddd;
   }
   .video-list__new,
-  .header__link,
   .header__tags,
   .header__date {
     color: $color-white;
@@ -217,8 +216,7 @@
     color: #eaeaea;
     letter-spacing: 0.23px;
   }
-  .footer__sites-visit,
-  .footer__sites-item a{
-    color: #666;
+  .footer__sites-red{
+    color: #8a8a8a;
   }
 }
