@@ -9,6 +9,7 @@ import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
 import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
+import FirebaseScripts from './_children/firebase-scripts'
 import {
   skipAdvertising,
   storyTagsBbc,
@@ -443,6 +444,8 @@ if ('IntersectionObserver' in window) {
 
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
+        <FirebaseScripts />
 
         <Libs />
         {contenidoVideo && (
