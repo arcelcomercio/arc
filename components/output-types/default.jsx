@@ -598,7 +598,18 @@ if ('IntersectionObserver' in window) {
           }}
         />
 
-        {isStyleBasic && <></>}
+        {isStyleBasic && (
+          <>
+            <i
+              dangerouslySetInnerHTML={{
+                __html: styless,
+              }}></i>
+
+            <noscript>
+              <link rel="stylesheet" href={deployment(styleUrl)} />
+            </noscript>
+          </>
+        )}
       </body>
     </html>
   )
