@@ -4,9 +4,6 @@ import PropTypes from 'prop-types'
 import { getResponsiveClasses } from '../../../../utilities/helpers'
 import ConfigParams from '../../../../utilities/config-params'
 
-const sliderScript =
-  '"use strict";setTimeout(function(){var t=document.getElementsByClassName("header__button"),e=document.getElementsByClassName("header__featured")[0],l=function(t,e,l,s,i){var d=0,n=t,o=setInterval(function(){"left"===e?n.scrollLeft-=i:n.scrollLeft+=i,(d+=i)>=s&&window.clearInterval(o)},l)},s=function(t){if(window){var s=void 0===document.body.style["scroll-behavior"];e&&("left"===t?s?l(e,"left",25,100,20):e.scrollLeft-=100:s?l(e,"right",25,100,25):e.scrollLeft+=100)}};window&&e&&t&&e.scrollWidth>e.clientWidth&&t[1].classList.remove("disabled"),t[0].addEventListener("click",function(){s("left")}),t[1].addEventListener("click",function(){s("right")}),e.addEventListener("scroll",function(e){!function(e){window&&(0===e.target.scrollLeft?t[0].classList.add("disabled"):t[0].classList.remove("disabled"),e.target.scrollWidth-e.target.offsetWidth<=e.target.scrollLeft?t[1].classList.add("disabled"):t[1].classList.remove("disabled"))}(e)})},0);'
-
 const HeaderChildStandard = props => {
   const {
     logo,
@@ -18,6 +15,10 @@ const HeaderChildStandard = props => {
     arcSite,
     isSlider,
   } = props
+
+  const { showInMobile = true } = deviceList || {}
+
+  const sliderScript = `"use strict";setTimeout(function(){if(${!showInMobile}){if(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent))return!1};var e=document.getElementsByClassName("header__button"),t=document.getElementsByClassName("header__featured")[0],s=function(e,t,s,i,l){var n=0,d=e,o=setInterval(function(){"left"===t?d.scrollLeft-=l:d.scrollLeft+=l,(n+=l)>=i&&window.clearInterval(o)},s)},i=function(e){if(window){var i=void 0===document.body.style["scroll-behavior"];t&&("left"===e?i?s(t,"left",25,100,20):t.scrollLeft-=100:i?s(t,"right",25,100,25):t.scrollLeft+=100)}};window&&t&&e&&t.scrollWidth>t.clientWidth&&e[1].classList.remove("disabled"),e[0].addEventListener("click",function(){i("left")}),e[1].addEventListener("click",function(){i("right")}),t.addEventListener("scroll",function(t){!function(t){window&&(0===t.target.scrollLeft?e[0].classList.add("disabled"):e[0].classList.remove("disabled"),t.target.scrollWidth-t.target.offsetWidth<=t.target.scrollLeft?e[1].classList.add("disabled"):e[1].classList.remove("disabled"))}(t)})},0);`
 
   return (
     <>

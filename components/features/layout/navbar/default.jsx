@@ -38,6 +38,18 @@ class LayoutNavbar extends PureComponent {
       },
       customFields
     )
+    const {
+      customFields: { selectDesing },
+    } = this.props || {}
+    if (selectDesing === 'standard') {
+      this.fetchContent({
+        navbarData: {
+          source: 'navigation-by-hierarchy',
+          query: { hierarchy: 'navbar-default' },
+          filter: this.formatter.getSchema(),
+        },
+      })
+    }
     // this.getDataHierarchy = this.getDataHierarchy.bind(this)
 
     // Hierarchy independiente para el menú
@@ -65,19 +77,6 @@ class LayoutNavbar extends PureComponent {
   //     })
   //   }
   // }
-
-  componentDidMount(){
-    const { customFields:{selectDesing} } = this.props || {}
-    if (selectDesing === 'standard') {
-      this.fetchContent({
-        navbarData: {
-          source: 'navigation-by-hierarchy',
-          query: { hierarchy: 'navbar-default' },
-          filter: this.formatter.getSchema(),
-        },
-      })
-    }
-  }
 
   getDataNavBarData = () => {
     if (this.formatter.main.fetch !== false) {
