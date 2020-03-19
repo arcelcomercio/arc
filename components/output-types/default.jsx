@@ -32,6 +32,7 @@ export default ({
   siteProperties,
   requestUri,
   metaValue,
+  Resource,
 }) => {
   const CURRENT_ENVIRONMENT =
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
@@ -99,6 +100,7 @@ export default ({
     isStory,
     isAmp: false,
     CURRENT_ENVIRONMENT,
+    Resource,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -312,7 +314,26 @@ if ('IntersectionObserver' in window) {
       height: 157px;
     }}
     `
+  const style = 'style'
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
+  if (CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
+  }
+  const styless = ` <link
+  rel="preload"
+  href=${deployment(styleUrl)}
+  onload="this.onload=null;this.rel='stylesheet'"
+  as="style"
+/>`
 
+  const isStyleBasic =
+    arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
   return (
     <html lang="es">
       <head>
@@ -393,7 +414,7 @@ if ('IntersectionObserver' in window) {
           />
         )}
 
-        <MetaSite {...metaSiteData} />
+        <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
         <meta name="description" content={description} />
         {arcSite === 'elcomerciomag' && (
           <meta property="fb:pages" content="530810044019640" />
@@ -576,6 +597,19 @@ if ('IntersectionObserver' in window) {
             __html: `"use strict";(function(){setTimeout(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}},0)})()`,
           }}
         />
+
+        {isStyleBasic && (
+          <>
+            <i
+              dangerouslySetInnerHTML={{
+                __html: styless,
+              }}></i>
+
+            <noscript>
+              <link rel="stylesheet" href={deployment(styleUrl)} />
+            </noscript>
+          </>
+        )}
       </body>
     </html>
   )
