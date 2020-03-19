@@ -152,7 +152,8 @@ class StoryContents extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            className={`${classes.content} ${isPremium &&
+              'story-content__nota-premium paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
