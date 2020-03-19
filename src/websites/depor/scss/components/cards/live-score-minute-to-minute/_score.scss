@@ -1,12 +1,21 @@
 .score {
   &-sticky {
     gap: 0;
+  }
+  &-sticky__content {
     @media (--only-mobile) {
       position: fixed;
-      top: 50px;
-      z-index: 2;
-      .score__team-name {
+      top: 0;
+      z-index: 22;
+      .score__team-name,
+      .score__gol-wrapper {
         display: none;
+      }
+      .score__team-number {
+        font-size: 45px;
+      }
+      .score__status-message {
+        top: 77px;
       }
     }
   }
