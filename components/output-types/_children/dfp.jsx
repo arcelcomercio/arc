@@ -158,7 +158,7 @@ const Dfp = ({ isFuature, adId }) => {
             refresh
         }
       }
-
+// agregando informacion en commit de hb
       if(flagHb){
         if(space === 'top'){
           formatSpace.bidding={
