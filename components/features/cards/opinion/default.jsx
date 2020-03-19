@@ -1,10 +1,12 @@
-import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import OpinionChildCard from './_children/card'
+import Consumer from 'fusion:consumer'
+
 import filterSchema from './_dependencies/schema-filter'
-import { defaultImage } from '../../../utilities/helpers'
+import { defaultImage } from '../../../utilities/assets'
 import { includeSections } from '../../../utilities/included-fields'
+
+import OpinionChildCard from './_children/card'
 
 @Consumer
 class CardOpinion extends PureComponent {

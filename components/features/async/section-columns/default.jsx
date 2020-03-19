@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ChildrenSectionColumn from './_children/section-column'
 import ChildernCinemaBillboardCard from './_children/cinema-billboard-card'
 
-import { createMarkup, createScript } from '../../../utilities/helpers'
+import { createScript } from '../../../utilities/client/nodes'
 
 const loadSrcScript = (html = '') => {
   const match = html.match(/<script.+src="(.+)"(\s|>).+><\/script>/) || []
@@ -72,7 +72,7 @@ const GridSectionColumns = ({
             <ChildrenSectionColumn section={section3} />
             <ChildrenSectionColumn section={section4} />
             <ChildrenSectionColumn section={section5} />
-            <div dangerouslySetInnerHTML={createMarkup(htmlAds)}></div>
+            <div dangerouslySetInnerHTML={{ __html: htmlAds }}></div>
             <ChildrenSectionColumn section={section6} />
             <ChildernCinemaBillboardCard />
             <ChildrenSectionColumn section={section7} />

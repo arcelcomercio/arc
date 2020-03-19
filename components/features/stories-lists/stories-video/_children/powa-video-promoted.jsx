@@ -31,12 +31,12 @@ const addSticky = (stickyTop = false) => {
 const handleCloseStickyClick = powaPlayer => {
   if (powaPlayer !== null) {
     removeSticky()
-    window.removeEventListener('scroll', handleScrolVideList)
+    window.removeEventListener('scroll', handleScrollVideoList)
     powaPlayer.pause()
   }
 }
 
-const handleScrolVideList = () => {
+const handleScrollVideoList = () => {
   const playOf = document.querySelector('.stories-video__wrapper')
   const itemHeight =
     document.querySelector('.stories-video__item').offsetHeight * 4
@@ -93,12 +93,12 @@ const ItemVideoCenterDestacado = ({
 
     powaPlayer = powa
     powa.on(window.PoWa.EVENTS.PLAY, () => {
-      window.addEventListener('scroll', handleScrolVideList)
+      window.addEventListener('scroll', handleScrollVideoList)
     })
 
     powa.on(window.PoWa.EVENTS.END, () => {
       removeSticky()
-      window.removeEventListener('scroll', handleScrolVideList)
+      window.removeEventListener('scroll', handleScrollVideoList)
     })
 
     if (

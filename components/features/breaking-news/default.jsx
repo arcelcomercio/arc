@@ -17,7 +17,7 @@ const classes = {
 
 const handleClose = `(setTimeout(document.getElementById('close-breaking-news').addEventListener('click', function(e){
   document.getElementById('breaking-news').remove()
-})), 0)()`
+}), 0))()`
 
 const BreakingNews = props => {
   const {

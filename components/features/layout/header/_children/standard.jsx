@@ -5,8 +5,8 @@ import {
   sideScroll,
   handleNavScroll,
   checkDisabledIcons,
-  getResponsiveClasses,
 } from '../../../../utilities/slidernav-helpers'
+import getResponsiveClasses from '../../../../utilities/responsive-classes'
 
 // TODO: Agregar el click afuera del menu
 const HeaderChildStandard = props => {

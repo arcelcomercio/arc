@@ -1,16 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useEffect, memo } from 'react'
-// import { searchQuery } from '../utilities/helpers'
+import searchQuery from '../utilities/client/search'
 import Button from './button'
-
-const searchQuery = (query, sort) => {
-  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
-  if (query !== '')
-    // eslint-disable-next-line no-restricted-globals
-    location.href = `/buscar/${newQuery}/todas/${sort ||
-      'descendiente'}/?query=${newQuery}`
-}
 
 const classes = {
   sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300`,

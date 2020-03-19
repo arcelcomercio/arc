@@ -1,3 +1,30 @@
+import { arrayDays, arrayMonths } from './constants'
+import formatTime from './format-time'
+
+export const getYYYYMMDDfromISO = date =>
+  date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+export const getActualDate = () => {
+  const today = new Date()
+  today.setHours(today.getHours() - 5)
+  return getYYYYMMDDfromISO(today)
+}
+
+export const formatDayMonthYear = (
+  currentDate,
+  showTime = true,
+  isStatic = false
+) => {
+  const date = new Date(currentDate)
+
+  if (isStatic) date.setHours(date.getHours() - 5)
+
+  const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
+    arrayMonths[date.getMonth()]
+  } del ${date.getFullYear()}`
+  return showTime ? `${formattedDate}, ${formatTime(date)}` : formattedDate
+}
+
 export const getDateSeo = data => {
   const fechaZone = data
     ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]

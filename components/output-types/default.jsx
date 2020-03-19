@@ -569,6 +569,7 @@ if ('IntersectionObserver' in window) {
         />
 
         <script
+          async
           src={deployment(
             `${getAssetsPath(
               arcSite,

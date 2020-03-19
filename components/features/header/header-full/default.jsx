@@ -6,11 +6,11 @@ import getProperties from 'fusion:properties'
 
 import customFields from './_dependencies/custom-fields'
 import { filterHeader, filterMenu } from './_dependencies/schema-filter'
-import { socialMediaUrlShareList } from '../../../utilities/helpers'
-import ConfigParams from '../../../utilities/config-params'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
+import { getAssetsPath } from '../../../utilities/assets'
 
 import HeaderFullView from './_children/header-full'
-import { getAssetsPath } from '../../../utilities/constants'
 
 const HeaderFull = props => {
   const {
@@ -82,7 +82,7 @@ const HeaderFull = props => {
   const { children: headerList = [] } = dataHeader
   const { children: menuList = [] } = dataMenu
 
-  const isStory = type === ConfigParams.ELEMENT_STORY
+  const isStory = type === ELEMENT_STORY
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,

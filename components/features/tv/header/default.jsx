@@ -4,7 +4,7 @@ import { useContent } from 'fusion:content'
 import getProperties from 'fusion:properties'
 
 import MenuTV from './_children/menu'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const TvHeader = () => {
   const { contextPath, deployment, arcSite } = useFusionContext()
@@ -15,11 +15,7 @@ const TvHeader = () => {
     window.navigator.userAgent
   )
 
-  const {
-    assets: { tv: { siteLogo } = {} } = {},
-    siteName,
-    tv: { logoUrl, logoAlt } = {},
-  } = getProperties(arcSite)
+  const { tv: { logoUrl, logoAlt } = {} } = getProperties(arcSite)
 
   const menuSections =
     useContent({
@@ -37,8 +33,8 @@ const TvHeader = () => {
     }) || {}
 
   const toggleMenu = () => {
-    if(statusMenu){
-      document.body.classList.remove('overflow-hidden');
+    if (statusMenu) {
+      document.body.classList.remove('overflow-hidden')
     }
     changeStatus(!statusMenu)
   }
@@ -82,13 +78,11 @@ const TvHeader = () => {
   }, [_handleScroll])
 
   return (
-    <header className={`tv-header flex justify-center ${
-      scrolled ? 'active' : ''}`}>
+    <header
+      className={`tv-header flex justify-center ${scrolled ? 'active' : ''}`}>
       <div className="tv-header__content position-relative">
         {statusMenu && (
-          <MenuTV
-            {...{ menuSections: formatMenuSections(menuSections) }}
-          />
+          <MenuTV {...{ menuSections: formatMenuSections(menuSections) }} />
         )}
         <div className="tv-header__logo-container  position-absolute flex mt-10 pl-15 pr-15">
           <button
@@ -97,9 +91,9 @@ const TvHeader = () => {
             onClick={() => toggleMenu()}>
             <i className="tv-header__icon icon-hamburguer text-primary-color" />
           </button>
-          <button 
-            type="button" 
-            className="tv-header__programas block" 
+          <button
+            type="button"
+            className="tv-header__programas block"
             onClick={() => toggleMenu()}>
             PROGRAMAS
           </button>
@@ -118,11 +112,11 @@ const TvHeader = () => {
             alt={logoAlt}
           />
         </a>
-        <a 
-        href="https://peru21.pe/"
-        className="tv-header__go-portada position-absolute">
-        { (isMobile) ? `Perú21 ` : `Portada Perú21 ` }
-        <i className="tv-header__go-arrow icon-arrow-r"></i>
+        <a
+          href="https://peru21.pe/"
+          className="tv-header__go-portada position-absolute">
+          {isMobile ? `Perú21 ` : `Portada Perú21 `}
+          <i className="tv-header__go-arrow icon-arrow-r"></i>
         </a>
       </div>
     </header>
