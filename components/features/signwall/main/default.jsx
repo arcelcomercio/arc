@@ -73,11 +73,6 @@ class SignwallComponent extends PureComponent {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
             this.setState({ showPremium: true })
-          } else {
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-            }
           }
           return false // tengo subs :D
         })
