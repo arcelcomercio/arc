@@ -9,7 +9,7 @@ import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
 import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
-import FirebaseScripts from './_children/firebase-scripts'
+// import FirebaseScripts from './_children/firebase-scripts'
 import {
   skipAdvertising,
   storyTagsBbc,
@@ -444,7 +444,7 @@ if ('IntersectionObserver' in window) {
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {(arcSite === 'trome' && requestUri.match('^/espectaculos')) && (
+            {arcSite === 'trome' && requestUri.match('^/espectaculos') && (
               <script
                 defer
                 src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
@@ -472,7 +472,7 @@ if ('IntersectionObserver' in window) {
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
 
-        <FirebaseScripts />
+        {/* <FirebaseScripts /> */}
 
         <Libs />
         {contenidoVideo && (
@@ -518,27 +518,6 @@ if ('IntersectionObserver' in window) {
           {children}
         </div>
 
-        <script
-          defer
-          src={deployment(
-            `${(() => {
-              let cdncPath = `${contextPath}`
-              if (CURRENT_ENVIRONMENT === 'prod') {
-                cdncPath = `https://cdnc.${siteProperties.siteDomain}`
-              }
-              if (
-                arcSite === 'elcomerciomag' &&
-                CURRENT_ENVIRONMENT === 'prod'
-              ) {
-                cdncPath = `https://cdnc.mag.elcomercio.pe`
-              }
-              if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
-                cdncPath = `https://cdnc.g21.peru21.pe`
-              }
-              return cdncPath
-            })()}/resources/dist/${arcSite}/js/index.js`
-          )}
-        />
         <Fusion />
         {isStory && (
           <script
@@ -572,7 +551,7 @@ if ('IntersectionObserver' in window) {
         />
 
         <script
-          async
+          defer
           src={deployment(
             `${getAssetsPath(
               arcSite,
