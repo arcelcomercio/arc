@@ -59,6 +59,9 @@ const classes = {
   listClasses: 'story-content__paragraph-list',
   alignmentClasses: 'story-content__alignment',
   bbcHead: 'bbc-head p-10',
+  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10`,
+  premiumText:
+    'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 
 @Consumer
@@ -132,6 +135,11 @@ class StoryContents extends PureComponent {
     return (
       <>
         <div className={classes.news}>
+          {isPremium && SITE_ELCOMERCIO === arcSite && (
+            <div className={classes.premiumWrapper}>
+              <p className={classes.premiumText}>Suscriptor Digital</p>
+            </div>
+          )}
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
