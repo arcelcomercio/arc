@@ -284,7 +284,10 @@ export default ({
                     type="button"
                     onClick={e => _handleSearch(e)}
                     className={classes.btnSearch}>
-                    <i className={classes.iconSearch} />
+                    <i
+                      className={classes.iconSearch}
+                      aria-label="search button"
+                    />
                   </button>
                 </form>
               </div>
@@ -337,6 +340,7 @@ export default ({
                         <a className={classes.mediaLink} href={item.url}>
                           <i
                             className={`${classes.mediaIcon} icon-${item.name}`}
+                            aria-label={item.name}
                           />
                         </a>
                       </li>

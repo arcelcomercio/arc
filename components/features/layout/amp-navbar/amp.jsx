@@ -13,7 +13,7 @@ const LayoutNavbar = props => {
 
   const {
     siteDomain,
-    footer: { socialNetworks },
+    socialNetworks = [],
     assets: { nav },
     siteUrl,
   } = getProperties(arcSite)

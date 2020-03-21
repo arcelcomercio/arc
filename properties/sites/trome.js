@@ -83,45 +83,30 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'Twitter',
-        url: 'https://twitter.com/tuittrome',
-      },
-      {
-        name: 'Facebook',
-        url: 'https://www.facebook.com/trome.pe',
-      },
-
-      {
-        name: 'Google+',
-        url: 'https://plus.google.com/u/0/+tromepe',
-      },
-      {
-        name: 'Pinterest',
-        url: 'https://www.pinterest.com/tromepe',
-      },
-      {
-        name: 'RSS ',
-        url: 'https://trome.com/arcio/rss',
-      },
-    ],
-  },
-  social: {
-    facebook: {
-      name: 'facebook',
-      user: '@trome.com',
-      url: 'https://www.facebook.com/trome.com',
-    },
-    twitter: {
-      name: 'twitter',
-      user: 'tuittrome',
+  socialNetworks: [
+    {
+      name: 'Twitter',
       url: 'https://twitter.com/tuittrome',
     },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+tromecom',
+    {
+      name: 'Facebook',
+      url: 'https://www.facebook.com/trome.pe',
+    },
+    {
+      name: 'Pinterest',
+      url: 'https://www.pinterest.com/tromepe',
+    },
+    {
+      name: 'RSS ',
+      url: 'https://trome.com/arcio/rss',
+    },
+  ],
+  social: {
+    facebook: {
+      user: '@trome.com',
+    },
+    twitter: {
+      user: 'tuittrome',
     },
   },
   adsAmp: {

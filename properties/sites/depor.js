@@ -83,50 +83,34 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'Twitter',
-        url: 'https://twitter.com/tuitdepor',
-      },
-      {
-        name: 'Facebook',
-        url: 'https://www.facebook.com/depor.pe',
-      },
-
-      {
-        name: 'Google+',
-        url: 'https://plus.google.com/u/0/+deporpe',
-      },
-      {
-        name: 'Pinterest',
-        url: 'https://www.pinterest.com/deporpe',
-      },
-      {
-        name: 'RSS ',
-        url: 'https://depor.com/arcio/rss',
-      },
-    ],
-  },
-  social: {
-    facebook: {
-      name: 'facebook',
-      user: '@depor.com',
-      url: 'https://www.facebook.com/depor.com',
-    },
-    twitter: {
-      name: 'twitter',
-      user: 'tuitdepor',
+  socialNetworks: [
+    {
+      name: 'Twitter',
       url: 'https://twitter.com/tuitdepor',
     },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+deporcom',
+    {
+      name: 'Facebook',
+      url: 'https://www.facebook.com/depor.pe',
+    },
+    {
+      name: 'Pinterest',
+      url: 'https://www.pinterest.com/deporpe',
+    },
+    {
+      name: 'RSS ',
+      url: 'https://depor.com/arcio/rss',
+    },
+  ],
+  social: {
+    facebook: {
+      user: '@depor.com',
+    },
+    twitter: {
+      user: 'tuitdepor',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
- 
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-depor/ads-fia-28253241-dep_ia_interna1-300x250-div-gpt-ad-8599377-11.html',

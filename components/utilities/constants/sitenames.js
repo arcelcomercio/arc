@@ -17,3 +17,5 @@ export const SITE_PERU21 = 'peru21'
 export const SITE_OJO = 'ojo'
 
 export const SITE_DIARIOCORREO = 'diariocorreo'
+
+export const SITE_TROME = 'trome'

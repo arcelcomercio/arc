@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { getAssetsPath } from '../../../../utilities/constants'
+import { getAssetsPath } from '../../../../utilities/assets'
 
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
@@ -14,6 +14,8 @@ const classes = {
     'amp-nav-sidebar__sidebar-social bg-gray-100 flex items-center justify-center pl-20',
   close: 'amp-nav-sidebar__close position-absolute',
 }
+
+// NO ESTA EN USO
 
 class NavbarChildMenu extends PureComponent {
   constructor(props) {
@@ -42,7 +44,7 @@ class NavbarChildMenu extends PureComponent {
       contextPath,
       deployment,
       sections = [],
-      footer = {},
+      socialNetworks = [],
       arcSite,
     } = this.props
     const icon = {
@@ -79,9 +81,12 @@ class NavbarChildMenu extends PureComponent {
         </ul>
 
         <ul className={classes.social}>
-          {footer.socialNetworks.map(el => (
+          {socialNetworks.map(el => (
             <li className={classes.listItem} key={el.url}>
-              <a className={classes.listLink} href={el.url}>
+              <a
+                className={classes.listLink}
+                href={el.url}
+                aria-label={el.name}>
                 <svg width="32" height="32" viewbox="-2 -2 32 32">
                   <path d={icon[el.name]} />
                 </svg>
