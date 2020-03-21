@@ -388,7 +388,7 @@ export default ({
       ? 'free'
       : contenType
 
-      contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
+    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
     return contenType
   }
   const dataStructuraHtmlAmp =
@@ -426,7 +426,6 @@ export default ({
       <meta
         property="article:modified_time"
         content={`${
-          arcSite === ConfigParams.SITE_ELCOMERCIO ||
           arcSite === ConfigParams.SITE_ELCOMERCIOMAG
             ? publishDateZone
             : lastPublishDate

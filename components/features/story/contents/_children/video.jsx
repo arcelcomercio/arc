@@ -69,9 +69,7 @@ const StoryContentChildVideo = props => {
       .filter(String)
     const cantidadVideo = resultVideo.length
 
-    return arcSite !== 'elcomercio'
-      ? getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
-      : resultVideo[cantidadVideo - 1]
+    return getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
   }
 
   const videoUrlContent =
