@@ -6,7 +6,7 @@ import { useFusionContext } from 'fusion:context'
 
 import Icon from '../../../global-components/multimedia-icon'
 import StoryData from '../../../utilities/story-data'
-import { formatDayMonthYear } from '../../../utilities/helpers'
+import { formatDayMonthYear } from '../../../utilities/date-time/dates'
 import {
   includePromoItems,
   includePrimarySection,

@@ -4,7 +4,8 @@ import { useFusionContext } from 'fusion:context'
 
 import PropTypes from 'prop-types'
 import BlogRelatedPostsGridChildCard from './_children/card'
-import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
+import { defaultImage } from '../../../utilities/assets'
+import { addSlashToEnd } from '../../../utilities/parse/strings'
 
 const classes = {
   bmInterestYou: 'br-stories-grid non-mobile non-tablet',

@@ -4,7 +4,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_OJO,
 } from '../../../utilities/constants/sitenames'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const classes = {
   storyContinue:

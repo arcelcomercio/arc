@@ -23,14 +23,17 @@ const Head = props => {
   const {
     theme,
     arcSite,
+    globalContent,
     siteProperties: {
-      paywall: { urls, images },
+      paywall: { urls },
     },
     customFields: { id, forceLogin: _forceLogin },
     dispatchEvent,
     addEventListener,
     removeEventListener,
   } = props
+
+  const fromFia = !!(globalContent || {}).fromFia
 
   const [profile, setProfile] = React.useState()
   const [showSignwall, setShowSignwall] = React.useState(false)
@@ -130,11 +133,11 @@ const Head = props => {
         <S.Right />
       </S.Background>
       <S.Content backgroundColor={leftColor}>
-        <S.WrapLogo as="a" href="/" target="_blank">
-          <img
-            alt={`logo ${arcSite}`}
-            src={interpolateUrl(images.mainLogo)}
-          />
+        <S.WrapLogo
+          as={fromFia ? 'span' : 'a'}
+          href="/?ref=paywall"
+          target="_blank">
+          <img alt={`logo ${arcSite}`} src={theme.images.mainLogo} />
         </S.WrapLogo>
         <S.WrapLogin>
           <S.Username>

@@ -11,7 +11,7 @@ import {
   includePrimarySection,
   includeCreditsImage,
 } from '../../../utilities/included-fields'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const FeaturedStoryColumnist = props => {
   const {
@@ -91,6 +91,6 @@ FeaturedStoryColumnist.propTypes = {
 }
 
 FeaturedStoryColumnist.label = 'Columnista Premium'
-// FeaturedStoryColumnist.static = true
+FeaturedStoryColumnist.static = true
 
 export default FeaturedStoryColumnist

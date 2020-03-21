@@ -1,4 +1,9 @@
-import ConfigParams from './config-params'
+import {
+  IMAGE_ORIGINAL,
+  LANDSCAPE_XL,
+  LANDSCAPE_S,
+  LAZY_DEFAULT,
+} from './constants/image-sizes'
 
 class SectionData {
   constructor(data = {}, website = '') {
@@ -43,27 +48,27 @@ class SectionData {
   }
 
   get imageLandscapeXL() {
-    return SectionData.getImageBySize(this.__data, ConfigParams.LANDSCAPE_XL)
+    return SectionData.getImageBySize(this.__data, LANDSCAPE_XL)
   }
 
   get imageLandscapeS() {
-    return SectionData.getImageBySize(this.__data, ConfigParams.LANDSCAPE_S)
+    return SectionData.getImageBySize(this.__data, LANDSCAPE_S)
   }
 
   get imageLazyDefault() {
-    return SectionData.getImageBySize(this.__data, ConfigParams.LAZY_DEFAULT)
+    return SectionData.getImageBySize(this.__data, LAZY_DEFAULT)
   }
 
   get isInactive() {
     return this._data.inactive || false
   }
 
-  static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
+  static getImageBySize(data, size = IMAGE_ORIGINAL) {
     const {
       site_logo_image: siteLogoImage = '',
       resized_urls: resizeUrls = {},
     } = (data && data.site_topper) || {}
-    if (size === ConfigParams.IMAGE_ORIGINAL) return siteLogoImage
+    if (size === IMAGE_ORIGINAL) return siteLogoImage
     return resizeUrls[size] || ''
   }
 }

@@ -1,17 +1,15 @@
-import Consumer from 'fusion:consumer'
+import React from 'react'
 import ENV from 'fusion:environment'
-import React, { PureComponent } from 'react'
+import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
+
 import customFields from './_dependencies/custom-fields'
-import StoryData from '../../../utilities/story-data'
-import {
-  removeLastSlash,
-  setSurveyCookie,
-  getCookie,
-} from '../../../utilities/helpers'
-import { getAssetsPath } from '../../../utilities/constants'
+
+import { removeLastSlash } from '../../../utilities/parse/strings'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const classes = {
-  stickWrapper: 'stick w-full pl-20 pr-20',
+  stickWrapper: 'stick w-full pl-20 pr-20 hidden',
   stick: `stick__content position-relative flex items-center justify-between p-10`,
   closeApp: `stick__close-app position-absolute icon-close text-white flex items-center justify-center`,
   logo: 'stick__logo',
@@ -20,109 +18,31 @@ const classes = {
   buttonApp: 'stick__button p-10 text-center',
 }
 
-@Consumer
-class Stick extends PureComponent {
-  constructor(props) {
+const Stick = props => {
+  const {
+    customFields: {
+      urlpwd = '',
+      urlDev = '',
+      apn = '',
+      ibi = '',
+      ipbi = '',
+      isi = '',
+      amv = '',
+      imv = '',
+    } = {},
+  } = props
 
-    super(props)
+  const { deployment, contextPath, arcSite, globalContent } = useFusionContext()
 
-    const { arcSite } = this.props
+  const { websites = {} } = globalContent || {}
+  const { website_url: websiteLink = '/' } = websites[arcSite] || {}
 
-    this.sitioWeb = arcSite
+  const {
+    siteUrl = '',
+    stick: { logo = 'default_logo.png' },
+  } = getProperties(arcSite)
 
-    const active = getCookie(`idpoll_open_appstick_${arcSite}`) !== '1'
-
-    this.state = {
-      active
-    }
-  }
-
-  componentDidMount() {
-    const {
-      customFields: {
-        urlpwd = '',
-        urlDev = '',
-        apn = '',
-        ibi = '',
-        ipbi = '',
-        isi = '',
-        amv = '',
-        imv = '',
-      } = {},
-      // arcSite,
-      globalContent,
-      contextPath,
-      siteProperties: { siteUrl = '' } = {},
-    } = this.props
-
-    const { link = '/' } = new StoryData({
-      data: globalContent,
-      contextPath,
-    })
-
-    const aOpenApp = document.getElementById('button-app')
-    // const dataPageId = aOpenApp.getAttribute('data-page-id') || '/'
-
-    aOpenApp.addEventListener('click', e => {
-      e.preventDefault()
-      /*
-      const urlpwdbase = `${urlpwd}/?link=https://${arcSite}.pe/`
-      const appData = `?appData=/&apn=com.eeec.${arcSite}&amv=30&ibi=com.eeec.${arcSite}&ipbi=com.eeec.${arcSite}&isi=991197788&imv=31&ofl=HREF`
-      const href = `&efr=1&utm_source=btn_openapp_home&mt=8&ct=btn_openapp_home`
-
-      window.location.href = `${urlpwdbase}/?link=https://${arcSite}.pe/${
-        window.location.pathname
-      }?appData=/${dataPageId !== '/' && 'news'}${dataPageId}${appData}${
-        window.location.href
-      }${href}`
-      */
-
-      const urlApp = ENV.ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev
-      const urlSource =
-        ENV.ENVIRONMENT === 'elcomercio'
-          ? '&utm_source=btn_openapp_note&mt=8&ct=btn_openapp_note'
-          : ''
-      window.location.href = this.getUrlApp({
-        urlApp,
-        currentLink: `${removeLastSlash(siteUrl)}${link}`,
-        apn,
-        ibi,
-        ipbi,
-        isi,
-        amv,
-        imv,
-        urlSource,
-      })
-    })
-
-  }
-
-  closeStick = () => {
-
-    setSurveyCookie(`_open_appstick_${this.sitioWeb}`, 7)
-
-    this.setState({
-      active: false,
-    })
-  }
-
-  openStick = () => {
-    this.setState({
-      active: true,
-    })
-  }
-
-  getUrlApp = ({
-    urlApp,
-    currentLink,
-    apn,
-    ibi,
-    ipbi,
-    isi,
-    amv,
-    imv,
-    urlSource = '',
-  }) => {
+  const getUrlApp = ({ urlApp, currentLink, urlSource = '' }) => {
     const genUrl = new URL(currentLink)
     const appData = genUrl.pathname !== '/' ? `news${genUrl.pathname}` : '/'
     const link = `${currentLink}?appData=${appData}&apn=${apn}&amv=${amv}&ibi=${ibi}&ipfl=${currentLink}&ipbi=${ipbi}&isi=${isi}&imv=${imv}&efr=1${urlSource}`
@@ -130,58 +50,67 @@ class Stick extends PureComponent {
     return url
   }
 
-  render() {
-    const {
-      globalContent,
-      contextPath,
+  const activateStick = `
+    (function(){window.addEventListener('load', function(){setTimeout(function(){
+      var appStick = document.getElementById('appstick')
+      var stickCookie = null
+      var cookieValue = document.cookie.match('(^|;) ?idpoll_open_appstick_${arcSite}=([^;]*)(;|$)')
+      if(!cookieValue || (cookieValue && cookieValue[2] !== '1'))
+        appStick.classList.remove('hidden');
+      var closeStick = document.getElementById('close-stick')
+      closeStick.addEventListener('click', function(){
+        var cookieDate = new Date()
+        cookieDate.setTime(cookieDate.getTime() + 24 * 60 * 60 * 1000 * 7)
+        document.cookie = 'idpoll_open_appstick_${arcSite}=1;path=/;expires='+cookieDate.toGMTString()+''
+        appStick.classList.add('hidden');
+      })
+      var aOpenApp = document.getElementById('button-app')
+      aOpenApp.addEventListener('click', function(){
+        e.preventDefault()    
+        window.location.href = '${getUrlApp({
+          urlApp: ENV.ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev,
+          currentLink: `${removeLastSlash(siteUrl)}${websiteLink}`,
+          urlSource:
+            ENV.ENVIRONMENT === 'elcomercio'
+              ? '&utm_source=btn_openapp_note&mt=8&ct=btn_openapp_note'
+              : '',
+        })}'
+      })
+    }, 0)})})()`
+
+  const imgLogo = deployment(
+    `${getAssetsPath(
       arcSite,
-      deployment,
-      customFields: { urlPwd = '' } = {},
-      siteProperties: {
-        stick: { logo = 'default_logo.png' },
-      },
-    } = this.props
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}`
+  )
 
-    const { active } = this.state
-
-    const { link } = new StoryData({
-      data: globalContent,
-      contextPath,
-    })
-    const imgLogo = deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${logo}`
-    )
-
-    return (
-      <div className={`${classes.stickWrapper} ${active ? 'block' : 'hidden'}`}>
-        <div className={classes.stick}>
-          <i
-            role="button"
-            tabIndex={0}
-            className={classes.closeApp}
-            onClick={this.closeStick}
-            onKeyUp={this.closeStick}
-          />
-          <div className={classes.logo}>
-            <img src={imgLogo} alt="Sigue actualizado en nuestra APP" />
-          </div>
-          <div className={classes.description}>
-            Sigue actualizado en nuestra APP
-          </div>
-          <div
-            className={classes.buttonApp}
-            id="button-app"
-            data-url-pwd={urlPwd}
-            data-page-id={link}>
-            Abrir en App
-          </div>
+  return (
+    <div id="appstick" className={classes.stickWrapper}>
+      <div className={classes.stick}>
+        <i
+          id="close-stick"
+          role="button"
+          tabIndex={0}
+          className={classes.closeApp}
+        />
+        <div className={classes.logo}>
+          <img src={imgLogo} alt="Sigue actualizado en nuestra APP" />
+        </div>
+        <div className={classes.description}>
+          Sigue actualizado en nuestra APP
+        </div>
+        <div
+          className={classes.buttonApp}
+          id="button-app"
+          data-url-pwd={urlpwd}
+          data-page-id={websiteLink}>
+          Abrir en App
         </div>
       </div>
-    )
-  }
+      <script dangerouslySetInnerHTML={{ __html: activateStick }}></script>
+    </div>
+  )
 }
 
 Stick.propTypes = {
@@ -189,6 +118,6 @@ Stick.propTypes = {
 }
 
 Stick.label = 'Artículo - Abrir en App'
-// Stick.static = true
+Stick.static = true
 
 export default Stick

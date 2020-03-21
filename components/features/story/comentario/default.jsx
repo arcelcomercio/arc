@@ -4,11 +4,8 @@ import getProperties from 'fusion:properties'
 
 import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
-import {
-  createScript,
-  appendToBody,
-  deleteQueryString,
-} from '../../../utilities/helpers'
+import { deleteQueryString } from '../../../utilities/parse/queries'
+import { createScript, appendToBody } from '../../../utilities/client/nodes'
 
 const classes = {
   story: 'w-full text-white pt-20 pr-20 pl-20 ',

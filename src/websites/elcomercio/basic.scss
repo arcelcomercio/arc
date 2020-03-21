@@ -1,0 +1,63 @@
+$assets_url: "https://cdna.elcomercio.pe";
+$header-mobile-height: 60px;
+$color-base-300: #e8f2f7;
+.pl-20 {
+  padding-left: 20px;
+}
+.pr-20 {
+  padding-right: 20px;
+}
+.p-20 {
+  padding: 20px;
+}
+/******* Framework Variables*******/
+@import "../../general-styles/framework/variables/index";
+/*---------------------*/
+
+/******* Site Variables *******/
+@import "../../general-styles/framework/core/basic";
+@import "../../general-styles/framework/generators/basic";
+/*---------------------*/
+
+/******* Partials *******/
+/*---------------------*/
+
+@import "../../general-styles/components/features/layout/navbar/nav";
+@import "../../general-styles/components/features/layout/header/header";
+@import "../../general-styles/components/global-components/extraordinary-story";
+@import "../../general-styles/components/features/extraordinary-story/live-score/extraordinary-l-score";
+@import "../../general-styles/components/features/breaking-news/breaking-news";
+@import "../../general-styles/components/features/cards/featured-story-full-img/feature-fullimage";
+@import "../../general-styles/components/features/cards/featured-story-manual-live/featured-story-manual-live";
+@import "../../general-styles/components/global-components/featured-story";
+
+@import "./scss/components/layout/navbar/nav";
+@import "./scss/partials/base";
+@import "./scss/components/layout/header/header";
+@import "./scss/global-components/extraordinary-story";
+@import "./scss/components/breaking-news/breaking-news";
+@import "./scss/components/separators/basic/sep-opt";
+@import "./scss/components/separators/featured/featured-separator";
+
+.bg-primary {
+  background-color: #f7c600;
+}
+.extraordinary-story__section {
+  background-color: #444;
+  padding-top: 10px;
+}
+.triplet {
+  border: 0;
+  padding: 0 10px;
+}
+
+.bg-base-300 {
+  background-color: #e8f2f7;
+}
+
+.by-minute__left {
+  background-color: #313131;
+}
+.bg-gray-300 {
+  background-color: #333;
+}

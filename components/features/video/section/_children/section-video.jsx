@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import ConfigParams from '../../../../utilities/config-params'
+import { VIDEO } from '../../../../utilities/constants/multimedia-types'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
-import {
-  socialMediaUrlShareList,
-  addSlashToEnd,
-  popUpWindow,
-  formatDayMonthYear,
-} from '../../../../utilities/helpers'
+import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
+import { socialMediaUrlShareList } from '../../../../utilities/social-media'
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
+}
 
 export default ({
   principalVideo,
@@ -19,19 +25,17 @@ export default ({
   arrSections,
   siteProperties,
 }) => {
-  const [hasFixedSection, changeFixedSection] = useState(false)
+  // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
-  
-  useEffect(() => {
 
+  useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
     // No ocultar si es desktop
-    if(arcSite !== 'peru21'){
+    if (arcSite !== 'peru21') {
       setHidden(false)
-    }else{
+    } else {
       setHidden(!isDesktop)
     }
-    
 
     if (window.powaBoot) {
       window.powaBoot()
@@ -67,7 +71,7 @@ export default ({
           const scrollHeight = window.scrollY
           if (scrollHeight >= playOff && arcSite !== 'gestion') {
             sectionVideo.classList.add('fixed')
-            changeFixedSection(true)
+            // changeFixedSection(true)
             videoNavBar.classList.add('fixed')
             if (typeof adsMiddle !== 'undefined' && adsMiddle != null) {
               adsMiddle.style.marginTop = `${mTop}px`
@@ -77,7 +81,7 @@ export default ({
           }
           if (scrollHeight < playOff) {
             sectionVideo.classList.remove('fixed')
-            changeFixedSection(false)
+            // changeFixedSection(false)
             videoNavBar.classList.remove('fixed')
             videoFrame.removeAttribute('style')
             if (typeof adsMiddle !== 'undefined' && adsMiddle != null) {
@@ -91,7 +95,7 @@ export default ({
     }
   }, [arcSite, isAdmin, principalVideo.hasAdsVideo, siteProperties])
 
-  const formateDay = () => {
+  /* const formateDay = () => {
     const _date = new Date(principalVideo.displayDate)
     const day = _date.getDate()
     const month = _date.getMonth()
@@ -102,12 +106,13 @@ export default ({
       fecha: `${day}.${month + 1}.${year}`,
       hora: `${hora}:${minutes}`,
     }
-  }
-  
-  const { 
+  } */
+
+  const {
     social: {
       twitter: { user: siteNameRedSocial },
-    },siteUrl = '' 
+    },
+    siteUrl = '',
   } = siteProperties
 
   const urlsShareList = socialMediaUrlShareList(
@@ -140,7 +145,7 @@ export default ({
           <div className="section-video__top">
             <div className="section-video__left">
               {principalVideo.video &&
-              principalVideo.promoItemsType === ConfigParams.VIDEO ? (
+              principalVideo.promoItemsType === VIDEO ? (
                 <div className="section-video__frame">
                   <div
                     className="w-full h-full"
@@ -151,9 +156,7 @@ export default ({
                 <div className="section-video__frame">
                   <iframe
                     className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${
-                      principalVideo.video
-                    }`}
+                    src={`https://www.youtube.com/embed/${principalVideo.video}`}
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowFullscreen
@@ -173,7 +176,6 @@ export default ({
             </div>
             <div className="section-video__right">
               <div className="section-video__information">
-
                 <div className="section-video__box-section">
                   <a
                     href={principalVideo.primarySectionLink}
@@ -188,54 +190,57 @@ export default ({
                     {principalVideo.title}
                   </a>
                 </h1>
-                {(arcSite === 'peru21' &&
-                <div className="section-video__content-share pt-10 pb-20 flex flex-row justify-between border-b-1 border-solid">
-                  <div className="section-video__share">
-                    <button
-                      onClick={() => shareNew('facebook')}
-                      type="button"
-                      className="section-video__btn section-video__btn--facebook">
-                      <span className="icon-facebook" />
-                    </button>
-                    <button
-                      onClick={() => shareNew('twitter')}
-                      type="button"
-                      className="section-video__btn section-video__btn--twitter">
-                      <span className="icon-twitter" />
-                    </button>
-                    <button
-                      onClick={() => shareNew('whatsapp')}
-                      type="button"
-                      className="section-video__btn section-video__btn--whatsapp">
-                      <span className="icon-whatsapp" />
-                    </button>
+                {arcSite === 'peru21' && (
+                  <div className="section-video__content-share pt-10 pb-20 flex flex-row justify-between border-b-1 border-solid">
+                    <div className="section-video__share">
+                      <button
+                        onClick={() => shareNew('facebook')}
+                        type="button"
+                        className="section-video__btn section-video__btn--facebook">
+                        <span className="icon-facebook" />
+                      </button>
+                      <button
+                        onClick={() => shareNew('twitter')}
+                        type="button"
+                        className="section-video__btn section-video__btn--twitter">
+                        <span className="icon-twitter" />
+                      </button>
+                      <button
+                        onClick={() => shareNew('whatsapp')}
+                        type="button"
+                        className="section-video__btn section-video__btn--whatsapp">
+                        <span className="icon-whatsapp" />
+                      </button>
+                    </div>
+                    {!hidden ? (
+                      <button
+                        type="button"
+                        onClick={() => setHidden(true)}
+                        className="section-video__read">
+                        Mostrar menos{' '}
+                        <i className="section-video__icon section-video__icon--up icon-down"></i>
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setHidden(false)}
+                        className="section-video__read">
+                        Mostrar más{' '}
+                        <i className="section-video__icon icon-down"></i>
+                      </button>
+                    )}
                   </div>
-                  {!hidden ? (
-                    <button
-                    type="button"
-                    onClick={() => setHidden(true)} className="section-video__read"> 
-                    Mostrar menos <i className="section-video__icon section-video__icon--up icon-down"></i></button>
-                  ) : (
-                    <button
-                    type="button"
-                    onClick={() => setHidden(false)} className="section-video__read"> 
-                    Mostrar más <i className="section-video__icon icon-down"></i></button>
-                  )}
-                </div>
                 )}
                 {!hidden && (
                   <p className="section-video__subtitle">
                     {principalVideo.subTitle}
                   </p>
-                )
-                }
+                )}
               </div>
-              {principalVideo.captionVideo && (
-                !hidden && (
-                  <span className="section-video__caption text-sm text-gray-200">
-                    {principalVideo.captionVideo}
-                  </span>
-                )
+              {principalVideo.captionVideo && !hidden && (
+                <span className="section-video__caption text-sm text-gray-200">
+                  {principalVideo.captionVideo}
+                </span>
               )}
             </div>
           </div>
@@ -257,7 +262,9 @@ export default ({
             {!hidden && (
               <ul className="section-video__list-text">
                 {principalVideo.author !== '' && (
-                  <li className="section-video__text">{principalVideo.author}</li>
+                  <li className="section-video__text">
+                    {principalVideo.author}
+                  </li>
                 )}
                 {principalVideo.displayDate !== '' && (
                   <li className="section-video__text">{fecha}</li>

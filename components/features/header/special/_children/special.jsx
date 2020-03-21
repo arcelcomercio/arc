@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
-import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
+import searchQuery from '../../../../utilities/client/search'
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 
@@ -47,6 +47,16 @@ const classes = {
   shareLink: 'story-header__link flex items-center justify-center text-white',
   shareIcon: 'story-header__icon',
   iconMore: 'story-header__share-icon icon-share text-white',
+}
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
 }
 
 // TODO: Agregar el click afuera del menu
@@ -292,7 +302,7 @@ const HeaderSpecialChildSpecial = ({
             iconClass={classes.iconMenu}
             btnClass={`${classes.btnMenu} ${
               scrolled && isStory ? 'border-r-1 border-solid' : ''
-              }`}
+            }`}
             btnText="Menú"
             onClick={_handleToggleSectionElements}
           />
@@ -316,7 +326,7 @@ const HeaderSpecialChildSpecial = ({
                 <div>
                   <a
                     className={classes.moreLink}
-                    href='/'
+                    href="/"
                     onClick={event => {
                       openLink(event, 3)
                     }}>
@@ -341,21 +351,21 @@ const HeaderSpecialChildSpecial = ({
               </div>
             </>
           ) : (
-              <>
-                <Button
-                  btnClass={`${classes.btnProfile} ${classes.btnClub}`}
-                  btnText={CLUB_TEXT}
-                  onClick={_handleToggleSectionElements}
-                  btnLink={CLUB_URL}
-                />
-                <Button
-                  btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
-                  btnText={SUBSCRIBE_TEXT}
-                  onClick={_handleToggleSectionElements}
-                  btnLink={SUBSCRIBE_URL}
-                />
-              </>
-            )}
+            <>
+              <Button
+                btnClass={`${classes.btnProfile} ${classes.btnClub}`}
+                btnText={CLUB_TEXT}
+                onClick={_handleToggleSectionElements}
+                btnLink={CLUB_URL}
+              />
+              <Button
+                btnClass={`${classes.btnProfile} ${classes.btnSubs}`}
+                btnText={SUBSCRIBE_TEXT}
+                onClick={_handleToggleSectionElements}
+                btnLink={SUBSCRIBE_URL}
+              />
+            </>
+          )}
         </div>
         {/** ************* // RIGHT *************** */}
         {/* Activar si se quiere el max-width de 1366px </div> */}

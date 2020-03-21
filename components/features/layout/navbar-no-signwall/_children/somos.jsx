@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { searchQuery } from '../../../../utilities/helpers'
+import searchQuery from '../../../../utilities/client/search'
 import Button from '../../../../global-components/button'
 
 const classes = {

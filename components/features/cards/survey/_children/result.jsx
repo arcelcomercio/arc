@@ -1,13 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import CardsSurveyChildProgressBar from './progress-bar'
+import ResultItem from './result-item'
 
 const classes = {
   results: 'c-survey-result',
-  list: 'mb-5 pt-5 pb-5',
-  itemContainer: 'flex justify-between mb-5',
-  item: 'c-survey-result__item primary-font text-md line-h-xs text-gray-300',
 }
 
 const CardsSurveyChildResult = ({ choices = [] }) => {
@@ -21,31 +18,16 @@ const CardsSurveyChildResult = ({ choices = [] }) => {
   }
 
   const highestValue = getHighestValue(choices)
-
   return (
     <ul className={classes.results}>
-      {choices.map(result => {
-        const isBiggestValue = result.votes === highestValue
-        const textHighightClass = isBiggestValue ? 'active' : ''
-        return (
-          <li key={`survey-${result.option}`} className={classes.list}>
-            <div className={classes.itemContainer}>
-              <span className={`${classes.item} ${textHighightClass}`}>
-                {result.option}
-              </span>
-              <span
-                className={`${
-                  classes.item
-                } ${textHighightClass}`}>{`${Math.round(
-                (result.votes / totalVotes) * 100
-              )}%`}</span>
-            </div>
-            <CardsSurveyChildProgressBar
-              percentage={(result.votes / totalVotes) * 100}
-              isHighlight={isBiggestValue}
-            />
-          </li>
-        )
+      {choices.map(({ option, votes }) => {
+        const params = {
+          highestValue,
+          totalVotes,
+          option,
+          votes,
+        }
+        return <ResultItem {...params} />
       })}
     </ul>
   )
@@ -60,4 +42,15 @@ CardsSurveyChildResult.propTypes = {
   ),
 }
 
-export default CardsSurveyChildResult
+export default React.memo(CardsSurveyChildResult, (prevProps, nextProps) => {
+  const { choices } = prevProps
+  const { choices: nextChoices } = nextProps
+  let memo = true
+  choices.forEach((choice, i) => {
+    const { option, votes } = choice
+    const { option: nextOption, votes: nextVotes } = nextChoices[i]
+    if (option !== nextOption && votes !== nextVotes) memo = false
+  })
+
+  return memo
+})

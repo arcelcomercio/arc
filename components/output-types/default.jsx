@@ -9,6 +9,7 @@ import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
 import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
+// import FirebaseScripts from './_children/firebase-scripts'
 import {
   skipAdvertising,
   storyTagsBbc,
@@ -32,6 +33,7 @@ export default ({
   siteProperties,
   requestUri,
   metaValue,
+  Resource,
 }) => {
   const CURRENT_ENVIRONMENT =
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
@@ -99,6 +101,7 @@ export default ({
     isStory,
     isAmp: false,
     CURRENT_ENVIRONMENT,
+    Resource,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -312,7 +315,26 @@ if ('IntersectionObserver' in window) {
       height: 157px;
     }}
     `
+  const style = 'style'
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
+  if (CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
+  }
+  const styless = ` <link
+  rel="preload"
+  href=${deployment(styleUrl)}
+  onload="this.onload=null;this.rel='stylesheet'"
+  as="style"
+/>`
 
+  const isStyleBasic =
+    arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
   return (
     <html lang="es">
       <head>
@@ -393,7 +415,7 @@ if ('IntersectionObserver' in window) {
           />
         )}
 
-        <MetaSite {...metaSiteData} />
+        <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
         <meta name="description" content={description} />
         {arcSite === 'elcomerciomag' && (
           <meta property="fb:pages" content="530810044019640" />
@@ -422,6 +444,12 @@ if ('IntersectionObserver' in window) {
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
+            {arcSite === 'trome' && requestUri.match('^/espectaculos') && (
+              <script
+                defer
+                src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+              />
+            )}
             <script
               defer
               src={deployment(
@@ -443,6 +471,8 @@ if ('IntersectionObserver' in window) {
 
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
+        {/* <FirebaseScripts /> */}
 
         <Libs />
         {contenidoVideo && (
@@ -488,27 +518,6 @@ if ('IntersectionObserver' in window) {
           {children}
         </div>
 
-        <script
-          defer
-          src={deployment(
-            `${(() => {
-              let cdncPath = `${contextPath}`
-              if (CURRENT_ENVIRONMENT === 'prod') {
-                cdncPath = `https://cdnc.${siteProperties.siteDomain}`
-              }
-              if (
-                arcSite === 'elcomerciomag' &&
-                CURRENT_ENVIRONMENT === 'prod'
-              ) {
-                cdncPath = `https://cdnc.mag.elcomercio.pe`
-              }
-              if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
-                cdncPath = `https://cdnc.g21.peru21.pe`
-              }
-              return cdncPath
-            })()}/resources/dist/${arcSite}/js/index.js`
-          )}
-        />
         <Fusion />
         {isStory && (
           <script
@@ -542,6 +551,7 @@ if ('IntersectionObserver' in window) {
         />
 
         <script
+          defer
           src={deployment(
             `${getAssetsPath(
               arcSite,
@@ -551,16 +561,33 @@ if ('IntersectionObserver' in window) {
         />
 
         {/* Rubicon BlueKai - Inicio */}
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-        />
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-        />
+        {arcSite === 'elcomercio' && metaValue('id') === 'meta_home' ? (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+            />
+            <script
+              type="text/javascript"
+              defer
+              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+            />
+          </>
+        ) : (
+          <>
+            <script
+              type="text/javascript"
+              async
+              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+            />
+            <script
+              type="text/javascript"
+              async
+              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+            />
+          </>
+        )}
         {contenidoVideo && (
           <>
             <script
@@ -576,6 +603,19 @@ if ('IntersectionObserver' in window) {
             __html: `"use strict";(function(){setTimeout(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}},0)})()`,
           }}
         />
+
+        {isStyleBasic && (
+          <>
+            <i
+              dangerouslySetInnerHTML={{
+                __html: styless,
+              }}></i>
+
+            <noscript>
+              <link rel="stylesheet" href={deployment(styleUrl)} />
+            </noscript>
+          </>
+        )}
       </body>
     </html>
   )

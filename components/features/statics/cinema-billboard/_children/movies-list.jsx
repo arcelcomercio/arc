@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import BillboardFormat from '../../../../utilities/billboard-format'
-import { defaultImage } from '../../../../utilities/helpers'
+import { defaultImage } from '../../../../utilities/assets'
 
 const classes = {
   movieList: 'movie-list pb-20 m-0 mx-auto',

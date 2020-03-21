@@ -78,7 +78,6 @@ class XmlNewsletterFeed {
             story && story.description && story.description.basic
               ? story.description.basic
               : storyData.subTitle
-
           return {
             article: {
               title,

@@ -8,14 +8,13 @@ import {
   getVideoImage,
   getVideoTime,
 } from '../../../utilities/get-story-values'
+import { LANDSCAPE_XXS } from '../../../utilities/constants/image-sizes'
 import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
-  LANDSCAPE_XXS,
-  getAssetsPath,
-} from '../../../utilities/constants'
+} from '../../../utilities/constants/multimedia-types'
 
-import { defaultImage } from '../../../utilities/helpers'
+import { defaultImage, getAssetsPath } from '../../../utilities/assets'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filters'
 import StoryItem from './_children/story-video-item'
