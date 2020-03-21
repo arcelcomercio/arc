@@ -590,7 +590,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (uuid) {
         window.location.href  = '/mi-perfil/?outputType=signwall'
       } else {
-        window.location.href  = '/signwall/?outputType=signwall'
+        // window.location.href  = '/signwall/?outputType=signwall'
+        window.location.href  = '/politica/?reloginEmail=1'
       }
     })
     if (uuid) {
@@ -624,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   type="text/javascript"
                   dangerouslySetInnerHTML={{
                     __html:
-                      '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},e=n.firstName,t=void 0===e?"":e,a=n.lastName,c=void 0===a?"":a,i=n.uuid,o=void 0===i?"":i;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=o?"/mi-perfil/?outputType=signwall":"/signwall/?outputType=signwall"}),o){var l=document.getElementById("signwall-nav-user"),s=document.getElementById("signwall-nav-icon");if(t||c){var d="",r="";t&&c?(d="".concat(t," ").concat(c),r="".concat(t[0]||"").concat(c[0]||"")):t&&!c?(d=t,r="".concat(t[0]||"").concat(t[1]||"")):!t&&c&&(d=c,r="".concat(c[0]||"").concat(c[1]||"")),l.innerHTML=d.length>=15?"".concat(d.slice(0,15),"..."):d,s.innerHTML=r,s.className="uppercase"}else l.innerHTML="Bienvenido Usuario"}},0)});',
+                      '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},e=n.firstName,t=void 0===e?"":e,i=n.lastName,c=void 0===i?"":i,o=n.uuid,a=void 0===o?"":o;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=signwall":"/politica/?reloginEmail=1"}),a){var l=document.getElementById("signwall-nav-user"),d=document.getElementById("signwall-nav-icon");if(t||c){var s="",r="";t&&c?(s="".concat(t," ").concat(c),r="".concat(t[0]||"").concat(c[0]||"")):t&&!c?(s=t,r="".concat(t[0]||"").concat(t[1]||"")):!t&&c&&(s=c,r="".concat(c[0]||"").concat(c[1]||"")),l.innerHTML=s.length>=15?"".concat(s.slice(0,15),"..."):s,d.innerHTML=r,d.className="uppercase"}else l.innerHTML="Bienvenido Usuario"}},0)});',
                   }}
                 />
               </div>
