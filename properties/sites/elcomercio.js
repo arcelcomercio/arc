@@ -259,6 +259,7 @@ export default {
     mainColorTitle: '#008eff',
     mainColorBtn: '#008eff',
     primaryFont: 'Noto Serif SC',
+    authProviders: ['facebook', 'google'],
   },
   urlSubsOnline: '/suscripciones/',
   gda: true, // Grupo Diarios de America

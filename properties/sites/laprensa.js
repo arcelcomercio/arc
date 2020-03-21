@@ -127,6 +127,7 @@ export default {
     mainLogo: 'logo.png',
     mainColorBr: '#efdb96',
     mainColorLink: '#36b',
+    authProviders: ['facebook'],
   },
   tv: {
     logoUrl: '/peru21tv/',

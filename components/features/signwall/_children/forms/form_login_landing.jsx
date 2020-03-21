@@ -5,13 +5,13 @@ import ENV from 'fusion:environment'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
-import { ModalConsumer } from '../../../_children/context'
+import { ModalConsumer } from '../context'
 import { FormStudents } from './form_students'
 import { Input } from './control_input_select'
-import useForm from '../../../_dependencies/useForm'
-import getCodeError from '../../../_dependencies/codes_error'
-import Domains from '../../../_dependencies/domains'
-import Cookies from '../../../_dependencies/cookies'
+import useForm from '../../_dependencies/useForm'
+import getCodeError from '../../_dependencies/codes_error'
+import Domains from '../../_dependencies/domains'
+import Cookies from '../../_dependencies/cookies'
 
 export const FormLoginPaywall = props => {
   const {
@@ -124,6 +124,7 @@ export const FormLoginPaywall = props => {
                 typeForm="login"
                 activeNewsletter={activeNewsletter}
               />
+
               {ENV.ENVIRONMENT !== 'elcomercio' && (
                 <ButtonSocial
                   brand="google"

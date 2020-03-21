@@ -1,12 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState, useEffect } from 'react'
 import * as S from './styles'
-import { ModalConsumer } from '../../../_children/context'
-import { MsgResetPass } from '../../../_children/iconos'
-import Domains from '../../../_dependencies/domains'
-import getCodeError from '../../../_dependencies/codes_error'
-import Taggeo from '../../../_dependencies/taggeo'
-import Loading from '../../../_children/loading'
+import { ModalConsumer } from '../context'
+import { MsgResetPass } from '../iconos'
+import Domains from '../../_dependencies/domains'
+import getCodeError from '../../_dependencies/codes_error'
+import Taggeo from '../../_dependencies/taggeo'
+import Loading from '../loading'
 
 export const FormVerify = ({
   arcSite,

@@ -144,6 +144,7 @@ export default {
     mainColorBr: '#ffede5',
     mainColorLink: '#e06437',
     mainColorBtn: '#f15c23',
+    authProviders: ['facebook'],
   },
   taboola: {
     dataModeAmp: 'thumbnails-e',

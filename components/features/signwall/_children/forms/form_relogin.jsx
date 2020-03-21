@@ -1,23 +1,22 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import ENV from 'fusion:environment'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
-import { ModalConsumer } from '../../../_children/context'
+import { ModalConsumer } from '../context'
 import { Input } from './control_input_select'
-import useForm from '../../../_dependencies/useForm'
-import getCodeError from '../../../_dependencies/codes_error'
-import Domains from '../../../_dependencies/domains'
-import Cookies from '../../../_dependencies/cookies'
-import Services from '../../../_dependencies/services'
-import Taggeo from '../../../_dependencies/taggeo'
+import useForm from '../../_dependencies/useForm'
+import getCodeError from '../../_dependencies/codes_error'
+import Domains from '../../_dependencies/domains'
+import Cookies from '../../_dependencies/cookies'
+import Services from '../../_dependencies/services'
+import Taggeo from '../../_dependencies/taggeo'
 
 export const FormRelogin = ({
   arcSite,
   siteProperties: {
-    signwall: { mainColorLink, mainColorBtn },
+    signwall: { mainColorLink, mainColorBtn, authProviders = [] },
     activeNewsletter = false,
   },
   onClose,
@@ -227,19 +226,9 @@ export const FormRelogin = ({
             ó ingresa con tu cuenta de:
           </S.Text>
 
-          <ButtonSocial
-            brand="facebook"
-            size={ENV.ENVIRONMENT === 'elcomercio' ? 'full' : 'middle'}
-            onClose={onClose}
-            typeDialog={typeDialog}
-            arcSite={arcSite}
-            typeForm="relogin"
-            activeNewsletter={activeNewsletter}
-          />
-
-          {ENV.ENVIRONMENT !== 'elcomercio' && (
+          {authProviders.map(item => (
             <ButtonSocial
-              brand="google"
+              brand={item}
               size="middle"
               onClose={onClose}
               typeDialog={typeDialog}
@@ -247,7 +236,7 @@ export const FormRelogin = ({
               typeForm="relogin"
               activeNewsletter={activeNewsletter}
             />
-          )}
+          ))}
 
           <S.Text c="black" s="12" className="mt-20 mb-10 center">
             ¿Aún no tienes una cuenta?

@@ -14,11 +14,11 @@ import addPayU from '../../../../_dependencies/payu'
 import { PayuError } from '../../../../_dependencies/payu-error'
 import Services from '../../../../_dependencies/services'
 import Radiobox from './radiobox'
-import { Form, Title, Text } from '../../../../main/_main/_children/styles'
+import { Form, Title, Text } from '../../../../_children/forms/styles'
 import {
   InputMask,
   ContMask,
-} from '../../../../main/_main/_children/control_input_select'
+} from '../../../../_children/forms/control_input_select'
 import useForm from '../../../../_dependencies/useForm'
 
 const LOGO_VISA =

@@ -2,10 +2,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
 import * as S from './styles'
-import { ModalConsumer } from '../../../_children/context'
-import Loading from '../../../_children/loading'
-import Domains from '../../../_dependencies/domains'
-import Taggeo from '../../../_dependencies/taggeo'
+import { ModalConsumer } from '../context'
+import Loading from '../loading'
+import Domains from '../../_dependencies/domains'
+import Taggeo from '../../_dependencies/taggeo'
 
 export const FormIntro = ({
   getContent,

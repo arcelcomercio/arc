@@ -2,14 +2,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 import * as S from './styles'
-import { ModalConsumer } from '../../../_children/context'
-import { ForgotPass, MsgForgotPass, Back } from '../../../_children/iconos'
+import { ModalConsumer } from '../context'
+import { ForgotPass, MsgForgotPass, Back } from '../iconos'
 import { Input } from './control_input_select'
-import getCodeError from '../../../_dependencies/codes_error'
-import useForm from '../../../_dependencies/useForm'
-import Domains from '../../../_dependencies/domains'
-import Services from '../../../_dependencies/services'
-import Taggeo from '../../../_dependencies/taggeo'
+import getCodeError from '../../_dependencies/codes_error'
+import useForm from '../../_dependencies/useForm'
+import Domains from '../../_dependencies/domains'
+import Services from '../../_dependencies/services'
+import Taggeo from '../../_dependencies/taggeo'
 
 export const FormForgot = ({
   arcSite,

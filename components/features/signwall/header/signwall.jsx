@@ -43,7 +43,7 @@ const Head = ({
       ) : (
         <HeaderWrapper cbg={mainColorBg} ctx={mainColorTxt}>
           <HeaderContent>
-            {!buttonClose && !_buttonBack ? (
+            {!buttonClose && _buttonBack ? (
               <ButtonBack
                 type="button"
                 ctx={mainColorTxt}

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { device } from '../../../_dependencies/breakpoints'
+import { device } from '../../_dependencies/breakpoints'
 
 const changeColor = color => {
   switch (color) {

@@ -1,23 +1,22 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-// import ENV from 'fusion:environment'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
-import { ModalConsumer } from '../../../_children/context'
-import { MsgRegister, Back } from '../../../_children/iconos'
+import { ModalConsumer } from '../context'
+import { MsgRegister, Back } from '../iconos'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
-import getCodeError from '../../../_dependencies/codes_error'
-import useForm from '../../../_dependencies/useForm'
-import getDevice from '../../../_dependencies/get-device'
+import getCodeError from '../../_dependencies/codes_error'
+import useForm from '../../_dependencies/useForm'
+import getDevice from '../../_dependencies/get-device'
 import { FormStudents } from './form_students'
-import Domains from '../../../_dependencies/domains'
-import Cookies from '../../../_dependencies/cookies'
-import Services from '../../../_dependencies/services'
-import Taggeo from '../../../_dependencies/taggeo'
-import Loading from '../../../_children/loading'
+import Domains from '../../_dependencies/domains'
+import Cookies from '../../_dependencies/cookies'
+import Services from '../../_dependencies/services'
+import Taggeo from '../../_dependencies/taggeo'
+import Loading from '../loading'
 
 export const FormRegister = props => {
   const {
@@ -29,7 +28,12 @@ export const FormRegister = props => {
     isFia,
     handleCallToAction,
     siteProperties: {
-      signwall: { mainColorLink, mainColorBtn, mainColorBr },
+      signwall: {
+        mainColorLink,
+        mainColorBtn,
+        mainColorBr,
+        authProviders = [],
+      },
       activeNewsletter = false,
     },
     removeBefore = i => i,
@@ -320,24 +324,9 @@ export const FormRegister = props => {
                         Accede fácilmente con:
                       </S.Text>
 
-                      <ButtonSocial
-                        brand="facebook"
-                        // size={
-                        //   ENV.ENVIRONMENT === 'elcomercio' ? 'full' : 'middle'
-                        // }
-                        size="full"
-                        onLogged={onLogged}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
-                      />
-                      {/* {ENV.ENVIRONMENT !== 'elcomercio' && (
+                      {authProviders.map(item => (
                         <ButtonSocial
-                          brand="google"
+                          brand={item}
                           size="middle"
                           onLogged={onLogged}
                           onClose={onClose}
@@ -348,7 +337,7 @@ export const FormRegister = props => {
                           activeNewsletter={activeNewsletter}
                           checkUserSubs={checkUserSubs}
                         />
-                      )} */}
+                      ))}
 
                       <S.Text c="gray" s="14" className="mt-20 center">
                         o completa tus datos para registrarte

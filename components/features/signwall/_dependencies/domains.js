@@ -109,6 +109,12 @@ class Domains {
       ? `/suscripcionesdigitales/fia/planes/?ref=auth-fia`
       : `/pf/suscripcionesdigitales/fia/planes/?_website=${arcSite}&outputType=paywall`
   }
+
+  getUrlSignwall = (arcSite, typeDialog, hash) => {
+    return ENV.ENVIRONMENT === 'elcomercio'
+      ? `/signwall/?outputType=signwall&${typeDialog}=${hash}`
+      : `/pf/signwall/?_website=${arcSite}&outputType=signwall&${typeDialog}=${hash}`
+  }
 }
 
 export default new Domains()

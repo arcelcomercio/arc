@@ -140,6 +140,7 @@ export default {
     mainColorBr: '#efdb96',
     mainColorLink: '#36b',
     mainColorBtn: '#0c70bf',
+    authProviders: ['facebook'],
   },
   tv: {
     logoUrl: '/peru21tv/',
