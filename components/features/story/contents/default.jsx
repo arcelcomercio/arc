@@ -72,6 +72,7 @@ class StoryContents extends PureComponent {
       arcSite,
       contextPath,
       deployment,
+      requestUri,
       siteProperties: {
         ids: { opta },
       },
@@ -135,11 +136,13 @@ class StoryContents extends PureComponent {
     return (
       <>
         <div className={classes.news}>
-          {isPremium && SITE_ELCOMERCIO === arcSite && (
-            <div className={classes.premiumWrapper}>
-              <p className={classes.premiumText}>Suscriptor Digital</p>
-            </div>
-          )}
+          {isPremium &&
+            SITE_ELCOMERCIO === arcSite &&
+            requestUri.includes('/archivo-elcomercio/') && (
+              <div className={classes.premiumWrapper}>
+                <p className={classes.premiumText}>Suscriptor Digital</p>
+              </div>
+            )}
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
