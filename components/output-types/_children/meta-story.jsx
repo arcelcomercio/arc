@@ -380,16 +380,14 @@ export default ({
       }()
    */
   const getContentType = () => {
-    let contenType = isPremium ? 'locked' : 'metered'
+    const metered = arcSite === 'elcomercio' ? 'free' : 'metered'
+    let contenType = isPremium ? 'locked' : metered
     const section = primarySectionLink && primarySectionLink.split('/')[1]
     contenType = section.match(/publirreportaje|publireportaje/)
       ? 'free'
       : contenType
 
-    contenType =
-      arcSite === 'elcomerciomag' || arcSite === 'elcomercio'
-        ? 'free'
-        : contenType
+    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
     return contenType
   }
   const dataStructuraHtmlAmp =
