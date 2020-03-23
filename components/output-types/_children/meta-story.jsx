@@ -33,7 +33,7 @@ export default ({
     tags,
     link,
     displayDate: publishDate,
-    publishDate: lastPublishDate,
+    publishDate: publishDatedate,
     subTitle,
     seoAuthor,
     imagePrimarySeo,
@@ -59,12 +59,23 @@ export default ({
     presets: 'no-presets',
   }
   const resultStoryRecent = StoriesRecent(parameters)
-  const publishDateZone =
+  let publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
     arcSite === ConfigParams.SITE_DEPOR ||
     arcSite === ConfigParams.SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
+
+  publishDateZone =
+    arcSite === ConfigParams.SITE_ELCOMERCIO
+      ? getDateSeo(publishDatedate)
+      : publishDateZone
+
+  const lastPublishDate =
+    arcSite === ConfigParams.SITE_ELCOMERCIO
+      ? getDateSeo(publishDatedate)
+      : publishDatedate
+
   const redSocialVideo = contentElementsRedesSociales
     .map(({ youtube = '', facebook = '', twitter = '', user = '' }) => {
       const thumbnailUrlYoutube =
