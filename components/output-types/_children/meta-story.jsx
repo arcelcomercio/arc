@@ -60,7 +60,6 @@ export default ({
   }
   const resultStoryRecent = StoriesRecent(parameters)
   const publishDateZone =
-    arcSite === ConfigParams.SITE_ELCOMERCIO ||
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
     arcSite === ConfigParams.SITE_DEPOR ||
     arcSite === ConfigParams.SITE_ELBOCON
@@ -253,7 +252,6 @@ export default ({
       : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
-      arcSite === ConfigParams.SITE_ELCOMERCIO ||
       arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
       arcSite === ConfigParams.SITE_DEPOR ||
       arcSite === ConfigParams.SITE_ELBOCON
