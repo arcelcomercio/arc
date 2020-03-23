@@ -297,7 +297,10 @@ const BuildHtml = ({
       ? 'free'
       : contenType
 
-    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
+    contenType =
+      arcSite === 'elcomerciomag' || arcSite === 'elcomercio'
+        ? 'free'
+        : contenType
     return contenType
   }
   const { type } = multimedia || {}
