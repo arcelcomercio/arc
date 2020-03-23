@@ -450,22 +450,24 @@ const Dfp = ({ isFuature, adId }) => {
         return formatSpace
       }
     )
-    return `"use strict"; document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}; window.adsCollection=${JSON.stringify(adsCollection)
+    return `"use strict"; document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}; window.adsColl=${JSON.stringify(adsCollection)
       .replace(/"<::/g, '')
       .replace(
         /::>"/g,
         ''
       )};
-       window.adsAdmanager = window.adsCollection.filter(
+       window.adsCollection = window.adsColl.filter(
         function(input)
          {   
-           if(input.dispositivo.indexOf(getAdsDisplay())!==-1)
-              return input };
+           if(input.dispositivo)
+           {
+            if(input.dispositivo.indexOf(getAdsDisplay())!==-1)
+            { return input; };
+           } 
           }
          ) ;
-       arcAds.registerAdCollection(window.adsAdmanager);});`
+       arcAds.registerAdCollection(window.adsCollection);});`
 
-       //       arcAds.registerAdCollection(window.adsCollection);});`
   }
 
   return (
