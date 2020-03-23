@@ -292,15 +292,13 @@ const BuildHtml = ({
     arrayadvertising: listUrlAdvertisings,
   }
   const getContentType = ({ premium = '' } = {}) => {
-    let contenType = premium ? 'locked' : 'metered'
+    const metered = arcSite === 'elcomercio' ? 'free' : 'metered'
+    let contenType = premium ? 'locked' : metered
     contenType = section.match(/publirreportaje|publireportaje/)
       ? 'free'
       : contenType
 
-    contenType =
-      arcSite === 'elcomerciomag' || arcSite === 'elcomercio'
-        ? 'free'
-        : contenType
+    contenType = arcSite === section.match(/mag/) ? 'free' : contenType
     return contenType
   }
   const { type } = multimedia || {}
