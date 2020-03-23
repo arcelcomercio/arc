@@ -59,13 +59,8 @@ export const publicidadAmpAd = ({
     ''
 
   const flying1 =
-    (movil1 === false &&
-      `<amp-fx-flying-carpet height="250px">`) ||
-    ''
-  const flying2 =
-    (movil1 === false &&
-      `</amp-fx-flying-carpet>`) ||
-    ''  
+    (movil1 === false && `<amp-fx-flying-carpet height="250px">`) || ''
+  const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
 
   const nuevoScript =
     (movil1 &&
@@ -444,6 +439,7 @@ export const iframeMxm = (html, arcSite) => {
       rplWidgetVivo3
     )
     .replace(/<mxm-evento code="(.*)" h="(.*)px"><\/mxm>/g, rplWidgetVivo4)
+    .replace(/<mxm-event (.*)><\/mxm-event>/gm, '')
 
   // pendiente de validacion enventos 485178
   return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')
