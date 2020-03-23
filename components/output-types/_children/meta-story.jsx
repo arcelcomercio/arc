@@ -386,7 +386,10 @@ export default ({
       ? 'free'
       : contenType
 
-    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
+    contenType =
+      arcSite === 'elcomerciomag' || arcSite === 'elcomercio'
+        ? 'free'
+        : contenType
     return contenType
   }
   const dataStructuraHtmlAmp =
