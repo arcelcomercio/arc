@@ -71,6 +71,7 @@ class LiveScoreMinuteToMinute extends Component {
       () => this.getDataScore(),
       intervalTimeMilliseconds
     )
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ interval })
   }
 
@@ -116,13 +117,23 @@ class LiveScoreMinuteToMinute extends Component {
       document.querySelector('.header-full').offsetHeight
         ? document.querySelector('.header-full').offsetHeight
         : 0
+
     const heightTotal = score.offsetHeight + header
     // const heightTotal = score.offsetHeight
 
+    const socialHeader = document.querySelector('.story-header__header-social')
+      ? document.querySelector('.story-header__header-social')
+      : null
     if (scrollHeight > heightTotal) {
       score.classList.add('score-sticky__content')
+      if (socialHeader) {
+        socialHeader.classList.add('story-header__spacer')
+      }
     } else {
       score.classList.remove('score-sticky__content')
+      if (socialHeader) {
+        socialHeader.classList.remove('story-header__spacer')
+      }
     }
   }
 
@@ -139,7 +150,7 @@ class LiveScoreMinuteToMinute extends Component {
 
     const { isAdmin } = this.props
 
-    console.log(Date().toString(), this.state)
+    // console.log(Date().toString(), this.state)
 
     const localTeamParams = {
       homeTeam: true,
