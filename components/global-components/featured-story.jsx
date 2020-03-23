@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useEditableContent } from 'fusion:content'
 
 import StoryData from '../utilities/story-data'
-import { formatAMPM } from '../utilities/helpers'
+import { formatAMPM } from '../utilities/date-time/time'
 import Icon from './multimedia-icon'
 import Notify from './notify'
 

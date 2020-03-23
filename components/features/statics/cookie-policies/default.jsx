@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { createMarkup } from '../../../utilities/helpers'
 import cookiesText from './_dependencies/cookies-tpl'
 
 const classes = {
@@ -18,7 +17,7 @@ const StaticCookiePolicies = props => {
       <span className={classes.arrow} />
       <section
         className={classes.textEditor}
-        dangerouslySetInnerHTML={createMarkup(contentEditor || cookiesText)}
+        dangerouslySetInnerHTML={{ __html: contentEditor || cookiesText }}
       />
     </div>
   )
@@ -35,5 +34,6 @@ StaticCookiePolicies.propTypes = {
 }
 
 StaticCookiePolicies.label = 'Política de Cookies'
+StaticCookiePolicies.static = true
 
 export default StaticCookiePolicies

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { getResponsiveClasses } from '../../../../utilities/helpers'
-import ConfigParams from '../../../../utilities/config-params'
+import getResponsiveClasses from '../../../../utilities/responsive-classes'
+import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
 
 const HeaderChildStandard = props => {
   const {
@@ -26,7 +26,7 @@ const HeaderChildStandard = props => {
         <a href={logo.link}>
           <img src={logo.src} alt={logo.alt} className="header__logo" />
         </a>
-        {arcSite === ConfigParams.SITE_PERU21 && (
+        {arcSite === SITE_PERU21 && (
           <a
             className="header__logo-secondary"
             href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">

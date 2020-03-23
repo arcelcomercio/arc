@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default () => {
+export default React.memo(() => {
   return (
     <div className="spinner flex justify-center pt-30 pb-30">
       <svg
@@ -21,4 +21,4 @@ export default () => {
       </svg>
     </div>
   )
-}
+})

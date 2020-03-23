@@ -19,71 +19,72 @@ const classes = {
   mrHTML: 'mr-view__html flex justify-center p-5',
 }
 
-export default React.memo(({
-  data,
-  title,
-  urlTitle,
-  showMore,
-  urlShowMore,
-  showViews,
-  freeHTML,
-  arcSite,
-}) => {
-  const { content_elements: dataList = [] } = data
-  return (
-    <div className={classes.mrFree}>
-      <div className={`${classes.mrWrapper} ${freeHTML && 'h-full hashtml'}`}>
-        <div className={classes.top}>
-          <div className={classes.mrHeader}>
-            {urlTitle ? (
-              <a className={classes.mrTitle} href={urlTitle}>
-                {title || 'Lo mas leido'}
-              </a>
-            ) : (
+export default React.memo(
+  ({
+    dataList,
+    title,
+    urlTitle,
+    showMore,
+    urlShowMore,
+    showViews,
+    freeHTML,
+    arcSite,
+  }) => {
+    return (
+      <div className={classes.mrFree}>
+        <div className={`${classes.mrWrapper} ${freeHTML && 'h-full hashtml'}`}>
+          <div className={classes.top}>
+            <div className={classes.mrHeader}>
+              {urlTitle ? (
+                <a className={classes.mrTitle} href={urlTitle}>
+                  {title || 'Lo mas leido'}
+                </a>
+              ) : (
                 <p className={classes.mrTitle}>{title || 'Lo mas leido'}</p>
               )}
-          </div>
-          <div className={classes.mrBody}>
-            {dataList.map((item, index) => {
-              const {
-                headlines: { basic: titleNew = '' } = {},
-                websites = {},
-              } = item
-              const brandWeb = websites[arcSite] || {}
-              const linkNew = brandWeb.website_url || ''
-              return (
-                <div className={classes.mrItem}>
-                  {showViews && (
-                    <div className={classes.mrItemLeft}>
-                      {/* <p className={classes.mrNum}>64k</p>
+            </div>
+            <div className={classes.mrBody}>
+              {dataList.map((item, index) => {
+                const {
+                  headlines: { basic: titleNew = '' } = {},
+                  websites = {},
+                } = item
+                const brandWeb = websites[arcSite] || {}
+                const linkNew = brandWeb.website_url || ''
+                return (
+                  <div className={classes.mrItem}>
+                    {showViews && (
+                      <div className={classes.mrItemLeft}>
+                        {/* <p className={classes.mrNum}>64k</p>
                 <p className={classes.mrView}>Vistas</p> */}
-                      <p className={classes.mrNum}>{index + 1}</p>
+                        <p className={classes.mrNum}>{index + 1}</p>
+                      </div>
+                    )}
+                    <div className={classes.mrItemRight}>
+                      <a href={linkNew} className={classes.mrLink}>
+                        {titleNew}
+                      </a>
                     </div>
-                  )}
-                  <div className={classes.mrItemRight}>
-                    <a href={linkNew} className={classes.mrLink}>
-                      {titleNew}
-                    </a>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
+          {showMore && (
+            <div className={classes.footer}>
+              <a href={urlShowMore} className={classes.btn}>
+                Ver todo
+              </a>
+            </div>
+          )}
         </div>
-        {showMore && (
-          <div className={classes.footer}>
-            <a href={urlShowMore} className={classes.btn}>
-              Ver todo
-            </a>
-          </div>
+        {freeHTML && (
+          <div
+            className={classes.mrHTML}
+            dangerouslySetInnerHTML={{ __html: freeHTML }}
+          />
         )}
       </div>
-      {freeHTML && (
-        <div
-          className={classes.mrHTML}
-          dangerouslySetInnerHTML={{ __html: freeHTML }}
-        />
-      )}
-    </div>
-  )
-})
+    )
+  }
+)

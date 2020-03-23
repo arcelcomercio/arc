@@ -59,6 +59,7 @@ class XmlFacebookInstantArticles {
         idGoogleAnalitics = '',
         fbArticleStyle = '',
         listUrlAdvertisings = [],
+        ids: { opta },
       } = {},
     } = this.props
 
@@ -164,6 +165,7 @@ class XmlFacebookInstantArticles {
                   websiteUrlsBytag,
                   arcSite,
                   section: storyData.sectionsFIA.section,
+                  opta,
                 }
 
                 return {

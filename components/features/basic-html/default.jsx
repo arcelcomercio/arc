@@ -7,7 +7,7 @@ import {
   createScript,
   appendToBody,
   appendToId,
-} from '../../utilities/DOM/nodes'
+} from '../../utilities/client/nodes'
 
 const classes = {
   htmlContainer: 'htmlContainer overflow-x-auto overflow-y-hidden',

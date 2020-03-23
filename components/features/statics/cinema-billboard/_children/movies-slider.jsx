@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { defaultImage } from '../../../../utilities/helpers'
+import { defaultImage } from '../../../../utilities/assets'
 
 const classes = {
   moviesSlider: 'movies-slider',

@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import React, { useState, useRef, useEffect } from 'react'
-
-import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
+import searchQuery from '../../../../utilities/client/search'
 
 const classes = {
   headerFull: 'header-full bg-primary w-full position-relative',
@@ -90,6 +91,16 @@ const classes = {
 
   footer: `nav-sidebar__footer p-30 border-b-1 border-solid border-gray`,
   text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white uppercase`,
+}
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
 }
 
 export default ({
@@ -210,9 +221,7 @@ export default ({
                    * */}
                   <label htmlFor={idElem} className={classes.labelParentItem} />
                   <ul
-                    className={`${
-                      classes.containerSubMenu
-                    } deep-${deep} ${idElem}`}>
+                    className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
                     {renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>

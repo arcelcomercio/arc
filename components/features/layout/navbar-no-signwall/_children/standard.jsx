@@ -2,18 +2,14 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ENV from 'fusion:environment'
 
+import getResponsiveClasses from '../../../../utilities/responsive-classes'
+import searchQuery from '../../../../utilities/client/search'
+import { socialMediaUrlShareList } from '../../../../utilities/social-media'
+import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
+import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+
 import Button from '../../../../global-components/button'
-import ConfigParams from '../../../../utilities/config-params'
-
 import Menu from '../../../../global-components/menu'
-// import Ads from '../../../../global-components/ads'
-
-import {
-  getResponsiveClasses,
-  searchQuery,
-  popUpWindow,
-  socialMediaUrlShareList,
-} from '../../../../utilities/helpers'
 
 const classes = {
   nav: `nav text-white text-sm w-full flex items-center top-0 secondary-font`,
@@ -58,6 +54,16 @@ const classes = {
   iconTwitter: 'icon-twitter-circle',
   iconWhatsapp: 'icon-whatsapp',
   iconMore: 'story-header__share-icon icon-share text-gray-200',
+}
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
 }
 
 @Consumer
@@ -480,23 +486,22 @@ class NavBarDefault extends PureComponent {
               />
             </a>
 
-            {type !== ConfigParams.ELEMENT_STORY &&
-              arcSite === ConfigParams.SITE_PERU21 && (
-                <a
-                  className={classes.logoLeft}
-                  href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
-                  <img
-                    src={logoLeft.src}
-                    alt={logo.alt}
-                    className={classes.logoImage}
-                  />
-                </a>
-              )}
+            {type !== ELEMENT_STORY && arcSite === SITE_PERU21 && (
+              <a
+                className={classes.logoLeft}
+                href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
+                <img
+                  src={logoLeft.src}
+                  alt={logo.alt}
+                  className={classes.logoImage}
+                />
+              </a>
+            )}
 
             <div className={classes.navStoryTitle} />
 
             <div className={classes.navStorySocialNetwork}>
-              {type === ConfigParams.ELEMENT_STORY && (
+              {type === ELEMENT_STORY && (
                 <>
                   <div>
                     <a

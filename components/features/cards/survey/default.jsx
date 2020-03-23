@@ -2,7 +2,7 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import { setSurveyCookie, getCookie } from '../../../utilities/helpers'
+import { setSurveyCookie, getCookie } from '../../../utilities/client/cookies'
 import CardSurveyChildSurvey from './_children/survey'
 
 const BASE_PATH = '/encuesta'

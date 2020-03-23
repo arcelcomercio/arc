@@ -99,6 +99,15 @@ function WizardPayment(props) {
     const { cvv, cardMethod, expiryDate, cardNumber } = values
     let payUPaymentMethod
 
+    fbq('track', 'AddPaymentInfo', {
+      content_category: plan.name,
+      content_ids: [plan.sku],
+      contents: [{ id: plan.sku, quantity: 1 }],
+      currency: 'PEN',
+      value: plan.amount,
+      num_items: 1,
+    })
+
     Sentry.addBreadcrumb({
       category: 'compra',
       message: 'Valores en formulario de pago',

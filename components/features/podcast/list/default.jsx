@@ -5,7 +5,7 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
-import { formatDayMonthYear } from '../../../utilities/helpers'
+import { formatDayMonthYear } from '../../../utilities/date-time/dates'
 import {
   includePromoItems,
   includePrimarySection,

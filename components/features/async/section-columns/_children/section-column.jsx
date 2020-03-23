@@ -1,26 +1,12 @@
 import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-import { defaultImage } from '../../../../utilities/helpers'
+import { defaultImage } from '../../../../utilities/assets'
+import getMultimediaIcon from '../../../../utilities/multimedia-icon'
 import {
   includeCredits,
   includePromoItems,
 } from '../../../../utilities/included-fields'
-
-const getMultimediaIcon = multimediaType => {
-  let icon = ''
-  switch (multimediaType) {
-    case 'basic_video':
-      icon = 'icon-video'
-      break
-    case 'basic_gallery':
-      icon = 'icon-img'
-      break
-    default:
-      return ''
-  }
-  return icon
-}
 
 const ChildrenSectionColumn = ({
   sectionName,

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
-import ENV from "fusion:environment";
+import ENV from 'fusion:environment'
 
-import { popUpWindow } from '../../../../utilities/helpers'
 import { checkDisabledIcons } from '../../../../utilities/slidernav-helpers'
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
@@ -50,6 +49,16 @@ const classes = {
   iconMore: 'story-header__share-icon',
   navContainerRight: 'header__btn-container',
   btnSubscribe: 'story-header__subscribe',
+}
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
 }
 
 // TODO: Agregar el click afuera del menu
@@ -211,15 +220,26 @@ const HeaderChildInverted = ({
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                    onClick={()=>{
-                      const { origin } = window.location;
-                      const outputType = (_env === 'prod')? '' : 'outputType=paywall&';
-                      const pf = _env === 'prod' ? '' : '/pf';
-                      const connector = _env !== "prod" ? `?_website=${arcSite}&` : `?`;
-                      const link = origin + pf + siteProperties.urlSubsOnline + connector + outputType;
-                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
-                      window.location.href = link + ref;
-                    }}/>
+                    onClick={() => {
+                      const { origin } = window.location
+                      const outputType =
+                        _env === 'prod' ? '' : 'outputType=paywall&'
+                      const pf = _env === 'prod' ? '' : '/pf'
+                      const connector =
+                        _env !== 'prod' ? `?_website=${arcSite}&` : `?`
+                      const link =
+                        origin +
+                        pf +
+                        siteProperties.urlSubsOnline +
+                        connector +
+                        outputType
+                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                        'undefined' &&
+                        window.section) ||
+                        ''}`
+                      window.location.href = link + ref
+                    }}
+                  />
                 )}
                 {siteProperties.activeSignwall && (
                   <SignwallComponent

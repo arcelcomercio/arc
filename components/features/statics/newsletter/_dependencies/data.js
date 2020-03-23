@@ -1,5 +1,5 @@
 // import { ResizeImageUrl } from '../../../../utilities/helpers'
-import { getAssetsPath } from '../../../../utilities/constants'
+import { getAssetsPath } from '../../../../utilities/assets'
 
 class Data {
   constructor(customFields, arcSite, contextPath) {
