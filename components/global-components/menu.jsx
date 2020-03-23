@@ -5,7 +5,7 @@ import searchQuery from '../utilities/client/search'
 import Button from './button'
 
 const classes = {
-  sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300`,
+  sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300 hidden`,
   content: `nav-sidebar__content flex flex-col justify-between h-full overflow-y`,
   item:
     'nav-sidebar__item position-relative flex justify-between items-center flex-wrap',
