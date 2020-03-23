@@ -1,79 +1,88 @@
 /** ----------------------------*
 *            COLORES            *
-*-------------------------------*/
+* ----------------------------- */
 
 /** ----------------------------*
 *         BRAND COLORS          *
-*-------------------------------*/
+* ----------------------------- */
 $color-primary: #fecd26 !default;
-$color-secondary: #000000 !default;
+$color-secondary: #000 !default;
 $color-tertiary: #e8f2f7 !default;
-/*------------------------------*/
-$color-base-400: #000000 !default;
-$color-base-300: #333333 !default;
+
+/* ---------------------------- */
+$color-base-400: #000 !default;
+$color-base-300: #333 !default;
 $color-base-200: #8a8a8a !default;
 $color-base-100: #e8e8e8 !default;
-/*------------------------------*/
+
+/* ---------------------------- */
 
 /** ----------------------------*
 *             OTROS             *
-*-------------------------------*/
+* ----------------------------- */
 $color-attention: #f3da4a !default;
 $color-link: #45619d !default;
 $color-error: #dc4e41 !default;
 $color-info: #bbd3e0 !default;
 $color-success: #4dc247 !default;
-/*------------------------------*/
+
+/* ---------------------------- */
 
 /** ----------------------------*
 *           GRAYSCALE           *
-*-------------------------------*/
-$color-black: #000000 !default;
-$color-gray-300: #333333 !default;
+* ----------------------------- */
+$color-black: #000 !default;
+$color-gray-300: #333 !default;
 $color-gray-200: #8a8a8a !default;
 $color-gray-100: #e8e8e8 !default;
-$color-white: #ffffff !default;
-/*------------------------------*/
+$color-white: #fff !default;
+
+/* ---------------------------- */
 
 /** ----------------------------*
 *        GENERAL CONFIG         *
-*-------------------------------*/
+* ----------------------------- */
 $text-default-color: $color-gray-300 !default;
+
 /******** border colors *********/
 $border-color-black: $color-gray-200 !default;
 $border-color-gray: $color-gray-100 !default;
 $border-color-base: $color-base-200 !default;
-/*------------------------------*/
+
+/* ---------------------------- */
 
 /******* Header colors *******/
 $header-bg-color: $color-primary !default;
 $header-text-color: $color-gray-300 !default;
-/*------------------------------*/
+
+/* ---------------------------- */
 
 /******* Nav colors *******/
 $nav-color: $color-gray-300 !default;
 $nav-color-2: $color-gray-100 !default;
 $amp-nav-color: $color-white !default;
-/*-----------------------*/
+
+/* ---------------------- */
 
 /******* Footer colors *******/
 $footer-background: $color-gray-300 !default;
 $amp-footer-background: $color-gray-300 !default;
 $footer-text-color: $color-white !default;
-/*-----------------------*/
 
-/*-------------SIGNWALL----------------*/
+/* ----------------------- */
+
+/* -------------SIGNWALL---------------- */
 $signwall-background: $color-primary;
 $signwall-border-color: #d1e6f0;
 $signwall-icon-background: $color-black;
 $signwall-icon-color: $signwall-background;
 $signwall-home-link-color: #9e9e9e;
-$signwall-header-text-color: #ffffff !default;
+$signwall-header-text-color: #fff !default;
 $signwall-color-item-title: #008eff;
 $signwall-color-link: #0f8bf7;
 $signwall-btn-m-bg: $color-white;
-$signwall-btn-m-color: #444444;
-$signwall-btn-d-color: #444444;
+$signwall-btn-m-color: #444;
+$signwall-btn-d-color: #444;
 $signwall-btn-d-bg: $color-white;
 $signwall-btn-d-border: $color-white;
 
@@ -82,14 +91,16 @@ $signwall-text-menu-color-primary: #008eff;
 $signwall-text-menu-color-secondary: #818181;
 $signwall-login-text: $color-secondary;
 $signwall-login-bg: $color-primary;
-/*-------------SIGNWALL----------------*/
 
-/*-------------CALENDAR----------------*/
+/* -------------SIGNWALL---------------- */
+
+/* -------------CALENDAR---------------- */
 $calendar-background: #bed6e2 !default;
 $calendar-title: #19191d !default;
-$calendar-bg-icon: #ffffff !default;
-$calendar-icon: #ffffff !default;
+$calendar-bg-icon: #fff !default;
+$calendar-icon: #fff !default;
 $calendar-line: #cac4c4 !default;
 $calendar-month: #8c8c8c !default;
 $calendar-day: #8c8c8c !default;
-/*-------------CALENDAR----------------*/
+
+/* -------------CALENDAR---------------- */
