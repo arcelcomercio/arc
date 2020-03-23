@@ -68,7 +68,7 @@ export default ({
 
   publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIO
-      ? getDateSeo(publishDatedate)
+      ? getDateSeo(publishDate)
       : publishDateZone
 
   const lastPublishDate =
