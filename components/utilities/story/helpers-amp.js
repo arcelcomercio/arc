@@ -440,6 +440,7 @@ export const iframeMxm = (html, arcSite) => {
     )
     .replace(/<mxm-evento code="(.*)" h="(.*)px"><\/mxm>/g, rplWidgetVivo4)
     .replace(/<mxm-event (.*)><\/mxm-event>/gm, '')
+    .replace(/<mxm id="(.*)"><\/mxm>/gm, '')
 
   // pendiente de validacion enventos 485178
   return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')
