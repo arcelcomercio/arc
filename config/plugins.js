@@ -7,8 +7,6 @@ const paths = require('./paths')
 
 const APP_DEFAULT = 'index'
 const APP_AMP = 'amp'
-const APP_LITE = 'lite'
-const APP_DLITE = 'dlite'
 const generalStylesPath = `${paths.generalStyles}/components`
 
 module.exports = type => {
@@ -29,17 +27,11 @@ module.exports = type => {
     return { feature: cssBaseFeature, globalComponent: cssBaseGlobalComponent }
   }
   const getListStyleComponents = dir => {
-    let pathStyle = `${generalStylesPath}/*(${dir})/**/**/_!(amp-|lite-|dite-)*.scss`
+    let pathStyle = `${generalStylesPath}/*(${dir})/**/**/_!(amp-)*.scss`
     if (type === APP_AMP) {
       pathStyle = `${generalStylesPath}/*(${dir})/**/**/_amp-*.scss`
     }
 
-    if (type === APP_LITE) {
-      pathStyle = `${generalStylesPath}/*(${dir})/**/**/_LITE-*.scss`
-    }
-    if (type === APP_DLITE) {
-      pathStyle = `${generalStylesPath}/*(${dir})/**/**/_dlite-*.scss`
-    }
     let entryStyles = glob.sync(pathStyle)
     entryStyles = entryStyles.map(el => {
       return el.split(generalStylesPath).join('')
@@ -96,17 +88,9 @@ module.exports = type => {
     plugins.unshift(
       new CreateFileWebpack(getOptionsIndexStyleWebpack('_amp.scss'))
     )
-  } else if (type === APP_DLITE) {
-    plugins.unshift(
-      new CreateFileWebpack(getOptionsIndexStyleWebpack('_dlite.scss'))
-    )
-  } else if (type === APP_LITE) {
-    plugins.unshift(
-      new CreateFileWebpack(getOptionsIndexStyleWebpack('_lite.scss'))
-    )
   }
 
-  if (type !== APP_AMP && type !== APP_LITE && type !== APP_DLITE) {
+  if (type !== APP_AMP) {
     plugins.push(
       new CleanWebpackPlugin([paths.dist], {
         verbose: true,
