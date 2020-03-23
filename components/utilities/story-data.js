@@ -1,25 +1,41 @@
-import ConfigParams from './config-params'
+import { VIDEO, GALLERY, HTML, IMAGE } from './constants/multimedia-types'
+import {
+  ELEMENT_RAW_HTML,
+  ELEMENT_IMAGE,
+  ELEMENT_VIDEO,
+  ELEMENT_OEMBED,
+  ELEMENT_TEXT,
+  ELEMENT_LIST,
+  ELEMENT_HEADER,
+  ELEMENT_YOUTUBE_ID,
+} from './constants/element-types'
+import {
+  IMAGE_ORIGINAL,
+  LANDSCAPE_XL,
+  LANDSCAPE_L,
+  LANDSCAPE_MD,
+  LANDSCAPE_S,
+  LANDSCAPE_XS,
+  PORTRAIT_XL,
+  PORTRAIT_L,
+  PORTRAIT_MD,
+  PORTRAIT_S,
+  PORTRAIT_XS,
+  SQUARE_XL,
+  SQUARE_L,
+  SQUARE_MD,
+  SQUARE_S,
+  SQUARE_XS,
+  IMPRESA_S,
+  STORY_SMALL,
+  LARGE,
+} from './constants/image-sizes'
 import { formatHtmlToText, addSlashToEnd } from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
-import { getAssetsPath } from './assets'
+import { getAssetsPath, defaultImage } from './assets'
 
-// Funcion extraida de helpers
-export const defaultImage = ({
-  deployment,
-  contextPath,
-  arcSite,
-  size = 'lg',
-}) => {
-  if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
-
-  return deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/default-${size}.png`
-  )
-}
+const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
 // Funcion extraida de helpers
 export const breadcrumbList = (siteUrl = '', primarySectionLink = '') => {
@@ -38,16 +54,15 @@ export const breadcrumbList = (siteUrl = '', primarySectionLink = '') => {
 }
 
 class StoryData {
-  static VIDEO = ConfigParams.VIDEO
+  static VIDEO = VIDEO
 
-  static GALLERY = ConfigParams.GALLERY
+  static GALLERY = GALLERY
 
-  static HTML = ConfigParams.HTML
+  static HTML = HTML
 
-  static IMAGE = ConfigParams.IMAGE
+  static IMAGE = IMAGE
 
-  static AUTOR_SOCIAL_NETWORK_TWITTER =
-    ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER
+  static AUTOR_SOCIAL_NETWORK_TWITTER = AUTOR_SOCIAL_NETWORK_TWITTER
 
   constructor({
     data = {},
@@ -156,7 +171,7 @@ class StoryData {
 
   get authorTwitterLink() {
     const twitter = StoryData.getDataAuthor(this._data).socialLinks.filter(
-      x => x.site === ConfigParams.AUTOR_SOCIAL_NETWORK_TWITTER
+      x => x.site === AUTOR_SOCIAL_NETWORK_TWITTER
     )
     const result = twitter && twitter[0] && twitter[0].url ? twitter[0].url : ''
     return result
@@ -210,89 +225,89 @@ class StoryData {
       StoryData.getThumbnailBySize(
         this._data,
         StoryData.getTypeMultimedia(this._data),
-        ConfigParams.IMAGE_ORIGINAL
+        IMAGE_ORIGINAL
       ) || ''
     )
   }
 
   get multimedia() {
-    return this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
+    return this.getMultimediaBySize(IMAGE_ORIGINAL)
   }
 
   get multimediaLandscapeXL() {
-    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_XL)
+    return this.getMultimediaBySize(LANDSCAPE_XL)
   }
 
   get multimediaLandscapeL() {
-    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_L)
+    return this.getMultimediaBySize(LANDSCAPE_L)
   }
 
   get multimediaLandscapeMD() {
-    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_MD)
+    return this.getMultimediaBySize(LANDSCAPE_MD)
   }
 
   get multimediaLandscapeS() {
-    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_S)
+    return this.getMultimediaBySize(LANDSCAPE_S)
   }
 
   get multimediaLandscapeXS() {
-    return this.getMultimediaBySize(ConfigParams.LANDSCAPE_XS)
+    return this.getMultimediaBySize(LANDSCAPE_XS)
   }
 
   get multimediaPortraitXL() {
-    return this.getMultimediaBySize(ConfigParams.PORTRAIT_XL)
+    return this.getMultimediaBySize(PORTRAIT_XL)
   }
 
   get multimediaPortraitL() {
-    return this.getMultimediaBySize(ConfigParams.PORTRAIT_L)
+    return this.getMultimediaBySize(PORTRAIT_L)
   }
 
   get multimediaPortraitMD() {
-    return this.getMultimediaBySize(ConfigParams.PORTRAIT_MD)
+    return this.getMultimediaBySize(PORTRAIT_MD)
   }
 
   get multimediaPortraitS() {
-    return this.getMultimediaBySize(ConfigParams.PORTRAIT_S)
+    return this.getMultimediaBySize(PORTRAIT_S)
   }
 
   get multimediaPortraitXS() {
-    return this.getMultimediaBySize(ConfigParams.PORTRAIT_XS)
+    return this.getMultimediaBySize(PORTRAIT_XS)
   }
 
   get multimediaSquareXL() {
-    return this.getMultimediaBySize(ConfigParams.SQUARE_XL)
+    return this.getMultimediaBySize(SQUARE_XL)
   }
 
   get multimediaSquareL() {
-    return this.getMultimediaBySize(ConfigParams.SQUARE_L)
+    return this.getMultimediaBySize(SQUARE_L)
   }
 
   get multimediaSquareMD() {
-    return this.getMultimediaBySize(ConfigParams.SQUARE_MD)
+    return this.getMultimediaBySize(SQUARE_MD)
   }
 
   get multimediaSquareS() {
-    return this.getMultimediaBySize(ConfigParams.SQUARE_S)
+    return this.getMultimediaBySize(SQUARE_S)
   }
 
   get multimediaSquareXS() {
-    return this.getMultimediaBySize(ConfigParams.SQUARE_XS)
+    return this.getMultimediaBySize(SQUARE_XS)
   }
 
   get multimediaLarge() {
-    return this.getMultimediaBySize(ConfigParams.LARGE)
+    return this.getMultimediaBySize(LARGE)
   }
 
   get multimediaStorySmall() {
-    return this.getMultimediaBySize(ConfigParams.STORY_SMALL)
+    return this.getMultimediaBySize(STORY_SMALL)
   }
 
   get multimediaImpresaS() {
-    return this.getMultimediaBySize(ConfigParams.IMPRESA_S)
+    return this.getMultimediaBySize(IMPRESA_S)
   }
 
   get multimediaLazyDefault() {
-    // return this.getMultimediaBySize(ConfigParams.LAZY_DEFAULT)
+    // return this.getMultimediaBySize(LAZY_DEFAULT)
     return this.defaultImg
   }
 
@@ -526,8 +541,8 @@ class StoryData {
     return msToTime(
       (this.__data &&
         this.__data.promo_items &&
-        this.__data.promo_items[ConfigParams.VIDEO] &&
-        this.__data.promo_items[ConfigParams.VIDEO].duration) ||
+        this.__data.promo_items[VIDEO] &&
+        this.__data.promo_items[VIDEO].duration) ||
         ''
     )
   }
@@ -536,8 +551,8 @@ class StoryData {
     return (
       (this._data &&
         this._data.promo_items &&
-        this._data.promo_items[ConfigParams.VIDEO] &&
-        this._data.promo_items[ConfigParams.VIDEO].embed_html) ||
+        this._data.promo_items[VIDEO] &&
+        this._data.promo_items[VIDEO].embed_html) ||
       ''
     )
   }
@@ -548,24 +563,24 @@ class StoryData {
     let imageItems = ''
 
     switch (type) {
-      case ConfigParams.IMAGE:
-        result.payload = this.getMultimediaBySize(ConfigParams.IMAGE_ORIGINAL)
+      case IMAGE:
+        result.payload = this.getMultimediaBySize(IMAGE_ORIGINAL)
         break
-      case ConfigParams.VIDEO:
+      case VIDEO:
         result.payload =
           (this._data &&
             this._data.promo_items &&
-            this._data.promo_items[ConfigParams.VIDEO] &&
-            this._data.promo_items[ConfigParams.VIDEO]._id) ||
+            this._data.promo_items[VIDEO] &&
+            this._data.promo_items[VIDEO]._id) ||
           ''
         break
 
-      case ConfigParams.GALLERY:
+      case GALLERY:
         imageItems =
           (this._data &&
             this._data.promo_items &&
-            this._data.promo_items[ConfigParams.GALLERY] &&
-            this._data.promo_items[ConfigParams.GALLERY].content_elements) ||
+            this._data.promo_items[GALLERY] &&
+            this._data.promo_items[GALLERY].content_elements) ||
           []
 
         result.payload =
@@ -574,12 +589,12 @@ class StoryData {
             return resizeUrl
           }) || []
         break
-      case ConfigParams.ELEMENT_YOUTUBE_ID:
+      case ELEMENT_YOUTUBE_ID:
         result.payload =
           (this._data &&
             this._data.promo_items &&
-            this._data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID] &&
-            this._data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID].content) ||
+            this._data.promo_items[ELEMENT_YOUTUBE_ID] &&
+            this._data.promo_items[ELEMENT_YOUTUBE_ID].content) ||
           ''
         break
       default:
@@ -654,7 +669,7 @@ class StoryData {
       (this._data &&
         StoryData.getContentElementsHtml(
           this._data.content_elements,
-          ConfigParams.ELEMENT_RAW_HTML
+          ELEMENT_RAW_HTML
         )) ||
       ''
     )
@@ -665,7 +680,7 @@ class StoryData {
       (this._data &&
         StoryData.getContentElementsImage(
           this._data.content_elements,
-          ConfigParams.ELEMENT_IMAGE
+          ELEMENT_IMAGE
         )) ||
       ''
     )
@@ -676,7 +691,7 @@ class StoryData {
       (this._data &&
         StoryData.getContentElementsText(
           this._data.content_elements,
-          ConfigParams.ELEMENT_TEXT
+          ELEMENT_TEXT
         )) ||
       ''
     )
@@ -686,7 +701,7 @@ class StoryData {
     return (
       (this._data &&
         this._data.promo_items &&
-        this._data.promo_items[ConfigParams.GALLERY]) ||
+        this._data.promo_items[GALLERY]) ||
       ''
     )
   }
@@ -713,7 +728,7 @@ class StoryData {
           dataElements.publicidadCaja3 = true
           i += 1
         }
-        if (typeElement === ConfigParams.ELEMENT_TEXT) {
+        if (typeElement === ELEMENT_TEXT) {
           i += 1
         }
         return dataElements
@@ -743,20 +758,16 @@ class StoryData {
           dataElements.publicidad = true
           dataElements.nameAds = `caja5`
         }
-
-        if (typeElement === ConfigParams.ELEMENT_TEXT) {
+        if (typeElement === ELEMENT_TEXT) {
           i += 1
           v += 1
         }
 
-        if (
-          typeElement === ConfigParams.ELEMENT_VIDEO ||
-          typeElement === ConfigParams.ELEMENT_RAW_HTML
-        ) {
+        if (typeElement === ELEMENT_VIDEO || typeElement === ELEMENT_RAW_HTML) {
           if (v >= 2) {
             dataElements.reziserVideo = true
           } else dataElements.reziserVideo = false
-          
+
           v = 0
         }
 
@@ -770,8 +781,8 @@ class StoryData {
     const videoprimary =
       this._data &&
       this._data.promo_items &&
-      this._data.promo_items[ConfigParams.HTML] &&
-      this._data.promo_items[ConfigParams.HTML].content
+      this._data.promo_items[HTML] &&
+      this._data.promo_items[HTML].content
 
     const primaryId = [getVideoIdRedSocial(videoprimary)]
     const videosIds =
@@ -785,8 +796,8 @@ class StoryData {
         } = dataContent
 
         if (
-          typeElement === ConfigParams.ELEMENT_RAW_HTML ||
-          typeElement === ConfigParams.ELEMENT_OEMBED
+          typeElement === ELEMENT_RAW_HTML ||
+          typeElement === ELEMENT_OEMBED
         ) {
           dataElements = getVideoIdRedSocial(html || content, typeRedsocial)
         }
@@ -837,9 +848,9 @@ class StoryData {
   get videoIdContent() {
     let video = ''
     const typeItem = this.promoItemsType
-    if (typeItem === ConfigParams.VIDEO) {
+    if (typeItem === VIDEO) {
       video = StoryData.getIdGoldfish(this._data)
-    } else if (typeItem === ConfigParams.ELEMENT_YOUTUBE_ID) {
+    } else if (typeItem === ELEMENT_YOUTUBE_ID) {
       video = StoryData.getIdYoutube(this._data)
     }
     return video
@@ -982,14 +993,14 @@ class StoryData {
     const items = Object.keys(promoItems)
 
     if (items.length > 0) {
-      if (items.includes(ConfigParams.VIDEO)) {
-        typeMultimedia = ConfigParams.VIDEO
-      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
-        typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
-      } else if (items.includes(ConfigParams.GALLERY)) {
-        typeMultimedia = ConfigParams.GALLERY
-      } else if (items.includes(ConfigParams.IMAGE)) {
-        typeMultimedia = ConfigParams.IMAGE
+      if (items.includes(VIDEO)) {
+        typeMultimedia = VIDEO
+      } else if (items.includes(ELEMENT_YOUTUBE_ID)) {
+        typeMultimedia = ELEMENT_YOUTUBE_ID
+      } else if (items.includes(GALLERY)) {
+        typeMultimedia = GALLERY
+      } else if (items.includes(IMAGE)) {
+        typeMultimedia = IMAGE
       }
     }
     return typeMultimedia
@@ -1288,11 +1299,7 @@ class StoryData {
     let item = {}
     for (let i = 0; i <= items.length; i++) {
       item = promoItems[items[i]]
-      if (
-        typeof item === 'object' &&
-        item !== null &&
-        items[i] !== ConfigParams.HTML
-      ) {
+      if (typeof item === 'object' && item !== null && items[i] !== HTML) {
         typeMultimedia = items[i]
         break
       }
@@ -1313,22 +1320,22 @@ class StoryData {
   }
 
   static getMultimediaIconType = data => {
-    let typeMultimedia = ConfigParams.IMAGE
+    let typeMultimedia = IMAGE
     const { promo_items: promoItems = {} } = data || {}
     const items = Object.keys(promoItems)
     if (items.length > 0) {
-      if (items.includes(ConfigParams.VIDEO)) {
-        typeMultimedia = ConfigParams.VIDEO
-      } else if (items.includes(ConfigParams.HTML)) {
+      if (items.includes(VIDEO)) {
+        typeMultimedia = VIDEO
+      } else if (items.includes(HTML)) {
         const { content } = promoItems.basic_html
         if (content.includes('id="powa-')) {
-          typeMultimedia = ConfigParams.VIDEO
+          typeMultimedia = VIDEO
         }
-      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
-        // typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
-        typeMultimedia = ConfigParams.VIDEO
-      } else if (items.includes(ConfigParams.GALLERY)) {
-        typeMultimedia = ConfigParams.GALLERY
+      } else if (items.includes(ELEMENT_YOUTUBE_ID)) {
+        // typeMultimedia = ELEMENT_YOUTUBE_ID
+        typeMultimedia = VIDEO
+      } else if (items.includes(GALLERY)) {
+        typeMultimedia = GALLERY
       }
     }
     return typeMultimedia
@@ -1340,51 +1347,43 @@ class StoryData {
     const items = Object.keys(promoItems)
 
     if (items.length > 0) {
-      if (items.includes(ConfigParams.VIDEO)) {
-        typeMultimedia = ConfigParams.VIDEO
-      } else if (items.includes(ConfigParams.ELEMENT_YOUTUBE_ID)) {
-        typeMultimedia = ConfigParams.ELEMENT_YOUTUBE_ID
-      } else if (items.includes(ConfigParams.GALLERY)) {
-        typeMultimedia = ConfigParams.GALLERY
-      } else if (items.includes(ConfigParams.IMAGE)) {
-        typeMultimedia = ConfigParams.IMAGE
+      if (items.includes(VIDEO)) {
+        typeMultimedia = VIDEO
+      } else if (items.includes(ELEMENT_YOUTUBE_ID)) {
+        typeMultimedia = ELEMENT_YOUTUBE_ID
+      } else if (items.includes(GALLERY)) {
+        typeMultimedia = GALLERY
+      } else if (items.includes(IMAGE)) {
+        typeMultimedia = IMAGE
       }
     }
     return typeMultimedia
   }
 
-  static getThumbnailVideo(data, size = ConfigParams.IMAGE_ORIGINAL) {
+  static getThumbnailVideo(data, size = IMAGE_ORIGINAL) {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items[ConfigParams.VIDEO] &&
-        data.promo_items[ConfigParams.VIDEO].promo_items &&
-        data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE] &&
-        ((data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-          .resized_urls &&
-          data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-            .resized_urls[size]) ||
-          data.promo_items[ConfigParams.VIDEO].promo_items[ConfigParams.IMAGE]
-            .url)) ||
+        data.promo_items[VIDEO] &&
+        data.promo_items[VIDEO].promo_items &&
+        data.promo_items[VIDEO].promo_items[IMAGE] &&
+        ((data.promo_items[VIDEO].promo_items[IMAGE].resized_urls &&
+          data.promo_items[VIDEO].promo_items[IMAGE].resized_urls[size]) ||
+          data.promo_items[VIDEO].promo_items[IMAGE].url)) ||
       ''
     return thumb
   }
 
-  static getThumbnailGalleryBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
+  static getThumbnailGalleryBySize(data, size = IMAGE_ORIGINAL) {
     const thumb =
       (data &&
         data.promo_items &&
-        data.promo_items[ConfigParams.GALLERY] &&
-        data.promo_items[ConfigParams.GALLERY].promo_items &&
-        data.promo_items[ConfigParams.GALLERY].promo_items[
-          ConfigParams.IMAGE
-        ] &&
-        ((data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-          .resized_urls &&
-          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-            .resized_urls[size]) ||
-          data.promo_items[ConfigParams.GALLERY].promo_items[ConfigParams.IMAGE]
-            .url)) ||
+        data.promo_items[GALLERY] &&
+        data.promo_items[GALLERY].promo_items &&
+        data.promo_items[GALLERY].promo_items[IMAGE] &&
+        ((data.promo_items[GALLERY].promo_items[IMAGE].resized_urls &&
+          data.promo_items[GALLERY].promo_items[IMAGE].resized_urls[size]) ||
+          data.promo_items[GALLERY].promo_items[IMAGE].url)) ||
       ''
     return thumb
   }
@@ -1393,8 +1392,8 @@ class StoryData {
     return (
       (data &&
         data.promo_items &&
-        data.promo_items[ConfigParams.VIDEO] &&
-        data.promo_items[ConfigParams.VIDEO]._id) ||
+        data.promo_items[VIDEO] &&
+        data.promo_items[VIDEO]._id) ||
       ''
     )
   }
@@ -1403,32 +1402,31 @@ class StoryData {
     const video =
       (data &&
         data.promo_items &&
-        data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID] &&
-        data.promo_items[ConfigParams.ELEMENT_YOUTUBE_ID].content) ||
+        data.promo_items[ELEMENT_YOUTUBE_ID] &&
+        data.promo_items[ELEMENT_YOUTUBE_ID].content) ||
       ''
     return video
   }
 
-  static getImageBySize(data, size = ConfigParams.IMAGE_ORIGINAL) {
+  static getImageBySize(data, size = IMAGE_ORIGINAL) {
     const { url = '', resized_urls: resizeUrls = {}, type = null } =
-      (data && data.promo_items && data.promo_items[ConfigParams.IMAGE]) || {}
-    if (size === ConfigParams.IMAGE_ORIGINAL) return url
+      (data && data.promo_items && data.promo_items[IMAGE]) || {}
+    if (size === IMAGE_ORIGINAL) return url
     return (
-      (type === ConfigParams.ELEMENT_IMAGE && resizeUrls[size]
-        ? resizeUrls[size]
-        : url) || ''
+      (type === ELEMENT_IMAGE && resizeUrls[size] ? resizeUrls[size] : url) ||
+      ''
     )
   }
 
   static getThumbnailBySize(data, type, size) {
     let thumb = ''
-    if (type === ConfigParams.VIDEO) {
+    if (type === VIDEO) {
       thumb = StoryData.getThumbnailVideo(data, size)
-    } else if (type === ConfigParams.GALLERY) {
+    } else if (type === GALLERY) {
       thumb = StoryData.getThumbnailGalleryBySize(data, size)
-    } else if (type === ConfigParams.IMAGE) {
+    } else if (type === IMAGE) {
       thumb = StoryData.getImageBySize(data, size)
-    } else if (type === ConfigParams.ELEMENT_YOUTUBE_ID) {
+    } else if (type === ELEMENT_YOUTUBE_ID) {
       thumb = StoryData.getImageBySize(data, size)
     }
     return thumb
@@ -1484,25 +1482,25 @@ class StoryData {
         const result = { _id, type, level, payload: '' }
 
         switch (type) {
-          case ConfigParams.ELEMENT_TEXT:
+          case ELEMENT_TEXT:
             result.payload = content
             // && content
             break
-          case ConfigParams.ELEMENT_LIST:
+          case ELEMENT_LIST:
             result.payload = items
             break
-          case ConfigParams.ELEMENT_HEADER:
+          case ELEMENT_HEADER:
             result.payload = content
             break
-          case ConfigParams.ELEMENT_IMAGE:
+          case ELEMENT_IMAGE:
             result.payload = url
             result.caption = subtitle || caption
             // && url
             break
-          case ConfigParams.ELEMENT_VIDEO:
+          case ELEMENT_VIDEO:
             result.payload = _id
             break
-          case ConfigParams.ELEMENT_RAW_HTML:
+          case ELEMENT_RAW_HTML:
             result.payload = content
             // && content
             break

@@ -4,18 +4,7 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import { getAssetsPath } from '../../../utilities/constants'
-
-const defaultImage = ({ deployment, contextPath, arcSite, size = 'lg' }) => {
-  if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
-
-  return deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/default-${size}.png`
-  )
-}
+import { defaultImage } from '../../../utilities/assets'
 
 const BASE_PATH = '/cartelera'
 // const MOVIES_BASE_PATH = '/peliculas'

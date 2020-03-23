@@ -3,8 +3,8 @@ import { useFusionContext } from 'fusion:context'
 
 import { customFields } from './_dependencies/custom-fields'
 import BlogPostListGridChildGrid from './_children/grid'
-import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
-import { getAssetsPath } from '../../../utilities/constants'
+import { addSlashToEnd } from '../../../utilities/parse/strings'
+import { getAssetsPath, defaultImage } from '../../../utilities/assets'
 
 const BlogPostListGrid = props => {
   const {

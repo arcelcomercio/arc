@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 
-import { getActualDate } from '../../../utilities/helpers'
+import { getActualDate } from '../../../utilities/date-time/dates'
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
 import {
@@ -17,7 +17,7 @@ import RenderPagination from './_children/pagination-by-date'
 import Ads from '../../../global-components/ads'
 import ListItem from './_children/list-item'
 import Spinner from '../../../global-components/spinner'
-import ConfigParams from '../../../utilities/config-params'
+import { SITE_DIARIOCORREO } from '../../../utilities/constants/sitenames'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -152,8 +152,7 @@ class StoriesListInfiniteScroll extends PureComponent {
         } = storyData
 
         const isOpinionCorreo =
-          primarySectionLink === '/opinion/' &&
-          arcSite === ConfigParams.SITE_DIARIOCORREO
+          primarySectionLink === '/opinion/' && arcSite === SITE_DIARIOCORREO
 
         const imgItemLandscapeXS = isOpinionCorreo
           ? authorImage
@@ -202,12 +201,7 @@ class StoriesListInfiniteScroll extends PureComponent {
             const ads = this.hasAds(index + 1, activeAdsArray)
             return (
               <Fragment key={`Archivo-${story.id}`}>
-                <ListItem
-                  {...{
-                    story,
-                    isRender,
-                  }}
-                />
+                <ListItem {...story} isRender={isRender} />
                 {ads.length > 0 && (
                   <div className={classes.adsBox}>
                     <Ads

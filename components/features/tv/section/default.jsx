@@ -3,10 +3,17 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import {
-  popUpWindow,
-  socialMediaUrlShareList,
-} from '../../../utilities/helpers'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
+}
 
 const TvSection = () => {
   const {
@@ -39,7 +46,7 @@ const TvSection = () => {
           <img
             className="w-full h-full object-cover"
             src={sectionImg}
-            alt={sectionName}            
+            alt={sectionName}
           />
         </picture>
       </div>

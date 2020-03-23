@@ -9,6 +9,7 @@ import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
 import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
+// import FirebaseScripts from './_children/firebase-scripts'
 import {
   skipAdvertising,
   storyTagsBbc,
@@ -32,6 +33,7 @@ export default ({
   siteProperties,
   requestUri,
   metaValue,
+  Resource,
 }) => {
   const CURRENT_ENVIRONMENT =
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
@@ -99,6 +101,7 @@ export default ({
     isStory,
     isAmp: false,
     CURRENT_ENVIRONMENT,
+    Resource,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -236,7 +239,7 @@ export default ({
       const poster = target.getAttribute('data-poster')
       const streams = target.getAttribute('data-streams')
       const reziser = target.getAttribute('data-reziser')
-      const dataVideo = '<div class="powa" id="powa-{uuid}" data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" ></div>'
+      const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
      
       target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
        if (window.powaBoot) window.powaBoot()
@@ -247,7 +250,17 @@ export default ({
           adTag: preroll,
         }
       }
-
+      
+      window.addEventListener('powaRender',
+        function () {
+          Array.from(document.getElementsByClassName('powa-default')).forEach(function (contShare) {
+            contShare.classList.remove("powa-default")
+        });
+          const elemento=document.getElementById('powa-icon-default');
+          elemento.parentNode.removeChild(elemento);
+        }
+     )
+  
       observer.unobserve(target)
     }
   })
@@ -294,8 +307,34 @@ if ('IntersectionObserver' in window) {
     .powa-shot { position: absolute; color: rgb(240, 248, 255); font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;    z-index: 1;    width: 100%; height: 100%;    top: 0px;    left: 0px;}
     .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
     .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
-    .powa-play-btn { transform: inherit; }`
+    .powa-play-btn { transform: inherit; }
+    .powa-default{ background-color: #000;  height: 345px;  }
+    .powa-icon-default{bottom: auto;top: inherit;padding-top: x;left: 90px;margin-top: -92px;}
+    @media only screen and (max-width: 600px) { .powa-icon-default{display:none;}
+    .powa-default {
+      height: 157px;
+    }}
+    `
+  const style = 'style'
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
+  if (CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
+  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
+  }
+  const styless = ` <link
+  rel="preload"
+  href=${deployment(styleUrl)}
+  onload="this.onload=null;this.rel='stylesheet'"
+  as="style"
+/>`
 
+  const isStyleBasic =
+    arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
   return (
     <html lang="es">
       <head>
@@ -376,7 +415,7 @@ if ('IntersectionObserver' in window) {
           />
         )}
 
-        <MetaSite {...metaSiteData} />
+        <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
         <meta name="description" content={description} />
         {arcSite === 'elcomerciomag' && (
           <meta property="fb:pages" content="530810044019640" />
@@ -394,10 +433,23 @@ if ('IntersectionObserver' in window) {
         />
 
         <AdsScriptsFloorPrices />
-
+        {contenidoVideo && (
+          <>
+            <style
+              dangerouslySetInnerHTML={{
+                __html: stylePwa,
+              }}></style>
+          </>
+        )}
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
+            {arcSite === 'trome' && requestUri.match('^/espectaculos') && (
+              <script
+                defer
+                src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+              />
+            )}
             <script
               defer
               src={deployment(
@@ -419,6 +471,8 @@ if ('IntersectionObserver' in window) {
 
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+
+        {/* <FirebaseScripts /> */}
 
         <Libs />
         {contenidoVideo && (
@@ -464,15 +518,6 @@ if ('IntersectionObserver' in window) {
           {children}
         </div>
 
-        <script
-          defer
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/js/index.js`
-          )}
-        />
         <Fusion />
         {isStory && (
           <script
@@ -506,6 +551,7 @@ if ('IntersectionObserver' in window) {
         />
 
         <script
+          defer
           src={deployment(
             `${getAssetsPath(
               arcSite,
@@ -515,16 +561,33 @@ if ('IntersectionObserver' in window) {
         />
 
         {/* Rubicon BlueKai - Inicio */}
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-        />
-        <script
-          type="text/javascript"
-          async
-          src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-        />
+        {arcSite === 'elcomercio' && metaValue('id') === 'meta_home' ? (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+            />
+            <script
+              type="text/javascript"
+              defer
+              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+            />
+          </>
+        ) : (
+          <>
+            <script
+              type="text/javascript"
+              async
+              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
+            />
+            <script
+              type="text/javascript"
+              async
+              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
+            />
+          </>
+        )}
         {contenidoVideo && (
           <>
             <script
@@ -532,13 +595,27 @@ if ('IntersectionObserver' in window) {
               defer
               dangerouslySetInnerHTML={{ __html: scriptVideo }}
             />
-            <style
-              dangerouslySetInnerHTML={{
-                __html: stylePwa,
-              }}></style>
           </>
         )}
         {/* Rubicon BlueKai - Fin */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `"use strict";(function(){setTimeout(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}},0)})()`,
+          }}
+        />
+
+        {isStyleBasic && (
+          <>
+            <i
+              dangerouslySetInnerHTML={{
+                __html: styless,
+              }}></i>
+
+            <noscript>
+              <link rel="stylesheet" href={deployment(styleUrl)} />
+            </noscript>
+          </>
+        )}
       </body>
     </html>
   )

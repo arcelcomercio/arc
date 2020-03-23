@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable no-extra-boolean-cast */
@@ -17,6 +18,7 @@ import { LogIntoAccountEventTag } from '../../../_children/fb-account-linking'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { conformProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
+import { getBrowser } from '../../../_dependencies/browsers'
 import PWA from '../../_dependencies/seed-pwa'
 
 function WizardPlan(props) {
@@ -28,6 +30,7 @@ function WizardPlan(props) {
       description: productDescription,
       summary,
       printedSubscriber,
+      fromFia,
       error,
     },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
@@ -106,6 +109,7 @@ function WizardPlan(props) {
   }, [profile])
 
   useEffect(() => {
+    const browser = getBrowser()
     origin.current =
       window.sessionStorage.getItem('paywall_type_modal') || 'organico'
     referer.current = window.sessionStorage.getItem('paywall_last_url')
@@ -122,6 +126,10 @@ function WizardPlan(props) {
       medioCompra: origin.current,
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
+    })
+    fbq('track', 'ViewPaywall', {
+      surface: fromFia ? 'fia' : browser.isFbBrowser ? 'mWeb' : 'nonApp',
+      // meter_count: ""
     })
     fbq('track', 'ViewContent', {
       content_category: plans[0].productName,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
@@ -7,7 +7,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 
 import StoryData from '../../../utilities/story-data'
-import { formattedTime } from '../../../utilities/helpers'
+import formatTime from '../../../utilities/date-time/format-time'
 
 import TvBody from './_children/body'
 // import { includePromoItems } from '../../../utilities/included-fields'
@@ -91,7 +91,7 @@ const TvFeatured = props => {
       auxDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0] ===
       today.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
     ) {
-      return formattedTime(auxDate)
+      return formatTime(auxDate)
     }
     return `${auxDate.getUTCDate()}/${auxDate.getUTCMonth() +
       1}/${auxDate.getUTCFullYear()}`
@@ -104,20 +104,6 @@ const TvFeatured = props => {
     return initDate >= new Date(timeStampYesterday * 1000).getTime()
   }
 
-  /** Estados */
-  /**
-   * TODO: revisar manejo de fecha. Creo que se hizo asi para poder usar la fecha local
-   * en lugar de la fecha del servidor si el feature tuviera static true pero creo
-   * que se puede manejar sin necesidad de estados con metodos que ya existen.
-   */
-  const [clientDate, setClientDate] = useState('')
-
-  useEffect(() => {
-    if (date) {
-      setClientDate(formatDateLocalTimeZone(date))
-    }
-  }, [date])
-
   return (
     <TvBody
       {...{
@@ -126,7 +112,8 @@ const TvFeatured = props => {
         isNewStory: validateNewStory(date),
         date,
         // section: `${section}/`,
-        clientDate,
+        clientDate:
+          typeof window !== 'undefined' ? formatDateLocalTimeZone(date) : '',
         videoId: getVideoId(),
         // menuSections: formatMenuSections(menuSections),
       }}

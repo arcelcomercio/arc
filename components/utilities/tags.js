@@ -26,4 +26,5 @@ export const replaceTags = text => {
     .replace(/href=&quot;(.+)&quot;>/g, 'href="$1">')
     .replace(/http:\/\/gestion2.e3.pe\//g, 'https://cde.gestion2.e3.pe/')
     .replace('http://', 'https://')
+    .replace(/href="(elcomercio.pe)/gm, 'href="https://$1')
 }

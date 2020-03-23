@@ -2,8 +2,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { msToTime } from '../../../../utilities/helpers'
-import { VIDEO, ELEMENT_YOUTUBE_ID } from '../../../../utilities/constants'
+import { msToTime } from '../../../../utilities/date-time/time'
+import {
+  VIDEO,
+  ELEMENT_YOUTUBE_ID,
+} from '../../../../utilities/constants/multimedia-types'
 
 // subcomponents
 import YoutubeVideoNoDestacado from './youtube-video-unpromoted'

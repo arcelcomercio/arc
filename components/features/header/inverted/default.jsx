@@ -3,8 +3,8 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import getProperties from 'fusion:properties'
-import { socialMediaUrlShareList } from '../../../utilities/helpers'
-import ConfigParams from '../../../utilities/config-params'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 
 import Formatter from './_dependencies/formatter'
 import { bandFilter, menuFilter } from './_dependencies/schema-filter'
@@ -49,7 +49,7 @@ const HeaderInverted = props => {
   } = getProperties(arcSite)
 
   const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
-  const isStory = type === ConfigParams.ELEMENT_STORY
+  const isStory = type === ELEMENT_STORY
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,

@@ -5,7 +5,7 @@ import getProperties from 'fusion:properties'
 
 import getFooterProperties from '../_dependencies/properties'
 import FooterChildElComercio from './children/footer'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const FooterElComercio = () => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()

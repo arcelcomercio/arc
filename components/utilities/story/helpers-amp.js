@@ -57,6 +57,11 @@ export const publicidadAmpAd = ({
     (ConfigParams.SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
+
+  const flying1 =
+    (movil1 === false && `<amp-fx-flying-carpet height="250px">`) || ''
+  const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
+
   const nuevoScript =
     (movil1 &&
       `data-multi-size="${size}"
@@ -65,9 +70,9 @@ export const publicidadAmpAd = ({
     data-multi-size-validation="false"`
 
   if (secctionPrimary[1] !== 'respuestas') {
-    resultData = `
+    resultData = `${flying1}
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>`
+  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>${flying2}`
   }
   return createMarkup(resultData)
 }
@@ -434,6 +439,7 @@ export const iframeMxm = (html, arcSite) => {
       rplWidgetVivo3
     )
     .replace(/<mxm-evento code="(.*)" h="(.*)px"><\/mxm>/g, rplWidgetVivo4)
+    .replace(/<mxm-event (.*)><\/mxm-event>/gm, '')
 
   // pendiente de validacion enventos 485178
   return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')

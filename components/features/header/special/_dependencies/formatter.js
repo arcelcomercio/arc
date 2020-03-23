@@ -1,4 +1,4 @@
-import { getAssetsPath } from '../../../../utilities/constants'
+import { getAssetsPath } from '../../../../utilities/assets'
 
 export default class SpecialHeader {
   constructor(

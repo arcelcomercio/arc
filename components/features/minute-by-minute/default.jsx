@@ -4,8 +4,8 @@ import React, { PureComponent } from 'react'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import { appendToBody } from '../../utilities/helpers'
-import { getAssetsPath } from '../../utilities/constants'
+import { appendToBody } from '../../utilities/client/nodes'
+import { getAssetsPath } from '../../utilities/assets'
 
 // TODO: convertir en componente funcional con hooks
 

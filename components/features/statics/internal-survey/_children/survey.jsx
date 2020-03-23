@@ -3,7 +3,7 @@ import InternalSurveyChildInput from './input'
 import InternalSurveyChildResult from './result'
 import InternalSurveyChildConfirmation from './confirmation'
 import UtilListKey from '../../../../utilities/list-keys'
-import getLatinDate from '../../../../utilities/date-name'
+import getLatinDate from '../../../../utilities/date-time/latin-date'
 
 const classes = {
   InternalSurvey: 'internal-survey bg-tertiary grid primary-font p-30 mb-30',

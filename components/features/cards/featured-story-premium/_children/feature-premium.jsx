@@ -2,7 +2,7 @@ import React from 'react'
 import { useEditableContent } from 'fusion:content'
 import Icon from '../../../../global-components/multimedia-icon'
 import Notify from '../../../../global-components/notify'
-import { formatAMPM } from '../../../../utilities/helpers'
+import { formatAMPM } from '../../../../utilities/date-time/time'
 
 const classes = {
   featuredPremium: 'featured-premium',
@@ -41,7 +41,7 @@ const FeaturedStoryPremiumChild = ({
   imgType,
   bgColor,
   websiteLink,
-  multimediaSquareMD,
+  // multimediaSquareMD,
   multimediaSquareXL,
   multimediaLandscapeMD,
   multimediaLandscapeL,
