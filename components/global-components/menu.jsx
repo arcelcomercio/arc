@@ -74,7 +74,9 @@ const NavbarChildMenu = props => {
                    * */}
                   <label htmlFor={idElem} className={classes.labelParentItem} />
                   <ul
-                    className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
+                    className={`${
+                      classes.containerSubMenu
+                    } deep-${deep} ${idElem}`}>
                     {renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
@@ -99,9 +101,7 @@ const NavbarChildMenu = props => {
   }, [])
 
   return (
-    <div
-      className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}
-      style={{ transform: 'scaleX(0)' }}>
+    <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
       {showSidebar && (
         <div
           className={`${classes.content} ${
