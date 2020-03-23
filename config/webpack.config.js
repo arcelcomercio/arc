@@ -32,10 +32,10 @@ function destructuring(outputs) {
   })
 }
 
-const mobileConfig = {
-  entry: './src/mobile/index.js',
+const liteConfig = {
+  entry: './src/lite/index.js',
   output: {
-    path: path.resolve(__dirname, `../resources/assets/mobile/dist`),
+    path: path.resolve(__dirname, `../resources/assets/lite/dist`),
     filename: 'bundle.js',
   },
   module: {
@@ -60,7 +60,7 @@ module.exports = env => {
   // const type = env.amp ? 'amp' : 'index'
   // const ext = env.amp ? 'css' : 'js'
 
-  return [...setConfig(destructuring(outputs), mode), ...[mobileConfig]]
+  return [...setConfig(destructuring(outputs), mode), ...[liteConfig]]
 
   // return {
   //   mode,
