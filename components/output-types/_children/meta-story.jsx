@@ -60,7 +60,6 @@ export default ({
   }
   const resultStoryRecent = StoriesRecent(parameters)
   const publishDateZone =
-    arcSite === ConfigParams.SITE_ELCOMERCIO ||
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
     arcSite === ConfigParams.SITE_DEPOR ||
     arcSite === ConfigParams.SITE_ELBOCON
@@ -253,7 +252,6 @@ export default ({
       : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
-      arcSite === ConfigParams.SITE_ELCOMERCIO ||
       arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
       arcSite === ConfigParams.SITE_DEPOR ||
       arcSite === ConfigParams.SITE_ELBOCON
@@ -382,13 +380,14 @@ export default ({
       }()
    */
   const getContentType = () => {
-    let contenType = isPremium ? 'locked' : 'metered'
+    const metered = arcSite === 'elcomercio' ? 'free' : 'metered'
+    let contenType = isPremium ? 'locked' : metered
     const section = primarySectionLink && primarySectionLink.split('/')[1]
     contenType = section.match(/publirreportaje|publireportaje/)
       ? 'free'
       : contenType
 
-      contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
+    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
     return contenType
   }
   const dataStructuraHtmlAmp =
@@ -426,7 +425,6 @@ export default ({
       <meta
         property="article:modified_time"
         content={`${
-          arcSite === ConfigParams.SITE_ELCOMERCIO ||
           arcSite === ConfigParams.SITE_ELCOMERCIOMAG
             ? publishDateZone
             : lastPublishDate
@@ -458,6 +456,14 @@ export default ({
           async
         />
       )}
+
+      {isAmp !== true &&
+        contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `.live-event {font-size: 16px;}.live-event .live-event-comment {display: block;position: relative;margin-bottom: 10px;padding: 0 0 20px 65px;line-height: 20px;border-bottom: 1px solid #dcdcdc;}.live-event .live-event-comment span{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-match {font-size: 16px;}.live-match .live-match-comment {display: block;position: relative;margin-bottom: 10px;padding: 0 0 20px 40px;line-height: 20px;border-bottom: 1px solid #dcdcdc;}.live-match .live-match-comment span{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;}`,
+            }}></style>
+        )}
       {isAmp === true &&
         dataStructuraHtmlAmp.map(datas => {
           return (
