@@ -30,6 +30,7 @@ import {
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
   ELEMENT_STORY,
+  ELEMENT_INTERSTITIAL_LINK,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -45,6 +46,7 @@ import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -178,6 +180,7 @@ class StoryContents extends PureComponent {
                     headlines: { basic: captionVideo = '' } = {},
                     publicidad = false,
                     nameAds,
+                    url = '',
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -225,6 +228,14 @@ class StoryContents extends PureComponent {
                   if (type === ELEMENT_QUOTE) {
                     return <StoryContentsChildBlockQuote data={element} />
                   }
+                  if (type === ELEMENT_INTERSTITIAL_LINK) {
+                    return (
+                      <StoryContentsChildInterstitialLink
+                        url={url}
+                        content={content}
+                      />
+                    )
+                  }
                   if (type === ELEMENT_OEMBED) {
                     return (
                       <Oembed
@@ -256,7 +267,9 @@ class StoryContents extends PureComponent {
 
                   if (type === ELEMENT_TEXT) {
                     const alignmentClass = alignment
-                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
+                      ? `${classes.textClasses} ${
+                          classes.alignmentClasses
+                        }-${alignment}`
                       : classes.textClasses
                     return (
                       <>
@@ -366,7 +379,8 @@ class StoryContents extends PureComponent {
         {arcSite === SITE_ELCOMERCIO && (
           <script
             src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
-            defer></script>
+            defer
+          />
         )}
       </>
     )
