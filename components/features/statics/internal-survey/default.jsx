@@ -63,7 +63,12 @@ class StaticInternalSurvey extends PureComponent {
   sharelinks = () => {
     const {
       globalContent,
-      siteProperties: { siteUrl = '' } = {},
+      siteProperties: {
+        social: {
+          twitter: { user: siteNameRedSocial },
+        },
+        siteUrl = '',
+      } = {},
       requestUri = '',
     } = this.props
     const { title = '' } = globalContent || {}
@@ -71,7 +76,8 @@ class StaticInternalSurvey extends PureComponent {
     const { facebook, twitter } = socialMediaUrlShareList(
       siteUrl,
       requestUri,
-      title
+      title,
+      siteNameRedSocial
     )
 
     return { facebook, twitter }

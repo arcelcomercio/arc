@@ -75,41 +75,26 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/peru21',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/peru21noticias',
-      },
-      {
-        name: 'google+',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: '',
+    },
+    {
+      name: 'twitter',
+      url: '',
+    },
+  ],
   social: {
     facebook: {
-      name: 'facebook',
-      user: '@peru21.pe',
-      url: 'https://www.facebook.com/peru21',
+      user: '',
     },
     twitter: {
-      name: 'twitter',
-      user: 'peru21noticias',
-      url: 'https://twitter.com/peru21noticias',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
+      user: '',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna1-300x250-div-gpt-ad-8599377-31.html',

@@ -35,12 +35,11 @@ const FooterStandardG21 = props => {
   const {
     gecSites,
     legalLinks,
+    socialNetworks = [],
     assets: { footer: { logo } = {} } = {},
   } = getProperties(arcSite)
 
-  const {
-    footer: { socialNetworks = [], siteLegal, story } = {},
-  } = getFooterProperties(arcSite)
+  const { footer: { siteLegal, story } = {} } = getFooterProperties(arcSite)
 
   const sections = useContent({
     source: CONTENT_SOURCE,
