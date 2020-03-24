@@ -30,6 +30,7 @@ import {
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
   ELEMENT_STORY,
+  ELEMENT_INTERSTITIAL_LINK,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -45,6 +46,7 @@ import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -59,6 +61,9 @@ const classes = {
   listClasses: 'story-content__paragraph-list',
   alignmentClasses: 'story-content__alignment',
   bbcHead: 'bbc-head p-10',
+  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10`,
+  premiumText:
+    'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 
 @Consumer
@@ -69,6 +74,7 @@ class StoryContents extends PureComponent {
       arcSite,
       contextPath,
       deployment,
+      requestUri,
       siteProperties: {
         ids: { opta },
       },
@@ -129,9 +135,19 @@ class StoryContents extends PureComponent {
         )}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
 
+    const { basic_gallery: basicGallery = {} } = promoItems
+
     return (
       <>
         <div className={classes.news}>
+          {isPremium &&
+            SITE_ELCOMERCIO === arcSite &&
+            requestUri.includes('/archivo-elcomercio/') &&
+            !basicGallery && (
+              <div className={classes.premiumWrapper}>
+                <p className={classes.premiumText}>Suscriptor Digital</p>
+              </div>
+            )}
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
@@ -178,6 +194,7 @@ class StoryContents extends PureComponent {
                     headlines: { basic: captionVideo = '' } = {},
                     publicidad = false,
                     nameAds,
+                    url = '',
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -225,6 +242,14 @@ class StoryContents extends PureComponent {
                   if (type === ELEMENT_QUOTE) {
                     return <StoryContentsChildBlockQuote data={element} />
                   }
+                  if (type === ELEMENT_INTERSTITIAL_LINK) {
+                    return (
+                      <StoryContentsChildInterstitialLink
+                        url={url}
+                        content={content}
+                      />
+                    )
+                  }
                   if (type === ELEMENT_OEMBED) {
                     return (
                       <Oembed
@@ -256,7 +281,9 @@ class StoryContents extends PureComponent {
 
                   if (type === ELEMENT_TEXT) {
                     const alignmentClass = alignment
-                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
+                      ? `${classes.textClasses} ${
+                          classes.alignmentClasses
+                        }-${alignment}`
                       : classes.textClasses
                     return (
                       <>
@@ -366,7 +393,8 @@ class StoryContents extends PureComponent {
         {arcSite === SITE_ELCOMERCIO && (
           <script
             src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
-            defer></script>
+            defer
+          />
         )}
       </>
     )
