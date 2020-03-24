@@ -19,7 +19,7 @@ import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 const classes = {
   gallery: 'w-full',
   image: 'story-gallery__img-box w-full pl-20 pr-20',
-  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10`,
+  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10 ml-20 md:ml-0`,
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
