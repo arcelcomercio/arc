@@ -201,40 +201,30 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
-      },
-      {
-        name: 'youtube',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-  },
-  social: {
-    facebook: {
+  socialNetworks: [
+    {
       name: 'facebook',
-      user: '@elcomercio.pe',
       url: 'https://www.facebook.com/elcomercio.pe',
     },
-    twitter: {
+    {
       name: 'twitter',
-      user: 'elcomercio_peru',
       url: 'https://twitter.com/elcomercio_peru',
     },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
-    },
-    instagram: {
+    {
       name: 'instagram',
       url: 'https://www.instagram.com/elcomercio/?hl=es',
+    },
+    {
+      name: 'youtube',
+      url: 'https://www.youtube.com/channel/UCLtGUPjKLqa3zgdmhKCZONg',
+    },
+  ],
+  social: {
+    facebook: {
+      user: '@elcomercio.pe',
+    },
+    twitter: {
+      user: 'elcomercio_peru',
     },
   },
   adsAmp: {

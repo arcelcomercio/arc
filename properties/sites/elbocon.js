@@ -103,40 +103,26 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-el-bocon/',
-      },
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/DiarioElBocon',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elbocononline',
-      },
-    ],
-  },
-  social: {
-    facebook: {
-      name: 'facebook',
-      user: '@DiarioElBocon',
-      url: 'https://www.facebook.com/DiarioElBocon',
-    },
-    twitter: {
-      name: 'twitter',
-      user: 'elbocononline',
-      url: 'https://twitter.com/elbocononline',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
-    },
-    linkedin: {
+  socialNetworks: [
+    {
       name: 'linkedin',
       url: 'https://www.linkedin.com/company/diario-el-bocon/',
+    },
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/DiarioElBocon',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/elbocononline',
+    },
+  ],
+  social: {
+    facebook: {
+      user: '@DiarioElBocon',
+    },
+    twitter: {
+      user: 'elbocononline',
     },
   },
   adsAmp: {

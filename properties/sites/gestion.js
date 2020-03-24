@@ -167,49 +167,30 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-gestión/',
-      },
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/Gestionpe',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/gestionpe',
-      },
-    ],
-  },
-  social: {
-    facebook: {
-      name: 'facebook',
-      user: '@Gestionpe',
-      url: 'https://www.facebook.com/Gestionpe',
-    },
-    twitter: {
-      name: 'twitter',
-      user: 'Gestionpe',
-      url: 'https://twitter.com/gestionpe',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
-    },
-    linkedin: {
+  socialNetworks: [
+    {
       name: 'linkedin',
       url: 'https://www.linkedin.com/company/diario-gestión/',
     },
-    instagram: {
-      name: 'instagram',
-      url: 'https://www.instagram.com/elcomercio/?hl=es',
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/Gestionpe',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/gestionpe',
+    },
+  ],
+  social: {
+    facebook: {
+      user: '@Gestionpe',
+    },
+    twitter: {
+      user: 'Gestionpe',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-gestion/ads-fia-28253241-ges_ia_interna1-300x250-div-gpt-ad-8599377-21.html',

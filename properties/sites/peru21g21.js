@@ -83,32 +83,22 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/peru21',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/peru21noticias',
-      },
-    ],
-  },
-  social: {
-    facebook: {
+  socialNetworks: [
+    {
       name: 'facebook',
-      user: '@peru21.pe',
       url: 'https://www.facebook.com/peru21',
     },
-    twitter: {
+    {
       name: 'twitter',
-      user: 'peru21noticias',
       url: 'https://twitter.com/peru21noticias',
     },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
+  ],
+  social: {
+    facebook: {
+      user: '@peru21.pe',
+    },
+    twitter: {
+      user: 'peru21noticias',
     },
   },
   adsAmp: {

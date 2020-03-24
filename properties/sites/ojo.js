@@ -70,38 +70,31 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/DiarioOjo',
-      },
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/company/ojo/',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/DiarioOjo',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/diarioojo',
+    },
+    {
+      name: 'linkedin',
+      url: 'https://www.linkedin.com/company/ojo/',
+    },
+  ],
 
   social: {
     facebook: {
-      name: 'facebook',
       user: '@DiarioOjo',
-      url: 'https://www.facebook.com/DiarioOjo',
     },
     twitter: {
-      name: 'twitter',
       user: 'diarioojo',
-      url: 'https://twitter.com/diarioojo',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna1-300x250-div-gpt-ad-8599377-26.html',

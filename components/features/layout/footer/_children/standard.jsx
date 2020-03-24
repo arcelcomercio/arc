@@ -131,6 +131,7 @@ const StandardFooter = props => {
                     className={classes.listSocialLink}>
                     <i
                       className={`icon-${el.name} footer__social-icon pr-15`}
+                      aria-label={el.name}
                     />
                   </a>
                 </li>

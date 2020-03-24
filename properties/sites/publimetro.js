@@ -72,32 +72,22 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/publimetrope',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/publimetrope',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/publimetrope',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/publimetrope',
+    },
+  ],
   social: {
     facebook: {
-      name: 'facebook',
       user: '@publimetrope',
-      url: 'http://facebook.com/publimetrope',
     },
     twitter: {
-      name: 'twitter',
       user: 'publimetrope',
-      url: 'http://twitter.com/publimetrope',
-    },
-    youtube: {
-      name: 'youtube',
-      url: '/',
     },
   },
   adsAmp: {

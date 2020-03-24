@@ -107,41 +107,26 @@ export default {
       url: '/oficinas-concesionarias/',
     },
   ],
-
-  footer: {
-    socialNetworks: [
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/',
-      },
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/CorreoPeru/',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/diariocorreo',
-      },
-    ],
-  },
-  social: {
-    facebook: {
-      name: 'facebook',
-      user: '@CorreoPeru',
-      url: 'https://www.facebook.com/CorreoPeru/',
-    },
-    twitter: {
-      name: 'twitter',
-      user: 'diariocorreo',
-      url: 'https://twitter.com/diariocorreo',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://www.youtube.com/user/DiarioCorreoPeru',
-    },
-    linkedin: {
+  socialNetworks: [
+    {
       name: 'linkedin',
       url: 'https://www.linkedin.com/',
+    },
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/CorreoPeru/',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/diariocorreo',
+    },
+  ],
+  social: {
+    facebook: {
+      user: '@CorreoPeru',
+    },
+    twitter: {
+      user: 'diariocorreo',
     },
   },
   adsAmp: {
