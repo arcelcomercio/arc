@@ -90,7 +90,7 @@ export default {
     },
     {
       name: 'Facebook',
-      url: 'https://www.facebook.com/depor.pe',
+      url: 'https://www.facebook.com/deporperu',
     },
     {
       name: 'Pinterest',
@@ -103,7 +103,7 @@ export default {
   ],
   social: {
     facebook: {
-      user: '@depor.com',
+      user: '@deporperu',
     },
     twitter: {
       user: 'tuitdepor',
