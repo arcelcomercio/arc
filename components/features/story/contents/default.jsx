@@ -61,6 +61,9 @@ const classes = {
   listClasses: 'story-content__paragraph-list',
   alignmentClasses: 'story-content__alignment',
   bbcHead: 'bbc-head p-10',
+  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10`,
+  premiumText:
+    'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 
 @Consumer
@@ -71,6 +74,7 @@ class StoryContents extends PureComponent {
       arcSite,
       contextPath,
       deployment,
+      requestUri,
       siteProperties: {
         ids: { opta },
       },
@@ -131,9 +135,19 @@ class StoryContents extends PureComponent {
         )}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
 
+    const { basic_gallery: basicGallery = {} } = promoItems
+
     return (
       <>
         <div className={classes.news}>
+          {isPremium &&
+            SITE_ELCOMERCIO === arcSite &&
+            requestUri.includes('/archivo-elcomercio/') &&
+            !basicGallery && (
+              <div className={classes.premiumWrapper}>
+                <p className={classes.premiumText}>Suscriptor Digital</p>
+              </div>
+            )}
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
