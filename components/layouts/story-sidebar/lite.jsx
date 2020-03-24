@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const classes = {
   layout: 'f just-center',
-  contentContainer: 'f f-col w-full pos-rel',
+  contentContainer: 'st-sidebar__container f f-col w-full pos-rel',
   separator: 'w-full ',
   heading: 'w-full',
   content: 'st-sidebar__content f',

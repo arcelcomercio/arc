@@ -63,7 +63,7 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
-  const style = isMobile === true ? 'mobile' : 'style'
+  const style = isMobile === true ? 'lite-story' : 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`

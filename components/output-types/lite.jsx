@@ -279,7 +279,7 @@ const LiteOutput = ({
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
 
-        <Resource path={`resources/dist/${arcSite}/css/dlite.css`}>
+        <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
           {({ data }) => {
             return data ? (
               <style

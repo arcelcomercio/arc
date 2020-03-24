@@ -1,4 +1,13 @@
 .st-sidebar {
+  &__container {
+    @media (--tablet) {
+      width: 620px;
+    }
+    @media (--desktop) {
+      min-width: 980px;
+    }
+  }
+
   &__content {
     flex-direction: column;
     width: 100%;
