@@ -1,5 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
-/* global Identity fbq dataLayer */
+/* global Identity fbq dataLayer navigator */
 import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -93,7 +93,7 @@ const WizardConfirmation = props => {
         body: JSON.stringify({
           url_referer: referer,
           // medium: "call_center",
-          user_agent: '',
+          user_agent: navigator.userAgent,
           arc_order: orderNumber,
         }),
       })
