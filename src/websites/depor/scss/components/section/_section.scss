@@ -15,6 +15,9 @@
     .header-full{
       &.active{
         background-color: #333;
+        .header-full__box-btnmenu{
+          background-color: #333;
+        }
         .nav__story-title,
         .header-full__icon-menu,
         .story-header__share-icon{
