@@ -242,15 +242,18 @@ export default ({
       const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
      
       target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
-       if (window.powaBoot) window.powaBoot()
-      if (window.PoWaSettings) {
-        window.preroll = preroll
-        window.PoWaSettings.advertising = {
-          adBar: false,
-          adTag: preroll,
-        }
-      }
       
+      if (window.powaBoot) window.powaBoot()
+      setTimeout(function(){  
+        if (window.PoWaSettings) {
+          window.preroll = preroll
+          window.PoWaSettings.advertising = {
+            adBar: false,
+            adTag: preroll,
+          }
+        }
+      }, 1000);
+
       window.addEventListener('powaRender',
         function () {
           Array.from(document.getElementsByClassName('powa-default')).forEach(function (contShare) {
