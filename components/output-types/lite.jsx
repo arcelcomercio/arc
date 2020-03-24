@@ -190,8 +190,6 @@ const LiteOutput = ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
-  const { googleFonts = '' } = siteProperties || {}
-
   const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
   (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
@@ -262,12 +260,11 @@ const LiteOutput = ({
         <link rel="dns-prefetch" href="//cdn.cxense.com/" />
         <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
         <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
-        {googleFonts && (
-          <link
-            href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
-            rel="stylesheet"
-          />
-        )}
+
+        <link
+          href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:400,500,700&display=swap"
+          rel="stylesheet"
+        />
 
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />

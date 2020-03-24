@@ -1,0 +1,72 @@
+.h-basic {
+  background-color: #444;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+
+  &__btn {
+    padding: 0;
+    line-height: 0;
+  }
+
+  @media (--desktop) {
+    padding: 0 20px;
+    height: 52px;
+  }
+
+  &__btn-search {
+    display: none;
+    padding: 0 12px 0 0;
+    border-right: 1px solid #707070;
+    margin-right: 20px;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__btn-menu {
+    align-items: center;
+  }
+
+  &__menu-txt {
+    display: none;
+    color: #eee;
+    font-size: 13px;
+    font-family: $primary-font;
+    font-weight: 500;
+    letter-spacing: 0.26px;
+    margin-left: 10px;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__menu,
+  &__search {
+    path {
+      fill: #eee;
+    }
+  }
+
+  &__user {
+    path {
+      fill: #ccc;
+    }
+  }
+
+  &__img-link {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__img {
+    height: 20px;
+    @media (--desktop) {
+      height: 26px;
+    }
+  }
+}
