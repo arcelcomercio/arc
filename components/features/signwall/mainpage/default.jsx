@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import { Generic } from './_main/generic'
+import { Generic } from './_children/generic'
 import Domains from '../_dependencies/domains'
 
 @Consumer

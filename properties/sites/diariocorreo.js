@@ -154,7 +154,7 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna4-300x250-div-gpt-ad-8599377-9.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna5-300x250-div-gpt-ad-8599377-10.html',
   ],
-  activeSignwall: true,
+  activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
   signwall: {

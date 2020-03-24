@@ -2,8 +2,8 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import Fingerprint2 from 'fingerprintjs2'
 
-import { Paywall } from './_main/paywall'
-import { Premium } from './_main/premium'
+import { Paywall } from './_children/paywall'
+import { Premium } from './_children/premium'
 
 import Services from '../_dependencies/services'
 import GetProfile from '../_dependencies/get-profile'
@@ -200,7 +200,6 @@ class SignwallComponent extends PureComponent {
         dataContType &&
         siteProperties.activePaywall
       ) {
-        // window.location.href = `/signwall/?reloginHash=1&ref=${window.location.pathname}`
         window.location.href = Domains.getUrlSignwall(
           arcSite,
           'reloginHash',

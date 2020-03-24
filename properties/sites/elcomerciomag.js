@@ -132,7 +132,7 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna4-300x250-div-gpt-ad-8599377-19.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna5-300x250-div-gpt-ad-8599377-20.html',
   ],
-  activeSignwall: true,
+  activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
   signwall: {

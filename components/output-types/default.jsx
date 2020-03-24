@@ -483,17 +483,13 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         {/* <!-- Identity & Paywall - Inicio --> */}
-        {(arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21') && (
+        { siteProperties.activeSignwall && (
           <script
             src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
             defer
           />
         )}
-        {siteProperties.activePaywall && (
+        { siteProperties.activePaywall && (
           <script
             src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
               .toISOString()
