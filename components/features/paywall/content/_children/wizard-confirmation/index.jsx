@@ -2,6 +2,7 @@
 /* global Identity fbq dataLayer */
 import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
+import { useFusionContext } from 'fusion:context'
 import * as S from './styled'
 import Button from '../../../_children/button'
 import Picture from '../../../_children/picture'
@@ -42,6 +43,12 @@ const WizardConfirmation = props => {
     getCodeCxense,
   } = props
 
+  const {
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
+
   const { orderNumber } = order
   const { uuid, firstName, lastName, secondLastName, email } = Object.assign(
     {},
@@ -73,6 +80,25 @@ const WizardConfirmation = props => {
 
   useEffect(() => {
     PWA.finalize()
+
+    window.Identity.extendSession().then(({ accessToken: token }) => {
+      const url = urls.originPaymentTraker
+      fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Authentication: `Bearer ${token} ${arcSite}`,
+        }),
+        body: JSON.stringify({
+          url_referer: referer,
+          // medium: "call_center",
+          user_agent: '',
+          arc_order: orderNumber,
+        }),
+      })
+    })
+
     pushCxense(getCodeCxense) // dispara script de Cxense
     sendAction(PixelActions.PAYMENT_CONFIRMATION, {
       transactionId: orderNumber,

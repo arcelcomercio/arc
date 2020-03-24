@@ -72,7 +72,12 @@ function WizardUserProfile(props) {
 
   const [error, setError] = useState()
 
-  const { arcSite } = useFusionContext()
+  const {
+    arcSite,
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
   const Sales = addSales(arcSite)
 
   function onSubmitHandler(values, { setSubmitting }) {
@@ -118,6 +123,25 @@ function WizardUserProfile(props) {
           // TODO: validar respuesta y mostrar errores de API
           setLoading(false)
           setSubmitting(false)
+
+          window.Identity.extendSession().then(({ accessToken: token }) => {
+            const url = urls.originPaymentTraker
+            fetch(url, {
+              method: 'POST',
+              mode: 'cors',
+              headers: new Headers({
+                'Content-Type': 'application/json',
+                Authentication: `Bearer ${token} ${arcSite}`,
+              }),
+              body: JSON.stringify({
+                url_referer: referer,
+                // medium: "call_center",
+                user_agent: '',
+                arc_order: res.orderNumber,
+              }),
+            })
+          })
+
           Sentry.addBreadcrumb({
             category: 'compra',
             message: 'Orden de compra generada',
