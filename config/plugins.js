@@ -1,5 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+// const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CreateFileWebpack = require('create-file-webpack')
 const glob = require('glob')
 const webpack = require('webpack')
@@ -90,14 +90,14 @@ module.exports = type => {
     )
   }
 
-  if (type !== APP_AMP) {
+  /*   if (type !== APP_AMP) {
     plugins.push(
       new CleanWebpackPlugin([paths.dist], {
         verbose: true,
         root: paths.base,
       })
     )
-  }
+  } */
 
   return plugins
 }
