@@ -133,12 +133,15 @@ class StoryContents extends PureComponent {
         )}/resources/dist/${arcSite}/images/bbc_head.png`
       ) || ''
 
+    const { basic_gallery: basicGallery = {} } = promoItems
+
     return (
       <>
         <div className={classes.news}>
           {isPremium &&
             SITE_ELCOMERCIO === arcSite &&
-            requestUri.includes('/archivo-elcomercio/') && (
+            requestUri.includes('/archivo-elcomercio/') &&
+            !basicGallery && (
               <div className={classes.premiumWrapper}>
                 <p className={classes.premiumText}>Suscriptor Digital</p>
               </div>

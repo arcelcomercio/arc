@@ -8,6 +8,7 @@ import {
   BIG_IMAGE,
   SPECIAL_BASIC,
 } from '../../../utilities/constants/subtypes'
+import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/constants'
 
 import StoryGalleryChildGallerySlider from './_children/gallery-slider'
@@ -18,6 +19,9 @@ import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 const classes = {
   gallery: 'w-full',
   image: 'story-gallery__img-box w-full pl-20 pr-20',
+  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10`,
+  premiumText:
+    'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 
 // Funcion extraida de Helpers
@@ -45,6 +49,7 @@ const StoryGallery = () => {
     globalContent: data,
     isAdmin,
     siteProperties: { siteUrl },
+    requestUri,
   } = useFusionContext()
 
   const {
@@ -54,6 +59,7 @@ const StoryGallery = () => {
     websiteLink: link,
     subtype,
     promoItems,
+    isPremium,
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
@@ -95,6 +101,13 @@ const StoryGallery = () => {
 
   return (
     <>
+      {isPremium &&
+        SITE_ELCOMERCIO === arcSite &&
+        requestUri.includes('/archivo-elcomercio/') && (
+          <div className={classes.premiumWrapper}>
+            <p className={classes.premiumText}>Suscriptor Digital</p>
+          </div>
+        )}
       {contentElementGallery ? (
         <div className={classes.gallery}>
           {subtype === GALLERY_VERTICAL ? (
