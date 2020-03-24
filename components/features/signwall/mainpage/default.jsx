@@ -142,7 +142,7 @@ class SignwallComponentInt extends PureComponent {
               />
             )}
 
-            {!this.checkSession() && (
+            {!this.checkSession() ? (
               <>
                 {(this.getUrlParam('signHard') ||
                   this.getUrlParam('signwallHard')) &&
@@ -174,6 +174,8 @@ class SignwallComponentInt extends PureComponent {
                     />
                   )}
               </>
+            ) : (
+              <>{this.closePopUp()}</>
             )}
           </>
         )}

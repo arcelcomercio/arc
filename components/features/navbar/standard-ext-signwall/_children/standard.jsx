@@ -370,6 +370,19 @@ class NavBarDefault extends PureComponent {
     }
   }
 
+  checkSession = () => {
+    if (typeof window !== 'undefined') {
+      const profileStorage =
+        window.localStorage.getItem('ArcId.USER_PROFILE') ||
+        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+      if (profileStorage) {
+        return !(profileStorage === 'null' || sesionStorage === '{}') || false
+      }
+    }
+    return false
+  }
+
   render() {
     const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { statusSidebar, scrolled } = this.state
@@ -405,6 +418,14 @@ class NavBarDefault extends PureComponent {
           return true
       }
     } */
+
+    const queryReloginEmail = `"use strict";
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(function () {
+        if (window.location.href.match(/reloginEmail=/)) { window.location.href = '${_env === 'prod' ? `/signwall/?outputType=signwall&reloginEmail=1` : `/signwall/?_website=${arcSite}&outputType=signwall&reloginEmail=1`}';}
+      }, 0);
+    })`
+
     return (
       <>
         <nav
@@ -568,6 +589,19 @@ class NavBarDefault extends PureComponent {
                     id="signwall-nav-btn"
                     site="elcomercio"
                     className="flex items-center btn capitalize text-md nav__btn-sign"
+                    onClick={() => {
+                      if (this.checkSession()) {
+                        window.location.href =
+                          _env === 'prod'
+                            ? '/mi-perfil/?outputType=signwall'
+                            : `/mi-perfil/?_website=${arcSite}&outputType=signwall`
+                      } else {
+                        window.location.href =
+                          _env === 'prod'
+                            ? '/signwall/?outputType=signwall&signwallOrganic=1'
+                            : `/signwall/?_website=${arcSite}&outputType=signwall&signwallOrganic=1`
+                      }
+                    }}
                     type="button">
                     <i
                       id="signwall-nav-icon"
@@ -578,56 +612,21 @@ class NavBarDefault extends PureComponent {
                   </button>
                 )}
 
-                {/* Script sin babel y sin minificar
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(() => {
-    const localProfile = JSON.parse(
-      window.localStorage.getItem('ArcId.USER_PROFILE') ||
-        window.sessionStorage.getItem('ArcId.USER_PROFILE')
-    )
-    const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
-    document.getElementById("signwall-nav-btn").addEventListener("click", () => {
-      if (uuid) {
-        window.location.href  = '/mi-perfil/?outputType=signwall'
-      } else {
-        // window.location.href  = '/signwall/?outputType=signwall'
-        window.location.href  = '/politica/?reloginEmail=1'
-      }
-    })
-    if (uuid) {
-      const signwallButton = document.getElementById('signwall-nav-user')
-      const signwallIcon = document.getElementById('signwall-nav-icon')
-      if (!firstName && !lastName) {
-        signwallButton.innerHTML = 'Bienvenido Usuario'
-      } else {
-        let buttonText = ''
-        let iconText = ''
-        if (firstName && lastName) {
-          buttonText = `${firstName} ${lastName}`
-          iconText = `${firstName[0] || ''}${lastName[0] || ''}`
-        } else if (firstName && !lastName) {
-          buttonText = firstName
-          iconText = `${firstName[0] || ''}${firstName[1] || ''}`
-        } else if (!firstName && lastName) {
-          buttonText = lastName
-          iconText = `${lastName[0] || ''}${lastName[1] || ''}`
-        }
-        signwallButton.innerHTML = buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
-        signwallIcon.innerHTML = iconText
-        signwallIcon.className = 'uppercase'
-      }
-    }
-  }, 0)
-})
-*/}
-
                 <script
                   type="text/javascript"
                   dangerouslySetInnerHTML={{
                     __html:
-                      '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},e=n.firstName,t=void 0===e?"":e,i=n.lastName,c=void 0===i?"":i,o=n.uuid,a=void 0===o?"":o;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=signwall":"/politica/?reloginEmail=1"}),a){var l=document.getElementById("signwall-nav-user"),d=document.getElementById("signwall-nav-icon");if(t||c){var s="",r="";t&&c?(s="".concat(t," ").concat(c),r="".concat(t[0]||"").concat(c[0]||"")):t&&!c?(s=t,r="".concat(t[0]||"").concat(t[1]||"")):!t&&c&&(s=c,r="".concat(c[0]||"").concat(c[1]||"")),l.innerHTML=s.length>=15?"".concat(s.slice(0,15),"..."):s,d.innerHTML=r,d.className="uppercase"}else l.innerHTML="Bienvenido Usuario"}},0)});',
+                      '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName,t=void 0===n?"":n,c=e.lastName,a=void 0===c?"":c,o=document.getElementById("signwall-nav-user"),i=document.getElementById("signwall-nav-icon");if(t||a){var s="",d="";t&&a?(s="".concat(t," ").concat(a),d="".concat(t[0]||"").concat(a[0]||"")):t&&!a?d="".concat((s=t)[0]||"").concat(t[1]||""):!t&&a&&(d="".concat((s=a)[0]||"").concat(a[1]||"")),o.innerHTML=15<=s.length?"".concat(s.slice(0,15),"..."):s,i.innerHTML=d,i.className="uppercase"}else o.innerHTML=e.uuid?"Bienvenido Usuario":"Iniciar"},0)});',
                   }}
                 />
+
+                <script
+                  type="text/javascript"
+                  dangerouslySetInnerHTML={{
+                    __html: queryReloginEmail
+                  }}
+                />
+
               </div>
             </div>
 

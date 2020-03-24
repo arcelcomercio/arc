@@ -96,7 +96,12 @@ class SignwallComponent extends PureComponent {
       W.location.href = Domains.getUrlLandingAuth(arcSite)
     }
 
-    if (metaTags.match(/coronavirus/) && arcSite === 'elcomercio') {
+    if (
+      metaTags.match(
+        /coronavirus|covid-19|coronavirus en perú|coronavirus perú|cuarentena util|pandemia/
+      ) &&
+      arcSite === 'elcomercio'
+    ) {
       return
     }
 
