@@ -81,8 +81,12 @@ class SignwallComponent extends PureComponent {
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
     const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
+    const dataKeyword = W.document.querySelector('meta[name="keywords"]')
     const dataContentPremium = W.content_paywall || false
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
+    const metaTags = dataKeyword
+      ? dataKeyword.getAttribute('content').toLowerCase()
+      : null
 
     if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
       const artURL = decodeURIComponent(
@@ -90,6 +94,10 @@ class SignwallComponent extends PureComponent {
       )
       W.sessionStorage.setItem('paywall_last_url', artURL)
       W.location.href = Domains.getUrlLandingAuth(arcSite)
+    }
+
+    if (metaTags.match(/coronavirus/) && arcSite === 'elcomercio') {
+      return
     }
 
     if (dataContentPremium && siteProperties.activePaywall) {

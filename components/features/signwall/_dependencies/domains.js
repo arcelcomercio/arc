@@ -113,7 +113,7 @@ class Domains {
   getUrlSignwall = (arcSite, typeDialog, hash) => {
     return ENV.ENVIRONMENT === 'elcomercio'
       ? `/signwall/?outputType=signwall&${typeDialog}=${hash}`
-      : `/pf/signwall/?_website=${arcSite}&outputType=signwall&${typeDialog}=${hash}`
+      : `/signwall/?_website=${arcSite}&outputType=signwall&${typeDialog}=${hash}`
   }
 }
 
