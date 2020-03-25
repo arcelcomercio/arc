@@ -102,7 +102,7 @@
     font-weight: 700;
     letter-spacing: 0.24px;
     color: #ccc;
-    margin-right: 10px;
+    margin-right: 7px;
     padding-top: 4px;
     display: none;
     @media (--desktop) {
@@ -118,9 +118,11 @@
   }
 
   &__user {
+    height: 28px;
+    width: 28px;
     @media (--desktop) {
-      height: 20px;
-      width: 20px;
+      height: 25px;
+      width: 25px;
     }
     path {
       fill: #ccc;
