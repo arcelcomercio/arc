@@ -15,11 +15,57 @@
     height: 52px;
   }
 
-  &__btn-search {
+  &__form {
     display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__btn-search {
     padding: 0 12px 0 0;
     border-right: 1px solid #707070;
     margin-right: 20px;
+  }
+
+  &__input {
+    width: 0;
+    transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
+    will-change: width;
+    background-color: #fff;
+    color: #444;
+    font-family: $primary-font;
+    font-weight: 700;
+    height: 25px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  &__btn-user {
+    @media (--desktop) {
+      border: 1px solid #666;
+      border-radius: 3px;
+      width: 106px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__sub {
+    width: 105px;
+    height: 32px;
+    color: #fff;
+    font-family: $primary-font;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.26px;
+    background-color: #0c51e8;
+    border: 1px solid #5383ec;
+    border-radius: 3px;
+    margin-right: 10px;
+    display: none;
     @media (--desktop) {
       display: block;
     }
@@ -30,13 +76,27 @@
   }
 
   &__menu-txt {
-    display: none;
     color: #eee;
     font-size: 13px;
     font-family: $primary-font;
     font-weight: 500;
     letter-spacing: 0.26px;
     margin-left: 10px;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__user-txt {
+    font-family: $primary-font;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.24px;
+    color: #ccc;
+    margin-right: 10px;
+    padding-top: 4px;
+    display: none;
     @media (--desktop) {
       display: block;
     }
@@ -50,6 +110,10 @@
   }
 
   &__user {
+    @media (--desktop) {
+      height: 20px;
+      width: 20px;
+    }
     path {
       fill: #ccc;
     }
