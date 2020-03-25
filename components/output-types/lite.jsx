@@ -352,14 +352,6 @@ const LiteOutput = ({
             )}/resources/assets/js/lazyload.js`
           )}
         />
-        <script
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/assets/lite/dist/bundle.js`
-          )}
-        />
       </body>
     </html>
   )

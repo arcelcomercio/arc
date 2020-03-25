@@ -51,12 +51,12 @@ export default props => {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-basic__menu"
-              width="18"
-              height="12"
-              viewBox="0 0 14 10"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
               fill="none">
               <path
-                d="M13.4 4H0.6C0 4 0 4.4 0 5 0 5.6 0 6 0.6 6H13.4C14 6 14 5.6 14 5 14 4.4 14 4 13.4 4V4ZM13.4 8H0.6C0 8 0 8.4 0 9 0 9.6 0 10 0.6 10H13.4C14 10 14 9.6 14 9 14 8.4 14 8 13.4 8V8ZM0.6 2H13.4C14 2 14 1.6 14 1 14 0.4 14 0 13.4 0H0.6C0 0 0 0.4 0 1 0 1.6 0 2 0.6 2Z"
+                d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"
                 fill="black"
               />
             </svg>

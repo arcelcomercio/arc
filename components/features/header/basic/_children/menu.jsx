@@ -74,7 +74,8 @@ const NavbarChildMenu = ({
       id="menu" // showSidebar active
     >
       <div // showSidebar active
-        className={classes.content}>
+        className={classes.content}
+        id="m-content">
         <div className={classes.top}>
           <div className={classes.search}>
             <form

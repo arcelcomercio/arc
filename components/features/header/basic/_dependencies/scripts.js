@@ -57,16 +57,19 @@ export const searchScript =
 export const stickyScript =
   ';document.addEventListener("DOMContentLoaded",function(){if("IntersectionObserver"in window){var e=document.getElementById("h-basic-pointer"),s=document.getElementById("h-basic");new IntersectionObserver(function(o){o.forEach(function(o){o.isIntersecting?(s.classList.remove("scrolled"),e.classList.remove("scrolled")):(s.classList.add("scrolled"),e.classList.add("scrolled"))})}).observe(e)}else{var o=document.getElementById("h-basic");window.addEventListener("scroll",function(){var e=document,s=e.body,t=void 0===s?{}:s,c=e.documentElement,n=void 0===c?{}:c,d=t.scrollTop,l=void 0===d?0:d,i=n.scrollTop,r=l||(void 0===i?0:i);r>10&&!o.classList.contains("scrolled")?o.classList.add("scrolled"):r<=10&&o.classList.contains("scrolled")&&o.classList.remove("scrolled")})}});'
 
-export const menuScript = `window.addEventListener('load', () => {
+export const menuScript = `;window.addEventListener('load', () => {
     const $button = document.getElementById('h-basic__btn-menu')
-    console.log('holaaaa')
     $button.addEventListener('click', () => {
-      console.log('click')
       const $menu = document.getElementById('menu')
-      console.log($menu)
-      if ($menu.className.includes('active'))
-      $menu.className = $menu.className.replace('active', '')
-      else $menu.className = $menu.className.concat(' active')
+      const $mcontent = document.getElementById('m-content')
+      if ($menu.className.includes('active')){
+        $menu.className = $menu.className.replace('active', '')
+        $mcontent.className = $mcontent.className.replace('active', '')
+      }
+      else {
+        $menu.className = $menu.className.concat(' active')
+        $mcontent.className = $mcontent.className.concat(' active')
+      }
     })
   })
   `
