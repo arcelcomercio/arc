@@ -8,7 +8,7 @@ import getProperties from 'fusion:properties'
 import StandardFooter from './_children/standard'
 import SecondaryFooter from './_children/secondary'
 import StoryFooter from './_children/story'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 import getFooterProperties from '../../footer/_dependencies/properties'
 
 /**
@@ -48,11 +48,12 @@ const LayoutFooter = props => {
   const {
     gecSites,
     legalLinks,
+    socialNetworks = [],
     assets: { footer: { logo } = {} } = {},
   } = getProperties(arcSite)
 
   const {
-    footer: { socialNetworks = [], contacts = [], siteLegal, story } = {},
+    footer: { contacts = [], siteLegal, story } = {},
   } = getFooterProperties(arcSite)
 
   const sections = useContent({

@@ -1,4 +1,3 @@
-import RedirectError from '../../components/utilities/redirect-error'
 import {
   removeLastSlash,
   arrayDays,
@@ -22,15 +21,8 @@ const params = [
 
 const resolve = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-
-  const { _id: auxId, date } = key
-
-  if (auxId && auxId !== '/todas' && date) {
-    throw new RedirectError('/410', 410)
-  }
-
+  const { _id: auxId } = key
   const id = !auxId || auxId === '/todas' ? '/' : auxId
-
   const clearSlug = removeLastSlash(id)
 
   return `/site/v3/website/${website}/section${!id ? '' : `?_id=${clearSlug}`}`

@@ -18,6 +18,7 @@ const Paywall = props => {
   const {
     siteName,
     paywall: { urls, title, description },
+    social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
 
   const canonicalUrl = deployment(interpolateUrl(urls.canonical))
@@ -42,7 +43,7 @@ const Paywall = props => {
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@Gestionpe" />
+        <meta name="twitter:site" content={twitterSite} />
         <meta name="twitter:title" content="Suscripciones Digitales" />
         <meta name="twitter:image" content={imageUrl} />
         <meta name="twitter:description" content={description} />

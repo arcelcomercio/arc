@@ -5,7 +5,7 @@ import searchQuery from '../utilities/client/search'
 import Button from './button'
 
 const classes = {
-  sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300`,
+  sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300 hidden`,
   content: `nav-sidebar__content flex flex-col justify-between h-full overflow-y`,
   item:
     'nav-sidebar__item position-relative flex justify-between items-center flex-wrap',
@@ -74,7 +74,9 @@ const NavbarChildMenu = props => {
                    * */}
                   <label htmlFor={idElem} className={classes.labelParentItem} />
                   <ul
-                    className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
+                    className={`${
+                      classes.containerSubMenu
+                    } deep-${deep} ${idElem}`}>
                     {renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
@@ -99,9 +101,7 @@ const NavbarChildMenu = props => {
   }, [])
 
   return (
-    <div
-      className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}
-      style={{ transform: 'scaleX(0)' }}>
+    <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
       {showSidebar && (
         <div
           className={`${classes.content} ${

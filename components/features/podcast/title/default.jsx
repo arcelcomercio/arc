@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
 
@@ -30,13 +30,11 @@ const popup = `(function(){setTimeout(function() {
 const PodcastTitle = props => {
   const { customFields: { titleField = '', socialUrl = '' } = {} } = props
 
-  const { siteProperties } = useFusionContext()
-
   const {
     siteUrl,
     fbAppId,
     social: { twitter: { user: siteNameRedSocial } } = {},
-  } = siteProperties
+  } = getProperties()
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
