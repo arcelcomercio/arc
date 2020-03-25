@@ -124,22 +124,22 @@ function WizardUserProfile(props) {
           setLoading(false)
           setSubmitting(false)
 
-          window.Identity.extendSession().then(({ accessToken: token }) => {
-            const url = urls.originPaymentTraker
-            fetch(url, {
-              method: 'POST',
-              mode: 'cors',
-              headers: new Headers({
-                'Content-Type': 'application/json',
-                Authentication: `Bearer ${token} ${arcSite}`,
-              }),
-              body: JSON.stringify({
-                url_referer: referer,
-                // medium: "call_center",
-                user_agent: navigator.userAgent,
-                arc_order: res.orderNumber,
-              }),
-            })
+          const url = urls.originPaymentTraker
+          const token = window.Identity.userIdentity.accessToken
+          fetch(url, {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+              'X-arc-site': arcSite,
+            },
+            body: JSON.stringify({
+              url_referer: referer,
+              // medium: "call_center",
+              user_agent: navigator.userAgent,
+              arc_order: res.orderNumber,
+            }),
           })
 
           Sentry.addBreadcrumb({
