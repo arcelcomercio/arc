@@ -1,5 +1,8 @@
 /******* Components *******/
 @import "../../general-styles/framework/variables/index";
-@import "./scss/variables/index";
+@import "../../general-styles/framework/core/lite";
 
 /* --------------------- */
+@import "./scss/lite-components/features/story/title/title";
+@import "./scss/lite-components/features/story/multimedia/multimedia";
+@import "./scss/lite-components/features/story/contents/contents";
