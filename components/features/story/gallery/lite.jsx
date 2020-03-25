@@ -7,7 +7,7 @@ import StoryGalleryChildGallery from './_children/gallery'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 import { defaultImage } from '../../../utilities/helpers'
-import Infografia from '../contents/_children/html'
+import Infografia from '../multimedia/_children/html'
 import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 
 const classes = {

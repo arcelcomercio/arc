@@ -33,8 +33,8 @@ import {
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
-import StoryContentsChildVideo from './_children/video'
-import StoryContentsChildImage from './_children/image'
+import StoryContentsChildVideo from '../multimedia/_children/video'
+import StoryContentsChildImage from '../multimedia/_children/image'
 import StoryHeaderChildGallery from '../gallery/_children/gallery'
 import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentsChildBlockQuote from './_children/blockquote'
@@ -42,7 +42,7 @@ import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildIcon from './_children/icon-list'
-import StoryContentsChildVideoNativo from './_children/video-nativo'
+import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import Ads from '../../../global-components/ads'
 
 const classes = {

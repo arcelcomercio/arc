@@ -12,7 +12,6 @@ const StoryContentChildAuthorLite = ({
   author,
   authorLink,
   updatedDate,
-  authorEmail,
   primarySection = '',
 }) => {
   return (
@@ -26,9 +25,6 @@ const StoryContentChildAuthorLite = ({
               <a href={authorLink} className={classes.authorNameLink}>
                 {author}
               </a>
-            )}
-            {authorEmail && true && (
-              <p className={classes.authorEmail}> {authorEmail} </p>
             )}
           </>
         )}
