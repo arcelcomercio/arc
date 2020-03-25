@@ -21,3 +21,17 @@
 // eslint-disable-next-line import/prefer-default-export
 export const searchScript =
   '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("h-basic_search-btn");e.addEventListener("click",function(){var t=document.getElementById("h-basic_search-input"),n=document.getElementById("h-basic_search-path");if(t.value){var d=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(d,"/todas/descendiente/?query=").concat(d)}else"150px"===t.style.width?(t.style="",e.style="",n.style=""):(t.style="width:150px;padding: 5px 8px;",e.style="background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;",n.style="fill: #575757;")})});'
+
+export const menuScript = `window.addEventListener('load', () => {
+  const $button = document.getElementById('h-basic__btn-menu')
+  console.log('holaaaa')
+  $button.addEventListener('click', () => {
+    console.log('click')
+    const $menu = document.getElementById('menu')
+    console.log($menu)
+    if ($menu.className.includes('active'))
+    $menu.className = $menu.className.replace('active', '')
+    else $menu.className = $menu.className.concat(' active')
+  })
+})
+`

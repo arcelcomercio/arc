@@ -17,10 +17,18 @@ $secondary-font: "PT Serif", serif;
   width: 100%;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .pos-rel {
   position: relative;
 }
 
 .pos-abs {
   position: absolute;
+}
+
+.oflow-h {
+  overflow: hidden;
 }
