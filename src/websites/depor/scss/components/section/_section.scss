@@ -1,17 +1,6 @@
 .section-videos{
   background-color: #222;
   &.story{
-    
-    .story-header__list {
-      @media (--only-mobile) {
-        display: none;
-      }
-      &.block {
-        @media (--only-mobile) {
-          display: flex;
-        }
-      }
-    }
     .header-full{
       &.active{
         background-color: #333;
