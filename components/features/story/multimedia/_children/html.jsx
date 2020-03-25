@@ -3,8 +3,8 @@ import { RawHtml } from '@arc-core-components/feature_article-body'
 import Video from './video'
 
 const classes = {
-  newsEmbed: 'story-multimedia__embed',
-  caption: 'story-multimedia__caption ',
+  newsEmbed: 's-multimedia__embed',
+  caption: 's-multimedia__caption ',
 }
 
 const StoryContentChildHtml = ({

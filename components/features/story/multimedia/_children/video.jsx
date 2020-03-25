@@ -4,7 +4,9 @@ import { getResizedUrl } from '../../../../utilities/resizer'
 import { getAssetsPathVideo } from '../../../../utilities/assets'
 
 const classes = {
-  caption: 'story-multimedia__caption ',
+  video: 's-multimedia__lL-video',
+  powa: 's-multimedia__p-default',
+  caption: 's-multimedia__caption ',
 }
 
 const StoryContentChildVideo = props => {
@@ -191,7 +193,7 @@ const StoryContentChildVideo = props => {
     <>
       <div
         id="powa-default"
-        className="lazyload-video powa-default"
+        className={`${classes.video} ${classes.powa}`}
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
@@ -204,10 +206,9 @@ const StoryContentChildVideo = props => {
             : ''
         }
         data-poster={large}></div>
-      <i
-        id="powa-icon-default"
-        className="m-icon position-absolute rounded text-white featured-story__icon icon-video powa-icon-default"></i>
-      <figcaption className={classes.caption}>{description} </figcaption>
+      {description && (
+        <figcaption className={classes.caption}>{description} </figcaption>
+      )}
     </>
   )
 }

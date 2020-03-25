@@ -6,7 +6,7 @@ import Html from './html'
 import VideoNativo from './video-nativo'
 
 const classes = {
-  audio: 'story-multimedia__audio w-full',
+  audio: 's-multimedia__audio w-full',
 }
 
 const StoryContentChildMultimedia = ({ data } = []) => {

@@ -65,7 +65,7 @@ const StoryMultimediaLte = () => {
 
   return (
     <>
-      <div className="story-multimedia">
+      <div className="s-multimedia">
         {primarySectionLink === '/impresa/' ||
         primarySectionLink === '/malcriadas/' ||
         storyTagsBbc(tags, 'portada-trome')

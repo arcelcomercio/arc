@@ -5,8 +5,8 @@ import { useFusionContext } from 'fusion:context'
 import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
-  image: 'story-multimedia__image w-full',
-  caption: 'story-multimedia__caption',
+  image: 's-multimedia__image w-full',
+  caption: 's-multimedia__caption',
 }
 
 const StoryContentChildImage = ({
