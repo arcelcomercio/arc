@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  band: 'links-band f w-full',
+  band: 'links-band w-full',
 }
 
 const HeaderLinksBandChild = ({ links = [], tags = 'Hoy interesa:' }) => {

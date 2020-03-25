@@ -1,9 +1,14 @@
 .links-band {
+  display: none;
   height: 42px;
   justify-content: start;
   padding: 0 10px;
   overflow: hidden;
   border-bottom: 2px solid $color-black;
+
+  @media (--desktop) {
+    display: flex;
+  }
 
   & > h4 {
     font-size: 13px;
