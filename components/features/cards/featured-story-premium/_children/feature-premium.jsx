@@ -27,7 +27,7 @@ const classes = {
     'premium__wrapper bg-primary flex justify-center items-center',
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
-  lastMinute: 'featured-premium__last-minute',
+  lastMinute: 'featured-premium--last-minute',
 }
 
 const getModel = model => {
@@ -122,7 +122,8 @@ const FeaturedStoryPremiumChild = ({
       className={classes.featuredPremium
         .concat(getModel(model))
         .concat(` featured-premium--${bgColor}`)
-        .concat(imgType && isComercio ? ' complete ' : '')}>
+        .concat(imgType && isComercio ? ' complete ' : '')
+        .concat(lastMinute && isGestion ? ` ${classes.lastMinute}` : '')}>
       <div className={classes.left}>
         <h3 className={classes.section}>
           {!lastMinute && !isGestion && (
@@ -133,9 +134,7 @@ const FeaturedStoryPremiumChild = ({
               {categoryField || primarySection}
             </a>
           )}
-          {lastMinute && isGestion && (
-            <span className={classes.lastMinute}>Último minuto</span>
-          )}
+          {lastMinute && isGestion && <span>Último minuto</span>}
         </h3>
         <h2>
           <a
