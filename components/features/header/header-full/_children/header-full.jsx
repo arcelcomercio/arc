@@ -68,7 +68,7 @@ const classes = {
     'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15 line-h-sm',
   navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
 
-  listIcon: 'story-header__list  flex  justify-between rounded-sm',
+  listIcon: 'story-header__list  hidden md:flex  justify-between rounded-sm',
   moreLink: 'story-content__more-link',
   shareItem: 'story-header__item',
   shareLink: 'story-header__link flex items-center justify-center text-white',
@@ -159,12 +159,12 @@ export default ({
 
   const moreList = () => {
     const el = document.querySelector('.story-header__list')
-    if (el.classList.contains('block')) {
-      el.classList.remove('block')
+    if (el.classList.contains('flex')) {
+      el.classList.remove('flex')
       el.classList.add('hidden')
     } else {
       el.classList.remove('hidden')
-      el.classList.add('block')
+      el.classList.add('flex')
     }
   }
 
@@ -210,9 +210,7 @@ export default ({
                    * */}
                   <label htmlFor={idElem} className={classes.labelParentItem} />
                   <ul
-                    className={`${
-                      classes.containerSubMenu
-                    } deep-${deep} ${idElem}`}>
+                    className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
                     {renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
