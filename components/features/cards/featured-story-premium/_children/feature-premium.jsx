@@ -3,6 +3,10 @@ import { useEditableContent } from 'fusion:content'
 import Icon from '../../../../global-components/multimedia-icon'
 import Notify from '../../../../global-components/notify'
 import { formatAMPM } from '../../../../utilities/date-time/time'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../../utilities/constants/sitenames'
 
 const classes = {
   featuredPremium: 'featured-premium',
@@ -23,6 +27,7 @@ const classes = {
     'premium__wrapper bg-primary flex justify-center items-center',
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
+  lastMinute: 'featured-premium__last-minute',
 }
 
 const getModel = model => {
@@ -39,6 +44,7 @@ const FeaturedStoryPremiumChild = ({
   isPremium,
   model,
   imgType,
+  lastMinute,
   bgColor,
   websiteLink,
   // multimediaSquareMD,
@@ -109,7 +115,8 @@ const FeaturedStoryPremiumChild = ({
     return imageDesktop
   }
 
-  const isComercio = arcSite === 'elcomercio'
+  const isComercio = arcSite === SITE_ELCOMERCIO
+  const isGestion = arcSite === SITE_GESTION
   return (
     <div
       className={classes.featuredPremium
@@ -118,12 +125,17 @@ const FeaturedStoryPremiumChild = ({
         .concat(imgType && isComercio ? ' complete ' : '')}>
       <div className={classes.left}>
         <h3 className={classes.section}>
-          <a
-            href={primarySectionLink}
-            {...getEditableField('categoryField')}
-            suppressContentEditableWarning>
-            {categoryField || primarySection}
-          </a>
+          {!lastMinute && !isGestion && (
+            <a
+              href={primarySectionLink}
+              {...getEditableField('categoryField')}
+              suppressContentEditableWarning>
+              {categoryField || primarySection}
+            </a>
+          )}
+          {lastMinute && isGestion && (
+            <span className={classes.lastMinute}>Último minuto</span>
+          )}
         </h3>
         <h2>
           <a
