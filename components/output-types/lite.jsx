@@ -40,7 +40,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'prod' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
