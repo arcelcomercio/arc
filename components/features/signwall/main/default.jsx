@@ -81,12 +81,12 @@ class SignwallComponent extends PureComponent {
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
     const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
-    const dataKeyword = W.document.querySelector('meta[name="keywords"]')
+    const contentTier = W.document.querySelector(
+      'meta[property="article:content_tier"]'
+    )
     const dataContentPremium = W.content_paywall || false
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
-    const metaTags = dataKeyword
-      ? dataKeyword.getAttribute('content').toLowerCase()
-      : null
+    const typeContentTier = contentTier.getAttribute('content') || 'metered'
 
     if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
       const artURL = decodeURIComponent(
@@ -97,17 +97,11 @@ class SignwallComponent extends PureComponent {
     }
 
     if (
-      metaTags.match(
-        /coronavirus|covid-19|coronavirus en perú|coronavirus perú|cuarentena util|pandemia/
-      ) &&
-      arcSite === 'elcomercio'
+      (dataContentPremium || typeContentTier === 'locked') &&
+      siteProperties.activePaywall
     ) {
-      return
-    }
-
-    if (dataContentPremium && siteProperties.activePaywall) {
       this.getPremium()
-    } else if (W.ArcP) {
+    } else if (W.ArcP && typeContentTier === 'metered') {
       W.ArcP.run({
         paywallFunction: campaignURL => {
           if (campaignURL.match(/signwallHard/)) {

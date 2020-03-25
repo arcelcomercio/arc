@@ -80,14 +80,12 @@ export const PaywallInt = props => {
                 className="btn-close"
                 onClick={() => {
                   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
-                  if (typeDialog === 'premium') {
+                  if (typeDialog === 'paywall') {
                     if (document.getElementById('btn-premium-continue')) {
                       onClose()
                     } else {
-                      window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
+                      window.location.href = `/?signwallPaywall=1&ref=${window.location.pathname}`
                     }
-                  } else {
-                    onClose()
                   }
                 }}>
                 <Close />
