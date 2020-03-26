@@ -113,18 +113,17 @@ class SignwallComponent extends PureComponent {
             this.setState({ showPaywall: true })
           }
         },
-        contentType: () => {
-          if (typeContentTier === 'free') {
-            return 'none'
-          }
-          return dataContTyp ? dataContTyp.getAttribute('content') : 'none'
-        },
-        section: () => {
-          if (typeContentTier === 'free') {
-            return 'none'
-          }
-          return dataContSec ? dataContSec.getAttribute('content') : 'none'
-        },
+
+        contentType:
+          dataContTyp && typeContentTier !== 'free'
+            ? dataContTyp.getAttribute('content')
+            : 'none',
+
+        section:
+          dataContSec && typeContentTier !== 'free'
+            ? dataContSec.getAttribute('content')
+            : 'none',
+
         userName: W.Identity.userIdentity.uuid || null,
         jwt: W.Identity.userIdentity.accessToken || null,
         apiOrigin: URL_ORIGIN,
