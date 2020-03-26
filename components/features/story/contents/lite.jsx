@@ -48,7 +48,7 @@ import Ads from '../../../global-components/ads'
 const classes = {
   news: 'story-contents w-full ',
   content: 'story-contents__content ',
-  textClasses: 'story-contents__font--secondary ',
+  textClasses: 'story-contents__font-paragraph ',
   newsImage: 'story-contents__image  ',
   newsEmbed: 'story-contents__embed',
   tags: 'story-contents',

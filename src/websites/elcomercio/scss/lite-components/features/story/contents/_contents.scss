@@ -5,15 +5,26 @@
     letter-spacing: 0.42px;
     font-family: $primary-font;
     color: #888888;
+    display: initial;
+    @media (--desktop) {
+      display: flex;
+    }
   }
   &__author-link {
     font-size: 15px;
     font-weight: bold;
     padding: 0px 5px 0 5px;
   }
-
-  &__font--secondary {
-    font-family: $primary-font;
+  &__author-date {
+    padding-top: 10px;
+    font-size: 13px;
+    @media (--desktop) {
+      font-size: 14px;
+      padding-top: 0px;
+    }
+  }
+  &__font-paragraph {
+    font-family: $tertiary-font;
     font-size: 18px;
     padding: 20px 0 0px 0px;
     line-height: 28px;
@@ -80,7 +91,7 @@
 
   /* ----------------------------------------------------- */
 
-  &__font--secondary,
+  &__font-paragraph,
   &__content {
     word-wrap: break-word;
   }
@@ -96,6 +107,7 @@
   /* Para arreglar estilos en o-embed */
 
   &__embed {
+    padding-top: 20px;
     .twitter-tweet {
       width: 100% !important;
     }

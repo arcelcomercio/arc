@@ -297,7 +297,7 @@ export const iframeHtml = (html, arcSite = '') => {
     .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
 
     // .replace(/<script>(.*\n)+.*<\/script>/gm, '')
-    .replace(/<(style|script)(.*)>(.*\n)*.*<\/(style|script)(.*)>/g, '')
+   // .replace(/<(style|script)(.*)>(.*\n)*.*<\/(style|script)(.*)>/g, '')
     .replace(/script/gm, 'noscript')
     .replace(/<noscript(.*)>/gm, '<noscript>')
     .replace(/<\/noscript/gm, '</noscript>')

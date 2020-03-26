@@ -2,7 +2,7 @@ import React from 'react'
 import { formatDateStory } from '../../../../utilities/date-time/dates'
 
 const classes = {
-  author: 'story-contents__author f ',
+  author: 'story-contents__author  ',
   authorNameLink: 'story-contents__author-link ',
   authorDate: 'story-contents__author-date f ',
   authorEmail: 'story-contents__author-email  ',
@@ -20,7 +20,7 @@ const StoryContentChildAuthorLite = ({
         {/* // TODO: Cambiar este div por <address> */}
         {primarySection !== 'Columnistas' && (
           <>
-            <span className="f">Por</span>
+            <span className="">Por</span>
             {author && (
               <a href={authorLink} className={classes.authorNameLink}>
                 {author}

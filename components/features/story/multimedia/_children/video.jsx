@@ -194,7 +194,7 @@ const StoryContentChildVideo = props => {
     <>
       <div
         id="powa-default"
-        className={`${classImage}${classes.video} ${classImage}${classes.powa}`}
+        className={`${classImage}${classes.video} multimedia${classes.powa}`}
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
