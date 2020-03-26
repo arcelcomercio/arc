@@ -486,24 +486,42 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         {/* <!-- Identity & Paywall - Inicio --> */}
-        {(arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21') && (
-          <script
-            src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-            defer
-          />
-        )}
-        {siteProperties.activePaywall && (
-          <script
-            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
-            async
-          />
-        )}
+        {(() => {
+          if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home') {
+            return null
+          }
+          if (
+            arcSite === 'depor' ||
+            arcSite === 'elcomercio' ||
+            arcSite === 'peru21' ||
+            arcSite === 'gestion' ||
+            arcSite === 'peru21g21'
+          ) {
+            return (
+              <script
+                src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+                defer
+              />
+            )
+          }
+          return null
+        })()}
+        {(() => {
+          if (siteProperties.activePaywall) {
+            if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home') {
+              return null
+            }
+            return (
+              <script
+                src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+                  .toISOString()
+                  .slice(0, 10)}`}
+                async
+              />
+            )
+          }
+          return null
+        })()}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
       </head>
       <body className={classBody}>
