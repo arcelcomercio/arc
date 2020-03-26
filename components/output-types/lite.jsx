@@ -11,7 +11,6 @@ import {
   createMarkup,
 } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
-import StoriesRecent from '../global-components/stories-recent'
 import { getAssetsPath } from '../utilities/constants'
 
 const LiteOutput = ({
@@ -40,7 +39,6 @@ const LiteOutput = ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    _id: id,
     promo_items: { basic_gallery: basicGallery = 0 } = {},
     taxonomy: {
       primary_section: { path: nameSeccion = '' } = {},
@@ -49,16 +47,6 @@ const LiteOutput = ({
     subtype = '',
     page_number: pageNumber = 1,
   } = globalContent || {}
-
-  const primarySectionLink = nameSeccion
-
-  const parametersStory = {
-    primarySectionLink,
-    id,
-    arcSite,
-    cant: 6,
-  }
-  const resultStoryRecent = StoriesRecent(parametersStory)
 
   const isStory =
     metaValue('id') === 'meta_story' ||
@@ -209,11 +197,6 @@ const LiteOutput = ({
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
 
-  const staticVariables = `window.LiteContent=${JSON.stringify({
-    recentStories: resultStoryRecent.map(
-      ({ canonical_url: canonicalUrl }) => canonicalUrl
-    ),
-  })}`
   const parameters = {
     googleTagManagerId: siteProperties.googleTagManagerMobile,
     arcSite,
@@ -342,7 +325,6 @@ const LiteOutput = ({
           </>
         )}
 
-        <script dangerouslySetInnerHTML={{ __html: staticVariables }} />
         <script
           async
           src={deployment(
