@@ -1,0 +1,34 @@
+$primary-font: "Roboto", sans-serif;
+$secondary-font: "PT Serif", serif;
+
+.f {
+  display: flex;
+}
+
+.just-center {
+  justify-content: center;
+}
+
+.f-col {
+  flex-direction: column;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.pos-abs {
+  position: absolute;
+}
+
+.oflow-h {
+  overflow: hidden;
+}
