@@ -293,7 +293,8 @@ const BuildHtml = ({
     arrayadvertising: listUrlAdvertisings,
   }
   const getContentType = ({ premium = '' } = {}) => {
-    const premiumValue = getPremiumValue || 'metered'
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
     let contenType = premium ? 'locked' : premiumValue
     contenType = section.match(/publirreportaje|publireportaje/)
       ? 'free'

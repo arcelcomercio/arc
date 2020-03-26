@@ -381,7 +381,8 @@ export default ({
       }()
    */
   const getContentType = () => {
-    const premiumValue = getPremiumValue || 'metered'
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
 
     let contenType = isPremium ? 'locked' : premiumValue
     const section = primarySectionLink && primarySectionLink.split('/')[1]

@@ -530,7 +530,7 @@ class StoryData {
       this || {}
 
     const { content_code: ContentCode = '' } = ContentRestrictions || {}
-    return (ContentRestrictions && ContentCode) || ''
+    return (ContentRestrictions && ContentCode) || 'vacio'
   }
 
   get videoId() {
