@@ -456,13 +456,6 @@ export default ({
         />
       )}
 
-      {isAmp !== true &&
-        contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `.live-event {font-size: 16px;}.live-event .live-event-comment {display: block;position: relative;margin-bottom: 10px;padding: 0 0 20px 65px;line-height: 20px;border-bottom: 1px solid #dcdcdc;}.live-event .live-event-comment span{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-match {font-size: 16px;}.live-match .live-match-comment {display: block;position: relative;margin-bottom: 10px;padding: 0 0 20px 40px;line-height: 20px;border-bottom: 1px solid #dcdcdc;}.live-match .live-match-comment span{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;}`,
-            }}></style>
-        )}
       {isAmp === true &&
         dataStructuraHtmlAmp.map(datas => {
           return (
@@ -478,6 +471,14 @@ export default ({
             </>
           )
         })}
+      {isAmp === true &&
+        contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
+          <style
+            amp-custom="amp-custom"
+            dangerouslySetInnerHTML={{
+              __html: `.live-event {font-size: 16px;}.live-event .live-event-comment {display: block;position: relative;margin-bottom: 10px;padding: 0 0 20px 65px;line-height: 20px;border-bottom: 1px solid #dcdcdc;}.live-event .live-event-comment span{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-match {font-size: 16px;}.live-match .live-match-comment {display: block;position: relative;margin-bottom: 10px;padding: 0 0 20px 40px;line-height: 20px;border-bottom: 1px solid #dcdcdc;}.live-match .live-match-comment span{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;}`,
+            }}></style>
+        )}
     </>
   )
 }
