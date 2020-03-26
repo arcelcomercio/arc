@@ -57,19 +57,29 @@ export const searchScript =
 export const stickyScript =
   ';document.addEventListener("DOMContentLoaded",function(){if("IntersectionObserver"in window){var e=document.getElementById("h-basic-pointer"),s=document.getElementById("h-basic");new IntersectionObserver(function(o){o.forEach(function(o){o.isIntersecting?(s.classList.remove("scrolled"),e.classList.remove("scrolled")):(s.classList.add("scrolled"),e.classList.add("scrolled"))})}).observe(e)}else{var o=document.getElementById("h-basic");window.addEventListener("scroll",function(){var e=document,s=e.body,t=void 0===s?{}:s,c=e.documentElement,n=void 0===c?{}:c,d=t.scrollTop,l=void 0===d?0:d,i=n.scrollTop,r=l||(void 0===i?0:i);r>10&&!o.classList.contains("scrolled")?o.classList.add("scrolled"):r<=10&&o.classList.contains("scrolled")&&o.classList.remove("scrolled")})}});'
 
-export const menuScript = `;window.addEventListener('load', () => {
-    const $button = document.getElementById('h-basic__btn-menu')
-    $button.addEventListener('click', () => {
-      const $menu = document.getElementById('menu')
-      const $mcontent = document.getElementById('m-content')
-      if ($menu.className.includes('active')){
-        $menu.className = $menu.className.replace('active', '')
-        $mcontent.className = $mcontent.className.replace('active', '')
-      }
-      else {
-        $menu.className = $menu.className.concat(' active')
-        $mcontent.className = $mcontent.className.concat(' active')
-      }
-    })
-  })
-  `
+/* ;window.addEventListener('load', () => {
+    setTimeout(() => {
+      const $button = document.getElementById('h-basic__btn-menu')
+      $button.addEventListener('click', () => {
+        const $menu = document.getElementById('menu')
+        const $mcontent = document.getElementById('m-content')
+        if ($menu.className.includes('active')){
+          $menu.className = $menu.className.replace('active', '')
+          $mcontent.className = $mcontent.className.replace('active', '')
+        }
+        else {
+          $menu.className = $menu.className.concat(' active')
+          $mcontent.className = $mcontent.className.concat(' active')
+        }
+      })
+      const $form = document.getElementById("m-search")
+      $form.addEventListener('submit', e => {
+        e.preventDefault()
+        const value = e.target[0].value
+        if(value){
+        const newQuery = encodeURIComponent(value).replace(/%20/g, '+')
+        window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`}
+      });
+    }, 0)
+  }) */
+export const menuScript = `"use strict";window.addEventListener("load",function(){setTimeout(function(){document.getElementById("h-basic__btn-menu").addEventListener("click",function(){var e=document.getElementById("menu"),t=document.getElementById("m-content");e.className.includes("active")?(e.className=e.className.replace("active",""),t.className=t.className.replace("active","")):(e.className=e.className.concat(" active"),t.className=t.className.concat(" active"))}),document.getElementById("m-search").addEventListener("submit",function(e){e.preventDefault();var t=e.target[0].value;if(t){var a=encodeURIComponent(t).replace(/%20/g,"+");window.location.href="/buscar/".concat(a,"/todas/descendiente/?query=").concat(a)}})},0)});`
