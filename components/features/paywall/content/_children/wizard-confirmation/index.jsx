@@ -95,7 +95,7 @@ const WizardConfirmation = props => {
         url_referer: referer,
         // medium: "call_center",
         user_agent: navigator.userAgent,
-        arc_order: res.orderNumber,
+        arc_order: orderNumber,
       }),
     })
 
