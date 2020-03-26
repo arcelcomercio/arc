@@ -1,5 +1,5 @@
 .story-contents {
-  padding: 20px 0px 0px 20px;
+  padding: 20px 20px 0px 20px;
   &__author {
     font-size: 14px;
     letter-spacing: 0.42px;
@@ -10,14 +10,11 @@
     font-weight: bold;
     padding: 0px 5px 0 5px;
   }
-  &__author-date {
-  }
-  &__author-email {
-  }
+
   &__font--secondary {
     font-family: $primary-font;
     font-size: 18px;
-    padding: 0px 0 20px 0px;
+    padding: 20px 0 0px 0px;
     line-height: 28px;
   }
 
@@ -37,10 +34,6 @@
 
   .pquote {
     background: none;
-
-    /*     &__pull {
-      background: url('../images/openquote.svg') top left no-repeat;
-    } */
 
     &__text {
       font-style: italic;
@@ -146,6 +139,7 @@
     color: $color-gray-200;
     border-bottom: 1px dashed $color-gray-200;
     padding-bottom: 10px;
+    padding-top: 10px;
     font-size: 13px;
     font-family: $secondary-font;
     color: #888888;
@@ -153,9 +147,6 @@
       display: none;
     }
   }
-
-  // &__item {}
-  // &__link {}
 
   &__link:hover {
     text-decoration: none;
@@ -200,33 +191,6 @@
 
     .icon-twitter-circle {
       color: #00acee;
-    }
-  }
-
-  .powa-shot-play-icon,
-  .powa-shot-loading-icon {
-    font-family: "icomoon";
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-  }
-
-  .powa-shot-play-icon {
-    &::before {
-      content: "\e906";
-    }
-
-    &:hover {
-      color: $color-white;
-    }
-  }
-
-  .powa-shot-loading-icon {
-    &::before {
-      content: "\e917";
-    }
-
-    &:hover {
-      color: $color-white;
     }
   }
 

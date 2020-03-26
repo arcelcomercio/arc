@@ -97,6 +97,7 @@ const StoryGalleryLite = () => {
             data={embedHtmlPromoItems}
             caption={caption}
             header="true"
+            classImage = 's-multimedia'
           />
         )
       )}
