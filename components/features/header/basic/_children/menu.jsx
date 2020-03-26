@@ -7,17 +7,17 @@ const classes = {
   content: `menu__content f f-col h-full`,
   item: 'menu__item pos-rel f',
   containerSubMenu: 'menu__sub w-full oflow-h',
-  menuArrow: 'menu__menu-arrow hidden',
+  menuArrow: 'menu__menu-arrow',
   label: 'menu__label pos-abs',
   link: 'menu__link block',
   top: 'menu__top',
   search: 'menu__search',
   form: 'menu__form',
   input: `menu__input w-full`,
-  body: 'menu__body pt-15 pr-0 pb-15 pl-0',
-  list: 'nav- sidebar__list',
-  footer: `menu__footer p-30 border-b-1 border-solid border-gray`,
-  text: `menu__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white`,
+  body: 'menu__body',
+  list: 'menu__list',
+  footer: `menu__footer`,
+  text: `menu__text`,
 }
 
 const NavbarChildMenu = ({
@@ -69,20 +69,11 @@ const NavbarChildMenu = ({
   }
 
   return (
-    <div
-      className={classes.sidebar}
-      id="menu" // showSidebar active
-    >
-      <div // showSidebar active
-        className={classes.content}
-        id="m-content">
+    <div className={classes.sidebar} id="menu">
+      <div className={classes.content} id="m-content">
         <div className={classes.top}>
           <div className={classes.search}>
-            <form
-              className={classes.form}
-              onSubmit={e => {
-                e.preventDefault()
-              }}>
+            <form id="m-search" className={classes.form}>
               <input
                 type="search"
                 placeholder="Buscar"
