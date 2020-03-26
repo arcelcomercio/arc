@@ -1,0 +1,23 @@
+.story-contents {
+  &__author {
+    font-size: 14px;
+    letter-spacing: 0.42px;
+    font-family: $primary-font;
+    padding: 20px 0px 20px 20px;
+  }
+  &__author-link {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0px 5px 0 5px;
+  }
+  &__author-date {
+  }
+  &__author-email {
+  }
+  &__font--secondary {
+    font-family: $primary-font;
+    font-weight: 300;
+    font-size: 18px;
+    padding: 20px 0 0 20px;
+  }
+}

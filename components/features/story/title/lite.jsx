@@ -5,7 +5,7 @@ import { useFusionContext } from 'fusion:context'
 import StoryData from '../../../utilities/story-data'
 
 const classes = {
-  story: 'story-header__top ',
+  story: 'story-header ',
   description: 'story-header__summary',
   title: 'story-header__title',
 }
