@@ -129,7 +129,17 @@ const Dfp = ({ isFuature, adId }) => {
     const subsection = flagsub?'':sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
-    const getTargetFunction = `var getTarget=function getTarget(){ return {"contenido":"${typeContent}","publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","tmp_ad":getTmpAd()}};`
+    const getTargetFunction = `var getTarget=function getTarget(){ return {"contenido":"${typeContent}","publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${requestUri.split('?')[0]}","tags":'${targetingTags}',"ab_test":"","paywall":getUserPaywallLogin(),"tmp_ad":getTmpAd()}};`
+    const paywallFunction = `var getUserPaywallLogin=function getUserPaywallLogin(){
+      var user_type = 'no'
+      if(window.localStorage && window.localStorage.hasOwnProperty('ArcId.USER_INFO') && window.localStorage.getItem('ArcId.USER_INFO') !== '{}'){
+        var UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')).uuid;
+        var COUNT_USER = JSON.parse(window.localStorage.getItem('ArcP') || '{}')[UUID_USER]
+        if(COUNT_USER && COUNT_USER.sub.p.length) { user_type = 'si' }
+      } else { var user_type = 'no' }
+      return user_type;
+    }
+    `
     const adsCollection = spaces.map(
       ({
         space,
@@ -450,7 +460,7 @@ const Dfp = ({ isFuature, adId }) => {
         return formatSpace
       }
     )
-    return `"use strict"; document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}; window.adsColl=${JSON.stringify(adsCollection)
+    return `"use strict"; document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}${paywallFunction}; window.adsColl=${JSON.stringify(adsCollection)
       .replace(/"<::/g, '')
       .replace(
         /::>"/g,

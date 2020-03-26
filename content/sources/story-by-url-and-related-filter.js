@@ -313,6 +313,10 @@ export default {
       content
       type
     }
+    infografia {
+      content
+      type
+    }
     youtube_id {
       content
       type

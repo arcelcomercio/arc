@@ -471,13 +471,6 @@ export default ({
         />
       )}
 
-      {isAmp !== true &&
-        contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `.live-event {font-size: 16px;} .live-event .live-event-comment {display: block;position: relative;padding: 0 0 10px 65px;border-bottom: 1px solid #dcdcdc;margin-bottom: 10px;} .live-event .live-event-comment .live-event-minute{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-event .live-event-comment p{font-size: 18px;font-family: Georgia;line-height: 1.5;} .live-event .live-event-comment p a{color: #4a88c6;font-weight: bold;} .live-match {font-size: 16px;} .live-match .live-match-comment {display: block;position: relative;padding: 0 0 10px 40px;border-bottom: 1px solid #dcdcdc;margin-bottom: 10px;} .live-match .live-match-comment .live-match-minute{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-match .live-match-comment p{font-size: 18px;font-family: Georgia;line-height: 1.5;} .live-match .live-match-comment p a{color: #4a88c6;font-weight: bold;}`,
-            }}></style>
-        )}
       {isAmp === true &&
         dataStructuraHtmlAmp.map(datas => {
           return (
@@ -493,6 +486,13 @@ export default ({
             </>
           )
         })}
+      {isAmp !== true &&
+        contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `.live-event {font-size: 16px;}.live-event .live-event-comment {display: block;position: relative;margin-bottom: 10px;padding: 0 0 20px 65px;line-height: 20px;border-bottom: 1px solid #dcdcdc;}.live-event .live-event-comment span{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-match {font-size: 16px;}.live-match .live-match-comment {display: block;position: relative;margin-bottom: 10px;padding: 0 0 20px 40px;line-height: 20px;border-bottom: 1px solid #dcdcdc;}.live-match .live-match-comment span{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;}`,
+            }}></style>
+        )}
     </>
   )
 }
