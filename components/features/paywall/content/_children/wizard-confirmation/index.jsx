@@ -86,7 +86,7 @@ const WizardConfirmation = props => {
     fetch(url, {
       method: 'POST',
       cache: 'no-cache',
-      mode: 'no-cors',
+      mode: "no-cors",
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ const WizardConfirmation = props => {
         url_referer: referer,
         // medium: "call_center",
         user_agent: navigator.userAgent,
-        arc_order: orderNumber,
+        arc_order: res.orderNumber,
       }),
     })
 
