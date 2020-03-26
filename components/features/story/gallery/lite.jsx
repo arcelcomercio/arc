@@ -8,7 +8,7 @@ import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
 import { defaultImage } from '../../../utilities/helpers'
 import Infografia from '../multimedia/_children/html'
-import StoryContentsChildMultimedia from '../contents/_children/multimedia'
+import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
 
 const classes = {
   gallery: 'w-full',
@@ -67,6 +67,7 @@ const StoryGalleryLite = () => {
     multimediaStorySmall,
     multimediaLarge,
     multimediaLazyDefault: defaultImageGallery,
+    classImage: 's-multimedia',
   }
 
   return (
@@ -97,7 +98,7 @@ const StoryGalleryLite = () => {
             data={embedHtmlPromoItems}
             caption={caption}
             header="true"
-            classImage = 's-multimedia'
+            classImage="s-multimedia"
           />
         )
       )}
