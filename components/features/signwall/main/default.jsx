@@ -82,42 +82,52 @@ class SignwallComponent extends PureComponent {
   }
 
   getPaywall() {
-    const { siteProperties, arcSite } = this.props
+    const { arcSite } = this.props
     const W = window || {}
 
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
     const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
+    const contentTier = W.document.querySelector(
+      'meta[property="article:content_tier"]'
+    )
     const dataContentPremium = W.content_paywall || false
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
+    const typeContentTier = contentTier
+      ? contentTier.getAttribute('content')
+      : 'metered'
 
     if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
       const artURL = decodeURIComponent(
         QueryString.getQuery('article_url') || ''
       )
-      window.sessionStorage.setItem('paywall_last_url', artURL)
-      window.location.href = Domains.getUrlLandingAuth(arcSite)
+      W.sessionStorage.setItem('paywall_last_url', artURL)
+      W.location.href = Domains.getUrlLandingAuth(arcSite)
     }
 
-    if (dataContentPremium && siteProperties.activePaywall) {
-      // if (dataContentPremium && arcSite === 'gestion') {
+    if (dataContentPremium || typeContentTier === 'locked') {
       this.getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
           W.location.href = `${campaignURL}&ref=${W.location.pathname}`
         },
-        contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
-        section: dataContSec ? dataContSec.getAttribute('content') : 'none',
+
+        contentType:
+          dataContTyp && typeContentTier !== 'free'
+            ? dataContTyp.getAttribute('content')
+            : 'none',
+
+        section:
+          dataContSec && typeContentTier !== 'free'
+            ? dataContSec.getAttribute('content')
+            : 'none',
+
         userName: W.Identity.userIdentity.uuid || null,
         jwt: W.Identity.userIdentity.accessToken || null,
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
-          // user subscription state only GESTION & EL COMERCIO
-          if (
-            siteProperties.activePaywall &&
-            W.Identity.userIdentity.accessToken
-          ) {
+          if (W.Identity.userIdentity.accessToken) {
             return this.getListSubs().then(p => {
               const isLoggedInSubs = this.checkSession()
               return {
@@ -136,7 +146,6 @@ class SignwallComponent extends PureComponent {
           }
         },
         customRegCheck: () => {
-          // user register state
           const start = Date.now()
           const isLoggedIn = this.checkSession()
           return Promise.resolve({
