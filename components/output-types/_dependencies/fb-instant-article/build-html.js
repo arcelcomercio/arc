@@ -279,6 +279,7 @@ const BuildHtml = ({
   websiteUrlsBytag,
   arcSite,
   section,
+  getPremiumValue,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -292,7 +293,8 @@ const BuildHtml = ({
     arrayadvertising: listUrlAdvertisings,
   }
   const getContentType = ({ premium = '' } = {}) => {
-    let contenType = premium ? 'locked' : 'metered'
+    const premiumValue = getPremiumValue || 'metered'
+    let contenType = premium ? 'locked' : premiumValue
     contenType = section.match(/publirreportaje|publireportaje/)
       ? 'free'
       : contenType
