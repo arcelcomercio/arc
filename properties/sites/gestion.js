@@ -230,7 +230,7 @@ export default {
     mainColorTitle: '#d64445',
     mainColorBtn: '#0179af',
     primaryFont: 'Judson',
-    authProviders: ['facebook', 'google'],
+    authProviders: ['facebook'],
   },
   urlSubsOnline: '/suscripciones/',
   stick: {

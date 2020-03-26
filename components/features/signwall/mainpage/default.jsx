@@ -2,6 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import { Generic } from './_children/generic'
 import Domains from '../_dependencies/domains'
+import Cookies from '../_dependencies/cookies'
 
 @Consumer
 class SignwallComponentInt extends PureComponent {
@@ -26,6 +27,7 @@ class SignwallComponentInt extends PureComponent {
       if (window.Sales !== undefined) {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       }
+      Cookies.setCookie('signreferer', window.document.referrer, 365)
     }
   }
 
@@ -89,10 +91,15 @@ class SignwallComponentInt extends PureComponent {
 
   closePopUp = name => {
     if (typeof window !== 'undefined') {
-      if (window.document.referrer !== '') {
-        const URL_CLEAR = window.document.referrer.split('?')
+      if (
+        Cookies.getCookie('signreferer') !== '' &&
+        !Cookies.getCookie('signreferer').match(/\/signwall\//)
+      ) {
+        const URL_CLEAR = Cookies.getCookie('signreferer').split('?')
+        Cookies.deleteCookie('signreferer')
         window.location.href = `${URL_CLEAR[0]}?ref=signwall`
       } else {
+        Cookies.deleteCookie('signreferer')
         window.location.href = '/?ref=signwall'
       }
     }

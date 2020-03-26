@@ -54,9 +54,7 @@ export const FormIntro = ({
       case 'paywall':
         window.sessionStorage.setItem(
           'paywall_last_url',
-          window.document.referrer
-            ? window.document.referrer.split(window.location.origin)[1]
-            : ''
+          window.location.pathname ? window.location.pathname : ''
         )
         break
       default:
@@ -163,7 +161,9 @@ export const FormIntro = ({
               <S.Text
                 c="gray"
                 s={typeDialog === 'premium' ? '12' : '15'}
-                className={`center note-premium ${(arcSite === 'elcomercio')? 'mb-10' : ''}`}>
+                className={`center note-premium ${
+                  arcSite === 'elcomercio' ? 'mb-10' : ''
+                }`}>
                 <div className="sub-paragraph">
                   Disfruta
                   <strong>
@@ -172,8 +172,10 @@ export const FormIntro = ({
                 </div>{' '}
                 <div className="sub-paragraph">
                   y luego{' '}
-                  <span className="price">S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '}</span> al
-                  mes.
+                  <span className="price">
+                    S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '}
+                  </span>{' '}
+                  al mes.
                 </div>
               </S.Text>
             </>
