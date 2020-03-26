@@ -89,14 +89,12 @@ class SignwallComponentInt extends PureComponent {
 
   closePopUp = name => {
     if (typeof window !== 'undefined') {
-      // if (window.document.referrer) {
-      //   const rg = new RegExp(`[(&|?)]+${name}=`)
-      //   const queryMatch = window.document.referrer.match(rg)
-      //   const newUrl = window.document.referrer.split(queryMatch)
-      //   window.location.href = newUrl[0] || '/?ref=signwall'
-      // } else {
-      window.location.href = '/?ref=signwall'
-      // }
+      if (window.document.referrer !== '') {
+        const URL_CLEAR = window.document.referrer.split('?')
+        window.location.href = `${URL_CLEAR[0]}?ref=signwall`
+      } else {
+        window.location.href = '/?ref=signwall'
+      }
     }
   }
 

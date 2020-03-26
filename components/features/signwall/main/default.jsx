@@ -103,24 +103,28 @@ class SignwallComponent extends PureComponent {
     } else if (W.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          if (
-            campaignURL.match(/signwallHard/) &&
-            typeContentTier === 'metered'
-          ) {
+          if (campaignURL.match(/signwallHard/)) {
             W.location.href = Domains.getUrlSignwall(
               arcSite,
               'signwallHard',
               '1'
             )
-          } else if (
-            campaignURL.match(/signwallPaywall/) &&
-            typeContentTier === 'metered'
-          ) {
+          } else if (campaignURL.match(/signwallPaywall/)) {
             this.setState({ showPaywall: true })
           }
         },
-        contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
-        section: dataContSec ? dataContSec.getAttribute('content') : 'none',
+        contentType: () => {
+          if (typeContentTier === 'free') {
+            return 'none'
+          }
+          return dataContTyp ? dataContTyp.getAttribute('content') : 'none'
+        },
+        section: () => {
+          if (typeContentTier === 'free') {
+            return 'none'
+          }
+          return dataContSec ? dataContSec.getAttribute('content') : 'none'
+        },
         userName: W.Identity.userIdentity.uuid || null,
         jwt: W.Identity.userIdentity.accessToken || null,
         apiOrigin: URL_ORIGIN,
