@@ -471,7 +471,7 @@ export default ({
             </>
           )
         })}
-      {isAmp === true &&
+      {isAmp !== true &&
         contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
           <style
             amp-custom="amp-custom"
