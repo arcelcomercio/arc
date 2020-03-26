@@ -86,6 +86,7 @@ const WizardConfirmation = props => {
     fetch(url, {
       method: 'POST',
       cache: 'no-cache',
+      mode: "no-cors",
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
