@@ -61,6 +61,7 @@ const StoryMultimediaLte = () => {
     multimediaStorySmall,
     multimediaLarge,
     multimediaLazyDefault,
+    classImage: 's-multimedia',
   }
 
   return (

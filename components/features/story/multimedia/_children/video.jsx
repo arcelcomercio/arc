@@ -4,9 +4,9 @@ import { getResizedUrl } from '../../../../utilities/resizer'
 import { getAssetsPathVideo } from '../../../../utilities/assets'
 
 const classes = {
-  video: 's-multimedia__lL-video',
-  powa: 's-multimedia__p-default',
-  caption: 's-multimedia__caption ',
+  video: '__lL-video',
+  powa: '__p-default',
+  caption: '__caption ',
 }
 
 const StoryContentChildVideo = props => {
@@ -39,6 +39,7 @@ const StoryContentChildVideo = props => {
     url: imagenMigrate = '',
     contentElemtent = false,
     reziserVideo = true,
+    classImage = 'story-contents',
   } = props
   const imageUrl = contentElemtent ? urlImageContent : urlImage
   const { large } =
@@ -193,7 +194,7 @@ const StoryContentChildVideo = props => {
     <>
       <div
         id="powa-default"
-        className={`${classes.video} ${classes.powa}`}
+        className={`${classImage}${classes.video} multimedia${classes.powa}`}
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
@@ -207,7 +208,9 @@ const StoryContentChildVideo = props => {
         }
         data-poster={large}></div>
       {description && (
-        <figcaption className={classes.caption}>{description} </figcaption>
+        <figcaption className={`${classImage}${classes.caption}`}>
+          {description}{' '}
+        </figcaption>
       )}
     </>
   )

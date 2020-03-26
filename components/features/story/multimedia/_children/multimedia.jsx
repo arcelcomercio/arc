@@ -31,6 +31,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     multimediaLazyDefault,
     showCaption,
     primaryImage,
+    classImage,
   } = data
 
   const { type: typeImage, caption = '' } = basic || {}
@@ -43,6 +44,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     caption,
     showCaption,
     primaryImage,
+    classImage,
   }
 
   return (
@@ -68,7 +70,12 @@ const StoryContentChildMultimedia = ({ data } = []) => {
         />
       )}
       {typoVideo === 'video' && embedHtml ? (
-        <Video data={embedHtml} description={descriptionVideo} {...basic} />
+        <Video
+          data={embedHtml}
+          description={descriptionVideo}
+          classImage={classImage}
+          {...basic}
+        />
       ) : (
         <>{streams && <VideoNativo streams={streams} />}</>
       )}

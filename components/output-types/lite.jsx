@@ -256,7 +256,8 @@ if ('IntersectionObserver' in window) {
   const options = {
     rootMargin: '0px 0px 0px 0px',
   }
-  const videos = Array.from(document.querySelectorAll('.s-multimedia__lL-video'))
+  const videosc = Array.from(document.querySelectorAll('.s-multimedia__lL-video'))
+  const videos = Array.from(document.querySelectorAll('.story-contents__lL-video')).concat(videosc)
   videos.forEach(video => {
       const observer = new IntersectionObserver(videoObserver, options)
       observer.observe(video)

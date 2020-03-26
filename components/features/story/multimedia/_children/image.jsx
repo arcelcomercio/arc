@@ -5,8 +5,8 @@ import { useFusionContext } from 'fusion:context'
 import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
-  image: 's-multimedia__image w-full',
-  caption: 's-multimedia__caption',
+  image: '__image w-full',
+  caption: '__caption',
 }
 
 const StoryContentChildImage = ({
@@ -17,6 +17,7 @@ const StoryContentChildImage = ({
   caption,
   showCaption = true,
   primaryImage = false,
+  classImage = 'story-contents',
   presets = 'landscapeMd:314x157,storySmall:482x290,large:980x528',
 }) => {
   const { arcSite } = useFusionContext()
@@ -50,7 +51,7 @@ const StoryContentChildImage = ({
               <img
                 src={extractImage(multimediaLarge || url).large}
                 alt={caption}
-                className={classes.image}
+                className={`${classImage}${classes.image}`}
               />
             </>
           ) : (
@@ -68,7 +69,7 @@ const StoryContentChildImage = ({
                 className="lazy"
               />
               <img
-                className={`${classes.image} lazy`}
+                className={`${classImage}${classes.image} lazy`}
                 src={multimediaLazyDefault}
                 data-src={extractImage(multimediaLarge || url).large}
                 alt={caption}
@@ -77,7 +78,9 @@ const StoryContentChildImage = ({
           )}
 
           {showCaption && (
-            <figcaption className={classes.caption}>{caption} </figcaption>
+            <figcaption className={`${classImage}${classes.caption}`}>
+              {caption}{' '}
+            </figcaption>
           )}
         </picture>
       </Static>
