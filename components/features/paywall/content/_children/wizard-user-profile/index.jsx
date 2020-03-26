@@ -128,7 +128,6 @@ function WizardUserProfile(props) {
           const token = window.Identity.userIdentity.accessToken
           fetch(url, {
             method: 'POST',
-            mode: "no-cors",
             cache: 'no-cache',
             headers: {
               'Content-Type': 'application/json',
