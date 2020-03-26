@@ -279,6 +279,7 @@ const BuildHtml = ({
   websiteUrlsBytag,
   arcSite,
   section,
+  getPremiumValue,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -292,8 +293,9 @@ const BuildHtml = ({
     arrayadvertising: listUrlAdvertisings,
   }
   const getContentType = ({ premium = '' } = {}) => {
-    const metered = arcSite === 'elcomercio' ? 'free' : 'metered'
-    let contenType = premium ? 'locked' : metered
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
+    let contenType = premium ? 'locked' : premiumValue
     contenType = section.match(/publirreportaje|publireportaje/)
       ? 'free'
       : contenType
