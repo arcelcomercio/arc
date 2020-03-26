@@ -49,6 +49,7 @@ export default ({
     sourceId,
     isPremium,
     sourceUrlOld,
+    getPremiumValue,
     contentElementsRedesSociales,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
   const parameters = {
@@ -391,8 +392,10 @@ export default ({
       }()
    */
   const getContentType = () => {
-    const metered = arcSite === 'elcomercio' ? 'free' : 'metered'
-    let contenType = isPremium ? 'locked' : metered
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
+
+    let contenType = isPremium ? 'locked' : premiumValue
     const section = primarySectionLink && primarySectionLink.split('/')[1]
     contenType = section.match(/publirreportaje|publireportaje/)
       ? 'free'
