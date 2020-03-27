@@ -4,18 +4,23 @@
 
 import React from 'react'
 import getProperties from 'fusion:properties'
-import { getAssetsPath } from '../../../../utilities/assets'
+import { getAssetsPath } from '../../../../../utilities/assets'
 import {
   searchScript,
   stickyScript,
   menuScript,
+  singwallScript,
 } from '../_dependencies/scripts'
 import Menu from './menu'
-import ShareButtons from '../../../../global-components/lite/share'
+import ShareButtons from '../../../../../global-components/lite/share'
 
 export default props => {
-  const { menuSections = [], arcSite, contextPath } = props
+  const { menuSections = [], arcSite, contextPath, globalContent } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
+
+  const {
+    taxonomy: { primary_section: { path: sectionPath = '' } = {} } = {},
+  } = globalContent || {}
 
   return (
     <>
@@ -109,7 +114,10 @@ export default props => {
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: `"use strict";${searchScript}${stickyScript}${menuScript}`,
+            __html: `"use strict";${searchScript}${stickyScript}${menuScript}${singwallScript.replace(
+              '<<loc>>',
+              (sectionPath.split('/')[1] || '').replace('-', '')
+            )}`,
           }}
         />
       </header>
