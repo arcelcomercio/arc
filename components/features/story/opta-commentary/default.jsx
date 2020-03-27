@@ -6,7 +6,7 @@ import customFields from './_dependencies/custom-fields'
 import ItemCommentary from './_children/item-commentary'
 
 const classes = {
-  commentaries: 'direct__wrapper',
+  commentaries: 'direct__wrapper p-10',
   list: 'direct__list',
 }
 
