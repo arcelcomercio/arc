@@ -14,7 +14,7 @@ import QueryString from '../../_dependencies/querystring'
 export const ButtonStyleSocial = styled(Button)`
   font-size: ${props => (props.size === 'full' ? '18' : '16')}px !important;
   position: relative;
-  height: 48px !important;
+  height: 45px !important;
   display: inline-block;
   vertical-align: top;
   padding: 0px 10px 0px 45px !important;
@@ -62,7 +62,7 @@ export const ButtonStyleSocial = styled(Button)`
       props.brand === 'facebook' &&
       css`
         left: 10px !important;
-        top: 10px !important;
+        top: 8px !important;
       `}
   }
 

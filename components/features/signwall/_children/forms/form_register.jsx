@@ -320,7 +320,7 @@ export const FormRegister = props => {
                         <Back /> Volver
                       </S.ButtonBase>
 
-                      <S.Text c="gray" s="18" className="mb-20 center">
+                      <S.Text c="gray" s="18" className="mb-10 center">
                         Accede fácilmente con:
                       </S.Text>
 
@@ -414,7 +414,7 @@ export const FormRegister = props => {
                       <S.Button
                         color={mainColorBtn}
                         type="submit"
-                        className="mt-20 mb-20"
+                        className="mt-20 mb-10"
                         disabled={disable || showLoading || showFormatInvalid}
                         onClick={() =>
                           Taggeo(

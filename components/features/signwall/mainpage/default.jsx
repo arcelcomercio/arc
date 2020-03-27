@@ -92,6 +92,7 @@ class SignwallComponentInt extends PureComponent {
   closePopUp = name => {
     if (typeof window !== 'undefined') {
       if (
+        Cookies.getCookie('signreferer') &&
         Cookies.getCookie('signreferer') !== '' &&
         !Cookies.getCookie('signreferer').match(/\/signwall\//)
       ) {
@@ -147,41 +148,53 @@ class SignwallComponentInt extends PureComponent {
               />
             )}
 
-            {!this.checkSession() ? (
-              <>
-                {(this.getUrlParam('signHard') ||
-                  this.getUrlParam('signwallHard')) &&
-                  showHard && (
+            {(this.getUrlParam('signHard') ||
+              this.getUrlParam('signwallHard')) &&
+              showHard && (
+                <>
+                  {!this.checkSession() ? (
                     <Generic
                       onClose={() => this.closePopUp('showHard')}
                       arcSite={arcSite}
                       typeDialog="hard"
                     />
+                  ) : (
+                    <>{this.closePopUp()}</>
                   )}
+                </>
+              )}
 
-                {(this.getUrlParam('signEmail') ||
-                  this.getUrlParam('reloginEmail')) &&
-                  showReEmail && (
+            {(this.getUrlParam('signEmail') ||
+              this.getUrlParam('reloginEmail')) &&
+              showReEmail && (
+                <>
+                  {!this.checkSession() ? (
                     <Generic
                       onClose={() => this.closePopUp('showReEmail')}
                       arcSite={arcSite}
                       typeDialog="relogemail"
                     />
+                  ) : (
+                    <>{this.closePopUp()}</>
                   )}
+                </>
+              )}
 
-                {(this.getUrlParam('signHash') ||
-                  this.getUrlParam('reloginHash')) &&
-                  showRelogHash && (
+            {(this.getUrlParam('signHash') ||
+              this.getUrlParam('reloginHash')) &&
+              showRelogHash && (
+                <>
+                  {!this.checkSession() ? (
                     <Generic
                       onClose={() => this.closePopUp('showRelogHash')}
                       arcSite={arcSite}
                       typeDialog="reloghash"
                     />
+                  ) : (
+                    <>{this.closePopUp()}</>
                   )}
-              </>
-            ) : (
-              <>{this.closePopUp()}</>
-            )}
+                </>
+              )}
           </>
         )}
       </>

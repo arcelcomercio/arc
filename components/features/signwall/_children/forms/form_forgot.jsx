@@ -151,7 +151,7 @@ export const FormForgot = ({
 
             {!showConfirm ? (
               <>
-                <div className="center block mb-20">
+                <div className="center block mb-10">
                   <ForgotPass bgcolor={mainColorBr} />
                 </div>
                 <S.Title

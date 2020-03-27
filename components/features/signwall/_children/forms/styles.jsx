@@ -318,6 +318,6 @@ export const Error = styled.div`
   padding: 10px 10px;
   border-radius: 4px;
   text-align: center;
-  margin-top: 7px;
+  margin-top: 5px;
   margin-bottom: 5px;
 `
