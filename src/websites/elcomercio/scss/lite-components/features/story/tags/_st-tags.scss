@@ -1,13 +1,22 @@
 .st-tags {
   &__title {
-    font: Bold 14px/26px $primary-font;
+    display: inline-block;
+    font: 700 14px/26px $primary-font;
+    margin-right: 9px;
   }
 
   &__tag {
     display: inline-block;
-    font: Medium 13px/26px $primary-font;
+    margin-right: 9px;
+    margin-bottom: 9px;
+    border: 1px solid #999;
+  }
+
+  &__link {
+    font: 500 13px/26px $primary-font;
     letter-spacing: 0.13px;
     text-transform: capitalize;
-    border: 1px solid $border-color-gray;
+    padding: 7px 9px;
+    color: #111;
   }
 }

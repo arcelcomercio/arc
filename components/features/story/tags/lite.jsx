@@ -12,8 +12,26 @@ const classes = {
 
 const StoryTags = () => {
   const { globalContent } = useFusionContext()
-  const { taxonomy: { tags = ['pepe', 'miguel', 'coronavirus'] } = {} } =
-    globalContent || {}
+  const {
+    taxonomy: {
+      tags = [
+        { text: 'coronavirus', slug: 'corona' },
+        { text: 'covid-19', slug: 'eso' },
+        { text: 'coronavirus', slug: 'corona' },
+        { text: 'covid-19', slug: 'eso' },
+        { text: 'coronavirus', slug: 'corona' },
+        { text: 'covid-19', slug: 'eso' },
+        { text: 'coronavirus', slug: 'corona' },
+        { text: 'covid-19', slug: 'eso' },
+        { text: 'coronavirus', slug: 'corona' },
+        { text: 'covid-19', slug: 'eso' },
+        { text: 'coronavirus', slug: 'corona' },
+        { text: 'covid-19', slug: 'eso' },
+        { text: 'coronavirus', slug: 'corona' },
+        { text: 'covid-19', slug: 'eso' },
+      ],
+    } = {},
+  } = globalContent || {}
 
   return (
     tags.length > 0 && (
