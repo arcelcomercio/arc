@@ -86,3 +86,48 @@ export const stickyScript =
   }) */
 export const menuScript =
   '"use strict";window.addEventListener("load",function(){setTimeout(function(){document.getElementById("h-basic__btn-menu").addEventListener("click",function(){var e=document.getElementById("menu"),t=document.getElementById("m-content");e.className.includes("active")?(e.className=e.className.replace("active",""),e.setAttribute("aria-expanded",!1),t.className=t.className.replace("active","")):(e.className=e.className.concat(" active"),e.setAttribute("aria-expanded",!0),t.className=t.className.concat(" active"))}),document.getElementById("m-search").addEventListener("submit",function(e){e.preventDefault();var t=e.target[0].value;if(t){var a=encodeURIComponent(t).replace(/%20/g,"+");window.location.href="/buscar/".concat(a,"/todas/descendiente/?query=").concat(a)}})},0)});'
+
+/* document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(() => {
+    const localProfile = JSON.parse(
+      window.localStorage.getItem('ArcId.USER_PROFILE') ||
+        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+    )
+    const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
+    document.querySelector('.h-basic__btn-user').addEventListener("click", () => {
+      if (uuid) {
+        window.location.href  = '/mi-perfil/?outputType=signwall'
+      } else {
+        // window.location.href  = '/signwall/?outputType=signwall'
+        window.location.href  = '/politica/?reloginEmail=1'
+      }
+    })
+    if (uuid) {
+      const signwallButton = document.querySelector('.h-basic__user-txt')
+      // const signwallIcon = document.getElementById('signwall-nav-icon')
+      if (!firstName && !lastName) {
+        signwallButton.innerHTML = 'Bienvenido Usuario'
+      } else {
+        let buttonText = ''
+        let iconText = ''
+        if (firstName && lastName) {
+          buttonText = `${firstName} ${lastName}`
+          iconText = `${firstName[0] || ''}${lastName[0] || ''}`
+        } else if (firstName && !lastName) {
+          buttonText = firstName
+          iconText = `${firstName[0] || ''}${firstName[1] || ''}`
+        } else if (!firstName && lastName) {
+          buttonText = lastName
+          iconText = `${lastName[0] || ''}${lastName[1] || ''}`
+        }
+        signwallButton.innerHTML = buttonText.length >= 10 ? `${buttonText.slice(0, 10)}...` : buttonText
+      }
+    }
+    document.querySelector('.h-basic__sub').addEventListener("click", () => {
+      window.location.href  = '/suscripciones/?ref=btn-suscribete-elcomercio&loc=<<loc>>'
+    })
+  }, 0)
+}) */
+
+export const singwallScript =
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},c=e.firstName,t=void 0===c?"":c,n=e.lastName,o=void 0===n?"":n,i=e.uuid,a=void 0===i?"":i;if(document.querySelector(".h-basic__btn-user").addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=signwall":"/politica/?reloginEmail=1"}),a){var r=document.querySelector(".h-basic__user-txt");if(t||o){var s="";t&&o?(s="".concat(t," ").concat(o),"".concat(t[0]||"").concat(o[0]||"")):t&&!o?(s=t,"".concat(t[0]||"").concat(t[1]||"")):!t&&o&&(s=o,"".concat(o[0]||"").concat(o[1]||"")),r.innerHTML=s.length>=10?"".concat(s.slice(0,10),"..."):s}else r.innerHTML="Bienvenido Usuario"}document.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc=<<loc>>"})},0)});'

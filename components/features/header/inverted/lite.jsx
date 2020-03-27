@@ -2,11 +2,11 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import schemaFilter from './_dependencies/schema-filter'
-import HeaderBasicChildren from './_children/header'
+import schemaFilter from './_lite/_dependencies/schema-filter'
+import HeaderBasicChildren from './_lite/_children/header'
 
 const HeaderBasic = () => {
-  const { arcSite, contextPath } = useFusionContext()
+  const { arcSite, contextPath, globalContent } = useFusionContext()
 
   const menuSections = useContent({
     source: 'navigation-by-hierarchy',
@@ -25,6 +25,7 @@ const HeaderBasic = () => {
     menuSections,
     arcSite,
     contextPath,
+    globalContent,
   }
 
   return <HeaderBasicChildren {...params} />
