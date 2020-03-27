@@ -6,10 +6,10 @@ const classes = {
   ads: 'direct__publicity hidden w-full mb-10',
   box: 'direct__box mr-20 flex flex-col items-center md:flex-row',
   time:
-    'direct__time text-center md:text-left mb-10 md:mb-0 md:mr-20 font-secondary',
+    'direct__time text-center md:text-left mb-10 md:mb-0 md:mr-20 secondary-font',
   imgWrapper: 'direct__img',
   img: 'w-full h-full object-cover',
-  commentary: 'direct__details font-secondary',
+  commentary: 'direct__details secondary-font',
 }
 
 const ItemCommentary = ({ time, type, comment }) => {
