@@ -1,4 +1,6 @@
 import React from 'react'
+import ENV from 'fusion:environment'
+
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
@@ -12,6 +14,7 @@ import {
 } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
 import { getAssetsPath } from '../utilities/constants'
+import StoryData from '../utilities/story-data'
 
 const LiteOutput = ({
   children,
@@ -36,6 +39,8 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
+  const CURRENT_ENVIRONMENT =
+    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
@@ -202,6 +207,63 @@ const LiteOutput = ({
     arcSite,
   }
 
+  const {
+    videoSeo,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
+  const contenidoVideo =
+    content.includes('id="powa-') || videoSeo[0] ? 1 : false
+
+  const scriptVideo = `
+ const videoObserver = (entries, observer) => {
+  entries.forEach(entry => {
+    const { isIntersecting, target } = entry
+    if (isIntersecting) {
+      const uuid = target.getAttribute('data-uuid')
+      const preroll = target.getAttribute('data-preroll')
+      const api = target.getAttribute('data-api')
+      const poster = target.getAttribute('data-poster')
+      const streams = target.getAttribute('data-streams')
+      const reziser = target.getAttribute('data-reziser')
+      const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
+      target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
+      if (window.powaBoot) window.powaBoot()
+      setTimeout(function(){  
+        if (window.PoWaSettings) {
+          window.preroll = preroll
+          window.PoWaSettings.advertising = {
+            adBar: false,
+            adTag: preroll,
+          }
+        }
+      }, 1000);
+      window.addEventListener('powaRender',
+        function () {
+          Array.from(document.getElementsByClassName('s-multimedia__p-default')).forEach(function (contShare) {
+            contShare.classList.remove("s-multimedia__p-default")
+        });
+        }
+     )
+      observer.unobserve(target)
+    }
+  })
+}
+if ('IntersectionObserver' in window) {
+  const options = {
+    rootMargin: '0px 0px 0px 0px',
+  }
+  const videosc = Array.from(document.querySelectorAll('.s-multimedia__lL-video'))
+  const videos = Array.from(document.querySelectorAll('.story-contents__lL-video')).concat(videosc)
+  videos.forEach(video => {
+      const observer = new IntersectionObserver(videoObserver, options)
+      observer.observe(video)
+  })
+}
+`
   return (
     <html lang="es">
       <head>
@@ -273,6 +335,14 @@ const LiteOutput = ({
             ) : null
           }}
         </Resource>
+
+        {contenidoVideo && (
+          <>
+            <script
+              src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
+              async></script>
+          </>
+        )}
       </head>
       <body className={classBody}>
         <noscript>
@@ -325,6 +395,15 @@ const LiteOutput = ({
           </>
         )}
 
+        {contenidoVideo && (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: scriptVideo }}
+            />
+          </>
+        )}
         <script
           async
           src={deployment(

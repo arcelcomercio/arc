@@ -1,0 +1,27 @@
+.links-band {
+  display: none;
+  height: 42px;
+  justify-content: start;
+  padding: 0 10px;
+  overflow: hidden;
+  border-bottom: 2px solid $color-black;
+
+  @media (--desktop) {
+    display: flex;
+  }
+
+  & > h4 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #36b;
+    padding: 12px;
+    white-space: nowrap;
+  }
+
+  & > a {
+    font-size: 14px;
+    color: $color-gray-300;
+    padding: 12px;
+    white-space: nowrap;
+  }
+}
