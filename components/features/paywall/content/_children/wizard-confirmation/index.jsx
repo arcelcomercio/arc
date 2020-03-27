@@ -93,7 +93,7 @@ const WizardConfirmation = props => {
       },
       body: JSON.stringify({
         url_referer: referer,
-        // medium: "call_center",
+        medium: origin,
         user_agent: navigator.userAgent,
         arc_order: orderNumber,
       }),
