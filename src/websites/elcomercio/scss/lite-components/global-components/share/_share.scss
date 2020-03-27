@@ -1,0 +1,21 @@
+.share-btn {
+  border: 1px solid #eaeaea;
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  padding: 0;
+  line-height: 0;
+  &--ws {
+    @media (--desktop) {
+      display: none;
+    }
+  }
+
+  &--in {
+    display: none;
+    @media (--desktop) {
+      display: flex;
+    }
+  }
+}
