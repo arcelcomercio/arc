@@ -1,6 +1,8 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+
 import PropTypes from 'prop-types'
-import Consumer from 'fusion:consumer'
 
 import filterSchema from './_dependencies/schema-filter'
 import { defaultImage } from '../../../utilities/assets'
@@ -8,131 +10,100 @@ import { includeSections } from '../../../utilities/included-fields'
 
 import OpinionChildCard from './_children/card'
 
-@Consumer
-class CardOpinion extends PureComponent {
-  constructor(props) {
-    super(props)
+const API_STORY_BY_SECTION = 'story-by-section'
 
-    const { arcSite, customFields: { titleOpinion } = {} } = this.props || {}
+const CardOpinion = props => {
+  const { deployment, contextPath, arcSite } = useFusionContext()
+  const {
+    customFields: {
+      titleOpinion = '',
+      section1: pathSection1 = '',
+      section2: pathSection2 = '',
+      section3: pathSection3 = '',
+      section4: pathSection4 = '',
+      uriImageSection1 = '',
+      uriImageSection2 = '',
+      uriImageSection3 = '',
+      uriImageSection4 = '',
+    },
+  } = props || {}
 
-    this.state = {
-      titleOpinion,
-      arcSite,
-      section1: {},
-      section2: {},
-      section3: {},
-      section4: {},
-    }
-  }
-
-  componentDidMount = () => {
-    this.init()
-  }
-
-  init = () => {
-    const sections = {}
-    const sectionsFetch = []
-
-    const { customFields, arcSite, deployment, contextPath } = this.props || {}
-    for (let i = 1; i <= 4; i++) {
-      const sec = customFields[`section${i}`]
-      if (sec !== '') {
-        sections[`section${i}`] = sec
-        const { fetched } = this.getContentApi(sec)
-        sectionsFetch.push(fetched)
-      }
-    }
-
-    if (sectionsFetch.length > 0) {
-      Promise.all(sectionsFetch)
-        .then(results => {
-          const jsonSections = {}
-          results.forEach((story, index) => {
-            if (story) {
-              const {
-                headlines: { basic = '' } = {},
-                taxonomy: { sections: secs = [] } = {},
-                websites = {},
-              } = story || {}
-              const { website_url: websiteUrl = '' } = websites[arcSite] || {}
-
-              const sectionItem = sections[`section${index + 1}`]
-              const secPropperties =
-                secs.find(x => x.path === sectionItem) || {}
-
-              const {
-                name = '',
-                path = '',
-                additional_properties: {
-                  original: {
-                    site_topper: { site_logo_image: siteLogo = '' } = {},
-                  } = {},
-                } = {},
-              } = secPropperties
-
-              const indexSec = Object.values(sections).indexOf(path)
-              const sectionActive = Object.keys(sections)[indexSec]
-
-              const urlImg =
-                customFields[`uriImageSection${indexSec}`] ||
-                siteLogo ||
-                defaultImage({
-                  deployment,
-                  contextPath,
-                  arcSite,
-                  size: 'sm',
-                })
-
-              jsonSections[sectionActive] = {
-                title: basic,
-                urlImg,
-                urlNew: websiteUrl,
-                sectionName: name,
-                urlSection: path,
-              }
-            }
-          })
-          this.setState(jsonSections)
-        })
-        .catch(err => {
-          throw new Error(err)
-        })
-    }
-  }
-
-  getContentApi = section => {
-    const { arcSite } = this.props
-    return this.getContent(
-      'story-by-section',
-      {
+  const fetchDataModel = pathSection => {
+    return {
+      source: API_STORY_BY_SECTION,
+      query: {
         website: arcSite,
-        section,
+        section: pathSection,
         includedFields: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,canonical_url,${includeSections},taxonomy.sections.additional_properties.original.site_topper.site_logo_image`,
       },
-      filterSchema(arcSite)
-    )
-  }
-
-  render() {
-    const {
-      titleOpinion = '',
-      arcSite,
-      section1,
-      section2,
-      section3,
-      section4,
-    } = this.state
-
-    const params = {
-      titleOpinion,
-      arcSite,
-      dataList: [section1, section2, section3, section4],
+      filter: filterSchema(arcSite),
     }
-    return <OpinionChildCard {...params} />
   }
+
+  const section1 =
+    useContent(pathSection1 ? fetchDataModel(pathSection1) : {}) || {}
+  const section2 =
+    useContent(pathSection2 ? fetchDataModel(pathSection2) : {}) || {}
+  const section3 =
+    useContent(pathSection3 ? fetchDataModel(pathSection3) : {}) || {}
+  const section4 =
+    useContent(pathSection4 ? fetchDataModel(pathSection4) : {}) || {}
+
+  const getInstanceSnap = (el, customImage, pathSection) => {
+    const {
+      headlines: { basic = '' } = {},
+      taxonomy: { sections: secs = [] } = {},
+      websites = {},
+    } = el || {}
+    const { website_url: websiteUrl = '' } = websites[arcSite] || {}
+
+    const {
+      name = '',
+      path = '',
+      additional_properties: {
+        original: { site_topper: { site_logo_image: siteLogo = '' } = {} } = {},
+      } = {},
+    } = secs.find(x => x.path === pathSection) || {}
+
+    const urlImg =
+      customImage ||
+      siteLogo ||
+      defaultImage({
+        deployment,
+        contextPath,
+        arcSite,
+        size: 'sm',
+      })
+
+    return {
+      title: basic,
+      urlImg,
+      urlNew: websiteUrl,
+      sectionName: name,
+      urlSection: path,
+    }
+  }
+
+  const getFormatedData = (item1, item2, item3, item4) => {
+    return [
+      getInstanceSnap(item1, uriImageSection1, pathSection1),
+      getInstanceSnap(item2, uriImageSection2, pathSection2),
+      getInstanceSnap(item3, uriImageSection3, pathSection3),
+      getInstanceSnap(item4, uriImageSection4, pathSection4),
+    ]
+  }
+
+  const params = {
+    titleOpinion,
+    arcSite,
+    dataList: getFormatedData(section1, section2, section3, section4),
+  }
+
+  return <OpinionChildCard {...params} />
 }
 
 CardOpinion.label = 'Listado de Opinión + ícono'
+CardOpinion.static = true
 
 CardOpinion.propTypes = {
   customFields: PropTypes.shape({
