@@ -13,9 +13,9 @@ export default {
   resizerUrl: 'https://elcomercio.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/web/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Delcomercio%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/web/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Dweb%26publisher%3Delcomercio%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/amp/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Delcomercio%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/amp/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Damp%26publisher%3Delcomercio%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
@@ -201,40 +201,30 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
-      },
-      {
-        name: 'youtube',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-  },
-  social: {
-    facebook: {
+  socialNetworks: [
+    {
       name: 'facebook',
-      user: '@elcomercio.pe',
       url: 'https://www.facebook.com/elcomercio.pe',
     },
-    twitter: {
+    {
       name: 'twitter',
-      user: 'elcomercio_peru',
       url: 'https://twitter.com/elcomercio_peru',
     },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
-    },
-    instagram: {
+    {
       name: 'instagram',
       url: 'https://www.instagram.com/elcomercio/?hl=es',
+    },
+    {
+      name: 'youtube',
+      url: 'https://www.youtube.com/channel/UCLtGUPjKLqa3zgdmhKCZONg',
+    },
+  ],
+  social: {
+    facebook: {
+      user: '@elcomercio.pe',
+    },
+    twitter: {
+      user: 'elcomercio_peru',
     },
   },
   adsAmp: {

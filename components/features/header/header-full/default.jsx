@@ -17,7 +17,6 @@ const HeaderFull = props => {
     arcSite,
     contextPath,
     deployment,
-    siteProperties,
     globalContent: {
       type = '',
       website_url: postPermaLink,
@@ -25,14 +24,16 @@ const HeaderFull = props => {
     } = {},
   } = useFusionContext() || {}
 
+  const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
+
   const {
-    footer: { socialNetworks = [] } = {},
+    socialNetworks = [],
+    social: { twitter: { user: siteNameRedSocial } = {} } = {},
     mobileHeaderFollowing = '',
     siteDomain = '',
     legalLinks = [],
-  } = siteProperties
-
-  const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
+    siteUrl,
+  } = getProperties(arcSite)
 
   const {
     contentService: serviceHeader = '',
@@ -71,13 +72,6 @@ const HeaderFull = props => {
       query: queryMenu,
       filter: filterMenu,
     }) || {}
-
-  const {
-    social: {
-      twitter: { user: siteNameRedSocial },
-    },
-    siteUrl,
-  } = getProperties(arcSite)
 
   const { children: headerList = [] } = dataHeader
   const { children: menuList = [] } = dataMenu

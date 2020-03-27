@@ -96,6 +96,7 @@ const ListItemNews = (contentElements, buildProps) => {
           websiteUrlsBytag,
           arcSite,
           section: storydata.sectionsFIA.section,
+          getPremiumValue: storydata.getPremiumValue,
         }
 
         const htmlString = BuildHtml(BuildHtmlProps)

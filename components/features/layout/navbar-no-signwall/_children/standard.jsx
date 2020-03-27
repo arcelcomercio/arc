@@ -103,6 +103,8 @@ class NavBarDefault extends PureComponent {
     const { website_url: postPermaLink, headlines: { basic: postTitle } = {} } =
       globalContent || {}
 
+    this.postTitle = postTitle;
+
     const urlsShareList = socialMediaUrlShareList(
       siteUrl,
       postPermaLink,
@@ -383,7 +385,7 @@ class NavBarDefault extends PureComponent {
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
-      navbarData: { children: navbarSections = [] } = {},
+      navbarData: { children: navbarSections = [] } = {}
     } = this.props
 
     const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
@@ -497,9 +499,9 @@ class NavBarDefault extends PureComponent {
                 />
               </a>
             )}
-
-            <div className={classes.navStoryTitle} />
-
+            {this.isStory && (
+              <div className={classes.navStoryTitle} >{this.postTitle}</div>
+            )}
             <div className={classes.navStorySocialNetwork}>
               {type === ELEMENT_STORY && (
                 <>

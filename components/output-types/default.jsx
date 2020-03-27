@@ -242,15 +242,18 @@ export default ({
       const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
      
       target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
-       if (window.powaBoot) window.powaBoot()
-      if (window.PoWaSettings) {
-        window.preroll = preroll
-        window.PoWaSettings.advertising = {
-          adBar: false,
-          adTag: preroll,
-        }
-      }
       
+      if (window.powaBoot) window.powaBoot()
+      setTimeout(function(){  
+        if (window.PoWaSettings) {
+          window.preroll = preroll
+          window.PoWaSettings.advertising = {
+            adBar: false,
+            adTag: preroll,
+          }
+        }
+      }, 1000);
+
       window.addEventListener('powaRender',
         function () {
           Array.from(document.getElementsByClassName('powa-default')).forEach(function (contShare) {
@@ -483,24 +486,42 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         {/* <!-- Identity & Paywall - Inicio --> */}
-        {(arcSite === 'depor' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'peru21' ||
-          arcSite === 'gestion' ||
-          arcSite === 'peru21g21') && (
-          <script
-            src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-            defer
-          />
-        )}
-        {siteProperties.activePaywall && (
-          <script
-            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
-            async
-          />
-        )}
+        {(() => {
+          if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home') {
+            return null
+          }
+          if (
+            arcSite === 'depor' ||
+            arcSite === 'elcomercio' ||
+            arcSite === 'peru21' ||
+            arcSite === 'gestion' ||
+            arcSite === 'peru21g21'
+          ) {
+            return (
+              <script
+                src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+                defer
+              />
+            )
+          }
+          return null
+        })()}
+        {(() => {
+          if (siteProperties.activePaywall) {
+            if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home') {
+              return null
+            }
+            return (
+              <script
+                src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+                  .toISOString()
+                  .slice(0, 10)}`}
+                async
+              />
+            )
+          }
+          return null
+        })()}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
       </head>
       <body className={classBody}>

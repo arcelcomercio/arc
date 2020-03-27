@@ -33,11 +33,15 @@ const classes = {
 const FooterDepor = () => {
   const { arcSite, contextPath, deployment } = useFusionContext()
 
-  const { gecSites, siteUrl = '', legalLinks = [] } = getProperties(arcSite)
+  const {
+    gecSites,
+    siteUrl = '',
+    legalLinks = [],
+    socialNetworks = [],
+  } = getProperties(arcSite)
 
   const {
     footer: {
-      socialNetworks = [],
       contacts = [],
       corporateInfo = {},
       draftingContact = [],
