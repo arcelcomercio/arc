@@ -18,8 +18,8 @@ const classes = {
   quantity: `story-gallery-slider__quantity title-xs mr-10 f  i-survey-share`,
   arrow: `story-gallery-slider__arrows f  h-full `,
   right: `story-gallery-slider__right icon-right `,
-  leftArrow: `story-gallery-slider__arrows--left  text-white title-lg f  h-full `,
-  rightArrow: `story-gallery-slider__arrows--right  text-white title-lg f  h-full `,
+  leftArrow: `story-gallery-slider__arrows--left  text-white title-lg f   `,
+  rightArrow: `story-gallery-slider__arrows--right  text-white title-lg f  `,
 }
 
 const StoryHeaderChildGallerySlider = props => {
