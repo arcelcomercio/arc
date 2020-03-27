@@ -295,7 +295,7 @@ export const FormLogin = ({
               {authProviders.map(item => (
                 <ButtonSocial
                   brand={item}
-                  size="full"
+                  size={item === 'google' ? 'middle' : 'full'}
                   c="mb-10"
                   onClose={onClose}
                   typeDialog={typeDialog}

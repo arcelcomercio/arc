@@ -229,7 +229,7 @@ export const FormRelogin = ({
           {authProviders.map(item => (
             <ButtonSocial
               brand={item}
-              size="middle"
+              size={item === 'google' ? 'middle' : 'full'}
               onClose={onClose}
               typeDialog={typeDialog}
               arcSite={arcSite}

@@ -327,7 +327,7 @@ export const FormRegister = props => {
                       {authProviders.map(item => (
                         <ButtonSocial
                           brand={item}
-                          size="middle"
+                          size={item === 'google' ? 'middle' : 'full'}
                           onLogged={onLogged}
                           onClose={onClose}
                           typeDialog={typeDialog}
