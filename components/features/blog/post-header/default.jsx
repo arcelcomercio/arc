@@ -3,7 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import { addSlashToEnd } from '../../../utilities/parse/strings'
-import { socialMediaUrlShareListBlog } from '../../../utilities/social-media'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
 
 const classes = {
   header: 'post-header bg-white p-20',
@@ -40,13 +40,12 @@ const BlogPostHeader = () => {
   } = getProperties(arcSite)
 
   const {
-    post: {
-      post_permalink: postPermaLink = '',
-      post_title: postTitle = '',
-    } = {},
+    post: { post_permalink: postLink = '', post_title: postTitle = '' } = {},
   } = globalContent || {}
 
-  const urlsShareList = socialMediaUrlShareListBlog(
+  const postPermaLink = `blog/${postLink}`
+
+  const urlsShareList = socialMediaUrlShareList(
     addSlashToEnd(siteUrl),
     postPermaLink,
     postTitle,
