@@ -11,6 +11,7 @@ import { getDateSeo } from '../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
   SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
   SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
 import {
@@ -30,6 +31,7 @@ import {
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
   ELEMENT_STORY,
+  ELEMENT_BLOCKQUOTE
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -52,6 +54,7 @@ const classes = {
   content: 'story-content__content position-relative flex flex-row-reverse',
   textClasses:
     'story-content__font--secondary mb-25 title-xs line-h-md mt-20 secondary-font pr-20',
+  blockquoteClass: 'story-content__blockquote text-gray-300 line-h-sm ml-15 mt-40 mb-40 pl-10 pr-30',
   newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
   newsEmbed: 'story-content__embed',
   tags: 'story-content',
@@ -273,6 +276,17 @@ class StoryContents extends PureComponent {
                           className={alignmentClass}
                         />
                       </>
+                    )
+                  }
+
+                  if (type === ELEMENT_BLOCKQUOTE && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_ELCOMERCIOMAG)) {
+                    return (
+                      <blockquote
+                        dangerouslySetInnerHTML={{
+                          __html: content,
+                        }}
+                        className={classes.blockquoteClass}
+                      />
                     )
                   }
 
