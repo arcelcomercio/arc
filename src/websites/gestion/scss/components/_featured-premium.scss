@@ -247,11 +247,16 @@
   &--last-minute {
     background-color: $color-white;
     @media (--only-mobile) {
-      padding: 30px 20px 20px;
+      padding: 20px;
     }
     .featured-premium__left {
-      @media (--only-mobile) {
-        padding: 0 0 20px 0;
+      padding: 10px 0 15px 0;
+
+      @media (--tablet) {
+        padding-top: 20px;
+      }
+      @media (--desktop) {
+        padding: 20px 20px 0 20px;
       }
     }
     .featured-premium__section {
@@ -290,7 +295,7 @@
     .featured-premium__section,
     .featured-premium__title,
     .featured-premium__author {
-      @media (--tablet) {
+      @media (--desktop) {
         text-align: left;
       }
     }
