@@ -6,7 +6,7 @@ import { socialMediaUrlShareList } from '../../utilities/social-media'
 
 const classes = {
   share: '',
-  btn: 'share-btn f-center',
+  btn: 'share-btn f f-center',
   ws: 'share-btn--ws',
   in: 'share-btn--in',
 }
