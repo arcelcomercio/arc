@@ -45,6 +45,7 @@ export const Cont = styled.div`
     }
 
     &:not(:placeholder-shown) + label,
+    &:-webkit-autofill + label,
     &:focus + label {
       transform-origin: 0 0;
       transform: translate(0.5rem, 0.58rem) scale(0.75);
