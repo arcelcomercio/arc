@@ -1,0 +1,119 @@
+.story-gallery-slider {
+  max-width: 100vw;
+  padding: 0px 20px 0px 20px;
+  background-color: transparent;
+  @media (--tablet) {
+    padding: 0;
+  }
+  @media (--desktop) {
+    max-width: 1024px;
+  }
+
+  &__content {
+    transition: transform 0.4s ease;
+  }
+
+  &__item {
+    width: 280px;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  &__img {
+    height: 240px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    @media (--tablet) {
+      height: 400px;
+    }
+
+    @media (--desktop) {
+      height: 510px;
+    }
+  }
+
+  &__body {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__quantity {
+    background-color: $color-gray-300;
+    width: 102px;
+    color: $color-white;
+    height: 30px;
+    letter-spacing: 3px;
+    margin-right: 10px;
+    float: left;
+    @media (--desktop) {
+      height: 40px;
+    }
+
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  &__arrows {
+    position: absolute;
+    outline: 0;
+    top: 0;
+    width: auto;
+    height: calc(100% - 86px);
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 20px;
+
+    @media (--only-mobile) {
+      height: calc(100% - 158px);
+    }
+
+    &--left,
+    &--right {
+      width: 40px;
+      height: 40px;
+      background-color: $color-white;
+      border-radius: 50%;
+      color: $color-gray-200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed $color-gray-200;
+      font-size: 18px;
+      font-weight: 700;
+      @media (--tablet) {
+        width: 60px;
+        height: 60px;
+        font-size: 20px;
+      }
+      @media (--desktop) {
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+      }
+    }
+  }
+
+  &__caption {
+    padding: 20px 20px 20px 0px;
+  }
+
+  &__figure {
+    position: relative;
+  }
+
+  &__right {
+    right: 0;
+    padding-right: 20px;
+  }
+}

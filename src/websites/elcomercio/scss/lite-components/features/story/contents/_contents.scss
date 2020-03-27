@@ -26,8 +26,11 @@
   &__font-paragraph {
     font-family: $tertiary-font;
     font-size: 18px;
-    padding: 20px 0 0px 0px;
+    padding: 0px 0px 20px 0px;
     line-height: 28px;
+    & a {
+      color: #3366bb;
+    }
   }
 
   &__tag-link {
@@ -64,7 +67,8 @@
       font-size: 2em;
     }
     & > h2 {
-      font-size: 1.81em;
+      font-size: 24px;
+      padding-bottom: 4px;
     }
     & > h3 {
       font-size: 1.601em;
@@ -84,11 +88,16 @@
     & > h4,
     & > h5,
     & > h6 {
-      margin: 20px 0;
+      font-family: $tertiary-font;
+      font-weight: bold;
       line-height: 1.3;
     }
   }
-
+  .pquote__text {
+    color: #469bc6;
+    padding: 15px;
+    font-size: 1.3rem;
+  }
   /* ----------------------------------------------------- */
 
   &__font-paragraph,
@@ -107,7 +116,7 @@
   /* Para arreglar estilos en o-embed */
 
   &__embed {
-    padding-top: 20px;
+    padding-bottom: 20px;
     .twitter-tweet {
       width: 100% !important;
     }
@@ -184,7 +193,7 @@
       right: -6px;
       top: calc(50% - 8px);
     }
-    .story-content__item {
+    .story-contents__item {
       margin-bottom: 0;
     }
   }
@@ -214,11 +223,11 @@
       order: 0;
     }
   }
-  & ul.story-content__paragraph-list {
+  & ul.story-contents__paragraph-list {
     list-style-type: disc;
     padding-left: 30px;
   }
-  & ol.story-content__paragraph-list {
+  & ol.story-contents__paragraph-list {
     list-style-type: decimal;
     padding-left: 30px;
   }
@@ -269,5 +278,10 @@
 .bbc-head {
   & img {
     width: 100%;
+  }
+}
+.story-content {
+  &__embed {
+    padding-bottom: 20px;
   }
 }
