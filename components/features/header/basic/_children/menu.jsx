@@ -69,7 +69,7 @@ const NavbarChildMenu = ({
   }
 
   return (
-    <div className={classes.sidebar} id="menu">
+    <div className={classes.sidebar} id="menu" aria-expanded="false">
       <div className={classes.content} id="m-content">
         <div className={classes.top}>
           <div className={classes.search}>
