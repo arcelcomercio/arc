@@ -10,16 +10,16 @@
     display: flex;
   }
 
-  & > h4 {
-    font-size: 13px;
-    font-weight: bold;
+  &__txt {
+    font: Bold 13px $primary-font;
     color: #36b;
     padding: 12px;
     white-space: nowrap;
   }
 
-  & > a {
+  &__link {
     font-size: 14px;
+    font-family: $primary-font;
     color: $color-gray-300;
     padding: 12px;
     white-space: nowrap;

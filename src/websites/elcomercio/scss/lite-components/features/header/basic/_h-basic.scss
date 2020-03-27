@@ -39,7 +39,7 @@
     background-color: #fff;
     color: #444;
     font-family: $primary-font;
-    font-weight: 700;
+    font-weight: bold;
     height: 25px;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
@@ -65,9 +65,7 @@
     width: 105px;
     height: 32px;
     color: #fff;
-    font-family: $primary-font;
-    font-weight: 700;
-    font-size: 13px;
+    font: Bold 13px $primary-font;
     letter-spacing: 0.26px;
     background-color: #0c51e8;
     border: 1px solid #5383ec;
@@ -97,9 +95,7 @@
   }
 
   &__user-txt {
-    font-family: $primary-font;
-    font-size: 10px;
-    font-weight: 700;
+    font: Bold 10px $primary-font;
     letter-spacing: 0.24px;
     color: #ccc;
     margin-right: 7px;
