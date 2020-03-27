@@ -1,0 +1,27 @@
+.st-social {
+  justify-content: space-between;
+  margin: 0 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid $border-color-gray;
+
+  @media (--tablet) {
+    margin: 0;
+    padding: 20px 10px;
+  }
+
+  &__txt {
+    font-size: 16px;
+    font-weight: bold;
+    color: #111;
+  }
+
+  &__share {
+    display: none;
+
+    @media (--tablet) {
+      display: flex;
+      margin-right: -15px;
+      // Este margen es para contraarrestar el margin-right que tienen los .share-btn
+    }
+  }
+}
