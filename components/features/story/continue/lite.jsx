@@ -3,6 +3,8 @@ import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import { removeLastSlash } from '../../../utilities/helpers'
 
+import Footer from './_lite/_children/footer'
+
 // Script
 /* document.addEventListener('DOMContentLoaded', () => {
   const URLS_STORAGE = '_recents_articles_'
@@ -156,6 +158,7 @@ const StoryContinueLite = () => {
           __html: stContinueScript,
         }}
       />
+      <Footer />
     </>
   )
 }
