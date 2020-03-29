@@ -3,6 +3,8 @@ import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import { removeLastSlash } from '../../../utilities/helpers'
 
+import Footer from './_lite/_children/footer'
+
 // Script
 /* document.addEventListener('DOMContentLoaded', () => {
   const URLS_STORAGE = '_recents_articles_'
@@ -41,7 +43,7 @@ import { removeLastSlash } from '../../../utilities/helpers'
     ((JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}).data ||
       [])[0] || {}
   document.querySelector('.st-continue__title').innerHTML =
-    nextStoryObject.title
+    nextStoryObject.title || 'Portada'
   document.querySelector('.st-continue').href = nextStoryObject.link
   if (document.querySelector('.h-basic__next')) {
     document.querySelector('.h-basic__next').addEventListener('click', () => {
@@ -107,7 +109,7 @@ const StoryContinueLite = () => {
 
   const { content_elements: contentElements = [] } = recentStories
 
-  const stContinueScript = '"use strict";document.addEventListener("DOMContentLoaded",function(){var e="_recents_articles_",t=JSON.parse(window.sessionStorage.getItem(e))||{},n="<<recentStoriesrecentStoriesrecentStories>>",o=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},n=t.section,o=t.data,i=void 0===o?[]:o;window.sessionStorage.setItem(e,JSON.stringify({section:n,data:i.filter(function(e){return e.link!==window.location.pathname})}))};if(t.section)if(t.section!==n.section)window.sessionStorage.removeItem(e),o(n);else{var i=JSON.parse(window.sessionStorage.getItem(e));window.sessionStorage.removeItem(e),o(i)}else o(n);var r=((JSON.parse(window.sessionStorage.getItem(e))||{}).data||[])[0]||{};document.querySelector(".st-continue__title").innerHTML=r.title,document.querySelector(".st-continue").href=r.link,document.querySelector(".h-basic__next")&&document.querySelector(".h-basic__next").addEventListener("click",function(){window.location.href=r.link||"/"});var s=function(){var e=document.querySelector(".st-continue__progress");document.documentElement.offsetHeight-(window.innerHeight+document.documentElement.scrollTop)<=251&&(e.style["stroke-dashoffset"]=-1*(document.documentElement.offsetHeight-(window.innerHeight+document.documentElement.scrollTop)),window.innerHeight+document.documentElement.scrollTop>=document.documentElement.offsetHeight&&(window.location.href=r.link||"/"))};"IntersectionObserver"in window?new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting?window.addEventListener("scroll",s):window.removeEventListener("scroll",s)})}).observe(document.querySelector(".st-continue")):window.addEventListener("scroll",s)});'.replace(
+  const stContinueScript = '"use strict";document.addEventListener("DOMContentLoaded",function(){var e="_recents_articles_",t=JSON.parse(window.sessionStorage.getItem(e))||{},n="<<recentStoriesrecentStoriesrecentStories>>",o=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},n=t.section,o=t.data,i=void 0===o?[]:o;window.sessionStorage.setItem(e,JSON.stringify({section:n,data:i.filter(function(e){return e.link!==window.location.pathname})}))};if(t.section)if(t.section!==n.section)window.sessionStorage.removeItem(e),o(n);else{var i=JSON.parse(window.sessionStorage.getItem(e));window.sessionStorage.removeItem(e),o(i)}else o(n);var r=((JSON.parse(window.sessionStorage.getItem(e))||{}).data||[])[0]||{};document.querySelector(".st-continue__title").innerHTML=r.title||"Portada",document.querySelector(".st-continue").href=r.link,document.querySelector(".h-basic__next")&&document.querySelector(".h-basic__next").addEventListener("click",function(){window.location.href=r.link||"/"});var s=function(){var e=document.querySelector(".st-continue__progress");document.documentElement.offsetHeight-(window.innerHeight+document.documentElement.scrollTop)<=251&&(e.style["stroke-dashoffset"]=-1*(document.documentElement.offsetHeight-(window.innerHeight+document.documentElement.scrollTop)),window.innerHeight+document.documentElement.scrollTop>=document.documentElement.offsetHeight&&(window.location.href=r.link||"/"))};"IntersectionObserver"in window?new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting?window.addEventListener("scroll",s):window.removeEventListener("scroll",s)})}).observe(document.querySelector(".st-continue")):window.addEventListener("scroll",s)});'.replace(
     '"<<recentStoriesrecentStoriesrecentStories>>"',
     JSON.stringify({
       section: removeLastSlash(path),
@@ -156,6 +158,7 @@ const StoryContinueLite = () => {
           __html: stContinueScript,
         }}
       />
+      <Footer />
     </>
   )
 }
