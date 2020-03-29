@@ -1,0 +1,37 @@
+.st-rel {
+  padding: 14px 20px;
+
+  &__title {
+    font: 700 18px/26px $primary-font;
+    letter-spacing: 0.29px;
+    color: #222;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+  }
+
+  &__item {
+    padding-bottom: 20px;
+  }
+
+  &__link {
+  }
+
+  &__multimedia {
+    height: 72px;
+    margin-right: 9px;
+  }
+
+  &__img {
+    width: 110px;
+    object-fit: cover;
+  }
+
+  &__icon {
+  }
+
+  &__txt {
+    font: 700 16px/23px $primary-font;
+    letter-spacing: 0.08px;
+    color: #111;
+  }
+}

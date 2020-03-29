@@ -1,7 +1,11 @@
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
 @import "./scss/variables/index";
-@import "../../general-styles/framework/core/lite";
+
+/******* Variables Lite *******/
+$primary-font: "Roboto", sans-serif;
+$secondary-font: "PT Serif", serif;
+$tertiary-font: "Roboto";
 
 /******* Components *******/
 @import "./scss/lite-components/features/header/basic/menu";
@@ -11,3 +15,4 @@
 @import "./scss/lite-components/features/story/contents/table";
 @import "./scss/lite-components/features/story/tags/st-tags";
 @import "./scss/lite-components/story/continue/st-continue.scss";
+@import "./scss/lite-components/features/story/related/st-rel";
