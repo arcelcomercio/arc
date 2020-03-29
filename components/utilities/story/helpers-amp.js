@@ -138,7 +138,9 @@ export const imageHtml = html => {
     .replace(/<img (.*)src="(.*)" width="(.*?)" (.*)>/g, rplImageCde)
 
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
-  resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
+  resHtml = resHtml
+    .replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
+    .replace(/:<script(.*)>(.*)<\/script>:/gm, '')
   resHtml = resHtml.replace(
     /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
     rplImageCde
