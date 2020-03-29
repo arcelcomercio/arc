@@ -4,9 +4,10 @@ import { useFusionContext } from 'fusion:context'
 import UtilListKey from '../../../utilities/list-keys'
 
 const classes = {
-  container: 'st-tags',
+  container: 'st-tags f',
   title: 'st-tags__title',
   tag: 'st-tags__tag',
+  box: 'st-tags__box',
   link: 'st-tags__link',
 }
 
@@ -18,17 +19,21 @@ const StoryTags = () => {
     tags.length > 0 && (
       <div className={classes.container}>
         <h4 className={classes.title}>Tags:</h4>
-        {tags.map(
-          ({ slug, text }, idx) =>
-            slug &&
-            text && (
-              <h2 key={UtilListKey(idx)} className={classes.tag}>
-                <a className={classes.link} href={slug && `/noticias/${slug}/`}>
-                  {text}
-                </a>
-              </h2>
-            )
-        )}
+        <div className={classes.box}>
+          {tags.map(
+            ({ slug, text }, idx) =>
+              slug &&
+              text && (
+                <h2 key={UtilListKey(idx)} className={classes.tag}>
+                  <a
+                    className={classes.link}
+                    href={slug && `/noticias/${slug}/`}>
+                    {text}
+                  </a>
+                </h2>
+              )
+          )}
+        </div>
       </div>
     )
   )
