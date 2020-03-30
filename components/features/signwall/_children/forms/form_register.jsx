@@ -320,7 +320,7 @@ export const FormRegister = props => {
                         <Back /> Volver
                       </S.ButtonBase>
 
-                      <S.Text c="gray" s="18" className="mb-10 center">
+                      <S.Text c="gray" s="16" className="mb-10 center">
                         Accede fácilmente con:
                       </S.Text>
 
@@ -385,7 +385,7 @@ export const FormRegister = props => {
                         }}
                         valid
                         error={errors.rterms}>
-                        <S.Text c="gray" lh="20" s="13" className="mt-10">
+                        <S.Text c="gray" lh="18" s="12" className="mt-10">
                           Al crear la cuenta acepto los
                           <S.Link
                             href={Domains.getPoliticsTerms('terms', arcSite)}

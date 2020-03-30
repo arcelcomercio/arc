@@ -54,6 +54,29 @@ export const Cont = styled.div`
       padding: 0px 10px;
     }
   }
+
+  @supports (-moz-appearance: none) {
+    input,
+    select {
+      margin-top: 2px;
+    }
+    input:required:invalid {
+      box-shadow: none;
+    }
+    input::placeholder {
+      font-size: 14px;
+    }
+    input:placeholder-shown + label {
+      cursor: text;
+      transform-origin: 0 0;
+      transform: translate(1rem, 2rem) scale(1.1);
+    }
+    label {
+      font-size: 12px;
+      margin-top: 8px;
+    }
+  }
+
   @supports (-ms-accelerator: true) or (-ms-ime-align: auto) {
     input,
     select {
@@ -77,7 +100,7 @@ export const Field = styled.div`
   display: flex;
   flex-flow: column-reverse;
   position: relative;
-  label{
+  label {
     position: relative;
     z-index: 3;
   }

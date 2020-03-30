@@ -27,7 +27,13 @@ class SignwallComponentInt extends PureComponent {
       if (window.Sales !== undefined) {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       }
-      Cookies.setCookie('signreferer', window.document.referrer, 365)
+      if (
+        window.document.referrer &&
+        !window.document.referrer.match(/facebook.com/)
+      ) {
+        Cookies.deleteCookie('signreferer')
+        Cookies.setCookie('signreferer', window.document.referrer, 365)
+      }
     }
   }
 
@@ -94,7 +100,8 @@ class SignwallComponentInt extends PureComponent {
       if (
         Cookies.getCookie('signreferer') &&
         Cookies.getCookie('signreferer') !== '' &&
-        !Cookies.getCookie('signreferer').match(/\/signwall\//)
+        !Cookies.getCookie('signreferer').match(/\/signwall\//) &&
+        name !== 'showHard'
       ) {
         const URL_CLEAR = Cookies.getCookie('signreferer').split('?')
         Cookies.deleteCookie('signreferer')
