@@ -11,6 +11,7 @@
 
   &.active {
     transform: translateX(0);
+    display: block;
   }
 
   @media (--tablet) {
@@ -59,7 +60,7 @@
     cursor: pointer;
 
     &::after {
-      content: '\276F';
+      content: "\276F";
     }
   }
 

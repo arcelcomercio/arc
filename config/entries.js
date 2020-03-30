@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const paths = require('./paths')
 
 module.exports = (type = 'index', _ext = 'js') => {
@@ -9,7 +10,8 @@ module.exports = (type = 'index', _ext = 'js') => {
     .readdirSync(paths.src)
     .filter(file => file !== 'postcss.config.js')
   buildSites.forEach(site => {
-    entries[site] = `./src/websites/${site}/${type}.${ext}`
+    if (fs.existsSync(`${path.resolve(paths.src, site, `${type}.${ext}`)}`))
+      entries[site] = `./src/websites/${site}/${type}.${ext}`
   })
   return entries
 }

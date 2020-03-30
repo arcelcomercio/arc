@@ -12,9 +12,9 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     // 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Ojo_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ojo/web/post/default/preroll&description_url=https%3A%2F%2Fojo.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Dojo%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ojo/web/post/default/preroll&description_url=https%3A%2F%2Fojo.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Dweb%26publisher%3Dojo%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ojo/amp/post/default/preroll&description_url=https%3A%2F%2Fojo.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Dojo%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/ojo/amp/post/default/preroll&description_url=https%3A%2F%2Fojo.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Damp%26publisher%3Dojo%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1579310032347237',
   googleTagManagerId: 'GTM-KZX7JN3',
   ampGoogleTagManagerId: 'UA-15668535-1',
@@ -70,38 +70,31 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/DiarioOjo',
-      },
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/company/ojo/',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/DiarioOjo',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/diarioojo',
+    },
+    {
+      name: 'linkedin',
+      url: 'https://www.linkedin.com/company/ojo/',
+    },
+  ],
 
   social: {
     facebook: {
-      name: 'facebook',
       user: '@DiarioOjo',
-      url: 'https://www.facebook.com/DiarioOjo',
     },
     twitter: {
-      name: 'twitter',
       user: 'diarioojo',
-      url: 'https://twitter.com/diarioojo',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-ojo/ads-fia-28253241-ojo_ia_interna1-300x250-div-gpt-ad-8599377-26.html',

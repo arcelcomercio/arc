@@ -7,7 +7,7 @@ const classes = {
   contact: 'footer__contact  bg-primary md:pt-20 pb-20 hidden md:block',
   sites: 'footer__sites flex flex-col p-20 hidden md:block',
   sitesList: 'footer__sites-list flex flex-wrap w-full p-0',
-  sitesItemTitle: 'text-sm text-gray-300 line-h-xs uppercase mb-10 font-bold',
+  sitesItemTitle: 'footer__sites-red text-sm text-gray-300 line-h-xs uppercase mb-10 font-bold',
   sitesItem:
     'footer__sites-item mb-5 pr-10 text-sm line-h-xs uppercase flex items-center text-gray-200 primary-font',
   legalList: 'footer__legal-list text-md',
@@ -131,6 +131,7 @@ const StandardFooter = props => {
                     className={classes.listSocialLink}>
                     <i
                       className={`icon-${el.name} footer__social-icon pr-15`}
+                      aria-label={el.name}
                     />
                   </a>
                 </li>
