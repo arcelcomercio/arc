@@ -38,11 +38,13 @@ const popup =
 const ShareButtons = () => {
   const { globalContent, arcSite } = useFusionContext()
 
-  const { headlines: { basic: postTitle } = {} } = globalContent || {}
-  const { website_url: postPermaLink = '' } = () => {
+  const urlRoot = () => {
     const { websites = {} } = globalContent || {}
-    return websites[arcSite] || {}
+    return websites[arcSite] || globalContent || {}
   }
+
+  const { headlines: { basic: postTitle } = {} } = globalContent || {}
+  const { website_url: postPermaLink = '' } = urlRoot()
 
   const {
     social: { twitter: { user: siteNameRedSocial } = {} } = {},
