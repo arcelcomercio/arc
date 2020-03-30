@@ -1,0 +1,41 @@
+.direct {
+  &__item {
+    border-color: #e3e3e3;
+    &--publicity {
+      padding-top: 10px;
+      .direct__publicity {
+        display: block;
+      }
+      .direct__time,
+      .direct__details {
+        color: #ff2700;
+        font-weight: 700;
+      }
+    }
+  }
+  &__publicity {
+    border-radius: 4px;
+    background-color: #f9001a;
+    height: 34px;
+  }
+  &__time {
+    color: $color-black;
+    font-size: 25px;
+    line-height: 18px;
+    width: 53px;
+  }
+  &__img {
+    width: 22px;
+    height: 22px;
+    background-color: red;
+  }
+  &__details {
+    font-size: 14px;
+    line-height: 18px;
+    color: $color-black;
+    width: calc(100% - 73px);
+    @media (--tablet) {
+      width: calc(100% - 155px);
+    }
+  }
+}
