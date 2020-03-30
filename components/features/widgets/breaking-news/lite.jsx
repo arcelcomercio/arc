@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { useContent, useEditableContent } from 'fusion:content'
+import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/_lite/custom-fields'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   breakingnews: `b-news f`,
@@ -20,7 +20,7 @@ const classes = {
 }), 0) */
 const handleClose = `"use strict";setTimeout(document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()}),0);`
 
-const BreakingNews = props => {
+const BreakingNewsFeat = props => {
   const {
     customFields: {
       title,
@@ -28,12 +28,11 @@ const BreakingNews = props => {
       showBreakingNews,
       storyLink = '',
       tags = 'Lo último:',
-      bgColor = 'b-news--color-1',
+      backgroundColor = 'color-1',
     },
   } = props
 
   const { arcSite, outputType } = useFusionContext()
-  const { editableField } = useEditableContent()
 
   const article = useContent(
     storyLink
@@ -65,14 +64,11 @@ const BreakingNews = props => {
           <div
             id="breaking-news"
             className={`
-          ${bgColor} 
+            b-news--${backgroundColor} 
           ${classes.breakingnews}
           `}>
             <h2 className={classes.text}>
-              <span
-                className={classes.tag}
-                {...editableField('tags')}
-                suppressContentEditableWarning>
+              <span className={classes.tag} suppressContentEditableWarning>
                 {tags}
               </span>
               <span>
@@ -80,7 +76,6 @@ const BreakingNews = props => {
                   className={classes.link}
                   href={objContent.link}
                   rel="noopener noreferrer"
-                  {...editableField('title')}
                   suppressContentEditableWarning>
                   {objContent.title}
                 </a>
@@ -108,11 +103,11 @@ const BreakingNews = props => {
   )
 }
 
-BreakingNews.propTypes = {
+BreakingNewsFeat.propTypes = {
   customFields,
 }
 
-BreakingNews.label = 'Cintillo Urgente - Nuevo'
-BreakingNews.static = true
+BreakingNewsFeat.label = 'Cintillo Urgente - Nuevo'
+BreakingNewsFeat.static = true
 
-export default BreakingNews
+export default BreakingNewsFeat

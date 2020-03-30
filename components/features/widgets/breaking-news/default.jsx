@@ -19,7 +19,7 @@ const handleClose = `(setTimeout(document.getElementById('close-breaking-news').
   document.getElementById('breaking-news').remove()
 }), 0))()`
 
-const BreakingNews = props => {
+const BreakingNewsFeat = props => {
   const {
     customFields: {
       title,
@@ -27,7 +27,7 @@ const BreakingNews = props => {
       showBreakingNews,
       storyLink = '',
       tags = 'Lo último',
-      backgroundColor = 'breaking-news--bgcolor-1',
+      backgroundColor = 'color-1',
     },
   } = props
 
@@ -64,7 +64,7 @@ const BreakingNews = props => {
           <div
             id="breaking-news"
             className={`
-          ${backgroundColor} 
+            breaking-news--bg${backgroundColor} 
           ${classes.breakingnews}
           `}>
             <h2 className={classes.text}>
@@ -100,11 +100,11 @@ const BreakingNews = props => {
   )
 }
 
-BreakingNews.propTypes = {
+BreakingNewsFeat.propTypes = {
   customFields,
 }
 
-BreakingNews.label = 'Cintillo Urgente - Nuevo'
-BreakingNews.static = true
+BreakingNewsFeat.label = 'Cintillo Urgente - Nuevo'
+BreakingNewsFeat.static = true
 
-export default BreakingNews
+export default BreakingNewsFeat
