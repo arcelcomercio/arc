@@ -26,6 +26,8 @@ const options = {
 
 const fetch = storyData => {
   // const {} = storyData
+  console.log('QUE HAY AQUI?!!!')
+  console.log(storyData)
   const footballGameId = getFootballGameId(storyData)
   if (footballGameId !== '') {
     const urlCDN = `https://cdna-resultadosopta.minoticia.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
