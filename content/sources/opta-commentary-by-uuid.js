@@ -36,6 +36,8 @@ const fetch = storyData => {
     })
       .then(dataOpta => {
         console.log('======request exec=========')
+        console.log(dataOpta)
+        console.log('======fin request exec=========')
         return dataOpta
       })
       .catch(error => {
