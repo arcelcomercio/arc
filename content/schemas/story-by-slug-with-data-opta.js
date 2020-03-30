@@ -100,7 +100,17 @@ basic_gallery {
 }`
 
 const optaCommentaries = `
-
+opta_commentaries{
+    items{
+        commentary_id
+        comment
+        lastModified
+        time
+        commentary_type{
+            name
+        }
+    }
+}
 `
 
 const filter = params => {

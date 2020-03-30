@@ -4,7 +4,8 @@ import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import RedirectError from '../../components/utilities/redirect-error'
 import { getFootballGameId } from '../../components/utilities/get-story-values'
-// import FilterSchema from '../schemas/story-by-slug-with-data-opta'
+import FilterSchema from '../schemas/story-by-slug-with-data-opta'
+
 const schemaName = 'story-dev'
 
 const params = [
@@ -103,11 +104,10 @@ export default {
   schemaName,
   params,
   ttl: 300,
-  // filter:FilterSchema(
-  //   {
-  //     basicVideoFilter:true,
-  //     basicGalleryFilter:true,
-  //     optaFilter:true,
-  //     optaCommentariesFilter:true,
-  //   })
+  filter: FilterSchema({
+    basicVideoFilter: true,
+    basicGalleryFilter: true,
+    optaFilter: true,
+    optaCommentariesFilter: true,
+  }),
 }
