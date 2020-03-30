@@ -21,11 +21,11 @@ const customFields = PropTypes.shape({
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
   }),
-  backgroundColor: PropTypes.oneOf(['b-news--color-1', 'b-news--color-2']).tag({
+  bgColor: PropTypes.oneOf(['b-news--color-1', 'b-news--color-2']).tag({
     name: 'Color de fondo',
     labels: {
-      'b-news--color-1': 'Principal',
-      'b-news--color-2': 'Secundario',
+      'b-news--color-1': 'Primario.',
+      'b-news--color-2': 'Secundario.',
     },
     defaultValue: 'b-news--color-1',
   }),

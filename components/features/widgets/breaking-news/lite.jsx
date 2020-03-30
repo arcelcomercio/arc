@@ -28,7 +28,7 @@ const BreakingNews = props => {
       showBreakingNews,
       storyLink = '',
       tags = 'Lo último:',
-      backgroundColor = 'b-news--color-1',
+      bgColor = 'b-news--color-1',
     },
   } = props
 
@@ -65,7 +65,7 @@ const BreakingNews = props => {
           <div
             id="breaking-news"
             className={`
-          ${backgroundColor} 
+          ${bgColor} 
           ${classes.breakingnews}
           `}>
             <h2 className={classes.text}>
