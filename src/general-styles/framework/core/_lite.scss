@@ -38,3 +38,9 @@ $tertiary-font: "Roboto";
 .oflow-h {
   overflow: hidden;
 }
+
+.hidden-label {
+  overflow: hidden;
+  width: 0;
+  height: 0;
+}
