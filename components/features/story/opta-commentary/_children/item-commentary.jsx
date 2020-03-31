@@ -14,7 +14,8 @@ const classes = {
 
 const ItemCommentary = ({ mainTime, addTime, icon, comment, type }) => {
   return (
-    <li className={classes.li}>
+    <li
+      className={classes.li + (type === 'goal' && ' direct__item--publicity')}>
       {type === 'goal' && <div className={classes.ads}></div>}
       <div className={classes.box}>
         <p className={classes.time}>
