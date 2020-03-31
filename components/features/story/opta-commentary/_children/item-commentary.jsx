@@ -12,14 +12,15 @@ const classes = {
   commentary: 'direct__details secondary-font',
 }
 
-const ItemCommentary = ({ time, icon, comment }) => {
+const ItemCommentary = ({ mainTime, addTime, icon, comment, type }) => {
   return (
     <li className={classes.li}>
-      <div className={classes.ads}>
-        <img src="" alt="Imagen de publicidad" />
-      </div>
+      {type === 'goal' && <div className={classes.ads}></div>}
       <div className={classes.box}>
-        <p className={classes.time}>{time}</p>
+        <p className={classes.time}>
+          {mainTime}
+          {addTime && <sub>{addTime}</sub>}
+        </p>
         {/*    <i className={classes.img}>{type}</i> */}
         <div className={classes.imgWrapper}>
           {icon && (

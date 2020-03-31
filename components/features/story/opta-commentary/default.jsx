@@ -19,6 +19,8 @@ const icons = {
   goal: 'gol.png',
   corner: 'corner.png',
   'own goal': 'gol.png',
+  'end 14': 'final.png',
+  'end 1': 'final.png',
 }
 
 @Consumer
@@ -38,17 +40,24 @@ class OptaCommentary extends Component {
                 time = '',
                 commentary_type: { name: type = '' },
                 comment = '',
+                icon = icons[type],
               } = commentary
 
-              let icon = icons[type]
-              if (type.includes('end ') && time === ' ') {
-                icon = 'final.png'
+              let addTime
+              let mainTime
+              if (time !== null) {
+                if (time.indexOf('+') !== -1) {
+                  addTime = time.substr(time.indexOf('+'))
+                }
+                mainTime = time.replace(addTime, '')
               }
 
               const data = {
-                time,
+                mainTime,
+                addTime,
                 icon,
                 comment,
+                type,
               }
               return <ItemCommentary key={id} {...data} />
             })}
