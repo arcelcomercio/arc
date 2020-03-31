@@ -1,14 +1,18 @@
 .most-read {
-  padding: 14px 20px;
+  border-bottom: 2px solid #111111;
   &__title {
     font: 700 18px/26px $primary-font;
     letter-spacing: 0.29px;
     color: #222;
     text-transform: uppercase;
-  }
-  &__item,
-  &__title {
     padding-bottom: 20px;
+    border-bottom: 2px solid #111111;
+  }
+
+  &__item {
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 20px;
+    padding-top: 20px;
   }
   &__multimedia {
     height: 72px;
@@ -24,5 +28,11 @@
     letter-spacing: 0;
     opacity: 1;
     color: #333;
+    max-height: 74px;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-height: 1.3333333333;
+    overflow: hidden;
   }
 }

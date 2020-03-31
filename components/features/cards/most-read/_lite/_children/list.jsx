@@ -3,7 +3,7 @@ import { useEditableContent } from 'fusion:content'
 import CardMostReadItem from './item'
 
 const classes = {
-  mostRead: 'f f-col ',
+  mostRead: 'most-read f f-col ',
   title: `most-read__title f`,
   link: 'most-read__link',
   icon: 'most-read__icon ',
