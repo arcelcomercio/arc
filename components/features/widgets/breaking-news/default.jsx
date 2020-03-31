@@ -15,9 +15,10 @@ const classes = {
   link: 'breaking-news__link mr-5 text-white font-bold',
 }
 
-const handleClose = `(setTimeout(document.getElementById('close-breaking-news').addEventListener('click', function(e){
+/* setTimeout(document.getElementById('close-breaking-news').addEventListener('click', () => {
   document.getElementById('breaking-news').remove()
-}), 0))()`
+}), 0) */
+const handleClose = `"use strict";setTimeout(document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()}),0);`
 
 const BreakingNewsFeat = props => {
   const {
@@ -89,8 +90,9 @@ const BreakingNewsFeat = props => {
               id="close-breaking-news"
               type="button"
               className={classes.close}
-              tabIndex={0}>
-              <i className={classes.icon} />
+              tabIndex={0}
+              aria-label="Ocultar noticia urgente">
+              <i className={classes.icon} aria-hidden="true" />
             </button>
           </div>
           <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
