@@ -41,7 +41,7 @@ const StoriesListLinkedBySiteChild = ({
           )}
         </div>
       </div>
-      <div role="list" className={classes.list}>
+      <div role="navigation" className={classes.list}>
         {stories.map(
           ({
             title,
