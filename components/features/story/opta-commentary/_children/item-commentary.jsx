@@ -12,7 +12,7 @@ const classes = {
   commentary: 'direct__details secondary-font',
 }
 
-const ItemCommentary = ({ time, type, comment }) => {
+const ItemCommentary = ({ time, icon, comment }) => {
   return (
     <li className={classes.li}>
       <div className={classes.ads}>
@@ -22,7 +22,13 @@ const ItemCommentary = ({ time, type, comment }) => {
         <p className={classes.time}>{time}</p>
         {/*    <i className={classes.img}>{type}</i> */}
         <div className={classes.imgWrapper}>
-          <img src="" alt="Icono" className={classes.img} />
+          {icon && (
+            <img
+              src={`https://cdna.depor.com/resources/assets/minute-by-minute/${icon}`}
+              alt="Icono"
+              className={classes.img}
+            />
+          )}
         </div>
       </div>
       <div className={classes.commentary}>{comment}</div>
