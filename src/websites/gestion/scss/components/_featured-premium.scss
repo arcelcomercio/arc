@@ -244,4 +244,84 @@
       height: 55px;
     }
   }
+  &--last-minute {
+    background-color: $color-white;
+    @media (--only-mobile) {
+      padding: 20px;
+    }
+    @media (--desktop) {
+      min-height: 358px;
+    }
+    &[class*=" col-2"] {
+      .featured-premium__left {
+        @media (--desktop) {
+          justify-content: space-between;
+        }
+      }
+    }
+    .featured-premium__left {
+      padding: 10px 0 15px 0;
+
+      @media (--tablet) {
+        padding-top: 20px;
+      }
+      @media (--desktop) {
+        padding: 20px 20px 0 20px;
+      }
+    }
+    .featured-premium__section {
+      color: #d0092b;
+      font-size: 25px;
+      line-height: 29px;
+      font-weight: 700;
+    }
+    .featured-premium__title {
+      font-size: 25px;
+      line-height: 35px;
+      font-weight: 700;
+    }
+    .featured-premium__detail {
+      display: none;
+    }
+    .featured-premium__description {
+      align-items: flex-end;
+      display: flex;
+      flex-basis: 100%;
+      flex-wrap: wrap;
+    }
+    .featured-premium__section-small {
+      display: block;
+      color: #a57f63;
+      font-size: 15px;
+      line-height: 19px;
+      text-transform: uppercase;
+    }
+    .featured-premium__box-icon {
+      border-top: 2px dashed #a57f63;
+      justify-content: space-between;
+      padding-top: 10px;
+      width: 100%;
+      @media (--desktop) {
+        margin-top: 0;
+      }
+    }
+    .featured-premium__author {
+      font-size: 14px;
+      line-height: 11px;
+      color: $color-gray-200;
+      @media (--tablet) {
+        font-size: 13px;
+      }
+      @media (--desktop) {
+        margin-top: 0;
+      }
+    }
+    .featured-premium__section,
+    .featured-premium__title,
+    .featured-premium__author {
+      @media (--desktop) {
+        text-align: left;
+      }
+    }
+  }
 }
