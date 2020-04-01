@@ -15,19 +15,19 @@ import React from 'react'
  * con comportamiento de botón y completamente accesible.
  */
 
-
 export default props => {
   const { iconClass, btnClass, btnText, btnLink, onClick } = props
 
   return (
     <a
+      title={btnText}
       className={btnClass}
       href={btnLink}
       onClick={onClick}
       tabIndex="0"
       role="button">
       {iconClass && <i className={iconClass} />}
-      <span>{btnText}</span>
+      <span aria-hidden="true">{btnText}</span>
     </a>
   )
 }
