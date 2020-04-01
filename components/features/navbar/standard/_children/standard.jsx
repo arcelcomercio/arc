@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ENV from 'fusion:environment'
@@ -67,31 +69,33 @@ class NavBarDefault extends PureComponent {
       siteNameRedSocial
     )
 
-    this.shareButtons = {
-      firstList: [
-        {
-          icon: 'icon-facebook-circle',
-          link: urlsShareList.facebook,
-          mobileClass: 'flex justify-center',
-        },
+    this.shareButtons = [
+      {
+        name: 'facebook',
+        icon: 'icon-facebook-circle',
+        link: urlsShareList.facebook,
+        mobileClass: 'flex justify-center',
+      },
 
-        {
-          icon: 'icon-twitter-circle',
-          link: urlsShareList.twitter,
-          mobileClass: 'flex justify-center',
-        },
-        {
-          icon: 'icon-linkedin-circle',
-          link: urlsShareList.linkedin,
-          mobileClass: 'flex justify-center',
-        },
-        {
-          icon: 'icon-whatsapp',
-          link: urlsShareList.whatsapp,
-          mobileClass: 'block md:hidden flex justify-center',
-        },
-      ],
-    }
+      {
+        name: 'twitter',
+        icon: 'icon-twitter-circle',
+        link: urlsShareList.twitter,
+        mobileClass: 'flex justify-center',
+      },
+      {
+        name: 'linkedin',
+        icon: 'icon-linkedin-circle',
+        link: urlsShareList.linkedin,
+        mobileClass: 'flex justify-center',
+      },
+      {
+        name: 'whatsapp',
+        icon: 'icon-whatsapp',
+        link: urlsShareList.whatsapp,
+        mobileClass: 'block md:hidden flex justify-center',
+      },
+    ]
   }
 
   componentDidMount() {
@@ -386,6 +390,7 @@ class NavBarDefault extends PureComponent {
                 className="flex position-relative items-center"
                 onSubmit={e => e.preventDefault()}>
                 <input
+                  id="header-search-input"
                   ref={this.inputSearch}
                   type="search"
                   defaultValue={search}
@@ -394,6 +399,9 @@ class NavBarDefault extends PureComponent {
                   placeholder="¿Qué Buscas?"
                   className={`nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs ${this.activeSearch()}`}
                 />
+                <label htmlFor="header-search-input" className="hidden w-0 h-0">
+                  Cuadro de búsqueda
+                </label>
                 <Button
                   iconClass="nav__icon-search text-primary-color icon-search text-lg"
                   btnClass={`flex items-center btn nav__btn nav__btn--search text-gray-200 hidden lg:flex ${this.activeSearch()}`}
@@ -460,6 +468,7 @@ class NavBarDefault extends PureComponent {
                 <>
                   <div>
                     <a
+                      title="Mostrar enlaces para compartir"
                       className="story-content__more-link"
                       href="/"
                       onClick={event => {
@@ -475,12 +484,16 @@ class NavBarDefault extends PureComponent {
                         key={item.icon}
                         className={`story-header__item ${item.mobileClass}`}>
                         <a
+                          title={`Compartir en ${item.name}`}
                           className="story-header__link flex items-center justify-center text-gray-200"
                           href={item.link}
                           onClick={event => {
                             this.openLink(event, item)
                           }}>
-                          <i className={`${item.icon} story-header__icon`} />
+                          <i
+                            className={`${item.icon} story-header__icon`}
+                            aria-hidden="true"
+                          />
                         </a>
                       </li>
                     ))}
