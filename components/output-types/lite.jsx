@@ -15,6 +15,7 @@ import {
 import ConfigParams from '../utilities/config-params'
 import { getAssetsPath } from '../utilities/constants'
 import StoryData from '../utilities/story-data'
+import LiteAds from './_children/lite-ads'
 
 const LiteOutput = ({
   children,
@@ -310,6 +311,8 @@ if ('IntersectionObserver' in window) {
           href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:400,500,700&display=swap"
           rel="stylesheet"
         />
+
+        <LiteAds />
 
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
