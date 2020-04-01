@@ -404,7 +404,7 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         <script
-          async
+          defer
           src={deployment(
             `${getAssetsPath(
               arcSite,

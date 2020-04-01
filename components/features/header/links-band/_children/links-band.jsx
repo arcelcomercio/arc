@@ -2,6 +2,8 @@ import React from 'react'
 
 const classes = {
   band: 'links-band w-full',
+  text: 'links-band__txt',
+  link: 'links-band__link',
 }
 
 const HeaderLinksBandChild = ({ links = [], tags = 'Hoy interesa:' }) => {
@@ -10,9 +12,9 @@ const HeaderLinksBandChild = ({ links = [], tags = 'Hoy interesa:' }) => {
     links.length > 0 && (
       <>
         <nav className={classes.band}>
-          {tags && <h4>{tags}</h4>}
+          {tags && <h4 className={classes.text}>{tags}</h4>}
           {links.map(({ url, name }) => (
-            <a href={url} key={`band-${url}`}>
+            <a className={classes.link} href={url} key={`band-${url}`}>
               {name}
             </a>
           ))}

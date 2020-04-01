@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
 
-import StoryGalleryChildGallerySlider from './_children/gallery-slider'
+import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
 import StoryGalleryChildGallery from './_children/gallery'
 import StoryData from '../../../utilities/story-data'
 import ConfigParams from '../../../utilities/config-params'
@@ -12,7 +12,7 @@ import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
 
 const classes = {
   gallery: 'w-full',
-  image: 'story-gallery__img-box w-full pl-20 pr-20',
+  image: 'story-gallery__img-box w-full ',
 }
 
 const StoryGalleryLite = () => {

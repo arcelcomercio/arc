@@ -47,7 +47,7 @@
   }
 
   &__progress {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -251;
     stroke-dasharray: 251;
     transform: rotate(-180deg);
     transition: stroke-dashoffset 0.2s linear;

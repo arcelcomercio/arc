@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
@@ -92,7 +94,11 @@ const CardCinemaBillboard = ({
           className={classes.form}
           onSubmit={e => handleSubmit(e)}>
           <div className={classes.selectsContainer}>
+            <label htmlFor="movie-select" className="font-0">
+              PELICULAS
+            </label>
             <select
+              id="movie-select"
               name="movie"
               className={classes.select}
               value={movieSelected}
@@ -109,7 +115,11 @@ const CardCinemaBillboard = ({
                 </option>
               ))}
             </select>
+            <label htmlFor="theater-select" className="font-0">
+              CINES
+            </label>
             <select
+              id="theater-select"
               name="theater"
               className={classes.select}
               value={cinemaSelected}

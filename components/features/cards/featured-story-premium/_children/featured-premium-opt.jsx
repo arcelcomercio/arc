@@ -124,7 +124,7 @@ const FeaturedStoryPremiumChild = ({
   }
 
   return (
-    <div
+    <article
       className={`${classes.featuredPremium}${
         bgColor === 'gray' ? ' featured-premium--gray' : ''
       }`}>
@@ -166,9 +166,11 @@ const FeaturedStoryPremiumChild = ({
           </a>
         </h2>
         <h6 className={classes.author}>
-          <a className={classes.authorLink} href={authorLink}>
-            {author}
-          </a>
+          {author && (
+            <a className={classes.authorLink} href={authorLink}>
+              {author}
+            </a>
+          )}
         </h6>
         {isPremium && (
           <div className={classes.premiumWrapper}>
@@ -178,7 +180,7 @@ const FeaturedStoryPremiumChild = ({
       </div>
 
       {isAdmin && errorList.length > 0 && <Notify message={renderMessage()} />}
-    </div>
+    </article>
   )
 }
 
