@@ -445,7 +445,10 @@ class NavBarDefault extends PureComponent {
                   )}
               </ul>
             </div>
-            <a href="/" className="nav__mobile-logo position-absolute">
+            <a
+              href="/"
+              className="nav__mobile-logo position-absolute"
+              title={`Logo de ${arcSite}`}>
               <img
                 src={logo}
                 alt={`Logo de ${arcSite}`}
@@ -456,7 +459,8 @@ class NavBarDefault extends PureComponent {
             {type !== ELEMENT_STORY && arcSite === SITE_PERU21 && (
               <a
                 className="header__logo-secondary"
-                href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
+                href="/el-otorongo?ref=portada_home&amp;ft=btn_menu"
+                title={logo.alt}>
                 <img src={logoLeft.src} alt={logo.alt} />
               </a>
             )}
