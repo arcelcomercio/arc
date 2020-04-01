@@ -44,7 +44,7 @@ const FeaturedStoryPremiumChild = ({
   isPremium,
   model,
   imgType,
-  lastMinute,
+  lastMinute = false,
   bgColor,
   websiteLink,
   // multimediaSquareMD,
@@ -117,6 +117,7 @@ const FeaturedStoryPremiumChild = ({
 
   const isComercio = arcSite === SITE_ELCOMERCIO
   const isGestion = arcSite === SITE_GESTION
+
   return (
     <div
       className={classes.featuredPremium
@@ -126,7 +127,8 @@ const FeaturedStoryPremiumChild = ({
         .concat(lastMinute && isGestion ? ` ${classes.lastMinute}` : '')}>
       <div className={classes.left}>
         <h3 className={classes.section}>
-          {!lastMinute && !isGestion && (
+          {isGestion && lastMinute && <span>Último minuto</span>}
+          {((isGestion && !lastMinute) || !isGestion) && (
             <a
               href={primarySectionLink}
               {...getEditableField('categoryField')}
@@ -134,7 +136,6 @@ const FeaturedStoryPremiumChild = ({
               {categoryField || primarySection}
             </a>
           )}
-          {lastMinute && isGestion && <span>Último minuto</span>}
         </h3>
         <h2>
           <a
