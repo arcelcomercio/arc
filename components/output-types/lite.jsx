@@ -306,10 +306,9 @@ if ('IntersectionObserver' in window) {
         <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
         <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
 
-        <link
-          href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:400,500,700&display=swap"
-          rel="stylesheet"
-        />
+        {
+          // <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:400,500,700&display=swap" rel="stylesheet"  />
+        }
 
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
