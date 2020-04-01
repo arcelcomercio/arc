@@ -100,8 +100,7 @@ class SignwallComponentInt extends PureComponent {
       if (
         Cookies.getCookie('signreferer') &&
         Cookies.getCookie('signreferer') !== '' &&
-        !Cookies.getCookie('signreferer').match(/\/signwall\//) &&
-        name !== 'showHard'
+        !Cookies.getCookie('signreferer').match(/\/signwall\//)
       ) {
         const URL_CLEAR = Cookies.getCookie('signreferer').split('?')
         Cookies.deleteCookie('signreferer')

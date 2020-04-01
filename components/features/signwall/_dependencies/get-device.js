@@ -26,6 +26,9 @@ const getDevice = window => {
   if (testMobil) {
     return 'movil'
   }
+  if (UAlowerCase.indexOf('macintosh') > -1 && 'ontouchend' in document) {
+    return 'tablet'
+  }
   return 'desktop'
 }
 

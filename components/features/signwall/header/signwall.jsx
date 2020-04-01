@@ -76,7 +76,13 @@ const Head = ({
                     `Web_Sign_Wall_${typeDialog}`,
                     `web_sw${typeDialog[0]}_boton_cerrar`
                   )
-                  onClose()
+
+                  if (typeDialog === 'hard') {
+                    window.location.href = '/?ref=signwall'
+                  } else {
+                    onClose()
+                  }
+
                   if (
                     window.location.pathname.match(/newsletters/) &&
                     window.Identity.userProfile &&

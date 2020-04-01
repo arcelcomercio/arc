@@ -80,14 +80,12 @@ export const Cont = styled.div`
   @supports (-ms-accelerator: true) or (-ms-ime-align: auto) {
     input,
     select {
-      margin-top: 20px;
+      margin-top: 10px;
     }
     label {
       font-size: 12px;
       background: transparent;
       margin-bottom: -10px;
-      padding-left: 10px;
-      padding-right: 10px;
       margin-top: 10px;
       margin-left: 10px;
       position: absolute;
