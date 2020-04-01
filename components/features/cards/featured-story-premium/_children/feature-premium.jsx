@@ -131,8 +131,12 @@ const FeaturedStoryPremiumChild = ({
         )}>
       <div className={classes.left}>
         <h3 className={classes.section}>
-          {isGestion && lastMinute && <span>Último minuto</span>}
-          {((isGestion && !lastMinute) || !isGestion) && (
+          {isGestion && lastMinute && model === 'twoCol' && (
+            <span>Último minuto</span>
+          )}
+          {((isGestion && lastMinute && model !== 'twoCol') ||
+            (isGestion && !lastMinute) ||
+            !isGestion) && (
             <a
               href={primarySectionLink}
               {...getEditableField('categoryField')}
