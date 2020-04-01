@@ -19,6 +19,8 @@ import ListItem from './_children/list-item'
 import Spinner from '../../../global-components/spinner'
 import { SITE_DIARIOCORREO } from '../../../utilities/constants/sitenames'
 
+const SECTION_SOURCE = 'story-feed-by-section'
+
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
@@ -36,14 +38,32 @@ class StoriesListInfiniteScroll extends PureComponent {
     const {
       customFields: {
         storyConfig: { contentService = '', contentConfigValues = {} } = {},
+        sectionField,
       } = {},
       arcSite,
     } = this.props
 
+    this.section = contentConfigValues.section || sectionField
+    this.presets = 'landscape_s:234x161,landscape_xs:118x72'
+    this.includedFields = `&_sourceInclude=websites.${arcSite}.website_url,_id,headlines.basic,subheadlines.basic,display_date,${includeCredits},${includeCreditsImage},${includePrimarySection},${includeSections},${includePromoItems},promo_items.basic_html.content`
+
     this.fetchContent({
       data: {
-        source: contentService,
-        query: contentConfigValues,
+        source: this.section ? SECTION_SOURCE : contentService,
+        query: this.section
+          ? {
+              section: this.section,
+              stories_qty:
+                contentConfigValues.size ||
+                contentConfigValues.stories_qty ||
+                100,
+              presets: this.presets,
+              includedFields: this.includedFields,
+            }
+          : Object.assign(contentConfigValues, {
+              presets: this.presets,
+              includedFields: this.includedFields,
+            }),
         filter: schemaFilter(arcSite),
       },
     })
@@ -80,17 +100,25 @@ class StoriesListInfiniteScroll extends PureComponent {
       arcSite,
     } = this.props
 
-    const presets = 'landscape_s:234x161,landscape_xs:118x72'
-    const includedFields = `&_sourceInclude=websites.${arcSite}.website_url,_id,headlines.basic,subheadlines.basic,display_date,${includeCredits},${includeCreditsImage},${includePrimarySection},${includeSections},${includePromoItems},promo_items.basic_html.content`
-
     this.fetchContent({
       data: {
-        source: contentService,
-        query: Object.assign(contentConfigValues, {
-          from: next,
-          presets,
-          includedFields,
-        }),
+        source: this.section ? SECTION_SOURCE : contentService,
+        query: this.section
+          ? {
+              section: this.section,
+              feedOffset: next,
+              stories_qty:
+                contentConfigValues.size ||
+                contentConfigValues.stories_qty ||
+                100,
+              presets: this.presets,
+              includedFields: this.includedFields,
+            }
+          : Object.assign(contentConfigValues, {
+              from: next,
+              presets: this.presets,
+              includedFields: this.includedFields,
+            }),
         filter: schemaFilter(arcSite),
         transform: res => {
           this.setState({ isLoading: false })
@@ -123,7 +151,7 @@ class StoriesListInfiniteScroll extends PureComponent {
       siteProperties: { isDfp = false },
     } = this.props
 
-    const { sectionField, dateField } = customFieldsProps
+    const { dateField } = customFieldsProps
 
     const storyData = new StoryData({
       deployment,
@@ -217,10 +245,14 @@ class StoriesListInfiniteScroll extends PureComponent {
           })}
         </div>
         {next > 0 && <Spinner />}
-        <RenderPagination
-          section={sectionField}
-          date={dateField || getActualDate()}
-        />
+        {!this.section ||
+          this.section === '/todas' ||
+          (this.section === '/' && (
+            <RenderPagination
+              section={this.section}
+              date={dateField || getActualDate()}
+            />
+          ))}
       </>
     )
   }
