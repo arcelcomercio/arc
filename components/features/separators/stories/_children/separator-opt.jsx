@@ -87,7 +87,7 @@ const SeparatorItemPartial = ({
     <h3 className="sep-opt__title overflow-hidden font-bold line-h-sm bottom-0 m-10">
       {title}
     </h3>
-    {isAuthorVisible && (
+    {isAuthorVisible && author && (
       <a
         href={authorLink}
         className="z-10 position-relative block text-sm uppercase text-gray-200 ml-15 br-15 mt-0 mb-20">
