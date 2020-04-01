@@ -1,5 +1,5 @@
 import React from 'react'
-import MultimediaIcon from '../../../../../global-components/multimedia-icon'
+import MultimediaIcon from '../../../../../global-components/lite/multimedia-icon'
 
 const CardMostReadChildItem = props => {
   const { item, viewImage, isAdmin } = props
