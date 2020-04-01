@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
@@ -35,6 +37,7 @@ const classes = {
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
   form: 'position-relative items-center hidden lg:flex',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
+  searchLabel: 'overflow-hidden w-0 h-0',
   btnSearch: `header-inverted__btn-search flex items-center nav__btn--search text-white lg:pr-20 lg:pl-20 border-r-1 border-solid`,
   iconSearch: 'icon-search text-lg',
   btnMenu:
@@ -358,6 +361,7 @@ const HeaderChildInverted = ({
             className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
             <form className={classes.form} onSubmit={e => e.preventDefault()}>
               <input
+                id="header-search-input"
                 ref={inputSearch}
                 type="search"
                 defaultValue={search}
@@ -366,6 +370,11 @@ const HeaderChildInverted = ({
                 placeholder="¿Qué Buscas?"
                 className={`${classes.search} ${activeSearch()}`}
               />
+              <label
+                htmlFor="header-search-input"
+                className={classes.searchLabel}>
+                Cuadro de búsqueda
+              </label>
               <Button
                 iconClass={classes.iconSearch}
                 btnClass={`${classes.btnSearch} ${activeSearch()}`}
@@ -387,7 +396,8 @@ const HeaderChildInverted = ({
             className={`${classes.logoContainer} ${isStory &&
               scrolled &&
               statusSearch &&
-              'opacity-0'}`}>
+              'opacity-0'}`}
+            title={logo.alt}>
             <img
               src={
                 scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
@@ -415,15 +425,19 @@ const HeaderChildInverted = ({
                   </div>
 
                   <ul className={classes.listIcon}>
-                    {shareButtons.firstList.map((item, i) => (
+                    {shareButtons.map((item, i) => (
                       <li key={item.icon} className={classes.shareItem}>
                         <a
+                          title={`Compartir en ${item.name}`}
                           className={classes.shareLink}
                           href={item.link}
                           onClick={event => {
                             openLink(event, item)
                           }}>
-                          <i className={`${item.icon} ${classes.shareIcon}`} />
+                          <i
+                            className={`${item.icon} ${classes.shareIcon}`}
+                            aria-hidden="true"
+                          />
                         </a>
                       </li>
                     ))}

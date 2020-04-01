@@ -13,11 +13,11 @@ import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
-import {
+/* import {
   SPECIAL,
   SPECIAL_BASIC,
   BIG_IMAGE,
-} from '../../../utilities/constants/subtypes'
+} from '../../../utilities/constants/subtypes' */
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
   ELEMENT_HEADER,
@@ -41,7 +41,6 @@ import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildRelatedInternal from './_children/related-internal'
-import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import Ads from '../../../global-components/ads'
 
@@ -140,7 +139,6 @@ class StoryContentsLite extends PureComponent {
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
-            <StoryContentsChildIcon />
             {!isDfp && (
               <>
                 <div id="ads_d_inline" />

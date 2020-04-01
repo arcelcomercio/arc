@@ -1,8 +1,12 @@
-/******* Components *******/
+/******* Base *******/
 @import "../../general-styles/framework/variables/index";
 @import "../../general-styles/framework/core/reset";
 @import "../../general-styles/framework/core/lite";
-@import "./scss/lite-components/layouts/story-sidebar/st-sidebar";
-@import "./scss/lite-components/features/header/links-band/links-band";
 
-@import "./scss/lite-components/features/header/basic/h-basic.scss";
+/******* Components *******/
+@import "./scss/lite-components/layouts/story-sidebar/st-sidebar";
+@import "./scss/lite-components/features/header/basic/h-basic";
+@import "./scss/lite-components/features/widgets/breaking-news/b-news";
+@import "./scss/lite-components/global-components/share/share";
+@import "./scss/lite-components/features/header/links-band/links-band";
+@import "./scss/lite-components/features/story/social/st-social";

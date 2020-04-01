@@ -250,6 +250,7 @@ export default ({
                 onClick={() => toggleMenu(!showMenu)}
                 className={classes.btnMenu}>
                 <i
+                  aria-label="menú"
                   className={`${classes.iconMenu} ${
                     showMenu ? 'icon-close active' : 'icon-hamburguer'
                   } `}
@@ -268,18 +269,28 @@ export default ({
                   </button>
                 </div>
                 <div className={classes.topRight}>
-                  <img className={classes.imgMenu} alt="" src={whiteLogo} />
+                  <img
+                    className={classes.imgMenu}
+                    alt="Logo del sitio"
+                    src={whiteLogo}
+                  />
                 </div>
               </div>
               <div className={classes.boxSearch}>
                 <form className={classes.formSearch}>
                   <input
+                    id="header-search-input"
                     type="search"
                     placeholder="Buscar"
                     onKeyUp={e => _handleKeyDown(e)}
                     ref={inputSearch}
                     className={classes.inputSearch}
                   />
+                  <label
+                    htmlFor="header-search-input"
+                    className="overflow-hidden w-0 h-0">
+                    Cuadro de búsqueda
+                  </label>
                   <button
                     type="button"
                     onClick={e => _handleSearch(e)}
@@ -350,8 +361,8 @@ export default ({
               </div>
             </div>
             <div className={classes.boxLogo}>
-              <a className={classes.linkLogo} href="/">
-                <img src={logo} className={classes.logo} alt="" />
+              <a className={classes.linkLogo} href="/" title={siteDomain}>
+                <img src={logo} className={classes.logo} alt={siteDomain} />
               </a>
             </div>
             {isStory && (
@@ -399,12 +410,13 @@ export default ({
                 <div className={classes.navStorySocialNetwork}>
                   <div>
                     <a
+                      title="Mostrar enlaces para compartir"
                       className={classes.moreLink}
                       href="/"
                       onClick={event => {
                         openLink(event, 3)
                       }}>
-                      <i className={`${classes.iconMore}`} />
+                      <i className={`${classes.iconMore}`} aria-hidden="true" />
                     </a>
                   </div>
 
@@ -412,12 +424,16 @@ export default ({
                     {shareButtons.firstList.map((item, i) => (
                       <li key={item.icon} className={classes.shareItem}>
                         <a
+                          title={`Compartir en ${item.name}`}
                           className={classes.shareLink}
                           href={item.link}
                           onClick={event => {
                             openLink(event, item)
                           }}>
-                          <i className={`${item.icon} ${classes.shareIcon}`} />
+                          <i
+                            className={`${item.icon} ${classes.shareIcon}`}
+                            aria-hidden="true"
+                          />
                         </a>
                       </li>
                     ))}
@@ -434,7 +450,9 @@ export default ({
               </div>
             ) : (
               <div className={classes.callImg}>
-                <a href="https://promociones.trome.pe/registro/super-llamada-ganadora/">
+                <a
+                  href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
+                  title="Lamada Ganadora">
                   <img src={winningCallLogo} alt="Lamada Ganadora" />
                 </a>
               </div>

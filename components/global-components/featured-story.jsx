@@ -191,11 +191,13 @@ const FeaturedStory = props => {
           </a>
         </h2>
 
-        <address className={classes.author}>
-          <a className={classes.authorLink} href={author.url}>
-            {author.name}
-          </a>
-        </address>
+        {author && author.name && (
+          <address className={classes.author}>
+            <a className={classes.authorLink} href={author.url}>
+              {author.name}
+            </a>
+          </address>
+        )}
       </div>
       <a className={classes.imageLink} href={title.url}>
         {isLazyLoadActivate ? (

@@ -324,6 +324,7 @@ class SignwallComponent extends PureComponent {
     return (
       <>
         <button
+          aria-label={userName}
           site={arcSite}
           className={classButton}
           type="button"
@@ -331,7 +332,9 @@ class SignwallComponent extends PureComponent {
           <i className={!initialUser ? `${classes.iconLogin}` : ``}>
             {initialUser}
           </i>
-          <span className="capitalize">{userName}</span>
+          <span className="capitalize" aria-hidden="true">
+            {userName}
+          </span>
         </button>
 
         {siteProperties.activeSignwall && (

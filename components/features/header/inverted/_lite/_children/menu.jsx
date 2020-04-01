@@ -69,16 +69,20 @@ const NavbarChildMenu = ({
   }
 
   return (
-    <div className={classes.sidebar} id="menu">
+    <div className={classes.sidebar} id="menu" aria-expanded="false">
       <div className={classes.content} id="m-content">
         <div className={classes.top}>
           <div className={classes.search}>
             <form id="m-search" className={classes.form}>
               <input
+                id="m-search-input"
                 type="search"
                 placeholder="Buscar"
                 className={classes.input}
               />
+              <label htmlFor="m-search-input" className="hidden-label">
+                Cuadro de búsqueda
+              </label>
             </form>
           </div>
           <div className={classes.body}>
