@@ -49,21 +49,25 @@ class StoriesListInfiniteScroll extends PureComponent {
 
     this.fetchContent({
       data: {
-        source: this.section ? SECTION_SOURCE : contentService,
-        query: this.section
-          ? {
-              section: this.section,
-              stories_qty:
-                contentConfigValues.size ||
-                contentConfigValues.stories_qty ||
-                100,
-              presets: this.presets,
-              includedFields: this.includedFields,
-            }
-          : Object.assign(contentConfigValues, {
-              presets: this.presets,
-              includedFields: this.includedFields,
-            }),
+        source:
+          this.section && this.section !== '/' && this.section !== '/todas'
+            ? SECTION_SOURCE
+            : contentService,
+        query:
+          this.section && this.section !== '/' && this.section !== '/todas'
+            ? {
+                section: this.section,
+                stories_qty:
+                  contentConfigValues.size ||
+                  contentConfigValues.stories_qty ||
+                  100,
+                presets: this.presets,
+                includedFields: this.includedFields,
+              }
+            : Object.assign(contentConfigValues, {
+                presets: this.presets,
+                includedFields: this.includedFields,
+              }),
         filter: schemaFilter(arcSite),
       },
     })
@@ -102,23 +106,27 @@ class StoriesListInfiniteScroll extends PureComponent {
 
     this.fetchContent({
       data: {
-        source: this.section ? SECTION_SOURCE : contentService,
-        query: this.section
-          ? {
-              section: this.section,
-              feedOffset: next,
-              stories_qty:
-                contentConfigValues.size ||
-                contentConfigValues.stories_qty ||
-                100,
-              presets: this.presets,
-              includedFields: this.includedFields,
-            }
-          : Object.assign(contentConfigValues, {
-              from: next,
-              presets: this.presets,
-              includedFields: this.includedFields,
-            }),
+        source:
+          this.section && this.section !== '/' && this.section !== '/todas'
+            ? SECTION_SOURCE
+            : contentService,
+        query:
+          this.section && this.section !== '/' && this.section !== '/todas'
+            ? {
+                section: this.section,
+                feedOffset: next,
+                stories_qty:
+                  contentConfigValues.size ||
+                  contentConfigValues.stories_qty ||
+                  100,
+                presets: this.presets,
+                includedFields: this.includedFields,
+              }
+            : Object.assign(contentConfigValues, {
+                from: next,
+                presets: this.presets,
+                includedFields: this.includedFields,
+              }),
         filter: schemaFilter(arcSite),
         transform: res => {
           this.setState({ isLoading: false })
