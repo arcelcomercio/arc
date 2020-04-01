@@ -2,7 +2,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 const classes = {
-  taboola: 'story-content__taboola ',
+  taboola: 'story-taboola ',
 }
 
 const StoryTaboolaLite = () => {
