@@ -50,9 +50,12 @@ const HeaderChildStandard = props => {
         )}
         {isSlider && (
           <button
+            aria-label="Deslizar temas del día a la izquierda"
             type="button"
             className="header__button left disabled position-relative">
-            <i className="header__icon-back left icon-back text-white rounded font-bold p-5"></i>
+            <i
+              className="header__icon-back left icon-back text-white rounded font-bold p-5"
+              aria-hidden="true"></i>
           </button>
         )}
         {sections[0] && (
@@ -83,9 +86,12 @@ const HeaderChildStandard = props => {
         )}
         {isSlider && (
           <button
+            aria-label="Deslizar temas del día a la derecha"
             type="button"
             className="header__button right disabled position-relative">
-            <i className="header__icon-back right icon-back text-white rounded font-bold p-5"></i>
+            <i
+              className="header__icon-back right icon-back text-white rounded font-bold p-5"
+              aria-hidden="true"></i>
           </button>
         )}
         {date.active && (
