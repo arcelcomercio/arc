@@ -124,7 +124,11 @@ const FeaturedStoryPremiumChild = ({
         .concat(getModel(model))
         .concat(` featured-premium--${bgColor}`)
         .concat(imgType && isComercio ? ' complete ' : '')
-        .concat(lastMinute && isGestion ? ` ${classes.lastMinute}` : '')}>
+        .concat(
+          lastMinute && isGestion && model === 'twoCol'
+            ? ` ${classes.lastMinute}`
+            : ''
+        )}>
       <div className={classes.left}>
         <h3 className={classes.section}>
           {isGestion && lastMinute && <span>Último minuto</span>}
