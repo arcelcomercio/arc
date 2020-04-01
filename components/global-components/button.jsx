@@ -16,7 +16,14 @@ import React from 'react'
  */
 
 export default props => {
-  const { iconClass, btnClass, btnText, btnLink, onClick } = props
+  const {
+    iconClass,
+    btnClass,
+    btnText,
+    btnLink,
+    onClick,
+    showText = true,
+  } = props
 
   return (
     <a
@@ -27,7 +34,7 @@ export default props => {
       tabIndex="0"
       role="button">
       {iconClass && <i className={iconClass} />}
-      <span aria-hidden="true">{btnText}</span>
+      {showText && <span aria-hidden="true">{btnText}</span>}
     </a>
   )
 }

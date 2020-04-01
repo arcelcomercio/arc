@@ -288,7 +288,7 @@ export default ({
                   />
                   <label
                     htmlFor="header-search-input"
-                    className="hidden w-0 h-0">
+                    className="overflow-hidden w-0 h-0">
                     Cuadro de búsqueda
                   </label>
                   <button

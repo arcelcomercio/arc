@@ -440,13 +440,16 @@ class NavBarDefault extends PureComponent {
                   placeholder="¿Qué Buscas?"
                   className={`${classes.search} ${this.activeSearch()}`}
                 />
-                <label htmlFor="header-search-input" className="hidden w-0 h-0">
+                <label
+                  htmlFor="header-search-input"
+                  className="overflow-hidden w-0 h-0">
                   Cuadro de búsqueda
                 </label>
                 <Button
                   iconClass={classes.iconSearch}
                   btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
                   onClick={this.optionButtonClick}
+                  showText={false}
                 />
               </form>
             </div>

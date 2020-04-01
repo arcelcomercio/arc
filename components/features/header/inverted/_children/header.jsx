@@ -37,7 +37,7 @@ const classes = {
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
   form: 'position-relative items-center hidden lg:flex',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
-  searchLabel: 'hidden w-0 h-0',
+  searchLabel: 'overflow-hidden w-0 h-0',
   btnSearch: `header-inverted__btn-search flex items-center nav__btn--search text-white lg:pr-20 lg:pl-20 border-r-1 border-solid`,
   iconSearch: 'icon-search text-lg',
   btnMenu:
