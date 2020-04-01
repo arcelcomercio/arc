@@ -73,14 +73,14 @@ export default props => {
           </button>
         </div>
 
-        <a href="/" className="h-basic__img-link">
+        <a href="/" className="h-basic__img-link" title={siteDomain}>
           <img
             className="h-basic__img"
             src={`${getAssetsPath(
               arcSite,
               contextPath
             )}/resources/dist/elcomercio/images/white-logo.png`}
-            alt="elcomercio.pe"
+            alt={siteDomain}
           />
         </a>
 

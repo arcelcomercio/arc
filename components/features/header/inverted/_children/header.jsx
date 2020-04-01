@@ -396,7 +396,8 @@ const HeaderChildInverted = ({
             className={`${classes.logoContainer} ${isStory &&
               scrolled &&
               statusSearch &&
-              'opacity-0'}`}>
+              'opacity-0'}`}
+            title={logo.alt}>
             <img
               src={
                 scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src

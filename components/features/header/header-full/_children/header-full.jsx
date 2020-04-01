@@ -269,7 +269,11 @@ export default ({
                   </button>
                 </div>
                 <div className={classes.topRight}>
-                  <img className={classes.imgMenu} alt="" src={whiteLogo} />
+                  <img
+                    className={classes.imgMenu}
+                    alt="Logo del sitio"
+                    src={whiteLogo}
+                  />
                 </div>
               </div>
               <div className={classes.boxSearch}>
@@ -357,7 +361,7 @@ export default ({
               </div>
             </div>
             <div className={classes.boxLogo}>
-              <a className={classes.linkLogo} href="/">
+              <a className={classes.linkLogo} href="/" title={siteDomain}>
                 <img src={logo} className={classes.logo} alt={siteDomain} />
               </a>
             </div>
@@ -446,7 +450,9 @@ export default ({
               </div>
             ) : (
               <div className={classes.callImg}>
-                <a href="https://promociones.trome.pe/registro/super-llamada-ganadora/">
+                <a
+                  href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
+                  title="Lamada Ganadora">
                   <img src={winningCallLogo} alt="Lamada Ganadora" />
                 </a>
               </div>
