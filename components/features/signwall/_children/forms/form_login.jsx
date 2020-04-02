@@ -1,20 +1,19 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-// import ENV from 'fusion:environment'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial, ButtonEmail } from './control_social'
-import { MsgRegister } from '../../../_children/iconos'
-import { ModalConsumer } from '../../../_children/context'
+import { MsgRegister } from '../iconos'
+import { ModalConsumer } from '../context'
 import { Input } from './control_input_select'
-import useForm from '../../../_dependencies/useForm'
-import getCodeError from '../../../_dependencies/codes_error'
-import Domains from '../../../_dependencies/domains'
-import Cookies from '../../../_dependencies/cookies'
-import Taggeo from '../../../_dependencies/taggeo'
-import Services from '../../../_dependencies/services'
-import Loading from '../../../_children/loading'
+import useForm from '../../_dependencies/useForm'
+import getCodeError from '../../_dependencies/codes_error'
+import Domains from '../../_dependencies/domains'
+import Cookies from '../../_dependencies/cookies'
+import Taggeo from '../../_dependencies/taggeo'
+import Services from '../../_dependencies/services'
+import Loading from '../loading'
 
 export const FormLogin = ({
   typeDialog,
@@ -23,7 +22,13 @@ export const FormLogin = ({
   isFia,
   handleCallToAction,
   siteProperties: {
-    signwall: { mainColorLink, mainColorBtn, primaryFont, mainColorBr },
+    signwall: {
+      mainColorLink,
+      mainColorBtn,
+      primaryFont,
+      mainColorBr,
+      authProviders = [],
+    },
     activeNewsletter = false,
     activePaywall,
   },
@@ -219,9 +224,9 @@ export const FormLogin = ({
 
   const handleFia = () => {
     if (typeof window !== 'undefined' && isFia) {
-      handleCallToAction(true);
+      handleCallToAction(true)
     }
-    return null;
+    return null
   }
 
   const onSubmitForm = state => {
@@ -287,22 +292,10 @@ export const FormLogin = ({
                 Ingresa con
               </S.Text>
 
-              <ButtonSocial
-                brand="facebook"
-                size="full"
-                c="mb-10"
-                onClose={onClose}
-                typeDialog={typeDialog}
-                arcSite={arcSite}
-                typeForm="login"
-                activeNewsletter={activeNewsletter}
-                checkUserSubs={checkUserSubs}
-                onLogged={onLogged}
-              />
-              {/* {ENV.ENVIRONMENT !== 'elcomercio' && (
+              {authProviders.map(item => (
                 <ButtonSocial
-                  brand="google"
-                  size="full"
+                  brand={item}
+                  size={item === 'google' ? 'middle' : 'full'}
                   c="mb-10"
                   onClose={onClose}
                   typeDialog={typeDialog}
@@ -310,8 +303,9 @@ export const FormLogin = ({
                   typeForm="login"
                   activeNewsletter={activeNewsletter}
                   checkUserSubs={checkUserSubs}
+                  onLogged={onLogged}
                 />
-              )} */}
+              ))}
 
               {!showLoginEmail && (
                 <ButtonEmail

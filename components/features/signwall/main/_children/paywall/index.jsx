@@ -1,10 +1,10 @@
 import React, { PureComponent, useEffect } from 'react'
 import Consumer from 'fusion:consumer'
 import { ModalProvider, ModalConsumer } from '../../../_children/context'
-import { FormIntro } from '../_children/form_intro'
-import { FormLogin } from '../_children/form_login'
-import { FormForgot } from '../_children/form_forgot'
-import { FormRegister } from '../_children/form_register'
+import { FormLogin } from '../../../_children/forms/form_login'
+import { FormIntro } from '../../../_children/forms/form_intro'
+import { FormForgot } from '../../../_children/forms/form_forgot'
+import { FormRegister } from '../../../_children/forms/form_register'
 import Taggeo from '../../../_dependencies/taggeo'
 import QueryString from '../../../_dependencies/querystring'
 
@@ -80,14 +80,12 @@ export const PaywallInt = props => {
                 className="btn-close"
                 onClick={() => {
                   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
-                  if (typeDialog === 'premium') {
+                  if (typeDialog === 'paywall') {
                     if (document.getElementById('btn-premium-continue')) {
                       onClose()
                     } else {
-                      window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
+                      window.location.href = `/?signwallPaywall=1&ref=${window.location.pathname}`
                     }
-                  } else {
-                    onClose()
                   }
                 }}>
                 <Close />

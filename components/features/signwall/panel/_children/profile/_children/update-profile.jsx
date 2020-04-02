@@ -17,7 +17,7 @@ import { clean } from '../../../../_dependencies/object'
 import GetProfile from '../../../../_dependencies/get-profile'
 import Domains from '../../../../_dependencies/domains'
 import { FormGrid, FormGroup, Message } from './styled'
-import { Text, Button } from '../../../../main/_main/_children/styles'
+import { Text, Button } from '../../../../_children/forms/styles'
 import Modal from '../../../../_children/modal'
 import { Close } from '../../../../_children/iconos'
 

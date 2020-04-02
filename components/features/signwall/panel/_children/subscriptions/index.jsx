@@ -6,7 +6,7 @@ import addScriptAsync from '../../../_dependencies/script-async'
 import Subs from '../resume/_children/subs'
 import { Wrapper, ResumeDates, Title } from '../../styled'
 import { ModalConsumer } from '../../../_children/context'
-import { FormIntro } from '../../../main/_main/_children/form_intro'
+import { FormIntro } from '../../../_children/forms/form_intro'
 
 @Consumer
 class Subscription extends Component {

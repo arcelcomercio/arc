@@ -119,7 +119,7 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna4-300x250-div-gpt-ad-8599377-49.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna5-300x250-div-gpt-ad-8599377-50.html',
   ],
-  activeSignwall: true,
+  activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
   signwall: {
@@ -129,6 +129,7 @@ export default {
     mainColorBr: '#ffede5',
     mainColorLink: '#e06437',
     mainColorBtn: '#f15c23',
+    authProviders: ['facebook'],
   },
   taboola: {
     dataModeAmp: 'thumbnails-e',

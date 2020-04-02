@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import { ModalProvider, ModalConsumer } from '../../../_children/context'
-import { Modal } from '../../../_children/modal/index'
-import { FormLoginPaywall } from '../_children/form_login_landing'
-import { FormForgot } from '../_children/form_forgot'
-import { FormRegister } from '../_children/form_register'
+import { ModalProvider, ModalConsumer } from '../context'
+import { Modal } from '../modal/index'
+import { FormLoginPaywall } from '../forms/form_login_landing'
+import { FormForgot } from '../forms/form_forgot'
+import { FormRegister } from '../forms/form_register'
 import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styled'
-import { Close } from '../../../_children/iconos'
-import { getAssetsPath } from '../../../../../utilities/constants'
+import { Close } from '../iconos'
+import { getAssetsPath } from '../../../../utilities/constants'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
