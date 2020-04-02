@@ -314,6 +314,10 @@ const filter = params => {
           content
           type
         }
+        ads_match{
+          content
+          type
+        }
         youtube_id {
           content
           type
@@ -366,6 +370,7 @@ const filter = params => {
       website
       editor_note
       website_url
+      adsMatch
       ${optaFilter === true ? opta : ''}
       ${optaCommentariesFilter === true ? optaCommentaries : ''}
       related_content{

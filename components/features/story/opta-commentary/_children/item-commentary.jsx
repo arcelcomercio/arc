@@ -10,13 +10,20 @@ const classes = {
   imgWrapper: 'direct__img',
   img: 'w-full h-full object-cover',
   commentary: 'direct__details secondary-font',
+  adsgoal: ' direct__item--publicity',
 }
 
-const ItemCommentary = ({ mainTime, addTime, icon, comment, type }) => {
+const ItemCommentary = ({
+  mainTime,
+  addTime,
+  icon,
+  comment,
+  type,
+  adsMatch,
+}) => {
   return (
-    <li
-      className={classes.li + (type === 'goal' && ' direct__item--publicity')}>
-      {type === 'goal' && <div className={classes.ads}></div>}
+    <li className={classes.li + (type === 'goal' && classes.adsgoal)}>
+      {type === 'goal' && <div className={classes.ads}>{adsMatch}</div>}
       <div className={classes.box}>
         <p className={classes.time}>
           {mainTime}

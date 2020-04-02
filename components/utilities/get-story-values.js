@@ -1,4 +1,10 @@
-import { VIDEO, ELEMENT_YOUTUBE_ID, IMAGE, UUID_MATCH } from './constants'
+import {
+  VIDEO,
+  ELEMENT_YOUTUBE_ID,
+  IMAGE,
+  UUID_MATCH,
+  ADS_MATCH,
+} from './constants'
 
 export const getTitle = data => {
   const { headlines: { basic = '' } = {} } = data || {}
@@ -85,6 +91,18 @@ export const getFootballGameId = data => {
       data.promo_items &&
       data.promo_items[UUID_MATCH] &&
       data.promo_items[UUID_MATCH].content) ||
+    ''
+  return result
+}
+
+export const getFootballAds = data => {
+  let result = ''
+
+  result =
+    (data &&
+      data.promo_items &&
+      data.promo_items[ADS_MATCH] &&
+      data.promo_items[ADS_MATCH].content) ||
     ''
   return result
 }

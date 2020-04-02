@@ -3,7 +3,10 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import RedirectError from '../../components/utilities/redirect-error'
-import { getFootballGameId } from '../../components/utilities/get-story-values'
+import {
+  getFootballGameId,
+  getFootballAds,
+} from '../../components/utilities/get-story-values'
 import FilterSchema from '../schemas/story-by-slug-with-data-opta'
 
 const schemaName = 'story-dev'
@@ -45,6 +48,8 @@ const getDataOptaCommentaries = (storyData, footballGameId) => {
 const getDataOpta = storyData => {
   // const {} = storyData
   const footballGameId = getFootballGameId(storyData)
+  const footballAds = getFootballAds(storyData)
+
   if (footballGameId !== '') {
     const urlCDN = `https://cdna-resultadosopta.minoticia.pe/api/v2/match/?format=json&uuid=${footballGameId}`
 
@@ -54,6 +59,7 @@ const getDataOpta = storyData => {
     })
       .then(dataOpta => {
         storyData.opta_data = dataOpta
+        storyData.adsMatch = footballAds
         return getDataOptaCommentaries(storyData, footballGameId)
       })
       .catch(error => {

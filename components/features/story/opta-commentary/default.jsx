@@ -27,7 +27,10 @@ const icons = {
 class OptaCommentary extends Component {
   render() {
     const {
-      globalContent: { opta_commentaries: { items: listCommentary = [] } } = {},
+      globalContent: {
+        opta_commentaries: { items: listCommentary = [] },
+        adsMatch = '',
+      } = {},
     } = this.props
 
     return (
@@ -58,6 +61,7 @@ class OptaCommentary extends Component {
                 icon,
                 comment,
                 type,
+                adsMatch,
               }
               return <ItemCommentary key={id} {...data} />
             })}
