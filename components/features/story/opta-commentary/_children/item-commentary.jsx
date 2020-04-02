@@ -24,7 +24,12 @@ const ItemCommentary = ({
 }) => {
   return (
     <li className={classes.li + (type === 'goal' && classes.adsgoal)}>
-      {type === 'goal' && <div className={classes.ads}>{adsMatch}</div>}
+      {type === 'goal' && (
+        <div
+          className={classes.ads}
+          dangerouslySetInnerHTML={{ __html: adsMatch }}
+        />
+      )}
       <div className={classes.box}>
         <p className={classes.time}>
           {mainTime}
