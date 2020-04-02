@@ -103,13 +103,16 @@ class SignwallComponent extends PureComponent {
     } else if (W.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          if (campaignURL.match(/signwallHard/)) {
+          if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
             W.location.href = Domains.getUrlSignwall(
               arcSite,
               'signwallHard',
               '1'
             )
-          } else if (campaignURL.match(/signwallPaywall/)) {
+          } else if (
+            campaignURL.match(/signwallPaywall/) &&
+            this.checkSession()
+          ) {
             this.setState({ showPaywall: true })
           }
         },
