@@ -29,6 +29,11 @@ const customFields = PropTypes.shape({
     name: 'Imagen completa',
     group: 'Configuración',
   }),
+  lastMinute: PropTypes.bool.tag({
+    name: 'Ultimo minuto',
+    group: 'Configuración',
+    defaultValue: false,
+  }),
   bgColor: PropTypes.oneOf(['white', 'gray', 'transparent']).tag({
     name: 'Color de fondo',
     group: 'Configuración',

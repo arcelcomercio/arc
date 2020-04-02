@@ -145,7 +145,8 @@ export default {
     mainColorTxt: '#000000',
     mainLogo: 'logo.png',
     mainColorBr: '#efdb96',
-    mainColorLink:'#008eff'
+    mainColorLink:'#008eff',
+    authProviders: [],
   },
   gda: false, // Grupo Diarios de America
   googleTagManagerMobile: 'GTM-NNX4LXF',

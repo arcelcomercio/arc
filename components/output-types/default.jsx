@@ -456,10 +456,7 @@ if ('IntersectionObserver' in window) {
             <script
               defer
               src={deployment(
-                `${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/assets/js/arcads.js`
+                `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js`
               )}
             />
             <script

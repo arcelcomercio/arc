@@ -3,6 +3,7 @@ import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
+import { getAssetsPath } from '../utilities/constants'
 
 const SignwallOutputType = props => {
   const {
@@ -35,6 +36,16 @@ const SignwallOutputType = props => {
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
         <meta name="robots" content="noindex,follow" />
+        <link
+          rel="shortcut icon"
+          type="image/png"
+          href={deployment(
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/favicon.png`
+          )}
+        />
         <Libs />
         <link
           rel="stylesheet"
