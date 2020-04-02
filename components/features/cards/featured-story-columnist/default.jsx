@@ -58,12 +58,10 @@ const FeaturedStoryColumnist = props => {
     defaultImgSize: 'sm',
   })
 
-  const lazyImage = deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/assets/author-grid/author.png`
-  )
+  const lazyImage = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/assets/author-grid/author.png?d=1`
 
   const params = {
     lazyImage,
@@ -76,12 +74,10 @@ const FeaturedStoryColumnist = props => {
     isPremium,
     websiteLink,
     isAdmin,
-    logo: deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${logo}`
-    ),
+    logo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
   }
   return <ColumnistPremium {...params} />
 }

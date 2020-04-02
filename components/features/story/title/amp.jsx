@@ -22,12 +22,7 @@ const classes = {
   bbcHead: 'bbc-head',
 }
 const StoryTitleAmp = () => {
-  const {
-    arcSite,
-    contextPath,
-    deployment,
-    globalContent: data,
-  } = useFusionContext()
+  const { arcSite, contextPath, globalContent: data } = useFusionContext()
 
   const { adsAmp, siteUrl } = getProperties(arcSite)
 
@@ -57,12 +52,10 @@ const StoryTitleAmp = () => {
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/bbc_head.png`
-    ) || ''
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
   return (
     <>

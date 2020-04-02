@@ -13,7 +13,7 @@ export default () => {
           src={`${getAssetsPath(
             arcSite,
             contextPath
-          )}/resources/dist/elcomercio/images/logo.png`}
+          )}/resources/dist/elcomercio/images/logo.png?d=1`}
           alt="elcomercio.pe"
         />
       </a>

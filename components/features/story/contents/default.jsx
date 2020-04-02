@@ -128,12 +128,10 @@ class StoryContents extends PureComponent {
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     const { basic_gallery: basicGallery = {} } = promoItems
 
@@ -281,9 +279,7 @@ class StoryContents extends PureComponent {
 
                   if (type === ELEMENT_TEXT) {
                     const alignmentClass = alignment
-                      ? `${classes.textClasses} ${
-                          classes.alignmentClasses
-                        }-${alignment}`
+                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                       : classes.textClasses
                     return (
                       <>

@@ -380,16 +380,6 @@ if ('IntersectionObserver' in window) {
           {children}
         </div>
 
-        <script
-          defer
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/js/index.js`
-          )}
-        />
-
         {isStory && (
           <script
             type="text/javascript"
@@ -427,12 +417,10 @@ if ('IntersectionObserver' in window) {
         )}
         <script
           defer
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/assets/js/lazyload.js`
-          )}
+          src={`${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/assets/js/lazyload.js?d=1`}
         />
         {isStory && (
           <>

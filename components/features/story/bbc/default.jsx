@@ -9,24 +9,20 @@ const classes = {
 const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
 
 const StoryBbc = () => {
-  const { globalContent, contextPath, arcSite, deployment } = useFusionContext()
+  const { globalContent, contextPath, arcSite } = useFusionContext()
   const { taxonomy: { tags = [] } = {} } = globalContent || {}
 
   const imgBbcSource =
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/bbc_head.png`
-    ) || ''
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
   const imgBbc =
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/bbc_head_fg.jpg`
-    ) || ''
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/bbc_head_fg.jpg?d=1` || ''
 
   return (
     <>

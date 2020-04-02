@@ -118,12 +118,10 @@ class StoryContentsLite extends PureComponent {
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     return (
       <>
@@ -161,7 +159,7 @@ class StoryContentsLite extends PureComponent {
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
                     publicidad = false,
-                    nameAds,
+                    // nameAds,
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
