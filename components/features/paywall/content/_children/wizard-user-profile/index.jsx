@@ -12,6 +12,7 @@ import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
 import PWA from '../../_dependencies/seed-pwa'
 import { useStrings } from '../../../_children/contexts'
+import { interpolateUrl } from '../../../_dependencies/domains'
 
 function WizardUserProfile(props) {
   const msgs = useStrings()
@@ -124,7 +125,7 @@ function WizardUserProfile(props) {
           setLoading(false)
           setSubmitting(false)
 
-          const url = urls.originPaymentTraker
+          const url = interpolateUrl(urls.originPaymentTraker)
           const token = window.Identity.userIdentity.accessToken
           fetch(url, {
             method: 'POST',
