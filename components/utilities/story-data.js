@@ -736,6 +736,27 @@ class StoryData {
     )
   }
 
+  get contentPosicionPublicidadLite() {
+    let i = 0
+    const { content_elements: contentElements = null } = this._data || {}
+    return (
+      contentElements &&
+      contentElements.map(dataContent => {
+        let dataElements = {}
+        const { type: typeElement } = dataContent
+        dataElements = dataContent
+        if (i === 2) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
+        }
+        if (typeElement === ELEMENT_TEXT) {
+          i += 1
+        }
+        return dataElements
+      })
+    )
+  }
+
   get contentPosicionPublicidad() {
     let i = 0
     let v = 0
