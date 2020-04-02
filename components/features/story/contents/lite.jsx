@@ -91,7 +91,7 @@ class StoryContentsLite extends PureComponent {
       multimediaLarge,
       multimediaLazyDefault,
       tags,
-      contentPosicionPublicidad,
+      contentPosicionPublicidadLite,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -146,9 +146,9 @@ class StoryContentsLite extends PureComponent {
                 <div id="ads_m_movil3" />
               </>
             )}
-            {contentPosicionPublicidad && (
+            {contentPosicionPublicidadLite && (
               <ArcStoryContent
-                data={contentPosicionPublicidad}
+                data={contentPosicionPublicidadLite}
                 elementClasses={classes}
                 renderElement={element => {
                   const {
@@ -244,13 +244,11 @@ class StoryContentsLite extends PureComponent {
                       : classes.textClasses
                     return (
                       <>
-                        {publicidad && isDfp && (
-                          <Ads
-                            adElement={nameAds}
-                            isDesktop={false}
-                            isMobile
-                            isDfp={isDfp}
-                          />
+                        {publicidad && (
+                          <div
+                            id="div-gpt-ad-1585689586219-0"
+                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
                         )}
                         <Text
                           content={replaceTags(content)}
