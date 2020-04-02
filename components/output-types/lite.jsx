@@ -80,7 +80,7 @@ const LiteOutput = ({
     deployment,
     isStory,
     isAmp: false,
-    isMobile: true,
+    isLite: true,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -264,6 +264,25 @@ if ('IntersectionObserver' in window) {
   })
 }
 `
+
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/lite-story.css`
+  if (CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-story.css`
+  }
+  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/lite-story.css`
+  }
+  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
+  }
+
+  const styless = ` <link
+  rel="preload"
+  href=${deployment(styleUrl)}
+  onload="this.onload=null;this.rel='stylesheet'"
+  as="style"
+  />`
+
   return (
     <html lang="es">
       <head>
@@ -412,6 +431,17 @@ if ('IntersectionObserver' in window) {
             )}/resources/assets/js/lazyload.js`
           )}
         />
+        {isStory && (
+          <>
+            <i
+              dangerouslySetInnerHTML={{
+                __html: styless,
+              }}></i>
+            <noscript>
+              <link rel="stylesheet" href={deployment(styleUrl)} />
+            </noscript>
+          </>
+        )}
       </body>
     </html>
   )

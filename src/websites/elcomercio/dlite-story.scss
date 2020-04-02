@@ -4,9 +4,14 @@
 @import "../../general-styles/framework/core/lite";
 
 /******* Components *******/
+@import "./scss/lite-components/features/story/title/title";
+@import "./scss/lite-components/features/story/multimedia/multimedia";
 @import "./scss/lite-components/layouts/story-sidebar/st-sidebar";
 @import "./scss/lite-components/features/header/basic/h-basic";
 @import "./scss/lite-components/features/widgets/breaking-news/b-news";
 @import "./scss/lite-components/global-components/share/share";
 @import "./scss/lite-components/features/header/links-band/links-band";
 @import "./scss/lite-components/features/story/social/st-social";
+.menu {
+  max-width: 0px;
+}
