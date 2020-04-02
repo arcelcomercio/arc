@@ -28,6 +28,7 @@ const Ads = props => {
       liteAdId,
       liteAdName,
       liteAdDimensions,
+      liteAdMobileDimensions,
     } = {},
   } = props
 
@@ -40,7 +41,9 @@ const Ads = props => {
           <div
             id={liteAdId}
             data-ads-name={liteAdName}
-            data-ads-dimensions={liteAdDimensions}></div>
+            data-ads-dimensions={liteAdDimensions}
+            data-ads-dimensions-m={liteAdMobileDimensions}
+          />
         )}
       </>
     )

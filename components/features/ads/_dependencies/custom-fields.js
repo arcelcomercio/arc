@@ -69,7 +69,11 @@ const customFields = PropTypes.shape({
     group: 'Lite',
   }),
   liteAdDimensions: PropTypes.string.tag({
-    name: 'Dimensiones',
+    name: 'Dimensiones para Tablet y Desktop',
+    group: 'Lite',
+  }),
+  liteAdMobileDimensions: PropTypes.string.tag({
+    name: 'Dimensiones para Mobile',
     group: 'Lite',
   }),
 })
