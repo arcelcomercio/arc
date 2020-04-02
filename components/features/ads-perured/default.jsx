@@ -19,6 +19,10 @@ const Ads = props => {
 
   const { isAdmin, outputType } = useFusionContext()
 
+  if (outputType === 'lite') {
+    return null
+  }
+
   const addEmptyBackground = () => (isAdmin ? 'bg-base-100' : '')
 
   const getHtml = device => {
