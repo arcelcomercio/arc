@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   container:
-    'story-google-news__container flex justify-center items-center mr-20 ml-20',
+    'story-google-news__container flex justify-center items-center m-15 mr-20 ml-20',
   link: 'story-google-news__link m-25 mr-20 ml-20',
   letter: 'story-google-news__letter',
 }
