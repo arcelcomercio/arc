@@ -21,10 +21,3 @@ $tertiary-font: "Roboto";
 @import "./scss/lite-components/features/story/gallery/gallery";
 @import "./scss/lite-components/features/story/taboola/taboola";
 @import "./scss/lite-components/features/cards/most-read/most-read";
-
-[id*="div-gpt-ad"] {
-  text-align: center;
-  @media print {
-    display: none;
-  }
-}

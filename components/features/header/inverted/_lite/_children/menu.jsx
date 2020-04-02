@@ -3,7 +3,7 @@
 import React from 'react'
 
 const classes = {
-  sidebar: `menu w-full pos-abs oflow-h`,
+  sidebar: `menu pos-abs oflow-h`,
   content: `menu__content f f-col h-full`,
   item: 'menu__item pos-rel f',
   containerSubMenu: 'menu__sub w-full oflow-h',
