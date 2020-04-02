@@ -1,13 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState, useEffect } from 'react'
 import * as S from './styles'
-import { ModalConsumer } from '../../../_children/context'
-import { ResetPass, MsgResetPass } from '../../../_children/iconos'
+import { ModalConsumer } from '../context'
+import { ResetPass, MsgResetPass } from '../iconos'
 import { Input } from './control_input_select'
-import useForm from '../../../_dependencies/useForm'
-import Domains from '../../../_dependencies/domains'
-import getCodeError from '../../../_dependencies/codes_error'
-import Taggeo from '../../../_dependencies/taggeo'
+import useForm from '../../_dependencies/useForm'
+import Domains from '../../_dependencies/domains'
+import getCodeError from '../../_dependencies/codes_error'
+import Taggeo from '../../_dependencies/taggeo'
 
 export const FormReset = ({
   arcSite,

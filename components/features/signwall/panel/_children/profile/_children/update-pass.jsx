@@ -13,7 +13,7 @@ import {
 } from '../../../../_dependencies/regex'
 import Domains from '../../../../_dependencies/domains'
 import { FormGrid, FormGroup, Message } from './styled'
-import { Text, Button } from '../../../../main/_main/_children/styles'
+import { Text, Button } from '../../../../_children/forms/styles'
 
 @Consumer
 class updatePassword extends Component {

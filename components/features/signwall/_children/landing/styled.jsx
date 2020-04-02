@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { device } from '../../../_dependencies/breakpoints'
+import { device } from '../../_dependencies/breakpoints'
 
 export const ContMiddle = styled.div`
   display: block;

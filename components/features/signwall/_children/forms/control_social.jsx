@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { sha256 } from 'js-sha256'
 import styled, { css } from 'styled-components'
-import { device } from '../../../_dependencies/breakpoints'
-import { Facebook, Google, Mail } from '../../../_children/iconos'
+import { device } from '../../_dependencies/breakpoints'
+import { Facebook, Google, Mail } from '../iconos'
 import { Button } from './styles'
-import Services from '../../../_dependencies/services'
-import Domains from '../../../_dependencies/domains'
-import Cookies from '../../../_dependencies/cookies'
-import getDevice from '../../../_dependencies/get-device'
-import Taggeo from '../../../_dependencies/taggeo'
-import QueryString from '../../../_dependencies/querystring'
+import Services from '../../_dependencies/services'
+import Domains from '../../_dependencies/domains'
+import Cookies from '../../_dependencies/cookies'
+import getDevice from '../../_dependencies/get-device'
+import Taggeo from '../../_dependencies/taggeo'
+import QueryString from '../../_dependencies/querystring'
 
 export const ButtonStyleSocial = styled(Button)`
   font-size: ${props => (props.size === 'full' ? '18' : '16')}px !important;
   position: relative;
-  height: 48px !important;
+  height: 45px !important;
   display: inline-block;
   vertical-align: top;
   padding: 0px 10px 0px 45px !important;
@@ -62,7 +62,7 @@ export const ButtonStyleSocial = styled(Button)`
       props.brand === 'facebook' &&
       css`
         left: 10px !important;
-        top: 10px !important;
+        top: 8px !important;
       `}
   }
 
