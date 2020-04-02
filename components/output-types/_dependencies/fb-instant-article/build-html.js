@@ -264,6 +264,9 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
     case ConfigParams.ELEMENT_YOUTUBE_ID:
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
+    case ConfigParams.ELEMENT_PODCAST:
+      result = `<figure class="op-interactive"><audio controls><source src="${payload}" type="audio/mpeg" /></audio></figure>`
+      break
     default:
       break
   }
