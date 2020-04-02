@@ -7,6 +7,7 @@ const classes = {
   box: 'direct__box mr-20 flex flex-col items-center md:flex-row',
   time:
     'direct__time text-center md:text-left mb-10 md:mb-0 md:mr-20 secondary-font',
+  timeSub: 'direct__time-sub',
   imgWrapper: 'direct__img',
   img: 'w-full h-full object-cover',
   commentary: 'direct__details secondary-font',
@@ -27,7 +28,7 @@ const ItemCommentary = ({
       <div className={classes.box}>
         <p className={classes.time}>
           {mainTime}
-          {addTime && <sub>{addTime}</sub>}
+          {addTime && <sub className={classes.timeSub}>{addTime}</sub>}
         </p>
         {/*    <i className={classes.img}>{type}</i> */}
         <div className={classes.imgWrapper}>
