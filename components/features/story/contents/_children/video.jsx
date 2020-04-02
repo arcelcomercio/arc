@@ -30,7 +30,7 @@ const StoryContentChildVideo = props => {
   const {
     _id: id,
     data = {},
-    htmlContent = false,
+    // htmlContent = false,
     description = '',
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],

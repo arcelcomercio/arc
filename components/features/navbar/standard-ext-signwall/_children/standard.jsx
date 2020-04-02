@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ENV from 'fusion:environment'
@@ -110,31 +112,33 @@ class NavBarDefault extends PureComponent {
       siteNameRedSocial
     )
 
-    this.shareButtons = {
-      firstList: [
-        {
-          icon: classes.iconFacebook,
-          link: urlsShareList.facebook,
-          mobileClass: classes.mobileClass,
-        },
+    this.shareButtons = [
+      {
+        name: 'facebook',
+        icon: classes.iconFacebook,
+        link: urlsShareList.facebook,
+        mobileClass: classes.mobileClass,
+      },
 
-        {
-          icon: classes.iconTwitter,
-          link: urlsShareList.twitter,
-          mobileClass: classes.mobileClass,
-        },
-        {
-          icon: classes.iconLinkedin,
-          link: urlsShareList.linkedin,
-          mobileClass: classes.mobileClass,
-        },
-        {
-          icon: classes.iconWhatsapp,
-          link: urlsShareList.whatsapp,
-          mobileClass: `block md:hidden ${classes.mobileClass}`,
-        },
-      ],
-    }
+      {
+        name: 'twitter',
+        icon: classes.iconTwitter,
+        link: urlsShareList.twitter,
+        mobileClass: classes.mobileClass,
+      },
+      {
+        name: 'linkedin',
+        icon: classes.iconLinkedin,
+        link: urlsShareList.linkedin,
+        mobileClass: classes.mobileClass,
+      },
+      {
+        name: 'whatsapp',
+        icon: classes.iconWhatsapp,
+        link: urlsShareList.whatsapp,
+        mobileClass: `block md:hidden ${classes.mobileClass}`,
+      },
+    ]
   }
 
   componentDidMount() {
@@ -427,6 +431,7 @@ class NavBarDefault extends PureComponent {
                 /> */}
               <form className={classes.form} onSubmit={e => e.preventDefault()}>
                 <input
+                  id="header-search-input"
                   ref={this.inputSearch}
                   type="search"
                   defaultValue={search}
@@ -435,10 +440,16 @@ class NavBarDefault extends PureComponent {
                   placeholder="¿Qué Buscas?"
                   className={`${classes.search} ${this.activeSearch()}`}
                 />
+                <label
+                  htmlFor="header-search-input"
+                  className="overflow-hidden w-0 h-0">
+                  Cuadro de búsqueda
+                </label>
                 <Button
                   iconClass={classes.iconSearch}
                   btnClass={`${classes.btnSearch} ${this.activeSearch()}`}
                   onClick={this.optionButtonClick}
+                  showText={false}
                 />
               </form>
             </div>
@@ -478,7 +489,10 @@ class NavBarDefault extends PureComponent {
                   )}
               </ul>
             </div>
-            <a href="/" className={classes.mobileLogo}>
+            <a
+              href="/"
+              className={classes.mobileLogo}
+              title={`Logo de ${arcSite}`}>
               <img
                 src={logo}
                 alt={`Logo de ${arcSite}`}
@@ -489,7 +503,8 @@ class NavBarDefault extends PureComponent {
             {type !== ELEMENT_STORY && arcSite === SITE_PERU21 && (
               <a
                 className={classes.logoLeft}
-                href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
+                href="/el-otorongo?ref=portada_home&amp;ft=btn_menu"
+                title={logo.alt}>
                 <img
                   src={logoLeft.src}
                   alt={logo.alt}
@@ -505,6 +520,7 @@ class NavBarDefault extends PureComponent {
                 <>
                   <div>
                     <a
+                      title="Mostrar enlaces para compartir"
                       className={classes.moreLink}
                       href="/"
                       onClick={event => {
@@ -515,17 +531,21 @@ class NavBarDefault extends PureComponent {
                   </div>
 
                   <ul className={classes.listIcon}>
-                    {this.shareButtons.firstList.map((item, i) => (
+                    {this.shareButtons.map((item, i) => (
                       <li
                         key={item.icon}
                         className={` ${classes.item} ${item.mobileClass}`}>
                         <a
+                          title={`Compartir en ${item.name}`}
                           className={classes.link}
                           href={item.link}
                           onClick={event => {
                             this.openLink(event, item)
                           }}>
-                          <i className={`${item.icon} ${classes.icon}`} />
+                          <i
+                            className={`${item.icon} ${classes.icon}`}
+                            aria-hidden="true"
+                          />
                         </a>
                       </li>
                     ))}
@@ -565,6 +585,7 @@ class NavBarDefault extends PureComponent {
 
                 {siteProperties.activeSignwall && (
                   <button
+                    aria-label="Iniciar"
                     id="signwall-nav-btn"
                     site="elcomercio"
                     className="flex items-center btn capitalize text-md nav__btn-sign"
@@ -572,7 +593,10 @@ class NavBarDefault extends PureComponent {
                     <i
                       id="signwall-nav-icon"
                       className="nav__icon icon-user title-sm text-primary-color"></i>
-                    <span id="signwall-nav-user" className="capitalize">
+                    <span
+                      id="signwall-nav-user"
+                      className="capitalize"
+                      aria-hidden="true">
                       Iniciar
                     </span>
                   </button>

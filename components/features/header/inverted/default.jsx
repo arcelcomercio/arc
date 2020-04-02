@@ -58,27 +58,29 @@ const HeaderInverted = props => {
     siteNameRedSocial
   )
 
-  const shareButtons = {
-    firstList: [
-      {
-        icon: 'icon-facebook-circle',
-        link: urlsShareList.facebook,
-      },
+  const shareButtons = [
+    {
+      name: 'facebook',
+      icon: 'icon-facebook-circle',
+      link: urlsShareList.facebook,
+    },
 
-      {
-        icon: 'icon-twitter-circle',
-        link: urlsShareList.twitter,
-      },
-      {
-        icon: 'icon-linkedin-circle',
-        link: urlsShareList.linkedin,
-      },
-      {
-        icon: 'icon-whatsapp',
-        link: urlsShareList.whatsapp,
-      },
-    ],
-  }
+    {
+      name: 'twitter',
+      icon: 'icon-twitter-circle',
+      link: urlsShareList.twitter,
+    },
+    {
+      name: 'linkedin',
+      icon: 'icon-linkedin-circle',
+      link: urlsShareList.linkedin,
+    },
+    {
+      name: 'whatsapp',
+      icon: 'icon-whatsapp',
+      link: urlsShareList.whatsapp,
+    },
+  ]
 
   const formatter = new Formatter(
     deployment,

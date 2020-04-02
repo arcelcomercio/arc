@@ -15,6 +15,7 @@ import {
 import ConfigParams from '../utilities/config-params'
 import { getAssetsPath } from '../utilities/constants'
 import StoryData from '../utilities/story-data'
+import LiteAds from './_children/lite-ads'
 
 const LiteOutput = ({
   children,
@@ -80,7 +81,7 @@ const LiteOutput = ({
     deployment,
     isStory,
     isAmp: false,
-    isMobile: true,
+    isLite: true,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -264,6 +265,25 @@ if ('IntersectionObserver' in window) {
   })
 }
 `
+
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/lite-story.css`
+  if (CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-story.css`
+  }
+  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/lite-story.css`
+  }
+  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
+  }
+
+  const styless = ` <link
+  rel="preload"
+  href=${deployment(styleUrl)}
+  onload="this.onload=null;this.rel='stylesheet'"
+  as="style"
+  />`
+
   return (
     <html lang="es">
       <head>
@@ -306,10 +326,11 @@ if ('IntersectionObserver' in window) {
         <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
         <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
 
-        <link
-          href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:400,500,700&display=swap"
-          rel="stylesheet"
-        />
+        {
+          // <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:400,500,700&display=swap" rel="stylesheet"  />
+        }
+
+        <LiteAds />
 
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
@@ -405,7 +426,7 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         <script
-          async
+          defer
           src={deployment(
             `${getAssetsPath(
               arcSite,
@@ -413,6 +434,17 @@ if ('IntersectionObserver' in window) {
             )}/resources/assets/js/lazyload.js`
           )}
         />
+        {isStory && (
+          <>
+            <i
+              dangerouslySetInnerHTML={{
+                __html: styless,
+              }}></i>
+            <noscript>
+              <link rel="stylesheet" href={deployment(styleUrl)} />
+            </noscript>
+          </>
+        )}
       </body>
     </html>
   )

@@ -60,6 +60,7 @@ const SeparatorItemPartial = ({
   isImageVisible,
 }) => (
   <div
+    role="listitem"
     className={`sep-opt__item block position-relative mb-20 md:mb-10 bg-base-300 ${
       index === 0 ? '' : 'md:ml-5'
     }`}>
@@ -86,7 +87,7 @@ const SeparatorItemPartial = ({
     <h3 className="sep-opt__title overflow-hidden font-bold line-h-sm bottom-0 m-10">
       {title}
     </h3>
-    {isAuthorVisible && (
+    {isAuthorVisible && author && (
       <a
         href={authorLink}
         className="z-10 position-relative block text-sm uppercase text-gray-200 ml-15 br-15 mt-0 mb-20">
@@ -134,7 +135,9 @@ const SeparatorsBasicChildSeparator = ({
           VER MÁS
         </a>
       )}
-      <div role="list" className="sep-opt__list flex flex-col md:flex-row">
+      <div
+        role={design === 'custom' ? 'navigation' : 'list'}
+        className="sep-opt__list flex flex-col md:flex-row">
         {stories.map((story, index) => {
           if (design === 'custom') {
             return (

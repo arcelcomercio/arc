@@ -34,7 +34,7 @@ const StoriesListsCardChildList = ({
     defaultImgSize: 'sm',
   })
   return (
-    <div role="list" className={classes.list}>
+    <div role="navigation" className={classes.list}>
       {listNews.map((el, index) => {
         Story.__data = el
         // const data = Story.attributesRaw

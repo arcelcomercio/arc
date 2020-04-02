@@ -13,11 +13,11 @@ import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
-import {
+/* import {
   SPECIAL,
   SPECIAL_BASIC,
   BIG_IMAGE,
-} from '../../../utilities/constants/subtypes'
+} from '../../../utilities/constants/subtypes' */
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
   ELEMENT_HEADER,
@@ -41,7 +41,6 @@ import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildRelatedInternal from './_children/related-internal'
-import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import Ads from '../../../global-components/ads'
 
@@ -92,7 +91,7 @@ class StoryContentsLite extends PureComponent {
       multimediaLarge,
       multimediaLazyDefault,
       tags,
-      contentPosicionPublicidad,
+      contentPosicionPublicidadLite,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -140,7 +139,6 @@ class StoryContentsLite extends PureComponent {
           <div
             className={`${classes.content} ${isPremium && 'paywall'} `}
             id="contenedor">
-            <StoryContentsChildIcon />
             {!isDfp && (
               <>
                 <div id="ads_d_inline" />
@@ -148,9 +146,9 @@ class StoryContentsLite extends PureComponent {
                 <div id="ads_m_movil3" />
               </>
             )}
-            {contentPosicionPublicidad && (
+            {contentPosicionPublicidadLite && (
               <ArcStoryContent
-                data={contentPosicionPublicidad}
+                data={contentPosicionPublicidadLite}
                 elementClasses={classes}
                 renderElement={element => {
                   const {
@@ -246,13 +244,11 @@ class StoryContentsLite extends PureComponent {
                       : classes.textClasses
                     return (
                       <>
-                        {publicidad && isDfp && (
-                          <Ads
-                            adElement={nameAds}
-                            isDesktop={false}
-                            isMobile
-                            isDfp={isDfp}
-                          />
+                        {publicidad && (
+                          <div
+                            id="div-gpt-ad-1585689586219-0"
+                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
                         )}
                         <Text
                           content={replaceTags(content)}

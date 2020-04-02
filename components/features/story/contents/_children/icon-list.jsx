@@ -128,30 +128,35 @@ const StoryContentChildIcon = () => {
     [firstList]: [
       {
         id: PRINT,
+        name: 'Imprimir noticia',
         icon: classes.iconPrint,
         link: '',
         mobileClass: '',
       },
       {
         id: MORE,
+        name: 'Enlaces para compartir',
         icon: classes.iconLink,
         link: '',
         mobileClass: '',
         more: [
           {
             id: SHARE,
+            name: 'Compartir en facebook',
             icon: classes.iconFacebook,
             link: urlsShareList.facebook,
             mobileClass: classes.mobileClass,
           },
           {
             id: SHARE,
+            name: 'Compartir en twitter',
             icon: classes.iconTwitter,
             link: urlsShareList.twitter,
             mobileClass: classes.mobileClass,
           },
           {
             id: SHARE,
+            name: 'Compartir en linkedin',
             icon: classes.iconLinkedin,
             link: urlsShareList.linkedin,
             mobileClass: classes.mobileClass,
@@ -160,6 +165,7 @@ const StoryContentChildIcon = () => {
       },
       {
         id: ZOOM,
+        name: 'Aumentar tamaño de letra',
         icon: classes.iconZoom,
         link: '',
         mobileClass: '',
@@ -176,11 +182,12 @@ const StoryContentChildIcon = () => {
               key={UtilListKey(i)}
               className={` ${classes.item} ${item.mobileClass}`}>
               <a
+                title={item.name}
                 className={classes.link}
                 href={item.link}
                 data-social={item.id}
                 role="button">
-                <i className={item.icon} />
+                <i className={item.icon} aria-hidden="true" />
               </a>
               {item.more && (
                 <ul className={classes.more}>
@@ -189,10 +196,14 @@ const StoryContentChildIcon = () => {
                       key={UtilListKey(ii)}
                       className={` ${classes.moreItem} ${subItem.mobileClass}`}>
                       <a
+                        title={subItem.name}
                         data-social={subItem.id}
                         className={classes.moreLink}
                         href={subItem.link}>
-                        <i className={`${subItem.icon} ${classes.icon}`} />
+                        <i
+                          className={`${subItem.icon} ${classes.icon}`}
+                          aria-hidden="true"
+                        />
                       </a>
                     </li>
                   ))}

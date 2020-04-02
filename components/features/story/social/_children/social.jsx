@@ -88,22 +88,26 @@ const StoryHeaderChildSocial = () => {
 
   const shareButtons = [
     {
+      name: 'facebook',
       icon: classes.iconFacebook,
       link: urlsShareList.facebook,
       mobileClass: classes.mobileClass,
     },
 
     {
+      name: 'twitter',
       icon: classes.iconTwitter,
       link: urlsShareList.twitter,
       mobileClass: classes.mobileClass,
     },
     {
+      name: 'linkedin',
       icon: classes.iconLinkedin,
       link: urlsShareList.linkedin,
       mobileClass: classes.mobileClass,
     },
     {
+      name: 'whatsapp',
       icon: classes.iconWhatsapp,
       link: urlsShareList.whatsapp,
       mobileClass: `block md:hidden ${classes.mobileClass}`,
@@ -166,8 +170,15 @@ const StoryHeaderChildSocial = () => {
             <li
               key={UtilListKey(i)}
               className={` ${classes.item} ${item.mobileClass}`}>
-              <a className={classes.link} href={item.link} data-share="">
-                <i className={`${item.icon} ${classes.icon}`} />
+              <a
+                className={classes.link}
+                href={item.link}
+                data-share=""
+                title={`Compartir en ${item.name}`}>
+                <i
+                  className={`${item.icon} ${classes.icon}`}
+                  aria-hidden="true"
+                />
               </a>
             </li>
           ))}

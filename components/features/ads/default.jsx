@@ -25,12 +25,32 @@ const Ads = props => {
       adsBorder,
       isDfp,
       rows,
+      liteAdId,
+      liteAdName,
+      liteAdDimensions,
+      liteAdMobileDimensions,
     } = {},
   } = props
 
   const { isAdmin, outputType } = useFusionContext()
 
+  if (outputType === 'lite') {
+    return (
+      <>
+        {(liteAdId || liteAdName || liteAdDimensions) && (
+          <div
+            id={liteAdId}
+            data-ads-name={liteAdName}
+            data-ads-dimensions={liteAdDimensions}
+            data-ads-dimensions-m={liteAdMobileDimensions}
+          />
+        )}
+      </>
+    )
+  }
+
   const adsSpaces =
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useContent(
       adsSpace && adsSpace !== 'none'
         ? {

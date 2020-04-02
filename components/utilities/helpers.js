@@ -283,24 +283,6 @@ export const socialMediaUrlShareList = (
   }
 }
 
-export const socialMediaUrlShareListBlog = (
-  siteUrl,
-  postPermaLink,
-  postTitle,
-  siteNameRedSocial = 'Gestionpe'
-) => {
-  return {
-    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}blog/${postPermaLink}`,
-    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      postTitle
-    )}&url=${siteUrl}blog/${postPermaLink}&via=${siteNameRedSocial}`,
-    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}blog/${postPermaLink}`,
-    pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}blog/${postPermaLink}`,
-    whatsapp: `whatsapp://send?text=${siteUrl}blog/${postPermaLink}`,
-    fbmsg: `fb-messenger://share/?link=${siteUrl}blog/${postPermaLink}`,
-  }
-}
-
 export const createMarkup = html => {
   return {
     __html: html,

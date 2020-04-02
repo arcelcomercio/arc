@@ -4,7 +4,14 @@ import PropTypes from 'prop-types'
 
 import ArchiveCalendarChild from './_children/calendar'
 
-const ArchiveCalendar = ({ customFields: { sectionField } = {} }) => {
+/**
+ * En la hu-22078 archivo/seccion ya no pagina por fecha.
+ * Por lo tantose modifico este feature. Ya no necesita el
+ * customField sectionField, no necesita query.section ni
+ * armar const url con validaciones.
+ */
+
+const ArchiveCalendar = (/* { customFields: { sectionField } = {} } */) => {
   const {
     globalContentConfig: { query },
   } = useFusionContext()
@@ -18,7 +25,7 @@ const ArchiveCalendar = ({ customFields: { sectionField } = {} }) => {
   }
 
   const renderNewURL = date => {
-    const { section } = query || {}
+    // const { section } = query || {}
     const _date = new Date(date)
     const year = _date.getFullYear()
     const month = Number(_date.getMonth() + 1)
@@ -26,12 +33,13 @@ const ArchiveCalendar = ({ customFields: { sectionField } = {} }) => {
     const dayFormat = day < 10 ? `0${day}` : day
     const monthFormat = month < 10 ? `0${month}` : month
     const newDateFormat = `${year}-${monthFormat}-${dayFormat}`
+    /* 
     const url = section
       ? `/archivo/${section}/${newDateFormat}/`
       : `/archivo${
           sectionField === '/' || !sectionField ? '/todas' : sectionField
-        }/${newDateFormat}/`
-    return url
+        }/${newDateFormat}/` */
+    return `/archivo/todas/${newDateFormat}/`
   }
 
   const [calendarDate, setStateDate] = useState(getCalendarDate(urlDate))
