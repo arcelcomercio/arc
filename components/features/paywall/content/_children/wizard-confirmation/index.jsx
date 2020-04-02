@@ -11,6 +11,7 @@ import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
 import { pushCxense } from '../../../_dependencies/cxense'
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
+import { interpolateUrl } from '../../../_dependencies/domains'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -81,7 +82,7 @@ const WizardConfirmation = props => {
   useEffect(() => {
     PWA.finalize()
 
-    const url = urls.originPaymentTraker
+    const url = interpolateUrl(urls.originPaymentTraker)
     const token = window.Identity.userIdentity.accessToken
     fetch(url, {
       method: 'POST',
