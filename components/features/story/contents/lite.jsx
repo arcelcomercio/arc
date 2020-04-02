@@ -248,7 +248,7 @@ class StoryContentsLite extends PureComponent {
                           <div
                             id="div-gpt-ad-1585689586219-0"
                             data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
-                            data-ads-dimensions="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
                         )}
                         <Text
                           content={replaceTags(content)}
