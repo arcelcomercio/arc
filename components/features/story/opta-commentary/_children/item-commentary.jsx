@@ -30,7 +30,6 @@ const ItemCommentary = ({
           {mainTime}
           {addTime && <sub className={classes.timeSub}>{addTime}</sub>}
         </p>
-        {/*    <i className={classes.img}>{type}</i> */}
         <div className={classes.imgWrapper}>
           {icon && (
             <img
