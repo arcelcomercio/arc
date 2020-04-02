@@ -20,7 +20,7 @@ export default ({
   requestUri = '',
   arcSite = '',
   contextPath = '',
-  isMobile = false,
+  isLite = false,
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
@@ -63,7 +63,7 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
-  const style = isMobile === true ? 'lite-story' : 'style'
+  const style = 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
@@ -95,7 +95,7 @@ export default ({
         </>
       ) : (
         <>
-          {isAmp === false && (
+          {isAmp === false && isLite === false && (
             <link rel="stylesheet" href={deployment(styleUrl)} />
           )}
         </>
