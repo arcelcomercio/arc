@@ -9,8 +9,7 @@ const classes = {
   navTabsItem: 'navegation-tabs__item flex items-center',
   navTabsItemActive:
     'navegation-tabs__item navegation-tabs__item--active flex items-center',
-  navTabsTitle:
-    'navegation-tabs__title secondary-font pl-10 pr-10 md:pl-20 md:pr-20 pb-5',
+  navTabsTitle: 'navegation-tabs__title secondary-font md:pl-20 md:pr-20 pb-5',
 }
 
 @Consumer
