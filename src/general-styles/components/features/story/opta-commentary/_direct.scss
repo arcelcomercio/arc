@@ -1,21 +1,4 @@
 .direct {
-  &__item {
-    border-color: #e3e3e3;
-    &--publicity {
-      padding-top: 10px;
-      @media (--tablet) {
-        padding-top: 10px;
-      }
-      .direct__publicity {
-        display: block;
-      }
-      .direct__time,
-      .direct__details {
-        color: #ff2700;
-        font-weight: 700;
-      }
-    }
-  }
   &__publicity {
     height: 34px;
     a {
@@ -58,6 +41,23 @@
     width: calc(100% - 73px);
     @media (--tablet) {
       width: calc(100% - 155px);
+    }
+  }
+  &__item {
+    border-color: #e3e3e3;
+    &--publicity {
+      padding-top: 10px;
+      @media (--tablet) {
+        padding-top: 10px;
+      }
+      .direct__publicity {
+        display: block;
+      }
+      .direct__time,
+      .direct__details {
+        color: #ff2700;
+        font-weight: 700;
+      }
     }
   }
 }
