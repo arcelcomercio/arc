@@ -3,6 +3,9 @@
     border-color: #e3e3e3;
     &--publicity {
       padding-top: 10px;
+      @media (--tablet) {
+        padding-top: 10px;
+      }
       .direct__publicity {
         display: block;
       }
@@ -14,8 +17,18 @@
     }
   }
   &__publicity {
-    border-radius: 4px;
     height: 34px;
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        object-fit: cover;
+      }
+    }
   }
   &__time {
     color: $color-black;
@@ -29,6 +42,14 @@
   &__img {
     width: 22px;
     height: 22px;
+    @media (--only-mobile) {
+      margin-top: 10px;
+    }
+    &:empty {
+      @media (--only-mobile) {
+        display: none;
+      }
+    }
   }
   &__details {
     font-size: 14px;

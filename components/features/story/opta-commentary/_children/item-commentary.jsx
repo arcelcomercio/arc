@@ -5,11 +5,10 @@ const classes = {
     'direct__item flex items-center flex-wrap border-t-1 border-solid pt-15 md:pt-20 pb-15 md:pb-20',
   ads: 'direct__publicity hidden w-full mb-10',
   box: 'direct__box mr-20 flex flex-col items-center md:flex-row',
-  time:
-    'direct__time text-center md:text-left mb-10 md:mb-0 md:mr-20 secondary-font',
+  time: 'direct__time text-center md:text-left md:mr-20 secondary-font',
   timeSub: 'direct__time-sub',
   imgWrapper: 'direct__img',
-  img: 'w-full h-full object-cover',
+  img: 'w-full h-full object-contain',
   commentary: 'direct__details secondary-font',
   adsgoal: ' direct__item--publicity',
 }
