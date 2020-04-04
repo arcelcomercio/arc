@@ -99,7 +99,6 @@ class XmlSiteNewsSitemap {
               },
             },
             changefreq: 'hourly',
-            priority: '1.0',
           },
         }
       }),

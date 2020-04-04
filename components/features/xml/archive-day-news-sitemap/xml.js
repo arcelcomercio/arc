@@ -103,7 +103,6 @@ class XmlArchiveDayNewsSitemap {
               },
             },
             changefreq: 'hourly',
-            priority: '1.0',
           },
         }
       }),

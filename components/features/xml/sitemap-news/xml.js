@@ -138,7 +138,6 @@ class XmlSitemapNews {
               ),
             {
               changefreq: 'hourly',
-              priority: '1.0',
             },
           ],
         }

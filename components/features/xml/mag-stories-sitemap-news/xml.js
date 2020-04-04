@@ -99,7 +99,6 @@ class XmlMagStoriesSitemapNews {
               },
             },
             changefreq: 'hourly',
-            priority: '1.0',
           },
         }
       }),

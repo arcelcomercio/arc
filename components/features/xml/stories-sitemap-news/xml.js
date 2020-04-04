@@ -84,7 +84,6 @@ class XmlStoriesSitemapNews {
               },
             },
             changefreq: 'hourly',
-            priority: '1.0',
           },
         }
       }),
