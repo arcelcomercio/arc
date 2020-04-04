@@ -29,7 +29,7 @@ class XmlArchiveDayNewsSitemap {
           date: `${year}-${month}-${day}`,
           size: 100,
           presets: 'landscape_l:648x374',
-          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
+          includedFields: `websites.${arcSite}.website_url,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -80,7 +80,9 @@ class XmlArchiveDayNewsSitemap {
                 'news:name': sitemapNewsName,
                 'news:language': 'es',
               },
-              'news:publication_date': localISODate(storyData.date || ''),
+              'news:publication_date': localISODate(
+                storyData.publishDate || ''
+              ),
               'news:title': {
                 '#cdata': storyData.title,
               },

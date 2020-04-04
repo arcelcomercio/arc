@@ -24,7 +24,7 @@ class XmlArchiveDayWebSitemap {
           date: `${year}-${month}-${day}`,
           size: 100,
           presets: 'no-presets',
-          includedFields: `websites.${arcSite}.website_url,display_date`,
+          includedFields: `websites.${arcSite}.website_url,publish_date`,
         },
       },
     })
@@ -58,7 +58,7 @@ class XmlArchiveDayWebSitemap {
         return {
           url: {
             loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            lastmod: localISODate(storyData.date || ''),
+            lastmod: localISODate(storyData.publishDate || ''),
             changefreq: 'hourly',
             priority: '1.0',
           },

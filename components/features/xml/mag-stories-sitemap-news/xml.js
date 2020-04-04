@@ -29,7 +29,7 @@ class XmlMagStoriesSitemapNews {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets: 'landscape_l:648x374',
-          includedFields: `websites.elcomerciomag.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
+          includedFields: `websites.elcomerciomag.website_url,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -70,13 +70,15 @@ class XmlMagStoriesSitemapNews {
         return {
           url: {
             loc: `${siteUrl}${MAG_PATH}${storyData.websiteLink || ''}`,
-            // lastmod: localISODate(storyData.date || ''),
+            // lastmod: localISODate(storyData.publishDate || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,
                 'news:language': 'es',
               },
-              'news:publication_date': localISODate(storyData.date || ''),
+              'news:publication_date': localISODate(
+                storyData.publishDate || ''
+              ),
               'news:title': {
                 '#cdata': storyData.title,
               },

@@ -55,13 +55,15 @@ class XmlStoriesSitemapNews {
         return {
           url: {
             loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            // lastmod: localISODate(storyData.date || ''),
+            // lastmod: localISODate(storyData.publishDate || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,
                 'news:language': 'es',
               },
-              'news:publication_date': localISODate(storyData.date || ''),
+              'news:publication_date': localISODate(
+                storyData.publishDate || ''
+              ),
               'news:title': {
                 '#cdata': storyData.title,
               },

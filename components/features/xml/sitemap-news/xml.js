@@ -23,7 +23,7 @@ class XmlSitemapNews {
     const { query: { _id: section } = {} } = globalContentConfig || {}
 
     const presets = 'landscape_l:648x374'
-    const includedFields = `websites.${arcSite}.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},content_elements.url,content_elements.type,content_elements.resized_urls,content_elements.caption`
+    const includedFields = `websites.${arcSite}.website_url,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},content_elements.url,content_elements.type,content_elements.resized_urls,content_elements.caption`
 
     this.fetchContent(this.getStates(section, presets, includedFields))
   }
@@ -92,13 +92,15 @@ class XmlSitemapNews {
           url: [
             {
               loc: `${siteUrl}${storyData.websiteLink || ''}`,
-              // lastmod: localISODate(storyData.date || ''),
+              // lastmod: localISODate(storyData.publishDate || ''),
               'news:news': {
                 'news:publication': {
                   'news:name': sitemapNewsName,
                   'news:language': 'es',
                 },
-                'news:publication_date': localISODate(storyData.date || ''),
+                'news:publication_date': localISODate(
+                  storyData.publishDate || ''
+                ),
                 'news:title': {
                   '#cdata': storyData.title,
                 },

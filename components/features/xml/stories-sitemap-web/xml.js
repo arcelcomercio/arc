@@ -43,7 +43,7 @@ class XmlStoriesSitemapWeb {
         return {
           url: {
             loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            lastmod: localISODate(storyData.date || ''),
+            lastmod: localISODate(storyData.publishDate || ''),
             changefreq: 'hourly',
             priority: '1.0',
           },

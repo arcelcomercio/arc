@@ -16,7 +16,7 @@ class XmlSitemapWeb {
     const { globalContentConfig, arcSite } = props
     const { query: { _id: section } = {} } = globalContentConfig || {}
 
-    const includedFields = `websites.${arcSite}.website_url,display_date`
+    const includedFields = `websites.${arcSite}.website_url,publish_date`
 
     this.fetchContent(this.getStates(section, 'no-presets', includedFields))
   }
@@ -61,7 +61,7 @@ class XmlSitemapWeb {
     const sitemap = {
       urlset: stories.map(story => {
         const {
-          display_date: date,
+          publish_date: date,
           websites: { [arcSite]: { website_url: websiteLink } = {} } = {},
         } = story
 

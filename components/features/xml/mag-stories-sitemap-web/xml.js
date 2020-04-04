@@ -23,7 +23,7 @@ class XmlMagStoriesSitemapWeb {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets: 'no-presets',
-          includedFields: `websites.elcomerciomag.website_url,display_date`,
+          includedFields: `websites.elcomerciomag.website_url,publish_date`,
         },
       },
     })
@@ -41,7 +41,7 @@ class XmlMagStoriesSitemapWeb {
 
     const sitemap = {
       urlset: stories.map(story => {
-        const { display_date: date = '', websites = {} } = story
+        const { publish_date: date = '', websites = {} } = story
         const { website_url: websiteLink } = websites.elcomerciomag || {}
 
         return {
