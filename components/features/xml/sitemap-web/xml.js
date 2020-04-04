@@ -69,8 +69,8 @@ class XmlSitemapWeb {
           url: {
             loc: `${siteUrl}${websiteLink || ''}`,
             lastmod: localISODate(date || ''),
-            changefreq: 'hourly',
-            priority: '1.0',
+            changefreq: 'always',
+            priority: '0.5',
           },
         }
       }),

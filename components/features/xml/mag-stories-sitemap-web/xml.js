@@ -48,8 +48,8 @@ class XmlMagStoriesSitemapWeb {
           url: {
             loc: `${siteUrl}${MAG_PATH}${websiteLink || ''}`,
             lastmod: localISODate(date || ''),
-            changefreq: 'hourly',
-            priority: '1.0',
+            changefreq: 'always',
+            priority: '0.5',
           },
         }
       }),

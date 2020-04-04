@@ -44,8 +44,8 @@ class XmlStoriesSitemapWeb {
           url: {
             loc: `${siteUrl}${storyData.websiteLink || ''}`,
             lastmod: localISODate(storyData.publishDate || ''),
-            changefreq: 'hourly',
-            priority: '1.0',
+            changefreq: 'always',
+            priority: '0.5',
           },
         }
       }),
