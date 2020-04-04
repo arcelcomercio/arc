@@ -72,6 +72,7 @@ class XmlSiteNewsSitemap {
         return {
           url: {
             loc: `${siteUrl}${storyData.websiteLink || ''}`,
+            lastmod: localISODate(storyData.publishDate || ''),
             'xhtml:link': {
               '@rel': 'amphtml',
               '@href': `${siteUrl}${storyData.websiteLink || ''}${OUTPUTTYPE}`,

@@ -70,7 +70,7 @@ class XmlMagStoriesSitemapNews {
         return {
           url: {
             loc: `${siteUrl}${MAG_PATH}${storyData.websiteLink || ''}`,
-            // lastmod: localISODate(storyData.publishDate || ''),
+            lastmod: localISODate(storyData.publishDate || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,

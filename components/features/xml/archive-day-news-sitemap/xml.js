@@ -74,7 +74,7 @@ class XmlArchiveDayNewsSitemap {
         return {
           url: {
             loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            // lastmod: localISODate(storyData.date || ''),
+            lastmod: localISODate(storyData.publishDate || ''),
             'news:news': {
               'news:publication': {
                 'news:name': sitemapNewsName,
