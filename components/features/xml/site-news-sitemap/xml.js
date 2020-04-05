@@ -32,7 +32,7 @@ class XmlSiteNewsSitemap {
           section: '/',
           stories_qty: 100,
           presets: `${IMAGE_SIZE}:1200x800`,
-          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,${includePromoItems},${includePromoItemsCaptions}`,
+          includedFields: `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -70,34 +70,70 @@ class XmlSiteNewsSitemap {
       urlset: stories.map(story => {
         storyData.__data = story
         return {
-          url: {
-            loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            'xhtml:link': {
-              '@rel': 'amphtml',
-              '@href': `${siteUrl}${storyData.websiteLink || ''}${OUTPUTTYPE}`,
-            },
-            'news:news': {
-              'news:publication': {
-                'news:name': sitemapNewsName,
-                'news:language': 'es',
-              },
-              'news:publication_date': localISODate(storyData.date || ''),
-              'news:title': {
-                '#cdata': storyData.title,
-              },
-            },
-            'image:image': {
-              'image:loc':
-                storyData.getMultimediaBySize(IMAGE_SIZE) ||
-                storyData.multimedia ||
-                '',
-              'image:title': {
-                '#cdata': this.promoItemHeadlines(story) || storyData.title,
-              },
-            },
-            changefreq: 'hourly',
-            priority: '1.0',
-          },
+          url:
+            arcSite === 'elcomercio'
+              ? {
+                  loc: `${siteUrl}${storyData.websiteLink || ''}`,
+                  lastmod: localISODate(storyData.publishDate || ''),
+                  'xhtml:link': {
+                    '@rel': 'amphtml',
+                    '@href': `${siteUrl}${storyData.websiteLink ||
+                      ''}${OUTPUTTYPE}`,
+                  },
+                  'news:news': {
+                    'news:publication': {
+                      'news:name': sitemapNewsName,
+                      'news:language': 'es',
+                    },
+                    'news:publication_date': localISODate(
+                      storyData.publishDate || ''
+                    ),
+                    'news:title': {
+                      '#cdata': storyData.title,
+                    },
+                  },
+                  'image:image': {
+                    'image:loc':
+                      storyData.getMultimediaBySize(IMAGE_SIZE) ||
+                      storyData.multimedia ||
+                      '',
+                    'image:title': {
+                      '#cdata':
+                        this.promoItemHeadlines(story) || storyData.title,
+                    },
+                  },
+                  changefreq: 'hourly',
+                }
+              : {
+                  loc: `${siteUrl}${storyData.websiteLink || ''}`,
+                  'xhtml:link': {
+                    '@rel': 'amphtml',
+                    '@href': `${siteUrl}${storyData.websiteLink ||
+                      ''}${OUTPUTTYPE}`,
+                  },
+                  'news:news': {
+                    'news:publication': {
+                      'news:name': sitemapNewsName,
+                      'news:language': 'es',
+                    },
+                    'news:publication_date': localISODate(storyData.date || ''),
+                    'news:title': {
+                      '#cdata': storyData.title,
+                    },
+                  },
+                  'image:image': {
+                    'image:loc':
+                      storyData.getMultimediaBySize(IMAGE_SIZE) ||
+                      storyData.multimedia ||
+                      '',
+                    'image:title': {
+                      '#cdata':
+                        this.promoItemHeadlines(story) || storyData.title,
+                    },
+                  },
+                  changefreq: 'hourly',
+                  priority: '1.0',
+                },
         }
       }),
     }
