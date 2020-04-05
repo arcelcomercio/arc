@@ -10,6 +10,8 @@ import {
 
 // const NUMBER_WORD_MULTIMEDIA = 70
 
+const URL_CDNA = 'https://cdna.elcomercio.pe/resources/assets/iframes'
+
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
@@ -265,7 +267,7 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
     case ConfigParams.ELEMENT_PODCAST:
-      result = `<figure class="op-interactive"><iframe src="http://172.105.150.198/create-podcast-audio.html?source=https://s3.amazonaws.com/podcast.file.ec/beta/elcomercio/2020-03-31/1585675069484-2.mp3" width="200" height="100" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
+      result = `<figure class="op-interactive"><iframe src="${URL_CDNA}/create-podcast-audio.html?source=${payload}" width="150" height="100" scrolling="no" frameborder="0"></iframe></figure>`
       break
     default:
       break
