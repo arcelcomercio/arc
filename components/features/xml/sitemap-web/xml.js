@@ -62,15 +62,18 @@ class XmlSitemapWeb {
       urlset: stories.map(story => {
         const {
           publish_date: date,
+          display_date: displayDate,
           websites: { [arcSite]: { website_url: websiteLink } = {} } = {},
         } = story
 
         return {
           url: {
             loc: `${siteUrl}${websiteLink || ''}`,
-            lastmod: localISODate(date || ''),
-            changefreq: 'always',
-            priority: '0.5',
+            lastmod: localISODate(
+              arcSite === 'elcomercio' ? date : displayDate || ''
+            ),
+            changefreq: arcSite === 'elcomercio' ? 'always' : 'hourly',
+            priority: arcSite === 'elcomercio' ? '0.5' : '1.0',
           },
         }
       }),

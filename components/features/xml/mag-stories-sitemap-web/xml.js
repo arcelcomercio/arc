@@ -23,14 +23,14 @@ class XmlMagStoriesSitemapWeb {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets: 'no-presets',
-          includedFields: `websites.elcomerciomag.website_url,publish_date`,
+          includedFields: `websites.elcomerciomag.website_url,display_date,publish_date`,
         },
       },
     })
   }
 
   render() {
-    const { siteProperties: { siteUrl = '' } = {} } = this.props
+    const { arcSite, siteProperties: { siteUrl = '' } = {} } = this.props
 
     const { data } = this.state || {}
     const { content_elements: stories = [] } = data || {}
@@ -41,15 +41,21 @@ class XmlMagStoriesSitemapWeb {
 
     const sitemap = {
       urlset: stories.map(story => {
-        const { publish_date: date = '', websites = {} } = story
+        const {
+          publish_date: date = '',
+          display_date: displayDate,
+          websites = {},
+        } = story
         const { website_url: websiteLink } = websites.elcomerciomag || {}
 
         return {
           url: {
             loc: `${siteUrl}${MAG_PATH}${websiteLink || ''}`,
-            lastmod: localISODate(date || ''),
-            changefreq: 'always',
-            priority: '0.5',
+            lastmod: localISODate(
+              arcSite === 'elcomercio' ? date : displayDate || ''
+            ),
+            changefreq: arcSite === 'elcomercio' ? 'always' : 'hourly',
+            priority: arcSite === 'elcomercio' ? '0.5' : '1.0',
           },
         }
       }),

@@ -53,38 +53,74 @@ class XmlStoriesSitemapNews {
       urlset: stories.map(story => {
         storyData.__data = story
         return {
-          url: {
-            loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            lastmod: localISODate(storyData.publishDate || ''),
-            'news:news': {
-              'news:publication': {
-                'news:name': sitemapNewsName,
-                'news:language': 'es',
-              },
-              'news:publication_date': localISODate(
-                storyData.publishDate || ''
-              ),
-              'news:title': {
-                '#cdata': storyData.title,
-              },
-              'news:keywords': {
-                '#cdata':
-                  storyData.seoKeywords.toString() ||
-                  storyData.tags
-                    .map(tag => tag && tag.description)
-                    .toString() ||
-                  arcSite,
-              },
-            },
-            'image:image': {
-              'image:loc':
-                storyData.multimediaLandscapeL || storyData.multimedia || '',
-              'image:title': {
-                '#cdata': this.promoItemHeadlines(story),
-              },
-            },
-            changefreq: 'hourly',
-          },
+          url:
+            arcSite === 'elcomercio'
+              ? {
+                  loc: `${siteUrl}${storyData.websiteLink || ''}`,
+                  lastmod: localISODate(storyData.publishDate || ''),
+                  'news:news': {
+                    'news:publication': {
+                      'news:name': sitemapNewsName,
+                      'news:language': 'es',
+                    },
+                    'news:publication_date': localISODate(
+                      storyData.publishDate || ''
+                    ),
+                    'news:title': {
+                      '#cdata': storyData.title,
+                    },
+                    'news:keywords': {
+                      '#cdata':
+                        storyData.seoKeywords.toString() ||
+                        storyData.tags
+                          .map(tag => tag && tag.description)
+                          .toString() ||
+                        arcSite,
+                    },
+                  },
+                  'image:image': {
+                    'image:loc':
+                      storyData.multimediaLandscapeL ||
+                      storyData.multimedia ||
+                      '',
+                    'image:title': {
+                      '#cdata': this.promoItemHeadlines(story),
+                    },
+                  },
+                  changefreq: 'hourly',
+                }
+              : {
+                  loc: `${siteUrl}${storyData.websiteLink || ''}`,
+                  'news:news': {
+                    'news:publication': {
+                      'news:name': sitemapNewsName,
+                      'news:language': 'es',
+                    },
+                    'news:publication_date': localISODate(storyData.date || ''),
+                    'news:title': {
+                      '#cdata': storyData.title,
+                    },
+                    'news:keywords': {
+                      '#cdata':
+                        storyData.seoKeywords.toString() ||
+                        storyData.tags
+                          .map(tag => tag && tag.description)
+                          .toString() ||
+                        arcSite,
+                    },
+                  },
+                  'image:image': {
+                    'image:loc':
+                      storyData.multimediaLandscapeL ||
+                      storyData.multimedia ||
+                      '',
+                    'image:title': {
+                      '#cdata': this.promoItemHeadlines(story),
+                    },
+                  },
+                  changefreq: 'hourly',
+                  priority: '1.0',
+                },
         }
       }),
     }
