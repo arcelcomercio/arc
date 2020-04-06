@@ -17,16 +17,17 @@
       text-decoration: none;
     }
   }
-  &__item--active {
-    border-color: #007f22;
-    .navegation-tabs__title {
-      color: #007f22;
-      font-weight: 700;
-    }
-  }
+
   &__item {
     border-bottom: 3px solid transparent;
     &:hover {
+      border-color: #007f22;
+      .navegation-tabs__title {
+        color: #007f22;
+        font-weight: 700;
+      }
+    }
+    &--active {
       border-color: #007f22;
       .navegation-tabs__title {
         color: #007f22;
