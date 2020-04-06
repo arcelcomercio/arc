@@ -119,7 +119,7 @@
   "scripts": {
     "clean": "rm -rf resources/dist",
     "dev": "npm run clean && webpack --config ./config/webpack.config.js --env.dev && gulp ",
-    "dev:all": "npm run clean && webpack --config ./config/webpack.config.js --env.dev --env.outputs='index, amp:css, dlite-story:css,lite-story:css, paywall:css, basic:css, signwall:css' && gulp",
+    "dev:all": "npm run clean && webpack --config ./config/webpack.config.js --env.dev --env.outputs='index, amp:css, dlite-story:css,lite-story:css, match-score:css, paywall:css, basic:css, signwall:css' && gulp",
     "dev:amp": "npm run clean && webpack --config ./config/webpack.config.js --env.dev --env.outputs='amp:css'",
     "dev:basic": "npm run clean && webpack --config ./config/webpack.config.js --env.dev --env.outputs='basic:css'",
     "dev:lite": "npm run clean && webpack --config ./config/webpack.config.js --env.dev --env.outputs='lite-story:css, dlite-story:css'",
