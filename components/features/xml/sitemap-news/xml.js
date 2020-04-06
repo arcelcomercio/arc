@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+import PropTypes from 'prop-types'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 import {
@@ -63,6 +64,7 @@ class XmlSitemapNews {
       contextPath,
       arcSite,
       siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
+      customFields: { siteName } = {},
     } = this.props
 
     const stories = []
@@ -96,7 +98,7 @@ class XmlSitemapNews {
                   lastmod: localISODate(storyData.publishDate || ''),
                   'news:news': {
                     'news:publication': {
-                      'news:name': sitemapNewsName,
+                      'news:name': siteName || sitemapNewsName,
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
@@ -193,6 +195,16 @@ class XmlSitemapNews {
 
     return sitemap
   }
+}
+
+XmlSitemapNews.propTypes = {
+  customFields: PropTypes.shape({
+    siteName: PropTypes.string.tag({
+      name: 'Nombre público del sitio',
+      description:
+        'Nombre del sitio que se mostrará publicamente en este sitemap',
+    }),
+  }),
 }
 
 export default XmlSitemapNews

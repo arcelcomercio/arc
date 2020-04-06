@@ -40,7 +40,23 @@ $tertiary-font: "Roboto";
 }
 
 .hidden-label {
+  font-size: 0;
   overflow: hidden;
   width: 0;
   height: 0;
+}
+
+[id*="div-gpt-ad"] {
+  text-align: center;
+  @media print {
+    display: none;
+  }
+}
+
+/* -------------------------------/
+/          LITE NORMALIZE         /
+/ ------------------------------ */
+.menu {
+  width: 0;
+  transform: translateX(-100vw);
 }
