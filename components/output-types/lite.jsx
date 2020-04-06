@@ -16,6 +16,7 @@ import ConfigParams from '../utilities/config-params'
 import { getAssetsPath } from '../utilities/constants'
 import StoryData from '../utilities/story-data'
 import LiteAds from './_children/lite-ads'
+import videoScript from './_dependencies/video-script'
 
 const LiteOutput = ({
   children,
@@ -219,53 +220,6 @@ const LiteOutput = ({
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
-  const scriptVideo = `
- const videoObserver = (entries, observer) => {
-  entries.forEach(entry => {
-    const { isIntersecting, target } = entry
-    if (isIntersecting) {
-      const uuid = target.getAttribute('data-uuid')
-      const preroll = target.getAttribute('data-preroll')
-      const api = target.getAttribute('data-api')
-      const poster = target.getAttribute('data-poster')
-      const streams = target.getAttribute('data-streams')
-      const reziser = target.getAttribute('data-reziser')
-      const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
-      target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
-      if (window.powaBoot) window.powaBoot()
-      setTimeout(function(){  
-        if (window.PoWaSettings) {
-          window.preroll = preroll
-          window.PoWaSettings.advertising = {
-            adBar: false,
-            adTag: preroll,
-          }
-        }
-      }, 1000);
-      window.addEventListener('powaRender',
-        function () {
-          Array.from(document.getElementsByClassName('s-multimedia__p-default')).forEach(function (contShare) {
-            contShare.classList.remove("s-multimedia__p-default")
-        });
-        }
-     )
-      observer.unobserve(target)
-    }
-  })
-}
-if ('IntersectionObserver' in window) {
-  const options = {
-    rootMargin: '0px 0px 0px 0px',
-  }
-  const videosc = Array.from(document.querySelectorAll('.s-multimedia__lL-video'))
-  const videos = Array.from(document.querySelectorAll('.story-contents__lL-video')).concat(videosc)
-  videos.forEach(video => {
-      const observer = new IntersectionObserver(videoObserver, options)
-      observer.observe(video)
-  })
-}
-`
-
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/lite-story.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-story.css`
@@ -361,7 +315,7 @@ if ('IntersectionObserver' in window) {
           <>
             <script
               src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
-              async></script>
+              defer></script>
           </>
         )}
       </head>
@@ -379,16 +333,6 @@ if ('IntersectionObserver' in window) {
         <div id="fusion-app" role="application">
           {children}
         </div>
-
-        <script
-          defer
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/js/index.js`
-          )}
-        />
 
         {isStory && (
           <script
@@ -421,7 +365,7 @@ if ('IntersectionObserver' in window) {
             <script
               type="text/javascript"
               defer
-              dangerouslySetInnerHTML={{ __html: scriptVideo }}
+              dangerouslySetInnerHTML={{ __html: videoScript }}
             />
           </>
         )}
