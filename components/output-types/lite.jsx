@@ -16,6 +16,8 @@ import ConfigParams from '../utilities/config-params'
 import { getAssetsPath } from '../utilities/constants'
 import StoryData from '../utilities/story-data'
 import LiteAds from './_children/lite-ads'
+import ChartbeatBody from './_children/chartbeat-body'
+import AppNexus from './_children/appnexus'
 
 const LiteOutput = ({
   children,
@@ -342,6 +344,13 @@ if ('IntersectionObserver' in window) {
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
 
+        <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isStory}
+          globalContent={globalContent}
+        />
         <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
           {({ data }) => {
             return data ? (
@@ -356,7 +365,8 @@ if ('IntersectionObserver' in window) {
             ) : null
           }}
         </Resource>
-
+        {/* Scripts de Chartbeat */}
+        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
         {contenidoVideo && (
           <>
             <script
@@ -416,6 +426,7 @@ if ('IntersectionObserver' in window) {
           </>
         )}
 
+        <ChartbeatBody story={isStory} {...metaPageData} />
         {contenidoVideo && (
           <>
             <script
@@ -425,6 +436,7 @@ if ('IntersectionObserver' in window) {
             />
           </>
         )}
+
         <script
           defer
           src={deployment(
