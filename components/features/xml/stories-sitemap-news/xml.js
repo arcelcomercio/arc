@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+import PropTypes from 'prop-types'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 
@@ -35,6 +36,7 @@ class XmlStoriesSitemapNews {
       contextPath,
       arcSite,
       siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
+      customFields: { siteName } = {},
     } = this.props
     const { content_elements: stories } = globalContent || {}
 
@@ -53,37 +55,74 @@ class XmlStoriesSitemapNews {
       urlset: stories.map(story => {
         storyData.__data = story
         return {
-          url: {
-            loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            // lastmod: localISODate(storyData.date || ''),
-            'news:news': {
-              'news:publication': {
-                'news:name': sitemapNewsName,
-                'news:language': 'es',
-              },
-              'news:publication_date': localISODate(storyData.date || ''),
-              'news:title': {
-                '#cdata': storyData.title,
-              },
-              'news:keywords': {
-                '#cdata':
-                  storyData.seoKeywords.toString() ||
-                  storyData.tags
-                    .map(tag => tag && tag.description)
-                    .toString() ||
-                  arcSite,
-              },
-            },
-            'image:image': {
-              'image:loc':
-                storyData.multimediaLandscapeL || storyData.multimedia || '',
-              'image:title': {
-                '#cdata': this.promoItemHeadlines(story),
-              },
-            },
-            changefreq: 'hourly',
-            priority: '1.0',
-          },
+          url:
+            arcSite === 'elcomercio'
+              ? {
+                  loc: `${siteUrl}${storyData.websiteLink || ''}`,
+                  lastmod: localISODate(storyData.publishDate || ''),
+                  'news:news': {
+                    'news:publication': {
+                      'news:name': siteName || sitemapNewsName,
+                      'news:language': 'es',
+                    },
+                    'news:publication_date': localISODate(
+                      storyData.publishDate || ''
+                    ),
+                    'news:title': {
+                      '#cdata': storyData.title,
+                    },
+                    'news:keywords': {
+                      '#cdata':
+                        storyData.seoKeywords.toString() ||
+                        storyData.tags
+                          .map(tag => tag && tag.description)
+                          .toString() ||
+                        arcSite,
+                    },
+                  },
+                  'image:image': {
+                    'image:loc':
+                      storyData.multimediaLandscapeL ||
+                      storyData.multimedia ||
+                      '',
+                    'image:title': {
+                      '#cdata': this.promoItemHeadlines(story),
+                    },
+                  },
+                  changefreq: 'hourly',
+                }
+              : {
+                  loc: `${siteUrl}${storyData.websiteLink || ''}`,
+                  'news:news': {
+                    'news:publication': {
+                      'news:name': sitemapNewsName,
+                      'news:language': 'es',
+                    },
+                    'news:publication_date': localISODate(storyData.date || ''),
+                    'news:title': {
+                      '#cdata': storyData.title,
+                    },
+                    'news:keywords': {
+                      '#cdata':
+                        storyData.seoKeywords.toString() ||
+                        storyData.tags
+                          .map(tag => tag && tag.description)
+                          .toString() ||
+                        arcSite,
+                    },
+                  },
+                  'image:image': {
+                    'image:loc':
+                      storyData.multimediaLandscapeL ||
+                      storyData.multimedia ||
+                      '',
+                    'image:title': {
+                      '#cdata': this.promoItemHeadlines(story),
+                    },
+                  },
+                  changefreq: 'hourly',
+                  priority: '1.0',
+                },
         }
       }),
     }
@@ -97,6 +136,16 @@ class XmlStoriesSitemapNews {
 
     return sitemap
   }
+}
+
+XmlStoriesSitemapNews.propTypes = {
+  customFields: PropTypes.shape({
+    siteName: PropTypes.string.tag({
+      name: 'Nombre público del sitio',
+      description:
+        'Nombre del sitio que se mostrará publicamente en este sitemap',
+    }),
+  }),
 }
 
 export default XmlStoriesSitemapNews
