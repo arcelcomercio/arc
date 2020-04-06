@@ -5,13 +5,15 @@
 
 /******* Components *******/
 @import "./scss/components/header/header-full";
+@import "./scss/components/header/match-nav/navegation-tabs";
+@import "./scss/components/cards/live-score-minute-to-minute/score";
 @import "./scss/components/story/contents/related-content";
 @import "./scss/components/story/contents/story-content";
-@import "./scss/components/story/contents/story-tags";
 @import "./scss/components/story/continue/story-continue";
 @import "./scss/components/story/header/story-gallery-slider";
 @import "./scss/components/story/header/story-header";
 @import "./scss/components/story/interest/story-interest.scss";
-@import "./scss/components/story/story/story";
 @import "./scss/components/story/most-read/most-read-item";
 @import "./scss/components/story/most-read/most-read";
+@import "./scss/components/story/opta-commentary/direct";
+@import "./scss/components/story/story/story";
