@@ -240,9 +240,7 @@ export default ({
       const streams = target.getAttribute('data-streams')
       const reziser = target.getAttribute('data-reziser')
       const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
-     
       target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
-      
       if (window.powaBoot) window.powaBoot()
       setTimeout(function(){  
         if (window.PoWaSettings) {
@@ -256,11 +254,9 @@ export default ({
 
       window.addEventListener('powaRender',
         function () {
-          Array.from(document.getElementsByClassName('powa-default')).forEach(function (contShare) {
-            contShare.classList.remove("powa-default")
-        });
-          const elemento=document.getElementById('powa-icon-default');
-          elemento.parentNode.removeChild(elemento);
+          setTimeout(function(){  
+            target.classList.remove("powa-default")
+          }, 1000);
         }
      )
   
@@ -275,11 +271,38 @@ if ('IntersectionObserver' in window) {
   }
   const videos = Array.from(document.querySelectorAll('.lazyload-video'))
   videos.forEach(video => {
-   
-      const observer = new IntersectionObserver(videoObserver, options)
+         const observer = new IntersectionObserver(videoObserver, options)
       observer.observe(video)
       
   })
+}
+`
+  const scriptIframe = `
+const iframeObserver = (entries, observer) => {
+ entries.forEach(entry => {
+   const { isIntersecting, target } = entry
+   if (isIntersecting) {
+       const iframe = target.getAttribute('data-iframe')
+     const reziser = target.getAttribute('data-reziser')
+         target.innerHTML = iframe
+         setTimeout(function(){  
+          target.classList.remove("story-contents__p-default")
+          target.classList.remove("s-multimedia__p-default")
+        }, 1000);
+     observer.unobserve(target)
+   }
+ })
+}
+if ('IntersectionObserver' in window) {
+ const options = {
+   rootMargin: '0px 0px 0px 0px',
+ }
+ const iframesc = Array.from(document.querySelectorAll('.s-multimedia__lL-iframe'))
+ const iframes = Array.from(document.querySelectorAll('.story-contents__lL-iframe')).concat(iframesc)
+ iframes.forEach(iframe => {
+     const observer = new IntersectionObserver(iframeObserver, options)
+     observer.observe(iframe)
+ })
 }
 `
 
@@ -615,6 +638,12 @@ if ('IntersectionObserver' in window) {
             />
           </>
         )}
+
+        <script
+          type="text/javascript"
+          defer
+          dangerouslySetInnerHTML={{ __html: scriptIframe }}
+        />
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{

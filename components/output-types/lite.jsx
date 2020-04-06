@@ -246,9 +246,10 @@ const LiteOutput = ({
       }, 1000);
       window.addEventListener('powaRender',
         function () {
-          Array.from(document.getElementsByClassName('s-multimedia__p-default')).forEach(function (contShare) {
-            contShare.classList.remove("s-multimedia__p-default")
-        });
+          setTimeout(function(){  
+            target.classList.remove("story-contents__p-default")
+            target.classList.remove("s-multimedia__p-default")
+          }, 1000);
         }
      )
       observer.unobserve(target)
@@ -264,6 +265,33 @@ if ('IntersectionObserver' in window) {
   videos.forEach(video => {
       const observer = new IntersectionObserver(videoObserver, options)
       observer.observe(video)
+  })
+}
+`
+
+  const scriptIframe = `
+ const iframeObserver = (entries, observer) => {
+  entries.forEach(entry => {
+    const { isIntersecting, target } = entry
+    if (isIntersecting) {
+        target.innerHTML = target.getAttribute('data-iframe')
+        setTimeout(function(){  
+          target.classList.remove("story-contents__p-default")
+          target.classList.remove("s-multimedia__p-default")
+        }, 1000);
+       observer.unobserve(target)
+    }
+  })
+}
+if ('IntersectionObserver' in window) {
+  const options = {
+    rootMargin: '0px 0px 0px 0px',
+  }
+  const iframesc = Array.from(document.querySelectorAll('.s-multimedia__lL-iframe'))
+  const iframes = Array.from(document.querySelectorAll('.story-contents__lL-iframe')).concat(iframesc)
+  iframes.forEach(iframe => {
+      const observer = new IntersectionObserver(iframeObserver, options)
+      observer.observe(iframe)
   })
 }
 `
@@ -435,6 +463,14 @@ if ('IntersectionObserver' in window) {
             />
           </>
         )}
+
+        <>
+          <script
+            type="text/javascript"
+            defer
+            dangerouslySetInnerHTML={{ __html: scriptIframe }}
+          />
+        </>
 
         <script
           defer
