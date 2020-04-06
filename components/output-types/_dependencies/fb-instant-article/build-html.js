@@ -10,8 +10,6 @@ import {
 
 // const NUMBER_WORD_MULTIMEDIA = 70
 
-const URL_CDNA = 'https://cdna.elcomercio.pe/resources/assets/iframes'
-
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
@@ -267,7 +265,7 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
     case ConfigParams.ELEMENT_PODCAST:
-      result = `<figure class="op-interactive"><iframe src="${URL_CDNA}/create-podcast-audio.html?source=${payload}" width="150" height="100" scrolling="no" frameborder="0"></iframe></figure>`
+      result = `<figure class="op-interactive"><iframe width="150" height="100" scrolling="no" frameborder="0"><audio controls><source src="${payload}" type="audio/mpeg"></audio></iframe></figure>`
       break
     default:
       break
