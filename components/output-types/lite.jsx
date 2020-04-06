@@ -1,20 +1,18 @@
 import React from 'react'
 import ENV from 'fusion:environment'
 
+import { deleteQueryString } from '../utilities/parse/queries'
+import { addSlashToEnd } from '../utilities/parse/strings'
+import { storyTagsBbc } from '../utilities/tags'
+import { SITE_ELCOMERCIOMAG } from '../utilities/constants/sitenames'
+import { getAssetsPath } from '../utilities/assets'
+import StoryData from '../utilities/story-data'
+
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
-import {
-  storyTagsBbc,
-  addSlashToEnd,
-  deleteQueryString,
-  createMarkup,
-} from '../utilities/helpers'
-import ConfigParams from '../utilities/config-params'
-import { getAssetsPath } from '../utilities/constants'
-import StoryData from '../utilities/story-data'
 import LiteAds from './_children/lite-ads'
 import videoScript from './_dependencies/video-script'
 
@@ -60,19 +58,11 @@ const LiteOutput = ({
     requestUri.match(`^/preview/([A-Z0-9]{26})/?`) ||
     ''
 
-  const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
-
-  let classBody = isStory
+  const classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
         nameSeccion.split('/')[1]
       } ${subtype} `
     : ''
-  classBody = isBlogPost ? 'blogPost' : classBody
-
-  if (arcSite === 'depor') {
-    if (requestUri.match('^/depor-play')) classBody = `${classBody} depor-play`
-    if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
-  }
 
   const metaSiteData = {
     ...siteProperties,
@@ -254,7 +244,7 @@ const LiteOutput = ({
             )}?outputType=amp`}
           />
         )}
-        {arcSite === ConfigParams.SITE_ELCOMERCIOMAG && (
+        {arcSite === SITE_ELCOMERCIOMAG && (
           <link
             rel="alternate"
             href={`${siteProperties.siteUrlAlternate}${link}`}
@@ -262,27 +252,56 @@ const LiteOutput = ({
           />
         )}
         <title>{title}</title>
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        {/**
+         * dns-prefetch hace solo DNS lookup.
+         * preconnect hace DNS lookup, TLS negotiation, y TCP handshake.
+         * -----------------
+         * Si el la conexion se hace SIEMPRE, vale la pena usar preconnect
+         * (con dns-prefetch como fallback). Si la conexion no se hace siempre,
+         * sino algunas veces, es mejor usar solo dns-prefetch para evitar la
+         * TLS negotiation, y TCP handshake adicionales sin necesidad.
+         *
+         * https://web.dev/preconnect-and-dns-prefetch/
+         */}
+        <link rel="preconnect" href={`//cdnc.${siteProperties.siteDomain}`} />
+        <link rel="dns-prefetch" href={`//cdnc.${siteProperties.siteDomain}`} />
+        <link
+          rel="preconnect"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
+        <link
+          rel="dns-prefetch"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
+        <link rel="preconnect" href="//www.googletagmanager.com/" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
-        <link rel="dns-prefetch" href="//www.facebook.com/" />
-        <link rel="dns-prefetch" href="//connect.facebook.net/" />
-        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
-        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
+        <link rel="preconnect" href="//www.google-analytics.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect" href="//static.chartbeat.com/" />
         <link rel="dns-prefetch" href="//static.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
-        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//ping.chartbeat.net/" />
+        <link rel="preconnect" href="//mab.chartbeat.com/" />
         <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
+        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
+        <link rel="preconnect" href="//cdn.cxense.com/" />
         <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//arc-subs-sdk.s3.amazonaws.com/" />
+        <link rel="preconnect" href="//scdn.cxense.com/" />
+        <link rel="dns-prefetch" href="//scdn.cxense.com/" />
+        <link rel="preconnect" href="//scomcluster.cxense.com/" />
+        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
+        <link rel="preconnect" href="//sb.scorecardresearch.com/" />
+        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        {isStory && (
+          <>
+            <link rel="dns-prefetch" href="//www.facebook.com/" />
+            <link rel="dns-prefetch" href="//connect.facebook.net/" />
+            <link rel="preconnect" href="//cds.taboola.com/" />
+            <link rel="dns-prefetch" href="//cds.taboola.com/" />
+          </>
+        )}
         <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
-
-        {
-          // <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:400,500,700&display=swap" rel="stylesheet"  />
-        }
 
         <LiteAds />
 
@@ -300,12 +319,11 @@ const LiteOutput = ({
           {({ data }) => {
             return data ? (
               <style
-                amp-custom="amp-custom"
-                dangerouslySetInnerHTML={createMarkup(
-                  data
+                dangerouslySetInnerHTML={{
+                  __html: data
                     .replace('@charset "UTF-8";', '')
-                    .replace('-----------', '')
-                )}
+                    .replace('-----------', ''),
+                }}
               />
             ) : null
           }}
