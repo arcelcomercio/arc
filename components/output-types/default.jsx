@@ -325,12 +325,6 @@ if ('IntersectionObserver' in window) {
   if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
-  const styless = ` <link
-  rel="preload"
-  href=${deployment(styleUrl)}
-  onload="this.onload=null;this.rel='stylesheet'"
-  as="style"
-/>`
 
   const isStyleBasic =
     arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true

@@ -224,13 +224,6 @@ const LiteOutput = ({
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
   }
 
-  const styless = ` <link
-  rel="preload"
-  href=${deployment(styleUrl)}
-  onload="this.onload=null;this.rel='stylesheet'"
-  as="style"
-  />`
-
   return (
     <html lang="es">
       <head>
