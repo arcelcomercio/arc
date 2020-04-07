@@ -34,6 +34,7 @@ export default ({
   requestUri,
   metaValue,
   Resource,
+  isAdmin,
 }) => {
   const CURRENT_ENVIRONMENT =
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
@@ -474,7 +475,7 @@ if ('IntersectionObserver' in window) {
 
         {/* <FirebaseScripts /> */}
 
-        <Libs />
+        {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {contenidoVideo && (
           <>
             <script
@@ -536,7 +537,7 @@ if ('IntersectionObserver' in window) {
           {children}
         </div>
 
-        <Fusion />
+        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
         {isStory && (
           <script
             type="text/javascript"
