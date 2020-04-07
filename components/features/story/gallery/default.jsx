@@ -2,17 +2,43 @@ import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
 
+import StoryData from '../../../utilities/story-data'
+import {
+  GALLERY_VERTICAL,
+  BIG_IMAGE,
+  SPECIAL_BASIC,
+} from '../../../utilities/constants/subtypes'
+import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import { getAssetsPath } from '../../../utilities/constants'
+
 import StoryGalleryChildGallerySlider from './_children/gallery-slider'
 import StoryGalleryChildGallery from './_children/gallery'
-import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../utilities/config-params'
-import { defaultImage } from '../../../utilities/helpers'
 import Infografia from '../contents/_children/html'
 import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 
 const classes = {
   gallery: 'w-full',
   image: 'story-gallery__img-box w-full pl-20 pr-20',
+  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10 ml-20 md:ml-0`,
+  premiumText:
+    'premium__text flex justify-center items-center text-black font-bold icon-padlock',
+}
+
+// Funcion extraida de Helpers
+export const defaultImage = ({
+  deployment,
+  contextPath,
+  arcSite,
+  size = 'lg',
+}) => {
+  if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
+
+  return deployment(
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/default-${size}.png`
+  )
 }
 
 const StoryGallery = () => {
@@ -23,15 +49,17 @@ const StoryGallery = () => {
     globalContent: data,
     isAdmin,
     siteProperties: { siteUrl },
+    requestUri,
   } = useFusionContext()
 
   const {
     contentElementGallery,
     title,
     subTitle,
-    link,
+    websiteLink: link,
     subtype,
     promoItems,
+    isPremium,
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
@@ -39,10 +67,12 @@ const StoryGallery = () => {
     data,
     contextPath,
   })
+
   const defaultImageGallery = defaultImage({
     deployment,
     contextPath,
     arcSite,
+    size: 'lg',
   })
 
   const parameters = {
@@ -71,9 +101,16 @@ const StoryGallery = () => {
 
   return (
     <>
+      {isPremium &&
+        SITE_ELCOMERCIO === arcSite &&
+        requestUri.includes('/archivo-elcomercio/') && (
+          <div className={classes.premiumWrapper}>
+            <p className={classes.premiumText}>Suscriptor Digital</p>
+          </div>
+        )}
       {contentElementGallery ? (
         <div className={classes.gallery}>
-          {subtype === ConfigParams.GALLERY_VERTICAL ? (
+          {subtype === GALLERY_VERTICAL ? (
             <StoryGalleryChildGallery {...parameters} />
           ) : (
             <StoryGalleryChildGallerySlider {...parameters} />
@@ -88,8 +125,7 @@ const StoryGallery = () => {
           />
         )
       )}
-      {subtype === ConfigParams.BIG_IMAGE ||
-      subtype === ConfigParams.SPECIAL_BASIC ? (
+      {subtype === BIG_IMAGE || subtype === SPECIAL_BASIC ? (
         <div className={classes.image}>
           <StoryContentsChildMultimedia data={parametersPromoItems} />
         </div>
@@ -101,5 +137,6 @@ const StoryGallery = () => {
 }
 
 StoryGallery.label = 'Artículo - galería'
+StoryGallery.static = true
 
 export default StoryGallery

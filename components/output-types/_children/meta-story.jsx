@@ -12,6 +12,8 @@ import {
 } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
+import { getResizedUrl } from '../../utilities/resizer'
+import { getAssetsPathVideo } from '../../utilities/assets'
 
 export default ({
   globalContent: data,
@@ -27,10 +29,11 @@ export default ({
   const {
     id,
     title,
+    metaTitle,
     tags,
     link,
     displayDate: publishDate,
-    publishDate: lastPublishDate,
+    publishDate: publishDatedate,
     subTitle,
     seoAuthor,
     imagePrimarySeo,
@@ -38,6 +41,7 @@ export default ({
     primarySectionLink,
     videoSeo,
     contentElementsText: dataElement,
+    contentElementsHtml = [],
     relatedContent,
     seoKeywords,
     breadcrumbList,
@@ -45,6 +49,7 @@ export default ({
     sourceId,
     isPremium,
     sourceUrlOld,
+    getPremiumValue,
     contentElementsRedesSociales,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
   const parameters = {
@@ -52,15 +57,26 @@ export default ({
     id,
     arcSite,
     cant: 4,
+    presets: 'no-presets',
   }
   const resultStoryRecent = StoriesRecent(parameters)
-  const publishDateZone =
-    arcSite === ConfigParams.SITE_ELCOMERCIO ||
+  let publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
     arcSite === ConfigParams.SITE_DEPOR ||
     arcSite === ConfigParams.SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
+
+  publishDateZone =
+    arcSite === ConfigParams.SITE_ELCOMERCIO
+      ? getDateSeo(publishDate)
+      : publishDateZone
+
+  const lastPublishDate =
+    arcSite === ConfigParams.SITE_ELCOMERCIO
+      ? getDateSeo(publishDatedate)
+      : publishDatedate
+
   const redSocialVideo = contentElementsRedesSociales
     .map(({ youtube = '', facebook = '', twitter = '', user = '' }) => {
       const thumbnailUrlYoutube =
@@ -90,7 +106,7 @@ export default ({
             embedUrlFacebook}" }`
         : ''
     })
-    .filter(redSocialVideo => redSocialVideo !== '')
+    .filter(video => video !== '')
 
   let resultRelated = ''
 
@@ -121,20 +137,19 @@ export default ({
     }
   },`
   const videoSeoItems = videoSeo.map(
-    ({
-      url,
-      caption,
-      description,
-      urlImage,
-      date,
-      duration,
-      resized_urls: {
+    ({ url, caption, description, urlImage, date, duration } = {}) => {
+      const {
         large = '',
         amp_image_1x1: ampVideo1x1 = urlImage,
         amp_image_4x3: ampVideo4x3 = urlImage,
         amp_image_16x9: ampVideo16x9 = urlImage,
-      } = {},
-    } = {}) => {
+      } =
+        getResizedUrl({
+          url: urlImage || url,
+          presets:
+            'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
+          arcSite,
+        }) || {}
       const image =
         isAmp === true
           ? `"${large || urlImage}"`
@@ -146,33 +161,43 @@ export default ({
         isAmp === true ? publishedVideoOrganization : ''
       }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
         description || caption
-      )}", "contentUrl": "${url}",  "uploadDate": "${date}", "duration": "${msToTime(
+      )}", "contentUrl": "${getAssetsPathVideo(
+        arcSite,
+        url
+      )}",  "uploadDate": "${date}", "duration": "${msToTime(
         duration,
         false
       )}" } `
     }
   )
 
-  const imagesSeoItemsAmp = imagePrimarySeo.map(image => {
+  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url = '' }) => {
     const {
-      url = '',
-      resized_urls: {
-        amp_image_16x9: ampImage16x9 = '',
-        amp_image_1x1: ampImage1x1 = '',
-        amp_image_4x3: ampImage4x3 = '',
-      } = {},
-    } = image || {}
+      amp_image_1x1: ampImage1x1 = url,
+      amp_image_4x3: ampImage4x3 = url,
+      amp_image_16x9: ampImage16x9 = url,
+    } =
+      getResizedUrl({
+        url,
+        presets:
+          'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
+        arcSite,
+      }) || {}
 
     return `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 ||
       url}"]`
   })
 
   const imagesSeoItems = imagePrimarySeo.map(image => {
-    const {
-      subtitle = false,
-      url = '',
-      resized_urls: { amp_new: large = '' } = {},
-    } = image || {}
+    const { subtitle = false, url = '' } = image || {}
+
+    const { large } =
+      getResizedUrl({
+        url,
+        presets: 'large:1200x800',
+        arcSite,
+      }) || {}
+
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
@@ -239,7 +264,6 @@ export default ({
       : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
-      arcSite === ConfigParams.SITE_ELCOMERCIO ||
       arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
       arcSite === ConfigParams.SITE_DEPOR ||
       arcSite === ConfigParams.SITE_ELBOCON
@@ -247,9 +271,9 @@ export default ({
         : lastPublishDate
     }",
 
-    "headline":"${formatHtmlToText(title)}",  "description":"${formatHtmlToText(
-    subTitle
-  )}",
+    "headline":"${formatHtmlToText(title)}",
+    "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
+    "description":"${formatHtmlToText(subTitle)}",
   ${bodyStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
@@ -367,7 +391,21 @@ export default ({
         }
       }()
    */
+  const getContentType = () => {
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
 
+    let contenType = isPremium ? 'locked' : premiumValue
+    const section = primarySectionLink && primarySectionLink.split('/')[1]
+    contenType = section.match(/publirreportaje|publireportaje/)
+      ? 'free'
+      : contenType
+
+    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
+    return contenType
+  }
+  const dataStructuraHtmlAmp =
+    contentElementsHtml.match(/:<script(.*?)>(.*?)<\/script>:/gm) || []
   return (
     <>
       <meta name="data-article-id" content={id} />
@@ -401,7 +439,6 @@ export default ({
       <meta
         property="article:modified_time"
         content={`${
-          arcSite === ConfigParams.SITE_ELCOMERCIO ||
           arcSite === ConfigParams.SITE_ELCOMERCIOMAG
             ? publishDateZone
             : lastPublishDate
@@ -409,7 +446,7 @@ export default ({
       />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
-
+      <meta property="article:content_tier" content={getContentType()} />
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
@@ -421,6 +458,7 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: relatedContentData }}
       />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
@@ -432,6 +470,29 @@ export default ({
           async
         />
       )}
+
+      {isAmp === true &&
+        dataStructuraHtmlAmp.map(datas => {
+          return (
+            <>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: datas
+                    .replace(':<script type="application/ld+json">', '')
+                    .replace('</script>:', ''),
+                }}
+              />
+            </>
+          )
+        })}
+      {isAmp !== true &&
+        contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `.live-event {font-size: 16px;} .live-event .live-event-comment {display: block;position: relative;padding: 0 0 10px 65px;border-bottom: 1px solid #dcdcdc;margin-bottom: 10px;} .live-event .live-event-comment .live-event-minute{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-event .live-event-comment p{font-size: 18px;font-family: Georgia;line-height: 1.5;} .live-event .live-event-comment p a{color: #4a88c6;font-weight: bold;} .live-match {font-size: 16px;} .live-match .live-match-comment {display: block;position: relative;padding: 0 0 10px 40px;border-bottom: 1px solid #dcdcdc;margin-bottom: 10px;} .live-match .live-match-comment .live-match-minute{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-match .live-match-comment p{font-size: 18px;font-family: Georgia;line-height: 1.5;} .live-match .live-match-comment p a{color: #4a88c6;font-weight: bold;}`,
+            }}></style>
+        )}
     </>
   )
 }

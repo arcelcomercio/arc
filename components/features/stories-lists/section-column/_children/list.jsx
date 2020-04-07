@@ -1,9 +1,10 @@
 import React from 'react'
 import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
-  list: 'stories-l-card__list bg-white overflow-y-auto h-full',
+  list: 'sec-col__list bg-white h-full',
 }
 
 const StoriesListsCardChildList = ({
@@ -19,6 +20,17 @@ const StoriesListsCardChildList = ({
     deployment,
     defaultImgSize: 'sm',
   })
+
+  const getMultimedia = () => {
+    const { landscape_md: landscapeMd } =
+      getResizedUrl({
+        url: Story.multimedia,
+        presets: 'landscape_md:314x157',
+        arcSite,
+      }) || {}
+    return landscapeMd
+  }
+
   return (
     <div role="list" className={classes.list}>
       {listNews.map((el, index) => {
@@ -28,7 +40,7 @@ const StoriesListsCardChildList = ({
           seeImageNews: index === 0 && true,
           title: Story.title,
           urlNews: Story.websiteLink,
-          multimedia: Story.multimediaLandscapeMD,
+          multimedia: isAdmin ? Story.multimediaLandscapeMD : getMultimedia(),
           lazyImage: Story.multimediaLazyDefault,
           multimediaType: Story.multimediaType,
           isAdmin,

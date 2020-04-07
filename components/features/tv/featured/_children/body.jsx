@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import Icon from '../../../../global-components/multimedia-icon'
 import Modal from '../../../../global-components/video-modal'
 
-export default ({
+const tvFeaturedBody = ({
   title,
   multimedia,
   isNewStory,
@@ -15,8 +15,10 @@ export default ({
   // section,
   // menuSections,
 }) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { desktop, tablet, mobile } = multimedia || {}
+
   return (
     <>
       <div className="tv-featured position-relative mb-40">
@@ -80,3 +82,52 @@ export default ({
     </>
   )
 }
+
+const compare = (prevProps, nextProps) => {
+  const {
+    multimedia: { desktop, tablet, mobile } = {},
+    videoId: { multimediaSource, youtubeId, multimediaEmbed } = {},
+    title,
+    isNewStory,
+    date,
+    clientDate,
+  } = prevProps
+
+  const {
+    multimedia: {
+      desktop: nextDesktop,
+      tablet: nextTablet,
+      mobile: nextMobile,
+    } = {},
+    videoId: {
+      multimediaSource: nextMultimediaSource,
+      youtubeId: nextYoutubeId,
+      multimediaEmbed: nextMultimediaEmbed,
+    } = {},
+    title: nextTitle,
+    isNewStory: nextIsNewStory,
+    date: nextDate,
+    clientDate: nextClientDate,
+  } = nextProps
+
+  if (
+    title === nextTitle &&
+    isNewStory === nextIsNewStory &&
+    date === nextDate &&
+    clientDate === nextClientDate
+  )
+    if (
+      desktop === nextDesktop &&
+      tablet === nextTablet &&
+      mobile === nextMobile
+    )
+      if (
+        multimediaSource === nextMultimediaSource &&
+        youtubeId === nextYoutubeId &&
+        multimediaEmbed === nextMultimediaEmbed
+      )
+        return true
+  return false
+}
+
+export default React.memo(tvFeaturedBody, compare)

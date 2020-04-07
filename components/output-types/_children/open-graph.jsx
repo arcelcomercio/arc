@@ -3,6 +3,8 @@ import StoryData from '../../utilities/story-data'
 import { deleteQueryString } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
+import { getResizedUrl } from '../../utilities/resizer'
+import { getAssetsPathVideo } from '../../utilities/assets'
 
 export default ({
   fbAppId,
@@ -32,7 +34,11 @@ export default ({
 
   let image =
     story && multimediaLarge
-      ? multimediaLarge
+      ? getResizedUrl({
+          url: multimediaLarge,
+          presets: 'large:980x528',
+          arcSite,
+        }).large
       : deployment(
           `${getAssetsPath(
             arcSite,
@@ -46,7 +52,7 @@ export default ({
   ) {
     image = authorImage
   }
-
+  const urlVideo = getAssetsPathVideo(arcSite, url)
   return (
     <>
       {/* <!-- Facebook OG --> */}
@@ -67,10 +73,10 @@ export default ({
         </>
       )}
 
-      {url && (
+      {urlVideo && (
         <>
-          <meta property="og:video" content={url} />
-          <meta property="og:video:secure_url" content={url} />
+          <meta property="og:video" content={urlVideo} />
+          <meta property="og:video:secure_url" content={urlVideo} />
           <meta property="og:video:width" content="696" />
           <meta property="og:video:height" content="418" />
           <meta property="og:video:stream:content_type" content="video/mp4" />

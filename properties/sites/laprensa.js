@@ -75,80 +75,26 @@ export default {
     },
   ],
 
-  footer: {
-    siteLegal: [
-      'Empresa Editora El Comercio',
-      'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      'Copyright © Elcomercio.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Directora Periodística:',
-        name: 'Cecilia Valenzuela',
-      },
-      {
-        position: 'Diario Perú21: ',
-        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      },
-      {
-        position: 'Copyright © Peru21.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/peru21',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/peru21noticias',
-      },
-      {
-        name: 'google+',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Directora Periodística',
-        name: 'Cecilia Valenzuela',
-      },
-      {
-        position: 'Diario Perú21',
-        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      },
-      {
-        position: 'Contacto comercial',
-        name: '',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: '',
+    },
+    {
+      name: 'twitter',
+      url: '',
+    },
+  ],
   social: {
     facebook: {
-      name: 'facebook',
-      user: '@peru21.pe',
-      url: 'https://www.facebook.com/peru21',
+      user: '',
     },
     twitter: {
-      name: 'twitter',
-      user: 'peru21noticias',
-      url: 'https://twitter.com/peru21noticias',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
+      user: '',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011772,
-    movil2: 15011773,
-    movil3: 15011774,
-    movil4: 15011775,
-    movil5: 15011776,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna1-300x250-div-gpt-ad-8599377-31.html',
@@ -160,12 +106,13 @@ export default {
   activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
     mainLogo: 'logo.png',
     mainColorBr: '#efdb96',
-    mainColorLink:'#36b'
+    mainColorLink: '#36b',
+    authProviders: ['facebook'],
   },
   tv: {
     logoUrl: '/peru21tv/',

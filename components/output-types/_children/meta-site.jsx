@@ -1,5 +1,9 @@
 import React from 'react'
-import { deleteQueryString, addSlashToEnd } from '../../utilities/helpers'
+import {
+  deleteQueryString,
+  addSlashToEnd,
+  createMarkup,
+} from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
 
@@ -10,14 +14,16 @@ export default ({
   siteName = '',
   siteUrl = '',
   colorPrimary = '',
-  social: { facebook = {}, twitter = {} } = {},
+  socialNetworks = [],
   charbeatAccountNumber = '',
   siteDomain = '',
   requestUri = '',
   arcSite = '',
   contextPath = '',
-  isMobile = false,
+  isLite = false,
   CURRENT_ENVIRONMENT,
+  Resource,
+  isStyleBasic = false,
 } = {}) => {
   const logoSite = `${getAssetsPath(
     arcSite,
@@ -26,13 +32,13 @@ export default ({
 
   const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${deployment(
     `${logoSite}`
-  )}",  "sameAs" : [ "${facebook.url || ''}", "${twitter.url || ''}"] }`
+  )}",  "sameAs" : [ ${socialNetworks.map(social => `"${social.url}"`)} ] }`
 
   const structuredDataEco = `{"@context" : "http://schema.org", "@type" : "Organization", "legalName":"Empresa Editora El Comercio", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${deployment(
     `${logoSite}`
-  )}", "foundingDate":"1839", "founders":[ { "@type":"Person", "name":"Manuel Amunátegui"}, { "@type":"Person", "name":"Alejandro Villota"  } ],  "address":{ "@type":"PostalAddress","streetAddress":"Jr. Santa Rosa #300 Lima 1 Perú","addressLocality":"Lima Cercado","addressRegion":"LIMA",  "postalCode":"15001", "addressCountry":"PERU" }, "contactPoint":{       "@type":"ContactPoint",      "contactType":"customer service",      "contactOption" : "TollFree",      "telephone":"[+51-311-6310]", "email":"diario.elcomerciope@gmail.com"    }, "sameAs" : [ "${facebook.url ||
-    ''}", "${twitter.url ||
-    ''}" , "https://www.instagram.com/elcomercio/",  "https://www.youtube.com/channel/UCLtGUPjKLqa3zgdmhKCZONg"  ] }`
+  )}", "foundingDate":"1839", "founders":[ { "@type":"Person", "name":"Manuel Amunátegui"}, { "@type":"Person", "name":"Alejandro Villota"  } ],  "address":{ "@type":"PostalAddress","streetAddress":"Jr. Santa Rosa #300 Lima 1 Perú","addressLocality":"Lima Cercado","addressRegion":"LIMA",  "postalCode":"15001", "addressCountry":"PERU" }, "contactPoint":{       "@type":"ContactPoint",      "contactType":"customer service",      "contactOption" : "TollFree",      "telephone":"[+51-311-6310]", "email":"diario.elcomerciope@gmail.com"    }, "sameAs" : [ ${socialNetworks.map(
+    social => `"${social.url}"`
+  )} ] }`
 
   const structuredNavigation = `{"@context":"https://schema.org","@graph":[{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Opinión","url":"https://elcomercio.pe/opinion/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Política","url":"https://elcomercio.pe/politica/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Lima","url":"https://elcomercio.pe/lima/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Economía","url":"https://elcomercio.pe/economia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Mundo","url":"https://elcomercio.pe/mundo/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Deporte Total","url":"https://elcomercio.pe/deporte-total/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Perú","url":"https://elcomercio.pe/peru/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Videos","url":"https://elcomercio.pe/videos/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Luces","url":"https://elcomercio.pe/luces/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"TV+","url":"https://elcomercio.pe/tvmas/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Tecnología","url":"https://elcomercio.pe/tecnologia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Somos","url":"https://elcomercio.pe/somos/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Redes Sociales","url":"https://elcomercio.pe/redes-sociales/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Gastronomía","url":"https://elcomercio.pe/gastronomia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Viú","url":"https://elcomercio.pe/viu/"}]}`
 
@@ -57,7 +63,7 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
-  const style = isMobile === true ? 'mobile' : 'style'
+  const style = 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
@@ -71,7 +77,29 @@ export default ({
 
   return (
     <>
-      {isAmp === false && <link rel="stylesheet" href={deployment(styleUrl)} />}
+      {isStyleBasic ? (
+        <>
+          <Resource path={`resources/dist/${arcSite}/css/basic.css`}>
+            {({ data }) => {
+              return data ? (
+                <style
+                  dangerouslySetInnerHTML={createMarkup(
+                    data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', '')
+                  )}
+                />
+              ) : null
+            }}
+          </Resource>
+        </>
+      ) : (
+        <>
+          {isAmp === false && isLite === false && (
+            <link rel="stylesheet" href={deployment(styleUrl)} />
+          )}
+        </>
+      )}
       <link
         rel="shortcut icon"
         type="image/png"

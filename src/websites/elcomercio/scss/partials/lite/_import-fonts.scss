@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+/* roboto-regular - latin */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.eot"); /* IE9 Compat Modes */
+  src: local("Roboto"), local("Roboto-Regular"),
+    /* IE6-IE8 */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff")
+      format("woff"); /* Modern Browsers */
+  font-display: swap;
+}
+/* roboto-500 - latin */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-500.eot"); /* IE9 Compat Modes */
+  src: local("Roboto Medium"), local("Roboto-Medium"),
+    /* IE6-IE8 */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-500.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-500.woff")
+      format("woff");
+  font-display: swap;
+}
+
+/* roboto-700 - latin */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.eot"); /* IE9 Compat Modes */
+  src: local("Roboto Bold"), local("Roboto-Bold"),
+    /* IE6-IE8 */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff")
+      format("woff");
+  font-display: swap;
+}
+
+/* pt-serif-regular - latin */
+@font-face {
+  font-family: "PT Serif";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-regular.eot"); /* IE9 Compat Modes */
+  src: local("PT Serif"), local("PTSerif-Regular"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-regular.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-regular.woff")
+      format("woff"); /* Modern Browsers */
+  font-display: swap;
+}
+/* pt-serif-700 - latin */
+@font-face {
+  font-family: "PT Serif";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-700.eot"); /* IE9 Compat Modes */
+  src: local("PT Serif Bold"), local("PTSerif-Bold"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-700.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-700.woff")
+      format("woff"); /* Modern Browsers */
+  font-display: swap;
+}

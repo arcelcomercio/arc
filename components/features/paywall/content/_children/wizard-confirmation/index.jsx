@@ -1,6 +1,8 @@
 /* eslint-disable no-extra-boolean-cast */
+/* global Identity fbq dataLayer navigator */
 import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
+import { useFusionContext } from 'fusion:context'
 import * as S from './styled'
 import Button from '../../../_children/button'
 import Picture from '../../../_children/picture'
@@ -8,6 +10,8 @@ import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
 import { pushCxense } from '../../../_dependencies/cxense'
+import { SubscribeEventTag } from '../../../_children/fb-account-linking'
+import { interpolateUrl } from '../../../_dependencies/domains'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -33,11 +37,18 @@ const WizardConfirmation = props => {
       referer,
       payment = {},
       printedSubscriber,
+      fromFia,
       freeAccess,
       event,
     },
     getCodeCxense,
   } = props
+
+  const {
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
 
   const { orderNumber } = order
   const { uuid, firstName, lastName, secondLastName, email } = Object.assign(
@@ -70,6 +81,25 @@ const WizardConfirmation = props => {
 
   useEffect(() => {
     PWA.finalize()
+
+    const url = interpolateUrl(urls.originPaymentTraker)
+    const token = window.Identity.userIdentity.accessToken
+    fetch(url, {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        'X-arc-site': arcSite,
+      },
+      body: JSON.stringify({
+        url_referer: referer,
+        medium: origin,
+        user_agent: navigator.userAgent,
+        arc_order: orderNumber,
+      }),
+    })
+
     pushCxense(getCodeCxense) // dispara script de Cxense
     sendAction(PixelActions.PAYMENT_CONFIRMATION, {
       transactionId: orderNumber,
@@ -134,6 +164,15 @@ const WizardConfirmation = props => {
         },
       },
     })
+    fbq('track', 'Purchase', {
+      content_name: productName,
+      content_ids: [plan.sku],
+      content_type: productName,
+      contents: [{ id: plan.sku, quantity: 1 }],
+      currency: 'PEN',
+      num_items: 1,
+      value: plan.amount,
+    })
 
     if (document.getElementById('footer')) {
       document.getElementById('footer').style.position = 'relative'
@@ -160,6 +199,12 @@ const WizardConfirmation = props => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <S.Panel maxWidth="1060px" direction="row">
+        <SubscribeEventTag
+          subscriptionId={Identity.userIdentity.uuid}
+          offerCode={priceCode}
+          currency="PEN"
+          value={amount}
+        />
         <Picture
           width={{ xs: '0px', md: '360px' }}
           hideOnScreenSize="sm"
@@ -215,9 +260,11 @@ const WizardConfirmation = props => {
               source={msgs.interpolate(msgs.subscriptionNotice, { email })}
             />
           )}
-          <S.WrapButton>
-            <Button onClick={handleClick}>{msgs.continueButton}</Button>
-          </S.WrapButton>
+          {!fromFia && (
+            <S.WrapButton>
+              <Button onClick={handleClick}>{msgs.continueButton}</Button>
+            </S.WrapButton>
+          )}
         </S.Content>
       </S.Panel>
     </div>

@@ -8,7 +8,12 @@ const classes = {
     'story-content__caption pt-10 secondary-font text-md pb-10 pr-20 pl-20',
 }
 
-const StoryContentChildHtml = ({ data, caption, header = false }) => {
+const StoryContentChildHtml = ({
+  data,
+  caption,
+  basic = {},
+  header = false,
+}) => {
   return (
     <>
       {data.includes('id="powa-') && !header ? (
@@ -22,8 +27,13 @@ const StoryContentChildHtml = ({ data, caption, header = false }) => {
             .replace(
               /https:\/\/peru21.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(mp4))/g,
               'https://img.peru21.pe$1'
+            )
+            .replace(
+              /https:\/\/gestion.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+              'https://img.gestion.pe$1'
             )}
           description={caption}
+          {...basic}
         />
       ) : (
         <>

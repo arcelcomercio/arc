@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useEditableContent } from 'fusion:content'
 
 import StoryData from '../utilities/story-data'
-import { formatAMPM } from '../utilities/helpers'
+import { formatAMPM } from '../utilities/date-time/time'
 import Icon from './multimedia-icon'
 import Notify from './notify'
 
@@ -191,11 +191,13 @@ const FeaturedStory = props => {
           </a>
         </h2>
 
-        <address className={classes.author}>
-          <a className={classes.authorLink} href={author.url}>
-            {author.name}
-          </a>
-        </address>
+        {author && author.name && (
+          <address className={classes.author}>
+            <a className={classes.authorLink} href={author.url}>
+              {author.name}
+            </a>
+          </address>
+        )}
       </div>
       <a className={classes.imageLink} href={title.url}>
         {isLazyLoadActivate ? (

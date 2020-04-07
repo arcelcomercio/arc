@@ -1,23 +1,26 @@
 // import PropTypes from 'prop-types'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-import PropTypes from 'prop-types'
 
 import StandardFooter from './_children/standard'
 import SecondaryFooter from './_children/secondary'
 import StoryFooter from './_children/story'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
+import getFooterProperties from '../../footer/_dependencies/properties'
 
 /**
  * TODO: Este feature que controla distintos componentes debe ser
  * separado en distintos features, un por cada diseño, de esta manera
  * se logra cargar sólo el código necesario para cada vista.
+ *
+ * Este trabajo ya se inicio y hay varios disenos en features/footer/...
+ * el trabajo debe completarse.
  */
 
 const DEFAULT_HIERARCHY = 'footer-default'
-
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const SCHEMA = `{ 
@@ -45,9 +48,13 @@ const LayoutFooter = props => {
   const {
     gecSites,
     legalLinks,
-    footer: { socialNetworks = [], contacts = [], siteLegal, story },
+    socialNetworks = [],
     assets: { footer: { logo } = {} } = {},
   } = getProperties(arcSite)
+
+  const {
+    footer: { contacts = [], siteLegal, story } = {},
+  } = getFooterProperties(arcSite)
 
   const sections = useContent({
     source: CONTENT_SOURCE,

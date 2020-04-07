@@ -42,16 +42,12 @@ const StoryTitleAmp = () => {
     data,
     contextPath,
   })
-  const adsId = arcSite !== 'diariocorreo' ? arcSite : 'correo'
-  const dataSlot = `/${adsAmp.dataSlot}/${
-    arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? adsId : 'eco'
-  }-amp-320x50-top-movil1`
-  const placementId = adsAmp.movil1
+  const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  const dataSlot = `/${adsAmp.dataSlot}/${adsId}/amp/post/default/caja1`
   const width = '320'
 
   const parameters = {
     dataSlot,
-    placementId,
     width,
     height: '50',
     movil1: true,

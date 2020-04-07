@@ -1,6 +1,19 @@
-import ConfigParams from '../config-params'
+import { OPTA_WIDGET } from '../constants/opta'
+import {
+  SITE_PERU21,
+  SITE_ELCOMERCIO,
+  SITE_TROME,
+  SITE_DEPOR,
+  SITE_DIARIOCORREO,
+} from '../constants/sitenames'
 
-import { createMarkup, formattedTime } from '../helpers'
+import formatTime from '../date-time/format-time'
+
+const createMarkup = html => {
+  return {
+    __html: html,
+  }
+}
 
 export const formatDateStoryAmp = date => {
   const fecha = new Date(date)
@@ -9,46 +22,77 @@ export const formatDateStoryAmp = date => {
   const month = fecha.getMonth() + 1
   const formatDay = day < 10 ? `0${day}` : day
   const formatMonth = month < 10 ? `0${month}` : month
-  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formattedTime(
+  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatTime(
     fecha
   )}`
 }
 
 export const publicidadAmp = ({
   dataSlot,
-  placementId,
   width,
   height,
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
+  size = '300x600,300x250,320x100,320x50,300x100,300x50',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
   const json =
-    (ConfigParams.SITE_PERU21 === arcSite &&
+    (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
   const nuevoScript =
     (movil1 &&
-      `data-multi-size="320x100,320x50"
+      `data-multi-size="${size}"
   data-multi-size-validation="false"`) ||
     ''
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript} 
-  rtc-config='{"vendors": {"prebidappnexus": {"PLACEMENT_ID": "${placementId}"}},
-  "timeoutMillis": 1000}' ${json}></amp-ad>`
+  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>`
   }
   return createMarkup(resultData)
 }
+export const publicidadAmpAd = ({
+  dataSlot,
+  width,
+  height,
+  primarySectionLink = '/peru',
+  movil1 = '',
+  arcSite = '',
+  size = '300x250,320x100,320x50,300x100,300x50',
+}) => {
+  const secctionPrimary = primarySectionLink.split('/')
+  let resultData = ''
+  const json =
+    (SITE_PERU21 === arcSite &&
+      `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
+    ''
 
+  const flying1 =
+    (movil1 === false && `<amp-fx-flying-carpet height="250px">`) || ''
+  const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
+
+  const nuevoScript =
+    (movil1 &&
+      `data-multi-size="${size}"
+  data-multi-size-validation="false"`) ||
+    `data-multi-size="1x1"
+    data-multi-size-validation="false"`
+
+  if (secctionPrimary[1] !== 'respuestas') {
+    resultData = `${flying1}
+  <amp-ad width="${width}" height="${height}" type="doubleclick"
+  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>${flying2}`
+  }
+  return createMarkup(resultData)
+}
 export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
   let resultData = ''
   const json =
-    (ConfigParams.SITE_PERU21 === arcSite &&
+    (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
   resultData = `<amp-ad
@@ -56,7 +100,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     height="50"
     type="doubleclick"
     data-slot="${dataSlot}"
-    data-multi-size="320x50,300x100,300x50,320x100"
+    data-multi-size="fluid,728x90,320x50"
     data-multi-size-validation="false"
     ${json}
   />`
@@ -69,7 +113,7 @@ export const optaWidgetHtml = html => {
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${ConfigParams.OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
   return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
 }
 
@@ -94,7 +138,13 @@ export const imageHtml = html => {
     .replace(/<img (.*)src="(.*)" width="(.*?)" (.*)>/g, rplImageCde)
 
   resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
-  resHtml = resHtml.replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
+  resHtml = resHtml
+    .replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
+    .replace(/:<script(.*)>(.*)<\/script>:/gm, '')
+  resHtml = resHtml.replace(
+    /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
+    rplImageCde
+  )
   resHtml = resHtml.replace(
     /<img (.*)src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g,
     rplImageCde
@@ -162,7 +212,7 @@ export const deporPlay = html => {
 export const iframeHtml = (html, arcSite = '') => {
   let htmlDataTwitter = html
 
-  if (arcSite === ConfigParams.SITE_ELCOMERCIO) {
+  if (arcSite === SITE_ELCOMERCIO) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.elcomercio.pe$1'
@@ -172,7 +222,7 @@ export const iframeHtml = (html, arcSite = '') => {
       /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.elcomercio.pe$1'
     )
-  } else if (arcSite === ConfigParams.SITE_DEPOR) {
+  } else if (arcSite === SITE_DEPOR) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
       '$1'
@@ -187,7 +237,7 @@ export const iframeHtml = (html, arcSite = '') => {
         /<iframe(.*) src="(.*)soundcloud.com\/playlists\/([0-9]*[0-9])(.+)">(.*)<\/iframe>/g,
         replaceTwitter
       )
-  } else if (arcSite === ConfigParams.SITE_TROME) {
+  } else if (arcSite === SITE_TROME) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://img.trome.pe$1'
@@ -197,7 +247,7 @@ export const iframeHtml = (html, arcSite = '') => {
       /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.trome.pe$1'
     )
-  } else if (arcSite === ConfigParams.SITE_DIARIOCORREO) {
+  } else if (arcSite === SITE_DIARIOCORREO) {
     htmlDataTwitter = htmlDataTwitter.replace(
       /http:\/\/diariocorreo.pe(\/media\/([0-9-a-z-A-Z])\w+)/g,
       'https://cdne.diariocorreo.pe$1'
@@ -233,6 +283,7 @@ export const iframeHtml = (html, arcSite = '') => {
 
   htmlDataTwitter = htmlDataTwitter
     .replace(/(<script.*?>).*?(<\/script>)/g, '')
+    .replace(/:<script(.*)>(.*)<\/script>:/gm, '')
     .replace(/<html_free><blockquote (.*)">/g, '')
     .replace(/<\/blockquote><\/html_free>/g, '')
     .replace('</p>', '')
@@ -340,7 +391,7 @@ export const youtubeHtml = html => {
 
   return html
     .replace(
-      /<iframe width="(.*?)" src="(.+)?(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w\-]{10,12})(.*)><\/iframe>/g,
+      /<iframe width="(.*?)" src="(.+)?(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w-]{10,12})(.*)><\/iframe>/g,
       rplYoutube1
     )
     .replace(
@@ -392,7 +443,7 @@ export const iframeMxm = (html, arcSite) => {
   const strWidgetVivo =
     '/<script src="https://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
   const rplWidgetVivo = ''
-  const strWidgetVivo2 = `<script>var f = new ECO.Widget\({width: 625,height: 900}\).draw\("depor\/wg-${arcSite}\/(.*?)"\);<\/script>/g`
+  const strWidgetVivo2 = `<script>var f = new ECO.Widget({width: 625,height: 900}).draw("depor/wg-${arcSite}/(.*?)");</script>/g`
 
   const rplWidgetVivo3 =
     '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivo/$1/$2"></amp-iframe>'
@@ -407,6 +458,8 @@ export const iframeMxm = (html, arcSite) => {
       rplWidgetVivo3
     )
     .replace(/<mxm-evento code="(.*)" h="(.*)px"><\/mxm>/g, rplWidgetVivo4)
+    .replace(/<mxm-event (.*)><\/mxm-event>/gm, '')
+    .replace(/<mxm id="(.*)"><\/mxm>/gm, '')
 
   // pendiente de validacion enventos 485178
   return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')

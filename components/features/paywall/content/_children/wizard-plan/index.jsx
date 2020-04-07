@@ -1,6 +1,8 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable no-extra-boolean-cast */
+/* global dataLayer fbq Identity */
 import React, { useState, useEffect, useRef } from 'react'
 import { withTheme } from 'styled-components'
 import { useFusionContext } from 'fusion:context'
@@ -12,9 +14,11 @@ import Summary from './_children/summary'
 import * as S from './styled'
 import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
+import { LogIntoAccountEventTag } from '../../../_children/fb-account-linking'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { conformProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
+import { getBrowser } from '../../../_dependencies/browsers'
 import PWA from '../../_dependencies/seed-pwa'
 
 function WizardPlan(props) {
@@ -26,6 +30,7 @@ function WizardPlan(props) {
       description: productDescription,
       summary,
       printedSubscriber,
+      fromFia,
       error,
     },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
@@ -51,6 +56,7 @@ function WizardPlan(props) {
   const [profile, setProfile] = useState()
   const origin = useRef('organico')
   const referer = useRef('')
+  const justLogged = useRef()
 
   // Deferred actions
   const checkingPrinted = React.useRef(false)
@@ -80,6 +86,7 @@ function WizardPlan(props) {
 
   const loggedHandler = React.useRef(profile => {
     setProfile(profile)
+    justLogged.current = true
   }).current
 
   const logoutHandler = React.useRef(() => {
@@ -102,6 +109,7 @@ function WizardPlan(props) {
   }, [profile])
 
   useEffect(() => {
+    const browser = getBrowser()
     origin.current =
       window.sessionStorage.getItem('paywall_type_modal') || 'organico'
     referer.current = window.sessionStorage.getItem('paywall_last_url')
@@ -119,6 +127,27 @@ function WizardPlan(props) {
       suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+    fbq('track', 'ViewPaywall', {
+      surface: fromFia ? 'fia' : browser.isFbBrowser ? 'mWeb' : 'nonApp',
+      // meter_count: ""
+    })
+    fbq('track', 'ViewContent', {
+      content_category: plans[0].productName,
+      content_ids: [plans[0].sku],
+      contents: [{ id: plans[0].sku, quantity: 1 }],
+      currency: 'PEN',
+      num_items: 1,
+    })
+    fbq(
+      'track',
+      'Lead'
+      // {
+      //   content_category: "",
+      //   content_name: "",
+      //   currency: "",
+      //   value: "",
+      // }
+    )
 
     // if (document.getElementById('footer')) {
     //   document.getElementById('footer').style.position = 'relative'
@@ -181,6 +210,14 @@ function WizardPlan(props) {
           },
         },
       })
+      fbq('track', 'InitiateCheckout', {
+        content_category: plan.name,
+        content_ids: [plan.priceCode],
+        contents: [{ id: plan.priceCode, quantity: 1 }],
+        currency: 'PEN',
+        num_items: 1,
+        value: plan.amount,
+      })
       dataLayer.push({
         event: 'checkout',
         ecommerce: {
@@ -221,6 +258,9 @@ function WizardPlan(props) {
   return (
     <S.WizardPlan>
       {error && <S.Error>{error}</S.Error>}
+      {justLogged.current && (
+        <LogIntoAccountEventTag subscriptionId={Identity.userIdentity.uuid} />
+      )}
       {printedSubscriber && (
         <S.Markdown>{msgs.welcomePrintedSubscriptor}</S.Markdown>
       )}

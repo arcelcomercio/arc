@@ -1,4 +1,5 @@
-.section-videos {
+.section-videos,
+.section-peru21tv {
   background-color: #222;
 
   &.story {
@@ -133,7 +134,7 @@
     }
     &:hover {
       &:after {
-        background-color: $color-primary;
+        background-color: $color-secondary;
       }
       .video-navbar__link {
         color: $color-white;
@@ -213,8 +214,59 @@
       margin-bottom: 0;
     }
   }
-  .section-video__detail {
-    justify-content: flex-end;
+  .section-video__share{
+    width: 170px;
+    margin-top: 0;
+  }
+  .section-video__content-share{
+    border-color: #333333;
+    @media (--desktop) {
+      display: none;
+    }
+    .section-video__share{
+      @media (--desktop) {
+        display: none;
+      }
+      @media (max-width: 1024px) {
+        display: block
+      }
+    }
+  }
+  .section-video__detail{
+    .section-video__share{
+      @media (--desktop) {
+        display: block;
+      }
+      @media (max-width: 1024px) {
+        display: none
+      }
+    }
+  }
+  .section-video__btn{
+    margin-right: 15px;
+  }
+  .section-video__btn--facebook{
+    background-color: #21589B;
+  }
+  .section-video__btn--twitter{
+    background-color: #00AEF0;   
+  }
+  .section-video__btn--whatsapp{
+    background-color: #24D165;
+  }
+  .section-video__read{
+    color: #1592E6;
+    &:focus {
+      outline:none
+    }
+  }
+  .section-video__icon{
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 4px;
+    &--up{
+      transform: rotate(180deg);
+    }
   }
   .section-video__list-text {
     width: 100%;
@@ -257,5 +309,92 @@
   .section-video__title {
     color: #eaeaea;
     letter-spacing: 0.23px;
+  }
+
+  .footer-secondary{
+    background-color: #111111;
+    &__logo-wrapper{
+      margin: 0 auto;
+      @media (--desktop) {
+        max-width: 980px;
+      }
+      @media (--tablet) {
+        max-width: 620px
+      }
+      @media (--only-mobile) {
+        width: auto
+      }
+    }
+  }
+}
+
+.section-peru21tv{
+  .section-video{
+    padding-top: 0;
+  }
+  .section-video__section {
+    color: #FFCB05;
+    text-transform: uppercase;
+  }
+  .section-video__top{
+    padding-top: 20px;
+  }
+  .video-navbar.fixed{
+    z-index: 2;
+  }
+  .play-list{
+    @media (--only-mobile) {
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 0;
+    }
+  }
+  .play-list__item,
+  .video-list__item{
+    @media (--only-mobile) {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+  .play-list__image-box,
+  .video-list__image-box{
+    @media (--only-mobile) {
+      display: block;
+      max-width: 118px;
+      max-height: 72px;
+      margin-right: 15px;
+    }
+  }
+  .play-list__image,
+  .video-list__image {
+    @media (--only-mobile) {
+      height: 72px;
+      width: 118px;
+    }
+  }
+  .play-list__title,
+  .video-list__title{
+    @media (--only-mobile) {
+      max-height: 67px;
+      width: 100%;
+      overflow: hidden;
+      font-weight: bold;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      color: #DDDDDD;
+    }
+  }
+  .video-list__new{
+    @media (--only-mobile) {
+      font-weight: bold;
+      color: #DDDDDD;
+    }
+  }
+  .play-list__duration,
+  .video-list__duration{
+    @media (--only-mobile) {
+      bottom: 0;
+    }
   }
 }

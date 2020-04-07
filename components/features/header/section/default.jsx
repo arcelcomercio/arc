@@ -6,7 +6,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 
 import HeaderChildSomos from './_children/section-header'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const DEFAULT_HIERARCHY = 'header-default'
 

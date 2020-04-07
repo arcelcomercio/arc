@@ -9,10 +9,7 @@ import StorySeparatorChildItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
-import {
-  includePromoItems,
-  includePrimarySection,
-} from '../../../utilities/included-fields'
+import { separatorBasicFields } from '../../../utilities/included-fields'
 import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
@@ -38,7 +35,6 @@ const InterestByTag = props => {
   } = useFusionContext()
 
   const presets = 'no-presets'
-  const includedFields = `_id,headlines.basic,${includePromoItems},websites.${arcSite}.website_url,canonical_url,${includePrimarySection}`
 
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
@@ -56,7 +52,7 @@ const InterestByTag = props => {
             name: urlTag,
             size: 5,
             presets,
-            includedFields,
+            includedFields: separatorBasicFields,
           },
           filter: schemaFilter(arcSite),
         }) || {}

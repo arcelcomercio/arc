@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({
+const videoListChild = ({
   websiteLink,
   title,
   multimediaLandscapeMD,
@@ -10,7 +10,7 @@ export default ({
 }) => {
   return (
     <div className="video-list__item">
-      <picture className="block mb-10">
+      <picture className="block mb-10 video-list__image-box">
         <a className="video-list__link" href={websiteLink}>
           <img
             className="video-list__image object-cover w-full"
@@ -23,14 +23,13 @@ export default ({
         </a>
       </picture>
       <div className="flex">
-        <span className="text-gray-200 text-md pr-5 hidden">01:20</span>
         <a
           className="text-gray-200 text-md video-list__section"
           href={primarySectionLink}>
           {primarySection}
         </a>
       </div>
-      <a href={websiteLink} className="block mb-10">
+      <a href={websiteLink} className="block mb-10 video-list__title">
         <h3 className="line-h-xs text-xl font-bold video-list__new">{title}</h3>
       </a>
       {/* <time className="text-lg text-gray-200" dateTime="">
@@ -39,3 +38,5 @@ export default ({
     </div>
   )
 }
+
+export default React.memo(videoListChild)

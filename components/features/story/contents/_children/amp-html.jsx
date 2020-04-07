@@ -11,7 +11,7 @@ const StoryContentChildHtml = ({
   } = {},
   basicHtml: { content = '' } = {},
 }) => {
-  const { siteProperties: { urlPreroll } = {} } = useFusionContext()
+  const { siteProperties: { urlPrerollAmp } = {} } = useFusionContext()
 
   const urlMp4 = content
     .replace('data-mp4="', 'data-stream="')
@@ -21,6 +21,7 @@ const StoryContentChildHtml = ({
     .replace('elcomercio.pe', 'img.elcomercio.pe')
     .replace('trome.pe', 'img.trome.pe')
     .replace('depor.com', 'img.depor.com')
+    .replace('gestion.pe', 'img.gestion.pe')
 
   return (
     <>
@@ -28,7 +29,7 @@ const StoryContentChildHtml = ({
         <amp-ima-video
           data-src={urlMp4.replace('cde.3.img.', 'cde.3.')}
           data-poster={landscapeXl}
-          data-tag={urlPreroll}
+          data-tag={urlPrerollAmp}
           title={caption}
           width="720"
           height="405"

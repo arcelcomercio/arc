@@ -27,8 +27,6 @@ import './images/Logo_P21TV.png'
 import './images/Logo_P21TVx2.png'
 import './images/logo-peru21.jpg'
 
-// import '../../../components/utilities/lazyload'
-
 /** Fonts & icons */
 import './icons/fonts/peru21.svg'
 import './icons/fonts/peru21.woff'
@@ -36,3 +34,5 @@ import './icons/fonts/default.svg'
 import './icons/fonts/default.woff'
 
 import './fonts/OpenSans-Regular-webfont.woff'
+
+/** Scripts */

@@ -13,11 +13,26 @@ import {
 } from '../../../utilities/included-fields'
 
 const SOURCE = 'story-by-section'
+const PHOTO_SOURCE = 'photo-resizer'
+
+const getPhotoId = photoUrl => {
+  if (!photoUrl) return ''
+  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
+  const [, photoId] = customPhotoUrl || []
+  return photoId
+}
 
 const ExtraordinaryStoryBySection = props => {
   const { customFields } = props
-  const { sectionName, positionData, showExtraordinaryStory } = customFields
+  const {
+    sectionName,
+    positionData,
+    showExtraordinaryStory,
+    multimediaSource,
+  } = customFields
   const { deployment, contextPath, arcSite } = useFusionContext()
+
+  const presets = 'landscape_xl:980x528,square_l:600x600'
 
   const data =
     useContent(
@@ -27,11 +42,25 @@ const ExtraordinaryStoryBySection = props => {
             query: {
               section: sectionName,
               feedOffset: positionData || 0,
-              presets:
-                'landscape_xl:980x528,landscape_l:648x374,square_l:600x600',
+              presets,
               includedFields: `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`,
             },
             filter: schemaFilter(arcSite),
+          }
+        : {}
+    ) || {}
+
+  // Solo acepta custom image desde Photo Center
+  const photoId = multimediaSource ? getPhotoId(multimediaSource) : ''
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
+            source: PHOTO_SOURCE,
+            query: {
+              url: multimediaSource,
+              presets,
+            },
           }
         : {}
     ) || {}
@@ -49,6 +78,7 @@ const ExtraordinaryStoryBySection = props => {
     arcSite,
     customFields,
     defaultImgSize: 'md',
+    customPhoto,
   })
   // this.isVideo = formattedData.isVideo
   const params = {

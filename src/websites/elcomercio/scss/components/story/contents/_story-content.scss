@@ -73,6 +73,11 @@
   &__list-more {
     width: 110px;
   }
+  &__blockquote{
+    border-left: 2px solid #1D75C9;
+    font-family: $tertiary-font;
+    font-size: 18px;
+  }
 }
 
 .opinion .content-sidebar {

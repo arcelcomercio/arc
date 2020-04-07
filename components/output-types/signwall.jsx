@@ -2,16 +2,20 @@ import React from 'react'
 import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
+import FbPixel from './_children/fb-pixel'
+import { getAssetsPath } from '../utilities/constants'
 
-const SignwallOutputType = ({
-  children,
-  contextPath,
-  siteProperties,
-  deployment,
-  arcSite,
-  Libs,
-  Fusion,
-}) => {
+const SignwallOutputType = props => {
+  const {
+    children,
+    contextPath,
+    siteProperties,
+    deployment,
+    arcSite,
+    Libs,
+    Fusion,
+  } = props
+
   const { siteName, siteDescription } = siteProperties
 
   const C_ENVIRONMENT = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
@@ -20,6 +24,7 @@ const SignwallOutputType = ({
     <html lang="es">
       <head>
         <TagManager {...siteProperties} />
+        <FbPixel {...props} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -31,6 +36,16 @@ const SignwallOutputType = ({
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
         <meta name="robots" content="noindex,follow" />
+        <link
+          rel="shortcut icon"
+          type="image/png"
+          href={deployment(
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/favicon.png`
+          )}
+        />
         <Libs />
         <link
           rel="stylesheet"
@@ -68,6 +83,13 @@ const SignwallOutputType = ({
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
+          />
+          <img
+            alt=""
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src={`https://www.facebook.com/tr?id=${siteProperties.fbPixelId}&ev=PageView&noscript=1`}
           />
         </noscript>
 

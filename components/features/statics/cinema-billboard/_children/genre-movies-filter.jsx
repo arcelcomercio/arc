@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import BillboardFormat from '../../../../utilities/billboard-format'
-import { defaultImage } from '../../../../utilities/helpers'
+import { defaultImage } from '../../../../utilities/assets'
 
 const classes = {
   moviesGrid: 'movies-grid bg-white mt-20 p-20',

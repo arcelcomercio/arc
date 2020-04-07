@@ -1,11 +1,8 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
+import { setSurveyCookie, getCookie } from '../../../utilities/client/cookies'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
 import InternalSurveyChildSurvey from './_children/survey'
-import {
-  setSurveyCookie,
-  getCookie,
-  socialMediaUrlShareList,
-} from '../../../utilities/helpers'
 
 @Consumer
 class StaticInternalSurvey extends PureComponent {
@@ -66,7 +63,12 @@ class StaticInternalSurvey extends PureComponent {
   sharelinks = () => {
     const {
       globalContent,
-      siteProperties: { siteUrl = '' } = {},
+      siteProperties: {
+        social: {
+          twitter: { user: siteNameRedSocial },
+        },
+        siteUrl = '',
+      } = {},
       requestUri = '',
     } = this.props
     const { title = '' } = globalContent || {}
@@ -74,7 +76,8 @@ class StaticInternalSurvey extends PureComponent {
     const { facebook, twitter } = socialMediaUrlShareList(
       siteUrl,
       requestUri,
-      title
+      title,
+      siteNameRedSocial
     )
 
     return { facebook, twitter }

@@ -1,18 +1,10 @@
 /* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE,
-  ARC_ACCESS_TOKEN,
-} from 'fusion:environment'
-import { addResizedUrls } from '@arc-core-components/content-source_content-api-v4'
-import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'story-dev'
-
 const params = [
   {
     name: 'website_url',
@@ -29,28 +21,6 @@ const options = {
   },
 }
 
-const transformImg = data => {
-  const storyData = data
-  const { resizerUrl } = getProperties(data.website)
-  if (storyData.related_content && storyData.related_content.basic)
-    storyData.related_content.basic = addResizedUrlsToStory(
-      storyData.related_content.basic,
-      resizerUrl,
-      resizerSecret,
-      addResizedUrls,
-      'related'
-    )
-  return (
-    addResizedUrlsToStory(
-      [storyData],
-      resizerUrl,
-      resizerSecret,
-      addResizedUrls,
-      'story'
-    )[0] || null
-  )
-}
-
 const getAdditionalData = (storyData, website) => {
   if (storyData.type === 'redirect') return storyData
 
@@ -59,9 +29,8 @@ const getAdditionalData = (storyData, website) => {
     ...options,
   }).then(idsResp => {
     storyData.related_content = idsResp
-    const result = transformImg(storyData)
 
-    return result
+    return storyData
   })
 }
 
@@ -123,16 +92,6 @@ basic_video {
       caption
       width
       height
-      resized_urls{
-          large
-          landscape_md
-          story_small
-          amp_new
-          impresa
-          amp_image_1x1
-          amp_image_4x3
-          amp_image_16x9
-      }
     }
   }
 }`
@@ -146,16 +105,7 @@ basic_gallery {
       type
       width
       height
-      resized_urls{
-        large
-        landscape_md
-        story_small
-        amp_new
-        impresa
-        amp_image_1x1
-        amp_image_4x3
-        amp_image_16x9
-      }
+      url
     }
   }
   content_elements{
@@ -163,16 +113,7 @@ basic_gallery {
     caption
     width
     height
-    resized_urls{
-      large
-      landscape_md
-      story_small
-      amp_new
-      impresa
-      amp_image_1x1
-      amp_image_4x3
-      amp_image_16x9
-    }
+    url
   }
 }`
 
@@ -264,31 +205,10 @@ export default {
         url
         width
         height
-        resized_urls{
-          large
-          landscape_md
-          story_small
-          amp_new
-          impresa
-          amp_image_1x1
-          amp_image_4x3
-          amp_image_16x9
-        }
+        
       }
     }
-    resized_urls{
-      large
-      content_small
-      content
-      landscape_md
-      story_small
-      amp_new
-      impresa
-      medium
-      amp_image_1x1
-      amp_image_4x3
-      amp_image_16x9
-    }
+
     canonical_url
     headlines{
       basic
@@ -322,6 +242,10 @@ export default {
   }
   source
   label{
+    audiencia_nicho{
+      text
+      url
+    }
     nucleo{
       text
       url
@@ -387,6 +311,10 @@ export default {
       content
       type
     }
+    infografia {
+      content
+      type
+    }
     youtube_id {
       content
       type
@@ -398,16 +326,7 @@ export default {
       caption
       width
       height
-      resized_urls{
-        large
-        landscape_md
-        story_small
-        amp_new
-        impresa
-        amp_image_1x1
-        amp_image_4x3
-        amp_image_16x9
-      }
+
     }
     path_mp3 {
       content
@@ -453,6 +372,9 @@ export default {
       _id
       canonical_url
       website_url
+      content_restrictions{
+        content_code
+      }
       type
       headlines{
         basic
@@ -463,12 +385,6 @@ export default {
           url
           width
           height
-          
-          resized_urls{
-            large
-            original
-            landscape_md
-          }
         }
         basic_gallery{
           promo_items{
@@ -476,10 +392,7 @@ export default {
               type
               caption
               subtitle
-              resized_urls{
-                large
-                landscape_md
-              }
+              url
             }
           }
         }

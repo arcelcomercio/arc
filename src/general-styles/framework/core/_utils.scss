@@ -54,8 +54,8 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 
 // TODO:_Homologar las clases de no-<device>
 .no-desktop,
-[id*='ads-m'],
-[id*='ads_m'] {
+[id*="ads-m"],
+[id*="ads_m"] {
   @media (--tablet) {
     display: none;
   }
@@ -63,17 +63,17 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 
 .no-mobile,
 .non-mobile,
-[id*='ads-d'],
-[id*='ads_d'] {
+[id*="ads-d"],
+[id*="ads_d"] {
   @media screen and (max-width: 639px) {
     display: none;
   }
 }
 
-[id*='ads-m'],
-[id*='ads_m'],
-[id*='ads-d'],
-[id*='ads_d'] {
+[id*="ads-m"],
+[id*="ads_m"],
+[id*="ads-d"],
+[id*="ads_d"] {
   text-align: center;
 
   @media print {
@@ -95,7 +95,7 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 
 .clearfix {
   display: table;
-  content: '';
+  content: "";
 }
 
 /** ----------------------------*
@@ -209,11 +209,11 @@ $map-radius: (
   sm: 4px,
   md: 16px,
   lg: 50px,
-  '': 50%,
+  "": 50%,
 );
 
 @each $radius-class, $radius in $map-radius {
-  @if $radius-class== '' {
+  @if $radius-class== "" {
     @include build-class(rounded, border-radius, $radius);
   } @else {
     @include build-class(rounded-#{$radius-class}, border-radius, $radius);
@@ -241,6 +241,10 @@ No es un adios, es un hasta luego
   filter: blur(10px);
 } */
 
+.font-0 {
+  font-size: 0;
+}
+
 .border-none {
   border: none;
 }
@@ -255,4 +259,119 @@ No es un adios, es un hasta luego
 
 .wrapper {
   max-width: 1366px;
+}
+
+.md\:row-1 {
+  @media (--tablet) {
+    grid-row: span 1;
+    height: ($row-height * 1);
+  }
+}
+
+.md\:row-2 {
+  @media (--tablet) {
+    grid-row: span 1;
+    height: ($row-height * 2) + 20px;
+  }
+}
+.pl-35 {
+  padding-left: 35px;
+}
+.pl-40 {
+  padding-left: 45px;
+}
+.pl-45 {
+  padding-left: 45px;
+}
+.pl-50 {
+  padding-left: 50px;
+}
+.pl-55 {
+  padding-left: 55px;
+}
+.pl-60 {
+  padding-left: 60px;
+}
+.pl-65 {
+  padding-left: 65px;
+}
+.pl-70 {
+  padding-left: 70px;
+}
+.pl-75 {
+  padding-left: 75px;
+}
+
+.mb-45 {
+  margin-bottom: 50px;
+}
+.mb-50 {
+  margin-bottom: 50px;
+}
+.pt-50 {
+  padding-top: 50px;
+}
+.pb-50 {
+  padding-bottom: 50px;
+}
+.mt-50 {
+  margin-top: 50px;
+}
+.pb-60 {
+  padding-bottom: 60px;
+}
+.lg\:mt-60 {
+  margin-top: 60px;
+}
+.md\:mt-60 {
+  margin-top: 60px;
+}
+
+.md\:pl-40 {
+  padding-left: 40px;
+}
+.md\:pr-40 {
+  padding-right: 40px;
+}
+.md\:pr-40 {
+  padding-right: 40px;
+}
+.md\:pt-40 {
+  padding-top: 40px;
+}
+.md\:pb-40 {
+  padding-bottom: 40px;
+}
+.md\:ml-40 {
+  margin-left: 40px;
+}
+.pr-40 {
+  padding-right: 40px;
+}
+.pl-40 {
+  padding-left: 40px;
+}
+.pb-40 {
+  padding-bottom: 40px;
+}
+.pt-40 {
+  padding-top: 40px;
+}
+.mb-40 {
+  margin-bottom: 40px;
+}
+.mt-40 {
+  margin-top: 40px;
+}
+.lg\:mb-40 {
+  margin-bottom: 60px;
+}
+.lg\:p-40 {
+  padding: 40px;
+}
+.pt-35 {
+  padding-top: 40px;
+}
+.lg\:ml-35 {
+  margin-left: 35px;
 }

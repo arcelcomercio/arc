@@ -9,7 +9,10 @@ export default {
   resizerUrl: 'https://publimetro.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Publimetro_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    // 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Publimetro_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro/web/post/default/preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Dweb%26publisher%3Dpublimetro%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+  urlPrerollAmp:
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro/amp/post/default/preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Damp%26publisher%3Dpublimetro%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '189362231408765',
   googleTagManagerId: 'GTM-NSWLD37',
   ampGoogleTagManagerId: 'UA-3055636-18',
@@ -69,77 +72,26 @@ export default {
     },
   ],
 
-  footer: {
-    siteLegal: [
-      'Empresa Editora Publimetro',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © publimetro.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
-      },
-      {
-        position: 'Empresa Editora Publimetro',
-        name: 'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      },
-      {
-        position: 'Copyright © publimetro.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
-
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/publimetrope',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/publimetrope',
-      },
-    ],
-
-    contacts: [
-      {
-        position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
-      },
-      {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
-      },
-      {
-        position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/publimetrope',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/publimetrope',
+    },
+  ],
   social: {
     facebook: {
-      name: 'facebook',
       user: '@publimetrope',
-      url: 'http://facebook.com/publimetrope',
     },
     twitter: {
-      name: 'twitter',
       user: 'publimetrope',
-      url: 'http://twitter.com/publimetrope',
-    },
-    youtube: {
-      name: 'youtube',
-      url: '/',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011772,
-    movil2: 15011773,
-    movil3: 15011774,
-    movil4: 15011775,
-    movil5: 15011776,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-publimetro/ads-fia-28253241-pub_ia_interna1-300x250-div-gpt-ad-8599377-41.html',
@@ -158,6 +110,7 @@ export default {
     mainColorBr: '#c3d1c2',
     mainColorLink: '#265922',
     mainColorBtn: '#265922',
+    authProviders: ['facebook'],
   },
   isDfp: true,
   taboola: {

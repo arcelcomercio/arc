@@ -3,12 +3,12 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
+import getFooterProperties from '../_dependencies/properties'
 import FooterDeporColumnSection from './_children/FooterSection'
 import FooterInfo from './_children/FooterInfo'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const DEFAULT_HIERARCHY = 'footer-default'
-
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const SCHEMA = `{ 
@@ -37,14 +37,17 @@ const FooterDepor = () => {
     gecSites,
     siteUrl = '',
     legalLinks = [],
+    socialNetworks = [],
+  } = getProperties(arcSite)
+
+  const {
     footer: {
-      socialNetworks = [],
       contacts = [],
       corporateInfo = {},
       draftingContact = [],
       copyrightText = '',
     } = {},
-  } = getProperties(arcSite)
+  } = getFooterProperties(arcSite)
 
   const imageDefault = deployment(
     `${getAssetsPath(

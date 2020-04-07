@@ -59,6 +59,7 @@ class XmlFacebookInstantArticles {
         idGoogleAnalitics = '',
         fbArticleStyle = '',
         listUrlAdvertisings = [],
+        ids: { opta },
       } = {},
     } = this.props
 
@@ -113,7 +114,10 @@ class XmlFacebookInstantArticles {
                   storyLink = `${siteUrl}${storyData.websiteLink}`
                   fiaContent = fbArticleStyle
                 }
-                const pageview = `${storyData.websiteLink}?outputType=fia`
+                const pageview = `${storyLink.replace(
+                  siteUrl,
+                  ''
+                )}?outputType=fia`
                 const { revision: { revision_id: revisionId = '' } = {} } =
                   storyData._data || {}
 
@@ -161,6 +165,7 @@ class XmlFacebookInstantArticles {
                   websiteUrlsBytag,
                   arcSite,
                   section: storyData.sectionsFIA.section,
+                  opta,
                 }
 
                 return {

@@ -1,5 +1,6 @@
-import ConfigParams from './config-params'
-import { getAssetsPath } from './constants'
+import { SITE_ELCOMERCIO } from './constants/sitenames'
+import { VIDEO, GALLERY } from './constants/multimedia-types'
+import { getAssetsPath } from './assets'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -282,24 +283,6 @@ export const socialMediaUrlShareList = (
   }
 }
 
-export const socialMediaUrlShareListBlog = (
-  siteUrl,
-  postPermaLink,
-  postTitle,
-  siteNameRedSocial = 'Gestionpe'
-) => {
-  return {
-    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}blog/${postPermaLink}`,
-    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      postTitle
-    )}&url=${siteUrl}blog/${postPermaLink}&via=${siteNameRedSocial}`,
-    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}blog/${postPermaLink}`,
-    pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}blog/${postPermaLink}`,
-    whatsapp: `whatsapp://send?text=${siteUrl}blog/${postPermaLink}`,
-    fbmsg: `fb-messenger://share/?link=${siteUrl}blog/${postPermaLink}`,
-  }
-}
-
 export const createMarkup = html => {
   return {
     __html: html,
@@ -468,10 +451,10 @@ export const getUrlParameter = () => {
 export const getMultimediaIcon = multimediaType => {
   let icon = ''
   switch (multimediaType) {
-    case ConfigParams.VIDEO:
+    case VIDEO:
       icon = 'icon-video'
       break
-    case ConfigParams.GALLERY:
+    case GALLERY:
       icon = 'icon-img'
       break
     default:
@@ -542,16 +525,6 @@ export const deleteQueryString = url => {
   return onlyUrl.split('#')[0]
 }
 
-export const isIE = () => {
-  const ua = window.navigator.userAgent
-  const msie = ua.indexOf('MSIE ')
-  const trident = ua.indexOf('Trident/')
-  if (msie > 0 || trident > 0) {
-    return true
-  }
-  return false
-}
-
 export const addSlashToDateEnd = url => {
   let urlSlash = url
   const fecha = new Date('2019-07-16T22:30:00')
@@ -561,14 +534,6 @@ export const addSlashToDateEnd = url => {
   }
 
   return urlSlash
-}
-
-export const searchQuery = (query, sort) => {
-  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
-  if (query !== '')
-    // eslint-disable-next-line no-restricted-globals
-    location.href = `/buscar/${newQuery}/todas/${sort ||
-      'descendiente'}/?query=${newQuery}`
 }
 
 export function parseQueryString(str) {
@@ -582,6 +547,7 @@ export function parseQueryString(str) {
   for (let i = 0; i < sLength; i++) {
     bit = s[i].split('=')
     first = decodeURIComponent(bit[0])
+    // eslint-disable-next-line no-continue
     if (first.length === 0) continue
     second = decodeURIComponent(bit[1])
     if (typeof query[first] === 'undefined') query[first] = second
@@ -594,10 +560,10 @@ export function parseQueryString(str) {
 export const getMultimedia = (multimediaType, amp = false) => {
   let type = ''
   switch (multimediaType) {
-    case ConfigParams.VIDEO:
+    case VIDEO:
       type = 'video'
       break
-    case ConfigParams.GALLERY:
+    case GALLERY:
       type = amp ? 'foto_galeria' : 'gallery'
       break
     default:
@@ -740,19 +706,6 @@ export const clearHtml = paragraph => {
   )
 }
 
-export const storyContenImage = (
-  { resized_urls: resizedUrls, caption },
-  multimediaLazyDefault
-) => {
-  return {
-    multimediaLandscapeMD: resizedUrls.medium,
-    multimediaStorySmall: resizedUrls.content_small,
-    multimediaLarge: resizedUrls.content,
-    multimediaLazyDefault,
-    caption,
-  }
-}
-
 /*
 Hasta ahora este metodo es innecesario, comento en caso de que
 la forma que se usa como reemplazo de algun error
@@ -776,7 +729,7 @@ export const pixelAmpDate = arcSite => {
     (`${year}${month}${day}` === '20191210' ||
       `${year}${month}${day}` === '20191211' ||
       `${year}${month}${day}` === '2019129') &&
-    arcSite === ConfigParams.SITE_ELCOMERCIO
+    arcSite === SITE_ELCOMERCIO
       ? true
       : ''
   return pixelEc

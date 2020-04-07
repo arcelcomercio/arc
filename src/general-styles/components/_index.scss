@@ -126,6 +126,7 @@
 @import './features/story/related-internal';
 @import './features/story/story-header-amp';
 @import './features/story/author-title/author-title';
+@import './features/story/content/interstitial-link';
 @import './features/story/content/related-content';
 @import './features/story/content/related-internal';
 @import './features/story/content/story-content';
@@ -137,13 +138,6 @@
 @import './features/story/separator/story-separator';
 @import './features/story/special-header/special-header';
 @import './features/story/story/story';
-@import './features/tv-highlight/tv-highlight';
-@import './features/tv/featured/tv-featured';
-@import './features/tv/header/tv-header';
-@import './features/tv/layout/tv';
-@import './features/tv/menu/menu';
-@import './features/tv/section/tv-section';
-@import './features/tv/separator/tv-separator';
 @import './features/video/list/video-list';
 @import './features/video/section/play-list';
 @import './features/video/section/section-video';

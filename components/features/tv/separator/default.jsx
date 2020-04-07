@@ -36,7 +36,7 @@ const TvSeparator = props => {
         section,
         stories_qty: maxStories,
         presets: 'preset1:9x5,preset2:280xx157',
-        includedFields: `headlines.basic,display_name,promo_items,${includeSections}`,
+        includedFields: `headlines.basic,display_date,promo_items,${includeSections}`,
       },
       filter: schemaFilter,
     }) || {}
@@ -117,8 +117,6 @@ const TvSeparator = props => {
     })
     return auxParams
   }
-
-  console.log('---->>', sectionName)
 
   return (
     <div className="tv-separator ml-10 mr-10 lg:ml-30 lg:mr-30 pb-25">

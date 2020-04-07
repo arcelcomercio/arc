@@ -1,4 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
+/* global fbq dataLayer navigator */
 import React, { useState, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
@@ -11,6 +12,7 @@ import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
 import PWA from '../../_dependencies/seed-pwa'
 import { useStrings } from '../../../_children/contexts'
+import { interpolateUrl } from '../../../_dependencies/domains'
 
 function WizardUserProfile(props) {
   const msgs = useStrings()
@@ -71,7 +73,12 @@ function WizardUserProfile(props) {
 
   const [error, setError] = useState()
 
-  const { arcSite } = useFusionContext()
+  const {
+    arcSite,
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
   const Sales = addSales(arcSite)
 
   function onSubmitHandler(values, { setSubmitting }) {
@@ -117,6 +124,25 @@ function WizardUserProfile(props) {
           // TODO: validar respuesta y mostrar errores de API
           setLoading(false)
           setSubmitting(false)
+
+          const url = interpolateUrl(urls.originPaymentTraker)
+          const token = window.Identity.userIdentity.accessToken
+          fetch(url, {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+              'X-arc-site': arcSite,
+            },
+            body: JSON.stringify({
+              url_referer: referer,
+              medium: origin,
+              user_agent: navigator.userAgent,
+              arc_order: res.orderNumber,
+            }),
+          })
+
           Sentry.addBreadcrumb({
             category: 'compra',
             message: 'Orden de compra generada',

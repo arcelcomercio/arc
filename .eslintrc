@@ -27,7 +27,8 @@
           "fusion:environment",
           "fusion:properties",
           "fusion:content",
-          "fusion:context"
+          "fusion:context",
+          "fusion:static"
         ]
       }
     ],

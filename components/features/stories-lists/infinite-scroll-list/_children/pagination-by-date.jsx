@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import React, { PureComponent } from 'react'
-import { getActualDate } from '../../../../utilities/helpers'
+import { getActualDate } from '../../../../utilities/date-time/dates'
 
 const classes = {
   paginationDate: 'pagination-date w-full',

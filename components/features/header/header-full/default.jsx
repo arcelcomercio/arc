@@ -6,18 +6,17 @@ import getProperties from 'fusion:properties'
 
 import customFields from './_dependencies/custom-fields'
 import { filterHeader, filterMenu } from './_dependencies/schema-filter'
-import { socialMediaUrlShareList } from '../../../utilities/helpers'
-import ConfigParams from '../../../utilities/config-params'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
+import { getAssetsPath } from '../../../utilities/assets'
 
 import HeaderFullView from './_children/header-full'
-import { getAssetsPath } from '../../../utilities/constants'
 
 const HeaderFull = props => {
   const {
     arcSite,
     contextPath,
     deployment,
-    siteProperties,
     globalContent: {
       type = '',
       website_url: postPermaLink,
@@ -25,14 +24,16 @@ const HeaderFull = props => {
     } = {},
   } = useFusionContext() || {}
 
+  const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
+
   const {
-    footer: { socialNetworks = [] } = {},
+    socialNetworks = [],
+    social: { twitter: { user: siteNameRedSocial } = {} } = {},
     mobileHeaderFollowing = '',
     siteDomain = '',
     legalLinks = [],
-  } = siteProperties
-
-  const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
+    siteUrl,
+  } = getProperties(arcSite)
 
   const {
     contentService: serviceHeader = '',
@@ -72,17 +73,10 @@ const HeaderFull = props => {
       filter: filterMenu,
     }) || {}
 
-  const {
-    social: {
-      twitter: { user: siteNameRedSocial },
-    },
-    siteUrl,
-  } = getProperties(arcSite)
-
   const { children: headerList = [] } = dataHeader
   const { children: menuList = [] } = dataMenu
 
-  const isStory = type === ConfigParams.ELEMENT_STORY
+  const isStory = type === ELEMENT_STORY
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
@@ -91,27 +85,29 @@ const HeaderFull = props => {
     siteNameRedSocial
   )
 
-  const shareButtons = {
-    firstList: [
-      {
-        icon: 'icon-facebook-circle',
-        link: urlsShareList.facebook,
-      },
+  const shareButtons = [
+    {
+      name: 'facebook',
+      icon: 'icon-facebook-circle',
+      link: urlsShareList.facebook,
+    },
 
-      {
-        icon: 'icon-twitter-circle',
-        link: urlsShareList.twitter,
-      },
-      {
-        icon: 'icon-linkedin-circle',
-        link: urlsShareList.linkedin,
-      },
-      {
-        icon: 'icon-whatsapp',
-        link: urlsShareList.whatsapp,
-      },
-    ],
-  }
+    {
+      name: 'twitter',
+      icon: 'icon-twitter-circle',
+      link: urlsShareList.twitter,
+    },
+    {
+      name: 'linkedin',
+      icon: 'icon-linkedin-circle',
+      link: urlsShareList.linkedin,
+    },
+    {
+      name: 'whatsapp',
+      icon: 'icon-whatsapp',
+      link: urlsShareList.whatsapp,
+    },
+  ]
   const arcSiteTrome = 'trome'
 
   const winningCallLogo =

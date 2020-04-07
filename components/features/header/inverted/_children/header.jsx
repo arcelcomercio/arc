@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import ENV from 'fusion:environment'
 
-import { searchQuery, popUpWindow } from '../../../../utilities/helpers'
 import {
   sideScroll,
   handleNavScroll,
@@ -12,6 +13,7 @@ import {
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import SignwallComponent from '../../../signwall/main/default'
+import searchQuery from '../../../../utilities/client/search'
 
 /* 
 const DRAG_SCREEN_LIMIT = 90
@@ -35,6 +37,7 @@ const classes = {
   rightBtnContainer: `right-0 mr-10 lg:mr-20`,
   form: 'position-relative items-center hidden lg:flex',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
+  searchLabel: 'overflow-hidden w-0 h-0',
   btnSearch: `header-inverted__btn-search flex items-center nav__btn--search text-white lg:pr-20 lg:pl-20 border-r-1 border-solid`,
   iconSearch: 'icon-search text-lg',
   btnMenu:
@@ -59,6 +62,16 @@ const classes = {
   iconMore: 'story-header__share-icon icon-share text-white',
   navContainerRight: 'flex items-center justify-end header__btn-container',
   btnSubscribe: 'flex items-center btn capitalize text-md',
+}
+
+const popUpWindow = (url, title, w, h) => {
+  const left = window.screen.width / 2 - w / 2
+  const top = window.screen.height / 2 - h / 2
+  return window.open(
+    url,
+    title,
+    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+  )
 }
 
 // TODO: Agregar el click afuera del menu
@@ -280,7 +293,7 @@ const HeaderChildInverted = ({
     }
   }, []) */
 
-  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod': 'sandbox';
+  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   return (
     <>
       <nav className={classes.band}>
@@ -348,6 +361,7 @@ const HeaderChildInverted = ({
             className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
             <form className={classes.form} onSubmit={e => e.preventDefault()}>
               <input
+                id="header-search-input"
                 ref={inputSearch}
                 type="search"
                 defaultValue={search}
@@ -356,6 +370,11 @@ const HeaderChildInverted = ({
                 placeholder="¿Qué Buscas?"
                 className={`${classes.search} ${activeSearch()}`}
               />
+              <label
+                htmlFor="header-search-input"
+                className={classes.searchLabel}>
+                Cuadro de búsqueda
+              </label>
               <Button
                 iconClass={classes.iconSearch}
                 btnClass={`${classes.btnSearch} ${activeSearch()}`}
@@ -377,7 +396,8 @@ const HeaderChildInverted = ({
             className={`${classes.logoContainer} ${isStory &&
               scrolled &&
               statusSearch &&
-              'opacity-0'}`}>
+              'opacity-0'}`}
+            title={logo.alt}>
             <img
               src={
                 scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
@@ -405,15 +425,19 @@ const HeaderChildInverted = ({
                   </div>
 
                   <ul className={classes.listIcon}>
-                    {shareButtons.firstList.map((item, i) => (
+                    {shareButtons.map((item, i) => (
                       <li key={item.icon} className={classes.shareItem}>
                         <a
+                          title={`Compartir en ${item.name}`}
                           className={classes.shareLink}
                           href={item.link}
                           onClick={event => {
                             openLink(event, item)
                           }}>
-                          <i className={`${item.icon} ${classes.shareIcon}`} />
+                          <i
+                            className={`${item.icon} ${classes.shareIcon}`}
+                            aria-hidden="true"
+                          />
                         </a>
                       </li>
                     ))}
@@ -424,17 +448,28 @@ const HeaderChildInverted = ({
             <div className={`${classes.navContainerRight} `}>
               {siteProperties.activePaywall && (
                 <Button
-                    btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
-                    onClick={()=>{
-                      const { origin } = window.location;
-                      const outputType = (_env === 'prod')? '' : 'outputType=paywall&';
-                      const pf = _env === 'prod' ? '' : '/pf';
-                      const connector = _env !== "prod" ? `?_website=${arcSite}&` : `?`;
-                      const link = origin + pf + siteProperties.urlSubsOnline + connector + outputType;
-                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !== 'undefined' && window.section) || ''}`;
-                      window.location.href = link + ref;
-                    }}/>
+                  btnText="Suscríbete"
+                  btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
+                  onClick={() => {
+                    const { origin } = window.location
+                    const outputType =
+                      _env === 'prod' ? '' : 'outputType=paywall&'
+                    const pf = _env === 'prod' ? '' : '/pf'
+                    const connector =
+                      _env !== 'prod' ? `?_website=${arcSite}&` : `?`
+                    const link =
+                      origin +
+                      pf +
+                      siteProperties.urlSubsOnline +
+                      connector +
+                      outputType
+                    const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
+                      'undefined' &&
+                      window.section) ||
+                      ''}`
+                    window.location.href = link + ref
+                  }}
+                />
               )}
               {siteProperties.activeSignwall && (
                 <SignwallComponent

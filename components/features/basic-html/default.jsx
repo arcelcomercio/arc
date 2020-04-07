@@ -4,16 +4,22 @@ import { useFusionContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import {
-  createMarkup,
   createScript,
   appendToBody,
   appendToId,
-  storyVideoPlayerId,
-} from '../../utilities/helpers'
+} from '../../utilities/client/nodes'
 
 const classes = {
   htmlContainer: 'htmlContainer overflow-x-auto overflow-y-hidden',
   newsEmbed: 'story-content__embed',
+}
+
+// Funcion extraida de Helpers
+const storyVideoPlayerId = (content = '') => {
+  const pattern = content.includes('id')
+    ? /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    : /<script (src=(.*))(.*)(async(=(.*))?)><\/script>/
+  return content.match(pattern) || []
 }
 
 const isDaznServicePlayer = content =>
@@ -160,18 +166,18 @@ const BasicHtml = props => {
     return (
       <div
         className={addEmptyBorder()}
-        dangerouslySetInnerHTML={createMarkup(getAdsSpace())}
+        dangerouslySetInnerHTML={{ __html: getAdsSpace() }}
       />
     )
   }
   return (
     <div className={` ${classes.htmlContainer} `}>
       {freeHtml && outputType !== 'amp' && (
-        <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+        <div dangerouslySetInnerHTML={{ __html: freeHtml }} />
       )}
       {!freeHtml && isAdmin && (
         <div
-          dangerouslySetInnerHTML={createMarkup(freeHtml)}
+          dangerouslySetInnerHTML={{ __html: freeHtml }}
           className={addEmptyBackground()}
         />
       )}

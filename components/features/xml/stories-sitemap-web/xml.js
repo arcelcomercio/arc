@@ -1,5 +1,4 @@
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 
 /**
@@ -19,8 +18,6 @@ class XmlStoriesSitemapWeb {
   render() {
     const {
       globalContent,
-      deployment,
-      contextPath,
       arcSite,
       siteProperties: { siteUrl = '' } = {},
     } = this.props
@@ -30,22 +27,22 @@ class XmlStoriesSitemapWeb {
       return null
     }
 
-    const storyData = new StoryData({
-      deployment,
-      contextPath,
-      arcSite,
-      defaultImgSize: 'sm',
-    })
-
     const sitemap = {
       urlset: stories.map(story => {
-        storyData.__data = story
+        const {
+          publish_date: date,
+          display_date: displayDate,
+          websites: { [arcSite]: { website_url: websiteLink } = {} } = {},
+        } = story
+
         return {
           url: {
-            loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            lastmod: localISODate(storyData.date || ''),
-            changefreq: 'hourly',
-            priority: '1.0',
+            loc: `${siteUrl}${websiteLink || ''}`,
+            lastmod: localISODate(
+              arcSite === 'elcomercio' ? date : displayDate || ''
+            ),
+            changefreq: arcSite === 'elcomercio' ? 'always' : 'hourly',
+            priority: arcSite === 'elcomercio' ? '0.5' : '1.0',
           },
         }
       }),

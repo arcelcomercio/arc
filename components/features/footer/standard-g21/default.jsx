@@ -1,11 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-import PropTypes from 'prop-types'
 
+import getFooterProperties from '../_dependencies/properties'
 import FooterChildStandardG21 from './_children/footer-g21'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -34,9 +35,11 @@ const FooterStandardG21 = props => {
   const {
     gecSites,
     legalLinks,
-    footer: { socialNetworks = [], siteLegal, story },
+    socialNetworks = [],
     assets: { footer: { logo } = {} } = {},
   } = getProperties(arcSite)
+
+  const { footer: { siteLegal, story } = {} } = getFooterProperties(arcSite)
 
   const sections = useContent({
     source: CONTENT_SOURCE,

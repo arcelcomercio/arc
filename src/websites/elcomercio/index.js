@@ -44,5 +44,7 @@ import './fonts/LibreFranklin/libre-franklin-v4-latin-700.woff'
 import './fonts/NotoSerifSC/noto-serif-sc-v6-latin-500.woff'
 import './fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.woff'
 
+/** Scripts */
+
 // Imagenes paywall
 require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)

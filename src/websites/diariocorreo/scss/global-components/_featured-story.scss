@@ -17,7 +17,7 @@
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       border-right: 2px solid transparent;
       border-bottom: 6px solid transparent;
@@ -103,6 +103,7 @@
   }
 
   &.expand {
+    height: auto;
     .featured-story__title-link {
       margin-top: 10px;
     }
@@ -185,7 +186,7 @@
     }
   }
 }
-.featured-story[class*=' col-2'] {
+.featured-story[class*=" col-2"] {
   &.expand {
     .featured-story__category {
       @media (--only-mobile) {

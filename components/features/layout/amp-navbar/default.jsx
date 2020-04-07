@@ -18,5 +18,6 @@ LayoutAmpNavbar.propTypes = {
 }
 
 LayoutAmpNavbar.label = 'Barra de Navegación AMP'
+LayoutAmpNavbar.static = true
 
 export default LayoutAmpNavbar

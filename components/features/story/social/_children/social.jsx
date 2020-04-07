@@ -2,13 +2,12 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import {
-  popUpWindow,
-  socialMediaUrlShareList,
-} from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryData from '../../../../utilities/story-data'
-import ConfigParams from '../../../../utilities/config-params'
+import {
+  SPECIAL,
+  SPECIAL_BASIC,
+} from '../../../../utilities/constants/subtypes'
 import StorySocialChildAuthor from './author'
 
 const classes = {
@@ -30,11 +29,47 @@ const classes = {
   premium: 'story-header__premium',
 }
 
-const StoryHeaderChildSocial = () => {
-  const firstList = 'firstList'
-  const secondList = 'secondList'
-  const currentList = firstList
+const windowW = 600
+const windowH = 400
 
+const popup = `(function(){setTimeout(function() {
+  const $shareButtons = document.querySelectorAll('a[data-share]')
+  if ($shareButtons && $shareButtons.length > 0) {
+    const windowLeft = window.screen.width / 2 - ${windowW} / 2
+    const windowTop = window.screen.height / 2 - ${windowH} / 2
+    $shareButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault()
+        window.open(
+          button.getAttribute('href'),
+          '',
+          'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${windowW}, height=${windowH}, top='+windowTop+', left='+windowLeft+''
+        )
+      })
+    })
+  }
+}, 0)})()`
+
+// Funcion extraida de Helpers
+const socialMediaUrlShareList = (
+  siteUrl,
+  postPermaLink,
+  postTitle,
+  siteNameRedSocial = 'Gestionpe'
+) => {
+  return {
+    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      postTitle
+    )}&url=${siteUrl}${postPermaLink}&via=${siteNameRedSocial}`,
+    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
+    // pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
+    whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
+    // fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
+  }
+}
+
+const StoryHeaderChildSocial = () => {
   const { globalContent, arcSite, contextPath } = useFusionContext()
   const { website_url: postPermaLink, headlines: { basic: postTitle } = {} } =
     globalContent || {}
@@ -51,37 +86,33 @@ const StoryHeaderChildSocial = () => {
     siteNameRedSocial
   )
 
-  const shareButtons = {
-    [firstList]: [
-      {
-        icon: classes.iconFacebook,
-        link: urlsShareList.facebook,
-        mobileClass: classes.mobileClass,
-      },
+  const shareButtons = [
+    {
+      name: 'facebook',
+      icon: classes.iconFacebook,
+      link: urlsShareList.facebook,
+      mobileClass: classes.mobileClass,
+    },
 
-      {
-        icon: classes.iconTwitter,
-        link: urlsShareList.twitter,
-        mobileClass: classes.mobileClass,
-      },
-      {
-        icon: classes.iconLinkedin,
-        link: urlsShareList.linkedin,
-        mobileClass: classes.mobileClass,
-      },
-      {
-        icon: classes.iconWhatsapp,
-        link: urlsShareList.whatsapp,
-        mobileClass: `block md:hidden ${classes.mobileClass}`,
-      },
-    ],
-  }
-
-  const openLink = (event, item, print) => {
-    event.preventDefault()
-    if (print) window.print()
-    else popUpWindow(item.link, '', 600, 400)
-  }
+    {
+      name: 'twitter',
+      icon: classes.iconTwitter,
+      link: urlsShareList.twitter,
+      mobileClass: classes.mobileClass,
+    },
+    {
+      name: 'linkedin',
+      icon: classes.iconLinkedin,
+      link: urlsShareList.linkedin,
+      mobileClass: classes.mobileClass,
+    },
+    {
+      name: 'whatsapp',
+      icon: classes.iconWhatsapp,
+      link: urlsShareList.whatsapp,
+      mobileClass: `block md:hidden ${classes.mobileClass}`,
+    },
+  ]
 
   const {
     publishDate: date,
@@ -94,7 +125,6 @@ const StoryHeaderChildSocial = () => {
     primarySection,
     primarySectionLink,
     subtype,
-    // tags,
     isPremium,
   } = new StoryData({
     data: globalContent,
@@ -115,14 +145,14 @@ const StoryHeaderChildSocial = () => {
     <>
       <div
         className={`${classes.news} ${
-          subtype === ConfigParams.SPECIAL_BASIC ||
-          subtype === ConfigParams.SPECIAL ||
+          subtype === SPECIAL_BASIC ||
+          subtype === SPECIAL ||
           primarySectionLink === '/archivo-elcomercio/'
             ? 'justify-center'
             : 'justify-between'
         }`}>
-        {subtype !== ConfigParams.SPECIAL_BASIC &&
-          subtype !== ConfigParams.SPECIAL &&
+        {subtype !== SPECIAL_BASIC &&
+          subtype !== SPECIAL &&
           primarySectionLink !== '/archivo-elcomercio/' && (
             <div
               className={`${classes.category} ${(isPremium &&
@@ -136,23 +166,25 @@ const StoryHeaderChildSocial = () => {
             </div>
           )}
         <ul className={classes.list}>
-          {shareButtons[currentList].map((item, i) => (
+          {shareButtons.map((item, i) => (
             <li
               key={UtilListKey(i)}
               className={` ${classes.item} ${item.mobileClass}`}>
               <a
                 className={classes.link}
                 href={item.link}
-                onClick={event => {
-                  const isPrint = i === 2 && currentList === secondList
-                  openLink(event, item, isPrint)
-                }}>
-                <i className={`${item.icon} ${classes.icon}`} />
+                data-share=""
+                title={`Compartir en ${item.name}`}>
+                <i
+                  className={`${item.icon} ${classes.icon}`}
+                  aria-hidden="true"
+                />
               </a>
             </li>
           ))}
         </ul>
       </div>
+      <script dangerouslySetInnerHTML={{ __html: popup }}></script>
     </>
   )
 }

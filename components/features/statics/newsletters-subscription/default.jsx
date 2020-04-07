@@ -8,7 +8,7 @@ import Loading from '../../signwall/_children/loading'
 import Services from '../../signwall/_dependencies/services'
 import Domains from '../../signwall/_dependencies/domains'
 import SubscriptionTitle from './_children/title'
-import { Generic } from '../../signwall/main/_main/generic'
+import { Generic } from '../../signwall/mainpage/_children/generic'
 
 const classes = {
   container:
