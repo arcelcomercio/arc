@@ -53,7 +53,10 @@ export default ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    promo_items: { basic_gallery: basicGallery = 0 } = {},
+    promo_items: {
+      basic_gallery: basicGallery = 0,
+      uuid_match: idMatch = '',
+    } = {},
     taxonomy: {
       primary_section: { path: nameSeccion = '' } = {},
       tags = [],
@@ -68,6 +71,8 @@ export default ({
     ''
 
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
+
+  const isStoryMatch = isStory && idMatch && idMatch !== ''
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
@@ -318,7 +323,7 @@ if ('IntersectionObserver' in window) {
       height: 157px;
     }}
     `
-  const style = 'style'
+  const style = arcSite === 'depor' && isStoryMatch ? 'match_score' : 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
