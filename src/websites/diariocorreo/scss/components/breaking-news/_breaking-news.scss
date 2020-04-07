@@ -9,8 +9,9 @@
   }
   &--bgcolor-2 {
     .breaking-news__tag {
-      animation-name: example;
-      animation-duration: 1s;
+      animation-name: intermitent;
+      animation-duration: 1.5s;
+      animation-delay: 0.5s;
       animation-iteration-count: infinite;
     }
   }
@@ -20,11 +21,14 @@
   }
 }
 
-@keyframes example {
-  from {
+@keyframes intermitent {
+  0% {
+    color: $color-white;
+  }
+  50% {
     color: $color-black;
   }
-  to {
+  100% {
     color: $color-white;
   }
 }
