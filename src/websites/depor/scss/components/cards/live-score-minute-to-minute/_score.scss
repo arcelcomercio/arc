@@ -1,6 +1,5 @@
 .score {
   background-color: $color-white;
-  position: relative;
   &-sticky {
     gap: 0;
   }
@@ -53,7 +52,6 @@
   }
 
   &__status-message {
-    position: absolute;
     left: 50%;
     transform: translateX(-50%);
     top: 85px;
@@ -95,9 +93,9 @@
       }
     }
     &-name {
+      font-size: 12px;
+      line-height: 16px;
       @media (--only-mobile) {
-        font-size: 12px;
-        line-height: 16px;
         margin-top: 5px;
       }
       @media (--tablet) {
@@ -112,10 +110,6 @@
     }
     &-logo {
       width: 42px;
-      margin-right: 25px;
-      @media (--only-mobile) {
-        margin-right: 0;
-      }
     }
     &-number {
       font-size: 50px;
@@ -158,10 +152,10 @@
     }
     &-name,
     &-time {
-      font-size: 15px;
+      font-size: 13px;
       line-height: 16px;
-      @media (--only-mobile) {
-        font-size: 13px;
+      @media (--tablet) {
+        font-size: 15px;
       }
     }
     &-img {
