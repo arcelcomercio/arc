@@ -27,8 +27,30 @@
           left: -272px;
         }
       }
-      .nav__container-right{
+      .nav__container-right {
         display: none;
+      }
+      .story-header__list {
+        @media (--only-mobile) {
+          display: none;
+        }
+
+        &.block {
+          @media (--only-mobile) {
+            display: block;
+          }
+        }
+
+        @media (--tablet) {
+          justify-content: flex-end;
+        }
+      }
+      .story-header__item {
+        &:first-child {
+          @media (--tablet) {
+            margin-right: 15px;
+          }
+        }
       }
     }
   }
