@@ -7,8 +7,24 @@
       color: $color-base-400;
     }
   }
+  &--bgcolor-2 {
+    .breaking-news__tag {
+      animation-name: example;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+    }
+  }
   &__text,
   &__link {
     font-weight: 600;
+  }
+}
+
+@keyframes example {
+  from {
+    color: $color-black;
+  }
+  to {
+    color: $color-white;
   }
 }
