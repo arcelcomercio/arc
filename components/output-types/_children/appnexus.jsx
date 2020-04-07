@@ -50,7 +50,7 @@ const getVars = (
           id,
           multimediaType,
           primarySectionLink,
-          isPremium,
+          getPremiumValue,
           nucleoOrigen,
           formatOrigen,
           contentOrigen,
@@ -60,6 +60,12 @@ const getVars = (
           data: globalContent,
           arcSite,
         })
+
+        const premiumValue =
+          getPremiumValue === 'premium' ? true : getPremiumValue
+        const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
+        const isPremium = isPremiumFree === 'metered' ? false : isPremiumFree
+
         const subSectionList = primarySectionLink.split('/').slice(1)
         subsection = subSectionList[1]
           ? subSectionList[1].replace('-', '')
