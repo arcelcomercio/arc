@@ -382,8 +382,9 @@ const LiteOutput = ({
           <>
             <script
               type="text/javascript"
-              defer
-              dangerouslySetInnerHTML={{ __html: videoScript }}
+              dangerouslySetInnerHTML={{
+                __html: videoScript(CURRENT_ENVIRONMENT),
+              }}
             />
           </>
         )}
