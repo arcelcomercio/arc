@@ -20,6 +20,8 @@ import {
 import { getAssetsPath } from '../utilities/constants'
 import StoryData from '../utilities/story-data'
 
+import iframeScript from './_dependencies/iframe-script'
+
 export default ({
   children,
   contextPath,
@@ -277,35 +279,6 @@ if ('IntersectionObserver' in window) {
   })
 }
 `
-  const scriptIframe = `
-const iframeObserver = (entries, observer) => {
- entries.forEach(entry => {
-   const { isIntersecting, target } = entry
-   if (isIntersecting) {
-       const iframe = target.getAttribute('data-iframe')
-     const reziser = target.getAttribute('data-reziser')
-         target.innerHTML = iframe
-         setTimeout(function(){  
-          target.classList.remove("story-contents__p-default")
-          target.classList.remove("s-multimedia__p-default")
-        }, 1000);
-     observer.unobserve(target)
-   }
- })
-}
-if ('IntersectionObserver' in window) {
- const options = {
-   rootMargin: '0px 0px 0px 0px',
- }
- const iframesc = Array.from(document.querySelectorAll('.s-multimedia__lL-iframe'))
- const iframes = Array.from(document.querySelectorAll('.story-contents__lL-iframe')).concat(iframesc)
- iframes.forEach(iframe => {
-     const observer = new IntersectionObserver(iframeObserver, options)
-     observer.observe(iframe)
- })
-}
-`
-
   const {
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
@@ -642,7 +615,7 @@ if ('IntersectionObserver' in window) {
         <script
           type="text/javascript"
           defer
-          dangerouslySetInnerHTML={{ __html: scriptIframe }}
+          dangerouslySetInnerHTML={{ __html: iframeScript() }}
         />
         {/* Rubicon BlueKai - Fin */}
         <script
@@ -653,14 +626,19 @@ if ('IntersectionObserver' in window) {
 
         {isStyleBasic && (
           <>
-            <i
-              dangerouslySetInnerHTML={{
-                __html: styless,
-              }}></i>
-
-            <noscript>
-              <link rel="stylesheet" href={deployment(styleUrl)} />
+            <noscript id="deferred-styles">
+              <link
+                rel="stylesheet"
+                type="text/css"
+                href={`${deployment(styleUrl)}`}
+              />
             </noscript>
+
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.setTimeout(loadDeferredStyles,0)});else window.addEventListener("load",loadDeferredStyles)`,
+              }}
+            />
           </>
         )}
       </body>
