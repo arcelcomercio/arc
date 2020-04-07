@@ -201,7 +201,7 @@ const Paywall = ({
               <Nav
                 excludeSteps={freeAccess && [2, 3]}
                 stepsNames={stepNames}
-                right={<ClickToCall href={clickToCallUrl} text={msgs.help} />}
+                /* right={<ClickToCall href={clickToCallUrl} text={msgs.help} />} */
               />
             }>
             <WizardPlan

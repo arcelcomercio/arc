@@ -20,6 +20,7 @@ const ContentContainer = styled.div`
   width: 100%;
   flex-direction: column;
   background: ${props => props.theme.palette.background.default};
+  z-index: 0;
 `
 
 const DefaultLayout = ({ children = [], theme }) => {
