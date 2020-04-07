@@ -111,11 +111,11 @@ export default {
     supportTitle: `Soporte`,
     supportSubtitle: `Si tienes dudas o consultas, envíanos un correo`,
     supportContent: 
-    `**Correos:** 
-      -Servicio al cliente y Ventas:  
-      suscriptores@comercio.com.pe  
-      -Pagos pendientes y Facturación:  
-      cobranzas@suscripcionesintegrales.com.pe`,
+    `**Servicio al cliente y Ventas:**
+     suscriptores@diariogestion.com.pe  
+     <br/>
+     **Pagos pendientes y Facturación:**
+     cobranzas@suscripcionesintegrales.com.pe`,
 
     // Contact 
     corporateSubscriptionsTitle: 
