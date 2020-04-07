@@ -18,7 +18,7 @@ import {
 } from '../../../utilities/constants'
 
 const classes = {
-  liveScore: 'score w-full',
+  liveScore: 'score w-full position-relative',
   liveWrapper:
     'score__wrapper pt-20 pb-30 flex justify-center items-center mx-auto overflow-hidden',
   liveEnd: 'score__end position-relative',
@@ -26,7 +26,7 @@ const classes = {
     'score__end-text rounded font-bold uppercase text-gray-200 flex justify-center items-center secondary-font',
   liveFixtureText:
     'score__status-fixture flex justify-center items-center secondary-font',
-  liveTextStatus: 'score__status-message primary-font',
+  liveTextStatus: 'score__status-message primary-font position-absolute',
 }
 
 // const CDN = 'get-score-data-opta'

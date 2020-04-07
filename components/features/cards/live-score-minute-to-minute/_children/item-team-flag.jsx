@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  scoreLogo: 'score__team-logo',
+  scoreLogo: 'score__team-logo md:mr-25',
   scoreImg: 'score__team-img w-full h-full object-cover',
 }
 
