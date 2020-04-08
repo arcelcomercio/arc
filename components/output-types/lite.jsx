@@ -14,7 +14,10 @@ import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
 import renderMetaPage from './_children/render-meta-page'
 import LiteAds from './_children/lite-ads'
+import ChartbeatBody from './_children/chartbeat-body'
+import AppNexus from './_children/appnexus'
 import videoScript from './_dependencies/video-script'
+import iframeScript from './_dependencies/iframe-script'
 
 const LiteOutput = ({
   children,
@@ -221,13 +224,6 @@ const LiteOutput = ({
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
   }
 
-  const styless = ` <link
-  rel="preload"
-  href=${deployment(styleUrl)}
-  onload="this.onload=null;this.rel='stylesheet'"
-  as="style"
-  />`
-
   return (
     <html lang="es">
       <head>
@@ -315,6 +311,13 @@ const LiteOutput = ({
         <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
 
+        <AppNexus
+          arcSite={arcSite}
+          requestUri={requestUri}
+          port={metaValue('port')}
+          isStory={isStory}
+          globalContent={globalContent}
+        />
         <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
           {({ data }) => {
             return data ? (
@@ -328,7 +331,8 @@ const LiteOutput = ({
             ) : null
           }}
         </Resource>
-
+        {/* Scripts de Chartbeat */}
+        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
         {contenidoVideo && (
           <>
             <script
@@ -378,6 +382,7 @@ const LiteOutput = ({
           </>
         )}
 
+        <ChartbeatBody story={isStory} {...metaPageData} />
         {contenidoVideo && (
           <>
             <script
@@ -388,6 +393,13 @@ const LiteOutput = ({
             />
           </>
         )}
+
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: iframeScript(),
+          }}
+        />
         <script
           defer
           src={deployment(
@@ -399,13 +411,19 @@ const LiteOutput = ({
         />
         {isStory && (
           <>
-            <i
-              dangerouslySetInnerHTML={{
-                __html: styless,
-              }}></i>
-            <noscript>
-              <link rel="stylesheet" href={deployment(styleUrl)} />
+            <noscript id="deferred-styles">
+              <link
+                rel="stylesheet"
+                type="text/css"
+                href={`${deployment(styleUrl)}`}
+              />
             </noscript>
+
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.setTimeout(loadDeferredStyles,0)});else window.addEventListener("load",loadDeferredStyles)`,
+              }}
+            />
           </>
         )}
       </body>

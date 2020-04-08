@@ -46,7 +46,17 @@
       width: 815px;
     }
   }
-  &__lL-video {
+
+  &__p-default {
+    background-color: #000;
+    height: 157px;
+    @media (--desktop) {
+      height: 345px;
+    }
+  }
+
+  &__lL-video,
+  &__lL-iframe {
     padding-top: 20px;
   }
   & * iframe {
