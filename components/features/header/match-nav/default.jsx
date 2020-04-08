@@ -6,9 +6,9 @@ const classes = {
   navTabs:
     'navegation-tabs w-full bg-white pt-10 flex justify-center border-t-1 border-solid',
   navTabsList: 'navegation-tabs__list flex',
-  navTabsItem: 'navegation-tabs__item flex items-center',
+  navTabsItem: 'navegation-tabs__item flex items-center border-solid',
   navTabsItemActive:
-    'navegation-tabs__item navegation-tabs__item--active flex items-center',
+    'navegation-tabs__item navegation-tabs__item--active flex items-center border-solid',
   navTabsTitle:
     'navegation-tabs__title secondary-font pl-10 pr-10 md:pl-20 md:pr-20 pb-5',
 }
