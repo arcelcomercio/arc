@@ -136,6 +136,10 @@ export const FormLogin = ({
         } else {
           setShowUserWithSubs(true) // tengo subs
           setShowLoadingPremium(false)
+          const divPremium = document.getElementById('contenedor')
+          if (divPremium) {
+            divPremium.classList.remove('story-content__nota-premium')
+          }
         }
       })
     }
@@ -160,6 +164,10 @@ export const FormLogin = ({
           } else {
             setShowUserWithSubs(true) // tengo subs
             setShowLoadingPremium(false)
+            const divPremium = document.getElementById('contenedor')
+            if (divPremium) {
+              divPremium.classList.remove('story-content__nota-premium')
+            }
           }
         })
       } else {

@@ -1,4 +1,8 @@
 .story-content {
+  &__nota-premium {
+    display: none;
+  }
+  
   &__tag-link {
     color: $color-gray-200;
   }
