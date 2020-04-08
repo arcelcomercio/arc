@@ -1,8 +1,8 @@
 .story-contents {
   padding: 20px;
-  margin-bottom: 14px;
+  margin-bottom: 25px;
   border-bottom: 1px solid $border-color-gray;
-  font-family: $primary-font;
+  font-family: $tertiary-font;
 
   &__author {
     font-size: 14px;
@@ -33,7 +33,7 @@
     padding: 20px 0 0 0;
     line-height: 28px;
     & a {
-      color: #3366bb;
+      color: #36b;
     }
   }
 
@@ -46,7 +46,17 @@
       width: 815px;
     }
   }
-  &__lL-video {
+
+  &__p-default {
+    background-color: #000;
+    height: 157px;
+    @media (--desktop) {
+      height: 345px;
+    }
+  }
+
+  &__lL-video,
+  &__lL-iframe {
     padding-top: 20px;
   }
   & * iframe {
@@ -58,6 +68,9 @@
 
     &__text {
       font-style: italic;
+      color: #469bc6;
+      padding: 15px;
+      font-size: 1.3rem;
     }
 
     &::first-letter {
@@ -99,11 +112,7 @@
       line-height: 1.3;
     }
   }
-  .pquote__text {
-    color: #469bc6;
-    padding: 15px;
-    font-size: 1.3rem;
-  }
+
   /* ----------------------------------------------------- */
 
   &__font-paragraph,
@@ -116,6 +125,23 @@
       padding: 14px 0;
       font-size: 13px;
       color: $color-gray-200;
+    }
+  }
+
+  &__icon-list {
+    margin-right: -49px;
+  }
+
+  &__caption {
+    border-bottom: 1px dashed $color-gray-200;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 13px;
+    font-family: $secondary-font;
+    color: #888;
+
+    & > span {
+      display: none;
     }
   }
 
@@ -156,23 +182,6 @@
 
     & img {
       width: 100%;
-    }
-  }
-
-  &__icon-list {
-    margin-right: -49px;
-  }
-
-  &__caption {
-    border-bottom: 1px dashed $color-gray-200;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-size: 13px;
-    font-family: $secondary-font;
-    color: #888;
-
-    & > span {
-      display: none;
     }
   }
 
@@ -239,17 +248,17 @@
   }
 
   & li {
+    b {
+      font-family: $secondary-font;
+      @media (--only-mobile) {
+        font-size: 18px;
+      }
+    }
     & a {
       color: #4a88b1;
       font-weight: 700;
       b {
         font-family: $tertiary-font;
-      }
-    }
-    b {
-      font-family: $secondary-font;
-      @media (--only-mobile) {
-        font-size: 18px;
       }
     }
 

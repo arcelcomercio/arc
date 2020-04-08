@@ -195,6 +195,7 @@ const StoryContentChildVideo = props => {
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
+        data-type="pwa"
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
