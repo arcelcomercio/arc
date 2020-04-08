@@ -5,6 +5,8 @@ import customFields from './_dependencies/custom-fields'
 
 import ItemCommentary from './_children/item-commentary'
 
+import { getFootballGameId } from '../../../utilities/get-story-values'
+
 const classes = {
   commentaries: 'direct__wrapper p-10',
   list: 'direct__list',
@@ -25,13 +27,61 @@ const icons = {
 
 @Consumer
 class OptaCommentary extends Component {
-  render() {
+  constructor(props) {
+    super(props)
+
     const {
       globalContent: {
         opta_commentaries: { items: listCommentary = [] },
         adsMatch = '',
       } = {},
     } = this.props
+
+    this.state = { listCommentary, adsMatch }
+
+    this.setInsetvalForRequest()
+  }
+
+  getDataCommentary = () => {
+    const { globalContent } = this.props
+
+    const footballGameId = getFootballGameId(globalContent)
+
+    const url = `https://devresultadosopta.elcomercio.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
+    fetch(url)
+      .then(data => data.json())
+      .then(commentaryData => {
+        const { items: listCommentary = [] } = commentaryData
+        listCommentary.slice(
+          0,
+          Math.floor(listCommentary.length * Math.random())
+        )
+        this.setState({
+          listCommentary,
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  setInsetvalForRequest = () => {
+    const {
+      customFields: { intervalTime = 1 },
+    } = this.props
+
+    const intervalTimeMilliseconds = intervalTime * 60000
+
+    const interval = setInterval(
+      () => this.getDataCommentary(),
+      intervalTimeMilliseconds
+    )
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ interval })
+  }
+
+  render() {
+    const { listCommentary, adsMatch } = this.state
 
     return (
       <div className={classes.commentaries}>
