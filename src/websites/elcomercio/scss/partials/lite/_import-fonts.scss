@@ -64,3 +64,16 @@
       format("woff");
   font-display: swap;
 }
+
+/* georgia-regular - latin */
+@font-face {
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Georgia"), local("Georgia-Regular"),
+    /* url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2")
+      format("woff2"), */
+      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff")
+      format("woff");
+  font-display: swap;
+}
