@@ -1,10 +1,16 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import {
   SITE_ELCOMERCIO,
   SITE_OJO,
+  SITE_DEPOR,
+  SITE_ELBOCON,
+  SITE_GESTION,
+  SITE_PUBLIMETRO,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   storyContinue:
@@ -27,6 +33,8 @@ const URLS_STORAGE = '_recents_articles_'
 const MAX_PROGRESS = 350
 const MIN_PROGRESS = 180
 
+const PATH_BLOG = '/blogs'
+
 @Consumer
 class StoryContinue extends PureComponent {
   constructor(props) {
@@ -34,9 +42,7 @@ class StoryContinue extends PureComponent {
     this.preview = 0
     this.position = 0
     const {
-      globalContent: {
-        taxonomy: { primary_section: { path = '' } = {} },
-      },
+      globalContent: { taxonomy: { primary_section: { path = '' } = {} } = {} },
       arcSite,
     } = this.props
 
@@ -66,6 +72,9 @@ class StoryContinue extends PureComponent {
     const html = document.documentElement
     const concurrentProgress = parseInt(progress.getAttribute('size'), 10)
     const { innerHeight, scrollY } = window
+    const {
+      customFields: { isBlog },
+    } = this.props || {}
 
     if (!signwall) {
       if (innerHeight + scrollY + 10 >= html.scrollHeight) {
@@ -74,7 +83,7 @@ class StoryContinue extends PureComponent {
           const newerProgress = concurrentProgress + 10 * i + 10
           this.setAttributeProgress(progress, newerProgress)
           if (newerProgress >= MAX_PROGRESS) {
-            this.setTimeoutLoadPage(linker, html)
+            this.setTimeoutLoadPage(linker, html, isBlog)
           }
           // newerProgress = +1
         }
@@ -124,7 +133,7 @@ class StoryContinue extends PureComponent {
     document.querySelector('.nav__story-title').textContent = titleNew
   }
 
-  setTimeoutLoadPage = (linker, html = '') => {
+  setTimeoutLoadPage = (linker, html = '', isBlog = '') => {
     const { arcSite } = this.props || {}
     const timeLoad = SITE_OJO === arcSite ? 5000 : 250
     setTimeout(() => {
@@ -133,7 +142,8 @@ class StoryContinue extends PureComponent {
         link !== '' &&
         window.innerHeight + window.scrollY + 10 >= html.scrollHeight
       ) {
-        window.location = link
+        const linkRedirect = isBlog ? PATH_BLOG : link
+        window.location = linkRedirect
       }
     }, timeLoad)
   }
@@ -168,9 +178,9 @@ class StoryContinue extends PureComponent {
       const storyHeader = document.querySelector('.story-header__list')
       if (storyHeader) storyHeader.classList.add('hidden')
       if (
-        arcSite !== 'elcomercio' &&
-        arcSite !== 'depor' &&
-        arcSite !== 'elbocon'
+        arcSite !== SITE_ELCOMERCIO &&
+        arcSite !== SITE_DEPOR &&
+        arcSite !== SITE_ELBOCON
       ) {
         const navSidebar = document.querySelector('.nav-sidebar')
         const nav = document.querySelector('.nav')
@@ -204,9 +214,9 @@ class StoryContinue extends PureComponent {
       const navLogo = document.querySelector('.nav__logo')
       if (window.screen.width > 1023 && navLogo) {
         const { arcSite, contextPath, deployment } = this.props || {}
-        if (arcSite !== 'gestion') {
+        if (arcSite !== SITE_GESTION) {
           navLogo.src = deployment(
-            arcSite === 'publimetro'
+            arcSite === SITE_PUBLIMETRO
               ? `${getAssetsPath(
                   arcSite,
                   contextPath
@@ -265,7 +275,11 @@ class StoryContinue extends PureComponent {
   }
 
   render() {
-    const { siteProperties, arcSite } = this.props || {}
+    const {
+      siteProperties,
+      arcSite,
+      customFields: { isBlog },
+    } = this.props || {}
     const { siteUrl } = siteProperties
     const { dataList: { content_elements: stories = [] } = {} } = this.state
 
@@ -294,13 +308,16 @@ class StoryContinue extends PureComponent {
         ? '?ref=nota&ft=autoload&outputType=amp'
         : '?ref=nota&ft=autoload'
 
+    const titleRedirect = isBlog ? 'Cargando a la sección de Blogs' : title
+    const websiteUrlRedirect = isBlog
+      ? PATH_BLOG
+      : `${websiteUrl}${storyLoadAmp}`
+
     return (
       <>
         <div className={classes.storyContinue}>
           <div className={classes.storyLoad} data-state="outviewport">
-            <a
-              href={`${websiteUrl}${storyLoadAmp}`}
-              className={classes.storyLoadLink}>
+            <a href={websiteUrlRedirect} className={classes.storyLoadLink}>
               <div className={classes.storyCircle}>
                 <span className={classes.storyLoadImage} />
                 <div className={classes.storycounter}> </div>
@@ -312,10 +329,12 @@ class StoryContinue extends PureComponent {
                 <div className={classes.storyProgresEnd} />
               </div>
               <div className={classes.storyLoadNews}>
-                <span className={classes.storyLoadText}>
-                  Cargando siguiente...
-                </span>
-                <h3 className={classes.storyLoadTitle}>{title}</h3>
+                {!isBlog && (
+                  <span className={classes.storyLoadText}>
+                    Cargando siguiente...
+                  </span>
+                )}
+                <h3 className={classes.storyLoadTitle}>{titleRedirect}</h3>
               </div>
             </a>
           </div>
@@ -323,6 +342,10 @@ class StoryContinue extends PureComponent {
       </>
     )
   }
+}
+
+StoryContinue.propTypes = {
+  customFields,
 }
 
 StoryContinue.label = 'Artículo - Siguiente'
