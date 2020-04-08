@@ -421,7 +421,7 @@ export default ({
                   </div>
 
                   <ul className={classes.listIcon}>
-                    {shareButtons.firstList.map((item, i) => (
+                    {shareButtons.map((item, i) => (
                       <li key={item.icon} className={classes.shareItem}>
                         <a
                           title={`Compartir en ${item.name}`}
