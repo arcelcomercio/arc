@@ -100,7 +100,7 @@ export default {
       disclaimer:                        `http://ecomedia.pe/libro/registrar/gestion/`,
       terms:                             `https://suscripciones.gestion.pe/terminos/`,
       originSubsOnline:                  `https://suscripciones.gestion.pe/`,
-      contactEmailRef:                   `mailto:suscriptores@diariogestion.com.pe`,
+      contactEmailRef:                   `mailto:atencionalcliente@comercio.com.pe`,
       contactPhoneRef:                   `tel:+5113115100`,
       androidAppDownload:                `https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer`,
       iosAppDownload:                    `https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer`,
