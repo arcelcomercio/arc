@@ -112,7 +112,7 @@ export default {
     supportSubtitle: `Si tienes dudas o consultas, envíanos un correo`,
     supportContent: 
     `**Servicio al cliente y Ventas:**
-     suscriptores@diariogestion.com.pe  
+     atencionalcliente@comercio.com.pe  
      <br/>
      **Pagos pendientes y Facturación:**
      cobranzas@suscripcionesintegrales.com.pe`,
@@ -153,7 +153,7 @@ export default {
     // Footer
     contactUs: `Contáctanos al`,
     contactPhoneNumber: `01 311-5100`,
-    contactEmail: `suscriptores@diariogestion.com.pe`,
+    contactEmail: `atencionalcliente@comercio.com.pe`,
     footerAd: `Paquetes que incluyen diario impreso, disponibles sólo para Lima y Callao`,
     supportLink: `Soporte`,
     privacyPolicyLink: `Políticas de privacidad`,
