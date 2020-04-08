@@ -1,6 +1,6 @@
 .story-contents {
   padding: 20px;
-  margin-bottom: 14px;
+  margin-bottom: 25px;
   border-bottom: 1px solid $border-color-gray;
   font-family: $primary-font;
 
@@ -118,6 +118,23 @@
     }
   }
 
+  &__icon-list {
+    margin-right: -49px;
+  }
+
+  &__caption {
+    border-bottom: 1px dashed $color-gray-200;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 13px;
+    font-family: $secondary-font;
+    color: #888;
+
+    & > span {
+      display: none;
+    }
+  }
+
   /* Para arreglar estilos en o-embed */
 
   &__embed {
@@ -155,23 +172,6 @@
 
     & img {
       width: 100%;
-    }
-  }
-
-  &__icon-list {
-    margin-right: -49px;
-  }
-
-  &__caption {
-    border-bottom: 1px dashed $color-gray-200;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-size: 13px;
-    font-family: $secondary-font;
-    color: #888;
-
-    & > span {
-      display: none;
     }
   }
 
@@ -238,17 +238,17 @@
   }
 
   & li {
+    b {
+      font-family: $secondary-font;
+      @media (--only-mobile) {
+        font-size: 18px;
+      }
+    }
     & a {
       color: #4a88b1;
       font-weight: 700;
       b {
         font-family: $tertiary-font;
-      }
-    }
-    b {
-      font-family: $secondary-font;
-      @media (--only-mobile) {
-        font-size: 18px;
       }
     }
 
