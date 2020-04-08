@@ -8,7 +8,7 @@ export default ({ globalContent, requestUri, siteName = '', siteUrl = '' }) => {
       rel="alternate"
       type="application/rss+xml"
       title={`${siteName}${sectionName && ` - ${sectionName}`}`}
-      href={`${siteUrl}/feed${requestUri || ''}`}
+      href={`${siteUrl}/arcio/rss/category${requestUri || ''}`}
     />
   )
 }
