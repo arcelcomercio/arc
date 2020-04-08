@@ -65,7 +65,7 @@ const getVars = (
           getPremiumValue === 'premium' ? true : getPremiumValue
         const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
         const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
-        const isPremium = isPremiumMete === 'vacío' ? false : isPremiumFree
+        const isPremium = isPremiumMete === 'vacio' ? false : isPremiumMete
 
         const subSectionList = primarySectionLink.split('/').slice(1)
         subsection = subSectionList[1]
