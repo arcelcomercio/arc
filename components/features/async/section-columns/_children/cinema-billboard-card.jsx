@@ -173,7 +173,7 @@ export default () => {
                 `${getAssetsPath(
                   arcSite,
                   contextPath
-                )}/resources/dist/${arcSite}/images/default-md.png`
+                )}/resources/dist/${arcSite}/images/default-md.png?d=1`
               ),
             premiereTitle,
             premiereUrl,

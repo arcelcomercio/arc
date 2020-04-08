@@ -63,24 +63,20 @@ export const LandingInt = props => {
 @Consumer
 class Landing extends Component {
   render() {
-    const { contextPath, typeDialog, deployment, arcSite } = this.props
+    const { contextPath, typeDialog, arcSite } = this.props
     const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
 
     const pathSourcePNG =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/${IMG}.png`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${IMG}.png?d=1` || ''
 
     const pathSourceWEBP =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/${IMG}.webp`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${IMG}.webp?d=1` || ''
 
     return (
       <LandingInt

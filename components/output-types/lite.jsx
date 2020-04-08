@@ -402,12 +402,10 @@ const LiteOutput = ({
         />
         <script
           defer
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/assets/js/lazyload.js`
-          )}
+          src={`${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/assets/js/lazyload.js?d=1`}
         />
         {isStory && (
           <>

@@ -1258,17 +1258,12 @@ class StoryData {
     return squareXS
   }
 
-  static getDataAuthor(
-    data,
-    { contextPath = '', deployment = () => {}, website = '' } = {}
-  ) {
+  static getDataAuthor(data, { contextPath = '', website = '' } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const authorImageDefault = deployment(
-      `${getAssetsPath(
-        website,
-        contextPath
-      )}/resources/dist/${website}/images/author.png`
-    )
+    const authorImageDefault = `${getAssetsPath(
+      website,
+      contextPath
+    )}/resources/dist/${website}/images/author.png?d=1`
 
     let nameAuthor = ''
     let urlAuthor = ''

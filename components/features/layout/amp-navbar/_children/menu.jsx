@@ -74,7 +74,6 @@ class NavbarChildMenu extends PureComponent {
     const {
       contextPath,
       arcSite,
-      deployment,
       data: { children: sections = [] } = {},
       socialNetworks = [],
     } = this.props
@@ -93,12 +92,10 @@ class NavbarChildMenu extends PureComponent {
     const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
     const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
 
-    const logoAmp = deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/assets/amp/icon-cross.png`
-    )
+    const logoAmp = `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/amp/icon-cross.png?d=1`
 
     const parameters = {
       arcSite,

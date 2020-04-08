@@ -203,19 +203,18 @@ class StoryContinue extends PureComponent {
        */
       const navLogo = document.querySelector('.nav__logo')
       if (window.screen.width > 1023 && navLogo) {
-        const { arcSite, contextPath, deployment } = this.props || {}
+        const { arcSite, contextPath } = this.props || {}
         if (arcSite !== 'gestion') {
-          navLogo.src = deployment(
+          navLogo.src =
             arcSite === 'publimetro'
               ? `${getAssetsPath(
                   arcSite,
                   contextPath
-                )}/resources/dist/publimetro/images/green-logo.png`
+                )}/resources/dist/publimetro/images/green-logo.png?d=1`
               : `${getAssetsPath(
                   arcSite,
                   contextPath
-                )}/resources/dist/${arcSite}/images/logo.png`
-          )
+                )}/resources/dist/${arcSite}/images/logo.png?d=1`
         }
       }
       // TODO: finnnn

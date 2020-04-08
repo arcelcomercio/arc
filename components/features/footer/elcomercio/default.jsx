@@ -8,7 +8,7 @@ import FooterChildElComercio from './children/footer'
 import { getAssetsPath } from '../../../utilities/assets'
 
 const FooterElComercio = () => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite, contextPath, isAdmin } = useFusionContext()
 
   const {
     assets: { footer: { logo } = {} } = {},
@@ -22,20 +22,16 @@ const FooterElComercio = () => {
   } = getFooterProperties(arcSite)
 
   const logoUrl =
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${logo}`
-    ) || ''
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1` || ''
 
   const gdaLogo =
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/assets/footer/logo-gda.png`
-    ) || ''
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/footer/logo-gda.png?d=1` || ''
 
   const params = {
     legalLinks,

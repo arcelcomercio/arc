@@ -57,7 +57,6 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       arcSite,
       isAmp,
-      deployment,
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
@@ -140,12 +139,10 @@ class StoryContentAmp extends PureComponent {
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     return (
       <>
