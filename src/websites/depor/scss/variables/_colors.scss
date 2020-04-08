@@ -1,49 +1,57 @@
-/******* Brand colors *******/
+/* ****** Brand colors ****** */
 $color-primary: #007c31;
 $color-secondary: #9abf16;
 $color-tertiary: #fbb03b;
 $color-fourth: #f15a24;
 $color-fifth: #ed1c26;
 
-/*-----------------------*/
+/* ----------------------- */
 $color-gray-100: #eae9e5;
 
-/*-----------------------*/
+/* ----------------------- */
+$color-base-100: #007f22;
 
-/******* Other colors *******/
+/* ****** Other colors ****** */
 $color-black-depor: #212121;
 $color-link: #006097;
 $color-text-depor: #1d1a44;
-/*-----------------------*/
 
-/** ----------------------------*
+/* ----------------------- */
+
+/* * ----------------------------*
 *        GENERAL CONFIG         *
-*-------------------------------*/
-/******** border colors *********/
+
+*------------------------------- */
+
+/* ******* border colors ******** */
 $border-color-base: $color-primary;
 
-/******* Header colors *******/
+/* ****** Header colors ****** */
 $header-bg-color: $color-primary;
 $header-text-color: $color-white;
-/*-----------------------*/
 
-/******* Nav colors *******/
+/* ----------------------- */
+
+/* ****** Nav colors ****** */
 $nav-color: $color-gray-300;
-/*-----------------------*/
 
-/******* Footer Amp colors *******/
+/* ----------------------- */
+
+/* ****** Footer Amp colors ****** */
 $footer-background: $color-primary;
 $footer-text-color: $color-black;
-/*-----------------------*/
 
-/******* Colors Signwall *******/
+/* ----------------------- */
+
+/* ****** Colors Signwall ****** */
 $signwall-color-item-title: $color-tertiary;
 $signwall-color-link: $color-primary;
 $signwall-login-text: $color-base-100;
 $signwall-login-bg: $color-primary;
 $signwall-btn-m-bg: $color-secondary;
 $signwall-btn-m-color: $color-black;
-$signwall-btn-d-color: #444444;
+$signwall-btn-d-color: #444;
 $signwall-btn-d-bg: $color-white;
 $signwall-btn-d-border: $color-white;
-/*----------------------------*/
+
+/* ---------------------------- */
