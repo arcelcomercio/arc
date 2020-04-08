@@ -306,7 +306,7 @@ export default ({
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
   const scriptTaboola = `
-  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.async=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
+  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
     arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript
   }/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
 
@@ -323,7 +323,7 @@ export default ({
           if (!document.getElementById(id)) {
             const n = document.createElement('script')
             const f = document.getElementsByTagName('script')[0]
-            n.async = 1;
+            n.defer = 1;
             n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
             n.id = id;
             f.parentNode.insertBefore(n, f);
@@ -353,7 +353,7 @@ export default ({
               if (!document.getElementById(id)) {
                 const n = document.createElement('script')
                 const f = document.getElementsByTagName('script')[0]
-                n.async = 1;
+                n.defer = 1;
                 n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
                 n.id = id;
                 f.parentNode.insertBefore(n, f);

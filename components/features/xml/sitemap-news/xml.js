@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+import PropTypes from 'prop-types'
 import StoryData from '../../../utilities/story-data'
 import { localISODate } from '../../../utilities/helpers'
 import {
@@ -23,7 +24,7 @@ class XmlSitemapNews {
     const { query: { _id: section } = {} } = globalContentConfig || {}
 
     const presets = 'landscape_l:648x374'
-    const includedFields = `websites.${arcSite}.website_url,display_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},content_elements.url,content_elements.type,content_elements.resized_urls,content_elements.caption`
+    const includedFields = `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},content_elements.url,content_elements.type,content_elements.resized_urls,content_elements.caption`
 
     this.fetchContent(this.getStates(section, presets, includedFields))
   }
@@ -63,6 +64,7 @@ class XmlSitemapNews {
       contextPath,
       arcSite,
       siteProperties: { sitemapNewsName = '', siteUrl = '' } = {},
+      customFields: { siteName } = {},
     } = this.props
 
     const stories = []
@@ -90,35 +92,72 @@ class XmlSitemapNews {
         const { content_elements: contentElements = [] } = story || {}
         return {
           url: [
-            {
-              loc: `${siteUrl}${storyData.websiteLink || ''}`,
-              // lastmod: localISODate(storyData.date || ''),
-              'news:news': {
-                'news:publication': {
-                  'news:name': sitemapNewsName,
-                  'news:language': 'es',
+            arcSite === 'elcomercio'
+              ? {
+                  loc: `${siteUrl}${storyData.websiteLink || ''}`,
+                  lastmod: localISODate(storyData.publishDate || ''),
+                  'news:news': {
+                    'news:publication': {
+                      'news:name': siteName || sitemapNewsName,
+                      'news:language': 'es',
+                    },
+                    'news:publication_date': localISODate(
+                      storyData.publishDate || ''
+                    ),
+                    'news:title': {
+                      '#cdata': storyData.title,
+                    },
+                    'news:keywords': {
+                      '#cdata':
+                        storyData.seoKeywords.toString() ||
+                        storyData.tags
+                          .map(tag => tag && tag.description)
+                          .toString() ||
+                        arcSite,
+                    },
+                  },
+                  'image:image': {
+                    'image:loc':
+                      storyData.multimediaLandscapeL ||
+                      storyData.multimedia ||
+                      '',
+                    'image:title': {
+                      '#cdata':
+                        this.promoItemHeadlines(story) || storyData.title,
+                    },
+                  },
+                }
+              : {
+                  loc: `${siteUrl}${storyData.websiteLink || ''}`,
+                  'news:news': {
+                    'news:publication': {
+                      'news:name': sitemapNewsName,
+                      'news:language': 'es',
+                    },
+                    'news:publication_date': localISODate(storyData.date || ''),
+                    'news:title': {
+                      '#cdata': storyData.title,
+                    },
+                    'news:keywords': {
+                      '#cdata':
+                        storyData.seoKeywords.toString() ||
+                        storyData.tags
+                          .map(tag => tag && tag.description)
+                          .toString() ||
+                        arcSite,
+                    },
+                  },
+                  'image:image': {
+                    'image:loc':
+                      storyData.multimediaLandscapeL ||
+                      storyData.multimedia ||
+                      '',
+                    'image:title': {
+                      '#cdata':
+                        this.promoItemHeadlines(story) || storyData.title,
+                    },
+                  },
                 },
-                'news:publication_date': localISODate(storyData.date || ''),
-                'news:title': {
-                  '#cdata': storyData.title,
-                },
-                'news:keywords': {
-                  '#cdata':
-                    storyData.seoKeywords.toString() ||
-                    storyData.tags
-                      .map(tag => tag && tag.description)
-                      .toString() ||
-                    arcSite,
-                },
-              },
-              'image:image': {
-                'image:loc':
-                  storyData.multimediaLandscapeL || storyData.multimedia || '',
-                'image:title': {
-                  '#cdata': this.promoItemHeadlines(story) || storyData.title,
-                },
-              },
-            },
             ...contentElements
               .filter(({ type }) => type === 'image')
               .map(
@@ -134,10 +173,14 @@ class XmlSitemapNews {
                   },
                 })
               ),
-            {
-              changefreq: 'hourly',
-              priority: '1.0',
-            },
+            arcSite === 'elcomercio'
+              ? {
+                  changefreq: 'hourly',
+                }
+              : {
+                  changefreq: 'hourly',
+                  priority: '1.0',
+                },
           ],
         }
       }),
@@ -152,6 +195,16 @@ class XmlSitemapNews {
 
     return sitemap
   }
+}
+
+XmlSitemapNews.propTypes = {
+  customFields: PropTypes.shape({
+    siteName: PropTypes.string.tag({
+      name: 'Nombre público del sitio',
+      description:
+        'Nombre del sitio que se mostrará publicamente en este sitemap',
+    }),
+  }),
 }
 
 export default XmlSitemapNews

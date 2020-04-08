@@ -11,6 +11,7 @@ import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentChildVideo from './_children/amp-video'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
+import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
 // import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
@@ -21,6 +22,10 @@ import {
 } from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
+import {
+  SITE_ELCOMERCIO,
+  SITE_PERU21,
+} from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
   formatDateStoryAmp,
@@ -75,9 +80,10 @@ class StoryContentAmp extends PureComponent {
     // const dataSlot = `/${adsAmp.dataSlot}/${
     //   arcSite === 'diariocorreo' ? 'correo' : namePublicidad
     // }-amp-300x250-boton-movil2`
-    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
 
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
+    const isComercio = arcSite === SITE_ELCOMERCIO
 
     const imgTag = 'amp-img'
     const width = '300'
@@ -279,7 +285,7 @@ class StoryContentAmp extends PureComponent {
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
           />
-
+          {isComercio && <StoryGoogleNews />}
           <StoryContentChildTags data={tags} {...isAmp} />
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>

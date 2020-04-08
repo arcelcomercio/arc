@@ -264,6 +264,9 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
     case ConfigParams.ELEMENT_YOUTUBE_ID:
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
+    case ConfigParams.ELEMENT_PODCAST:
+      result = `<figure class="op-interactive"><iframe width="150" height="100" scrolling="no" frameborder="0"><audio controls><source src="${payload}" type="audio/mpeg"></audio></iframe></figure>`
+      break
     default:
       break
   }
@@ -314,7 +317,7 @@ const BuildHtml = ({
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
-  <head>
+  <head>  
       <meta charset="utf-8" />
       <meta property="op:markup_version" content="v1.0" />
       <meta property="fb:article_style" content="${fbArticleStyle}" />
