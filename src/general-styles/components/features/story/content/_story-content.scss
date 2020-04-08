@@ -7,6 +7,19 @@
     color: $color-gray-200;
   }
 
+  &__p-default {
+    background-color: #000;
+    height: 157px;
+    @media (--desktop) {
+      height: 345px;
+    }
+  }
+
+  &__lL-video,
+  &__lL-iframe {
+    padding-top: 20px;
+  }
+
   &__visual--image {
     @media print {
       width: 815px;
@@ -93,7 +106,7 @@
       max-width: 500px !important;
     }
 
-    [src*='youtube'] {
+    [src*="youtube"] {
       width: 100% !important;
       margin: 20px 0;
     }
@@ -105,10 +118,10 @@
       & > span {
         width: 100% !important;
 
-        & > [src*='facebook'] {
+        & > [src*="facebook"] {
           width: 100% !important;
 
-          & > [data-testid*='newsFeedStream'] {
+          & > [data-testid*="newsFeedStream"] {
             width: 100% !important;
           }
         }
@@ -142,7 +155,7 @@
     box-shadow: 2px 6px 7px rgba(25, 57, 22, 0.2);
 
     &::after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       width: 16px;
@@ -180,14 +193,14 @@
 
   .powa-shot-play-icon,
   .powa-shot-loading-icon {
-    font-family: 'icomoon';
+    font-family: "icomoon";
     background: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
   }
 
   .powa-shot-play-icon {
     &::before {
-      content: '\e906';
+      content: "\e906";
     }
 
     &:hover {
@@ -197,7 +210,7 @@
 
   .powa-shot-loading-icon {
     &::before {
-      content: '\e917';
+      content: "\e917";
     }
 
     &:hover {
@@ -257,5 +270,20 @@
 .bbc-head {
   & img {
     width: 100%;
+  }
+}
+
+.story-contents {
+  &__p-default {
+    background-color: #000;
+    height: 157px;
+    @media (--desktop) {
+      height: 345px;
+    }
+  }
+
+  &__lL-video,
+  &__lL-iframe {
+    padding-top: 20px;
   }
 }

@@ -1,16 +1,22 @@
 .most-read {
-  border-bottom: 2px solid #111111;
+  border-bottom: 2px solid #111;
+  margin: 0 20px;
+
+  @media (--desktop) {
+    margin: 0;
+  }
+
   &__title {
     font: 700 18px/26px $primary-font;
     letter-spacing: 0.29px;
     color: #222;
-    text-transform: uppercase;
+    text-transform: capitalize;
     padding-bottom: 20px;
-    border-bottom: 2px solid #111111;
+    border-bottom: 2px solid #111;
   }
 
   &__item {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
     padding-top: 20px;
   }
