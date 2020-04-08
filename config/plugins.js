@@ -57,7 +57,7 @@ module.exports = type => {
     )
     const cssGlobalComponents = writeImportCss(styleGlobalComponent)
     const cssFeatures = writeImportCss(styleFeatures)
-    const importListCss = `/******* Globals *******/\r\n${cssGlobalComponents}\r\n/******* Features *******/\r\n${cssFeatures}`
+    const importListCss = `/******* Globals *******/\r\n${cssGlobalComponents}\r\n\r\n/******* Features *******/\r\n${cssFeatures}`
     return {
       path: generalStylesPath,
       fileName: nameFile,

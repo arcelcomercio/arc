@@ -50,7 +50,7 @@ const getVars = (
           id,
           multimediaType,
           primarySectionLink,
-          isPremium,
+          getPremiumValue,
           nucleoOrigen,
           formatOrigen,
           contentOrigen,
@@ -60,6 +60,13 @@ const getVars = (
           data: globalContent,
           arcSite,
         })
+
+        const premiumValue =
+          getPremiumValue === 'premium' ? true : getPremiumValue
+        const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
+        const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
+        const isPremium = isPremiumMete === 'vacio' ? false : isPremiumMete
+
         const subSectionList = primarySectionLink.split('/').slice(1)
         subsection = subSectionList[1]
           ? subSectionList[1].replace('-', '')
@@ -67,17 +74,11 @@ const getVars = (
               '-',
               ''
             ) /** /sección/esta-es-la-sub-seccion */
-
-        dataStory = `
-            var tipo_nota = '${getMultimedia(multimediaType, true)}'
-            var id_nota = '${id}' 
-            var content_paywall = ${isPremium}`
-        dataNucleoOrigen = `
-            var nucleo_origen = '${nucleoOrigen}' 
-            var format_origen = '${formatOrigen}' 
-            var content_origen = '${contentOrigen}' 
-            var gender_origen = '${genderOrigen}'
-            var audiencia_nicho = '${audienciaNicho}'`
+        dataStory = ` var tipo_nota = '${getMultimedia(
+          multimediaType,
+          true
+        )}';   var id_nota = '${id}';  var content_paywall = ${isPremium};`
+        dataNucleoOrigen = ` var nucleo_origen = '${nucleoOrigen}'; var format_origen = '${formatOrigen}';var content_origen = '${contentOrigen}'; var gender_origen = '${genderOrigen}';var audiencia_nicho = '${audienciaNicho}'`
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
       }
@@ -89,12 +90,9 @@ const getVars = (
     typeSpace = 'nota5'
 
   return `
-    var type_space = '${typeSpace}'
-    var site = '${getSite(site)}'
-    var type_template = '${template}'
-    var section = '${section}'
-    var subsection = '${subsection}'
-    var path_name = '${path}'
+    var type_space = '${typeSpace}'; var site = '${getSite(
+    site
+  )}'; var type_template = '${template}'; var section = '${section}'; var subsection = '${subsection}'; var path_name = '${path}';
     ${dataStory} 
     ${dataNucleoOrigen}
 `

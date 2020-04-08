@@ -15,7 +15,7 @@ const IMAGE_COMPLETE = 'complete'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
-  detail: `featured-story__detail flex flex-col justify-between position relative md:p-20`,
+  detail: `featured-story__detail flex flex-col position relative md:p-20`,
 
   category:
     'featured-story__category pb-15 hidden md:inline-block position-relative',
@@ -163,7 +163,10 @@ const FeaturedStory = props => {
       } ${getImageSizeClass()} ${getHeadBandClass()} ${
         size === SIZE_TWO_COL ? classes.twoCol : ''
       } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
-      <div className={classes.detail}>
+      <div
+        className={`${classes.detail}${
+          author && author.name ? ' justify-between' : ''
+        }`}>
         {headband === 'normal' || !headband ? (
           <h3 className={`${classes.category} ${getCategorySectionClass()}`}>
             <a
