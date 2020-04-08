@@ -89,7 +89,6 @@ class SignwallComponent extends PureComponent {
     const contentTier = W.document.querySelector(
       'meta[property="article:content_tier"]'
     )
-    const dataContentPremium = W.content_paywall || false
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
     const typeContentTier = contentTier
       ? contentTier.getAttribute('content')
@@ -103,7 +102,7 @@ class SignwallComponent extends PureComponent {
       W.location.href = Domains.getUrlLandingAuth(arcSite)
     }
 
-    if (dataContentPremium || typeContentTier === 'locked') {
+    if (typeContentTier === 'locked') {
       this.getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({
