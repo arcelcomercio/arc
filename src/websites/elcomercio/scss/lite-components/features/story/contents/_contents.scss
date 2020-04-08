@@ -33,7 +33,7 @@
     padding: 20px 0 0 0;
     line-height: 28px;
     & a {
-      color: #3366bb;
+      color: #36b;
     }
   }
 
@@ -58,6 +58,9 @@
 
     &__text {
       font-style: italic;
+      color: #469bc6;
+      padding: 15px;
+      font-size: 1.3rem;
     }
 
     &::first-letter {
@@ -99,11 +102,7 @@
       line-height: 1.3;
     }
   }
-  .pquote__text {
-    color: #469bc6;
-    padding: 15px;
-    font-size: 1.3rem;
-  }
+
   /* ----------------------------------------------------- */
 
   &__font-paragraph,
