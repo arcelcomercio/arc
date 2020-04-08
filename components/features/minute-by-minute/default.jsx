@@ -148,7 +148,7 @@ class MinuteByMinute extends PureComponent {
   }
 
   render() {
-    const { deployment, contextPath } = this.props
+    const { contextPath } = this.props
     const {
       customFields: {
         typeComponent = '',
@@ -188,12 +188,10 @@ class MinuteByMinute extends PureComponent {
                 <ul className="game-info flex justify-end">
                   <li className="game-live secondary-font mr-10 text-md flex items-center text-white">
                     <img
-                      src={deployment(
-                        `${getAssetsPath(
-                          arcSite,
-                          contextPath
-                        )}/resources/assets/minute-by-minute/icon_live.png`
-                      )}
+                      src={`${getAssetsPath(
+                        arcSite,
+                        contextPath
+                      )}/resources/assets/minute-by-minute/icon_live.png?d=1`}
                       alt=""
                       className="mr-5"
                     />
@@ -260,12 +258,10 @@ class MinuteByMinute extends PureComponent {
               <div className="w-game-info flex justify-center">
                 <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
                   <img
-                    src={deployment(
-                      `${getAssetsPath(
-                        arcSite,
-                        contextPath
-                      )}/resources/assets/minute-by-minute/icon_live.png`
-                    )}
+                    src={`${getAssetsPath(
+                      arcSite,
+                      contextPath
+                    )}/resources/assets/minute-by-minute/icon_live.png?d=1`}
                     alt=""
                     className="mr-5"
                   />

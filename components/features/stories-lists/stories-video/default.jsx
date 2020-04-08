@@ -233,15 +233,13 @@ class StoriesListVideo extends PureComponent {
   }
 
   render() {
-    const { deployment, arcSite = '', contextPath = '' } = this.props
+    const { arcSite = '', contextPath = '' } = this.props
     const { listStoriesVideo = [] } = this.state
 
-    const logoImg = `${deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/Logo_P21TV.png`
-    )}`
+    const logoImg = `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/Logo_P21TV.png?d=1`
     return (
       <>
         <script src="//d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio" />

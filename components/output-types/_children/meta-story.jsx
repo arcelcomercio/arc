@@ -20,7 +20,6 @@ export default ({
   arcSite,
   contextPath,
   socialName,
-  deployment,
   isAmp,
   siteAssets: { seo },
   siteName = '',
@@ -126,12 +125,10 @@ export default ({
     "name": "${siteName}",
     "logo": {
       "@type": "ImageObject",
-      "url": "${deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/${seo.logoAmp}`
-      )}",
+      "url": "${`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",
       "width": ${seo.width},
       "height": ${seo.height}
     }
@@ -243,12 +240,10 @@ export default ({
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/logo-story-default.jpg`
-      )}",  "description": "${formatHtmlToText(
+    : `"image": {  "@type": "ImageObject", "url": "${`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`}",  "description": "${formatHtmlToText(
         siteName
       )}", "height": 800, "width": 1200 },`
 
@@ -281,11 +276,12 @@ export default ({
     "author":{    "@type":"Person",   "name":"${formatHtmlToText(
       seoAuthor
     )}"    },
-    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${deployment(
-    `${getAssetsPath(arcSite, contextPath)}/resources/dist/${arcSite}/images/${
-      seo.logoAmp
-    }`
-  )}",   "height":${seo.height}, "width":${seo.width}
+    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",   "height":${
+    seo.height
+  }, "width":${seo.width}
        }
     },    
     ${(isPremium && storyPremium) || ''} 

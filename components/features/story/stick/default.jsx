@@ -32,7 +32,7 @@ const Stick = props => {
     } = {},
   } = props
 
-  const { deployment, contextPath, arcSite, globalContent } = useFusionContext()
+  const { contextPath, arcSite, globalContent } = useFusionContext()
 
   const { websites = {} } = globalContent || {}
   const { website_url: websiteLink = '/' } = websites[arcSite] || {}
@@ -78,12 +78,10 @@ const Stick = props => {
       })
     }, 0)})})()`
 
-  const imgLogo = deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/${logo}`
-  )
+  const imgLogo = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${logo}?d=1`
 
   return (
     <div id="appstick" className={classes.stickWrapper}>

@@ -13,6 +13,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
+  SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -131,12 +132,10 @@ class StoryContents extends PureComponent {
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     const { basic_gallery: basicGallery = {} } = promoItems
 
@@ -171,7 +170,9 @@ class StoryContents extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            className={`${classes.content} ${isPremium &&
+              arcSite === SITE_GESTION &&
+              'story-content__nota-premium paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
@@ -285,8 +286,8 @@ class StoryContents extends PureComponent {
                   if (type === ELEMENT_TEXT) {
                     const alignmentClass = alignment
                       ? `${classes.textClasses} ${
-                          classes.alignmentClasses
-                        }-${alignment}`
+                        classes.alignmentClasses
+                      }-${alignment}`
                       : classes.textClasses
                     return (
                       <>

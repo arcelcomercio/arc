@@ -36,11 +36,12 @@ const Foot = ({ theme }) => {
             <S.Icon alt={siteName} type={theme.icon.logo} />
           </div>
           <S.Text>
-            {`${msgs.contactUs} `}
-            <a href={interpolateUrl(urls.contactPhoneRef)}>
+            {/* {`${msgs.contactUs} `}
+             <a href={interpolateUrl(urls.contactPhoneRef)}>
               {msgs.contactPhoneNumber}
             </a>{' '}
-            o{' '}
+            o{' '} */}
+            Contáctanos enviando un correo a{' '}
             <a href={interpolateUrl(urls.contactEmailRef)}>
               {msgs.contactEmail}
             </a>

@@ -6,24 +6,20 @@ const DEFAULT_HIERARCHY = 'menu-default'
 
 export default props => ({
   main: () => {
-    const { deployment, nav, contextPath = '', arcSite = '' } = props
+    const { nav, contextPath = '', arcSite = '' } = props
     const { logo } = nav
     return {
       initParams: () => {
         return {
-          logo: deployment(
-            `${getAssetsPath(
+          logo: `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/${logo}?d=1`,
+          logoLeft: {
+            src: `${getAssetsPath(
               arcSite,
               contextPath
-            )}/resources/dist/${arcSite}/images/${logo}`
-          ),
-          logoLeft: {
-            src: deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/otorongo.png`
-            ),
+            )}/resources/dist/${arcSite}/images/otorongo.png?d=1`,
             alt: arcSite,
           },
         }
