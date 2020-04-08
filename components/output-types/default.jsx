@@ -309,8 +309,7 @@ if ('IntersectionObserver' in window) {
     .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
     .powa-play-btn { transform: inherit; }
     .powa-default{ background-color: #000;  height: 345px;  }
-    .powa-icon-default{bottom: auto;top: inherit;padding-top: x;left: 90px;margin-top: -92px;}
-    @media only screen and (max-width: 600px) { .powa-icon-default{display:none;}
+    @media only screen and (max-width: 600px) { 
     .powa-default {
       height: 157px;
     }}
