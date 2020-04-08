@@ -536,6 +536,16 @@ export const addSlashToDateEnd = url => {
   return urlSlash
 }
 
+export const isIE = () => {
+  const ua = window.navigator.userAgent
+  const msie = ua.indexOf('MSIE ')
+  const trident = ua.indexOf('Trident/')
+  if (msie > 0 || trident > 0) {
+    return true
+  }
+  return false
+}
+
 export function parseQueryString(str) {
   if (typeof str !== 'string' || str.length === 0) return {}
   const s = str.replace(/^\?/, '').split('&')

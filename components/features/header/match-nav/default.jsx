@@ -21,7 +21,7 @@ class MatchNav extends PureComponent {
     const {
       subtype,
       canonical_url: canonicalUrl,
-      related_content: { basic: relatedContent } = {},
+      related_content: { basic: relatedContent=[] } = {},
     } = globalContent || {}
 
     const configTabs = []
