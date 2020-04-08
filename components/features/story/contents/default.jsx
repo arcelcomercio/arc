@@ -13,6 +13,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
+  SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -171,7 +172,9 @@ class StoryContents extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            className={`${classes.content} ${isPremium &&
+              arcSite === SITE_GESTION &&
+              'story-content__nota-premium paywall'} `}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
@@ -285,8 +288,8 @@ class StoryContents extends PureComponent {
                   if (type === ELEMENT_TEXT) {
                     const alignmentClass = alignment
                       ? `${classes.textClasses} ${
-                          classes.alignmentClasses
-                        }-${alignment}`
+                        classes.alignmentClasses
+                      }-${alignment}`
                       : classes.textClasses
                     return (
                       <>
