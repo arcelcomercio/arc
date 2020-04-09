@@ -4,19 +4,20 @@ import StoryData from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
-  related: 'related-internal position-relative md:pb-10 md:pr-20 md:pl-20',
-  title: 'related-internal__title font-bold uppercase mb-10',
+  related: 'related-internal position-relative p-20',
+  item: 'related-internal__item flex flex-row mt-20',
+  title: 'related-internal__title uppercase mb-20',
   multimedia: 'related-internal__figure position-relative',
   linkAuthor: 'related-internal__link-author',
-  image: 'w-full lazy',
+  image: 'w-full h-full lazy',
   icon:
     'related-internal__multimedia-icon position-absolute p-5 rounded-lg title-xl',
   info:
-    'related-internal__information pt-20 pb-20 md:pt-20 md:pb-20 md:pr-10 md:pl-10',
-  titleLink: 'related-internal__title-link',
+    'related-internal__information w-full md:pr-10 pl-20',
+  titleLink: 'related-internal__title-link underline font-bold',
 }
 
-// Funcion extraida de helpers
+// Funcion extraida de helpersW
 const getIcon = type => {
   switch (type) {
     case 'basic_gallery':
@@ -29,58 +30,56 @@ const getIcon = type => {
 }
 
 const RelatedItem = ({ data, imageDefault } /* , i */) => {
-  const {
-    title,
-    websiteLink,
-    multimediaType,
-    multimediaLandscapeMD,
-    authorLink,
-    author,
-  } = new StoryData({
+ 
+  const get = new StoryData({
     data,
+    defaultImgSize: 'sm',
   })
+  const filterData = {
+    title: get.title,
+    websiteLink: get.link,
+    multimediaType: get.multimediaType,
+    multimediaImg: get.multimediaLandscapeMD
+  }
 
   return (
     <>
-      <div className={classes.related}>
-        <div className={classes.title}>Siga Leyendo </div>
-        <div className={`${classes.info}`}>
-          <h2 className={classes.titleLink}>
-            <a href={websiteLink}>{title}</a>
-          </h2>
-          <a className={classes.linkAuthor} href={authorLink}>
-            {author}
-          </a>
-        </div>
+      <div className={classes.item}>
         <figure className={classes.multimedia}>
-          <a href={websiteLink}>
+          <a href={filterData.websiteLink}>
             <img
               src={imageDefault}
-              data-src={multimediaLandscapeMD}
-              alt={title}
+              data-src={filterData.multimediaImg}
+              alt={filterData.title}
               className={classes.image}
             />
-            {multimediaType === IMAGE || multimediaType === '' ? (
+            {filterData.multimediaType === IMAGE || filterData.multimediaType === '' ? (
               ''
             ) : (
               <span
-                className={`${classes.icon} icon-${getIcon(multimediaType)}`}
+                className={`${classes.icon} icon-${getIcon(filterData.multimediaType)}`}
               />
             )}
           </a>
         </figure>
+        <div className={`${classes.info}`}>
+          <h2 className={classes.titleLink}>
+            <a href={filterData.websiteLink}>{filterData.title}</a>
+          </h2>
+        </div>
       </div>
     </>
   )
 }
 
-const StoryContentChildRelatedInternal = ({ stories, id, imageDefault }) => {
+const StoryContentChildRelatedInternal = ({ stories, ids, imageDefault }) => {
   const keyinternal = 'story-related-internal'
 
   return (
-    <>
+    <div className={classes.related}>
+      <div className={classes.title}>Mira También</div>
       {stories.map((item, index) =>
-        item._id === id ? (
+        ids.includes(item._id) ? (
           <RelatedItem
             key={keyinternal.concat(item._id).concat(index)}
             data={item}
@@ -88,7 +87,7 @@ const StoryContentChildRelatedInternal = ({ stories, id, imageDefault }) => {
           />
         ) : null
       )}
-    </>
+    </div>
   )
 }
 

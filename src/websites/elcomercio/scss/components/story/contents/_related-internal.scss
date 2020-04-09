@@ -1,37 +1,12 @@
 .related-internal {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 20px;
+  background-color: #F8F8F8;
+  border: 1px solid #F0F0F0;
   @media (--tablet) {
-    background-color: transparent;
     width: 100%;
-    float: none;
-    padding: 0;
-  }
-  &__title {
-    width: 100%;
-    font-family: $primary-font;
-  }
-
-  &__information {
-    background-color: $color-gray-100;
-    width: calc(100% - 180px);
-    height: 110px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-    @media (--tablet) {
-      padding: 10px;
-    }
   }
   &__figure {
-    width: 180px;
-    height: 110px;
-    img {
-      height: 100%;
-    }
+    width: 120px;
+    height: 64px;
   }
   &__multimedia-icon {
     top: 50%;
@@ -41,13 +16,16 @@
     background-color: rgba(255, 255, 255, 0.5);
   }
   &__title-link {
-    font-size: 16px;
+    font-size: 17px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 20px;
     height: 62px;
+    @media (--only-mobile) {
+      font-size: 15px;
+    }
   }
   &__link-author {
     color: $color-gray-200;

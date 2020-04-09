@@ -139,7 +139,8 @@ class StoryContents extends PureComponent {
       ) || ''
 
     const { basic_gallery: basicGallery = {} } = promoItems
-
+    let relatedIds = []
+    
     return (
       <>
         <div className={classes.news}>
@@ -262,15 +263,22 @@ class StoryContents extends PureComponent {
                       />
                     )
                   }
+
                   if (type === ELEMENT_STORY) {
-                    return (
+                    relatedIds.push(_id)
+                  }
+
+                  if(type !== ELEMENT_STORY && relatedIds.length > 0){
+                    const  relateIdsParam = relatedIds
+                    relatedIds = []
+                    return (                      
                       <StoryContentsChildRelatedInternal
                         stories={relatedContent}
-                        id={_id}
+                        ids={relateIdsParam}
                         imageDefault={multimediaLazyDefault}
                       />
                     )
-                  }
+                  }                    
 
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
