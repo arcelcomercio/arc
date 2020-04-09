@@ -296,14 +296,14 @@ export const FormLogin = ({
                 </S.Title>
               )}
 
-              <S.Text c="gray" s="20" className="mb-20 mt-10 center">
+              <S.Text c="gray" s="18" className="mb-10 mt-10 center">
                 Ingresa con
               </S.Text>
 
               {authProviders.map(item => (
                 <ButtonSocial
                   brand={item}
-                  size={item === 'google' ? 'middle' : 'full'}
+                  size="full"
                   c="mb-10"
                   onClose={onClose}
                   typeDialog={typeDialog}

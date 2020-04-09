@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import ENV from 'fusion:environment'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial } from './control_social'
@@ -21,7 +20,7 @@ export const FormLoginPaywall = props => {
     onLoggedFail,
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink },
+      signwall: { mainColorLink, authProviders = [] },
       activeNewsletter = false,
     },
   } = props
@@ -103,6 +102,8 @@ export const FormLoginPaywall = props => {
 
   const { lemail, lpass } = values
 
+  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+
   return (
     <ModalConsumer>
       {value => (
@@ -113,22 +114,10 @@ export const FormLoginPaywall = props => {
                 Ingresa con tus redes sociales
               </S.Text>
 
-              <ButtonSocial
-                brand="facebook"
-                size={ENV.ENVIRONMENT === 'elcomercio' ? 'full' : 'middle'}
-                onLogged={onLogged}
-                onClose={onClose}
-                typeDialog={typeDialog}
-                onStudents={() => setShowStudents(!showStudents)}
-                arcSite={arcSite}
-                typeForm="login"
-                activeNewsletter={activeNewsletter}
-              />
-
-              {ENV.ENVIRONMENT !== 'elcomercio' && (
+              {authProviders.map(item => (
                 <ButtonSocial
-                  brand="google"
-                  size="middle"
+                  brand={item}
+                  size={sizeBtnSocial}
                   onLogged={onLogged}
                   onClose={onClose}
                   typeDialog={typeDialog}
@@ -137,7 +126,7 @@ export const FormLoginPaywall = props => {
                   typeForm="login"
                   activeNewsletter={activeNewsletter}
                 />
-              )}
+              ))}
 
               <S.Text c="gray" s="14" className="mt-20 center">
                 Ingresa con tu usuario

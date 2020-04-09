@@ -156,6 +156,8 @@ export const FormRelogin = ({
 
   const { remail, rpass } = values
 
+  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+
   return (
     <ModalConsumer>
       {value => (
@@ -229,7 +231,7 @@ export const FormRelogin = ({
           {authProviders.map(item => (
             <ButtonSocial
               brand={item}
-              size={item === 'google' ? 'middle' : 'full'}
+              size={sizeBtnSocial}
               onClose={onClose}
               typeDialog={typeDialog}
               arcSite={arcSite}

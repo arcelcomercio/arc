@@ -293,6 +293,8 @@ export const FormRegister = props => {
 
   const { remail, rpass } = values
 
+  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+
   return (
     <ModalConsumer>
       {value => (
@@ -331,7 +333,7 @@ export const FormRegister = props => {
                       {authProviders.map(item => (
                         <ButtonSocial
                           brand={item}
-                          size={item === 'google' ? 'middle' : 'full'}
+                          size={sizeBtnSocial}
                           onLogged={onLogged}
                           onClose={onClose}
                           typeDialog={typeDialog}
