@@ -228,24 +228,69 @@ class NavBarDefault extends PureComponent {
             <div className={classes.navStorySocialNetwork}>
               {type === ELEMENT_STORY && (
                 <>
+                  {/* window.navbarMoreList = () => {
+                    const el = document.querySelector('.story-header__list')
+                    if (el.classList.contains('block')) {
+                      el.classList.remove('block')
+                      el.classList.add('hidden')
+                    } else {
+                      el.classList.remove('hidden')
+                      el.classList.add('block')
+                    }
+                  }
+                  window.navbarPopUpWindow = (url, title, w, h) => {
+                    const left = window.screen.width / 2 - w / 2
+                    const top = window.screen.height / 2 - h / 2
+                    return window.open(
+                      url,
+                      title,
+                      `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+                    )
+                  } */}
+                  <script
+                    type="text/javascript"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        '"use strict";window.navbarMoreList=function(){var o=document.querySelector(".story-header__list");o.classList.contains("block")?(o.classList.remove("block"),o.classList.add("hidden")):(o.classList.remove("hidden"),o.classList.add("block"))},window.navbarPopUpWindow=function(o,n,t,s){var c=window.screen.width/2-t/2,e=window.screen.height/2-s/2;return window.open(o,n,"toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=".concat(t,", height=").concat(s,", top=").concat(e,", left=").concat(c))};',
+                    }}
+                  />
+
                   <div>
                     <a
                       title="Mostrar enlaces para compartir"
                       className={classes.moreLink}
-                      href="/">
+                      href="/"
+                      id="icon-showMoreNavbar">
                       <i className={`${classes.iconMore}`} />
                     </a>
+                    <script
+                      type="text/javascript"
+                      dangerouslySetInnerHTML={{
+                        __html: '"use strict";document.getElementById("icon-<<name>>").addEventListener("click",function(e){e.preventDefault(),3===<<item>>?navbarMoreList():navbarPopUpWindow(document.getElementById("icon-<<name>>").href,"",600,400)});'
+                          .replace(/<<name>>/g, 'showMoreNavbar')
+                          .replace('<<item>>', 3),
+                      }}
+                    />
                   </div>
 
                   <ul className={classes.listIcon}>
-                    {this.shareButtons.map((item, i) => (
+                    {this.shareButtons.map(item => (
                       <li
                         key={item.icon}
                         className={` ${classes.item} ${item.mobileClass}`}>
                         <a
                           title={`Compartir en ${item.name}`}
                           className={classes.link}
-                          href={item.link}>
+                          href={item.link}
+                          id={`icon-${item.name}`}>
+                          <script
+                            type="text/javascript"
+                            dangerouslySetInnerHTML={{
+                              __html: '"use strict";document.getElementById("icon-<<name>>").addEventListener("click",function(e){e.preventDefault(),3===<<item>>?navbarMoreList():navbarPopUpWindow(document.getElementById("icon-<<name>>").href,"",600,400)});'
+                                .replace(/<<name>>/g, item.name)
+                                .replace('<<item>>', 0),
+                            }}
+                          />
                           <i
                             className={`${item.icon} ${classes.icon}`}
                             aria-hidden="true"
