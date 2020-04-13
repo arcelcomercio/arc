@@ -317,6 +317,7 @@ const BuildHtml = ({
     nextAdds,
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
+    siteUrl
   }
   const getContentType = ({ premium = '' } = {}) => {
     const premiumValue =
