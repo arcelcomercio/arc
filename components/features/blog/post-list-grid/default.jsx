@@ -72,12 +72,11 @@ const BlogPostListGrid = props => {
     .slice(initialPositionItem, initialPositionItem + numShowItems)
     .map(blog => buildParams(blog))
 
-  const urlLogoBrand = deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/author.png`
-  )
+  const urlLogoBrand = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/author.png?d=1`
+
   const { siteName = '' } = siteProperties
 
   return (

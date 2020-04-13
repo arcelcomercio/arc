@@ -109,19 +109,12 @@ export default {
 
     // Support
     supportTitle: `Soporte`,
-    supportSubtitle: `Si tienes dudas o consultas, llámanos o envíanos un correo`,
+    supportSubtitle: `Si tienes dudas o consultas, envíanos un correo`,
     supportContent: 
-    `**Central Telefónica:**  
-    (+51) 311 5100  
-    <br/>
-    **Horario de atención:**  
-    De lunes a viernes: 7 am - 9 pm  
-    Sábados, domingos y feriados: de 7 am - 1 pm  
-    <br/>
-    **Correos:** 
-    -Servicio al cliente y Ventas:  
-     suscriptores@comercio.com.pe  
-    -Pagos pendientes y Facturación:  
+    `**Servicio al cliente y Ventas:**
+     atencionalcliente@comercio.com.pe  
+     <br/>
+     **Pagos pendientes y Facturación:**  
      cobranzas@suscripcionesintegrales.com.pe`,
 
     // Contact 
@@ -160,7 +153,7 @@ export default {
     // Footer
     contactUs: `Contáctanos al`,
     contactPhoneNumber: `01 311-5100`,
-    contactEmail: `suscripciones@comercio.com.pe`,
+    contactEmail: `atencionalcliente@comercio.com.pe`,
     footerAd: `Paquetes que incluyen diario impreso, disponibles sólo para Lima y Callao`,
     supportLink: `Soporte`,
     privacyPolicyLink: `Políticas de privacidad`,

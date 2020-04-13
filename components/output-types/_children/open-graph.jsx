@@ -15,7 +15,6 @@ export default ({
   arcSite,
   siteName,
   story,
-  deployment = () => {},
   globalContent: data,
   requestUri,
 }) => {
@@ -39,12 +38,10 @@ export default ({
           presets: 'large:980x528',
           arcSite,
         }).large
-      : deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/logo_fb.jpg`
-        )
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo_fb.jpg?d=1`
 
   if (
     arcSite === ConfigParams.SITE_DIARIOCORREO &&

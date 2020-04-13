@@ -6,18 +6,15 @@ import HeaderChildStandardAmp from '../inverted/_children/header-amp'
 import { getAssetsPath } from '../../../utilities/constants'
 
 const HeaderStandardAmp = () => {
-  const { contextPath, arcSite, deployment } = useFusionContext()
-  const {
-    siteUrl,
-    assets: { seo: { widthAmp, heightAmp } = {} } = {},
-  } = getProperties(arcSite)
-
-  const imgLogo = deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/logo-amp.png`
+  const { contextPath, arcSite } = useFusionContext()
+  const { assets: { seo: { widthAmp, heightAmp } = {} } = {} } = getProperties(
+    arcSite
   )
+
+  const imgLogo = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/logo-amp.png?d=1`
 
   const parameters = { imgLogo, widthAmp, heightAmp, arcSite }
 

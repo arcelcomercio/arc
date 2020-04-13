@@ -9,6 +9,7 @@ import {
   ELEMENT_HEADER,
   ELEMENT_YOUTUBE_ID,
   ELEMENT_STORY,
+  ELEMENT_PODCAST,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -596,6 +597,14 @@ class StoryData {
             this._data.promo_items &&
             this._data.promo_items[ELEMENT_YOUTUBE_ID] &&
             this._data.promo_items[ELEMENT_YOUTUBE_ID].content) ||
+          ''
+        break
+      case ELEMENT_PODCAST:
+        result.payload =
+          (this._data &&
+            this._data.promo_items &&
+            this._data.promo_items[ELEMENT_PODCAST] &&
+            this._data.promo_items[ELEMENT_PODCAST].content) ||
           ''
         break
       default:
@@ -1250,17 +1259,12 @@ class StoryData {
     return squareXS
   }
 
-  static getDataAuthor(
-    data,
-    { contextPath = '', deployment = () => {}, website = '' } = {}
-  ) {
+  static getDataAuthor(data, { contextPath = '', website = '' } = {}) {
     const authorData = (data && data.credits && data.credits.by) || []
-    const authorImageDefault = deployment(
-      `${getAssetsPath(
-        website,
-        contextPath
-      )}/resources/dist/${website}/images/author.png`
-    )
+    const authorImageDefault = `${getAssetsPath(
+      website,
+      contextPath
+    )}/resources/dist/${website}/images/author.png?d=1`
 
     let nameAuthor = ''
     let urlAuthor = ''
@@ -1373,6 +1377,8 @@ class StoryData {
         typeMultimedia = VIDEO
       } else if (items.includes(ELEMENT_YOUTUBE_ID)) {
         typeMultimedia = ELEMENT_YOUTUBE_ID
+      } else if (items.includes(ELEMENT_PODCAST)) {
+        typeMultimedia = ELEMENT_PODCAST
       } else if (items.includes(GALLERY)) {
         typeMultimedia = GALLERY
       } else if (items.includes(IMAGE)) {

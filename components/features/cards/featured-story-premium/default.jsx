@@ -313,12 +313,10 @@ const FeaturedStoryPremium = props => {
     errorList,
     titleField,
     categoryField,
-    logo: deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${logo}`
-    ),
+    logo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
     multimediaSubtitle,
     multimediaCaption,
   }
