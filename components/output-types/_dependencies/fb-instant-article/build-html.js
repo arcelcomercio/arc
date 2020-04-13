@@ -193,21 +193,36 @@ const ParagraphshWithAdds = ({
   nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
+  siteUrl
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
+  let lookAlso = []
 
   newsWithAdd = paragraphsNews
     .map(({ payload: originalParagraph, type, level }) => {
       let paragraphwithAdd = ''
 
-      const { processedParagraph, numberWords } = analyzeParagraph({
+      let { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph,
         type,
         numberWordMultimedia,
         level,
       })
+
+      if(ConfigParams.ELEMENT_STORY === type){
+        lookAlso.push(originalParagraph)
+      }
+      if(ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0){
+          let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
+          lookAlso.forEach((value) => {
+              ulLookAlso += `<li><a href=${siteUrl}${value}></a></li>`
+          })
+          processedParagraph = `${ulLookAlso}</ul>`;
+          numberWords = countWordsHelper(clearHtml(processedParagraph))
+          lookAlso = []
+      }
 
       countWords += numberWords
 
@@ -287,6 +302,7 @@ const BuildHtml = ({
   arcSite,
   section,
   getPremiumValue,
+  siteUrl
 }) => {
   const firstAdd = 100
   const nextAdds = 350

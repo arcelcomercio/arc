@@ -8,6 +8,7 @@ import {
   ELEMENT_LIST,
   ELEMENT_HEADER,
   ELEMENT_YOUTUBE_ID,
+  ELEMENT_STORY,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -1497,6 +1498,7 @@ class StoryData {
         url = '',
         subtitle = '',
         caption = '',
+        canonical_url: link,
         items = [],
         level = null,
       }) => {
@@ -1524,6 +1526,10 @@ class StoryData {
           case ELEMENT_RAW_HTML:
             result.payload = content
             // && content
+            break
+          case ELEMENT_STORY:
+            result.payload = link
+            // url mira tambien
             break
           default:
             result.payload = content
