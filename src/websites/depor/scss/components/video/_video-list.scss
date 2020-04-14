@@ -1,0 +1,10 @@
+.video-list {
+  &__section {
+    font-family: $primary-font;
+  }
+  &__new {
+    font-weight: normal;
+    font-family: $tertiary-font;
+    font-size: 1rem;
+  }
+}

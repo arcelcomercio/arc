@@ -7,8 +7,28 @@
       color: $color-base-400;
     }
   }
+  &--bgcolor-2 {
+    .breaking-news__tag {
+      animation-name: intermitent;
+      animation-duration: 1.5s;
+      animation-delay: 0.5s;
+      animation-iteration-count: infinite;
+    }
+  }
   &__text,
   &__link {
     font-weight: 600;
+  }
+}
+
+@keyframes intermitent {
+  0% {
+    color: $color-white;
+  }
+  50% {
+    color: $color-black;
+  }
+  100% {
+    color: $color-white;
   }
 }

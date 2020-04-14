@@ -4,8 +4,8 @@ import { useContent } from 'fusion:content'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import { createMarkup } from '../../../utilities/helpers'
 import StoryData from '../../../utilities/story-data'
+import { getResizedUrl } from '../../../utilities/resizer'
 import AuthorCard from './_children/author-card'
 import Separator from './_children/separator'
 import {
@@ -36,8 +36,8 @@ const SeparatorOpinion = props => {
       website: arcSite,
       stories_qty: STORIES_QTY,
       section,
-      presets: isAdmin ? 'square_s:85x85' : 'no-presets',
-      includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection},${includeCredits},${includeCreditsImage},credits.by.image.resized_urls,credits.by.image.url`,
+      presets: 'no-presets',
+      includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection},${includeCredits},${includeCreditsImage}`,
     },
     filter: schemaFilter(arcSite),
     transform: data => {
@@ -53,13 +53,16 @@ const SeparatorOpinion = props => {
         contentElements &&
         contentElements.length > 0 &&
         contentElements.map(story => {
+          const defaultAuthorImage = `${contextPath}/resources/assets/author-grid/author-alpha.png?d=1`
+
           const { credits: { by = [] } = {} } = story || {}
-          const {
-            image: {
-              resized_urls: { square_s: squareS = '' } = {},
-              url = '',
-            } = {},
-          } = by[0] || {}
+          const { image: { url: authorImage } = {} } = by[0] || {}
+
+          const { square_sm: authorResizedImage } = getResizedUrl({
+            url: authorImage,
+            presets: 'square_sm:85x85',
+            arcSite,
+          })
 
           storyData.__data = story
           return {
@@ -70,9 +73,10 @@ const SeparatorOpinion = props => {
             section: storyData.primarySection,
             sectionUrl: storyData.primarySectionLink,
             websiteUrl: storyData.websiteLink,
-            imageUrl: squareS || storyData.authorImage,
-            multimediaLazyDefault: storyData.multimediaLazyDefault,
-            multimedia: url,
+            imageUrl: authorResizedImage || authorImage || defaultAuthorImage,
+            multimediaLazyDefault: defaultAuthorImage,
+            multimedia: authorImage || defaultAuthorImage,
+            // No entiendo la funcion del multimedia aqui si ya esta imageUrl
           }
         })
 
@@ -93,7 +97,7 @@ const SeparatorOpinion = props => {
       ) : (
         <div
           className={classes.opinionTitle}
-          dangerouslySetInnerHTML={createMarkup(htmlCode)}
+          dangerouslySetInnerHTML={{ __html: htmlCode }}
         />
       )}
       <div className={classes.opinionBody}>

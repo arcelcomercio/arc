@@ -1,14 +1,7 @@
 .related-internal {
-  @media (--tablet) {
-    float: right;
-    background-color: #f5f5f5;
-    width: 200px;
-  }
-
-  &__information {
-    @media (--tablet) {
-      background-color: $color-gray-100;
-    }
+  &__title {
+    font-family: $secondary-font;
+    font-size: 16px;
   }
 
   &__multimedia-icon {
@@ -17,9 +10,5 @@
     left: 50%;
     margin-left: -15px;
     background-color: rgba(255, 255, 255, 0.5);
-  }
-
-  &__link-author {
-    display: none;
   }
 }

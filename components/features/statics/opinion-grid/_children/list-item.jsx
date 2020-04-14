@@ -21,8 +21,13 @@ const classes = {
   pictureWrapper: 'author-item__picture-wrapper',
 }
 
-const OpinionGridListItem = ({ data: story, isAdmin, defaultAuthorImage }) => {
-  const existImageAuthor = story.authorImage.includes('author.png')
+const OpinionGridListItem = ({
+  data: story,
+  isAdmin,
+  defaultAuthorImage,
+  authorImage,
+}) => {
+  const existImageAuthor = authorImage.includes('author.png')
 
   return (
     <div role="listitem" className={classes.authorItem}>
@@ -39,8 +44,8 @@ const OpinionGridListItem = ({ data: story, isAdmin, defaultAuthorImage }) => {
             <figure className={classes.imageBox}>
               <a href={story.websiteLink}>
                 <img
-                  src={isAdmin ? story.authorImage : defaultAuthorImage}
-                  data-src={story.authorImage}
+                  src={isAdmin ? authorImage : defaultAuthorImage}
+                  data-src={authorImage}
                   className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                   alt={story.author}
                 />
