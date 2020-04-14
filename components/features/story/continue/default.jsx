@@ -3,6 +3,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 
+import customFields from './_dependencies/custom-fields'
 import {
   storyContinueScript,
   sessionStorageScript,
@@ -25,11 +26,11 @@ const classes = {
     'story-continue__story-load-title font-bold text-gray-300 overflow-hidden',
 }
 
-const StoryContinue = () => {
+const StoryContinue = ({ customFields: { isBlog } = {} }) => {
   const {
     globalContent: {
-      taxonomy: { primary_section: { path = '' } = {} },
-    },
+      taxonomy: { primary_section: { path = '' } = {} } = {},
+    } = {},
     arcSite,
     siteProperties,
     contextPath,
@@ -74,9 +75,11 @@ const StoryContinue = () => {
               <div className={classes.storyProgresEnd} />
             </div>
             <div className={classes.storyLoadNews}>
-              <span className={classes.storyLoadText}>
-                Cargando siguiente...
-              </span>
+              {!isBlog && (
+                <span className={classes.storyLoadText}>
+                  Cargando siguiente...
+                </span>
+              )}
               <h3 className={classes.storyLoadTitle}></h3>
             </div>
           </a>
@@ -87,8 +90,14 @@ const StoryContinue = () => {
         dangerouslySetInnerHTML={{
           __html: `${storyContinueScript(
             arcSite,
-            contextPath
-          )}${sessionStorageScript(recentStoryContinue, siteUrl, arcSite)}`,
+            contextPath,
+            isBlog
+          )}${sessionStorageScript(
+            recentStoryContinue,
+            siteUrl,
+            arcSite,
+            isBlog
+          )}`,
         }}
       />
     </>
@@ -97,5 +106,10 @@ const StoryContinue = () => {
 
 StoryContinue.label = 'Artículo - Siguiente'
 StoryContinue.static = true
+
+StoryContinue.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
+}
 
 export default StoryContinue

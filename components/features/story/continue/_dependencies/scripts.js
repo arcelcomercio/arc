@@ -11,19 +11,21 @@
     return `https://cdna.${site}`
   }
 
-  const arcSite = '<<arcSite>>'
+  const arcSite = arcSiteToReplace
   const contextPath = '<<contextPath>>'
+  const IS_BLOG =  isBlogToReplace
   const MAX_PROGRESS = 350
   const MIN_PROGRESS = 180
   const SITE_OJO = 'ojo'
   const SITE_ELCOMERCIO = 'elcomercio'
+  const PATH_BLOG = '/blogs'
 
   const setAttributeProgress = (progress, value) => {
     progress.setAttribute('style', `transform: rotate(${value}deg)`)
     progress.setAttribute('size', value)
   }
 
-  const setTimeoutLoadPage = (linker, html = '') => {
+  const setTimeoutLoadPage = (linker, html = '', isBlog) => {
     const timeLoad = SITE_OJO === arcSite ? 5000 : 250
     setTimeout(() => {
       const link = linker.getAttribute('href')
@@ -31,7 +33,8 @@
         link !== '' &&
         window.innerHeight + window.scrollY + 10 >= html.scrollHeight
       ) {
-        window.location = link
+        const linkRedirect = isBlog ? PATH_BLOG : link
+        window.location = linkRedirect
       }
     }, timeLoad)
   }
@@ -91,7 +94,8 @@
 
   const setTitleHead = () => {
     const titleNew = document.querySelector('.story-header__news-title')
-      .textContent
+      ? document.querySelector('.story-header__news-title').textContent
+      : ''
     document.querySelector('.nav__story-title').textContent = titleNew
   }
 
@@ -164,7 +168,7 @@
           const newerProgress = concurrentProgress + 10 * i + 10
           setAttributeProgress(progress, newerProgress)
           if (newerProgress >= MAX_PROGRESS) {
-            setTimeoutLoadPage(linker, html)
+            setTimeoutLoadPage(linker, html, IS_BLOG)
           }
         }
       } else {
@@ -179,14 +183,21 @@
   window.addEventListener('DOMContentLoaded', setInitialLoaderPage)
 }, 0) */
 
-// eslint-disable-next-line import/prefer-default-export
-export const storyContinueScript = (arcSite, contextPath) =>
-  '"use strict";function _slicedToArray(e,t){return _arrayWithHoles(e)||_iterableToArrayLimit(e,t)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}function _iterableToArrayLimit(e,t){if(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e)){var r=[],o=!0,n=!1,i=void 0;try{for(var c,a=e[Symbol.iterator]();!(o=(c=a.next()).done)&&(r.push(c.value),!t||r.length!==t);o=!0);}catch(e){n=!0,i=e}finally{try{o||null==a.return||a.return()}finally{if(n)throw i}}return r}}function _arrayWithHoles(e){if(Array.isArray(e))return e}setTimeout(function(){var e=function(e,t){if(!t)return"/pf";if(!e)return t;var r="".concat(e,".pe");return"depor"===e&&(r="".concat(e,".com")),"elcomerciomag"===e&&(r="elcomercio.pe"),"peru21g21"===e&&(r="peru21.pe"),"https://cdna.".concat(r)},t="<<arcSite>>",r=function(e,t){e.setAttribute("style","transform: rotate(".concat(t,"deg)")),e.setAttribute("size",t)},o=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";setTimeout(function(){var r=e.getAttribute("href");""!==r&&window.innerHeight+window.scrollY+10>=t.scrollHeight&&(window.location=r)},250)};window.addEventListener("scroll",function(){var e,t=document.querySelector(".story-continue__story-load"),n=t.querySelector(".story-continue__progress"),i=t.querySelector(".story-continue__story-load-link"),c=document.querySelector("#signwall-app"),a=document.documentElement,s=parseInt(n.getAttribute("size"),10),l=window,u=l.innerHeight,d=l.scrollY;if(!c){if(u+d+10>=a.scrollHeight)for(var m=(350-s)/10+1,y=0;y<m;y++){var v=s+10*y+10;r(n,v),v>=350&&o(i,a)}else!function(e,t){var o=0,n=document.documentElement.scrollHeight,i=window,c=i.innerHeight,a=i.scrollY,s=i.screen,l="down";if(c+a+50<=n&&(r(e,t-10),l="up"),350>=t&&t>=180){var u=t;if("up"===l){var d=t-10;d>=180&&(u=d)}else u=t+10;r(e,u)}if(s.width<630){var m=document.querySelector(".story-header__list");m&&m.classList.add("hidden");var y=document.querySelector(".nav-sidebar"),v=document.querySelector(".nav"),f=document.querySelector(".nav__wrapper");window.scrollY<o?(v.classList.remove("active"),f.classList.add("section-menu--active"),y.classList.add("section-menu--active")):(window.scrollY<50?v.classList.remove("active"):v.classList.add("active"),f.classList.remove("section-menu--active")),o=a}}(n,s);e=document.querySelector(".story-header__news-title").textContent,document.querySelector(".nav__story-title").textContent=e,function(){var e=_slicedToArray(arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],1)[0],t=document.documentElement,r=t.clientHeight,o=t.scrollHeight,n=t.offsetHeight,i=t.scrollTop,c=document.body,a=c.clientHeight,s=c.scrollTop,l=_slicedToArray(document.getElementsByClassName("nav__loader"),1)[0],u=Math.max(r,o,n),d=window.innerHeight||r||a,m=Math.max(s,i);if(u>0&&e){var y=Math.round(m/(u-d)*100)/100;e.style.transform="scaleX(".concat(y,")"),l&&(l.style.display=y>.02?"block":"none")}}(document.getElementsByClassName("nav__loader-bar"))}}),window.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var o=document.querySelector(".story-continue__story-load"),n=o.querySelector(".story-continue__progress");o.setAttribute("data-state","outviewport");var i=document.querySelector(".nav__logo");window.screen.width>1023&&i&&(i.src="".concat(e(t,"<<contextPath>>"),"/resources/dist/").concat(t,"/images/logo.png?d=1")),r(n,180)},0)})},0);'
-    .replace('<<arcSite>>', arcSite)
+// ////////////////////////////////////////////////////////////////////////////
+
+export const storyContinueScript = (arcSite, contextPath, isBlog) =>
+  '"use strict";function _slicedToArray(e,t){return _arrayWithHoles(e)||_iterableToArrayLimit(e,t)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}function _iterableToArrayLimit(e,t){if(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e)){var o=[],r=!0,n=!1,i=void 0;try{for(var c,a=e[Symbol.iterator]();!(r=(c=a.next()).done)&&(o.push(c.value),!t||o.length!==t);r=!0);}catch(e){n=!0,i=e}finally{try{r||null==a.return||a.return()}finally{if(n)throw i}}return o}}function _arrayWithHoles(e){if(Array.isArray(e))return e}setTimeout(function(){var e=function(e,t){if(!t)return"/pf";if(!e)return t;var o="".concat(e,".pe");return"depor"===e&&(o="".concat(e,".com")),"elcomerciomag"===e&&(o="elcomercio.pe"),"peru21g21"===e&&(o="peru21.pe"),"https://cdna.".concat(o)},t=arcSiteToReplace,o=isBlogToReplace,r=function(e,t){e.setAttribute("style","transform: rotate(".concat(t,"deg)")),e.setAttribute("size",t)},n=function(e){var o=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"",r=arguments.length>2?arguments[2]:void 0;setTimeout(function(){var t=e.getAttribute("href");if(""!==t&&window.innerHeight+window.scrollY+10>=o.scrollHeight){var n=r?"/blogs":t;window.location=n}},"ojo"===t?5e3:250)};window.addEventListener("scroll",function(){var e,i=document.querySelector(".story-continue__story-load"),c=i.querySelector(".story-continue__progress"),a=i.querySelector(".story-continue__story-load-link"),l=document.querySelector("#signwall-app"),s=document.documentElement,u=parseInt(c.getAttribute("size"),10),d=window,m=d.innerHeight,y=d.scrollY;if(!l){if(m+y+10>=s.scrollHeight)for(var v=(350-u)/10+1,g=0;g<v;g++){var f=u+10*g+10;r(c,f),f>=350&&n(a,s,o)}else!function(e,o){var n=0,i=document.documentElement.scrollHeight,c=window,a=c.innerHeight,l=c.scrollY,s=c.screen,u="down";if(a+l+50<=i&&(r(e,o-10),u="up"),350>=o&&o>=180){var d=o;if("up"===u){var m=o-10;m>=180&&(d=m)}else d=o+10;r(e,d)}if(s.width<630){var y=document.querySelector(".story-header__list");if(y&&y.classList.add("hidden"),"elcomercio"!==t&&"depor"!==t&&"elbocon"!==t){var v=document.querySelector(".nav-sidebar"),g=document.querySelector(".nav"),f=document.querySelector(".nav__wrapper");window.scrollY<n?(g.classList.remove("active"),f.classList.add("section-menu--active"),v.classList.add("section-menu--active")):(window.scrollY<50?g.classList.remove("active"):g.classList.add("active"),f.classList.remove("section-menu--active"))}n=l}}(c,u);e=document.querySelector(".story-header__news-title")?document.querySelector(".story-header__news-title").textContent:"",document.querySelector(".nav__story-title").textContent=e,function(){var e=_slicedToArray(arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],1)[0],o=document.documentElement,r=o.clientHeight,n=o.scrollHeight,i=o.offsetHeight,c=o.scrollTop,a=document.body,l=a.clientHeight,s=a.scrollTop,u=_slicedToArray(document.getElementsByClassName("nav__loader"),1)[0],d=Math.max(r,n,i),m=window.innerHeight||r||l,y=Math.max(s,c);if(d>0&&e){var v=Math.round(y/(d-m)*100)/100;"elcomercio"!==t&&(e.style.transform="scaleX(".concat(v,")")),u&&(u.style.display=v>.02?"block":"none")}}(document.getElementsByClassName("nav__loader-bar"))}}),window.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var o=document.querySelector(".story-continue__story-load"),n=o.querySelector(".story-continue__progress");o.setAttribute("data-state","outviewport");var i=document.querySelector(".nav__logo");window.screen.width>1023&&i&&"gestion"!==t&&(i.src="publimetro"===t?"".concat(e(t,"<<contextPath>>"),"/resources/dist/publimetro/images/green-logo.png?d=1"):"".concat(e(t,"<<contextPath>>"),"/resources/dist/").concat(t,"/images/logo.png?d=1")),r(n,180)},0)})},0);'
+    .replace('arcSiteToReplace', `"${arcSite}"`)
     .replace('<<contextPath>>', contextPath)
+    .replace('isBlogToReplace', isBlog)
+
+// ////////////////////////////////////////////////////////////////////////////
 
 /* document.addEventListener('DOMContentLoaded', () => {
+  const IS_BLOG = isBLog
   const URLS_STORAGE = '_recents_articles_'
+  const PATH_BLOG = '/blogs'
+
   const saveUrlSessionStorage = url => {
     let isUrlSaved = false
     if (typeof Storage !== 'undefined') {
@@ -237,14 +248,27 @@ export const storyContinueScript = (arcSite, contextPath) =>
       ? '?ref=nota&ft=autoload&outputType=amp'
       : '?ref=nota&ft=autoload'
 
+  const titleRedirect = IS_BLOG ? 'Cargando a la sección de Blogs' : title
+  const websiteUrlRedirect = IS_BLOG
+    ? PATH_BLOG
+    : `${websiteUrl}${storyLoadAmp('<<arcSite>>')}`
+
   document.querySelector(
     '.story-continue__story-load-link'
-  ).href = `${websiteUrl}${storyLoadAmp('<<arcSite>>')}`
-  document.querySelector('.story-continue__story-load-title').innerHTML = title
+  ).href = websiteUrlRedirect
+  document.querySelector('.story-continue__story-load-title').innerHTML = titleRedirect
 }) */
 
-export const sessionStorageScript = (recentStoryContinue, siteUrl, arcSite) =>
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=function(e){var t=!1;if("undefined"!=typeof Storage){var n=[e],o=window.sessionStorage.getItem("_recents_articles_");o&&-1===(n=JSON.parse(o)).indexOf(e)&&(n.push(e),t=!0),window.sessionStorage.setItem("_recents_articles_",JSON.stringify(n))}return t},t=function(t){for(var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"",o="",i="",r=0;r<t.length&&(o=t[r].basic||"",i=t[r].websiteUrl||"",t.length-1===r&&"undefined"!=typeof window&&window.sessionStorage.removeItem("_recents_articles_"),!e("".concat(n).concat(i)));r++);return{title:o,websiteUrl:i}}("<<recentStoryContinue>>","<<siteUrl>>"),n=t.title,o=t.websiteUrl,i=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:"");document.querySelector(".story-continue__story-load-link").href="".concat(o).concat("elcomercio"==="<<arcSite>>"&&i?"?ref=nota&ft=autoload&outputType=amp":"?ref=nota&ft=autoload"),document.querySelector(".story-continue__story-load-title").innerHTML=n});'
+// ////////////////////////////////////////////////////////////////////////////////7
+
+export const sessionStorageScript = (
+  recentStoryContinue,
+  siteUrl,
+  arcSite,
+  isBlog
+) =>
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=isBLog,t=function(e){var t=!1;if("undefined"!=typeof Storage){var n=[e],o=window.sessionStorage.getItem("_recents_articles_");o&&-1===(n=JSON.parse(o)).indexOf(e)&&(n.push(e),t=!0),window.sessionStorage.setItem("_recents_articles_",JSON.stringify(n))}return t},n=function(e){for(var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"",o="",i="",r=0;r<e.length&&(o=e[r].basic||"",i=e[r].websiteUrl||"",e.length-1===r&&"undefined"!=typeof window&&window.sessionStorage.removeItem("_recents_articles_"),!t("".concat(n).concat(i)));r++);return{title:o,websiteUrl:i}}("<<recentStoryContinue>>","<<siteUrl>>"),o=n.title,i=n.websiteUrl,r=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),s=e?"Cargando a la sección de Blogs":o,a=e?"/blogs":"".concat(i).concat("elcomercio"==="<<arcSite>>"&&r?"?ref=nota&ft=autoload&outputType=amp":"?ref=nota&ft=autoload");document.querySelector(".story-continue__story-load-link").href=a,document.querySelector(".story-continue__story-load-title").innerHTML=s});'
     .replace('"<<recentStoryContinue>>"', JSON.stringify(recentStoryContinue))
     .replace('<<siteUrl>>', siteUrl)
     .replace('<<arcSite>>', arcSite)
+    .replace('isBLog', isBlog)
