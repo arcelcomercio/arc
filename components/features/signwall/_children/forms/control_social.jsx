@@ -239,7 +239,7 @@ export const ButtonSocial = ({
               },
               {
                 name: 'originMethod',
-                value: '2',
+                value: provider === 'facebook' ? '2' : '3',
                 type: 'String',
               },
               {
