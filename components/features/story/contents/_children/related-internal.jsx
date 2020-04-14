@@ -77,7 +77,7 @@ const StoryContentChildRelatedInternal = ({ stories, ids, imageDefault }) => {
 
   return (
     <div className={classes.related}>
-      <div className={classes.title}>Mira También</div>
+      <div className={classes.title}>Mira También:</div>
       {stories.map((item, index) =>
         ids.includes(item._id) ? (
           <RelatedItem
