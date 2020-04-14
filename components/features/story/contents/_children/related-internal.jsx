@@ -4,7 +4,7 @@ import StoryData from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
-  related: 'related-internal position-relative p-20',
+  related: 'related-internal position-relative p-20 mb-20 mt-20',
   item: 'related-internal__item flex flex-row mt-20',
   title: 'related-internal__title uppercase mb-20',
   multimedia: 'related-internal__figure position-relative',

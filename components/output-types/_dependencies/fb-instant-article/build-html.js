@@ -217,7 +217,7 @@ const ParagraphshWithAdds = ({
       if(ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0){
           let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
           lookAlso.forEach((value) => {
-              ulLookAlso += `<li><a href=${siteUrl}${value}></a></li>`
+              ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
           })
           processedParagraph = `${ulLookAlso}</ul>`;
           numberWords = countWordsHelper(clearHtml(processedParagraph))
