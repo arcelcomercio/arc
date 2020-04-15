@@ -1,7 +1,11 @@
 /******* Base *******/
 @import "./scss/partials/import-fonts";
+@import "./scss/partials/import-icons";
 @import "../../general-styles/framework/variables/index";
 @import "./scss/variables/index";
+@import "./scss/partials/base";
+@import "../../general-styles/framework/core/index";
+@import "../../general-styles/framework/generators/index";
 
 /******* Components *******/
 @import "./scss/components/header/header-full";
