@@ -67,14 +67,14 @@ class OptaCommentary extends Component {
       .then(data => data.json())
       .then(commentaryData => {
         const { items: listCommentaryTemp = [] } = commentaryData
+        const { adsMatch = '' } = this.state
         const limitComments = Math.floor(
           listCommentaryTemp.length * Math.random()
         )
-        const { adsMatch = '' } = this.state
-        const listCommentary = listCommentaryTemp.slice(0, limitComments)
-        // console.log("======================================")
-        // console.log("Total: " + listCommentary.length)
-        // console.log("======================================")
+        const listCommentary = listCommentaryTemp
+          .reverse()
+          .slice(0, limitComments)
+          .reverse()
         this.setState({
           listCommentary,
           adsMatch,
