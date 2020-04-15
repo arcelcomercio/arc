@@ -7,7 +7,10 @@
 @import "../../general-styles/framework/core/index";
 @import "../../general-styles/framework/generators/index";
 
-/******* Components *******/
+/******* General components *******/
+@import "../../general-styles/components/features/header/header-full";
+
+/******* Components of brand *******/
 @import "./scss/components/header/header-full";
 @import "./scss/components/header/match-nav/navegation-tabs";
 @import "./scss/components/cards/live-score-minute-to-minute/score";
