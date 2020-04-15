@@ -1,0 +1,31 @@
+/** ----------------------------*
+*            BORDERS            **/
+
+.border-1 {
+  border-width: 1px;
+}
+
+.border-b-1 {
+  border-bottom-width: 1px;
+}
+
+.border-solid {
+  border-style: solid;
+}
+.border-dashed {
+  border-style: dashed;
+}
+
+/** ----------------------------*
+*         BORDERS COLORS        **/
+
+$map-border-color: (
+  border-white: $color-white,
+  border-gray: $border-color-gray,
+) !default;
+
+@each $border-color, $border-color-val in $map-border-color {
+  .#{$border-color} {
+    border-color: $border-color-val;
+  }
+}

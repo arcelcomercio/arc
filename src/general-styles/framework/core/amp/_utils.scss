@@ -1,0 +1,164 @@
+@function get-fixed-class($value) {
+  @if $value==100% {
+    $value: full;
+  }
+
+  @if $value==none {
+    $value: hidden;
+  }
+
+  @return $value;
+}
+
+/** ----------------------------*
+*          DIMENSIONS           */
+
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.h-inherit {
+  height: inherit;
+}
+
+/** ----------------------------*
+*        OBJECT-FIT & POS       */
+
+.object-cover {
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+/** ----------------------------*
+*           DISPLAYS            */
+
+$map-displays: block, flex, inline, inline-block, table, none;
+// inline-flex
+
+@each $display in $map-displays {
+  $display-class: get-fixed-class($display);
+
+  @include build-class($display-class, display, $display);
+}
+
+.clearfix {
+  display: table;
+  content: "";
+}
+
+/** ----------------------------*
+*           OVERFLOW            */
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-hidden-ios {
+  overflow: hidden; // TODO: !important retirado por amp
+  height: 100%;
+}
+
+/** ----------------------------*
+*           POSITION            */
+
+$map-pos: relative, absolute;
+
+@each $pos in $map-pos {
+  @include build-class(position-#{$pos}, position, $pos);
+}
+
+$map-pos-0: top, right, bottom, left;
+
+@each $pos-0 in $map-pos-0 {
+  @include build-class(#{$pos-0}-0, $pos-0, 0);
+}
+
+/** ----------------------------*
+*               TEXT            */
+
+$map-text-pos: left, center, right;
+
+@each $text-pos in $map-text-pos {
+  @include build-class(text-#{$text-pos}, text-align, $text-pos);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+/** ----------------------------*
+*             FONTS             * */
+
+.primary-font {
+  font-family: $primary-font; // TODO: !important retirado por amp
+}
+
+.secondary-font {
+  font-family: $secondary-font; // TODO: !important retirado por amp
+}
+
+.tertiary-font {
+  font-family: $tertiary-font;
+}
+
+$map-font-weight: (
+  thin: 200,
+  normal: 400,
+  bold: 700,
+  xbold: 900,
+);
+
+@each $font-weight, $font-weight-val in $map-font-weight {
+  @include build-class(font-#{$font-weight}, font-weight, $font-weight-val);
+}
+
+/** ----------------------------*
+*            RADIUS             * */
+
+.rounded-sm {
+  border-radius: 4px;
+}
+
+/******* Extra ********/
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.no-selected {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.font-0 {
+  font-size: 0;
+}
+
+.border-none {
+  border: none;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-1 {
+  opacity: 1;
+}
