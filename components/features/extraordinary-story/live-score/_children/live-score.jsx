@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEditableContent } from 'fusion:content'
+import { fetchLive } from '../_dependencies/scripts'
 
 const LiveScoreChild = props => {
   const {
@@ -13,10 +14,6 @@ const LiveScoreChild = props => {
     titleField,
     subTitleField,
     isLive,
-    firstName,
-    firstScore,
-    secondName,
-    secondScore,
   } = props
 
   const { editableField } = useEditableContent()
@@ -41,15 +38,17 @@ const LiveScoreChild = props => {
         {codeField && (
           <a
             href={websiteLink}
-            className="extraordinary-l-score__score-content text-white flex mb-15">
-            <div className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex justify-end items-center">
-              {firstName || ''}
-            </div>
-            <div className="extraordinary-l-score__score p-10 title-xs font-bold bg-black flex items-center">{`${firstScore ||
-              ''} - ${secondScore || ''}`}</div>
-            <div className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex items-center">
-              {secondName || ''}
-            </div>
+            className="extraordinary-l-score__score-content text-white flex mb-15"
+            data-id={codeField}>
+            <div
+              className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex justify-end items-center"
+              id="firstName"></div>
+            <div
+              className="extraordinary-l-score__score p-10 title-xs font-bold bg-black flex items-center"
+              id="score"></div>
+            <div
+              className="extraordinary-l-score__team p-10 text-xl font-bold flex-1 flex items-center"
+              id="secondName"></div>
           </a>
         )}
         <h1 className="extraordinary-l-score__title mb-15 overflow-hidden">
@@ -74,6 +73,13 @@ const LiveScoreChild = props => {
           {subTitleField || subTitle}
         </p>
       </div>
+
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `"use strict";${fetchLive.replace('<<id>>', codeField)}`,
+        }}
+      />
     </div>
   )
 }
