@@ -9,7 +9,8 @@ import { getAssetsPath } from '../../utilities/constants'
 
 export default ({
   deployment,
-  // isStory,
+  isStory,
+  idMatch,
   isAmp,
   siteName = '',
   siteUrl = '',
@@ -63,7 +64,8 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
-  const style = 'style'
+  const isStoryMatch = isStory !== '' && idMatch !== ''
+  const style = arcSite === 'depor' && isStoryMatch ? 'match-score' : 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
