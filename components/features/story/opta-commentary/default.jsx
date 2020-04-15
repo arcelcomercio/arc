@@ -42,29 +42,6 @@ class OptaCommentary extends Component {
     this.setInsetvalForRequest()
   }
 
-  getDataCommentary = () => {
-    const { globalContent } = this.props
-
-    const footballGameId = getFootballGameId(globalContent)
-
-    const url = `https://devresultadosopta.elcomercio.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
-    fetch(url)
-      .then(data => data.json())
-      .then(commentaryData => {
-        const { items: listCommentary = [] } = commentaryData
-        listCommentary.slice(
-          0,
-          Math.floor(listCommentary.length * Math.random())
-        )
-        this.setState({
-          listCommentary,
-        })
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-
   setInsetvalForRequest = () => {
     const {
       customFields: { intervalTime = 1 },
@@ -78,6 +55,34 @@ class OptaCommentary extends Component {
     )
     // eslint-disable-next-line react/no-unused-state
     this.setState({ interval })
+  }
+
+  getDataCommentary = () => {
+    const { globalContent } = this.props
+
+    const footballGameId = getFootballGameId(globalContent)
+
+    const url = `https://devresultadosopta.elcomercio.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
+    fetch(url)
+      .then(data => data.json())
+      .then(commentaryData => {
+        const { items: listCommentaryTemp = [] } = commentaryData
+        const limitComments = Math.floor(
+          listCommentaryTemp.length * Math.random()
+        )
+        const { adsMatch = '' } = this.state
+        const listCommentary = listCommentaryTemp.slice(0, limitComments)
+        // console.log("======================================")
+        // console.log("Total: " + listCommentary.length)
+        // console.log("======================================")
+        this.setState({
+          listCommentary,
+          adsMatch,
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   render() {
