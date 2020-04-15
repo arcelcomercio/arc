@@ -79,6 +79,10 @@
       font-size: 20px;
     }
   }
+  &__blockquote {
+    border-left: 2px solid #1d75c9;
+    margin-left: 15px;
+  }
 }
 .content-sidebar {
   display: inline;
