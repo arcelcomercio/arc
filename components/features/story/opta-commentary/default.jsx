@@ -62,19 +62,12 @@ class OptaCommentary extends Component {
 
     const footballGameId = getFootballGameId(globalContent)
 
-    const url = `https://devresultadosopta.elcomercio.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
+    const url = `https://cdna-resultadosopta.minoticia.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
     fetch(url)
       .then(data => data.json())
       .then(commentaryData => {
-        const { items: listCommentaryTemp = [] } = commentaryData
+        const { items: listCommentary = [] } = commentaryData
         const { adsMatch = '' } = this.state
-        const limitComments = Math.floor(
-          listCommentaryTemp.length * Math.random()
-        )
-        const listCommentary = listCommentaryTemp
-          .reverse()
-          .slice(0, limitComments)
-          .reverse()
         this.setState({
           listCommentary,
           adsMatch,

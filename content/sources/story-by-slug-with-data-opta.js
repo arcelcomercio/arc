@@ -28,8 +28,7 @@ const options = {
 }
 
 const getDataOptaCommentaries = (storyData, footballGameId) => {
-  const urlCommentariesCDN = `https://devresultadosopta.elcomercio.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
-  // const urlCommentariesCDN = `https://cdna-resultadosopta.minoticia.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
+  const urlCommentariesCDN = `https://cdna-resultadosopta.minoticia.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
 
   return request({
     uri: urlCommentariesCDN,
