@@ -23,7 +23,7 @@ const GridSectionColumns = ({
     section13,
   } = {},
 }) => {
-  const { arcSite, contextPath } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useFusionContext()
 
   return (
     <Static id="GridSectionColumns">
@@ -55,7 +55,8 @@ const GridSectionColumns = ({
               ],
               htmlAds,
               contextPath,
-              arcSite
+              arcSite,
+              deployment
             ),
           }}></script>
       </div>
