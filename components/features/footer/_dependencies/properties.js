@@ -180,7 +180,7 @@ const elcomercio = {
     contacts: [
       {
         position: 'Suscripciones',
-        name: 'suscriptores@comercio.com.pe',
+        name: 'atencionalcliente@comercio.com.pe',
       },
       {
         position: 'Publicidad',
@@ -188,7 +188,7 @@ const elcomercio = {
       },
       {
         position: 'Club El Comercio',
-        name: 'clubelcomercio@comercio.com.pe',
+        name: 'atencionalcliente@comercio.com.pe',
         link: {
           name: 'Compromiso de Autorregulación Comercial',
           url: 'https://elcomercio.pe/compromiso-autoregulacion-comercial.pdf',

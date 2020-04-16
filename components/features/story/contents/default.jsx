@@ -175,7 +175,7 @@ class StoryContents extends PureComponent {
           <div
             className={`${classes.content} ${isPremium &&
               arcSite === SITE_GESTION &&
-              'story-content__nota-premium paywall'} `}
+              'story-content__nota-premium paywall no_copy'} `}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
@@ -315,11 +315,7 @@ class StoryContents extends PureComponent {
                     )
                   }
 
-                  if (
-                    type === ELEMENT_BLOCKQUOTE &&
-                    (arcSite === SITE_ELCOMERCIO ||
-                      arcSite === SITE_ELCOMERCIOMAG)
-                  ) {
+                  if (type === ELEMENT_BLOCKQUOTE) {
                     return (
                       <blockquote
                         dangerouslySetInnerHTML={{
