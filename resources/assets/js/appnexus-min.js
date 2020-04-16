@@ -15,12 +15,12 @@ function _objectSpread(e) {
   for (var t = 1; t < arguments.length; t++) {
     var n = null != arguments[t] ? arguments[t] : {}
     t % 2
-      ? ownKeys(n, !0).forEach(function(t) {
+      ? ownKeys(Object(n), !0).forEach(function(t) {
           _defineProperty(e, t, n[t])
         })
       : Object.getOwnPropertyDescriptors
       ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
-      : ownKeys(n).forEach(function(t) {
+      : ownKeys(Object(n)).forEach(function(t) {
           Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(n, t))
         })
   }

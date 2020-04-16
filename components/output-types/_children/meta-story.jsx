@@ -33,7 +33,7 @@ export default ({
     link,
     displayDate: publishDate,
     publishDate: publishDatedate,
-    subTitle,
+    subTitle = arcSite,
     seoAuthor,
     imagePrimarySeo,
     primarySection,
@@ -95,9 +95,9 @@ export default ({
 
       return thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
         ? `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
-            title
+            title || arcSite
           )}",   "description": "${formatHtmlToText(
-            subTitle
+            subTitle || arcSite
           )}",  "thumbnailUrl": "${thumbnailUrlYoutube ||
             thumbnailUrlTwitter ||
             thumbnailUrlFacebook}", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube ||
@@ -153,11 +153,11 @@ export default ({
           : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
 
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
-        caption
+        caption || arcSite
       )}", ${
         isAmp === true ? publishedVideoOrganization : ''
       }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
-        description || caption
+        description || caption || arcSite
       )}", "contentUrl": "${getAssetsPathVideo(
         arcSite,
         url
