@@ -37,9 +37,9 @@ import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
-  textClasses:
-    'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl line-h-md',
-  blockquoteClass: 'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
+  textClasses: 'amp-story-content__news-text ',
+  blockquoteClass:
+    'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
   author: 'amp-story-content__author mt-15 mb-15 secondary-font',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
@@ -263,7 +263,10 @@ class StoryContentAmp extends PureComponent {
                     </>
                   )
                 }
-                if (type === ConfigParams.ELEMENT_BLOCKQUOTE) {
+                if (
+                  type === ConfigParams.ELEMENT_BLOCKQUOTE &&
+                  (arcSite === 'elcomercio' || arcSite === 'elcomerciomag')
+                ) {
                   return (
                     <blockquote
                       dangerouslySetInnerHTML={{

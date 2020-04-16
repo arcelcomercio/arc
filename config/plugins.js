@@ -15,14 +15,10 @@ module.exports = type => {
     let cssBaseGlobalComponent = []
     if (type === APP_AMP) {
       cssBaseFeature = [
-        '/features/layout/navbar/navbar-somos',
         '/features/story/content/related-content',
         '/features/story/header/story-gallery',
       ]
-      cssBaseGlobalComponent = [
-        '/global-components/icons',
-        '/global-components/story-table',
-      ]
+      cssBaseGlobalComponent = ['/global-components/story-table']
     }
     return { feature: cssBaseFeature, globalComponent: cssBaseGlobalComponent }
   }
