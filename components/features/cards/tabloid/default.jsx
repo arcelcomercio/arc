@@ -20,7 +20,7 @@ const classes = {
     'tabloid__body flex flex-col items-center justify-center h-full position-relative pt-30 pb-10 pr-30 pl-30 bg-base-200',
   date:
     'tabloid__date flex items-center justify-center text-sm text-gray-300 font-bold p-20 bg-base-200',
-  face: 'tabloid__face object-cover',
+  face: 'tabloid__face',
 }
 
 const CONTENT_SOURCE = 'story-by-section-printed'
@@ -56,7 +56,7 @@ const CardTabloid = props => {
 
   const { printed_md: resizedImage } = getResizedUrl({
     url: urlImage,
-    presets: 'printed_md:236x266',
+    presets: 'printed_md:246x0',
     arcSite,
   })
 

@@ -88,7 +88,7 @@ const transform = (storyData, { 'arc-site': arcSite }) => {
     if (url) {
       const resizedUrls = createResizedUrl({
         url,
-        presets: 'printed_md:236x266',
+        presets: 'printed_md:246x0',
         resizerUrl,
         resizerSecret,
       })
