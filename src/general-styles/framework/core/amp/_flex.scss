@@ -1,0 +1,76 @@
+/** ----------------------------*
+*           FLEX BASE           **/
+
+/** 
+*   $flex-group: ([extensión del nombre de la clase]: [valor del atributo], ...);
+*   
+*   $map-flex-common: ( [extensión del nombre del atributo]: $flex-group,)
+*
+*   Ejemplo: 
+*   .flex-[extensión del nombre de la clase] {
+*       flex-[extensión del nombre del atributo]: [valor del atributo];
+*   }   
+*/
+
+$flex-basics: ();
+$flex-grow: ();
+$flex-shrink: ();
+$flex-direction: (
+  col: column,
+  row: row,
+);
+$flex-wrap: ();
+
+$map-flex-common: (
+  "": $flex-basics,
+  grow: $flex-grow,
+  shrink: $flex-shrink,
+  direction: $flex-direction,
+  wrap: $flex-wrap,
+);
+
+@each $flex-group, $flex-props in $map-flex-common {
+  @each $flex-prop, $flex-prop-value in $flex-props {
+    @if $flex-group== "" {
+      // $flex-basics
+      @include build-class(flex-#{$flex-prop}, flex, $flex-prop-value);
+    } @else {
+      @include build-class(
+        flex-#{$flex-prop},
+        flex-#{$flex-group},
+        $flex-prop-value
+      );
+    }
+  }
+}
+
+/** ----------------------------*
+*       justify-content         **/
+
+$map-flex-justify: (
+  start: flex-start,
+  center: center,
+  end: flex-end,
+  between: space-between,
+);
+
+@each $flex-justify, $flex-justify-value in $map-flex-justify {
+  @include build-class(
+    justify-#{$flex-justify},
+    justify-content,
+    $flex-justify-value
+  );
+}
+
+/** ----------------------------*
+*           align-items         **/
+
+$map-flex-align: (
+  start: flex-start,
+  center: center,
+  end: flex-end,
+);
+
+@each $flex-align, $flex-align-value in $map-flex-align {
+  @include build-class(items-#{$flex-align}, align-items, $flex-align-value);
+}

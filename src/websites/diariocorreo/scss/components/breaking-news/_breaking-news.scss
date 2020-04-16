@@ -1,4 +1,8 @@
 .breaking-news {
+  &__text,
+  &__link {
+    font-weight: 600;
+  }
   &--bgcolor-1 {
     background-color: $color-attention;
     .breaking-news__text,
@@ -14,10 +18,6 @@
       animation-delay: 0.5s;
       animation-iteration-count: infinite;
     }
-  }
-  &__text,
-  &__link {
-    font-weight: 600;
   }
 }
 
