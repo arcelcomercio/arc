@@ -104,10 +104,6 @@ const StoryContinue = ({ customFields: { isBlog } = {} }) => {
   )
 }
 
-StoryContinue.propTypes = {
-  customFields,
-}
-
 StoryContinue.label = 'Artículo - Siguiente'
 StoryContinue.static = true
 
