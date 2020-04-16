@@ -1,0 +1,76 @@
+/* --- BASE -------------------------------------------------------------
+  Estilos core del framework, modificadores del core y partials por marca 
+------------------------------------------------------------------------- */
+@import "./scss/partials/import-icons";
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+@import "../../general-styles/framework/core/index";
+@import "./scss/partials/import-fonts";
+@import "../../general-styles/framework/generators/index";
+@import "./scss/partials/base";
+
+/* --- STORY VARIABLES --------------------------------------------------
+  Modificacion de variables SCSS del core y de marca
+------------------------------------------------------------------------- */
+
+/* --- GLOBAL COMPONENTS ------------------------------------------------
+  Estilos de componentes globales desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/global-components/icons";
+@import "../../general-styles/components/global-components/multimedia-icon";
+@import "../../general-styles/components/global-components/search-input";
+@import "../../general-styles/components/global-components/story-item";
+@import "../../general-styles/components/global-components/story-table";
+
+/* --- FEATURES ---------------------------------------------------------
+  Estilos de features desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/layout/navbar/nav";
+@import "../../general-styles/components/features/layout/navbar/nav-sidebar";
+@import "../../general-styles/components/features/layout/navbar/nav-story";
+@import "../../general-styles/components/features/layout/header/header";
+@import "../../general-styles/components/features/header/inverted";
+@import "../../general-styles/components/features/breaking-news/breaking-news";
+@import "../../general-styles/components/features/basic-html/basic-html";
+@import "../../general-styles/components/features/cards/most-read/most-read";
+@import "../../general-styles/components/features/cards/most-read/most-read-item";
+@import "../../general-styles/components/features/story/special-header/special-header";
+@import "../../general-styles/components/features/story/header/story-header";
+@import "../../general-styles/components/features/story/header/story-gallery-slider";
+@import "../../general-styles/components/features/story/header/story-gallery";
+@import "../../general-styles/components/features/story/content/story-content";
+@import "../../general-styles/components/features/story/content/story-tags";
+@import "../../general-styles/components/features/story/content/related-internal";
+@import "../../general-styles/components/features/story/content/related-content";
+@import "../../general-styles/components/features/story/continue/story-continue";
+@import "../../general-styles/components/features/story/story/story";
+@import "../../general-styles/components/features/story/related-internal";
+@import "../../general-styles/components/features/story/google-news/google-news";
+@import "../../general-styles/components/features/stories-lists/linked-by-brand/linked-by-brand";
+@import "../../general-styles/components/features/layout/footer/footer-story";
+
+/* --- MODIFICADORES ----------------------------------------------------
+  Estilos de features modificados por marca
+------------------------------------------------------------------------- */
+@import "./scss/global-components/buttons";
+@import "./scss/global-components/independent-title";
+@import "./scss/global-components/story-item";
+@import "./scss/global-components/story-table";
+@import "./scss/components/layout/navbar/nav";
+@import "./scss/components/layout/navbar/nav-story";
+@import "./scss/components/layout/navbar/nav-sidebar";
+@import "./scss/components/layout/header/header";
+@import "./scss/components/header/inverted";
+@import "./scss/components/breaking-news/breaking-news";
+@import "./scss/components/cards/most-read/most-read";
+@import "./scss/components/cards/most-read/most-read-item";
+@import "./scss/components/story/header/story-header";
+@import "./scss/components/story/header/story-gallery";
+@import "./scss/components/story/header/story-gallery-slider";
+@import "./scss/components/story/interest/story-interest.scss";
+@import "./scss/components/story/contents/story-content";
+@import "./scss/components/story/contents/related-content";
+@import "./scss/components/story/contents/story-tags";
+@import "./scss/components/story/continue/story-continue";
+@import "./scss/components/story/story/story";
+@import "./scss/components/layout/footer/footer-story";

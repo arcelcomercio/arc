@@ -13,7 +13,7 @@ const classes = {
   title: `editorial-card__title block font-normal primary-font text-lg text-gray-300 line-h-sm`,
 }
 
-const OpinionGridEditorialCard = ({ data: story }) => {
+const OpinionGridEditorialCard = ({ data: story, authorImage }) => {
   return (
     <div role="listitem" className={classes.card}>
       <div className={classes.wrapper}>
@@ -28,7 +28,7 @@ const OpinionGridEditorialCard = ({ data: story }) => {
             <a href={story.websiteLink}>
               <img
                 className={classes.image}
-                src={story.authorImage}
+                src={authorImage}
                 alt={story.author}
               />
             </a>

@@ -21,6 +21,7 @@ export default ({
   arcSite = '',
   contextPath = '',
   isLite = false,
+  isStory = false,
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
@@ -30,11 +31,11 @@ export default ({
     contextPath
   )}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg?d=1`
 
-  const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${`${logoSite}?d=1`}",  "sameAs" : [ ${socialNetworks.map(
+  const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${logoSite}",  "sameAs" : [ ${socialNetworks.map(
     social => `"${social.url}"`
   )} ] }`
 
-  const structuredDataEco = `{"@context" : "http://schema.org", "@type" : "Organization", "legalName":"Empresa Editora El Comercio", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${`${logoSite}?d=1`}", "foundingDate":"1839", "founders":[ { "@type":"Person", "name":"Manuel Amunátegui"}, { "@type":"Person", "name":"Alejandro Villota"  } ],  "address":{ "@type":"PostalAddress","streetAddress":"Jr. Santa Rosa #300 Lima 1 Perú","addressLocality":"Lima Cercado","addressRegion":"LIMA",  "postalCode":"15001", "addressCountry":"PERU" }, "contactPoint":{       "@type":"ContactPoint",      "contactType":"customer service",      "contactOption" : "TollFree",      "telephone":"[+51-311-6310]", "email":"diario.elcomerciope@gmail.com"    }, "sameAs" : [ ${socialNetworks.map(
+  const structuredDataEco = `{"@context" : "http://schema.org", "@type" : "Organization", "legalName":"Empresa Editora El Comercio", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${logoSite}", "foundingDate":"1839", "founders":[ { "@type":"Person", "name":"Manuel Amunátegui"}, { "@type":"Person", "name":"Alejandro Villota"  } ],  "address":{ "@type":"PostalAddress","streetAddress":"Jr. Santa Rosa #300 Lima 1 Perú","addressLocality":"Lima Cercado","addressRegion":"LIMA",  "postalCode":"15001", "addressCountry":"PERU" }, "contactPoint":{       "@type":"ContactPoint",      "contactType":"customer service",      "contactOption" : "TollFree",      "telephone":"[+51-311-6310]", "email":"diario.elcomerciope@gmail.com"    }, "sameAs" : [ ${socialNetworks.map(
     social => `"${social.url}"`
   )} ] }`
 
@@ -61,7 +62,10 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
-  const style = 'style'
+  const style =
+    isStory && (arcSite === 'elcomercio' || arcSite === 'depor')
+      ? 'story'
+      : 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`

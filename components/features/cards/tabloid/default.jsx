@@ -3,11 +3,13 @@ import { useContent, useEditableContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import { defaultImage } from '../../../utilities/helpers'
-import getLatinDate from '../../../utilities/date-time/latin-date'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
+
+import { defaultImage } from '../../../utilities/assets'
+import getLatinDate from '../../../utilities/date-time/latin-date'
 import StoryData from '../../../utilities/story-data'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   tabloid: 'tabloid row-1 flex flex-col',
@@ -18,12 +20,10 @@ const classes = {
     'tabloid__body flex flex-col items-center justify-center h-full position-relative pt-30 pb-10 pr-30 pl-30 bg-base-200',
   date:
     'tabloid__date flex items-center justify-center text-sm text-gray-300 font-bold p-20 bg-base-200',
-  face: 'tabloid__face object-cover',
+  face: 'tabloid__face',
 }
 
 const CONTENT_SOURCE = 'story-by-section-printed'
-
-// TODO: Aplicar resizer a la imagen cuando viene por URL personalizada.
 
 const CardTabloid = props => {
   const {
@@ -54,6 +54,12 @@ const CardTabloid = props => {
         : {}
     ) || {}
 
+  const { printed_md: resizedImage } = getResizedUrl({
+    url: urlImage,
+    presets: 'printed_md:246x0',
+    arcSite,
+  })
+
   const {
     title = '',
     createdDate = '',
@@ -64,24 +70,23 @@ const CardTabloid = props => {
     arcSite,
   })
 
+  const lazyImage = defaultImage({
+    deployment,
+    contextPath,
+    arcSite,
+    size: 'sm',
+  })
+
   const {
     section_name: sourceSectionName = '',
     promo_items: {
       basic: {
-        resized_urls: {
-          lazy_default: lazyImage = '',
-          printed_md: printedImage = defaultImage({
-            deployment,
-            contextPath,
-            arcSite,
-            size: 'sm',
-          }),
-        } = {},
+        resized_urls: { printed_md: printedImage = lazyImage } = {},
       } = {},
     } = {},
   } = data
 
-  const tabloidImage = urlImage || printedImage
+  const tabloidImage = resizedImage || urlImage || printedImage
   const nameDate = getLatinDate(createdDate, ' del', true)
 
   return (

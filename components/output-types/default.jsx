@@ -314,7 +314,10 @@ if ('IntersectionObserver' in window) {
       height: 157px;
     }}
     `
-  const style = 'style'
+  const style =
+    isStory && (arcSite === 'elcomercio' || arcSite === 'depor')
+      ? 'story'
+      : 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`

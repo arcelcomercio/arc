@@ -55,9 +55,8 @@ const NavbarChildMenu = props => {
             <li className={classes.item} key={`navbar-menu-${url || id}`}>
               <a
                 href={url || id || '/'}
-                className={`${classes.link}${
-                  deep > 0 ? ` pl-${25 + deep * 15}` : ''
-                }`}>
+                className={classes.link}
+                style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -74,9 +73,7 @@ const NavbarChildMenu = props => {
                    * */}
                   <label htmlFor={idElem} className={classes.labelParentItem} />
                   <ul
-                    className={`${
-                      classes.containerSubMenu
-                    } deep-${deep} ${idElem}`}>
+                    className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
                     {renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>

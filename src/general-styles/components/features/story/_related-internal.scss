@@ -1,41 +1,7 @@
 .related-internal {
-  position: relative;
-
-  @media (--tablet) {
-    float: right;
-    background-color: #f5f5f5;
-    padding: 5px 20px;
-    width: 200px;
-    margin-right: 0px;
-  }
-
-  &__title {
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-
-  &__information {
-    padding: 10px 0px 20px;
-
-    @media (--tablet) {
-      background-color: $color-gray-100;
-      padding: 20px 10px;
-    }
-  }
-  &__title-link {
-    font-size: 20px;
-  }
-  &__multimedia {
-    position: relative;
-  }
-
-  &__multimedia-img {
-    width: 100%;
-  }
+  background-color: #f8f8f8;
 
   &__multimedia-icon {
-    position: absolute;
     font-size: 30px;
     top: 50%;
     margin-top: -15px;
