@@ -12,8 +12,7 @@ const classes = {
   image: 'w-full h-full lazy',
   icon:
     'related-internal__multimedia-icon position-absolute p-5 rounded-lg title-xl',
-  info:
-    'related-internal__information w-full md:pr-10 pl-20',
+  info: 'related-internal__information w-full md:pr-10 pl-20',
   titleLink: 'related-internal__title-link underline font-bold',
 }
 
@@ -30,7 +29,6 @@ const getIcon = type => {
 }
 
 const RelatedItem = ({ data, imageDefault } /* , i */) => {
- 
   const get = new StoryData({
     data,
     defaultImgSize: 'sm',
@@ -39,7 +37,7 @@ const RelatedItem = ({ data, imageDefault } /* , i */) => {
     title: get.title,
     websiteLink: get.link,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimediaLandscapeMD
+    multimediaImg: get.multimediaLandscapeMD,
   }
 
   return (
@@ -53,11 +51,14 @@ const RelatedItem = ({ data, imageDefault } /* , i */) => {
               alt={filterData.title}
               className={classes.image}
             />
-            {filterData.multimediaType === IMAGE || filterData.multimediaType === '' ? (
+            {filterData.multimediaType === IMAGE ||
+            filterData.multimediaType === '' ? (
               ''
             ) : (
               <span
-                className={`${classes.icon} icon-${getIcon(filterData.multimediaType)}`}
+                className={`${classes.icon} icon-${getIcon(
+                  filterData.multimediaType
+                )}`}
               />
             )}
           </a>

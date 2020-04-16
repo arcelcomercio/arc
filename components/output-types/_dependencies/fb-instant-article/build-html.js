@@ -193,7 +193,7 @@ const ParagraphshWithAdds = ({
   nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
-  siteUrl
+  siteUrl,
 }) => {
   let newsWithAdd = []
   let countWords = 0
@@ -211,17 +211,17 @@ const ParagraphshWithAdds = ({
         level,
       })
 
-      if(ConfigParams.ELEMENT_STORY === type){
+      if (ConfigParams.ELEMENT_STORY === type) {
         lookAlso.push(originalParagraph)
       }
-      if(ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0){
-          let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
-          lookAlso.forEach((value) => {
-              ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
-          })
-          processedParagraph = `${ulLookAlso}</ul>`;
-          numberWords = countWordsHelper(clearHtml(processedParagraph))
-          lookAlso = []
+      if (ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0) {
+        let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
+        lookAlso.forEach(value => {
+          ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
+        })
+        processedParagraph = `${ulLookAlso}</ul>`
+        numberWords = countWordsHelper(clearHtml(processedParagraph))
+        lookAlso = []
       }
 
       countWords += numberWords
@@ -305,7 +305,7 @@ const BuildHtml = ({
   arcSite,
   section,
   getPremiumValue,
-  siteUrl
+  siteUrl,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -317,7 +317,7 @@ const BuildHtml = ({
     nextAdds,
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
-    siteUrl
+    siteUrl,
   }
   const getContentType = ({ premium = '' } = {}) => {
     const premiumValue =
