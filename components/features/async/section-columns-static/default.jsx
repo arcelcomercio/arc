@@ -7,7 +7,7 @@ import { sectionBlockAsyncScrip } from './_dependencies/scripts'
 
 const GridSectionColumns = ({
   customFields: {
-    htmlAds,
+    htmlAds = '',
     section1,
     section2,
     section3,
@@ -68,6 +68,8 @@ GridSectionColumns.propTypes = {
   customFields: PropTypes.shape({
     section1: PropTypes.string.tag({
       name: 'Campo 1 (URL de la sección)',
+      description:
+        'Para visualizar sus cambios es necesario que actualice la página',
     }),
     section2: PropTypes.string.tag({
       name: 'Campo 2 (URL de la sección)',
