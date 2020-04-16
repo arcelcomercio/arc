@@ -315,11 +315,7 @@ class StoryContents extends PureComponent {
                     )
                   }
 
-                  if (
-                    type === ELEMENT_BLOCKQUOTE &&
-                    (arcSite === SITE_ELCOMERCIO ||
-                      arcSite === SITE_ELCOMERCIOMAG)
-                  ) {
+                  if (type === ELEMENT_BLOCKQUOTE) {
                     return (
                       <blockquote
                         dangerouslySetInnerHTML={{

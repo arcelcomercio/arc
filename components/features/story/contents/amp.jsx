@@ -263,7 +263,7 @@ class StoryContentAmp extends PureComponent {
                     </>
                   )
                 }
-                if (type === ConfigParams.ELEMENT_BLOCKQUOTE && (arcSite === "elcomercio" || arcSite === "elcomerciomag")) {
+                if (type === ConfigParams.ELEMENT_BLOCKQUOTE) {
                   return (
                     <blockquote
                       dangerouslySetInnerHTML={{
