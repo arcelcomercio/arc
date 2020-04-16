@@ -21,6 +21,7 @@ export default ({
   arcSite = '',
   contextPath = '',
   isLite = false,
+  isStory = false,
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
@@ -61,7 +62,10 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
-  const style = 'style'
+  const style =
+    isStory && (arcSite === 'elcomercio' || arcSite === 'depor')
+      ? 'story'
+      : 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`

@@ -33,7 +33,7 @@
     @media (--desktop) {
       display: flex;
       &::before {
-        content: '';
+        content: "";
         display: block;
         background-color: $color-white;
         width: 96px;
@@ -48,7 +48,7 @@
   }
   &__section {
     display: none;
-    color: #777777;
+    color: #777;
     padding-left: 0;
     font-size: 11px;
     text-transform: uppercase;
@@ -83,8 +83,7 @@
   }
   &__subtitle {
     font-size: 16px;
-    color: #666666;
-
+    color: #666;
     font-family: $tertiary-font;
     @media (--tablet) {
       display: block;
@@ -119,8 +118,9 @@
       font-size: 24px;
       line-height: 28px;
     }
+
     font-family: $primary-font;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     color: $color-gray-300;
     font-weight: 700;
     font-size: 15px;
