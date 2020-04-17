@@ -34,8 +34,9 @@ export default props => {
       })
     const searchInput = document.querySelector('.navbar-nm__input-search')
     document
-      .querySelector('.navbar-nm__btn-search')
-      .addEventListener('click', () => {
+      .querySelector(".navbar-nm__box-search").firstChild
+      .addEventListener('submit', (e) => {
+        e.preventDefault()
         if (searchInput.value) {
           const newQuery = encodeURIComponent(searchInput.value).replace(
             /%20/g,
@@ -83,7 +84,7 @@ export default props => {
                   className={classes.inputSearch}
                   placeholder="Buscar"
                 />
-                <button className={classes.btnSearch} type="button">
+                <button className={classes.btnSearch} type="submit">
                   OK
                 </button>
               </form>
@@ -94,7 +95,7 @@ export default props => {
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: `"use strict";document.addEventListener("DOMContentLoaded",function(){document.querySelector(".navbar-nm__icon-search").addEventListener("click",function(){document.querySelector(".navbar-nm__box-search").classList.toggle("hidden")});var e=document.querySelector(".navbar-nm__input-search");document.querySelector(".navbar-nm__btn-search").addEventListener("click",function(){if(e.value){var n=encodeURIComponent(e.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n)}})});`,
+          __html: `"use strict";document.addEventListener("DOMContentLoaded",function(){document.querySelector(".navbar-nm__icon-search").addEventListener("click",function(){document.querySelector(".navbar-nm__box-search").classList.toggle("hidden")});var e=document.querySelector(".navbar-nm__input-search");document.querySelector(".navbar-nm__box-search").firstChild.addEventListener("submit",function(n){if(n.preventDefault(),e.value){var t=encodeURIComponent(e.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(t,"/todas/descendiente/?query=").concat(t)}})});`,
         }}
       />
     </div>
