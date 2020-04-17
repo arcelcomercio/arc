@@ -11,8 +11,11 @@
     padding: 0;
   }
   &__face {
-    // width: 273px;
-    // height: 188px;
+    /*
+      si se hacen cambios en estas dimensiones, 
+      verificar el tamano de la imagen en 
+      feature/cards/tabloid/default.jsx
+    */
     width: 215px;
     height: auto;
   }
