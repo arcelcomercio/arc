@@ -42,7 +42,7 @@ module.exports = type => {
   const writeImportCss = contentArr => {
     const contentImportsCss = contentArr.map(element => {
       const elementFormatter = element.replace(/_(.+).scss/g, '$1')
-      return `@import '.${elementFormatter}';`
+      return `@import ".${elementFormatter}";`
     }, '')
     return contentImportsCss.join(`\r\n`)
   }
@@ -57,7 +57,7 @@ module.exports = type => {
     )
     const cssGlobalComponents = writeImportCss(styleGlobalComponent)
     const cssFeatures = writeImportCss(styleFeatures)
-    const importListCss = `/******* Globals *******/\r\n${cssGlobalComponents}\r\n\r\n/******* Features *******/\r\n${cssFeatures}`
+    const importListCss = `/******* Globals *******/\r\n${cssGlobalComponents}\r\n\r\n/******* Features *******/\r\n${cssFeatures}\r\n`
     return {
       path: generalStylesPath,
       fileName: nameFile,
