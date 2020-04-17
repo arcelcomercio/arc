@@ -14,6 +14,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_PERU21G21,
+  SITE_ELCOMERCIO,
 } from '../../../utilities/constants/sitenames'
 
 const classes = {
@@ -73,6 +74,9 @@ const CardTabloid = props => {
    */
   let sizes
   switch (arcSite) {
+    case SITE_ELCOMERCIO:
+      sizes = '175x0'
+      break
     case SITE_TROME:
       sizes = '293x0'
       break
@@ -147,7 +151,8 @@ const CardTabloid = props => {
         className={classes.body}
         href={link || linkTabloide}
         target="_blank"
-        rel="noopener noreferrer">
+        rel="noopener noreferrer"
+        title="Ver la versión impresa">
         <picture>
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
