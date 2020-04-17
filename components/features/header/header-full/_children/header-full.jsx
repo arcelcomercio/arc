@@ -1,8 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
-import React, { useState, useRef, useEffect } from 'react'
-import searchQuery from '../../../../utilities/client/search'
+import React from 'react'
+import {
+  popup,
+  showMore,
+  searchScript,
+  scrolled,
+  showSubmenu,
+  toggleMenu,
+} from '../_dependencies/scripts'
 
 const classes = {
   headerFull: 'header-full bg-primary w-full position-relative',
@@ -12,7 +19,7 @@ const classes = {
   boxBtnMenu:
     'header-full__box-btnmenu h-full flex items-center justify-center',
   btnMenu: 'header-full__btn-menu  flex justify-center items-center',
-  iconMenu: 'header-full__icon-menu font-bold',
+  iconMenu: 'header-full__icon-menu font-bold icon-hamburguer',
   wrapperMenu: 'header-full__wrapper-menu bg-primary overflow-y-auto',
   topMenu: 'header-full__top-menu flex',
   topLeft: 'header-full__top-left  flex items-center justify-center',
@@ -67,7 +74,8 @@ const classes = {
     'megamenu__link font-thin block secondary-font pt-10 pb-5 text-md',
   navStoryTitle:
     'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15 line-h-sm',
-  navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
+  navStorySocialNetwork:
+    'nav__story-social-network position-relative mr-5 hidden',
 
   listIcon: 'story-header__list  hidden md:flex  justify-between rounded-sm',
   moreLink: 'story-content__more-link',
@@ -93,16 +101,6 @@ const classes = {
   text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white uppercase`,
 }
 
-const popUpWindow = (url, title, w, h) => {
-  const left = window.screen.width / 2 - w / 2
-  const top = window.screen.height / 2 - h / 2
-  return window.open(
-    url,
-    title,
-    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
-  )
-}
-
 export default ({
   socialNetworks,
   logo,
@@ -118,72 +116,7 @@ export default ({
   siteDomain,
   legalLinks,
 }) => {
-  const inputSearch = useRef(null)
-  const [showMenu, toggleMenu] = useState(false)
-
   const arcSiteTrome = 'trome'
-
-  const [scrolled, setScrolled] = useState(false)
-
-  const toggleSubItems = e => {
-    const item = e.target.parentElement
-    const list = item.querySelector('.header-full__submenu-list')
-    // eslint-disable-next-line no-unused-expressions
-    list.classList.contains('active')
-      ? list.classList.remove('active')
-      : list.classList.add('active')
-  }
-
-  const _handleSearch = e => {
-    e.preventDefault()
-    const { value } = inputSearch.current
-    if (value !== '') searchQuery(value)
-  }
-
-  const _handleKeyDown = e => {
-    e.preventDefault()
-    const { value } = e.target
-    if (value !== '' && e.which === 13) {
-      _handleSearch(e)
-    }
-  }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const _handleScroll = () => {
-    // ------ Logic to set state to hidden or show logo in navbar
-    const { body = {}, documentElement = {} } = document
-    const { scrollTop: scrollBody = 0 } = body
-    const { scrollTop: scrollElement = 0 } = documentElement
-    const scroll = scrollBody || scrollElement
-
-    const headerTop = 10
-    if (!scrolled && scroll > headerTop) setScrolled(true)
-    else if (scrolled && scroll <= headerTop) setScrolled(false)
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', _handleScroll)
-    return () => {
-      window.removeEventListener('scroll', _handleScroll)
-    }
-  }, [_handleScroll])
-
-  const moreList = () => {
-    const el = document.querySelector('.story-header__list')
-    if (el.classList.contains('flex')) {
-      el.classList.remove('flex')
-      el.classList.add('hidden')
-    } else {
-      el.classList.remove('hidden')
-      el.classList.add('flex')
-    }
-  }
-
-  const openLink = (event, item) => {
-    event.preventDefault()
-    if (item === 3) moreList()
-    else popUpWindow(item.link, '', 600, 400)
-  }
 
   const renderSections = (sections, deep, nameId = 'root') => {
     const aux = deep
@@ -202,9 +135,8 @@ export default ({
             <li className={classes.item} key={`navbar-menu-${url || id}`}>
               <a
                 href={url || id || '/'}
-                className={`${classes.link}${
-                  deep > 0 ? ` pl-${25 + deep * 15}` : ''
-                }`}>
+                className={classes.link}
+                style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -235,36 +167,21 @@ export default ({
 
   return (
     <>
-      <div
-        className={`${classes.headerFull} ${
-          scrolled && isStory ? 'active' : ''
-        }`}>
+      <div data-story-header={`${isStory}`} className={classes.headerFull}>
         <div className={classes.container}>
           <div className={classes.left}>
-            <div
-              className={`${classes.boxBtnMenu} ${
-                showMenu ? 'bg-white' : ''
-              } `}>
-              <button
-                type="button"
-                onClick={() => toggleMenu(!showMenu)}
-                className={classes.btnMenu}>
-                <i
-                  aria-label="menú"
-                  className={`${classes.iconMenu} ${
-                    showMenu ? 'icon-close active' : 'icon-hamburguer'
-                  } `}
-                />
+            <div className={classes.boxBtnMenu}>
+              <button type="button" className={classes.btnMenu} id="btn-menu">
+                <i aria-label="menú" className={classes.iconMenu} />
               </button>
             </div>
-            <div
-              className={`${classes.wrapperMenu} ${showMenu ? 'active' : ''}`}>
+            <div className={classes.wrapperMenu}>
               <div className={classes.topMenu}>
                 <div className={classes.topLeft}>
                   <button
                     type="button"
-                    onClick={() => toggleMenu(!showMenu)}
-                    className={classes.btnClose}>
+                    className={classes.btnClose}
+                    id="btn-close-menu">
                     <i className={classes.iconClose} />
                   </button>
                 </div>
@@ -277,13 +194,11 @@ export default ({
                 </div>
               </div>
               <div className={classes.boxSearch}>
-                <form className={classes.formSearch}>
+                <form id="header-search-form" className={classes.formSearch}>
                   <input
                     id="header-search-input"
                     type="search"
                     placeholder="Buscar"
-                    onKeyUp={e => _handleKeyDown(e)}
-                    ref={inputSearch}
                     className={classes.inputSearch}
                   />
                   <label
@@ -291,10 +206,7 @@ export default ({
                     className="overflow-hidden w-0 h-0">
                     Cuadro de búsqueda
                   </label>
-                  <button
-                    type="button"
-                    onClick={e => _handleSearch(e)}
-                    className={classes.btnSearch}>
+                  <button type="submit" className={classes.btnSearch}>
                     <i
                       className={classes.iconSearch}
                       aria-label="search button"
@@ -316,8 +228,8 @@ export default ({
                         {hasChildren && (
                           <button
                             type="button"
-                            onClick={e => toggleSubItems(e)}
                             className={classes.angleRight}
+                            aria-label="Mostrar subsecciones"
                           />
                         )}
                         {hasChildren && (
@@ -328,7 +240,7 @@ export default ({
                                   <li className={classes.subMenuItem}>
                                     <a
                                       href={subItem.url || subItem._id || '/'}
-                                      className={`${classes.headerLink}`}>
+                                      className={classes.headerLink}>
                                       {subItem.name || subItem.display_name}
                                     </a>
                                   </li>
@@ -383,8 +295,8 @@ export default ({
                 })}
               </ul>
             </div>
-            <div className={`${classes.megaMenu} ${showMenu ? 'active' : ''}`}>
-              <div className={`${classes.wrapper} ${showMenu ? 'active' : ''}`}>
+            <div className={classes.megaMenu}>
+              <div className={classes.wrapper}>
                 <div className={classes.body}>
                   <ul className={classes.list}>
                     {menuList && renderSections(menuList, 0)}
@@ -404,43 +316,38 @@ export default ({
             </div>
           </div>
 
-          <div className={`${classes.right} ${classes.rightBtnContainer}`}>
-            {isStory && scrolled ? (
-              <>
-                <div className={classes.navStorySocialNetwork}>
-                  <div>
-                    <a
-                      title="Mostrar enlaces para compartir"
-                      className={classes.moreLink}
-                      href="/"
-                      onClick={event => {
-                        openLink(event, 3)
-                      }}>
-                      <i className={`${classes.iconMore}`} aria-hidden="true" />
-                    </a>
-                  </div>
-
-                  <ul className={classes.listIcon}>
-                    {shareButtons.map((item, i) => (
-                      <li key={item.icon} className={classes.shareItem}>
-                        <a
-                          title={`Compartir en ${item.name}`}
-                          className={classes.shareLink}
-                          href={item.link}
-                          onClick={event => {
-                            openLink(event, item)
-                          }}>
-                          <i
-                            className={`${item.icon} ${classes.shareIcon}`}
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+          <div className={classes.right}>
+            {isStory && (
+              <div className={classes.navStorySocialNetwork}>
+                <div>
+                  <button
+                    type="button"
+                    aria-label="Mostrar enlaces para compartir"
+                    className={classes.moreLink}
+                    id="header-show-more">
+                    <i className={`${classes.iconMore}`} aria-hidden="true" />
+                  </button>
                 </div>
-              </>
-            ) : arcSite !== arcSiteTrome ? (
+
+                <ul className={classes.listIcon}>
+                  {shareButtons.map(item => (
+                    <li key={item.icon} className={classes.shareItem}>
+                      <a
+                        title={`Compartir en ${item.name}`}
+                        className={classes.shareLink}
+                        href={item.link}
+                        data-share="">
+                        <i
+                          className={`${item.icon} ${classes.shareIcon}`}
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {arcSite !== arcSiteTrome ? (
               <div className={classes.btnContainer}>
                 <a
                   href="/resultados/futbol/resultados/"
@@ -452,8 +359,8 @@ export default ({
               <div className={classes.callImg}>
                 <a
                   href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
-                  title="Lamada Ganadora">
-                  <img src={winningCallLogo} alt="Lamada Ganadora" />
+                  title="Llamada Ganadora">
+                  <img src={winningCallLogo} alt="Llamada Ganadora" />
                 </a>
               </div>
             )}
@@ -461,6 +368,12 @@ export default ({
           {isStory && <div className={classes.navLoader} />}
         </div>
       </div>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `${isStory ? showMore : ''}${popup}${searchScript}${
+            isStory ? scrolled : ''
+          }${showSubmenu}${toggleMenu}`,
+        }}></script>
     </>
   )
 }

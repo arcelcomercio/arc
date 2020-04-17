@@ -141,7 +141,7 @@ class StoryContents extends PureComponent {
 
     const { basic_gallery: basicGallery = {} } = promoItems
     let relatedIds = []
-    
+
     return (
       <>
         <div className={classes.news}>
@@ -175,7 +175,7 @@ class StoryContents extends PureComponent {
           <div
             className={`${classes.content} ${isPremium &&
               arcSite === SITE_GESTION &&
-              'story-content__nota-premium paywall'} `}
+              'story-content__nota-premium paywall no_copy'} `}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
@@ -271,17 +271,17 @@ class StoryContents extends PureComponent {
                     relatedIds.push(_id)
                   }
 
-                  if(type !== ELEMENT_STORY && relatedIds.length > 0){
-                    const  relateIdsParam = relatedIds
+                  if (type !== ELEMENT_STORY && relatedIds.length > 0) {
+                    const relateIdsParam = relatedIds
                     relatedIds = []
-                    return (                      
+                    return (
                       <StoryContentsChildRelatedInternal
                         stories={relatedContent}
                         ids={relateIdsParam}
                         imageDefault={multimediaLazyDefault}
                       />
                     )
-                  }                    
+                  }
 
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
@@ -315,11 +315,7 @@ class StoryContents extends PureComponent {
                     )
                   }
 
-                  if (
-                    type === ELEMENT_BLOCKQUOTE &&
-                    (arcSite === SITE_ELCOMERCIO ||
-                      arcSite === SITE_ELCOMERCIOMAG)
-                  ) {
+                  if (type === ELEMENT_BLOCKQUOTE) {
                     return (
                       <blockquote
                         dangerouslySetInnerHTML={{

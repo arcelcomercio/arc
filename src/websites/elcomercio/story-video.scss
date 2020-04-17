@@ -1,0 +1,53 @@
+/* --- BASE -------------------------------------------------------------
+  Estilos core del framework, modificadores del core y partials por marca 
+------------------------------------------------------------------------- */
+@import "./scss/partials/import-icons";
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+@import "../../general-styles/framework/core/index";
+@import "./scss/partials/import-fonts";
+@import "../../general-styles/framework/generators/index";
+@import "./scss/partials/base";
+
+/* --- STORY VARIABLES --------------------------------------------------
+  Modificacion de variables SCSS del core y de marca
+------------------------------------------------------------------------- */
+
+/* --- GLOBAL COMPONENTS ------------------------------------------------
+  Estilos de componentes globales desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/global-components/icons";
+@import "../../general-styles/components/global-components/multimedia-icon";
+@import "../../general-styles/components/global-components/search-input";
+
+/* --- FEATURES ---------------------------------------------------------
+  Estilos de features desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/layout/navbar/nav";
+@import "../../general-styles/components/features/layout/navbar/nav-sidebar";
+@import "../../general-styles/components/features/layout/navbar/nav-story";
+@import "../../general-styles/components/features/layout/header/header";
+@import "../../general-styles/components/features/header/inverted";
+@import "../../general-styles/components/features/basic-html/basic-html";
+@import "../../general-styles/components/features/video/section/video-navbar";
+@import "../../general-styles/components/features/video/section/section-video";
+@import "../../general-styles/components/features/video/section/play-list";
+@import "../../general-styles/components/features/video/list/video-list";
+@import "../../general-styles/components/features/layout/footer/footer";
+
+/* --- MODIFICADORES ----------------------------------------------------
+  Estilos de features modificados por marca
+------------------------------------------------------------------------- */
+@import "./scss/global-components/buttons";
+@import "./scss/global-components/independent-title";
+@import "./scss/components/premium/premium";
+@import "./scss/components/layout/navbar/nav";
+@import "./scss/components/layout/navbar/nav-story";
+@import "./scss/components/layout/navbar/nav-sidebar";
+@import "./scss/components/layout/header/header";
+@import "./scss/components/header/inverted";
+@import "./scss/components/section/section";
+@import "./scss/components/video/play-list";
+@import "./scss/components/video/section-video";
+@import "./scss/components/video/video-list";
+@import "./scss/components/layout/footer/footer";
