@@ -44,6 +44,10 @@
 @import "../../general-styles/components/features/story/related-internal";
 @import "../../general-styles/components/features/story/google-news/google-news";
 @import "../../general-styles/components/features/stories-lists/linked-by-brand/linked-by-brand";
+@import "../../general-styles/components/features/video/section/video-navbar";
+@import "../../general-styles/components/features/video/section/section-video";
+@import "../../general-styles/components/features/video/section/play-list";
+@import "../../general-styles/components/features/video/list/video-list";
 @import "../../general-styles/components/features/layout/footer/footer-secction"; // footer/depor
 
 /* --- MODIFICADORES ----------------------------------------------------
@@ -68,4 +72,7 @@
 @import "./scss/components/story/contents/related-content";
 @import "./scss/components/story/contents/story-tags";
 @import "./scss/components/story/continue/story-continue";
+@import "./scss/components/video/section-video";
+@import "./scss/components/video/play-list";
+@import "./scss/components/video/video-list";
 @import "./scss/components/layout/footer/footer-secction";
