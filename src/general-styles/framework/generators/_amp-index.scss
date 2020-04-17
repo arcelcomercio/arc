@@ -1,10 +1,11 @@
-/** ---GENERATORS----*/
+/** ----------------------------*
+*         GENERATORS       **/
+
 $space-limit: 5;
 $space-interval: 5;
-@import './amp-generate-spaces';
-@import './generate-font-sizes';
-@import './generate-line-heights';
-@import './generate-borders';
-@import './generate-bg-colors';
-@import './generate-text-colors';
-/*----------*/
+@import "./amp/generate-spaces";
+@import "./generate-font-sizes";
+@import "./generate-line-heights";
+@import "./amp/generate-borders";
+@import "./amp/generate-bg-colors";
+@import "./generate-text-colors";
