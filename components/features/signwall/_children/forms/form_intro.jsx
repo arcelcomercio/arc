@@ -17,6 +17,7 @@ export const FormIntro = ({
   const [showLoading, setShowLoading] = useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = useState(false)
   const [resCampaing, setResCampaing] = useState({})
+  const [showFree, setShowFree] = useState(null)
 
   useEffect(() => {
     const { fetched } = getContent('paywall-campaing')
@@ -28,6 +29,7 @@ export const FormIntro = ({
         paywallDescripcion: resCam.plans[0].description.description || '-',
         featuresDescription: resCam.summary.feature || [],
       })
+      setShowFree(resCam.plans[0].amount === 0)
       setShowLoading(false)
     })
   }, [])
@@ -76,14 +78,27 @@ export const FormIntro = ({
             <>
               <S.ContPaywall>
                 <div className="cont-price-detail">
-                  <div className="price">
-                    <i>s/</i>
-                    {resCampaing.paywallPrice}
-                  </div>
-                  <div className="detail-price">
-                    <p>
-                      <strong>{frecuency[resCampaing.paywallFrecuency]}</strong>
-                    </p>
+                  {showFree ? (
+                    <div className="price-middle">
+                      <h3>GRATIS</h3>
+                    </div>
+                  ) : (
+                    <div className="price">
+                      <i>s/</i>
+                      {resCampaing.paywallPrice}
+                    </div>
+                  )}
+                  <div
+                    className={
+                      showFree ? 'detail-price-middle' : 'detail-price'
+                    }>
+                    {!showFree && (
+                      <p>
+                        <strong>
+                          {frecuency[resCampaing.paywallFrecuency]}
+                        </strong>
+                      </p>
+                    )}
                     <p>
                       <strong>{resCampaing.paywallTitle}</strong>
                     </p>

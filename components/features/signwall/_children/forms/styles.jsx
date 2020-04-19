@@ -39,7 +39,7 @@ export const Text = styled.p`
       display: inline-block;
     }
   }
-  & .sub-paragraph .price{
+  & .sub-paragraph .price {
     display: inline-block;
     min-width: 30px;
   }
@@ -233,7 +233,9 @@ export const ContPaywall = styled.div`
       margin-top: 30px;
     }
     .price,
-    .detail-price {
+    .detail-price,
+    .price-middle,
+    .detail-price-middle {
       display: inline-block;
       vertical-align: initial;
     }
@@ -262,6 +264,17 @@ export const ContPaywall = styled.div`
       width: 60%;
       font-size: 14px;
       line-height: 20px;
+    }
+    .price-middle {
+      width: 50%;
+      h3 {
+        font-size: 32px;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+    .detail-price-middle {
+      width: 50%;
     }
   }
   .title-line {
