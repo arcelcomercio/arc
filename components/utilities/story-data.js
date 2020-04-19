@@ -10,6 +10,7 @@ import {
   ELEMENT_YOUTUBE_ID,
   ELEMENT_STORY,
   ELEMENT_PODCAST,
+  ELEMENT_INTERSTITIAL_LINK,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -1536,6 +1537,10 @@ class StoryData {
           case ELEMENT_STORY:
             result.payload = link
             // url mira tambien
+            break
+          case ELEMENT_INTERSTITIAL_LINK:
+            result.payload = content
+            result.link = url
             break
           default:
             result.payload = content

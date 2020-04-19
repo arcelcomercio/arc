@@ -11,7 +11,6 @@ import { getDateSeo } from '../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
   SITE_ELCOMERCIO,
-  SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
@@ -254,6 +253,7 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildInterstitialLink
                         url={url}
                         content={content}
+                        isAmp={false}
                       />
                     )
                   }
