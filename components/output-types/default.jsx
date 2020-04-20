@@ -20,6 +20,8 @@ import {
 import { getAssetsPath } from '../utilities/constants'
 import StoryData from '../utilities/story-data'
 
+import iframeScript from './_dependencies/iframe-script'
+
 export default ({
   children,
   contextPath,
@@ -34,6 +36,7 @@ export default ({
   requestUri,
   metaValue,
   Resource,
+  isAdmin,
 }) => {
   const CURRENT_ENVIRONMENT =
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
@@ -244,9 +247,7 @@ export default ({
       const streams = target.getAttribute('data-streams')
       const reziser = target.getAttribute('data-reziser')
       const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
-     
       target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
-      
       if (window.powaBoot) window.powaBoot()
       setTimeout(function(){  
         if (window.PoWaSettings) {
@@ -260,11 +261,9 @@ export default ({
 
       window.addEventListener('powaRender',
         function () {
-          Array.from(document.getElementsByClassName('powa-default')).forEach(function (contShare) {
-            contShare.classList.remove("powa-default")
-        });
-          const elemento=document.getElementById('powa-icon-default');
-          elemento.parentNode.removeChild(elemento);
+          setTimeout(function(){  
+            target.classList.remove("powa-default")
+          }, 1000);
         }
      )
   
@@ -279,14 +278,12 @@ if ('IntersectionObserver' in window) {
   }
   const videos = Array.from(document.querySelectorAll('.lazyload-video'))
   videos.forEach(video => {
-   
-      const observer = new IntersectionObserver(videoObserver, options)
+         const observer = new IntersectionObserver(videoObserver, options)
       observer.observe(video)
       
   })
 }
 `
-
   const {
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
@@ -316,13 +313,15 @@ if ('IntersectionObserver' in window) {
     .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
     .powa-play-btn { transform: inherit; }
     .powa-default{ background-color: #000;  height: 345px;  }
-    .powa-icon-default{bottom: auto;top: inherit;padding-top: x;left: 90px;margin-top: -92px;}
-    @media only screen and (max-width: 600px) { .powa-icon-default{display:none;}
+    @media only screen and (max-width: 600px) { 
     .powa-default {
       height: 157px;
     }}
     `
-  const style = 'style'
+  const style =
+    isStory && (arcSite === 'elcomercio' || arcSite === 'depor')
+      ? 'story'
+      : 'style'
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
@@ -333,12 +332,6 @@ if ('IntersectionObserver' in window) {
   if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
-  const styless = ` <link
-  rel="preload"
-  href=${deployment(styleUrl)}
-  onload="this.onload=null;this.rel='stylesheet'"
-  as="style"
-/>`
 
   const isStyleBasic =
     arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
@@ -478,7 +471,7 @@ if ('IntersectionObserver' in window) {
 
         {/* <FirebaseScripts /> */}
 
-        <Libs />
+        {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {contenidoVideo && (
           <>
             <script
@@ -540,7 +533,7 @@ if ('IntersectionObserver' in window) {
           {children}
         </div>
 
-        <Fusion />
+        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
         {isStory && (
           <script
             type="text/javascript"
@@ -574,12 +567,10 @@ if ('IntersectionObserver' in window) {
 
         <script
           defer
-          src={deployment(
-            `${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/assets/js/lazyload.js`
-          )}
+          src={`${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/assets/js/lazyload.js?d=1`}
         />
 
         {/* Rubicon BlueKai - Inicio */}
@@ -619,6 +610,12 @@ if ('IntersectionObserver' in window) {
             />
           </>
         )}
+
+        <script
+          type="text/javascript"
+          defer
+          dangerouslySetInnerHTML={{ __html: iframeScript() }}
+        />
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
@@ -628,14 +625,19 @@ if ('IntersectionObserver' in window) {
 
         {isStyleBasic && (
           <>
-            <i
-              dangerouslySetInnerHTML={{
-                __html: styless,
-              }}></i>
-
-            <noscript>
-              <link rel="stylesheet" href={deployment(styleUrl)} />
+            <noscript id="deferred-styles">
+              <link
+                rel="stylesheet"
+                type="text/css"
+                href={`${deployment(styleUrl)}`}
+              />
             </noscript>
+
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.setTimeout(loadDeferredStyles,0)});else window.addEventListener("load",loadDeferredStyles)`,
+              }}
+            />
           </>
         )}
       </body>

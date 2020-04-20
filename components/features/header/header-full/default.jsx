@@ -16,7 +16,6 @@ const HeaderFull = props => {
   const {
     arcSite,
     contextPath,
-    deployment,
     globalContent: {
       type = '',
       website_url: postPermaLink,
@@ -112,12 +111,10 @@ const HeaderFull = props => {
 
   const winningCallLogo =
     arcSite === arcSiteTrome
-      ? deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png`
-        )
+      ? `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
       : ''
 
   const params = {
@@ -126,18 +123,14 @@ const HeaderFull = props => {
     socialNetworks,
     postTitle,
     isStory,
-    logo: deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/alternate-logo.png`
-    ),
-    whiteLogo: deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/alternate-logo-w.png`
-    ),
+    logo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`,
+    whiteLogo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/alternate-logo-w.png?d=1`,
     shareButtons,
     arcSite,
     winningCallLogo,
@@ -151,4 +144,5 @@ HeaderFull.propTypes = {
   customFields,
 }
 HeaderFull.label = 'Cabecera Full'
+HeaderFull.static = true
 export default HeaderFull

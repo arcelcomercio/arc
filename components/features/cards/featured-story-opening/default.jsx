@@ -102,12 +102,10 @@ const CardFeaturedOpening = props => {
     note1Link,
     note2Title,
     note2Link,
-    logo: deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${logo}`
-    ),
+    logo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
   }
 
   return <FeaturedOpening {...params} />

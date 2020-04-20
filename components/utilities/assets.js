@@ -21,20 +21,13 @@ export const getAssetsPath = (arcSite, contextPath) => {
  *
  * @returns {string} URL de la imagen por defecto desde /resources/dist/...
  */
-export const defaultImage = ({
-  deployment,
-  contextPath,
-  arcSite,
-  size = 'lg',
-}) => {
+export const defaultImage = ({ contextPath, arcSite, size = 'lg' }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
-  return deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/default-${size}.png`
-  )
+  return `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/default-${size}.png?d=1`
 }
 
 export const getAssetsPathVideo = (arcSite, urlVideo = '') => {

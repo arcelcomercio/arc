@@ -31,7 +31,7 @@ const classes = {
 }
 
 const FooterDepor = () => {
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath } = useFusionContext()
 
   const {
     gecSites,
@@ -49,12 +49,10 @@ const FooterDepor = () => {
     } = {},
   } = getFooterProperties(arcSite)
 
-  const imageDefault = deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/logo.png`
-  )
+  const imageDefault = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/logo.png?d=1`
 
   const sections = useContent({
     source: CONTENT_SOURCE,

@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { useFusionContext } from 'fusion:context'
+import { SITE_GESTION } from '../../../utilities/constants/sitenames'
 
 import StoryTitleChildHeading from './_children/heading'
 import StoryTitleChildShareSubheading from './_children/subheading'
@@ -23,7 +23,9 @@ const StoryTitle = () => {
   return (
     <>
       <div
-        className={`${classes.story} ${primarySectionLink.replace(/\//g, '')}`}>
+        className={`${classes.story} ${isPremium &&
+          arcSite === SITE_GESTION &&
+          'no_copy'} ${primarySectionLink.replace(/\//g, '')}`}>
         <StoryTitleChildHeading {...parameters} />
         <StoryTitleChildShareSubheading {...parameters} />
       </div>

@@ -1,29 +1,21 @@
-/* ****** Framework Variables****** */
+/******* Framework Variables *******/
 @import "./partials/import-icons";
 @import "../../../general-styles/framework/variables/index";
 
-/* --------------------- */
-
-/* ****** Site Variables ****** */
+/******* Site Variables *******/
 @import "./variables/index";
 @import "../../../general-styles/framework/core/index";
 @import "./partials/import-fonts";
 @import "../../../general-styles/framework/generators/index";
 
-/* --------------------- */
-
-/* ****** Partials ****** */
+/******* Partials *******/
 @import "./partials/base";
 @import "./partials/reset";
 
-/* --------------------- */
-
-/* ****** Components ****** */
+/******* Components *******/
 @import "../../../general-styles/components/index";
 
-/* --------------------- */
-
-/* ****** Modificadores ****** */
+/******* Modificadores *******/
 @import "./components/most-read";
 @import "./components/most-read-item";
 @import "./components/global-components/story-item";
@@ -66,6 +58,7 @@
 @import "./components/custom-title";
 @import "./components/story-interest";
 @import "./components/video/section/play-list";
+@import "./components/video/section/section-video";
 @import "./components/featured-opening";
 @import "./components/featured-premium";
 @import "./components/doblete";

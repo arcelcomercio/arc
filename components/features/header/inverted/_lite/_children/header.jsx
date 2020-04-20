@@ -79,7 +79,7 @@ export default props => {
             src={`${getAssetsPath(
               arcSite,
               contextPath
-            )}/resources/dist/elcomercio/images/white-logo.png`}
+            )}/resources/dist/elcomercio/images/white-logo.png?d=1`}
             alt={siteDomain}
           />
         </a>

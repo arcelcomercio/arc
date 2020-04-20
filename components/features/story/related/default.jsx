@@ -6,12 +6,8 @@ import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import StoryContentChildRelated from './_children/item'
 
 const classes = {
-  // Related-content
   relatedList: 'related-content__list pt-20 pr-20 pl-20',
   relatedTitle: 'related-content__title font-bold uppercase pt-20 pb-20',
-  taboola: 'story-content__taboola',
-  listClasses: 'story-content__paragraph-list',
-  alignmentClasses: 'story-content__alignment',
 }
 
 const getRelatedIds = data => {

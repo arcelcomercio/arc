@@ -195,6 +195,7 @@ const StoryContentChildVideo = props => {
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
+        data-type="pwa"
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
@@ -204,9 +205,6 @@ const StoryContentChildVideo = props => {
             : ''
         }
         data-poster={large}></div>
-      <i
-        id="powa-icon-default"
-        className="m-icon position-absolute rounded text-white featured-story__icon icon-video powa-icon-default"></i>
       <figcaption className={classes.caption}>{description} </figcaption>
     </>
   )

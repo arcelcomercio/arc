@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
@@ -29,9 +29,6 @@ const ExtraordinaryStoryLifeScore = props => {
   } = customFields || {}
 
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
-
-  const [results, setResults] = useState({})
-  const [count, setCount] = useState(0)
 
   const presets = 'landscape_l:648x374'
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems}`
@@ -79,34 +76,6 @@ const ExtraordinaryStoryLifeScore = props => {
         : {}
     ) || {}
 
-  const customFetch = first => {
-    const actualCount = first || count
-
-    fetch(
-      `https://w.ecodigital.pe/data/depor/${codeField}_xalok.js?_=${actualCount}`
-    )
-      .then(res => res.json())
-      .then(res => {
-        setResults(res)
-        setCount(actualCount + 1)
-      })
-      .catch(err => {
-        throw new Error(err)
-      })
-  }
-
-  useEffect(() => {
-    setCount(Date.now())
-    if (codeField) {
-      customFetch(Date.now())
-      setInterval(() => {
-        customFetch()
-      }, 5000)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const { data: { equipos: teams = [] } = {} } = results || {}
   const {
     title,
     subTitle,
@@ -115,10 +84,6 @@ const ExtraordinaryStoryLifeScore = props => {
     multimediaLazyDefault,
   } = story || {}
   const { resized_urls: { landscape_l: landscapeL } = {} } = customPhoto || {}
-
-  const [firstTeam = {}, secondTeam = {}] = teams
-  const { nombre: firstName, score: firstScore } = firstTeam
-  const { nombre: secondName, score: secondScore } = secondTeam
 
   const imgUrl = landscapeL || imgField || multimediaLandscapeL
 
@@ -133,10 +98,6 @@ const ExtraordinaryStoryLifeScore = props => {
     titleField,
     subTitleField,
     isLive,
-    firstName,
-    firstScore,
-    secondName,
-    secondScore,
   }
 
   return <LiveScoreChild {...params} />
@@ -173,4 +134,5 @@ ExtraordinaryStoryLifeScore.propTypes = {
   }),
 }
 
+ExtraordinaryStoryLifeScore.static = true
 export default ExtraordinaryStoryLifeScore
