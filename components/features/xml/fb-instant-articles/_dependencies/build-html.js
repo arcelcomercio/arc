@@ -97,6 +97,13 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
 
       break
+    case ConfigParams.ELEMENT_LINK_LIST:
+      textProcess = buildTexParagraph(processedParagraph)
+
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
+
+      break
     case ConfigParams.ELEMENT_HEADER:
       textProcess = buildHeaderParagraph(processedParagraph, level)
 

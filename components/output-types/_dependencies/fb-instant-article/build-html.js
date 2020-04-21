@@ -69,6 +69,35 @@ const buildIntersticialParagraph = (paragraph, link) => {
   return result
 }
 
+const buildListLinkParagraph = (paragraph, title, items) => {
+  console.log(paragraph, title, items)
+  return `<div>
+    <div>Mira también:</div>
+      {items &&
+        items.map(data => {
+          const { url = '', content = '', image: { url: urlImg = '' } = {} } = data || {}
+          return (
+            <div>
+              <figure>
+                <a href={url}>
+                  <img
+                    src={image}
+                    data-src={image}
+                    alt={title}
+                  />
+                </a>
+              </figure>
+              <div>
+                <h2>
+                  <a href={url}>{title}</a>
+                </h2>
+              </div>
+            </div>
+          )
+        })}
+    </div>`
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
@@ -98,6 +127,13 @@ const analyzeParagraph = ({
       break
     case ConfigParams.ELEMENT_INTERSTITIAL_LINK:
       textProcess = buildIntersticialParagraph(processedParagraph, link)
+
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
+
+      break
+    case ConfigParams.ELEMENT_LINK_LIST:
+      textProcess = buildListLinkParagraph(processedParagraph)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
