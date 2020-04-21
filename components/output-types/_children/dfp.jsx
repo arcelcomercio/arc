@@ -17,8 +17,34 @@ const Dfp = ({ isFuature, adId }) => {
     arcSite,
   } = useFusionContext()
  
+ const hbOjo =
+ (arcSite === 'ojo' && requestUri.match('^/ojo-show') &&
+   `,bidding: {prebid: {enabled: true,timeout: 3000,useSlotForAdUnit: true, sizeConfig: [
+    {
+      'mediaQuery': '(min-width: 1024px)',
+      'sizesSupported': [
+        [970, 250],
+        [970, 90],
+        [728, 90],
+        [300, 250],
+        [300, 600],
+        [160, 600],
+        [120, 600]
+      ],
+      'labels': ['desktop']
+    },
+    {
+      'mediaQuery': '(min-width: 300px) and (max-width: 768px)',
+      'sizesSupported': [
+        [320, 50],
+        [300, 250]
+      ],
+      'labels': ['phone']
+    }
+  ]}}`) ||
+ ''
   const { adsAmp: { dataSlot } = {} } = siteProperties
-  const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}},function(d){console.log("Advertisement has loaded...",d)});`
+  const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}${hbOjo}},function(d){console.log("Advertisement has loaded...",d)});`
 
   const lazyLoadFunction = `"use strict";window.addLazyLoadToAd=function(e){if("IntersectionObserver"in window){var n=(e||{}).adId;if(n)return new Promise(function(e){var o=new IntersectionObserver(function(n,o){n.forEach(function(n){n.isIntersecting&&(console.log("resolved!!!!"),e(),o.unobserve(n.target))})},{rootMargin:"0px 0px 500px 0px"});document.getElementById(n)&&o.observe(document.getElementById(n))})}};`
 
@@ -120,7 +146,14 @@ const Dfp = ({ isFuature, adId }) => {
         dimensions_mobile: dimensionsMobile,
         islazyload,
         dispositivo
+     /*   breakpoint: breakpoints,
+        refresh=false  */
       }) => {
+        /* 
+        const flagDimension = (breakpoints !== '[]')? true:''
+        */
+
+        const flagHbOjo = (arcSite === 'ojo' && section === 'ojo-show')? true:''
         const formatSpace = {
           id: `gpt_${space}`,
           slotName: slotname2,
@@ -131,7 +164,378 @@ const Dfp = ({ isFuature, adId }) => {
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
         }
-
+        /* 
+          if (flagDimension) {
+          formatSpace.dimensions=`<::${dimensions}::>`
+          formatSpace.sizemap={
+            breakpoints:`<::${breakpoints}::>`,
+            refresh
+            }
+          }  */
+        // agregando informacion en commit de hb ojo        
+        if(flagHbOjo){
+          if(space === 'top'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      placementId: `<::getAdsDisplay() === 'mobile' ? '19003326' : '19003302' ::>`
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      accountId: '19186',
+                      siteId : `<::getAdsDisplay() === 'mobile' ? '215782' : '215780' ::>`,
+                      zoneId : `<::getAdsDisplay() === 'mobile' ? '1655590' : '1655560' ::>`
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      siteId : `<::getAdsDisplay() === 'mobile' ? '349419' : '316986' ::>`,
+                      pageId : `<::getAdsDisplay() === 'mobile' ? '1225821' : '1225819' ::>`,
+                      formatId :'74156'
+                    }
+                  }
+                ]
+              }
+            }
+          }else if(space === 'caja1'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['desktop'],
+                    params: {
+                      placementId: '19003320'
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['desktop'],
+                    params: {
+                      accountId: '19186',
+                      siteId : '215780',
+                      zoneId : '1655524',
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['desktop'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop'],
+                    params: {
+                      siteId : '316986',
+                      pageId : '1225819',
+                      formatId : '90175'
+                    }
+                  }
+                ]
+              }
+            }
+          }else if(space === 'caja2'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['desktop'],
+                    params: {
+                      placementId: '19003321'
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['desktop'],
+                    params: {
+                      accountId: '19186',
+                      siteId : '215780',
+                      zoneId : '1655534',
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['desktop'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop'],
+                    params: { 
+                      siteId : '316986',
+                      pageId : '1225819',
+                      formatId : '90176'
+                    }
+                  }
+                ]
+              }
+            }
+          }else if(space === 'caja3'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['phone'],
+                    params: {
+                      placementId: '19003329'
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['phone'],
+                    params: {
+                      accountId: '19186',
+                      siteId : '215782',
+                      zoneId : '1655576',
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['phone'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['phone'],
+                    params: {
+                      siteId : '349419',
+                      pageId : '1225821',
+                      formatId : '90177'
+                    }
+                  }
+                ]
+              }
+            }
+          }else if(space === 'caja4'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['phone'],
+                    params: {
+                      placementId: '19003330'
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['phone'],
+                    params: {
+                      accountId: '19186',
+                      siteId : '215782',
+                      zoneId : '1655580',
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['phone'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['phone'],
+                    params: {
+                      siteId : '349419',
+                      pageId : '1225821',
+                      formatId : '90178'
+                    }
+                  }
+                ]
+              }
+            }
+          }else if(space === 'caja5'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['phone'],
+                    params: {
+                      placementId: '19003331'
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['phone'],
+                    params: {
+                      accountId: '19186',
+                      siteId : '215782',
+                      zoneId : '1655582',
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['phone'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['phone'],
+                    params: {
+                      siteId : '349419',
+                      pageId : '1225821',
+                      formatId : '90179'
+                    }
+                  }
+                ]
+              }
+            }
+          }else if(space === 'laterall'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['desktop'],
+                    params: {
+                      placementId: '19003306'
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['desktop'],
+                    params: {
+                      accountId: '19186',
+                      siteId : '215780',
+                      zoneId : '1655542',
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['desktop'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop'],
+                    params: {
+                      siteId : '316986',
+                      pageId : '1225819',
+                      formatId : '90173'
+                    }
+                  }
+                ]
+              }
+            }
+          }else if(space === 'lateralr'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['desktop'],
+                    params: {
+                      placementId: '19003308'
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['desktop'],
+                    params: {
+                      accountId: '19186',
+                      siteId : '215780',
+                      zoneId : '1655554',
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['desktop'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop'],
+                    params: {
+                      siteId : '316986',
+                      pageId : '1225819',
+                      formatId : '90174'
+                    }
+                  }
+                ]
+              }
+            }
+          }else if(space === 'zocalo'){
+            formatSpace.bidding={
+              prebid:{
+                enabled: true,
+                bids: [
+                  {
+                    bidder: 'appnexus',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      placementId: `<::getAdsDisplay() === 'mobile' ? '19003327' : '19003319' ::>`
+                    }
+                  },
+                  {
+                    bidder: 'rubicon',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      accountId: '19186',
+                      siteId : `<::getAdsDisplay() === 'mobile' ? '215782' : '215780' ::>`,
+                      zoneId : `<::getAdsDisplay() === 'mobile' ? '1655592' : '1655566' ::>`,
+                    }
+                  },
+                  {
+                    bidder: 'criteo',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      networkId: '7890' 
+                    }
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      siteId : `<::getAdsDisplay() === 'mobile' ? '349419' : '316986' ::>`,
+                      pageId : `<::getAdsDisplay() === 'mobile' ? '1225821' : '1225819' ::>`,
+                      formatId :'74162'
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
         return formatSpace
       }
     )
