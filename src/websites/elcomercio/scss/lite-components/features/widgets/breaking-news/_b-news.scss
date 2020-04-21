@@ -1,18 +1,18 @@
 .b-news {
-  font-family: $primary-font;
   justify-content: space-between;
-  padding: 15px 20px;
+  padding: 0 20px;
 
   &--color-1 {
-    background-color: #ed1c24;
+    background-color: $color-black;
   }
   &--color-2 {
-    background-color: #666;
+    background-color: #ed1c24;
   }
 
   &__close {
     width: 60px;
     text-align: right;
+    padding: 0 0 0 15px;
 
     & button:focus {
       outline: 0;
@@ -25,21 +25,21 @@
     height: 24px;
   }
 
-  &__text {
-    font-size: 20px;
+  &__link {
+    display: inline-block;
+    padding: 15px 0;
+    font-size: 17px;
     line-height: 1.3;
+    color: $color-white;
   }
 
   &__tag {
-    text-transform: uppercase;
+    font-family: $primary-font;
     font-weight: bold;
-    color: $color-white;
-    margin-right: 8px;
+    padding-right: 8px;
   }
 
-  &__link {
-    margin-right: 5px;
-    color: $color-white;
-    font-weight: bold;
+  &__title {
+    font-family: $secondary-font;
   }
 }
