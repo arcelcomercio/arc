@@ -261,7 +261,12 @@ class StoryContents extends PureComponent {
                     )
                   }
                   if (type === ELEMENT_LINK_LIST) {
-                    return <StoryContentsChildLinkList items={items} />
+                    return (
+                      <StoryContentsChildLinkList
+                        items={items}
+                        multimediaLazyDefault={multimediaLazyDefault}
+                      />
+                    )
                   }
                   if (type === ELEMENT_OEMBED) {
                     return (

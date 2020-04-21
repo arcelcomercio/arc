@@ -1,30 +1,39 @@
 import React from 'react'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
-  related: 'related-internal position-relative p-20 mb-20 mt-20',
-  item: 'related-internal__item flex flex-row mt-20',
-  title: 'related-internal__title uppercase mb-20',
-
-  linkAuthor: 'related-internal__link-author',
-
-  icon:
-    'related-internal__multimedia-icon position-absolute p-5 rounded-lg title-xl',
-  info: 'related-internal__information w-full md:pr-10 pl-20',
-  titleLink: 'related-internal__title-link underline font-bold',
-
-  container: 'link-list position-relative p-20 mb-20 mt-20',
-  multimedia: 'link-list__figure position-relative',
+  container:
+    'story-content__link-list position-relative p-20 mb-20 mt-20 mr-20',
+  title: 'story-content__link-list-title uppercase mb-20',
+  multimedia: 'story-content__link-list-figure position-relative',
   image: 'w-full h-full lazy',
+  item: 'story-content__link-list-item flex flex-row mt-20',
+  info: 'story-content__link-list-information w-full md:pr-10 pl-20',
+  titleLink: 'story-content__link-list-title-link underline font-bold',
 }
 
-const Item = ({ url, title, image }) => {
+const Item = ({ url, title, image, imageDefault, site }) => {
+  const presets = 'small:96x64'
+  const extractImage = urlImg => {
+    if (typeof window === 'undefined') {
+      return (
+        getResizedUrl({
+          url: urlImg,
+          presets,
+          arcSite: site,
+        }) || {}
+      )
+    }
+    return urlImg
+  }
+
   return (
     <div className={classes.item}>
       <figure className={classes.multimedia}>
         <a href={url}>
           <img
-            src={image}
-            data-src={image}
+            src={imageDefault}
+            data-src={extractImage(image).small || imageDefault}
             alt={title}
             className={classes.image}
           />
@@ -39,7 +48,7 @@ const Item = ({ url, title, image }) => {
   )
 }
 
-function linkList({ items }) {
+function LinkList({ items, multimediaLazyDefault, arcSite }) {
   return (
     <div className={classes.container}>
       <div className={classes.title}>Mira también:</div>
@@ -47,10 +56,18 @@ function linkList({ items }) {
         items.map(data => {
           const { url = '', content = '', image: { url: urlImg = '' } = {} } =
             data || {}
-          return <Item url={url} title={content} image={urlImg} />
+          return (
+            <Item
+              url={url}
+              title={content}
+              image={urlImg}
+              imageDefault={multimediaLazyDefault}
+              site={arcSite}
+            />
+          )
         })}
     </div>
   )
 }
 
-export default linkList
+export default LinkList
