@@ -302,6 +302,29 @@
       margin-left: 4px;
     }
   }
+
+  &__link-list {
+    background-color: #f8f8f8;
+    border: 1px solid #f0f0f0;
+
+    &-figure {
+      width: 96px;
+      height: 64px;
+    }
+    &-title {
+      font-family: $secondary-font;
+      font-size: 16px;
+      &-link {
+        font-size: 17px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 20px;
+        height: 62px;
+      }
+    }
+  }
 }
 .bbc-head {
   & img {
