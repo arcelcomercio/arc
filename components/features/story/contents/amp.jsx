@@ -13,6 +13,7 @@ import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 // import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
@@ -172,6 +173,7 @@ class StoryContentAmp extends PureComponent {
                   level,
                   publicidadInline = false,
                   publicidadCaja3 = false,
+                  url = '',
                 } = element
                 if (type === ConfigParams.ELEMENT_OEMBED) {
                   return (
@@ -270,6 +272,16 @@ class StoryContentAmp extends PureComponent {
                         __html: content,
                       }}
                       className={classes.blockquoteClass}
+                    />
+                  )
+                }
+
+                if (type === ConfigParams.ELEMENT_INTERSTITIAL_LINK) {
+                  return (
+                    <StoryContentsChildInterstitialLink
+                      url={url}
+                      content={content}
+                      isAmp
                     />
                   )
                 }

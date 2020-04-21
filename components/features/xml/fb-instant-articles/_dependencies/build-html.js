@@ -7,10 +7,6 @@ import {
   nbspToSpace,
   isEmpty,
 } from '../../../../utilities/helpers'
-/* import {
-  OPTA_CSS_LINK,
-  OPTA_JS_LINK,
-} from '../../../../utilities/constants/opta' */
 
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
@@ -54,12 +50,25 @@ const buildTexParagraph = paragraph => {
   return result
 }
 
+const buildIntersticialParagraph = (paragraph, link) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
+
+  result.processedParagraph =
+    result.numberWords > 0
+      ? `<p><b>[</b><a href="${link}">${clearBrTag(paragraph)}</a><b>]</b></p>`
+      : ''
+
+  return result
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
   numberWordMultimedia,
   level = null,
   opta,
+  link,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -74,14 +83,15 @@ const analyzeParagraph = ({
   let textProcess = {}
   switch (type) {
     case ConfigParams.ELEMENT_TEXT:
+    case ConfigParams.ELEMENT_BLOCKQUOTE:
       textProcess = buildTexParagraph(processedParagraph)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
 
       break
-    case ConfigParams.ELEMENT_BLOCKQUOTE:
-      textProcess = buildTexParagraph(processedParagraph)
+    case ConfigParams.ELEMENT_INTERSTITIAL_LINK:
+      textProcess = buildIntersticialParagraph(processedParagraph, link)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
@@ -189,12 +199,13 @@ const buildListParagraph = ({
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
-  newListParagraph.forEach(({ type = '', payload = '' }) => {
+  newListParagraph.forEach(({ type = '', payload = '', link = '' }) => {
     const { processedParagraph, numberWords } = analyzeParagraph({
       originalParagraph: payload,
       type,
       numberWordMultimedia,
       opta,
+      link,
     })
     objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
     objTextsProcess.numberWords += numberWords
@@ -218,7 +229,7 @@ const ParagraphshWithAdds = ({
   let IndexAdd = 0
 
   newsWithAdd = paragraphsNews
-    .map(({ payload: originalParagraph, type, level }) => {
+    .map(({ payload: originalParagraph, type, level, link = '' }) => {
       let paragraphwithAdd = ''
 
       const { processedParagraph, numberWords } = analyzeParagraph({
@@ -227,6 +238,7 @@ const ParagraphshWithAdds = ({
         numberWordMultimedia,
         level,
         opta,
+        link,
       })
 
       countWords += numberWords

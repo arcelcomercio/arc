@@ -41,7 +41,7 @@
       font-style: italic;
     }
 
-    &:first-letter {
+    &::first-letter {
       font-size: 1.5em;
       font-weight: bold;
     }
@@ -88,13 +88,19 @@
 
   &__image {
     & figcaption {
-      padding: 14px 0px;
+      padding: 14px 0;
       font-size: 13px;
       color: $color-gray-200;
     }
   }
 
   /* Para arreglar estilos en o-embed */
+
+  &__caption {
+    & > span {
+      display: none;
+    }
+  }
 
   &__embed {
     .twitter-tweet {
@@ -137,11 +143,6 @@
     margin-right: -49px;
   }
 
-  &__caption {
-    & > span {
-      display: none;
-    }
-  }
   // &__item {}
   // &__link {}
 
@@ -238,6 +239,7 @@
       color: $color-primary;
       font-weight: 700;
     }
+
     margin-bottom: 20px;
     font-family: $secondary-font;
     line-height: 1.5;
@@ -258,7 +260,7 @@
   &__alignment-right {
     text-align: right;
   }
-  & paper-prev {
+  & .paper-prev {
     background-color: rgba(206, 177, 177, 0.5);
     color: $color-white;
     height: 100%;
@@ -282,6 +284,22 @@
       transform: translate(-50%, -50%);
       top: 50%;
       left: 24px;
+    }
+  }
+
+  &__interstitial-link {
+    color: #4a88b1;
+    font-size: $font-md;
+
+    &::before {
+      color: #000;
+      content: "[";
+      margin-right: 4px;
+    }
+    &::after {
+      color: #000;
+      content: "]";
+      margin-left: 4px;
     }
   }
 }
