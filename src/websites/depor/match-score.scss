@@ -11,6 +11,7 @@
 @import "../../general-styles/components/features/header/header-full";
 @import "../../general-styles/components/features/layout/navbar/nav";
 @import "../../general-styles/components/features/layout/navbar-no-menu/navbar-nm";
+@import "../../general-styles/components/features/layout/footer/footer-secondary";
 
 @import "../../general-styles/components/features/story/story-header-amp";
 @import "../../general-styles/components/features/story/author-title/author-title";
@@ -26,10 +27,14 @@
 @import "../../general-styles/components/features/story/separator/story-separator";
 @import "../../general-styles/components/features/story/special-header/special-header";
 @import "../../general-styles/components/features/story/story/story";
+@import "../../general-styles/components/features/stories-lists/linked-by-brand/linked-by-brand";
 
 /******* Components of brand *******/
 @import "./scss/components/layout/navbar-no-menu/navbar-nm";
 @import "./scss/components/layout/navbar/nav-story";
+@import "./scss/components/layout/footer/amp-footer";
+@import "./scss/components/layout/footer/footer-story";
+@import "./scss/components/layout/footer/footer";
 @import "./scss/components/header/header-full";
 @import "./scss/components/header/megamenu";
 @import "./scss/components/header/match-nav/navegation-tabs";
