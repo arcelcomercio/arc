@@ -13,7 +13,7 @@ export const device = {
 }
 
 export const PanelWrapper = styled.div`
-  background: #eeeeee;
+  background: #eee;
   position: relative;
   width: 100%;
   min-height: calc(100vh);
@@ -25,9 +25,9 @@ export const PanelContent = styled.div`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  padding: 10px 0px 0px 0px;
+  padding: 10px 0 0 0;
   @media ${device.tablet} {
-    padding: 20px 0px;
+    padding: 20px 0;
   }
   & .panel-left,
   & .panel-right {
