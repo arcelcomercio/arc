@@ -11,18 +11,19 @@
   }
 
   &__txt {
-    font: 700 16px/19px $primary-font;
+    font: 700 16px/19px $secondary-font;
     letter-spacing: 0.48px;
     color: #111;
   }
 
-  &__share {
-    display: none;
+  &__link {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-    @media (--tablet) {
-      display: flex;
-      margin-right: -15px;
-      // Este margen es para contraarrestar el margin-right que tienen los .share-btn
-    }
+  &__share {
+    display: flex;
+    margin-right: -15px;
+    // Este margen es para contraarrestar el margin-right que tienen los .share-btn
   }
 }
