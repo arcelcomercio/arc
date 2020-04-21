@@ -20,7 +20,7 @@
     letter-spacing: 0.2px;
     font-size: 18px;
     line-height: 24px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     @media (--desktop) {
       font-size: 20px;
       line-height: 28px;
@@ -28,7 +28,7 @@
   }
   &__list {
     list-style-type: disc;
-    padding: 0 0 25px 20px;
+    padding: 0 0 30px 20px;
     & li {
       font-size: 19px;
       line-height: 26px;
