@@ -9,7 +9,11 @@
   }
 
   &__face {
+    /*
+      si se hacen cambios en estas dimensiones, 
+      verificar el tamano de la imagen en 
+      feature/cards/tabloid/default.jsx
+    */
     height: 266px;
-    width: 246px;
   }
 }
