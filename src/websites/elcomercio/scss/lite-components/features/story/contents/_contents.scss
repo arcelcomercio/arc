@@ -45,6 +45,9 @@
     @media (--desktop) {
       font-size: 20px;
     }
+    & b {
+      font-weight: bold;
+    }
   }
 
   &__tag-link {
@@ -272,7 +275,7 @@
 
   &__paragraph-list {
     padding-left: 30px;
-    & a {
+    & li a {
       font-family: $primary-font;
       color: #306d95;
       font-size: 18px;

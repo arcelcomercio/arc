@@ -18,7 +18,7 @@ const StoryTags = () => {
   return (
     tags.length > 0 && (
       <div className={classes.container}>
-        <h4 className={classes.title}>TAGS RELACIONADAS</h4>
+        <h4 className={classes.title}>TAGS RELACIONADOS</h4>
         <div className={classes.box}>
           {tags.map(
             ({ slug, text }, idx) =>

@@ -9,6 +9,7 @@
     font: 700 13px/18px $primary-font;
     letter-spacing: 1px;
     line-height: 18px;
+    padding-bottom: 10px;
     @media (--desktop) {
       font: 700 14px/18px $primary-font;
     }
@@ -31,7 +32,7 @@
       font: 400 16px/28px $primary-font;
     }
     & span {
-      padding: 5px 5px;
+      padding: 7px 7px;
     }
   }
 }
