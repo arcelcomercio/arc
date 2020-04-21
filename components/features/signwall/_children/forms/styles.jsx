@@ -268,9 +268,10 @@ export const ContPaywall = styled.div`
     .price-middle {
       width: 50%;
       h3 {
-        font-size: 32px;
+        font-size: 42px;
         text-align: center;
         font-weight: bold;
+        font-family: inherit;
       }
     }
     .detail-price-middle {

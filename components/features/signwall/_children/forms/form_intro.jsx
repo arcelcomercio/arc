@@ -80,7 +80,7 @@ export const FormIntro = ({
                 <div className="cont-price-detail">
                   {showFree ? (
                     <div className="price-middle">
-                      <h3>GRATIS</h3>
+                      <h3>Gratis</h3>
                     </div>
                   ) : (
                     <div className="price">
