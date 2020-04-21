@@ -23,6 +23,7 @@ import './images/logo-amp.png'
 import './images/logo-elcomercio-388x60.png'
 import './images/arrow-right-2.png'
 import './images/logo_fb.jpg'
+import './images/logo-sidebar.png'
 
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'

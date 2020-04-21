@@ -19,8 +19,6 @@
 @import "../../general-styles/components/global-components/icons";
 @import "../../general-styles/components/global-components/multimedia-icon";
 @import "../../general-styles/components/global-components/search-input";
-@import "../../general-styles/components/global-components/story-item"; // check
-@import "../../general-styles/components/global-components/story-table";
 
 /* --- FEATURES ---------------------------------------------------------
   Estilos de features desde el core
@@ -29,21 +27,12 @@
 @import "../../general-styles/components/features/layout/navbar/nav";
 @import "../../general-styles/components/features/layout/navbar/nav-sidebar";
 @import "../../general-styles/components/features/header/header-full";
-@import "../../general-styles/components/features/breaking-news/breaking-news";
+@import "../../general-styles/components/features/header/inverted";
 @import "../../general-styles/components/features/basic-html/basic-html";
-@import "../../general-styles/components/features/cards/most-read/most-read";
-@import "../../general-styles/components/features/cards/most-read/most-read-item";
-@import "../../general-styles/components/features/story/header/story-header";
-@import "../../general-styles/components/features/story/header/story-gallery-slider";
-@import "../../general-styles/components/features/story/header/story-gallery";
-@import "../../general-styles/components/features/story/content/story-content";
-@import "../../general-styles/components/features/story/content/story-tags";
-@import "../../general-styles/components/features/story/content/related-internal";
-@import "../../general-styles/components/features/story/content/related-content";
-@import "../../general-styles/components/features/story/continue/story-continue";
-@import "../../general-styles/components/features/story/related-internal";
-@import "../../general-styles/components/features/story/google-news/google-news";
-@import "../../general-styles/components/features/stories-lists/linked-by-brand/linked-by-brand";
+@import "../../general-styles/components/features/video/section/video-navbar";
+@import "../../general-styles/components/features/video/section/section-video";
+@import "../../general-styles/components/features/video/section/play-list";
+@import "../../general-styles/components/features/video/list/video-list";
 @import "../../general-styles/components/features/layout/footer/footer-secction"; // footer/depor
 
 /* --- MODIFICADORES ----------------------------------------------------
@@ -51,24 +40,13 @@
 ------------------------------------------------------------------------- */
 @import "./scss/global-components/content-sidebar";
 @import "./scss/global-components/story-table";
+@import "./scss/components/search-filter/search-input";
 @import "./scss/components/layout/navbar-no-menu/navbar-nm";
 @import "./scss/components/layout/navbar/nav-story";
 @import "./scss/components/header/header-full";
 @import "./scss/components/header/megamenu";
-@import "./scss/components/breaking-news/breaking-news";
-@import "./scss/components/cards/most-read/most-read";
-@import "./scss/components/search-filter/search-input";
-@import "./scss/components/story/header/story-header";
-@import "./scss/components/story/header/story-gallery-slider";
-@import "./scss/components/story/most-read/most-read";
-@import "./scss/components/story/most-read/most-read-item";
-@import "./scss/components/story/interest/story-interest.scss";
-@import "./scss/components/story/story/story";
-@import "./scss/components/story/contents/story-content";
-@import "./scss/components/story/contents/related-content";
-@import "./scss/components/story/contents/story-tags";
-@import "./scss/components/story/continue/story-continue";
-@import "./scss/components/video/section-video";
+@import "./scss/components/section/section";
 @import "./scss/components/video/play-list";
+@import "./scss/components/video/section-video";
 @import "./scss/components/video/video-list";
 @import "./scss/components/layout/footer/footer-secction";

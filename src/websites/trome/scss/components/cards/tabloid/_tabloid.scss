@@ -5,6 +5,7 @@
     height: auto;
     background-color: transparent;
     padding: 0;
+    margin-bottom: 10px;
   }
   &__body {
     justify-content: space-between;
@@ -13,9 +14,6 @@
   &__body {
     padding: 0;
     background-color: #222;
-  }
-  &__header {
-    margin-bottom: 10px;
   }
   &__header-link {
     font-size: 22px;
@@ -31,13 +29,18 @@
     text-align: left;
     padding: 0;
     color: #ff9326;
-    font-family: 'Arial';
+    font-family: "Arial", sans-serif;
     font-size: 12px;
     text-transform: uppercase;
     font-weight: 400;
   }
 
   &__face {
+    /*
+      si se hacen cambios en estas dimensiones, 
+      verificar el tamano de la imagen en 
+      feature/cards/tabloid/default.jsx
+    */
     height: 295px;
     width: 293px;
     display: block;
