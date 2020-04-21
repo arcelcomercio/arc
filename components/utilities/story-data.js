@@ -11,6 +11,7 @@ import {
   ELEMENT_STORY,
   ELEMENT_PODCAST,
   ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -1507,6 +1508,7 @@ class StoryData {
         caption = '',
         canonical_url: link,
         items = [],
+        title = '',
         level = null,
       }) => {
         const result = { _id, type, level, payload: '' }
@@ -1541,6 +1543,10 @@ class StoryData {
           case ELEMENT_INTERSTITIAL_LINK:
             result.payload = content
             result.link = url
+            break
+          case ELEMENT_LINK_LIST:
+            result.payload = items
+            result.title = title
             break
           default:
             result.payload = content
