@@ -314,10 +314,17 @@ if ('IntersectionObserver' in window) {
       height: 157px;
     }}
     `
-  const style =
-    isStory && (arcSite === 'elcomercio' || arcSite === 'depor')
-      ? 'story'
-      : 'style'
+
+  let style = 'style'
+  if (
+    isStory &&
+    (arcSite === 'elcomercio' || arcSite === 'depor') &&
+    /^\/videos\/(.*)/.test(requestUri)
+  )
+    style = 'story-video'
+  else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
+    style = 'story'
+
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
