@@ -85,6 +85,7 @@ class StoryContents extends PureComponent {
         ids: { opta },
       },
       siteProperties: { isDfp = false },
+      isAdmin,
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
       globalContent || {}
@@ -266,6 +267,7 @@ class StoryContents extends PureComponent {
                         items={items}
                         multimediaLazyDefault={multimediaLazyDefault}
                         arcSite={arcSite}
+                        isAdmin={isAdmin}
                       />
                     )
                   }
