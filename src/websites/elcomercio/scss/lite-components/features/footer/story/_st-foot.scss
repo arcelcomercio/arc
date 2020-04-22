@@ -7,6 +7,9 @@ $color-gray-200: #888;
   font: 400 13px/20px $primary-font;
   align-items: center;
   padding: 8px 15px;
+  @media (--desktop) {
+    font: 400 11px/17px $primary-font;
+  }
 
   &__img-box {
     padding: 8px 10px 8px 0;
