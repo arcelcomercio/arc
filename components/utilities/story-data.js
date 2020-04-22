@@ -677,10 +677,11 @@ class StoryData {
 
   get contentElementsListOne() {
     const result =
-      this._data &&
-      this._data.content_elements &&
-      this._data.content_elements[0]
-    return result.type === ELEMENT_LIST ? result : []
+      (this._data &&
+        this._data.content_elements &&
+        this._data.content_elements[0]) ||
+      {}
+    return result && result.type === ELEMENT_LIST ? result : []
   }
 
   get contentElementsHtml() {
