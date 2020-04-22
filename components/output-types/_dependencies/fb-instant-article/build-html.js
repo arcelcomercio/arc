@@ -87,8 +87,7 @@ const buildListLinkParagraph = (items, defaultImage) => {
               return `
               <div>
                 <figure>
-                  <a href="${url}"><img src="${defaultImage}" data-src="${urlImg ||
-                defaultImage}" alt="${content}" /></a>
+                  <a href="${url}"><img src="${defaultImage}" data-src="${urlImg}" alt="${content}" /></a>
                 </figure>
                 <div>
                   <h2><a href="${url}">${content}</a></h2>
