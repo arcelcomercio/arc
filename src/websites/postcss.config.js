@@ -1,8 +1,6 @@
-module.exports = ({
-  options
-}) => ({
+module.exports = ({ options, file }) => ({
   plugins: {
-    'postcss-import': {},
+    'postcss-import': { root: file.dirname },
     'postcss-preset-env': {
       stage: 2,
       autoprefixer: {
@@ -15,6 +13,6 @@ module.exports = ({
     },
     'postcss-flexbugs-fixes': {},
     'css-mqpacker': {},
-    'cssnano': options.env === 'production' ? options.cssnano : false,
+    cssnano: options.env === 'production' ? options.cssnano : false,
   },
 })

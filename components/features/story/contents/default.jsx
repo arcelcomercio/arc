@@ -253,6 +253,7 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildInterstitialLink
                         url={url}
                         content={content}
+                        isAmp={false}
                       />
                     )
                   }

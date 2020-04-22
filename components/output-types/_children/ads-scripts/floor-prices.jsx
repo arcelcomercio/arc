@@ -13,7 +13,7 @@ export default () => {
 
   return (
     <>
-      {arcSite === 'depor' && section === 'futbol-peruano' && (
+      {arcSite === 'depor' && (
         <script src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js" />
       )}
       {arcSite === 'peru21' && (

@@ -8,8 +8,14 @@ import schemaFilter from './_dependencies/schema-filter'
 
 import { defaultImage } from '../../../utilities/assets'
 import getLatinDate from '../../../utilities/date-time/latin-date'
-import StoryData from '../../../utilities/story-data'
 import { getResizedUrl } from '../../../utilities/resizer'
+import {
+  SITE_TROME,
+  SITE_ELCOMERCIOMAG,
+  SITE_PERU21,
+  SITE_PERU21G21,
+  SITE_ELCOMERCIO,
+} from '../../../utilities/constants/sitenames'
 
 const classes = {
   tabloid: 'tabloid row-1 flex flex-col',
@@ -24,6 +30,7 @@ const classes = {
 }
 
 const CONTENT_SOURCE = 'story-by-section-printed'
+const PHOTO_SOURCE = 'photo-resizer'
 
 const CardTabloid = props => {
   const {
@@ -54,21 +61,61 @@ const CardTabloid = props => {
         : {}
     ) || {}
 
-  const { printed_md: resizedImage } = getResizedUrl({
-    url: urlImage,
-    presets: 'printed_md:246x0',
-    arcSite,
-  })
-
   const {
-    title = '',
-    createdDate = '',
-    primarySectionLink = '',
-  } = new StoryData({
-    data,
-    contextPath,
-    arcSite,
-  })
+    headlines: { basic: title = '' } = {},
+    created_date: createdDate = '',
+    taxonomy: { primary_section: { path: primarySectionLink = '' } = {} } = {},
+    promo_items: { basic: { url: sourceImage = '' } = {} } = {},
+  } = data || {}
+
+  /**
+   * Estos sizes salen de la clase .tabloid__face
+   * del core del feature y por marca
+   */
+  let sizes
+  switch (arcSite) {
+    case SITE_ELCOMERCIO:
+      sizes = '175x0'
+      break
+    case SITE_TROME:
+      sizes = '293x0'
+      break
+    case SITE_ELCOMERCIOMAG:
+    case SITE_PERU21:
+    case SITE_PERU21G21:
+      sizes = '215x0'
+      break
+    default:
+      sizes = '255x0'
+  }
+  const presets = `printed_md:${sizes}`
+
+  const { resized_urls: adminResizer = {} } =
+    useContent(
+      isAdmin
+        ? {
+            source: PHOTO_SOURCE,
+            query: {
+              url: urlImage || sourceImage,
+              presets,
+            },
+          }
+        : {}
+    ) || {}
+
+  /**
+   * El admin de PB renderiza de nuevo en cliente y no funciona
+   * el getResizedUrl() desde cliente, por eso en caso de
+   * estar en el admin, se solicita la imagen de la
+   * content source photo-resizer.
+   */
+  const { printed_md: resizedImage } = isAdmin
+    ? adminResizer
+    : getResizedUrl({
+        url: urlImage || sourceImage,
+        presets,
+        arcSite,
+      })
 
   const lazyImage = defaultImage({
     deployment,
@@ -104,7 +151,8 @@ const CardTabloid = props => {
         className={classes.body}
         href={link || linkTabloide}
         target="_blank"
-        rel="noopener noreferrer">
+        rel="noopener noreferrer"
+        title="Ver la versión impresa">
         <picture>
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}

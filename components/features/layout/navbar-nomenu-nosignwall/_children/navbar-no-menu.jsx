@@ -1,5 +1,4 @@
-import React, { useState, useRef } from 'react'
-import searchQuery from '../../../../utilities/client/search'
+import React from 'react'
 
 const classes = {
   bar: 'navbar-nm w-full pr-5 pl-5 bg-black h-full',
@@ -23,23 +22,30 @@ const classes = {
 }
 
 export default props => {
-  const inputSearch = useRef(null)
-  const [toggleSearch, changeSearch] = useState(false)
   const { list } = props
 
-  const _handleSearch = e => {
-    e.preventDefault()
-    const { value } = inputSearch.current
-    if (value !== '') searchQuery(value)
-  }
-
-  const _handleKeyDown = e => {
-    e.preventDefault()
-    const { value } = e.target
-    if (value !== '' && e.which === 13) {
-      _handleSearch(e)
-    }
-  }
+  /* document.addEventListener('DOMContentLoaded', () => {
+    document
+      .querySelector('.navbar-nm__icon-search')
+      .addEventListener('click', () => {
+        document
+          .querySelector('.navbar-nm__box-search')
+          .classList.toggle('hidden')
+      })
+    const searchInput = document.querySelector('.navbar-nm__input-search')
+    document
+      .querySelector(".navbar-nm__box-search").firstChild
+      .addEventListener('submit', (e) => {
+        e.preventDefault()
+        if (searchInput.value) {
+          const newQuery = encodeURIComponent(searchInput.value).replace(
+            /%20/g,
+            '+'
+          )
+          window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
+        }
+      })
+  }) */
 
   const { children: dataList = [] } = list
   return (
@@ -70,27 +76,15 @@ export default props => {
             </a> */}
           </div>
           <div className={classes.search}>
-            <button
-              type="button"
-              className={classes.iconSearch}
-              onClick={() => changeSearch(!toggleSearch)}
-            />
-            <div
-              className={`${classes.boxSearch} ${
-                toggleSearch ? 'block' : 'hidden'
-              }`}>
+            <button type="button" className={classes.iconSearch} />
+            <div className={`${classes.boxSearch} hidden`}>
               <form className={classes.formSearch} action="">
                 <input
                   type="search"
-                  onKeyUp={e => _handleKeyDown(e)}
                   className={classes.inputSearch}
                   placeholder="Buscar"
-                  ref={inputSearch}
                 />
-                <button
-                  onClick={e => _handleSearch(e)}
-                  className={classes.btnSearch}
-                  type="button">
+                <button className={classes.btnSearch} type="submit">
                   OK
                 </button>
               </form>
@@ -98,6 +92,12 @@ export default props => {
           </div>
         </div>
       </div>
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `"use strict";document.addEventListener("DOMContentLoaded",function(){document.querySelector(".navbar-nm__icon-search").addEventListener("click",function(){document.querySelector(".navbar-nm__box-search").classList.toggle("hidden")});var e=document.querySelector(".navbar-nm__input-search");document.querySelector(".navbar-nm__box-search").firstChild.addEventListener("submit",function(n){if(n.preventDefault(),e.value){var t=encodeURIComponent(e.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(t,"/todas/descendiente/?query=").concat(t)}})});`,
+        }}
+      />
     </div>
   )
 }

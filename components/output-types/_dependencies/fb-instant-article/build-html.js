@@ -57,11 +57,24 @@ const buildTexParagraph = paragraph => {
   return result
 }
 
+const buildIntersticialParagraph = (paragraph, link) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
+
+  result.processedParagraph =
+    result.numberWords > 0
+      ? `<p><b>[</b><a href="${link}">${clearBrTag(paragraph)}</a><b>]</b></p>`
+      : ''
+
+  return result
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
   numberWordMultimedia,
   level = null,
+  link,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -76,14 +89,15 @@ const analyzeParagraph = ({
   let textProcess = {}
   switch (type) {
     case ConfigParams.ELEMENT_TEXT:
+    case ConfigParams.ELEMENT_BLOCKQUOTE:
       textProcess = buildTexParagraph(processedParagraph)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
 
       break
-    case ConfigParams.ELEMENT_BLOCKQUOTE:
-      textProcess = buildTexParagraph(processedParagraph)
+    case ConfigParams.ELEMENT_INTERSTITIAL_LINK:
+      textProcess = buildIntersticialParagraph(processedParagraph, link)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
@@ -170,11 +184,12 @@ const buildListParagraph = ({
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
-  newListParagraph.forEach(({ type = '', payload = '' }) => {
+  newListParagraph.forEach(({ type = '', payload = '', link = '' }) => {
     const { processedParagraph, numberWords } = analyzeParagraph({
       originalParagraph: payload,
       type,
       numberWordMultimedia,
+      link,
       // numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
     })
 
@@ -201,7 +216,7 @@ const ParagraphshWithAdds = ({
   let lookAlso = []
 
   newsWithAdd = paragraphsNews
-    .map(({ payload: originalParagraph, type, level }) => {
+    .map(({ payload: originalParagraph, type, level, link = '' }) => {
       let paragraphwithAdd = ''
 
       let { processedParagraph, numberWords } = analyzeParagraph({
@@ -209,6 +224,7 @@ const ParagraphshWithAdds = ({
         type,
         numberWordMultimedia,
         level,
+        link,
       })
 
       if (ConfigParams.ELEMENT_STORY === type) {
