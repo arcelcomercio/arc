@@ -5,7 +5,7 @@ const Item = ({ url, title, image, imageDefault, site, isAmp }) => {
   const classAmp = isAmp ? 'amp-' : ''
   const classes = {
     multimedia: `${classAmp}story-content__link-list-figure position-relative`,
-    image: `${classAmp}story-content__link-list-image w-full h-full`,
+    image: `${classAmp}story-content__link-list-image w-full h-full lazy`,
     item: `${classAmp}story-content__link-list-item flex flex-row mt-20`,
     info: `${classAmp}story-content__link-list-information w-full md:pr-10 pl-20`,
     titleLink: `${classAmp}story-content__link-list-title-link underline font-bold overflow-hidden`,
