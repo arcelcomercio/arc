@@ -14,6 +14,7 @@ import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildLinkList from './_children/link-list'
 // import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
@@ -22,7 +23,21 @@ import {
   getDateSeo,
 } from '../../../utilities/helpers'
 
-import ConfigParams from '../../../utilities/config-params'
+import {
+  ELEMENT_HEADER,
+  ELEMENT_IMAGE,
+  ELEMENT_QUOTE,
+  ELEMENT_RAW_HTML,
+  ELEMENT_TABLE,
+  ELEMENT_TEXT,
+  ELEMENT_VIDEO,
+  ELEMENT_GALLERY,
+  ELEMENT_OEMBED,
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
+} from '../../../utilities/constants/element-types'
+
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
@@ -69,6 +84,7 @@ class StoryContentAmp extends PureComponent {
       displayDate: updatedDate,
       primarySectionLink,
       author,
+      multimediaLazyDefault,
     } = new StoryData({
       data,
       arcSite,
@@ -174,8 +190,9 @@ class StoryContentAmp extends PureComponent {
                   publicidadInline = false,
                   publicidadCaja3 = false,
                   url = '',
+                  items = [],
                 } = element
-                if (type === ConfigParams.ELEMENT_OEMBED) {
+                if (type === ELEMENT_OEMBED) {
                   return (
                     <AmpOembed
                       rawOembed={rawOembed}
@@ -184,7 +201,7 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_RAW_HTML) {
+                if (type === ELEMENT_RAW_HTML) {
                   return content.includes('id="powa-') ? (
                     <StoryContentChildVideo
                       data={content}
@@ -197,21 +214,21 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
+                if (type === ELEMENT_HEADER && level === 1) {
                   return (
                     <h2>
                       <RawHtml content={content}></RawHtml>
                     </h2>
                   )
                 }
-                if (type === ConfigParams.ELEMENT_QUOTE) {
+                if (type === ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
                 }
-                if (type === ConfigParams.ELEMENT_TABLE) {
+                if (type === ELEMENT_TABLE) {
                   return <StoryContentChildTable data={element} type={type} />
                 }
 
-                if (type === ConfigParams.ELEMENT_GALLERY) {
+                if (type === ELEMENT_GALLERY) {
                   return (
                     <AMPCarousel
                       data={innerContentElements}
@@ -220,7 +237,7 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_IMAGE) {
+                if (type === ELEMENT_IMAGE) {
                   return (
                     <AmpImage
                       {...element}
@@ -239,7 +256,7 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_TEXT) {
+                if (type === ELEMENT_TEXT) {
                   return (
                     <>
                       <Text
@@ -265,7 +282,7 @@ class StoryContentAmp extends PureComponent {
                     </>
                   )
                 }
-                if (type === ConfigParams.ELEMENT_BLOCKQUOTE) {
+                if (type === ELEMENT_BLOCKQUOTE) {
                   return (
                     <blockquote
                       dangerouslySetInnerHTML={{
@@ -276,17 +293,29 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
 
-                if (type === ConfigParams.ELEMENT_INTERSTITIAL_LINK) {
+                if (type === ELEMENT_INTERSTITIAL_LINK) {
                   return (
                     <StoryContentsChildInterstitialLink
                       url={url}
                       content={content}
+                      arcSite={arcSite}
                       isAmp
                     />
                   )
                 }
 
-                if (type === ConfigParams.ELEMENT_VIDEO) {
+                if (type === ELEMENT_LINK_LIST) {
+                  return (
+                    <StoryContentsChildLinkList
+                      items={items}
+                      multimediaLazyDefault={multimediaLazyDefault}
+                      arcSite={arcSite}
+                      isAmp
+                    />
+                  )
+                }
+
+                if (type === ELEMENT_VIDEO) {
                   return <StoryContentChildVideo data={element} />
                 }
                 return undefined

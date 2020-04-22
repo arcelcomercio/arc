@@ -265,6 +265,7 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildLinkList
                         items={items}
                         multimediaLazyDefault={multimediaLazyDefault}
+                        arcSite={arcSite}
                       />
                     )
                   }
