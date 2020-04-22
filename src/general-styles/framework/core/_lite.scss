@@ -1,6 +1,6 @@
 $primary-font: "Roboto", sans-serif;
-$secondary-font: "PT Serif", serif;
-$tertiary-font: "Georgia", serif;
+$secondary-font: "Georgia", serif;
+$tertiary-font: $secondary-font;
 
 .f {
   display: flex;
