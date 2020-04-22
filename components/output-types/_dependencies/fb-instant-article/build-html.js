@@ -69,33 +69,35 @@ const buildIntersticialParagraph = (paragraph, link) => {
   return result
 }
 
-const buildListLinkParagraph = (paragraph, title, items) => {
-  console.log(paragraph, title, items)
-  return `<div>
-    <div>Mira también:</div>
-      {items &&
-        items.map(data => {
-          const { url = '', content = '', image: { url: urlImg = '' } = {} } = data || {}
-          return (
-            <div>
-              <figure>
-                <a href={url}>
-                  <img
-                    src={image}
-                    data-src={image}
-                    alt={title}
-                  />
-                </a>
-              </figure>
+const buildListLinkParagraph = items => {
+  const result = { numberWords: 0, processedParagraph: '' }
+
+  result.processedParagraph =
+    items.length > 0
+      ? `<div>
+          <div>Mira también:</div>
+          ${items &&
+            items.map(data => {
+              const {
+                url = '',
+                content = '',
+                image: { url: urlImg = '' } = {},
+              } = data || {}
+              result.numberWords += countWordsHelper(clearHtml(content))
+              return `
               <div>
-                <h2>
-                  <a href={url}>{title}</a>
-                </h2>
-              </div>
-            </div>
-          )
-        })}
-    </div>`
+                <figure>
+                  <a href=${url}><img src=${urlImg} data-src=${urlImg} alt=${content} /></a>
+                </figure>
+                <div>
+                  <h2><a href=${url}>${content}</a></h2>
+                </div>
+              </div>`
+            })}
+        </div>`
+      : ''
+
+  return result
 }
 
 const analyzeParagraph = ({
@@ -137,6 +139,8 @@ const analyzeParagraph = ({
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
+        .split(',')
+        .join('')
 
       break
     case ConfigParams.ELEMENT_HEADER:

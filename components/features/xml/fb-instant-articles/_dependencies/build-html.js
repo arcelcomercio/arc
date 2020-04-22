@@ -62,6 +62,37 @@ const buildIntersticialParagraph = (paragraph, link) => {
   return result
 }
 
+const buildListLinkParagraph = items => {
+  const result = { numberWords: 0, processedParagraph: '' }
+
+  result.processedParagraph =
+    items.length > 0
+      ? `<div>
+          <div>Mira también:</div>
+          ${items &&
+            items.map(data => {
+              const {
+                url = '',
+                content = '',
+                image: { url: urlImg = '' } = {},
+              } = data || {}
+              result.numberWords += countWordsHelper(clearHtml(content))
+              return `
+              <div>
+                <figure>
+                  <a href=${url}><img src=${urlImg} data-src=${urlImg} alt=${content} /></a>
+                </figure>
+                <div>
+                  <h2><a href=${url}>${content}</a></h2>
+                </div>
+              </div>`
+            })}
+        </div>`
+      : ''
+
+  return result
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
@@ -98,10 +129,12 @@ const analyzeParagraph = ({
 
       break
     case ConfigParams.ELEMENT_LINK_LIST:
-      textProcess = buildTexParagraph(processedParagraph)
+      textProcess = buildListLinkParagraph(processedParagraph)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
+        .split(',')
+        .join('')
 
       break
     case ConfigParams.ELEMENT_HEADER:
