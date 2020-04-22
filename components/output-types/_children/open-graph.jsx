@@ -64,8 +64,8 @@ export default ({
 
       {story && (
         <>
-          <meta property="og:image:width" content="696" />
-          <meta property="og:image:height" content="418" />
+          <meta property="og:image:width" content="980" />
+          <meta property="og:image:height" content="528" />
           <meta property="og:image:type" content="image/jpeg" />
         </>
       )}
@@ -74,8 +74,8 @@ export default ({
         <>
           <meta property="og:video" content={urlVideo} />
           <meta property="og:video:secure_url" content={urlVideo} />
-          <meta property="og:video:width" content="696" />
-          <meta property="og:video:height" content="418" />
+          <meta property="og:video:width" content="980" />
+          <meta property="og:video:height" content="528" />
           <meta property="og:video:stream:content_type" content="video/mp4" />
           <meta property="og:video:type" content="video/mp4" />
         </>

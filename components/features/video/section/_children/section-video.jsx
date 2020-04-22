@@ -27,7 +27,7 @@ export default ({
 }) => {
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
-
+  const { urlPreroll } = siteProperties
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
     // No ocultar si es desktop
@@ -42,7 +42,6 @@ export default ({
     }
 
     if (window.PoWaSettings) {
-      const { urlPreroll } = siteProperties
       window.preroll = urlPreroll
       window.PoWaSettings.advertising = {
         adBar: false,
@@ -148,6 +147,12 @@ export default ({
               principalVideo.promoItemsType === VIDEO ? (
                 <div className="section-video__frame">
                   <div
+                    data-preroll={principalVideo.hasAdsVideo ? urlPreroll : ''}
+                    data-time={
+                      principalVideo.videoDuration
+                        ? principalVideo.videoDuration
+                        : ''
+                    }
                     className="w-full h-full"
                     dangerouslySetInnerHTML={{ __html: principalVideo.video }}
                   />

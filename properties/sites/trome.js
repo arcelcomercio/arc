@@ -104,6 +104,7 @@ export default {
   social: {
     facebook: {
       user: '@trome.com',
+      url: 'https://www.facebook.com/trome.pe',
     },
     twitter: {
       user: 'tuittrome',

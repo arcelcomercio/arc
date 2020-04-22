@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import { getResizedUrl } from '../../../../utilities/resizer'
 import { getAssetsPathVideo } from '../../../../utilities/assets'
+import { msToTime } from '../../../../utilities/date-time/time'
 
 const classes = {
   video: '__lL-video',
@@ -20,9 +20,10 @@ const StoryContentChildVideo = props => {
   const {
     promo_items: {
       basic_video: {
+        duration,
         _id: idPrincial,
         additional_properties: video = {},
-        promo_items: { basic: { url: urlImage = '' } = {} } = {},
+        //  promo_items: { basic: { url: urlImage = '' } = {} } = {},
         streams = [],
       } = {},
     } = {},
@@ -34,20 +35,21 @@ const StoryContentChildVideo = props => {
     data = {},
     // htmlContent = false,
     description = '',
-    promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
+    // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
-    url: imagenMigrate = '',
+    // url: imagenMigrate = '',
     contentElemtent = false,
     reziserVideo = true,
     classImage = 'story-contents',
   } = props
-  const imageUrl = contentElemtent ? urlImageContent : urlImage
+  /* const imageUrl = contentElemtent ? urlImageContent : urlImage
   const { large } =
     getResizedUrl({
       url: imageUrl || imagenMigrate,
       presets: 'large:680x400',
       arcSite,
     }) || {}
+    */
 
   const urlVideo = data
 
@@ -198,6 +200,7 @@ const StoryContentChildVideo = props => {
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
+        data-time={duration ? msToTime(duration) : ''}
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
@@ -205,8 +208,7 @@ const StoryContentChildVideo = props => {
           videoData.advertising && videoData.advertising.playAds === true
             ? getParametroPublicidad()
             : ''
-        }
-        data-poster={large}></div>
+        }></div>
       {description && (
         <figcaption className={`${classImage}${classes.caption}`}>
           {description}{' '}
