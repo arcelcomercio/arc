@@ -93,7 +93,7 @@ const Signwall = props => {
   )
 }
 
-// Signwall.fallback = false
+Signwall.fallback = false
 
 Signwall.propTypes = {
   children: PropTypes.node,
