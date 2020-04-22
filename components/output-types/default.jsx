@@ -447,7 +447,7 @@ if ('IntersectionObserver' in window) {
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {arcSite === 'trome' && requestUri.match('^/espectaculos') && (
+            {arcSite === 'ojo' && requestUri.match('^/ojo-show') && (
               <script
                 defer
                 src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
