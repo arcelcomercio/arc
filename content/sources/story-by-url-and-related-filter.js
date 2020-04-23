@@ -185,6 +185,10 @@ export default {
         type
         content
       }
+      image {
+        type
+        url
+      }
     }
     streams{
       stream_type
