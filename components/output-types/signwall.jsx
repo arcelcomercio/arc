@@ -103,7 +103,7 @@ const SignwallOutputType = props => {
   )
 }
 
-SignwallOutputType.fallback = false
+// SignwallOutputType.fallback = false
 
 SignwallOutputType.propTypes = {
   children: PropTypes.node,
