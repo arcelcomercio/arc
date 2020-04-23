@@ -10,8 +10,8 @@ const classes = {
   headerSite: 'link-site__site',
   list: 'link-site__list f',
   listItem: 'link-site__item f mb-15',
-  picture: 'link-site__pic',
-  listItemTitle: 'link-site__title-link oflow-h',
+  picture: 'link-site__pic ',
+  listItemTitle: 'link-site__title-link oflow-h ',
   image: 'link-site__image',
 }
 

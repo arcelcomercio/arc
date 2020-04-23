@@ -379,6 +379,9 @@ export default {
       headlines{
         basic
       }
+      credits {
+        by { name url type }
+      }
       promo_items{
         basic{
           type

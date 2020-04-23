@@ -24,7 +24,7 @@ export default {
   idGoogleAnalitics: 'UA-3055636-11',
   fbPixelId: '1252229265121278',
   fbArticleStyle: 'LogoElcomercio',
-  nameStoryRelated: 'VEA TAMBIÉN',
+  nameStoryRelated: 'RELACIONADAS',
   googleTagManagerMobile: 'GTM-NNX4LXF',
   siteDescription:
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
