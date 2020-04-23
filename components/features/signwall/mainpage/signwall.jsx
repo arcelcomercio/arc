@@ -5,7 +5,7 @@ import Domains from '../_dependencies/domains'
 import Cookies from '../_dependencies/cookies'
 
 @Consumer
-class SignwallComponentInt extends PureComponent {
+class MainPage extends PureComponent {
   _isMounted = false
 
   constructor(props) {
@@ -208,4 +208,4 @@ class SignwallComponentInt extends PureComponent {
   }
 }
 
-export default SignwallComponentInt
+export default MainPage

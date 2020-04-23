@@ -5,7 +5,7 @@ import Icon from '../../../_children/icon'
 import { useStrings } from '../../../_children/contexts'
 import Taggeo from '../../../_dependencies/taggeo'
 
-function Card({ item, onSubscribe = i => i }) { 
+function Card({ item, onSubscribe = i => i }) {
   const msgs = useStrings()
   const {
     title,
@@ -17,6 +17,7 @@ function Card({ item, onSubscribe = i => i }) {
     price: { amount, currency },
     detail: { frequency, duration, aditional },
   } = item
+  const showFree = amount === 0
   return (
     <S.Card>
       <S.CardHead recommended={recommended}>
@@ -36,11 +37,17 @@ function Card({ item, onSubscribe = i => i }) {
       <S.CardContent>
         <S.ContentPrice>
           <S.Price>
-            <S.Currency>{currency}</S.Currency>
-            <S.Amount>{amount}</S.Amount>
+            {showFree ? (
+              <S.AmountFree>Gratis</S.AmountFree>
+            ) : (
+              <>
+                <S.Currency>{currency}</S.Currency>
+                <S.Amount>{amount}</S.Amount>
+              </>
+            )}
           </S.Price>
           <S.Detail>
-            <span>{frequency}</span>
+            {!showFree && <span>{frequency}</span>}
             <S.Duration>{duration}</S.Duration>
             <span>{aditional}</span>
           </S.Detail>
