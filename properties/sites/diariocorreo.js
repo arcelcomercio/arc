@@ -124,6 +124,7 @@ export default {
   social: {
     facebook: {
       user: '@CorreoPeru',
+      url: 'https://www.facebook.com/CorreoPeru/',
     },
     twitter: {
       user: 'diariocorreo',

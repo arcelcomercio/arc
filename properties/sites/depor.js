@@ -104,6 +104,7 @@ export default {
   social: {
     facebook: {
       user: '@deporperu',
+      url: 'https://www.facebook.com/deporperu',
     },
     twitter: {
       user: 'tuitdepor',

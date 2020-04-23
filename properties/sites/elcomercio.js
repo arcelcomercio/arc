@@ -223,6 +223,7 @@ export default {
   social: {
     facebook: {
       user: '@elcomercio.pe',
+      url: 'https://www.facebook.com/elcomercio.pe',
     },
     twitter: {
       user: 'elcomercio_peru',

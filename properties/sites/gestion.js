@@ -185,6 +185,7 @@ export default {
   social: {
     facebook: {
       user: '@Gestionpe',
+      url: 'https://www.facebook.com/Gestionpe',
     },
     twitter: {
       user: 'Gestionpe',

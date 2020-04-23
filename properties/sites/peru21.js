@@ -104,6 +104,7 @@ export default {
   social: {
     facebook: {
       user: '@peru21.pe',
+      url: 'https://www.facebook.com/peru21',
     },
     twitter: {
       user: 'peru21noticias',
