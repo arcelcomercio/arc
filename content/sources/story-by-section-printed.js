@@ -1,7 +1,3 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { createResizedUrl } from '../../components/utilities/resizer'
-
 const schemaName = 'printed'
 
 const params = [
@@ -79,25 +75,9 @@ const resolve = (key = {}) => {
     0}&size=1&single=true&body=${encodedBody}${excludedFields}`
 }
 
-const transform = (storyData, { 'arc-site': arcSite }) => {
-  const data = storyData
-  if (data) {
-    const { resizerUrl } = getProperties(arcSite)
-    const { promo_items: { basic: { url = '' } = {} } = {} } = data
-
-    if (url) {
-      const resizedUrls = createResizedUrl({
-        url,
-        presets: 'printed_md:246x0',
-        resizerUrl,
-        resizerSecret,
-      })
-      data.promo_items.basic.resized_urls = resizedUrls
-    }
-  }
-
+const transform = storyData => {
   return {
-    ...data,
+    ...storyData,
     section_name: 'Impresa',
   }
 }

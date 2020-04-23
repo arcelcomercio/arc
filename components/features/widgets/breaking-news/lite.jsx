@@ -10,9 +10,9 @@ const classes = {
   breakingnews: `b-news f`,
   close: 'b-news__close',
   icon: 'b-news__icon',
-  text: 'b-news__text',
-  tag: 'b-news__tag',
   link: 'b-news__link',
+  tag: 'b-news__tag',
+  title: 'b-news__title',
 }
 
 /* setTimeout(document.getElementById('close-breaking-news').addEventListener('click', () => {
@@ -67,19 +67,14 @@ const BreakingNewsFeat = props => {
             b-news--${backgroundColor} 
           ${classes.breakingnews}
           `}>
-            <h2 className={classes.text}>
-              <span className={classes.tag} suppressContentEditableWarning>
-                {tags}
-              </span>
-              <span>
-                <a
-                  className={classes.link}
-                  href={objContent.link}
-                  rel="noopener noreferrer"
-                  suppressContentEditableWarning>
-                  {objContent.title}
-                </a>
-              </span>
+            <h2>
+              <a
+                className={classes.link}
+                href={objContent.link}
+                rel="noopener noreferrer">
+                <span className={classes.tag}>{tags}</span>
+                <span className={classes.title}>{objContent.title}</span>
+              </a>
             </h2>
             <button
               id="close-breaking-news"

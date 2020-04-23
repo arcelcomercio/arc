@@ -10,6 +10,7 @@ import {
   ELEMENT_YOUTUBE_ID,
   ELEMENT_STORY,
   ELEMENT_PODCAST,
+  ELEMENT_INTERSTITIAL_LINK,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -674,6 +675,15 @@ class StoryData {
     return attributesObject
   }
 
+  get contentElementsListOne() {
+    const result =
+      (this._data &&
+        this._data.content_elements &&
+        this._data.content_elements[0]) ||
+      {}
+    return result && result.type === ELEMENT_LIST ? result : []
+  }
+
   get contentElementsHtml() {
     return (
       (this._data &&
@@ -748,13 +758,17 @@ class StoryData {
 
   get contentPosicionPublicidadLite() {
     let i = 0
+    let items = 0
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-        dataElements = dataContent
+
+        dataElements =
+          typeElement === ELEMENT_LIST && items === 0 ? [] : dataContent
+
         if (i === 2) {
           dataElements.publicidad = true
           dataElements.nameAds = `caja4`
@@ -762,6 +776,7 @@ class StoryData {
         if (typeElement === ELEMENT_TEXT) {
           i += 1
         }
+        items += 1
         return dataElements
       })
     )
@@ -1536,6 +1551,10 @@ class StoryData {
           case ELEMENT_STORY:
             result.payload = link
             // url mira tambien
+            break
+          case ELEMENT_INTERSTITIAL_LINK:
+            result.payload = content
+            result.link = url
             break
           default:
             result.payload = content

@@ -1,17 +1,17 @@
-.story-header {
+.sht {
   padding-right: 20px;
   padding-left: 20px;
 
   &__title {
     font-weight: bold;
     font-family: $secondary-font;
-    letter-spacing: 0.35px;
-    font-size: 26px;
-    line-height: 32px;
+    letter-spacing: 0;
+    font-size: 32px;
+    line-height: 28px;
     padding-bottom: 20px;
     @media (--desktop) {
-      font-size: 35px;
-      line-height: 44px;
+      font-size: 39px;
+      line-height: 43px;
     }
   }
 
@@ -20,13 +20,34 @@
     letter-spacing: 0.2px;
     font-size: 18px;
     line-height: 24px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     @media (--desktop) {
       font-size: 20px;
       line-height: 28px;
     }
   }
+  &__list {
+    list-style-type: disc;
+    padding: 0 0 30px 20px;
+    & li {
+      font-size: 19px;
+      line-height: 26px;
+      color: #000;
+      font-family: $secondary-font;
+      margin-bottom: 10px;
 
+      & a {
+        color: #4a88b1;
+      }
+      & b {
+        color: #306d95;
+      }
+      @media (--desktop) {
+        font-size: 22px;
+        line-height: 1.2;
+      }
+    }
+  }
   &__link:hover {
     text-decoration: none;
   }

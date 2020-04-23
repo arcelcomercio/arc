@@ -5,7 +5,8 @@ import ShareButtons from '../../../global-components/lite/share'
 
 const classes = {
   container: 'st-social f',
-  section: 'st-social__txt f f-center',
+  section: 'st-social__txt f f-center oflow-h uppercase',
+  sectionLink: 'st-social__link oflow-h',
   buttons: 'st-social__share',
 }
 
@@ -20,7 +21,7 @@ const StorySocialLite = () => {
   } = globalContent || {}
 
   // En caso de que el primary section no devuelva "path" ni "name"
-  const { name: auxName = '', path: auxPath = '' } = sections[0] || {}
+  const { name: auxName = '', path: auxPath = '/' } = sections[0] || {}
 
   const primarySection = name || auxName
   const primarySectionLink = path || auxPath
@@ -28,11 +29,9 @@ const StorySocialLite = () => {
   return (
     <div className={classes.container}>
       <h2 className={classes.section}>
-        {primarySectionLink ? (
-          <a href={primarySectionLink}>{primarySection}</a>
-        ) : (
-          primarySection
-        )}
+        <a className={classes.sectionLink} href={primarySectionLink}>
+          {primarySection}
+        </a>
       </h2>
       <div className={classes.buttons}>
         <ShareButtons />

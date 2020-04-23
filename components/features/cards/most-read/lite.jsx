@@ -58,6 +58,7 @@ const CardMostReadLite = props => {
     customLink,
     isAdmin,
     classList: '',
+    contextPath,
   }
 
   return <CardMostReadList {...params} />

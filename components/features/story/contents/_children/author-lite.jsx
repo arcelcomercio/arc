@@ -20,7 +20,6 @@ const StoryContentChildAuthorLite = ({
         {/* // TODO: Cambiar este div por <address> */}
         {primarySection !== 'Columnistas' && (
           <>
-            <span className="">Por</span>
             {author && (
               <a href={authorLink} className={classes.authorNameLink}>
                 {author}
