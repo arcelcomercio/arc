@@ -7,7 +7,7 @@ import MenuTV from './_children/menu'
 import { getAssetsPath } from '../../../utilities/assets'
 
 const TvHeader = () => {
-  const { contextPath, deployment, arcSite } = useFusionContext()
+  const { contextPath, arcSite } = useFusionContext()
   const [statusMenu, changeStatus] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -103,12 +103,10 @@ const TvHeader = () => {
           className="tv-header__section-logo block position-absolute mt-5">
           <img
             className="w-full"
-            src={deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/assets/extraordinary-story/grid/logo.png`
-            )}
+            src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/assets/extraordinary-story/grid/logo.png?d=1`}
             alt={logoAlt}
           />
         </a>

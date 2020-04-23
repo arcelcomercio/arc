@@ -21,7 +21,7 @@ const classes = {
 }
 
 @Consumer
-class LayoutNavbar extends PureComponent {
+class LayoutNavbarAmp extends PureComponent {
   constructor(props) {
     super(props)
     const {
@@ -74,17 +74,14 @@ class LayoutNavbar extends PureComponent {
     const {
       contextPath,
       arcSite,
-      deployment,
       siteProperties: {
         assets: { seo: { widthAmp = '', heightAmp = '' } = {} } = {},
       },
     } = this.props
-    const imgLogo = deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/logo-amp.png`
-    )
+    const imgLogo = `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo-amp.png?d=1`
 
     return (
       <>
@@ -122,7 +119,7 @@ class LayoutNavbar extends PureComponent {
   }
 }
 
-LayoutNavbar.propTypes = {
+LayoutNavbarAmp.propTypes = {
   customFields: PropTypes.shape({
     selectDesing: PropTypes.oneOf(['standard', 'somos']).tag({
       name: 'Modelo de barra de navegación',
@@ -146,5 +143,5 @@ LayoutNavbar.propTypes = {
     }),
   }),
 }
-LayoutNavbar.label = 'Barra de Navegación'
-export default LayoutNavbar
+LayoutNavbarAmp.label = 'Barra de Navegación'
+export default LayoutNavbarAmp

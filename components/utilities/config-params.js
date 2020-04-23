@@ -50,6 +50,10 @@ class ConfigParams {
 
   static ELEMENT_YOUTUBE_ID = 'youtube_id'
 
+  static ELEMENT_PODCAST = 'path_mp3'
+
+  static ELEMENT_INTERSTITIAL_LINK = 'interstitial_link'
+
   // nombre de los Sitios
   static SITE_PUBLIMETRO = 'publimetro'
 

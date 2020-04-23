@@ -21,6 +21,7 @@ export default ({
   arcSite = '',
   contextPath = '',
   isLite = false,
+  isStory = false,
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
@@ -28,15 +29,13 @@ export default ({
   const logoSite = `${getAssetsPath(
     arcSite,
     contextPath
-  )}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg`
+  )}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg?d=1`
 
-  const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${deployment(
-    `${logoSite}`
-  )}",  "sameAs" : [ ${socialNetworks.map(social => `"${social.url}"`)} ] }`
+  const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${logoSite}",  "sameAs" : [ ${socialNetworks.map(
+    social => `"${social.url}"`
+  )} ] }`
 
-  const structuredDataEco = `{"@context" : "http://schema.org", "@type" : "Organization", "legalName":"Empresa Editora El Comercio", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${deployment(
-    `${logoSite}`
-  )}", "foundingDate":"1839", "founders":[ { "@type":"Person", "name":"Manuel Amunátegui"}, { "@type":"Person", "name":"Alejandro Villota"  } ],  "address":{ "@type":"PostalAddress","streetAddress":"Jr. Santa Rosa #300 Lima 1 Perú","addressLocality":"Lima Cercado","addressRegion":"LIMA",  "postalCode":"15001", "addressCountry":"PERU" }, "contactPoint":{       "@type":"ContactPoint",      "contactType":"customer service",      "contactOption" : "TollFree",      "telephone":"[+51-311-6310]", "email":"diario.elcomerciope@gmail.com"    }, "sameAs" : [ ${socialNetworks.map(
+  const structuredDataEco = `{"@context" : "http://schema.org", "@type" : "Organization", "legalName":"Empresa Editora El Comercio", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${logoSite}", "foundingDate":"1839", "founders":[ { "@type":"Person", "name":"Manuel Amunátegui"}, { "@type":"Person", "name":"Alejandro Villota"  } ],  "address":{ "@type":"PostalAddress","streetAddress":"Jr. Santa Rosa #300 Lima 1 Perú","addressLocality":"Lima Cercado","addressRegion":"LIMA",  "postalCode":"15001", "addressCountry":"PERU" }, "contactPoint":{       "@type":"ContactPoint",      "contactType":"customer service",      "contactOption" : "TollFree",      "telephone":"[+51-311-6310]", "email":"diario.elcomerciope@gmail.com"    }, "sameAs" : [ ${socialNetworks.map(
     social => `"${social.url}"`
   )} ] }`
 
@@ -63,7 +62,16 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
-  const style = 'style'
+  let style = 'style'
+  if (
+    isStory &&
+    (arcSite === 'elcomercio' || arcSite === 'depor') &&
+    /^\/videos\/(.*)/.test(requestUri)
+  )
+    style = 'story-video'
+  else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
+    style = 'story'
+
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
@@ -103,73 +111,59 @@ export default ({
       <link
         rel="shortcut icon"
         type="image/png"
-        href={deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/favicon.png`
-        )}
+        href={`${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/favicon.png?d=1`}
       />
       {isAmp === false && (
         <>
           <link
             rel="apple-touch-icon"
-            href={deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/apple-touch-icon.png`
-            )}
+            href={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/apple-touch-icon.png?d=1`}
           />
           <link
             rel="apple-touch-icon"
             sizes="76x76"
-            href={deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/apple-touch-icon-76x76.png`
-            )}
+            href={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/apple-touch-icon-76x76.png?d=1`}
           />
           <link
             rel="apple-touch-icon"
             sizes="120x120"
-            href={deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/apple-touch-icon-120x120.png`
-            )}
+            href={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/apple-touch-icon-120x120.png?d=1`}
           />
           <link
             rel="apple-touch-icon"
             sizes="144x144"
-            href={deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/apple-touch-icon-144x144.png`
-            )}
+            href={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/apple-touch-icon-144x144.png?d=1`}
           />
           <link
             rel="apple-touch-icon"
             sizes="152x152"
-            href={deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/apple-touch-icon-152x152.png`
-            )}
+            href={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/apple-touch-icon-152x152.png?d=1`}
           />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href={deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/apple-touch-icon-180x180.png`
-            )}
+            href={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/apple-touch-icon-180x180.png?d=1`}
           />
         </>
       )}

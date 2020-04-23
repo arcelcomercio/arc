@@ -14,7 +14,6 @@ const LayoutHeader = props => {
   const {
     arcSite,
     contextPath,
-    deployment,
     siteProperties,
     globalContentConfig,
   } = useFusionContext()
@@ -69,12 +68,10 @@ const LayoutHeader = props => {
   const logo = () => {
     return (
       customLogo ||
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/${headerProperties.logo}`
-      )
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${headerProperties.logo}?d=1`
     )
   }
 

@@ -57,11 +57,24 @@ const buildTexParagraph = paragraph => {
   return result
 }
 
+const buildIntersticialParagraph = (paragraph, link) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
+
+  result.processedParagraph =
+    result.numberWords > 0
+      ? `<p><b>[</b><a href="${link}">${clearBrTag(paragraph)}</a><b>]</b></p>`
+      : ''
+
+  return result
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
   numberWordMultimedia,
   level = null,
+  link,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -76,14 +89,15 @@ const analyzeParagraph = ({
   let textProcess = {}
   switch (type) {
     case ConfigParams.ELEMENT_TEXT:
+    case ConfigParams.ELEMENT_BLOCKQUOTE:
       textProcess = buildTexParagraph(processedParagraph)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
 
       break
-    case ConfigParams.ELEMENT_BLOCKQUOTE:
-      textProcess = buildTexParagraph(processedParagraph)
+    case ConfigParams.ELEMENT_INTERSTITIAL_LINK:
+      textProcess = buildIntersticialParagraph(processedParagraph, link)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
@@ -170,11 +184,12 @@ const buildListParagraph = ({
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
-  newListParagraph.forEach(({ type = '', payload = '' }) => {
+  newListParagraph.forEach(({ type = '', payload = '', link = '' }) => {
     const { processedParagraph, numberWords } = analyzeParagraph({
       originalParagraph: payload,
       type,
       numberWordMultimedia,
+      link,
       // numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
     })
 
@@ -193,21 +208,37 @@ const ParagraphshWithAdds = ({
   nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
+  siteUrl,
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
+  let lookAlso = []
 
   newsWithAdd = paragraphsNews
-    .map(({ payload: originalParagraph, type, level }) => {
+    .map(({ payload: originalParagraph, type, level, link = '' }) => {
       let paragraphwithAdd = ''
 
-      const { processedParagraph, numberWords } = analyzeParagraph({
+      let { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph,
         type,
         numberWordMultimedia,
         level,
+        link,
       })
+
+      if (ConfigParams.ELEMENT_STORY === type) {
+        lookAlso.push(originalParagraph)
+      }
+      if (ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0) {
+        let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
+        lookAlso.forEach(value => {
+          ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
+        })
+        processedParagraph = `${ulLookAlso}</ul>`
+        numberWords = countWordsHelper(clearHtml(processedParagraph))
+        lookAlso = []
+      }
 
       countWords += numberWords
 
@@ -264,6 +295,9 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
     case ConfigParams.ELEMENT_YOUTUBE_ID:
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
+    case ConfigParams.ELEMENT_PODCAST:
+      result = `<figure class="op-interactive"><iframe width="150" height="100" scrolling="no" frameborder="0"><audio controls><source src="${payload}" type="audio/mpeg"></audio></iframe></figure>`
+      break
     default:
       break
   }
@@ -287,6 +321,7 @@ const BuildHtml = ({
   arcSite,
   section,
   getPremiumValue,
+  siteUrl,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -298,6 +333,7 @@ const BuildHtml = ({
     nextAdds,
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
+    siteUrl,
   }
   const getContentType = ({ premium = '' } = {}) => {
     const premiumValue =
@@ -314,7 +350,7 @@ const BuildHtml = ({
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
-  <head>
+  <head>  
       <meta charset="utf-8" />
       <meta property="op:markup_version" content="v1.0" />
       <meta property="fb:article_style" content="${fbArticleStyle}" />

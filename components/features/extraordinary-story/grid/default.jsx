@@ -155,12 +155,10 @@ const ExtraordinaryStoryGrid = props => {
 
   const imgLogo =
     customFieldsData.logo ||
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/assets/extraordinary-story/grid/logo.png`
-    )
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/extraordinary-story/grid/logo.png?d=1`
 
   const params = {
     storyData: formattedStoryData,

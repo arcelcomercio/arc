@@ -28,4 +28,6 @@ export const ELEMENT_TYPE_CHARBEAT = 'Articulo Nota Simple'
 
 export const ELEMENT_YOUTUBE_ID = 'youtube_id'
 
+export const ELEMENT_PODCAST = 'path_mp3'
+
 export const ELEMENT_INTERSTITIAL_LINK = 'interstitial_link'

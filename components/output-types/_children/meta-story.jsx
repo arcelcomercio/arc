@@ -20,7 +20,6 @@ export default ({
   arcSite,
   contextPath,
   socialName,
-  deployment,
   isAmp,
   siteAssets: { seo },
   siteName = '',
@@ -34,7 +33,7 @@ export default ({
     link,
     displayDate: publishDate,
     publishDate: publishDatedate,
-    subTitle,
+    subTitle = arcSite,
     seoAuthor,
     imagePrimarySeo,
     primarySection,
@@ -96,9 +95,9 @@ export default ({
 
       return thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
         ? `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
-            title
+            title || arcSite
           )}",   "description": "${formatHtmlToText(
-            subTitle
+            subTitle || arcSite
           )}",  "thumbnailUrl": "${thumbnailUrlYoutube ||
             thumbnailUrlTwitter ||
             thumbnailUrlFacebook}", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube ||
@@ -126,12 +125,10 @@ export default ({
     "name": "${siteName}",
     "logo": {
       "@type": "ImageObject",
-      "url": "${deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/${seo.logoAmp}`
-      )}",
+      "url": "${`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",
       "width": ${seo.width},
       "height": ${seo.height}
     }
@@ -156,11 +153,11 @@ export default ({
           : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
 
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
-        caption
+        caption || arcSite
       )}", ${
         isAmp === true ? publishedVideoOrganization : ''
       }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
-        description || caption
+        description || caption || arcSite
       )}", "contentUrl": "${getAssetsPathVideo(
         arcSite,
         url
@@ -243,12 +240,10 @@ export default ({
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/logo-story-default.jpg`
-      )}",  "description": "${formatHtmlToText(
+    : `"image": {  "@type": "ImageObject", "url": "${`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`}",  "description": "${formatHtmlToText(
         siteName
       )}", "height": 800, "width": 1200 },`
 
@@ -281,11 +276,12 @@ export default ({
     "author":{    "@type":"Person",   "name":"${formatHtmlToText(
       seoAuthor
     )}"    },
-    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${deployment(
-    `${getAssetsPath(arcSite, contextPath)}/resources/dist/${arcSite}/images/${
-      seo.logoAmp
-    }`
-  )}",   "height":${seo.height}, "width":${seo.width}
+    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",   "height":${
+    seo.height
+  }, "width":${seo.width}
        }
     },    
     ${(isPremium && storyPremium) || ''} 
@@ -310,7 +306,7 @@ export default ({
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
   const scriptTaboola = `
-  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.async=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
+  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
     arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript
   }/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
 
@@ -327,7 +323,7 @@ export default ({
           if (!document.getElementById(id)) {
             const n = document.createElement('script')
             const f = document.getElementsByTagName('script')[0]
-            n.async = 1;
+            n.defer = 1;
             n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
             n.id = id;
             f.parentNode.insertBefore(n, f);
@@ -357,7 +353,7 @@ export default ({
               if (!document.getElementById(id)) {
                 const n = document.createElement('script')
                 const f = document.getElementsByTagName('script')[0]
-                n.async = 1;
+                n.defer = 1;
                 n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
                 n.id = id;
                 f.parentNode.insertBefore(n, f);

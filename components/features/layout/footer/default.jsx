@@ -43,7 +43,7 @@ const LayoutFooter = props => {
     } = {},
   } = props
 
-  const { deployment, contextPath, arcSite } = useFusionContext()
+  const { contextPath, arcSite } = useFusionContext()
 
   const {
     gecSites,
@@ -84,12 +84,10 @@ const LayoutFooter = props => {
   }
 
   const logoUrl =
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${logo}`
-    ) || ''
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1` || ''
 
   const formattedSections = sections && formatData(sections)
 

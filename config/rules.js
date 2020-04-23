@@ -43,7 +43,7 @@ module.exports = (mode, type = 'index') => {
             ctx: {
               env: mode,
               cssnano: {
-                preset: 'default',
+                preset: ['advanced', { cssDeclarationSorter: true }],
               },
             },
           },

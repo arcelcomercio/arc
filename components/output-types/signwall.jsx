@@ -103,6 +103,8 @@ const SignwallOutputType = props => {
   )
 }
 
+// SignwallOutputType.fallback = false
+
 SignwallOutputType.propTypes = {
   children: PropTypes.node,
   arcSite: PropTypes.string,

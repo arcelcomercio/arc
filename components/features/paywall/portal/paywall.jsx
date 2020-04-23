@@ -121,13 +121,13 @@ const PortalInt = props => {
             backgroundColor="#ccc19b"
             ml={{ xs: '0px', sm: '30px' }}
           />
-          <ClickToCall
+          {/* <ClickToCall
             href={clickToCallUrl}
             text={msgs.helpShort}
             top={{ md: '-35%' }}
             right={{ md: '0' }}
             position={{ md: 'absolute' }}
-          />
+          /> */}
         </S.FooterContent>
       </S.Footer>
       {arcSite === 'elcomercio' && (

@@ -100,7 +100,7 @@ const Loading = ({ arcSite, typeBg, typeDialog }) => {
       ) : (
         <>
           <Context>
-            {({ siteProperties, contextPath, deployment }) => (
+            {({ siteProperties, contextPath }) => (
               <div
                 className="cont-loader-default"
                 style={{
@@ -108,14 +108,12 @@ const Loading = ({ arcSite, typeBg, typeDialog }) => {
                 }}>
                 <img
                   alt={`Logo ${arcSite}`}
-                  src={deployment(
-                    `${getAssetsPath(
-                      arcSite,
-                      contextPath
-                    )}/resources/dist/${arcSite}/images/${
-                      siteProperties.assets.header.logo
-                    }`
-                  )}
+                  src={`${getAssetsPath(
+                    arcSite,
+                    contextPath
+                  )}/resources/dist/${arcSite}/images/${
+                    siteProperties.assets.header.logo
+                  }?d=1`}
                 />
               </div>
             )}

@@ -22,6 +22,7 @@ const navBarNoMenuNoSignwall = props => {
       }
 
   const data =
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useContent({
       source: sourceValue,
       query: queryValue,
@@ -35,4 +36,6 @@ navBarNoMenuNoSignwall.propTypes = {
   customFields,
 }
 navBarNoMenuNoSignwall.label = 'Barra de Navegacion sin menu y signwall'
+navBarNoMenuNoSignwall.static = true
+
 export default navBarNoMenuNoSignwall

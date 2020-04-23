@@ -14,50 +14,42 @@ const Header = ({ type, closePopup, typePopUp }) => {
             <img
               className="modal-header__img"
               alt={`Logo ${arcSite}`}
-              src={deployment(
-                `${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/dist/elcomercio/images/logo.png`
-              )}
+              src={`${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/elcomercio/images/logo.png?d=1`}
             />
           ),
           gestion: (
             <img
               className="modal-header__img"
               alt={`Logo ${arcSite}`}
-              src={deployment(
-                `${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/dist/${arcSite}/images/white-logo.png`
-              )}
+              src={`${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/white-logo.png?d=1`}
             />
           ),
           depor: (
             <img
               className={`modal-header__img-${arcSite}`}
               alt={`Logo ${arcSite}`}
-              src={deployment(
-                `${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/dist/${arcSite}/images/alternate-logo.png`
-              )}
+              src={`${getAssetsPath(
+                arcSite,
+                contextPath
+              )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`}
             />
           ),
         }[arcSite] || (
           <img
             className={`modal-header__img modal-header__img-${arcSite}`}
             alt={`Logo ${arcSite}`}
-            src={deployment(
-              `${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/${
-                siteProperties.assets.header.logo
-              }`
-            )}
+            src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/${
+              siteProperties.assets.header.logo
+            }?d=1`}
           />
         )}
       </div>

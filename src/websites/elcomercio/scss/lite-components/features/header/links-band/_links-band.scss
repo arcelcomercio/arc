@@ -1,27 +1,20 @@
 .links-band {
-  display: none;
-  height: 42px;
   justify-content: start;
   padding: 0 10px;
-  overflow: hidden;
-  border-bottom: 2px solid $color-black;
-
-  @media (--desktop) {
-    display: flex;
-  }
+  border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+  font-family: $primary-font;
+  font-size: 12px;
 
   &__txt {
-    font: 700 13px $primary-font;
-    color: #36b;
-    padding: 12px;
+    font-weight: 700;
+    padding: 10px 7px;
     white-space: nowrap;
   }
 
   &__link {
-    font-size: 14px;
-    font-family: $primary-font;
     color: $color-gray-300;
-    padding: 12px;
+    padding: 10px 7px;
     white-space: nowrap;
   }
 }

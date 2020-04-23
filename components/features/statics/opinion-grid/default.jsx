@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import StoryData from '../../../utilities/story-data'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 import AuthorCard from './_children/author-card'
 import EditorialCard from './_children/editorial-card'
@@ -53,6 +54,17 @@ const StaticOpinionGrid = () => {
       </div>
       <div role="list" className={classes.container}>
         {stories.slice(0, 12).map(story => {
+          const { credits: { by = [] } = {} } = story || {}
+          const { image: { url } = {} } = by[0] || {}
+
+          const { square_md: resizedAuthorImage } = getResizedUrl({
+            url,
+            presets: 'square_md:100x100',
+            arcSite,
+          })
+
+          const authorImage = resizedAuthorImage || defaultAuthorImage
+
           data.__data = story
           const { taxonomy: { primary_section: { name } = '' } = {} } =
             story || {}
@@ -67,6 +79,7 @@ const StaticOpinionGrid = () => {
                   <EditorialCard
                     key={`Editorial-card-${story._id}`}
                     data={data.attributesRaw}
+                    authorImage
                   />
                   <Ads
                     adElement={`${typeSpace}${countAddPrint}`}
@@ -84,6 +97,7 @@ const StaticOpinionGrid = () => {
                 <EditorialCard
                   key={`Editorial-card-${story._id}`}
                   data={data.attributesRaw}
+                  authorImage
                 />
               )
             }
@@ -100,6 +114,7 @@ const StaticOpinionGrid = () => {
                       deployment,
                       contextPath,
                       arcSite,
+                      authorImage,
                     }}
                   />
                   <Ads
@@ -122,6 +137,7 @@ const StaticOpinionGrid = () => {
                     deployment,
                     contextPath,
                     arcSite,
+                    authorImage,
                   }}
                 />
               )
@@ -144,6 +160,17 @@ const StaticOpinionGrid = () => {
           <p className={classes.title}>ÚLTIMAS NOTICIAS</p>
         </div>
         {stories.slice(12).map((story, index) => {
+          const { credits: { by = [] } = {} } = story || {}
+          const { image: { url } = {} } = by[0] || {}
+
+          const { square_sm: resizedAuthorImageSmall } = getResizedUrl({
+            url,
+            presets: 'square_sm:70x70',
+            arcSite,
+          })
+
+          const authorImage = resizedAuthorImageSmall || defaultAuthorImage
+
           data.__data = story
           return index !== 3 ? (
             <ListItem
@@ -152,6 +179,7 @@ const StaticOpinionGrid = () => {
                 data: data.attributesRaw,
                 isAdmin,
                 defaultAuthorImage,
+                authorImage,
               }}
             />
           ) : (
@@ -162,6 +190,7 @@ const StaticOpinionGrid = () => {
                   data: data.attributesRaw,
                   isAdmin,
                   defaultAuthorImage,
+                  authorImage,
                 }}
               />
               <Ads

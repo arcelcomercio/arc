@@ -11,7 +11,9 @@ import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentChildVideo from './_children/amp-video'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
+import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 // import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
@@ -21,6 +23,10 @@ import {
 } from '../../../utilities/helpers'
 
 import ConfigParams from '../../../utilities/config-params'
+import {
+  SITE_ELCOMERCIO,
+  SITE_PERU21,
+} from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
   formatDateStoryAmp,
@@ -32,9 +38,9 @@ import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
-  textClasses:
-    'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl line-h-md',
-  blockquoteClass: 'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
+  textClasses: 'amp-story-content__news-text ',
+  blockquoteClass:
+    'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
   author: 'amp-story-content__author mt-15 mb-15 secondary-font',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
@@ -52,7 +58,6 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       arcSite,
       isAmp,
-      deployment,
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
@@ -76,9 +81,10 @@ class StoryContentAmp extends PureComponent {
     // const dataSlot = `/${adsAmp.dataSlot}/${
     //   arcSite === 'diariocorreo' ? 'correo' : namePublicidad
     // }-amp-300x250-boton-movil2`
-    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
 
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
+    const isComercio = arcSite === SITE_ELCOMERCIO
 
     const imgTag = 'amp-img'
     const width = '300'
@@ -134,12 +140,10 @@ class StoryContentAmp extends PureComponent {
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     return (
       <>
@@ -169,6 +173,7 @@ class StoryContentAmp extends PureComponent {
                   level,
                   publicidadInline = false,
                   publicidadCaja3 = false,
+                  url = '',
                 } = element
                 if (type === ConfigParams.ELEMENT_OEMBED) {
                   return (
@@ -260,13 +265,23 @@ class StoryContentAmp extends PureComponent {
                     </>
                   )
                 }
-                if (type === ConfigParams.ELEMENT_BLOCKQUOTE && (arcSite === "elcomercio" || arcSite === "elcomerciomag")) {
+                if (type === ConfigParams.ELEMENT_BLOCKQUOTE) {
                   return (
                     <blockquote
                       dangerouslySetInnerHTML={{
                         __html: content,
                       }}
                       className={classes.blockquoteClass}
+                    />
+                  )
+                }
+
+                if (type === ConfigParams.ELEMENT_INTERSTITIAL_LINK) {
+                  return (
+                    <StoryContentsChildInterstitialLink
+                      url={url}
+                      content={content}
+                      isAmp
                     />
                   )
                 }
@@ -282,7 +297,7 @@ class StoryContentAmp extends PureComponent {
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
           />
-
+          {isComercio && <StoryGoogleNews />}
           <StoryContentChildTags data={tags} {...isAmp} />
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>

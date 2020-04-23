@@ -9,12 +9,10 @@ import getProperties from 'fusion:properties'
 import { getAssetsPath } from '../../../../../utilities/assets'
 import {
   searchScript,
-  stickyScript,
   menuScript,
   singwallScript,
 } from '../_dependencies/scripts'
 import Menu from './menu'
-import ShareButtons from '../../../../../global-components/lite/share'
 
 export default props => {
   const { menuSections = [], arcSite, contextPath, globalContent } = props
@@ -67,7 +65,7 @@ export default props => {
               <path d="M4 11h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 11.5 3.5 11 4 11z" />
               <path d="M4 16h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 16.5 3.5 16 4 16z" />
             </svg>
-            <span className="h-basic__menu-txt" aria-hidden="true">
+            <span className="h-basic__menu-txt uppercase" aria-hidden="true">
               Menú
             </span>
           </button>
@@ -79,44 +77,35 @@ export default props => {
             src={`${getAssetsPath(
               arcSite,
               contextPath
-            )}/resources/dist/elcomercio/images/white-logo.png`}
+            )}/resources/dist/elcomercio/images/logo.png?d=1`}
             alt={siteDomain}
           />
         </a>
 
         <div className="h-basic__signwall f">
-          <button type="button" className="h-basic__sub">
+          <button type="button" className="h-basic__sub uppercase">
             Suscríbete
           </button>
 
-          <button type="button" className="h-basic__btn-user h-basic__btn">
+          <button
+            type="button"
+            className="h-basic__btn-user h-basic__btn uppercase">
             <span className="h-basic__user-txt" aria-hidden="true">
-              INGRESA
+              Ingresa
             </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-basic__user"
-              viewBox="0 0 24 24">
+              viewBox="0 0 18 21"
+              width="18"
+              height="21">
               <title>Iniciar sesión / Perfil</title>
-              <path d="M12 2c-5.5 0-10 4.5-10 10 0 5.5 4.5 10 10 10 5.5 0 10-4.5 10-10C22 6.5 17.5 2 12 2zM12 20.2c-1.8 0-3.5-0.6-4.9-1.7 2.8-2.6 7.1-2.6 9.9 0C15.5 19.6 13.8 20.2 12 20.2zM9.3 12c0-1.5 1.2-2.7 2.7-2.7 1.5 0 2.7 1.2 2.7 2.7s-1.2 2.7-2.7 2.7C10.5 14.7 9.3 13.5 9.3 12zM18.3 17.3c-0.9-0.9-2-1.5-3.1-2 1.8-1.7 1.9-4.6 0.2-6.4 -1.7-1.8-4.6-1.9-6.4-0.2 -1.8 1.7-1.9 4.6-0.2 6.4 0.1 0.1 0.1 0.1 0.2 0.2 -1.2 0.4-2.2 1.1-3.1 2C2.8 13.8 3.3 8.6 6.7 5.7c3.5-2.9 8.6-2.4 11.5 1C20.8 9.8 20.8 14.2 18.3 17.3L18.3 17.3z" />
+              <path d="M9.49 10.82C6.79 10.82 4.61 8.4 4.61 5.41C4.61 2.42 6.79 0 9.49 0C12.19 0 14.37 2.42 14.37 5.41C14.37 8.4 12.19 10.82 9.49 10.82Z" />
+              <path d="M18 20L18 16.08C18 16.08 15.12 12.09 9.49 12.09C3.85 12.09 0.98 16.08 0.98 16.08L0.98 20L18 20Z" />
             </svg>
           </button>
         </div>
 
-        <div className="h-basic__social">
-          <span className="h-basic__share-txt">Comparte</span>
-          <ShareButtons />
-          <button className="h-basic__next f just-center" type="button">
-            <span className="h-basic__next-txt">Siguiente artículo</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="15"
-              viewBox="0 0 16 16">
-              <path d="M0.5 9L12.2 9 6.9 14.3 8.3 15.7 16 8 8.3 0.3 6.9 1.7 12.2 7 0.5 7 0.5 9Z" />
-            </svg>
-          </button>
-        </div>
         <Menu
           menuSections={menuSections}
           siteDomain={siteDomain}
@@ -125,7 +114,7 @@ export default props => {
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: `"use strict";${searchScript}${stickyScript}${menuScript}${singwallScript.replace(
+            __html: `"use strict";${searchScript}${menuScript}${singwallScript.replace(
               '<<loc>>',
               (sectionPath.split('/')[1] || '').replace('-', '')
             )}`,
