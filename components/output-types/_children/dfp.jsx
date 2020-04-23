@@ -591,7 +591,9 @@ const Dfp = ({ isFuature, adId }) => {
                 />
                 <script
                   defer
-                  src="https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js"
+                  src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js?v=${new Date()
+                  .toISOString()
+                  .slice(0, 10)}`}
                 />
               </>
             )

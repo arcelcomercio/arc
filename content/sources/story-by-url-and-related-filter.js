@@ -185,6 +185,10 @@ export default {
         type
         content
       }
+      image {
+        type
+        url
+      }
     }
     streams{
       stream_type
@@ -378,6 +382,9 @@ export default {
       type
       headlines{
         basic
+      }
+      credits {
+        by { name url type }
       }
       promo_items{
         basic{

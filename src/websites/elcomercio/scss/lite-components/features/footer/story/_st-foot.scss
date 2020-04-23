@@ -1,0 +1,54 @@
+$color-gray-200: #888;
+
+.st-foot {
+  background-color: $color-white;
+  border-top: 1px solid $color-gray-200;
+  border-bottom: 1px solid $color-gray-200;
+  font: 400 13px/20px $primary-font;
+  align-items: center;
+  padding: 8px 15px;
+  @media (--desktop) {
+    font: 400 11px/17px $primary-font;
+  }
+
+  &__img-box {
+    padding: 8px 10px 8px 0;
+    align-self: flex-start;
+    @media (--desktop) {
+      align-self: initial;
+    }
+  }
+
+  &__img {
+    width: 112px;
+  }
+
+  &__text {
+    flex: 1;
+    flex-direction: column;
+    border-left: 1px solid #ddd;
+
+    @media (--desktop) {
+      flex: unset;
+      flex-direction: initial;
+      align-items: center;
+      text-decoration: none;
+      border-left: 0;
+      line-height: 13px;
+    }
+  }
+
+  &__link {
+    color: $color-gray-200;
+    white-space: nowrap;
+    padding: 0 10px;
+
+    @media (--desktop) {
+      border-right: 1px solid $color-gray-200;
+
+      &:last-child {
+        border-right: unset;
+      }
+    }
+  }
+}

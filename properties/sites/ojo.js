@@ -88,6 +88,7 @@ export default {
   social: {
     facebook: {
       user: '@DiarioOjo',
+      url: 'https://www.facebook.com/DiarioOjo',
     },
     twitter: {
       user: 'diarioojo',

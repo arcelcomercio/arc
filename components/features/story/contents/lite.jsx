@@ -124,7 +124,7 @@ class StoryContentsLite extends PureComponent {
         arcSite,
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
-
+    let relatedIds = []
     return (
       <>
         <div className={classes.news}>
@@ -218,11 +218,18 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
+
                   if (type === ELEMENT_STORY) {
+                    relatedIds.push(_id)
+                  }
+
+                  if (type !== ELEMENT_STORY && relatedIds.length > 0) {
+                    const relateIdsParam = relatedIds
+                    relatedIds = []
                     return (
                       <StoryContentsChildRelatedInternal
                         stories={relatedContent}
-                        id={_id}
+                        ids={relateIdsParam}
                         imageDefault={multimediaLazyDefault}
                       />
                     )

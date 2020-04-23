@@ -85,6 +85,7 @@ export default {
   social: {
     facebook: {
       user: '@publimetrope',
+      url: 'https://www.facebook.com/publimetrope',
     },
     twitter: {
       user: 'publimetrope',

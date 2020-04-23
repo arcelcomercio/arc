@@ -8,7 +8,7 @@ var JSONP = (function () {
   function load(url, error) {
     var script = document.createElement('script'),
       done = false
-    script.src = url
+    script.src = encodeURI(url)
     script.async = true
 
     script.onload = script.onreadystatechange = function () {

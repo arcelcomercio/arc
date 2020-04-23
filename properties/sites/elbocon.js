@@ -120,6 +120,7 @@ export default {
   social: {
     facebook: {
       user: '@DiarioElBocon',
+      url: 'https://www.facebook.com/DiarioElBocon',
     },
     twitter: {
       user: 'elbocononline',

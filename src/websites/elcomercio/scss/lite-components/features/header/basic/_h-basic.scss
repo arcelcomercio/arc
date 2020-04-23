@@ -56,6 +56,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 0 6px;
       border-radius: 3px;
 
       &:focus,
@@ -104,6 +105,9 @@
     color: $color-gray-300;
     padding-top: 2px;
     padding-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: none;
     @media (--desktop) {
       display: block;
@@ -122,7 +126,7 @@
     width: 24px;
     @media (--desktop) {
       height: 11px;
-      width: 11px;
+      width: fit-content;
     }
     path {
       fill: $color-gray-300;

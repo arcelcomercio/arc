@@ -62,6 +62,37 @@ const buildIntersticialParagraph = (paragraph, link) => {
   return result
 }
 
+const buildListLinkParagraph = (items, defaultImage) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+
+  result.processedParagraph =
+    items.length > 0
+      ? `<div>
+          <div>Mira también:</div>
+          ${items &&
+            items.map(data => {
+              const {
+                url = '',
+                content = '',
+                image: { url: urlImg = '' } = {},
+              } = data || {}
+              result.numberWords += countWordsHelper(clearHtml(content))
+              return `
+              <div>
+                <figure>
+                  <a href="${url}"><img src="${defaultImage}" data-src="${urlImg}" alt="${content}" /></a>
+                </figure>
+                <div>
+                  <h2><a href="${url}">${content}</a></h2>
+                </div>
+              </div>`
+            })}
+        </div>`
+      : ''
+
+  return result
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
@@ -69,6 +100,7 @@ const analyzeParagraph = ({
   level = null,
   opta,
   link,
+  defaultImage,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -97,6 +129,15 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
 
       break
+    case ConfigParams.ELEMENT_LINK_LIST:
+      textProcess = buildListLinkParagraph(processedParagraph, defaultImage)
+
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
+        .split(',')
+        .join('')
+
+      break
     case ConfigParams.ELEMENT_HEADER:
       textProcess = buildHeaderParagraph(processedParagraph, level)
 
@@ -109,6 +150,7 @@ const analyzeParagraph = ({
         processedParagraph,
         numberWordMultimedia,
         opta,
+        defaultImage,
       }
 
       // eslint-disable-next-line no-use-before-define
@@ -196,6 +238,7 @@ const buildListParagraph = ({
   processedParagraph: listParagraph,
   numberWordMultimedia,
   opta,
+  defaultImage,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
@@ -206,6 +249,7 @@ const buildListParagraph = ({
       numberWordMultimedia,
       opta,
       link,
+      defaultImage,
     })
     objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
     objTextsProcess.numberWords += numberWords
@@ -223,6 +267,7 @@ const ParagraphshWithAdds = ({
   numberWordMultimedia = 70,
   arrayadvertising = [],
   opta,
+  defaultImage = '',
 }) => {
   let newsWithAdd = []
   let countWords = 0
@@ -239,6 +284,7 @@ const ParagraphshWithAdds = ({
         level,
         opta,
         link,
+        defaultImage,
       })
 
       countWords += numberWords
@@ -320,6 +366,7 @@ const BuildHtml = ({
   arcSite,
   section,
   opta,
+  defaultImage,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -332,6 +379,7 @@ const BuildHtml = ({
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
     opta,
+    defaultImage,
   }
   const { type } = multimedia || {}
   try {

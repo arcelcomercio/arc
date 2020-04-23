@@ -98,6 +98,7 @@ const ListItemNews = (contentElements, buildProps) => {
           section: storydata.sectionsFIA.section,
           getPremiumValue: storydata.getPremiumValue,
           siteUrl,
+          defaultImage: storydata.defaultImg,
         }
 
         const htmlString = BuildHtml(BuildHtmlProps)
