@@ -62,7 +62,12 @@ $locomundo: #01abad;
 
   &__author-link,
   &__category-link {
-    font-family: $secondary-font;
+    font-family: $primary-font;
+    font-weight: 500;
+  }
+
+  &__author-link {
+    color:#888;
   }
 
   &__title {
@@ -70,7 +75,8 @@ $locomundo: #01abad;
   }
 
   &__title-link {
-    color: $color-primary;
+    color: #000;
+    font-weight: 900;
     -webkit-line-clamp: 4;
     max-height: calc(1.3rem * 1.333 * 4);
   }

@@ -51,11 +51,13 @@
   &__contact,
   &__sections {
     background: $color-gray-300;
+    font-weight: 400;
+    font-size: .8rem;
   }
   @media (--tablet) {
     &__info::after,
     &__sections::after {
-      background-color: $color-white;
+      background-color: #666;
     }
   }
 }

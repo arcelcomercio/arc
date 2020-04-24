@@ -1,4 +1,10 @@
 .story-content {
+  &__date{
+    font-family: $primary-font;
+  }
+  &__font--secondary{
+    font-family: $primary-font;
+  }
   &__font--secondary {
     a {
       color: $color-primary;

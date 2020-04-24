@@ -1,6 +1,7 @@
 .stories-l-item {
   background-color: transparent;
   border-color: $color-secondary;
+  font-family: $primary-font;
 
   &:last-child {
     border-bottom: 0;
@@ -9,11 +10,12 @@
   &__time {
     color: $color-primary;
     display: block;
-    font-family: $secondary-font;
-    font-weight: 700;
+    font-weight: 400;
     margin-bottom: 5px;
   }
   &__link {
-    font-size: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    color:#333;
   }
 }

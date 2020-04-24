@@ -1,13 +1,16 @@
 .stories-l-header {
   border-bottom: 1px solid $color-primary;
   &__title {
-    color: $color-primary;
+    color: #333;
     font-size: 13px;
+  }
+  & h4 {
+    font-weight: 700;
   }
   &__see-more {
     font-family: $secondary-font;
     background-color: transparent;
-    color: $color-primary;
+    color: #333;
     font-weight: 700;
   }
 
