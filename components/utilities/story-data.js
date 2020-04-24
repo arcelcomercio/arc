@@ -551,6 +551,16 @@ class StoryData {
     )
   }
 
+  get videoStreams() {
+    return (
+      (this.__data &&
+        this.__data.promo_items &&
+        this.__data.promo_items[VIDEO] &&
+        this.__data.promo_items[VIDEO].streams) ||
+      []
+    )
+  }
+
   get video() {
     return (
       (this._data &&
