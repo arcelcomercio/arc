@@ -4,6 +4,7 @@ import PlayList from './play-list'
 import VideoBar from './video-navbar'
 import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 const popUpWindow = (url, title, w, h) => {
   const left = window.screen.width / 2 - w / 2
@@ -92,7 +93,7 @@ export default ({
         })
       }
     }
-  }, [arcSite, isAdmin, principalVideo.hasAdsVideo, siteProperties])
+  }, [arcSite, isAdmin, principalVideo.hasAdsVideo, urlPreroll, siteProperties])
 
   /* const formateDay = () => {
     const _date = new Date(principalVideo.displayDate)
@@ -137,6 +138,15 @@ export default ({
     isAdmin,
   }
 
+  const idVideoPwa = principalVideo.video
+    ? principalVideo.video.match(/"powa-([\w\d-]+)"/)[1]
+    : ''
+
+  const htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="prod" data-stream="${getResultVideo(
+    principalVideo && principalVideo.videoStreams,
+    arcSite
+  )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="prod" data-preload=none ></div>`
+
   return (
     <div className="section-video">
       <div className="section-video__box">
@@ -154,7 +164,9 @@ export default ({
                         : ''
                     }
                     className="w-full h-full"
-                    dangerouslySetInnerHTML={{ __html: principalVideo.video }}
+                    dangerouslySetInnerHTML={{
+                      __html: htmlVideo,
+                    }}
                   />
                 </div>
               ) : (

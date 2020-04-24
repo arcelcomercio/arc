@@ -451,15 +451,15 @@ if ('IntersectionObserver' in window) {
               <script
                 defer
                 src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
+                  .toISOString()
+                  .slice(0, 10)}`}
               />
             )}
             <script
               defer
               src={`https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
+                .toISOString()
+                .slice(0, 10)}`}
             />
             <script
               type="text/javascript"

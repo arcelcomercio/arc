@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import { getAssetsPathVideo } from '../../../../utilities/assets'
 import { msToTime } from '../../../../utilities/date-time/time'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 const classes = {
   video: '__lL-video',
@@ -20,8 +20,8 @@ const StoryContentChildVideo = props => {
   const {
     promo_items: {
       basic_video: {
-        duration,
         _id: idPrincial,
+        duration: durationOne,
         additional_properties: video = {},
         //  promo_items: { basic: { url: urlImage = '' } = {} } = {},
         streams = [],
@@ -37,6 +37,7 @@ const StoryContentChildVideo = props => {
     description = '',
     // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
+    duration: durationTwo,
     // url: imagenMigrate = '',
     contentElemtent = false,
     reziserVideo = true,
@@ -66,21 +67,12 @@ const StoryContentChildVideo = props => {
       'https://img.gestion.pe$1'
     )
 
-  const getResultVideo = streamss => {
-    const resultVideo = streamss
-      .map(({ url = '', stream_type: streamType = '' }) => {
-        return streamType === 'ts' ? url : []
-      })
-      .filter(String)
-    const cantidadVideo = resultVideo.length
-
-    return getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
-  }
-
   const videoUrlContent =
-    contentElemtent && streamsContent[1] ? getResultVideo(streamsContent) : ''
+    contentElemtent && streamsContent[1]
+      ? getResultVideo(streamsContent, arcSite)
+      : ''
 
-  const videoUrlPrincipal = streams[1] ? getResultVideo(streams) : ''
+  const videoUrlPrincipal = streams[1] ? getResultVideo(streams, arcSite) : ''
 
   const getSectionSlug = (sectionId = '') => {
     return sectionId.split('/')[1] || ''
@@ -200,7 +192,7 @@ const StoryContentChildVideo = props => {
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
-        data-time={duration ? msToTime(duration) : ''}
+        data-time={durationTwo ? msToTime(durationOne) : ''}
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
