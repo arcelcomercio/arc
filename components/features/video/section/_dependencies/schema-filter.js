@@ -16,6 +16,7 @@ export const SchemaSingleStory = arcSite => {
           advertising { playAds playVideoAds }
         }
         duration
+        streams
         embed_html
         promo_items {
           basic { url type caption resized_urls { landscape_md lazy_default  } }

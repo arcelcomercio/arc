@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import { getAssetsPathVideo } from '../../../../utilities/assets'
 import { msToTime } from '../../../../utilities/date-time/time'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
@@ -18,7 +18,7 @@ const StoryContentChildVideo = props => {
   const {
     promo_items: {
       basic_video: {
-        duration,
+        duration: durationOne,
         _id: idPrincial,
         additional_properties: video = {},
         //        promo_items: { basic: { url: urlImage = '' } = {} } = {},
@@ -34,6 +34,7 @@ const StoryContentChildVideo = props => {
     description = '',
     // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
+    duration: durationTwo,
     // url: imagenMigrate = '',
     contentElemtent = false,
     reziserVideo = true,
@@ -61,21 +62,12 @@ const StoryContentChildVideo = props => {
       'https://img.gestion.pe$1'
     )
 
-  const getResultVideo = streamss => {
-    const resultVideo = streamss
-      .map(({ url = '', stream_type: streamType = '' }) => {
-        return streamType === 'ts' ? url : []
-      })
-      .filter(String)
-    const cantidadVideo = resultVideo.length
-
-    return getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
-  }
-
   const videoUrlContent =
-    contentElemtent && streamsContent[1] ? getResultVideo(streamsContent) : ''
+    contentElemtent && streamsContent[1]
+      ? getResultVideo(streamsContent, arcSite)
+      : ''
 
-  const videoUrlPrincipal = streams[1] ? getResultVideo(streams) : ''
+  const videoUrlPrincipal = streams[1] ? getResultVideo(streams, arcSite) : ''
 
   const getSectionSlug = (sectionId = '') => {
     return sectionId.split('/')[1] || ''
@@ -199,7 +191,9 @@ const StoryContentChildVideo = props => {
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
-        data-time={duration ? msToTime(duration) : ''}
+        data-time={
+          durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
+        }
         data-preroll={
           videoData.advertising && videoData.advertising.playAds === true
             ? getParametroPublicidad()
