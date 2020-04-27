@@ -86,6 +86,7 @@ const NavbarChildMenu = props => {
   }
 
   const defaultSectionsElComercio = [
+    { name: 'Opinión', url: '/opinion/' },
     { name: 'Política', url: '/politica/' },
     { name: 'Lima', url: '/lima/' },
     { name: 'Economía', url: '/economia/' },
