@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Edit API plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Item -->
+      <div class="col-md-12" id="%item_id%">
+        <div class="card mb-4 box-shadow" style="flex-direction: row"
+          id="content_card">
+          <img
+            id="content_image"
+            class="card-img-top"
+            style="max-height: 220px; width: auto"
+            src="%image_url%"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <p class="card-text text-muted" style="font-weight: bold">
+              %title%
+            </p>
+            <p class="card-text text-muted">
+              %alt%
+            </p>
+            <p class="card-text text-muted">
+              "%link%"
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div style="font-weight: bold">Respuesta JSON</div>
+        <pre>%data%</pre>
+      </div>
+    </template>
+
+    <main role="main">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="content_holder">
+            Cargando...
+          </div>
+
+          <!-- Edit Form -->
+          <div class="row" id="config_edit">
+            <div class="col-md-6">
+              <label for="link"><span>Enlace</span>
+                <input id="link" name="link" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-6">
+              <label for="title"><span>Título</span>
+                <input id="title" name="title" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-6">
+              <label for="alt"><span>Texto alternativo para la foto</span>
+                <input id="alt" name="alt" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-6 p-3">
+              <button type="button" class="btn btn-primary" id="btn_apply">
+                Aceptar
+              </button>
+              <button type="button" class="btn btn-light mx-1" id="btn_cancel">
+                Cerrar
+              </button>
+            </div>
+
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script>
+    const sendMessage = function(action, data) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: 'custom_embed',
+          action,
+          data,
+          key: parseQueryString()['k']
+        }),
+        '*'
+      )
+    }
+
+    const parseQueryString = function() {
+      const params = location.search.split('?')[1] || ''
+      const kv = params.split('&')
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split('=')
+        return Object.assign(result, {
+          [key]: value
+        })
+      }, {})
+    }
+
+     let data = {}      // ANS custom embed response
+     let content = {}   // The fetched content from external data source
+
+     // -------------------------------------------------
+
+
+     // Retrieve the content data based on parameters
+    const fetchData = (ansCustomEmbed) => {
+      superagent
+        .get('/pf/api/v3/content/fetch/photo-by-id')
+        .query({ query: JSON.stringify({"_id":ansCustomEmbed.id,"presets":"embed:480x0"})})
+        .set('Accept', 'application/json')
+        .then(res => {
+          content = res
+          render(content, data.config)
+        });
+    }
+
+    // Render the content data and contextual configuration together
+    const render = (content, config) => {
+
+    // Setup Element Preview
+    const template = document.getElementById('content_template').innerHTML
+    const html = template
+      .replace('%item_id%', 'row-' + content._id)
+      .replace('%image_url%', content.resized_urls.embed || content.url)
+      .replace('%title%', content.subtitle)
+      .replace('%alt%', content.caption)
+      .replace('%link%', (config.link ? config.link : ""))
+      .replace('%data%', JSON.stringify(data, null, 2))
+
+    const element = document.createElement('div')
+    document.getElementById('content_holder').innerHTML = ''
+    document.getElementById('content_holder').appendChild(element)
+    element.outerHTML = html
+
+    if (config.show_poster && config.show_poster === false) {
+      document.getElementById('content_card').removeChild(
+        document.getElementById('content_image')
+      )
+    }
+
+    // Update form state
+    document.getElementById('link').value = (config.link)
+    document.getElementById('title').value = (config.title)
+    document.getElementById('alt').value = (config.alt ? config.alt : "")
+    }
+
+
+     // Update config based on form changes, submit back to Composer and re-render
+    const applyChanges = () => {
+      data.config.link = document.getElementById('link').value
+      data.config.title = document.getElementById('title').value
+      data.config.alt = document.getElementById('alt').value
+
+
+       // Update Composer and re-render form
+      sendMessage('data', data)
+      render(content, data.config)
+    }
+
+     // -------------------------------------------------
+
+    const dismissEditor = () => {
+      sendMessage('cancel')
+    }
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+      /* editor = ace.edit('editor')
+        * editor.getSession().setUseWorker(false)
+        * editor.setTheme('ace/theme/chrome')
+        * editor.getSession().setMode('ace/mode/json')
+        * editor.setOptions({
+        *   autoScrollEditorIntoView: true,
+        *   copyWithEmptySelection: true
+        * })
+        * editor.session.setUseWrapMode(true)*/
+       //editor.session.on('change', function(delta) {
+       //  renderChanges()
+       //})
+
+      data = JSON.parse(decodeURIComponent(parameters.p))
+      fetchData(data)
+      document.getElementById('btn_apply').onclick = applyChanges
+      document.getElementById('btn_cancel').onclick = dismissEditor
+    }
+    </script>
+  </body>
+</html>
