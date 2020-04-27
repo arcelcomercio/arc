@@ -85,11 +85,29 @@ const NavbarChildMenu = props => {
     )
   }
 
+  const defaultSectionsElComercio = [
+    { name: 'Política', url: '/politica/' },
+    { name: 'Lima', url: '/lima/' },
+    { name: 'Economía', url: '/economia/' },
+    { name: 'Mundo', url: '/mundo/' },
+    { name: 'DT', url: '/deporte-total/' },
+    { name: 'Perú', url: '/peru/' },
+    { name: 'Luces', url: '/luces/' },
+    { name: 'Tecnología y Ciencias', url: '/tecnologia/' },
+    { name: 'Somos', url: '/somos/' },
+  ]
+
   const {
     showSidebar = false,
     siteProperties: { siteDomain = '', legalLinks = [] } = {},
-    sections = [],
   } = props
+
+  let { sections = [] } = props
+
+  sections =
+    /elcomercio/.test(siteDomain) && sections.length <= 0
+      ? defaultSectionsElComercio
+      : sections
 
   useEffect(() => {
     IS_MOBILE.current = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
