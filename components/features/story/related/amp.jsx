@@ -8,7 +8,7 @@ import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   storyInterest:
-    'amp-story-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-story-header',
+    'amp-story-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-sh',
   title:
     'amp-story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
 }
