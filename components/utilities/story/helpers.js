@@ -1,10 +1,11 @@
-// eslint-disable-next-line import/prefer-default-export
+import { getAssetsPathVideo } from '../assets'
+
 export const getVideoIdRedSocial = (content = '', type = '') => {
   let customPhotoUrl = []
   let videoId = ''
   if (content) {
     customPhotoUrl = content.match(
-      /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w\-]{10,12})/
+      /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w\\-]{10,12})/
     )
     const [, youtubeId = ''] = customPhotoUrl || []
     if (youtubeId) {
@@ -44,4 +45,15 @@ export const getVideoIdRedSocial = (content = '', type = '') => {
     }
   }
   return videoId
+}
+
+export const getResultVideo = (streams, arcSite) => {
+  const resultVideo = streams
+    .map(({ url = '', stream_type: streamType = '' }) => {
+      return streamType === 'ts' ? url : []
+    })
+    .filter(String)
+  const cantidadVideo = resultVideo.length
+
+  return getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
 }

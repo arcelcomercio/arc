@@ -13,7 +13,7 @@
     font-weight: 400;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
-    padding-top: 5px;
+    padding-top: 10px;
     @media (--desktop) {
       font-size: 14px;
     }
@@ -27,16 +27,10 @@
     }
   }
   &__lL-video,
-  &__lL-iframe {
-    @media (--desktop) {
-      padding: 0 20px 0 20px;
-    }
-  }
   &__p-default {
     background-color: #000;
     height: 157px;
     @media (--desktop) {
-      margin: 0 20px 0 20px;
       height: 345px;
     }
   }

@@ -450,14 +450,16 @@ if ('IntersectionObserver' in window) {
             {arcSite === 'ojo' && requestUri.match('^/ojo-show') && (
               <script
                 defer
-                src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
+                  .toISOString()
+                  .slice(0, 10)}`}
               />
             )}
             <script
               defer
-              src={deployment(
-                `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js`
-              )}
+              src={`https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
             />
             <script
               type="text/javascript"

@@ -80,7 +80,9 @@ class Domains {
   }
 
   getPayuSDK = () => {
-    return 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
+    return ENV.ENVIRONMENT === 'elcomercio'
+      ? 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
+      : 'https://signwall-test.e3.pe/static/payu-sdk.js'
   }
 
   getPayuTags = () => {

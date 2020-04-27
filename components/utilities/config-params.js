@@ -54,6 +54,8 @@ class ConfigParams {
 
   static ELEMENT_INTERSTITIAL_LINK = 'interstitial_link'
 
+  static ELEMENT_LINK_LIST = 'link_list'
+
   // nombre de los Sitios
   static SITE_PUBLIMETRO = 'publimetro'
 
