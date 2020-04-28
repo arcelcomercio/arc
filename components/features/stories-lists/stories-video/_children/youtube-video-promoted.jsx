@@ -2,21 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const classes = {
-  listItemDest: 'stories-video__item-dest w-full',
   listItemText: 'pt-20 pl-20 pr-20 pb-10 w-full',
   listItemTitleDest: 'stories-video__item-dest-title text-white',
   listBorder: 'stories-video__item-border border-b-1 border-solid pb-10',
-  listItem:
-    'stories-video__item w-full p-10 flex justify-between position-relative cursor-pointer',
-  listItemTitle: 'stories-video__item-title text-white mb-10',
-  listItemInfo: 'stories-video__item-text text-white',
-  listItemImg:
-    'stories-video__item-img w-full h-full object-cover object-center mr-15',
-  listItemImgDefault:
-    'stories-video__item-default w-full h-full object-cover object-center mr-15',
-  listItemTime:
-    'stories-video__item-time position-absolute icon-video text-white flex justify-center items-center',
-  live: 'stories-video__item-live flex items-center uppercase',
   destYoutube: 'stories-video__youtube position-relative',
   liveYoutube:
     'stories-video__youtube-live flex items-center justify-center position-absolute',
@@ -24,28 +12,37 @@ const classes = {
 
 const YoutubeVideoDestacado = ({
   isAdmin,
-  liveStory,
   title,
-  video,
+  liveStory,
+  image,
+  imageDefault,
+  videoID,
   autoPlayVideo,
 }) => {
-  const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-    window.navigator.userAgent
-  )
+  let isMobile
+
+  if (typeof window !== 'undefined')
+    isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      window.navigator.userAgent
+    )
+
   const urlVideo =
     autoPlayVideo && !isAdmin && !isMobile
-      ? `https://www.youtube.com/embed/${video.payload}?autoplay=1`
-      : `https://www.youtube.com/embed/${video.payload}`
+      ? `https://www.youtube.com/embed/${videoID}?autoplay=1`
+      : `https://www.youtube.com/embed/${videoID}`
+
   return (
     <>
       <div className={classes.destYoutube}>
         <iframe
-          className=""
           src={urlVideo}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           title="Video"
+          loading="lazy"
+          data-img={image}
+          data-img-default={imageDefault}
         />
         {liveStory && <p className={classes.liveYoutube}>EN VIVO</p>}
       </div>
@@ -62,7 +59,7 @@ YoutubeVideoDestacado.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   liveStory: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  video: PropTypes.object.isRequired,
+  videoID: PropTypes.string.isRequired,
   autoPlayVideo: PropTypes.bool.isRequired,
 }
 

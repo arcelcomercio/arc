@@ -5,33 +5,41 @@ export const getTitle = data => {
   return basic
 }
 
-export const getVideo = data => {
-  const result = { type: '', payload: '' }
-
-  result.payload =
+export const getVideoID = data => {
+  return (
     (data &&
       data.promo_items &&
       data.promo_items[VIDEO] &&
-      data.promo_items[VIDEO].embed_html) ||
+      data.promo_items[VIDEO]._id) ||
     ''
-  if (result.payload !== '') {
-    result.type = VIDEO
-  }
-  return result
+  )
+}
+
+export const getVideoStreams = data => {
+  return (
+    (data &&
+      data.promo_items &&
+      data.promo_items[VIDEO] &&
+      data.promo_items[VIDEO].streams) ||
+    []
+  )
 }
 
 export const getVideoYoutube = data => {
-  const result = { type: '', payload: '' }
-  result.payload =
+  return (
     (data &&
       data.promo_items &&
       data.promo_items[ELEMENT_YOUTUBE_ID] &&
       data.promo_items[ELEMENT_YOUTUBE_ID].content) ||
     ''
-  if (result.payload !== '') {
-    result.type = ELEMENT_YOUTUBE_ID
-  }
-  return result
+  )
+}
+
+export const getType = data => {
+  const powa = getVideoID(data) && VIDEO
+  const youtube = getVideoYoutube(data) && ELEMENT_YOUTUBE_ID
+
+  return powa || youtube || undefined
 }
 
 export const getImage = (data, ImageSize) => {
@@ -43,7 +51,7 @@ export const getImage = (data, ImageSize) => {
       data.promo_items[IMAGE].resized_urls &&
       data.promo_items[IMAGE].resized_urls[ImageSize]) ||
     ''
-  
+
   return result
 }
 
@@ -66,7 +74,7 @@ export const getVideoImage = (data, ImageSize) => {
 }
 
 export const getVideoTime = data => {
-  let result =0
+  let result = 0
 
   result =
     (data &&
