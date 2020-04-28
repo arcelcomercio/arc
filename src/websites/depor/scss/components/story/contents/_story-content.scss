@@ -6,7 +6,7 @@
   h5,
   h6,
   li {
-    font-family: 'Time News Roman';
+    font-family: "Time News Roman";
   }
   .pquote__text {
     color: $color-link;
@@ -16,7 +16,7 @@
   }
   &__font--secondary {
     font-size: 20px;
-    font-family: 'Time News Roman';
+    font-family: "Time News Roman";
     @media (--only-mobile) {
       font-size: 16px;
     }
@@ -75,7 +75,7 @@
   }
   .powa-shot-play-icon,
   .powa-shot-loading-icon {
-    background-color: $color-white;
+    /* background-color: $color-white; */
     color: $color-fourth;
     &:hover {
       color: $color-fourth;
