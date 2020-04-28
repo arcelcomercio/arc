@@ -8,7 +8,6 @@ import {
   ELEMENT_YOUTUBE_ID,
 } from '../../../../utilities/constants/multimedia-types'
 
-// subcomponents
 import YoutubeVideoNoDestacado from './youtube-video-unpromoted'
 import YoutubeVideoDestacado from './youtube-video-promoted'
 import ItemVideoCenterNoDestacado from './powa-video-unpromoted'
@@ -26,21 +25,23 @@ const YoutubeVideo = ({
   liveStory,
   title = '',
   image = {},
-  video = {},
+  videoID = '',
   autoPlayVideo,
 }) => {
-  const propsItem = {
+  const youtubeVideoProps = {
     isAdmin,
-    liveStory,
     title,
-    image,
-    video,
+    liveStory,
+    image: image.payload,
+    imageDefault: image.default,
+    videoID,
     autoPlayVideo,
   }
+
   if (index === 0) {
-    return <YoutubeVideoDestacado {...propsItem} />
+    return <YoutubeVideoDestacado {...youtubeVideoProps} />
   }
-  return <YoutubeVideoNoDestacado {...propsItem} />
+  return <YoutubeVideoNoDestacado {...youtubeVideoProps} />
 }
 
 const VideoCenter = ({
@@ -49,40 +50,41 @@ const VideoCenter = ({
   liveStory,
   title = '',
   image = {},
-  video = {},
+  videoID = '',
+  powaVideo = '',
   videoTime,
   autoPlayVideo,
 }) => {
   const time = msToTime(videoTime)
 
-  const propsItem = {
+  const powaVideoProps = {
     isAdmin,
-    liveStory,
-    time,
     title,
-    image,
-    video,
+    liveStory,
+    image: image.payload,
+    videoID,
+    powaVideo,
+    time,
     autoPlayVideo,
   }
 
   if (index === 0) {
-    return <ItemVideoCenterDestacado {...propsItem} />
+    return <ItemVideoCenterDestacado {...powaVideoProps} />
   }
-  return <ItemVideoCenterNoDestacado {...propsItem} />
+  return <ItemVideoCenterNoDestacado {...powaVideoProps} />
 }
 
 const StoriesListStoryVideoItem = ({
   index = 0,
   isAdmin,
   liveStory = false,
-  content: {
-    title = '',
-    image = '',
-    video = {},
-    autoPlayVideo = false,
-    videoTime = 0,
-  } = {},
-  StoryItemHandleClick,
+  title = '',
+  image = {},
+  videoType = '',
+  videoID = '',
+  powaVideo = '',
+  autoPlayVideo = false,
+  videoTime = 0,
 }) => {
   const paramsItem = {
     index,
@@ -90,12 +92,13 @@ const StoriesListStoryVideoItem = ({
     liveStory,
     title,
     image,
-    video,
+    videoID,
+    powaVideo,
     autoPlayVideo,
     videoTime,
   }
   let resultItemVideo = null
-  switch (video.type) {
+  switch (videoType) {
     case VIDEO:
       resultItemVideo = <VideoCenter {...paramsItem} />
       break
@@ -107,16 +110,16 @@ const StoriesListStoryVideoItem = ({
   }
 
   useEffect(() => {
-    if (index === 0 && video.type === VIDEO) {
+    if (index === 0 && videoType === VIDEO) {
       if (window.powaBoot) {
         window.powaBoot()
       }
     }
   })
+
   const classItem = index === 0 ? classes.listItemDest : classes.listItem
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div className={classItem} onClick={() => StoryItemHandleClick(index)}>
+    <div role="button" tabIndex="0" className={classItem} data-type={videoType}>
       {resultItemVideo}
     </div>
   )
@@ -128,7 +131,7 @@ YoutubeVideo.propTypes = {
   liveStory: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   image: PropTypes.object.isRequired,
-  video: PropTypes.object.isRequired,
+  videoID: PropTypes.string.isRequired,
   autoPlayVideo: PropTypes.bool.isRequired,
 }
 
@@ -138,7 +141,8 @@ VideoCenter.propTypes = {
   liveStory: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   image: PropTypes.object.isRequired,
-  video: PropTypes.object.isRequired,
+  videoID: PropTypes.string.isRequired,
+  powaVideo: PropTypes.string.isRequired,
   videoTime: PropTypes.number.isRequired,
   autoPlayVideo: PropTypes.bool.isRequired,
 }
@@ -147,8 +151,6 @@ StoriesListStoryVideoItem.propTypes = {
   index: PropTypes.number.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   liveStory: PropTypes.bool.isRequired,
-  content: PropTypes.object.isRequired,
-  StoryItemHandleClick: PropTypes.func.isRequired,
 }
 
 export default StoriesListStoryVideoItem

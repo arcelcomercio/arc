@@ -138,6 +138,16 @@ export default {
       type
       width
     }
+    additional_properties{
+      advertising{
+        allowPrerollOnDomain
+        playAds
+        forceAd
+        playVideoAds
+        enableAdInsertion
+        enableAutoPreview
+      }
+    }
     level
     language
     url
