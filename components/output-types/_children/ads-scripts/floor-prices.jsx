@@ -17,7 +17,7 @@ export default () => {
         <script defer src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js" />
       )}
       {arcSite === 'peru21' && (
-        <script src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-opt.js" />
+        <script defer src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-opt.js" />
       )}
     </>
   )
