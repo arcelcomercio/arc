@@ -2,7 +2,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 export default () => {
-  const { arcSite, globalContent } = useFusionContext()
+  const { arcSite, globalContent = {} } = useFusionContext()
 
   const {
     section_id: sectionId,
