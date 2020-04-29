@@ -60,7 +60,7 @@ const handleCloseStickyClick = powaPlayer => {
   }
 }
 
-const powaScript  = ({ src, async, defer, textContent = '', jquery }) => {
+const powaScript  = ({ src, async, defer, textContent = '' }) => {
       const node = document.createElement('script')
       if (src) {
         node.type = 'text/javascript'
@@ -71,13 +71,6 @@ const powaScript  = ({ src, async, defer, textContent = '', jquery }) => {
       }
       if (defer) {
         node.defer = true
-      }
-      if (jquery) {
-        node.setAttribute(
-          'integrity',
-          'sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44='
-        )
-        node.setAttribute('crossorigin', 'anonymous')
       }
       node.textContent = textContent
       return document.body.append(node)
