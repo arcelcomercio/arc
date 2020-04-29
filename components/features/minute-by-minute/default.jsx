@@ -4,34 +4,10 @@ import React, { PureComponent } from 'react'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import { appendToBody } from '../../utilities/client/nodes'
 import { getAssetsPath } from '../../utilities/assets'
+import { fetchLive } from './_dependencies/scripts'
 
 // TODO: convertir en componente funcional con hooks
-
-const createScript = ({ src, async, defer, textContent = '', jquery }) => {
-  const node = document.createElement('script')
-  if (src) {
-    node.type = 'text/javascript'
-
-    node.src = src
-  }
-  if (async) {
-    node.async = true
-  }
-  if (defer) {
-    node.defer = true
-  }
-  if (jquery) {
-    node.setAttribute(
-      'integrity',
-      'sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44='
-    )
-    node.setAttribute('crossorigin', 'anonymous')
-  }
-  node.textContent = textContent
-  return node
-}
 
 @Consumer
 class MinuteByMinute extends PureComponent {
@@ -66,79 +42,6 @@ class MinuteByMinute extends PureComponent {
     })
   }
 
-  componentDidMount() {
-    const { isAdmin } = this.props
-    if (!isAdmin) {
-      appendToBody(
-        createScript({
-          src:
-            'https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7',
-          async: true,
-        })
-      )
-      appendToBody(
-        createScript({
-          src: 'https://code.jquery.com/jquery-2.2.4.min.js',
-          async: true,
-          jquery: true,
-        })
-      )
-
-      const self = this
-      // eslint-disable-next-line no-inner-declarations
-      function runScorer() {
-        // eslint-disable-next-line no-undef
-        const instances = getMxmInstances()
-        const key = Object.keys(instances)[0]
-
-        instances[key].pubsub.on('data', function(data) {
-          self.setState({ inner: data })
-        })
-      }
-
-      window.on_mxm_loaded = function(instances) {
-        window.getMxmInstances = () => {
-          return instances
-        }
-      }
-
-      // eslint-disable-next-line consistent-return
-      const waitjQueryAndMxm = () => {
-        let timeout = 100
-        if (window.jQuery) {
-          if (document.querySelector('.mxm-input')) {
-            runScorer()
-            return true
-          }
-          timeout = 1000
-        }
-        setTimeout(waitjQueryAndMxm, timeout)
-      }
-
-      waitjQueryAndMxm()
-    }
-  }
-
-  getTimeRender = (time = '') => {
-    if (time !== '' && time !== 'PENALES' && time !== 'ENTRETIEMPO') return time
-    if (time === 'ENTRETIEMPO') return 'ET'
-    return '-'
-  }
-
-  gameStatus = (status = '-') => {
-    const cases = {
-      PT: '1ER TIEMPO',
-      ST: '2DO TIEMPO',
-      PTS: '1ER TIEMPO SUPL.',
-      STS: '2DO TIEMPO SUPL.',
-      Final: '',
-      PENALES: 'PENALES',
-      ENTRETIEMPO: 'ENTRETIEMPO',
-      default: '',
-    }
-    return cases[status] || cases.default
-  }
-
   toggleProgress = (tiempo, equipos) => {
     return tiempo === 'PENALES' ||
       (tiempo === 'FINAL' &&
@@ -148,7 +51,7 @@ class MinuteByMinute extends PureComponent {
   }
 
   render() {
-    const { contextPath } = this.props
+    const { contextPath, isAdmin } = this.props
     const {
       customFields: {
         typeComponent = '',
@@ -160,12 +63,8 @@ class MinuteByMinute extends PureComponent {
       arcSite,
     } = this.props
 
-    const { inner, content } = this.state
+    const { content } = this.state
     const { title, url, subTitle } = content || {}
-    const defaultValue = '-'
-
-    const equipos = (inner && inner.match && inner.match[0]) || {}
-    const { time, tiempo, info, publicidad = {} } = inner || {}
 
     return (
       <div
@@ -197,10 +96,10 @@ class MinuteByMinute extends PureComponent {
                     />
                     En vivo
                   </li>
-                  <li className="game-group">{info}</li>
-                  <li className="playing-time secondary-font text-md text-white">
-                    {this.gameStatus(tiempo)}
-                  </li>
+                  <li className="game-group" id="info"></li>
+                  <li
+                    id="tiempo"
+                    className="playing-time secondary-font text-md text-white"></li>
                 </ul>
               </div>
               <div className="box-game  rounded-sm bg-white p-5 mt-10">
@@ -211,41 +110,37 @@ class MinuteByMinute extends PureComponent {
                     <span className="team-shield">
                       <img
                         className="by-minute__team-shield"
-                        src={equipos.bandera_local}
+                        id="bandera_local"
+                        src=""
                         alt=""
                       />
                     </span>
-                    <span className="team-name pl-10 tertiary-font">
-                      {equipos.local || defaultValue}
-                    </span>
+                    <span
+                      className="team-name pl-10 tertiary-font"
+                      id="local"></span>
                   </div>
                   <div className="game-score flex items-center  by-minute__middle ">
                     <span className="team-goals team-goals1 pr-10">
-                      <div className="goals">
-                        {equipos.goles_local || defaultValue}
-                      </div>
+                      <div className="goals" id="goles_local"></div>
                     </span>
                     <span className="game-status position-relative  by-minute__box-separator  rounded border-1 border-solid border-gray">
                       <span
                         className="game-status-time by-minute__separator"
-                        id="game-status-time">
-                        {this.getTimeRender(time)}
-                      </span>
+                        id="game-status-time"></span>
                     </span>
                     <span className="team-goals team-goals2 pl-10">
-                      <div className="goals">
-                        {equipos.goles_visitante || defaultValue}
-                      </div>
+                      <div className="goals" id="goles_visitante"></div>
                     </span>
                   </div>
                   <div className="game-team team2 flex items-center">
-                    <span className="team-name pr-10 tertiary-font">
-                      {equipos.visitante || defaultValue}
-                    </span>
+                    <span
+                      className="team-name pr-10 tertiary-font"
+                      id="visitante"></span>
                     <span className="team-shield">
                       <img
                         className="by-minute__team-shield"
-                        src={equipos.bandera_visitante}
+                        id="bandera_visitante"
+                        src=""
                         alt=""
                       />
                     </span>
@@ -295,24 +190,24 @@ class MinuteByMinute extends PureComponent {
                 <picture>
                   <source
                     className="srcset_320"
-                    srcSet={publicidad.img_publ_320x52}
+                    id="srcset_320"
+                    srcSet=""
                     media="(max-width: 640px)"
                   />
                   <source
                     className="srcset_637"
-                    srcSet={publicidad.img_publ_637x70}
+                    srcSet=""
+                    id="srcset_637"
                     media="(max-width: 1023px)"
                   />
                   <source
                     className="srcset_493"
-                    srcSet={publicidad.img_publ_493x97}
+                    srcSet=""
+                    id="srcset_493"
                     media="(max-width: 1359px)"
                   />
-                  <source
-                    className="srcset_675"
-                    srcSet={publicidad.img_publ_675x97}
-                  />
-                  <img src={publicidad.img_publ_675x97} alt="" />
+                  <source className="srcset_675" srcSet="" id="srcset_675" />
+                  <img src="" id="scorer-image" alt="" />
                 </picture>
               </a>
             </div>
@@ -320,11 +215,27 @@ class MinuteByMinute extends PureComponent {
         </div>
         <div className="by-minute__right">
           {typeComponent === 'partido' ? (
-            <mxm-partido code={codeComponent} noframe h="270px" />
+            <mxm-partido
+              code={codeComponent}
+              admin={isAdmin}
+              noframe
+              h="270px"
+            />
           ) : (
-            <mxm-evento code={codeComponent} noframe h="270px" />
+            <mxm-evento
+              code={codeComponent}
+              admin={isAdmin}
+              noframe
+              h="270px"
+            />
           )}
         </div>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `"use strict";${fetchLive}`,
+          }}
+        />
       </div>
     )
   }
@@ -335,4 +246,5 @@ MinuteByMinute.propTypes = {
 }
 
 MinuteByMinute.label = 'Minuto a minuto'
+MinuteByMinute.static = true
 export default MinuteByMinute
