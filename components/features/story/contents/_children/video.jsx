@@ -26,7 +26,7 @@ const StoryContentChildVideo = props => {
       } = {},
     } = {},
   } = globalContent || {}
-  const videoData = video || ''
+
   const {
     _id: id,
     data = {},
@@ -35,10 +35,14 @@ const StoryContentChildVideo = props => {
     // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
     duration: durationTwo,
+    additional_properties: videoContent = {},
     // url: imagenMigrate = '',
     contentElemtent = false,
     reziserVideo = true,
   } = props
+
+  const videoData = videoContent || video
+
   /* const imageUrl = contentElemtent ? urlImageContent : urlImage
    const { large } =
     getResizedUrl({
