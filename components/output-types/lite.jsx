@@ -393,7 +393,6 @@ const LiteOutput = ({
             />
           </>
         )}
-
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
