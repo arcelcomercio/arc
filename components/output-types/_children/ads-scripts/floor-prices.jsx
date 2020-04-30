@@ -14,7 +14,7 @@ export default () => {
 
   return (
     <>
-      {arcSite === 'depor' && section !== 'off-side' && (
+      {arcSite === 'depor' && (
         <script
           async
           src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js"
@@ -23,7 +23,7 @@ export default () => {
       {arcSite === 'peru21' && (
         <script
           defer
-          src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-opt.js"
+          src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/-opt.js"
         />
       )}
     </>
