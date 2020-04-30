@@ -32,7 +32,7 @@ const StaticsNewsletterChildForm = props => {
       <h3
         className={`${classes.title} ${isActiveApiCovid19 &&
           classes.titleCovid19}`}>
-        Registrate en nuestro <span>Newsletter</span>
+        Regístrate en nuestro <span>Newsletter</span>
       </h3>
       {isActiveApiCovid19 && (
         <h4 className={classes.covid19}>Coronavirus al día</h4>
