@@ -69,7 +69,7 @@ const getQueryFilter = (query, section, website) => {
     let queryAll = query
     if (query !== '') {
       // queryAll = query.replace(/ /g, '+AND+')
-      queryAll = `("${queryAll}")`
+      queryAll = `("${decodeURI(encodeURIComponent(queryAll))}")`
     }
     queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${queryAll}`
   } else {
