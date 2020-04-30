@@ -33,7 +33,7 @@ const PodcastTitle = props => {
   const {
     siteUrl,
     fbAppId,
-    social: { twitter: { user: siteNameRedSocial } } = {},
+    social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
   } = getProperties()
 
   const urlsShareList = socialMediaUrlShareList(
