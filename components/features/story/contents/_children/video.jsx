@@ -18,7 +18,7 @@ const StoryContentChildVideo = props => {
   const {
     promo_items: {
       basic_video: {
-        duration: durationOne,
+        duration: durationOne = '',
         _id: idPrincial,
         additional_properties: video = {},
         //        promo_items: { basic: { url: urlImage = '' } = {} } = {},
@@ -34,7 +34,7 @@ const StoryContentChildVideo = props => {
     description = '',
     // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
-    duration: durationTwo,
+    duration: durationTwo = '',
     additional_properties: videoContent = {},
     // url: imagenMigrate = '',
     contentElemtent = false,
@@ -79,18 +79,8 @@ const StoryContentChildVideo = props => {
 
   const getParametroPublicidad = () => {
     const {
-      taxonomy: {
-        primary_section: {
-          path: primarySection,
-          additional_properties: {
-            original: { _admin: { alias_ids: aliasId = [] } = {} } = {},
-          } = {},
-        } = {},
-      } = {},
+      taxonomy: { primary_section: { path: primarySection } = {} } = {},
     } = globalContent || {}
-    if (aliasId && aliasId[0]) {
-      return aliasId[0]
-    }
 
     if (
       arcSite === 'publimetro' ||
@@ -183,6 +173,9 @@ const StoryContentChildVideo = props => {
     /stream="((.*).(jpeg|jpg|png|gif|mp4|mp3))"/
   )
 
+  const dataTime =
+    durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
+
   return (
     <>
       <div
@@ -195,11 +188,10 @@ const StoryContentChildVideo = props => {
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
-        data-time={
-          durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
-        }
+        data-time={videoArray && videoArray[1] ? '-1' : dataTime}
         data-preroll={
-          videoData && videoData.playAds === true
+          (videoData && videoData.playAds === true) ||
+          (videoArray && videoArray[1])
             ? getParametroPublicidad()
             : ''
         }></div>

@@ -82,18 +82,8 @@ const StoryContentChildVideo = props => {
 
   const getParametroPublicidad = () => {
     const {
-      taxonomy: {
-        primary_section: {
-          path: primarySection,
-          additional_properties: {
-            original: { _admin: { alias_ids: aliasId = [] } = {} } = {},
-          } = {},
-        } = {},
-      } = {},
+      taxonomy: { primary_section: { path: primarySection } = {} } = {},
     } = globalContent || {}
-    if (aliasId && aliasId[0]) {
-      return aliasId[0]
-    }
 
     if (
       arcSite === 'publimetro' ||
@@ -186,6 +176,9 @@ const StoryContentChildVideo = props => {
     /stream="((.*).(jpeg|jpg|png|gif|mp4|mp3))"/
   )
 
+  const dataTime =
+    durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
+
   return (
     <>
       <div
@@ -194,12 +187,13 @@ const StoryContentChildVideo = props => {
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
-        data-time={durationTwo ? msToTime(durationOne) : ''}
+        data-time={videoArray && videoArray[1] ? '-1' : dataTime}
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
         data-preroll={
-          videoData && videoData.playAds === true
+          (videoData && videoData.playAds === true) ||
+          (videoArray && videoArray[1])
             ? getParametroPublicidad()
             : ''
         }></div>
