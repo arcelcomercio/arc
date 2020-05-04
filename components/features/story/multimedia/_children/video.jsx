@@ -29,7 +29,6 @@ const StoryContentChildVideo = props => {
     } = {},
   } = globalContent || {}
 
-  const videoData = video || ''
   const {
     _id: id,
     data = {},
@@ -38,6 +37,7 @@ const StoryContentChildVideo = props => {
     // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
     duration: durationTwo,
+    additional_properties: videoContent = {},
     // url: imagenMigrate = '',
     contentElemtent = false,
     reziserVideo = true,
@@ -51,6 +51,8 @@ const StoryContentChildVideo = props => {
       arcSite,
     }) || {}
     */
+
+  const videoData = videoContent.advertising || video.advertising
 
   const urlVideo = data
 
@@ -197,7 +199,7 @@ const StoryContentChildVideo = props => {
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
         data-preroll={
-          videoData.advertising && videoData.advertising.playAds === true
+          videoData && videoData.playAds === true
             ? getParametroPublicidad()
             : ''
         }></div>

@@ -41,7 +41,7 @@ const StoryContentChildVideo = props => {
     reziserVideo = true,
   } = props
 
-  const videoData = videoContent || video
+  const videoData = videoContent.advertising || video.advertising
 
   /* const imageUrl = contentElemtent ? urlImageContent : urlImage
    const { large } =
@@ -199,7 +199,7 @@ const StoryContentChildVideo = props => {
           durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
         }
         data-preroll={
-          videoData.advertising && videoData.advertising.playAds === true
+          videoData && videoData.playAds === true
             ? getParametroPublicidad()
             : ''
         }></div>
