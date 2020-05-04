@@ -1,0 +1,39 @@
+.related-internal {
+  background-color: #f8f8f8;
+  border: 1px solid #f0f0f0;
+  padding: 20px;
+  @media (--tablet) {
+    width: 100%;
+  }
+  &__figure {
+    width: 120px;
+    height: 64px;
+  }
+  &__title {
+    padding-bottom: 10px;
+  }
+  &__item {
+    display: flex;
+  }
+
+  &__multimedia-icon {
+    top: 50%;
+    margin-top: -15px;
+    left: 50%;
+    margin-left: -15px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  &__title-link {
+    font-size: 17px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 20px;
+    height: 62px;
+    padding: 0 15px;
+    @media (--only-mobile) {
+      font-size: 15px;
+    }
+  }
+}

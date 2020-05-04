@@ -16,13 +16,11 @@ import {
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
-  stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
+  stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
   titleAmp:
-    'amp-story-header__title font-bold secondary-font title-md text-gray-300 line-h-xs',
-  datetime:
-    'amp-story-header__datetime mt-15 mb-15 block secondary-font text-lg',
-  description:
-    'amp-story-header__description mt-0 text-md text-gray-300 secondary-font',
+    'amp-sh__title font-bold secondary-font title-md text-gray-300 line-h-xs',
+  datetime: 'amp-sh__datetime mt-15 mb-15 block secondary-font text-lg',
+  description: 'amp-sh__description mt-0 text-md text-gray-300 secondary-font',
   adsAmp: 'text-center ad-amp-movil',
   author: 'amp-story-content__author mt-15 mb-15 secondary-font',
   bbcHead: 'bbc-head',

@@ -19,7 +19,7 @@
 @import "../../general-styles/components/global-components/icons";
 @import "../../general-styles/components/global-components/multimedia-icon";
 @import "../../general-styles/components/global-components/search-input";
-@import "../../general-styles/components/global-components/story-item";
+@import "../../general-styles/components/global-components/story-item"; // check
 @import "../../general-styles/components/global-components/story-table";
 
 /* --- FEATURES ---------------------------------------------------------
@@ -47,6 +47,10 @@
 @import "../../general-styles/components/features/story/related-internal";
 @import "../../general-styles/components/features/story/google-news/google-news";
 @import "../../general-styles/components/features/stories-lists/linked-by-brand/linked-by-brand";
+@import "../../general-styles/components/features/video/section/video-navbar";
+@import "../../general-styles/components/features/video/section/section-video";
+@import "../../general-styles/components/features/video/section/play-list";
+@import "../../general-styles/components/features/video/list/video-list";
 @import "../../general-styles/components/features/layout/footer/footer-story";
 
 /* --- MODIFICADORES ----------------------------------------------------
@@ -74,4 +78,7 @@
 @import "./scss/components/story/contents/story-tags";
 @import "./scss/components/story/continue/story-continue";
 @import "./scss/components/story/story/story";
+@import "./scss/components/video/play-list";
+@import "./scss/components/video/section-video";
+@import "./scss/components/video/video-list";
 @import "./scss/components/layout/footer/footer-story";

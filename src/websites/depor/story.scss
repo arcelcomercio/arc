@@ -19,7 +19,7 @@
 @import "../../general-styles/components/global-components/icons";
 @import "../../general-styles/components/global-components/multimedia-icon";
 @import "../../general-styles/components/global-components/search-input";
-@import "../../general-styles/components/global-components/story-item";
+@import "../../general-styles/components/global-components/story-item"; // check
 @import "../../general-styles/components/global-components/story-table";
 
 /* --- FEATURES ---------------------------------------------------------
@@ -68,4 +68,7 @@
 @import "./scss/components/story/contents/related-content";
 @import "./scss/components/story/contents/story-tags";
 @import "./scss/components/story/continue/story-continue";
+@import "./scss/components/video/section-video";
+@import "./scss/components/video/play-list";
+@import "./scss/components/video/video-list";
 @import "./scss/components/layout/footer/footer-secction";

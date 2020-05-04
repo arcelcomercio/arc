@@ -10,9 +10,9 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     // 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Publimetro_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro/web/post/default/preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Dweb%26publisher%3Dpublimetro%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro/web/post/default/preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3Dpublimetro%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro/amp/post/default/preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Damp%26publisher%3Dpublimetro%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/publimetro/amp/post/default/preroll&description_url=https%3A%2F%2Fpublimetro.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Dpublimetro%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '189362231408765',
   googleTagManagerId: 'GTM-NSWLD37',
   ampGoogleTagManagerId: 'UA-3055636-18',
@@ -85,6 +85,7 @@ export default {
   social: {
     facebook: {
       user: '@publimetrope',
+      url: 'https://www.facebook.com/publimetrope',
     },
     twitter: {
       user: 'publimetrope',

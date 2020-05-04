@@ -6,7 +6,7 @@ import NavBarComercio from './_children/standard'
 import Formatter from './_dependencies/formatter'
 
 @Consumer
-class LayoutNavbar extends PureComponent {
+class NavbarExternalSignwall extends PureComponent {
   constructor(props) {
     super(props)
     const {
@@ -66,7 +66,7 @@ class LayoutNavbar extends PureComponent {
   }
 }
 
-LayoutNavbar.propTypes = {
+NavbarExternalSignwall.propTypes = {
   customFields: PropTypes.shape({
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',
@@ -83,6 +83,6 @@ LayoutNavbar.propTypes = {
   }),
 }
 
-LayoutNavbar.label = 'Barra de Navegación - Signwall externo'
+NavbarExternalSignwall.label = 'Barra de Navegación - Signwall externo'
 
-export default LayoutNavbar
+export default NavbarExternalSignwall

@@ -3,26 +3,27 @@
   margin: 0 20px 25px 20px;
   padding: 20px 0;
   border-top: 1px solid $border-color-gray;
-  border-bottom: 1px solid $border-color-gray;
+  border-bottom: 2px solid $border-color-gray;
 
   @media (--tablet) {
-    margin: 0 0 25px 0;
+    margin: 0 20px 5px 20px;
     padding: 20px 10px;
   }
 
   &__txt {
-    font: 700 16px/19px $primary-font;
-    letter-spacing: 0.48px;
+    font: 400 18px/29px $secondary-font;
+    letter-spacing: 1px;
     color: #111;
   }
 
-  &__share {
-    display: none;
+  &__link {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-    @media (--tablet) {
-      display: flex;
-      margin-right: -15px;
-      // Este margen es para contraarrestar el margin-right que tienen los .share-btn
-    }
+  &__share {
+    display: flex;
+    margin-right: -15px;
+    // Este margen es para contraarrestar el margin-right que tienen los .share-btn
   }
 }

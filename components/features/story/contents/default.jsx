@@ -12,7 +12,7 @@ import { getAssetsPath } from '../../../utilities/constants'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
-  SITE_GESTION,
+  /* SITE_GESTION, */
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -33,6 +33,7 @@ import {
   ELEMENT_STORY,
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -49,6 +50,7 @@ import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildLinkList from './_children/link-list'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -83,6 +85,7 @@ class StoryContents extends PureComponent {
         ids: { opta },
       },
       siteProperties: { isDfp = false },
+      isAdmin,
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
       globalContent || {}
@@ -173,8 +176,7 @@ class StoryContents extends PureComponent {
           />
           <div
             className={`${classes.content} ${isPremium &&
-              arcSite === SITE_GESTION &&
-              'story-content__nota-premium paywall no_copy'} `}
+              'story-content__nota-premium paywall no_copy'}`}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
@@ -201,6 +203,7 @@ class StoryContents extends PureComponent {
                     publicidad = false,
                     nameAds,
                     url = '',
+                    items = [],
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -253,6 +256,17 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildInterstitialLink
                         url={url}
                         content={content}
+                        isAmp={false}
+                      />
+                    )
+                  }
+                  if (type === ELEMENT_LINK_LIST) {
+                    return (
+                      <StoryContentsChildLinkList
+                        items={items}
+                        multimediaLazyDefault={multimediaLazyDefault}
+                        arcSite={arcSite}
+                        isAdmin={isAdmin}
                       />
                     )
                   }

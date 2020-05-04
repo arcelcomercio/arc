@@ -4,6 +4,7 @@ import PlayList from './play-list'
 import VideoBar from './video-navbar'
 import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 const popUpWindow = (url, title, w, h) => {
   const left = window.screen.width / 2 - w / 2
@@ -27,7 +28,7 @@ export default ({
 }) => {
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
-
+  const { urlPreroll } = siteProperties
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
     // No ocultar si es desktop
@@ -42,7 +43,6 @@ export default ({
     }
 
     if (window.PoWaSettings) {
-      const { urlPreroll } = siteProperties
       window.preroll = urlPreroll
       window.PoWaSettings.advertising = {
         adBar: false,
@@ -93,7 +93,7 @@ export default ({
         })
       }
     }
-  }, [arcSite, isAdmin, principalVideo.hasAdsVideo, siteProperties])
+  }, [arcSite, isAdmin, principalVideo.hasAdsVideo, urlPreroll, siteProperties])
 
   /* const formateDay = () => {
     const _date = new Date(principalVideo.displayDate)
@@ -138,6 +138,15 @@ export default ({
     isAdmin,
   }
 
+  const idVideoPwa = principalVideo.video
+    ? principalVideo.video.match(/"powa-([\w\d-]+)"/)[1]
+    : ''
+
+  const htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="prod" data-stream="${getResultVideo(
+    principalVideo && principalVideo.videoStreams,
+    arcSite
+  )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="prod" data-preload=none ></div>`
+
   return (
     <div className="section-video">
       <div className="section-video__box">
@@ -148,8 +157,16 @@ export default ({
               principalVideo.promoItemsType === VIDEO ? (
                 <div className="section-video__frame">
                   <div
+                    data-preroll={principalVideo.hasAdsVideo ? urlPreroll : ''}
+                    data-time={
+                      principalVideo.videoDuration
+                        ? principalVideo.videoDuration
+                        : ''
+                    }
                     className="w-full h-full"
-                    dangerouslySetInnerHTML={{ __html: principalVideo.video }}
+                    dangerouslySetInnerHTML={{
+                      __html: htmlVideo,
+                    }}
                   />
                 </div>
               ) : (

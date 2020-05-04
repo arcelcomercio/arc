@@ -1,19 +1,18 @@
 .h-basic {
-  background-color: #444;
+  background-color: $color-primary;
   justify-content: space-between;
   align-items: center;
   height: 48px;
   padding: 0 16px;
-  z-index: 99999;
+
+  @media (--desktop) {
+    padding: 0 20px;
+    height: 60px;
+  }
 
   &__btn {
     padding: 0;
     line-height: 0;
-  }
-
-  @media (--desktop) {
-    padding: 0 20px;
-    height: 52px;
   }
 
   &__form {
@@ -52,29 +51,34 @@
 
   &__btn-user {
     @media (--desktop) {
-      border: 1px solid #666;
-      border-radius: 3px;
-      width: 106px;
-      height: 32px;
+      width: 85px;
+      height: 25px;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 0 6px;
+      border-radius: 3px;
+
+      &:focus,
+      &:hover {
+        border: 1px solid $color-gray-300;
+      }
     }
   }
 
   &__sub {
-    width: 105px;
-    height: 32px;
+    width: 85px;
+    height: 25px;
     color: #fff;
-    font: 700 13px $primary-font;
+    font: 700 11px/13px $primary-font;
     letter-spacing: 0.26px;
-    background-color: #0c51e8;
-    border: 1px solid #5383ec;
+    background-color: $color-gray-300;
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.2));
     border-radius: 3px;
-    margin-right: 10px;
-    display: none;
+    margin-right: 15px;
+    display: block;
     @media (--desktop) {
-      display: block;
+      margin-right: 10px;
     }
   }
 
@@ -83,7 +87,7 @@
   }
 
   &__menu-txt {
-    color: #eee;
+    color: $color-gray-300;
     font-size: 13px;
     font-family: $primary-font;
     font-weight: 500;
@@ -96,11 +100,14 @@
   }
 
   &__user-txt {
-    font: 700 10px $primary-font;
+    font: 700 11px $primary-font;
     letter-spacing: 0.24px;
-    color: #ccc;
-    margin-right: 7px;
-    padding-top: 4px;
+    color: $color-gray-300;
+    padding-top: 2px;
+    padding-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: none;
     @media (--desktop) {
       display: block;
@@ -110,28 +117,29 @@
   &__menu,
   &__search {
     path {
-      fill: #eee;
+      fill: $color-gray-300;
     }
   }
 
   &__user {
-    height: 28px;
-    width: 28px;
+    height: 24px;
+    width: 24px;
     @media (--desktop) {
-      height: 25px;
-      width: 25px;
+      height: 11px;
+      width: fit-content;
     }
     path {
-      fill: #ccc;
+      fill: $color-gray-300;
     }
   }
 
   &__img-link {
     display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    flex: 1;
+    padding-left: 15px;
+    @media (--desktop) {
+      flex: unset;
+    }
   }
 
   &__img {
@@ -154,67 +162,6 @@
     display: none;
     @media (--desktop) {
       display: flex;
-    }
-  }
-
-  &__next {
-    align-items: center;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    height: 30px;
-    border-radius: 4px;
-    width: 140px;
-    padding: 0;
-  }
-
-  &__next-txt {
-    margin-right: 5px;
-    font-family: $primary-font;
-    font-weight: 500;
-    font-size: 12px;
-    padding-top: 2px;
-  }
-
-  &.scrolled {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    position: fixed;
-    width: 100%;
-    @media (--tablet) {
-      width: 620px;
-    }
-    @media (--desktop) {
-      width: 980px;
-    }
-    .h-basic {
-      &__menu,
-      &__search {
-        path {
-          fill: #111;
-        }
-      }
-      &__btn-search {
-        border-right: 1px solid #111;
-      }
-      &__menu-txt {
-        color: #111;
-      }
-      &__img-link,
-      &__signwall {
-        display: none;
-      }
-      &__social {
-        display: flex;
-      }
-    }
-  }
-}
-
-#h-basic-pointer {
-  &.scrolled {
-    padding-top: 48px;
-    @media (--desktop) {
-      padding-top: 52px;
     }
   }
 }

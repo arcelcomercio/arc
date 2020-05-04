@@ -28,7 +28,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  // CssLinks,
+  // CssLinks, prueba
   Fusion,
   Libs,
   // MetaTags,
@@ -318,10 +318,17 @@ if ('IntersectionObserver' in window) {
       height: 157px;
     }}
     `
-  const style =
-    isStory && (arcSite === 'elcomercio' || arcSite === 'depor')
-      ? 'story'
-      : 'style'
+
+  let style = 'style'
+  if (
+    isStory &&
+    (arcSite === 'elcomercio' || arcSite === 'depor') &&
+    /^\/videos\/(.*)/.test(requestUri)
+  )
+    style = 'story-video'
+  else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
+    style = 'story'
+
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
@@ -444,17 +451,19 @@ if ('IntersectionObserver' in window) {
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {arcSite === 'trome' && requestUri.match('^/espectaculos') && (
+            {arcSite === 'ojo' && requestUri.match('^/ojo-show') && (
               <script
                 defer
-                src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
+                  .toISOString()
+                  .slice(0, 10)}`}
               />
             )}
             <script
               defer
-              src={deployment(
-                `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js`
-              )}
+              src={`https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
             />
             <script
               type="text/javascript"

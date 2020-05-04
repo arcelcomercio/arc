@@ -17,9 +17,9 @@ const Dfp = ({ isFuature, adId }) => {
     arcSite,
   } = useFusionContext()
 
-  const hb =
-    (arcSite === 'trome' &&
-      requestUri.match('^/espectaculos') &&
+  const hbOjo =
+    (arcSite === 'ojo' &&
+      requestUri.match('^/ojo-show') &&
       `,bidding: {prebid: {enabled: true,timeout: 3000,useSlotForAdUnit: true, sizeConfig: [
     {
       'mediaQuery': '(min-width: 1024px)',
@@ -37,7 +37,6 @@ const Dfp = ({ isFuature, adId }) => {
     {
       'mediaQuery': '(min-width: 300px) and (max-width: 768px)',
       'sizesSupported': [
-        [320, 100],
         [320, 50],
         [300, 250]
       ],
@@ -45,9 +44,8 @@ const Dfp = ({ isFuature, adId }) => {
     }
   ]}}`) ||
     ''
-
   const { adsAmp: { dataSlot } = {} } = siteProperties
-  const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}${hb}},function(d){console.log("Advertisement has loaded...",d)});`
+  const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}${hbOjo}},function(d){console.log("Advertisement has loaded...",d)});`
 
   const lazyLoadFunction = `"use strict";window.addLazyLoadToAd=function(e){if("IntersectionObserver"in window){var n=(e||{}).adId;if(n)return new Promise(function(e){var o=new IntersectionObserver(function(n,o){n.forEach(function(n){n.isIntersecting&&(console.log("resolved!!!!"),e(),o.unobserve(n.target))})},{rootMargin:"0px 0px 500px 0px"});document.getElementById(n)&&o.observe(document.getElementById(n))})}};`
 
@@ -161,8 +159,8 @@ const Dfp = ({ isFuature, adId }) => {
         const flagDimension = (breakpoints !== '[]')? true:''
         */
 
-        const flagHb =
-          arcSite === 'trome' && section === 'espectaculos' ? true : ''
+        const flagHbOjo =
+          arcSite === 'ojo' && section === 'ojo-show' ? true : ''
         const formatSpace = {
           id: `gpt_${space}`,
           slotName: slotname2,
@@ -181,8 +179,8 @@ const Dfp = ({ isFuature, adId }) => {
             refresh
             }
           }  */
-        // agregando informacion en commit de hb
-        if (flagHb) {
+        // agregando informacion en commit de hb ojo
+        if (flagHbOjo) {
           if (space === 'top') {
             formatSpace.bidding = {
               prebid: {
@@ -192,7 +190,7 @@ const Dfp = ({ isFuature, adId }) => {
                     bidder: 'appnexus',
                     labels: ['desktop', 'phone'],
                     params: {
-                      placementId: `<::getAdsDisplay() === 'mobile' ? '12914965' : '12914706' ::>`,
+                      placementId: `<::getAdsDisplay() === 'mobile' ? '19003326' : '19003302' ::>`,
                     },
                   },
                   {
@@ -200,8 +198,8 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop', 'phone'],
                     params: {
                       accountId: '19186',
-                      siteId: `<::getAdsDisplay() === 'mobile' ? '215766' : '215764' ::>`,
-                      zoneId: `<::getAdsDisplay() === 'mobile' ? '1609566' : '1609554' ::>`,
+                      siteId: `<::getAdsDisplay() === 'mobile' ? '215782' : '215780' ::>`,
+                      zoneId: `<::getAdsDisplay() === 'mobile' ? '1655590' : '1655560' ::>`,
                     },
                   },
                   {
@@ -209,6 +207,15 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop', 'phone'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      siteId: `<::getAdsDisplay() === 'mobile' ? '349419' : '316986' ::>`,
+                      pageId: `<::getAdsDisplay() === 'mobile' ? '1225821' : '1225819' ::>`,
+                      formatId: '74156',
                     },
                   },
                 ],
@@ -223,7 +230,7 @@ const Dfp = ({ isFuature, adId }) => {
                     bidder: 'appnexus',
                     labels: ['desktop'],
                     params: {
-                      placementId: '12914711',
+                      placementId: '19003320',
                     },
                   },
                   {
@@ -231,8 +238,8 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop'],
                     params: {
                       accountId: '19186',
-                      siteId: '215764',
-                      zoneId: '1609562',
+                      siteId: '215780',
+                      zoneId: '1655524',
                     },
                   },
                   {
@@ -240,6 +247,15 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop'],
+                    params: {
+                      siteId: '316986',
+                      pageId: '1225819',
+                      formatId: '90175',
                     },
                   },
                 ],
@@ -254,7 +270,7 @@ const Dfp = ({ isFuature, adId }) => {
                     bidder: 'appnexus',
                     labels: ['desktop'],
                     params: {
-                      placementId: '12914714',
+                      placementId: '19003321',
                     },
                   },
                   {
@@ -262,8 +278,8 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop'],
                     params: {
                       accountId: '19186',
-                      siteId: '215764',
-                      zoneId: '1609564',
+                      siteId: '215780',
+                      zoneId: '1655534',
                     },
                   },
                   {
@@ -271,6 +287,15 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop'],
+                    params: {
+                      siteId: '316986',
+                      pageId: '1225819',
+                      formatId: '90176',
                     },
                   },
                 ],
@@ -283,25 +308,34 @@ const Dfp = ({ isFuature, adId }) => {
                 bids: [
                   {
                     bidder: 'appnexus',
-                    labels: ['desktop', 'phone'],
+                    labels: ['phone'],
                     params: {
-                      placementId: '12914967',
+                      placementId: '19003329',
                     },
                   },
                   {
                     bidder: 'rubicon',
-                    labels: ['desktop', 'phone'],
+                    labels: ['phone'],
                     params: {
                       accountId: '19186',
-                      siteId: '215766',
-                      zoneId: '1609570',
+                      siteId: '215782',
+                      zoneId: '1655576',
                     },
                   },
                   {
                     bidder: 'criteo',
-                    labels: ['desktop', 'phone'],
+                    labels: ['phone'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['phone'],
+                    params: {
+                      siteId: '349419',
+                      pageId: '1225821',
+                      formatId: '90177',
                     },
                   },
                 ],
@@ -316,7 +350,7 @@ const Dfp = ({ isFuature, adId }) => {
                     bidder: 'appnexus',
                     labels: ['phone'],
                     params: {
-                      placementId: '12914968',
+                      placementId: '19003330',
                     },
                   },
                   {
@@ -324,8 +358,8 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['phone'],
                     params: {
                       accountId: '19186',
-                      siteId: '215766',
-                      zoneId: '1609572',
+                      siteId: '215782',
+                      zoneId: '1655580',
                     },
                   },
                   {
@@ -333,6 +367,15 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['phone'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['phone'],
+                    params: {
+                      siteId: '349419',
+                      pageId: '1225821',
+                      formatId: '90178',
                     },
                   },
                 ],
@@ -347,7 +390,7 @@ const Dfp = ({ isFuature, adId }) => {
                     bidder: 'appnexus',
                     labels: ['phone'],
                     params: {
-                      placementId: '12914969',
+                      placementId: '19003331',
                     },
                   },
                   {
@@ -355,8 +398,8 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['phone'],
                     params: {
                       accountId: '19186',
-                      siteId: '215766',
-                      zoneId: '1609574',
+                      siteId: '215782',
+                      zoneId: '1655582',
                     },
                   },
                   {
@@ -364,6 +407,15 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['phone'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['phone'],
+                    params: {
+                      siteId: '349419',
+                      pageId: '1225821',
+                      formatId: '90179',
                     },
                   },
                 ],
@@ -378,7 +430,7 @@ const Dfp = ({ isFuature, adId }) => {
                     bidder: 'appnexus',
                     labels: ['desktop'],
                     params: {
-                      placementId: '12914709',
+                      placementId: '19003306',
                     },
                   },
                   {
@@ -386,8 +438,8 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop'],
                     params: {
                       accountId: '19186',
-                      siteId: '215764',
-                      zoneId: '1609558',
+                      siteId: '215780',
+                      zoneId: '1655542',
                     },
                   },
                   {
@@ -395,6 +447,15 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop'],
+                    params: {
+                      siteId: '316986',
+                      pageId: '1225819',
+                      formatId: '90173',
                     },
                   },
                 ],
@@ -409,7 +470,7 @@ const Dfp = ({ isFuature, adId }) => {
                     bidder: 'appnexus',
                     labels: ['desktop'],
                     params: {
-                      placementId: '12914710',
+                      placementId: '19003308',
                     },
                   },
                   {
@@ -417,8 +478,8 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop'],
                     params: {
                       accountId: '19186',
-                      siteId: '215764',
-                      zoneId: '1609560',
+                      siteId: '215780',
+                      zoneId: '1655554',
                     },
                   },
                   {
@@ -426,6 +487,15 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop'],
+                    params: {
+                      siteId: '316986',
+                      pageId: '1225819',
+                      formatId: '90174',
                     },
                   },
                 ],
@@ -440,7 +510,7 @@ const Dfp = ({ isFuature, adId }) => {
                     bidder: 'appnexus',
                     labels: ['desktop', 'phone'],
                     params: {
-                      placementId: `<::getAdsDisplay() === 'mobile' ? '12914964' : '12914705' ::>`,
+                      placementId: `<::getAdsDisplay() === 'mobile' ? '19003327' : '19003319' ::>`,
                     },
                   },
                   {
@@ -448,8 +518,8 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop', 'phone'],
                     params: {
                       accountId: '19186',
-                      siteId: `<::getAdsDisplay() === 'mobile' ? '215766' : '215764' ::>`,
-                      zoneId: `<::getAdsDisplay() === 'mobile' ? '1609568' : '1609556' ::>`,
+                      siteId: `<::getAdsDisplay() === 'mobile' ? '215782' : '215780' ::>`,
+                      zoneId: `<::getAdsDisplay() === 'mobile' ? '1655592' : '1655566' ::>`,
                     },
                   },
                   {
@@ -457,6 +527,15 @@ const Dfp = ({ isFuature, adId }) => {
                     labels: ['desktop', 'phone'],
                     params: {
                       networkId: '7890',
+                    },
+                  },
+                  {
+                    bidder: 'smartadserver',
+                    labels: ['desktop', 'phone'],
+                    params: {
+                      siteId: `<::getAdsDisplay() === 'mobile' ? '349419' : '316986' ::>`,
+                      pageId: `<::getAdsDisplay() === 'mobile' ? '1225821' : '1225819' ::>`,
+                      formatId: '74162',
                     },
                   },
                 ],
@@ -516,7 +595,9 @@ const Dfp = ({ isFuature, adId }) => {
                 />
                 <script
                   defer
-                  src="https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js"
+                  src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js?v=${new Date()
+                    .toISOString()
+                    .slice(0, 10)}`}
                 />
               </>
             )

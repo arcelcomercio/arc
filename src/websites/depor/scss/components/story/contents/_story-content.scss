@@ -6,7 +6,7 @@
   h5,
   h6,
   li {
-    font-family: 'Time News Roman';
+    font-family: "Time News Roman";
   }
   .pquote__text {
     color: $color-link;
@@ -16,7 +16,7 @@
   }
   &__font--secondary {
     font-size: 20px;
-    font-family: 'Time News Roman';
+    font-family: "Time News Roman";
     @media (--only-mobile) {
       font-size: 16px;
     }
@@ -75,7 +75,7 @@
   }
   .powa-shot-play-icon,
   .powa-shot-loading-icon {
-    background-color: $color-white;
+    /* background-color: $color-white; */
     color: $color-fourth;
     &:hover {
       color: $color-fourth;
@@ -96,17 +96,17 @@
       @media (--only-mobile) {
         font-size: 11px;
       }
+      td {
+        font-family: $primary-font;
+        padding: 5px;
+        border-right: 1px solid #e0efa5;
+      }
       tr {
         &:nth-child(2n) {
           td {
             background-color: #e0efa5;
           }
         }
-      }
-      td {
-        font-family: $primary-font;
-        padding: 5px;
-        border-right: 1px solid #e0efa5;
       }
     }
   }
@@ -122,6 +122,17 @@
 }
 
 @media (--only-mobile) {
+  .story-header__header-social {
+    .story-header__title-section {
+      display: none;
+    }
+    .story-header__share {
+      justify-content: center;
+    }
+    .story-header__list {
+      display: flex;
+    }
+  }
   .basic_gallery {
     .story-header__header-title {
       background-color: #2b2b2b;
@@ -147,18 +158,6 @@
       .story-header__list {
         display: flex;
       }
-    }
-  }
-
-  .story-header__header-social {
-    .story-header__title-section {
-      display: none;
-    }
-    .story-header__share {
-      justify-content: center;
-    }
-    .story-header__list {
-      display: flex;
     }
   }
 }

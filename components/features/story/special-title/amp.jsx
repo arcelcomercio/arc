@@ -10,14 +10,12 @@ import { getAssetsPath } from '../../../utilities/constants'
 import { publicidadAmp } from '../../../utilities/story/helpers-amp'
 
 const classes = {
-  stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
+  stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
   titleAmp:
-    'amp-story-header__title font-bold secondary-font title-md text-gray-300 line-h-xs',
-  datetime:
-    'amp-story-header__datetime mt-15 mb-15 block secondary-font text-lg',
-  description:
-    'amp-story-header__description mt-0 text-md text-gray-300 secondary-font',
-  gallery: 'amp-story-header bg-white w-full pr-20 pl-20 m-5 mx-auto',
+    'amp-sh__title font-bold secondary-font title-md text-gray-300 line-h-xs',
+  datetime: 'amp-sh__datetime mt-15 mb-15 block secondary-font text-lg',
+  description: 'amp-sh__description mt-0 text-md text-gray-300 secondary-font',
+  gallery: 'amp-sh bg-white w-full pr-20 pl-20 m-5 mx-auto',
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
 }

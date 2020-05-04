@@ -1,8 +1,7 @@
 .link-site {
-  padding: 20px;
-  @media (--tablet) {
-    padding: 0;
-  }
+  margin: 20px;
+  border-top: 1px solid #888;
+  padding-top: 20px;
   &__image {
     height: 100px;
     width: 130px;
@@ -23,20 +22,21 @@
   &__header {
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #111;
+    border-bottom: 2px solid #e1e1e1;
     margin-bottom: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
   &__h-text {
     color: #111;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 14px;
     font-family: $primary-font;
   }
   &__subtitle {
     font-family: $primary-font;
-    font-size: 12px;
+    font-size: 10px;
+    line-height: 18px;
     color: #111;
   }
   &__site {
@@ -70,9 +70,16 @@
   }
   &__item {
     margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e1e1e1;
+    padding-top: 15px;
+
     @media (--tablet) {
       max-width: calc((100% / 3) - 10px);
       flex-direction: column;
+      padding-bottom: 0;
+      border-bottom: 0;
+      padding-top: 0;
     }
   }
 }

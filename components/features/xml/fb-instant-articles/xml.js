@@ -166,6 +166,7 @@ class XmlFacebookInstantArticles {
                   arcSite,
                   section: storyData.sectionsFIA.section,
                   opta,
+                  defaultImage: storyData.defaultImg,
                 }
 
                 return {

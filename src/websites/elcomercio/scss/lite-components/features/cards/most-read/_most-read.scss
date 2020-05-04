@@ -1,6 +1,6 @@
 .most-read {
   border-bottom: 2px solid #111;
-  margin: 0 20px;
+  margin: 20px;
 
   @media (--desktop) {
     margin: 0;
@@ -11,10 +11,12 @@
     letter-spacing: 0.29px;
     color: #222;
     text-transform: capitalize;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 2px solid #111;
   }
-
+  &__logo {
+    padding-right: 10px;
+  }
   &__item {
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;

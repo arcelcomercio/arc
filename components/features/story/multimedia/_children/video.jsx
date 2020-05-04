@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import { getResizedUrl } from '../../../../utilities/resizer'
-import { getAssetsPathVideo } from '../../../../utilities/assets'
+import { msToTime } from '../../../../utilities/date-time/time'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 const classes = {
   video: '__lL-video',
@@ -21,8 +21,9 @@ const StoryContentChildVideo = props => {
     promo_items: {
       basic_video: {
         _id: idPrincial,
+        duration: durationOne,
         additional_properties: video = {},
-        promo_items: { basic: { url: urlImage = '' } = {} } = {},
+        //  promo_items: { basic: { url: urlImage = '' } = {} } = {},
         streams = [],
       } = {},
     } = {},
@@ -34,20 +35,22 @@ const StoryContentChildVideo = props => {
     data = {},
     // htmlContent = false,
     description = '',
-    promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
+    // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
-    url: imagenMigrate = '',
+    duration: durationTwo,
+    // url: imagenMigrate = '',
     contentElemtent = false,
     reziserVideo = true,
     classImage = 'story-contents',
   } = props
-  const imageUrl = contentElemtent ? urlImageContent : urlImage
+  /* const imageUrl = contentElemtent ? urlImageContent : urlImage
   const { large } =
     getResizedUrl({
       url: imageUrl || imagenMigrate,
       presets: 'large:680x400',
       arcSite,
     }) || {}
+    */
 
   const urlVideo = data
 
@@ -64,21 +67,12 @@ const StoryContentChildVideo = props => {
       'https://img.gestion.pe$1'
     )
 
-  const getResultVideo = streamss => {
-    const resultVideo = streamss
-      .map(({ url = '', stream_type: streamType = '' }) => {
-        return streamType === 'ts' ? url : []
-      })
-      .filter(String)
-    const cantidadVideo = resultVideo.length
-
-    return getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
-  }
-
   const videoUrlContent =
-    contentElemtent && streamsContent[1] ? getResultVideo(streamsContent) : ''
+    contentElemtent && streamsContent[1]
+      ? getResultVideo(streamsContent, arcSite)
+      : ''
 
-  const videoUrlPrincipal = streams[1] ? getResultVideo(streams) : ''
+  const videoUrlPrincipal = streams[1] ? getResultVideo(streams, arcSite) : ''
 
   const getSectionSlug = (sectionId = '') => {
     return sectionId.split('/')[1] || ''
@@ -173,7 +167,7 @@ const StoryContentChildVideo = props => {
         .split('-')
         .join(
           ''
-        )}/preroll&description_url=https%3A%2F%2F${webSite}%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug
+        )}/preroll&description_url=https%3A%2F%2F${webSite}%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug
         .split('-')
         .join(
           ''
@@ -198,6 +192,7 @@ const StoryContentChildVideo = props => {
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
         data-api="prod"
+        data-time={durationTwo ? msToTime(durationOne) : ''}
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
@@ -205,8 +200,7 @@ const StoryContentChildVideo = props => {
           videoData.advertising && videoData.advertising.playAds === true
             ? getParametroPublicidad()
             : ''
-        }
-        data-poster={large}></div>
+        }></div>
       {description && (
         <figcaption className={`${classImage}${classes.caption}`}>
           {description}{' '}
