@@ -80,11 +80,12 @@ export default ({
   if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
-  const styleDefault = isStyleBasic ? 'basic' : style
+  let styleDefault = isStyleBasic ? 'basic' : ''
+  styleDefault = style === 'dstory' && isAmp === false ? style : styleDefault
+
   return (
     <>
-      {(isLite === false && isStyleBasic) ||
-      (isLite === false && style === 'dstory') ? (
+      {isStyleBasic || styleDefault ? (
         <>
           <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
             {({ data }) => {

@@ -339,7 +339,7 @@ if ('IntersectionObserver' in window) {
   const isStyleBasic =
     arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
 
-  const styleFotter = isStyleBasic || (isStory === 'story' && true)
+  const isFooterFinal = isStyleBasic || (style === 'story' && true)
   return (
     <html lang="es">
       <head>
@@ -630,7 +630,7 @@ if ('IntersectionObserver' in window) {
           }}
         />
 
-        {styleFotter && (
+        {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
               <link
