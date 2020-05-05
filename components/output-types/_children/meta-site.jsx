@@ -84,7 +84,8 @@ export default ({
   const styleDefault = isStyleBasic ? 'basic' : style
   return (
     <>
-      {isStyleBasic || style === 'dstory' ? (
+      {(isLite === false && isStyleBasic) ||
+      (isLite === false && style === 'dstory') ? (
         <>
           <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
             {({ data }) => {
