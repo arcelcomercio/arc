@@ -80,7 +80,6 @@ export default ({
   if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
-
   const styleDefault = isStyleBasic ? 'basic' : style
   return (
     <>
