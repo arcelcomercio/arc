@@ -81,7 +81,10 @@ export default ({
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
   let styleDefault = isStyleBasic ? 'basic' : ''
-  styleDefault = style === 'dstory' && isAmp === false ? style : styleDefault
+  styleDefault =
+    style === 'dstory' && isAmp === false && isLite === false
+      ? style
+      : styleDefault
 
   return (
     <>
