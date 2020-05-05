@@ -1,8 +1,12 @@
+$space-limit: 5;
+$space-interval: 5;
+
 /* --- BASE -------------------------------------------------------------
   Estilos core del framework, modificadores del core y partials por marca 
 ------------------------------------------------------------------------- */
 @import "./scss/partials/import-icons";
 @import "../../general-styles/framework/variables/index";
+@import "../../general-styles/framework/generators/generate-spaces";
 @import "./scss/variables/index";
 
 /* --- STORY VARIABLES --------------------------------------------------

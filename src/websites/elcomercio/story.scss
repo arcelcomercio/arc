@@ -1,3 +1,6 @@
+$space-limit: 5;
+$space-interval: 5;
+
 /* --- BASE -------------------------------------------------------------
   Estilos core del framework, modificadores del core y partials por marca 
 ------------------------------------------------------------------------- */
@@ -5,6 +8,9 @@
 @import "./scss/variables/index";
 @import "./scss/partials/import-icons";
 @import "./scss/partials/import-fonts";
+
+@import "../../general-styles/framework/generators/generate-spaces";
+@import "./scss/partials/base";
 
 /* --- STORY VARIABLES --------------------------------------------------
   Modificacion de variables SCSS del core y de marca
@@ -58,7 +64,5 @@
 @import "./scss/components/story/header/story-gallery";
 @import "./scss/components/story/header/story-gallery-slider";
 @import "./scss/components/story/story/story";
-@import "./scss/components/header/inverted";
 @import "./scss/components/breaking-news/breaking-news";
 @import "./scss/components/story/header/story-header";
-@import "./scss/components/layout/header/header";
