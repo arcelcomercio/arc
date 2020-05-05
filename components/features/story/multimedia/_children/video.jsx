@@ -1,4 +1,5 @@
 import React from 'react'
+import ENV from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 import { msToTime } from '../../../../utilities/date-time/time'
 import { getResultVideo } from '../../../../utilities/story/helpers'
@@ -178,6 +179,8 @@ const StoryContentChildVideo = props => {
 
   const dataTime =
     durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
+  const CURRENT_ENVIRONMENT =
+    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   return (
     <>
@@ -186,7 +189,7 @@ const StoryContentChildVideo = props => {
         className={`${classImage}${classes.video} multimedia${classes.powa}`}
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
-        data-api="prod"
+        data-api={CURRENT_ENVIRONMENT}
         data-time={videoArray && videoArray[1] ? '-1' : dataTime}
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])

@@ -628,23 +628,24 @@ if ('IntersectionObserver' in window) {
           }}
         />
 
-        {isStyleBasic && (
-          <>
-            <noscript id="deferred-styles">
-              <link
-                rel="stylesheet"
-                type="text/css"
-                href={`${deployment(styleUrl)}`}
-              />
-            </noscript>
+        {isStyleBasic ||
+          (isStory && (
+            <>
+              <noscript id="deferred-styles">
+                <link
+                  rel="stylesheet"
+                  type="text/css"
+                  href={`${deployment(styleUrl)}`}
+                />
+              </noscript>
 
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.setTimeout(loadDeferredStyles,0)});else window.addEventListener("load",loadDeferredStyles)`,
-              }}
-            />
-          </>
-        )}
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.setTimeout(loadDeferredStyles,0)});else window.addEventListener("load",loadDeferredStyles)`,
+                }}
+              />
+            </>
+          ))}
       </body>
     </html>
   )

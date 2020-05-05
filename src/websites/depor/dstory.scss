@@ -1,0 +1,45 @@
+/* --- BASE -------------------------------------------------------------
+  Estilos core del framework, modificadores del core y partials por marca 
+------------------------------------------------------------------------- */
+@import "./scss/partials/import-icons";
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+@import "../../general-styles/framework/core/index";
+@import "./scss/partials/import-fonts";
+@import "../../general-styles/framework/generators/index";
+@import "./scss/partials/base";
+
+/* --- STORY VARIABLES --------------------------------------------------
+  Modificacion de variables SCSS del core y de marca
+------------------------------------------------------------------------- */
+
+/* --- GLOBAL COMPONENTS ------------------------------------------------
+  Estilos de componentes globales desde el core
+------------------------------------------------------------------------- */
+
+/* --- FEATURES ---------------------------------------------------------
+  Estilos de features desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/layout/navbar-no-menu/navbar-nm";
+@import "../../general-styles/components/features/layout/navbar/nav";
+@import "../../general-styles/components/features/header/header-full";
+@import "../../general-styles/components/features/breaking-news/breaking-news";
+
+@import "../../general-styles/components/features/story/header/story-header";
+@import "../../general-styles/components/features/story/header/story-gallery-slider";
+@import "../../general-styles/components/features/story/header/story-gallery";
+
+/* --- MODIFICADORES ----------------------------------------------------
+  Estilos de features modificados por marca
+------------------------------------------------------------------------- */
+@import "./scss/global-components/content-sidebar";
+@import "./scss/components/layout/navbar-no-menu/navbar-nm";
+@import "./scss/components/layout/navbar/nav-story";
+@import "./scss/components/header/header-full";
+@import "./scss/components/header/megamenu";
+@import "./scss/components/breaking-news/breaking-news";
+@import "./scss/components/search-filter/search-input";
+@import "./scss/components/story/header/story-header";
+@import "./scss/components/story/header/story-gallery-slider";
+
+@import "./scss/components/story/story/story";
