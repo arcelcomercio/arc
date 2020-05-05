@@ -28,8 +28,6 @@
 @import "../../general-styles/components/features/story/special-header/special-header";
 @import "../../general-styles/components/features/story/header/story-header";
 @import "../../general-styles/components/features/story/header/story-gallery-slider";
-@import "../../general-styles/components/features/story/header/story-gallery";
-@import "../../general-styles/components/features/story/story/story";
 
 //@import "../../general-styles/components/features/video/section/video-navbar";
 //@import "../../general-styles/components/features/video/section/section-video";
@@ -39,18 +37,10 @@
 /* --- MODIFICADORES ----------------------------------------------------
   Estilos de features modificados por marca
 ------------------------------------------------------------------------- */
-@import "./scss/global-components/buttons";
-
 @import "./scss/components/layout/navbar/nav";
 @import "./scss/components/layout/navbar/nav-story";
 @import "./scss/components/layout/header/header";
-@import "./scss/components/header/inverted";
-@import "./scss/components/breaking-news/breaking-news";
 
-@import "./scss/components/story/header/story-header";
-@import "./scss/components/story/header/story-gallery";
-@import "./scss/components/story/header/story-gallery-slider";
-@import "./scss/components/story/story/story";
 //@import "./scss/components/video/play-list";
 //@import "./scss/components/video/section-video";
 //@import "./scss/components/video/video-list";

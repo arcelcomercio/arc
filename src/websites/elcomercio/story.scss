@@ -34,12 +34,14 @@
 @import "../../general-styles/components/features/story/google-news/google-news";
 @import "../../general-styles/components/features/stories-lists/linked-by-brand/linked-by-brand";
 @import "../../general-styles/components/features/story/content/story-content";
-
+@import "../../general-styles/components/features/story/header/story-gallery";
+@import "../../general-styles/components/features/story/story/story";
 @import "../../general-styles/components/features/layout/footer/footer-story";
 
 /* --- MODIFICADORES ----------------------------------------------------
   Estilos de features modificados por marca
 ------------------------------------------------------------------------- */
+@import "./scss/global-components/buttons";
 @import "./scss/components/premium/premium";
 @import "./scss/global-components/independent-title";
 @import "./scss/components/layout/navbar/nav-sidebar";
@@ -53,3 +55,9 @@
 @import "./scss/components/story/contents/related-content";
 @import "./scss/components/layout/footer/footer-story";
 @import "./scss/components/story/contents/story-content";
+@import "./scss/components/story/header/story-gallery";
+@import "./scss/components/story/header/story-gallery-slider";
+@import "./scss/components/story/story/story";
+@import "./scss/components/header/inverted";
+@import "./scss/components/breaking-news/breaking-news";
+@import "./scss/components/story/header/story-header";
