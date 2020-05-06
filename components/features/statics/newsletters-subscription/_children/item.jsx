@@ -76,7 +76,7 @@ const Checkbox = ({
           <p className={classes.description}>{description}</p>
 
           <ButtonSub className={classes.btnSubscribed} checked={checked}>
-            {(checked && `Eliminar registro`) || `Suscribete`}
+            {(checked && `Eliminar registro`) || `Suscríbete`}
           </ButtonSub>
         </div>
 
