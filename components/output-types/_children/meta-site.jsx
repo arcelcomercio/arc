@@ -68,7 +68,7 @@ export default ({
   )
     style = 'story-video'
   else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
-    style = 'story'
+    style = 'dstory'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
@@ -80,12 +80,17 @@ export default ({
   if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+  let styleDefault = isStyleBasic ? 'basic' : ''
+  styleDefault =
+    style === 'dstory' && isAmp === false && isLite === false
+      ? style
+      : styleDefault
 
   return (
     <>
-      {isStyleBasic ? (
+      {isStyleBasic || styleDefault ? (
         <>
-          <Resource path={`resources/dist/${arcSite}/css/basic.css`}>
+          <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
             {({ data }) => {
               return data ? (
                 <style
