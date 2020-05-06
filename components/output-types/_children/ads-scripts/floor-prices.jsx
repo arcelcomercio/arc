@@ -10,16 +10,8 @@ export default () => {
     taxonomy: { primary_section: { path: primarySection } = {} } = {},
   } = globalContent || {}
 
-  const section = (primarySection || sectionId || _id || '').split('/')[1]
-
   return (
     <>
-      {arcSite === 'depor' && (
-        <script
-          async
-          src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js"
-        />
-      )}
       {arcSite === 'peru21' && (
         <script
           defer
