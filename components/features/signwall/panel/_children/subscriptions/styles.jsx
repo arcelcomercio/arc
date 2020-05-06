@@ -142,6 +142,7 @@ export const Group = styled.div`
     }
   }
 `
+
 export const FormGroup = styled.div`
   position: relative;
   display: inline-block;
@@ -200,9 +201,9 @@ export const FormGroup = styled.div`
 export const Block = styled.div`
   width: 100%;
   display: block;
-  text-align: ${props => (props.ar ? 'right' : 'left')};
+  text-align: ${props => (props.align ? props.align : 'initial')};
   border-top: ${props => (props.bt ? '1px solid #e8e8e8' : '0px')};
-  padding-top: 0px;
+  padding-top: 10px;
   @media ${device.tablet} {
     padding-top: ${props => (props.pt ? `${props.pt}px` : '0px')};
   }
