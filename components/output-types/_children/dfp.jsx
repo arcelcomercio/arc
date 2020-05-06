@@ -145,7 +145,8 @@ const Dfp = ({ isFuature, adId }) => {
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
-        dispositivo
+        dispositivo,
+        bloque
      /*   breakpoint: breakpoints,
         refresh=false  */
       }) => {
@@ -159,7 +160,8 @@ const Dfp = ({ isFuature, adId }) => {
           slotName: slotname2,
           dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
           targeting: `<::getTarget() ::>`,
-          dispositivo
+          dispositivo,
+          bloque
         }
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
@@ -588,12 +590,6 @@ const Dfp = ({ isFuature, adId }) => {
                   dangerouslySetInnerHTML={{
                     __html: formatAdsCollection(content, requestUri),
                   }}
-                />
-                <script
-                  defer
-                  src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js?v=${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}
                 />
               </>
             )
