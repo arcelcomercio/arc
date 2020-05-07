@@ -713,10 +713,8 @@ export const SubDetailInt = props => {
                 Para cualquier gestión o consulta sobre tu suscripción
               </strong>
               <p>
-                Contactanos al 01 311-5100 o{' '}
-                {arcSite === 'elcomercio'
-                  ? 'suscripciones@comercio.com.pe'
-                  : 'suscriptores@diariogestion.com.pe'}
+                Contactanos enviando un correo a
+                atencionalcliente@comercio.com.pe
               </p>
             </div>
           </S.Notice>

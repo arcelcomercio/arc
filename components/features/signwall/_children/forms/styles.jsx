@@ -18,7 +18,7 @@ const changeColor = color => {
 
 export const Title = styled.h4`
   color: ${props => (props.c ? props.c : '#000000')};
-  font-family: ${props => props.primaryFont};
+  font-family: ${props => (props.primaryFont ? props.primaryFont : 'inherit')};
   font-size: ${props => props.s - 4}px;
   font-weight: bold;
   line-height: 28px;
@@ -34,6 +34,7 @@ export const Text = styled.p`
   font-size: ${props => props.s}px;
   line-height: ${props => (props.lh ? props.lh : '18')}px;
   font-weight: ${props => (props.fw ? props.fw : 'normal')};
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   @media ${device.mobile} {
     & .sub-paragraph {
       display: inline-block;
