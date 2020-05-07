@@ -324,6 +324,8 @@ if ('IntersectionObserver' in window) {
     style = 'story-video'
   else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
     style = 'story'
+  else if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home')
+    style = 'dbasic'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
