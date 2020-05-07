@@ -1,3 +1,4 @@
+$border-gray: #c1c1c1;
 .story-interest {
   &__titleList {
     border-top: 1px solid $border-gray;
@@ -26,7 +27,6 @@
     display: block;
   }
   &__category {
-    display: block;
     font-weight: bold;
     word-break: break-word;
     overflow: hidden;

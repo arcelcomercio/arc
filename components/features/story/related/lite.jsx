@@ -4,10 +4,12 @@ import getProperties from 'fusion:properties'
 
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import StoryContentChildRelated from './_lite/_children/item'
+import { getAssetsPath } from '../../../utilities/constants'
 
 const classes = {
   relatedList: 'st-rel f f-col',
   relatedTitle: 'st-rel__title',
+  logo: 'st-rel__logo',
 }
 
 const getRelatedIds = data => {
@@ -39,11 +41,19 @@ const StoryRelated = () => {
     contentElements.length > 0 &&
     contentElements.filter(item => item.type === 'story')
 
+  const urlImg = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
+
   return (
     <>
       {relatedContent && relatedContent.length > 0 && (
         <div role="list" className={classes.relatedList}>
-          <h4 className={classes.relatedTitle}>{nameStoryRelated} </h4>
+          <div className="f">
+            <img className={classes.logo} alt="logo" src={urlImg} />
+            <h4 className={classes.relatedTitle}>RELACIONADAS </h4>
+          </div>
           {relatedContent.map((item, i) => {
             const { type, _id: id } = item
             const key = `st-rel-${i}`

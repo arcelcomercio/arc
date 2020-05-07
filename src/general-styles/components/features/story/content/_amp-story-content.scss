@@ -5,6 +5,10 @@
     word-wrap: break-word;
     font-size: 18px;
     line-height: 1.5;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    font-family: $secondary-font;
+    color: $color-gray-300;
 
     & a {
       color: $color-primary;
@@ -38,19 +42,11 @@
   .pquote {
     background: none;
 
-    /*     &__pull {
-      background: url('../images/openquote.svg') top left no-repeat;
-    } */
-    &__pull {
-      // background: url('https://elcomercio.pe/uploads/2019/05/23/5ce70bbecc85c.svg')
-      //   top left no-repeat;
-    }
-
     &__text {
       font-style: italic;
     }
 
-    &:first-letter {
+    &::first-letter {
       font-size: 1.5em;
       font-weight: bold;
     }
@@ -64,14 +60,15 @@
     padding-left: 30px;
   }
   & li {
-    & a {
-      color: $color-primary;
-      font-weight: 700;
-    }
     margin-bottom: 10px;
     font-family: $secondary-font;
     line-height: 1.5;
     font-size: 16.9px;
+    & a {
+      color: $color-primary;
+      font-weight: 700;
+    }
+
     @media (--tablet) {
       font-size: 18px;
     }
@@ -79,7 +76,68 @@
       font-size: 20px;
     }
   }
+  &__blockquote {
+    background-color: #f5f5f5;
+    position: relative;
+    padding: 20px 20px 20px 36px;
+    &::before {
+      content: "";
+      display: block;
+      width: 2px;
+      height: calc(100% - 40px);
+      background-color: #1d75c9;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 24px;
+    }
+  }
+  &__interstitial-link {
+    color: #4a88b1;
+    font-size: $font-md;
+
+    &::before {
+      color: #000;
+      content: "[";
+      margin-right: 4px;
+    }
+    &::after {
+      color: #000;
+      content: "]";
+      margin-left: 4px;
+    }
+  }
+  &__link-list {
+    background-color: #f8f8f8;
+    border: 1px solid #f0f0f0;
+    padding: 20px;
+
+    &-image {
+      width: 96px;
+      height: 64px;
+      display: flex;
+    }
+    &-title {
+      font-family: $secondary-font;
+      font-size: 16px;
+      font-weight: 800;
+      &-link {
+        font-size: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        line-height: 20px;
+        height: 62px;
+        margin: 0;
+
+        & a {
+          color: #000;
+        }
+      }
+    }
+  }
 }
+
 .content-sidebar {
   display: inline;
 }
@@ -124,7 +182,7 @@
     right: 15px;
     z-index: 11;
     border-radius: 50%;
-    &:before {
+    &::before {
       content: "";
       width: 15px;
       height: 18px;
@@ -135,6 +193,7 @@
       background: url($assets_url+"/resources/dist/elcomercio/images/arrow-right-2.png");
     }
   }
+
   &__pager {
     padding: 15px 0;
     background-color: #d5e5ed;
@@ -154,45 +213,4 @@
 
 .amp-carousel-button {
   display: none;
-}
-
-.live-event {
-  font-size: 16px;
-}
-.live-event .live-event-comment {
-  display: block;
-  position: relative;
-  margin-bottom: 10px;
-  padding: 0 0 20px 65px;
-  line-height: 20px;
-  border-bottom: 1px solid #dcdcdc;
-}
-.live-event .live-event-comment span {
-  background: #e2e2e2;
-  padding: 3px 8px;
-  display: block;
-  color: #000;
-  top: 0px;
-  position: absolute;
-  left: 0;
-}
-.live-match {
-  font-size: 16px;
-}
-.live-match .live-match-comment {
-  display: block;
-  position: relative;
-  margin-bottom: 10px;
-  padding: 0 0 20px 40px;
-  line-height: 20px;
-  border-bottom: 1px solid #dcdcdc;
-}
-.live-match .live-match-comment span {
-  background: #e2e2e2;
-  padding: 3px 8px;
-  display: block;
-  color: #000;
-  top: 0px;
-  position: absolute;
-  left: 0;
 }

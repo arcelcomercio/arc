@@ -13,9 +13,9 @@ export default {
   resizerUrl: 'https://elcomercio.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/web/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Dweb%26publisher%3Delcomercio%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/web/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3Delcomercio%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/amp/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480&cust_params=fuente%3Damp%26publisher%3Delcomercio%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/amp/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Delcomercio%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
@@ -110,7 +110,7 @@ export default {
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.elcomercio.pe`,
       originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js?v=1`,
       originSalesSdk:                    `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-sales.min.js`,
-      originPayuSdk:                     `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`,
+      originPayuSdk:                     `https://{{#isProd}}d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/{{/isProd}}{{^isProd}}signwall-test.e3.pe/static/{{/isProd}}payu-sdk.js`,
       originPayuTags:                    `https://maf.pagosonline.net/ws/fp/tags.js?id={{deviceSessionId}}80200`,
       originPaymentTraker:               `https://{{#isProd}}su3l9d6w10{{/isProd}}{{^isProd}}72q176wl1l{{/isProd}}.execute-api.us-east-1.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}dev{{/isProd}}/v1/service/arc/paywall/tracking`,
       originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
@@ -223,6 +223,7 @@ export default {
   social: {
     facebook: {
       user: '@elcomercio.pe',
+      url: 'https://www.facebook.com/elcomercio.pe',
     },
     twitter: {
       user: 'elcomercio_peru',
@@ -240,7 +241,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  activeNewsletter: false,
+  activeNewsletter: true,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',

@@ -163,6 +163,12 @@ export const Amount = styled.div`
   line-height: 1em;
 `
 
+export const AmountFree = styled.div`
+  font-size: 54px;
+  padding: 10px;
+  line-height: initial;
+`
+
 export const Duration = styled.div`
   font-weight: 700;
 `

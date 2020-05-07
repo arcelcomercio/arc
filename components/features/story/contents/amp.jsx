@@ -13,6 +13,8 @@ import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildLinkList from './_children/link-list'
 // import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
@@ -21,7 +23,21 @@ import {
   getDateSeo,
 } from '../../../utilities/helpers'
 
-import ConfigParams from '../../../utilities/config-params'
+import {
+  ELEMENT_HEADER,
+  ELEMENT_IMAGE,
+  ELEMENT_QUOTE,
+  ELEMENT_RAW_HTML,
+  ELEMENT_TABLE,
+  ELEMENT_TEXT,
+  ELEMENT_VIDEO,
+  ELEMENT_GALLERY,
+  ELEMENT_OEMBED,
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
+} from '../../../utilities/constants/element-types'
+
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
@@ -37,9 +53,9 @@ import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
-  textClasses:
-    'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl line-h-md',
-  blockquoteClass: 'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
+  textClasses: 'amp-story-content__news-text ',
+  blockquoteClass:
+    'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
   author: 'amp-story-content__author mt-15 mb-15 secondary-font',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
@@ -68,6 +84,7 @@ class StoryContentAmp extends PureComponent {
       displayDate: updatedDate,
       primarySectionLink,
       author,
+      multimediaLazyDefault,
     } = new StoryData({
       data,
       arcSite,
@@ -172,8 +189,10 @@ class StoryContentAmp extends PureComponent {
                   level,
                   publicidadInline = false,
                   publicidadCaja3 = false,
+                  url = '',
+                  items = [],
                 } = element
-                if (type === ConfigParams.ELEMENT_OEMBED) {
+                if (type === ELEMENT_OEMBED) {
                   return (
                     <AmpOembed
                       rawOembed={rawOembed}
@@ -182,7 +201,7 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_RAW_HTML) {
+                if (type === ELEMENT_RAW_HTML) {
                   return content.includes('id="powa-') ? (
                     <StoryContentChildVideo
                       data={content}
@@ -195,21 +214,21 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
+                if (type === ELEMENT_HEADER && level === 1) {
                   return (
                     <h2>
                       <RawHtml content={content}></RawHtml>
                     </h2>
                   )
                 }
-                if (type === ConfigParams.ELEMENT_QUOTE) {
+                if (type === ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
                 }
-                if (type === ConfigParams.ELEMENT_TABLE) {
+                if (type === ELEMENT_TABLE) {
                   return <StoryContentChildTable data={element} type={type} />
                 }
 
-                if (type === ConfigParams.ELEMENT_GALLERY) {
+                if (type === ELEMENT_GALLERY) {
                   return (
                     <AMPCarousel
                       data={innerContentElements}
@@ -218,7 +237,7 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_IMAGE) {
+                if (type === ELEMENT_IMAGE) {
                   return (
                     <AmpImage
                       {...element}
@@ -237,7 +256,7 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_TEXT) {
+                if (type === ELEMENT_TEXT) {
                   return (
                     <>
                       <Text
@@ -263,7 +282,7 @@ class StoryContentAmp extends PureComponent {
                     </>
                   )
                 }
-                if (type === ConfigParams.ELEMENT_BLOCKQUOTE && (arcSite === "elcomercio" || arcSite === "elcomerciomag")) {
+                if (type === ELEMENT_BLOCKQUOTE) {
                   return (
                     <blockquote
                       dangerouslySetInnerHTML={{
@@ -274,7 +293,29 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
 
-                if (type === ConfigParams.ELEMENT_VIDEO) {
+                if (type === ELEMENT_INTERSTITIAL_LINK) {
+                  return (
+                    <StoryContentsChildInterstitialLink
+                      url={url}
+                      content={content}
+                      arcSite={arcSite}
+                      isAmp
+                    />
+                  )
+                }
+
+                if (type === ELEMENT_LINK_LIST) {
+                  return (
+                    <StoryContentsChildLinkList
+                      items={items}
+                      multimediaLazyDefault={multimediaLazyDefault}
+                      arcSite={arcSite}
+                      isAmp
+                    />
+                  )
+                }
+
+                if (type === ELEMENT_VIDEO) {
                   return <StoryContentChildVideo data={element} />
                 }
                 return undefined

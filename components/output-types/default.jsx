@@ -28,7 +28,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  // CssLinks,
+  // CssLinks, prueba
   Fusion,
   Libs,
   // MetaTags,
@@ -314,7 +314,17 @@ if ('IntersectionObserver' in window) {
       height: 157px;
     }}
     `
-  const style = 'style'
+
+  let style = 'style'
+  if (
+    isStory &&
+    (arcSite === 'elcomercio' || arcSite === 'depor') &&
+    /^\/videos\/(.*)/.test(requestUri)
+  )
+    style = 'story-video'
+  else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
+    style = 'story'
+
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
@@ -326,8 +336,31 @@ if ('IntersectionObserver' in window) {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
 
+  const getAyos = () => {
+    let ayos = false
+    if (
+      arcSite === 'depor' ||
+      (arcSite === 'trome' && requestUri.match(`^/espectaculos`)) ||
+      requestUri.match(`^/actualidad`) ||
+      (arcSite === 'publimetro' && requestUri.match(`^/actualidad`)) ||
+      (arcSite === 'elcomercio' && requestUri.match(`^/lima`)) ||
+      requestUri.match(`^/economia`) ||
+      (arcSite === 'peru21' && requestUri.match(`^/politica`)) ||
+      (arcSite === 'gestion' && requestUri.match(`^/economia`)) ||
+      (arcSite === 'ojo' && requestUri.match(`^/ojo-show`)) ||
+      (arcSite === 'diariocorreo' && requestUri.match(`^/mundo`)) ||
+      (arcSite === 'elbocon' && requestUri.match(`^/trends`))
+    ) {
+      ayos = true
+    }
+    return ayos
+  }
+  const insAyos = getAyos()
+
   const isStyleBasic =
     arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
+
+  const isFooterFinal = isStyleBasic || (style === 'story' && true)
   return (
     <html lang="es">
       <head>
@@ -434,20 +467,28 @@ if ('IntersectionObserver' in window) {
               }}></style>
           </>
         )}
+        {insAyos && (
+          <script
+            async
+            src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js"
+          />
+        )}
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {arcSite === 'trome' && requestUri.match('^/espectaculos') && (
+            {arcSite === 'ojo' && requestUri.match('^/ojo-show') && (
               <script
                 defer
-                src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js"
+                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
+                  .toISOString()
+                  .slice(0, 10)}`}
               />
             )}
             <script
               defer
-              src={deployment(
-                `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js`
-              )}
+              src={`https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
             />
             <script
               type="text/javascript"
@@ -565,7 +606,12 @@ if ('IntersectionObserver' in window) {
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-
+        <script
+          defer
+          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
+        />
         {/* Rubicon BlueKai - Inicio */}
         {arcSite === 'elcomercio' && metaValue('id') === 'meta_home' ? (
           <>
@@ -616,7 +662,7 @@ if ('IntersectionObserver' in window) {
           }}
         />
 
-        {isStyleBasic && (
+        {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
               <link

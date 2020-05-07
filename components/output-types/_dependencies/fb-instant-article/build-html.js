@@ -57,11 +57,56 @@ const buildTexParagraph = paragraph => {
   return result
 }
 
+const buildIntersticialParagraph = (paragraph, link) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
+
+  result.processedParagraph =
+    result.numberWords > 0
+      ? `<p><b>[</b><a href="${link}">${clearBrTag(paragraph)}</a><b>]</b></p>`
+      : ''
+
+  return result
+}
+
+const buildListLinkParagraph = (items, defaultImage) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+
+  result.processedParagraph =
+    items.length > 0
+      ? `<div>
+          <div>Mira también:</div>
+          ${items &&
+            items.map(data => {
+              const {
+                url = '',
+                content = '',
+                image: { url: urlImg = '' } = {},
+              } = data || {}
+              result.numberWords += countWordsHelper(clearHtml(content))
+              return `
+              <div>
+                <figure>
+                  <a href="${url}"><img src="${defaultImage}" data-src="${urlImg}" alt="${content}" /></a>
+                </figure>
+                <div>
+                  <h2><a href="${url}">${content}</a></h2>
+                </div>
+              </div>`
+            })}
+        </div>`
+      : ''
+
+  return result
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
   numberWordMultimedia,
   level = null,
+  link,
+  defaultImage,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -76,17 +121,27 @@ const analyzeParagraph = ({
   let textProcess = {}
   switch (type) {
     case ConfigParams.ELEMENT_TEXT:
+    case ConfigParams.ELEMENT_BLOCKQUOTE:
       textProcess = buildTexParagraph(processedParagraph)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
 
       break
-    case ConfigParams.ELEMENT_BLOCKQUOTE:
-      textProcess = buildTexParagraph(processedParagraph)
+    case ConfigParams.ELEMENT_INTERSTITIAL_LINK:
+      textProcess = buildIntersticialParagraph(processedParagraph, link)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
+
+      break
+    case ConfigParams.ELEMENT_LINK_LIST:
+      textProcess = buildListLinkParagraph(processedParagraph, defaultImage)
+
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
+        .split(',')
+        .join('')
 
       break
     case ConfigParams.ELEMENT_HEADER:
@@ -100,6 +155,7 @@ const analyzeParagraph = ({
       const paramBuildListParagraph = {
         processedParagraph,
         numberWordMultimedia,
+        defaultImage,
       }
 
       // textProcess = buildListParagraph(processedParagraph)
@@ -167,14 +223,17 @@ const analyzeParagraph = ({
 const buildListParagraph = ({
   processedParagraph: listParagraph,
   numberWordMultimedia,
+  defaultImage,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
-  newListParagraph.forEach(({ type = '', payload = '' }) => {
+  newListParagraph.forEach(({ type = '', payload = '', link = '' }) => {
     const { processedParagraph, numberWords } = analyzeParagraph({
       originalParagraph: payload,
       type,
       numberWordMultimedia,
+      link,
+      defaultImage,
       // numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
     })
 
@@ -193,21 +252,39 @@ const ParagraphshWithAdds = ({
   nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
+  siteUrl,
+  defaultImage = '',
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
+  let lookAlso = []
 
   newsWithAdd = paragraphsNews
-    .map(({ payload: originalParagraph, type, level }) => {
+    .map(({ payload: originalParagraph, type, level, link = '' }) => {
       let paragraphwithAdd = ''
 
-      const { processedParagraph, numberWords } = analyzeParagraph({
+      let { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph,
         type,
         numberWordMultimedia,
         level,
+        link,
+        defaultImage,
       })
+
+      if (ConfigParams.ELEMENT_STORY === type) {
+        lookAlso.push(originalParagraph)
+      }
+      if (ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0) {
+        let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
+        lookAlso.forEach(value => {
+          ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
+        })
+        processedParagraph = `${ulLookAlso}</ul>`
+        numberWords = countWordsHelper(clearHtml(processedParagraph))
+        lookAlso = []
+      }
 
       countWords += numberWords
 
@@ -290,6 +367,8 @@ const BuildHtml = ({
   arcSite,
   section,
   getPremiumValue,
+  siteUrl,
+  defaultImage,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -301,6 +380,8 @@ const BuildHtml = ({
     nextAdds,
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
+    siteUrl,
+    defaultImage,
   }
   const getContentType = ({ premium = '' } = {}) => {
     const premiumValue =

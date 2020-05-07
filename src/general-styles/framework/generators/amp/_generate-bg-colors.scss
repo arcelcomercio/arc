@@ -1,0 +1,16 @@
+/** ----------------------------*
+*      BACKGROUND COLORS        **/
+
+$map-bg-color: (
+  bg-primary: $color-primary,
+  bg-white: $color-white,
+  bg-gray-300: $color-gray-300,
+  bg-gray-200: $color-gray-200,
+  bg-gray-100: $color-gray-100,
+) !default;
+
+@each $bg-class, $bg-value in $map-bg-color {
+  .#{$bg-class} {
+    background-color: $bg-value;
+  }
+}

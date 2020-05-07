@@ -19,6 +19,7 @@ import {
   BIG_IMAGE,
 } from '../../../utilities/constants/subtypes' */
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
+import ShareButtons from '../../../global-components/lite/share'
 import {
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
@@ -50,6 +51,7 @@ const classes = {
   textClasses: 'story-contents__font-paragraph ',
   newsImage: 'story-contents__image  ',
   newsEmbed: 'story-contents__embed',
+  social: 'story-contents__social',
   tags: 'story-contents',
   section: 'w-full',
   listClasses: 'story-contents__paragraph-list',
@@ -122,7 +124,7 @@ class StoryContentsLite extends PureComponent {
         arcSite,
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
-
+    let relatedIds = []
     return (
       <>
         <div className={classes.news}>
@@ -216,11 +218,18 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
+
                   if (type === ELEMENT_STORY) {
+                    relatedIds.push(_id)
+                  }
+
+                  if (type !== ELEMENT_STORY && relatedIds.length > 0) {
+                    const relateIdsParam = relatedIds
+                    relatedIds = []
                     return (
                       <StoryContentsChildRelatedInternal
                         stories={relatedContent}
-                        id={_id}
+                        ids={relateIdsParam}
                         imageDefault={multimediaLazyDefault}
                       />
                     )
@@ -229,6 +238,7 @@ class StoryContentsLite extends PureComponent {
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
                       <h2
+                        className={classes.textClasses}
                         dangerouslySetInnerHTML={{
                           __html: content,
                         }}
@@ -331,6 +341,11 @@ class StoryContentsLite extends PureComponent {
                 }}
               />
             )}
+          </div>
+          <div className={classes.social}>
+            <div className="st-social__share">
+              <ShareButtons></ShareButtons>
+            </div>
           </div>
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>

@@ -55,9 +55,8 @@ const NavbarChildMenu = props => {
             <li className={classes.item} key={`navbar-menu-${url || id}`}>
               <a
                 href={url || id || '/'}
-                className={`${classes.link}${
-                  deep > 0 ? ` pl-${25 + deep * 15}` : ''
-                }`}>
+                className={classes.link}
+                style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -74,9 +73,7 @@ const NavbarChildMenu = props => {
                    * */}
                   <label htmlFor={idElem} className={classes.labelParentItem} />
                   <ul
-                    className={`${
-                      classes.containerSubMenu
-                    } deep-${deep} ${idElem}`}>
+                    className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
                     {renderSections(children, aux + 1, idElem)}
                   </ul>
                 </>
@@ -88,11 +85,30 @@ const NavbarChildMenu = props => {
     )
   }
 
+  const defaultSectionsElComercio = [
+    { name: 'Opinión', url: '/opinion/' },
+    { name: 'Política', url: '/politica/' },
+    { name: 'Lima', url: '/lima/' },
+    { name: 'Economía', url: '/economia/' },
+    { name: 'Mundo', url: '/mundo/' },
+    { name: 'DT', url: '/deporte-total/' },
+    { name: 'Perú', url: '/peru/' },
+    { name: 'Luces', url: '/luces/' },
+    { name: 'Tecnología y Ciencias', url: '/tecnologia/' },
+    { name: 'Somos', url: '/somos/' },
+  ]
+
   const {
     showSidebar = false,
     siteProperties: { siteDomain = '', legalLinks = [] } = {},
-    sections = [],
   } = props
+
+  let { sections = [] } = props
+
+  sections =
+    /elcomercio/.test(siteDomain) && sections.length <= 0
+      ? defaultSectionsElComercio
+      : sections
 
   useEffect(() => {
     IS_MOBILE.current = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(

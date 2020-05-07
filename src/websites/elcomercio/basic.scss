@@ -10,17 +10,15 @@ $color-base-300: #e8f2f7;
 .p-20 {
   padding: 20px;
 }
-/******* Framework Variables*******/
+
+/******* Framework Variables *******/
 @import "../../general-styles/framework/variables/index";
-/*---------------------*/
 
 /******* Site Variables *******/
 @import "../../general-styles/framework/core/basic";
 @import "../../general-styles/framework/generators/basic";
-/*---------------------*/
 
 /******* Partials *******/
-/*---------------------*/
 
 @import "../../general-styles/components/features/layout/navbar/nav";
 @import "../../general-styles/components/features/layout/header/header";
@@ -60,4 +58,9 @@ $color-base-300: #e8f2f7;
 }
 .bg-gray-300 {
   background-color: #333;
+}
+.non-mobile {
+  @media screen and (max-width: 639px) {
+    display: none;
+  }
 }

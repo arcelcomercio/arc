@@ -138,6 +138,16 @@ export default {
       type
       width
     }
+    additional_properties{
+      advertising{
+        allowPrerollOnDomain
+        playAds
+        forceAd
+        playVideoAds
+        enableAdInsertion
+        enableAutoPreview
+      }
+    }
     level
     language
     url
@@ -184,6 +194,10 @@ export default {
       description{
         type
         content
+      }
+      image {
+        type
+        url
       }
     }
     streams{
@@ -378,6 +392,9 @@ export default {
       type
       headlines{
         basic
+      }
+      credits {
+        by { name url type }
       }
       promo_items{
         basic{

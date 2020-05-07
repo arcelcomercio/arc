@@ -11,7 +11,6 @@ import { getDateSeo } from '../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
   SITE_ELCOMERCIO,
-  SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
@@ -34,6 +33,7 @@ import {
   ELEMENT_STORY,
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -50,6 +50,7 @@ import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildLinkList from './_children/link-list'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -57,7 +58,8 @@ const classes = {
   content: 'story-content__content position-relative flex flex-row-reverse',
   textClasses:
     'story-content__font--secondary mb-25 title-xs line-h-md mt-20 secondary-font pr-20',
-  blockquoteClass: 'story-content__blockquote text-gray-300 line-h-sm ml-15 mt-40 mb-40 pl-10 pr-30',
+  blockquoteClass:
+    'story-content__blockquote text-gray-300 line-h-sm ml-15 mt-40 mb-40 pl-10 pr-30',
   newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
   newsEmbed: 'story-content__embed',
   tags: 'story-content',
@@ -83,6 +85,7 @@ class StoryContents extends PureComponent {
         ids: { opta },
       },
       siteProperties: { isDfp = false },
+      isAdmin,
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
       globalContent || {}
@@ -106,6 +109,7 @@ class StoryContents extends PureComponent {
       multimediaLazyDefault,
       tags,
       contentPosicionPublicidad,
+      contentElementsHtml,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -138,6 +142,7 @@ class StoryContents extends PureComponent {
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     const { basic_gallery: basicGallery = {} } = promoItems
+    let relatedIds = []
 
     return (
       <>
@@ -170,9 +175,9 @@ class StoryContents extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${isPremium &&
-              arcSite === SITE_GESTION &&
-              'story-content__nota-premium paywall'} `}
+            className={`${classes.content} ${
+              isPremium && 'story-content__nota-premium paywall no_copy'
+            }`}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
@@ -199,6 +204,7 @@ class StoryContents extends PureComponent {
                     publicidad = false,
                     nameAds,
                     url = '',
+                    items = [],
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -251,6 +257,17 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildInterstitialLink
                         url={url}
                         content={content}
+                        isAmp={false}
+                      />
+                    )
+                  }
+                  if (type === ELEMENT_LINK_LIST) {
+                    return (
+                      <StoryContentsChildLinkList
+                        items={items}
+                        multimediaLazyDefault={multimediaLazyDefault}
+                        arcSite={arcSite}
+                        isAdmin={isAdmin}
                       />
                     )
                   }
@@ -263,11 +280,18 @@ class StoryContents extends PureComponent {
                       />
                     )
                   }
+
                   if (type === ELEMENT_STORY) {
+                    relatedIds.push(_id)
+                  }
+
+                  if (type !== ELEMENT_STORY && relatedIds.length > 0) {
+                    const relateIdsParam = relatedIds
+                    relatedIds = []
                     return (
                       <StoryContentsChildRelatedInternal
                         stories={relatedContent}
-                        id={_id}
+                        ids={relateIdsParam}
                         imageDefault={multimediaLazyDefault}
                       />
                     )
@@ -285,9 +309,7 @@ class StoryContents extends PureComponent {
 
                   if (type === ELEMENT_TEXT) {
                     const alignmentClass = alignment
-                      ? `${classes.textClasses} ${
-                        classes.alignmentClasses
-                      }-${alignment}`
+                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                       : classes.textClasses
                     return (
                       <>
@@ -307,7 +329,7 @@ class StoryContents extends PureComponent {
                     )
                   }
 
-                  if (type === ELEMENT_BLOCKQUOTE && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_ELCOMERCIOMAG)) {
+                  if (type === ELEMENT_BLOCKQUOTE) {
                     return (
                       <blockquote
                         dangerouslySetInnerHTML={{
@@ -405,11 +427,13 @@ class StoryContents extends PureComponent {
             </div>
           )}
         </div>
-        {arcSite === SITE_ELCOMERCIO && (
-          <script
-            src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
-            defer
-          />
+        {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
+          <>
+            <script
+              src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
+              defer
+            />
+          </>
         )}
       </>
     )

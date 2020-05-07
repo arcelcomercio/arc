@@ -1,19 +1,22 @@
 .st-tags {
+  color: #333;
   margin: 0 20px;
-  padding-bottom: 21px;
+  padding-bottom: 25px;
   border-bottom: 1px solid $border-color-gray;
 
   &__title {
     display: inline-block;
-    font: 700 14px/26px $primary-font;
-    margin-right: 9px;
+    font: 700 13px/18px $primary-font;
+    letter-spacing: 1px;
+    line-height: 18px;
+    padding-bottom: 10px;
+    @media (--desktop) {
+      font: 700 14px/18px $primary-font;
+    }
   }
 
   &__tag {
     display: inline-block;
-    margin-right: 18px;
-    margin-bottom: 9px;
-    border: 1px solid #999;
   }
 
   &__box {
@@ -21,10 +24,15 @@
   }
 
   &__link {
-    font: 500 13px/26px $primary-font;
-    letter-spacing: 0.13px;
+    font: 400 13px/20px $primary-font;
+    letter-spacing: 0;
     text-transform: capitalize;
-    padding: 8px 9px;
-    color: #111;
+    padding: 8px 0;
+    @media (--desktop) {
+      font: 400 16px/28px $primary-font;
+    }
+    & span {
+      padding: 7px 7px;
+    }
   }
 }
