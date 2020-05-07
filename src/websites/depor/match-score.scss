@@ -14,16 +14,22 @@
 @import "../../general-styles/components/features/layout/footer/footer-secondary";
 
 @import "../../general-styles/components/features/story/story-header-amp";
+@import "../../general-styles/components/features/story/related-internal";
 @import "../../general-styles/components/features/story/author-title/author-title";
 @import "../../general-styles/components/features/story/content/interstitial-link";
 @import "../../general-styles/components/features/story/content/related-content";
 @import "../../general-styles/components/features/story/content/related-internal";
 @import "../../general-styles/components/features/story/content/story-content";
 @import "../../general-styles/components/features/story/content/story-tags";
+@import "../../general-styles/components/features/story/content/amp-story-content";
+@import "../../general-styles/components/features/story/content/amp-story-tags";
 @import "../../general-styles/components/features/story/continue/story-continue";
 @import "../../general-styles/components/features/story/header/story-gallery-slider";
 @import "../../general-styles/components/features/story/header/story-gallery";
 @import "../../general-styles/components/features/story/header/story-header";
+@import "../../general-styles/components/features/story/header/amp-story-header";
+@import "../../general-styles/components/features/story/interest/story-interest.scss";
+@import "../../general-styles/components/features/story/interest/amp-story-interest";
 @import "../../general-styles/components/features/story/separator/story-separator";
 @import "../../general-styles/components/features/story/special-header/special-header";
 @import "../../general-styles/components/features/story/story/story";
