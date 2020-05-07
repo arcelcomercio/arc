@@ -3,6 +3,14 @@
   &__link {
     text-transform: capitalize;
   }
+
+  &__custom-item {
+    // font-weight: 700;
+    .header__link {
+      border-radius: 4px;
+    }
+  }
+
   &__logo {
     @media (--desktop) {
       height: 66px;
