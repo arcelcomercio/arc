@@ -338,19 +338,7 @@ if ('IntersectionObserver' in window) {
 
   const getAyos = () => {
     let ayos = false
-    if (
-      arcSite === 'depor' ||
-      (arcSite === 'trome' && requestUri.match(`^/espectaculos`)) ||
-      requestUri.match(`^/actualidad`) ||
-      (arcSite === 'publimetro' && requestUri.match(`^/actualidad`)) ||
-      (arcSite === 'elcomercio' && requestUri.match(`^/lima`)) ||
-      requestUri.match(`^/economia`) ||
-      (arcSite === 'peru21' && requestUri.match(`^/politica`)) ||
-      (arcSite === 'gestion' && requestUri.match(`^/economia`)) ||
-      (arcSite === 'ojo' && requestUri.match(`^/ojo-show`)) ||
-      (arcSite === 'diariocorreo' && requestUri.match(`^/mundo`)) ||
-      (arcSite === 'elbocon' && requestUri.match(`^/trends`))
-    ) {
+    if (arcSite === 'depor') {
       ayos = true
     }
     return ayos
@@ -422,15 +410,15 @@ if ('IntersectionObserver' in window) {
               rel="preload"
               as="font"
               crossOrigin="crossorigin"
-              type="font/woff"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
             />
             <link
               rel="preload"
               as="font"
               crossOrigin="crossorigin"
-              type="font/woff"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
             />
           </>
         )}

@@ -44,15 +44,6 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   width: 1px;
 `
 
-const Cover = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  position: absolute;
-  top: 0px;
-  display: ${props => (props.checked ? 'none' : 'block')};
-`
-
 const ButtonSub = styled.div`
   border: 1px solid #adadad;
   padding: 15px 40px;
@@ -74,7 +65,6 @@ const Checkbox = ({
     <div className={classes.card}>
       <CheckboxContainer checked={checked} className={className}>
         <figure className={classes.figure}>
-          <Cover checked={checked} />
           <img className={classes.image} src={image} alt={name} />
           <i className={classes.icon} />
         </figure>
@@ -86,7 +76,7 @@ const Checkbox = ({
           <p className={classes.description}>{description}</p>
 
           <ButtonSub className={classes.btnSubscribed} checked={checked}>
-            {(checked && `Eliminar registro`) || `Regístrate`}
+            {(checked && `Eliminar registro`) || `Suscríbete`}
           </ButtonSub>
         </div>
 
