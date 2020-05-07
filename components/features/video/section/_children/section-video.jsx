@@ -138,14 +138,17 @@ export default ({
     isAdmin,
   }
 
-  const idVideoPwa = principalVideo.video
-    ? principalVideo.video.match(/"powa-([\w\d-]+)"/)[1]
-    : ''
+  let htmlVideo
 
-  const htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="prod" data-stream="${getResultVideo(
-    principalVideo && principalVideo.videoStreams,
-    arcSite
-  )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="prod" data-preload=none ></div>`
+  if (principalVideo.video && principalVideo.promoItemsType === VIDEO) {
+    const arrayMatch = principalVideo.video.match(/"powa-([\w\d-]+)"/)
+    const idVideoPwa = arrayMatch.length > 0 ? arrayMatch[1] : ''
+
+    htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="prod" data-stream="${getResultVideo(
+      principalVideo && principalVideo.videoStreams,
+      arcSite
+    )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="prod" data-preload=none ></div>`
+  }
 
   return (
     <div className="section-video">
