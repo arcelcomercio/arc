@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
-import { ButtonSocial, ButtonEmail } from './control_social'
+import { ButtonSocial, ButtonEmail, AuthURL } from './control_social'
 import { MsgRegister } from '../iconos'
 import { ModalConsumer } from '../context'
 import { Input } from './control_input_select'
@@ -171,13 +171,12 @@ export const FormLogin = ({
           }
         })
       } else {
-        onClose()
-        if (
-          typeDialog === 'organico' &&
-          window.location.pathname.match(/newsletters/)
-        ) {
-          window.location.reload()
+        const btnSignwall = document.getElementById('signwall-nav-btn')
+        if (typeDialog === 'newsletter' && btnSignwall) {
+          btnSignwall.textContent = `${profile.firstName ||
+            'Bienvenido'}  ${profile.lastName || ''}`
         }
+        onClose()
       }
     })
   }
@@ -314,6 +313,16 @@ export const FormLogin = ({
                   onLogged={onLogged}
                 />
               ))}
+
+              <AuthURL
+                arcSite={arcSite}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                activeNewsletter={activeNewsletter}
+                typeForm="login"
+                onLogged={onLogged}
+                checkUserSubs={checkUserSubs}
+              />
 
               {!showLoginEmail && (
                 <ButtonEmail

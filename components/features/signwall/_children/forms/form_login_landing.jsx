@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
-import { ButtonSocial } from './control_social'
+import { ButtonSocial, AuthURL } from './control_social'
 import { ModalConsumer } from '../context'
 import { FormStudents } from './form_students'
 import { Input } from './control_input_select'
@@ -127,6 +127,15 @@ export const FormLoginPaywall = props => {
                   activeNewsletter={activeNewsletter}
                 />
               ))}
+
+              <AuthURL
+                arcSite={arcSite}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                activeNewsletter={activeNewsletter}
+                typeForm="login"
+                onLogged={onLogged}
+              />
 
               <S.Text c="gray" s="14" className="mt-20 center">
                 Ingresa con tu usuario
