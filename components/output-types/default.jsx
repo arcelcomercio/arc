@@ -422,15 +422,15 @@ if ('IntersectionObserver' in window) {
               rel="preload"
               as="font"
               crossOrigin="crossorigin"
-              type="font/woff"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
             />
             <link
               rel="preload"
               as="font"
               crossOrigin="crossorigin"
-              type="font/woff"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
             />
           </>
         )}
