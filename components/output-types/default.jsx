@@ -338,7 +338,19 @@ if ('IntersectionObserver' in window) {
 
   const getAyos = () => {
     let ayos = false
-    if (arcSite === 'depor') {
+    if (
+      arcSite === 'depor' ||
+      (arcSite === 'trome' && requestUri.match(`^/espectaculos`)) ||
+      requestUri.match(`^/actualidad`) ||
+      (arcSite === 'publimetro' && requestUri.match(`^/actualidad`)) ||
+      (arcSite === 'elcomercio' && requestUri.match(`^/lima`)) ||
+      requestUri.match(`^/economia`) ||
+      (arcSite === 'peru21' && requestUri.match(`^/politica`)) ||
+      (arcSite === 'gestion' && requestUri.match(`^/economia`)) ||
+      (arcSite === 'ojo' && requestUri.match(`^/ojo-show`)) ||
+      (arcSite === 'diariocorreo' && requestUri.match(`^/mundo`)) ||
+      (arcSite === 'elbocon' && requestUri.match(`^/trends`))
+    ) {
       ayos = true
     }
     return ayos
