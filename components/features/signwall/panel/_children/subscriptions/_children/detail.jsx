@@ -13,7 +13,7 @@ import Modal from '../../../../_children/modal'
 import addPayU from '../../../../_dependencies/payu'
 import { PayuError } from '../../../../_dependencies/payu-error'
 import Services from '../../../../_dependencies/services'
-import { Radiobox, RadioboxSimple } from './radiobox'
+import { Radiobox, RadioboxSimple, Message } from './radiobox'
 import { Form, Title, Text } from '../../../../_children/forms/styles'
 import {
   InputMask,
@@ -112,6 +112,7 @@ export const SubDetailInt = props => {
   const [showLoading, setShowLoading] = useState(true)
   const [showLoadingSubmit, setShowLoadingSubmit] = useState(false)
   const [showResDetail, setShowResDetail] = useState({})
+  const [showResLastSubs, setShowResLastSubs] = useState(null)
   const [showModalConfirm, setShowModalConfirm] = useState(false)
   const [showMessageSuccess, setShowMessageSuccess] = useState(false)
   const [showMessageFailed, setShowMessageFailed] = useState(false)
@@ -124,6 +125,8 @@ export const SubDetailInt = props => {
   const [showOpenUpdate, setShowOpenUpdate] = useState(false)
   const [showStepCancel, setShowStepCancel] = useState(1)
   const [showOptionCancel, setShowOptionCancel] = useState(null)
+  const [showErrorCancel, setShowErrorCancel] = useState(null)
+  const [showLoadCancel, setShowLoadCancel] = useState('')
 
   const stateSchema = {
     numcard: { value: '', error: '' },
@@ -174,6 +177,9 @@ export const SubDetailInt = props => {
           resDetail.currentPaymentMethod.creditCardType
             .replace(/\s|Club/g, '')
             .toUpperCase()
+        )
+        setShowResLastSubs(
+          resDetail.paymentHistory[resDetail.paymentHistory.length - 1].periodTo
         )
       })
     })
@@ -321,6 +327,10 @@ export const SubDetailInt = props => {
 
   const closeModalConfirm = () => {
     setShowModalConfirm(!showModalConfirm)
+    setShowStepCancel(1)
+    setShowOptionCancel(null)
+    setShowErrorCancel(null)
+
     const ModalProfile =
       document.getElementById('profile-signwall').parentNode ||
       document.getElementById('profile-signwall').parentElement
@@ -334,6 +344,7 @@ export const SubDetailInt = props => {
 
   const deleteSubscription = (idSubsDelete, option) => {
     if (typeof window !== 'undefined') {
+      setShowLoadCancel('Cancelando...')
       const txtMotivo = document.getElementById('motivo-detalle')
       const valMotivo =
         txtMotivo && txtMotivo.value.length >= 3 ? txtMotivo.value : option
@@ -348,7 +359,11 @@ export const SubDetailInt = props => {
             window.document.getElementById('btn-subs').click()
           })
           .catch(() => {
+            setShowErrorCancel(true)
             Taggeo(`Web_Sign_Wall_General`, `web_swg_error_anulacion`)
+          })
+          .finally(() => {
+            setShowLoadCancel('')
           })
       })
     }
@@ -490,7 +505,7 @@ export const SubDetailInt = props => {
             </div>
           </S.Subsdetail>
 
-          <S.Fieldset>
+          <S.Fieldset id="div-signwall-updatecard">
             <legend>Método de pago</legend>
 
             {showMessageSuccess && (
@@ -510,6 +525,7 @@ export const SubDetailInt = props => {
               <Button
                 type="button"
                 disabled={showOpenUpdate}
+                id="btn-signwall-editcard"
                 onClick={() => {
                   setShowUpdateCard(!showUpdateCard)
                   clearValues()
@@ -733,8 +749,6 @@ export const SubDetailInt = props => {
               type="button"
               onClick={() => {
                 closeModalConfirm()
-                setShowStepCancel(1)
-                setShowOptionCancel(null)
               }}>
               <Close />
             </button>
@@ -744,7 +758,7 @@ export const SubDetailInt = props => {
             <Form npadding>
               {showStepCancel === 1 && (
                 <>
-                  <Title s="20" className="justify mt-10 mb-20">
+                  <Title s="16" className="justify mt-10 mb-20">
                     Queremos que sepas que gracias a tu suscripción podemos
                     reforzar nuestro compromiso con el periodismo de calidad.
                   </Title>
@@ -758,8 +772,8 @@ export const SubDetailInt = props => {
                     con la información veraz y confiable
                   </Text>
 
-                  <S.Block align="right" pt="10">
-                    <S.FormGroup width="100">
+                  <S.Block align="center" pt="10">
+                    <S.FormGroup width="80">
                       <Button
                         typeBtn="border"
                         type="button"
@@ -813,8 +827,8 @@ export const SubDetailInt = props => {
                     </Text>
                   )}
 
-                  <S.Block align="right" pt="10">
-                    <S.FormGroup width="100">
+                  <S.Block align="center" pt="10">
+                    <S.FormGroup width="80">
                       <Button
                         typeBtn="border"
                         type="button"
@@ -835,29 +849,70 @@ export const SubDetailInt = props => {
                     s="20"
                     c={mainColorTitle}
                     className="center mt-10 mb-20">
-                    {`Ten en cuenta que solo tendrás acceso a tu plan digital hasta el ${dateFormat(
-                      showResDetail.paymentHistory[
-                        showResDetail.paymentHistory.length - 1
-                      ].periodTo
-                    )}`}
+                    {` ${
+                      new Date() >= new Date(showResLastSubs)
+                        ? 'Tu suscripción no se puede anular ya que se encuentra en proceso de renovación automática desde el'
+                        : 'Ten en cuenta que solo tendrás acceso a tu plan digital hasta el'
+                    }  ${dateFormat(showResLastSubs)}`}
                   </Title>
 
                   <Title s="16" className="center mt-20 mb-20">
-                    ¿Deseas continuar con la anulación a tu plan digital?
+                    {`${
+                      new Date() >= new Date(showResLastSubs)
+                        ? '¿Deseas renovar en este momento?'
+                        : '¿Deseas continuar con la anulación a tu plan digital?'
+                    } `}
                   </Title>
 
-                  <S.Block align="right" pt="10">
-                    <S.FormGroup width="100">
-                      <Button
-                        typeBtn="border"
-                        type="button"
-                        onClick={() => {
-                          setShowStepCancel(4)
-                          Taggeo(`Web_Sign_Wall_General`, `web_swg_step_4`)
-                        }}>
-                        Continuar con la anulación
-                      </Button>
-                    </S.FormGroup>
+                  <S.Block align="center" pt="10">
+                    {new Date() >= new Date(showResLastSubs) ? (
+                      <>
+                        <S.FormGroup width="45">
+                          <Button
+                            type="button"
+                            onClick={() => {
+                              closeModalConfirm()
+                            }}>
+                            Cancelar
+                          </Button>
+                        </S.FormGroup>
+
+                        <S.FormGroup width="45">
+                          <Button
+                            typeBtn="border"
+                            type="button"
+                            onClick={() => {
+                              Taggeo(
+                                `Web_Sign_Wall_General`,
+                                `web_swg_show_update_card`
+                              )
+                              setShowUpdateCard(true)
+                              closeModalConfirm()
+                              setTimeout(() => {
+                                const divUpdateCard = document.getElementById(
+                                  'div-signwall-updatecard'
+                                )
+                                if (divUpdateCard)
+                                  divUpdateCard.scrollIntoView()
+                              }, 100)
+                            }}>
+                            Renovar suscripción
+                          </Button>
+                        </S.FormGroup>
+                      </>
+                    ) : (
+                      <S.FormGroup width="80">
+                        <Button
+                          typeBtn="border"
+                          type="button"
+                          onClick={() => {
+                            setShowStepCancel(4)
+                            Taggeo(`Web_Sign_Wall_General`, `web_swg_step_4`)
+                          }}>
+                          Continuar con la anulación
+                        </Button>
+                      </S.FormGroup>
+                    )}
                   </S.Block>
                 </>
               )}
@@ -870,6 +925,13 @@ export const SubDetailInt = props => {
                     className="center mt-10 mb-20">
                     Finalizar suscripción
                   </Title>
+
+                  {showErrorCancel && (
+                    <Message failed>
+                      Ha ocurrido un error inesperado. Por favor inténtalo más
+                      tarde ó contáctanos al 01 311-5100.
+                    </Message>
+                  )}
 
                   <Title s="16" className="justify mt-10 mb-10">
                     Antes de hacer efectiva la anulación, por favor, cuéntanos
@@ -907,8 +969,6 @@ export const SubDetailInt = props => {
                         type="button"
                         onClick={() => {
                           closeModalConfirm()
-                          setShowStepCancel(1)
-                          setShowOptionCancel(null)
                         }}>
                         Cancelar
                       </Button>
@@ -917,7 +977,7 @@ export const SubDetailInt = props => {
                       <Button
                         typeBtn="border"
                         type="button"
-                        disabled={showOptionCancel === null}
+                        disabled={showOptionCancel === null || showLoadCancel}
                         onClick={() => {
                           deleteSubscription(
                             showResDetail.subscriptionID,
@@ -928,7 +988,7 @@ export const SubDetailInt = props => {
                             `web_swg_boton_anulacion`
                           )
                         }}>
-                        Finalizar Suscripción
+                        {showLoadCancel || 'Finalizar Suscripción'}
                       </Button>
                     </S.FormGroup>
                   </S.Block>

@@ -79,6 +79,21 @@ const StyledCheckbox = styled.div`
   }
 `
 
+const Message = styled.div`
+  width: 100%;
+  padding: 10px 25px;
+  text-align: center;
+  background: ${props =>
+    props.success ? 'rgba(36, 145, 9, 0.1)' : 'rgba(219, 0, 0, 0.1)'};
+  color: ${props => (props.success ? 'rgb(36, 145, 9)' : 'rgb(219, 0, 0)')};
+  border-radius: 4px;
+  font-size: 14px;
+  display: block;
+  line-height: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+`
+
 const Radiobox = ({ className, checked, disabled, ...props }) => (
   <CheckboxContainer checked={checked} className={className}>
     <Image {...props} />
@@ -103,4 +118,4 @@ const RadioboxSimple = ({ className, checked, disabled, name, ...props }) => (
   </CheckboxContainer>
 )
 
-export { Radiobox, RadioboxSimple }
+export { Radiobox, RadioboxSimple, Message }
