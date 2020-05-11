@@ -31,6 +31,7 @@ import {
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
   ELEMENT_STORY,
+  ELEMENT_BLOCKQUOTE,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -53,6 +54,7 @@ const classes = {
   newsEmbed: 'story-contents__embed',
   social: 'story-contents__social',
   tags: 'story-contents',
+  blockquoteClass: 'story-contents__blockquote',
   section: 'w-full',
   listClasses: 'story-contents__paragraph-list',
   alignmentClasses: 'story-contents__alignment',
@@ -263,6 +265,17 @@ class StoryContentsLite extends PureComponent {
                           className={alignmentClass}
                         />
                       </>
+                    )
+                  }
+
+                  if (type === ELEMENT_BLOCKQUOTE) {
+                    return (
+                      <blockquote
+                        dangerouslySetInnerHTML={{
+                          __html: content,
+                        }}
+                        className={classes.blockquoteClass}
+                      />
                     )
                   }
 
