@@ -32,10 +32,15 @@ const buildHeaderParagraph = (paragraph, level = '2') => {
   const result = { numberWords: 0, processedParagraph: '' }
   result.numberWords = countWordsHelper(clearHtml(paragraph))
 
-  result.processedParagraph =
-    result.numberWords > 0
-      ? `<h${level}>${clearBrTag(paragraph)}</h${level}>`
-      : ''
+  if (level === 2 || level === 3 || level === 4 || level === 5 || level === 6) {
+    result.processedParagraph =
+      result.numberWords > 0 ? `<h2>${clearBrTag(paragraph)}</h2>` : ''
+  } else {
+    result.processedParagraph =
+      result.numberWords > 0
+        ? `<h${level}>${clearBrTag(paragraph)}</h${level}>`
+        : ''
+  }
 
   return result
 }
@@ -267,17 +272,19 @@ const ParagraphshWithAdds = ({
   numberWordMultimedia = 70,
   arrayadvertising = [],
   opta,
+  siteUrl,
   defaultImage = '',
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
+  let lookAlso = []
 
   newsWithAdd = paragraphsNews
     .map(({ payload: originalParagraph, type, level, link = '' }) => {
       let paragraphwithAdd = ''
 
-      const { processedParagraph, numberWords } = analyzeParagraph({
+      let { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph,
         type,
         numberWordMultimedia,
@@ -286,6 +293,19 @@ const ParagraphshWithAdds = ({
         link,
         defaultImage,
       })
+
+      if (ConfigParams.ELEMENT_STORY === type) {
+        lookAlso.push(originalParagraph)
+      }
+      if (ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0) {
+        let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
+        lookAlso.forEach(value => {
+          ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
+        })
+        processedParagraph = `${ulLookAlso}</ul>`
+        numberWords = countWordsHelper(clearHtml(processedParagraph))
+        lookAlso = []
+      }
 
       countWords += numberWords
 
@@ -343,6 +363,9 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
     case ConfigParams.ELEMENT_YOUTUBE_ID:
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
+    case ConfigParams.ELEMENT_PODCAST:
+      result = `<figure class="op-interactive"><iframe width="150" height="100" scrolling="no" frameborder="0"><audio controls><source src="${payload}" type="audio/mpeg"></audio></iframe></figure>`
+      break
     default:
       break
   }
@@ -366,6 +389,8 @@ const BuildHtml = ({
   arcSite,
   section,
   opta,
+  getPremiumValue,
+  siteUrl,
   defaultImage,
 }) => {
   const firstAdd = 100
@@ -379,7 +404,19 @@ const BuildHtml = ({
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
     opta,
+    siteUrl,
     defaultImage,
+  }
+  const getContentType = ({ premium = '' } = {}) => {
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
+    let contenType = premium ? 'locked' : premiumValue
+    contenType = section.match(/publirreportaje|publireportaje/)
+      ? 'free'
+      : contenType
+
+    contenType = arcSite === section.match(/mag/) ? 'free' : contenType
+    return contenType
   }
   const { type } = multimedia || {}
   try {
@@ -389,6 +426,9 @@ const BuildHtml = ({
       <meta charset="utf-8" />
       <meta property="op:markup_version" content="v1.0" />
       <meta property="fb:article_style" content="${fbArticleStyle}" />
+      <meta property="article:content_tier" content="${getContentType(
+        propsScriptHeader
+      )}"/>
       <link rel="canonical" href="${canonical}"/>
   </head>
   <body>
