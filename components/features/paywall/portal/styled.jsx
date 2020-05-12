@@ -166,14 +166,15 @@ export const LinkCorporate = styled.a`
     text-decoration: none;
     padding: 20px;
     padding-left: 20px;
-    background: ${props =>
+    background: ${props => (
       props.backgroundColor 
       ? props.backgroundColor 
       : props.primary
         ? theme.palette.primary.main
-        : theme.palette.common.blackboard};
+        : theme.palette.common.blackboard
+    )};
     cursor: pointer;
-    color: ${({ primary }) =>
+    color: ${({ primary }) => (
       props.color 
       ? props.color 
       : primary
@@ -183,7 +184,7 @@ export const LinkCorporate = styled.a`
 		  ? props.backgroundColor 
 		  : theme.palette.common.blackboard
 	  )
-    };
+    )};
     min-width: 300px;
     height: 50px;
     border-radius: 4px;
