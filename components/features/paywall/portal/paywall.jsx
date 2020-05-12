@@ -112,15 +112,17 @@ const PortalInt = props => {
             <PromoBanner
               href={originSubsOnline}
               text={msgs.printedSubscriptorBannerText2}
+              backgroundColor="#fecd26"
+              ml={{ xs: '0px', sm: '0px', md: '30px' }}
             />
           )}
           <PromoBanner
             href={corporateUrl}
             text={msgs.businessSubscriptionsBannerText}
             primary={arcSite === 'elcomercio'}
-            backgroundColor="#ccc19b"
-            ml={{ xs: '0px', sm: '30px' }}
-          />
+            backgroundColor={arcSite === 'elcomercio' ? "#ffe682" : "#ccc19b"}
+            ml={{ xs: '0px', sm: '0px', md: '30px' }}
+          />	  
           {/* <ClickToCall
             href={clickToCallUrl}
             text={msgs.helpShort}
