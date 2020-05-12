@@ -10,7 +10,7 @@ const resolve = (key = {}) => {
   let urlApi = ''
 
   if (key && key.gameId && key.gameId !== '') {
-    urlApi = `http://devresultadosopta.elcomercio.pe/api/v2/match/?format=json&uuid=${key.gameId}`
+    urlApi = `https://cdna-resultadosopta.minoticia.pe/api/v2/match/?format=json&uuid=${key.gameId}`
   }
   return urlApi
 }
