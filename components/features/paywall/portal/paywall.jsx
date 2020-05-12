@@ -120,7 +120,7 @@ const PortalInt = props => {
             href={corporateUrl}
             text={msgs.businessSubscriptionsBannerText}
             primary={arcSite === 'elcomercio'}
-            backgroundColor={arcSite === 'elcomercio' ? "#ffe682" : "#ccc19b"}
+            backgroundColor={arcSite === 'elcomercio' "#ffe682" : undefined}
             ml={{ xs: '0px', sm: '0px', md: '30px' }}
           />	  
           {/* <ClickToCall
