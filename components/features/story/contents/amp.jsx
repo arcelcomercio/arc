@@ -105,7 +105,6 @@ class StoryContentAmp extends PureComponent {
     const imgTag = 'amp-img'
     const width = '300'
     const height = '250'
-    const height600 = '600'
     const parametersCaja2 = {
       // movil2 caja2
       dataSlot,
@@ -149,7 +148,7 @@ class StoryContentAmp extends PureComponent {
       // movil3 caja3 inline
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/inline`,
       width,
-      height600,
+      height,
       primarySectionLink,
       arcSite,
       movil1: false,
