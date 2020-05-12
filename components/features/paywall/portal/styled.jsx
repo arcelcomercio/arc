@@ -174,10 +174,10 @@ export const LinkCorporate = styled.a`
         : theme.palette.common.blackboard
     )};
     cursor: pointer;
-    color: ${({ primary }) => (
+    color: ${props => (
       props.color 
       ? props.color 
-      : primary
+      : props.primary
           ? theme.palette.primary.contrastText
           : theme.palette.getContrastText(
               props.backgroundColor 
