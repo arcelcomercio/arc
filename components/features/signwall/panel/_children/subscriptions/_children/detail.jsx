@@ -41,10 +41,17 @@ const Cards = {
   DINERS: LOGO_DINERS_CLUB,
 }
 
-const listOptions = [
-  'Demasiado caro',
-  'Tiene otra suscripción',
-  'No está interesado en el contenido',
+const listOptionsComercio = [
+  'El precio es elevado',
+  'Cuenta con otra suscripción',
+  'No estoy interesado en el contenido',
+  'Otro motivo',
+]
+
+const listOptionsGestion = [
+  'Solo me suscribí para leer un tema puntual',
+  'Ya no lo necesito para mi trabajo y/o estudios',
+  'El contenido no es lo que me interesa',
   'Otro motivo',
 ]
 
@@ -196,7 +203,7 @@ export const SubDetailInt = props => {
       const modalConfirmPass = document.getElementById('profile-signwall')
       modalConfirmPass.scrollIntoView()
     }, 500)
-    Taggeo(`Web_Sign_Wall_General`, `web_swg_open_anulacion`)
+    Taggeo(`Web_Sign_Wall_General`, `web_swg_open_anulacion_step1`)
   }
 
   const onSubmitForm = state => {
@@ -344,7 +351,7 @@ export const SubDetailInt = props => {
 
   const deleteSubscription = (idSubsDelete, option) => {
     if (typeof window !== 'undefined') {
-      setShowLoadCancel('Cancelando...')
+      setShowLoadCancel('Finalizando...')
       const txtMotivo = document.getElementById('motivo-detalle')
       const valMotivo =
         txtMotivo && txtMotivo.value.length >= 3 ? txtMotivo.value : option
@@ -680,7 +687,13 @@ export const SubDetailInt = props => {
           )}
 
           <S.Block align="right" bt>
-            <Button type="button" link onClick={() => openModalConfirm()}>
+            <Button
+              type="button"
+              link
+              onClick={() => {
+                Taggeo(`Web_Sign_Wall_General`, `web_swg_boton_anulacion`)
+                openModalConfirm()
+              }}>
               ANULAR MI SUSCRIPCIÓN
             </Button>
           </S.Block>
@@ -758,19 +771,47 @@ export const SubDetailInt = props => {
             <Form npadding>
               {showStepCancel === 1 && (
                 <>
-                  <Title s="16" className="justify mt-10 mb-20">
-                    Queremos que sepas que gracias a tu suscripción podemos
-                    reforzar nuestro compromiso con el periodismo de calidad.
-                  </Title>
-                  <Text c="gray" s="14" lh="26" className="justify mb-10">
-                    Nuestro trabajo periodístico va más allá de mantenerte
-                    informado, generando contenidos exclusivos y notas de valor
-                    agregado especialmente creados para ti.
-                  </Text>
-                  <Text c="gray" s="14" lh="26" className="justify mb-20">
-                    Gracias a clientes como tú renovamos a diario nuestro deber
-                    con la información veraz y confiable
-                  </Text>
+                  {arcSite === 'elcomercio' ? (
+                    <>
+                      <Title s="16" className="justify mt-10 mb-20">
+                        Queremos que sepas que gracias a tu suscripción podemos
+                        reforzar nuestro compromiso con el periodismo de
+                        calidad.
+                      </Title>
+                      <Text c="gray" s="14" lh="26" className="justify mb-10">
+                        Nuestro trabajo periodístico va más allá de mantenerte
+                        informado. Queremos darte una opción de análisis para
+                        que tomes decisiones a través de contenidos exclusivos y
+                        notas de valor agregado especialmente creados para ti.
+                      </Text>
+                      <Text c="gray" s="14" lh="26" className="justify mb-20">
+                        Gracias a lectores como tú renovamos a diario nuestro
+                        deber con la información veraz y confiable que nos
+                        permiten mantener más de 180 años de trayectoria.
+                      </Text>
+                    </>
+                  ) : (
+                    <>
+                      <Title s="14" className="justify mt-10 mb-20">
+                        Lamentamos mucho que estés por tomar la decisión de
+                        cancelar tu suscripción con Gestion.pe y quieras dejar
+                        de formar parte de nuestro selecto grupo de
+                        suscriptores.
+                      </Title>
+                      <Text c="gray" s="14" lh="26" className="justify mb-10">
+                        Durante todo el tiempo que estás con nosotros, un
+                        experimentado equipo de 50 periodistas trabaja
+                        intensamente para ofrecerte primicias y una selección de
+                        las noticias más importantes de economía y negocios del
+                        Perú y el mundo, lo que incluye a alrededor de 600
+                        artículos mensuales Plus G exclusivos para suscriptores.
+                      </Text>
+
+                      <Text c="gray" s="14" lh="26" className="justify mb-20">
+                        ¿Deseas continuar con la anulación de tu suscripción?
+                      </Text>
+                    </>
+                  )}
 
                   <S.Block align="center" pt="10">
                     <S.FormGroup width="80">
@@ -779,7 +820,10 @@ export const SubDetailInt = props => {
                         type="button"
                         onClick={() => {
                           setShowStepCancel(2)
-                          Taggeo(`Web_Sign_Wall_General`, `web_swg_step_2`)
+                          Taggeo(
+                            `Web_Sign_Wall_General`,
+                            `web_swg_open_anulacion_step2`
+                          )
                         }}>
                         Continuar con la anulación
                       </Button>
@@ -797,34 +841,41 @@ export const SubDetailInt = props => {
                     ¿De qué te perderás si cancelas tu suscripción?
                   </Title>
 
-                  <Title s="16" className="justify mt-10 mb-10">
-                    Con tu Plan Digital tienes acceso exclusivo a:
-                  </Title>
-
                   {arcSite === 'elcomercio' ? (
-                    <Text c="gray" s="14" lh="26" className="justify mb-10">
-                      Reportajes, entrevistas, artículo de opinión, suplementos,
-                      informes y la mejor selección de historias elaboradas por
-                      El Comercio, todo creado especialmente para ti.
-                    </Text>
+                    <>
+                      <Title s="16" className="justify mt-10 mb-10">
+                        Con tu Plan Digital tienes acceso exclusivo a:
+                      </Title>
+
+                      <Text c="gray" s="14" lh="26" className="justify mb-10">
+                        Reportajes, entrevistas, artículos de opinión,
+                        suplementos, informes y la mejor selección de historias
+                        elaboradas por El Comercio, todo creado especialmente
+                        para ti.
+                      </Text>
+
+                      <Text c="gray" s="14" lh="26" className="justify mb-10">
+                        Navegación ilimitada a {arcSite}.pe desde todos tus
+                        dispositivos.
+                      </Text>
+                    </>
                   ) : (
-                    <Text c="gray" s="14" lh="26" className="justify mb-10">
-                      Contenido premium exclusivamente desarrollado para
-                      gestion.pe.
-                    </Text>
-                  )}
+                    <>
+                      <Text c="gray" s="14" lh="26" className="justify mb-10">
+                        Contenido premium Plus G exclusivo para suscriptores
+                      </Text>
 
-                  <Text c="gray" s="14" lh="26" className="justify mb-10">
-                    Navegación ilimitada a {arcSite}.pe desde todos tus
-                    dispositivos.
-                  </Text>
+                      <Text c="gray" s="14" lh="26" className="justify mb-10">
+                        Lectura ilimitada del contenido abierto desde todos tus
+                        dispositivos.
+                      </Text>
 
-                  {arcSite === 'gestion' && (
-                    <Text c="gray" s="14" lh="26" className="justify mb-20">
-                      Y la mejor selección de artículos e informes elaborados
-                      por el diario Gestión, The Economist y la agencia
-                      Bloomberg.
-                    </Text>
+                      <Text c="gray" s="14" lh="26" className="justify mb-20">
+                        La mejor selección de artículos e informes elaborados
+                        por el diario Gestión, The Economist y la agencia
+                        Bloomberg.
+                      </Text>
+                    </>
                   )}
 
                   <S.Block align="center" pt="10">
@@ -834,7 +885,10 @@ export const SubDetailInt = props => {
                         type="button"
                         onClick={() => {
                           setShowStepCancel(3)
-                          Taggeo(`Web_Sign_Wall_General`, `web_swg_step_3`)
+                          Taggeo(
+                            `Web_Sign_Wall_General`,
+                            `web_swg_open_anulacion_step3`
+                          )
                         }}>
                         Continuar con la anulación
                       </Button>
@@ -851,7 +905,7 @@ export const SubDetailInt = props => {
                     className="center mt-10 mb-20">
                     {` ${
                       new Date() >= new Date(showResLastSubs)
-                        ? 'Tu suscripción no se puede anular ya que se encuentra en proceso de renovación automática desde el'
+                        ? 'Tu suscripción no se puede anular, ya que se encuentra en proceso de renovación automática desde el'
                         : 'Ten en cuenta que solo tendrás acceso a tu plan digital hasta el'
                     }  ${dateFormat(showResLastSubs)}`}
                   </Title>
@@ -860,7 +914,7 @@ export const SubDetailInt = props => {
                     {`${
                       new Date() >= new Date(showResLastSubs)
                         ? '¿Deseas renovar en este momento?'
-                        : '¿Deseas continuar con la anulación a tu plan digital?'
+                        : '¿Deseas continuar con la anulación de tu suscripción?'
                     } `}
                   </Title>
 
@@ -884,7 +938,7 @@ export const SubDetailInt = props => {
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_General`,
-                                `web_swg_show_update_card`
+                                `web_swg_boton_anulacion_renovar`
                               )
                               setShowUpdateCard(true)
                               closeModalConfirm()
@@ -907,7 +961,10 @@ export const SubDetailInt = props => {
                           type="button"
                           onClick={() => {
                             setShowStepCancel(4)
-                            Taggeo(`Web_Sign_Wall_General`, `web_swg_step_4`)
+                            Taggeo(
+                              `Web_Sign_Wall_General`,
+                              `web_swg_open_anulacion_step4`
+                            )
                           }}>
                           Continuar con la anulación
                         </Button>
@@ -938,19 +995,33 @@ export const SubDetailInt = props => {
                     los motivos por los que deseas anular tu suscripción:
                   </Title>
 
-                  {listOptions.map(item => (
-                    <label key={item}>
-                      <RadioboxSimple
-                        key={item}
-                        name={item}
-                        checked={showOptionCancel === item}
-                        onChange={() => {
-                          setShowOptionCancel(item)
-                        }}
-                        value={item}
-                      />
-                    </label>
-                  ))}
+                  {arcSite === 'elcomercio'
+                    ? listOptionsComercio.map(item => (
+                        <label key={item}>
+                          <RadioboxSimple
+                            key={item}
+                            name={item}
+                            checked={showOptionCancel === item}
+                            onChange={() => {
+                              setShowOptionCancel(item)
+                            }}
+                            value={item}
+                          />
+                        </label>
+                      ))
+                    : listOptionsGestion.map(item => (
+                        <label key={item}>
+                          <RadioboxSimple
+                            key={item}
+                            name={item}
+                            checked={showOptionCancel === item}
+                            onChange={() => {
+                              setShowOptionCancel(item)
+                            }}
+                            value={item}
+                          />
+                        </label>
+                      ))}
 
                   {showOptionCancel === 'Otro motivo' && (
                     <S.Block pt="10">
@@ -985,7 +1056,7 @@ export const SubDetailInt = props => {
                           )
                           Taggeo(
                             `Web_Sign_Wall_General`,
-                            `web_swg_boton_anulacion`
+                            `web_swg_boton_finalizar_anulacion`
                           )
                         }}>
                         {showLoadCancel || 'Finalizar Suscripción'}
