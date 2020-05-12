@@ -15,7 +15,7 @@ $locomundo: #01abad;
     min-height: 24px;
     height: 24px;
     padding: 2px 11px;
-    background-color: $color-primary;
+    background-color: $new-color-primary;
     display: flex;
     align-items: center;
     width: fit-content;
@@ -24,7 +24,7 @@ $locomundo: #01abad;
       content: '';
       position: absolute;
       border-top: 12px solid transparent;
-      border-left: 14px solid $color-primary;
+      border-left: 14px solid $new-color-primary;
       border-bottom: 11px solid transparent;
       top: 0px;
       left: 100%;
@@ -57,12 +57,16 @@ $locomundo: #01abad;
 
   &__category-link {
     color: $color-white;
-    font-weight: 700;
   }
 
   &__author-link,
   &__category-link {
-    font-family: $secondary-font;
+    font-family: $primary-font;
+    font-weight: 500;
+  }
+
+  &__author-link {
+    color:#888;
   }
 
   &__title {
@@ -70,7 +74,9 @@ $locomundo: #01abad;
   }
 
   &__title-link {
-    color: $color-primary;
+    color: #000;
+    font-weight: 900;
+    font-size: 1.2rem;
     -webkit-line-clamp: 4;
     max-height: calc(1.3rem * 1.333 * 4);
   }
@@ -87,6 +93,10 @@ $locomundo: #01abad;
             #0e210d
           );
         }
+      }
+      .featured-story__title-link{
+        color: #fff;
+        font-weight: 700;
       }
     }
 
