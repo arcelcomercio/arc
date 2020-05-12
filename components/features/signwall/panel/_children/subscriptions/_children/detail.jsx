@@ -792,7 +792,7 @@ export const SubDetailInt = props => {
                     </>
                   ) : (
                     <>
-                      <Title s="14" className="justify mt-10 mb-20">
+                      <Title s="16" className="justify mt-10 mb-20">
                         Lamentamos mucho que estés por tomar la decisión de
                         cancelar tu suscripción con Gestion.pe y quieras dejar
                         de formar parte de nuestro selecto grupo de
@@ -806,7 +806,6 @@ export const SubDetailInt = props => {
                         Perú y el mundo, lo que incluye a alrededor de 600
                         artículos mensuales Plus G exclusivos para suscriptores.
                       </Text>
-
                       <Text c="gray" s="14" lh="26" className="justify mb-20">
                         ¿Deseas continuar con la anulación de tu suscripción?
                       </Text>
