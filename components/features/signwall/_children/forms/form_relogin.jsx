@@ -228,17 +228,29 @@ export const FormRelogin = ({
             ó ingresa con tu cuenta de:
           </S.Text>
 
-          {authProviders.map(item => (
+          {Cookies.getCookie('signGoogle') ? (
+            authProviders.map(item => (
+              <ButtonSocial
+                brand={item}
+                size={sizeBtnSocial}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                arcSite={arcSite}
+                typeForm="relogin"
+                activeNewsletter={activeNewsletter}
+              />
+            ))
+          ) : (
             <ButtonSocial
-              brand={item}
-              size={sizeBtnSocial}
+              brand="facebook"
+              size="full"
               onClose={onClose}
               typeDialog={typeDialog}
               arcSite={arcSite}
               typeForm="relogin"
               activeNewsletter={activeNewsletter}
             />
-          ))}
+          )}
 
           <AuthURL
             arcSite={arcSite}
