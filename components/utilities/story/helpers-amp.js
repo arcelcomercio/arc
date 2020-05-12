@@ -72,7 +72,7 @@ export const publicidadAmpAd = ({
     ''
 
   const flying1 =
-    (movil1 === false && `<amp-fx-flying-carpet height="250px">`) || ''
+    (movil1 === false && `<amp-fx-flying-carpet height="600px">`) || ''
   const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
 
   const nuevoScript =

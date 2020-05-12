@@ -8,7 +8,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
-import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
+// import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
 // import FirebaseScripts from './_children/firebase-scripts'
 import {
   skipAdvertising,
@@ -336,27 +336,6 @@ if ('IntersectionObserver' in window) {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
 
-  const getAyos = () => {
-    let ayos = false
-    if (
-      arcSite === 'depor' ||
-      (arcSite === 'trome' && requestUri.match(`^/espectaculos`)) ||
-      requestUri.match(`^/actualidad`) ||
-      (arcSite === 'publimetro' && requestUri.match(`^/actualidad`)) ||
-      (arcSite === 'elcomercio' && requestUri.match(`^/lima`)) ||
-      requestUri.match(`^/economia`) ||
-      (arcSite === 'peru21' && requestUri.match(`^/politica`)) ||
-      (arcSite === 'gestion' && requestUri.match(`^/economia`)) ||
-      (arcSite === 'ojo' && requestUri.match(`^/ojo-show`)) ||
-      (arcSite === 'diariocorreo' && requestUri.match(`^/mundo`)) ||
-      (arcSite === 'elbocon' && requestUri.match(`^/trends`))
-    ) {
-      ayos = true
-    }
-    return ayos
-  }
-  const insAyos = getAyos()
-
   const isStyleBasic =
     arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
 
@@ -458,7 +437,7 @@ if ('IntersectionObserver' in window) {
           globalContent={globalContent}
         />
 
-        <AdsScriptsFloorPrices />
+        {/* <AdsScriptsFloorPrices /> */}
         {contenidoVideo && (
           <>
             <style
@@ -467,12 +446,12 @@ if ('IntersectionObserver' in window) {
               }}></style>
           </>
         )}
-        {insAyos && (
-          <script
-            async
-            src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js"
-          />
-        )}
+        <script
+            async                
+            src={`https://d1r08wok4169a5.cloudfront.net/ayos/ec-ayos.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
+        />
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
