@@ -21,6 +21,7 @@ import { getAssetsPath } from '../utilities/constants'
 import StoryData from '../utilities/story-data'
 
 import iframeScript from './_dependencies/iframe-script'
+import widgets from './_dependencies/widgets'
 
 export default ({
   children,
@@ -294,6 +295,7 @@ if ('IntersectionObserver' in window) {
 
   const {
     videoSeo,
+    embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
@@ -469,6 +471,7 @@ if ('IntersectionObserver' in window) {
               }}></style>
           </>
         )}
+
         {insAyos && (
           <script
             async
@@ -651,7 +654,15 @@ if ('IntersectionObserver' in window) {
             />
           </>
         )}
-
+        {embedTwitterAndInst[0] && (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: widgets }}
+            />
+          </>
+        )}
         <script
           type="text/javascript"
           defer

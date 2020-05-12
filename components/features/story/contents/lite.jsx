@@ -51,7 +51,7 @@ const classes = {
   content: 'story-contents__content ',
   textClasses: 'story-contents__font-paragraph ',
   newsImage: 'story-contents__image  ',
-  newsEmbed: 'story-contents__embed',
+  newsEmbed: 'story-contents__embed embed-script',
   social: 'story-contents__social',
   tags: 'story-contents',
   blockquoteClass: 'story-contents__blockquote',
@@ -344,6 +344,29 @@ class StoryContentsLite extends PureComponent {
                             htmlContent="html"
                             className={classes.newsImage}
                             {...element}
+                          />
+                        </>
+                      )
+                    }
+                    if (
+                      content.includes('twitter-tweet') ||
+                      content.includes('instagram-media')
+                    ) {
+                      return (
+                        <>
+                          <div
+                            data-type={
+                              content.includes('twitter-tweet')
+                                ? 'twitter'
+                                : 'instagram'
+                            }
+                            className={classes.newsEmbed}
+                            dangerouslySetInnerHTML={{
+                              __html: content.replace(
+                                /(<script.*?>).*?(<\/script>)/,
+                                ''
+                              ),
+                            }}
                           />
                         </>
                       )
