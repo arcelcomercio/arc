@@ -69,9 +69,9 @@ export default ({
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
+  else if (isStoryMatch && arcSite === 'depor') style = 'match-score'
   else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
     style = 'story'
-  else if (isStory && arcSite === 'depor' && isStoryMatch) style = 'match-score'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
