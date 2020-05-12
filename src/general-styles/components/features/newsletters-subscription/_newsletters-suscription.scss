@@ -27,7 +27,7 @@
       height: 376px;
     }
 
-    &:before {
+    &::before {
       content: "";
       position: absolute;
       pointer-events: none;
@@ -52,7 +52,7 @@
     }
   }
   &__title-text {
-    &:after {
+    &::after {
       content: "";
       display: block;
       width: 30px;
@@ -63,7 +63,7 @@
   }
   &__title-span {
     font-size: 20px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     line-height: 24px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -105,5 +105,6 @@
     bottom: -12px;
     height: 24px;
     width: 24px;
+    z-index: 1;
   }
 }

@@ -14,6 +14,10 @@ export const SITE_ELCOMERCIOMAG = 'elcomerciomag'
 
 export const SITE_PERU21 = 'peru21'
 
+export const SITE_PERU21G21 = 'peru21g21'
+
 export const SITE_OJO = 'ojo'
 
 export const SITE_DIARIOCORREO = 'diariocorreo'
+
+export const SITE_TROME = 'trome'

@@ -3,17 +3,10 @@ import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
+import { getAssetsPath } from '../utilities/constants'
 
-const SignwallOutputType = props => {
-  const {
-    children,
-    contextPath,
-    siteProperties,
-    deployment,
-    arcSite,
-    Libs,
-    Fusion,
-  } = props
+const Signwall = props => {
+  const { children, contextPath, siteProperties, deployment, arcSite } = props
 
   const { siteName, siteDescription } = siteProperties
 
@@ -35,7 +28,17 @@ const SignwallOutputType = props => {
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
         <meta name="robots" content="noindex,follow" />
-        <Libs />
+        <link
+          rel="shortcut icon"
+          type="image/png"
+          href={deployment(
+            `${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/favicon.png`
+          )}
+        />
+        <props.Libs />
         <link
           rel="stylesheet"
           href={deployment(
@@ -47,7 +50,6 @@ const SignwallOutputType = props => {
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
 
-        {/* <!-- Identity & Sales & Paywall - Inicio --> */}
         {siteProperties.activeSignwall && (
           <script
             src={`https://arc-subs-sdk.s3.amazonaws.com/${C_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
@@ -62,7 +64,6 @@ const SignwallOutputType = props => {
             />
           </>
         )}
-        {/* <!-- Identity & Sales & Paywall - Fin --> */}
       </head>
       <body>
         <noscript>
@@ -86,15 +87,16 @@ const SignwallOutputType = props => {
           {children}
         </div>
 
-        <Fusion />
+        <props.Fusion />
       </body>
     </html>
   )
 }
 
-SignwallOutputType.propTypes = {
+Signwall.fallback = false
+
+Signwall.propTypes = {
   children: PropTypes.node,
-  arcSite: PropTypes.string,
 }
 
-export default SignwallOutputType
+export default Signwall

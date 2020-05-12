@@ -1,0 +1,167 @@
+.h-basic {
+  background-color: $color-primary;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+
+  @media (--desktop) {
+    padding: 0 20px;
+    height: 60px;
+  }
+
+  &__btn {
+    padding: 0;
+    line-height: 0;
+  }
+
+  &__form {
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__btn-search {
+    padding: 0 12px 0 0;
+    border-right: 1px solid #707070;
+    margin-right: 20px;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__input {
+    width: 0;
+    transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
+    will-change: width;
+    background-color: #fff;
+    color: #444;
+    font-family: $primary-font;
+    font-weight: bold;
+    height: 25px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__btn-user {
+    @media (--desktop) {
+      width: 85px;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 6px;
+      border-radius: 3px;
+
+      &:focus,
+      &:hover {
+        border: 1px solid $color-gray-300;
+      }
+    }
+  }
+
+  &__sub {
+    width: 85px;
+    height: 25px;
+    color: #fff;
+    font: 700 11px/13px $primary-font;
+    letter-spacing: 0.26px;
+    background-color: $color-gray-300;
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.2));
+    border-radius: 3px;
+    margin-right: 15px;
+    display: block;
+    @media (--desktop) {
+      margin-right: 10px;
+    }
+  }
+
+  &__btn-menu {
+    align-items: center;
+  }
+
+  &__menu-txt {
+    color: $color-gray-300;
+    font-size: 13px;
+    font-family: $primary-font;
+    font-weight: 500;
+    letter-spacing: 0.26px;
+    margin-left: 10px;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__user-txt {
+    font: 700 11px $primary-font;
+    letter-spacing: 0.24px;
+    color: $color-gray-300;
+    padding-top: 2px;
+    padding-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+
+  &__menu,
+  &__search {
+    path {
+      fill: $color-gray-300;
+    }
+  }
+
+  &__user {
+    height: 24px;
+    width: 24px;
+    @media (--desktop) {
+      height: 11px;
+      width: fit-content;
+    }
+    path {
+      fill: $color-gray-300;
+    }
+  }
+
+  &__img-link {
+    display: block;
+    flex: 1;
+    padding-left: 15px;
+    @media (--desktop) {
+      flex: unset;
+    }
+  }
+
+  &__img {
+    height: 20px;
+    @media (--desktop) {
+      height: 26px;
+    }
+  }
+
+  &__social {
+    display: none;
+  }
+
+  &__share-txt {
+    align-items: center;
+    color: #8c8c8c;
+    font-size: 14px;
+    font-family: $primary-font;
+    margin-right: 20px;
+    display: none;
+    @media (--desktop) {
+      display: flex;
+    }
+  }
+}

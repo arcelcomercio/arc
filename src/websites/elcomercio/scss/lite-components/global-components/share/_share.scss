@@ -1,0 +1,19 @@
+.share-btn {
+  border: 1px solid $color-gray-300;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  padding: 0;
+  line-height: 0;
+  fill: $color-gray-300;
+
+  &--stroke {
+    fill: transparent;
+    stroke: $color-gray-300;
+  }
+
+  &--ws {
+    border: none;
+  }
+}

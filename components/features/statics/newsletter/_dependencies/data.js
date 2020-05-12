@@ -1,5 +1,5 @@
 // import { ResizeImageUrl } from '../../../../utilities/helpers'
-import { getAssetsPath } from '../../../../utilities/constants'
+import { getAssetsPath } from '../../../../utilities/assets'
 
 class Data {
   constructor(customFields, arcSite, contextPath) {
@@ -12,7 +12,7 @@ class Data {
     const imgDefault = `${getAssetsPath(
       this._arcSite,
       this._contextPath
-    )}/resources/assets/newsletter/phone.png`
+    )}/resources/assets/newsletter/phone.png?d=1`
     return this._customFields.image || imgDefault
   }
 

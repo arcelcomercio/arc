@@ -14,15 +14,15 @@
     }
   }
 
-  &__btn-sign{
-    border: 0px;
+  &__btn-sign {
+    border: 0;
     width: 34px;
     height: 34px;
     cursor: pointer;
     border-radius: 50%;
     background-color: $signwall-btn-m-bg;
     color: $signwall-btn-m-color;
-    padding: 0px !important;
+    padding: 0 !important;
     display: block;
     @media (--desktop) {
       border: 1px solid $signwall-btn-d-border;
@@ -224,7 +224,7 @@
     }
 
     @media (--mobile) {
-      .nav__btn-sign{
+      .nav__btn-sign {
         color: $signwall-btn-m-color;
       }
     }
@@ -242,7 +242,7 @@
       }
 
       .nav__btn-subs,
-      .nav__btn-sign{
+      .nav__btn-sign {
         color: $signwall-btn-d-color;
       }
 

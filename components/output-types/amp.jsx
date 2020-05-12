@@ -188,13 +188,13 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
-
-        <script
-          async
-          custom-element="amp-next-page"
-          src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
-        />
-
+        {arcSite !== 'peru21' && (
+          <script
+            async
+            custom-element="amp-next-page"
+            src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
+          />
+        )}
         <script
           async
           custom-element="amp-youtube"
@@ -221,6 +221,12 @@ const AmpOutputType = ({
           custom-element="amp-facebook"
           src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
         />
+        <script
+          async
+          custom-element="amp-fx-flying-carpet"
+          src="https://cdn.ampproject.org/v0/amp-fx-flying-carpet-0.1.js"
+        />
+
         {arcSite === ConfigParams.SITE_DEPOR && (
           <script
             async
@@ -246,6 +252,10 @@ const AmpOutputType = ({
           custom-element="amp-fit-text"
           src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
         />
+        <script
+          async
+          custom-element="amp-social-share"
+          src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
       </head>
       <body className="">

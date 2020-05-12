@@ -6,7 +6,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 
 import HeaderChildSomos from './_children/section-header'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const DEFAULT_HIERARCHY = 'header-default'
 
@@ -14,7 +14,6 @@ const LayoutHeader = props => {
   const {
     arcSite,
     contextPath,
-    deployment,
     siteProperties,
     globalContentConfig,
   } = useFusionContext()
@@ -69,12 +68,10 @@ const LayoutHeader = props => {
   const logo = () => {
     return (
       customLogo ||
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/${headerProperties.logo}`
-      )
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${headerProperties.logo}?d=1`
     )
   }
 

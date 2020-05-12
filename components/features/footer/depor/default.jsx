@@ -6,7 +6,7 @@ import getProperties from 'fusion:properties'
 import getFooterProperties from '../_dependencies/properties'
 import FooterDeporColumnSection from './_children/FooterSection'
 import FooterInfo from './_children/FooterInfo'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -31,13 +31,17 @@ const classes = {
 }
 
 const FooterDepor = () => {
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath } = useFusionContext()
 
-  const { gecSites, siteUrl = '', legalLinks = [] } = getProperties(arcSite)
+  const {
+    gecSites,
+    siteUrl = '',
+    legalLinks = [],
+    socialNetworks = [],
+  } = getProperties(arcSite)
 
   const {
     footer: {
-      socialNetworks = [],
       contacts = [],
       corporateInfo = {},
       draftingContact = [],
@@ -45,12 +49,10 @@ const FooterDepor = () => {
     } = {},
   } = getFooterProperties(arcSite)
 
-  const imageDefault = deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/logo.png`
-  )
+  const imageDefault = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/logo.png?d=1`
 
   const sections = useContent({
     source: CONTENT_SOURCE,

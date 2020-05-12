@@ -13,16 +13,16 @@ export default {
   resizerUrl: 'https://elcomercio.pe/resizer',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/web/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Delcomercio%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/web/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3Delcomercio%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/amp/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Delcomercio%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomercio/amp/post/default/preroll&description_url=https%3A%2F%2Felcomercio.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Delcomercio%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
   ampGoogleTagManagerName: 'elcomercio',
   charbeatAccountNumber: 57773,
   idGoogleAnalitics: 'UA-3055636-11',
-  fbPixelId: '637459447015102',
+  fbPixelId: '1252229265121278',
   fbArticleStyle: 'LogoElcomercio',
   nameStoryRelated: 'VEA TAMBIÉN',
   googleTagManagerMobile: 'GTM-NNX4LXF',
@@ -110,8 +110,9 @@ export default {
       originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.elcomercio.pe`,
       originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js?v=1`,
       originSalesSdk:                    `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-sales.min.js`,
-      originPayuSdk:                     `https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js`,
+      originPayuSdk:                     `https://{{#isProd}}d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/{{/isProd}}{{^isProd}}signwall-test.e3.pe/static/{{/isProd}}payu-sdk.js`,
       originPayuTags:                    `https://maf.pagosonline.net/ws/fp/tags.js?id={{deviceSessionId}}80200`,
+      originPaymentTraker:               `https://{{#isProd}}su3l9d6w10{{/isProd}}{{^isProd}}72q176wl1l{{/isProd}}.execute-api.us-east-1.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}dev{{/isProd}}/v1/service/arc/paywall/tracking`,
       originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
       originSubscriptionOnlineToken:     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
       originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/elcomercio/{{#hasParams}}?{{/hasParams}}{{#isCheckingSubscriptor}}doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/isCheckingSubscriptor}}{{#isEvent}}{{#isCheckingSubscriptor}}&{{/isCheckingSubscriptor}}event={{event}}{{/isEvent}}{{#fromFia}}from_fia=true{{/fromFia}}`,
@@ -124,7 +125,7 @@ export default {
       disclaimer:                        `http://ecomedia.pe/libro/registrar/elcomercio/`,
       terms:                             `https://suscripciones.elcomercio.pe/terminos/`,
       originSubsOnline:                  `https://suscripciones.elcomercio.pe/?ref=Boton_suscrip_imp`,
-      contactEmailRef:                   `mailto:suscripciones@comercio.com.pe`,
+      contactEmailRef:                   `mailto:atencionalcliente@comercio.com.pe`,
       contactPhoneRef:                   `tel:+5113115100`,
       androidAppDownload:                `https://play.google.com/store/apps/details?id=com.gec.elcomercio&referrer=email_footer`,
       iosAppDownload:                    `https://apps.apple.com/es/app/el-comercio-peru/id793178800?ct=email_footer`,
@@ -152,7 +153,7 @@ export default {
       backgroundx1:                      `{{contextPath}}/resources/dist/elcomercio/images/bg_planes_10.jpg`,
       backgroundReview:                  `{{contextPath}}/resources/dist/elcomercio/images/bg_video.jpg`,
       reviewPoster:                      `{{contextPath}}/resources/dist/elcomercio/images/review_poster.jpg`,
-      mainLogo:                          `/resources/dist/elcomercio/images/white-logo.png`, 
+      mainLogo:                          `{{contextPath}}/resources/dist/elcomercio/images/white-logo.png`, 
     }
   },
 
@@ -201,49 +202,35 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
-      },
-      {
-        name: 'youtube',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/elcomercio.pe',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/elcomercio_peru',
+    },
+    {
+      name: 'instagram',
+      url: 'https://www.instagram.com/elcomercio/?hl=es',
+    },
+    {
+      name: 'youtube',
+      url: 'https://www.youtube.com/channel/UCLtGUPjKLqa3zgdmhKCZONg',
+    },
+  ],
   social: {
     facebook: {
-      name: 'facebook',
       user: '@elcomercio.pe',
       url: 'https://www.facebook.com/elcomercio.pe',
     },
     twitter: {
-      name: 'twitter',
       user: 'elcomercio_peru',
-      url: 'https://twitter.com/elcomercio_peru',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
-    },
-    instagram: {
-      name: 'instagram',
-      url: 'https://www.instagram.com/elcomercio/?hl=es',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011632,
-    movil2: 15011649,
-    movil3: 15011662,
-    movil4: 15011668,
-    movil5: 15011680,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna1-300x250-div-gpt-ad-8599377-16.html',
@@ -254,7 +241,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: true,
-  activeNewsletter: true,
+  activeNewsletter: false,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
@@ -264,6 +251,7 @@ export default {
     mainColorTitle: '#008eff',
     mainColorBtn: '#008eff',
     primaryFont: 'Noto Serif SC',
+    authProviders: ['facebook'],
   },
   urlSubsOnline: '/suscripciones/',
   gda: true, // Grupo Diarios de America

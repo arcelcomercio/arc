@@ -39,5 +39,7 @@ import './icons/fonts/gestion.svg'
 
 import './fonts/OpenSans-Regular-webfont.woff'
 
+/** Scripts */
+
 // Imagenes paywall
 require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)

@@ -1,5 +1,5 @@
 import schemaFilter from './schema-filter'
-import { getAssetsPath } from '../../../../utilities/constants'
+import { getAssetsPath } from '../../../../utilities/assets'
 
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 const DEFAULT_HIERARCHY = 'menu-default'
@@ -44,12 +44,10 @@ export default class NavbarFormater {
       initParams: () => {
         return {
           back: {
-            logo: this.deployment(
-              `${getAssetsPath(
-                this.arcSite,
-                this.contextPath
-              )}/resources/dist/${this.arcSite}/images/${logoSomos}`
-            ),
+            logo: `${getAssetsPath(
+              this.arcSite,
+              this.contextPath
+            )}/resources/dist/${this.arcSite}/images/${logoSomos}?d=1`,
             link: '/',
             alt: this.siteDomain,
           },
@@ -66,18 +64,15 @@ export default class NavbarFormater {
     return {
       initParams: () => {
         return {
-          logo: this.deployment(
-            `${getAssetsPath(this.arcSite, this.contextPath)}/resources/dist/${
-              this.arcSite
-            }/images/${logo}`
-          ),
+          logo: `${getAssetsPath(
+            this.arcSite,
+            this.contextPath
+          )}/resources/dist/${this.arcSite}/images/${logo}?d=1`,
           logoLeft: {
-            src: this.deployment(
-              `${getAssetsPath(
-                this.arcSite,
-                this.contextPath
-              )}/resources/dist/${this.arcSite}/images/otorongo.png`
-            ),
+            src: `${getAssetsPath(
+              this.arcSite,
+              this.contextPath
+            )}/resources/dist/${this.arcSite}/images/otorongo.png?d=1`,
             alt: this.arcSite,
           },
         }

@@ -24,7 +24,7 @@ class XmlArchiveDayWebSitemap {
           date: `${year}-${month}-${day}`,
           size: 100,
           presets: 'no-presets',
-          includedFields: `websites.${arcSite}.website_url,display_date`,
+          includedFields: `websites.${arcSite}.website_url,display_date,publish_date`,
         },
       },
     })
@@ -58,9 +58,13 @@ class XmlArchiveDayWebSitemap {
         return {
           url: {
             loc: `${siteUrl}${storyData.websiteLink || ''}`,
-            lastmod: localISODate(storyData.date || ''),
-            changefreq: 'hourly',
-            priority: '1.0',
+            lastmod: localISODate(
+              arcSite === 'elcomercio'
+                ? storyData.publishDate
+                : storyData.date || ''
+            ),
+            changefreq: arcSite === 'elcomercio' ? 'always' : 'hourly',
+            priority: arcSite === 'elcomercio' ? '0.5' : '1.0',
           },
         }
       }),

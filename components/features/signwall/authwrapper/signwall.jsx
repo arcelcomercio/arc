@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import Consumer from 'fusion:consumer'
 import styled from 'styled-components'
 import { ModalConsumer, ModalProvider } from '../_children/context'
-import { SecondMiddle } from '../main/_main/generic/styled'
-import { FormLogin } from '../main/_main/_children/form_login'
-import { FormRegister } from '../main/_main/_children/form_register'
-import { FormForgot } from '../main/_main/_children/form_forgot'
+import { SecondMiddle } from '../mainpage/_children/generic/styled'
+import { FormLogin } from '../_children/forms/form_login'
+import { FormRegister } from '../_children/forms/form_register'
+import { FormForgot } from '../_children/forms/form_forgot'
 import CallToActionFia from './_children/call_to_action'
 import { device } from '../_dependencies/breakpoints'
 import Domains from '../_dependencies/domains'
+import Cookies from '../_dependencies/cookies'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
@@ -39,6 +40,10 @@ const _AuthWrapper = props => {
     if (typeof window !== 'undefined') {
       window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
       window.Identity.logout()
+      Cookies.deleteCookie('arc_e_id')
+      window.sessionStorage.removeItem('paywall-profile-form') // formik raul
+      window.sessionStorage.removeItem('paywall-payment-form') // formik raul
+      window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
       setLogged(false)
     }
   }
@@ -75,7 +80,7 @@ const _AuthWrapper = props => {
                   logoutSession={logoutSession}
                   arcSite={arcSite}
                   typeDialog={typeDialog}
-                  urlPlan={Domains.getUrlPaywall(arcSite)}
+                  urlPlan={Domains.getUrlPaywallFia(arcSite)}
                 />
               )}
             </SecondMiddle>

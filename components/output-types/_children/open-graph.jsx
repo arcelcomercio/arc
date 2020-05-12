@@ -4,6 +4,7 @@ import { deleteQueryString } from '../../utilities/helpers'
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
 import { getResizedUrl } from '../../utilities/resizer'
+import { getAssetsPathVideo } from '../../utilities/assets'
 
 export default ({
   fbAppId,
@@ -14,7 +15,6 @@ export default ({
   arcSite,
   siteName,
   story,
-  deployment = () => {},
   globalContent: data,
   requestUri,
 }) => {
@@ -38,12 +38,10 @@ export default ({
           presets: 'large:980x528',
           arcSite,
         }).large
-      : deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/logo_fb.jpg`
-        )
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo_fb.jpg?d=1`
 
   if (
     arcSite === ConfigParams.SITE_DIARIOCORREO &&
@@ -51,7 +49,7 @@ export default ({
   ) {
     image = authorImage
   }
-
+  const urlVideo = getAssetsPathVideo(arcSite, url)
   return (
     <>
       {/* <!-- Facebook OG --> */}
@@ -66,18 +64,18 @@ export default ({
 
       {story && (
         <>
-          <meta property="og:image:width" content="696" />
-          <meta property="og:image:height" content="418" />
+          <meta property="og:image:width" content="980" />
+          <meta property="og:image:height" content="528" />
           <meta property="og:image:type" content="image/jpeg" />
         </>
       )}
 
-      {url && (
+      {urlVideo && (
         <>
-          <meta property="og:video" content={url} />
-          <meta property="og:video:secure_url" content={url} />
-          <meta property="og:video:width" content="696" />
-          <meta property="og:video:height" content="418" />
+          <meta property="og:video" content={urlVideo} />
+          <meta property="og:video:secure_url" content={urlVideo} />
+          <meta property="og:video:width" content="980" />
+          <meta property="og:video:height" content="528" />
           <meta property="og:video:stream:content_type" content="video/mp4" />
           <meta property="og:video:type" content="video/mp4" />
         </>

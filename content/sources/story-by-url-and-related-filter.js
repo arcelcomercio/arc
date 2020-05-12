@@ -5,7 +5,6 @@ import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'story-dev'
-
 const params = [
   {
     name: 'website_url',
@@ -139,6 +138,16 @@ export default {
       type
       width
     }
+    additional_properties{
+      advertising{
+        allowPrerollOnDomain
+        playAds
+        forceAd
+        playVideoAds
+        enableAdInsertion
+        enableAutoPreview
+      }
+    }
     level
     language
     url
@@ -185,6 +194,10 @@ export default {
       description{
         type
         content
+      }
+      image {
+        type
+        url
       }
     }
     streams{
@@ -312,7 +325,7 @@ export default {
       content
       type
     }
-    uuid_match{
+    infografia {
       content
       type
     }
@@ -376,10 +389,12 @@ export default {
       content_restrictions{
         content_code
       }
-      subtype
       type
       headlines{
         basic
+      }
+      credits {
+        by { name url type }
       }
       promo_items{
         basic{
@@ -387,10 +402,6 @@ export default {
           url
           width
           height
-        }
-        uuid_match{
-          content
-          type
         }
         basic_gallery{
           promo_items{

@@ -1,0 +1,66 @@
+$primary-font: "Roboto", sans-serif;
+$secondary-font: "Georgia", serif;
+$tertiary-font: $secondary-font;
+
+.f {
+  display: flex;
+}
+
+.f-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.just-center {
+  justify-content: center;
+}
+
+.f-col {
+  flex-direction: column;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.pos-abs {
+  position: absolute;
+}
+
+.oflow-h {
+  overflow: hidden;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.hidden-label {
+  font-size: 0;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+}
+
+[id*="div-gpt-ad"] {
+  text-align: center;
+  @media print {
+    display: none;
+  }
+}
+
+/* -------------------------------/
+/          LITE NORMALIZE         /
+/ ------------------------------ */
+.menu {
+  width: 0;
+  transform: translateX(-100vw);
+}

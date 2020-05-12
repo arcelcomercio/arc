@@ -1,6 +1,6 @@
 /** ----------------------------*
 *          BREAKPOINTS          *
-*-------------------------------*/
+* ----------------------------- */
 
 @custom-media --tablet screen and (min-width: 640px);
 @custom-media --desktop screen and (min-width: 1024px);
@@ -9,17 +9,17 @@
 // CUSTOM MEDIA QUERYS
 @custom-media --only-mobile screen and (max-width: 639px);
 
-$map-breakpoints: 'md', 'lg';
+$map-breakpoints: "md", "lg";
 
 // Traductor de nombre de breakpoint
 // Ejemplo  'md' --> '--tablet'
 @function breakpoint-name($breakpoint-id) {
-  $breakpoint-res: '';
+  $breakpoint-res: "";
 
-  @if $breakpoint-id== 'md' {
-    $breakpoint-res: '--tablet';
-  } @else if $breakpoint-id== 'lg' {
-    $breakpoint-res: '--desktop';
+  @if $breakpoint-id== "md" {
+    $breakpoint-res: "--tablet";
+  } @else if $breakpoint-id== "lg" {
+    $breakpoint-res: "--desktop";
   }
 
   @return $breakpoint-res;

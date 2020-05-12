@@ -11,10 +11,10 @@ import { conformProfile, isLogged } from '../_dependencies/Identity'
 import { interpolateUrl } from '../_dependencies/domains'
 import { useStrings } from '../_children/contexts'
 import Icon from '../_children/icon'
-import { Landing } from '../../signwall/main/_main/landing/index'
+import { Landing } from '../../signwall/_children/landing/index'
 import Taggeo from '../_dependencies/taggeo'
 import * as S from './styled'
-import { getAssetsPath } from '../../../utilities/constants'
+import QueryString from '../../signwall/_dependencies/querystring'
 
 const NAME_MAX_LENGHT = 10
 
@@ -23,15 +23,17 @@ const Head = props => {
   const {
     theme,
     arcSite,
-    contextPath,
+    globalContent,
     siteProperties: {
-      paywall: { urls, images },
+      paywall: { urls },
     },
     customFields: { id, forceLogin: _forceLogin },
     dispatchEvent,
     addEventListener,
     removeEventListener,
   } = props
+
+  const fromFia = !!(globalContent || {}).fromFia
 
   const [profile, setProfile] = React.useState()
   const [showSignwall, setShowSignwall] = React.useState(false)
@@ -77,6 +79,11 @@ const Head = props => {
         })
         .catch(() => {})
     }
+
+    if (QueryString.getQuery('signLanding')) {
+      setShowSignwall(true)
+    }
+
     return unregisterListeners
   }, [])
 
@@ -116,6 +123,7 @@ const Head = props => {
             dispatchEvent('loginCanceled')
             typeSignWall.current = 'landing'
             setShowSignwall(false)
+            QueryString.deleteQuery('signLanding') // remover queryString signLanding
           }}
           noBtnClose={students ? false : !!_forceLogin}
         />
@@ -125,13 +133,11 @@ const Head = props => {
         <S.Right />
       </S.Background>
       <S.Content backgroundColor={leftColor}>
-        <S.WrapLogo as="a" href="/" target="_blank">
-          <img
-            alt={`logo ${arcSite}`}
-            src={`${getAssetsPath(arcSite, contextPath)}${interpolateUrl(
-              images.mainLogo
-            )}`}
-          />
+        <S.WrapLogo
+          as={fromFia ? 'span' : 'a'}
+          href="/?ref=paywall"
+          target="_blank">
+          <img alt={`logo ${arcSite}`} src={theme.images.mainLogo} />
         </S.WrapLogo>
         <S.WrapLogin>
           <S.Username>

@@ -9,9 +9,9 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     //  'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome/web/post/default/preroll&description_url=https%3A%2F%2Ftrome.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Dtrome%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome/web/post/default/preroll&description_url=https%3A%2F%2Ftrome.pe%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3Dtrome%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome/amp/post/default/preroll&description_url=https%3A%2F%2Ftrome.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Dtrome%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome/amp/post/default/preroll&description_url=https%3A%2F%2Ftrome.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Dtrome%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
 
   fbAppId: 'fbappidDEEEEEPOR',
   googleTagManagerId: 'GTM-PP8XNMR',
@@ -83,54 +83,35 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'Twitter',
-        url: 'https://twitter.com/tuittrome',
-      },
-      {
-        name: 'Facebook',
-        url: 'https://www.facebook.com/trome.pe',
-      },
-
-      {
-        name: 'Google+',
-        url: 'https://plus.google.com/u/0/+tromepe',
-      },
-      {
-        name: 'Pinterest',
-        url: 'https://www.pinterest.com/tromepe',
-      },
-      {
-        name: 'RSS ',
-        url: 'https://trome.com/arcio/rss',
-      },
-    ],
-  },
-  social: {
-    facebook: {
-      name: 'facebook',
-      user: '@trome.com',
-      url: 'https://www.facebook.com/trome.com',
-    },
-    twitter: {
-      name: 'twitter',
-      user: 'tuittrome',
+  socialNetworks: [
+    {
+      name: 'Twitter',
       url: 'https://twitter.com/tuittrome',
     },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+tromecom',
+    {
+      name: 'Facebook',
+      url: 'https://www.facebook.com/trome.pe',
+    },
+    {
+      name: 'Pinterest',
+      url: 'https://www.pinterest.com/tromepe',
+    },
+    {
+      name: 'RSS ',
+      url: 'https://trome.com/arcio/rss',
+    },
+  ],
+  social: {
+    facebook: {
+      user: '@trome.com',
+      url: 'https://www.facebook.com/trome.pe',
+    },
+    twitter: {
+      user: 'tuittrome',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011760,
-    movil2: 15011761,
-    movil3: 15011762,
-    movil4: 15011763,
-    movil5: 15011764,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna1-300x250-div-gpt-ad-8599377-46.html',
@@ -139,7 +120,7 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna4-300x250-div-gpt-ad-8599377-49.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna5-300x250-div-gpt-ad-8599377-50.html',
   ],
-  activeSignwall: true,
+  activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
   signwall: {
@@ -149,6 +130,7 @@ export default {
     mainColorBr: '#ffede5',
     mainColorLink: '#e06437',
     mainColorBtn: '#f15c23',
+    authProviders: ['facebook'],
   },
   taboola: {
     dataModeAmp: 'thumbnails-e',

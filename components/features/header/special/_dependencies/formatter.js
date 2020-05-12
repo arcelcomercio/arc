@@ -1,4 +1,4 @@
-import { getAssetsPath } from '../../../../utilities/constants'
+import { getAssetsPath } from '../../../../utilities/assets'
 
 export default class SpecialHeader {
   constructor(
@@ -33,11 +33,9 @@ export default class SpecialHeader {
       logo: {
         src:
           this.customLogo ||
-          this.deployment(
-            `${getAssetsPath(this.arcSite, this.contextPath)}/resources/dist/${
-              this.arcSite
-            }/images/${logo}`
-          ),
+          `${getAssetsPath(this.arcSite, this.contextPath)}/resources/dist/${
+            this.arcSite
+          }/images/${logo}?d=1`,
         link: this.customLogoLink,
         alt: this.siteDomain,
       },

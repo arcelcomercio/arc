@@ -6,18 +6,16 @@ import getProperties from 'fusion:properties'
 
 import customFields from './_dependencies/custom-fields'
 import { filterHeader, filterMenu } from './_dependencies/schema-filter'
-import { socialMediaUrlShareList } from '../../../utilities/helpers'
-import ConfigParams from '../../../utilities/config-params'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
+import { getAssetsPath } from '../../../utilities/assets'
 
 import HeaderFullView from './_children/header-full'
-import { getAssetsPath } from '../../../utilities/constants'
 
 const HeaderFull = props => {
   const {
     arcSite,
     contextPath,
-    deployment,
-    siteProperties,
     requestUri,
     globalContent: {
       type = '',
@@ -26,14 +24,16 @@ const HeaderFull = props => {
     } = {},
   } = useFusionContext() || {}
 
+  const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
+
   const {
-    footer: { socialNetworks = [] } = {},
+    socialNetworks = [],
+    social: { twitter: { user: siteNameRedSocial } = {} } = {},
     mobileHeaderFollowing = '',
     siteDomain = '',
     legalLinks = [],
-  } = siteProperties
-
-  const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
+    siteUrl,
+  } = getProperties(arcSite)
 
   const {
     contentService: serviceHeader = '',
@@ -73,17 +73,10 @@ const HeaderFull = props => {
       filter: filterMenu,
     }) || {}
 
-  const {
-    social: {
-      twitter: { user: siteNameRedSocial },
-    },
-    siteUrl,
-  } = getProperties(arcSite)
-
   const { children: headerList = [] } = dataHeader
   const { children: menuList = [] } = dataMenu
 
-  let isStory = type === ConfigParams.ELEMENT_STORY
+  let isStory = type === ELEMENT_STORY
   if (
     requestUri.includes('/alineaciones/') ||
     requestUri.includes('/estadisticas/')
@@ -98,37 +91,37 @@ const HeaderFull = props => {
     siteNameRedSocial
   )
 
-  const shareButtons = {
-    firstList: [
-      {
-        icon: 'icon-facebook-circle',
-        link: urlsShareList.facebook,
-      },
+  const shareButtons = [
+    {
+      name: 'facebook',
+      icon: 'icon-facebook-circle',
+      link: urlsShareList.facebook,
+    },
 
-      {
-        icon: 'icon-twitter-circle',
-        link: urlsShareList.twitter,
-      },
-      {
-        icon: 'icon-linkedin-circle',
-        link: urlsShareList.linkedin,
-      },
-      {
-        icon: 'icon-whatsapp',
-        link: urlsShareList.whatsapp,
-      },
-    ],
-  }
+    {
+      name: 'twitter',
+      icon: 'icon-twitter-circle',
+      link: urlsShareList.twitter,
+    },
+    {
+      name: 'linkedin',
+      icon: 'icon-linkedin-circle',
+      link: urlsShareList.linkedin,
+    },
+    {
+      name: 'whatsapp',
+      icon: 'icon-whatsapp',
+      link: urlsShareList.whatsapp,
+    },
+  ]
   const arcSiteTrome = 'trome'
 
   const winningCallLogo =
     arcSite === arcSiteTrome
-      ? deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png`
-        )
+      ? `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
       : ''
 
   const params = {
@@ -137,18 +130,14 @@ const HeaderFull = props => {
     socialNetworks,
     postTitle,
     isStory,
-    logo: deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/alternate-logo.png`
-    ),
-    whiteLogo: deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/alternate-logo-w.png`
-    ),
+    logo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`,
+    whiteLogo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/alternate-logo-w.png?d=1`,
     shareButtons,
     arcSite,
     winningCallLogo,
@@ -162,4 +151,5 @@ HeaderFull.propTypes = {
   customFields,
 }
 HeaderFull.label = 'Cabecera Full'
+HeaderFull.static = true
 export default HeaderFull

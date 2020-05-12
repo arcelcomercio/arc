@@ -1,47 +1,42 @@
-/******* Framework Variables*******/
-@import './partials/import-icons';
-@import '../../../general-styles/framework/variables/index';
-/*---------------------*/
+/******* Framework Variables *******/
+@import "./partials/import-icons";
+@import "../../../general-styles/framework/variables/index";
 
 /******* Site Variables *******/
-@import './variables/index';
-@import '../../../general-styles/framework/core/index';
-@import './partials/import-fonts';
-@import '../../../general-styles/framework/generators/index';
-/*---------------------*/
+@import "./variables/index";
+@import "../../../general-styles/framework/core/index";
+@import "./partials/import-fonts";
+@import "../../../general-styles/framework/generators/index";
 
 /******* Partials *******/
-@import './partials/base';
-@import './partials/buttons';
-/*---------------------*/
+@import "./partials/base";
+@import "./partials/buttons";
 
 /******* Components *******/
-@import '../../../general-styles/components/index';
-/*---------------------*/
+@import "../../../general-styles/components/index";
 
 /******* Modificadores *******/
-@import './components/buttons';
-@import './components/breaking-news';
-@import './components/nav';
-@import './components/extraordinary-story';
-@import './components/separador';
-@import './components/featured-story';
-@import './components/triplet';
-@import './components/stories-list-header';
-@import './components/stories-list-item';
-@import './components/search-filter';
-@import './components/story-item';
-@import './components/pagination';
-@import './components/most-read';
-@import './components/most-read-item';
-@import './components/footer';
-@import './components/footer-story';
-@import './components/search-input';
-@import './components/story-header';
-@import './components/story-gallery-slider';
-@import './components/story-content';
-@import './components/related-content';
-@import './components/info-pages';
-@import './components/story-continue';
-@import './components/calendar';
-/*---------------------*/
+@import "./components/buttons";
+@import "./components/breaking-news";
+@import "./components/nav";
+@import "./components/extraordinary-story";
+@import "./components/separador";
+@import "./components/featured-story";
+@import "./components/triplet";
+@import "./components/stories-list-header";
+@import "./components/stories-list-item";
+@import "./components/search-filter";
+@import "./components/story-item";
+@import "./components/pagination";
+@import "./components/most-read";
+@import "./components/most-read-item";
+@import "./components/footer";
+@import "./components/footer-story";
+@import "./components/search-input";
+@import "./components/story-header";
+@import "./components/story-gallery-slider";
+@import "./components/story-content";
+@import "./components/related-content";
+@import "./components/info-pages";
+@import "./components/story-continue";
+@import "./components/calendar";

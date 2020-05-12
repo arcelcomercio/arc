@@ -1,5 +1,6 @@
 import { SITE_ELCOMERCIO } from './constants/sitenames'
-import { VIDEO, GALLERY, getAssetsPath } from './constants'
+import { VIDEO, GALLERY } from './constants/multimedia-types'
+import { getAssetsPath } from './assets'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -282,24 +283,6 @@ export const socialMediaUrlShareList = (
   }
 }
 
-export const socialMediaUrlShareListBlog = (
-  siteUrl,
-  postPermaLink,
-  postTitle,
-  siteNameRedSocial = 'Gestionpe'
-) => {
-  return {
-    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}blog/${postPermaLink}`,
-    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      postTitle
-    )}&url=${siteUrl}blog/${postPermaLink}&via=${siteNameRedSocial}`,
-    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}blog/${postPermaLink}`,
-    pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}blog/${postPermaLink}`,
-    whatsapp: `whatsapp://send?text=${siteUrl}blog/${postPermaLink}`,
-    fbmsg: `fb-messenger://share/?link=${siteUrl}blog/${postPermaLink}`,
-  }
-}
-
 export const createMarkup = html => {
   return {
     __html: html,
@@ -396,20 +379,13 @@ export const addParamToEndPath = (path, param) => {
  *
  * @returns {string} URL de la imagen por defecto desde /resources/dist/...
  */
-export const defaultImage = ({
-  deployment,
-  contextPath,
-  arcSite,
-  size = 'lg',
-}) => {
+export const defaultImage = ({ contextPath, arcSite, size = 'lg' }) => {
   if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
 
-  return deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/default-${size}.png`
-  )
+  return `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/default-${size}.png?d=1`
 }
 
 export const createScript = ({ src, async, defer, textContent = '' }) => {
@@ -542,16 +518,6 @@ export const deleteQueryString = url => {
   return onlyUrl.split('#')[0]
 }
 
-export const isIE = () => {
-  const ua = window.navigator.userAgent
-  const msie = ua.indexOf('MSIE ')
-  const trident = ua.indexOf('Trident/')
-  if (msie > 0 || trident > 0) {
-    return true
-  }
-  return false
-}
-
 export const addSlashToDateEnd = url => {
   let urlSlash = url
   const fecha = new Date('2019-07-16T22:30:00')
@@ -563,12 +529,14 @@ export const addSlashToDateEnd = url => {
   return urlSlash
 }
 
-export const searchQuery = (query, sort) => {
-  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
-  if (query !== '')
-    // eslint-disable-next-line no-restricted-globals
-    location.href = `/buscar/${newQuery}/todas/${sort ||
-      'descendiente'}/?query=${newQuery}`
+export const isIE = () => {
+  const ua = window.navigator.userAgent
+  const msie = ua.indexOf('MSIE ')
+  const trident = ua.indexOf('Trident/')
+  if (msie > 0 || trident > 0) {
+    return true
+  }
+  return false
 }
 
 export function parseQueryString(str) {

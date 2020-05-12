@@ -3,8 +3,8 @@ import { useFusionContext } from 'fusion:context'
 
 import { customFields } from './_dependencies/custom-fields'
 import BlogPostListGridChildGrid from './_children/grid'
-import { defaultImage, addSlashToEnd } from '../../../utilities/helpers'
-import { getAssetsPath } from '../../../utilities/constants'
+import { addSlashToEnd } from '../../../utilities/parse/strings'
+import { getAssetsPath, defaultImage } from '../../../utilities/assets'
 
 const BlogPostListGrid = props => {
   const {
@@ -72,12 +72,11 @@ const BlogPostListGrid = props => {
     .slice(initialPositionItem, initialPositionItem + numShowItems)
     .map(blog => buildParams(blog))
 
-  const urlLogoBrand = deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/author.png`
-  )
+  const urlLogoBrand = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/author.png?d=1`
+
   const { siteName = '' } = siteProperties
 
   return (

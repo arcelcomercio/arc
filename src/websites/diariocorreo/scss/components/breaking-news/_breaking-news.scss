@@ -1,4 +1,8 @@
 .breaking-news {
+  &__text,
+  &__link {
+    font-weight: 600;
+  }
   &--bgcolor-1 {
     background-color: $color-attention;
     .breaking-news__text,
@@ -7,8 +11,24 @@
       color: $color-base-400;
     }
   }
-  &__text,
-  &__link {
-    font-weight: 600;
+  &--bgcolor-2 {
+    .breaking-news__tag {
+      animation-name: intermitent;
+      animation-duration: 1.5s;
+      animation-delay: 0.5s;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+@keyframes intermitent {
+  0% {
+    color: $color-white;
+  }
+  50% {
+    color: $color-black;
+  }
+  100% {
+    color: $color-white;
   }
 }

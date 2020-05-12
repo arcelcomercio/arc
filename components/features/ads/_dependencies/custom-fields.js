@@ -60,6 +60,22 @@ const customFields = PropTypes.shape({
     },
     defaultValue: false,
   }),
+  liteAdId: PropTypes.string.tag({
+    name: 'ID',
+    group: 'Lite',
+  }),
+  liteAdName: PropTypes.string.tag({
+    name: 'Nombre',
+    group: 'Lite',
+  }),
+  liteAdDimensions: PropTypes.string.tag({
+    name: 'Dimensiones para Tablet y Desktop',
+    group: 'Lite',
+  }),
+  liteAdMobileDimensions: PropTypes.string.tag({
+    name: 'Dimensiones para Mobile',
+    group: 'Lite',
+  }),
 })
 
 export default customFields

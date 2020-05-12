@@ -12,7 +12,6 @@ export default ({
   description,
   twitterCreator,
   story,
-  deployment = () => {},
   globalContent: data,
 }) => {
   const {
@@ -32,12 +31,10 @@ export default ({
           presets: 'large:980x528',
           arcSite,
         }).large
-      : deployment(
-          `${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/logo_twitter.jpg`
-        )
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo_twitter.jpg?d=1`
 
   if (
     arcSite === ConfigParams.SITE_DIARIOCORREO &&

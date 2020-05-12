@@ -11,7 +11,10 @@ import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentChildVideo from './_children/amp-video'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
+import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildLinkList from './_children/link-list'
 // import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
@@ -20,7 +23,25 @@ import {
   getDateSeo,
 } from '../../../utilities/helpers'
 
-import ConfigParams from '../../../utilities/config-params'
+import {
+  ELEMENT_HEADER,
+  ELEMENT_IMAGE,
+  ELEMENT_QUOTE,
+  ELEMENT_RAW_HTML,
+  ELEMENT_TABLE,
+  ELEMENT_TEXT,
+  ELEMENT_VIDEO,
+  ELEMENT_GALLERY,
+  ELEMENT_OEMBED,
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
+} from '../../../utilities/constants/element-types'
+
+import {
+  SITE_ELCOMERCIO,
+  SITE_PERU21,
+} from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
   formatDateStoryAmp,
@@ -32,8 +53,9 @@ import { getResizedUrl } from '../../../utilities/resizer'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
-  textClasses:
-    'amp-story-content__news-text text-lg mt-15 mb-25 secondary-font text-gray-300 text-xl line-h-md',
+  textClasses: 'amp-story-content__news-text ',
+  blockquoteClass:
+    'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
   author: 'amp-story-content__author mt-15 mb-15 secondary-font',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
@@ -51,7 +73,6 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       arcSite,
       isAmp,
-      deployment,
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
@@ -63,6 +84,7 @@ class StoryContentAmp extends PureComponent {
       displayDate: updatedDate,
       primarySectionLink,
       author,
+      multimediaLazyDefault,
     } = new StoryData({
       data,
       arcSite,
@@ -75,38 +97,17 @@ class StoryContentAmp extends PureComponent {
     // const dataSlot = `/${adsAmp.dataSlot}/${
     //   arcSite === 'diariocorreo' ? 'correo' : namePublicidad
     // }-amp-300x250-boton-movil2`
-    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+    const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
 
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
+    const isComercio = arcSite === SITE_ELCOMERCIO
 
     const imgTag = 'amp-img'
-    const placementId = adsAmp.movil2
     const width = '300'
     const height = '250'
     const parametersCaja2 = {
-      // movil2
+      // movil2 caja2
       dataSlot,
-      placementId,
-      width,
-      height,
-      primarySectionLink,
-      arcSite,
-      movil1: true,
-    }
-    const parametersCaja4 = {
-      // movil4
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
-      placementId: adsAmp.movil4,
-      width,
-      height,
-      primarySectionLink,
-      arcSite,
-      movil1: true,
-    }
-    const parametersCaja5 = {
-      // movil5
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
-      placementId: adsAmp.movil5,
       width,
       height,
       primarySectionLink,
@@ -114,23 +115,51 @@ class StoryContentAmp extends PureComponent {
       movil1: true,
     }
     const parametersCaja3 = {
-      // movil3
+      // movil4 caja3 caja3
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
-      placementId: adsAmp.movil3,
       width,
       height,
       primarySectionLink,
       arcSite,
       movil1: true,
+      size: '300x250,320x100,320x50,300x100,300x50',
     }
+    const parametersCaja4 = {
+      // movil5 caja5 caja4
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
+      width,
+      height,
+      primarySectionLink,
+      arcSite,
+      movil1: true,
+      size: '300x250,320x100,320x50,300x100,300x50',
+    }
+    const parametersCaja5 = {
+      // movil5 caja5 caja4
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
+      width,
+      height,
+      primarySectionLink,
+      arcSite,
+      movil1: true,
+      size: '300x250,320x100,320x50,300x100,300x50',
+    }
+    const parametersInline = {
+      // movil3 caja3 inline
+      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/inline`,
+      width,
+      height,
+      primarySectionLink,
+      arcSite,
+      movil1: false,
+    }
+
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     return (
       <>
@@ -158,9 +187,12 @@ class StoryContentAmp extends PureComponent {
                   content_elements: innerContentElements,
                   content,
                   level,
-                  publicidad = false,
+                  publicidadInline = false,
+                  publicidadCaja3 = false,
+                  url = '',
+                  items = [],
                 } = element
-                if (type === ConfigParams.ELEMENT_OEMBED) {
+                if (type === ELEMENT_OEMBED) {
                   return (
                     <AmpOembed
                       rawOembed={rawOembed}
@@ -169,7 +201,7 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_RAW_HTML) {
+                if (type === ELEMENT_RAW_HTML) {
                   return content.includes('id="powa-') ? (
                     <StoryContentChildVideo
                       data={content}
@@ -182,21 +214,21 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_HEADER && level === 1) {
+                if (type === ELEMENT_HEADER && level === 1) {
                   return (
                     <h2>
                       <RawHtml content={content}></RawHtml>
                     </h2>
                   )
                 }
-                if (type === ConfigParams.ELEMENT_QUOTE) {
+                if (type === ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
                 }
-                if (type === ConfigParams.ELEMENT_TABLE) {
+                if (type === ELEMENT_TABLE) {
                   return <StoryContentChildTable data={element} type={type} />
                 }
 
-                if (type === ConfigParams.ELEMENT_GALLERY) {
+                if (type === ELEMENT_GALLERY) {
                   return (
                     <AMPCarousel
                       data={innerContentElements}
@@ -205,7 +237,7 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_IMAGE) {
+                if (type === ELEMENT_IMAGE) {
                   return (
                     <AmpImage
                       {...element}
@@ -224,14 +256,22 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ConfigParams.ELEMENT_TEXT) {
+                if (type === ELEMENT_TEXT) {
                   return (
                     <>
                       <Text
                         content={ampHtml(replaceTags(content), arcSite)}
                         className={classes.textClasses}
                       />
-                      {publicidad && (
+                      {publicidadInline && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={publicidadAmpAd(
+                            parametersInline
+                          )}
+                        />
+                      )}
+                      {publicidadCaja3 && (
                         <div
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
@@ -242,8 +282,40 @@ class StoryContentAmp extends PureComponent {
                     </>
                   )
                 }
+                if (type === ELEMENT_BLOCKQUOTE) {
+                  return (
+                    <blockquote
+                      dangerouslySetInnerHTML={{
+                        __html: content,
+                      }}
+                      className={classes.blockquoteClass}
+                    />
+                  )
+                }
 
-                if (type === ConfigParams.ELEMENT_VIDEO) {
+                if (type === ELEMENT_INTERSTITIAL_LINK) {
+                  return (
+                    <StoryContentsChildInterstitialLink
+                      url={url}
+                      content={content}
+                      arcSite={arcSite}
+                      isAmp
+                    />
+                  )
+                }
+
+                if (type === ELEMENT_LINK_LIST) {
+                  return (
+                    <StoryContentsChildLinkList
+                      items={items}
+                      multimediaLazyDefault={multimediaLazyDefault}
+                      arcSite={arcSite}
+                      isAmp
+                    />
+                  )
+                }
+
+                if (type === ELEMENT_VIDEO) {
                   return <StoryContentChildVideo data={element} />
                 }
                 return undefined
@@ -254,7 +326,7 @@ class StoryContentAmp extends PureComponent {
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
           />
-
+          {isComercio && <StoryGoogleNews />}
           <StoryContentChildTags data={tags} {...isAmp} />
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>

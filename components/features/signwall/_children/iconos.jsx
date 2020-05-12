@@ -9,7 +9,7 @@ const styles = {
 
 const Google = () => {
   return (
-    <svg viewBox="0 0 50 50" width="46" height="46" style={styles.svg}>
+    <svg viewBox="0 0 50 50" width="43" height="43" style={styles.svg}>
       <path
         d="M45 1H5C2.8 1 1 2.8 1 5v40c0 2.2 1.8 4 4 4h40c2.2 0 4-1.8 4-4V5c0-2.2-1.8-4-4-4z"
         fill="#FFF"

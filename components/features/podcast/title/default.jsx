@@ -1,24 +1,40 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
-import {
-  socialMediaUrlShareList,
-  popUpWindow,
-} from '../../../utilities/helpers'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
 
 const classes = {}
+
+const windowW = 600
+const windowH = 400
+
+const popup = `(function(){setTimeout(function() {
+  var $podcastShare = document.querySelectorAll('a[data-podcast-share]')
+  if ($podcastShare && $podcastShare.length > 0) {
+    var windowLeft = window.screen.width / 2 - ${windowW} / 2
+    var windowTop = window.screen.height / 2 - ${windowH} / 2
+    $podcastShare.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault()
+        window.open(
+          button.getAttribute('href'),
+          '',
+          'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${windowW}, height=${windowH}, top='+windowTop+', left='+windowLeft+''
+        )
+      })
+    })
+  }
+}, 0)})()`
 
 const PodcastTitle = props => {
   const { customFields: { titleField = '', socialUrl = '' } = {} } = props
 
-  const { siteProperties } = useFusionContext()
-
   const {
     siteUrl,
     fbAppId,
-    social: { twitter: { user: siteNameRedSocial } } = {},
-  } = siteProperties
+    social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
+  } = getProperties()
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
@@ -52,46 +68,43 @@ const PodcastTitle = props => {
   ]
 
   return (
-    <div className="podcast-title p-20 md:p-0 position-relative">
-      <ul className="podcast-title__social-media flex md:position-absolute md:right-0">
-        {shareButtons.map(({ icon, link }, i) => (
-          <li
-            className={`mr-10 md:mr-0 ml-0 md:ml-10${
-              i === 3 || i === 1 ? ' md:hidden' : ''
-            }`}>
-            <a
-              className="block"
-              href={link}
-              onClick={event => {
-                event.preventDefault()
-                popUpWindow(link, '', 600, 400)
-              }}>
-              <svg
-                width="32"
-                height="32"
-                viewBox={i === 1 ? '0 0 32.037 32.044' : '-2 -2 32 32'}>
-                <circle
-                  cx={i === 1 ? '16.044' : '15'}
-                  cy={i === 1 ? '16.044' : '15'}
-                  r="15"
-                  fill="#eeeeee"
-                />
-                <path className={classes.share} d={icon} />
-              </svg>
-            </a>
-          </li>
-        ))}
-      </ul>
+    <>
+      <div className="podcast-title p-20 md:p-0 position-relative">
+        <ul className="podcast-title__social-media flex md:position-absolute md:right-0">
+          {shareButtons.map(({ icon, link }, i) => (
+            <li
+              className={`mr-10 md:mr-0 ml-0 md:ml-10${
+                i === 3 || i === 1 ? ' md:hidden' : ''
+              }`}>
+              <a className="block" href={link} data-pocast-share="">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox={i === 1 ? '0 0 32.037 32.044' : '-2 -2 32 32'}>
+                  <circle
+                    cx={i === 1 ? '16.044' : '15'}
+                    cy={i === 1 ? '16.044' : '15'}
+                    r="15"
+                    fill="#eeeeee"
+                  />
+                  <path className={classes.share} d={icon} />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
 
-      <h1 className="podcast-title__text font-bold text-black title-lg pt-20 pb-20 mt-10 md:mt-30 border-t-1 border-b-1 border-solid border-gray">
-        {titleField || 'Podcast'}
-      </h1>
-    </div>
+        <h1 className="podcast-title__text font-bold text-black title-lg pt-20 pb-20 mt-10 md:mt-30 border-t-1 border-b-1 border-solid border-gray">
+          {titleField || 'Podcast'}
+        </h1>
+      </div>
+      <script dangerouslySetInnerHTML={{ __html: popup }}></script>
+    </>
   )
 }
 
 PodcastTitle.label = 'Podcast - Título'
-// PodcastTitle.static = true
+PodcastTitle.static = true
 
 PodcastTitle.propTypes = {
   customFields: PropTypes.shape({

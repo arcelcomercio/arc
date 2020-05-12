@@ -2,6 +2,7 @@ import React from 'react'
 
 const classes = {
   title: `newsletter__title position-relative font-bold pb-15 title-lg line-h-xs`,
+  titleCovid19: `newsletter__title--covid19`,
   description: 'newsletter__description secondary-font title-sm line-h-xs',
   row: 'newsletter__row mb-20',
   email:
@@ -12,6 +13,7 @@ const classes = {
   policies: 'newsletter__policies font-bold cursor-pointer text-sm',
   pageLink: 'newsletter__page-link text-gray-300',
   inputCheckbox: 'newsletter__input-checkbox mr-10',
+  covid19: 'newsletter__covid19 mb-50',
 }
 
 const StaticsNewsletterChildForm = props => {
@@ -22,13 +24,19 @@ const StaticsNewsletterChildForm = props => {
     features,
     validation,
     submitForm,
+    isActiveApiCovid19,
   } = props
 
   return (
     <>
-      <h3 className={classes.title}>
-        Registrate en nuestro <span>Newsletter</span>
+      <h3
+        className={`${classes.title} ${isActiveApiCovid19 &&
+          classes.titleCovid19}`}>
+        Regístrate en nuestro <span>Newsletter</span>
       </h3>
+      {isActiveApiCovid19 && (
+        <h4 className={classes.covid19}>Coronavirus al día</h4>
+      )}
       <p className={classes.description}>{description}</p>
       <form action="">
         <div className={classes.row}>

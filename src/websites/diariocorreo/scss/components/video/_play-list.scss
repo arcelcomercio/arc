@@ -1,0 +1,8 @@
+.play-list {
+  &__title a {
+    font-family: $secondary-font;
+  }
+  &__name {
+    text-transform: capitalize;
+  }
+}

@@ -115,7 +115,10 @@ const SecondaryFooter = props => {
                         rel="noopener noreferrer"
                         href={el.url}
                         className={classes.listSocialLink}>
-                        <i className={classes[`${el.name}Icon`]} />
+                        <i
+                          className={classes[`${el.name}Icon`]}
+                          aria-label={el.name}
+                        />
                         {el.name}
                       </a>
                     </li>

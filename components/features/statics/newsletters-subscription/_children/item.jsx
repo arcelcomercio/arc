@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 const classes = {
   item: 'newsletters-subscription__item p-5',
@@ -21,52 +21,79 @@ const classes = {
     'newsletters-subscription__btn newsletters-subscription__btn--subscribed mt-15',
 }
 
-const NewslettersSubscriptionItem = ({
+const CheckboxContainer = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  height: auto;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+`
+
+const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  border: 0;
+  clip: rect(0 0 0 0);
+  clippath: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`
+
+const Cover = styled.div`
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0px;
+  display: ${props => (props.checked ? 'none' : 'block')};
+`
+
+const ButtonSub = styled.div`
+  border: 1px solid #adadad;
+  padding: 15px 40px;
+  border-radius: 5px;
+  background: ${props => (props.checked ? '#f7c600' : '#ffffff')};
+`
+
+const Checkbox = ({
+  className,
+  checked,
+  disabled,
   name,
-  image,
-  code,
   description,
-  isSubscribed = false,
-  callbackSubscription,
-}) => {
-  return (
-    <article role="listitem" className={classes.item}>
-      <div className={classes.card}>
+  site,
+  image,
+  ...props
+}) => (
+  <article role="listitem" className={classes.item}>
+    <div className={classes.card}>
+      <CheckboxContainer checked={checked} className={className}>
         <figure className={classes.figure}>
+          <Cover checked={checked} />
           <img className={classes.image} src={image} alt={name} />
           <i className={classes.icon} />
         </figure>
+
         <div className={classes.detail}>
           <h3 className={classes.titleText}>
             <span className={classes.titleSpan}>{name}</span>
           </h3>
           <p className={classes.description}>{description}</p>
-          {isSubscribed ? (
-            <button
-              type="button"
-              onClick={() => callbackSubscription(code)}
-              className={classes.btnSubscribed}>
-              Eliminar registro
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => callbackSubscription(code)}
-              className={classes.btn}>
-              Regístrate
-            </button>
-          )}
+
+          <ButtonSub className={classes.btnSubscribed} checked={checked}>
+            {(checked && `Eliminar registro`) || `Regístrate`}
+          </ButtonSub>
         </div>
-      </div>
-    </article>
-  )
-}
 
-NewslettersSubscriptionItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  code: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-}
+        <HiddenCheckbox checked={checked} disabled={disabled} {...props} />
+      </CheckboxContainer>
+    </div>
+  </article>
+)
 
-export default NewslettersSubscriptionItem
+export default Checkbox

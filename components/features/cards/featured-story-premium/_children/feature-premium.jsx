@@ -2,7 +2,11 @@ import React from 'react'
 import { useEditableContent } from 'fusion:content'
 import Icon from '../../../../global-components/multimedia-icon'
 import Notify from '../../../../global-components/notify'
-import { formatAMPM } from '../../../../utilities/helpers'
+import { formatAMPM } from '../../../../utilities/date-time/time'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../../utilities/constants/sitenames'
 
 const classes = {
   featuredPremium: 'featured-premium',
@@ -23,6 +27,7 @@ const classes = {
     'premium__wrapper bg-primary flex justify-center items-center',
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
+  lastMinute: 'featured-premium--last-minute',
 }
 
 const getModel = model => {
@@ -39,9 +44,10 @@ const FeaturedStoryPremiumChild = ({
   isPremium,
   model,
   imgType,
+  lastMinute = false,
   bgColor,
   websiteLink,
-  multimediaSquareMD,
+  // multimediaSquareMD,
   multimediaSquareXL,
   multimediaLandscapeMD,
   multimediaLandscapeL,
@@ -109,21 +115,35 @@ const FeaturedStoryPremiumChild = ({
     return imageDesktop
   }
 
-  const isComercio = arcSite === 'elcomercio'
+  const isComercio = arcSite === SITE_ELCOMERCIO
+  const isGestion = arcSite === SITE_GESTION
+
   return (
     <div
       className={classes.featuredPremium
         .concat(getModel(model))
         .concat(` featured-premium--${bgColor}`)
-        .concat(imgType && isComercio ? ' complete ' : '')}>
+        .concat(imgType && isComercio ? ' complete ' : '')
+        .concat(
+          lastMinute && isGestion && model === 'twoCol'
+            ? ` ${classes.lastMinute}`
+            : ''
+        )}>
       <div className={classes.left}>
         <h3 className={classes.section}>
-          <a
-            href={primarySectionLink}
-            {...getEditableField('categoryField')}
-            suppressContentEditableWarning>
-            {categoryField || primarySection}
-          </a>
+          {isGestion && lastMinute && model === 'twoCol' && (
+            <span>Último minuto</span>
+          )}
+          {((isGestion && lastMinute && model !== 'twoCol') ||
+            (isGestion && !lastMinute) ||
+            !isGestion) && (
+            <a
+              href={primarySectionLink}
+              {...getEditableField('categoryField')}
+              suppressContentEditableWarning>
+              {categoryField || primarySection}
+            </a>
+          )}
         </h3>
         <h2>
           <a

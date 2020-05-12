@@ -4,8 +4,11 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../utilities/config-params'
-import { removeLastSlash, formatSections } from '../../../utilities/helpers'
+import {
+  VIDEO,
+  ELEMENT_YOUTUBE_ID,
+} from '../../../utilities/constants/multimedia-types'
+import { removeLastSlash } from '../../../utilities/parse/strings'
 import ChildrenSectionVideo from './_children/section-video'
 import customFields from './_dependencies/custom-fields'
 import {
@@ -20,6 +23,17 @@ import {
   includePromoVideoAds,
   includeCredits,
 } from '../../../utilities/included-fields'
+
+const formatSections = (data = {}) => {
+  const link = 'link'
+  const { children = [] } = data
+  return children.map(el => {
+    return {
+      name: el.node_type === link ? el.display_name : el.name,
+      url: el.node_type === link ? el.url : el._id,
+    }
+  })
+}
 
 const SectionVideo = props => {
   const DEFAULT_HIERARCHY = 'header-default'
@@ -76,6 +90,7 @@ const SectionVideo = props => {
       primarySectionLink,
       promoItemsType,
       hasAdsVideo,
+      videoStreams,
       captionVideo,
       author,
       videoDuration,
@@ -87,20 +102,21 @@ const SectionVideo = props => {
       websiteLink,
       subTitle,
       displayDate,
+      videoStreams,
       promoItemsType,
       hasAdsVideo,
       captionVideo,
       author,
       videoDuration,
     }
-    if (promoItemsType === ConfigParams.VIDEO) {
+    if (promoItemsType === VIDEO) {
       const { video } = Story
       dataVideo.principalVideo = {
         ...dataVideo.principalVideo,
         video,
       }
     }
-    if (promoItemsType === ConfigParams.ELEMENT_YOUTUBE_ID) {
+    if (promoItemsType === ELEMENT_YOUTUBE_ID) {
       const video = Story.idYoutube
       dataVideo.principalVideo = {
         ...dataVideo.principalVideo,

@@ -2,10 +2,10 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  margin: 0px;
-  padding: 0px;
-  background: #ffffff;
-  z-index: 20;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  z-index: 20 !important;
   top: 0;
   left: 0;
 }
@@ -20,7 +20,7 @@
   margin-left: -100px;
   text-align: center;
   svg {
-    margin: 0px 5px;
+    margin: 0 5px;
   }
   svg:nth-child(1) {
     animation: identifier 700ms infinite linear;

@@ -21,8 +21,12 @@
   }
 
   &__face {
+    /*
+      si se hacen cambios en estas dimensiones, 
+      verificar el tamano de la imagen en 
+      feature/cards/tabloid/default.jsx
+    */
     height: 250px;
-    width: 220px;
     display: block;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
     transform: rotate(-4deg);

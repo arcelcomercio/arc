@@ -1,8 +1,6 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import React from 'react'
+import PropTypes from 'prop-types'
+import ENV from 'fusion:environment'
 
 const classes = {
   listItemText:
@@ -13,122 +11,52 @@ const classes = {
     'stories-video__close text-white hidden position-absolute right-0 top-0 rounded items-center justify-center font-bold',
 }
 
-const removeSticky = () => {
-  const itemDest = document.querySelector('.stories-video__item-dest')
-  itemDest.classList.remove('sticky')
-  itemDest.classList.remove('sticky-top')
-}
-
-const addSticky = (stickyTop = false) => {
-  const itemDest = document.querySelector('.stories-video__item-dest')
-  itemDest.classList.add('sticky')
-
-  if (stickyTop) {
-    itemDest.classList.add('sticky-top')
-  }
-}
-
-const handleCloseStickyClick = powaPlayer => {
-  if (powaPlayer !== null) {
-    removeSticky()
-    window.removeEventListener('scroll', handleScrolVideList)
-    powaPlayer.pause()
-  }
-}
-
-const handleScrolVideList = () => {
-  const playOf = document.querySelector('.stories-video__wrapper')
-  const itemHeight =
-    document.querySelector('.stories-video__item').offsetHeight * 4
-  const promoContentHeight = document.querySelector('.stories-video__content')
-    .offsetHeight
-  const programsWrapperHeight = document.querySelector(
-    '.stories-video__programs-wrapper'
-  ).offsetHeight
-  const storiesHeaderHeigth = document.querySelector('.stories-video__header')
-    .offsetHeight
-
-  const scrollHeight = window.scrollY
-  // si el scroll es mayor o igual a la suma de la distancia del componente a la parte supe.offsetHeight * 4rior y  el alto del componente
-  const offsetButton =
-    scrollHeight >=
-    playOf.offsetTop +
-      playOf.offsetHeight -
-      (itemHeight + promoContentHeight + programsWrapperHeight)
-
-  // si el scroll  mas el tamaño de la pantalla es menor a la distancia del componente a la parte superior de la pantalla
-  const offSetTop =
-    scrollHeight + window.innerHeight - storiesHeaderHeigth < playOf.offsetTop
-  let stickyTop = false
-
-  if ((offsetButton || offSetTop) && scrollHeight === 0) {
-    // si esta fuera de foco por arriba en la parte superior (top 0)
-    stickyTop = true
-
-    addSticky(stickyTop)
-  } else if (offsetButton || offSetTop) {
-    // si esta fuera de foco por (abajo y arriba)
-    stickyTop = false
-    removeSticky()
-    addSticky(stickyTop)
-  } else {
-    removeSticky()
-  }
-}
-
 const ItemVideoCenterDestacado = ({
-  isAdmin,
   title,
-  video: { payload },
-  autoPlayVideo,
+  liveStory,
+  image,
+  videoID,
+  powaVideo,
+  time,
 }) => {
-  let powaPlayer = null
-  window.addEventListener('powaRender', event => {
-    const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-      window.navigator.userAgent
-    )
-    const {
-      detail: { powa },
-    } = event
-
-    powaPlayer = powa
-    powa.on(window.PoWa.EVENTS.PLAY, () => {
-      window.addEventListener('scroll', handleScrolVideList)
-    })
-
-    powa.on(window.PoWa.EVENTS.END, () => {
-      removeSticky()
-      window.removeEventListener('scroll', handleScrolVideList)
-    })
-
-    if (
-      !isMobile &&
-      !isAdmin &&
-      autoPlayVideo &&
-      powa &&
-      powa.play &&
-      !powa.isPlay
-    ) {
-      powa.play()
-      powa.isPlay = true
-    }
-  })
+  const CURRENT_ENVIRONMENT =
+    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   return (
     <>
-      <div dangerouslySetInnerHTML={{ __html: payload }} />
+      <div data-img={image} data-time={time} data-live={liveStory}>
+        <div
+          className="powa"
+          id={`powa-${videoID}`}
+          data-org="elcomercio"
+          data-env={CURRENT_ENVIRONMENT}
+          data-stream={powaVideo}
+          data-uuid={videoID}
+          data-aspect-ratio="0.562"
+          data-api={CURRENT_ENVIRONMENT}
+          data-preload="none"></div>
+      </div>
+      <script
+        src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
+      />
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
           <h2 className={classes.listItemTitleDest}>{title}</h2>
         </div>
-        <span
-          className={classes.closeSticky}
-          onClick={() => handleCloseStickyClick(powaPlayer)}>
+        <span role="button" tabIndex="0" className={classes.closeSticky}>
           X
         </span>
       </div>
     </>
   )
+}
+
+ItemVideoCenterDestacado.propTypes = {
+  // isAdmin: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  videoID: PropTypes.string.isRequired,
+  powaVideo: PropTypes.string.isRequired,
+  // autoPlayVideo: PropTypes.bool.isRequired,
 }
 
 export default ItemVideoCenterDestacado

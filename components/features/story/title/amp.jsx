@@ -10,24 +10,17 @@ import { getAssetsPath } from '../../../utilities/constants'
 import { publicidadAmp } from '../../../utilities/story/helpers-amp'
 
 const classes = {
-  stories: 'amp-story-header bg-white pr-20 pl-20 m-5 mx-auto',
+  stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
   titleAmp:
-    'amp-story-header__title font-bold secondary-font title-md text-gray-300 line-h-xs',
-  datetime:
-    'amp-story-header__datetime mt-15 mb-15 block secondary-font text-lg',
-  description:
-    'amp-story-header__description mt-0 text-md text-gray-300 secondary-font',
-  gallery: 'amp-story-header bg-white w-full pr-20 pl-20 m-5 mx-auto',
+    'amp-sh__title font-bold secondary-font title-md text-gray-300 line-h-xs',
+  datetime: 'amp-sh__datetime mt-15 mb-15 block secondary-font text-lg',
+  description: 'amp-sh__description mt-0 text-md text-gray-300 secondary-font',
+  gallery: 'amp-sh bg-white w-full pr-20 pl-20 m-5 mx-auto',
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
 }
 const StoryTitleAmp = () => {
-  const {
-    arcSite,
-    contextPath,
-    deployment,
-    globalContent: data,
-  } = useFusionContext()
+  const { arcSite, contextPath, globalContent: data } = useFusionContext()
 
   const { adsAmp, siteUrl } = getProperties(arcSite)
 
@@ -44,12 +37,10 @@ const StoryTitleAmp = () => {
   })
   const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
   const dataSlot = `/${adsAmp.dataSlot}/${adsId}/amp/post/default/caja1`
-  const placementId = adsAmp.movil1
   const width = '320'
 
   const parameters = {
     dataSlot,
-    placementId,
     width,
     height: '50',
     movil1: true,
@@ -59,12 +50,10 @@ const StoryTitleAmp = () => {
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/bbc_head.png`
-    ) || ''
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
   return (
     <>

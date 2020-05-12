@@ -2,15 +2,15 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import Fingerprint2 from 'fingerprintjs2'
 
-import { Generic } from './_main/generic'
-import { Paywall } from './_main/paywall'
-import { Premium } from './_main/premium'
+import { Paywall } from './_children/paywall'
+import { Premium } from './_children/premium'
 
 import Services from '../_dependencies/services'
 import GetProfile from '../_dependencies/get-profile'
 import Domains from '../_dependencies/domains'
 import Cookies from '../_dependencies/cookies'
 import Taggeo from '../_dependencies/taggeo'
+import QueryString from '../_dependencies/querystring'
 
 const classes = {
   iconLogin: 'nav__icon icon-user  title-sm text-primary-color',
@@ -25,14 +25,8 @@ class SignwallComponent extends PureComponent {
     this.state = {
       userName: false,
       initialUser: false,
-      showOrganic: false,
-      showHard: false,
-      showVerify: false,
-      showReset: false,
-      showReEmail: false,
       showPaywall: false,
       showPremium: false,
-      showRelogHash: false,
     }
   }
 
@@ -51,7 +45,7 @@ class SignwallComponent extends PureComponent {
     this.checkUserName()
 
     if (siteProperties.activePaywall) {
-        this.getPaywall();
+      this.getPaywall()
     }
   }
 
@@ -72,6 +66,11 @@ class SignwallComponent extends PureComponent {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
             this.setState({ showPremium: true })
+          } else {
+            const divPremium = document.getElementById('contenedor')
+            if (divPremium) {
+              divPremium.classList.remove('story-content__nota-premium')
+            }
           }
           return false // tengo subs :D
         })
@@ -81,33 +80,62 @@ class SignwallComponent extends PureComponent {
   }
 
   getPaywall() {
-    const { siteProperties, arcSite } = this.props
+    const { arcSite } = this.props
     const W = window || {}
 
+    const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
     const dataContTyp = W.document.querySelector('meta[name="content-type"]')
     const dataContSec = W.document.querySelector('meta[name="section-id"]')
-    const dataContentPremium = W.content_paywall || false
+    const contentTier = W.document.querySelector(
+      'meta[property="article:content_tier"]'
+    )
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
+    const typeContentTier = contentTier
+      ? contentTier.getAttribute('content')
+      : 'metered'
 
-    if (dataContentPremium && siteProperties.activePaywall) {
-      // if (dataContentPremium && arcSite === 'gestion') {
+    if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
+      const artURL = decodeURIComponent(
+        QueryString.getQuery('article_url') || ''
+      )
+      W.sessionStorage.setItem('paywall_last_url', artURL)
+      W.location.href = Domains.getUrlLandingAuth(arcSite)
+    }
+
+    if (typeContentTier === 'locked') {
       this.getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          W.location.href = `${campaignURL}&ref=${W.location.pathname}`
+          if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
+            W.location.href = Domains.getUrlSignwall(
+              arcSite,
+              'signwallHard',
+              '1'
+            )
+          } else if (
+            campaignURL.match(/signwallPaywall/) &&
+            this.checkSession()
+          ) {
+            this.setState({ showPaywall: true })
+          }
         },
-        contentType: dataContTyp ? dataContTyp.getAttribute('content') : 'none',
-        section: dataContSec ? dataContSec.getAttribute('content') : 'none',
+
+        contentType:
+          dataContTyp && typeContentTier !== 'free'
+            ? dataContTyp.getAttribute('content')
+            : 'none',
+
+        section:
+          dataContSec && typeContentTier !== 'free'
+            ? dataContSec.getAttribute('content')
+            : 'none',
+
         userName: W.Identity.userIdentity.uuid || null,
         jwt: W.Identity.userIdentity.accessToken || null,
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
-          // user subscription state only GESTION & EL COMERCIO
-          if (
-            siteProperties.activePaywall &&
-            W.Identity.userIdentity.accessToken
-          ) {
+          if (W.Identity.userIdentity.accessToken) {
             return this.getListSubs().then(p => {
               const isLoggedInSubs = this.checkSession()
               return {
@@ -126,7 +154,6 @@ class SignwallComponent extends PureComponent {
           }
         },
         customRegCheck: () => {
-          // user register state
           const start = Date.now()
           const isLoggedIn = this.checkSession()
           return Promise.resolve({
@@ -177,7 +204,7 @@ class SignwallComponent extends PureComponent {
   }
 
   checkCookieHash = () => {
-    const { siteProperties } = this.props
+    const { siteProperties, arcSite } = this.props
 
     if (typeof window !== 'undefined') {
       const dataContType = window.document.querySelector(
@@ -188,10 +215,19 @@ class SignwallComponent extends PureComponent {
         dataContType &&
         siteProperties.activePaywall
       ) {
-        window.location.href = '/?reloginHash=1'
+        window.location.href = Domains.getUrlSignwall(
+          arcSite,
+          'reloginHash',
+          '1'
+        )
       }
     }
     return null
+  }
+
+  redirectURL = (typeDialog, hash) => {
+    const { arcSite } = this.props
+    window.location.href = Domains.getUrlSignwall(arcSite, typeDialog, hash)
   }
 
   getUrlParam = name => {
@@ -206,26 +242,11 @@ class SignwallComponent extends PureComponent {
     if (vars[name]) {
       setTimeout(() => {
         switch (name) {
-          case 'signwallHard':
-            this.setState({ showHard: true })
-            break
-          case 'tokenVerify':
-            this.setState({ showVerify: true })
-            break
-          case 'tokenReset':
-            this.setState({ showReset: true })
-            break
-          case 'reloginEmail':
-            this.setState({ showReEmail: true })
-            break
-          case 'signwallPaywall':
+          case 'signPaywall':
             this.setState({ showPaywall: true })
             break
-          case 'signwallPremiumTest':
+          case 'signPremium':
             this.setState({ showPremium: true })
-            break
-          case 'reloginHash':
-            this.setState({ showRelogHash: true })
             break
           default:
         }
@@ -254,40 +275,43 @@ class SignwallComponent extends PureComponent {
   closePopUp(name) {
     this._isMounted = true
     if (this._isMounted) this.setState({ [name]: false })
-    if (typeof window !== 'undefined' && name !== 'showOrganic')
-      window.history.pushState({}, document.title, '/')
+
+    if (typeof window !== 'undefined') {
+      if (name !== 'showOrganic') {
+        window.history.pushState({}, document.title, '/')
+      }
+      if (this.getUrlParam('signOrganic')) {
+        window.history.pushState({}, document.title, '/')
+        window.location.reload()
+      }
+    }
     return null
   }
 
   toogleButton() {
+    const { arcSite } = this.props
     if (typeof window !== 'undefined') {
       if (this.checkSession()) {
         Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresacuenta`)
-        window.location.href = Domains.getUrlProfile()
+        window.location.href = Domains.getUrlProfile(arcSite)
       } else {
         Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresaperfil`)
-        this.setState({ showOrganic: true })
+        window.location.href = Domains.getUrlSignwall(
+          arcSite,
+          'signwallOrganic',
+          '1'
+        )
       }
     }
   }
 
   render() {
-    const {
-      userName,
-      initialUser,
-      showOrganic,
-      showHard,
-      showVerify,
-      showReset,
-      showReEmail,
-      showPaywall,
-      showPremium,
-      showRelogHash,
-    } = this.state
+    const { userName, initialUser, showPaywall, showPremium } = this.state
     const { arcSite, siteProperties, classButton } = this.props
     return (
       <>
         <button
+          aria-label={userName}
           site={arcSite}
           className={classButton}
           type="button"
@@ -295,72 +319,44 @@ class SignwallComponent extends PureComponent {
           <i className={!initialUser ? `${classes.iconLogin}` : ``}>
             {initialUser}
           </i>
-          <span className="capitalize">{userName}</span>
+          <span className="capitalize" aria-hidden="true">
+            {userName}
+          </span>
         </button>
 
         {siteProperties.activeSignwall && (
           <>
-            {showOrganic && (
-              <Generic
-                onClose={() => this.closePopUp('showOrganic')}
-                arcSite={arcSite}
-                typeDialog="organico"
-              />
-            )}
-
-            {this.getUrlParam('tokenVerify') && showVerify && (
-              <Generic
-                onClose={() => this.closePopUp('showVerify')}
-                arcSite={arcSite}
-                typeDialog="verify"
-                tokenVerify={this.getUrlParam('tokenVerify')}
-              />
-            )}
-
-            {this.getUrlParam('tokenReset') && showReset && (
-              <Generic
-                onClose={() => this.closePopUp('showReset')}
-                arcSite={arcSite}
-                typeDialog="resetpass"
-                tokenReset={this.getUrlParam('tokenReset')}
-              />
-            )}
-
-            {!this.checkSession() && (
+            {this.getUrlParam('tokenVerify') && (
               <>
-                {this.checkCookieHash()}
-
-                {this.getUrlParam('signwallHard') && showHard && (
-                  <Generic
-                    onClose={() => this.closePopUp('showHard')}
-                    arcSite={arcSite}
-                    typeDialog="hard"
-                  />
-                )}
-
-                {this.getUrlParam('reloginEmail') && showReEmail && (
-                  <Generic
-                    onClose={() => this.closePopUp('showReEmail')}
-                    arcSite={arcSite}
-                    typeDialog="relogemail"
-                  />
-                )}
-
-                {this.getUrlParam('reloginHash') && showRelogHash && (
-                  <Generic
-                    onClose={() => this.closePopUp('showRelogHash')}
-                    arcSite={arcSite}
-                    typeDialog="reloghash"
-                  />
+                {this.redirectURL(
+                  'tokenVerify',
+                  this.getUrlParam('tokenVerify')
                 )}
               </>
             )}
+
+            {this.getUrlParam('tokenReset') && (
+              <>
+                {this.redirectURL('tokenReset', this.getUrlParam('tokenReset'))}
+              </>
+            )}
+
+            {this.getUrlParam('reloginEmail') && (
+              <>
+                {this.redirectURL(
+                  'reloginEmail',
+                  this.getUrlParam('reloginEmail')
+                )}
+              </>
+            )}
+
+            {!this.checkSession() && <>{this.checkCookieHash()}</>}
           </>
         )}
 
         {siteProperties.activePaywall && (
           <>
-            {this.getUrlParam('signwallPaywall') && showPaywall && (
+            {(this.getUrlParam('signPaywall') || showPaywall) && (
               <Paywall
                 onClose={() => this.closePopUp('showPaywall')}
                 arcSite={arcSite}
@@ -368,7 +364,7 @@ class SignwallComponent extends PureComponent {
               />
             )}
 
-            {(this.getUrlParam('signwallPremiumTest') || showPremium) && (
+            {(this.getUrlParam('signPremium') || showPremium) && (
               <Premium
                 onClose={() => this.closePopUp('showPremium')}
                 arcSite={arcSite}

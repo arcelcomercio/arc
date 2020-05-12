@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { searchQuery } from '../../../../utilities/helpers'
+import searchQuery from '../../../../utilities/client/search'
 import SignwallComponent from '../../../signwall/main/default'
 
 const classes = {

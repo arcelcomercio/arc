@@ -72,6 +72,7 @@ class rawHTML extends PureComponent {
         : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
 
     const isWidgets = this.URL && this.URL.includes('widgets.js')
+    const videosEmbed = content.includes('<iframe')
 
     return (
       <>
@@ -94,14 +95,27 @@ class rawHTML extends PureComponent {
             )}
           </>
         ) : (
-          <div
-            className={classes.newsEmbed}
-            dangerouslySetInnerHTML={{
-              __html: isDaznServicePlayer(content)
-                ? content.trim().replace('performgroup', 'daznservices')
-                : content,
-            }}
-          />
+          <>
+            {videosEmbed ? (
+              <>
+                <div
+                  className="story-contents__lL-iframe story-contents__p-default"
+                  data-type="iframe"
+                  data-iframe={content}></div>
+              </>
+            ) : (
+              <div
+                className={classes.newsEmbed}
+                dangerouslySetInnerHTML={{
+                  __html: isDaznServicePlayer(content)
+                    ? content.trim().replace('performgroup', 'daznservices')
+                    : content
+                        .replace('</script>:', '</script>')
+                        .replace(':<script', '<script'),
+                }}
+              />
+            )}
+          </>
         )}
       </>
     )

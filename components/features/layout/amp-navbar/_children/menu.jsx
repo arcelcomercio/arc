@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { PureComponent } from 'react'
 
-import { getAssetsPath } from '../../../../utilities/constants'
+import { getAssetsPath } from '../../../../utilities/assets'
 import { publicidadAmpMovil0 } from '../../../../utilities/story/helpers-amp'
 
 const classes = {
@@ -74,9 +74,8 @@ class NavbarChildMenu extends PureComponent {
     const {
       contextPath,
       arcSite,
-      deployment,
       data: { children: sections = [] } = {},
-      socialNetworks = {},
+      socialNetworks = [],
     } = this.props
 
     const icon = {
@@ -93,12 +92,10 @@ class NavbarChildMenu extends PureComponent {
     const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
     const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
 
-    const logoAmp = deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/assets/amp/icon-cross.png`
-    )
+    const logoAmp = `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/amp/icon-cross.png?d=1`
 
     const parameters = {
       arcSite,
@@ -135,7 +132,10 @@ class NavbarChildMenu extends PureComponent {
             {socialNetworks.length > 0 &&
               socialNetworks.map(el => (
                 <li className={classes.listItem} key={el.url}>
-                  <a className={classes.listLink} href={el.url}>
+                  <a
+                    className={classes.listLink}
+                    href={el.url}
+                    aria-label={el.name}>
                     <svg width="32" height="32" viewbox="-2 -2 32 32">
                       <path d={icon[el.name]} />
                     </svg>

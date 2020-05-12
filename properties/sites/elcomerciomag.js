@@ -11,9 +11,9 @@ export default {
   siteUrlAlternate: 'https://m.mag.elcomercio.pe',
   resizerSecretKeyEnvVar: '',
   urlPreroll:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomerciomag/web/post/default/preroll&description_url=https%3A%2F%2Fmag.elcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Delcomerciomag%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomerciomag/web/post/default/preroll&description_url=https%3A%2F%2Fmag.elcomercio.pe%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3Delcomerciomag%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomerciomag/amp/post/default/preroll&description_url=https%3A%2F%2Fmag.elcomercio.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Delcomerciomag%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elcomerciomag/amp/post/default/preroll&description_url=https%3A%2F%2Fmag.elcomercio.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Delcomerciomag%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-PFFL5R9',
   ampGoogleTagManagerId: 'UA-3055636-11',
@@ -88,46 +88,27 @@ export default {
       url: 'https://elcomercio.pe/politica-de-cookies/',
     },
   ],
-
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
-      },
-      {
-        name: 'youtube',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/elcomercio.pe',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/elcomercio_peru',
+    },
+  ],
   social: {
     facebook: {
-      name: 'facebook',
       user: '@elcomercio.pe',
       url: 'https://www.facebook.com/elcomercio.pe',
     },
     twitter: {
-      name: 'twitter',
       user: '@elcomercio_peru',
-      url: 'https://twitter.com/elcomercio_peru',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011632,
-    movil2: 15011649,
-    movil3: 15011662,
-    movil4: 15011668,
-    movil5: 15011680,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna1-300x250-div-gpt-ad-8599377-16.html',
@@ -136,7 +117,7 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna4-300x250-div-gpt-ad-8599377-19.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna5-300x250-div-gpt-ad-8599377-20.html',
   ],
-  activeSignwall: true,
+  activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
   signwall: {
@@ -146,6 +127,7 @@ export default {
     mainColorBr: '#cccccc',
     mainColorLink: '#1c75c9',
     mainColorBtn: '#000000',
+    authProviders: ['facebook'],
   },
   gda: true, // Grupo Diarios de America
   taboola: {

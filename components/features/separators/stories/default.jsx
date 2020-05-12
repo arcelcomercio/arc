@@ -8,6 +8,7 @@ import customFields from './_dependencies/custom-fields'
 import Separator from './_children/separator'
 import SeparatorOpt from './_children/separator-opt'
 import { separatorStoriesFields } from '../../../utilities/included-fields'
+import { getResizedUrl } from '../../../utilities/resizer'
 
 const SeparatorStories = props => {
   const {
@@ -20,13 +21,16 @@ const SeparatorStories = props => {
       design = 'standart',
       bgColor,
       isSeeMoreVisible,
+      isImageVisible,
       responsive = 'complete',
     } = {},
   } = props
 
   const { arcSite, isAdmin, contextPath, deployment } = useFusionContext()
 
-  const presets = 'landscape_l:648x374,landscape_s:234x161,portrait_md:314x374'
+  const presets = isAdmin
+    ? 'landscape_l:648x374,landscape_s:234x161,portrait_md:314x374'
+    : 'no-presets'
   const includedFields = separatorStoriesFields
 
   const { content_elements: contentElements = [] } =
@@ -52,13 +56,25 @@ const SeparatorStories = props => {
       title,
       websiteLink,
       multimediaLazyDefault,
-      multimediaPortraitMD,
-      multimediaLandscapeL,
-      multimediaLandscapeS,
       multimediaType,
       author,
       authorLink,
+      imageUrl,
     } = storyData
+
+    const {
+      multimediaPortraitMD = multimediaLazyDefault,
+      multimediaLandscapeL = multimediaLazyDefault,
+      multimediaLandscapeS = multimediaLazyDefault,
+    } = isAdmin
+      ? storyData
+      : getResizedUrl({
+          url: imageUrl,
+          arcSite,
+          presets:
+            'multimediaLandscapeL:648x374,multimediaLandscapeS:234x161,multimediaPortraitMD:314x374',
+        }) || {}
+
     return {
       title,
       websiteLink,
@@ -83,6 +99,7 @@ const SeparatorStories = props => {
     design,
     bgColor,
     isSeeMoreVisible,
+    isImageVisible,
     responsive,
   }
 

@@ -6,7 +6,7 @@ import getProperties from 'fusion:properties'
 
 import getFooterProperties from '../_dependencies/properties'
 import FooterChildStandardG21 from './_children/footer-g21'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -30,17 +30,16 @@ const FooterStandardG21 = props => {
     } = {},
   } = props
 
-  const { deployment, contextPath, arcSite } = useFusionContext()
+  const { contextPath, arcSite } = useFusionContext()
 
   const {
     gecSites,
     legalLinks,
+    socialNetworks = [],
     assets: { footer: { logo } = {} } = {},
   } = getProperties(arcSite)
 
-  const {
-    footer: { socialNetworks = [], siteLegal, story } = {},
-  } = getFooterProperties(arcSite)
+  const { footer: { siteLegal, story } = {} } = getFooterProperties(arcSite)
 
   const sections = useContent({
     source: CONTENT_SOURCE,
@@ -70,12 +69,10 @@ const FooterStandardG21 = props => {
   }
 
   const logoUrl =
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${logo}`
-    ) || ''
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1` || ''
 
   const formattedSections = sections && formatData(sections)
 

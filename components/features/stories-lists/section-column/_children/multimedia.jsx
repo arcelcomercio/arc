@@ -2,10 +2,10 @@ import React from 'react'
 import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 const classes = {
-  figure: 'position-relative mb-10 overflow-hidden',
+  figure: 'position-relative mb-10 overflow-hidden block',
   icon:
-    'position-absolute text-center multimedia__icon mx-auto rounded text-gray-100',
-  image: 'stories-l-card__image w-full object-center object-cover',
+    'sec-col__icon m-icon position-absolute text-center mx-auto rounded text-gray-100',
+  image: 'sec-col__image w-full object-center object-cover',
 }
 
 const StoriesListsCardChildMultimedia = ({
@@ -16,25 +16,18 @@ const StoriesListsCardChildMultimedia = ({
   isAdmin,
 }) => {
   return (
-    <figure className={classes.figure}>
+    <a href={urlNews} className={classes.figure}>
       {getMultimediaIcon(multimediaType) && (
         <i className={`${getMultimediaIcon(multimediaType)} ${classes.icon}`} />
       )}
 
-      {multimedia && (
-        <a href={urlNews}>
-          <picture>
-            <img
-              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              src={isAdmin ? multimedia : lazyImage}
-              data-src={multimedia}
-              alt=""
-              
-            />
-          </picture>
-        </a>
-      )}
-    </figure>
+      <img
+        className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+        src={isAdmin ? multimedia : lazyImage}
+        data-src={multimedia}
+        alt=""
+      />
+    </a>
   )
 }
 

@@ -12,6 +12,7 @@ import { getAssetsPath } from '../../../utilities/constants'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
+  /* SITE_GESTION, */
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -30,6 +31,9 @@ import {
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
   ELEMENT_STORY,
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -45,6 +49,8 @@ import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildLinkList from './_children/link-list'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -52,6 +58,8 @@ const classes = {
   content: 'story-content__content position-relative flex flex-row-reverse',
   textClasses:
     'story-content__font--secondary mb-25 title-xs line-h-md mt-20 secondary-font pr-20',
+  blockquoteClass:
+    'story-content__blockquote text-gray-300 line-h-sm ml-15 mt-40 mb-40 pl-10 pr-30',
   newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
   newsEmbed: 'story-content__embed',
   tags: 'story-content',
@@ -59,6 +67,9 @@ const classes = {
   listClasses: 'story-content__paragraph-list',
   alignmentClasses: 'story-content__alignment',
   bbcHead: 'bbc-head p-10',
+  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10`,
+  premiumText:
+    'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 
 @Consumer
@@ -69,10 +80,12 @@ class StoryContents extends PureComponent {
       arcSite,
       contextPath,
       deployment,
+      requestUri,
       siteProperties: {
         ids: { opta },
       },
       siteProperties: { isDfp = false },
+      isAdmin,
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
       globalContent || {}
@@ -96,6 +109,7 @@ class StoryContents extends PureComponent {
       multimediaLazyDefault,
       tags,
       contentPosicionPublicidad,
+      contentElementsHtml,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -122,16 +136,25 @@ class StoryContents extends PureComponent {
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
-      deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/bbc_head.png`
-      ) || ''
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+
+    const { basic_gallery: basicGallery = {} } = promoItems
+    let relatedIds = []
 
     return (
       <>
         <div className={classes.news}>
+          {isPremium &&
+            SITE_ELCOMERCIO === arcSite &&
+            requestUri.includes('/archivo-elcomercio/') &&
+            !basicGallery && (
+              <div className={classes.premiumWrapper}>
+                <p className={classes.premiumText}>Suscriptor Digital</p>
+              </div>
+            )}
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
@@ -152,7 +175,8 @@ class StoryContents extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            className={`${classes.content} ${isPremium &&
+              'story-content__nota-premium paywall no_copy'}`}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
@@ -178,6 +202,8 @@ class StoryContents extends PureComponent {
                     headlines: { basic: captionVideo = '' } = {},
                     publicidad = false,
                     nameAds,
+                    url = '',
+                    items = [],
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -196,8 +222,10 @@ class StoryContents extends PureComponent {
                         {element && element.embed_html ? (
                           <StoryContentsChildVideo
                             data={element.embed_html}
+                            {...element}
                             className={classes.newsImage}
                             description={captionVideo}
+                            contentElemtent="true"
                           />
                         ) : (
                           <StoryContentsChildVideoNativo
@@ -223,6 +251,25 @@ class StoryContents extends PureComponent {
                   if (type === ELEMENT_QUOTE) {
                     return <StoryContentsChildBlockQuote data={element} />
                   }
+                  if (type === ELEMENT_INTERSTITIAL_LINK) {
+                    return (
+                      <StoryContentsChildInterstitialLink
+                        url={url}
+                        content={content}
+                        isAmp={false}
+                      />
+                    )
+                  }
+                  if (type === ELEMENT_LINK_LIST) {
+                    return (
+                      <StoryContentsChildLinkList
+                        items={items}
+                        multimediaLazyDefault={multimediaLazyDefault}
+                        arcSite={arcSite}
+                        isAdmin={isAdmin}
+                      />
+                    )
+                  }
                   if (type === ELEMENT_OEMBED) {
                     return (
                       <Oembed
@@ -232,11 +279,18 @@ class StoryContents extends PureComponent {
                       />
                     )
                   }
+
                   if (type === ELEMENT_STORY) {
+                    relatedIds.push(_id)
+                  }
+
+                  if (type !== ELEMENT_STORY && relatedIds.length > 0) {
+                    const relateIdsParam = relatedIds
+                    relatedIds = []
                     return (
                       <StoryContentsChildRelatedInternal
                         stories={relatedContent}
-                        id={_id}
+                        ids={relateIdsParam}
                         imageDefault={multimediaLazyDefault}
                       />
                     )
@@ -271,6 +325,17 @@ class StoryContents extends PureComponent {
                           className={alignmentClass}
                         />
                       </>
+                    )
+                  }
+
+                  if (type === ELEMENT_BLOCKQUOTE) {
+                    return (
+                      <blockquote
+                        dangerouslySetInnerHTML={{
+                          __html: content,
+                        }}
+                        className={classes.blockquoteClass}
+                      />
                     )
                   }
 
@@ -334,12 +399,11 @@ class StoryContents extends PureComponent {
                       }
                       return (
                         <>
-                          <script
-                            src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaBoot.js?org=elcomercio"
-                            async></script>
                           <StoryContentsChildVideo
                             data={contentVideo}
+                            htmlContent="html"
                             className={classes.newsImage}
+                            {...element}
                           />
                         </>
                       )
@@ -362,10 +426,13 @@ class StoryContents extends PureComponent {
             </div>
           )}
         </div>
-        {arcSite === SITE_ELCOMERCIO && (
-          <script
-            src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
-            defer></script>
+        {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
+          <>
+            <script
+              src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
+              defer
+            />
+          </>
         )}
       </>
     )

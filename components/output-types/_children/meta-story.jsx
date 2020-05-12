@@ -13,13 +13,13 @@ import {
 import ConfigParams from '../../utilities/config-params'
 import { getAssetsPath } from '../../utilities/constants'
 import { getResizedUrl } from '../../utilities/resizer'
+import { getAssetsPathVideo } from '../../utilities/assets'
 
 export default ({
   globalContent: data,
   arcSite,
   contextPath,
   socialName,
-  deployment,
   isAmp,
   siteAssets: { seo },
   siteName = '',
@@ -28,17 +28,19 @@ export default ({
   const {
     id,
     title,
+    metaTitle,
     tags,
     link,
     displayDate: publishDate,
-    publishDate: lastPublishDate,
-    subTitle,
+    publishDate: publishDatedate,
+    subTitle = arcSite,
     seoAuthor,
     imagePrimarySeo,
     primarySection,
     primarySectionLink,
     videoSeo,
     contentElementsText: dataElement,
+    contentElementsHtml = [],
     relatedContent,
     seoKeywords,
     breadcrumbList,
@@ -46,6 +48,7 @@ export default ({
     sourceId,
     isPremium,
     sourceUrlOld,
+    getPremiumValue,
     contentElementsRedesSociales,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
   const parameters = {
@@ -56,13 +59,23 @@ export default ({
     presets: 'no-presets',
   }
   const resultStoryRecent = StoriesRecent(parameters)
-  const publishDateZone =
-    arcSite === ConfigParams.SITE_ELCOMERCIO ||
+  let publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
     arcSite === ConfigParams.SITE_DEPOR ||
     arcSite === ConfigParams.SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
+
+  publishDateZone =
+    arcSite === ConfigParams.SITE_ELCOMERCIO
+      ? getDateSeo(publishDate)
+      : publishDateZone
+
+  const lastPublishDate =
+    arcSite === ConfigParams.SITE_ELCOMERCIO
+      ? getDateSeo(publishDatedate)
+      : publishDatedate
+
   const redSocialVideo = contentElementsRedesSociales
     .map(({ youtube = '', facebook = '', twitter = '', user = '' }) => {
       const thumbnailUrlYoutube =
@@ -82,9 +95,9 @@ export default ({
 
       return thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
         ? `{ "@context": "http://schema.org", "@type": "VideoObject", "name": "${formatHtmlToText(
-            title
+            title || arcSite
           )}",   "description": "${formatHtmlToText(
-            subTitle
+            subTitle || arcSite
           )}",  "thumbnailUrl": "${thumbnailUrlYoutube ||
             thumbnailUrlTwitter ||
             thumbnailUrlFacebook}", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube ||
@@ -112,12 +125,10 @@ export default ({
     "name": "${siteName}",
     "logo": {
       "@type": "ImageObject",
-      "url": "${deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/${seo.logoAmp}`
-      )}",
+      "url": "${`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",
       "width": ${seo.width},
       "height": ${seo.height}
     }
@@ -142,19 +153,22 @@ export default ({
           : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
 
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
-        caption
+        caption || arcSite
       )}", ${
         isAmp === true ? publishedVideoOrganization : ''
       }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
-        description || caption
-      )}", "contentUrl": "${url}",  "uploadDate": "${date}", "duration": "${msToTime(
+        description || caption || arcSite
+      )}", "contentUrl": "${getAssetsPathVideo(
+        arcSite,
+        url
+      )}",  "uploadDate": "${date}", "duration": "${msToTime(
         duration,
         false
       )}" } `
     }
   )
 
-  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url='' }) => {
+  const imagesSeoItemsAmp = imagePrimarySeo.map(({ url = '' }) => {
     const {
       amp_image_1x1: ampImage1x1 = url,
       amp_image_4x3: ampImage4x3 = url,
@@ -226,12 +240,10 @@ export default ({
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${deployment(
-        `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/logo-story-default.jpg`
-      )}",  "description": "${formatHtmlToText(
+    : `"image": {  "@type": "ImageObject", "url": "${`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`}",  "description": "${formatHtmlToText(
         siteName
       )}", "height": 800, "width": 1200 },`
 
@@ -247,7 +259,6 @@ export default ({
       : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
-      arcSite === ConfigParams.SITE_ELCOMERCIO ||
       arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
       arcSite === ConfigParams.SITE_DEPOR ||
       arcSite === ConfigParams.SITE_ELBOCON
@@ -255,9 +266,9 @@ export default ({
         : lastPublishDate
     }",
 
-    "headline":"${formatHtmlToText(title)}",  "description":"${formatHtmlToText(
-    subTitle
-  )}",
+    "headline":"${formatHtmlToText(title)}",
+    "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
+    "description":"${formatHtmlToText(subTitle)}",
   ${bodyStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
@@ -265,11 +276,12 @@ export default ({
     "author":{    "@type":"Person",   "name":"${formatHtmlToText(
       seoAuthor
     )}"    },
-    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${deployment(
-    `${getAssetsPath(arcSite, contextPath)}/resources/dist/${arcSite}/images/${
-      seo.logoAmp
-    }`
-  )}",   "height":${seo.height}, "width":${seo.width}
+    "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",   "height":${
+    seo.height
+  }, "width":${seo.width}
        }
     },    
     ${(isPremium && storyPremium) || ''} 
@@ -294,7 +306,7 @@ export default ({
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
   const scriptTaboola = `
-  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.async=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
+  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
     arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript
   }/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
 
@@ -311,7 +323,7 @@ export default ({
           if (!document.getElementById(id)) {
             const n = document.createElement('script')
             const f = document.getElementsByTagName('script')[0]
-            n.async = 1;
+            n.defer = 1;
             n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
             n.id = id;
             f.parentNode.insertBefore(n, f);
@@ -341,7 +353,7 @@ export default ({
               if (!document.getElementById(id)) {
                 const n = document.createElement('script')
                 const f = document.getElementsByTagName('script')[0]
-                n.async = 1;
+                n.defer = 1;
                 n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
                 n.id = id;
                 f.parentNode.insertBefore(n, f);
@@ -375,7 +387,21 @@ export default ({
         }
       }()
    */
+  const getContentType = () => {
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
 
+    let contenType = isPremium ? 'locked' : premiumValue
+    const section = primarySectionLink && primarySectionLink.split('/')[1]
+    contenType = section.match(/publirreportaje|publireportaje/)
+      ? 'free'
+      : contenType
+
+    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
+    return contenType
+  }
+  const dataStructuraHtmlAmp =
+    contentElementsHtml.match(/:<script(.*?)>(.*?)<\/script>:/gm) || []
   return (
     <>
       <meta name="data-article-id" content={id} />
@@ -409,7 +435,6 @@ export default ({
       <meta
         property="article:modified_time"
         content={`${
-          arcSite === ConfigParams.SITE_ELCOMERCIO ||
           arcSite === ConfigParams.SITE_ELCOMERCIOMAG
             ? publishDateZone
             : lastPublishDate
@@ -417,7 +442,7 @@ export default ({
       />
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
-
+      <meta property="article:content_tier" content={getContentType()} />
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
@@ -429,6 +454,7 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: relatedContentData }}
       />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
@@ -440,6 +466,29 @@ export default ({
           async
         />
       )}
+
+      {isAmp === true &&
+        dataStructuraHtmlAmp.map(datas => {
+          return (
+            <>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: datas
+                    .replace(':<script type="application/ld+json">', '')
+                    .replace('</script>:', ''),
+                }}
+              />
+            </>
+          )
+        })}
+      {isAmp !== true &&
+        contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `.live-event {font-size: 16px;} .live-event .live-event-comment {display: block;position: relative;padding: 0 0 10px 65px;border-bottom: 1px solid #dcdcdc;margin-bottom: 10px;} .live-event .live-event-comment .live-event-minute{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-event .live-event-comment p{font-size: 18px;font-family: Georgia;line-height: 1.5;} .live-event .live-event-comment p a{color: #4a88c6;font-weight: bold;} .live-match {font-size: 16px;} .live-match .live-match-comment {display: block;position: relative;padding: 0 0 10px 40px;border-bottom: 1px solid #dcdcdc;margin-bottom: 10px;} .live-match .live-match-comment .live-match-minute{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-match .live-match-comment p{font-size: 18px;font-family: Georgia;line-height: 1.5;} .live-match .live-match-comment p a{color: #4a88c6;font-weight: bold;}`,
+            }}></style>
+        )}
     </>
   )
 }

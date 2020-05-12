@@ -28,4 +28,4 @@ CardsSurveyChildProgressBar.propTypes = {
   isHighlight: PropTypes.bool,
 }
 
-export default CardsSurveyChildProgressBar
+export default React.memo(CardsSurveyChildProgressBar)

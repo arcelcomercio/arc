@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
-import {
-  getResponsiveClasses,
-  searchQuery,
-} from '../../../../utilities/helpers'
+import getResponsiveClasses from '../../../../utilities/responsive-classes'
+import searchQuery from '../../../../utilities/client/search'
 
 // TODO: Agregar el click afuera del menu
 class HeaderChildSomos extends PureComponent {

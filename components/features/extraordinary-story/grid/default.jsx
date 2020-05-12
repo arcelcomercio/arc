@@ -12,13 +12,22 @@ import {
   includePrimarySection,
   includePromoItems,
 } from '../../../utilities/included-fields'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
+
+const PHOTO_SOURCE = 'photo-resizer'
+
+const getPhotoId = photoUrl => {
+  if (!photoUrl) return ''
+  const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
+  const [, photoId] = customPhotoUrl || []
+  return photoId
+}
 
 const ExtraordinaryStoryGrid = props => {
   const { customFields: customFieldsData = {} } = props
   const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
 
-  const presets = 'landscape_xl:980x528,landscape_l:648x374,square_l:600x600'
+  const presets = 'landscape_xl:980x528,square_l:600x600'
   const includedFields = `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`
 
   const {
@@ -26,6 +35,7 @@ const ExtraordinaryStoryGrid = props => {
       contentService: storyService = '',
       contentConfigValues: storyConfigValues = {},
     } = {},
+    multimediaSource,
   } = customFieldsData || {}
 
   const storyData = useContent({
@@ -36,6 +46,21 @@ const ExtraordinaryStoryGrid = props => {
         : storyConfigValues,
     filter: storySchema(arcSite),
   })
+
+  // Solo acepta custom image desde Photo Center
+  const photoId = multimediaSource ? getPhotoId(multimediaSource) : ''
+  const customPhoto =
+    useContent(
+      photoId
+        ? {
+            source: PHOTO_SOURCE,
+            query: {
+              url: multimediaSource,
+              presets,
+            },
+          }
+        : {}
+    ) || {}
 
   const {
     section1: {
@@ -119,6 +144,7 @@ const ExtraordinaryStoryGrid = props => {
     deployment,
     contextPath,
     defaultImgSize: 'sm',
+    customPhoto,
   })
 
   const formattedSection1 = new SectionData(section1, arcSite)
@@ -129,12 +155,10 @@ const ExtraordinaryStoryGrid = props => {
 
   const imgLogo =
     customFieldsData.logo ||
-    deployment(
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/assets/extraordinary-story/grid/logo.png`
-    )
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/assets/extraordinary-story/grid/logo.png?d=1`
 
   const params = {
     storyData: formattedStoryData,

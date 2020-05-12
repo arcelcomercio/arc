@@ -11,9 +11,9 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     // 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Peru21_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/peru21/web/post/default/preroll&description_url=https%3A%2F%2Fperu21.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Dperu21%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/peru21/web/post/default/preroll&description_url=https%3A%2F%2Fperu21.pe%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3Dperu21%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/peru21/amp/post/default/preroll&description_url=https%3A%2F%2Fperu21.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Dperu21%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/peru21/amp/post/default/preroll&description_url=https%3A%2F%2Fperu21.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Dweb%26publisher%3Dperu21%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KKQFJ3Z',
   ampGoogleTagManagerId: 'UA-3055636-4',
@@ -91,41 +91,27 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/peru21',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/peru21noticias',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/peru21',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/peru21noticias',
+    },
+  ],
   social: {
     facebook: {
-      name: 'facebook',
       user: '@peru21.pe',
       url: 'https://www.facebook.com/peru21',
     },
     twitter: {
-      name: 'twitter',
       user: 'peru21noticias',
-      url: 'https://twitter.com/peru21noticias',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 14926789,
-    movil2: 14904301,
-    movil3: 14926493,
-    movil4: 14926495,
-    movil5: 14926496,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna1-300x250-div-gpt-ad-8599377-31.html',
@@ -144,6 +130,7 @@ export default {
     mainColorBr: '#efdb96',
     mainColorLink: '#36b',
     mainColorBtn: '#0c70bf',
+    authProviders: ['facebook'],
   },
   tv: {
     logoUrl: '/peru21tv/',

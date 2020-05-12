@@ -1,0 +1,52 @@
+.st-rel {
+  margin: 0 20px 14px 20px;
+  border-top: 1px solid #888;
+  padding-top: 20px;
+  &__title {
+    font: 700 14px/18px $primary-font;
+    letter-spacing: 0;
+    color: #222;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+  }
+
+  &__item {
+    padding-bottom: 20px;
+    border-top: 2px solid #e1e1e1;
+    padding-top: 20px;
+  }
+
+  &__logo {
+    width: 29px;
+    height: 29px;
+    margin-right: 10px;
+  }
+
+  &__author {
+    letter-spacing: 0;
+    color: #888;
+    font: 700 11px/15px $primary-font;
+    text-transform: uppercase;
+  }
+  &__img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    @media (--desktop) {
+      width: 200px;
+    }
+  }
+
+  &__txt {
+    font: 700 16px/22px $primary-font;
+    letter-spacing: 0;
+    color: #111;
+
+    /* padding-right: 15px; */
+    padding: 0 30px 5px 0;
+    @media (--desktop) {
+      padding-right: 30px;
+      font: 700 19px/23px $primary-font;
+    }
+  }
+}

@@ -38,3 +38,5 @@ import './fonts/Exo-Regular.woff'
 import './fonts/RobotoCondensed-Bold.woff'
 import './fonts/RobotoCondensed-Regular.woff'
 import './fonts/TitilliumWeb-Bold.woff'
+
+/** Scripts */

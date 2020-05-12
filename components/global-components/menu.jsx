@@ -1,19 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useEffect, memo } from 'react'
-// import { searchQuery } from '../utilities/helpers'
+import searchQuery from '../utilities/client/search'
 import Button from './button'
 
-const searchQuery = (query, sort) => {
-  const newQuery = encodeURIComponent(query).replace(/%20/g, '+')
-  if (query !== '')
-    // eslint-disable-next-line no-restricted-globals
-    location.href = `/buscar/${newQuery}/todas/${sort ||
-      'descendiente'}/?query=${newQuery}`
-}
-
 const classes = {
-  sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300`,
+  sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300 hidden`,
   content: `nav-sidebar__content flex flex-col justify-between h-full overflow-y`,
   item:
     'nav-sidebar__item position-relative flex justify-between items-center flex-wrap',
@@ -63,9 +55,8 @@ const NavbarChildMenu = props => {
             <li className={classes.item} key={`navbar-menu-${url || id}`}>
               <a
                 href={url || id || '/'}
-                className={`${classes.link}${
-                  deep > 0 ? ` pl-${25 + deep * 15}` : ''
-                }`}>
+                className={classes.link}
+                style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -94,11 +85,30 @@ const NavbarChildMenu = props => {
     )
   }
 
+  const defaultSectionsElComercio = [
+    { name: 'Opinión', url: '/opinion/' },
+    { name: 'Política', url: '/politica/' },
+    { name: 'Lima', url: '/lima/' },
+    { name: 'Economía', url: '/economia/' },
+    { name: 'Mundo', url: '/mundo/' },
+    { name: 'DT', url: '/deporte-total/' },
+    { name: 'Perú', url: '/peru/' },
+    { name: 'Luces', url: '/luces/' },
+    { name: 'Tecnología y Ciencias', url: '/tecnologia/' },
+    { name: 'Somos', url: '/somos/' },
+  ]
+
   const {
     showSidebar = false,
     siteProperties: { siteDomain = '', legalLinks = [] } = {},
-    sections = [],
   } = props
+
+  let { sections = [] } = props
+
+  sections =
+    /elcomercio/.test(siteDomain) && sections.length <= 0
+      ? defaultSectionsElComercio
+      : sections
 
   useEffect(() => {
     IS_MOBILE.current = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(

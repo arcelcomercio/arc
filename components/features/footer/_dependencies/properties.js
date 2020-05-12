@@ -6,31 +6,6 @@ const depor = {
       'Copyright © Depor.pe',
       'Grupo Depor - Todos los derechos reservados',
     ],
-
-    socialNetworks: [
-      {
-        name: 'Twitter',
-        url: 'https://twitter.com/tuitdepor',
-      },
-      {
-        name: 'Facebook',
-        url: 'https://www.facebook.com/depor.pe',
-      },
-
-      {
-        name: 'Google+',
-        url: 'https://plus.google.com/u/0/+deporpe',
-      },
-      {
-        name: 'Pinterest',
-        url: 'https://www.pinterest.com/deporpe',
-      },
-      {
-        name: 'RSS ',
-        url: 'https://depor.com/arcio/rss',
-      },
-    ],
-
     contacts: [
       {
         position: 'Director Periodístico General de Deporte',
@@ -83,21 +58,6 @@ const diariocorreo = {
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
-    socialNetworks: [
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/',
-      },
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/CorreoPeru/',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/diariocorreo',
-      },
-    ],
-
     contacts: [
       {
         position: 'Contacto Administrativo',
@@ -141,21 +101,6 @@ const elbocon = {
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
-    socialNetworks: [
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-el-bocon/',
-      },
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/DiarioElBocon',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elbocononline',
-      },
-    ],
-
     contacts: [
       {
         position: 'Contacto Administrativo',
@@ -200,21 +145,6 @@ const elcomercio = {
           '© Empresa Editora El Comercio - Grupo El Comercio - Todos los derechos reservados.',
       },
     ],
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
-      },
-      {
-        name: 'youtube',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-
     directors: [
       {
         position: 'Director Periodístico',
@@ -250,7 +180,7 @@ const elcomercio = {
     contacts: [
       {
         position: 'Suscripciones',
-        name: 'suscriptores@comercio.com.pe',
+        name: 'atencionalcliente@comercio.com.pe',
       },
       {
         position: 'Publicidad',
@@ -258,7 +188,7 @@ const elcomercio = {
       },
       {
         position: 'Club El Comercio',
-        name: 'clubelcomercio@comercio.com.pe',
+        name: 'atencionalcliente@comercio.com.pe',
         link: {
           name: 'Compromiso de Autorregulación Comercial',
           url: 'https://elcomercio.pe/compromiso-autoregulacion-comercial.pdf',
@@ -291,21 +221,6 @@ const elcomerciomag = {
           '© Empresa Editora El Comercio - Copyright © Elcomercio.pe - Grupo El Comercio - Todos los derechos reservados.',
       },
     ],
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/elcomercio.pe',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elcomercio_peru',
-      },
-      {
-        name: 'youtube',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-
     directors: [
       {
         position: 'Director General',
@@ -386,21 +301,6 @@ const gestion = {
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
-    socialNetworks: [
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-gestión/',
-      },
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/Gestionpe',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/gestionpe',
-      },
-    ],
-
     contacts: [
       {
         position: 'Director Periodístico',
@@ -436,21 +336,6 @@ const laprensa = {
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/peru21',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/peru21noticias',
-      },
-      {
-        name: 'google+',
-        url: 'https://plus.google.com/u/0/+elcomerciope',
-      },
-    ],
-
     contacts: [
       {
         position: 'Directora Periodística',
@@ -490,17 +375,6 @@ const ojo = {
         name: '2019 © PrenSmart S.A.C. Todos los derechos reservados',
       },
     ],
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/DiarioOjo',
-      },
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/company/ojo/',
-      },
-    ],
-
     contacts: [
       {
         position: 'Director Periodístico',
@@ -550,17 +424,6 @@ const peru21 = {
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/peru21',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/peru21noticias',
-      },
-    ],
-
     contacts: [
       {
         position: 'Directora Periodística',
@@ -603,18 +466,6 @@ const publimetro = {
         name: 'Grupo El Comercio - Todos los derechos reservados',
       },
     ],
-
-    socialNetworks: [
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/publimetrope',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/publimetrope',
-      },
-    ],
-
     contacts: [
       {
         position: 'Director Periodístico',
@@ -640,31 +491,6 @@ const trome = {
       'Copyright © Trome.pe',
       'Trome - Todos los derechos reservados',
     ],
-
-    socialNetworks: [
-      {
-        name: 'Twitter',
-        url: 'https://twitter.com/tuittrome',
-      },
-      {
-        name: 'Facebook',
-        url: 'https://www.facebook.com/trome.pe',
-      },
-
-      {
-        name: 'Google+',
-        url: 'https://plus.google.com/u/0/+tromepe',
-      },
-      {
-        name: 'Pinterest',
-        url: 'https://www.pinterest.com/tromepe',
-      },
-      {
-        name: 'RSS ',
-        url: 'https://trome.com/arcio/rss',
-      },
-    ],
-
     contacts: [
       {
         position: 'Editora web Marilyn Corrales',

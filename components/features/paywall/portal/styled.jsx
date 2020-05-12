@@ -10,8 +10,15 @@ export const Portal = styled.div`
     flex-direction: column;
     position: relative;
     z-index: 10;
-    ${theme.breakpoints.up('md')} {
-      background: url(${theme.images.backgroundx1});
+    background: url(${theme.images.backgroundx1}) no-repeat;
+    ${theme.breakpoints.up('lg')} {
+      background-size: contain;
+    }
+    ${theme.breakpoints.down('lg')} {
+      background-size: 100% 54%;
+    }
+    ${theme.breakpoints.down('md')} {
+      background-size: 100% 46%;
     }
     ${theme.breakpoints.down('sm')} {
       background: ${backgroundColor

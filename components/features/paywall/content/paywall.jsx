@@ -114,7 +114,7 @@ const Paywall = ({
 
   useEffect(() => {
     const sessionFia = window.sessionStorage.getItem('paywall_type_modal')
-    if (sessionFia) currMemo.fromFia = !!sessionFia
+    currMemo.fromFia = sessionFia === 'fia'
     history = createBrowserHistory({
       basename: '',
       // getUserConfirmation: (message, callback) => callback(window.confirm(message))
@@ -201,7 +201,7 @@ const Paywall = ({
               <Nav
                 excludeSteps={freeAccess && [2, 3]}
                 stepsNames={stepNames}
-                right={<ClickToCall href={clickToCallUrl} text={msgs.help} />}
+                /* right={<ClickToCall href={clickToCallUrl} text={msgs.help} />} */
               />
             }>
             <WizardPlan

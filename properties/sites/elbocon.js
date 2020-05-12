@@ -11,9 +11,9 @@ export default {
   resizerSecretKeyEnvVar: '',
   urlPreroll:
     // 'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/Bocon_Preroll&description_url=[placeholder]&env=vp&impl=s&correlator=&tfcd=0&npa=0&gdfp_req=1&output=vast&sz=640x360&unviewed_position_start=1',
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elbocon/web/post/default/preroll&description_url=https%3A%2F%2Felbocon.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3Delbocon%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elbocon/web/post/default/preroll&description_url=https%3A%2F%2Felbocon.pe%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3Delbocon%26seccion%3Ddefault%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   urlPrerollAmp:
-    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elbocon/amp/post/default/preroll&description_url=https%3A%2F%2Felbocon.pe%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Damp%26publisher%3Delbocon%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
+    'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elbocon/amp/post/default/preroll&description_url=https%3A%2F%2Felbocon.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Delbocon%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-WB49SJD',
   ampGoogleTagManagerId: 'UA-15667156-1',
@@ -103,49 +103,31 @@ export default {
     },
   ],
 
-  footer: {
-    socialNetworks: [
-      {
-        name: 'linkedin',
-        url: 'https://www.linkedin.com/company/diario-el-bocon/',
-      },
-      {
-        name: 'facebook',
-        url: 'https://www.facebook.com/DiarioElBocon',
-      },
-      {
-        name: 'twitter',
-        url: 'https://twitter.com/elbocononline',
-      },
-    ],
-  },
+  socialNetworks: [
+    {
+      name: 'linkedin',
+      url: 'https://www.linkedin.com/company/diario-el-bocon/',
+    },
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/DiarioElBocon',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/elbocononline',
+    },
+  ],
   social: {
     facebook: {
-      name: 'facebook',
       user: '@DiarioElBocon',
       url: 'https://www.facebook.com/DiarioElBocon',
     },
     twitter: {
-      name: 'twitter',
       user: 'elbocononline',
-      url: 'https://twitter.com/elbocononline',
-    },
-    youtube: {
-      name: 'youtube',
-      url: 'https://plus.google.com/u/0/+elcomerciope',
-    },
-    linkedin: {
-      name: 'linkedin',
-      url: 'https://www.linkedin.com/company/diario-el-bocon/',
     },
   },
   adsAmp: {
     dataSlot: 28253241,
-    movil1: 15011755,
-    movil2: 15011756,
-    movil3: 15011757,
-    movil4: 15011758,
-    movil5: 15011759,
   },
   listUrlAdvertisings: [
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna1-300x250-div-gpt-ad-8599377-1.html',
@@ -154,7 +136,7 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna4-300x250-div-gpt-ad-8599377-4.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna5-300x250-div-gpt-ad-8599377-5.html',
   ],
-  activeSignwall: true,
+  activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
   signwall: {
@@ -164,6 +146,7 @@ export default {
     mainColorBr: '#feabab',
     mainColorLink: '#c2080e',
     mainColorBtn: '#d20100',
+    authProviders: ['facebook'],
   },
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',

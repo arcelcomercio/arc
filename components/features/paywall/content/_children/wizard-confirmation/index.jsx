@@ -1,7 +1,8 @@
 /* eslint-disable no-extra-boolean-cast */
-/* global Identity fbq dataLayer */
+/* global Identity fbq dataLayer navigator */
 import React, { useEffect } from 'react'
 import { withTheme } from 'styled-components'
+import { useFusionContext } from 'fusion:context'
 import * as S from './styled'
 import Button from '../../../_children/button'
 import Picture from '../../../_children/picture'
@@ -10,6 +11,7 @@ import { useStrings } from '../../../_children/contexts'
 import PWA from '../../_dependencies/seed-pwa'
 import { pushCxense } from '../../../_dependencies/cxense'
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
+import { interpolateUrl } from '../../../_dependencies/domains'
 
 const HOME = '/'
 const NAME_REDIRECT = 'paywall_last_url'
@@ -42,6 +44,12 @@ const WizardConfirmation = props => {
     getCodeCxense,
   } = props
 
+  const {
+    siteProperties: {
+      paywall: { urls },
+    },
+  } = useFusionContext()
+
   const { orderNumber } = order
   const { uuid, firstName, lastName, secondLastName, email } = Object.assign(
     {},
@@ -73,6 +81,25 @@ const WizardConfirmation = props => {
 
   useEffect(() => {
     PWA.finalize()
+
+    const url = interpolateUrl(urls.originPaymentTraker)
+    const token = window.Identity.userIdentity.accessToken
+    fetch(url, {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        'X-arc-site': arcSite,
+      },
+      body: JSON.stringify({
+        url_referer: referer,
+        medium: origin,
+        user_agent: navigator.userAgent,
+        arc_order: orderNumber,
+      }),
+    })
+
     pushCxense(getCodeCxense) // dispara script de Cxense
     sendAction(PixelActions.PAYMENT_CONFIRMATION, {
       transactionId: orderNumber,

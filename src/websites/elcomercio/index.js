@@ -23,6 +23,7 @@ import './images/logo-amp.png'
 import './images/logo-elcomercio-388x60.png'
 import './images/arrow-right-2.png'
 import './images/logo_fb.jpg'
+import './images/logo-sidebar.png'
 
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'
@@ -43,6 +44,8 @@ import './fonts/LibreFranklin/libre-franklin-v4-latin-500.woff'
 import './fonts/LibreFranklin/libre-franklin-v4-latin-700.woff'
 import './fonts/NotoSerifSC/noto-serif-sc-v6-latin-500.woff'
 import './fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.woff'
+
+/** Scripts */
 
 // Imagenes paywall
 require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)

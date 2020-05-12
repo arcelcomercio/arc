@@ -43,7 +43,7 @@ module.exports = (mode, type = 'index') => {
             ctx: {
               env: mode,
               cssnano: {
-                preset: 'default',
+                preset: ['advanced', { cssDeclarationSorter: true }],
               },
             },
           },
@@ -104,7 +104,7 @@ module.exports = (mode, type = 'index') => {
 
   const rules = [styles, fonts, images]
 
-  if (type !== 'amp' && type !== 'mobile' && type !== 'dmobile') {
+  if (type !== 'amp' && type !== 'lite' && type !== 'dlite') {
     rules.unshift(javascript)
     rules.push(ico)
   }

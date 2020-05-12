@@ -1,19 +1,10 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import { getAssetsPath } from '../../../utilities/constants'
-
-const defaultImage = ({ deployment, contextPath, arcSite, size = 'lg' }) => {
-  if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
-
-  return deployment(
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/default-${size}.png`
-  )
-}
+import { defaultImage } from '../../../utilities/assets'
 
 const BASE_PATH = '/cartelera'
 // const MOVIES_BASE_PATH = '/peliculas'
@@ -56,7 +47,6 @@ const CardCinemaBillboard = () => {
   return (
     <div className="cinema-card bg-white">
       <article className="position-relative">
-        <span className="cinema-card__gradient w-full position-absolute bottom-0 left-0" />
         <h3 className="cinema-card__category uppercase primary-font mb-0 pb-15 text-xl line-h-none">
           <a className="cinema-card__link text-gray-300" href={`${BASE_PATH}/`}>
             Cartelera
@@ -93,51 +83,57 @@ const CardCinemaBillboard = () => {
           id="cinema-form"
           action={FORM_ACTION}
           method="post"
-          className="text-right">
-          <div className="mb-10">
-            <select
-              id="movie-select"
-              name="movie"
-              className="cinema-card__select w-full primary-font mb-10 pl-10 text-xs"
-              value="">
+          className="text-right mb-10">
+          <label htmlFor="movie-select" className="font-0">
+            PELICULAS
+          </label>
+          <select
+            id="movie-select"
+            name="movie"
+            className="cinema-card__select w-full primary-font mb-10 pl-10 text-xs"
+            value="">
+            <option
+              value=""
+              defaultValue
+              disabled
+              className="cinema-card__option bg-white">
+              PELÍCULAS
+            </option>
+            {moviesList.map(movie => (
               <option
-                value=""
-                defaultValue
-                disabled
-                className="cinema-card__option bg-white">
-                PELÍCULAS
+                value={movie.url}
+                className="cinema-card__option bg-white"
+                key={movie.mid}>
+                {movie.title}
               </option>
-              {moviesList.map(movie => (
-                <option
-                  value={movie.url}
-                  className="cinema-card__option bg-white"
-                  key={movie.mid}>
-                  {movie.title}
-                </option>
-              ))}
-            </select>
-            <select
-              id="theater-select"
-              name="theater"
-              className="cinema-card__select w-full primary-font mb-10 pl-10 text-xs"
-              value="">
+            ))}
+          </select>
+
+          <label htmlFor="theater-select" className="font-0">
+            CINES
+          </label>
+          <select
+            id="theater-select"
+            name="theater"
+            className="cinema-card__select w-full primary-font mb-10 pl-10 text-xs"
+            value="">
+            <option
+              value=""
+              defaultValue
+              disabled
+              className="cinema-card__option bg-white">
+              CINES
+            </option>
+            {cinemasList.map(cinema => (
               <option
-                value=""
-                defaultValue
-                disabled
-                className="cinema-card__option bg-white">
-                CINES
+                value={cinema.url}
+                className="cinema-card__option bg-white"
+                key={cinema.cid}>
+                {cinema.nombre}
               </option>
-              {cinemasList.map(cinema => (
-                <option
-                  value={cinema.url}
-                  className="cinema-card__option bg-white"
-                  key={cinema.cid}>
-                  {cinema.nombre}
-                </option>
-              ))}
-            </select>
-          </div>
+            ))}
+          </select>
+
           <button
             type="submit"
             className="cinema-card__button bg-white inline-block uppercase font-bold primary-font border-0 text-md rounded-sm">

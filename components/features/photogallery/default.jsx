@@ -43,8 +43,6 @@ const PhotoGallery = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  // const { promo_items: promoItem } = data
-
   const {
     primarySection,
     primarySectionLink,
@@ -102,6 +100,6 @@ PhotoGallery.propTypes = {
 }
 
 PhotoGallery.label = 'Fotogalería'
-// PhotoGallery.static = true
+PhotoGallery.static = true
 
 export default PhotoGallery

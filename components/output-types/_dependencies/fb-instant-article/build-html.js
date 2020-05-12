@@ -57,11 +57,56 @@ const buildTexParagraph = paragraph => {
   return result
 }
 
+const buildIntersticialParagraph = (paragraph, link) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
+
+  result.processedParagraph =
+    result.numberWords > 0
+      ? `<p><b>[</b><a href="${link}">${clearBrTag(paragraph)}</a><b>]</b></p>`
+      : ''
+
+  return result
+}
+
+const buildListLinkParagraph = (items, defaultImage) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+
+  result.processedParagraph =
+    items.length > 0
+      ? `<div>
+          <div>Mira también:</div>
+          ${items &&
+            items.map(data => {
+              const {
+                url = '',
+                content = '',
+                image: { url: urlImg = '' } = {},
+              } = data || {}
+              result.numberWords += countWordsHelper(clearHtml(content))
+              return `
+              <div>
+                <figure>
+                  <a href="${url}"><img src="${defaultImage}" data-src="${urlImg}" alt="${content}" /></a>
+                </figure>
+                <div>
+                  <h2><a href="${url}">${content}</a></h2>
+                </div>
+              </div>`
+            })}
+        </div>`
+      : ''
+
+  return result
+}
+
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
   numberWordMultimedia,
   level = null,
+  link,
+  defaultImage,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -76,10 +121,27 @@ const analyzeParagraph = ({
   let textProcess = {}
   switch (type) {
     case ConfigParams.ELEMENT_TEXT:
+    case ConfigParams.ELEMENT_BLOCKQUOTE:
       textProcess = buildTexParagraph(processedParagraph)
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
+
+      break
+    case ConfigParams.ELEMENT_INTERSTITIAL_LINK:
+      textProcess = buildIntersticialParagraph(processedParagraph, link)
+
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
+
+      break
+    case ConfigParams.ELEMENT_LINK_LIST:
+      textProcess = buildListLinkParagraph(processedParagraph, defaultImage)
+
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
+        .split(',')
+        .join('')
 
       break
     case ConfigParams.ELEMENT_HEADER:
@@ -93,6 +155,7 @@ const analyzeParagraph = ({
       const paramBuildListParagraph = {
         processedParagraph,
         numberWordMultimedia,
+        defaultImage,
       }
 
       // textProcess = buildListParagraph(processedParagraph)
@@ -160,14 +223,17 @@ const analyzeParagraph = ({
 const buildListParagraph = ({
   processedParagraph: listParagraph,
   numberWordMultimedia,
+  defaultImage,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
-  newListParagraph.forEach(({ type = '', payload = '' }) => {
+  newListParagraph.forEach(({ type = '', payload = '', link = '' }) => {
     const { processedParagraph, numberWords } = analyzeParagraph({
       originalParagraph: payload,
       type,
       numberWordMultimedia,
+      link,
+      defaultImage,
       // numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
     })
 
@@ -186,34 +252,50 @@ const ParagraphshWithAdds = ({
   nextAdds = 350,
   numberWordMultimedia = 70,
   arrayadvertising = [],
+  siteUrl,
+  defaultImage = '',
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
+  let lookAlso = []
 
   newsWithAdd = paragraphsNews
-    .map(({ payload: originalParagraph, type, level }) => {
+    .map(({ payload: originalParagraph, type, level, link = '' }) => {
       let paragraphwithAdd = ''
 
-      const { processedParagraph, numberWords } = analyzeParagraph({
+      let { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph,
         type,
         numberWordMultimedia,
         level,
+        link,
+        defaultImage,
       })
+
+      if (ConfigParams.ELEMENT_STORY === type) {
+        lookAlso.push(originalParagraph)
+      }
+      if (ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0) {
+        let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
+        lookAlso.forEach(value => {
+          ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
+        })
+        processedParagraph = `${ulLookAlso}</ul>`
+        numberWords = countWordsHelper(clearHtml(processedParagraph))
+        lookAlso = []
+      }
 
       countWords += numberWords
 
       if (IndexAdd === 0) {
         if (countWords >= firstAdd) {
-          
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
           paragraphwithAdd = `${processedParagraph} ${
-
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
-            }`
+          }`
           IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
@@ -223,14 +305,12 @@ const ParagraphshWithAdds = ({
         // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
         // eslint-disable-next-line no-lonely-if
         if (countWords >= nextAdds) {
-          
           countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
           paragraphwithAdd = `${processedParagraph} ${
-
             arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
               ? buildIframeAdvertising(arrayadvertising[IndexAdd])
               : ''
-            }`
+          }`
           IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
         } else {
           paragraphwithAdd = `${processedParagraph}`
@@ -261,6 +341,9 @@ const multimediaHeader = ({ type = '', payload = '' }, title) => {
     case ConfigParams.ELEMENT_YOUTUBE_ID:
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
       break
+    case ConfigParams.ELEMENT_PODCAST:
+      result = `<figure class="op-interactive"><iframe width="150" height="100" scrolling="no" frameborder="0"><audio controls><source src="${payload}" type="audio/mpeg"></audio></iframe></figure>`
+      break
     default:
       break
   }
@@ -282,7 +365,10 @@ const BuildHtml = ({
   listUrlAdvertisings,
   websiteUrlsBytag,
   arcSite,
-  section
+  section,
+  getPremiumValue,
+  siteUrl,
+  defaultImage,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -294,15 +380,31 @@ const BuildHtml = ({
     nextAdds,
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
+    siteUrl,
+    defaultImage,
   }
-  const {type} = multimedia || {}
+  const getContentType = ({ premium = '' } = {}) => {
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
+    let contenType = premium ? 'locked' : premiumValue
+    contenType = section.match(/publirreportaje|publireportaje/)
+      ? 'free'
+      : contenType
+
+    contenType = arcSite === section.match(/mag/) ? 'free' : contenType
+    return contenType
+  }
+  const { type } = multimedia || {}
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
-  <head>
+  <head>  
       <meta charset="utf-8" />
       <meta property="op:markup_version" content="v1.0" />
       <meta property="fb:article_style" content="${fbArticleStyle}" />
+      <meta property="article:content_tier" content="${getContentType(
+        propsScriptHeader
+      )}"/>
       <link rel="canonical" href="${canonical}"/>
   </head>
   <body>
@@ -311,8 +413,8 @@ const BuildHtml = ({
         <iframe>
           <script>${AnalyticsScript(scriptAnaliticaProps)}</script>
           <script type="text/javascript">${ScriptHeader(
-      propsScriptHeader
-    )}</script>
+            propsScriptHeader
+          )}</script>
           <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
           <script>${ScriptElement()}</script>
         </iframe>
@@ -334,17 +436,25 @@ const BuildHtml = ({
           (arcSite === 'publimetro' && section === 'redes-sociales') ||
           (arcSite === 'publimetro' && section === 'entretenimiento')
         )
-          ?
-        `
-        ${type === ConfigParams.GALLERY ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>` : ''}
+          ? `
         ${
-          websiteUrlsBytag.length > 0 ? 
-          `<ul class="op-related-articles" title="Noticias relacionadas">
-          ${websiteUrlsBytag.map(url => url === canonical ? '' : `<li><a href="${url}"></a></li>`).join('')}
-          </ul>` : ''
+          type === ConfigParams.GALLERY
+            ? `<p><a href="${canonical}?ref=fia">Ver nota completa</a></p>`
+            : ''
+        }
+        ${
+          websiteUrlsBytag.length > 0
+            ? `<ul class="op-related-articles" title="Noticias relacionadas">
+          ${websiteUrlsBytag
+            .map(url =>
+              url === canonical ? '' : `<li><a href="${url}"></a></li>`
+            )
+            .join('')}
+          </ul>`
+            : ''
         }
         `
-        : ''
+          : ''
       }
     </article>
   </body>
