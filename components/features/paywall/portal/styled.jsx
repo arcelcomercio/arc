@@ -167,14 +167,23 @@ export const LinkCorporate = styled.a`
     padding: 20px;
     padding-left: 20px;
     background: ${props =>
-      props.primary
-        ? props.backgroundColor || theme.palette.primary.main
+      props.backgroundColor 
+      ? props.backgroundColor 
+      : props.primary
+        ? theme.palette.primary.main
         : theme.palette.common.blackboard};
     cursor: pointer;
     color: ${({ primary }) =>
-      primary
-        ? theme.palette.primary.contrastText
-        : theme.palette.common.white};
+      props.color 
+      ? props.color 
+      : primary
+          ? theme.palette.primary.contrastText
+          : theme.palette.getContrastText(
+              props.backgroundColor 
+		  ? props.backgroundColor 
+		  : theme.palette.common.blackboard
+	  )
+    };
     min-width: 300px;
     height: 50px;
     border-radius: 4px;
