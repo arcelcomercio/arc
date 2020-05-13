@@ -108,12 +108,6 @@ function WizardPlan(props) {
     clearDeferredActions()
   }).current
 
-  // Ejecutar acciones diferidas al cambiar estado de sesion
-  useEffect(() => {
-    runDeferredAction()
-    clearDeferredActions()
-  }, [profile])
-
   // Verificar si usuario tiene suscripciones activas para prevenirle en caso
   // de intentar suscribirse nuevamente
   useEffect(() => {
@@ -140,6 +134,10 @@ function WizardPlan(props) {
     } else {
       hasSubscriptionsPromise.current = undefined
     }
+
+    // Ejecutar acciones diferidas al cambiar estado de sesion
+    runDeferredAction()
+    clearDeferredActions()
   }, [profile])
 
   useEffect(() => {
