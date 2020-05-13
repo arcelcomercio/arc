@@ -1,12 +1,19 @@
 .story-content {
+  &__date,
+  &__font--secondary{
+    font-family: $primary-font;
+  }
   &__font--secondary {
     a {
-      color: $color-primary;
+      color: #2b7bb9;
       font-weight: bold;
     }
   }
   &__caption {
-    color: $color-primary;
+    color: #333;
+  }
+  &__icon{
+    color: #8A8A8A;
   }
   &__taboola {
     .thumbnails-a {
@@ -14,4 +21,7 @@
       height: auto;
     }
   }
+}
+.story-content li span a{
+  color:#2b7bb9;
 }

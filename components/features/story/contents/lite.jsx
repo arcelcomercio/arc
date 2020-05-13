@@ -31,6 +31,7 @@ import {
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
   ELEMENT_STORY,
+  ELEMENT_BLOCKQUOTE,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -50,9 +51,10 @@ const classes = {
   content: 'story-contents__content ',
   textClasses: 'story-contents__font-paragraph ',
   newsImage: 'story-contents__image  ',
-  newsEmbed: 'story-contents__embed',
+  newsEmbed: 'story-contents__embed embed-script',
   social: 'story-contents__social',
   tags: 'story-contents',
+  blockquoteClass: 'story-contents__blockquote',
   section: 'w-full',
   listClasses: 'story-contents__paragraph-list',
   alignmentClasses: 'story-contents__alignment',
@@ -266,6 +268,17 @@ class StoryContentsLite extends PureComponent {
                     )
                   }
 
+                  if (type === ELEMENT_BLOCKQUOTE) {
+                    return (
+                      <blockquote
+                        dangerouslySetInnerHTML={{
+                          __html: content,
+                        }}
+                        className={classes.blockquoteClass}
+                      />
+                    )
+                  }
+
                   if (type === ELEMENT_RAW_HTML) {
                     if (
                       content.includes('opta-widget') &&
@@ -331,6 +344,29 @@ class StoryContentsLite extends PureComponent {
                             htmlContent="html"
                             className={classes.newsImage}
                             {...element}
+                          />
+                        </>
+                      )
+                    }
+                    if (
+                      content.includes('twitter-tweet') ||
+                      content.includes('instagram-media')
+                    ) {
+                      return (
+                        <>
+                          <div
+                            data-type={
+                              content.includes('twitter-tweet')
+                                ? 'twitter'
+                                : 'instagram'
+                            }
+                            className={classes.newsEmbed}
+                            dangerouslySetInnerHTML={{
+                              __html: content.replace(
+                                /(<script.*?>).*?(<\/script>)/,
+                                ''
+                              ),
+                            }}
                           />
                         </>
                       )

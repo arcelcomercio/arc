@@ -18,6 +18,7 @@ import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
 import videoScript from './_dependencies/video-script'
 import iframeScript from './_dependencies/iframe-script'
+import widgets from './_dependencies/widgets'
 
 const LiteOutput = ({
   children,
@@ -204,6 +205,7 @@ const LiteOutput = ({
 
   const {
     videoSeo,
+    embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
@@ -383,6 +385,15 @@ const LiteOutput = ({
         )}
 
         <ChartbeatBody story={isStory} {...metaPageData} />
+        {embedTwitterAndInst[0] && (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: widgets }}
+            />
+          </>
+        )}
         {contenidoVideo && (
           <>
             <script

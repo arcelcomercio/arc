@@ -10,11 +10,11 @@ const classes = {
 const URL_GOOGLE_NEWS =
   'https://news.google.com/publications/CAAqBggKMJGkIDCp0wM?hl=es-419&gl=PE&ceid=PE%3Aes-419'
 
-function GoogleNews() {
+export default ({ url, text }) => {
   return (
     <div className={classes.container}>
-      <a className={classes.link} href={URL_GOOGLE_NEWS}>
-        Sigue a El Comercio en
+      <a className={classes.link} href={url || URL_GOOGLE_NEWS}>
+        {text !== '' ? text : 'Sigue a El Comercio en'}
         <p className={classes.letterContainer}>
           <span className={`${classes.letter}--color-1`}>G</span>
           <span className={`${classes.letter}--color-2`}>o</span>
@@ -28,5 +28,3 @@ function GoogleNews() {
     </div>
   )
 }
-
-export default GoogleNews
