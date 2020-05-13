@@ -347,6 +347,9 @@ export default {
       _id
       type
     }
+    ingredients {
+      content
+    }
     ${basicVideo}
     ${basicGallery}
   }

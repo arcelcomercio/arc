@@ -1,0 +1,23 @@
+.ingredients {
+  &__header {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  &__list {
+    list-style: none;
+    padding-left: 15px;
+  }
+  &__item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+  }
+  &__unit {
+    font-weight: bold;
+    width: 60px;
+    text-align: right;
+  }
+  &__text {
+    margin-left: 10px;
+  }
+}

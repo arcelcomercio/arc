@@ -12,7 +12,7 @@ import { getAssetsPath } from '../../../utilities/constants'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
-  SITE_GESTION,
+  SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -51,11 +51,12 @@ import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildIngredientList from './_children/ingredients-list'
 import Ads from '../../../global-components/ads'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
-  content: 'story-content__content position-relative flex flex-row-reverse',
+  content: 'story-content__content position-relative flex',
   textClasses:
     'story-content__font--secondary mb-25 title-xs line-h-md mt-20 secondary-font pr-20',
   blockquoteClass:
@@ -141,9 +142,15 @@ class StoryContents extends PureComponent {
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
-    const { basic_gallery: basicGallery = {} } = promoItems
+    const {
+      basic_gallery: basicGallery = {},
+      ingredients: { content: contentIngredients = '' } = {},
+    } = promoItems
     let relatedIds = []
-
+    const hasRecetas =
+      arcSite === SITE_ELCOMERCIOMAG &&
+      requestUri.includes('/recetas/') &&
+      contentIngredients
     return (
       <>
         <div className={classes.news}>
@@ -175,17 +182,20 @@ class StoryContents extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${
-              isPremium && 'story-content__nota-premium paywall no_copy'
-            }`}
+            className={`${classes.content}${
+              hasRecetas ? ' flex-col' : ' flex-row-reverse'
+            } ${isPremium && 'story-content__nota-premium paywall no_copy'}`}
             id="contenedor">
-            <StoryContentsChildIcon />
+            {!hasRecetas && <StoryContentsChildIcon />}
             {!isDfp && (
               <>
                 <div id="ads_d_inline" />
                 <div id="ads_m_movil_video" />
                 <div id="ads_m_movil3" />
               </>
+            )}
+            {hasRecetas && (
+              <StoryContentsChildIngredientList data={contentIngredients} />
             )}
             {contentPosicionPublicidad && (
               <ArcStoryContent
