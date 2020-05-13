@@ -176,6 +176,7 @@ class StoryContents extends PureComponent {
           <div
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}
+            style={`${isPremium && { display: 'none' }}`}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
