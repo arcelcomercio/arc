@@ -1,0 +1,47 @@
+/******* Framework Variables *******/
+@import "./scss/partials/import-icons";
+@import "../../general-styles/framework/variables/index";
+
+/******* Site Variables *******/
+@import "./scss/variables/index";
+@import "../../general-styles/framework/core/index";
+@import "./scss/partials/import-fonts";
+@import "../../general-styles/framework/generators/index";
+
+/******* Partials *******/
+//@import "./scss/partials/base";
+
+/******* Components *******/
+@import "../../general-styles/components/dbasic";
+
+/******* Modificadores ********/
+@import "./scss/global-components/_";
+@import "./scss/components/breaking-news/breaking-news";
+@import "./scss/components/cards/triplet/triplet";
+@import "./scss/components/cards/most-read/most-read";
+@import "./scss/components/cards/most-read/most-read-item";
+@import "./scss/components/cards/featured-story-full-img/feature-fullimage";
+@import "./scss/components/cards/featured-story-author/featured-author";
+@import "./scss/components/cards/columnist-premium/columnist-premium";
+@import "./scss/components/cards/cinema-billboard/cinema-card";
+@import "./scss/components/cards/featured-premium/featured-premium";
+//@import "./scss/components/layout/navbar/nav";
+@import "./scss/components/layout/navbar/nav-sidebar";
+//@import "./scss/components/layout/header/header";
+@import "./scss/components/layout/footer/footer";
+@import "./scss/components/footer/elcomercio";
+@import "./scss/components/separators/basic/sep-opt";
+@import "./scss/components/separators/opinion/opinion-separator";
+@import "./scss/components/custom-title/custom-title";
+@import "./scss/components/stories-lists/cards/stories-list-card";
+@import "./scss/components/stories-lists/cards/stories-list-header";
+@import "./scss/components/stories-lists/cards/stories-l-footer";
+@import "./scss/components/stories-lists/cards/stories-l-section";
+@import "./scss/components/stories-lists/cards/stories-list-item";
+@import "./scss/components/columnist-premium.scss/columnist-premium";
+@import "./scss/components/statics/opinion-grid/author-card";
+@import "./scss/components/statics/opinion-grid/author-item";
+@import "./scss/components/statics/opinion-grid/opinion-grid";
+@import "./scss/components/separators/featured/featured-separator";
+@import "./scss/components/premium/premium";
+// @import "./scss/components/lifweek/lifweek"; luis
