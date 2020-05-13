@@ -216,7 +216,7 @@ function WizardPlan(props) {
       // Antes de continuar con el flujo de compra, verificamos
       // si el usuario ya tiene suscripcion activa
       hasSubscriptionsPromise.current.then(hasSubscription => {
-        if (!hasSubscription) {
+        if (hasSubscription) {
           // Ya tiene suscripcion, prevenimos al usuario de hacer otra compra
           setError('Ya tiene una suscripción activa')
         } else {
