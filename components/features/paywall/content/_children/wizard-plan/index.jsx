@@ -31,7 +31,7 @@ function WizardPlan(props) {
       summary,
       printedSubscriber,
       fromFia,
-      error,
+      error: serverError,
     },
     onBeforeNextStep = (res, goNextStep) => goNextStep(),
     setLoading,
@@ -39,6 +39,8 @@ function WizardPlan(props) {
     addEventListener = i => i,
     removeEventListener = i => i,
   } = props
+
+  const [error, setError] = useState()
 
   const { lighten } = theme.palette
 
@@ -84,6 +86,10 @@ function WizardPlan(props) {
     planSelected.current = undefined
   }).current
 
+  // Promesa de que el usuario tiene suscripciones activas, para prevenirle
+  // de comprar nuevamente
+  const hasSubscriptionsPromise = useRef()
+
   const loggedHandler = React.useRef(profile => {
     setProfile(profile)
     justLogged.current = true
@@ -106,6 +112,34 @@ function WizardPlan(props) {
   useEffect(() => {
     runDeferredAction()
     clearDeferredActions()
+  }, [profile])
+
+  // Verificar si usuario tiene suscripciones activas para prevenirle en caso
+  // de intentar suscribirse nuevamente
+  useEffect(() => {
+    if (isLogged()) {
+      hasSubscriptionsPromise.current = window.Identity.extendSession().then(
+        ({ accessToken }) => {
+          const entitlementsUrl = interpolateUrl(
+            `${urls.originApi}${urls.arcEntitlements}`
+          )
+          fetch(entitlementsUrl, {
+            headers: {
+              Authorization: accessToken,
+            },
+          }).then(response => {
+            if (response.status === 200) {
+              const entitlements = response.json()
+              resolve(
+                Array.isArray(entitlements.skus) && entitlements.skus.length > 0
+              )
+            }
+          })
+        }
+      )
+    } else {
+      hasSubscriptionsPromise.current = undefined
+    }
   }, [profile])
 
   useEffect(() => {
@@ -181,73 +215,83 @@ function WizardPlan(props) {
       planSelected.current = plan
       dispatchEvent('signInReq', 'landing')
     } else {
-      setLoading(true)
-      const selectedPlan = {
-        sku: plan.sku,
-        priceCode: plan.priceCode,
-        quantity: 1,
-      }
-      Sentry.addBreadcrumb({
-        category: 'compra',
-        message: 'Plan seleccionado',
-        data: selectedPlan,
-        level: Sentry.Severity.Info,
-      })
-      dataLayer.push({
-        event: 'productClick',
-        ecommerce: {
-          click: {
-            products: [
-              {
-                name: plan.productName,
-                id: plan.sku,
-                price: plan.amount,
-                brand: arcSite,
-                category: plan.name,
-                subCategory: plan.billingFrequency,
+      // Antes de continuar con el flujo de compra, verificamos
+      // si el usuario ya tiene suscripcion activa
+      hasSubscriptionsPromise.current.then(hasSubscription => {
+        if (!hasSubscription) {
+          // Ya tiene suscripcion, prevenimos al usuario de hacer otra compra
+          setError('Ya tiene una suscripción activa')
+        } else {
+          // No tiene suscripcion activa continuar con el flujo de compra
+          setLoading(true)
+          const selectedPlan = {
+            sku: plan.sku,
+            priceCode: plan.priceCode,
+            quantity: 1,
+          }
+          Sentry.addBreadcrumb({
+            category: 'compra',
+            message: 'Plan seleccionado',
+            data: selectedPlan,
+            level: Sentry.Severity.Info,
+          })
+          dataLayer.push({
+            event: 'productClick',
+            ecommerce: {
+              click: {
+                products: [
+                  {
+                    name: plan.productName,
+                    id: plan.sku,
+                    price: plan.amount,
+                    brand: arcSite,
+                    category: plan.name,
+                    subCategory: plan.billingFrequency,
+                  },
+                ],
               },
-            ],
-          },
-        },
-      })
-      fbq('track', 'InitiateCheckout', {
-        content_category: plan.name,
-        content_ids: [plan.priceCode],
-        contents: [{ id: plan.priceCode, quantity: 1 }],
-        currency: 'PEN',
-        num_items: 1,
-        value: plan.amount,
-      })
-      dataLayer.push({
-        event: 'checkout',
-        ecommerce: {
-          checkout: {
-            actionField: { step: 1 },
-            products: [
-              {
-                name: plan.productName,
-                id: plan.sku,
-                price: plan.amount,
-                brand: arcSite,
-                category: plan.name,
-                subCategory: plan.billingFrequency,
+            },
+          })
+          fbq('track', 'InitiateCheckout', {
+            content_category: plan.name,
+            content_ids: [plan.priceCode],
+            contents: [{ id: plan.priceCode, quantity: 1 }],
+            currency: 'PEN',
+            num_items: 1,
+            value: plan.amount,
+          })
+          dataLayer.push({
+            event: 'checkout',
+            ecommerce: {
+              checkout: {
+                actionField: { step: 1 },
+                products: [
+                  {
+                    name: plan.productName,
+                    id: plan.sku,
+                    price: plan.amount,
+                    brand: arcSite,
+                    category: plan.name,
+                    subCategory: plan.billingFrequency,
+                  },
+                ],
               },
-            ],
-          },
-        },
+            },
+          })
+          setTimeout(() => {
+            setLoading(false)
+            onBeforeNextStep(
+              {
+                plan,
+                profile,
+                origin: origin.current,
+                referer: referer.current,
+              },
+              props
+            )
+          }, 1000)
+        }
       })
-      setTimeout(() => {
-        setLoading(false)
-        onBeforeNextStep(
-          {
-            plan,
-            profile,
-            origin: origin.current,
-            referer: referer.current,
-          },
-          props
-        )
-      }, 1000)
     }
   }
 
@@ -257,7 +301,7 @@ function WizardPlan(props) {
 
   return (
     <S.WizardPlan>
-      {error && <S.Error>{error}</S.Error>}
+      {(serverError || error) && <S.Error>{serverError || error}</S.Error>}
       {justLogged.current && (
         <LogIntoAccountEventTag subscriptionId={Identity.userIdentity.uuid} />
       )}
