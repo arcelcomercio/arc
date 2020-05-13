@@ -145,7 +145,8 @@ const Dfp = ({ isFuature, adId }) => {
         dimensions,
         dimensions_mobile: dimensionsMobile,
         islazyload,
-        dispositivo
+        dispositivo,
+        bloque
      /*   breakpoint: breakpoints,
         refresh=false  */
       }) => {
@@ -159,7 +160,8 @@ const Dfp = ({ isFuature, adId }) => {
           slotName: slotname2,
           dimensions: `<::getAdsDisplay() === 'mobile' ? ${dimensionsMobile} : ${dimensions}::>`,
           targeting: `<::getTarget() ::>`,
-          dispositivo
+          dispositivo,
+          bloque
         }
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
@@ -210,6 +212,13 @@ const Dfp = ({ isFuature, adId }) => {
                       pageId : `<::getAdsDisplay() === 'mobile' ? '1225821' : '1225819' ::>`,
                       formatId :'74156'
                     }
+                  },
+                  {
+                    bidder: 'adpone',
+                    labels: ['desktop'],
+                    params: {
+                      placementId: '12045165030430'
+                    }
                   }
                 ]
               }
@@ -249,6 +258,13 @@ const Dfp = ({ isFuature, adId }) => {
                       siteId : '316986',
                       pageId : '1225819',
                       formatId : '90175'
+                    }
+                  },
+                  {
+                    bidder: 'adpone',
+                    labels: ['desktop'],
+                    params: {
+                      placementId: '12045164820238'
                     }
                   }
                 ]
@@ -290,6 +306,13 @@ const Dfp = ({ isFuature, adId }) => {
                       pageId : '1225819',
                       formatId : '90176'
                     }
+                  },
+                  {
+                    bidder: 'adpone',
+                    labels: ['desktop'],
+                    params: {
+                      placementId: '12045165151976'
+                    }
                   }
                 ]
               }
@@ -329,6 +352,13 @@ const Dfp = ({ isFuature, adId }) => {
                       siteId : '349419',
                       pageId : '1225821',
                       formatId : '90177'
+                    }
+                  },
+                  {
+                    bidder: 'adpone',
+                    labels: ['phone'],
+                    params: {
+                      placementId: '12045165353373'
                     }
                   }
                 ]
@@ -370,6 +400,13 @@ const Dfp = ({ isFuature, adId }) => {
                       pageId : '1225821',
                       formatId : '90178'
                     }
+                  },
+                  {
+                    bidder: 'adpone',
+                    labels: ['phone'],
+                    params: {
+                      placementId: '12045165513386'
+                    }
                   }
                 ]
               }
@@ -409,6 +446,13 @@ const Dfp = ({ isFuature, adId }) => {
                       siteId : '349419',
                       pageId : '1225821',
                       formatId : '90179'
+                    }
+                  },
+                  {
+                    bidder: 'adpone',
+                    labels: ['phone'],
+                    params: {
+                      placementId: '1204516577243'
                     }
                   }
                 ]
@@ -530,6 +574,13 @@ const Dfp = ({ isFuature, adId }) => {
                       pageId : `<::getAdsDisplay() === 'mobile' ? '1225821' : '1225819' ::>`,
                       formatId :'74162'
                     }
+                  },
+                  {
+                    bidder: 'adpone',
+                    labels: ['desktop'],
+                    params: {
+                      placementId: '1204713113677'
+                    }
                   }
                 ]
               }
@@ -588,12 +639,6 @@ const Dfp = ({ isFuature, adId }) => {
                   dangerouslySetInnerHTML={{
                     __html: formatAdsCollection(content, requestUri),
                   }}
-                />
-                <script
-                  defer
-                  src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js?v=${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}
                 />
               </>
             )

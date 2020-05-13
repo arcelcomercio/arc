@@ -336,6 +336,27 @@ if ('IntersectionObserver' in window) {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
 
+  const getAyos = () => {
+    let ayos = false
+    if (
+      arcSite === 'depor' ||
+      (arcSite === 'trome' && requestUri.match(`^/espectaculos`)) ||
+      requestUri.match(`^/actualidad`) ||
+      (arcSite === 'publimetro' && requestUri.match(`^/actualidad`)) ||
+      (arcSite === 'elcomercio' && requestUri.match(`^/lima`)) ||
+      requestUri.match(`^/economia`) ||
+      (arcSite === 'peru21' && requestUri.match(`^/politica`)) ||
+      (arcSite === 'gestion' && requestUri.match(`^/economia`)) ||
+      (arcSite === 'ojo' && requestUri.match(`^/ojo-show`)) ||
+      (arcSite === 'diariocorreo' && requestUri.match(`^/mundo`)) ||
+      (arcSite === 'elbocon' && requestUri.match(`^/trends`))
+    ) {
+      ayos = true
+    }
+    return ayos
+  }
+  const insAyos = getAyos()
+
   const isStyleBasic =
     arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
 
@@ -401,15 +422,15 @@ if ('IntersectionObserver' in window) {
               rel="preload"
               as="font"
               crossOrigin="crossorigin"
-              type="font/woff"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
             />
             <link
               rel="preload"
               as="font"
               crossOrigin="crossorigin"
-              type="font/woff"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
             />
           </>
         )}
@@ -445,6 +466,12 @@ if ('IntersectionObserver' in window) {
                 __html: stylePwa,
               }}></style>
           </>
+        )}
+        {insAyos && (
+          <script
+            async
+            src="https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js"
+          />
         )}
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
@@ -579,7 +606,12 @@ if ('IntersectionObserver' in window) {
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-
+        <script
+          defer
+          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
+        />
         {/* Rubicon BlueKai - Inicio */}
         {arcSite === 'elcomercio' && metaValue('id') === 'meta_home' ? (
           <>
