@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
-import { ButtonSocial } from './control_social'
+import { ButtonSocial, AuthURL } from './control_social'
 import { ModalConsumer } from '../context'
 import { MsgRegister, Back } from '../iconos'
 import { CheckBox } from './control_checkbox'
@@ -293,6 +293,8 @@ export const FormRegister = props => {
 
   const { remail, rpass } = values
 
+  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+
   return (
     <ModalConsumer>
       {value => (
@@ -328,10 +330,25 @@ export const FormRegister = props => {
                         Accede fácilmente con:
                       </S.Text>
 
-                      {authProviders.map(item => (
+                      {Cookies.getCookie('signGoogle') ? (
+                        authProviders.map(item => (
+                          <ButtonSocial
+                            brand={item}
+                            size={sizeBtnSocial}
+                            onLogged={onLogged}
+                            onClose={onClose}
+                            typeDialog={typeDialog}
+                            onStudents={() => setShowStudents(!showStudents)}
+                            arcSite={arcSite}
+                            typeForm="registro"
+                            activeNewsletter={activeNewsletter}
+                            checkUserSubs={checkUserSubs}
+                          />
+                        ))
+                      ) : (
                         <ButtonSocial
-                          brand={item}
-                          size={item === 'google' ? 'middle' : 'full'}
+                          brand="facebook"
+                          size="full"
                           onLogged={onLogged}
                           onClose={onClose}
                           typeDialog={typeDialog}
@@ -341,7 +358,18 @@ export const FormRegister = props => {
                           activeNewsletter={activeNewsletter}
                           checkUserSubs={checkUserSubs}
                         />
-                      ))}
+                      )}
+
+                      <AuthURL
+                        arcSite={arcSite}
+                        onClose={onClose}
+                        typeDialog={typeDialog}
+                        activeNewsletter={activeNewsletter}
+                        typeForm="registro"
+                        onLogged={onLogged}
+                        checkUserSubs={checkUserSubs}
+                        onStudents={() => setShowStudents(!showStudents)}
+                      />
 
                       <S.Text c="gray" s="14" className="mt-20 center">
                         o completa tus datos para registrarte
@@ -519,13 +547,16 @@ export const FormRegister = props => {
                               if (typeDialog === 'students') {
                                 setShowStudents(!showStudents)
                               } else {
-                                onClose()
+                                const btnSignwall = document.getElementById(
+                                  'signwall-nav-btn'
+                                )
                                 if (
-                                  typeDialog === 'organico' &&
-                                  window.location.pathname.match(/newsletters/)
+                                  typeDialog === 'newsletter' &&
+                                  btnSignwall
                                 ) {
-                                  window.location.reload()
+                                  btnSignwall.textContent = 'Bienvenido'
                                 }
+                                onClose()
                               }
                             }}>
                             CONTINUAR

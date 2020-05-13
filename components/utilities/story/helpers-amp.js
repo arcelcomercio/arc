@@ -72,8 +72,10 @@ export const publicidadAmpAd = ({
     ''
 
   const flying1 =
-    (movil1 === false && `<amp-fx-flying-carpet height="250px">`) || ''
+    (movil1 === false && `<amp-fx-flying-carpet height="600px">`) || ''
   const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
+
+  const height2 = (movil1 === false && '600') || height
 
   const nuevoScript =
     (movil1 &&
@@ -84,7 +86,7 @@ export const publicidadAmpAd = ({
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `${flying1}
-  <amp-ad width="${width}" height="${height}" type="doubleclick"
+  <amp-ad width="${width}" height="${height2}" type="doubleclick"
   data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>${flying2}`
   }
   return createMarkup(resultData)

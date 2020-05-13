@@ -1,8 +1,10 @@
 .separator {
-  border-top-color: $color-primary;
-  background-color: $color-primary;
+  border-top-color: $new-color-primary;
+  background-color: $new-color-primary;
   &__title {
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 500;
+    max-height: 75px;
   }
   &__item {
     @media (--tablet) {
@@ -20,12 +22,12 @@
 
   &__header-link {
     color: $color-white;
-    font-weight: 400;
+    font-weight: 700;
   }
   &__threeline {
     -webkit-line-clamp: 4;
     @media (--desktop) {
-      max-height: 67px;
+      max-height: 75px;
     }
   }
 }

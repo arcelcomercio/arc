@@ -627,7 +627,7 @@ class UpdateProfile extends Component {
             this.handleUpdateProfile()
           }}>
           <div className="row btw">
-            <h3 className="title">Tus datos</h3>
+            <h3 className="title">Mis Datos</h3>
           </div>
 
           {showMsgSuccess && (

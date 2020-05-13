@@ -166,10 +166,8 @@ class NewslettersSubscription extends Component {
           if (lastItemSelected && !selectCategories.has(lastItemSelected)) {
             selectCategories.add(lastItemSelected)
             this.setPreference()
-            window.scrollTo(0, 100)
             setTimeout(() => {
               this.loadSetting()
-              window.scrollTo(0, 0)
             }, 1000)
           }
         })

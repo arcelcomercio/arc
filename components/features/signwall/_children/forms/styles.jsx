@@ -17,9 +17,9 @@ const changeColor = color => {
 }
 
 export const Title = styled.h4`
-  color: ${props => (props.cp ? '#8f071f' : '#000000')};
-  font-family: ${props => props.primaryFont};
-  font-size: ${props => props.s - 6}px;
+  color: ${props => (props.c ? props.c : '#000000')};
+  font-family: ${props => (props.primaryFont ? props.primaryFont : 'inherit')};
+  font-size: ${props => props.s - 4}px;
   font-weight: bold;
   line-height: 28px;
   @media ${device.tablet} {
@@ -34,6 +34,7 @@ export const Text = styled.p`
   font-size: ${props => props.s}px;
   line-height: ${props => (props.lh ? props.lh : '18')}px;
   font-weight: ${props => (props.fw ? props.fw : 'normal')};
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   @media ${device.mobile} {
     & .sub-paragraph {
       display: inline-block;
@@ -77,7 +78,8 @@ export const Form = styled.form`
   }
   input,
   select,
-  button {
+  button,
+  textarea {
     border: 1px solid #bbbbbb;
     width: 100%;
     height: 45px;
@@ -86,6 +88,11 @@ export const Form = styled.form`
     appearance: none;
     outline: none;
     border-radius: 4px;
+  }
+
+  & textarea{
+    height: 65px;
+    resize: none;
   }
 
   & input {
@@ -141,6 +148,9 @@ export const Form = styled.form`
   }
   & .center {
     text-align: center;
+  }
+  & .justify {
+    text-align: justify;
   }
   & .bold {
     font-weight: bold;

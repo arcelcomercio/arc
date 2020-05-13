@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
-import { ButtonSocial, ButtonEmail } from './control_social'
+import { ButtonSocial, ButtonEmail, AuthURL } from './control_social'
 import { MsgRegister } from '../iconos'
 import { ModalConsumer } from '../context'
 import { Input } from './control_input_select'
@@ -171,13 +171,12 @@ export const FormLogin = ({
           }
         })
       } else {
-        onClose()
-        if (
-          typeDialog === 'organico' &&
-          window.location.pathname.match(/newsletters/)
-        ) {
-          window.location.reload()
+        const btnSignwall = document.getElementById('signwall-nav-btn')
+        if (typeDialog === 'newsletter' && btnSignwall) {
+          btnSignwall.textContent = `${profile.firstName ||
+            'Bienvenido'}  ${profile.lastName || ''}`
         }
+        onClose()
       }
     })
   }
@@ -296,14 +295,29 @@ export const FormLogin = ({
                 </S.Title>
               )}
 
-              <S.Text c="gray" s="20" className="mb-20 mt-10 center">
+              <S.Text c="gray" s="18" className="mb-10 mt-10 center">
                 Ingresa con
               </S.Text>
 
-              {authProviders.map(item => (
+              {Cookies.getCookie('signGoogle') ? (
+                authProviders.map(item => (
+                  <ButtonSocial
+                    brand={item}
+                    size="full"
+                    c="mb-10"
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    arcSite={arcSite}
+                    typeForm="login"
+                    activeNewsletter={activeNewsletter}
+                    checkUserSubs={checkUserSubs}
+                    onLogged={onLogged}
+                  />
+                ))
+              ) : (
                 <ButtonSocial
-                  brand={item}
-                  size={item === 'google' ? 'middle' : 'full'}
+                  brand="facebook"
+                  size="full"
                   c="mb-10"
                   onClose={onClose}
                   typeDialog={typeDialog}
@@ -313,7 +327,17 @@ export const FormLogin = ({
                   checkUserSubs={checkUserSubs}
                   onLogged={onLogged}
                 />
-              ))}
+              )}
+
+              <AuthURL
+                arcSite={arcSite}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                activeNewsletter={activeNewsletter}
+                typeForm="login"
+                onLogged={onLogged}
+                checkUserSubs={checkUserSubs}
+              />
 
               {!showLoginEmail && (
                 <ButtonEmail
