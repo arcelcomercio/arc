@@ -133,7 +133,7 @@ class Prof extends Component {
     return (
       <WrapperBlock column="2">
         <div className="left">
-          <h3>Datos personales</h3>
+          <h3>Mis Datos</h3>
           <button className="link" type="button" onClick={() => prof()}>
             EDITAR DATOS
           </button>

@@ -5,13 +5,19 @@ import { device } from '../../../../_dependencies/breakpoints'
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
-  width: 25%;
-  height: 80px;
+  width: ${props => (props.full ? '100%' : '25%')};
+  height: ${props => (props.full ? '40px' : '80px')};
   position: relative;
   cursor: pointer;
   user-select: none;
+  > span {
+    display: block;
+    margin-left: 40px;
+    line-height: 40px;
+    font-size: 14px;
+  }
   @media ${device.tablet} {
-    width: 100px;
+    width: ${props => (props.full ? '100%' : '100px')};
     height: 40px;
     margin-right: 15px;
     &:last-child {
@@ -61,7 +67,7 @@ const StyledCheckbox = styled.div`
   position: absolute;
   top: none;
   bottom: 10px;
-  left: 40%;
+  left: ${props => (props.full ? '8px' : '40%')};
   z-index: 10;
   @media ${device.tablet} {
     top: 8px;
@@ -71,6 +77,21 @@ const StyledCheckbox = styled.div`
   ${Icon} {
     visibility: ${props => (props.checked ? 'visible' : 'hidden')};
   }
+`
+
+const Message = styled.div`
+  width: 100%;
+  padding: 10px 25px;
+  text-align: center;
+  background: ${props =>
+    props.success ? 'rgba(36, 145, 9, 0.1)' : 'rgba(219, 0, 0, 0.1)'};
+  color: ${props => (props.success ? 'rgb(36, 145, 9)' : 'rgb(219, 0, 0)')};
+  border-radius: 4px;
+  font-size: 14px;
+  display: block;
+  line-height: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
 `
 
 const Radiobox = ({ className, checked, disabled, ...props }) => (
@@ -85,4 +106,16 @@ const Radiobox = ({ className, checked, disabled, ...props }) => (
   </CheckboxContainer>
 )
 
-export default Radiobox
+const RadioboxSimple = ({ className, checked, disabled, name, ...props }) => (
+  <CheckboxContainer full checked={checked} className={className}>
+    <span>{name}</span>
+    <HiddenCheckbox checked={checked} disabled={disabled} {...props} />
+    <StyledCheckbox full checked={checked}>
+      <Icon viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </Icon>
+    </StyledCheckbox>
+  </CheckboxContainer>
+)
+
+export { Radiobox, RadioboxSimple, Message }
