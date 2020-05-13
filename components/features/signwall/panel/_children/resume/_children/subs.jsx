@@ -180,7 +180,7 @@ class Subs extends Component {
                       key={reSubs.subscriptionID}
                       id={reSubs.subscriptionID}>
                       <div className="left">
-                        <h3>Mi suscripción</h3>
+                        <h3>Mi Suscripción</h3>
                         {reSubs.currentPaymentMethod.paymentPartner ===
                         'PayULATAM' ? (
                           <button
