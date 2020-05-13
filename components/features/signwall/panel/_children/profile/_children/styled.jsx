@@ -211,6 +211,7 @@ export const FormGroup = styled.div`
     padding-top: 5px;
   }
 `
+
 export const Message = styled.div`
   width: 100%;
   padding: 10px 25px;

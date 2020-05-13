@@ -44,7 +44,7 @@ export const WrapperMenu = styled.div`
         width: 1em;
         height: 100%;
         top: 0;
-        z-index: 3;
+        z-index: 1;
       }
       &:before {
         left: 0;

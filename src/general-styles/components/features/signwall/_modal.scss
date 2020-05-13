@@ -26,8 +26,10 @@
         background-color: rgba(233, 233, 233, 0.8);
 
         v-dialog {
-          border-radius: 8px;
           box-shadow: 0rem 0rem 0.5rem #949494;
+          @media (--tablet) {
+            border-radius: 8px;
+          }
         }
       }
 
@@ -59,7 +61,7 @@
 
       &__size-small {
         width: 100%;
-        height: 100%;
+        height: auto;
         padding: 20px;
         @media (--tablet) {
           width: 70%;
@@ -120,6 +122,14 @@
 
       & .text-right {
         text-align: right;
+      }
+
+      & .btn-close-int {
+        position: absolute;
+        right: 20px;
+        & > button {
+          cursor: pointer;
+        }
       }
     }
 
