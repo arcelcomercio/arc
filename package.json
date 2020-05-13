@@ -128,7 +128,7 @@
     "fusion": "fusion",
     "lint": "npm run eslint && npm run stylelint",
     "prod": "npm run clean && webpack --config ./config/webpack.config.js --env.prod && gulp",
-    "prod:all": "npm run clean && webpack --config ./config/webpack.config.js --env.prod --env.outputs='index, story:css, story-video:css, dlite-story:css, lite-story:css, amp:css, paywall:css, basic:css, signwall:css' && gulp",
+    "prod:all": "npm run clean && webpack --config ./config/webpack.config.js --env.prod --env.outputs='index, story:css, story-video:css, dlite-story:css, lite-story:css, match-score:css, amp:css, paywall:css, basic:css, signwall:css' && gulp",
     "prod:amp": "npm run clean && webpack --config ./config/webpack.config.js --env.prod --env.outputs='amp:css'",
     "prod:basic": "npm run clean && webpack --config ./config/webpack.config.js --env.prod --env.outputs='basic:css'",
     "prod:lite": "npm run clean && webpack --config ./config/webpack.config.js --env.prod --env.outputs='lite-story:css, dlite-story:css'",
