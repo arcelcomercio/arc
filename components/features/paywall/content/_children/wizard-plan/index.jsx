@@ -117,17 +117,17 @@ function WizardPlan(props) {
           const entitlementsUrl = interpolateUrl(
             `${urls.originApi}${urls.arcEntitlements}`
           )
-          fetch(entitlementsUrl, {
+          return fetch(entitlementsUrl, {
             headers: {
               Authorization: accessToken,
             },
           }).then(response => {
             if (response.status === 200) {
               const entitlements = response.json()
-              resolve(
+              return (
                 Array.isArray(entitlements.skus) && entitlements.skus.length > 0
               )
-            }
+            } else throw new Error('Non 200 http response')
           })
         }
       )
@@ -215,81 +215,87 @@ function WizardPlan(props) {
     } else {
       // Antes de continuar con el flujo de compra, verificamos
       // si el usuario ya tiene suscripcion activa
-      hasSubscriptionsPromise.current.then(hasSubscription => {
-        if (hasSubscription) {
-          // Ya tiene suscripcion, prevenimos al usuario de hacer otra compra
-          setError('Ya tiene una suscripción activa')
-        } else {
-          // No tiene suscripcion activa continuar con el flujo de compra
-          setLoading(true)
-          const selectedPlan = {
-            sku: plan.sku,
-            priceCode: plan.priceCode,
-            quantity: 1,
+      hasSubscriptionsPromise.current
+        .then(hasSubscription => {
+          if (hasSubscription) {
+            // Ya tiene suscripcion, prevenimos al usuario de hacer otra compra
+            setError('Ya tiene una suscripción activa')
+          } else {
+            // No tiene suscripcion activa continuar con el flujo de compra
+            setLoading(true)
+            const selectedPlan = {
+              sku: plan.sku,
+              priceCode: plan.priceCode,
+              quantity: 1,
+            }
+            Sentry.addBreadcrumb({
+              category: 'compra',
+              message: 'Plan seleccionado',
+              data: selectedPlan,
+              level: Sentry.Severity.Info,
+            })
+            dataLayer.push({
+              event: 'productClick',
+              ecommerce: {
+                click: {
+                  products: [
+                    {
+                      name: plan.productName,
+                      id: plan.sku,
+                      price: plan.amount,
+                      brand: arcSite,
+                      category: plan.name,
+                      subCategory: plan.billingFrequency,
+                    },
+                  ],
+                },
+              },
+            })
+            fbq('track', 'InitiateCheckout', {
+              content_category: plan.name,
+              content_ids: [plan.priceCode],
+              contents: [{ id: plan.priceCode, quantity: 1 }],
+              currency: 'PEN',
+              num_items: 1,
+              value: plan.amount,
+            })
+            dataLayer.push({
+              event: 'checkout',
+              ecommerce: {
+                checkout: {
+                  actionField: { step: 1 },
+                  products: [
+                    {
+                      name: plan.productName,
+                      id: plan.sku,
+                      price: plan.amount,
+                      brand: arcSite,
+                      category: plan.name,
+                      subCategory: plan.billingFrequency,
+                    },
+                  ],
+                },
+              },
+            })
+            setTimeout(() => {
+              setLoading(false)
+              onBeforeNextStep(
+                {
+                  plan,
+                  profile,
+                  origin: origin.current,
+                  referer: referer.current,
+                },
+                props
+              )
+            }, 1000)
           }
-          Sentry.addBreadcrumb({
-            category: 'compra',
-            message: 'Plan seleccionado',
-            data: selectedPlan,
-            level: Sentry.Severity.Info,
-          })
-          dataLayer.push({
-            event: 'productClick',
-            ecommerce: {
-              click: {
-                products: [
-                  {
-                    name: plan.productName,
-                    id: plan.sku,
-                    price: plan.amount,
-                    brand: arcSite,
-                    category: plan.name,
-                    subCategory: plan.billingFrequency,
-                  },
-                ],
-              },
-            },
-          })
-          fbq('track', 'InitiateCheckout', {
-            content_category: plan.name,
-            content_ids: [plan.priceCode],
-            contents: [{ id: plan.priceCode, quantity: 1 }],
-            currency: 'PEN',
-            num_items: 1,
-            value: plan.amount,
-          })
-          dataLayer.push({
-            event: 'checkout',
-            ecommerce: {
-              checkout: {
-                actionField: { step: 1 },
-                products: [
-                  {
-                    name: plan.productName,
-                    id: plan.sku,
-                    price: plan.amount,
-                    brand: arcSite,
-                    category: plan.name,
-                    subCategory: plan.billingFrequency,
-                  },
-                ],
-              },
-            },
-          })
-          setTimeout(() => {
-            setLoading(false)
-            onBeforeNextStep(
-              {
-                plan,
-                profile,
-                origin: origin.current,
-                referer: referer.current,
-              },
-              props
-            )
-          }, 1000)
-        }
-      })
+        })
+        .catch(e => {
+          setError(
+            'Disculpe ha ocurrido un error inesperado. Intente de nuevo mas tarde.'
+          )
+        })
     }
   }
 
