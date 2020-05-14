@@ -267,6 +267,7 @@ export const FormRegister = props => {
             const divPremium = document.getElementById('contenedor')
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
+              divPremium.removeAttribute("style")
             }
           }
         })
