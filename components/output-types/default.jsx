@@ -208,18 +208,6 @@ export default ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
-  const structuredDetectIncognito = `(async function() {
-    if ("storage" in navigator && "estimate" in navigator.storage) {
-      var { usage, quota } = await navigator.storage.estimate();
-      if (quota < 120000000) {
-        window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({
-          event: 'tag_signwall', eventCategory: 'Web_Sign_Wall_Security', eventAction: 'web_sws_mode_incognito',
-        })
-      }
-    }
-  })()`
-
   const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
@@ -577,10 +565,6 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
-        <script
-          async
-          dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
-        />
 
         <script
           defer
