@@ -121,14 +121,14 @@ function WizardPlan(props) {
             headers: {
               Authorization: accessToken,
             },
-          }).then(response => {
-            if (response.status === 200) {
-              const entitlements = response.json()
-              return (
-                Array.isArray(entitlements.skus) && entitlements.skus.length > 0
-              )
-            } else throw new Error('Non 200 http response')
           })
+            .then(response => response.json())
+            .then(res => {
+              return Array.isArray(res.skus) && res.skus.length > 0
+            })
+            .catch(() => {
+              throw new Error('Non 200 http response')
+            })
         }
       )
     } else {
