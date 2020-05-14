@@ -330,25 +330,10 @@ export const FormRegister = props => {
                         Accede fácilmente con:
                       </S.Text>
 
-                      {Cookies.getCookie('signGoogle') ? (
-                        authProviders.map(item => (
-                          <ButtonSocial
-                            brand={item}
-                            size={sizeBtnSocial}
-                            onLogged={onLogged}
-                            onClose={onClose}
-                            typeDialog={typeDialog}
-                            onStudents={() => setShowStudents(!showStudents)}
-                            arcSite={arcSite}
-                            typeForm="registro"
-                            activeNewsletter={activeNewsletter}
-                            checkUserSubs={checkUserSubs}
-                          />
-                        ))
-                      ) : (
+                      {authProviders.map(item => (
                         <ButtonSocial
-                          brand="facebook"
-                          size="full"
+                          brand={item}
+                          size={sizeBtnSocial}
                           onLogged={onLogged}
                           onClose={onClose}
                           typeDialog={typeDialog}
@@ -358,7 +343,7 @@ export const FormRegister = props => {
                           activeNewsletter={activeNewsletter}
                           checkUserSubs={checkUserSubs}
                         />
-                      )}
+                      ))}
 
                       <AuthURL
                         arcSite={arcSite}

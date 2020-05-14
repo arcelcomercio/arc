@@ -299,24 +299,9 @@ export const FormLogin = ({
                 Ingresa con
               </S.Text>
 
-              {Cookies.getCookie('signGoogle') ? (
-                authProviders.map(item => (
-                  <ButtonSocial
-                    brand={item}
-                    size="full"
-                    c="mb-10"
-                    onClose={onClose}
-                    typeDialog={typeDialog}
-                    arcSite={arcSite}
-                    typeForm="login"
-                    activeNewsletter={activeNewsletter}
-                    checkUserSubs={checkUserSubs}
-                    onLogged={onLogged}
-                  />
-                ))
-              ) : (
+              {authProviders.map(item => (
                 <ButtonSocial
-                  brand="facebook"
+                  brand={item}
                   size="full"
                   c="mb-10"
                   onClose={onClose}
@@ -327,7 +312,7 @@ export const FormLogin = ({
                   checkUserSubs={checkUserSubs}
                   onLogged={onLogged}
                 />
-              )}
+              ))}
 
               <AuthURL
                 arcSite={arcSite}

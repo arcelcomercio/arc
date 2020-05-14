@@ -114,24 +114,10 @@ export const FormLoginPaywall = props => {
                 Ingresa con tus redes sociales
               </S.Text>
 
-              {Cookies.getCookie('signGoogle') ? (
-                authProviders.map(item => (
-                  <ButtonSocial
-                    brand={item}
-                    size={sizeBtnSocial}
-                    onLogged={onLogged}
-                    onClose={onClose}
-                    typeDialog={typeDialog}
-                    onStudents={() => setShowStudents(!showStudents)}
-                    arcSite={arcSite}
-                    typeForm="login"
-                    activeNewsletter={activeNewsletter}
-                  />
-                ))
-              ) : (
+              {authProviders.map(item => (
                 <ButtonSocial
-                  brand="facebook"
-                  size="full"
+                  brand={item}
+                  size={sizeBtnSocial}
                   onLogged={onLogged}
                   onClose={onClose}
                   typeDialog={typeDialog}
@@ -140,7 +126,7 @@ export const FormLoginPaywall = props => {
                   typeForm="login"
                   activeNewsletter={activeNewsletter}
                 />
-              )}
+              ))}
 
               <AuthURL
                 arcSite={arcSite}
