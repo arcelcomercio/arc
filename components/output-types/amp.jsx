@@ -203,7 +203,7 @@ const AmpOutputType = ({
         <script
           async
           custom-element="amp-carousel"
-          src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"
+          src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
         />
 
         <script
