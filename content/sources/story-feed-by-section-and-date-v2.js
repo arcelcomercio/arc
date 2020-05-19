@@ -1,10 +1,11 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import RedirectError from '../../components/utilities/redirect-error'
 import { addResizedUrlsToStories } from '../../components/utilities/resizer'
 import {
   getYYYYMMDDfromISO,
   getActualDate,
-} from '../../components/utilities/helpers'
+} from '../../components/utilities/date-time/dates'
 import {
   includeCredits,
   includeCreditsImage,
@@ -160,6 +161,11 @@ const resolve = (key = {}) => {
     includedFields,
     excludedSections: auxExcludedSec = '/',
   } = key
+
+  if (new Date(auxDate).getFullYear() < 2010) {
+    const { siteUrl } = getProperties(website)
+    throw new RedirectError(`${siteUrl}/archivo/`, 301)
+  }
 
   const section = auxSection === null || !auxSection ? '/' : auxSection
   const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate

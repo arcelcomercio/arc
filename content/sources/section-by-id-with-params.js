@@ -1,8 +1,10 @@
+import getProperties from 'fusion:properties'
+import RedirectError from '../../components/utilities/redirect-error'
 import {
-  removeLastSlash,
   arrayDays,
   arrayMonths,
-} from '../../components/utilities/helpers'
+} from '../../components/utilities/date-time/constants'
+import { removeLastSlash } from '../../components/utilities/parse/strings'
 
 const schemaName = 'section'
 
@@ -21,7 +23,13 @@ const params = [
 
 const resolve = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
-  const { _id: auxId } = key
+  const { _id: auxId, date } = key
+
+  if (new Date(date).getFullYear() < 2010) {
+    const { siteUrl } = getProperties(website)
+    throw new RedirectError(`${siteUrl}/archivo/`, 301)
+  }
+
   const id = !auxId || auxId === '/todas' ? '/' : auxId
   const clearSlug = removeLastSlash(id)
 
