@@ -54,7 +54,7 @@ import Ads from '../../../global-components/ads'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
-  content: 'story-content__content position-relative flex flex-row-reverse',
+  content: 'story-content__content position-relative flex',
   textClasses:
     'story-content__font--secondary mb-25 title-xs line-h-md mt-20 secondary-font pr-20',
   blockquoteClass:
@@ -142,7 +142,6 @@ class StoryContents extends PureComponent {
 
     const { basic_gallery: basicGallery = {} } = promoItems
     let relatedIds = []
-
     return (
       <>
         <div className={classes.news}>

@@ -69,6 +69,12 @@ export default ({
     style = 'story-video'
   else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
     style = 'dstory'
+  else if (
+    isStory &&
+    arcSite === 'elcomerciomag' &&
+    requestUri.includes('/recetas/')
+  )
+    style = 'story-recetas'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
