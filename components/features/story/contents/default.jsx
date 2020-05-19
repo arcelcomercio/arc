@@ -12,7 +12,6 @@ import { getAssetsPath } from '../../../utilities/constants'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
-  SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -61,7 +60,7 @@ const classes = {
   blockquoteClass:
     'story-content__blockquote text-gray-300 line-h-sm ml-15 mt-40 mb-40 pl-10 pr-30',
   newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
-  newsEmbed: 'story-content__embed',
+  newsEmbed: 'story-content__embed embed-script',
   tags: 'story-content',
   section: 'w-full',
   listClasses: 'story-content__paragraph-list',
@@ -175,9 +174,9 @@ class StoryContents extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${
-              isPremium && 'story-content__nota-premium paywall no_copy'
-            }`}
+            className={`${classes.content} ${isPremium &&
+              'story-content__nota-premium paywall no_copy'}`}
+            style={isPremium ? { display: 'none' } : {}}
             id="contenedor">
             <StoryContentsChildIcon />
             {!isDfp && (
@@ -331,12 +330,14 @@ class StoryContents extends PureComponent {
 
                   if (type === ELEMENT_BLOCKQUOTE) {
                     return (
-                      <blockquote
-                        dangerouslySetInnerHTML={{
-                          __html: content,
-                        }}
-                        className={classes.blockquoteClass}
-                      />
+                      <>
+                        <blockquote
+                          dangerouslySetInnerHTML={{
+                            __html: content,
+                          }}
+                          className={classes.blockquoteClass}
+                        />
+                      </>
                     )
                   }
 
@@ -405,6 +406,30 @@ class StoryContents extends PureComponent {
                             htmlContent="html"
                             className={classes.newsImage}
                             {...element}
+                          />
+                        </>
+                      )
+                    }
+
+                    if (
+                      content.includes('twitter-tweet') ||
+                      content.includes('instagram-media')
+                    ) {
+                      return (
+                        <>
+                          <div
+                            data-type={
+                              content.includes('twitter-tweet')
+                                ? 'twitter'
+                                : 'instagram'
+                            }
+                            className={classes.newsEmbed}
+                            dangerouslySetInnerHTML={{
+                              __html: content.replace(
+                                /(<script.*?>).*?(<\/script>)/,
+                                ''
+                              ),
+                            }}
                           />
                         </>
                       )

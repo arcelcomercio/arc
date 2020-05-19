@@ -10,7 +10,10 @@
     }
   }
   &__link {
-    font-family: $secondary-font;
+    font-family: $primary-font;
+    font-size: 1rem;
+    color: #e0e0e0;
+    padding: 16px;
   }
   &__item,
   &__link {

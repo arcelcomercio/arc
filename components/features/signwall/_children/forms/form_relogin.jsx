@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { sha256 } from 'js-sha256'
 import * as S from './styles'
-import { ButtonSocial } from './control_social'
+import { ButtonSocial, AuthURL } from './control_social'
 import { ModalConsumer } from '../context'
 import { Input } from './control_input_select'
 import useForm from '../../_dependencies/useForm'
@@ -156,6 +156,8 @@ export const FormRelogin = ({
 
   const { remail, rpass } = values
 
+  const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
+
   return (
     <ModalConsumer>
       {value => (
@@ -229,7 +231,7 @@ export const FormRelogin = ({
           {authProviders.map(item => (
             <ButtonSocial
               brand={item}
-              size={item === 'google' ? 'middle' : 'full'}
+              size={sizeBtnSocial}
               onClose={onClose}
               typeDialog={typeDialog}
               arcSite={arcSite}
@@ -237,6 +239,14 @@ export const FormRelogin = ({
               activeNewsletter={activeNewsletter}
             />
           ))}
+
+          <AuthURL
+            arcSite={arcSite}
+            onClose={onClose}
+            typeDialog={typeDialog}
+            activeNewsletter={activeNewsletter}
+            typeForm="relogin"
+          />
 
           <S.Text c="black" s="12" className="mt-20 mb-10 center">
             ¿Aún no tienes una cuenta?

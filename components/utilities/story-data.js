@@ -408,6 +408,26 @@ class StoryData {
     return contentElements
   }
 
+  get embedTwitterAndInst() {
+    const embed = StoryData.getContentElements(
+      this._data && this._data.content_elements,
+      'raw_html'
+    )
+
+    const data =
+      embed.length > 0
+        ? embed.map(item => {
+            const { content = '' } = item
+            return content.includes('twitter-tweet') ||
+              content.includes('instagram-media')
+              ? item
+              : []
+          })
+        : []
+
+    return data.filter(String)
+  }
+
   get videoSeo() {
     const videosContent = StoryData.getVideoContent(
       this._data && this._data.content_elements,

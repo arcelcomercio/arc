@@ -6,6 +6,7 @@ import {
   getMultimedia,
   nbspToSpace,
   getActualDate,
+  formattedTime,
 } from '../../../utilities/helpers'
 import buildHtml from './_dependencies/build-html'
 
@@ -30,7 +31,6 @@ class XmlFacebookInstantArticles {
     const { content_elements: stories = [] } = globalContent || {}
     this.stories = stories
     if (siteDomain === 'elcomercio.pe') {
-      // if (siteDomain === 'xxxxxasdf') {
       this.fetchContent({
         magStories: {
           source: SOURCE,
@@ -53,7 +53,7 @@ class XmlFacebookInstantArticles {
       contextPath,
       arcSite,
       siteProperties: {
-        sitemapNewsName = '',
+        siteName = '',
         siteUrl = '',
         siteDomain = '',
         idGoogleAnalitics = '',
@@ -82,7 +82,7 @@ class XmlFacebookInstantArticles {
         '@xmlns:slash': 'http://purl.org/rss/1.0/modules/slash/',
         channel: [
           { language: 'es' },
-          { title: sitemapNewsName },
+          { title: siteName },
           { description: DESCRIPTION },
           { lastBuildDate: localISODate() },
           { link: siteUrl },
@@ -100,91 +100,94 @@ class XmlFacebookInstantArticles {
 
             let storyLink = ''
             let fiaContent = ''
-            if (!storyData.isPremium) {
-              if (storyData.fiaOrigen === true) {
-                if (storyData.canonicalWebsite === 'elcomerciomag') {
-                  fiaContent = 'MAG'
-                  const {
-                    websites: {
-                      elcomerciomag: { website_url: magWebsiteUrl = '' } = {},
-                    } = {},
-                  } = story || {}
-                  storyLink = `${siteUrl}/mag${magWebsiteUrl}`
-                } else {
-                  storyLink = `${siteUrl}${storyData.websiteLink}`
-                  fiaContent = fbArticleStyle
-                }
-                const pageview = `${storyLink.replace(
-                  siteUrl,
-                  ''
-                )}?outputType=fia`
-                const { revision: { revision_id: revisionId = '' } = {} } =
-                  storyData._data || {}
+            if (storyData.fiaOrigen === true) {
+              if (storyData.canonicalWebsite === 'elcomerciomag') {
+                fiaContent = 'MAG'
+                /* const {
+                  websites: {
+                    elcomerciomag: { website_url: magWebsiteUrl = '' } = {},
+                  } = {},
+                } = story || {} */
+                storyLink = `${siteUrl}/mag${storyData.websiteLink}`
+              } else {
+                storyLink = `${siteUrl}${storyData.websiteLink}`
+                fiaContent = fbArticleStyle
+              }
+              const pageview = `${storyLink.replace(
+                siteUrl,
+                ''
+              )}?outputType=fia`
 
-                const propsScriptHeader = {
-                  siteDomain,
-                  title: nbspToSpace(storyData.title),
-                  sections: storyData.allSections,
-                  tags: storyData.tags,
-                  author: nbspToSpace(storyData.author),
-                  typeNews: storyData.multimediaType,
-                  premium: storyData.getPremiumValue,
-                  revision: revisionId,
-                }
+              const propsScriptHeader = {
+                siteDomain,
+                title: nbspToSpace(storyData.title),
+                sections: storyData.allSections,
+                tags: storyData.tags,
+                author: nbspToSpace(storyData.author),
+                typeNews: storyData.multimediaType,
+                premium: storyData.isPremium,
+              }
 
-                const scriptAnaliticaProps = {
-                  siteDomain,
-                  idGoogleAnalitics,
-                  name: siteDomain,
-                  section: storyData.sectionsFIA.section,
-                  subsection: storyData.sectionsFIA.subsection,
-                  newsId: storyData.id,
-                  author: nbspToSpace(storyData.author),
-                  newsType: getMultimedia(storyData.multimediaType),
-                  pageview,
-                  newsTitle: nbspToSpace(storyData.title),
-                  nucleoOrigen: storyData.nucleoOrigen,
-                  formatOrigen: storyData.formatOrigen,
-                  contentOrigen: storyData.contentOrigen,
-                  genderOrigen: storyData.genderOrigen,
-                  arcSite,
-                }
+              const scriptAnaliticaProps = {
+                siteDomain,
+                idGoogleAnalitics,
+                name: siteDomain,
+                section: storyData.sectionsFIA.section,
+                subsection: storyData.sectionsFIA.subsection,
+                newsId: storyData.id,
+                author: nbspToSpace(storyData.author),
+                newsType: getMultimedia(storyData.multimediaType),
+                pageview,
+                newsTitle: nbspToSpace(storyData.title),
+                nucleoOrigen: storyData.nucleoOrigen,
+                formatOrigen: storyData.formatOrigen,
+                contentOrigen: storyData.contentOrigen,
+                genderOrigen: storyData.genderOrigen,
+                arcSite,
+              }
 
-                const buildHtmlProps = {
-                  scriptAnaliticaProps,
-                  propsScriptHeader,
-                  title: nbspToSpace(storyData.title),
-                  subTitle: nbspToSpace(storyData.subTitle),
-                  canonical: storyLink,
-                  oppublished: localISODate(storyData.date || ''),
-                  multimedia: storyData.multimediaNews,
-                  author: nbspToSpace(storyData.author),
-                  paragraphsNews: storyData.paragraphsNews,
-                  fbArticleStyle: fiaContent,
-                  listUrlAdvertisings,
-                  websiteUrlsBytag,
-                  arcSite,
-                  section: storyData.sectionsFIA.section,
-                  opta,
-                  defaultImage: storyData.defaultImg,
-                }
+              const buildHtmlProps = {
+                scriptAnaliticaProps,
+                propsScriptHeader,
+                title: nbspToSpace(storyData.title),
+                subTitle: nbspToSpace(storyData.subTitle),
+                canonical: storyLink,
+                oppublished: localISODate(storyData.date || ''),
+                multimedia: storyData.multimediaNews,
+                author: nbspToSpace(storyData.author),
+                paragraphsNews: storyData.paragraphsNews,
+                fbArticleStyle: fiaContent,
+                listUrlAdvertisings,
+                websiteUrlsBytag,
+                arcSite,
+                section: storyData.sectionsFIA.section,
+                getPremiumValue: storyData.getPremiumValue,
+                siteUrl,
+                opta,
+                defaultImage: storyData.defaultImg,
+              }
 
-                return {
-                  item: {
-                    title: storyData.title,
-                    pubDate: localISODate(storyData.date || ''),
-                    link: storyLink,
-                    guid: md5(storyData.id),
-                    author: storyData.author,
-                    premium: storyData.getPremiumValue,
-                    revision: revisionId,
-                    captureDate: getActualDate(),
-                    'content:encoded': {
-                      '#cdata': buildHtml(buildHtmlProps),
-                    },
-                    'slash:comments': '0',
+              const today = new Date()
+              const localTime = new Date(today.setHours(today.getHours() - 5))
+
+              return {
+                item: {
+                  title: {
+                    '#cdata': storyData.title,
                   },
-                }
+                  pubDate: localISODate(storyData.date || ''),
+                  link: storyLink,
+                  guid: md5(storyData.id),
+                  author: nbspToSpace(storyData.author),
+                  premium: storyData.isPremium,
+                  captureDate: `${getActualDate()}, ${formattedTime(
+                    localTime
+                  )}`,
+                  'content:encoded': {
+                    '#cdata': buildHtml(buildHtmlProps),
+                  },
+                  'slash:comments': '0',
+                },
               }
             }
             return { '#text': '' }
