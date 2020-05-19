@@ -5,6 +5,14 @@
     text-transform: capitalize;
     font-weight: 500;
   }
+
+  &__custom-item {
+    // font-weight: 700;
+    .header__link {
+      border-radius: 4px;
+    }
+  }
+
   &__logo {
     @media (--desktop) {
       height: 66px;
