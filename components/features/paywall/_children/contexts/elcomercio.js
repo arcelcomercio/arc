@@ -8,6 +8,10 @@ export default {
     currencySymbol: `S/`,
     help: `¿Necesitas ayuda?`,
     helpShort: `¿Ayuda?`,
+    yes: `Sí`,
+    no: `No`,
+    cancel: `Cancelar`,
+    askSupport: `Cualquier consulta comunicarse al correo: atencionalcliente@comercio.peru.pe`,
 
     // Validation Errors
     minLength: `Longitud inválida, mínimo {{min}} caracteres.`,

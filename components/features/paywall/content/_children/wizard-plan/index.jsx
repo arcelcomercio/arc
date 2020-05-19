@@ -14,6 +14,7 @@ import Summary from './_children/summary'
 import * as S from './styled'
 import PromoBanner from './_children/promo-banner'
 import CheckSuscription from './_children/check-suscriptor'
+import ConfirmSubscription from './_children/confirm-subscription'
 import { LogIntoAccountEventTag } from '../../../_children/fb-account-linking'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import { conformProfile, isLogged } from '../../../_dependencies/Identity'
@@ -54,7 +55,11 @@ function WizardPlan(props) {
   const msgs = useStrings()
 
   const [activePlan, setActivePlan] = useState()
-  const [openModal, setOpenModal] = useState(false)
+  const [openCheckPrintedModal, setOpenCheckPrintedModal] = useState(false)
+  const [
+    openConfirmSubscriptionModal,
+    setOpenConfirmSubscriptionModal,
+  ] = useState(false)
   const [profile, setProfile] = useState()
   const origin = useRef('organico')
   const referer = useRef('')
@@ -68,13 +73,17 @@ function WizardPlan(props) {
   const runDeferredAction = () => {
     switch (true) {
       case checkingPrinted.current:
-        setOpenModal(true)
+        clearDeferredActions()
+        setOpenCheckPrintedModal(true)
         break
       case subscribingCorporate.current:
+        clearDeferredActions()
         onCorporateSubscriptorHandler()
         break
       case !!planSelected.current:
-        subscribePlanHandler(null, planSelected.current)
+        const plan = planSelected.current
+        clearDeferredActions()
+        subscribePlanHandler(null, plan)
         break
       default:
     }
@@ -137,7 +146,6 @@ function WizardPlan(props) {
 
     // Ejecutar acciones diferidas al cambiar estado de sesion
     runDeferredAction()
-    clearDeferredActions()
   }, [profile])
 
   useEffect(() => {
@@ -218,8 +226,11 @@ function WizardPlan(props) {
       hasSubscriptionsPromise.current
         .then(hasSubscription => {
           if (hasSubscription) {
+            // Diferimos la seleccion de plan nuevamente
+            planSelected.current = plan
             // Ya tiene suscripcion, prevenimos al usuario de hacer otra compra
-            setError('Ya tiene una suscripción activa')
+            // setError('Ya tiene una suscripción activa')
+            setOpenConfirmSubscriptionModal(true)
           } else {
             // No tiene suscripcion activa continuar con el flujo de compra
             setLoading(true)
@@ -352,8 +363,25 @@ function WizardPlan(props) {
           </S.Plans>
         </S.WrapPlan>
       </S.Wrap>
+      <ConfirmSubscription
+        open={openConfirmSubscriptionModal}
+        content="Ud. ya cuenta con una suscripcion activa, (ver detalle). ¿Desea continuar?"
+        footer={msgs.askSupport}
+        onConfirm={() => {
+          // Hacemos como si no tuviese otra suscripcion activa
+          // y avanzamos en el flujo
+          setOpenConfirmSubscriptionModal(false)
+          hasSubscriptionsPromise.current = Promise.resolve(false)
+          runDeferredAction()
+        }}
+        onCancel={() => {
+          // No avanzar en el flujo si el usuario cancela
+          clearDeferredActions()
+          setOpenConfirmSubscriptionModal(false)
+        }}
+      />
       <CheckSuscription
-        open={openModal}
+        open={openCheckPrintedModal}
         onSubmit={({ documentType, documentNumber, attemptToken }) => {
           window.dataLayer.push({
             event: 'paywall_check_subscriptor',
@@ -376,7 +404,7 @@ function WizardPlan(props) {
             eventCategory: 'paywall_check_subscriptor',
             eventAction: 'close',
           })
-          setOpenModal(false)
+          setOpenCheckPrintedModal(false)
         }}
       />
       {!printedSubscriber && (
@@ -409,7 +437,7 @@ function WizardPlan(props) {
                   eventCategory: 'paywall_check_subscriptor',
                   eventAction: 'open',
                 })
-                setOpenModal(true)
+                setOpenCheckPrintedModal(true)
               }
             }}
           />
