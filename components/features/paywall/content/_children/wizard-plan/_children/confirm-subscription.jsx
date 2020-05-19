@@ -66,18 +66,20 @@ const Footer = styled.p`
   margin-bottom: 0;
   font-family: Open Sans;
   font-size: 12px;
+  font-weight: 700;
   text-align: center;
 `
 
 const ActionPane = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 15px;
   flex: calc(1 / 6);
 `
 
 export const ActionButton = styled.button`
   ${({ theme }) => css`
-    width: 100%;
+    width: 125px;
     ${({ maxWidth }) =>
       maxWidth &&
       css`
