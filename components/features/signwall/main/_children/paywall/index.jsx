@@ -42,7 +42,6 @@ export const PaywallInt = props => {
   const {
     onClose,
     pathSourcePNG,
-    pathSourceWEBP,
     arcSite,
     typeDialog,
     siteProperties: {
@@ -90,12 +89,7 @@ export const PaywallInt = props => {
                 }}>
                 <Close />
               </CloseBtn>
-              <FirstMiddle>
-                <picture>
-                  <source srcSet={pathSourceWEBP} type="image/webp" />
-                  <source srcSet={pathSourcePNG} type="image/png" />
-                  <img src={pathSourcePNG} alt="img" />
-                </picture>
+              <FirstMiddle pathSourcePNG={pathSourcePNG} arcSite={arcSite}>
                 <ContPaywall>
                   <p>
                     {typeDialog === 'paywall'
@@ -111,7 +105,7 @@ export const PaywallInt = props => {
                     <img
                       style={{ maxWidth: '320px', height: 'auto' }}
                       alt="Logo"
-                      src={`https://gestion.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
+                      src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
                     />
                   </center>
                 </ContPaywall>
@@ -137,19 +131,13 @@ class Paywall extends PureComponent {
 
     const pathSourcePNG =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.png`
-      ) || ''
-
-    const pathSourceWEBP =
-      deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.webp`
+        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.jpg`
       ) || ''
 
     return (
       <PaywallInt
         {...this.props}
         pathSourcePNG={pathSourcePNG}
-        pathSourceWEBP={pathSourceWEBP}
         getContent={this.getContent.bind(this)}
         addEventListener={this.addEventListener.bind(this)}
         removeEventListener={this.removeEventListener.bind(this)}

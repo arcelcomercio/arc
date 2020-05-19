@@ -1,46 +1,44 @@
 import styled from 'styled-components'
 import { device } from '../../_dependencies/breakpoints'
 
-export const ContMiddle = styled.div`
-  display: block;
-  height: 100%;
-  min-height: 520px;
-`
-
 export const Base = styled.div`
   display: inline-block;
   vertical-align: top;
 `
 
-export const FirstMiddle = styled(Base)`
-  width: 50%;
+export const ContMiddle = styled.div`
+  display: block;
   height: 100%;
-  display: none;
-  & img {
-    display: none;
+  min-height: 520px;
+  @media ${device.tablet} {
+    display: table;
+    width: 100%;
   }
+`
+
+export const FirstMiddle = styled(Base)`
+  width: 100%;
+  display: none;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
   @media ${device.desktop} {
-    display: inline-block;
-    & img {
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      width: 100%;
-      min-height: 550px;
-      display: block;
-      object-fit: cover;
-    }
+    width: 50%;
+    display: table-cell;
+    background: url(${props => props.pathSourcePNG});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 `
 
 export const SecondMiddle = styled(Base)`
-  background-color: white;
-  position: relative;
   width: 100%;
   position: relative;
-  background: #ffffff;
+  background-color: #ffffff;
   @media ${device.desktop} {
     width: 50%;
+    display: table-cell;
   }
 `
 export const CloseBtn = styled.button`

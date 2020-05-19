@@ -36,8 +36,8 @@ export const FirstMiddle = styled(Base)`
 export const SecondMiddle = styled(Base)`
   width: 100%;
   position: relative;
-  /* display: block; */
-  background-color: ${props => (props.arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4')};
+  background-color: ${props =>
+    props.arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4'};
   @media ${device.tablet} {
     width: 50%;
     display: table-cell;
@@ -68,7 +68,6 @@ export const ContPaywall = styled.div`
   min-height: 140px !important;
   @media ${device.tablet} {
     min-height: 120px !important;
-    /* position: absolute; */
     display: flex;
     flex-direction: column;
     justify-content: center;
