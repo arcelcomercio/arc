@@ -1,7 +1,9 @@
 .header {
   background: $new-color-primary;
   &__link {
+    color: #333;
     text-transform: capitalize;
+    font-weight: 500;
   }
   &__logo {
     @media (--desktop) {

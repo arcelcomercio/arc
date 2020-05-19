@@ -65,7 +65,7 @@ const Stick = props => {
         appStick.classList.add('hidden');
       })
       var aOpenApp = document.getElementById('button-app')
-      aOpenApp.addEventListener('click', function(){
+      aOpenApp.addEventListener('click', function(e){
         e.preventDefault()    
         window.location.href = '${getUrlApp({
           urlApp: ENV.ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev,

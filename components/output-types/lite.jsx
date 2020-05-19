@@ -18,6 +18,7 @@ import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
 import videoScript from './_dependencies/video-script'
 import iframeScript from './_dependencies/iframe-script'
+import widgets from './_dependencies/widgets'
 
 const LiteOutput = ({
   children,
@@ -198,12 +199,13 @@ const LiteOutput = ({
   link = link.replace(/\/homepage[/]?$/, '/')
 
   const parameters = {
-    googleTagManagerId: siteProperties.googleTagManagerMobile,
+    googleTagManagerId: siteProperties.googleTagManagerId,
     arcSite,
   }
 
   const {
     videoSeo,
+    embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
@@ -345,7 +347,7 @@ const LiteOutput = ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerMobile}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -383,6 +385,15 @@ const LiteOutput = ({
         )}
 
         <ChartbeatBody story={isStory} {...metaPageData} />
+        {embedTwitterAndInst[0] && (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: widgets }}
+            />
+          </>
+        )}
         {contenidoVideo && (
           <>
             <script
@@ -393,7 +404,6 @@ const LiteOutput = ({
             />
           </>
         )}
-
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{

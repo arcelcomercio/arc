@@ -1,4 +1,5 @@
 import React from 'react'
+import ENV from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 import { msToTime } from '../../../../utilities/date-time/time'
 import { getResultVideo } from '../../../../utilities/story/helpers'
@@ -29,7 +30,6 @@ const StoryContentChildVideo = props => {
     } = {},
   } = globalContent || {}
 
-  const videoData = video || ''
   const {
     _id: id,
     data = {},
@@ -38,6 +38,7 @@ const StoryContentChildVideo = props => {
     // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
     duration: durationTwo,
+    additional_properties: videoContent = {},
     // url: imagenMigrate = '',
     contentElemtent = false,
     reziserVideo = true,
@@ -51,6 +52,8 @@ const StoryContentChildVideo = props => {
       arcSite,
     }) || {}
     */
+
+  const videoData = videoContent.advertising || video.advertising
 
   const urlVideo = data
 
@@ -80,18 +83,8 @@ const StoryContentChildVideo = props => {
 
   const getParametroPublicidad = () => {
     const {
-      taxonomy: {
-        primary_section: {
-          path: primarySection,
-          additional_properties: {
-            original: { _admin: { alias_ids: aliasId = [] } = {} } = {},
-          } = {},
-        } = {},
-      } = {},
+      taxonomy: { primary_section: { path: primarySection } = {} } = {},
     } = globalContent || {}
-    if (aliasId && aliasId[0]) {
-      return aliasId[0]
-    }
 
     if (
       arcSite === 'publimetro' ||
@@ -167,7 +160,7 @@ const StoryContentChildVideo = props => {
         .split('-')
         .join(
           ''
-        )}/preroll&description_url=https%3A%2F%2F${webSite}%2F&tfcd=0&npa=0&sz=640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug
+        )}/preroll&description_url=https%3A%2F%2F${webSite}%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug
         .split('-')
         .join(
           ''
@@ -184,6 +177,11 @@ const StoryContentChildVideo = props => {
     /stream="((.*).(jpeg|jpg|png|gif|mp4|mp3))"/
   )
 
+  const dataTime =
+    durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
+  const CURRENT_ENVIRONMENT =
+    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+
   return (
     <>
       <div
@@ -191,13 +189,14 @@ const StoryContentChildVideo = props => {
         className={`${classImage}${classes.video} multimedia${classes.powa}`}
         data-uuid={ids || (uidArray && uidArray[1])}
         data-reziser={reziserVideo}
-        data-api="prod"
-        data-time={durationTwo ? msToTime(durationOne) : ''}
+        data-api={CURRENT_ENVIRONMENT}
+        data-time={videoArray && videoArray[1] ? '-1' : dataTime}
         data-streams={
           videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
         }
         data-preroll={
-          videoData.advertising && videoData.advertising.playAds === true
+          (videoData && videoData.playAds === true) ||
+          (videoArray && videoArray[1])
             ? getParametroPublicidad()
             : ''
         }></div>

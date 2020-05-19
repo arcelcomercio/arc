@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { sha256 } from 'js-sha256'
 import styled, { css } from 'styled-components'
 import { device } from '../../_dependencies/breakpoints'
@@ -11,7 +11,7 @@ import getDevice from '../../_dependencies/get-device'
 import Taggeo from '../../_dependencies/taggeo'
 import QueryString from '../../_dependencies/querystring'
 
-export const ButtonStyleSocial = styled(Button)`
+const ButtonStyleSocial = styled(Button)`
   font-size: ${props => (props.size === 'full' ? '18' : '16')}px !important;
   position: relative;
   height: 45px !important;
@@ -71,7 +71,7 @@ export const ButtonStyleSocial = styled(Button)`
   }
 `
 
-export const ButtonStyleEmail = styled(Button)`
+const ButtonStyleEmail = styled(Button)`
   background: #f2f2f2;
   color: #818181;
   font-weight: normal;
@@ -81,6 +81,184 @@ export const ButtonStyleEmail = styled(Button)`
     margin-right: 10px;
   }
 `
+
+const originAction = dialogModal => {
+  switch (dialogModal) {
+    case 'organico':
+      return '0'
+    case 'hard':
+      return '1'
+    case 'relogemail':
+      return 'reloginemail'
+    case 'reloghash':
+      return 'reloginhash'
+    default:
+      return dialogModal
+  }
+}
+
+const setupUserProfile = (
+  resAccessToken,
+  provider,
+  arcSite,
+  onClose,
+  activeNewsletter,
+  typeDialog,
+  typeForm,
+  onLogged,
+  checkUserSubs,
+  onStudents
+) => {
+  window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+  window.Identity.getUserProfile()
+    .then(resProfile => {
+      const EMAIL_USER =
+        resProfile.email ||
+        `${resProfile.identities[0].userName}@${provider}.com`
+
+      if (!resProfile.displayName && !resProfile.attributes) {
+        const newProfileFB = {
+          firstName: resProfile.firstName.replace(/\./g, ''),
+          lastName: resProfile.lastName.replace(/\./g, ''),
+          displayName: EMAIL_USER,
+          email: EMAIL_USER,
+          attributes: [
+            {
+              name: 'originDomain',
+              value: window.location.hostname || 'none',
+              type: 'String',
+            },
+            {
+              name: 'originReferer',
+              value:
+                window.location.href.split('&')[0].replace(/(\/#|#|\/)$/, '') ||
+                'none',
+              type: 'String',
+            },
+            {
+              name: 'originMethod',
+              value: provider === 'facebook' ? '2' : '3',
+              type: 'String',
+            },
+            {
+              name: 'originDevice',
+              value: getDevice(window) || 'none',
+              type: 'String',
+            },
+            {
+              name: 'originAction',
+              value: originAction(typeDialog) || 'none',
+              type: 'String',
+            },
+            {
+              name: 'termsCondPrivaPoli',
+              value: '1',
+              type: 'String',
+            },
+          ],
+        }
+
+        window.Identity.options({
+          apiOrigin: Domains.getOriginAPI(arcSite),
+        })
+
+        window.Identity.updateUserProfile(newProfileFB).then(() => {
+          if (activeNewsletter && EMAIL_USER.indexOf('facebook.com') < 0) {
+            Services.sendNewsLettersUser(
+              resProfile.uuid,
+              EMAIL_USER,
+              arcSite,
+              resAccessToken,
+              ['general']
+            )
+          }
+        })
+      }
+
+      Taggeo(
+        `Web_Sign_Wall_${typeDialog}`,
+        `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
+      )
+      Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
+      const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+      Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+
+      onLogged(resProfile)
+
+      const btnSignwall = document.getElementById('signwall-nav-btn')
+
+      switch (typeDialog) {
+        case 'students':
+          onStudents()
+          break
+        case 'premium':
+        case 'paywall':
+          checkUserSubs()
+          break
+        case 'newsletter':
+          if (btnSignwall) {
+            btnSignwall.textContent = `${resProfile.firstName ||
+              'Bienvenido'}  ${resProfile.lastName || ''}`
+          }
+          onClose()
+          break
+        default:
+          onClose()
+      }
+    })
+    .catch(() => {
+      onClose()
+    })
+}
+
+const authSocialProviderDemo = (
+  { data, origin },
+  arcSite,
+  onClose,
+  activeNewsletter,
+  typeDialog,
+  typeForm,
+  onLogged,
+  checkUserSubs,
+  onStudents
+) => {
+  if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
+    return
+  }
+
+  Services.loginFBeco(
+    Domains.getOriginAPI(arcSite),
+    '',
+    data.accessToken,
+    data.providerSource
+  )
+    .then(resLogSocial => {
+      if (resLogSocial.accessToken) {
+        window.localStorage.setItem(
+          'ArcId.USER_INFO',
+          JSON.stringify(resLogSocial)
+        )
+        window.Identity.userIdentity = resLogSocial
+        setupUserProfile(
+          resLogSocial.accessToken,
+          data.providerSource,
+          arcSite,
+          onClose,
+          activeNewsletter,
+          typeDialog,
+          typeForm,
+          onLogged,
+          checkUserSubs,
+          onStudents
+        )
+      } else {
+        onClose()
+      }
+    })
+    .catch(() => {
+      window.console.error('oups ocurrio un error')
+    })
+}
 
 export const ButtonSocial = ({
   typeDialog,
@@ -96,70 +274,6 @@ export const ButtonSocial = ({
   checkUserSubs,
 }) => {
   const [showTextLoad, setShowTextLoad] = useState('')
-
-  useEffect(() => {
-    const listUrlRedirect = [
-      'signOrganic',
-      'signHard',
-      'signEmail',
-      'signHash',
-      'signPaywall',
-      'signPremium',
-      'signLanding',
-      'signFia',
-      'signNewsletters',
-    ]
-
-    listUrlRedirect.map(item => {
-      if (QueryString.getQuery(item)) {
-        OAuthFacebook({
-          data: {
-            accessToken: QueryString.getQuery(item).replace(/(#_=_)$/, ''),
-          },
-          origin: Domains.getUrlECOID(),
-        })
-      }
-      return null
-    })
-  }, [])
-
-  const InitGoogle = () => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-
-    const GOOGLEID =
-      '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
-
-    const GoogleSignInRenderOptions = {
-      width: 240,
-      height: 50,
-      longtitle: true,
-      theme: 'dark',
-    }
-
-    window.Identity.initGoogleLogin(
-      GOOGLEID,
-      { GoogleSignInRenderOptions },
-      'google-sign-in-button',
-      true
-    ).then(() => {
-      window.Identity.googleSignOn()
-    })
-  }
-
-  const originAction = () => {
-    switch (typeDialog) {
-      case 'organico':
-        return '0'
-      case 'hard':
-        return '1'
-      case 'relogemail':
-        return 'reloginemail'
-      case 'reloghash':
-        return 'reloginhash'
-      default:
-        return typeDialog
-    }
-  }
 
   const queryDialog = () => {
     switch (typeDialog) {
@@ -186,146 +300,52 @@ export const ButtonSocial = ({
     }
   }
 
-  const taggeoError = () => {
+  const taggeoError = resProvider => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_${typeForm}_error_facebook`
+      `web_sw${typeDialog[0]}_${typeForm}_error_${resProvider}`
     )
   }
 
-  const enterProfilePanel = email => {
-    setShowTextLoad('Cargando...')
-    Taggeo(
-      `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_${typeForm}_success_facebook`
-    )
-
-    Cookies.setCookie('arc_e_id', sha256(email), 365)
-
-    const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-    Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
-  }
-
-  const OAuthFacebook = ({ data, origin }) => {
+  const authSocialProvider = ({ data, origin }) => {
     if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
       return
     }
+
+    setShowTextLoad('Conectando...')
 
     Services.loginFBeco(
       Domains.getOriginAPI(arcSite),
       '',
       data.accessToken,
-      'facebook'
+      data.providerSource
     )
       .then(resLogSocial => {
-        setShowTextLoad('Conectando...')
         if (resLogSocial.accessToken) {
           window.localStorage.setItem(
             'ArcId.USER_INFO',
             JSON.stringify(resLogSocial)
           )
           window.Identity.userIdentity = resLogSocial
-          window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-          window.Identity.getUserProfile()
-            .then(resProfile => {
-              const EMAIL_USER =
-                resProfile.email ||
-                `${resProfile.identities[0].userName}@facebook.com`
 
-              if (!resProfile.displayName && !resProfile.attributes) {
-                const newProfileFB = {
-                  firstName: resProfile.firstName.replace(/\./g, ''),
-                  lastName: resProfile.lastName.replace(/\./g, ''),
-                  displayName: EMAIL_USER,
-                  email: EMAIL_USER,
-                  attributes: [
-                    {
-                      name: 'originDomain',
-                      value: window.location.hostname || 'none',
-                      type: 'String',
-                    },
-                    {
-                      name: 'originReferer',
-                      value:
-                        window.location.href
-                          .split('&')[0]
-                          .replace(/(\/#|#|\/)$/, '') || 'none',
-                      type: 'String',
-                    },
-                    {
-                      name: 'originMethod',
-                      value: '2',
-                      type: 'String',
-                    },
-                    {
-                      name: 'originDevice',
-                      value: getDevice(window) || 'none',
-                      type: 'String',
-                    },
-                    {
-                      name: 'originAction',
-                      value: originAction() || 'none',
-                      type: 'String',
-                    },
-                    {
-                      name: 'termsCondPrivaPoli',
-                      value: '1',
-                      type: 'String',
-                    },
-                  ],
-                }
-
-                window.Identity.options({
-                  apiOrigin: Domains.getOriginAPI(arcSite),
-                })
-                window.Identity.updateUserProfile(newProfileFB).then(() => {
-                  if (
-                    activeNewsletter &&
-                    EMAIL_USER.indexOf('facebook.com') < 0
-                  ) {
-                    Services.sendNewsLettersUser(
-                      resProfile.uuid,
-                      EMAIL_USER,
-                      arcSite,
-                      resLogSocial.accessToken,
-                      ['general']
-                    )
-                  }
-                })
-
-                enterProfilePanel(EMAIL_USER)
-              } else {
-                enterProfilePanel(EMAIL_USER)
-              }
-
-              onLogged(resProfile)
-              if (typeDialog === 'students') {
-                onStudents()
-              } else {
-                if (typeDialog.match(/premium|paywall/)) {
-                  checkUserSubs()
-                } else {
-                  onClose()
-                  if (
-                    typeDialog === 'organico' &&
-                    window.location.pathname.match(/newsletters/)
-                  ) {
-                    window.location.reload()
-                  }
-                }
-                window.removeEventListener('message', OAuthFacebook)
-                window.removeEventListener('onmessage', OAuthFacebook)
-              }
-            })
-            .catch(() => {
-              taggeoError()
-              onClose()
-            })
+          setShowTextLoad('Cargando...')
+          setupUserProfile(
+            resLogSocial.accessToken,
+            data.providerSource,
+            arcSite,
+            onClose,
+            activeNewsletter,
+            typeDialog,
+            typeForm,
+            onLogged,
+            checkUserSubs,
+            onStudents
+          )
         } else {
-          taggeoError()
+          taggeoError(data.providerSource)
           onClose()
-          window.removeEventListener('message', OAuthFacebook)
-          window.removeEventListener('onmessage', OAuthFacebook)
+          window.removeEventListener('message', authSocialProvider)
+          window.removeEventListener('onmessage', authSocialProvider)
         }
       })
       .catch(() => {
@@ -333,48 +353,47 @@ export const ButtonSocial = ({
       })
   }
 
-  const clickLoginFacebookEcoID = brandCurrent => {
-    if (brandCurrent === 'google') {
-      InitGoogle()
-    } else {
-      const eventMethod = window.addEventListener
-        ? 'addEventListener'
-        : 'attachEvent'
-      const eventer = window[eventMethod]
-      const messageEvent =
-        eventMethod === 'attachEvent' ? 'onmessage' : 'message'
-      eventer(messageEvent, OAuthFacebook)
+  const clickLoginSocialEcoID = brandCurrent => {
+    const eventMethod = window.addEventListener
+      ? 'addEventListener'
+      : 'attachEvent'
+    const eventer = window[eventMethod]
+    const messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message'
+    eventer(messageEvent, authSocialProvider)
 
-      const width = 780
-      const height = 640
-      const left = window.screen.width / 2 - 800 / 2
-      const top = window.screen.height / 2 - 600 / 2
-      const URL = `${Domains.getUrlECOID()}/mpp/facebook/login/`
+    const width = 780
+    const height = 640
+    const left = window.screen.width / 2 - 800 / 2
+    const top = window.screen.height / 2 - 600 / 2
+    const URL = `${Domains.getUrlECOID()}/mpp/${brandCurrent}/login/`
 
-      const URLRedirect = () => {
-        window.location.href = `${URL}?urlReference=${encodeURIComponent(
-          window.location.href
-        )}&typeModal=${queryDialog()}`
-      }
+    const URLRedirect = () => {
+      window.location.href = `${URL}?urlReference=${encodeURIComponent(
+        window.location.href
+      )}&typeModal=${queryDialog()}`
 
-      const URLWindow = () => {
-        window.open(
-          URL,
-          '',
-          `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+      setShowTextLoad('Conectando...')
+    }
+
+    const URLWindow = () => {
+      window.open(
+        URL,
+        '',
+        `toolbar=no, location=no, directories=no, status=no, menubar=no, 
     scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
     height=${height}, top=${top}, left=${left}`
-        )
-      }
-
-      return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
+      )
     }
-    return null
+
+    if (brandCurrent === 'google') return URLWindow()
+
+    return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
   }
 
   return (
     <ButtonStyleSocial
       type="button"
+      id={`btn-sign-${brand}`}
       brand={brand}
       size={size}
       className={c}
@@ -382,9 +401,9 @@ export const ButtonSocial = ({
       onClick={() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_${typeForm}_boton_facebook`
+          `web_sw${typeDialog[0]}_${typeForm}_boton_${brand}`
         )
-        clickLoginFacebookEcoID(brand)
+        clickLoginSocialEcoID(brand)
       }}>
       {brand === 'facebook' ? <Facebook /> : <Google />}
       {showTextLoad || brand}
@@ -399,4 +418,61 @@ export const ButtonEmail = ({ size, onClick }) => {
       Ingresa con tu usuario
     </ButtonStyleEmail>
   )
+}
+
+export const AuthURL = ({
+  arcSite,
+  onClose,
+  activeNewsletter,
+  typeDialog,
+  typeForm,
+  onLogged = i => i,
+  checkUserSubs,
+  onStudents,
+}) => {
+  const authUrlRedirect = () => {
+    const listUrlRedirect = [
+      'signOrganic',
+      'signHard',
+      'signEmail',
+      'signHash',
+      'signPaywall',
+      'signPremium',
+      'signLanding',
+      'signFia',
+      'signNewsletters',
+    ]
+
+    listUrlRedirect.map(item => {
+      if (QueryString.getQuery(item)) {
+        setTimeout(() => {
+          const btnFacebook = document.getElementById('btn-sign-facebook')
+          if (btnFacebook) {
+            btnFacebook.disabled = true
+          }
+        }, 800)
+
+        authSocialProviderDemo(
+          {
+            data: {
+              accessToken: QueryString.getQuery(item).replace(/(#_=_)$/, ''),
+              providerSource: 'facebook',
+            },
+            origin: Domains.getUrlECOID(),
+          },
+          arcSite,
+          onClose,
+          activeNewsletter,
+          typeDialog,
+          typeForm,
+          onLogged,
+          checkUserSubs,
+          onStudents
+        )
+      }
+      return null
+    })
+  }
+
+  return <>{authUrlRedirect()}</>
 }

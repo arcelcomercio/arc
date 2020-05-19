@@ -117,6 +117,12 @@ class Domains {
       ? `/signwall/?outputType=signwall&${typeDialog}=${hash}`
       : `/signwall/?_website=${arcSite}&outputType=signwall&${typeDialog}=${hash}`
   }
+
+  getGoogleID = () => {
+    return ENV.ENVIRONMENT === 'elcomercio'
+      ? '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
+      : '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
+  }
 }
 
 export default new Domains()

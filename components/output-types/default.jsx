@@ -8,7 +8,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
-import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
+// import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
 // import FirebaseScripts from './_children/firebase-scripts'
 import {
   skipAdvertising,
@@ -21,6 +21,7 @@ import { getAssetsPath } from '../utilities/constants'
 import StoryData from '../utilities/story-data'
 
 import iframeScript from './_dependencies/iframe-script'
+import widgets from './_dependencies/widgets'
 
 export default ({
   children,
@@ -28,7 +29,7 @@ export default ({
   deployment,
   arcSite,
   globalContent,
-  // CssLinks,
+  // CssLinks, prueba
   Fusion,
   Libs,
   // MetaTags,
@@ -207,18 +208,6 @@ export default ({
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
 
-  const structuredDetectIncognito = `(async function() {
-    if ("storage" in navigator && "estimate" in navigator.storage) {
-      var { usage, quota } = await navigator.storage.estimate();
-      if (quota < 120000000) {
-        window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({
-          event: 'tag_signwall', eventCategory: 'Web_Sign_Wall_Security', eventAction: 'web_sws_mode_incognito',
-        })
-      }
-    }
-  })()`
-
   const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
@@ -294,6 +283,7 @@ if ('IntersectionObserver' in window) {
 
   const {
     videoSeo,
+    embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
@@ -324,6 +314,8 @@ if ('IntersectionObserver' in window) {
     style = 'story-video'
   else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
     style = 'story'
+  else if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home')
+    style = 'dbasic'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
@@ -338,6 +330,8 @@ if ('IntersectionObserver' in window) {
 
   const isStyleBasic =
     arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
+
+  const isFooterFinal = isStyleBasic || (style === 'story' && true)
   return (
     <html lang="es">
       <head>
@@ -399,15 +393,15 @@ if ('IntersectionObserver' in window) {
               rel="preload"
               as="font"
               crossOrigin="crossorigin"
-              type="font/woff"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
             />
             <link
               rel="preload"
               as="font"
               crossOrigin="crossorigin"
-              type="font/woff"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
             />
           </>
         )}
@@ -435,7 +429,7 @@ if ('IntersectionObserver' in window) {
           globalContent={globalContent}
         />
 
-        <AdsScriptsFloorPrices />
+        {/* <AdsScriptsFloorPrices /> */}
         {contenidoVideo && (
           <>
             <style
@@ -444,6 +438,12 @@ if ('IntersectionObserver' in window) {
               }}></style>
           </>
         )}
+        <script
+          async
+          src={`https://d1r08wok4169a5.cloudfront.net/ayos/ec-ayos.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
+        />
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
@@ -565,10 +565,6 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
-        <script
-          async
-          dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
-        />
 
         <script
           defer
@@ -577,7 +573,12 @@ if ('IntersectionObserver' in window) {
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-
+        <script
+          defer
+          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/gpt-adtmp.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
+        />
         {/* Rubicon BlueKai - Inicio */}
         {arcSite === 'elcomercio' && metaValue('id') === 'meta_home' ? (
           <>
@@ -615,7 +616,15 @@ if ('IntersectionObserver' in window) {
             />
           </>
         )}
-
+        {embedTwitterAndInst[0] && (
+          <>
+            <script
+              type="text/javascript"
+              defer
+              dangerouslySetInnerHTML={{ __html: widgets }}
+            />
+          </>
+        )}
         <script
           type="text/javascript"
           defer
@@ -628,7 +637,7 @@ if ('IntersectionObserver' in window) {
           }}
         />
 
-        {isStyleBasic && (
+        {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
               <link
