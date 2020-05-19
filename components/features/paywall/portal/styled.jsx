@@ -10,20 +10,25 @@ export const Portal = styled.div`
     flex-direction: column;
     position: relative;
     z-index: 10;
-    background: url(${theme.images.backgroundx1}) no-repeat;
-    ${theme.breakpoints.up('lg')} {
-      background-size: contain;
-    }
-    ${theme.breakpoints.down('lg')} {
-      background-size: 100% 54%;
-    }
-    ${theme.breakpoints.down('md')} {
-      background-size: 100% 46%;
-    }
     ${theme.breakpoints.down('sm')} {
       background: ${backgroundColor
         ? theme.palette.lighten(theme.palette.secondary.main, 0.8)
         : theme.palette.lighten(theme.palette.primary.main, 0.9)};
+    }
+  `}
+`
+
+export const PortalWrap = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    background: url(${theme.images.backgroundx1}) no-repeat;
+    background-size: cover;
+    ${theme.breakpoints.down('sm')} {
+      background: none
+      };
     }
   `}
 `
@@ -33,13 +38,14 @@ export const PortalContent = styled.div`
     display: flex;
     justify-content: space-between;
     max-width: 1120px;
-    margin-top: 40px;
+    margin: 40px 0px;
     align-self: center;
     width: 100%;
     ${theme.breakpoints.down('sm')} {
       flex-direction: column;
       min-width: auto;
       align-items: center;
+      margin: 40px 0px 0px 0px;
     }
   `}
 `
@@ -132,9 +138,7 @@ export const Footer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 35px;
     ${theme.breakpoints.down('sm')} {
-      margin-top: 0px;
       padding: 20px 10px;
     }
   `}
@@ -166,25 +170,23 @@ export const LinkCorporate = styled.a`
     text-decoration: none;
     padding: 20px;
     padding-left: 20px;
-    background: ${props => (
-      props.backgroundColor 
-      ? props.backgroundColor 
-      : props.primary
+    background: ${props =>
+      props.backgroundColor
+        ? props.backgroundColor
+        : props.primary
         ? theme.palette.primary.main
-        : theme.palette.common.blackboard
-    )};
+        : theme.palette.common.blackboard};
     cursor: pointer;
-    color: ${props => (
-      props.color 
-      ? props.color 
-      : props.primary
-          ? theme.palette.primary.contrastText
-          : theme.palette.getContrastText(
-              props.backgroundColor 
-		  ? props.backgroundColor 
-		  : theme.palette.common.blackboard
-	  )
-    )};
+    color: ${props =>
+      props.color
+        ? props.color
+        : props.primary
+        ? theme.palette.primary.contrastText
+        : theme.palette.getContrastText(
+            props.backgroundColor
+              ? props.backgroundColor
+              : theme.palette.common.blackboard
+          )};
     min-width: 300px;
     height: 50px;
     border-radius: 4px;

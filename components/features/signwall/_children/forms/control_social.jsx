@@ -97,6 +97,50 @@ const originAction = dialogModal => {
   }
 }
 
+const AfterLoginRegister = (
+  emailUser,
+  typeDialog,
+  typeForm,
+  provider,
+  arcSite,
+  onLogged,
+  resProfile,
+  checkUserSubs,
+  onStudents,
+  onClose
+) => {
+  Taggeo(
+    `Web_Sign_Wall_${typeDialog}`,
+    `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
+  )
+  Cookies.setCookie('arc_e_id', sha256(emailUser), 365)
+  const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+  Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+
+  onLogged(resProfile)
+
+  const btnSignwall = document.getElementById('signwall-nav-btn')
+
+  switch (typeDialog) {
+    case 'students':
+      onStudents()
+      break
+    case 'premium':
+    case 'paywall':
+      checkUserSubs()
+      break
+    case 'newsletter':
+      if (btnSignwall) {
+        btnSignwall.textContent = `${resProfile.firstName ||
+          'Bienvenido'}  ${resProfile.lastName || ''}`
+      }
+      onClose()
+      break
+    default:
+      onClose()
+  }
+}
+
 const setupUserProfile = (
   resAccessToken,
   provider,
@@ -137,7 +181,7 @@ const setupUserProfile = (
             },
             {
               name: 'originMethod',
-              value: provider === 'facebook' ? '2' : '3',
+              value: provider === 'facebook' ? '2' : '5',
               type: 'String',
             },
             {
@@ -162,48 +206,63 @@ const setupUserProfile = (
           apiOrigin: Domains.getOriginAPI(arcSite),
         })
 
-        window.Identity.updateUserProfile(newProfileFB).then(() => {
-          if (activeNewsletter && EMAIL_USER.indexOf('facebook.com') < 0) {
-            Services.sendNewsLettersUser(
-              resProfile.uuid,
-              EMAIL_USER,
-              arcSite,
-              resAccessToken,
-              ['general']
-            )
-          }
-        })
-      }
-
-      Taggeo(
-        `Web_Sign_Wall_${typeDialog}`,
-        `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
-      )
-      Cookies.setCookie('arc_e_id', sha256(EMAIL_USER), 365)
-      const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-      Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
-
-      onLogged(resProfile)
-
-      const btnSignwall = document.getElementById('signwall-nav-btn')
-
-      switch (typeDialog) {
-        case 'students':
-          onStudents()
-          break
-        case 'premium':
-        case 'paywall':
-          checkUserSubs()
-          break
-        case 'newsletter':
-          if (btnSignwall) {
-            btnSignwall.textContent = `${resProfile.firstName ||
-              'Bienvenido'}  ${resProfile.lastName || ''}`
-          }
-          onClose()
-          break
-        default:
-          onClose()
+        window.Identity.updateUserProfile(newProfileFB)
+          .then(() => {
+            if (activeNewsletter && EMAIL_USER.indexOf('facebook.com') < 0) {
+              Services.sendNewsLettersUser(
+                resProfile.uuid,
+                EMAIL_USER,
+                arcSite,
+                resAccessToken,
+                ['general']
+              )
+                .then(() => {
+                  AfterLoginRegister(
+                    EMAIL_USER,
+                    typeDialog,
+                    typeForm.provider,
+                    arcSite,
+                    onLogged,
+                    resProfile,
+                    checkUserSubs,
+                    onStudents,
+                    onClose
+                  )
+                })
+                .catch(() => {
+                  onClose()
+                })
+            } else {
+              AfterLoginRegister(
+                EMAIL_USER,
+                typeDialog,
+                typeForm,
+                provider,
+                arcSite,
+                onLogged,
+                resProfile,
+                checkUserSubs,
+                onStudents,
+                onClose
+              )
+            }
+          })
+          .catch(() => {
+            onClose()
+          })
+      } else {
+        AfterLoginRegister(
+          EMAIL_USER,
+          typeDialog,
+          typeForm,
+          provider,
+          arcSite,
+          onLogged,
+          resProfile,
+          checkUserSubs,
+          onStudents,
+          onClose
+        )
       }
     })
     .catch(() => {
@@ -211,7 +270,7 @@ const setupUserProfile = (
     })
 }
 
-const authSocialProviderDemo = (
+const authSocialProviderURL = (
   { data, origin },
   arcSite,
   onClose,
@@ -452,7 +511,7 @@ export const AuthURL = ({
           }
         }, 800)
 
-        authSocialProviderDemo(
+        authSocialProviderURL(
           {
             data: {
               accessToken: QueryString.getQuery(item).replace(/(#_=_)$/, ''),

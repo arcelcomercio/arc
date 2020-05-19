@@ -440,7 +440,7 @@ if ('IntersectionObserver' in window) {
         )}
         <script
           async
-          src={`https://d1r08wok4169a5.cloudfront.net/ayos/ec-ayos.js?v=${new Date()
+          src={`https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js?v=${new Date()
             .toISOString()
             .slice(0, 10)}`}
         />

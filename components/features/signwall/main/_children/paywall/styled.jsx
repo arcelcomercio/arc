@@ -1,50 +1,45 @@
 import styled from 'styled-components'
 import { device } from '../../../_dependencies/breakpoints'
 
-export const ContMiddle = styled.div`
-  display: block;
-  height: 100%;
-  min-height: 510px;
-`
-
 export const Base = styled.div`
   display: inline-block;
   vertical-align: top;
 `
 
+export const ContMiddle = styled.div`
+  display: block;
+  height: 100%;
+  min-height: 510px;
+  @media ${device.tablet} {
+    display: table;
+    width: 100%;
+  }
+`
+
 export const FirstMiddle = styled(Base)`
   width: 100%;
-  height: 200px;
   display: block;
   position: relative;
   overflow: hidden;
-  & img {
+  height: 100%;
+  background: ${props => (props.arcSite === 'gestion' ? '#8f071f' : '#232323')};
+  @media ${device.desktop} {
+    width: 50%;
+    display: table-cell;
+    background: url(${props => props.pathSourcePNG});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    width: 100%;
-    min-height: 200px;
-    display: block;
-    object-fit: cover;
-    margin-top: -100px;
-  }
-  @media ${device.desktop} {
-    width: 50%;
-    height: 100%;
-    display: inline-block;
-    & img {
-      margin-top: 0px;
-      min-height: 510px;
-    }
   }
 `
 
 export const SecondMiddle = styled(Base)`
-  background-color: #fff;
   width: 100%;
   position: relative;
+  background-color: #fff;
   @media ${device.desktop} {
     width: 50%;
+    display: table-cell;
   }
 `
 
@@ -53,7 +48,7 @@ export const CloseBtn = styled.button`
   border: none;
   color: black;
   position: absolute;
-  top: 210px;
+  top: 180px;
   outline: none;
   right: 10px;
   cursor: pointer;
@@ -65,17 +60,12 @@ export const CloseBtn = styled.button`
 `
 
 export const ContPaywall = styled.div`
-  position: absolute;
-  top: 0%;
+  position: relative;
   width: 100%;
-  padding: 20px;
-  min-height: 150px !important;
-  @media ${device.tablet} {
-    min-height: 120px !important;
-  }
+  padding: 12px 20px;
+  min-height: 170px !important;
   @media ${device.desktop} {
-    top: 25%;
-    background-color: none;
+    margin-top: 25%;
     padding: 40px;
   }
   p {
