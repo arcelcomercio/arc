@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#212529" />
-    <title>Edit API plugin</title>
+    <title>Imagen con enlace - Edit API plugin</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -17,24 +17,24 @@
     <template id="content_template">
       <!-- Rendered Item -->
       <div class="col-md-12" id="%item_id%">
-        <div class="card mb-4 box-shadow" style="flex-direction: row"
+        <div class="card mb-4 box-shadow" style="flex-direction: row;"
           id="content_card">
           <img
             id="content_image"
             class="card-img-top"
-            style="max-height: 220px; width: auto"
+            style="max-height: 220px; width: auto;"
             src="%image_url%"
-            alt="Card image cap"
+            alt="%alt%"
           />
           <div class="card-body">
-            <p class="card-text text-muted" style="font-weight: bold">
-              %title%
+            <p class="card-text text-muted" style="font-weight: bold;">
+              título: %title%
             </p>
             <p class="card-text text-muted">
-              %alt%
+              alt: %alt%
             </p>
             <p class="card-text text-muted">
-              "%link%"
+              enlace: "%link%"
             </p>
           </div>
         </div>
@@ -140,7 +140,7 @@
         .query({ query: JSON.stringify({"_id":ansCustomEmbed.id})})
         .set('Accept', 'application/json')
         .then(res => {
-          content = res
+          content = res.body
           render(content, data.config)
         });
     }
@@ -153,9 +153,9 @@
     const html = template
       .replace('%item_id%', 'row-' + content._id)
       .replace('%image_url%', content.url)
-      .replace('%title%', content.subtitle)
-      .replace('%alt%', content.caption)
-      .replace('%link%', (config.link ? config.link : ""))
+      .replace('%title%', config.title)
+      .replace('%alt%', config.alt)
+      .replace('%link%', config.link || "")
       .replace('%data%', JSON.stringify(data, null, 2))
 
     const element = document.createElement('div')
@@ -163,16 +163,10 @@
     document.getElementById('content_holder').appendChild(element)
     element.outerHTML = html
 
-    if (config.show_poster && config.show_poster === false) {
-      document.getElementById('content_card').removeChild(
-        document.getElementById('content_image')
-      )
-    }
-
     // Update form state
-    document.getElementById('link').value = (config.link)
-    document.getElementById('title').value = (config.title)
-    document.getElementById('alt').value = (config.alt ? config.alt : "")
+    document.getElementById('link').value = (config.link || "")
+    document.getElementById('title').value = (config.title || "")
+    document.getElementById('alt').value = (config.alt || "")
     }
 
 

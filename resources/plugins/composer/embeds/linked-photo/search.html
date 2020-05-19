@@ -8,7 +8,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#212529" />
-    <title>Foto con link - Search API plugin</title>
+    <title>Imagen con enlace - Search API plugin</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -31,12 +31,12 @@
           <img
             class="card-img-top"
             src="%image_url%"
-            alt="Card image cap"
+            alt="%alt%"
           />
           <div class="card-body">
             <p class="card-text text-muted">
-              <label style="display: block; font-weight: bold"><span>%title%</span></label>
-              <label style="display: block"><span>%alt%</span></label>
+              <label style="display: block; font-weight: bold;"><span>%title%</span></label>
+              <label style="display: block;"><span>%alt%</span></label>
             </p>
           </div>
         </div>
@@ -147,15 +147,16 @@
     const handleSearch = () => {
     const searchTerm = document.getElementById('searchTitle').value; 
 
-    superagent
-      .get('/pf/api/v3/content/fetch/photo-by-id')
-      .query({ query: JSON.stringify({"_id":searchTerm})})
-      .set('Accept', 'application/json')
-      .then(res => {
-          data = {...res} // res.body.Search
-        render()
-      });
-    }
+    if(searchTerm) 
+      superagent
+        .get('/pf/api/v3/content/fetch/photo-by-id')
+        .query({ query: JSON.stringify({"_id":searchTerm})})
+        .set('Accept', 'application/json')
+        .then(res => {
+            data = res.body // res.body.Search
+          render()
+        });
+      }
 
 
     const render = () => {
@@ -165,9 +166,9 @@
 
       const html = template
         .replace('%item_id%', 'row-' + data._id)
-        .replace('%image_url%', data.url)
-        .replace('%title%', data.subtitle)
-        .replace('%alt%', data.caption)
+        .replace('%image_url%', data.url || '')
+        .replace('%title%', data.subtitle || '')
+        .replace('%alt%', data.caption || '')
       const element = document.createElement('div')
       document.getElementById('search_content').appendChild(element)
       element.outerHTML = html
@@ -187,12 +188,12 @@
 
       const ansCustomEmbed = {
         id: data._id,
-        url: 'https://sandbox.elcomercio.arcpublishing.com/pf/api/v3/content/fetch/photo-by-id',
+        url: '/pf/api/v3/content/fetch/photo-by-id',
         config: {
           "link": "",
-          "photo": data.url,
-          "title": data.subtitle,
-          "alt": data.caption
+          "photo": data.url || "",
+          "title": data.subtitle || "",
+          "alt": data.caption || ""
         }
       }
 

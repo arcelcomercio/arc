@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#212529" />
-    <title>View API plugin</title>
+    <title>Imagen con enlace - View API plugin</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -17,22 +17,25 @@
     <template id="content_template">
       <!-- Rendered Item -->
       <div class="col-md-12" id="%item_id%">
-        <a href="%link%" title="%title%" class="card mb-4 box-shadow" style="flex-direction: row"
+        <a href="%link%" title="%title%" class="card mb-4 box-shadow" style="flex-direction: row;"
           id="content_card"
         >
           <img
             id="content_image"
             class="card-img-top"
-            style="max-height: 220px; width: auto"
+            style="max-height: 220px; width: auto;"
             src="%image_url%"
             alt="%alt%"
           />
           <div class="card-body">
-            <p class="card-text text-muted" style="font-weight: bold">
-              título: %alt%
+            <p class="card-text text-muted" style="font-weight: bold;">
+              título: %title%
             </p>
             <p class="card-text text-muted">
-              alt: %year%
+              alt: %alt%
+            </p>
+            <p class="card-text text-muted">
+              enlace: %link%
             </p>
           </div>
         </a>
@@ -108,19 +111,13 @@
        const html = template
          .replace('%item_id%', 'row-' + data._id)
          .replace('%image_url%', data.url)
-         .replace('%title%', config.title)
-         .replace('%link%', config.link)
-         .replace('%alt%', config.alt)
+         .replace('%title%', config.title || "")
+         .replace('%link%', config.link || "")
+         .replace('%alt%', config.alt || "")
 
        const element = document.createElement('div')
        document.getElementById('search_content').appendChild(element)
        element.outerHTML = html
-
-       if (config && (config.show_poster === false)) {
-         document.getElementById('content_card').removeChild(
-           document.getElementById('content_image')
-         )
-       }
      }
      // ------------------------------------------------
 
