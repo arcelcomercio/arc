@@ -232,6 +232,19 @@ const setupUserProfile = (
                 .catch(() => {
                   onClose()
                 })
+            } else {
+              AfterLoginRegister(
+                EMAIL_USER,
+                typeDialog,
+                typeForm,
+                provider,
+                arcSite,
+                onLogged,
+                resProfile,
+                checkUserSubs,
+                onStudents,
+                onClose
+              )
             }
           })
           .catch(() => {
