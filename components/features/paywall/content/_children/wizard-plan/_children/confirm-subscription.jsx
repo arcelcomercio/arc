@@ -14,7 +14,7 @@ export default ({
 }) => {
   const msgs = useStrings()
   return (
-    <Modal onClose={onCancel} {...restProps}>
+    <Modal onClose={onCancel} allowEsc={false} {...restProps}>
       <Panel>
         {title && <Title>{title}</Title>}
         {content && <Content>{content}</Content>}
