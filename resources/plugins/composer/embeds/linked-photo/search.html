@@ -145,11 +145,12 @@
     // ------------------------------------------------
 
 
-    const customLink = document.getElementById('searchLink').value; 
+    let customLink = '' 
     let data = {}
 
     const handleSearch = () => {
     const searchTerm = document.getElementById('searchID').value; 
+    customLink = document.getElementById('searchLink').value;
 
     if(searchTerm && customLink) 
       superagent
