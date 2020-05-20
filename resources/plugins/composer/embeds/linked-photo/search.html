@@ -31,7 +31,7 @@
           <img
             class="card-img-top"
             src="%image_url%"
-            alt="%alt%"
+            alt='%alt%'
           />
           <div class="card-body">
             <p class="card-text text-muted">
@@ -74,14 +74,17 @@
         <div class="container">
           <!-- Search Form -->
           <p class="lead text-muted">
-            Ingresa el ID de la foto que deseas buscar en Photo Center para obtener sus datos.
+            Ingresa el <b>ID</b> de la imagen que deseas usar desde Photo Center y el <b>enlace</b> al que redirigir al hacer click.
           </p>
           <p class="lead">
           </p>
-          <label for="searchTitle">ID:
-            <input type="textfield" id="searchTitle" name="searchTitle" />
+          <label for="searchID">ID:
+            <input type="textfield" id="searchID" name="searchID" />
           </label>
-          <input type="button" name="Search" value="Buscar" onclick="handleSearch()" />
+          <label for="searchLink">Enlace:
+            <input type="textfield" id="searchLink" name="searchLink" />
+          </label>
+          <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
         </div>
       </section>
 
@@ -142,12 +145,13 @@
     // ------------------------------------------------
 
 
+    const customLink = document.getElementById('searchLink').value; 
     let data = {}
 
     const handleSearch = () => {
-    const searchTerm = document.getElementById('searchTitle').value; 
+    const searchTerm = document.getElementById('searchID').value; 
 
-    if(searchTerm) 
+    if(searchTerm && customLink) 
       superagent
         .get('/pf/api/v3/content/fetch/photo-by-id')
         .query({ query: JSON.stringify({"_id":searchTerm})})
@@ -156,7 +160,7 @@
             data = res.body // res.body.Search
           render()
         });
-      }
+    }
 
 
     const render = () => {
@@ -165,10 +169,10 @@
       document.getElementById('search_content').innerHTML = '';
 
       const html = template
-        .replace('%item_id%', 'row-' + data._id)
-        .replace('%image_url%', data.url || '')
-        .replace('%title%', data.subtitle || '')
-        .replace('%alt%', data.caption || '')
+        .replace(/%item_id%/gi, 'row-' + data._id)
+        .replace(/%image_url%/gi, data.url || '')
+        .replace(/%title%/gi, data.subtitle || '')
+        .replace(/%alt%/gi, data.caption || '')
       const element = document.createElement('div')
       document.getElementById('search_content').appendChild(element)
       element.outerHTML = html
@@ -190,7 +194,7 @@
         id: data._id,
         url: '/pf/api/v3/content/fetch/photo-by-id',
         config: {
-          "link": "",
+          "link": customLink || "",
           "photo": data.url || "",
           "title": data.subtitle || "",
           "alt": data.caption || ""

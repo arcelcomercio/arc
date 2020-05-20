@@ -39,7 +39,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" hidden>
         <div style="font-weight: bold">Respuesta JSON</div>
         <pre>%data%</pre>
       </div>
@@ -54,22 +54,22 @@
 
           <!-- Edit Form -->
           <div class="row" id="config_edit">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <label for="link"><span>Enlace</span>
                 <input id="link" name="link" type="textfield" value="" />
               </label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <label for="title"><span>Título</span>
                 <input id="title" name="title" type="textfield" value="" />
               </label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <label for="alt"><span>Texto alternativo para la foto</span>
                 <input id="alt" name="alt" type="textfield" value="" />
               </label>
             </div>
-            <div class="col-md-6 p-3">
+            <div class="col-md-12 p-3">
               <button type="button" class="btn btn-primary" id="btn_apply">
                 Aceptar
               </button>
@@ -151,12 +151,12 @@
     // Setup Element Preview
     const template = document.getElementById('content_template').innerHTML
     const html = template
-      .replace('%item_id%', 'row-' + content._id)
-      .replace('%image_url%', content.url)
-      .replace('%title%', config.title)
-      .replace('%alt%', config.alt)
-      .replace('%link%', config.link || "")
-      .replace('%data%', JSON.stringify(data, null, 2))
+      .replace(/%item_id%/gi, 'row-' + content._id)
+      .replace(/%image_url%/gi, content.url)
+      .replace(/%title%/gi, config.title)
+      .replace(/%alt%/gi, config.alt)
+      .replace(/%link%/gi, config.link || "")
+      .replace(/%data%/gi, JSON.stringify(data, null, 2))
 
     const element = document.createElement('div')
     document.getElementById('content_holder').innerHTML = ''
