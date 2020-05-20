@@ -7,7 +7,7 @@ import HeaderChildRecipe from './_children/recipe'
 import Formatter from './_dependencies/formatter'
 import customFields from './_dependencies/custom-fields'
 
-const DEFAULT_HIERARCHY = 'header-default'
+const DEFAULT_HIERARCHY = 'recetas-subsecciones'
 
 const HeaderRecipe = props => {
   const {
