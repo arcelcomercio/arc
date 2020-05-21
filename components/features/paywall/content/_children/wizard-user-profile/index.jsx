@@ -50,8 +50,9 @@ function WizardUserProfile(props) {
   }
 
   const sanitizedProfile = Object.keys(profile).reduce((prev, key) => ({
+    ...prev,	  
     [key]: sanitizeValues(profile[key], key),
-  }))
+  }), {})
 
   useEffect(() => {
     dataLayer.push({
