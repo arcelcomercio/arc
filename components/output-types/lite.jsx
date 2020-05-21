@@ -32,6 +32,8 @@ const LiteOutput = ({
   siteProperties,
   requestUri,
   metaValue,
+  Fusion,
+  Libs,
 }) => {
   const metaPageData = {
     globalContent,
@@ -241,7 +243,7 @@ const LiteOutput = ({
   const premiumValue = getPremiumValue === 'premium' ? true : getPremiumValue
   const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
-  const isPremiumValue = isPremiumMete === 'vacio' ? false : isPremiumMete
+  const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
 
   return (
     <html lang="es">
@@ -350,6 +352,7 @@ const LiteOutput = ({
             ) : null
           }}
         </Resource>
+
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
         {contenidoVideo && (
@@ -357,6 +360,22 @@ const LiteOutput = ({
             <script
               src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
               defer></script>
+          </>
+        )}
+
+        {isPremium && arcSite === 'elcomercio' && (
+          <>
+            <Libs></Libs>
+            <script
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
+              async
+            />
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+              defer
+            />
           </>
         )}
       </head>
@@ -370,11 +389,10 @@ const LiteOutput = ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-
         <div id="fusion-app" role="application">
           {children}
         </div>
-
+        {isPremium && <Fusion />}
         {isStory && (
           <script
             type="text/javascript"
@@ -400,7 +418,6 @@ const LiteOutput = ({
             </noscript>
           </>
         )}
-
         <ChartbeatBody story={isStory} {...metaPageData} />
         {embedTwitterAndInst[0] && (
           <>
@@ -434,7 +451,6 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-
         {isStory && (
           <>
             <noscript id="deferred-styles">
@@ -452,7 +468,7 @@ const LiteOutput = ({
             />
           </>
         )}
-        {isPremiumValue === false && (
+        {vallaSignwall === false && (
           <>
             <script
               dangerouslySetInnerHTML={{
