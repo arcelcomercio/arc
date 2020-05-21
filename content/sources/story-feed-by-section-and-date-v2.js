@@ -162,10 +162,8 @@ const resolve = (key = {}) => {
     excludedSections: auxExcludedSec = '/',
   } = key
 
-  if (new Date(auxDate).getFullYear() < 2010) {
-    const { siteUrl } = getProperties(website)
-    throw new RedirectError(`${siteUrl}/archivo/`, 301)
-  }
+  if (new Date(auxDate).getFullYear() < 2009)
+    throw new RedirectError(`/410`, 410)
 
   const section = auxSection === null || !auxSection ? '/' : auxSection
   const date = auxDate === null || auxDate === '' ? getActualDate() : auxDate

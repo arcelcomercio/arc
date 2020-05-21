@@ -1,4 +1,3 @@
-import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 import {
   arrayDays,
@@ -25,10 +24,7 @@ const resolve = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { _id: auxId, date } = key
 
-  if (new Date(date).getFullYear() < 2010) {
-    const { siteUrl } = getProperties(website)
-    throw new RedirectError(`${siteUrl}/archivo/`, 301)
-  }
+  if (new Date(date).getFullYear() < 2009) throw new RedirectError(`/410`, 410)
 
   const id = !auxId || auxId === '/todas' ? '/' : auxId
   const clearSlug = removeLastSlash(id)

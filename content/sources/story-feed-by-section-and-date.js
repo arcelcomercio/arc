@@ -55,10 +55,7 @@ const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
   const { section, date } = key
 
-  if (new Date(date).getFullYear() < 2010) {
-    const { siteUrl } = getProperties(website)
-    throw new RedirectError(`${siteUrl}/archivo/`, 301)
-  }
+  if (new Date(date).getFullYear() < 2009) throw new RedirectError(`/410`, 410)
 
   /** Para enviar params a transform luego */
   globalParams = {
