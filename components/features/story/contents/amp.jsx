@@ -27,6 +27,7 @@ import {
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
   ELEMENT_QUOTE,
+  ELEMENT_CUSTOM_EMBED,
   ELEMENT_RAW_HTML,
   ELEMENT_TABLE,
   ELEMENT_TEXT,
@@ -183,6 +184,7 @@ class StoryContentAmp extends PureComponent {
                 const {
                   type,
                   subtype,
+                  embed: customEmbed,
                   raw_oembed: rawOembed,
                   content_elements: innerContentElements,
                   content,
@@ -255,6 +257,32 @@ class StoryContentAmp extends PureComponent {
                       sizePreset="content"
                     />
                   )
+                }
+                if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (subtype === 'custom_embed') {
+                    const { config: customEmbedConfig = {} } = customEmbed || {}
+                    return (
+                      <a
+                        href={customEmbedConfig.link}
+                        title={customEmbedConfig.title}>
+                        <AmpImage
+                          {...element}
+                          url={
+                            getResizedUrl({
+                              url: customEmbedConfig.photo,
+                              presets: 'large:400x',
+                              arcSite,
+                            }).large || {}
+                          }
+                          ImgTag={imgTag}
+                          imgClassName={classes.image}
+                          layout="responsive"
+                          resizer="true"
+                          sizePreset="content"
+                        />
+                      </a>
+                    )
+                  }
                 }
                 if (type === ELEMENT_TEXT) {
                   return (
