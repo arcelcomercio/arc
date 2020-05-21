@@ -23,6 +23,7 @@ import {
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
   ELEMENT_QUOTE,
+  ELEMENT_CUSTOM_EMBED,
   ELEMENT_RAW_HTML,
   ELEMENT_TABLE,
   ELEMENT_TEXT,
@@ -38,6 +39,7 @@ import StoryData from '../../../utilities/story-data'
 
 import StoryContentsChildVideo from './_children/video'
 import StoryContentsChildImage from './_children/image'
+import StoryContentsChildLinkedImage from './_children/linked-image'
 import StoryHeaderChildGallery from '../gallery/_children/gallery'
 import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentsChildBlockQuote from './_children/blockquote'
@@ -195,6 +197,7 @@ class StoryContents extends PureComponent {
                     _id,
                     type,
                     subtype: sub,
+                    embed: customEmbed,
                     raw_oembed: rawOembed,
                     content,
                     level,
@@ -435,6 +438,14 @@ class StoryContents extends PureComponent {
                       )
                     }
                     return <StoryContentChildRawHTML content={content} />
+                  }
+                  if (type === ELEMENT_CUSTOM_EMBED) {
+                    if (subtype === 'image_link') {
+                      const { config: customEmbedConfig } = customEmbed || {}
+                      return (
+                        <StoryContentsChildLinkedImage {...customEmbedConfig} />
+                      )
+                    }
                   }
                   return ''
                 }}

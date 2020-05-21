@@ -130,7 +130,15 @@ export default {
     type
     content
     caption
-    subtitle
+    embed{
+      id
+      config{
+        link
+        photo
+        title
+        alt
+      }
+    }
     raw_oembed{
       url
       html

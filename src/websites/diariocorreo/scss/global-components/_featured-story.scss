@@ -141,8 +141,8 @@
     .featured-story__img-link {
       @media (--only-mobile) {
         margin-left: 0;
-        width: 150px;
-        height: 84px;
+        min-width: 100px;
+        height: 100px;
       }
     }
     .featured-story__title {
