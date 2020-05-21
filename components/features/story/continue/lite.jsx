@@ -150,5 +150,5 @@ const StoryContinueLite = () => {
     </>
   )
 }
-
+StoryContinueLite.static = true
 export default StoryContinueLite
