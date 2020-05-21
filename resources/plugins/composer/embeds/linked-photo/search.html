@@ -1,0 +1,228 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Imagen con enlace - Search API plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <style>
+      .hoverable {
+        padding-top: 1em;
+        cursor: pointer;
+      }
+      .hoverable:hover {
+        background-color: #e2cdcd;
+      }
+    </style>
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Search Result Item -->
+      <div class="col-md-6 hoverable" id="%item_id%">
+        <div class="card mb-6 box-shadow">
+          <img
+            class="card-img-top"
+            src="%image_url%"
+            alt='%alt%'
+          />
+          <div class="card-body">
+            <p class="card-text text-muted">
+              <label style="display: block; font-weight: bold;"><span>%title%</span></label>
+              <label style="display: block;"><span>%alt%</span></label>
+            </p>
+          </div>
+        </div>
+      </div>
+    </template>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="mr-2"
+            >
+              <path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+              ></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <strong>Buscar</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <section class="jumbotron text-center my-0">
+        <div class="container">
+          <!-- Search Form -->
+          <p class="lead text-muted">
+            Ingresa el <b>ID</b> de la imagen que deseas usar desde Photo Center y el <b>enlace</b> al que redirigir al hacer click.
+          </p>
+          <p class="lead">
+          </p>
+          <label for="searchID">ID:
+            <input type="textfield" id="searchID" name="searchID" />
+          </label>
+          <label for="searchLink">Enlace:
+            <input type="textfield" id="searchLink" name="searchLink" />
+          </label>
+          <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="search_content"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Regresar a la parte superior</a>
+        </p>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+    const sendMessage = function(action, data) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: 'custom_embed',
+          action,
+          data,
+          key: parseQueryString()['k']
+        }),
+        '*'
+      )
+    }
+
+    const parseQueryString = function() {
+      const params = location.search.split('?')[1] || ''
+      const kv = params.split('&')
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split('=')
+        return Object.assign(result, {
+          [key]: value
+        })
+      }, {})
+    }
+
+    // ------------------------------------------------
+
+
+    let customLink = '' 
+    let data = {}
+
+    const handleSearch = () => {
+    const searchTerm = document.getElementById('searchID').value; 
+    customLink = document.getElementById('searchLink').value;
+
+    if(searchTerm && customLink) 
+      superagent
+        .get('/pf/api/v3/content/fetch/photo-by-id')
+        .query({ query: JSON.stringify({"_id":searchTerm})})
+        .set('Accept', 'application/json')
+        .then(res => {
+            data = res.body // res.body.Search
+          render()
+        });
+    }
+
+
+    const render = () => {
+       // Show search results to user
+      const template = document.getElementById('content_template').innerHTML
+      document.getElementById('search_content').innerHTML = '';
+
+      const html = template
+        .replace(/%item_id%/gi, 'row-' + data._id)
+        .replace(/%image_url%/gi, data.url || '')
+        .replace(/%title%/gi, data.subtitle || '')
+        .replace(/%alt%/gi, data.caption || '')
+      const element = document.createElement('div')
+      document.getElementById('search_content').appendChild(element)
+      element.outerHTML = html
+      document
+        .getElementById('row-' + data._id)
+        .addEventListener('click', handleClick())
+    }
+
+    const handleClick = event => {
+       // Send message back to Composer about selected item
+       // message must contain:
+       // {
+       //   "id": (content item id - string)
+       //   "url": (content source identifier - string)
+       //   "config": (contextual metadata - object)
+       // }
+
+      const ansCustomEmbed = {
+        id: data._id,
+        url: '/pf/api/v3/content/fetch/photo-by-id',
+        config: {
+          "link": customLink || "",
+          "photo": data.url || "",
+          "title": data.subtitle || "",
+          "alt": data.caption || ""
+        }
+      }
+
+      sendMessage('data', ansCustomEmbed)
+    }
+
+    // ------------------------------------------------
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+      render()
+    }
+    </script>
+  </body>
+</html>
