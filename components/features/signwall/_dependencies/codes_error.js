@@ -17,11 +17,7 @@ const getCodeError = code => {
     case '300031':
     case '300039':
     case '300023':
-      return 'El correo electrónico ingresado ya existe'
-
-    // case '300040':
-    // case '300037':
-    //   return 'requiere reset pass'
+      return 'El correo electrónico ingresado ya existe.'
 
     case '300033':
       return 'Token inválido o caducado'

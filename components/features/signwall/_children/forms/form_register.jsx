@@ -228,6 +228,7 @@ export const FormRegister = props => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_error_registrarme`
         )
+        Cookies.setCookie('lostEmail', remail, 1)
       })
   }
 
@@ -267,7 +268,7 @@ export const FormRegister = props => {
             const divPremium = document.getElementById('contenedor')
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute("style")
+              divPremium.removeAttribute('style')
             }
           }
         })
@@ -361,7 +362,27 @@ export const FormRegister = props => {
                         o completa tus datos para registrarte
                       </S.Text>
 
-                      {showError && <S.Error>{showError}</S.Error>}
+                      {showError && (
+                        <S.Error>
+                          {showError.indexOf('ya existe') ? (
+                            <>
+                              {showError}
+                              <S.Link
+                                href="#"
+                                c="white"
+                                fw="bold"
+                                onClick={e => {
+                                  e.preventDefault()
+                                  value.changeTemplate('forgot')
+                                }}>
+                                Recuperar contraseña
+                              </S.Link>
+                            </>
+                          ) : (
+                            showError
+                          )}
+                        </S.Error>
+                      )}
 
                       <Input
                         type="email"

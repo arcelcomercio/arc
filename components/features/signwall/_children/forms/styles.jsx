@@ -344,4 +344,5 @@ export const Error = styled.div`
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
+  line-height: 16px;
 `

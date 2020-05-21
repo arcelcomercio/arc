@@ -139,7 +139,7 @@ export const FormLogin = ({
           const divPremium = document.getElementById('contenedor')
           if (divPremium) {
             divPremium.classList.remove('story-content__nota-premium')
-            divPremium.removeAttribute("style")
+            divPremium.removeAttribute('style')
           }
         }
       })
@@ -168,7 +168,7 @@ export const FormLogin = ({
             const divPremium = document.getElementById('contenedor')
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute("style")
+              divPremium.removeAttribute('style')
             }
           }
         })
@@ -259,6 +259,7 @@ export const FormLogin = ({
           setShowError(getCodeError(errLogin.code))
           taggeoError()
         }
+        Cookies.setCookie('lostEmail', lemail, 1)
       })
       .finally(() => {
         setShowLoading(false)
