@@ -10,9 +10,8 @@ const classes = {
   description: 'sht__summary',
   listClasses: 'sht__list',
   title: 'sht__title',
-  premiumWrapper: `premium__wrapper bg-primary flex justify-center items-center mb-10 ml-20`,
-  premiumText:
-    'premium__text flex justify-center items-center text-black font-bold icon-padlock',
+  premiumWrapper: `premium__wrapper`,
+  premiumText: 'premium__text ',
 }
 
 const StoryTitleLite = () => {
