@@ -259,7 +259,7 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
-                  if (subtype === 'custom_embed') {
+                  if (subtype === 'image_link') {
                     const { config: customEmbedConfig = {} } = customEmbed || {}
                     return (
                       <a
