@@ -103,7 +103,7 @@ class NavBarDefault extends PureComponent {
     const { website_url: postPermaLink, headlines: { basic: postTitle } = {} } =
       globalContent || {}
 
-    this.postTitle = postTitle;
+    this.postTitle = postTitle
 
     const urlsShareList = socialMediaUrlShareList(
       siteUrl,
@@ -335,9 +335,8 @@ class NavBarDefault extends PureComponent {
   // Open - Close Search
   _handleToggleSectionElements = () => {
     const { statusSidebar } = this.state
-    const { getDataNavBarData, data = [] } = this.props
-
-    if (data.length === 0) {
+    const { getDataNavBarData, data: { children = [] } = {} } = this.props
+    if (children.length === 0) {
       getDataNavBarData()
     }
 
@@ -385,7 +384,7 @@ class NavBarDefault extends PureComponent {
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
-      navbarData: { children: navbarSections = [] } = {}
+      navbarData: { children: navbarSections = [] } = {},
     } = this.props
 
     const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
@@ -500,7 +499,7 @@ class NavBarDefault extends PureComponent {
               </a>
             )}
             {this.isStory && (
-              <div className={classes.navStoryTitle} >{this.postTitle}</div>
+              <div className={classes.navStoryTitle}>{this.postTitle}</div>
             )}
             <div className={classes.navStorySocialNetwork}>
               {type === ELEMENT_STORY && (
