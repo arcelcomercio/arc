@@ -365,7 +365,9 @@ function WizardPlan(props) {
       </S.Wrap>
       <ConfirmSubscription
         open={openConfirmSubscriptionModal}
-        content="Ud. ya cuenta con una suscripcion activa, (ver detalle). ¿Desea continuar?"
+        content={msgs.isSubscriber}
+        question={msgs.qContinue}
+        linkText="Mi Perfil"
         footer={msgs.askSupport}
         onConfirm={() => {
           // Hacemos como si no tuviese otra suscripcion activa
@@ -379,6 +381,7 @@ function WizardPlan(props) {
           clearDeferredActions()
           setOpenConfirmSubscriptionModal(false)
         }}
+        linkProfile={interpolateUrl(urls.profileSignwall)}
       />
       <CheckSuscription
         open={openCheckPrintedModal}

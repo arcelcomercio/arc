@@ -11,7 +11,9 @@ export default {
     yes: `Sí`,
     no: `No`,
     cancel: `Cancelar`,
-    askSupport: `Cualquier consulta comunicarse al correo: atencionalcliente@comercio.peru.pe`,
+    isSubscriber: `Le advertimos que actualmente ya cuenta con una suscripción activa, ver los detalles en: `,
+    qContinue: `¿Desea continuar?`,
+    askSupport: `Cualquier consulta contáctanos enviando un correo a: [atencionalcliente@comercio.com.pe](mailto:atencionalcliente@comercio.com.pe)`,
 
     // Validation Errors
     minLength: `Longitud inválida, mínimo {{min}} caracteres.`,
