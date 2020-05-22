@@ -206,12 +206,16 @@ const StructuredRecipe = () => {
     "recipeCategory":"${primarySection}",
     "recipeCuisine":"${tipoReceta}",
     "recipeYield":"${capacidadReceta}",
-    ${videoSeo && `"video": [${videoSeoItems}]`}
-    "aggregateRating":{
+    ${videoSeo.length > 0 ? `"video": [${videoSeoItems}],` : ''}
+    ${
+      puntuacion && cantidadRevisiones
+        ? `"aggregateRating":{
       "@type":"AggregateRating",
       "ratingValue":${puntuacion},
-      "reviewCount":${cantidadRevisiones}
-    },
+      "reviewCount":${cantidadRevisiones}}
+    },`
+        : ''
+    }
     "review":[{}]
   }`
 
