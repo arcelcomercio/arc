@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable import/no-unresolved */
 import React from 'react'
 import Static from 'fusion:static'
@@ -55,8 +56,6 @@ const StoriesListRecommenderBySite = props => {
       })) ||
     {}
 
-  console.log('contentConfigManualValues', contentConfigManualValues)
-
   const data =
     useContent({
       source: contentService,
@@ -113,11 +112,6 @@ const StoriesListRecommenderBySite = props => {
 
   const { content_elements: resaizedContentElements = [] } = data || {}
   const stories = process(resaizedContentElements)
-
-  console.log('dataManual', dataManual)
-  console.log('data', data)
-  console.log('storiesManual', storiesManual)
-  console.log('stories', stories)
 
   const params = {
     isAdmin,
