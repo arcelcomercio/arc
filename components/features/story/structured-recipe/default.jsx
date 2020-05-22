@@ -205,7 +205,6 @@ const StructuredRecipe = () => {
     "keywords": ${keywordsList},
     "recipeCategory":"${primarySection}",
     "recipeCuisine":"${tipoReceta}",
-    "recipeYield":"6,0 loaf",
     "recipeYield":"${capacidadReceta}",
     ${videoSeo && `"video": [${videoSeoItems}]`}
     "aggregateRating":{
