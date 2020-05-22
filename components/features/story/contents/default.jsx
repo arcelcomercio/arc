@@ -143,6 +143,29 @@ class StoryContents extends PureComponent {
     const { basic_gallery: basicGallery = {} } = promoItems
     let relatedIds = []
 
+    const skipElementsRecipe = requestUri.includes('/recetas/')
+      ? [
+          '[inicio-ingredientes]',
+          '[fin-ingredientes]',
+          '[inicio-instrucciones]',
+          '[fin-instrucciones]',
+        ]
+      : []
+    const contentPosicionPublicidadFilter =
+      contentPosicionPublicidad && requestUri.includes('/recetas/')
+        ? contentPosicionPublicidad.filter(
+            ({ type: typeElem, content: el }) =>
+              !(
+                typeElem === ELEMENT_TEXT &&
+                skipElementsRecipe &&
+                skipElementsRecipe.includes(el)
+              ) &&
+              !(
+                typeElem === ELEMENT_RAW_HTML &&
+                /^\{(.*)\}$/.test(el.trim().replace(/\n/g, ''))
+              )
+          )
+        : contentPosicionPublicidad
     return (
       <>
         <div className={classes.news}>
@@ -186,9 +209,9 @@ class StoryContents extends PureComponent {
                 <div id="ads_m_movil3" />
               </>
             )}
-            {contentPosicionPublicidad && (
+            {contentPosicionPublicidadFilter && (
               <ArcStoryContent
-                data={contentPosicionPublicidad}
+                data={contentPosicionPublicidadFilter}
                 elementClasses={classes}
                 renderElement={element => {
                   const {
@@ -310,6 +333,7 @@ class StoryContents extends PureComponent {
                     const alignmentClass = alignment
                       ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
                       : classes.textClasses
+
                     return (
                       <>
                         {publicidad && isDfp && (
