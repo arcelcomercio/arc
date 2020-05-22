@@ -8,6 +8,8 @@ export const ELEMENT_TABLE = 'table'
 
 export const ELEMENT_QUOTE = 'quote'
 
+export const ELEMENT_CUSTOM_EMBED = 'custom_embed'
+
 export const ELEMENT_OEMBED = 'oembed_response'
 
 export const ELEMENT_STORY = 'story'

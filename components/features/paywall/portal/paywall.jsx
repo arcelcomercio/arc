@@ -89,11 +89,17 @@ const PortalInt = props => {
   return (
     // <FillHeight substractElements={substractFeaturesIds}>
     <S.Portal backgroundColor={arcSite === 'elcomercio'}>
-      <S.PortalContent>
-        {items.map(item => (
-          <Card item={item} key={item.title} onSubscribe={onSubscribeHandler} />
-        ))}
-      </S.PortalContent>
+      <S.PortalWrap>
+        <S.PortalContent>
+          {items.map(item => (
+            <Card
+              item={item}
+              key={item.title}
+              onSubscribe={onSubscribeHandler}
+            />
+          ))}
+        </S.PortalContent>
+      </S.PortalWrap>
       <S.Footer>
         <S.FooterContent>
           {arcSite === 'gestion' && (
@@ -120,9 +126,9 @@ const PortalInt = props => {
             href={corporateUrl}
             text={msgs.businessSubscriptionsBannerText}
             primary={arcSite === 'elcomercio'}
-            backgroundColor={arcSite === 'elcomercio' ? "#ffe682" : undefined}
-            ml={{ xs: '0px', sm: '0px', md: '30px' }}
-          />	  
+            backgroundColor={arcSite === 'elcomercio' ? '#ffe682' : undefined}
+            ml={{ xs: '0px', sm: '20px', md: '30px' }}
+          />
           {/* <ClickToCall
             href={clickToCallUrl}
             text={msgs.helpShort}

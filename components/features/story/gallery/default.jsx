@@ -25,13 +25,11 @@ const classes = {
 }
 
 // Funcion extraida de Helpers
-export const defaultImage = ({ contextPath, arcSite, size = 'lg' }) => {
-  if (size !== 'lg' && size !== 'md' && size !== 'sm') return ''
-
+export const defaultImage = ({ contextPath, arcSite }) => {
   return `${getAssetsPath(
     arcSite,
     contextPath
-  )}/resources/dist/${arcSite}/images/default-${size}.png?d=1`
+  )}/resources/dist/${arcSite}/images/default-md.png?d=2`
 }
 
 const StoryGallery = () => {

@@ -307,24 +307,10 @@ class SignwallComponent extends PureComponent {
   }
 
   render() {
-    const { userName, initialUser, showPaywall, showPremium } = this.state
-    const { arcSite, siteProperties, classButton } = this.props
+    const { showPaywall, showPremium } = this.state
+    const { arcSite, siteProperties } = this.props
     return (
       <>
-        <button
-          aria-label={userName}
-          site={arcSite}
-          className={classButton}
-          type="button"
-          onClick={() => this.toogleButton()}>
-          <i className={!initialUser ? `${classes.iconLogin}` : ``}>
-            {initialUser}
-          </i>
-          <span className="capitalize" aria-hidden="true">
-            {userName}
-          </span>
-        </button>
-
         {siteProperties.activeSignwall && (
           <>
             {this.getUrlParam('tokenVerify') && (

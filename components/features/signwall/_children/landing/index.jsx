@@ -8,7 +8,6 @@ import { FormForgot } from '../forms/form_forgot'
 import { FormRegister } from '../forms/form_register'
 import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styled'
 import { Close } from '../iconos'
-import { getAssetsPath } from '../../../../utilities/constants'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
@@ -20,7 +19,7 @@ const renderTemplate = (template, attributes) => {
 }
 
 export const LandingInt = props => {
-  const { onClose, onLogged, noBtnClose, pathSourcePNG, pathSourceWEBP } = props
+  const { onClose, onLogged, noBtnClose, pathSourcePNG } = props
   return (
     <ModalProvider>
       <ModalConsumer>
@@ -41,14 +40,7 @@ export const LandingInt = props => {
                   <Close />
                 </CloseBtn>
               )}
-
-              <FirstMiddle>
-                <picture>
-                  <source srcSet={pathSourceWEBP} type="image/webp" />
-                  <source srcSet={pathSourcePNG} type="image/png" />
-                  <img src={pathSourcePNG} alt="img" />
-                </picture>
-              </FirstMiddle>
+              <FirstMiddle pathSourcePNG={pathSourcePNG}></FirstMiddle>
               <SecondMiddle>
                 {renderTemplate(value.selectedTemplate, { ...props })}
               </SecondMiddle>
@@ -63,26 +55,18 @@ export const LandingInt = props => {
 @Consumer
 class Landing extends Component {
   render() {
-    const { contextPath, typeDialog, arcSite } = this.props
+    const { contextPath, deployment, typeDialog, arcSite } = this.props
     const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
 
     const pathSourcePNG =
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${IMG}.png?d=1` || ''
-
-    const pathSourceWEBP =
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/${IMG}.webp?d=1` || ''
+      deployment(
+        `${contextPath}/resources/dist/${arcSite}/images/${IMG}.jpg`
+      ) || ''
 
     return (
       <LandingInt
         {...this.props}
         pathSourcePNG={pathSourcePNG}
-        pathSourceWEBP={pathSourceWEBP}
         dispatchEvent={this.dispatchEvent.bind(this)}
       />
     )
