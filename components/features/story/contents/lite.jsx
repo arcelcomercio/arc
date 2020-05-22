@@ -139,7 +139,9 @@ class StoryContentsLite extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            className={`${classes.content} ${isPremium &&
+              'story-content__nota-premium paywall no_copy'}`}
+            style={isPremium ? { display: 'none' } : {}}
             id="contenedor">
             {!isDfp && (
               <>
@@ -162,8 +164,7 @@ class StoryContentsLite extends PureComponent {
                     level,
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
-                    publicidad = false,
-                    // nameAds,
+                    nameAds,
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -254,7 +255,19 @@ class StoryContentsLite extends PureComponent {
                       : classes.textClasses
                     return (
                       <>
-                        {publicidad && (
+                        {nameAds === 'inline' && (
+                          <div
+                            id="div-gpt-ad-1585689586219-0"
+                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                        )}
+                        {nameAds === 'caja4' && (
+                          <div
+                            id="div-gpt-ad-1585689586219-0"
+                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                        )}
+                        {nameAds === 'caja5' && (
                           <div
                             id="div-gpt-ad-1585689586219-0"
                             data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
