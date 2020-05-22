@@ -59,13 +59,15 @@ const NavbarChildMenu = props => {
             styleCustom.color = letterColorCustom
           }
           return (
-            <li className={classes.item} key={`navbar-menu-${url || id}`}>
+            <li
+              className={classes.item}
+              style={styleCustom}
+              key={`navbar-menu-${url || id}`}>
               <a
                 href={url || id || '/'}
                 className={classes.link}
                 style={{
                   paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px`,
-                  ...styleCustom,
                 }}>
                 {name || displayName}
               </a>
