@@ -96,6 +96,8 @@ export default ({
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
 
+  const scriptAdpush = `(function(w, d) { var s = d.createElement("script"); s.src = "//delivery.adrecover.com/41308/adRecover.js"; s.type = "text/javascript"; s.async = true; (d.getElementsByTagName("head")[0] || d.getElementsByTagName("body")[0]).appendChild(s); })(window, document);`
+
   const metaSiteData = {
     ...siteProperties,
     requestUri,
@@ -438,6 +440,15 @@ if ('IntersectionObserver' in window) {
               }}></style>
           </>
         )}
+        {arcSite === 'peru21' && requestUri.match('^/politica') && (
+          <>
+            <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+            />
+          </>
+        )}
         <script
           async
           src={`https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js?v=${new Date()
@@ -447,7 +458,7 @@ if ('IntersectionObserver' in window) {
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {arcSite === 'ojo' && requestUri.match('^/ojo-show') && (
+            {((arcSite === 'ojo' && requestUri.match('^/ojo-show')) || arcSite === 'depor') && (
               <script
                 defer
                 src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
