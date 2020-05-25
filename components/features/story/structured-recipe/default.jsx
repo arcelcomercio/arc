@@ -158,7 +158,7 @@ const StructuredRecipe = () => {
     capacidadReceta = '',
     puntuacion = '',
     cantidadRevisiones = '',
-  } = additionalData()[0] || ''
+  } = additionalData()[0] || {}
 
   const videoSeoItems = videoSeo.map(
     ({ url, caption, description, urlImage, date, duration } = {}) => {
