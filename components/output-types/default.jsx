@@ -337,6 +337,26 @@ if ('IntersectionObserver' in window) {
   return (
     <html lang="es">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          if(typeof window !== "undefined"){
+            window.requestIdle = window.requestIdleCallback ||
+            function (cb) {
+              const start = Date.now();
+              return setTimeout(function () {
+                cb({
+                  didTimeout: false,
+                  timeRemaining: function () {
+                    return Math.max(0, 50 - (Date.now() - start));
+                  },
+                });
+              }, 1);
+            };
+          }
+          `,
+          }}
+        />
         <TagManager {...siteProperties} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

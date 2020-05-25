@@ -799,11 +799,25 @@ class StoryData {
 
         dataElements =
           typeElement === ELEMENT_LIST && items === 0 ? [] : dataContent
-
+        /* 
         if (i === 2) {
           dataElements.publicidad = true
           dataElements.nameAds = `caja4`
         }
+        */
+        if (i === 2) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `inline`
+        }
+        if (i === 4) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
+        }
+        if (i === 6) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja5`
+        }
+
         if (typeElement === ELEMENT_TEXT) {
           i += 1
         }
