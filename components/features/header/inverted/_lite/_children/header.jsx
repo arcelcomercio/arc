@@ -91,7 +91,7 @@ export default props => {
             type="button"
             className="h-basic__btn-user h-basic__btn uppercase">
             <span className="h-basic__user-txt" aria-hidden="true">
-              Ingresa
+              Iniciar
             </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -11,6 +11,11 @@ const params = [
     displayName: 'URL de la nota',
     type: 'text',
   },
+  {
+    name: 'section',
+    displayName: 'Sección / Categoría (sin slash)',
+    type: 'text',
+  },
 ]
 
 const options = {
@@ -35,7 +40,11 @@ const getAdditionalData = (storyData, website) => {
 }
 
 const excludedFieldsStory = '&_sourceExclude=owner,address,websites,language'
-const fetch = ({ website_url: websiteUrl, 'arc-site': website } = {}) => {
+const fetch = ({
+  website_url: websiteUrl,
+  'arc-site': website,
+  section = '',
+} = {}) => {
   if (!websiteUrl) {
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
   }
@@ -44,7 +53,7 @@ const fetch = ({ website_url: websiteUrl, 'arc-site': website } = {}) => {
   }
 
   return request({
-    uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${websiteUrl}&website=${website}${excludedFieldsStory}`,
+    uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${section}${websiteUrl}&website=${website}${excludedFieldsStory}`,
     ...options,
   }).then(storyResp => {
     if (storyResp.type === 'redirect' && storyResp.redirect_url) {
