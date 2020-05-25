@@ -10,6 +10,7 @@ const fetchLive = () => {
       const profileStorage =
         window.localStorage.getItem('ArcId.USER_PROFILE') ||
         window.sessionStorage.getItem('ArcId.USER_PROFILE')
+
       const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
       if (profileStorage) {
         return !(profileStorage === 'null' || sesionStorage === '{}') || false
@@ -38,6 +39,8 @@ const fetchLive = () => {
     }
     btnplanes.onclick = () => {
       window.location.href = getUrlPaywall()
+      window.sessionStorage.setItem('paywall_type_modal', 'paywall') 
+      window.sessionStorage.setItem('paywall_last_url', window.location.pathname)
     }
   }
 
@@ -77,9 +80,9 @@ const fetchLive = () => {
 
 // eslint-disable-next-line import/prefer-default-export
 const vallaSignwall = ({ arcEnv, arcSite, getdata }) =>
-  `"use strict";var arcEnv="${arcEnv}",arcSite="${arcSite}",checkSession=function(){if("undefined"!=typeof window){var t=window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"),e=window.localStorage.getItem("ArcId.USER_INFO");if(t)return!("null"===t||"{}"===e)||!1}return!1},getUrlSignwall=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"signwallHard",e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"1";return"elcomercio"===arcEnv?"/signwall/?outputType=signwall&".concat(t,"=").concat(e):"/signwall/?_website=".concat(arcSite,"&outputType=signwall&").concat(t,"=").concat(e)},getUrlPaywall=function(){return"elcomercio"===arcEnv?"/suscripcionesdigitales/":"/pf/suscripcionesdigitales/?_website=".concat(arcSite,"&outputType=paywall#step1")},getBoottonclick=function(){var t=document.getElementById("close"),e=document.getElementById("planes");t.onclick=function(){window.location.href="/?signwallPaywall=1&ref=".concat(window.location.pathname)},e.onclick=function(){window.location.href=getUrlPaywall()}},dataContentPremium=window.content_paywall;if(2!==dataContentPremium&&!0!==dataContentPremium){var dataContTyp=document.querySelector('meta[name="content-type"]'),dataContSec=document.querySelector('meta[name="section-id"]'),userInfo=window.JSON.parse(window.localStorage.getItem("ArcId.USER_INFO"))||{};window.ArcPOptions={paywallFunction:function(t){if(t.match(/signwallHard/)&&!checkSession())window.location.href=getUrlSignwall(),console.log("sdsdsd",t);else if(t.match(/signwallPaywall/)&&checkSession()){document.querySelector("#signwall-app").className="active",document.getElementsByTagName("body")[0].style.overflow="hidden",getBoottonclick()}},contentType:dataContTyp?dataContTyp.getAttribute("content"):"none",section:dataContSec?dataContSec.getAttribute("content"):"none",userName:userInfo.uuid||null,jwt:userInfo.accessToken||null,apiOrigin:"api${
+  `"use strict";var arcEnv="${arcEnv}",arcSite="${arcSite}",checkSession=function(){if("undefined"!=typeof window){var t=window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"),e=window.localStorage.getItem("ArcId.USER_INFO");if(t)return!("null"===t||"{}"===e)||!1}return!1},getUrlSignwall=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"signwallHard",e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"1";return"elcomercio"===arcEnv?"/signwall/?outputType=signwall&".concat(t,"=").concat(e):"/signwall/?_website=".concat(arcSite,"&outputType=signwall&").concat(t,"=").concat(e)},getUrlPaywall=function(){return"elcomercio"===arcEnv?"/suscripcionesdigitales/":"/pf/suscripcionesdigitales/?_website=".concat(arcSite,"&outputType=paywall#step1")},getBoottonclick=function(){var t=document.getElementById("close"),e=document.getElementById("planes");t.onclick=function(){window.location.href="/?signwallPaywall=1&ref=".concat(window.location.pathname)},e.onclick=function(){window.location.href=getUrlPaywall(),window.sessionStorage.setItem("paywall_type_modal","paywall"),window.sessionStorage.setItem("paywall_last_url",window.location.pathname)}},dataContentPremium=window.content_paywall;if(2!==dataContentPremium&&!0!==dataContentPremium){var dataContTyp=document.querySelector('meta[name="content-type"]'),dataContSec=document.querySelector('meta[name="section-id"]'),userInfo=window.JSON.parse(window.localStorage.getItem("ArcId.USER_INFO"))||{};window.ArcPOptions={paywallFunction:function(t){if(t.match(/signwallHard/)&&!checkSession())window.location.href=getUrlSignwall(),console.log("sdsdsd",t);else if(t.match(/signwallPaywall/)&&checkSession()){document.querySelector("#signwall-app").className="active",document.getElementsByTagName("body")[0].style.overflow="hidden",getBoottonclick()}},contentType:dataContTyp?dataContTyp.getAttribute("content"):"none",section:dataContSec?dataContSec.getAttribute("content"):"none",userName:userInfo.uuid||null,jwt:userInfo.accessToken||null,apiOrigin:"api${
     arcEnv === 'sandbox' ? '-sandbox' : ''
-  }.${arcSite}.pe"};var script=document.createElement("script");script.src="https://elcomercio-${arcSite}-${arcEnv}.cdn.arcpublishing.com/arc/subs/p.js?v=${getdata}",script.async="true",document.head.appendChild(script)} 
+  }.${arcSite}.pe"};var script=document.createElement("script");script.src="https://elcomercio-${arcSite}-${arcEnv}.cdn.arcpublishing.com/arc/subs/p.js?v=${getdata}",script.async="true",document.head.appendChild(script)}
   `
 
 export default vallaSignwall
