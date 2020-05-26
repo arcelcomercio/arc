@@ -95,7 +95,7 @@ export default ({
   if (arcSite === 'elcomercio') {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
-
+  const isHome = metaValue('id') === 'meta_home' && true
   const metaSiteData = {
     ...siteProperties,
     requestUri,
@@ -106,6 +106,7 @@ export default ({
     isAmp: false,
     CURRENT_ENVIRONMENT,
     Resource,
+    isHome,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -329,7 +330,7 @@ if ('IntersectionObserver' in window) {
   }
 
   const isStyleBasic =
-    arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
+    arcSite === 'elcomercio c' && metaValue('id') === 'meta_home' && true
 
   const isFooterFinal = isStyleBasic || (style === 'story' && true)
   return (
