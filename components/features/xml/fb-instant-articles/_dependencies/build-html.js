@@ -7,6 +7,7 @@ import {
   nbspToSpace,
   isEmpty,
 } from '../../../../utilities/helpers'
+import recommederBySite from '../_children/recommeder-by-site'
 
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
@@ -392,6 +393,7 @@ const BuildHtml = ({
   getPremiumValue,
   siteUrl,
   defaultImage,
+  recommenderData,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -477,6 +479,7 @@ const BuildHtml = ({
           </ul>`
             : ''
         }
+        ${recommederBySite({ data: recommenderData, arcSite })}
         `
           : ''
       }

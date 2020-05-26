@@ -36,11 +36,16 @@ const StoriesListRecommenderBySite = props => {
    * de las ultimas notas de Mag o del sitio actual.
    */
 
+  const { website: websiteManual } = contentConfigManualValues
   const { website } = contentConfigValues
+  const { siteUrl: siteUrlManual, siteName: siteNameManual } =
+    getProperties(websiteManual || arcSite) || {}
   const { siteUrl, siteName } = getProperties(website || arcSite) || {}
 
   // const presets = 'landscape_s:234x161,square_s:150x150'
   const presets = 'no-presets'
+  const includedFieldsManual = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteManual ||
+    arcSite}.website_url`
   const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${website ||
     arcSite}.website_url`
 
@@ -50,9 +55,9 @@ const StoriesListRecommenderBySite = props => {
         source: contentServiceManual,
         query: Object.assign(contentConfigManualValues, {
           presets,
-          includedFields,
+          includedFieldsManual,
         }),
-        filter: schemaFilter(website || arcSite),
+        filter: schemaFilter(websiteManual || arcSite),
       })) ||
     {}
 
@@ -70,12 +75,12 @@ const StoriesListRecommenderBySite = props => {
     defaultImgSize: 'sm',
   })
 
-  const process = contentElements => {
+  const process = (contentElements, websiteConf, siteUrlConf) => {
     const stories = contentElements.map(story => {
       storyData._data = story
 
       const { websites = {} } = story || {}
-      const site = websites[website] || {}
+      const site = websites[websiteConf] || {}
       const websiteUrl = site.website_url || ''
 
       const {
@@ -90,13 +95,13 @@ const StoriesListRecommenderBySite = props => {
           ? getResizedUrl({
               url: multimedia,
               presets: 'landscape_s:234x161,square_s:150x150',
-              arcSite: website || arcSite,
+              arcSite: websiteConf || arcSite,
             }) || {}
           : {}
 
       return {
         title,
-        websiteLink: `${siteUrl}${websiteUrl ||
+        websiteLink: `${siteUrlConf}${websiteUrl ||
           websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
         multimediaLazyDefault,
         multimediaSquareS: squareS || multimedia,
@@ -108,14 +113,18 @@ const StoriesListRecommenderBySite = props => {
 
   const { content_elements: resaizedContentElementsManual = [] } =
     dataManual || {}
-  const storiesManual = process(resaizedContentElementsManual)
+  const storiesManual = process(
+    resaizedContentElementsManual,
+    websiteManual,
+    siteUrlManual
+  )
 
   const { content_elements: resaizedContentElements = [] } = data || {}
-  const stories = process(resaizedContentElements)
+  const stories = process(resaizedContentElements, website, siteUrl)
 
   const params = {
     isAdmin,
-    siteName,
+    siteName: siteNameManual || siteName,
     stories: [...storiesManual, ...stories],
     isTargetBlank: isTargetBlank ? { target: '_blank', rel: 'noopener' } : {},
     titleField,
