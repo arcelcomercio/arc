@@ -110,10 +110,8 @@ class LayoutNoSignwall extends PureComponent {
   }
 
   getDataNavBarData = () => {
-    console.log('getDataNavBarData')
     if (this.formatter.main.fetch !== false) {
       const { params, source } = this.formatter.main.fetch.config
-      console.log('data config', params, source)
       /** Solicita la data a la API y setea los resultados en "state.data" */
       this.fetchContent({
         data: {
@@ -140,9 +138,6 @@ class LayoutNoSignwall extends PureComponent {
       children: this.formatData(data),
     }
 
-    console.log('data', data)
-    console.log('formatData data', this.formatData(data))
-
     const NavBarType = {
       standard: (
         <NavBarComercio
@@ -160,7 +155,6 @@ class LayoutNoSignwall extends PureComponent {
         />
       ),
     }
-    console.log('selectDesing', selectDesing)
     return NavBarType[selectDesing] || NavBarType.standard
   }
 
