@@ -47,10 +47,10 @@ export const getVideoIdRedSocial = (content = '', type = '') => {
   return videoId
 }
 
-export const getResultVideo = (streams, arcSite) => {
+export const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
-      return streamType === 'ts' ? url : []
+      return streamType === type ? url : []
     })
     .filter(String)
   const cantidadVideo = resultVideo.length
