@@ -1,0 +1,14 @@
+.header-recetas {
+  &__button.right {
+    margin-top: -2px;
+  }
+
+  &__button.right::before,
+  &__button.left::before {
+    background: none;
+  }
+
+  &__tags {
+    font-size: 22px;
+  }
+}

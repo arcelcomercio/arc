@@ -203,7 +203,7 @@ class StoryContents extends PureComponent {
               'story-content__nota-premium paywall no_copy'}`}
             style={isPremium ? { display: 'none' } : {}}
             id="contenedor">
-            <StoryContentsChildIcon />
+            {!requestUri.includes('/recetas/') && <StoryContentsChildIcon />}
             {!isDfp && (
               <>
                 <div id="ads_d_inline" />
