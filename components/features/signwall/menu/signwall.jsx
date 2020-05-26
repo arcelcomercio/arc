@@ -41,6 +41,7 @@ const Menu = ({
     Cookies.deleteCookie('mpp_sess')
     Cookies.deleteCookie('ArcId.USER_INFO')
     Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
+    Cookies.deleteCookie('lostEmail')
     W.sessionStorage.removeItem('paywall-profile-form') // formik raul
     W.sessionStorage.removeItem('paywall-payment-form') // formik raul
     W.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra

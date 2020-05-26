@@ -94,7 +94,7 @@ class Subs extends Component {
           const newaray = []
           let p = Promise.resolve()
           for (let i = 0; i < res.length; i++) {
-            if (res[i].paymentMethod && res[i].subscriptionID) {
+            if (res[i].subscriptionID) {
               count += 1
               p = p.then(() => {
                 window.Sales.getSubscriptionDetails(res[i].subscriptionID)
@@ -198,7 +198,15 @@ class Subs extends Component {
                         <div className="details">
                           <div className="details-left">
                             <p className="small">DETALLE DE LA SUSCRIPCIÓN</p>
-                            <h2>{reSubs.productName}</h2>
+                            <h2 className="subtitle">{reSubs.productName}</h2>
+                            <p className="small">
+                              Estado:
+                              {reSubs.status === 3 ? (
+                                <strong className="orange"> ANULADO</strong>
+                              ) : (
+                                <strong className="green"> ACTIVO</strong>
+                              )}
+                            </p>
                           </div>
                           <div className="details-right">
                             {listBundle.includes(reSubs.priceCode) ? (
