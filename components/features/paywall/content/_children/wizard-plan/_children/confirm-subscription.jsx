@@ -26,7 +26,7 @@ export default ({
         {content && (
           <>
             <Content>
-              {content}
+              <Markdown escapeHtml={false}>{content}</Markdown>
               <Link
                 href="#"
                 onClick={e => {
