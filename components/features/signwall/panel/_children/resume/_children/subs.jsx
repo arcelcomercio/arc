@@ -182,7 +182,7 @@ class Subs extends Component {
                       <div className="left">
                         <h3>Mi Suscripción</h3>
                         {reSubs.currentPaymentMethod.paymentPartner ===
-                        'PayULATAM' ? (
+                          'PayULATAM' && reSubs.status !== 3 ? (
                           <button
                             type="button"
                             className="link"

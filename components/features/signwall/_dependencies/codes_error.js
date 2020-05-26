@@ -26,7 +26,10 @@ const getCodeError = code => {
       return 'Token inválido o caducado'
 
     case '300036':
-      return 'Tu contraseña tiene un formato inválido'
+      return 'Tu contraseña tiene un formato inválido.'
+
+    case '300201':
+      return 'El campo ingresado contiene caracteres inválidos.'
 
     default:
       return 'Ocurrió un error inesperado.'

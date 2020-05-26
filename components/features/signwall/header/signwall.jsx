@@ -38,7 +38,7 @@ const Head = ({
   return (
     <>
       {showLoading && !noLoading ? (
-        <div className="back-loading" style={{ zIndex: '20' }}>
+        <div className="back-loading" style={{ zIndex: '20 !important' }}>
           <Loading arcSite={arcSite} />
         </div>
       ) : (

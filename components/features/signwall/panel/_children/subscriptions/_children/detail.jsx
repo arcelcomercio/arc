@@ -21,6 +21,7 @@ import {
 } from '../../../../_children/forms/control_input_select'
 import useForm from '../../../../_dependencies/useForm'
 import Taggeo from '../../../../_dependencies/taggeo'
+import getCodeError from '../../../../_dependencies/codes_error'
 
 const LOGO_VISA =
   'data:image/png;base64,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'
@@ -114,7 +115,7 @@ export const SubDetailInt = props => {
   const [showOpenUpdate, setShowOpenUpdate] = useState(false)
   const [showStepCancel, setShowStepCancel] = useState(1)
   const [showOptionCancel, setShowOptionCancel] = useState(null)
-  const [showErrorCancel, setShowErrorCancel] = useState(null)
+  const [showErrorCancel, setShowErrorCancel] = useState('')
   const [showLoadCancel, setShowLoadCancel] = useState('')
   const [showLoadRescue, setShowLoadRescue] = useState('')
   const [txtMotivo, setTxtMotivo] = useState('')
@@ -133,7 +134,7 @@ export const SubDetailInt = props => {
     }
     return respuesta
   }
-  
+
   const stateSchema = {
     numcard: { value: '', error: '' },
     dateexpire: { value: '', error: '' },
@@ -342,7 +343,7 @@ export const SubDetailInt = props => {
       setShowModalConfirm(!showModalConfirm)
       setShowStepCancel(1)
       setShowOptionCancel(null)
-      setShowErrorCancel(null)
+      setShowErrorCancel('')
       setTxtMotivo('')
       Taggeo(`Web_Sign_Wall_General`, `web_swg_close_anulacion`)
     } else {
@@ -384,7 +385,7 @@ export const SubDetailInt = props => {
     if (typeof window !== 'undefined') {
       setShowLoadCancel('Finalizando...')
 
-      const valMotivo = option === 'Otro motivo' ? txtMotivo : option
+      const valMotivo = option === 'Otro motivo' ? txtMotivo.trim() : option
       window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       window.Identity.extendSession().then(() => {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
@@ -393,8 +394,8 @@ export const SubDetailInt = props => {
             Taggeo(`Web_Sign_Wall_General`, `web_swg_success_anulacion`)
             window.document.getElementById('btn-subs').click()
           })
-          .catch(() => {
-            setShowErrorCancel(true)
+          .catch(resError => {
+            setShowErrorCancel(getCodeError(resError.code))
             Taggeo(`Web_Sign_Wall_General`, `web_swg_error_anulacion`)
           })
           .finally(() => {
@@ -1037,10 +1038,7 @@ export const SubDetailInt = props => {
                   </Title>
 
                   {showErrorCancel && (
-                    <Message failed>
-                      Ha ocurrido un error inesperado. Por favor inténtalo más
-                      tarde ó contáctanos al 01 311-5100.
-                    </Message>
+                    <Message failed>{showErrorCancel}</Message>
                   )}
 
                   <Title s="16" className="justify mt-10 mb-10">
