@@ -9,7 +9,7 @@
 @import "../../general-styles/framework/generators/index";
 
 /******* Partials *******/
-//@import "./scss/partials/base";
+@import "./scss/partials/base";
 
 /******* Components *******/
 @import "../../general-styles/components/dbasic";
@@ -25,9 +25,9 @@
 @import "./scss/components/cards/columnist-premium/columnist-premium";
 @import "./scss/components/cards/cinema-billboard/cinema-card";
 @import "./scss/components/cards/featured-premium/featured-premium";
-//@import "./scss/components/layout/navbar/nav";
+@import "./scss/components/layout/navbar/nav";
 @import "./scss/components/layout/navbar/nav-sidebar";
-//@import "./scss/components/layout/header/header";
+@import "./scss/components/layout/header/header";
 @import "./scss/components/layout/footer/footer";
 @import "./scss/components/footer/elcomercio";
 @import "./scss/components/separators/basic/sep-opt";

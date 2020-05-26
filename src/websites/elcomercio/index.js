@@ -28,11 +28,9 @@ import './images/logo-sidebar.png'
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'
 import './images/logo-elcomercio.jpg'
-import './images/signwall/paywall_bg.png'
-import './images/signwall/paywall_bg.webp'
+import './images/signwall/paywall_bg.jpg'
 import './images/signwall/logo_elcomercio.png'
-import './images/signwall/bg_login.png'
-import './images/signwall/bg_login.webp'
+import './images/signwall/bg_login.jpg'
 
 /** Fonts & icons */
 import './icons/fonts/default.woff'

@@ -34,9 +34,6 @@ class MainPage extends PureComponent {
         Cookies.deleteCookie('signreferer')
         Cookies.setCookie('signreferer', window.document.referrer, 365)
       }
-      if (this.getUrlParam('signGoogle')) {
-        Cookies.setCookie('signGoogle', '1', 1)
-      }
     }
   }
 

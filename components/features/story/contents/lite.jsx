@@ -24,6 +24,7 @@ import {
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
   ELEMENT_QUOTE,
+  ELEMENT_CUSTOM_EMBED,
   ELEMENT_RAW_HTML,
   ELEMENT_TABLE,
   ELEMENT_TEXT,
@@ -39,6 +40,7 @@ import StoryContentsChildVideo from '../multimedia/_children/video'
 import StoryContentsChildImage from '../multimedia/_children/image'
 import StoryHeaderChildGallery from '../gallery/_children/gallery'
 import StoryContentChildRawHTML from './_children/rawHtml'
+import StoryContentsChildLinkedImage from './_children/linked-image'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
@@ -139,7 +141,9 @@ class StoryContentsLite extends PureComponent {
             isDfp={isDfp}
           />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            className={`${classes.content} ${isPremium &&
+              'story-content__nota-premium paywall no_copy'}`}
+            style={isPremium ? { display: 'none' } : {}}
             id="contenedor">
             {!isDfp && (
               <>
@@ -157,13 +161,13 @@ class StoryContentsLite extends PureComponent {
                     _id,
                     type,
                     subtype: sub,
+                    embed: customEmbed,
                     raw_oembed: rawOembed,
                     content,
                     level,
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
-                    publicidad = false,
-                    // nameAds,
+                    nameAds,
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -254,7 +258,19 @@ class StoryContentsLite extends PureComponent {
                       : classes.textClasses
                     return (
                       <>
-                        {publicidad && (
+                        {nameAds === 'inline' && (
+                          <div
+                            id="div-gpt-ad-1585689586219-0"
+                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                        )}
+                        {nameAds === 'caja4' && (
+                          <div
+                            id="div-gpt-ad-1585689586219-0"
+                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                        )}
+                        {nameAds === 'caja5' && (
                           <div
                             id="div-gpt-ad-1585689586219-0"
                             data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
@@ -372,6 +388,14 @@ class StoryContentsLite extends PureComponent {
                       )
                     }
                     return <StoryContentChildRawHTML content={content} />
+                  }
+                  if (type === ELEMENT_CUSTOM_EMBED) {
+                    if (subtype === 'image_link') {
+                      const { config: customEmbedConfig } = customEmbed || {}
+                      return (
+                        <StoryContentsChildLinkedImage {...customEmbedConfig} />
+                      )
+                    }
                   }
                   return ''
                 }}

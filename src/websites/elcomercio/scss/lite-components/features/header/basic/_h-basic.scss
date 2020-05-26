@@ -51,17 +51,18 @@
 
   &__btn-user {
     @media (--desktop) {
-      width: 85px;
+      max-width: 250px;
       height: 25px;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 0 6px;
       border-radius: 3px;
+      border: 1px solid transparent;
 
       &:focus,
       &:hover {
-        border: 1px solid $color-gray-300;
+        border-color: $color-gray-300;
       }
     }
   }
@@ -106,7 +107,6 @@
     padding-top: 2px;
     padding-right: 5px;
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
     display: none;
     @media (--desktop) {

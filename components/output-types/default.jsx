@@ -96,6 +96,8 @@ export default ({
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
 
+  const scriptAdpush = `(function(w, d) { var s = d.createElement("script"); s.src = "//delivery.adrecover.com/41308/adRecover.js"; s.type = "text/javascript"; s.async = true; (d.getElementsByTagName("head")[0] || d.getElementsByTagName("body")[0]).appendChild(s); })(window, document);`
+
   const metaSiteData = {
     ...siteProperties,
     requestUri,
@@ -207,18 +209,6 @@ export default ({
   const structuredTaboola = ` 
     window._taboola = window._taboola || [];
     _taboola.push({flush: true});`
-
-  const structuredDetectIncognito = `(async function() {
-    if ("storage" in navigator && "estimate" in navigator.storage) {
-      var { usage, quota } = await navigator.storage.estimate();
-      if (quota < 120000000) {
-        window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({
-          event: 'tag_signwall', eventCategory: 'Web_Sign_Wall_Security', eventAction: 'web_sws_mode_incognito',
-        })
-      }
-    }
-  })()`
 
   const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
@@ -347,6 +337,26 @@ if ('IntersectionObserver' in window) {
   return (
     <html lang="es">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          if(typeof window !== "undefined"){
+            window.requestIdle = window.requestIdleCallback ||
+            function (cb) {
+              const start = Date.now();
+              return setTimeout(function () {
+                cb({
+                  didTimeout: false,
+                  timeRemaining: function () {
+                    return Math.max(0, 50 - (Date.now() - start));
+                  },
+                });
+              }, 1);
+            };
+          }
+          `,
+          }}
+        />
         <TagManager {...siteProperties} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -450,16 +460,25 @@ if ('IntersectionObserver' in window) {
               }}></style>
           </>
         )}
+        {arcSite === 'peru21' && requestUri.match('^/politica') && (
+          <>
+            <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+            />
+          </>
+        )}
         <script
           async
-          src={`https://d1r08wok4169a5.cloudfront.net/ayos/ec-ayos.js?v=${new Date()
+          src={`https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js?v=${new Date()
             .toISOString()
             .slice(0, 10)}`}
         />
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {arcSite === 'ojo' && requestUri.match('^/ojo-show') && (
+            {((arcSite === 'ojo' && requestUri.match('^/ojo-show')) || arcSite === 'depor') && (
               <script
                 defer
                 src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
@@ -577,10 +596,6 @@ if ('IntersectionObserver' in window) {
           </>
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
-        <script
-          async
-          dangerouslySetInnerHTML={{ __html: structuredDetectIncognito }}
-        />
 
         <script
           defer

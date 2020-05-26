@@ -122,7 +122,6 @@ export const PremiumInt = props => {
                       src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
                     />
                   </center>
-
                   <ul className="list-benefits mb-20">
                     {resCampaing.map(item => {
                       return <li key={item}>{item}</li>
@@ -152,7 +151,7 @@ class Premium extends PureComponent {
 
     const pathSourcePNG =
       deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.png`
+        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.jpg`
       ) || ''
 
     return (
