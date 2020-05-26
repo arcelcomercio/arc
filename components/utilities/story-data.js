@@ -684,6 +684,19 @@ class StoryData {
     return seoKeywords
   }
 
+  get prerollDefault() {
+    const {
+      taxonomy: {
+        primary_section: {
+          additional_properties: {
+            original: { _admin: { alias_ids: aliasId = [] } = {} } = {},
+          } = {},
+        } = {},
+      } = {},
+    } = this._data || {}
+    return aliasId
+  }
+
   get sourceUrlOld() {
     const { additional_properties: { source_url: sourceUrl = '' } = {} } =
       this._data || {}
@@ -1566,10 +1579,11 @@ class StoryData {
         caption = '',
         canonical_url: link,
         items = [],
+        streams = [],
         title = '',
         level = null,
       }) => {
-        const result = { _id, type, level, payload: '' }
+        const result = { _id, type, level, payload: '', streams }
 
         switch (type) {
           case ELEMENT_TEXT:

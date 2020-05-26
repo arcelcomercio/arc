@@ -8,7 +8,6 @@ import Summary from '../summary'
 import * as S from './styled'
 import { PixelActions, sendAction } from '../../../_dependencies/analitycs'
 import addSales from '../../../_dependencies/sales'
-import { deepMapValues } from '../../../_dependencies/utils'
 import Errors from '../../../_dependencies/errors'
 import PWA from '../../_dependencies/seed-pwa'
 import { useStrings } from '../../../_children/contexts'
@@ -49,7 +48,11 @@ function WizardUserProfile(props) {
       ? value.trim().replace(/undefined|null/i, '')
       : value
   }
-  const sanitizedProfile = deepMapValues(profile, sanitizeValues)
+
+  const sanitizedProfile = Object.keys(profile).reduce((prev, key) => ({
+    ...prev,	  
+    [key]: sanitizeValues(profile[key], key),
+  }), {})
 
   useEffect(() => {
     dataLayer.push({

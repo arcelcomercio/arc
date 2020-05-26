@@ -7,6 +7,7 @@ import { FormLoginPaywall } from '../forms/form_login_landing'
 import { FormForgot } from '../forms/form_forgot'
 import { FormRegister } from '../forms/form_register'
 import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styled'
+import Cookies from '../../_dependencies/cookies'
 import { Close } from '../iconos'
 
 const renderTemplate = (template, attributes) => {
@@ -30,6 +31,7 @@ export const LandingInt = props => {
                 <CloseBtn
                   type="button"
                   onClick={() => {
+                    Cookies.deleteCookie('lostEmail')
                     if (window.Identity.userProfile) {
                       onLogged(window.Identity.userProfile)
                       onClose()

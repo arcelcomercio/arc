@@ -9,6 +9,7 @@ function Modal({
   children,
   scrollable,
   showClose,
+  allowEsc = true,
   onClose = () => {},
   open = false,
   ...props
@@ -30,7 +31,7 @@ function Modal({
 
   useEffect(() => {
     const _onClose = ({ key }) => {
-      if (key === 'Escape') {
+      if (allowEsc && key === 'Escape') {
         close()
       }
     }
@@ -46,7 +47,7 @@ function Modal({
   return (
     <Portal id="modal">
       <S.Modal open={open} {...props}>
-        <S.Background onClick={close} />
+        <S.Background onClick={() => allowEsc && close()} />
         <S.Content scrollable={scrollable}>
           {open && [showClose && <S.CloseButton onClick={close} />, childrens]}
         </S.Content>

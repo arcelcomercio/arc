@@ -166,7 +166,7 @@ export const DialogModal = styled.div`
 
     @media screen and (min-width: 640px) {
       width: 80%;
-      height: 540px;
+      height: 555px;
     }
 
     @media screen and (min-width: 768px) {
@@ -176,12 +176,12 @@ export const DialogModal = styled.div`
 
     @media screen and (min-width: 1024px) {
       width: 90%;
-      height: 540px;
+      height: 555px;
     }
 
     @media screen and (min-width: 1025px) {
       max-width: 1000px;
-      height: 540px;
+      height: 555px;
     }
   }
 
