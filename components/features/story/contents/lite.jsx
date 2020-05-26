@@ -141,6 +141,10 @@ class StoryContentsLite extends PureComponent {
             isDfp={isDfp}
           />
           <div
+            id="div-gpt-ad-caja3-0"
+            data-ads-name={`/28253241/elcomercio/web/sect/${secc}/caja3`}
+            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+          <div
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}
             style={isPremium ? { display: 'none' } : {}}
@@ -260,20 +264,21 @@ class StoryContentsLite extends PureComponent {
                       <>
                         {nameAds === 'inline' && (
                           <div
-                            id="div-gpt-ad-1585689586219-0"
-                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                            id="div-gpt-ad-caja4-0"
+                            data-ads-name={`"/28253241/elcomercio/web/sect/${secc}/inline`}
+                            data-ads-dimensions="[[1, 1]"
+                            data-ads-dimensions-m="[[1, 1]]"></div>
                         )}
                         {nameAds === 'caja4' && (
                           <div
-                            id="div-gpt-ad-1585689586219-0"
-                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            id="div-gpt-ad-caja4-0"
+                            data-ads-name={`"/28253241/elcomercio/web/sect/${secc}/caja4"`}
                             data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
                         )}
                         {nameAds === 'caja5' && (
                           <div
-                            id="div-gpt-ad-1585689586219-0"
-                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            id="div-gpt-ad-caja5-0"
+                            data-ads-name={`"/28253241/elcomercio/web/sect/${secc}/caja5"`}
                             data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
                         )}
                         <Text
