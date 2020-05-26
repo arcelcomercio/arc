@@ -265,8 +265,8 @@ class StoryContentsLite extends PureComponent {
                           <div
                             id="div-gpt-ad-inline"
                             data-ads-name={`/28253241/${arcSite}/web/sect/${secc}/inline`}
-                            data-ads-dimensions="[1,1]"
-                            data-ads-dimensions-m="[1,1]"></div>
+                            data-ads-dimensions="[[1,1]]"
+                            data-ads-dimensions-m="[[1,1]]"></div>
                         )}
                         {nameAds === 'caja4' && (
                           <div
