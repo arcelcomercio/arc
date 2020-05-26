@@ -6,7 +6,7 @@
       font-size: 18px;
     }
     a {
-      color: $color-black;
+      color: $color-link;
       font-weight: bold;
       text-decoration: underline;
     }
@@ -42,17 +42,17 @@
       @media (--only-mobile) {
         font-size: 11px;
       }
+      td {
+        font-family: $primary-font;
+        padding: 5px;
+        border-right: 1px solid #ccc;
+      }
       tr {
         &:nth-child(2n) {
           td {
             background-color: #ccc;
           }
         }
-      }
-      td {
-        font-family: $primary-font;
-        padding: 5px;
-        border-right: 1px solid #ccc;
       }
     }
   }
