@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field } from 'formik'
-import pick from 'object.pick'
+import { pick } from '../../../../../_dependencies/utils'
 
 import { Persist } from '../../../../../_children/formik-persist'
 import * as S from './styled'

@@ -21,6 +21,7 @@ import {
 } from '../../../../_children/forms/control_input_select'
 import useForm from '../../../../_dependencies/useForm'
 import Taggeo from '../../../../_dependencies/taggeo'
+import getCodeError from '../../../../_dependencies/codes_error'
 
 const LOGO_VISA =
   'data:image/png;base64,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'
@@ -41,20 +42,6 @@ const Cards = {
   DINERS: LOGO_DINERS_CLUB,
 }
 
-const listOptionsComercio = [
-  'El precio es elevado',
-  'Cuenta con otra suscripción',
-  'No estoy interesado en el contenido',
-  'Otro motivo',
-]
-
-const listOptionsGestion = [
-  'Solo me suscribí para leer un tema puntual',
-  'Ya no lo necesito para mi trabajo y/o estudios',
-  'El contenido no es lo que me interesa',
-  'Otro motivo',
-]
-
 const ListCards = [
   {
     name: 'VISA',
@@ -74,6 +61,20 @@ const ListCards = [
   },
 ]
 
+const listOptionsComercio = [
+  'El precio es elevado',
+  'Cuenta con otra suscripción',
+  'No estoy interesado en el contenido',
+  'Otro motivo',
+]
+
+const listOptionsGestion = [
+  'Solo me suscribí para leer un tema puntual',
+  'Ya no lo necesito para mi trabajo y/o estudios',
+  'El contenido no es lo que me interesa',
+  'Otro motivo',
+]
+
 const cardPatterns = {
   VISA: /^(4)(\d{12}|\d{15})$|^(606374\d{10}$)/,
   MASTERCARD: /^(5[1-5]\d{14}$)|^(2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$)/,
@@ -81,28 +82,9 @@ const cardPatterns = {
   DINERS: /(^[35](?:0[0-5]|[268][0-9])[0-9]{11}$)|(^30[0-5]{11}$)|(^3095(\d{10})$)|(^36{12}$)|(^3[89](\d{12})$)/,
 }
 
+// prettier-ignore
 const Mask = {
-  CARD_NUMBER: [
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/,
-    ' ',
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/,
-    ' ',
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/,
-    ' ',
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/,
-  ],
+  CARD_NUMBER: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/],
   EXPIRY_DATE: [/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
   CARD_CVV: [/\d/, /\d/, /\d/, /\d/],
 }
@@ -121,6 +103,7 @@ export const SubDetailInt = props => {
   const [showResDetail, setShowResDetail] = useState({})
   const [showResLastSubs, setShowResLastSubs] = useState(null)
   const [showModalConfirm, setShowModalConfirm] = useState(false)
+  const [showModalRecovery, setShowModalRecovery] = useState(false)
   const [showMessageSuccess, setShowMessageSuccess] = useState(false)
   const [showMessageFailed, setShowMessageFailed] = useState(false)
   const [showUpdateCard, setShowUpdateCard] = useState(false)
@@ -132,8 +115,25 @@ export const SubDetailInt = props => {
   const [showOpenUpdate, setShowOpenUpdate] = useState(false)
   const [showStepCancel, setShowStepCancel] = useState(1)
   const [showOptionCancel, setShowOptionCancel] = useState(null)
-  const [showErrorCancel, setShowErrorCancel] = useState(null)
+  const [showErrorCancel, setShowErrorCancel] = useState('')
   const [showLoadCancel, setShowLoadCancel] = useState('')
+  const [showLoadRescue, setShowLoadRescue] = useState('')
+  const [txtMotivo, setTxtMotivo] = useState('')
+
+  const validateMotivo = () => {
+    let respuesta = ''
+    if (txtMotivo.length <= 0) {
+      respuesta = 'Campo obligatorio'
+    }
+    if (txtMotivo.length >= 1 && txtMotivo.length <= 9) {
+      respuesta = 'Mínimo 10 caracteres'
+    }
+
+    if (txtMotivo.length > 0 && !txtMotivo.match(/(\w+)/)) {
+      respuesta = 'Caracteres inválidos'
+    }
+    return respuesta
+  }
 
   const stateSchema = {
     numcard: { value: '', error: '' },
@@ -192,8 +192,15 @@ export const SubDetailInt = props => {
     })
   }, [IdSubscription, arcSite])
 
-  const openModalConfirm = () => {
-    setShowModalConfirm(true)
+  const openModalConfirm = type => {
+    if (type === 'anulacion') {
+      setShowModalConfirm(true)
+      Taggeo(`Web_Sign_Wall_General`, `web_swg_open_anulacion_step1`)
+    } else {
+      setShowModalRecovery(true)
+      Taggeo(`Web_Sign_Wall_General`, `web_swg_open_recuperar`)
+    }
+
     const ModalProfile =
       document.getElementById('profile-signwall').parentNode ||
       document.getElementById('profile-signwall').parentElement
@@ -203,7 +210,6 @@ export const SubDetailInt = props => {
       const modalConfirmPass = document.getElementById('profile-signwall')
       modalConfirmPass.scrollIntoView()
     }, 500)
-    Taggeo(`Web_Sign_Wall_General`, `web_swg_open_anulacion_step1`)
   }
 
   const onSubmitForm = state => {
@@ -332,11 +338,18 @@ export const SubDetailInt = props => {
     }
   }
 
-  const closeModalConfirm = () => {
-    setShowModalConfirm(!showModalConfirm)
-    setShowStepCancel(1)
-    setShowOptionCancel(null)
-    setShowErrorCancel(null)
+  const closeModalConfirm = type => {
+    if (type === 'anulacion') {
+      setShowModalConfirm(!showModalConfirm)
+      setShowStepCancel(1)
+      setShowOptionCancel(null)
+      setShowErrorCancel('')
+      setTxtMotivo('')
+      Taggeo(`Web_Sign_Wall_General`, `web_swg_close_anulacion`)
+    } else {
+      setShowModalRecovery(false)
+      Taggeo(`Web_Sign_Wall_General`, `web_swg_close_recuperar`)
+    }
 
     const ModalProfile =
       document.getElementById('profile-signwall').parentNode ||
@@ -346,27 +359,43 @@ export const SubDetailInt = props => {
     } else {
       ModalProfile.style.overflow = 'hidden'
     }
-    Taggeo(`Web_Sign_Wall_General`, `web_swg_close_anulacion`)
+  }
+
+  const recoverySubscription = idSubsRecovery => {
+    if (typeof window !== 'undefined') {
+      setShowLoadRescue('Recuperando...')
+      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      window.Identity.extendSession().then(() => {
+        window.Sales.rescueSubscription(idSubsRecovery)
+          .then(() => {
+            Taggeo(`Web_Sign_Wall_General`, `web_swg_success_recuperacion`)
+            window.document.getElementById('btn-subs').click()
+          })
+          .catch(() => {
+            Taggeo(`Web_Sign_Wall_General`, `web_swg_error_recuperacion`)
+          })
+          .finally(() => {
+            setShowLoadRescue('')
+          })
+      })
+    }
   }
 
   const deleteSubscription = (idSubsDelete, option) => {
     if (typeof window !== 'undefined') {
       setShowLoadCancel('Finalizando...')
-      const txtMotivo = document.getElementById('motivo-detalle')
-      const valMotivo =
-        txtMotivo && txtMotivo.value.length >= 3 ? txtMotivo.value : option
 
+      const valMotivo = option === 'Otro motivo' ? txtMotivo.trim() : option
       window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       window.Identity.extendSession().then(() => {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
         window.Sales.cancelSubscription(idSubsDelete, valMotivo || undefined)
           .then(() => {
-            closeModalConfirm()
             Taggeo(`Web_Sign_Wall_General`, `web_swg_success_anulacion`)
             window.document.getElementById('btn-subs').click()
           })
-          .catch(() => {
-            setShowErrorCancel(true)
+          .catch(resError => {
+            setShowErrorCancel(getCodeError(resError.code))
             Taggeo(`Web_Sign_Wall_General`, `web_swg_error_anulacion`)
           })
           .finally(() => {
@@ -452,18 +481,26 @@ export const SubDetailInt = props => {
               <small>DETALLE DE LA SUSCRIPCIÓN</small>
               <h2>{showResDetail.productName}</h2>
               <p>
-                <strong>Plan Pago: </strong>
-                {periodFormat(
-                  showResDetail.paymentHistory[0].periodTo,
-                  showResDetail.paymentHistory[0].periodFrom
-                )}
+                Plan Pago:
+                <strong>
+                  {periodFormat(
+                    showResDetail.paymentHistory[0].periodTo,
+                    showResDetail.paymentHistory[0].periodFrom
+                  )}
+                </strong>
               </p>
               <p>
-                <strong>Precio: </strong> S/{' '}
-                {showResDetail.salesOrders[0].total} *
+                Precio:
+                <strong> S/ {showResDetail.salesOrders[0].total} </strong>
               </p>
-              {/* <small>*POR 6 MESES LUEGO S/ 20 CADA MES</small> */}
-              <small>*</small>
+              <p>
+                Estado:
+                {showResDetail.status === 3 ? (
+                  <strong className="orange"> ANULADO</strong>
+                ) : (
+                  <strong className="green"> ACTIVO</strong>
+                )}
+              </p>
             </div>
 
             <div className="details-right">
@@ -474,10 +511,14 @@ export const SubDetailInt = props => {
                 {arcSite === 'elcomercio' ? (
                   <>
                     <li>
-                      Contenido Premium: análisis e informes exclusivamente
-                      desarrollados para {arcSite}.pe.
+                      Acceso sin límites a información exclusiva: reportajes,
+                      informes y la mejor selección de historias elaboradas por
+                      El Comercio.
                     </li>
-                    <li>Navegación ilimitada desde todos tus dispositivos.</li>
+                    <li>
+                      Navegación ilimitada a elcomercio.pe desde todos tus
+                      dispositivos.
+                    </li>
                   </>
                 ) : (
                   <>
@@ -502,7 +543,7 @@ export const SubDetailInt = props => {
                         <li>
                           La mejor selección de artículos e informes elaborados
                           por el diario Gestión, The Economist y la agencia
-                          Bloomberg
+                          Bloomberg.
                         </li>
                       </>
                     )}
@@ -512,35 +553,37 @@ export const SubDetailInt = props => {
             </div>
           </S.Subsdetail>
 
-          <S.Fieldset id="div-signwall-updatecard">
-            <legend>Método de pago</legend>
+          {showResDetail.status !== 3 && (
+            <S.Fieldset id="div-signwall-updatecard">
+              <legend>Método de pago</legend>
 
-            {showMessageSuccess && (
-              <S.Message success>
-                Se actualizó correctamente los datos de la tarjeta.
-              </S.Message>
-            )}
+              {showMessageSuccess && (
+                <S.Message success>
+                  Se actualizó correctamente los datos de la tarjeta.
+                </S.Message>
+              )}
 
-            <div className="left">
-              <img src={Cards[showLastCard]} alt={showLastCard} />
-              <p>
-                &nbsp;&nbsp; que termina en
-                <strong>{` ${showLastFour}`}</strong>
-              </p>
-            </div>
-            <div className="right">
-              <Button
-                type="button"
-                disabled={showOpenUpdate}
-                id="btn-signwall-editcard"
-                onClick={() => {
-                  setShowUpdateCard(!showUpdateCard)
-                  clearValues()
-                }}>
-                {showUpdateCard ? 'CERRAR' : 'EDITAR'}
-              </Button>
-            </div>
-          </S.Fieldset>
+              <div className="left">
+                <img src={Cards[showLastCard]} alt={showLastCard} />
+                <p>
+                  &nbsp;&nbsp; que termina en
+                  <strong>{` ${showLastFour}`}</strong>
+                </p>
+              </div>
+              <div className="right">
+                <Button
+                  type="button"
+                  disabled={showOpenUpdate}
+                  id="btn-signwall-editcard"
+                  onClick={() => {
+                    setShowUpdateCard(!showUpdateCard)
+                    clearValues()
+                  }}>
+                  {showUpdateCard ? 'CERRAR' : 'EDITAR'}
+                </Button>
+              </div>
+            </S.Fieldset>
+          )}
 
           {showUpdateCard && (
             <S.Fieldset>
@@ -687,15 +730,27 @@ export const SubDetailInt = props => {
           )}
 
           <S.Block align="right" bt>
-            <Button
-              type="button"
-              link
-              onClick={() => {
-                Taggeo(`Web_Sign_Wall_General`, `web_swg_boton_anulacion`)
-                openModalConfirm()
-              }}>
-              ANULAR MI SUSCRIPCIÓN
-            </Button>
+            {showResDetail.status !== 3 ? (
+              <Button
+                type="button"
+                link
+                onClick={() => {
+                  Taggeo(`Web_Sign_Wall_General`, `web_swg_boton_anulacion`)
+                  openModalConfirm('anulacion')
+                }}>
+                ANULAR MI SUSCRIPCIÓN
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                link
+                onClick={() => {
+                  Taggeo(`Web_Sign_Wall_General`, `web_swg_boton_recuperar`)
+                  openModalConfirm('recovery')
+                }}>
+                RECUPERAR MI SUSCRIPCIÓN
+              </Button>
+            )}
           </S.Block>
 
           <S.Fieldset>
@@ -761,7 +816,7 @@ export const SubDetailInt = props => {
             <button
               type="button"
               onClick={() => {
-                closeModalConfirm()
+                closeModalConfirm('anulacion')
               }}>
               <Close />
             </button>
@@ -924,7 +979,7 @@ export const SubDetailInt = props => {
                           <Button
                             type="button"
                             onClick={() => {
-                              closeModalConfirm()
+                              closeModalConfirm('anulacion')
                             }}>
                             Cancelar
                           </Button>
@@ -940,7 +995,7 @@ export const SubDetailInt = props => {
                                 `web_swg_boton_anulacion_renovar`
                               )
                               setShowUpdateCard(true)
-                              closeModalConfirm()
+                              closeModalConfirm('anulacion')
                               setTimeout(() => {
                                 const divUpdateCard = document.getElementById(
                                   'div-signwall-updatecard'
@@ -983,10 +1038,7 @@ export const SubDetailInt = props => {
                   </Title>
 
                   {showErrorCancel && (
-                    <Message failed>
-                      Ha ocurrido un error inesperado. Por favor inténtalo más
-                      tarde ó contáctanos al 01 311-5100.
-                    </Message>
+                    <Message failed>{showErrorCancel}</Message>
                   )}
 
                   <Title s="16" className="justify mt-10 mb-10">
@@ -1024,9 +1076,18 @@ export const SubDetailInt = props => {
 
                   {showOptionCancel === 'Otro motivo' && (
                     <S.Block pt="10">
-                      <S.FormGroup width="100">
+                      <S.FormGroup
+                        width="100"
+                        className={validateMotivo() && 'group-required'}>
+                        <p>{validateMotivo()}</p>
                         <textarea
                           id="motivo-detalle"
+                          required={showOptionCancel === 'Otro motivo'}
+                          onChange={e => {
+                            setTxtMotivo(e.target.value)
+                            validateMotivo()
+                          }}
+                          value={txtMotivo}
                           placeholder="Ingresa motivo"
                           maxLength="200"></textarea>
                       </S.FormGroup>
@@ -1038,7 +1099,7 @@ export const SubDetailInt = props => {
                       <Button
                         type="button"
                         onClick={() => {
-                          closeModalConfirm()
+                          closeModalConfirm('anulacion')
                         }}>
                         Cancelar
                       </Button>
@@ -1047,7 +1108,12 @@ export const SubDetailInt = props => {
                       <Button
                         typeBtn="border"
                         type="button"
-                        disabled={showOptionCancel === null || showLoadCancel}
+                        disabled={
+                          showOptionCancel === null ||
+                          (showOptionCancel === 'Otro motivo' &&
+                            validateMotivo()) ||
+                          showLoadCancel
+                        }
                         onClick={() => {
                           deleteSubscription(
                             showResDetail.subscriptionID,
@@ -1064,6 +1130,65 @@ export const SubDetailInt = props => {
                   </S.Block>
                 </>
               )}
+            </Form>
+          </div>
+        </Modal>
+      )}
+
+      {showModalRecovery && (
+        <Modal
+          size="small"
+          position="middle"
+          bg="white"
+          name="modal-div-confirm-recovery-subs"
+          id="modal-div-confirm-recovery-subs">
+          <div className="btn-close-int">
+            <button
+              type="button"
+              onClick={() => {
+                closeModalConfirm('recuperar')
+              }}>
+              <Close />
+            </button>
+          </div>
+          <div className="modal-body__wrapper">
+            <Form npadding>
+              <Title s="18" className="center mt-10 mb-20">
+                Confirmar Recuperación
+              </Title>
+              <Text c="gray" s="16" lh="26" className="center mb-10">
+                Al recuperar se volverá a activar la recurrencia de pagos de
+                acuerdo a su plan.
+              </Text>
+              <Text c="gray" s="16" lh="26" className="center mb-10">
+                ¿Desea recuperar su suscripción?
+              </Text>
+              <S.Block align="center" pt="20">
+                <S.FormGroup width="45">
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      closeModalConfirm('recuperar')
+                    }}>
+                    Cancelar
+                  </Button>
+                </S.FormGroup>
+                <S.FormGroup width="45">
+                  <Button
+                    typeBtn="border"
+                    type="button"
+                    disabled={showLoadRescue}
+                    onClick={() => {
+                      recoverySubscription(showResDetail.subscriptionID)
+                      Taggeo(
+                        `Web_Sign_Wall_General`,
+                        `web_swg_boton_finalizar_recuperacion`
+                      )
+                    }}>
+                    {showLoadRescue || 'Recuperar'}
+                  </Button>
+                </S.FormGroup>
+              </S.Block>
             </Form>
           </div>
         </Modal>

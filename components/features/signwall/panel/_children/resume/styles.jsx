@@ -90,9 +90,9 @@ export const WrapperBlock = styled.div`
       padding: 20px 20px;
       width: 100%;
       border-radius: 4px 4px 0px 0px;
+      line-height: 30px;
       @media ${device.desktop} {
         border-radius: 4px 0px 0px 4px;
-        padding: 45px 20px;
         width: 40%;
       }
     }
@@ -117,6 +117,18 @@ export const WrapperBlock = styled.div`
 
     & .small {
       font-size: 10px;
+    }
+
+    & .subtitle {
+      font-size: 22px;
+      line-height: 26px;
+    }
+
+    & .green {
+      color: #2eda04;
+    }
+    & .orange {
+      color: #ffa501;
     }
 
     & .container-grid {

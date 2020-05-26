@@ -40,6 +40,12 @@ export const Subsdetail = styled.div`
     padding: 20px 20px;
     width: 40%;
     border-radius: 4px 0px 0px 4px;
+    & .green {
+      color: #2eda04;
+    }
+    & .orange {
+      color: #ffa501;
+    }
     @media ${device.mobile} {
       width: 100%;
     }
@@ -58,6 +64,7 @@ export const Subsdetail = styled.div`
       background-repeat: no-repeat;
       background-position: 0 4px;
       margin-bottom: 10px;
+      line-height: 24px;
     }
   }
 `
@@ -153,6 +160,18 @@ export const FormGroup = styled.div`
     ${props => (props.width === '20' || props.width === '10' ? '50%' : '100%')} -
       20px
   );
+
+  &.group-required {
+    p {
+      font-size: 12px;
+      margin: 0px;
+      margin-bottom: 10px;
+      color: red;
+    }
+    textarea {
+      border: 1px solid red;
+    }
+  }
 
   @media ${device.tablet} {
     width: calc(
