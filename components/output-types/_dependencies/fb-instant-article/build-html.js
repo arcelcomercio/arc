@@ -7,6 +7,7 @@ import {
   nbspToSpace,
   isEmpty,
 } from '../../../utilities/helpers'
+import { getResultVideo } from '../../../utilities/story/helpers'
 
 // const NUMBER_WORD_MULTIMEDIA = 70
 
@@ -107,6 +108,8 @@ const analyzeParagraph = ({
   level = null,
   link,
   defaultImage,
+  arcSite,
+  streams,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -165,8 +168,14 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
       break
     case ConfigParams.ELEMENT_VIDEO:
+      const urlVideo = getResultVideo(streams, arcSite)
+      console.log(urlVideo)
       result.numberWords = numberWordMultimedia
-      result.processedParagraph = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${processedParagraph}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></figure>`
+      result.processedParagraph = `<figure class="op-interactive">
+      <video>
+    <source src="${urlVideo}" type="video/mp4" />  
+  </video>
+      </figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
@@ -227,19 +236,22 @@ const buildListParagraph = ({
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
-  newListParagraph.forEach(({ type = '', payload = '', link = '' }) => {
-    const { processedParagraph, numberWords } = analyzeParagraph({
-      originalParagraph: payload,
-      type,
-      numberWordMultimedia,
-      link,
-      defaultImage,
-      // numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
-    })
+  newListParagraph.forEach(
+    ({ type = '', payload = '', link = '', streams }) => {
+      const { processedParagraph, numberWords } = analyzeParagraph({
+        originalParagraph: payload,
+        type,
+        numberWordMultimedia,
+        link,
+        defaultImage,
+        streams,
+        // numberWordMultimedia: NUMBER_WORD_MULTIMEDIA,
+      })
 
-    objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
-    objTextsProcess.numberWords += numberWords
-  })
+      objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
+      objTextsProcess.numberWords += numberWords
+    }
+  )
 
   objTextsProcess.processedParagraph = `<ul>${objTextsProcess.processedParagraph}</ul>`
   // objTextsProcess.totalwords = countwords
@@ -253,85 +265,102 @@ const ParagraphshWithAdds = ({
   numberWordMultimedia = 70,
   arrayadvertising = [],
   siteUrl,
+  arcSite,
   defaultImage = '',
 }) => {
   let newsWithAdd = []
   let countWords = 0
   let IndexAdd = 0
   let lookAlso = []
-
   newsWithAdd = paragraphsNews
-    .map(({ payload: originalParagraph, type, level, link = '' }) => {
-      let paragraphwithAdd = ''
-
-      let { processedParagraph, numberWords } = analyzeParagraph({
-        originalParagraph,
+    .map(
+      ({
+        payload: originalParagraph,
         type,
-        numberWordMultimedia,
         level,
-        link,
-        defaultImage,
-      })
+        link = '',
+        streams = [],
+      }) => {
+        let paragraphwithAdd = ''
 
-      if (ConfigParams.ELEMENT_STORY === type) {
-        lookAlso.push(originalParagraph)
-      }
-      if (ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0) {
-        let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
-        lookAlso.forEach(value => {
-          ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
+        let { processedParagraph, numberWords } = analyzeParagraph({
+          originalParagraph,
+          type,
+          numberWordMultimedia,
+          level,
+          link,
+          paragraphsNews,
+          defaultImage,
+          arcSite,
+          streams,
         })
-        processedParagraph = `${ulLookAlso}</ul>`
-        numberWords = countWordsHelper(clearHtml(processedParagraph))
-        lookAlso = []
-      }
 
-      countWords += numberWords
-
-      if (IndexAdd === 0) {
-        if (countWords >= firstAdd) {
-          countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
-          paragraphwithAdd = `${processedParagraph} ${
-            arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
-              ? buildIframeAdvertising(arrayadvertising[IndexAdd])
-              : ''
-          }`
-          IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
-        } else {
-          paragraphwithAdd = `${processedParagraph}`
+        if (ConfigParams.ELEMENT_STORY === type) {
+          lookAlso.push(originalParagraph)
         }
-      } else {
-        // a partir del segundo parrafo se inserta cada 350 palabras (nextAdds)
-        // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
-        // eslint-disable-next-line no-lonely-if
-        if (countWords >= nextAdds) {
-          countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
-          paragraphwithAdd = `${processedParagraph} ${
-            arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
-              ? buildIframeAdvertising(arrayadvertising[IndexAdd])
-              : ''
-          }`
-          IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
-        } else {
-          paragraphwithAdd = `${processedParagraph}`
+        if (ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0) {
+          let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
+          lookAlso.forEach(value => {
+            ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
+          })
+          processedParagraph = `${ulLookAlso}</ul>`
+          numberWords = countWordsHelper(clearHtml(processedParagraph))
+          lookAlso = []
         }
-      }
 
-      return `${paragraphwithAdd}`
-    })
+        countWords += numberWords
+
+        if (IndexAdd === 0) {
+          if (countWords >= firstAdd) {
+            countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
+            paragraphwithAdd = `${processedParagraph} ${
+              arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
+                ? buildIframeAdvertising(arrayadvertising[IndexAdd])
+                : ''
+            }`
+            IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
+          } else {
+            paragraphwithAdd = `${processedParagraph}`
+          }
+        } else {
+          // a partir del segundo parrafo se inserta cada 350 palabras (nextAdds)
+          // si el parrafo tiene contenido multimedia se cuenta como 70 palabras
+          // eslint-disable-next-line no-lonely-if
+          if (countWords >= nextAdds) {
+            countWords = type !== ConfigParams.ELEMENT_HEADER ? 0 : countWords
+            paragraphwithAdd = `${processedParagraph} ${
+              arrayadvertising[IndexAdd] && type !== ConfigParams.ELEMENT_HEADER
+                ? buildIframeAdvertising(arrayadvertising[IndexAdd])
+                : ''
+            }`
+            IndexAdd += type !== ConfigParams.ELEMENT_HEADER ? 1 : 0
+          } else {
+            paragraphwithAdd = `${processedParagraph}`
+          }
+        }
+
+        return `${paragraphwithAdd}`
+      }
+    )
     .join('')
 
   return newsWithAdd
 }
 
-const multimediaHeader = ({ type = '', payload = '' }, title) => {
+const multimediaHeader = (
+  { type = '', payload = '' },
+  title,
+  videoPrincipal,
+  arcSite
+) => {
   let result = ''
+  const urlVideo = getResultVideo(videoPrincipal, arcSite)
   switch (type) {
     case ConfigParams.IMAGE:
       result = `<figure><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
       break
     case ConfigParams.VIDEO:
-      result = `<figure class="op-interactive"><iframe src="https://d1tqo5nrys2b20.cloudfront.net/prod/powaEmbed.html?org=elcomercio&env=prod&api=prod&uuid=${payload}" width="640" height="400" data-category-id="sample" data-aspect-ratio="0.5625" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><figcaption>${title}</figcaption></figure>`
+      result = `<figure class="op-interactive"> <video>    <source src="${urlVideo}" type="video/mp4" />  </video><figcaption>${title}</figcaption></figure>`
       break
     case ConfigParams.GALLERY:
       result = `<figure class="op-slideshow">${payload.map(
@@ -367,6 +396,7 @@ const BuildHtml = ({
   arcSite,
   section,
   getPremiumValue,
+  videoPrincipal = [],
   siteUrl,
   defaultImage,
 }) => {
@@ -381,6 +411,7 @@ const BuildHtml = ({
     numberWordMultimedia,
     arrayadvertising: listUrlAdvertisings,
     siteUrl,
+    arcSite,
     defaultImage,
   }
   const getContentType = ({ premium = '' } = {}) => {
@@ -395,6 +426,7 @@ const BuildHtml = ({
     return contenType
   }
   const { type } = multimedia || {}
+
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -425,7 +457,7 @@ const BuildHtml = ({
         ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
         <time class="op-published" datetime="${oppublished}"> ${oppublished}</time>
       </header>
-      ${multimediaHeader(multimedia, title)}
+      ${multimediaHeader(multimedia, title, videoPrincipal, arcSite)}
       
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}

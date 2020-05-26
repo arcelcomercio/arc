@@ -99,6 +99,7 @@ const ListItemNews = (contentElements, buildProps) => {
           getPremiumValue: storydata.getPremiumValue,
           siteUrl,
           defaultImage: storydata.defaultImg,
+          videoPrincipal: storydata.videoStreams,
         }
 
         const htmlString = BuildHtml(BuildHtmlProps)

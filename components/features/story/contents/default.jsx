@@ -108,6 +108,7 @@ class StoryContents extends PureComponent {
       multimediaLazyDefault,
       tags,
       contentPosicionPublicidad,
+      prerollDefault,
       contentElementsHtml,
     } = new StoryData({
       data: globalContent,
@@ -441,6 +442,7 @@ class StoryContents extends PureComponent {
               />
             )}
           </div>
+          {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
