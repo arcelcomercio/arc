@@ -366,8 +366,8 @@ function WizardPlan(props) {
       <ConfirmSubscription
         open={openConfirmSubscriptionModal}
         content={msgs.isSubscriber}
-        question={msgs.qContinue}
         linkText="Mi Perfil"
+        question={msgs.qContinue}
         footer={msgs.askSupport}
         onConfirm={() => {
           // Hacemos como si no tuviese otra suscripcion activa
