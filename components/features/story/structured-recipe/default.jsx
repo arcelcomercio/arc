@@ -189,7 +189,6 @@ const StructuredRecipe = () => {
   const structuredData = `{
     "@context":"https://schema.org",
     "@type":"Recipe",
-    "mainEntityOfPage":true,
     "author":{
       "@type":"Organization",
       "name":"Mag"
@@ -200,8 +199,8 @@ const StructuredRecipe = () => {
     "image":"${imagenData}",
     "recipeIngredient": [${ingredientList()}],
     "recipeInstructions":[${instructionsFormated()}],
-    "prepTime":"PT${tiempoTotal}",
-    "cookTime":"PT${tiempoPreparacion}",
+    "prepTime":"${tiempoTotal ? `PT${tiempoTotal}` : ''}",
+    "cookTime":"${tiempoPreparacion ? `PT${tiempoPreparacion}` : ''}",
     "keywords": ${keywordsList},
     "recipeCategory":"${primarySection}",
     "recipeCuisine":"${tipoReceta}",
@@ -213,10 +212,9 @@ const StructuredRecipe = () => {
       "@type":"AggregateRating",
       "ratingValue":${puntuacion},
       "reviewCount":${cantidadRevisiones}}
-    },`
+    }`
         : ''
     }
-    "review":[{}]
   }`
 
   return (
