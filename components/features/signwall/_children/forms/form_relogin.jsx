@@ -142,6 +142,7 @@ export const FormRelogin = ({
           setShowError(getCodeError(errLogin.code))
           taggeoError()
         }
+        Cookies.setCookie('lostEmail', remail, 1)
       })
       .finally(() => {
         setShowLoading(false)
