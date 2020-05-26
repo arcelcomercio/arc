@@ -1,5 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import RedirectError from '../../components/utilities/redirect-error'
 import {
   getYYYYMMDDfromISO,
   getActualDate,
@@ -53,6 +54,8 @@ const transform = data => {
 const pattern = (key = {}) => {
   website = key['arc-site'] || 'Arc Site no está definido'
   const { section, date } = key
+
+  if (new Date(date).getFullYear() < 2009) throw new RedirectError(`/410`, 410)
 
   /** Para enviar params a transform luego */
   globalParams = {
