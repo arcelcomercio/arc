@@ -49,14 +49,26 @@ const NavbarChildMenu = props => {
           _id: id = '',
           display_name: displayName = '',
           url = '',
+          styles = [],
         }) => {
           const idElem = `${nameId}-${name || displayName}`.toLowerCase()
+          const styleCustom = {}
+          if (styles.length > 0) {
+            const [backgroundCustom, letterColorCustom] = styles
+            styleCustom.backgroundColor = backgroundCustom
+            styleCustom.color = letterColorCustom
+          }
           return (
-            <li className={classes.item} key={`navbar-menu-${url || id}`}>
+            <li
+              className={classes.item}
+              style={styleCustom}
+              key={`navbar-menu-${url || id}`}>
               <a
                 href={url || id || '/'}
                 className={classes.link}
-                style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
+                style={{
+                  paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px`,
+                }}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (

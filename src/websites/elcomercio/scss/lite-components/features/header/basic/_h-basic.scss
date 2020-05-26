@@ -51,6 +51,7 @@
 
   &__btn-user {
     @media (--desktop) {
+      width: fit-content;
       max-width: 250px;
       height: 25px;
       display: flex;

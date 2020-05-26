@@ -12,6 +12,7 @@ import {
 import Logo from './_children/logo'
 import Taggeo from '../_dependencies/taggeo'
 import Loading from '../_children/loading'
+import Cookies from '../_dependencies/cookies'
 
 const Head = ({
   arcSite,
@@ -37,7 +38,7 @@ const Head = ({
   return (
     <>
       {showLoading && !noLoading ? (
-        <div className="back-loading" style={{ zIndex: "20" }}>
+        <div className="back-loading" style={{ zIndex: '20 !important' }}>
           <Loading arcSite={arcSite} />
         </div>
       ) : (
@@ -76,6 +77,7 @@ const Head = ({
                     `Web_Sign_Wall_${typeDialog}`,
                     `web_sw${typeDialog[0]}_boton_cerrar`
                   )
+                  Cookies.deleteCookie('lostEmail')
 
                   if (typeDialog === 'hard') {
                     window.location.href = '/?ref=signwall'
