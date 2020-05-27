@@ -69,7 +69,7 @@ export default ({
   )
     style = 'story-video'
   else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
-    style = 'dstory'
+    style = 'story'
   else if (
     isStory &&
     arcSite === 'elcomerciomag' &&
