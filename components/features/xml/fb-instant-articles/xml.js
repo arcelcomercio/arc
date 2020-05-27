@@ -165,6 +165,7 @@ class XmlFacebookInstantArticles {
                 siteUrl,
                 opta,
                 defaultImage: storyData.defaultImg,
+                videoPrincipal: storyData.videoStreams,
               }
 
               const today = new Date()

@@ -334,7 +334,7 @@ if ('IntersectionObserver' in window) {
   const isStyleBasic =
     arcSite === 'elcomercio c' && metaValue('id') === 'meta_home' && true
 
-  const isFooterFinal = isStyleBasic || (style === 'story' && true)
+  const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
   return (
     <html lang="es">
       <head>

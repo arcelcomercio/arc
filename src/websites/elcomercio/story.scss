@@ -9,6 +9,10 @@ $space-interval: 5;
 @import "./scss/partials/import-icons";
 @import "./scss/partials/import-fonts";
 
+/* ----------------cambio temportal por consumo------------------------- */
+@import "../../general-styles/framework/core/index";
+@import "../../general-styles/framework/generators/story";
+
 @import "../../general-styles/framework/generators/generate-spaces";
 @import "./scss/partials/base";
 
@@ -24,6 +28,18 @@ $space-interval: 5;
 @import "../../general-styles/components/global-components/search-input";
 @import "../../general-styles/components/global-components/story-item"; // check
 @import "../../general-styles/components/global-components/story-table";
+
+/* --- FEATURES ---------------------------------------------------------
+  Cambio temportal por consumo
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/layout/navbar/nav";
+@import "../../general-styles/components/features/layout/navbar/nav-story";
+@import "../../general-styles/components/features/layout/header/header";
+@import "../../general-styles/components/features/header/inverted";
+@import "../../general-styles/components/features/breaking-news/breaking-news";
+@import "../../general-styles/components/features/story/special-header/special-header";
+@import "../../general-styles/components/features/story/header/story-header";
+@import "../../general-styles/components/features/story/header/story-gallery-slider";
 
 /* --- FEATURES ---------------------------------------------------------
   Estilos de features desde el core
@@ -66,3 +82,11 @@ $space-interval: 5;
 @import "./scss/components/story/story/story";
 @import "./scss/components/breaking-news/breaking-news";
 @import "./scss/components/story/header/story-header";
+
+/* --- MODIFICADORES ----------------------------------------------------
+ Cambio temportal por consumo
+------------------------------------------------------------------------- */
+@import "./scss/components/layout/navbar/nav";
+@import "./scss/components/layout/navbar/nav-story";
+@import "./scss/components/header/inverted";
+@import "./scss/components/layout/header/header";
