@@ -1,27 +1,22 @@
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_ELCOMERCIO,
+} from '../../../../utilities/constants/sitenames'
+
 const RecommederBySite = ({ data = {}, arcSite }) => {
+  if (arcSite !== SITE_ELCOMERCIO && arcSite !== SITE_ELCOMERCIOMAG) return ''
+
   const process = (contentElements, website, siteUrl) => {
     const stories = contentElements.map(story => {
-      // storyData._data = story
-
       const { websites = {} } = story || {}
       const site = websites[website] || {}
       const websiteUrl = site.website_url || ''
-
-      // const { title, websiteLink } = storyData
-
       const brandWeb = websites[arcSite] || {}
-      // return brandWeb.website_url || ''
       const { website_url: websiteLink = '' } = brandWeb
-
-      /* return {
-        // title,
-        websiteLink: `${siteUrl}${websiteUrl ||
-          websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
-      } */
       const link = websiteUrl || websiteLink
       return `${siteUrl}${link}${`?ref=recomendados&source=${arcSite}`}`
     })
-    return stories
+    return stories || []
   }
 
   const {
@@ -33,19 +28,13 @@ const RecommederBySite = ({ data = {}, arcSite }) => {
     siteUrlTwo = '',
     title = '',
   } = data
+
   const dataProcessOne = process(dataOne, websiteOne, siteUrlOne)
   const dataProcessTwo = process(dataTwo, websiteTwo, siteUrlTwo)
   const dataProcess = [...dataProcessOne, ...dataProcessTwo]
-  console.log('++++++++++++++++++++++++++++')
-  console.log(arcSite)
-  console.log('++++++++++++++++++++++++++++')
-  console.log(data)
-  console.log('++++++++++++++++++++++++++++')
-  console.log(dataProcess)
-  console.log('++++++++++++++++++++++++++++')
 
   return `<ul class="op-related-articles" title="${title || 'NO TE PIERDAS'}">
-  ${dataProcess.map(url => `<li><a href="${url}"></a></li>`)}
+  ${dataProcess.slice(0, 3).map(url => `<li><a href="${url}"></a></li>`)}
   </ul>`
 }
 

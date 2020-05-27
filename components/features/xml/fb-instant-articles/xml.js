@@ -13,6 +13,10 @@ import buildHtml from './_dependencies/build-html'
 import customFields from './_dependencies/custom-fields'
 import { includePromoItems } from '../../../utilities/included-fields'
 import schemaFilter from '../../stories-lists/recommender-by-site/_dependencies/schema-filter'
+import {
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+} from '../../../utilities/constants/sitenames'
 
 /**
  * @description Feed para Facebook Instant Articles.
@@ -37,56 +41,61 @@ class XmlFacebookInstantArticles {
     this.stories = stories
 
     // Módulo recomendador por marca
-    const {
-      customFields: {
-        enabledContentManual,
-        storiesManualConfig: {
-          contentService: contentServiceManual = '',
-          contentConfigValues: contentConfigManualValues = {},
+    if (arcSite === SITE_ELCOMERCIO || arcSite === SITE_ELCOMERCIOMAG) {
+      const {
+        customFields: {
+          enabledContentManual,
+          storiesManualConfig: {
+            contentService: contentServiceManual = '',
+            contentConfigValues: contentConfigManualValues = {},
+          } = {},
+          storiesConfig: { contentService = '', contentConfigValues = {} } = {},
+          titleField = '',
         } = {},
-        storiesConfig: { contentService = '', contentConfigValues = {} } = {},
-        titleField = '',
-      } = {},
-    } = this.props
-    const { website: websiteRecommenderManual } = contentConfigManualValues
-    const { website: websiteRecommender } = contentConfigValues
-    const { siteUrl: siteUrlRecommenderManual } =
-      getProperties(websiteRecommenderManual || arcSite) || {}
-    const { siteUrl: siteUrlRecommender } =
-      getProperties(websiteRecommender || arcSite) || {}
-    const presets = 'no-presets'
-    const includedFieldsManual = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteRecommenderManual ||
-      arcSite}.website_url`
-    const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteRecommender ||
-      arcSite}.website_url`
+      } = this.props
+      const { website: websiteRecommenderManual } = contentConfigManualValues
+      const { website: websiteRecommender } = contentConfigValues
+      const { siteUrl: siteUrlRecommenderManual } =
+        getProperties(websiteRecommenderManual || arcSite) || {}
+      const { siteUrl: siteUrlRecommender } =
+        getProperties(websiteRecommender || arcSite) || {}
+      const presets = 'no-presets'
+      const includedFieldsManual = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteRecommenderManual ||
+        arcSite}.website_url`
+      const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteRecommender ||
+        arcSite}.website_url`
 
-    this.state = {
-      websiteRecommenderManual,
-      websiteRecommender,
-      siteUrlRecommenderManual,
-      siteUrlRecommender,
-      titleRecommender: titleField,
-    }
+      this.state = {
+        websiteRecommenderManual,
+        websiteRecommender,
+        siteUrlRecommenderManual,
+        siteUrlRecommender,
+        titleRecommender: titleField,
+      }
 
-    if (enabledContentManual)
+      if (enabledContentManual)
+        this.fetchContent({
+          recommenderDataManual: {
+            source: contentServiceManual,
+            query: Object.assign(contentConfigManualValues, {
+              presets,
+              includedFieldsManual,
+            }),
+            filter: schemaFilter(websiteRecommenderManual || arcSite),
+          },
+        })
+
       this.fetchContent({
-        recommenderDataManual: {
-          source: contentServiceManual,
-          query: Object.assign(contentConfigManualValues, {
+        recommenderData: {
+          source: contentService,
+          query: Object.assign(contentConfigValues, {
             presets,
-            includedFieldsManual,
+            includedFields,
           }),
-          filter: schemaFilter(websiteRecommenderManual || arcSite),
+          filter: schemaFilter(websiteRecommender || arcSite),
         },
       })
-
-    this.fetchContent({
-      recommenderData: {
-        source: contentService,
-        query: Object.assign(contentConfigValues, { presets, includedFields }),
-        filter: schemaFilter(websiteRecommender || arcSite),
-      },
-    })
+    }
     // FIN recomendador por marca
 
     if (siteDomain === 'elcomercio.pe') {
@@ -104,7 +113,6 @@ class XmlFacebookInstantArticles {
   }
 
   render() {
-    console.log('||5||||||||||||||||||||||||||||||||||||||||')
     const { magStories } = this.state || {}
     if (magStories) this.stories = [...this.stories, ...magStories]
 
@@ -140,9 +148,9 @@ class XmlFacebookInstantArticles {
       titleRecommender = '',
       siteUrlRecommenderManual = '',
       siteUrlRecommender = '',
-      recommenderDataManual,
-      recommenderData: recommenderDa,
-    } = this.state
+      recommenderDataManual = {},
+      recommenderData: recommenderDa = {},
+    } = this.state || {}
     const { content_elements: contentElementsRecommenderManual = [] } =
       recommenderDataManual || {}
     const { content_elements: contentElementsRecommender = [] } =
@@ -156,16 +164,6 @@ class XmlFacebookInstantArticles {
       siteUrlTwo: siteUrlRecommender,
       title: titleRecommender,
     }
-
-    console.log('=========================================')
-    console.log(recommenderDataManual)
-    console.log('=========================================')
-    console.log(recommenderDa)
-    console.log('=========================================')
-    console.log(recommenderData)
-    console.log('=========================================')
-    console.log(this.state)
-    console.log('=========================================')
 
     const fbInstantArticlesFeed = {
       rss: {

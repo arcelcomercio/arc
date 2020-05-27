@@ -11,10 +11,6 @@ import xmlbuilder from 'xmlbuilder'
 
 const Xml = ({ children }) => {
   // Only return the data from the first child.
-  console.log('==========================')
-  console.log('children', children)
-  console.log('children 1', children[0])
-  console.log('==========================')
   return xmlbuilder
     .create(
       children[0] || 'root',
