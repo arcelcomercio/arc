@@ -684,6 +684,19 @@ class StoryData {
     return seoKeywords
   }
 
+  get prerollDefault() {
+    const {
+      taxonomy: {
+        primary_section: {
+          additional_properties: {
+            original: { _admin: { alias_ids: aliasId = [] } = {} } = {},
+          } = {},
+        } = {},
+      } = {},
+    } = this._data || {}
+    return aliasId
+  }
+
   get sourceUrlOld() {
     const { additional_properties: { source_url: sourceUrl = '' } = {} } =
       this._data || {}
@@ -799,11 +812,25 @@ class StoryData {
 
         dataElements =
           typeElement === ELEMENT_LIST && items === 0 ? [] : dataContent
-
+        /* 
         if (i === 2) {
           dataElements.publicidad = true
           dataElements.nameAds = `caja4`
         }
+        */
+        if (i === 2) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `inline`
+        }
+        if (i === 4) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
+        }
+        if (i === 6) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja5`
+        }
+
         if (typeElement === ELEMENT_TEXT) {
           i += 1
         }
@@ -1552,10 +1579,11 @@ class StoryData {
         caption = '',
         canonical_url: link,
         items = [],
+        streams = [],
         title = '',
         level = null,
       }) => {
-        const result = { _id, type, level, payload: '' }
+        const result = { _id, type, level, payload: '', streams }
 
         switch (type) {
           case ELEMENT_TEXT:

@@ -95,9 +95,9 @@ export default ({
   if (arcSite === 'elcomercio') {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
+  const isHome = metaValue('id') === 'meta_home' && true
 
   const scriptAdpush = `(function(w, d) { var s = d.createElement("script"); s.src = "//delivery.adrecover.com/41308/adRecover.js"; s.type = "text/javascript"; s.async = true; (d.getElementsByTagName("head")[0] || d.getElementsByTagName("body")[0]).appendChild(s); })(window, document);`
-
   const metaSiteData = {
     ...siteProperties,
     requestUri,
@@ -108,6 +108,7 @@ export default ({
     isAmp: false,
     CURRENT_ENVIRONMENT,
     Resource,
+    isHome,
   }
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -331,12 +332,32 @@ if ('IntersectionObserver' in window) {
   }
 
   const isStyleBasic =
-    arcSite === 'elcomercio' && metaValue('id') === 'meta_home' && true
+    arcSite === 'elcomercio c' && metaValue('id') === 'meta_home' && true
 
-  const isFooterFinal = isStyleBasic || (style === 'story' && true)
+  const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
   return (
     <html lang="es">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          if(typeof window !== "undefined"){
+            window.requestIdle = window.requestIdleCallback ||
+            function (cb) {
+              const start = Date.now();
+              return setTimeout(function () {
+                cb({
+                  didTimeout: false,
+                  timeRemaining: function () {
+                    return Math.max(0, 50 - (Date.now() - start));
+                  },
+                });
+              }, 1);
+            };
+          }
+          `,
+          }}
+        />
         <TagManager {...siteProperties} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -458,7 +479,8 @@ if ('IntersectionObserver' in window) {
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {((arcSite === 'ojo' && requestUri.match('^/ojo-show')) || arcSite === 'depor') && (
+            {((arcSite === 'ojo' && requestUri.match('^/ojo-show')) ||
+              arcSite === 'depor') && (
               <script
                 defer
                 src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()

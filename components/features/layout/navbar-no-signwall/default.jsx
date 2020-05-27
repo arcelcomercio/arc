@@ -81,6 +81,34 @@ class LayoutNoSignwall extends PureComponent {
     }
   }
 
+  formatData = (datas = {}) => {
+    const LINK = 'link'
+    const { children = [] } = datas || {}
+    return children.map(child => {
+      let name = child.node_type === LINK ? child.display_name : child.name
+      const rawMatch = name.match(/\[#.*\]/g)
+      const match =
+        rawMatch === null
+          ? []
+          : rawMatch[0]
+              .replace('[', '')
+              .replace(']', '')
+              .split(',')
+      if (match) {
+        name = name.replace(/\[#.*\]/g, '')
+      }
+      return {
+        name,
+        url: child.node_type === LINK ? child.url : child._id,
+        styles: match,
+
+        children: child.children,
+        _id: child._id,
+        display_name: child.display_name,
+      }
+    })
+  }
+
   getDataNavBarData = () => {
     if (this.formatter.main.fetch !== false) {
       const { params, source } = this.formatter.main.fetch.config
@@ -106,11 +134,15 @@ class LayoutNoSignwall extends PureComponent {
     } = this.props
     const { data = [], navbarData = [] } = this.state || {}
 
+    const dataFormat = {
+      children: this.formatData(data),
+    }
+
     const NavBarType = {
       standard: (
         <NavBarComercio
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
-          data={data}
+          data={dataFormat}
           navbarData={navbarData}
           getDataNavBarData={this.getDataNavBarData}
           {...this.formatter.main.initParams}

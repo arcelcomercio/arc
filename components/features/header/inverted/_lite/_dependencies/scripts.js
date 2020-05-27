@@ -1,25 +1,27 @@
 /* document.addEventListener('DOMContentLoaded', () => {
-  const button = document.getElementById("h-basic_search-btn")
-  button.addEventListener("click", () => {
-    const input = document.getElementById("h-basic_search-input")
-    const svgPath = document.getElementById("h-basic_search-path")
-    if (input.value) {
-      const newQuery = encodeURIComponent(input.value).replace(/%20/g, '+')
-      window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
-    }
-    else if (input.style.width === "150px")  {
-      input.style = ""
-      button.style = ""
-      svgPath.style = ""
-    } else {
-      input.style = "width:150px;padding: 5px 8px;"
-      button.style = "background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;"
-      svgPath.style = "fill: #575757;"
-    }
+  window.requestIdle(() => {
+    const button = document.getElementById("h-basic_search-btn")
+    button.addEventListener("click", () => {
+      const input = document.getElementById("h-basic_search-input")
+      // const svgPath = document.getElementById("h-basic_search-path")
+      if (input.value) {
+        const newQuery = encodeURIComponent(input.value).replace(/%20/g, '+')
+        window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
+      }
+      else if (input.style.width === "150px")  {
+        input.style = ""
+        button.style = ""
+        // svgPath.style = ""
+      } else {
+        input.style = "width:150px;padding: 5px 8px;"
+        button.style = "background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;"
+        // svgPath.style = "fill: #575757;"
+      }
+    })
   })
 }) */
 export const searchScript =
-  'document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("h-basic_search-btn");e.addEventListener("click",function(){var t=document.getElementById("h-basic_search-input"),n=document.getElementById("h-basic_search-path");if(t.value){var d=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(d,"/todas/descendiente/?query=").concat(d)}else"150px"===t.style.width?(t.style="",e.style="",n.style=""):(t.style="width:150px;padding: 5px 8px;",e.style="background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;",n.style="fill: #575757;")})});'
+  'document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){var e=document.getElementById("h-basic_search-btn");e.addEventListener("click",function(){var t=document.getElementById("h-basic_search-input");if(t.value){var n=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/"+n+"/todas/descendiente/?query="+n}else"150px"===t.style.width?(t.style="",e.style=""):(t.style="width:150px;padding: 5px 8px;",e.style="background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;")})})});'
 
 /* document.addEventListener('DOMContentLoaded', () => {
   if ('IntersectionObserver' in window) {
@@ -62,7 +64,7 @@ export const stickyScript =
   ';document.addEventListener("DOMContentLoaded",function(){if("IntersectionObserver"in window){var e=document.getElementById("h-basic-pointer"),s=document.getElementById("h-basic");new IntersectionObserver(function(o){o.forEach(function(o){o.isIntersecting?(s.classList.remove("scrolled"),e.classList.remove("scrolled")):(s.classList.add("scrolled"),e.classList.add("scrolled"))})}).observe(e)}else{var o=document.getElementById("h-basic");window.addEventListener("scroll",function(){var e=document,s=e.body,t=void 0===s?{}:s,c=e.documentElement,n=void 0===c?{}:c,d=t.scrollTop,l=void 0===d?0:d,i=n.scrollTop,r=l||(void 0===i?0:i);r>10&&!o.classList.contains("scrolled")?o.classList.add("scrolled"):r<=10&&o.classList.contains("scrolled")&&o.classList.remove("scrolled")})}});' */
 
 /* ;window.addEventListener('load', () => {
-    setTimeout(() => {
+    window.requestIdle(() => {
       const $button = document.getElementById('h-basic__btn-menu')
       $button.addEventListener('click', () => {
         const $menu = document.getElementById('menu')
@@ -89,13 +91,13 @@ export const stickyScript =
         const newQuery = encodeURIComponent(value).replace(/%20/g, '+')
         window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`}
       });
-    }, 0)
+    })
   }) */
 export const menuScript =
-  'window.addEventListener("load",function(){setTimeout(function(){document.getElementById("h-basic__btn-menu").addEventListener("click",function(){var e=document.getElementById("menu"),a=document.getElementById("m-content"),t=document.body;e.className.includes("active")?(e.className=e.className.replace("active",""),e.setAttribute("aria-expanded",!1),a.className=a.className.replace("active",""),t.className=t.className.replace(" oflow-h","")):(e.className=e.className.concat(" active"),e.setAttribute("aria-expanded",!0),a.className=a.className.concat(" active"),t.className=t.className.concat(" oflow-h"))}),document.getElementById("m-search").addEventListener("submit",function(e){e.preventDefault();var a=e.target[0].value;if(a){var t=encodeURIComponent(a).replace(/%20/g,"+");window.location.href="/buscar/".concat(t,"/todas/descendiente/?query=").concat(t)}})},0)});'
+  'window.addEventListener("load",function(){window.requestIdle(function(){document.getElementById("h-basic__btn-menu").addEventListener("click",function(){var e=document.getElementById("menu"),a=document.getElementById("m-content"),t=document.body;e.className.includes("active")?(e.className=e.className.replace("active",""),e.setAttribute("aria-expanded",!1),a.className=a.className.replace("active",""),t.className=t.className.replace(" oflow-h","")):(e.className=e.className.concat(" active"),e.setAttribute("aria-expanded",!0),a.className=a.className.concat(" active"),t.className=t.className.concat(" oflow-h"))}),document.getElementById("m-search").addEventListener("submit",function(e){e.preventDefault();var a=e.target[0].value;if(a){var t=encodeURIComponent(a).replace(/%20/g,"+");window.location.href="/buscar/"+t+"/todas/descendiente/?query="+t}})})});'
 
 /* document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(() => {
+  window.requestIdle(() => {
     const localProfile = JSON.parse(
       window.localStorage.getItem('ArcId.USER_PROFILE') ||
         window.sessionStorage.getItem('ArcId.USER_PROFILE')
@@ -127,14 +129,14 @@ export const menuScript =
           buttonText = lastName
           iconText = `${lastName[0] || ''}${lastName[1] || ''}`
         }
-        signwallButton.innerHTML = buttonText.length >= 10 ? `${buttonText.slice(0, 10)}...` : buttonText
+        signwallButton.innerHTML = buttonText.length > 30 ? `${buttonText.slice(0, 30)}...` : buttonText
       }
     }
     document.querySelector('.h-basic__sub').addEventListener("click", () => {
       window.location.href  = '/suscripciones/?ref=btn-suscribete-elcomercio&loc=<<loc>>'
     })
-  }, 0)
+  })
 }) */
 
 export const singwallScript =
-  'document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},c=e.firstName,t=void 0===c?"":c,n=e.lastName,o=void 0===n?"":n,i=e.uuid,a=void 0===i?"":i;if(document.querySelector(".h-basic__btn-user").addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=signwall":"/politica/?reloginEmail=1"}),a){var r=document.querySelector(".h-basic__user-txt");if(t||o){var s="";t&&o?(s="".concat(t," ").concat(o),"".concat(t[0]||"").concat(o[0]||"")):t&&!o?(s=t,"".concat(t[0]||"").concat(t[1]||"")):!t&&o&&(s=o,"".concat(o[0]||"").concat(o[1]||"")),r.innerHTML=s.length>=10?"".concat(s.slice(0,10),"..."):s}else r.innerHTML="Bienvenido Usuario"}document.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc=<<loc>>"})},0)});'
+  'document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},i=e.firstName,n=void 0===i?"":i,o=e.lastName,t=void 0===o?"":o,c=e.uuid,r=void 0===c?"":c;if(document.querySelector(".h-basic__btn-user").addEventListener("click",function(){window.location.href=r?"/mi-perfil/?outputType=signwall":"/politica/?reloginEmail=1"}),r){var d=document.querySelector(".h-basic__user-txt");if(n||t){var s="";n&&t?(s=n+" "+t,""+(n[0]||"")+(t[0]||"")):n&&!t?(s=n,""+(n[0]||"")+(n[1]||"")):!n&&t&&(s=t,""+(t[0]||"")+(t[1]||"")),d.innerHTML=s.length>30?s.slice(0,30)+"...":s}else d.innerHTML="Bienvenido Usuario"}document.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc=<<loc>>"})})});'

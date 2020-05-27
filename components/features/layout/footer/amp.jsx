@@ -74,7 +74,7 @@ const LayoutAmpFooter = () => {
 
   return (
     <>
-      {arcSite !== 'peru21' && (
+      {arcSite !== 'peru21' && arcSite !== 'ojo' && arcSite !== 'trome' && arcSite !== 'elbocon' && (
         <>
           <div className={classes.nextPageSeparator} separator>
             <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>

@@ -98,6 +98,8 @@ class StoryContentsLite extends PureComponent {
       multimediaLazyDefault,
       tags,
       contentPosicionPublicidadLite,
+      canonicalUrl,
+      prerollDefault,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -129,19 +131,22 @@ class StoryContentsLite extends PureComponent {
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
     let relatedIds = []
+    const seccArary = canonicalUrl.split('/')
+    const secc = seccArary[1].replace(/-/gm, '')
     return (
       <>
         <div className={classes.news}>
           <StoryContentsChildAuthorLite {...params} />
 
-          <Ads
-            adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
-            isDesktop={false}
-            isMobile
-            isDfp={isDfp}
-          />
           <div
-            className={`${classes.content} ${isPremium && 'paywall'} `}
+            id="div-gpt-ad-caja3"
+            data-ads-name={`/28253241/${arcSite}/web/sect/${secc}/caja3`}
+            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+
+          <div
+            className={`${classes.content} ${isPremium &&
+              'story-content__nota-premium paywall no_copy'}`}
+            style={isPremium ? { display: 'none' } : {}}
             id="contenedor">
             {!isDfp && (
               <>
@@ -165,8 +170,7 @@ class StoryContentsLite extends PureComponent {
                     level,
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
-                    publicidad = false,
-                    // nameAds,
+                    nameAds,
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -257,10 +261,23 @@ class StoryContentsLite extends PureComponent {
                       : classes.textClasses
                     return (
                       <>
-                        {publicidad && (
+                        {nameAds === 'inline' && (
                           <div
-                            id="div-gpt-ad-1585689586219-0"
-                            data-ads-name="/28253241/elcomercio/web/sect/respuestas/caja4"
+                            id="div-gpt-ad-inline"
+                            data-ads-name={`/28253241/${arcSite}/web/sect/${secc}/inline`}
+                            data-ads-dimensions="[[1,1]]"
+                            data-ads-dimensions-m="[[1,1]]"></div>
+                        )}
+                        {nameAds === 'caja4' && (
+                          <div
+                            id="div-gpt-ad-caja4"
+                            data-ads-name={`/28253241/${arcSite}/web/sect/${secc}/caja4`}
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                        )}
+                        {nameAds === 'caja5' && (
+                          <div
+                            id="div-gpt-ad-caja5"
+                            data-ads-name={`/28253241/${arcSite}/web/sect/${secc}/caja5`}
                             data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
                         )}
                         <Text
@@ -389,6 +406,7 @@ class StoryContentsLite extends PureComponent {
               />
             )}
           </div>
+          {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
           <div className={classes.social}>
             <div className="st-social__share">
               <ShareButtons></ShareButtons>

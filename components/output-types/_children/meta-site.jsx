@@ -25,6 +25,7 @@ export default ({
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
+  isHome,
 } = {}) => {
   const logoSite = `${getAssetsPath(
     arcSite,
@@ -68,7 +69,15 @@ export default ({
   )
     style = 'story-video'
   else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
-    style = 'dstory'
+    style = 'story'
+  else if (
+    isStory &&
+    arcSite === 'elcomerciomag' &&
+    requestUri.includes('/recetas/')
+  )
+    style = 'story-recetas'
+
+  style = isHome && arcSite === 'elcomercio' ? 'basic' : style
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {

@@ -7,6 +7,7 @@ import { FormForgot } from '../../../_children/forms/form_forgot'
 import { FormRegister } from '../../../_children/forms/form_register'
 import Taggeo from '../../../_dependencies/taggeo'
 import QueryString from '../../../_dependencies/querystring'
+import Cookies from '../../../_dependencies/cookies'
 
 import {
   ContMiddle,
@@ -95,6 +96,8 @@ export const PremiumInt = props => {
                 className="btn-close"
                 onClick={() => {
                   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
+                  Cookies.deleteCookie('lostEmail')
+
                   if (typeDialog === 'premium') {
                     if (document.getElementById('btn-premium-continue')) {
                       onClose()
