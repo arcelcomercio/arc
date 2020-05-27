@@ -170,7 +170,7 @@ const analyzeParagraph = ({
     case ConfigParams.ELEMENT_VIDEO:
       const urlVideo = getResultVideo(streams, arcSite, 'mp4')
       result.numberWords = numberWordMultimedia
-      result.processedParagraph = `<figure>       <video>    <source src="${urlVideo}" type="video/mp4" />    </video>       </figure>`
+      result.processedParagraph = `<figure><video><source src="${urlVideo}" type="video/mp4" /></video></figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
@@ -232,7 +232,7 @@ const buildListParagraph = ({
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
   newListParagraph.forEach(
-    ({ type = '', payload = '', link = '', streams }) => {
+    ({ type = '', payload = '', link = '', streams = [] }) => {
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph: payload,
         type,
@@ -355,7 +355,7 @@ const multimediaHeader = (
       result = `<figure><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
       break
     case ConfigParams.VIDEO:
-      result = `<figure > <video>    <source src="${urlVideo}" type="video/mp4" />  </video><figcaption>${title}</figcaption></figure>`
+      result = `<figure > <video> <source src="${urlVideo}" type="video/mp4" />  </video><figcaption>${title}</figcaption></figure>`
       break
     case ConfigParams.GALLERY:
       result = `<figure class="op-slideshow">${payload.map(
