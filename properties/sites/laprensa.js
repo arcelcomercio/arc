@@ -118,4 +118,403 @@ export default {
     logoUrl: '/peru21tv/',
     logoAlt: 'Perú21Tv',
   },
+  top : {
+    prebid:{
+      enabled: true,
+      bids: [{
+        bidder: 'rubicon',
+        labels: ['desktop', 'phone'],
+        params: {
+            zoneId : `<::getAdsDisplay() === 'mobile' ? '1717112' : '1716986' ::>`,
+            siteId : `<::getAdsDisplay() === 'mobile' ? '215754' : '215752' ::>`,            
+            accountId: '19186'
+        }
+      }, {
+        bidder: 'appnexus',
+        labels: ['desktop', 'phone'],
+        params: {
+            placementId: `<::getAdsDisplay() === 'mobile' ? '19312144' : '19312126' ::>`
+        }
+      }, {
+        bidder: 'criteo',
+        labels: ['desktop', 'phone'],
+        params: {
+            networkId: '7890'
+        }
+      },{
+        bidder: 'smartadserver',
+        labels: ['desktop', 'phone'],
+        params: {
+            siteId: '283398',
+            pageId: `<::getAdsDisplay() === 'mobile' ? '1239548' : '1239547' ::>`,
+            formatId: '74156'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920521'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop', 'phone'],
+        params: {
+            publisherId: '157414',
+            adSlot: `<::getAdsDisplay() === 'mobile' ? '2920520' : '2920522' ::>`
+        }
+      }]
+    }
+  },
+  caja1 : {
+    prebid:{
+      enabled: true,
+      bids: [{
+        bidder: 'rubicon',
+        labels: ['desktop'],
+        params: {
+            zoneId: '1716990',
+            siteId: '215752',
+            accountId: '19186'
+        }
+      }, {
+        bidder: 'appnexus',
+        labels: ['desktop'],
+        params: {
+            placementId: '19312132'
+        }
+      }, {
+        bidder: 'criteo',
+        labels: ['desktop'],
+        params: {
+            networkId: '7890'
+        }
+      }, {
+        bidder: 'smartadserver',
+        labels: ['desktop'],
+        params: {
+            siteId: '283398',
+            pageId: '1239547',
+            formatId: '90175'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920506'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920507'
+        }
+      }]
+    }
+  },
+  caja2 : {
+    prebid:{
+      enabled: true,
+      bids: [{
+        bidder: 'rubicon',
+        labels: ['desktop'],
+        params: {
+            zoneId: '1716998',
+            siteId: '215752',
+            accountId: '19186'
+        }
+      }, {
+        bidder: 'appnexus',
+        labels: ['desktop'],
+        params: {
+            placementId: '19312133'
+        }
+      }, {
+        bidder: 'criteo',
+        labels: ['desktop'],
+        params: {
+            networkId: '7890'
+        }
+      }, {
+        bidder: 'smartadserver',
+        labels: ['desktop'],
+        params: {
+            siteId: '283398',
+            pageId: '1239547',
+            formatId: '90176'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920508'
+        }
+      }]
+    }
+  },
+  caja3 : {
+    prebid:{
+      enabled: true,
+      bids: [{
+        bidder: 'rubicon',
+        labels: ['phone'],
+        params: {
+            zoneId: '1717116',
+            siteId: '215754',
+            accountId: '19186'
+        }
+      }, {
+        bidder: 'appnexus',
+        labels: ['phone'],
+        params: {
+            placementId: '19312148'
+        }
+      }, {
+        bidder: 'criteo',
+        labels: ['phone'],
+        params: {
+            networkId: '7890'
+        }
+      }, {
+        bidder: 'smartadserver',
+        labels: ['phone'],
+        params: {
+            siteId: '283398',
+            pageId: '1239548',
+            formatId: '90177'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['phone'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920510'
+        }
+      }]
+    }
+  },
+  caja4: {
+    prebid:{
+      enabled: true,
+      bids: [{
+        bidder: 'rubicon',
+        labels: ['phone'],
+        params: {
+            zoneId: '1717118',
+            siteId: '215754',
+            accountId: '19186'
+        }
+      }, {
+        bidder: 'appnexus',
+        labels: ['phone'],
+        params: {
+            placementId: '19312149'
+        }
+      }, {
+        bidder: 'criteo',
+        labels: ['phone'],
+        params: {
+            networkId: '7890'
+        }
+      }, {
+        bidder: 'smartadserver',
+        labels: ['phone'],
+        params: {
+            siteId: '283398',
+            pageId: '1239548',
+            formatId: '90178'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['phone'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920512'
+        }
+      }]
+    }
+  },
+  caja5: {
+    prebid:{
+      enabled: true,
+      bids: [
+        {
+          bidder: 'rubicon',
+          labels: ['phone'],
+          params: {
+            zoneId: '1717120',
+            siteId: '215754',
+            accountId: '19186'
+          }
+        }, {
+          bidder: 'appnexus',
+          labels: ['phone'],
+          params: {
+            placementId: '19312151'
+          }
+        }, {
+          bidder: 'criteo',
+          labels: ['phone'],
+          params: {
+            networkId: '7890'
+          }
+        }, {
+          bidder: 'smartadserver',
+          labels: ['phone'],
+          params: {
+            siteId: '283398',
+            pageId: '1239548',
+            formatId: '90179'
+          }
+        }, {
+          bidder: 'pubmatic',
+          labels: ['phone'],
+          params: {
+            publisherId: '157414',
+            adSlot: '2920514'
+          }
+        }
+      ]
+    }
+  },
+  lateralr : {
+    prebid:{
+      enabled: true,
+      bids: [{
+        bidder: 'rubicon',
+        labels: ['desktop'],
+        params: {
+            zoneId: '1717004',
+            siteId: '215752',
+            accountId: '19186'
+        }
+      }, {
+        bidder: 'appnexus',
+        labels: ['desktop'],
+        params: {
+            placementId: '19312130'
+        }
+      }, {
+        bidder: 'criteo',
+        labels: ['desktop'],
+        params: {
+            networkId: '7890'
+        }
+      }, {
+        bidder: 'smartadserver',
+        labels: ['desktop'],
+        params: {
+            siteId: '283398',
+            pageId: '1239547',
+            formatId: '90174'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920517'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920518'
+        }
+      }]
+    }
+  },
+  laterall: {
+    prebid:{
+      enabled: true,
+      bids: [{
+        bidder: 'rubicon',
+        labels: ['desktop'],
+        params: {
+            zoneId: '1717000',
+            siteId: '215752',
+            accountId: '19186'
+        }
+      }, {
+        bidder: 'appnexus',
+        labels: ['desktop'],
+        params: {
+            placementId: '19312129'
+        }
+      }, {
+        bidder: 'criteo',
+        labels: ['desktop'],
+        params: {
+            networkId: '7890'
+        }
+      }, {
+        bidder: 'smartadserver',
+        labels: ['desktop'],
+        params: {
+            siteId: '283398',
+            pageId: '1239547',
+            formatId: '90173'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920515'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop'],
+        params: {
+            publisherId: '157414',
+            adSlot: '2920516'
+        }
+      }]
+    }
+  },
+  zocalo: {
+    prebid:{
+      enabled: true,
+      bids: [{
+        bidder: 'rubicon',
+        labels: ['desktop', 'phone'],
+        params: {
+            accountId: '19186',
+            siteId : `<::getAdsDisplay() === 'mobile' ? '215754' : '215752' ::>`,
+            zoneId : `<::getAdsDisplay() === 'mobile' ? '1717114' : '1716988' ::>`,
+        }
+      }, {
+        bidder: 'appnexus',
+        labels: ['desktop', 'phone'],
+        params: {
+            placementId: `<::getAdsDisplay() === 'mobile' ? '19312145' : '19312127' ::>`
+        }
+      }, {
+        bidder: 'criteo',
+        labels: ['desktop', 'phone'],
+        params: {
+            networkId: '7890'
+        }
+      }, {
+        bidder: 'smartadserver',
+        labels: ['desktop', 'phone'],
+        params: {
+            siteId: '283398',
+            pageId : `<::getAdsDisplay() === 'mobile' ? '1239548' : '1239547' ::>`,
+            formatId: '74162'
+        }
+      }, {
+        bidder: 'pubmatic',
+        labels: ['desktop', 'phone'],
+        params: {
+            publisherId: '157414',
+            adSlot : `<::getAdsDisplay() === 'mobile' ? '2920524' : '2920525' ::>`
+        }
+      }]
+    }
+  }
 }
