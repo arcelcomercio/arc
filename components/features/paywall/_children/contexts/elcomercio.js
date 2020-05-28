@@ -8,6 +8,12 @@ export default {
     currencySymbol: `S/`,
     help: `¿Necesitas ayuda?`,
     helpShort: `¿Ayuda?`,
+    yes: `Sí`,
+    no: `No`,
+    cancel: `Cancelar`,
+    isSubscriber: `Estimado suscriptor ya cuentas<br/> con una suscripción activa.<br/> Ver los detalles en: `,
+    qContinue: `¿Desea continuar con la compra?`,
+    askSupport: `Cualquier consulta contáctanos enviando un correo a: [atencionalcliente@comercio.com.pe](mailto:atencionalcliente@comercio.com.pe)`,
 
     // Validation Errors
     minLength: `Longitud inválida, mínimo {{min}} caracteres.`,

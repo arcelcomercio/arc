@@ -6,7 +6,7 @@ import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
 import React, { useState, useEffect } from 'react'
 import * as Sentry from '@sentry/browser'
-import removeAccents from 'remove-accents'
+import { removeAccents } from '../../../_dependencies/utils'
 
 import Summary from '../summary'
 import * as S from './styled'

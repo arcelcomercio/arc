@@ -10,6 +10,7 @@ import useForm from '../../_dependencies/useForm'
 import Domains from '../../_dependencies/domains'
 import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
+import Cookies from '../../_dependencies/cookies'
 
 export const FormForgot = ({
   arcSite,
@@ -22,8 +23,9 @@ export const FormForgot = ({
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
+  const defaultEmail = Cookies.getCookie('lostEmail') || ''
   const stateSchema = {
-    femail: { value: '', error: '' },
+    femail: { value: defaultEmail, error: '' },
   }
 
   const stateValidatorSchema = {
@@ -51,6 +53,7 @@ export const FormForgot = ({
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_contrasena_success_boton`
     )
+    Cookies.deleteCookie('lostEmail')
   }
 
   const pushStatePass = email => {
@@ -181,19 +184,35 @@ export const FormForgot = ({
                   error={errors.femail}
                 />
 
-                <S.Button
-                  type="submit"
-                  color={mainColorBtn}
-                  className="mt-20 mb-10"
-                  disabled={disable || showLoading}
-                  onClick={() =>
-                    Taggeo(
-                      `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
-                    )
-                  }>
-                  {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
-                </S.Button>
+                {defaultEmail ? (
+                  <S.Button
+                    type="submit"
+                    color={mainColorBtn}
+                    className="mt-20 mb-10"
+                    disabled={showLoading}
+                    onClick={() =>
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
+                      )
+                    }>
+                    {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
+                  </S.Button>
+                ) : (
+                  <S.Button
+                    type="submit"
+                    color={mainColorBtn}
+                    className="mt-20 mb-10"
+                    disabled={disable || showLoading}
+                    onClick={() =>
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
+                      )
+                    }>
+                    {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
+                  </S.Button>
+                )}
               </>
             ) : (
               <>

@@ -14,11 +14,21 @@ $color-base-300: #e8f2f7;
 /******* Framework Variables *******/
 @import "../../general-styles/framework/variables/index";
 
+/******* Site Variables cambio temportal por consumo *******/
+@import "./scss/variables/index";
+@import "./scss/partials/import-fonts";
+@import "./scss/partials/import-icons";
+
 /******* Site Variables *******/
-@import "../../general-styles/framework/core/basic";
-@import "../../general-styles/framework/generators/basic";
+@import "../../general-styles/framework/core/index";
+@import "../../general-styles/framework/generators/index";
 
 /******* Partials *******/
+@import "./scss/partials/base";
+
+/******* Components cambio temportal por consumo *******/
+@import "../../general-styles/components/dbasic";
+//******  cambio  temportal por consumo *******/
 
 @import "../../general-styles/components/features/layout/navbar/nav";
 @import "../../general-styles/components/features/layout/header/header";
@@ -29,8 +39,34 @@ $color-base-300: #e8f2f7;
 @import "../../general-styles/components/features/cards/featured-story-manual-live/featured-story-manual-live";
 @import "../../general-styles/components/global-components/featured-story";
 
+/******* Modificadores cambio temportal por consumo ********/
+@import "./scss/global-components/_";
+@import "./scss/components/cards/triplet/triplet";
+@import "./scss/components/cards/most-read/most-read";
+@import "./scss/components/cards/most-read/most-read-item";
+@import "./scss/components/cards/featured-story-full-img/feature-fullimage";
+@import "./scss/components/cards/featured-story-author/featured-author";
+@import "./scss/components/cards/columnist-premium/columnist-premium";
+@import "./scss/components/cards/cinema-billboard/cinema-card";
+@import "./scss/components/cards/featured-premium/featured-premium";
+@import "./scss/components/layout/navbar/nav-sidebar";
+@import "./scss/components/layout/footer/footer";
+@import "./scss/components/footer/elcomercio";
+@import "./scss/components/separators/opinion/opinion-separator";
+@import "./scss/components/custom-title/custom-title";
+@import "./scss/components/stories-lists/cards/stories-list-card";
+@import "./scss/components/stories-lists/cards/stories-list-header";
+@import "./scss/components/stories-lists/cards/stories-l-footer";
+@import "./scss/components/stories-lists/cards/stories-l-section";
+@import "./scss/components/stories-lists/cards/stories-list-item";
+@import "./scss/components/columnist-premium.scss/columnist-premium";
+@import "./scss/components/statics/opinion-grid/author-card";
+@import "./scss/components/statics/opinion-grid/author-item";
+@import "./scss/components/statics/opinion-grid/opinion-grid";
+@import "./scss/components/premium/premium";
+// @import "./scss/components/lifweek/lifweek  fin de componente cambio temportal por consumo"; luis
+
 @import "./scss/components/layout/navbar/nav";
-@import "./scss/partials/base";
 @import "./scss/components/layout/header/header";
 @import "./scss/global-components/extraordinary-story";
 @import "./scss/components/breaking-news/breaking-news";

@@ -81,6 +81,7 @@ export const FormLoginPaywall = props => {
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
         onLoggedFail(errLogin) // para hendrul
+        Cookies.setCookie('lostEmail', lemail, 1)
       })
       .finally(() => {
         setShowLoading(false)
