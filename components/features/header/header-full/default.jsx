@@ -23,7 +23,9 @@ const HeaderFull = props => {
     } = {},
   } = useFusionContext() || {}
 
-  const { customFields: { hierarchyHeader, hierarchyMenu } = {} } = props
+  const {
+    customFields: { hierarchyHeader, hierarchyMenu, hideMenu } = {},
+  } = props
 
   const {
     socialNetworks = [],
@@ -137,6 +139,7 @@ const HeaderFull = props => {
     mobileHeaderFollowing,
     siteDomain,
     legalLinks,
+    hideMenu,
   }
   return <HeaderFullView {...params} />
 }

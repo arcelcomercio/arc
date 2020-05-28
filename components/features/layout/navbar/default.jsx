@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import NavBarComercio from './_children/standard'
+import NavBarComercio from '../../navbar/standard/_children/standard'
 import NavbarChildSomos from './_children/somos'
 
 import Formatter from './_dependencies/formatter'
@@ -99,6 +99,7 @@ class LayoutNavbar extends PureComponent {
         showInDesktop = true,
         showInTablet = true,
         showInMobile = true,
+        hideMenu,
       } = {},
     } = this.props
     const { data = [], navbarData = [] } = this.state || {}
@@ -108,6 +109,7 @@ class LayoutNavbar extends PureComponent {
         <NavBarComercio
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
           data={data}
+          hideMenu={hideMenu}
           navbarData={navbarData}
           getDataNavBarData={this.getDataNavBarData}
           {...this.formatter.main.initParams}
@@ -137,6 +139,10 @@ LayoutNavbar.propTypes = {
         somos: 'Barra de navegación somos',
       },
       defaultValue: 'standard',
+    }),
+    hideMenu: PropTypes.bool.tag({
+      name: 'Ocultar menu',
+      defaultValue: true,
     }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',

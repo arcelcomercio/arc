@@ -51,6 +51,7 @@ class NavbarExternalSignwall extends PureComponent {
         showInDesktop = true,
         showInTablet = true,
         showInMobile = true,
+        hideMenu,
       } = {},
     } = this.props
     const { data = [], navbarData = [] } = this.state || {}
@@ -59,6 +60,7 @@ class NavbarExternalSignwall extends PureComponent {
         deviceList={{ showInDesktop, showInTablet, showInMobile }}
         data={data}
         navbarData={navbarData}
+        hideMenu={hideMenu}
         getDataNavBarData={this.getDataNavBarData}
         {...this.formatter.main().initParams()}
       />
@@ -68,6 +70,10 @@ class NavbarExternalSignwall extends PureComponent {
 
 NavbarExternalSignwall.propTypes = {
   customFields: PropTypes.shape({
+    hideMenu: PropTypes.bool.tag({
+      name: 'Ocultar menu',
+      defaultValue: true,
+    }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',
       defaultValue: true,

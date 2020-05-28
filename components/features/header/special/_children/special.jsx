@@ -66,6 +66,7 @@ const HeaderSpecialChildSpecial = ({
   search,
   isStory,
   shareButtons,
+  hideMenu,
 }) => {
   const [scrolled, setScrolled] = useState(false)
   const [statusSidebar, setStatusSidebar] = useState(false)
@@ -298,14 +299,16 @@ const HeaderSpecialChildSpecial = ({
               onClick={optionButtonClick}
             />
           </form>
-          <Button
-            iconClass={classes.iconMenu}
-            btnClass={`${classes.btnMenu} ${
-              scrolled && isStory ? 'border-r-1 border-solid' : ''
-            }`}
-            btnText="Menú"
-            onClick={_handleToggleSectionElements}
-          />
+          {!hideMenu && (
+            <Button
+              iconClass={classes.iconMenu}
+              btnClass={`${classes.btnMenu} ${
+                scrolled && isStory ? 'border-r-1 border-solid' : ''
+              }`}
+              btnText="Menú"
+              onClick={_handleToggleSectionElements}
+            />
+          )}
         </div>
         {/** ************* // LEFT *************** */}
         <a
@@ -369,13 +372,17 @@ const HeaderSpecialChildSpecial = ({
         </div>
         {/** ************* // RIGHT *************** */}
         {/* Activar si se quiere el max-width de 1366px </div> */}
-        <Menu
-          sections={menuSections}
-          showSidebar={statusSidebar}
-          contextPath={contextPath}
-          siteProperties={siteProperties}
-        />
-        <div className="layer" />
+        {!hideMenu && (
+          <>
+            <Menu
+              sections={menuSections}
+              showSidebar={statusSidebar}
+              contextPath={contextPath}
+              siteProperties={siteProperties}
+            />
+            <div className="layer" />
+          </>
+        )}
       </header>
     </>
   )
