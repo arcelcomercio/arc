@@ -32,7 +32,7 @@ const ZOOM = 'share-zoom'
 
 const popup = `(function(){window.addEventListener('load',
   function(){setTimeout(function() {  var $print = document.querySelector('a[data-social=${PRINT}]');  var $more = document.querySelector('a[data-social=${MORE}]');  var $zoom = document.querySelector('a[data-social=${ZOOM}]');
-  var $shareB = document.querySelectorAll('a[data-social=${SHARE}]');  $print.addEventListener('click', function(e){    e.preventDefault();    window.print();  })$more.addEventListener('click', function(e){  e.preventDefault();    var $shareList = document.querySelector('.story-content__list-more');
+  var $shareB = document.querySelectorAll('a[data-social=${SHARE}]');  $print.addEventListener('click', function(e){    e.preventDefault();    window.print();  }); $more.addEventListener('click', function(e){  e.preventDefault();    var $shareList = document.querySelector('.story-content__list-more');
     if ($shareList.classList.contains('block')) { $shareList.classList.remove('block');      $shareList.classList.add('hidden');  } else {   $shareList.classList.remove('hidden');      $shareList.classList.add('block');    }  })
   var incrIdx = 0;  $zoom.addEventListener('click', function(e){ e.preventDefault();  var $fontEl = document.querySelectorAll('.story-content__font--secondary');    if (incrIdx >= 9) incrIdx = 0;    incrIdx = incrIdx + 1;    $fontEl.forEach(function(el) { var currSize = 20;
       if(incrIdx >= 9) currSize = parseFloat(el.style.fontSize, 5) || 20
