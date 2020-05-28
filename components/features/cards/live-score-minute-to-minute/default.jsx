@@ -36,8 +36,11 @@ class LiveScoreMinuteToMinute extends Component {
   constructor(props) {
     super(props)
 
-    const { globalContent: { opta_data: optaData } = {} } = this.props
+    const { globalContent: { opta_data: optaData = '' } = {} } = this.props
 
+    if (optaData === '') {
+      return
+    }
     const teamParams = buildTeamFootballOptaParams(optaData)
     const {
       homeTeamParams = {},
@@ -79,6 +82,10 @@ class LiveScoreMinuteToMinute extends Component {
     const { globalContent } = this.props
 
     const gameId = getFootballGameId(globalContent)
+
+    if (gameId === '') {
+      return
+    }
 
     const url = `https://cdna-resultadosopta.minoticia.pe/api/v2/match/?format=json&uuid=${gameId}`
     fetch(url)
@@ -138,6 +145,10 @@ class LiveScoreMinuteToMinute extends Component {
   }
 
   render() {
+    if (!this.state) {
+      return <div></div>
+    }
+
     const {
       teamParams: {
         homeTeamParams,

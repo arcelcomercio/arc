@@ -23,6 +23,7 @@ const icons = {
   'own goal': 'gol.png',
   'end 14': 'final.png',
   'end 1': 'final.png',
+  'VAR cancelled goal': 'var.png',
 }
 
 @Consumer
@@ -62,6 +63,10 @@ class OptaCommentary extends Component {
 
     const footballGameId = getFootballGameId(globalContent)
 
+    if (footballGameId === '') {
+      return
+    }
+
     const url = `https://cdna-resultadosopta.minoticia.pe/api/v2/comments/?format=json&limit=200&offset=0&muid=${footballGameId}`
     fetch(url)
       .then(data => data.json())
@@ -79,7 +84,7 @@ class OptaCommentary extends Component {
   }
 
   render() {
-    const { listCommentary, adsMatch } = this.state
+    const { listCommentary = [], adsMatch = '' } = this.state
 
     return (
       <div className={classes.commentaries}>
@@ -93,6 +98,10 @@ class OptaCommentary extends Component {
                 comment = '',
                 icon = icons[type],
               } = commentary
+
+              if (type === 'postponed') {
+                return ''
+              }
 
               let addTime
               let mainTime
