@@ -465,7 +465,7 @@ class StoryContents extends PureComponent {
                     return <StoryContentChildRawHTML content={content} />
                   }
                   if (type === ELEMENT_CUSTOM_EMBED) {
-                    if (subtype === 'image_link') {
+                    if (sub === 'image_link') {
                       const { config: customEmbedConfig } = customEmbed || {}
                       return (
                         <StoryContentsChildLinkedImage {...customEmbedConfig} />

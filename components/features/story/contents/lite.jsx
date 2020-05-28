@@ -46,7 +46,6 @@ import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
-import Ads from '../../../global-components/ads'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -394,7 +393,7 @@ class StoryContentsLite extends PureComponent {
                     return <StoryContentChildRawHTML content={content} />
                   }
                   if (type === ELEMENT_CUSTOM_EMBED) {
-                    if (subtype === 'image_link') {
+                    if (sub === 'image_link') {
                       const { config: customEmbedConfig } = customEmbed || {}
                       return (
                         <StoryContentsChildLinkedImage {...customEmbedConfig} />
