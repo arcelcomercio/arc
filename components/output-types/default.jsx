@@ -57,7 +57,10 @@ export default ({
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    promo_items: { basic_gallery: basicGallery = 0 } = {},
+    promo_items: {
+      basic_gallery: basicGallery = 0,
+      uuid_match: idMatch = '',
+    } = {},
     taxonomy: {
       primary_section: { path: nameSeccion = '' } = {},
       tags = [],
@@ -105,6 +108,7 @@ export default ({
     contextPath,
     deployment,
     isStory,
+    idMatch,
     isAmp: false,
     CURRENT_ENVIRONMENT,
     Resource,

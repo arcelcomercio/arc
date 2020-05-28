@@ -14,7 +14,7 @@ const classes = {
 }
 
 const SecondaryFooter = props => {
-  const { story, logoUrl, arcSite } = props
+  const { story = [], logoUrl, arcSite } = props
 
   return (
     <footer className={classes.footer}>
@@ -24,7 +24,7 @@ const SecondaryFooter = props => {
           <img
             className={classes.logoImg}
             src={logoUrl}
-            alt={`Logo de ${arcSite}`}            
+            alt={`Logo de ${arcSite}`}
           />
         </a>
         {/* Cuerpo */}

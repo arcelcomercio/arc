@@ -16,6 +16,7 @@ const HeaderFull = props => {
   const {
     arcSite,
     contextPath,
+    requestUri,
     globalContent: {
       type = '',
       website_url: postPermaLink,
@@ -75,7 +76,13 @@ const HeaderFull = props => {
   const { children: headerList = [] } = dataHeader
   const { children: menuList = [] } = dataMenu
 
-  const isStory = type === ELEMENT_STORY
+  let isStory = type === ELEMENT_STORY
+  if (
+    requestUri.includes('/alineaciones/') ||
+    requestUri.includes('/estadisticas/')
+  ) {
+    isStory = false
+  }
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
