@@ -51,6 +51,7 @@ class LayoutNavbar extends PureComponent {
         showInDesktop = true,
         showInTablet = true,
         showInMobile = true,
+        hideMenu,
       } = {},
     } = this.props
     const { data = [], navbarData = [] } = this.state || {}
@@ -58,6 +59,7 @@ class LayoutNavbar extends PureComponent {
       <NavBarComercio
         deviceList={{ showInDesktop, showInTablet, showInMobile }}
         data={data}
+        hideMenu={hideMenu}
         navbarData={navbarData}
         getDataNavBarData={this.getDataNavBarData}
         {...this.formatter.main().initParams()}
@@ -68,6 +70,10 @@ class LayoutNavbar extends PureComponent {
 
 LayoutNavbar.propTypes = {
   customFields: PropTypes.shape({
+    hideMenu: PropTypes.bool.tag({
+      name: 'Ocultar menu',
+      defaultValue: true,
+    }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',
       defaultValue: true,

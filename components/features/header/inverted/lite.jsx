@@ -2,12 +2,17 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
+import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_lite/_dependencies/schema-filter'
 import HeaderBasicChildren from './_lite/_children/header'
 
-const HeaderBasic = () => {
+const HeaderBasic = props => {
   const { arcSite, contextPath, globalContent } = useFusionContext()
+  const {
+    customFields: { hideMenu },
+  } = props
 
+  console.log('---->>', hideMenu)
   const menuSections = useContent({
     source: 'navigation-by-hierarchy',
     query: {
@@ -22,6 +27,7 @@ const HeaderBasic = () => {
   })
 
   const params = {
+    hideMenu,
     menuSections,
     arcSite,
     contextPath,
@@ -32,5 +38,9 @@ const HeaderBasic = () => {
 }
 
 HeaderBasic.static = true
+
+HeaderBasic.propTypes = {
+  customFields,
+}
 
 export default HeaderBasic

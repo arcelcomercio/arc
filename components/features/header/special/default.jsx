@@ -17,7 +17,7 @@ const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const HeaderElComercio = props => {
   const {
-    customFields: { customLogo, customLogoLink },
+    customFields: { customLogo, customLogoLink, hideMenu },
   } = props
 
   const {
@@ -99,6 +99,7 @@ const HeaderElComercio = props => {
     search,
     isStory,
     shareButtons,
+    hideMenu,
   }
 
   return (

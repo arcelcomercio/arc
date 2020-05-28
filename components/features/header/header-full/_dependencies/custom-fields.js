@@ -9,6 +9,10 @@ const customFields = PropTypes.shape({
     name: 'Editar navegación',
     group: 'Configuración del Menu',
   }),
+  hideMenu: PropTypes.bool.tag({
+    name: 'Ocultar menu',
+    defaultValue: true,
+  }),
 })
 
 export default customFields
