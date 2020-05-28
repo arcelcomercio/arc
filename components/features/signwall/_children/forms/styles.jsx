@@ -19,7 +19,7 @@ const changeColor = color => {
 export const Title = styled.h4`
   color: ${props => (props.c ? props.c : '#000000')};
   font-family: ${props => (props.primaryFont ? props.primaryFont : 'inherit')};
-  font-size: ${props => props.s - 4}px;
+  font-size: ${props => props.s - 2}px;
   font-weight: bold;
   line-height: 28px;
   @media ${device.tablet} {
@@ -60,6 +60,11 @@ export const Form = styled.form`
   @media ${device.tablet} {
     padding: ${props => (props.npadding ? '0px' : '50px 35px')};
   }
+
+  @media screen and (min-width: 768px) {
+    padding: ${props => (props.npadding ? '0px' : '20px 80px')};
+  }
+
   @media ${device.desktop} {
     padding: ${props => (props.npadding ? '0px' : '20px 50px')};
 
