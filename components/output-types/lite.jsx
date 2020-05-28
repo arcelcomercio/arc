@@ -16,7 +16,7 @@ import renderMetaPage from './_children/render-meta-page'
 import LiteAds from './_children/lite-ads'
 import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
-import videoScript from './_dependencies/video-script'
+import videoScript from './_dependencies/lite/video-script'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
@@ -250,22 +250,7 @@ const LiteOutput = ({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-          if(typeof window !== "undefined"){
-            window.requestIdle = window.requestIdleCallback ||
-            function (cb) {
-              const start = Date.now();
-              return setTimeout(function () {
-                cb({
-                  didTimeout: false,
-                  timeRemaining: function () {
-                    return Math.max(0, 50 - (Date.now() - start));
-                  },
-                });
-              }, 1);
-            };
-          }
-          `,
+            __html: ` if(typeof window !== "undefined"){ window.requestIdle = window.requestIdleCallback || function (cb) { const start = Date.now();return setTimeout(function () {cb({didTimeout: false, timeRemaining: function () { return Math.max(0, 50 - (Date.now() - start)); },}); }, 1); }; }`,
           }}
         />
         <TagManager {...parameters} />
