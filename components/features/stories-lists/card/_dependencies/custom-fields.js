@@ -10,6 +10,9 @@ const customFields = PropTypes.shape({
   section: PropTypes.string.tag({
     name: 'Sección',
   }),
+  excludedSections: PropTypes.string.tag({
+    name: 'Secciones Excluidas',
+  }),
   background: PropTypes.oneOf(['bg-info', 'bg-white']).tag({
     name: 'Color de fondo cabecera',
     labels: {
