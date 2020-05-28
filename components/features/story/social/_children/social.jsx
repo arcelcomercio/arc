@@ -29,26 +29,30 @@ const classes = {
   premium: 'story-header__premium',
 }
 
-const windowW = 600
-const windowH = 400
-
-const popup = `(function(){setTimeout(function() {
-  const $shareButtons = document.querySelectorAll('a[data-share]')
-  if ($shareButtons && $shareButtons.length > 0) {
-    const windowLeft = window.screen.width / 2 - ${windowW} / 2
-    const windowTop = window.screen.height / 2 - ${windowH} / 2
-    $shareButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault()
-        window.open(
-          button.getAttribute('href'),
-          '',
-          'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${windowW}, height=${windowH}, top='+windowTop+', left='+windowLeft+''
-        )
+/* window.addEventListener('load', () => {setTimeout(() => {
+  if(!window.shareButtons){
+    const windowW = 600
+    const windowH = 400
+    const $shareButtons = document.querySelectorAll('a[data-share]')
+    if ($shareButtons && $shareButtons.length > 0) {
+      const wLeft = window.screen.width / 2 - windowW / 2
+      const wTop = window.screen.height / 2 - windowH / 2
+      $shareButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault()
+          window.open(
+            button.getAttribute('href'),
+            '',
+            `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${windowW}, height=${windowH}, top=${wTop}, left=${wLeft}`
+          )
+        })
       })
-    })
+    }
   }
-}, 0)})()`
+}, 0)}) */
+
+const popup =
+  '"use strict";window.addEventListener("load",function(){setTimeout(function(){var t=document.querySelectorAll("a[data-share]");if(t&&t.length>0){var n=window.screen.width/2-300,o=window.screen.height/2-200;t.forEach(function(t){t.addEventListener("click",function(e){e.preventDefault(),window.open(t.getAttribute("href"),"","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=".concat(600,", height=").concat(400,", top=").concat(o,", left=").concat(n))})})}},0)});'
 
 // Funcion extraida de Helpers
 const socialMediaUrlShareList = (

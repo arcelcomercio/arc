@@ -12,14 +12,7 @@ const StoryTaboola = () => {
     },
   } = useFusionContext()
 
-  const structuredTaboola = `
-      window._taboola = window._taboola || [];
-      _taboola.push({
-      mode: '${mode}',
-      container: 'taboola-below-content-thumbnails',
-      placement: 'Below Content Thumbnails',
-      target_type: 'mix'
-      });`
+  const structuredTaboola = `window._taboola = window._taboola || []; _taboola.push({ mode: '${mode}', container: 'taboola-below-content-thumbnails', placement: 'Below Content Thumbnails', target_type: 'mix'});`
 
   return (
     <>
