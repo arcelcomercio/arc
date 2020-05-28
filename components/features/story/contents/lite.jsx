@@ -46,7 +46,6 @@ import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
-import Ads from '../../../global-components/ads'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -320,7 +319,7 @@ class StoryContentsLite extends PureComponent {
                           <script
                             dangerouslySetInnerHTML={{
                               __html: `(function(){window.addEventListener('load', function(){
-                                setTimeout(function(){
+                                requestIdle(function(){
                                   if(!window.optaReady){
                                     var os=document.createElement('script')
                                     os.textContent=\`
@@ -341,7 +340,7 @@ class StoryContentsLite extends PureComponent {
                                     document.head.append(n)
                                     window.optaReady=true
                                   }
-                                }, 0)
+                                })
                               })
                               })()`,
                             }}

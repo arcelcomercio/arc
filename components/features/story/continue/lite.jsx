@@ -6,7 +6,7 @@ import { removeLastSlash } from '../../../utilities/parse/strings'
 // Script
 
 /* 
-window.addEventListener('load', () => {setTimeout(() => {
+window.addEventListener('load', () => {requestIdle(() => {
   const URLS_STORAGE = '_recents_articles_'
 
   const localStories =
@@ -87,7 +87,7 @@ window.addEventListener('load', () => {setTimeout(() => {
   } else {
     window.addEventListener('scroll', stContinueFunc)
   }
-}, 0)}) 
+})}) 
 */
 
 const StoryContinueLite = () => {
@@ -107,7 +107,7 @@ const StoryContinueLite = () => {
 
   const { content_elements: contentElements = [] } = recentStories
 
-  const stContinueScript = '"use strict";window.addEventListener("load",function(){setTimeout(function(){var e="_recents_articles_",t=JSON.parse(window.sessionStorage.getItem(e))||{},n="<<recentStoriesrecentStoriesrecentStories>>",o=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},n=t.section,o=t.data,i=void 0===o?[]:o;window.sessionStorage.setItem(e,JSON.stringify({section:n,data:i.filter(function(e){return e.link!==window.location.pathname})}))};if(t.section)if(t.section!==n.section)window.sessionStorage.removeItem(e),o(n);else{var i=JSON.parse(window.sessionStorage.getItem(e));window.sessionStorage.removeItem(e),o(i)}else o(n);var s,r=((JSON.parse(window.sessionStorage.getItem(e))||{}).data||[])[0]||{};document.querySelector(".st-continue__title").innerHTML=r.title||"Portada",document.querySelector(".st-continue").href=r.link;var c=function(){var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")<=0&&(e.className=e.className.concat(" loading")),window.innerHeight+document.documentElement.scrollTop>=document.documentElement.offsetHeight&&(s=setTimeout(function(){window.location.href=r.link||"/"},1500))};"IntersectionObserver"in window?new IntersectionObserver(function(e){e.forEach(function(e){var t=document.querySelector(".st-continue__close");e.isIntersecting&&(window.addEventListener("scroll",c),t.addEventListener("click",function(){clearTimeout(s);var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")>0&&(e.className=e.className.replace(" loading",""))}),observer.unobserve(e.target))})}).observe(document.querySelector(".st-continue")):window.addEventListener("scroll",c)},0)});'.replace(
+  const stContinueScript = '"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recents_articles_",t=JSON.parse(window.sessionStorage.getItem(e))||{},n="<<recentStoriesrecentStoriesrecentStories>>",o=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},n=t.section,o=t.data,i=void 0===o?[]:o;window.sessionStorage.setItem(e,JSON.stringify({section:n,data:i.filter(function(e){return e.link!==window.location.pathname})}))};if(t.section)if(t.section!==n.section)window.sessionStorage.removeItem(e),o(n);else{var i=JSON.parse(window.sessionStorage.getItem(e));window.sessionStorage.removeItem(e),o(i)}else o(n);var s,r=((JSON.parse(window.sessionStorage.getItem(e))||{}).data||[])[0]||{};document.querySelector(".st-continue__title").innerHTML=r.title||"Portada",document.querySelector(".st-continue").href=r.link;var c=function(){var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")<=0&&(e.className=e.className.concat(" loading")),window.innerHeight+document.documentElement.scrollTop>=document.documentElement.offsetHeight&&(s=setTimeout(function(){window.location.href=r.link||"/"},1500))};"IntersectionObserver"in window?new IntersectionObserver(function(e){e.forEach(function(e){var t=document.querySelector(".st-continue__close");e.isIntersecting&&(window.addEventListener("scroll",c),t.addEventListener("click",function(){clearTimeout(s);var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")>0&&(e.className=e.className.replace(" loading",""))}),observer.unobserve(e.target))})}).observe(document.querySelector(".st-continue")):window.addEventListener("scroll",c)})});'.replace(
     '"<<recentStoriesrecentStoriesrecentStories>>"',
     JSON.stringify({
       section: removeLastSlash(path),
