@@ -130,6 +130,7 @@ class LayoutNoSignwall extends PureComponent {
         showInDesktop = true,
         showInTablet = true,
         showInMobile = true,
+        hideMenu,
       } = {},
     } = this.props
     const { data = [], navbarData = [] } = this.state || {}
@@ -143,6 +144,7 @@ class LayoutNoSignwall extends PureComponent {
         <NavBarComercio
           deviceList={{ showInDesktop, showInTablet, showInMobile }}
           data={dataFormat}
+          hideMenu={hideMenu}
           navbarData={navbarData}
           getDataNavBarData={this.getDataNavBarData}
           {...this.formatter.main.initParams}
@@ -172,6 +174,10 @@ LayoutNoSignwall.propTypes = {
         somos: 'Barra de navegación somos',
       },
       defaultValue: 'standard',
+    }),
+    hideMenu: PropTypes.bool.tag({
+      name: 'Ocultar menu',
+      defaultValue: true,
     }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',

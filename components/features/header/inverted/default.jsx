@@ -23,6 +23,7 @@ const HeaderInverted = props => {
       customLogoLink,
       tags,
       showDate,
+      hideMenu,
       isSlider,
     },
   } = props
@@ -113,14 +114,19 @@ const HeaderInverted = props => {
     query: sourceQuery,
     filter: bandFilter,
   })
-  const menuData = useContent({
-    source: CONTENT_SOURCE,
-    query: {
-      website: arcSite,
-      hierarchy: MENU_HIERARCHY,
-    },
-    filter: menuFilter,
-  })
+  const menuData =
+    useContent(
+      !hideMenu
+        ? {
+            source: CONTENT_SOURCE,
+            query: {
+              website: arcSite,
+              hierarchy: MENU_HIERARCHY,
+            },
+            filter: menuFilter,
+          }
+        : {}
+    ) || {}
 
   formatter.setBandData(bandData)
   formatter.setMenuData(menuData)
@@ -130,6 +136,7 @@ const HeaderInverted = props => {
     isStory,
     shareButtons,
     isSlider,
+    hideMenu,
   }
 
   return <HeaderChildInverted {...formatter.getParams()} {...params} />

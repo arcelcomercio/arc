@@ -86,6 +86,7 @@ const HeaderChildInverted = ({
   isStory,
   shareButtons,
   isSlider,
+  hideMenu,
 }) => {
   const [scrolled, setScrolled] = useState(false)
   const [statusSidebar, setStatusSidebar] = useState(false)
@@ -381,14 +382,16 @@ const HeaderChildInverted = ({
                 onClick={optionButtonClick}
               />
             </form>
-            <Button
-              iconClass={classes.iconMenu}
-              btnClass={`${classes.btnMenu} ${
-                scrolled && isStory ? 'border-r-1 border-solid' : ''
-              }`}
-              btnText="Menú"
-              onClick={_handleToggleSectionElements}
-            />
+            {!hideMenu && (
+              <Button
+                iconClass={classes.iconMenu}
+                btnClass={`${classes.btnMenu} ${
+                  scrolled && isStory ? 'border-r-1 border-solid' : ''
+                }`}
+                btnText="Menú"
+                onClick={_handleToggleSectionElements}
+              />
+            )}
           </div>
           {/** ************* // LEFT *************** */}
           <a
@@ -480,12 +483,14 @@ const HeaderChildInverted = ({
           </div>
           {/** ************* // RIGHT *************** */}
         </div>
-        <Menu
-          sections={menuSections}
-          showSidebar={statusSidebar}
-          contextPath={contextPath}
-          siteProperties={siteProperties}
-        />
+        {!hideMenu && (
+          <Menu
+            sections={menuSections}
+            showSidebar={statusSidebar}
+            contextPath={contextPath}
+            siteProperties={siteProperties}
+          />
+        )}
         <div className="layer" />
       </header>
     </>

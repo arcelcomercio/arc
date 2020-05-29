@@ -43,12 +43,23 @@ class LayoutNavbarAmp extends PureComponent {
 
   render() {
     const { data } = this.state
-    return <NavBarAmp data={data} {...this.formatter.main().initParams()} />
+    const { customFields: { hideMenu } = {} } = this.props
+    return (
+      <NavBarAmp
+        data={data}
+        {...this.formatter.main().initParams()}
+        hideMenu={hideMenu}
+      />
+    )
   }
 }
 
 LayoutNavbarAmp.propTypes = {
   customFields: PropTypes.shape({
+    hideMenu: PropTypes.bool.tag({
+      name: 'Ocultar menu',
+      defaultValue: true,
+    }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',
       defaultValue: true,

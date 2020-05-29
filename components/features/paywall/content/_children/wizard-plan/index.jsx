@@ -21,6 +21,7 @@ import { conformProfile, isLogged } from '../../../_dependencies/Identity'
 import { interpolateUrl } from '../../../_dependencies/domains'
 import { getBrowser } from '../../../_dependencies/browsers'
 import PWA from '../../_dependencies/seed-pwa'
+import Taggeo from '../../../_dependencies/taggeo'
 
 function WizardPlan(props) {
   const {
@@ -231,6 +232,7 @@ function WizardPlan(props) {
             // Ya tiene suscripcion, prevenimos al usuario de hacer otra compra
             // setError('Ya tiene una suscripción activa')
             setOpenConfirmSubscriptionModal(true)
+            Taggeo('Web_Paywall_Landing', `web_paywall_open_validation`)
           } else {
             // No tiene suscripcion activa continuar con el flujo de compra
             setLoading(true)
@@ -373,6 +375,7 @@ function WizardPlan(props) {
           // Hacemos como si no tuviese otra suscripcion activa
           // y avanzamos en el flujo
           setOpenConfirmSubscriptionModal(false)
+          Taggeo('Web_Paywall_Landing', `web_paywall_continue_validation`)
           hasSubscriptionsPromise.current = Promise.resolve(false)
           runDeferredAction()
         }}
@@ -380,6 +383,7 @@ function WizardPlan(props) {
           // No avanzar en el flujo si el usuario cancela
           clearDeferredActions()
           setOpenConfirmSubscriptionModal(false)
+          Taggeo('Web_Paywall_Landing', `web_paywall_close_validation`)
         }}
         linkProfile={interpolateUrl(urls.profileSignwall)}
       />

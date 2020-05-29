@@ -15,10 +15,10 @@ const classes = {
   title: 'b-news__title',
 }
 
-/* setTimeout(document.getElementById('close-breaking-news').addEventListener('click', () => {
+/* requestIdle(function() {document.getElementById('close-breaking-news').addEventListener('click', () => {
   document.getElementById('breaking-news').remove()
-}), 0) */
-const handleClose = `"use strict";setTimeout(document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()}),0);`
+})}) */
+const handleClose = `"use strict";requestIdle(function(){document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()})});`
 
 const BreakingNewsFeat = props => {
   const {

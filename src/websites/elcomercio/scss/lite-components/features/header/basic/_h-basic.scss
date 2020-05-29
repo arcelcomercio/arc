@@ -127,7 +127,7 @@
     width: 24px;
     @media (--desktop) {
       height: 11px;
-      width: fit-content;
+      // width: fit-content;
     }
     path {
       fill: $color-gray-300;
