@@ -112,6 +112,20 @@ export default ({
     isHome,
   }
 
+  const getPrebid = () => {
+    let prebid = true
+    if (
+      (arcSite === 'elcomercio') ||
+      (arcSite === 'elcomerciomag' && requestUri.match(`^/virales`) ||
+      requestUri.match(`^/respuestas`)) ||
+      (arcSite === 'peru21' && requestUri.match(`^/cheka`))
+    ) {
+      prebid = false
+    }
+    return prebid
+  }
+  const indPrebid = getPrebid()
+
   const storyTitleRe = StoryMetaTitle || storyTitle
 
   const seoTitle =
@@ -418,8 +432,7 @@ export default ({
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {((arcSite === 'ojo' && requestUri.match('^/ojo-show')) ||
-              arcSite === 'depor') && (
+            {indPrebid &&(
               <script
                 defer
                 src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
