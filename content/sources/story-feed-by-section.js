@@ -38,17 +38,23 @@ const params = [
     displayName: 'Campos incluidos (opcional)',
     type: 'text',
   },
+  {
+    name: 'excludedSections',
+    displayName: 'Secciones excluidas',
+    type: 'text',
+  },
 ]
 
-const getQueryFilter = (section, website) => {
+const getQueryFilter = (section, excludedSections, website) => {
   let queryFilter = ''
+  let body = { query: { bool: {} } }
 
   // TODO: +AND+publish_date:%7Bnow-15d%20TO%20*%7D agregar pronto
   // Si se filtra por seccion se usa ?body, sino, se usa ?q
   if (section === '/') {
     queryFilter = `q=canonical_website:${website}+AND+type:story`
   } else {
-    const body = {
+    body = {
       query: {
         bool: {
           must: [
@@ -86,6 +92,37 @@ const getQueryFilter = (section, website) => {
     queryFilter = `body=${encodeURI(JSON.stringify(body))}`
   }
 
+  if (excludedSections !== '/') {
+    body.query.bool = {
+      ...body.query.bool,
+      must_not: [
+        {
+          nested: {
+            path: 'taxonomy.sections',
+            query: {
+              bool: {
+                must: [
+                  {
+                    terms: {
+                      'taxonomy.sections._id': excludedSections,
+                    },
+                  },
+                  {
+                    term: {
+                      'taxonomy.sections._website': website,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    }
+  }
+
+  queryFilter = `body=${encodeURI(JSON.stringify(body))}`
+
   return queryFilter
 }
 
@@ -106,6 +143,7 @@ const transformImg = ({ contentElements, website, presets }) => {
 const resolve = (key = {}) => {
   const {
     section: rawSection,
+    excludedSections: auxExcludedSec = '/',
     feedOffset,
     stories_qty: storiesQty,
     website: rawWebsite = '',
@@ -122,7 +160,10 @@ const resolve = (key = {}) => {
       : rawSection
   )
 
-  const queryFilter = getQueryFilter(section, website)
+  const excSections =
+    auxExcludedSec === null || !auxExcludedSec ? '/' : auxExcludedSec.split(',')
+
+  const queryFilter = getQueryFilter(section, excSections, website)
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${formatIncludedFields({
