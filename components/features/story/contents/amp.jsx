@@ -183,7 +183,7 @@ class StoryContentAmp extends PureComponent {
               renderElement={element => {
                 const {
                   type,
-                  subtype,
+                  subtype: sub,
                   embed: customEmbed,
                   raw_oembed: rawOembed,
                   content_elements: innerContentElements,
@@ -198,7 +198,7 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <AmpOembed
                       rawOembed={rawOembed}
-                      subtype={subtype}
+                      subtype={sub}
                       className={classes}
                     />
                   )
@@ -259,7 +259,7 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
-                  if (subtype === 'image_link') {
+                  if (sub === 'image_link') {
                     const { config: customEmbedConfig = {} } = customEmbed || {}
                     return (
                       <a
