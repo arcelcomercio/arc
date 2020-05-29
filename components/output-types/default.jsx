@@ -22,7 +22,7 @@ import StoryData from '../utilities/story-data'
 
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
-import videoScript from './_dependencies/lite/video-script'
+import videoScript from './_dependencies/video-script'
 
 export default ({
   children,
@@ -119,9 +119,9 @@ export default ({
   const getPrebid = () => {
     let prebid = true
     if (
-      (arcSite === 'elcomercio') ||
-      (arcSite === 'elcomerciomag' && requestUri.match(`^/virales`) ||
-      requestUri.match(`^/respuestas`)) ||
+      arcSite === 'elcomercio' ||
+      (arcSite === 'elcomerciomag' && requestUri.match(`^/virales`)) ||
+      requestUri.match(`^/respuestas`) ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
@@ -416,7 +416,7 @@ export default ({
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {indPrebid &&(
+            {indPrebid && (
               <script
                 defer
                 src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
