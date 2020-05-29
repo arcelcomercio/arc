@@ -16,48 +16,9 @@ const Dfp = ({ isFuature, adId }) => {
     metaValue,
     arcSite,
   } = useFusionContext()
- 
-  const getIndPrebid = () => {
-    let prebid = true
-    if (
-      (arcSite === 'elcomercio') ||
-      (arcSite === 'elcomerciomag' && requestUri.match(`^/virales`) ||
-      requestUri.match(`^/respuestas`)) ||
-      (arcSite === 'peru21' && requestUri.match(`^/cheka`))
-    ) {
-      prebid = false
-    }
-    return prebid
-  }
-  const indPrebidDfp = getIndPrebid()
 
- const hbOjo =
- (indPrebidDfp && `,bidding: {prebid: {enabled: true,timeout: 3000,useSlotForAdUnit: true, sizeConfig: [
-    {
-      'mediaQuery': '(min-width: 1024px)',
-      'sizesSupported': [
-        [970, 250],
-        [970, 90],
-        [728, 90],
-        [300, 250],
-        [300, 600],
-        [160, 600],
-        [120, 600]
-      ],
-      'labels': ['desktop']
-    },
-    {
-      'mediaQuery': '(min-width: 300px) and (max-width: 768px)',
-      'sizesSupported': [
-        [320, 50],
-        [300, 250]
-      ],
-      'labels': ['phone']
-    }
-  ]}}`) ||
- ''
   const { adsAmp: { dataSlot } = {} } = siteProperties
-  const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}${hbOjo}},function(d){console.log("Advertisement has loaded...",d)});`
+  const initAds = `"use strict";var arcAds=new ArcAds({dfp:{id:"${dataSlot}"}},function(d){console.log("Advertisement has loaded...",d)});`
 
   const lazyLoadFunction = `"use strict";window.addLazyLoadToAd=function(e){if("IntersectionObserver"in window){var n=(e||{}).adId;if(n)return new Promise(function(e){var o=new IntersectionObserver(function(n,o){n.forEach(function(n){n.isIntersecting&&(console.log("resolved!!!!"),e(),o.unobserve(n.target))})},{rootMargin:"0px 0px 500px 0px"});document.getElementById(n)&&o.observe(document.getElementById(n))})}};`
 
@@ -174,28 +135,6 @@ const Dfp = ({ isFuature, adId }) => {
         }
         if (islazyload) {
           formatSpace.prerender = '<::window.addLazyLoadToAd::>'
-        }
-
-        if(indPrebidDfp){
-          if(space === 'top'){
-            formatSpace.bidding=siteProperties.top
-          }else if(space === 'caja1'){
-            formatSpace.bidding=siteProperties.caja1
-          }else if(space === 'caja2'){
-            formatSpace.bidding=siteProperties.caja2
-          }else if(space === 'caja3'){
-            formatSpace.bidding=siteProperties.caja3
-          }else if(space === 'caja4'){
-            formatSpace.bidding=siteProperties.caja4
-          }else if(space === 'caja5'){
-            formatSpace.bidding=siteProperties.caja5
-          }else if(space === 'laterall'){
-            formatSpace.bidding=siteProperties.laterall
-          }else if(space === 'lateralr'){
-            formatSpace.bidding=siteProperties.lateralr
-          }else if(space === 'zocalo'){
-            formatSpace.bidding=siteProperties.zocalo
-          }
         }
         return formatSpace
       }
