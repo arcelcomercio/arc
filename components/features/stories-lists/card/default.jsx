@@ -11,6 +11,8 @@ import List from './_children/list'
 import Footer from './_children/footer'
 import { includePromoItems } from '../../../utilities/included-fields'
 
+const SECTION_SOURCE = 'story-feed-by-section'
+
 const classes = {
   lista:
     'stories-l-card bg-white flex flex-col overflow-hidden border-1 border-solid border-base',
@@ -21,6 +23,7 @@ const StoriesListCard = props => {
   const {
     customFields: {
       section,
+      excludedSections,
       storiesQty,
       titleList,
       urlTitle,
@@ -34,16 +37,17 @@ const StoriesListCard = props => {
 
   const params = {
     section,
-    excludeSections: '/impresa',
+    excludedSections,
     stories_qty: storiesQty,
     presets: 'landscape_md:314x157',
     includedFields: seeImageNews
       ? `websites.${arcSite}.website_url,headlines.basic,display_date,${includePromoItems}`
       : `websites.${arcSite}.website_url,headlines.basic,display_date`,
   }
+
   const data =
     useContent({
-      source: 'story-feed-by-section',
+      source: SECTION_SOURCE,
       query: params,
       filter: schemaFilter(arcSite, seeImageNews),
     }) || {}

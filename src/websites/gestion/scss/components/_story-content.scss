@@ -3,6 +3,11 @@
     font-family: $tertiary-font;
     color: $color-gray-200;
   }
+  &__author-link,
+  &__author-email {
+    font-weight: 700;
+    font-family: $primary-font;
+  }
   &__author-link {
     font-family: $primary-font;
     color: $color-primary;
@@ -14,11 +19,6 @@
     @media (--tablet) {
       font-size: 19px;
     }
-  }
-  &__author-link,
-  &__author-email {
-    font-weight: 700;
-    font-family: $primary-font;
   }
   &__date {
     font-family: $tertiary-font;
@@ -64,8 +64,8 @@
       font-weight: 700;
     }
   }
-  .powa-shot-play-icon:before {
-    content: '\e905';
+  .powa-shot-play-icon::before {
+    content: "\e905";
   }
 }
 ul.story-content__list {

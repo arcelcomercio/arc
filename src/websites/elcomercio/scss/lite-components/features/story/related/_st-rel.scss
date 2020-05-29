@@ -1,6 +1,6 @@
 .st-rel {
   margin: 0 20px 14px 20px;
-  border-top: 1px solid #888888;
+  border-top: 1px solid #888;
   padding-top: 20px;
   &__title {
     font: 700 14px/18px $primary-font;
@@ -22,11 +22,9 @@
     margin-right: 10px;
   }
 
-  &__multimedia {
-  }
   &__author {
-    letter-spacing: 0px;
-    color: #888888;
+    letter-spacing: 0;
+    color: #888;
     font: 700 11px/15px $primary-font;
     text-transform: uppercase;
   }
@@ -43,7 +41,8 @@
     font: 700 16px/22px $primary-font;
     letter-spacing: 0;
     color: #111;
-    padding-right: 15px;
+
+    /* padding-right: 15px; */
     padding: 0 30px 5px 0;
     @media (--desktop) {
       padding-right: 30px;

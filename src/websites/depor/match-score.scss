@@ -1,0 +1,55 @@
+/******* Base *******/
+@import "./scss/partials/import-fonts";
+@import "./scss/partials/import-icons";
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+@import "./scss/partials/base";
+@import "../../general-styles/framework/core/index";
+@import "../../general-styles/framework/generators/index";
+
+/******* General components *******/
+@import "../../general-styles/components/features/header/header-full";
+@import "../../general-styles/components/features/layout/navbar/nav";
+@import "../../general-styles/components/features/layout/navbar-no-menu/navbar-nm";
+@import "../../general-styles/components/features/layout/footer/footer-secondary";
+
+@import "../../general-styles/components/features/story/story-header-amp";
+@import "../../general-styles/components/features/story/related-internal";
+@import "../../general-styles/components/features/story/author-title/author-title";
+@import "../../general-styles/components/features/story/content/related-content";
+@import "../../general-styles/components/features/story/content/related-internal";
+@import "../../general-styles/components/features/story/content/story-content";
+@import "../../general-styles/components/features/story/content/story-tags";
+@import "../../general-styles/components/features/story/content/amp-story-content";
+@import "../../general-styles/components/features/story/content/amp-story-tags";
+@import "../../general-styles/components/features/story/continue/story-continue";
+@import "../../general-styles/components/features/story/header/story-gallery-slider";
+@import "../../general-styles/components/features/story/header/story-gallery";
+@import "../../general-styles/components/features/story/header/story-header";
+@import "../../general-styles/components/features/story/interest/story-interest.scss";
+@import "../../general-styles/components/features/story/interest/amp-story-interest";
+@import "../../general-styles/components/features/story/separator/story-separator";
+@import "../../general-styles/components/features/story/special-header/special-header";
+@import "../../general-styles/components/features/story/story/story";
+@import "../../general-styles/components/features/stories-lists/linked-by-brand/linked-by-brand";
+@import "../../general-styles/components/features/story/opta-commentary/direct";
+
+/******* Components of brand *******/
+@import "./scss/components/layout/navbar-no-menu/navbar-nm";
+@import "./scss/components/layout/navbar/nav-story";
+@import "./scss/components/layout/footer/amp-footer";
+@import "./scss/components/layout/footer/footer-story";
+@import "./scss/components/layout/footer/footer";
+@import "./scss/components/header/header-full";
+@import "./scss/components/header/megamenu";
+@import "./scss/components/header/match-nav/navegation-tabs";
+@import "./scss/components/cards/live-score-minute-to-minute/score";
+@import "./scss/components/story/contents/related-content";
+@import "./scss/components/story/contents/story-content";
+@import "./scss/components/story/continue/story-continue";
+@import "./scss/components/story/header/story-gallery-slider";
+@import "./scss/components/story/header/story-header";
+@import "./scss/components/story/interest/story-interest.scss";
+@import "./scss/components/story/most-read/most-read-item";
+@import "./scss/components/story/most-read/most-read";
+@import "./scss/components/story/story/story";

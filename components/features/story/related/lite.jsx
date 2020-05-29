@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import getProperties from 'fusion:properties'
+/* import getProperties from 'fusion:properties' */
 
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import StoryContentChildRelated from './_lite/_children/item'
@@ -30,7 +30,7 @@ const StoryRelated = () => {
     isAdmin,
   } = useFusionContext()
 
-  const { nameStoryRelated } = getProperties(arcSite)
+  /* const { nameStoryRelated } = getProperties(arcSite) */
 
   const {
     related_content: { basic: relatedContent = [] } = {},
