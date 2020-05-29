@@ -21,7 +21,7 @@
   &__sites,
   &__sites-link {
     font-family: $primary-font;
-    color: $color-base-500;
+    color: $color-white;
   }
   &__sites-link,
   &__legal-item,
@@ -74,8 +74,5 @@
     &:after {
       background-color: $color-base-500;
     }
-  }
-  &__legal-item {
-    color: #c8c8c8;
   }
 }
