@@ -38,11 +38,15 @@ export const Content = styled.div`
     padding: 40px 100px;
     align-items: center;
     flex: 1;
+    ${theme.breakpoints.down('md')} {
+      padding: 30px 80px;
+    }
     ${theme.breakpoints.down('xs')} {
       padding: 30px;
     }
     ${theme.breakpoints.only('sm')} {
       min-height: 500px;
+      padding: 40px 100px;
     }
   `}
 `
@@ -146,7 +150,7 @@ export const Progress = styled(ProgressComponent)`
   bottom: -7px;
 `
 export const Panel = styled(PanelComponent)`
-  ${({ theme, elevation= 1  }) => css`
+  ${({ theme, elevation = 1 }) => css`
     box-shadow: ${theme.shadows[elevation]};
     border-radius: 5px;
     background-color: #fff;
