@@ -226,7 +226,9 @@ export default ({
     globalContent,
   }
   const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
-  const structuredTaboola = ` window._taboola = window._taboola || []; _taboola.push({flush: true});`
+  const structuredTaboola = ` 
+    window._taboola = window._taboola || [];
+    _taboola.push({flush: true});`
 
   const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
