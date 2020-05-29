@@ -117,5 +117,5 @@ export default {
   taboola: {
     dataModeAmp: 'thumbnails-e',
     mode: 'thumbnails-a',
-  }
+  },
 }
