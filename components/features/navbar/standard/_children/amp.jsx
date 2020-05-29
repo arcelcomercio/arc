@@ -12,7 +12,7 @@ const classes = {
   btnContainer: 'flex items-center justify-end header__btn-container',
 }
 
-const NavBarDefault = () => {
+const NavBarDefault = ({ hideMenu }) => {
   const tapSidebar = 'tap:sidebar.toggle'
   return (
     <>
@@ -20,15 +20,17 @@ const NavBarDefault = () => {
         <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
 
-          <div className={classes.navBtnContainer}>
-            <button
-              type="button"
-              // eslint-disable-next-line react/no-unknown-property
-              tabindex="0"
-              on={tapSidebar}
-              className={classes.iconMenu}
-            />
-          </div>
+          {!hideMenu && (
+            <div className={classes.navBtnContainer}>
+              <button
+                type="button"
+                // eslint-disable-next-line react/no-unknown-property
+                tabindex="0"
+                on={tapSidebar}
+                className={classes.iconMenu}
+              />
+            </div>
+          )}
 
           {/** ************* RIGHT *************** */}
 

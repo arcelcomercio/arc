@@ -22,6 +22,7 @@ import StoryData from '../utilities/story-data'
 
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
+import videoScript from './_dependencies/lite/video-script'
 
 export default ({
   children,
@@ -110,6 +111,20 @@ export default ({
     Resource,
     isHome,
   }
+
+  const getPrebid = () => {
+    let prebid = true
+    if (
+      (arcSite === 'elcomercio') ||
+      (arcSite === 'elcomerciomag' && requestUri.match(`^/virales`) ||
+      requestUri.match(`^/respuestas`)) ||
+      (arcSite === 'peru21' && requestUri.match(`^/cheka`))
+    ) {
+      prebid = false
+    }
+    return prebid
+  }
+  const indPrebid = getPrebid()
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -207,71 +222,19 @@ export default ({
     globalContent,
   }
   const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
-  const structuredTaboola = ` 
-    window._taboola = window._taboola || [];
-    _taboola.push({flush: true});`
+  const structuredTaboola = ` window._taboola = window._taboola || []; _taboola.push({flush: true});`
 
   const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const nodas = skipAdvertising(tags)
 
   const isLivePage = arcSite === 'elcomercio' && requestUri.match(`^/en-vivo/`)
 
-  const structuredBBC = `
-  !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
+  const structuredBBC = `!function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
   (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
   s_bbcws('partner', 'elcomercio.pe');
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-  const scriptVideo = `
- const videoObserver = (entries, observer) => {
-  entries.forEach(entry => {
-    const { isIntersecting, target } = entry
-    if (isIntersecting) {
-      const uuid = target.getAttribute('data-uuid')
-      const preroll = target.getAttribute('data-preroll')
-      const api = target.getAttribute('data-api')
-      const poster = target.getAttribute('data-poster')
-      const streams = target.getAttribute('data-streams')
-      const reziser = target.getAttribute('data-reziser')
-      const dataVideo = '<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${CURRENT_ENVIRONMENT}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${CURRENT_ENVIRONMENT}" data-preload=none ></div>'
-      target.innerHTML = dataVideo.replace(/{uuid}/mg,uuid).replace(/{stream}/mg,streams)
-      if (window.powaBoot) window.powaBoot()
-      setTimeout(function(){  
-        if (window.PoWaSettings) {
-          window.preroll = preroll
-          window.PoWaSettings.advertising = {
-            adBar: false,
-            adTag: preroll,
-          }
-        }
-      }, 1000);
-
-      window.addEventListener('powaRender',
-        function () {
-          setTimeout(function(){  
-            target.classList.remove("powa-default")
-          }, 1000);
-        }
-     )
-  
-      observer.unobserve(target)
-    }
-  })
-}
-
-if ('IntersectionObserver' in window) {
-  const options = {
-    rootMargin: '0px 0px 0px 0px',
-  }
-  const videos = Array.from(document.querySelectorAll('.lazyload-video'))
-  videos.forEach(video => {
-         const observer = new IntersectionObserver(videoObserver, options)
-      observer.observe(video)
-      
-  })
-}
-`
   const {
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
@@ -296,17 +259,7 @@ if ('IntersectionObserver' in window) {
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
-  const stylePwa = `
-    .powa-shot { position: absolute; color: rgb(240, 248, 255); font-family: "HelveticaNeue", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;    z-index: 1;    width: 100%; height: 100%;    top: 0px;    left: 0px;}
-    .powa-shot-image { position: absolute; width: 100%; height: 100%; overflow: hidden; background-size: cover;         background-repeat: no-repeat;        background-position: center;        display: flex;         align-items: center;        justify-content: space-around;   }
-    .powa-shot-play-btn { position: absolute; bottom: 30px;     left: 30px;    }  
-    .powa-play-btn { transform: inherit; }
-    .powa-default{ background-color: #000;  height: 345px;  }
-    @media only screen and (max-width: 600px) { 
-    .powa-default {
-      height: 157px;
-    }}
-    `
+  const stylePwa = `.powa-shot{position:absolute;color:#f0f8ff;font-family:HelveticaNeue,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;z-index:1;width:100%;height:100%;top:0;left:0}.powa-shot-image{position:absolute;width:100%;height:100%;overflow:hidden;background-size:cover;background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:space-around}.powa-shot-play-btn{position:absolute;bottom:30px;left:30px}.powa-play-btn{transform:inherit}.powa-default{background-color:#000;height:345px}@media only screen and (max-width:600px){.powa-default{height:157px}}`
 
   let style = 'style'
   if (
@@ -338,26 +291,6 @@ if ('IntersectionObserver' in window) {
   return (
     <html lang="es">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-          if(typeof window !== "undefined"){
-            window.requestIdle = window.requestIdleCallback ||
-            function (cb) {
-              const start = Date.now();
-              return setTimeout(function () {
-                cb({
-                  didTimeout: false,
-                  timeRemaining: function () {
-                    return Math.max(0, 50 - (Date.now() - start));
-                  },
-                });
-              }, 1);
-            };
-          }
-          `,
-          }}
-        />
         <TagManager {...siteProperties} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -479,8 +412,7 @@ if ('IntersectionObserver' in window) {
         {/* Scripts de AdManager */}
         {!nodas && !isLivePage && (
           <>
-            {((arcSite === 'ojo' && requestUri.match('^/ojo-show')) ||
-              arcSite === 'depor') && (
+            {indPrebid &&(
               <script
                 defer
                 src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
@@ -645,7 +577,9 @@ if ('IntersectionObserver' in window) {
             <script
               type="text/javascript"
               defer
-              dangerouslySetInnerHTML={{ __html: scriptVideo }}
+              dangerouslySetInnerHTML={{
+                __html: videoScript(CURRENT_ENVIRONMENT),
+              }}
             />
           </>
         )}

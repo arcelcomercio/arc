@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
+  hideMenu: PropTypes.bool.tag({
+    name: 'Ocultar menu',
+    defaultValue: false,
+  }),
   showDate: PropTypes.bool.tag({
     name: 'Mostrar fecha',
     defaultValue: false,

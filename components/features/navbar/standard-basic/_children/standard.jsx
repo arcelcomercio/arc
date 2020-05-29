@@ -129,6 +129,7 @@ class NavBarDefault extends PureComponent {
       siteProperties,
       // contextPath,
       deviceList,
+      hideMenu,
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
@@ -165,13 +166,15 @@ class NavBarDefault extends PureComponent {
               </div>
             </div>
 
-            <div className={classes.navBtnContainer}>
-              <Button
-                iconClass={classes.iconMenu}
-                btnClass={classes.btnSection}
-                btnText="Menú"
-              />
-            </div>
+            {!hideMenu && (
+              <div className={classes.navBtnContainer}>
+                <Button
+                  iconClass={classes.iconMenu}
+                  btnClass={classes.btnSection}
+                  btnText="Menú"
+                />
+              </div>
+            )}
 
             {/** ************* MIDDLE *************** */}
             <div className={classes.listContainer}>
@@ -334,7 +337,7 @@ class NavBarDefault extends PureComponent {
               </div>
             </div>
           </div>
-          <Menu sections={sections} />
+          {!hideMenu && <Menu sections={sections} />}
         </nav>
         <div id="nav-pointer"></div>
         <script
@@ -350,7 +353,7 @@ class NavBarDefault extends PureComponent {
               siteProperties.activeSignwall
                 ? getBtnSignScript(_env, arcSite)
                 : ''
-            }${navBarLoaderScript}`,
+            }${hideMenu ? '' : navBarLoaderScript}`,
           }}
         />
 

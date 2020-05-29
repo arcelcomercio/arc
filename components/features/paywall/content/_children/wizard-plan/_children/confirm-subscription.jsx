@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components'
 import Modal from '../../../../_children/modal'
 import { useStrings } from '../../../../_children/contexts'
 import Markdown from '../../../../_children/markdown'
+import Taggeo from '../../../../_dependencies/taggeo'
 
 export default ({
   onConfirm = i => i,
@@ -31,6 +32,10 @@ export default ({
                 href="#"
                 onClick={e => {
                   e.preventDefault()
+                  Taggeo(
+                    'Web_Paywall_Landing',
+                    'web_paywall_profile_validation'
+                  )
                   window.open(linkProfile)
                 }}>
                 {linkText}

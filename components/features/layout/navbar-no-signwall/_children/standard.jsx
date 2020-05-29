@@ -146,11 +146,13 @@ class NavBarDefault extends PureComponent {
     this.listContainer = document.querySelector('.nav-sidebar')
     this.layerBackground = document.querySelector('.layer')
     const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+    const { hideMenu } = this.props
 
     if (
       this.listContainer !== null &&
       this.listContainer !== 'undefined' &&
-      !isIOS
+      !isIOS &&
+      !hideMenu
     ) {
       document.body.addEventListener('touchstart', this._initDrag, {
         passive: true,
@@ -163,7 +165,11 @@ class NavBarDefault extends PureComponent {
       })
     }
 
-    if (this.layerBackground !== null && this.layerBackground !== 'undefined') {
+    if (
+      this.layerBackground !== null &&
+      this.layerBackground !== 'undefined' &&
+      !hideMenu
+    ) {
       this.layerBackground.addEventListener('click', () => {
         this.toggleBodyOverflow()
         this._closeMenu()
@@ -381,6 +387,7 @@ class NavBarDefault extends PureComponent {
       siteProperties,
       contextPath,
       deviceList,
+      hideMenu,
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
@@ -444,14 +451,16 @@ class NavBarDefault extends PureComponent {
               </form>
             </div>
 
-            <div className={classes.navBtnContainer}>
-              <Button
-                iconClass={classes.iconMenu}
-                btnClass={classes.btnSection}
-                btnText="Menú"
-                onClick={this._handleToggleSectionElements}
-              />
-            </div>
+            {!hideMenu && (
+              <div className={classes.navBtnContainer}>
+                <Button
+                  iconClass={classes.iconMenu}
+                  btnClass={classes.btnSection}
+                  btnText="Menú"
+                  onClick={this._handleToggleSectionElements}
+                />
+              </div>
+            )}
 
             {/** ************* MIDDLE *************** */}
             <div className={classes.listContainer}>
@@ -572,13 +581,17 @@ class NavBarDefault extends PureComponent {
               </div>
             ) /** TODO: temporal */}
           </div>
-          <Menu
-            sections={sections}
-            showSidebar={statusSidebar}
-            contextPath={contextPath}
-            siteProperties={siteProperties}
-          />
-          <div className="layer" />
+          {!hideMenu && (
+            <>
+              <Menu
+                sections={sections}
+                showSidebar={statusSidebar}
+                contextPath={contextPath}
+                siteProperties={siteProperties}
+              />
+              <div className="layer" />
+            </>
+          )}
         </nav>
       </>
     )

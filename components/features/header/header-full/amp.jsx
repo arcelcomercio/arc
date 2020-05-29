@@ -2,9 +2,9 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import NavBarAmp from '../../layout/navbar/_children/amp'
+import NavBarAmp from '../../navbar/standard/_children/amp'
 import Formatter from '../../layout/navbar/_dependencies/formatter'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const classes = {
   header: 'amp-header w-full position-absolute mx-auto',
@@ -61,19 +61,12 @@ class LayoutNavbarAmp extends PureComponent {
     }
   }
 
-  renderNavBar() {
-    const { customFields: { selectDesing } = {} } = this.props
+  render() {
     const { data } = this.state
-    const NavBarType = {
-      standard: <NavBarAmp data={data} {...this.formater.main.initParams} />,
-    }
-    return NavBarType[selectDesing] || NavBarType.standard
-  }
-
-  renderNavBarHeader() {
     const {
       contextPath,
       arcSite,
+      customFields: { hideMenu } = {},
       siteProperties: {
         assets: { seo: { widthAmp = '', heightAmp = '' } = {} } = {},
       },
@@ -85,6 +78,11 @@ class LayoutNavbarAmp extends PureComponent {
 
     return (
       <>
+        <NavBarAmp
+          data={data}
+          {...this.formater.main.initParams}
+          hideMenu={hideMenu}
+        />
         <header className={classes.header}>
           <section className={classes.wrap}>
             <div className={classes.logo}>
@@ -108,15 +106,6 @@ class LayoutNavbarAmp extends PureComponent {
       </>
     )
   }
-
-  render() {
-    return (
-      <>
-        {this.renderNavBar()}
-        {this.renderNavBarHeader()}
-      </>
-    )
-  }
 }
 
 LayoutNavbarAmp.propTypes = {
@@ -128,6 +117,10 @@ LayoutNavbarAmp.propTypes = {
         somos: 'Barra de navegación somos',
       },
       defaultValue: 'standard',
+    }),
+    hideMenu: PropTypes.bool.tag({
+      name: 'Ocultar menu',
+      defaultValue: true,
     }),
     showInDesktop: PropTypes.bool.tag({
       name: 'Mostrar en desktop',

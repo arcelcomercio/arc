@@ -16,7 +16,7 @@ import renderMetaPage from './_children/render-meta-page'
 import LiteAds from './_children/lite-ads'
 import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
-import videoScript from './_dependencies/video-script'
+import videoScript from './_dependencies/lite/video-script'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
@@ -250,22 +250,23 @@ const LiteOutput = ({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-          if(typeof window !== "undefined"){
-            window.requestIdle = window.requestIdleCallback ||
-            function (cb) {
-              const start = Date.now();
-              return setTimeout(function () {
-                cb({
-                  didTimeout: false,
-                  timeRemaining: function () {
-                    return Math.max(0, 50 - (Date.now() - start));
-                  },
-                });
-              }, 1);
-            };
-          }
-          `,
+            /**
+             * if(typeof window !== "undefined"){
+                window.requestIdle = window.requestIdleCallback ||
+                function (cb) {
+                  const start = Date.now();
+                  return setTimeout(function () {
+                    cb({
+                      didTimeout: false,
+                      timeRemaining: function () {
+                        return Math.max(0, 50 - (Date.now() - start));
+                      },
+                    });
+                  }, 1);
+                };
+              }
+            */
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
           }}
         />
         <TagManager {...parameters} />
@@ -483,7 +484,7 @@ const LiteOutput = ({
 
             <script
               dangerouslySetInnerHTML={{
-                __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.setTimeout(loadDeferredStyles,0)});else window.addEventListener("load",loadDeferredStyles)`,
+                __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.requestIdle(loadDeferredStyles)});else window.addEventListener("load",loadDeferredStyles)`,
               }}
             />
           </>
