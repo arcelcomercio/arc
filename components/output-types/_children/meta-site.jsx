@@ -9,7 +9,7 @@ import { getAssetsPath } from '../../utilities/constants'
 
 export default ({
   deployment,
-  // isStory,
+  idMatch,
   isAmp,
   siteName = '',
   siteUrl = '',
@@ -61,13 +61,16 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
+  const isStoryMatch = isStory !== '' && idMatch !== ''
   let style = 'style'
+
   if (
     isStory &&
     (arcSite === 'elcomercio' || arcSite === 'depor') &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
+  else if (isStoryMatch && arcSite === 'depor') style = 'match-score'
   else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
     style = 'story'
   else if (

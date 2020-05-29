@@ -7,6 +7,7 @@ import {
   nbspToSpace,
   isEmpty,
 } from '../../../../utilities/helpers'
+import recommederBySite from '../_children/recommeder-by-site'
 import { getResultVideo } from '../../../../utilities/story/helpers'
 
 const buildIframeAdvertising = urlAdvertising => {
@@ -414,6 +415,7 @@ const BuildHtml = ({
   getPremiumValue,
   siteUrl,
   defaultImage,
+  recommenderData,
   videoPrincipal = [],
 }) => {
   const firstAdd = 100
@@ -500,6 +502,7 @@ const BuildHtml = ({
           </ul>`
             : ''
         }
+        ${recommederBySite({ data: recommenderData, arcSite })}
         `
           : ''
       }

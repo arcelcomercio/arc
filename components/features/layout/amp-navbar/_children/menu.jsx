@@ -37,12 +37,27 @@ class NavbarChildMenu extends PureComponent {
           _id: id = '',
           display_name: displayName = '',
           url = '',
+          styles = [],
         }) => {
           const idElem = `${nameId}-${name || displayName}`.toLowerCase()
+          const styleCustom = {}
+          if (styles.length > 0) {
+            const [backgroundCustom, letterColorCustom] = styles
+            styleCustom.backgroundColor = backgroundCustom
+            styleCustom.color = letterColorCustom
+          }
           return (
-            <li className={classes.item} key={`navbar-menu-${url || id}`}>
+            <li
+              className={classes.item}
+              style={styleCustom}
+              key={`navbar-menu-${url || id}`}>
               <a
                 href={url || id || '/'}
+                {...(styles.length > 0 && {
+                  style: {
+                    color: styles[1] || '#ffffff',
+                  },
+                })}
                 className={`${classes.link}${
                   deep > 0 ? ` pl-${15 + deep * 15}` : ''
                 }`}>

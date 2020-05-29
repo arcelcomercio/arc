@@ -53,8 +53,40 @@ const LayoutNavbar = props => {
     siteUrl,
   }
 
+  const formatData = (datas = {}) => {
+    const LINK = 'link'
+    const { children = [] } = datas || {}
+    return children.map(child => {
+      let name = child.node_type === LINK ? child.display_name : child.name
+      const rawMatch = name.match(/\[#.*\]/g)
+      const match =
+        rawMatch === null
+          ? []
+          : rawMatch[0]
+              .replace('[', '')
+              .replace(']', '')
+              .split(',')
+      if (match) {
+        name = name.replace(/\[#.*\]/g, '')
+      }
+      return {
+        name,
+        url: child.node_type === LINK ? child.url : child._id,
+        styles: match,
+
+        children: child.children,
+        _id: child._id,
+        display_name: child.display_name,
+      }
+    })
+  }
+
+  const dataFormat = {
+    children: formatData(data),
+  }
+
   const NavBarType = {
-    standard: <Menu data={data} {...parameters} />,
+    standard: <Menu data={dataFormat} {...parameters} />,
   }
   return NavBarType.standard
 }

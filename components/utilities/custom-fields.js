@@ -54,3 +54,8 @@ export const containerClass = PropTypes.oneOf(['', 'con-class']).tag({
   defaultValue: '',
   group: 'Dimensiones',
 })
+
+export const containerCustomClass = PropTypes.string.tag({
+  name: 'Clase de contenedor personalizada',
+  group: 'Dimensiones',
+})

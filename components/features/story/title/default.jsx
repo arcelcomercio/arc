@@ -1,12 +1,6 @@
 import React from 'react'
-import {
-  SITE_ELCOMERCIO,
-  SITE_ELCOMERCIOMAG,
-  SITE_PERU21,
-  SITE_GESTION,
-} from '../../../utilities/constants/sitenames'
-
 import { useFusionContext } from 'fusion:context'
+import { SITE_GESTION } from '../../../utilities/constants/sitenames'
 
 import StoryTitleChildHeading from './_children/heading'
 import StoryTitleChildShareSubheading from './_children/subheading'
