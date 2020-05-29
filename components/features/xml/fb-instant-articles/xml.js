@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+import getProperties from 'fusion:properties'
 import md5 from 'md5'
 import StoryData from '../../../utilities/story-data'
 import {
@@ -9,6 +10,13 @@ import {
   formattedTime,
 } from '../../../utilities/helpers'
 import buildHtml from './_dependencies/build-html'
+import customFields from './_dependencies/custom-fields'
+import { includePromoItems } from '../../../utilities/included-fields'
+import schemaFilter from '../../stories-lists/recommender-by-site/_dependencies/schema-filter'
+import {
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+} from '../../../utilities/constants/sitenames'
 
 /**
  * @description Feed para Facebook Instant Articles.
@@ -27,9 +35,69 @@ class XmlFacebookInstantArticles {
     const {
       globalContent,
       siteProperties: { siteDomain = '' },
+      arcSite,
     } = props
     const { content_elements: stories = [] } = globalContent || {}
     this.stories = stories
+
+    // Módulo recomendador por marca
+    if (arcSite === SITE_ELCOMERCIO || arcSite === SITE_ELCOMERCIOMAG) {
+      const {
+        customFields: {
+          enabledContentManual,
+          storiesManualConfig: {
+            contentService: contentServiceManual = '',
+            contentConfigValues: contentConfigManualValues = {},
+          } = {},
+          storiesConfig: { contentService = '', contentConfigValues = {} } = {},
+          titleField = '',
+        } = {},
+      } = this.props
+      const { website: websiteRecommenderManual } = contentConfigManualValues
+      const { website: websiteRecommender } = contentConfigValues
+      const { siteUrl: siteUrlRecommenderManual } =
+        getProperties(websiteRecommenderManual || arcSite) || {}
+      const { siteUrl: siteUrlRecommender } =
+        getProperties(websiteRecommender || arcSite) || {}
+      const presets = 'no-presets'
+      const includedFieldsManual = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteRecommenderManual ||
+        arcSite}.website_url`
+      const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteRecommender ||
+        arcSite}.website_url`
+
+      this.state = {
+        websiteRecommenderManual,
+        websiteRecommender,
+        siteUrlRecommenderManual,
+        siteUrlRecommender,
+        titleRecommender: titleField,
+      }
+
+      if (enabledContentManual)
+        this.fetchContent({
+          recommenderDataManual: {
+            source: contentServiceManual,
+            query: Object.assign(contentConfigManualValues, {
+              presets,
+              includedFieldsManual,
+            }),
+            filter: schemaFilter(websiteRecommenderManual || arcSite),
+          },
+        })
+
+      this.fetchContent({
+        recommenderData: {
+          source: contentService,
+          query: Object.assign(contentConfigValues, {
+            presets,
+            includedFields,
+          }),
+          filter: schemaFilter(websiteRecommender || arcSite),
+        },
+      })
+    }
+    // FIN recomendador por marca
+
     if (siteDomain === 'elcomercio.pe') {
       this.fetchContent({
         magStories: {
@@ -73,6 +141,29 @@ class XmlFacebookInstantArticles {
       arcSite,
       defaultImgSize: 'sm',
     })
+
+    const {
+      websiteRecommender = '',
+      websiteRecommenderManual = '',
+      titleRecommender = '',
+      siteUrlRecommenderManual = '',
+      siteUrlRecommender = '',
+      recommenderDataManual = {},
+      recommenderData: recommenderDa = {},
+    } = this.state || {}
+    const { content_elements: contentElementsRecommenderManual = [] } =
+      recommenderDataManual || {}
+    const { content_elements: contentElementsRecommender = [] } =
+      recommenderDa || {}
+    const recommenderData = {
+      dataOne: contentElementsRecommenderManual,
+      dataTwo: contentElementsRecommender,
+      websiteOne: websiteRecommenderManual,
+      websiteTwo: websiteRecommender,
+      siteUrlOne: siteUrlRecommenderManual,
+      siteUrlTwo: siteUrlRecommender,
+      title: titleRecommender,
+    }
 
     const fbInstantArticlesFeed = {
       rss: {
@@ -165,6 +256,7 @@ class XmlFacebookInstantArticles {
                 siteUrl,
                 opta,
                 defaultImage: storyData.defaultImg,
+                recommenderData,
                 videoPrincipal: storyData.videoStreams,
               }
 
@@ -200,5 +292,10 @@ class XmlFacebookInstantArticles {
     return fbInstantArticlesFeed
   }
 }
+
+XmlFacebookInstantArticles.propTypes = {
+  customFields,
+}
+XmlFacebookInstantArticles.static = true
 
 export default XmlFacebookInstantArticles
