@@ -115,6 +115,7 @@ export default ({
   mobileHeaderFollowing,
   siteDomain,
   legalLinks,
+  hideMenu,
 }) => {
   const arcSiteTrome = 'trome'
 
@@ -170,108 +171,119 @@ export default ({
       <div data-story-header={`${isStory}`} className={classes.headerFull}>
         <div className={classes.container}>
           <div className={classes.left}>
-            <div className={classes.boxBtnMenu}>
-              <button type="button" className={classes.btnMenu} id="btn-menu">
-                <i aria-label="menú" className={classes.iconMenu} />
-              </button>
-            </div>
-            <div className={classes.wrapperMenu}>
-              <div className={classes.topMenu}>
-                <div className={classes.topLeft}>
+            {!hideMenu && (
+              <>
+                <div className={classes.boxBtnMenu}>
                   <button
                     type="button"
-                    className={classes.btnClose}
-                    id="btn-close-menu">
-                    <i className={classes.iconClose} />
+                    className={classes.btnMenu}
+                    id="btn-menu">
+                    <i aria-label="menú" className={classes.iconMenu} />
                   </button>
                 </div>
-                <div className={classes.topRight}>
-                  <img
-                    className={classes.imgMenu}
-                    alt="Logo del sitio"
-                    src={whiteLogo}
-                  />
+                <div className={classes.wrapperMenu}>
+                  <div className={classes.topMenu}>
+                    <div className={classes.topLeft}>
+                      <button
+                        type="button"
+                        className={classes.btnClose}
+                        id="btn-close-menu">
+                        <i className={classes.iconClose} />
+                      </button>
+                    </div>
+                    <div className={classes.topRight}>
+                      <img
+                        className={classes.imgMenu}
+                        alt="Logo del sitio"
+                        src={whiteLogo}
+                      />
+                    </div>
+                  </div>
+                  <div className={classes.boxSearch}>
+                    <form
+                      id="header-search-form"
+                      className={classes.formSearch}>
+                      <input
+                        id="header-search-input"
+                        type="search"
+                        placeholder="Buscar"
+                        className={classes.inputSearch}
+                      />
+                      <label
+                        htmlFor="header-search-input"
+                        className="overflow-hidden w-0 h-0">
+                        Cuadro de búsqueda
+                      </label>
+                      <button type="submit" className={classes.btnSearch}>
+                        <i
+                          className={classes.iconSearch}
+                          aria-label="search button"
+                        />
+                      </button>
+                    </form>
+                  </div>
+                  <ul className={classes.headerList}>
+                    {menuList.map(item => {
+                      const hasChildren = item.children.length > 0
+                      return (
+                        <>
+                          <li className={classes.headerItem}>
+                            <a
+                              href={item.url || item._id || '/'}
+                              className={`${classes.headerLink} pt-15 pb-15`}>
+                              {item.name || item.display_name}
+                            </a>
+                            {hasChildren && (
+                              <button
+                                type="button"
+                                className={classes.angleRight}
+                                aria-label="Mostrar subsecciones"
+                              />
+                            )}
+                            {hasChildren && (
+                              <ul className={classes.subMenuList}>
+                                {item.children.map(subItem => {
+                                  return (() => {
+                                    return (
+                                      <li className={classes.subMenuItem}>
+                                        <a
+                                          href={
+                                            subItem.url || subItem._id || '/'
+                                          }
+                                          className={classes.headerLink}>
+                                          {subItem.name || subItem.display_name}
+                                        </a>
+                                      </li>
+                                    )
+                                  })()
+                                })}
+                              </ul>
+                            )}
+                          </li>
+                        </>
+                      )
+                    })}
+                  </ul>
+                  <div className={classes.footerMenu}>
+                    <p className={classes.follow}>{mobileHeaderFollowing}</p>
+                    <ul className={classes.mediaList}>
+                      {socialNetworks.map(item => {
+                        return (
+                          <li className={classes.mediaItem}>
+                            <a className={classes.mediaLink} href={item.url}>
+                              <i
+                                className={`${classes.mediaIcon} icon-${item.name}`}
+                                aria-label={item.name}
+                              />
+                            </a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div className={classes.boxSearch}>
-                <form id="header-search-form" className={classes.formSearch}>
-                  <input
-                    id="header-search-input"
-                    type="search"
-                    placeholder="Buscar"
-                    className={classes.inputSearch}
-                  />
-                  <label
-                    htmlFor="header-search-input"
-                    className="overflow-hidden w-0 h-0">
-                    Cuadro de búsqueda
-                  </label>
-                  <button type="submit" className={classes.btnSearch}>
-                    <i
-                      className={classes.iconSearch}
-                      aria-label="search button"
-                    />
-                  </button>
-                </form>
-              </div>
-              <ul className={classes.headerList}>
-                {menuList.map(item => {
-                  const hasChildren = item.children.length > 0
-                  return (
-                    <>
-                      <li className={classes.headerItem}>
-                        <a
-                          href={item.url || item._id || '/'}
-                          className={`${classes.headerLink} pt-15 pb-15`}>
-                          {item.name || item.display_name}
-                        </a>
-                        {hasChildren && (
-                          <button
-                            type="button"
-                            className={classes.angleRight}
-                            aria-label="Mostrar subsecciones"
-                          />
-                        )}
-                        {hasChildren && (
-                          <ul className={classes.subMenuList}>
-                            {item.children.map(subItem => {
-                              return (() => {
-                                return (
-                                  <li className={classes.subMenuItem}>
-                                    <a
-                                      href={subItem.url || subItem._id || '/'}
-                                      className={classes.headerLink}>
-                                      {subItem.name || subItem.display_name}
-                                    </a>
-                                  </li>
-                                )
-                              })()
-                            })}
-                          </ul>
-                        )}
-                      </li>
-                    </>
-                  )
-                })}
-              </ul>
-              <div className={classes.footerMenu}>
-                <p className={classes.follow}>{mobileHeaderFollowing}</p>
-                <ul className={classes.mediaList}>
-                  {socialNetworks.map(item => {
-                    return (
-                      <li className={classes.mediaItem}>
-                        <a className={classes.mediaLink} href={item.url}>
-                          <i
-                            className={`${classes.mediaIcon} icon-${item.name}`}
-                            aria-label={item.name}
-                          />
-                        </a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            </div>
+              </>
+            )}
             <div className={classes.boxLogo}>
               <a className={classes.linkLogo} href="/" title={siteDomain}>
                 <img src={logo} className={classes.logo} alt={siteDomain} />
@@ -295,25 +307,30 @@ export default ({
                 })}
               </ul>
             </div>
-            <div className={classes.megaMenu}>
-              <div className={classes.wrapper}>
-                <div className={classes.body}>
-                  <ul className={classes.list}>
-                    {menuList && renderSections(menuList, 0)}
-                  </ul>
-                </div>
-                <div className={classes.footer}>
-                  <a href="/" className={classes.text}>
-                    {siteDomain}
-                  </a>
-                  {legalLinks.map(link => (
-                    <a key={link.url} href={link.url} className={classes.text}>
-                      {link.name}
+            {!hideMenu && (
+              <div className={classes.megaMenu}>
+                <div className={classes.wrapper}>
+                  <div className={classes.body}>
+                    <ul className={classes.list}>
+                      {menuList && renderSections(menuList, 0)}
+                    </ul>
+                  </div>
+                  <div className={classes.footer}>
+                    <a href="/" className={classes.text}>
+                      {siteDomain}
                     </a>
-                  ))}
+                    {legalLinks.map(link => (
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        className={classes.text}>
+                        {link.name}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className={classes.right}>
@@ -370,9 +387,11 @@ export default ({
       </div>
       <script
         dangerouslySetInnerHTML={{
-          __html: `${isStory ? showMore : ''}${popup}${searchScript}${
-            isStory ? scrolled : ''
-          }${showSubmenu}${toggleMenu}`,
+          __html: `${isStory ? showMore : ''}${popup}${
+            hideMenu ? '' : searchScript
+          }${isStory ? scrolled : ''}${hideMenu ? '' : showSubmenu}${
+            hideMenu ? '' : toggleMenu
+          }`,
         }}></script>
     </>
   )

@@ -11,6 +11,10 @@ const customFields = PropTypes.shape({
       'Por defecto la url del logo es "/". Ejemplo de path: "/somos"',
     group: 'Editar logo',
   }),
+  hideMenu: PropTypes.bool.tag({
+    name: 'Ocultar menu',
+    defaultValue: true,
+  }),
 })
 
 export default customFields
