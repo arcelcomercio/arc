@@ -47,49 +47,70 @@ const params = [
 
 const getQueryFilter = (section, excludedSections, website) => {
   let queryFilter = ''
-  let body = { query: { bool: {} } }
-
-  // TODO: +AND+publish_date:%7Bnow-15d%20TO%20*%7D agregar pronto
-  // Si se filtra por seccion se usa ?body, sino, se usa ?q
-  if (section === '/') {
-    queryFilter = `q=canonical_website:${website}+AND+type:story`
-  } else {
-    body = {
-      query: {
-        bool: {
-          must: [
-            {
-              term: {
-                type: 'story',
-              },
+  const body = {
+    query: {
+      bool: {
+        must: [
+          {
+            term: {
+              type: 'story',
             },
-            {
-              nested: {
-                path: 'taxonomy.sections',
-                query: {
-                  bool: {
-                    must: [
-                      {
-                        terms: {
-                          'taxonomy.sections._id': [section],
-                        },
+          },
+          {
+            nested: {
+              path: 'taxonomy.sections',
+              query: {
+                bool: {
+                  must: [
+                    {
+                      term: {
+                        'taxonomy.sections._website': website,
                       },
-                      {
-                        term: {
-                          'taxonomy.sections._website': website,
-                        },
-                      },
-                    ],
-                  },
+                    },
+                  ],
                 },
               },
             },
-          ],
-        },
+          },
+        ],
       },
-    }
+    },
+  }
 
-    queryFilter = `body=${encodeURI(JSON.stringify(body))}`
+  // TODO: +AND+publish_date:%7Bnow-15d%20TO%20*%7D agregar pronto
+  // Si se filtra por seccion se usa ?body, sino, se usa ?q
+  if (section !== '/') {
+    body.query.bool = {
+      ...body.query.bool,
+      must: [
+        {
+          term: {
+            type: 'story',
+          },
+        },
+        {
+          nested: {
+            path: 'taxonomy.sections',
+            query: {
+              bool: {
+                must: [
+                  {
+                    terms: {
+                      'taxonomy.sections._id': [section],
+                    },
+                  },
+                  {
+                    term: {
+                      'taxonomy.sections._website': website,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    }
   }
 
   if (excludedSections !== '/') {
@@ -122,7 +143,6 @@ const getQueryFilter = (section, excludedSections, website) => {
   }
 
   queryFilter = `body=${encodeURI(JSON.stringify(body))}`
-
   return queryFilter
 }
 
