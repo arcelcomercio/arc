@@ -129,6 +129,11 @@ export default ({
     return prebid
   }
   const indPrebid = getPrebid()
+  const urlArcAds = (indPrebid) ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+  .toISOString()
+  .slice(0, 10)}` : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
+  .toISOString()
+  .slice(0, 10)}`
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -428,9 +433,7 @@ export default ({
             )}
             <script
               defer
-              src={`https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
-                .toISOString()
-                .slice(0, 10)}`}
+              src={urlArcAds}
             />
             <script
               type="text/javascript"
