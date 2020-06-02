@@ -843,28 +843,13 @@ class StoryData {
   get contentPosicionPublicidad() {
     let i = 0
     let v = 0
-    let elVideo = 0
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-
-        const site =
-          this.__website === 'elcomerciomag' &&
-          this.__website === 'trome' &&
-          true
-        // cambio temporal por comsumo de datos
-        if (typeElement === ELEMENT_VIDEO && site) {
-          if (elVideo === 0) {
-            dataElements = dataContent
-          }
-          elVideo += 1
-        } else {
-          dataElements = dataContent
-        }
-
+        dataElements = dataContent
         if (i === 2) {
           dataElements.publicidad = true
           dataElements.nameAds = `inline`
