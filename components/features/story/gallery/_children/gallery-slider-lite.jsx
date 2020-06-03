@@ -42,7 +42,7 @@ const StoryHeaderChildGallerySlider = props => {
 
   const handleGallery = `(
       function(){window.addEventListener('DOMContentLoaded', function(){
-        setTimeout(function(){
+        requestIdle(function(){
           var currentSlide = 1;
           var slideWidth = 100 / ${totalSlides};
           var dragFlag = false;
@@ -166,7 +166,7 @@ const StoryHeaderChildGallerySlider = props => {
             $slider.addEventListener('touchend', _endDrag, { passive: true })
             $slider.addEventListener('touchmove', _moveDrag, { passive: true })
           }
-        }, 0)
+        })
       })}
     )()`
 
