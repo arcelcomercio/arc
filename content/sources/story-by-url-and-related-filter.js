@@ -146,6 +146,10 @@ export default {
         photo
         title
         alt
+        prepTime
+        totalTime
+        recipeCuisine
+        recipeYield
       }
     }
     raw_oembed{
