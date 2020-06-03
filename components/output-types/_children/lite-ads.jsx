@@ -16,12 +16,12 @@ const LiteAds = () => {
           const adMobileDimensions = JSON.parse(ad.getAttribute('data-ads-dimensions-m') || "[]")
           const adId = ad.id
           if (/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)) {
-            if (adMobileDimensions) {
+            if (adMobileDimensions.length > 0) {
               googletag.cmd.push(function() {
                 googletag.defineSlot(adName, adMobileDimensions, adId).addService(googletag.pubads());
               })
             }
-          } else if (adDesktopDimensions) {
+          } else if (adDesktopDimensions.length > 0) {
               googletag.cmd.push(function() {
                 googletag.defineSlot(adName, adDesktopDimensions, adId).addService(googletag.pubads());
               })
@@ -64,7 +64,7 @@ const LiteAds = () => {
         type="text/javascript"
         dangerouslySetInnerHTML={{
           __html:
-            '"use strict";window.addEventListener("load",function(){requestIdle(function(){const e=[].slice.call(document.querySelectorAll("div[data-ads-name]"));e&&e.length>0&&(window.googletag=window.googletag||{cmd:[]},e.forEach(function(e){const o=e||{},t=window.section,a=o.getAttribute("data-ads-name").replace("snota",t),g=JSON.parse(o.getAttribute("data-ads-dimensions")||"[]"),n=JSON.parse(o.getAttribute("data-ads-dimensions-m")||"[]"),d=o.id;/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)?n&&googletag.cmd.push(function(){googletag.defineSlot(a,n,d).addService(googletag.pubads())}):g&&googletag.cmd.push(function(){googletag.defineSlot(a,g,d).addService(googletag.pubads())})}),googletag.cmd.push(function(){googletag.pubads().enableSingleRequest(),googletag.pubads().collapseEmptyDivs(),googletag.enableServices()}),e.forEach(function(e){const o=(e||{}).id;googletag.cmd.push(function(){googletag.display(o)})}))})});',
+            '"use strict";window.addEventListener("load",function(){requestIdle(function(){const e=[].slice.call(document.querySelectorAll("div[data-ads-name]"));e&&e.length>0&&(window.googletag=window.googletag||{cmd:[]},e.forEach(function(e){const o=e||{},t=window.section,a=o.getAttribute("data-ads-name").replace("snota",t),g=JSON.parse(o.getAttribute("data-ads-dimensions")||"[]"),n=JSON.parse(o.getAttribute("data-ads-dimensions-m")||"[]"),d=o.id;/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)?n.length>0&&googletag.cmd.push(function(){googletag.defineSlot(a,n,d).addService(googletag.pubads())}):g.length>0&&googletag.cmd.push(function(){googletag.defineSlot(a,g,d).addService(googletag.pubads())})}),googletag.cmd.push(function(){googletag.pubads().enableSingleRequest(),googletag.pubads().collapseEmptyDivs(),googletag.enableServices()}),e.forEach(function(e){const o=(e||{}).id;googletag.cmd.push(function(){googletag.display(o)})}))})});',
         }}
       />
     </>
