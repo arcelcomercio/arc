@@ -9,7 +9,7 @@ const classes = {
   content: 'st-sidebar__content f',
   main: 'st-sidebar__main',
   sidebar: 'st-sidebar__side',
-  zocalo: 'ads__zocalo',
+  lateral: 'ad-lateral',
 }
 
 const StorySidebarLayout = ({ children = [] }) => {
@@ -17,8 +17,8 @@ const StorySidebarLayout = ({ children = [] }) => {
     <>
       {children[0] /* Barra de navegación Amp */}
       <div className={classes.layout}>
-        <div className={classes.zocalo}>
-          {children[1] /* Zocalo izquierda */}
+        <div className={classes.lateral}>
+          {children[1] /* Lateral izquierdo */}
         </div>
         <div className={classes.contentContainer}>
           {children[2] /* Publicidad Top */}
@@ -44,8 +44,8 @@ const StorySidebarLayout = ({ children = [] }) => {
           </section>
           {children[10] /* Pie de página */}
         </div>
-        <div className={classes.zocalo}>
-          {children[11] /* Zocalo derecha */}
+        <div className={classes.lateral}>
+          {children[11] /* Lateral derecho */}
         </div>
       </div>
     </>
