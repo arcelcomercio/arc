@@ -12,7 +12,7 @@ import { getResizedUrl } from '../../../utilities/resizer'
 import {
   ELEMENT_TEXT,
   ELEMENT_LIST,
-  ELEMENT_RAW_HTML,
+  ELEMENT_CUSTOM_EMBED,
 } from '../../../utilities/constants/element-types'
 
 import { getAssetsPathVideo } from '../../../utilities/assets'
@@ -141,23 +141,25 @@ const StructuredRecipe = () => {
 
   const additionalData = () => {
     const arrayData = []
-    contentElements.forEach(({ type, content = '' }) => {
-      const jsonFormated =
-        type === ELEMENT_RAW_HTML && content !== ''
-          ? content.trim().replace(/\n/g, '')
-          : ''
-      if (/^\{(.*)\}$/.test(jsonFormated))
-        arrayData.push(JSON.parse(jsonFormated))
-    })
+    contentElements.forEach(
+      ({ type, subtype, embed: { config: configEmbed = {} } = {} }) => {
+        if (
+          type === ELEMENT_CUSTOM_EMBED &&
+          subtype === 'recipe_data' &&
+          configEmbed
+        )
+          arrayData.push(configEmbed)
+      }
+    )
     return arrayData
   }
   const {
-    tiempoPreparacion = '',
-    tiempoTotal = '',
-    tipoReceta = '',
-    capacidadReceta = '',
-    puntuacion = '',
-    cantidadRevisiones = '',
+    prepTime = '',
+    totalTime = '',
+    recipeCuisine = '',
+    recipeYield = '',
+    puntuation = '',
+    countReviews = '',
   } = additionalData()[0] || {}
 
   const videoSeoItems = videoSeo.map(
@@ -199,19 +201,27 @@ const StructuredRecipe = () => {
     "image":"${imagenData}",
     "recipeIngredient": [${ingredientList()}],
     "recipeInstructions":[${instructionsFormated()}],
-    "prepTime":"${tiempoTotal ? `PT${tiempoTotal}` : ''}",
-    "cookTime":"${tiempoPreparacion ? `PT${tiempoPreparacion}` : ''}",
+    "prepTime":"${prepTime ? `PT${prepTime}` : ''}",
+    "cookTime":"${totalTime ? `PT${totalTime}` : ''}",
     "keywords": ${keywordsList},
     "recipeCategory":"${primarySection}",
-    "recipeCuisine":"${tipoReceta}",
-    "recipeYield":"${capacidadReceta}",
-    ${videoSeo.length > 0 ? `"video": [${videoSeoItems}],` : ''}
+    "recipeCuisine":"${recipeCuisine}",
+    "recipeYield": ${
+      videoSeo.length > 0 || (puntuation && countReviews)
+        ? `"${recipeYield}",`
+        : `"${recipeYield}"`
+    }
     ${
-      puntuacion && cantidadRevisiones
+      videoSeo.length > 0
+        ? `"video": [${videoSeoItems}]${puntuation && countReviews ? ',' : ''}`
+        : ''
+    }
+    ${
+      puntuation && countReviews
         ? `"aggregateRating":{
       "@type":"AggregateRating",
-      "ratingValue":${puntuacion},
-      "reviewCount":${cantidadRevisiones}}
+      "ratingValue":${puntuation},
+      "reviewCount":${countReviews}}
     }`
         : ''
     }

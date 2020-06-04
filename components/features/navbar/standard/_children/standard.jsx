@@ -494,7 +494,7 @@ class NavBarDefault extends PureComponent {
                   </div>
 
                   <ul className="story-header__list flex justify-between">
-                    {this.shareButtons.firstList.map((item, i) => (
+                    {this.shareButtons.map((item, i) => (
                       <li
                         key={item.icon}
                         className={`story-header__item ${item.mobileClass}`}>
