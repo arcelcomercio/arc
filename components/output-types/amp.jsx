@@ -188,7 +188,7 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
-        {arcSite !== 'peru21' && arcSite !== 'ojo' && arcSite !== 'elbocon' && (
+        {arcSite !== 'peru21' && arcSite !== 'trome' && arcSite !== 'ojo' && arcSite !== 'elbocon' && (
           <script
             async
             custom-element="amp-next-page"

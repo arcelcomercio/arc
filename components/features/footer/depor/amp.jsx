@@ -74,17 +74,19 @@ const FooterDeporAmp = () => {
 
   return (
     <>
-      <>
-        <div className={classes.nextPageSeparator} separator>
-          <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
-        </div>
-        <amp-next-page>
-          <script
-            type="application/json"
-            dangerouslySetInnerHTML={{ __html: structuredRecent }}
-          />
-        </amp-next-page>
-      </>
+      {arcSite !== 'trome' && (
+        <>
+          <div className={classes.nextPageSeparator} separator>
+            <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
+          </div>
+          <amp-next-page>
+            <script
+              type="application/json"
+              dangerouslySetInnerHTML={{ __html: structuredRecent }}
+            />
+          </amp-next-page>
+        </>
+      )}
       <footer className={classes.footer}>
         <div className={classes.footerInfo}>
           <a href={primarySectionLink} className={classes.footerLogoContainer}>
