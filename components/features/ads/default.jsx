@@ -29,6 +29,7 @@ const Ads = props => {
       liteAdName,
       liteAdDimensions,
       liteAdMobileDimensions,
+      liteAdInlineStyles,
     } = {},
   } = props
 
@@ -43,6 +44,7 @@ const Ads = props => {
             data-ads-name={liteAdName}
             data-ads-dimensions={liteAdDimensions}
             data-ads-dimensions-m={liteAdMobileDimensions}
+            style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
           />
         )}
       </>
