@@ -206,7 +206,11 @@ const StructuredRecipe = () => {
     "keywords": ${keywordsList},
     "recipeCategory":"${primarySection}",
     "recipeCuisine":"${recipeCuisine}",
-    "recipeYield":"${recipeYield}",
+    "recipeYield": ${
+      videoSeo.length > 0 || (puntuation && countReviews)
+        ? `"${recipeYield}",`
+        : `"${recipeYield}"`
+    }
     ${
       videoSeo.length > 0
         ? `"video": [${videoSeoItems}]${puntuation && countReviews ? ',' : ''}`
