@@ -150,6 +150,8 @@ export default {
         totalTime
         recipeCuisine
         recipeYield
+        puntuation
+        countReviews
       }
     }
     raw_oembed{
