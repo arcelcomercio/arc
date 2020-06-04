@@ -162,10 +162,6 @@ class StoryContents extends PureComponent {
                 typeElem === ELEMENT_TEXT &&
                 skipElementsRecipe &&
                 skipElementsRecipe.includes(el)
-              ) &&
-              !(
-                typeElem === ELEMENT_RAW_HTML &&
-                /^\{(.*)\}$/.test(el.trim().replace(/\n/g, ''))
               )
           )
         : contentPosicionPublicidad
