@@ -39,7 +39,7 @@ export default () => {
                 <div className="bClsPl">
                   <div className="cont-price-detail">
                     <div className="price-middle">
-                      <h3 itemProp="name">Gratis</h3>
+                      <h3 itemProp="name">s/ 10</h3>
                     </div>
                     <div className="detail-price-middle">
                       <p>al mes</p>
