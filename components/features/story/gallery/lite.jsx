@@ -115,5 +115,6 @@ const StoryGalleryLite = () => {
 }
 
 StoryGalleryLite.label = 'Artículo - galería'
+StoryGalleryLite.static = true
 
 export default StoryGalleryLite
