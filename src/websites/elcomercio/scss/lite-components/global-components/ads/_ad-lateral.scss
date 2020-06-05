@@ -1,0 +1,27 @@
+.ad-lateral {
+  // NO TOCAR
+  width: 0;
+  overflow: hidden;
+  display: none;
+
+  @media (--desktop) {
+    display: flex;
+    overflow: initial;
+    height: fit-content;
+    flex: 160px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+  }
+}
+
+div#ads_d_vslider {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.container-publicidad {
+  margin: 0 !important;
+}
