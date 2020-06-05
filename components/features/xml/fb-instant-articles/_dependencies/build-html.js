@@ -107,9 +107,9 @@ const analyzeParagraph = ({
   level = null,
   opta,
   link,
+  arcSite,
   defaultImage,
   streams = [],
-  arcSite,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -159,6 +159,7 @@ const analyzeParagraph = ({
         processedParagraph,
         numberWordMultimedia,
         opta,
+        arcSite,
         defaultImage,
       }
 
@@ -248,6 +249,7 @@ const buildListParagraph = ({
   processedParagraph: listParagraph,
   numberWordMultimedia,
   opta,
+  arcSite,
   defaultImage,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
@@ -260,6 +262,7 @@ const buildListParagraph = ({
         numberWordMultimedia,
         opta,
         link,
+        arcSite,
         defaultImage,
         streams,
       })
@@ -281,6 +284,7 @@ const ParagraphshWithAdds = ({
   arrayadvertising = [],
   opta,
   siteUrl,
+  arcSite,
   defaultImage = '',
 }) => {
   let newsWithAdd = []
@@ -306,6 +310,7 @@ const ParagraphshWithAdds = ({
           level,
           opta,
           link,
+          arcSite,
           defaultImage,
           streams,
         })
@@ -430,6 +435,7 @@ const BuildHtml = ({
     arrayadvertising: listUrlAdvertisings,
     opta,
     siteUrl,
+    arcSite,
     defaultImage,
   }
   const getContentType = ({ premium = '' } = {}) => {
