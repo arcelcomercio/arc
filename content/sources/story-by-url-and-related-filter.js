@@ -146,6 +146,12 @@ export default {
         photo
         title
         alt
+        prepTime
+        totalTime
+        recipeCuisine
+        recipeYield
+        puntuation
+        countReviews
       }
     }
     raw_oembed{

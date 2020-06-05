@@ -25,8 +25,8 @@ body,
       width: auto;
       min-width: auto;
       overflow: visible;
-      &:before {
-        content: '';
+      &::before {
+        content: "";
         position: absolute;
         pointer-events: none;
         width: calc(100% + 20px);
@@ -42,7 +42,7 @@ body,
 
 #section-columns-lazy {
   margin: 0;
-  &:before {
+  &::before {
     content: none;
   }
 }
@@ -50,4 +50,7 @@ body,
   .no-row-2-mobile {
     height: auto;
   }
+}
+.flex.flex-col.content-layout-container.w-full.position-relative.bg-container {
+  background: $color-white;
 }

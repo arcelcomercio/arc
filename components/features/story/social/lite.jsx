@@ -40,4 +40,7 @@ const StorySocialLite = () => {
   )
 }
 
+StorySocialLite.label = 'Artículo - redes sociales'
+StorySocialLite.static = true
+
 export default StorySocialLite

@@ -162,10 +162,6 @@ class StoryContents extends PureComponent {
                 typeElem === ELEMENT_TEXT &&
                 skipElementsRecipe &&
                 skipElementsRecipe.includes(el)
-              ) &&
-              !(
-                typeElem === ELEMENT_RAW_HTML &&
-                /^\{(.*)\}$/.test(el.trim().replace(/\n/g, ''))
               )
           )
         : contentPosicionPublicidad
@@ -325,7 +321,8 @@ class StoryContents extends PureComponent {
 
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
-                      <h2 itemProp="name"
+                      <h2
+                        itemProp="name"
                         dangerouslySetInnerHTML={{
                           __html: content,
                         }}
