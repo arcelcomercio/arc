@@ -124,7 +124,7 @@ const PodcastList = props => {
   return (
     <div className="podcast-list md:pl-0 md:pr-0 pl-20 pr-20 pt-20 pb-20">
       <div className="podcast-list__title-container pt-10 mb-10 border-t-1 border-solid border-black">
-        <h2 className="podcast-list__title title-xs font-bold secondary-font text-black">
+        <h2 itemProp="name" className="podcast-list__title title-xs font-bold secondary-font text-black">
           Todos los episodios
         </h2>
       </div>
@@ -154,7 +154,7 @@ const PodcastList = props => {
                 </picture>
               </a>
               <div className="podcast-list__item-body pl-20">
-                <h3 className="podcast-list__item-title mt-15 md:mt-0 mb-15">
+                <h3 itemProp="name" className="podcast-list__item-title mt-15 md:mt-0 mb-15">
                   <a
                     href={websiteLink}
                     className="podcast-list_item-t-link title-sm font-bold secondary-font text-black line-h-sm">

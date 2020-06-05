@@ -29,7 +29,7 @@ const Error404 = props => {
   return (
     <>
       <div role="group" className={classes.container}>
-        <h3
+        <h3 itemProp="name"
           className={classes.title}
           {...editableField('title')}
           suppressContentEditableWarning>

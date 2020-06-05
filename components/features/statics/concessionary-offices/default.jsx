@@ -214,14 +214,14 @@ class StaticConcessionaryOffices extends PureComponent {
       <div className={classes.concessionaires}>
         <span className={classes.arrow} />
         <div className={classes.container}>
-          <h1 className={classes.title}>Oficinas Concesionarias</h1>
+          <h1 itemProp="name" className={classes.title}>Oficinas Concesionarias</h1>
           <p className={classes.info}>
             Para conocer el listado de oficinas concesionarias seleccione en el
             mapa su ubicación
           </p>
           <div className={classes.locations}>
             <div className={classes.search}>
-              <h3 className={classes.searchTitle}>
+              <h3 itemProp="name" className={classes.searchTitle}>
                 Oficinas concesionarias de la capital
               </h3>
               <form className={classes.form} action="">
@@ -262,7 +262,7 @@ class StaticConcessionaryOffices extends PureComponent {
               </form>
             </div>
             {currentDistrict.name && (
-              <h2 className={classes.mapTitle}>{`${
+              <h2 itemProp="name" className={classes.mapTitle}>{`${
                 currentZone.name
               }${currentZone.name && ' - '}${currentDistrict.name}`}</h2>
             )}
@@ -273,7 +273,7 @@ class StaticConcessionaryOffices extends PureComponent {
           </div>
           <div className={classes.locations}>
             <div className={classes.search}>
-              <h3 className={classes.searchTitle}>
+              <h3 itemProp="name" className={classes.searchTitle}>
                 Oficinas concesionarias en provincias
               </h3>
               <form className={classes.form} action="">
@@ -296,7 +296,7 @@ class StaticConcessionaryOffices extends PureComponent {
               </form>
             </div>
             {currentProvince.name && (
-              <h2
+              <h2 itemProp="name"
                 className={
                   classes.mapTitle
                 }>{`Provincia - ${currentProvince.name}`}</h2>

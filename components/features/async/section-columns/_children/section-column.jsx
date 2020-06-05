@@ -16,7 +16,7 @@ const ChildrenSectionColumn = ({
   <div className="sec-col bg-white flex flex-col">
     <div className="sec-col__header bg-info flex items-center w-auto pr-20 pl-20 mb-5">
       <a href={sectionUrl} className="flex items-center full-height">
-        <h4 className="sec-col__title uppercase font-bold">{sectionName}</h4>
+        <h4 itemProp="name" className="sec-col__title uppercase font-bold">{sectionName}</h4>
       </a>
     </div>
 
@@ -50,7 +50,7 @@ const ChildrenSectionColumn = ({
               role="listitem"
               className="sec-col__story flex flex-col pb-10 mr-20 ml-20 mb-20 text-gray-300 border-b-1 border-dashed border-gray">
               <a href={storyUrl}>
-                <h3 className="sec-col__link mb-15 text-gray-300 line-h-sm font-bold overflow-hidden">
+                <h3 itemProp="name" className="sec-col__link mb-15 text-gray-300 line-h-sm font-bold overflow-hidden">
                   {title}
                 </h3>
               </a>

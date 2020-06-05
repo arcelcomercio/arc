@@ -48,7 +48,7 @@ const YoutubeVideoDestacado = ({
       </div>
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
-          <h2 className={classes.listItemTitleDest}>{title}</h2>
+          <h2 itemProp="name" className={classes.listItemTitleDest}>{title}</h2>
         </div>
       </div>
     </>

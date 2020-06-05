@@ -18,10 +18,10 @@ const StoriesListsCardChildHeader = ({
     <div className={`${classes.header} ${background}`}>
       {urlTitle ? (
         <a href={urlTitle} className={classes.title}>
-          <h4>{titleList}</h4>
+          <h4 itemProp="name">{titleList}</h4>
         </a>
       ) : (
-        <h4 className={classes.title}>{titleList}</h4>
+        <h4 itemProp="name" className={classes.title}>{titleList}</h4>
       )}
       {seeMore && (
         <a href={seeMoreurl} className={classes.seeMore}>

@@ -138,7 +138,7 @@ const CardTabloid = props => {
 
   return (
     <div className={classes.tabloid}>
-      <h4 className={classes.header}>
+      <h4 itemProp="name" className={classes.header}>
         <a
           className={classes.headerLink}
           href={link || primarySectionLink || '/impresa/'}

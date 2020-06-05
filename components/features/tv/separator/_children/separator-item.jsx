@@ -56,7 +56,7 @@ export default ({ date, multimedia, title, videoId, maxStories }) => {
         )}
         <Icon type="basic_video" iconClass="tv-separator__icon" />
       </button>
-      <h2 className="mb-15">
+      <h2 itemProp="name" className="mb-15">
         <button
           type="button"
           className="p-0"

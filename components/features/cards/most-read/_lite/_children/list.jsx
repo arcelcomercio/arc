@@ -28,7 +28,7 @@ const CardMostReadChildList = props => {
   )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
   return (
     <div role="list" className={classes.mostRead}>
-      <h4 className={classes.title}>
+      <h4 itemProp="name" className={classes.title}>
         <img className={classes.logo} alt="logo" src={urlImg}></img>
 
         <span {...editableField('customTitle')}>

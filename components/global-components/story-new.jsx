@@ -56,7 +56,7 @@ export default ({
             <p className={classes.date}>{formatDateLocalTimeZone(date)}</p>
           </div>
           <div className={classes.wrapperTitle}>
-            <h2 className={classes.contentTitle}>
+            <h2 itemProp="name" className={classes.contentTitle}>
               <a className={classes.title} href={websiteLink}>
                 {title}
               </a>

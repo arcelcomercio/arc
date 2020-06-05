@@ -39,7 +39,7 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>
-        <h2 className={classes.itemTitle}>
+        <h2 itemProp="name" className={classes.itemTitle}>
           <a href={filterData.urlTitle} className={classes.itemTitleLink}>
             {filterData.nameTitle}
           </a>

@@ -147,7 +147,7 @@ const FeaturedStoryPremiumChild = ({
       </a>
 
       <div className={classes.detail}>
-        <h3 className={classes.section}>
+        <h3 itemProp="name" className={classes.section}>
           <a
             className={classes.sectionLink}
             href={primarySectionLink}
@@ -156,7 +156,7 @@ const FeaturedStoryPremiumChild = ({
             {categoryField || primarySection}
           </a>
         </h3>
-        <h2 className={classes.title}>
+        <h2 itemProp="name" className={classes.title}>
           <a
             className={classes.titleLink}
             href={websiteLink}
@@ -165,7 +165,7 @@ const FeaturedStoryPremiumChild = ({
             {titleField || title}
           </a>
         </h2>
-        <h6 className={classes.author}>
+        <h6 itemProp="name" className={classes.author}>
           {author && (
             <a className={classes.authorLink} href={authorLink}>
               {author}

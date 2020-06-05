@@ -77,7 +77,7 @@ export default ({
         )}
       </a>
       <div className={classes.boxDetail}>
-        <h3>
+        <h3 itemProp="name">
           <a
             className={classes.section}
             href={primarySectionLink}
@@ -86,7 +86,7 @@ export default ({
             {section}
           </a>
         </h3>
-        <h2>
+        <h2 itemProp="name">
           <a
             className={classes.title}
             href={websiteLink}

@@ -19,7 +19,7 @@ export default props => {
   })
   return (
     <div className="play-list">
-      <h2 className="play-list__name">PLAYLIST</h2>
+      <h2 itemProp="name" className="play-list__name">PLAYLIST</h2>
       <div className="play-list__wrapper">
         {videoItems &&
           videoItems.map(item => {
@@ -46,7 +46,7 @@ export default props => {
                     </span>
                   )}
                 </a>
-                <h3 className="play-list__title">
+                <h3 itemProp="name" className="play-list__title">
                   <a href={Story.websiteLink}>{Story.title}</a>
                 </h3>
               </div>

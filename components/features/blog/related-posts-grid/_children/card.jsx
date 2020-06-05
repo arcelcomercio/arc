@@ -31,14 +31,14 @@ const BlogRelatedPostsGridChildCard = ({
       </figure>
       <div className={classes.detail}>
         <div>
-          <h3 className={classes.categoryContainer}>
+          <h3 itemProp="name" className={classes.categoryContainer}>
             <a className={classes.categoryLink} href={sectionLink}>
               {sectionName}
             </a>
           </h3>
         </div>
         <div>
-          <h3 className={classes.detailTitle}>
+          <h3 itemProp="name" className={classes.detailTitle}>
             <a className={classes.detailTitleLink} href={postLink}>
               {title}
             </a>

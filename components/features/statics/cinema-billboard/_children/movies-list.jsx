@@ -59,8 +59,8 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
       cinema && (
         <section className={classes.movieList}>
           <div role="heading" className={classes.top}>
-            <h1 className={classes.cinema}>{cinema.nombre}</h1>
-            <h2 className={classes.address}>{cinema.direccion}</h2>
+            <h1 itemProp="name" className={classes.cinema}>{cinema.nombre}</h1>
+            <h2 itemProp="name" className={classes.address}>{cinema.direccion}</h2>
           </div>
           <div role="list" className={classes.box}>
             {movies ? (
@@ -96,7 +96,7 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                           className={classes.image}
                         />
                         <figcaption>
-                          <h3 className={classes.title}>{title}</h3>
+                          <h3 itemProp="name" className={classes.title}>{title}</h3>
                           <p className={classes.function}>{cinema.horario}</p>
                         </figcaption>
                       </a>

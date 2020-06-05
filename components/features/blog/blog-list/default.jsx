@@ -124,7 +124,7 @@ const BlogList = props => {
   return (
     <>
       <div className={classes.list}>
-        <h1 className={classes.title}>blogs</h1>
+        <h1 itemProp="name" className={classes.title}>blogs</h1>
         <div>
           {blogs.map((blog, i) => {
             const params = buildParams(blog)

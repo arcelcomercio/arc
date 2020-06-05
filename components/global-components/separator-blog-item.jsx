@@ -39,7 +39,7 @@ const SeparatorBlogChildItem = ({
         <a href={blogUrl} className={classes.author}>
           {authorName}
         </a>
-        <h3 className={classes.title}>
+        <h3 itemProp="name" className={classes.title}>
           <a href={postLink} className={classes.link}>
             {postTitle}
           </a>

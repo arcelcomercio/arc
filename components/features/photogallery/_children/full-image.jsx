@@ -55,12 +55,12 @@ const FullImage = ({
         </picture>
       </a>
       <div className={classes.boxDetail}>
-        <h3>
+        <h3 itemProp="name">
           <a className={classes.section} href={primarySectionLink}>
             {primarySection}
           </a>
         </h3>
-        <h2>
+        <h2 itemProp="name">
           <a className={classes.title} href={websiteLink}>
             {title}
           </a>

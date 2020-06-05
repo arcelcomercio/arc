@@ -28,7 +28,7 @@ const StorySocialLite = () => {
 
   return (
     <div className={classes.container}>
-      <h2 className={classes.section}>
+      <h2 itemProp="name" className={classes.section}>
         <a className={classes.sectionLink} href={primarySectionLink}>
           {primarySection}
         </a>
@@ -39,5 +39,8 @@ const StorySocialLite = () => {
     </div>
   )
 }
+
+StorySocialLite.label = 'Artículo - redes sociales'
+StorySocialLite.static = true
 
 export default StorySocialLite

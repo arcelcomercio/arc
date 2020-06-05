@@ -76,7 +76,7 @@ const SecondaryFooter = props => {
         </div>
         {/* Secciones */}
         <div className={classes.sections}>
-          <h3 className={classes.listTitle}>Secciones</h3>
+          <h3 itemProp="name" className={classes.listTitle}>Secciones</h3>
           <ul className={classes.listSection}>
             {sections &&
               sections.map(el => (
@@ -91,7 +91,7 @@ const SecondaryFooter = props => {
         <div className={classes.twoWrapper}>
           {/* Contacto */}
           <div className={classes.contactWrapper}>
-            <h3 className={classes.listTitle}>Contacto</h3>
+            <h3 itemProp="name" className={classes.listTitle}>Contacto</h3>
             <ul className={classes.legalList}>
               {legalLinks.map(el => (
                 <li className={classes.legalLinksWrapper} key={el.url}>
@@ -104,7 +104,7 @@ const SecondaryFooter = props => {
           </div>
           {/* Siguenos */}
           <div className={classes.social}>
-            <h3 className={classes.listTitle}>Síguenos</h3>
+            <h3 itemProp="name" className={classes.listTitle}>Síguenos</h3>
             <ul className={classes.listSocial}>
               {socialNetworks &&
                 socialNetworks.map(el => {

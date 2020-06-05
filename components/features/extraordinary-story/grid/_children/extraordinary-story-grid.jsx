@@ -57,7 +57,7 @@ const ExtraordinaryStoryGridChildExtraordinaryStoryGrid = props => {
           </a>
         </div>
         <a href={storyData.primarySectionLink}>
-          <h2 className={classes.gridListTitle}>Programas del día</h2>
+          <h2 itemProp="name" className={classes.gridListTitle}>Programas del día</h2>
         </a>
         <div role="list" className={classes.gridListItems}>
           {section1.id !== '' && (

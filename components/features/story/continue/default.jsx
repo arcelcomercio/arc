@@ -80,7 +80,7 @@ const StoryContinue = ({ customFields: { isBlog } = {} }) => {
                   Cargando siguiente...
                 </span>
               )}
-              <h3 className={classes.storyLoadTitle}></h3>
+              <h3 itemProp="name" className={classes.storyLoadTitle}></h3>
             </div>
           </a>
         </div>

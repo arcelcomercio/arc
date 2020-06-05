@@ -11,7 +11,7 @@ const classes = {
 export default ({ titleCustom, textAlign, seeMoreShow, seeMoreLink }) => {
   return (
     <div className={classes.showBox}>
-      <h2 className={`${classes.showTitle} text-${textAlign}`}>
+      <h2 itemProp="name" className={`${classes.showTitle} text-${textAlign}`}>
         {titleCustom || 'Fotogalerias'}
       </h2>
       {seeMoreShow && (

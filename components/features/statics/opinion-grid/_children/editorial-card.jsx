@@ -17,8 +17,8 @@ const OpinionGridEditorialCard = ({ data: story, authorImage }) => {
   return (
     <div role="listitem" className={classes.card}>
       <div className={classes.wrapper}>
-        <h4 className={classes.group}>{story.primarySection}</h4>
-        <h2>
+        <h4 itemProp="name" className={classes.group}>{story.primarySection}</h4>
+        <h2 itemProp="name">
           <a className={classes.name} href={story.websiteLink}>
             {story.title}
           </a>

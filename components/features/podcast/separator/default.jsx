@@ -135,7 +135,7 @@ const PodcastSeparator = props => {
   return (
     <div className="podcast-separator md:pl-0 md:pr-0 pl-20 pr-20 pt-20 pb-20">
       <div className="podcast-separator__title-container flex justify-between pt-10 mb-20 border-t-1 border-solid border-black">
-        <h2 className="podcast-separator__title">
+        <h2 itemProp="name" className="podcast-separator__title">
           <a
             href={titleLinkField || primarySectionLink}
             className="podcast-separator__title-link title-xs font-bold secondary-font text-black">
@@ -176,7 +176,7 @@ const PodcastSeparator = props => {
                   />
                 </picture>
               </a>
-              <h3 className="podcast-separator__item-title mt-15 mb-15">
+              <h3 itemProp="name" className="podcast-separator__item-title mt-15 mb-15">
                 <a
                   href={websiteLink}
                   className="podcast-separator_item-t-link text-xl font-bold secondary-font text-black">

@@ -12,7 +12,6 @@ const HeaderBasic = props => {
     customFields: { hideMenu },
   } = props
 
-  console.log('---->>', hideMenu)
   const menuSections = useContent({
     source: 'navigation-by-hierarchy',
     query: {

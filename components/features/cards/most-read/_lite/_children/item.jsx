@@ -31,7 +31,7 @@ const CardMostReadChildItem = props => {
             <MultimediaIcon type={storyType} />
           </figure>
         )}
-        <h4 className={`${classes.title} ${classes.numLines}`}>{title}</h4>
+        <h4 itemProp="name" className={`${classes.title} ${classes.numLines}`}>{title}</h4>
       </a>
     </article>
   )

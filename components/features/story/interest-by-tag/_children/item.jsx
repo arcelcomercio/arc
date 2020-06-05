@@ -53,13 +53,13 @@ const StorySeparatorChildItem = ({ data, arcSite }) => {
 
       <div className={classes.detail}>
         {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
-          <h2 className={classes.separatorCategory}>
+          <h2 itemProp="name" className={classes.separatorCategory}>
             <a href={sectionLink} className={classes.separatorCategoryLink}>
               {section}
             </a>
           </h2>
         )}
-        <h3 className={classes.separatorTitle}>
+        <h3 itemProp="name" className={classes.separatorTitle}>
           <a className={classes.titleLink} href={link}>
             {title}
           </a>

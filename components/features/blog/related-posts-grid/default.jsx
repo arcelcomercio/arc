@@ -53,7 +53,7 @@ const BlogRelatedPostsGrid = props => {
 
   return (
     <div role="region" className={classes.bmInterestYou}>
-      <h4
+      <h4 itemProp="name"
         className={classes.generalTitle}
         {...editableField('featureTitle')}
         suppressContentEditableWarning>

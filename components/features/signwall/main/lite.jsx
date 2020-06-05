@@ -6,15 +6,9 @@ import { Paywall } from './_children/paywall'
 import { Premium } from './_children/premium'
 
 import Services from '../_dependencies/services'
-import GetProfile from '../_dependencies/get-profile'
 import Domains from '../_dependencies/domains'
 import Cookies from '../_dependencies/cookies'
-import Taggeo from '../_dependencies/taggeo'
 import QueryString from '../_dependencies/querystring'
-
-const classes = {
-  iconLogin: 'nav__icon icon-user  title-sm text-primary-color',
-}
 
 @Consumer
 class SignwallComponent extends PureComponent {
@@ -23,8 +17,6 @@ class SignwallComponent extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      userName: false,
-      initialUser: false,
       showPaywall: false,
       showPremium: false,
     }
@@ -33,24 +25,36 @@ class SignwallComponent extends PureComponent {
   componentDidMount() {
     const { siteProperties, arcSite } = this.props
     if (typeof window !== 'undefined' && window.Identity) {
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      const apiOrigin = Domains.getOriginAPI(arcSite)
+      window.Identity.options({ apiOrigin })
       if (window.Sales !== undefined) {
-        window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Sales.options({ apiOrigin })
       }
-      Fingerprint2.getV18({}, result => {
-        Cookies.setCookie('gecdigarc', result, 365)
+      window.requestIdle(() => {
+        Fingerprint2.getV18({}, result => {
+          Cookies.setCookie('gecdigarc', result, 365)
+        })
       })
+
+      if (siteProperties.activeSignwall) {
+        window.requestIdle(() => {
+          const tokenVerify = this.getUrlParam('tokenVerify')
+          if (tokenVerify) this.redirectURL('tokenVerify', tokenVerify)
+
+          const tokenReset = this.getUrlParam('tokenReset')
+          if (tokenReset) this.redirectURL('tokenReset', tokenReset)
+
+          const reloginEmail = this.getUrlParam('reloginEmail')
+          if (reloginEmail) this.redirectURL('reloginEmail', reloginEmail)
+
+          if (!this.checkSession()) this.checkCookieHash()
+        })
+      }
+
+      if (siteProperties.activePaywall) {
+        window.requestIdle(() => this.getPaywall())
+      }
     }
-
-    this.checkUserName()
-
-    if (siteProperties.activePaywall) {
-      this.getPaywall()
-    }
-  }
-
-  componentDidUpdate() {
-    this.checkUserName()
   }
 
   componentWillUnmount() {
@@ -233,44 +237,28 @@ class SignwallComponent extends PureComponent {
 
   getUrlParam = name => {
     const vars = {}
-    if (typeof window !== 'undefined')
+    if (typeof window !== 'undefined') {
       window.location.href.replace(
         /[?&]+([^=&]+)=([^&]*)/gi,
         (m, key, value) => {
           vars[key] = value
         }
       )
-    if (vars[name]) {
-      setTimeout(() => {
-        switch (name) {
-          case 'signPaywall':
-            this.setState({ showPaywall: true })
-            break
-          case 'signPremium':
-            this.setState({ showPremium: true })
-            break
-          default:
-        }
-      }, 500)
+      if (vars[name]) {
+        setTimeout(() => {
+          switch (name) {
+            case 'signPaywall':
+              this.setState({ showPaywall: true })
+              break
+            case 'signPremium':
+              this.setState({ showPremium: true })
+              break
+            default:
+          }
+        }, 500)
+      }
     }
     return vars[name]
-  }
-
-  checkUserName() {
-    this._isMounted = true
-    const { arcSite } = this.props
-
-    if (this.checkSession() && this._isMounted) {
-      this.setState({
-        userName: new GetProfile().username,
-        initialUser: new GetProfile().initname,
-      })
-    } else if (this._isMounted) {
-      this.setState({
-        userName: arcSite === 'elcomercio' ? 'Iniciar' : 'Iniciar Sesión',
-        initialUser: false,
-      })
-    }
   }
 
   closePopUp(name) {
@@ -289,58 +277,11 @@ class SignwallComponent extends PureComponent {
     return null
   }
 
-  toogleButton() {
-    const { arcSite } = this.props
-    if (typeof window !== 'undefined') {
-      if (this.checkSession()) {
-        Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresacuenta`)
-        window.location.href = Domains.getUrlProfile(arcSite)
-      } else {
-        Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresaperfil`)
-        window.location.href = Domains.getUrlSignwall(
-          arcSite,
-          'signwallOrganic',
-          '1'
-        )
-      }
-    }
-  }
-
   render() {
     const { showPaywall, showPremium } = this.state
     const { arcSite, siteProperties } = this.props
     return (
       <>
-        {siteProperties.activeSignwall && (
-          <>
-            {this.getUrlParam('tokenVerify') && (
-              <>
-                {this.redirectURL(
-                  'tokenVerify',
-                  this.getUrlParam('tokenVerify')
-                )}
-              </>
-            )}
-
-            {this.getUrlParam('tokenReset') && (
-              <>
-                {this.redirectURL('tokenReset', this.getUrlParam('tokenReset'))}
-              </>
-            )}
-
-            {this.getUrlParam('reloginEmail') && (
-              <>
-                {this.redirectURL(
-                  'reloginEmail',
-                  this.getUrlParam('reloginEmail')
-                )}
-              </>
-            )}
-
-            {!this.checkSession() && <>{this.checkCookieHash()}</>}
-          </>
-        )}
-
         {siteProperties.activePaywall && (
           <>
             {(this.getUrlParam('signPaywall') || showPaywall) && (

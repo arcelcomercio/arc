@@ -68,7 +68,7 @@ const BreakingNewsFeat = props => {
             breaking-news--bg${backgroundColor} 
           ${classes.breakingnews}
           `}>
-            <h2 className={classes.text}>
+            <h2 itemProp="name" className={classes.text}>
               <span
                 className={classes.tag}
                 {...editableField('tags')}

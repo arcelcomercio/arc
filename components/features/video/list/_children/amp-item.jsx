@@ -27,7 +27,7 @@ export default ({
         <span className={classes.duration}>{videoDuration}</span>
       </a>
       <a href={websiteLink}>
-        <h3 className={classes.title}>{title}</h3>
+        <h3 itemProp="name" className={classes.title}>{title}</h3>
       </a>
     </div>
   )

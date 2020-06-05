@@ -112,7 +112,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
           </figure>
           <div className={classes.details}>
             <div className={classes.leftSide}>
-              <h2 className={classes.title}>{title}</h2>
+              <h2 itemProp="name" className={classes.title}>{title}</h2>
               <p className={classes.where}>Dónde Verla</p>
               <div role="list" className={classes.hours}>
                 {cinemas &&

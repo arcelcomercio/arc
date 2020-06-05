@@ -55,7 +55,7 @@ const TvSection = () => {
           <span className="text-white title-sm font-bold block mb-5">
             Sobre el programa
           </span>
-          <h3 className="text-white title-sm">{sectionName}</h3>
+          <h3 itemProp="name" className="text-white title-sm">{sectionName}</h3>
         </div>
         <div className="flex">
           <a

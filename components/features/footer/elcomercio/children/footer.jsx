@@ -94,7 +94,7 @@ const FooterChildElComercio = ({
                     <li
                       className={classes.directorsItem}
                       key={`dir-${position}`}>
-                      <h5 className={classes.directorsTitle}>{position}</h5>
+                      <h5 itemProp="name" className={classes.directorsTitle}>{position}</h5>
                       {names.map(name => (
                         <p
                           key={`dir-${name}`}
@@ -116,7 +116,7 @@ const FooterChildElComercio = ({
                   position &&
                   name && (
                     <li className={classes.contactItem} key={`contact-${name}`}>
-                      <h5
+                      <h5 itemProp="name"
                         className={`${classes.contactTitle} ${classes.contactPosition}`}>
                         {position}
                       </h5>
@@ -177,7 +177,7 @@ const FooterChildElComercio = ({
         </div>
       </div>
       <div className={classes.sites}>
-        <h5 className={classes.sitesTitle}>{SITES_TITLE}</h5>
+        <h5 itemProp="name" className={classes.sitesTitle}>{SITES_TITLE}</h5>
         <p className={classes.sitesList}>
           {gecSites &&
             gecSites.map(site => {
