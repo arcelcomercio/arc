@@ -35,8 +35,8 @@ export default ({
   return (
     <div className={classes.opening}>
       <div className={classes.body}>
-        <h2 className={classes.sectionEdit}>{customTitle || primarySection}</h2>
-        <h1>
+        <h2 itemProp="name" className={classes.sectionEdit}>{customTitle || primarySection}</h2>
+        <h1 itemProp="name">
           <a className={classes.title} href={websiteLink}>
             {title}
           </a>

@@ -31,14 +31,14 @@ const OpinionItem = ({
   return (
     <div className={classes.item}>
       <div className={classes.section}>
-        <h3 className={classes.name}>
+        <h3 itemProp="name" className={classes.name}>
           <a className={classes.nameLink} href={urlSection}>
             {sectionName}
           </a>
         </h3>
         {/* // TODO: Se puede reducir un nodo. */}
         <div className={`${classes.storyTitle} ${linesNumber}`}>
-          <h2>
+          <h2 itemProp="name">
             <a className={classes.titleLink} href={urlNew}>
               {title}
             </a>
@@ -78,7 +78,7 @@ const OpinionChildCard = ({ titleOpinion, dataList, arcSite }) => {
   return (
     <div className={classes.opinion}>
       <div className={classes.head}>
-        <h3 className={classes.title}>{titleOpinion}</h3>
+        <h3 itemProp="name" className={classes.title}>{titleOpinion}</h3>
       </div>
       <div className={classes.body}>
         {dataList.map((data, index) => {

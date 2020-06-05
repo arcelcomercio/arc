@@ -74,7 +74,7 @@ const StoriesList = ({
             </p>
           </div>
           <div className={classes.wrapperTitle}>
-            <h2 className={classes.contentTitle}>
+            <h2 itemProp="name" className={classes.contentTitle}>
               <a className={classes.title} href={element.websiteLink}>
                 {reduceWord(element.title)}
               </a>

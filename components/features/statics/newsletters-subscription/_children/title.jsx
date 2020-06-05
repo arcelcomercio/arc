@@ -7,7 +7,7 @@ const classes = {
 function NewslettersSubscriptionTitle() {
   return (
     <>
-      <h1 className={classes.title}>NEWSLETTERS</h1>
+      <h1 itemProp="name" className={classes.title}>NEWSLETTERS</h1>
     </>
   )
 }

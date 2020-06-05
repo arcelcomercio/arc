@@ -39,7 +39,7 @@ export default () => {
                 <div className="bClsPl">
                   <div className="cont-price-detail">
                     <div className="price-middle">
-                      <h3>Gratis</h3>
+                      <h3 itemProp="name">Gratis</h3>
                     </div>
                     <div className="detail-price-middle">
                       <p>
@@ -48,7 +48,7 @@ export default () => {
                       <p>Luego S/ 20 al mes</p>
                     </div>
                   </div>
-                  <h3 className="beneficio mt-30 mb-20">
+                  <h3 itemProp="name" className="beneficio mt-30 mb-20">
                     <span>Beneficios</span>
                   </h3>
                   <ul className="list-benefits">

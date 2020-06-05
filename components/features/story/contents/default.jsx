@@ -325,7 +325,7 @@ class StoryContents extends PureComponent {
 
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
-                      <h2
+                      <h2 itemProp="name"
                         dangerouslySetInnerHTML={{
                           __html: content,
                         }}

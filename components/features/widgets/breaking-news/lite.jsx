@@ -67,7 +67,7 @@ const BreakingNewsFeat = props => {
             b-news--${backgroundColor} 
           ${classes.breakingnews}
           `}>
-            <h2>
+            <h2 itemProp="name">
               <a
                 className={classes.link}
                 href={objContent.link}

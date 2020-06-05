@@ -139,7 +139,7 @@ const StoryContinueLite = () => {
         </svg>
       </div>
       <a href="/" className="st-continue">
-        <h3 className="st-continue__title oflow-h">Siguiente noticia</h3>
+        <h3 itemProp="name" className="st-continue__title oflow-h">Siguiente noticia</h3>
       </a>
       <script
         type="text/javascript"

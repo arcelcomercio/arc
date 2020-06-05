@@ -30,7 +30,7 @@ const videoListChild = ({
         </a>
       </div>
       <a href={websiteLink} className="block mb-10 video-list__title">
-        <h3 className="line-h-xs text-xl font-bold video-list__new">{title}</h3>
+        <h3 itemProp="name" className="line-h-xs text-xl font-bold video-list__new">{title}</h3>
       </a>
       {/* <time className="text-lg text-gray-200" dateTime="">
         13:25

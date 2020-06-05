@@ -31,7 +31,7 @@ const CardMostReadChildItem = props => {
             <Icon type={storyType} iconClass={classes.icon} />
           </figure>
         )}
-        <h4 className={`${classes.title} ${classes.numLines}`}>{title}</h4>
+        <h4 itemProp="name" className={`${classes.title} ${classes.numLines}`}>{title}</h4>
       </article>
     </a>
   )

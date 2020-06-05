@@ -41,10 +41,10 @@ const AuthorListChildPostItem = ({
         </figure>
         <div className={classes.description}>
           <a href={postPermaLink}>
-            <h3 className={classes.title}>{postTitle}</h3>
+            <h3 itemProp="name" className={classes.title}>{postTitle}</h3>
           </a>
           <a href={postPermaLink}>
-            <h5 className={classes.author}>{author}</h5>
+            <h5 itemProp="name" className={classes.author}>{author}</h5>
           </a>
         </div>
       </div>

@@ -76,7 +76,7 @@ const TripletChildTriplet = props => {
             role="listitem"
             key={`triplet-${story.index}`}>
             <div className={classes.information}>
-              <h2 className={`${classes.title} ${numline}`}>
+              <h2 itemProp="name" className={`${classes.title} ${numline}`}>
                 <a
                   className={classes.titleLink}
                   href={story.websiteLink}

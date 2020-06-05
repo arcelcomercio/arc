@@ -22,7 +22,7 @@ const ArchiveCalendarChild = ({
   return (
     <div className={classes.box}>
       <div className={classes.header}>
-        <h3 className={classes.title}>Archivo</h3>
+        <h3 itemProp="name" className={classes.title}>Archivo</h3>
         <div className={classes.brand}>
           <span className={classes.icon} />
         </div>

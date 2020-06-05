@@ -69,7 +69,7 @@ const SeparatorsBasicChildSeparator = props => {
         />
       ) : (
         <div className={classes.boxTitle}>
-          <h2 className={`${classes.title} text-${textAling}`}>
+          <h2 itemProp="name" className={`${classes.title} text-${textAling}`}>
             <a
               href={titleLink}
               className={`${classes.titleLink}`}

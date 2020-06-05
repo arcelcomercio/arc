@@ -20,7 +20,7 @@ const SeparatorItemComplete = ({
     }`}>
     <Icon type={multimediaType} iconClass="sep-opt__icon" />
 
-    <h3 className="sep-opt__title position-absolute overflow-hidden font-bold text-white line-h-sm bottom-0 m-15">
+    <h3 itemProp="name" className="sep-opt__title position-absolute overflow-hidden font-bold text-white line-h-sm bottom-0 m-15">
       {title}
     </h3>
     {isImageVisible && (
@@ -84,7 +84,7 @@ const SeparatorItemPartial = ({
         />
       </picture>
     )}
-    <h3 className="sep-opt__title overflow-hidden font-bold line-h-sm bottom-0 m-10">
+    <h3 itemProp="name" className="sep-opt__title overflow-hidden font-bold line-h-sm bottom-0 m-10">
       {title}
     </h3>
     {isAuthorVisible && author && (
@@ -121,7 +121,7 @@ const SeparatorsBasicChildSeparator = ({
         <div className="" dangerouslySetInnerHTML={createMarkup(htmlCode)} />
       ) : (
         titleSeparator && (
-          <h2 className="sep-opt__main-title font-bold pt-20 pb-30">
+          <h2 itemProp="name" className="sep-opt__main-title font-bold pt-20 pb-30">
             <a href={titleLink} className="">
               {titleSeparator}
             </a>

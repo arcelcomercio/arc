@@ -32,7 +32,7 @@ const StoryTitleLite = () => {
     <>
       <div
         className={`${classes.story} ${primarySectionLink.replace(/\//g, '')}`}>
-        <h1 className={classes.title}> {title}</h1>
+        <h1 itemProp="name" className={classes.title}> {title}</h1>
         {items && type === 'list' ? (
           <ul className={classes.listClasses}>
             {items.map(({ content }) => {
@@ -45,7 +45,7 @@ const StoryTitleLite = () => {
           </ul>
         ) : (
           <>
-            <h2 className={classes.description}>{subTitle}</h2>
+            <h2 itemProp="name" className={classes.description}>{subTitle}</h2>
             {isPremium && SITE_ELCOMERCIO === arcSite && (
               <div className={classes.premiumWrapper}>
                 <svg

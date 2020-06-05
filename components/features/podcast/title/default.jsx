@@ -96,7 +96,7 @@ const PodcastTitle = props => {
           ))}
         </ul>
 
-        <h1 className="podcast-title__text font-bold text-black title-lg pt-20 pb-20 mt-10 md:mt-30 border-t-1 border-b-1 border-solid border-gray">
+        <h1 itemProp="name" className="podcast-title__text font-bold text-black title-lg pt-20 pb-20 mt-10 md:mt-30 border-t-1 border-b-1 border-solid border-gray">
           {titleField || 'Podcast'}
         </h1>
       </div>

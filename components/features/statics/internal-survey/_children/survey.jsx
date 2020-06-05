@@ -95,7 +95,7 @@ const InternalSurveyChildSurvey = props => {
         </div>
 
         <time className={classes.date}>{getLatinDate(date, ',')}</time>
-        <h1 className={classes.title}>{title}</h1>
+        <h1 itemProp="name" className={classes.title}>{title}</h1>
         <form action="">
           <ul>
             {choices.map((choice, index) => (

@@ -19,13 +19,13 @@ export default ({
 }) => {
   return (
     <div className={classes.doblete}>
-      <h2>
+      <h2 itemProp="name">
         <a className={classes.title} href={websiteLink}>
           {title}
         </a>
       </h2>
       <div>
-        <h6>
+        <h6 itemProp="name">
           <a className={classes.author} href={authorLink}>
             {author}
           </a>

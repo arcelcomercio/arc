@@ -58,7 +58,7 @@ const StoriesListVideo = props => {
     <>
       <div className={classes.listComponent}>
         <div className={classes.listHeader}>
-          <h3 className={classes.listTitle}>video</h3>
+          <h3 itemProp="name" className={classes.listTitle}>video</h3>
           <a href={PERU21TV_URL} title="Videos de Perú21TV">
             <img src={logoImg} alt="Logo de Perú21TV" />
           </a>

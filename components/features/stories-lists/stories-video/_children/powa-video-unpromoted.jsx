@@ -39,7 +39,7 @@ const ItemVideoCenterNoDestacado = ({
       />
       <span className={classes.listItemTime}>{time}</span>
       <div className={classes.listItemInfo}>
-        <h2 className={classes.listItemTitle}>{title}</h2>
+        <h2 itemProp="name" className={classes.listItemTitle}>{title}</h2>
         {liveStory && <p className={classes.live}>EN VIVO</p>}
       </div>
     </>

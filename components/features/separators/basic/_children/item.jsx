@@ -29,7 +29,7 @@ export default ({
       <article role="listitem" className={classes.article}>
         <Icon type={mediaIcon} iconClass={classes.icon} />
         <div className={classes.detail}>
-          <h3>
+          <h3 itemProp="name">
             <a
               className={`${classes.text} ${numline}`}
               href={link}>

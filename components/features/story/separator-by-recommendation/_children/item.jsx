@@ -27,10 +27,10 @@ const StorySeparatorByRecommendationChildItem = ({ data, clickedRecommendation }
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
-        <h2 className={classes.separatorCategory}>
+        <h2 itemProp="name" className={classes.separatorCategory}>
           <a href={sectionLink}>{section}</a>{' '}
         </h2>
-        <h3 className={classes.separatorTitle}>
+        <h3 itemProp="name" className={classes.separatorTitle}>
           <a className={classes.titleLink} href={link} onClick={e => clickedRecommendation(e, link)}>
             {title}
           </a>

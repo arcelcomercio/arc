@@ -70,7 +70,7 @@ const Checkbox = ({
         </figure>
 
         <div className={classes.detail}>
-          <h3 className={classes.titleText}>
+          <h3 itemProp="name" className={classes.titleText}>
             <span className={classes.titleSpan}>{name}</span>
           </h3>
           <p className={classes.description}>{description}</p>
