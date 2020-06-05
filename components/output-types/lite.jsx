@@ -400,7 +400,10 @@ const LiteOutput = ({
           </>
         )}
       </head>
-      <body className={classBody}>
+      <body
+        className={classBody}
+        itemScope=""
+        itemType="http://schema.org/WebPage">
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
