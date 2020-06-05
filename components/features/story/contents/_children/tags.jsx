@@ -15,14 +15,14 @@ const StoryContentChildTags = props => {
   return (
     data.length > 0 && (
       <div className={classes.container}>
-        <h4 className={isAmp ? `amp-${classes.title}` : classes.title}>
+        <h4 itemProp="name" className={isAmp ? `amp-${classes.title}` : classes.title}>
           Tags Relacionados:
         </h4>
         {data.map(
           ({ slug, text }, idx) =>
             slug &&
             text && (
-              <h2 key={UtilListKey(idx)} className={classes.tag}>
+              <h2 itemProp="name" key={UtilListKey(idx)} className={classes.tag}>
                 <a
                   className={isAmp ? `amp-${classes.link}` : classes.link}
                   href={slug && `/noticias/${slug}/`}>

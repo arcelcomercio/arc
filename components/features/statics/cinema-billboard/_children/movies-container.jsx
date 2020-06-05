@@ -19,7 +19,7 @@ class StaticCinemaBillboardChildMoviesContainer extends PureComponent {
     }
     return (
       <>
-        <h2 className={classes.title}>Cartelera</h2>
+        <h2 itemProp="name" className={classes.title}>Cartelera</h2>
         <main className={classes.container}>
           <MoviesFilter data={{ ...data }} {...params} />
 

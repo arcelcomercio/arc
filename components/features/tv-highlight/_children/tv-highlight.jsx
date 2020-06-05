@@ -32,7 +32,7 @@ const TVHighlightChild = props => {
     <div className={classes.tv}>
       <div className={classes.container}>
         <div className={classes.titleBox}>
-          <h1>
+          <h1 itemProp="name">
             <a href={urlTitle} className={classes.title}>
               {nameTitle}
             </a>

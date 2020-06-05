@@ -57,7 +57,7 @@ const OpinionGridListItem = ({
             <time className={classes.date} dateTime={story.date}>
               {formatDateLocalTimeZone(story.date)}
             </time>
-            <h2>
+            <h2 itemProp="name">
               <a href={story.authorLink} className={classes.name}>
                 {story.author}
               </a>

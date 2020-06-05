@@ -109,7 +109,7 @@ const PodcastExtraordinazryStory = props => {
     <div className="podcast-extraordinary flex flex-wrap flex-col-reverse md:flex-row p-20 md:pl-0 md:pr-0 md:pt-20 md:pb-20">
       <div className="podcast-extraordinary__content flex flex-col justify-center pr-20 w-full">
         <div className="podcast-extraordinary__section-container flex items-center md:mb-10 md:mt-10 mb-15 mt-15">
-          <h3 className="podcast-extraordinary__section mr-10">
+          <h3 itemProp="name" className="podcast-extraordinary__section mr-10">
             <a
               href={primarySectionLink}
               className="podcast-extraordinary__section-link text-lg text-gray-200 font-bold">
@@ -120,7 +120,7 @@ const PodcastExtraordinazryStory = props => {
             Nuevo
           </span>
         </div>
-        <h2 className="podcast-extraordinary__title mb-15">
+        <h2 itemProp="name" className="podcast-extraordinary__title mb-15">
           <a
             href={websiteLink}
             className="podcast-extraordinary__title-link text-black font-bold secondary-font line-h-xs">

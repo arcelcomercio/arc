@@ -71,7 +71,7 @@ const InfoPages = props => {
 
   return (
     <div className={classes.staticPolicy}>
-      <h1 className={classes.title}>{headlines}</h1>
+      <h1 itemProp="name" className={classes.title}>{headlines}</h1>
       <ArcArticleBody
         data={contentElements}
         renderElement={element => {

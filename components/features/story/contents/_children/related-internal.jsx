@@ -64,7 +64,7 @@ const RelatedItem = ({ data, imageDefault } /* , i */) => {
           </a>
         </figure>
         <div className={`${classes.info}`}>
-          <h2 className={classes.titleLink}>
+          <h2 itemProp="name" className={classes.titleLink}>
             <a href={filterData.websiteLink}>{filterData.title}</a>
           </h2>
         </div>

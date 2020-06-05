@@ -51,7 +51,7 @@ const BlogsList = ({ data, isAdmin }) => {
             </a>
           </div>
           <div className={classes.wrapperTitle}>
-            <h2 className={classes.contentTitle}>
+            <h2 itemProp="name" className={classes.contentTitle}>
               <a className={classes.title} href={data.urlBlog}>
                 {reduceWord(data.author)}
               </a>

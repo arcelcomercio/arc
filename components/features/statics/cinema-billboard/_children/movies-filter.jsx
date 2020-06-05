@@ -120,14 +120,14 @@ class MoviesFilter extends PureComponent {
     return (
       <section className={classes.container}>
         <div className={classes.titleBox}>
-          <h2 className={classes.title}>Estrenos de la semana</h2>
+          <h2 itemProp="name" className={classes.title}>Estrenos de la semana</h2>
           <div className={classes.social}>
             <i className={classes.facebook} />
             <i className={classes.twitter} />
           </div>
         </div>
         <div className={classes.filter}>
-          <h4 className={classes.label}>Vamos al cine</h4>
+          <h4 itemProp="name" className={classes.label}>Vamos al cine</h4>
           <form action="/" className={classes.form}>
             <select
               className={classes.select}

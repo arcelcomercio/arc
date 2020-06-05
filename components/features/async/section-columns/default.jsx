@@ -58,7 +58,7 @@ const GridSectionColumns = ({
 
   return (
     <>
-      <h2 className="w-full mt-20 custom-title text-center col-3 custom-border large">
+      <h2 itemProp="name" className="w-full mt-20 custom-title text-center col-3 custom-border large">
         SECCIONES
       </h2>
 

@@ -42,7 +42,7 @@ const StoryRelated = () => {
     <>
       {relatedContent && relatedContent.length > 0 && (
         <div role="list" className={classes.relatedList}>
-          <h4 className={classes.relatedTitle}>{nameStoryRelated} </h4>
+          <h4 itemProp="name" className={classes.relatedTitle}>{nameStoryRelated} </h4>
           {relatedContent.map((item, i) => {
             const { type, _id: id } = item
             const key = `related-content-${i}`

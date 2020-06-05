@@ -24,7 +24,7 @@ const Newsletter = props => {
     <div className={classes.newsletter}>
       <div className={classes.boxSubscription}>
         {!confirmRegister && (
-          <h4
+          <h4 itemProp="name"
             className={`${classes.errorMessage} ${classes.errorMessageMedium}`}>
             {formMessage}
           </h4>

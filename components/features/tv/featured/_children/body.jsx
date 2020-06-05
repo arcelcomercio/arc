@@ -55,7 +55,7 @@ const tvFeaturedBody = ({
                 NUEVO EPISODIO
               </div>
             )}
-            <h2 className="mb-15">
+            <h2 itemProp="name" className="mb-15">
               <button
                 type="button"
                 className="tv-featured__text-button text-white font-bold title-xs p-0 text-left"

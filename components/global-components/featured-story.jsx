@@ -168,7 +168,7 @@ const FeaturedStory = props => {
           author && author.name ? ' justify-between' : ''
         }`}>
         {headband === 'normal' || !headband ? (
-          <h3 className={`${classes.category} ${getCategorySectionClass()}`}>
+          <h3 itemProp="name" className={`${classes.category} ${getCategorySectionClass()}`}>
             <a
               className={classes.categoryLink}
               href={category.url}
@@ -184,7 +184,7 @@ const FeaturedStory = props => {
             </a>
           </div>
         )}
-        <h2 className={classes.title}>
+        <h2 itemProp="name" className={classes.title}>
           <a
             className={classes.titleLink}
             href={title.url}

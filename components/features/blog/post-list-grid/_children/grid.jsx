@@ -50,14 +50,14 @@ const BlogPostListGridChildGrid = ({
                   />
                 </picture>
               </a>
-              <h3 className={classes.blogTitle}>
+              <h3 itemProp="name" className={classes.blogTitle}>
                 <a href={row.urlBlog}>{row.blogTitle}</a>
               </h3>
               <div className={classes.author}>
                 <a href={row.urlBlog}>{row.author}</a>
               </div>
               <div className={classes.line}></div>
-              <h2 className={classes.title}>
+              <h2 itemProp="name" className={classes.title}>
                 <a href={row.urlPost}>{row.postTitle}</a>
               </h2>
               <div className={classes.icon}>

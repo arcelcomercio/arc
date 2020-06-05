@@ -37,7 +37,7 @@ const ColumnistPremium = ({
         />
       </a>
 
-      <h4 className={classes.name}>
+      <h4 itemProp="name" className={classes.name}>
         <a href={authorLink}>{author}</a>
       </h4>
       <a href={primarySectionLink} className={classes.section}>

@@ -130,7 +130,7 @@ const FeaturedStoryPremiumChild = ({
             : ''
         )}>
       <div className={classes.left}>
-        <h3 className={classes.section}>
+        <h3 itemProp="name" className={classes.section}>
           {isGestion && lastMinute && model === 'twoCol' && (
             <span>Último minuto</span>
           )}
@@ -145,7 +145,7 @@ const FeaturedStoryPremiumChild = ({
             </a>
           )}
         </h3>
-        <h2>
+        <h2 itemProp="name">
           <a
             className={classes.title}
             href={websiteLink}
@@ -161,7 +161,7 @@ const FeaturedStoryPremiumChild = ({
           </a>
         </p>
         <div className={classes.description}>
-          <h6>
+          <h6 itemProp="name">
             <a className={classes.author} href={authorLink}>
               {author}
             </a>

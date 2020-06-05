@@ -65,7 +65,7 @@ export default ({
       <time className={classes.time} dateTime={date}>
         {date && formatDateLocalTimeZone(date)}
       </time>
-      <h2 className={classes.title}>
+      <h2 itemProp="name" className={classes.title}>
         <a className={classes.titleLink} href={websiteLink}>
           {title}
         </a>

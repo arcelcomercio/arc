@@ -76,7 +76,7 @@ const StoriesListsCardChildList = ({
               </figure>
             )}
 
-            <h3 className={classes.link}>
+            <h3 itemProp="name" className={classes.link}>
               {seeHour && <time className={classes.time}>{time}</time>}
               {title}
             </h3>

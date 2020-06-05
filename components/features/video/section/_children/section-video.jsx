@@ -203,7 +203,7 @@ export default ({
                     {principalVideo.primarySection}
                   </a>
                 </div>
-                <h1>
+                <h1 itemProp="name">
                   <a
                     href={principalVideo.websiteLink}
                     className="section-video__title block text-white">

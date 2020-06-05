@@ -34,7 +34,7 @@ const StoriesListLinkedBySiteChild = ({
               dangerouslySetInnerHTML={createMarkup(subtitleField)}
             />
           ) : (
-            <h3 className={classes.headerSiteText}>
+            <h3 itemProp="name" className={classes.headerSiteText}>
               Contenido de{' '}
               <span className={classes.headerSite}>{siteName}</span>
             </h3>
@@ -71,7 +71,7 @@ const StoriesListLinkedBySiteChild = ({
                 />
               </picture>
 
-              <h2 className={classes.listItemTitle}>{title}</h2>
+              <h2 itemProp="name" className={classes.listItemTitle}>{title}</h2>
             </a>
           )
         )}

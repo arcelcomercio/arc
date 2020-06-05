@@ -129,11 +129,13 @@ export default ({
     return prebid
   }
   const indPrebid = getPrebid()
-  const urlArcAds = (indPrebid) ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
-  .toISOString()
-  .slice(0, 10)}` : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
-  .toISOString()
-  .slice(0, 10)}`
+  const urlArcAds = indPrebid
+    ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+        .toISOString()
+        .slice(0, 10)}`
+    : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
+        .toISOString()
+        .slice(0, 10)}`
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -431,10 +433,7 @@ export default ({
                   .slice(0, 10)}`}
               />
             )}
-            <script
-              defer
-              src={urlArcAds}
-            />
+            <script defer src={urlArcAds} />
             <script
               type="text/javascript"
               defer
@@ -497,7 +496,10 @@ export default ({
         })()}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
       </head>
-      <body className={classBody}>
+      <body
+        className={classBody}
+        itemScope=""
+        itemType="http://schema.org/WebPage">
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"

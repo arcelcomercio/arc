@@ -42,7 +42,7 @@ const CardSurveyChildSurvey = props => {
 
   return (
     <div className={classes.cardSurvey}>
-      <h3 className={classes.header}>encuesta</h3>
+      <h3 itemProp="name" className={classes.header}>encuesta</h3>
       <form className={classes.question}>
         <p className={classes.title}>{title}</p>
         <div className={classes.choices}>

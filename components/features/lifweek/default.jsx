@@ -53,7 +53,7 @@ const Lifweek = () =>
 
     return (
         <div className={classes.lifweek}>
-            <h1 className={classes.seccion_title}>Diseñadores</h1>
+            <h1 itemProp="name" className={classes.seccion_title}>Diseñadores</h1>
             <div className={classes.profile}>
                 <div className={classes.profile_image}>
                     <figure>
@@ -61,7 +61,7 @@ const Lifweek = () =>
                     </figure>
                 </div>
                 <div className={classes.profile_detail}>
-                    <h2 className={classes.profile_name}>
+                    <h2 itemProp="name" className={classes.profile_name}>
                         <span className={classes.profile_name_blue}>{ separateName[0] }</span> {separateName[1]}
                     </h2>
                     <p className={classes.profile_bio}>{ perfilDesigner.bio }</p>
@@ -69,7 +69,7 @@ const Lifweek = () =>
                 </div>
             </div>
             <div className={classes.list}>
-                <h3 className={classes.list_title}>Galería de <span className={classes.list_title_bold}>Diseñadores &amp; Marcas</span></h3>
+                <h3 itemProp="name" className={classes.list_title}>Galería de <span className={classes.list_title_bold}>Diseñadores &amp; Marcas</span></h3>
                 <div className={classes.list_content}>
                 {
                     Object.keys(participantes).map((key) => {

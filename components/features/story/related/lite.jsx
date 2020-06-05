@@ -52,7 +52,7 @@ const StoryRelated = () => {
         <div role="list" className={classes.relatedList}>
           <div className="f">
             <img className={classes.logo} alt="logo" src={urlImg} />
-            <h4 className={classes.relatedTitle}>RELACIONADAS </h4>
+            <h4 itemProp="name" className={classes.relatedTitle}>RELACIONADAS </h4>
           </div>
           {relatedContent.map((item, i) => {
             const { type, _id: id } = item

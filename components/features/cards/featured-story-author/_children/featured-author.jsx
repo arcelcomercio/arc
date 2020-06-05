@@ -120,18 +120,18 @@ export default ({
         </picture>
       </a>
       <div className={classes.content}>
-        <h3 className={classes.section}>
+        <h3 itemProp="name" className={classes.section}>
           <a className={classes.sectionLink} href={primarySectionLink}>
             {primarySection}
           </a>
         </h3>
-        <h2 className={classes.title}>
+        <h2 itemProp="name" className={classes.title}>
           <a className={classes.titleLink} href={websiteLink}>
             {title}
           </a>
         </h2>
         {design !== 'first' && (
-          <h3 className={classes.subtitle}>
+          <h3 itemProp="name" className={classes.subtitle}>
             <a className={classes.subtitleLink} href={websiteLink}>
               {subTitle}
             </a>
@@ -153,7 +153,7 @@ export default ({
             </picture>
           </a>
           <div className={classes.authorNameContainer}>
-            <h4>
+            <h4 itemProp="name">
               <a className={classes.authorNameLink} href={authorLink}>
                 {author}
               </a>

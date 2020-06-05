@@ -64,7 +64,7 @@ const SeparatorsChildAuthorCard = ({ arcSite, isAdmin, stories }) => {
                     />
                   </a>
                 )}
-                <h5 className={classes.opinionItemName}>
+                <h5 itemProp="name" className={classes.opinionItemName}>
                   <a href={authorUrl} className={classes.opinionItemNameLink}>
                     {author}
                   </a>

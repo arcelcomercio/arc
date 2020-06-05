@@ -62,7 +62,7 @@ const FooterInfo = ({
         {legalLinks[2].name}{' '}
       </a>
       <p>
-        <h5 className={classes.titleList}>{SITE_TITLE}</h5>
+        <h5 itemProp="name" className={classes.titleList}>{SITE_TITLE}</h5>
         {gecSites &&
           gecSites.map(({ url = '', name = '' }, index) => {
             const KeyString = `key${index}`
