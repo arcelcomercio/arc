@@ -76,6 +76,12 @@ const customFields = PropTypes.shape({
     name: 'Dimensiones para Mobile',
     group: 'Lite',
   }),
+  liteAdInlineStyles: PropTypes.string.tag({
+    name: 'Estilos inline',
+    description:
+      'Incluye un JSON de estilos para el contenedor de publicidad. ej. {"position":"fixed","marginTop":0}',
+    group: 'Lite',
+  }),
 })
 
 export default customFields
