@@ -402,7 +402,7 @@ const LiteOutput = ({
       </head>
       <body
         className={classBody}
-        itemScope=""
+        itemScope
         itemType="http://schema.org/WebPage">
         <noscript>
           <iframe
