@@ -1,11 +1,9 @@
 import React from 'react'
-import {
-  deleteQueryString,
-  addSlashToEnd,
-  createMarkup,
-} from '../../utilities/helpers'
-import ConfigParams from '../../utilities/config-params'
-import { getAssetsPath } from '../../utilities/constants'
+import { addSlashToEnd } from '../../utilities/parse/strings'
+import { deleteQueryString } from '../../utilities/parse/queries'
+import { SITE_ELCOMERCIO } from '../../utilities/constants/sitenames'
+import { getAssetsPath } from '../../utilities/assets'
+import Trust from './trust'
 
 export default ({
   deployment,
@@ -106,11 +104,11 @@ export default ({
             {({ data }) => {
               return data ? (
                 <style
-                  dangerouslySetInnerHTML={createMarkup(
-                    data
+                  dangerouslySetInnerHTML={{
+                    __html: data
                       .replace('@charset "UTF-8";', '')
-                      .replace('-----------', '')
-                  )}
+                      .replace('-----------', ''),
+                  }}
                 />
               ) : null
             }}
@@ -195,7 +193,7 @@ export default ({
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
-      {arcSite === ConfigParams.SITE_ELCOMERCIO ? (
+      {arcSite === SITE_ELCOMERCIO ? (
         <>
           <script
             type="application/ld+json"
@@ -218,6 +216,7 @@ export default ({
           dangerouslySetInnerHTML={{ __html: charbeatScript }}
         />
       )}
+      <Trust arcSite={arcSite} siteUrl={siteUrl} siteName={siteName} />
     </>
   )
 }
