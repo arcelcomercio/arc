@@ -86,6 +86,7 @@ const CustomTitle = props => {
     <>
       <TextType
         {...editableField('customText')}
+        itemProp="name"
         suppressContentEditableWarning
         className={`${classes.title} text-${textAlign} ${
           isUppercase ? 'uppercase' : ''
