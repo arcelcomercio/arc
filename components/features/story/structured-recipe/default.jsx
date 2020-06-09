@@ -64,25 +64,6 @@ const StructuredRecipe = () => {
       : listItemsTagsKeywords.map(item => item)
   }]`
 
-  const ingredientList = () => {
-    let initFetch = false
-    let arrayIngredients = []
-    contentElements.forEach(({ type, content = '', items = [] }) => {
-      if (type === ELEMENT_TEXT && content === '[fin-ingredientes]')
-        initFetch = false
-      if (initFetch) {
-        if (type === ELEMENT_LIST)
-          arrayIngredients = items.map(
-            el => el.type === ELEMENT_TEXT && `"${el.content}"`
-          )
-        else arrayIngredients.push(content)
-      }
-      if (type === ELEMENT_TEXT && content === '[inicio-ingredientes]')
-        initFetch = true
-    })
-    return arrayIngredients
-  }
-
   const clearBrTag = paragraph => {
     return nbspToSpace(paragraph.trim().replace(/<\/?br[^<>]+>/, ''))
   }
@@ -97,6 +78,25 @@ const StructuredRecipe = () => {
           .replace('  ', ' ')
       )
     )
+  }
+
+  const ingredientList = () => {
+    let initFetch = false
+    let arrayIngredients = []
+    contentElements.forEach(({ type, content = '', items = [] }) => {
+      if (type === ELEMENT_TEXT && content === '[fin-ingredientes]')
+        initFetch = false
+      if (initFetch) {
+        if (type === ELEMENT_LIST)
+          arrayIngredients = items.map(
+            el => el.type === ELEMENT_TEXT && `"${clearHtml(el.content)}"`
+          )
+        else arrayIngredients.push(content)
+      }
+      if (type === ELEMENT_TEXT && content === '[inicio-ingredientes]')
+        initFetch = true
+    })
+    return arrayIngredients
   }
 
   const instructionsContent = () => {
@@ -188,6 +188,16 @@ const StructuredRecipe = () => {
     }
   )
 
+  const formatTime = string =>
+    string
+      .trim()
+      .toLowerCase()
+      .replace(/minutos|minuto/, 'M')
+      .replace(/segundos|segundo/, 'S')
+      .replace(/y|,|\./, '')
+      .split(' ')
+      .join('')
+
   const structuredData = `{
     "@context":"https://schema.org",
     "@type":"Recipe",
@@ -201,8 +211,8 @@ const StructuredRecipe = () => {
     "image":"${imagenData}",
     "recipeIngredient": [${ingredientList()}],
     "recipeInstructions":[${instructionsFormated()}],
-    "prepTime":"${prepTime ? `PT${prepTime}` : ''}",
-    "cookTime":"${totalTime ? `PT${totalTime}` : ''}",
+    "prepTime":"${prepTime ? `PT${formatTime(prepTime)}` : ''}",
+    "cookTime":"${totalTime ? `PT${formatTime(totalTime)}` : ''}",
     "keywords": ${keywordsList},
     "recipeCategory":"${primarySection}",
     "recipeCuisine":"${recipeCuisine}",
