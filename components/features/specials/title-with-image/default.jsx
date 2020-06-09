@@ -1,21 +1,53 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useContent } from 'fusion:content'
 
 import TitleWithImageChildSpecial from './_children/title-with-image'
 
-const TitleWithImageSpecial = () => {
-  return <TitleWithImageChildSpecial />
+const CONTENT_SOURCE = 'story-by-id'
+
+const TitleWithImageSpecial = props => {
+  const { customFields: { storyCode = '' } = {} } = props
+
+  const story = useContent({
+    source: CONTENT_SOURCE,
+    query: {
+      _id: storyCode,
+      published: 'false',
+    },
+    filter: `{ 
+      canonical_url 
+      headlines { basic }
+      subheadlines { basic }
+      credits {
+        by { name url type }
+      }
+      promo_items {
+        basic { url type subtitle caption resized_urls { landscape_xl } }
+      }
+    }`,
+  })
+
+  const {
+    headlines: { basic: storyTitle = '' } = {},
+    promo_items: { basic: imageStory = {} } = {},
+    subheadlines: { basic: storySubtitle = '' } = {},
+  } = story || {}
+
+  const params = { storyTitle, imageStory, storySubtitle }
+
+  return <TitleWithImageChildSpecial {...params} />
 }
 
-TitleWithImageSpecial.label = 'Especial - Título con imagen de fondo'
-TitleWithImageSpecial.static = true
-
-TitleWithImageSpecial.propType = {
+TitleWithImageSpecial.propTypes = {
   customFields: PropTypes.shape({
-    idStory: PropTypes.string.tag({
+    storyCode: PropTypes.string.tag({
       name: 'ID de historia',
     }),
   }),
 }
+
+TitleWithImageSpecial.label = 'Especial - Título con imagen de fondo'
+TitleWithImageSpecial.static = true
 
 export default TitleWithImageSpecial
