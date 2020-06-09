@@ -1,5 +1,6 @@
 .st-sidebar {
   &__container {
+    background: $color-white;
     @media (--tablet) {
       width: 620px;
     }
@@ -9,7 +10,6 @@
   }
 
   &__content {
-    background: $color-white;
     flex-direction: column;
     width: 100%;
     margin: 20px 0;
