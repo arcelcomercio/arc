@@ -42,10 +42,10 @@ export const getQuery = ({
   storiesQty,
 }) => {
   const { query: { section = '' } = {} } = globalContentConfig || {}
-  const { taxonomy: { primary_section: { _id = '' } = {} } = {} } =
+  const { taxonomy: { primary_section: { _id, path } = {} } = {} } =
     globalContent || {}
 
-  let sec = _id || section
+  let sec = _id || path || section
 
   if (sec === 'todas' || sec === null || sec === 'undefined') sec = ''
   else if (sec !== '') {
