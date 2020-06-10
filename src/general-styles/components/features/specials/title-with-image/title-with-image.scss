@@ -7,6 +7,12 @@
   &__title {
     font-size: 45px;
     text-shadow: 2px 2px 7px #656565;
+    line-height: 1.2;
+  }
+  &__subtitle {
+    font-size: 22px;
+    text-shadow: 2px 2px 7px #656565;
+    line-height: 1.4;
   }
   &__mouse-icon {
     border-radius: 25px;
@@ -14,6 +20,9 @@
     height: 35px;
     opacity: 1;
     width: 3px;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
   }
   &__scroller {
     border-radius: 25%;

@@ -5,8 +5,10 @@ const classes = {
   containerText:
     'title-with-image__container-text position-absolute text-center text-white flex flex-col items-center',
   title: 'title-with-image__title',
+  subtitle: 'title-with-image__subtitle mt-20',
   imageBg: 'w-full',
-  mouseIcon: 'title-with-image__mouse-icon bg-white pt-10 pb-10 pl-15 pr-15',
+  mouseIcon:
+    'title-with-image__mouse-icon bg-white pt-10 pb-10 pl-15 pr-15 position-absolute',
   scroller: 'title-with-image__scroller bg-black',
 }
 
@@ -24,10 +26,10 @@ const TitleWithImageChildSpecial = props => {
       </picture>
       <div className={classes.containerText}>
         <h1 className={classes.title}>{storyTitle}</h1>
-        <h2>{storySubtitle}</h2>
-        <div className={classes.mouseIcon}>
-          <div className={classes.scroller}></div>
-        </div>
+        <h2 className={classes.subtitle}>{storySubtitle}</h2>
+      </div>
+      <div className={classes.mouseIcon}>
+        <div className={classes.scroller}></div>
       </div>
     </div>
   )
