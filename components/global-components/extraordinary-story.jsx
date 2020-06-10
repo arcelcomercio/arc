@@ -70,6 +70,7 @@ const ExtraordinaryStory = props => {
             {!isSection && (
               <p itemProp="description" className={classes.section}>
                 <a
+                  itemProp="url"
                   href={data.primarySectionLink}
                   className={classes.sectionLink}>
                   {data.primarySection}

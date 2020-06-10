@@ -78,6 +78,7 @@ const TripletChildTriplet = props => {
             <div className={classes.information}>
               <h2 itemProp="name" className={`${classes.title} ${numline}`}>
                 <a
+                  itemProp="url"
                   className={classes.titleLink}
                   href={story.websiteLink}
                   {...editableField(`title${index + 1}`)}
@@ -87,6 +88,7 @@ const TripletChildTriplet = props => {
               </h2>
               <address className={classes.author}>
                 <a
+                  itemProp="url"
                   className={classes.authorLink}
                   href={story.authorOrSectionLink}>
                   {story.authorOrSection}

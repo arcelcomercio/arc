@@ -52,6 +52,7 @@ class NavbarChildMenu extends PureComponent {
               style={styleCustom}
               key={`navbar-menu-${url || id}`}>
               <a
+                itemProp="url"
                 href={url || id || '/'}
                 {...(styles.length > 0 && {
                   style: {
@@ -148,6 +149,7 @@ class NavbarChildMenu extends PureComponent {
               socialNetworks.map(el => (
                 <li className={classes.listItem} key={el.url}>
                   <a
+                    itemProp="url"
                     className={classes.listLink}
                     href={el.url}
                     aria-label={el.name}>

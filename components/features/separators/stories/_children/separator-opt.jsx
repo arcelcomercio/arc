@@ -14,6 +14,7 @@ const SeparatorItemComplete = ({
   isImageVisible,
 }) => (
   <a
+    itemProp="url"
     href={websiteLink}
     className={`sep-opt__item gradient block position-relative mb-20 md:mb-10 ${
       index === 0 ? '' : 'md:ml-5'
@@ -93,12 +94,14 @@ const SeparatorItemPartial = ({
     </h3>
     {isAuthorVisible && author && (
       <a
+        itemProp="url"
         href={authorLink}
         className="z-10 position-relative block text-sm uppercase text-gray-200 ml-15 br-15 mt-0 mb-20">
         {author}
       </a>
     )}
     <a
+      itemProp="url"
       className="font-0 position-absolute h-full w-full top-0"
       href={websiteLink}>
       {title}
@@ -136,6 +139,7 @@ const SeparatorsBasicChildSeparator = ({
       )}
       {isSeeMoreVisible && (
         <a
+          itemProp="url"
           href={titleLink}
           className="position-absolute text-sm text-gray-200 right-0 top-0 border-1 border-gray border-solid p-10 mt-10">
           VER MÁS

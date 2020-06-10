@@ -128,6 +128,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
                     return (
                       <address role="listitem" className={classes.item}>
                         <a
+                          itemProp="url"
                           href={`${URI_BASE}${MOVIES_BASE}/${cinema.url}`}
                           className={classes.cinema}>
                           {cinema.nombre}

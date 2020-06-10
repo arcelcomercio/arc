@@ -92,6 +92,7 @@ const ShareButtons = () => {
         </svg>
       </a>
       <a
+        itemProp="url"
         href={urlsShareList.whatsapp}
         className={`${classes.btn} ${classes.ws}`}
         data-share="">

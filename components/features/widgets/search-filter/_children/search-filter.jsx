@@ -160,6 +160,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
                   {sections.map(section => (
                     <li key={section._id} className={classes.subItem}>
                       <a
+                        itemProp="url"
                         href={
                           !isAdmin && this.getUrl(SECTION, section._id.slice(1))
                         } // (type, value)
@@ -190,6 +191,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 sort === DESC || !sort ? 'active' : ''
               }`}>
               <a
+                itemProp="url"
                 href={!isAdmin && this.getUrl(SORT, DESC)} // (type, value)
                 className={classes.link}
                 role="checkbox"
@@ -202,6 +204,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 sort === ASC || !sort ? 'active' : ''
               }`}>
               <a
+                itemProp="url"
                 href={!isAdmin && this.getUrl(SORT, ASC)} // (type, value)
                 className={classes.link}
                 role="checkbox"
@@ -214,6 +217,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 sort === 'relacionados' || !sort ? 'active' : ''
               }`}>
               <a
+                itemProp="url"
                 href={!isAdmin && this.getUrl()} // (type, value)
                 className={classes.link}
                 role="checkbox"

@@ -105,6 +105,7 @@ const CustomTitle = props => {
           'Título'}
         {seeMoreButton && (
           <a
+            itemProp="url"
             href={seeMoreButtonLink}
             className={isDarkBg ? classes.darkButton : classes.button}>
             VER MÁS
@@ -112,7 +113,8 @@ const CustomTitle = props => {
         )}
       </TextType>
       {subtitleField && (
-        <h2 itemProp="name"
+        <h2
+          itemProp="name"
           className="text-lg mt-10 mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0"
           dangerouslySetInnerHTML={createMarkup(subtitleField)}
         />

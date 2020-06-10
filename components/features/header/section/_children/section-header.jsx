@@ -142,6 +142,7 @@ export default ({
             {sections.map(section => (
               <li className={classes.menuItem} key={section.url}>
                 <a
+                  itemProp="url"
                   href={section.url}
                   className={`${classes.menuLink} ${
                     showVinetas ? 'section-menu__link--v' : ''

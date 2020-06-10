@@ -446,6 +446,7 @@ class NavBarDefault extends PureComponent {
                           key={`navbar-${url || id}`}
                           className="nav__list-item text-center pr-15 h-full">
                           <a
+                            itemProp="url"
                             href={url || id || '/'}
                             className="nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm">
                             {name || displayName}
@@ -457,6 +458,7 @@ class NavBarDefault extends PureComponent {
               </ul>
             </div>
             <a
+              itemProp="url"
               href="/"
               className="nav__mobile-logo position-absolute"
               title={`Logo de ${arcSite}`}>
@@ -469,6 +471,7 @@ class NavBarDefault extends PureComponent {
 
             {type !== ELEMENT_STORY && arcSite === SITE_PERU21 && (
               <a
+                itemProp="url"
                 className="header__logo-secondary"
                 href="/el-otorongo?ref=portada_home&amp;ft=btn_menu"
                 title={logo.alt}>
@@ -483,6 +486,7 @@ class NavBarDefault extends PureComponent {
                 <>
                   <div>
                     <a
+                      itemProp="url"
                       title="Mostrar enlaces para compartir"
                       className="story-content__more-link"
                       href="/"
@@ -499,6 +503,7 @@ class NavBarDefault extends PureComponent {
                         key={item.icon}
                         className={`story-header__item ${item.mobileClass}`}>
                         <a
+                          itemProp="url"
                           title={`Compartir en ${item.name}`}
                           className="story-header__link flex items-center justify-center text-gray-200"
                           href={item.link}

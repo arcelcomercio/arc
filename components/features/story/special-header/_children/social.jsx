@@ -62,6 +62,7 @@ const SpecialHeaderChildSocial = ({
         {shareButtons.map((item, i) => (
           <li key={`share-${item.icon}`} className={classes.item}>
             <a
+              itemProp="url"
               className={classes.link}
               href={item.link}
               /* onClick={event => {

@@ -28,6 +28,7 @@ const HeaderChildStandard = props => {
         </a>
         {arcSite === SITE_PERU21 && (
           <a
+            itemProp="url"
             className="header__logo-secondary"
             href="/el-otorongo?ref=portada_home&amp;ft=btn_menu"
             title={logo.alt}>
@@ -71,6 +72,7 @@ const HeaderChildStandard = props => {
                 }`}
                 key={url}>
                 <a
+                  itemProp="url"
                   className="header__link uppercase text-sm p-10"
                   href={url}
                   {...(styles && {

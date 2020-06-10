@@ -198,6 +198,7 @@ export default ({
               <div className="section-video__information">
                 <div className="section-video__box-section">
                   <a
+                    itemProp="url"
                     href={principalVideo.primarySectionLink}
                     className="section-video__section block text-white">
                     {principalVideo.primarySection}
@@ -205,6 +206,7 @@ export default ({
                 </div>
                 <h1 itemProp="name">
                   <a
+                    itemProp="url"
                     href={principalVideo.websiteLink}
                     className="section-video__title block text-white">
                     {principalVideo.title}

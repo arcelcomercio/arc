@@ -79,6 +79,7 @@ export default ({
       <div className={classes.boxDetail}>
         <h3 itemProp="name">
           <a
+            itemProp="url"
             className={classes.section}
             href={primarySectionLink}
             {...getEditableField('categoryField')}
@@ -88,6 +89,7 @@ export default ({
         </h3>
         <h2 itemProp="name">
           <a
+            itemProp="url"
             className={classes.title}
             href={websiteLink}
             {...getEditableField('titleField')}

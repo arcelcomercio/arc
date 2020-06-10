@@ -114,6 +114,7 @@ const CardsTabloidStory = props => {
     <div className="tabloid-story row-1 bg-base-400">
       <h4 itemProp="name" className="flex justify-center bg-base-200 p-10">
         <a
+          itemProp="url"
           className="text-white font-bold text-xl uppercase"
           href={primarySectionLink}>
           {primarySection}

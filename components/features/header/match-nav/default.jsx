@@ -57,6 +57,7 @@ class MatchNav extends PureComponent {
                     : classes.navTabsItem
                 }>
                 <a
+                  itemProp="url"
                   href={configTabs.partido_previa}
                   className={classes.navTabsTitle}>
                   Previa
@@ -71,6 +72,7 @@ class MatchNav extends PureComponent {
                     : classes.navTabsItem
                 }>
                 <a
+                  itemProp="url"
                   href={configTabs.partido_directo}
                   className={classes.navTabsTitle}>
                   Directo
@@ -84,6 +86,7 @@ class MatchNav extends PureComponent {
                   : classes.navTabsItem
               }>
               <a
+                itemProp="url"
                 href={`/alineaciones${urlEstaticas}`}
                 className={classes.navTabsTitle}>
                 Alineaciones
@@ -96,6 +99,7 @@ class MatchNav extends PureComponent {
                   : classes.navTabsItem
               }>
               <a
+                itemProp="url"
                 href={`/estadisticas${urlEstaticas}`}
                 className={classes.navTabsTitle}>
                 Estadísticas
@@ -109,6 +113,7 @@ class MatchNav extends PureComponent {
                     : classes.navTabsItem
                 }>
                 <a
+                  itemProp="url"
                   href={configTabs.partido_cronica}
                   className={classes.navTabsTitle}>
                   Crónica

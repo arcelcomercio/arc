@@ -108,6 +108,7 @@ const FooterChildElComercio = ({
                       </h5>
                       {names.map(name => (
                         <p
+                          itemProp="description"
                           key={`dir-${name}`}
                           className={classes.directorsNames}>
                           {name}
@@ -133,6 +134,7 @@ const FooterChildElComercio = ({
                         {position}
                       </h5>
                       <a
+                        itemProp="url"
                         href={name.includes('@') ? `mailto:${name}` : name}
                         className={classes.contactLink}>
                         {name}
@@ -142,12 +144,14 @@ const FooterChildElComercio = ({
                           <br />
                           {link.url && link.url.includes('@') ? (
                             <a
+                              itemProp="url"
                               href={`mailto:${link.url}`}
                               className={classes.contactLink}>
                               {link.name}
                             </a>
                           ) : (
                             <a
+                              itemProp="url"
                               href={link.url}
                               className={classes.contactLink}
                               target="_blank"
@@ -170,6 +174,7 @@ const FooterChildElComercio = ({
                     <li className={classes.linksItem} key={`legal-${name}`}>
                       {external ? (
                         <a
+                          itemProp="url"
                           href={url}
                           className={classes.linksLink}
                           target="_blank"
@@ -201,6 +206,7 @@ const FooterChildElComercio = ({
               if (site.arcSite === arcSite) return ''
               return (
                 <a
+                  itemProp="url"
                   className={classes.sitesItem}
                   key={`site-${site.url}`}
                   target="_blank"

@@ -110,6 +110,7 @@ const FooterChildStandardG21 = props => {
               return (
                 <li className={classes.listSocialItem}>
                   <a
+                    itemProp="url"
                     target="_blank"
                     rel="noopener noreferrer"
                     href={el.url}
@@ -133,6 +134,7 @@ const FooterChildStandardG21 = props => {
             if (site.arcSite === arcSite) return ''
             return (
               <a
+                itemProp="url"
                 className={classes.sitesItem}
                 key={site.url}
                 target="_blank"

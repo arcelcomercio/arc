@@ -48,6 +48,7 @@ export default ({
               return (
                 <div className={`stories-l-tabloid__item ${columns}`}>
                   <a
+                    itemProp="url"
                     className="stories-l-tabloid__image-link"
                     href={Story.websiteLink}>
                     <img
@@ -57,6 +58,7 @@ export default ({
                     />
                   </a>
                   <a
+                    itemProp="url"
                     href={Story.websiteLink}
                     className="stories-l-tabloid__date">
                     {formateDate(Story.displayDate)}
@@ -73,6 +75,7 @@ export default ({
       </div>
       <div className={classes.listadoSeeMore}>
         <a
+          itemProp="url"
           href={seeMoreLink}
           tabIndex="0"
           /** TODO:

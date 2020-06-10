@@ -312,6 +312,7 @@ const HeaderSpecialChildSpecial = ({
         </div>
         {/** ************* // LEFT *************** */}
         <a
+          itemProp="url"
           href={logo.link}
           className={`${classes.logoContainer} ${isStory &&
             scrolled &&
@@ -328,6 +329,7 @@ const HeaderSpecialChildSpecial = ({
               <div className={classes.navStorySocialNetwork}>
                 <div>
                   <a
+                    itemProp="url"
                     className={classes.moreLink}
                     href="/"
                     onClick={event => {
@@ -341,6 +343,7 @@ const HeaderSpecialChildSpecial = ({
                   {shareButtons.firstList.map((item, i) => (
                     <li key={item.icon} className={classes.shareItem}>
                       <a
+                        itemProp="url"
                         className={classes.shareLink}
                         href={item.link}
                         onClick={event => {

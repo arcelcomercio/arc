@@ -177,6 +177,7 @@ const StoryHeaderChildSocial = () => {
               key={UtilListKey(i)}
               className={` ${classes.item} ${item.mobileClass}`}>
               <a
+                itemProp="url"
                 className={classes.link}
                 href={item.link}
                 data-share=""

@@ -149,6 +149,7 @@ const FeaturedStoryPremiumChild = ({
       <div className={classes.detail}>
         <h3 itemProp="name" className={classes.section}>
           <a
+            itemProp="url"
             className={classes.sectionLink}
             href={primarySectionLink}
             {...getEditableField('categoryField')}
@@ -158,6 +159,7 @@ const FeaturedStoryPremiumChild = ({
         </h3>
         <h2 itemProp="name" className={classes.title}>
           <a
+            itemProp="url"
             className={classes.titleLink}
             href={websiteLink}
             {...getEditableField('titleField')}

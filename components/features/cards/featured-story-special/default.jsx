@@ -133,12 +133,14 @@ const CardsFeaturedStorySpecial = props => {
       </a>
       <div className="featured-special__content overflow-hidden position-absolute ml-20 mb-20 md:ml-40 md:mb-40 bottom-0">
         <a
+          itemProp="url"
           href={primarySectionLink}
           className="featured-special__section-link inline-block font-bold text-white p-5 pl-30 pr-30 mb-15 text-xl bg-primary">
           {primarySection}
         </a>
         <h2 itemProp="name" className="featured-special__title-link block">
           <a
+            itemProp="url"
             href={websiteLink}
             className="text-white font-bold line-h-sm title-md ">
             {title}

@@ -37,6 +37,7 @@ const StorySeparatorByRecommendationChildItem = ({
         </h2>
         <h3 itemProp="name" className={classes.separatorTitle}>
           <a
+            itemProp="url"
             className={classes.titleLink}
             href={link}
             onClick={e => clickedRecommendation(e, link)}>

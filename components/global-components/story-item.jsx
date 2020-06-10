@@ -89,6 +89,7 @@ const StoriesList = ({
               {reduceWord(element.subTitle)}
             </p>
             <a
+              itemProp="url"
               href={element.primarySectionLink}
               className={classes.sectionHidden}>
               {element.primarySection}

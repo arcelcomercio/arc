@@ -78,6 +78,7 @@ class MinuteByMinute extends PureComponent {
                 itemProp="name"
                 className="text-center text-xl line-h-sm font-bold mb-20">
                 <a
+                  itemProp="url"
                   {...editableField('titleField')}
                   suppressContentEditableWarning
                   href={url}
@@ -106,6 +107,7 @@ class MinuteByMinute extends PureComponent {
               </div>
               <div className="box-game  rounded-sm bg-white p-5 mt-10">
                 <a
+                  itemProp="url"
                   className="page-link by-minute__bar flex justify-between items-center position-relative"
                   href={url}>
                   <div className="game-team team1 flex items-center">
@@ -169,6 +171,7 @@ class MinuteByMinute extends PureComponent {
                 itemProp="name"
                 className="text-center text-xl line-h-sm font-bold mt-20">
                 <a
+                  itemProp="url"
                   {...editableField('titleField')}
                   suppressContentEditableWarning
                   href={url}
@@ -178,6 +181,7 @@ class MinuteByMinute extends PureComponent {
               </h2>
               <p itemProp="description" className="text-center mt-15">
                 <a
+                  itemProp="url"
                   {...editableField('subtitleField')}
                   suppressContentEditableWarning
                   className="text-white line-h-xs"

@@ -55,6 +55,7 @@ const StoriesListLinkedBySiteChild = ({
             multimediaLandscapeS,
           }) => (
             <a
+              itemProp="url"
               className={classes.listItem}
               key={websiteLink}
               href={websiteLink}

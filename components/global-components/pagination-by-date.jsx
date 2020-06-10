@@ -128,6 +128,7 @@ class PaginationByDate extends PureComponent {
         <ul className={classes.paginationDateList}>
           <li className={classes.paginationDateItem}>
             <a
+              itemProp="url"
               className={classes.paginationDateLink}
               href={`${this.getURL()}${this.getLastDay()}`}>
               <span className="non-tablet non-desktop">&#60;</span>
@@ -142,6 +143,7 @@ class PaginationByDate extends PureComponent {
                 className={classes.paginationDateItem}>
                 {index === this.dateIterator.length - 1 ? (
                   <p
+                    itemProp="description"
                     className={`${classes.paginationDateLink} ${
                       index === this.dateIterator.length - 1 ? 'active' : ''
                     }`}>
@@ -149,6 +151,7 @@ class PaginationByDate extends PureComponent {
                   </p>
                 ) : (
                   <a
+                    itemProp="url"
                     className={classes.paginationDateLink}
                     href={`${this.getURL(index)}`}>
                     {this.clearDate(el)}
@@ -160,6 +163,7 @@ class PaginationByDate extends PureComponent {
           {date !== getActualDate() && (
             <li className={classes.paginationDateItem}>
               <a
+                itemProp="url"
                 className={classes.paginationDateLink}
                 href={`${this.getURL()}${this.getNextDay()}`}>
                 <span className="non-tablet non-desktop">&#62;</span>

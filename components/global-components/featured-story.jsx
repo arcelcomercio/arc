@@ -172,6 +172,7 @@ const FeaturedStory = props => {
             itemProp="name"
             className={`${classes.category} ${getCategorySectionClass()}`}>
             <a
+              itemProp="url"
               className={classes.categoryLink}
               href={category.url}
               {...getEditableField('categoryField')}
@@ -191,6 +192,7 @@ const FeaturedStory = props => {
         )}
         <h2 itemProp="name" className={classes.title}>
           <a
+            itemProp="url"
             className={classes.titleLink}
             href={title.url}
             {...getEditableField('titleField')}

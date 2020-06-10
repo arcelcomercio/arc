@@ -80,6 +80,7 @@ const StaticsNewsletterChildForm = props => {
             />
             Acepto los{' '}
             <a
+              itemProp="url"
               className={classes.pageLink}
               href={urlTos}
               target="_blank"
@@ -88,6 +89,7 @@ const StaticsNewsletterChildForm = props => {
             </a>{' '}
             y{' '}
             <a
+              itemProp="url"
               className={classes.pageLink}
               href={urlPrivacyPolicies}
               target="_blank"

@@ -93,6 +93,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                     className={classes.movie}>
                     <figure className={classes.imageBox}>
                       <a
+                        itemProp="url"
                         href={`${URI_BASE}/${movie.url}${TEATHERS_BASE}`}
                         className={classes.imageLink}>
                         <picture>
@@ -124,6 +125,7 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                     <div className={classes.details}>
                       <h2 itemProp="name" className={classes.movieTitle}>
                         <a
+                          itemProp="url"
                           href={`${URI_BASE}/${movie.url}${TEATHERS_BASE}`}
                           className={classes.movieLink}>
                           {movie.title}

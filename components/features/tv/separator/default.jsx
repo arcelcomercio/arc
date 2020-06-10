@@ -128,6 +128,7 @@ const TvSeparator = props => {
             </span>
           ) : (
             <a
+              itemProp="url"
               href={`${section}/`}
               className="title-lg text-white font-bold uppercase">
               {customTitle || sectionName}

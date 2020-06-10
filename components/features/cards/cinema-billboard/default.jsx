@@ -77,6 +77,7 @@ const CardCinemaBillboard = () => {
             itemProp="name"
             className="cinema-card__p-title overflow-hidden title-xs text-white">
             <a
+              itemProp="url"
               className="cinema-card__p-link font-bold text-white line-h-xs"
               href={`${BASE_PATH}/${url}/`}>
               {title}

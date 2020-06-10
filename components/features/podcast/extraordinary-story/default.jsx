@@ -111,6 +111,7 @@ const PodcastExtraordinazryStory = props => {
         <div className="podcast-extraordinary__section-container flex items-center md:mb-10 md:mt-10 mb-15 mt-15">
           <h3 itemProp="name" className="podcast-extraordinary__section mr-10">
             <a
+              itemProp="url"
               href={primarySectionLink}
               className="podcast-extraordinary__section-link text-lg text-gray-200 font-bold">
               {primarySection}
@@ -122,6 +123,7 @@ const PodcastExtraordinazryStory = props => {
         </div>
         <h2 itemProp="name" className="podcast-extraordinary__title mb-15">
           <a
+            itemProp="url"
             href={websiteLink}
             className="podcast-extraordinary__title-link text-black font-bold secondary-font line-h-xs">
             {title}
@@ -131,6 +133,7 @@ const PodcastExtraordinazryStory = props => {
           itemProp="description"
           className="podcast-extraordinary__subtitle mb-15">
           <a
+            itemProp="url"
             href={websiteLink}
             className="podcast-extraordinary__subtitle-link text-md line-h-sm text-gray-300 secondary-font overflow-hidden">
             {subTitle}
@@ -142,6 +145,7 @@ const PodcastExtraordinazryStory = props => {
         </audio>
       </div>
       <a
+        itemProp="url"
         href={websiteLink}
         className="podcast-extraordinary__img-link w-full position-relative">
         <picture className="podcast-extraordinary__picture">

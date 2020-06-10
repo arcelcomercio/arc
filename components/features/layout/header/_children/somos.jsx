@@ -108,6 +108,7 @@ class HeaderChildSomos extends PureComponent {
             <ul className="somos-menu__list m-0 block pt-5 pb-5 pr-15 pl-15 lg:flex lg:flex lg:justify-evenly">
               <li className="somos-menu__item-link hidden lg:flex lg:items-center">
                 <a
+                  itemProp="url"
                   href={firstSection.url}
                   className="somos-menu__link-icon hidden text-gray-300 lg:block">
                   <i className="icon-home" />
@@ -116,6 +117,7 @@ class HeaderChildSomos extends PureComponent {
               {sections.map(section => (
                 <li className="somos-menu__item" key={section.url}>
                   <a
+                    itemProp="url"
                     href={section.url}
                     className="somos-menu__link text-xl text-white pt-15 pb-15 inline-block w-full lg:flex lg:items-center">
                     {section.name}

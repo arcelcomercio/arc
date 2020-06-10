@@ -81,6 +81,7 @@ const CardCinemaBillboard = ({
           </p>
           <h2 itemProp="name" className={classes.movieTitle}>
             <a
+              itemProp="url"
               className={classes.movieLink}
               href={`${BASE_PATH}/${premiereUrl}`}>
               {premiereTitle}

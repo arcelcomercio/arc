@@ -169,6 +169,7 @@ class StoriesLiestInfiniteCards extends Component {
                 className="infinite-cards__card pt-20 pb-20 pl-10 pr-10">
                 <div className="position-relative">
                   <a
+                    itemProp="url"
                     className="infinite-cards__media block position-relative"
                     href={websiteLink}>
                     <picture>
@@ -201,6 +202,7 @@ class StoriesLiestInfiniteCards extends Component {
                     )}
                   </a>
                   <a
+                    itemProp="url"
                     className="infinite-cards__section pt-5 pb-5 pl-15 pr-15 uppercase text-sm font-bold block position-absolute top-0 right-0 text-white"
                     href={primarySectionLink}>
                     {primarySection}

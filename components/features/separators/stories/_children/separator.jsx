@@ -51,6 +51,7 @@ const SeparatorsBasicChildSeparator = ({
       )}
       {isSeeMoreVisible && (
         <a
+          itemProp="url"
           href={titleLink}
           className="separator__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200">
           VER MÁS
@@ -83,6 +84,7 @@ const SeparatorsBasicChildSeparator = ({
                   {isAuthorVisible && (
                     <h2 itemProp="name">
                       <a
+                        itemProp="url"
                         href={authorLink}
                         className="block text-sm uppercase text-gray-200 mt-10 mb-20">
                         {author}
@@ -92,6 +94,7 @@ const SeparatorsBasicChildSeparator = ({
                 </div>
                 {isImageVisible && (
                   <a
+                    itemProp="url"
                     className="separator__img-link block h-full"
                     href={websiteLink}>
                     <picture className={classes.imgBox}>

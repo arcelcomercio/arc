@@ -140,6 +140,7 @@ const CardTabloid = props => {
     <div className={classes.tabloid}>
       <h4 itemProp="name" className={classes.header}>
         <a
+          itemProp="url"
           className={classes.headerLink}
           href={link || primarySectionLink || '/impresa/'}
           {...editableField('sectionName')}
@@ -148,6 +149,7 @@ const CardTabloid = props => {
         </a>
       </h4>
       <a
+        itemProp="url"
         className={classes.body}
         href={link || linkTabloide}
         target="_blank"

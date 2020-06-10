@@ -68,6 +68,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                 <ul className={classes.navList}>
                   <li className={classes.navItem}>
                     <a
+                      itemProp="url"
                       href={URI_BASE}
                       className={`${classes.navLink} ${
                         !genre ? 'movies-grid__nav-link--active' : ''
@@ -82,6 +83,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                           className={classes.navItem}
                           key={`nav-${singleGenre.url}`}>
                           <a
+                            itemProp="url"
                             href={`${URI_BASE}${MOVIES_BASE}${TEATHERS_BASE}/${singleGenre.url}`}
                             className={`${classes.navLink} ${
                               genre === singleGenre.url

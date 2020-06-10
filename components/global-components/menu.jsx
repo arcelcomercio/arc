@@ -64,6 +64,7 @@ const NavbarChildMenu = props => {
               style={styleCustom}
               key={`navbar-menu-${url || id}`}>
               <a
+                itemProp="url"
                 href={url || id || '/'}
                 className={classes.link}
                 style={{

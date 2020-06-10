@@ -69,6 +69,7 @@ const BreakingNewsFeat = props => {
           `}>
             <h2 itemProp="name">
               <a
+                itemProp="url"
                 className={classes.link}
                 href={objContent.link}
                 rel="noopener noreferrer">

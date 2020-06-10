@@ -74,6 +74,7 @@ const StandardFooter = props => {
           <li className={classes.legalLinksWrapper}>
             {legalLinks.map(el => (
               <a
+                itemProp="url"
                 className={` ${classes.legalLinks}`}
                 href={el.url}
                 key={el.url}>
@@ -128,6 +129,7 @@ const StandardFooter = props => {
               return (
                 <li className={classes.listSocialItem}>
                   <a
+                    itemProp="url"
                     target="_blank"
                     rel="noopener noreferrer"
                     href={el.url}
@@ -151,6 +153,7 @@ const StandardFooter = props => {
             if (site.arcSite === arcSite) return ''
             return (
               <a
+                itemProp="url"
                 className={classes.sitesItem}
                 key={site.url}
                 target="_blank"

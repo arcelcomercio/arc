@@ -41,6 +41,7 @@ const NavbarChildMenu = ({
           return (
             <li className={classes.item} key={`menu-${url || id}`}>
               <a
+                itemProp="url"
                 href={url || id || '/'}
                 className={classes.link}
                 style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>

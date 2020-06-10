@@ -53,6 +53,7 @@ const StoriesListRecommenderBySiteChild = ({
             multimediaLandscapeS,
           }) => (
             <a
+              itemProp="url"
               className={classes.listItem}
               key={websiteLink}
               href={websiteLink}

@@ -77,6 +77,7 @@ const BreakingNewsFeat = props => {
               </span>
               <span>
                 <a
+                  itemProp="url"
                   className={classes.link}
                   href={objContent.link}
                   rel="noopener noreferrer"

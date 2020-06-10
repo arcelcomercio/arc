@@ -37,6 +37,7 @@ const Error404 = props => {
           {title}
         </h3>
         <p
+          itemProp="description"
           className={classes.content}
           {...editableField('description')}
           suppressContentEditableWarning>

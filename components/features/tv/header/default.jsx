@@ -99,6 +99,7 @@ const TvHeader = () => {
           </button>
         </div>
         <a
+          itemProp="url"
           href={logoUrl}
           className="tv-header__section-logo block position-absolute mt-5">
           <img
@@ -111,6 +112,7 @@ const TvHeader = () => {
           />
         </a>
         <a
+          itemProp="url"
           href="https://peru21.pe/"
           className="tv-header__go-portada position-absolute">
           {isMobile ? `Perú21 ` : `Portada Perú21 `}

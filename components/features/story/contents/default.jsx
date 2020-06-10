@@ -480,6 +480,7 @@ class StoryContents extends PureComponent {
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
+                itemProp="url"
                 href={URL_BBC}
                 rel="nofollow noopener noreferrer"
                 target="_blank">

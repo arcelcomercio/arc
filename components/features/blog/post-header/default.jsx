@@ -105,11 +105,14 @@ const BlogPostHeader = () => {
 
   return (
     <div className={classes.header}>
-      <h1 itemProp="name" className={classes.title}>{postTitle}</h1>
+      <h1 itemProp="name" className={classes.title}>
+        {postTitle}
+      </h1>
       <ul className={classes.list}>
         {shareButtons[currentList].map((item, i) => (
           <li className={`${classes.item} ${item.mobileClass || ''}`}>
             <a
+              itemProp="url"
               className={classes.link}
               href={item.link}
               onClick={event => {

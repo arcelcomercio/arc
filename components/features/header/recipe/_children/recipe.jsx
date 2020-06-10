@@ -48,6 +48,7 @@ const HeaderChildRecipe = props => {
                 }`}
                 key={url}>
                 <a
+                  itemProp="url"
                   className="header__link uppercase text-sm p-10"
                   href={url}
                   {...(styles && {

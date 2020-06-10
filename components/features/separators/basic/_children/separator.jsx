@@ -71,6 +71,7 @@ const SeparatorsBasicChildSeparator = props => {
         <div className={classes.boxTitle}>
           <h2 itemProp="name" className={`${classes.title} text-${textAling}`}>
             <a
+              itemProp="url"
               href={titleLink}
               className={`${classes.titleLink}`}
               {...editableField('titleSeparator')}

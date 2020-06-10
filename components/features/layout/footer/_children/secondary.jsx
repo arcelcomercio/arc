@@ -120,6 +120,7 @@ const SecondaryFooter = props => {
                   return (
                     <li className={classes.listSocialItem}>
                       <a
+                        itemProp="url"
                         target="_blank"
                         rel="noopener noreferrer"
                         href={el.url}
@@ -147,6 +148,7 @@ const SecondaryFooter = props => {
             if (site.arcSite !== arcSite) {
               return (
                 <a
+                  itemProp="url"
                   className={classes.sitesItem}
                   key={site.url}
                   target="_blank"

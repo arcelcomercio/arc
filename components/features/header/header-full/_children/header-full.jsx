@@ -135,6 +135,7 @@ export default ({
           return (
             <li className={classes.item} key={`navbar-menu-${url || id}`}>
               <a
+                itemProp="url"
                 href={url || id || '/'}
                 className={classes.link}
                 style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
@@ -229,6 +230,7 @@ export default ({
                         <>
                           <li className={classes.headerItem}>
                             <a
+                              itemProp="url"
                               href={item.url || item._id || '/'}
                               className={`${classes.headerLink} pt-15 pb-15`}>
                               {item.name || item.display_name}
@@ -247,6 +249,7 @@ export default ({
                                     return (
                                       <li className={classes.subMenuItem}>
                                         <a
+                                          itemProp="url"
                                           href={
                                             subItem.url || subItem._id || '/'
                                           }
@@ -307,6 +310,7 @@ export default ({
                   return (
                     <li className={classes.itemNav}>
                       <a
+                        itemProp="url"
                         href={item.url || item._id || '/'}
                         className={classes.linkNav}>
                         {item.name || item.display_name}
@@ -330,6 +334,7 @@ export default ({
                     </a>
                     {legalLinks.map(link => (
                       <a
+                        itemProp="url"
                         key={link.url}
                         href={link.url}
                         className={classes.text}>
@@ -359,6 +364,7 @@ export default ({
                   {shareButtons.map(item => (
                     <li key={item.icon} className={classes.shareItem}>
                       <a
+                        itemProp="url"
                         title={`Compartir en ${item.name}`}
                         className={classes.shareLink}
                         href={item.link}
@@ -376,6 +382,7 @@ export default ({
             {arcSite !== arcSiteTrome ? (
               <div className={classes.btnContainer}>
                 <a
+                  itemProp="url"
                   href="/resultados/futbol/resultados/"
                   className={classes.btnResult}>
                   Resultados
@@ -384,6 +391,7 @@ export default ({
             ) : (
               <div className={classes.callImg}>
                 <a
+                  itemProp="url"
                   href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
                   title="Llamada Ganadora">
                   <img src={winningCallLogo} alt="Llamada Ganadora" />

@@ -55,22 +55,27 @@ const TvSection = () => {
           <span className="text-white title-sm font-bold block mb-5">
             Sobre el programa
           </span>
-          <h3 itemProp="name" className="text-white title-sm">{sectionName}</h3>
+          <h3 itemProp="name" className="text-white title-sm">
+            {sectionName}
+          </h3>
         </div>
         <div className="flex">
           <a
+            itemProp="url"
             href={urlsShareList.facebook}
             onClick={event => openLink(event, urlsShareList.facebook)}
             className="tv-section__icon-link block border-1 border-white rounded border-solid flex justify-center items-center">
             <i className="icon-facebook text-white" />
           </a>
           <a
+            itemProp="url"
             href={urlsShareList.twitter}
             onClick={event => openLink(event, urlsShareList.twitter)}
             className="tv-section__icon-link block border-1 border-white rounded border-solid ml-10 md:ml-15 flex justify-center items-center">
             <i className="icon-twitter text-white" />
           </a>
           <a
+            itemProp="url"
             href={urlsShareList.whatsapp}
             onClick={event => openLink(event, urlsShareList.whatsapp)}
             className="tv-section__icon-link block border-1 border-white rounded border-solid ml-10 md:ml-15 flex justify-center items-center md:hidden">

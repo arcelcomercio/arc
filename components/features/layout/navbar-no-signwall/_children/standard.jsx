@@ -478,6 +478,7 @@ class NavBarDefault extends PureComponent {
                           key={`navbar-${url || id}`}
                           className={classes.listItem}>
                           <a
+                            itemProp="url"
                             href={url || id || '/'}
                             className={classes.listLink}>
                             {name || displayName}
@@ -498,6 +499,7 @@ class NavBarDefault extends PureComponent {
 
             {type !== ELEMENT_STORY && arcSite === SITE_PERU21 && (
               <a
+                itemProp="url"
                 className={classes.logoLeft}
                 href="/el-otorongo?ref=portada_home&amp;ft=btn_menu">
                 <img
@@ -515,6 +517,7 @@ class NavBarDefault extends PureComponent {
                 <>
                   <div>
                     <a
+                      itemProp="url"
                       className={classes.moreLink}
                       href="/"
                       onClick={event => {
@@ -530,6 +533,7 @@ class NavBarDefault extends PureComponent {
                         key={item.icon}
                         className={` ${classes.item} ${item.mobileClass}`}>
                         <a
+                          itemProp="url"
                           className={classes.link}
                           href={item.link}
                           onClick={event => {

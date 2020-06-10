@@ -24,6 +24,7 @@ const videoListChild = ({
       </picture>
       <div className="flex">
         <a
+          itemProp="url"
           className="text-gray-200 text-md video-list__section"
           href={primarySectionLink}>
           {primarySection}

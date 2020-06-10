@@ -138,6 +138,7 @@ const FeaturedStoryPremiumChild = ({
             (isGestion && !lastMinute) ||
             !isGestion) && (
             <a
+              itemProp="url"
               href={primarySectionLink}
               {...getEditableField('categoryField')}
               suppressContentEditableWarning>
@@ -147,6 +148,7 @@ const FeaturedStoryPremiumChild = ({
         </h3>
         <h2 itemProp="name">
           <a
+            itemProp="url"
             className={classes.title}
             href={websiteLink}
             {...getEditableField('titleField')}
@@ -169,6 +171,7 @@ const FeaturedStoryPremiumChild = ({
           <div className={classes.boxIcon}>
             <p itemProp="description">
               <a
+                itemProp="url"
                 className={classes.sectionSmall}
                 href={primarySectionLink}
                 {...getEditableField('categoryField')}

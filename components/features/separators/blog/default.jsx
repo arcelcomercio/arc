@@ -59,6 +59,7 @@ class SeparatorBlog extends PureComponent {
             FIRMAS
           </a>
           <a
+            itemProp="url"
             href={seeMoreUrl}
             className={`${classes.seeMoreText} non-mobile non-tablet`}>
             Ver más

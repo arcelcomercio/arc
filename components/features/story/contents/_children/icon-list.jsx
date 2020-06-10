@@ -141,6 +141,7 @@ const StoryContentChildIcon = () => {
               key={UtilListKey(i)}
               className={` ${classes.item} ${item.mobileClass}`}>
               <a
+                itemProp="url"
                 title={item.name}
                 className={classes.link}
                 href={item.link}
@@ -155,6 +156,7 @@ const StoryContentChildIcon = () => {
                       key={UtilListKey(ii)}
                       className={` ${classes.moreItem} ${subItem.mobileClass}`}>
                       <a
+                        itemProp="url"
                         title={subItem.name}
                         data-social={subItem.id}
                         className={classes.moreLink}

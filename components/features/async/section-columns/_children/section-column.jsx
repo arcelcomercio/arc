@@ -34,6 +34,7 @@ const ChildrenSectionColumn = ({
           <>
             {i === 0 && (
               <a
+                itemProp="url"
                 href={storyUrl}
                 className="position-relative mb-10 overflow-hidden block">
                 {getMultimediaIcon(multimediaType) && (

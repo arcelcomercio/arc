@@ -23,6 +23,7 @@ const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
     <div className={classes.container}>
       <div className={classes.section}>
         <a
+          itemProp="url"
           className={classes.sectionText}
           href={sectionLink || data.primarySectionLink}>
           {section || data.primarySection}

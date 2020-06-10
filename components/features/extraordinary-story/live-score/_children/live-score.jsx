@@ -21,6 +21,7 @@ const LiveScoreChild = props => {
   return (
     <div className="extraordinary-l-score bg-gray-300 lg:flex flex-row-reverse">
       <a
+        itemProp="url"
         className="extraordinary-l-score__img-link block lg:p-20"
         href={websiteLink}>
         <picture className="extraordinary-l-score__picture">
@@ -37,6 +38,7 @@ const LiveScoreChild = props => {
       <div className="extraordinary-l-score__content p-10 lg:p-20">
         {codeField && (
           <a
+            itemProp="url"
             href={websiteLink}
             className="extraordinary-l-score__score-content text-white flex mb-15"
             data-id={codeField}>
@@ -51,7 +53,9 @@ const LiveScoreChild = props => {
               id="secondName"></div>
           </a>
         )}
-        <h1 itemProp="name" className="extraordinary-l-score__title mb-15 overflow-hidden">
+        <h1
+          itemProp="name"
+          className="extraordinary-l-score__title mb-15 overflow-hidden">
           {isLive && (
             <div className="extraordinary-l-score__live text-white inline-block mr-10">
               <span className="extraordinary-l-score__live-icon inline-block rounded mr-5" />
@@ -59,6 +63,7 @@ const LiveScoreChild = props => {
             </div>
           )}
           <a
+            itemProp="url"
             href={websiteLink}
             className="extraordinary-l-score__title-link text-white title-md font-bold line-h-xs"
             {...editableField('titleField')}
@@ -67,6 +72,7 @@ const LiveScoreChild = props => {
           </a>
         </h1>
         <p
+          itemProp="description"
           className="extraordinary-l-score__subtitle text-white hidden md:block text-lg line-h-sm mb-20"
           {...editableField('subTitleField')}
           suppressContentEditableWarning>
