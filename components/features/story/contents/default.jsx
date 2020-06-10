@@ -173,7 +173,9 @@ class StoryContents extends PureComponent {
             requestUri.includes('/archivo-elcomercio/') &&
             !basicGallery && (
               <div className={classes.premiumWrapper}>
-                <p className={classes.premiumText}>Suscriptor Digital</p>
+                <p itemProp="description" className={classes.premiumText}>
+                  Suscriptor Digital
+                </p>
               </div>
             )}
           {primarySectionLink === '/impresa/' ||

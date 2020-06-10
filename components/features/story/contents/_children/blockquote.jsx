@@ -19,10 +19,16 @@ const StoryContentChildBlockQuote = props => {
         subtype === ELEMENT_BLOCKQUOTE ? classes.blockquote : classes.pull
       }>
       <div className={classes.text}>
-        {content && <p dangerouslySetInnerHTML={{ __html: content }}></p>}
+        {content && (
+          <p
+            itemProp="description"
+            dangerouslySetInnerHTML={{ __html: content }}></p>
+        )}
         <br />
         {citation && (
-          <p dangerouslySetInnerHTML={{ __html: citation.content }}></p>
+          <p
+            itemProp="description"
+            dangerouslySetInnerHTML={{ __html: citation.content }}></p>
         )}
       </div>
     </blockquote>

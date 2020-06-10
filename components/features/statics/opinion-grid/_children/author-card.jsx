@@ -42,7 +42,9 @@ const OpinionGridAuthorCard = ({ data: story, authorImage }) => {
               {story.author}
             </a>
           </h3>
-          <p className={classes.group}>{story.authorOccupation}</p>
+          <p itemProp="description" className={classes.group}>
+            {story.authorOccupation}
+          </p>
           <h2 itemProp="name">
             <a
               itemProp="url"

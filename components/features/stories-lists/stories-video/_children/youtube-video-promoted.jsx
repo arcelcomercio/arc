@@ -44,11 +44,17 @@ const YoutubeVideoDestacado = ({
           data-img={image}
           data-img-default={imageDefault}
         />
-        {liveStory && <p className={classes.liveYoutube}>EN VIVO</p>}
+        {liveStory && (
+          <p itemProp="description" className={classes.liveYoutube}>
+            EN VIVO
+          </p>
+        )}
       </div>
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
-          <h2 itemProp="name" className={classes.listItemTitleDest}>{title}</h2>
+          <h2 itemProp="name" className={classes.listItemTitleDest}>
+            {title}
+          </h2>
         </div>
       </div>
     </>

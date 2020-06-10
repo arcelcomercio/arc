@@ -70,7 +70,9 @@ const FullImage = ({
         </h2>
         {quantityGalleryItem > 0 && (
           <div className={classes.lenghtBox}>
-            <p className={classes.lenghtText}>{quantityGalleryItem} Fotos</p>
+            <p itemProp="description" className={classes.lenghtText}>
+              {quantityGalleryItem} Fotos
+            </p>
           </div>
         )}
       </div>

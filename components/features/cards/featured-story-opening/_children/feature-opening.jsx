@@ -43,7 +43,7 @@ export default ({
             {title}
           </a>
         </h1>
-        <p className={classes.subtitle}>
+        <p itemProp="description" className={classes.subtitle}>
           {subTitle}{' '}
           <a itemProp="url" className={classes.more} href={websiteLink}>
             Leer

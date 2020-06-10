@@ -17,8 +17,12 @@ const InternalSurveyChildResult = props => {
 
   return (
     <div className={classes.graphic}>
-      <h4 itemProp="name" className={classes.title}>Resultados</h4>
-      <p className={classes.count}>sobre un total de {total} votos.</p>
+      <h4 itemProp="name" className={classes.title}>
+        Resultados
+      </h4>
+      <p itemProp="description" className={classes.count}>
+        sobre un total de {total} votos.
+      </p>
       <ul className={classes.list}>
         {choices &&
           choices.map((el, i) => {

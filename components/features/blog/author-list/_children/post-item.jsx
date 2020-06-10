@@ -26,7 +26,7 @@ const AuthorListChildPostItem = ({
   return (
     <article className={classes.container}>
       <div className={classes.date}>
-        <p>{postDate}</p>
+        <p itemProp="description">{postDate}</p>
       </div>
       <div className={classes.content}>
         <figure className={classes.figure}>

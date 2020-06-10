@@ -68,7 +68,7 @@ const ExtraordinaryStory = props => {
           className={`${classes.extraordinaryStory} extraordinary-story--${multimediaOrientation} text-${contentOrientation}`}>
           <div className={classes.groupContent}>
             {!isSection && (
-              <p className={classes.section}>
+              <p itemProp="description" className={classes.section}>
                 <a
                   href={data.primarySectionLink}
                   className={classes.sectionLink}>
@@ -85,7 +85,9 @@ const ExtraordinaryStory = props => {
                   {data.title}
                 </a>
               </h2>
-              <p className={classes.extraordinaryStorySubtitle}>
+              <p
+                itemProp="description"
+                className={classes.extraordinaryStorySubtitle}>
                 <a itemProp="url" href={data.link} className={classes.link}>
                   {data.subTitle}
                 </a>

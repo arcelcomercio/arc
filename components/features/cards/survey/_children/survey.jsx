@@ -46,7 +46,9 @@ const CardSurveyChildSurvey = props => {
         encuesta
       </h3>
       <form className={classes.question}>
-        <p className={classes.title}>{title}</p>
+        <p itemProp="description" className={classes.title}>
+          {title}
+        </p>
         <div className={classes.choices}>
           {!hasVote ? (
             <SurveyChoices

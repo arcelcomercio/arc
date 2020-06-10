@@ -43,7 +43,7 @@ const StoryHeaderChildGallery = props => {
             </div>
             <figcaption className={classes.caption}>
               <span className={classes.galleryNumber}>{i + 1}</span>
-              <p className={classes.captionImage}>
+              <p itemProp="description" className={classes.captionImage}>
                 {slide.caption || slide.subtitle}
               </p>
               <StoryGalleryChildSocial />

@@ -15,7 +15,7 @@ export default ({ url, text }) => {
     <div className={classes.container}>
       <a itemProp="url" className={classes.link} href={url || URL_GOOGLE_NEWS}>
         {text !== '' ? text : 'Sigue a El Comercio en'}
-        <p className={classes.letterContainer}>
+        <p itemProp="description" className={classes.letterContainer}>
           <span className={`${classes.letter}--color-1`}>G</span>
           <span className={`${classes.letter}--color-2`}>o</span>
           <span className={`${classes.letter}--color-3`}>o</span>

@@ -95,7 +95,7 @@ export default ({
             {title}
           </a>
         </h2>
-        <p>
+        <p itemProp="description">
           <a itemProp="url" className={classes.author} href={authorLink}>
             {author}
           </a>

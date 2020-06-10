@@ -34,7 +34,10 @@ const StoryContentChildAuthor = ({
               </a>
             )}
             {authorEmail && true && (
-              <p className={classes.authorEmail}> {authorEmail} </p>
+              <p itemProp="description" className={classes.authorEmail}>
+                {' '}
+                {authorEmail}{' '}
+              </p>
             )}
           </div>
         )}

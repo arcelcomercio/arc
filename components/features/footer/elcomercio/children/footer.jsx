@@ -71,7 +71,10 @@ const FooterChildElComercio = ({
           </a>
           <address className={classes.legalList}>
             {siteLegal.map(el => (
-              <p className={classes.legalItem} key={`info-${el}`}>
+              <p
+                itemProp="description"
+                className={classes.legalItem}
+                key={`info-${el}`}>
                 {el}
               </p>
             ))}
@@ -84,7 +87,9 @@ const FooterChildElComercio = ({
                 data-src={gdaLogo}
                 alt={`Logo de ${GDA_TEXT}`}
               />
-              <p className={classes.gdaText}>{GDA_TEXT}</p>
+              <p itemProp="description" className={classes.gdaText}>
+                {GDA_TEXT}
+              </p>
             </div>
           )}
         </div>
@@ -190,7 +195,7 @@ const FooterChildElComercio = ({
         <h5 itemProp="name" className={classes.sitesTitle}>
           {SITES_TITLE}
         </h5>
-        <p className={classes.sitesList}>
+        <p itemProp="description" className={classes.sitesList}>
           {gecSites &&
             gecSites.map(site => {
               if (site.arcSite === arcSite) return ''

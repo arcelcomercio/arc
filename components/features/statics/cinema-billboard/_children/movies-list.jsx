@@ -59,8 +59,12 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
       cinema && (
         <section className={classes.movieList}>
           <div role="heading" className={classes.top}>
-            <h1 itemProp="name" className={classes.cinema}>{cinema.nombre}</h1>
-            <h2 itemProp="name" className={classes.address}>{cinema.direccion}</h2>
+            <h1 itemProp="name" className={classes.cinema}>
+              {cinema.nombre}
+            </h1>
+            <h2 itemProp="name" className={classes.address}>
+              {cinema.direccion}
+            </h2>
           </div>
           <div role="list" className={classes.box}>
             {movies ? (
@@ -80,6 +84,7 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                   <article role="listitem" className={classes.movieItem}>
                     <figure className={classes.leftSide}>
                       <a
+                        itemProp="url"
                         href={`${URI_BASE}/${url}/${cinema.url}`}
                         className={classes.imageBox}>
                         <img
@@ -96,38 +101,66 @@ class StaticCinemaBillboardChildMoviesList extends PureComponent {
                           className={classes.image}
                         />
                         <figcaption>
-                          <h3 itemProp="name" className={classes.title}>{title}</h3>
-                          <p className={classes.function}>{cinema.horario}</p>
+                          <h3 itemProp="name" className={classes.title}>
+                            {title}
+                          </h3>
+                          <p
+                            itemProp="description"
+                            className={classes.function}>
+                            {cinema.horario}
+                          </p>
                         </figcaption>
                       </a>
                     </figure>
                     <div className={classes.rightSide}>
-                      <p className={classes.subtitle}>
+                      <p itemProp="description" className={classes.subtitle}>
                         Sinopsis:
-                        <p className={classes.description}>{body}</p>
+                        <p
+                          itemProp="description"
+                          className={classes.description}>
+                          {body}
+                        </p>
                       </p>
-                      <p className={classes.subtitle}>
+                      <p itemProp="description" className={classes.subtitle}>
                         País:
-                        <p className={classes.description}>{pais}</p>
+                        <p
+                          itemProp="description"
+                          className={classes.description}>
+                          {pais}
+                        </p>
                       </p>
-                      <p className={classes.subtitle}>
+                      <p itemProp="description" className={classes.subtitle}>
                         Director:
-                        <p className={classes.description}>{director}</p>
+                        <p
+                          itemProp="description"
+                          className={classes.description}>
+                          {director}
+                        </p>
                       </p>
-                      <p className={classes.subtitle}>
+                      <p itemProp="description" className={classes.subtitle}>
                         Actores:
-                        <p className={classes.description}>{actores}</p>
+                        <p
+                          itemProp="description"
+                          className={classes.description}>
+                          {actores}
+                        </p>
                       </p>
-                      <p className={classes.subtitle}>
+                      <p itemProp="description" className={classes.subtitle}>
                         Calificación:
-                        <p className={classes.description}>{calificacion}</p>
+                        <p
+                          itemProp="description"
+                          className={classes.description}>
+                          {calificacion}
+                        </p>
                       </p>
                     </div>
                   </article>
                 )
               })
             ) : (
-              <p className={`${classes.cinema} text-center`}>
+              <p
+                itemProp="description"
+                className={`${classes.cinema} text-center`}>
                 No hay peliculas disponibles para este cine
               </p>
             )}

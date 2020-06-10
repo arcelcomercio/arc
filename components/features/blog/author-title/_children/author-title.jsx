@@ -21,7 +21,9 @@ const BlogAuthorTitleChildAuthorTitle = ({
         <a itemProp="url" href={path} className={classes.url}>
           {blogName}
         </a>
-        <p className={classes.name}>{firstName}</p>
+        <p itemProp="description" className={classes.name}>
+          {firstName}
+        </p>
       </div>
       <div className={classes.section}>
         <img

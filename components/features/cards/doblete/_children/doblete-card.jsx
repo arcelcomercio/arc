@@ -31,7 +31,7 @@ export default ({
           </a>
         </h6>
         <div className={classes.boxIcon}>
-          <p>
+          <p itemProp="description">
             <a
               itemProp="url"
               className={classes.sectionSmall}

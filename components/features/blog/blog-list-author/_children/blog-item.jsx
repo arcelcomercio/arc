@@ -37,7 +37,7 @@ const BlogsList = ({ data, isAdmin }) => {
       <div className={classes.bottom}>
         <div className={classes.left}>
           <div className={classes.top}>
-            <p className={classes.date}>
+            <p itemProp="description" className={classes.date}>
               {formatDateLocalTimeZone(data.date, '.')}
             </p>
           </div>
@@ -56,7 +56,9 @@ const BlogsList = ({ data, isAdmin }) => {
                 {reduceWord(data.author)}
               </a>
             </h2>
-            <p className={classes.subtitle}>{reduceWord(data.blogTitle)}</p>
+            <p itemProp="description" className={classes.subtitle}>
+              {reduceWord(data.blogTitle)}
+            </p>
             <a itemProp="url" href={data.urlPost} className={classes.titlePost}>
               {data.postTitle} <span className={classes.read}>Leer</span>
             </a>

@@ -96,7 +96,9 @@ const StoryGallery = () => {
         SITE_ELCOMERCIO === arcSite &&
         requestUri.includes('/archivo-elcomercio/') && (
           <div className={classes.premiumWrapper}>
-            <p className={classes.premiumText}>Suscriptor Digital</p>
+            <p itemProp="description" className={classes.premiumText}>
+              Suscriptor Digital
+            </p>
           </div>
         )}
       {contentElementGallery ? (

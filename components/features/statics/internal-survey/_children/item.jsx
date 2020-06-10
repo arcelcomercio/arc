@@ -24,9 +24,11 @@ const InternalSurveyChildItem = ({
   const classtop = max === true ? classes.progresstop : ''
   return (
     <li className={classes.item}>
-      <p className={classes.text}>
+      <p itemProp="description" className={classes.text}>
         {result}
-        <p className={classes.percent}>{percent}%</p>
+        <p itemProp="description" className={classes.percent}>
+          {percent}%
+        </p>
       </p>
       <span
         role="progressbar"

@@ -49,7 +49,7 @@ const FooterInfo = ({
           loading="lazy"
         />
       </a>
-      <p className={classes.paragraph}>
+      <p itemProp="description" className={classes.paragraph}>
         {listContacs}
         <br />
         {draftingContact.length > 0 &&
@@ -66,7 +66,7 @@ const FooterInfo = ({
       <a itemProp="url" href={legalLinks[2].url} className={classes.footerLink}>
         {legalLinks[2].name}{' '}
       </a>
-      <p>
+      <p itemProp="description">
         <h5 itemProp="name" className={classes.titleList}>
           {SITE_TITLE}
         </h5>

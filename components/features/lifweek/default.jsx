@@ -72,7 +72,9 @@ const Lifweek = () => {
             <span className={classes.profile_name_blue}>{separateName[0]}</span>{' '}
             {separateName[1]}
           </h2>
-          <p className={classes.profile_bio}>{perfilDesigner.bio}</p>
+          <p itemProp="description" className={classes.profile_bio}>
+            {perfilDesigner.bio}
+          </p>
           <div className={classes.profile_divider}></div>
         </div>
       </div>

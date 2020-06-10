@@ -37,7 +37,9 @@ const OpinionGridEditorialCard = ({ data: story, authorImage }) => {
             </a>
           </div>
           <div className={classes.detailsBox}>
-            <p className={classes.title}>{story.subTitle}</p>
+            <p itemProp="description" className={classes.title}>
+              {story.subTitle}
+            </p>
           </div>
         </div>
       </div>

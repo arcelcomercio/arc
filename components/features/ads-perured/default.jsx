@@ -32,7 +32,9 @@ const Ads = props => {
           device === 'd' ? 'no-mobile' : 'no-desktop'
         }`}>
         <div className={`${classes.header} perured-header-${device}`}>
-          <p className={classes.title}>Anuncios de interés</p>
+          <p itemProp="description" className={classes.title}>
+            Anuncios de interés
+          </p>
         </div>
         <div id={`cnt-perured-${device}`} className={classes.adsBox} />
         <div className={`${classes.footer} perured-footer-${device}`}>
@@ -44,7 +46,9 @@ const Ads = props => {
             />
           </div>
           <div className={classes.footerTextContainer}>
-            <p className={classes.footerText}>Recomendado por:</p>
+            <p itemProp="description" className={classes.footerText}>
+              Recomendado por:
+            </p>
           </div>
         </div>
       </div>

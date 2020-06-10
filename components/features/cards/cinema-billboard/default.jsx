@@ -68,7 +68,9 @@ const CardCinemaBillboard = () => {
           </a>
         </figure>
         <div className="cinema-card__detail w-full position-absolute bottom-0 pt-15 pb-15 pl-20 pr-20">
-          <p className="cinema-card__premiere text-xl line-h-xs font-bold">
+          <p
+            itemProp="description"
+            className="cinema-card__premiere text-xl line-h-xs font-bold">
             Estreno
           </p>
           <h2

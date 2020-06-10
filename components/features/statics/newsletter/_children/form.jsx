@@ -29,15 +29,20 @@ const StaticsNewsletterChildForm = props => {
 
   return (
     <>
-      <h3 itemProp="name"
+      <h3
+        itemProp="name"
         className={`${classes.title} ${isActiveApiCovid19 &&
           classes.titleCovid19}`}>
         Regístrate en nuestro <span>Newsletter</span>
       </h3>
       {isActiveApiCovid19 && (
-        <h4 itemProp="name" className={classes.covid19}>Coronavirus al día</h4>
+        <h4 itemProp="name" className={classes.covid19}>
+          Coronavirus al día
+        </h4>
       )}
-      <p className={classes.description}>{description}</p>
+      <p itemProp="description" className={classes.description}>
+        {description}
+      </p>
       <form action="">
         <div className={classes.row}>
           <input

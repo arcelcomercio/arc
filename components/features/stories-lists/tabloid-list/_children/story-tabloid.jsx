@@ -53,7 +53,7 @@ export default ({
                     <img
                       className="stories-l-tabloid__image"
                       src={Story.multimediaImpresaS}
-                      alt={Story.primarySection}                      
+                      alt={Story.primarySection}
                     />
                   </a>
                   <a
@@ -61,7 +61,9 @@ export default ({
                     className="stories-l-tabloid__date">
                     {formateDate(Story.displayDate)}
                   </a>
-                  <p className="stories-l-tabloid__section">
+                  <p
+                    itemProp="description"
+                    className="stories-l-tabloid__section">
                     {Story.primarySection}
                   </p>
                 </div>

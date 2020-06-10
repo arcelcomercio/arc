@@ -163,7 +163,9 @@ const StoryHeaderChildSocial = () => {
                 classes.premium) ||
                 ''}`}>
               {(editorNote && (
-                <p dangerouslySetInnerHTML={{ __html: editorNote }}></p>
+                <p
+                  itemProp="description"
+                  dangerouslySetInnerHTML={{ __html: editorNote }}></p>
               )) ||
                 primarySection}
               <StorySocialChildAuthor {...params} />

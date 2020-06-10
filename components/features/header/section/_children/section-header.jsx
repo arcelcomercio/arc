@@ -125,7 +125,7 @@ export default ({
           {/* <div className={classes.menuLogin}>
             <a itemProp="url" href="/" className={classes.menuLoginLink}>
               <i className={classes.menuLoginIcon} />
-              <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
+              <p itemProp="description" className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
             </a>
           </div> */}
           <ul className={classes.menuList}>

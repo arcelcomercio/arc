@@ -30,7 +30,9 @@ const StorySpecialTitle = () => {
       <div className={classes.story}>
         <div className={classes.note}>
           {editorNote ? (
-            <p dangerouslySetInnerHTML={{ __html: editorNote }}></p>
+            <p
+              itemProp="description"
+              dangerouslySetInnerHTML={{ __html: editorNote }}></p>
           ) : (
             <a itemProp="url" href={primarySectionLink}>
               {primarySection}

@@ -65,7 +65,7 @@ const OpinionGridListItem = ({
                 {story.author}
               </a>
             </h2>
-            <p>
+            <p itemProp="description">
               <a
                 itemProp="url"
                 href={story.websiteLink}

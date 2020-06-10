@@ -252,7 +252,7 @@ export default ({
                   </div>
                 )}
                 {!hidden && (
-                  <p className="section-video__subtitle">
+                  <p itemProp="description" className="section-video__subtitle">
                     {principalVideo.subTitle}
                   </p>
                 )}

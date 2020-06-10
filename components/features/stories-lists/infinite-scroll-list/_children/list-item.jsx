@@ -72,7 +72,7 @@ export default React.memo(
                 className={classes.section}>
                 {primarySection}
               </a>
-              <p className={classes.date}>
+              <p itemProp="description" className={classes.date}>
                 {date && isRender ? formatDateLocalTimeZone(date) : ''}
               </p>
             </div>
@@ -82,7 +82,9 @@ export default React.memo(
                   {reduceWord(title)}
                 </a>
               </h2>
-              <p className={classes.subtitle}>{reduceWord(subTitle)}</p>
+              <p itemProp="description" className={classes.subtitle}>
+                {reduceWord(subTitle)}
+              </p>
               <a
                 itemProp="url"
                 href={primarySectionLink}

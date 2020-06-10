@@ -76,7 +76,9 @@ const CardCinemaBillboard = ({
           </a>
         </figure>
         <div className={classes.detail}>
-          <p className={classes.premiere}>Estreno</p>
+          <p itemProp="description" className={classes.premiere}>
+            Estreno
+          </p>
           <h2 itemProp="name" className={classes.movieTitle}>
             <a
               className={classes.movieLink}

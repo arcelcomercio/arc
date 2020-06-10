@@ -174,7 +174,9 @@ const PodcastList = props => {
                     </span>
                   )}
                 </h3>
-                <p className="podcast-list__item-subtitle">
+                <p
+                  itemProp="description"
+                  className="podcast-list__item-subtitle">
                   <a
                     itemProp="url"
                     href={websiteLink}

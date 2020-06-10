@@ -100,7 +100,9 @@ const FooterChildStandardG21 = props => {
           ))}
         </ul>
         <div className={classes.textContent}>
-          <p className={classes.socialTitle}>Síguenos</p>
+          <p itemProp="description" className={classes.socialTitle}>
+            Síguenos
+          </p>
         </div>
         <ul className={classes.listSocial}>
           {socialNetworks &&
@@ -123,8 +125,10 @@ const FooterChildStandardG21 = props => {
         </ul>
       </div>
       <div className={classes.sites}>
-        <p className={classes.sitesItemTitle}>Red el comercio</p>
-        <p className={classes.sitesList}>
+        <p itemProp="description" className={classes.sitesItemTitle}>
+          Red el comercio
+        </p>
+        <p itemProp="description" className={classes.sitesList}>
           {gecSites.map(site => {
             if (site.arcSite === arcSite) return ''
             return (

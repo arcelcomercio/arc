@@ -19,7 +19,9 @@ const ExtraordinayStoryGridSectionItem = props => {
             data-src={data.imageLandscapeS}
           />
         </figure>
-        <p className={classes.title}>{data.name}</p>
+        <p itemProp="description" className={classes.title}>
+          {data.name}
+        </p>
       </a>
     </div>
   )

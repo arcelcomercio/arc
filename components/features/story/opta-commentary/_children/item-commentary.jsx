@@ -30,7 +30,7 @@ const ItemCommentary = ({
         />
       )}
       <div className={classes.box}>
-        <p className={classes.time}>
+        <p itemProp="description" className={classes.time}>
           {mainTime}
           {addTime && <sub className={classes.timeSub}>{addTime}</sub>}
         </p>

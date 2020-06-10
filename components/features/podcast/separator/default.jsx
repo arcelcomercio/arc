@@ -137,12 +137,14 @@ const PodcastSeparator = props => {
       <div className="podcast-separator__title-container flex justify-between pt-10 mb-20 border-t-1 border-solid border-black">
         <h2 itemProp="name" className="podcast-separator__title">
           <a
+            itemProp="url"
             href={titleLinkField || primarySectionLink}
             className="podcast-separator__title-link title-xs font-bold secondary-font text-black">
             {titleField || primarySection || 'Episodios'}
           </a>
         </h2>
         <a
+          itemProp="url"
           href={titleLinkField || primarySectionLink}
           className="podcast-separator__title-button secondary-font font-bold text-sm text-black flex items-center">
           Ver todos
@@ -162,6 +164,7 @@ const PodcastSeparator = props => {
           }) => (
             <div className="podcast-separator__item" key={websiteLink}>
               <a
+                itemProp="url"
                 href={websiteLink}
                 className="podcast-separator__img-link block position-relative">
                 <picture className="podcast-separator__picture">
@@ -176,15 +179,21 @@ const PodcastSeparator = props => {
                   />
                 </picture>
               </a>
-              <h3 itemProp="name" className="podcast-separator__item-title mt-15 mb-15">
+              <h3
+                itemProp="name"
+                className="podcast-separator__item-title mt-15 mb-15">
                 <a
+                  itemProp="url"
                   href={websiteLink}
                   className="podcast-separator_item-t-link text-xl font-bold secondary-font text-black">
                   {title}
                 </a>
               </h3>
-              <p className="podcast-separator__item-subtitle">
+              <p
+                itemProp="description"
+                className="podcast-separator__item-subtitle">
                 <a
+                  itemProp="url"
                   href={websiteLink}
                   className="podcast-separator__item-s-link text-md line-h-sm text-gray-300 secondary-font overflow-hidden block mb-10 line-h-sm">
                   {subTitle}

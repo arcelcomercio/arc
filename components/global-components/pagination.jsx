@@ -101,7 +101,9 @@ const Pagination = props => {
   return (
     <div role="navigation" className={classes.pagination}>
       {currentPage === 1 || currentPage === 0 ? (
-        <p className={`${classes.page} pagination__page--disabled`}>
+        <p
+          itemProp="description"
+          className={`${classes.page} pagination__page--disabled`}>
           <span className="non-tablet non-desktop">&#60;</span>
           <span className="non-mobile">anterior</span>
         </p>
@@ -162,7 +164,9 @@ const Pagination = props => {
         return tag
       })}
       {currentPage === totalPages ? (
-        <p className={`${classes.page} pagination__page--disabled`}>
+        <p
+          itemProp="description"
+          className={`${classes.page} pagination__page--disabled`}>
           <span className="non-tablet non-desktop">&#62;</span>
           <span className="non-mobile">siguiente</span>
         </p>

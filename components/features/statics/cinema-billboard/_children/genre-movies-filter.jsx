@@ -96,7 +96,7 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                 </ul>
               </nav>
               <form action="/" className={classes.form}>
-                <p className={classes.info}>
+                <p itemProp="description" className={classes.info}>
                   Utilice los desplegables para seleccionar el film
                 </p>
                 <select
@@ -147,7 +147,9 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                         <h2 itemProp="name" className={classes.title}>
                           {movie.title || ''}
                         </h2>
-                        <p className={classes.tag}>Estreno</p>
+                        <p itemProp="description" className={classes.tag}>
+                          Estreno
+                        </p>
                       </figcaption>
                     </figure>
                   </a>

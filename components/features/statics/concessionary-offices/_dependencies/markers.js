@@ -1,7 +1,7 @@
 const urlIcon =
   'https://s3.amazonaws.com/s.3.elcomercio.pe/f/i/icono_concesionario.png?2112.1800'
 const tpl = (name, district, address, phone, email) =>
-  `<h4>${name}</h4><p>Distrito: <span>${district}</span><br>Dirección: <span>${address}</span><br>Teléfono: <span>${phone}</span><br>E-mail: <span>${email}</span></p>`
+  `<h4>${name}</h4><p itemprop="description">Distrito: <span>${district}</span><br>Dirección: <span>${address}</span><br>Teléfono: <span>${phone}</span><br>E-mail: <span>${email}</span></p>`
 
 export default {
   ate: [

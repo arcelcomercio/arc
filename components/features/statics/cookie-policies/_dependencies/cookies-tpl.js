@@ -1,7 +1,7 @@
 export default `
 <h1>Politica de Cookies</h1>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   La presente política de cookies (la “Política”) tiene por finalidad informar
   la manera en que la EMPRESA EDITORA EL COMERCIO S.A., con R.U.C.
   N°20143229816, con domicilio en Jirón Santa Rosa N°300, Cercado de Lima,
@@ -10,40 +10,40 @@ export default `
   y datos personales de sus usuarios que recopilan a través de Cookies y otras
   tecnologías.
 </p>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   La Política describe toda la tipología de información que se recaba de los
   Usuarios mediante las formas anteriormente detalladas, y todos los
   tratamientos que se realizan con dicha información. El Usuario declara haber
   leído y aceptado de manera previa y expresa la Política sujetándose a sus
   disposiciones.
 </p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
 <h4><strong>¿A quiénes les alcanza de la Política?</strong></h4>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   Para efectos de esta Política toda referencia a “nos”, “nosotros” o
   “nuestra”, se refiere al Grupo El Comercio, y cuando se refiera a “el
   Usuario” o “los Usuarios”, se entenderá a todos aquellos distintos al Grupo
   El Comercio que naveguen dentro de los Sitios Web y las Aplicaciones del
   Grupo El Comercio.
 </p>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   Esta Política no se aplica a sitios web, servicios, productos o aplicaciones
   de terceros, incluso si pueden ser accedidos a través de nuestros servicios.
 </p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
 <h4><strong>¿Qué son las Cookies?</strong></h4>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   Las Cookies son archivos que el sitio web o aplicación instala en el
   navegador o dispositivo (Smartphone, tableta, televisión conectada) al
   acceder o durante el recorrido en determinadas páginas web o aplicaciones, y
   sirven para almacenar información sobre tu visita.
 </p>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   Las cookies permiten almacenar ciertos datos sobre el dispositivo del
   Usuario o sobre la navegación del mismo, es decir, recopila información
   estadística, facilita ciertas funcionalidades técnicas, ver qué páginas han
@@ -59,13 +59,13 @@ export default `
   personales. Un navegador sólo permite que un sitio web acceda a las cookies
   que éste establece, no a las que establecen otros sitios Web.
 </p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
 <h4><strong>¿Qué tipo de Cookies usamos?</strong></h4>
-<p><br /></p>
-<p>El Grupo El Comercio utiliza los siguientes tipos de cookies:</p>
-<p><br /></p>
-<p><strong>1. Por finalidad</strong></p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">El Grupo El Comercio utiliza los siguientes tipos de cookies:</p>
+<p itemprop="description"><br /></p>
+<p itemprop="description"><strong>1. Por finalidad</strong></p>
+<p itemprop="description"><br /></p>
 <ul>
   <li>
     <strong>Cookies Técnicas.</strong>- Permiten navegar al usuario en la
@@ -91,9 +91,9 @@ export default `
     usuario.
   </li>
 </ul>
-<p><br /></p>
-<p><strong>2. Por duración</strong></p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
+<p itemprop="description"><strong>2. Por duración</strong></p>
+<p itemprop="description"><br /></p>
 <ul>
   <li>
     <strong>Cookies de Sesión.</strong>- Recaban y almacenan datos mientras el
@@ -106,9 +106,9 @@ export default `
     usuario abandona la página web y pueden ser eliminadas por éste.
   </li>
 </ul>
-<p><br /></p>
-<p><strong>3. Por gestión</strong></p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
+<p itemprop="description"><strong>3. Por gestión</strong></p>
+<p itemprop="description"><br /></p>
 <ul>
   <li>
     <strong>Cookies del Grupo El Comercio.</strong>- Se envían desde un
@@ -123,25 +123,25 @@ export default `
     garantizamos que sus políticas cumplan con la normativa legal actual.
   </li>
 </ul>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   Por otro lado, los Cookies de terceros que se encuentran en nuestros sitios
   web y aplicaciones son las siguientes:
 </p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
 <h4>
   <strong>
     ¿Para qué usamos la información que es recolectada a través “Cookies”?
   </strong>
 </h4>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   El Grupo el Comercio puede utilizar la información recolectada a través de
   “Cookies” para los siguientes fines:
 </p>
-<p><br /></p>
-<p><strong>1. Operatividad y Seguridad del Sistema</strong></p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
+<p itemprop="description"><strong>1. Operatividad y Seguridad del Sistema</strong></p>
+<p itemprop="description"><br /></p>
 <ul>
   <li>
     <strong>Operatividad.</strong>- Uso de “Cookies” u otras tecnologías para
@@ -156,9 +156,9 @@ export default `
     de nuestros servicios.
   </li>
 </ul>
-<p><br /></p>
-<p><strong>2. Funcionalidad del Sistema</strong></p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
+<p itemprop="description"><strong>2. Funcionalidad del Sistema</strong></p>
+<p itemprop="description"><br /></p>
 <ul>
   <li>
     A través de las cookies, los Sitios Web y las Aplicaciones podrán utilizar
@@ -167,9 +167,9 @@ export default `
     con el fin de garantizar la continuidad del servicio y realizar mejoras.
   </li>
 </ul>
-<p><br /></p>
-<p><strong>3. Envío de Contenido Personalizado</strong></p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
+<p itemprop="description"><strong>3. Envío de Contenido Personalizado</strong></p>
+<p itemprop="description"><br /></p>
 <ul>
   <li>
     Los Sitios Web y las Aplicaciones también utilizarán la información
@@ -179,61 +179,61 @@ export default `
     publicidad que pueda ser de su interés, y personalizando los contenidos.
   </li>
 </ul>
-<p><br /></p>
+<p itemprop="description"><br /></p>
 <h4><strong>Control de los “Cookies” y otras tecnologías</strong></h4>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   Las cookies pueden borrarse del disco duro si el Usuario así lo desea. La
   mayoría de los navegadores aceptan las cookies de forma automática, pero le
   permiten al Usuario cambiar la configuración de su navegador para que
   rechace la instalación de cookies, sin que ello perjudique su acceso y
   navegación por los Sitios Web y las Aplicaciones.
 </p>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   Es importante recalcar que, en algunos casos, el impedir la generación de
   algunos “Cookies” específicos; podría generar que varias funciones dejen de
   estar disponibles o que partes del sitio web no se carguen.
 </p>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   En el supuesto de que en los Sitios Web y las Aplicaciones se dispusieran
   enlaces o hipervínculos hacia otros lugares de Internet propiedad de
   terceros que utilicen cookies, el Grupo El Comercio no se hace responsable
   ni controla el uso de cookies por parte de dichos terceros.
 </p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
 <h4><strong>Consentimiento</strong></h4>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   El Grupo El Comercio puede tratar la información recopilada a través de
   “Cookies”, siempre que el Usuario brinde su consentimiento al ingresar a
   cualquiera de nuestros sitios web y aplicaciones, salvo en los casos en que
   las “Cookies” sean necesarias para la operatividad y navegación de las
   mismas.
 </p>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   En caso de que el Usuario preste su consentimiento, el Grupo El Comercio
   podrá utilizar “Cookies” que permitan obtener información acerca de sus
   preferencias, con el fin de personalizar nuestros sitios web y aplicaciones,
   de acuerdo con sus intereses.
 </p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
 <h4><strong>Revisión y Modificación de la Política de Cookies</strong></h4>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   El Grupo El Comercio se reserva expresamente el derecho a modificar,
   actualizar o completar en cualquier momento la presente Política. Cualquier
   modificación, actualización o ampliación producida en la presente Política
   será inmediatamente publicada en los Sitios Web y las Aplicaciones.
 </p>
-<p><br /></p>
-<p>Fecha de última actualización: 25/05/2018</p>
-<p><br /></p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">Fecha de última actualización: 25/05/2018</p>
+<p itemprop="description"><br /></p>
 <h4><strong>Disclaimer de Cookies</strong></h4>
-<p><br /></p>
-<p>
+<p itemprop="description"><br /></p>
+<p itemprop="description">
   Grupo El Comercio gestiona este sitio web y utiliza cookies y tecnologías
   similares (en adelante "Cookies") propias y de terceros. Acepte las
   condiciones para continuar navegando en nuestro sitio web sin restricción

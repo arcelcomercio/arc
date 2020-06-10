@@ -63,7 +63,9 @@ const TVHighlightChild = props => {
         </a>
         {tags && (
           <div className={classes.tags}>
-            <p className={classes.related}>Tags Relacionados:</p>
+            <p itemProp="description" className={classes.related}>
+              Tags Relacionados:
+            </p>
             <ul className={classes.list}>
               {tags.map(el => {
                 return (

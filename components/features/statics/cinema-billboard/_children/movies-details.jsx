@@ -119,7 +119,9 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
               <h2 itemProp="name" className={classes.title}>
                 {title}
               </h2>
-              <p className={classes.where}>Dónde Verla</p>
+              <p itemProp="description" className={classes.where}>
+                Dónde Verla
+              </p>
               <div role="list" className={classes.hours}>
                 {cinemas &&
                   cinemas.map(cinema => {
@@ -130,47 +132,67 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
                           className={classes.cinema}>
                           {cinema.nombre}
                         </a>
-                        <p className={classes.text}>{cinema.direccion}</p>
-                        {/* Este <p> debería ser <time> pero cada dato interno debe ser independiente */}
-                        <p className={classes.text}>{cinema.horario}</p>
+                        <p itemProp="description" className={classes.text}>
+                          {cinema.direccion}
+                        </p>
+                        {/* Este <p itemProp="description"> debería ser <time> pero cada dato interno debe ser independiente */}
+                        <p itemProp="description" className={classes.text}>
+                          {cinema.horario}
+                        </p>
                       </address>
                     )
                   })}
               </div>
               <a itemProp="url" href={URI_BASE} className={classes.more}>
-                <p className={classes.button}>Regresar</p>
+                <p itemProp="description" className={classes.button}>
+                  Regresar
+                </p>
               </a>
             </div>
             <div className={classes.rightSide}>
-              <p className={`${classes.name} ${classes.name}--sinopsis`}>
+              <p
+                itemProp="description"
+                className={`${classes.name} ${classes.name}--sinopsis`}>
                 Sinopsis:
                 <br />
-                <p className={classes.value}>{body}</p>
+                <p itemProp="description" className={classes.value}>
+                  {body}
+                </p>
               </p>
-              <p className={classes.name}>
+              <p itemProp="description" className={classes.name}>
                 País:
                 <br />
-                <p className={classes.value}>{pais}</p>
+                <p itemProp="description" className={classes.value}>
+                  {pais}
+                </p>
               </p>
-              <p className={classes.name}>
+              <p itemProp="description" className={classes.name}>
                 Director:
                 <br />
-                <p className={classes.value}>{director}</p>
+                <p itemProp="description" className={classes.value}>
+                  {director}
+                </p>
               </p>
-              <p className={classes.name}>
+              <p itemProp="description" className={classes.name}>
                 Actores:
                 <br />
-                <p className={classes.value}>{actores}</p>
+                <p itemProp="description" className={classes.value}>
+                  {actores}
+                </p>
               </p>
-              <p className={classes.name}>
+              <p itemProp="description" className={classes.name}>
                 Duración:
                 <br />
-                <p className={classes.value}>{duracion}</p>
+                <p itemProp="description" className={classes.value}>
+                  {duracion}
+                </p>
               </p>
-              <p className={classes.name}>
+              <p itemProp="description" className={classes.name}>
                 Calificación:
                 <br />
-                <p className={classes.value}>{calificacion}</p>
+                <p itemProp="description" className={classes.value}>
+                  {calificacion}
+                </p>
               </p>
             </div>
           </div>

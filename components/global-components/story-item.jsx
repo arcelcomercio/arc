@@ -69,7 +69,7 @@ const StoriesList = ({
               className={classes.section}>
               {element.primarySection}
             </a>
-            <p className={classes.date}>
+            <p itemProp="description" className={classes.date}>
               {// Con esto se comprueba si se renderiza en cliente o servidor
               typeof window === 'undefined'
                 ? formatDateLocalTimeZone(element.date)
@@ -85,7 +85,9 @@ const StoriesList = ({
                 {reduceWord(element.title)}
               </a>
             </h2>
-            <p className={classes.subtitle}>{reduceWord(element.subTitle)}</p>
+            <p itemProp="description" className={classes.subtitle}>
+              {reduceWord(element.subTitle)}
+            </p>
             <a
               href={element.primarySectionLink}
               className={classes.sectionHidden}>

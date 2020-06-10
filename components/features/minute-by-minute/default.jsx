@@ -176,7 +176,7 @@ class MinuteByMinute extends PureComponent {
                   {titleField || title}
                 </a>
               </h2>
-              <p className="text-center mt-15">
+              <p itemProp="description" className="text-center mt-15">
                 <a
                   {...editableField('subtitleField')}
                   suppressContentEditableWarning

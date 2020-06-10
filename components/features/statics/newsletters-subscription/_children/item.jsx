@@ -73,7 +73,9 @@ const Checkbox = ({
           <h3 itemProp="name" className={classes.titleText}>
             <span className={classes.titleSpan}>{name}</span>
           </h3>
-          <p className={classes.description}>{description}</p>
+          <p itemProp="description" className={classes.description}>
+            {description}
+          </p>
 
           <ButtonSub className={classes.btnSubscribed} checked={checked}>
             {(checked && `Eliminar registro`) || `Suscríbete`}

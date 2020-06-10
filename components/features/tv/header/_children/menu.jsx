@@ -9,7 +9,9 @@ const MenuTV = ({ menuSections }) => {
     <>
       <div className="tv-menu">
         <div className="tv-menu__header">
-          <p className="tv-menu__title">Portada</p>
+          <p itemProp="description" className="tv-menu__title">
+            Portada
+          </p>
         </div>
         <ul className="tv-menu__list">
           {menuSections &&

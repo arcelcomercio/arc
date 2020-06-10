@@ -197,7 +197,7 @@ const StoryHeaderChildGallerySlider = props => {
                     <span className={classes.quantity}>
                       {i + 1}/{sliders.length}
                     </span>
-                    <p className={classes.captionImage}>
+                    <p itemProp="description" className={classes.captionImage}>
                       {' '}
                       {slide.caption || slide.subtitle}
                     </p>

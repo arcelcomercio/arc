@@ -10,8 +10,12 @@ const classes = {
 const InternalSurveyChildConfirmation = ({ handleOnClickViewResult }) => {
   return (
     <div className={classes.confirm}>
-      <p className={classes.message}>Su voto se contabilizó correctamente.</p>
-      <p className={classes.message}>¡Gracias por votar! </p>
+      <p itemProp="description" className={classes.message}>
+        Su voto se contabilizó correctamente.
+      </p>
+      <p itemProp="description" className={classes.message}>
+        ¡Gracias por votar!{' '}
+      </p>
       <button
         type="button"
         className={classes.button}

@@ -38,7 +38,9 @@ const CardListResult = ({
         </div>
       ) : (
         <div className={classes.tournamentCardSponsor}>
-          <p className={classes.tournamentSponsorText}>{sponsorName}</p>
+          <p itemProp="description" className={classes.tournamentSponsorText}>
+            {sponsorName}
+          </p>
 
           {/* imagen para la publicdad */}
           {UrlImageSponsor !== '' && (

@@ -28,7 +28,9 @@ const StoriesListLinkedBySiteChild = ({
   return (
     <section className={classes.container}>
       <div className={classes.header}>
-        <p className={classes.headerText}>{titleField || 'NO TE PIERDAS'}</p>
+        <p itemProp="description" className={classes.headerText}>
+          {titleField || 'NO TE PIERDAS'}
+        </p>
         <div>
           {subtitleField ? (
             <div
@@ -73,7 +75,9 @@ const StoriesListLinkedBySiteChild = ({
                 />
               </picture>
 
-              <h2 itemProp="name" className={classes.listItemTitle}>{title}</h2>
+              <h2 itemProp="name" className={classes.listItemTitle}>
+                {title}
+              </h2>
             </a>
           )
         )}

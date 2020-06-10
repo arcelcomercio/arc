@@ -127,7 +127,9 @@ const PodcastExtraordinazryStory = props => {
             {title}
           </a>
         </h2>
-        <p className="podcast-extraordinary__subtitle mb-15">
+        <p
+          itemProp="description"
+          className="podcast-extraordinary__subtitle mb-15">
           <a
             href={websiteLink}
             className="podcast-extraordinary__subtitle-link text-md line-h-sm text-gray-300 secondary-font overflow-hidden">

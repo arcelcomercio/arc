@@ -15,13 +15,15 @@ const StaticsNewsletterChildConfirmation = props => {
   const { features, isActiveApiCovid19 } = props
   return (
     <>
-      <h3 itemProp="name"
-        className={`${classes.title} ${classes.titleConfirmation} ${isActiveApiCovid19 &&
-          classes.titleCovid19}`}>
+      <h3
+        itemProp="name"
+        className={`${classes.title} ${
+          classes.titleConfirmation
+        } ${isActiveApiCovid19 && classes.titleCovid19}`}>
         ¡Muchas gracias por{' '}
         <strong className={classes.strong}>Registrarte!</strong>
       </h3>
-      <p className={classes.description}>
+      <p itemProp="description" className={classes.description}>
         Recibirás diariamente nuestro newsletter
       </p>
       <div className={`${classes.row} ${classes.textCenter}`}>

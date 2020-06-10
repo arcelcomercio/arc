@@ -157,7 +157,9 @@ const StaticOpinionGrid = () => {
 
       <div role="list" className={classes.list}>
         <div className={classes.titleBox}>
-          <p className={classes.title}>ÚLTIMAS NOTICIAS</p>
+          <p itemProp="description" className={classes.title}>
+            ÚLTIMAS NOTICIAS
+          </p>
         </div>
         {stories.slice(12).map((story, index) => {
           const { credits: { by = [] } = {} } = story || {}

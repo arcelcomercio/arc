@@ -139,8 +139,10 @@ const SecondaryFooter = props => {
       </div>
       {/* Sitios grupo el comercio */}
       <div className={classes.sites}>
-        <p className={classes.sitesItemTitle}>Visite también</p>
-        <p className={classes.sitesList}>
+        <p itemProp="description" className={classes.sitesItemTitle}>
+          Visite también
+        </p>
+        <p itemProp="description" className={classes.sitesList}>
           {gecSites.map(site => {
             if (site.arcSite !== arcSite) {
               return (

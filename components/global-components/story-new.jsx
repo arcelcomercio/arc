@@ -56,7 +56,9 @@ export default ({
               className={classes.section}>
               {primarySection}
             </a>
-            <p className={classes.date}>{formatDateLocalTimeZone(date)}</p>
+            <p itemProp="description" className={classes.date}>
+              {formatDateLocalTimeZone(date)}
+            </p>
           </div>
           <div className={classes.wrapperTitle}>
             <h2 itemProp="name" className={classes.contentTitle}>
@@ -64,7 +66,9 @@ export default ({
                 {title}
               </a>
             </h2>
-            <p className={classes.subtitle}>{subTitle}</p>
+            <p itemProp="description" className={classes.subtitle}>
+              {subTitle}
+            </p>
             <a
               itemProp="url"
               href={primarySectionLink}

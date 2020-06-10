@@ -265,7 +265,9 @@ export default ({
                     })}
                   </ul>
                   <div className={classes.footerMenu}>
-                    <p className={classes.follow}>{mobileHeaderFollowing}</p>
+                    <p itemProp="description" className={classes.follow}>
+                      {mobileHeaderFollowing}
+                    </p>
                     <ul className={classes.mediaList}>
                       {socialNetworks.map(item => {
                         return (

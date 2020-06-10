@@ -45,7 +45,7 @@ const ColumnistPremium = ({
       <a itemProp="url" href={primarySectionLink} className={classes.section}>
         {primarySection}
       </a>
-      <p className={classes.description}>
+      <p itemProp="description" className={classes.description}>
         {subTitle}
 
         <a itemProp="url" className={classes.link} href={websiteLink}>

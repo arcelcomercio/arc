@@ -14,10 +14,17 @@ const StoryHeaderChildShareSubheading = data => {
 
   return (
     <>
-      {subTitle && <h2 itemProp="name" className={classes.description}> {subTitle}</h2>}
+      {subTitle && (
+        <h2 itemProp="name" className={classes.description}>
+          {' '}
+          {subTitle}
+        </h2>
+      )}
       {isPremium && SITE_ELCOMERCIO === arcSite && (
         <div className={classes.premiumWrapper}>
-          <p className={classes.premiumText}>Suscriptor Digital</p>
+          <p itemProp="description" className={classes.premiumText}>
+            Suscriptor Digital
+          </p>
         </div>
       )}
     </>

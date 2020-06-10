@@ -154,7 +154,7 @@ const FeaturedStoryPremiumChild = ({
             {titleField || title}
           </a>
         </h2>
-        <p className={classes.detail}>
+        <p itemProp="description" className={classes.detail}>
           {subTitle}{' '}
           <a itemProp="url" className={classes.read} href={websiteLink}>
             Leer
@@ -167,7 +167,7 @@ const FeaturedStoryPremiumChild = ({
             </a>
           </h6>
           <div className={classes.boxIcon}>
-            <p>
+            <p itemProp="description">
               <a
                 className={classes.sectionSmall}
                 href={primarySectionLink}
@@ -186,7 +186,9 @@ const FeaturedStoryPremiumChild = ({
           </div>
           {isPremium && isComercio && (
             <div className={classes.premiumWrapper}>
-              <p className={classes.premiumText}>Suscriptor Digital</p>
+              <p itemProp="description" className={classes.premiumText}>
+                Suscriptor Digital
+              </p>
             </div>
           )}
         </div>

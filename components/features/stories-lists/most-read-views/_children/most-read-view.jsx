@@ -40,7 +40,9 @@ export default React.memo(
                   {title || 'Lo mas leido'}
                 </a>
               ) : (
-                <p className={classes.mrTitle}>{title || 'Lo mas leido'}</p>
+                <p itemProp="description" className={classes.mrTitle}>
+                  {title || 'Lo mas leido'}
+                </p>
               )}
             </div>
             <div className={classes.mrBody}>
@@ -55,9 +57,11 @@ export default React.memo(
                   <div className={classes.mrItem}>
                     {showViews && (
                       <div className={classes.mrItemLeft}>
-                        {/* <p className={classes.mrNum}>64k</p>
-                <p className={classes.mrView}>Vistas</p> */}
-                        <p className={classes.mrNum}>{index + 1}</p>
+                        {/* <p itemProp="description" className={classes.mrNum}>64k</p>
+                <p itemProp="description" className={classes.mrView}>Vistas</p> */}
+                        <p itemProp="description" className={classes.mrNum}>
+                          {index + 1}
+                        </p>
                       </div>
                     )}
                     <div className={classes.mrItemRight}>

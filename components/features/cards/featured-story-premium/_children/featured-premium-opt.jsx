@@ -174,7 +174,9 @@ const FeaturedStoryPremiumChild = ({
         </h6>
         {isPremium && (
           <div className={classes.premiumWrapper}>
-            <p className={classes.premiumText}>Suscriptor Digital</p>
+            <p itemProp="description" className={classes.premiumText}>
+              Suscriptor Digital
+            </p>
           </div>
         )}
       </div>

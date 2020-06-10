@@ -23,7 +23,9 @@ const GolListItem = ({ homeTeam = true, goalList = [] }) => {
           groupListGoal.map(({ scorerName = '', timeMinSec = '' }) => {
             return (
               <li className={classes.listItem}>
-                <p className={classes.listName}>{scorerName}</p>
+                <p itemProp="description" className={classes.listName}>
+                  {scorerName}
+                </p>
                 <span className={classes.listTime}>{`(${timeMinSec} )`}</span>
               </li>
             )

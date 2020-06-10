@@ -214,8 +214,10 @@ class StaticConcessionaryOffices extends PureComponent {
       <div className={classes.concessionaires}>
         <span className={classes.arrow} />
         <div className={classes.container}>
-          <h1 itemProp="name" className={classes.title}>Oficinas Concesionarias</h1>
-          <p className={classes.info}>
+          <h1 itemProp="name" className={classes.title}>
+            Oficinas Concesionarias
+          </h1>
+          <p itemProp="description" className={classes.info}>
             Para conocer el listado de oficinas concesionarias seleccione en el
             mapa su ubicación
           </p>
@@ -296,7 +298,8 @@ class StaticConcessionaryOffices extends PureComponent {
               </form>
             </div>
             {currentProvince.name && (
-              <h2 itemProp="name"
+              <h2
+                itemProp="name"
                 className={
                   classes.mapTitle
                 }>{`Provincia - ${currentProvince.name}`}</h2>

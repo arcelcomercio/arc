@@ -102,7 +102,7 @@ class HeaderChildSomos extends PureComponent {
             {/* <div className={classes.menuLogin}>
               <a itemProp="url" href="/" className={classes.menuLoginLink}>
                 <i className={classes.menuLoginIcon} />
-                <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
+                <p itemProp="description" className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
               </a>
             </div> */}
             <ul className="somos-menu__list m-0 block pt-5 pb-5 pr-15 pl-15 lg:flex lg:flex lg:justify-evenly">

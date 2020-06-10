@@ -129,7 +129,11 @@ class StaticCinemaBillboardChildMoviesSlider extends PureComponent {
                           {movie.title}
                         </a>
                       </h2>
-                      <p className={classes.movieDescription}>{movie.body}</p>
+                      <p
+                        itemProp="description"
+                        className={classes.movieDescription}>
+                        {movie.body}
+                      </p>
                     </div>
                   </li>
                 ))}

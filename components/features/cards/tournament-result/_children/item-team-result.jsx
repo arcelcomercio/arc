@@ -56,24 +56,38 @@ const ItemTeamResult = ({
         <div className={classes.itemScoreBox}>
           {showScoreValidate && (
             <>
-              <p className={classes.itemScoreText}>{homeTeamScore}</p>
-              <p className={classes.itemScoreText}>{awayTeamScore}</p>
+              <p itemProp="description" className={classes.itemScoreText}>
+                {homeTeamScore}
+              </p>
+              <p itemProp="description" className={classes.itemScoreText}>
+                {awayTeamScore}
+              </p>
             </>
           )}
         </div>
         {matchStatus === PLAYING && (
-          <p className={classes.itemScoreEnVivo}>En vivo</p>
+          <p itemProp="description" className={classes.itemScoreEnVivo}>
+            En vivo
+          </p>
         )}
         {matchStatus === PLAYED && (
           <div className={classes.itemScoreMatch}>
-            <p className={classes.itemScoreDate}>{matchDate}</p>
-            <p className={classes.itemScoreTime}>{matchTime}</p>
+            <p itemProp="description" className={classes.itemScoreDate}>
+              {matchDate}
+            </p>
+            <p itemProp="description" className={classes.itemScoreTime}>
+              {matchTime}
+            </p>
           </div>
         )}
         {matchStatus === FIXTURESTATE && (
           <div className={classes.itemScoreMatch}>
-            <p className={classes.itemScoreDate}>{matchDate}</p>
-            <p className={classes.itemScoreTime}>{matchTime}</p>
+            <p itemProp="description" className={classes.itemScoreDate}>
+              {matchDate}
+            </p>
+            <p itemProp="description" className={classes.itemScoreTime}>
+              {matchTime}
+            </p>
           </div>
         )}
       </div>

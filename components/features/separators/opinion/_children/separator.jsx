@@ -72,7 +72,7 @@ const SeparatorsChildAuthorCard = ({ arcSite, isAdmin, stories }) => {
                     {author}
                   </a>
                 </h5>
-                <p className={numline}>
+                <p itemProp="description" className={numline}>
                   <a
                     itemProp="url"
                     href={websiteUrl}
