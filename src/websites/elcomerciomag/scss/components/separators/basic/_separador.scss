@@ -51,4 +51,31 @@
   &__img {
     max-height: none;
   }
+  &.recetas {
+    background-color: $color-gray-100;
+    border-top-color: $color-gray-200;
+    border-bottom-color: $color-gray-200;
+    .separator__header-title {
+      background-color: transparent;
+      .separator__header-link {
+        color: $color-black;
+      }
+    }
+    .separator__item::before {
+      background: none;
+    }
+    .separator__article {
+      display: flex;
+      flex-direction: column-reverse;
+      height: auto;
+    }
+    .separator__detail {
+      padding-top: 10px;
+      position: static;
+      .separator__title {
+        color: $color-black;
+        font-weight: bold;
+      }
+    }
+  }
 }

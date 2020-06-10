@@ -26,7 +26,13 @@ const SeparatorStories = props => {
     } = {},
   } = props
 
-  const { arcSite, isAdmin, contextPath, deployment } = useFusionContext()
+  const {
+    arcSite,
+    isAdmin,
+    contextPath,
+    deployment,
+    requestUri,
+  } = useFusionContext()
 
   const presets = isAdmin
     ? 'landscape_l:648x374,landscape_s:234x161,portrait_md:314x374'
@@ -101,6 +107,7 @@ const SeparatorStories = props => {
     isSeeMoreVisible,
     isImageVisible,
     responsive,
+    requestUri,
   }
 
   return arcSite === 'elcomercio' ? (

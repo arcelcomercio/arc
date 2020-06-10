@@ -32,7 +32,9 @@
   &__input-search {
     font-family: $primary-font;
   }
+
   /*   Estilos para nav loader en notas */
+
   &__loader-bar {
     background-color: $color-primary;
   }
@@ -59,6 +61,11 @@
     }
     @media (--desktop) {
       left: 168px;
+    }
+  }
+  @media (--desktop) {
+    .nav__list-container {
+      max-width: 700px;
     }
   }
 }

@@ -32,9 +32,14 @@ const SeparatorsBasicChildSeparator = ({
   isSeeMoreVisible,
   isImageVisible,
   responsive,
+  requestUri,
 }) => {
+  const isRecetasSection = /^(\/recetas\/(.*))$/.test(requestUri)
   return (
-    <div className={`${classes.separator} ${design} ${bgColor} ${responsive}`}>
+    <div
+      className={`${classes.separator} ${design} ${bgColor} ${responsive} ${
+        isRecetasSection ? 'recetas' : ''
+      }`}>
       {htmlCode ? (
         <div
           className={classes.title}
