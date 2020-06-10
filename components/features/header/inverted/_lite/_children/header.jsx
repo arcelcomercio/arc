@@ -5,6 +5,7 @@
  */
 
 import React from 'react'
+import ENV from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import { getAssetsPath } from '../../../../../utilities/assets'
 import {
@@ -21,6 +22,15 @@ export default props => {
   const {
     taxonomy: { primary_section: { path: sectionPath = '' } = {} } = {},
   } = globalContent || {}
+
+  const CURRENT_ENVIRONMENT =
+    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+
+  const paramSignwall = {
+    arcSite,
+    arcEnv: CURRENT_ENVIRONMENT,
+    locUrl: (sectionPath.split('/')[1] || '').replace('-', ''),
+  }
 
   return (
     <>
@@ -123,10 +133,7 @@ export default props => {
           dangerouslySetInnerHTML={{
             __html: `"use strict";${searchScript}${
               hideMenu ? '' : menuScript
-            }${singwallScript.replace(
-              '<<loc>>',
-              (sectionPath.split('/')[1] || '').replace('-', '')
-            )}`,
+            }${singwallScript(paramSignwall)}`,
           }}
         />
       </header>

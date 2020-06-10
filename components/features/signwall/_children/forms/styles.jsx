@@ -261,11 +261,11 @@ export const ContPaywall = styled.div`
       text-align: center;
       letter-spacing: -2px;
       @media ${device.tablet} {
-        text-align: left;
+        /* text-align: left; */
         font-size: 58px;
       }
       @media ${device.desktop} {
-        text-align: left;
+        /* text-align: left; */
         font-size: 56px;
       }
       i {

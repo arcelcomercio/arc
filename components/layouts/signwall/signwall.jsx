@@ -37,6 +37,7 @@ export const PanelContent = styled.div`
   }
   & .panel-left {
     width: 100%;
+    position: relative;
     @media ${device.tablet} {
       width: 30%;
     }

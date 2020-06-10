@@ -96,21 +96,48 @@ export const stickyScript =
 export const menuScript =
   'window.addEventListener("load",function(){window.requestIdle(function(){document.getElementById("h-basic__btn-menu").addEventListener("click",function(){var e=document.getElementById("menu"),a=document.getElementById("m-content"),t=document.body;e.className.includes("active")?(e.className=e.className.replace("active",""),e.setAttribute("aria-expanded",!1),a.className=a.className.replace("active",""),t.className=t.className.replace(" oflow-h","")):(e.className=e.className.concat(" active"),e.setAttribute("aria-expanded",!0),a.className=a.className.concat(" active"),t.className=t.className.concat(" oflow-h"))}),document.getElementById("m-search").addEventListener("submit",function(e){e.preventDefault();var a=e.target[0].value;if(a){var t=encodeURIComponent(a).replace(/%20/g,"+");window.location.href="/buscar/"+t+"/todas/descendiente/?query="+t}})})});'
 
-/* document.addEventListener('DOMContentLoaded', function() {
+/*
+const arcSite = '${arcSite}'
+const arcEnv = '${arcEnv}'
+const locUrl = '${locUrl}'
+
+document.addEventListener('DOMContentLoaded', function() {
+  const Taggeo = acc => {
+    window.dataLayer = window.dataLayer || []
+    const dataPush = {
+      event: 'tag_signwall',
+      eventCategory: 'Web_Sign_Wall_General',
+      eventAction: acc,
+    }
+    window.dataLayer.push(dataPush)
+    if (arcEnv === 'sandbox') {
+      window.console.log(dataPush)
+    }
+  }
+
   window.requestIdle(() => {
     const localProfile = JSON.parse(
       window.localStorage.getItem('ArcId.USER_PROFILE') ||
         window.sessionStorage.getItem('ArcId.USER_PROFILE')
     )
     const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
-    document.querySelector('.h-basic__btn-user').addEventListener("click", () => {
-      if (uuid) {
-        window.location.href  = '/mi-perfil/?outputType=signwall'
-      } else {
-        // window.location.href  = '/signwall/?outputType=signwall'
-        window.location.href  = '/politica/?reloginEmail=1'
-      }
-    })
+    document
+      .querySelector('.h-basic__btn-user')
+      .addEventListener('click', () => {
+        if (uuid) {
+          Taggeo('web_swg_link_ingresaperfil')
+          window.location.href =
+            arcEnv === 'prod'
+              ? '/mi-perfil/?outputType=signwall'
+              : `/mi-perfil/?_website=${arcSite}&outputType=signwall`
+        } else {
+          Taggeo('web_swg_link_ingresacuenta')
+          window.location.href =
+            arcEnv === 'prod'
+              ? '/signwall/?outputType=signwall&signwallOrganic=1'
+              : `/signwall/?_website=${arcSite}&outputType=signwall&signwallOrganic=1`
+        }
+      })
     if (uuid) {
       const signwallButton = document.querySelector('.h-basic__user-txt')
       // const signwallIcon = document.getElementById('signwall-nav-icon')
@@ -129,14 +156,15 @@ export const menuScript =
           buttonText = lastName
           iconText = `${lastName[0] || ''}${lastName[1] || ''}`
         }
-        signwallButton.innerHTML = buttonText.length > 30 ? `${buttonText.slice(0, 30)}...` : buttonText
+        signwallButton.innerHTML =
+          buttonText.length > 30 ? `${buttonText.slice(0, 30)}...` : buttonText
       }
     }
-    document.querySelector('.h-basic__sub').addEventListener("click", () => {
-      window.location.href  = '/suscripciones/?ref=btn-suscribete-elcomercio&loc=<<loc>>'
+    document.querySelector('.h-basic__sub').addEventListener('click', () => {
+      window.location.href = `/suscripciones/?ref=btn-suscribete-elcomercio&loc=${locUrl}`
     })
   })
 }) */
 
-export const singwallScript =
-  'document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},i=e.firstName,n=void 0===i?"":i,o=e.lastName,t=void 0===o?"":o,c=e.uuid,r=void 0===c?"":c;if(document.querySelector(".h-basic__btn-user").addEventListener("click",function(){window.location.href=r?"/mi-perfil/?outputType=signwall":"/politica/?reloginEmail=1"}),r){var d=document.querySelector(".h-basic__user-txt");if(n||t){var s="";n&&t?(s=n+" "+t,""+(n[0]||"")+(t[0]||"")):n&&!t?(s=n,""+(n[0]||"")+(n[1]||"")):!n&&t&&(s=t,""+(t[0]||"")+(t[1]||"")),d.innerHTML=s.length>30?s.slice(0,30)+"...":s}else d.innerHTML="Bienvenido Usuario"}document.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc=<<loc>>"})})});'
+export const singwallScript = ({ arcSite, arcEnv, locUrl }) =>
+  `"use strict";var arcSite="${arcSite}",arcEnv="${arcEnv}",locUrl="${locUrl}";document.addEventListener("DOMContentLoaded",function(){var e=function(e){window.dataLayer=window.dataLayer||[];var n={event:"tag_signwall",eventCategory:"Web_Sign_Wall_General",eventAction:e};window.dataLayer.push(n),"sandbox"===arcEnv&&window.console.log(n)};window.requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},t=n.firstName,c=void 0===t?"":t,a=n.lastName,i=void 0===a?"":a,o=n.uuid,r=void 0===o?"":o;if(document.querySelector(".h-basic__btn-user").addEventListener("click",function(){r?(e("web_swg_link_ingresaperfil"),window.location.href="prod"===arcEnv?"/mi-perfil/?outputType=signwall":"/mi-perfil/?_website=".concat(arcSite,"&outputType=signwall")):(e("web_swg_link_ingresacuenta"),window.location.href="prod"===arcEnv?"/signwall/?outputType=signwall&signwallOrganic=1":"/signwall/?_website=".concat(arcSite,"&outputType=signwall&signwallOrganic=1"))}),r){var l=document.querySelector(".h-basic__user-txt");if(c||i){var s="";c&&i?(s="".concat(c," ").concat(i),"".concat(c[0]||"").concat(i[0]||"")):c&&!i?(s=c,"".concat(c[0]||"").concat(c[1]||"")):!c&&i&&(s=i,"".concat(i[0]||"").concat(i[1]||"")),l.innerHTML=s.length>30?"".concat(s.slice(0,30),"..."):s}else l.innerHTML="Bienvenido Usuario"}document.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc=".concat(locUrl)})})});`

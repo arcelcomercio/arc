@@ -100,7 +100,7 @@ export const Field = styled.div`
   position: relative;
   label {
     position: relative;
-    z-index: 3;
+    z-index: 2;
   }
 `
 

@@ -10,21 +10,17 @@ const titleCase = string => {
 
 const Taggeo = (cat, acc) => {
   const TRIGGER = 'tag_signwall'
-  window.dataLayer = window.dataLayer || []
-
-  window.dataLayer.push({
-    event: TRIGGER,
-    eventCategory: titleCase(cat),
-    eventAction: acc,
-  })
-
-  if (ENV.ENVIRONMENT !== 'elcomercio') {
-    // Only sandbox ;)
-    window.console.log({
+  if (typeof window !== 'undefined') {
+    window.dataLayer = window.dataLayer || []
+    const dataPush = {
       event: TRIGGER,
       eventCategory: titleCase(cat),
       eventAction: acc,
-    })
+    }
+    window.dataLayer.push(dataPush)
+    if (ENV.ENVIRONMENT !== 'elcomercio') {
+      window.console.log(dataPush) // Only sandbox ;)
+    }
   }
 }
 

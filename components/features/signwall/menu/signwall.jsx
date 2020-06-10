@@ -88,7 +88,7 @@ const Menu = ({
   return (
     <>
       {showLoading ? (
-        <div className="back-loading" style={{ zIndex: '20 !important' }}>
+        <div className="back-loading" style={{ zIndex: '20' }}>
           <Loading arcSite={arcSite} />
         </div>
       ) : (

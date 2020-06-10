@@ -6,6 +6,7 @@ export const WrapperMenu = styled.div`
   position: relative;
   padding: 10px 20px 0px 20px;
   margin-top: -80px;
+  z-index: 0;
   @media ${device.tablet} {
     border-radius: 4px;
     box-shadow: 0 0 0.3rem #dadada;
@@ -105,13 +106,13 @@ export const WrapperAvatar = styled.div`
   border-radius: 50%;
   position: relative;
   border: 5px solid ${props => props.br || 'gray'};
-  z-index: 1;
   max-width: 90px;
   min-height: 90px;
   width: 100%;
   line-height: 0px;
   margin: 0% 0% 0% 70%;
   background: #cccccc;
+  z-index: 1;
   @media ${device.tablet} {
     max-width: 120px;
     min-height: 120px;

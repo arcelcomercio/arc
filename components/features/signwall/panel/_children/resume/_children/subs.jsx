@@ -298,7 +298,13 @@ class Subs extends Component {
                               <span> {paywallDesc} </span>
                             </>
                           ) : (
-                            <span>DESDE S/ {paywallPrice} MENSUALES</span>
+                            <>
+                              <span>DESDE S/ {paywallPrice} MENSUALES</span>
+                              <br />
+                              <span>
+                                {paywallTitle}. {paywallDesc}
+                              </span>
+                            </>
                           )}
                         </button>
                       </div>

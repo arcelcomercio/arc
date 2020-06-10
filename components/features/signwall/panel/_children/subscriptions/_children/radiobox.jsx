@@ -68,7 +68,7 @@ const StyledCheckbox = styled.div`
   top: none;
   bottom: 10px;
   left: ${props => (props.full ? '8px' : '40%')};
-  z-index: 10;
+  z-index: 2;
   @media ${device.tablet} {
     top: 8px;
     left: 0px;
