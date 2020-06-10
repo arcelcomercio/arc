@@ -36,7 +36,7 @@ export default React.memo(
           <div className={classes.top}>
             <div className={classes.mrHeader}>
               {urlTitle ? (
-                <a className={classes.mrTitle} href={urlTitle}>
+                <a itemProp="url" className={classes.mrTitle} href={urlTitle}>
                   {title || 'Lo mas leido'}
                 </a>
               ) : (
@@ -61,7 +61,10 @@ export default React.memo(
                       </div>
                     )}
                     <div className={classes.mrItemRight}>
-                      <a href={linkNew} className={classes.mrLink}>
+                      <a
+                        itemProp="url"
+                        href={linkNew}
+                        className={classes.mrLink}>
                         {titleNew}
                       </a>
                     </div>
@@ -72,7 +75,7 @@ export default React.memo(
           </div>
           {showMore && (
             <div className={classes.footer}>
-              <a href={urlShowMore} className={classes.btn}>
+              <a itemProp="url" href={urlShowMore} className={classes.btn}>
                 Ver todo
               </a>
             </div>

@@ -17,7 +17,10 @@ const CardMostReadChildList = props => {
     <div role="list" className={classes.mostRead}>
       <h4 itemProp="name" className={classes.title}>
         <span {...editableField('customTitle')}>
-          <a className={classes.link} href={customLink || '/archivo'}>
+          <a
+            itemProp="url"
+            className={classes.link}
+            href={customLink || '/archivo'}>
             {customTitle || 'Lo más visto'}
           </a>
         </span>

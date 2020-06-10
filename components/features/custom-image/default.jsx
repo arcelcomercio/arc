@@ -92,7 +92,7 @@ const CustomImage = ({
   if (imgLink !== '') {
     return (
       <div>
-        <a className={containerClass} href={imgLink}>
+        <a itemProp="url" className={containerClass} href={imgLink}>
           {picture}
         </a>
       </div>

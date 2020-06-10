@@ -27,7 +27,10 @@ const StorySocialChildAuthor = ({
           </div>
           <div>
             {author && (
-              <a href={authorLink} className={classes.authorNameLink}>
+              <a
+                itemProp="url"
+                href={authorLink}
+                className={classes.authorNameLink}>
                 {author}
               </a>
             )}

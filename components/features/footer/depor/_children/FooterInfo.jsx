@@ -41,8 +41,13 @@ const FooterInfo = ({
 
   return (
     <div className={classes.info}>
-      <a href={siteUrl}>
-        <img src={imageDefault} className={classes.logo} alt="depor.com" />
+      <a itemProp="url" href={siteUrl}>
+        <img
+          src={imageDefault}
+          className={classes.logo}
+          alt="depor.com"
+          loading="lazy"
+        />
       </a>
       <p className={classes.paragraph}>
         {listContacs}
@@ -52,17 +57,19 @@ const FooterInfo = ({
         <br />
         {copyrightText}
       </p>
-      <a href={legalLinks[0].url} className={classes.footerLink}>
+      <a itemProp="url" href={legalLinks[0].url} className={classes.footerLink}>
         {legalLinks[0].name} |
       </a>
-      <a href={legalLinks[1].url} className={classes.footerLink}>
+      <a itemProp="url" href={legalLinks[1].url} className={classes.footerLink}>
         {legalLinks[1].name} |
       </a>
-      <a href={legalLinks[2].url} className={classes.footerLink}>
+      <a itemProp="url" href={legalLinks[2].url} className={classes.footerLink}>
         {legalLinks[2].name}{' '}
       </a>
       <p>
-        <h5 itemProp="name" className={classes.titleList}>{SITE_TITLE}</h5>
+        <h5 itemProp="name" className={classes.titleList}>
+          {SITE_TITLE}
+        </h5>
         {gecSites &&
           gecSites.map(({ url = '', name = '' }, index) => {
             const KeyString = `key${index}`

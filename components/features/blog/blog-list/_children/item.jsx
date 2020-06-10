@@ -32,7 +32,7 @@ const BlogListChildItem = ({
       <div className={classes.date}>{date}</div>
       <div className={classes.container}>
         <figure className={classes.containerAvatar}>
-          <a href={urlBlog}>
+          <a itemProp="url" href={urlBlog}>
             <img
               src={isAdmin ? authorImg : lazyImage}
               data-src={authorImg}
@@ -42,13 +42,13 @@ const BlogListChildItem = ({
           </a>
         </figure>
         <div className={classes.detail}>
-          <a href={urlBlog} className={classes.blogTitle}>
+          <a itemProp="url" href={urlBlog} className={classes.blogTitle}>
             {blogTitle}
           </a>
-          <a href={urlBlog} className={classes.author}>
+          <a itemProp="url" href={urlBlog} className={classes.author}>
             {author}
           </a>
-          <a className={classes.post} href={urlPost}>
+          <a itemProp="url" className={classes.post} href={urlPost}>
             {postTitle}
           </a>
         </div>

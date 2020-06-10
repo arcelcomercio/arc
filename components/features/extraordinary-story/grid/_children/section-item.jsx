@@ -10,7 +10,7 @@ const ExtraordinayStoryGridSectionItem = props => {
   const { data, isAdmin } = props
   return (
     <div role="listitem" className={classes.itemContainer}>
-      <a href={data.id}>
+      <a itemProp="url" href={data.id}>
         <figure className={classes.imageContainer}>
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}

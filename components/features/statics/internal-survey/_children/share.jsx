@@ -22,7 +22,7 @@ const openLink = (event, link = '') => {
 const InternalSurveyChildShare = ({ socialnetwork, url }) => {
   return (
     <li className={classes.shareitem}>
-      <a href="/" onClick={eve => openLink(eve, url)}>
+      <a itemProp="url" href="/" onClick={eve => openLink(eve, url)}>
         <i>{socialnetwork}</i>
       </a>
     </li>

@@ -156,13 +156,13 @@ const FeaturedStoryPremiumChild = ({
         </h2>
         <p className={classes.detail}>
           {subTitle}{' '}
-          <a className={classes.read} href={websiteLink}>
+          <a itemProp="url" className={classes.read} href={websiteLink}>
             Leer
           </a>
         </p>
         <div className={classes.description}>
           <h6 itemProp="name">
-            <a className={classes.author} href={authorLink}>
+            <a itemProp="url" className={classes.author} href={authorLink}>
               {author}
             </a>
           </h6>
@@ -193,7 +193,7 @@ const FeaturedStoryPremiumChild = ({
       </div>
       <div className={classes.right}>
         <Icon type={multimediaType} iconClass={classes.icon} />
-        <a href={websiteLink}>
+        <a itemProp="url" href={websiteLink}>
           <picture>
             <source
               className={isAdmin ? '' : 'lazy'}

@@ -93,7 +93,11 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
       movie && (
         <article className={classes.container}>
           <figure className={classes.imgBox}>
-            <a target="_BLANK" rel="noopener noreferrer" href={description}>
+            <a
+              itemProp="url"
+              target="_BLANK"
+              rel="noopener noreferrer"
+              href={description}>
               <picture>
                 <source
                   srcSet={sizes[MOVIE_IMG_SIZE_SM] || this.setDefault('sm')}
@@ -112,7 +116,9 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
           </figure>
           <div className={classes.details}>
             <div className={classes.leftSide}>
-              <h2 itemProp="name" className={classes.title}>{title}</h2>
+              <h2 itemProp="name" className={classes.title}>
+                {title}
+              </h2>
               <p className={classes.where}>Dónde Verla</p>
               <div role="list" className={classes.hours}>
                 {cinemas &&
@@ -131,7 +137,7 @@ class StaticCinemaBillboardChildMoviesDetails extends PureComponent {
                     )
                   })}
               </div>
-              <a href={URI_BASE} className={classes.more}>
+              <a itemProp="url" href={URI_BASE} className={classes.more}>
                 <p className={classes.button}>Regresar</p>
               </a>
             </div>

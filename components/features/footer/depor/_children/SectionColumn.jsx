@@ -8,7 +8,9 @@ const classes = {
 
 const ItemLinkSubSection = ({ url, subsectionName, isBold }) => (
   <li className={`${classes.item} ${isBold ? 'footer-secction__bold' : ''}`}>
-    <a href={url}>{subsectionName}</a>
+    <a itemProp="url" href={url}>
+      {subsectionName}
+    </a>
   </li>
 )
 
@@ -22,7 +24,7 @@ const SectionColumn = ({
   return (
     <ul className={classes.sectionColumn}>
       <li className={classes.item}>
-        <a href={urlSec} className={classes.itemTop}>
+        <a itemProp="url" href={urlSec} className={classes.itemTop}>
           {title}
         </a>
       </li>

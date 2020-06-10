@@ -40,18 +40,24 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.info}>
         <h2 itemProp="name" className={classes.itemTitle}>
-          <a href={filterData.urlTitle} className={classes.itemTitleLink}>
+          <a
+            itemProp="url"
+            href={filterData.urlTitle}
+            className={classes.itemTitleLink}>
             {filterData.nameTitle}
           </a>
         </h2>
         {filterData.nameAuthor && (
-          <a href={filterData.nameAuthorLink} className={classes.author}>
+          <a
+            itemProp="url"
+            href={filterData.nameAuthorLink}
+            className={classes.author}>
             {filterData.nameAuthor}
           </a>
         )}
       </div>
       <figure className={classes.multimedia}>
-        <a href={filterData.urlTitle} className={classes.link}>
+        <a itemProp="url" href={filterData.urlTitle} className={classes.link}>
           {isAmp ? (
             <amp-img
               src={filterData.multimediaImg}

@@ -15,7 +15,7 @@ export default ({ titleCustom, textAlign, seeMoreShow, seeMoreLink }) => {
         {titleCustom || 'Fotogalerias'}
       </h2>
       {seeMoreShow && (
-        <a href={seeMoreLink} className={classes.showMore}>
+        <a itemProp="url" href={seeMoreLink} className={classes.showMore}>
           Ver más
         </a>
       )}

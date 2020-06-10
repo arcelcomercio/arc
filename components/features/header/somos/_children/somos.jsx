@@ -88,12 +88,12 @@ class HeaderChildSomos extends PureComponent {
             </button>
           </div>
           <div className={classes.logoimgwrapper}>
-            <a href={logo.link} className={classes.logoLink}>
+            <a itemProp="url" href={logo.link} className={classes.logoLink}>
               <img className={classes.logoimg} src={logo.src} alt={logo.alt} />
             </a>
           </div>
           <div className={classes.logoWrapper}>
-            <a href={logoIcon.link}>
+            <a itemProp="url" href={logoIcon.link}>
               <i className={classes.logoIcon} />
             </a>
           </div>
@@ -132,20 +132,26 @@ class HeaderChildSomos extends PureComponent {
               </form>
             </div>
             <div className={classes.menuLogin}>
-              <a href="/" className={classes.menuLoginLink}>
+              <a itemProp="url" href="/" className={classes.menuLoginLink}>
                 <i className={classes.menuLoginIcon} />
                 <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
               </a>
             </div>
             <ul className={classes.menuList}>
               <li className={classes.menuItemLink}>
-                <a href={firstSection.url} className={classes.menuLinkIcon}>
+                <a
+                  itemProp="url"
+                  href={firstSection.url}
+                  className={classes.menuLinkIcon}>
                   <i className={classes.iconHome} />
                 </a>
               </li>
               {sections.map(section => (
                 <li className={classes.menuItem} key={section.url}>
-                  <a href={section.url} className={classes.menuLink}>
+                  <a
+                    itemProp="url"
+                    href={section.url}
+                    className={classes.menuLink}>
                     {section.name}
                   </a>
                 </li>

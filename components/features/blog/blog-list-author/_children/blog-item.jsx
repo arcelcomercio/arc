@@ -42,7 +42,7 @@ const BlogsList = ({ data, isAdmin }) => {
             </p>
           </div>
           <div className={classes.authorImageBox}>
-            <a href={data.urlBlog} className={classes.author}>
+            <a itemProp="url" href={data.urlBlog} className={classes.author}>
               <img
                 src={data.authorImg}
                 className={classes.authorImage}
@@ -52,18 +52,18 @@ const BlogsList = ({ data, isAdmin }) => {
           </div>
           <div className={classes.wrapperTitle}>
             <h2 itemProp="name" className={classes.contentTitle}>
-              <a className={classes.title} href={data.urlBlog}>
+              <a itemProp="url" className={classes.title} href={data.urlBlog}>
                 {reduceWord(data.author)}
               </a>
             </h2>
             <p className={classes.subtitle}>{reduceWord(data.blogTitle)}</p>
-            <a href={data.urlPost} className={classes.titlePost}>
+            <a itemProp="url" href={data.urlPost} className={classes.titlePost}>
               {data.postTitle} <span className={classes.read}>Leer</span>
             </a>
           </div>
         </div>
         <figure className={classes.right}>
-          <a href={data.urlPost} className={classes.rightLink}>
+          <a itemProp="url" href={data.urlPost} className={classes.rightLink}>
             <picture>
               <source
                 className={isAdmin ? '' : 'lazy'}

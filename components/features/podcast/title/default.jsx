@@ -78,7 +78,11 @@ const PodcastTitle = props => {
               className={`mr-10 md:mr-0 ml-0 md:ml-10${
                 i === 3 || i === 1 ? ' md:hidden' : ''
               }`}>
-              <a className="block" href={link} data-pocast-share="">
+              <a
+                itemProp="url"
+                className="block"
+                href={link}
+                data-pocast-share="">
                 <svg
                   width="32"
                   height="32"
@@ -96,7 +100,9 @@ const PodcastTitle = props => {
           ))}
         </ul>
 
-        <h1 itemProp="name" className="podcast-title__text font-bold text-black title-lg pt-20 pb-20 mt-10 md:mt-30 border-t-1 border-b-1 border-solid border-gray">
+        <h1
+          itemProp="name"
+          className="podcast-title__text font-bold text-black title-lg pt-20 pb-20 mt-10 md:mt-30 border-t-1 border-b-1 border-solid border-gray">
           {titleField || 'Podcast'}
         </h1>
       </div>

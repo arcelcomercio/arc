@@ -26,7 +26,10 @@ const BlogPostListGridChildGrid = ({
         data.map(row => {
           return (
             <div className={classes.itemGrid}>
-              <a className={classes.imageLink} href={row.urlPost}>
+              <a
+                itemProp="url"
+                className={classes.imageLink}
+                href={row.urlPost}>
                 <picture className={classes.imageBox}>
                   <source
                     className={row.isAdmin ? '' : 'lazy'}
@@ -51,14 +54,20 @@ const BlogPostListGridChildGrid = ({
                 </picture>
               </a>
               <h3 itemProp="name" className={classes.blogTitle}>
-                <a href={row.urlBlog}>{row.blogTitle}</a>
+                <a itemProp="url" href={row.urlBlog}>
+                  {row.blogTitle}
+                </a>
               </h3>
               <div className={classes.author}>
-                <a href={row.urlBlog}>{row.author}</a>
+                <a itemProp="url" href={row.urlBlog}>
+                  {row.author}
+                </a>
               </div>
               <div className={classes.line}></div>
               <h2 itemProp="name" className={classes.title}>
-                <a href={row.urlPost}>{row.postTitle}</a>
+                <a itemProp="url" href={row.urlPost}>
+                  {row.postTitle}
+                </a>
               </h2>
               <div className={classes.icon}>
                 <img src={urlLogoBrand} alt={siteName} />

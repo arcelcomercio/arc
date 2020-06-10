@@ -116,7 +116,7 @@ class HeaderChildSomos extends PureComponent {
     return (
       _handleHide() && (
         <header className={classes.navbarSomos}>
-          <a href={link} className={classes.logoLink}>
+          <a itemProp="url" href={link} className={classes.logoLink}>
             <i className={classes.logoIcon} />
             <img className={classes.logoImg} src={logo} alt={alt} />
           </a>

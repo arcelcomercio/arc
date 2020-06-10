@@ -47,13 +47,18 @@ const CardCinemaBillboard = () => {
   return (
     <div className="cinema-card bg-white">
       <article className="position-relative">
-        <h3 itemProp="name" className="cinema-card__category uppercase primary-font mb-0 pb-15 text-xl line-h-none">
-          <a className="cinema-card__link text-gray-300" href={`${BASE_PATH}/`}>
+        <h3
+          itemProp="name"
+          className="cinema-card__category uppercase primary-font mb-0 pb-15 text-xl line-h-none">
+          <a
+            itemProp="url"
+            className="cinema-card__link text-gray-300"
+            href={`${BASE_PATH}/`}>
             Cartelera
           </a>
         </h3>
         <figure className="cinema-card__figure overflow-hidden">
-          <a href={`${BASE_PATH}/${url}/`}>
+          <a itemProp="url" href={`${BASE_PATH}/${url}/`}>
             <img
               src={isAdmin ? img : lazyDefault}
               data-src={img}
@@ -66,7 +71,9 @@ const CardCinemaBillboard = () => {
           <p className="cinema-card__premiere text-xl line-h-xs font-bold">
             Estreno
           </p>
-          <h2 itemProp="name" className="cinema-card__p-title overflow-hidden title-xs text-white">
+          <h2
+            itemProp="name"
+            className="cinema-card__p-title overflow-hidden title-xs text-white">
             <a
               className="cinema-card__p-link font-bold text-white line-h-xs"
               href={`${BASE_PATH}/${url}/`}>
@@ -76,7 +83,9 @@ const CardCinemaBillboard = () => {
         </div>
       </article>
       <div className="cinema-card__movies-list p-10">
-        <h4 itemProp="name" className="cinema-card__title uppercase primary-font font-bold pt-5 pb-15 pl-10 pr-10 text-md line-h-none">
+        <h4
+          itemProp="name"
+          className="cinema-card__title uppercase primary-font font-bold pt-5 pb-15 pl-10 pr-10 text-md line-h-none">
           Vamos al cine
         </h4>
         <form

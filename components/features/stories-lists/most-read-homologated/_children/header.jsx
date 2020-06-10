@@ -7,19 +7,17 @@ const classes = {
     'most-read-homologated-header__title flex items-center full-height text-gray-300 uppercase',
   icon: 'most-read-homologated-header__icon icon-marca',
 }
-export default ({
-  titleList,
-  background,
-  urlTitle,
-}) => {
+export default ({ titleList, background, urlTitle }) => {
   return (
     <div className={`${classes.header} ${background}`}>
       {urlTitle ? (
-        <a href={urlTitle} className={classes.title}>
+        <a itemProp="url" href={urlTitle} className={classes.title}>
           <h4 itemProp="name">{titleList}</h4>
         </a>
       ) : (
-        <h4 itemProp="name" className={classes.title}>{titleList}</h4>
+        <h4 itemProp="name" className={classes.title}>
+          {titleList}
+        </h4>
       )}
       <i className={classes.icon} />
     </div>

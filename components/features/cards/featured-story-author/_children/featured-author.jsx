@@ -101,7 +101,7 @@ export default ({
   }
   return (
     <article className={classes.featuredAuthor}>
-      <a className={classes.storyImgLink} href={websiteLink}>
+      <a itemProp="url" className={classes.storyImgLink} href={websiteLink}>
         <picture className={classes.storyPicture}>
           <source
             className={isAdmin ? '' : 'lazy'}
@@ -121,24 +121,30 @@ export default ({
       </a>
       <div className={classes.content}>
         <h3 itemProp="name" className={classes.section}>
-          <a className={classes.sectionLink} href={primarySectionLink}>
+          <a
+            itemProp="url"
+            className={classes.sectionLink}
+            href={primarySectionLink}>
             {primarySection}
           </a>
         </h3>
         <h2 itemProp="name" className={classes.title}>
-          <a className={classes.titleLink} href={websiteLink}>
+          <a itemProp="url" className={classes.titleLink} href={websiteLink}>
             {title}
           </a>
         </h2>
         {design !== 'first' && (
           <h3 itemProp="name" className={classes.subtitle}>
-            <a className={classes.subtitleLink} href={websiteLink}>
+            <a
+              itemProp="url"
+              className={classes.subtitleLink}
+              href={websiteLink}>
               {subTitle}
             </a>
           </h3>
         )}
         <div className={classes.authorContainer}>
-          <a className={classes.authorImgLink} href={authorLink}>
+          <a itemProp="url" className={classes.authorImgLink} href={authorLink}>
             <picture>
               <img
                 className={`${isAdmin ? '' : 'lazy'} ${classes.authorImg}`}
@@ -154,11 +160,14 @@ export default ({
           </a>
           <div className={classes.authorNameContainer}>
             <h4 itemProp="name">
-              <a className={classes.authorNameLink} href={authorLink}>
+              <a
+                itemProp="url"
+                className={classes.authorNameLink}
+                href={authorLink}>
                 {author}
               </a>
             </h4>
-            <a className={classes.authorRole} href={authorLink}>
+            <a itemProp="url" className={classes.authorRole} href={authorLink}>
               {authorOccupation}
             </a>
           </div>

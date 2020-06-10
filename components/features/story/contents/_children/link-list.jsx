@@ -26,7 +26,7 @@ const Item = ({ url, title, image, imageDefault, site, isAmp }) => {
   }
 
   const imgAmp = (
-    <a href={url}>
+    <a itemProp="url" href={url}>
       <amp-img
         src={extractImage(image).small || imageDefault}
         alt={title}
@@ -40,7 +40,7 @@ const Item = ({ url, title, image, imageDefault, site, isAmp }) => {
 
   const figuregHtml = (
     <figure className={classes.multimedia}>
-      <a href={url}>
+      <a itemProp="url" href={url}>
         <img
           src={imageDefault}
           data-src={extractImage(image).small || imageDefault}
@@ -56,7 +56,9 @@ const Item = ({ url, title, image, imageDefault, site, isAmp }) => {
       {isAmp ? imgAmp : figuregHtml}
       <div className={classes.info}>
         <span className={classes.titleLink}>
-          <a href={url}>{title}</a>
+          <a itemProp="url" href={url}>
+            {title}
+          </a>
         </span>
       </div>
     </div>

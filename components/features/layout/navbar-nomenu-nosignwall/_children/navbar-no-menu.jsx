@@ -57,7 +57,10 @@ export default props => {
               ({ _id: id, url, name = '', display_name: displayName = '' }) => {
                 return (
                   <li className={classes.item}>
-                    <a className={classes.link} href={url || id || '/'}>
+                    <a
+                      itemProp="url"
+                      className={classes.link}
+                      href={url || id || '/'}>
                       {name || displayName}
                     </a>
                   </li>
@@ -68,10 +71,10 @@ export default props => {
         </div>
         <div className={classes.right}>
           <div className={classes.btns}>
-            {/* <a className={classes.btn} href="/">
+            {/* <a itemProp="url" className={classes.btn} href="/">
               Ingresa
             </a>
-            <a className={classes.btn} href="/">
+            <a itemProp="url" className={classes.btn} href="/">
               Registrate
             </a> */}
           </div>

@@ -73,7 +73,11 @@ export default props => {
           )}
         </div>
 
-        <a href="/" className="h-basic__img-link" title={siteDomain}>
+        <a
+          itemProp="url"
+          href="/"
+          className="h-basic__img-link"
+          title={siteDomain}>
           <img
             className="h-basic__img"
             src={`${getAssetsPath(

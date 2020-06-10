@@ -78,17 +78,23 @@ const ExtraordinaryStory = props => {
             )}
             <div className={classes.content}>
               <h2 itemProp="name" className={`${classes.title} ${numline}`}>
-                <a href={data.link} className={classes.titleLink}>
+                <a
+                  itemProp="url"
+                  href={data.link}
+                  className={classes.titleLink}>
                   {data.title}
                 </a>
               </h2>
               <p className={classes.extraordinaryStorySubtitle}>
-                <a href={data.link} className={classes.link}>
+                <a itemProp="url" href={data.link} className={classes.link}>
                   {data.subTitle}
                 </a>
               </p>
               <address className={classes.extraordinaryStoryAuthor}>
-                <a href={data.authorLink} className={classes.authorLink}>
+                <a
+                  itemProp="url"
+                  href={data.authorLink}
+                  className={classes.authorLink}>
                   {data.author}
                 </a>
               </address>

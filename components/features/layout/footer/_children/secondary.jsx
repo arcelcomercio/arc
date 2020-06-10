@@ -54,7 +54,7 @@ const SecondaryFooter = props => {
     <footer className={classes.footer}>
       {/* Logo */}
       <div className={classes.logoContainer}>
-        <a href="/" className={classes.logo}>
+        <a itemProp="url" href="/" className={classes.logo}>
           <img
             className={classes.logoImg}
             src={logoUrl}
@@ -76,12 +76,14 @@ const SecondaryFooter = props => {
         </div>
         {/* Secciones */}
         <div className={classes.sections}>
-          <h3 itemProp="name" className={classes.listTitle}>Secciones</h3>
+          <h3 itemProp="name" className={classes.listTitle}>
+            Secciones
+          </h3>
           <ul className={classes.listSection}>
             {sections &&
               sections.map(el => (
                 <li className={classes.listLinkSection} key={el.url}>
-                  <a className={classes.listLink} href={el.url}>
+                  <a itemProp="url" className={classes.listLink} href={el.url}>
                     {el.name}
                   </a>
                 </li>
@@ -91,11 +93,16 @@ const SecondaryFooter = props => {
         <div className={classes.twoWrapper}>
           {/* Contacto */}
           <div className={classes.contactWrapper}>
-            <h3 itemProp="name" className={classes.listTitle}>Contacto</h3>
+            <h3 itemProp="name" className={classes.listTitle}>
+              Contacto
+            </h3>
             <ul className={classes.legalList}>
               {legalLinks.map(el => (
                 <li className={classes.legalLinksWrapper} key={el.url}>
-                  <a className={` ${classes.legalLinks}`} href={el.url}>
+                  <a
+                    itemProp="url"
+                    className={` ${classes.legalLinks}`}
+                    href={el.url}>
                     {el.name}
                   </a>
                 </li>
@@ -104,7 +111,9 @@ const SecondaryFooter = props => {
           </div>
           {/* Siguenos */}
           <div className={classes.social}>
-            <h3 itemProp="name" className={classes.listTitle}>Síguenos</h3>
+            <h3 itemProp="name" className={classes.listTitle}>
+              Síguenos
+            </h3>
             <ul className={classes.listSocial}>
               {socialNetworks &&
                 socialNetworks.map(el => {

@@ -135,7 +135,10 @@ const TvSeparator = props => {
           )}
         </h2>
         {!deleteLinks && (
-          <a href={`${section}/`} className="tv-separator__program font-bold">
+          <a
+            itemProp="url"
+            href={`${section}/`}
+            className="tv-separator__program font-bold">
             Ver programa
           </a>
         )}

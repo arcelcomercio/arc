@@ -25,7 +25,7 @@ const IndependentTitle = ({
   TextType = 'h1',
 }) => (
   <TextType className={`${classes.titulo} ${bgColor}`} itemProp="name">
-    <a href={link} className={`${classes.link} ${fontColor}`}>
+    <a itemProp="url" href={link} className={`${classes.link} ${fontColor}`}>
       {title}
     </a>
   </TextType>

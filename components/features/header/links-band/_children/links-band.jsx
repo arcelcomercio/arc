@@ -12,9 +12,17 @@ const HeaderLinksBandChild = ({ links = [], tag = 'Hoy:' }) => {
     links.length > 0 && (
       <>
         <nav className={classes.band}>
-          {tag && <h4 itemProp="name" className={classes.text}>{tag}</h4>}
+          {tag && (
+            <h4 itemProp="name" className={classes.text}>
+              {tag}
+            </h4>
+          )}
           {links.map(({ url, name }) => (
-            <a className={classes.link} href={url} key={`band-${url}`}>
+            <a
+              itemProp="url"
+              className={classes.link}
+              href={url}
+              key={`band-${url}`}>
               {name}
             </a>
           ))}

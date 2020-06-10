@@ -205,7 +205,7 @@ const StaticOpinionGrid = () => {
           )
         })}
         <div className={classes.moreBox}>
-          <a href="/archivo/opinion/" className={classes.more}>
+          <a itemProp="url" href="/archivo/opinion/" className={classes.more}>
             Ver Más
           </a>
         </div>

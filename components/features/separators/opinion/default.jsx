@@ -90,7 +90,7 @@ const SeparatorOpinion = props => {
     <div className={classes.separator}>
       {titleSection ? (
         <div className={classes.opinionTitle}>
-          <a href={section} className={classes.colorText}>
+          <a itemProp="url" href={section} className={classes.colorText}>
             {titleSection}
           </a>
         </div>

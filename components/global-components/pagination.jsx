@@ -106,12 +106,12 @@ const Pagination = props => {
           <span className="non-mobile">anterior</span>
         </p>
       ) : currentPage === 2 ? (
-        <a className={classes.page} href={pathOrigin}>
+        <a itemProp="url" className={classes.page} href={pathOrigin}>
           <span className="non-tablet non-desktop">&#60;</span>
           <span className="non-mobile">anterior</span>
         </a>
       ) : (
-        <a className={classes.page} href={urlPrevPage}>
+        <a itemProp="url" className={classes.page} href={urlPrevPage}>
           <span className="non-tablet non-desktop">&#60;</span>
           <span className="non-mobile">anterior</span>
         </a>
@@ -133,13 +133,21 @@ const Pagination = props => {
             )
           } else if (page === 1) {
             tag = (
-              <a key={key} className={classes.page} href={pathOrigin}>
+              <a
+                itemProp="url"
+                key={key}
+                className={classes.page}
+                href={pathOrigin}>
                 {page}
               </a>
             )
           } else {
             tag = (
-              <a key={key} className={classes.page} href={urlPage}>
+              <a
+                itemProp="url"
+                key={key}
+                className={classes.page}
+                href={urlPage}>
                 {page}
               </a>
             )
@@ -159,7 +167,7 @@ const Pagination = props => {
           <span className="non-mobile">siguiente</span>
         </p>
       ) : (
-        <a className={classes.page} href={urlNextPage}>
+        <a itemProp="url" className={classes.page} href={urlNextPage}>
           <span className="non-tablet non-desktop">&#62;</span>
           <span className="non-mobile">siguiente</span>
         </a>

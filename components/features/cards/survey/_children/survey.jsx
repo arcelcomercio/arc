@@ -42,7 +42,9 @@ const CardSurveyChildSurvey = props => {
 
   return (
     <div className={classes.cardSurvey}>
-      <h3 itemProp="name" className={classes.header}>encuesta</h3>
+      <h3 itemProp="name" className={classes.header}>
+        encuesta
+      </h3>
       <form className={classes.question}>
         <p className={classes.title}>{title}</p>
         <div className={classes.choices}>
@@ -57,7 +59,10 @@ const CardSurveyChildSurvey = props => {
         </div>
         {!hasVote && (
           <div className={classes.buttons}>
-            <a href={`${BASE_PATH}/${slug}`} className={classes.results}>
+            <a
+              itemProp="url"
+              href={`${BASE_PATH}/${slug}`}
+              className={classes.results}>
               Ver Resultados
             </a>
             <button

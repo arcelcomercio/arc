@@ -19,14 +19,19 @@ export default props => {
   })
   return (
     <div className="play-list">
-      <h2 itemProp="name" className="play-list__name">PLAYLIST</h2>
+      <h2 itemProp="name" className="play-list__name">
+        PLAYLIST
+      </h2>
       <div className="play-list__wrapper">
         {videoItems &&
           videoItems.map(item => {
             Story.__data = item
             return (
               <div className="play-list__item">
-                <a className="play-list__image-box" href={Story.websiteLink}>
+                <a
+                  itemProp="url"
+                  className="play-list__image-box"
+                  href={Story.websiteLink}>
                   <img
                     src={
                       isAdmin
@@ -47,7 +52,9 @@ export default props => {
                   )}
                 </a>
                 <h3 itemProp="name" className="play-list__title">
-                  <a href={Story.websiteLink}>{Story.title}</a>
+                  <a itemProp="url" href={Story.websiteLink}>
+                    {Story.title}
+                  </a>
                 </h3>
               </div>
             )

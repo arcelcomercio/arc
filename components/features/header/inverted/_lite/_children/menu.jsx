@@ -92,11 +92,15 @@ const NavbarChildMenu = ({
           </div>
         </div>
         <div className={classes.footer}>
-          <a href="/" className={classes.text}>
+          <a itemProp="url" href="/" className={classes.text}>
             {siteDomain}
           </a>
           {legalLinks.map(link => (
-            <a key={link.url} href={link.url} className={classes.text}>
+            <a
+              itemProp="url"
+              key={link.url}
+              href={link.url}
+              className={classes.text}>
               {link.name}
             </a>
           ))}

@@ -109,7 +109,10 @@ const CardsFeaturedStorySpecial = props => {
 
   return (
     <div className="featured-special position-relative">
-      <a href="/asd" className="featured-special__img-link block">
+      <a
+        itemProp="url"
+        href={websiteLink}
+        className="featured-special__img-link block h-full">
         <picture className="featured-special__picture block">
           <source
             className={isAdmin ? '' : 'lazy'}

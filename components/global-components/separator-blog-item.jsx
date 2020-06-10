@@ -25,22 +25,22 @@ const SeparatorBlogChildItem = ({
 }) => {
   return (
     <article className={classes.item}>
-      <a className={classes.boxImg} href={postLink}>
+      <a itemProp="url" className={classes.boxImg} href={postLink}>
         <figure>
           <img
             src={isAdmin ? authorImg : lazyImage}
             data-src={authorImg}
-            alt={`Foto de perfil de ${authorName}`}            
+            alt={`Foto de perfil de ${authorName}`}
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
           />
         </figure>
       </a>
       <div className={classes.authorWrapper}>
-        <a href={blogUrl} className={classes.author}>
+        <a itemProp="url" href={blogUrl} className={classes.author}>
           {authorName}
         </a>
         <h3 itemProp="name" className={classes.title}>
-          <a href={postLink} className={classes.link}>
+          <a itemProp="url" href={postLink} className={classes.link}>
             {postTitle}
           </a>
         </h3>

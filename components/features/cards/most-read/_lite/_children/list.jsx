@@ -32,7 +32,10 @@ const CardMostReadChildList = props => {
         <img className={classes.logo} alt="logo" src={urlImg}></img>
 
         <span {...editableField('customTitle')}>
-          <a className={classes.link} href={customLink || '/archivo'}>
+          <a
+            itemProp="url"
+            className={classes.link}
+            href={customLink || '/archivo'}>
             {customTitle || 'Lo más visto'}
           </a>
         </span>

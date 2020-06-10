@@ -50,7 +50,7 @@ const StoriesListsCardChildList = ({
         } = Story
 
         return (
-          <a href={websiteLink} className={classes.story}>
+          <a itemProp="url" href={websiteLink} className={classes.story}>
             {seeImageNews === true && index === 0 && (
               <figure className={classes.figure}>
                 {getMultimediaIcon(multimediaType) && (

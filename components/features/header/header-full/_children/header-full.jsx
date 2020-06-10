@@ -270,7 +270,10 @@ export default ({
                       {socialNetworks.map(item => {
                         return (
                           <li className={classes.mediaItem}>
-                            <a className={classes.mediaLink} href={item.url}>
+                            <a
+                              itemProp="url"
+                              className={classes.mediaLink}
+                              href={item.url}>
                               <i
                                 className={`${classes.mediaIcon} icon-${item.name}`}
                                 aria-label={item.name}
@@ -285,7 +288,11 @@ export default ({
               </>
             )}
             <div className={classes.boxLogo}>
-              <a className={classes.linkLogo} href="/" title={siteDomain}>
+              <a
+                itemProp="url"
+                className={classes.linkLogo}
+                href="/"
+                title={siteDomain}>
                 <img src={logo} className={classes.logo} alt={siteDomain} />
               </a>
             </div>
@@ -316,7 +323,7 @@ export default ({
                     </ul>
                   </div>
                   <div className={classes.footer}>
-                    <a href="/" className={classes.text}>
+                    <a itemProp="url" href="/" className={classes.text}>
                       {siteDomain}
                     </a>
                     {legalLinks.map(link => (

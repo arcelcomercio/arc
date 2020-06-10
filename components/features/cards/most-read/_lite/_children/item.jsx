@@ -19,7 +19,7 @@ const CardMostReadChildItem = props => {
 
   return (
     <article role="listitem" className={classes.item}>
-      <a href={websiteUrl} className={classes.link}>
+      <a itemProp="url" href={websiteUrl} className={classes.link}>
         {viewImage && (
           <figure className={classes.figure}>
             <img
@@ -31,7 +31,9 @@ const CardMostReadChildItem = props => {
             <MultimediaIcon type={storyType} />
           </figure>
         )}
-        <h4 itemProp="name" className={`${classes.title} ${classes.numLines}`}>{title}</h4>
+        <h4 itemProp="name" className={`${classes.title} ${classes.numLines}`}>
+          {title}
+        </h4>
       </a>
     </article>
   )

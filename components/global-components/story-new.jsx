@@ -50,30 +50,36 @@ export default ({
       <div className={classes.bottom}>
         <div className={classes.left}>
           <div className={classes.top}>
-            <a href={primarySectionLink} className={classes.section}>
-                {primarySection}
+            <a
+              itemProp="url"
+              href={primarySectionLink}
+              className={classes.section}>
+              {primarySection}
             </a>
             <p className={classes.date}>{formatDateLocalTimeZone(date)}</p>
           </div>
           <div className={classes.wrapperTitle}>
             <h2 itemProp="name" className={classes.contentTitle}>
-              <a className={classes.title} href={websiteLink}>
+              <a itemProp="url" className={classes.title} href={websiteLink}>
                 {title}
               </a>
             </h2>
             <p className={classes.subtitle}>{subTitle}</p>
-            <a href={primarySectionLink} className={classes.sectionHidden}>
+            <a
+              itemProp="url"
+              href={primarySectionLink}
+              className={classes.sectionHidden}>
               {primarySection}
             </a>
           </div>
           <div className={classes.contenetAuthor}>
-            <a href={authorLink} className={classes.author}>
+            <a itemProp="url" href={authorLink} className={classes.author}>
               {author}
             </a>
           </div>
         </div>
         <figure className={classes.right}>
-          <a href={websiteLink} className={classes.rightLink}>
+          <a itemProp="url" href={websiteLink} className={classes.rightLink}>
             <Icon type={multimediaType} iconClass={classes.icon} />
             <picture>
               <source

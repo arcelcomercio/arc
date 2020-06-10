@@ -488,7 +488,7 @@ class NavBarDefault extends PureComponent {
                   )}
               </ul>
             </div>
-            <a href="/" className={classes.mobileLogo}>
+            <a itemProp="url" href="/" className={classes.mobileLogo}>
               <img
                 src={logo}
                 alt={`Logo de ${arcSite}`}

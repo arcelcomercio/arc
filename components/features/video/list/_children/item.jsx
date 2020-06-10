@@ -11,7 +11,7 @@ const videoListChild = ({
   return (
     <div className="video-list__item">
       <picture className="block mb-10 video-list__image-box">
-        <a className="video-list__link" href={websiteLink}>
+        <a itemProp="url" className="video-list__link" href={websiteLink}>
           <img
             className="video-list__image object-cover w-full"
             src={multimediaLandscapeMD}
@@ -29,8 +29,15 @@ const videoListChild = ({
           {primarySection}
         </a>
       </div>
-      <a href={websiteLink} className="block mb-10 video-list__title">
-        <h3 itemProp="name" className="line-h-xs text-xl font-bold video-list__new">{title}</h3>
+      <a
+        itemProp="url"
+        href={websiteLink}
+        className="block mb-10 video-list__title">
+        <h3
+          itemProp="name"
+          className="line-h-xs text-xl font-bold video-list__new">
+          {title}
+        </h3>
       </a>
       {/* <time className="text-lg text-gray-200" dateTime="">
         13:25

@@ -96,7 +96,11 @@ const StoryGalleryChildSocial = () => {
           <li
             key={UtilListKey(i)}
             className={` ${classes.item} ${item.mobileClass}`}>
-            <a className={classes.link} href={item.link} data-gallery-share="">
+            <a
+              itemProp="url"
+              className={classes.link}
+              href={item.link}
+              data-gallery-share="">
               <i className={`${item.icon} ${classes.icon}`} />
             </a>
           </li>

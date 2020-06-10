@@ -33,19 +33,19 @@ const TVHighlightChild = props => {
       <div className={classes.container}>
         <div className={classes.titleBox}>
           <h1 itemProp="name">
-            <a href={urlTitle} className={classes.title}>
+            <a itemProp="url" href={urlTitle} className={classes.title}>
               {nameTitle}
             </a>
           </h1>
         </div>
         <div className={classes.subBox}>
           <span>
-            <a href={urlSection} className={classes.section}>
+            <a itemProp="url" href={urlSection} className={classes.section}>
               {nameSection}
             </a>
           </span>
         </div>
-        <a href={urlTitle} className={classes.imageBox}>
+        <a itemProp="url" href={urlTitle} className={classes.imageBox}>
           <img
             className={classes.image}
             src={multimediaImg}
@@ -56,7 +56,7 @@ const TVHighlightChild = props => {
               <i
                 className={`${getMultimediaIcon(multimediaType)} ${
                   classes.icon
-                  }`}
+                }`}
               />
             </span>
           )}
@@ -68,7 +68,10 @@ const TVHighlightChild = props => {
               {tags.map(el => {
                 return (
                   <li key={el.slug} className={classes.item}>
-                    <a className={classes.link} href={`/noticias/${el.slug}/`}>
+                    <a
+                      itemProp="url"
+                      className={classes.link}
+                      href={`/noticias/${el.slug}/`}>
                       {el.description}
                     </a>
                   </li>

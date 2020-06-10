@@ -124,7 +124,9 @@ const PodcastList = props => {
   return (
     <div className="podcast-list md:pl-0 md:pr-0 pl-20 pr-20 pt-20 pb-20">
       <div className="podcast-list__title-container pt-10 mb-10 border-t-1 border-solid border-black">
-        <h2 itemProp="name" className="podcast-list__title title-xs font-bold secondary-font text-black">
+        <h2
+          itemProp="name"
+          className="podcast-list__title title-xs font-bold secondary-font text-black">
           Todos los episodios
         </h2>
       </div>
@@ -144,7 +146,10 @@ const PodcastList = props => {
             <div
               className="podcast-list__item md:flex pt-20 pb-20 border-b-1 border-solid border-gray"
               key={websiteLink}>
-              <a href={websiteLink} className="podcast-list__img-link">
+              <a
+                itemProp="url"
+                href={websiteLink}
+                className="podcast-list__img-link">
                 <picture className="podcast-list__picture">
                   <img
                     src={multimediaLandscapeL}
@@ -154,8 +159,11 @@ const PodcastList = props => {
                 </picture>
               </a>
               <div className="podcast-list__item-body pl-20">
-                <h3 itemProp="name" className="podcast-list__item-title mt-15 md:mt-0 mb-15">
+                <h3
+                  itemProp="name"
+                  className="podcast-list__item-title mt-15 md:mt-0 mb-15">
                   <a
+                    itemProp="url"
                     href={websiteLink}
                     className="podcast-list_item-t-link title-sm font-bold secondary-font text-black line-h-sm">
                     {title}
@@ -168,6 +176,7 @@ const PodcastList = props => {
                 </h3>
                 <p className="podcast-list__item-subtitle">
                   <a
+                    itemProp="url"
                     href={websiteLink}
                     className="podcast-list__item-s-link text-lg line-h-sm text-gray-300 secondary-font overflow-hidden block mb-10 line-h-md">
                     {subTitle}

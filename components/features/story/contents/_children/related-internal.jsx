@@ -44,7 +44,7 @@ const RelatedItem = ({ data, imageDefault } /* , i */) => {
     <>
       <div className={classes.item}>
         <figure className={classes.multimedia}>
-          <a href={filterData.websiteLink}>
+          <a itemProp="url" href={filterData.websiteLink}>
             <img
               src={imageDefault}
               data-src={filterData.multimediaImg}
@@ -65,7 +65,9 @@ const RelatedItem = ({ data, imageDefault } /* , i */) => {
         </figure>
         <div className={`${classes.info}`}>
           <h2 itemProp="name" className={classes.titleLink}>
-            <a href={filterData.websiteLink}>{filterData.title}</a>
+            <a itemProp="url" href={filterData.websiteLink}>
+              {filterData.title}
+            </a>
           </h2>
         </div>
       </div>

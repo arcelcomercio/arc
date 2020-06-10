@@ -7,7 +7,8 @@ const classes = {
   contact: 'footer__contact  bg-primary md:pt-20 pb-20 hidden md:block',
   sites: 'footer__sites flex flex-col p-20 hidden md:block',
   sitesList: 'footer__sites-list flex flex-wrap w-full p-0',
-  sitesItemTitle: 'footer__sites-red text-sm text-gray-300 line-h-xs uppercase mb-10 font-bold',
+  sitesItemTitle:
+    'footer__sites-red text-sm text-gray-300 line-h-xs uppercase mb-10 font-bold',
   sitesItem:
     'footer__sites-item mb-5 pr-10 text-sm line-h-xs uppercase flex items-center text-gray-200 primary-font',
   legalList: 'footer__legal-list text-md',
@@ -56,7 +57,7 @@ const StandardFooter = props => {
   return (
     <footer className={classes.footer}>
       <div className={classes.info}>
-        <a href="/" className={classes.logoContainer}>
+        <a itemProp="url" href="/" className={classes.logoContainer}>
           <img
             className={classes.logoImg}
             src={logoUrl}
@@ -89,7 +90,7 @@ const StandardFooter = props => {
           {sections &&
             sections.map(el => (
               <li className={classes.listLinkSection} key={el.url}>
-                <a className={classes.listLink} href={el.url}>
+                <a itemProp="url" className={classes.listLink} href={el.url}>
                   {el.name}
                 </a>
               </li>

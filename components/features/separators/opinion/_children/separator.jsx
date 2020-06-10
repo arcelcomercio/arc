@@ -53,7 +53,7 @@ const SeparatorsChildAuthorCard = ({ arcSite, isAdmin, stories }) => {
                     <i className={classes.opinionDefaulImage} />
                   </div>
                 ) : (
-                  <a href={authorUrl}>
+                  <a itemProp="url" href={authorUrl}>
                     <img
                       className={`${isAdmin ? '' : 'lazy'} ${
                         classes.opinionItemImage
@@ -65,12 +65,18 @@ const SeparatorsChildAuthorCard = ({ arcSite, isAdmin, stories }) => {
                   </a>
                 )}
                 <h5 itemProp="name" className={classes.opinionItemName}>
-                  <a href={authorUrl} className={classes.opinionItemNameLink}>
+                  <a
+                    itemProp="url"
+                    href={authorUrl}
+                    className={classes.opinionItemNameLink}>
                     {author}
                   </a>
                 </h5>
                 <p className={numline}>
-                  <a href={websiteUrl} className={classes.opinionItemTitle}>
+                  <a
+                    itemProp="url"
+                    href={websiteUrl}
+                    className={classes.opinionItemTitle}>
                     {titulo}
                   </a>
                 </p>

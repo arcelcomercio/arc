@@ -78,7 +78,7 @@ const StoriesListSectionStories = props => {
             })}
       </div>
       <div className={classes.listadoSeeMore}>
-        <a href={seeMorePath} tabIndex="0" role="button">
+        <a itemProp="url" href={seeMorePath} tabIndex="0" role="button">
           Ver más
         </a>
       </div>

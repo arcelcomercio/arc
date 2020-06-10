@@ -44,7 +44,7 @@ export default ({
               )}
 
               {multimedia && (
-                <a href={urlNews}>
+                <a itemProp="url" href={urlNews}>
                   <picture>
                     <img
                       className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
@@ -57,8 +57,10 @@ export default ({
               )}
             </figure>
           )}
-          <a className={classes.linkContainer} href={urlNews}>
-            <h3 itemProp="name" className={classes.link}>{title}</h3>
+          <a itemProp="url" className={classes.linkContainer} href={urlNews}>
+            <h3 itemProp="name" className={classes.link}>
+              {title}
+            </h3>
           </a>
         </div>
       </div>

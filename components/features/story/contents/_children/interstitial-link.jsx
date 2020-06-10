@@ -10,7 +10,7 @@ function interstitialLink({ url, content, isAmp }) {
   }
 
   return (
-    <a className={classes.link} href={url}>
+    <a itemProp="url" className={classes.link} href={url}>
       {content}
     </a>
   )

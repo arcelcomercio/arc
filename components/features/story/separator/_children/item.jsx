@@ -28,20 +28,22 @@ const StorySeparatorChildItem = ({ data }) => {
       {multimediaType === 'gallery' && <span>G</span>}
       <div className={classes.detail}>
         <h2 itemProp="name" className={classes.separatorCategory}>
-          <a href={sectionLink}>{section}</a>{' '}
+          <a itemProp="url" href={sectionLink}>
+            {section}
+          </a>{' '}
         </h2>
         <h3 itemProp="name" className={classes.separatorTitle}>
-          <a className={classes.titleLink} href={link}>
+          <a itemProp="url" className={classes.titleLink} href={link}>
             {title}
           </a>
         </h3>
       </div>
       <figure className={classes.figure}>
         {link && (
-          <a href={link}>
+          <a itemProp="url" href={link}>
             <img
               src={multimediaPortraitXS}
-              alt={title}              
+              alt={title}
               className={classes.itemImage}
             />
           </a>

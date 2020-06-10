@@ -31,21 +31,22 @@ export default ({
         <div className={classes.detail}>
           <h3 itemProp="name">
             <a
+              itemProp="url"
               className={`${classes.text} ${numline}`}
               href={link}>
               {title}
             </a>
           </h3>
-          <a href={sectionLink} className={classes.section}>
+          <a itemProp="url" href={sectionLink} className={classes.section}>
             {section}
           </a>
         </div>
         <figure className={classes.imgBox}>
-          <a href={link} className={classes.linkImg}>
+          <a itemProp="url" href={link} className={classes.linkImg}>
             <img
               src={isAdmin ? imageUrl : lazyImage}
               data-src={imageUrl}
-              alt={title}              
+              alt={title}
               className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
             />
           </a>

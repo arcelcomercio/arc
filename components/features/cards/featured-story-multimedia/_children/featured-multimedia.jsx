@@ -45,13 +45,13 @@ export default ({
             dangerouslySetInnerHTML={createMarkup(freeHtml)}
           />
         ) : (
-          <a className={classes.sectionLink} href={section}>
+          <a itemProp="url" className={classes.sectionLink} href={section}>
             {sectionName}
           </a>
         )}
       </div>
 
-      <a className={classes.imgContainer} href={websiteLink}>
+      <a itemProp="url" className={classes.imgContainer} href={websiteLink}>
         <picture>
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
@@ -66,12 +66,12 @@ export default ({
         {date && formatDateLocalTimeZone(date)}
       </time>
       <h2 itemProp="name" className={classes.title}>
-        <a className={classes.titleLink} href={websiteLink}>
+        <a itemProp="url" className={classes.titleLink} href={websiteLink}>
           {title}
         </a>
       </h2>
 
-      <a className={classes.editionLink} href={section}>
+      <a itemProp="url" className={classes.editionLink} href={section}>
         Ver ediciones
       </a>
     </article>

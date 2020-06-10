@@ -4,7 +4,11 @@ import StoryContentsChildImage from './image'
 const StoryContentsChildLinkedImage = ({ link, title, alt, photo }) => {
   return (
     photo && (
-      <a href={link || '/'} title={title || ''} className="block w-full">
+      <a
+        itemProp="url"
+        href={link || '/'}
+        title={title || ''}
+        className="block w-full">
         <StoryContentsChildImage caption={alt || ''} multimediaLarge={photo} />
       </a>
     )

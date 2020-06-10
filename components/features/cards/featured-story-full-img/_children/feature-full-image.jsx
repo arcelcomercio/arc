@@ -50,7 +50,7 @@ export default ({
   return (
     <div
       className={`${classes.fullImg} ${crossY} ${crossX} ${getModel(model)}`}>
-      <a href={websiteLink} className={classes.boxImg}>
+      <a itemProp="url" href={websiteLink} className={classes.boxImg}>
         {model === 'twoCol' && (
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
@@ -96,7 +96,7 @@ export default ({
           </a>
         </h2>
         <p>
-          <a className={classes.author} href={authorLink}>
+          <a itemProp="url" className={classes.author} href={authorLink}>
             {author}
           </a>
         </p>

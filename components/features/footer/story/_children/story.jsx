@@ -20,7 +20,7 @@ const SecondaryFooter = props => {
     <footer className={classes.footer}>
       {/* Logo */}
       <div className={classes.logoContainer}>
-        <a href="/" className={classes.logo}>
+        <a itemProp="url" href="/" className={classes.logo}>
           <img
             className={classes.logoImg}
             src={logoUrl}

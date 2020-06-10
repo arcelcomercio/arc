@@ -35,32 +35,34 @@ export default ({
   return (
     <div className={classes.opening}>
       <div className={classes.body}>
-        <h2 itemProp="name" className={classes.sectionEdit}>{customTitle || primarySection}</h2>
+        <h2 itemProp="name" className={classes.sectionEdit}>
+          {customTitle || primarySection}
+        </h2>
         <h1 itemProp="name">
-          <a className={classes.title} href={websiteLink}>
+          <a itemProp="url" className={classes.title} href={websiteLink}>
             {title}
           </a>
         </h1>
         <p className={classes.subtitle}>
           {subTitle}{' '}
-          <a className={classes.more} href={websiteLink}>
+          <a itemProp="url" className={classes.more} href={websiteLink}>
             Leer
           </a>
         </p>
-        <a href={authorLink} className={classes.author}>
+        <a itemProp="url" href={authorLink} className={classes.author}>
           {author}
         </a>
         <ul className={classes.list}>
           {note1Title && (
             <li className={classes.item}>
-              <a href={note1Link} className={classes.link}>
+              <a itemProp="url" href={note1Link} className={classes.link}>
                 {note1Title}
               </a>
             </li>
           )}
           {note2Title && (
             <li className={classes.item}>
-              <a href={note2Link} className={classes.link}>
+              <a itemProp="url" href={note2Link} className={classes.link}>
                 {note2Title}
               </a>
             </li>
@@ -68,15 +70,11 @@ export default ({
         </ul>
       </div>
       <div className={classes.footer}>
-        <a href={primarySectionLink} className={classes.section}>
+        <a itemProp="url" href={primarySectionLink} className={classes.section}>
           {primarySection}
         </a>
         {isPremium && (
-          <img
-            src={logo}
-            alt="premium"            
-            className={classes.image}
-          />
+          <img src={logo} alt="premium" className={classes.image} />
         )}
       </div>
     </div>

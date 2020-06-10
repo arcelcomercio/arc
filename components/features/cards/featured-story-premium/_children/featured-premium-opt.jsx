@@ -128,7 +128,7 @@ const FeaturedStoryPremiumChild = ({
       className={`${classes.featuredPremium}${
         bgColor === 'gray' ? ' featured-premium--gray' : ''
       }`}>
-      <a href={websiteLink} className={classes.imageLink}>
+      <a itemProp="url" href={websiteLink} className={classes.imageLink}>
         <Icon type={multimediaType} iconClass={classes.icon} />
         <picture className={classes.imageBox}>
           <source
@@ -167,7 +167,7 @@ const FeaturedStoryPremiumChild = ({
         </h2>
         <h6 itemProp="name" className={classes.author}>
           {author && (
-            <a className={classes.authorLink} href={authorLink}>
+            <a itemProp="url" className={classes.authorLink} href={authorLink}>
               {author}
             </a>
           )}

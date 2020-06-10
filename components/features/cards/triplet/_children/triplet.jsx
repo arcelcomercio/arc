@@ -94,7 +94,10 @@ const TripletChildTriplet = props => {
               </address>
             </div>
             <figure className={classes.multimedia}>
-              <a className={classes.mLink} href={story.websiteLink}>
+              <a
+                itemProp="url"
+                className={classes.mLink}
+                href={story.websiteLink}>
                 <img
                   className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
                   src={

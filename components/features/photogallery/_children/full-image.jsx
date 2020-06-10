@@ -37,7 +37,7 @@ const FullImage = ({
 }) => {
   return (
     <div className={`${classes.fullImg} ${textOrientation} ${textPosition}`}>
-      <a href={websiteLink} className={classes.boxImg}>
+      <a itemProp="url" href={websiteLink} className={classes.boxImg}>
         <picture className={classes.img}>
           <source
             className={isAdmin ? '' : 'lazy'}
@@ -56,12 +56,15 @@ const FullImage = ({
       </a>
       <div className={classes.boxDetail}>
         <h3 itemProp="name">
-          <a className={classes.section} href={primarySectionLink}>
+          <a
+            itemProp="url"
+            className={classes.section}
+            href={primarySectionLink}>
             {primarySection}
           </a>
         </h3>
         <h2 itemProp="name">
-          <a className={classes.title} href={websiteLink}>
+          <a itemProp="url" className={classes.title} href={websiteLink}>
             {title}
           </a>
         </h2>

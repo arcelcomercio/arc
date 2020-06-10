@@ -63,7 +63,7 @@ const StoryContinue = ({ customFields: { isBlog } = {} }) => {
     <>
       <div className={classes.storyContinue}>
         <div className={classes.storyLoad} data-state="outviewport">
-          <a href="/" className={classes.storyLoadLink}>
+          <a itemProp="url" href="/" className={classes.storyLoadLink}>
             <div className={classes.storyCircle}>
               <span className={classes.storyLoadImage} />
               <div className={classes.storycounter}> </div>

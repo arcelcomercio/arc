@@ -207,8 +207,13 @@ class StoriesLiestInfiniteCards extends Component {
                   </a>
                 </div>
 
-                <h2 itemProp="name" className="text-xl font-bold line-h-sm mt-10 secondary-font overflow-hidden">
-                  <a className="infinite-cards__link" href={websiteLink}>
+                <h2
+                  itemProp="name"
+                  className="text-xl font-bold line-h-sm mt-10 secondary-font overflow-hidden">
+                  <a
+                    itemProp="url"
+                    className="infinite-cards__link"
+                    href={websiteLink}>
                     {title}
                   </a>
                 </h2>

@@ -50,7 +50,11 @@ const FooterChildStandardG21 = props => {
   return (
     <footer className={classes.footer}>
       <div className={classes.info}>
-        <a href="/" className={classes.logoContainer}>
+        <a
+          itemProp="url"
+          href="/"
+          className={classes.logoContainer}
+          title="Ir a la portada">
           <img
             className={classes.logoImg}
             src={logoUrl}
@@ -72,7 +76,7 @@ const FooterChildStandardG21 = props => {
           {sections &&
             sections.map(el => (
               <li className={classes.listLinkSection} key={el.url}>
-                <a className={classes.listLink} href={el.url}>
+                <a itemProp="url" className={classes.listLink} href={el.url}>
                   {el.name}
                 </a>
               </li>
@@ -85,7 +89,11 @@ const FooterChildStandardG21 = props => {
           {/* <li className={classes.listTitle}>Legal</li> */}
           {legalLinks.map(el => (
             <li className={classes.listLinkSection} key={el.url}>
-              <a className={classes.listLink} href={el.url} key={el.url}>
+              <a
+                itemProp="url"
+                className={classes.listLink}
+                href={el.url}
+                key={el.url}>
                 {el.name}
               </a>
             </li>

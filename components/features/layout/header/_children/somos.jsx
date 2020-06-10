@@ -52,7 +52,7 @@ class HeaderChildSomos extends PureComponent {
             </button>
           </div>
           <div className="header-somos__img-wrapper flex-1">
-            <a href={logo.link} className="inline-block">
+            <a itemProp="url" href={logo.link} className="inline-block">
               <img
                 className="header-somos__img block"
                 src={logo.src}
@@ -61,7 +61,7 @@ class HeaderChildSomos extends PureComponent {
             </a>
           </div>
           <div className="header-somos__logo-wrapper bg-black right-0 text-center flex justify-center items-center rounded lg:hidden">
-            <a href={logoIcon.link}>
+            <a itemProp="url" href={logoIcon.link}>
               <i className="icon-marca title-xl text-white" />
             </a>
           </div>
@@ -100,7 +100,7 @@ class HeaderChildSomos extends PureComponent {
               </form>
             </div>
             {/* <div className={classes.menuLogin}>
-              <a href="/" className={classes.menuLoginLink}>
+              <a itemProp="url" href="/" className={classes.menuLoginLink}>
                 <i className={classes.menuLoginIcon} />
                 <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
               </a>

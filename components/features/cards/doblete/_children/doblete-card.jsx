@@ -20,19 +20,22 @@ export default ({
   return (
     <div className={classes.doblete}>
       <h2 itemProp="name">
-        <a className={classes.title} href={websiteLink}>
+        <a itemProp="url" className={classes.title} href={websiteLink}>
           {title}
         </a>
       </h2>
       <div>
         <h6 itemProp="name">
-          <a className={classes.author} href={authorLink}>
+          <a itemProp="url" className={classes.author} href={authorLink}>
             {author}
           </a>
         </h6>
         <div className={classes.boxIcon}>
           <p>
-            <a className={classes.sectionSmall} href={primarySectionLink}>
+            <a
+              itemProp="url"
+              className={classes.sectionSmall}
+              href={primarySectionLink}>
               {primarySection}
             </a>
           </p>

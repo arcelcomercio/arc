@@ -13,11 +13,15 @@ const StoriesListsCardChildHeader = ({
   return (
     <div className={`${classes.header} ${background}`}>
       {urlTitle ? (
-        <a href={urlTitle} className={classes.urlTitle}>
-          <h4 itemProp="name" className={classes.title}>{titleList}</h4>
+        <a itemProp="url" href={urlTitle} className={classes.urlTitle}>
+          <h4 itemProp="name" className={classes.title}>
+            {titleList}
+          </h4>
         </a>
       ) : (
-        <h4 itemProp="name" className={classes.title}>{titleList}</h4>
+        <h4 itemProp="name" className={classes.title}>
+          {titleList}
+        </h4>
       )}
     </div>
   )

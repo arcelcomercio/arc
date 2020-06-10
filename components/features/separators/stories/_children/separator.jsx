@@ -43,7 +43,7 @@ const SeparatorsBasicChildSeparator = ({
       ) : (
         titleSeparator && (
           <h2 itemProp="name" className={classes.title}>
-            <a href={titleLink} className={classes.titleLink}>
+            <a itemProp="url" href={titleLink} className={classes.titleLink}>
               {titleSeparator}
             </a>
           </h2>
@@ -72,8 +72,13 @@ const SeparatorsBasicChildSeparator = ({
               <article role="listitem" className={classes.article}>
                 <Icon type={multimediaType} iconClass={classes.icon} />
                 <div className={classes.detail}>
-                  <a className="separator__title-link" href={websiteLink}>
-                    <h3 itemProp="name" className={classes.text}>{title}</h3>
+                  <a
+                    itemProp="url"
+                    className="separator__title-link"
+                    href={websiteLink}>
+                    <h3 itemProp="name" className={classes.text}>
+                      {title}
+                    </h3>
                   </a>
                   {isAuthorVisible && (
                     <h2 itemProp="name">

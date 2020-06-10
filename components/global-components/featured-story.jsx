@@ -168,7 +168,9 @@ const FeaturedStory = props => {
           author && author.name ? ' justify-between' : ''
         }`}>
         {headband === 'normal' || !headband ? (
-          <h3 itemProp="name" className={`${classes.category} ${getCategorySectionClass()}`}>
+          <h3
+            itemProp="name"
+            className={`${classes.category} ${getCategorySectionClass()}`}>
             <a
               className={classes.categoryLink}
               href={category.url}
@@ -179,7 +181,10 @@ const FeaturedStory = props => {
           </h3>
         ) : (
           <div className={classes.headband}>
-            <a href={category.url} className={classes.headbandLink}>
+            <a
+              itemProp="url"
+              href={category.url}
+              className={classes.headbandLink}>
               {headbandText}
             </a>
           </div>
@@ -196,13 +201,13 @@ const FeaturedStory = props => {
 
         {author && author.name && (
           <address className={classes.author}>
-            <a className={classes.authorLink} href={author.url}>
+            <a itemProp="url" className={classes.authorLink} href={author.url}>
               {author.name}
             </a>
           </address>
         )}
       </div>
-      <a className={classes.imageLink} href={title.url}>
+      <a itemProp="url" className={classes.imageLink} href={title.url}>
         {isLazyLoadActivate ? (
           <picture className={classes.imageBox}>
             <source

@@ -18,7 +18,7 @@ const BlogAuthorTitleChildAuthorTitle = ({
   return (
     <div className={classes.authorTitle}>
       <div className={classes.title}>
-        <a href={path} className={classes.url}>
+        <a itemProp="url" href={path} className={classes.url}>
           {blogName}
         </a>
         <p className={classes.name}>{firstName}</p>

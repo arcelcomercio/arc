@@ -8,7 +8,7 @@ const classes = {
 
 const ItemLink = ({ url, name }) => (
   <li>
-    <a href={url} rel="noopener noreferrer" target="_blank">
+    <a itemProp="url" href={url} rel="noopener noreferrer" target="_blank">
       {name}
     </a>
   </li>

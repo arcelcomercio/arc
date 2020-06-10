@@ -79,12 +79,12 @@ export default ({
           </button>
         </div>
         <div className={classes.logoimgwrapper}>
-          <a href={customLogoLink} className={classes.logoLink}>
+          <a itemProp="url" href={customLogoLink} className={classes.logoLink}>
             <img className={classes.logoimg} src={logo} alt="Somos" />
           </a>
         </div>
         <div className={classes.logoWrapper}>
-          <a href={customLogoLink}>
+          <a itemProp="url" href={customLogoLink}>
             <i className={classes.logoIcon} />
           </a>
         </div>
@@ -123,7 +123,7 @@ export default ({
             </form>
           </div>
           {/* <div className={classes.menuLogin}>
-            <a href="/" className={classes.menuLoginLink}>
+            <a itemProp="url" href="/" className={classes.menuLoginLink}>
               <i className={classes.menuLoginIcon} />
               <p className={classes.menuLoginLabel}>Ingresa a tu cuenta</p>
             </a>
@@ -131,7 +131,10 @@ export default ({
           <ul className={classes.menuList}>
             {showIconHome && (
               <li className={classes.menuItemLink}>
-                <a href={linkIconHome || '/'} className={classes.menuLinkIcon}>
+                <a
+                  itemProp="url"
+                  href={linkIconHome || '/'}
+                  className={classes.menuLinkIcon}>
                   <i className={classes.iconHome} />
                 </a>
               </li>

@@ -31,7 +31,9 @@ const CardListResult = ({
           {leagueNameText === '' && urlLeagueNameText === '' && leagueName}
           {leagueNameText !== '' && urlLeagueNameText === '' && leagueNameText}
           {leagueNameText !== '' && urlLeagueNameText !== '' && (
-            <a href={urlLeagueNameText}>{leagueNameText}</a>
+            <a itemProp="url" href={urlLeagueNameText}>
+              {leagueNameText}
+            </a>
           )}
         </div>
       ) : (

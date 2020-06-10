@@ -33,7 +33,7 @@ const StorySeparatorChildItem = ({ data, arcSite }) => {
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
-        <a href={link}>
+        <a itemProp="url" href={link}>
           <picture className={classes.figure}>
             {/* <source
               className={isAdmin ? '' : 'lazy'}
@@ -54,13 +54,16 @@ const StorySeparatorChildItem = ({ data, arcSite }) => {
       <div className={classes.detail}>
         {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
           <h2 itemProp="name" className={classes.separatorCategory}>
-            <a href={sectionLink} className={classes.separatorCategoryLink}>
+            <a
+              itemProp="url"
+              href={sectionLink}
+              className={classes.separatorCategoryLink}>
               {section}
             </a>
           </h2>
         )}
         <h3 itemProp="name" className={classes.separatorTitle}>
-          <a className={classes.titleLink} href={link}>
+          <a itemProp="url" className={classes.titleLink} href={link}>
             {title}
           </a>
         </h3>

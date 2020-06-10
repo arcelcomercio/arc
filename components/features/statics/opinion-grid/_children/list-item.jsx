@@ -42,7 +42,7 @@ const OpinionGridListItem = ({
             <i className={classes.defaultImage} />
           ) : (
             <figure className={classes.imageBox}>
-              <a href={story.websiteLink}>
+              <a itemProp="url" href={story.websiteLink}>
                 <img
                   src={isAdmin ? authorImage : defaultAuthorImage}
                   data-src={authorImage}
@@ -58,18 +58,24 @@ const OpinionGridListItem = ({
               {formatDateLocalTimeZone(story.date)}
             </time>
             <h2 itemProp="name">
-              <a href={story.authorLink} className={classes.name}>
+              <a
+                itemProp="url"
+                href={story.authorLink}
+                className={classes.name}>
                 {story.author}
               </a>
             </h2>
             <p>
-              <a href={story.websiteLink} className={classes.subtitle}>
+              <a
+                itemProp="url"
+                href={story.websiteLink}
+                className={classes.subtitle}>
                 {story.title}
               </a>
             </p>
           </div>
           <figure className={classes.pictureWrapper}>
-            <a href={story.websiteLink}>
+            <a itemProp="url" href={story.websiteLink}>
               <picture>
                 <img
                   className={`${isAdmin ? '' : 'lazy'} ${classes.pictureNota}`}

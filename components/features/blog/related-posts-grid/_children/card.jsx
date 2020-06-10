@@ -22,7 +22,7 @@ const BlogRelatedPostsGridChildCard = ({
   return (
     <article role="listitem" className={classes.containerCard}>
       <figure className={classes.imageContainer}>
-        <a className={classes.imageLink} href={postLink}>
+        <a itemProp="url" className={classes.imageLink} href={postLink}>
           <picture>
             <source srcSet={imageLink} media="(max-width: 640px)" />
             <img className={classes.image} src={imageLink} alt={title} />
@@ -32,14 +32,20 @@ const BlogRelatedPostsGridChildCard = ({
       <div className={classes.detail}>
         <div>
           <h3 itemProp="name" className={classes.categoryContainer}>
-            <a className={classes.categoryLink} href={sectionLink}>
+            <a
+              itemProp="url"
+              className={classes.categoryLink}
+              href={sectionLink}>
               {sectionName}
             </a>
           </h3>
         </div>
         <div>
           <h3 itemProp="name" className={classes.detailTitle}>
-            <a className={classes.detailTitleLink} href={postLink}>
+            <a
+              itemProp="url"
+              className={classes.detailTitleLink}
+              href={postLink}>
               {title}
             </a>
           </h3>

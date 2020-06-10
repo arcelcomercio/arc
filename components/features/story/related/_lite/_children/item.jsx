@@ -44,16 +44,19 @@ const RenderRelatedContentElement = (props, i) => {
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div>
         <h2 itemProp="name" className={classes.text}>
-          <a href={filterData.link} className={classes.link}>
+          <a itemProp="url" href={filterData.link} className={classes.link}>
             {filterData.title}
           </a>
         </h2>
-        <a className={classes.author} href={filterData.authorLink}>
+        <a
+          itemProp="url"
+          className={classes.author}
+          href={filterData.authorLink}>
           {filterData.author}
         </a>
       </div>
       <figure className={classes.multimedia}>
-        <a href={filterData.link} className={classes.link}>
+        <a itemProp="url" href={filterData.link} className={classes.link}>
           <img
             className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
             src={isAdmin ? filterData.image : filterData.lazyImage}

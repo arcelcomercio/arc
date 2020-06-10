@@ -120,12 +120,15 @@ const CardsTabloidStory = props => {
         </a>
       </h4>
       <div className="pt-35">
-        <a href={websiteLink} className="mb-40 flex justify-center">
+        <a
+          itemProp="url"
+          href={websiteLink}
+          className="mb-40 flex justify-center">
           <time dateTime={date} className="text-xl text-gray-300 font-bold">
             {date && getLatinDate(date, ' del', true)}
           </time>
         </a>
-        <a className="flex justify-center" href={websiteLink}>
+        <a itemProp="url" className="flex justify-center" href={websiteLink}>
           <picture className="inline-block pl-10 pr-10">
             <img
               className={`${

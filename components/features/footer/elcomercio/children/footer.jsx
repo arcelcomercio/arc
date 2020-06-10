@@ -57,7 +57,11 @@ const FooterChildElComercio = ({
     <footer className={classes.footer}>
       <div className={classes.container}>
         <div className={classes.info}>
-          <a href="/" className={classes.logoBox}>
+          <a
+            itemProp="url"
+            href="/"
+            className={classes.logoBox}
+            title="Ir a la portada">
             <img
               className={`${isAdmin ? '' : 'lazy'} ${classes.logo}`}
               src={isAdmin ? logoUrl : ''}
@@ -94,7 +98,9 @@ const FooterChildElComercio = ({
                     <li
                       className={classes.directorsItem}
                       key={`dir-${position}`}>
-                      <h5 itemProp="name" className={classes.directorsTitle}>{position}</h5>
+                      <h5 itemProp="name" className={classes.directorsTitle}>
+                        {position}
+                      </h5>
                       {names.map(name => (
                         <p
                           key={`dir-${name}`}
@@ -116,7 +122,8 @@ const FooterChildElComercio = ({
                   position &&
                   name && (
                     <li className={classes.contactItem} key={`contact-${name}`}>
-                      <h5 itemProp="name"
+                      <h5
+                        itemProp="name"
                         className={`${classes.contactTitle} ${classes.contactPosition}`}>
                         {position}
                       </h5>
@@ -165,7 +172,10 @@ const FooterChildElComercio = ({
                           {name}
                         </a>
                       ) : (
-                        <a href={url} className={classes.linksLink}>
+                        <a
+                          itemProp="url"
+                          href={url}
+                          className={classes.linksLink}>
                           {name}
                         </a>
                       )}
@@ -177,7 +187,9 @@ const FooterChildElComercio = ({
         </div>
       </div>
       <div className={classes.sites}>
-        <h5 itemProp="name" className={classes.sitesTitle}>{SITES_TITLE}</h5>
+        <h5 itemProp="name" className={classes.sitesTitle}>
+          {SITES_TITLE}
+        </h5>
         <p className={classes.sitesList}>
           {gecSites &&
             gecSites.map(site => {

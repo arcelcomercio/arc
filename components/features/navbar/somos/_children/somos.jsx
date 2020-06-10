@@ -104,7 +104,7 @@ class HeaderChildSomos extends PureComponent {
     return (
       _handleHide() && (
         <header className="navbar-somos bg-black flex items-center justify-between pt-0 pb-0 pr-10 pl-10">
-          <a href={link} className="h-full flex items-center">
+          <a itemProp="url" href={link} className="h-full flex items-center">
             <i className="icon-back navbar-somos__icon font-bold text-white" />
             <img
               className="navbar-somos__logo-img ml-10"

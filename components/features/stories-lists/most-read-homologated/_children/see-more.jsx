@@ -12,7 +12,7 @@ export default ({ seeMore, seeMoreurl }) => {
     <>
       {seeMore && (
         <div className={classes.footer}>
-          <a href={seeMoreurl} className={classes.seeMore}>
+          <a itemProp="url" href={seeMoreurl} className={classes.seeMore}>
             Ver más
           </a>
         </div>

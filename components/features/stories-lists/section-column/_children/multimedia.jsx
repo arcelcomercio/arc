@@ -16,7 +16,7 @@ const StoriesListsCardChildMultimedia = ({
   isAdmin,
 }) => {
   return (
-    <a href={urlNews} className={classes.figure}>
+    <a itemProp="url" href={urlNews} className={classes.figure}>
       {getMultimediaIcon(multimediaType) && (
         <i className={`${getMultimediaIcon(multimediaType)} ${classes.icon}`} />
       )}

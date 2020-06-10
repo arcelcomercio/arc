@@ -29,7 +29,10 @@ const StorySocialLite = () => {
   return (
     <div className={classes.container}>
       <h2 itemProp="name" className={classes.section}>
-        <a className={classes.sectionLink} href={primarySectionLink}>
+        <a
+          itemProp="url"
+          className={classes.sectionLink}
+          href={primarySectionLink}>
           {primarySection}
         </a>
       </h2>

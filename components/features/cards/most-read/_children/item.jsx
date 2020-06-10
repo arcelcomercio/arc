@@ -18,7 +18,7 @@ const CardMostReadChildItem = props => {
   if (viewImage) classes.numLines = 'four-lines'
 
   return (
-    <a href={websiteUrl} className={classes.item}>
+    <a itemProp="url" href={websiteUrl} className={classes.item}>
       <article role="listitem" className={classes.article}>
         {viewImage && (
           <figure className={classes.figure}>
@@ -26,12 +26,14 @@ const CardMostReadChildItem = props => {
               className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
               src={isAdmin ? imageUrl : lazyImage}
               data-src={imageUrl}
-              alt={title}              
+              alt={title}
             />
             <Icon type={storyType} iconClass={classes.icon} />
           </figure>
         )}
-        <h4 itemProp="name" className={`${classes.title} ${classes.numLines}`}>{title}</h4>
+        <h4 itemProp="name" className={`${classes.title} ${classes.numLines}`}>
+          {title}
+        </h4>
       </article>
     </a>
   )

@@ -28,9 +28,9 @@ const ColumnistPremium = ({
 }) => {
   return (
     <article className={classes.columnistPremium}>
-      <a href={authorLink}>
+      <a itemProp="url" href={authorLink}>
         <img
-          alt={`Foto de perfil de ${author}`}          
+          alt={`Foto de perfil de ${author}`}
           className={`${isAdmin ? '' : 'lazy'} ${classes.profile}`}
           src={isAdmin ? authorImage : lazyImage}
           data-src={authorImage}
@@ -38,15 +38,17 @@ const ColumnistPremium = ({
       </a>
 
       <h4 itemProp="name" className={classes.name}>
-        <a href={authorLink}>{author}</a>
+        <a itemProp="url" href={authorLink}>
+          {author}
+        </a>
       </h4>
-      <a href={primarySectionLink} className={classes.section}>
+      <a itemProp="url" href={primarySectionLink} className={classes.section}>
         {primarySection}
       </a>
       <p className={classes.description}>
         {subTitle}
 
-        <a className={classes.link} href={websiteLink}>
+        <a itemProp="url" className={classes.link} href={websiteLink}>
           Leer
         </a>
       </p>

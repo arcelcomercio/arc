@@ -144,7 +144,7 @@ const StoriesListNew = props => {
           })}
       </div>
       <div className={classes.listadoSeeMore}>
-        <a href={seeMoreLink} tabIndex="0" role="button">
+        <a itemProp="url" href={seeMoreLink} tabIndex="0" role="button">
           Ver más
         </a>
       </div>

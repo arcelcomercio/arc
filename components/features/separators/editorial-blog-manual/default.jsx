@@ -171,7 +171,7 @@ const SeparatorEditorialBlogManual = () => {
   return (
     <div className={classes.separator}>
       <div className={classes.header}>
-        <a className={classes.titleSeparator} href={BLOG_BASE}>
+        <a itemProp="url" className={classes.titleSeparator} href={BLOG_BASE}>
           FIRMAS
         </a>
         <a
@@ -186,7 +186,7 @@ const SeparatorEditorialBlogManual = () => {
           paramList.map(post => <SeparatorBlogChildItem {...post} />)}
       </div>
       <div className={`${classes.seeMoreWrapper} non-desktop`}>
-        <a href={seeMoreUrl} className={classes.seeMoreText}>
+        <a itemProp="url" href={seeMoreUrl} className={classes.seeMoreText}>
           Ver más
         </a>
       </div>

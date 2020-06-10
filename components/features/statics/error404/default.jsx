@@ -29,7 +29,8 @@ const Error404 = props => {
   return (
     <>
       <div role="group" className={classes.container}>
-        <h3 itemProp="name"
+        <h3
+          itemProp="name"
           className={classes.title}
           {...editableField('title')}
           suppressContentEditableWarning>
@@ -44,7 +45,7 @@ const Error404 = props => {
         <div role="search" className={classes.searchBox}>
           <SearchInput />
         </div>
-        <a href="/" className={classes.link}>
+        <a itemProp="url" href="/" className={classes.link}>
           Volver a la página principal
         </a>
       </div>

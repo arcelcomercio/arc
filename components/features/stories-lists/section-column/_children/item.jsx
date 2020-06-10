@@ -27,11 +27,13 @@ const StoriesListsCardChildItem = ({
         />
       )}
       <article role="listitem" className={classes.story}>
-        <a href={urlNews}>
-          <h3 itemProp="name" className={classes.link}>{title}</h3>
+        <a itemProp="url" href={urlNews}>
+          <h3 itemProp="name" className={classes.link}>
+            {title}
+          </h3>
         </a>
 
-        <a className={classes.autorLink} href={urlAutor}>
+        <a itemProp="url" className={classes.autorLink} href={urlAutor}>
           {author}
         </a>
       </article>

@@ -79,7 +79,7 @@ const SeparatorsBasicChildSeparator = props => {
             </a>
           </h2>
           {seeMore && (
-            <a href={seeMoreLink} className={classes.showMore}>
+            <a itemProp="url" href={seeMoreLink} className={classes.showMore}>
               Ver más
             </a>
           )}

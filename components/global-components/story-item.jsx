@@ -63,7 +63,10 @@ const StoriesList = ({
             isOpinionPeru21 ? classes.opinion : ''
           }`}>
           <div className={classes.top}>
-            <a href={element.primarySectionLink} className={classes.section}>
+            <a
+              itemProp="url"
+              href={element.primarySectionLink}
+              className={classes.section}>
               {element.primarySection}
             </a>
             <p className={classes.date}>
@@ -75,7 +78,10 @@ const StoriesList = ({
           </div>
           <div className={classes.wrapperTitle}>
             <h2 itemProp="name" className={classes.contentTitle}>
-              <a className={classes.title} href={element.websiteLink}>
+              <a
+                itemProp="url"
+                className={classes.title}
+                href={element.websiteLink}>
                 {reduceWord(element.title)}
               </a>
             </h2>
@@ -87,7 +93,10 @@ const StoriesList = ({
             </a>
           </div>
           <div className={classes.contenetAuthor}>
-            <a href={element.authorLink} className={classes.author}>
+            <a
+              itemProp="url"
+              href={element.authorLink}
+              className={classes.author}>
               {element.author}
             </a>
           </div>
@@ -95,7 +104,10 @@ const StoriesList = ({
 
         <figure className={classes.right}>
           {/* TODO: Actualizar iconos con multimediaIcon */}
-          <a href={element.websiteLink} className={classes.rightLink}>
+          <a
+            itemProp="url"
+            href={element.websiteLink}
+            className={classes.rightLink}>
             <Icon type={element.multimediaType} iconClass={classes.icon} />
             <picture>
               <source

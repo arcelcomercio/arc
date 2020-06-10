@@ -62,12 +62,12 @@ const CardCinemaBillboard = ({
       <article className={classes.container}>
         <span className={classes.gradient} />
         <h3 itemProp="name" className={classes.category}>
-          <a className={classes.link} href={BASE_PATH}>
+          <a itemProp="url" className={classes.link} href={BASE_PATH}>
             Cartelera
           </a>
         </h3>
         <figure className={classes.figure}>
-          <a href={`${BASE_PATH}/${premiereUrl}`}>
+          <a itemProp="url" href={`${BASE_PATH}/${premiereUrl}`}>
             <img
               src={premiereImg}
               alt={premiereAlt}
@@ -87,7 +87,9 @@ const CardCinemaBillboard = ({
         </div>
       </article>
       <div className={classes.moviesList}>
-        <h4 itemProp="name" className={classes.title}>Vamos al cine</h4>
+        <h4 itemProp="name" className={classes.title}>
+          Vamos al cine
+        </h4>
         <form
           action={FORM_ACTION}
           method="post"

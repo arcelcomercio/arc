@@ -66,7 +66,10 @@ export default React.memo(
         <div className={classes.bottom}>
           <div className={classes.left}>
             <div className={classes.top}>
-              <a href={primarySectionLink} className={classes.section}>
+              <a
+                itemProp="url"
+                href={primarySectionLink}
+                className={classes.section}>
                 {primarySection}
               </a>
               <p className={classes.date}>
@@ -75,24 +78,27 @@ export default React.memo(
             </div>
             <div className={classes.wrapperTitle}>
               <h2 itemProp="name" className={classes.contentTitle}>
-                <a className={classes.title} href={link}>
+                <a itemProp="url" className={classes.title} href={link}>
                   {reduceWord(title)}
                 </a>
               </h2>
               <p className={classes.subtitle}>{reduceWord(subTitle)}</p>
-              <a href={primarySectionLink} className={classes.sectionHidden}>
+              <a
+                itemProp="url"
+                href={primarySectionLink}
+                className={classes.sectionHidden}>
                 {primarySection}
               </a>
             </div>
             <div className={classes.contenetAuthor}>
-              <a href={authorLink} className={classes.author}>
+              <a itemProp="url" href={authorLink} className={classes.author}>
                 {author}
               </a>
             </div>
           </div>
           <figure className={classes.right}>
             {/* TODO: Actualizar iconos con multimediaIcon */}
-            <a href={link} className={classes.rightLink}>
+            <a itemProp="url" href={link} className={classes.rightLink}>
               {multimediaType !== null &&
                 multimediaType === { GALLERY, VIDEO }.GALLERY && (
                   <span className={classes.iconGallery} />

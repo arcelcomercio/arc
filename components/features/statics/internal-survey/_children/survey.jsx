@@ -83,19 +83,27 @@ const InternalSurveyChildSurvey = props => {
       <div className={`${classes.detail} ${flagDisable && 'disable'}`}>
         <div className={`${classes.nav} ${flagDisable && 'active'}`}>
           {prev && (
-            <a href={urlPrev} className={`${classes.navprev} ${classes.slug}`}>
+            <a
+              itemProp="url"
+              href={urlPrev}
+              className={`${classes.navprev} ${classes.slug}`}>
               <i className={classes.icon}> prev </i>
             </a>
           )}
           {next && (
-            <a href={urlNext} className={`${classes.navnex} ${classes.slug}`}>
+            <a
+              itemProp="url"
+              href={urlNext}
+              className={`${classes.navnex} ${classes.slug}`}>
               <i className={classes.icon}> next </i>
             </a>
           )}
         </div>
 
         <time className={classes.date}>{getLatinDate(date, ',')}</time>
-        <h1 itemProp="name" className={classes.title}>{title}</h1>
+        <h1 itemProp="name" className={classes.title}>
+          {title}
+        </h1>
         <form action="">
           <ul>
             {choices.map((choice, index) => (

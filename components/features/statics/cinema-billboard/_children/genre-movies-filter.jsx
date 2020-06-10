@@ -59,7 +59,9 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
     return (
       <section className={classes.moviesGrid}>
         <div className={classes.container}>
-          <h3 itemProp="name" className={classes.headline}>Listín Cinematográfico</h3>
+          <h3 itemProp="name" className={classes.headline}>
+            Listín Cinematográfico
+          </h3>
           {genres && (
             <>
               <nav className={classes.nav}>
@@ -124,7 +126,9 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
             <ul className={classes.grid}>
               {movies.map(movie => (
                 <li key={movie.mid} className={classes.movie}>
-                  <a href={`${URI_BASE}/${movie.url}${TEATHERS_BASE}`}>
+                  <a
+                    itemProp="url"
+                    href={`${URI_BASE}/${movie.url}${TEATHERS_BASE}`}>
                     <figure className={classes.imageBox}>
                       <img
                         src={
@@ -140,7 +144,9 @@ class StaticCinemaBillboardChildGenreMoviesFilter extends PureComponent {
                         className={classes.image}
                       />
                       <figcaption className={classes.details}>
-                        <h2 itemProp="name" className={classes.title}>{movie.title || ''}</h2>
+                        <h2 itemProp="name" className={classes.title}>
+                          {movie.title || ''}
+                        </h2>
                         <p className={classes.tag}>Estreno</p>
                       </figcaption>
                     </figure>

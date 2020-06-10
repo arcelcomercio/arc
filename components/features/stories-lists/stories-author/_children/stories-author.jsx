@@ -22,12 +22,17 @@ const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
   return (
     <div className={classes.container}>
       <div className={classes.section}>
-        <a className={classes.sectionText} href={sectionLink || data.primarySectionLink}>
+        <a
+          className={classes.sectionText}
+          href={sectionLink || data.primarySectionLink}>
           {section || data.primarySection}
         </a>
       </div>
       <div className={classes.itemMain}>
-        <a className={classes.storyImgLink} href={data.authorLink}>
+        <a
+          itemProp="url"
+          className={classes.storyImgLink}
+          href={data.authorLink}>
           <picture className={classes.storyPicture}>
             <source
               className={isAdmin ? '' : 'lazy'}
@@ -44,11 +49,11 @@ const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
             />
           </picture>
         </a>
-        <a className={classes.authorMain} href={data.authorLink}>
+        <a itemProp="url" className={classes.authorMain} href={data.authorLink}>
           {data.author}
         </a>
         <div className={classes.occupation}>{data.authorOccupation}</div>
-        <a className={classes.titleMain} href={data.websiteLink}>
+        <a itemProp="url" className={classes.titleMain} href={data.websiteLink}>
           {data.title}
         </a>
       </div>
@@ -56,7 +61,10 @@ const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
         dataList.map(el => {
           return (
             <div className={classes.item}>
-              <a className={classes.storyImgLink} href={el.authorLink}>
+              <a
+                itemProp="url"
+                className={classes.storyImgLink}
+                href={el.authorLink}>
                 <picture className={classes.storyPicture}>
                   <source
                     className={isAdmin ? '' : 'lazy'}
@@ -69,15 +77,21 @@ const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
                     className={`${isAdmin ? '' : 'lazy'} ${classes.storyImg}`}
                     data-src={el.authorImage}
                     src={isAdmin ? el.authorImage : el.multimediaLazyDefault}
-                    alt={el.title}                    
+                    alt={el.title}
                   />
                 </picture>
               </a>
               <div className={classes.itemBox}>
-                <a className={classes.author} href={el.authorLink}>
+                <a
+                  itemProp="url"
+                  className={classes.author}
+                  href={el.authorLink}>
                   {el.author}
                 </a>
-                <a className={classes.title} href={el.websiteLink}>
+                <a
+                  itemProp="url"
+                  className={classes.title}
+                  href={el.websiteLink}>
                   {el.title}
                 </a>
               </div>

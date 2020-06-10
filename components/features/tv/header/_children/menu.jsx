@@ -16,7 +16,7 @@ const MenuTV = ({ menuSections }) => {
             menuSections.map(el => {
               return (
                 <li className="tv-menu__item" key={el.url}>
-                  <a className="tv-menu__link" href={el.url}>
+                  <a itemProp="url" className="tv-menu__link" href={el.url}>
                     {el.name}
                   </a>
                 </li>

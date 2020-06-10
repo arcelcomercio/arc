@@ -58,8 +58,10 @@ const StoriesListVideo = props => {
     <>
       <div className={classes.listComponent}>
         <div className={classes.listHeader}>
-          <h3 itemProp="name" className={classes.listTitle}>video</h3>
-          <a href={PERU21TV_URL} title="Videos de Perú21TV">
+          <h3 itemProp="name" className={classes.listTitle}>
+            video
+          </h3>
+          <a itemProp="url" href={PERU21TV_URL} title="Videos de Perú21TV">
             <img src={logoImg} alt="Logo de Perú21TV" />
           </a>
         </div>
@@ -78,7 +80,10 @@ const StoriesListVideo = props => {
             )}
         </div>
         <div className={classes.viewProgramsWrapper}>
-          <a className={classes.viewPrograms} href={PERU21TV_URL}>
+          <a
+            itemProp="url"
+            className={classes.viewPrograms}
+            href={PERU21TV_URL}>
             Ver programas
           </a>
         </div>

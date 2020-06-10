@@ -13,7 +13,7 @@ const URL_GOOGLE_NEWS =
 export default ({ url, text }) => {
   return (
     <div className={classes.container}>
-      <a className={classes.link} href={url || URL_GOOGLE_NEWS}>
+      <a itemProp="url" className={classes.link} href={url || URL_GOOGLE_NEWS}>
         {text !== '' ? text : 'Sigue a El Comercio en'}
         <p className={classes.letterContainer}>
           <span className={`${classes.letter}--color-1`}>G</span>

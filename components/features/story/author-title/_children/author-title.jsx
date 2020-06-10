@@ -13,7 +13,7 @@ const StoryAuthorTitleChildAuthorTitle = ({ name, url, urlImage }) => {
   return (
     <div className={classes.authorTitle}>
       <div className={classes.title}>
-        <a href={url} className={classes.url}>
+        <a itemProp="url" href={url} className={classes.url}>
           {name}
         </a>
       </div>

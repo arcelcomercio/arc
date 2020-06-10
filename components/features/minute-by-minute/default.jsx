@@ -74,7 +74,9 @@ class MinuteByMinute extends PureComponent {
         <div className="by-minute__left p-20">
           {typeComponent === 'partido' ? (
             <>
-              <h2 itemProp="name" className="text-center text-xl line-h-sm font-bold mb-20">
+              <h2
+                itemProp="name"
+                className="text-center text-xl line-h-sm font-bold mb-20">
                 <a
                   {...editableField('titleField')}
                   suppressContentEditableWarning
@@ -163,7 +165,9 @@ class MinuteByMinute extends PureComponent {
                   En vivo
                 </div>
               </div>
-              <h2 itemProp="name" className="text-center text-xl line-h-sm font-bold mt-20">
+              <h2
+                itemProp="name"
+                className="text-center text-xl line-h-sm font-bold mt-20">
                 <a
                   {...editableField('titleField')}
                   suppressContentEditableWarning
@@ -186,7 +190,7 @@ class MinuteByMinute extends PureComponent {
 
           <div className="scorer-sponsor">
             <div id="eplAd_REEMPLAZAR_POR_EPLANNING1">
-              <a href="/" target="_blank">
+              <a itemProp="url" href="/" target="_blank">
                 <picture>
                   <source
                     className="srcset_320"
