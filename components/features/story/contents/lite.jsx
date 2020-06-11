@@ -3,7 +3,6 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ArcStoryContent, {
   Oembed,
-  Text,
 } from '@arc-core-components/feature_article-body'
 
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
@@ -33,6 +32,7 @@ import {
   ELEMENT_OEMBED,
   ELEMENT_STORY,
   ELEMENT_BLOCKQUOTE,
+  ELEMENT_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -171,6 +171,8 @@ class StoryContentsLite extends PureComponent {
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
                     nameAds,
+                    items = [],
+                    list_type: listType = 'unordered',
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -210,6 +212,40 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
+                  if (type === ELEMENT_TEXT) {
+                    const alignmentClass = alignment
+                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
+                      : classes.textClasses
+                    return (
+                      <>
+                        {nameAds === 'inline' && (
+                          <div
+                            id="gpt_inline"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
+                            data-ads-dimensions="[[1,1]]"
+                            data-ads-dimensions-m="[[1,1]]"></div>
+                        )}
+                        {nameAds === 'caja4' && (
+                          <div
+                            id="gpt_caja4"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                        )}
+                        {nameAds === 'caja5' && (
+                          <div
+                            id="gpt_caja5"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                        )}
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }}></p>
+                      </>
+                    )
+                  }
                   if (type === ELEMENT_TABLE) {
                     return (
                       <StoryContentsChildTable data={element} type={type} />
@@ -217,6 +253,26 @@ class StoryContentsLite extends PureComponent {
                   }
                   if (type === ELEMENT_QUOTE) {
                     return <StoryContentsChildBlockQuote data={element} />
+                  }
+                  if (type === ELEMENT_LIST) {
+                    if (items && items.length > 0) {
+                      const ListType = listType === 'ordered' ? 'ol' : 'ul'
+                      return (
+                        <ListType className={classes.listClasses}>
+                          {items.map(item => (
+                            <li
+                              dangerouslySetInnerHTML={{
+                                __html: item.content
+                                  ? item.content.replace(
+                                      /<a/g,
+                                      '<a itemprop="url"'
+                                    )
+                                  : '',
+                              }}></li>
+                          ))}
+                        </ListType>
+                      )
+                    }
                   }
                   if (type === ELEMENT_OEMBED) {
                     return (
@@ -243,7 +299,6 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
-
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
                       <h2
@@ -255,40 +310,6 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
-
-                  if (type === ELEMENT_TEXT) {
-                    const alignmentClass = alignment
-                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
-                      : classes.textClasses
-                    return (
-                      <>
-                        {nameAds === 'inline' && (
-                          <div
-                            id="gpt_inline"
-                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
-                            data-ads-dimensions="[[1,1]]"
-                            data-ads-dimensions-m="[[1,1]]"></div>
-                        )}
-                        {nameAds === 'caja4' && (
-                          <div
-                            id="gpt_caja4"
-                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
-                        )}
-                        {nameAds === 'caja5' && (
-                          <div
-                            id="gpt_caja5"
-                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
-                        )}
-                        <Text
-                          content={replaceTags(content)}
-                          className={alignmentClass}
-                        />
-                      </>
-                    )
-                  }
-
                   if (type === ELEMENT_BLOCKQUOTE) {
                     return (
                       <blockquote

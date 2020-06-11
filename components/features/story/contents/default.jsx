@@ -3,7 +3,6 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ArcStoryContent, {
   Oembed,
-  Text,
 } from '@arc-core-components/feature_article-body'
 
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
@@ -34,6 +33,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
+  ELEMENT_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -229,6 +229,7 @@ class StoryContents extends PureComponent {
                     nameAds,
                     url = '',
                     items = [],
+                    list_type: listType = 'unordered',
                   } = element
                   if (type === ELEMENT_IMAGE) {
                     const presets = 'landscapeMd:314,storySmall:482,large:980'
@@ -268,6 +269,30 @@ class StoryContents extends PureComponent {
                       />
                     )
                   }
+                  if (type === ELEMENT_TEXT) {
+                    const alignmentClass = alignment
+                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
+                      : classes.textClasses
+
+                    return (
+                      <>
+                        {publicidad && isDfp && (
+                          <Ads
+                            adElement={nameAds}
+                            isDesktop={false}
+                            isMobile
+                            isDfp={isDfp}
+                          />
+                        )}
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }}></p>
+                      </>
+                    )
+                  }
                   if (type === ELEMENT_TABLE) {
                     return (
                       <StoryContentsChildTable data={element} type={type} />
@@ -294,6 +319,26 @@ class StoryContents extends PureComponent {
                         isAdmin={isAdmin}
                       />
                     )
+                  }
+                  if (type === ELEMENT_LIST) {
+                    if (items && items.length > 0) {
+                      const ListType = listType === 'ordered' ? 'ol' : 'ul'
+                      return (
+                        <ListType className={classes.listClasses}>
+                          {items.map(item => (
+                            <li
+                              dangerouslySetInnerHTML={{
+                                __html: item.content
+                                  ? item.content.replace(
+                                      /<a/g,
+                                      '<a itemprop="url"'
+                                    )
+                                  : '',
+                              }}></li>
+                          ))}
+                        </ListType>
+                      )
+                    }
                   }
                   if (type === ELEMENT_OEMBED) {
                     return (
@@ -329,29 +374,6 @@ class StoryContents extends PureComponent {
                           __html: content,
                         }}
                       />
-                    )
-                  }
-
-                  if (type === ELEMENT_TEXT) {
-                    const alignmentClass = alignment
-                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
-                      : classes.textClasses
-
-                    return (
-                      <>
-                        {publicidad && isDfp && (
-                          <Ads
-                            adElement={nameAds}
-                            isDesktop={false}
-                            isMobile
-                            isDfp={isDfp}
-                          />
-                        )}
-                        <Text
-                          content={replaceTags(content)}
-                          className={alignmentClass}
-                        />
-                      </>
                     )
                   }
 
