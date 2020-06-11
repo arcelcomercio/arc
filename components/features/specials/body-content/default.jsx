@@ -45,17 +45,19 @@ const CONTENT_SOURCE = 'story-by-id'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
-  content: 'story-content__content position-relative flex flex-row-reverse',
+  content:
+    'story-content__content body-content__content position-relative flex flex-row-reverse',
   textClasses:
-    'story-content__font--secondary mb-25 title-xs line-h-md mt-20 secondary-font pr-20',
+    'story-content__font--secondary body-content__text mb-25 title-xs line-h-md mt-20 secondary-font mx-auto',
   blockquoteClass:
     'story-content__blockquote text-gray-300 line-h-sm ml-15 mt-40 mb-40 pl-10 pr-30',
   newsImage: 'story-content__image w-full m-0 story-content__image--cover ',
   newsEmbed: 'story-content__embed embed-script',
   alignmentClasses: 'story-content__alignment',
+  headerText: 'body-content__header-text mx-auto',
 }
 
-const ContentSpecialBody = props => {
+const BodyContentSpecial = props => {
   const { customFields: { storyCode = '' } = {} } = props
 
   const { isAdmin, arcSite, contextPath, deployment } = useFusionContext()
@@ -207,9 +209,10 @@ const ContentSpecialBody = props => {
               )
             }
 
-            if (type === ELEMENT_HEADER && level === 1) {
+            if (type === ELEMENT_HEADER && level === 2) {
               return (
                 <h2
+                  className={classes.headerText}
                   dangerouslySetInnerHTML={{
                     __html: content,
                   }}
@@ -254,10 +257,10 @@ const ContentSpecialBody = props => {
   )
 }
 
-ContentSpecialBody.label = 'Especial - Contenido'
-ContentSpecialBody.static = true
+BodyContentSpecial.label = 'Especial - Contenido Nota'
+BodyContentSpecial.static = true
 
-ContentSpecialBody.propTypes = {
+BodyContentSpecial.propTypes = {
   customFields: PropTypes.shape({
     storyCode: PropTypes.string.tag({
       name: 'ID de historia',
@@ -265,4 +268,4 @@ ContentSpecialBody.propTypes = {
   }),
 }
 
-export default ContentSpecialBody
+export default BodyContentSpecial

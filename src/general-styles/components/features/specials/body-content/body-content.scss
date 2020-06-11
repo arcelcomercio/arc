@@ -1,0 +1,14 @@
+.body-content {
+  &__content {
+    & section {
+      width: 100%;
+    }
+    & figcaption {
+      border-bottom: none;
+    }
+  }
+  &__text,
+  &__header-text {
+    max-width: 580px;
+  }
+}
