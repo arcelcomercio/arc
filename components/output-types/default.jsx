@@ -407,15 +407,6 @@ export default ({
               }}></style>
           </>
         )}
-        {arcSite === 'peru21' && requestUri.match('^/politica') && (
-          <>
-            <script
-              type="text/javascript"
-              data-cfasync="false"
-              dangerouslySetInnerHTML={{ __html: scriptAdpush }}
-            />
-          </>
-        )}
         <script
           async
           src={`https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js?v=${new Date()
@@ -495,6 +486,15 @@ export default ({
           return null
         })()}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
+        {arcSite === 'peru21' && (
+          <>
+            <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+            />
+          </>
+        )}
       </head>
       <body
         className={classBody}
