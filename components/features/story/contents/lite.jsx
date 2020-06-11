@@ -99,6 +99,7 @@ class StoryContentsLite extends PureComponent {
       contentPosicionPublicidadLite,
       canonicalUrl,
       prerollDefault,
+      contentElementsHtml,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -424,7 +425,7 @@ class StoryContentsLite extends PureComponent {
             </div>
           )}
         </div>
-        {arcSite === SITE_ELCOMERCIO && (
+        {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
           <script
             src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
             defer></script>
