@@ -20,7 +20,7 @@ import videoScript from './_dependencies/lite/video-script'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
-import { vallaHtml, vallaStyle } from './_dependencies/valla-html'
+import VallaHtml from './_children/valla-html'
 
 const LiteOutput = ({
   children,
@@ -499,8 +499,7 @@ const LiteOutput = ({
                 __html: vallaScript(parametersValla),
               }}
             />
-            <style dangerouslySetInnerHTML={{ __html: vallaStyle }}></style>
-            <div dangerouslySetInnerHTML={{ __html: vallaHtml }} />
+            <VallaHtml />
           </>
         )}
       </body>

@@ -25,6 +25,12 @@ class Cookies {
     d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * -1)
     document.cookie = `${name}=;path=/;expires=${d.toGMTString()}`
   }
+
+  deleteCookieDomain = (name, domain) => {
+    const d = new Date()
+    d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * -1)
+    document.cookie = `${name}=;path=/;domain=.${domain}.pe; expires=${d.toGMTString()}`
+  }
 }
 
 export default new Cookies()

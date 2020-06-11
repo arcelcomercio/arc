@@ -38,7 +38,7 @@ export const SecondMiddle = styled(Base)`
   position: relative;
   background-color: #fff;
   @media ${device.desktop} {
-    width: 50%;
+    width: 100%;
     display: table-cell;
   }
 `

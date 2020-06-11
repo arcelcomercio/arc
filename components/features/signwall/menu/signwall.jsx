@@ -39,7 +39,8 @@ const Menu = ({
     setShowLoading(true)
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
-    Cookies.deleteCookie('ArcId.USER_INFO')
+    // Cookies.deleteCookie('ArcId.USER_INFO')
+    Cookies.deleteCookieDomain('ArcId.USER_INFO', arcSite)
     Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
     Cookies.deleteCookie('lostEmail')
     W.sessionStorage.removeItem('paywall-profile-form') // formik raul
