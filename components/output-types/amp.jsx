@@ -57,7 +57,7 @@ const AmpOutputType = ({
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
-  const title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
+  const title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
 
   const description =
     metaValue('description') && !metaValue('description').match(/content/)

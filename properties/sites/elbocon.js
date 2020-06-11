@@ -1,6 +1,7 @@
 export default {
   siteName: 'El Bocón',
   sitemapNewsName: 'El Bocón',
+  siteTitle: 'Noticias El Bocón Perú',
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',

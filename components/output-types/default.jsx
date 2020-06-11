@@ -145,22 +145,22 @@ export default ({
     metaValue('title')
 
   const getTitle = () => {
-    let title = `${seoTitle} | ${siteProperties.siteName}`
+    let title = `${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
     if (isStory) {
-      title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteName}`
+      title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
     } else if (
       pageNumber > 1 &&
       (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')
       /*  || metaValue('id') === "meta_search" */
     ) {
-      title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteName}`
+      title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteTitle.toUpperCase()}`
     } else if (metaValue('id') === 'meta_archive') {
       const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
       const hasSection =
         /\/archivo\/([\w\d-]+)/.test(requestUri) &&
         !/\/archivo\/todas/.test(requestUri)
       if (!hasDate && !hasSection) {
-        title = `Archivo de Noticias | ${siteProperties.siteName}`
+        title = `Archivo de Noticias | ${siteProperties.siteTitle.toUpperCase()}`
       }
     }
     return title

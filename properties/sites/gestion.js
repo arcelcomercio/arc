@@ -1,6 +1,7 @@
 export default {
   siteName: 'Gestión',
   sitemapNewsName: 'Diario Gestión',
+  siteTitle: 'Noticias Gestión Perú',
   newsletterBrand: 'gestion',
   api: {
     blog: 'https://svc-blogs.gestion.pe/apiblogs.php',

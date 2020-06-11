@@ -1,7 +1,7 @@
 export default {
   siteName: 'La Prensa',
   sitemapNewsName: 'Diario La Prensa',
-
+  siteTitle: 'Noticias La Prensa Perú',
   googleFonts: 'Lato:400,700|Exo:500',
 
   colorPrimary: '#005fa5',

@@ -1,6 +1,7 @@
 export default {
   siteName: 'Peru21 G21',
   sitemapNewsName: 'Perú21 G21',
+  siteTitle: 'Noticias Peru21 G21 Perú',
   newsletterBrand: 'peru21',
   googleFonts: 'Lato:300,400,700,900|Exo:500',
 

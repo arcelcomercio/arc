@@ -1,6 +1,7 @@
 export default {
   siteName: 'El Comercio Perú',
   sitemapNewsName: 'El Comercio',
+  siteTitle: 'Noticias El Comercio Perú',
   newsletterBrand: 'comercio',
   api: {
     blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php',

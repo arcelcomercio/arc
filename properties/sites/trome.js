@@ -1,6 +1,7 @@
 export default {
   siteName: 'Trome',
   sitemapNewsName: 'Diario Trome',
+  siteTitle: 'Noticias Trome Perú',
   newsletterBrand: 'trome',
   colorPrimary: '#E06437',
   siteDomain: 'trome.pe',
