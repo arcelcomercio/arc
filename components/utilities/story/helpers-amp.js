@@ -175,6 +175,18 @@ export const playerHtml = html => {
   )
 }
 
+export const jwPlayerJS = html => {
+  const existJwPlayer = /cdn.jwplayer.com/.test(html)
+  if (!existJwPlayer) return html
+  const rplPlayer =
+    '<amp-jwplayer data-player-id="$2" data-media-id="$1" layout="responsive" width="16" height="9"></amp-jwplayer>'
+
+  return html.replace(
+    /^(?:.+)cdn.jwplayer.com\/players\/(.+)-(.+).js(?:.+)/,
+    rplPlayer
+  )
+}
+
 export const twitterHtml = html => {
   const rplTwitter =
     '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$3" ></amp-twitter>'
@@ -484,6 +496,9 @@ export const ampHtml = (html = '', arcSite = '') => {
 
   // Player
   resultData = playerHtml(resultData)
+
+  // JWplayer JS version
+  resultData = jwPlayerJS(resultData)
 
   // twitter
   resultData = twitterHtml(resultData)
