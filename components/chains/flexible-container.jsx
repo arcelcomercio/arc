@@ -39,6 +39,6 @@ FlexibleContainer.propTypes = {
 }
 
 FlexibleContainer.label = 'Contenedor flexible'
-FlexibleContainer.static = true
+// FlexibleContainer.static = true
 
 export default FlexibleContainer
