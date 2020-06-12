@@ -6,8 +6,14 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import renderMetaPage from './_children/render-meta-page'
 import AmpTagManager from './_children/amp-tag-manager'
-import { createMarkup, addSlashToEnd } from '../utilities/helpers'
-import ConfigParams from '../utilities/config-params'
+import { addSlashToEnd } from '../utilities/parse/strings'
+import {
+  SITE_DEPOR,
+  SITE_ELBOCON,
+  SITE_PERU21,
+  SITE_TROME,
+  SITE_OJO,
+} from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 
 const AmpOutputType = ({
@@ -108,14 +114,30 @@ const AmpOutputType = ({
   const {
     videoSeo,
     promoItems: { basic_html: { content = '' } = {} } = {},
-    contentElementsHtml: dataElement,
+    contentElementsHtml,
   } = new StoryData({
     data: globalContent,
     arcSite,
     contextPath,
   })
-  const contenidoVideo =
-    content.includes('id="powa-') || videoSeo[0] || dataElement.includes('.mp4')
+
+  let rawHtmlContent = contentElementsHtml
+
+  const isJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
+  /**
+   * Se reemplaza los .mp4 de JWplayer para poder usar el fallback de
+   * isPowaVideo `.includes('.mp4')
+   */
+  if (isJwVideo)
+    rawHtmlContent = rawHtmlContent.replace(
+      /content.jwplatform.com\/videos\/(.+).mp4/g,
+      ''
+    )
+
+  const isPowaVideo =
+    content.includes('id="powa-') ||
+    videoSeo[0] ||
+    rawHtmlContent.includes('.mp4')
       ? 1
       : false
 
@@ -145,11 +167,11 @@ const AmpOutputType = ({
             return data ? (
               <style
                 amp-custom="amp-custom"
-                dangerouslySetInnerHTML={createMarkup(
-                  data
+                dangerouslySetInnerHTML={{
+                  __html: data
                     .replace('@charset "UTF-8";', '')
-                    .replace('-----------', '')
-                )}
+                    .replace('-----------', ''),
+                }}
               />
             ) : null
           }}
@@ -188,10 +210,10 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
-        {arcSite !== 'peru21' &&
-          arcSite !== 'trome' &&
-          arcSite !== 'ojo' &&
-          arcSite !== 'elbocon' && (
+        {arcSite !== SITE_PERU21 &&
+          arcSite !== SITE_TROME &&
+          arcSite !== SITE_OJO &&
+          arcSite !== SITE_ELBOCON && (
             <script
               async
               custom-element="amp-next-page"
@@ -208,7 +230,13 @@ const AmpOutputType = ({
           custom-element="amp-carousel"
           src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
         />
-
+        {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && isJwVideo && (
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
+        )}
         <script
           async
           custom-element="amp-twitter"
@@ -230,13 +258,13 @@ const AmpOutputType = ({
           src="https://cdn.ampproject.org/v0/amp-fx-flying-carpet-0.1.js"
         />
 
-        {arcSite === ConfigParams.SITE_DEPOR && (
+        {arcSite === SITE_DEPOR && (
           <script
             async
             custom-element="amp-soundcloud"
             src="https://cdn.ampproject.org/v0/amp-soundcloud-0.1.js"></script>
         )}
-        {contenidoVideo && (
+        {isPowaVideo && (
           <>
             <script
               async

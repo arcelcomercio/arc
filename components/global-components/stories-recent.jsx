@@ -1,6 +1,6 @@
 import { useContent } from 'fusion:content'
 import schemaFilter from '../features/stories-lists/card/_dependencies/schema-filter'
-import { removeLastSlash } from '../utilities/helpers'
+import { removeLastSlash } from '../utilities/parse/strings'
 import {
   featuredStoryRecentImgFields,
   featuredStoryRecentFields,

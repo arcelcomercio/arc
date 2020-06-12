@@ -232,6 +232,11 @@ const analyzeParagraph = ({
       ) {
         // para facebook
         result.processedParagraph = `<figure class="op-interactive"><iframe>${processedParagraph}</iframe></figure>`
+      } else if (processedParagraph.includes('cdn.jwplayer.com')) {
+        const jwScript = processedParagraph.match(
+          /https:\/\/cdn.jwplayer.com\/players\/(.+).js/
+        )[0]
+        result.processedParagraph = `<figure class="op-interactive"><iframe id='jwplayer_container'><script src="${jwScript}"></script></iframe></figure>`
       }
       result.numberWords = processedParagraph !== '' ? numberWordMultimedia : 0
       break
