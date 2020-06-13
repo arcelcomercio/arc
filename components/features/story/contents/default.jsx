@@ -84,8 +84,8 @@ class StoryContents extends PureComponent {
       requestUri,
       siteProperties: {
         ids: { opta },
+        isDfp = false,
       },
-      siteProperties: { isDfp = false },
       isAdmin,
     } = this.props
     const { related_content: { basic: relatedContent } = {} } =
@@ -362,6 +362,8 @@ class StoryContents extends PureComponent {
                         stories={relatedContent}
                         ids={relateIdsParam}
                         imageDefault={multimediaLazyDefault}
+                        arcSite={arcSite}
+                        isAdmin={isAdmin}
                       />
                     )
                   }
