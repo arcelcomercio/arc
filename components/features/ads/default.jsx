@@ -2,7 +2,6 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
-import { createMarkup } from '../../utilities/helpers'
 import customFields from './_dependencies/custom-fields'
 import AdsChild from '../../global-components/ads'
 
@@ -134,7 +133,7 @@ const Ads = props => {
           return (
             <div
               className={addEmptyBorder()}
-              dangerouslySetInnerHTML={createMarkup(getAdsSpace())}
+              dangerouslySetInnerHTML={{ __html: getAdsSpace() }}
             />
           )
 
@@ -147,13 +146,13 @@ const Ads = props => {
                 } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()} no-row-2-mobile`}>
                 <AdsChild {...params} />
                 {freeHtml && (
-                  <div dangerouslySetInnerHTML={createMarkup(freeHtml)} />
+                  <div dangerouslySetInnerHTML={{ __html: freeHtml }} />
                 )}
               </div>
               {!alwaysShow() && freeHtml && (
                 <div
                   className={showHtmlInDevice()}
-                  dangerouslySetInnerHTML={createMarkup(freeHtml)}
+                  dangerouslySetInnerHTML={{ __html: freeHtml }}
                 />
               )}
             </>
