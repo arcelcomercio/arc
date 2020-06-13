@@ -2,18 +2,24 @@
   background-color: #f8f8f8;
   border: 1px solid #f0f0f0;
   padding: 20px;
+  margin: 20px 0;
   @media (--tablet) {
     width: 100%;
   }
   &__figure {
     width: 120px;
     height: 64px;
+
+    & img {
+      object-fit: cover;
+    }
   }
   &__title {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
   &__item {
     display: flex;
+    margin-bottom: 20px;
   }
 
   &__multimedia-icon {
@@ -31,7 +37,7 @@
     overflow: hidden;
     line-height: 20px;
     height: 62px;
-    padding: 0 15px;
+    padding-left: 15px;
     @media (--only-mobile) {
       font-size: 15px;
     }

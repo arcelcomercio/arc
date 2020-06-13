@@ -1,15 +1,16 @@
 import React from 'react'
 import { IMAGE } from '../../../../utilities/constants/multimedia-types'
 import StoryData from '../../../../utilities/story-data'
+import { getResizedUrl } from '../../../../utilities/resizer'
 
 // Basic flex stuff
 const classes = {
-  related: 'related-internal position-relative p-20 mb-20 mt-20',
+  related: 'related-internal position-relative p-20 mb-20 mt-20 border-1',
   item: 'related-internal__item flex flex-row mt-20',
   title: 'related-internal__title uppercase mb-20',
   multimedia: 'related-internal__figure position-relative',
   linkAuthor: 'related-internal__link-author',
-  image: 'w-full h-full lazy',
+  image: 'w-full h-full object-cover',
   icon:
     'related-internal__multimedia-icon position-absolute p-5 rounded-lg title-xl',
   info: 'related-internal__information w-full md:pr-10 pl-20',
@@ -28,16 +29,24 @@ const getIcon = type => {
   }
 }
 
-const RelatedItem = ({ data, imageDefault } /* , i */) => {
+const RelatedItem = ({ data, imageDefault, arcSite, isAdmin } /* , i */) => {
   const get = new StoryData({
     data,
     defaultImgSize: 'sm',
   })
+
+  const { landscape_md: landscapeMD = {} } =
+    getResizedUrl({
+      url: get.multimediaLandscapeMD,
+      presets: 'landscape_md:314x157',
+      arcSite,
+    }) || {}
+
   const filterData = {
     title: get.title,
     websiteLink: get.link,
     multimediaType: get.multimediaType,
-    multimediaImg: get.multimediaLandscapeMD,
+    multimediaImg: landscapeMD,
   }
 
   return (
@@ -46,10 +55,10 @@ const RelatedItem = ({ data, imageDefault } /* , i */) => {
         <figure className={classes.multimedia}>
           <a itemProp="url" href={filterData.websiteLink}>
             <img
-              src={imageDefault}
+              src={isAdmin ? filterData.multimediaImg : imageDefault}
               data-src={filterData.multimediaImg}
               alt={filterData.title}
-              className={classes.image}
+              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
             />
             {filterData.multimediaType === IMAGE ||
             filterData.multimediaType === '' ? (
@@ -75,7 +84,13 @@ const RelatedItem = ({ data, imageDefault } /* , i */) => {
   )
 }
 
-const StoryContentChildRelatedInternal = ({ stories, ids, imageDefault }) => {
+const StoryContentChildRelatedInternal = ({
+  stories,
+  ids,
+  imageDefault,
+  arcSite,
+  isAdmin,
+}) => {
   const keyinternal = 'story-related-internal'
 
   return (
@@ -87,11 +102,12 @@ const StoryContentChildRelatedInternal = ({ stories, ids, imageDefault }) => {
             key={keyinternal.concat(item._id).concat(index)}
             data={item}
             imageDefault={imageDefault}
+            arcSite={arcSite}
+            isAdmin={isAdmin}
           />
         ) : null
       )}
     </div>
   )
 }
-
 export default StoryContentChildRelatedInternal
