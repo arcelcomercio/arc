@@ -8,7 +8,31 @@
     }
   }
   &__text,
+  &__author,
   &__header-text {
     max-width: 580px;
+  }
+  &__text {
+    @media (--only-mobile) {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+  &__author {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 15px;
+  }
+  &__animated {
+    opacity: 0;
+    transition: opacity 1.5s ease-in;
+    &.visible {
+      opacity: 1;
+    }
+    &.youtube-video {
+      @media (--tablet) {
+        height: 100vh;
+      }
+    }
   }
 }

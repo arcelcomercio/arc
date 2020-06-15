@@ -5,9 +5,13 @@
     transform: translate(-50%, -50%);
   }
   &__title {
-    font-size: 45px;
+    font-size: 32px;
     text-shadow: 2px 2px 7px #656565;
     line-height: 1.2;
+    font-family: Georgia, serif;
+    @media (--tablet) {
+      font-size: 45px;
+    }
   }
   &__subtitle {
     font-size: 22px;
@@ -23,6 +27,9 @@
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
+    @media (--only-mobile) {
+      display: none;
+    }
   }
   &__scroller {
     border-radius: 25%;
@@ -32,6 +39,12 @@
     animation-duration: 2.2s;
     animation-timing-function: cubic-bezier(0.15, 0.41, 0.69, 0.94);
     animation-iteration-count: infinite;
+  }
+  &__image {
+    @media (--only-mobile) {
+      object-fit: cover;
+      height: 92vh;
+    }
   }
   @keyframes scroll {
     0% {

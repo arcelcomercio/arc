@@ -4,9 +4,9 @@ const classes = {
   container: 'position-relative',
   containerText:
     'title-with-image__container-text position-absolute text-center text-white flex flex-col items-center',
-  title: 'title-with-image__title',
-  subtitle: 'title-with-image__subtitle mt-20',
-  imageBg: 'w-full',
+  title: 'title-with-image__title font-bold',
+  subtitle: 'title-with-image__subtitle mt-20 font-bold',
+  imageBg: 'title-with-image__image w-full',
   mouseIcon:
     'title-with-image__mouse-icon bg-white pt-10 pb-10 pl-15 pr-15 position-absolute',
   scroller: 'title-with-image__scroller bg-black',
