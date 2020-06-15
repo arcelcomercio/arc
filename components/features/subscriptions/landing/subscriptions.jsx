@@ -9,9 +9,10 @@ import contextSite from '../_dependencies/context'
 import { Landing } from '../../signwall/_children/landing/index'
 import Cards from '../_children/cards'
 import QueryString from '../../signwall/_dependencies/querystring'
+import Taggeo from '../../signwall/_dependencies/taggeo'
 
 const LandingSubscriptions = () => {
-  const { arcSite, globalContent: items } = useFusionContext() || {}
+  const { arcSite, globalContent: items = [] } = useFusionContext() || {}
   const { urls, emails, texts, benefist = [] } = contextSite[arcSite]
   const isComercio = arcSite === 'elcomercio'
   const [showSignwall, setShowSignwall] = useState(false)
@@ -26,9 +27,14 @@ const LandingSubscriptions = () => {
 
   const handleSignwall = () => {
     window.Identity.isLoggedIn()
-      .then((res) => {
-        if (res) window.location.href = urls.profile[env]
-        else setShowSignwall(!showSignwall)
+      .then(res => {
+        if (res) {
+          Taggeo(`Web_Paywall_Landing`, `web_link_ingresar_perfil'`)
+          window.location.href = urls.profile[env]
+        } else {
+          Taggeo(`Web_Paywall_Landing`, `web_link_ingresar_cuenta`)
+          setShowSignwall(!showSignwall)
+        }
       })
       .catch(() => window.location.reload())
   }
@@ -76,7 +82,10 @@ const LandingSubscriptions = () => {
             type="button"
             className={`button-call ${isComercio ? '' : 'ges'}`}
             id="btn-help-call"
-            onClick={() => window.open(urls.clickHelp, '_blank')}>
+            onClick={() => {
+              Taggeo('Web_Paywall_Landing', 'web_paywall_home_call')
+              window.open(urls.clickHelp, '_blank')
+            }}>
             <i></i> {texts.help} {!isComercio && <span>Te llamamos</span>}
           </button>
 
@@ -152,7 +161,7 @@ const LandingSubscriptions = () => {
           <div className="beneficios__content">
             <h1 className="beneficios__content-title">
               Beneficios
-              <div class="beneficios__content-logo"></div>
+              <div className="beneficios__content-logo"></div>
             </h1>
             <div className="beneficios__content-wrap">
               <div className="tabs">
@@ -255,7 +264,7 @@ const LandingSubscriptions = () => {
               <div className="footer__item grid-four-one">
                 <div className="footer__content-mail">
                   <a href={urls.homeUrl}>
-                    <div class="footer__content-logo"></div>
+                    <div className="footer__content-logo"></div>
                   </a>
                   <p>
                     Envíanos un correo a<br />

@@ -12,7 +12,11 @@ function Cards({ item, arcSite, order, textOffer }) {
     features,
     sku,
     price: { amount, currency },
-    detail: { frequency, duration, aditional },
+    detail: {
+      // frequency,
+      duration,
+      aditional,
+    },
   } = item
   const showFree = amount === 0
   const isComercio = arcSite === 'elcomercio'
@@ -73,7 +77,7 @@ function Cards({ item, arcSite, order, textOffer }) {
               type="button"
               className="planes__content-button"
               onClick={() => {
-                Taggeo('Web_Paywall_Home', `web_paywall_home_button_${sku}`)
+                Taggeo('Web_Paywall_Landing', `web_paywall_home_button_${sku}`)
                 window.open(url, '_blank')
               }}>
               Suscribirme
