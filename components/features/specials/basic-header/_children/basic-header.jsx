@@ -7,11 +7,15 @@ const classes = {
   headerContainer:
     'special-basic-header__container flex justify-between text-left mx-auto',
   logo: 'special-basic-header__logo mt-10 mb-10 ml-10 mr-10',
+  btnSpecials: 'special-basic-header__btnSpecials ml-10 mr-10',
   sharerButton: 'special-basic-header__button sharer',
   socialList: 'flex justify-between pr-10',
   linkSocial:
     'story-header__link   flex items-center pl-10 pr-10 text-white justify-center',
 }
+
+const URL_ESPECIALES =
+  'https://especiales.elcomercio.pe/?q=especiales/especiales-el-comercio/index.html'
 
 const HeaderChildSpecialBasic = props => {
   const {
@@ -78,12 +82,21 @@ const HeaderChildSpecialBasic = props => {
   return (
     <header className={classes.header}>
       <div className={classes.headerContainer}>
-        <a
-          className={classes.social}
-          href={`http://${siteDomain}/`}
-          target="blank">
-          <img src={srcLogo} alt={altImage} className={classes.logo} />
-        </a>
+        <div className="flex">
+          <a
+            className={classes.social}
+            href={`http://${siteDomain}/`}
+            target="blank">
+            <img src={srcLogo} alt={altImage} className={classes.logo} />
+          </a>
+          <a href={URL_ESPECIALES} className="flex items-center">
+            <img
+              className={classes.btnSpecials}
+              src="https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_prod/especiales/elementos-comunes/img/logo-especiales.png"
+              alt="link especiales"
+            />
+          </a>
+        </div>
         <ul className={classes.socialList}>
           {shareButtons.map((item, i) => (
             <li key={item.icon} className={`${item.mobileClass}`}>
