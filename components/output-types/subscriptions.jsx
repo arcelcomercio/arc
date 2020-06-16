@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import TagManager from './_children/tag-manager'
+import TagManager from './_children/tag-manager'
 
-const Subscriptions = (props) => {
+const Subscriptions = props => {
   const { children, arcSite, siteProperties } = props
 
   const {
@@ -14,7 +14,7 @@ const Subscriptions = (props) => {
   return (
     <html lang="es">
       <head>
-        {/* <TagManager {...siteProperties} /> */}
+        <TagManager {...siteProperties} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -55,7 +55,7 @@ const Subscriptions = (props) => {
         />
       </head>
       <body>
-        {/* <noscript>
+        <noscript>
           <iframe
             title="Google Tag Manager - No Script"
             src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
@@ -63,7 +63,7 @@ const Subscriptions = (props) => {
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           />
-        </noscript> */}
+        </noscript>
         <div id="fusion-app" role="application">
           {children}
         </div>
