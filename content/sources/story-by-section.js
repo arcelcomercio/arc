@@ -65,7 +65,7 @@ const getQueryFilter = (section, website) => {
 
   // Si se filtra por seccion se usa ?body, sino, se usa ?q
   if (section === '/') {
-    queryFilter = `q=canonical_website:${website}+AND+type:story`
+    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+publish_date:%7Bnow-7d%20TO%20*%7D`
   } else {
     const body = {
       query: {

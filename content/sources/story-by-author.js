@@ -22,8 +22,11 @@ const resolve = (key = {}) => {
   const { name, feedOffset } = key
 
   const slugSearch = name ? `AND+credits.by.url:"/autor/${name}"+` : ''
+  const dateLimiter = slugSearch
+    ? ''
+    : '+AND+publish_date:%7Bnow-7d%20TO%20*%7D'
 
-  const q = `canonical_website:${website}+${slugSearch}AND+type:story`
+  const q = `canonical_website:${website}+${slugSearch}AND+type:story${dateLimiter}`
 
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
