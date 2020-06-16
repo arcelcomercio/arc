@@ -94,12 +94,10 @@ const VideoSectionAmp = () => {
     <>
       <div className={classes.stories}>
         <header>
-          {arcSite !== 'elcomerciomag' && (
             <div
               className={classes.adsAmp}
               dangerouslySetInnerHTML={publicidadAmp(parametersCaja1)}
             />
-          )}
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
