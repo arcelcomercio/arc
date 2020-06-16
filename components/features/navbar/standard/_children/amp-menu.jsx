@@ -67,7 +67,7 @@ class NavbarChildMenu extends PureComponent {
           src={logoAmp}
           width="25"
           height="25"
-          tabindex="0"
+          tabIndex="0"
           on="tap:sidebar.close"
           role="button"
           class={classes.close}
@@ -84,7 +84,7 @@ class NavbarChildMenu extends PureComponent {
                 className={classes.listLink}
                 href={el.url}
                 aria-label={el.name}>
-                <svg width="32" height="32" viewbox="-2 -2 32 32">
+                <svg width="32" height="32" viewBox="-2 -2 32 32">
                   <path d={icon[el.name]} />
                 </svg>
               </a>

@@ -38,7 +38,7 @@ const LayoutAmpHeader = () => {
                 alt={arcSite}
                 width="73"
                 height="51"
-                tabindex="0"
+                tabIndex="0"
               />
             </a>
           </div>

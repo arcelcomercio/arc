@@ -25,7 +25,7 @@ const NavBarDefault = ({ hideMenu }) => {
               <button
                 type="button"
                 // eslint-disable-next-line react/no-unknown-property
-                tabindex="0"
+                tabIndex="0"
                 on={tapSidebar}
                 className={classes.iconMenu}
               />
