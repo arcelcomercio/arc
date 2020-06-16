@@ -33,6 +33,7 @@ const LandingSubscriptions = () => {
           window.location.href = urls.profile[env]
         } else {
           Taggeo(`Web_Paywall_Landing`, `web_link_ingresar_cuenta`)
+          setShowProfile('Inicia sesión')
           setShowSignwall(!showSignwall)
         }
       })
@@ -263,7 +264,7 @@ const LandingSubscriptions = () => {
             <div className="footer__grid">
               <div className="footer__item grid-four-one">
                 <div className="footer__content-mail">
-                  <a href={urls.homeUrl}>
+                  <a target="_blank" rel="noreferrer" href={urls.homeUrl}>
                     <div className="footer__content-logo"></div>
                   </a>
                   <p>
