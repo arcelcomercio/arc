@@ -92,7 +92,7 @@ class LayoutNavbarAmp extends PureComponent {
                   alt={arcSite}
                   width={widthAmp}
                   height={heightAmp}
-                  tabindex="0"
+                  tabIndex="0"
                 />
               </a>
             </div>

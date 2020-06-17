@@ -31,7 +31,7 @@ const LayoutInvertedAmpHeader = ({
                 width={widthAmp}
                 height={heightAmp}
                 alt={arcSite}
-                tabindex="0"
+                tabIndex="0"
               />
             </a>
           </div>

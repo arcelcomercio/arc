@@ -30,9 +30,59 @@ const params = [
   },
 ]
 
-/* const itemsToArray = (itemString = '') => {
-  return itemString.split(',').map(item => item.replace(/"/g, ''))
-} */
+const getQueryFilter = (section, website) => {
+  let queryFilter = ''
+  let body = { query: { bool: {} } }
+
+  if (section === '/') {
+    /**
+     *
+     * Si se filtra por seccion se usa ?body, sino, se usa ?q
+     * esto se hace por mejorar PERFORMANCE
+     *
+     */
+    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+publish_date:%7Bnow-15d%20TO%20*%7D`
+  } else {
+    body = {
+      query: {
+        bool: {
+          must: [
+            {
+              term: {
+                type: 'story',
+              },
+            },
+            {
+              nested: {
+                path: 'taxonomy.sections',
+                query: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          'taxonomy.sections._id': [section],
+                        },
+                      },
+                      {
+                        term: {
+                          'taxonomy.sections._website': website,
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    }
+
+    queryFilter = `body=${encodeURI(JSON.stringify(body))}`
+  }
+
+  return queryFilter
+}
 
 const resolve = (key = {}) => {
   const {
@@ -52,47 +102,9 @@ const resolve = (key = {}) => {
       : rawSection
   )
 
-  const body = {
-    query: {
-      bool: {
-        must: [
-          {
-            term: {
-              type: 'story',
-            },
-          },
-        ],
-      },
-    },
-  }
+  const queryFilter = getQueryFilter(section, website)
 
-  if (section && section !== '/') {
-    body.query.bool.must.push({
-      nested: {
-        path: 'taxonomy.sections',
-        query: {
-          bool: {
-            must: [
-              {
-                terms: {
-                  'taxonomy.sections._id': [section],
-                },
-              },
-              {
-                term: {
-                  'taxonomy.sections._website': website,
-                },
-              },
-            ],
-          },
-        },
-      },
-    })
-  }
-
-  const encodedBody = encodeURI(JSON.stringify(body))
-
-  return `/content/v4/search/published?body=${encodedBody}&website=${website}&size=${storiesQty ||
+  return `/content/v4/search/published?${queryFilter}&website=${website}&size=${storiesQty ||
     10}&from=${feedOffset || 0}&sort=display_date:desc`
 }
 

@@ -79,12 +79,10 @@ const StoryTitleAmp = () => {
 
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
         </header>
-        {arcSite !== 'elcomerciomag' && (
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parameters)}
-          />
-        )}
+        <div
+          className={classes.adsAmp}
+          dangerouslySetInnerHTML={publicidadAmp(parameters)}
+        />
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         <StorySocialChildAmpSocial />
 
