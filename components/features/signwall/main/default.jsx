@@ -208,6 +208,7 @@ class SignwallComponent extends PureComponent {
     const { siteProperties, arcSite } = this.props
 
     if (typeof window !== 'undefined') {
+      window.document.cookie = `ArcId.USER_INFO=;path=/;domain=.${arcSite}.pe; expires=Thu, 01 Jan 1970 00:00:01 GMT`
       const dataContType = window.document.querySelector(
         'meta[name="content-type"]'
       )
