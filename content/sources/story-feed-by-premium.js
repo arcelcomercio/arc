@@ -46,7 +46,7 @@ const pattern = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  return `/content/v4/search/published?website=${website}&q=canonical_website:${website}+AND+type:story+AND+content_restrictions.content_code:premium&sort=display_date:desc&size=${size}&from=${getPagination()}${excludedFields}`
+  return `/content/v4/search/published?website=${website}&q=canonical_website:${website}+AND+type:story+AND+content_restrictions.content_code:premium+AND+publish_date:%7Bnow-30d%20TO%20*%7D&sort=display_date:desc&size=${size}&from=${getPagination()}${excludedFields}`
 }
 
 const transform = (data, key) => {
