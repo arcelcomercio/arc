@@ -313,7 +313,7 @@ export default ({
         <meta name="robots" content="index, follow" />
         <meta name="GOOGLEBOT" content="index follow" />
         <meta name="Author" content={siteProperties.siteName} />
-        {isStory && htmlAmpIs && (
+        {isStory && (
           <>
             <meta name="DC.title" lang="es" content={title} />
             <meta name="DC.description" lang="es" content={description} />
@@ -327,13 +327,15 @@ export default ({
               content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
             />
             <meta name="DC.language" scheme="RFC1766" content="es" />
-            <link
-              rel="amphtml"
-              href={`${siteProperties.siteUrl}${addSlashToEnd(
-                url
-              )}?outputType=amp`}
-            />
           </>
+        )}
+        {isStory && htmlAmpIs && (
+          <link
+            rel="amphtml"
+            href={`${siteProperties.siteUrl}${addSlashToEnd(
+              url
+            )}?outputType=amp`}
+          />
         )}
 
         <title>{title}</title>
