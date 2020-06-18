@@ -302,19 +302,38 @@ export default ({
 
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
   return (
-    <html lang="es">
+    <html itemScope itemType="http://schema.org/WebPage" lang="es">
       <head>
-        <TagManager {...siteProperties} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="lang" content="es" />
+        <meta name="resource-type" content="document" />
+        <meta content="global" name="distribution" />
+        <meta name="robots" content="index, follow" />
+        <meta name="GOOGLEBOT" content="index follow" />
+        <meta name="Author" content={siteProperties.siteName} />
         {isStory && htmlAmpIs && (
-          <link
-            rel="amphtml"
-            href={`${siteProperties.siteUrl}${addSlashToEnd(
-              url
-            )}?outputType=amp`}
-          />
+          <>
+            <meta name="DC.title" lang="es" content={title} />
+            <meta name="DC.description" lang="es" content={description} />
+            <meta name="DC.subject" lang="es" content={keywords} />
+            <meta
+              name="DC.creator"
+              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+            />
+            <meta
+              name="DC.publisher"
+              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+            />
+            <meta name="DC.language" scheme="RFC1766" content="es" />
+            <link
+              rel="amphtml"
+              href={`${siteProperties.siteUrl}${addSlashToEnd(
+                url
+              )}?outputType=amp`}
+            />
+          </>
         )}
 
         <title>{title}</title>
@@ -495,6 +514,7 @@ export default ({
             />
           </>
         )}
+        <TagManager {...siteProperties} />
       </head>
       <body
         className={classBody}
