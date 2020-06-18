@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-/* import getProperties from 'fusion:properties' */
+import { useContent } from 'fusion:content'
 
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import StoryContentChildRelated from './_lite/_children/item'
@@ -30,12 +30,17 @@ const StoryRelated = () => {
     isAdmin,
   } = useFusionContext()
 
-  /* const { nameStoryRelated } = getProperties(arcSite) */
+  const { _id: storyId, content_elements: contentElements = [] } =
+    globalContent || {}
 
-  const {
-    related_content: { basic: relatedContent = [] } = {},
-    content_elements: contentElements = [],
-  } = globalContent || {}
+  const { basic: relatedContent = [] } =
+    useContent({
+      source: 'related-content',
+      query: {
+        _id: storyId,
+        presets: 'no-presets',
+      },
+    }) || {}
 
   const relatedInternal =
     contentElements.length > 0 &&
@@ -52,7 +57,9 @@ const StoryRelated = () => {
         <div role="list" className={classes.relatedList}>
           <div className="f">
             <img className={classes.logo} alt="logo" src={urlImg} />
-            <h4 itemProp="name" className={classes.relatedTitle}>RELACIONADAS </h4>
+            <h4 itemProp="name" className={classes.relatedTitle}>
+              RELACIONADAS{' '}
+            </h4>
           </div>
           {relatedContent.map((item, i) => {
             const { type, _id: id } = item

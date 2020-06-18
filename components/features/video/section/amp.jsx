@@ -1,4 +1,5 @@
 import { useFusionContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
 import React from 'react'
 import { storyTagsBbc } from '../../../utilities/helpers'
 
@@ -36,18 +37,26 @@ const VideoSectionAmp = () => {
   } = useFusionContext()
 
   const {
+    id,
     title,
     subTitle,
-
     tags,
     promoItems,
     authorLink,
-    relatedContent,
     author,
   } = new StoryData({
     data,
     contextPath,
   })
+
+  const { basic: relatedContent = [] } =
+    useContent({
+      source: 'related-content',
+      query: {
+        _id: id,
+        presets: 'no-presets',
+      },
+    }) || {}
 
   const dataSlotNa = `/${adsAmp.dataSlot}/${
     arcSite !== 'peru21g21' ? arcSite : 'peru21'
@@ -94,10 +103,10 @@ const VideoSectionAmp = () => {
     <>
       <div className={classes.stories}>
         <header>
-            <div
-              className={classes.adsAmp}
-              dangerouslySetInnerHTML={publicidadAmp(parametersCaja1)}
-            />
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parametersCaja1)}
+          />
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
