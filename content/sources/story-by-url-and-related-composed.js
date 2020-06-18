@@ -49,19 +49,6 @@ const transformImg = data => {
   )
 }
 
-const getAdditionalData = (storyData, website) => {
-  if (storyData.type === 'redirect') return storyData
-
-  return request({
-    uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${storyData._id}&website=${website}&published=true`,
-    ...options,
-  }).then(idsResp => {
-    storyData.related_content = idsResp
-    const result = transformImg(storyData)
-    return result
-  })
-}
-
 const excludedFieldsStory = '&_sourceExclude=owner,address,websites,language'
 const fetch = ({
   website_url: rawWebsiteUrl,
@@ -80,12 +67,9 @@ const fetch = ({
     uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${websiteUrl}&website=${website}${excludedFieldsStory}`,
     ...options,
   }).then(storyResp => {
-    if (storyResp.type === 'redirect' && storyResp.redirect_url) {
-      // Redirect with 301 code
+    if (storyResp.type === 'redirect' && storyResp.redirect_url)
       throw new RedirectError(storyResp.redirect_url, 301)
-    }
-    // Fetch additional data
-    return getAdditionalData(storyResp, website)
+    return transformImg(storyResp)
   })
 }
 
