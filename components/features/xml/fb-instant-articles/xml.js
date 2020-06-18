@@ -34,7 +34,7 @@ class XmlFacebookInstantArticles {
     this.props = props
     const {
       globalContent,
-      siteProperties: { siteDomain = '' },
+      siteProperties: { siteUrl },
       arcSite,
     } = props
     const { content_elements: stories = [] } = globalContent || {}
@@ -98,7 +98,7 @@ class XmlFacebookInstantArticles {
     }
     // FIN recomendador por marca
 
-    if (siteDomain === 'elcomercio.pe') {
+    if (siteUrl === 'https://elcomercio.pe') {
       this.fetchContent({
         magStories: {
           source: SOURCE,
@@ -192,7 +192,10 @@ class XmlFacebookInstantArticles {
             let storyLink = ''
             let fiaContent = ''
             if (storyData.fiaOrigen === true) {
-              if (storyData.canonicalWebsite === 'elcomerciomag') {
+              if (
+                siteUrl === 'https://elcomercio.pe' &&
+                storyData.canonicalWebsite === 'elcomerciomag'
+              ) {
                 fiaContent = 'MAG'
                 const {
                   websites: {
