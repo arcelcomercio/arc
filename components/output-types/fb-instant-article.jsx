@@ -22,16 +22,11 @@ const FbInstantOutputType = ({
   } = siteProperties
 
   let stories = []
-  // if (siteDomain === 'xxxxxxxxxxxx') {
-  if (siteDomain === 'elcomercio.pe') {
+  if (siteUrl === 'https://elcomercio.pe') {
     const data =
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent({
         source: 'story-feed-by-section-mag',
-        // query: {
-        //   website_url: url,
-        // },
-        // filter: schemaNote(arcSite),
       }) || {}
     const { content_elements: contentElementsMag } = data
     stories = contentElements.concat(contentElementsMag)
