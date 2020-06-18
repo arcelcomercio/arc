@@ -1,3 +1,5 @@
+import { includePromoItems } from '../../components/utilities/included-fields'
+
 const schemaName = 'stories-dev'
 
 const params = [
@@ -34,7 +36,7 @@ const resolve = ({
 
   const sourceInclude = includedFields
     ? `&included_fields=${includedFields}`
-    : ''
+    : `&included_fields=_id,canonical_url,content_restrictions,headlines.basic,credits.by,${includePromoItems},type,website_url,websites}`
 
   return `/content/v4/related-content/stories/?_id=${id}&website=${website}&published=${published ||
     'true'}${sourceInclude}`
