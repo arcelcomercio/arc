@@ -341,7 +341,11 @@ const LiteOutput = ({
         )}
         <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
 
-        <LiteAds />
+        <LiteAds
+          requestUri={requestUri}
+          globalContent={globalContent}
+          siteProperties={siteProperties}
+        />
 
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
@@ -373,11 +377,6 @@ const LiteOutput = ({
             ) : null
           }}
         </Resource>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href={`${deployment(styleUrl)}`}
-        />
 
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
@@ -480,10 +479,6 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-        {/* 
-        DESACTIVADO TEMPORALMENTE para probrar si mejora trafico en el comercio
-        agregado el LINK directamente en la linea 
-
         {isStory && (
           <>
             <noscript id="deferred-styles">
@@ -500,7 +495,7 @@ const LiteOutput = ({
               }}
             />
           </>
-        )} */}
+        )}
         {vallaSignwall === false && (
           <>
             <script
