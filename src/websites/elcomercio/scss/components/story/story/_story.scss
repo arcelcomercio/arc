@@ -8,7 +8,6 @@
     font-family: $tertiary-font;
   }
   .related-content__title,
-  .related-internal__title-link,
   .story-header__news-title {
     font-family: $primary-font;
   }
@@ -56,10 +55,28 @@
       }
     }
   }
+  .story-header__list {
+    @media (--only-mobile) {
+      display: none;
+    }
+    &.block {
+      @media (--only-mobile) {
+        display: block;
+      }
+    }
+  }
+  .story-header__share {
+    border-bottom-style: dashed;
+  }
   &.opinion {
     .story-header__title-section {
       display: flex;
       align-items: center;
+      @media (--only-mobile) {
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+      }
     }
     .story-content__author {
       display: flex;
@@ -98,13 +115,6 @@
         display: none;
       }
     }
-    .story-header__title-section {
-      @media (--only-mobile) {
-        flex-direction: column;
-        width: 100%;
-        align-items: flex-start;
-      }
-    }
     .story-header__news-title {
       border-bottom: 1px dashed $color-gray-100;
     }
@@ -134,9 +144,6 @@
       background-color: transparent;
     }
   }
-  .story-header__share {
-    border-bottom-style: dashed;
-  }
   .story-gallery-social__link {
     color: $color-white;
   }
@@ -148,7 +155,7 @@
   &.special,
   &.special_basic {
     .story-content__font--secondary:first-child {
-      &:first-letter {
+      &::first-letter {
         font-size: 80px;
         font-weight: 700;
         display: block;
@@ -195,20 +202,9 @@
     .story-header__icon {
     color: $color-base-100;
   }
-  .story-header__list {
-    @media (--only-mobile) {
-      display: none;
-    }
-    &.block {
-      @media (--only-mobile) {
-        display: block;
-      }
-    }
-  }
 
   &.special_basic nav {
     display: block;
-
     display: flex;
     .header__tags {
       display: block;
@@ -216,7 +212,7 @@
   }
 
   &.special_basic .content-sidebar .story-header__share {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     .story-header__list {
       display: block;
       display: flex;
