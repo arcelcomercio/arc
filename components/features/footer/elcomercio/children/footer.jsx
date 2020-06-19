@@ -36,6 +36,8 @@ const classes = {
   sitesList: 'flex flex-wrap justify-center block',
   sitesItem:
     'footer__sites-item pb-5 pr-10 pl-10 text-sm line-h-sm inline-block position-relative',
+  book: 'no-mobile block mb-10',
+  bookMovil: 'no-desktop block mt-15',
 }
 
 const SITES_TITLE = 'Visite también'
@@ -52,6 +54,8 @@ const FooterChildElComercio = ({
   gda,
   arcSite,
   isAdmin,
+  urlBook,
+  bookLogo,
 }) => {
   return (
     <footer className={classes.footer}>
@@ -81,6 +85,15 @@ const FooterChildElComercio = ({
           </address>
           {gda && (
             <div className={classes.gda}>
+              <a className={classes.book} href={urlBook}>
+                <img
+                  className={`${isAdmin ? '' : 'lazy'} `}
+                  src={isAdmin ? bookLogo : ''}
+                  data-src={bookLogo}
+                  alt="Libro de reclamaciones"
+                  style={{ width: 145 }}
+                />
+              </a>
               <img
                 className={`${isAdmin ? '' : 'lazy'} ${classes.gdaImg}`}
                 src={isAdmin ? gdaLogo : ''}
@@ -195,6 +208,17 @@ const FooterChildElComercio = ({
             </ul>
           )}
         </div>
+      </div>
+      <div style={{ textAlign: 'center' }} className={classes.bookMovil}>
+        <a href={urlBook}>
+          <img
+            className={`${isAdmin ? '' : 'lazy'}`}
+            src={isAdmin ? bookLogo : ''}
+            data-src={bookLogo}
+            alt="Libro de reclamaciones"
+            style={{ width: 140 }}
+          />
+        </a>
       </div>
       <div className={classes.sites}>
         <h5 itemProp="name" className={classes.sitesTitle}>

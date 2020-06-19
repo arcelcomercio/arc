@@ -164,11 +164,6 @@ export default {
       url: '/terminos-y-condiciones/',
     },
     {
-      name: 'LIBRO DE RECLAMACIONES',
-      url: 'http://ecomedia.pe/libro/inicio/elcomercio/',
-      external: true,
-    },
-    {
       name: 'OFICINAS CONCESIONARIAS',
       url: '/oficinas-concesionarias/',
       external: true,
