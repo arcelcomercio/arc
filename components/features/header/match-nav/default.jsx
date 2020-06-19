@@ -15,14 +15,28 @@ const classes = {
 
 @Consumer
 class MatchNav extends PureComponent {
+  constructor(props) {
+    super(props)
+    const { globalContent } = this.props
+    const { _id: storyId } = globalContent || {}
+    this.fetchContent({
+      related_content: {
+        source: 'related-content',
+        query: {
+          _id: storyId,
+          presets: 'no-presets',
+          includedFields: 'canonical_url,subtype',
+        },
+      },
+    })
+  }
+
   render() {
     const { globalContent, requestUri } = this.props
+    const { related_content: { basic: relatedContent = [] } = {} } =
+      this.state || {}
 
-    const {
-      subtype,
-      canonical_url: canonicalUrl,
-      related_content: { basic: relatedContent = [] } = {},
-    } = globalContent || {}
+    const { subtype, canonical_url: canonicalUrl } = globalContent || {}
 
     const configTabs = []
     relatedContent.forEach(element => {

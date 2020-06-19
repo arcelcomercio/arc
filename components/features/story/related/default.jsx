@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
 
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import StoryContentChildRelated from './_children/item'
@@ -29,10 +30,17 @@ const StoryRelated = () => {
     siteProperties: { nameStoryRelated },
   } = useFusionContext()
 
-  const {
-    related_content: { basic: relatedContent = [] } = {},
-    content_elements: contentElements = [],
-  } = globalContent || {}
+  const { _id: storyId, content_elements: contentElements = [] } =
+    globalContent || {}
+
+  const { basic: relatedContent = [] } =
+    useContent({
+      source: 'related-content',
+      query: {
+        _id: storyId,
+        presets: 'no-presets',
+      },
+    }) || {}
 
   const relatedInternal =
     contentElements.length > 0 &&
@@ -42,7 +50,9 @@ const StoryRelated = () => {
     <>
       {relatedContent && relatedContent.length > 0 && (
         <div role="list" className={classes.relatedList}>
-          <h4 itemProp="name" className={classes.relatedTitle}>{nameStoryRelated} </h4>
+          <h4 itemProp="name" className={classes.relatedTitle}>
+            {nameStoryRelated}{' '}
+          </h4>
           {relatedContent.map((item, i) => {
             const { type, _id: id } = item
             const key = `related-content-${i}`

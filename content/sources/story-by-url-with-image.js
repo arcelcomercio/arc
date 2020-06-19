@@ -6,7 +6,7 @@ import {
   ARC_ACCESS_TOKEN,
 } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addSlashToEnd } from '../../components/utilities/helpers'
+import { addSlashToEnd } from '../../components/utilities/parse/strings'
 import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 const options = {
@@ -55,14 +55,7 @@ const fetch = key => {
 
     if (dataStory.type === 'redirect') return dataStory
 
-    return request({
-      uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${dataStory._id}&website=${site}&published=true`,
-      ...options,
-    }).then(idsResp => {
-      dataStory.related_content = idsResp
-      const result = transformImg(dataStory)
-      return result
-    })
+    return transformImg(dataStory)
   })
 }
 
