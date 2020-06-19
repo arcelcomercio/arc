@@ -58,7 +58,7 @@ const classes = {
 }
 
 const BodyContentSpecial = props => {
-  const { customFields: { storyCode = '' } = {} } = props
+  const { customFields: { storyCode = '', hideAuthor = false } = {} } = props
 
   const { isAdmin, arcSite, contextPath, deployment } = useFusionContext()
 
@@ -181,7 +181,9 @@ const BodyContentSpecial = props => {
           __html:
             '"use strict";var tag=document.createElement("script");tag.src="https://www.youtube.com/iframe_api";var firstScriptTag=document.getElementsByTagName("script")[0];firstScriptTag.parentNode.insertBefore(tag,firstScriptTag);',
         }}></script>
-      <span className={classes.author}>Por: {author}</span>
+      {author !== '' && !hideAuthor && (
+        <span className={classes.author}>Por: {author}</span>
+      )}
       {contentPosicionPublicidad && (
         <ArcStoryContent
           data={contentPosicionPublicidad}
@@ -331,6 +333,9 @@ BodyContentSpecial.propTypes = {
   customFields: PropTypes.shape({
     storyCode: PropTypes.string.tag({
       name: 'ID de historia',
+    }),
+    hideAuthor: PropTypes.bool.tag({
+      name: 'Ocultar autor',
     }),
   }),
 }

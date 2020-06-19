@@ -7,7 +7,13 @@ import TitleWithImageChildSpecial from './_children/title-with-image'
 const CONTENT_SOURCE = 'story-by-id'
 
 const TitleWithImageSpecial = props => {
-  const { customFields: { storyCode = '' } = {} } = props
+  const {
+    customFields: {
+      storyCode = '',
+      hideTitle = false,
+      hideSubtitle = false,
+    } = {},
+  } = props
 
   const story = useContent({
     source: CONTENT_SOURCE,
@@ -34,7 +40,13 @@ const TitleWithImageSpecial = props => {
     subheadlines: { basic: storySubtitle = '' } = {},
   } = story || {}
 
-  const params = { storyTitle, imageStory, storySubtitle }
+  const params = {
+    storyTitle,
+    imageStory,
+    storySubtitle,
+    hideTitle,
+    hideSubtitle,
+  }
 
   return <TitleWithImageChildSpecial {...params} />
 }
@@ -43,6 +55,12 @@ TitleWithImageSpecial.propTypes = {
   customFields: PropTypes.shape({
     storyCode: PropTypes.string.tag({
       name: 'ID de historia',
+    }),
+    hideTitle: PropTypes.bool.tag({
+      name: 'Ocultar titulo',
+    }),
+    hideSubtitle: PropTypes.bool.tag({
+      name: 'Ocultar subtitulo',
     }),
   }),
 }
