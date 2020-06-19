@@ -77,7 +77,7 @@ export default ({
     requestUri.includes('/recetas/')
   )
     style = 'story-recetas'
-  else if (requestUri.includes('/especiales/')) style = 'specials'
+  else if (requestUri.includes('/mas-especiales/')) style = 'specials'
 
   style = isHome && arcSite === 'elcomercio' ? 'basic' : style
 
