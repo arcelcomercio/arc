@@ -4,7 +4,7 @@ import { defaultImage } from '../../../../utilities/helpers'
 const classes = {
   containerLive: `facebook-live col-2 position-relative flex justify-center`,
   containerMask: `bg-white flex justify-center items-center h-full w-full flex-col`,
-  iframeVideo: `facebook-live__iframe overflow-hidden border-none position-absolute top-0 left-0`,
+  iframeVideo: `facebook-live__iframe overflow-hidden border-none position-absolute top-0 left-0 w-full h-full`,
   label: 'position-absolute',
 }
 

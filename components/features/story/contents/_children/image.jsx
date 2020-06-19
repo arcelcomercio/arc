@@ -3,6 +3,7 @@ import Static from 'fusion:static'
 import { useFusionContext } from 'fusion:context'
 
 import { getResizedUrl } from '../../../../utilities/resizer'
+import { SITE_TROME } from '../../../../utilities/constants/sitenames'
 
 const classes = {
   image: 'story-content__visual--image w-full ',
@@ -20,12 +21,13 @@ const StoryContentChildImage = ({
   presets = 'landscapeMd:314x157,storySmall:482x290,large:980x528',
 }) => {
   const { arcSite } = useFusionContext()
+  const presetsTrome = 'landscapeMd:314x169,storySmall:482x260,large:980x528'
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
       return (
         getResizedUrl({
           url: urlImg,
-          presets,
+          presets: arcSite === SITE_TROME ? presetsTrome : presets,
           arcSite,
         }) || {}
       )

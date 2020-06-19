@@ -46,6 +46,12 @@
       height: 92vh;
     }
   }
+  &__image--wfull {
+    @media (--only-mobile) {
+      height: auto;
+      width: 100%;
+    }
+  }
   @keyframes scroll {
     0% {
       opacity: 0;

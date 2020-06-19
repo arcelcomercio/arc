@@ -8,12 +8,12 @@ const depor = {
     ],
     contacts: [
       {
-        position: 'Director Periodístico General de Deporte',
-        name: 'Guillermo Denegri',
+        position: 'Director Periodístico',
+        name: 'Guillermo Denegri.',
       },
       {
-        position: 'Director Periodístico',
-        name: 'Miguel Morales.',
+        position: 'Subdirector',
+        name: 'Raúl Castillo',
       },
     ],
     corporateInfo: {
