@@ -82,13 +82,13 @@ const buildListLinkParagraph = (items, defaultImage) => {
               const {
                 url = '',
                 content = '',
-                image: { url: urlImg = '' } = {},
+                image: { url: urlImg = defaultImage } = {},
               } = data || {}
               result.numberWords += countWordsHelper(clearHtml(content))
               return `
               <div>
                 <figure>
-                  <a href="${url}"><img src="${defaultImage}" data-src="${urlImg}" alt="${content}" /></a>
+                  <a href="${url}"><img src="${urlImg}" alt="${content}" /></a>
                 </figure>
                 <div>
                   <h2><a href="${url}">${content}</a></h2>
