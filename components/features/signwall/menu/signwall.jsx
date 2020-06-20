@@ -18,7 +18,7 @@ const Menu = ({
   },
   dispatchEvent,
 }) => {
-  const W = window
+  const W = typeof window !== 'undefined' ? window : null
 
   const { publicProfile } = new GetProfile()
   const { identities = [] } = publicProfile
@@ -34,8 +34,7 @@ const Menu = ({
   const [showLoading, setShowLoading] = useState(false)
 
   const closeSession = () => {
-    const isSubs = W.location.pathname.indexOf('suscripciones') >= 0 || false
-
+    
     setShowLoading(true)
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
@@ -43,22 +42,25 @@ const Menu = ({
     Cookies.deleteCookieDomain('ArcId.USER_INFO', arcSite)
     Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
     Cookies.deleteCookie('lostEmail')
-    W.sessionStorage.removeItem('paywall-profile-form') // formik raul
-    W.sessionStorage.removeItem('paywall-payment-form') // formik raul
-    W.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
-
-    W.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
-    W.Identity.logout()
-      .then(() => {
-        if (isSubs || activePaywall) {
-          if (W.Sales) W.Sales.subscriptions = []
-        }
-        Taggeo(`Web_Sign_Wall_General`, `web_swg_link_cerrarsesion`)
-        W.location.href = document.referrer ? document.referrer : '/'
-      })
-      .catch(() => {
-        W.location.reload()
-      })
+    if(W){
+      const isSubs = W.location.pathname.indexOf('suscripciones') >= 0 || false
+      W.sessionStorage.removeItem('paywall-profile-form') // formik raul
+      W.sessionStorage.removeItem('paywall-payment-form') // formik raul
+      W.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
+  
+      W.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
+      W.Identity.logout()
+        .then(() => {
+          if (isSubs || activePaywall) {
+            if (W.Sales) W.Sales.subscriptions = []
+          }
+          Taggeo(`Web_Sign_Wall_General`, `web_swg_link_cerrarsesion`)
+          W.location.href = document.referrer ? document.referrer : '/'
+        })
+        .catch(() => {
+          W.location.reload()
+        })
+    }
   }
 
   const checkSession = () => {
@@ -75,14 +77,16 @@ const Menu = ({
   }
 
   const openItemMenu = item => {
-    if (checkSession()) {
-      if (arcSite === 'elcomercio' && item === 'news') {
-        window.open('/newsletters', '_blank')
+    if (typeof window !== 'undefined') {
+      if (checkSession()) {
+        if (arcSite === 'elcomercio' && item === 'news') {
+          window.open('/newsletters', '_blank')
+        } else {
+          dispatchEvent('openMenu', item)
+        }
       } else {
-        dispatchEvent('openMenu', item)
+        window.location.href = '/'
       }
-    } else {
-      window.location.href = '/'
     }
   }
 
@@ -179,6 +183,7 @@ const Menu = ({
 class MenuSignwall extends PureComponent {
   render() {
     return (
+      // eslint-disable-next-line react/jsx-no-bind
       <Menu {...this.props} dispatchEvent={this.dispatchEvent.bind(this)} />
     )
   }

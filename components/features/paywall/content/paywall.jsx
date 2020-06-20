@@ -83,10 +83,11 @@ const Paywall = ({
 
   const logoutHandler = useRef(() => {
     clearPaywallStorage()
-    window.location.reload()
+    if (fromFia && typeof window !== 'undefined')
+      window.location.reload()
   }).current
 
-  const match = window.location.href.match(RegExp(urls.eventsRegexp))
+  const match = typeof window !== 'undefined' && window.location.href.match(RegExp(urls.eventsRegexp))
   const event = match ? { isEvent: true, event: match[1] } : {}
   const { pathname: basePath, query } = React.useRef(
     (() => {
@@ -169,7 +170,7 @@ const Paywall = ({
     const currpath = `${pathname}${search}`
     history.replace(currpath, currMemo)
     history.push(`${basePath}${stepSlug}/${search}`, currMemo)
-    window.scrollTo(0, 0)
+    if(typeof window !== 'undefined') window.scrollTo(0, 0)
   }).current
 
   const [loading, setLoading] = useState(false)
