@@ -2,10 +2,14 @@ import { memo, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 const Portal = ({ id, children }) => {
-  const el = useRef(
-    document.getElementById(id) || document.createElement('div')
-  )
-  const [dynamic] = useState(!el.current.parentElement)
+  let defaultRef = null
+  
+  if(typeof window !== 'undefined')
+    defaultRef = document.getElementById(id) || document.createElement('div')
+
+  const el = useRef(defaultRef)
+  const [dynamic] = useState(el.current && !el.current.parentElement)
+
   useEffect(() => {
     if (dynamic) {
       el.current.id = id
@@ -17,7 +21,8 @@ const Portal = ({ id, children }) => {
       }
     }
   }, [id])
-  return createPortal(children, el.current)
+
+  return children && el.current && createPortal(children, el.current)
 }
 
 export default memo(Portal)
