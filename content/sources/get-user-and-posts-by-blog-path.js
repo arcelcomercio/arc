@@ -80,6 +80,8 @@ const transform = (data, { 'arc-site': arcSite }) => {
       blog.posts[i].post_thumbnail.resized_urls = resizedUrls
     }
   })
+
+  return blog
 }
 
 export default {
