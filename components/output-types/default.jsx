@@ -102,23 +102,23 @@ export default ({
   const isHome = metaValue('id') === 'meta_home' && true
 
   const getPushud = () => {
-    let pushud = ""
-    let idPushud = ""
+    let pushud = ''
+    let idPushud = ''
     if (arcSite === 'peru21') {
       pushud = '41308'
-    }else if (arcSite === 'depor') {
+    } else if (arcSite === 'depor') {
       idPushud = '41272'
-    }else if (arcSite === 'elbocon') {
+    } else if (arcSite === 'elbocon') {
       idPushud = '41441'
-    }else if (arcSite === 'diariocorreo') {
+    } else if (arcSite === 'diariocorreo') {
       idPushud = '41440'
-    }else if (arcSite === 'gestion') {
+    } else if (arcSite === 'gestion') {
       idPushud = '41438'
-    }else if (arcSite === 'trome') {
+    } else if (arcSite === 'trome') {
       idPushud = '41443'
-    }else if (arcSite === 'elcomerciomag') {
+    } else if (arcSite === 'elcomerciomag') {
       idPushud = '41445'
-    }else if (arcSite === 'ojo') {
+    } else if (arcSite === 'ojo') {
       idPushud = '41442'
     }
     pushud = `(function(w, d) { var s = d.createElement("script"); s.src = "//delivery.adrecover.com/${idPushud}/adRecover.js"; s.type = "text/javascript"; s.async = true; (d.getElementsByTagName("head")[0] || d.getElementsByTagName("body")[0]).appendChild(s); })(window, document);`
@@ -128,10 +128,14 @@ export default ({
   const getEnablePushud = () => {
     let epushud = false
     if (
-      arcSite === 'peru21' || arcSite === 'depor' ||
-      arcSite === 'elbocon' || arcSite === 'diariocorreo' || 
-      arcSite === 'gestion' || arcSite === 'trome' ||
-      arcSite === 'elcomerciomag' || arcSite === 'ojo'
+      arcSite === 'peru21' ||
+      arcSite === 'depor' ||
+      arcSite === 'elbocon' ||
+      arcSite === 'diariocorreo' ||
+      arcSite === 'gestion' ||
+      arcSite === 'trome' ||
+      arcSite === 'elcomerciomag' ||
+      arcSite === 'ojo'
     ) {
       epushud = true
     }
@@ -185,7 +189,9 @@ export default ({
   const getTitle = () => {
     let title = `${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
     if (isStory) {
-      title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
+      title = `${seoTitle}: ${
+        storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+      } | ${siteProperties.siteTitle.toUpperCase()}`
     } else if (
       pageNumber > 1 &&
       (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')
