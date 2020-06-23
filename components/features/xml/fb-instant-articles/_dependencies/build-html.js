@@ -8,7 +8,23 @@ import {
   isEmpty,
 } from '../../../../utilities/helpers'
 import recommederBySite from '../_children/recommeder-by-site'
-import { getResultVideo } from '../../../../utilities/story/helpers'
+// import { getResultVideo } from '../../../../utilities/story/helpers'
+
+/**
+ * TODO:TEMP: esto se ha hecho temporalmente hasta final del mes de
+ * JUNIO 2020, una vez que pase esa fecha se debe eliminar esta
+ * funcion y descomentar la que se importa de story/helpers
+ */
+const getResultVideo = (streams, arcSite, type = 'ts') => {
+  const resultVideo = streams
+    .map(({ url = '', stream_type: streamType = '' }) => {
+      return streamType === type ? url : []
+    })
+    .filter(String)
+  const cantidadVideo = resultVideo.length
+
+  return resultVideo[cantidadVideo - 1]
+}
 
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
