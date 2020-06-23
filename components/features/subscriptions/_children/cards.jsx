@@ -78,7 +78,7 @@ function Cards({ item, arcSite, order, textOffer }) {
               className="planes__content-button"
               onClick={() => {
                 Taggeo('Web_Paywall_Landing', `web_paywall_home_button_${sku}`)
-                window.open(url, '_blank')
+                window.location.href = url
               }}>
               Suscribirme
             </button>

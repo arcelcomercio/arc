@@ -42,7 +42,11 @@ const LandingSubscriptions = () => {
 
   const handleAfterLogged = () => {
     const { firstName, lastName } = window.Identity.userProfile || {}
-    setShowProfile(`${firstName || 'Bienvenido Usuario'} ${lastName || ''}`)
+    setShowProfile(
+      `${firstName || 'Bienvenido Usuario'} ${
+        lastName !== 'undefined' ? lastName : '' || ''
+      }`
+    )
   }
 
   return (
