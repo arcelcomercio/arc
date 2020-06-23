@@ -1,17 +1,16 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
+import { formatSlugToText } from '../../components/utilities/parse/strings'
 import {
   getYYYYMMDDfromISO,
   getActualDate,
-  formatSlugToText,
-} from '../../components/utilities/helpers'
+} from '../../components/utilities/date-time/dates'
 import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
 let globalParams = {}
 
 const schemaName = 'stories-dev'
-let website = ''
 
 const params = [
   {
@@ -32,9 +31,9 @@ const getNextDate = date => {
   return getYYYYMMDDfromISO(requestedDate)
 }
 
-const transform = data => {
+const transform = (data, { 'arc-site': arcSite }) => {
   const dataStories = data
-  const { resizerUrl, siteName } = getProperties(website)
+  const { resizerUrl, siteName } = getProperties(arcSite)
   dataStories.content_elements = addResizedUrlsToStory(
     dataStories.content_elements,
     resizerUrl,
@@ -52,7 +51,7 @@ const transform = data => {
 }
 
 const pattern = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { section, date } = key
 
   if (new Date(date).getFullYear() < 2009) throw new RedirectError(`/410`, 410)
@@ -129,7 +128,6 @@ const source = {
   schemaName,
   transform,
   params,
-  // cache: false,
   ttl: 120,
 }
 

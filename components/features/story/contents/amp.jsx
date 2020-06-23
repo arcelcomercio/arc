@@ -246,7 +246,7 @@ class StoryContentAmp extends PureComponent {
                       url={
                         getResizedUrl({
                           url: element.url,
-                          presets: 'large:400x',
+                          presets: 'large:400x0',
                           arcSite,
                         }).large || {}
                       }
@@ -270,7 +270,7 @@ class StoryContentAmp extends PureComponent {
                           url={
                             getResizedUrl({
                               url: customEmbedConfig.photo,
-                              presets: 'large:400x',
+                              presets: 'large:400x0',
                               arcSite,
                             }).large || {}
                           }
