@@ -23,7 +23,7 @@ const Subscriptions = props => {
         />
         <title>{title}</title>
         <meta name="description" content={description} />
-        {/* <link rel="canonical" href={urls.canonical} /> */}
+        <link rel="canonical" href={urls.canonical} />
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
         <meta name="twitter:card" content="summary" />

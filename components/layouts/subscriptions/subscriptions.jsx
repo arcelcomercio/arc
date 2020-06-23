@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Subscriptions = ({ children = [] }) => {
+const SubscriptionsLayout = ({ children = [] }) => {
   return (
     <>
       <div>{children[0]}</div>
@@ -15,10 +15,14 @@ const Subscriptions = ({ children = [] }) => {
   )
 }
 
-Subscriptions.propTypes = {
+SubscriptionsLayout.propTypes = {
   children: PropTypes.node,
 }
 
-Subscriptions.sections = ['Cabecera de página', 'Contenido', 'Pie de página']
+SubscriptionsLayout.sections = [
+  'Cabecera de página',
+  'Contenido',
+  'Pie de página',
+]
 
-export default Subscriptions
+export default SubscriptionsLayout
