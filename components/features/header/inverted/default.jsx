@@ -19,6 +19,7 @@ const HeaderInverted = props => {
   const {
     customFields: {
       hierarchyConfig,
+      customLogoTitle,
       customLogo,
       customLogoLink,
       tags,
@@ -91,6 +92,7 @@ const HeaderInverted = props => {
     arcSite,
     {},
     {},
+    customLogoTitle,
     customLogo,
     customLogoLink,
     tags,

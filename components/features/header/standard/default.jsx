@@ -12,6 +12,7 @@ const DEFAULT_HIERARCHY = 'header-default'
 const HeaderStandard = props => {
   const {
     customFields: {
+      customLogoTitle,
       customLogo,
       customLogoLink,
       tags,
@@ -38,6 +39,7 @@ const HeaderStandard = props => {
     headerProperties,
     arcSite,
     {},
+    customLogoTitle,
     customLogo,
     customLogoLink,
     tags,
