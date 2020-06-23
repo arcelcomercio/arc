@@ -1,5 +1,6 @@
 import React from 'react'
 import ENV from 'fusion:environment'
+import { useContent } from 'fusion:content'
 import StoriesRecent from '../../global-components/stories-recent'
 
 import StoryData from '../../utilities/story-data'
@@ -41,7 +42,6 @@ export default ({
     videoSeo,
     contentElementsText: dataElement,
     contentElementsHtml = [],
-    relatedContent,
     seoKeywords,
     breadcrumbList,
     multimediaType,
@@ -58,6 +58,14 @@ export default ({
     cant: 4,
     presets: 'no-presets',
   }
+  const { basic: relatedContent = [] } =
+    useContent({
+      source: 'related-content',
+      query: {
+        _id: id,
+        presets: 'no-presets',
+      },
+    }) || {}
   const resultStoryRecent = StoriesRecent(parameters)
   let publishDateZone =
     arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||

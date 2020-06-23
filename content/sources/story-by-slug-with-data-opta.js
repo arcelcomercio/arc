@@ -7,7 +7,7 @@ import {
   getFootballGameId,
   getFootballAds,
 } from '../../components/utilities/get-story-values'
-import FilterSchema from '../schemas/story-by-slug-with-data-opta'
+import FilterSchema from '../filters/story-with-opta'
 
 const schemaName = 'story-dev'
 
@@ -69,19 +69,6 @@ const getDataOpta = storyData => {
   return storyData
 }
 
-const getAdditionalData = (storyData, website) => {
-  if (storyData.type === 'redirect') return storyData
-
-  return request({
-    uri: `${CONTENT_BASE}/content/v4/related-content/stories/?_id=${storyData._id}&website=${website}&published=true`,
-    ...options,
-  }).then(idsResp => {
-    storyData.related_content = idsResp
-
-    return getDataOpta(storyData)
-  })
-}
-
 const excludedFieldsStory = '&_sourceExclude=owner,address,websites,language'
 const fetch = ({ website_url: websiteUrl, 'arc-site': website } = {}) => {
   if (!websiteUrl) {
@@ -95,12 +82,9 @@ const fetch = ({ website_url: websiteUrl, 'arc-site': website } = {}) => {
     uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${websiteUrl}&website=${website}${excludedFieldsStory}`,
     ...options,
   }).then(storyResp => {
-    if (storyResp.type === 'redirect' && storyResp.redirect_url) {
-      // Redirect with 301 code
+    if (storyResp.type === 'redirect' && storyResp.redirect_url)
       throw new RedirectError(storyResp.redirect_url, 301)
-    }
-    // Fetch additional data
-    return getAdditionalData(storyResp, website)
+    return getDataOpta(storyResp)
   })
 }
 

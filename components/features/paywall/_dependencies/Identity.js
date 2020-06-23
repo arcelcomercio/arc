@@ -1,4 +1,6 @@
 export const isLogged = () => {
+  if(typeof window === 'undefined') return false
+  
   const { localStorage } = window
   // eslint-disable-next-line no-prototype-builtins
   return (

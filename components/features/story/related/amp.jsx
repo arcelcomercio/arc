@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useFusionContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import StorySeparatorChildItemAmp from '../interest-by-tag/_children/amp'
@@ -16,19 +17,25 @@ const classes = {
 const StoryRelatedAmp = () => {
   const {
     arcSite,
-    globalContent: dataContent,
+    globalContent,
     contextPath,
     deployment,
     isAdmin,
   } = useFusionContext()
 
-  const { relatedContent: storyData } = new StoryData({
-    data: dataContent,
-    contextPath,
-  })
+  const { _id: storyId } = globalContent || {}
+
+  const { basic: relatedContent = [] } =
+    useContent({
+      source: 'related-content',
+      query: {
+        _id: storyId,
+        presets: 'no-presets',
+      },
+    }) || {}
 
   const instance =
-    storyData &&
+    relatedContent &&
     new StoryData({
       deployment,
       contextPath,
@@ -39,7 +46,7 @@ const StoryRelatedAmp = () => {
   const presets = 'landscape_l:648x374,landscape_md:314x157'
 
   const getSize = () => {
-    const dataStorys = storyData.map((story, i) => {
+    const dataStorys = relatedContent.map((story, i) => {
       if (story.type !== 'story') return false
 
       instance.__data = story
@@ -83,7 +90,7 @@ const StoryRelatedAmp = () => {
 
   return (
     <>
-      {storyData.length > 0 && (
+      {relatedContent.length > 0 && (
         <div className={classes.storyInterest}>
           <div className={classes.title}>Relacionadas </div>
           {getSize()}

@@ -75,6 +75,21 @@ const classes = {
 
 @Consumer
 class StoryContents extends PureComponent {
+  constructor(props) {
+    super(props)
+    const { globalContent } = this.props
+    const { _id: storyId } = globalContent || {}
+    this.fetchContent({
+      related_content: {
+        source: 'related-content',
+        query: {
+          _id: storyId,
+          presets: 'no-presets',
+        },
+      },
+    })
+  }
+
   render() {
     const {
       globalContent,
@@ -88,8 +103,8 @@ class StoryContents extends PureComponent {
       },
       isAdmin,
     } = this.props
-    const { related_content: { basic: relatedContent } = {} } =
-      globalContent || {}
+    const { related_content: { basic: relatedContent = [] } = {} } =
+      this.state || {}
 
     const {
       publishDate: date,
@@ -165,6 +180,10 @@ class StoryContents extends PureComponent {
               )
           )
         : contentPosicionPublicidad
+
+    const rawHtmlContent = contentElementsHtml
+    const isJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
+
     return (
       <>
         <div className={classes.news}>
@@ -190,6 +209,10 @@ class StoryContents extends PureComponent {
               )}
 
           <StoryContentsChildAuthor {...params} />
+
+          {isJwVideo === true && (
+            <script src="https://cdn.jwplayer.com/players/IxomITB6-BHYH7DVh.js?search=__CONTEXTUAL__"></script>
+          )}
 
           <Ads
             adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}

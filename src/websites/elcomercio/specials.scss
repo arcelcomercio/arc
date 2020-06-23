@@ -1,0 +1,63 @@
+/* --- BASE -------------------------------------------------------------
+  Estilos core del framework, modificadores del core y partials por marca 
+------------------------------------------------------------------------- */
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+@import "./scss/partials/import-icons";
+@import "./scss/partials/import-fonts";
+
+/* ----------------cambio temportal por consumo------------------------- */
+@import "../../general-styles/framework/core/index";
+@import "../../general-styles/framework/generators/story";
+
+@import "../../general-styles/framework/generators/generate-spaces";
+@import "./scss/partials/base";
+
+/* --- STORY VARIABLES --------------------------------------------------
+  Modificacion de variables SCSS del core y de marca
+------------------------------------------------------------------------- */
+
+/* --- GLOBAL COMPONENTS ------------------------------------------------
+  Estilos de componentes globales desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/global-components/icons";
+@import "../../general-styles/components/global-components/multimedia-icon";
+
+/* --- FEATURES ---------------------------------------------------------
+  Cambio temportal por consumo
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/layout/navbar/nav";
+@import "../../general-styles/components/features/layout/navbar/nav-story";
+@import "../../general-styles/components/features/layout/header/header";
+@import "../../general-styles/components/features/header/inverted";
+
+/* --- FEATURES ---------------------------------------------------------
+  Estilos de features desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/layout/navbar/nav-sidebar";
+@import "../../general-styles/components/features/basic-html/basic-html";
+@import "../../general-styles/components/features/story/story/story";
+@import "../../general-styles/components/features/specials/special-basic-header/special-basic-header.scss";
+@import "../../general-styles/components/features/specials/title-with-image/title-with-image.scss";
+@import "../../general-styles/components/features/specials/body-content/body-content.scss";
+
+/* --- MODIFICADORES ----------------------------------------------------
+  Estilos de features modificados por marca
+------------------------------------------------------------------------- */
+@import "./scss/global-components/buttons";
+@import "./scss/global-components/independent-title";
+@import "./scss/components/layout/navbar/nav-sidebar";
+@import "./scss/components/layout/footer/footer-story";
+@import "./scss/components/story/contents/story-content";
+@import "./scss/components/story/header/story-gallery";
+@import "./scss/components/story/header/story-gallery-slider";
+@import "./scss/components/story/story/story";
+@import "./scss/components/story/header/story-header";
+
+/* --- MODIFICADORES ----------------------------------------------------
+ Cambio temportal por consumo
+------------------------------------------------------------------------- */
+@import "./scss/components/layout/navbar/nav";
+@import "./scss/components/layout/navbar/nav-story";
+@import "./scss/components/header/inverted";
+@import "./scss/components/layout/header/header";

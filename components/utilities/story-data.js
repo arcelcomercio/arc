@@ -396,10 +396,10 @@ class StoryData {
     return brandWeb.website_url || ''
   }
 
-  get relatedContent() {
+  /* get relatedContent() {
     const { related_content: { basic = [] } = {} } = this._data || {}
     return basic
-  }
+  } */
 
   get relatedStories() {
     const { recent_stories: { content_elements: contentElements = [] } = {} } =

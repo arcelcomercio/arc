@@ -53,7 +53,6 @@ class Prof extends Component {
         clearObject.push(attributes[i])
       }
     }
-
     return clearObject.reduce((prev, { name, value }) => {
       const newPrev = prev
       switch (name) {
@@ -126,8 +125,8 @@ class Prof extends Component {
     } = this.state
 
     const CIVIL_STATUS = civilStatus ? civilStatus.toLowerCase() : null
-    const [primaryPhone = { phone: null }] = contacts
-    const { phone } = primaryPhone
+    const [primaryPhone] = contacts || []
+    const { phone } = primaryPhone || {}
     const { prof } = this.props
 
     return (

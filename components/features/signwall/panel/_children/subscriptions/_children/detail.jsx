@@ -128,9 +128,10 @@ export const SubDetailInt = props => {
     if (txtMotivo.length >= 1 && txtMotivo.length <= 9) {
       respuesta = 'Mínimo 10 caracteres'
     }
-
-    if (txtMotivo.length > 0 && !txtMotivo.match(/(\w+)/)) {
-      respuesta = 'Caracteres inválidos'
+    // eslint-disable-next-line no-useless-escape
+    const paternValMotivo = /^([a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\!\¡\?\¿\-]+\s)*[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\!\¡\?\¿\-]+$/
+    if (txtMotivo.length > 0 && !txtMotivo.match(paternValMotivo)) {
+      respuesta = 'Formato inválido o caracteres no permitidos'
     }
     return respuesta
   }

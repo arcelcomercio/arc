@@ -101,7 +101,45 @@ export default ({
   }
   const isHome = metaValue('id') === 'meta_home' && true
 
-  const scriptAdpush = `(function(w, d) { var s = d.createElement("script"); s.src = "//delivery.adrecover.com/41308/adRecover.js"; s.type = "text/javascript"; s.async = true; (d.getElementsByTagName("head")[0] || d.getElementsByTagName("body")[0]).appendChild(s); })(window, document);`
+  const getPushud = () => {
+    let pushud = ""
+    let idPushud = ""
+    if (arcSite === 'peru21') {
+      pushud = '41308'
+    }else if (arcSite === 'depor') {
+      idPushud = '41272'
+    }else if (arcSite === 'elbocon') {
+      idPushud = '41441'
+    }else if (arcSite === 'diariocorreo') {
+      idPushud = '41440'
+    }else if (arcSite === 'gestion') {
+      idPushud = '41438'
+    }else if (arcSite === 'trome') {
+      idPushud = '41443'
+    }else if (arcSite === 'elcomerciomag') {
+      idPushud = '41445'
+    }else if (arcSite === 'ojo') {
+      idPushud = '41442'
+    }
+    pushud = `(function(w, d) { var s = d.createElement("script"); s.src = "//delivery.adrecover.com/${idPushud}/adRecover.js"; s.type = "text/javascript"; s.async = true; (d.getElementsByTagName("head")[0] || d.getElementsByTagName("body")[0]).appendChild(s); })(window, document);`
+    return pushud
+  }
+
+  const getEnablePushud = () => {
+    let epushud = false
+    if (
+      arcSite === 'peru21' || arcSite === 'depor' ||
+      arcSite === 'elbocon' || arcSite === 'diariocorreo' || 
+      arcSite === 'gestion' || arcSite === 'trome' ||
+      arcSite === 'elcomerciomag' || arcSite === 'ojo'
+    ) {
+      epushud = true
+    }
+    return epushud
+  }
+  const scriptAdpush = getPushud()
+  const enabledPushud = getEnablePushud()
+
   const metaSiteData = {
     ...siteProperties,
     requestUri,
@@ -302,12 +340,33 @@ export default ({
 
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
   return (
-    <html lang="es">
+    <html itemScope itemType="http://schema.org/WebPage" lang="es">
       <head>
-        <TagManager {...siteProperties} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="lang" content="es" />
+        <meta name="resource-type" content="document" />
+        <meta content="global" name="distribution" />
+        <meta name="robots" content="index, follow" />
+        <meta name="GOOGLEBOT" content="index follow" />
+        <meta name="Author" content={siteProperties.siteName} />
+        {isStory && (
+          <>
+            <meta name="DC.title" lang="es" content={title} />
+            <meta name="DC.description" lang="es" content={description} />
+            <meta name="DC.subject" lang="es" content={keywords} />
+            <meta
+              name="DC.creator"
+              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+            />
+            <meta
+              name="DC.publisher"
+              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+            />
+            <meta name="DC.language" scheme="RFC1766" content="es" />
+          </>
+        )}
         {isStory && htmlAmpIs && (
           <link
             rel="amphtml"
@@ -486,7 +545,7 @@ export default ({
           return null
         })()}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
-        {arcSite === 'peru21' && (
+        {enabledPushud && (
           <>
             <script
               type="text/javascript"
@@ -495,6 +554,7 @@ export default ({
             />
           </>
         )}
+        <TagManager {...siteProperties} />
       </head>
       <body
         className={classBody}

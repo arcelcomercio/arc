@@ -246,7 +246,7 @@ const LiteOutput = ({
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
 
   return (
-    <html lang="es">
+    <html itemScope itemType="http://schema.org/WebPage" lang="es">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -269,11 +269,32 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
           }}
         />
-        <TagManager {...parameters} />
 
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="lang" content="es" />
+        <meta name="resource-type" content="document" />
+        <meta content="global" name="distribution" />
+        <meta name="robots" content="index, follow" />
+        <meta name="GOOGLEBOT" content="index follow" />
+        <meta name="Author" content={siteProperties.siteName} />
+        {isStory && (
+          <>
+            <meta name="DC.title" lang="es" content={title} />
+            <meta name="DC.description" lang="es" content={description} />
+            <meta name="DC.subject" lang="es" content={keywords} />
+            <meta
+              name="DC.creator"
+              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+            />
+            <meta
+              name="DC.publisher"
+              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+            />
+            <meta name="DC.language" scheme="RFC1766" content="es" />
+          </>
+        )}
         {isStory && htmlAmpIs && (
           <link
             rel="amphtml"
@@ -341,7 +362,11 @@ const LiteOutput = ({
         )}
         <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
 
-        <LiteAds />
+        <LiteAds
+          requestUri={requestUri}
+          globalContent={globalContent}
+          siteProperties={siteProperties}
+        />
 
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
@@ -399,6 +424,7 @@ const LiteOutput = ({
             />
           </>
         )}
+        <TagManager {...parameters} />
       </head>
       <body
         className={classBody}

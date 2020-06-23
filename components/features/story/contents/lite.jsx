@@ -64,6 +64,21 @@ const classes = {
 
 @Consumer
 class StoryContentsLite extends PureComponent {
+  constructor(props) {
+    super(props)
+    const { globalContent } = this.props
+    const { _id: storyId } = globalContent || {}
+    this.fetchContent({
+      related_content: {
+        source: 'related-content',
+        query: {
+          _id: storyId,
+          presets: 'no-presets',
+        },
+      },
+    })
+  }
+
   render() {
     const {
       globalContent,
@@ -76,8 +91,8 @@ class StoryContentsLite extends PureComponent {
       },
       isAdmin,
     } = this.props
-    const { related_content: { basic: relatedContent } = {} } =
-      globalContent || {}
+    const { related_content: { basic: relatedContent = [] } = {} } =
+      this.state || {}
 
     const {
       publishDate: date,

@@ -393,6 +393,13 @@ class NavBarDefault extends PureComponent {
     return false
   }
 
+  checkCookieMigration = () => {
+    const { arcSite } = this.props
+    if (typeof window !== 'undefined' && !this.checkSession()) {
+      window.document.cookie = `ArcId.USER_INFO=;path=/;domain=.${arcSite}.pe; expires=Thu, 01 Jan 1970 00:00:01 GMT`
+    }
+  }
+
   render() {
     const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { statusSidebar, scrolled } = this.state
@@ -623,35 +630,38 @@ class NavBarDefault extends PureComponent {
                 )}
 
                 {siteProperties.activeSignwall && (
-                  <button
-                    aria-label="Iniciar"
-                    id="signwall-nav-btn"
-                    site="elcomercio"
-                    className="flex items-center btn capitalize text-md nav__btn-sign"
-                    onClick={() => {
-                      if (this.checkSession()) {
-                        window.location.href =
-                          _env === 'prod'
-                            ? '/mi-perfil/?outputType=signwall'
-                            : `/mi-perfil/?_website=${arcSite}&outputType=signwall`
-                      } else {
-                        window.location.href =
-                          _env === 'prod'
-                            ? '/signwall/?outputType=signwall&signwallOrganic=1'
-                            : `/signwall/?_website=${arcSite}&outputType=signwall&signwallOrganic=1`
-                      }
-                    }}
-                    type="button">
-                    <i
-                      id="signwall-nav-icon"
-                      className="nav__icon icon-user title-sm text-primary-color"></i>
-                    <span
-                      id="signwall-nav-user"
-                      className="capitalize"
-                      aria-hidden="true">
-                      Iniciar
-                    </span>
-                  </button>
+                  <>
+                    {this.checkCookieMigration()}
+                    <button
+                      aria-label="Iniciar"
+                      id="signwall-nav-btn"
+                      site="elcomercio"
+                      className="flex items-center btn capitalize text-md nav__btn-sign"
+                      onClick={() => {
+                        if (this.checkSession()) {
+                          window.location.href =
+                            _env === 'prod'
+                              ? '/mi-perfil/?outputType=signwall'
+                              : `/mi-perfil/?_website=${arcSite}&outputType=signwall`
+                        } else {
+                          window.location.href =
+                            _env === 'prod'
+                              ? '/signwall/?outputType=signwall&signwallOrganic=1'
+                              : `/signwall/?_website=${arcSite}&outputType=signwall&signwallOrganic=1`
+                        }
+                      }}
+                      type="button">
+                      <i
+                        id="signwall-nav-icon"
+                        className="nav__icon icon-user title-sm text-primary-color"></i>
+                      <span
+                        id="signwall-nav-user"
+                        className="capitalize"
+                        aria-hidden="true">
+                        Iniciar
+                      </span>
+                    </button>
+                  </>
                 )}
 
                 <script

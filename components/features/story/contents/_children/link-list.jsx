@@ -32,7 +32,7 @@ const Item = ({ url, title, image, imageDefault, site, isAmp }) => {
         alt={title}
         width="96"
         height="64"
-        tabindex="0"
+        tabIndex="0"
         class={classes.image}
       />
     </a>
