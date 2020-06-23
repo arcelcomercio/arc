@@ -381,7 +381,13 @@ export const getResizedUrlsToStories = ({
   })
 }
 
-export const getResizedUrl = ({ url = false, presets, arcSite }) => {
+/**
+ * @param {Object} config
+ * @param {String} config.url
+ * @param {(String|Object)} [config.presets]
+ * @param {String} config.arcSite
+ */
+export const getResizedUrl = ({ url, presets, arcSite }) => {
   if (url) {
     const { resizerUrl } = getProperties(arcSite)
     return createResizedUrl({

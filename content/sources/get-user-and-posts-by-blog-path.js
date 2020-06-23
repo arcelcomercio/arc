@@ -1,5 +1,6 @@
 import { BLOG_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import { getResizedUrl } from '../../components/utilities/resizer'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const params = [
@@ -50,7 +51,35 @@ const transform = (data, { 'arc-site': arcSite }) => {
     const { siteUrl } = getProperties(arcSite)
     throw new RedirectError(`${siteUrl}/blog/`, 301)
   }
-  return data
+  const blog = data
+
+  const {
+    user: { user_avatarb: { guid: avatar } = {} } = {},
+    posts = [],
+  } = data
+
+  if (avatar) {
+    const resizedUrls = getResizedUrl({
+      url: avatar,
+      presets: 'author_sm:125x125',
+      arcSite,
+    })
+    blog.user.user_avatarb.resized_urls = resizedUrls
+  }
+
+  posts.forEach((post, i) => {
+    const { post_thumbnail: { guid } = {} } = post || {}
+
+    if (guid) {
+      const resizedUrls = getResizedUrl({
+        url: guid,
+        presets:
+          'thumbnail_lg:480x248,thumbnail_md:290x150,thumbnail_sm:111x72',
+        arcSite,
+      })
+      blog.posts[i].post_thumbnail.resized_urls = resizedUrls
+    }
+  })
 }
 
 export default {
