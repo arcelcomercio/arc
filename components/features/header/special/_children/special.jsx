@@ -318,7 +318,12 @@ const HeaderSpecialChildSpecial = ({
             scrolled &&
             statusSearch &&
             'opacity-0'}`}>
-          <img src={logo.src} alt={logo.alt} className={classes.logo} />
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            title={logo.alt}
+            className={classes.logo}
+          />
         </a>
         <div className={classes.navStoryTitle} />
         {/** ************* RIGHT *************** */}
