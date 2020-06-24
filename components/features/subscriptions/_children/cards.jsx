@@ -21,6 +21,13 @@ function Cards({ item, arcSite, order, textOffer }) {
   const showFree = amount === 0
   const isComercio = arcSite === 'elcomercio'
 
+  const handleSuscribirme = (paramUrl, paramSku) => {
+    if (typeof window !== 'undefined') {
+      Taggeo('Web_Paywall_Home', `web_paywall_home_button_${paramSku}`)
+      window.location.href = paramUrl
+    }
+  }
+
   return (
     <article
       key={`card-detail-${order}`}
@@ -76,23 +83,17 @@ function Cards({ item, arcSite, order, textOffer }) {
             <button
               type="button"
               className="planes__content-button"
-              onClick={() => {
-                Taggeo('Web_Paywall_Landing', `web_paywall_home_button_${sku}`)
-                window.location.href = url
-              }}>
+              onClick={() => handleSuscribirme(url, sku)}>
               Suscribirme
             </button>
             <ul className="planes__content-benefits">
               {features.map((list, i) => {
-                // return (
-                //   <li key={`lista-${i + 1}`} className="check">
-                //     {list}
-                //   </li>
-                // )
                 return (
-                  <li key={`lista-${i + 1}`}>
+                  <li
+                    key={`lista-${i + 1}`}
+                    className={list.match(/\[ok\]/) ? 'check' : ''}>
                     <Markdown
-                      source={list}
+                      source={list.replace(/\[ok\]/, '')}
                       escapeHtml={false}
                       unwrapDisallowed
                       disallowedTypes={['paragraph']}

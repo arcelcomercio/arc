@@ -9,18 +9,37 @@ window.addEventListener('DOMContentLoaded', () => {
   const divBeneficios = document.getElementById('beneficios')
   const videoPlayer = document.getElementById('video')
 
+  const checkSession = () => {
+    if (typeof window !== 'undefined') {
+      const profileStorage =
+        window.localStorage.getItem('ArcId.USER_PROFILE') ||
+        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+
+      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+      if (profileStorage) {
+        return !(profileStorage === 'null' || sesionStorage === '{}') || false
+      }
+    }
+    return false
+  }
+
   function updateBtnSignwall() {
-    const PROFILE = window.Identity.userProfile
-    if (!PROFILE) return
-    const { firstName, lastName } = PROFILE || {}
-    btnSignwall.innerHTML = `${firstName || 'Bienvenido Usuario'} ${
-      lastName !== 'undefined' ? lastName : '' || ''
-    }`
+    if (checkSession()) {
+      const userInfo =
+        window.JSON.parse(window.localStorage.getItem('ArcId.USER_PROFILE')) ||
+        {}
+
+      const { firstName, lastName } = userInfo || {}
+      btnSignwall.innerHTML = `${firstName || 'Bienvenido Usuario'} ${
+        lastName !== 'undefined' ? lastName : '' || ''
+      }`
+    }
   }
 
   function activeButtonScroll() {
     const scrollCurrent =
       document.body.scrollTop || document.documentElement.scrollTop
+    if (!buttonCall) return
     if (scrollCurrent > 150) {
       buttonTop.classList.add('active')
       buttonCall.classList.add('active')
@@ -125,5 +144,5 @@ window.addEventListener('DOMContentLoaded', () => {
 */
 
 const scriptsLanding =
-  '"use strict";window.addEventListener("DOMContentLoaded",function(){var e=/iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent),t=document.getElementById("btn-arrow-top"),n=document.getElementById("btn-help-call"),o=document.getElementById("btn-signwall"),c=document.querySelectorAll(".tab"),i=document.querySelectorAll(".picture"),d=document.getElementById("beneficios"),s=document.getElementById("video");function r(e,t){if(e[0].isIntersecting)for(var n=0;n<c.length;n++){var o=c[n].getAttribute("id");c[n].checked&&document.getElementById("picture--".concat(o)).classList.add("move")}else for(var i=0;i<c.length;i++){var d=c[i].getAttribute("id");c[i].checked&&document.getElementById("picture--".concat(d)).classList.remove("move")}}function a(e,t){e[0].isIntersecting?s.play():s.pause()}window.onscroll=function(){var o;o=e?10:60,(document.body.scrollTop||document.documentElement.scrollTop)>o?document.getElementById("header").classList.add("active"):document.getElementById("header").classList.remove("active"),(document.body.scrollTop||document.documentElement.scrollTop)>150?(t.classList.add("active"),n.classList.add("active"),n.classList.contains("ges")&&n.classList.remove("ges")):(t.classList.remove("active"),n.classList.remove("active"),window.location.href.match(/gestion/)&&n.classList.add("ges"))},window.onload=function(){if(function(){var e=window.Identity.userProfile;if(e){var t=e||{},n=t.firstName,c=t.lastName;o.innerHTML="".concat(n||"Bienvenido Usuario"," ").concat("undefined"!==c?c:"")}}(),t.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),s){new window.IntersectionObserver(a,{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(s)}if(d){new window.IntersectionObserver(r,{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(d)}for(var e=0;e<c.length;e++)c[e].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),n=0;n<i.length;n++)i[n].classList.remove("move");document.getElementById("picture--".concat(t)).classList.add("move")})}});'
+  '"use strict";window.addEventListener("DOMContentLoaded",function(){var e=/iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent),t=document.getElementById("btn-arrow-top"),n=document.getElementById("btn-help-call"),o=document.getElementById("btn-signwall"),c=document.querySelectorAll(".tab"),d=document.querySelectorAll(".picture"),i=document.getElementById("beneficios"),r=document.getElementById("video"),s=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"),t=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===t)||!1}return!1};function a(e,t){if(e[0].isIntersecting)for(var n=0;n<c.length;n++){var o=c[n].getAttribute("id");c[n].checked&&document.getElementById("picture--".concat(o)).classList.add("move")}else for(var d=0;d<c.length;d++){var i=c[d].getAttribute("id");c[d].checked&&document.getElementById("picture--".concat(i)).classList.remove("move")}}function l(e,t){e[0].isIntersecting?r.play():r.pause()}window.onscroll=function(){var o,c;o=e?10:60,(document.body.scrollTop||document.documentElement.scrollTop)>o?document.getElementById("header").classList.add("active"):document.getElementById("header").classList.remove("active"),c=document.body.scrollTop||document.documentElement.scrollTop,n&&(c>150?(t.classList.add("active"),n.classList.add("active"),n.classList.contains("ges")&&n.classList.remove("ges")):(t.classList.remove("active"),n.classList.remove("active"),window.location.href.match(/gestion/)&&n.classList.add("ges")))},window.onload=function(){if(function(){if(s()){var e=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}||{},t=e.firstName,n=e.lastName;o.innerHTML="".concat(t||"Bienvenido Usuario"," ").concat("undefined"!==n?n:"")}}(),t.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),r){new window.IntersectionObserver(l,{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(r)}if(i){new window.IntersectionObserver(a,{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(i)}for(var e=0;e<c.length;e++)c[e].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),n=0;n<d.length;n++)d[n].classList.remove("move");document.getElementById("picture--".concat(t)).classList.add("move")})}});'
 export default scriptsLanding

@@ -26,27 +26,37 @@ const LandingSubscriptions = () => {
   }
 
   const handleSignwall = () => {
-    window.Identity.isLoggedIn()
-      .then(res => {
-        if (res) {
-          Taggeo(`Web_Paywall_Landing`, `web_link_ingresar_perfil'`)
-          window.location.href = urls.profile[env]
-        } else {
-          Taggeo(`Web_Paywall_Landing`, `web_link_ingresar_cuenta`)
-          setShowProfile('Inicia sesión')
-          setShowSignwall(!showSignwall)
-        }
-      })
-      .catch(() => window.location.reload())
+    if (typeof window !== 'undefined') {
+      const Logged =
+        // eslint-disable-next-line no-prototype-builtins
+        window.localStorage.hasOwnProperty('ArcId.USER_INFO') &&
+        window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
+
+      Taggeo(
+        `Web_Sign_Wall_Suscripciones`,
+        `web_link_ingresar_${Logged ? 'perfil' : 'cuenta'}`
+      )
+
+      if (Logged) {
+        window.location.href = urls.profile[env]
+      } else {
+        setShowSignwall(!showSignwall)
+        // etShowProfile('Inicia sesión')
+        document.getElementById('btn-signwall').innerHTML = 'Inicia sesión'
+        window.Identity.clearSession()
+      }
+    }
   }
 
   const handleAfterLogged = () => {
-    const { firstName, lastName } = window.Identity.userProfile || {}
-    setShowProfile(
-      `${firstName || 'Bienvenido Usuario'} ${
-        lastName !== 'undefined' ? lastName : '' || ''
-      }`
-    )
+    if (typeof window !== 'undefined') {
+      const { firstName, lastName } = window.Identity.userProfile || {}
+      setShowProfile(
+        `${firstName || 'Bienvenido Usuario'} ${
+          lastName !== 'undefined' ? lastName : '' || ''
+        }`
+      )
+    }
   }
 
   return (
@@ -83,7 +93,7 @@ const LandingSubscriptions = () => {
             {texts.parrafTwo}
           </p>
 
-          <button
+          {/* <button
             type="button"
             className={`button-call ${isComercio ? '' : 'ges'}`}
             id="btn-help-call"
@@ -92,7 +102,7 @@ const LandingSubscriptions = () => {
               window.open(urls.clickHelp, '_blank')
             }}>
             <i></i> {texts.help} {!isComercio && <span>Te llamamos</span>}
-          </button>
+          </button> */}
 
           <div className={isComercio ? 'planes__grid' : 'planes__grid-three'}>
             {items.map((item, order) => (
@@ -116,7 +126,11 @@ const LandingSubscriptions = () => {
                   <button
                     type="button"
                     className="planes__banner-button"
-                    onClick={() => window.open(urls.subsPrint, '_blank')}>
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        window.open(urls.subsPrint, '_blank')
+                      }
+                    }}>
                     {texts.bannerButton}
                   </button>
                 </div>
@@ -147,7 +161,11 @@ const LandingSubscriptions = () => {
             <article
               className="banners__item grid-two-two"
               role="presentation"
-              onClick={() => window.open(urls.bannerCorp[env], '_blank')}>
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.open(urls.bannerCorp[env], '_blank')
+                }
+              }}>
               <div className="banners__content">
                 <h4 className="banners__content-title">
                   {texts.corporativeTitle}
@@ -305,7 +323,7 @@ const LandingSubscriptions = () => {
                         {emails.atencion}
                       </a>
                     </p>
-                    <p>
+                    {/* <p>
                       Pagos pendientes y Facturación:
                       <br />
                       <a
@@ -313,7 +331,7 @@ const LandingSubscriptions = () => {
                         className="footer__content-link">
                         {emails.cobranzas}
                       </a>
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>
@@ -396,15 +414,8 @@ const LandingSubscriptions = () => {
           typeDialog={showTypeLanding} // tipo de modal (students , landing)
           nameDialog={showTypeLanding} // nombre de modal
           onLogged={() => handleAfterLogged()}
-          // onLogged={profile => {
-          //   const conformedProfile = conformProfile(profile)
-          //   dispatchEvent('logged', conformedProfile)
-          //   setProfile(conformedProfile)
-          // }}
-          // onLoggedFail={() => dispatchEvent('loginFailed')}
           onLoggedFail={() => {}}
           onClose={() => {
-            // dispatchEvent('loginCanceled')
             setShowSignwall(false)
             setShowTypeLanding('landing')
             QueryString.deleteQuery('signLanding') // remover queryString signLanding

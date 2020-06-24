@@ -220,7 +220,8 @@ const setupUserProfile = (
                   AfterLoginRegister(
                     EMAIL_USER,
                     typeDialog,
-                    typeForm.provider,
+                    typeForm,
+                    provider,
                     arcSite,
                     onLogged,
                     resProfile,
