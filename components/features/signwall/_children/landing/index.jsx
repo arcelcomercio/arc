@@ -9,6 +9,7 @@ import { FormRegister } from '../forms/form_register'
 import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styled'
 import Cookies from '../../_dependencies/cookies'
 import { Close } from '../iconos'
+import Taggeo from '../../_dependencies/taggeo'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
@@ -20,7 +21,7 @@ const renderTemplate = (template, attributes) => {
 }
 
 export const LandingInt = props => {
-  const { onClose, onLogged, noBtnClose, pathSourcePNG } = props
+  const { onClose, onLogged, noBtnClose, pathSourcePNG, typeDialog } = props
   return (
     <ModalProvider>
       <ModalConsumer>
@@ -32,6 +33,10 @@ export const LandingInt = props => {
                   type="button"
                   onClick={() => {
                     Cookies.deleteCookie('lostEmail')
+                    Taggeo(
+                      `Web_Sign_Wall_${typeDialog}`,
+                      `web_sw${typeDialog[0]}_boton_cerrar`
+                    )
                     if (window.Identity.userProfile) {
                       onLogged(window.Identity.userProfile)
                       onClose()

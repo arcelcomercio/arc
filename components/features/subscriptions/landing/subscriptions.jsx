@@ -53,7 +53,7 @@ const LandingSubscriptions = () => {
       const { firstName, lastName } = window.Identity.userProfile || {}
       setShowProfile(
         `${firstName || 'Bienvenido Usuario'} ${
-          lastName !== 'undefined' ? lastName : '' || ''
+          lastName && lastName !== 'undefined' ? lastName : '' || ''
         }`
       )
     }
@@ -146,7 +146,10 @@ const LandingSubscriptions = () => {
             <article
               className="banners__item grid-two-one"
               role="presentation"
-              onClick={() => handleUniversity()}>
+              onClick={() => {
+                Taggeo(`Web_Sign_Wall_Students`, `web_link_ingresar_cuenta`)
+                handleUniversity()
+              }}>
               <div className="banners__content">
                 <h4 className="banners__content-title">
                   {texts.uniTitle}
