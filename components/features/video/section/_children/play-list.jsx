@@ -8,7 +8,6 @@ export default props => {
     arcSite,
     contextPath,
     deployment,
-    isAdmin,
   } = props
   const Story = new StoryData({
     data: {},
@@ -33,14 +32,10 @@ export default props => {
                   className="play-list__image-box"
                   href={Story.websiteLink}>
                   <img
-                    src={
-                      isAdmin
-                        ? Story.multimediaLandscapeMD
-                        : Story.multimediaLazyDefault
-                    }
-                    data-src={Story.multimediaLandscapeMD}
-                    className={`play-list__image ${isAdmin ? '' : 'lazy'}`}
+                    src={Story.multimediaLandscapeMD}
+                    className="play-list__image"
                     alt={Story.title}
+                    loading="lazy"
                   />
                   {!(
                     Story.videoDuration === '00:00' ||

@@ -13,9 +13,10 @@ const videoListChild = ({
       <picture className="block mb-10 video-list__image-box">
         <a itemProp="url" className="video-list__link" href={websiteLink}>
           <img
-            className="video-list__image object-cover w-full"
+            className="video-list__image object-contain w-full"
             src={multimediaLandscapeMD}
             alt={title}
+            loading="lazy"
           />
           {!(videoDuration === '00:00' || videoDuration === '00:00:00') && (
             <span className="video-list__duration">{videoDuration}</span>
