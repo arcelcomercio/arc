@@ -173,7 +173,9 @@ const StoryHeaderChildSocial = () => {
               )) ||
                 primarySection}
               <StorySocialChildAuthor {...params} />
-              {trustproject && <TProLbl trustproject={trustproject} />}
+              {trustproject && (
+                <TProLbl trustproject={trustproject} plantilla="default" />
+              )}
             </div>
           )}
         <ul className={classes.list}>

@@ -1,8 +1,8 @@
 import React from 'react'
 
-const TProLbl = ({ trustproject }) => {
+const TProLbl = ({ trustproject, plantilla }) => {
   let txt = ''
-  if (trustproject.text !== '' && trustproject.url !== '') {
+  if (trustproject.text !== '') {
     switch (trustproject.url) {
       case 'noticias':
         txt =
@@ -58,11 +58,16 @@ const TProLbl = ({ trustproject }) => {
 
   return (
     <>
-      {txt !== '' ? (
-        <p className="story-header__tooltip">
+      {trustproject.text !== '' ? (
+        <p
+          className={
+            plantilla === 'lite'
+              ? 'st-social__tooltip'
+              : 'story-header__tooltip'
+          }>
           {' '}
           | {trustproject.text}
-          <span>{txt}</span>
+          {txt !== '' ? <span>{txt}</span> : ''}
         </p>
       ) : (
         ''
