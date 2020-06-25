@@ -5,7 +5,7 @@ import { useFusionContext } from 'fusion:context'
 import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
-  image: 'story-content__visual--image w-full ',
+  image: 'story-content__gallery-img w-full ',
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
 
@@ -28,24 +28,17 @@ const StoryHeaderChildPicture = (slide = {}) => {
     <>
       <Static id={slide.i}>
         <picture>
-          <source
-            // className ? '' : 'lazy'}
-            media="(max-width: 320px)"
-            // srcSet ? ... : ...}
-            srcSet={extractImage(slide.url).landscape_md}
-            data-srcset={extractImage(slide.url).landscape_md}
-          />
-          <source
-            // className ? '' : 'lazy'}
-            media="(max-width: 769px)"
-            // srcSet ? ... : ...}
-            srcSet={extractImage(slide.url).story_small}
-            data-srcset={extractImage(slide.url).story_small}
-          />
           <img
-            src={extractImage(slide.url).large}
+            src={slide.defaultImageGallery}
+            data-src={extractImage(slide.url).large}
+            data-srcset={`
+              ${extractImage(slide.url).landscape_md} 360w,
+              ${extractImage(slide.url).story_small} 768w,
+              ${extractImage(slide.url).large} 980w
+            `}
+            sizes='100vw'
             alt={slide.caption || slide.subtitle}
-            className={` ${classes.image}`}
+            className={`lazy ${classes.image}`}
           />
         </picture>
       </Static>

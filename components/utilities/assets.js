@@ -12,12 +12,8 @@ export const getAssetsPath = (arcSite, contextPath) => {
 
 /**
  * @param {object} objeto Propiedades necesarias para armar la URL de la imagen por defecto.
- * @param {function} objeto.deployment Agrega un parámetro al final de la cadena
- * con la versión de deployment. Viene desde Fusion.
  * @param {string} objeto.contextPath Normalmente /pf/. Viene desde fusion.
  * @param {string} objeto.arcSite Identificador del sitio actual. Viene desde fusion.
- * @param {string} [objeto.size=lg] Tamaño de la imagen por defecto. Hay tres opciones
- * 'sm', 'md' y 'lg'. Definido manualmente.
  *
  * @returns {string} URL de la imagen por defecto desde /resources/dist/...
  */
