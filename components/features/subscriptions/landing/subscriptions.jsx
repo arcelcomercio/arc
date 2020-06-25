@@ -48,14 +48,39 @@ const LandingSubscriptions = () => {
     }
   }
 
+  const cleanUserName = (firstName, lastName) => {
+    let fullName = 'Bienvenido Usuario'
+    const badName = /undefined|null/
+    if (
+      firstName &&
+      !firstName.match(badName) &&
+      lastName &&
+      !lastName.match(badName)
+    ) {
+      fullName = `${firstName} ${lastName}`
+    }
+    if (
+      firstName &&
+      !firstName.match(badName) &&
+      (!lastName || lastName.match(badName))
+    ) {
+      fullName = firstName
+    }
+    if (
+      lastName &&
+      !lastName.match(badName) &&
+      (!firstName || firstName.match(badName))
+    ) {
+      fullName = lastName
+    }
+    return fullName.length <= 20 ? fullName : `${fullName.slice(0, 20)}...`
+  }
+
   const handleAfterLogged = () => {
     if (typeof window !== 'undefined') {
       const { firstName, lastName } = window.Identity.userProfile || {}
-      setShowProfile(
-        `${firstName || 'Bienvenido Usuario'} ${
-          lastName && lastName !== 'undefined' ? lastName : '' || ''
-        }`
-      )
+      const newName = cleanUserName(firstName, lastName)
+      setShowProfile(newName)
     }
   }
 
@@ -206,16 +231,14 @@ const LandingSubscriptions = () => {
                         className="button"
                         htmlFor={`tab--${i + 1}`}
                         id={`button--${i + 1}`}>
-                        {item.menu}
+                        {item.title}
                       </label>
                       <div className="display" id={`display--${i + 1}`}>
                         <div className="picture-mobile">
                           <img src={item.image} alt={item.title} />
                         </div>
                         <h2 className="title-mobile">{item.title}</h2>
-                        <p>
-                          <strong>{item.title}</strong> {item.description}
-                        </p>
+                        <p>{item.description}</p>
                       </div>
                     </div>
                   )
@@ -274,10 +297,10 @@ const LandingSubscriptions = () => {
               <a target="_blank" rel="noreferrer" href={urls.preguntas[env]}>
                 Preguntas Frecuentes
               </a>
-              {' o '}
+              {/* {' o '}
               <a target="_blank" rel="noreferrer" href={urls.default}>
                 permítenos llamarte
-              </a>
+              </a> */}
             </p>
           </div>
         </div>
@@ -412,7 +435,7 @@ const LandingSubscriptions = () => {
         <i></i>
       </button>
 
-      {showSignwall && (
+      {QueryString.getQuery('signLanding') || showSignwall ? (
         <Landing
           typeDialog={showTypeLanding} // tipo de modal (students , landing)
           nameDialog={showTypeLanding} // nombre de modal
@@ -421,10 +444,9 @@ const LandingSubscriptions = () => {
           onClose={() => {
             setShowSignwall(false)
             setShowTypeLanding('landing')
-            QueryString.deleteQuery('signLanding') // remover queryString signLanding
           }}
         />
-      )}
+      ) : null}
 
       <script
         type="text/javascript"

@@ -420,6 +420,7 @@ export const ButtonSocial = ({
     const eventer = window[eventMethod]
     const messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message'
     eventer(messageEvent, authSocialProvider)
+    window.console.log(messageEvent)
 
     const width = 780
     const height = 640

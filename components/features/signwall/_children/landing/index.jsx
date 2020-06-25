@@ -10,6 +10,7 @@ import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styled'
 import Cookies from '../../_dependencies/cookies'
 import { Close } from '../iconos'
 import Taggeo from '../../_dependencies/taggeo'
+import QueryString from '../../_dependencies/querystring'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
@@ -17,6 +18,14 @@ const renderTemplate = (template, attributes) => {
     forgot: <FormForgot {...attributes} />,
     register: <FormRegister {...attributes} />,
   }
+
+  if (QueryString.getQuery('signLanding')) {
+    setTimeout(() => {
+      QueryString.deleteQuery('signLanding')
+    }, 1000)
+    return templates.login
+  }
+
   return templates[template] || templates.login
 }
 

@@ -65,32 +65,27 @@ const contextSite = {
 
     benefist: [
       {
-        menu: 'Contenido Premium',
-        title: 'Contenido Premium:',
+        title: 'Contenido Premium',
         image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio1.png?v=08062020',
         description: `Acceso sin límites a información exclusiva: reportajes, informes y la mejor selección de historias elaboradas por El Comercio.`,
       },
       {
-        menu: 'Navegación ilimitada',
-        title: 'Navegación ilimitada:',
+        title: 'Navegación ilimitada',
         image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio2.png?v=08062020',
         description: `Navega sin límites en elcomercio.pe desde todos tus dispositivos: celular, laptop, desktop, tablet o app.`,
       },
       {
-        menu: 'Diario impreso',
-        title: 'Diario impreso:',
+        title: 'Diario impreso',
         image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio3.png?v=08062020',
         description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas.`,
       },
       {
-        menu: 'Beneficios Club',
-        title: 'Beneficios Club:',
+        title: 'Beneficios Club',
         image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio4.png?v=08062020',
         description: `Acceso a cientos de descuentos ilimitados en restaurantes, entretenimiento, educación, viajes y mucho más.`,
       },
       {
-        menu: 'Versión digital',
-        title: 'Versión digital:',
+        title: 'Versión digital',
         image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio5.png?v=08062020',
         description: `Acceso a la versión digital del diario de lunes a domingo desde tu smartphone, tablet o computadora.`,
       },
@@ -111,7 +106,7 @@ const contextSite = {
       }, 
       terminos:   'https://suscripciones.gestion.pe/terminos/',
       politicas:  'https://gestion.pe/politica-de-privacidad/',
-      reclamos:   'http://ecomedia.pe/libro/registrar/gestion/',
+      reclamos:   'http://ecomedia.pe/libro/registrar/elcomercio/',
       appStore:   'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer',
       googlePlay: 'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer',
       bannerCorp: {
@@ -155,39 +150,34 @@ const contextSite = {
 
     benefist: [
       {
-        menu: 'Contenido premium',
-        title: 'Contenido premium:',
+        title: 'Contenido premium',
         image:
           'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio1.png?v=08062020',
         description: `Acceso sin límites a información exclusiva: Análisis e informes exclusivamente desarrollados para gestion.pe, así como la mejor selección de artículos e informes elaborados por The Economist, Diario Gestión y la agencia Bloomberg.`,
       },
       {
-        menu: 'Navegación ilimitada',
-        title: 'Navegación ilimitada:',
+        title: 'Navegación ilimitada',
         image:
           'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio2.png?v=08062020',
-        description: ` Navega sin límites en gestion.pe desde todos tus dispositivos: celular, laptop, desktop, tablet o app.`,
+        description: `Acceso ilimitado a todo el contenido de gestion.pe desde todos tus dispositivos: celular, laptop, desktop, tablet o app.`,
       },
       {
-        menu: 'Diario impreso',
-        title: 'Diario impreso:',
+        title: 'Diario impreso',
         image:
           'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio3.png?v=08062020',
-        description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas.`,
+        description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas. Válido solo para Lima y Callao.`,
       },
       {
-        menu: 'Beneficios Club',
-        title: 'Beneficios Club:',
+        title: 'Versión digital del diario impreso',
+        image:
+          'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio5.png?v=08062020',
+        description: `Acceso a la versión digital del diario de lunes a domingo desde tu smartphone, tablet o computadora.`,
+      },
+      {
+        title: 'Beneficios Club',
         image:
           'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio4.png?v=08062020',
         description: `Acceso a cientos de descuentos ilimitados en restaurantes, entretenimiento, educación, viajes y mucho más.`,
-      },
-      {
-        menu: 'Versión digital',
-        title: 'Versión digital:',
-        image:
-          'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio5.png?v=08062020',
-        description: `Acceso a la versión digital del diario de lunes a domingo desde tu smartphone, tablet o computadora`,
       },
     ],
   },

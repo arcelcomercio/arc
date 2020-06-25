@@ -23,6 +23,34 @@ window.addEventListener('DOMContentLoaded', () => {
     return false
   }
 
+  const cleanUserName = (firstName, lastName) => {
+    let fullName = 'Bienvenido Usuario'
+    const badName = /undefined|null/
+    if (
+      firstName &&
+      !firstName.match(badName) &&
+      lastName &&
+      !lastName.match(badName)
+    ) {
+      fullName = `${firstName} ${lastName}`
+    }
+    if (
+      firstName &&
+      !firstName.match(badName) &&
+      (!lastName || lastName.match(badName))
+    ) {
+      fullName = firstName
+    }
+    if (
+      lastName &&
+      !lastName.match(badName) &&
+      (!firstName || firstName.match(badName))
+    ) {
+      fullName = lastName
+    }
+    return fullName.length <= 20 ? fullName : `${fullName.slice(0, 17)}...`
+  }
+
   function updateBtnSignwall() {
     if (checkSession()) {
       const userInfo =
@@ -30,9 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
         {}
 
       const { firstName, lastName } = userInfo || {}
-      btnSignwall.innerHTML = `${firstName || 'Bienvenido Usuario'} ${
-        lastName && lastName !== 'undefined' ? lastName : '' || ''
-      }`
+      btnSignwall.innerHTML = cleanUserName(firstName, lastName)
     }
   }
 
@@ -144,5 +170,5 @@ window.addEventListener('DOMContentLoaded', () => {
 */
 
 const scriptsLanding =
-  '"use strict";window.addEventListener("DOMContentLoaded",function(){var e=/iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent),t=document.getElementById("btn-arrow-top"),n=document.getElementById("btn-help-call"),o=document.getElementById("btn-signwall"),c=document.querySelectorAll(".tab"),d=document.querySelectorAll(".picture"),i=document.getElementById("beneficios"),r=document.getElementById("video"),s=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"),t=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===t)||!1}return!1};function a(e,t){if(e[0].isIntersecting)for(var n=0;n<c.length;n++){var o=c[n].getAttribute("id");c[n].checked&&document.getElementById("picture--".concat(o)).classList.add("move")}else for(var d=0;d<c.length;d++){var i=c[d].getAttribute("id");c[d].checked&&document.getElementById("picture--".concat(i)).classList.remove("move")}}function l(e,t){e[0].isIntersecting?r.play():r.pause()}window.onscroll=function(){var o,c;o=e?10:60,(document.body.scrollTop||document.documentElement.scrollTop)>o?document.getElementById("header").classList.add("active"):document.getElementById("header").classList.remove("active"),c=document.body.scrollTop||document.documentElement.scrollTop,n&&(c>150?(t.classList.add("active"),n.classList.add("active"),n.classList.contains("ges")&&n.classList.remove("ges")):(t.classList.remove("active"),n.classList.remove("active"),window.location.href.match(/gestion/)&&n.classList.add("ges")))},window.onload=function(){if(function(){if(s()){var e=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}||{},t=e.firstName,n=e.lastName;o.innerHTML="".concat(t||"Bienvenido Usuario"," ").concat(n&&"undefined"!==n?n:"")}}(),t.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),r){new window.IntersectionObserver(l,{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(r)}if(i){new window.IntersectionObserver(a,{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(i)}for(var e=0;e<c.length;e++)c[e].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),n=0;n<d.length;n++)d[n].classList.remove("move");document.getElementById("picture--".concat(t)).classList.add("move")})}});'
+  '"use strict";window.addEventListener("DOMContentLoaded",function(){var e=/iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent),t=document.getElementById("btn-arrow-top"),n=document.getElementById("btn-help-call"),o=document.getElementById("btn-signwall"),c=document.querySelectorAll(".tab"),i=document.querySelectorAll(".picture"),d=document.getElementById("beneficios"),r=document.getElementById("video"),a=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"),t=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===t)||!1}return!1},s=function(e,t){var n="Bienvenido Usuario",o=/undefined|null/;return e&&!e.match(o)&&t&&!t.match(o)&&(n="".concat(e," ").concat(t)),!e||e.match(o)||t&&!t.match(o)||(n=e),!t||t.match(o)||e&&!e.match(o)||(n=t),n.length<=20?n:"".concat(n.slice(0,17),"...")};function l(e,t){if(e[0].isIntersecting)for(var n=0;n<c.length;n++){var o=c[n].getAttribute("id");c[n].checked&&document.getElementById("picture--".concat(o)).classList.add("move")}else for(var i=0;i<c.length;i++){var d=c[i].getAttribute("id");c[i].checked&&document.getElementById("picture--".concat(d)).classList.remove("move")}}function m(e,t){e[0].isIntersecting?r.play():r.pause()}window.onscroll=function(){var o,c;o=e?10:60,(document.body.scrollTop||document.documentElement.scrollTop)>o?document.getElementById("header").classList.add("active"):document.getElementById("header").classList.remove("active"),c=document.body.scrollTop||document.documentElement.scrollTop,n&&(c>150?(t.classList.add("active"),n.classList.add("active"),n.classList.contains("ges")&&n.classList.remove("ges")):(t.classList.remove("active"),n.classList.remove("active"),window.location.href.match(/gestion/)&&n.classList.add("ges")))},window.onload=function(){if(function(){if(a()){var e=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}||{},t=e.firstName,n=e.lastName;o.innerHTML=s(t,n)}}(),t.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),r){new window.IntersectionObserver(m,{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(r)}if(d){new window.IntersectionObserver(l,{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(d)}for(var e=0;e<c.length;e++)c[e].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),n=0;n<i.length;n++)i[n].classList.remove("move");document.getElementById("picture--".concat(t)).classList.add("move")})}});'
 export default scriptsLanding

@@ -12,11 +12,7 @@ function Cards({ item, arcSite, order, textOffer }) {
     features,
     sku,
     price: { amount, currency },
-    detail: {
-      // frequency,
-      duration,
-      aditional,
-    },
+    detail: { frequency, duration, aditional },
   } = item
   const showFree = amount === 0
   const isComercio = arcSite === 'elcomercio'
@@ -58,7 +54,6 @@ function Cards({ item, arcSite, order, textOffer }) {
           {recommended && (
             <div className="planes__content-discount-mobile">{textOffer}</div>
           )}
-
           <h3 className="planes__content-title-mobile">
             <strong>
               {`${title} `}
@@ -66,7 +61,8 @@ function Cards({ item, arcSite, order, textOffer }) {
             </strong>
           </h3>
           <strong className="planes__content-price">
-            {showFree ? 'Gratis' : `${currency} ${amount}`}
+            {showFree ? 'Gratis' : `${currency} ${amount}`}{' '}
+            <span>{frequency}</span>
           </strong>
           <p className="planes__content-duration">
             {duration !== '' ? duration : '-'}
