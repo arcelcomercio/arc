@@ -31,6 +31,7 @@ import './images/logo-elcomercio.jpg'
 import './images/signwall/paywall_bg.jpg'
 import './images/signwall/logo_elcomercio.png'
 import './images/signwall/bg_login.jpg'
+import './images/signwall/bg_students.jpg'
 
 /** Fonts & icons */
 import './icons/fonts/default.woff'
