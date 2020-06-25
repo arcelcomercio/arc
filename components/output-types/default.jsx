@@ -103,9 +103,9 @@ export default ({
 
   const getPushud = () => {
     let pushud = ""
-    let idPushud = ""
+    let idPushud = "41308"
     if (arcSite === 'peru21') {
-      pushud = '41308'
+      idPushud = '41308'
     }else if (arcSite === 'depor') {
       idPushud = '41272'
     }else if (arcSite === 'elbocon') {
