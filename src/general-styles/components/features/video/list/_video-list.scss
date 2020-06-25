@@ -22,7 +22,10 @@
     height: 100%;
     min-height: 127px;
     @media (--tablet) {
-      max-height: 157px;
+      max-height: 186px;
+    }
+    @media (--desktop) {
+      max-height: 150px;
     }
   }
   &__link {

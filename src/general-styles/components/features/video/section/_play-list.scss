@@ -42,6 +42,9 @@
     object-position: center;
     position: relative;
     @media (--tablet) {
+      max-height: 186px;
+    }
+    @media (--desktop) {
       max-height: 150px;
     }
   }
