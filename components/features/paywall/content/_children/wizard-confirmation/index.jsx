@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable no-extra-boolean-cast */
 /* global Identity fbq dataLayer navigator */
 import React, { useEffect } from 'react'
@@ -73,11 +74,11 @@ const WizardConfirmation = props => {
     OneTime: 'Mensual',
   }
 
-  const Period = {
-    Month: msgs.monthlyPeriod,
-    Year: msgs.yearlyPeriod,
-    OneTime: '',
-  }
+  // const Period = {
+  //   Month: msgs.monthlyPeriod,
+  //   Year: msgs.yearlyPeriod,
+  //   OneTime: '',
+  // }
 
   useEffect(() => {
     PWA.finalize()
@@ -248,10 +249,15 @@ const WizardConfirmation = props => {
                   </strong>
                   <strong>{`${paidTotal !== 0 ? paidTotal : ''} `}</strong>
 
-                  {paidTotal !== 0
+                  {// prettier-ignore
+                  paidTotal !== 0
+                  ? `/ ${description.cart ? description.cart : `${description.title || ''}. ${description.description || ''}`}`
+                  : `/ ${description.title || ''}. ${description.description || ''}`}
+
+                  {/* {paidTotal !== 0
                     ? `${description.cart || ''}`
                     : `${description.title || ''}. ${description.description ||
-                        ''}`}
+                        ''}`} */}
                 </S.Item>
 
                 <S.Small>{msgs.paymentNotice}</S.Small>
