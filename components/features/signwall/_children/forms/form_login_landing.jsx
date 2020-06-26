@@ -11,6 +11,7 @@ import useForm from '../../_dependencies/useForm'
 import getCodeError from '../../_dependencies/codes_error'
 import Domains from '../../_dependencies/domains'
 import Cookies from '../../_dependencies/cookies'
+import Taggeo from '../../_dependencies/taggeo'
 
 export const FormLoginPaywall = props => {
   const {
@@ -59,6 +60,10 @@ export const FormLoginPaywall = props => {
     window.Identity.getUserProfile().then(profile => {
       Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
       onLogged(profile) // para hendrul
+      Taggeo(
+        `Web_Sign_Wall_${typeDialog}`,
+        `web_sw${typeDialog[0]}_login_success_ingresar`
+      )
       if (typeDialog === 'students') {
         setShowStudents(!showStudents)
       } else {
@@ -69,6 +74,10 @@ export const FormLoginPaywall = props => {
 
   const onSubmitForm = state => {
     const { lemail, lpass } = state
+    Taggeo(
+      `Web_Sign_Wall_${typeDialog}`,
+      `web_sw${typeDialog[0]}_login_boton_ingresar`
+    )
     setShowLoading(true)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.login(lemail, lpass, {
@@ -82,6 +91,10 @@ export const FormLoginPaywall = props => {
         setShowError(getCodeError(errLogin.code))
         onLoggedFail(errLogin) // para hendrul
         Cookies.setCookie('lostEmail', lemail, 1)
+        Taggeo(
+          `Web_Sign_Wall_${typeDialog}`,
+          `web_sw${typeDialog[0]}_login_error_ingresar`
+        )
       })
       .finally(() => {
         setShowLoading(false)
@@ -89,10 +102,14 @@ export const FormLoginPaywall = props => {
   }
 
   const isLogged = () => {
-    return (
-      window.localStorage.hasOwnProperty('ArcId.USER_INFO') &&
-      window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
-    )
+    if (typeof window !== 'undefined') {
+      return (
+        // eslint-disable-next-line no-prototype-builtins
+        window.localStorage.hasOwnProperty('ArcId.USER_INFO') &&
+        window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
+      )
+    }
+    return false
   }
 
   const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
@@ -176,7 +193,14 @@ export const FormLoginPaywall = props => {
               <S.Link
                 c="light"
                 className="mt-10 mb-20 inline f-right text-sm"
-                onClick={() => value.changeTemplate('forgot')}>
+                onClick={e => {
+                  e.preventDefault()
+                  Taggeo(
+                    `Web_Sign_Wall_${typeDialog}`,
+                    `web_sw${typeDialog[0]}_contrasena_link_olvide`
+                  )
+                  value.changeTemplate('forgot')
+                }}>
                 Olvidé mi contraseña
               </S.Link>
 
@@ -190,7 +214,14 @@ export const FormLoginPaywall = props => {
                   c={mainColorLink}
                   fw="bold"
                   className="ml-10"
-                  onClick={() => value.changeTemplate('register')}>
+                  onClick={e => {
+                    e.preventDefault()
+                    Taggeo(
+                      `Web_Sign_Wall_${typeDialog}`,
+                      `web_sw${typeDialog[0]}_login_boton_registrate`
+                    )
+                    value.changeTemplate('register')
+                  }}>
                   Regístrate
                 </S.Link>
               </S.Text>
