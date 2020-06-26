@@ -19,7 +19,14 @@
     }
   }
   &__image {
-    height: 142px;
+    height: 100%;
+    min-height: 127px;
+    @media (--tablet) {
+      max-height: 186px;
+    }
+    @media (--desktop) {
+      max-height: 150px;
+    }
   }
   &__link {
     display: block;

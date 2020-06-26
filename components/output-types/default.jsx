@@ -316,7 +316,7 @@ export default ({
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
-  const stylePwa = `.powa-shot{position:absolute;color:#f0f8ff;font-family:HelveticaNeue,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;z-index:1;width:100%;height:100%;top:0;left:0}.powa-shot-image{position:absolute;width:100%;height:100%;overflow:hidden;background-size:cover;background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:space-around}.powa-shot-play-btn{position:absolute;bottom:30px;left:30px}.powa-play-btn{transform:inherit}.powa-default{background-color:#000;height:345px}@media only screen and (max-width:600px){.powa-default{height:157px}}`
+  const stylePwa = `.powa-shot{position:absolute;color:#f0f8ff;font-family:HelveticaNeue,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;z-index:1;width:100%;height:100%;top:0;left:0}.powa-shot-image{position:absolute;width:100%;height:100%;overflow:hidden;background-size:contain;background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:space-around}.powa-shot-play-btn{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%)}.powa-play-btn{transform:inherit}.powa-default{background-color:#000;height:345px}@media only screen and (max-width:600px){.powa-default{height:157px}}`
 
   let style = 'style'
   if (
