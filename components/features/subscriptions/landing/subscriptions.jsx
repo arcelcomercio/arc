@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { useState } from 'react'
 import ENV from 'fusion:environment'
+import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
 import stylesLanding from '../_dependencies/styles-landing'
@@ -10,15 +11,23 @@ import { Landing } from '../../signwall/_children/landing/index'
 import Cards from '../_children/cards'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
+import { getUserName, isLogged } from '../_dependencies/useUser'
 
 const LandingSubscriptions = () => {
-  const { arcSite, globalContent: items = [] } = useFusionContext() || {}
+  const {
+    arcSite,
+    globalContent: items = [],
+    customFields: { bannerUniComercio = false, bannerUniGestion = false } = {},
+  } = useFusionContext() || {}
+
   const { urls, emails, texts, benefist = [] } = contextSite[arcSite]
   const isComercio = arcSite === 'elcomercio'
   const [showSignwall, setShowSignwall] = useState(false)
   const [showTypeLanding, setShowTypeLanding] = useState('landing')
   const [showProfile, setShowProfile] = useState(false)
   const env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const bannerUniv =
+    (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
 
   const handleUniversity = () => {
     setShowTypeLanding('students')
@@ -27,59 +36,25 @@ const LandingSubscriptions = () => {
 
   const handleSignwall = () => {
     if (typeof window !== 'undefined') {
-      const Logged =
-        // eslint-disable-next-line no-prototype-builtins
-        window.localStorage.hasOwnProperty('ArcId.USER_INFO') &&
-        window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
-
       Taggeo(
         `Web_Sign_Wall_Suscripciones`,
-        `web_link_ingresar_${Logged ? 'perfil' : 'cuenta'}`
+        `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
       )
-
-      if (Logged) {
+      if (isLogged()) {
         window.location.href = urls.profile[env]
       } else {
         setShowSignwall(!showSignwall)
-        // etShowProfile('Inicia sesión')
+        // setShowProfile('Inicia sesión')
         document.getElementById('btn-signwall').innerHTML = 'Inicia sesión'
         window.Identity.clearSession()
       }
     }
   }
 
-  const cleanUserName = (firstName, lastName) => {
-    let fullName = 'Bienvenido Usuario'
-    const badName = /undefined|null/
-    if (
-      firstName &&
-      !firstName.match(badName) &&
-      lastName &&
-      !lastName.match(badName)
-    ) {
-      fullName = `${firstName} ${lastName}`
-    }
-    if (
-      firstName &&
-      !firstName.match(badName) &&
-      (!lastName || lastName.match(badName))
-    ) {
-      fullName = firstName
-    }
-    if (
-      lastName &&
-      !lastName.match(badName) &&
-      (!firstName || firstName.match(badName))
-    ) {
-      fullName = lastName
-    }
-    return fullName.length <= 20 ? fullName : `${fullName.slice(0, 20)}...`
-  }
-
   const handleAfterLogged = () => {
     if (typeof window !== 'undefined') {
       const { firstName, lastName } = window.Identity.userProfile || {}
-      const newName = cleanUserName(firstName, lastName)
+      const newName = getUserName(firstName, lastName)
       setShowProfile(newName)
     }
   }
@@ -167,27 +142,32 @@ const LandingSubscriptions = () => {
 
       <section className="banners">
         <div className={isComercio ? 'wrapper' : 'wrapper-medium'}>
-          <div className="banners__grid">
-            <article
-              className="banners__item grid-two-one"
-              role="presentation"
-              onClick={() => {
-                Taggeo(`Web_Sign_Wall_Students`, `web_link_ingresar_cuenta`)
-                handleUniversity()
-              }}>
-              <div className="banners__content">
-                <h4 className="banners__content-title">
-                  {texts.uniTitle}
-                  <small>{texts.bannerNew}</small>
-                </h4>
-                <p className="banners__content-description">
-                  {texts.uniDescription}
-                </p>
-              </div>
-            </article>
+          <div
+            className={`banners__grid ${!bannerUniv && 'banners__grid-one'}`}>
+            {bannerUniv && (
+              <article
+                className="banners__item grid-two-one"
+                role="presentation"
+                onClick={() => {
+                  Taggeo(`Web_Sign_Wall_Students`, `web_link_ingresar_cuenta`)
+                  handleUniversity()
+                }}>
+                <div className="banners__content">
+                  <h4 className="banners__content-title">
+                    {texts.uniTitle}
+                    <small>{texts.bannerNew}</small>
+                  </h4>
+                  <p className="banners__content-description">
+                    {texts.uniDescription}
+                  </p>
+                </div>
+              </article>
+            )}
 
             <article
-              className="banners__item grid-two-two"
+              className={`banners__item ${
+                bannerUniv ? 'grid-two-two' : 'banners__item-one'
+              }`}
               role="presentation"
               onClick={() => {
                 if (typeof window !== 'undefined') {
@@ -374,7 +354,7 @@ const LandingSubscriptions = () => {
                         rel="noreferrer"
                         className="footer__content-link">
                         Términos y Condiciones
-                        <span>(Actualizado al 2019)</span>
+                        {/* <span>(Actualizado al 2019)</span> */}
                       </a>
                     </p>
                     <p>
@@ -384,7 +364,7 @@ const LandingSubscriptions = () => {
                         rel="noreferrer"
                         className="footer__content-link">
                         Política de Privacidad
-                        <span>(Actualizado al 2019)</span>
+                        {/* <span>(Actualizado al 2019)</span> */}
                       </a>
                     </p>
                     <p>
@@ -435,7 +415,9 @@ const LandingSubscriptions = () => {
         <i></i>
       </button>
 
-      {QueryString.getQuery('signLanding') || showSignwall ? (
+      {QueryString.getQuery('signLanding') ||
+      QueryString.getQuery('signStudents') ||
+      showSignwall ? (
         <Landing
           typeDialog={showTypeLanding} // tipo de modal (students , landing)
           nameDialog={showTypeLanding} // nombre de modal
@@ -459,6 +441,21 @@ const LandingSubscriptions = () => {
       />
     </>
   )
+}
+
+LandingSubscriptions.propTypes = {
+  customFields: PropTypes.shape({
+    bannerUniComercio: PropTypes.bool.tag({
+      name: 'Banner Univ. El Comercio',
+      defaultValue: false,
+      description: 'Mostrar/Ocultar Banner Universitario El Comercio.',
+    }),
+    bannerUniGestion: PropTypes.bool.tag({
+      name: 'Banner Univ. Gestión',
+      defaultValue: false,
+      description: 'Mostrar/Ocultar Banner Universitario Gestíon.',
+    }),
+  }),
 }
 
 export default LandingSubscriptions

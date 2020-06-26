@@ -46,7 +46,7 @@ function Cards({ item, arcSite, order, textOffer }) {
         <div className="cont-left">
           <img
             className="planes__content-picture"
-            src={`https://perufront.com/web-paywall-2020/images/${arcSite}/plan_${itemGrid[order]}.png?v=08062020`}
+            src={`https://cdna.${arcSite}.pe/resources/dist/${arcSite}/images/landing/plan_${itemGrid[order]}.png`}
             alt={title}
           />
         </div>
@@ -61,14 +61,14 @@ function Cards({ item, arcSite, order, textOffer }) {
             </strong>
           </h3>
           <strong className="planes__content-price">
-            {showFree ? 'Gratis' : `${currency} ${amount}`}{' '}
-            <span>{frequency}</span>
+            {showFree ? 'Gratis' : `${currency} ${amount}`}
+            <span>{frequency || ''}</span>
           </strong>
           <p className="planes__content-duration">
-            {duration !== '' ? duration : '-'}
+            {duration !== '' && duration}
           </p>
           <small className="planes__content-after">
-            {aditional !== '' ? aditional : '-'}
+            {aditional !== '' && aditional}
           </small>
         </div>
         <div className="planes__content-accordion">

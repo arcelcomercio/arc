@@ -19,9 +19,13 @@ const renderTemplate = (template, attributes) => {
     register: <FormRegister {...attributes} />,
   }
 
-  if (QueryString.getQuery('signLanding')) {
+  if (
+    QueryString.getQuery('signLanding') ||
+    QueryString.getQuery('signStudents')
+  ) {
     setTimeout(() => {
       QueryString.deleteQuery('signLanding')
+      QueryString.deleteQuery('signStudents')
     }, 1000)
     return templates.login
   }

@@ -39,10 +39,10 @@ const contextSite = {
       parrafTwo: 'reportajes, informes y la mejor selección de noticias e historias elaboradas por El Comercio.',
       help: '¿Necesitas ayuda?',
 
-      offer: 'Ahorra hasta 20%',
+      offer: '¡Recomendado!',
 
       bannerTitle: 'Suscripciones impresas',
-      bannerText: 'Recibe la mejor información todos los días a tu puerta.',
+      bannerText: 'Recibe la mejor información todos los días en la puerta de tu casa.',
       bannerButton: 'Conocer más',
 
       footerEnd: 'Paquetes que incluyen diario impreso, disponibles sólo para Lima y Callao',
@@ -56,7 +56,7 @@ const contextSite = {
 
       helpTitle: '¿Necesitas ayuda o tienes dudas?',
       helpSubstitle: 'Comunícate con nosotros',
-      helpDescription: 'Consulta nuestras sección de',
+      helpDescription: 'Consulta nuestra sección de',
 
       videoTitle: 'Periodismo independiente y veraz, todos los días',
       videoSubtitle: 'Trabajamos para mantenerte informado e inspirado. Te contamos cómo lo hacemos.',
@@ -66,29 +66,30 @@ const contextSite = {
     benefist: [
       {
         title: 'Contenido Premium',
-        image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio1.png?v=08062020',
+        image: 'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/beneficios/beneficio1.png',
         description: `Acceso sin límites a información exclusiva: reportajes, informes y la mejor selección de historias elaboradas por El Comercio.`,
       },
       {
         title: 'Navegación ilimitada',
-        image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio2.png?v=08062020',
+        image: 'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/beneficios/beneficio2.png',
         description: `Navega sin límites en elcomercio.pe desde todos tus dispositivos: celular, laptop, desktop, tablet o app.`,
       },
       {
         title: 'Diario impreso',
-        image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio3.png?v=08062020',
+        image: 'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/beneficios/beneficio3.png',
         description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas.`,
       },
       {
-        title: 'Beneficios Club',
-        image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio4.png?v=08062020',
-        description: `Acceso a cientos de descuentos ilimitados en restaurantes, entretenimiento, educación, viajes y mucho más.`,
-      },
-      {
-        title: 'Versión digital',
-        image: 'https://perufront.com/web-paywall-2020/images/elcomercio/beneficios/beneficio5.png?v=08062020',
+        title: 'Versión digital del impreso',
+        image: 'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/beneficios/beneficio5.png',
         description: `Acceso a la versión digital del diario de lunes a domingo desde tu smartphone, tablet o computadora.`,
       },
+      {
+        title: 'Beneficios Club',
+        image: 'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/beneficios/beneficio4.png',
+        description: `Acceso a cientos de descuentos ilimitados en restaurantes, entretenimiento, educación, viajes y mucho más.`,
+      },
+      
     ]
   },
 
@@ -133,7 +134,7 @@ const contextSite = {
       offer: '¡Recomendado!',
 
       footerEnd:
-        'Paquetes que incluyen diario impreso, disponibles sólo para Lima y Callao',
+        'Paquetes que incluyen diario impreso, disponibles sólo para Lima.',
 
       bannerNew: '¡Nuevo!',
       uniTitle: 'Plan Universitario',
@@ -145,38 +146,38 @@ const contextSite = {
 
       helpTitle: '¿Necesitas ayuda o tienes dudas?',
       helpSubstitle: 'Comunícate con nosotros',
-      helpDescription: 'Consulta nuestras sección de',
+      helpDescription: 'Consulta nuestra sección de',
     },
 
     benefist: [
       {
         title: 'Contenido premium',
         image:
-          'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio1.png?v=08062020',
+          'https://cdna.gestion.pe/resources/dist/gestion/images/landing/beneficios/beneficio1.png',
         description: `Acceso sin límites a información exclusiva: Análisis e informes exclusivamente desarrollados para gestion.pe, así como la mejor selección de artículos e informes elaborados por The Economist, Diario Gestión y la agencia Bloomberg.`,
       },
       {
         title: 'Navegación ilimitada',
         image:
-          'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio2.png?v=08062020',
+          'https://cdna.gestion.pe/resources/dist/gestion/images/landing/beneficios/beneficio2.png',
         description: `Acceso ilimitado a todo el contenido de gestion.pe desde todos tus dispositivos: celular, laptop, desktop, tablet o app.`,
       },
       {
         title: 'Diario impreso',
         image:
-          'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio3.png?v=08062020',
-        description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas. Válido solo para Lima y Callao.`,
+          'https://cdna.gestion.pe/resources/dist/gestion/images/landing/beneficios/beneficio3.png',
+        description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas. Válido solo para Lima.`,
       },
       {
-        title: 'Versión digital del diario impreso',
+        title: 'Versión digital del impreso',
         image:
-          'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio5.png?v=08062020',
+          'https://cdna.gestion.pe/resources/dist/gestion/images/landing/beneficios/beneficio5.png',
         description: `Acceso a la versión digital del diario de lunes a domingo desde tu smartphone, tablet o computadora.`,
       },
       {
         title: 'Beneficios Club',
         image:
-          'https://perufront.com/web-paywall-2020/images/gestion/beneficios/beneficio4.png?v=08062020',
+          'https://cdna.gestion.pe/resources/dist/gestion/images/landing/beneficios/beneficio4.png',
         description: `Acceso a cientos de descuentos ilimitados en restaurantes, entretenimiento, educación, viajes y mucho más.`,
       },
     ],
