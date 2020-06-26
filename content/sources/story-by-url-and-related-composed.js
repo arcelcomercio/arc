@@ -33,9 +33,9 @@ const options = {
   },
 }
 
-const transformImg = data => {
+const transformImg = (data, { 'arc-site': arcSite }) => {
   const storyData = data
-  const { resizerUrl } = getProperties(data.website)
+  const { resizerUrl } = getProperties(arcSite)
   if (storyData.related_content && storyData.related_content.basic)
     storyData.related_content.basic = addResizedUrlsToStory(
       storyData.related_content.basic,
@@ -55,7 +55,7 @@ const fetch = ({
   url_prefix: urlPrefix,
   'arc-site': website,
 } = {}) => {
-  const websiteUrl = `${urlPrefix === null ? '' : urlPrefix}${rawWebsiteUrl}`
+  const websiteUrl = `${!urlPrefix ? '' : urlPrefix}${rawWebsiteUrl}`
   if (!websiteUrl) {
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
   }
