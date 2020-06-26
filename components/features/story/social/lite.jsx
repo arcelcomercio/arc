@@ -6,7 +6,7 @@ import TProLbl from './_children/trustprojectlabel'
 
 const classes = {
   container: 'st-social f',
-  upsection: 'st-social__tooltdiv',
+  upsection: 'st-social__tooltdiv uppercase',
   section: 'st-social__txt f f-center oflow-h uppercase',
   sectionLink: 'st-social__link oflow-h',
   buttons: 'st-social__share',
