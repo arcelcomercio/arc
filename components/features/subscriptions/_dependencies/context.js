@@ -3,7 +3,7 @@ const contextSite = {
   elcomercio: {
     urls: {
       default:    '#',
-      homeUrl:    'https://elcomercio.pe/',
+      homeUrl:    'https://elcomercio.pe/?ref=paywall',
       facebook:   'https://www.facebook.com/elcomercio.pe',
       twitter:    'https://twitter.com/elcomercio_peru',
       instangram: 'https://www.instagram.com/elcomercio/',
@@ -97,7 +97,7 @@ const contextSite = {
     // prettier-ignore
     urls: {
       default:    '#',
-      homeUrl:    'https://gestion.pe/',
+      homeUrl:    'https://gestion.pe/?ref=paywall',
       facebook:   'https://www.facebook.com/Gestionpe',
       twitter:    'https://twitter.com/gestionpe',
       instangram: 'https://www.instagram.com/diariogestion/?hl=es',
