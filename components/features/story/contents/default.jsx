@@ -7,7 +7,7 @@ import ArcStoryContent, {
 
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
