@@ -9,6 +9,7 @@ import {
   SPECIAL_BASIC,
 } from '../../../../utilities/constants/subtypes'
 import StorySocialChildAuthor from './author'
+import TProLbl from './trustprojectlabel'
 
 const classes = {
   news:
@@ -75,8 +76,11 @@ const socialMediaUrlShareList = (
 
 const StoryHeaderChildSocial = () => {
   const { globalContent, arcSite, contextPath } = useFusionContext()
-  const { website_url: postPermaLink, headlines: { basic: postTitle } = {} } =
-    globalContent || {}
+  const {
+    website_url: postPermaLink,
+    headlines: { basic: postTitle } = {},
+    label: { trustproject } = {},
+  } = globalContent || {}
 
   const {
     social: { twitter: { user: siteNameRedSocial } = {} } = {},
@@ -169,6 +173,9 @@ const StoryHeaderChildSocial = () => {
               )) ||
                 primarySection}
               <StorySocialChildAuthor {...params} />
+              {trustproject && (
+                <TProLbl trustproject={trustproject} plantilla="default" />
+              )}
             </div>
           )}
         <ul className={classes.list}>

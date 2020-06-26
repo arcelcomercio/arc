@@ -174,6 +174,10 @@ label{
     text
     url
   }
+  trustproject{
+    text
+    url
+  }
 }
 content_restrictions{
   content_code

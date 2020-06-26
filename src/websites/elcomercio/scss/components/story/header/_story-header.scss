@@ -14,6 +14,34 @@
       font-size: 40px;
     }
   }
+  &__tooltip {
+    font-family: $primary-font;
+    font-size: 18px;
+    position: relative;
+    color: #6d6d66;
+    display: inline;
+    & span {
+      display: none;
+    }
+    &:hover span {
+      position: absolute;
+      top: 30px;
+      font-size: 15px;
+      left: 0;
+      display: block;
+      width: 315px;
+      color: #404040;
+      background-color: #fff;
+      border: 1px solid #d7d7d7;
+      padding: 15px;
+      text-transform: none;
+      line-height: 22px;
+      @media (--only-mobile) {
+        width: 215px;
+      }
+    }
+  }
+
   &__icon {
     color: $color-gray-300;
   }
