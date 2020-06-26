@@ -23,7 +23,7 @@ const HeaderSectionTitle = ({
         path: primarySectionLink = '/',
       } = {},
     } = {},
-  } = globalContent
+  } = globalContent || {}
 
   const title = section || primarySection
   const link = sectionUrl || primarySectionLink
