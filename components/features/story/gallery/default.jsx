@@ -9,7 +9,7 @@ import {
   SPECIAL_BASIC,
 } from '../../../utilities/constants/subtypes'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
-import { getAssetsPath } from '../../../utilities/constants'
+import { defaultImage } from '../../../utilities/assets'
 
 import StoryGalleryChildGallerySlider from './_children/gallery-slider'
 import StoryGalleryChildGallery from './_children/gallery'
@@ -24,19 +24,10 @@ const classes = {
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 
-// Funcion extraida de Helpers
-export const defaultImage = ({ contextPath, arcSite }) => {
-  return `${getAssetsPath(
-    arcSite,
-    contextPath
-  )}/resources/dist/${arcSite}/images/default-md.png?d=2`
-}
-
 const StoryGallery = () => {
   const {
     arcSite,
     contextPath,
-    deployment,
     globalContent: data,
     isAdmin,
     siteProperties: { siteUrl },
@@ -60,10 +51,8 @@ const StoryGallery = () => {
   })
 
   const defaultImageGallery = defaultImage({
-    deployment,
     contextPath,
     arcSite,
-    size: 'lg',
   })
 
   const parameters = {
