@@ -220,7 +220,8 @@ const setupUserProfile = (
                   AfterLoginRegister(
                     EMAIL_USER,
                     typeDialog,
-                    typeForm.provider,
+                    typeForm,
+                    provider,
                     arcSite,
                     onLogged,
                     resProfile,
@@ -354,6 +355,8 @@ export const ButtonSocial = ({
         return 'signFia'
       case 'newsletter':
         return 'signNewsletters'
+      case 'students':
+        return 'signStudents'
       default:
         return typeDialog
     }
@@ -420,6 +423,10 @@ export const ButtonSocial = ({
     const messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message'
     eventer(messageEvent, authSocialProvider)
 
+    const isFbBrowser =
+      window.navigator.userAgent.indexOf('FBAN') > -1 ||
+      window.navigator.userAgent.indexOf('FBAV') > -1
+
     const width = 780
     const height = 640
     const left = window.screen.width / 2 - 800 / 2
@@ -446,7 +453,8 @@ export const ButtonSocial = ({
 
     if (brandCurrent === 'google') return URLWindow()
 
-    return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
+    // return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
+    return isFbBrowser ? URLRedirect() : URLWindow()
   }
 
   return (
@@ -500,6 +508,7 @@ export const AuthURL = ({
       'signLanding',
       'signFia',
       'signNewsletters',
+      'signStudents',
     ]
 
     listUrlRedirect.map(item => {
