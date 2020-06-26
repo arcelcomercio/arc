@@ -11,6 +11,7 @@ import { getAssetsPath } from '../../../utilities/assets'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
+  SITE_ELBOCON,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -189,10 +190,6 @@ class StoryContents extends PureComponent {
               )}
 
           <StoryContentsChildAuthor {...params} />
-
-          {isJwVideo === true && (
-            <script src="https://cdn.jwplayer.com/players/IxomITB6-BHYH7DVh.js?search=__CONTEXTUAL__"></script>
-          )}
 
           <Ads
             adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
@@ -504,6 +501,9 @@ class StoryContents extends PureComponent {
               defer
             />
           </>
+        )}
+        {arcSite === SITE_ELBOCON && isJwVideo === true && (
+          <script src="https://cdn.jwplayer.com/players/IxomITB6-BHYH7DVh.js?search=__CONTEXTUAL__"></script>
         )}
       </>
     )
