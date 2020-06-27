@@ -1,8 +1,18 @@
 import React from 'react'
-import { getIcon } from '../../../../utilities/helpers'
 import UtilListKey from '../../../../utilities/list-keys'
-import ConfigParams from '../../../../utilities/config-params'
+import { IMAGE } from '../../../../utilities/constants/multimedia-types'
 import DataStory from '../../../../utilities/story-data'
+
+const getIcon = type => {
+  switch (type) {
+    case 'basic_gallery':
+      return 'img'
+    case 'basic_video':
+      return 'video'
+    default:
+      return ''
+  }
+}
 
 // Basic flex stuff
 const classes = {
@@ -75,7 +85,7 @@ const RenderRelatedContentElement = (props, i, isAmp) => {
             />
           )}
 
-          {filterData.multimediaType === ConfigParams.IMAGE ||
+          {filterData.multimediaType === IMAGE ||
           filterData.multimediaType === '' ? (
             ''
           ) : (

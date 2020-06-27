@@ -1,6 +1,6 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStories, sizeImg } from '../../components/utilities/resizer'
+import { addResizedUrlsToStories } from '../../components/utilities/resizer'
 
 const schemaName = 'story'
 
@@ -51,7 +51,6 @@ const transform = (data, { 'arc-site': website, presets }) => {
   if (data.type === 'redirect' || presets === 'no-presets') return data
 
   const { promo_items: { basic_gallery: basicGallery } = {} } = data
-  const defaultPresets = sizeImg()
   let dataStory = data || {}
 
   if (basicGallery && basicGallery.promo_items) {
@@ -63,14 +62,7 @@ const transform = (data, { 'arc-site': website, presets }) => {
   ;[dataStory] = transformImg({
     contentElements: [dataStory],
     website,
-    presets:
-      presets ||
-      Object.keys(defaultPresets)
-        .map(
-          res =>
-            `${res}:${defaultPresets[res].width}x${defaultPresets[res].height}`
-        )
-        .join(','),
+    presets,
   })
 
   return { ...dataStory }

@@ -15,7 +15,6 @@ import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
-// import StoryContentChildRelated from './_children/related'
 import StoryData from '../../../utilities/story-data'
 import {
   replaceTags,
@@ -246,7 +245,7 @@ class StoryContentAmp extends PureComponent {
                       url={
                         getResizedUrl({
                           url: element.url,
-                          presets: 'large:400x',
+                          presets: 'large:400x0',
                           arcSite,
                         }).large || {}
                       }
@@ -270,7 +269,7 @@ class StoryContentAmp extends PureComponent {
                           url={
                             getResizedUrl({
                               url: customEmbedConfig.photo,
-                              presets: 'large:400x',
+                              presets: 'large:400x0',
                               arcSite,
                             }).large || {}
                           }

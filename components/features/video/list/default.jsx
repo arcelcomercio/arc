@@ -7,6 +7,9 @@ import StoryData from '../../../utilities/story-data'
 import Spinner from '../../../global-components/spinner'
 import { includePrimarySection } from '../../../utilities/included-fields'
 
+const source = 'story-feed-by-section'
+const presets = 'landscape_md:314x0'
+
 @Consumer
 class VideoList extends PureComponent {
   constructor(props) {
@@ -64,12 +67,12 @@ class VideoList extends PureComponent {
     } = this.props
     this.fetchContent({
       dataList: {
-        source: 'story-feed-by-section',
+        source,
         query: {
           section,
           feedOffset: offSetNote,
           stories_qty: quantyStory,
-          presets: 'landscape_md:314x157',
+          presets,
           includedFields: this.includedFields(arcSite),
         },
         filter: SchemaFilter(arcSite),
@@ -85,12 +88,12 @@ class VideoList extends PureComponent {
 
     this.fetchContent({
       dataList: {
-        source: 'story-feed-by-section',
+        source,
         query: {
           section,
           feedOffset: next,
           stories_qty: 16,
-          presets: 'landscape_md:314x157',
+          presets,
           includedFields: this.includedFields(arcSite),
         },
         filter: SchemaFilter(arcSite),

@@ -126,7 +126,7 @@ const SectionVideo = props => {
     section = removeLastSlash(primarySectionLink)
   }
 
-  const presets = 'landscape_md:314x157'
+  const presets = 'landscape_md:314x0'
 
   const playListVideo = (offset = 0) => {
     const fetchPlayList =

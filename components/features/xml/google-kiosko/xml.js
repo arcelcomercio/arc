@@ -9,7 +9,7 @@ import {
   includePromoItemsCaptions,
   includeGalleryUrls,
 } from '../../../utilities/included-fields'
-import { sizeImg } from '../../../utilities/resizer'
+import { sizeImg } from '../../../utilities/resizer/image-presets'
 
 const SOURCE = 'story-feed-by-section'
 const IMAGE_SIZE = 'amp_new'

@@ -135,7 +135,6 @@ export default ({
     arcSite,
     contextPath,
     deployment,
-    isAdmin,
   }
 
   let htmlVideo

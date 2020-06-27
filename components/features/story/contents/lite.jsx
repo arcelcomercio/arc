@@ -7,7 +7,7 @@ import ArcStoryContent, {
 
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
@@ -30,7 +30,6 @@ import {
   ELEMENT_VIDEO,
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
-  ELEMENT_STORY,
   ELEMENT_BLOCKQUOTE,
   ELEMENT_LIST,
 } from '../../../utilities/constants/element-types'
@@ -44,7 +43,6 @@ import StoryContentsChildLinkedImage from './_children/linked-image'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
-import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 
 const classes = {
@@ -64,21 +62,6 @@ const classes = {
 
 @Consumer
 class StoryContentsLite extends PureComponent {
-  constructor(props) {
-    super(props)
-    const { globalContent } = this.props
-    const { _id: storyId } = globalContent || {}
-    this.fetchContent({
-      related_content: {
-        source: 'related-content',
-        query: {
-          _id: storyId,
-          presets: 'no-presets',
-        },
-      },
-    })
-  }
-
   render() {
     const {
       globalContent,
@@ -89,10 +72,7 @@ class StoryContentsLite extends PureComponent {
         ids: { opta },
         isDfp = false,
       },
-      isAdmin,
     } = this.props
-    const { related_content: { basic: relatedContent = [] } = {} } =
-      this.state || {}
 
     const {
       publishDate: date,
@@ -146,7 +126,6 @@ class StoryContentsLite extends PureComponent {
         arcSite,
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
-    let relatedIds = []
     const seccArary = canonicalUrl.split('/')
     const secc = seccArary[1].replace(/-/gm, '')
     return (
@@ -177,7 +156,6 @@ class StoryContentsLite extends PureComponent {
                 elementClasses={classes}
                 renderElement={element => {
                   const {
-                    _id,
                     type,
                     subtype: sub,
                     embed: customEmbed,
@@ -300,23 +278,6 @@ class StoryContentsLite extends PureComponent {
                     )
                   }
 
-                  if (type === ELEMENT_STORY) {
-                    relatedIds.push(_id)
-                  }
-
-                  if (type !== ELEMENT_STORY && relatedIds.length > 0) {
-                    const relateIdsParam = relatedIds
-                    relatedIds = []
-                    return (
-                      <StoryContentsChildRelatedInternal
-                        stories={relatedContent}
-                        ids={relateIdsParam}
-                        imageDefault={multimediaLazyDefault}
-                        arcSite={arcSite}
-                        isAdmin={isAdmin}
-                      />
-                    )
-                  }
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
                       <h2

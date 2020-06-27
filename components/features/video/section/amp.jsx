@@ -1,15 +1,15 @@
 import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import React from 'react'
-import { storyTagsBbc } from '../../../utilities/helpers'
+import { storyTagsBbc } from '../../../utilities/tags'
 
 import StorySocialChildAmpSocial from '../../story/social/_children/amp-social'
 import ElePrincipal from '../../story/contents/_children/amp-ele-principal'
 import StoryData from '../../../utilities/story-data'
 import StoryContentChildTags from '../../story/contents/_children/tags'
-import StoryContentChildRelated from '../../story/contents/_children/related'
-import ConfigParams from '../../../utilities/config-params'
-import { getAssetsPath } from '../../../utilities/constants'
+import StoryContentChildRelated from './_children/related'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
+import { getAssetsPath } from '../../../utilities/assets'
 import {
   publicidadAmp,
   publicidadAmpAd,
@@ -156,7 +156,7 @@ const VideoSectionAmp = () => {
             {relatedContent.map((item, i) => {
               const { type } = item
               const key = `related-${i}`
-              return type !== ConfigParams.ELEMENT_STORY ? (
+              return type !== ELEMENT_STORY ? (
                 ''
               ) : (
                 <StoryContentChildRelated
