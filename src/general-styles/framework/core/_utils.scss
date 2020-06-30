@@ -12,7 +12,7 @@
 
 /** ----------------------------*
 *          DIMENSIONS           *
-*-------------------------------*/
+*------------------------------ */
 
 $map-dimens: 100%, auto, inherit, 0;
 
@@ -25,7 +25,7 @@ $map-dimens: 100%, auto, inherit, 0;
 
 /** ----------------------------*
 *        OBJECT-FIT & POS       *
-*-------------------------------*/
+*------------------------------ */
 
 $map-objects: (
   cover: object-fit,
@@ -41,7 +41,7 @@ $map-objects: (
 
 /** ----------------------------*
 *           DISPLAYS            *
-*-------------------------------*/
+*------------------------------ */
 
 $map-displays: block, flex, grid, inline, inline-block, table, none;
 // inline-flex
@@ -100,7 +100,7 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 
 /** ----------------------------*
 *           OVERFLOW            *
-*-------------------------------*/
+*------------------------------ */
 
 .overflow-y {
   overflow-y: scroll;
@@ -137,7 +137,7 @@ $map-displays: block, flex, grid, inline, inline-block, table, none;
 
 /** ----------------------------*
 *           POSITION            *
-*-------------------------------*/
+*------------------------------ */
 
 $map-pos: relative, absolute;
 
@@ -153,7 +153,7 @@ $map-pos-0: top, right, bottom, left;
 
 /** ----------------------------*
 *               TEXT            *
-*-------------------------------*/
+*------------------------------ */
 
 $map-text-pos: left, center, right;
 
@@ -175,7 +175,7 @@ $map-text-pos: left, center, right;
 
 /** ----------------------------*
 *             FONTS             *
-*-------------------------------*/
+*------------------------------ */
 
 .primary-font {
   font-family: $primary-font; // TODO: !important retirado por amp
@@ -202,7 +202,7 @@ $map-font-weight: (
 
 /** ----------------------------*
 *            RADIUS             *
-*-------------------------------*/
+*------------------------------ */
 
 $map-radius: (
   none: 0,
@@ -278,7 +278,7 @@ No es un adios, es un hasta luego
   padding-left: 35px;
 }
 .pl-40 {
-  padding-left: 45px;
+  padding-left: 40px;
 }
 .pl-45 {
   padding-left: 45px;
@@ -333,9 +333,7 @@ No es un adios, es un hasta luego
 .md\:pr-40 {
   padding-right: 40px;
 }
-.md\:pr-40 {
-  padding-right: 40px;
-}
+
 .md\:pt-40 {
   padding-top: 40px;
 }
@@ -347,9 +345,6 @@ No es un adios, es un hasta luego
 }
 .pr-40 {
   padding-right: 40px;
-}
-.pl-40 {
-  padding-left: 40px;
 }
 .pb-40 {
   padding-bottom: 40px;

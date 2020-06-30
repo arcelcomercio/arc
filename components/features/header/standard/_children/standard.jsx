@@ -24,7 +24,12 @@ const HeaderChildStandard = props => {
     <>
       <header className="header bg-primary primary-font w-full font-bold flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 hidden lg:flex position-relative">
         <a itemProp="url" href={logo.link} title={logo.alt}>
-          <img src={logo.src} alt={logo.alt} className="header__logo" />
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            title={logo.alt}
+            className="header__logo"
+          />
         </a>
         {arcSite === SITE_PERU21 && (
           <a

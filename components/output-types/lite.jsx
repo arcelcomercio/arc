@@ -93,7 +93,9 @@ const LiteOutput = ({
   const getTitle = () => {
     let title = `${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
     if (isStory) {
-      title = `${storyTitleRe} ${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
+      title = `${seoTitle}: ${
+        storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+      } | ${siteProperties.siteTitle.toUpperCase()}`
     } else if (
       pageNumber > 1 &&
       (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')

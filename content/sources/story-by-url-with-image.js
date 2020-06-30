@@ -33,9 +33,9 @@ export const itemsToArray = (itemString = '') => {
   })
 }
 
-const transformImg = data => {
+const transformImg = (data, { 'arc-site': arcSite }) => {
   const dataStory = data
-  const { resizerUrl } = getProperties(data.website)
+  const { resizerUrl } = getProperties(arcSite)
   return (
     addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret)[0] || null
   )

@@ -1,14 +1,14 @@
 .story-content__gallery-img {
   object-fit: cover;
   height: 200px;
-}
-@media screen and (min-width: 640px) {
-  .story-content__gallery-img {
-    height: 290px;
+  
+  @media (--tablet) {
+    height: 360px;
   }
-}
-@media screen and (min-width: 1024px) {
-  .story-content__gallery-img {
+  @media (--desktop) {
     height: 528px;
+  }
+  @media print {
+    width: 815px;
   }
 }

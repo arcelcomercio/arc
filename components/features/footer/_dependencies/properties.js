@@ -314,45 +314,6 @@ const gestion = {
   },
 }
 
-const laprensa = {
-  footer: {
-    siteLegal: [
-      'Empresa Editora El Comercio',
-      'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      'Copyright © Elcomercio.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Directora Periodística:',
-        name: 'Cecilia Valenzuela',
-      },
-      {
-        position: 'Diario Perú21: ',
-        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      },
-      {
-        position: 'Copyright © Peru21.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
-    contacts: [
-      {
-        position: 'Directora Periodística',
-        name: 'Cecilia Valenzuela',
-      },
-      {
-        position: 'Diario Perú21',
-        name: 'Jr. Santa Rosa 247. Piso 6 Lima 1',
-      },
-      {
-        position: 'Contacto comercial',
-        name: '',
-      },
-    ],
-  },
-}
-
 const ojo = {
   footer: {
     siteLegal: [
@@ -528,7 +489,6 @@ const sites = {
   elcomercio,
   elcomerciomag,
   gestion,
-  laprensa,
   ojo,
   peru21,
   peru21g21,

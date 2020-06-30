@@ -43,6 +43,7 @@ export default ({
   sections = [],
   queryInput = '',
   deviceList = {},
+  customLogoTitle = '',
   customLogoLink = '/',
   showIconHome,
   showVinetas,
@@ -80,7 +81,12 @@ export default ({
         </div>
         <div className={classes.logoimgwrapper}>
           <a itemProp="url" href={customLogoLink} className={classes.logoLink}>
-            <img className={classes.logoimg} src={logo} alt="Somos" />
+            <img
+              className={classes.logoimg}
+              src={logo}
+              alt={customLogoTitle}
+              title={customLogoTitle}
+            />
           </a>
         </div>
         <div className={classes.logoWrapper}>
