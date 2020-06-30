@@ -408,6 +408,7 @@ const HeaderChildInverted = ({
                 scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
               }
               alt={logo.alt}
+              title={logo.alt}
               className={classes.logo}
             />
           </a>

@@ -14,7 +14,7 @@ export default class NavbarFormater {
       siteDomain = '',
       arcSite = '',
     } = props
-    const { selectDesing = 'standard' } = customFields
+    const { customLogoTitle = '', selectDesing = 'standard' } = customFields
     this.deployment = deployment
     this.contextPath = contextPath
     this.siteDomain = siteDomain
@@ -22,6 +22,7 @@ export default class NavbarFormater {
     this.arcSite = arcSite
     this.getContent = getContent
 
+    this.customLogoTitle = customLogoTitle
     this.selectDesing = selectDesing
     // this.deviceList = { showInDesktop, showInTablet, showInMobile }
     this.schemaFilter = schemaFilter
@@ -49,7 +50,7 @@ export default class NavbarFormater {
               this.contextPath
             )}/resources/dist/${this.arcSite}/images/${logoSomos}?d=1`,
             link: '/',
-            alt: this.siteDomain,
+            alt: this.customLogoTitle,
           },
         }
       },

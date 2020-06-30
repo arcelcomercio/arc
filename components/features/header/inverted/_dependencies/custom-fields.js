@@ -17,6 +17,10 @@ const customFields = PropTypes.shape({
     name: 'Etiqueta',
     defaultValue: 'Hoy interesa',
   }),
+  customLogoTitle: PropTypes.string.tag({
+    name: 'Title y alt de la imagen',
+    group: 'Editar logo',
+  }),
   customLogo: PropTypes.string.tag({
     name: 'Url de la imagen',
     group: 'Editar logo',
