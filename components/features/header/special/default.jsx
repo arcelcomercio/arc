@@ -17,7 +17,7 @@ const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const HeaderElComercio = props => {
   const {
-    customFields: { customLogo, customLogoLink, hideMenu },
+    customFields: { customLogoTitle, customLogo, customLogoLink, hideMenu },
   } = props
 
   const {
@@ -80,6 +80,7 @@ const HeaderElComercio = props => {
     headerProperties,
     arcSite,
     {},
+    customLogoTitle,
     customLogo,
     customLogoLink
   )

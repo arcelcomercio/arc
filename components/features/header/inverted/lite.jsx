@@ -9,7 +9,7 @@ import HeaderBasicChildren from './_lite/_children/header'
 const HeaderBasic = props => {
   const { arcSite, contextPath, globalContent } = useFusionContext()
   const {
-    customFields: { hideMenu },
+    customFields: { customLogoTitle, hideMenu },
   } = props
 
   const menuSections = useContent({
@@ -31,6 +31,7 @@ const HeaderBasic = props => {
     arcSite,
     contextPath,
     globalContent,
+    customLogoTitle,
   }
 
   return <HeaderBasicChildren {...params} />

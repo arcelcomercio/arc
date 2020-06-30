@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import { storyTagsBbc } from '../../../utilities/tags'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const classes = {
   bbcHead: 'bbc-head p-10',

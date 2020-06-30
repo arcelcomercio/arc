@@ -9,6 +9,8 @@ import { FormRegister } from '../forms/form_register'
 import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styled'
 import Cookies from '../../_dependencies/cookies'
 import { Close } from '../iconos'
+import Taggeo from '../../_dependencies/taggeo'
+import QueryString from '../../_dependencies/querystring'
 
 const renderTemplate = (template, attributes) => {
   const templates = {
@@ -16,11 +18,23 @@ const renderTemplate = (template, attributes) => {
     forgot: <FormForgot {...attributes} />,
     register: <FormRegister {...attributes} />,
   }
+
+  if (
+    QueryString.getQuery('signLanding') ||
+    QueryString.getQuery('signStudents')
+  ) {
+    setTimeout(() => {
+      QueryString.deleteQuery('signLanding')
+      QueryString.deleteQuery('signStudents')
+    }, 1000)
+    return templates.login
+  }
+
   return templates[template] || templates.login
 }
 
 export const LandingInt = props => {
-  const { onClose, onLogged, noBtnClose, pathSourcePNG } = props
+  const { onClose, onLogged, noBtnClose, pathSourcePNG, typeDialog } = props
   return (
     <ModalProvider>
       <ModalConsumer>
@@ -32,6 +46,10 @@ export const LandingInt = props => {
                   type="button"
                   onClick={() => {
                     Cookies.deleteCookie('lostEmail')
+                    Taggeo(
+                      `Web_Sign_Wall_${typeDialog}`,
+                      `web_sw${typeDialog[0]}_boton_cerrar`
+                    )
                     if (window.Identity.userProfile) {
                       onLogged(window.Identity.userProfile)
                       onClose()

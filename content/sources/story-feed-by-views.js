@@ -9,7 +9,6 @@ import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import { addResizedUrlsToStory } from '../../components/utilities/resizer'
 
-let website = ''
 const schemaName = 'stories-dev'
 
 const params = [
@@ -31,7 +30,7 @@ const params = [
 ]
 
 const pattern = key => {
-  website = key['arc-site'] || 'Arc Site no está definido'
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { section, size } = key
 
   const body = {
@@ -84,9 +83,9 @@ const pattern = key => {
 
 const resolve = key => pattern(key)
 
-const transform = (data, { presets: customPresets }) => {
+const transform = (data, { 'arc-site': arcSite, presets: customPresets }) => {
   const dataStories = data
-  const { resizerUrl, siteName } = getProperties(website)
+  const { resizerUrl, siteName } = getProperties(arcSite)
 
   if (customPresets !== 'no-presets') {
     dataStories.content_elements = addResizedUrlsToStory(

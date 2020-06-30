@@ -7,10 +7,11 @@ import ArcStoryContent, {
 
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
+  SITE_ELBOCON,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -29,7 +30,6 @@ import {
   ELEMENT_VIDEO,
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
-  ELEMENT_STORY,
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
@@ -46,7 +46,6 @@ import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthor from './_children/author'
 import StoryContentsChildMultimedia from './_children/multimedia'
-import StoryContentsChildRelatedInternal from './_children/related-internal'
 import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
@@ -75,21 +74,6 @@ const classes = {
 
 @Consumer
 class StoryContents extends PureComponent {
-  constructor(props) {
-    super(props)
-    const { globalContent } = this.props
-    const { _id: storyId } = globalContent || {}
-    this.fetchContent({
-      related_content: {
-        source: 'related-content',
-        query: {
-          _id: storyId,
-          presets: 'no-presets',
-        },
-      },
-    })
-  }
-
   render() {
     const {
       globalContent,
@@ -103,8 +87,6 @@ class StoryContents extends PureComponent {
       },
       isAdmin,
     } = this.props
-    const { related_content: { basic: relatedContent = [] } = {} } =
-      this.state || {}
 
     const {
       publishDate: date,
@@ -159,7 +141,6 @@ class StoryContents extends PureComponent {
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
     const { basic_gallery: basicGallery = {} } = promoItems
-    let relatedIds = []
 
     const skipElementsRecipe = requestUri.includes('/recetas/')
       ? [
@@ -210,10 +191,6 @@ class StoryContents extends PureComponent {
 
           <StoryContentsChildAuthor {...params} />
 
-          {isJwVideo === true && (
-            <script src="https://cdn.jwplayer.com/players/IxomITB6-BHYH7DVh.js?search=__CONTEXTUAL__"></script>
-          )}
-
           <Ads
             adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
             isDesktop={false}
@@ -239,7 +216,6 @@ class StoryContents extends PureComponent {
                 elementClasses={classes}
                 renderElement={element => {
                   const {
-                    _id,
                     type,
                     subtype: sub,
                     embed: customEmbed,
@@ -369,24 +345,6 @@ class StoryContents extends PureComponent {
                         rawOembed={rawOembed}
                         subtype={sub}
                         className={classes.newsEmbed}
-                      />
-                    )
-                  }
-
-                  if (type === ELEMENT_STORY) {
-                    relatedIds.push(_id)
-                  }
-
-                  if (type !== ELEMENT_STORY && relatedIds.length > 0) {
-                    const relateIdsParam = relatedIds
-                    relatedIds = []
-                    return (
-                      <StoryContentsChildRelatedInternal
-                        stories={relatedContent}
-                        ids={relateIdsParam}
-                        imageDefault={multimediaLazyDefault}
-                        arcSite={arcSite}
-                        isAdmin={isAdmin}
                       />
                     )
                   }
@@ -543,6 +501,9 @@ class StoryContents extends PureComponent {
               defer
             />
           </>
+        )}
+        {arcSite === SITE_ELBOCON && isJwVideo === true && (
+          <script src="https://cdn.jwplayer.com/players/IxomITB6-BHYH7DVh.js?search=__CONTEXTUAL__"></script>
         )}
       </>
     )

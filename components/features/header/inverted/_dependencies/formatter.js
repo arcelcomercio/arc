@@ -12,6 +12,7 @@ export default class StandardHeader {
     arcSite = '',
     bandData = {},
     menuData = {},
+    customLogoTitle = '',
     customLogo = '',
     customLogoLink = '/',
     tags = 'HOY INTERESA',
@@ -24,6 +25,7 @@ export default class StandardHeader {
     this.arcSite = arcSite
     this.bandData = bandData
     this.menuData = menuData
+    this.customLogoTitle = customLogoTitle
     this.customLogo = customLogo
     this.customLogoLink = customLogoLink
     this.tags = tags
@@ -79,7 +81,7 @@ export default class StandardHeader {
             this.arcSite
           }/images/${logo}?d=1`,
         link: this.customLogoLink,
-        alt: this.siteDomain,
+        alt: this.customLogoTitle,
       },
       auxLogo: {
         src:

@@ -1,6 +1,6 @@
-import { BLOG_TOKEN, resizerSecret } from 'fusion:environment'
+import { BLOG_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { createResizedUrl } from '../../components/utilities/resizer'
+import { getResizedUrl } from '../../components/utilities/resizer'
 import RedirectError from '../../components/utilities/redirect-error'
 
 const params = [
@@ -54,7 +54,6 @@ const transform = (data, { 'arc-site': arcSite, blog_offset: blogOffset }) => {
     throw new RedirectError(`${siteUrl}/blog/`, 301)
   }
 
-  const { resizerUrl } = getProperties(arcSite)
   const blogs = data
 
   Object.keys(data).forEach(blog => {
@@ -62,11 +61,10 @@ const transform = (data, { 'arc-site': arcSite, blog_offset: blogOffset }) => {
       data[blog] || {}
 
     if (avatar) {
-      const resizedUrls = createResizedUrl({
+      const resizedUrls = getResizedUrl({
         url: avatar,
         presets: 'author_sm:125x125',
-        resizerUrl,
-        resizerSecret,
+        arcSite,
       })
       blogs[blog].user.user_avatarb.resized_urls = resizedUrls
     }
@@ -75,12 +73,11 @@ const transform = (data, { 'arc-site': arcSite, blog_offset: blogOffset }) => {
       const { post_thumbnail: { guid } = {} } = post || {}
 
       if (guid) {
-        const resizedUrls = createResizedUrl({
+        const resizedUrls = getResizedUrl({
           url: guid,
           presets:
             'thumbnail_lg:480x248,thumbnail_md:290x150,thumbnail_sm:111x72',
-          resizerUrl,
-          resizerSecret,
+          arcSite,
         })
         blogs[blog].posts[i].post_thumbnail.resized_urls = resizedUrls
       }

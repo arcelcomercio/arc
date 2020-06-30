@@ -96,6 +96,7 @@ class LayoutNavbar extends PureComponent {
     const {
       customFields: {
         selectDesing,
+        customLogoTitle = '',
         showInDesktop = true,
         showInTablet = true,
         showInMobile = true,
@@ -117,7 +118,12 @@ class LayoutNavbar extends PureComponent {
       ),
       somos: (
         <NavbarChildSomos
-          deviceList={{ showInDesktop, showInTablet, showInMobile }}
+          deviceList={{
+            customLogoTitle,
+            showInDesktop,
+            showInTablet,
+            showInMobile,
+          }}
           {...this.formatter.main.initParams}
         />
       ),
@@ -139,6 +145,9 @@ LayoutNavbar.propTypes = {
         somos: 'Barra de navegación somos',
       },
       defaultValue: 'standard',
+    }),
+    customLogoTitle: PropTypes.string.tag({
+      name: 'Title y alt de la imagen',
     }),
     hideMenu: PropTypes.bool.tag({
       name: 'Ocultar menu',

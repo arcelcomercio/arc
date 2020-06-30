@@ -31,6 +31,7 @@ class HeaderChildSomos extends PureComponent {
   render() {
     const { isSearchActive, searchInputText } = this.state
     const { back: { logo, link, alt } = {}, device, deviceList } = this.props
+
     const initInputs = (
       <>
         {/* <button type="button" className={classes.loginButton}>
@@ -107,6 +108,7 @@ class HeaderChildSomos extends PureComponent {
               className="navbar-somos__logo-img ml-10"
               src={logo}
               alt={alt}
+              title={alt}
             />
           </a>
           <div

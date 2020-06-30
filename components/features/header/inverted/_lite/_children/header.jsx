@@ -16,7 +16,14 @@ import {
 import Menu from './menu'
 
 export default props => {
-  const { hideMenu, menuSections, arcSite, contextPath, globalContent } = props
+  const {
+    hideMenu,
+    menuSections,
+    arcSite,
+    contextPath,
+    globalContent,
+    customLogoTitle,
+  } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
 
   const {
@@ -94,7 +101,8 @@ export default props => {
               arcSite,
               contextPath
             )}/resources/dist/elcomercio/images/logo.png?d=1`}
-            alt={siteDomain}
+            alt={customLogoTitle}
+            title={customLogoTitle}
           />
         </a>
 

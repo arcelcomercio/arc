@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
+  customLogoTitle: PropTypes.string.tag({
+    name: 'Title y alt de la imagen',
+    group: 'Editar logo',
+  }),
   customLogo: PropTypes.string.tag({
     name: 'Url de la imagen',
     group: 'Editar logo',
