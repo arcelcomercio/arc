@@ -28,6 +28,7 @@ const DefaultLayout = ({ children = [], theme }) => {
   const themeWithImages = React.useRef(() => addImageUrls(fusionContext)(theme))
     .current
 
+  if (typeof window === 'undefined') return null
   return (
     <StyledThemeProvider theme={themeWithImages}>
       {/* <MuiThemeProvider theme={theme}> */}
