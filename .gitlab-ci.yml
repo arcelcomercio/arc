@@ -238,6 +238,38 @@ deploy-master:
     - aws
     - docker
 
+lighthouse:
+    image: markhobson/node-chrome
+    variables:
+        LIGHTHOUSE_TEST_URL_EC: https://elcomercio.pe
+        LIGHTHOUSE_TEST_URL_GESTION: https://gestion.pe
+    stage: deploy
+    environment: Production    
+    before_script: 
+        # Install Lighthouse
+        - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+        - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        - export AWS_DEFAULT_REGION=AWS_DEFAULT_REGION
+        - apt-get update && apt-get install -y python-pip
+        - pip install awscli --ignore-installed six
+        - aws --version
+        - npm i -g lighthouse
+    script:
+        # Run Lighthouse test
+        - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_EC --output html --output-path ./elcomercio_report.html
+        - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_GESTION --output html --output-path ./gestion_report.html
+    only:        
+        - master
+        
+    after_script:
+    - aws s3 cp ./elcomercio_report.html  s3://lighthouse-ec/elcomercio/index.html  --metadata-directive REPLACE  --cache-control max-age=3000 --content-type text/html
+    - aws s3 cp ./gestion_report.html  s3://lighthouse-ec/gestion/index.html --metadata-directive REPLACE  --cache-control max-age=3000 --content-type text/html
+    - pwd
+    tags:
+    - aws
+    - docker
+
+
 publish:
   image: registry.gitlab.ec.pe/contenidos/arc
   stage: release
