@@ -60,6 +60,7 @@ class XmlContentMigration {
       ${includeCredits},
       ${includeCreditsImage},
       ${includeContentBasic},
+      label,
       related_content.redirect,
       related_content.basic`
 
