@@ -28,15 +28,21 @@ const StoryHeaderChildPicture = (slide = {}) => {
     <>
       <Static id={slide.i}>
         <picture>
+          <source
+            srcSet={slide.defaultImageGallery}
+            data-srcset={extractImage(slide.url).landscape_md}
+            media="(max-width: 360px)"
+            className="lazy"
+          />
+          <source
+            srcSet={slide.defaultImageGallery}
+            data-srcset={extractImage(slide.url).story_small}
+            media="(max-width: 768px)"
+            className="lazy"
+          />
           <img
             src={slide.defaultImageGallery}
             data-src={extractImage(slide.url).large}
-            data-srcset={`
-              ${extractImage(slide.url).landscape_md} 360w,
-              ${extractImage(slide.url).story_small} 768w,
-              ${extractImage(slide.url).large} 980w
-            `}
-            sizes='100vw'
             alt={slide.caption || slide.subtitle}
             className={`lazy ${classes.image}`}
           />

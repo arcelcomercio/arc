@@ -201,7 +201,7 @@ const BodyContentSpecial = props => {
               items = [],
             } = element
             if (type === ELEMENT_IMAGE) {
-              const presets = 'landscapeMd:314,storySmall:482,large:980'
+              const presets = 'landscape_md:314,story_small:482,large:980'
 
               return (
                 <div className="body-content__animated">

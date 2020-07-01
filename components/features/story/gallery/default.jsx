@@ -77,6 +77,8 @@ const StoryGallery = () => {
     multimediaStorySmall,
     multimediaLarge,
     multimediaLazyDefault: defaultImageGallery,
+    primaryImage: true,
+    completeImage: true,
   }
 
   return (

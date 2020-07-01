@@ -21,6 +21,11 @@
   }
 
   &__visual--image {
+    min-height: 157px;
+  
+    @media (--tablet) {
+      min-height: 330px;
+    }
     @media print {
       width: 815px;
     }

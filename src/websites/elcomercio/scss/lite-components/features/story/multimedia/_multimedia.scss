@@ -26,6 +26,19 @@
       padding: 0 20px 0 20px;
     }
   }
+  &__image {
+    min-height: 157px;
+  
+    @media (--tablet) {
+      min-height: 330px;
+    }
+
+    &--big {
+      @media (--desktop) {
+        height: 528px;
+      }
+    }
+  }
   &__lL-video,
   &__p-default {
     background-color: #000;
