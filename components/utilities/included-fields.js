@@ -1,43 +1,68 @@
+import {
+  IMAGE,
+  VIDEO,
+  GALLERY,
+  ELEMENT_YOUTUBE_ID,
+  HTML,
+} from './constants/multimedia-types'
+
 /** ----------------------------*
  *          PROMO ITEMS         *
  *------------------------------*/
 
-export const includePromoItems = `promo_items.basic.type,promo_items.basic.url,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content`
+const promoItemsBase = 'promo_items'
+const imageBase = `${promoItemsBase}.${IMAGE}`
+const galleryBase = `${promoItemsBase}.${GALLERY}`
+const videoBase = `${promoItemsBase}.${VIDEO}`
+const youtubeBase = `${promoItemsBase}.${ELEMENT_YOUTUBE_ID}`
+const htmlBase = `${promoItemsBase}.${HTML}`
 
-export const includePromoItemsCaptions = `promo_items.basic.subtitle,promo_items.basic.caption,promo_items.basic_video.promo_items.basic.subtitle,promo_items.basic_video.promo_items.basic.caption,promo_items.basic_gallery.promo_items.basic.subtitle,promo_items.basic_gallery.promo_items.basic.caption`
+const galleryElements = `${galleryBase}.content_elements`
 
-export const includePromoVideoAds = `promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.additional_properties.advertising.playAds,promo_items.basic_video.additional_properties.advertising.playVideoAds`
+export const includePromoItems = `${imageBase}.type,${imageBase}.url,${imageBase}.resized_urls,${videoBase}.${imageBase}.url,${videoBase}.${imageBase}.resized_urls,${galleryBase}.${imageBase}.url,${galleryBase}.${imageBase}.resized_urls,${youtubeBase}.content,${htmlBase}`
 
-export const includeGalleryUrls =
-  'promo_items.basic_gallery.content_elements.resized_urls,promo_items.basic_gallery.content_elements.subtitle,promo_items.basic_gallery.content_elements.caption,promo_items.basic_gallery.content_elements.type,promo_items.basic_gallery.content_elements.url'
+export const includePromoItemsCaptions = `${imageBase}.subtitle,${imageBase}.caption,${videoBase}.${imageBase}.subtitle,${videoBase}.${imageBase}.caption,${galleryBase}.${imageBase}.subtitle,${galleryBase}.${imageBase}.caption`
+
+export const includePromoItemsSizes = `${imageBase}.width,${imageBase}.height,${videoBase}.${imageBase}.width,${videoBase}.${imageBase}.height,${galleryBase}.${imageBase}.width,${galleryBase}.${imageBase}.height`
+
+export const includePromoVideoAds = `${videoBase}._id,${videoBase}.embed_html,${videoBase}.additional_properties.advertising.playAds,${videoBase}.additional_properties.advertising.playVideoAds`
+
+export const includeGalleryUrls = `${galleryElements}.resized_urls,${galleryElements}.subtitle,${galleryElements}.caption,${galleryElements}.type,${galleryElements}.url,${galleryElements}.width,${galleryElements}.height`
 
 /** ----------------------------*
  *            TAXONOMY          *
  *------------------------------*/
 
-export const includePrimarySection = `taxonomy.primary_section.path,taxonomy.primary_section.name`
+const taxonomy = 'taxonomy'
+const primarySection = `${taxonomy}.primary_section`
+const sections = `${taxonomy}.sections`
+const tags = `${taxonomy}.tags`
 
-export const includeSections = `taxonomy.sections.path,taxonomy.sections._id,taxonomy.sections.name`
+export const includePrimarySection = `${primarySection}.path,${primarySection}.name`
 
-export const includeTags = `taxonomy.tags.description,taxonomy.tags.slug,taxonomy.tags.text`
+export const includeSections = `${sections}.path,${sections}._id,${sections}.name`
+
+export const includeTags = `${tags}.description,${tags}.slug,${tags}.text`
 
 /** ----------------------------*
  *           CREDITS            *
  *------------------------------*/
 
-export const includeCredits = `credits.by._id, credits.by.name,credits.by.url,credits.by.type`
+const creditsBy = 'credits.by'
 
-export const includeCreditsImage = `credits.by.image.url`
+export const includeCredits = `${creditsBy}._id, ${creditsBy}.name,${creditsBy}.url,${creditsBy}.type`
 
-export const includeCreditsRole = `credits.by.additional_properties.original.role`
+export const includeCreditsImage = `${creditsBy}.image.url`
 
-export const includeCreditsEducation = `credits.by.additional_properties.original.education.name`
+export const includeCreditsRole = `${creditsBy}.additional_properties.original.role`
+
+export const includeCreditsEducation = `${creditsBy}.additional_properties.original.education.name`
 
 /** ----------------------------*
  *       CONTENT_ELEMENTS       *
  *------------------------------*/
 
-export const includeContentBasic = `content_elements.content,content_elements.type,content_elements._id,content_elements.url,content_elements.subtitle,content_elements.caption,content_elements.height,content_elements.width,content_elements.level,content_elements.items`
+export const includeContentBasic = `content_elements.content,content_elements.type,content_elements._id,content_elements.url,content_elements.headlines,content_elements.subtitle,content_elements.caption,content_elements.height,content_elements.width,content_elements.level,content_elements.items,content_elements.embed_html`
 
 /** ----------------------------*
  *           FEATURES            *
