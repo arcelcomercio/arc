@@ -10,6 +10,7 @@ export default class StandardHeader {
     headerProperties = {},
     arcSite = '',
     data = {},
+    customLogoTitle = '',
     customLogo = '',
     customLogoLink = '/',
     tags = ''
@@ -20,6 +21,7 @@ export default class StandardHeader {
     this.headerProperties = headerProperties
     this.arcSite = arcSite
     this.data = data
+    this.customLogoTitle = customLogoTitle
     this.customLogo = customLogo
     this.customLogoLink = customLogoLink
     this.schema = schemaFilter
@@ -75,7 +77,7 @@ export default class StandardHeader {
             this.arcSite
           }/images/${logo}?d=1`,
         link: this.customLogoLink,
-        alt: this.siteDomain,
+        alt: this.customLogoTitle,
       },
       sections,
       date: {
