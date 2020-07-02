@@ -48,11 +48,10 @@ const CardFeaturedStoryManualLive = props => {
 
   const regex = /^http/g
   const isExternalLink = regex.test(path)
-
   const { schema } = storyFormatter
-
   const source = 'story-by-url'
-
+  const basePresets =
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
   const actualDate = new Date().getTime()
 
   const scheduledNotes = [
@@ -159,9 +158,7 @@ const CardFeaturedStoryManualLive = props => {
   }
 
   const errorList = isAdmin ? validateScheduledNotes() : []
-  const presets = isAdmin
-    ? 'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
-    : 'no-presets'
+  const presets = isAdmin ? basePresets : 'no-presets'
   const includedFields = featuredStoryFields
 
   const customPhoto =
@@ -240,8 +237,7 @@ const CardFeaturedStoryManualLive = props => {
     } = imgField
       ? getResizedUrl({
           url: imgField,
-          presets:
-            'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150',
+          presets: basePresets,
           arcSite,
         }) || {}
       : {}
@@ -254,8 +250,7 @@ const CardFeaturedStoryManualLive = props => {
     } =
       getResizedUrl({
         url: multimedia,
-        presets:
-          'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150',
+        presets: basePresets,
         arcSite,
       }) || {}
 
