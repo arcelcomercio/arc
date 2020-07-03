@@ -82,7 +82,7 @@ export default ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const isStory = getIsStory(metaValue, requestUri)
+  const isStory = getIsStory({ metaValue, requestUri })
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory
