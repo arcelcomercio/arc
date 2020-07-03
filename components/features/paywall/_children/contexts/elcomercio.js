@@ -37,7 +37,7 @@ export default {
       <strong>SUSCRIPCIONES CORPORATIVAS</strong>`,
     printedSubscriptorBannerText: 
      `<strong>¿ERES SUSCRIPTOR DEL DIARIO IMPRESO EL COMERCIO?</strong>
-      <span>ADQUIERE EL PLAN DIGITAL GRATIS POR 6 MESES</span>`,
+      <span>ADQUIERE EL PLAN DIGITAL GRATIS POR 1 MES</span>`,
     printedSubscriptorBannerText2: 
      `<span>¿BUSCAS OPCIONES DE SUSCRIPCIÓN IMPRESA?</span>
       <strong>CONSULTA AQUÍ</strong>`,
@@ -66,7 +66,7 @@ export default {
     // Plans
     subscribe: `SUSCRIBIRME`,
     freeAmount: `Gratis`,
-    initialOffer: `durante 6 meses`,
+    initialOffer: `durante 1 mes`,
     regularOffer: `Luego, S/ 10 cada mes.`,
     monthlyFrequency: `Suscripción Mensual`,
     yearlyFrequency: `Suscripción Anual`,
