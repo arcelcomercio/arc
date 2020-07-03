@@ -12,15 +12,22 @@ import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
-import renderMetaPage from './_children/render-meta-page'
 import LiteAds from './_children/lite-ads'
 import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
+import VallaHtml from './_children/valla-html'
+import MetaStory from './_children/meta-story'
+
 import videoScript from './_dependencies/lite/video-script'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
-import VallaHtml from './_children/valla-html'
+import {
+  getIsStory,
+  getTitle,
+  getDescription,
+  getKeywords,
+} from './_dependencies/utils'
 
 const LiteOutput = ({
   children,
@@ -61,11 +68,7 @@ const LiteOutput = ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const isStory =
-    metaValue('id') === 'meta_story' ||
-    requestUri.match(`^/preview/([A-Z0-9]{26})/?`) ||
-    ''
-
+  const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
         nameSeccion.split('/')[1]
@@ -85,69 +88,23 @@ const LiteOutput = ({
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
-  const seoTitle =
-    metaValue('title') &&
-    !metaValue('title').match(/content/) &&
-    metaValue('title')
+  const title = getTitle({
+    metaValue,
+    isStory,
+    siteTitle: siteProperties.siteTitle,
+    storyTitleRe,
+    pageNumber,
+    requestUri,
+  })
 
-  const getTitle = () => {
-    let title = `${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
-    if (isStory) {
-      title = `${seoTitle}: ${
-        storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-      } | ${siteProperties.siteTitle.toUpperCase()}`
-    } else if (
-      pageNumber > 1 &&
-      (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')
-      /*  || metaValue('id') === "meta_search" */
-    ) {
-      title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteTitle.toUpperCase()}`
-    } else if (metaValue('id') === 'meta_archive') {
-      const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
-      const hasSection =
-        /\/archivo\/([\w\d-]+)/.test(requestUri) &&
-        !/\/archivo\/todas/.test(requestUri)
-      if (!hasDate && !hasSection) {
-        title = `Archivo de Noticias | ${siteProperties.siteTitle.toUpperCase()}`
-      }
-    }
-    return title
-  }
+  const description = getDescription({
+    metaValue,
+    siteName: siteProperties.siteName,
+    pageNumber,
+    requestUri,
+  })
 
-  const title = getTitle()
-
-  const getDescription = () => {
-    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
-    if (
-      metaValue('description') &&
-      !metaValue('description').match(/content/)
-    ) {
-      description = `${metaValue('description')}`
-      if (
-        (pageNumber > 1 && metaValue('id') === 'meta_tag') ||
-        metaValue('id') === 'meta_author'
-        /*  || metaValue('id') === "meta_search" */
-      ) {
-        description = `${metaValue('description')} Página ${pageNumber}.`
-      } else if (metaValue('id') === 'meta_archive') {
-        const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
-        const hasSection =
-          /\/archivo\/([\w\d-]+)/.test(requestUri) &&
-          !/\/archivo\/todas/.test(requestUri)
-        if (!hasDate && !hasSection) {
-          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
-        }
-      }
-    }
-    return description
-  }
-
-  const description = getDescription()
-
-  const keywords =
-    metaValue('keywords') && !metaValue('keywords').match(/content/)
-      ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+  const keywords = getKeywords({ metaValue, siteName: siteProperties.siteName })
 
   const twitterCardsData = {
     twitterUser:
@@ -198,11 +155,8 @@ const LiteOutput = ({
   } = globalContent || {}
 
   const isPremium = contentCode === 'premium' || false
-
   const htmlAmpIs = isPremium ? '' : true
-
-  let link = deleteQueryString(requestUri)
-  link = link.replace(/\/homepage[/]?$/, '/')
+  const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
   const parameters = {
     googleTagManagerId: siteProperties.googleTagManagerId,
@@ -233,13 +187,10 @@ const LiteOutput = ({
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
   }
 
-  const getdata = () => {
-    return new Date().toISOString().slice(0, 10)
-  }
   const parametersValla = {
     arcSite,
     arcEnv: CURRENT_ENVIRONMENT,
-    getdata: getdata(),
+    getdata: new Date().toISOString().slice(0, 10),
   }
 
   const premiumValue = getPremiumValue === 'premium' ? true : getPremiumValue
@@ -250,69 +201,9 @@ const LiteOutput = ({
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang="es">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            /**
-             * if(typeof window !== "undefined"){
-                window.requestIdle = window.requestIdleCallback ||
-                function (cb) {
-                  const start = Date.now();
-                  return setTimeout(function () {
-                    cb({
-                      didTimeout: false,
-                      timeRemaining: function () {
-                        return Math.max(0, 50 - (Date.now() - start));
-                      },
-                    });
-                  }, 1);
-                };
-              }
-            */
-            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
-          }}
-        />
-
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="lang" content="es" />
-        <meta name="resource-type" content="document" />
-        <meta content="global" name="distribution" />
-        <meta name="robots" content="index, follow" />
-        <meta name="GOOGLEBOT" content="index follow" />
-        <meta name="Author" content={siteProperties.siteName} />
-        {isStory && (
-          <>
-            <meta name="DC.title" lang="es" content={title} />
-            <meta name="DC.description" lang="es" content={description} />
-            <meta name="DC.subject" lang="es" content={keywords} />
-            <meta
-              name="DC.creator"
-              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
-            />
-            <meta
-              name="DC.publisher"
-              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
-            />
-            <meta name="DC.language" scheme="RFC1766" content="es" />
-          </>
-        )}
-        {isStory && htmlAmpIs && (
-          <link
-            rel="amphtml"
-            href={`${siteProperties.siteUrl}${addSlashToEnd(
-              url
-            )}?outputType=amp`}
-          />
-        )}
-        {arcSite === SITE_ELCOMERCIOMAG && (
-          <link
-            rel="alternate"
-            href={`${siteProperties.siteUrlAlternate}${link}`}
-            hrefLang="es"
-          />
-        )}
-        <title>{title}</title>
         {/**
          * dns-prefetch hace solo DNS lookup.
          * preconnect hace DNS lookup, TLS negotiation, y TCP handshake.
@@ -364,22 +255,79 @@ const LiteOutput = ({
         )}
         <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
 
+        <meta name="lang" content="es" />
+        <meta name="resource-type" content="document" />
+        <meta content="global" name="distribution" />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index follow" />
+        <meta name="author" content={siteProperties.siteName} />
+        <title>{title}</title>
+        <meta name="description" lang="es" content={description} />
+        {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
+        {isStory && (
+          <>
+            <meta name="DC.title" lang="es" content={title} />
+            <meta name="DC.description" lang="es" content={description} />
+            <meta name="DC.subject" lang="es" content={keywords} />
+            <meta
+              name="DC.creator"
+              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+            />
+            <meta
+              name="DC.publisher"
+              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+            />
+            <meta name="DC.language" scheme="RFC1766" content="es" />
+          </>
+        )}
+        {isStory && htmlAmpIs && (
+          <link
+            rel="amphtml"
+            href={`${siteProperties.siteUrl}${addSlashToEnd(
+              url
+            )}?outputType=amp`}
+          />
+        )}
+        {arcSite === SITE_ELCOMERCIOMAG && (
+          <link
+            rel="alternate"
+            href={`${siteProperties.siteUrlAlternate}${link}`}
+            hrefLang="es"
+          />
+        )}
+        <MetaSite {...metaSiteData} />
+        <MetaStory {...metaPageData} />
+        {/* renderMetaPage(metaValue('id'), metaPageData) */}
+
+        <script
+          dangerouslySetInnerHTML={{
+            /**
+             * if(typeof window !== "undefined"){
+                window.requestIdle = window.requestIdleCallback ||
+                function (cb) {
+                  const start = Date.now();
+                  return setTimeout(function () {
+                    cb({
+                      didTimeout: false,
+                      timeRemaining: function () {
+                        return Math.max(0, 50 - (Date.now() - start));
+                      },
+                    });
+                  }, 1);
+                };
+              }
+            */
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
+          }}
+        />
+        <TagManager {...parameters} />
         <LiteAds
           requestUri={requestUri}
           globalContent={globalContent}
           siteProperties={siteProperties}
         />
-
-        <MetaSite {...metaSiteData} />
-        <meta name="description" content={description} />
-        {arcSite === 'elcomerciomag' && (
-          <meta property="fb:pages" content="530810044019640" />
-        )}
-        {isStory ? '' : <meta name="keywords" content={keywords} />}
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
-        {renderMetaPage(metaValue('id'), metaPageData)}
-
         <AppNexus
           arcSite={arcSite}
           requestUri={requestUri}
@@ -387,6 +335,7 @@ const LiteOutput = ({
           isStory={isStory}
           globalContent={globalContent}
         />
+
         <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
           {({ data }) => {
             return data ? (
@@ -410,7 +359,6 @@ const LiteOutput = ({
               defer></script>
           </>
         )}
-
         {isPremium && arcSite === 'elcomercio' && (
           <>
             <Libs></Libs>
@@ -426,7 +374,6 @@ const LiteOutput = ({
             />
           </>
         )}
-        <TagManager {...parameters} />
       </head>
       <body
         className={classBody}

@@ -1,7 +1,10 @@
 import React from 'react'
 import { addSlashToEnd } from '../../utilities/parse/strings'
 import { deleteQueryString } from '../../utilities/parse/queries'
-import { SITE_ELCOMERCIO } from '../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+} from '../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../utilities/assets'
 import Trust from './trust'
 
@@ -198,6 +201,9 @@ export default ({
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
+      {arcSite === SITE_ELCOMERCIOMAG && (
+        <meta property="fb:pages" content="530810044019640" />
+      )}
       {arcSite === SITE_ELCOMERCIO ? (
         <>
           <script

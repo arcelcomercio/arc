@@ -1,5 +1,5 @@
 import React from 'react'
-import {getActualDate} from '../../utilities/helpers'
+import { getActualDate } from '../../utilities/date-time/dates'
 
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
