@@ -11,8 +11,8 @@ export const FormIntro = ({
   getContent,
   arcSite,
   typeDialog,
-  removeBefore = i => i,
-  checkModal = i => i,
+  removeBefore = (i) => i,
+  checkModal = (i) => i,
 }) => {
   const [showLoading, setShowLoading] = useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = useState(false)
@@ -21,7 +21,7 @@ export const FormIntro = ({
 
   useEffect(() => {
     const { fetched } = getContent('paywall-campaing')
-    fetched.then(resCam => {
+    fetched.then((resCam) => {
       setResCampaing({
         paywallPrice: resCam.plans[0].amount || '-',
         paywallFrecuency: resCam.plans[0].billingFrequency || '-',
@@ -70,7 +70,7 @@ export const FormIntro = ({
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <S.Form typeDialog={typeDialog}>
           {showLoading ? (
             <Loading arcSite={arcSite} typeBg="wait" typeDialog={typeDialog} />
@@ -113,7 +113,7 @@ export const FormIntro = ({
                     </h3>
 
                     <ul className="list-benefits mb-20">
-                      {resCampaing.featuresDescription.map(item => {
+                      {resCampaing.featuresDescription.map((item) => {
                         return <li key={item}>{item}</li>
                       })}
                     </ul>
@@ -182,7 +182,7 @@ export const FormIntro = ({
                 <div className="sub-paragraph">
                   Disfruta
                   <strong>
-                    {arcSite === 'elcomercio' ? ' 6 ' : ' 3 '} meses GRATIS
+                    {arcSite === 'elcomercio' ? ' 1 mes ' : ' 3 meses '} GRATIS
                   </strong>
                 </div>{' '}
                 <div className="sub-paragraph">
