@@ -82,6 +82,13 @@ const customFields = PropTypes.shape({
       'Incluye un JSON de estilos para el contenedor de publicidad. ej. {"position":"fixed","marginTop":0}',
     group: 'Lite',
   }),
+  liteAdLoadFirst: PropTypes.bool.tag({
+    name: 'Carga Inmediata',
+    description:
+      'Si se activa, este bloque carga tan pronto como sea posible. Si se desactiva, carga sólo cuando entra en la pantalla.',
+    defaultValue: false,
+    group: 'Lite',
+  }),
 })
 
 export default customFields
