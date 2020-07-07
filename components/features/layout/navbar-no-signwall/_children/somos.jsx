@@ -118,7 +118,7 @@ class HeaderChildSomos extends PureComponent {
         <header className={classes.navbarSomos}>
           <a itemProp="url" href={link} className={classes.logoLink}>
             <i className={classes.logoIcon} />
-            <img className={classes.logoImg} src={logo} alt={alt} />
+            <img className={classes.logoImg} src={logo} alt={alt} title={alt} />
           </a>
           <div
             className={classes.boxRight}

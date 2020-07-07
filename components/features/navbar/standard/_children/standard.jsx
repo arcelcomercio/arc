@@ -464,7 +464,8 @@ class NavBarDefault extends PureComponent {
               title={`Logo de ${arcSite}`}>
               <img
                 src={logo}
-                alt={`Logo de ${arcSite}`}
+                alt={logoLeft.alt}
+                title={logoLeft.alt}
                 className="nav__logo lg:hidden"
               />
             </a>

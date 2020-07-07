@@ -74,7 +74,7 @@ export default class NavbarFormater {
               this.arcSite,
               this.contextPath
             )}/resources/dist/${this.arcSite}/images/otorongo.png?d=1`,
-            alt: this.arcSite,
+            alt: this.customLogoTitle,
           },
         }
       },

@@ -8,11 +8,11 @@ import {
   SPECIAL_BASIC,
   SPECIAL,
 } from '../../../utilities/constants/subtypes'
+import { storyTagsBbc } from '../../../utilities/tags'
+import { getDateSeo } from '../../../utilities/date-time/dates'
 
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildMultimedia from './_children/multimedia'
-import { storyTagsBbc } from '../../../utilities/helpers'
-import { getDateSeo } from '../../../utilities/date-time/dates'
 
 const StoryMultimediaLte = () => {
   const {
@@ -61,6 +61,8 @@ const StoryMultimediaLte = () => {
     multimediaStorySmall,
     multimediaLarge,
     multimediaLazyDefault,
+    primaryImage: true,
+    completeImage: false,
     classImage: 's-multimedia',
   }
 

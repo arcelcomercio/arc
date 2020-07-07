@@ -150,7 +150,7 @@ export default {
     authProviders: ['facebook'],
   },
   taboola: {
-    dataModeAmp: 'thumbnails-a-amp',
+    dataModeAmp: 'thumbs-feed-01',
     mode: 'thumbnails-c',
   },
   isDfp: true,
