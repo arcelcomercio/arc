@@ -40,7 +40,7 @@ const FooterElComercio = props => {
     `${getAssetsPath(
       arcSite,
       contextPath
-    )}/resources/assets/footer/libro-reclamaciones.jpg?d=1` || ''
+    )}/resources/assets/footer/libro-reclamacion.jpg?d=1` || ''
 
   const params = {
     legalLinks,

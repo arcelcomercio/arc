@@ -58,6 +58,8 @@ const LiteOutput = ({
       tags = [],
     } = {},
     subtype = '',
+    website_url: url = '',
+    content_restrictions: { content_code: contentCode = '' } = {},
     page_number: pageNumber = 1,
   } = globalContent || {}
 
@@ -191,11 +193,6 @@ const LiteOutput = ({
   s_bbcws('partner', 'elcomercio.pe');
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
-
-  const {
-    website_url: url = '',
-    content_restrictions: { content_code: contentCode = '' } = {},
-  } = globalContent || {}
 
   const isPremium = contentCode === 'premium' || false
 
@@ -366,7 +363,8 @@ const LiteOutput = ({
 
         <LiteAds
           requestUri={requestUri}
-          globalContent={globalContent}
+          tags={tags}
+          contentCode={contentCode}
           siteProperties={siteProperties}
         />
 

@@ -28,6 +28,7 @@ const Ads = props => {
       liteAdName,
       liteAdDimensions,
       liteAdMobileDimensions,
+      liteAdLoadFirst,
       liteAdInlineStyles,
     } = {},
   } = props
@@ -43,6 +44,7 @@ const Ads = props => {
             data-ads-name={liteAdName}
             data-ads-dimensions={liteAdDimensions}
             data-ads-dimensions-m={liteAdMobileDimensions}
+            data-ads-load-first={liteAdLoadFirst}
             style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
           />
         )}
@@ -96,9 +98,7 @@ const Ads = props => {
     adsBorder === 'containerp' ? 'container-publicidad' : ''
 
   const addEmptyBackground = () => (!adElement && isAdmin ? 'bg-base-100' : '')
-
   const addRowsClass = () => (rows === 'empty' ? '' : rows)
-
   const neverShow = () => !isDesktop && !isMobile && !isDfp
   const alwaysShow = () => isDesktop && isMobile
 

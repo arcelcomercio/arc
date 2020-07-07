@@ -13,6 +13,9 @@ const customFields = PropTypes.shape({
     name: 'Ocultar menu',
     defaultValue: true,
   }),
+  customLogoTitle: PropTypes.string.tag({
+    name: 'Title y alt de la imagen del logo',
+  }),
 })
 
 export default customFields

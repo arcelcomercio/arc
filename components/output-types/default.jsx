@@ -698,6 +698,15 @@ export default ({
             />
           </>
         )}
+        {arcSite === 'trome' && (
+          <>
+            <script 
+            src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js" 
+            id="browsi-tag" data-pubKey="elcomercio" data-siteKey="trome" 
+            async
+            />
+          </>
+        )}
       </body>
     </html>
   )
