@@ -32,6 +32,7 @@ function WizardPlan(props) {
       description: productDescription,
       summary,
       printedSubscriber,
+      srvMsgs,
       fromFia,
       error: serverError,
     },
@@ -413,6 +414,7 @@ function WizardPlan(props) {
           })
           setOpenCheckPrintedModal(false)
         }}
+        srvMsgs={srvMsgs}
       />
       {!printedSubscriber && (
         <S.ContentBanner>
@@ -424,7 +426,8 @@ function WizardPlan(props) {
             text={
               eventCampaign
                 ? msgs.eventSubscriptorBannerText
-                : msgs.printedSubscriptorBannerText
+                : `<strong>${srvMsgs.subscriber_title_banner}</strong>
+                   <span>${srvMsgs.subscriber_detail_banner}</span>`
             }
             image={arcSite === 'elcomercio' && theme.images.lector}
             backgroundColor={

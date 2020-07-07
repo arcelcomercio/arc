@@ -112,7 +112,8 @@ const fetch = (key = {}) => {
         description: parseJSON(productDescription),
         freeAccess: freeAccess ? { firstName, lastName, secondLastName } : undefined,
         printedSubscriber: printed ? { documentType, documentNumber } : undefined,
-        printAttributes
+        printAttributes,
+        msgs: printAttributes.reduce((prev, it) => ({...prev, [it.name]: it.value}), {})
       },
       error ? { error } : {}
     )
