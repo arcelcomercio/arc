@@ -1,12 +1,12 @@
 import React from 'react'
-
 import { useFusionContext } from 'fusion:context'
+
+import StoryData from '../../../utilities/story-data'
+import { GALLERY_VERTICAL, BIG_IMAGE, SPECIAL_BASIC } from '../../../utilities/constants/subtypes'
+import { defaultImage } from '../../../utilities/assets'
 
 import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
 import StoryGalleryChildGallery from './_children/gallery'
-import StoryData from '../../../utilities/story-data'
-import ConfigParams from '../../../utilities/config-params'
-import { defaultImage } from '../../../utilities/helpers'
 import Infografia from '../multimedia/_children/html'
 import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
 
@@ -67,6 +67,8 @@ const StoryGalleryLite = () => {
     multimediaStorySmall,
     multimediaLarge,
     multimediaLazyDefault: defaultImageGallery,
+    primaryImage: true,
+    completeImage: true,
     classImage: 's-multimedia',
   }
 
@@ -74,7 +76,7 @@ const StoryGalleryLite = () => {
     <>
       {contentElementGallery ? (
         <div className={classes.gallery}>
-          {subtype === ConfigParams.GALLERY_VERTICAL ? (
+          {subtype === GALLERY_VERTICAL ? (
             <StoryGalleryChildGallery {...parameters} />
           ) : (
             <>
@@ -102,8 +104,8 @@ const StoryGalleryLite = () => {
           />
         )
       )}
-      {subtype === ConfigParams.BIG_IMAGE ||
-      subtype === ConfigParams.SPECIAL_BASIC ? (
+      {subtype === BIG_IMAGE ||
+      subtype === SPECIAL_BASIC ? (
         <div className={classes.image}>
           <StoryContentsChildMultimedia data={parametersPromoItems} />
         </div>
