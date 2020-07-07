@@ -18,11 +18,12 @@ import { deleteQueryString } from '../utilities/parse/queries'
 import { getAssetsPath } from '../utilities/assets'
 import {
   SITE_ELCOMERCIO,
-  SITE_GESTION,
-  SITE_PERU21,
-  SITE_PERU21G21,
+  SITE_ELCOMERCIOMAG,
   SITE_DEPOR,
+  SITE_PERU21G21,
+  SITE_TROME,
 } from '../utilities/constants/sitenames'
+import { META_HOME } from '../utilities/constants/meta'
 
 import {
   skipAdvertising,
@@ -79,6 +80,8 @@ export default ({
       tags = [],
     } = {},
     subtype = '',
+    website_url: url = '',
+    content_restrictions: { content_code: contentCode = '' } = {},
     page_number: pageNumber = 1,
   } = globalContent || {}
 
@@ -92,7 +95,7 @@ export default ({
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
-  if (arcSite === 'depor') {
+  if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/depor-play')) classBody = `${classBody} depor-play`
     if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
   }
@@ -104,12 +107,13 @@ export default ({
   if (requestUri.match(`^(/peru21tv/.*)`))
     classBody = `${isStory && 'story'} section-peru21tv`
 
-  if (arcSite === 'elcomercio') {
+  if (arcSite === SITE_ELCOMERCIO) {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
-  const isHome = metaValue('id') === 'meta_home' && true
+  const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud()
   const enabledPushud = getEnablePushud()
+  const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
 
   const metaSiteData = {
     ...siteProperties,
@@ -128,8 +132,8 @@ export default ({
   const getPrebid = () => {
     let prebid = true
     if (
-      arcSite === 'elcomercio' ||
-      (arcSite === 'elcomerciomag' && requestUri.match(`^/virales`)) ||
+      arcSite === SITE_ELCOMERCIO ||
+      (arcSite === SITE_ELCOMERCIOMAG && requestUri.match(`^/virales`)) ||
       requestUri.match(`^/respuestas`) ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
@@ -204,7 +208,8 @@ export default ({
 
   const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const noAds = skipAdvertising(tags)
-  const isLivePage = arcSite === 'elcomercio' && requestUri.match(`^/en-vivo/`)
+  const isLivePage =
+    arcSite === SITE_ELCOMERCIO && requestUri.match(`^/en-vivo/`)
 
   const structuredBBC = `!function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
   (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
@@ -212,15 +217,8 @@ export default ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-  const {
-    website_url: url = '',
-    content_restrictions: { content_code: contentCode = '' } = {},
-  } = globalContent || {}
-
   const isPremium = contentCode === 'premium' || false
-
   const htmlAmpIs = isPremium ? '' : true
-
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
   const {
@@ -240,28 +238,26 @@ export default ({
   let style = 'style'
   if (
     isStory &&
-    (arcSite === 'elcomercio' || arcSite === 'depor') &&
+    (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
-  else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
+  else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
-  else if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home')
-    style = 'dbasic'
+  else if (isElcomercioHome) style = 'dbasic'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
   }
-  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
   }
-  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
 
-  const isStyleBasic =
-    arcSite === 'elcomercio c' && metaValue('id') === 'meta_home' && true
+  const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
 
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
   return (
@@ -274,6 +270,8 @@ export default ({
           siteDomain={siteDomain}
           arcSite={arcSite}
           contextPath={contextPath}
+          activePaywall={siteProperties.activePaywall}
+          isHome={isHome}
         />
         {googleFonts && (
           <link
@@ -397,40 +395,28 @@ export default ({
         )}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
-          if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home') {
+          if (isElcomercioHome || !siteProperties.activeSignwall) {
             return null
           }
-          if (
-            arcSite === SITE_ELCOMERCIO ||
-            arcSite === SITE_GESTION ||
-            arcSite === SITE_PERU21 ||
-            arcSite === SITE_PERU21G21 ||
-            arcSite === SITE_DEPOR
-          ) {
-            return (
-              <script
-                src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-                defer
-              />
-            )
-          }
-          return null
+          return (
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+              defer
+            />
+          )
         })()}
         {(() => {
-          if (siteProperties.activePaywall) {
-            if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home') {
-              return null
-            }
-            return (
-              <script
-                src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}
-                async
-              />
-            )
+          if (isElcomercioHome || !siteProperties.activePaywall) {
+            return null
           }
-          return null
+          return (
+            <script
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
+              async
+            />
+          )
         })()}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
         {enabledPushud && (
@@ -503,7 +489,7 @@ export default ({
             .slice(0, 10)}`}
         />
         {/* Rubicon BlueKai - Inicio */}
-        {arcSite === 'elcomercio' && metaValue('id') === 'meta_home' ? (
+        {isElcomercioHome ? (
           <>
             <script
               type="text/javascript"
@@ -579,7 +565,7 @@ export default ({
             />
           </>
         )}
-        {arcSite === 'trome' && (
+        {arcSite === SITE_TROME && (
           <>
             <script
               src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"

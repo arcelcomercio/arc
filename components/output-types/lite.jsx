@@ -4,7 +4,11 @@ import ENV from 'fusion:environment'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import { storyTagsBbc } from '../utilities/tags'
-import { SITE_ELCOMERCIOMAG } from '../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_PERU21G21,
+  SITE_ELCOMERCIO,
+} from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import StoryData from '../utilities/story-data'
 
@@ -177,10 +181,10 @@ const LiteOutput = ({
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-story.css`
   }
-  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/lite-story.css`
   }
-  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
   }
 
@@ -222,6 +226,18 @@ const LiteOutput = ({
           rel="dns-prefetch"
           href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
         />
+        {isPremium && (
+          <>
+            <link
+              rel="preconnect"
+              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+            />
+            <link
+              rel="dns-prefetch"
+              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+            />
+          </>
+        )}
         <link rel="preconnect" href="//www.googletagmanager.com/" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
         <link rel="preconnect" href="//www.google-analytics.com" />
@@ -357,7 +373,7 @@ const LiteOutput = ({
               defer></script>
           </>
         )}
-        {isPremium && arcSite === 'elcomercio' && (
+        {isPremium && arcSite === SITE_ELCOMERCIO && (
           <>
             <Libs></Libs>
             <script

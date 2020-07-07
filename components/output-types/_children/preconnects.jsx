@@ -10,7 +10,13 @@ import {
   SITE_DEPOR,
 } from '../../utilities/constants/sitenames'
 
-const Preconnects = ({ siteDomain, arcSite, contextPath }) => {
+const Preconnects = ({
+  siteDomain,
+  arcSite,
+  contextPath,
+  activePaywall,
+  isHome,
+}) => {
   return (
     <>
       {/**
@@ -36,6 +42,23 @@ const Preconnects = ({ siteDomain, arcSite, contextPath }) => {
       />
       <link rel="preconnect" href="//d1r08wok4169a5.cloudfront.net" />
       <link rel="dns-prefetch" href="//d1r08wok4169a5.cloudfront.net" />
+      {(() => {
+        if ((arcSite === SITE_ELCOMERCIO && isHome) || !activePaywall) {
+          return null
+        }
+        return (
+          <>
+            <link
+              rel="preconnect"
+              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+            />
+            <link
+              rel="dns-prefetch"
+              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+            />
+          </>
+        )
+      })()}
       <link rel="preconnect" href="//s.go-mpulse.net" />
       <link rel="dns-prefetch" href="//s.go-mpulse.net" />
       <link rel="preconnect" href="//fonts.gstatic.com" />
