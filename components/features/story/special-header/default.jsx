@@ -59,6 +59,8 @@ const StorySpecialHeader = () => {
     multimediaStorySmall,
     multimediaLarge,
     showCaption: false,
+    primaryImage: true,
+    completeImage: true
   }
   return (
     <div className={classes.image}>

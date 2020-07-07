@@ -42,7 +42,7 @@ const HeaderElComercio = props => {
   } = getProperties(arcSite)
 
   const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
-  const isStory = type === { ELEMENT_STORY }.ELEMENT_STORY
+  const isStory = type === ELEMENT_STORY
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,

@@ -5,10 +5,17 @@ import { useFusionContext } from 'fusion:context'
 import { getResizedUrl } from '../../../../utilities/resizer'
 
 const classes = {
-  image: '__image w-full',
+  image: '__image w-full o-cover',
+  imageBig: '__image--big',
   caption: '__caption',
 }
 
+/**
+ * Este componente es muy similar a 
+ * components/features/story/contents/_children/image.jsx
+ * utilizado exclusivamente para la version lite.
+ * Solo cambia el objeto de classes y una validacion para SITE_TROME.
+ */
 const StoryContentChildImage = ({
   multimediaLarge,
   url,
@@ -17,8 +24,9 @@ const StoryContentChildImage = ({
   caption,
   showCaption = true,
   primaryImage = false,
+  completeImage = false,
   classImage = 'story-contents',
-  presets = 'landscapeMd:314x157,storySmall:482x290,large:980x528',
+  presets = `landscape_md:314x157,story_small:482x290,large:${completeImage ? '980x528' : '580x330'}`,
 }) => {
   const { arcSite } = useFusionContext()
   const extractImage = urlImg => {
@@ -34,49 +42,77 @@ const StoryContentChildImage = ({
     return urlImg
   }
 
+  const renderCompleteImage = () => (
+    /**
+     * Si el contenido es tamano completo, la imagen es fluida,
+     * no esta sujeta a la grilla normal de noticia,
+     * por eso los breakpoints son diferentes.
+     */
+    <>
+      <source
+        srcSet={extractImage(multimediaLarge || url).landscape_md}
+        media="(max-width: 360px)"
+      />
+      <source
+        srcSet={extractImage(multimediaLarge || url).story_small}
+        media="(max-width: 768px)"
+      />
+      <img
+        src={extractImage(multimediaLarge || url).large}
+        alt={caption}
+        className={`${classImage}${classes.image} ${classImage}${classes.imageBig}`}
+      />
+    </>
+  )
+
+  const renderCommonImage = () => (
+    primaryImage ? (
+      // Si es la imagen principal no necesita lazyload
+      <>
+        <source
+          srcSet={extractImage(multimediaLarge || url).landscape_md}
+          media="(max-width: 360px)"
+        />
+        <source
+          srcSet={extractImage(multimediaLarge || url).story_small}
+          media="(max-width: 639px)"
+        />
+        <img
+          src={extractImage(multimediaLarge || url).large}
+          alt={caption}
+          className={`${classImage}${classes.image}`}
+        />
+      </>
+    ) : (
+      // Si no es la imagen principal carga con lazyload
+      <>
+        <source
+          srcSet={multimediaLazyDefault}
+          data-srcset={extractImage(multimediaLarge || url).landscape_md}
+          media="(max-width: 360px)"
+          className="lazy"
+        />
+        <source
+          srcSet={multimediaLazyDefault}
+          data-srcset={extractImage(multimediaLarge || url).story_small}
+          media="(max-width: 639px)"
+          className="lazy"
+        />
+        <img
+          src={multimediaLazyDefault}
+          data-src={extractImage(multimediaLarge || url).large}
+          alt={caption}
+          className={`lazy ${classImage}${classes.image}`}
+        />
+      </>
+    )
+  )
+
   return (
     <>
       <Static id={_id}>
         <picture>
-          {primaryImage ? (
-            <>
-              <source
-                srcSet={extractImage(multimediaLarge || url).landscapeMd}
-                media="(max-width: 320px)"
-              />
-              <source
-                srcSet={extractImage(multimediaLarge || url).storySmall}
-                media="(max-width: 767px)"
-              />
-              <img
-                src={extractImage(multimediaLarge || url).large}
-                alt={caption}
-                className={`${classImage}${classes.image}`}
-              />
-            </>
-          ) : (
-            <>
-              <source
-                srcSet={multimediaLazyDefault}
-                data-srcset={extractImage(multimediaLarge || url).landscapeMd}
-                media="(max-width: 320px)"
-                className="lazy"
-              />
-              <source
-                srcSet={multimediaLazyDefault}
-                data-srcset={extractImage(multimediaLarge || url).storySmall}
-                media="(max-width: 767px)"
-                className="lazy"
-              />
-              <img
-                className={`${classImage}${classes.image} lazy`}
-                src={multimediaLazyDefault}
-                data-src={extractImage(multimediaLarge || url).large}
-                alt={caption}
-              />
-            </>
-          )}
-
+          {completeImage ? renderCompleteImage() : renderCommonImage()}
           {showCaption && (
             <figcaption className={`${classImage}${classes.caption}`}>
               {caption}{' '}
@@ -88,4 +124,4 @@ const StoryContentChildImage = ({
   )
 }
 
-export default StoryContentChildImage
+export default React.memo(StoryContentChildImage)

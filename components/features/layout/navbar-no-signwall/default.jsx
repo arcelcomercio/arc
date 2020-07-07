@@ -175,6 +175,9 @@ LayoutNoSignwall.propTypes = {
       },
       defaultValue: 'standard',
     }),
+    customLogoTitle: PropTypes.string.tag({
+      name: 'Title y alt de la imagen',
+    }),
     hideMenu: PropTypes.bool.tag({
       name: 'Ocultar menu',
       defaultValue: true,

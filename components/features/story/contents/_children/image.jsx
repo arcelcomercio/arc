@@ -10,6 +10,12 @@ const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
 
+/**
+ * Este componente es muy similar a 
+ * components/features/story/multimedia/_children/image.jsx
+ * utilizado exclusivamente para la version lite.
+ * Solo cambia el objeto de classes.
+ */
 const StoryContentChildImage = ({
   multimediaLarge,
   url,
@@ -18,10 +24,11 @@ const StoryContentChildImage = ({
   caption,
   showCaption = true,
   primaryImage = false,
-  presets = 'landscapeMd:314x157,storySmall:482x290,large:980x528',
+  completeImage = false,
+  presets = `landscape_md:314x157,story_small:482x290,large:${completeImage ? '980x528' : '580x330'}`,
 }) => {
   const { arcSite } = useFusionContext()
-  const presetsTrome = 'landscapeMd:314x169,storySmall:482x260,large:980x528'
+  const presetsTrome = `landscape_md:314x169,story_small:482x260,large:${completeImage ? '980x528' : '580x330'}`
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
       return (
@@ -35,49 +42,72 @@ const StoryContentChildImage = ({
     return urlImg
   }
 
+  const renderCompleteImage = () => (
+    <>
+      <source
+        srcSet={extractImage(multimediaLarge || url).landscape_md}
+        media="(max-width: 360px)"
+      />
+      <source
+        srcSet={extractImage(multimediaLarge || url).story_small}
+        media="(max-width: 768px)"
+      />
+      <img
+        src={extractImage(multimediaLarge || url).large}
+        alt={caption}
+        className={classes.image}
+      />
+    </>
+  )
+
+  const renderCommonImage = () => (
+    primaryImage ? (
+      // Si es la imagen principal no necesita lazyload
+      <>
+        <source
+          srcSet={extractImage(multimediaLarge || url).landscape_md}
+          media="(max-width: 360px)"
+        />
+        <source
+          srcSet={extractImage(multimediaLarge || url).story_small}
+          media="(max-width: 639px)"
+        />
+        <img
+          src={extractImage(multimediaLarge || url).large}
+          alt={caption}
+          className={classes.image}
+        />
+      </>
+    ) : (
+      // Si no es la imagen principal carga con lazyload
+      <>
+        <source
+          srcSet={multimediaLazyDefault}
+          data-srcset={extractImage(multimediaLarge || url).landscape_md}
+          media="(max-width: 360px)"
+          className="lazy"
+        />
+        <source
+          srcSet={multimediaLazyDefault}
+          data-srcset={extractImage(multimediaLarge || url).story_small}
+          media="(max-width: 639px)"
+          className="lazy"
+        />
+        <img
+          src={multimediaLazyDefault}
+          data-src={extractImage(multimediaLarge || url).large}
+          alt={caption}
+          className={`lazy ${classes.image}`}
+        />
+      </>
+    )
+  )
+
   return (
     <>
       <Static id={_id}>
         <picture>
-          {primaryImage ? (
-            <>
-              <source
-                srcSet={extractImage(multimediaLarge || url).landscapeMd}
-                media="(max-width: 320px)"
-              />
-              <source
-                srcSet={extractImage(multimediaLarge || url).storySmall}
-                media="(max-width: 767px)"
-              />
-              <img
-                src={extractImage(multimediaLarge || url).large}
-                alt={caption}
-                className={classes.image}
-              />
-            </>
-          ) : (
-            <>
-              <source
-                srcSet={multimediaLazyDefault}
-                data-srcset={extractImage(multimediaLarge || url).landscapeMd}
-                media="(max-width: 320px)"
-                className="lazy"
-              />
-              <source
-                srcSet={multimediaLazyDefault}
-                data-srcset={extractImage(multimediaLarge || url).storySmall}
-                media="(max-width: 767px)"
-                className="lazy"
-              />
-              <img
-                className={`${classes.image} lazy`}
-                src={multimediaLazyDefault}
-                data-src={extractImage(multimediaLarge || url).large}
-                alt={caption}
-              />
-            </>
-          )}
-
+          {completeImage ? renderCompleteImage() : renderCommonImage()}
           {showCaption && (
             <figcaption className={classes.caption}>{caption} </figcaption>
           )}

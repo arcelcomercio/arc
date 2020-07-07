@@ -31,11 +31,12 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     multimediaLazyDefault,
     showCaption,
     primaryImage,
+    completeImage
   } = data
 
   const { type: typeImage, caption = '' } = basic || {}
 
-  const paramenters = {
+  const parameters = {
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLazyDefault,
@@ -43,6 +44,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     caption,
     showCaption,
     primaryImage,
+    completeImage
   }
 
   return (
@@ -52,7 +54,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
       !typeInfo &&
       !typeEmbed &&
       typeImage ? (
-        <Imagen {...paramenters} />
+        <Imagen {...parameters} />
       ) : (
         <Html data={embedHtmlPromoItems} caption={caption} {...data} />
       )}
