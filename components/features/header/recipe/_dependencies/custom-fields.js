@@ -20,6 +20,10 @@ const customFields = PropTypes.shape({
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
   }),
+  customLogoTitle: PropTypes.string.tag({
+    name: 'Title y alt de la imagen',
+    group: 'Editar logo',
+  }),
   customLogo: PropTypes.string.tag({
     name: 'Url de la imagen',
     group: 'Editar logo',

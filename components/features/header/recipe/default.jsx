@@ -12,6 +12,7 @@ const DEFAULT_HIERARCHY = 'recetas-subsecciones'
 const HeaderRecipe = props => {
   const {
     customFields: {
+      customLogoTitle,
       customLogo,
       customLogoLink,
       tags,
@@ -37,6 +38,7 @@ const HeaderRecipe = props => {
     headerProperties,
     arcSite,
     {},
+    customLogoTitle,
     customLogo,
     customLogoLink,
     tags
