@@ -96,7 +96,6 @@ class LayoutNavbar extends PureComponent {
     const {
       customFields: {
         selectDesing,
-        customLogoTitle = '',
         showInDesktop = true,
         showInTablet = true,
         showInMobile = true,
@@ -119,7 +118,6 @@ class LayoutNavbar extends PureComponent {
       somos: (
         <NavbarChildSomos
           deviceList={{
-            customLogoTitle,
             showInDesktop,
             showInTablet,
             showInMobile,

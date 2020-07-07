@@ -103,6 +103,7 @@ const classes = {
 
 export default ({
   socialNetworks,
+  customLogoTitle,
   logo,
   whiteLogo,
   headerList,
@@ -298,7 +299,12 @@ export default ({
                 className={classes.linkLogo}
                 href="/"
                 title={siteDomain}>
-                <img src={logo} className={classes.logo} alt={siteDomain} />
+                <img
+                  src={logo}
+                  className={classes.logo}
+                  alt={customLogoTitle}
+                  title={customLogoTitle}
+                />
               </a>
             </div>
             {isStory && (

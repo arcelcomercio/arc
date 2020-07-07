@@ -25,7 +25,12 @@ const HeaderFull = props => {
   } = useFusionContext() || {}
 
   const {
-    customFields: { hierarchyHeader, hierarchyMenu, hideMenu } = {},
+    customFields: {
+      customLogoTitle,
+      hierarchyHeader,
+      hierarchyMenu,
+      hideMenu,
+    } = {},
   } = props
 
   const {
@@ -132,6 +137,7 @@ const HeaderFull = props => {
     socialNetworks,
     postTitle,
     isStory,
+    customLogoTitle,
     logo: `${getAssetsPath(
       arcSite,
       contextPath
