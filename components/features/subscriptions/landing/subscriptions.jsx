@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
+import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 
 import stylesLanding from '../_dependencies/styles-landing'
 import scriptsLanding from '../_dependencies/script-landing'
@@ -29,6 +30,21 @@ const LandingSubscriptions = () => {
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
 
+  React.useEffect(() => {
+    sendAction(PixelActions.PRODUCT_IMPRESSION, {
+      ecommerce: {
+        currencyCode: items[0].price.currencyCode,
+        impressions: items.map(item => ({
+          name: item.title,
+          id: item.sku,
+          price: item.price.amount,
+          brand: arcSite,
+          category: 'Suscripcion',
+        })),
+      },
+    })
+  }, [])
+
   const handleUniversity = () => {
     setShowTypeLanding('students')
     setShowSignwall(!showSignwall)
@@ -44,7 +60,6 @@ const LandingSubscriptions = () => {
         window.location.href = urls.profile[env]
       } else {
         setShowSignwall(!showSignwall)
-        // setShowProfile('Inicia sesión')
         document.getElementById('btn-signwall').innerHTML = 'Inicia sesión'
         window.Identity.clearSession()
       }
