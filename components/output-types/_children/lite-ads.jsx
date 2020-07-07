@@ -34,7 +34,7 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
           }
 
           const userPaywallStat = userPaywall()
-          const { section, arcSite, subsection } = window.section;
+          const { section, arcSite, subsection } = window;
           const loadFirstAds = adsSlots.filter(slot => slot.getAttribute('data-ads-load-first')) || []
           
           const pushAds = (dimensions, name, id) => {
