@@ -41,6 +41,7 @@ const fetch = (key = {}) => {
       campaign: { name: campaignCode },
       subscriber = {},
       error,
+      attributes: printAttributes,
       products: [
         {
           sku,
@@ -111,6 +112,8 @@ const fetch = (key = {}) => {
         description: parseJSON(productDescription),
         freeAccess: freeAccess ? { firstName, lastName, secondLastName } : undefined,
         printedSubscriber: printed ? { documentType, documentNumber } : undefined,
+        printAttributes,
+        msgs: printAttributes.reduce((prev, it) => ({...prev, [it.name]: it.value}), {})
       },
       error ? { error } : {}
     )
@@ -127,7 +130,7 @@ export default {
     documentNumber: 'text',
     documentType: 'text',
     attemptToken: 'text',
-    //event: 'text',
+    // event: 'text',
   },
   ttl: 20,
 }

@@ -12,7 +12,7 @@ import Modal from '../../../../../_children/modal'
 import { interpolateUrl } from '../../../../../_dependencies/domains'
 import { useStrings } from '../../../../../_children/contexts'
 
-const Content = ({ onSubmit }) => {
+const Content = ({ onSubmit, srvMsgs }) => {
   const msgs = useStrings()
   const [attemptToken, setAttemptToken] = useState()
   const {
@@ -69,12 +69,12 @@ const Content = ({ onSubmit }) => {
           <S.SpanIcon>
             <Icon type="check" /> <Markdown source={msgs.featureDescription1} />
           </S.SpanIcon>
-          <S.Free>{msgs.freeAmount}</S.Free>
+          <S.Free>{srvMsgs.subscriber_initial_price}</S.Free>
         </S.Wrapbenefit>
         <S.Foot>
           <S.FootContent>
-            <S.SpanFoot title>{msgs.initialOffer}</S.SpanFoot>
-            <S.SpanFoot>{msgs.regularOffer}</S.SpanFoot>
+            <S.SpanFoot title>{srvMsgs.subscriber_initial_period}</S.SpanFoot>
+            <S.SpanFoot>{srvMsgs.subscriber_regular_period}</S.SpanFoot>
           </S.FootContent>
           {/* <S.FootContent>
             <S.SpanFoot>Precio Regular: S/ 29 al mes</S.SpanFoot>
@@ -143,10 +143,10 @@ const Content = ({ onSubmit }) => {
   )
 }
 
-export default function CheckSuscription({ onClose, onSubmit, ...props }) {
+export default function CheckSuscription({ onClose, onSubmit, srvMsgs, ...props }) {
   return (
     <Modal showClose onClose={onClose} {...props}>
-      <Content onSubmit={onSubmit} />
+      <Content onSubmit={onSubmit} srvMsgs={srvMsgs} />
     </Modal>
   )
 }

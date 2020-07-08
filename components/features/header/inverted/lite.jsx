@@ -7,10 +7,31 @@ import schemaFilter from './_lite/_dependencies/schema-filter'
 import HeaderBasicChildren from './_lite/_children/header'
 
 const HeaderBasic = props => {
-  const { arcSite, contextPath, globalContent } = useFusionContext()
   const {
-    customFields: { customLogoTitle, hideMenu },
+    arcSite,
+    contextPath,
+    globalContent,
+    siteProperties,
+    metaValue,
+  } = useFusionContext()
+  const {
+    customFields: { hideMenu },
   } = props
+
+  const {
+    headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+  } = globalContent || {}
+
+  const storyTitleRe = StoryMetaTitle || storyTitle
+
+  const seoTitle =
+    metaValue('title') &&
+    !metaValue('title').match(/content/) &&
+    metaValue('title')
+
+  const title = `${seoTitle}: ${
+    storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+  } | ${siteProperties.siteTitle.toUpperCase()}`
 
   const menuSections = useContent({
     source: 'navigation-by-hierarchy',
@@ -31,7 +52,7 @@ const HeaderBasic = props => {
     arcSite,
     contextPath,
     globalContent,
-    customLogoTitle,
+    title,
   }
 
   return <HeaderBasicChildren {...params} />

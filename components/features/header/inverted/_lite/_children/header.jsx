@@ -22,7 +22,7 @@ export default props => {
     arcSite,
     contextPath,
     globalContent,
-    customLogoTitle,
+    title,
   } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
 
@@ -101,8 +101,8 @@ export default props => {
               arcSite,
               contextPath
             )}/resources/dist/elcomercio/images/logo.png?d=1`}
-            alt={customLogoTitle}
-            title={customLogoTitle}
+            alt={title}
+            title={title}
           />
         </a>
 
