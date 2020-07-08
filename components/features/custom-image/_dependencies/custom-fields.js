@@ -30,6 +30,12 @@ const customFields = PropTypes.shape({
     description:
       'El valor tomará efecto cuando el campo "Filas" tenga el valor "Manual"',
   }),
+  lazyload: PropTypes.bool.tag({
+    name: 'Activar lazyload',
+    description:
+      'Sólo se debe desactivar el lazyload si este elemento esta en la parte superior de la pagina.',
+    defaultValue: true,
+  }),
   imgTitle: PropTypes.string.tag({
     name: 'Title imagen',
     group: 'SEO',
