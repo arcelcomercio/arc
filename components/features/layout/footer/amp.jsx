@@ -4,6 +4,7 @@ import { useFusionContext } from 'fusion:context'
 import StoryData from '../../../utilities/story-data'
 import StoriesRecent from '../../../global-components/stories-recent'
 import { formatHtmlToText } from '../../../utilities/helpers'
+import { SITE_GESTION } from '../../../utilities/constants/sitenames'
 
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
@@ -74,7 +75,7 @@ const LayoutAmpFooter = () => {
 
   return (
     <>
-      {arcSite !== 'peru21' && arcSite !== 'ojo' && arcSite !== 'trome' && arcSite !== 'elbocon' && (
+      {arcSite === SITE_GESTION && (
         <>
           <div className={classes.nextPageSeparator} separator>
             <p className={classes.nextPageSeparatorText}>SIGUIENTE ARTÍCULO</p>
