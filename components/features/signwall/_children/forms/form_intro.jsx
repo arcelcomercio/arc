@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
+import Markdown from 'react-markdown/with-html'
 import * as S from './styles'
 import { ModalConsumer } from '../context'
 import Loading from '../loading'
@@ -11,8 +12,8 @@ export const FormIntro = ({
   getContent,
   arcSite,
   typeDialog,
-  removeBefore = (i) => i,
-  checkModal = (i) => i,
+  removeBefore = i => i,
+  checkModal = i => i,
 }) => {
   const [showLoading, setShowLoading] = useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = useState(false)
@@ -21,13 +22,14 @@ export const FormIntro = ({
 
   useEffect(() => {
     const { fetched } = getContent('paywall-campaing')
-    fetched.then((resCam) => {
+    fetched.then(resCam => {
       setResCampaing({
         paywallPrice: resCam.plans[0].amount || '-',
         paywallFrecuency: resCam.plans[0].billingFrequency || '-',
         paywallTitle: resCam.plans[0].description.title || '-',
         paywallDescripcion: resCam.plans[0].description.description || '-',
         featuresDescription: resCam.summary.feature || [],
+        printAttributes: resCam.printAttributes || [],
       })
       setShowFree(resCam.plans[0].amount === 0)
       setShowLoading(false)
@@ -70,7 +72,7 @@ export const FormIntro = ({
 
   return (
     <ModalConsumer>
-      {(value) => (
+      {value => (
         <S.Form typeDialog={typeDialog}>
           {showLoading ? (
             <Loading arcSite={arcSite} typeBg="wait" typeDialog={typeDialog} />
@@ -113,7 +115,7 @@ export const FormIntro = ({
                     </h3>
 
                     <ul className="list-benefits mb-20">
-                      {resCampaing.featuresDescription.map((item) => {
+                      {resCampaing.featuresDescription.map(item => {
                         return <li key={item}>{item}</li>
                       })}
                     </ul>
@@ -170,7 +172,12 @@ export const FormIntro = ({
                 c="gray"
                 s={typeDialog === 'premium' ? '12' : '15'}
                 className="mt-20 mb-10 center">
-                ¿ESTÁS SUSCRITO AL DIARIO IMPRESO?
+                {resCampaing.printAttributes.map(item => {
+                  if (item.name === 'subscriber_title_popup') {
+                    return item.value
+                  }
+                  return null
+                })}
               </S.Text>
 
               <S.Text
@@ -179,19 +186,21 @@ export const FormIntro = ({
                 className={`center note-premium ${
                   arcSite === 'elcomercio' ? 'mb-10' : ''
                 }`}>
-                <div className="sub-paragraph">
-                  Disfruta
-                  <strong>
-                    {arcSite === 'elcomercio' ? ' 1 mes ' : ' 3 meses '} GRATIS
-                  </strong>
-                </div>{' '}
-                <div className="sub-paragraph">
-                  y luego{' '}
-                  <span className="price">
-                    S/{arcSite === 'elcomercio' ? ' 10 ' : ' 19 '}
-                  </span>{' '}
-                  al mes.
-                </div>
+                {resCampaing.printAttributes.map(item => {
+                  if (item.name === 'subscriber_detail_popup') {
+                    return (
+                      <div className="sub-paragraph">
+                        <Markdown
+                          source={item.value}
+                          escapeHtml={false}
+                          unwrapDisallowed
+                          disallowedTypes={['paragraph']}
+                        />
+                      </div>
+                    )
+                  }
+                  return null
+                })}
               </S.Text>
             </>
           )}

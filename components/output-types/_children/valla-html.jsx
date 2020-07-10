@@ -1,8 +1,14 @@
 import React from 'react'
+import Markdown from 'react-markdown/with-html'
 import { useContent } from 'fusion:content'
 
 const VallaHtml = () => {
-  const { name = 'Nombre Plan', summary: { feature = [] } = {}, plans = [] } =
+  const {
+    name = 'Nombre Plan',
+    summary: { feature = [] } = {},
+    plans = [],
+    printAttributes = [],
+  } =
     useContent({
       source: 'paywall-campaing',
     }) || {}
@@ -82,13 +88,30 @@ const VallaHtml = () => {
                   id="btn-ver-planes">
                   VER PLANES
                 </button>
-                <p className="suscrito">¿ESTÁS SUSCRITO AL DIARIO IMPRESO?</p>
-                <div className="note-premium">
-                  Disfruta<strong> 1 mes GRATIS</strong>
-                </div>
-                <div className="note-premium">
-                  y luego <span className="price">S/ 10 </span> al mes.
-                </div>
+                <p className="suscrito">
+                  {printAttributes.map(item => {
+                    if (item.name === 'subscriber_title_popup') {
+                      return item.value
+                    }
+                    return null
+                  })}
+                </p>
+
+                {printAttributes.map(item => {
+                  if (item.name === 'subscriber_detail_popup') {
+                    return (
+                      <div className="note-premium">
+                        <Markdown
+                          source={item.value}
+                          escapeHtml={false}
+                          unwrapDisallowed
+                          disallowedTypes={['paragraph']}
+                        />
+                      </div>
+                    )
+                  }
+                  return null
+                })}
               </div>
             </div>
           </div>

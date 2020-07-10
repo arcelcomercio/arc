@@ -1,5 +1,6 @@
 import React from 'react'
 import Markdown from 'react-markdown/with-html'
+import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 
 function Cards({ item, arcSite, order, textOffer }) {
@@ -19,6 +20,27 @@ function Cards({ item, arcSite, order, textOffer }) {
 
   const handleSuscribirme = (paramUrl, paramSku) => {
     if (typeof window !== 'undefined') {
+      const { pathname } = new URL(window.location.href)
+      window.sessionStorage.setItem('paywall_last_url', pathname)
+      window.sessionStorage.setItem('paywall_type_modal', 'landing')
+
+      sendAction(PixelActions.PRODUCT_CLICK, {
+        ecommerce: {
+          currencyCode: item.price.currencyCode,
+          click: {
+            products: [
+              {
+                name: item.title,
+                id: item.sku,
+                price: item.price.amount,
+                brand: arcSite,
+                category: 'Suscripcion',
+              },
+            ],
+          },
+        },
+      })
+
       Taggeo('Web_Paywall_Home', `web_paywall_home_button_${paramSku}`)
       window.location.href = paramUrl
     }

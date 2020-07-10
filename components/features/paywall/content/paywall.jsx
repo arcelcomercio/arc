@@ -52,6 +52,7 @@ const Paywall = ({
       description,
       plans = [],
       printedSubscriber,
+      msgs: srvMsgs,
       freeAccess,
       error,
     },
@@ -107,6 +108,7 @@ const Paywall = ({
     description,
     summary,
     printedSubscriber,
+    srvMsgs,
     freeAccess,
     error,
   })
