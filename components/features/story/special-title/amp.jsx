@@ -2,11 +2,11 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import { storyTagsBbc } from '../../../utilities/helpers'
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 import StoryData from '../../../utilities/story-data'
-import { getAssetsPath } from '../../../utilities/constants'
+import { storyTagsBbc } from '../../../utilities/tags'
+import { getAssetsPath } from '../../../utilities/assets'
 import { publicidadAmp } from '../../../utilities/story/helpers-amp'
 
 const classes = {
