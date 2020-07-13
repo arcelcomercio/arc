@@ -17,21 +17,20 @@ const HeaderFull = props => {
     arcSite,
     contextPath,
     requestUri,
+    metaValue,
+    siteProperties,
     globalContent: {
       type = '',
       website_url: postPermaLink,
-      headlines: { basic: postTitle } = {},
+      headlines: { basic: postTitle, meta_title: StoryMetaTitle = '' } = {},
     } = {},
   } = useFusionContext() || {}
 
   const {
-    customFields: {
-      customLogoTitle,
-      hierarchyHeader,
-      hierarchyMenu,
-      hideMenu,
-    } = {},
+    customFields: { hierarchyHeader, hierarchyMenu, hideMenu } = {},
   } = props
+
+  let { customFields: { customLogoTitle } = {} } = props
 
   const {
     socialNetworks = [],
@@ -89,6 +88,19 @@ const HeaderFull = props => {
     requestUri.includes('/estadisticas/')
   ) {
     isStory = false
+  }
+
+  if (isStory) {
+    const storyTitleRe = StoryMetaTitle || postTitle
+
+    const seoTitle =
+      metaValue('title') &&
+      !metaValue('title').match(/content/) &&
+      metaValue('title')
+
+    customLogoTitle = `${seoTitle}: ${
+      storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+    } | ${siteProperties.siteTitle.toUpperCase()}`
   }
 
   const urlsShareList = socialMediaUrlShareList(
