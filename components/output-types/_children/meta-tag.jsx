@@ -2,7 +2,7 @@ import React from 'react'
 import {
   metaPaginationUrl,
   getMetaPagesPagination,
-} from '../../utilities/helpers'
+} from '../_dependencies/pagination'
 
 export default props => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
