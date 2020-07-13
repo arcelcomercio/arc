@@ -346,6 +346,30 @@
   &__embed {
     padding-bottom: 20px;
   }
+
+  &__interstitial-link {
+    color: #4a88b1;
+    font-size: $font-md;
+
+    line-height: 1.5;
+    font-weight: 700;
+    text-decoration: underline;
+    display: block;
+    font-family: "Libre Franklin", sans-serif;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    &::before {
+      color: #000;
+      content: "[";
+      margin-right: 4px;
+    }
+    &::after {
+      color: #000;
+      content: "]";
+      margin-left: 4px;
+    }
+  }
 }
 .overflow-hidden {
   overflow: hidden;
