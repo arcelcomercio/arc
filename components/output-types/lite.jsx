@@ -4,7 +4,11 @@ import ENV from 'fusion:environment'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import { storyTagsBbc } from '../utilities/tags'
-import { SITE_ELCOMERCIOMAG } from '../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_PERU21G21,
+  SITE_ELCOMERCIO,
+} from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import StoryData from '../utilities/story-data'
 
@@ -12,15 +16,22 @@ import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import TagManager from './_children/tag-manager'
-import renderMetaPage from './_children/render-meta-page'
 import LiteAds from './_children/lite-ads'
 import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
+import VallaHtml from './_children/valla-html'
+import MetaStory from './_children/meta-story'
+
 import videoScript from './_dependencies/lite/video-script'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
-import VallaHtml from './_children/valla-html'
+import {
+  getIsStory,
+  getTitle,
+  getDescription,
+  getKeywords,
+} from './_dependencies/utils'
 
 const LiteOutput = ({
   children,
@@ -63,11 +74,7 @@ const LiteOutput = ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const isStory =
-    metaValue('id') === 'meta_story' ||
-    requestUri.match(`^/preview/([A-Z0-9]{26})/?`) ||
-    ''
-
+  const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
         nameSeccion.split('/')[1]
@@ -87,69 +94,23 @@ const LiteOutput = ({
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
-  const seoTitle =
-    metaValue('title') &&
-    !metaValue('title').match(/content/) &&
-    metaValue('title')
+  const title = getTitle({
+    metaValue,
+    isStory,
+    siteTitle: siteProperties.siteTitle,
+    storyTitleRe,
+    pageNumber,
+    requestUri,
+  })
 
-  const getTitle = () => {
-    let title = `${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
-    if (isStory) {
-      title = `${seoTitle}: ${
-        storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-      } | ${siteProperties.siteTitle.toUpperCase()}`
-    } else if (
-      pageNumber > 1 &&
-      (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')
-      /*  || metaValue('id') === "meta_search" */
-    ) {
-      title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteTitle.toUpperCase()}`
-    } else if (metaValue('id') === 'meta_archive') {
-      const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
-      const hasSection =
-        /\/archivo\/([\w\d-]+)/.test(requestUri) &&
-        !/\/archivo\/todas/.test(requestUri)
-      if (!hasDate && !hasSection) {
-        title = `Archivo de Noticias | ${siteProperties.siteTitle.toUpperCase()}`
-      }
-    }
-    return title
-  }
+  const description = getDescription({
+    metaValue,
+    siteName: siteProperties.siteName,
+    pageNumber,
+    requestUri,
+  })
 
-  const title = getTitle()
-
-  const getDescription = () => {
-    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
-    if (
-      metaValue('description') &&
-      !metaValue('description').match(/content/)
-    ) {
-      description = `${metaValue('description')}`
-      if (
-        (pageNumber > 1 && metaValue('id') === 'meta_tag') ||
-        metaValue('id') === 'meta_author'
-        /*  || metaValue('id') === "meta_search" */
-      ) {
-        description = `${metaValue('description')} Página ${pageNumber}.`
-      } else if (metaValue('id') === 'meta_archive') {
-        const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
-        const hasSection =
-          /\/archivo\/([\w\d-]+)/.test(requestUri) &&
-          !/\/archivo\/todas/.test(requestUri)
-        if (!hasDate && !hasSection) {
-          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
-        }
-      }
-    }
-    return description
-  }
-
-  const description = getDescription()
-
-  const keywords =
-    metaValue('keywords') && !metaValue('keywords').match(/content/)
-      ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+  const keywords = getKeywords({ metaValue, siteName: siteProperties.siteName })
 
   const twitterCardsData = {
     twitterUser:
@@ -195,11 +156,8 @@ const LiteOutput = ({
   s_bbcws('track', 'pageView');`
 
   const isPremium = contentCode === 'premium' || false
-
   const htmlAmpIs = isPremium ? '' : true
-
-  let link = deleteQueryString(requestUri)
-  link = link.replace(/\/homepage[/]?$/, '/')
+  const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
   const parameters = {
     googleTagManagerId: siteProperties.googleTagManagerId,
@@ -223,20 +181,17 @@ const LiteOutput = ({
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-story.css`
   }
-  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/lite-story.css`
   }
-  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
   }
 
-  const getdata = () => {
-    return new Date().toISOString().slice(0, 10)
-  }
   const parametersValla = {
     arcSite,
     arcEnv: CURRENT_ENVIRONMENT,
-    getdata: getdata(),
+    getdata: new Date().toISOString().slice(0, 10),
   }
 
   const premiumValue = getPremiumValue === 'premium' ? true : getPremiumValue
@@ -247,37 +202,83 @@ const LiteOutput = ({
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang="es">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            /**
-             * if(typeof window !== "undefined"){
-                window.requestIdle = window.requestIdleCallback ||
-                function (cb) {
-                  const start = Date.now();
-                  return setTimeout(function () {
-                    cb({
-                      didTimeout: false,
-                      timeRemaining: function () {
-                        return Math.max(0, 50 - (Date.now() - start));
-                      },
-                    });
-                  }, 1);
-                };
-              }
-            */
-            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
-          }}
-        />
-
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/**
+         * dns-prefetch hace solo DNS lookup.
+         * preconnect hace DNS lookup, TLS negotiation, y TCP handshake.
+         * -----------------
+         * Si el la conexion se hace SIEMPRE, vale la pena usar preconnect
+         * (con dns-prefetch como fallback). Si la conexion no se hace siempre,
+         * sino algunas veces, es mejor usar solo dns-prefetch para evitar la
+         * TLS negotiation, y TCP handshake adicionales sin necesidad.
+         *
+         * https://web.dev/preconnect-and-dns-prefetch/
+         */}
+        <link rel="preconnect" href={`//cdnc.${siteProperties.siteDomain}`} />
+        <link rel="dns-prefetch" href={`//cdnc.${siteProperties.siteDomain}`} />
+        <link
+          rel="preconnect"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
+        <link
+          rel="dns-prefetch"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
+        {isPremium && (
+          <>
+            <link
+              rel="preconnect"
+              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+            />
+            <link
+              rel="dns-prefetch"
+              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+            />
+          </>
+        )}
+        <link rel="preconnect" href="//www.googletagmanager.com/" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
+        <link rel="preconnect" href="//www.google-analytics.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect" href="//static.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
+        <link rel="preconnect" href="//mab.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
+        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
+        <link rel="preconnect" href="//cdn.cxense.com/" />
+        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
+        <link rel="preconnect" href="//scdn.cxense.com/" />
+        <link rel="dns-prefetch" href="//scdn.cxense.com/" />
+        <link rel="preconnect" href="//scomcluster.cxense.com/" />
+        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
+        <link rel="preconnect" href="//sb.scorecardresearch.com/" />
+        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        {isStory && (
+          <>
+            <link rel="dns-prefetch" href="//www.facebook.com/" />
+            <link rel="dns-prefetch" href="//connect.facebook.net/" />
+            <link rel="preconnect" href="//cds.taboola.com/" />
+            <link rel="dns-prefetch" href="//cds.taboola.com/" />
+          </>
+        )}
+        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
+
         <meta name="lang" content="es" />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
         <meta name="robots" content="index, follow" />
-        <meta name="GOOGLEBOT" content="index follow" />
-        <meta name="Author" content={siteProperties.siteName} />
+        <meta name="googlebot" content="index follow" />
+        <meta name="author" content={siteProperties.siteName} />
+        <title>{title}</title>
+        <meta name="description" lang="es" content={description} />
+        {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
         {isStory && (
           <>
             <meta name="DC.title" lang="es" content={title} />
@@ -309,75 +310,38 @@ const LiteOutput = ({
             hrefLang="es"
           />
         )}
-        <title>{title}</title>
-        {/**
-         * dns-prefetch hace solo DNS lookup.
-         * preconnect hace DNS lookup, TLS negotiation, y TCP handshake.
-         * -----------------
-         * Si el la conexion se hace SIEMPRE, vale la pena usar preconnect
-         * (con dns-prefetch como fallback). Si la conexion no se hace siempre,
-         * sino algunas veces, es mejor usar solo dns-prefetch para evitar la
-         * TLS negotiation, y TCP handshake adicionales sin necesidad.
-         *
-         * https://web.dev/preconnect-and-dns-prefetch/
-         */}
-        <link rel="preconnect" href={`//cdnc.${siteProperties.siteDomain}`} />
-        <link rel="dns-prefetch" href={`//cdnc.${siteProperties.siteDomain}`} />
-        <link
-          rel="preconnect"
-          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
-        />
-        <link
-          rel="dns-prefetch"
-          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
-        />
-        <link rel="preconnect" href="//www.googletagmanager.com/" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
-        <link rel="preconnect" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="preconnect" href="//static.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
-        <link rel="preconnect" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
-        <link rel="preconnect" href="//cdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-        <link rel="preconnect" href="//scdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//scdn.cxense.com/" />
-        <link rel="preconnect" href="//scomcluster.cxense.com/" />
-        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
-        <link rel="preconnect" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        {isStory && (
-          <>
-            <link rel="dns-prefetch" href="//www.facebook.com/" />
-            <link rel="dns-prefetch" href="//connect.facebook.net/" />
-            <link rel="preconnect" href="//cds.taboola.com/" />
-            <link rel="dns-prefetch" href="//cds.taboola.com/" />
-          </>
-        )}
-        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
+        <MetaSite {...metaSiteData} />
+        <MetaStory {...metaPageData} />
+        {/* renderMetaPage(metaValue('id'), metaPageData) */}
 
+        <script
+          dangerouslySetInnerHTML={{
+            /**
+             * if(typeof window !== "undefined"){
+                window.requestIdle = window.requestIdleCallback ||
+                function (cb) {
+                  const start = Date.now();
+                  return setTimeout(function () {
+                    cb({
+                      didTimeout: false,
+                      timeRemaining: function () {
+                        return Math.max(0, 50 - (Date.now() - start));
+                      },
+                    });
+                  }, 1);
+                };
+              }
+            */
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
+          }}
+        />
+        <TagManager {...parameters} />
         <LiteAds
           requestUri={requestUri}
           tags={tags}
           contentCode={contentCode}
           siteProperties={siteProperties}
         />
-
-        <MetaSite {...metaSiteData} />
-        <meta name="description" content={description} />
-        {arcSite === 'elcomerciomag' && (
-          <meta property="fb:pages" content="530810044019640" />
-        )}
-        {isStory ? '' : <meta name="keywords" content={keywords} />}
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
-        {renderMetaPage(metaValue('id'), metaPageData)}
-
         <AppNexus
           arcSite={arcSite}
           requestUri={requestUri}
@@ -385,6 +349,7 @@ const LiteOutput = ({
           isStory={isStory}
           globalContent={globalContent}
         />
+
         <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
           {({ data }) => {
             return data ? (
@@ -408,8 +373,7 @@ const LiteOutput = ({
               defer></script>
           </>
         )}
-
-        {isPremium && arcSite === 'elcomercio' && (
+        {isPremium && arcSite === SITE_ELCOMERCIO && (
           <>
             <Libs></Libs>
             <script
@@ -424,7 +388,6 @@ const LiteOutput = ({
             />
           </>
         )}
-        <TagManager {...parameters} />
       </head>
       <body
         className={classBody}
