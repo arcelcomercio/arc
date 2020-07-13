@@ -212,6 +212,12 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
+        <script
+          async
+          custom-element="amp-audio"
+          src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"
+        />
+
         {arcSite !== SITE_PERU21 &&
           arcSite !== SITE_TROME &&
           arcSite !== SITE_OJO &&
