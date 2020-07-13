@@ -32,6 +32,7 @@ $space-interval: 5;
 /* --- FEATURES ---------------------------------------------------------
   Cambio temportal por consumo
 ------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/ads/ads";
 @import "../../general-styles/components/features/layout/navbar/nav";
 @import "../../general-styles/components/features/layout/navbar/nav-story";
 @import "../../general-styles/components/features/layout/header/header";
@@ -82,7 +83,7 @@ $space-interval: 5;
 @import "./scss/components/story/header/story-header";
 
 /* --- MODIFICADORES ----------------------------------------------------
- Cambio temportal por consumo
+  Cambio temportal por consumo
 ------------------------------------------------------------------------- */
 @import "./scss/components/layout/navbar/nav";
 @import "./scss/components/layout/navbar/nav-story";
