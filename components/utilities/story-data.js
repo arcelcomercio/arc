@@ -12,6 +12,7 @@ import {
   ELEMENT_PODCAST,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
+  ELEMENT_CORRECTION,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -761,6 +762,17 @@ class StoryData {
     )
   }
 
+  get contentElementsCorrection() {
+    return (
+      (this._data &&
+        StoryData.getTextElementsText(
+          this._data.content_elements,
+          ELEMENT_CORRECTION
+        )) ||
+      ''
+    )
+  }
+
   get contentElementGallery() {
     return (
       (this._data &&
@@ -1208,6 +1220,16 @@ class StoryData {
       : ''
   }
 
+  static getTextElementsText(data = [], typeElement = '') {
+    return data && data.length > 0
+      ? data
+          .map(({ text, type }) => {
+            return type === typeElement ? formatHtmlToText(text) : []
+          })
+          .join(' ')
+      : ''
+  }
+
   static getContentElementsHtml(data = [], typeElement = '') {
     return data && data.length > 0
       ? data
@@ -1572,6 +1594,7 @@ class StoryData {
     const paragraphs = contentElements.map(
       ({
         content = '',
+        text = '',
         type = '',
         _id = '',
         url = '',
@@ -1615,6 +1638,10 @@ class StoryData {
           case ELEMENT_INTERSTITIAL_LINK:
             result.payload = content
             result.link = url
+            break
+          case ELEMENT_CORRECTION:
+            result.payload = text
+            // result.correction_type = 'correction'
             break
           case ELEMENT_LINK_LIST:
             result.payload = items

@@ -32,6 +32,7 @@ import {
   ELEMENT_OEMBED,
   ELEMENT_BLOCKQUOTE,
   ELEMENT_LIST,
+  ELEMENT_CORRECTION,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -44,6 +45,7 @@ import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
+import StoryContentsChildCorrection from './_children/correction'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -161,6 +163,8 @@ class StoryContentsLite extends PureComponent {
                     embed: customEmbed,
                     raw_oembed: rawOembed,
                     content,
+                    text,
+                    correction_type: correctionType,
                     level,
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
@@ -299,7 +303,15 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
-
+                  if (type === ELEMENT_CORRECTION) {
+                    return (
+                      <StoryContentsChildCorrection
+                        content={text}
+                        correctionType={correctionType}
+                        isAmp={false}
+                      />
+                    )
+                  }
                   if (type === ELEMENT_RAW_HTML) {
                     if (
                       content.includes('opta-widget') &&

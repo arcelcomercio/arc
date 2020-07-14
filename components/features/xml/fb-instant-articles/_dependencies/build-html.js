@@ -73,6 +73,24 @@ const buildTexParagraph = paragraph => {
   return result
 }
 
+const CORRECTION_TYPE_CORRECTION = 'correction'
+
+const buildCorrectionTexParagraph = (
+  paragraph,
+  type = CORRECTION_TYPE_CORRECTION
+) => {
+  const title =
+    type === CORRECTION_TYPE_CORRECTION ? 'Corrección:' : 'Aclaración:'
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
+
+  result.processedParagraph =
+    result.numberWords > 0
+      ? `<blockquote><b>${title}</b> ${clearBrTag(paragraph)}</blockquote>`
+      : ''
+  return result
+}
+
 const buildIntersticialParagraph = (paragraph, link) => {
   const result = { numberWords: 0, processedParagraph: '' }
   result.numberWords = countWordsHelper(clearHtml(paragraph))
@@ -149,6 +167,16 @@ const analyzeParagraph = ({
       break
     case ConfigParams.ELEMENT_INTERSTITIAL_LINK:
       textProcess = buildIntersticialParagraph(processedParagraph, link)
+
+      result.numberWords = textProcess.numberWords
+      result.processedParagraph = textProcess.processedParagraph
+
+      break
+    case ConfigParams.ELEMENT_CORRECTION:
+      textProcess = buildCorrectionTexParagraph(
+        processedParagraph,
+        CORRECTION_TYPE_CORRECTION
+      )
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
