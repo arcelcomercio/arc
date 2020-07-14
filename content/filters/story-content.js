@@ -9,6 +9,8 @@ content_elements {
   _id
   type
   content
+  text
+  correction_type
   caption
   embed{
     id

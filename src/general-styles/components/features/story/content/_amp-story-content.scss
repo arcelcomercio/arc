@@ -136,6 +136,19 @@
       margin-left: 4px;
     }
   }
+
+  &__correction {
+    background-color: #f3f5f7;
+    font-size: $font-md;
+    border-radius: 5px;
+    font-size: 0.8rem;
+
+    &__title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin: 0 !important;
+    }
+  }
 }
 
 .content-sidebar {
