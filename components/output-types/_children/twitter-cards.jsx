@@ -1,7 +1,7 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
-import ConfigParams from '../../utilities/config-params'
-import { getAssetsPath } from '../../utilities/constants'
+import { SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
+import { getAssetsPath } from '../../utilities/assets'
 import { getResizedUrl } from '../../utilities/resizer'
 
 export default ({
@@ -36,10 +36,7 @@ export default ({
           contextPath
         )}/resources/dist/${arcSite}/images/logo_twitter.jpg?d=1`
 
-  if (
-    arcSite === ConfigParams.SITE_DIARIOCORREO &&
-    primarySectionLink === '/opinion/'
-  ) {
+  if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage
   }
   return (

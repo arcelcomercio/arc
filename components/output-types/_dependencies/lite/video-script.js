@@ -1,5 +1,5 @@
 /*
- const videoObserver = (entries, observer) => {
+const videoObserver = (entries, observer) => {
   entries.forEach(entry => {
     const { isIntersecting, target } = entry
     if (isIntersecting) {
@@ -28,7 +28,7 @@
             target.classList.remove("s-multimedia__p-default")
           }, 1000);
         }
-     )
+    )
       observer.unobserve(target)
     }
   })

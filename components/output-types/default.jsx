@@ -1,5 +1,6 @@
 import React from 'react'
 import ENV from 'fusion:environment'
+
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
@@ -8,18 +9,30 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
-// import AdsScriptsFloorPrices from './_children/ads-scripts/floor-prices'
-// import FirebaseScripts from './_children/firebase-scripts'
+import Preconnects from './_children/preconnects'
+
+import StoryData from '../utilities/story-data'
+import { storyTagsBbc } from '../utilities/tags'
+import { addSlashToEnd } from '../utilities/parse/strings'
+import { deleteQueryString } from '../utilities/parse/queries'
+import { getAssetsPath } from '../utilities/assets'
+import {
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+  SITE_DEPOR,
+  SITE_PERU21G21,
+  SITE_TROME,
+} from '../utilities/constants/sitenames'
+import { META_HOME } from '../utilities/constants/meta'
+
 import {
   skipAdvertising,
-  storyTagsBbc,
-  addSlashToEnd,
-  deleteQueryString,
-} from '../utilities/helpers'
-// import ConfigParams from '../utilities/config-params'
-import { getAssetsPath } from '../utilities/constants'
-import StoryData from '../utilities/story-data'
-
+  getIsStory,
+  getTitle,
+  getDescription,
+  getKeywords,
+} from './_dependencies/utils'
+import { getPushud, getEnablePushud } from './_dependencies/pushud'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import videoScript from './_dependencies/video-script'
@@ -67,14 +80,12 @@ export default ({
       tags = [],
     } = {},
     subtype = '',
+    website_url: url = '',
+    content_restrictions: { content_code: contentCode = '' } = {},
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const isStory =
-    metaValue('id') === 'meta_story' ||
-    requestUri.match(`^/preview/([A-Z0-9]{26})/?`) ||
-    ''
-
+  const isStory = getIsStory({ metaValue, requestUri })
   const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
 
   let classBody = isStory
@@ -84,7 +95,7 @@ export default ({
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
-  if (arcSite === 'depor') {
+  if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/depor-play')) classBody = `${classBody} depor-play`
     if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
   }
@@ -96,53 +107,13 @@ export default ({
   if (requestUri.match(`^(/peru21tv/.*)`))
     classBody = `${isStory && 'story'} section-peru21tv`
 
-  if (arcSite === 'elcomercio') {
+  if (arcSite === SITE_ELCOMERCIO) {
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
-  const isHome = metaValue('id') === 'meta_home' && true
-
-  const getPushud = () => {
-    let pushud = ''
-    let idPushud = '41308'
-    if (arcSite === 'peru21') {
-      idPushud = '41308'
-    } else if (arcSite === 'depor') {
-      idPushud = '41272'
-    } else if (arcSite === 'elbocon') {
-      idPushud = '41441'
-    } else if (arcSite === 'diariocorreo') {
-      idPushud = '41440'
-    } else if (arcSite === 'gestion') {
-      idPushud = '41438'
-    } else if (arcSite === 'trome') {
-      idPushud = '41443'
-    } else if (arcSite === 'elcomerciomag') {
-      idPushud = '41445'
-    } else if (arcSite === 'ojo') {
-      idPushud = '41442'
-    }
-    pushud = `(function(w, d) { var s = d.createElement("script"); s.src = "//delivery.adrecover.com/${idPushud}/adRecover.js"; s.type = "text/javascript"; s.async = true; (d.getElementsByTagName("head")[0] || d.getElementsByTagName("body")[0]).appendChild(s); })(window, document);`
-    return pushud
-  }
-
-  const getEnablePushud = () => {
-    let epushud = false
-    if (
-      arcSite === 'peru21' ||
-      arcSite === 'depor' ||
-      arcSite === 'elbocon' ||
-      arcSite === 'diariocorreo' ||
-      arcSite === 'gestion' ||
-      arcSite === 'trome' ||
-      arcSite === 'elcomerciomag' ||
-      arcSite === 'ojo'
-    ) {
-      epushud = true
-    }
-    return epushud
-  }
+  const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud()
   const enabledPushud = getEnablePushud()
+  const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
 
   const metaSiteData = {
     ...siteProperties,
@@ -161,8 +132,8 @@ export default ({
   const getPrebid = () => {
     let prebid = true
     if (
-      arcSite === 'elcomercio' ||
-      (arcSite === 'elcomerciomag' && requestUri.match(`^/virales`)) ||
+      arcSite === SITE_ELCOMERCIO ||
+      (arcSite === SITE_ELCOMERCIOMAG && requestUri.match(`^/virales`)) ||
       requestUri.match(`^/respuestas`) ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
@@ -181,69 +152,23 @@ export default ({
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
-  const seoTitle =
-    metaValue('title') &&
-    !metaValue('title').match(/content/) &&
-    metaValue('title')
+  const title = getTitle({
+    metaValue,
+    isStory,
+    siteTitle: siteProperties.siteTitle,
+    storyTitleRe,
+    pageNumber,
+    requestUri,
+  })
 
-  const getTitle = () => {
-    let title = `${seoTitle} | ${siteProperties.siteTitle.toUpperCase()}`
-    if (isStory) {
-      title = `${seoTitle}: ${
-        storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-      } | ${siteProperties.siteTitle.toUpperCase()}`
-    } else if (
-      pageNumber > 1 &&
-      (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')
-      /*  || metaValue('id') === "meta_search" */
-    ) {
-      title = `${seoTitle} | Página ${pageNumber} | ${siteProperties.siteTitle.toUpperCase()}`
-    } else if (metaValue('id') === 'meta_archive') {
-      const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
-      const hasSection =
-        /\/archivo\/([\w\d-]+)/.test(requestUri) &&
-        !/\/archivo\/todas/.test(requestUri)
-      if (!hasDate && !hasSection) {
-        title = `Archivo de Noticias | ${siteProperties.siteTitle.toUpperCase()}`
-      }
-    }
-    return title
-  }
+  const description = getDescription({
+    metaValue,
+    siteName: siteProperties.siteName,
+    pageNumber,
+    requestUri,
+  })
 
-  const title = getTitle()
-
-  const getDescription = () => {
-    let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteProperties.siteName}.`
-    if (
-      metaValue('description') &&
-      !metaValue('description').match(/content/)
-    ) {
-      description = `${metaValue('description')}`
-      if (
-        (pageNumber > 1 && metaValue('id') === 'meta_tag') ||
-        metaValue('id') === 'meta_author'
-        /*  || metaValue('id') === "meta_search" */
-      ) {
-        description = `${metaValue('description')} Página ${pageNumber}.`
-      } else if (metaValue('id') === 'meta_archive') {
-        const hasDate = /\d{4}-\d{2}-\d{2}/.test(requestUri)
-        const hasSection =
-          /\/archivo\/([\w\d-]+)/.test(requestUri) &&
-          !/\/archivo\/todas/.test(requestUri)
-        if (!hasDate && !hasSection) {
-          description = `Archivo de noticias de ${siteProperties.siteName}. Noticias actualizadas del Perú y el Mundo con fotos, videos y galerías sobre actualidad, deportes, economía y otros.`
-        }
-      }
-    }
-    return description
-  }
-
-  const description = getDescription()
-
-  const keywords =
-    metaValue('keywords') && !metaValue('keywords').match(/content/)
-      ? metaValue('keywords')
-      : `Noticias, ${siteProperties.siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+  const keywords = getKeywords({ metaValue, siteName: siteProperties.siteName })
 
   const twitterCardsData = {
     twitterUser:
@@ -282,9 +207,9 @@ export default ({
     _taboola.push({flush: true});`
 
   const { googleFonts = '', siteDomain = '' } = siteProperties || {}
-  const nodas = skipAdvertising(tags)
-
-  const isLivePage = arcSite === 'elcomercio' && requestUri.match(`^/en-vivo/`)
+  const noAds = skipAdvertising(tags)
+  const isLivePage =
+    arcSite === SITE_ELCOMERCIO && requestUri.match(`^/en-vivo/`)
 
   const structuredBBC = `!function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
   (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
@@ -292,17 +217,9 @@ export default ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-  const {
-    website_url: url = '',
-    content_restrictions: { content_code: contentCode = '' } = {},
-  } = globalContent || {}
-
   const isPremium = contentCode === 'premium' || false
-
   const htmlAmpIs = isPremium ? '' : true
-
-  let link = deleteQueryString(requestUri)
-  link = link.replace(/\/homepage[/]?$/, '/')
+  const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
   const {
     videoSeo,
@@ -321,28 +238,26 @@ export default ({
   let style = 'style'
   if (
     isStory &&
-    (arcSite === 'elcomercio' || arcSite === 'depor') &&
+    (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
-  else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
+  else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
-  else if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home')
-    style = 'dbasic'
+  else if (isElcomercioHome) style = 'dbasic'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
   }
-  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
   }
-  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
 
-  const isStyleBasic =
-    arcSite === 'elcomercio c' && metaValue('id') === 'meta_home' && true
+  const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
 
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
   return (
@@ -351,12 +266,31 @@ export default ({
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Preconnects
+          siteDomain={siteDomain}
+          arcSite={arcSite}
+          contextPath={contextPath}
+          activePaywall={siteProperties.activePaywall}
+          isHome={isHome}
+        />
+        {googleFonts && (
+          <link
+            href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
+            rel="stylesheet"
+          />
+        )}
+
         <meta name="lang" content="es" />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
         <meta name="robots" content="index, follow" />
-        <meta name="GOOGLEBOT" content="index follow" />
-        <meta name="Author" content={siteProperties.siteName} />
+        <meta name="googlebot" content="index follow" />
+        <meta name="author" content={siteProperties.siteTitle} />
+        <title>{title}</title>
+        <meta name="description" lang="es" content={description} />
+        {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
         {isStory && (
           <>
             <meta name="DC.title" lang="es" content={title} />
@@ -373,6 +307,7 @@ export default ({
             <meta name="DC.language" scheme="RFC1766" content="es" />
           </>
         )}
+
         {isStory && htmlAmpIs && (
           <link
             rel="amphtml"
@@ -382,79 +317,30 @@ export default ({
           />
         )}
 
-        <title>{title}</title>
-        <link rel="preconnect dns-prefetch" href={`//cdnc.${siteDomain}`} />
-        <link
-          rel="preconnect dns-prefetch"
-          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
-        />
-        <link
-          rel="preconnect dns-prefetch"
-          href="//d1r08wok4169a5.cloudfront.net"
-        />
-        <link
-          rel="preconnect dns-prefetch"
-          href="//elcomercio-elcomercio-prod.cdn.arcpublishing.com"
-        />
-        <link
-          rel="preconnect dns-prefetch"
-          href="//arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com"
-        />
-        <link rel="preconnect dns-prefetch" href="//s.go-mpulse.net" />
-        <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="preconnect dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
-        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
-        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
-        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
-        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
-        <link rel="preconnect dns-prefetch" href="//static.chartbeat.com" />
-        <link rel="preconnect dns-prefetch" href="//scomcluster.cxense.com" />
-        <link rel="preconnect dns-prefetch" href="//sb.scorecardresearch.com" />
-        <link rel="preconnect dns-prefetch" href="//ping.chartbeat.net" />
-        <link rel="preconnect dns-prefetch" href="//mab.chartbeat.com" />
-        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
-        <link
-          rel="preconnect dns-prefetch"
-          href="//arc-subs-sdk.s3.amazonaws.com"
-        />
-        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
-        {arcSite === 'elcomercio' && (
-          <>
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="crossorigin"
-              type="font/woff2"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
-            />
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="crossorigin"
-              type="font/woff2"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
-            />
-          </>
-        )}
-        {googleFonts && (
-          <link
-            href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
-            rel="stylesheet"
-          />
-        )}
-
         <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
-        <meta name="description" content={description} />
-        {arcSite === 'elcomerciomag' && (
-          <meta property="fb:pages" content="530810044019640" />
-        )}
-        {isStory ? '' : <meta name="keywords" content={keywords} />}
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
         {renderMetaPage(metaValue('id'), metaPageData)}
+        <script
+          dangerouslySetInnerHTML={{
+            /**
+             * if(typeof window !== "undefined"){
+                window.requestIdle = window.requestIdleCallback ||
+                function (cb) {
+                  const start = Date.now();
+                  return setTimeout(function () {
+                    cb({
+                      didTimeout: false,
+                      timeRemaining: function () {
+                        return Math.max(0, 50 - (Date.now() - start));
+                      },
+                    });
+                  }, 1);
+                };
+              }
+            */
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
+          }}
+        />
+        <TagManager {...siteProperties} />
         <AppNexus
           arcSite={arcSite}
           requestUri={requestUri}
@@ -462,8 +348,6 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-
-        {/* <AdsScriptsFloorPrices /> */}
         {contenidoVideo && (
           <>
             <style
@@ -479,7 +363,7 @@ export default ({
             .slice(0, 10)}`}
         />
         {/* Scripts de AdManager */}
-        {!nodas && !isLivePage && (
+        {!noAds && !isLivePage && (
           <>
             {indPrebid && (
               <script
@@ -499,12 +383,8 @@ export default ({
           </>
         )}
         {/* Scripts de AdManager - Fin */}
-
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-
-        {/* <FirebaseScripts /> */}
-
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {contenidoVideo && (
           <>
@@ -515,40 +395,28 @@ export default ({
         )}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
-          if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home') {
+          if (isElcomercioHome || !siteProperties.activeSignwall) {
             return null
           }
-          if (
-            arcSite === 'depor' ||
-            arcSite === 'elcomercio' ||
-            arcSite === 'peru21' ||
-            arcSite === 'gestion' ||
-            arcSite === 'peru21g21'
-          ) {
-            return (
-              <script
-                src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-                defer
-              />
-            )
-          }
-          return null
+          return (
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+              defer
+            />
+          )
         })()}
         {(() => {
-          if (siteProperties.activePaywall) {
-            if (arcSite === 'elcomercio' && metaValue('id') === 'meta_home') {
-              return null
-            }
-            return (
-              <script
-                src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}
-                async
-              />
-            )
+          if (isElcomercioHome || !siteProperties.activePaywall) {
+            return null
           }
-          return null
+          return (
+            <script
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
+              async
+            />
+          )
         })()}
         {/* <!-- Identity & Sales & Paywall - Fin --> */}
         {enabledPushud && (
@@ -560,7 +428,6 @@ export default ({
             />
           </>
         )}
-        <TagManager {...siteProperties} />
       </head>
       <body
         className={classBody}
@@ -622,7 +489,7 @@ export default ({
             .slice(0, 10)}`}
         />
         {/* Rubicon BlueKai - Inicio */}
-        {arcSite === 'elcomercio' && metaValue('id') === 'meta_home' ? (
+        {isElcomercioHome ? (
           <>
             <script
               type="text/javascript"
@@ -698,12 +565,14 @@ export default ({
             />
           </>
         )}
-        {arcSite === 'trome' && (
+        {arcSite === SITE_TROME && (
           <>
-            <script 
-            src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js" 
-            id="browsi-tag" data-pubKey="elcomercio" data-siteKey="trome" 
-            async
+            <script
+              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
+              id="browsi-tag"
+              data-pubKey="elcomercio"
+              data-siteKey="trome"
+              async
             />
           </>
         )}

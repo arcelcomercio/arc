@@ -2,6 +2,7 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 
 import HeaderChildRecipe from './_children/recipe'
 import Formatter from './_dependencies/formatter'
@@ -12,7 +13,6 @@ const DEFAULT_HIERARCHY = 'recetas-subsecciones'
 const HeaderRecipe = props => {
   const {
     customFields: {
-      customLogoTitle,
       customLogo,
       customLogoLink,
       tags,
@@ -24,12 +24,39 @@ const HeaderRecipe = props => {
     },
   } = props
 
-  const { contextPath, arcSite, deployment } = useFusionContext()
+  let { customFields: { customLogoTitle } = {} } = props
+
+  const {
+    contextPath,
+    arcSite,
+    deployment,
+    metaValue,
+    siteProperties,
+    globalContent: {
+      type,
+      headlines: { basic: postTitle, meta_title: StoryMetaTitle = '' } = {},
+    } = {},
+  } = useFusionContext()
 
   const {
     siteDomain,
     assets: { header: headerProperties },
   } = getProperties(arcSite)
+
+  const isStory = type === ELEMENT_STORY
+
+  if (isStory) {
+    const storyTitleRe = StoryMetaTitle || postTitle
+
+    const seoTitle =
+      metaValue('title') &&
+      !metaValue('title').match(/content/) &&
+      metaValue('title')
+
+    customLogoTitle = `${seoTitle}: ${
+      storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+    } | ${siteProperties.siteTitle.toUpperCase()}`
+  }
 
   const formater = new Formatter(
     deployment,

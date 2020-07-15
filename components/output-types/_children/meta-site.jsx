@@ -1,7 +1,12 @@
 import React from 'react'
 import { addSlashToEnd } from '../../utilities/parse/strings'
 import { deleteQueryString } from '../../utilities/parse/queries'
-import { SITE_ELCOMERCIO } from '../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+  SITE_DEPOR,
+  SITE_PERU21G21,
+} from '../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../utilities/assets'
 import Trust from './trust'
 
@@ -64,16 +69,16 @@ export default ({
 
   if (
     isStory &&
-    (arcSite === 'elcomercio' || arcSite === 'depor') &&
+    (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
-  else if (isStoryMatch && arcSite === 'depor') style = 'match-score'
-  else if (isStory && (arcSite === 'elcomercio' || arcSite === 'depor'))
+  else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
+  else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (
     isStory &&
-    arcSite === 'elcomerciomag' &&
+    arcSite === SITE_ELCOMERCIOMAG &&
     requestUri.includes('/recetas/')
   )
     style = 'story-recetas'
@@ -83,16 +88,16 @@ export default ({
   )
     style = 'specials'
 
-  style = isHome && arcSite === 'elcomercio' ? 'basic' : style
+  style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
   }
-  if (arcSite === 'elcomerciomag' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
   }
-  if (arcSite === 'peru21g21' && CURRENT_ENVIRONMENT === 'prod') {
+  if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
   let styleDefault = isStyleBasic ? 'basic' : ''
@@ -198,6 +203,9 @@ export default ({
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
+      {arcSite === SITE_ELCOMERCIOMAG && (
+        <meta property="fb:pages" content="530810044019640" />
+      )}
       {arcSite === SITE_ELCOMERCIO ? (
         <>
           <script

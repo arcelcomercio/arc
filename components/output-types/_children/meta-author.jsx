@@ -2,8 +2,8 @@ import React from 'react'
 import {
   metaPaginationUrl,
   getMetaPagesPagination,
-  formatHtmlToText,
-} from '../../utilities/helpers'
+} from '../_dependencies/pagination'
+import { formatHtmlToText } from '../../utilities/parse/strings'
 
 export default ({
   globalContent,

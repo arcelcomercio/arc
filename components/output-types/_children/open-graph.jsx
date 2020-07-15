@@ -1,10 +1,9 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
-import { deleteQueryString } from '../../utilities/helpers'
-import ConfigParams from '../../utilities/config-params'
-import { getAssetsPath } from '../../utilities/constants'
+import { deleteQueryString } from '../../utilities/parse/queries'
+import { SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
 import { getResizedUrl } from '../../utilities/resizer'
-import { getAssetsPathVideo } from '../../utilities/assets'
+import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 
 export default ({
   fbAppId,
@@ -43,10 +42,7 @@ export default ({
           contextPath
         )}/resources/dist/${arcSite}/images/logo_fb.jpg?d=1`
 
-  if (
-    arcSite === ConfigParams.SITE_DIARIOCORREO &&
-    primarySectionLink === '/opinion/'
-  ) {
+  if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage
   }
   const urlVideo = getAssetsPathVideo(arcSite, url)
@@ -55,7 +51,6 @@ export default ({
       {/* <!-- Facebook OG --> */}
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content="es_PE" />
-
       <meta property="fb:app_id" content={fbAppId} />
       <meta property="og:title" content={story ? seoTitle : title} />
       <meta property="og:description" content={description} />
