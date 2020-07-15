@@ -18,9 +18,11 @@ const classes = {
   list: 'menu__list',
   footer: `menu__footer`,
   text: `menu__text`,
+  menuSomos: 'menu--somos',
 }
 
 const NavbarChildMenu = ({
+  isSomos,
   menuSections = [],
   siteDomain = '',
   legalLinks = [],
@@ -70,7 +72,10 @@ const NavbarChildMenu = ({
   }
 
   return (
-    <div className={classes.sidebar} id="menu" aria-expanded="false">
+    <div
+      className={`${classes.sidebar} ${isSomos ? classes.menuSomos : ''}`}
+      id="menu"
+      aria-expanded="false">
       <div className={classes.content} id="m-content">
         <div className={classes.top}>
           <div className={classes.search}>

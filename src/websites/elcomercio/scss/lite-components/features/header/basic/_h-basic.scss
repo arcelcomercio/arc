@@ -2,12 +2,12 @@
   background-color: $color-primary;
   justify-content: space-between;
   align-items: center;
-  height: 48px;
+  height: $header-height-m;
   padding: 0 16px;
 
   @media (--desktop) {
     padding: 0 20px;
-    height: 60px;
+    height: $header-height;
   }
 
   &__btn {
@@ -163,6 +163,22 @@
     display: none;
     @media (--desktop) {
       display: flex;
+    }
+  }
+
+  // ----- MODIFICADOR SOMOS LITE -----
+  &--somos {
+    background-color: $color-white;
+    height: $header-somos-height-m;
+
+    @media (--desktop) {
+      height: $header-somos-height;
+    }
+    .h-basic__img {
+      height: 30px;
+      @media (--desktop) {
+        height: 42px;
+      }
     }
   }
 }

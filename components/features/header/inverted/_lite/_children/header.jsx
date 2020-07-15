@@ -7,7 +7,6 @@
 import React from 'react'
 import ENV from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { getAssetsPath } from '../../../../../utilities/assets'
 import {
   searchScript,
   menuScript,
@@ -20,15 +19,12 @@ export default props => {
     hideMenu,
     menuSections,
     arcSite,
-    contextPath,
-    globalContent,
+    sectionPath,
+    mainImage,
     title,
+    isSomos,
   } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
-
-  const {
-    taxonomy: { primary_section: { path: sectionPath = '' } = {} } = {},
-  } = globalContent || {}
 
   const CURRENT_ENVIRONMENT =
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
@@ -41,7 +37,9 @@ export default props => {
 
   return (
     <>
-      <header className="h-basic f pos-rel" id="h-basic">
+      <header
+        className={`h-basic f pos-rel ${isSomos ? 'h-basic--somos' : ''}`}
+        id="h-basic">
         <div className="f">
           <input
             className="h-basic__input"
@@ -97,10 +95,7 @@ export default props => {
           title={siteDomain}>
           <img
             className="h-basic__img"
-            src={`${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/elcomercio/images/logo.png?d=1`}
+            src={mainImage}
             alt={title}
             title={title}
           />
@@ -131,6 +126,7 @@ export default props => {
         </div>
         {!hideMenu && (
           <Menu
+            isSomos={isSomos}
             menuSections={menuSections || []}
             siteDomain={siteDomain}
             legalLinks={legalLinks}
