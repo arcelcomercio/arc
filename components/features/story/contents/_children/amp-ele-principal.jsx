@@ -36,10 +36,9 @@ export default props => {
       )}
       {mp3 && (
         <amp-audio
-          class="media"
-          layout="responsive"
           src={mp3}
-          width="550"
+          class="w-full"
+          layout="fixed-height"
           height="44"></amp-audio>
       )}
     </>
