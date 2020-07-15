@@ -99,13 +99,6 @@ const customFields = PropTypes.shape({
     name: 'Dimensiones',
     group: 'Prebid lite',
   }),
-  prebidAdLoadFirst: PropTypes.bool.tag({
-    name: 'Carga Inmediata',
-    description:
-      'Si se activa, este bloque carga tan pronto como sea posible. Si se desactiva, carga sólo cuando entra en la pantalla.',
-    defaultValue: false,
-    group: 'Prebid lite',
-  }),
 })
 
 export default customFields

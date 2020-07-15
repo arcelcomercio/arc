@@ -32,7 +32,6 @@ const Ads = props => {
       liteAdInlineStyles,
       prebidAdEnabled,
       prebidAdDimensions,
-      prebidAdLoadFirst,
     } = {},
   } = props
 
@@ -50,7 +49,6 @@ const Ads = props => {
             data-ads-load-first={liteAdLoadFirst}
             data-prebid-enabled={prebidAdEnabled}
             data-prebid-dimensions={prebidAdDimensions}
-            data-prebid-load-first={prebidAdLoadFirst}
             style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
           />
         )}
