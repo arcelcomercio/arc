@@ -1,7 +1,12 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
+import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import { getAssetsPath } from '../../../utilities/constants'
+
+import NavBarAmp from '../../navbar/standard/_children/amp'
+import Formatter from '../../layout/navbar/_dependencies/formatter'
 
 // TODO: Separar Feature de Componente.
 
@@ -19,16 +24,51 @@ const classes = {
     'i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-layout',
 }
 
-const LayoutAmpHeader = () => {
-  const { contextPath, arcSite } = useFusionContext()
+const LayoutAmpHeader = props => {
+  const { customFields } = props
+  const { contextPath, arcSite, deployment } = useFusionContext()
+  const { hideMenu } = customFields || {}
+
+  const { siteDomain, assets: { nav } = {} } = getProperties(arcSite)
+
+  const formater = new Formatter(
+    {
+      deployment,
+      contextPath,
+      siteDomain,
+      nav,
+      arcSite,
+    },
+    customFields
+  )
+
+  const { params = {}, source = '' } =
+    formater.main.fetch !== false ? formater.main.fetch.config : {}
+  /** Solicita la data a la API y setea los resultados en "state.data" */
 
   const imgLogo = `${getAssetsPath(
     arcSite,
     contextPath
   )}/resources/dist/${arcSite}/images/logo-amp.png?d=1`
 
+  const data =
+    useContent(
+      params && source
+        ? {
+            source,
+            query: params,
+            filter: formater.getSchema(),
+          }
+        : {}
+    ) || {}
+
   return (
     <>
+      <NavBarAmp
+        data={data}
+        {...formater.main.initParams}
+        hideMenu={hideMenu}
+      />
       <header className={classes.header}>
         <section className={classes.wrap}>
           <div className={classes.logo}>
@@ -36,8 +76,8 @@ const LayoutAmpHeader = () => {
               <amp-img
                 src={imgLogo}
                 alt={arcSite}
-                width="73"
-                height="51"
+                width="156"
+                height="25"
                 tabIndex="0"
               />
             </a>
