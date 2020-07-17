@@ -111,8 +111,8 @@ export default ({
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
   const isHome = metaValue('id') === META_HOME && true
-  const scriptAdpush = getPushud()
-  const enabledPushud = getEnablePushud()
+  const scriptAdpush = getPushud(arcSite)
+  const enabledPushud = getEnablePushud(arcSite)
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
 
   const metaSiteData = {
