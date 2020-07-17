@@ -28,24 +28,44 @@ const StoryHeaderChildPicture = (slide = {}) => {
     <>
       <Static id={slide.i}>
         <picture>
-          <source
-            srcSet={slide.defaultImageGallery}
-            data-srcset={extractImage(slide.url).landscape_md}
-            media="(max-width: 360px)"
-            className="lazy"
-          />
-          <source
-            srcSet={slide.defaultImageGallery}
-            data-srcset={extractImage(slide.url).story_small}
-            media="(max-width: 768px)"
-            className="lazy"
-          />
-          <img
-            src={slide.defaultImageGallery}
-            data-src={extractImage(slide.url).large}
-            alt={slide.caption || slide.subtitle}
-            className={`lazy ${classes.image}`}
-          />
+          {slide.i === 0 ? (
+            <>
+              <source
+                srcSet={extractImage(slide.url).landscape_md}
+                media="(max-width: 360px)"
+              />
+              <source
+                srcSet={extractImage(slide.url).story_small}
+                media="(max-width: 768px)"
+              />
+              <img
+                src={extractImage(slide.url).large}
+                alt={slide.caption || slide.subtitle}
+                className={classes.image}
+              />
+            </>
+          ) : (
+            <>
+              <source
+                srcSet={slide.defaultImageGallery}
+                data-srcset={extractImage(slide.url).landscape_md}
+                media="(max-width: 360px)"
+                className="lazy"
+              />
+              <source
+                srcSet={slide.defaultImageGallery}
+                data-srcset={extractImage(slide.url).story_small}
+                media="(max-width: 768px)"
+                className="lazy"
+              />
+              <img
+                src={slide.defaultImageGallery}
+                data-src={extractImage(slide.url).large}
+                alt={slide.caption || slide.subtitle}
+                className={`lazy ${classes.image}`}
+              />
+            </>
+          )}
         </picture>
       </Static>
     </>

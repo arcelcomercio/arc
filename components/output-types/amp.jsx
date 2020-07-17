@@ -4,15 +4,13 @@ import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import renderMetaPage from './_children/render-meta-page'
+import MetaStory from './_children/meta-story'
 import AmpTagManager from './_children/amp-tag-manager'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
-  SITE_PERU21,
-  SITE_TROME,
-  SITE_OJO,
+  SITE_GESTION,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 
@@ -152,14 +150,12 @@ const AmpOutputType = ({
           )}`}
         />
         <title>{title}</title>
-        <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-
         <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-        {renderMetaPage(metaValue('id'), metaPageData)}
-
+        <MetaSite {...metaSiteData} />
+        <MetaStory {...metaPageData} />
         {/* add additional head elements here */}
 
         {/* add additional head elements here */}
@@ -212,16 +208,13 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
-        {arcSite !== SITE_PERU21 &&
-          arcSite !== SITE_TROME &&
-          arcSite !== SITE_OJO &&
-          arcSite !== SITE_ELBOCON && (
-            <script
-              async
-              custom-element="amp-next-page"
-              src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
-            />
-          )}
+        {arcSite === SITE_GESTION && (
+          <script
+            async
+            custom-element="amp-next-page"
+            src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
+          />
+        )}
         <script
           async
           custom-element="amp-youtube"

@@ -28,26 +28,28 @@
             target.classList.remove("powa-default")
           }, 1000);
         }
-     )
+    )
   
       observer.unobserve(target)
     }
   })
 }
 
-if ('IntersectionObserver' in window) {
-  const options = {
-    rootMargin: '0px 0px 0px 0px',
+requestIdle(()=> {
+  if ('IntersectionObserver' in window) {
+    const options = {
+      rootMargin: '0px 0px 0px 0px',
+    }
+    const videos = Array.from(document.querySelectorAll('.lazyload-video'))
+    videos.forEach(video => {
+          const observer = new IntersectionObserver(videoObserver, options)
+        observer.observe(video)
+        
+    })
   }
-  const videos = Array.from(document.querySelectorAll('.lazyload-video'))
-  videos.forEach(video => {
-         const observer = new IntersectionObserver(videoObserver, options)
-      observer.observe(video)
-      
-  })
-}
+})
 */
 const videoScript = env =>
-  `"use strict";var videoObserver=function(t,e){t.forEach(function(t){var a=t.isIntersecting,i=t.target;if(a){var o=i.getAttribute("data-uuid"),r=i.getAttribute("data-preroll"),n=(i.getAttribute("data-api"),i.getAttribute("data-poster"),i.getAttribute("data-streams"));i.getAttribute("data-reziser");i.innerHTML='<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${env}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${env}" data-preload=none ></div>'.replace(/{uuid}/gm,o).replace(/{stream}/gm,n),window.powaBoot&&window.powaBoot(),setTimeout(function(){window.PoWaSettings&&(window.preroll=r,window.PoWaSettings.advertising={adBar:!1,adTag:r})},1e3),window.addEventListener("powaRender",function(){setTimeout(function(){i.classList.remove("powa-default")},1e3)}),e.unobserve(i)}})};if("IntersectionObserver"in window){var options={rootMargin:"0px 0px 0px 0px"},videos=Array.from(document.querySelectorAll(".lazyload-video"));videos.forEach(function(t){new IntersectionObserver(videoObserver,options).observe(t)})}`
+  `"use strict";var videoObserver=function(e,t){e.forEach(function(e){var a=e.isIntersecting,r=e.target;if(a){var i=r.getAttribute("data-uuid"),o=r.getAttribute("data-preroll"),n=(r.getAttribute("data-api"),r.getAttribute("data-poster"),r.getAttribute("data-streams"));r.getAttribute("data-reziser");r.innerHTML='<div class="powa" id="powa-{uuid}" data-sticky=true data-org="elcomercio" data-env="${env}" data-stream="{stream}" data-uuid="{uuid}" data-aspect-ratio="0.562" data-api="${env}" data-preload=none ></div>'.replace(/{uuid}/gm,i).replace(/{stream}/gm,n),window.powaBoot&&window.powaBoot(),setTimeout(function(){window.PoWaSettings&&(window.preroll=o,window.PoWaSettings.advertising={adBar:!1,adTag:o})},1e3),window.addEventListener("powaRender",function(){setTimeout(function(){r.classList.remove("powa-default")},1e3)}),t.unobserve(r)}})};requestIdle(function(){if("IntersectionObserver"in window){var e={rootMargin:"0px 0px 0px 0px"};Array.from(document.querySelectorAll(".lazyload-video")).forEach(function(t){new IntersectionObserver(videoObserver,e).observe(t)})}});`
 
 export default videoScript

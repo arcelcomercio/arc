@@ -19,7 +19,6 @@ const HeaderInverted = props => {
   const {
     customFields: {
       hierarchyConfig,
-      customLogoTitle,
       customLogo,
       customLogoLink,
       tags,
@@ -29,14 +28,18 @@ const HeaderInverted = props => {
     },
   } = props
 
+  let { customFields: { customLogoTitle } = {} } = props
+
   const {
     arcSite,
     contextPath,
     deployment,
+    metaValue,
+    siteProperties,
     globalContent: {
       type,
       website_url: postPermaLink,
-      headlines: { basic: postTitle } = {},
+      headlines: { basic: postTitle, meta_title: StoryMetaTitle = '' } = {},
     } = {},
     globalContentConfig: { query = {} } = {},
   } = useFusionContext()
@@ -52,6 +55,19 @@ const HeaderInverted = props => {
 
   const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
   const isStory = type === ELEMENT_STORY
+
+  if (isStory) {
+    const storyTitleRe = StoryMetaTitle || postTitle
+
+    const seoTitle =
+      metaValue('title') &&
+      !metaValue('title').match(/content/) &&
+      metaValue('title')
+
+    customLogoTitle = `${seoTitle}: ${
+      storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+    } | ${siteProperties.siteTitle.toUpperCase()}`
+  }
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,

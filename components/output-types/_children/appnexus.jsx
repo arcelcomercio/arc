@@ -1,6 +1,6 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
-import { getMultimedia } from '../../utilities/helpers'
+import { getMultimedia } from '../../utilities/multimedia'
 
 const getSite = site => {
   const sites = {
@@ -64,7 +64,8 @@ const getVars = (
         const premiumValue =
           getPremiumValue === 'premium' ? true : getPremiumValue
         const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
-        const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
+        const isPremiumMete =
+          isPremiumFree === 'metered' ? false : isPremiumFree
         const isPremium = isPremiumMete === 'vacio' ? false : isPremiumMete
 
         const subSectionList = primarySectionLink.split('/').slice(1)
