@@ -150,11 +150,11 @@ const AmpOutputType = ({
           )}`}
         />
         <title>{title}</title>
+        <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-        <MetaSite {...metaSiteData} />
         <MetaStory {...metaPageData} />
         {/* add additional head elements here */}
 

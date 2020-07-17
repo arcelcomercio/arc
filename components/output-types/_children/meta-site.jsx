@@ -203,9 +203,6 @@ export default ({
       <meta name="msapplication-TileColor" content={colorPrimary} />
       <meta name="apple-mobile-web-app-title" content={siteName} />
       <meta name="application-name" content={siteName} />
-      {arcSite === SITE_ELCOMERCIOMAG && (
-        <meta property="fb:pages" content="530810044019640" />
-      )}
       {arcSite === SITE_ELCOMERCIO ? (
         <>
           <script
