@@ -31,6 +31,7 @@ import {
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
   ELEMENT_BLOCKQUOTE,
+  ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
@@ -44,6 +45,7 @@ import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -165,6 +167,7 @@ class StoryContentsLite extends PureComponent {
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
                     nameAds,
+                    url = '',
                     items = [],
                     list_type: listType = 'unordered',
                   } = element
@@ -277,7 +280,15 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
-
+                  if (type === ELEMENT_INTERSTITIAL_LINK) {
+                    return (
+                      <StoryContentsChildInterstitialLink
+                        url={url}
+                        content={content}
+                        isAmp={false}
+                      />
+                    )
+                  }
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
                       <h2

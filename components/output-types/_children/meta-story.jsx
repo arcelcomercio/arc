@@ -4,17 +4,22 @@ import { useContent } from 'fusion:content'
 import StoriesRecent from '../../global-components/stories-recent'
 
 import StoryData from '../../utilities/story-data'
+import { getMultimedia } from '../../utilities/multimedia'
 import {
   formatHtmlToText,
-  getMultimedia,
   removeLastSlash,
-  getDateSeo,
-  msToTime,
-} from '../../utilities/helpers'
-import ConfigParams from '../../utilities/config-params'
-import { getAssetsPath } from '../../utilities/constants'
+} from '../../utilities/parse/strings'
+import { msToTime } from '../../utilities/date-time/time'
+import { getDateSeo } from '../../utilities/date-time/dates'
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_DEPOR,
+  SITE_ELBOCON,
+  SITE_ELCOMERCIO,
+  SITE_PUBLIMETRO,
+} from '../../utilities/constants/sitenames'
 import { getResizedUrl } from '../../utilities/resizer'
-import { getAssetsPathVideo } from '../../utilities/assets'
+import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 
 export default ({
   globalContent: data,
@@ -68,21 +73,17 @@ export default ({
     }) || {}
   const resultStoryRecent = StoriesRecent(parameters)
   let publishDateZone =
-    arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
-    arcSite === ConfigParams.SITE_DEPOR ||
-    arcSite === ConfigParams.SITE_ELBOCON
+    arcSite === SITE_ELCOMERCIOMAG ||
+    arcSite === SITE_DEPOR ||
+    arcSite === SITE_ELBOCON
       ? getDateSeo(publishDate)
       : publishDate
 
   publishDateZone =
-    arcSite === ConfigParams.SITE_ELCOMERCIO
-      ? getDateSeo(publishDate)
-      : publishDateZone
+    arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDate) : publishDateZone
 
   const lastPublishDate =
-    arcSite === ConfigParams.SITE_ELCOMERCIO
-      ? getDateSeo(publishDatedate)
-      : publishDatedate
+    arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
 
   const redSocialVideo = contentElementsRedesSociales
     .map(({ youtube = '', facebook = '', twitter = '', user = '' }) => {
@@ -267,9 +268,9 @@ export default ({
       : ''
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${
-      arcSite === ConfigParams.SITE_ELCOMERCIOMAG ||
-      arcSite === ConfigParams.SITE_DEPOR ||
-      arcSite === ConfigParams.SITE_ELBOCON
+      arcSite === SITE_ELCOMERCIOMAG ||
+      arcSite === SITE_DEPOR ||
+      arcSite === SITE_ELBOCON
         ? publishDateZone
         : lastPublishDate
     }",
@@ -290,7 +291,7 @@ export default ({
   )}/resources/dist/${arcSite}/images/${seo.logoAmp}?d=1`}",   "height":${
     seo.height
   }, "width":${seo.width}
-       }
+      }
     },    
     ${(isPremium && storyPremium) || ''} 
     "keywords":[${
@@ -310,12 +311,11 @@ export default ({
 
   const structuredBreadcrumb = `{ "@context":"https://schema.org", "@type":"BreadcrumbList", "itemListElement":[${breadcrumbResult}] }`
 
-  const taboolaScript =
-    arcSite === ConfigParams.SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
+  const taboolaScript = arcSite === SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
   const scriptTaboola = `
   window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
-    arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript
+    arcSite === SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript
   }/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
@@ -332,7 +332,7 @@ export default ({
             const n = document.createElement('script')
             const f = document.getElementsByTagName('script')[0]
             n.defer = 1;
-            n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
+            n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
             n.id = id;
             f.parentNode.insertBefore(n, f);
           }
@@ -362,7 +362,7 @@ export default ({
                 const n = document.createElement('script')
                 const f = document.getElementsByTagName('script')[0]
                 n.defer = 1;
-                n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === ConfigParams.SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
+                n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
                 n.id = id;
                 f.parentNode.insertBefore(n, f);
               }
@@ -443,9 +443,7 @@ export default ({
       <meta
         property="article:modified_time"
         content={`${
-          arcSite === ConfigParams.SITE_ELCOMERCIOMAG
-            ? publishDateZone
-            : lastPublishDate
+          arcSite === SITE_ELCOMERCIOMAG ? publishDateZone : lastPublishDate
         }`}
       />
       <meta property="article:author" content={`Redacción ${siteName}`} />
