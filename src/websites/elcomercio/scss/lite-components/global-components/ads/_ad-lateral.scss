@@ -8,11 +8,18 @@
     display: flex;
     overflow: initial;
     height: fit-content;
-    flex: 160px;
+    width: 160px;
     flex-grow: 0;
     flex-shrink: 0;
-    position: sticky;
+    position: fixed;
     top: 0;
+
+    &--r {
+      transform: translateX(calc((980px / 2) + (160px / 2)));
+    }
+    &--l {
+      transform: translateX(calc((-980px / 2) - (160px / 2)));
+    }
   }
 }
 

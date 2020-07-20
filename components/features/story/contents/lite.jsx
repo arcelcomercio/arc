@@ -138,8 +138,8 @@ class StoryContentsLite extends PureComponent {
           <div
             id="gpt_caja3"
             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
-
+            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+            data-prebid-enabled></div>
           <div
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}
@@ -226,13 +226,15 @@ class StoryContentsLite extends PureComponent {
                           <div
                             id="gpt_caja4"
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-prebid-enabled></div>
                         )}
                         {nameAds === 'caja5' && (
                           <div
                             id="gpt_caja5"
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-prebid-enabled></div>
                         )}
                         <p
                           itemProp="description"

@@ -4,7 +4,9 @@ import {
   SITE_ELCOMERCIO,
   SITE_TROME,
   SITE_DEPOR,
+  SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELCOMERCIOMAG,
 } from '../constants/sitenames'
 
 import formatTime from '../date-time/format-time'
@@ -110,109 +112,141 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
 }
 
 export const optaWidgetHtml = html => {
+  if (html.indexOf('<opta-widget') === -1) return html
+
   const matches = html.match(/<opta-widget(.*?)><\/opta-widget>/)
   const matchesResult = matches
     ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
     : ''
 
-  const rplOptaWidget = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
-  return html.replace(/<opta-widget (.*?)><\/opta-widget>/g, rplOptaWidget)
-}
+  const ampTag = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
+  const result = html.replace(/<opta-widget (.*?)><\/opta-widget>/g, ampTag)
 
-export const imageHtml = html => {
-  let resHtml = ''
-  resHtml = html.replace('<figure>', '').replace('</figure>', '')
-
-  const rplImageCde =
-    '<amp-img class="media 1" src="$2" layout="responsive" width="304" height="200"></amp-img>'
-  const rplImageCde1 =
-    '<amp-img class="media 2" src="$1" layout="responsive" width="304" height="200"></amp-img>'
-
-  resHtml = resHtml
-    .replace(/<img (.*) src="(.*)" width="(.*?)" (.*)\/>/g, rplImageCde)
-    .replace(/<img (.*)src="(.+?)" alt="(.+?)">/g, rplImageCde)
-  resHtml = resHtml.replace(
-    /<div class="nota-media"><img src="(.*?)" border="0" width="(.+)"(.*)><\/div>/g,
-    rplImageCde1
-  )
-  resHtml = resHtml
-    .replace(/<img (.*)src="(.*)" width="(.*?)" (.*)\/>/g, rplImageCde)
-    .replace(/<img (.*)src="(.*)" width="(.*?)" (.*)>/g, rplImageCde)
-
-  resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)\/>/g, rplImageCde)
-  resHtml = resHtml
-    .replace(/<img (.*)src="(.*)" style="(.*);">/g, rplImageCde)
-    .replace(/:<script(.*)>(.*)<\/script>:/gm, '')
-  resHtml = resHtml.replace(
-    /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
-    rplImageCde
-  )
-  resHtml = resHtml.replace(
-    /<img (.*)src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g,
-    rplImageCde
-  )
-  resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
-  resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
-  resHtml = resHtml
-    .replace(/<img src="(.*?)"\/>/g, rplImageCde1)
-    .replace(/<img src=(.*?)\/>/g, rplImageCde1)
-  resHtml = resHtml
-    .replace(/<img src="(.*?)" width="(.+)"(.*)>/g, rplImageCde1)
-    .replace(/<IMG (.*)SRC="(.*)"alt(.*) WIDTH=([0-9])\w+>/g, rplImageCde)
-    .replace(/<IMG (.*)SRC="(.*)" WIDTH=([0-9])\w+>/g, rplImageCde)
-    .replace('<FONT', '<font')
-
-  return resHtml
+  return result
 }
 
 export const playerHtml = html => {
-  const rplEplayer =
-    '<amp-iframe width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://player.performgroup.com/eplayer/eplayer.html#/$1"></amp-iframe>'
+  if (html.indexOf('player.performgroup.com/eplayer.js') === -1) return html
 
-  return html.replace(
-    /<script src="\/\/player.performgroup.com\/eplayer.js#(.*?)" async><\/script>/g,
-    rplEplayer
-  )
+  const regex = /<script src="\/\/player.performgroup.com\/eplayer.js#(.*?)" async><\/script>/g
+  const ampTag =
+    '<amp-iframe width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://player.performgroup.com/eplayer/eplayer.html#/$1"></amp-iframe>'
+  const result = html.replace(regex, ampTag)
+
+  return result
+}
+
+export const imageHtml = html => {
+  if (html.indexOf('<img') === -1) return html
+
+  /**
+   * @TODO hacer que capture el atributo alt
+   * @see regexp example: https://regex101.com/r/k8a9iF/1
+   */
+  const regex = /(?:<figure(?:.*?)>)?<img(?:.*?)src="(.*?)"(?:.*?)\/?>(?:<\/figure>)?/gi
+  const ampTag =
+    '<amp-img class="media 1" src="$1" layout="responsive" width="304" height="200"></amp-img>'
+  const result = html.replace(regex, ampTag)
+
+  return result
 }
 
 export const jwPlayerJS = html => {
-  const existJwPlayer = /cdn.jwplayer.com/.test(html)
-  if (!existJwPlayer) return html
-  const rplPlayer =
-    '<amp-jwplayer data-player-id="$2" data-media-id="$1" layout="responsive" width="16" height="9"></amp-jwplayer>'
+  if (html.indexOf('cdn.jwplayer.com') === -1) return html
 
-  return html.replace(
-    /^(?:.+)cdn.jwplayer.com\/players\/(.+)-(.+).js(?:.+)/,
-    rplPlayer
-  )
+  const regex = /^(?:.+)cdn.jwplayer.com\/players\/(.+)-(.+).js(?:.+)/
+  const ampTag =
+    '<amp-jwplayer data-player-id="$2" data-media-id="$1" layout="responsive" width="16" height="9"></amp-jwplayer>'
+  const result = html.replace(regex, ampTag)
+
+  return result
 }
 
 export const twitterHtml = html => {
-  const rplTwitter =
-    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$3" ></amp-twitter>'
-  const rplTwitter1 =
-    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$2" ></amp-twitter>'
+  if (html.indexOf('twitter.com') === -1) return html
 
-  const htmlDataTwitter = html
-    .replace(
-      /<blockquote class="twitter-tweet"(.*)<a href="https:\/\/twitter.com\/(.*)\/status\/(.*)">(.*)<\/blockquote>/g,
-      rplTwitter
-    )
-    .replace(
-      /<twitter-widget (.*) data-tweet-id="(.*)"><\/twitter-widget>/g,
-      rplTwitter1
-    )
-    .replace(
-      /<twitterwidget (.*) data-tweet-id="(.*)"><\/twitterwidget>/g,
-      rplTwitter1
-    )
+  const regex = /<blockquote class="twitter-tweet"(?:.*)<a href="https:\/\/twitter.com\/(?:.*)\/status\/(.*)">(?:.*)<\/blockquote>/g
+  const regexLegacy = /<twitter[-]?widget(?:.*)data-tweet-id="(.*)"><\/twitter[-]?widget>/g
+  const regexScript = /<script.*?>.*?<\/script>/g
+  const ampTag =
+    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$1" ></amp-twitter>'
 
-  return htmlDataTwitter
-    .replace(/<script(.*\n)*.*">.*<\/script>/gm, '')
-    .replace(/(<script.*?>).*?(<\/script>)/g, '')
+  const result =
+    html.indexOf('<blockquote') !== -1
+      ? html.replace(regex, ampTag)
+      : html.replace(regexLegacy, ampTag)
+
+  return result.replace(regexScript, '')
 }
 
-export const deporPlay = html => {
+export const instagramHtml = html => {
+  if (html.indexOf('instagram.com') === -1) return html
+
+  const regex = /<blockquote (?:.*)class="instagram-media"(?:.*)data-instgrm-permalink="https:\/\/www.instagram.com\/p\/(.*?)\/(?:.*?)<\/blockquote>/g
+  const ampTag =
+    '<amp-instagram data-shortcode="$1" width="1" height="1" layout="responsive"></amp-instagram>'
+  const result = html.replace(regex, ampTag)
+
+  return result
+}
+
+export const facebookHtml = html => {
+  let resultHtml = html
+  const replacePlugin =
+    '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$1"></amp-facebook>'
+
+  if (resultHtml.indexOf('facebook.com/plugins/video.php') !== -1) {
+    const regexVideo = /<iframe(?:.*?)www.facebook.com\/plugins\/video.php\?href=(.*?)"(?:.*?)>(.*?)<\/iframe>/g
+    resultHtml = resultHtml.replace(regexVideo, replacePlugin)
+    return decodeURIComponent(resultHtml)
+  }
+
+  if (resultHtml.indexOf('facebook.com/plugins/post.php') !== -1) {
+    const regexPost = /<iframe(?:.*?)www.facebook.com\/plugins\/post.php\?href=(.*?)&amp;(?:.*?)>(.*?)<\/iframe>/g
+    resultHtml = resultHtml.replace(regexPost, replacePlugin)
+    return decodeURIComponent(resultHtml)
+  }
+
+  // fallback para iframes de facebook
+  if (resultHtml.indexOf('<iframe src=') !== -1) {
+    const regexIframe = /<iframe src="(.*?)&width=500"><\/iframe>/g
+    const replaceIframe =
+      '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
+    return resultHtml.replace(regexIframe, replaceIframe)
+  }
+
+  if (resultHtml.indexOf('fb-root') !== -1) {
+    const regexRoot = /<div id="fb-root"><\/div>/g
+    resultHtml = resultHtml.replace(regexRoot, '')
+  }
+
+  if (resultHtml.indexOf('class="fb-page"') !== -1) {
+    const regexPage = /<div class="fb-page" data-href="(.*?)" data-width="(?:.*?)" data-small-header="(?:.*?)" data-adapt-container-width="(?:.*?)" data-hide-cover="(.*?)" data-show-facepile="(?:.*?)" data-show-posts="(?:.*?)"><div class="fb-xfbml-parse-ignore"><blockquote cite="(?:.*?)"><a href="(?:.*?)">(?:.*?)<\/a><\/blockquote><\/div><\/div>/g
+    const replacePage =
+      '<amp-facebook-page width="340" height="130" layout="fixed" data-hide-cover="$2" data-href="$1"></amp-facebook-page>'
+    resultHtml = resultHtml.replace(regexPage, replacePage)
+  }
+
+  return resultHtml
+}
+
+export const youtubeHtml = html => {
+  if (html.indexOf('youtu') === -1) return html
+
+  /**
+   * Si se quiere que el alto del video no sea 350 siempre,
+   * reemplazar height="350" por height="$1" en ampTag.
+   * @see regex example https://regex101.com/r/nQLJfq/1
+   */
+  const regex = /<iframe.*height="(.*?)".*(?:youtu\.be|youtube\.com)(?:\/(?:embed|v)\/|\/(?:watch|ytscreeningroom)\?v=|\/user\/\S+)([\w-]{10,12})(?:.*?)><\/iframe>/
+  const ampTag =
+    '<amp-youtube class="media" data-videoid="$2" layout="responsive" width="550" height="350"></amp-youtube>'
+  const result = html.replace(regex, ampTag)
+
+  return result
+}
+
+/* export const deporPlay = html => {
   const rplDeporPlay =
     '<amp-iframe class="media" src="https://w.soundcloud.com/player/$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
 
@@ -221,266 +255,155 @@ export const deporPlay = html => {
     rplDeporPlay
   )
   return htmlDataDeporPlay
+} */
+
+export const freeHtml = html => {
+  if (html.indexOf('<html_free>') === -1) return html
+
+  const regex = /<html_free>(.*?)<\/html_free>/g
+  const result = html
+    .replace(regex, '$1')
+    .replace(/="&quot;http?(.*?)"/g, '="http$1"')
+
+  return result
+}
+
+export const iframeMxm = html => {
+  let result = html
+  const ampTagPartido =
+    '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivo/$1/$2"></amp-iframe>'
+
+  if (html.indexOf('w.ecodigital.pe') !== -1) {
+    const regexWidget = /<script src="https:\/\/w.ecodigital.pe\/widget.depor.v2.js?v4"><\/script>/g
+    result = result.replace(regexWidget, '')
+  }
+
+  if (html.indexOf('ECO.Widget') !== -1) {
+    const regexEcoWidget = /<script>var f = new ECO.Widget({width: 625,height: 900}).draw("depor\/wg-elcomercio\/(.*?)");<\/script>/g
+    result = result.replace(regexEcoWidget, ampTagPartido)
+  }
+
+  if (html.indexOf('<mxm-partido') !== -1) {
+    const regexPartido = /<mxm-partido code="(.*)" h="(.*)px"><\/mxm-partido>/g
+    result = result.replace(regexPartido, ampTagPartido)
+  }
+
+  if (html.indexOf('<mxm-evento') !== -1) {
+    const regexEvento = /<mxm-evento code="(.*)" h="(.*)px"><\/mxm>/g
+    const ampTagEvento =
+      '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivogeneral/$1/$2"></amp-iframe>'
+    result = result.replace(regexEvento, ampTagEvento)
+  }
+
+  if (html.indexOf('<mxm') !== -1) {
+    /**
+     * comentario viejo
+     * - pendiente de validacion enventos 485178
+     */
+    const regexFallback = /<mxm(.*?)><\/mxm(.*?)>/g
+    result = result.replace(regexFallback, '')
+  }
+
+  return result
 }
 
 export const iframeHtml = (html, arcSite = '') => {
-  let htmlDataTwitter = html
+  let result = html
+  const regexMedia = /(\/media\/[\w-]+)/g
+  const regexUploads = /(\/uploads\/(?:.*)\/(?:.*)\/(?:.*)\/(?:.*)(?:jpeg|jpg|png|gif|mp4|mp3))/g
 
   if (arcSite === SITE_ELCOMERCIO) {
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-      'https://img.elcomercio.pe$1'
-    )
-
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.elcomercio.pe$1'
-    )
+    const replaceUploads = 'https://img.elcomercio.pe$1'
+    result = result.replace(regexMedia, replaceUploads)
+    result = result.replace(regexUploads, replaceUploads)
   } else if (arcSite === SITE_DEPOR) {
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /(https:\/\/depor.com\/media\/([0-9-a-z-A-Z])\w+)/g,
-      '$1'
-    )
-    const replaceTwitter = `<amp-soundcloud width="480" height="480" layout="responsive" data-playlistid="$3" data-visual="true" ></amp-soundcloud>`
-    htmlDataTwitter = htmlDataTwitter
-      .replace(
-        /https:\/\/depor.com(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-        'https://img.depor.com$1'
-      )
-      .replace(
-        /<iframe(.*) src="(.*)soundcloud.com\/playlists\/([0-9]*[0-9])(.+)">(.*)<\/iframe>/g,
-        replaceTwitter
-      )
+    const replaceUploads = 'https://img.depor.com$1'
+    const regexSoundcould = /<iframe(?:.*) src="(?:.*)soundcloud.com\/playlists\/([0-9]*[0-9])(?:.+)">(?:.*)<\/iframe>/g
+    const ampTagSoundcloud = `<amp-soundcloud width="480" height="480" layout="responsive" data-playlistid="$1" data-visual="true" ></amp-soundcloud>`
+
+    result = result.replace(regexMedia, replaceUploads)
+    result = result
+      .replace(regexUploads, replaceUploads)
+      .replace(regexSoundcould, ampTagSoundcloud)
   } else if (arcSite === SITE_TROME) {
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-      'https://img.trome.pe$1'
-    )
-
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.trome.pe$1'
-    )
+    const replaceUploads = 'https://img.trome.pe$1'
+    result = result.replace(regexMedia, replaceUploads)
+    result = result.replace(regexUploads, replaceUploads)
   } else if (arcSite === SITE_DIARIOCORREO) {
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /http:\/\/diariocorreo.pe(\/media\/([0-9-a-z-A-Z])\w+)/g,
-      'https://cdne.diariocorreo.pe$1'
-    )
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /https:\/\/diariocorreo.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://cdne.diariocorreo.pe$1'
-    )
-  } else {
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-      'https://img.peru21.pe$1'
-    )
-    htmlDataTwitter = htmlDataTwitter.replace(
-      /https:\/\/peru21.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.peru21.pe$1'
-    )
+    const replaceUploads = 'https://cdne.diariocorreo.pe$1'
+    result = result.replace(regexMedia, replaceUploads)
+    result = result.replace(regexUploads, replaceUploads)
+  } else if (arcSite === SITE_PERU21) {
+    const replaceUploads = 'https://img.peru21.pe$1'
+    result = result.replace(regexMedia, replaceUploads)
+    result = result.replace(regexUploads, replaceUploads)
   }
-  const rplTwitter =
-    '<amp-iframe class="media" src="http$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
 
-  const rplIframe =
-    '<amp-iframe class="media" src="http$2"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
-  const rplIframe1 =
-    '<amp-iframe class="media" src="$1"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
-  const rplIframe2 =
-    '<amp-iframe class="media" src="$2"  height="1"  width="1"       layout="responsive"    sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen   frameborder="0"></amp-iframe>'
+  if (result.indexOf('facebook-jssdk') !== -1) {
+    // noticias viejas
+    result = result
+      .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
+      .replace('if (d.getElementById(id)) return;', '')
+      .replace('js = d.createElement(s); js.id = id;', '')
+      .replace('(function(d, s, id) {', '')
+      .replace('fjs.parentNode.insertBefore(js, fjs);', '')
+      .replace("}(document, 'script', 'facebook-jssdk'));", '')
+      .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
+      .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
+  }
 
-  htmlDataTwitter = htmlDataTwitter
-    .replace(/<iframe (.*)src="http(.*?)" (.*)><\/iframe>/g, rplTwitter)
-    .replace(/<iframe (.*)src="http(.+?)"><\/iframe>/g, rplIframe) //
-    .replace(/<iframe (.*)src="http(.*?)"(.*)>(.*)<\/iframe>/g, rplTwitter)
+  if (result.indexOf('<iframe') !== -1) {
+    const regexIframe = /<iframe.*?src=["|'](.*?)["|'].*?>.*?<\/iframe>/g
+    const replaceIframeBasic =
+      '<amp-iframe class="media" src="$1" height="400" width="600" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0"></amp-iframe>'
+    result = result.replace(regexIframe, replaceIframeBasic)
+  }
 
-  htmlDataTwitter = htmlDataTwitter
-    .replace(/(<script.*?>).*?(<\/script>)/g, '')
-    .replace(/:<script(.*)>(.*)<\/script>:/gm, '')
-    .replace(/<html_free><blockquote (.*)">/g, '')
-    .replace(/<\/blockquote><\/html_free>/g, '')
-    .replace('</p>', '')
-    .replace('<p>', '')
-    .replace('http://', 'https://')
-    .replace(/<iframe src="(.*)" width="(.*?)" (.*)><\/iframe>/g, rplIframe1)
-    .replace('src="//', 'src="https://')
-    .replace(/<iframe (.*) src='(.*)' (.*)><\/iframe>/g, rplIframe2)
-    .replace(/<iframe (.*) src="(.+?)" (.*)><\/iframe>/g, rplIframe2)
-    .replace(/<iframe (.*) src="(.*)"><\/iframe>/g, rplIframe2)
-    .replace(/<iframe (.*) src="(.*)" type=(.*)><\/iframe>/g, rplIframe2)
-    .replace(/<iframe (.*) src="(.*)" (.*)><\/iframe>/g, rplIframe2)
-    .replace(/<iframe src='(.*)' width='(.+)' (.*)><\/iframe>/g, rplIframe1)
-    .replace(/<(-?\/)?html_free>/g, '')
-    .replace(/<(-?\/)?object(-?.+)?>/g, '')
-    .replace(/<embed(.*)><\/embed>/g, '')
-    .replace('target="blank"', 'target="_blank"')
-    .replace(/<(-?\/)?blockquote(-?.+)?>/g, '')
-    .replace(/onclick="(.*)"/g, '')
-    .replace(/<mxm-partido (.+)<\/mxm-partido>/g, '')
-    .replace(/<span (.*)>/g, '<span>')
-    .replace(/<(.+):p>/g, '<span>')
-    .replace(/<font(-?(.+?))>(.+?)<\/font>/g, '$3')
-    .replace(/<font(.*)>(?:.*(?:))<\/font>/g, '$2')
+  /**
+   * Para mejor performance:
+   * 1. se eliminan elementos
+   * 2. se eliminan etiquetas pero se conserva contenido
+   * 3. se reemplazan elementos
+   * ----------------------------
+   * Bien:      RegExp robustas * pocos replace()
+   * No tanto:  RegExp cortas * multiples replace()
+   */
+  result = result
+    .replace(
+      /<(?:style|[:]?script|form|twitterwidget|twitter|iframe|mxm-partido|embed).*?>.*?<\/(?:style|script[:]?|form|twitterwidget|twitter|iframe|mxm-partido|embed).*?>/g,
+      ''
+    )
+    .replace(
+      /(?:onclick="(.*)"|type="application\/ld\+json"|marked="[A-Za-z0-9]+"|imageanchor="1"|style="(?:[\w.,@?^=%&:/~+#-]*[\w@?^=%&/~; +#!-])+")/g,
+      ''
+    )
+    .replace(/<(?:-?\/)?(?:object|html_free|blockquote)(?:-?.+)?>/g, '')
+    .replace(
+      /<(?:html_free><blockquote|p).*?>(.*?)<\/(?:blockquote><\/html_free|p)>/g,
+      '$1'
+    ) // noticias viejas
+    .replace(/<noscript.*?>(.*)<\/noscript>[>]?/g, '<noscript>$1</noscript>')
+    .replace(/<(?:font|hl2).*>(.*?)<\/(?:font|hl2)>/g, '$1') // noticias viejas
     .replace(
       /<(font|eqwql|nimfw|yt|st1)(.*)>(?:.*(?:))<\/(font|eqwql|nimfw|yt|st1)>/g,
       '$2'
-    )
-    .replace(/<hl2>(.+)<\/hl2>/g, '$1')
-    .replace(/(function(.*\n)*.*'facebook-jssdk')\)\);/g, '')
+    ) // no tiene sentido para mi lo que ocurre aqui
+    .replace(/http:/g, 'https:')
+    .replace(/src="\/\//g, 'src="https://')
+    .replace(/target="blank"/g, 'target="_blank"')
+    .replace(/(?:<span.*>|<.+:p>)/g, '<span>')
+    .replace(/hreef=/g, 'href=') // noticias viejas
 
-    // .replace(/<script>(.*\n)+.*<\/script>/gm, '')
-    .replace(/<(style|script)(.*)>(.*\n)*.*<\/(style|script)(.*)>/g, '')
-    .replace(/script/gm, 'noscript')
-    .replace(/<noscript(.*)>/gm, '<noscript>')
-    .replace(/<\/noscript/gm, '</noscript>')
-    .replace(/<\/noscript>>/gm, '</noscript>')
-    .replace(/type="application\/ld\+json"/gm, '')
-    // .replace(/<(-?\/)?script>/gm, '')
-    .replace(/<form (.*)>(.*\n)*.*<\/form>/g, '')
-
-    .replace('var js, fjs = d.getElementsByTagName(s)[0];', '')
-    .replace('if (d.getElementById(id)) return;', '')
-    .replace('js = d.createElement(s); js.id = id;', '')
-    .replace('(function(d, s, id) {', '')
-    .replace('fjs.parentNode.insertBefore(js, fjs);', '')
-    .replace("}(document, 'script', 'facebook-jssdk'));", '')
-    .replace(/js.src = "\/\/connect.facebook.net\/en_US\/sdk.js.*";/g, '')
-    .replace(/(style="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~; +#!-])+")/g, '')
-    .replace(
-      /<(twitterwidget|twitter|iframe|font)(?:.*(?:))>(?:.*(?:))<\/(twitterwidget|twitter|iframe|font)>/g,
-      ''
-    )
-    .replace(/<iframe(.*)>\s*\n<\/iframe>/gm, '')
-    .replace(/(hreef=)/g, 'href=')
-    .replace(/(marked="([A-Za-z0-9]+)")/g, '')
-    .replace('imageanchor="1"', '')
-  return htmlDataTwitter
+  return result
 }
 
-export const facebookHtml = html => {
-  let resultHtml = html
-  const strFacebook = '/<iframe src="(.*?)&width=500"></iframe>/g'
-  const rplFacebook =
-    '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
-  const strFacebook2 = '/<iframe src="(.*?)&width=500"></iframe>/g'
-  const rplFacebook2 =
-    '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
-  const rplFacebook3 =
-    '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$2"></amp-facebook>'
-
-  const strFacebookPage =
-    '/<div class="fb-page" data-href="(.*?)" data-width="(.*?)" data-small-header="(.*?)" data-adapt-container-width="(.*?)" data-hide-cover="(.*?)" data-show-facepile="(.*?)" data-show-posts="(.*?)"><div class="fb-xfbml-parse-ignore"><blockquote cite="(.*?)"><a href="(.*?)">(.*?)</a></blockquote></div></div>/g'
-  const rplFacebookPage =
-    '<amp-facebook-page width="340" height="130" layout="fixed" data-hide-cover="$5" data-href="$1"></amp-facebook-page>'
-  const strFacebookRoot = '/<div id="fb-root"></div>/g'
-  const facebookResult = resultHtml.match(
-    /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/
-  )
-
-  if (facebookResult) {
-    resultHtml = resultHtml.replace(
-      /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/g,
-      rplFacebook3
-    )
-    resultHtml = decodeURIComponent(resultHtml)
-  }
-
-  return resultHtml
-    .replace(strFacebookPage, rplFacebookPage)
-    .replace(strFacebookRoot, '')
-    .replace(strFacebook, rplFacebook)
-    .replace(strFacebook2, rplFacebook2)
-    .replace(
-      /<iframe(.*)www.facebook.com\/plugins\/post.php\?href=(.*)&amp(.*)>\s*\n<\/iframe>/gm,
-      rplFacebook3
-    )
-}
-
-export const youtubeHtml = html => {
-  const rplYoutube =
-    '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
-  const rplYoutube1 =
-    '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="350"></amp-youtube>'
-
-  return html
-    .replace(
-      /<iframe width="(.*?)" src="(.+)?(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=))([\w-]{10,12})(.*)><\/iframe>/g,
-      rplYoutube1
-    )
-    .replace(
-      /<iframe width="(.*?)" height="(.*?)" src="https:\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
-      rplYoutube
-    )
-    .replace(
-      /<iframe width="(.*?)" height="(.*?)" src="\/\/www.youtube.com\/embed\/(.*?)"(.*)><\/iframe>/g,
-      rplYoutube
-    )
-    .replace(
-      /<iframe (.*) src="(.+)?youtube.com\/embed\/([A-Za-z0-9 _]*[A-Za-z0-9])(.*)" (.*)><\/iframe>/g,
-      rplYoutube1
-    )
-    .replace(
-      /<iframe (.*) src="(.+)?youtube.com\/embed\/(.*?)" (.*)>\s*\n<\/iframe>/gm,
-      rplYoutube1
-    )
-    .replace(
-      /<iframe (.*) src="(.+)?youtube.com\/embed\/(.*?)" (.*)><\/iframe>/g,
-      rplYoutube1
-    )
-    .replace(/videoid="(.+?)\?list=(.+) layout/g, 'videoid="$1" layout')
-}
-
-export const replaceHtmlMigracion = html => {
+/* export const replaceHtmlMigracion = html => {
   return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
-}
-
-export const instagramHtml = html => {
-  const rplInstagram =
-    '<amp-instagram data-shortcode="$3" width="1" height="1" layout="responsive"></amp-instagram>'
-
-  return html.replace(
-    /<blockquote (.*)class="instagram-media"(.*)data-instgrm-permalink="https:\/\/www.instagram.com\/p\/(.*?)\/(.*?)<\/blockquote>/g,
-    rplInstagram
-  )
-}
-export const freeHtml = html => {
-  const strHtmlFree = '/<html_free>(.*?)</html_free>/g'
-  return html
-    .replace(strHtmlFree, '$1')
-    .replace(/<html_free><\/html_free>/g, '')
-    .replace(/="&quot;http?(.*?)"/g, '="http$1"')
-}
-
-export const iframeMxm = (html, arcSite) => {
-  let resHtml = html
-  const strWidgetVivo =
-    '/<script src="https://w.ecodigital.pe/widget.depor.v2.js?v4"></script>/g'
-  const rplWidgetVivo = ''
-  const strWidgetVivo2 = `<script>var f = new ECO.Widget({width: 625,height: 900}).draw("depor/wg-${arcSite}/(.*?)");</script>/g`
-
-  const rplWidgetVivo3 =
-    '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivo/$1/$2"></amp-iframe>'
-  const rplWidgetVivo4 =
-    '<amp-iframe class="media" width="1" height="3" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://img.elcomercio.pe/widgets/envivogeneral/$1/$2"></amp-iframe>'
-
-  resHtml = resHtml
-    .replace(strWidgetVivo, rplWidgetVivo)
-    .replace(strWidgetVivo2, rplWidgetVivo3)
-    .replace(
-      /<mxm-partido code="(.*)" h="(.*)px"><\/mxm-partido>/g,
-      rplWidgetVivo3
-    )
-    .replace(/<mxm-evento code="(.*)" h="(.*)px"><\/mxm>/g, rplWidgetVivo4)
-    .replace(/<mxm-event (.*)><\/mxm-event>/gm, '')
-    .replace(/<mxm id="(.*)"><\/mxm>/gm, '')
-
-  // pendiente de validacion enventos 485178
-  return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')
-}
+} */
 
 export const ampHtml = (html = '', arcSite = '') => {
   let resultData = html
+
   // Opta Widget
   // Esta asignacion se esta sobreescribiendo con la que sigue.
   // resultData = replaceHtmlMigracion(html)
@@ -488,17 +411,20 @@ export const ampHtml = (html = '', arcSite = '') => {
   // Opta Widget
   // resultData = deporPlay(html)
 
-  // Opta Widget
-  resultData = optaWidgetHtml(resultData)
+  if (arcSite !== SITE_ELCOMERCIOMAG) {
+    // Opta Widget
+    resultData = optaWidgetHtml(resultData)
+    // Player
+    resultData = playerHtml(resultData)
+  }
 
   // imagenes
   resultData = imageHtml(resultData)
 
-  // Player
-  resultData = playerHtml(resultData)
-
   // JWplayer JS version
-  resultData = jwPlayerJS(resultData)
+  if (arcSite === SITE_ELBOCON || arcSite === SITE_DEPOR) {
+    resultData = jwPlayerJS(resultData)
+  }
 
   // twitter
   resultData = twitterHtml(resultData)
@@ -515,12 +441,11 @@ export const ampHtml = (html = '', arcSite = '') => {
   // HTML Free
   resultData = freeHtml(resultData)
 
-  // HTML Iframe
-  resultData = iframeHtml(resultData, arcSite)
-
   // Mxm Iframe
+  if (arcSite === SITE_ELCOMERCIO) {
+    resultData = iframeMxm(resultData)
+  }
 
-  resultData = iframeMxm(resultData, arcSite)
-
+  resultData = iframeHtml(resultData, arcSite)
   return resultData
 }

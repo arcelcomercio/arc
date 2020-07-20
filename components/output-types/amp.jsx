@@ -150,11 +150,11 @@ const AmpOutputType = ({
           )}`}
         />
         <title>{title}</title>
+        <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-        <MetaSite {...metaSiteData} />
         <MetaStory {...metaPageData} />
         {/* add additional head elements here */}
 
@@ -208,6 +208,12 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
+        <script
+          async
+          custom-element="amp-audio"
+          src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"
+        />
+
         {arcSite === SITE_GESTION && (
           <script
             async
@@ -252,7 +258,6 @@ const AmpOutputType = ({
           custom-element="amp-fx-flying-carpet"
           src="https://cdn.ampproject.org/v0/amp-fx-flying-carpet-0.1.js"
         />
-
         {arcSite === SITE_DEPOR && (
           <script
             async

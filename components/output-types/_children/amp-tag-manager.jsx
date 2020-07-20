@@ -1,11 +1,24 @@
 import React from 'react'
-import {
-  createMarkup,
-  getMultimedia,
-  formatSlugToText,
-} from '../../utilities/helpers'
-import ConfigParams from '../../utilities/config-params'
+// import { formatSlugToText } from '../../utilities/parse/strings'
+import { ELEMENT_TYPE_CHARBEAT } from '../../utilities/constants/element-types'
+import { VIDEO, GALLERY } from '../../utilities/constants/multimedia-types'
+import { COMSCORE_ID } from '../../utilities/constants/ids'
 import StoryData from '../../utilities/story-data'
+
+const getMultimedia = (multimediaType, amp = false) => {
+  let type = ''
+  switch (multimediaType) {
+    case VIDEO:
+      type = 'video'
+      break
+    case GALLERY:
+      type = amp ? 'foto_galeria' : 'gallery'
+      break
+    default:
+      type = amp ? 'imagen' : 'story'
+  }
+  return type
+}
 
 export default ({
   autors,
@@ -18,22 +31,16 @@ export default ({
   const {
     id,
     multimediaType,
-    sectionLink,
     author,
     link,
     videoSeo,
     nucleoOrigen,
-    formatOrigen,
-    contentOrigen,
-    genderOrigen,
     title,
   } = new StoryData({
     data: globalContent,
     arcSite,
   })
 
-  const subSection = formatSlugToText(sectionLink, 2) || ''
-  const section = formatSlugToText(sectionLink, 1) || ''
   const videoSeoItems = videoSeo.map(({ idVideo = '' } = {}, index) => {
     const totalIndex = index !== 0 ? `_${index}` : ''
     return `    
@@ -67,7 +74,7 @@ export default ({
           "eventLabel": "${idVideo} | ${link}"
         }
       }
-     `
+    `
   })
 
   const ampAnalyticsOjo = `
@@ -80,34 +87,7 @@ export default ({
     }
   }`
 
-  const ampAnalytics = `
-  {
-    "vars": {
-        "account": "${siteProperties.ampGoogleTagManagerId}"
-    },
-    "extraUrlParams": {
-      "cd3": "${link.slice(1)}",
-      "cd4": "${section}",
-      "cd5": "${subSection}",
-      "cd6": "AMP",
-      "cd7": "${getMultimedia(multimediaType, true)}",
-      "cd8": "${id}",
-      "cd15": "${author}",
-      "cd16": "${nucleoOrigen}",
-      "cd19": "${formatOrigen}",
-      "cd20": "${contentOrigen}",
-      "cd21": "${genderOrigen}"
-    },        
-    "triggers": {
-        "trackPageview": {
-            "on": "visible",
-            "request": "pageview"
-        }
-        ${videoSeoItems[0] ? `, ${videoSeoItems}` : ''}
-    }
-  }`
-
-  const chartbet = ` {
+  const chartbeat = ` {
     "vars": {
         "uid" : ${siteProperties.charbeatAccountNumber},
         "domain" : "${siteProperties.siteDomain}",
@@ -119,14 +99,14 @@ export default ({
           autors.map(({ name }) => {
             return `'${name}'`
           })}'",
-        "contentType" : "${ConfigParams.ELEMENT_TYPE_CHARBEAT}"
+        "contentType" : "${ELEMENT_TYPE_CHARBEAT}"
 
     }
   }`
 
   const comscore = ` {
     "vars": {
-      "c2": "${ConfigParams.COMSCORE_ID}"
+      "c2": "${COMSCORE_ID}"
     },
     "extraUrlParams": {
       "comscorekw": "amp"
@@ -149,20 +129,20 @@ export default ({
         id={`analytics-${siteProperties.ampGoogleTagManagerName}`}>
         <script
           type="application/json"
-          dangerouslySetInnerHTML={createMarkup(ampAnalyticsOjo)}
+          dangerouslySetInnerHTML={{ __html: ampAnalyticsOjo }}
         />
       </amp-analytics>
 
       <amp-analytics type="comscore">
         <script
           type="application/json"
-          dangerouslySetInnerHTML={createMarkup(comscore)}
+          dangerouslySetInnerHTML={{ __html: comscore }}
         />
       </amp-analytics>
       <amp-analytics type="chartbeat">
         <script
           type="application/json"
-          dangerouslySetInnerHTML={createMarkup(chartbet)}
+          dangerouslySetInnerHTML={{ __html: chartbeat }}
         />
       </amp-analytics>
     </>
