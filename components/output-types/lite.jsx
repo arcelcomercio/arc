@@ -205,80 +205,12 @@ const LiteOutput = ({
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/**
-         * dns-prefetch hace solo DNS lookup.
-         * preconnect hace DNS lookup, TLS negotiation, y TCP handshake.
-         * -----------------
-         * Si el la conexion se hace SIEMPRE, vale la pena usar preconnect
-         * (con dns-prefetch como fallback). Si la conexion no se hace siempre,
-         * sino algunas veces, es mejor usar solo dns-prefetch para evitar la
-         * TLS negotiation, y TCP handshake adicionales sin necesidad.
-         *
-         * https://web.dev/preconnect-and-dns-prefetch/
-         */}
-        <link rel="preconnect" href={`//cdnc.${siteProperties.siteDomain}`} />
-        <link rel="dns-prefetch" href={`//cdnc.${siteProperties.siteDomain}`} />
-        <link
-          rel="preconnect"
-          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
-        />
-        <link
-          rel="dns-prefetch"
-          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
-        />
-        {isPremium && (
-          <>
-            <link
-              rel="preconnect"
-              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
-            />
-            <link
-              rel="dns-prefetch"
-              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
-            />
-          </>
-        )}
-        <link rel="preconnect" href="//www.googletagmanager.com/" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
-        <link rel="preconnect" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="preconnect" href="//static.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
-        <link rel="preconnect" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
-        <link rel="preconnect" href="//cdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-        <link rel="preconnect" href="//scdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//scdn.cxense.com/" />
-        <link rel="preconnect" href="//scomcluster.cxense.com/" />
-        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
-        <link rel="preconnect" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        {isStory && (
-          <>
-            <link rel="dns-prefetch" href="//www.facebook.com/" />
-            <link rel="dns-prefetch" href="//connect.facebook.net/" />
-            <link rel="preconnect" href="//cds.taboola.com/" />
-            <link rel="dns-prefetch" href="//cds.taboola.com/" />
-          </>
-        )}
-        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
-
         <meta name="lang" content="es" />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
         <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index follow" />
+        <meta name="GOOGLEBOT" content="index follow" />
         <meta name="author" content={siteProperties.siteName} />
-        <title>{title}</title>
-        <meta name="description" lang="es" content={description} />
-        {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
         {isStory && (
           <>
             <meta name="DC.title" lang="es" content={title} />
@@ -310,10 +242,69 @@ const LiteOutput = ({
             hrefLang="es"
           />
         )}
-        <MetaSite {...metaSiteData} />
-        <MetaStory {...metaPageData} />
-        {/* renderMetaPage(metaValue('id'), metaPageData) */}
-
+        <title>{title}</title>
+        {/**
+         * dns-prefetch hace solo DNS lookup.
+         * preconnect hace DNS lookup, TLS negotiation, y TCP handshake.
+         * -----------------
+         * Si el la conexion se hace SIEMPRE, vale la pena usar preconnect
+         * (con dns-prefetch como fallback). Si la conexion no se hace siempre,
+         * sino algunas veces, es mejor usar solo dns-prefetch para evitar la
+         * TLS negotiation, y TCP handshake adicionales sin necesidad.
+         *
+         * https://web.dev/preconnect-and-dns-prefetch/
+         */}
+        <link rel="preconnect" href={`//cdnc.${siteProperties.siteDomain}`} />
+        <link rel="dns-prefetch" href={`//cdnc.${siteProperties.siteDomain}`} />
+        <link
+          rel="preconnect"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
+        <link
+          rel="dns-prefetch"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
+        {/* {isPremium && (
+          <>
+            <link
+              rel="preconnect"
+              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+            />
+            <link
+              rel="dns-prefetch"
+              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+            />
+          </>
+        )} */}
+        <link rel="preconnect" href="//www.googletagmanager.com/" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
+        <link rel="preconnect" href="//www.google-analytics.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect" href="//static.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
+        <link rel="preconnect" href="//mab.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
+        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
+        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
+        <link rel="preconnect" href="//cdn.cxense.com/" />
+        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
+        <link rel="preconnect" href="//scdn.cxense.com/" />
+        <link rel="dns-prefetch" href="//scdn.cxense.com/" />
+        <link rel="preconnect" href="//scomcluster.cxense.com/" />
+        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
+        <link rel="preconnect" href="//sb.scorecardresearch.com/" />
+        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        {isStory && (
+          <>
+            <link rel="dns-prefetch" href="//www.facebook.com/" />
+            <link rel="dns-prefetch" href="//connect.facebook.net/" />
+            <link rel="preconnect" href="//cds.taboola.com/" />
+            <link rel="dns-prefetch" href="//cds.taboola.com/" />
+          </>
+        )}
+        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
         <script
           dangerouslySetInnerHTML={{
             /**
@@ -335,13 +326,22 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
           }}
         />
-        <TagManager {...parameters} />
         <LiteAds
           requestUri={requestUri}
           tags={tags}
           contentCode={contentCode}
           siteProperties={siteProperties}
         />
+        <MetaSite {...metaSiteData} />
+        <meta name="description" lang="es" content={description} />
+        {arcSite === SITE_ELCOMERCIOMAG && (
+          <meta property="fb:pages" content="530810044019640" />
+        )}
+        {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
+        <MetaStory {...metaPageData} />
+        {/* renderMetaPage(metaValue('id'), metaPageData) */}
         <AppNexus
           arcSite={arcSite}
           requestUri={requestUri}
@@ -349,7 +349,6 @@ const LiteOutput = ({
           isStory={isStory}
           globalContent={globalContent}
         />
-
         <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
           {({ data }) => {
             return data ? (
@@ -388,6 +387,7 @@ const LiteOutput = ({
             />
           </>
         )}
+        <TagManager {...parameters} />
       </head>
       <body
         className={classBody}
