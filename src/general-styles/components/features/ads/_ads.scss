@@ -11,11 +11,19 @@
       margin: 0 20px;
       padding: 20px 0;
       height: fit-content;
-      flex: 160px;
+      width: 160px;
       flex-grow: 0;
       flex-shrink: 0;
-      position: sticky;
+      position: fixed;
       top: 0;
+
+      &--r {
+        transform: translateX(calc((980px / 2) + (160px / 2)));
+      }
+      &--l {
+        // suma los margenes L y R
+        transform: translateX(calc((-980px / 2) - (160px / 2) - (20px * 2)));
+      }
     }
   }
 }

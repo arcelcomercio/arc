@@ -11,6 +11,8 @@ const classes = {
   sidebar: 'content-sidebar__right',
   aditional: 'mb-20',
   zocalo: 'ads__zocalo ads__zocalo--wide-nav',
+  zocaloL: 'ads__zocalo--l',
+  zocaloR: 'ads__zocalo--r',
 }
 
 /**---------------------------------------------------------------------
@@ -27,7 +29,7 @@ const WideNavGridSidebar = ({ children = [] }) => {
       {children[2] /* Barra de navegación */}
       {children[3] /* Cabecera de página */}
       <div className={classes.layout}>
-        <div className={classes.zocalo}>
+        <div className={`${classes.zocalo} ${classes.zocaloL}`}>
           {children[0] /* Zocalo izquierda */}
         </div>
         <div className={classes.contentContainer}>
@@ -44,7 +46,9 @@ const WideNavGridSidebar = ({ children = [] }) => {
             <section className={classes.aditional}>{children[7]}</section>
           ) /* Contenido adicional */}
         </div>
-        <div className={classes.zocalo}>{children[9] /* Zocalo derecha */}</div>
+        <div className={`${classes.zocalo} ${classes.zocaloR}`}>
+          {children[9] /* Zocalo derecha */}
+        </div>
       </div>
       {children[8] /* Pie de página */}
     </div>

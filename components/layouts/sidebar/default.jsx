@@ -7,6 +7,8 @@ const classes = {
     'flex flex-col content-layout-container w-full position-relative bg-container',
   content: 'content-sidebar flex mt-20 mb-20',
   zocalo: 'ads__zocalo',
+  zocaloL: 'ads__zocalo--l',
+  zocaloR: 'ads__zocalo--r',
   main: 'content-sidebar__left',
   sidebar: 'content-sidebar__right',
 }
@@ -14,7 +16,9 @@ const classes = {
 const SidebarLayout = ({ children = [] }) => {
   return (
     <div className={classes.layout}>
-      <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
+      <div className={`${classes.zocalo} ${classes.zocaloL}`}>
+        {children[0] /* Zocalo izquierda */}
+      </div>
       <div className={classes.contentContainer}>
         {children[1] /* Publicidad Top */}
         {children[2] /* Barra de navegación */}
@@ -31,7 +35,9 @@ const SidebarLayout = ({ children = [] }) => {
         </div>
         {children[8] /* Pie de página */}
       </div>
-      <div className={classes.zocalo}>{children[9] /* Zocalo derecha */}</div>
+      <div className={`${classes.zocalo} ${classes.zocaloR}`}>
+        {children[9] /* Zocalo derecha */}
+      </div>
     </div>
   )
 }
