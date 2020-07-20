@@ -16,11 +16,8 @@ import StoryContentChildTags from './_children/tags'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryData from '../../../utilities/story-data'
-import {
-  replaceTags,
-  storyTagsBbc,
-  getDateSeo,
-} from '../../../utilities/helpers'
+import { getDateSeo } from '../../../utilities/date-time/dates'
+import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 
 import {
   ELEMENT_HEADER,
