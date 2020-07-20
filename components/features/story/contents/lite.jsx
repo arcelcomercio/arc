@@ -31,6 +31,7 @@ import {
   ELEMENT_GALLERY,
   ELEMENT_OEMBED,
   ELEMENT_BLOCKQUOTE,
+  ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
@@ -44,6 +45,7 @@ import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -136,8 +138,8 @@ class StoryContentsLite extends PureComponent {
           <div
             id="gpt_caja3"
             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
-
+            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+            data-prebid-enabled></div>
           <div
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}
@@ -165,6 +167,7 @@ class StoryContentsLite extends PureComponent {
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
                     nameAds,
+                    url = '',
                     items = [],
                     list_type: listType = 'unordered',
                   } = element
@@ -223,13 +226,15 @@ class StoryContentsLite extends PureComponent {
                           <div
                             id="gpt_caja4"
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-prebid-enabled></div>
                         )}
                         {nameAds === 'caja5' && (
                           <div
                             id="gpt_caja5"
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"></div>
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-prebid-enabled></div>
                         )}
                         <p
                           itemProp="description"
@@ -277,7 +282,15 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
-
+                  if (type === ELEMENT_INTERSTITIAL_LINK) {
+                    return (
+                      <StoryContentsChildInterstitialLink
+                        url={url}
+                        content={content}
+                        isAmp={false}
+                      />
+                    )
+                  }
                   if (type === ELEMENT_HEADER && level === 1) {
                     return (
                       <h2

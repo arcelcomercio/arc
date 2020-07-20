@@ -4,7 +4,7 @@ import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
-import renderMetaPage from './_children/render-meta-page'
+import MetaStory from './_children/meta-story'
 import AmpTagManager from './_children/amp-tag-manager'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import {
@@ -152,12 +152,10 @@ const AmpOutputType = ({
         <title>{title}</title>
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-
         <meta name="amp-experiments-opt-in" content="amp-next-page" />
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-        {renderMetaPage(metaValue('id'), metaPageData)}
-
+        <MetaStory {...metaPageData} />
         {/* add additional head elements here */}
 
         {/* add additional head elements here */}

@@ -9,12 +9,16 @@ const classes = {
     'grid grid--content content-layout grid--col-1 grid--col-2 grid--col-3 mt-20 mb-20',
   aditional: 'mb-20',
   zocalo: 'ads__zocalo',
+  zocaloL: 'ads__zocalo--l',
+  zocaloR: 'ads__zocalo--r',
 }
 
 const GridLayout = ({ children = [] }) => {
   return (
     <div className={classes.layout}>
-      <div className={classes.zocalo}>{children[0] /* Zocalo izquierda */}</div>
+      <div className={`${classes.zocalo} ${classes.zocaloL}`}>
+        {children[0] /* Zocalo izquierda */}
+      </div>
       <div className={classes.contentContainer}>
         {children[1] /* Publicidad Top */}
         {children[2] /* Barra de navegación */}
@@ -28,7 +32,9 @@ const GridLayout = ({ children = [] }) => {
         ) /* Contenido adicional */}
         {children[7] /* Pie de página */}
       </div>
-      <div className={classes.zocalo}>{children[8] /* Zocalo derecha */}</div>
+      <div className={`${classes.zocalo} ${classes.zocaloR}`}>
+        {children[8] /* Zocalo derecha */}
+      </div>
     </div>
   )
 }
