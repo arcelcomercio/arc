@@ -10,9 +10,7 @@ import { addSlashToEnd } from '../utilities/parse/strings'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
-  SITE_PERU21,
-  SITE_TROME,
-  SITE_OJO,
+  SITE_GESTION,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 
@@ -218,16 +216,13 @@ const AmpOutputType = ({
           src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"
         />
 
-        {arcSite !== SITE_PERU21 &&
-          arcSite !== SITE_TROME &&
-          arcSite !== SITE_OJO &&
-          arcSite !== SITE_ELBOCON && (
-            <script
-              async
-              custom-element="amp-next-page"
-              src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
-            />
-          )}
+        {arcSite === SITE_GESTION && (
+          <script
+            async
+            custom-element="amp-next-page"
+            src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
+          />
+        )}
         <script
           async
           custom-element="amp-youtube"
@@ -265,7 +260,6 @@ const AmpOutputType = ({
           custom-element="amp-fx-flying-carpet"
           src="https://cdn.ampproject.org/v0/amp-fx-flying-carpet-0.1.js"
         />
-
         {arcSite === SITE_DEPOR && (
           <script
             async
