@@ -174,7 +174,7 @@
       }, Number.parseInt(parameters.wait))
 
       data = JSON.parse(decodeURIComponent(parameters.p))
-      fetchData(data)
+      render(data)
       document.getElementById('btn_apply').onclick = applyChanges
       document.getElementById('btn_cancel').onclick = dismissEditor
     }

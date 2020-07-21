@@ -106,7 +106,7 @@
         parseQueryString()
 
       )
-      fetchData(JSON.parse(decodeURIComponent(parameters.p)))
+      render(JSON.parse(decodeURIComponent(parameters.p)))
 
       // Emulate wait time
       setTimeout(function() {
