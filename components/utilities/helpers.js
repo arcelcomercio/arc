@@ -300,6 +300,10 @@ export const getCookie = cookieName => {
   return cookieValue ? cookieValue[2] : null
 }
 
+export const nlToBrTag = paragraph => {
+  return paragraph.trim().replace(/\\n/, '<br />')
+}
+
 export const formatSlugToText = (text = '', length = 0) => {
   if (!text) return null
   const splitText = text.slice(1).includes('/')

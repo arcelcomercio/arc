@@ -15,6 +15,7 @@ import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildCorrection from './_children/correction'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
@@ -33,6 +34,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
+  ELEMENT_CORRECTION,
 } from '../../../utilities/constants/element-types'
 
 import {
@@ -184,6 +186,8 @@ class StoryContentAmp extends PureComponent {
                   raw_oembed: rawOembed,
                   content_elements: innerContentElements,
                   content,
+                  text,
+                  correction_type: correctionType,
                   level,
                   publicidadInline = false,
                   publicidadCaja3 = false,
@@ -323,6 +327,16 @@ class StoryContentAmp extends PureComponent {
                       url={url}
                       content={content}
                       arcSite={arcSite}
+                      isAmp
+                    />
+                  )
+                }
+
+                if (type === ELEMENT_CORRECTION) {
+                  return (
+                    <StoryContentsChildCorrection
+                      content={text}
+                      correctionType={correctionType}
                       isAmp
                     />
                   )

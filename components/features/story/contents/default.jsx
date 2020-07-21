@@ -34,6 +34,7 @@ import {
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
   ELEMENT_LIST,
+  ELEMENT_CORRECTION,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -51,6 +52,7 @@ import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildCorrection from './_children/correction'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -221,6 +223,8 @@ class StoryContents extends PureComponent {
                     embed: customEmbed,
                     raw_oembed: rawOembed,
                     content,
+                    text,
+                    correction_type: correctionType,
                     level,
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
@@ -305,6 +309,15 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildInterstitialLink
                         url={url}
                         content={content}
+                        isAmp={false}
+                      />
+                    )
+                  }
+                  if (type === ELEMENT_CORRECTION) {
+                    return (
+                      <StoryContentsChildCorrection
+                        content={text}
+                        correctionType={correctionType}
                         isAmp={false}
                       />
                     )
