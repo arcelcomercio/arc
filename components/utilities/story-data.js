@@ -761,6 +761,17 @@ class StoryData {
     )
   }
 
+  get contentElementsCorrectionList() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsCorrectionList(
+          this._data.content_elements,
+          'correction'
+        )) ||
+      ''
+    )
+  }
+
   get contentElementGallery() {
     return (
       (this._data &&
@@ -1206,6 +1217,14 @@ class StoryData {
           })
           .join(' ')
       : ''
+  }
+
+  static getContentElementsCorrectionList(data = [], typeElement = '') {
+    return data && data.length > 0
+      ? data.filter(({ text, type }) => {
+          return type === typeElement
+        })
+      : []
   }
 
   static getContentElementsHtml(data = [], typeElement = '') {
