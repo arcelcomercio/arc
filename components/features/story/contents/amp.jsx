@@ -34,7 +34,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
-  ELEMENT_CORRECTION,
+  ELEMENT_STORY_CORRECTION,
 } from '../../../utilities/constants/element-types'
 
 import {
@@ -186,8 +186,6 @@ class StoryContentAmp extends PureComponent {
                   raw_oembed: rawOembed,
                   content_elements: innerContentElements,
                   content,
-                  text,
-                  correction_type: correctionType,
                   level,
                   publicidadInline = false,
                   publicidadCaja3 = false,
@@ -332,11 +330,16 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
 
-                if (type === ELEMENT_CORRECTION) {
+                if (
+                  type === ELEMENT_CUSTOM_EMBED &&
+                  sub === ELEMENT_STORY_CORRECTION
+                ) {
+                  const {
+                    config: { content: contentCorrectionConfig },
+                  } = customEmbed || {}
                   return (
                     <StoryContentsChildCorrection
-                      content={text}
-                      correctionType={correctionType}
+                      content={contentCorrectionConfig}
                       isAmp
                     />
                   )

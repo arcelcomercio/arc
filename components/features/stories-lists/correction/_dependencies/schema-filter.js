@@ -8,6 +8,13 @@ export default arcSite => {
         type
         content
         text
+        embed {
+          id
+          config {
+            date
+            content
+          }
+        }
       }
       display_date
     }

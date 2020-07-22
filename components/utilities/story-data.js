@@ -13,6 +13,7 @@ import {
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
   ELEMENT_CORRECTION,
+  ELEMENT_STORY_CORRECTION,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -777,10 +778,9 @@ class StoryData {
     return (
       (this._data &&
         StoryData.getContentElementsCorrectionList(
-          this._data.content_elements,
-          'correction'
+          this._data.content_elements
         )) ||
-      ''
+      []
     )
   }
 
@@ -1241,10 +1241,12 @@ class StoryData {
       : ''
   }
 
-  static getContentElementsCorrectionList(data = [], typeElement = '') {
+  static getContentElementsCorrectionList(data = []) {
     return data && data.length > 0
-      ? data.filter(({ type }) => {
-          return type === typeElement
+      ? data.filter(({ type, subtype }) => {
+          return (
+            type === ELEMENT_CORRECTION && subtype === ELEMENT_STORY_CORRECTION
+          )
         })
       : []
   }
@@ -1624,6 +1626,12 @@ class StoryData {
         streams = [],
         title = '',
         level = null,
+        embed: {
+          config: {
+            content: contentCorrection = '',
+            // date: dateCorrection = '',
+          } = {},
+        } = {},
       }) => {
         const result = { _id, type, level, payload: '', streams }
 
@@ -1659,7 +1667,7 @@ class StoryData {
             result.link = url
             break
           case ELEMENT_CORRECTION:
-            result.payload = text
+            result.payload = contentCorrection
             // result.correction_type = 'correction'
             break
           case ELEMENT_LINK_LIST:

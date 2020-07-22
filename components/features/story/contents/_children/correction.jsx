@@ -2,7 +2,6 @@ import React from 'react'
 import { nlToBrTag } from '../../../../utilities/helpers'
 
 const CORRECTION_TYPE_CORRECTION = 'correction'
-const CORRECTION_TYPE_CLARIFICATION = 'clarification'
 
 export default ({
   content,

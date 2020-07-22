@@ -47,7 +47,7 @@ export default ({
     videoSeo,
     contentElementsText: dataElement,
     contentElementsHtml = [],
-    contentElementsCorrection = '',
+    contentElementsCorrectionList = [],
     seoKeywords,
     breadcrumbList,
     multimediaType,
@@ -268,14 +268,18 @@ export default ({
         )}",`
       : ''
 
-  const correctionStructured =
-    contentElementsCorrection.trim() !== ''
-      ? `"correction": {
-            "@type": "CorrectionComment",
-            "text": "${contentElementsCorrection.trim()}",
-            "datePublished": "${publishDateZone}"
-        },`
-      : ''
+  let correctionStructured = ''
+
+  contentElementsCorrectionList.forEach(ele => {
+    const {
+      config: { content: contentCorrection, date: dateCorrection },
+    } = ele || {}
+    correctionStructured = `"correction": {
+      "@type": "CorrectionComment",
+      "text": "${contentCorrection.trim()}",
+      "datePublished": "${dateCorrection}"
+    },`
+  })
 
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${

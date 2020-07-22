@@ -123,7 +123,7 @@
     const render = (dataParams) => {
 
       // Setup Element Preview
-      const config = dataParams.config = {}
+      const config = dataParams.config || {}
       const template = document.getElementById('content_template').innerHTML
       const html = template
         .replace(/%item_id%/gi, 'row-' + config.id)

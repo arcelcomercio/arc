@@ -16,22 +16,24 @@ const StoriesListsCardChildItem = ({
 }) => {
   return (
     <>
-      {contentElementsCorrectionList.map(({ text, _id }) => {
-        const time = formatDateLocalTimeZone(displayDate)
-        return (
-          <div key={_id} className={classes.box}>
-            <a itemProp="url" href={websiteLink}>
-              <h3 itemProp="name" className={classes.title}>
-                {title}
-              </h3>
-            </a>
-            <div className={classes.content}>
-              <time className={classes.time}>{time}</time>
-              {text}
+      {contentElementsCorrectionList.map(
+        ({ embed: { config: { content = '' } = {} } = {}, _id }) => {
+          const time = formatDateLocalTimeZone(displayDate)
+          return (
+            <div key={_id} className={classes.box}>
+              <a itemProp="url" href={websiteLink}>
+                <h3 itemProp="name" className={classes.title}>
+                  {title}
+                </h3>
+              </a>
+              <div className={classes.content}>
+                <time className={classes.time}>{time}</time>
+                {content}
+              </div>
             </div>
-          </div>
-        )
-      })}
+          )
+        }
+      )}
     </>
   )
 }

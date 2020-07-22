@@ -34,7 +34,7 @@ import {
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
   ELEMENT_LIST,
-  ELEMENT_CORRECTION,
+  ELEMENT_STORY_CORRECTION,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -133,7 +133,7 @@ class StoryContents extends PureComponent {
       multimediaStorySmall,
       multimediaLarge,
       multimediaLazyDefault,
-      primaryImage: true
+      primaryImage: true,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -223,8 +223,6 @@ class StoryContents extends PureComponent {
                     embed: customEmbed,
                     raw_oembed: rawOembed,
                     content,
-                    text,
-                    correction_type: correctionType,
                     level,
                     alignment = '',
                     headlines: { basic: captionVideo = '' } = {},
@@ -313,11 +311,16 @@ class StoryContents extends PureComponent {
                       />
                     )
                   }
-                  if (type === ELEMENT_CORRECTION) {
+                  if (
+                    type === ELEMENT_CUSTOM_EMBED &&
+                    sub === ELEMENT_STORY_CORRECTION
+                  ) {
+                    const {
+                      config: { content: contentCorrectionConfig },
+                    } = customEmbed || {}
                     return (
                       <StoryContentsChildCorrection
-                        content={text}
-                        correctionType={correctionType}
+                        content={contentCorrectionConfig}
                         isAmp={false}
                       />
                     )
