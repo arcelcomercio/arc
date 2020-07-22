@@ -86,10 +86,11 @@
     // Render the content data and contextual configuration together
     const render = (ansCustomEmbed) => {
       const template = document.getElementById('content_template').innerHTML
+      const config = ansCustomEmbed.config
       const html = template
         .replace(/%item_id%/gi, 'row-' + ansCustomEmbed.id)
-        .replace(/%content%/gi, ansCustomEmbed.content || "")
-        .replace(/%date%/gi, ansCustomEmbed.date || "")
+        .replace(/%content%/gi, config.content || "")
+        .replace(/%date%/gi, config.date || "")
 
       const element = document.createElement('div')
       document.getElementById('search_content').appendChild(element)
