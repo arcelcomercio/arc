@@ -19,6 +19,7 @@
       <div class="col-md-12" id="%item_id%">
         <div class="card mb-4 box-shadow" style="flex-direction: row;"
           id="content_card">
+          <strong>Corregir Nota</strong>
           <div class="card-body">
             <p class="card-text text-muted" style="font-weight: bold;">
               Texto de la corrección: %content%
@@ -49,11 +50,11 @@
                 <input id="content" name="content" type="textfield" value="" />
               </label>
             </div>
-            <div class="col-md-12">
+            <!--<div class="col-md-12">
               <label for="date"><span>Fecha</span>
                 <input id="date" name="date" type="textfield" value="" />
               </label>
-            </div>
+            </div>-->
             <div class="col-md-12 p-3">
               <button type="button" class="btn btn-primary" id="btn_apply">
                 Aceptar
@@ -138,14 +139,23 @@
 
       // Update form state
       document.getElementById('content').value = (config.content || "")
-      document.getElementById('date').value = (config.date || "")
+      // document.getElementById('date').value = (config.date || "")
     }
 
+    const getYYYYMMDDfromISO = date =>
+      date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+    const getActualDate = () => {
+      const today = new Date()
+      today.setHours(today.getHours() - 5)
+      return getYYYYMMDDfromISO(today)
+    }
 
      // Update config based on form changes, submit back to Composer and re-render
     const applyChanges = () => {
       data.config.content = document.getElementById('content').value
-      data.config.date = document.getElementById('date').value
+      // data.config.date = document.getElementById('date').value
+      data.config.date = getActualDate()
 
 
        // Update Composer and re-render form

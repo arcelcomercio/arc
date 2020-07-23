@@ -14,6 +14,8 @@ import {
   getActualDate,
   // getYYYYMMDDfromISO,
 } from '../../../utilities/date-time/dates'
+import { ELEMENT_CUSTOM_EMBED } from '../../../utilities/constants/element-types'
+import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
 
 const CONTENT_SOURCE = 'story-feed-by-correction'
 
@@ -53,26 +55,56 @@ const StoriesListCorrection = props => {
           filter: schemaFilter(arcSite),
         }) || {}
 
-
   const story = new StoryData({
     arcSite,
   })
 
-  const dataList = data.content_elements
+  const dataList = data.content_elements || []
   const dateCurrent = getActualDate()
-  const correctionToday = dataList.filter(({ display_date: displayDate }) => {
-    console.log(
-      'formatDateLocalTimeZone(displayDate)',
-      formatDateLocalTimeZone(displayDate),
-      dateCurrent
+
+  let correctionToday = []
+  dataList.forEach(ele => {
+    const list = ele.content_elements || []
+    const dataToday = list.filter(
+      ({
+        subtype = '',
+        type = '',
+        embed: { config: { date = '' } = {} } = {},
+      }) => {
+        return (
+          type === ELEMENT_CUSTOM_EMBED &&
+          subtype === STORY_CORRECTION &&
+          dateCurrent === formatDateLocalTimeZone(date, '-', true)
+        )
+      }
     )
-    return dateCurrent === formatDateLocalTimeZone(displayDate)
+    const correctionCurrent =
+      dataToday.length > 0 ? [{ ...ele, content_elements: dataToday }] : []
+    correctionToday = [...correctionToday, ...correctionCurrent]
   })
 
-  const corrections = dataList.filter(({ display_date: displayDate }) => {
-    return dateCurrent !== formatDateLocalTimeZone(displayDate)
+  let corrections = []
+  dataList.forEach(ele => {
+    const list = ele.content_elements || []
+    const dataCorrection = list.filter(
+      ({
+        subtype = '',
+        type = '',
+        embed: { config: { date = '' } = {} } = {},
+      }) => {
+        return (
+          type === ELEMENT_CUSTOM_EMBED &&
+          subtype === STORY_CORRECTION &&
+          dateCurrent !== formatDateLocalTimeZone(date, '-', true)
+        )
+      }
+    )
+    const correctionCurrent =
+      dataCorrection.length > 0
+        ? [{ ...ele, content_elements: dataCorrection }]
+        : []
+    corrections = [...corrections, ...correctionCurrent]
   })
-
 
   const contentCorrection = el => {
     story.__data = el

@@ -76,9 +76,9 @@
           <label for="searchContentCorrection">Contenido:
             <input type="textfield" id="searchContentCorrection" name="searchContentCorrection" />
           </label>
-          <label for="searchDateCorrection">Fecha:
+          <!-- <label for="searchDateCorrection">Fecha:
             <input type="textfield" id="searchDateCorrection" name="searchDateCorrection" />
-          </label>
+          </label> -->
           <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
         </div>
       </section>
@@ -140,14 +140,24 @@
     // ------------------------------------------------
 
 
-    const idEl = Date.now()
+    const idEl =  Date.now() + '-' + Math.floor(Math.random() * 1000000)
     let content = ''
     let date = ''
     let data = {}
 
+    const getYYYYMMDDfromISO = date =>
+      date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+    const getActualDate = () => {
+      const today = new Date()
+      today.setHours(today.getHours() - 5)
+      return getYYYYMMDDfromISO(today)
+    }
+
     const handleSearch = () => {
       content = document.getElementById('searchContentCorrection').value;
-      date = document.getElementById('searchDateCorrection').value;
+      // date = document.getElementById('searchDateCorrection').value;
+      date = getActualDate()
 
       if (content || date ) buildMessage()
     }
@@ -162,7 +172,8 @@
       // }
 
       const ansCustomEmbed = {
-        id: idEl.toString(),
+        // id: idEl.toString(),
+        id: idEl,
         url: '/pf/api/v3/content/fetch/photo-by-id',
         config: {
           "content": content || '',

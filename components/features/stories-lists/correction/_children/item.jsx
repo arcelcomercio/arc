@@ -12,13 +12,13 @@ const StoriesListsCardChildItem = ({
   websiteLink,
   title,
   contentElementsCorrectionList = [],
-  displayDate,
+  // displayDate,
 }) => {
   return (
     <>
       {contentElementsCorrectionList.map(
-        ({ embed: { config: { content = '' } = {} } = {}, _id }) => {
-          const time = formatDateLocalTimeZone(displayDate)
+        ({ embed: { config: { content = '', date = '' } = {} } = {}, _id }) => {
+          const time = formatDateLocalTimeZone(date, '-', true)
           return (
             <div key={_id} className={classes.box}>
               <a itemProp="url" href={websiteLink}>
