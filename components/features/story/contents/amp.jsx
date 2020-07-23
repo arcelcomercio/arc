@@ -34,7 +34,6 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
-  ELEMENT_STORY_CORRECTION,
 } from '../../../utilities/constants/element-types'
 
 import {
@@ -49,6 +48,7 @@ import {
   ampHtml,
 } from '../../../utilities/story/helpers-amp'
 import { getResizedUrl } from '../../../utilities/resizer'
+import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -332,7 +332,7 @@ class StoryContentAmp extends PureComponent {
 
                 if (
                   type === ELEMENT_CUSTOM_EMBED &&
-                  sub === ELEMENT_STORY_CORRECTION
+                  sub === STORY_CORRECTION
                 ) {
                   const {
                     config: { content: contentCorrectionConfig },

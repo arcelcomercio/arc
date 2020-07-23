@@ -17,6 +17,7 @@ import {
   SPECIAL,
   SPECIAL_BASIC,
   BIG_IMAGE,
+  STORY_CORRECTION,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -34,7 +35,6 @@ import {
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
   ELEMENT_LIST,
-  ELEMENT_STORY_CORRECTION,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -313,10 +313,11 @@ class StoryContents extends PureComponent {
                   }
                   if (
                     type === ELEMENT_CUSTOM_EMBED &&
-                    sub === ELEMENT_STORY_CORRECTION
+                    sub === STORY_CORRECTION
                   ) {
+                    console.log('===customEmbed====',customEmbed)
                     const {
-                      config: { content: contentCorrectionConfig },
+                      config: { content: contentCorrectionConfig = '' },
                     } = customEmbed || {}
                     return (
                       <StoryContentsChildCorrection

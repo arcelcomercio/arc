@@ -37,5 +37,3 @@ export const ELEMENT_INTERSTITIAL_LINK = 'interstitial_link'
 export const ELEMENT_LINK_LIST = 'link_list'
 
 export const ELEMENT_CORRECTION = 'correction'
-
-export const ELEMENT_STORY_CORRECTION = 'story_correction'

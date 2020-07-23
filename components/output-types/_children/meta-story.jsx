@@ -269,10 +269,11 @@ export default ({
       : ''
 
   let correctionStructured = ''
-
   contentElementsCorrectionList.forEach(ele => {
     const {
-      config: { content: contentCorrection, date: dateCorrection },
+      embed: {
+        config: { content: contentCorrection = '', date: dateCorrection = '' },
+      } = {},
     } = ele || {}
     correctionStructured = `"correction": {
       "@type": "CorrectionComment",

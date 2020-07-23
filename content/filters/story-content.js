@@ -25,6 +25,8 @@ content_elements {
       recipeYield
       puntuation
       countReviews
+      content
+      date
     }
   }
   raw_oembed{

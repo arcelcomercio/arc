@@ -6,6 +6,7 @@ export default arcSite => {
       content_elements {
         _id
         type
+        subtype
         content
         text
         embed {

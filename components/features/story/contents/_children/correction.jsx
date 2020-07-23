@@ -4,7 +4,7 @@ import { nlToBrTag } from '../../../../utilities/helpers'
 const CORRECTION_TYPE_CORRECTION = 'correction'
 
 export default ({
-  content,
+  content = '',
   isAmp,
   correctionType = CORRECTION_TYPE_CORRECTION,
 }) => {

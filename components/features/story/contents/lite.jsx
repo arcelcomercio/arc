@@ -33,7 +33,6 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LIST,
-  ELEMENT_STORY_CORRECTION,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -48,6 +47,7 @@ import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCorrection from './_children/correction'
+import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -317,7 +317,7 @@ class StoryContentsLite extends PureComponent {
 
                   if (
                     type === ELEMENT_CUSTOM_EMBED &&
-                    sub === ELEMENT_STORY_CORRECTION
+                    sub === STORY_CORRECTION
                   ) {
                     const {
                       config: { content: contentCorrectionConfig },

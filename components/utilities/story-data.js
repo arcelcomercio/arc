@@ -13,7 +13,7 @@ import {
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
   ELEMENT_CORRECTION,
-  ELEMENT_STORY_CORRECTION,
+  ELEMENT_CUSTOM_EMBED,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -40,6 +40,7 @@ import { formatHtmlToText, addSlashToEnd } from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
+import { STORY_CORRECTION } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -1244,9 +1245,7 @@ class StoryData {
   static getContentElementsCorrectionList(data = []) {
     return data && data.length > 0
       ? data.filter(({ type, subtype }) => {
-          return (
-            type === ELEMENT_CORRECTION && subtype === ELEMENT_STORY_CORRECTION
-          )
+          return type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CORRECTION
         })
       : []
   }
@@ -1617,6 +1616,7 @@ class StoryData {
         content = '',
         text = '',
         type = '',
+        subtype = '',
         _id = '',
         url = '',
         subtitle = '',
@@ -1666,8 +1666,9 @@ class StoryData {
             result.payload = content
             result.link = url
             break
-          case ELEMENT_CORRECTION:
-            result.payload = contentCorrection
+          case ELEMENT_CUSTOM_EMBED:
+            result.payload =
+              subtype === STORY_CORRECTION ? contentCorrection : ''
             // result.correction_type = 'correction'
             break
           case ELEMENT_LINK_LIST:
