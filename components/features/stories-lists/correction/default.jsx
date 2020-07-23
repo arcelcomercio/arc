@@ -74,7 +74,7 @@ const StoriesListCorrection = props => {
         return (
           type === ELEMENT_CUSTOM_EMBED &&
           subtype === STORY_CORRECTION &&
-          dateCurrent === formatDateLocalTimeZone(date, '-', true)
+          dateCurrent === formatDateLocalTimeZone(date, '-', true, false)
         )
       }
     )
@@ -95,7 +95,7 @@ const StoriesListCorrection = props => {
         return (
           type === ELEMENT_CUSTOM_EMBED &&
           subtype === STORY_CORRECTION &&
-          dateCurrent !== formatDateLocalTimeZone(date, '-', true)
+          dateCurrent !== formatDateLocalTimeZone(date, '-', true, false)
         )
       }
     )

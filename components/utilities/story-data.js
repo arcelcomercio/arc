@@ -1633,7 +1633,7 @@ class StoryData {
           } = {},
         } = {},
       }) => {
-        const result = { _id, type, level, payload: '', streams }
+        const result = { _id, type, subtype: '', level, payload: '', streams }
 
         switch (type) {
           case ELEMENT_TEXT:
@@ -1670,6 +1670,7 @@ class StoryData {
             result.payload =
               subtype === STORY_CORRECTION ? contentCorrection : ''
             // result.correction_type = 'correction'
+            result.subtype = subtype
             break
           case ELEMENT_LINK_LIST:
             result.payload = items

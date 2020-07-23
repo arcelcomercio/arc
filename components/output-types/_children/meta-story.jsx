@@ -275,7 +275,7 @@ export default ({
         config: { content: contentCorrection = '', date: dateCorrection = '' },
       } = {},
     } = ele || {}
-    correctionStructured = `"correction": {
+    correctionStructured += `"correction": {
       "@type": "CorrectionComment",
       "text": "${contentCorrection.trim()}",
       "datePublished": "${dateCorrection}"

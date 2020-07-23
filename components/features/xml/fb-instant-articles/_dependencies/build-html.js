@@ -8,6 +8,8 @@ import {
   isEmpty,
 } from '../../../../utilities/helpers'
 import recommederBySite from '../_children/recommeder-by-site'
+import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
+import { STORY_CORRECTION } from '../../../../utilities/constants/subtypes'
 // import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
@@ -137,6 +139,7 @@ const buildListLinkParagraph = (items, defaultImage) => {
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
+  subtype = '',
   numberWordMultimedia,
   level = null,
   opta,
@@ -172,14 +175,15 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
 
       break
-    case ConfigParams.ELEMENT_CORRECTION:
-      textProcess = buildCorrectionTexParagraph(
-        processedParagraph,
-        CORRECTION_TYPE_CORRECTION
-      )
-
-      result.numberWords = textProcess.numberWords
-      result.processedParagraph = textProcess.processedParagraph
+    case ELEMENT_CUSTOM_EMBED:
+      if (subtype === STORY_CORRECTION) {
+        textProcess = buildCorrectionTexParagraph(
+          processedParagraph,
+          CORRECTION_TYPE_CORRECTION
+        )
+        result.numberWords = textProcess.numberWords
+        result.processedParagraph = textProcess.processedParagraph
+      }
 
       break
     case ConfigParams.ELEMENT_LINK_LIST:
@@ -346,6 +350,7 @@ const ParagraphshWithAdds = ({
       ({
         payload: originalParagraph,
         type,
+        subtype = '',
         level,
         link = '',
         streams = [],
@@ -355,6 +360,7 @@ const ParagraphshWithAdds = ({
         let { processedParagraph, numberWords } = analyzeParagraph({
           originalParagraph,
           type,
+          subtype,
           numberWordMultimedia,
           level,
           opta,

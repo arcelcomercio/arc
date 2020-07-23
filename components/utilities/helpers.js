@@ -86,7 +86,8 @@ export const getActualDate = () => {
 export const formatDateLocalTimeZone = (
   publishDateString,
   delimiter = '-',
-  isClient = false
+  isClient = false,
+  todayHour = true
 ) => {
   const publishDate = new Date(publishDateString)
   if (!isClient) publishDate.setHours(publishDate.getHours() - 5)
@@ -96,7 +97,10 @@ export const formatDateLocalTimeZone = (
 
   let formattedDate = ''
 
-  if (getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today))
+  if (
+    getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today) &&
+    todayHour
+  )
     formattedDate = formattedTime(publishDate)
   else {
     // eslint-disable-next-line prefer-destructuring
