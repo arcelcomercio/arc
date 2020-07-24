@@ -6,6 +6,7 @@ import { customFields } from '../_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
 import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
+import { useContent } from 'fusion:content'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -25,8 +26,33 @@ const StoriesListPaginatedList = props => {
   } = useFusionContext()
   const { customFields: customFieldsProps = {} } = props
   const { isDfp = false } = getProperties(arcSite)
-  const { content_elements: stories = [], count = 0 } = globalContent || {}
-  const { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
+
+  let { content_elements: stories = [], count = 0 } = globalContent || {}
+  const { author = {}, slug: slugAuthor = '', from: fromAuthor = 1, size:sizeAuthor = 30 } = globalContent || {}
+  let { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
+
+  let storiesAuhor
+  if(stories.length === 0){
+    if(author._id){
+      storiesAuhor =
+        useContent({
+          source: 'story-feed-by-author',
+          query: {
+            name: slugAuthor,
+            from: fromAuthor, 
+            size: sizeAuthor, 
+            website: arcSite
+          },
+        })
+
+      if(storiesAuhor !==  undefined){
+        stories = storiesAuhor.content_elements
+        count = storiesAuhor.count
+        size = sizeAuthor
+        from = fromAuthor
+      }
+    }
+  }
 
   const activeAds = Object.keys(customFieldsProps)
     .filter(prop => prop.match(/adsMobile(\d)/))

@@ -12,23 +12,29 @@ const AuthorBiography = ({
 }) => {
   return (
     <>
-      <h2>{role}</h2>
-      <h3>{twitter}</h3>
-      <p>{bio}</p>
+      { role && <h2>{role}</h2> }
+      { twitter && <h3>{twitter}</h3>}
+      { bio && <p>{bio}</p> }
+      { ( location || languages ) && ( 
       <p>
-        <strong>Escribe desde </strong>
-        {location} |<strong>Habla </strong>
-        {languages}
+        { location && <><strong>Escribe desde </strong>{location}</> } 
+        { (location && languages) && ' | ' }
+        { languages && <><strong>Habla </strong>{languages}</> }
       </p>
+      )}
+      { email && (
       <p>
         <strong>Contacto: </strong>
         {email}
       </p>
+      )}
+      { expertise && (
       <p>
         <strong>Especialidad y competencias demográficas: </strong>
         {expertise}
       </p>
-      {awards && (
+      )}
+      { (awards && awards.length) && (
         <p>
           <strong>Premios: </strong>
           <ul>
