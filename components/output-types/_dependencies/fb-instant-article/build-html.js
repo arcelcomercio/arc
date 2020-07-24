@@ -170,7 +170,7 @@ const analyzeParagraph = ({
     case ConfigParams.ELEMENT_VIDEO:
       const urlVideo = getResultVideo(streams, arcSite, 'mp4')
       result.numberWords = numberWordMultimedia
-      result.processedParagraph = `<figure><video><source src="${urlVideo}" type="video/mp4" /></video></figure>`
+      result.processedParagraph = `<figure><video><source src="${urlVideo}" type="video/mp4"></video></figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
