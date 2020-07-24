@@ -13,6 +13,7 @@ import {
   SITE_GESTION,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
+import RedirectError from '../utilities/redirect-error'
 
 const AmpOutputType = ({
   children,
@@ -39,8 +40,17 @@ const AmpOutputType = ({
     deployment,
   }
   const {
+    canonical_url: canonicalUrl = '',
+    taxonomy: { sections } = {},
+    credits: { by: autors } = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+    content_restrictions: { content_code: contentCode = '' } = {},
   } = globalContent || {}
+
+  // Redirecciona a la version original si noticia es premium
+  const isPremium = contentCode === 'premium'
+  if (isPremium)
+    throw new RedirectError(`${siteProperties.siteUrl}${canonicalUrl}`, 301)
 
   const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
 
@@ -98,11 +108,6 @@ const AmpOutputType = ({
     deployment,
     globalContent,
   }
-  const {
-    canonical_url: canonicalUrl = '',
-    taxonomy: { sections } = {},
-    credits: { by: autors } = {},
-  } = globalContent || {}
   const parametros = {
     sections,
     autors,
