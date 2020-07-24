@@ -277,7 +277,7 @@ export default ({
     } = ele || {}
     correctionStructured += `"correction": {
       "@type": "CorrectionComment",
-      "text": "${contentCorrection.trim()}",
+      "text": "${formatHtmlToText(contentCorrection.trim())}",
       "datePublished": "${dateCorrection}"
     },`
   })
