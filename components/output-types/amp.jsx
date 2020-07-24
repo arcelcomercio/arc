@@ -141,8 +141,13 @@ const AmpOutputType = ({
       ? 1
       : false
 
+  let lang = 'es'
+  if (arcSite === SITE_DEPOR) {
+    if (requestUri.match('^/usa')) lang = 'es-us'
+  }
+
   return (
-    <Html lang="es">
+    <Html lang={lang}>
       <head>
         <BaseMarkup
           canonicalUrl={`${siteProperties.siteUrl}${addSlashToEnd(

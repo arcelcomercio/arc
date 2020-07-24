@@ -8,6 +8,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21G21,
   SITE_ELCOMERCIO,
+  SITE_DEPOR,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import StoryData from '../utilities/story-data'
@@ -188,6 +189,11 @@ const LiteOutput = ({
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
   }
 
+  let lang = 'es'
+  if (arcSite === SITE_DEPOR) {
+    if (requestUri.match('^/usa')) lang = 'es-us'
+  }
+
   const parametersValla = {
     arcSite,
     arcEnv: CURRENT_ENVIRONMENT,
@@ -200,12 +206,12 @@ const LiteOutput = ({
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
 
   return (
-    <html itemScope itemType="http://schema.org/WebPage" lang="es">
+    <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="lang" content="es" />
+        <meta name="lang" content={lang} />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
         <meta name="robots" content="index, follow" />
