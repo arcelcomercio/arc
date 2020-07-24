@@ -3,12 +3,8 @@ import { useFusionContext } from 'fusion:context'
 import { useEditableContent } from 'fusion:content'
 
 import PropTypes from 'prop-types'
-import {
-  formatSlugToText,
-  arrayMonths,
-  arrayDays,
-  createMarkup,
-} from '../../utilities/helpers'
+import { arrayMonths, arrayDays } from '../../utilities/date-time/constants'
+import { formatSlugToText } from '../../utilities/parse/strings'
 
 const classes = {
   title: 'w-full mt-20 custom-title',
@@ -116,7 +112,7 @@ const CustomTitle = props => {
         <h2
           itemProp="name"
           className="text-lg mt-10 mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0"
-          dangerouslySetInnerHTML={createMarkup(subtitleField)}
+          dangerouslySetInnerHTML={{ __html: subtitleField }}
         />
       )}
     </>
@@ -138,6 +134,7 @@ CustomTitle.propTypes = {
       labels: {
         large: 'Grande',
         medium: 'Mediano',
+        small: 'Chico',
       },
       defaultValue: 'large',
     }),
