@@ -15,6 +15,10 @@ $tertiary-font: $secondary-font;
   justify-content: center;
 }
 
+.just-between {
+  justify-content: space-between;
+}
+
 .f-col {
   flex-direction: column;
 }
