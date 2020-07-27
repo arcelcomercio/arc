@@ -36,6 +36,7 @@ $space-interval: 5;
 @import "../../general-styles/components/features/layout/navbar/nav-story";
 @import "../../general-styles/components/features/layout/header/header";
 @import "../../general-styles/components/features/header/inverted";
+@import "../../general-styles/components/features/ads/ads";
 @import "../../general-styles/components/features/breaking-news/breaking-news";
 @import "../../general-styles/components/features/story/special-header/special-header";
 @import "../../general-styles/components/features/story/header/story-header";
@@ -82,7 +83,7 @@ $space-interval: 5;
 @import "./scss/components/story/header/story-header";
 
 /* --- MODIFICADORES ----------------------------------------------------
- Cambio temportal por consumo
+  Cambio temportal por consumo
 ------------------------------------------------------------------------- */
 @import "./scss/components/layout/navbar/nav";
 @import "./scss/components/layout/navbar/nav-story";

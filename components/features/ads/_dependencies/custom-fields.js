@@ -89,6 +89,16 @@ const customFields = PropTypes.shape({
     defaultValue: false,
     group: 'Lite',
   }),
+  prebidAdEnabled: PropTypes.bool.tag({
+    name: 'Activar prebid para este elemento',
+    defaultValue: false,
+    description: `Para activar, debe existir el Campo Personalizado "Lite > Nombre"`,
+    group: 'Prebid lite',
+  }),
+  prebidAdDimensions: PropTypes.string.tag({
+    name: 'Dimensiones',
+    group: 'Prebid lite',
+  }),
 })
 
 export default customFields

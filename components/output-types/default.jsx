@@ -9,7 +9,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
-import Preconnects from './_children/preconnects'
+// import Preconnects from './_children/preconnects'
 
 import StoryData from '../utilities/story-data'
 import { storyTagsBbc } from '../utilities/tags'
@@ -22,6 +22,7 @@ import {
   SITE_DEPOR,
   SITE_PERU21G21,
   SITE_TROME,
+  SITE_PUBLIMETRO,
 } from '../utilities/constants/sitenames'
 import { META_HOME } from '../utilities/constants/meta'
 
@@ -111,8 +112,8 @@ export default ({
     if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
   }
   const isHome = metaValue('id') === META_HOME && true
-  const scriptAdpush = getPushud()
-  const enabledPushud = getEnablePushud()
+  const scriptAdpush = getPushud(arcSite)
+  const enabledPushud = getEnablePushud(arcSite)
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
 
   const metaSiteData = {
@@ -266,31 +267,12 @@ export default ({
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Preconnects
-          siteDomain={siteDomain}
-          arcSite={arcSite}
-          contextPath={contextPath}
-          activePaywall={siteProperties.activePaywall}
-          isHome={isHome}
-        />
-        {googleFonts && (
-          <link
-            href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
-            rel="stylesheet"
-          />
-        )}
-
         <meta name="lang" content="es" />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
         <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index follow" />
+        <meta name="GOOGLEBOT" content="index follow" />
         <meta name="author" content={siteProperties.siteTitle} />
-        <title>{title}</title>
-        <meta name="description" lang="es" content={description} />
-        {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
         {isStory && (
           <>
             <meta name="DC.title" lang="es" content={title} />
@@ -316,9 +298,80 @@ export default ({
             )}?outputType=amp`}
           />
         )}
+        <title>{title}</title>
+        <link rel="preconnect dns-prefetch" href={`//cdnc.${siteDomain}`} />
+        <link
+          rel="preconnect dns-prefetch"
+          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//d1r08wok4169a5.cloudfront.net"
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//elcomercio-elcomercio-prod.cdn.arcpublishing.com"
+        />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com"
+        />
+        <link rel="preconnect dns-prefetch" href="//s.go-mpulse.net" />
+        <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect dns-prefetch" href="//ajax.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
+        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
+        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
+        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
+        <link rel="preconnect dns-prefetch" href="//static.chartbeat.com" />
+        <link rel="preconnect dns-prefetch" href="//scomcluster.cxense.com" />
+        <link rel="preconnect dns-prefetch" href="//sb.scorecardresearch.com" />
+        <link rel="preconnect dns-prefetch" href="//ping.chartbeat.net" />
+        <link rel="preconnect dns-prefetch" href="//mab.chartbeat.com" />
+        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-subs-sdk.s3.amazonaws.com"
+        />
+        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
+        {arcSite === 'elcomercio' && (
+          <>
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
+            />
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
+            />
+          </>
+        )}
 
-        <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
-        {renderMetaPage(metaValue('id'), metaPageData)}
+        {/* Este cambio se ha devuelto para evaluar problema 
+        de monetizacion con los ads.
+
+        <Preconnects
+        siteDomain={siteDomain}
+          arcSite={arcSite}
+          contextPath={contextPath}
+          activePaywall={siteProperties.activePaywall}
+          isHome={isHome}
+        /> */}
+        {googleFonts && (
+          <link
+            href={`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`}
+            rel="stylesheet"
+          />
+        )}
         <script
           dangerouslySetInnerHTML={{
             /**
@@ -340,7 +393,15 @@ export default ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
           }}
         />
-        <TagManager {...siteProperties} />
+        <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
+        <meta name="description" lang="es" content={description} />
+        {arcSite === SITE_ELCOMERCIOMAG && (
+          <meta property="fb:pages" content="530810044019640" />
+        )}
+        {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
+        <TwitterCards {...twitterCardsData} />
+        <OpenGraph {...openGraphData} />
+        {renderMetaPage(metaValue('id'), metaPageData)}
         <AppNexus
           arcSite={arcSite}
           requestUri={requestUri}
@@ -384,7 +445,9 @@ export default ({
         )}
         {/* Scripts de AdManager - Fin */}
         {/* Scripts de Chartbeat */}
-        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+        {arcSite !== SITE_PUBLIMETRO && (
+          <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+        )}
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {contenidoVideo && (
           <>
@@ -428,6 +491,7 @@ export default ({
             />
           </>
         )}
+        <TagManager {...siteProperties} />
       </head>
       <body
         className={classBody}
@@ -473,8 +537,9 @@ export default ({
             </noscript>
           </>
         )}
-        <ChartbeatBody story={isStory} {...metaPageData} />
-
+        {arcSite !== SITE_PUBLIMETRO && (
+          <ChartbeatBody story={isStory} {...metaPageData} />
+        )}
         <script
           defer
           src={`${getAssetsPath(

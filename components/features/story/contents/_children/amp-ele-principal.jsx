@@ -11,16 +11,15 @@ export default props => {
       basic: data = {},
       youtube_id: { content: youtubeId = '' } = {},
       basic_html: basicHtml,
+      path_mp3: { content: mp3 = '' } = {},
     } = {},
   } = props
   const imgTag = 'amp-img'
   const parameters = { data, imgTag, basicVideo, basicHtml }
-   
+
   return (
     <>
-      {basicHtml && (
-        <Html {...parameters} />
-      )}
+      {basicHtml && <Html {...parameters} />}
       {data.type === ConfigParams.ELEMENT_IMAGE && !basicHtml && !youtubeId && (
         <Imagen {...parameters} />
       )}
@@ -34,6 +33,13 @@ export default props => {
       )}
       {basicVideo.type === ConfigParams.ELEMENT_VIDEO && !basicHtml && (
         <Video data={basicVideo} />
+      )}
+      {mp3 && (
+        <amp-audio
+          src={mp3}
+          class="w-full"
+          layout="fixed-height"
+          height="44"></amp-audio>
       )}
     </>
   )

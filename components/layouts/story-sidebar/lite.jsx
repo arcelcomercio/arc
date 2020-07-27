@@ -10,6 +10,8 @@ const classes = {
   main: 'st-sidebar__main',
   sidebar: 'st-sidebar__side',
   lateral: 'ad-lateral',
+  lateralL: 'ad-lateral--l',
+  lateralR: 'ad-lateral--r',
 }
 
 const StorySidebarLayout = ({ children = [] }) => {
@@ -17,7 +19,7 @@ const StorySidebarLayout = ({ children = [] }) => {
     <>
       {children[0] /* Barra de navegación Amp */}
       <div className={classes.layout}>
-        <div className={classes.lateral}>
+        <div className={`${classes.lateral} ${classes.lateralL}`}>
           {children[1] /* Lateral izquierdo */}
         </div>
         <div className={classes.contentContainer}>
@@ -44,7 +46,7 @@ const StorySidebarLayout = ({ children = [] }) => {
           </section>
           {children[10] /* Pie de página */}
         </div>
-        <div className={classes.lateral}>
+        <div className={`${classes.lateral} ${classes.lateralR}`}>
           {children[11] /* Lateral derecho */}
         </div>
       </div>
