@@ -335,7 +335,7 @@ class StoryContentAmp extends PureComponent {
                   sub === STORY_CORRECTION
                 ) {
                   const {
-                    config: { content: contentCorrectionConfig },
+                    config: { content: contentCorrectionConfig = '' } = {},
                   } = customEmbed || {}
                   return (
                     <StoryContentsChildCorrection
