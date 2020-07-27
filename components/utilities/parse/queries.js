@@ -5,7 +5,7 @@ export const deleteQueryString = url => {
 
 export function parseQueryString(str) {
   if (typeof str !== 'string' || str.length === 0) return {}
-  const s = str.replace(/^\?/, '').split('&')
+  const s = str.replace(/^.*\?/, '').split('&')
   const sLength = s.length
   let bit
   const query = {}
