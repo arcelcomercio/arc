@@ -268,19 +268,27 @@ export default ({
         )}",`
       : ''
 
-  let correctionStructured = ''
+  let correctionStructuredItems = ''
   contentElementsCorrectionList.forEach(ele => {
     const {
       embed: {
         config: { content: contentCorrection = '', date: dateCorrection = '' },
       } = {},
     } = ele || {}
-    correctionStructured += `"correction": {
+    correctionStructuredItems += `{
       "@type": "CorrectionComment",
       "text": "${formatHtmlToText(contentCorrection.trim())}",
       "datePublished": "${dateCorrection}"
     },`
   })
+
+  const correctionStructured =
+    contentElementsCorrectionList.length > 0
+      ? `"correction":[${correctionStructuredItems.substring(
+          0,
+          correctionStructuredItems.length - 1
+        )}],`
+      : ''
 
   const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
     "dateModified":"${

@@ -315,9 +315,8 @@ class StoryContents extends PureComponent {
                     type === ELEMENT_CUSTOM_EMBED &&
                     sub === STORY_CORRECTION
                   ) {
-                    console.log('===customEmbed====',customEmbed)
                     const {
-                      config: { content: contentCorrectionConfig = '' },
+                      config: { content: contentCorrectionConfig = '' } = {},
                     } = customEmbed || {}
                     return (
                       <StoryContentsChildCorrection
