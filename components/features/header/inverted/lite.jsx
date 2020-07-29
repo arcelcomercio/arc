@@ -2,6 +2,7 @@ import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
+import { getAssetsPath } from '../../../utilities/assets'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_lite/_dependencies/schema-filter'
 import HeaderBasicChildren from './_lite/_children/header'
@@ -12,6 +13,7 @@ const HeaderBasic = props => {
     contextPath,
     globalContent,
     siteProperties,
+    requestUri,
     metaValue,
   } = useFusionContext()
   const {
@@ -20,6 +22,7 @@ const HeaderBasic = props => {
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
+    taxonomy: { primary_section: { path: sectionPath = '' } = {} } = {},
   } = globalContent || {}
 
   const storyTitleRe = StoryMetaTitle || storyTitle
@@ -46,13 +49,23 @@ const HeaderBasic = props => {
     },
   })
 
+  const isSomos = requestUri.includes('/somos/')
+  const mainImage = isSomos
+    ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
+    : `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/elcomercio/images/logo.png?d=1`
+
   const params = {
     hideMenu,
     menuSections,
     arcSite,
     contextPath,
-    globalContent,
+    sectionPath,
+    mainImage,
     title,
+    isSomos,
   }
 
   return <HeaderBasicChildren {...params} />

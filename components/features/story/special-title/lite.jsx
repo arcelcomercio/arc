@@ -1,10 +1,10 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import StoryTitleChildHeading from '../title/_children/heading'
 
 const classes = {
-  story: 'story-special-title w-full justify-center ',
-  note: 'story-special-title_note w-full flex justify-center uppercase',
+  story: 'st-special-t w-full',
+  note: 'st-special-t__note w-full uppercase',
+  title: 'sht__title',
 }
 
 const StorySpecialTitle = () => {
@@ -31,7 +31,10 @@ const StorySpecialTitle = () => {
             </a>
           )}
         </div>
-        <StoryTitleChildHeading title={title} />
+        <h1 itemProp="name" className={classes.title}>
+          {' '}
+          {title}
+        </h1>
       </div>
     </>
   )

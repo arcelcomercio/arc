@@ -1,13 +1,10 @@
-$nav-height-mobile: 48px;
-$nav-height: 60px;
-
 .menu {
   width: 100%;
   font-family: $primary-font;
-  top: $nav-height-mobile;
+  top: $header-height-m;
   bottom: 0;
   left: 0;
-  height: calc(100vh - #{$nav-height-mobile});
+  height: calc(100vh - #{$header-height-m});
   background-color: $color-gray-300;
   will-change: transform;
   transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -28,8 +25,8 @@ $nav-height: 60px;
   }
 
   @media (--desktop) {
-    top: $nav-height;
-    height: calc(100vh - #{$nav-height});
+    top: $header-height;
+    height: calc(100vh - #{$header-height});
   }
 
   @media (--only-mobile) {
@@ -155,5 +152,16 @@ $nav-height: 60px;
 
   &__footer {
     padding: 30px;
+  }
+
+  // ----- MODIFICADOR SOMOS LITE -----
+  &--somos {
+    top: $header-somos-height-m;
+    height: calc(100vh - #{$header-somos-height-m});
+
+    @media (--desktop) {
+      top: $header-somos-height;
+      height: calc(100vh - #{$header-somos-height});
+    }
   }
 }

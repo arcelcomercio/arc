@@ -2,27 +2,33 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
-import { GALLERY_VERTICAL, BIG_IMAGE, SPECIAL_BASIC } from '../../../utilities/constants/subtypes'
+import {
+  GALLERY_VERTICAL,
+  BIG_IMAGE,
+  SPECIAL_BASIC,
+} from '../../../utilities/constants/subtypes'
 import { defaultImage } from '../../../utilities/assets'
 
 import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
 import StoryGalleryChildGallery from './_children/gallery'
 import Infografia from '../multimedia/_children/html'
 import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
+import PremiumTag from '../title/_children/premium'
 
 const classes = {
   gallery: 'w-full',
   image: 'story-gallery__img-box w-full ',
+  premiumBox: 'f f-center',
 }
 
 const StoryGalleryLite = () => {
   const {
     arcSite,
     contextPath,
-    deployment,
     globalContent: data,
     isAdmin,
     siteProperties: { siteUrl },
+    requestUri,
   } = useFusionContext()
 
   const {
@@ -32,6 +38,7 @@ const StoryGalleryLite = () => {
     link,
     subtype,
     promoItems,
+    isPremium,
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
@@ -40,7 +47,6 @@ const StoryGalleryLite = () => {
     contextPath,
   })
   const defaultImageGallery = defaultImage({
-    deployment,
     contextPath,
     arcSite,
   })
@@ -74,6 +80,11 @@ const StoryGalleryLite = () => {
 
   return (
     <>
+      {requestUri.includes('/archivo-elcomercio') && (
+        <div className={classes.premiumBox}>
+          <PremiumTag isPremium={isPremium} arcSite={arcSite} />
+        </div>
+      )}
       {contentElementGallery ? (
         <div className={classes.gallery}>
           {subtype === GALLERY_VERTICAL ? (
@@ -104,8 +115,7 @@ const StoryGalleryLite = () => {
           />
         )
       )}
-      {subtype === BIG_IMAGE ||
-      subtype === SPECIAL_BASIC ? (
+      {subtype === BIG_IMAGE || subtype === SPECIAL_BASIC ? (
         <div className={classes.image}>
           <StoryContentsChildMultimedia data={parametersPromoItems} />
         </div>
