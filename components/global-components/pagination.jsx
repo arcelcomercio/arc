@@ -1,11 +1,12 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
-import { addParamToEndPath } from '../utilities/helpers'
+import { addParamToEndPath } from '../utilities/parse/strings'
 
 const classes = {
-  pagination:
-    'pagination flex justify-center w-full flex-wrap mb-15 m-0 md:pb-30 md:pr-0 md:pl-0',
-  page: 'pagination__page uppercase h-full text-md text-gray-300',
+  pagination: 'pagination w-full flex-wrap mb-15 m-0 md:pb-30 md:pr-0 md:pl-0',
+  page:
+    'pagination__page capitalize secondary-font h-full text-md text-gray-300',
+  center: 'flex justify-center items-center',
 }
 
 const createPaginator = (currentPage, totalPages) => {
@@ -16,23 +17,23 @@ const createPaginator = (currentPage, totalPages) => {
   currentPage =
     Math.abs(currentPage) > totalPages ? totalPages : Math.abs(currentPage)
 
-  const leftPag = currentPage - initPage >= 5
-  const rightPag = totalPages - currentPage >= 5
+  const leftPag = currentPage - initPage >= 2
+  const rightPag = totalPages - currentPage >= 2
 
   if (leftPag && rightPag) {
-    for (let i = currentPage - 3; i <= currentPage + 3; i++) {
+    for (let i = currentPage - 1; i <= currentPage + 1; i++) {
       listPages.push(i)
     }
   }
 
   if (leftPag && !rightPag) {
-    for (let i = totalPages - 5; i <= totalPages; i++) {
+    for (let i = totalPages - 2; i <= totalPages; i++) {
       listPages.push(i)
     }
   }
 
   if (!leftPag && rightPag) {
-    for (let i = initPage; i <= initPage + 5; i++) {
+    for (let i = initPage; i <= initPage + 2; i++) {
       listPages.push(i)
     }
   }
@@ -89,7 +90,7 @@ const Pagination = props => {
   const pages = createPaginator(currentPage || 1, totalPages)
   currentPage = parseInt(currentPage || 1, 10)
 
-  let pathOrigin = requestUri.replace(/\/[0-9]+\/?/, '') // .replace(/\/[0-9]*?\/?$/, '')
+  let pathOrigin = requestUri.replace(/\/[0-9]+\/?/, '/') // .replace(/\/[0-9]*?\/?$/, '/')
   pathOrigin = testSearchPath(pathOrigin)
 
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
@@ -99,22 +100,53 @@ const Pagination = props => {
   const urlNextPage = addParamToEndPath(pathOrigin, nextPage) // `${pathOrigin}/${nextPage}/`
 
   return (
-    <div role="navigation" className={classes.pagination}>
+    <div
+      role="navigation"
+      className={`${classes.pagination} ${classes.center}`}>
       {currentPage === 1 || currentPage === 0 ? (
         <p
           itemProp="description"
-          className={`${classes.page} pagination__page--disabled`}>
-          <span className="non-tablet non-desktop">&#60;</span>
+          className={`${classes.page} ${classes.center} pagination__page--disabled`}>
           <span className="non-mobile">anterior</span>
         </p>
       ) : currentPage === 2 ? (
-        <a itemProp="url" className={classes.page} href={pathOrigin}>
-          <span className="non-tablet non-desktop">&#60;</span>
+        <a
+          itemProp="url"
+          className={`${classes.page} ${classes.center}`}
+          href={pathOrigin}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24">
+            <g>
+              <path
+                d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
+                transform="translate(-3 17) rotate(180)"
+              />
+              <rect fill="none" width="24" height="24" />
+            </g>
+          </svg>
           <span className="non-mobile">anterior</span>
         </a>
       ) : (
-        <a itemProp="url" className={classes.page} href={urlPrevPage}>
-          <span className="non-tablet non-desktop">&#60;</span>
+        <a
+          itemProp="url"
+          className={`${classes.page} ${classes.center}`}
+          href={urlPrevPage}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24">
+            <g>
+              <path
+                d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
+                transform="translate(-3 17) rotate(180)"
+              />
+              <rect fill="none" width="24" height="24" />
+            </g>
+          </svg>
           <span className="non-mobile">anterior</span>
         </a>
       )}
@@ -166,14 +198,28 @@ const Pagination = props => {
       {currentPage === totalPages ? (
         <p
           itemProp="description"
-          className={`${classes.page} pagination__page--disabled`}>
-          <span className="non-tablet non-desktop">&#62;</span>
+          className={`${classes.page} ${classes.center} pagination__page--disabled`}>
           <span className="non-mobile">siguiente</span>
         </p>
       ) : (
-        <a itemProp="url" className={classes.page} href={urlNextPage}>
-          <span className="non-tablet non-desktop">&#62;</span>
+        <a
+          itemProp="url"
+          className={`${classes.page} ${classes.center}`}
+          href={urlNextPage}>
           <span className="non-mobile">siguiente</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24">
+            <g>
+              <path
+                d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
+                transform="translate(26 6)"
+              />
+              <rect fill="none" width="24" height="24" />
+            </g>
+          </svg>
         </a>
       )}
     </div>

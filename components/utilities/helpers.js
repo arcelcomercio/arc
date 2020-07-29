@@ -336,38 +336,6 @@ export const addSlashToEnd = (url = '') => {
   return url && !urlString.endsWith('/') ? `${url}/` : url
 }
 
-export const addParamToEndPath = (path, param) => {
-  const getPathAndString = (pathData, symbol = '?') => {
-    const index = pathData.indexOf(symbol)
-    let onlyPath = pathData
-    let queryString = ''
-    let haveQueryString = false
-    if (index !== -1) {
-      onlyPath = pathData.substr(0, index)
-      queryString = pathData.substr(index)
-      haveQueryString = true
-    }
-    return {
-      onlyPath,
-      queryString,
-      haveQueryString,
-    }
-  }
-  const addParam = (onlyPath, variable, queryString = '') => {
-    return `${addSlashToEnd(onlyPath)}${addSlashToEnd(variable)}${queryString}`
-  }
-  let data = getPathAndString(path)
-  if (data.haveQueryString)
-    return addParam(data.onlyPath, param, data.queryString)
-  data = getPathAndString(path, '#')
-  if (data.haveQueryString)
-    return addParam(data.onlyPath, param, data.queryString)
-  data = getPathAndString(path, '&')
-  if (data.haveQueryString)
-    return addParam(data.onlyPath, param, data.queryString)
-  return addParam(path, param)
-}
-
 /**
  * @param {object} objeto Propiedades necesarias para armar la URL de la imagen por defecto.
  * @param {function} objeto.deployment Agrega un parámetro al final de la cadena

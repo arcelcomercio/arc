@@ -1,9 +1,8 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-// import Pagination from '../../../global-components/pagination'
+import Pagination from '../../../global-components/pagination'
 import customFields from './_dependencies/custom-fields'
-import { slugify } from '../../../utilities/parse/slugify'
 
 const classes = {
   container: 'p-25 w-full',
@@ -18,19 +17,23 @@ const AuthorsList = props => {
   const {
     customFields: { size: customSize },
   } = props
+
   const { requestUri } = useFusionContext()
+  const uri = requestUri.split('?')[0]
+  const uriMatch = uri.match(/\/(?!0)(\d+)\/$/)
+  const page = uriMatch ? parseInt(uriMatch[1], 10) : 1
+  const offset = page * customSize
 
   const response =
     useContent({
-      source: 'authors',
+      source: 'authors-by-website-v1',
       query: {
-        size: customSize,
+        size: customSize || 25,
+        offset,
       },
     }) || {}
 
-  const { q_results: authors } = response
-
-  console.log('-->', response, requestUri)
+  const { authors, total_count: totalCount } = response
 
   return (
     <div className={classes.container}>
@@ -38,9 +41,7 @@ const AuthorsList = props => {
         {authors &&
           authors.map(author => (
             <li className={classes.author} key={author._id}>
-              <a
-                href={`autor/${slugify(author._id)}/`}
-                className={classes.authorLink}>
+              <a href={author.bio_page || '#'} className={classes.authorLink}>
                 <div>
                   <h2 className={classes.authorName}>{`${author.firstName ||
                     ''} ${author.lastName || ''}`}</h2>
@@ -67,12 +68,12 @@ const AuthorsList = props => {
             </li>
           ))}
       </ul>
-      {/* <Pagination
-        totalElements={count}
-        storiesQty={size}
-        currentPage={from}
+      <Pagination
+        totalElements={totalCount - 1}
+        storiesQty={customSize}
+        currentPage={page}
         requestUri={requestUri}
-      /> */}
+      />
     </div>
   )
 }
