@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import { useContent } from 'fusion:content'
 
 import { customFields } from '../_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
 import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
-import { useContent } from 'fusion:content'
+import StructuredData from './_children/structured-data'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -31,10 +32,10 @@ const StoriesListPaginatedList = props => {
   const { author = {}, slug: slugAuthor = '', from: fromAuthor = 1, size:sizeAuthor = 30 } = globalContent || {}
   let { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
-  let storiesAuhor
+  const { author: { url: authorPath = '' } = {} } = globalContent
   if(stories.length === 0){
     if(author._id){
-      storiesAuhor =
+      const storiesAuhor =
         useContent({
           source: 'story-feed-by-author',
           query: {
@@ -45,9 +46,8 @@ const StoriesListPaginatedList = props => {
           },
         })
 
-      if(storiesAuhor !==  undefined){
-        stories = storiesAuhor.content_elements
-        count = storiesAuhor.count
+      if(storiesAuhor.content_elements.length > 0){
+        ({content_elements: stories, count} = storiesAuhor)
         size = sizeAuthor
         from = fromAuthor
       }
@@ -100,6 +100,9 @@ const StoriesListPaginatedList = props => {
           requestUri={requestUri}
         />
       )}
+      { (customFieldsProps.structuredData && stories.length > 0) &&
+        <StructuredData authorPath={authorPath} stories={stories} arcSite={arcSite} />
+      }
     </>
   )
 }
