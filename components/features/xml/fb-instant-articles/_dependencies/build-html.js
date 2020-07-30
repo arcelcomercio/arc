@@ -30,20 +30,12 @@ const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
-const clearBrTag = paragraph => {
-  return nbspToSpace(paragraph.trim().replace(/<\/?br[^<>]+>/, ''))
+const cleanTag = paragraph => {
+  return nbspToSpace(paragraph.trim().replace(/<\/?(?:br|mark)[^<>]*>/, ''))
 }
 
 const clearHtml = paragraph => {
-  return nbspToSpace(
-    clearBrTag(
-      paragraph
-        .trim()
-        .replace(/(<([^>]+)>)/gi, '')
-        .replace('   ', ' ')
-        .replace('  ', ' ')
-    )
-  )
+  return nbspToSpace(paragraph.replace(/(<([^>]+)>)/g, '').replace(/\s+/g, ' '))
 }
 
 const buildHeaderParagraph = (paragraph, level = '2') => {
@@ -52,11 +44,11 @@ const buildHeaderParagraph = (paragraph, level = '2') => {
 
   if (level === 2 || level === 3 || level === 4 || level === 5 || level === 6) {
     result.processedParagraph =
-      result.numberWords > 0 ? `<h2>${clearBrTag(paragraph)}</h2>` : ''
+      result.numberWords > 0 ? `<h2>${cleanTag(paragraph)}</h2>` : ''
   } else {
     result.processedParagraph =
       result.numberWords > 0
-        ? `<h${level}>${clearBrTag(paragraph)}</h${level}>`
+        ? `<h${level}>${cleanTag(paragraph)}</h${level}>`
         : ''
   }
 
@@ -68,7 +60,7 @@ const buildTexParagraph = paragraph => {
   result.numberWords = countWordsHelper(clearHtml(paragraph))
 
   result.processedParagraph =
-    result.numberWords > 0 ? `<p>${clearBrTag(paragraph)}</p>` : ''
+    result.numberWords > 0 ? `<p>${cleanTag(paragraph)}</p>` : ''
 
   return result
 }
@@ -79,7 +71,7 @@ const buildIntersticialParagraph = (paragraph, link) => {
 
   result.processedParagraph =
     result.numberWords > 0
-      ? `<p><b>[</b><a href="${link}">${clearBrTag(paragraph)}</a><b>]</b></p>`
+      ? `<p><b>[</b><a href="${link}">${cleanTag(paragraph)}</a><b>]</b></p>`
       : ''
 
   return result
