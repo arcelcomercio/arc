@@ -22,7 +22,6 @@ import {
   SITE_DEPOR,
   SITE_PERU21G21,
   SITE_TROME,
-  SITE_PUBLIMETRO,
 } from '../utilities/constants/sitenames'
 import { META_HOME } from '../utilities/constants/meta'
 
@@ -445,9 +444,7 @@ export default ({
         )}
         {/* Scripts de AdManager - Fin */}
         {/* Scripts de Chartbeat */}
-        {arcSite !== SITE_PUBLIMETRO && (
-          <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-        )}
+        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {contenidoVideo && (
           <>
@@ -537,9 +534,7 @@ export default ({
             </noscript>
           </>
         )}
-        {arcSite !== SITE_PUBLIMETRO && (
-          <ChartbeatBody story={isStory} {...metaPageData} />
-        )}
+        <ChartbeatBody story={isStory} {...metaPageData} />
         <script
           defer
           src={`${getAssetsPath(

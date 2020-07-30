@@ -103,7 +103,6 @@ const StoryContentChildVideo = props => {
     } = globalContent || {}
 
     if (
-      arcSite === 'publimetro' ||
       arcSite === 'depor' ||
       arcSite === 'elcomercio' ||
       arcSite === 'elcomerciomag' ||
@@ -119,9 +118,6 @@ const StoryContentChildVideo = props => {
 
       let webSite = ''
       switch (arcSite) {
-        case 'publimetro':
-          webSite = 'publimetro.pe'
-          break
         case 'depor':
           webSite = 'depor.com'
           break
