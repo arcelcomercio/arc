@@ -1,8 +1,10 @@
 import React from 'react'
+import getProperties from 'fusion:properties'
 
 export default({authorPath = '', stories = [], arcSite = ''}) =>{
 
-    const authorUrl = `https://elcomercio.pe${authorPath}`
+    const { siteUrl } = getProperties(arcSite)
+    const authorUrl = `${siteUrl}${authorPath}`
     const listItems = stories.map(({ websites = {} }, index) => {
       return `{
         "@type":"ListItem",

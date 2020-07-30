@@ -28,13 +28,13 @@ const StoriesListPaginatedList = props => {
   const { customFields: customFieldsProps = {} } = props
   const { isDfp = false } = getProperties(arcSite)
 
-  let { content_elements: stories = [], count = 0 } = globalContent || {}
+  let { content_elements: stories = [], count = 0, author: { url: authorPath = '' } = {} } = globalContent || {}
   const { author = {}, slug: slugAuthor = '', from: fromAuthor = 1, size:sizeAuthor = 30 } = globalContent || {}
   let { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
-  const { author: { url: authorPath = '' } = {} } = globalContent
   if(stories.length === 0){
     if(author._id){
+      ({bio_page: authorPath} = author)
       const storiesAuhor =
         useContent({
           source: 'story-feed-by-author',
