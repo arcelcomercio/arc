@@ -2,6 +2,7 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../../utilities/config-params'
 import StoryData from '../../../../utilities/story-data'
+import { getResizedUrl } from '../../../../utilities/resizer'
 import {
   countWords as countWordsHelper,
   nbspToSpace,
@@ -26,6 +27,8 @@ const getResultVideo = (streams, arcSite, type = 'ts') => {
   return resultVideo[cantidadVideo - 1]
 }
 
+const presets = 'resizedImage:840x0'
+
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
@@ -35,7 +38,9 @@ const cleanTag = paragraph => {
 }
 
 const clearHtml = paragraph => {
-  return nbspToSpace(paragraph.replace(/(<([^>]+)>)/g, '').replace(/\s+/g, ' '))
+  return nbspToSpace(
+    paragraph.replace(/(<([^>]+)>)/g, '').replace(/\s{2,}/g, ' ')
+  )
 }
 
 const buildHeaderParagraph = (paragraph, level = '2') => {
@@ -77,7 +82,7 @@ const buildIntersticialParagraph = (paragraph, link) => {
   return result
 }
 
-const buildListLinkParagraph = (items, defaultImage) => {
+const buildListLinkParagraph = (items, defaultImage, arcSite) => {
   const result = { numberWords: 0, processedParagraph: '' }
 
   result.processedParagraph =
@@ -92,10 +97,17 @@ const buildListLinkParagraph = (items, defaultImage) => {
                 image: { url: urlImg = '' } = {},
               } = data || {}
               result.numberWords += countWordsHelper(clearHtml(content))
+              const { resizedImage } = getResizedUrl({
+                url: urlImg,
+                presets,
+                arcSite,
+              })
               return `
               <div>
                 <figure>
-                  <a href="${url}"><img src="${defaultImage}" data-src="${urlImg}" alt="${content}" /></a>
+                  <a href="${url}"><img src="${resizedImage ||
+                urlImg ||
+                defaultImage}" alt="${content}" /></a>
                 </figure>
                 <div>
                   <h2><a href="${url}">${content}</a></h2>
@@ -147,7 +159,11 @@ const analyzeParagraph = ({
 
       break
     case ConfigParams.ELEMENT_LINK_LIST:
-      textProcess = buildListLinkParagraph(processedParagraph, defaultImage)
+      textProcess = buildListLinkParagraph(
+        processedParagraph,
+        defaultImage,
+        arcSite
+      )
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
@@ -184,14 +200,23 @@ const analyzeParagraph = ({
 
     case ConfigParams.ELEMENT_IMAGE:
       result.numberWords = numberWordMultimedia
-      result.processedParagraph = `<figure><img src="${processedParagraph}" /><figcaption></figcaption></figure>`
+      const { resizedImage } = getResizedUrl({
+        url: processedParagraph,
+        presets,
+        arcSite,
+      })
+      result.processedParagraph = `<figure><img src="${resizedImage ||
+        processedParagraph}" /></figure>`
       break
 
     case ConfigParams.ELEMENT_RAW_HTML:
       if (processedParagraph.includes('<iframe')) {
         // valida si el parrafo contiene un iframe con video youtube o foto
 
-        result.processedParagraph = `<figure class="op-interactive">${processedParagraph}</figure>`
+        result.processedParagraph = `<figure class="op-interactive">${processedParagraph.replace(
+          /width=(?:"|')100%(?:"|')/g,
+          `width="520"`
+        )}</figure>`
       } else if (processedParagraph.includes('<img')) {
         // obtiene el valor del src de la imagen y el alt
         const imageUrl = processedParagraph.match(
@@ -205,7 +230,14 @@ const analyzeParagraph = ({
           : ''
 
         if (imageUrl !== '') {
-          result.processedParagraph = `<figure class="op-interactive"><img width="560" height="315" src="${imageUrl}" alt="${imageAlt}" /></figure>`
+          // eslint-disable-next-line no-shadow
+          const { resizedImage } = getResizedUrl({
+            url: imageUrl,
+            presets,
+            arcSite,
+          })
+          result.processedParagraph = `<figure class="op-interactive"><img width="560" height="315" src="${resizedImage ||
+            imageUrl}" alt="${imageAlt}" /></figure>`
         } else {
           result.processedParagraph = ''
         }
@@ -391,18 +423,35 @@ const multimediaHeader = (
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
   switch (type) {
     case ConfigParams.IMAGE:
-      result = `<figure><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
+      const { resizedImage } = getResizedUrl({
+        url: payload,
+        presets,
+        arcSite,
+      })
+      result = `<figure><img src="${resizedImage || payload}" />${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
       break
     case ConfigParams.VIDEO:
-      result = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe><figcaption>${title}</figcaption></figure>`
+      result = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe>${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
       break
     case ConfigParams.GALLERY:
-      result = `<figure class="op-slideshow">${payload.map(
-        url => `<figure><img src="${url}" /></figure>`
-      )}<figcaption>${title}</figcaption></figure>`
+      result = `<figure class="op-slideshow">${payload.map(url => {
+        // eslint-disable-next-line no-shadow
+        const { resizedImage } = getResizedUrl({
+          url,
+          presets,
+          arcSite,
+        })
+        return `<figure><img src="${resizedImage || url}" /></figure>`
+      })}${title ? `<figcaption>${title}</figcaption>` : ''}</figure>`
       break
     case ConfigParams.ELEMENT_YOUTUBE_ID:
-      result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
+      result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe>${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
       break
     case ConfigParams.ELEMENT_PODCAST:
       result = `<figure class="op-interactive"><iframe width="150" height="100" scrolling="no" frameborder="0"><audio controls><source src="${payload}" type="audio/mpeg"></audio></iframe></figure>`
