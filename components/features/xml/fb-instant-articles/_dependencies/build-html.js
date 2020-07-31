@@ -35,7 +35,9 @@ const cleanTag = paragraph => {
 }
 
 const clearHtml = paragraph => {
-  return nbspToSpace(paragraph.replace(/(<([^>]+)>)/g, '').replace(/\s+/g, ' '))
+  return nbspToSpace(
+    paragraph.replace(/(<([^>]+)>)/g, '').replace(/\s{2,}/g, ' ')
+  )
 }
 
 const buildHeaderParagraph = (paragraph, level = '2') => {
@@ -191,7 +193,10 @@ const analyzeParagraph = ({
       if (processedParagraph.includes('<iframe')) {
         // valida si el parrafo contiene un iframe con video youtube o foto
 
-        result.processedParagraph = `<figure class="op-interactive">${processedParagraph}</figure>`
+        result.processedParagraph = `<figure class="op-interactive">${processedParagraph.replace(
+          /width=(?:"|')100%(?:"|')/g,
+          `width="520"`
+        )}</figure>`
       } else if (processedParagraph.includes('<img')) {
         // obtiene el valor del src de la imagen y el alt
         const imageUrl = processedParagraph.match(
