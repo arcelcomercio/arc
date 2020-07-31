@@ -2,7 +2,7 @@ import React from 'react'
 
 const classes = {
   subtitle: 'custom-title role',
-  social: 'custom-title twitter',
+  social: 'custom-title twitter icon-twitter',
 }
 
 const AuthorBiography = ({

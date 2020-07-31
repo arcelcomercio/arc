@@ -35,7 +35,7 @@ const StoriesListPaginatedList = props => {
   if(stories.length === 0){
     if(author._id){
       ({bio_page: authorPath} = author)
-      const storiesAuhor =
+      const storiesAuthor =
         useContent({
           source: 'story-feed-by-author',
           query: {
@@ -46,8 +46,8 @@ const StoriesListPaginatedList = props => {
           },
         })
 
-      if(storiesAuhor.content_elements.length > 0){
-        ({content_elements: stories, count} = storiesAuhor)
+      if(typeof(storiesAuthor.content_elements) !== 'undefined' && storiesAuthor.content_elements.length > 0){
+        ({content_elements: stories, count} = storiesAuthor)
         size = sizeAuthor
         from = fromAuthor
       }
