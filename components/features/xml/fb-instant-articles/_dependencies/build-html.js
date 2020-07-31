@@ -15,6 +15,8 @@ import recommederBySite from '../_children/recommeder-by-site'
  * TODO:TEMP: esto se ha hecho temporalmente hasta final del mes de
  * JUNIO 2020, una vez que pase esa fecha se debe eliminar esta
  * funcion y descomentar la que se importa de story/helpers
+ *
+ * asi decian
  */
 const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
