@@ -25,7 +25,8 @@ export default ({
     location = '', 
     twitter = '', 
     role = '', 
-    books = '',
+    books = [],
+    expertise = ''
   } = {} } = globalContent || {}
 
   const patternPagination = /\/[0-9]+\/?(?=\?|$)/
@@ -50,12 +51,17 @@ export default ({
 
   const authorUrl = `${siteUrl}${authorPath}`
   const authorLanguages = languages.split(',')
-  const listItems = contentElements.map(({ websites = {} }, index) => {
-    return `{
-      "@type":"ListItem",
-      "position":${index + 1}, 
-      "url":"${websites[arcSite].website_url}"
-    }`
+  const urlTwitter = twitter.split(',')[1] || ''
+  const expertiseData = expertise.split(',').map(item => {
+    let text = `"${item}"`
+    const itemMatch = item.match("^{([^}]+)}(.+)")
+    if( itemMatch != null){
+      text = `{
+        "@type":"${itemMatch[1]}",
+        "name":"${itemMatch[2]}"
+      }`
+    }
+    return text
   })
 
   const structuredAutor = `
@@ -80,6 +86,7 @@ export default ({
       "@type": "Organization",
       "name": "${siteName}"
     }, 
+    "knowsAbout": [${expertiseData}], 
     "knowsLanguage": [
       ${authorLanguages.map(language => {
         return `{"@type": "Language",
@@ -87,9 +94,17 @@ export default ({
                 }`
         })}
       ],
-    "sameAs" : ["${twitter}", "${authorUrl}"${books.map(item => `, "${item}"`)}], 
+    "sameAs" : ["${urlTwitter}", "${authorUrl}", ${books.map(item => `"${item.url}"`)}], 
     "jobTitle"	: "${role}"
   }`
+
+  const listItems = contentElements.map(({ websites = {} }, index) => {
+    return `{
+      "@type":"ListItem",
+      "position":${index + 1}, 
+      "url":"${websites[arcSite].website_url}"
+    }`
+  })
 
   const structuredNews = `{
     "@context":"http://schema.org",

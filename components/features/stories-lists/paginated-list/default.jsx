@@ -46,10 +46,12 @@ const StoriesListPaginatedList = props => {
           },
         })
 
-      if(typeof(storiesAuthor.content_elements) !== 'undefined' && storiesAuthor.content_elements.length > 0){
-        ({content_elements: stories, count} = storiesAuthor)
-        size = sizeAuthor
-        from = fromAuthor
+      if(typeof(storiesAuthor) !== 'undefined' && 
+         typeof(storiesAuthor.content_elements) === 'object' && 
+         storiesAuthor.content_elements.length > 0){
+          ({content_elements: stories, count} = storiesAuthor)
+          size = sizeAuthor
+          from = fromAuthor
       }
     }
   }
