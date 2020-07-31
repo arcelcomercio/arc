@@ -27,7 +27,7 @@ const getResultVideo = (streams, arcSite, type = 'ts') => {
   return resultVideo[cantidadVideo - 1]
 }
 
-const presets = 'resizedImage:520x315'
+const presets = 'resizedImage:840x0'
 
 const buildIframeAdvertising = urlAdvertising => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
