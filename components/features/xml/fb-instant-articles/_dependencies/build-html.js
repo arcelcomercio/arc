@@ -184,7 +184,7 @@ const analyzeParagraph = ({
 
     case ConfigParams.ELEMENT_IMAGE:
       result.numberWords = numberWordMultimedia
-      result.processedParagraph = `<figure><img src="${processedParagraph}" /><figcaption></figcaption></figure>`
+      result.processedParagraph = `<figure><img src="${processedParagraph}" /></figure>`
       break
 
     case ConfigParams.ELEMENT_RAW_HTML:
@@ -391,18 +391,24 @@ const multimediaHeader = (
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
   switch (type) {
     case ConfigParams.IMAGE:
-      result = `<figure><img src="${payload}" /><figcaption>${title}</figcaption></figure>`
+      result = `<figure><img src="${payload}" />${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
       break
     case ConfigParams.VIDEO:
-      result = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe><figcaption>${title}</figcaption></figure>`
+      result = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe>${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
       break
     case ConfigParams.GALLERY:
       result = `<figure class="op-slideshow">${payload.map(
         url => `<figure><img src="${url}" /></figure>`
-      )}<figcaption>${title}</figcaption></figure>`
+      )}${title ? `<figcaption>${title}</figcaption>` : ''}</figure>`
       break
     case ConfigParams.ELEMENT_YOUTUBE_ID:
-      result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe><figcaption>${title}</figcaption></figure>`
+      result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe>${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
       break
     case ConfigParams.ELEMENT_PODCAST:
       result = `<figure class="op-interactive"><iframe width="150" height="100" scrolling="no" frameborder="0"><audio controls><source src="${payload}" type="audio/mpeg"></audio></iframe></figure>`
