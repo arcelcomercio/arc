@@ -143,6 +143,10 @@ class StoryData {
     return StoryData.getDataAuthor(this._data).nameAuthor
   }
 
+  get role() {
+    return StoryData.getDataAuthor(this._data).role
+  }
+
   get authorEmail() {
     return StoryData.getDataAuthor(this._data).mailAuthor
   }
@@ -1369,7 +1373,7 @@ class StoryData {
           (iterator.additional_properties &&
             iterator.additional_properties.original &&
             iterator.additional_properties.original.role) ||
-          null
+          ''
         sortBiography =
           (iterator.additional_properties &&
             iterator.additional_properties.original &&

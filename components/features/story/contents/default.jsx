@@ -71,7 +71,6 @@ const classes = {
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
-
 @Consumer
 class StoryContents extends PureComponent {
   render() {
@@ -96,6 +95,7 @@ class StoryContents extends PureComponent {
       authorImage,
       authorLink,
       author,
+      role: authorRole,
       primarySection,
       authorEmail,
       primarySectionLink,
@@ -119,6 +119,7 @@ class StoryContents extends PureComponent {
     const params = {
       authorImage,
       author,
+      authorRole,
       authorLink,
       updatedDate: getDateSeo(updatedDate || createdDate),
       date,
@@ -131,7 +132,7 @@ class StoryContents extends PureComponent {
       multimediaStorySmall,
       multimediaLarge,
       multimediaLazyDefault,
-      primaryImage: true
+      primaryImage: true,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =

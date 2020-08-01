@@ -10,11 +10,15 @@ const classes = {
     'story-content__date flex items-center secondary-font text-md text-gray-200 line-h-sm',
   authorEmail:
     'story-content__author-email secondary-font text-md text-gray-200 line-h-sm',
+  authorImage: 'story-content__author-image',
+  authorRole: 'story-content__author-role',
 }
 
 const StoryContentChildAuthor = ({
   author,
   authorLink,
+  authorImage,
+  authorRole,
   updatedDate,
   authorEmail,
   primarySection = '',
@@ -25,6 +29,15 @@ const StoryContentChildAuthor = ({
         {/* // TODO: Cambiar este div por <address> */}
         {primarySection !== 'Columnistas' && (
           <div>
+            {authorImage && (
+              <img
+                itemProp="image"
+                alt={author}
+                title={author}
+                src={authorImage}
+                className={classes.authorImage}
+              />
+            )}
             {author && (
               <a
                 itemProp="url"
@@ -33,7 +46,13 @@ const StoryContentChildAuthor = ({
                 {author}
               </a>
             )}
-            {authorEmail && true && (
+            {authorRole && (
+              <p itemProp="name" className={classes.authorRole}>
+                {' '}
+                {authorRole}{' '}
+              </p>
+            )}
+            {authorEmail && (
               <p itemProp="description" className={classes.authorEmail}>
                 {' '}
                 {authorEmail}{' '}
