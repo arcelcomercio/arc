@@ -17,6 +17,7 @@ import {
   SPECIAL,
   SPECIAL_BASIC,
   BIG_IMAGE,
+  STORY_CORRECTION,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -51,6 +52,7 @@ import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildVideoNativo from './_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildCorrection from './_children/correction'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -131,7 +133,7 @@ class StoryContents extends PureComponent {
       multimediaStorySmall,
       multimediaLarge,
       multimediaLazyDefault,
-      primaryImage: true
+      primaryImage: true,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -305,6 +307,20 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildInterstitialLink
                         url={url}
                         content={content}
+                        isAmp={false}
+                      />
+                    )
+                  }
+                  if (
+                    type === ELEMENT_CUSTOM_EMBED &&
+                    sub === STORY_CORRECTION
+                  ) {
+                    const {
+                      config: { content: contentCorrectionConfig = '' } = {},
+                    } = customEmbed || {}
+                    return (
+                      <StoryContentsChildCorrection
+                        content={contentCorrectionConfig}
                         isAmp={false}
                       />
                     )

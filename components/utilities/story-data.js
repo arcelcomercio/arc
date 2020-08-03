@@ -12,6 +12,8 @@ import {
   ELEMENT_PODCAST,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
+  ELEMENT_CORRECTION,
+  ELEMENT_CUSTOM_EMBED,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -38,6 +40,7 @@ import { formatHtmlToText, addSlashToEnd } from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
+import { STORY_CORRECTION } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -761,6 +764,27 @@ class StoryData {
     )
   }
 
+  get contentElementsCorrection() {
+    return (
+      (this._data &&
+        StoryData.getTextElementsText(
+          this._data.content_elements,
+          ELEMENT_CORRECTION
+        )) ||
+      ''
+    )
+  }
+
+  get contentElementsCorrectionList() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsCorrectionList(
+          this._data.content_elements
+        )) ||
+      []
+    )
+  }
+
   get contentElementGallery() {
     return (
       (this._data &&
@@ -1208,6 +1232,24 @@ class StoryData {
       : ''
   }
 
+  static getTextElementsText(data = [], typeElement = '') {
+    return data && data.length > 0
+      ? data
+          .map(({ text, type }) => {
+            return type === typeElement ? formatHtmlToText(text) : []
+          })
+          .join(' ')
+      : ''
+  }
+
+  static getContentElementsCorrectionList(data = []) {
+    return data && data.length > 0
+      ? data.filter(({ type, subtype }) => {
+          return type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CORRECTION
+        })
+      : []
+  }
+
   static getContentElementsHtml(data = [], typeElement = '') {
     return data && data.length > 0
       ? data
@@ -1572,7 +1614,9 @@ class StoryData {
     const paragraphs = contentElements.map(
       ({
         content = '',
+        text = '',
         type = '',
+        subtype = '',
         _id = '',
         url = '',
         subtitle = '',
@@ -1582,8 +1626,14 @@ class StoryData {
         streams = [],
         title = '',
         level = null,
+        embed: {
+          config: {
+            content: contentCorrection = '',
+            // date: dateCorrection = '',
+          } = {},
+        } = {},
       }) => {
-        const result = { _id, type, level, payload: '', streams }
+        const result = { _id, type, subtype: '', level, payload: '', streams }
 
         switch (type) {
           case ELEMENT_TEXT:
@@ -1615,6 +1665,12 @@ class StoryData {
           case ELEMENT_INTERSTITIAL_LINK:
             result.payload = content
             result.link = url
+            break
+          case ELEMENT_CUSTOM_EMBED:
+            result.payload =
+              subtype === STORY_CORRECTION ? contentCorrection : ''
+            // result.correction_type = 'correction'
+            result.subtype = subtype
             break
           case ELEMENT_LINK_LIST:
             result.payload = items

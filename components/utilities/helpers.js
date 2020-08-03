@@ -86,7 +86,8 @@ export const getActualDate = () => {
 export const formatDateLocalTimeZone = (
   publishDateString,
   delimiter = '-',
-  isClient = false
+  isClient = false,
+  todayHour = true
 ) => {
   const publishDate = new Date(publishDateString)
   if (!isClient) publishDate.setHours(publishDate.getHours() - 5)
@@ -96,7 +97,10 @@ export const formatDateLocalTimeZone = (
 
   let formattedDate = ''
 
-  if (getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today))
+  if (
+    getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today) &&
+    todayHour
+  )
     formattedDate = formattedTime(publishDate)
   else {
     // eslint-disable-next-line prefer-destructuring
@@ -298,6 +302,10 @@ export const setSurveyCookie = (surveyId, days) => {
 export const getCookie = cookieName => {
   const cookieValue = document.cookie.match(`(^|;) ?${cookieName}=([^;]*)(;|$)`)
   return cookieValue ? cookieValue[2] : null
+}
+
+export const nlToBrTag = paragraph => {
+  return paragraph.trim().replace(/\\n/, '<br />')
 }
 
 export const formatSlugToText = (text = '', length = 0) => {
