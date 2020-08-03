@@ -1,44 +1,52 @@
 /******* Brand colors *******/
 $color-primary: #f7c600;
-/*-----------------------*/
+
+/* ----------------------- */
+
 // TODO: no debe pasar de base-400
 $color-base-500: #addef7;
 $color-base-400: #d2eaf7;
 $color-base-300: #e8f2f7;
 $color-base-200: #cddde5;
-$color-base-100: #444444; // TODO: deberia ser parte de grayscale
-/*-----------------------*/
+$color-base-100: #444; // TODO: deberia ser parte de grayscale
+
+/* ----------------------- */
 
 /******* Other colors *******/
 $color-link: #469bc6;
 $color-yellow: #e67335; // TODO: Debe tener nombre generico
-/*-----------------------*/
+
+/* ----------------------- */
 
 $color-gray-200: #575757;
 
 /** ----------------------------*
 *        GENERAL CONFIG         *
-*-------------------------------*/
+* ----------------------------- */
 
 /******** border colors *********/
 $border-color-black: $color-gray-300;
 $border-color-gray: $color-gray-100;
 $border-color-base: $color-gray-200;
-/*------------------------------*/
+
+/* ---------------------------- */
 
 /******* Header colors *******/
 $header-bg-color: $color-primary;
 $header-text-color: $color-gray-300;
-/*-----------------------*/
+
+/* ----------------------- */
 
 /******* Nav colors *******/
 $nav-color: $color-gray-300;
-/*-----------------------*/
+
+/* ----------------------- */
 
 /******* Footer colors *******/
 $footer-background: $color-gray-300;
 $footer-text-color: $color-white;
-/*-----------------------*/
+
+/* ----------------------- */
 
 /******* Colors Signwall *******/
 $signwall-header-text-color: $color-secondary;
@@ -51,7 +59,8 @@ $signwall-btn-m-color: $color-primary;
 $signwall-btn-d-color: $color-base-100;
 $signwall-btn-d-bg: $color-white;
 $signwall-btn-d-border: $color-white;
-/*----------------------------*/
+
+/* ---------------------------- */
 
 /********* Colors Lifweek ********/
 $lifweek-color: #0d4981;

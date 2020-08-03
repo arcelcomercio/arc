@@ -15,6 +15,7 @@ import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildCorrection from './_children/correction'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
@@ -47,6 +48,7 @@ import {
   ampHtml,
 } from '../../../utilities/story/helpers-amp'
 import { getResizedUrl } from '../../../utilities/resizer'
+import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -323,6 +325,21 @@ class StoryContentAmp extends PureComponent {
                       url={url}
                       content={content}
                       arcSite={arcSite}
+                      isAmp
+                    />
+                  )
+                }
+
+                if (
+                  type === ELEMENT_CUSTOM_EMBED &&
+                  sub === STORY_CORRECTION
+                ) {
+                  const {
+                    config: { content: contentCorrectionConfig = '' } = {},
+                  } = customEmbed || {}
+                  return (
+                    <StoryContentsChildCorrection
+                      content={contentCorrectionConfig}
                       isAmp
                     />
                   )

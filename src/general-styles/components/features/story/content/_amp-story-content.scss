@@ -136,6 +136,19 @@
       margin-left: 4px;
     }
   }
+
+  &__correction {
+    font-size: 0.8rem;
+    border-top: 1px solid #575757;
+    border-bottom: 1px solid #575757;
+    font-style: italic;
+
+    &__title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      // margin: 0 !important;
+    }
+  }
 }
 
 .content-sidebar {

@@ -38,6 +38,8 @@ $color-base-300: #e8f2f7;
 @import "../../general-styles/components/features/cards/featured-story-full-img/feature-fullimage";
 @import "../../general-styles/components/features/cards/featured-story-manual-live/featured-story-manual-live";
 @import "../../general-styles/components/global-components/featured-story";
+@import "../../general-styles/components/features/authors/authors-list/authors-list";
+@import "../../general-styles/components/features/authors/editorial-team/editorial-team";
 
 /******* Modificadores cambio temportal por consumo ********/
 @import "./scss/global-components/_";
