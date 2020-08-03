@@ -1,0 +1,8 @@
+.pagination {
+  &__page {
+    &--current {
+      background: $color-primary;
+      color: $color-black;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.authors-list {
+  &__author {
+    box-shadow: 0 4px 6px #00000029;
+    border-radius: 10px;
+    will-change: background-color;
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: #f3f5f7;
+    }
+  }
+  &__link {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
