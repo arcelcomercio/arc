@@ -34,7 +34,6 @@ const Menu = ({
   const [showLoading, setShowLoading] = useState(false)
 
   const closeSession = () => {
-    
     setShowLoading(true)
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
@@ -42,12 +41,12 @@ const Menu = ({
     Cookies.deleteCookieDomain('ArcId.USER_INFO', arcSite)
     Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
     Cookies.deleteCookie('lostEmail')
-    if(W){
+    if (W) {
       const isSubs = W.location.pathname.indexOf('suscripciones') >= 0 || false
       W.sessionStorage.removeItem('paywall-profile-form') // formik raul
       W.sessionStorage.removeItem('paywall-payment-form') // formik raul
       W.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
-  
+
       W.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
       W.Identity.logout()
         .then(() => {
