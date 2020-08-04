@@ -76,7 +76,7 @@ const StoriesListRecommenderBySite = props => {
   })
 
   const process = (contentElements, websiteConf, siteUrlConf) => {
-    const stories = contentElements.map(story => {
+    const stories = contentElements ? contentElements.map(story => {
       storyData._data = story
 
       const { websites = {} } = story || {}
@@ -107,7 +107,7 @@ const StoriesListRecommenderBySite = props => {
         multimediaSquareS: squareS || multimedia,
         multimediaLandscapeS: landscapeS || multimedia,
       }
-    })
+    }) : []
     return stories
   }
 
