@@ -60,6 +60,7 @@ class UpdateProfile extends Component {
       sending: true,
       sendingConfirmText: 'CONFIRMAR',
       messageErrorPass: '',
+      messageErrorDelete: '',
     }
 
     this.state = Object.assign(
@@ -203,13 +204,13 @@ class UpdateProfile extends Component {
       secondLastName,
       displayName,
       email,
-      contacts
+      contacts,
     }
-    clean(profile);
+    clean(profile)
 
     profile.attributes = [
-        ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
-        ...this._backup_attributes,
+      ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
+      ...this._backup_attributes,
     ].map(attribute => {
       if (attribute.name === 'originReferer') {
         return {
@@ -257,6 +258,12 @@ class UpdateProfile extends Component {
           if (errUpdate.code === '100018') {
             this.setState({
               showModalConfirm: true,
+            })
+          } else if (errUpdate.code === '3001001') {
+            this.setState({
+              messageErrorDelete:
+                'Al parecer hubo un problema con su cuenta, intente ingresar nuevamente. ',
+              showMsgError: true,
             })
           } else {
             this.setState({
@@ -496,6 +503,16 @@ class UpdateProfile extends Component {
     })
   }
 
+  onLogout = e => {
+    e.preventDefault()
+    if (typeof window !== 'undefined') {
+      const linkLogout = document.getElementById('web_link_cerrarsesion')
+      if (linkLogout) {
+        linkLogout.click()
+      }
+    }
+  }
+
   submitConfirmPassword = e => {
     e.preventDefault()
 
@@ -608,6 +625,7 @@ class UpdateProfile extends Component {
       sending,
       sendingConfirmText,
       messageErrorPass,
+      messageErrorDelete,
     } = this.state
 
     const {
@@ -635,7 +653,25 @@ class UpdateProfile extends Component {
               Tus datos de perfil han sido actualizados correctamente.
             </Message>
           )}
-          {showMsgError && <Message failed>{messageErrorPass}</Message>}
+
+          {showMsgError && (
+            <Message failed>
+              {messageErrorDelete ? (
+                <>
+                  {messageErrorDelete}
+                  <a
+                    href="#"
+                    onClick={e => {
+                      this.onLogout(e)
+                    }}>
+                    Clic Aquí
+                  </a>
+                </>
+              ) : (
+                messageErrorPass
+              )}
+            </Message>
+          )}
 
           <div className="row three">
             <FormGroup>
