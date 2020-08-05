@@ -14,7 +14,7 @@ export default ({
 }) => {
   const { content_elements: contentElements = [] } = globalContent || {}
   // const [{ credits: { by = [] } = {} } = {}] = contentElements || {}
-  const logoAutor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
+  const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
   const { author: {
     bio_page: authorPath = '',
     image: authorImg = '',
@@ -70,7 +70,7 @@ export default ({
     "@type": "Person",
     "name": "${name}",
     "url": "${authorUrl}", 
-    "image": "${authorImg || logoAutor}",
+    "image": "${authorImg || logoAuthor}",
     "workLocation" : {
       "@type": "Place",
       "name" : "${location}"

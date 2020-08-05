@@ -82,6 +82,55 @@ export default ({
   publishDateZone =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDate) : publishDateZone
 
+  const authorUrl = `${siteUrl}${authorPath}`
+  const languages = authorLanguages.split(',')
+  const urlTwitter = authorTwitter.split(',')[1] || ''
+  const expertiseData = authorExpertise.split(',').map(item => {
+    let text = `"${item}"`
+    const itemMatch = item.match("^{([^}]+)}(.+)")
+    if( itemMatch != null){
+      text = `{
+        "@type":"${itemMatch[1]}",
+        "name":"${itemMatch[2]}"
+      }`
+    }
+    return text
+  })
+
+  const structuredAutor = `
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${authorName}",
+    "url": "${authorUrl}", 
+    "image": "${authorImg || logoAuthor}",
+    "workLocation" : {
+      "@type": "Place",
+      "name" : "${authorLocation}"
+    },
+    "description" : "${authorBio}", 
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : "${authorEmail}"
+    },
+    "email": "${authorEmail}",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "${siteName}"
+    }, 
+    "knowsAbout": [${expertiseData}], 
+    "knowsLanguage": [
+      ${languages.map(language => {
+        return `{"@type": "Language",
+                 "name": "${language}"
+                }`
+        })}
+      ],
+    "sameAs" : ["${urlTwitter}", "${authorUrl}", ${authorBooks.map(item => `"${item.url}"`)}], 
+    "jobTitle"	: "${role}"
+  }`
+
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
 
@@ -282,9 +331,7 @@ export default ({
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }
-    "author":{    "@type":"Person",   "name":"${formatHtmlToText(
-      seoAuthor
-    )}"    },
+    "author": ${structuredAutor},
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
     arcSite,
     contextPath

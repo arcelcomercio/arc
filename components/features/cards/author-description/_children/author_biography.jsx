@@ -55,7 +55,7 @@ const AuthorBiography = ({
           <strong>Premios: </strong>
           <ul>
             {awards.map(award => (
-              <li>{award.name}</li>
+              <li className={classes.content}>{award.name}</li>
             ))}
           </ul>
         </p>
