@@ -4,7 +4,9 @@ import {
   SITE_ELCOMERCIO,
   SITE_TROME,
   SITE_DEPOR,
+  SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELCOMERCIOMAG,
 } from '../constants/sitenames'
 
 import formatTime from '../date-time/format-time'
@@ -188,28 +190,20 @@ export const jwPlayerJS = html => {
 }
 
 export const twitterHtml = html => {
-  const rplTwitter =
-    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$3" ></amp-twitter>'
-  const rplTwitter1 =
-    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$2" ></amp-twitter>'
+  if (html.indexOf('twitter.com') === -1) return html
 
-  const htmlDataTwitter = html
-    .replace(
-      /<blockquote class="twitter-tweet"(.*)<a href="https:\/\/twitter.com\/(.*)\/status\/(.*)">(.*)<\/blockquote>/g,
-      rplTwitter
-    )
-    .replace(
-      /<twitter-widget (.*) data-tweet-id="(.*)"><\/twitter-widget>/g,
-      rplTwitter1
-    )
-    .replace(
-      /<twitterwidget (.*) data-tweet-id="(.*)"><\/twitterwidget>/g,
-      rplTwitter1
-    )
+  const regex = /<blockquote class="twitter-tweet"(?:.*)<a href="https:\/\/twitter.com\/(?:.*)\/status\/(.*)">(?:.*)<\/blockquote>/g
+  const regexLegacy = /<twitter[-]?widget.*data-tweet-id="(.*?)".*><\/twitter[-]?widget>/g
+  const regexEmpty = /<script.*?>.*?<\/script>|<\/?center>/g
+  const ampTag =
+    '<amp-twitter class="media" width=1 height=1 layout="responsive" data-tweetid="$1" ></amp-twitter>'
 
-  return htmlDataTwitter
-    .replace(/<script(.*\n)*.*">.*<\/script>/gm, '')
-    .replace(/(<script.*?>).*?(<\/script>)/g, '')
+  const result =
+    html.indexOf('<blockquote') !== -1
+      ? html.replace(regex, ampTag)
+      : html.replace(regexLegacy, ampTag)
+
+  return result.replace(regexEmpty, '')
 }
 
 export const deporPlay = html => {
@@ -360,41 +354,42 @@ export const iframeHtml = (html, arcSite = '') => {
 
 export const facebookHtml = html => {
   let resultHtml = html
-  const strFacebook = '/<iframe src="(.*?)&width=500"></iframe>/g'
-  const rplFacebook =
-    '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
-  const strFacebook2 = '/<iframe src="(.*?)&width=500"></iframe>/g'
-  const rplFacebook2 =
-    '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
-  const rplFacebook3 =
-    '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$2"></amp-facebook>'
+  const replacePlugin =
+    '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$1"></amp-facebook>'
 
-  const strFacebookPage =
-    '/<div class="fb-page" data-href="(.*?)" data-width="(.*?)" data-small-header="(.*?)" data-adapt-container-width="(.*?)" data-hide-cover="(.*?)" data-show-facepile="(.*?)" data-show-posts="(.*?)"><div class="fb-xfbml-parse-ignore"><blockquote cite="(.*?)"><a href="(.*?)">(.*?)</a></blockquote></div></div>/g'
-  const rplFacebookPage =
-    '<amp-facebook-page width="340" height="130" layout="fixed" data-hide-cover="$5" data-href="$1"></amp-facebook-page>'
-  const strFacebookRoot = '/<div id="fb-root"></div>/g'
-  const facebookResult = resultHtml.match(
-    /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/
-  )
+  if (resultHtml.indexOf('facebook.com/plugins/video.php') !== -1) {
+    const regexVideo = /<iframe(?:.*?)www.facebook.com\/plugins\/video.php\?href=(.*?)"(?:.*?)>(.*?)<\/iframe>/g
+    resultHtml = resultHtml.replace(regexVideo, replacePlugin)
+    return decodeURIComponent(resultHtml)
+  }
 
-  if (facebookResult) {
-    resultHtml = resultHtml.replace(
-      /<iframe(.*?)src="https:\/\/www.facebook.com\/plugins\/video.php[?]href=(.*?)" (.*?)><\/iframe>/g,
-      rplFacebook3
-    )
-    resultHtml = decodeURIComponent(resultHtml)
+  if (resultHtml.indexOf('facebook.com/plugins/post.php') !== -1) {
+    const regexPost = /<iframe(?:.*?)www.facebook.com\/plugins\/post.php\?href=(.*?)&amp;(?:.*?)>(.*?)<\/iframe>/g
+    resultHtml = resultHtml.replace(regexPost, replacePlugin)
+    return decodeURIComponent(resultHtml)
+  }
+
+  // fallback para iframes de facebook
+  if (resultHtml.indexOf('<iframe src=') !== -1) {
+    const regexIframe = /<iframe src="(.*?)&width=500"><\/iframe>/g
+    const replaceIframe =
+      '<amp-facebook class="media" width=1 height=1 layout="responsive" data-href="$1"></amp-facebook>'
+    return resultHtml.replace(regexIframe, replaceIframe)
+  }
+
+  if (resultHtml.indexOf('fb-root') !== -1) {
+    const regexRoot = /<div id="fb-root"><\/div>/g
+    resultHtml = resultHtml.replace(regexRoot, '')
+  }
+
+  if (resultHtml.indexOf('class="fb-page"') !== -1) {
+    const regexPage = /<div class="fb-page" data-href="(.*?)" data-width="(?:.*?)" data-small-header="(?:.*?)" data-adapt-container-width="(?:.*?)" data-hide-cover="(.*?)" data-show-facepile="(?:.*?)" data-show-posts="(?:.*?)"><div class="fb-xfbml-parse-ignore"><blockquote cite="(?:.*?)"><a href="(?:.*?)">(?:.*?)<\/a><\/blockquote><\/div><\/div>/g
+    /* const replacePage =
+      '<amp-facebook-page width="340" height="130" layout="fixed" data-hide-cover="$2" data-href="$1"></amp-facebook-page>' */
+    resultHtml = resultHtml.replace(regexPage, '')
   }
 
   return resultHtml
-    .replace(strFacebookPage, rplFacebookPage)
-    .replace(strFacebookRoot, '')
-    .replace(strFacebook, rplFacebook)
-    .replace(strFacebook2, rplFacebook2)
-    .replace(
-      /<iframe(.*)www.facebook.com\/plugins\/post.php\?href=(.*)&amp(.*)>\s*\n<\/iframe>/gm,
-      rplFacebook3
-    )
 }
 
 export const youtubeHtml = html => {
@@ -488,17 +483,20 @@ export const ampHtml = (html = '', arcSite = '') => {
   // Opta Widget
   // resultData = deporPlay(html)
 
-  // Opta Widget
-  resultData = optaWidgetHtml(resultData)
+  if (arcSite !== SITE_ELCOMERCIOMAG) {
+    // Opta Widget
+    resultData = optaWidgetHtml(resultData)
+    // Player
+    resultData = playerHtml(resultData)
+  }
 
   // imagenes
   resultData = imageHtml(resultData)
 
-  // Player
-  resultData = playerHtml(resultData)
-
   // JWplayer JS version
-  resultData = jwPlayerJS(resultData)
+  if (arcSite === SITE_ELBOCON || arcSite === SITE_DEPOR) {
+    resultData = jwPlayerJS(resultData)
+  }
 
   // twitter
   resultData = twitterHtml(resultData)
@@ -514,13 +512,13 @@ export const ampHtml = (html = '', arcSite = '') => {
 
   // HTML Free
   resultData = freeHtml(resultData)
-
-  // HTML Iframe
+  
   resultData = iframeHtml(resultData, arcSite)
-
+  
   // Mxm Iframe
-
-  resultData = iframeMxm(resultData, arcSite)
+  if (arcSite === SITE_ELCOMERCIO) {
+    resultData = iframeMxm(resultData)
+  }
 
   return resultData
 }

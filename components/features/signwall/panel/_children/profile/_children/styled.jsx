@@ -225,4 +225,7 @@ export const Message = styled.div`
   line-height: 24px;
   margin-bottom: 20px;
   font-weight: bold;
+  & a {
+    color: ${props => (props.success ? 'rgb(36, 145, 9)' : 'rgb(219, 0, 0)')};
+  }
 `
