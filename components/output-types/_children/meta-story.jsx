@@ -20,6 +20,7 @@ import {
 } from '../../utilities/constants/sitenames'
 import { getResizedUrl } from '../../utilities/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
+import workType from '../_dependencies/work-type'
 
 export default ({
   globalContent: data,
@@ -290,7 +291,12 @@ export default ({
         )}],`
       : ''
 
-  const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
+  const { label: { trustproject = {} } = {} } = data || {}
+  console.log('====Data===', data)
+  console.log('====trustproject===', trustproject)
+  const trustType = workType(trustproject) || '"NewsArticle"'
+
+  const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_DEPOR ||
