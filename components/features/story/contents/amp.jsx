@@ -18,7 +18,11 @@ import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo } from '../../../utilities/date-time/dates'
-import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
+import {
+  replaceTags,
+  cleanLegacyAnchor,
+  storyTagsBbc,
+} from '../../../utilities/tags'
 
 import {
   ELEMENT_HEADER,
@@ -39,6 +43,7 @@ import {
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
+  SITE_ELBOCON,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
@@ -75,6 +80,7 @@ class StoryContentAmp extends PureComponent {
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
+    const { source } = data
     const {
       contentPosicionPublicidadAmp,
       promoItems,
@@ -153,6 +159,7 @@ class StoryContentAmp extends PureComponent {
       movil1: false,
     }
 
+    const isLegacy = source.source_id && arcSite === SITE_ELBOCON
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
       `${getAssetsPath(
@@ -202,11 +209,15 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
                 if (type === ELEMENT_RAW_HTML) {
-                  return content.includes('id="powa-') ? (
-                    <StoryContentChildVideo
-                      data={content}
-                      className={classes.newsImage}
-                    />
+                  if (content.includes('id="powa-'))
+                    return (
+                      <StoryContentChildVideo
+                        data={content}
+                        className={classes.newsImage}
+                      />
+                    )
+                  return isLegacy ? (
+                    <p> - </p>
                   ) : (
                     <RawHtml
                       content={ampHtml(content, arcSite)}
@@ -214,12 +225,20 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ELEMENT_HEADER && level === 1) {
-                  return (
-                    <h2>
-                      <RawHtml content={content}></RawHtml>
-                    </h2>
-                  )
+                if (type === ELEMENT_HEADER) {
+                  if (level === 1)
+                    return (
+                      <h2>
+                        <RawHtml
+                          content={
+                            isLegacy ? cleanLegacyAnchor(content) : content
+                          }></RawHtml>
+                      </h2>
+                    )
+                  if (isLegacy)
+                    return (
+                      <RawHtml content={cleanLegacyAnchor(content)}></RawHtml>
+                    )
                 }
                 if (type === ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
@@ -286,7 +305,12 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <>
                       <Text
-                        content={ampHtml(replaceTags(content), arcSite)}
+                        content={ampHtml(
+                          replaceTags(
+                            isLegacy ? cleanLegacyAnchor(content) : content
+                          ),
+                          arcSite
+                        )}
                         className={classes.textClasses}
                       />
                       {publicidadInline && (
@@ -330,10 +354,7 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
 
-                if (
-                  type === ELEMENT_CUSTOM_EMBED &&
-                  sub === STORY_CORRECTION
-                ) {
+                if (type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION) {
                   const {
                     config: { content: contentCorrectionConfig = '' } = {},
                   } = customEmbed || {}
