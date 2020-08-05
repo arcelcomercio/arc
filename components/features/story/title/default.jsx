@@ -30,7 +30,6 @@ const StoryTitle = () => {
     data,
     contextPath,
   })
-  console.log()
   const isPremium = ContentCode === 'premium'
   const parameters = { title, subTitle, isPremium, arcSite, items, type }
 
