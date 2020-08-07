@@ -30,6 +30,7 @@ const StoryContentChildAuthor = ({
   authorEmail,
   primarySection = '',
 }) => {
+  const displayLoc = locality === '' ? 'Lima' : locality
   return (
     <>
       <div className={classes.author}>
@@ -73,7 +74,10 @@ const StoryContentChildAuthor = ({
         <div className={classes.authorDate}>
           <time className={classes.authorTime} dateTime={updatedDate}>
             {updatedDate &&
-              `${locality}, ${formatDayMonthYearBasic(updatedDate, false)}`}
+              `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
+                updatedDate,
+                false
+              )}`}
           </time>
           <time className={classes.authorTime} dateTime={date}>
             {date && formatDateStory(date)}
