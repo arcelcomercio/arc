@@ -118,6 +118,12 @@ class StoryData {
     )
   }
 
+  get locality() {
+    return (
+      (this._data && this._data.address && this._data.address.locality) || ''
+    )
+  }
+
   get subtype() {
     return (this._data && this._data.subtype) || ''
   }

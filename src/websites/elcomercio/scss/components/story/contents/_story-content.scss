@@ -47,14 +47,21 @@
   }
   &__date {
     color: #888;
-    font-size: 10px;
+    font-size: 12px;
     font-family: $secondary-font;
-    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
     @media (--only-mobile) {
       text-align: right;
       width: 134px;
       order: 1;
     }
+  }
+  &__time {
+    display: block;
+    line-height: 18px;
+    width: 100%;
+    text-align: right;
   }
   &__author {
     @media (--only-mobile) {

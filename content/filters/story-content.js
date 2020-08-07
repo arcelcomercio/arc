@@ -145,6 +145,9 @@ headlines {
   basic
   meta_title
 }
+address{
+  locality
+}
 subheadlines {
   basic
 }
