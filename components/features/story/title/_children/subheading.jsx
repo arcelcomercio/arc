@@ -10,11 +10,12 @@ const classes = {
 }
 
 const StoryHeaderChildShareSubheading = data => {
-  const { subTitle, isPremium = '', arcSite = '' } = data || {}
+  const { subTitle, isPremium = '', arcSite = '', items, type = '' } =
+    data || {}
 
   return (
     <>
-      {subTitle && (
+      {subTitle && items && type !== 'list' && (
         <h2 itemProp="name" className={classes.description}>
           {' '}
           {subTitle}
