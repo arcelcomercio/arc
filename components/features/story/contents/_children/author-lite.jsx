@@ -1,5 +1,8 @@
 import React from 'react'
-import { formatDateStory } from '../../../../utilities/date-time/dates'
+import {
+  formatDayMonthYearBasic,
+  formatDateStory,
+} from '../../../../utilities/date-time/dates'
 
 const classes = {
   author: 'story-contents__author flex ',
@@ -18,10 +21,12 @@ const StoryContentChildAuthorLite = ({
   authorImage,
   authorRole,
   updatedDate,
+  locality,
+  date,
   authorEmail,
   primarySection = '',
 }) => {
-  // const displayLoc = locality === '' ? 'Lima' : locality
+  const displayLoc = locality === '' ? 'Lima' : locality
   return (
     <>
       <div className={classes.author}>
@@ -63,8 +68,15 @@ const StoryContentChildAuthorLite = ({
           </div>
         )}
         <div className={classes.authorDate}>
-          <time dateTime={updatedDate}>
-            {updatedDate && formatDateStory(updatedDate)}
+          <time className={classes.authorTime} dateTime={updatedDate}>
+            {updatedDate &&
+              `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
+                updatedDate,
+                false
+              )}`}
+          </time>
+          <time className={classes.authorTime} dateTime={date}>
+            {date && formatDateStory(date)}
           </time>
         </div>
       </div>
