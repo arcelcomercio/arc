@@ -46,6 +46,7 @@ export default ({
     primarySectionLink,
     videoSeo,
     contentElementsText: dataElement,
+    contentElementsLinks = [],
     contentElementsHtml = [],
     contentElementsCorrectionList = [],
     seoKeywords,
@@ -57,6 +58,7 @@ export default ({
     getPremiumValue,
     contentElementsRedesSociales,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
+
   const parameters = {
     primarySectionLink,
     id,
@@ -260,6 +262,22 @@ export default ({
   const dataVideo =
     `  "video":[ ${redSocialVideo.concat(videoSeoItems)} ],` || ''
 
+  let citationStructuredItems = ''
+  contentElementsLinks.forEach(url => {
+    citationStructuredItems += `{
+      "@type": "CreativeWork",
+      "url": "${url}"
+    },`
+  })
+
+  const citationStructured =
+    contentElementsLinks.length > 0
+      ? `"citation":[${citationStructuredItems.substring(
+          0,
+          citationStructuredItems.length - 1
+        )}],`
+      : ''
+
   const bodyStructured =
     isAmp !== true
       ? `"articleBody":"${dataElement.replace(
@@ -305,6 +323,7 @@ export default ({
     "publishingPrinciples": "${siteUrl}/buenas-practicas/",
   ${bodyStructured}
   ${correctionStructured}
+  ${citationStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }

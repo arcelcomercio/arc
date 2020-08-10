@@ -36,11 +36,15 @@ import {
   STORY_SMALL,
   LARGE,
 } from './constants/image-sizes'
-import { formatHtmlToText, addSlashToEnd } from './parse/strings'
+import {
+  formatHtmlToText,
+  addSlashToEnd,
+  getUrlFromHtml,
+} from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
-import { STORY_CORRECTION } from './constants/subtypes'
+import { STORY_CORRECTION, IMAGE_LINK } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -753,6 +757,17 @@ class StoryData {
     )
   }
 
+  get contentElementsLinks() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsLinks(this._data.content_elements, [
+          ELEMENT_TEXT,
+          ELEMENT_CUSTOM_EMBED,
+        ])) ||
+      []
+    )
+  }
+
   get contentElementsText() {
     return (
       (this._data &&
@@ -1220,6 +1235,22 @@ class StoryData {
     }
 
     return []
+  }
+
+  static getContentElementsLinks(data = [], typeElement = []) {
+    let urlData = []
+    data.forEach(({ content, type, subtype = '', embed = {} }) => {
+      if (typeElement.includes(type)) {
+        if (subtype === IMAGE_LINK) {
+          const { config: { link = '' } = {} } = embed || {}
+          urlData = [...urlData, link]
+        } else {
+          const urls = getUrlFromHtml(content)
+          urlData = [...urlData, ...urls]
+        }
+      }
+    })
+    return urlData
   }
 
   static getContentElementsText(data = [], typeElement = '') {
