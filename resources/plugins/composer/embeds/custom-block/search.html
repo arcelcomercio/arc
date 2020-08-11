@@ -45,14 +45,14 @@
         </p>
         <p class="lead">
         </p>
-        <label class="col-lg-5" for="customBlockType">Tipo de contenido:
+        <label class="col-lg-12" for="customBlockType">Tipo de contenido:
           <select id="customBlockType" name="customBlockType">
             <option value="">Seleccione...</option>
             <option value="backstory">Cómo se hizo esta historia</option>
           </select>
         </label>
-        <label class="col-lg-5" for="customBlockContent">Contenido:
-          <textarea rows="10" id="customBlockContent" name="customBlockContent"></textarea>
+        <label class="col-lg-12" for="customBlockContent">Contenido:
+          <textarea rows="10" cols="25" id="customBlockContent" name="customBlockContent"></textarea>
         </label>
         <br><br>
         <div class="col-lg-12">
@@ -112,7 +112,7 @@
     // ------------------------------------------------
 
 
-    const idEl = Date.now()
+    const idEl =  Date.now() + '-' + Math.floor(Math.random() * 1000000)
     let customBlockType = ''
     let customBlockContent = ''
     let data = {}
@@ -134,7 +134,7 @@
       // }
 
       const ansCustomEmbed = {
-        id: idEl.toString(),
+        id: idEl,
         url: '/pf/api/v3/content/fetch/photo-by-id',
         config: {
           "customBlockType": customBlockType || '',

@@ -14,8 +14,8 @@
     <!-- Rendered Item -->
     <div class="col-md-12" id="%item_id%">
       <div class="card-body">
-        <p class="card-text text-muted %classTitle%" style="font-weight: bold;">%customBlockTitle%</p>
-        <p class="card-text text-muted %classContent%">
+        <p class="card-text text-muted" style="font-weight: bold;">%customBlockTitle%</p>
+        <p class="card-text text-muted">
           %customBlockContent%
         </p>
       </div>
@@ -67,18 +67,14 @@
     // Render the content data and contextual configuration together
     const render = (ansCustomEmbed) => {
       var customBlockConfig = {
-        'backstory': {'title': 'Cómo se hizo esta historia', 'classTitle': 'backstory', 'classContent': 'backstory-content'}
+        'backstory': {'title': 'Cómo se hizo esta historia'}
       }
 
       const template = document.getElementById('content_template').innerHTML
       const html = template
         .replace(/%item_id%/gi, 'row-' + ansCustomEmbed.id)
-        .replace(/%prepTime%/gi, ansCustomEmbed.config.prepTime || "")
-        .replace(/%totalTime%/gi, ansCustomEmbed.config.totalTime || "")
-        .replace(/%recipeCuisine%/gi, ansCustomEmbed.config.recipeCuisine || "")
-        .replace(/%recipeYield%/gi, ansCustomEmbed.config.recipeYield || "")
-        .replace(/%puntuation%/gi, ansCustomEmbed.config.puntuation || "")
-        .replace(/%countReviews%/gi, ansCustomEmbed.config.countReviews || "")
+        .replace(/%customBlockTitle%/gi, customBlockConfig[ansCustomEmbed.config.customBlockTitle]['title'] || "")
+        .replace(/%customBlockContent%/gi, ansCustomEmbed.config.totalTime || "")
 
       const element = document.createElement('div')
       document.getElementById('search_content').appendChild(element)

@@ -1,97 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="theme-color" content="#212529" />
-  <title>Datos adicionales de Receta - Edit API plugin</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-</head>
-
-<body>
-  <template id="content_template">
-    <!-- Rendered Item -->
-    <div class="col-md-12" id="%item_id%">
-      <div class="card mb-4 box-shadow" style="flex-direction: row;" id="content_card">
-        <div class="card-body">
-          <p class="card-text text-muted" style="font-weight: bold;">DATOS ADICIONALES:</p>
-          <p class="card-text text-muted"><span style="text-decoration: underline;">Tiempo preparación</span>:
-            %prepTime%</p>
-          <p class="card-text text-muted"><span style="text-decoration: underline;">Tiempo total</span>: %totalTime%</p>
-          <p class="card-text text-muted"><span style="text-decoration: underline;">Región asociada</span>:
-            %recipeCuisine%</p>
-          <p class="card-text text-muted"><span style="text-decoration: underline;">Cantidad de porciones</span>:
-            %recipeYield%</p>
-          <p class="card-text text-muted"><span style="text-decoration: underline;">Puntuación</span>:
-            %puntuation%</p>
-          <p class="card-text text-muted"><span style="text-decoration: underline;">Número de revisiones</span>:
-            %countReviews%</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Corrección de nota - Edit API plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Item -->
+      <div class="col-md-12" id="%item_id%">
+        <div class="card mb-4 box-shadow" style="flex-direction: row;"
+          id="content_card">
+          <div class="card-body">
+            <strong>Bloque personalizado</strong> <br>
+            <p class="card-text text-muted" style="font-weight: bold;">%customBlockTitle%</p>
+            <p class="card-text text-muted">
+              %customBlockContent%
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-12" hidden>
-      <div style="font-weight: bold">Respuesta JSON</div>
-      <pre>%data%</pre>
-    </div>
-  </template>
+      <div class="col-md-12" hidden>
+        <div style="font-weight: bold">Respuesta JSON</div>
+        <pre>%data%</pre>
+      </div>
+    </template>
 
-  <main role="main">
-    <div class="album py-5 bg-light">
-      <div class="container">
-        <div class="row" id="content_holder">
-          Cargando...
-        </div>
+    <main role="main">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="content_holder">
+            Cargando...
+          </div>
 
-        <!-- Edit Form -->
-        <div class="row" id="config_edit">
-          <div class="col-md-12">
-            <label for="prepTime"><span>Tiempo preparación</span>
-              <input id="prepTime" name="prepTime" type="textfield" value="" />
-            </label>
-            <label for="totalTime"><span>Tiempo total</span>
-              <input id="totalTime" name="totalTime" type="textfield" value="" />
-            </label>
-            <label for="recipeCuisine"><span>Región asociada</span>
-              <input id="recipeCuisine" name="recipeCuisine" type="textfield" value="" />
-            </label>
-            <label for="recipeYield"><span>Cantidad de porciones</span>
-              <input id="recipeYield" name="recipeYield" type="textfield" value="" />
-            </label>
-            <label for="puntuation"><span>Puntuación</span>
-              <input id="puntuation" name="puntuation" type="textfield" value="" />
-            </label>
-            <label for="countReviews"><span>Número de revisiones</span>
-              <input id="countReviews" name="countReviews" type="textfield" value="" />
-            </label>
-          </div>
-          <div class="col-md-12 p-3">
-            <button type="button" class="btn btn-primary" id="btn_apply">
-              Aceptar
-            </button>
-            <button type="button" class="btn btn-light mx-1" id="btn_cancel">
-              Cerrar
-            </button>
-          </div>
+          <!-- Edit Form -->
+          <div class="row" id="config_edit">
+            <div class="col-md-12">
+              <label class="col-lg-12" for="customBlockType">Tipo de contenido:
+                <select id="customBlockType" name="customBlockType">
+                  <option value="">Seleccione...</option>
+                  <option value="backstory">Cómo se hizo esta historia</option>
+                </select>
+              </label>
+              <label class="col-lg-12" for="customBlockContent">Contenido:
+                <textarea rows="10" cols="25" id="customBlockContent" name="customBlockContent"></textarea>
+              </label>
+            </div>
+            <!--<div class="col-md-12">
+              <label for="date"><span>Fecha</span>
+                <input id="date" name="date" type="textfield" value="" />
+              </label>
+            </div>-->
+            <div class="col-md-12 p-3">
+              <button type="button" class="btn btn-primary" id="btn_apply">
+                Aceptar
+              </button>
+              <button type="button" class="btn btn-light mx-1" id="btn_cancel">
+                Cerrar
+              </button>
+            </div>
 
         </div>
       </div>
-  </main>
-  <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-  <script src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js" type="text/javascript"
-    charset="utf-8"></script>
-  <script>
-    const sendMessage = function (action, data) {
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script>
+    const sendMessage = function(action, data) {
       window.parent.postMessage(
         JSON.stringify({
           source: 'custom_embed',
@@ -103,7 +106,7 @@
       )
     }
 
-    const parseQueryString = function () {
+    const parseQueryString = function() {
       const params = location.search.split('?')[1] || ''
       const kv = params.split('&')
       return kv.reduce((result, item) => {
@@ -114,22 +117,27 @@
       }, {})
     }
 
-    let data = {}      // ANS custom embed response
-    let content = {}   // The fetched content from external data source
+     let data = {}      // ANS custom embed response
+     let content = {}   // The fetched content from external data source
+
+     // -------------------------------------------------
+
+
 
     // Render the content data and contextual configuration together
-    const render = (dataParam) => {
+    const render = (dataParams) => {
+      var customBlockConfig = {
+        'backstory': {'title': 'Cómo se hizo esta historia'}
+      }
 
       // Setup Element Preview
+      const config = dataParams.config || {}
       const template = document.getElementById('content_template').innerHTML
       const html = template
-        .replace(/%item_id%/gi, 'row-' + dataParam.id)
-        .replace(/%prepTime%/gi, dataParam.config.prepTime)
-        .replace(/%totalTime%/gi, dataParam.config.totalTime)
-        .replace(/%recipeCuisine%/gi, dataParam.config.recipeCuisine)
-        .replace(/%recipeYield%/gi, dataParam.config.recipeYield)
-        .replace(/%puntuation%/gi, dataParam.config.puntuation)
-        .replace(/%countReviews%/gi, dataParam.config.countReviews)
+        .replace(/%item_id%/gi, 'row-' + config.id)
+        .replace(/%customBlockTitle%/gi, customBlockConfig[config.customBlockTitle]['title'])
+        .replace(/%customBlockContent%/gi, config.customBlockContent)
+        .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
 
       const element = document.createElement('div')
       document.getElementById('content_holder').innerHTML = ''
@@ -137,37 +145,29 @@
       element.outerHTML = html
 
       // Update form state
-      document.getElementById('prepTime').value = (dataParam.config.prepTime || "")
-      document.getElementById('totalTime').value = (dataParam.config.totalTime || "")
-      document.getElementById('recipeCuisine').value = (dataParam.config.totalTime || "")
-      document.getElementById('recipeYield').value = (dataParam.config.recipeYield || "")
-      document.getElementById('puntuation').value = (dataParam.config.puntuation || "")
-      document.getElementById('countReviews').value = (dataParam.config.countReviews || "")
+      document.getElementById('customBlockTitle').value = (config.customBlockTitle || "")
+      document.getElementById('customBlockContent').value = (config.customBlockContent || "")
+      // document.getElementById('date').value = (config.date || "")
     }
 
-
-    // Update config based on form changes, submit back to Composer and re-render
+     // Update config based on form changes, submit back to Composer and re-render
     const applyChanges = () => {
-      data.config.prepTime = document.getElementById('prepTime').value
-      data.config.totalTime = document.getElementById('totalTime').value
-      data.config.recipeCuisine = document.getElementById('recipeCuisine').value
-      data.config.recipeYield = document.getElementById('recipeYield').value
-      data.config.puntuation = document.getElementById('puntuation').value
-      data.config.countReviews = document.getElementById('countReviews').value
+      data.config.customBlockTitle = document.getElementById('customBlockTitle').value
+      data.config.customBlockContent = document.getElementById('customBlockContent').value
+      // data.config.date = document.getElementById('date').value
 
-
-      // Update Composer and re-render form
+       // Update Composer and re-render form
       sendMessage('data', data)
       render(data)
     }
 
-    // -------------------------------------------------
+     // -------------------------------------------------
 
     const dismissEditor = () => {
       sendMessage('cancel')
     }
 
-    window.onload = function () {
+    window.onload = function() {
       const parameters = Object.assign(
         {
           wait: 0
@@ -175,7 +175,7 @@
         parseQueryString()
       )
       // Emulate wait time
-      setTimeout(function () {
+      setTimeout(function() {
         sendMessage('ready', {
           height: document.documentElement.scrollHeight
         })
@@ -186,7 +186,6 @@
       document.getElementById('btn_apply').onclick = applyChanges
       document.getElementById('btn_cancel').onclick = dismissEditor
     }
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
