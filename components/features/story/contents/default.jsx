@@ -45,6 +45,7 @@ import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthor from './_children/author'
+import StoryContentsChildAuthorTrust from './_children/author-trust'
 import StoryContentsChildMultimedia from './_children/multimedia'
 import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildImpresa from './_children/impresa'
@@ -190,8 +191,11 @@ class StoryContents extends PureComponent {
                 <StoryContentsChildMultimedia data={params} />
               )}
 
-          <StoryContentsChildAuthor {...params} />
-
+          {SITE_ELCOMERCIO === arcSite ? (
+            <StoryContentsChildAuthorTrust {...params} />
+          ) : (
+            <StoryContentsChildAuthor {...params} />
+          )}
           <Ads
             adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
             isDesktop={false}

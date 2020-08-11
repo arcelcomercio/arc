@@ -44,6 +44,7 @@ import StoryContentsChildLinkedImage from './_children/linked-image'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
+import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 
@@ -137,8 +138,11 @@ class StoryContentsLite extends PureComponent {
     return (
       <>
         <div className={classes.news}>
-          <StoryContentsChildAuthorLite {...params} />
-
+          {SITE_ELCOMERCIO === arcSite ? (
+            <StoryContentsChildAuthorTrustLite {...params} />
+          ) : (
+            <StoryContentsChildAuthorLite {...params} />
+          )}
           <div
             id="gpt_caja3"
             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
