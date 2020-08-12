@@ -3,6 +3,8 @@ import { SITE_ELCOMERCIO } from '../../utilities/constants/sitenames'
 
 export default ({ arcSite, siteUrl, siteName }) => {
   const pathPage = 'proyecto-confianza'
+  const redaccion = '/autor/redaccion-ec/'
+
   const structuredDataTrust = `{
     "@context": "http://schema.org",
     "@type": "NewsMediaOrganization",    
@@ -17,7 +19,7 @@ export default ({ arcSite, siteUrl, siteName }) => {
     "actionableFeedbackPolicy": "${siteUrl}/${pathPage}/#retroalimentacion-factible",
     "ownershipFundingInfo": "${siteUrl}/${pathPage}/#fecha-de-fundacion-y-estructura-de-la-propiedad",
     "diversityStaffingReport": "${siteUrl}/${pathPage}/#informe-de-diversidad-de-empleados",
-    "noBylinesPolicy": "${siteUrl}/${pathPage}/",
+    "noBylinesPolicy": "${siteUrl}${redaccion}",
     "contactPoint": [
       {
         "@type": "ContactPoint",
