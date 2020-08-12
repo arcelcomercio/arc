@@ -22,7 +22,7 @@ const AuthorsList = props => {
   const uri = requestUri.split('?')[0]
   const uriMatch = uri.match(/\/(?!0)(\d+)\/$/)
   const page = uriMatch ? parseInt(uriMatch[1], 10) : 1
-  const offset = page * customSize
+  const offset = (page - 1) * customSize
 
   const response =
     useContent({

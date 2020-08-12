@@ -86,7 +86,7 @@ const Pagination = props => {
   const { totalElements, storiesQty, requestUri } = props
   let { currentPage } = props
 
-  const totalPages = Math.floor(totalElements / (storiesQty || 50))
+  const totalPages = Math.ceil(totalElements / (storiesQty || 50))
   const pages = createPaginator(currentPage || 1, totalPages)
   currentPage = parseInt(currentPage || 1, 10)
 
