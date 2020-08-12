@@ -17,6 +17,7 @@ export default ({ arcSite, siteUrl, siteName }) => {
     "actionableFeedbackPolicy": "${siteUrl}/${pathPage}/#retroalimentacion-factible",
     "ownershipFundingInfo": "${siteUrl}/${pathPage}/#fecha-de-fundacion-y-estructura-de-la-propiedad",
     "diversityStaffingReport": "${siteUrl}/${pathPage}/#informe-de-diversidad-de-empleados",
+    "noBylinesPolicy": "${siteUrl}/${pathPage}/",
     "contactPoint": [
       {
         "@type": "ContactPoint",

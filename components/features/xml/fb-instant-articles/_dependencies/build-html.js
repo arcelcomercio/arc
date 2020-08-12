@@ -87,7 +87,7 @@ const buildCorrectionTexParagraph = (
 
   result.processedParagraph =
     result.numberWords > 0
-      ? `<blockquote><b>${title}</b> ${clearBrTag(paragraph)}</blockquote>`
+      ? `<blockquote><b>${title}</b> ${cleanTag(paragraph)}</blockquote>`
       : ''
   return result
 }
