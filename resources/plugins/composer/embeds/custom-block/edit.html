@@ -135,7 +135,7 @@
       const template = document.getElementById('content_template').innerHTML
       const html = template
         .replace(/%item_id%/gi, 'row-' + config.id)
-        .replace(/%customBlockTitle%/gi, customBlockConfig[config.customBlockTitle]['title'])
+        .replace(/%customBlockTitle%/gi, config.customBlockTitle)
         .replace(/%customBlockContent%/gi, config.customBlockContent)
         .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
 
