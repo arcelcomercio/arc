@@ -135,7 +135,7 @@
       const template = document.getElementById('content_template').innerHTML
       const html = template
         .replace(/%item_id%/gi, 'row-' + config.id)
-        .replace(/%customBlockTitle%/gi, config.customBlockTitle)
+        .replace(/%customBlockTitle%/gi, customBlockConfig[config.customBlockType]['title'])
         .replace(/%customBlockContent%/gi, config.customBlockContent)
         .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
 
@@ -145,14 +145,14 @@
       element.outerHTML = html
 
       // Update form state
-      document.getElementById('customBlockTitle').value = (config.customBlockTitle || "")
+      document.getElementById('customBlockType').value = (config.customBlockType || "")
       document.getElementById('customBlockContent').value = (config.customBlockContent || "")
       // document.getElementById('date').value = (config.date || "")
     }
 
      // Update config based on form changes, submit back to Composer and re-render
     const applyChanges = () => {
-      data.config.customBlockTitle = document.getElementById('customBlockTitle').value
+      data.config.customBlockType = document.getElementById('customBlockType').value
       data.config.customBlockContent = document.getElementById('customBlockContent').value
       // data.config.date = document.getElementById('date').value
 

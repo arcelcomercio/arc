@@ -73,7 +73,7 @@
       const template = document.getElementById('content_template').innerHTML
       const html = template
         .replace(/%item_id%/gi, 'row-' + ansCustomEmbed.id)
-        .replace(/%customBlockTitle%/gi, ansCustomEmbed.config.customBlockTitle || "")
+        .replace(/%customBlockTitle%/gi, customBlockConfig[ansCustomEmbed.config.customBlockType]['title'] || "")
         .replace(/%customBlockContent%/gi, ansCustomEmbed.config.customBlockContent || "")
 
       const element = document.createElement('div')
