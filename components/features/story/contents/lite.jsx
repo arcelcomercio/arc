@@ -46,6 +46,10 @@ import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildCustomBlock from './_children/custom-block'
+import { STORY_CUSTOMBLOCK } from '../../../utilities/constants/subtypes'
+
+
 
 const classes = {
   news: 'story-contents w-full ',
@@ -316,7 +320,21 @@ class StoryContentsLite extends PureComponent {
                       />
                     )
                   }
-
+                  if (
+                    type === ELEMENT_CUSTOM_EMBED &&
+                    sub === STORY_CUSTOMBLOCK
+                  ) {
+                    const {
+                      config: { customBlockContent = '', customBlockType = '' } = {},
+                    } = customEmbed || {}
+                    return (
+                      <StoryContentsChildCustomBlock
+                        content={customBlockContent}
+                        type={customBlockType}
+                        isAmp={false}
+                      />
+                    )
+                  }
                   if (type === ELEMENT_RAW_HTML) {
                     if (
                       content.includes('opta-widget') &&

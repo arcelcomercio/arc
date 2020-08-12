@@ -23,6 +23,8 @@ content_elements {
       recipeYield
       puntuation
       countReviews
+      customBlockType
+      customBlockContent
     }
   }
   raw_oembed{
