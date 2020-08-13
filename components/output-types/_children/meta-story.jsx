@@ -292,8 +292,6 @@ export default ({
       : ''
 
   const { label: { trustproject = {} } = {} } = data || {}
-  console.log('====Data===', data)
-  console.log('====trustproject===', trustproject)
   const trustType = workType(trustproject) || '"NewsArticle"'
 
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, "datePublished":"${publishDateZone}",
