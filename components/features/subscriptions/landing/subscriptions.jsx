@@ -4,15 +4,16 @@ import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
-
 import stylesLanding from '../_dependencies/styles-landing'
-import scriptsLanding from '../_dependencies/script-landing'
-import contextSite from '../_dependencies/context'
+import PropertiesSite from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
-import Cards from '../_children/cards'
+import Cards from '../_children/Cards'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
-import { getUserName, isLogged } from '../_dependencies/useUser'
+import { getUserName, isLogged } from '../_dependencies/Session'
+import { FooterLand } from '../_layouts/footer'
+import scriptsLanding from '../_dependencies/script-landing'
+// import { createExternalScript } from '../_dependencies/Utils' // sorry Chamo lo intenté
 
 const LandingSubscriptions = () => {
   const {
@@ -21,12 +22,12 @@ const LandingSubscriptions = () => {
     customFields: { bannerUniComercio = false, bannerUniGestion = false } = {},
   } = useFusionContext() || {}
 
-  const { urls, emails, texts, benefist = [] } = contextSite[arcSite]
+  const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
   const isComercio = arcSite === 'elcomercio'
   const [showSignwall, setShowSignwall] = useState(false)
   const [showTypeLanding, setShowTypeLanding] = useState('landing')
   const [showProfile, setShowProfile] = useState(false)
-  const env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
 
@@ -43,9 +44,11 @@ const LandingSubscriptions = () => {
         })),
       },
     })
+    // createExternalScript(scriptsLanding, true)
   }, [])
 
   const handleUniversity = () => {
+    Taggeo(`Web_Sign_Wall_Students`, `web_link_ingresar_cuenta`)
     setShowTypeLanding('students')
     setShowSignwall(!showSignwall)
   }
@@ -57,7 +60,7 @@ const LandingSubscriptions = () => {
         `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
       )
       if (isLogged()) {
-        window.location.href = urls.profile[env]
+        window.location.href = urls.profile[arcEnv]
       } else {
         setShowSignwall(!showSignwall)
         document.getElementById('btn-signwall').innerHTML = 'Inicia sesión'
@@ -93,7 +96,7 @@ const LandingSubscriptions = () => {
               className="header__content-button"
               type="button"
               id="btn-signwall"
-              onClick={() => handleSignwall()}>
+              onClick={handleSignwall}>
               {showProfile || 'Inicia sesión'}
             </button>
           </div>
@@ -163,10 +166,7 @@ const LandingSubscriptions = () => {
               <article
                 className="banners__item grid-two-one"
                 role="presentation"
-                onClick={() => {
-                  Taggeo(`Web_Sign_Wall_Students`, `web_link_ingresar_cuenta`)
-                  handleUniversity()
-                }}>
+                onClick={handleUniversity}>
                 <div className="banners__content">
                   <h4 className="banners__content-title">
                     {texts.uniTitle}
@@ -186,7 +186,7 @@ const LandingSubscriptions = () => {
               role="presentation"
               onClick={() => {
                 if (typeof window !== 'undefined') {
-                  window.open(urls.bannerCorp[env], '_blank')
+                  window.open(urls.bannerCorp[arcEnv], '_blank')
                 }
               }}>
               <div className="banners__content">
@@ -272,7 +272,7 @@ const LandingSubscriptions = () => {
                 className="video__content-video"
                 muted
                 controls="1"
-                poster="https://perufront.com/web-paywall-2020/images/elcomercio/fondo_video.jpg"
+                poster="https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/fondo_video.jpg"
                 src="https://pub.minoticia.pe/elcomercio/el_comercio.mp4"></video>
             </div>
           </div>
@@ -289,7 +289,7 @@ const LandingSubscriptions = () => {
             </h1>
             <p className="ayuda__content-description">
               {`${texts.helpDescription} `}
-              <a target="_blank" rel="noreferrer" href={urls.preguntas[env]}>
+              <a target="_blank" rel="noreferrer" href={urls.preguntas[arcEnv]}>
                 Preguntas Frecuentes
               </a>
               {/* {' o '}
@@ -301,142 +301,15 @@ const LandingSubscriptions = () => {
         </div>
       </section>
 
-      <footer className="footer">
-        <div className="wrapper">
-          <div className="footer__content">
-            <div className="footer__grid">
-              <div className="footer__item grid-four-one">
-                <div className="footer__content-mail">
-                  <a target="_blank" rel="noreferrer" href={urls.homeUrl}>
-                    <div className="footer__content-logo"></div>
-                  </a>
-                  <p>
-                    Envíanos un correo a<br />
-                    <a
-                      href={`mailto:${emails.atencion}`}
-                      className="footer__content-link">
-                      {emails.atencion}
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div className="footer__item grid-four-two">
-                <div className="footer__content-ayuda footer__content-accordion">
-                  <input type="checkbox" defaultChecked onChange={() => {}} />
-                  <i></i>
-                  <h4 className="footer__content-title">Ayuda</h4>
-                  <div className="cont">
-                    <p>
-                      <a
-                        href={urls.preguntas[env]}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="footer__content-link">
-                        Preguntas Frecuentes
-                      </a>
-                    </p>
-                    <p>
-                      Servicio al cliente y Ventas:
-                      <br />
-                      <a
-                        href={`mailto:${emails.atencion}`}
-                        className="footer__content-link">
-                        {emails.atencion}
-                      </a>
-                    </p>
-                    {/* <p>
-                      Pagos pendientes y Facturación:
-                      <br />
-                      <a
-                        href={`mailto:${emails.cobranzas}`}
-                        className="footer__content-link">
-                        {emails.cobranzas}
-                      </a>
-                    </p> */}
-                  </div>
-                </div>
-              </div>
-              <div className="footer__item grid-four-three">
-                <div className="footer__content-legal footer__content-accordion">
-                  <input type="checkbox" defaultChecked onChange={() => {}} />
-                  <i></i>
-                  <h4 className="footer__content-title">Legal</h4>
-                  <div className="cont">
-                    <p>
-                      <a
-                        href={urls.terminos}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="footer__content-link">
-                        Términos y Condiciones
-                        {/* <span>(Actualizado al 2019)</span> */}
-                      </a>
-                    </p>
-                    <p>
-                      <a
-                        href={urls.politicas}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="footer__content-link">
-                        Política de Privacidad
-                        {/* <span>(Actualizado al 2019)</span> */}
-                      </a>
-                    </p>
-                    <p>
-                      <a
-                        href={urls.reclamos}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="footer__content-link">
-                        Libro de Reclamaciones
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="footer__item grid-four-four">
-                <div className="footer__content-encuentranos">
-                  <h4 className="footer__content-title">Encuéntranos</h4>
-                  <div className="footer__content-encuentranos-social">
-                    <a href={urls.twitter} target="_blank" rel="noreferrer">
-                      <i className="icon-twitter"></i>
-                    </a>
-                    <a href={urls.facebook} target="_blank" rel="noreferrer">
-                      <i className="icon-facebook"></i>
-                    </a>
-                    <a href={urls.instangram} target="_blank" rel="noreferrer">
-                      <i className="icon-instangram"></i>
-                    </a>
-                  </div>
-                  <div className="footer__content-encuentranos-apps">
-                    <a href={urls.appStore} target="_blank" rel="noreferrer">
-                      <i className="icon-appstore"></i>
-                    </a>
-                    <a href={urls.googlePlay} target="_blank" rel="noreferrer">
-                      <i className="icon-googleplay"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="footer__end">
-            <p>{texts.footerEnd}</p>
-          </div>
-        </div>
-      </footer>
-
-      <button type="button" id="btn-arrow-top" className="arrow-up">
-        <i></i>
-      </button>
+      <FooterLand {...{ arcSite, arcEnv }} />
 
       {QueryString.getQuery('signLanding') ||
       QueryString.getQuery('signStudents') ||
       showSignwall ? (
         <Landing
           typeDialog={showTypeLanding} // tipo de modal (students , landing)
-          nameDialog={showTypeLanding} // nombre de modal
-          onLogged={() => handleAfterLogged()}
+          nameDialog={showTypeLanding} // nombre de modal (students , landing)
+          onLogged={handleAfterLogged}
           onLoggedFail={() => {}}
           onClose={() => {
             setShowSignwall(false)
@@ -448,6 +321,7 @@ const LandingSubscriptions = () => {
       <script
         type="text/javascript"
         src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
+
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

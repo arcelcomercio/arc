@@ -1,10 +1,12 @@
-import React from 'react'
+/* eslint-disable react/jsx-filename-extension */
+import React, { useState } from 'react'
 import Markdown from 'react-markdown/with-html'
-import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
-import Taggeo from '../../signwall/_dependencies/taggeo'
+import { Taggeo, sendAction, PixelActions } from '../../_dependencies/Taggeo'
 
 function Cards({ item, arcSite, order, textOffer }) {
   const itemGrid = ['one', 'two', 'three']
+  const [loading, setLoading] = useState(false)
+
   const {
     title,
     subtitle,
@@ -19,6 +21,7 @@ function Cards({ item, arcSite, order, textOffer }) {
   const isComercio = arcSite === 'elcomercio'
 
   const handleSuscribirme = (paramUrl, paramSku) => {
+    setLoading(true)
     if (typeof window !== 'undefined') {
       const { pathname } = new URL(window.location.href)
       window.sessionStorage.setItem('paywall_last_url', pathname)
@@ -101,8 +104,9 @@ function Cards({ item, arcSite, order, textOffer }) {
             <button
               type="button"
               className="planes__content-button"
+              disabled={loading}
               onClick={() => handleSuscribirme(url, sku)}>
-              Suscribirme
+              {loading ? 'Redireccionando...' : 'Suscribirme'}
             </button>
             <ul className="planes__content-benefits">
               {features.map((list, i) => {
