@@ -18,6 +18,7 @@ import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo } from '../../../utilities/date-time/dates'
+import { formatHtmlToText } from '../../../utilities/parse/strings'
 import {
   replaceTags,
   cleanLegacyAnchor,
@@ -44,6 +45,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
   SITE_ELBOCON,
+  SITE_DIARIOCORREO,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
@@ -96,14 +98,10 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       siteUrl,
     })
-    // const namePublicidad =
-    //   arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
-
-    // const dataSlot = `/${adsAmp.dataSlot}/${
-    //   arcSite === 'diariocorreo' ? 'correo' : namePublicidad
-    // }-amp-300x250-boton-movil2`
+    const isLegacy =
+      source.source_id &&
+      (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
-
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
 
@@ -159,7 +157,6 @@ class StoryContentAmp extends PureComponent {
       movil1: false,
     }
 
-    const isLegacy = source.source_id && arcSite === SITE_ELBOCON
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
       `${getAssetsPath(
@@ -276,6 +273,17 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (sub === STORY_CORRECTION) {
+                    const {
+                      config: { content: contentCorrectionConfig = '' } = {},
+                    } = customEmbed || {}
+                    return (
+                      <StoryContentsChildCorrection
+                        content={contentCorrectionConfig}
+                        isAmp
+                      />
+                    )
+                  }
                   if (sub === 'image_link') {
                     const { config: customEmbedConfig = {} } = customEmbed || {}
                     return (
@@ -305,12 +313,13 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <>
                       <Text
-                        content={ampHtml(
-                          replaceTags(
-                            isLegacy ? cleanLegacyAnchor(content) : content
-                          ),
-                          arcSite
-                        )}
+                        content={
+                          isLegacy
+                            ? formatHtmlToText(
+                                replaceTags(cleanLegacyAnchor(content))
+                              )
+                            : ampHtml(replaceTags(content), arcSite)
+                        }
                         className={classes.textClasses}
                       />
                       {publicidadInline && (
@@ -342,7 +351,6 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-
                 if (type === ELEMENT_INTERSTITIAL_LINK) {
                   return (
                     <StoryContentsChildInterstitialLink
@@ -353,19 +361,6 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-
-                if (type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION) {
-                  const {
-                    config: { content: contentCorrectionConfig = '' } = {},
-                  } = customEmbed || {}
-                  return (
-                    <StoryContentsChildCorrection
-                      content={contentCorrectionConfig}
-                      isAmp
-                    />
-                  )
-                }
-
                 if (type === ELEMENT_LINK_LIST) {
                   return (
                     <StoryContentsChildLinkList
