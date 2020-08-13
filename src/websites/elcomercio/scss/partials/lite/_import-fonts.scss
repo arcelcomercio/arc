@@ -39,41 +39,15 @@
   font-display: swap;
 }
 
-/* pt-serif-regular - latin */
-@font-face {
-  font-family: "PT Serif";
-  font-style: normal;
-  font-weight: 400;
-  src: local("PT Serif"), local("PTSerif-Regular"),
-    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-regular.woff2")
-      format("woff2"),
-    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-regular.woff")
-      format("woff");
-  font-display: swap;
-}
-
-/* pt-serif-700 - latin */
-@font-face {
-  font-family: "PT Serif";
-  font-style: normal;
-  font-weight: 700;
-  src: local("PT Serif Bold"), local("PTSerif-Bold"),
-    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-700.woff2")
-      format("woff2"),
-    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/pt-serif-v11-latin-700.woff")
-      format("woff");
-  font-display: swap;
-}
-
 /* georgia-regular - latin */
 @font-face {
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
   src: local("Georgia"), local("Georgia-Regular"),
-    /* url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2")
-      format("woff2"), */
-      url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff")
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff")
       format("woff");
   font-display: swap;
 }
