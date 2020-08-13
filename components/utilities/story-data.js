@@ -12,6 +12,7 @@ import {
   ELEMENT_PODCAST,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
+  ELEMENT_CUSTOM_EMBED,
 } from './constants/element-types'
 import {
   IMAGE_ORIGINAL,
@@ -38,6 +39,7 @@ import { formatHtmlToText, addSlashToEnd } from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
+import { STORY_CUSTOMBLOCK } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -1057,6 +1059,22 @@ class StoryData {
 
   get multimediaCaption() {
     return this.getMultimediaConfig().caption
+  }
+
+  get contentElementCustomBlock() {
+    return (
+      (this._data &&
+        StoryData.getContentElementCustomBlock(this._data.content_elements)) ||
+      []
+    )
+  }
+
+  static getContentElementCustomBlock(data = []) {
+    return data && data.length > 0
+      ? data.filter(({ type, subtype }) => {
+          return type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CUSTOMBLOCK
+        })
+      : []
   }
 
   getMultimediaBySize(size) {
