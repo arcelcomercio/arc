@@ -15,7 +15,7 @@ const classes = {
 const StoryContentChildAuthorTrustLite = ({
   author,
   authorLink,
-  authorImage,
+  authorImgSmall,
   authorRole,
   updatedDate,
   authorEmail,
@@ -28,12 +28,12 @@ const StoryContentChildAuthorTrustLite = ({
         {primarySection !== 'Columnistas' && (
           <div className={classes.authorInfo}>
             <div>
-              {authorImage && (
+              {authorImgSmall && (
                 <img
                   itemProp="image"
                   alt={author}
                   title={author}
-                  src={authorImage}
+                  src={authorImgSmall}
                   className={classes.authorImage}
                 />
               )}
