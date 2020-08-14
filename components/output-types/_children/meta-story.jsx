@@ -41,7 +41,10 @@ export default ({
     displayDate: publishDate,
     publishDate: publishDatedate,
     subTitle = arcSite,
-    seoAuthor,
+    authorImage,
+    author: authorName,
+    role: authorRole,
+    authorEmail,
     imagePrimarySeo,
     primarySection,
     primarySectionLink,
@@ -83,6 +86,23 @@ export default ({
 
   publishDateZone =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDate) : publishDateZone
+
+  const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
+
+  const structuredAutor = `
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${authorName}",
+    "image": "${authorImage || logoAuthor}",
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : "${authorEmail}"
+    },
+    "email": "${authorEmail}",
+    "jobTitle"	: "${authorRole}"
+  }`
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
@@ -292,8 +312,6 @@ export default ({
       : ''
 
   const { label: { trustproject = {} } = {} } = data || {}
-  console.log('====Data===', data)
-  console.log('====trustproject===', trustproject)
   const trustType = workType(trustproject) || '"NewsArticle"'
 
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, "datePublished":"${publishDateZone}",
@@ -314,9 +332,7 @@ export default ({
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }
-    "author":{    "@type":"Person",   "name":"${formatHtmlToText(
-      seoAuthor
-    )}"    },
+    "author": ${structuredAutor},
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
     arcSite,
     contextPath

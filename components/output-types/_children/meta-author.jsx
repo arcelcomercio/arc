@@ -3,7 +3,6 @@ import {
   metaPaginationUrl,
   getMetaPagesPagination,
 } from '../_dependencies/pagination'
-import { formatHtmlToText } from '../../utilities/parse/strings'
 
 export default ({
   globalContent,
@@ -14,29 +13,21 @@ export default ({
   arcSite,
 }) => {
   const { content_elements: contentElements = [] } = globalContent || {}
-  const [{ credits: { by = [] } = {} } = {}] = contentElements || {}
-  const logoAutor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
-  const {
-    url: authorPath = '',
-    image: { url: authorImg = '' } = {},
-    social_links: socialLinks = [],
-    name = '',
-    additional_properties: { original: { bio = '' } = {} } = {},
-  } = by[0] || []
-
-  const socialMedia = socialLinks
-    .map(({ url, site }) => {
-      const emailAuthor = site !== 'email' ? url : ''
-      return `"${emailAuthor}"`
-    })
-    .filter(String)
-
-  const emailAhutor = socialLinks
-    .map(({ url, site }) => {
-      const emailAuthor = site === 'email' ? url : ''
-      return `${emailAuthor}`
-    })
-    .filter(String)
+  // const [{ credits: { by = [] } = {} } = {}] = contentElements || {}
+  const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
+  const { author: {
+    bio_page: authorPath = '',
+    image: authorImg = '',
+    byline: name = '',
+    email = '', 
+    bio = '',
+    languages = '', 
+    location = '', 
+    twitter = '', 
+    role = '', 
+    books = [],
+    expertise = ''
+  } = {} } = globalContent || {}
 
   const patternPagination = /\/[0-9]+\/?(?=\?|$)/
   const pages = getMetaPagesPagination(
@@ -59,6 +50,54 @@ export default ({
   )
 
   const authorUrl = `${siteUrl}${authorPath}`
+  const authorLanguages = languages.split(',')
+  const urlTwitter = twitter.split(',')[1] || ''
+  const expertiseData = expertise.split(',').map(item => {
+    let text = `"${item}"`
+    const itemMatch = item.match("^{([^}]+)}(.+)")
+    if( itemMatch != null){
+      text = `{
+        "@type":"${itemMatch[1]}",
+        "name":"${itemMatch[2]}"
+      }`
+    }
+    return text
+  })
+
+  const structuredAutor = `
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${name}",
+    "url": "${authorUrl}", 
+    "image": "${authorImg || logoAuthor}",
+    "workLocation" : {
+      "@type": "Place",
+      "name" : "${location}"
+    },
+    "description" : "${bio}", 
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : "${email}"
+    },
+    "email": "${email}",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "${siteName}"
+    }, 
+    "knowsAbout": [${expertiseData}], 
+    "knowsLanguage": [
+      ${authorLanguages.map(language => {
+        return `{"@type": "Language",
+                 "name": "${language}"
+                }`
+        })}
+      ],
+    "sameAs" : ["${urlTwitter}", "${authorUrl}", ${books.map(item => `"${item.url}"`)}], 
+    "jobTitle"	: "${role}"
+  }`
+
   const listItems = contentElements.map(({ websites = {} }, index) => {
     return `{
       "@type":"ListItem",
@@ -66,29 +105,6 @@ export default ({
       "url":"${websites[arcSite].website_url}"
     }`
   })
-
-  const UrlRedesSocial =
-    (socialMedia[0] !== '""' &&
-      `"sameAs": [
-    ${socialMedia}
-  ],`) ||
-    ''
-
-  const structuredAutor = `
-  {
-    "@context": "http://schema.org/",
-    "@type": "Person",
-    "name": "${formatHtmlToText(name)}",
-    "url": "${authorUrl}", 
-    "image": "${authorImg || logoAutor}",
-    "email": "${emailAhutor}",
-    ${UrlRedesSocial}
-    "jobTitle": "${bio}",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "${siteName}"
-      }
-  }`
 
   const structuredNews = `{
     "@context":"http://schema.org",
@@ -117,10 +133,12 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredAutor }}
       />
+      { contentElements.length >0 && 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredNews }}
       />
+      }
     </>
   )
 }
