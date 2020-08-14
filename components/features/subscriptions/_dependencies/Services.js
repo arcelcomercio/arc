@@ -82,3 +82,18 @@ export const paymentTraker = (
   })
   return response
 }
+
+export const subDniToken = (URL, jwt) => {
+  const response = new Promise(resolve => {
+    fetch(URL, {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+        'user-token': jwt,
+      },
+    }).then(res => resolve(res.json()))
+  })
+
+  return response
+}

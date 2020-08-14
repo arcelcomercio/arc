@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
     getLocaleStorage(keyStorageProfile)
   )
   const [userStep, setUserStep] = useState(
-    getLocaleStorage(keyStorageStep) || 1
+    getLocaleStorage(keyStorageStep) || 2
   )
   const [userPlan, setUserPlan] = useState({})
   const [userPeriod, setUserPeriod] = useState()

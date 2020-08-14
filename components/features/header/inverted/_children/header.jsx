@@ -461,7 +461,7 @@ const HeaderChildInverted = ({
                   onClick={() => {
                     const { origin } = window.location
                     const outputType =
-                      _env === 'prod' ? '' : 'outputType=paywall&'
+                      _env === 'prod' ? '' : 'outputType=subscriptions&'
                     const pf = _env === 'prod' ? '' : '/pf'
                     const connector =
                       _env !== 'prod' ? `?_website=${arcSite}&` : `?`

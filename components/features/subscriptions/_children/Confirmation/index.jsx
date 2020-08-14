@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../../_context/auth'
 import PropertiesSite from '../../_dependencies/Properties'
 import { paymentTraker } from '../../_dependencies/Services'
+import { pushCxense } from '../../_dependencies/Taggeo'
 
 const styles = {
   step: 'step__left-progres',
@@ -19,6 +20,7 @@ const Confirmation = ({ arcSite, arcEnv }) => {
   const { texts, urls } = PropertiesSite.common
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = useState(false)
+  const getCodeCxense = urlsSite.codeCxense[arcEnv]
 
   const {
     // currency,
@@ -49,6 +51,7 @@ const Confirmation = ({ arcSite, arcEnv }) => {
         const confirm =
           window.sessionStorage.getItem('paywall_confirm_subs') || '3'
 
+        pushCxense(getCodeCxense) // dispara script de Cxense
         paymentTraker(
           urls.paymentTracker[arcEnv],
           accessToken,

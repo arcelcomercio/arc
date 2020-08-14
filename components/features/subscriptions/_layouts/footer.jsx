@@ -11,6 +11,8 @@ import React, { useContext } from 'react'
 import { useFusionContext } from 'fusion:context'
 import PropertiesSite from '../_dependencies/Properties'
 import { AuthContext } from '../_context/auth'
+import { subDniToken } from '../_dependencies/Services'
+import useForm from '../_hooks/useForm'
 
 const styles = {
   wrapper: 'validate__grid wrapper-buy',
@@ -21,8 +23,9 @@ const styles = {
   iconUp: 'icon-arrow-up',
 }
 
-export const FooterSubs = () => {
+export const FooterSubs = ({ arcEnv }) => {
   const { userLoaded, userStep } = useContext(AuthContext)
+  const { urls } = PropertiesSite.common
   const {
     globalContent: { printAttributes = [] },
   } = useFusionContext() || {}
@@ -31,6 +34,56 @@ export const FooterSubs = () => {
     (prev, item) => ({ ...prev, [item.name]: item.value }),
     {}
   )
+
+  const stateSchema = {
+    vDocumentType: { value: 'DNI', error: '' },
+    vDocumentNumber: { value: '', error: '' },
+  }
+
+  const stateValidatorSchema = {
+    vDocumentType: {
+      required: true,
+    },
+    vDocumentNumber: {
+      required: true,
+    },
+  }
+
+  const handleValidateDNI = ({ vDocumentType, vDocumentNumber }) => {
+    if (typeof window !== 'undefined') {
+      window.Identity.heartbeat()
+        .then(resHeart => {
+          subDniToken(urls.subsDniToken[arcEnv], resHeart.accessToken)
+            .then(resDniToken => {
+              if (resDniToken.token) {
+                setTimeout(() => {
+                  window.location.href =
+                    arcEnv === 'prod'
+                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/`
+                      : `/pf/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/?_website=elcomercio&outputType=subscriptions`
+                }, 1000)
+              } else {
+                window.console.error('Hubo un error con la respuesta') // Temporal hasta implementar Sentry
+              }
+            })
+            .catch(errDniToken => {
+              window.console.error(errDniToken) // Temporal hasta implementar Sentry
+            })
+        })
+        .catch(errHeart => {
+          window.console.error(errHeart) // Temporal hasta implementar Sentry
+        })
+    }
+    return ''
+  }
+
+  const {
+    values: { vDocumentNumber, vDocumentType },
+    errors: { vDocumentNumber: vDocumentNumberError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, handleValidateDNI)
 
   return (
     <>
@@ -57,23 +110,53 @@ export const FooterSubs = () => {
                 )}
               </div>
               <div className={styles.form}>
-                {userLoaded && (userStep === 1 || userStep === 2) ? (
+                {userLoaded && (userStep === 1 || userStep === 2) && (
                   <>
-                    <form className="step__left-block">
+                    <form
+                      className="step__left-block"
+                      onSubmit={handleOnSubmit}>
                       <div className="cont-select-input">
-                        <select>
+                        <select
+                          name="vDocumentType"
+                          value={vDocumentType}
+                          onChange={handleOnChange}>
                           <option value="DNI">DNI</option>
                           <option value="CDI">CDI</option>
                           <option value="CEX">CEX</option>
                         </select>
-                        <input type="text" name="documento" maxLength="8" />
+                        <input
+                          type="text"
+                          name="vDocumentNumber"
+                          maxLength="8"
+                          required
+                          value={vDocumentNumber}
+                          onBlur={handleOnChange}
+                          onChange={handleOnChange}
+                        />
                       </div>
+
                       <div className="cont-button">
-                        <button className="btn-next" type="button">
+                        <button
+                          className="btn-next"
+                          type="submit"
+                          disabled={disable}>
                           Validar
                         </button>
                       </div>
+                      {/* {vDocumentNumberError && (
+                        <span className="msn-error">
+                          {vDocumentNumberError}
+                        </span>
+                      )} */}
                     </form>
+                    {vDocumentNumberError && (
+                      <span className={styles.tooltip}>
+                        {vDocumentNumberError}
+                        {/* <button type="button" className="btn-link">
+                          Entendido
+                        </button> */}
+                      </span>
+                    )}
                     {/* <span className={styles.tooltip}>
                       El documento que enviaste no accede a ningún descuento.
                       <button type="button" className="btn-link">
@@ -81,8 +164,6 @@ export const FooterSubs = () => {
                       </button>
                     </span> */}
                   </>
-                ) : (
-                  ''
                 )}
               </div>
             </>

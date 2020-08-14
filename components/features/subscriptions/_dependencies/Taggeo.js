@@ -37,10 +37,22 @@ export const PixelActions = {
 }
 
 export function sendAction(action, payload = {}) {
-  if (window.dataLayer) {
+  if (window.dataLayer && typeof window !== 'undefined') {
     window.dataLayer.push({
       event: action,
       ...payload,
     })
+  }
+}
+
+export const pushCxense = codeCxense => {
+  if (window.cX && typeof window !== 'undefined') {
+    window.cX.CCE.callQueue.push([
+      'sendConversionEvent',
+      {
+        productId: codeCxense,
+        funnelStep: 'convertProduct',
+      },
+    ])
   }
 }

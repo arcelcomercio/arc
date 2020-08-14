@@ -85,7 +85,7 @@ const WrapperPaymentSubs = () => {
           </Wrapper>
         </NavigateProvider>
       </Container>
-      <FooterSubs />
+      <FooterSubs {...{ arcEnv }} />
       <FooterLand {...{ arcSite, arcEnv }} />
       <script
         type="text/javascript"

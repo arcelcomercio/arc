@@ -18,13 +18,13 @@ const PropertiesSite = {
         prod:     '/suscripcionesdigitales/faqs/',
         sandbox:  '/suscripcionesdigitales/faqs/?_website=elcomercio&outputType=paywall'
       }, 
-      terminos:   'https://suscripciones.elcomercio.pe/terminos/',
-      politicas:  'https://elcomercio.pe/politicas-privacidad/',
+      terminos:     'https://suscripciones.elcomercio.pe/terminos/',
+      politicas:    'https://elcomercio.pe/politicas-privacidad/',
       terminosSign: 'https://ecoid.pe/terminos_y_condiciones/a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
-      politicasSign: 'https://ecoid.pe/politica_privacidad/a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
-      reclamos:   'http://ecomedia.pe/libro/registrar/elcomercio/',
-      appStore:   'https://apps.apple.com/es/app/el-comercio-peru/id793178800?ct=email_footer',
-      googlePlay: 'https://play.google.com/store/apps/details?id=com.gec.elcomercio&referrer=email_footer',
+      politicasSign:'https://ecoid.pe/politica_privacidad/a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
+      reclamos:     'http://ecomedia.pe/libro/registrar/elcomercio/',
+      appStore:     'https://apps.apple.com/es/app/el-comercio-peru/id793178800?ct=email_footer',
+      googlePlay:   'https://play.google.com/store/apps/details?id=com.gec.elcomercio&referrer=email_footer',
       bannerCorp: {
         prod:     '/suscripcionesdigitales/empresa/',
         sandbox:  '/suscripcionesdigitales/empresa/?_website=elcomercio&outputType=paywall'
@@ -39,6 +39,10 @@ const PropertiesSite = {
         prod:     'https://api.elcomercio.pe',
         sandbox:  'https://api-sandbox.elcomercio.pe',
       },
+      codeCxense:{
+        prod:     '8msiqbaswc5u',
+        sandbox:  '8n3ltuopvlh1'
+      }
     },
 
     emails: {
@@ -136,13 +140,13 @@ const PropertiesSite = {
         prod:     '/suscripcionesdigitales/faqs/',
         sandbox:  '/suscripcionesdigitales/faqs/?_website=gestion&outputType=paywall'
       },
-      terminos:   'https://suscripciones.gestion.pe/terminos/',
-      politicas:  'https://gestion.pe/politica-de-privacidad/',
+      terminos:     'https://suscripciones.gestion.pe/terminos/',
+      politicas:    'https://gestion.pe/politica-de-privacidad/',
       terminosSign: 'https://ecoid.pe/terminos_y_condiciones/108f85a3d8e750a325ced951af6cd758a90e73a34',
-      politicasSign: 'https://ecoid.pe/politica_privacidad/108f85a3d8e750a325ced951af6cd758a90e73a34',
-      reclamos:   'http://ecomedia.pe/libro/registrar/elcomercio/',
-      appStore:   'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer',
-      googlePlay: 'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer',
+      politicasSign:'https://ecoid.pe/politica_privacidad/108f85a3d8e750a325ced951af6cd758a90e73a34',
+      reclamos:     'http://ecomedia.pe/libro/registrar/elcomercio/',
+      appStore:     'https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer',
+      googlePlay:   'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer',
       bannerCorp: {
         prod:     '/suscripcionesdigitales/empresa/',
         sandbox:  '/suscripcionesdigitales/empresa/?_website=gestion&outputType=paywall'
@@ -155,8 +159,13 @@ const PropertiesSite = {
       arcOrigin: {
         prod:     'https://api.gestion.pe',
         sandbox:  'https://api-sandbox.gestion.pe',
+      },
+      codeCxense:{
+        prod:     '8n3linhnzos6',
+        sandbox:  '8msif5r9dikx'
       }
     },
+
     emails: {
       atencion: 'atencionalcliente@comercio.com.pe',
       cobranzas: 'cobranzas@suscripcionesintegrales.com.pe',
@@ -235,6 +244,10 @@ const PropertiesSite = {
         prod: 'https://su3l9d6w10.execute-api.us-east-1.amazonaws.com/prod/v1',
         sandbox: 'https://72q176wl1l.execute-api.us-east-1.amazonaws.com/dev/v1',
       },
+      subsDniToken:{
+        prod: 'https://paywall.comerciosuscripciones.pe/api/subscription-online/token/',
+        sandbox:  'https://devpaywall.comerciosuscripciones.pe/api/subscription-online/token/'
+      }
     },
 
     links: {
