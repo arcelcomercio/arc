@@ -35,7 +35,7 @@
     "react": "^16.6.3"
   },
   "devDependencies": {
-    "@arc-fusion/cli": "^1.0.8",
+    "@arc-fusion/cli": "^1.0.13",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-decorators": "^7.7.4",
