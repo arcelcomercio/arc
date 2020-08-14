@@ -45,7 +45,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcEnv }) => {
         `web_link_ingresar_${userLoaded ? 'perfil' : 'cuenta'}`
       )
       if (userLoaded || isAuthenticated()) {
-        window.location.href = urls.profile[arcEnv]
+        window.open(urls.profile[arcEnv], '_blank')
       } else {
         setShowSignwall(!showSignwall)
         window.Identity.clearSession()
@@ -66,7 +66,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcEnv }) => {
       <header className="header" id="header">
         <div className={styles.wrapper}>
           <a
-            href={urls.homeUrl}
+            href={urls.homeUrl[arcEnv]}
             className={styles.link}
             target="_blank"
             rel="noreferrer">

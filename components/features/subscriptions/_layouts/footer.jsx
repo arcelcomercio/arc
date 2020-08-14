@@ -13,9 +13,9 @@ import PropertiesSite from '../_dependencies/Properties'
 import { AuthContext } from '../_context/auth'
 
 const styles = {
-  wrapper: 'footer__grid wrapper-buy',
-  info: 'grid-two-one-buy footer__banner-info',
-  form: 'grid-two-two-buy footer__banner-form tooltip',
+  wrapper: 'validate__grid wrapper-buy',
+  info: 'grid-two-one-buy validate__banner-info',
+  form: 'grid-two-two-buy validate__banner-form tooltip',
   tooltip: 'tooltiptext-bottomarrow',
   btnDetail: 'step__bottom-btn-detail',
   iconUp: 'icon-arrow-up',
@@ -34,9 +34,9 @@ export const FooterSubs = () => {
 
   return (
     <>
-      <footer className="footer" id="footer">
-        <div className={styles.wrapper}>
-          {userStep === 1 || userStep === 2 ? (
+      {(userStep === 1 || userStep === 2) && (
+        <footer className="validate" id="validate">
+          <div className={styles.wrapper}>
             <>
               <div className={styles.info}>
                 {userLoaded && (userStep === 1 || userStep === 2) ? (
@@ -86,15 +86,9 @@ export const FooterSubs = () => {
                 )}
               </div>
             </>
-          ) : (
-            <>
-              <br />
-              <br />
-              <br />
-            </>
-          )}
-        </div>
-      </footer>
+          </div>
+        </footer>
+      )}
 
       {userStep !== 4 && (
         <section className="step__bottom">
@@ -112,13 +106,16 @@ export const FooterLand = ({ arcSite, arcEnv }) => {
   const { urls, emails, texts } = PropertiesSite[arcSite]
   return (
     <>
-      <footer className="footer">
+      <footer className="footer" id="footer">
         <div className="wrapper">
           <div className="footer__content">
             <div className="footer__grid">
               <div className="footer__item grid-four-one">
                 <div className="footer__content-mail">
-                  <a target="_blank" rel="noreferrer" href={urls.homeUrl}>
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={urls.homeUrl[arcEnv]}>
                     <div className="footer__content-logo"></div>
                   </a>
                   <p>

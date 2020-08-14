@@ -4,7 +4,7 @@ import ENV from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext, AuthProvider } from '../_context/auth'
 import HeaderSubs from '../_layouts/header'
-import { FooterSubs } from '../_layouts/footer'
+import { FooterSubs, FooterLand } from '../_layouts/footer'
 import Singwall from '../_children/Singwall'
 import Resume from '../_children/Resume'
 import Profile from '../_children/Profile'
@@ -86,7 +86,7 @@ const WrapperPaymentSubs = () => {
         </NavigateProvider>
       </Container>
       <FooterSubs />
-      {/* <FooterLand {...{ arcSite, arcEnv }} /> */}
+      <FooterLand {...{ arcSite, arcEnv }} />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

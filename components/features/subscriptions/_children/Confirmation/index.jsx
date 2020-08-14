@@ -71,9 +71,9 @@ const Confirmation = ({ arcSite, arcEnv }) => {
         window.sessionStorage.getItem('paywall_last_url') !== ''
           ? window.sessionStorage.getItem('paywall_last_url') ===
             '/suscripciones/'
-            ? urlsSite.mainHome
+            ? urlsSite.mainHome[arcEnv]
             : window.sessionStorage.getItem('paywall_last_url')
-          : urlsSite.mainHome
+          : urlsSite.mainHome[arcEnv]
     }
   }
 

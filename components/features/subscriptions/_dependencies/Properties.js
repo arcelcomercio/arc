@@ -3,14 +3,20 @@ const PropertiesSite = {
     // prettier-ignore
     urls: {
       default:    '#',
-      mainHome:   'https://elcomercio.pe/?ref=paywall',
-      homeUrl:    'https://elcomercio.pe/suscripciones/?ref=paywall',
+      mainHome: {
+        prod:     'https://elcomercio.pe/?ref=paywall',
+        sandbox:  'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/?ref=paywall'
+      },
+      homeUrl:  {
+        prod: 'https://elcomercio.pe/suscripciones/?ref=paywall',
+        sandbox: 'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'
+      },
       facebook:   'https://www.facebook.com/elcomercio.pe',
       twitter:    'https://twitter.com/elcomercio_peru',
       instangram: 'https://www.instagram.com/elcomercio/',
       preguntas: {
         prod:     '/suscripcionesdigitales/faqs/',
-        sandbox:  '/pf/suscripcionesdigitales/faqs/?_website=elcomercio&outputType=paywall'
+        sandbox:  '/suscripcionesdigitales/faqs/?_website=elcomercio&outputType=paywall'
       }, 
       terminos:   'https://suscripciones.elcomercio.pe/terminos/',
       politicas:  'https://elcomercio.pe/politicas-privacidad/',
@@ -21,17 +27,17 @@ const PropertiesSite = {
       googlePlay: 'https://play.google.com/store/apps/details?id=com.gec.elcomercio&referrer=email_footer',
       bannerCorp: {
         prod:     '/suscripcionesdigitales/empresa/',
-        sandbox:  '/pf/suscripcionesdigitales/empresa/?_website=elcomercio&outputType=paywall'
+        sandbox:  '/suscripcionesdigitales/empresa/?_website=elcomercio&outputType=paywall'
       },
       subsPrint:  'https://suscripciones.elcomercio.pe/?ref=Boton_suscrip_imp',
       clickHelp:  'https://pe-eca.grupodigitex.com/C2C_Comercio/Ventas/Ventas.aspx?utm_source=web-suscripciones&utm_medium=boton&utm_campaign=C2C&utm_term=ayuda-llamar&utm_content=suscripciones-portada',
       profile: {
-        prod: '/mi-perfil/?outputType=signwall',
-        sandbox: '/pf/mi-perfil/?_website=elcomercio&outputType=signwall',
+        prod:     '/mi-perfil/?outputType=signwall',
+        sandbox:  '/mi-perfil/?_website=elcomercio&outputType=signwall',
       },
       arcOrigin: {
-        prod: 'https://api.elcomercio.pe',
-        sandbox: 'https://api-sandbox.elcomercio.pe',
+        prod:     'https://api.elcomercio.pe',
+        sandbox:  'https://api-sandbox.elcomercio.pe',
       },
     },
 
@@ -115,14 +121,20 @@ const PropertiesSite = {
     // prettier-ignore
     urls: {
       default:    '#',
-      mainHome:   'https://gestion.pe/?ref=paywall',
-      homeUrl:    'https://gestion.pe/suscripciones/?ref=paywall',
+      mainHome: {
+        prod:     'https://gestion.pe/?ref=paywall',
+        sandbox:  'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/?ref=paywall'
+      },
+      homeUrl:  {
+        prod:     'https://gestion.pe/suscripciones/?ref=paywall',
+        sandbox:  'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'
+      },
       facebook:   'https://www.facebook.com/Gestionpe',
       twitter:    'https://twitter.com/gestionpe',
       instangram: 'https://www.instagram.com/diariogestion/?hl=es',
       preguntas: {
         prod:     '/suscripcionesdigitales/faqs/',
-        sandbox:  '/pf/suscripcionesdigitales/faqs/?_website=gestion&outputType=paywall'
+        sandbox:  '/suscripcionesdigitales/faqs/?_website=gestion&outputType=paywall'
       },
       terminos:   'https://suscripciones.gestion.pe/terminos/',
       politicas:  'https://gestion.pe/politica-de-privacidad/',
@@ -133,16 +145,16 @@ const PropertiesSite = {
       googlePlay: 'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer',
       bannerCorp: {
         prod:     '/suscripcionesdigitales/empresa/',
-        sandbox:  '/pf/suscripcionesdigitales/empresa/?_website=gestion&outputType=paywall'
+        sandbox:  '/suscripcionesdigitales/empresa/?_website=gestion&outputType=paywall'
       },
       clickHelp:  'https://pe-eca.grupodigitex.com/C2C_Comercio/Gestion/Gestion.aspx?utm_source=web-suscripciones&utm_medium=boton&utm_campaign=C2C&utm_term=ayuda-llamar&utm_content=suscripciones-portada',
       profile: {
         prod:     '/mi-perfil/?outputType=signwall',
-        sandbox:  '/pf/mi-perfil/?_website=gestion&outputType=signwall',
+        sandbox:  '/mi-perfil/?_website=gestion&outputType=signwall',
       },
       arcOrigin: {
-        prod: 'https://api.gestion.pe',
-        sandbox: 'https://api-sandbox.gestion.pe',
+        prod:     'https://api.gestion.pe',
+        sandbox:  'https://api-sandbox.gestion.pe',
       }
     },
     emails: {

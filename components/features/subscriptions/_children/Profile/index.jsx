@@ -259,6 +259,12 @@ const Profile = ({ arcSite, arcEnv }) => {
     }
   }
 
+  const handleProfile = () => {
+    if (typeof window !== 'undefined') {
+      window.open(urls.profile[arcEnv], '_blank')
+    }
+  }
+
   useEffect(() => {
     // window.addEventListener('click', clickLoginSocialEcoID)
     return () => {
@@ -441,7 +447,10 @@ const Profile = ({ arcSite, arcEnv }) => {
           <div className="modal-container">
             <h4>
               {texts.haveSuscription}
-              <button className={styles.link} type="button" onClick={() => {}}>
+              <button
+                className={styles.link}
+                type="button"
+                onClick={handleProfile}>
                 Mi Perfil
               </button>
             </h4>

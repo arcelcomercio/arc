@@ -86,7 +86,7 @@ const LandingSubscriptions = () => {
         <div className="wrapper">
           <div className="header__content">
             <a
-              href={urls.homeUrl}
+              href={urls.mainHome[arcEnv]}
               target="_blank"
               rel="noreferrer"
               className="header__content-link">
