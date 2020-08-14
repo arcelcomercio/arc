@@ -8,6 +8,7 @@ const classes = {
     'secondary-font font-bold story-content__author-link header__link text-lg text-gray-200 line-h-sm',
   authorDate:
     'story-content__date flex items-center secondary-font text-md text-gray-200 line-h-sm',
+  authorTime: 'story-content__time',
   authorEmail:
     'story-content__author-email secondary-font text-md text-gray-200 line-h-sm',
 }

@@ -40,7 +40,7 @@ import { formatHtmlToText, addSlashToEnd } from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
-import { STORY_CORRECTION } from './constants/subtypes'
+import { STORY_CORRECTION, STORY_CUSTOMBLOCK } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -118,6 +118,12 @@ class StoryData {
   get title() {
     return (
       (this._data && this._data.headlines && this._data.headlines.basic) || ''
+    )
+  }
+
+  get locality() {
+    return (
+      (this._data && this._data.address && this._data.address.locality) || ''
     )
   }
 
@@ -1077,6 +1083,22 @@ class StoryData {
     return this.getMultimediaConfig().caption
   }
 
+  get contentElementCustomBlock() {
+    return (
+      (this._data &&
+        StoryData.getContentElementCustomBlock(this._data.content_elements)) ||
+      []
+    )
+  }
+
+  static getContentElementCustomBlock(data = []) {
+    return data && data.length > 0
+      ? data.filter(({ type, subtype }) => {
+          return type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CUSTOMBLOCK
+        })
+      : []
+  }
+
   getMultimediaBySize(size) {
     return (
       StoryData.getThumbnailBySize(
@@ -1632,6 +1654,7 @@ class StoryData {
         embed: {
           config: {
             content: contentCorrection = '',
+            customBlockContent: contentCustomblock = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1670,9 +1693,16 @@ class StoryData {
             result.link = url
             break
           case ELEMENT_CUSTOM_EMBED:
-            result.payload =
-              subtype === STORY_CORRECTION ? contentCorrection : ''
-            // result.correction_type = 'correction'
+            switch (subtype) {
+              case STORY_CORRECTION:
+                result.payload = contentCorrection
+                break
+              case STORY_CUSTOMBLOCK:
+                result.payload = contentCustomblock
+                break
+              default:
+                result.payload = ''
+            }
             result.subtype = subtype
             break
           case ELEMENT_LINK_LIST:

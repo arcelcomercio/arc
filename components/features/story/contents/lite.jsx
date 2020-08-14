@@ -48,7 +48,11 @@ import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCorrection from './_children/correction'
-import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
+import {
+  STORY_CORRECTION,
+  STORY_CUSTOMBLOCK,
+} from '../../../utilities/constants/subtypes'
+import StoryContentsChildCustomBlock from './_children/custom-block'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -124,7 +128,7 @@ const StoryContentsLite = () => {
     authorRole,
     authorLink,
     updatedDate: getDateSeo(updatedDate || createdDate),
-    date,
+    date: getDateSeo(date || createdDate),
     locality,
     primarySectionLink,
     authorEmail,
@@ -329,10 +333,7 @@ const StoryContentsLite = () => {
                   )
                 }
 
-                if (
-                  type === ELEMENT_CUSTOM_EMBED &&
-                  sub === STORY_CORRECTION
-                ) {
+                if (type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION) {
                   const {
                     config: { content: contentCorrectionConfig = '' } = {},
                   } = customEmbed || {}
@@ -343,6 +344,26 @@ const StoryContentsLite = () => {
                     />
                   )
                 }
+
+                if (
+                  type === ELEMENT_CUSTOM_EMBED &&
+                  sub === STORY_CUSTOMBLOCK
+                ) {
+                  const {
+                    config: {
+                      customBlockContent = '',
+                      customBlockType = '',
+                    } = {},
+                  } = customEmbed || {}
+                  return (
+                    <StoryContentsChildCustomBlock
+                      content={customBlockContent}
+                      type={customBlockType}
+                      isAmp={false}
+                    />
+                  )
+                }
+
                 if (type === ELEMENT_RAW_HTML) {
                   if (
                     content.includes('opta-widget') &&

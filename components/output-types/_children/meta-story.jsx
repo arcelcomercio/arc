@@ -60,6 +60,7 @@ export default ({
     sourceUrlOld,
     getPremiumValue,
     contentElementsRedesSociales,
+    contentElementCustomBlock = [],
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
   const parameters = {
     primarySectionLink,
@@ -289,6 +290,17 @@ export default ({
         )}",`
       : ''
 
+  const backStoryStructured = `
+  "backstory":"${contentElementCustomBlock
+    .map(element => {
+      return element.embed.config.customBlockType === 'backstory'
+        ? element.embed.config.customBlockContent
+        : ''
+    })
+    .join(' ')
+    .trim()
+    .replace(/\r?\n|\r/g, '')}", `
+
   let correctionStructuredItems = ''
   contentElementsCorrectionList.forEach(ele => {
     const {
@@ -322,7 +334,7 @@ export default ({
         ? publishDateZone
         : lastPublishDate
     }",
-
+    ${backStoryStructured}
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",
