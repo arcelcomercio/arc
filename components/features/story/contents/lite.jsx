@@ -49,8 +49,6 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import { STORY_CUSTOMBLOCK } from '../../../utilities/constants/subtypes'
 
-
-
 const classes = {
   news: 'story-contents w-full ',
   content: 'story-contents__content ',
@@ -117,7 +115,7 @@ class StoryContentsLite extends PureComponent {
       authorRole,
       authorLink,
       updatedDate: getDateSeo(updatedDate || createdDate),
-      date,
+      date: getDateSeo(date || createdDate),
       locality,
       primarySectionLink,
       authorEmail,
@@ -325,7 +323,10 @@ class StoryContentsLite extends PureComponent {
                     sub === STORY_CUSTOMBLOCK
                   ) {
                     const {
-                      config: { customBlockContent = '', customBlockType = '' } = {},
+                      config: {
+                        customBlockContent = '',
+                        customBlockType = '',
+                      } = {},
                     } = customEmbed || {}
                     return (
                       <StoryContentsChildCustomBlock
