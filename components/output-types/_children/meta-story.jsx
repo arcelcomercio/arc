@@ -299,6 +299,7 @@ export default ({
     })
     .join(' ')
     .trim()
+    .replace(/"/g, '\\"')
     .replace(/\r?\n|\r/g, '')}", `
 
   let correctionStructuredItems = ''
