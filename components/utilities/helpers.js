@@ -305,7 +305,7 @@ export const getCookie = cookieName => {
 }
 
 export const nlToBrTag = paragraph => {
-  return paragraph.trim().replace(/\\n/, '<br />')
+  return paragraph.trim().replace(/\r?\n|\r/g, '<br />')
 }
 
 export const formatSlugToText = (text = '', length = 0) => {

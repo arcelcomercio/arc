@@ -40,7 +40,10 @@ export default ({
     displayDate: publishDate,
     publishDate: publishDatedate,
     subTitle = arcSite,
-    seoAuthor,
+    authorImage,
+    author: authorName,
+    role: authorRole,
+    authorEmail,
     imagePrimarySeo,
     primarySection,
     primarySectionLink,
@@ -57,6 +60,7 @@ export default ({
     sourceUrlOld,
     getPremiumValue,
     contentElementsRedesSociales,
+    contentElementCustomBlock = [],
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -84,6 +88,23 @@ export default ({
 
   publishDateZone =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDate) : publishDateZone
+
+  const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
+
+  const structuredAutor = `
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${authorName}",
+    "image": "${authorImage || logoAuthor}",
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : "${authorEmail}"
+    },
+    "email": "${authorEmail}",
+    "jobTitle"	: "${authorRole}"
+  }`
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
@@ -286,6 +307,18 @@ export default ({
         )}",`
       : ''
 
+  const backStoryStructured = `
+  "backstory":"${contentElementCustomBlock
+    .map(element => {
+      return element.embed.config.customBlockType === 'backstory'
+        ? element.embed.config.customBlockContent
+        : ''
+    })
+    .join(' ')
+    .trim()
+    .replace(/"/g, '\\"')
+    .replace(/\r?\n|\r/g, '')}", `
+
   let correctionStructuredItems = ''
   contentElementsCorrectionList.forEach(ele => {
     const {
@@ -319,7 +352,7 @@ export default ({
         ? publishDateZone
         : lastPublishDate
     }",
-
+    ${backStoryStructured}
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",
@@ -330,9 +363,7 @@ export default ({
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }
-    "author":{    "@type":"Person",   "name":"${formatHtmlToText(
-      seoAuthor
-    )}"    },
+    "author": ${structuredAutor},
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
     arcSite,
     contextPath
