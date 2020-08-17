@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useContent } from 'fusion:content'
+import ENV from 'fusion:environment'
 
 import { VIDEO } from '../../../../utilities/constants/multimedia-types'
 import PlayList from './play-list'
@@ -174,11 +175,12 @@ export default ({
   if (principalVideo.video && principalVideo.promoItemsType === VIDEO) {
     const arrayMatch = principalVideo.video.match(/"powa-([\w\d-]+)"/)
     const idVideoPwa = arrayMatch.length > 0 ? arrayMatch[1] : ''
+    const env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
-    htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="prod" data-stream="${getResultVideo(
+    htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="${env}" data-stream="${getResultVideo(
       principalVideo && principalVideo.videoStreams,
       arcSite
-    )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="prod" data-preload=none ></div>`
+    )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="${env}" data-preload=none ></div>`
   }
 
   return (
