@@ -1,3 +1,5 @@
+import { isEmpty } from "../../utilities/helpers"
+
 export default ({ text = '', url = '' }) => {
   let type = 'NewsArticle'
   let isArray = false
@@ -49,4 +51,20 @@ export default ({ text = '', url = '' }) => {
     }
   }
   return isArray ? `[${type}]` : `"${type}"`
+}
+
+export const revisionAttr = ({ text = '', url = '' }, config = {}) => {
+  let attr = ''
+  if (text !== '' && url === 'revision' && !isEmpty(config)) {
+    const {
+      type_event: typeEvent = '',
+      name = '',
+      location_name: locationName = '',
+      location_address: locationAddress = '',
+      start_date: startDate = '',
+    } = config
+    attr = `"itemReviewed": { "@type": "${typeEvent}", "name": "${name}", "location": { "@type": "Place", "name": "${locationName}", "address": "${locationAddress}" }, "startDate": "${startDate}" },`
+  }
+
+  return attr
 }

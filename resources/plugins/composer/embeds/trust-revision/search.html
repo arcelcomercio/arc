@@ -1,0 +1,243 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Revisión - Search Trust Project</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <style>
+      .hoverable {
+        padding-top: 1em;
+        cursor: pointer;
+      }
+      .hoverable:hover {
+        background-color: #e2cdcd;
+      }
+    </style>
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Search Result Item -->
+      <div class="col-md-6 hoverable" id="%item_id%">
+        <div class="card mb-6 box-shadow">
+          <div class="card-body">
+            <p class="card-text text-muted">
+              <label style="display: block;"><span>%type_event%</span></label>
+              <label style="display: block;"><span>%name%</span></label>
+              <label style="display: block;"><span>%location_name%</span></label>
+              <label style="display: block;"><span>%location_address%</span></label>
+              <label style="display: block;"><span>%start_date%</span></label>
+            </p>
+          </div>
+        </div>
+      </div>
+    </template>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="mr-2"
+            >
+              <path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+              ></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <strong>Revisión de Nota</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <section class="jumbotron text-center my-0">
+        <div class="container">
+          <!-- Search Form -->
+          <p class="lead text-muted">
+            Ingrese los datos para la revisión
+          </p>
+          <p class="lead">
+          </p>
+          <label for="searchTypeEventRevision">Tipo de Evento:
+            <select name="searchTypeEventRevision" id="searchTypeEventRevision">
+              <option value="BusinessEvent">BusinessEvent</option>
+              <option value="ChildrensEvent">ChildrensEvent</option>
+              <option value="ComedyEvent">ComedyEvent</option>
+              <option value="CourseInstance">CourseInstance</option>
+              <option value="DanceEvent">DanceEvent</option>
+              <option value="DeliveryEvent">DeliveryEvent</option>
+              <option value="EducationEvent">EducationEvent</option>
+              <option value="EventSeries">EventSeries</option>
+              <option value="ExhibitionEvent">ExhibitionEvent</option>
+              <option value="Festival">Festival</option>
+              <option value="FoodEvent">FoodEvent</option>
+              <option value="Hackathon">Hackathon</option>
+              <option value="LiteraryEvent">LiteraryEvent</option>
+              <option value="MusicEvent">MusicEvent</option>
+              <option value="PublicationEvent">PublicationEvent</option>
+              <option value="SaleEvent">SaleEvent</option>
+              <option value="ScreeningEvent">ScreeningEvent</option>
+              <option value="SocialEvent">SocialEvent</option>
+              <option value="SportsEvent">SportsEvent</option>
+              <option value="TheaterEvent">TheaterEvent</option>
+              <option value="VisualArtsEvent">VisualArtsEvent</option>
+            </select>
+            
+          </label>
+          <label for="searchNameRevision">Nombre:
+            <input type="textfield" id="searchNameRevision" name="searchNameRevision" />
+          </label>
+          <label for="searchNameLocationRevision">Nombre del lugar:
+            <input type="textfield" id="searchNameLocationRevision" name="searchNameLocationRevision" />
+          </label>
+          <label for="searchAddressLocationRevision">Dirección del lugar:
+            <input type="textfield" id="searchAddressLocationRevision" name="searchAddressLocationRevision" />
+          </label>
+          <label for="searchStartDateRevision">Fecha de inicio:
+            <input type="textfield" placeholder="Ej. 2020-12-01" id="searchStartDateRevision" name="searchStartDateRevision" />
+          </label>
+          <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="search_content"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Regresar a la parte superior</a>
+        </p>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+    const sendMessage = function(action, data) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: 'custom_embed',
+          action,
+          data,
+          key: parseQueryString()['k']
+        }),
+        '*'
+      )
+    }
+
+    const parseQueryString = function() {
+      const params = location.search.split('?')[1] || ''
+      const kv = params.split('&')
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split('=')
+        return Object.assign(result, {
+          [key]: value
+        })
+      }, {})
+    }
+
+    // ------------------------------------------------
+
+
+    const idEl =  Date.now() + '-' + Math.floor(Math.random() * 1000000)
+    let typeEvent = ''
+    let name = ''
+    let locationName = ''
+    let locationAddress = ''
+    let startDate = ''
+    let data = {}
+
+    const getYYYYMMDDfromISO = date =>
+      date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+    const getActualDate = () => {
+      const today = new Date()
+      today.setHours(today.getHours() - 5)
+      return getYYYYMMDDfromISO(today)
+    }
+
+    const handleSearch = () => {
+      const selectTypeEvent = document.getElementById('searchTypeEventRevision');
+      typeEvent = selectTypeEvent.options[selectTypeEvent.selectedIndex].value;
+      name = document.getElementById('searchNameRevision').value;
+      locationName = document.getElementById('searchNameLocationRevision').value;
+      locationAddress = document.getElementById('searchAddressLocationRevision').value;
+      startDate = document.getElementById('searchStartDateRevision').value;
+
+      if (content && name && locationName && locationAddress && startDate ) buildMessage()
+    }
+
+    const buildMessage = () => {
+
+      const ansCustomEmbed = {
+        id: idEl,
+        url: '/pf/api/v3/content/fetch/photo-by-id',
+        config: {
+          "type_event": typeEvent || '',
+          "name": name || '',
+          "location_name": locationName || '',
+          "location_address": locationAddress || '',
+          "start_date": startDate || '',
+        }
+      }
+
+      sendMessage('data', ansCustomEmbed)
+    }
+
+
+    // ------------------------------------------------
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+    }
+    </script>
+  </body>
+</html>

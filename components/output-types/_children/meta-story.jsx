@@ -20,7 +20,7 @@ import {
 } from '../../utilities/constants/sitenames'
 import { getResizedUrl } from '../../utilities/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
-import workType from '../_dependencies/work-type'
+import workType, { revisionAttr } from '../_dependencies/work-type'
 
 export default ({
   globalContent: data,
@@ -49,6 +49,7 @@ export default ({
     contentElementsText: dataElement,
     contentElementsHtml = [],
     contentElementsCorrectionList = [],
+    firstContentElementsRevision = {},
     seoKeywords,
     breadcrumbList,
     multimediaType,
@@ -295,8 +296,11 @@ export default ({
   console.log('====Data===', data)
   console.log('====trustproject===', trustproject)
   const trustType = workType(trustproject) || '"NewsArticle"'
+  const { config: configRevision = {} } = firstContentElementsRevision
+  console.log('====firstContentElementsRevision===', firstContentElementsRevision)
+  const revisionWorkType = revisionAttr(trustproject, configRevision) || ''
 
-  const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, "datePublished":"${publishDateZone}",
+  const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_DEPOR ||

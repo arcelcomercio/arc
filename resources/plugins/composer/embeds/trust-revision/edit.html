@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Revisión - Edit Trust Project</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Item -->
+      <div class="col-md-12" id="%item_id%">
+        <div class="card mb-4 box-shadow" style="flex-direction: row;"
+          id="content_card">
+          <div class="card-body">
+            <strong>Revisión de Nota</strong> <br>
+            <p class="card-text text-muted">
+              Tipo de evento: %type_event%
+            </p>
+            <p class="card-text text-muted">
+              Nombre: %name%
+            </p>
+            <p class="card-text text-muted">
+              Nombre del lugar: %location_name%
+            </p>
+            <p class="card-text text-muted">
+              Dirección del lugar: %location_name%
+            </p>
+            <p class="card-text text-muted">
+              Fecha de inicio: %start_date%
+            </p>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <main role="main">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="content_holder">
+            Cargando...
+          </div>
+
+          <!-- Edit Form -->
+          <div class="row" id="config_edit">
+            <div class="col-md-12">
+              <label for="type_event"><span>Tipo de evento</span>
+                <select name="type_event" id="type_event">
+                  <option value="BusinessEvent">BusinessEvent</option>
+                  <option value="ChildrensEvent">ChildrensEvent</option>
+                  <option value="ComedyEvent">ComedyEvent</option>
+                  <option value="CourseInstance">CourseInstance</option>
+                  <option value="DanceEvent">DanceEvent</option>
+                  <option value="DeliveryEvent">DeliveryEvent</option>
+                  <option value="EducationEvent">EducationEvent</option>
+                  <option value="EventSeries">EventSeries</option>
+                  <option value="ExhibitionEvent">ExhibitionEvent</option>
+                  <option value="Festival">Festival</option>
+                  <option value="FoodEvent">FoodEvent</option>
+                  <option value="Hackathon">Hackathon</option>
+                  <option value="LiteraryEvent">LiteraryEvent</option>
+                  <option value="MusicEvent">MusicEvent</option>
+                  <option value="PublicationEvent">PublicationEvent</option>
+                  <option value="SaleEvent">SaleEvent</option>
+                  <option value="ScreeningEvent">ScreeningEvent</option>
+                  <option value="SocialEvent">SocialEvent</option>
+                  <option value="SportsEvent">SportsEvent</option>
+                  <option value="TheaterEvent">TheaterEvent</option>
+                  <option value="VisualArtsEvent">VisualArtsEvent</option>
+                </select>
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label for="name"><span>Nombre</span>
+                <input id="name" name="name" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label for="location_name"><span>Nombre del lugar</span>
+                <input id="location_name" name="location_name" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label for="location_address"><span>Dirección del lugar</span>
+                <input id="location_address" name="location_address" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label for="start_date"><span>Fecha de inicio</span>
+                <input id="start_date" name="start_date" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-12 p-3">
+              <button type="button" class="btn btn-primary" id="btn_apply">
+                Aceptar
+              </button>
+              <button type="button" class="btn btn-light mx-1" id="btn_cancel">
+                Cerrar
+              </button>
+            </div>
+
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script>
+    const sendMessage = function(action, data) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: 'custom_embed',
+          action,
+          data,
+          key: parseQueryString()['k']
+        }),
+        '*'
+      )
+    }
+
+    const parseQueryString = function() {
+      const params = location.search.split('?')[1] || ''
+      const kv = params.split('&')
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split('=')
+        return Object.assign(result, {
+          [key]: value
+        })
+      }, {})
+    }
+
+     let data = {}      // ANS custom embed response
+     // let content = {}   // The fetched content from external data source
+
+     // -------------------------------------------------
+
+
+
+    // Render the content data and contextual configuration together
+    const render = (dataParams) => {
+
+      // Setup Element Preview
+      const config = dataParams.config || {}
+      const template = document.getElementById('content_template').innerHTML
+      const html = template
+        .replace(/%item_id%/gi, 'row-' + config.id)
+        .replace(/%type_event%/gi, config.type_event)
+        .replace(/%name%/gi, config.name)
+        .replace(/%location_name%/gi, config.location_name)
+        .replace(/%location_address%/gi, config.location_address)
+        .replace(/%start_date%/gi, config.start_date)
+        .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
+
+      const element = document.createElement('div')
+      document.getElementById('content_holder').innerHTML = ''
+      document.getElementById('content_holder').appendChild(element)
+      element.outerHTML = html
+
+      // Update form state
+      const selectTypeEvent = document.getElementById('type_content');
+      selectTypeEvent.options[selectTypeEvent.selectedIndex].value = (config.type_content || "");
+      selectTypeEvent.options[selectTypeEvent.selectedIndex].textContent = (config.type_content || "");
+      document.getElementById('name').value = (config.name || "")
+      document.getElementById('location_name').value = (config.location_name || "")
+      document.getElementById('location_address').value = (config.location_address || "")
+      document.getElementById('start_date').value = (config.start_date || "")
+    }
+
+    const getYYYYMMDDfromISO = date =>
+      date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+    const getActualDate = () => {
+      const today = new Date()
+      today.setHours(today.getHours() - 5)
+      return getYYYYMMDDfromISO(today)
+    }
+
+     // Update config based on form changes, submit back to Composer and re-render
+    const applyChanges = () => {
+      const selectTypeEvent = document.getElementById('type_content');
+      data.config.type_content = selectTypeEvent.options[selectTypeEvent.selectedIndex].value
+      data.config.name = document.getElementById('name').value
+      data.config.location_name = document.getElementById('location_name').value
+      data.config.location_address = document.getElementById('location_address').value
+      data.config.start_date = document.getElementById('start_date').value
+       // Update Composer and re-render form
+      sendMessage('data', data)
+      render(data)
+    }
+
+     // -------------------------------------------------
+
+    const dismissEditor = () => {
+      sendMessage('cancel')
+    }
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+      data = JSON.parse(decodeURIComponent(parameters.p))
+      render(data)
+      document.getElementById('btn_apply').onclick = applyChanges
+      document.getElementById('btn_cancel').onclick = dismissEditor
+    }
+    </script>
+  </body>
+</html>

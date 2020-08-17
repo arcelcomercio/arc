@@ -40,7 +40,7 @@ import { formatHtmlToText, addSlashToEnd } from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
-import { STORY_CORRECTION } from './constants/subtypes'
+import { STORY_CORRECTION, WORK_TYPE_REVISION } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -785,6 +785,16 @@ class StoryData {
     )
   }
 
+  get firstContentElementsRevision() {
+    return (
+      (this._data &&
+        StoryData.getFirstContentElementsRevision(
+          this._data.content_elements
+        )) ||
+      []
+    )
+  }
+
   get contentElementGallery() {
     return (
       (this._data &&
@@ -1248,6 +1258,15 @@ class StoryData {
           return type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CORRECTION
         })
       : []
+  }
+
+  static getFirstContentElementsRevision(data = []) {
+    return data && data.length > 0
+      ? data.find(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === WORK_TYPE_REVISION
+        )
+      : {}
   }
 
   static getContentElementsHtml(data = [], typeElement = '') {

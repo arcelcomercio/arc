@@ -8,3 +8,5 @@ export const GALLERY_VERTICAL = 'gallery_vertical'
 export const BIG_IMAGE = 'image_big'
 
 export const STORY_CORRECTION = 'story_correction'
+
+export const WORK_TYPE_REVISION = 'work_type_revision'
