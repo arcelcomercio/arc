@@ -76,8 +76,8 @@
           </p>
           <p class="lead">
           </p>
-          <label for="searchTypeEventRevision">Tipo de Evento:
-            <select name="searchTypeEventRevision" id="searchTypeEventRevision">
+          <label class="w-100" for="searchTypeEventRevision">Tipo de Evento:
+            <select class="w-100" name="searchTypeEventRevision" id="searchTypeEventRevision">
               <option value="BusinessEvent">BusinessEvent</option>
               <option value="ChildrensEvent">ChildrensEvent</option>
               <option value="ComedyEvent">ComedyEvent</option>
@@ -102,17 +102,17 @@
             </select>
             
           </label>
-          <label for="searchNameRevision">Nombre:
-            <input type="textfield" id="searchNameRevision" name="searchNameRevision" />
+          <label class="w-100" for="searchNameRevision">Nombre:
+            <input class="w-100" type="textfield" id="searchNameRevision" name="searchNameRevision" />
           </label>
-          <label for="searchNameLocationRevision">Nombre del lugar:
-            <input type="textfield" id="searchNameLocationRevision" name="searchNameLocationRevision" />
+          <label class="w-100" for="searchNameLocationRevision">Nombre del lugar:
+            <input class="w-100" type="textfield" id="searchNameLocationRevision" name="searchNameLocationRevision" />
           </label>
-          <label for="searchAddressLocationRevision">Dirección del lugar:
-            <input type="textfield" id="searchAddressLocationRevision" name="searchAddressLocationRevision" />
+          <label class="w-100" for="searchAddressLocationRevision">Dirección del lugar:
+            <input class="w-100" type="textfield" id="searchAddressLocationRevision" name="searchAddressLocationRevision" />
           </label>
-          <label for="searchStartDateRevision">Fecha de inicio:
-            <input type="textfield" placeholder="Ej. 2020-12-01" id="searchStartDateRevision" name="searchStartDateRevision" />
+          <label class="w-100" for="searchStartDateRevision">Fecha de inicio:
+            <input class="w-100" type="textfield" placeholder="Ej. 2020-12-01" id="searchStartDateRevision" name="searchStartDateRevision" />
           </label>
           <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
         </div>
@@ -200,7 +200,7 @@
       locationAddress = document.getElementById('searchAddressLocationRevision').value;
       startDate = document.getElementById('searchStartDateRevision').value;
 
-      if (content && name && locationName && locationAddress && startDate ) buildMessage()
+      if (typeEvent && name && locationName && locationAddress && startDate ) buildMessage()
     }
 
     const buildMessage = () => {
