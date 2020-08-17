@@ -16,12 +16,12 @@ const AuthorBiography = ({
   expertise,
   awards,
 }) => {
-  const twitterData = twitter.split(',')
-  const expertiseData = expertise.replace(/{[^}]+}/g, '')
+  const twitterData = (twitter && twitter.split(','))
+  const expertiseData = (expertise && expertise.replace(/{[^}]+}/g, ''))
   return (
     <>
       {role && <h3 className={classes.subtitle}>{role}</h3>}
-      {twitterData[0] && <h4 className={classes.social}>{twitterData[0]}</h4>}
+      {twitterData && twitterData[0] && <h4 className={classes.social}>{twitterData[0]}</h4>}
       {bio && (
         <>
           <br />
@@ -69,7 +69,7 @@ const AuthorBiography = ({
           </p>
         </>
       )}
-      {awards && awards.length && (
+      {awards && (awards.length > 0) && (
         <p className={classes.content}>
           <strong>Premios: </strong>
           <ul>
