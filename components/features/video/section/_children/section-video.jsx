@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useContent } from 'fusion:content'
+
 import { VIDEO } from '../../../../utilities/constants/multimedia-types'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
@@ -29,6 +31,15 @@ export default ({
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
   const { urlPreroll } = siteProperties
+  const { resized_urls: { videoPoster } = {} } =
+    useContent({
+      source: 'photo-resizer',
+      query: {
+        url: principalVideo.image,
+        presets: 'videoPoster:560x0',
+      },
+    }) || {}
+
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
     // No ocultar si es desktop
@@ -46,11 +57,32 @@ export default ({
       window.preroll = urlPreroll
       window.PoWaSettings.advertising = {
         adBar: false,
-        adTag: () => {
-          return principalVideo.hasAdsVideo ? urlPreroll : ''
+        adTag: () => (principalVideo.hasAdsVideo ? urlPreroll : ''),
+      }
+      window.PoWaSettings.promo = {
+        style: {
+          '.powa-shot-image': {
+            backgroundImage: `url('${videoPoster || principalVideo.image}')`,
+            backgroundSize: 'contain',
+          },
+          '.powa-shot-play-btn': {
+            color: 'rgb(240, 248, 255)',
+            fill: 'rgb(240, 248, 255)',
+            backgroundColor: 'rgba(0, 0, 0, 0.25)',
+            boxShadow: '0 0 10px 5px rgba(0, 0, 0, 0.25)',
+            transition: 'all 0.25s',
+            borderRadius: '2em',
+          },
+          '.powa-shot-play-icon': {
+            opacity: '0.85',
+          },
+          '.powa-shot-loading-icon': {
+            opacity: '0.85',
+          },
         },
       }
     }
+
     if (window.innerWidth < 640) {
       window.addEventListener('powaReady', ({ detail: { element } }) => {
         element.setAttribute('data-sticky', 'true')
