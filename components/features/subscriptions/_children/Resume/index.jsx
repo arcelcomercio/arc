@@ -35,6 +35,7 @@ const Resume = () => {
     updatePlan,
     updatePeriod,
   } = useContext(AuthContext)
+
   const [checkPlan, setCheckPlan] = useState()
   const [totalPlan, setTotalPlan] = useState()
   const { urls } = PropertiesSite[arcSite]
@@ -44,9 +45,7 @@ const Resume = () => {
   const formatName = () => {
     const fullName = `${firstName || 'Usuario'} ${lastName ||
       ''} ${secondLastName || ''}`
-    return fullName.length >= 103
-      ? `${fullName.substring(0, 100)}...`
-      : fullName
+    return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
   }
 
   const period = {
@@ -65,6 +64,21 @@ const Resume = () => {
   const callHelp = () => {
     if (typeof window !== 'undefined') {
       window.open(urls.clickHelp, '_blank')
+    }
+  }
+
+  const handleChangeDates = () => {
+    updateStep(2)
+    const divDetail = document.getElementById('div-detail')
+    const btnDetail = document.getElementById('btn-detail')
+    const divFooter = document.getElementById('footer')
+    if (divDetail && btnDetail && divFooter) {
+      divDetail.classList.remove('step__show-detail')
+      btnDetail.classList.remove('step__hidden')
+      divFooter.classList.remove('step__hidden')
+
+      document.body.classList.remove('no-scroll')
+      document.body.classList.remove('bg-shop')
     }
   }
 
@@ -170,7 +184,7 @@ const Resume = () => {
               className="step__btn-link"
               type="button"
               disabled={loadPage}
-              onClick={() => updateStep(2)}>
+              onClick={handleChangeDates}>
               Cambiar Datos
             </button>
             <h4>{formatName()}</h4>

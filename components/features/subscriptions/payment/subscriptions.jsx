@@ -71,7 +71,7 @@ const WrapperPaymentSubs = () => {
                 // prettier-ignore
                 switch (userStep) {
                   case 2:
-                    return userLoaded ? <Profile {...{arcSite, arcEnv}} /> : <Singwall {...{arcSite, arcEnv}} />
+                    return userLoaded ? <Profile {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}} />
                   case 3:
                     return userLoaded ? <Pay {...{arcSite, arcEnv}}/> : <Singwall {...{arcSite, arcEnv}} />
                   case 4:

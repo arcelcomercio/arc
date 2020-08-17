@@ -1,12 +1,5 @@
-/* eslint-disable react/jsx-filename-extension */
-
-/**
- * OJO Este componente cuenta con 2 tipos de Profile:
- * @Profile
- * @ProfilePrint
- */
-
 import React, { useState, useContext, useEffect } from 'react'
+import { useFusionContext } from 'fusion:context'
 import useForm from '../../_hooks/useForm'
 import { conformProfile } from '../../_dependencies/Session'
 import { getEntitlements } from '../../_dependencies/Services'
@@ -33,7 +26,12 @@ const styles = {
   link: 'step__btn-link',
 }
 
-const Profile = ({ arcSite, arcEnv }) => {
+const Profile = ({ arcEnv }) => {
+  const {
+    arcSite,
+    globalContent: { error, printedSubscriber },
+  } = useFusionContext() || {}
+
   const { updateStep, userLogout, updateUser } = useContext(AuthContext)
   const [msgError, setMsgError] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -89,6 +87,10 @@ const Profile = ({ arcSite, arcEnv }) => {
     },
     uDocumentNumber: {
       required: true,
+      validator: {
+        func: value => /^([0-9]{8})+$/.test(value),
+        error: 'Formato Inválido',
+      },
     },
     uPhone: {
       required: true,
@@ -251,6 +253,10 @@ const Profile = ({ arcSite, arcEnv }) => {
     handleOnChange(e)
   }
 
+  const handleChangeSelect = e => {
+    handleOnChange(e)
+  }
+
   const logoutUser = () => {
     if (typeof window !== 'undefined') {
       window.Identity.logout().finally(() => {
@@ -283,10 +289,10 @@ const Profile = ({ arcSite, arcEnv }) => {
       </ul>
       <h3 className={styles.subtitle}>Ingresa tus datos personales</h3>
 
-      {msgError && (
+      {(msgError || error) && (
         <div className={styles.block}>
           <div className="msg-alert">
-            {` ${msgError} `}
+            {` ${msgError || error} `}
             {linkLogin && (
               <>
                 <button
@@ -298,6 +304,12 @@ const Profile = ({ arcSite, arcEnv }) => {
               </>
             )}
           </div>
+        </div>
+      )}
+
+      {printedSubscriber && (
+        <div className={styles.block}>
+          <div className="msg-success">{texts.successSubsPrint}</div>
         </div>
       )}
 
@@ -367,7 +379,7 @@ const Profile = ({ arcSite, arcEnv }) => {
               <select
                 name="uDocumentType"
                 value={uDocumentType}
-                onChange={handleOnChange}>
+                onChange={handleChangeSelect}>
                 <option value="DNI">DNI</option>
                 <option value="CDI">CDI</option>
                 <option value="CEX">CEX</option>
@@ -376,7 +388,7 @@ const Profile = ({ arcSite, arcEnv }) => {
                 className={uDocumentNumberError && 'input-error'}
                 type="text"
                 name="uDocumentNumber"
-                maxLength="8"
+                maxLength={uDocumentType === 'DNI' ? '8' : '15'}
                 value={uDocumentNumber}
                 required
                 onChange={handleChangeInput}

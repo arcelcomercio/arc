@@ -319,6 +319,8 @@ const PropertiesSite = {
       haveSuscription: `Estimado suscriptor ya cuentas con una suscripción activa. Ver los detalles en: `,
       continuedShop: '¿Desea continuar con la compra?',
       contactTo: 'Cualquier consulta contáctanos enviando un correo a',
+      successSubsPrint:
+        'ACCEDE A ESTOS **PRECIOS ESPECIALES** POR SER SUSCRIPTOR IMPRESO',
     },
   },
 }

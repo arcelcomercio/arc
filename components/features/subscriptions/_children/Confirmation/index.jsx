@@ -35,14 +35,19 @@ const Confirmation = ({ arcSite, arcEnv }) => {
     orderNumber,
   } = userPurchase
 
+  const formatName = () => {
+    const fullName = `${firstName} ${lastName} ${secondLastName}`
+    return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
+  }
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const divStep = document.getElementById('main-steps')
-      if (divStep) divStep.classList.add('bg-white')
-
       if (!userPurchase.status) {
         updateStep(2)
+        if (divStep) divStep.classList.remove('bg-white')
       } else {
+        if (divStep) divStep.classList.add('bg-white')
         const { accessToken } = window.Identity.userIdentity
         const origin =
           window.sessionStorage.getItem('paywall_type_modal') || 'organico'
@@ -68,15 +73,15 @@ const Confirmation = ({ arcSite, arcEnv }) => {
   const goToHome = () => {
     if (typeof window !== 'undefined') {
       setLoading(true)
-      window.location.href =
-        // eslint-disable-next-line no-nested-ternary
-        window.sessionStorage.hasOwnProperty('paywall_last_url') &&
-        window.sessionStorage.getItem('paywall_last_url') !== ''
-          ? window.sessionStorage.getItem('paywall_last_url') ===
-            '/suscripciones/'
-            ? urlsSite.mainHome[arcEnv]
-            : window.sessionStorage.getItem('paywall_last_url')
-          : urlsSite.mainHome[arcEnv]
+      const urlLocal = window.sessionStorage.getItem('paywall_last_url')
+      let urlRedirect = urlsSite.mainHome[arcEnv]
+      if (urlLocal) {
+        urlRedirect =
+          urlLocal !== '' && urlLocal !== '/suscripciones/'
+            ? urlLocal
+            : urlsSite.mainHome[arcEnv]
+      }
+      window.location.href = urlRedirect
     }
   }
 
@@ -98,9 +103,7 @@ const Confirmation = ({ arcSite, arcEnv }) => {
           <p className="description">{`${userPeriod}`}</p>
 
           <p className="title">Nombre</p>
-          <p className="description">
-            {`${firstName} ${lastName} ${secondLastName}`}
-          </p>
+          <p className="description">{formatName()}</p>
 
           <p className="title">Precio</p>
           <p className="description">{`S/ ${total}.00`}</p>

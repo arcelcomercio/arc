@@ -16,6 +16,12 @@ const patternCard = [/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/
 const patternDate = [/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
 const patterCvv = [/\d/, /\d/, /\d/, /\d/]
 
+// const patternDNI = new Array(8).fill(/\d/)
+// const patternCEX = new Array(15).fill(/[a-zA-Z0-9-]/)
+// const patternCDI = new Array(15).fill(/[a-zA-Z0-9-]/)
+// // prettier-ignore
+// const patternPHONE = [/\d/,/\d/,/\d/," ",/\d/,/\d/,/\d/, " ", /\d/, /\d/,/\d/, " ", /\d/, /\d/,/\d/]
+
 export {
   passRecomend,
   emailRegex,

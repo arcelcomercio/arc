@@ -7,7 +7,7 @@
  * @FooterPrint
  */
 
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 import PropertiesSite from '../_dependencies/Properties'
 import { AuthContext } from '../_context/auth'
@@ -25,6 +25,7 @@ const styles = {
 
 export const FooterSubs = ({ arcEnv }) => {
   const { userLoaded, userStep } = useContext(AuthContext)
+  const [loading, setLoading] = useState(false)
   const { urls } = PropertiesSite.common
   const {
     globalContent: { printAttributes = [] },
@@ -51,6 +52,7 @@ export const FooterSubs = ({ arcEnv }) => {
 
   const handleValidateDNI = ({ vDocumentType, vDocumentNumber }) => {
     if (typeof window !== 'undefined') {
+      setLoading(true)
       window.Identity.heartbeat()
         .then(resHeart => {
           subDniToken(urls.subsDniToken[arcEnv], resHeart.accessToken)
@@ -60,18 +62,21 @@ export const FooterSubs = ({ arcEnv }) => {
                   window.location.href =
                     arcEnv === 'prod'
                       ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/`
-                      : `/pf/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/?_website=elcomercio&outputType=subscriptions`
+                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/?outputType=subscriptions`
                 }, 1000)
               } else {
                 window.console.error('Hubo un error con la respuesta') // Temporal hasta implementar Sentry
+                setLoading(false)
               }
             })
             .catch(errDniToken => {
               window.console.error(errDniToken) // Temporal hasta implementar Sentry
+              setLoading(false)
             })
         })
         .catch(errHeart => {
           window.console.error(errHeart) // Temporal hasta implementar Sentry
+          setLoading(false)
         })
     }
     return ''
@@ -140,7 +145,7 @@ export const FooterSubs = ({ arcEnv }) => {
                           className="btn-next"
                           type="submit"
                           disabled={disable}>
-                          Validar
+                          {loading ? 'Validando...' : 'Validar'}
                         </button>
                       </div>
                       {/* {vDocumentNumberError && (

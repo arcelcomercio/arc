@@ -85,9 +85,18 @@ const Pay = ({ arcSite, arcEnv }) => {
     },
     cExpire: {
       required: true,
+      validator: {
+        func: value =>
+          /^(0[1-9]|1[0-2])\/?(((202)\d{1}|(202)\d{1})|(2)\d{1})$/.test(value),
+        error: 'Fecha incorrecta',
+      },
     },
     cCvv: {
       required: true,
+      validator: {
+        func: value => /^([0-9]{3,})+$/.test(value),
+        error: 'CVV Inválido',
+      },
     },
     cTerms: {
       required: true,
@@ -345,7 +354,7 @@ const Pay = ({ arcSite, arcEnv }) => {
                 className={cCvvError && 'input-error'}
                 type="text"
                 name="cCvv"
-                maxLength="3"
+                maxLength={methodCard === 'AMEX' ? '4' : '3'}
                 value={cCvv}
                 required
                 onChange={handleOnChangeInput}
