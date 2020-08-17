@@ -5,7 +5,7 @@ import customFields from './_dependencies/custom-fields'
 const classes = {
   container: 'editorial-team p-25 mt-25 bg-gray-100 rounded-sm w-full h-full',
   title: 'pb-20 title-xs font-xbold text-black',
-  listItem: 'pb-10 secondary-font text-md text-gray-200',
+  listItem: 'secondary-font line-h-lg text-md text-gray-200',
 }
 
 const AuthorsEditorialTeam = props => {
