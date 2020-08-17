@@ -25,7 +25,7 @@ export default {
   mobileHeaderFollowing: 'Siguenos en Depor',
   siteDescription:
     'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  googleNewsImage: 'https://depor.com/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',

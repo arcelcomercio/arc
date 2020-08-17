@@ -27,7 +27,7 @@ const options = {
   },
 }
 
-const excludedFieldsStory = '&_sourceExclude=owner,address,websites,language'
+const excludedFieldsStory = '&_sourceExclude=owner,websites,language'
 const fetch = ({
   website_url: websiteUrl,
   'arc-site': website,

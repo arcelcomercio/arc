@@ -7,7 +7,7 @@ import { arrayMonths, arrayDays } from '../../utilities/date-time/constants'
 import { formatSlugToText } from '../../utilities/parse/strings'
 
 const classes = {
-  title: 'w-full mt-20 custom-title',
+  title: 'w-full pt-10 mt-20 custom-title',
   button:
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200',
   darkButton:
@@ -23,6 +23,7 @@ const CustomTitle = props => {
       isUppercase,
       isThreeCol,
       isCustomBorder,
+      subLine,
       seeMoreButton,
       customText,
       isDarkBg,
@@ -90,7 +91,9 @@ const CustomTitle = props => {
           isCustomBorder ? 'custom-border' : ''
         } ${seeMoreButton ? 'position-relative ' : ''} ${
           isDarkBg ? 'dark-bg text-white bg-base-100' : ''
-        } ${size}`}>
+        } ${size} ${
+          subLine ? 'border-b-1 border-solid border-gray pb-20' : 'pb-10'
+        }`}>
         {customText ||
           sectionName ||
           tagName ||
@@ -111,7 +114,7 @@ const CustomTitle = props => {
       {subtitleField && (
         <h2
           itemProp="name"
-          className="text-lg mt-10 mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0"
+          className={`text-lg ${subLine ? 'mt-20' : 'mt-10'} mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
           dangerouslySetInnerHTML={{ __html: subtitleField }}
         />
       )}
@@ -161,6 +164,9 @@ CustomTitle.propTypes = {
     }),
     isDarkBg: PropTypes.bool.tag({
       name: 'Fondo personalizado',
+    }),
+    subLine: PropTypes.bool.tag({
+      name: 'Borde inferior',
     }),
     seeMoreButton: PropTypes.bool.tag({
       name: 'Agregar botón "Ver más"',

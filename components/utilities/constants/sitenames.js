@@ -1,7 +1,4 @@
 // Nombre de los Sitios
-
-export const SITE_PUBLIMETRO = 'publimetro'
-
 export const SITE_GESTION = 'gestion'
 
 export const SITE_DEPOR = 'depor'

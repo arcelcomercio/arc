@@ -59,8 +59,6 @@ class ConfigParams {
   static ELEMENT_LINK_LIST = 'link_list'
 
   // nombre de los Sitios
-  static SITE_PUBLIMETRO = 'publimetro'
-
   static SITE_GESTION = 'gestion'
 
   static SITE_DEPOR = 'depor'
