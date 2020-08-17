@@ -9,6 +9,8 @@ content_elements {
   _id
   type
   content
+  text
+  correction_type
   caption
   embed{
     id
@@ -23,6 +25,8 @@ content_elements {
       recipeYield
       puntuation
       countReviews
+      content
+      date
     }
   }
   raw_oembed{

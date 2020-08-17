@@ -46,6 +46,8 @@ import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildCorrection from './_children/correction'
+import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -220,7 +222,9 @@ class StoryContentsLite extends PureComponent {
                             id="gpt_inline"
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
                             data-ads-dimensions="[[1,1]]"
-                            data-ads-dimensions-m="[[1,1]]"></div>
+                            data-ads-dimensions-m="[[1,1]]"
+                            data-ads-load-first
+                            data-prebid-enabled></div>
                         )}
                         {nameAds === 'caja4' && (
                           <div
@@ -313,6 +317,20 @@ class StoryContentsLite extends PureComponent {
                     )
                   }
 
+                  if (
+                    type === ELEMENT_CUSTOM_EMBED &&
+                    sub === STORY_CORRECTION
+                  ) {
+                    const {
+                      config: { content: contentCorrectionConfig = '' } = {},
+                    } = customEmbed || {}
+                    return (
+                      <StoryContentsChildCorrection
+                        content={contentCorrectionConfig}
+                        isAmp={false}
+                      />
+                    )
+                  }
                   if (type === ELEMENT_RAW_HTML) {
                     if (
                       content.includes('opta-widget') &&

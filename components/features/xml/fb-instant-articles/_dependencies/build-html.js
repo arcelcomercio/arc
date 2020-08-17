@@ -9,12 +9,16 @@ import {
   isEmpty,
 } from '../../../../utilities/helpers'
 import recommederBySite from '../_children/recommeder-by-site'
+import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
+import { STORY_CORRECTION } from '../../../../utilities/constants/subtypes'
 // import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
  * TODO:TEMP: esto se ha hecho temporalmente hasta final del mes de
  * JUNIO 2020, una vez que pase esa fecha se debe eliminar esta
  * funcion y descomentar la que se importa de story/helpers
+ *
+ * asi decian
  */
 const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
@@ -67,6 +71,24 @@ const buildTexParagraph = paragraph => {
   result.processedParagraph =
     result.numberWords > 0 ? `<p>${cleanTag(paragraph)}</p>` : ''
 
+  return result
+}
+
+const CORRECTION_TYPE_CORRECTION = 'correction'
+
+const buildCorrectionTexParagraph = (
+  paragraph,
+  type = CORRECTION_TYPE_CORRECTION
+) => {
+  const title =
+    type === CORRECTION_TYPE_CORRECTION ? 'Corrección:' : 'Aclaración:'
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
+
+  result.processedParagraph =
+    result.numberWords > 0
+      ? `<blockquote><b>${title}</b> ${cleanTag(paragraph)}</blockquote>`
+      : ''
   return result
 }
 
@@ -123,6 +145,7 @@ const buildListLinkParagraph = (items, defaultImage, arcSite) => {
 const analyzeParagraph = ({
   originalParagraph,
   type = '',
+  subtype = '',
   numberWordMultimedia,
   level = null,
   opta,
@@ -156,6 +179,17 @@ const analyzeParagraph = ({
 
       result.numberWords = textProcess.numberWords
       result.processedParagraph = textProcess.processedParagraph
+
+      break
+    case ELEMENT_CUSTOM_EMBED:
+      if (subtype === STORY_CORRECTION) {
+        textProcess = buildCorrectionTexParagraph(
+          processedParagraph,
+          CORRECTION_TYPE_CORRECTION
+        )
+        result.numberWords = textProcess.numberWords
+        result.processedParagraph = textProcess.processedParagraph
+      }
 
       break
     case ConfigParams.ELEMENT_LINK_LIST:
@@ -342,6 +376,7 @@ const ParagraphshWithAdds = ({
       ({
         payload: originalParagraph,
         type,
+        subtype = '',
         level,
         link = '',
         streams = [],
@@ -351,6 +386,7 @@ const ParagraphshWithAdds = ({
         let { processedParagraph, numberWords } = analyzeParagraph({
           originalParagraph,
           type,
+          subtype,
           numberWordMultimedia,
           level,
           opta,

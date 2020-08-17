@@ -43,6 +43,9 @@ const TProLbl = ({ trustproject, plantilla }) => {
       case 'investigacion':
         txt = 'Examen en profundidad de un hecho noticioso.'
         break
+      case 'orbituario':
+        txt = 'Reporta el fallecimiento de un individuo, repasando su vida y sus logros, las controversias en las que hubiera estado envuelto y el recuerdo de las personas que lo conocieron.'
+        break
       case 'det_hist':
         txt = 'Aclara a la audiencia como se reporteó una noticia.'
         break

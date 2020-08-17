@@ -350,7 +350,6 @@
   &__interstitial-link {
     color: #4a88b1;
     font-size: $font-md;
-
     line-height: 1.5;
     font-weight: 700;
     text-decoration: underline;
@@ -368,6 +367,20 @@
       color: #000;
       content: "]";
       margin-left: 4px;
+    }
+  }
+
+  &__correction {
+    font-size: 0.8rem;
+    border-top: 1px solid #575757;
+    border-bottom: 1px solid #575757;
+    font-style: italic;
+    padding: 10px 0;
+    margin: 10px 0;
+
+    &__title {
+      font-weight: 700;
+      font-size: 0.9rem;
     }
   }
 }

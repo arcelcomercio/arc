@@ -19,6 +19,7 @@ import {
 } from '../../utilities/constants/sitenames'
 import { getResizedUrl } from '../../utilities/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
+import workType from '../_dependencies/work-type'
 
 export default ({
   globalContent: data,
@@ -46,6 +47,7 @@ export default ({
     videoSeo,
     contentElementsText: dataElement,
     contentElementsHtml = [],
+    contentElementsCorrectionList = [],
     seoKeywords,
     breadcrumbList,
     multimediaType,
@@ -265,7 +267,35 @@ export default ({
           ''
         )}",`
       : ''
-  const structuredData = `{  "@context":"http://schema.org", "@type":"NewsArticle", "datePublished":"${publishDateZone}",
+
+  let correctionStructuredItems = ''
+  contentElementsCorrectionList.forEach(ele => {
+    const {
+      embed: {
+        config: { content: contentCorrection = '', date: dateCorrection = '' },
+      } = {},
+    } = ele || {}
+    correctionStructuredItems += `{
+      "@type": "CorrectionComment",
+      "text": "${formatHtmlToText(contentCorrection.trim())}",
+      "datePublished": "${dateCorrection}"
+    },`
+  })
+
+  const correctionStructured =
+    contentElementsCorrectionList.length > 0
+      ? `"correction":[${correctionStructuredItems.substring(
+          0,
+          correctionStructuredItems.length - 1
+        )}],`
+      : ''
+
+  const { label: { trustproject = {} } = {} } = data || {}
+  console.log('====Data===', data)
+  console.log('====trustproject===', trustproject)
+  const trustType = workType(trustproject) || '"NewsArticle"'
+
+  const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_DEPOR ||
@@ -277,7 +307,9 @@ export default ({
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",
+    "publishingPrinciples": "${siteUrl}/buenas-practicas/",
   ${bodyStructured}
+  ${correctionStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }

@@ -1,10 +1,10 @@
 .custom-title {
   padding-left: 20px;
   @media (--desktop) {
-    padding-left: 0px;
+    padding-left: 0;
   }
   @media (--tablet) {
-    padding-left: 0px;
+    padding-left: 0;
   }
   &__button {
     top: 50%;
@@ -15,5 +15,8 @@
   }
   &.medium {
     font-size: 1.5rem;
+  }
+  &.small {
+    font-size: 1.1rem;
   }
 }

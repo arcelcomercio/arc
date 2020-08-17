@@ -119,6 +119,30 @@ function WizardPlan(props) {
     clearDeferredActions()
   }).current
 
+  const profileErrorHandler = e => {
+    // Usuario no encontrado
+    if (e.code === '3001001') {
+      Sentry.captureEvent({
+        message: 'Usuario Eliminado',
+        level: 'error',
+        extra: e,
+      })
+      window.Identity.logout().finally(() => location.reload())
+    } else {
+      throw e
+    }
+  }
+
+  const syncSession = () => {
+    window.Identity.options({ apiOrigin: interpolateUrl(urls.originApi) })
+    return window.Identity.getUserProfile()
+      .then(profile => {
+        const conformedProfile = conformProfile(profile)
+        setProfile(conformedProfile)
+      })
+      .catch(profileErrorHandler)
+  }
+
   // Verificar si usuario tiene suscripciones activas para prevenirle en caso
   // de intentar suscribirse nuevamente
   useEffect(() => {
@@ -196,13 +220,7 @@ function WizardPlan(props) {
     // }
 
     // Retomar sesion existente si hay una
-    if (isLogged()) {
-      window.Identity.options({ apiOrigin: interpolateUrl(urls.originApi) })
-      window.Identity.getUserProfile().then(profile => {
-        const conformedProfile = conformProfile(profile)
-        setProfile(conformedProfile)
-      })
-    }
+    if (isLogged()) syncSession()
 
     addEventListener('logged', loggedHandler)
     addEventListener('logout', logoutHandler)

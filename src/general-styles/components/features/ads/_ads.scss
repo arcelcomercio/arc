@@ -37,3 +37,9 @@ div#ads_d_vslider {
 .container-publicidad {
   margin: 0 !important;
 }
+
+.container-pub-inline {
+  @media (--desktop) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

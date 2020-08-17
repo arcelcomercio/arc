@@ -15,9 +15,15 @@ import StoryGoogleNews from '../../../global-components/google-news'
 import StoryContentChildTags from './_children/tags'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildCorrection from './_children/correction'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo } from '../../../utilities/date-time/dates'
-import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
+import { formatHtmlToText } from '../../../utilities/parse/strings'
+import {
+  replaceTags,
+  cleanLegacyAnchor,
+  storyTagsBbc,
+} from '../../../utilities/tags'
 
 import {
   ELEMENT_HEADER,
@@ -38,6 +44,8 @@ import {
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
+  SITE_ELBOCON,
+  SITE_DIARIOCORREO,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/constants'
 import {
@@ -47,6 +55,7 @@ import {
   ampHtml,
 } from '../../../utilities/story/helpers-amp'
 import { getResizedUrl } from '../../../utilities/resizer'
+import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -73,6 +82,7 @@ class StoryContentAmp extends PureComponent {
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
+    const { source } = data
     const {
       contentPosicionPublicidadAmp,
       promoItems,
@@ -88,14 +98,10 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       siteUrl,
     })
-    // const namePublicidad =
-    //   arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? arcSite : 'eco'
-
-    // const dataSlot = `/${adsAmp.dataSlot}/${
-    //   arcSite === 'diariocorreo' ? 'correo' : namePublicidad
-    // }-amp-300x250-boton-movil2`
+    const isLegacy =
+      source.source_id &&
+      (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
-
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
 
@@ -200,11 +206,15 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
                 if (type === ELEMENT_RAW_HTML) {
-                  return content.includes('id="powa-') ? (
-                    <StoryContentChildVideo
-                      data={content}
-                      className={classes.newsImage}
-                    />
+                  if (content.includes('id="powa-'))
+                    return (
+                      <StoryContentChildVideo
+                        data={content}
+                        className={classes.newsImage}
+                      />
+                    )
+                  return isLegacy ? (
+                    <p> - </p>
                   ) : (
                     <RawHtml
                       content={ampHtml(content, arcSite)}
@@ -212,12 +222,20 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-                if (type === ELEMENT_HEADER && level === 1) {
-                  return (
-                    <h2>
-                      <RawHtml content={content}></RawHtml>
-                    </h2>
-                  )
+                if (type === ELEMENT_HEADER) {
+                  if (level === 1)
+                    return (
+                      <h2>
+                        <RawHtml
+                          content={
+                            isLegacy ? cleanLegacyAnchor(content) : content
+                          }></RawHtml>
+                      </h2>
+                    )
+                  if (isLegacy)
+                    return (
+                      <RawHtml content={cleanLegacyAnchor(content)}></RawHtml>
+                    )
                 }
                 if (type === ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
@@ -255,6 +273,17 @@ class StoryContentAmp extends PureComponent {
                   )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (sub === STORY_CORRECTION) {
+                    const {
+                      config: { content: contentCorrectionConfig = '' } = {},
+                    } = customEmbed || {}
+                    return (
+                      <StoryContentsChildCorrection
+                        content={contentCorrectionConfig}
+                        isAmp
+                      />
+                    )
+                  }
                   if (sub === 'image_link') {
                     const { config: customEmbedConfig = {} } = customEmbed || {}
                     return (
@@ -284,7 +313,13 @@ class StoryContentAmp extends PureComponent {
                   return (
                     <>
                       <Text
-                        content={ampHtml(replaceTags(content), arcSite)}
+                        content={
+                          isLegacy
+                            ? formatHtmlToText(
+                                replaceTags(cleanLegacyAnchor(content))
+                              )
+                            : ampHtml(replaceTags(content), arcSite)
+                        }
                         className={classes.textClasses}
                       />
                       {publicidadInline && (
@@ -316,7 +351,6 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-
                 if (type === ELEMENT_INTERSTITIAL_LINK) {
                   return (
                     <StoryContentsChildInterstitialLink
@@ -327,7 +361,6 @@ class StoryContentAmp extends PureComponent {
                     />
                   )
                 }
-
                 if (type === ELEMENT_LINK_LIST) {
                   return (
                     <StoryContentsChildLinkList

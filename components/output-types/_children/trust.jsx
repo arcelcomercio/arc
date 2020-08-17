@@ -22,7 +22,7 @@ export default ({ arcSite, siteUrl, siteName }) => {
         "@type": "ContactPoint",
         "contactType": "Contacto",
         "email": "contacto@elcomercio.pe",
-        "url": "https://elcomercio.pe/proyecto-confianza/#informacion-de-la-sala-de-prensa"
+        "url": "${siteUrl}/${pathPage}/#informacion-de-la-sala-de-prensa"
       }
     ]
   }`

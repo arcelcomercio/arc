@@ -95,9 +95,11 @@ export default ({
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
+  let lang = 'es'
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/depor-play')) classBody = `${classBody} depor-play`
     if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
+    if (requestUri.match('^/usa')) lang = 'es-us'
   }
 
   if (requestUri.match(`^(/play/.*)`))
@@ -261,12 +263,12 @@ export default ({
 
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
   return (
-    <html itemScope itemType="http://schema.org/WebPage" lang="es">
+    <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="lang" content="es" />
+        <meta name="lang" content={lang} />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
         <meta name="robots" content="index, follow" />

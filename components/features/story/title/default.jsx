@@ -5,20 +5,33 @@ import { SITE_GESTION } from '../../../utilities/constants/sitenames'
 import StoryTitleChildHeading from './_children/heading'
 import StoryTitleChildShareSubheading from './_children/subheading'
 
+import StoryData from '../../../utilities/story-data'
+
 const classes = {
   story: 'story-header__header-title w-full text-white ',
 }
 
 const StoryTitle = () => {
-  const { globalContent, arcSite } = useFusionContext()
+  const {
+    contextPath,
+    globalContent: data,
+    globalContent,
+    arcSite,
+  } = useFusionContext()
   const {
     headlines: { basic: title = '' } = {},
     subheadlines: { basic: subTitle = '' } = {},
     content_restrictions: { content_code: ContentCode = '' } = {},
     taxonomy: { primary_section: { path: primarySectionLink = '' } = {} } = {},
   } = globalContent || {}
+  const {
+    contentElementsListOne: { items = [], type = '' } = {},
+  } = new StoryData({
+    data,
+    contextPath,
+  })
   const isPremium = ContentCode === 'premium'
-  const parameters = { title, subTitle, isPremium, arcSite }
+  const parameters = { title, subTitle, isPremium, arcSite, items, type }
 
   return (
     <>
