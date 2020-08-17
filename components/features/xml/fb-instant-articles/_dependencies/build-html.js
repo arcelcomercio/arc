@@ -87,7 +87,7 @@ const buildCorrectionTexParagraph = (
 
   result.processedParagraph =
     result.numberWords > 0
-      ? `<blockquote><b>${title}</b> ${clearBrTag(paragraph)}</blockquote>`
+      ? `<blockquote><b>${title}</b> ${cleanTag(paragraph)}</blockquote>`
       : ''
   return result
 }
@@ -596,7 +596,7 @@ const BuildHtml = ({
             : ''
         }
         ${
-          websiteUrlsBytag.length > 0
+          websiteUrlsBytag.length > 1
             ? `<ul class="op-related-articles" title="Noticias relacionadas">
           ${websiteUrlsBytag
             .map(url =>
