@@ -1614,7 +1614,7 @@ class StoryData {
     const paragraphs = contentElements.map(
       ({
         content = '',
-        text = '',
+        // text = '',
         type = '',
         subtype = '',
         _id = '',

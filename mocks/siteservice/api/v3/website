@@ -25,11 +25,6 @@
     "is_default_website": false
   },
   {
-    "_id": "publimetro",
-    "display_name": "Publimetro",
-    "is_default_website": false
-  },
-  {
     "_id": "diariocorreo",
     "display_name": "Correo",
     "is_default_website": false

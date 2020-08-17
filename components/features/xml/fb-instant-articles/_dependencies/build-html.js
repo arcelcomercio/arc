@@ -583,12 +583,7 @@ const BuildHtml = ({
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
       ${
-        !(
-          (arcSite === 'ojo' && section === 'ojo-show') ||
-          (arcSite === 'publimetro' && section === 'actualidad') ||
-          (arcSite === 'publimetro' && section === 'redes-sociales') ||
-          (arcSite === 'publimetro' && section === 'entretenimiento')
-        )
+        !(arcSite === 'ojo' && section === 'ojo-show')
           ? `
         ${
           type === ConfigParams.GALLERY
