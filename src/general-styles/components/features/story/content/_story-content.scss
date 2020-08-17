@@ -22,7 +22,7 @@
 
   &__visual--image {
     min-height: 157px;
-  
+
     @media (--tablet) {
       min-height: 330px;
     }
@@ -44,7 +44,6 @@
       width: 815px;
     }
   }
-
 
   & * iframe {
     width: 100%;
@@ -214,7 +213,7 @@
 
   .powa-shot-play-icon,
   .powa-shot-loading-icon {
-    font-family: "icomoon";
+    font-family: "icomoon", sans-serif;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
   }
@@ -362,6 +361,23 @@
     &__title {
       font-weight: 700;
       font-size: 0.9rem;
+    }
+  }
+  &__customblock {
+    // background-color: #f3f5f7;
+    // border-radius: 5px;
+    font-size: 18px;
+    border-top: 1px solid #575757;
+    border-bottom: 1px solid #575757;
+
+    &__backstory {
+      &__title {
+        display: inline-block;
+        background-color: #000;
+        font-size: 24px;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
     }
   }
 }
