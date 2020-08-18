@@ -49,9 +49,17 @@ export default ({
     siteUrl
   )
 
+  let sameAs = []
   const authorUrl = `${siteUrl}${authorPath}`
-  const authorLanguages = languages.split(',')
-  const urlTwitter = twitter.split(',')[1] || ''
+  const authorUrlSameAs = (authorUrl && `"${authorUrl}"`)
+  sameAs.push(authorUrlSameAs)
+  const authorLanguages = (languages && languages.split(','))
+  const twitterData = (twitter && twitter.split(','))
+  const twitterUrl = (twitterData && twitterData[1] && `"${twitterData[1]}"`)
+  sameAs.push(twitterUrl)
+  const booksData = (books && books.map(item => `"${item.url}"`).join(','))
+  sameAs.push(booksData)
+
   const expertiseData = expertise.split(',').map(item => {
     let text = `"${item}"`
     const itemMatch = item.match("^{([^}]+)}(.+)")
@@ -88,13 +96,13 @@ export default ({
     }, 
     "knowsAbout": [${expertiseData}], 
     "knowsLanguage": [
-      ${authorLanguages.map(language => {
+      ${authorLanguages && (authorLanguages.map(language => {
         return `{"@type": "Language",
                  "name": "${language}"
                 }`
-        })}
+        }))}
       ],
-    "sameAs" : ["${urlTwitter}", "${authorUrl}", ${books.map(item => `"${item.url}"`)}], 
+    "sameAs" : [${sameAs.filter(item => !(item === ''))}], 
     "jobTitle"	: "${role}"
   }`
 

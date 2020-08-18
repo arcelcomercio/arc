@@ -69,7 +69,7 @@ const resolve = (key = {}) => {
   } = key
 
   const authorUrl = rawUrl === null ? '' : rawUrl
-  // const url = authorUrl || `/autor/${name}`
+  const url = authorUrl || `/autor/${name}`
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
@@ -101,7 +101,8 @@ const resolve = (key = {}) => {
   /* const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
  */
-  return `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.slug:"${name}"+AND+type:story&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
+  const resolverUrl = `/content/v4/search/published?q=canonical_website:${website}+AND+credits.by.url:"${url}"+AND+type:story&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
+  return resolverUrl
 }
 
 const transform = (
