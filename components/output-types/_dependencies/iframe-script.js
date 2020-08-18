@@ -27,7 +27,7 @@ requestIdle(()=> {
   }
 })
 */
-const iframeScript = () =>
-  `"use strict";var iframeObserver=function(e,r){e.forEach(function(e){var t=e.isIntersecting,n=e.target;t&&(n.innerHTML=n.getAttribute("data-iframe"),setTimeout(function(){n.classList.remove("story-contents__p-default"),n.classList.remove("s-multimedia__p-default")},1e3),r.unobserve(n))})};requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.querySelectorAll(".s-multimedia__lL-iframe")),r=Array.from(document.querySelectorAll(".story-contents__lL-iframe")).concat(e),t=new IntersectionObserver(iframeObserver,{rootMargin:"0px"});r.forEach(function(e){t.observe(e)})}});`
+
+const iframeScript = `"use strict";var iframeObserver=function(e,r){e.forEach(function(e){var t=e.isIntersecting,n=e.target;t&&(n.innerHTML=n.getAttribute("data-iframe"),setTimeout(function(){n.classList.remove("story-contents__p-default"),n.classList.remove("s-multimedia__p-default")},1e3),r.unobserve(n))})};requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.querySelectorAll(".s-multimedia__lL-iframe")),r=Array.from(document.querySelectorAll(".story-contents__lL-iframe")).concat(e),t=new IntersectionObserver(iframeObserver,{rootMargin:"0px"});r.forEach(function(e){t.observe(e)})}});`
 
 export default iframeScript
