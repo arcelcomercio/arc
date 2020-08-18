@@ -442,7 +442,6 @@ const LiteOutput = ({
           <>
             <script
               type="text/javascript"
-              defer
               dangerouslySetInnerHTML={{ __html: widgets }}
             />
           </>
@@ -460,7 +459,7 @@ const LiteOutput = ({
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: iframeScript(),
+            __html: iframeScript,
           }}
         />
         <script

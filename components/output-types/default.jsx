@@ -582,7 +582,6 @@ export default ({
           <>
             <script
               type="text/javascript"
-              defer
               dangerouslySetInnerHTML={{
                 __html: videoScript(CURRENT_ENVIRONMENT),
               }}
@@ -593,15 +592,13 @@ export default ({
           <>
             <script
               type="text/javascript"
-              defer
               dangerouslySetInnerHTML={{ __html: widgets }}
             />
           </>
         )}
         <script
           type="text/javascript"
-          defer
-          dangerouslySetInnerHTML={{ __html: iframeScript() }}
+          dangerouslySetInnerHTML={{ __html: iframeScript }}
         />
         {/* Rubicon BlueKai - Fin */}
         <script
