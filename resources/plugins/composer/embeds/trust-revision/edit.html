@@ -155,6 +155,17 @@
       }, {})
     }
 
+    const getSelectIndex = function(selectTag, value) {
+      const opts = selectTag.options;
+      for (let opt, index = 0; opt = opts[index]; index++) {
+        if (opt.value === value) {
+          return index;
+          break;
+        }
+      }
+      return 0;
+    }
+
      let data = {}      // ANS custom embed response
      // let content = {}   // The fetched content from external data source
 
@@ -183,9 +194,8 @@
       element.outerHTML = html
 
       // Update form state
-      const selectTypeEvent = document.getElementById('type_content');
-      selectTypeEvent.options[selectTypeEvent.selectedIndex].value = (config.type_content || "");
-      selectTypeEvent.options[selectTypeEvent.selectedIndex].textContent = (config.type_content || "");
+      const selectTypeEvent = document.getElementById('type_event');
+      selectTypeEvent.selectedIndex = getSelectIndex(selectTypeEvent, (config.type_event || ""));
       document.getElementById('name').value = (config.name || "")
       document.getElementById('location_name').value = (config.location_name || "")
       document.getElementById('location_address').value = (config.location_address || "")
@@ -203,8 +213,8 @@
 
      // Update config based on form changes, submit back to Composer and re-render
     const applyChanges = () => {
-      const selectTypeEvent = document.getElementById('type_content');
-      data.config.type_content = selectTypeEvent.options[selectTypeEvent.selectedIndex].value
+      const selectTypeEvent = document.getElementById('type_event');
+      data.config.type_event = selectTypeEvent.options[selectTypeEvent.selectedIndex].value
       data.config.name = document.getElementById('name').value
       data.config.location_name = document.getElementById('location_name').value
       data.config.location_address = document.getElementById('location_address').value
