@@ -113,13 +113,14 @@ const StoryContentsLite = () => {
   })
 
   const presetsImg = 'authorImgSmall:57x57'
-  const { resized_urls: { authorImgSmall } = {} } = useContent({
-    source: 'photo-resizer',
-    query: {
-      url: authorImage,
-      presets: presetsImg,
-    },
-  })
+  const { resized_urls: { authorImgSmall } = {} } =
+    useContent({
+      source: 'photo-resizer',
+      query: {
+        url: authorImage,
+        presets: presetsImg,
+      },
+    }) || {}
 
   const params = {
     authorImage,

@@ -18,7 +18,7 @@ const isScriptLoaded = (src) =>{
   }
 
 
- const widgetsObserver = (entries, observer) => {
+const widgetsObserver = (entries, observer) => {
   entries.forEach(entry => {
     const { isIntersecting, target } = entry
     if (isIntersecting) {
@@ -38,22 +38,22 @@ const isScriptLoaded = (src) =>{
     }
   })
 }
-setTimeout(()=> {
-  if ('IntersectionObserver' in window) {
-    const options = {
-      rootMargin: '0px 0px 0px 0px',
+window.addEventListener('load', ()=> {
+  requestIdle(()=> {
+    if ('IntersectionObserver' in window) {
+      const options = {
+        rootMargin: '0px',
+      }
+      const embeds = Array.from(document.querySelectorAll('.embed-script'))
+      const observer = new IntersectionObserver(widgetsObserver, options)
+      embeds.forEach(embed => {
+          observer.observe(embed)
+      })
     }
-    const embeds = Array.from(document.querySelectorAll('.embed-script'))
-    embeds.forEach(embed => {
-        const observer = new IntersectionObserver(widgetsObserver, options)
-        observer.observe(embed)
-    })
-  }
-}, 0)
+  })
+})
 */
 
-const widgets = `
-"use strict";var isScriptLoaded=function(t){return!!document.querySelector('script[src="'+t+'"]')},createScript=function(t){var e=t.src,r=t.async,c=document.createElement("script");return!1===isScriptLoaded(e)&&(e&&(c.type="text/javascript",c.src=e),r&&(c.async=!0)),document.body.append(c)},widgetsObserver=function(t,e){t.forEach(function(t){var r=t.isIntersecting,c=t.target;if(r){var n=c.getAttribute("data-type");createScript("instagram"===n?{src:"https://www.instagram.com/embed.js",async:!0}:{src:"https://platform.twitter.com/widgets.js",async:!0}),e.unobserve(c)}})};setTimeout(function(){if("IntersectionObserver"in window){var t={rootMargin:"0px 0px 0px 0px"};Array.from(document.querySelectorAll(".embed-script")).forEach(function(e){new IntersectionObserver(widgetsObserver,t).observe(e)})}},0);
-`
+const widgets = `"use strict";var isScriptLoaded=function(e){return!!document.querySelector('script[src="'+e+'"]')},createScript=function(e){var t=e.src,r=e.async,n=document.createElement("script");return!1===isScriptLoaded(t)&&(t&&(n.type="text/javascript",n.src=t),r&&(n.async=!0)),document.body.append(n)},widgetsObserver=function(e,t){e.forEach(function(e){var r=e.isIntersecting,n=e.target;if(r){var c=n.getAttribute("data-type");createScript("instagram"===c?{src:"https://www.instagram.com/embed.js",async:!0}:{src:"https://platform.twitter.com/widgets.js",async:!0}),t.unobserve(n)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.querySelectorAll(".embed-script")),t=new IntersectionObserver(widgetsObserver,{rootMargin:"0px"});e.forEach(function(e){t.observe(e)})}})});`
 
 export default widgets
