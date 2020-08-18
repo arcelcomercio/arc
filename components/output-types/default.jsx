@@ -410,7 +410,7 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {contenidoVideo && (
+        {(contenidoVideo || /^\/videos\/$/.test(requestUri)) && (
           <>
             <style
               dangerouslySetInnerHTML={{
