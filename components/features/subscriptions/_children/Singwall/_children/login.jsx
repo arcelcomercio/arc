@@ -6,6 +6,7 @@ import { NavigateConsumer } from '../../../_context/navigate'
 import { AuthContext } from '../../../_context/auth'
 import PropertiesSite from '../../../_dependencies/Properties'
 import ButtonSocial from './social'
+import { Taggeo } from '../../../_dependencies/Taggeo'
 
 const styles = {
   title: 'step__left-title',
@@ -50,6 +51,7 @@ const Login = ({ arcSite, arcEnv }) => {
   const onFormSignIn = ({ lemail, lpass }) => {
     if (typeof window !== 'undefined') {
       setLoading(true)
+      Taggeo('Web_Sign_Wall_Landing', 'web_swl_login_boton_ingresar', arcEnv)
       window.Identity.login(lemail, lpass, {
         rememberMe: true,
         cookie: true,
@@ -58,11 +60,21 @@ const Login = ({ arcSite, arcEnv }) => {
           window.Identity.getUserProfile().then(resProfile => {
             activateAuth(resProfile)
             updateStep(2)
+            Taggeo(
+              'Web_Sign_Wall_Landing',
+              'web_swl_login_success_ingresar',
+              arcEnv
+            )
           })
         })
         .catch(err => {
           setMsgError(getCodeError(err.code))
           setLoading(false)
+          Taggeo(
+            'Web_Sign_Wall_Landing',
+            'web_swl_login_error_ingresar',
+            arcEnv
+          )
         })
     }
   }
@@ -95,12 +107,14 @@ const Login = ({ arcSite, arcEnv }) => {
               arcSocial="facebook"
               arcSite={arcSite}
               arcEnv={arcEnv}
+              arcType="login"
             />
 
             <ButtonSocial
               arcSocial="google"
               arcSite={arcSite}
               arcEnv={arcEnv}
+              arcType="login"
             />
           </div>
 
@@ -161,7 +175,14 @@ const Login = ({ arcSite, arcEnv }) => {
               <button
                 className={styles.link}
                 type="button"
-                onClick={() => value.changeTemplate('forgot')}>
+                onClick={() => {
+                  value.changeTemplate('forgot')
+                  Taggeo(
+                    'Web_Sign_Wall_Landing',
+                    'web_swl_contrasena_link_olvide',
+                    arcEnv
+                  )
+                }}>
                 Olvidé mi contraseña
               </button>
             </p>
@@ -181,7 +202,14 @@ const Login = ({ arcSite, arcEnv }) => {
             <button
               className={styles.link}
               type="button"
-              onClick={() => value.changeTemplate('register')}>
+              onClick={() => {
+                value.changeTemplate('register')
+                Taggeo(
+                  'Web_Sign_Wall_Landing',
+                  'web_swl_login_boton_registrate',
+                  arcEnv
+                )
+              }}>
               Registrarme
             </button>
           </p>

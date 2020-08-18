@@ -5,6 +5,7 @@ import getCodeError, { formatEmail } from '../../../_dependencies/Errors'
 import MsgForgotPass from '../../../_dependencies/Icons'
 import { NavigateConsumer } from '../../../_context/navigate'
 import PropertiesSite from '../../../_dependencies/Properties'
+import { Taggeo } from '../../../_dependencies/Taggeo'
 
 const styles = {
   title: 'step__left-title',
@@ -16,7 +17,7 @@ const styles = {
   backLogin: 'step__left-link-register',
 }
 
-const Forgot = () => {
+const Forgot = ({ arcEnv }) => {
   const [loading, setLoading] = useState(false)
   const [msgError, setMsgError] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -36,13 +37,30 @@ const Forgot = () => {
 
   const onFomrForgot = ({ femail }) => {
     if (typeof window !== 'undefined') {
+      Taggeo(
+        'Web_Sign_Wall_Landing',
+        'web_swl_contrasena_boton_recuperar',
+        arcEnv
+      )
       setLoading(true)
       window.Identity.requestResetPassword(femail)
-        .then(() => setShowConfirm(true))
+        .then(() => {
+          setShowConfirm(true)
+          Taggeo(
+            'Web_Sign_Wall_Landing',
+            'web_swl_contrasena_success_boton',
+            arcEnv
+          )
+        })
         .catch(err => {
           setMsgError(getCodeError(err.code))
           setRegisterLink(err.code === '300030')
           setLoading(false)
+          Taggeo(
+            'Web_Sign_Wall_Landing',
+            'web_swl_contrasena_error_boton',
+            arcEnv
+          )
         })
     }
   }
@@ -115,7 +133,14 @@ const Forgot = () => {
                   <button
                     className={styles.link}
                     type="button"
-                    onClick={() => value.changeTemplate('login')}>
+                    onClick={() => {
+                      value.changeTemplate('login')
+                      Taggeo(
+                        'Web_Sign_Wall_Landing',
+                        'web_swl_contrasena_link_volver',
+                        arcEnv
+                      )
+                    }}>
                     Inciar Sesión
                   </button>
                 </p>
@@ -130,7 +155,14 @@ const Forgot = () => {
                 <button
                   className={styles.btn}
                   type="button"
-                  onClick={() => value.changeTemplate('login')}>
+                  onClick={() => {
+                    value.changeTemplate('login')
+                    Taggeo(
+                      'Web_Sign_Wall_Landing',
+                      'web_swl_contrasena_boton_aceptar',
+                      arcEnv
+                    )
+                  }}>
                   Aceptar
                 </button>
               </div>

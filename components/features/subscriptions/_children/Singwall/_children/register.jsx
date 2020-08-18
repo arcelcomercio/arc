@@ -11,6 +11,7 @@ import getDevice from '../../../_dependencies/GetDevice'
 import PropertiesSite from '../../../_dependencies/Properties'
 import { sendNewsLettersUser } from '../../../_dependencies/Services'
 import ButtonSocial from './social'
+import { Taggeo } from '../../../_dependencies/Taggeo'
 
 const styles = {
   title: 'step__left-title',
@@ -65,6 +66,11 @@ const Register = ({ arcSite, arcEnv }) => {
 
   const onFormRegister = ({ remail, rpass }) => {
     if (typeof window !== 'undefined') {
+      Taggeo(
+        'Web_Sign_Wall_Landing',
+        'web_swl_registro_boton_registrarme',
+        arcEnv
+      )
       setLoading(true)
       setLoadText('Registrando...')
       window.Identity.signUp(
@@ -123,16 +129,29 @@ const Register = ({ arcSite, arcEnv }) => {
               arcSite,
               window.Identity.userIdentity.accessToken,
               ['general']
-            ).then(() => {
-              activateAuth(resProfile)
-              updateStep(2)
-            })
+            )
+              .then(() => {
+                activateAuth(resProfile)
+                updateStep(2)
+              })
+              .finally(() => {
+                Taggeo(
+                  'Web_Sign_Wall_Landing',
+                  'web_swl_registro_success_registrarme',
+                  arcEnv
+                )
+              })
           })
         })
         .catch(err => {
           setMsgError(getCodeError(err.code))
           setForgotLink(err.code === '300039')
           setLoading(false)
+          Taggeo(
+            'Web_Sign_Wall_Landing',
+            'web_swl_registro_error_registrarme',
+            arcEnv
+          )
         })
     }
   }
@@ -161,12 +180,14 @@ const Register = ({ arcSite, arcEnv }) => {
               arcSocial="facebook"
               arcSite={arcSite}
               arcEnv={arcEnv}
+              arcType="registro"
             />
 
             <ButtonSocial
               arcSocial="google"
               arcSite={arcSite}
               arcEnv={arcEnv}
+              arcType="registro"
             />
           </div>
 
@@ -283,7 +304,14 @@ const Register = ({ arcSite, arcEnv }) => {
             <button
               className={styles.link}
               type="button"
-              onClick={() => value.changeTemplate('login')}>
+              onClick={() => {
+                value.changeTemplate('login')
+                Taggeo(
+                  'Web_Sign_Wall_Landing',
+                  'web_swl_registro_link_volver',
+                  arcEnv
+                )
+              }}>
               Iniciar Sesión
             </button>
           </p>

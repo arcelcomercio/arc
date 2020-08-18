@@ -9,7 +9,7 @@ const renderTemplate = (template, site, env) => {
   const templates = {
     login: <Login arcSite={site} arcEnv={env} />,
     register: <Register arcSite={site} arcEnv={env} />,
-    forgot: <Forgot />,
+    forgot: <Forgot arcEnv={env} />,
   }
   return templates[template] || templates.login
 }

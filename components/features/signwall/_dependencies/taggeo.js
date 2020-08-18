@@ -19,7 +19,12 @@ const Taggeo = (cat, acc) => {
     }
     window.dataLayer.push(dataPush)
     if (ENV.ENVIRONMENT !== 'elcomercio') {
-      window.console.log(dataPush) // Only sandbox ;)
+      // Only sandbox ;)
+      window.console.log(
+        `%c 🔔 Taggeo Detectado - Signwall:`,
+        'color:  darkorange; font-size: 12px'
+      )
+      window.console.table(dataPush)
     }
   }
 }

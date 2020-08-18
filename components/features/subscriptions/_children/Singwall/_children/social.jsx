@@ -8,8 +8,9 @@ import PropertiesSite from '../../../_dependencies/Properties'
 import getDevice from '../../../_dependencies/GetDevice'
 import { Capitalize } from '../../../_dependencies/Utils'
 import { AuthContext } from '../../../_context/auth'
+import { Taggeo } from '../../../_dependencies/Taggeo'
 
-const ButtonSocial = ({ arcSocial, arcSite, arcEnv }) => {
+const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
   const { activateAuth, updateStep } = useContext(AuthContext)
@@ -84,6 +85,11 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv }) => {
                     .then(() => {
                       activateAuth(resUpdateProfile)
                       updateStep(2)
+                      Taggeo(
+                        'Web_Sign_Wall_Landing',
+                        `web_swl_${arcType}_success_${arcSocial}`,
+                        arcEnv
+                      )
                     })
                     .catch(() => {
                       setLoading(false)
@@ -91,20 +97,40 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv }) => {
                 } else {
                   activateAuth(resUpdateProfile)
                   updateStep(2)
+                  Taggeo(
+                    'Web_Sign_Wall_Landing',
+                    `web_swl_${arcType}_success_${arcSocial}`,
+                    arcEnv
+                  )
                 }
               })
               .catch(errUpdateProfile => {
                 setLoading(false)
                 window.console.error(errUpdateProfile) // Temporal hasta implementar Sentry
+                Taggeo(
+                  'Web_Sign_Wall_Landing',
+                  `web_swl_${arcType}_error_${arcSocial}`,
+                  arcEnv
+                )
               })
           } else {
             activateAuth(resProfile)
             updateStep(2)
+            Taggeo(
+              'Web_Sign_Wall_Landing',
+              `web_swl_${arcType}_success_${arcSocial}`,
+              arcEnv
+            )
           }
         })
         .catch(errProfile => {
           setLoading(false)
           window.console.error(errProfile) // Temporal hasta implementar Sentry
+          Taggeo(
+            'Web_Sign_Wall_Landing',
+            `web_swl_${arcType}_error_${arcSocial}`,
+            arcEnv
+          )
         })
     }
   }
@@ -201,7 +227,14 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv }) => {
     <>
       <button
         className={`btn-${arcSocial}`}
-        onClick={clickLoginSocialEcoID}
+        onClick={() => {
+          clickLoginSocialEcoID()
+          Taggeo(
+            'Web_Sign_Wall_Landing',
+            `web_swl_${arcType}_boton_${arcSocial}`,
+            arcEnv
+          )
+        }}
         disabled={loading}
         type="button">
         {loading ? loadText : `Continua con ${Capitalize(arcSocial)}`}

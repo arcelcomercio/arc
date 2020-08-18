@@ -6,6 +6,7 @@ import { getEntitlements } from '../../_dependencies/Services'
 import { AuthContext } from '../../_context/auth'
 import PropertiesSite from '../../_dependencies/Properties'
 import Modal from './children/modal'
+import { Taggeo } from '../../_dependencies/Taggeo'
 
 import {
   checkUndefined,
@@ -196,6 +197,7 @@ const Profile = ({ arcEnv }) => {
       if (resSubs) {
         setShowModal(true)
         setLoading(false)
+        Taggeo('Web_Paywall_Landing', 'web_paywall_open_validation', arcEnv)
       } else {
         updateProfile(...props)
       }
@@ -229,6 +231,7 @@ const Profile = ({ arcEnv }) => {
     if (typeof window !== 'undefined') {
       setShowModal(false)
       window.sessionStorage.setItem('paywall_confirm_subs', '2')
+      Taggeo('Web_Paywall_Landing', 'web_paywall_close_validation', arcEnv)
     }
   }
 
@@ -245,6 +248,7 @@ const Profile = ({ arcEnv }) => {
         uEmail,
       })
       window.sessionStorage.setItem('paywall_confirm_subs', '1')
+      Taggeo('Web_Paywall_Landing', 'web_paywall_continue_validation', arcEnv)
     }
   }
 
@@ -267,6 +271,7 @@ const Profile = ({ arcEnv }) => {
 
   const handleProfile = () => {
     if (typeof window !== 'undefined') {
+      Taggeo('Web_Paywall_Landing', 'web_paywall_profile_validation', arcEnv)
       window.open(urls.profile[arcEnv], '_blank')
     }
   }

@@ -48,7 +48,7 @@ const LandingSubscriptions = () => {
   }, [])
 
   const handleUniversity = () => {
-    Taggeo(`Web_Sign_Wall_Students`, `web_link_ingresar_cuenta`)
+    Taggeo('Web_Sign_Wall_Students', 'web_link_ingresar_cuenta', arcEnv)
     setShowTypeLanding('students')
     setShowSignwall(!showSignwall)
   }
@@ -56,8 +56,9 @@ const LandingSubscriptions = () => {
   const handleSignwall = () => {
     if (typeof window !== 'undefined') {
       Taggeo(
-        `Web_Sign_Wall_Suscripciones`,
-        `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
+        'Web_Sign_Wall_Suscripciones',
+        `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`,
+        arcEnv
       )
       if (isLogged()) {
         window.location.href = urls.profile[arcEnv]
@@ -116,7 +117,7 @@ const LandingSubscriptions = () => {
             className={`button-call ${isComercio ? '' : 'ges'}`}
             id="btn-help-call"
             onClick={() => {
-              Taggeo('Web_Paywall_Landing', 'web_paywall_home_call')
+              Taggeo('Web_Paywall_Landing', 'web_paywall_home_call', arcEnv)
               window.open(urls.clickHelp, '_blank')
             }}>
             <i></i> {texts.help} {!isComercio && <span>Te llamamos</span>}
@@ -129,6 +130,7 @@ const LandingSubscriptions = () => {
                 item={item}
                 order={order}
                 arcSite={arcSite}
+                arcEnv={arcEnv}
                 textOffer={texts.offer}
               />
             ))}

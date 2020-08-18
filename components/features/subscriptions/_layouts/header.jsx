@@ -42,7 +42,8 @@ const HeaderSubs = ({ userProfile, arcSite, arcEnv }) => {
     if (typeof window !== 'undefined') {
       Taggeo(
         `Web_Sign_Wall_Suscripciones`,
-        `web_link_ingresar_${userLoaded ? 'perfil' : 'cuenta'}`
+        `web_link_ingresar_${userLoaded ? 'perfil' : 'cuenta'}`,
+        arcEnv
       )
       if (userLoaded || isAuthenticated()) {
         window.open(urls.profile[arcEnv], '_blank')

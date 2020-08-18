@@ -28,7 +28,7 @@ export const FooterSubs = ({ arcEnv }) => {
   const [loading, setLoading] = useState(false)
   const { urls } = PropertiesSite.common
   const {
-    globalContent: { printAttributes = [] },
+    globalContent: { printAttributes = [], printedSubscriber },
   } = useFusionContext() || {}
 
   const textsAttr = printAttributes.reduce(
@@ -92,7 +92,7 @@ export const FooterSubs = ({ arcEnv }) => {
 
   return (
     <>
-      {(userStep === 1 || userStep === 2) && (
+      {!printedSubscriber && (userStep === 1 || userStep === 2) && (
         <footer className="validate" id="validate">
           <div className={styles.wrapper}>
             <>
