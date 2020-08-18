@@ -44,8 +44,7 @@ const transformImg = (data, { 'arc-site': arcSite }) => {
 const fetch = key => {
   const site = key['arc-site'] || 'Arc Site no está definido'
 
-  const websiteUrl =
-    site !== 'publimetro' ? addSlashToEnd(key.website_url) : key.website_url
+  const websiteUrl = addSlashToEnd(key.website_url)
 
   return request({
     uri: `${CONTENT_BASE}/content/v4/stories/?website=${site}&website_url=${websiteUrl}`,

@@ -404,46 +404,6 @@ const peru21 = {
 
 const peru21g21 = { ...peru21 }
 
-const publimetro = {
-  footer: {
-    siteLegal: [
-      'Empresa Editora Publimetro',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © publimetro.pe',
-      'Grupo El Comercio - Todos los derechos reservados',
-    ],
-    story: [
-      {
-        position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
-      },
-      {
-        position: 'Empresa Editora Publimetro',
-        name:
-          'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      },
-      {
-        position: 'Copyright © publimetro.pe',
-        name: 'Grupo El Comercio - Todos los derechos reservados',
-      },
-    ],
-    contacts: [
-      {
-        position: 'Director Periodístico',
-        name: 'Luis Carlos Arias Schreiber (redaccion@publimetro.pe)',
-      },
-      {
-        position: 'Editor Web',
-        name: 'Christian Lengua Solís (christian.lengua@publimetro.pe)',
-      },
-      {
-        position: 'Contacto comercial',
-        name: 'ventaspublimetro@publimetro.pe',
-      },
-    ],
-  },
-}
-
 const trome = {
   footer: {
     siteLegal: [
@@ -492,7 +452,6 @@ const sites = {
   ojo,
   peru21,
   peru21g21,
-  publimetro,
   trome,
 }
 

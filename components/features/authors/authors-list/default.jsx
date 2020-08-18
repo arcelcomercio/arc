@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import Pagination from '../../../global-components/pagination'
 import customFields from './_dependencies/custom-fields'
 
@@ -18,11 +18,11 @@ const AuthorsList = props => {
     customFields: { size: customSize },
   } = props
 
-  const { requestUri } = useFusionContext()
+  const { requestUri } = useAppContext()
   const uri = requestUri.split('?')[0]
   const uriMatch = uri.match(/\/(?!0)(\d+)\/$/)
   const page = uriMatch ? parseInt(uriMatch[1], 10) : 1
-  const offset = page * customSize
+  const offset = (page - 1) * customSize
 
   const response =
     useContent({
@@ -69,7 +69,7 @@ const AuthorsList = props => {
           ))}
       </ul>
       <Pagination
-        totalElements={totalCount - 1}
+        totalElements={totalCount}
         storiesQty={customSize}
         currentPage={page}
         requestUri={requestUri}

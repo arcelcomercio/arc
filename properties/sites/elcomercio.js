@@ -29,7 +29,7 @@ export default {
   googleTagManagerMobile: 'GTM-NNX4LXF',
   siteDescription:
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  googleNewsImage: 'https://elcomercio.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: 'FXTBX3HGGNBQXES37OMYK4WRIE',
     guidingPrinciples: 'F6HHZ5WAAZC3BMG6DTBJO2BBKQ',

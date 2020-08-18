@@ -2,14 +2,18 @@ import React from 'react'
 import ENV from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 import { msToTime } from '../../../../utilities/date-time/time'
-// import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
  *
- * TODO:TEMP: Cambio temporal, cuando se indique, activar nuevamente el
- * getResultVideo que viene de story/helpers y borrar este.
+ * Si piden que los videos vengan del CDN de Arc en lugar del
+ * CDN de El Comercio, solo se debe comentar:
+ *
+ * import { getResultVideo } from '../../../../utilities/story/helpers'
+ *
+ * y descomentar la siguiente funcion
  */
-const getResultVideo = (streams, arcSite, type = 'ts') => {
+/* const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
       return streamType === type ? url : []
@@ -18,7 +22,7 @@ const getResultVideo = (streams, arcSite, type = 'ts') => {
   const cantidadVideo = resultVideo.length
 
   return resultVideo[cantidadVideo - 1]
-}
+} */
 
 const classes = {
   video: '__lL-video',
@@ -103,7 +107,6 @@ const StoryContentChildVideo = props => {
     } = globalContent || {}
 
     if (
-      arcSite === 'publimetro' ||
       arcSite === 'depor' ||
       arcSite === 'elcomercio' ||
       arcSite === 'elcomerciomag' ||
@@ -119,9 +122,6 @@ const StoryContentChildVideo = props => {
 
       let webSite = ''
       switch (arcSite) {
-        case 'publimetro':
-          webSite = 'publimetro.pe'
-          break
         case 'depor':
           webSite = 'depor.com'
           break

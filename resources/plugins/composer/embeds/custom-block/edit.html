@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Corrección de nota - Edit API plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Item -->
+      <div class="col-md-12" id="%item_id%">
+        <div class="card mb-4 box-shadow" style="flex-direction: row;"
+          id="content_card">
+          <div class="card-body">
+            <strong>Bloque personalizado</strong> <br>
+            <p class="card-text text-muted" style="font-weight: bold;">%customBlockTitle%</p>
+            <p class="card-text text-muted">
+              %customBlockContent%
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12" hidden>
+        <div style="font-weight: bold">Respuesta JSON</div>
+        <pre>%data%</pre>
+      </div>
+    </template>
+
+    <main role="main">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="content_holder">
+            Cargando...
+          </div>
+
+          <!-- Edit Form -->
+          <div class="row" id="config_edit">
+            <div class="col-md-12">
+              <label class="col-lg-12" for="customBlockType">Tipo de contenido:
+                <select id="customBlockType" name="customBlockType">
+                  <option value="">Seleccione...</option>
+                  <option value="backstory">Cómo se hizo esta historia</option>
+                </select>
+              </label>
+              <label class="col-lg-12" for="customBlockContent">Contenido:
+                <textarea rows="10" cols="25" id="customBlockContent" name="customBlockContent"></textarea>
+              </label>
+            </div>
+            <!--<div class="col-md-12">
+              <label for="date"><span>Fecha</span>
+                <input id="date" name="date" type="textfield" value="" />
+              </label>
+            </div>-->
+            <div class="col-md-12 p-3">
+              <button type="button" class="btn btn-primary" id="btn_apply">
+                Aceptar
+              </button>
+              <button type="button" class="btn btn-light mx-1" id="btn_cancel">
+                Cerrar
+              </button>
+            </div>
+
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script>
+    const sendMessage = function(action, data) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: 'custom_embed',
+          action,
+          data,
+          key: parseQueryString()['k']
+        }),
+        '*'
+      )
+    }
+
+    const parseQueryString = function() {
+      const params = location.search.split('?')[1] || ''
+      const kv = params.split('&')
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split('=')
+        return Object.assign(result, {
+          [key]: value
+        })
+      }, {})
+    }
+
+     let data = {}      // ANS custom embed response
+     let content = {}   // The fetched content from external data source
+
+     // -------------------------------------------------
+
+
+
+    // Render the content data and contextual configuration together
+    const render = (dataParams) => {
+      var customBlockConfig = {
+        'backstory': {'title': 'Cómo se hizo esta historia'}
+      }
+
+      // Setup Element Preview
+      const config = dataParams.config || {}
+      const template = document.getElementById('content_template').innerHTML
+      const html = template
+        .replace(/%item_id%/gi, 'row-' + config.id)
+        .replace(/%customBlockTitle%/gi, customBlockConfig[config.customBlockType]['title'])
+        .replace(/%customBlockContent%/gi, config.customBlockContent)
+        .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
+
+      const element = document.createElement('div')
+      document.getElementById('content_holder').innerHTML = ''
+      document.getElementById('content_holder').appendChild(element)
+      element.outerHTML = html
+
+      // Update form state
+      document.getElementById('customBlockType').value = (config.customBlockType || "")
+      document.getElementById('customBlockContent').value = (config.customBlockContent || "")
+      // document.getElementById('date').value = (config.date || "")
+    }
+
+     // Update config based on form changes, submit back to Composer and re-render
+    const applyChanges = () => {
+      data.config.customBlockType = document.getElementById('customBlockType').value
+      data.config.customBlockContent = document.getElementById('customBlockContent').value
+      // data.config.date = document.getElementById('date').value
+
+       // Update Composer and re-render form
+      sendMessage('data', data)
+      render(data)
+    }
+
+     // -------------------------------------------------
+
+    const dismissEditor = () => {
+      sendMessage('cancel')
+    }
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+      data = JSON.parse(decodeURIComponent(parameters.p))
+      render(data)
+      document.getElementById('btn_apply').onclick = applyChanges
+      document.getElementById('btn_cancel').onclick = dismissEditor
+    }
+    </script>
+  </body>
+</html>

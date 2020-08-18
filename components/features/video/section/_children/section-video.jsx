@@ -1,10 +1,33 @@
 import React, { useEffect, useState } from 'react'
+import { useContent } from 'fusion:content'
+import ENV from 'fusion:environment'
+
 import { VIDEO } from '../../../../utilities/constants/multimedia-types'
 import PlayList from './play-list'
 import VideoBar from './video-navbar'
 import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { getResultVideo } from '../../../../utilities/story/helpers'
+
+/**
+ *
+ * Si piden que los videos vengan del CDN de Arc en lugar del
+ * CDN de El Comercio, solo se debe comentar:
+ *
+ * import { getResultVideo } from '../../../../utilities/story/helpers'
+ *
+ * y descomentar la siguiente funcion
+ */
+/* const getResultVideo = (streams, arcSite, type = 'ts') => {
+  const resultVideo = streams
+    .map(({ url = '', stream_type: streamType = '' }) => {
+      return streamType === type ? url : []
+    })
+    .filter(String)
+  const cantidadVideo = resultVideo.length
+
+  return resultVideo[cantidadVideo - 1]
+} */
 
 const popUpWindow = (url, title, w, h) => {
   const left = window.screen.width / 2 - w / 2
@@ -29,6 +52,15 @@ export default ({
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
   const { urlPreroll } = siteProperties
+  const { resized_urls: { videoPosterM, videoPosterD } = {} } =
+    useContent({
+      source: 'photo-resizer',
+      query: {
+        url: principalVideo.image,
+        presets: 'videoPosterM:440x0,videoPosterD:560x0',
+      },
+    }) || {}
+
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
     // No ocultar si es desktop
@@ -46,11 +78,36 @@ export default ({
       window.preroll = urlPreroll
       window.PoWaSettings.advertising = {
         adBar: false,
-        adTag: () => {
-          return principalVideo.hasAdsVideo ? urlPreroll : ''
+        adTag: () => (principalVideo.hasAdsVideo ? urlPreroll : ''),
+      }
+      window.PoWaSettings.promo = {
+        style: {
+          '.powa-shot-image': {
+            backgroundImage: `url('${
+              window.innerWidth <= 480
+                ? videoPosterM
+                : videoPosterD || principalVideo.image
+            }')`,
+            backgroundSize: 'contain',
+          },
+          '.powa-shot-play-btn': {
+            color: 'rgb(240, 248, 255)',
+            fill: 'rgb(240, 248, 255)',
+            backgroundColor: 'rgba(0, 0, 0, 0.25)',
+            boxShadow: '0 0 10px 5px rgba(0, 0, 0, 0.25)',
+            transition: 'all 0.25s',
+            borderRadius: '2em',
+          },
+          '.powa-shot-play-icon': {
+            opacity: '0.85',
+          },
+          '.powa-shot-loading-icon': {
+            opacity: '0.85',
+          },
         },
       }
     }
+
     if (window.innerWidth < 640) {
       window.addEventListener('powaReady', ({ detail: { element } }) => {
         element.setAttribute('data-sticky', 'true')
@@ -142,11 +199,12 @@ export default ({
   if (principalVideo.video && principalVideo.promoItemsType === VIDEO) {
     const arrayMatch = principalVideo.video.match(/"powa-([\w\d-]+)"/)
     const idVideoPwa = arrayMatch.length > 0 ? arrayMatch[1] : ''
+    const env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
-    htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="prod" data-stream="${getResultVideo(
+    htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="${env}" data-stream="${getResultVideo(
       principalVideo && principalVideo.videoStreams,
       arcSite
-    )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="prod" data-preload=none ></div>`
+    )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="${env}" data-preload=none ></div>`
   }
 
   return (
