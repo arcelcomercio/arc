@@ -27,6 +27,11 @@ content_elements {
       countReviews
       content
       date
+      type_event
+      name
+      location_name
+      location_address
+      start_date
     }
   }
   raw_oembed{
