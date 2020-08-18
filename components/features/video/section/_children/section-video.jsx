@@ -9,6 +9,26 @@ import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { getResultVideo } from '../../../../utilities/story/helpers'
 
+/**
+ *
+ * Si piden que los videos vengan del CDN de Arc en lugar del
+ * CDN de El Comercio, solo se debe comentar:
+ *
+ * import { getResultVideo } from '../../../../utilities/story/helpers'
+ *
+ * y descomentar la siguiente funcion
+ */
+/* const getResultVideo = (streams, arcSite, type = 'ts') => {
+  const resultVideo = streams
+    .map(({ url = '', stream_type: streamType = '' }) => {
+      return streamType === type ? url : []
+    })
+    .filter(String)
+  const cantidadVideo = resultVideo.length
+
+  return resultVideo[cantidadVideo - 1]
+} */
+
 const popUpWindow = (url, title, w, h) => {
   const left = window.screen.width / 2 - w / 2
   const top = window.screen.height / 2 - h / 2
@@ -32,12 +52,12 @@ export default ({
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
   const { urlPreroll } = siteProperties
-  const { resized_urls: { videoPoster } = {} } =
+  const { resized_urls: { videoPosterM, videoPosterD } = {} } =
     useContent({
       source: 'photo-resizer',
       query: {
         url: principalVideo.image,
-        presets: 'videoPoster:560x0',
+        presets: 'videoPosterM:440x0,videoPosterD:560x0',
       },
     }) || {}
 
@@ -63,7 +83,11 @@ export default ({
       window.PoWaSettings.promo = {
         style: {
           '.powa-shot-image': {
-            backgroundImage: `url('${videoPoster || principalVideo.image}')`,
+            backgroundImage: `url('${
+              window.innerWidth <= 480
+                ? videoPosterM
+                : videoPosterD || principalVideo.image
+            }')`,
             backgroundSize: 'contain',
           },
           '.powa-shot-play-btn': {
