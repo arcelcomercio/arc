@@ -31,6 +31,9 @@
     width: 100%;
     text-align: right;
     color: #444;
+    @media (--only-mobile) {
+      text-align: left;
+    }
   }
   &__author {
     font-size: 16px;
@@ -41,6 +44,9 @@
     flex-direction: row;
     justify-content: space-between;
     padding-bottom: 5px;
+    @media (--only-mobile) {
+      flex-direction: column-reverse;
+    }
   }
   &__author-info {
     align-items: center;
@@ -82,6 +88,9 @@
     flex-direction: column;
     @media (--desktop) {
       font-size: 12px;
+    }
+    @media (--only-mobile) {
+      margin-bottom: 15px;
     }
   }
   &__font-paragraph {
