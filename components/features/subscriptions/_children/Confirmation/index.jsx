@@ -3,7 +3,12 @@ import React, { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../../_context/auth'
 import PropertiesSite from '../../_dependencies/Properties'
 import { paymentTraker } from '../../_dependencies/Services'
-import { pushCxense } from '../../_dependencies/Taggeo'
+import {
+  pushCxense,
+  // PixelActions,
+  // sendAction,
+} from '../../_dependencies/Taggeo'
+import PWA from '../../_dependencies/Pwa'
 
 const styles = {
   step: 'step__left-progres',
@@ -66,6 +71,70 @@ const Confirmation = ({ arcSite, arcEnv }) => {
           orderNumber,
           confirm
         )
+
+        // sendAction(PixelActions.PAYMENT_CONFIRMATION, {
+        //   transactionId: orderNumber,
+        //   transactionAffiliation: arcSite,
+        //   transactionTotal: paidTotal,
+        //   transactionTax: 0,
+        //   transactionShipping: 0,
+        //   transactionProducts: [
+        //     {
+        //       sku,
+        //       name: planName,
+        //       category: 'Planes',
+        //       price: amount,
+        //       quantity: 1,
+        //     },
+        //   ],
+        //   confirmacionID: subscriptionIDs[0], // Por ahora solo un producto
+        //   periodo: billingFrequency,
+        //   priceCode,
+        //   suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
+        //   medioCompra: origin,
+        //   accesoGratis: !!freeAccess ? 'si' : 'no',
+        //   referer,
+        //   pwa: PWA.isPWA() ? 'si' : 'no',
+        // })
+
+        // dataLayer.push({
+        //   event: 'checkoutOption',
+        //   ecommerce: {
+        //     checkout_option: {
+        //       actionField: { step: 4 },
+        //     },
+        //   },
+        // })
+
+        // dataLayer.push({
+        //   event: 'buy',
+        //   ecommerce: {
+        //     purchase: {
+        //       actionField: {
+        //         id: orderNumber,
+        //         affiliation: 'Online Store',
+        //         revenue: amount,
+        //       },
+        //       products: [
+        //         {
+        //           id: sku,
+        //           name: productName,
+        //           price: amount,
+        //           brand: arcSite,
+        //           category: planName,
+        //           subCategory: Frecuency[billingFrequency],
+        //         },
+        //       ],
+        //       dataUser: {
+        //         id: window.Identity.userIdentity.uuid || uuid,
+        //         name: `${firstName} ${lastName} ${secondLastName}`
+        //           .replace(/\s*/, ' ')
+        //           .trim(),
+        //         email,
+        //       },
+        //     },
+        //   },
+        // })
       }
     }
   }, [])
@@ -73,6 +142,10 @@ const Confirmation = ({ arcSite, arcEnv }) => {
   const goToHome = () => {
     if (typeof window !== 'undefined') {
       setLoading(true)
+      if (PWA.isPWA()) {
+        PWA.pwaCloseWebView()
+        return
+      }
       const urlLocal = window.sessionStorage.getItem('paywall_last_url')
       let urlRedirect = urlsSite.mainHome[arcEnv]
       if (urlLocal) {

@@ -22,6 +22,7 @@ import {
   PanelLeft,
   PanelRight,
 } from '../_layouts/containers'
+import PWA from '../_dependencies/Pwa'
 
 const WrapperPaymentSubs = () => {
   const {
@@ -45,6 +46,8 @@ const WrapperPaymentSubs = () => {
   const { urls } = PropertiesSite[arcSite]
 
   useEffect(() => {
+    PWA.mount(() => window.location.reload())
+
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity[arcEnv],
