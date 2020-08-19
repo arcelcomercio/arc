@@ -109,8 +109,7 @@ const ChartbeatBody = props => {
       ? `_sf_async_config.authors = '${author}'; _sf_async_config.type = '${type}'; _sf_async_config.contentType = "${stringType}";`
       : ''
   } ${
-    page === 'meta_home' &&
-    (arcSite === 'publimetro' || arcSite === 'elcomercio')
+    page === 'meta_home' &&  arcSite === 'elcomercio'
       ? chartbeatLoaderScriptAsync
       : chartbeatLoaderScript
   }`

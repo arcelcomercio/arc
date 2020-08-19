@@ -8,7 +8,6 @@ const getSite = site => {
     depor: 'dep',
     trome: 'trm',
     gestion: 'ges',
-    publimetro: 'pub',
     peru21: 'p21',
     elbocon: 'boc',
     ojo: 'ojo',

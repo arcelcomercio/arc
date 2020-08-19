@@ -33,6 +33,10 @@ export const customFieldsAdsList = {
     name: 'Posición en la lista',
     group: 'Publicidad Movil',
   }),
+  structuredData: PropTypes.bool.tag({
+    name: '¿Generar datos estructurados?', 
+    defaultValue: false,
+  }),
 }
 
 export const customFields = PropTypes.shape({

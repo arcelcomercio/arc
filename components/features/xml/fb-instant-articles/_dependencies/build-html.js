@@ -11,16 +11,18 @@ import {
 import recommederBySite from '../_children/recommeder-by-site'
 import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
 import { STORY_CORRECTION } from '../../../../utilities/constants/subtypes'
-// import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
- * TODO:TEMP: esto se ha hecho temporalmente hasta final del mes de
- * JUNIO 2020, una vez que pase esa fecha se debe eliminar esta
- * funcion y descomentar la que se importa de story/helpers
  *
- * asi decian
+ * Si piden que los videos vengan del CDN de Arc en lugar del
+ * CDN de El Comercio, solo se debe comentar:
+ *
+ * import { getResultVideo } from '../../../../utilities/story/helpers'
+ *
+ * y descomentar la siguiente funcion
  */
-const getResultVideo = (streams, arcSite, type = 'ts') => {
+/* const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
       return streamType === type ? url : []
@@ -29,7 +31,7 @@ const getResultVideo = (streams, arcSite, type = 'ts') => {
   const cantidadVideo = resultVideo.length
 
   return resultVideo[cantidadVideo - 1]
-}
+} */
 
 const presets = 'resizedImage:840x0'
 
@@ -87,7 +89,7 @@ const buildCorrectionTexParagraph = (
 
   result.processedParagraph =
     result.numberWords > 0
-      ? `<blockquote><b>${title}</b> ${clearBrTag(paragraph)}</blockquote>`
+      ? `<blockquote><b>${title}</b> ${cleanTag(paragraph)}</blockquote>`
       : ''
   return result
 }
@@ -583,12 +585,7 @@ const BuildHtml = ({
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
       ${
-        !(
-          (arcSite === 'ojo' && section === 'ojo-show') ||
-          (arcSite === 'publimetro' && section === 'actualidad') ||
-          (arcSite === 'publimetro' && section === 'redes-sociales') ||
-          (arcSite === 'publimetro' && section === 'entretenimiento')
-        )
+        !(arcSite === 'ojo' && section === 'ojo-show')
           ? `
         ${
           type === ConfigParams.GALLERY
@@ -596,7 +593,7 @@ const BuildHtml = ({
             : ''
         }
         ${
-          websiteUrlsBytag.length > 0
+          websiteUrlsBytag.length > 1
             ? `<ul class="op-related-articles" title="Noticias relacionadas">
           ${websiteUrlsBytag
             .map(url =>

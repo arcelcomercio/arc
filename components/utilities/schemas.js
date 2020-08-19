@@ -8,6 +8,7 @@ const storySchemaBase = `
     content_restrictions:  ContentRestrictions
     description: Description
     headlines: Headlines
+    address: Address
     subheadlines: Subheadlines
     promo_items: PromoItems
     credits: Credits
@@ -55,6 +56,9 @@ const storySchemaTypes = presets => {
     }
     type Headlines {
       basic: String
+    }
+    type Address {
+      locality: String
     }
     type Subheadlines {
       basic: String

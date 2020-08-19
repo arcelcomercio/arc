@@ -32,6 +32,8 @@ content_elements {
       location_name
       location_address
       start_date
+      customBlockType
+      customBlockContent
     }
   }
   raw_oembed{
@@ -153,6 +155,9 @@ canonical_url
 headlines {
   basic
   meta_title
+}
+address{
+  locality
 }
 subheadlines {
   basic

@@ -1,6 +1,6 @@
-// file path: StoryContentContent.js
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { useFusionContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -44,10 +44,15 @@ import StoryContentsChildLinkedImage from './_children/linked-image'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthorLite from './_children/author-lite'
+import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCorrection from './_children/correction'
-import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
+import {
+  STORY_CORRECTION,
+  STORY_CUSTOMBLOCK,
+} from '../../../utilities/constants/subtypes'
+import StoryContentsChildCustomBlock from './_children/custom-block'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -64,404 +69,436 @@ const classes = {
   bbcHead: 'bbc-head p-10',
 }
 
-@Consumer
-class StoryContentsLite extends PureComponent {
-  render() {
-    const {
-      globalContent,
-      arcSite,
-      contextPath,
-      deployment,
-      siteProperties: {
-        ids: { opta },
-        isDfp = false,
+const StoryContentsLite = () => {
+  const DEFAULT_AUTHOR_IMG = 'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/author.png?d=1'
+  const {
+    globalContent,
+    arcSite,
+    contextPath,
+    deployment,
+    siteProperties: {
+      ids: { opta },
+      isDfp = false,
+    },
+  } = useFusionContext()
+
+  const {
+    publishDate: date,
+    promoItems,
+    displayDate: updatedDate,
+    createdDate,
+    authorImage,
+    authorLink,
+    author,
+    role: authorRole,
+    locality,
+    primarySection,
+    authorEmail,
+    primarySectionLink,
+    subtype,
+    isPremium,
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+    multimediaLazyDefault,
+    tags,
+    contentPosicionPublicidadLite,
+    canonicalUrl,
+    prerollDefault,
+    contentElementsHtml,
+  } = new StoryData({
+    data: globalContent,
+    contextPath,
+    deployment,
+    arcSite,
+  })
+
+  let authorImgSmall = authorImage
+  if(authorImage !== DEFAULT_AUTHOR_IMG){
+    ( { resized_urls: { authorImgSmall } = {} } = useContent({
+      source: 'photo-resizer',
+      query: {
+        url: authorImage,
+        presets: 'authorImgSmall:57x57',
       },
-    } = this.props
+    }) || {} )
+  }
 
-    const {
-      publishDate: date,
-      promoItems,
-      displayDate: updatedDate,
-      createdDate,
-      authorImage,
-      authorLink,
-      author,
-      primarySection,
-      authorEmail,
-      primarySectionLink,
-      subtype,
-      isPremium,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
-      tags,
-      contentPosicionPublicidadLite,
-      canonicalUrl,
-      prerollDefault,
-      contentElementsHtml,
-    } = new StoryData({
-      data: globalContent,
-      contextPath,
-      deployment,
+  const params = {
+    authorImage,
+    authorImgSmall,
+    author,
+    authorRole,
+    authorLink,
+    updatedDate: getDateSeo(updatedDate || createdDate),
+    date: getDateSeo(date || createdDate),
+    locality,
+    primarySectionLink,
+    authorEmail,
+    primarySection,
+    subtype,
+    ...promoItems,
+    multimediaLandscapeMD,
+    multimediaStorySmall,
+    multimediaLarge,
+    multimediaLazyDefault,
+    primaryImage: true,
+  }
+  const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
+  const imgBbc =
+    `${getAssetsPath(
       arcSite,
-    })
-
-    const params = {
-      authorImage,
-      author,
-      authorLink,
-      updatedDate: getDateSeo(updatedDate || createdDate),
-      date,
-      primarySectionLink,
-      authorEmail,
-      primarySection,
-      subtype,
-      ...promoItems,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
-      primaryImage: true,
-    }
-    const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
-    const imgBbc =
-      `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
-    const seccArary = canonicalUrl.split('/')
-    const secc = seccArary[1].replace(/-/gm, '')
-    return (
-      <>
-        <div className={classes.news}>
+      contextPath
+    )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
+  const seccArary = canonicalUrl.split('/')
+  const secc = seccArary[1].replace(/-/gm, '')
+  return (
+    <>
+      <div className={classes.news}>
+        {SITE_ELCOMERCIO === arcSite ? (
+          <StoryContentsChildAuthorTrustLite {...params} />
+        ) : (
           <StoryContentsChildAuthorLite {...params} />
+        )}
+        <div
+          id="gpt_caja3"
+          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+          data-prebid-enabled></div>
+        <div
+          className={`${classes.content} ${isPremium &&
+            'story-content__nota-premium paywall no_copy'}`}
+          style={isPremium ? { display: 'none' } : {}}
+          id="contenedor">
+          {!isDfp && (
+            <>
+              <div id="ads_d_inline" />
+              <div id="ads_m_movil_video" />
+              <div id="ads_m_movil3" />
+            </>
+          )}
+          {contentPosicionPublicidadLite && (
+            <ArcStoryContent
+              data={contentPosicionPublicidadLite}
+              elementClasses={classes}
+              renderElement={element => {
+                const {
+                  type,
+                  subtype: sub,
+                  embed: customEmbed,
+                  raw_oembed: rawOembed,
+                  content,
+                  level,
+                  alignment = '',
+                  headlines: { basic: captionVideo = '' } = {},
+                  nameAds,
+                  url = '',
+                  items = [],
+                  list_type: listType = 'unordered',
+                } = element
+                if (type === ELEMENT_IMAGE) {
+                  const presets = 'landscape_md:314,story_small:482,large:640'
 
-          <div
-            id="gpt_caja3"
-            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-            data-prebid-enabled></div>
-          <div
-            className={`${classes.content} ${isPremium &&
-              'story-content__nota-premium paywall no_copy'}`}
-            style={isPremium ? { display: 'none' } : {}}
-            id="contenedor">
-            {!isDfp && (
-              <>
-                <div id="ads_d_inline" />
-                <div id="ads_m_movil_video" />
-                <div id="ads_m_movil3" />
-              </>
-            )}
-            {contentPosicionPublicidadLite && (
-              <ArcStoryContent
-                data={contentPosicionPublicidadLite}
-                elementClasses={classes}
-                renderElement={element => {
+                  return (
+                    <StoryContentsChildImage
+                      {...element}
+                      multimediaLazyDefault={multimediaLazyDefault}
+                      presets={presets}
+                    />
+                  )
+                }
+                if (type === ELEMENT_VIDEO) {
+                  return (
+                    <>
+                      {element && element.embed_html ? (
+                        <StoryContentsChildVideo
+                          data={element.embed_html}
+                          {...element}
+                          className={classes.newsImage}
+                          description={captionVideo}
+                          contentElemtent="true"
+                        />
+                      ) : (
+                        <StoryContentsChildVideoNativo
+                          streams={element && element.streams}
+                        />
+                      )}
+                    </>
+                  )
+                }
+                if (type === ELEMENT_GALLERY) {
+                  return (
+                    <StoryHeaderChildGallery
+                      contentElementGallery={element}
+                      type={type}
+                    />
+                  )
+                }
+                if (type === ELEMENT_TEXT) {
+                  const alignmentClass = alignment
+                    ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
+                    : classes.textClasses
+                  return (
+                    <>
+                      {nameAds === 'inline' && (
+                        <div
+                          id="gpt_inline"
+                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
+                          data-ads-dimensions="[[1,1]]"
+                          data-ads-dimensions-m="[[1,1]]"></div>
+                      )}
+                      {nameAds === 'caja4' && (
+                        <div
+                          id="gpt_caja4"
+                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
+                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                          data-prebid-enabled></div>
+                      )}
+                      {nameAds === 'caja5' && (
+                        <div
+                          id="gpt_caja5"
+                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
+                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                          data-prebid-enabled></div>
+                      )}
+                      <p
+                        itemProp="description"
+                        className={alignmentClass}
+                        dangerouslySetInnerHTML={{
+                          __html: replaceTags(content),
+                        }}></p>
+                    </>
+                  )
+                }
+                if (type === ELEMENT_TABLE) {
+                  return <StoryContentsChildTable data={element} type={type} />
+                }
+                if (type === ELEMENT_QUOTE) {
+                  return <StoryContentsChildBlockQuote data={element} />
+                }
+                if (type === ELEMENT_LIST) {
+                  if (items && items.length > 0) {
+                    const ListType = listType === 'ordered' ? 'ol' : 'ul'
+                    return (
+                      <ListType className={classes.listClasses}>
+                        {items.map(item => (
+                          <li
+                            dangerouslySetInnerHTML={{
+                              __html: item.content
+                                ? item.content.replace(
+                                    /<a/g,
+                                    '<a itemprop="url"'
+                                  )
+                                : '',
+                            }}></li>
+                        ))}
+                      </ListType>
+                    )
+                  }
+                }
+                if (type === ELEMENT_OEMBED) {
+                  return (
+                    <Oembed
+                      rawOembed={rawOembed}
+                      subtype={sub}
+                      className={classes.newsEmbed}
+                    />
+                  )
+                }
+                if (type === ELEMENT_INTERSTITIAL_LINK) {
+                  return (
+                    <StoryContentsChildInterstitialLink
+                      url={url}
+                      content={content}
+                      isAmp={false}
+                    />
+                  )
+                }
+                if (type === ELEMENT_HEADER && level === 1) {
+                  return (
+                    <h2
+                      itemProp="name"
+                      className={classes.textClasses}
+                      dangerouslySetInnerHTML={{
+                        __html: content,
+                      }}
+                    />
+                  )
+                }
+                if (type === ELEMENT_BLOCKQUOTE) {
+                  return (
+                    <blockquote
+                      dangerouslySetInnerHTML={{
+                        __html: content,
+                      }}
+                      className={classes.blockquoteClass}
+                    />
+                  )
+                }
+
+                if (type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION) {
                   const {
-                    type,
-                    subtype: sub,
-                    embed: customEmbed,
-                    raw_oembed: rawOembed,
-                    content,
-                    level,
-                    alignment = '',
-                    headlines: { basic: captionVideo = '' } = {},
-                    nameAds,
-                    url = '',
-                    items = [],
-                    list_type: listType = 'unordered',
-                  } = element
-                  if (type === ELEMENT_IMAGE) {
-                    const presets = 'landscape_md:314,story_small:482,large:640'
+                    config: { content: contentCorrectionConfig = '' } = {},
+                  } = customEmbed || {}
+                  return (
+                    <StoryContentsChildCorrection
+                      content={contentCorrectionConfig}
+                      isAmp={false}
+                    />
+                  )
+                }
 
-                    return (
-                      <StoryContentsChildImage
-                        {...element}
-                        multimediaLazyDefault={multimediaLazyDefault}
-                        presets={presets}
-                      />
-                    )
-                  }
-                  if (type === ELEMENT_VIDEO) {
-                    return (
-                      <>
-                        {element && element.embed_html ? (
-                          <StoryContentsChildVideo
-                            data={element.embed_html}
-                            {...element}
-                            className={classes.newsImage}
-                            description={captionVideo}
-                            contentElemtent="true"
-                          />
-                        ) : (
-                          <StoryContentsChildVideoNativo
-                            streams={element && element.streams}
-                          />
-                        )}
-                      </>
-                    )
-                  }
-                  if (type === ELEMENT_GALLERY) {
-                    return (
-                      <StoryHeaderChildGallery
-                        contentElementGallery={element}
-                        type={type}
-                      />
-                    )
-                  }
-                  if (type === ELEMENT_TEXT) {
-                    const alignmentClass = alignment
-                      ? `${classes.textClasses} ${classes.alignmentClasses}-${alignment}`
-                      : classes.textClasses
-                    return (
-                      <>
-                        {nameAds === 'inline' && (
-                          <div
-                            id="gpt_inline"
-                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
-                            data-ads-dimensions="[[1,1]]"
-                            data-ads-dimensions-m="[[1,1]]"></div>
-                        )}
-                        {nameAds === 'caja4' && (
-                          <div
-                            id="gpt_caja4"
-                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-                            data-prebid-enabled></div>
-                        )}
-                        {nameAds === 'caja5' && (
-                          <div
-                            id="gpt_caja5"
-                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
-                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-                            data-prebid-enabled></div>
-                        )}
-                        <p
-                          itemProp="description"
-                          className={alignmentClass}
-                          dangerouslySetInnerHTML={{
-                            __html: replaceTags(content),
-                          }}></p>
-                      </>
-                    )
-                  }
-                  if (type === ELEMENT_TABLE) {
-                    return (
-                      <StoryContentsChildTable data={element} type={type} />
-                    )
-                  }
-                  if (type === ELEMENT_QUOTE) {
-                    return <StoryContentsChildBlockQuote data={element} />
-                  }
-                  if (type === ELEMENT_LIST) {
-                    if (items && items.length > 0) {
-                      const ListType = listType === 'ordered' ? 'ol' : 'ul'
-                      return (
-                        <ListType className={classes.listClasses}>
-                          {items.map(item => (
-                            <li
-                              dangerouslySetInnerHTML={{
-                                __html: item.content
-                                  ? item.content.replace(
-                                      /<a/g,
-                                      '<a itemprop="url"'
-                                    )
-                                  : '',
-                              }}></li>
-                          ))}
-                        </ListType>
-                      )
-                    }
-                  }
-                  if (type === ELEMENT_OEMBED) {
-                    return (
-                      <Oembed
-                        rawOembed={rawOembed}
-                        subtype={sub}
-                        className={classes.newsEmbed}
-                      />
-                    )
-                  }
-                  if (type === ELEMENT_INTERSTITIAL_LINK) {
-                    return (
-                      <StoryContentsChildInterstitialLink
-                        url={url}
-                        content={content}
-                        isAmp={false}
-                      />
-                    )
-                  }
-                  if (type === ELEMENT_HEADER && level === 1) {
-                    return (
-                      <h2
-                        itemProp="name"
-                        className={classes.textClasses}
-                        dangerouslySetInnerHTML={{
-                          __html: content,
-                        }}
-                      />
-                    )
-                  }
-                  if (type === ELEMENT_BLOCKQUOTE) {
-                    return (
-                      <blockquote
-                        dangerouslySetInnerHTML={{
-                          __html: content,
-                        }}
-                        className={classes.blockquoteClass}
-                      />
-                    )
-                  }
+                if (
+                  type === ELEMENT_CUSTOM_EMBED &&
+                  sub === STORY_CUSTOMBLOCK
+                ) {
+                  const {
+                    config: {
+                      customBlockContent = '',
+                      customBlockType = '',
+                    } = {},
+                  } = customEmbed || {}
+                  return (
+                    <StoryContentsChildCustomBlock
+                      content={customBlockContent}
+                      type={customBlockType}
+                      isAmp={false}
+                    />
+                  )
+                }
 
+                if (type === ELEMENT_RAW_HTML) {
                   if (
-                    type === ELEMENT_CUSTOM_EMBED &&
-                    sub === STORY_CORRECTION
+                    content.includes('opta-widget') &&
+                    // eslint-disable-next-line camelcase
+                    typeof opta_settings === 'undefined'
                   ) {
-                    const {
-                      config: { content: contentCorrectionConfig = '' } = {},
-                    } = customEmbed || {}
                     return (
-                      <StoryContentsChildCorrection
-                        content={contentCorrectionConfig}
-                        isAmp={false}
-                      />
+                      <>
+                        {/* <script
+                          dangerouslySetInnerHTML={{
+                            __html: `
+                              var opta_settings={
+                                subscription_id: '${opta}',
+                                language: 'es_CO',
+                                timezone: 'America/Lima'
+                              };`,
+                          }}></script> */}
+                        <StoryContentChildRawHTML content={content} />
+                        <script
+                          dangerouslySetInnerHTML={{
+                            __html: `(function(){window.addEventListener('load', function(){
+                              requestIdle(function(){
+                                if(!window.optaReady){
+                                  var os=document.createElement('script')
+                                  os.textContent=\`
+                                    var opta_settings={
+                                      subscription_id: '${opta}',
+                                      language: 'es_CO',
+                                      timezone: 'America/Lima'
+                                    };\`
+                                  document.head.append(os)
+                                  var s=document.createElement('script')
+                                  s.src='${OPTA_JS_LINK}'
+                                  s.defer=true
+                                  s.type='text/javascript'
+                                  document.head.append(s)
+                                  var n=document.createElement('link')
+                                  n.rel='stylesheet'
+                                  n.href='${OPTA_CSS_LINK}'
+                                  document.head.append(n)
+                                  window.optaReady=true
+                                }
+                              })
+                            })
+                            })()`,
+                          }}
+                        />
+                      </>
                     )
                   }
-                  if (type === ELEMENT_RAW_HTML) {
-                    if (
-                      content.includes('opta-widget') &&
-                      // eslint-disable-next-line camelcase
-                      typeof opta_settings === 'undefined'
-                    ) {
-                      return (
-                        <>
-                          {/* <script
-                            dangerouslySetInnerHTML={{
-                              __html: `
-                                var opta_settings={
-                                  subscription_id: '${opta}',
-                                  language: 'es_CO',
-                                  timezone: 'America/Lima'
-                                };`,
-                            }}></script> */}
-                          <StoryContentChildRawHTML content={content} />
-                          <script
-                            dangerouslySetInnerHTML={{
-                              __html: `(function(){window.addEventListener('load', function(){
-                                requestIdle(function(){
-                                  if(!window.optaReady){
-                                    var os=document.createElement('script')
-                                    os.textContent=\`
-                                      var opta_settings={
-                                        subscription_id: '${opta}',
-                                        language: 'es_CO',
-                                        timezone: 'America/Lima'
-                                      };\`
-                                    document.head.append(os)
-                                    var s=document.createElement('script')
-                                    s.src='${OPTA_JS_LINK}'
-                                    s.defer=true
-                                    s.type='text/javascript'
-                                    document.head.append(s)
-                                    var n=document.createElement('link')
-                                    n.rel='stylesheet'
-                                    n.href='${OPTA_CSS_LINK}'
-                                    document.head.append(n)
-                                    window.optaReady=true
-                                  }
-                                })
-                              })
-                              })()`,
-                            }}
-                          />
-                        </>
+                  if (content.includes('id="powa-')) {
+                    let contentVideo = content
+                    if (arcSite === SITE_PERU21) {
+                      contentVideo = content.replace(
+                        /peru21.pe\/upload/gi,
+                        'img.peru21.pe/upload'
                       )
                     }
-                    if (content.includes('id="powa-')) {
-                      let contentVideo = content
-                      if (arcSite === SITE_PERU21) {
-                        contentVideo = content.replace(
-                          /peru21.pe\/upload/gi,
-                          'img.peru21.pe/upload'
-                        )
-                      }
-                      return (
-                        <>
-                          <StoryContentsChildVideo
-                            data={contentVideo}
-                            htmlContent="html"
-                            className={classes.newsImage}
-                            {...element}
-                          />
-                        </>
-                      )
-                    }
-                    if (
-                      content.includes('twitter-tweet') ||
-                      content.includes('instagram-media')
-                    ) {
-                      return (
-                        <>
-                          <div
-                            data-type={
-                              content.includes('twitter-tweet')
-                                ? 'twitter'
-                                : 'instagram'
-                            }
-                            className={classes.newsEmbed}
-                            dangerouslySetInnerHTML={{
-                              __html: content.replace(
-                                /(<script.*?>).*?(<\/script>)/,
-                                ''
-                              ),
-                            }}
-                          />
-                        </>
-                      )
-                    }
-                    return <StoryContentChildRawHTML content={content} />
+                    return (
+                      <>
+                        <StoryContentsChildVideo
+                          data={contentVideo}
+                          htmlContent="html"
+                          className={classes.newsImage}
+                          {...element}
+                        />
+                      </>
+                    )
                   }
-                  if (type === ELEMENT_CUSTOM_EMBED) {
-                    if (sub === 'image_link') {
-                      const { config: customEmbedConfig } = customEmbed || {}
-                      return (
-                        <StoryContentsChildLinkedImage {...customEmbedConfig} />
-                      )
-                    }
+                  if (
+                    content.includes('twitter-tweet') ||
+                    content.includes('instagram-media')
+                  ) {
+                    return (
+                      <>
+                        <div
+                          data-type={
+                            content.includes('twitter-tweet')
+                              ? 'twitter'
+                              : 'instagram'
+                          }
+                          className={classes.newsEmbed}
+                          dangerouslySetInnerHTML={{
+                            __html: content.replace(
+                              /(<script.*?>).*?(<\/script>)/,
+                              ''
+                            ),
+                          }}
+                        />
+                      </>
+                    )
                   }
-                  return ''
-                }}
-              />
-            )}
-          </div>
-          {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
-          <div className={classes.social}>
-            <div className="st-social__share">
-              <ShareButtons></ShareButtons>
-            </div>
-          </div>
-          {storyTagsBbc(tags) && (
-            <div className={classes.bbcHead}>
-              <a
-                itemProp="url"
-                href={URL_BBC}
-                rel="nofollow noopener noreferrer"
-                target="_blank">
-                <img alt="BBC" src={imgBbc} data-src={imgBbc} />
-              </a>
-            </div>
+                  return <StoryContentChildRawHTML content={content} />
+                }
+                if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (sub === 'image_link') {
+                    const { config: customEmbedConfig } = customEmbed || {}
+                    return (
+                      <StoryContentsChildLinkedImage {...customEmbedConfig} />
+                    )
+                  }
+                }
+                return ''
+              }}
+            />
           )}
         </div>
-        {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
-          <script
-            src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
-            defer></script>
+        {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
+        <div className={classes.social}>
+          <div className="st-social__share">
+            <ShareButtons></ShareButtons>
+          </div>
+        </div>
+        {storyTagsBbc(tags) && (
+          <div className={classes.bbcHead}>
+            <a
+              itemProp="url"
+              href={URL_BBC}
+              rel="nofollow noopener noreferrer"
+              target="_blank">
+              <img alt="BBC" src={imgBbc} data-src={imgBbc} />
+            </a>
+          </div>
         )}
-      </>
-    )
-  }
+      </div>
+      {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
+        <script
+          src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
+          defer></script>
+      )}
+    </>
+  )
 }
 
 StoryContentsLite.label = 'Artículo - contenidos'

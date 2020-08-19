@@ -82,11 +82,6 @@ export default {
       url: 'https://trome.pe/',
     },
     {
-      name: 'publimetro.pe',
-      arcSite: 'publimetro',
-      url: 'https://publimetro.pe/',
-    },
-    {
       name: 'laprensa.pe',
       arcSite: '',
       url: 'http://laprensa.pe/',

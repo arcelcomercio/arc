@@ -110,10 +110,11 @@ const SectionVideo = props => {
       videoDuration,
     }
     if (promoItemsType === VIDEO) {
-      const { video } = Story
+      const { video, promoItems } = Story
       dataVideo.principalVideo = {
         ...dataVideo.principalVideo,
         video,
+        image: promoItems[VIDEO].promo_items.basic.url,
       }
     }
     if (promoItemsType === ELEMENT_YOUTUBE_ID) {
