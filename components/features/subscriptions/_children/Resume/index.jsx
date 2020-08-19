@@ -10,6 +10,8 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext } from '../../_context/auth'
 import PropertiesSite from '../../_dependencies/Properties'
+import { isLogged } from '../../_dependencies/Session'
+import { Taggeo } from '../../_dependencies/Taggeo'
 
 const styles = {
   resume: 'step__right-resume-top',
@@ -17,11 +19,12 @@ const styles = {
   plan: 'step__right-name-plan',
   item: 'step__right-item-plan',
   selected: 'step__right-item-plan-selected',
+  recommended: 'step__right-item-plan-recommended',
   total: 'step__right-total',
   toolTip: 'tooltiptext-rightarrow tooltip-inactive',
 }
 
-const Resume = () => {
+const Resume = ({ arcEnv }) => {
   const {
     arcSite,
     globalContent: { plans = [], name },
@@ -68,17 +71,35 @@ const Resume = () => {
   }
 
   const handleChangeDates = () => {
-    updateStep(2)
-    const divDetail = document.getElementById('div-detail')
-    const btnDetail = document.getElementById('btn-detail')
-    const divFooter = document.getElementById('footer')
-    if (divDetail && btnDetail && divFooter) {
-      divDetail.classList.remove('step__show-detail')
-      btnDetail.classList.remove('step__hidden')
-      divFooter.classList.remove('step__hidden')
+    if (typeof window !== 'undefined') {
+      if (isLogged()) {
+        updateStep(2)
+        const divDetail = document.getElementById('div-detail')
+        const btnDetail = document.getElementById('btn-detail')
+        const divFooter = document.getElementById('footer')
+        if (divDetail && btnDetail && divFooter) {
+          divDetail.classList.remove('step__show-detail')
+          btnDetail.classList.remove('step__hidden')
+          divFooter.classList.remove('step__hidden')
 
-      document.body.classList.remove('no-scroll')
-      document.body.classList.remove('bg-shop')
+          document.body.classList.remove('no-scroll')
+          document.body.classList.remove('bg-shop')
+        }
+        Taggeo('Web_Paywall_Landing', 'web_paywall_change_dates', arcEnv)
+      } else {
+        window.location.reload()
+      }
+    }
+  }
+
+  const handleChangePlan = () => {
+    if (typeof window !== 'undefined') {
+      if (isLogged()) {
+        updateStep(2)
+        Taggeo('Web_Paywall_Landing', 'web_paywall_change_plan', arcEnv)
+      } else {
+        window.location.reload()
+      }
     }
   }
 
@@ -107,7 +128,7 @@ const Resume = () => {
                     className="step__btn-link"
                     type="button"
                     disabled={loadPage}
-                    onClick={() => updateStep(2)}>
+                    onClick={handleChangePlan}>
                     Cambiar Plan
                   </button>
                   <h4>{period[item.billingFrequency.toLowerCase()]}</h4>
@@ -154,6 +175,13 @@ const Resume = () => {
                     {item.description.description}
                   </p>
                 </label>
+
+                {item.description.recommended && (
+                  <span className={styles.recommended}>
+                    <h4>{item.description.recommended}</h4>
+                  </span>
+                )}
+
                 {/* {i === 0 && (
                   <span className={styles.toolTip} id="div-remember">
                     {texts.RememberChose}
@@ -188,7 +216,7 @@ const Resume = () => {
               Cambiar Datos
             </button>
             <h4>{formatName()}</h4>
-            <p className="email">{userProfile.email}</p>
+            <p className="email">{userProfile && userProfile.email}</p>
             <p>{texts.verifyEmail}</p>
           </div>
         </>

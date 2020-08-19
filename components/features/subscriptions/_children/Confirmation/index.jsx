@@ -41,7 +41,7 @@ const Confirmation = ({ arcSite, arcEnv }) => {
   } = userPurchase
 
   const formatName = () => {
-    const fullName = `${firstName} ${lastName} ${secondLastName}`
+    const fullName = `${firstName} ${lastName} ${secondLastName || ''}`
     return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
   }
 
@@ -56,8 +56,7 @@ const Confirmation = ({ arcSite, arcEnv }) => {
         const { accessToken } = window.Identity.userIdentity
         const origin =
           window.sessionStorage.getItem('paywall_type_modal') || 'organico'
-        const referer =
-          window.sessionStorage.getItem('paywall_last_url') || 'none'
+        const referer = window.sessionStorage.getItem('paywall_last_url') || ''
         const confirm =
           window.sessionStorage.getItem('paywall_confirm_subs') || '3'
 
@@ -207,9 +206,9 @@ const Confirmation = ({ arcSite, arcEnv }) => {
         </button>
       </div>
 
-      <div className={styles.noteBenefist}>
-        {/* <div className="img-club"></div>
-        <p>{texts.knownBenefist}</p> */}
+      {/* <div className={styles.noteBenefist}>
+        <div className="img-club"></div>
+        <p>{texts.knownBenefist}</p>
 
         <div className="apps">
           <a href={urlsSite.appStore} target="_blank" rel="noreferrer">
@@ -221,7 +220,7 @@ const Confirmation = ({ arcSite, arcEnv }) => {
         </div>
 
         <p>{texts.downloadApps}</p>
-      </div>
+      </div> */}
     </>
   )
 }

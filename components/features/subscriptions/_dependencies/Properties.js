@@ -8,8 +8,12 @@ const PropertiesSite = {
         sandbox:  'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/?ref=paywall'
       },
       homeUrl:  {
-        prod: 'https://elcomercio.pe/suscripciones/?ref=paywall',
-        sandbox: 'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'
+        prod:     'https://elcomercio.pe/suscripciones/?ref=paywall',
+        sandbox:  'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'
+      },
+      landingUrl:  {
+        prod:     'https://elcomercio.pe/suscripcionesdigitales/',
+        sandbox:  'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/suscripcionesdigitales/?outputType=subscriptions'
       },
       facebook:   'https://www.facebook.com/elcomercio.pe',
       twitter:    'https://twitter.com/elcomercio_peru',
@@ -132,6 +136,10 @@ const PropertiesSite = {
       homeUrl:  {
         prod:     'https://gestion.pe/suscripciones/?ref=paywall',
         sandbox:  'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'
+      },
+      landingUrl:  {
+        prod:     'https://gestion.pe/suscripcionesdigitales/',
+        sandbox:  'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/suscripcionesdigitales/?outputType=subscriptions'
       },
       facebook:   'https://www.facebook.com/Gestionpe',
       twitter:    'https://twitter.com/gestionpe',
@@ -320,7 +328,7 @@ const PropertiesSite = {
       continuedShop: '¿Desea continuar con la compra?',
       contactTo: 'Cualquier consulta contáctanos enviando un correo a',
       successSubsPrint:
-        'ACCEDE A ESTOS **PRECIOS ESPECIALES** POR SER SUSCRIPTOR IMPRESO',
+        'ACCEDE A ESTOS PRECIOS ESPECIALES POR SER SUSCRIPTOR IMPRESO',
     },
   },
 }

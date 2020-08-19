@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import useForm from '../../_hooks/useForm'
-import { conformProfile } from '../../_dependencies/Session'
+import { conformProfile, isLogged } from '../../_dependencies/Session'
 import { getEntitlements } from '../../_dependencies/Services'
 import { AuthContext } from '../../_context/auth'
 import PropertiesSite from '../../_dependencies/Properties'
@@ -35,6 +35,7 @@ const Profile = ({ arcEnv }) => {
 
   const { updateStep, userLogout, updateUser } = useContext(AuthContext)
   const [msgError, setMsgError] = useState(false)
+  const [msgErrorApi, setMsgErrorApi] = useState(error)
   const [loading, setLoading] = useState(false)
   const [loadText, setLoadText] = useState('Cargando...')
   const [linkLogin, setLinkLogin] = useState()
@@ -191,17 +192,24 @@ const Profile = ({ arcEnv }) => {
   }
 
   const onFormProfile = (...props) => {
-    setLoading(true)
-    setLoadText('Verificando Suscripciones...')
-    checkSubscriptions().then(resSubs => {
-      if (resSubs) {
-        setShowModal(true)
-        setLoading(false)
-        Taggeo('Web_Paywall_Landing', 'web_paywall_open_validation', arcEnv)
+    if (typeof window !== 'undefined') {
+      setLoading(true)
+      if (isLogged()) {
+        setLoadText('Verificando Suscripciones...')
+        checkSubscriptions().then(resSubs => {
+          if (resSubs) {
+            setShowModal(true)
+            setLoading(false)
+            Taggeo('Web_Paywall_Landing', 'web_paywall_open_validation', arcEnv)
+          } else {
+            updateProfile(...props)
+          }
+        })
       } else {
-        updateProfile(...props)
+        updateStep(1)
+        window.location.reload()
       }
-    })
+    }
   }
 
   const {
@@ -253,12 +261,27 @@ const Profile = ({ arcEnv }) => {
   }
 
   const handleChangeInput = e => {
-    setMsgError(false)
-    handleOnChange(e)
+    if (typeof window !== 'undefined') {
+      if (isLogged()) {
+        setMsgError(false)
+        setMsgErrorApi(false)
+        handleOnChange(e)
+      } else {
+        updateStep(1)
+        window.location.reload()
+      }
+    }
   }
 
   const handleChangeSelect = e => {
-    handleOnChange(e)
+    if (typeof window !== 'undefined') {
+      if (isLogged()) {
+        handleOnChange(e)
+      } else {
+        updateStep(1)
+        window.location.reload()
+      }
+    }
   }
 
   const logoutUser = () => {
@@ -294,10 +317,10 @@ const Profile = ({ arcEnv }) => {
       </ul>
       <h3 className={styles.subtitle}>Ingresa tus datos personales</h3>
 
-      {(msgError || error) && (
+      {(msgError || msgErrorApi) && (
         <div className={styles.block}>
           <div className="msg-alert">
-            {` ${msgError || error} `}
+            {` ${msgError || msgErrorApi} `}
             {linkLogin && (
               <>
                 <button
@@ -330,7 +353,7 @@ const Profile = ({ arcEnv }) => {
               required
               onChange={handleChangeInput}
               maxLength="50"
-              onBlur={handleOnChange}
+              onBlur={handleChangeInput}
               disabled={loading}
             />
             {uFirstNameError && (
@@ -350,7 +373,7 @@ const Profile = ({ arcEnv }) => {
               required
               onChange={handleChangeInput}
               maxLength="50"
-              onBlur={handleOnChange}
+              onBlur={handleChangeInput}
               disabled={loading}
             />
             {uLastNameError && (
@@ -397,7 +420,7 @@ const Profile = ({ arcEnv }) => {
                 value={uDocumentNumber}
                 required
                 onChange={handleChangeInput}
-                onBlur={handleOnChange}
+                onBlur={handleChangeInput}
                 disabled={loading}
               />
             </div>
@@ -418,7 +441,7 @@ const Profile = ({ arcEnv }) => {
               maxLength="12"
               required
               onChange={handleChangeInput}
-              onBlur={handleOnChange}
+              onBlur={handleChangeInput}
               disabled={loading}
             />
             {uPhoneError && <span className="msn-error">{uPhoneError}</span>}
@@ -438,7 +461,7 @@ const Profile = ({ arcEnv }) => {
               value={uEmail}
               required
               onChange={handleChangeInput}
-              onBlur={handleOnChange}
+              onBlur={handleChangeInput}
               maxLength="80"
               disabled={!isFaacebook || loading}
             />

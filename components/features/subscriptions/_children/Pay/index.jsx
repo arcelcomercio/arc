@@ -4,7 +4,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import TextMask from 'react-text-mask'
 import useForm from '../../_hooks/useForm'
 import getCodeError, { acceptCheckTermsPay } from '../../_dependencies/Errors'
-import { conformProfile } from '../../_dependencies/Session'
+import { conformProfile, isLogged } from '../../_dependencies/Session'
 import addPayU from '../../_dependencies/Payu'
 import { AuthContext } from '../../_context/auth'
 import { patternCard, patternDate, patterCvv } from '../../_dependencies/Regex'
@@ -24,9 +24,13 @@ const styles = {
 }
 
 const Pay = ({ arcSite, arcEnv }) => {
-  const { userProfile, userPlan, updatePurchase, updateLoadPage } = useContext(
-    AuthContext
-  )
+  const {
+    userProfile,
+    userPlan,
+    updateStep,
+    updatePurchase,
+    updateLoadPage,
+  } = useContext(AuthContext)
   const { texts } = PropertiesSite.common
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesSite.common
@@ -106,129 +110,130 @@ const Pay = ({ arcSite, arcEnv }) => {
 
   const onFormPay = ({ cNumber, cExpire, cCvv }) => {
     if (typeof window !== 'undefined') {
-      let payUPaymentMethod
-      let orderNumberDinamic
-
-      // const fullUserName = `${firstName} ${lastName} ${secondLastName}`
-      const cExpireMonth = cExpire.split('/')[0]
-      const cExpireYear = cExpire.split('/')[1]
-
       setLoading(true)
-      updateLoadPage(true)
-      setMsgError(false)
-      setTxtLoading('Preparando Orden...')
+      if (isLogged()) {
+        let payUPaymentMethod
+        let orderNumberDinamic
 
-      window.Sales.clearCart()
-        .then(() => window.Sales.addItemToCart([userPlan]))
-        .then(() =>
-          window.Sales.createNewOrder(
-            { country: 'PE', line2: `${documentType}_${documentNumber}` },
-            email,
-            phone,
-            firstName,
-            lastName,
-            secondLastName,
-            { country: 'PE' }
+        const fullUserName = `${firstName} ${lastName} ${secondLastName || ''}`
+        const cExpireMonth = cExpire.split('/')[0]
+        const cExpireYear = cExpire.split('/')[1]
+
+        updateLoadPage(true)
+        setMsgError(false)
+        setTxtLoading('Preparando Orden...')
+
+        window.Sales.clearCart()
+          .then(() => window.Sales.addItemToCart([userPlan]))
+          .then(() =>
+            window.Sales.createNewOrder(
+              { country: 'PE', line2: `${documentType}_${documentNumber}` },
+              email,
+              phone,
+              firstName,
+              lastName,
+              secondLastName,
+              { country: 'PE' }
+            )
           )
-        )
-        .then(resOrder =>
-          window.Sales.getPaymentOptions()
-            .then(resPayOptions => {
-              setTxtLoading('Iniciando Proceso...')
-              payUPaymentMethod = resPayOptions.find(
-                m => m.paymentMethodType === 8
-              )
-              orderNumberDinamic = resOrder.orderNumber
-              const { paymentMethodID } = payUPaymentMethod
-              return window.Sales.initializePayment(
-                orderNumberDinamic,
-                paymentMethodID
-              )
-            })
-            .then(resInitialize => {
-              const {
-                parameter1: publicKey,
-                parameter2: accountId,
-                parameter3: payuBaseUrl,
-                parameter4: deviceSessionId,
-              } = resInitialize
+          .then(resOrder =>
+            window.Sales.getPaymentOptions()
+              .then(resPayOptions => {
+                setTxtLoading('Iniciando Proceso...')
+                payUPaymentMethod = resPayOptions.find(
+                  m => m.paymentMethodType === 8
+                )
+                orderNumberDinamic = resOrder.orderNumber
+                const { paymentMethodID } = payUPaymentMethod
+                return window.Sales.initializePayment(
+                  orderNumberDinamic,
+                  paymentMethodID
+                )
+              })
+              .then(resInitialize => {
+                const {
+                  parameter1: publicKey,
+                  parameter2: accountId,
+                  parameter3: payuBaseUrl,
+                  parameter4: deviceSessionId,
+                } = resInitialize
 
-              return addPayU(deviceSessionId)
-                .then(payU => {
-                  setTxtLoading('Solicitando Autorización...')
-                  payU.setURL(payuBaseUrl)
-                  payU.setPublicKey(publicKey)
-                  payU.setAccountID(accountId)
-                  // payU.setListBoxID('mylistID')
-                  // payU.setLanguage('es')
-                  // payU.getPaymentMethods()
-                  payU.setCardDetails({
-                    number: cNumber.replace(/\s/g, ''),
-                    name_card: 'APPROVED', // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
-                    payer_id: documentNumber,
-                    exp_month: cExpireMonth,
-                    exp_year: cExpireYear,
-                    method: methodCard,
-                    document: documentNumber,
-                    cvv: cCvv,
+                return addPayU(deviceSessionId)
+                  .then(payU => {
+                    setTxtLoading('Solicitando Autorización...')
+                    payU.setURL(payuBaseUrl)
+                    payU.setPublicKey(publicKey)
+                    payU.setAccountID(accountId)
+                    // payU.setListBoxID('mylistID')
+                    // payU.setLanguage('es')
+                    // payU.getPaymentMethods()
+                    payU.setCardDetails({
+                      number: cNumber.replace(/\s/g, ''),
+                      name_card:
+                        arcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
+                      payer_id: documentNumber,
+                      exp_month: cExpireMonth,
+                      exp_year: cExpireYear,
+                      method: methodCard,
+                      document: documentNumber,
+                      cvv: cCvv,
+                    })
+                    return new Promise((resolve, reject) => {
+                      setTxtLoading('Validando Solicitud...')
+                      payU.createToken(response => {
+                        if (response.error) {
+                          reject(new Error(response.error))
+                          setMsgError(response.error)
+                          setLoading(false)
+                          updateLoadPage(false)
+                        } else {
+                          resolve(response.token)
+                        }
+                      })
+                    })
                   })
-                  return new Promise((resolve, reject) => {
-                    setTxtLoading('Validando Solicitud...')
-                    payU.createToken(response => {
-                      if (response.error) {
-                        reject(new Error(response.error))
-                        setMsgError(response.error)
+                  .then(tokenPayu => {
+                    const {
+                      paymentMethodID,
+                      paymentMethodType,
+                    } = payUPaymentMethod
+                    const tokenDinamic = `${tokenPayu}~${deviceSessionId}~${cCvv}`
+                    setTxtLoading('Finalizando Proceso...')
+                    return window.Sales.finalizePayment(
+                      orderNumberDinamic,
+                      paymentMethodID,
+                      tokenDinamic
+                    )
+                      .then(resFinalize => {
+                        const { status, total, subscriptionIDs } = resFinalize
+                        // if (status !== 'Paid') {
+                        //   setMsgError(getCodeError('NoPaid', status))
+                        // }
+                        updatePurchase(resFinalize)
+                        return {
+                          publicKey,
+                          accountId,
+                          payuBaseUrl,
+                          deviceSessionId,
+                          paymentMethodID,
+                          paymentMethodType,
+                          subscriptionIDs,
+                          status,
+                          total,
+                        }
+                      })
+                      .catch(errFinalize => {
+                        setMsgError(getCodeError(errFinalize.code))
                         setLoading(false)
                         updateLoadPage(false)
-                      } else {
-                        resolve(response.token)
-                      }
-                    })
+                      })
                   })
-                })
-                .then(tokenPayu => {
-                  const {
-                    paymentMethodID,
-                    paymentMethodType,
-                  } = payUPaymentMethod
-                  const tokenDinamic = `${tokenPayu}~${deviceSessionId}~${cCvv}`
-                  setTxtLoading('Finalizando Proceso...')
-                  return window.Sales.finalizePayment(
-                    orderNumberDinamic,
-                    paymentMethodID,
-                    tokenDinamic
-                  )
-                    .then(resFinalize => {
-                      const { status, total, subscriptionIDs } = resFinalize
-                      // if (status !== 'Paid') {
-                      //   setMsgError(getCodeError('NoPaid', status))
-                      // }
-                      updatePurchase(resFinalize)
-                      return {
-                        publicKey,
-                        accountId,
-                        payuBaseUrl,
-                        deviceSessionId,
-                        paymentMethodID,
-                        paymentMethodType,
-                        subscriptionIDs,
-                        status,
-                        total,
-                      }
-                    })
-                    .catch(errFinalize => {
-                      setMsgError(getCodeError(errFinalize.code))
-                      setLoading(false)
-                      updateLoadPage(false)
-                    })
-                })
-            })
-        )
-      // .catch(errNewOrder => {
-      //   setMsgError(getCodeError(errNewOrder.code))
-      //   setLoading(false)
-      //   updateLoadPage(false)
-      // })
+              })
+          )
+      } else {
+        updateStep(1)
+        window.location.reload()
+      }
     }
   }
 
@@ -253,8 +258,15 @@ const Pay = ({ arcSite, arcEnv }) => {
   } = useForm(stateSchema, stateValidatorSchema, onFormPay)
 
   const handleOnChangeInput = e => {
-    setMsgError(false)
-    handleOnChange(e)
+    if (typeof window !== 'undefined') {
+      if (isLogged()) {
+        setMsgError(false)
+        handleOnChange(e)
+      } else {
+        updateStep(1)
+        window.location.reload()
+      }
+    }
   }
 
   const openNewTab = typeLink => {
@@ -301,7 +313,7 @@ const Pay = ({ arcSite, arcEnv }) => {
               value={cNumber}
               required
               onChange={handleOnChangeInput}
-              onBlur={handleOnChange}
+              onBlur={handleOnChangeInput}
               onKeyUp={validateCardNumber}
               placeholder="0000 0000 0000 0000"
               disabled={loading}
@@ -325,7 +337,7 @@ const Pay = ({ arcSite, arcEnv }) => {
                 value={cExpire}
                 required
                 onChange={handleOnChangeInput}
-                onFocus={handleOnChange}
+                onFocus={handleOnChangeInput}
                 placeholder="mm/aaaa"
                 disabled={loading}
               />
@@ -358,7 +370,7 @@ const Pay = ({ arcSite, arcEnv }) => {
                 value={cCvv}
                 required
                 onChange={handleOnChangeInput}
-                onBlur={handleOnChange}
+                onBlur={handleOnChangeInput}
                 placeholder="***"
                 disabled={loading}
               />

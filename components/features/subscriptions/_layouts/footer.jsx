@@ -188,12 +188,15 @@ export const FooterSubs = ({ arcEnv }) => {
   )
 }
 
-export const FooterLand = ({ arcSite, arcEnv }) => {
+export const FooterLand = ({ arcSite, arcEnv, arcType }) => {
   const { urls, emails, texts } = PropertiesSite[arcSite]
   return (
     <>
       <footer className="footer" id="footer">
-        <div className="wrapper">
+        <div
+          className={
+            arcType === 'payment' ? 'wrapper-buy step__footer' : 'wrapper'
+          }>
           <div className="footer__content">
             <div className="footer__grid">
               <div className="footer__item grid-four-one">

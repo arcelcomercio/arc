@@ -14,7 +14,7 @@ import { NavigateProvider } from '../_context/navigate'
 import addScriptAsync from '../_dependencies/Async'
 import stylesPayment from '../_dependencies/styles-payment'
 import PropertiesSite from '../_dependencies/Properties'
-// import { createExternalScript } from '../_dependencies/Utils'
+import { clearUrlAPI } from '../_dependencies/Utils'
 import scriptsPayment from '../_dependencies/script-payment'
 import {
   Container,
@@ -24,6 +24,7 @@ import {
 } from '../_layouts/containers'
 import PWA from '../_dependencies/Pwa'
 
+const arcType = 'payment'
 const WrapperPaymentSubs = () => {
   const {
     arcSite,
@@ -57,7 +58,8 @@ const WrapperPaymentSubs = () => {
         window.Identity.options({ apiOrigin: urls.arcOrigin[arcEnv] })
       }
     })
-    // createExternalScript(scriptsPayment, true)
+
+    clearUrlAPI(urls.landingUrl[arcEnv])
   }, [])
 
   return (
@@ -84,12 +86,14 @@ const WrapperPaymentSubs = () => {
                 }
               })()}
             </PanelLeft>
-            <PanelRight>{userStep !== 4 && <Resume />}</PanelRight>
+            <PanelRight>
+              {userStep !== 4 && <Resume {...{ arcEnv }} />}
+            </PanelRight>
           </Wrapper>
         </NavigateProvider>
       </Container>
       <FooterSubs {...{ arcEnv }} />
-      <FooterLand {...{ arcSite, arcEnv }} />
+      <FooterLand {...{ arcSite, arcEnv, arcType }} />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

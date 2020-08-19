@@ -15,6 +15,7 @@ import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_dependencies/script-landing'
 // import { createExternalScript } from '../_dependencies/Utils' // sorry Chamo lo intenté
 
+const arcType = 'landing'
 const LandingSubscriptions = () => {
   const {
     arcSite,
@@ -303,7 +304,7 @@ const LandingSubscriptions = () => {
         </div>
       </section>
 
-      <FooterLand {...{ arcSite, arcEnv }} />
+      <FooterLand {...{ arcSite, arcEnv, arcType }} />
 
       {QueryString.getQuery('signLanding') ||
       QueryString.getQuery('signStudents') ||
