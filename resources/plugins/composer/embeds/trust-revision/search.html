@@ -108,7 +108,7 @@
             <input class="w-100" type="textfield" id="searchAddressLocationRevision" name="searchAddressLocationRevision" />
           </label>
           <label class="w-100" for="searchStartDateRevision">Fecha de inicio:
-            <input class="w-100" type="textfield" placeholder="Ej. 2020-12-01" id="searchStartDateRevision" name="searchStartDateRevision" />
+            <input class="w-100" onkeydown=" return rgxDateChange(event)" onchange="dateValidate(this)" maxlength="10" type="textfield" placeholder="Ej. 2020-12-01" id="searchStartDateRevision" name="searchStartDateRevision" />
           </label>
           <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
         </div>
@@ -179,6 +179,32 @@
     let startDate = ''
     let data = {}
 
+    const rgxDateChange = (ev) => {
+      const chars = /[0-9-]$/;
+      if(!ev.key.match(chars) && ev.key !== 'Backspace'){
+        return false
+      }
+      return true
+    }
+
+    const rgxDateValidate = (inputEl) => {
+      const date = /^\(?([0-9]{4})\)?[-]?([01]{1}[0-9]{1})[-]?([0-3]{1}[0-9]{1})$/;
+      if(!inputEl.value.match(date)){
+        return false
+      }
+      return true
+    }
+
+    const dateValidate = (inputEl) => {
+      if(!rgxDateValidate(inputEl)){
+        inputEl.classList.add('border');
+        inputEl.classList.add('border-danger');
+      }else{
+        inputEl.classList.remove('border-danger');
+        inputEl.classList.remove('border');
+      }
+    }
+
     const getYYYYMMDDfromISO = date =>
       date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 
@@ -194,9 +220,10 @@
       name = document.getElementById('searchNameRevision').value;
       locationName = document.getElementById('searchNameLocationRevision').value;
       locationAddress = document.getElementById('searchAddressLocationRevision').value;
-      startDate = document.getElementById('searchStartDateRevision').value;
+      const startDateEl = document.getElementById('searchStartDateRevision');
+      startDate = startDateEl.value;
 
-      if (typeEvent && name && locationName && locationAddress && startDate ) buildMessage()
+      if (rgxDateValidate(startDateEl) && typeEvent && name && locationName && locationAddress && startDate ) buildMessage()
     }
 
     const buildMessage = () => {

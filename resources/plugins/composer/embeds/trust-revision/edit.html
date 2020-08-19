@@ -90,7 +90,7 @@
             </div>
             <div class="col-md-12">
               <label class="w-100" for="start_date"><span>Fecha de inicio</span>
-                <input class="w-100" id="start_date" name="start_date" type="textfield" value="" />
+                <input class="w-100" onkeydown=" return rgxDateChange(event)" onchange="dateValidate(this)" id="start_date" name="start_date" type="textfield" value="" />
               </label>
             </div>
             <div class="col-md-12 p-3">
@@ -162,6 +162,32 @@
       return 0;
     }
 
+    const rgxDateChange = (ev) => {
+      const chars = /[0-9-]$/;
+      if(!ev.key.match(chars) && ev.key !== 'Backspace'){
+        return false
+      }
+      return true
+    }
+
+    const rgxDateValidate = (inputEl) => {
+      const date = /^\(?([0-9]{4})\)?[-]?([01]{1}[0-9]{1})[-]?([0-3]{1}[0-9]{1})$/;
+      if(!inputEl.value.match(date)){
+        return false
+      }
+      return true
+    }
+
+    const dateValidate = (inputEl) => {
+      if(!rgxDateValidate(inputEl)){
+        inputEl.classList.add('border');
+        inputEl.classList.add('border-danger');
+      }else{
+        inputEl.classList.remove('border-danger');
+        inputEl.classList.remove('border');
+      }
+    }
+
      let data = {}      // ANS custom embed response
      // let content = {}   // The fetched content from external data source
 
@@ -214,10 +240,15 @@
       data.config.name = document.getElementById('name').value
       data.config.location_name = document.getElementById('location_name').value
       data.config.location_address = document.getElementById('location_address').value
-      data.config.start_date = document.getElementById('start_date').value
-       // Update Composer and re-render form
-      sendMessage('data', data)
-      render(data)
+      const startDateEl = document.getElementById('start_date')
+      data.config.start_date = startDateEl.value
+
+      if(rgxDateValidate(startDateEl)){
+        // Update Composer and re-render form
+        sendMessage('data', data)
+        render(data)
+      }
+
     }
 
      // -------------------------------------------------
