@@ -31,7 +31,7 @@ export default ({ text = '', url = '' }) => {
         type = 'BackgroundNewsArticle'
         break
       case 'ayu_inf':
-        type = ''
+        // type = ''
         break
       case 'revision':
         type = 'ReviewNewsArticle'
