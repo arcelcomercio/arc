@@ -49,7 +49,7 @@ export default ({
     siteUrl
   )
 
-  let sameAs = []
+  const sameAs = []
   const authorUrl = `${siteUrl}${authorPath}`
   const authorUrlSameAs = (authorUrl && `"${authorUrl}"`)
   sameAs.push(authorUrlSameAs)
@@ -102,7 +102,7 @@ export default ({
                 }`
         }))}
       ],
-    "sameAs" : [${sameAs.filter(item => !(item === ''))}], 
+    "sameAs" : [${sameAs.filter(item => (item && item !== ''))}], 
     "jobTitle"	: "${role}"
   }`
 
