@@ -1,12 +1,16 @@
 import React from 'react'
 
 const classes = {
-  subtitle: 'custom-title role',
-  social: 'custom-title twitter icon-twitter',
+  title: 'custom-title text-left uppercase medium w-full mt-20 mb-15',
+  box: 'inline-block ml-10',
+  subtitle: 'custom-title role mb-15',
+  image: 'author-description__image',
+  social: 'custom-title twitter icon-twitter mb-15',
   content: 'line-h-sm',
 }
 
 const AuthorBiography = ({
+  byline,
   role,
   twitter,
   bio,
@@ -15,13 +19,26 @@ const AuthorBiography = ({
   email,
   expertise,
   awards,
+  resized_urls: { image_xs: imageXS = '' } = {},
 }) => {
-  const twitterData = (twitter && twitter.split(','))
-  const expertiseData = (expertise && expertise.replace(/{[^}]+}/g, ''))
+  const twitterData = twitter && twitter.split(',')
+  const expertiseData = expertise && expertise.replace(/{[^}]+}/g, '')
   return (
     <>
-      {role && <h3 className={classes.subtitle}>{role}</h3>}
-      {twitterData && twitterData[0] && <h4 className={classes.social}>{twitterData[0]}</h4>}
+      <img className={classes.image} src={imageXS} alt={byline} />
+      <div className={classes.box}>
+        <h1
+          itemProp="name"
+          suppressContentEditableWarning
+          className={classes.title}>
+          {byline}
+        </h1>
+        {role && <h3 className={classes.subtitle}>{role}</h3>}
+        {twitterData && twitterData[0] && (
+          <h4 className={classes.social}> {twitterData[0]}</h4>
+        )}
+      </div>
+
       {bio && (
         <>
           <br />
@@ -69,7 +86,7 @@ const AuthorBiography = ({
           </p>
         </>
       )}
-      {awards && (awards.length > 0) && (
+      {awards && awards.length > 0 && (
         <p className={classes.content}>
           <strong>Premios: </strong>
           <ul>
