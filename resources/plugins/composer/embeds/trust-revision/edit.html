@@ -36,6 +36,53 @@
             <p class="card-text text-muted">
               Fecha de inicio: %start_date%
             </p>
+
+            <div id="SoftwareApplication-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Categoría de software: %category_software%
+              </p>
+              <p class="card-text text-muted">
+                Sistema operativo: %so_software%
+              </p>
+            </div>
+            <div id="Book-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Autor: %author_book%
+              </p>
+              <p class="card-text text-muted">
+                ISBN: %isbn_book%
+              </p>
+            </div>
+            <div id="LocalBusiness-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Url de imagen: %image_local%
+              </p>
+            </div>
+            <div id="Movie-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Url's relacionados: %sameas_movie%
+              </p>
+              <p class="card-text text-muted">
+                Url de imagen: %image_movie%
+              </p>
+              <p class="card-text text-muted">
+                Descripción: %description_movie%
+              </p>
+            </div>
+            <div id="Product-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Nombre de la review: %review_product%
+              </p>
+              <p class="card-text text-muted">
+                Autor de la review: %author_product%
+              </p>
+            </div>
+            </div>
+            <div id="Recipe-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Url de imagen: %image_recipe%
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -52,13 +99,14 @@
           <div class="row" id="config_edit">
             <div class="col-md-12">
               <label class="w-100" for="type_event"><span>Tipo de evento</span>
-                <select class="w-100" name="type_event" id="type_event">
+                <select class="w-100" onchange="changeTypeEvent(event, this)" name="type_event" id="type_event">
+                  <option value="">--- Seleccione ---</option>
                   <option value="SoftwareApplication">Aplicación de software</option>
                   <option value="Course">Curso</option>
                   <option value="Episode">Episodio de (TV, Radio, videojuegos)</option>
                   <option value="CreativeWorkSeason">Estación Multimedia (Tv, Radio, etc.)</option>
                   <option value="Event">Evento</option>
-                  <option value="HowTo">Instrucciones que explican como conseguir un resultado, sequencia de pasos</option>
+                  <!--<option value="HowTo">Instrucciones que explican como conseguir un resultado, sequencia de pasos</option>-->
                   <option value="Game">Juego</option>
                   <option value="Book">Libro</option>
                   <option value="LocalBusiness">Local físico de un negocio u oficina de una organización</option>
@@ -69,7 +117,7 @@
                   <option value="Product">Producto o Servicio (Zapatos, Ticket de concierto, renta de vehículos o un episodio de un show de Tv online)</option>
                   <option value="Recipe">Receta</option>
                   <option value="CreativeWorkSeries">Series de Tv, Series de Radio, Series literatias, Series de película, Periodicos y Series de videojuegos</option>
-                  <option value="MusiRecording">Single musical, Track</option>
+                  <option value="MusicRecording">Single musical, Track</option>
                 </select>
               </label>
             </div>
@@ -93,6 +141,53 @@
                 <input class="w-100" onkeydown=" return rgxDateChange(event)" onchange="dateValidate(this)" maxlength="10" id="start_date" name="start_date" type="textfield" value="" />
               </label>
             </div>
+
+            <div id="SoftwareApplication" class="container-el col-md-12" hidden>
+              <label class="w-100" for="category_software">Categoría:
+                <input class="w-100" type="textfield" id="category_software" name="category_software" />
+              </label>
+              <label class="w-100" for="so_software">Sistema operativo:
+                <input class="w-100" type="textfield" id="so_software" name="so_software" />
+              </label>
+            </div>
+            <div id="Book" class="container-el col-md-12" hidden>
+              <label class="w-100" for="author_book">Autor:
+                <input class="w-100" type="textfield" id="author_book" name="author_book" />
+              </label>
+              <label class="w-100" for="isbn_book">ISBN:
+                <input class="w-100" type="textfield" id="isbn_book" name="isbn_book" />
+              </label>
+            </div>
+            <div id="LocalBusiness" class="container-el col-md-12" hidden>
+              <label class="w-100" for="image_local">Url de imagen:
+                <input class="w-100" type="textfield" id="image_local" name="image_local" />
+              </label>
+            </div>
+            <div id="Movie" class="container-el col-md-12" hidden>
+              <label class="w-100" for="sameas_movie">Url's relacionados (separados por comas):
+                <input class="w-100" type="textfield" id="sameas_movie" name="sameas_movie" placeholder="Ej: https://elcomercio.pe/noticias, https://google.com.pe/" />
+              </label>
+              <label class="w-100" for="image_movie">Url de imagen:
+                <input class="w-100" type="textfield" id="image_movie" name="image_movie" />
+              </label>
+              <label class="w-100" for="description_movie">Descripción:
+                <input class="w-100" type="textfield" id="description_movie" name="description_movie" />
+              </label>
+            </div>
+            <div id="Product" class="container-el col-md-12" hidden>
+              <label class="w-100" for="review_product">Nombre de la review:
+                <input class="w-100" type="textfield" id="review_product" name="review_product" />
+              </label>           
+              <label class="w-100" for="author_product">Autor de la review:
+                <input class="w-100" type="textfield" id="author_product" name="author_product" />
+              </label>
+            </div>
+            <div id="Recipe" class="container-el col-md-12" hidden>
+              <label class="w-100" for="image_recipe">Url de imagen:
+                <input class="w-100" type="textfield" id="image_recipe" name="image_recipe" />
+              </label>
+            </div>
+
             <div class="col-md-12 p-3">
               <button type="button" class="btn btn-primary" id="btn_apply">
                 Aceptar
@@ -188,6 +283,21 @@
       }
     }
 
+    const CONTAINERS = 'container-el';
+
+    const showElements = (id) => {
+      const containers = document.getElementsByClassName(CONTAINERS);
+      Array.from(containers).forEach(el => {
+        el.setAttribute('hidden', '');
+      });
+      const container =  document.getElementById(id);
+      (container && container.removeAttribute('hidden'));
+    }
+
+    const changeTypeEvent = (ev, el) => {
+      showElements(el.value)
+    }
+
      let data = {}      // ANS custom embed response
      // let content = {}   // The fetched content from external data source
 
@@ -208,7 +318,21 @@
         .replace(/%location_name%/gi, config.location_name)
         .replace(/%location_address%/gi, config.location_address)
         .replace(/%start_date%/gi, config.start_date)
+        .replace(/%category_software%/gi, config.category_software)
+        .replace(/%so_software%/gi, config.so_software)
+        .replace(/%author_book%/gi, config.author_book)
+        .replace(/%isbn_book%/gi, config.isbn_book)
+        .replace(/%image_local%/gi, config.image_local)
+        .replace(/%sameas_movie%/gi, config.sameas_movie)
+        .replace(/%image_movie%/gi, config.image_movie)
+        .replace(/%description_movie%/gi, config.description_movie)
+        .replace(/%review_product%/gi, config.review_product)
+        .replace(/%author_product%/gi, config.author_product)
+        .replace(/%image_recipe%/gi, config.image_recipe)
         .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
+
+      showElements(config.type_event+'-view');
+      showElements(config.type_event);
 
       const element = document.createElement('div')
       document.getElementById('content_holder').innerHTML = ''
@@ -222,6 +346,17 @@
       document.getElementById('location_name').value = (config.location_name || "")
       document.getElementById('location_address').value = (config.location_address || "")
       document.getElementById('start_date').value = (config.start_date || "")
+      document.getElementById('category_software').value = (config.category_software || "")
+      document.getElementById('so_software').value = (config.so_software || "")
+      document.getElementById('author_book').value = (config.author_book || "")
+      document.getElementById('isbn_book').value = (config.isbn_book || "")
+      document.getElementById('image_local').value = (config.image_local || "")
+      document.getElementById('sameas_movie').value = (config.sameas_movie || "")
+      document.getElementById('image_movie').value = (config.image_movie || "")
+      document.getElementById('description_movie').value = (config.description_movie || "")
+      document.getElementById('review_product').value = (config.review_product || "")
+      document.getElementById('author_product').value = (config.author_product || "")
+      document.getElementById('image_recipe').value = (config.image_recipe || "")
     }
 
     const getYYYYMMDDfromISO = date =>
@@ -242,6 +377,46 @@
       data.config.location_address = document.getElementById('location_address').value
       const startDateEl = document.getElementById('start_date')
       data.config.start_date = startDateEl.value
+
+      data.config.category_software = '';
+      data.config.so_software = '';
+      data.config.author_book = '';
+      data.config.isbn_book = '';
+      data.config.image_local = '';
+      data.config.sameas_movie = '';
+      data.config.image_movie = '';
+      data.config.description_movie = '';
+      data.config.review_product = '';
+      data.config.author_product = '';
+      data.config.image_recipe = '';
+      switch (data.config.type_event) {
+        case 'SoftwareApplication':
+          data.config.category_software = document.getElementById('category_software').value;
+          data.config.so_software = document.getElementById('so_software').value;
+          break;
+        case 'Book':
+          data.config.author_book = document.getElementById('author_book').value;
+          data.config.isbn_book = document.getElementById('isbn_book').value;
+          break;
+        case 'LocalBusiness':
+          data.config.image_local = document.getElementById('image_local').value;
+          break;
+        case 'Movie':
+          data.config.sameas_movie = document.getElementById('sameas_movie').value;
+          data.config.image_movie = document.getElementById('image_movie').value;
+          data.config.description_movie = document.getElementById('description_movie').value;
+          break;
+        case 'Product':
+          data.config.review_product = document.getElementById('review_product').value;
+          data.config.author_product = document.getElementById('author_product').value;
+          break;
+        case 'Recipe':
+          data.config.image_recipe = document.getElementById('image_recipe').value;
+          break;
+        default:
+          break;
+      }
+
 
       if(rgxDateValidate(startDateEl)){
         // Update Composer and re-render form
