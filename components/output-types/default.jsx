@@ -225,6 +225,7 @@ export default ({
 
   const {
     videoSeo,
+    hasAdsVideo,
     embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
@@ -234,8 +235,6 @@ export default ({
   })
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
-
-  const stylePwa = `.powa-shot{position:absolute;color:#f0f8ff;font-family:HelveticaNeue,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;z-index:1;width:100%;height:100%;top:0;left:0}.powa-shot-image{position:absolute;width:100%;height:100%;overflow:hidden;background-size:contain;background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:space-around}.powa-shot-play-btn{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%)}.powa-play-btn{transform:inherit}.powa-default{background-color:#000;height:345px}@media only screen and (max-width:600px){.powa-default{height:157px}}`
 
   let style = 'style'
   if (
@@ -410,14 +409,6 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {contenidoVideo && (
-          <>
-            <style
-              dangerouslySetInnerHTML={{
-                __html: stylePwa,
-              }}></style>
-          </>
-        )}
         <script
           async
           src={`https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js?v=${new Date()
@@ -448,13 +439,6 @@ export default ({
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
-        {contenidoVideo && (
-          <>
-            <script
-              src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
-              async></script>
-          </>
-        )}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
           if (isElcomercioHome || !siteProperties.activeSignwall) {
@@ -581,9 +565,20 @@ export default ({
         {contenidoVideo && (
           <>
             <script
+              dangerouslySetInnerHTML={{ __html: `window.preroll=${hasAdsVideo ? siteProperties.urlPreroll : ''}`}}
+            />
+            <script
+              async
+              src={`${contextPath}/resources/assets/js/powaSettings.min.js?d=1`}
+            />
+            <script
+              src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
+              async
+            />
+            <script
               type="text/javascript"
               dangerouslySetInnerHTML={{
-                __html: videoScript(CURRENT_ENVIRONMENT),
+                __html: videoScript,
               }}
             />
           </>

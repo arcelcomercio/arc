@@ -1,9 +1,7 @@
 import React from 'react'
-import ENV from 'fusion:environment'
-import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
-import { msToTime } from '../../../../utilities/date-time/time'
 import { getResultVideo } from '../../../../utilities/story/helpers'
+import PowaPlayer from '../../../../global-components/powa-player'
 
 /**
  *
@@ -40,7 +38,6 @@ const StoryContentChildVideo = props => {
   const {
     promo_items: {
       basic_video: {
-        duration: durationOne = '',
         _id: principalId,
         additional_properties: video = {},
         promo_items: { basic: { url: urlImage = '' } = {} } = {},
@@ -55,23 +52,13 @@ const StoryContentChildVideo = props => {
     description = '',
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
-    duration: durationTwo = '',
     additional_properties: videoContent = {},
     url: imagenMigrate = '',
     contentElemtent = false,
-    reziserVideo = true,
   } = props
 
+  const lazy = contentElemtent
   const imageUrl = contentElemtent ? urlImageContent : urlImage
-  const { resized_urls: { videoPoster } = {} } =
-    useContent({
-      source: 'photo-resizer',
-      query: {
-        url: imageUrl || imagenMigrate,
-        presets: 'videoPoster:560x0',
-      },
-    }) || {}
-
   const videoData = videoContent.advertising || video.advertising
 
   const urlVideo = data
@@ -148,28 +135,18 @@ const StoryContentChildVideo = props => {
   const stream =
     videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
 
-  const dataTime =
-    durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
-  const env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
-
   return (
     <>
-      <div
-        id="powa-default"
-        className="lazyload-video powa-default"
-        data-uuid={uuid}
-        data-reziser={reziserVideo}
-        data-api={env}
-        data-type="pwa"
-        data-streams={stream}
-        data-poster={videoPoster}
-        data-time={videoArray && videoArray[1] ? '-1' : dataTime}
-        data-preroll={
-          (videoData && videoData.playAds === true) ||
+      <PowaPlayer
+        uuid={uuid}
+        stream={stream}
+        image={imageUrl || imagenMigrate}
+        preroll={(videoData && videoData.playAds === true) ||
           (videoArray && videoArray[1])
-            ? getParametroPublicidad()
-            : ''
-        }></div>
+          ? getParametroPublicidad()
+          : ''}
+        lazy={lazy}
+      />
       <figcaption className={classes.caption}>{description} </figcaption>
     </>
   )

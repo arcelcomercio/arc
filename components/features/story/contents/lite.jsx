@@ -216,7 +216,7 @@ const StoryContentsLite = () => {
                           {...element}
                           className={classes.newsImage}
                           description={captionVideo}
-                          contentElemtent="true"
+                          contentElemtent
                         />
                       ) : (
                         <StoryContentsChildVideoNativo

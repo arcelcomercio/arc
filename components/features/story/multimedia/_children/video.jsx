@@ -1,9 +1,7 @@
 import React from 'react'
-import ENV from 'fusion:environment'
-import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
-import { msToTime } from '../../../../utilities/date-time/time'
 import { getResultVideo } from '../../../../utilities/story/helpers'
+import PowaPlayer from '../../../../global-components/powa-player'
 
 /**
  *
@@ -43,7 +41,6 @@ const StoryContentChildVideo = props => {
     promo_items: {
       basic_video: {
         _id: principalId,
-        duration: durationOne,
         additional_properties: video = {},
         promo_items: { basic: { url: urlImage = '' } = {} } = {},
         streams = [],
@@ -57,24 +54,14 @@ const StoryContentChildVideo = props => {
     description = '',
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
-    duration: durationTwo,
     additional_properties: videoContent = {},
     url: imagenMigrate = '',
     contentElemtent = false,
-    reziserVideo = true,
     classImage = 'story-contents',
   } = props
 
+  const lazy = contentElemtent
   const imageUrl = contentElemtent ? urlImageContent : urlImage
-  const { resized_urls: { videoPoster } = {} } =
-    useContent({
-      source: 'photo-resizer',
-      query: {
-        url: imageUrl || imagenMigrate,
-        presets: 'videoPoster:560x0',
-      },
-    }) || {}
-
   const videoData = videoContent.advertising || video.advertising
 
   const urlVideo = data
@@ -151,27 +138,18 @@ const StoryContentChildVideo = props => {
   const stream =
     videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
 
-  const dataTime =
-    durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
-  const env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
-
   return (
     <>
-      <div
-        id="powa-default"
-        className={`${classImage}${classes.video} multimedia${classes.powa}`}
-        data-uuid={uuid}
-        data-reziser={reziserVideo}
-        data-api={env}
-        data-time={videoArray && videoArray[1] ? '-1' : dataTime}
-        data-streams={stream}
-        data-poster={videoPoster}
-        data-preroll={
-          (videoData && videoData.playAds === true) ||
+      <PowaPlayer
+        uuid={uuid}
+        stream={stream}
+        image={imageUrl || imagenMigrate}
+        preroll={(videoData && videoData.playAds === true) ||
           (videoArray && videoArray[1])
-            ? getParametroPublicidad()
-            : ''
-        }></div>
+          ? getParametroPublicidad()
+          : ''}
+        lazy={lazy}
+      />
       {description && (
         <figcaption className={`${classImage}${classes.caption}`}>
           {description}{' '}
