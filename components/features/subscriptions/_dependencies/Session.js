@@ -25,11 +25,12 @@ export const isAuthenticated = () => {
 
 const attrToObject = (attributes = [], getAttributes = []) => {
   return getAttributes.reduce((prev, name) => {
+    const newAttrs = prev
     const attrs = (attributes || []).find(attr => attr.name === name)
-    if (attrs) {
-      prev[name] = attrs.value
+    if (attrs && attrs.value !== 'undefined') {
+      newAttrs[name] = attrs.value
     }
-    return prev
+    return newAttrs
   }, {})
 }
 

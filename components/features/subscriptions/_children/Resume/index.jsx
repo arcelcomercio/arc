@@ -85,7 +85,7 @@ const Resume = ({ arcEnv }) => {
           document.body.classList.remove('no-scroll')
           document.body.classList.remove('bg-shop')
         }
-        Taggeo('Web_Paywall_Landing', 'web_paywall_change_dates', arcEnv)
+        Taggeo('Web_Paywall_Landing', 'web_paywall_change_data', arcEnv)
       } else {
         window.location.reload()
       }

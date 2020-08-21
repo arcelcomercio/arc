@@ -44,7 +44,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
                   value:
                     window.location.href
                       .split('&')[0]
-                      .replace(/(\/#|#|\/)$/, '') || 'none',
+                      .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, '') || 'none',
                   type: 'String',
                 },
                 {

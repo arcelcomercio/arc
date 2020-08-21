@@ -154,7 +154,9 @@ const Profile = ({ arcEnv }) => {
         if (attribute.name === 'originReferer') {
           return {
             ...attribute,
-            value: attribute.value.split('&')[0].replace(/(\/#|#|\/)$/, ''),
+            value: attribute.value
+              .split('&')[0]
+              .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, ''),
           }
         }
         return attribute
@@ -180,7 +182,20 @@ const Profile = ({ arcEnv }) => {
           updateStep(3)
         })
         .catch(err => {
-          setMsgError(getCodeError(err.code))
+          if (err.code === '100018') {
+            // los datos solo estarán como datos de pago no se guardarán en perfil
+            const currentProfile = window.Identity.userProfile
+            const newProfile = Object.assign(currentProfile, profile)
+            window.localStorage.setItem(
+              'ArcId.USER_PROFILE',
+              JSON.stringify(newProfile)
+            )
+            updateUser(newProfile)
+            updateStep(3)
+          } else {
+            setMsgError(getCodeError(err.code))
+          }
+
           setLinkLogin(
             err.code === '100018' ||
               err.code === '3001001' ||

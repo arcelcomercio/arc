@@ -115,6 +115,8 @@ const Pay = ({ arcSite, arcEnv }) => {
         let payUPaymentMethod
         let orderNumberDinamic
 
+        window.payU.validateNumber(cNumber.replace(/\s/g, ''))
+
         const fullUserName = `${firstName} ${lastName} ${secondLastName || ''}`
         const cExpireMonth = cExpire.split('/')[0]
         const cExpireYear = cExpire.split('/')[1]
@@ -167,6 +169,7 @@ const Pay = ({ arcSite, arcEnv }) => {
                     // payU.setListBoxID('mylistID')
                     // payU.setLanguage('es')
                     // payU.getPaymentMethods()
+                    payU.validateNumber(cNumber.replace(/\s/g, ''))
                     payU.setCardDetails({
                       number: cNumber.replace(/\s/g, ''),
                       name_card:
@@ -174,7 +177,7 @@ const Pay = ({ arcSite, arcEnv }) => {
                       payer_id: documentNumber,
                       exp_month: cExpireMonth,
                       exp_year: cExpireYear,
-                      method: methodCard,
+                      method: methodCard || payU.card.method,
                       document: documentNumber,
                       cvv: cCvv,
                     })
@@ -238,7 +241,7 @@ const Pay = ({ arcSite, arcEnv }) => {
   }
 
   const validateCardNumber = e => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof window.payU === 'object') {
       window.payU.validateCard(e.target.value)
       setMethodCard(window.payU.card.method)
     }
@@ -272,6 +275,15 @@ const Pay = ({ arcSite, arcEnv }) => {
   const openNewTab = typeLink => {
     if (typeof window !== 'undefined') {
       window.open(urls[typeLink], '_blank')
+    }
+  }
+
+  const getCardNumber = () => {
+    if (typeof window !== 'undefined' && typeof window.payU === 'object') {
+      if (cNumber.length >= 1) {
+        window.payU.validateNumber(cNumber.replace(/\s/g, ''))
+        setMethodCard(window.payU.card.method)
+      }
     }
   }
 
@@ -337,7 +349,8 @@ const Pay = ({ arcSite, arcEnv }) => {
                 value={cExpire}
                 required
                 onChange={handleOnChangeInput}
-                onFocus={handleOnChangeInput}
+                onBlur={handleOnChangeInput}
+                onKeyUp={getCardNumber}
                 placeholder="mm/aaaa"
                 disabled={loading}
               />
@@ -371,7 +384,8 @@ const Pay = ({ arcSite, arcEnv }) => {
                 required
                 onChange={handleOnChangeInput}
                 onBlur={handleOnChangeInput}
-                placeholder="***"
+                onKeyUp={getCardNumber}
+                placeholder={methodCard === 'AMEX' ? '****' : '***'}
                 disabled={loading}
               />
               {cCvvError && <span className="msn-error">{cCvvError}</span>}
