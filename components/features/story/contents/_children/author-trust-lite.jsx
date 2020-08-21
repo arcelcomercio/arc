@@ -72,7 +72,8 @@ const StoryContentChildAuthorTrustLite = ({
             {updatedDate &&
               `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
                 updatedDate,
-                false
+                false,
+                true
               )}`}
           </time>
           <time dateTime={date}>{date && formatDateStory(date)}</time>

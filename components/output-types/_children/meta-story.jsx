@@ -43,6 +43,7 @@ export default ({
     authorImage,
     author: authorName,
     role: authorRole,
+    locality, 
     authorEmail,
     imagePrimarySeo,
     primarySection,
@@ -358,6 +359,8 @@ export default ({
         : lastPublishDate
     }",
     ${backStoryStructured}
+    ${locality && `"locationCreated": {"@type":"Place", "name":"${locality}"},`}
+    "dateline": "${`${getDateSeo(publishDate)} ${locality}`}",
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",
