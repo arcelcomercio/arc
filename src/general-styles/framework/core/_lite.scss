@@ -43,6 +43,16 @@ $tertiary-font: $secondary-font;
   overflow: hidden;
 }
 
+.premium__wrapper.flex.hidden {
+  display: none;
+}
+.st-sidebar__content {
+  background: white;
+}
+#fusion-app > div.f.just-center {
+  overflow-x: hidden;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
