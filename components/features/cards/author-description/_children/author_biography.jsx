@@ -1,11 +1,11 @@
 import React from 'react'
 
 const classes = {
-  title: 'custom-title text-left uppercase medium w-full mt-20 mb-15',
+  title: 'custom-title text-left uppercase medium w-full mt-20',
   box: 'inline-block ml-10',
-  subtitle: 'custom-title role mb-15',
+  subtitle: 'custom-title role',
   image: 'author-description__image',
-  social: 'custom-title twitter icon-twitter mb-15',
+  social: 'custom-title twitter icon-twitter',
   content: 'line-h-sm',
 }
 
