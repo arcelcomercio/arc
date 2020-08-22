@@ -37,7 +37,7 @@
               Fecha de inicio: %start_date%
             </p>
 
-            <div id="SoftwareApplication-view" class="container-el" hidden>
+            <div id="SoftwareApplication-view" class="container-el-view" hidden>
               <p class="card-text text-muted">
                 Categoría de software: %category_software%
               </p>
@@ -45,7 +45,7 @@
                 Sistema operativo: %so_software%
               </p>
             </div>
-            <div id="Book-view" class="container-el" hidden>
+            <div id="Book-view" class="container-el-view" hidden>
               <p class="card-text text-muted">
                 Autor: %author_book%
               </p>
@@ -53,12 +53,12 @@
                 ISBN: %isbn_book%
               </p>
             </div>
-            <div id="LocalBusiness-view" class="container-el" hidden>
+            <div id="LocalBusiness-view" class="container-el-view" hidden>
               <p class="card-text text-muted">
                 Url de imagen: %image_local%
               </p>
             </div>
-            <div id="Movie-view" class="container-el" hidden>
+            <div id="Movie-view" class="container-el-view" hidden>
               <p class="card-text text-muted">
                 Url's relacionados: %sameas_movie%
               </p>
@@ -69,7 +69,7 @@
                 Descripción: %description_movie%
               </p>
             </div>
-            <div id="Product-view" class="container-el" hidden>
+            <div id="Product-view" class="container-el-view" hidden>
               <p class="card-text text-muted">
                 Nombre de la review: %review_product%
               </p>
@@ -78,7 +78,7 @@
               </p>
             </div>
             </div>
-            <div id="Recipe-view" class="container-el" hidden>
+            <div id="Recipe-view" class="container-el-view" hidden>
               <p class="card-text text-muted">
                 Url de imagen: %image_recipe%
               </p>
@@ -285,8 +285,8 @@
 
     const CONTAINERS = 'container-el';
 
-    const showElements = (id) => {
-      const containers = document.getElementsByClassName(CONTAINERS);
+    const showElements = (id, box) => {
+      const containers = document.getElementsByClassName(box);
       Array.from(containers).forEach(el => {
         el.setAttribute('hidden', '');
       });
@@ -331,13 +331,13 @@
         .replace(/%image_recipe%/gi, config.image_recipe)
         .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
 
-      showElements(config.type_event+'-view');
-      showElements(config.type_event);
-
       const element = document.createElement('div')
       document.getElementById('content_holder').innerHTML = ''
       document.getElementById('content_holder').appendChild(element)
       element.outerHTML = html
+
+      showElements(config.type_event, CONTAINERS);
+      showElements(config.type_event+'-view', CONTAINERS + '-view');
 
       // Update form state
       const selectTypeEvent = document.getElementById('type_event');
