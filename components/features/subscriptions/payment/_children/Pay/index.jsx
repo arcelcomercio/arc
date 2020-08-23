@@ -36,9 +36,8 @@ const Pay = ({ arcSite, arcEnv }) => {
     updatePurchase,
     updateLoadPage,
   } = useContext(AuthContext)
-  const { texts } = PropertiesSite.common
+  const { texts, links } = PropertiesSite.common
   const { urls } = PropertiesSite[arcSite]
-  const { links } = PropertiesSite.common
 
   const {
     email,
@@ -48,7 +47,7 @@ const Pay = ({ arcSite, arcEnv }) => {
     secondLastName,
     documentType,
     documentNumber,
-  } = conformProfile(userProfile) || {}
+  } = conformProfile(userProfile || {})
 
   const [msgError, setMsgError] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -58,6 +57,8 @@ const Pay = ({ arcSite, arcEnv }) => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+
       addScriptAsync({
         name: 'SalesSDK',
         url: links.sales[arcEnv],

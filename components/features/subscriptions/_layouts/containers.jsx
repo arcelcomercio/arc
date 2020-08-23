@@ -1,7 +1,8 @@
 import React from 'react'
 
 const styles = {
-  wrapper: 'step__grid wrapper-buy',
+  // wrapper: 'step__grid wrapper-buy',
+  wrapper: 'step__grid wrapper-steps',
   left: 'step__left grid-two-one-buy',
   right: 'step__right grid-two-two-buy',
 }
@@ -25,7 +26,7 @@ export const PanelLeft = ({ children }) => {
 export const PanelRight = ({ children }) => {
   return (
     <article className={styles.right} id="div-detail">
-      {children}
+      <div className="wrapper-buy">{children}</div>
     </article>
   )
 }

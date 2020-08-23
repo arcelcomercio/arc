@@ -48,11 +48,6 @@ const Subscriptions = props => {
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-
-        <script
-          src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js?v=07112019"
-          defer
-        />
       </head>
       <body>
         <noscript>

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
@@ -13,6 +13,7 @@ import Taggeo from '../../signwall/_dependencies/taggeo'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
+import addScriptAsync from '../_dependencies/Async'
 
 const arcType = 'landing'
 const LandingSubscriptions = () => {
@@ -23,6 +24,7 @@ const LandingSubscriptions = () => {
   } = useFusionContext() || {}
 
   const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
+  const { links } = PropertiesSite.common
   const isComercio = arcSite === 'elcomercio'
   const [showSignwall, setShowSignwall] = useState(false)
   const [showTypeLanding, setShowTypeLanding] = useState('landing')
@@ -31,7 +33,17 @@ const LandingSubscriptions = () => {
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
 
-  React.useEffect(() => {
+  useEffect(() => {
+    addScriptAsync({
+      name: 'IdentitySDK',
+      url: links.identity[arcEnv],
+      includeNoScript: false,
+    }).then(() => {
+      if (typeof window !== 'undefined') {
+        window.Identity.options({ apiOrigin: urls.arcOrigin[arcEnv] })
+      }
+    })
+
     sendAction(PixelActions.PRODUCT_IMPRESSION, {
       ecommerce: {
         currencyCode: items[0].price.currencyCode,

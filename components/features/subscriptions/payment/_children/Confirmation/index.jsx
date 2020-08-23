@@ -46,7 +46,9 @@ const Confirmation = ({ arcSite, arcEnv }) => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const divStep = document.getElementById('main-steps')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      const divStep = window.document.getElementById('main-steps')
+
       if (!userPurchase.status) {
         updateStep(2)
         if (divStep) divStep.classList.remove('bg-white')
@@ -152,6 +154,10 @@ const Confirmation = ({ arcSite, arcEnv }) => {
             ? urlLocal
             : urlsSite.mainHome[arcEnv]
       }
+      window.localStorage.removeItem('ArcId.USER_STEP')
+      window.sessionStorage.removeItem('paywall_confirm_subs')
+      window.sessionStorage.removeItem('paywall_type_modal')
+      window.sessionStorage.removeItem('paywall_last_url')
       window.location.href = urlRedirect
     }
   }

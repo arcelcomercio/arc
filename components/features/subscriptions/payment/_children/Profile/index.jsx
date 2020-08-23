@@ -41,14 +41,8 @@ const Profile = ({ arcEnv }) => {
   } = useFusionContext() || {}
 
   const { updateStep, userLogout, updateUser } = useContext(AuthContext)
-  const [msgError, setMsgError] = useState(false)
-  const [msgErrorApi, setMsgErrorApi] = useState(error)
-  const [loading, setLoading] = useState(false)
-  const [loadText, setLoadText] = useState('Cargando...')
-  const [linkLogin, setLinkLogin] = useState()
   const { urls, emails } = PropertiesSite[arcSite]
   const { texts } = PropertiesSite.common
-  const [showModal, setShowModal] = useState()
 
   const {
     uuid,
@@ -62,14 +56,51 @@ const Profile = ({ arcEnv }) => {
     emailVerified,
   } = conformProfile(getStorageProfile())
 
+  const [msgError, setMsgError] = useState(false)
+  const [msgErrorApi, setMsgErrorApi] = useState(error)
+  const [loading, setLoading] = useState(false)
+  const [loadText, setLoadText] = useState('Cargando...')
+  const [linkLogin, setLinkLogin] = useState()
+  const [showModal, setShowModal] = useState()
+
   const isFacebook = email && email.indexOf('facebook.com') >= 0
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      Sentry.configureScope(scope => {
+        scope.setTag('brand', arcSite)
+        scope.setUser({
+          id: uuid,
+          name: `${firstName} ${firstName} ${secondLastName || ''}`,
+          email,
+          phone,
+          documentType,
+          documentNumber,
+          emailVerified,
+        })
+      })
+    }
+  }, [])
 
   const stateSchema = {
     uFirstName: { value: checkUndefined(firstName) || '', error: '' },
     uLastName: { value: checkUndefined(lastName) || '', error: '' },
     uSecondLastName: { value: checkUndefined(secondLastName) || '', error: '' },
-    uDocumentType: { value: documentType || 'DNI', error: '' },
-    uDocumentNumber: { value: checkUndefined(documentNumber) || '', error: '' },
+    uDocumentType: {
+      value:
+        (printedSubscriber && printedSubscriber.documentType) ||
+        documentType ||
+        'DNI',
+      error: '',
+    },
+    uDocumentNumber: {
+      value:
+        (printedSubscriber && printedSubscriber.documentNumber) ||
+        checkUndefined(documentNumber) ||
+        '',
+      error: '',
+    },
     uPhone: { value: checkFormatPhone(phone) || '', error: '' },
     uEmail: { value: checkFbEmail(email) || '', error: '' },
   }
@@ -345,21 +376,6 @@ const Profile = ({ arcEnv }) => {
     }
   }
 
-  useEffect(() => {
-    Sentry.configureScope(scope => {
-      scope.setTag('brand', arcSite)
-      scope.setUser({
-        id: uuid,
-        name: `${firstName} ${firstName} ${secondLastName || ''}`,
-        email,
-        phone,
-        documentType,
-        documentNumber,
-        emailVerified,
-      })
-    })
-  }, [])
-
   return (
     <>
       <ul className={styles.step}>
@@ -457,15 +473,18 @@ const Profile = ({ arcEnv }) => {
             Documento de Identidad
             <div className="cont-select-input">
               <select
+                className={printedSubscriber && 'input-disabled'}
                 name="uDocumentType"
                 value={uDocumentType}
-                onChange={handleChangeSelect}>
+                onChange={handleChangeSelect}
+                disabled={printedSubscriber}>
                 <option value="DNI">DNI</option>
                 <option value="CDI">CDI</option>
                 <option value="CEX">CEX</option>
               </select>
               <input
-                className={uDocumentNumberError && 'input-error'}
+                className={`${uDocumentNumberError &&
+                  'input-error'} ${printedSubscriber && 'input-disabled'}`}
                 type="text"
                 name="uDocumentNumber"
                 maxLength={uDocumentType === 'DNI' ? '8' : '15'}
@@ -473,7 +492,7 @@ const Profile = ({ arcEnv }) => {
                 required
                 onChange={handleChangeInput}
                 onBlur={handleChangeInput}
-                disabled={loading}
+                disabled={loading || printedSubscriber}
               />
             </div>
             {uDocumentNumberError && (

@@ -53,7 +53,8 @@ const WrapperPaymentSubs = () => {
 
     Sentry.init({
       dsn: urlCommon.dsnSentry[arcEnv],
-      debug: arcEnv === 'sandbox',
+      // debug: arcEnv === 'sandbox',
+      debug: false,
       release: `arc-deployment@${deployment}`,
       environment: arcEnv,
     })
