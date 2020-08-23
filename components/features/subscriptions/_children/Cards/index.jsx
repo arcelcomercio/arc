@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Markdown from 'react-markdown/with-html'
 import { Taggeo, sendAction, PixelActions } from '../../_dependencies/Taggeo'
 
-function Cards({ item, arcSite, arcEnv, order, textOffer }) {
+function Cards({ item, arcSite, order, textOffer }) {
   const itemGrid = ['one', 'two', 'three']
   const [loading, setLoading] = useState(false)
 
@@ -44,7 +44,7 @@ function Cards({ item, arcSite, arcEnv, order, textOffer }) {
         },
       })
 
-      Taggeo('Web_Paywall_Home', `web_paywall_home_button_${paramSku}`, arcEnv)
+      Taggeo('Web_Paywall_Home', `web_paywall_home_button_${paramSku}`)
       window.location.href = paramUrl
     }
   }

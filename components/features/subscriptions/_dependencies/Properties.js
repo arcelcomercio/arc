@@ -255,6 +255,10 @@ const PropertiesSite = {
       subsDniToken:{
         prod: 'https://paywall.comerciosuscripciones.pe/api/subscription-online/token/',
         sandbox:  'https://devpaywall.comerciosuscripciones.pe/api/subscription-online/token/'
+      },
+      dsnSentry: {
+        prod: 'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+        sandbox:'https://59b299c8444f4b8e9ac7abaa19f719cc@o271396.ingest.sentry.io/1483012'
       }
     },
 

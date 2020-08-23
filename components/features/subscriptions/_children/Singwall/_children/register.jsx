@@ -23,6 +23,8 @@ const styles = {
   backLogin: 'step__left-link-register',
 }
 
+const nameTagCategory = 'Web_Sign_Wall_Landing'
+
 const Register = ({ arcSite, arcEnv }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
@@ -66,11 +68,7 @@ const Register = ({ arcSite, arcEnv }) => {
 
   const onFormRegister = ({ remail, rpass }) => {
     if (typeof window !== 'undefined') {
-      Taggeo(
-        'Web_Sign_Wall_Landing',
-        'web_swl_registro_boton_registrarme',
-        arcEnv
-      )
+      Taggeo(nameTagCategory, 'web_swl_registro_boton_registrarme')
       setLoading(true)
       setLoadText('Registrando...')
       window.Identity.signUp(
@@ -135,11 +133,7 @@ const Register = ({ arcSite, arcEnv }) => {
                 updateStep(2)
               })
               .finally(() => {
-                Taggeo(
-                  'Web_Sign_Wall_Landing',
-                  'web_swl_registro_success_registrarme',
-                  arcEnv
-                )
+                Taggeo(nameTagCategory, 'web_swl_registro_success_registrarme')
               })
           })
         })
@@ -147,11 +141,7 @@ const Register = ({ arcSite, arcEnv }) => {
           setMsgError(getCodeError(err.code))
           setForgotLink(err.code === '300039')
           setLoading(false)
-          Taggeo(
-            'Web_Sign_Wall_Landing',
-            'web_swl_registro_error_registrarme',
-            arcEnv
-          )
+          Taggeo(nameTagCategory, 'web_swl_registro_error_registrarme')
         })
     }
   }
@@ -306,11 +296,7 @@ const Register = ({ arcSite, arcEnv }) => {
               type="button"
               onClick={() => {
                 value.changeTemplate('login')
-                Taggeo(
-                  'Web_Sign_Wall_Landing',
-                  'web_swl_registro_link_volver',
-                  arcEnv
-                )
+                Taggeo(nameTagCategory, 'web_swl_registro_link_volver')
               }}>
               Iniciar Sesión
             </button>

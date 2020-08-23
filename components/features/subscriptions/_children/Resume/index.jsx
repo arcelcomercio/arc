@@ -24,7 +24,7 @@ const styles = {
   toolTip: 'tooltiptext-rightarrow tooltip-inactive',
 }
 
-const Resume = ({ arcEnv }) => {
+const Resume = () => {
   const {
     arcSite,
     globalContent: { plans = [], name },
@@ -85,7 +85,7 @@ const Resume = ({ arcEnv }) => {
           document.body.classList.remove('no-scroll')
           document.body.classList.remove('bg-shop')
         }
-        Taggeo('Web_Paywall_Landing', 'web_paywall_change_data', arcEnv)
+        Taggeo('Web_Paywall_Landing', 'web_paywall_change_data')
       } else {
         window.location.reload()
       }
@@ -96,7 +96,7 @@ const Resume = ({ arcEnv }) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         updateStep(2)
-        Taggeo('Web_Paywall_Landing', 'web_paywall_change_plan', arcEnv)
+        Taggeo('Web_Paywall_Landing', 'web_paywall_change_plan')
       } else {
         window.location.reload()
       }

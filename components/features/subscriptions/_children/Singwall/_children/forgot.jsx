@@ -17,7 +17,9 @@ const styles = {
   backLogin: 'step__left-link-register',
 }
 
-const Forgot = ({ arcEnv }) => {
+const nameTagCategory = 'Web_Sign_Wall_Landing'
+
+const Forgot = () => {
   const [loading, setLoading] = useState(false)
   const [msgError, setMsgError] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -37,30 +39,18 @@ const Forgot = ({ arcEnv }) => {
 
   const onFomrForgot = ({ femail }) => {
     if (typeof window !== 'undefined') {
-      Taggeo(
-        'Web_Sign_Wall_Landing',
-        'web_swl_contrasena_boton_recuperar',
-        arcEnv
-      )
+      Taggeo(nameTagCategory, 'web_swl_contrasena_boton_recuperar')
       setLoading(true)
       window.Identity.requestResetPassword(femail)
         .then(() => {
           setShowConfirm(true)
-          Taggeo(
-            'Web_Sign_Wall_Landing',
-            'web_swl_contrasena_success_boton',
-            arcEnv
-          )
+          Taggeo(nameTagCategory, 'web_swl_contrasena_success_boton')
         })
         .catch(err => {
           setMsgError(getCodeError(err.code))
           setRegisterLink(err.code === '300030')
           setLoading(false)
-          Taggeo(
-            'Web_Sign_Wall_Landing',
-            'web_swl_contrasena_error_boton',
-            arcEnv
-          )
+          Taggeo(nameTagCategory, 'web_swl_contrasena_error_boton')
         })
     }
   }
@@ -135,11 +125,7 @@ const Forgot = ({ arcEnv }) => {
                     type="button"
                     onClick={() => {
                       value.changeTemplate('login')
-                      Taggeo(
-                        'Web_Sign_Wall_Landing',
-                        'web_swl_contrasena_link_volver',
-                        arcEnv
-                      )
+                      Taggeo(nameTagCategory, 'web_swl_contrasena_link_volver')
                     }}>
                     Inciar Sesión
                   </button>
@@ -157,11 +143,7 @@ const Forgot = ({ arcEnv }) => {
                   type="button"
                   onClick={() => {
                     value.changeTemplate('login')
-                    Taggeo(
-                      'Web_Sign_Wall_Landing',
-                      'web_swl_contrasena_boton_aceptar',
-                      arcEnv
-                    )
+                    Taggeo(nameTagCategory, 'web_swl_contrasena_boton_aceptar')
                   }}>
                   Aceptar
                 </button>

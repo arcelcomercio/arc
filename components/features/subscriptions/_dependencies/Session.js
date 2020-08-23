@@ -1,6 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-import { decodeValue } from './Utils'
-
 export const isLogged = () => {
   if (typeof window !== 'undefined') {
     return (
@@ -46,16 +43,6 @@ export const conformProfile = userPorfile => {
   )
 }
 
-export const getLocaleStorage = key => {
-  if (typeof window !== 'undefined') {
-    if (process.browser) {
-      const value = window.localStorage.getItem(key)
-      return decodeValue(value)
-    }
-  }
-  return null
-}
-
 export const getUserName = (firstName, lastName) => {
   let fullName = 'Bienvenido Usuario'
   const badName = /undefined|null/
@@ -82,4 +69,11 @@ export const getUserName = (firstName, lastName) => {
     fullName = lastName
   }
   return fullName.length <= 20 ? fullName : `${fullName.slice(0, 20)}...`
+}
+
+export const getStorageProfile = () => {
+  if (typeof window !== 'undefined') {
+    return JSON.parse(window.localStorage.getItem('ArcId.USER_PROFILE') || '{}')
+  }
+  return null
 }

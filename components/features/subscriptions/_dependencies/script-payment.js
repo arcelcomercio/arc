@@ -34,7 +34,7 @@
 //       divDetailMobile.classList.toggle('step__show-detail')
 //       btnDetailMobile.classList.toggle('step__hidden')
 //       divFooter.classList.toggle('step__hidden')
-//       if(divValidate) divValidate.classList.toggle('step__hidden')
+//       if (divValidate) divValidate.classList.toggle('step__hidden')
 //       document.body.classList.toggle('no-scroll')
 //       document.body.classList.toggle('bg-shop')
 //       window.scrollTo({ top: 0, behavior: 'smooth' })

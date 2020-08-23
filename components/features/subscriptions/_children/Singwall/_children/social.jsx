@@ -6,9 +6,11 @@ import {
 } from '../../../_dependencies/Services'
 import PropertiesSite from '../../../_dependencies/Properties'
 import getDevice from '../../../_dependencies/GetDevice'
-import { Capitalize } from '../../../_dependencies/Utils'
+import { Capitalize, setLocaleStorage } from '../../../_dependencies/Utils'
 import { AuthContext } from '../../../_context/auth'
 import { Taggeo } from '../../../_dependencies/Taggeo'
+
+const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
   const [loading, setLoading] = useState()
@@ -73,7 +75,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
             window.Identity.updateUserProfile(newProfileFB)
               .then(resUpdateProfile => {
                 if (userEmail.indexOf('facebook.com') < 0) {
-                  setLoadText('Registrando Newsletters...')
+                  setLoadText('Cargando Servicios...')
                   sendNewsLettersUser(
                     urls.newsLetters[arcEnv],
                     resUpdateProfile.uuid,
@@ -86,9 +88,8 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
                       activateAuth(resUpdateProfile)
                       updateStep(2)
                       Taggeo(
-                        'Web_Sign_Wall_Landing',
-                        `web_swl_${arcType}_success_${arcSocial}`,
-                        arcEnv
+                        nameTagCategory,
+                        `web_swl_${arcType}_success_${arcSocial}`
                       )
                     })
                     .catch(() => {
@@ -98,39 +99,26 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
                   activateAuth(resUpdateProfile)
                   updateStep(2)
                   Taggeo(
-                    'Web_Sign_Wall_Landing',
-                    `web_swl_${arcType}_success_${arcSocial}`,
-                    arcEnv
+                    nameTagCategory,
+                    `web_swl_${arcType}_success_${arcSocial}`
                   )
                 }
               })
               .catch(errUpdateProfile => {
                 setLoading(false)
                 window.console.error(errUpdateProfile) // Temporal hasta implementar Sentry
-                Taggeo(
-                  'Web_Sign_Wall_Landing',
-                  `web_swl_${arcType}_error_${arcSocial}`,
-                  arcEnv
-                )
+                Taggeo(nameTagCategory, `web_swl_${arcType}_error_${arcSocial}`)
               })
           } else {
             activateAuth(resProfile)
             updateStep(2)
-            Taggeo(
-              'Web_Sign_Wall_Landing',
-              `web_swl_${arcType}_success_${arcSocial}`,
-              arcEnv
-            )
+            Taggeo(nameTagCategory, `web_swl_${arcType}_success_${arcSocial}`)
           }
         })
         .catch(errProfile => {
           setLoading(false)
           window.console.error(errProfile) // Temporal hasta implementar Sentry
-          Taggeo(
-            'Web_Sign_Wall_Landing',
-            `web_swl_${arcType}_error_${arcSocial}`,
-            arcEnv
-          )
+          Taggeo(nameTagCategory, `web_swl_${arcType}_error_${arcSocial}`)
         })
     }
   }
@@ -151,10 +139,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
       )
         .then(resloginSocialEco => {
           if (resloginSocialEco.accessToken) {
-            window.localStorage.setItem(
-              'ArcId.USER_INFO',
-              JSON.stringify(resloginSocialEco)
-            )
+            setLocaleStorage('ArcId.USER_INFO', resloginSocialEco)
             window.Identity.userIdentity = resloginSocialEco
             setupUserProfile()
           } else {
@@ -229,11 +214,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
         className={`btn-${arcSocial}`}
         onClick={() => {
           clickLoginSocialEcoID()
-          Taggeo(
-            'Web_Sign_Wall_Landing',
-            `web_swl_${arcType}_boton_${arcSocial}`,
-            arcEnv
-          )
+          Taggeo(nameTagCategory, `web_swl_${arcType}_boton_${arcSocial}`)
         }}
         disabled={loading}
         type="button">

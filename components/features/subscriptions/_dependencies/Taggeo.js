@@ -1,12 +1,7 @@
-const titleCase = string => {
-  const wordsArray = string.toLowerCase().split(/_/)
-  const upperCased = wordsArray.map(word => {
-    return word.charAt(0).toUpperCase() + word.substr(1)
-  })
-  return upperCased.join('_')
-}
+import ENV from 'fusion:environment'
+import { titleCase } from './Utils'
 
-export const Taggeo = (cat, acc, env) => {
+export const Taggeo = (cat, acc) => {
   const TRIGGER = 'tag_signwall'
   if (typeof window !== 'undefined') {
     window.dataLayer = window.dataLayer || []
@@ -16,8 +11,7 @@ export const Taggeo = (cat, acc, env) => {
       eventAction: acc,
     }
     window.dataLayer.push(dataPush)
-    if (env === 'sandbox') {
-      // Only sandbox ;)
+    if (ENV.ENVIRONMENT !== 'elcomercio') {
       window.console.log(
         `%c 🔔 Taggeo Detectado - Paywall:`,
         'color:  dodgerblue; font-size: 12px'

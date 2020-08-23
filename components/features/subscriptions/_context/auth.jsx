@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { createContext, useState } from 'react'
-import { isAuthenticated, getLocaleStorage } from '../_dependencies/Session'
+import { isAuthenticated } from '../_dependencies/Session'
+import { getLocaleStorage } from '../_dependencies/Utils'
 
 const AuthContext = createContext()
 

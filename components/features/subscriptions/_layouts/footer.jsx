@@ -101,15 +101,16 @@ export const FooterSubs = ({ arcEnv }) => {
                   <>
                     <h4>{textsAttr.subscriber_title_banner}</h4>
                     <p>
-                      {`${textsAttr.subscriber_detail_banner}. ${textsAttr.subscriber_regular_period}`}
+                      {textsAttr.subscriber_detail_banner}
+                      <span>{textsAttr.subscriber_regular_period}</span>
                     </p>
                   </>
                 ) : (
                   <>
                     <h4>¿Eres suscriptor de nuestra edición impresa?</h4>
                     <p>
-                      Inicia sesión o regístrate y descubre el precio especial
-                      para ti.
+                      Inicia sesión o regístrate y descubre el precio
+                      <span>especial para ti.</span>
                     </p>
                   </>
                 )}

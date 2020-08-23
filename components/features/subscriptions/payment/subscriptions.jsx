@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { useEffect, useContext } from 'react'
+import * as Sentry from '@sentry/browser'
 import ENV from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext, AuthProvider } from '../_context/auth'
@@ -28,6 +29,7 @@ const arcType = 'payment'
 const WrapperPaymentSubs = () => {
   const {
     arcSite,
+    deployment,
     // globalContent: {
     //   fromFia,
     //   summary = [],
@@ -43,11 +45,18 @@ const WrapperPaymentSubs = () => {
 
   const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   const { userLoaded, userStep, userProfile } = useContext(AuthContext)
-  const { links } = PropertiesSite.common
+  const { links, urls: urlCommon } = PropertiesSite.common
   const { urls } = PropertiesSite[arcSite]
 
   useEffect(() => {
     PWA.mount(() => window.location.reload())
+
+    Sentry.init({
+      dsn: urlCommon.dsnSentry[arcEnv],
+      debug: arcEnv === 'sandbox',
+      release: `arc-deployment@${deployment}`,
+      environment: arcEnv,
+    })
 
     addScriptAsync({
       name: 'IdentitySDK',
@@ -86,9 +95,7 @@ const WrapperPaymentSubs = () => {
                 }
               })()}
             </PanelLeft>
-            <PanelRight>
-              {userStep !== 4 && <Resume {...{ arcEnv }} />}
-            </PanelRight>
+            <PanelRight>{userStep !== 4 && <Resume />}</PanelRight>
           </Wrapper>
         </NavigateProvider>
       </Container>

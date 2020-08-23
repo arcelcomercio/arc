@@ -1,5 +1,4 @@
 export function decodeValue(val) {
-  // Try to parse as json
   if (typeof val === 'string') {
     try {
       return JSON.parse(val)
@@ -7,8 +6,6 @@ export function decodeValue(val) {
       window.console.error('(decodeValue) not_parse_value')
     }
   }
-
-  // Return as is
   return val
 }
 
@@ -34,12 +31,11 @@ export const checkUndefined = (name, alias) => {
       return alias || ''
     }
   }
-
   return name || alias
 }
 
 export const checkFbEmail = email => {
-  return email.indexOf('facebook.com') >= 0 ? '' : email
+  return email && email.indexOf('facebook.com') >= 0 ? '' : email
 }
 
 export const Capitalize = string => {
@@ -61,4 +57,32 @@ export const clearUrlAPI = urlDefault => {
     const UrlComplete = `${newUrl[0] || urlDefault}${newUrl[1] || ''}`
     window.history.pushState(null, null, UrlComplete)
   }
+}
+
+export const titleCase = string => {
+  const wordsArray = string.toLowerCase().split(/_/)
+  const upperCased = wordsArray.map(word => {
+    return word.charAt(0).toUpperCase() + word.substr(1)
+  })
+  return upperCased.join('_')
+}
+
+export const getLocaleStorage = key => {
+  if (typeof window !== 'undefined') {
+    if (process.browser) {
+      const value = window.localStorage.getItem(key)
+      return decodeValue(value)
+    }
+  }
+  return null
+}
+
+export const setLocaleStorage = (key, data) => {
+  if (typeof window !== 'undefined') {
+    if (process.browser) {
+      return window.localStorage.setItem(key, encodeValue(data))
+    }
+    return false
+  }
+  return null
 }

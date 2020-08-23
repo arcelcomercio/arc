@@ -1,17 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
+import * as Sentry from '@sentry/browser'
 import useForm from '../../_hooks/useForm'
-import { conformProfile, isLogged } from '../../_dependencies/Session'
 import { getEntitlements } from '../../_dependencies/Services'
 import { AuthContext } from '../../_context/auth'
 import PropertiesSite from '../../_dependencies/Properties'
 import Modal from './children/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
-
+import {
+  conformProfile,
+  isLogged,
+  getStorageProfile,
+} from '../../_dependencies/Session'
 import {
   checkUndefined,
   checkFbEmail,
   checkFormatPhone,
+  setLocaleStorage,
 } from '../../_dependencies/Utils'
 import getCodeError, {
   formatEmail,
@@ -26,6 +31,8 @@ const styles = {
   btn: 'step__left-btn-next',
   link: 'step__btn-link',
 }
+
+const nameTagCategory = 'Web_Paywall_Landing'
 
 const Profile = ({ arcEnv }) => {
   const {
@@ -44,6 +51,7 @@ const Profile = ({ arcEnv }) => {
   const [showModal, setShowModal] = useState()
 
   const {
+    uuid,
     firstName,
     lastName,
     secondLastName,
@@ -52,9 +60,9 @@ const Profile = ({ arcEnv }) => {
     email,
     phone,
     emailVerified,
-  } = conformProfile(
-    JSON.parse(window.localStorage.getItem('ArcId.USER_PROFILE') || '{}')
-  )
+  } = conformProfile(getStorageProfile())
+
+  const isFacebook = email && email.indexOf('facebook.com') >= 0
 
   const stateSchema = {
     uFirstName: { value: checkUndefined(firstName) || '', error: '' },
@@ -65,8 +73,6 @@ const Profile = ({ arcEnv }) => {
     uPhone: { value: checkFormatPhone(phone) || '', error: '' },
     uEmail: { value: checkFbEmail(email) || '', error: '' },
   }
-
-  const isFaacebook = email.indexOf('facebook.com') >= 0
 
   const stateValidatorSchema = {
     uFirstName: {
@@ -108,18 +114,27 @@ const Profile = ({ arcEnv }) => {
     if (typeof window !== 'undefined') {
       return window.Identity.heartbeat()
         .then(resHeart => {
-          return getEntitlements(
-            urls.arcOrigin[arcEnv],
-            resHeart.accessToken
-          ).then(resEntitlements => {
-            return (
-              Array.isArray(resEntitlements.skus) &&
-              resEntitlements.skus.length > 0
-            )
-          })
+          return getEntitlements(urls.arcOrigin[arcEnv], resHeart.accessToken)
+            .then(resEntitlements => {
+              return (
+                Array.isArray(resEntitlements.skus) &&
+                resEntitlements.skus.length > 0
+              )
+            })
+            .catch(errEntitlements => {
+              Sentry.captureEvent({
+                message: 'Error al verificar Suscripciones',
+                level: 'error',
+                extra: errEntitlements,
+              })
+            })
         })
         .catch(errHeart => {
-          window.console.error(errHeart) // Temporal hasta implementar Sentry
+          Sentry.captureEvent({
+            message: 'Error al extender la sessión',
+            level: 'error',
+            extra: errHeart,
+          })
         })
     }
     return ''
@@ -170,11 +185,19 @@ const Profile = ({ arcEnv }) => {
         firstName: uFirstName.trim(),
         lastName: uLastName.trim(),
       }
+
       if (uSecondLastName.length >= 2) {
         profile = Object.assign(profile, {
           secondLastName: uSecondLastName.trim(),
         })
       }
+
+      Sentry.addBreadcrumb({
+        category: 'perfil',
+        message: 'El Usuario completa sus datos',
+        level: 'info',
+      })
+
       setLoadText('Actualizando Perfil...')
       window.Identity.updateUserProfile(profile)
         .then(resProfile => {
@@ -183,27 +206,39 @@ const Profile = ({ arcEnv }) => {
         })
         .catch(err => {
           if (err.code === '100018') {
-            // los datos solo estarán como datos de pago no se guardarán en perfil
             const currentProfile = window.Identity.userProfile
             const newProfile = Object.assign(currentProfile, profile)
-            window.localStorage.setItem(
-              'ArcId.USER_PROFILE',
-              JSON.stringify(newProfile)
-            )
+            setLocaleStorage('ArcId.USER_PROFILE', newProfile)
             updateUser(newProfile)
             updateStep(3)
+            Sentry.captureEvent({
+              message: 'Usuario no actualizó perfil',
+              level: 'info',
+              extra: err,
+            })
           } else {
             setMsgError(getCodeError(err.code))
+            Sentry.captureEvent({
+              message: 'Error al actualizar perfil',
+              level: 'error',
+              extra: err,
+            })
           }
-
-          setLinkLogin(
-            err.code === '100018' ||
-              err.code === '3001001' ||
-              err.code === '100011'
-          )
+          setLinkLogin(err.code === '3001001' || err.code === '100011')
         })
         .finally(() => setLoading(false))
     }
+  }
+
+  const restoreClearSession = () => {
+    Sentry.captureEvent({
+      message: 'El Usuario ha perdido sus sesión/perfil',
+      level: 'error',
+    })
+    setTimeout(() => {
+      updateStep(1)
+      window.location.reload()
+    }, 1000)
   }
 
   const onFormProfile = (...props) => {
@@ -215,14 +250,13 @@ const Profile = ({ arcEnv }) => {
           if (resSubs) {
             setShowModal(true)
             setLoading(false)
-            Taggeo('Web_Paywall_Landing', 'web_paywall_open_validation', arcEnv)
+            Taggeo(nameTagCategory, 'web_paywall_open_validation')
           } else {
             updateProfile(...props)
           }
         })
       } else {
-        updateStep(1)
-        window.location.reload()
+        restoreClearSession()
       }
     }
   }
@@ -247,14 +281,13 @@ const Profile = ({ arcEnv }) => {
     },
     handleOnChange,
     handleOnSubmit,
-    // disable,
   } = useForm(stateSchema, stateValidatorSchema, onFormProfile)
 
   const handleClickCancel = () => {
     if (typeof window !== 'undefined') {
       setShowModal(false)
       window.sessionStorage.setItem('paywall_confirm_subs', '2')
-      Taggeo('Web_Paywall_Landing', 'web_paywall_close_validation', arcEnv)
+      Taggeo(nameTagCategory, 'web_paywall_close_validation')
     }
   }
 
@@ -271,7 +304,7 @@ const Profile = ({ arcEnv }) => {
         uEmail,
       })
       window.sessionStorage.setItem('paywall_confirm_subs', '1')
-      Taggeo('Web_Paywall_Landing', 'web_paywall_continue_validation', arcEnv)
+      Taggeo(nameTagCategory, 'web_paywall_continue_validation')
     }
   }
 
@@ -282,8 +315,7 @@ const Profile = ({ arcEnv }) => {
         setMsgErrorApi(false)
         handleOnChange(e)
       } else {
-        updateStep(1)
-        window.location.reload()
+        restoreClearSession()
       }
     }
   }
@@ -293,8 +325,7 @@ const Profile = ({ arcEnv }) => {
       if (isLogged()) {
         handleOnChange(e)
       } else {
-        updateStep(1)
-        window.location.reload()
+        restoreClearSession()
       }
     }
   }
@@ -309,18 +340,24 @@ const Profile = ({ arcEnv }) => {
 
   const handleProfile = () => {
     if (typeof window !== 'undefined') {
-      Taggeo('Web_Paywall_Landing', 'web_paywall_profile_validation', arcEnv)
+      Taggeo(nameTagCategory, 'web_paywall_profile_validation')
       window.open(urls.profile[arcEnv], '_blank')
     }
   }
 
   useEffect(() => {
-    // window.addEventListener('click', clickLoginSocialEcoID)
-    return () => {
-      // window.removeEventListener('click', clickLoginSocialEcoID)
-      // window.removeEventListener('message', authSocialProvider)
-      // window.removeEventListener('onmessage', authSocialProvider)
-    }
+    Sentry.configureScope(scope => {
+      scope.setTag('brand', arcSite)
+      scope.setUser({
+        id: uuid,
+        name: `${firstName} ${firstName} ${secondLastName || ''}`,
+        email,
+        phone,
+        documentType,
+        documentNumber,
+        emailVerified,
+      })
+    })
   }, [])
 
   return (
@@ -467,9 +504,8 @@ const Profile = ({ arcEnv }) => {
           <label htmlFor="uEmail">
             Correo electrónico
             <input
-              // prettier-ignore
-              className={`${emailVerified && !isFaacebook ? 'email-verify' : ''} 
-              ${!emailVerified && !isFaacebook ? 'email-noverify' : ''} 
+              className={`${emailVerified && !isFacebook ? 'email-verify' : ''} 
+              ${!emailVerified && !isFacebook ? 'email-noverify' : ''} 
               ${uEmailError && 'input-error'}`}
               type="text"
               name="uEmail"
@@ -478,7 +514,7 @@ const Profile = ({ arcEnv }) => {
               onChange={handleChangeInput}
               onBlur={handleChangeInput}
               maxLength="80"
-              disabled={!isFaacebook || loading}
+              disabled={!isFacebook || loading}
             />
             {uEmailError && <span className="msn-error">{uEmailError}</span>}
           </label>
@@ -493,6 +529,7 @@ const Profile = ({ arcEnv }) => {
           </button>
         </div>
       </form>
+
       {showModal && (
         <Modal
           onClose={() => {}}
@@ -536,153 +573,3 @@ const Profile = ({ arcEnv }) => {
 }
 
 export default Profile
-
-// export const ProfilePrint = () => {
-//   const [showThirdPerson, setShowThirdPerson] = useState()
-
-//   const ToogleThirdPerson = () => {
-//     if (typeof window !== 'undefined') {
-//       const divStep = window.document.getElementById('main-steps')
-//       if (divStep) divStep.classList.toggle('height-full')
-//       setShowThirdPerson(!showThirdPerson)
-//     }
-//   }
-
-//   return (
-//     <>
-//       <ul className={styles.step}>
-//         <li className="active">Perfil</li>
-//         <li>Reparto</li>
-//         <li>Pago</li>
-//         <li>Confirmación</li>
-//       </ul>
-//       <h3 className={styles.subtitle}>Ingresa tus datos personales</h3>
-
-//       <div className={styles.block}>
-//         <label htmlFor="ppago_nombre">
-//           Nombre
-//           <input id="ppago_nombre" type="text" name="nombre" />
-//         </label>
-//       </div>
-
-//       <div className={styles.block}>
-//         <label htmlFor="id_ppago_apepat">
-//           Apellido Paterno
-//           <input id="id_ppago_apepat" type="text" name="paterno" />
-//         </label>
-//       </div>
-
-//       <div className={styles.block}>
-//         <label htmlFor="id_ppago_apemat">
-//           Apellidos Materno
-//           <input id="id_ppago_apemat" type="text" name="materno" />
-//         </label>
-//       </div>
-
-//       <div className={styles.block}>
-//         <label htmlFor="id_ppago_numdoc">
-//           Documento de Identidad
-//           <div className="cont-select-input">
-//             <select id="id_ppago_tipodoc2">
-//               <option>DNI</option>
-//               <option>Pasaporte</option>
-//               <option>C. Extranjería</option>
-//             </select>
-//             <input
-//               id="id_ppago_numdoc"
-//               type="text"
-//               name="documento"
-//               maxLength="8"
-//             />
-//           </div>
-//         </label>
-//       </div>
-
-//       <div className={styles.block}>
-//         <label htmlFor="id_ppago_telefono">
-//           Teléfono
-//           <input id="id_ppago_telefono" type="text" name="phone" />
-//         </label>
-//       </div>
-
-//       <div className={styles.block}>
-//         <label htmlFor="id_ppago_email">
-//           Correo electrónico
-//           <input id="id_ppago_email" type="text" name="correo" />
-//         </label>
-//       </div>
-
-//       <div className={styles.block}>
-//         <label htmlFor="thirdPerson" className="terms">
-//           <input id="thirdPerson" type="checkbox" onClick={ToogleThirdPerson} />
-//           Comprando para alguien más
-//           <span className="checkmark"></span>
-//         </label>
-//       </div>
-
-//       {showThirdPerson && (
-//         <div className="step__left-cont-form">
-//           <div className={styles.block}>
-//             <label htmlFor="id_otroppago_nombre">
-//               Nombre
-//               <input id="id_otroppago_nombre" type="text" name="nombre" />
-//             </label>
-//           </div>
-
-//           <div className={styles.block}>
-//             <label htmlFor="id_otroppago_apepat">
-//               Apellido Paterno
-//               <input id="id_otroppago_apepat" type="text" name="paterno" />
-//             </label>
-//           </div>
-
-//           <div className={styles.block}>
-//             <label htmlFor="id_otroppago_apemat">
-//               Apellidos Materno
-//               <input id="id_otroppago_apemat" type="text" name="materno" />
-//             </label>
-//           </div>
-
-//           <div className={styles.block}>
-//             <label htmlFor="id_otroppago_numdoc">
-//               Documento de Identidad
-//               <div className="cont-select-input">
-//                 <select id="id_otroppago_tipodoc2">
-//                   <option>DNI</option>
-//                   <option>Pasaporte</option>
-//                   <option>C. Extranjería</option>
-//                 </select>
-//                 <input
-//                   id="id_otroppago_numdoc"
-//                   type="text"
-//                   name="documento"
-//                   maxLength="8"
-//                 />
-//               </div>
-//             </label>
-//           </div>
-
-//           <div className={styles.block}>
-//             <label htmlFor="id_otroppago_telefono">
-//               Teléfono
-//               <input id="id_otroppago_telefono" type="text" name="phone" />
-//             </label>
-//           </div>
-
-//           <div className={styles.block}>
-//             <label htmlFor="id_otroppago_email">
-//               Correo electrónico
-//               <input id="id_otroppago_email" type="text" name="correo" />
-//             </label>
-//           </div>
-//         </div>
-//       )}
-
-//       <div className={styles.block}>
-//         <button className={styles.btn} type="button">
-//           Continuar
-//         </button>
-//       </div>
-//     </>
-//   )
-// }

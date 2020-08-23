@@ -21,6 +21,8 @@ const styles = {
   noteEnd: 'step__left-notes-footer',
 }
 
+const nameTagCategory = 'Web_Sign_Wall_Landing'
+
 const Login = ({ arcSite, arcEnv }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
@@ -51,7 +53,7 @@ const Login = ({ arcSite, arcEnv }) => {
   const onFormSignIn = ({ lemail, lpass }) => {
     if (typeof window !== 'undefined') {
       setLoading(true)
-      Taggeo('Web_Sign_Wall_Landing', 'web_swl_login_boton_ingresar', arcEnv)
+      Taggeo(nameTagCategory, 'web_swl_login_boton_ingresar')
       window.Identity.login(lemail, lpass, {
         rememberMe: true,
         cookie: true,
@@ -60,21 +62,13 @@ const Login = ({ arcSite, arcEnv }) => {
           window.Identity.getUserProfile().then(resProfile => {
             activateAuth(resProfile)
             updateStep(2)
-            Taggeo(
-              'Web_Sign_Wall_Landing',
-              'web_swl_login_success_ingresar',
-              arcEnv
-            )
+            Taggeo(nameTagCategory, 'web_swl_login_success_ingresar')
           })
         })
         .catch(err => {
           setMsgError(getCodeError(err.code))
           setLoading(false)
-          Taggeo(
-            'Web_Sign_Wall_Landing',
-            'web_swl_login_error_ingresar',
-            arcEnv
-          )
+          Taggeo(nameTagCategory, 'web_swl_login_error_ingresar')
         })
     }
   }
@@ -177,11 +171,7 @@ const Login = ({ arcSite, arcEnv }) => {
                 type="button"
                 onClick={() => {
                   value.changeTemplate('forgot')
-                  Taggeo(
-                    'Web_Sign_Wall_Landing',
-                    'web_swl_contrasena_link_olvide',
-                    arcEnv
-                  )
+                  Taggeo(nameTagCategory, 'web_swl_contrasena_link_olvide')
                 }}>
                 Olvidé mi contraseña
               </button>
@@ -204,11 +194,7 @@ const Login = ({ arcSite, arcEnv }) => {
               type="button"
               onClick={() => {
                 value.changeTemplate('register')
-                Taggeo(
-                  'Web_Sign_Wall_Landing',
-                  'web_swl_login_boton_registrate',
-                  arcEnv
-                )
+                Taggeo(nameTagCategory, 'web_swl_login_boton_registrate')
               }}>
               Registrarme
             </button>
