@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
-
 /**
  * OJO Este componente cuenta con 2 tipos de Resume:
  * @Resume
@@ -8,10 +6,10 @@
 
 import React, { useState, useContext, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
-import { AuthContext } from '../../_context/auth'
-import PropertiesSite from '../../_dependencies/Properties'
-import { isLogged } from '../../_dependencies/Session'
-import { Taggeo } from '../../_dependencies/Taggeo'
+import { AuthContext } from '../../../_context/auth'
+import PropertiesSite from '../../../_dependencies/Properties'
+import { isLogged } from '../../../_dependencies/Session'
+import { Taggeo } from '../../../_dependencies/Taggeo'
 
 const styles = {
   resume: 'step__right-resume-top',

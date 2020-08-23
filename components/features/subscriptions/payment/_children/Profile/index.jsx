@@ -1,28 +1,28 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
-import useForm from '../../_hooks/useForm'
-import { getEntitlements } from '../../_dependencies/Services'
-import { AuthContext } from '../../_context/auth'
-import PropertiesSite from '../../_dependencies/Properties'
+import useForm from '../../../_hooks/useForm'
+import { getEntitlements } from '../../../_dependencies/Services'
+import { AuthContext } from '../../../_context/auth'
+import PropertiesSite from '../../../_dependencies/Properties'
 import Modal from './children/modal'
-import { Taggeo } from '../../_dependencies/Taggeo'
+import { Taggeo } from '../../../_dependencies/Taggeo'
 import {
   conformProfile,
   isLogged,
   getStorageProfile,
-} from '../../_dependencies/Session'
+} from '../../../_dependencies/Session'
 import {
   checkUndefined,
   checkFbEmail,
   checkFormatPhone,
   setLocaleStorage,
-} from '../../_dependencies/Utils'
+} from '../../../_dependencies/Utils'
 import getCodeError, {
   formatEmail,
   formatNames,
   formatPhone,
-} from '../../_dependencies/Errors'
+} from '../../../_dependencies/Errors'
 
 const styles = {
   step: 'step__left-progres',

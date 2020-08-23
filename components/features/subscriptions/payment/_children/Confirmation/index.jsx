@@ -1,14 +1,13 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState, useContext, useEffect } from 'react'
-import { AuthContext } from '../../_context/auth'
-import PropertiesSite from '../../_dependencies/Properties'
-import { paymentTraker } from '../../_dependencies/Services'
+import { AuthContext } from '../../../_context/auth'
+import PropertiesSite from '../../../_dependencies/Properties'
+import { paymentTraker } from '../../../_dependencies/Services'
 import {
   pushCxense,
   // PixelActions,
   // sendAction,
-} from '../../_dependencies/Taggeo'
-import PWA from '../../_dependencies/Pwa'
+} from '../../../_dependencies/Taggeo'
+import PWA from '../../../_dependencies/Pwa'
 
 const styles = {
   step: 'step__left-progres',

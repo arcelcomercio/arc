@@ -1,12 +1,11 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState, useContext } from 'react'
-import getCodeError, { formatEmail } from '../../../_dependencies/Errors'
-import useForm from '../../../_hooks/useForm'
-import { NavigateConsumer } from '../../../_context/navigate'
-import { AuthContext } from '../../../_context/auth'
-import PropertiesSite from '../../../_dependencies/Properties'
+import getCodeError, { formatEmail } from '../../../../_dependencies/Errors'
+import useForm from '../../../../_hooks/useForm'
+import { NavigateConsumer } from '../../../../_context/navigate'
+import { AuthContext } from '../../../../_context/auth'
+import PropertiesSite from '../../../../_dependencies/Properties'
 import ButtonSocial from './social'
-import { Taggeo } from '../../../_dependencies/Taggeo'
+import { Taggeo } from '../../../../_dependencies/Taggeo'
 
 const styles = {
   title: 'step__left-title',

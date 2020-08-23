@@ -1,14 +1,13 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { useContext, useState, useEffect } from 'react'
+import PropertiesSite from '../../../../_dependencies/Properties'
+import getDevice from '../../../../_dependencies/GetDevice'
+import { Capitalize, setLocaleStorage } from '../../../../_dependencies/Utils'
+import { AuthContext } from '../../../../_context/auth'
+import { Taggeo } from '../../../../_dependencies/Taggeo'
 import {
   loginSocialEco,
   sendNewsLettersUser,
-} from '../../../_dependencies/Services'
-import PropertiesSite from '../../../_dependencies/Properties'
-import getDevice from '../../../_dependencies/GetDevice'
-import { Capitalize, setLocaleStorage } from '../../../_dependencies/Utils'
-import { AuthContext } from '../../../_context/auth'
-import { Taggeo } from '../../../_dependencies/Taggeo'
+} from '../../../../_dependencies/Services'
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 

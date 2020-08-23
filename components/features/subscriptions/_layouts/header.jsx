@@ -1,11 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
-
-/**
- * OJO Este componente cuenta con 2 tipos de Headers:
- * @HeaderSubs
- * @HeaderLand
- */
-
 import React, { useState, useContext } from 'react'
 import PropertiesSite from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'

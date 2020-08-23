@@ -4,16 +4,15 @@ import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
-import stylesLanding from '../_dependencies/styles-landing'
+import stylesLanding from '../_styles/Landing'
 import PropertiesSite from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
-import Cards from '../_children/Cards'
+import Cards from './_children/Cards'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
-import scriptsLanding from '../_dependencies/script-landing'
-// import { createExternalScript } from '../_dependencies/Utils' // sorry Chamo lo intenté
+import scriptsLanding from '../_scripts/Landing'
 
 const arcType = 'landing'
 const LandingSubscriptions = () => {
@@ -45,7 +44,6 @@ const LandingSubscriptions = () => {
         })),
       },
     })
-    // createExternalScript(scriptsLanding, true)
   }, [])
 
   const handleUniversity = () => {

@@ -1,15 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState, useContext, useEffect } from 'react'
 import TextMask from 'react-text-mask'
-import useForm from '../../_hooks/useForm'
-import getCodeError, { acceptCheckTermsPay } from '../../_dependencies/Errors'
-import { conformProfile, isLogged } from '../../_dependencies/Session'
-import addPayU from '../../_dependencies/Payu'
-import { AuthContext } from '../../_context/auth'
-import { patternCard, patternDate, patterCvv } from '../../_dependencies/Regex'
-import PropertiesSite from '../../_dependencies/Properties'
-import addScriptAsync from '../../_dependencies/Async'
+import useForm from '../../../_hooks/useForm'
+import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import addPayU from '../../../_dependencies/Payu'
+import { AuthContext } from '../../../_context/auth'
+import PropertiesSite from '../../../_dependencies/Properties'
+import addScriptAsync from '../../../_dependencies/Async'
+import {
+  patternCard,
+  patternDate,
+  patterCvv,
+} from '../../../_dependencies/Regex'
+import getCodeError, {
+  acceptCheckTermsPay,
+} from '../../../_dependencies/Errors'
 
 const styles = {
   step: 'step__left-progres',

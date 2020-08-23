@@ -1,17 +1,16 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState, useContext } from 'react'
-import { NavigateConsumer } from '../../../_context/navigate'
+import { NavigateConsumer } from '../../../../_context/navigate'
+import useForm from '../../../../_hooks/useForm'
+import { AuthContext } from '../../../../_context/auth'
+import getDevice from '../../../../_dependencies/GetDevice'
+import PropertiesSite from '../../../../_dependencies/Properties'
+import { sendNewsLettersUser } from '../../../../_dependencies/Services'
+import ButtonSocial from './social'
+import { Taggeo } from '../../../../_dependencies/Taggeo'
 import getCodeError, {
   formatEmail,
   acceptCheckTerms,
-} from '../../../_dependencies/Errors'
-import useForm from '../../../_hooks/useForm'
-import { AuthContext } from '../../../_context/auth'
-import getDevice from '../../../_dependencies/GetDevice'
-import PropertiesSite from '../../../_dependencies/Properties'
-import { sendNewsLettersUser } from '../../../_dependencies/Services'
-import ButtonSocial from './social'
-import { Taggeo } from '../../../_dependencies/Taggeo'
+} from '../../../../_dependencies/Errors'
 
 const styles = {
   title: 'step__left-title',

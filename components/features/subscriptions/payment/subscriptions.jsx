@@ -6,24 +6,24 @@ import { useFusionContext } from 'fusion:context'
 import { AuthContext, AuthProvider } from '../_context/auth'
 import HeaderSubs from '../_layouts/header'
 import { FooterSubs, FooterLand } from '../_layouts/footer'
-import Singwall from '../_children/Singwall'
-import Resume from '../_children/Resume'
-import Profile from '../_children/Profile'
-import Pay from '../_children/Pay'
-import Confirmation from '../_children/Confirmation'
+import Singwall from './_children/Singwall'
+import Resume from './_children/Resume'
+import Profile from './_children/Profile'
+import Pay from './_children/Pay'
+import Confirmation from './_children/Confirmation'
 import { NavigateProvider } from '../_context/navigate'
 import addScriptAsync from '../_dependencies/Async'
-import stylesPayment from '../_dependencies/styles-payment'
+import stylesPayment from '../_styles/Payment'
 import PropertiesSite from '../_dependencies/Properties'
 import { clearUrlAPI } from '../_dependencies/Utils'
-import scriptsPayment from '../_dependencies/script-payment'
+import scriptsPayment from '../_scripts/Payment'
+import PWA from '../_dependencies/Pwa'
 import {
   Container,
   Wrapper,
   PanelLeft,
   PanelRight,
 } from '../_layouts/containers'
-import PWA from '../_dependencies/Pwa'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {

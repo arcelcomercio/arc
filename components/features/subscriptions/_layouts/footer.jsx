@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
-
 /**
  * OJO Este componente cuenta con 3 tipos de Footer:
  * @FooterSubs

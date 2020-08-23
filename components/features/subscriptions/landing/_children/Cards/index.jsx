@@ -1,7 +1,6 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react'
 import Markdown from 'react-markdown/with-html'
-import { Taggeo, sendAction, PixelActions } from '../../_dependencies/Taggeo'
+import { Taggeo, sendAction, PixelActions } from '../../../_dependencies/Taggeo'
 
 function Cards({ item, arcSite, order, textOffer }) {
   const itemGrid = ['one', 'two', 'three']

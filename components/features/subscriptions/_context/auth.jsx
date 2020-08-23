@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { createContext, useState } from 'react'
 import { isAuthenticated } from '../_dependencies/Session'
 import { getLocaleStorage } from '../_dependencies/Utils'
