@@ -443,7 +443,7 @@ const LiteOutput = ({
           <>
             <script
               defer
-              src={`${contextPath}/resources/assets/js/powaSettings.min.js?d=1`}
+              src={deployment(`${contextPath}/resources/assets/js/powaSettings.min.js`)}
             />
             <script
               src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
