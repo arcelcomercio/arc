@@ -48,7 +48,7 @@ const PowaPlayer = ({
       },
     }) || {}
 
-  const env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'prod'
+  const env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   const classes = `${className || ''} ${lazy ? 'powa-lazy' : 'powa'}`
   return (
     <Static id={uuid}>
