@@ -9,16 +9,17 @@ const AuthProvider = ({ children }) => {
   const keyStorageProfile = 'ArcId.USER_PROFILE'
 
   const [userLoaded, setUserLoaded] = useState(() => isAuthenticated())
+  const [userPlan, setUserPlan] = useState({})
+  const [userPeriod, setUserPeriod] = useState()
+  const [userPurchase, setUserPurchase] = useState({})
+  const [loadPage, setLoadPage] = useState(false)
+  const [userLoading, setUserLoading] = useState(true)
   const [userProfile, setUser] = useState(() =>
     getLocaleStorage(keyStorageProfile)
   )
   const [userStep, setUserStep] = useState(
     getLocaleStorage(keyStorageStep) || 2
   )
-  const [userPlan, setUserPlan] = useState({})
-  const [userPeriod, setUserPeriod] = useState()
-  const [userPurchase, setUserPurchase] = useState({})
-  const [loadPage, setLoadPage] = useState(false)
 
   const value = {
     userLoaded,
@@ -28,6 +29,7 @@ const AuthProvider = ({ children }) => {
     userPeriod,
     userPurchase,
     loadPage,
+    userLoading,
     updateUser: profile => {
       setUser(profile)
     },
@@ -57,6 +59,9 @@ const AuthProvider = ({ children }) => {
     },
     updateLoadPage: status => {
       setLoadPage(status)
+    },
+    updateLoading: status => {
+      setUserLoading(status)
     },
   }
 

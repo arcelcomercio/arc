@@ -77,3 +77,20 @@ export const getStorageProfile = () => {
   }
   return null
 }
+
+export const getStorageInfo = () => {
+  if (typeof window !== 'undefined') {
+    return JSON.parse(window.localStorage.getItem('ArcId.USER_INFO') || '{}')
+  }
+  return null
+}
+
+export const getStorageEmailProfile = () => {
+  if (typeof window !== 'undefined') {
+    const currentProfile = JSON.parse(
+      window.localStorage.getItem('ArcId.USER_PROFILE') || '{}'
+    )
+    return currentProfile.email
+  }
+  return null
+}

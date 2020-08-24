@@ -333,6 +333,8 @@ const PropertiesSite = {
       contactTo: 'Cualquier consulta contáctanos enviando un correo a',
       successSubsPrint:
         'ACCEDE A ESTOS PRECIOS ESPECIALES POR SER SUSCRIPTOR IMPRESO',
+      successSubsFree:
+        'Tienes acceso ilimitado a las noticias más relevantes del Perú y del mundo',
     },
   },
 }

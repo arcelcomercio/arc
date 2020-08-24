@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
 
 const Subscriptions = props => {
-  const { children, arcSite, siteProperties } = props
+  const { children, arcSite, siteProperties, deployment, contextPath } = props
 
   const {
     siteName,
@@ -45,9 +45,29 @@ const Subscriptions = props => {
 
         <props.Libs />
 
+        {/* <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
+        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
+        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
+        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
+        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
+        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" /> */}
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-subs-sdk.s3.amazonaws.com"
+        />
+        <link
+          rel="stylesheet"
+          href={deployment(
+            `${contextPath}/resources/dist/${arcSite}/css/subscriptions.css`
+          )}
+        />
       </head>
       <body>
         <noscript>

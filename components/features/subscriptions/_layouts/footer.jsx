@@ -22,7 +22,7 @@ const styles = {
 }
 
 export const FooterSubs = ({ arcEnv }) => {
-  const { userLoaded, userStep } = useContext(AuthContext)
+  const { userLoaded, userStep, updateLoading } = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
   const { urls } = PropertiesSite.common
   const {
@@ -56,6 +56,7 @@ export const FooterSubs = ({ arcEnv }) => {
           subDniToken(urls.subsDniToken[arcEnv], resHeart.accessToken)
             .then(resDniToken => {
               if (resDniToken.token) {
+                updateLoading(true)
                 setTimeout(() => {
                   window.location.href =
                     arcEnv === 'prod'

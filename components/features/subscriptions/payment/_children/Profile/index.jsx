@@ -11,6 +11,7 @@ import {
   conformProfile,
   isLogged,
   getStorageProfile,
+  getStorageEmailProfile,
 } from '../../../_dependencies/Session'
 import {
   checkUndefined,
@@ -229,41 +230,54 @@ const Profile = ({ arcEnv }) => {
         level: 'info',
       })
 
-      setLoadText('Actualizando Perfil...')
-      window.Identity.updateUserProfile(profile)
-        .then(resProfile => {
-          updateUser(resProfile)
-          updateStep(3)
-        })
-        .catch(err => {
-          if (err.code === '100018') {
-            const currentProfile = window.Identity.userProfile
-            const newProfile = Object.assign(currentProfile, profile)
-            setLocaleStorage('ArcId.USER_PROFILE', newProfile)
-            updateUser(newProfile)
+      if (
+        (getStorageEmailProfile() !== uEmail && isFacebook) ||
+        getStorageEmailProfile() === uEmail
+      ) {
+        setLoadText('Actualizando Perfil...')
+        window.Identity.updateUserProfile(profile)
+          .then(resProfile => {
+            updateUser(resProfile)
             updateStep(3)
-            Sentry.captureEvent({
-              message: 'Usuario no actualizó perfil',
-              level: 'info',
-              extra: err,
-            })
-          } else {
-            setMsgError(getCodeError(err.code))
-            Sentry.captureEvent({
-              message: 'Error al actualizar perfil',
-              level: 'error',
-              extra: err,
-            })
-          }
-          setLinkLogin(err.code === '3001001' || err.code === '100011')
+          })
+          .catch(err => {
+            if (err.code === '100018') {
+              const currentProfile = window.Identity.userProfile
+              const newProfile = Object.assign(currentProfile, profile)
+              setLocaleStorage('ArcId.USER_PROFILE', newProfile)
+              updateUser(newProfile)
+              updateStep(3)
+              Sentry.captureEvent({
+                message: 'Usuario no actualizó perfil',
+                level: 'info',
+                extra: err,
+              })
+            } else {
+              setMsgError(getCodeError(err.code))
+              Sentry.captureEvent({
+                message: 'Error al actualizar perfil',
+                level: 'error',
+                extra: err,
+              })
+            }
+            setLinkLogin(err.code === '3001001' || err.code === '100011')
+          })
+          .finally(() => setLoading(false))
+      } else {
+        Sentry.captureEvent({
+          message: 'El Usuario intentó actualizar datos de otra sesión',
+          level: 'info',
         })
-        .finally(() => setLoading(false))
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      }
     }
   }
 
   const restoreClearSession = () => {
     Sentry.captureEvent({
-      message: 'El Usuario ha perdido sus sesión/perfil',
+      message: 'El Usuario ha perdido su sesión/perfil',
       level: 'error',
     })
     setTimeout(() => {

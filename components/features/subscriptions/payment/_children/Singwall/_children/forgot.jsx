@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import useForm from '../../../../_hooks/useForm'
 import getCodeError, { formatEmail } from '../../../../_dependencies/Errors'
-import MsgForgotPass from '../../../../_dependencies/Icons'
+import { MsgForgotPass } from '../../../../_dependencies/Icons'
 import { NavigateConsumer } from '../../../../_context/navigate'
 import PropertiesSite from '../../../../_dependencies/Properties'
 import { Taggeo } from '../../../../_dependencies/Taggeo'

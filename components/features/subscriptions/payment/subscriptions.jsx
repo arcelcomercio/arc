@@ -24,27 +24,34 @@ import {
   PanelLeft,
   PanelRight,
 } from '../_layouts/containers'
+import Loading from './_children/Loading'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {
   const {
     arcSite,
     deployment,
-    // globalContent: {
-    //   fromFia,
-    //   summary = [],
-    //   description,
-    //   plans = [],
-    //   name,
-    //   printedSubscriber,
-    //   msgs: srvMsgs,
-    //   freeAccess,
-    //   error,
-    // },
+    globalContent: {
+      // fromFia,
+      // summary = [],
+      // description,
+      // plans = [],
+      // name,
+      // printedSubscriber,
+      // msgs: srvMsgs,
+      freeAccess,
+      // error,
+    },
   } = useFusionContext() || {}
 
   const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-  const { userLoaded, userStep, userProfile } = useContext(AuthContext)
+  const {
+    userLoaded,
+    userStep,
+    userProfile,
+    userLoading,
+    updateLoading,
+  } = useContext(AuthContext)
   const { links, urls: urlCommon } = PropertiesSite.common
   const { urls } = PropertiesSite[arcSite]
 
@@ -66,6 +73,7 @@ const WrapperPaymentSubs = () => {
     }).then(() => {
       if (typeof window !== 'undefined') {
         window.Identity.options({ apiOrigin: urls.arcOrigin[arcEnv] })
+        updateLoading(false)
       }
     })
 
@@ -77,31 +85,41 @@ const WrapperPaymentSubs = () => {
       <style
         dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }}></style>
 
+      {userLoading && <Loading arcSite={arcSite} />}
       <HeaderSubs {...{ userProfile, arcSite, arcEnv }} />
       <Container>
         <NavigateProvider>
           <Wrapper>
             <PanelLeft>
-              {(() => {
-                // prettier-ignore
-                switch (userStep) {
-                  case 2:
-                    return userLoaded ? <Profile {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}} />
-                  case 3:
-                    return userLoaded ? <Pay {...{arcSite, arcEnv}}/> : <Singwall {...{arcSite, arcEnv}} />
-                  case 4:
-                    return userLoaded ? <Confirmation {...{arcSite, arcEnv}} /> : <Singwall {...{arcSite, arcEnv}}/>
-                  default:
-                    return <Singwall {...{arcSite, arcEnv}} />
-                }
-              })()}
+              {freeAccess ? (
+                <Confirmation {...{ arcSite, arcEnv }} />
+              ) : (
+                <>
+                  {(() => {
+                    // prettier-ignore
+                    switch (userStep) {
+                    case 2:
+                      return userLoaded ? <Profile {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}} />
+                    case 3:
+                      return userLoaded ? <Pay {...{arcSite, arcEnv}}/> : <Singwall {...{arcSite, arcEnv}} />
+                    case 4:
+                      return userLoaded ? <Confirmation {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}}/>
+                    default:
+                      return <Singwall {...{arcSite, arcEnv}} />
+                  }
+                  })()}
+                </>
+              )}
             </PanelLeft>
-            <PanelRight>{userStep !== 4 && <Resume />}</PanelRight>
+            <PanelRight>
+              {userStep !== 4 && !freeAccess && <Resume />}
+            </PanelRight>
           </Wrapper>
         </NavigateProvider>
       </Container>
-      <FooterSubs {...{ arcEnv }} />
+      {!freeAccess && <FooterSubs {...{ arcEnv }} />}
       <FooterLand {...{ arcSite, arcEnv, arcType }} />
+
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

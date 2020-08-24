@@ -8,7 +8,7 @@ import {
 
 export const formatEmail = () => {
   return {
-    func: value => emailRegex.test(value),
+    func: value => emailRegex.test(value) && !value.match(/@facebook.com/),
     error: 'Correo electrónico Inválido',
   }
 }
