@@ -5,7 +5,7 @@ const classes = {
   box: 'inline-block ml-10',
   subtitle: 'custom-title role',
   image: 'author-description__image',
-  social: 'custom-title twitter icon-twitter',
+  social: 'custom-title twitter icon-twitter pb-15',
   content: 'line-h-sm',
 }
 
