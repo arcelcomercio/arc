@@ -160,11 +160,11 @@ export default ({
                         : ''
                     }
                     className="w-full h-full">
-                      <PowaPlayer 
-                        uuid={uuid} 
-                        stream={stream} 
-                        image={principalVideo.image}
-                      />
+                    <PowaPlayer
+                      uuid={uuid}
+                      stream={stream}
+                      image={principalVideo.image}
+                    />
                   </div>
                 </div>
               ) : (
@@ -174,7 +174,7 @@ export default ({
                     src={`https://www.youtube.com/embed/${principalVideo.video}`}
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullscreen
+                    allowFullScreen
                     title="Video"
                   />
                 </div>
