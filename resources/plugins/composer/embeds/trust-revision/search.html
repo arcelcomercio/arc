@@ -24,22 +24,6 @@
     </style>
   </head>
   <body>
-    <template id="content_template">
-      <!-- Rendered Search Result Item -->
-      <div class="col-md-6 hoverable" id="%item_id%">
-        <div class="card mb-6 box-shadow">
-          <div class="card-body">
-            <p class="card-text text-muted">
-              <label style="display: block;"><span>%type_event%</span></label>
-              <label style="display: block;"><span>%name%</span></label>
-              <label style="display: block;"><span>%location_name%</span></label>
-              <label style="display: block;"><span>%location_address%</span></label>
-              <label style="display: block;"><span>%start_date%</span></label>
-            </p>
-          </div>
-        </div>
-      </div>
-    </template>
     <header>
       <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
@@ -127,6 +111,9 @@
             </label>
             <label class="w-100" for="searchIsbnEbookRevision">ISBN:
               <input class="w-100" type="textfield" id="searchIsbnEbookRevision" name="searchIsbnEbookRevision" />
+            </label>
+            <label class="w-100" for="searchUrlEbookRevision">Url:
+              <input class="w-100" type="textfield" id="searchUrlEbookRevision" name="searchUrlEbookRevision" />
             </label>
           </div>
           <div id="LocalBusiness" class="container-el" hidden>
@@ -245,6 +232,7 @@
     let soSoftware = '';
     let authorBook = '';
     let isbnBook = '';
+    let urlBook = '';
     let imageLocal = '';
     let sameAsMovie = '';
     let imageMovie = '';
@@ -302,6 +290,7 @@
       soSoftware = '';
       authorBook = '';
       isbnBook = '';
+      urlBook = '';
       imageLocal = '';
       sameAsMovie = '';
       imageMovie = '';
@@ -317,6 +306,7 @@
         case 'Book':
           authorBook = document.getElementById('searchAuthorEbookRevision').value;
           isbnBook = document.getElementById('searchIsbnEbookRevision').value;
+          urlBook = document.getElementById('searchUrlEbookRevision').value;
           break;
         case 'LocalBusiness':
           imageLocal = document.getElementById('searchImgLocalBusinessRevision').value;
@@ -355,6 +345,7 @@
           "so_software": soSoftware || '',
           "author_book": authorBook || '',
           "isbn_book": isbnBook || '',
+          "url_book": urlBook || '',
           "image_local": imageLocal || '',
           "sameas_movie": sameAsMovie || '',
           "image_movie": imageMovie || '',

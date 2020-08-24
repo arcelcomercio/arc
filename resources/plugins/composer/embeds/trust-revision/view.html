@@ -53,6 +53,9 @@
               <p class="card-text text-muted">
                 ISBN: %isbn_book%
               </p>
+              <p class="card-text text-muted">
+                Url: %url_book%
+              </p>
             </div>
             <div id="LocalBusiness-view" class="container-el" hidden>
               <p class="card-text text-muted">
@@ -164,6 +167,7 @@
         .replace(/%so_software%/gi, config.so_software)
         .replace(/%author_book%/gi, config.author_book)
         .replace(/%isbn_book%/gi, config.isbn_book)
+        .replace(/%url_book%/gi, config.url_book)
         .replace(/%image_local%/gi, config.image_local)
         .replace(/%sameas_movie%/gi, config.sameas_movie)
         .replace(/%image_movie%/gi, config.image_movie)

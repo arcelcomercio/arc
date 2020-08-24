@@ -52,6 +52,9 @@
               <p class="card-text text-muted">
                 ISBN: %isbn_book%
               </p>
+              <p class="card-text text-muted">
+                Url: %url_book%
+              </p>
             </div>
             <div id="LocalBusiness-view" class="container-el-view" hidden>
               <p class="card-text text-muted">
@@ -156,6 +159,9 @@
               </label>
               <label class="w-100" for="isbn_book">ISBN:
                 <input class="w-100" type="textfield" id="isbn_book" name="isbn_book" />
+              </label>
+              <label class="w-100" for="url_book">Url:
+                <input class="w-100" type="textfield" id="url_book" name="url_book" />
               </label>
             </div>
             <div id="LocalBusiness" class="container-el col-md-12" hidden>
@@ -322,6 +328,7 @@
         .replace(/%so_software%/gi, config.so_software)
         .replace(/%author_book%/gi, config.author_book)
         .replace(/%isbn_book%/gi, config.isbn_book)
+        .replace(/%url_book%/gi, config.url_book)
         .replace(/%image_local%/gi, config.image_local)
         .replace(/%sameas_movie%/gi, config.sameas_movie)
         .replace(/%image_movie%/gi, config.image_movie)
@@ -350,6 +357,7 @@
       document.getElementById('so_software').value = (config.so_software || "")
       document.getElementById('author_book').value = (config.author_book || "")
       document.getElementById('isbn_book').value = (config.isbn_book || "")
+      document.getElementById('url_book').value = (config.url_book || "")
       document.getElementById('image_local').value = (config.image_local || "")
       document.getElementById('sameas_movie').value = (config.sameas_movie || "")
       document.getElementById('image_movie').value = (config.image_movie || "")
@@ -382,6 +390,7 @@
       data.config.so_software = '';
       data.config.author_book = '';
       data.config.isbn_book = '';
+      data.config.url_book = '';
       data.config.image_local = '';
       data.config.sameas_movie = '';
       data.config.image_movie = '';
@@ -397,6 +406,7 @@
         case 'Book':
           data.config.author_book = document.getElementById('author_book').value;
           data.config.isbn_book = document.getElementById('isbn_book').value;
+          data.config.url_book = document.getElementById('url_book').value;
           break;
         case 'LocalBusiness':
           data.config.image_local = document.getElementById('image_local').value;

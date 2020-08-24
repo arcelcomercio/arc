@@ -36,6 +36,7 @@ content_elements {
       so_software
       author_book
       isbn_book
+      url_book
       image_local
       sameas_movie
       image_movie

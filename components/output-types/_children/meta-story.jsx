@@ -43,7 +43,7 @@ export default ({
     authorImage,
     author: authorName,
     role: authorRole,
-    locality, 
+    locality,
     authorEmail,
     imagePrimarySeo,
     primarySection,
@@ -286,15 +286,17 @@ export default ({
     `  "video":[ ${redSocialVideo.concat(videoSeoItems)} ],` || ''
 
   let citationStructuredItems = ''
-  contentElementsLinks.forEach(url => {
-    citationStructuredItems += `{
-      "@type": "CreativeWork",
-      "url": "${url}"
-    },`
-  })
+  if (arcSite === SITE_ELCOMERCIO) {
+    contentElementsLinks.forEach(url => {
+      citationStructuredItems += `{
+        "@type": "CreativeWork",
+        "url": "${url}"
+      },`
+    })
+  }
 
   const citationStructured =
-    contentElementsLinks.length > 0
+    arcSite === SITE_ELCOMERCIO && contentElementsLinks.length > 0
       ? `"citation":[${citationStructuredItems.substring(
           0,
           citationStructuredItems.length - 1
@@ -350,6 +352,11 @@ export default ({
   } = firstContentElementsRevision
   const revisionWorkType = revisionAttr(trustproject, configRevision) || ''
 
+  let publishingPrinciples = ''
+  if (arcSite === SITE_ELCOMERCIO) {
+    publishingPrinciples = `"publishingPrinciples": "${siteUrl}/buenas-practicas/",`
+  }
+
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === SITE_ELCOMERCIOMAG ||
@@ -364,7 +371,7 @@ export default ({
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",
-    "publishingPrinciples": "${siteUrl}/buenas-practicas/",
+    ${publishingPrinciples}
   ${bodyStructured}
   ${correctionStructured}
   ${citationStructured}

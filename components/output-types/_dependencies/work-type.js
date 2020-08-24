@@ -66,6 +66,7 @@ export const revisionAttr = ({ text = '', url = '' }, config = {}) => {
       so_software: soSoftware = '',
       author_book: authorBook = '',
       isbn_book: isbnBook = '',
+      url_book: urlBook = '',
       image_local: imageLocal = '',
       sameas_movie: sameasMovie = '',
       image_movie: imageMovie = '',
@@ -75,6 +76,7 @@ export const revisionAttr = ({ text = '', url = '' }, config = {}) => {
       image_recipe: imageRecipe = '',
     } = config
 
+    let urlAttr = ''
     let subAttr = ''
     let sameAsList = []
     let sameAs = ''
@@ -84,6 +86,7 @@ export const revisionAttr = ({ text = '', url = '' }, config = {}) => {
         break
       case 'Book':
         subAttr = `, "author":  { "@type" : "Person", "name" : "${authorBook}" }, "isbn": "${isbnBook}"`
+        urlAttr = `, "url": "${urlBook}",`
         break
       case 'LocalBusiness':
         subAttr = `, "image": "${imageLocal}"`
@@ -91,7 +94,7 @@ export const revisionAttr = ({ text = '', url = '' }, config = {}) => {
       case 'Movie':
         sameAsList = sameasMovie.split(',') || []
         sameAsList.forEach(el => {
-          sameAs += `"${el.trim()}", `
+          sameAs += `"${el.trim()}",`
         })
         sameAs = sameAs.trim().substring(0, sameAs.length - 1)
         subAttr = `, "sameAs": [${sameAs}], "image": "${imageMovie}", "description": "${descriptionMovie}"`
@@ -107,7 +110,7 @@ export const revisionAttr = ({ text = '', url = '' }, config = {}) => {
         break
     }
 
-    attr = `"itemReviewed": { "@type": "${typeEvent}", "name": "${name}", "location": { "@type": "Place", "name": "${locationName}", "address": "${locationAddress}" }, "startDate": "${startDate}" ${subAttr} },`
+    attr = `${urlAttr} "itemReviewed": { "@type": "${typeEvent}", "name": "${name}", "location": { "@type": "Place", "name": "${locationName}", "address": "${locationAddress}" }, "startDate": "${startDate}" ${subAttr} },`
   }
 
   return attr
