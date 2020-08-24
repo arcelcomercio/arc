@@ -86,7 +86,7 @@ export const revisionAttr = ({ text = '', url = '' }, config = {}) => {
         break
       case 'Book':
         subAttr = `, "author":  { "@type" : "Person", "name" : "${authorBook}" }, "isbn": "${isbnBook}"`
-        urlAttr = `, "url": "${urlBook}",`
+        urlAttr = `"url": "${urlBook}",`
         break
       case 'LocalBusiness':
         subAttr = `, "image": "${imageLocal}"`
