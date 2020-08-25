@@ -1,7 +1,8 @@
 import React from 'react'
 import Static from 'fusion:static'
-import { useContent } from 'fusion:content'
 import { ENVIRONMENT } from 'fusion:environment'
+import { useAppContext } from 'fusion:context'
+import { getResizedUrl } from '../utilities/resizer'
 
 const styles = {
   powa: {
@@ -33,22 +34,21 @@ const PowaPlayer = ({
   alt = '',
   presets: customPresets = '',
 }) => {
+  const { arcSite } = useAppContext()
   // presets con aspect-ratio: 16/9
   const presets =
     customPresets.includes('mobile:') && customPresets.includes('desktop:')
       ? customPresets
       : 'mobile:426x240,desktop:560x315'
 
-  const { resized_urls: { mobile, desktop } = {} } =
-    useContent({
-      source: 'photo-resizer',
-      query: {
-        url: image,
-        presets,
-      },
+  const { mobile, desktop } =
+    getResizedUrl({
+      url: image,
+      presets,
+      arcSite,
     }) || {}
 
-  const env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'prod'
   const classes = `${className || ''} ${lazy ? 'powa-lazy' : 'powa'}`
   return (
     <Static id={uuid}>
