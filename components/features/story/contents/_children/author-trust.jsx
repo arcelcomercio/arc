@@ -75,7 +75,8 @@ const StoryContentChildAuthorTrust = ({
             {updatedDate &&
               `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
                 updatedDate,
-                false
+                false,
+                true
               )}`}
           </time>
           <time className={classes.authorTime} dateTime={updatedDate}>

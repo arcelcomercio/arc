@@ -567,7 +567,7 @@ export default ({
             <script
               dangerouslySetInnerHTML={{
                 __html: `window.preroll=${
-                  hasAdsVideo ? siteProperties.urlPreroll : ''
+                  hasAdsVideo ? siteProperties.urlPreroll : '""'
                 }`,
               }}
             />
