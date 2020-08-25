@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
   const [userPurchase, setUserPurchase] = useState({})
   const [loadPage, setLoadPage] = useState(false)
   const [userLoading, setUserLoading] = useState(true)
+  const [userErrorApi, setUserErrorApi] = useState(null)
   const [userProfile, setUser] = useState(() =>
     getLocaleStorage(keyStorageProfile)
   )
@@ -30,6 +31,7 @@ const AuthProvider = ({ children }) => {
     userPurchase,
     loadPage,
     userLoading,
+    userErrorApi,
     updateUser: profile => {
       setUser(profile)
     },
@@ -62,6 +64,9 @@ const AuthProvider = ({ children }) => {
     },
     updateLoading: status => {
       setUserLoading(status)
+    },
+    updateErrorApi: staus => {
+      setUserErrorApi(staus)
     },
   }
 

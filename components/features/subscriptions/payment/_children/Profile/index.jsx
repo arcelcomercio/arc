@@ -6,7 +6,9 @@ import { getEntitlements } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
 import PropertiesSite from '../../../_dependencies/Properties'
 import Modal from './children/modal'
-import { Taggeo } from '../../../_dependencies/Taggeo'
+import { PixelActions, sendAction, Taggeo } from '../../../_dependencies/Taggeo'
+import PWA from '../../../_dependencies/Pwa'
+
 import {
   conformProfile,
   isLogged,
@@ -38,10 +40,17 @@ const nameTagCategory = 'Web_Paywall_Landing'
 const Profile = ({ arcEnv }) => {
   const {
     arcSite,
-    globalContent: { error, printedSubscriber },
+    globalContent: { plans = [], error, printedSubscriber },
   } = useFusionContext() || {}
 
-  const { updateStep, userLogout, updateUser } = useContext(AuthContext)
+  const {
+    updateStep,
+    userLogout,
+    updateUser,
+    userErrorApi,
+    updateErrorApi,
+    userPlan,
+  } = useContext(AuthContext)
   const { urls, emails } = PropertiesSite[arcSite]
   const { texts } = PropertiesSite.common
 
@@ -58,7 +67,6 @@ const Profile = ({ arcEnv }) => {
   } = conformProfile(getStorageProfile())
 
   const [msgError, setMsgError] = useState(false)
-  const [msgErrorApi, setMsgErrorApi] = useState(error)
   const [loading, setLoading] = useState(false)
   const [loadText, setLoadText] = useState('Cargando...')
   const [linkLogin, setLinkLogin] = useState()
@@ -66,14 +74,53 @@ const Profile = ({ arcEnv }) => {
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
+  const getPLanSelected = plans.reduce((prev, plan) => {
+    return plan.priceCode === userPlan.priceCode ? plan : prev
+  }, null)
+
+  const {
+    amount,
+    sku,
+    billingFrequency,
+    priceCode,
+    name: namePlanApi,
+    productName,
+  } = getPLanSelected || {}
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
+
+      const origin =
+        window.sessionStorage.getItem('paywall_type_modal') || 'organico'
+      const referer = window.sessionStorage.getItem('paywall_last_url') || ''
+
+      window.dataLayer.push({
+        event: 'checkoutOption',
+        ecommerce: {
+          checkout_option: {
+            actionField: { step: 2 },
+          },
+        },
+      })
+
+      sendAction(PixelActions.PAYMENT_PROFILE, {
+        sku: `${sku}`,
+        periodo: billingFrequency,
+        referer,
+        medioCompra: origin,
+        priceCode,
+        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+        pwa: PWA.isPWA() ? 'si' : 'no',
+      })
+
       Sentry.configureScope(scope => {
         scope.setTag('brand', arcSite)
+        scope.setTag('document', documentNumber || 'none')
+        scope.setTag('phone', phone || 'none')
         scope.setUser({
           id: uuid,
-          name: `${firstName} ${firstName} ${secondLastName || ''}`,
+          name: `${firstName} ${lastName} ${secondLastName || ''}`,
           email,
           phone,
           documentType,
@@ -81,6 +128,9 @@ const Profile = ({ arcEnv }) => {
           emailVerified,
         })
       })
+      if (userErrorApi !== false) {
+        updateErrorApi(error)
+      }
     }
   }, [])
 
@@ -172,6 +222,53 @@ const Profile = ({ arcEnv }) => {
     return ''
   }
 
+  const TaggeoEcommerce = () => {
+    // este taggeo lo enviaba en el paso 1 al selecionar plan
+    window.dataLayer.push({
+      event: 'productClick',
+      ecommerce: {
+        click: {
+          products: [
+            {
+              name: productName,
+              id: sku,
+              price: amount,
+              brand: arcSite,
+              category: namePlanApi,
+              subCategory: billingFrequency,
+            },
+          ],
+        },
+      },
+    })
+    window.fbq('track', 'InitiateCheckout', {
+      content_category: namePlanApi,
+      content_ids: [priceCode],
+      contents: [{ id: priceCode, quantity: 1 }],
+      currency: 'PEN',
+      num_items: 1,
+      value: amount,
+    })
+    window.dataLayer.push({
+      event: 'checkout',
+      ecommerce: {
+        checkout: {
+          actionField: { step: 1 },
+          products: [
+            {
+              name: productName,
+              id: sku,
+              price: amount,
+              brand: arcSite,
+              category: namePlanApi,
+              subCategory: billingFrequency,
+            },
+          ],
+        },
+      },
+    })
+  }
+
   const updateProfile = ({
     uFirstName,
     uLastName,
@@ -239,6 +336,7 @@ const Profile = ({ arcEnv }) => {
           .then(resProfile => {
             updateUser(resProfile)
             updateStep(3)
+            TaggeoEcommerce()
           })
           .catch(err => {
             if (err.code === '100018') {
@@ -247,6 +345,7 @@ const Profile = ({ arcEnv }) => {
               setLocaleStorage('ArcId.USER_PROFILE', newProfile)
               updateUser(newProfile)
               updateStep(3)
+              TaggeoEcommerce()
               Sentry.captureEvent({
                 message: 'Usuario no actualizó perfil',
                 level: 'info',
@@ -288,6 +387,7 @@ const Profile = ({ arcEnv }) => {
 
   const onFormProfile = (...props) => {
     if (typeof window !== 'undefined') {
+      updateErrorApi(false)
       setLoading(true)
       if (isLogged()) {
         setLoadText('Verificando Suscripciones...')
@@ -357,7 +457,7 @@ const Profile = ({ arcEnv }) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         setMsgError(false)
-        setMsgErrorApi(false)
+        updateErrorApi(false)
         handleOnChange(e)
       } else {
         restoreClearSession()
@@ -399,10 +499,10 @@ const Profile = ({ arcEnv }) => {
       </ul>
       <h3 className={styles.subtitle}>Ingresa tus datos personales</h3>
 
-      {(msgError || msgErrorApi) && (
+      {(msgError || userErrorApi) && (
         <div className={styles.block}>
           <div className="msg-alert">
-            {` ${msgError || msgErrorApi} `}
+            {` ${msgError || userErrorApi} `}
             {linkLogin && (
               <>
                 <button
@@ -596,6 +696,7 @@ const Profile = ({ arcEnv }) => {
             </div>
             <p>
               {texts.contactTo}
+              <span>{texts.sendTo}</span>
               <a href={`mailto:${emails.atencion}`}>{emails.atencion}</a>
             </p>
           </div>

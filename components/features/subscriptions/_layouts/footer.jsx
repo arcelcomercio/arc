@@ -51,6 +51,11 @@ export const FooterSubs = ({ arcEnv }) => {
   const handleValidateDNI = ({ vDocumentType, vDocumentNumber }) => {
     if (typeof window !== 'undefined') {
       setLoading(true)
+      window.dataLayer.push({
+        event: 'paywall_check_subscriptor',
+        eventCategory: 'paywall_check_subscriptor',
+        eventAction: 'submit',
+      })
       window.Identity.heartbeat()
         .then(resHeart => {
           subDniToken(urls.subsDniToken[arcEnv], resHeart.accessToken)

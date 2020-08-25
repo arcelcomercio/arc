@@ -32,7 +32,7 @@ const WrapperPaymentSubs = () => {
     arcSite,
     deployment,
     globalContent: {
-      // fromFia,
+      fromFia,
       // summary = [],
       // description,
       // plans = [],
@@ -76,6 +76,10 @@ const WrapperPaymentSubs = () => {
         updateLoading(false)
       }
     })
+
+    if (fromFia) {
+      window.sessionStorage.setItem('paywall_type_modal', 'fia')
+    }
 
     clearUrlAPI(urls.landingUrl[arcEnv])
   }, [])

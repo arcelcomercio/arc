@@ -6,8 +6,8 @@ import { paymentTraker } from '../../../_dependencies/Services'
 import { getStorageInfo } from '../../../_dependencies/Session'
 import {
   pushCxense,
-  // PixelActions,
-  // sendAction,
+  PixelActions,
+  sendAction,
 } from '../../../_dependencies/Taggeo'
 import PWA from '../../../_dependencies/Pwa'
 
@@ -24,13 +24,27 @@ const styles = {
 const Confirmation = ({ arcEnv }) => {
   const {
     arcSite,
-    globalContent: { name, freeAccess },
+    globalContent: {
+      name: namePlanApi,
+      plans = [],
+      freeAccess,
+      fromFia,
+      printedSubscriber,
+    },
   } = useFusionContext() || {}
 
-  const { userPurchase, updateStep, userPeriod } = useContext(AuthContext)
+  const {
+    userPurchase,
+    updateStep,
+    userPeriod,
+    userPlan,
+    userProfile,
+  } = useContext(AuthContext)
+
   const { texts, urls } = PropertiesSite.common
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = useState(false)
+
   const getCodeCxense = urlsSite.codeCxense[arcEnv]
 
   const {
@@ -39,19 +53,33 @@ const Confirmation = ({ arcEnv }) => {
     firstName,
     // items,
     lastName,
-    secondLastName = '',
+    secondLastName,
     // phone,
     // status,
     total,
-    orderNumber = '',
+    subscriptionIDs,
+    orderNumber,
   } = userPurchase
+
+  const Frecuency = {
+    Month: 'Mensual',
+    Year: 'Anual',
+    OneTime: 'Mensual',
+  }
 
   const formatName = () => {
     const fullName = `${firstName} ${lastName} ${secondLastName || ''}`
     return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
   }
 
-  const pushDates = () => {
+  const pushDates = (
+    amount,
+    sku,
+    billingFrequency,
+    priceCode,
+    name,
+    productName
+  ) => {
     if (typeof window !== 'undefined') {
       const divStep = window.document.getElementById('main-steps')
       if (divStep) divStep.classList.add('bg-white')
@@ -62,6 +90,7 @@ const Confirmation = ({ arcEnv }) => {
       const confirm =
         window.sessionStorage.getItem('paywall_confirm_subs') || '3'
 
+      PWA.finalize()
       pushCxense(getCodeCxense) // dispara script de Cxense
       paymentTraker(
         urls.paymentTracker[arcEnv],
@@ -73,84 +102,96 @@ const Confirmation = ({ arcEnv }) => {
         confirm
       )
 
-      // sendAction(PixelActions.PAYMENT_CONFIRMATION, {
-      //   transactionId: orderNumber,
-      //   transactionAffiliation: arcSite,
-      //   transactionTotal: paidTotal,
-      //   transactionTax: 0,
-      //   transactionShipping: 0,
-      //   transactionProducts: [
-      //     {
-      //       sku,
-      //       name: planName,
-      //       category: 'Planes',
-      //       price: amount,
-      //       quantity: 1,
-      //     },
-      //   ],
-      //   confirmacionID: subscriptionIDs[0], // Por ahora solo un producto
-      //   periodo: billingFrequency,
-      //   priceCode,
-      //   suscriptorImpreso: !!printedSubscriber ? 'si' : 'no',
-      //   medioCompra: origin,
-      //   accesoGratis: !!freeAccess ? 'si' : 'no',
-      //   referer,
-      //   pwa: PWA.isPWA() ? 'si' : 'no',
-      // })
+      sendAction(PixelActions.PAYMENT_CONFIRMATION, {
+        transactionId: orderNumber,
+        transactionAffiliation: arcSite,
+        transactionTotal: total,
+        transactionTax: 0,
+        transactionShipping: 0,
+        transactionProducts: [
+          {
+            sku,
+            name,
+            category: 'Planes',
+            price: amount,
+            quantity: 1,
+          },
+        ],
+        confirmacionID: subscriptionIDs[0], // Por ahora solo un producto
+        periodo: billingFrequency,
+        priceCode,
+        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+        medioCompra: origin,
+        accesoGratis: freeAccess ? 'si' : 'no',
+        referer,
+        pwa: PWA.isPWA() ? 'si' : 'no',
+      })
 
-      // dataLayer.push({
-      //   event: 'checkoutOption',
-      //   ecommerce: {
-      //     checkout_option: {
-      //       actionField: { step: 4 },
-      //     },
-      //   },
-      // })
+      window.dataLayer.push({
+        event: 'checkoutOption',
+        ecommerce: {
+          checkout_option: {
+            actionField: { step: 4 },
+          },
+        },
+      })
 
-      // dataLayer.push({
-      //   event: 'buy',
-      //   ecommerce: {
-      //     purchase: {
-      //       actionField: {
-      //         id: orderNumber,
-      //         affiliation: 'Online Store',
-      //         revenue: amount,
-      //       },
-      //       products: [
-      //         {
-      //           id: sku,
-      //           name: productName,
-      //           price: amount,
-      //           brand: arcSite,
-      //           category: planName,
-      //           subCategory: Frecuency[billingFrequency],
-      //         },
-      //       ],
-      //       dataUser: {
-      //         id: window.Identity.userIdentity.uuid || uuid,
-      //         name: `${firstName} ${lastName} ${secondLastName}`
-      //           .replace(/\s*/, ' ')
-      //           .trim(),
-      //         email,
-      //       },
-      //     },
-      //   },
-      // })
+      window.dataLayer.push({
+        event: 'buy',
+        ecommerce: {
+          purchase: {
+            actionField: {
+              id: orderNumber,
+              affiliation: 'Online Store',
+              revenue: amount,
+            },
+            products: [
+              {
+                id: sku,
+                name: productName,
+                price: amount,
+                brand: arcSite,
+                category: name,
+                subCategory: Frecuency[billingFrequency],
+              },
+            ],
+            dataUser: {
+              id: userProfile.uuid || window.Identity.userIdentity.uuid,
+              name: `${firstName} ${lastName} ${secondLastName || ''}`
+                .replace(/\s*/, ' ')
+                .trim(),
+              email,
+            },
+          },
+        },
+      })
+
+      window.fbq('track', 'Purchase', {
+        content_name: productName,
+        content_ids: [sku],
+        content_type: productName,
+        contents: [{ id: sku, quantity: 1 }],
+        currency: 'PEN',
+        num_items: 1,
+        value: amount,
+      })
     }
   }
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
+
+      const getPLanSelected = plans.reduce((prev, plan) => {
+        return plan.priceCode === userPlan.priceCode ? plan : prev
+      }, null)
+
       const divStep = window.document.getElementById('main-steps')
-      if (!userPurchase.status) {
+      if (freeAccess || (userPurchase && userPurchase.status)) {
+        pushDates(getPLanSelected)
+      } else {
         updateStep(2)
         if (divStep) divStep.classList.remove('bg-white')
-      } else {
-        pushDates()
-      }
-      if (freeAccess) {
-        pushDates()
       }
     }
   }, [])
@@ -197,7 +238,9 @@ const Confirmation = ({ arcEnv }) => {
           <p className="description">{`${orderNumber} - ${status}`}</p> */}
 
           <p className="title">Paquete</p>
-          <p className="description">{`${freeAccess ? name : userPeriod}`}</p>
+          <p className="description">{`${
+            freeAccess ? namePlanApi : userPeriod
+          }`}</p>
 
           <p className="title">Nombre</p>
           <p className="description">
@@ -238,13 +281,15 @@ const Confirmation = ({ arcEnv }) => {
       </div>
 
       <div className={styles.contButton}>
-        <button
-          className={styles.btn}
-          type="button"
-          onClick={goToHome}
-          disabled={loading}>
-          {loading ? 'Redireccionando...' : 'Seguir navegando'}
-        </button>
+        {!fromFia && (
+          <button
+            className={styles.btn}
+            type="button"
+            onClick={goToHome}
+            disabled={loading}>
+            {loading ? 'Redireccionando...' : 'Seguir navegando'}
+          </button>
+        )}
       </div>
 
       {/* <div className={styles.noteBenefist}>

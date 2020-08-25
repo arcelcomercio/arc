@@ -330,7 +330,8 @@ const PropertiesSite = {
       sendEmailReciept: `Enviaremos la boleta de compra de la suscripción al correo: `,
       haveSuscription: `Estimado suscriptor ya cuentas con una suscripción activa. Ver los detalles en: `,
       continuedShop: '¿Desea continuar con la compra?',
-      contactTo: 'Cualquier consulta contáctanos enviando un correo a',
+      contactTo: 'Cualquier consulta contáctanos',
+      sendTo: ` enviando un correo a `,
       successSubsPrint:
         'ACCEDE A ESTOS PRECIOS ESPECIALES POR SER SUSCRIPTOR IMPRESO',
       successSubsFree:

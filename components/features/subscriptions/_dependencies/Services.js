@@ -67,11 +67,11 @@ export const paymentTraker = (
       method: 'POST',
       cache: 'no-cache',
       body: JSON.stringify({
-        url_referer: referer,
-        medium: origin,
-        user_agent: window.navigator.userAgent || 'none',
-        arc_order: order,
-        confirm_subscription: confirm,
+        url_referer: referer || '',
+        medium: origin || '',
+        user_agent: window.navigator.userAgent || '',
+        arc_order: order || '',
+        confirm_subscription: confirm || '',
       }),
       headers: {
         'Content-Type': 'application/json',

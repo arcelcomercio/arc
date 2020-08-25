@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { useState, useContext, useEffect } from 'react'
+import { useFusionContext } from 'fusion:context'
 import TextMask from 'react-text-mask'
+import * as Sentry from '@sentry/browser'
 import useForm from '../../../_hooks/useForm'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
 import addPayU from '../../../_dependencies/Payu'
@@ -15,6 +17,8 @@ import {
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
+import PWA from '../../../_dependencies/Pwa'
+import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
 
 const styles = {
   step: 'step__left-progres',
@@ -28,7 +32,12 @@ const styles = {
   cvvAll: 'img-info-cvv',
 }
 
-const Pay = ({ arcSite, arcEnv }) => {
+const Pay = ({ arcEnv }) => {
+  const {
+    arcSite,
+    globalContent: { plans = [], printedSubscriber },
+  } = useFusionContext() || {}
+
   const {
     userProfile,
     userPlan,
@@ -40,6 +49,7 @@ const Pay = ({ arcSite, arcEnv }) => {
   const { urls } = PropertiesSite[arcSite]
 
   const {
+    uuid,
     email,
     phone,
     firstName,
@@ -47,6 +57,7 @@ const Pay = ({ arcSite, arcEnv }) => {
     secondLastName,
     documentType,
     documentNumber,
+    emailVerified,
   } = conformProfile(userProfile || {})
 
   const [msgError, setMsgError] = useState(false)
@@ -54,6 +65,13 @@ const Pay = ({ arcSite, arcEnv }) => {
   const [txtLoading, setTxtLoading] = useState('Cargando...')
   const [methodCard, setMethodCard] = useState()
   const [checkedTerms, setCheckedTerms] = useState()
+
+  const getPLanSelected = plans.reduce((prev, plan) => {
+    return plan.priceCode === userPlan.priceCode ? plan : prev
+  }, null)
+
+  const { amount, sku, billingFrequency, priceCode, name } =
+    getPLanSelected || {}
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -78,6 +96,48 @@ const Pay = ({ arcSite, arcEnv }) => {
         window.payU.setListBoxID('mylistID')
         window.payU.setLanguage('es') // optional
         window.payU.getPaymentMethods()
+      })
+
+      Sentry.configureScope(scope => {
+        scope.setTag('brand', arcSite)
+        scope.setTag('document', documentNumber || 'none')
+        scope.setTag('phone', phone || 'none')
+        scope.setUser({
+          id: uuid,
+          name: `${firstName} ${lastName} ${secondLastName || ''}`,
+          email,
+          phone,
+          documentType,
+          documentNumber,
+          emailVerified,
+        })
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const origin =
+        window.sessionStorage.getItem('paywall_type_modal') || 'organico'
+      const referer = window.sessionStorage.getItem('paywall_last_url') || ''
+
+      window.dataLayer.push({
+        event: 'checkoutOption',
+        ecommerce: {
+          checkout_option: {
+            actionField: { step: 3 },
+          },
+        },
+      })
+
+      sendAction(PixelActions.PAYMENT_CARD_INFO, {
+        sku: `${sku}`,
+        referer,
+        medioCompra: origin,
+        periodo: billingFrequency,
+        priceCode,
+        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+        pwa: PWA.isPWA() ? 'si' : 'no',
       })
     }
   }, [])
@@ -120,6 +180,21 @@ const Pay = ({ arcSite, arcEnv }) => {
       if (isLogged()) {
         let payUPaymentMethod
         let orderNumberDinamic
+
+        window.fbq('track', 'AddPaymentInfo', {
+          content_category: name,
+          content_ids: [sku],
+          contents: [{ id: sku, quantity: 1 }],
+          currency: 'PEN',
+          value: amount,
+          num_items: 1,
+        })
+
+        Sentry.addBreadcrumb({
+          category: 'pago',
+          message: 'El Usuario realiza el pago',
+          level: 'info',
+        })
 
         window.payU.validateNumber(cNumber.replace(/\s/g, ''))
 
@@ -195,6 +270,14 @@ const Pay = ({ arcSite, arcEnv }) => {
                           setMsgError(response.error)
                           setLoading(false)
                           updateLoadPage(false)
+                          window.dataLayer.push({
+                            event: 'failedTransaction',
+                            ecommerce: {
+                              failedTransaction: {
+                                actionField: { id: orderNumberDinamic },
+                              },
+                            },
+                          })
                         } else {
                           resolve(response.token)
                         }
@@ -235,13 +318,27 @@ const Pay = ({ arcSite, arcEnv }) => {
                         setMsgError(getCodeError(errFinalize.code))
                         setLoading(false)
                         updateLoadPage(false)
+                        window.dataLayer.push({
+                          event: 'failedTransaction',
+                          ecommerce: {
+                            failedTransaction: {
+                              actionField: { id: orderNumberDinamic },
+                            },
+                          },
+                        })
                       })
                   })
               })
           )
       } else {
-        updateStep(1)
-        window.location.reload()
+        Sentry.captureEvent({
+          message: 'El Usuario ha perdido su sesión/perfil',
+          level: 'error',
+        })
+        setTimeout(() => {
+          updateStep(1)
+          window.location.reload()
+        }, 1000)
       }
     }
   }
