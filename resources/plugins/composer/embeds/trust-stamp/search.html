@@ -129,7 +129,8 @@
     const handleSearch = () => {
       url = document.getElementById('url').value;
 
-      if (url ) buildMessage()
+      // if (url ) 
+      buildMessage()
     }
 
     const buildMessage = () => {
@@ -138,7 +139,6 @@
       const ansCustomEmbed = {
         id: idEl,
         url: '/pf/api/v3/content/fetch/photo-by-id',
-        data: 'test',
         config: {
           "url": url || '',
         }
