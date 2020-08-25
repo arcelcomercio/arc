@@ -44,7 +44,12 @@ import {
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
-import { STORY_CORRECTION, IMAGE_LINK, STORY_CUSTOMBLOCK } from './constants/subtypes'
+import {
+  STORY_CORRECTION,
+  IMAGE_LINK,
+  STORY_CUSTOMBLOCK,
+} from './constants/subtypes'
+import { SITE_ELCOMERCIO } from './constants/sitenames'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -825,13 +830,28 @@ class StoryData {
 
   get contentPosicionPublicidadAmp() {
     let i = 0
+    let renderedVideos = 0
+    const videosLimit = 1
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-        dataElements = dataContent
+
+        // cambio temporal por comsumo de datos
+        if (
+          typeElement === ELEMENT_VIDEO &&
+          this.__website !== SITE_ELCOMERCIO
+        ) {
+          if (renderedVideos < videosLimit) {
+            dataElements = dataContent
+            renderedVideos += 1
+          }
+        } else {
+          dataElements = dataContent
+        }
+
         if (i === 1) {
           dataElements.publicidadInline = true
           i += 1
@@ -892,13 +912,28 @@ class StoryData {
   get contentPosicionPublicidad() {
     let i = 0
     let v = 0
+    let renderedVideos = 0
+    const videosLimit = 1
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-        dataElements = dataContent
+
+        // cambio temporal por comsumo de datos
+        if (
+          typeElement === ELEMENT_VIDEO &&
+          this.__website !== SITE_ELCOMERCIO
+        ) {
+          if (renderedVideos < videosLimit) {
+            dataElements = dataContent
+            renderedVideos += 1
+          }
+        } else {
+          dataElements = dataContent
+        }
+
         if (i === 2) {
           dataElements.publicidad = true
           dataElements.nameAds = `inline`
