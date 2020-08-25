@@ -18,6 +18,7 @@ import {
   SPECIAL_BASIC,
   BIG_IMAGE,
   STORY_CORRECTION,
+  STAMP_TRUST,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -54,6 +55,7 @@ import StoryContentsChildVideoNativo from './_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
+import StoryContentsChildStampTrust from './_children/stamp-trust'
 import Ads from '../../../global-components/ads'
 
 const classes = {
@@ -86,6 +88,7 @@ class StoryContents extends PureComponent {
       siteProperties: {
         ids: { opta },
         isDfp = false,
+        siteUrl,
       },
       isAdmin,
     } = this.props
@@ -329,6 +332,17 @@ class StoryContents extends PureComponent {
                       <StoryContentsChildCorrection
                         content={contentCorrectionConfig}
                         isAmp={false}
+                      />
+                    )
+                  }
+                  if (type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST) {
+                    const { config: { url: urlConfig = '' } = {} } =
+                      customEmbed || {}
+                    return (
+                      <StoryContentsChildStampTrust
+                        url={urlConfig}
+                        isAmp={false}
+                        siteUrl={siteUrl}
                       />
                     )
                   }

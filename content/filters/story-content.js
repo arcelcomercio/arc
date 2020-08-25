@@ -29,6 +29,7 @@ content_elements {
       date
       customBlockType
       customBlockContent
+      url
     }
   }
   raw_oembed{

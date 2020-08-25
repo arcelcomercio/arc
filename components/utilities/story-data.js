@@ -44,7 +44,12 @@ import {
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
-import { STORY_CORRECTION, IMAGE_LINK, STORY_CUSTOMBLOCK } from './constants/subtypes'
+import {
+  STORY_CORRECTION,
+  IMAGE_LINK,
+  STORY_CUSTOMBLOCK,
+  STAMP_TRUST,
+} from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -1687,6 +1692,7 @@ class StoryData {
           config: {
             content: contentCorrection = '',
             customBlockContent: contentCustomblock = '',
+            url: urlConfig = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1728,6 +1734,10 @@ class StoryData {
             switch (subtype) {
               case STORY_CORRECTION:
                 result.payload = contentCorrection
+                break
+              case STAMP_TRUST:
+                result.payload = ''
+                result.link = urlConfig
                 break
               case STORY_CUSTOMBLOCK:
                 result.payload = contentCustomblock

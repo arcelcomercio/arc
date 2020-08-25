@@ -10,7 +10,10 @@ import {
 } from '../../../../utilities/helpers'
 import recommederBySite from '../_children/recommeder-by-site'
 import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
-import { STORY_CORRECTION } from '../../../../utilities/constants/subtypes'
+import {
+  STORY_CORRECTION,
+  STAMP_TRUST,
+} from '../../../../utilities/constants/subtypes'
 import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
@@ -90,6 +93,25 @@ const buildCorrectionTexParagraph = (
   result.processedParagraph =
     result.numberWords > 0
       ? `<blockquote><b>${title}</b> ${cleanTag(paragraph)}</blockquote>`
+      : ''
+  return result
+}
+
+const buildStampTrustTexParagraph = (paragraph, url) => {
+  const result = { numberWords: 0, processedParagraph: '' }
+  result.numberWords = countWordsHelper(clearHtml(paragraph))
+
+  result.processedParagraph =
+    result.numberWords > 0
+      ? `
+      <div>
+        <figure>
+          <img src="https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_prod/especiales/banner-trust-project/logo-trust.png" alt="Trust Project" />
+        </figure>
+        <div>
+          <h2><a href="${url}">Saber más</a></h2>
+        </div>
+      </div>`
       : ''
   return result
 }
@@ -189,6 +211,11 @@ const analyzeParagraph = ({
           processedParagraph,
           CORRECTION_TYPE_CORRECTION
         )
+        result.numberWords = textProcess.numberWords
+        result.processedParagraph = textProcess.processedParagraph
+      }
+      if (subtype === STAMP_TRUST) {
+        textProcess = buildStampTrustTexParagraph(processedParagraph, link)
         result.numberWords = textProcess.numberWords
         result.processedParagraph = textProcess.processedParagraph
       }
