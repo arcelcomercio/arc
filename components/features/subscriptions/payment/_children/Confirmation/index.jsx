@@ -117,7 +117,7 @@ const Confirmation = ({ arcEnv }) => {
             quantity: 1,
           },
         ],
-        confirmacionID: subscriptionIDs[0], // Por ahora solo un producto
+        confirmacionID: (subscriptionIDs && subscriptionIDs[0]) || '', // Por ahora solo un producto
         periodo: billingFrequency,
         priceCode,
         suscriptorImpreso: printedSubscriber ? 'si' : 'no',
