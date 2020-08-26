@@ -566,7 +566,7 @@ const Profile = ({ arcEnv }) => {
 
         <div className={styles.block}>
           <label htmlFor="uSecondLastName">
-            Apellidos Materno
+            Apellido Materno
             <input
               className={uSecondLastNameError && 'input-error'}
               type="text"

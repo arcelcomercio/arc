@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
+import FbPixel from './_children/fb-pixel'
 
 const Subscriptions = props => {
   const { children, arcSite, siteProperties, deployment, contextPath } = props
@@ -15,6 +16,7 @@ const Subscriptions = props => {
     <html lang="es">
       <head>
         <TagManager {...siteProperties} />
+        <FbPixel {...props} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
