@@ -97,22 +97,18 @@ const buildCorrectionTexParagraph = (
   return result
 }
 
-const buildStampTrustTexParagraph = (paragraph, url) => {
+const buildStampTrustTexParagraph = (paragraph, url, siteUrl = '') => {
   const result = { numberWords: 0, processedParagraph: '' }
+  const urlTrust = url || `${siteUrl}/proyecto-confianza/`
   result.numberWords = countWordsHelper(clearHtml(paragraph))
-
-  result.processedParagraph =
-    result.numberWords > 0
-      ? `
-      <div>
-        <figure>
-          <img src="https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_prod/especiales/banner-trust-project/logo-trust.png" alt="Trust Project" />
-        </figure>
+  result.processedParagraph = `
+      <blockquote>
+        <h2>Conforme a los criterios de TRUST</h2>
         <div>
-          <h2><a href="${url}">Saber más</a></h2>
+          <h4><a href="${urlTrust}">Saber más</a></h4>
         </div>
-      </div>`
-      : ''
+      </blockquote>
+      `
   return result
 }
 
@@ -177,6 +173,7 @@ const analyzeParagraph = ({
   arcSite,
   defaultImage,
   streams = [],
+  siteUrl = '',
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -215,7 +212,11 @@ const analyzeParagraph = ({
         result.processedParagraph = textProcess.processedParagraph
       }
       if (subtype === STAMP_TRUST) {
-        textProcess = buildStampTrustTexParagraph(processedParagraph, link)
+        textProcess = buildStampTrustTexParagraph(
+          processedParagraph,
+          link,
+          siteUrl
+        )
         result.numberWords = textProcess.numberWords
         result.processedParagraph = textProcess.processedParagraph
       }
@@ -248,6 +249,7 @@ const analyzeParagraph = ({
         opta,
         arcSite,
         defaultImage,
+        siteUrl,
       }
 
       // eslint-disable-next-line no-use-before-define
@@ -359,6 +361,7 @@ const buildListParagraph = ({
   opta,
   arcSite,
   defaultImage,
+  siteUrl = '',
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
@@ -373,6 +376,7 @@ const buildListParagraph = ({
         arcSite,
         defaultImage,
         streams,
+        siteUrl,
       })
       objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
       objTextsProcess.numberWords += numberWords
@@ -423,6 +427,7 @@ const ParagraphshWithAdds = ({
           arcSite,
           defaultImage,
           streams,
+          siteUrl,
         })
 
         if (ConfigParams.ELEMENT_STORY === type) {

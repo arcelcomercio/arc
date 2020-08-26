@@ -155,12 +155,21 @@
     margin: 20px auto;
     text-align: right;
     width: 100%;
+    @media (--only-mobile) {
+      text-align: center;
+    }
 
     &__box-left {
       display: inline-block;
       float: left;
       height: 55px;
       vertical-align: middle;
+      @media (--only-mobile) {
+        float: none;
+        height: auto;
+        margin-bottom: 10px;
+      }
+
       & p {
         display: inline-block;
         margin: 20px 5px;
@@ -175,6 +184,10 @@
       }
     }
 
+    &__img {
+      top: 7px;
+    }
+
     & a {
       background: #ededed;
       color: #2e6d9d;
@@ -182,6 +195,9 @@
       font: 14px/15px "arial";
       padding: 20px;
       vertical-align: middle;
+      @media (--only-mobile) {
+        width: 100%;
+      }
     }
   }
 
