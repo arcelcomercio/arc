@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
+import TextMask from 'react-text-mask'
 import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
 import useForm from '../../../_hooks/useForm'
@@ -8,6 +9,7 @@ import PropertiesSite from '../../../_dependencies/Properties'
 import Modal from './children/modal'
 import { PixelActions, sendAction, Taggeo } from '../../../_dependencies/Taggeo'
 import PWA from '../../../_dependencies/Pwa'
+import { maskDocuments, docPatterns } from '../../../_dependencies/Regex'
 
 import {
   conformProfile,
@@ -25,6 +27,7 @@ import getCodeError, {
   formatEmail,
   formatNames,
   formatPhone,
+  formatSecondLastName,
 } from '../../../_dependencies/Errors'
 
 const styles = {
@@ -71,6 +74,7 @@ const Profile = ({ arcEnv }) => {
   const [loadText, setLoadText] = useState('Cargando...')
   const [linkLogin, setLinkLogin] = useState()
   const [showModal, setShowModal] = useState()
+  const [showDocOption, setShowDocOption] = useState(documentType || 'DNI')
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
@@ -169,8 +173,7 @@ const Profile = ({ arcEnv }) => {
     },
     uSecondLastName: {
       required: false,
-      validator: formatNames(),
-      mincaracts: true,
+      validator: formatSecondLastName(),
     },
     uDocumentType: {
       required: true,
@@ -178,8 +181,9 @@ const Profile = ({ arcEnv }) => {
     uDocumentNumber: {
       required: true,
       validator: {
-        func: value => /^([0-9]{8})+$/.test(value),
-        error: 'Formato Inválido',
+        func: value =>
+          docPatterns[showDocOption].test(value.replace(/\s/g, '')),
+        error: 'Formato inválido.',
       },
     },
     uPhone: {
@@ -465,16 +469,6 @@ const Profile = ({ arcEnv }) => {
     }
   }
 
-  const handleChangeSelect = e => {
-    if (typeof window !== 'undefined') {
-      if (isLogged()) {
-        handleOnChange(e)
-      } else {
-        restoreClearSession()
-      }
-    }
-  }
-
   const logoutUser = () => {
     if (typeof window !== 'undefined') {
       window.Identity.logout().finally(() => {
@@ -590,13 +584,18 @@ const Profile = ({ arcEnv }) => {
                 className={printedSubscriber && 'input-disabled'}
                 name="uDocumentType"
                 value={uDocumentType}
-                onChange={handleChangeSelect}
+                onChange={e => {
+                  handleChangeInput(e)
+                  setShowDocOption(e.target.value)
+                }}
                 disabled={printedSubscriber}>
                 <option value="DNI">DNI</option>
                 <option value="CDI">CDI</option>
                 <option value="CEX">CEX</option>
               </select>
-              <input
+              <TextMask
+                mask={maskDocuments[uDocumentType]}
+                guide={false}
                 className={`${uDocumentNumberError &&
                   'input-error'} ${printedSubscriber && 'input-disabled'}`}
                 type="text"

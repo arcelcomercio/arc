@@ -20,6 +20,14 @@ export const formatNames = () => {
   }
 }
 
+export const formatSecondLastName = () => {
+  return {
+    func: value =>
+      value === '' || (value.length >= 2 && namesRegex.test(value)),
+    error: 'Formato inválido, solo letras',
+  }
+}
+
 export const formatPhone = () => {
   return {
     func: value => numberRegex.test(value),

@@ -152,6 +152,10 @@ const Pay = ({ arcEnv }) => {
   const stateValidatorSchema = {
     cNumber: {
       required: true,
+      validator: {
+        func: value => window.payU.validateCard(value.replace(/\s/g, '')),
+        error: 'Número tarjeta inválido.',
+      },
     },
     cExpire: {
       required: true,

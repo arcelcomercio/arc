@@ -2,15 +2,16 @@
  * OJO Este componente cuenta con 3 tipos de Footer:
  * @FooterSubs
  * @FooterLand
- * @FooterPrint
  */
 
 import React, { useContext, useState } from 'react'
+import TextMask from 'react-text-mask'
 import { useFusionContext } from 'fusion:context'
 import PropertiesSite from '../_dependencies/Properties'
 import { AuthContext } from '../_context/auth'
 import { subDniToken } from '../_dependencies/Services'
 import useForm from '../_hooks/useForm'
+import { maskDocuments, docPatterns } from '../_dependencies/Regex'
 
 const styles = {
   wrapper: 'validate__grid wrapper-buy',
@@ -24,6 +25,7 @@ const styles = {
 export const FooterSubs = ({ arcEnv }) => {
   const { userLoaded, userStep, updateLoading } = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
+  const [showDocOption, setShowDocOption] = useState('DNI')
   const { urls } = PropertiesSite.common
   const {
     globalContent: { printAttributes = [], printedSubscriber },
@@ -45,6 +47,11 @@ export const FooterSubs = ({ arcEnv }) => {
     },
     vDocumentNumber: {
       required: true,
+      validator: {
+        func: value =>
+          docPatterns[showDocOption].test(value.replace(/\s/g, '')),
+        error: 'Formato inválido.',
+      },
     },
   }
 
@@ -129,15 +136,21 @@ export const FooterSubs = ({ arcEnv }) => {
                         <select
                           name="vDocumentType"
                           value={vDocumentType}
-                          onChange={handleOnChange}>
+                          onChange={e => {
+                            handleOnChange(e)
+                            setShowDocOption(e.target.value)
+                          }}>
                           <option value="DNI">DNI</option>
                           <option value="CDI">CDI</option>
                           <option value="CEX">CEX</option>
                         </select>
-                        <input
+
+                        <TextMask
+                          mask={maskDocuments[vDocumentType]}
+                          guide={false}
                           type="text"
                           name="vDocumentNumber"
-                          maxLength="8"
+                          maxLength={vDocumentType === 'DNI' ? '8' : '15'}
                           required
                           value={vDocumentNumber}
                           onBlur={handleOnChange}
@@ -334,23 +347,3 @@ export const FooterLand = ({ arcSite, arcEnv, arcType }) => {
     </>
   )
 }
-
-// export const FooterPrint = () => {
-//   return (
-//     <>
-//       <footer className="footer" id="footer">
-//         <div className={styles.wrapper}>
-//           <br />
-//           <br />
-//           <br />
-//         </div>
-//       </footer>
-//       <section className="step__bottom">
-//         <button className={styles.btnDetail} type="button" id="btn-detail">
-//           Resumen de pedido
-//           <i className={styles.iconUp}></i>
-//         </button>
-//       </section>
-//     </>
-//   )
-// }
