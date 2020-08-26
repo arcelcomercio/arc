@@ -56,8 +56,6 @@ const WrapperPaymentSubs = () => {
   const { urls } = PropertiesSite[arcSite]
 
   useEffect(() => {
-    PWA.mount(() => window.location.reload())
-
     Sentry.init({
       dsn: urlCommon.dsnSentry[arcEnv],
       // debug: arcEnv === 'sandbox',
@@ -73,6 +71,11 @@ const WrapperPaymentSubs = () => {
     }).then(() => {
       if (typeof window !== 'undefined') {
         window.Identity.options({ apiOrigin: urls.arcOrigin[arcEnv] })
+        PWA.mount(() => {
+          window.Identity.getUserProfile().then(() => {
+            window.location.reload()
+          })
+        })
         updateLoading(false)
       }
     })

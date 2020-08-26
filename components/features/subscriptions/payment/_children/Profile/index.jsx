@@ -182,7 +182,8 @@ const Profile = ({ arcEnv }) => {
       required: true,
       validator: {
         func: value =>
-          docPatterns[showDocOption].test(value.replace(/\s/g, '')),
+          docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
+          value !== '00000000',
         error: 'Formato inválido.',
       },
     },
