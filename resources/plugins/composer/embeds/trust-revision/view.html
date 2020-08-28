@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Revisión - View Trust Project</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Item -->
+      <div class="col-md-12" id="%item_id%">
+        <a href="#" title='Corrección' class="card mb-4 box-shadow" style="flex-direction: row;"
+          id="content_card"
+        >
+          <div class="card-body">
+            <p class="card-text text-muted" style="font-weight: bold;">DATOS DE LA REVISIÓN</p>
+            <p class="card-text text-muted">
+              Tipo de evento: %type_event%
+            </p>
+            <p class="card-text text-muted">
+              Nombre: %name%
+            </p>
+            <p class="card-text text-muted">
+              Nombre del lugar: %location_name%
+            </p>
+            <p class="card-text text-muted">
+              Dirección del lugar: %location_address%
+            </p>
+            <p class="card-text text-muted">
+              Fecha de inicio: %start_date%
+            </p>
+
+            <div id="SoftwareApplication-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Categoría de software: %category_software%
+              </p>
+              <p class="card-text text-muted">
+                Sistema operativo: %so_software%
+              </p>
+            </div>
+            <div id="Book-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Autor: %author_book%
+              </p>
+              <p class="card-text text-muted">
+                ISBN: %isbn_book%
+              </p>
+              <p class="card-text text-muted">
+                Url: %url_book%
+              </p>
+            </div>
+            <div id="LocalBusiness-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Url de imagen: %image_local%
+              </p>
+            </div>
+            <div id="Movie-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Url's relacionados: %sameas_movie%
+              </p>
+              <p class="card-text text-muted">
+                Url de imagen: %image_movie%
+              </p>
+              <p class="card-text text-muted">
+                Descripción: %description_movie%
+              </p>
+            </div>
+            <div id="Product-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Nombre de la review: %review_product%
+              </p>
+              <p class="card-text text-muted">
+                Autor de la review: %author_product%
+              </p>
+            </div>
+            </div>
+            <div id="Recipe-view" class="container-el" hidden>
+              <p class="card-text text-muted">
+                Url de imagen: %image_recipe%
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </template>
+    <main role="main">
+      <div class="album bg-light">
+        <div class="container-fluid">
+          <div class="row" id="search_content"></div>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+    const sendMessage = function(action, data, key) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: 'custom_embed',
+          action,
+          data,
+          key: parseQueryString()['k']
+        }),
+        '*'
+      )
+    }
+
+    const parseQueryString = function() {
+      const params = location.search.split('?')[1] || ''
+      const kv = params.split('&')
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split('=')
+        return Object.assign(result, {
+          [key]: value
+        })
+      }, {})
+    }
+
+    // ------------------------------------------------
+
+    const CONTAINERS = 'container-el';
+
+    const showElements = (id) => {
+      const containers = document.getElementsByClassName(CONTAINERS);
+      Array.from(containers).forEach(el => {
+        el.setAttribute('hidden', '');
+      });
+      const container =  document.getElementById(id);
+      (container && container.removeAttribute('hidden'));
+    }
+
+
+    // Render the content data and contextual configuration together
+    const render = (ansCustomEmbed) => {
+      const template = document.getElementById('content_template').innerHTML
+      const config = ansCustomEmbed.config
+      const html = template
+        .replace(/%item_id%/gi, 'row-' + ansCustomEmbed.id)
+        .replace(/%type_event%/gi, config.type_event || "")
+        .replace(/%name%/gi, config.name || "")
+        .replace(/%location_name%/gi, config.location_name || "")
+        .replace(/%location_address%/gi, config.location_address || "")
+        .replace(/%start_date%/gi, config.start_date || "")
+        .replace(/%category_software%/gi, config.category_software)
+        .replace(/%so_software%/gi, config.so_software)
+        .replace(/%author_book%/gi, config.author_book)
+        .replace(/%isbn_book%/gi, config.isbn_book)
+        .replace(/%url_book%/gi, config.url_book)
+        .replace(/%image_local%/gi, config.image_local)
+        .replace(/%sameas_movie%/gi, config.sameas_movie)
+        .replace(/%image_movie%/gi, config.image_movie)
+        .replace(/%description_movie%/gi, config.description_movie)
+        .replace(/%review_product%/gi, config.review_product)
+        .replace(/%author_product%/gi, config.author_product)
+        .replace(/%image_recipe%/gi, config.image_recipe)
+
+      const element = document.createElement('div')
+      document.getElementById('search_content').appendChild(element)
+      element.outerHTML = html
+
+      showElements(config.type_event+'-view');
+    }
+    // ------------------------------------------------
+
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+
+      )
+      render(JSON.parse(decodeURIComponent(parameters.p)))
+
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait) + 10)
+
+    }
+    </script>
+  </body>
+</html>

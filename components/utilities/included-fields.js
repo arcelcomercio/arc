@@ -25,7 +25,9 @@ export const includePromoItemsCaptions = `${imageBase}.subtitle,${imageBase}.cap
 
 export const includePromoItemsSizes = `${imageBase}.width,${imageBase}.height,${videoBase}.${imageBase}.width,${videoBase}.${imageBase}.height,${galleryBase}.${imageBase}.width,${galleryBase}.${imageBase}.height`
 
-export const includePromoVideoAds = `${videoBase}._id,${videoBase}.embed_html,${videoBase}.additional_properties.advertising.playAds,${videoBase}.additional_properties.advertising.playVideoAds`
+export const includePromoVideo = `${videoBase}._id,${videoBase}.embed_html,${videoBase}.duration,${videoBase}.streams`
+
+export const includePromoVideoAds = `${videoBase}.additional_properties.advertising.playAds,${videoBase}.additional_properties.advertising.playVideoAds`
 
 export const includeGalleryUrls = `${galleryElements}.resized_urls,${galleryElements}.subtitle,${galleryElements}.caption,${galleryElements}.type,${galleryElements}.url,${galleryElements}.width,${galleryElements}.height`
 

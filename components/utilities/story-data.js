@@ -47,7 +47,9 @@ import { getAssetsPath, defaultImage } from './assets'
 import {
   STORY_CORRECTION,
   IMAGE_LINK,
+  WORK_TYPE_REVISION,
   STORY_CUSTOMBLOCK,
+  STAMP_TRUST,
 } from './constants/subtypes'
 import { SITE_ELCOMERCIO } from './constants/sitenames'
 
@@ -815,6 +817,16 @@ class StoryData {
     )
   }
 
+  get firstContentElementsRevision() {
+    return (
+      (this._data &&
+        StoryData.getFirstContentElementsRevision(
+          this._data.content_elements
+        )) ||
+      []
+    )
+  }
+
   get contentElementGallery() {
     return (
       (this._data &&
@@ -1342,6 +1354,15 @@ class StoryData {
       : []
   }
 
+  static getFirstContentElementsRevision(data = []) {
+    return data && data.length > 0
+      ? data.find(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === WORK_TYPE_REVISION
+        )
+      : {}
+  }
+
   static getContentElementsHtml(data = [], typeElement = '') {
     return data && data.length > 0
       ? data
@@ -1722,6 +1743,7 @@ class StoryData {
           config: {
             content: contentCorrection = '',
             customBlockContent: contentCustomblock = '',
+            url: urlConfig = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1763,6 +1785,10 @@ class StoryData {
             switch (subtype) {
               case STORY_CORRECTION:
                 result.payload = contentCorrection
+                break
+              case STAMP_TRUST:
+                result.payload = ''
+                result.link = urlConfig
                 break
               case STORY_CUSTOMBLOCK:
                 result.payload = contentCustomblock

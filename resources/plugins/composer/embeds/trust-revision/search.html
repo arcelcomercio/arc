@@ -1,0 +1,382 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Revisión - Search Trust Project</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <style>
+      .hoverable {
+        padding-top: 1em;
+        cursor: pointer;
+      }
+      .hoverable:hover {
+        background-color: #e2cdcd;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="mr-2"
+            >
+              <path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+              ></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <strong>Revisión de Nota</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <section class="jumbotron text-center my-0">
+        <div class="container">
+          <!-- Search Form -->
+          <p class="lead text-muted">
+            Ingrese los datos para la revisión
+          </p>
+          <p class="lead">
+          </p>
+          <label class="w-100" for="searchTypeEventRevision">Tipo de Evento:
+            <select class="w-100" onchange="changeTypeEvent(event, this)" name="searchTypeEventRevision" id="searchTypeEventRevision">
+              <option value="">--- Seleccione ---</option>
+              <option value="SoftwareApplication">Aplicación de software</option>
+              <option value="Course">Curso</option>
+              <option value="Episode">Episodio de (TV, Radio, videojuegos)</option>
+              <option value="CreativeWorkSeason">Estación Multimedia (Tv, Radio, etc.)</option>
+              <option value="Event">Evento</option>
+              <!--<option value="HowTo">Instrucciones que explican como conseguir un resultado, sequencia de pasos</option>-->
+              <option value="Game">Juego</option>
+              <option value="Book">Libro</option>
+              <option value="LocalBusiness">Local físico de un negocio u oficina de una organización</option>
+              <option value="MediaObject">Objeto Multimedia embebido en una página web</option>
+              <option value="Organization">Organización empresarial o corporativa</option>
+              <option value="Movie">Película</option>
+              <option value="MusicPlaylist">Playlist de música</option>
+              <option value="Product">Producto o Servicio (Zapatos, Ticket de concierto, renta de vehículos o un episodio de un show de Tv online)</option>
+              <option value="Recipe">Receta</option>
+              <option value="CreativeWorkSeries">Series de Tv, Series de Radio, Series literatias, Series de película, Periodicos y Series de videojuegos</option>
+              <option value="MusicRecording">Single musical, Track</option>
+            </select>
+            
+          </label>
+          <label class="w-100" for="searchNameRevision">Nombre:
+            <input class="w-100" type="textfield" id="searchNameRevision" name="searchNameRevision" />
+          </label>
+          <label class="w-100" for="searchNameLocationRevision">Nombre del lugar:
+            <input class="w-100" type="textfield" id="searchNameLocationRevision" name="searchNameLocationRevision" />
+          </label>
+          <label class="w-100" for="searchAddressLocationRevision">Dirección del lugar:
+            <input class="w-100" type="textfield" id="searchAddressLocationRevision" name="searchAddressLocationRevision" />
+          </label>
+          <label class="w-100" for="searchStartDateRevision">Fecha de inicio:
+            <input class="w-100" onkeydown=" return rgxDateChange(event)" onchange="dateValidate(this)" maxlength="10" type="textfield" placeholder="Ej. 2020-12-01" id="searchStartDateRevision" name="searchStartDateRevision" />
+          </label>
+
+
+          <div id="SoftwareApplication" class="container-el" hidden>
+            <label class="w-100" for="searchAplicarionCategorySoftwareRevision">Categoría:
+              <input class="w-100" type="textfield" id="searchAplicarionCategorySoftwareRevision" name="searchAplicarionCategorySoftwareRevision" />
+            </label>
+            <label class="w-100" for="searchOperatingSystemRevision">Sistema operativo:
+              <input class="w-100" type="textfield" id="searchOperatingSystemRevision" name="searchOperatingSystemRevision" />
+            </label>
+          </div>
+          <div id="Book" class="container-el" hidden>
+            <label class="w-100" for="searchAuthorEbookRevision">Autor:
+              <input class="w-100" type="textfield" id="searchAuthorEbookRevision" name="searchAuthorEbookRevision" />
+            </label>
+            <label class="w-100" for="searchIsbnEbookRevision">ISBN:
+              <input class="w-100" type="textfield" id="searchIsbnEbookRevision" name="searchIsbnEbookRevision" />
+            </label>
+            <label class="w-100" for="searchUrlEbookRevision">Url:
+              <input class="w-100" type="textfield" id="searchUrlEbookRevision" name="searchUrlEbookRevision" />
+            </label>
+          </div>
+          <div id="LocalBusiness" class="container-el" hidden>
+            <label class="w-100" for="searchImgLocalBusinessRevision">Url de imagen:
+              <input class="w-100" type="textfield" id="searchImgLocalBusinessRevision" name="searchImgLocalBusinessRevision" />
+            </label>
+          </div>
+          <div id="Movie" class="container-el" hidden>
+            <label class="w-100" for="searchSameAsMovieRevision">Url's relacionados (separados por comas):
+              <input class="w-100" type="textfield" id="searchSameAsMovieRevision" name="searchSameAsMovieRevision" placeholder="Ej: https://elcomercio.pe/noticias, https://google.com.pe/" />
+            </label>
+            <label class="w-100" for="searchImageMovieRevision">Url de imagen:
+              <input class="w-100" type="textfield" id="searchImageMovieRevision" name="searchImageMovieRevision" />
+            </label>
+            <label class="w-100" for="searchDescriptionMovieRevision">Descripción:
+              <input class="w-100" type="textfield" id="searchDescriptionMovieRevision" name="searchDescriptionMovieRevision" />
+            </label>
+          </div>
+          <div id="Product" class="container-el" hidden>
+            <label class="w-100" for="searchReviewProductRevision">Nombre de la review:
+              <input class="w-100" type="textfield" id="searchReviewProductRevision" name="searchReviewProductRevision" />
+            </label>
+            <label class="w-100" for="searchAuthorProductRevision">Autor de la review:
+              <input class="w-100" type="textfield" id="searchAuthorProductRevision" name="searchAuthorProductRevision" />
+            </label>
+          </div>
+          <div id="Recipe" class="container-el" hidden>
+            <label class="w-100" for="searchImageRecipeRevision">Url de imagen:
+              <input class="w-100" type="textfield" id="searchImageRecipeRevision" name="searchImageRecipeRevision" />
+            </label>
+          </div>
+
+          <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="search_content"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Regresar a la parte superior</a>
+        </p>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+    const sendMessage = function(action, data) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: 'custom_embed',
+          action,
+          data,
+          key: parseQueryString()['k']
+        }),
+        '*'
+      )
+    }
+
+    const parseQueryString = function() {
+      const params = location.search.split('?')[1] || ''
+      const kv = params.split('&')
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split('=')
+        return Object.assign(result, {
+          [key]: value
+        })
+      }, {})
+    }
+
+    // ------------------------------------------------
+
+    const CONTAINERS = 'container-el';
+
+    const showElements = (id) => {
+      const containers = document.getElementsByClassName(CONTAINERS);
+      Array.from(containers).forEach(el => {
+        el.setAttribute('hidden', '');
+      });
+      const container =  document.getElementById(id);
+      (container && container.removeAttribute('hidden'));
+    }
+
+    const changeTypeEvent = (ev, el) => {
+      showElements(el.value)
+    }
+
+
+    const idEl =  Date.now() + '-' + Math.floor(Math.random() * 1000000)
+    let typeEvent = ''
+    let name = ''
+    let locationName = ''
+    let locationAddress = ''
+    let startDate = ''
+    let appCategorySoftware = '';
+    let soSoftware = '';
+    let authorBook = '';
+    let isbnBook = '';
+    let urlBook = '';
+    let imageLocal = '';
+    let sameAsMovie = '';
+    let imageMovie = '';
+    let descriptionMovie = '';
+    let reviewProduct = '';
+    let authorProduct = '';
+    let imageRecipe = '';
+    let data = {}
+
+    const rgxDateChange = (ev) => {
+      const chars = /[0-9-]$/;
+      if(!ev.key.match(chars) && ev.key !== 'Backspace'){
+        return false
+      }
+      return true
+    }
+
+    const rgxDateValidate = (inputEl) => {
+      const date = /^\(?([0-9]{4})\)?[-]?([01]{1}[0-9]{1})[-]?([0-3]{1}[0-9]{1})$/;
+      if(!inputEl.value.match(date)){
+        return false
+      }
+      return true
+    }
+
+    const dateValidate = (inputEl) => {
+      if(!rgxDateValidate(inputEl)){
+        inputEl.classList.add('border');
+        inputEl.classList.add('border-danger');
+      }else{
+        inputEl.classList.remove('border-danger');
+        inputEl.classList.remove('border');
+      }
+    }
+
+    const getYYYYMMDDfromISO = date =>
+      date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+    const getActualDate = () => {
+      const today = new Date()
+      today.setHours(today.getHours() - 5)
+      return getYYYYMMDDfromISO(today)
+    }
+
+    const handleSearch = () => {
+      const selectTypeEvent = document.getElementById('searchTypeEventRevision');
+      typeEvent = selectTypeEvent.options[selectTypeEvent.selectedIndex].value;
+      name = document.getElementById('searchNameRevision').value;
+      locationName = document.getElementById('searchNameLocationRevision').value;
+      locationAddress = document.getElementById('searchAddressLocationRevision').value;
+      const startDateEl = document.getElementById('searchStartDateRevision');
+      startDate = startDateEl.value;
+
+      appCategorySoftware = '';
+      soSoftware = '';
+      authorBook = '';
+      isbnBook = '';
+      urlBook = '';
+      imageLocal = '';
+      sameAsMovie = '';
+      imageMovie = '';
+      descriptionMovie = '';
+      reviewProduct = '';
+      authorProduct = '';
+      imageRecipe = '';
+      switch (typeEvent) {
+        case 'SoftwareApplication':
+          appCategorySoftware = document.getElementById('searchAplicarionCategorySoftwareRevision').value;
+          soSoftware = document.getElementById('searchOperatingSystemRevision').value;
+          break;
+        case 'Book':
+          authorBook = document.getElementById('searchAuthorEbookRevision').value;
+          isbnBook = document.getElementById('searchIsbnEbookRevision').value;
+          urlBook = document.getElementById('searchUrlEbookRevision').value;
+          break;
+        case 'LocalBusiness':
+          imageLocal = document.getElementById('searchImgLocalBusinessRevision').value;
+          break;
+        case 'Movie':
+          sameAsMovie = document.getElementById('searchSameAsMovieRevision').value;
+          imageMovie = document.getElementById('searchImageMovieRevision').value;
+          descriptionMovie = document.getElementById('searchDescriptionMovieRevision').value;
+          break;
+        case 'Product':
+          reviewProduct = document.getElementById('searchReviewProductRevision').value;
+          authorProduct = document.getElementById('searchAuthorProductRevision').value;
+          break;
+        case 'Recipe':
+          imageRecipe = document.getElementById('searchImageRecipeRevision').value;
+          break;
+        default:
+          break;
+      }
+
+      if (rgxDateValidate(startDateEl) && typeEvent && name && locationName && locationAddress && startDate ) buildMessage()
+    }
+
+    const buildMessage = () => {
+
+      const ansCustomEmbed = {
+        id: idEl,
+        url: '/pf/api/v3/content/fetch/photo-by-id',
+        config: {
+          "type_event": typeEvent || '',
+          "name": name || '',
+          "location_name": locationName || '',
+          "location_address": locationAddress || '',
+          "start_date": startDate || '',
+          "category_software": appCategorySoftware || '',
+          "so_software": soSoftware || '',
+          "author_book": authorBook || '',
+          "isbn_book": isbnBook || '',
+          "url_book": urlBook || '',
+          "image_local": imageLocal || '',
+          "sameas_movie": sameAsMovie || '',
+          "image_movie": imageMovie || '',
+          "description_movie": descriptionMovie || '',
+          "review_product": reviewProduct || '',
+          "author_product": authorProduct || '',
+          "image_recipe": imageRecipe || '',
+        }
+      }
+
+      sendMessage('data', ansCustomEmbed)
+    }
+
+
+    // ------------------------------------------------
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+    }
+    </script>
+  </body>
+</html>
