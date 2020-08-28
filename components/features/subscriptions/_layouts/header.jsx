@@ -4,9 +4,9 @@ import { Taggeo } from '../_dependencies/Taggeo'
 import { isAuthenticated } from '../_dependencies/Session'
 import { checkUndefined } from '../_dependencies/Utils'
 import { AuthContext } from '../_context/auth'
-
 import { Landing } from '../../signwall/_children/landing/index'
 import QueryString from '../../signwall/_dependencies/querystring'
+import PWA from '../_dependencies/Pwa'
 
 const styles = {
   wrapper: 'header__content wrapper-buy',
@@ -57,16 +57,22 @@ const HeaderSubs = ({ userProfile, arcSite, arcEnv }) => {
     <>
       <header className="header" id="header">
         <div className={styles.wrapper}>
-          <a
-            href={urls.homeUrl[arcEnv]}
-            className={styles.link}
-            target="_blank"
-            rel="noreferrer">
+          {PWA.isPWA() ? (
             <div className={styles.logo}></div>
-          </a>
+          ) : (
+            <a
+              href={urls.homeUrl[arcEnv]}
+              className={styles.link}
+              target="_blank"
+              rel="noreferrer">
+              <div className={styles.logo}></div>
+            </a>
+          )}
           <button
             className={styles.button}
-            onClick={() => handleSignwall()}
+            onClick={() => {
+              if (!PWA.isPWA) handleSignwall()
+            }}
             type="button">
             <span>Hola</span> {userLoaded ? formatName() : 'Invitado'}
           </button>

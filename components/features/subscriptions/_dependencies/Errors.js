@@ -115,7 +115,7 @@ const getCodeError = (code, status) => {
       return 'Oops. Ocurrió un error inesperado.'
 
     case '300170':
-      return 'Ha ocurrido un error de red al momento de solicitar el pago. Por Favor inténtelo nuevamente.'
+      return 'Ha ocurrido un error de red al momento de solicitar el pago. Por favor inténtelo nuevamente.'
 
     case '300012':
       return 'Ha ocurrido un error al momento de generar la orden. Te recomendamos volver a intentar ó ingresar nuevamente.'

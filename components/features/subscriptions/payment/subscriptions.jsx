@@ -68,17 +68,20 @@ const WrapperPaymentSubs = () => {
       name: 'IdentitySDK',
       url: links.identity[arcEnv],
       includeNoScript: false,
-    }).then(() => {
-      if (typeof window !== 'undefined') {
-        window.Identity.options({ apiOrigin: urls.arcOrigin[arcEnv] })
-        PWA.mount(() => {
-          window.Identity.getUserProfile().then(() => {
-            window.location.reload()
-          })
-        })
-        updateLoading(false)
-      }
     })
+      .then(() => {
+        if (typeof window !== 'undefined') {
+          window.Identity.options({ apiOrigin: urls.arcOrigin[arcEnv] })
+          PWA.mount(() => {
+            window.Identity.getUserProfile().then(() => {
+              window.location.reload()
+            })
+          })
+        }
+      })
+      .finally(() => {
+        updateLoading(false)
+      })
 
     if (fromFia) {
       window.sessionStorage.setItem('paywall_type_modal', 'fia')
@@ -97,27 +100,29 @@ const WrapperPaymentSubs = () => {
       <Container>
         <NavigateProvider>
           <Wrapper>
-            <PanelLeft>
-              {freeAccess ? (
-                <Confirmation {...{ arcSite, arcEnv }} />
-              ) : (
-                <>
-                  {(() => {
-                    // prettier-ignore
-                    switch (userStep) {
-                    case 2:
-                      return userLoaded ? <Profile {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}} />
-                    case 3:
-                      return userLoaded ? <Pay {...{arcSite, arcEnv}}/> : <Singwall {...{arcSite, arcEnv}} />
-                    case 4:
-                      return userLoaded ? <Confirmation {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}}/>
-                    default:
-                      return <Singwall {...{arcSite, arcEnv}} />
-                  }
-                  })()}
-                </>
-              )}
-            </PanelLeft>
+            {!userLoading && (
+              <PanelLeft>
+                {freeAccess ? (
+                  <Confirmation {...{ arcSite, arcEnv }} />
+                ) : (
+                  <>
+                    {(() => {
+                      // prettier-ignore
+                      switch (userStep) {
+                      case 2:
+                        return userLoaded ? <Profile {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}} />
+                      case 3:
+                        return userLoaded ? <Pay {...{arcSite, arcEnv}}/> : <Singwall {...{arcSite, arcEnv}} />
+                      case 4:
+                        return userLoaded ? <Confirmation {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}}/>
+                      default:
+                        return <Singwall {...{arcSite, arcEnv}} />
+                    }
+                    })()}
+                  </>
+                )}
+              </PanelLeft>
+            )}
             <PanelRight>
               {userStep !== 4 && !freeAccess && <Resume />}
             </PanelRight>

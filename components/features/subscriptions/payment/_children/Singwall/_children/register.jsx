@@ -24,7 +24,7 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Register = ({ arcSite, arcEnv }) => {
+const Register = ({ arcSite, arcEnv, fromFia }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
@@ -163,21 +163,22 @@ const Register = ({ arcSite, arcEnv }) => {
       {value => (
         <>
           <h2 className={styles.title}>{texts.register}</h2>
-
-          <div className={styles.blockMiddle}>
+          <div
+            className={`${styles.blockMiddle} ${fromFia && styles.blockFull}`}>
             <ButtonSocial
               arcSocial="facebook"
               arcSite={arcSite}
               arcEnv={arcEnv}
               arcType="registro"
             />
-
-            <ButtonSocial
-              arcSocial="google"
-              arcSite={arcSite}
-              arcEnv={arcEnv}
-              arcType="registro"
-            />
+            {!fromFia && (
+              <ButtonSocial
+                arcSocial="google"
+                arcSite={arcSite}
+                arcEnv={arcEnv}
+                arcType="registro"
+              />
+            )}
           </div>
 
           <div className={styles.titleLine}>

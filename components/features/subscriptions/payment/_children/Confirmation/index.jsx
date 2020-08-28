@@ -72,123 +72,112 @@ const Confirmation = ({ arcEnv }) => {
     return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
   }
 
-  const pushDates = (
-    amount,
-    sku,
-    billingFrequency,
-    priceCode,
-    name,
-    productName
-  ) => {
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const divStep = window.document.getElementById('main-steps')
-      if (divStep) divStep.classList.add('bg-white')
-      const { accessToken } = getStorageInfo()
+      const { uuid, accessToken } = getStorageInfo()
       const origin =
         window.sessionStorage.getItem('paywall_type_modal') || 'organico'
       const referer = window.sessionStorage.getItem('paywall_last_url') || ''
       const confirm =
         window.sessionStorage.getItem('paywall_confirm_subs') || '3'
-
-      PWA.finalize()
-      pushCxense(getCodeCxense) // dispara script de Cxense
-      paymentTraker(
-        urls.paymentTracker[arcEnv],
-        accessToken,
-        arcSite,
-        referer,
-        origin,
-        orderNumber,
-        confirm
-      )
-
-      sendAction(PixelActions.PAYMENT_CONFIRMATION, {
-        transactionId: orderNumber,
-        transactionAffiliation: arcSite,
-        transactionTotal: total,
-        transactionTax: 0,
-        transactionShipping: 0,
-        transactionProducts: [
-          {
-            sku,
-            name,
-            category: 'Planes',
-            price: amount,
-            quantity: 1,
-          },
-        ],
-        confirmacionID: (subscriptionIDs && subscriptionIDs[0]) || '', // Por ahora solo un producto
-        periodo: billingFrequency,
-        priceCode,
-        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
-        medioCompra: origin,
-        accesoGratis: freeAccess ? 'si' : 'no',
-        referer,
-        pwa: PWA.isPWA() ? 'si' : 'no',
-      })
-
-      window.dataLayer.push({
-        event: 'checkoutOption',
-        ecommerce: {
-          checkout_option: {
-            actionField: { step: 4 },
-          },
-        },
-      })
-
-      window.dataLayer.push({
-        event: 'buy',
-        ecommerce: {
-          purchase: {
-            actionField: {
-              id: orderNumber,
-              affiliation: 'Online Store',
-              revenue: amount,
-            },
-            products: [
-              {
-                id: sku,
-                name: productName,
-                price: amount,
-                brand: arcSite,
-                category: name,
-                subCategory: Frecuency[billingFrequency],
-              },
-            ],
-            dataUser: {
-              id: userProfile.uuid || window.Identity.userIdentity.uuid,
-              name: `${firstName} ${lastName} ${secondLastName || ''}`
-                .replace(/\s*/, ' ')
-                .trim(),
-              email,
-            },
-          },
-        },
-      })
-
-      window.fbq('track', 'Purchase', {
-        content_name: productName,
-        content_ids: [sku],
-        content_type: productName,
-        contents: [{ id: sku, quantity: 1 }],
-        currency: 'PEN',
-        num_items: 1,
-        value: amount,
-      })
-    }
-  }
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
       const getPLanSelected = plans.reduce((prev, plan) => {
         return plan.priceCode === userPlan.priceCode ? plan : prev
       }, null)
 
-      const divStep = window.document.getElementById('main-steps')
       if (freeAccess || (userPurchase && userPurchase.status)) {
-        pushDates(getPLanSelected)
+        if (divStep) divStep.classList.add('bg-white')
+
+        const { sku, name, amount, billingFrequency, priceCode, productName } =
+          getPLanSelected || {}
+
+        PWA.finalize()
+        pushCxense(getCodeCxense)
+        paymentTraker(
+          urls.paymentTracker[arcEnv],
+          accessToken,
+          arcSite,
+          referer,
+          origin,
+          orderNumber,
+          confirm
+        )
+
+        sendAction(PixelActions.PAYMENT_CONFIRMATION, {
+          transactionId: orderNumber,
+          transactionAffiliation: arcSite,
+          transactionTotal: total,
+          transactionTax: 0,
+          transactionShipping: 0,
+          transactionProducts: [
+            {
+              sku,
+              name,
+              category: 'Planes',
+              price: amount,
+              quantity: 1,
+            },
+          ],
+          confirmacionID: (subscriptionIDs && subscriptionIDs[0]) || '', // Por ahora solo un producto
+          periodo: billingFrequency,
+          priceCode,
+          suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+          medioCompra: origin,
+          accesoGratis: freeAccess ? 'si' : 'no',
+          referer,
+          pwa: PWA.isPWA() ? 'si' : 'no',
+        })
+
+        window.dataLayer.push({
+          event: 'checkoutOption',
+          ecommerce: {
+            checkout_option: {
+              actionField: { step: 4 },
+            },
+          },
+        })
+
+        window.dataLayer.push({
+          event: 'buy',
+          ecommerce: {
+            purchase: {
+              actionField: {
+                id: orderNumber,
+                affiliation: 'Online Store',
+                revenue: amount,
+              },
+              products: [
+                {
+                  id: sku,
+                  name: productName,
+                  price: amount,
+                  brand: arcSite,
+                  category: name,
+                  subCategory: Frecuency[billingFrequency],
+                },
+              ],
+              dataUser: {
+                id: userProfile.uuid || uuid,
+                name: `${firstName} ${lastName} ${secondLastName || ''}`
+                  .replace(/\s*/, ' ')
+                  .trim(),
+                email,
+              },
+            },
+          },
+        })
+
+        window.fbq('track', 'Purchase', {
+          content_name: productName,
+          content_ids: [sku],
+          content_type: productName,
+          contents: [{ id: sku, quantity: 1 }],
+          currency: 'PEN',
+          num_items: 1,
+          value: amount,
+        })
       } else {
         updateStep(2)
         if (divStep) divStep.classList.remove('bg-white')
@@ -228,7 +217,7 @@ const Confirmation = ({ arcEnv }) => {
       </ul>
       <h3 className={styles.subtitle}>
         {freeAccess
-          ? 'Por ser un suscriptor premium'
+          ? `Por ser un suscriptor premium accede a ${arcSite}.pe totalmente gratis`
           : 'Tu compra fue realizada'}
       </h3>
 
@@ -273,15 +262,13 @@ const Confirmation = ({ arcEnv }) => {
               {texts.sendEmailReciept} <strong>{email}</strong>
             </>
           ) : (
-            <>
-              {texts.successSubsFree} <strong>totalmente gratis</strong>
-            </>
+            <>{texts.successSubsFree}</>
           )}
         </p>
       </div>
 
-      <div className={styles.contButton}>
-        {!fromFia && (
+      {!fromFia && (
+        <div className={styles.contButton}>
           <button
             className={styles.btn}
             type="button"
@@ -289,24 +276,8 @@ const Confirmation = ({ arcEnv }) => {
             disabled={loading}>
             {loading ? 'Redireccionando...' : 'Seguir navegando'}
           </button>
-        )}
-      </div>
-
-      {/* <div className={styles.noteBenefist}>
-        <div className="img-club"></div>
-        <p>{texts.knownBenefist}</p>
-
-        <div className="apps">
-          <a href={urlsSite.appStore} target="_blank" rel="noreferrer">
-            <i className="icon-appstore"></i>
-          </a>
-          <a href={urlsSite.googlePlay} target="_blank" rel="noreferrer">
-            <i className="icon-googleplay"></i>
-          </a>
         </div>
-
-        <p>{texts.downloadApps}</p>
-      </div> */}
+      )}
     </>
   )
 }

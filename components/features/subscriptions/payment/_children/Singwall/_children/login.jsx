@@ -13,6 +13,7 @@ const styles = {
   titleLine: 'step__left-title-line',
   titleForgot: 'step__left-forgot-pass',
   block: 'step__left-block',
+  blockFull: 'step__left-block-full',
   btnShow: 'step__left-btn-show',
   btn: 'step__left-btn-next',
   link: 'step__btn-link',
@@ -22,7 +23,7 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Login = ({ arcSite, arcEnv }) => {
+const Login = ({ arcSite, arcEnv, fromFia }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [msgError, setMsgError] = useState()
@@ -95,20 +96,22 @@ const Login = ({ arcSite, arcEnv }) => {
       {value => (
         <>
           <h2 className={styles.title}>{texts.login}</h2>
-          <div className={styles.blockMiddle}>
+          <div
+            className={`${styles.blockMiddle} ${fromFia && styles.blockFull}`}>
             <ButtonSocial
               arcSocial="facebook"
               arcSite={arcSite}
               arcEnv={arcEnv}
               arcType="login"
             />
-
-            <ButtonSocial
-              arcSocial="google"
-              arcSite={arcSite}
-              arcEnv={arcEnv}
-              arcType="login"
-            />
+            {!fromFia && (
+              <ButtonSocial
+                arcSocial="google"
+                arcSite={arcSite}
+                arcEnv={arcEnv}
+                arcType="login"
+              />
+            )}
           </div>
 
           <div className={styles.titleLine}>

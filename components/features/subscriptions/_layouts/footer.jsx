@@ -198,7 +198,7 @@ export const FooterSubs = ({ arcEnv }) => {
       {userStep !== 4 && (
         <section className="step__bottom">
           <button className={styles.btnDetail} type="button" id="btn-detail">
-            Resumen de pedido
+            Elige tu plan
             <i className={styles.iconUp}></i>
           </button>
         </section>

@@ -7,10 +7,10 @@ import { NavigateConsumer } from '../../../_context/navigate'
 import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
 import PWA from '../../../_dependencies/Pwa'
 
-const renderTemplate = (template, site, env) => {
+const renderTemplate = (template, site, env, isfia) => {
   const templates = {
-    login: <Login arcSite={site} arcEnv={env} />,
-    register: <Register arcSite={site} arcEnv={env} />,
+    login: <Login arcSite={site} arcEnv={env} fromFia={isfia} />,
+    register: <Register arcSite={site} arcEnv={env} fromFia={isfia} />,
     forgot: <Forgot />,
   }
   return templates[template] || templates.login
@@ -65,7 +65,7 @@ const Singwall = ({ arcEnv }) => {
   return (
     <NavigateConsumer>
       {({ selectedTemplate }) => (
-        <>{renderTemplate(selectedTemplate, arcSite, arcEnv)}</>
+        <>{renderTemplate(selectedTemplate, arcSite, arcEnv, fromFia)}</>
       )}
     </NavigateConsumer>
   )
