@@ -9,17 +9,17 @@ export const SchemaSingleStory = arcSite => {
     }
     credits { by { name, url, id, type } }
     promo_items {
-      basic { url type caption resized_urls { landscape_md lazy_default  } }
+      basic { url type caption }
       basic_video {
         _id
         additional_properties { 
           advertising { playAds playVideoAds }
         }
         duration
-        streams
+        streams { stream_type url }
         embed_html
         promo_items {
-          basic { url type caption resized_urls { landscape_md lazy_default  } }
+          basic { url type caption }
         }
       }
       youtube_id {

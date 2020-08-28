@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import {
@@ -20,6 +20,7 @@ import {
   includePromoItems,
   includePrimarySection,
   includePromoItemsCaptions,
+  includePromoVideo,
   includePromoVideoAds,
   includeCredits,
 } from '../../../utilities/included-fields'
@@ -44,7 +45,7 @@ const SectionVideo = props => {
     deployment,
     isAdmin,
     siteProperties,
-  } = useFusionContext()
+  } = useAppContext()
   const dataVideo = {}
   let section = null
 
@@ -139,7 +140,7 @@ const SectionVideo = props => {
           feedOffset: offset,
           stories_qty: 4,
           presets,
-          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},${includePromoItems},${includePromoVideoAds},${includeCredits},promo_items.basic_video.duration`,
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},${includePromoItems},${includePromoVideo},${includeCredits}`,
         },
         filter: SchemaMultiStory(arcSite),
       }) || {}
@@ -157,8 +158,8 @@ const SectionVideo = props => {
         source: 'story-by-section',
         query: {
           section,
-          presets,
-          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,${includePrimarySection},${includePromoItems},${includePromoItemsCaptions},${includePromoVideoAds},${includeCredits},promo_items.basic_video.duration`,
+          presets: 'no-presets',
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,${includePrimarySection},${includePromoItems},${includePromoItemsCaptions},${includePromoVideo},${includePromoVideoAds},${includeCredits}`,
         },
         filter: SchemaSingleStory(arcSite),
       }) || {}
