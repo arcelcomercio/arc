@@ -48,9 +48,11 @@ import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCorrection from './_children/correction'
+import StoryContentsChildStampTrust from './_children/stamp-trust'
 import {
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
+  STAMP_TRUST,
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 
@@ -79,6 +81,7 @@ const StoryContentsLite = () => {
     siteProperties: {
       ids: { opta },
       isDfp = false,
+      siteUrl,
     },
   } = useFusionContext()
 
@@ -344,6 +347,18 @@ const StoryContentsLite = () => {
                     <StoryContentsChildCorrection
                       content={contentCorrectionConfig}
                       isAmp={false}
+                    />
+                  )
+                }
+
+                if (type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST) {
+                  const { config: { url: urlConfig = '' } = {} } =
+                    customEmbed || {}
+                  return (
+                    <StoryContentsChildStampTrust
+                      url={urlConfig}
+                      isAmp={false}
+                      siteUrl={siteUrl}
                     />
                   )
                 }

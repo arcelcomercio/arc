@@ -46,6 +46,7 @@ content_elements {
       image_recipe
       customBlockType
       customBlockContent
+      url
     }
   }
   raw_oembed{

@@ -16,6 +16,7 @@ import StoryContentChildTags from './_children/tags'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
+import StoryContentsChildStampTrust from './_children/stamp-trust'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { formatHtmlToText } from '../../../utilities/parse/strings'
@@ -55,7 +56,10 @@ import {
   ampHtml,
 } from '../../../utilities/story/helpers-amp'
 import { getResizedUrl } from '../../../utilities/resizer'
-import { STORY_CORRECTION } from '../../../utilities/constants/subtypes'
+import {
+  STORY_CORRECTION,
+  STAMP_TRUST,
+} from '../../../utilities/constants/subtypes'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -284,6 +288,19 @@ class StoryContentAmp extends PureComponent {
                       />
                     )
                   }
+
+                  if (sub === STAMP_TRUST) {
+                    const { config: { url: urlConfig = '' } = {} } =
+                      customEmbed || {}
+                    return (
+                      <StoryContentsChildStampTrust
+                        url={urlConfig}
+                        isAmp
+                        siteUrl={siteUrl}
+                      />
+                    )
+                  }
+
                   if (sub === 'image_link') {
                     const { config: customEmbedConfig = {} } = customEmbed || {}
                     return (
