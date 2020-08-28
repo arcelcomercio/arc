@@ -15,7 +15,7 @@ import { NavigateProvider } from '../_context/navigate'
 import addScriptAsync from '../_dependencies/Async'
 import stylesPayment from '../_styles/Payment'
 import PropertiesSite from '../_dependencies/Properties'
-import { clearUrlAPI } from '../_dependencies/Utils'
+import { clearUrlAPI, createExternalScript } from '../_dependencies/Utils'
 import scriptsPayment from '../_scripts/Payment'
 import PWA from '../_dependencies/Pwa'
 import {
@@ -88,6 +88,7 @@ const WrapperPaymentSubs = () => {
     }
 
     clearUrlAPI(urls.landingUrl[arcEnv])
+    createExternalScript(scriptsPayment, true)
   }, [])
 
   return (
@@ -103,20 +104,20 @@ const WrapperPaymentSubs = () => {
             {!userLoading && (
               <PanelLeft>
                 {freeAccess ? (
-                  <Confirmation {...{ arcSite, arcEnv }} />
+                  <Confirmation {...{ arcEnv }} />
                 ) : (
                   <>
                     {(() => {
                       // prettier-ignore
                       switch (userStep) {
                       case 2:
-                        return userLoaded ? <Profile {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}} />
+                        return userLoaded ? <Profile {...{arcEnv}} /> : <Singwall {...{arcEnv}} />
                       case 3:
-                        return userLoaded ? <Pay {...{arcSite, arcEnv}}/> : <Singwall {...{arcSite, arcEnv}} />
+                        return userLoaded ? <Pay {...{arcEnv}}/> : <Singwall {...{arcEnv}} />
                       case 4:
-                        return userLoaded ? <Confirmation {...{arcEnv}} /> : <Singwall {...{arcSite, arcEnv}}/>
+                        return userLoaded ? <Confirmation {...{arcEnv}} /> : <Singwall {...{arcEnv}}/>
                       default:
-                        return <Singwall {...{arcSite, arcEnv}} />
+                        return <Singwall {...{arcEnv}} />
                     }
                     })()}
                   </>
@@ -132,12 +133,12 @@ const WrapperPaymentSubs = () => {
       {!freeAccess && <FooterSubs {...{ arcEnv }} />}
       <FooterLand {...{ arcSite, arcEnv, arcType }} />
 
-      <script
+      {/* <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: scriptsPayment,
         }}
-      />
+      /> */}
     </>
   )
 }

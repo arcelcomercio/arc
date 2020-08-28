@@ -254,6 +254,14 @@ const Profile = ({ arcEnv }) => {
       num_items: 1,
       value: amount,
     })
+    console.log({
+      content_category: namePlanApi,
+      content_ids: [priceCode],
+      contents: [{ id: priceCode, quantity: 1 }],
+      currency: 'PEN',
+      num_items: 1,
+      value: amount,
+    })
     window.dataLayer.push({
       event: 'checkout',
       ecommerce: {

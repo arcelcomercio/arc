@@ -51,7 +51,21 @@ const Singwall = ({ arcEnv }) => {
         // eslint-disable-next-line no-nested-ternary
         surface: fromFia ? 'fia' : isFbBrowser ? 'mWeb' : 'nonApp',
       })
+
+      console.log({
+        // eslint-disable-next-line no-nested-ternary
+        surface: fromFia ? 'fia' : isFbBrowser ? 'mWeb' : 'nonApp',
+      })
+
       window.fbq('track', 'ViewContent', {
+        content_category: plans[0].productName,
+        content_ids: [plans[0].sku],
+        contents: [{ id: plans[0].sku, quantity: 1 }],
+        currency: 'PEN',
+        num_items: 1,
+      })
+
+      console.log({
         content_category: plans[0].productName,
         content_ids: [plans[0].sku],
         contents: [{ id: plans[0].sku, quantity: 1 }],

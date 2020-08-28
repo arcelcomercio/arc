@@ -178,6 +178,15 @@ const Confirmation = ({ arcEnv }) => {
           num_items: 1,
           value: amount,
         })
+        console.log({
+          content_name: productName,
+          content_ids: [sku],
+          content_type: productName,
+          contents: [{ id: sku, quantity: 1 }],
+          currency: 'PEN',
+          num_items: 1,
+          value: amount,
+        })
       } else {
         updateStep(2)
         if (divStep) divStep.classList.remove('bg-white')

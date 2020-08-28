@@ -71,7 +71,9 @@ const HeaderSubs = ({ userProfile, arcSite, arcEnv }) => {
           <button
             className={styles.button}
             onClick={() => {
-              if (!PWA.isPWA) handleSignwall()
+              if (!PWA.isPWA()) {
+                handleSignwall()
+              }
             }}
             type="button">
             <span>Hola</span> {userLoaded ? formatName() : 'Invitado'}
