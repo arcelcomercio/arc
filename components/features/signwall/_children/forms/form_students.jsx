@@ -79,7 +79,7 @@ const FormCode = ({ arcSite, showRequest }) => {
                 window.location.href =
                   ENV.ENVIRONMENT === 'elcomercio'
                     ? `/suscripcionesdigitales/DNI/00000000/${resCode.token}/`
-                    : `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=paywall`
+                    : `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=subscriptions`
               }, 1000)
             } else {
               setShowLoading(false)

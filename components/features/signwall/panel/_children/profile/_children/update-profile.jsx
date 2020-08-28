@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 /* eslint-disable react/no-string-refs */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -183,6 +184,7 @@ class UpdateProfile extends Component {
         return prev
       }, [])
     }
+    return null
   }
 
   handleUpdateProfile = () => {
@@ -198,7 +200,7 @@ class UpdateProfile extends Component {
       ...restState
     } = this.state
 
-    let profile = {
+    const profile = {
       firstName,
       lastName,
       secondLastName,
@@ -212,10 +214,18 @@ class UpdateProfile extends Component {
       ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
       ...this._backup_attributes,
     ].map(attribute => {
-      if (attribute.name === 'originReferer') {
+      if (attribute.name === 'originReferer' && attribute.value) {
         return {
           ...attribute,
-          value: attribute.value.split('&')[0].replace(/(\/#|#|\/)$/, ''),
+          value: attribute.value
+            .split('&')[0]
+            .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, ''),
+        }
+      }
+      if (!attribute.value) {
+        return {
+          ...attribute,
+          value: 'undefined',
         }
       }
       return attribute
@@ -662,6 +672,7 @@ class UpdateProfile extends Component {
                   <a
                     href="#"
                     onClick={e => {
+                      e.preventDefault()
                       this.onLogout(e)
                     }}>
                     Clic Aquí

@@ -30,6 +30,11 @@ export const FormLoginPaywall = props => {
   const [showLoading, setShowLoading] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
 
+  const isFbBrowser =
+    typeof window !== 'undefined' &&
+    (window.navigator.userAgent.indexOf('FBAN') > -1 ||
+      window.navigator.userAgent.indexOf('FBAV') > -1)
+
   const stateSchema = {
     lemail: { value: '', error: '' },
     lpass: { value: '', error: '' },
@@ -132,10 +137,10 @@ export const FormLoginPaywall = props => {
                 Ingresa con tus redes sociales
               </S.Text>
 
-              {authProviders.map(item => (
+              {isFbBrowser ? (
                 <ButtonSocial
-                  brand={item}
-                  size={sizeBtnSocial}
+                  brand="facebook"
+                  size="full"
                   onLogged={onLogged}
                   onClose={onClose}
                   typeDialog={typeDialog}
@@ -144,7 +149,23 @@ export const FormLoginPaywall = props => {
                   typeForm="login"
                   activeNewsletter={activeNewsletter}
                 />
-              ))}
+              ) : (
+                <>
+                  {authProviders.map(item => (
+                    <ButtonSocial
+                      brand={item}
+                      size={sizeBtnSocial}
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="login"
+                      activeNewsletter={activeNewsletter}
+                    />
+                  ))}
+                </>
+              )}
 
               <AuthURL
                 arcSite={arcSite}
