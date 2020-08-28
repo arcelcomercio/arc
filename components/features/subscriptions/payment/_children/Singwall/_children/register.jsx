@@ -17,6 +17,7 @@ const styles = {
   blockMiddle: 'step__left-block-middle',
   titleLine: 'step__left-title-line',
   block: 'step__left-block',
+  blockFull: 'step__left-block-full',
   btn: 'step__left-btn-next',
   link: 'step__btn-link',
   backLogin: 'step__left-link-register',

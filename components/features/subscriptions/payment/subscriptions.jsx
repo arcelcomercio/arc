@@ -101,9 +101,12 @@ const WrapperPaymentSubs = () => {
       <HeaderSubs {...{ userProfile, arcSite, arcEnv }} />
       <Container>
         <NavigateProvider>
-          {userLoaded && userProfile && userStep === 2 && (
-            <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
-          )}
+          {userLoading === false &&
+            userLoaded &&
+            userProfile &&
+            userStep === 2 && (
+              <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
+            )}
           <Wrapper>
             {!userLoading && (
               <PanelLeft>
