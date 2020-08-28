@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useContent } from 'fusion:content'
-import ENV from 'fusion:environment'
 
 import { VIDEO } from '../../../../utilities/constants/multimedia-types'
 import PlayList from './play-list'
@@ -8,6 +6,7 @@ import VideoBar from './video-navbar'
 import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 // import { getResultVideo } from '../../../../utilities/story/helpers'
+import PowaPlayer from '../../../../global-components/powa-player'
 
 /**
  *
@@ -52,14 +51,6 @@ export default ({
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
   const { urlPreroll } = siteProperties
-  const { resized_urls: { videoPosterM, videoPosterD } = {} } =
-    useContent({
-      source: 'photo-resizer',
-      query: {
-        url: principalVideo.image,
-        presets: 'videoPosterM:440x0,videoPosterD:560x0',
-      },
-    }) || {}
 
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
@@ -68,44 +59,6 @@ export default ({
       setHidden(false)
     } else {
       setHidden(!isDesktop)
-    }
-
-    if (window.powaBoot) {
-      window.powaBoot()
-    }
-
-    if (window.PoWaSettings) {
-      window.preroll = urlPreroll
-      window.PoWaSettings.advertising = {
-        adBar: false,
-        adTag: () => (principalVideo.hasAdsVideo ? urlPreroll : ''),
-      }
-      window.PoWaSettings.promo = {
-        style: {
-          '.powa-shot-image': {
-            backgroundImage: `url('${
-              window.innerWidth <= 480
-                ? videoPosterM
-                : videoPosterD || principalVideo.image
-            }')`,
-            backgroundSize: 'contain',
-          },
-          '.powa-shot-play-btn': {
-            color: 'rgb(240, 248, 255)',
-            fill: 'rgb(240, 248, 255)',
-            backgroundColor: 'rgba(0, 0, 0, 0.25)',
-            boxShadow: '0 0 10px 5px rgba(0, 0, 0, 0.25)',
-            transition: 'all 0.25s',
-            borderRadius: '2em',
-          },
-          '.powa-shot-play-icon': {
-            opacity: '0.85',
-          },
-          '.powa-shot-loading-icon': {
-            opacity: '0.85',
-          },
-        },
-      }
     }
 
     if (window.innerWidth < 640) {
@@ -150,20 +103,7 @@ export default ({
         })
       }
     }
-  }, [arcSite, isAdmin, principalVideo.hasAdsVideo, urlPreroll, siteProperties])
-
-  /* const formateDay = () => {
-    const _date = new Date(principalVideo.displayDate)
-    const day = _date.getDate()
-    const month = _date.getMonth()
-    const year = _date.getFullYear()
-    const hora = _date.getHours()
-    const minutes = _date.getMinutes()
-    return {
-      fecha: `${day}.${month + 1}.${year}`,
-      hora: `${hora}:${minutes}`,
-    }
-  } */
+  }, [arcSite, isAdmin])
 
   const {
     social: {
@@ -183,8 +123,6 @@ export default ({
     popUpWindow(urlsShareList[origin], '', 600, 400)
   }
 
-  // const { fecha } = formateDay()
-
   const fecha = formatDayMonthYear(principalVideo.displayDate, true, false)
 
   const playListParams = {
@@ -194,17 +132,15 @@ export default ({
     deployment,
   }
 
-  let htmlVideo
-
+  let uuid
+  let stream
   if (principalVideo.video && principalVideo.promoItemsType === VIDEO) {
     const arrayMatch = principalVideo.video.match(/"powa-([\w\d-]+)"/)
-    const idVideoPwa = arrayMatch.length > 0 ? arrayMatch[1] : ''
-    const env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-
-    htmlVideo = `<div class="powa" id="powa-${idVideoPwa}" data-sticky=true data-org="elcomercio" data-env="${env}" data-stream="${getResultVideo(
+    uuid = arrayMatch.length > 0 ? arrayMatch[1] : ''
+    stream = getResultVideo(
       principalVideo && principalVideo.videoStreams,
       arcSite
-    )}" data-uuid="${idVideoPwa}" data-aspect-ratio="0.562" data-api="${env}" data-preload=none ></div>`
+    )
   }
 
   return (
@@ -223,11 +159,13 @@ export default ({
                         ? principalVideo.videoDuration
                         : ''
                     }
-                    className="w-full h-full"
-                    dangerouslySetInnerHTML={{
-                      __html: htmlVideo,
-                    }}
-                  />
+                    className="w-full h-full">
+                    <PowaPlayer
+                      uuid={uuid}
+                      stream={stream}
+                      image={principalVideo.image}
+                    />
+                  </div>
                 </div>
               ) : (
                 <div className="section-video__frame">
@@ -236,20 +174,11 @@ export default ({
                     src={`https://www.youtube.com/embed/${principalVideo.video}`}
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullscreen
+                    allowFullScreen
                     title="Video"
                   />
                 </div>
               )}
-
-              {/* <iframe
-                title="video"
-                className="section-video__frame"
-                src="https://www.youtube.com/embed/60ItHLz5WEA"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              /> */}
             </div>
             <div className="section-video__right">
               <div className="section-video__information">

@@ -23,7 +23,7 @@ import AppNexus from './_children/appnexus'
 import VallaHtml from './_children/valla-html'
 import MetaStory from './_children/meta-story'
 
-import videoScript from './_dependencies/lite/video-script'
+import videoScript from './_dependencies/video-script'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
@@ -371,13 +371,6 @@ const LiteOutput = ({
 
         {/* Scripts de Chartbeat */}
         <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
-        {contenidoVideo && (
-          <>
-            <script
-              src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
-              defer></script>
-          </>
-        )}
         {isPremium && arcSite === SITE_ELCOMERCIO && (
           <>
             <Libs></Libs>
@@ -442,7 +435,6 @@ const LiteOutput = ({
           <>
             <script
               type="text/javascript"
-              defer
               dangerouslySetInnerHTML={{ __html: widgets }}
             />
           </>
@@ -450,9 +442,17 @@ const LiteOutput = ({
         {contenidoVideo && (
           <>
             <script
+              defer
+              src={deployment(`${contextPath}/resources/assets/js/powaSettings.min.js`)}
+            />
+            <script
+              src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
+              defer
+            />
+            <script
               type="text/javascript"
               dangerouslySetInnerHTML={{
-                __html: videoScript(CURRENT_ENVIRONMENT),
+                __html: videoScript,
               }}
             />
           </>
@@ -460,7 +460,7 @@ const LiteOutput = ({
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: iframeScript(),
+            __html: iframeScript,
           }}
         />
         <script

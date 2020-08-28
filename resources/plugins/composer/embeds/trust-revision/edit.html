@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Revisión - Edit Trust Project</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Item -->
+      <div class="col-md-12" id="%item_id%">
+        <div class="card mb-4 box-shadow" style="flex-direction: row;"
+          id="content_card">
+          <div class="card-body">
+            <strong>Revisión de Nota</strong> <br>
+            <p class="card-text text-muted">
+              Tipo de evento: %type_event%
+            </p>
+            <p class="card-text text-muted">
+              Nombre: %name%
+            </p>
+            <p class="card-text text-muted">
+              Nombre del lugar: %location_name%
+            </p>
+            <p class="card-text text-muted">
+              Dirección del lugar: %location_address%
+            </p>
+            <p class="card-text text-muted">
+              Fecha de inicio: %start_date%
+            </p>
+
+            <div id="SoftwareApplication-view" class="container-el-view" hidden>
+              <p class="card-text text-muted">
+                Categoría de software: %category_software%
+              </p>
+              <p class="card-text text-muted">
+                Sistema operativo: %so_software%
+              </p>
+            </div>
+            <div id="Book-view" class="container-el-view" hidden>
+              <p class="card-text text-muted">
+                Autor: %author_book%
+              </p>
+              <p class="card-text text-muted">
+                ISBN: %isbn_book%
+              </p>
+              <p class="card-text text-muted">
+                Url: %url_book%
+              </p>
+            </div>
+            <div id="LocalBusiness-view" class="container-el-view" hidden>
+              <p class="card-text text-muted">
+                Url de imagen: %image_local%
+              </p>
+            </div>
+            <div id="Movie-view" class="container-el-view" hidden>
+              <p class="card-text text-muted">
+                Url's relacionados: %sameas_movie%
+              </p>
+              <p class="card-text text-muted">
+                Url de imagen: %image_movie%
+              </p>
+              <p class="card-text text-muted">
+                Descripción: %description_movie%
+              </p>
+            </div>
+            <div id="Product-view" class="container-el-view" hidden>
+              <p class="card-text text-muted">
+                Nombre de la review: %review_product%
+              </p>
+              <p class="card-text text-muted">
+                Autor de la review: %author_product%
+              </p>
+            </div>
+            </div>
+            <div id="Recipe-view" class="container-el-view" hidden>
+              <p class="card-text text-muted">
+                Url de imagen: %image_recipe%
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <main role="main">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="content_holder">
+            Cargando...
+          </div>
+
+          <!-- Edit Form -->
+          <div class="row" id="config_edit">
+            <div class="col-md-12">
+              <label class="w-100" for="type_event"><span>Tipo de evento</span>
+                <select class="w-100" onchange="changeTypeEvent(event, this)" name="type_event" id="type_event">
+                  <option value="">--- Seleccione ---</option>
+                  <option value="SoftwareApplication">Aplicación de software</option>
+                  <option value="Course">Curso</option>
+                  <option value="Episode">Episodio de (TV, Radio, videojuegos)</option>
+                  <option value="CreativeWorkSeason">Estación Multimedia (Tv, Radio, etc.)</option>
+                  <option value="Event">Evento</option>
+                  <!--<option value="HowTo">Instrucciones que explican como conseguir un resultado, sequencia de pasos</option>-->
+                  <option value="Game">Juego</option>
+                  <option value="Book">Libro</option>
+                  <option value="LocalBusiness">Local físico de un negocio u oficina de una organización</option>
+                  <option value="MediaObject">Objeto Multimedia embebido en una página web</option>
+                  <option value="Organization">Organización empresarial o corporativa</option>
+                  <option value="Movie">Película</option>
+                  <option value="MusicPlaylist">Playlist de música</option>
+                  <option value="Product">Producto o Servicio (Zapatos, Ticket de concierto, renta de vehículos o un episodio de un show de Tv online)</option>
+                  <option value="Recipe">Receta</option>
+                  <option value="CreativeWorkSeries">Series de Tv, Series de Radio, Series literatias, Series de película, Periodicos y Series de videojuegos</option>
+                  <option value="MusicRecording">Single musical, Track</option>
+                </select>
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label class="w-100" for="name"><span>Nombre</span>
+                <input class="w-100" id="name" name="name" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label class="w-100" for="location_name"><span>Nombre del lugar</span>
+                <input class="w-100" id="location_name" name="location_name" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label class="w-100" for="location_address"><span>Dirección del lugar</span>
+                <input class="w-100" id="location_address" name="location_address" type="textfield" value="" />
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label class="w-100" for="start_date"><span>Fecha de inicio</span>
+                <input class="w-100" onkeydown=" return rgxDateChange(event)" onchange="dateValidate(this)" maxlength="10" id="start_date" name="start_date" type="textfield" value="" />
+              </label>
+            </div>
+
+            <div id="SoftwareApplication" class="container-el col-md-12" hidden>
+              <label class="w-100" for="category_software">Categoría:
+                <input class="w-100" type="textfield" id="category_software" name="category_software" />
+              </label>
+              <label class="w-100" for="so_software">Sistema operativo:
+                <input class="w-100" type="textfield" id="so_software" name="so_software" />
+              </label>
+            </div>
+            <div id="Book" class="container-el col-md-12" hidden>
+              <label class="w-100" for="author_book">Autor:
+                <input class="w-100" type="textfield" id="author_book" name="author_book" />
+              </label>
+              <label class="w-100" for="isbn_book">ISBN:
+                <input class="w-100" type="textfield" id="isbn_book" name="isbn_book" />
+              </label>
+              <label class="w-100" for="url_book">Url:
+                <input class="w-100" type="textfield" id="url_book" name="url_book" />
+              </label>
+            </div>
+            <div id="LocalBusiness" class="container-el col-md-12" hidden>
+              <label class="w-100" for="image_local">Url de imagen:
+                <input class="w-100" type="textfield" id="image_local" name="image_local" />
+              </label>
+            </div>
+            <div id="Movie" class="container-el col-md-12" hidden>
+              <label class="w-100" for="sameas_movie">Url's relacionados (separados por comas):
+                <input class="w-100" type="textfield" id="sameas_movie" name="sameas_movie" placeholder="Ej: https://elcomercio.pe/noticias, https://google.com.pe/" />
+              </label>
+              <label class="w-100" for="image_movie">Url de imagen:
+                <input class="w-100" type="textfield" id="image_movie" name="image_movie" />
+              </label>
+              <label class="w-100" for="description_movie">Descripción:
+                <input class="w-100" type="textfield" id="description_movie" name="description_movie" />
+              </label>
+            </div>
+            <div id="Product" class="container-el col-md-12" hidden>
+              <label class="w-100" for="review_product">Nombre de la review:
+                <input class="w-100" type="textfield" id="review_product" name="review_product" />
+              </label>           
+              <label class="w-100" for="author_product">Autor de la review:
+                <input class="w-100" type="textfield" id="author_product" name="author_product" />
+              </label>
+            </div>
+            <div id="Recipe" class="container-el col-md-12" hidden>
+              <label class="w-100" for="image_recipe">Url de imagen:
+                <input class="w-100" type="textfield" id="image_recipe" name="image_recipe" />
+              </label>
+            </div>
+
+            <div class="col-md-12 p-3">
+              <button type="button" class="btn btn-primary" id="btn_apply">
+                Aceptar
+              </button>
+              <button type="button" class="btn btn-light mx-1" id="btn_cancel">
+                Cerrar
+              </button>
+            </div>
+
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script>
+    const sendMessage = function(action, data) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: 'custom_embed',
+          action,
+          data,
+          key: parseQueryString()['k']
+        }),
+        '*'
+      )
+    }
+
+    const parseQueryString = function() {
+      const params = location.search.split('?')[1] || ''
+      const kv = params.split('&')
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split('=')
+        return Object.assign(result, {
+          [key]: value
+        })
+      }, {})
+    }
+
+    const getSelectIndex = function(selectTag, value) {
+      const opts = selectTag.options;
+      for (let opt, index = 0; opt = opts[index]; index++) {
+        if (opt.value === value) {
+          return index;
+          break;
+        }
+      }
+      return 0;
+    }
+
+    const rgxDateChange = (ev) => {
+      const chars = /[0-9-]$/;
+      if(!ev.key.match(chars) && ev.key !== 'Backspace'){
+        return false
+      }
+      return true
+    }
+
+    const rgxDateValidate = (inputEl) => {
+      const date = /^\(?([0-9]{4})\)?[-]?([01]{1}[0-9]{1})[-]?([0-3]{1}[0-9]{1})$/;
+      if(!inputEl.value.match(date)){
+        return false
+      }
+      return true
+    }
+
+    const dateValidate = (inputEl) => {
+      if(!rgxDateValidate(inputEl)){
+        inputEl.classList.add('border');
+        inputEl.classList.add('border-danger');
+      }else{
+        inputEl.classList.remove('border-danger');
+        inputEl.classList.remove('border');
+      }
+    }
+
+    const CONTAINERS = 'container-el';
+
+    const showElements = (id, box) => {
+      const containers = document.getElementsByClassName(box);
+      Array.from(containers).forEach(el => {
+        el.setAttribute('hidden', '');
+      });
+      const container =  document.getElementById(id);
+      (container && container.removeAttribute('hidden'));
+    }
+
+    const changeTypeEvent = (ev, el) => {
+      showElements(el.value)
+    }
+
+     let data = {}      // ANS custom embed response
+     // let content = {}   // The fetched content from external data source
+
+     // -------------------------------------------------
+
+
+
+    // Render the content data and contextual configuration together
+    const render = (dataParams) => {
+
+      // Setup Element Preview
+      const config = dataParams.config || {}
+      const template = document.getElementById('content_template').innerHTML
+      const html = template
+        .replace(/%item_id%/gi, 'row-' + config.id)
+        .replace(/%type_event%/gi, config.type_event)
+        .replace(/%name%/gi, config.name)
+        .replace(/%location_name%/gi, config.location_name)
+        .replace(/%location_address%/gi, config.location_address)
+        .replace(/%start_date%/gi, config.start_date)
+        .replace(/%category_software%/gi, config.category_software)
+        .replace(/%so_software%/gi, config.so_software)
+        .replace(/%author_book%/gi, config.author_book)
+        .replace(/%isbn_book%/gi, config.isbn_book)
+        .replace(/%url_book%/gi, config.url_book)
+        .replace(/%image_local%/gi, config.image_local)
+        .replace(/%sameas_movie%/gi, config.sameas_movie)
+        .replace(/%image_movie%/gi, config.image_movie)
+        .replace(/%description_movie%/gi, config.description_movie)
+        .replace(/%review_product%/gi, config.review_product)
+        .replace(/%author_product%/gi, config.author_product)
+        .replace(/%image_recipe%/gi, config.image_recipe)
+        .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
+
+      const element = document.createElement('div')
+      document.getElementById('content_holder').innerHTML = ''
+      document.getElementById('content_holder').appendChild(element)
+      element.outerHTML = html
+
+      showElements(config.type_event, CONTAINERS);
+      showElements(config.type_event+'-view', CONTAINERS + '-view');
+
+      // Update form state
+      const selectTypeEvent = document.getElementById('type_event');
+      selectTypeEvent.selectedIndex = getSelectIndex(selectTypeEvent, (config.type_event || ""));
+      document.getElementById('name').value = (config.name || "")
+      document.getElementById('location_name').value = (config.location_name || "")
+      document.getElementById('location_address').value = (config.location_address || "")
+      document.getElementById('start_date').value = (config.start_date || "")
+      document.getElementById('category_software').value = (config.category_software || "")
+      document.getElementById('so_software').value = (config.so_software || "")
+      document.getElementById('author_book').value = (config.author_book || "")
+      document.getElementById('isbn_book').value = (config.isbn_book || "")
+      document.getElementById('url_book').value = (config.url_book || "")
+      document.getElementById('image_local').value = (config.image_local || "")
+      document.getElementById('sameas_movie').value = (config.sameas_movie || "")
+      document.getElementById('image_movie').value = (config.image_movie || "")
+      document.getElementById('description_movie').value = (config.description_movie || "")
+      document.getElementById('review_product').value = (config.review_product || "")
+      document.getElementById('author_product').value = (config.author_product || "")
+      document.getElementById('image_recipe').value = (config.image_recipe || "")
+    }
+
+    const getYYYYMMDDfromISO = date =>
+      date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+
+    const getActualDate = () => {
+      const today = new Date()
+      today.setHours(today.getHours() - 5)
+      return getYYYYMMDDfromISO(today)
+    }
+
+     // Update config based on form changes, submit back to Composer and re-render
+    const applyChanges = () => {
+      const selectTypeEvent = document.getElementById('type_event');
+      data.config.type_event = selectTypeEvent.options[selectTypeEvent.selectedIndex].value
+      data.config.name = document.getElementById('name').value
+      data.config.location_name = document.getElementById('location_name').value
+      data.config.location_address = document.getElementById('location_address').value
+      const startDateEl = document.getElementById('start_date')
+      data.config.start_date = startDateEl.value
+
+      data.config.category_software = '';
+      data.config.so_software = '';
+      data.config.author_book = '';
+      data.config.isbn_book = '';
+      data.config.url_book = '';
+      data.config.image_local = '';
+      data.config.sameas_movie = '';
+      data.config.image_movie = '';
+      data.config.description_movie = '';
+      data.config.review_product = '';
+      data.config.author_product = '';
+      data.config.image_recipe = '';
+      switch (data.config.type_event) {
+        case 'SoftwareApplication':
+          data.config.category_software = document.getElementById('category_software').value;
+          data.config.so_software = document.getElementById('so_software').value;
+          break;
+        case 'Book':
+          data.config.author_book = document.getElementById('author_book').value;
+          data.config.isbn_book = document.getElementById('isbn_book').value;
+          data.config.url_book = document.getElementById('url_book').value;
+          break;
+        case 'LocalBusiness':
+          data.config.image_local = document.getElementById('image_local').value;
+          break;
+        case 'Movie':
+          data.config.sameas_movie = document.getElementById('sameas_movie').value;
+          data.config.image_movie = document.getElementById('image_movie').value;
+          data.config.description_movie = document.getElementById('description_movie').value;
+          break;
+        case 'Product':
+          data.config.review_product = document.getElementById('review_product').value;
+          data.config.author_product = document.getElementById('author_product').value;
+          break;
+        case 'Recipe':
+          data.config.image_recipe = document.getElementById('image_recipe').value;
+          break;
+        default:
+          break;
+      }
+
+
+      if(rgxDateValidate(startDateEl)){
+        // Update Composer and re-render form
+        sendMessage('data', data)
+        render(data)
+      }
+
+    }
+
+     // -------------------------------------------------
+
+    const dismissEditor = () => {
+      sendMessage('cancel')
+    }
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+      data = JSON.parse(decodeURIComponent(parameters.p))
+      render(data)
+      document.getElementById('btn_apply').onclick = applyChanges
+      document.getElementById('btn_cancel').onclick = dismissEditor
+    }
+    </script>
+  </body>
+</html>

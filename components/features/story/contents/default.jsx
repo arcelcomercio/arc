@@ -259,7 +259,7 @@ class StoryContents extends PureComponent {
                             {...element}
                             className={classes.newsImage}
                             description={captionVideo}
-                            contentElemtent="true"
+                            contentElemtent
                           />
                         ) : (
                           <StoryContentsChildVideoNativo

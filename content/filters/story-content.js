@@ -27,6 +27,23 @@ content_elements {
       countReviews
       content
       date
+      type_event
+      name
+      location_name
+      location_address
+      start_date
+      category_software
+      so_software
+      author_book
+      isbn_book
+      url_book
+      image_local
+      sameas_movie
+      image_movie
+      description_movie
+      review_product
+      author_product
+      image_recipe
       customBlockType
       customBlockContent
     }

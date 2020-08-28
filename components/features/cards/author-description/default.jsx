@@ -2,30 +2,17 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import AuthorBiography from './_children/author_biography'
 
-const classes = {
-  title: 'w-full mt-20 custom-title',
-  button:
-    'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200',
-  darkButton:
-    'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-white border-solid p-10 text-white',
-}
-
 const AuthorDescription = () => {
-  const { globalContent } = useFusionContext()
+  const { globalContent, arcSite, deployment, contextPath } = useFusionContext()
 
-  const { author } = globalContent || {}
+  const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
 
-  return (
-    <>
-      <h1
-        itemProp="name"
-        suppressContentEditableWarning
-        className={`${classes.title} text-left uppercase medium`}>
-        {author.byline}
-      </h1>
-      <AuthorBiography {...author} />
-    </>
-  )
+  const { author = {} } = globalContent || {}
+  author.resized_urls.image_xs =
+    (author.resized_urls && author.resized_urls.image_xs) ||
+    deployment(logoAuthor)
+
+  return <AuthorBiography {...author} />
 }
 
 AuthorDescription.label = 'Autor - Descripción'
