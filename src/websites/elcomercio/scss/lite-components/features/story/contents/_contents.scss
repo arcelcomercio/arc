@@ -435,6 +435,53 @@
       font-size: 0.9rem;
     }
   }
+
+  &__stamp-trust {
+    background: #f3f3f3;
+    margin: 20px auto;
+    text-align: right;
+    width: 100%;
+    @media (--only-mobile) {
+      text-align: center;
+    }
+
+    &__box-left {
+      display: inline-block;
+      float: left;
+      height: 55px;
+      vertical-align: middle;
+      @media (--only-mobile) {
+        float: none;
+        height: auto;
+        margin-bottom: 10px;
+      }
+
+      & p {
+        display: inline-block;
+        margin: 20px 5px;
+        vertical-align: middle;
+      }
+
+      & img {
+        display: inline-block;
+        margin: 0 5px;
+        max-width: 150px;
+        vertical-align: middle;
+      }
+    }
+
+    & a {
+      background: #ededed;
+      color: #2e6d9d;
+      display: inline-block;
+      font: 14px/15px "arial";
+      padding: 20px;
+      vertical-align: middle;
+      @media (--only-mobile) {
+        width: 100%;
+      }
+    }
+  }
 }
 .overflow-hidden {
   overflow: hidden;

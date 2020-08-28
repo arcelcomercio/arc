@@ -19,7 +19,7 @@ import {
 } from '../../utilities/constants/sitenames'
 import { getResizedUrl } from '../../utilities/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
-import workType from '../_dependencies/work-type'
+import workType, { revisionAttr } from '../_dependencies/work-type'
 
 export default ({
   globalContent: data,
@@ -43,7 +43,7 @@ export default ({
     authorImage,
     author: authorName,
     role: authorRole,
-    locality, 
+    locality,
     authorEmail,
     imagePrimarySeo,
     primarySection,
@@ -53,6 +53,7 @@ export default ({
     contentElementsLinks = [],
     contentElementsHtml = [],
     contentElementsCorrectionList = [],
+    firstContentElementsRevision = {},
     seoKeywords,
     breadcrumbList,
     multimediaType,
@@ -285,15 +286,17 @@ export default ({
     `  "video":[ ${redSocialVideo.concat(videoSeoItems)} ],` || ''
 
   let citationStructuredItems = ''
-  contentElementsLinks.forEach(url => {
-    citationStructuredItems += `{
-      "@type": "CreativeWork",
-      "url": "${url}"
-    },`
-  })
+  if (arcSite === SITE_ELCOMERCIO) {
+    contentElementsLinks.forEach(url => {
+      citationStructuredItems += `{
+        "@type": "CreativeWork",
+        "url": "${url}"
+      },`
+    })
+  }
 
   const citationStructured =
-    contentElementsLinks.length > 0
+    arcSite === SITE_ELCOMERCIO && contentElementsLinks.length > 0
       ? `"citation":[${citationStructuredItems.substring(
           0,
           citationStructuredItems.length - 1
@@ -344,8 +347,17 @@ export default ({
 
   const { label: { trustproject = {} } = {} } = data || {}
   const trustType = workType(trustproject) || '"NewsArticle"'
+  const {
+    embed: { config: configRevision = {} } = {},
+  } = firstContentElementsRevision
+  const revisionWorkType = revisionAttr(trustproject, configRevision) || ''
 
-  const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, "datePublished":"${publishDateZone}",
+  let publishingPrinciples = ''
+  if (arcSite === SITE_ELCOMERCIO) {
+    publishingPrinciples = `"publishingPrinciples": "${siteUrl}/buenas-practicas/",`
+  }
+
+  const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_DEPOR ||
@@ -359,7 +371,7 @@ export default ({
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",
-    "publishingPrinciples": "${siteUrl}/buenas-practicas/",
+    ${publishingPrinciples}
   ${bodyStructured}
   ${correctionStructured}
   ${citationStructured}

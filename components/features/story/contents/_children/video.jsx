@@ -1,8 +1,7 @@
 import React from 'react'
-import ENV from 'fusion:environment'
-import { useFusionContext } from 'fusion:context'
-import { msToTime } from '../../../../utilities/date-time/time'
-import { getResultVideo } from '../../../../utilities/story/helpers'
+import { useAppContext } from 'fusion:context'
+// import { getResultVideo } from '../../../../utilities/story/helpers'
+import PowaPlayer from '../../../../global-components/powa-player'
 
 /**
  *
@@ -13,7 +12,7 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
  *
  * y descomentar la siguiente funcion
  */
-/* const getResultVideo = (streams, arcSite, type = 'ts') => {
+const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
       return streamType === type ? url : []
@@ -22,7 +21,7 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
   const cantidadVideo = resultVideo.length
 
   return resultVideo[cantidadVideo - 1]
-} */
+}
 
 const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
@@ -30,19 +29,18 @@ const classes = {
 
 const StoryContentChildVideo = props => {
   const {
-    siteProperties: { urlPreroll },
+    siteProperties: { urlPreroll, siteDomain },
     globalContent,
     arcSite,
     metaValue,
-  } = useFusionContext()
+  } = useAppContext()
 
   const {
     promo_items: {
       basic_video: {
-        duration: durationOne = '',
-        _id: idPrincial,
+        _id: principalId,
         additional_properties: video = {},
-        //        promo_items: { basic: { url: urlImage = '' } = {} } = {},
+        promo_items: { basic: { url: urlImage = '' } = {} } = {},
         streams = [],
       } = {},
     } = {},
@@ -51,39 +49,29 @@ const StoryContentChildVideo = props => {
   const {
     _id: id,
     data = {},
-    // htmlContent = false,
     description = '',
-    // promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
+    promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
-    duration: durationTwo = '',
     additional_properties: videoContent = {},
-    // url: imagenMigrate = '',
+    url: imagenMigrate = '',
     contentElemtent = false,
-    reziserVideo = true,
   } = props
 
+  const lazy = contentElemtent
+  const imageUrl = contentElemtent ? urlImageContent : urlImage
   const videoData = videoContent.advertising || video.advertising
 
-  /* const imageUrl = contentElemtent ? urlImageContent : urlImage
-   const { large } =
-    getResizedUrl({
-      url: imageUrl || imagenMigrate,
-      presets: 'large:680x400',
-      arcSite,
-    }) || {} */
-
   const urlVideo = data
-
     .replace(
-      /https:\/\/elcomercio.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      /https:\/\/elcomercio.pe(\/uploads\/.+?\/.+?\/.+?\/.+?(?:jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.elcomercio.pe$1'
     )
     .replace(
-      /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      /https:\/\/trome.pe(\/uploads\/.+?\/.+?\/.+?\/.+?(?:jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.trome.pe$1'
     )
     .replace(
-      /https:\/\/gestion.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
+      /https:\/\/gestion.pe(\/uploads\/.+?\/.+?\/.+?\/.+?(?:jpeg|jpg|png|gif|mp4|mp3))/g,
       'https://img.gestion.pe$1'
     )
 
@@ -103,56 +91,10 @@ const StoryContentChildVideo = props => {
       taxonomy: { primary_section: { path: primarySection } = {} } = {},
     } = globalContent || {}
 
-    if (
-      arcSite === 'depor' ||
-      arcSite === 'elcomercio' ||
-      arcSite === 'elcomerciomag' ||
-      arcSite === 'peru21' ||
-      arcSite === 'gestion' ||
-      arcSite === 'peru21g21' ||
-      arcSite === 'diariocorreo' ||
-      arcSite === 'ojo' ||
-      arcSite === 'elbocon' ||
-      arcSite === 'trome'
-    ) {
+    if (arcSite) {
       const arcSiteNew = arcSite === 'peru21g21' ? 'peru21' : arcSite
-
-      let webSite = ''
-      switch (arcSite) {
-        case 'depor':
-          webSite = 'depor.com'
-          break
-        case 'elcomercio':
-          webSite = 'elcomercio.pe'
-          break
-        case 'elcomerciomag':
-          webSite = 'mag.elcomercio.pe'
-          break
-        case 'peru21':
-          webSite = 'peru21.pe'
-          break
-        case 'gestion':
-          webSite = 'gestion.pe'
-          break
-        case 'peru21g21':
-          webSite = 'peru21.pe'
-          break
-        case 'diariocorreo':
-          webSite = 'diariocorreo.pe'
-          break
-        case 'ojo':
-          webSite = 'ojo.pe'
-          break
-        case 'elbocon':
-          webSite = 'elbocon.pe'
-          break
-        case 'trome':
-          webSite = 'trome.pe'
-          break
-        default:
-          webSite = ''
-          break
-      }
+      const domain =
+        arcSite === 'elcomerciomag' ? `mag.${siteDomain}` : siteDomain
 
       let tipoplantilla = ''
       switch (metaValue('id')) {
@@ -173,7 +115,7 @@ const StoryContentChildVideo = props => {
         .split('-')
         .join(
           ''
-        )}/preroll&description_url=https%3A%2F%2F${webSite}%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug
+        )}/preroll&description_url=https%3A%2F%2F${domain}%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug
         .split('-')
         .join(
           ''
@@ -181,39 +123,30 @@ const StoryContentChildVideo = props => {
     }
     return urlPreroll
   }
-  const ids = id || idPrincial
-
   const uidArray = urlVideo.match(
     /data-uuid="(([0-9a-z-A-Z]*[0-9a-z-A-Z])\w+)"/
   )
+  const uuid = id || principalId || (uidArray && uidArray[1])
+
   const videoArray = urlVideo.match(
     /stream="((.*).(jpeg|jpg|png|gif|mp4|mp3))"/
   )
 
-  const dataTime =
-    durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const stream =
+    videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
 
   return (
     <>
-      <div
-        id="powa-default"
-        className="lazyload-video powa-default"
-        data-uuid={ids || (uidArray && uidArray[1])}
-        data-reziser={reziserVideo}
-        data-api={CURRENT_ENVIRONMENT}
-        data-type="pwa"
-        data-streams={
-          videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
-        }
-        data-time={videoArray && videoArray[1] ? '-1' : dataTime}
-        data-preroll={
-          (videoData && videoData.playAds === true) ||
+      <PowaPlayer
+        uuid={uuid}
+        stream={stream}
+        image={imageUrl || imagenMigrate}
+        preroll={(videoData && videoData.playAds === true) ||
           (videoArray && videoArray[1])
-            ? getParametroPublicidad()
-            : ''
-        }></div>
+          ? getParametroPublicidad()
+          : ''}
+        lazy={lazy}
+      />
       <figcaption className={classes.caption}>{description} </figcaption>
     </>
   )
