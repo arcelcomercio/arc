@@ -344,17 +344,19 @@ export const iframeHtml = (html, arcSite = '') => {
 
 export const facebookHtml = html => {
   let resultHtml = html
-  const replacePlugin =
-    '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$1"></amp-facebook>'
 
   if (resultHtml.indexOf('facebook.com/plugins/video.php') !== -1) {
     const regexVideo = /<iframe.*www.facebook.com\/plugins\/video.php\?href=(.*?)".*>.*<\/iframe>/g
+    const replacePlugin =
+      '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$1"></amp-facebook>'
     resultHtml = resultHtml.replace(regexVideo, replacePlugin)
     return decodeURIComponent(resultHtml)
   }
 
   if (resultHtml.indexOf('facebook.com/plugins/post.php') !== -1) {
     const regexPost = /<iframe.*www.facebook.com\/plugins\/post.php\?href=(.*?)&.*>.*<\/iframe>/g
+    const replacePlugin =
+      '<amp-facebook width="500" height="310" layout="responsive" data-href="$1"></amp-facebook>'
     resultHtml = resultHtml.replace(regexPost, replacePlugin)
     return decodeURIComponent(resultHtml)
   }
