@@ -10,6 +10,7 @@ import {
   sendAction,
 } from '../../../_dependencies/Taggeo'
 import PWA from '../../../_dependencies/Pwa'
+import { SubscribeEventTag } from '../Singwall/_children/fb-account-linking'
 
 const styles = {
   step: 'step__left-progres',
@@ -56,10 +57,13 @@ const Confirmation = ({ arcEnv }) => {
     secondLastName,
     // phone,
     // status,
+    items = [],
     total,
     subscriptionIDs,
     orderNumber,
   } = userPurchase
+
+  const { priceCode: priceCodePurchase, price: pricePurchase } = items[0] || {}
 
   const Frecuency = {
     Month: 'Mensual',
@@ -178,15 +182,6 @@ const Confirmation = ({ arcEnv }) => {
           num_items: 1,
           value: amount,
         })
-        console.log({
-          content_name: productName,
-          content_ids: [sku],
-          content_type: productName,
-          contents: [{ id: sku, quantity: 1 }],
-          currency: 'PEN',
-          num_items: 1,
-          value: amount,
-        })
       } else {
         updateStep(2)
         if (divStep) divStep.classList.remove('bg-white')
@@ -219,6 +214,15 @@ const Confirmation = ({ arcEnv }) => {
 
   return (
     <>
+      {userProfile && priceCodePurchase && pricePurchase && (
+        <SubscribeEventTag
+          subscriptionId={userProfile.uuid}
+          offerCode={priceCodePurchase}
+          currency="PEN"
+          value={pricePurchase}
+        />
+      )}
+
       <ul className={styles.step}>
         <li className="active">Perfil</li>
         <li className="active">Pago</li>

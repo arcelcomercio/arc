@@ -25,6 +25,7 @@ import {
   PanelRight,
 } from '../_layouts/containers'
 import Loading from './_children/Loading'
+import { LogIntoAccountEventTag } from './_children/Singwall/_children/fb-account-linking'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {
@@ -100,6 +101,9 @@ const WrapperPaymentSubs = () => {
       <HeaderSubs {...{ userProfile, arcSite, arcEnv }} />
       <Container>
         <NavigateProvider>
+          {userLoaded && userProfile && userStep === 2 && (
+            <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
+          )}
           <Wrapper>
             {!userLoading && (
               <PanelLeft>
