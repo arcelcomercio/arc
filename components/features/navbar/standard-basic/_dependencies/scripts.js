@@ -137,7 +137,7 @@ export const searchScript =
   if (subsBtn) {
     subsBtn.addEventListener('click', () => {
       const { origin } = window.location
-      const outputType = '<<_env>>' === 'prod' ? '' : 'outputType=paywall&'
+      const outputType = '<<_env>>' === 'prod' ? '' : 'outputType=subscriptions&'
       const pf = '<<_env>>' === 'prod' ? '' : '/pf'
       const connector = '<<_env>>' !== 'prod' ? `?_website=<<arcSite>>&` : `?`
       const link = `${origin + pf}<<urlSubsOnline>>${connector}${outputType}`
@@ -159,7 +159,7 @@ export const getBtnSubsScript = (
   if (subsBtn) {
     subsBtn.addEventListener('click', function () {
       var origin = window.location.origin;
-      var outputType = '${_env}' === 'prod' ? '' : 'outputType=paywall&';
+      var outputType = '${_env}' === 'prod' ? '' : 'outputType=subscriptions&';
       var pf = '${_env}' === 'prod' ? '' : '/pf';
       var connector = '${_env}' !== 'prod' ? "?_website=${arcSite}&" : "?";
       var link = "".concat(origin + pf, "${urlSubsOnline}").concat(connector).concat(outputType);

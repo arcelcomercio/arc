@@ -175,8 +175,9 @@ const setupUserProfile = (
             {
               name: 'originReferer',
               value:
-                window.location.href.split('&')[0].replace(/(\/#|#|\/)$/, '') ||
-                'none',
+                window.location.href
+                  .split('&')[0]
+                  .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, '') || 'none',
               type: 'String',
             },
             {

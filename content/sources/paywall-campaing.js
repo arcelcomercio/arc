@@ -71,6 +71,9 @@ const fetch = (key = {}) => {
           case 'title':
             prez[_name] = _value
             break
+          case 'plan_title':
+            prez[_name] = _value
+            break
           default:
             prez[_name] = _value
             break

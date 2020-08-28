@@ -116,6 +116,7 @@ class Subs extends Component {
         })
         .catch(err => window.console.error(err))
     }
+    return null
   }
 
   getCampain() {
@@ -124,12 +125,22 @@ class Subs extends Component {
 
     fetched.then(resCam => {
       if (this._isMounted && typeof resCam === 'object') {
+        const getPLanSelected = resCam.plans.reduce((prev, plan) => {
+          return plan.description.checked ? plan : prev
+        }, {})
+
         this.setState({
           paywallName: resCam.name || 'Plan',
-          paywallPrice: resCam.plans[0].amount || '-',
-          showFree: resCam.plans[0].amount === 0,
-          paywallTitle: resCam.plans[0].description.title || '-',
-          paywallDesc: resCam.plans[0].description.description || '-',
+          paywallPrice: getPLanSelected.amount || '-',
+          showFree: getPLanSelected.amount === 0 || '-',
+          paywallTitle:
+            (getPLanSelected.description &&
+              getPLanSelected.description.title) ||
+            '-',
+          paywallDesc:
+            (getPLanSelected.description &&
+              getPLanSelected.description.description) ||
+            '-',
         })
       }
     })

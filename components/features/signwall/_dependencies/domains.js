@@ -35,7 +35,7 @@ class Domains {
   getUrlPaywall = site => {
     return ENV.ENVIRONMENT === 'elcomercio'
       ? `/suscripcionesdigitales/`
-      : `/suscripcionesdigitales/?_website=${site}&outputType=paywall#step1`
+      : `/suscripcionesdigitales/?_website=${site}&outputType=subscriptions`
   }
 
   getUrlECOID = () => {
@@ -97,19 +97,19 @@ class Domains {
   getUrlProfile = arcSite => {
     return ENV.ENVIRONMENT === 'elcomercio'
       ? '/mi-perfil/?outputType=signwall'
-      : `/pf/mi-perfil/?_website=${arcSite}&outputType=signwall`
+      : `/mi-perfil/?_website=${arcSite}&outputType=signwall`
   }
 
   getUrlLandingAuth = arcSite => {
     return ENV.ENVIRONMENT === 'elcomercio'
       ? '/auth-fia/?outputType=signwall'
-      : `/pf/auth-fia/?_website=${arcSite}&outputType=signwall`
+      : `/auth-fia/?_website=${arcSite}&outputType=signwall`
   }
 
   getUrlPaywallFia = arcSite => {
     return ENV.ENVIRONMENT === 'elcomercio'
       ? `/suscripcionesdigitales/fia/planes/?ref=auth-fia`
-      : `/pf/suscripcionesdigitales/fia/planes/?_website=${arcSite}&outputType=paywall`
+      : `/suscripcionesdigitales/fia/planes/?_website=${arcSite}&outputType=subscriptions`
   }
 
   getUrlSignwall = (arcSite, typeDialog, hash) => {

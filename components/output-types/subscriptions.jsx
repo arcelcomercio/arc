@@ -1,9 +1,11 @@
 import React from 'react'
+import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
+import FbPixel from './_children/fb-pixel'
 
 const Subscriptions = props => {
-  const { children, arcSite, siteProperties } = props
+  const { children, arcSite, siteProperties, deployment, contextPath } = props
 
   const {
     siteName,
@@ -11,10 +13,13 @@ const Subscriptions = props => {
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
 
+  const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+
   return (
     <html lang="es">
       <head>
         <TagManager {...siteProperties} />
+        <FbPixel {...props} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -45,12 +50,31 @@ const Subscriptions = props => {
 
         <props.Libs />
 
+        {/* <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
+        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
+        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
+        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
+        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
+        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" /> */}
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-
+        <link
+          rel="preconnect dns-prefetch"
+          href="//arc-subs-sdk.s3.amazonaws.com"
+        />
+        <link
+          rel="stylesheet"
+          href={deployment(
+            `${contextPath}/resources/dist/${arcSite}/css/subscriptions.css`
+          )}
+        />
         <script
-          src="https://arc-subs-sdk.s3.amazonaws.com/prod/sdk-identity.min.js?v=07112019"
+          src={`https://arc-subs-sdk.s3.amazonaws.com/${arcEnv}/sdk-identity.min.js`}
           defer
         />
       </head>

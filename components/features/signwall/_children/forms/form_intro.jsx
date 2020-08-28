@@ -23,15 +23,24 @@ export const FormIntro = ({
   useEffect(() => {
     const { fetched } = getContent('paywall-campaing')
     fetched.then(resCam => {
+      const getPLanSelected = resCam.plans.reduce((prev, plan) => {
+        return plan.description.checked ? plan : prev
+      }, {})
+
       setResCampaing({
-        paywallPrice: resCam.plans[0].amount || '-',
-        paywallFrecuency: resCam.plans[0].billingFrequency || '-',
-        paywallTitle: resCam.plans[0].description.title || '-',
-        paywallDescripcion: resCam.plans[0].description.description || '-',
+        paywallPrice: getPLanSelected.amount || '-',
+        paywallFrecuency: getPLanSelected.billingFrequency || '-',
+        paywallTitle:
+          (getPLanSelected.description && getPLanSelected.description.title) ||
+          '-',
+        paywallDescripcion:
+          (getPLanSelected.description &&
+            getPLanSelected.description.description) ||
+          '-',
         featuresDescription: resCam.summary.feature || [],
         printAttributes: resCam.printAttributes || [],
       })
-      setShowFree(resCam.plans[0].amount === 0)
+      setShowFree(getPLanSelected.amount === 0)
       setShowLoading(false)
     })
   }, [])
