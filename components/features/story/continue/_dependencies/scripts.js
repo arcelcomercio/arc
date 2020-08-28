@@ -1,4 +1,4 @@
-/* setTimeout(() => {
+/* requestIdle(() => {
   const getAssetsPath = (arcSite, contextPath) => {
     if (!contextPath) return '/pf'
     if (!arcSite) return contextPath
@@ -127,7 +127,7 @@
   }
 
   const setInitialLoaderPage = () => {
-    setTimeout(() => {
+    requestIdle(() => {
       const storyLoader = document.querySelector(`.story-continue__story-load`)
       const progress = storyLoader.querySelector(`.story-continue__progress`)
       storyLoader.setAttribute('data-state', 'outviewport')
@@ -135,13 +135,7 @@
       const navLogo = document.querySelector('.nav__logo')
       if (window.screen.width > 1023 && navLogo) {
         if (arcSite !== 'gestion') {
-          navLogo.src =
-            arcSite === 'publimetro'
-              ? `${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/dist/publimetro/images/green-logo.png?d=1`
-              : `${getAssetsPath(
+          navLogo.src = `${getAssetsPath(
                   arcSite,
                   contextPath
                 )}/resources/dist/${arcSite}/images/logo.png?d=1`
@@ -149,7 +143,7 @@
       }
 
       setAttributeProgress(progress, MIN_PROGRESS)
-    }, 0)
+    })
   }
 
   const setScrollLoaderPage = () => {
@@ -181,82 +175,85 @@
 
   window.addEventListener('scroll', setScrollLoaderPage)
   window.addEventListener('DOMContentLoaded', setInitialLoaderPage)
-}, 0) */
+}) */
 
 // ////////////////////////////////////////////////////////////////////////////
 
 export const storyContinueScript = (arcSite, contextPath, isBlog) =>
-  '"use strict";function _slicedToArray(e,t){return _arrayWithHoles(e)||_iterableToArrayLimit(e,t)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}function _iterableToArrayLimit(e,t){if(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e)){var o=[],r=!0,n=!1,i=void 0;try{for(var c,a=e[Symbol.iterator]();!(r=(c=a.next()).done)&&(o.push(c.value),!t||o.length!==t);r=!0);}catch(e){n=!0,i=e}finally{try{r||null==a.return||a.return()}finally{if(n)throw i}}return o}}function _arrayWithHoles(e){if(Array.isArray(e))return e}setTimeout(function(){var e=function(e,t){if(!t)return"/pf";if(!e)return t;var o="".concat(e,".pe");return"depor"===e&&(o="".concat(e,".com")),"elcomerciomag"===e&&(o="elcomercio.pe"),"peru21g21"===e&&(o="peru21.pe"),"https://cdna.".concat(o)},t=arcSiteToReplace,o=isBlogToReplace,r=function(e,t){e.setAttribute("style","transform: rotate(".concat(t,"deg)")),e.setAttribute("size",t)},n=function(e){var o=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"",r=arguments.length>2?arguments[2]:void 0;setTimeout(function(){var t=e.getAttribute("href");if(""!==t&&window.innerHeight+window.scrollY+10>=o.scrollHeight){var n=r?"/blogs":t;window.location=n}},"ojo"===t?5e3:250)};window.addEventListener("scroll",function(){var e,i=document.querySelector(".story-continue__story-load"),c=i.querySelector(".story-continue__progress"),a=i.querySelector(".story-continue__story-load-link"),l=document.querySelector("#signwall-app"),s=document.documentElement,u=parseInt(c.getAttribute("size"),10),d=window,m=d.innerHeight,y=d.scrollY;if(!l){if(m+y+10>=s.scrollHeight)for(var v=(350-u)/10+1,g=0;g<v;g++){var f=u+10*g+10;r(c,f),f>=350&&n(a,s,o)}else!function(e,o){var n=0,i=document.documentElement.scrollHeight,c=window,a=c.innerHeight,l=c.scrollY,s=c.screen,u="down";if(a+l+50<=i&&(r(e,o-10),u="up"),350>=o&&o>=180){var d=o;if("up"===u){var m=o-10;m>=180&&(d=m)}else d=o+10;r(e,d)}if(s.width<630){var y=document.querySelector(".story-header__list");if(y&&y.classList.add("hidden"),"elcomercio"!==t&&"depor"!==t&&"elbocon"!==t){var v=document.querySelector(".nav-sidebar"),g=document.querySelector(".nav"),f=document.querySelector(".nav__wrapper");window.scrollY<n?(g.classList.remove("active"),f.classList.add("section-menu--active"),v.classList.add("section-menu--active")):(window.scrollY<50?g.classList.remove("active"):g.classList.add("active"),f.classList.remove("section-menu--active"))}n=l}}(c,u);e=document.querySelector(".story-header__news-title")?document.querySelector(".story-header__news-title").textContent:"",document.querySelector(".nav__story-title").textContent=e,function(){var e=_slicedToArray(arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],1)[0],o=document.documentElement,r=o.clientHeight,n=o.scrollHeight,i=o.offsetHeight,c=o.scrollTop,a=document.body,l=a.clientHeight,s=a.scrollTop,u=_slicedToArray(document.getElementsByClassName("nav__loader"),1)[0],d=Math.max(r,n,i),m=window.innerHeight||r||l,y=Math.max(s,c);if(d>0&&e){var v=Math.round(y/(d-m)*100)/100;"elcomercio"!==t&&(e.style.transform="scaleX(".concat(v,")")),u&&(u.style.display=v>.02?"block":"none")}}(document.getElementsByClassName("nav__loader-bar"))}}),window.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var o=document.querySelector(".story-continue__story-load"),n=o.querySelector(".story-continue__progress");o.setAttribute("data-state","outviewport");var i=document.querySelector(".nav__logo");window.screen.width>1023&&i&&"gestion"!==t&&(i.src="publimetro"===t?"".concat(e(t,"<<contextPath>>"),"/resources/dist/publimetro/images/green-logo.png?d=1"):"".concat(e(t,"<<contextPath>>"),"/resources/dist/").concat(t,"/images/logo.png?d=1")),r(n,180)},0)})},0);'
+  '"use strict";equestIdle(function(){var e=arcSiteToReplace,t=isBlogToReplace,o=function(e,t){e.setAttribute("style","transform: rotate("+t+"deg)"),e.setAttribute("size",t)},r=function(t,o,r){void 0===o&&(o=""),setTimeout(function(){var e=t.getAttribute("href");if(""!==e&&window.innerHeight+window.scrollY+10>=o.scrollHeight){var n=r?"/blogs":e;window.location=n}},"ojo"===e?5e3:250)};window.addEventListener("scroll",function(){var n,i=document.querySelector(".story-continue__story-load"),c=i.querySelector(".story-continue__progress"),s=i.querySelector(".story-continue__story-load-link"),l=document.querySelector("#signwall-app"),a=document.documentElement,d=parseInt(c.getAttribute("size"),10),u=window,m=u.innerHeight,v=u.scrollY;if(!l){if(m+v+10>=a.scrollHeight)for(var y=(350-d)/10+1,w=0;w<y;w++){var g=d+10*w+10;o(c,g),g>=350&&r(s,a,t)}else!function(t,r){var n=0,i=document.documentElement.scrollHeight,c=window,s=c.innerHeight,l=c.scrollY,a=c.screen,d="down";if(s+l+50<=i&&(o(t,r-10),d="up"),350>=r&&r>=180){var u=r;if("up"===d){var m=r-10;m>=180&&(u=m)}else u=r+10;o(t,u)}if(a.width<630){var v=document.querySelector(".story-header__list");if(v&&v.classList.add("hidden"),"elcomercio"!==e&&"depor"!==e&&"elbocon"!==e){var y=document.querySelector(".nav-sidebar"),w=document.querySelector(".nav"),g=document.querySelector(".nav__wrapper");window.scrollY<n?(w.classList.remove("active"),g.classList.add("section-menu--active"),y.classList.add("section-menu--active")):(window.scrollY<50?w.classList.remove("active"):w.classList.add("active"),g.classList.remove("section-menu--active"))}n=l}}(c,d);n=document.querySelector(".story-header__news-title")?document.querySelector(".story-header__news-title").textContent:"",document.querySelector(".nav__story-title").textContent=n,function(t){var o=(void 0===t?[]:t)[0],r=document.documentElement,n=r.clientHeight,i=r.scrollHeight,c=r.offsetHeight,s=r.scrollTop,l=document.body,a=l.clientHeight,d=l.scrollTop,u=document.getElementsByClassName("nav__loader")[0],m=Math.max(n,i,c),v=window.innerHeight||n||a,y=Math.max(d,s);if(m>0&&o){var w=Math.round(y/(m-v)*100)/100;"elcomercio"!==e&&(o.style.transform="scaleX("+w+")"),u&&(u.style.display=w>.02?"block":"none")}}(document.getElementsByClassName("nav__loader-bar"))}}),window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var t=document.querySelector(".story-continue__story-load"),r=t.querySelector(".story-continue__progress");t.setAttribute("data-state","outviewport");var n=document.querySelector(".nav__logo");window.screen.width>1023&&n&&"gestion"!==e&&(n.src=function(e,t){if(!t)return"/pf";if(!e)return t;var o=e+".pe";return"depor"===e&&(o=e+".com"),"elcomerciomag"===e&&(o="elcomercio.pe"),"peru21g21"===e&&(o="peru21.pe"),"https://cdna."+o}(e,"<<contextPath>>")+"/resources/dist/"+e+"/images/logo.png?d=1"),o(r,180)})})});'
     .replace('arcSiteToReplace', `"${arcSite}"`)
     .replace('<<contextPath>>', contextPath)
     .replace('isBlogToReplace', isBlog)
 
 // ////////////////////////////////////////////////////////////////////////////
 
-/* document.addEventListener('DOMContentLoaded', () => {
-  const IS_BLOG = isBLog
-  const URLS_STORAGE = '_recents_articles_'
-  const PATH_BLOG = '/blogs'
+/* 
+document.addEventListener('DOMContentLoaded', () => {
+  requestIdle(() => {
+    const IS_BLOG = isBLog
+    const URLS_STORAGE = '_recents_articles_'
+    const PATH_BLOG = '/blogs'
 
-  const saveUrlSessionStorage = url => {
-    let isUrlSaved = false
-    if (typeof Storage !== 'undefined') {
-      let arrUrls = [url]
-      const existArrUrls = window.sessionStorage.getItem(URLS_STORAGE)
-      if (existArrUrls) {
-        arrUrls = JSON.parse(existArrUrls)
-        if (arrUrls.indexOf(url) === -1) {
-          arrUrls.push(url)
-          isUrlSaved = true
+    const saveUrlSessionStorage = url => {
+      let isUrlSaved = false
+      if (typeof Storage !== 'undefined') {
+        let arrUrls = [url]
+        const existArrUrls = window.sessionStorage.getItem(URLS_STORAGE)
+        if (existArrUrls) {
+          arrUrls = JSON.parse(existArrUrls)
+          if (arrUrls.indexOf(url) === -1) {
+            arrUrls.push(url)
+            isUrlSaved = true
+          }
+        }
+        window.sessionStorage.setItem(URLS_STORAGE, JSON.stringify(arrUrls))
+      }
+      return isUrlSaved
+    }
+
+    const getNextArticle = (recentStoryContinue, siteUrl = '') => {
+      let title = ''
+      let websiteUrl = ''
+      for (let i = 0; i < recentStoryContinue.length; i++) {
+        title = recentStoryContinue[i].basic || ''
+        websiteUrl = recentStoryContinue[i].websiteUrl || ''
+        if (
+          recentStoryContinue.length - 1 === i &&
+          typeof window !== 'undefined'
+        ) {
+          window.sessionStorage.removeItem(URLS_STORAGE)
+        }
+        if (saveUrlSessionStorage(`${siteUrl}${websiteUrl}`)) {
+          break
         }
       }
-      window.sessionStorage.setItem(URLS_STORAGE, JSON.stringify(arrUrls))
+      return { title, websiteUrl }
     }
-    return isUrlSaved
-  }
 
-  const getNextArticle = (recentStoryContinue, siteUrl = '') => {
-    let title = ''
-    let websiteUrl = ''
-    for (let i = 0; i < recentStoryContinue.length; i++) {
-      title = recentStoryContinue[i].basic || ''
-      websiteUrl = recentStoryContinue[i].websiteUrl || ''
-      if (
-        recentStoryContinue.length - 1 === i &&
-        typeof window !== 'undefined'
-      ) {
-        window.sessionStorage.removeItem(URLS_STORAGE)
-      }
-      if (saveUrlSessionStorage(`${siteUrl}${websiteUrl}`)) {
-        break
-      }
-    }
-    return { title, websiteUrl }
-  }
+    const { title, websiteUrl } = getNextArticle(
+      '<<recentStoryContinue>>',
+      '<<siteUrl>>'
+    )
 
-  const { title, websiteUrl } = getNextArticle(
-    '<<recentStoryContinue>>',
-    '<<siteUrl>>'
-  )
+    const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+      typeof window !== 'undefined' ? window.navigator.userAgent : ''
+    )
 
-  const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-    typeof window !== 'undefined' ? window.navigator.userAgent : ''
-  )
+    const storyLoadAmp = arcSite =>
+      arcSite === 'elcomercio' && isMobile
+        ? '?ref=nota&ft=autoload&outputType=amp'
+        : '?ref=nota&ft=autoload'
 
-  const storyLoadAmp = arcSite =>
-    arcSite === 'elcomercio' && isMobile
-      ? '?ref=nota&ft=autoload&outputType=amp'
-      : '?ref=nota&ft=autoload'
+    const titleRedirect = IS_BLOG ? 'Cargando a la sección de Blogs' : title
+    const websiteUrlRedirect = IS_BLOG
+      ? PATH_BLOG
+      : `${websiteUrl}${storyLoadAmp('<<arcSite>>')}`
 
-  const titleRedirect = IS_BLOG ? 'Cargando a la sección de Blogs' : title
-  const websiteUrlRedirect = IS_BLOG
-    ? PATH_BLOG
-    : `${websiteUrl}${storyLoadAmp('<<arcSite>>')}`
-
-  document.querySelector(
-    '.story-continue__story-load-link'
-  ).href = websiteUrlRedirect
-  document.querySelector('.story-continue__story-load-title').innerHTML = titleRedirect
+    document.querySelector(
+      '.story-continue__story-load-link'
+    ).href = websiteUrlRedirect
+    document.querySelector('.story-continue__story-load-title').innerHTML = titleRedirect
+  })
 }) */
 
 // ////////////////////////////////////////////////////////////////////////////////7
@@ -267,7 +264,7 @@ export const sessionStorageScript = (
   arcSite,
   isBlog
 ) =>
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=isBLog,t=function(e){var t=!1;if("undefined"!=typeof Storage){var n=[e],o=window.sessionStorage.getItem("_recents_articles_");o&&-1===(n=JSON.parse(o)).indexOf(e)&&(n.push(e),t=!0),window.sessionStorage.setItem("_recents_articles_",JSON.stringify(n))}return t},n=function(e){for(var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"",o="",i="",r=0;r<e.length&&(o=e[r].basic||"",i=e[r].websiteUrl||"",e.length-1===r&&"undefined"!=typeof window&&window.sessionStorage.removeItem("_recents_articles_"),!t("".concat(n).concat(i)));r++);return{title:o,websiteUrl:i}}("<<recentStoryContinue>>","<<siteUrl>>"),o=n.title,i=n.websiteUrl,r=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),s=e?"Cargando a la sección de Blogs":o,a=e?"/blogs":"".concat(i).concat("elcomercio"==="<<arcSite>>"&&r?"?ref=nota&ft=autoload&outputType=amp":"?ref=nota&ft=autoload");document.querySelector(".story-continue__story-load-link").href=a,document.querySelector(".story-continue__story-load-title").innerHTML=s});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=isBLog,t=function(e){var t=!1;if("undefined"!=typeof Storage){var n=[e],o=window.sessionStorage.getItem("_recents_articles_");o&&-1===(n=JSON.parse(o)).indexOf(e)&&(n.push(e),t=!0),window.sessionStorage.setItem("_recents_articles_",JSON.stringify(n))}return t},n=function(e,n){void 0===n&&(n="");for(var o="",i="",r=0;r<e.length&&(o=e[r].basic||"",i=e[r].websiteUrl||"",e.length-1===r&&"undefined"!=typeof window&&window.sessionStorage.removeItem("_recents_articles_"),!t(""+n+i));r++);return{title:o,websiteUrl:i}}("<<recentStoryContinue>>","<<siteUrl>>"),o=n.title,i=n.websiteUrl,r=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),s=e?"Cargando a la sección de Blogs":o,a=e?"/blogs":i+("elcomercio"==="<<arcSite>>"&&r?"?ref=nota&ft=autoload&outputType=amp":"?ref=nota&ft=autoload");document.querySelector(".story-continue__story-load-link").href=a,document.querySelector(".story-continue__story-load-title").innerHTML=s})});'
     .replace('"<<recentStoryContinue>>"', JSON.stringify(recentStoryContinue))
     .replace('<<siteUrl>>', siteUrl)
     .replace('<<arcSite>>', arcSite)

@@ -28,7 +28,7 @@ const fixDate = date => {
 
 /**
  * @description Feature temporal para la migracion de
- * contenido de publimetro.
+ * contenido.
  */
 @Consumer
 class XmlContentMigration {

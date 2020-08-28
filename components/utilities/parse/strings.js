@@ -27,6 +27,18 @@ export const formatHtmlToText = (html = '') => {
     .replace(/\\/g, '')
 }
 
+export const getUrlFromHtml = (html = '') => {
+  const regexp = /<(?:a|img)[^>]+(?:href|src)=['"]?([^'" >]+)/gi
+  const data = html.match(regexp) || []
+  const urls = []
+
+  data.forEach(el => {
+    urls.push(el.replace(/(<(?:a|img)[^>]+(?:href|src)=['"]?)/g, ''))
+  })
+
+  return urls
+}
+
 export const removeLastSlash = (url = '') => {
   if (url === '/' || !url.endsWith('/')) return url
   return url && url.endsWith('/') ? url.slice(0, url.length - 1) : url

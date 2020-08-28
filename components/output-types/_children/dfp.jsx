@@ -148,23 +148,22 @@ const Dfp = ({ isFuature, adId }) => {
     )
       .replace(/"<::/g, '')
       .replace(/::>"/g, '')};
-       window.adsCollection = window.adsColl.filter(
+      window.adsCollection = window.adsColl.filter(
         function(input)
-         {   
-           if(input.dispositivo)
-           {
+        {   
+          if(input.dispositivo)
+          {
             if(input.dispositivo.indexOf(getAdsDisplay())!==-1)
             { return input; };
-           } 
+          } 
           }
-         ) ;
-       arcAds.registerAdCollection(window.adsCollection);});`
+        ) ;
+      arcAds.registerAdCollection(window.adsCollection);});`
   }
 
   return (
     <>
-      {(arcSite === 'publimetro' ||
-        arcSite === 'depor' ||
+      {(arcSite === 'depor' ||
         arcSite === 'elcomercio' ||
         arcSite === 'elcomerciomag' ||
         arcSite === 'peru21' ||

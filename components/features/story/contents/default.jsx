@@ -46,6 +46,7 @@ import StoryContentChildRawHTML from './_children/rawHtml'
 import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthor from './_children/author'
+import StoryContentsChildAuthorTrust from './_children/author-trust'
 import StoryContentsChildMultimedia from './_children/multimedia'
 import StoryContentsChildIcon from './_children/icon-list'
 import StoryContentsChildImpresa from './_children/impresa'
@@ -73,7 +74,6 @@ const classes = {
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
-
 @Consumer
 class StoryContents extends PureComponent {
   render() {
@@ -98,6 +98,8 @@ class StoryContents extends PureComponent {
       authorImage,
       authorLink,
       author,
+      role: authorRole,
+      locality,
       primarySection,
       authorEmail,
       primarySectionLink,
@@ -121,9 +123,11 @@ class StoryContents extends PureComponent {
     const params = {
       authorImage,
       author,
+      authorRole,
       authorLink,
       updatedDate: getDateSeo(updatedDate || createdDate),
       date,
+      locality,
       primarySectionLink,
       authorEmail,
       primarySection,
@@ -191,8 +195,11 @@ class StoryContents extends PureComponent {
                 <StoryContentsChildMultimedia data={params} />
               )}
 
-          <StoryContentsChildAuthor {...params} />
-
+          {SITE_ELCOMERCIO === arcSite ? (
+            <StoryContentsChildAuthorTrust {...params} />
+          ) : (
+            <StoryContentsChildAuthor {...params} />
+          )}
           <Ads
             adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
             isDesktop={false}

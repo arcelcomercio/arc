@@ -24,7 +24,7 @@ export default {
   nameStoryRelated: 'VEA TAMBIÉN',
   siteDescription:
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-  googleNewsImage: 'https://publimetro.pe/f/i/pub_40.png',
+  googleNewsImage: 'https://elcomercio.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: 'EBRJ4RIQHRAODCY4G5ML4IZNUU',

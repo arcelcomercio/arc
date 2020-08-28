@@ -25,33 +25,72 @@
       left: 24px;
     }
   }
+  &__time {
+    display: block;
+    line-height: 18px;
+    width: 100%;
+    text-align: right;
+    color: #444;
+    @media (--only-mobile) {
+      text-align: left;
+    }
+  }
   &__author {
     font-size: 16px;
     letter-spacing: 0.42px;
-    line-height: 22px;
     color: #807e7e;
     font-family: $primary-font;
-    font-weight: 700;
-  }
-
-  &__author-link {
-    font-size: 16px;
-    line-height: 22px;
-    color: #333;
-    font-family: $primary-font;
-    font-weight: 700;
-  }
-
-  &__author-date {
-    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding-bottom: 5px;
+    @media (--only-mobile) {
+      flex-direction: column-reverse;
+    }
+  }
+  &__author-info {
+    align-items: center;
+    display: flex;
+    @media (--only-mobile) {
+      flex-direction: row;
+    }
+  }
+  &__author-link {
+    font-family: $secondary-font !important;
+    font-size: 16px !important;
+    font-weight: 700;
+    display: inline-block;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  &__author-image {
+    width: 57px;
+    height: 57px;
+    margin-right: 10px;
+  }
+  &__author-role {
+    font-family: $secondary-font;
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: #444;
+  }
+  &__author-email {
+    font-family: $secondary-font;
+    font-size: 12px;
+    color: #747a84;
+  }
+  &__author-date {
     line-height: 18px;
-    color: #807e7e;
-    font-family: $primary-font;
-    font-weight: 400;
-
+    color: #888;
+    font-size: 12px;
+    font-family: $secondary-font;
+    justify-content: flex-end;
+    flex-direction: column;
     @media (--desktop) {
       font-size: 12px;
+    }
+    @media (--only-mobile) {
+      margin-bottom: 15px;
     }
   }
   &__font-paragraph {
@@ -268,15 +307,6 @@
       color: #00acee;
     }
   }
-
-  &__date {
-    order: -1;
-
-    @media (--tablet) {
-      order: 0;
-    }
-  }
-
   & li {
     margin-bottom: 20px;
     font-family: $secondary-font;
@@ -334,6 +364,28 @@
       float: right;
     }
   }
+  &__customblock {
+    &__backstory {
+      font-size: 18px;
+      border-top: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      &__title {
+        display: inline-block;
+        background-color: #000;
+        font-size: 24px;
+        color: #fff;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+    }
+  }
 }
 
 .bbc-head {
@@ -350,7 +402,6 @@
   &__interstitial-link {
     color: #4a88b1;
     font-size: $font-md;
-
     line-height: 1.5;
     font-weight: 700;
     text-decoration: underline;
@@ -376,8 +427,8 @@
     border-top: 1px solid #575757;
     border-bottom: 1px solid #575757;
     font-style: italic;
-    padding: 10px 0px;
-    margin: 10px 0px;
+    padding: 10px 0;
+    margin: 10px 0;
 
     &__title {
       font-weight: 700;

@@ -27,6 +27,8 @@ content_elements {
       countReviews
       content
       date
+      customBlockType
+      customBlockContent
     }
   }
   raw_oembed{
@@ -148,6 +150,9 @@ canonical_url
 headlines {
   basic
   meta_title
+}
+address{
+  locality
 }
 subheadlines {
   basic

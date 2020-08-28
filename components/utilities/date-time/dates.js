@@ -25,6 +25,21 @@ export const formatDayMonthYear = (
   return showTime ? `${formattedDate}, ${formatTime(date)}` : formattedDate
 }
 
+export const formatDayMonthYearBasic = (
+  currentDate,
+  showTime = true,
+  isStatic = false
+) => {
+  const date = new Date(currentDate)
+
+  if (isStatic) date.setHours(date.getHours() - 5)
+
+  const formattedDate = `${date.getDate()} de ${
+    arrayMonths[date.getMonth()]
+  } ${date.getFullYear()}`
+  return showTime ? `${formattedDate}, ${formatTime(date)}` : formattedDate
+}
+
 export const getDateSeo = data => {
   const fechaZone = data
     ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]

@@ -36,11 +36,20 @@ import {
   STORY_SMALL,
   LARGE,
 } from './constants/image-sizes'
-import { formatHtmlToText, addSlashToEnd } from './parse/strings'
+import {
+  formatHtmlToText,
+  addSlashToEnd,
+  getUrlFromHtml,
+} from './parse/strings'
 import { msToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
-import { STORY_CORRECTION } from './constants/subtypes'
+import {
+  STORY_CORRECTION,
+  IMAGE_LINK,
+  STORY_CUSTOMBLOCK,
+} from './constants/subtypes'
+import { SITE_ELCOMERCIO } from './constants/sitenames'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -121,6 +130,12 @@ class StoryData {
     )
   }
 
+  get locality() {
+    return (
+      (this._data && this._data.address && this._data.address.locality) || ''
+    )
+  }
+
   get subtype() {
     return (this._data && this._data.subtype) || ''
   }
@@ -144,6 +159,10 @@ class StoryData {
 
   get author() {
     return StoryData.getDataAuthor(this._data).nameAuthor
+  }
+
+  get role() {
+    return StoryData.getDataAuthor(this._data).role
   }
 
   get authorEmail() {
@@ -753,6 +772,17 @@ class StoryData {
     )
   }
 
+  get contentElementsLinks() {
+    return (
+      (this._data &&
+        StoryData.getContentElementsLinks(this._data.content_elements, [
+          ELEMENT_TEXT,
+          ELEMENT_CUSTOM_EMBED,
+        ])) ||
+      []
+    )
+  }
+
   get contentElementsText() {
     return (
       (this._data &&
@@ -800,13 +830,28 @@ class StoryData {
 
   get contentPosicionPublicidadAmp() {
     let i = 0
+    let renderedVideos = 0
+    const videosLimit = 1
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-        dataElements = dataContent
+
+        // cambio temporal por comsumo de datos
+        if (
+          typeElement === ELEMENT_VIDEO &&
+          this.__website !== SITE_ELCOMERCIO
+        ) {
+          if (renderedVideos < videosLimit) {
+            dataElements = dataContent
+            renderedVideos += 1
+          }
+        } else {
+          dataElements = dataContent
+        }
+
         if (i === 1) {
           dataElements.publicidadInline = true
           i += 1
@@ -867,13 +912,28 @@ class StoryData {
   get contentPosicionPublicidad() {
     let i = 0
     let v = 0
+    let renderedVideos = 0
+    const videosLimit = 1
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-        dataElements = dataContent
+
+        // cambio temporal por comsumo de datos
+        if (
+          typeElement === ELEMENT_VIDEO &&
+          this.__website !== SITE_ELCOMERCIO
+        ) {
+          if (renderedVideos < videosLimit) {
+            dataElements = dataContent
+            renderedVideos += 1
+          }
+        } else {
+          dataElements = dataContent
+        }
+
         if (i === 2) {
           dataElements.publicidad = true
           dataElements.nameAds = `inline`
@@ -1073,6 +1133,22 @@ class StoryData {
     return this.getMultimediaConfig().caption
   }
 
+  get contentElementCustomBlock() {
+    return (
+      (this._data &&
+        StoryData.getContentElementCustomBlock(this._data.content_elements)) ||
+      []
+    )
+  }
+
+  static getContentElementCustomBlock(data = []) {
+    return data && data.length > 0
+      ? data.filter(({ type, subtype }) => {
+          return type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CUSTOMBLOCK
+        })
+      : []
+  }
+
   getMultimediaBySize(size) {
     return (
       StoryData.getThumbnailBySize(
@@ -1220,6 +1296,22 @@ class StoryData {
     }
 
     return []
+  }
+
+  static getContentElementsLinks(data = [], typeElement = []) {
+    let urlData = []
+    data.forEach(({ content, type, subtype = '', embed = {} }) => {
+      if (typeElement.includes(type)) {
+        if (subtype === IMAGE_LINK) {
+          const { config: { link = '' } = {} } = embed || {}
+          urlData = [...urlData, link]
+        } else {
+          const urls = getUrlFromHtml(content)
+          urlData = [...urlData, ...urls]
+        }
+      }
+    })
+    return urlData
   }
 
   static getContentElementsText(data = [], typeElement = '') {
@@ -1411,7 +1503,7 @@ class StoryData {
           (iterator.additional_properties &&
             iterator.additional_properties.original &&
             iterator.additional_properties.original.role) ||
-          null
+          ''
         sortBiography =
           (iterator.additional_properties &&
             iterator.additional_properties.original &&
@@ -1614,7 +1706,7 @@ class StoryData {
     const paragraphs = contentElements.map(
       ({
         content = '',
-        text = '',
+        // text = '',
         type = '',
         subtype = '',
         _id = '',
@@ -1629,6 +1721,7 @@ class StoryData {
         embed: {
           config: {
             content: contentCorrection = '',
+            customBlockContent: contentCustomblock = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1667,9 +1760,16 @@ class StoryData {
             result.link = url
             break
           case ELEMENT_CUSTOM_EMBED:
-            result.payload =
-              subtype === STORY_CORRECTION ? contentCorrection : ''
-            // result.correction_type = 'correction'
+            switch (subtype) {
+              case STORY_CORRECTION:
+                result.payload = contentCorrection
+                break
+              case STORY_CUSTOMBLOCK:
+                result.payload = contentCustomblock
+                break
+              default:
+                result.payload = ''
+            }
             result.subtype = subtype
             break
           case ELEMENT_LINK_LIST:

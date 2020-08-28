@@ -16,7 +16,6 @@ import {
   SITE_DEPOR,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
-  SITE_PUBLIMETRO,
 } from '../../utilities/constants/sitenames'
 import { getResizedUrl } from '../../utilities/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
@@ -41,12 +40,17 @@ export default ({
     displayDate: publishDate,
     publishDate: publishDatedate,
     subTitle = arcSite,
-    seoAuthor,
+    authorImage,
+    author: authorName,
+    role: authorRole,
+    locality, 
+    authorEmail,
     imagePrimarySeo,
     primarySection,
     primarySectionLink,
     videoSeo,
     contentElementsText: dataElement,
+    contentElementsLinks = [],
     contentElementsHtml = [],
     contentElementsCorrectionList = [],
     seoKeywords,
@@ -57,7 +61,9 @@ export default ({
     sourceUrlOld,
     getPremiumValue,
     contentElementsRedesSociales,
+    contentElementCustomBlock = [],
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
+
   const parameters = {
     primarySectionLink,
     id,
@@ -83,6 +89,23 @@ export default ({
 
   publishDateZone =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDate) : publishDateZone
+
+  const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
+
+  const structuredAutor = `
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${authorName}",
+    "image": "${authorImage || logoAuthor}",
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : "${authorEmail}"
+    },
+    "email": "${authorEmail}",
+    "jobTitle"	: "${authorRole}"
+  }`
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
@@ -261,6 +284,22 @@ export default ({
   const dataVideo =
     `  "video":[ ${redSocialVideo.concat(videoSeoItems)} ],` || ''
 
+  let citationStructuredItems = ''
+  contentElementsLinks.forEach(url => {
+    citationStructuredItems += `{
+      "@type": "CreativeWork",
+      "url": "${url}"
+    },`
+  })
+
+  const citationStructured =
+    contentElementsLinks.length > 0
+      ? `"citation":[${citationStructuredItems.substring(
+          0,
+          citationStructuredItems.length - 1
+        )}],`
+      : ''
+
   const bodyStructured =
     isAmp !== true
       ? `"articleBody":"${dataElement.replace(
@@ -268,6 +307,18 @@ export default ({
           ''
         )}",`
       : ''
+
+  const backStoryStructured = `
+  "backstory":"${contentElementCustomBlock
+    .map(element => {
+      return element.embed.config.customBlockType === 'backstory'
+        ? element.embed.config.customBlockContent
+        : ''
+    })
+    .join(' ')
+    .trim()
+    .replace(/"/g, '\\"')
+    .replace(/\r?\n|\r/g, '')}", `
 
   let correctionStructuredItems = ''
   contentElementsCorrectionList.forEach(ele => {
@@ -292,8 +343,6 @@ export default ({
       : ''
 
   const { label: { trustproject = {} } = {} } = data || {}
-  console.log('====Data===', data)
-  console.log('====trustproject===', trustproject)
   const trustType = workType(trustproject) || '"NewsArticle"'
 
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, "datePublished":"${publishDateZone}",
@@ -304,19 +353,20 @@ export default ({
         ? publishDateZone
         : lastPublishDate
     }",
-
+    ${backStoryStructured}
+    ${locality && `"locationCreated": {"@type":"Place", "name":"${locality}"},`}
+    "dateline": "${`${getDateSeo(publishDate)} ${locality}`}",
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",
     "publishingPrinciples": "${siteUrl}/buenas-practicas/",
   ${bodyStructured}
   ${correctionStructured}
+  ${citationStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }
-    "author":{    "@type":"Person",   "name":"${formatHtmlToText(
-      seoAuthor
-    )}"    },
+    "author": ${structuredAutor},
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
     arcSite,
     contextPath
@@ -346,9 +396,7 @@ export default ({
   const taboolaScript = arcSite === SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
   const scriptTaboola = `
-  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${
-    arcSite === SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript
-  }/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
+  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
         window._taboola = window._taboola || [];
@@ -364,7 +412,7 @@ export default ({
             const n = document.createElement('script')
             const f = document.getElementsByTagName('script')[0]
             n.defer = 1;
-            n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
+            n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js';
             n.id = id;
             f.parentNode.insertBefore(n, f);
           }
@@ -394,7 +442,7 @@ export default ({
                 const n = document.createElement('script')
                 const f = document.getElementsByTagName('script')[0]
                 n.defer = 1;
-                n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${arcSite === SITE_PUBLIMETRO ? 'publimetrope' : taboolaScript}/loader.js';
+                n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js';
                 n.id = id;
                 f.parentNode.insertBefore(n, f);
               }

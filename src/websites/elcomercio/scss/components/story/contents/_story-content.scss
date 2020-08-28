@@ -47,25 +47,54 @@
   }
   &__date {
     color: #888;
-    font-size: 10px;
+    font-size: 12px;
     font-family: $secondary-font;
+    justify-content: flex-end;
+    flex-direction: column;
     @media (--only-mobile) {
       text-align: right;
       width: 134px;
       order: 1;
     }
   }
+  &__time {
+    display: block;
+    line-height: 18px;
+    width: 100%;
+    text-align: right;
+  }
   &__author {
     @media (--only-mobile) {
       flex-direction: row;
     }
   }
+  &__author-info {
+    align-items: center;
+    @media (--only-mobile) {
+      flex-direction: row;
+    }
+  }
   &__author-link {
-    font-family: $primary-font;
-    font-size: 18px;
+    font-family: $secondary-font !important;
+    font-size: 16px !important;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  &__author-image {
+    width: 57px;
+    height: 57px;
+    margin-right: 10px;
+  }
+  &__author-role {
+    font-family: $secondary-font;
+    font-size: 12px;
+    margin-bottom: 5px;
   }
   &__author-email {
-    font-family: $primary-font;
+    font-family: $secondary-font;
+    font-size: 12px;
+    color: #747a84;
   }
   &__more-link {
     .icon-linkedin-circle {
