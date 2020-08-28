@@ -100,7 +100,7 @@ const buildCorrectionTexParagraph = (
 
 const buildStampTrustTexParagraph = (paragraph, url, siteUrl = '') => {
   const result = { numberWords: 0, processedParagraph: '' }
-  const urlTrust = url || `${siteUrl}/proyecto-confianza/`
+  const urlTrust = url || `${siteUrl}/buenas-practicas/`
   result.numberWords = countWordsHelper(clearHtml(paragraph))
   result.processedParagraph = `
       <blockquote>

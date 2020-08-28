@@ -17,7 +17,7 @@ export default ({ url, isAmp = false, siteUrl }) => {
     }`,
   }
 
-  const urlTrust = url || `${siteUrl}/proyecto-confianza/`
+  const urlTrust = url || `${siteUrl}/buenas-practicas/`
   const urlImgTrust =
     'https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_prod/especiales/banner-trust-project/logo-trust.png'
 
