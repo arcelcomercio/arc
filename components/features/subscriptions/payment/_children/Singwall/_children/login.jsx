@@ -23,12 +23,17 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Login = ({ arcSite, arcEnv, fromFia }) => {
+const Login = ({ arcSite, arcEnv }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [msgError, setMsgError] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
   const { texts } = PropertiesSite.common
+
+  const isFbBrowser =
+    typeof window !== 'undefined' &&
+    (window.navigator.userAgent.indexOf('FBAN') > -1 ||
+      window.navigator.userAgent.indexOf('FBAV') > -1)
 
   const stateSchema = {
     lemail: { value: '', error: '' },
@@ -97,14 +102,15 @@ const Login = ({ arcSite, arcEnv, fromFia }) => {
         <>
           <h2 className={styles.title}>{texts.login}</h2>
           <div
-            className={`${styles.blockMiddle} ${fromFia && styles.blockFull}`}>
+            className={`${styles.blockMiddle} ${isFbBrowser &&
+              styles.blockFull}`}>
             <ButtonSocial
               arcSocial="facebook"
               arcSite={arcSite}
               arcEnv={arcEnv}
               arcType="login"
             />
-            {!fromFia && (
+            {!isFbBrowser && (
               <ButtonSocial
                 arcSocial="google"
                 arcSite={arcSite}

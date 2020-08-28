@@ -25,7 +25,7 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Register = ({ arcSite, arcEnv, fromFia }) => {
+const Register = ({ arcSite, arcEnv }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
@@ -34,6 +34,11 @@ const Register = ({ arcSite, arcEnv, fromFia }) => {
   const [forgotLink, setForgotLink] = useState()
   const { texts, urls } = PropertiesSite.common
   const { urls: urlSite } = PropertiesSite[arcSite]
+
+  const isFbBrowser =
+    typeof window !== 'undefined' &&
+    (window.navigator.userAgent.indexOf('FBAN') > -1 ||
+      window.navigator.userAgent.indexOf('FBAV') > -1)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -165,14 +170,15 @@ const Register = ({ arcSite, arcEnv, fromFia }) => {
         <>
           <h2 className={styles.title}>{texts.register}</h2>
           <div
-            className={`${styles.blockMiddle} ${fromFia && styles.blockFull}`}>
+            className={`${styles.blockMiddle} ${isFbBrowser &&
+              styles.blockFull}`}>
             <ButtonSocial
               arcSocial="facebook"
               arcSite={arcSite}
               arcEnv={arcEnv}
               arcType="registro"
             />
-            {!fromFia && (
+            {!isFbBrowser && (
               <ButtonSocial
                 arcSocial="google"
                 arcSite={arcSite}

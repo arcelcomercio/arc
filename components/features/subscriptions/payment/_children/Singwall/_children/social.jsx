@@ -153,6 +153,34 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
     }
   }
 
+  const queryDialog = () => {
+    switch (arcType) {
+      case 'organico':
+        return 'signOrganic'
+      case 'hard':
+        return 'signHard'
+      case 'relogemail':
+        return 'signEmail'
+      case 'reloghash':
+        return 'signHash'
+      case 'paywall':
+        return 'signPaywall'
+      case 'premium':
+        return 'signPremium'
+      case 'login':
+      case 'landing':
+        return 'signLanding'
+      case 'authfia':
+        return 'signFia'
+      case 'newsletter':
+        return 'signNewsletters'
+      case 'students':
+        return 'signStudents'
+      default:
+        return arcType
+    }
+  }
+
   const clickLoginSocialEcoID = () => {
     if (typeof window !== 'undefined') {
       const eventMethod = window.addEventListener
@@ -176,7 +204,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
       const URLRedirect = () => {
         window.location.href = `${URL}?urlReference=${encodeURIComponent(
           window.location.href
-        )}`
+        )}&typeModal=${queryDialog()}`
         setLoadText('Redireccionando...')
       }
 

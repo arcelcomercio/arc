@@ -1,4 +1,5 @@
 import React from 'react'
+import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
@@ -11,6 +12,8 @@ const Subscriptions = props => {
     paywall: { urls, title, description },
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
+
+  const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   return (
     <html lang="es">
@@ -69,6 +72,10 @@ const Subscriptions = props => {
           href={deployment(
             `${contextPath}/resources/dist/${arcSite}/css/subscriptions.css`
           )}
+        />
+        <script
+          src={`https://arc-subs-sdk.s3.amazonaws.com/${arcEnv}/sdk-identity.min.js`}
+          defer
         />
       </head>
       <body>
