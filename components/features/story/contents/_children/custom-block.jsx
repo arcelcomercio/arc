@@ -15,6 +15,7 @@ export default ({ content = '', isAmp, type = CUSTOMBLOCK_TYPE_BACKSTORY }) => {
         ? 'amp-story-content__customblock__backstory__title'
         : 'story-contents__customblock__backstory__title'
     }`,
+    paragraph: 'story-contents__font-paragraph',
   }
 
   const renderType = blockType => {
@@ -33,7 +34,10 @@ export default ({ content = '', isAmp, type = CUSTOMBLOCK_TYPE_BACKSTORY }) => {
   return (
     <div className={classes.customblock}>
       <span className={classes.title}>{renderType(type)}</span>
-      <p dangerouslySetInnerHTML={{ __html: nlToBrTag(content) }} />
+      <p
+        className={classes.paragraph}
+        dangerouslySetInnerHTML={{ __html: nlToBrTag(content) }}
+      />
     </div>
   )
 }

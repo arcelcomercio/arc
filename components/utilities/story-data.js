@@ -49,6 +49,7 @@ import {
   IMAGE_LINK,
   WORK_TYPE_REVISION,
   STORY_CUSTOMBLOCK,
+  STAMP_TRUST,
 } from './constants/subtypes'
 import { SITE_ELCOMERCIO } from './constants/sitenames'
 
@@ -1742,6 +1743,7 @@ class StoryData {
           config: {
             content: contentCorrection = '',
             customBlockContent: contentCustomblock = '',
+            url: urlConfig = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1783,6 +1785,10 @@ class StoryData {
             switch (subtype) {
               case STORY_CORRECTION:
                 result.payload = contentCorrection
+                break
+              case STAMP_TRUST:
+                result.payload = ''
+                result.link = urlConfig
                 break
               case STORY_CUSTOMBLOCK:
                 result.payload = contentCustomblock
