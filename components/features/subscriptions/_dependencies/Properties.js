@@ -274,7 +274,8 @@ const PropertiesSite = {
           'https://arc-subs-sdk.s3.amazonaws.com/sandbox/sdk-sales.min.js',
       },
       payu: {
-        prod: 'https://gateway.payulatam.com/ppp-web-gateway/javascript/PayU.j',
+        prod:
+          'https://gateway.payulatam.com/ppp-web-gateway/javascript/PayU.js',
         sandbox:
           'https://gateway.payulatam.com/ppp-web-gateway/javascript/PayU.js',
       },
