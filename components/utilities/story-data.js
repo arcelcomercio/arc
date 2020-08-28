@@ -47,6 +47,7 @@ import { getAssetsPath, defaultImage } from './assets'
 import {
   STORY_CORRECTION,
   IMAGE_LINK,
+  WORK_TYPE_REVISION,
   STORY_CUSTOMBLOCK,
 } from './constants/subtypes'
 import { SITE_ELCOMERCIO } from './constants/sitenames'
@@ -815,6 +816,16 @@ class StoryData {
     )
   }
 
+  get firstContentElementsRevision() {
+    return (
+      (this._data &&
+        StoryData.getFirstContentElementsRevision(
+          this._data.content_elements
+        )) ||
+      []
+    )
+  }
+
   get contentElementGallery() {
     return (
       (this._data &&
@@ -1340,6 +1351,15 @@ class StoryData {
           return type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CORRECTION
         })
       : []
+  }
+
+  static getFirstContentElementsRevision(data = []) {
+    return data && data.length > 0
+      ? data.find(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === WORK_TYPE_REVISION
+        )
+      : {}
   }
 
   static getContentElementsHtml(data = [], typeElement = '') {
