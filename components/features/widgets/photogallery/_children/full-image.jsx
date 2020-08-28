@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Icon from '../../../global-components/multimedia-icon'
+import Icon from '../../../../global-components/multimedia-icon'
 
 const classes = {
   fullImg:

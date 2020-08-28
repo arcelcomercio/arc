@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Ads from '../../../../global-components/ads'
+import Ads from '../../../../../global-components/ads'
 
 const OrderedStoriesGridAds = props => {
   const {

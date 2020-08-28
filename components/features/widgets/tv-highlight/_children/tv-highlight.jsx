@@ -1,5 +1,5 @@
 import React from 'react'
-import { getMultimediaIcon } from '../../../utilities/helpers'
+import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 const classes = {
   tv: 'tv-highlight bg-gray-300 pt-20 pb-20 md:pt-40 md:pb-40 md:pr-0 md:pl-0',

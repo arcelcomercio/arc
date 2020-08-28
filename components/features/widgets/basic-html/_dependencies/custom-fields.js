@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { spacesAdsId, spacesAdsName } from '../../../utilities/config-params'
+import { spacesAdsId, spacesAdsName } from '../../../../utilities/config-params'
 
 const customFields = PropTypes.shape({
   freeHtml: PropTypes.richtext.tag({
