@@ -1,3 +1,5 @@
+import { getResizedUrl } from '../../components/utilities/resizer'
+
 const params = [
   {
     name: 'slug',
@@ -22,16 +24,30 @@ const params = [
 ]
 const resolve = ({ slug, id }) => {
   let requestUri = false
-  if(slug){
+  if (slug) {
     requestUri = `author/v2/author-service?slug=${slug}`
-  }else if(id){
+  } else if (id) {
     requestUri = `author/v1/author-service?_id=${id}`
   }
   return requestUri
 }
 
-const transform = (data, {slug, from, size}) => {
+const transform = (data, { slug, from, size, 'arc-site': arcSite }) => {
   const author = data.authors[0]
+  const { image = '' } = author
+  if (image !== '') {
+    const resizedUrls = getResizedUrl({
+      url: image,
+      presets: {
+        image_xs: {
+          width: 59,
+          height: 59,
+        },
+      },
+      arcSite,
+    })
+    author.resized_urls = resizedUrls
+  }
   return { author, slug, from, size }
 }
 

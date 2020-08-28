@@ -1,0 +1,12 @@
+.author-description {
+  &__image {
+    border-radius: 50%;
+    width: 59px;
+    position: relative;
+    top: -30px;
+  }
+
+  &__social {
+    padding-bottom: 17px !important;
+  }
+}
