@@ -11,7 +11,7 @@ import {
 import recommederBySite from '../_children/recommeder-by-site'
 import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
 import { STORY_CORRECTION } from '../../../../utilities/constants/subtypes'
-import { getResultVideo } from '../../../../utilities/story/helpers'
+// import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
  *
@@ -22,7 +22,7 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
  *
  * y descomentar la siguiente funcion
  */
-/* const getResultVideo = (streams, arcSite, type = 'ts') => {
+const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
       return streamType === type ? url : []
@@ -31,7 +31,7 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
   const cantidadVideo = resultVideo.length
 
   return resultVideo[cantidadVideo - 1]
-} */
+}
 
 let hasRenderedContentVideo = false
 const presets = 'resizedImage:840x0'

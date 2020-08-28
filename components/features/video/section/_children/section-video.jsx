@@ -7,7 +7,7 @@ import PlayList from './play-list'
 import VideoBar from './video-navbar'
 import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
-import { getResultVideo } from '../../../../utilities/story/helpers'
+// import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
  *
@@ -18,7 +18,7 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
  *
  * y descomentar la siguiente funcion
  */
-/* const getResultVideo = (streams, arcSite, type = 'ts') => {
+const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
       return streamType === type ? url : []
@@ -27,7 +27,7 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
   const cantidadVideo = resultVideo.length
 
   return resultVideo[cantidadVideo - 1]
-} */
+}
 
 const popUpWindow = (url, title, w, h) => {
   const left = window.screen.width / 2 - w / 2
