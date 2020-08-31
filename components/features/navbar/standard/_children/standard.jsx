@@ -341,7 +341,7 @@ class NavBarDefault extends PureComponent {
     const { statusSidebar, scrolled } = this.state
     const {
       logo,
-      logoLeft,
+      logoLeft = {},
       arcSite,
       siteProperties,
       contextPath,
@@ -464,8 +464,8 @@ class NavBarDefault extends PureComponent {
               title={`Logo de ${arcSite}`}>
               <img
                 src={logo}
-                alt={logoLeft.alt}
-                title={logoLeft.alt}
+                alt={logoLeft.alt || ''}
+                title={logoLeft.alt || ''}
                 className="nav__logo lg:hidden"
               />
             </a>
