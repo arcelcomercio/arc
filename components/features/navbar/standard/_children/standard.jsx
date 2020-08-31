@@ -466,7 +466,7 @@ class NavBarDefault extends PureComponent {
                 src={logo}
                 alt={logoLeft.alt || ''}
                 title={logoLeft.alt || ''}
-                className="nav__logo lg:hidden"
+                className="nav__logo  lg:hidden"
               />
             </a>
 
