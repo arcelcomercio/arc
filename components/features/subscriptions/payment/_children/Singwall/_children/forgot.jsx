@@ -3,7 +3,7 @@ import useForm from '../../../../_hooks/useForm'
 import getCodeError, { formatEmail } from '../../../../_dependencies/Errors'
 import { MsgForgotPass } from '../../../../_dependencies/Icons'
 import { NavigateConsumer } from '../../../../_context/navigate'
-import PropertiesSite from '../../../../_dependencies/Properties'
+import { PropertiesCommon } from '../../../../_dependencies/Properties'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 
 const styles = {
@@ -23,7 +23,7 @@ const Forgot = () => {
   const [msgError, setMsgError] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [registerLink, setRegisterLink] = useState()
-  const { texts } = PropertiesSite.common
+  const { texts } = PropertiesCommon
 
   const stateSchema = {
     femail: { value: '', error: '' },
@@ -149,14 +149,6 @@ const Forgot = () => {
               </div>
             </div>
           )}
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
         </>
       )}
     </NavigateConsumer>

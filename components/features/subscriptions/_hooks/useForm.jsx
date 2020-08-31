@@ -6,6 +6,7 @@ const ERROR = 'error'
 const REQUIRED_FIELD_ERROR = 'Este campo es requerido'
 const EMPTY_FIELD_ERROR = 'No se permiten espacios'
 const MIN_CARACTS_FIELD_ERROR = 'Se requiere mínimo 2 caracteres'
+const TEXT_INVALID_ERROR = 'Este valor no está permitido'
 
 /**
  * Determines a value if it's an object
@@ -45,6 +46,13 @@ function notSpaces(value) {
 
 function minCaracts(value) {
   if (value.length < 2) return MIN_CARACTS_FIELD_ERROR
+  return ''
+}
+
+function invalidText(value) {
+  const lowerValue = value.toLowerCase()
+  if (lowerValue === 'undefined' || lowerValue === 'null')
+    return TEXT_INVALID_ERROR
   return ''
 }
 
@@ -115,6 +123,10 @@ function useForm(
 
       if (_field.mincaracts && errorObj === '') {
         errorObj = minCaracts(value)
+      }
+
+      if (_field.mincaracts && errorObj === '') {
+        errorObj = invalidText(value)
       }
 
       // Prevent running this function if the value is required field

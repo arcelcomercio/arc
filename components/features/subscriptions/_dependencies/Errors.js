@@ -126,6 +126,15 @@ const getCodeError = (code, status) => {
     case 'NoPaid':
       return `Se llegó a concluir el proceso de compra. Pero este tiene un Estado: ${status}. Comunícate con nosotros para verificar que sucedió.`
 
+    case 'lostSession':
+      return 'El Usuario ha perdido su sesión/perfil'
+
+    case 'transactionError':
+      return 'Ocurrió un error en la transacción con PayU'
+
+    case 'errorFinalize':
+      return 'Ocurrió un error al finaliza la compra con ARC'
+
     default:
       return 'Ocurrió un error inesperado.'
   }

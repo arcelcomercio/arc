@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext } from '../../../_context/auth'
-import PropertiesSite from '../../../_dependencies/Properties'
+import { PropertiesCommon } from '../../../_dependencies/Properties'
 import { isLogged } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
+import { getFullNameFormat } from '../../../_dependencies/Utils'
 
 const styles = {
   resume: 'step__right-resume-top',
@@ -14,11 +15,12 @@ const styles = {
   recommended: 'step__right-item-plan-recommended',
   total: 'step__right-total',
   toolTip: 'tooltiptext-rightarrow tooltip-inactive',
+  boxEmail: 'step__right-verify-email',
+  stepLink: 'step__btn-link',
 }
-
-const Resume = () => {
+const nameTagCategory = 'Web_Paywall_Landing'
+const Summary = () => {
   const {
-    // arcSite,
     globalContent: { plans = [], name },
   } = useFusionContext() || {}
 
@@ -34,15 +36,9 @@ const Resume = () => {
   const [checkPlan, setCheckPlan] = useState()
   const [totalPlan, setTotalPlan] = useState()
   const [orderPlans, setOrderPlans] = useState([])
-  // const { urls } = PropertiesSite[arcSite]
-  const { texts } = PropertiesSite.common
-  const { firstName, lastName, secondLastName } = userProfile || {}
-
-  const formatName = () => {
-    const fullName = `${firstName || 'Usuario'} ${lastName ||
-      ''} ${secondLastName || ''}`
-    return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
-  }
+  const { texts } = PropertiesCommon
+  const { firstName = '', lastName = '', secondLastName = '' } =
+    userProfile || {}
 
   const period = {
     month: 'Plan Mensual',
@@ -80,11 +76,10 @@ const Resume = () => {
           divDetail.classList.remove('step__show-detail')
           btnDetail.classList.remove('step__hidden')
           divFooter.classList.remove('step__hidden')
-
           document.body.classList.remove('no-scroll')
           document.body.classList.remove('bg-shop')
         }
-        Taggeo('Web_Paywall_Landing', 'web_paywall_change_data')
+        Taggeo(nameTagCategory, 'web_paywall_change_data')
       } else {
         window.location.reload()
       }
@@ -95,7 +90,7 @@ const Resume = () => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         updateStep(2)
-        Taggeo('Web_Paywall_Landing', 'web_paywall_change_plan')
+        Taggeo(nameTagCategory, 'web_paywall_change_plan')
       } else {
         window.location.reload()
       }
@@ -124,7 +119,7 @@ const Resume = () => {
               return (
                 <div key={`item-${i + 1}`} className={styles.selected}>
                   <button
-                    className="step__btn-link"
+                    className={styles.stepLink}
                     type="button"
                     disabled={loadPage}
                     onClick={handleChangePlan}>
@@ -205,16 +200,16 @@ const Resume = () => {
 
       {userStep === 3 && (
         <>
-          <p className="step__right-adquire">Suscriptor:</p>
-          <div className="step__right-verify-email">
+          <p className={styles.adquire}>Suscriptor:</p>
+          <div className={styles.boxEmail}>
             <button
-              className="step__btn-link"
+              className={styles.stepLink}
               type="button"
               disabled={loadPage}
               onClick={handleChangeDates}>
               Cambiar Datos
             </button>
-            <h4>{formatName()}</h4>
+            <h4>{getFullNameFormat(firstName, lastName, secondLastName)}</h4>
             <p className="email">{userProfile && userProfile.email}</p>
             <p>{texts.verifyEmail}</p>
           </div>
@@ -224,4 +219,4 @@ const Resume = () => {
   )
 }
 
-export default Resume
+export default Summary
