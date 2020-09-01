@@ -11,7 +11,7 @@ const classes = {
   sitesItem:
     'footer__sites-item mb-5 pr-10 text-sm line-h-xs uppercase flex items-center text-gray-200 primary-font',
   legalList: 'footer__legal-list text-md',
-  legalItem: `footer__legal-item mb-10 text-gray-300 line-h-none text-xs primary-font`,
+  legalItem: `footer__legal-item mb-10 text-gray-300 line-h-sm text-xs primary-font`,
   logoContainer: 'footer__logo-container block mb-15',
   logoImg: 'w-full',
   list: 'footer__list pt-0 pb-20 pr-20 pl-20 md:pl-30',
