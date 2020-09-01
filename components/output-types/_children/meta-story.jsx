@@ -16,6 +16,7 @@ import {
   SITE_DEPOR,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
+  SITE_GESTION,
 } from '../../utilities/constants/sitenames'
 import { getResizedUrl } from '../../utilities/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
@@ -263,9 +264,10 @@ export default ({
     ? `{  "@context":"https://schema.org", "@type":"ItemList", "itemListElement":[${relatedContentItem}]  }`
     : ''
 
-  const storyPremium = !isAmp
-    ? ` "isAccessibleForFree": "False", "hasPart": { "@type": "WebPageElement",  "isAccessibleForFree": "False",   "cssSelector" : ".paywall" },`
-    : ''
+  const accessibleForFree =
+    arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+      ? ` "isAccessibleForFree": "False", "hasPart": { "@type": "WebPageElement",  "isAccessibleForFree": "False",   "cssSelector" : ".paywall" },`
+      : ''
 
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
 
@@ -387,7 +389,7 @@ export default ({
   }, "width":${seo.width}
       }
     },    
-    ${(isPremium && storyPremium) || ''} 
+    ${accessibleForFree || ''} 
     "keywords":[${
       seoKeyWordsStructurada[0]
         ? seoKeyWordsStructurada.map(item => item)
