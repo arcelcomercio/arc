@@ -67,6 +67,6 @@ Ads.propTypes = {
   customFields,
 }
 
-Ads.label = 'Publicidad PeruRed'
+Ads.label = 'Publicidad PeruRed - Nuevo'
 
 export default Ads
