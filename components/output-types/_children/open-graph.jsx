@@ -2,7 +2,7 @@ import React from 'react'
 import StoryData from '../../utilities/story-data'
 import { deleteQueryString } from '../../utilities/parse/queries'
 import { SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
-import { getResizedUrl } from '../../utilities/resizer'
+import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 
 export default ({
@@ -32,7 +32,7 @@ export default ({
 
   let image =
     story && multimediaLarge
-      ? getResizedUrl({
+      ? createResizedParams({
           url: multimediaLarge,
           presets: 'large:980x528',
           arcSite,

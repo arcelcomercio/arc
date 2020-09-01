@@ -8,7 +8,7 @@ import {
   nbspToSpace,
   msToTime,
 } from '../../../utilities/helpers'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 import {
   ELEMENT_TEXT,
   ELEMENT_LIST,
@@ -42,7 +42,7 @@ const StructuredRecipe = () => {
 
   const imagesSeoItems = imagePrimarySeo.map(({ url = '' } = {}) => {
     const { large } =
-      getResizedUrl({
+      createResizedParams({
         url,
         presets: 'large:1200x800',
         arcSite,
@@ -169,7 +169,7 @@ const StructuredRecipe = () => {
         amp_image_4x3: ampVideo4x3 = urlImage,
         amp_image_16x9: ampVideo16x9 = urlImage,
       } =
-        getResizedUrl({
+        createResizedParams({
           url: urlImage || url,
           presets:
             'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',

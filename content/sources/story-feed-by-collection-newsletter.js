@@ -1,20 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE,
-  ARC_ACCESS_TOKEN,
-} from 'fusion:environment'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
-
-// TODO: Este Content source realiza 2 fetch y un promise all con múltiples fetch,
-// el api de /websked/collections ya trae el id de las notas, por lo que no es necesario
-// hacer el primer fetch. En lugar de hacer un Promise all se debe usar el api:
-// /content/v4/ids?website=elcomercio&ids=3TFGLTFHSNDODC57V5EFBWRLDU,HV2GFMASXFA7RGXUUZXKV7BU3Q
-// para que se haga un solo fetch
-
-let website = ''
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'stories-dev'
 
@@ -34,113 +22,72 @@ const options = {
   },
 }
 
-const pattern = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
+const sortStories = (collectionIds, storiesByCollection) => {
+  const sortedStories = []
 
-  if (!key.id) {
-    throw new Error('Esta fuente de contenido necesita el ID de la collección')
-  }
-  const requestUri = `/content/v4/collections?website=${website}&_id=${key.id}`
+  collectionIds.forEach(id => {
+    const foundStory = storiesByCollection.find(story => story._id === id)
 
-  return requestUri
+    if (foundStory) {
+      sortedStories.push(foundStory)
+    }
+  })
+
+  return sortedStories
 }
 
-const fetch = key => {
+const fetch = ({ 'arc-site': website, id }) => {
+  if (!id)
+    throw new Error('Esta fuente de contenido necesita el ID de la collección')
   return request({
-    uri: `${CONTENT_BASE}/${pattern(key)}`,
+    uri: `${CONTENT_BASE}/content/v4/collections?website=${website}&_id=${id}`,
     ...options,
-  }).then(response => {
+  }).then(collection => {
+    const {
+      headlines: { basic: name } = {},
+      description: { basic: description } = {},
+      content_elements: contentElements = [],
+    } = collection || {}
+
+    const ids = contentElements.map((story = {}) => story._id)
+
     return request({
-      uri: `${CONTENT_BASE}/websked/collections/v1/collections/${key.id}/`,
+      uri: `${CONTENT_BASE}/content/v4/ids?ids=${ids.toString()}&website=${website}&included_fields=content_elements,headlines.basic,subheadlines.basic,websites,content_restrictions,display_date,taxonomy.primary_section.path,taxonomy.primary_section.name,credits`,
       ...options,
-    }).then(resp => {
-      const { data: { name, description } = {} } = resp
+    }).then(response => {
+      const { content_elements: stories } = response || {}
 
-      const { content_elements: contentElements = [] } = response || {}
-
-      const newsList = []
-      const contentElementsFilterById = []
-      contentElements.forEach(item => {
-        const { _id: newsId = '' } = item
-
-        if (newsId !== '') {
-          contentElementsFilterById.push(item)
-
-          newsList.push(
-            // TODO: cambiar por /content/v4/ids?website=elcomercio&ids=3TFGLTFHSNDODC57V5EFBWRLDU,HV2GFMASXFA7RGXUUZXKV7BU3Q
-            request({
-              uri: `${CONTENT_BASE}/content/v4/stories?_id=${newsId}&website=${website}`,
-              ...options,
-            })
-          )
-        }
-      })
-
-      return Promise.all(newsList).then(resall => {
-        // eslint-disable-next-line no-use-before-define
-        const stories = sortStoryContent(response, resall)
-        // const stories=[]
-        return {
-          ...response,
-          content_elements: contentElementsFilterById,
-          stories,
-          websked: {
-            name,
-            description,
-          },
-        }
-      })
+      return {
+        content_elements: contentElements.map(collectionStory => ({
+          headlines: collectionStory.headlines,
+          description: collectionStory.description,
+          promo_items: collectionStory.promo_items,
+        })),
+        stories: sortStories(ids, stories),
+        websked: {
+          name,
+          description,
+        },
+      }
     })
   })
 }
 
-const sortStoryContent = (collectionStories, storiesByCollection) => {
-  const result = []
+const transform = (data, { 'arc-site': arcSite }) => {
+  const { siteName } = getProperties(arcSite)
+  const collectionData = getResizedImageData(data, 'newsletter', arcSite)
 
-  const {
-    content_elements: contentElementsByCollection = [],
-  } = collectionStories
-
-  contentElementsByCollection.forEach(element => {
-    const { _id = '' } = element
-    const news = storiesByCollection.find(x => x._id === _id)
-    if (news) {
-      result.push(news)
-    }
-  })
-
-  return result
-}
-
-const transform = data => {
-  const dataStories = data
-  const { resizerUrl, siteName } = getProperties(website)
-
-  // TODO: Fix para que la función addResizedUrls funcione, preguntar a ARC
-  for (let i = 0; i < dataStories.content_elements.length; i++) {
-    dataStories.content_elements[i].content_elements = []
+  return {
+    ...collectionData,
+    siteName,
   }
-  // ////////////////////////////////////////////////
-
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret,
-    'newsletter'
-  )
-  dataStories.siteName = siteName
-
-  return { ...dataStories }
 }
-// const resolve = key => pattern(key)
 
 const source = {
-  // resolve,
   fetch,
   transform,
   schemaName,
   params,
-  // cache: false,
   ttl: 120,
 }
 

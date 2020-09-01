@@ -1,6 +1,6 @@
 import StoryData from '../../../../utilities/story-data'
-import { removeLastSlash } from '../../../../utilities/helpers'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { removeLastSlash } from '../../../../utilities/parse/strings'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const formatStories = ({ data, deployment, contextPath, arcSite }) => {
   const aux = []
@@ -16,7 +16,7 @@ const formatStories = ({ data, deployment, contextPath, arcSite }) => {
     element.__data = el
     const { landscape_md: landscapeMD, landscape_xs: landscapeXS } =
       typeof window === 'undefined'
-        ? getResizedUrl({
+        ? createResizedParams({
             url: element.multimedia,
             presets: 'landscape_md:314x157,landscape_xs:118x72',
             arcSite,

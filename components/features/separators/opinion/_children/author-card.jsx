@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   opinionItem:
@@ -51,8 +51,11 @@ const SeparatorsChildAuthorCard = props => {
 
   const { imageUrl = adminImageUrl } = isAdmin
     ? {}
-    : getResizedUrl({ url: multimedia, arcSite, presets: 'imageUrl:85x85' }) ||
-      {}
+    : createResizedParams({
+        url: multimedia,
+        arcSite,
+        presets: 'imageUrl:85x85',
+      }) || {}
 
   const existImageAuthor = imageUrl.includes('author.png')
 

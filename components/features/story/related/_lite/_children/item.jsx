@@ -1,7 +1,7 @@
 import React from 'react'
 
 import UtilListKey from '../../../../../utilities/list-keys'
-import { getResizedUrl } from '../../../../../utilities/resizer'
+import { createResizedParams } from '../../../../../utilities/resizer/resizer'
 import StoryData from '../../../../../utilities/story-data'
 import MultimediaIcon from '../../../../../global-components/lite/multimedia-icon'
 
@@ -32,7 +32,7 @@ const RenderRelatedContentElement = (props, i) => {
     authorLink: storyData.authorLink,
     type: storyData.multimediaType,
     image:
-      getResizedUrl({
+      createResizedParams({
         url: storyData.imageUrl,
         presets: 'landscape_sm:200x116',
         arcSite,

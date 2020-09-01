@@ -8,7 +8,7 @@ import schemaFilter from './_dependencies/schema-filter'
 
 import { defaultImage } from '../../../utilities/assets'
 import getLatinDate from '../../../utilities/date-time/latin-date'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 import {
   SITE_TROME,
   SITE_ELCOMERCIOMAG,
@@ -105,13 +105,13 @@ const CardTabloid = props => {
 
   /**
    * El admin de PB renderiza de nuevo en cliente y no funciona
-   * el getResizedUrl() desde cliente, por eso en caso de
+   * el createResizedParams() desde cliente, por eso en caso de
    * estar en el admin, se solicita la imagen de la
    * content source photo-resizer.
    */
   const { printed_md: resizedImage } = isAdmin
     ? adminResizer
-    : getResizedUrl({
+    : createResizedParams({
         url: urlImage || sourceImage,
         presets,
         arcSite,

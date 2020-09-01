@@ -5,7 +5,7 @@ import { useContent } from 'fusion:content'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import StorySeparatorChildItemAmp from '../interest-by-tag/_children/amp'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const classes = {
   storyInterest:
@@ -55,7 +55,7 @@ const StoryRelatedAmp = () => {
         landscape_md: multimediaLandscapeMD,
         landscape_l: multimediaLandscapeL,
       } =
-        getResizedUrl({
+        createResizedParams({
           url: instance.multimediaLandscapeMD,
           presets,
           arcSite,

@@ -2,7 +2,7 @@ import React from 'react'
 import StoryData from '../../utilities/story-data'
 import { SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../utilities/assets'
-import { getResizedUrl } from '../../utilities/resizer'
+import { createResizedParams } from '../../utilities/resizer/resizer'
 
 export default ({
   twitterUser,
@@ -26,7 +26,7 @@ export default ({
 
   let image =
     story && multimediaLarge
-      ? getResizedUrl({
+      ? createResizedParams({
           url: multimediaLarge,
           presets: 'large:980x528',
           arcSite,

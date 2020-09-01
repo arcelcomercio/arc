@@ -1,12 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE,
-  ARC_ACCESS_TOKEN,
-} from 'fusion:environment'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStories } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 import {
   includePromoItems,
   includePrimarySection,
@@ -139,16 +135,6 @@ const validateFrom = (page, size) => {
   return '0'
 }
 
-const transformImg = ({ contentElements, website, presets }) => {
-  const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStories({
-    contentElements,
-    resizerUrl,
-    resizerSecret,
-    presets,
-  })
-}
-
 const fetch = ({
   'arc-site': website,
   query,
@@ -206,15 +192,7 @@ const transform = (
 ) => {
   const pageNumber = !page || page === 0 ? 1 : page
   const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
-
-  const dataStories = data
-  const { content_elements: contentElements } = data || {}
-  dataStories.content_elements = transformImg({
-    contentElements,
-    website,
-    presets, // i.e. 'mobile:314x157'
-  })
-
+  const dataStories = getResizedImageData(data, presets, website)
   const { siteName } = getProperties(website)
   dataStories.siteName = siteName
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import Static from 'fusion:static'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   image: 'story-content__gallery-img w-full ',
@@ -10,11 +10,11 @@ const classes = {
 }
 
 const StoryHeaderChildPicture = (slide = {}) => {
-  const { arcSite } = useFusionContext()
+  const { arcSite } = useAppContext()
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
       return (
-        getResizedUrl({
+        createResizedParams({
           url: slide.url,
           presets: 'landscape_md:314x157,story_small:482x290,large:980x528',
           arcSite,

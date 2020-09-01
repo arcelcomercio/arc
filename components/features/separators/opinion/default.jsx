@@ -5,7 +5,7 @@ import { useContent } from 'fusion:content'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 import AuthorCard from './_children/author-card'
 import Separator from './_children/separator'
 import {
@@ -58,7 +58,7 @@ const SeparatorOpinion = props => {
           const { credits: { by = [] } = {} } = story || {}
           const { image: { url: authorImage } = {} } = by[0] || {}
 
-          const { square_sm: authorResizedImage } = getResizedUrl({
+          const { square_sm: authorResizedImage } = createResizedParams({
             url: authorImage,
             presets: 'square_sm:85x85',
             arcSite,

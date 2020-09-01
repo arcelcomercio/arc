@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStories } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 import RedirectError from '../../components/utilities/redirect-error'
 import {
   includePromoItems,
@@ -44,16 +43,6 @@ const params = [
     type: 'text',
   },
 ]
-
-const transformImg = ({ contentElements, website, presets }) => {
-  const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStories({
-    contentElements,
-    resizerUrl,
-    resizerSecret,
-    presets,
-  })
-}
 
 const resolve = (key = {}) => {
   const { name, website: rawWebsite = '', includedFields } = key
@@ -112,16 +101,9 @@ const transform = (
     throw new RedirectError('/404', 404)
   }
 
-  const dataStories = data || {}
-
   const { siteName } = getProperties(website)
-  const { content_elements: contentElements } = data || {}
   const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
-  dataStories.content_elements = transformImg({
-    contentElements,
-    website,
-    presets, // 'mobile:314x157'
-  })
+  const dataStories = getResizedImageData(data, presets, website)
   dataStories.siteName = siteName
 
   const {
