@@ -285,6 +285,7 @@
     & a {
       color: $color-primary;
       font-weight: 700;
+      text-decoration: underline;
     }
 
     margin-bottom: 20px;
@@ -405,6 +406,7 @@
       font: 14px/15px "arial";
       padding: 20px;
       vertical-align: middle;
+      text-decoration: underline;
       @media (--only-mobile) {
         width: 100%;
       }
