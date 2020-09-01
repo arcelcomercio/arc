@@ -113,14 +113,16 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
 
 export const optaWidgetHtml = html => {
   if (html.indexOf('<opta-widget') === -1) return html
-
-  const matches = html.match(/<opta-widget (.*?)><\/opta-widget>/)
+  const matches = html.match(/<opta-widget (.*?)>(.*)<\/opta-widget>/)
   const matchesResult = matches
-    ? matches[1].replace(/="/g, '=').replace(/" /g, '&')
+    ? matches[1]
+        .replace(/="/g, '=')
+        .replace(/ = "/g, '=')
+        .replace(/"/g, '&')
+        .replace(/ =/g, '=')
     : ''
-
-  const ampTag = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${OPTA_WIDGET}/optawidget?${matchesResult} ></amp-iframe>`
-  const result = html.replace(/<opta-widget (.*?)><\/opta-widget>/g, ampTag)
+  const ampTag = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${OPTA_WIDGET}/optawidget?${matchesResult}" ></amp-iframe>`
+  const result = html.replace(/<opta-widget (.*?)>(.*)<\/opta-widget>/g, ampTag)
   return result
 }
 
@@ -475,9 +477,10 @@ export const ampHtml = (html = '', arcSite = '') => {
   // Opta Widget
   // resultData = deporPlay(html)
 
+  // Opta Widget
+  resultData = optaWidgetHtml(resultData)
+
   if (arcSite !== SITE_ELCOMERCIOMAG) {
-    // Opta Widget
-    resultData = optaWidgetHtml(resultData)
     // Player
     resultData = playerHtml(resultData)
   }
