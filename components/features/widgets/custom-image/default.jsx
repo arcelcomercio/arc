@@ -4,7 +4,7 @@ import { useContent } from 'fusion:content'
 
 import customFields from './_dependencies/custom-fields'
 import { defaultImage } from '../../../utilities/assets'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const classes = {
   image: 'w-full h-full object-contain',
@@ -55,7 +55,7 @@ const CustomImageFeat = ({
 
   const { desktop: publicResizeImg = '', mobile: publicMobileImg = '' } =
     !isAdmin && imgUrlDesktop
-      ? getResizedUrl({
+      ? createResizedParams({
           url: imgUrlDesktop,
           presets: `desktop:${width}x${height},mobile:450x0`,
           arcSite,
