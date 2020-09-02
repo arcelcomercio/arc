@@ -184,7 +184,7 @@ CustomTitleFeat.propTypes = {
   }),
 }
 
-CustomTitleFeat.label = 'Título Personalizable - Nuevo'
+CustomTitleFeat.label = 'Título Personalizable - Beta'
 CustomTitleFeat.static = true
 
 export default CustomTitleFeat

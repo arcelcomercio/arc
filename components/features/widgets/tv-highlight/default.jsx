@@ -71,7 +71,7 @@ TVHighlightFeat.propTypes = {
   }),
 }
 
-TVHighlightFeat.label = 'Destaque TV - Nuevo'
+TVHighlightFeat.label = 'Destaque TV - Beta'
 TVHighlightFeat.static = true
 
 export default TVHighlightFeat
