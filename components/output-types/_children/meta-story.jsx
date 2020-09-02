@@ -63,6 +63,7 @@ export default ({
     getPremiumValue,
     contentElementsRedesSociales,
     contentElementCustomBlock = [],
+    idYoutube,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -273,12 +274,16 @@ export default ({
     ? `"image": ${arrayImage[0]} ,`
     : `"image": ${arrayImage},`
 
-  const imagenDefoult = imagesSeoItems[0]
-    ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${`${getAssetsPath(
+  const imageYoutube = idYoutube
+    ? `https://i.ytimg.com/vi/${idYoutube}/hqdefault.jpg`
+    : `${getAssetsPath(
         arcSite,
         contextPath
-      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`}",  "description": "${formatHtmlToText(
+      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`
+
+  const imagenDefoult = imagesSeoItems[0]
+    ? imagenData
+    : `"image": {  "@type": "ImageObject", "url": "${imageYoutube}",  "description": "${formatHtmlToText(
         siteName
       )}", "height": 800, "width": 1200 },`
 
