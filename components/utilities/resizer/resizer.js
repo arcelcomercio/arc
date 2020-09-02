@@ -35,7 +35,7 @@ export const createResizer = (resizerKey, resizerUrl, filterQuality = 75) => {
    * @param {string} format - Formato de la imagen
    * @returns {string} thumborParam para construir nueva url
    */
-  const getResizerParam = (originalUrl, breakpoint, format = 'jpg') => {
+  const getResizerParam = (originalUrl, breakpoint, format = 'jpeg') => {
     if (typeof window === 'undefined') {
       /**
        * Esta validacion es "temporal", mientras no esta habilitada
@@ -96,8 +96,8 @@ export const createResizer = (resizerKey, resizerUrl, filterQuality = 75) => {
    */
   const getResizerParams = (originalUrl, presets) => {
     let output = {}
-    const format = 'jpg'
-    // const formats = ['webp', 'jpg']
+    const format = 'jpeg'
+    // const formats = ['webp', 'jpeg']
 
     const getParamsByPreset = () => {
       const presetsObject = formatPresetsSizes(presets)
