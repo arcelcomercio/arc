@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Icon from '../../../../global-components/multimedia-icon'
+import Img from '../../../../global-components/img'
 
 export default ({
   title,
@@ -10,7 +11,6 @@ export default ({
   author,
   authorLink,
   authorImage,
-  authorImageSquareXS,
   multimediaLandscapeMD,
   multimediaPortraitMD,
   multimediaLandscapeL,
@@ -146,15 +146,13 @@ export default ({
         <div className={classes.authorContainer}>
           <a itemProp="url" className={classes.authorImgLink} href={authorLink}>
             <picture>
-              <img
-                className={`${isAdmin ? '' : 'lazy'} ${classes.authorImg}`}
-                data-src={authorImageSquareXS || authorImage}
-                src={
-                  isAdmin
-                    ? authorImageSquareXS || authorImage
-                    : multimediaLazyDefault
-                }
+              <Img
+                src={authorImage}
+                width={47}
+                height={47}
                 alt={author}
+                className={classes.authorImg}
+                loading="lazy"
               />
             </picture>
           </a>

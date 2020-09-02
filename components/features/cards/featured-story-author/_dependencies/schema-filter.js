@@ -8,7 +8,6 @@ export default arcSite => {
         name url type 
         image { 
           url 
-          resized_urls { square_xs }
         }
         additional_properties { original { role education { name } } } 
       }
