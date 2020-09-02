@@ -99,7 +99,7 @@ PhotogalleryFeat.propTypes = {
   customFields,
 }
 
-PhotogalleryFeat.label = 'Fotogalería - Nuevo'
+PhotogalleryFeat.label = 'Fotogalería - Beta'
 PhotogalleryFeat.static = true
 
 export default PhotogalleryFeat

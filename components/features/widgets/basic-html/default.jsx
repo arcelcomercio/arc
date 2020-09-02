@@ -189,7 +189,7 @@ BasicHtmlFeat.propTypes = {
   customFields,
 }
 
-BasicHtmlFeat.label = 'HTML Básico - Nuevo'
+BasicHtmlFeat.label = 'HTML Básico - Beta'
 BasicHtmlFeat.static = true
 
 export default BasicHtmlFeat

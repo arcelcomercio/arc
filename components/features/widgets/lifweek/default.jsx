@@ -126,6 +126,6 @@ const LifweekFeat = () => {
   )
 }
 
-LifweekFeat.label = 'Lifweek Diseñadores - Nuevo'
+LifweekFeat.label = 'Lifweek Diseñadores - Beta'
 LifweekFeat.static = true
 export default LifweekFeat

@@ -135,6 +135,6 @@ OrderedStoriesGridFeat.propTypes = {
   }),
 }
 
-OrderedStoriesGridFeat.label = 'Grilla de Historias Ordenadas - Nuevo'
+OrderedStoriesGridFeat.label = 'Grilla de Historias Ordenadas - Beta'
 
 export default OrderedStoriesGridFeat
