@@ -58,11 +58,13 @@ const fetch = ({ 'arc-site': website, id }) => {
       const { content_elements: stories } = response || {}
 
       return {
-        content_elements: contentElements.map(collectionStory => ({
-          headlines: collectionStory.headlines,
-          description: collectionStory.description,
-          promo_items: collectionStory.promo_items,
-        })),
+        content_elements: contentElements
+          .filter(collectionStory => collectionStory._id)
+          .map(collectionStory => ({
+            headlines: collectionStory.headlines,
+            description: collectionStory.description,
+            promo_items: collectionStory.promo_items,
+          })),
         stories: sortStories(ids, stories),
         websked: {
           name,
