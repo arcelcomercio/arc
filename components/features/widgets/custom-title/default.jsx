@@ -3,8 +3,8 @@ import { useFusionContext } from 'fusion:context'
 import { useEditableContent } from 'fusion:content'
 
 import PropTypes from 'prop-types'
-import { arrayMonths, arrayDays } from '../../utilities/date-time/constants'
-import { formatSlugToText } from '../../utilities/parse/strings'
+import { arrayMonths, arrayDays } from '../../../utilities/date-time/constants'
+import { formatSlugToText } from '../../../utilities/parse/strings'
 
 const classes = {
   title: 'w-full pt-10 mt-20 custom-title',
@@ -14,7 +14,7 @@ const classes = {
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-white border-solid p-10 text-white',
 }
 
-const CustomTitle = props => {
+const CustomTitleFeat = props => {
   const { globalContent, globalContentConfig } = useFusionContext()
   const { editableField } = useEditableContent()
 
@@ -124,7 +124,7 @@ const CustomTitle = props => {
   )
 }
 
-CustomTitle.propTypes = {
+CustomTitleFeat.propTypes = {
   customFields: PropTypes.shape({
     TextType: PropTypes.oneOf(['h1', 'h2']).tag({
       name: 'Tipo de texto',
@@ -184,7 +184,7 @@ CustomTitle.propTypes = {
   }),
 }
 
-CustomTitle.label = 'Título Personalizable'
-CustomTitle.static = true
+CustomTitleFeat.label = 'Título Personalizable - Nuevo'
+CustomTitleFeat.static = true
 
-export default CustomTitle
+export default CustomTitleFeat
