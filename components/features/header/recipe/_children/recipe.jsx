@@ -43,7 +43,7 @@ const HeaderChildRecipe = props => {
         )}
         {sections[0] && (
           <ul
-            className={`header__featured flex w-full font-normal overflow-hidden mr-20${
+            className={`header__featured flex w-full font-normal overflow-hidden pr-20${
               isSlider ? ' slider' : ''
             }`}>
             {sections.map(({ url, name, styles = [] }) => (
