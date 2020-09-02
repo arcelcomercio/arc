@@ -27,18 +27,25 @@ const styles = {
 }
 
 export const FooterSubs = () => {
-  const { userLoaded, userStep, updateLoading } = useContext(AuthContext)
+  const { userLoaded, userStep, updateLoading, userDataPlan } = useContext(
+    AuthContext
+  )
   const [loading, setLoading] = useState(false)
   const [showDocOption, setShowDocOption] = useState('DNI')
   const { urls, texts } = PropertiesCommon
   const {
-    globalContent: { printAttributes = [], printedSubscriber },
+    globalContent: { name: planName, printAttributes = [], printedSubscriber },
   } = useFusionContext() || {}
 
   const textsAttr = printAttributes.reduce(
     (prev, item) => ({ ...prev, [item.name]: item.value }),
     {}
   )
+
+  const period = {
+    Month: 'Mensual',
+    Year: 'Anual',
+  }
 
   const stateSchema = {
     vDocumentType: { value: 'DNI', error: '' },
@@ -202,7 +209,19 @@ export const FooterSubs = () => {
       {userStep !== 4 && (
         <section className="step__bottom">
           <button className={styles.btnDetail} type="button" id="btn-detail">
-            Elige tu plan
+            <div>
+              <span className="title-item">Resumen de pedido:</span>
+              <h5 className="name-item">
+                {`
+                  ${planName} - ${period[userDataPlan.billingFrequency]}
+                  `}
+              </h5>
+            </div>
+            <span className="price-item">
+              {userDataPlan.amount === 0
+                ? 'Gratis'
+                : `S/ ${userDataPlan.amount}.00`}
+            </span>
             <i className={styles.iconUp}></i>
           </button>
         </section>

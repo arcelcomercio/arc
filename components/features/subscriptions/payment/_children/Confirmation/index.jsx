@@ -75,6 +75,8 @@ const Confirmation = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const divStep = window.document.getElementById('main-steps')
+      const divDetail = document.getElementById('div-detail')
+      const divFooter = document.getElementById('footer')
       const { uuid, accessToken } = getStorageInfo()
       const origin = getSessionStorage('paywall_type_modal') || 'organico'
       const referer = getSessionStorage('paywall_last_url') || ''
@@ -87,6 +89,9 @@ const Confirmation = () => {
 
       if (freeAccess || (userPurchase && userPurchase.status)) {
         if (divStep) divStep.classList.add('bg-white')
+        if (divDetail) divDetail.classList.remove('step__show-detail')
+        if (divFooter) divFooter.classList.remove('step__hidden')
+        document.body.classList.remove('no-scroll')
 
         const { sku, name, amount, billingFrequency, priceCode, productName } =
           getPLanSelected || {}

@@ -31,6 +31,7 @@ const Summary = () => {
     updateStep,
     updatePlan,
     updatePeriod,
+    updateDataPlan,
   } = useContext(AuthContext)
 
   const [checkPlan, setCheckPlan] = useState()
@@ -57,6 +58,7 @@ const Summary = () => {
     setCheckPlan(priceCode)
     setTotalPlan(amount)
     updatePeriod(period[billingFrequency.toLowerCase()])
+    updateDataPlan(amount, billingFrequency)
   }, [])
 
   // const callHelp = () => {
@@ -155,6 +157,7 @@ const Summary = () => {
                       setTotalPlan(item.amount)
                       updatePlan(item.priceCode, item.sku, 1)
                       updatePeriod(period[item.billingFrequency.toLowerCase()])
+                      updateDataPlan(item.amount, item.billingFrequency)
                     }}
                     value={item.priceCode}
                   />
