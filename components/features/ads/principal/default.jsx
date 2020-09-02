@@ -171,7 +171,7 @@ AdsFeat.propTypes = {
   customFields,
 }
 
-AdsFeat.label = 'Publicidad - Nuevo'
+AdsFeat.label = 'Publicidad - Beta'
 AdsFeat.static = true
 
 export default AdsFeat
